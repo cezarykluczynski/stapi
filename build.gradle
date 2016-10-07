@@ -1,0 +1,23 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE")
+    }
+}
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'groovy'
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+group 'stapi'
+version '0.0.1-SNAPSHOT'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
