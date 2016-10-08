@@ -4,7 +4,6 @@ apply plugin: 'java'
 
 dependencies {
     ext.springBootVersion = "1.4.1.RELEASE"
-    compile project(':model')
-    compile project(':util')
+    compile project(':model'), project(':util'), project(':wiki')
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-batch', version: springBootVersion
 }
