@@ -3,4 +3,5 @@ include 'client'
 include 'server'
 include 'model'
 include 'util'
+include 'wiki'
 

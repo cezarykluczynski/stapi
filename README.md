@@ -12,14 +12,16 @@ PHP, MySQL (or other database of choice) will be required for this part.
 
 Star Trek API uses content from well-known [Memory Alpha](http://memory-alpha.wikia.com/wiki/Portal:Main).
 Therefore, MediaWiki, the software Wikipedia runs on, and
-[Memory Alpha XML dump](http://memory-alpha.wikia.com/wiki/Special:Statistics) is required. MediaWiki has tutorials
-on [installing](https://www.mediawiki.org/wiki/Manual:Installation_guide) and
-[importing dumps](https://www.mediawiki.org/wiki/Manual:Importing_XML_dumps).
+[Memory Alpha XML dump](http://memory-alpha.wikia.com/wiki/Special:Statistics) is required. MediaWiki has documentation
+on [installation](https://www.mediawiki.org/wiki/Manual:Installation_guide) and
+[importing XML dumps](https://www.mediawiki.org/wiki/Manual:Importing_XML_dumps).
 
 ### Running STAPI server
 Java 8, Oracle Database Express Edition 11g (or compatible) will be required for this part.
 
 Gradle is used for building. If you do not plan on development, you can use Gradle Wrapper:
+
+Edit server/src/main/resources/application.properties so that bliki.sourceUrl points to your MediaWiki's api.php.
 
 ```sh
 ./gradlew bootRun

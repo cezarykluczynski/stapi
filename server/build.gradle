@@ -6,8 +6,7 @@ springBoot {
 
 dependencies {
 	ext.springBootVersion = "1.4.1.RELEASE"
-	compile project(':model')
-	compile project(':util')
+	compile project(':model'), project(':util'), project(':wiki')
 	compile group: 'org.springframework.boot', name: 'spring-boot', version: springBootVersion
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: springBootVersion
@@ -29,7 +28,6 @@ dependencies {
 	compile group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-json-provider', version: '2.8.3'
 
 	// Utils
-	compile group: 'org.projectlombok', name: 'lombok', version: '1.16.6'
 	compile group: 'commons-lang', name: 'commons-lang', version: '2.6'
 	compile group: 'joda-time', name: 'joda-time', version: '2.9.2'
 	compile group: 'org.json', name: 'json', version: '20141113'
@@ -42,22 +40,5 @@ dependencies {
 	compile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
 	compile group: 'javax.json', name: 'javax.json-api', version: '1.0'
 	compile group: 'org.glassfish', name: 'javax.json', version: '1.0.4'
-	compile group: 'com.google.guava', name: 'guava', version: '19.0'
-	compile group: 'info.bliki.wiki', name: 'bliki-core', version: '3.1.0'
-
-	// Testing
-	compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.7'
-	testCompile group: 'org.spockframework', name: 'spock-core', version: '1.1-groovy-2.4-rc-1'
-	testCompile group: 'org.spockframework', name: 'spock-spring', version: '1.1-groovy-2.4-rc-1'
-	testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: springBootVersion
-	testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion) {
-		exclude(module: 'logback-classic')
-		exclude(module: 'spring-boot-starter-logging')
-	}
-	testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: springBootVersion) {
-		exclude(module: 'logback-classic')
-		exclude(module: 'spring-boot-starter-tomcat')
-		exclude(module: 'spring-boot-starter-logging')
-	}
-	testCompile group: 'cglib', name: 'cglib-nodep', version: '3.2.4'
+	compile group: 'javax.inject', name: 'javax.inject', version: '1'
 }
