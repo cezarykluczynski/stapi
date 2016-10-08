@@ -1,6 +1,9 @@
 buildscript {
 	repositories {
 		mavenCentral()
+		maven {
+			url "http://maven.jahia.org/maven2/"
+		}
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE")
@@ -13,10 +16,17 @@ allprojects {
 
 	repositories {
 		mavenCentral()
+		maven {
+			url "http://maven.jahia.org/maven2/"
+		}
 	}
 
 	dependencies {
 		ext.springBootVersion = "1.4.1.RELEASE"
+
+		compile group: 'org.springframework.boot', name: 'spring-boot', version: springBootVersion
+		compile group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: springBootVersion
+		compile group: 'javax.inject', name: 'javax.inject', version: '1'
 
 		// Utils
 		compile group: 'org.projectlombok', name: 'lombok', version: '1.16.6'

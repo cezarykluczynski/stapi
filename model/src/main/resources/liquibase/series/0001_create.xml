@@ -1,0 +1,21 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+	<changeSet id="0001_create" author="cezarykluczynski">
+		<createTable tableName="series">
+			<column name="id" type="number(38, 0)">
+				<constraints nullable="false" />
+			</column>
+			<column name="title" type="varchar(64)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="abbreviation" type="varchar(8)"/>
+			<column name="production_start_year" type="number(10, 0)" />
+			<column name="production_end_year" type="number(10, 0)" />
+			<column name="original_run_start_date" type="date" />
+			<column name="original_run_end_date" type="date" />
+		</createTable>
+		<createSequence incrementBy="1" sequenceName="series_sequence"/>
+	</changeSet>
+</databaseChangeLog>

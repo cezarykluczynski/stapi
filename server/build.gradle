@@ -6,21 +6,15 @@ springBoot {
 
 dependencies {
 	ext.springBootVersion = "1.4.1.RELEASE"
-	compile project(':model'), project(':util'), project(':wiki')
-	compile group: 'org.springframework.boot', name: 'spring-boot', version: springBootVersion
+	compile project(':model'), project(':util'), project(':wiki'), project(':etl')
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: springBootVersion
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: springBootVersion
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web-services', version: springBootVersion
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: springBootVersion
-	compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '1.10.2.RELEASE'
-	compile(group: 'org.springframework.data', name: 'spring-data-jdbc-core', version: '1.2.1.RELEASE') {
-		exclude(module: '*')
-	}
 	compile group: 'org.springframework.integration', name: 'spring-integration-core', version: '4.3.4.RELEASE'
 
-	compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.0.Final'
+	compile group: 'org.liquibase', name: 'liquibase-core', version: '1.9.5'
+	compile group: 'com.oracle', name: 'ojdbc6', version: '11.1.0.7.0'
 
 	// CXF
 	compile group: 'org.apache.cxf', name: 'cxf-spring-boot-starter-jaxws', version: '3.1.7'
@@ -40,5 +34,4 @@ dependencies {
 	compile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
 	compile group: 'javax.json', name: 'javax.json-api', version: '1.0'
 	compile group: 'org.glassfish', name: 'javax.json', version: '1.0.4'
-	compile group: 'javax.inject', name: 'javax.inject', version: '1'
 }
