@@ -1,10 +1,10 @@
 package com.cezarykluczynski.stapi.wiki.dto;
 
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 @Builder
-@Getter
+@Data
+@AllArgsConstructor
 public class PageHeader {
 
 	private Long pageId;

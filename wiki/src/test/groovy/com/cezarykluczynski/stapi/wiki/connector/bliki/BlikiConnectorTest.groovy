@@ -17,6 +17,7 @@ import spock.lang.Specification
 class BlikiConnectorTest extends Specification {
 
 	private static final String XML = '<?xml version="1.0"?><root></root>'
+	private static final String TITLE = 'TITLE'
 
 	private User userMock
 
@@ -77,6 +78,17 @@ class BlikiConnectorTest extends Specification {
 
 		then:
 		thrown(RuntimeException)
+	}
+
+	def "gets page as string"() {
+		given:
+		blikiConnector = new BlikiConnector(userMock, connector)
+
+		when:
+		String xml = blikiConnector.getPage(TITLE)
+
+		then:
+		xml == XML
 	}
 
 }

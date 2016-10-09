@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.wiki.connector.bliki;
 
+import com.cezarykluczynski.stapi.util.constants.ApiParams;
+import com.google.common.collect.Maps;
 import info.bliki.api.Connector;
 import info.bliki.api.User;
 import info.bliki.api.query.RequestBuilder;
@@ -33,6 +35,14 @@ public class BlikiConnector {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public String getPage(String title) {
+		Map<String, String> params = Maps.newHashMap();
+		params.put(ApiParams.KEY_ACTION, ApiParams.KEY_ACTION_VALUE_PARSE);
+		params.put(ApiParams.KEY_PAGE, title);
+		params.put(ApiParams.KEY_PROP, ApiParams.KEY_PROP_VALUE_CATEGORIES_PARSETREE);
+		return readXML(params);
 	}
 
 }

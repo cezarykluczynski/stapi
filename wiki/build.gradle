@@ -7,7 +7,9 @@ dependencies {
 	compile project(':model')
 	compile project(':util')
 	compile group: 'info.bliki.wiki', name: 'bliki-core', version: '3.1.0'
+	compile group: 'org.json', name: 'json', version: '20160810'
 
 	testCompile group: 'commons-logging', name: 'commons-logging', version: '1.2'
 	testCompile group: 'commons-io', name: 'commons-io', version: '2.5'
+
 }
