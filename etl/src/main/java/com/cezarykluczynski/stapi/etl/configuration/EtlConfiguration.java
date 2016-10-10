@@ -20,13 +20,13 @@ public class EtlConfiguration {
 	private JobBuilderFactory jobBuilderFactory;
 
 	@Inject
-	private ApplicationContext ctx;
+	private ApplicationContext applicationContext;
 
 	@Bean
 	public Job job() {
 		return jobBuilderFactory.get("job")
 				.incrementer(new RunIdIncrementer())
-				.flow(ctx.getBean(Steps.STEP_001_CREATE_SERIES, Step.class))
+				.flow(applicationContext.getBean(Steps.STEP_001_CREATE_SERIES, Step.class))
 				.end()
 				.build();
 	}

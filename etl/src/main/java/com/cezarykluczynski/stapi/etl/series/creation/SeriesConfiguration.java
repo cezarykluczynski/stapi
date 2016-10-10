@@ -24,7 +24,7 @@ public class SeriesConfiguration {
 	private StepBuilderFactory stepBuilderFactory;
 
 	@Inject
-	private ApplicationContext ctx;
+	private ApplicationContext applicationContext;
 
 	@Bean
 	public SeriesReader seriesReader() {
@@ -35,10 +35,10 @@ public class SeriesConfiguration {
 	public Step step() {
 		return stepBuilderFactory.get(Steps.STEP_001_CREATE_SERIES)
 				.<PageHeader, Series> chunk(10)
-				.reader(ctx.getBean(SeriesReader.class))
-				.processor(ctx.getBean(SeriesProcessor.class))
-				.writer(ctx.getBean(SeriesWriter.class))
-				.listener(ctx.getBean(CommonStepExecutionListener.class))
+				.reader(applicationContext.getBean(SeriesReader.class))
+				.processor(applicationContext.getBean(SeriesProcessor.class))
+				.writer(applicationContext.getBean(SeriesWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.build();
 	}
 

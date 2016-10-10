@@ -26,18 +26,18 @@ class SeriesConfigurationTest extends Specification {
 
 	private StepBuilderFactory stepBuilderFactoryMock
 
-	private ApplicationContext ctxMock
+	private ApplicationContext applicationContextMock
 
 	private SeriesConfiguration seriesConfiguration
 
 	def setup() {
 		categoryApiMock = Mock(CategoryApi)
 		stepBuilderFactoryMock = Mock(StepBuilderFactory)
-		ctxMock = Mock(ApplicationContext)
+		applicationContextMock = Mock(ApplicationContext)
 		seriesConfiguration = new SeriesConfiguration(
 				categoryApi: categoryApiMock,
 				stepBuilderFactory: stepBuilderFactoryMock,
-				ctx: ctxMock)
+				applicationContext: applicationContextMock)
 	}
 
 	def "SeriesReader is created"() {
@@ -71,13 +71,13 @@ class SeriesConfigurationTest extends Specification {
 		1 * stepBuilderFactoryMock.get(Steps.STEP_001_CREATE_SERIES) >> stepBuilderMock
 
 		then: "beans are retrieved from application context, then passed to builder"
-		1 * ctxMock.getBean(SeriesReader.class) >> itemReaderMock
+		1 * applicationContextMock.getBean(SeriesReader.class) >> itemReaderMock
 		1 * simpleStepBuilderMock.reader(itemReaderMock) >> simpleStepBuilderMock
-		1 * ctxMock.getBean(SeriesProcessor.class) >> itemProcessorMock
+		1 * applicationContextMock.getBean(SeriesProcessor.class) >> itemProcessorMock
 		1 * simpleStepBuilderMock.processor(itemProcessorMock) >> simpleStepBuilderMock
-		1 * ctxMock.getBean(SeriesWriter.class) >> itemWriterMock
+		1 * applicationContextMock.getBean(SeriesWriter.class) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
-		1 * ctxMock.getBean(CommonStepExecutionListener.class) >> stepExecutionListenerMock
+		1 * applicationContextMock.getBean(CommonStepExecutionListener.class) >> stepExecutionListenerMock
 		1 * simpleStepBuilderMock.listener(*_) >> simpleStepBuilderMock
 		1 * simpleStepBuilderMock.build() >> taskletStepMock
 

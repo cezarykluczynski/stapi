@@ -15,16 +15,16 @@ class EtlConfigurationTest extends Specification {
 
 	private JobBuilderFactory jobBuilderFactoryMock
 
-	private ApplicationContext ctxMock
+	private ApplicationContext applicationContextMock
 
 	private EtlConfiguration etlConfiguration
 
 	def setup() {
 		jobBuilderFactoryMock = Mock(JobBuilderFactory)
-		ctxMock = Mock(ApplicationContext)
+		applicationContextMock = Mock(ApplicationContext)
 		etlConfiguration = new EtlConfiguration(
 				jobBuilderFactory: jobBuilderFactoryMock,
-				ctx: ctxMock)
+				applicationContext: applicationContextMock)
 	}
 
 	def "Job is built"() {
@@ -43,7 +43,7 @@ class EtlConfigurationTest extends Specification {
 		1 * jobBuilderMock.incrementer(_ as RunIdIncrementer) >> jobBuilderMock
 
 		then: "first step is retrieved from application context, then set"
-		1 * ctxMock.getBean(Steps.STEP_001_CREATE_SERIES, Step.class) >> step1Mock
+		1 * applicationContextMock.getBean(Steps.STEP_001_CREATE_SERIES, Step.class) >> step1Mock
 		1 * jobBuilderMock.flow(step1Mock) >> jobFlowBuilderMock
 
 		then: "job is built"
