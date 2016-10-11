@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.series.creation
+package com.cezarykluczynski.stapi.etl.series.creation.processor
 
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.model.series.repository.SeriesRepository

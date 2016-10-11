@@ -1,6 +1,6 @@
-package com.cezarykluczynski.stapi.etl.series.creation;
+package com.cezarykluczynski.stapi.etl.series.creation.processor;
 
-import com.cezarykluczynski.stapi.etl.common.CommonStepExecutionListener;
+import com.cezarykluczynski.stapi.etl.common.listener.CommonStepExecutionListener;
 import com.cezarykluczynski.stapi.etl.util.Steps;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.util.constants.Categories;
@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import javax.inject.Inject;
 
 @Configuration
-public class SeriesConfiguration {
+public class SeriesCreationConfiguration {
 
 	@Inject
 	private CategoryApi categoryApi;
@@ -39,6 +39,8 @@ public class SeriesConfiguration {
 				.processor(applicationContext.getBean(SeriesProcessor.class))
 				.writer(applicationContext.getBean(SeriesWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
 				.build();
 	}
 

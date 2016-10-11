@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.wiki.parser;
 import com.cezarykluczynski.stapi.wiki.dto.Template;
 import com.google.common.collect.Lists;
 import lombok.Getter;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,7 +64,7 @@ class JsonTemplateParser {
 
 		Template template = new Template();
 
-		template.setTitle(title);
+		template.setTitle(StringUtils.lowerCase(title));
 		template.setParts(Lists.newArrayList());
 
 		JSONArray jsonArrayParts;
@@ -109,7 +110,7 @@ class JsonTemplateParser {
 			}
 		}
 
-		return name;
+		return StringUtils.lowerCase(name);
 	}
 
 	private void addValueOrTemplates(Template.Part templatePart, JSONObject partJsonObject) {

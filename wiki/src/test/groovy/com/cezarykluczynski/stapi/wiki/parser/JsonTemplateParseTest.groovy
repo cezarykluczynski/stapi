@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.wiki.parser
 
+import com.cezarykluczynski.stapi.util.constants.TemplateNames
 import com.cezarykluczynski.stapi.wiki.dto.Template
 import com.google.common.collect.Lists
 import spock.lang.Specification
@@ -7,13 +8,13 @@ import spock.lang.Specification
 
 class JsonTemplateParseTest extends Specification {
 
-	private static final String XML = '''
+	private static final String XML = """
 		<root>
 			<template>
 				<title>realworld</title>
 			</template>
 			<template lineStart="1">
-				<title>sidebar actor </title>
+				<title>${TemplateNames.SIDEBAR_ACTOR} </title>
 				<part><name>Name </name>=<value> Sir Patrick Stewart </value></part>
 				<part><name>Birth name </name>=<value> Patrick Hewes Stewart </value></part>
 				<part>
@@ -35,7 +36,7 @@ class JsonTemplateParseTest extends Specification {
 				<part><name index="3"/><value>1940</value></part>
 			</template>
 		</root>
-	'''
+	"""
 
 	private static final String XML_WITHOUT_TEMPLATE = "<root></root>"
 
@@ -46,11 +47,11 @@ class JsonTemplateParseTest extends Specification {
 		then:
 		template == Lists.newArrayList(
 				new Template(title: "realworld"),
-				new Template(title: "sidebar actor", parts: Lists.newArrayList(
-						new Template.Part(key: "Name", value: "Sir Patrick Stewart"),
-						new Template.Part(key: "Birth name", value: "Patrick Hewes Stewart"),
-						new Template.Part(key: "Date of birth", value: null, templates: Lists.newArrayList(
-								new Template(title: "d", parts: Lists.newArrayList(
+				new Template(title: TemplateNames.SIDEBAR_ACTOR, parts: Lists.newArrayList(
+						new Template.Part(key: "name", value: "Sir Patrick Stewart"),
+						new Template.Part(key: "birth name", value: "Patrick Hewes Stewart"),
+						new Template.Part(key: "date of birth", value: null, templates: Lists.newArrayList(
+								new Template(title: TemplateNames.D, parts: Lists.newArrayList(
 										new Template.Part(key: "1", value: "13"),
 										new Template.Part(key: "2", value: "July"),
 										new Template.Part(key: "3", value: "1940"),

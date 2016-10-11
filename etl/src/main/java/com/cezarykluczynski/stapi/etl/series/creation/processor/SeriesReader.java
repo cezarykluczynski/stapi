@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.series.creation;
+package com.cezarykluczynski.stapi.etl.series.creation.processor;
 
 import com.cezarykluczynski.stapi.wiki.dto.PageHeader;
 import org.springframework.batch.item.support.ListItemReader;

@@ -38,19 +38,19 @@ class EtlConfigurationTest extends Specification {
 		when:
 		Job job = etlConfiguration.job()
 
-		then: "job builder is retrieved"
+		then: 'job builder is retrieved'
 		1 * jobBuilderFactoryMock.get("job") >> jobBuilderMock
 		1 * jobBuilderMock.incrementer(_ as RunIdIncrementer) >> jobBuilderMock
 
-		then: "first step is retrieved from application context, then set"
+		then: 'first step is retrieved from application context, then set'
 		1 * applicationContextMock.getBean(Steps.STEP_001_CREATE_SERIES, Step.class) >> step1Mock
 		1 * jobBuilderMock.flow(step1Mock) >> jobFlowBuilderMock
 
-		then: "job is built"
+		then: 'job is built'
 		1 * jobFlowBuilderMock._() >> flowJobBuilderMock
 		1 * flowJobBuilderMock.build() >> jobMock
 
-		then: "job is being returned"
+		then: 'job is being returned'
 		job == jobMock
 	}
 

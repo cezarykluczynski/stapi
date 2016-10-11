@@ -3,7 +3,8 @@ apply plugin: 'groovy'
 apply plugin: 'java'
 
 dependencies {
-    ext.springBootVersion = "1.4.1.RELEASE"
-    compile project(':model'), project(':util'), project(':wiki')
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-batch', version: springBootVersion
+	ext.springBootVersion = "1.4.1.RELEASE"
+	compile project(':model'), project(':util'), project(':wiki')
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-batch', version: springBootVersion
+	compile group: 'commons-validator', name: 'commons-validator', version: '1.5.1'
 }

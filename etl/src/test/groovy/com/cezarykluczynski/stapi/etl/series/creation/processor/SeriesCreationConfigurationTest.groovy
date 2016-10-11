@@ -1,6 +1,6 @@
-package com.cezarykluczynski.stapi.etl.series.creation
+package com.cezarykluczynski.stapi.etl.series.creation.processor
 
-import com.cezarykluczynski.stapi.etl.common.CommonStepExecutionListener
+import com.cezarykluczynski.stapi.etl.common.listener.CommonStepExecutionListener
 import com.cezarykluczynski.stapi.etl.util.Steps
 import com.cezarykluczynski.stapi.util.constants.Categories
 import com.cezarykluczynski.stapi.wiki.api.CategoryApi
@@ -18,7 +18,7 @@ import org.springframework.batch.item.ItemWriter
 import org.springframework.context.ApplicationContext
 import spock.lang.Specification
 
-class SeriesConfigurationTest extends Specification {
+class SeriesCreationConfigurationTest extends Specification {
 
 	private static final String TITLE = 'TITLE'
 
@@ -28,13 +28,13 @@ class SeriesConfigurationTest extends Specification {
 
 	private ApplicationContext applicationContextMock
 
-	private SeriesConfiguration seriesConfiguration
+	private SeriesCreationConfiguration seriesConfiguration
 
 	def setup() {
 		categoryApiMock = Mock(CategoryApi)
 		stepBuilderFactoryMock = Mock(StepBuilderFactory)
 		applicationContextMock = Mock(ApplicationContext)
-		seriesConfiguration = new SeriesConfiguration(
+		seriesConfiguration = new SeriesCreationConfiguration(
 				categoryApi: categoryApiMock,
 				stepBuilderFactory: stepBuilderFactoryMock,
 				applicationContext: applicationContextMock)
@@ -66,11 +66,11 @@ class SeriesConfigurationTest extends Specification {
 		when:
 		Step step = seriesConfiguration.step()
 
-		then: "StepBuilder is retrieved"
+		then: 'StepBuilder is retrieved'
 		1 * stepBuilderMock.chunk(*_) >> simpleStepBuilderMock
 		1 * stepBuilderFactoryMock.get(Steps.STEP_001_CREATE_SERIES) >> stepBuilderMock
 
-		then: "beans are retrieved from application context, then passed to builder"
+		then: 'beans are retrieved from application context, then passed to builder'
 		1 * applicationContextMock.getBean(SeriesReader.class) >> itemReaderMock
 		1 * simpleStepBuilderMock.reader(itemReaderMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(SeriesProcessor.class) >> itemProcessorMock
@@ -79,9 +79,15 @@ class SeriesConfigurationTest extends Specification {
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener.class) >> stepExecutionListenerMock
 		1 * simpleStepBuilderMock.listener(*_) >> simpleStepBuilderMock
+
+		then: 'step is configured to run only once'
+		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
+		1 * simpleStepBuilderMock.allowStartIfComplete(false) >> simpleStepBuilderMock
+
+		then: 'tasklet step is returned'
 		1 * simpleStepBuilderMock.build() >> taskletStepMock
 
-		then: "step is being returned"
+		then: 'step is being returned'
 		step == taskletStepMock
 	}
 
