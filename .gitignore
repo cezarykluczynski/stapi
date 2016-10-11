@@ -4,3 +4,4 @@ build/
 server/build/
 model/build/
 client/build/
+logs/

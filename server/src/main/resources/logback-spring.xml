@@ -1,0 +1,53 @@
+<configuration debug="true">
+	<timestamp key="byDay" datePattern="yyyyMMdd"/>
+	<property name="CONSOLE_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${PID:- } %-60.60logger{59} :: %msg %n"/>
+	<property name="FILE_PATTERN"    value="%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${PID:- } %logger :: %msg %n"/>
+	<property resource="application.properties"/>
+	<springProperty name="destinationPath" source="logging.log-files-path"/>
+
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${CONSOLE_PATTERN}</pattern>
+			<charset>utf8</charset>
+		</encoder>
+	</appender>
+
+	<appender name="FULL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${destinationPath}/full/full.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${FILE_PATTERN}</pattern>
+			<charset>utf8</charset>
+		</encoder>
+	</appender>
+
+	<appender name="ETL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${destinationPath}/etl/etl.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${FILE_PATTERN}</pattern>
+			<charset>utf8</charset>
+		</encoder>
+	</appender>
+
+	<logger name="org.springframework" additivity="FALSE" level="INFO">
+		<appender-ref ref="CONSOLE"/>
+	</logger>
+
+	<logger name="com.cezarykluczynski.stapi.etl" additivity="FALSE">
+		<appender-ref ref="ETL"/>
+		<appender-ref ref="CONSOLE"/>
+	</logger>
+
+	<root>
+		<appender-ref ref="FULL"/>
+	</root>
+</configuration>
