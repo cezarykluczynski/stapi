@@ -1,3 +1,6 @@
+[![CircleCI](https://circleci.com/gh/cezarykluczynski/stapi.svg?style=svg)](https://circleci.com/gh/cezarykluczynski/stapi)
+[![codecov](https://codecov.io/gh/cezarykluczynski/stapi/branch/master/graph/badge.svg)](https://codecov.io/gh/cezarykluczynski/stapi)
+
 ## About
 Star Trek API is an attempt to create public Star Trek API, similiar to what
 [Star Wars API](https://github.com/phalt/swapi) and [PokeAPI](https://github.com/PokeAPI/pokeapi) accomplished.

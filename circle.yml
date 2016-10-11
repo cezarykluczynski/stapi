@@ -2,14 +2,8 @@ machine:
   java:
     version:
       oraclejdk8
-dependencies:
-  pre:
-    - set GRADLE_OPTS="-Xms256m -Xmx256m -Dorg.gradle.daemon=false"
-    - sudo add-apt-repository ppa:cwchien/gradle -y
-    - sudo apt-get update
-    - sudo apt-get install gradle
 test:
   override:
-    - gradle test -i
+    - ./gradlew test -i
   post:
     - bash <(curl -s https://codecov.io/bash) -f "build/reports/jacoco/codeCoverageReport/codeCoverageReport.xml"
