@@ -6,7 +6,7 @@ class StapiSoapClientTest extends Specification {
 
 	def "soap client is constructed using port types provider"() {
 		when:
-		StapiSoapClient stapiSoapClient = new StapiSoapClient(Mock(StapiSoapPortTypesProvider))
+		new StapiSoapClient(Mock(StapiSoapPortTypesProvider))
 
 		then:
 		notThrown(Throwable)
