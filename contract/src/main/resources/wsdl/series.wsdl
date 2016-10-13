@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+		name="Series"
+		targetNamespace="http://stapi.co/api/v1/soap/series"
+		xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+		xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+		xmlns:stapi="http://stapi.co/api/v1/soap/series"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<xs:schema targetNamespace="http://stapi.co/api/v1/soap/series">
+			<xs:include schemaLocation="series.xsd"/>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="SeriesRequest">
+		<wsdl:part name="request" element="stapi:SeriesRequest"/>
+	</wsdl:message>
+	<wsdl:message name="SeriesResponse">
+		<wsdl:part name="response" element="stapi:SeriesResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="SeriesPortType">
+		<wsdl:operation name="getSeries">
+			<wsdl:input name="getSeriesRequest" message="stapi:SeriesRequest"/>
+			<wsdl:output name="getSeriesResponse" message="stapi:SeriesResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="SeriesBinding" type="stapi:SeriesPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getSeries">
+			<wsdl:input name="getSeriesRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getSeriesResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="SeriesService">
+		<wsdl:port name="SeriesPortType" binding="stapi:SeriesBinding">
+			<soap:address location="http://stapi.co/api/v1/soap/series"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

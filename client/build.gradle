@@ -1,0 +1,22 @@
+dependencies {
+	compile project(':contract')
+}
+
+wsdl2java {
+	encoding = 'utf-8'
+	wsdlsToGenerate = [
+			[
+					'-wsdlLocation', 'classpath:wsdl/series.wsdl',
+					'-p','com.cezarykluczynski.stapi.client.soap',
+					'-autoNameResolution',
+					"./contract/src/main/resources/wsdl/series.wsdl"
+			]
+	]
+	generatedWsdlDir = file("$projectDir/build/generated/src/main")
+	wsdlDir = file("$projectDir/src/main/resources")
+}
+
+compileJava{
+	dependsOn(wsdl2java)
+	source    += "build/generated/src/main/"
+}

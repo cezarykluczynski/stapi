@@ -1,12 +1,14 @@
 buildscript {
 	repositories {
 		mavenCentral()
+		jcenter()
 		maven {
 			url "http://maven.jahia.org/maven2/"
 		}
 	}
 	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE")
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE"
+		classpath "no.nils:wsdl2java:0.10"
 	}
 }
 
@@ -14,9 +16,11 @@ allprojects {
 	apply plugin: 'java'
 	apply plugin: 'groovy'
 	apply plugin: 'jacoco'
+	apply plugin: 'no.nils.wsdl2java'
 
 	repositories {
 		mavenCentral()
+		jcenter()
 		maven {
 			url "http://maven.jahia.org/maven2/"
 		}
@@ -28,6 +32,10 @@ allprojects {
 		compile group: 'org.springframework.boot', name: 'spring-boot', version: springBootVersion
 		compile group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: springBootVersion
 		compile group: 'javax.inject', name: 'javax.inject', version: '1'
+
+		// CXF
+//		compile group: 'org.apache.cxf', name: 'cxf-spring-boot-starter-jaxws', version:'3.1.7'
+//		compile group: 'org.apache.cxf', name: 'cxf-spring-boot-starter-jaxrs', version:'3.1.7'
 
 		// Utils
 		compile group: 'org.projectlombok', name: 'lombok', version: '1.16.6'
@@ -50,7 +58,6 @@ allprojects {
 		testCompile group: 'cglib', name: 'cglib-nodep', version: '3.2.4'
 	}
 }
-
 
 apply from: 'testing.gradle'
 

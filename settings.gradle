@@ -1,8 +1,9 @@
 rootProject.name = 'stapi'
 include 'client'
-include 'server'
+include 'contract'
+include 'etl'
 include 'model'
+include 'server'
 include 'util'
 include 'wiki'
-include 'etl'
 
