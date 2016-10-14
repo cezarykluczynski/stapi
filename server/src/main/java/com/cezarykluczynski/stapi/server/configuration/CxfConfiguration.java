@@ -1,5 +1,8 @@
 package com.cezarykluczynski.stapi.server.configuration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.google.common.collect.Lists;
 import org.apache.cxf.bus.spring.SpringBus;
@@ -35,9 +38,16 @@ public class CxfConfiguration extends SpringBootServletInitializer {
 	public Server cxfServer() {
 		JAXRSServerFactoryBean factory = new JAXRSServerFactoryBean();
 		factory.setBus(applicationContext.getBean(SpringBus.class));
-		factory.setProviders(Lists.newArrayList(new JacksonJsonProvider()));
+		factory.setProviders(Lists.newArrayList(new JacksonJsonProvider(getObjectMapper())));
 		factory.setServiceBeans(Lists.newArrayList(applicationContext.getBeansWithAnnotation(Path.class).values()));
 		return factory.create();
+	}
+
+	private ObjectMapper getObjectMapper() {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.registerModule(new JavaTimeModule());
+		mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+		return mapper;
 	}
 
 }
