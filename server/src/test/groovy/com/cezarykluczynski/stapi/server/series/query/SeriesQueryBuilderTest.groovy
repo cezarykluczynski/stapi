@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.series.query
 import com.cezarykluczynski.stapi.client.soap.SeriesRequest
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.model.series.repository.SeriesRepository
+import com.cezarykluczynski.stapi.server.series.dto.SeriesRestBeanParams
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -19,7 +20,37 @@ class SeriesQueryBuilderTest extends Specification {
 		seriesQueryBuilder = new SeriesQueryBuilder(seriesRepositoryMock)
 	}
 
-	def "when empty title is passed, all entities are returned"() {
+	def "when empty title is passed to rest method, all entities are returned"() {
+		given:
+		List<Series> seriesList = Lists.newArrayList()
+
+		when:
+		List<Series> seriesListResult = seriesQueryBuilder.query(new SeriesRestBeanParams(title: ""))
+
+		then:
+		1 * seriesRepositoryMock.findAll() >> seriesList
+		seriesListResult == seriesList
+
+		then: 'no other interactions are expected'
+		0 * _
+	}
+
+	def "when non empty title is passed to rest method, filter is used"() {
+		given:
+		List<Series> seriesList = Lists.newArrayList()
+
+		when:
+		List<Series> seriesListResult = seriesQueryBuilder.query(new SeriesRestBeanParams(title: TITLE))
+
+		then:
+		1 * seriesRepositoryMock.findByTitleIgnoreCaseContaining(TITLE) >> seriesList
+		seriesListResult == seriesList
+
+		then: 'no other interactions are expected'
+		0 * _
+	}
+
+	def "when empty title is passed to soap method, all entities are returned"() {
 		given:
 		List<Series> seriesList = Lists.newArrayList()
 
@@ -34,7 +65,7 @@ class SeriesQueryBuilderTest extends Specification {
 		0 * _
 	}
 
-	def "when non empty title is passed, filter is used"() {
+	def "when non empty title is passed to soap method, filter is used"() {
 		given:
 		List<Series> seriesList = Lists.newArrayList()
 

@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.server.series.reader;
 import com.cezarykluczynski.stapi.client.soap.SeriesRequest;
 import com.cezarykluczynski.stapi.client.soap.SeriesResponse;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
-import com.cezarykluczynski.stapi.server.common.reader.SoapReader;
+import com.cezarykluczynski.stapi.server.common.reader.Reader;
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesSoapMapper;
 import com.cezarykluczynski.stapi.server.series.query.SeriesQueryBuilder;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Service
-public class SeriesSoapReader implements SoapReader<SeriesRequest, SeriesResponse> {
+public class SeriesSoapReader implements Reader<SeriesRequest, SeriesResponse> {
 
 	private SeriesQueryBuilder seriesQueryBuilder;
 

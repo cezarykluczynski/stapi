@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.common.reader;
 
-public interface SoapReader<I, O> {
+public interface Reader<I, O> {
 
 	O read(I input);
 

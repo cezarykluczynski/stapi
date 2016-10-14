@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.series.query;
 import com.cezarykluczynski.stapi.client.soap.SeriesRequest;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.model.series.repository.SeriesRepository;
+import com.cezarykluczynski.stapi.server.series.dto.SeriesRestBeanParams;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +21,14 @@ public class SeriesQueryBuilder {
 	}
 
 	public List<Series> query(SeriesRequest seriesRequest) {
-		String title = seriesRequest.getTitle();
+		return queryWithTitle(seriesRequest.getTitle());
+	}
 
+	public List<Series> query(SeriesRestBeanParams seriesRestBeanParams) {
+		return queryWithTitle(seriesRestBeanParams.getTitle());
+	}
+
+	private List<Series> queryWithTitle(String title) {
 		if (StringUtils.isEmpty(title)) {
 			return seriesRepository.findAll();
 		} else {
