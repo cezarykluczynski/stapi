@@ -1,0 +1,36 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+	<changeSet id="0001_create" author="cezarykluczynski">
+		<createTable tableName="performer">
+			<column name="id" type="number(38, 0)">
+				<constraints nullable="false" />
+			</column>
+			<column name="name" type="varchar(128)">
+				<constraints nullable="false" />
+			</column>
+			<column name="birth_name" type="varchar(128)"/>
+			<column name="gender" type="varchar(1)"/>
+			<column name="date_of_birth" type="date"/>
+			<column name="place_of_birth" type="varchar(128)"/>
+			<column name="date_of_death" type="date"/>
+			<column name="place_of_death" type="varchar(128)"/>
+			<column name="roles" type="varchar(128)"/>
+			<column name="animal_performer" type="boolean"/>
+			<column name="dis_performer" type="boolean"/>
+			<column name="ds9_performer" type="boolean"/>
+			<column name="ent_performer" type="boolean"/>
+			<column name="film_performer" type="boolean"/>
+			<column name="stand_in_performer" type="boolean"/>
+			<column name="stunt_performer" type="boolean"/>
+			<column name="tas_performer" type="boolean"/>
+			<column name="tng_performer" type="boolean"/>
+			<column name="tos_performer" type="boolean"/>
+			<column name="video_game_performer" type="boolean"/>
+			<column name="voice_performer" type="boolean"/>
+			<column name="voy_performer" type="boolean"/>
+		</createTable>
+		<createSequence incrementBy="1" sequenceName="performer_sequence"/>
+	</changeSet>
+</databaseChangeLog>
