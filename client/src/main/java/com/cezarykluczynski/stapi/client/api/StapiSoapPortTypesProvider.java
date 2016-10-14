@@ -7,9 +7,7 @@ import lombok.Getter;
 import javax.xml.ws.BindingProvider;
 import java.util.Map;
 
-public class StapiSoapPortTypesProvider {
-
-	private final String canonicalApiUrl = "http://stapi.co/";
+public class StapiSoapPortTypesProvider extends AbstractStapiClient implements StapiClient {
 
 	private String apiUrl;
 
@@ -28,8 +26,8 @@ public class StapiSoapPortTypesProvider {
 	private Object changeUrl(Object service) {
 		BindingProvider bindingProvider = (BindingProvider) service;
 		Map<String, Object> requestContext = bindingProvider.getRequestContext();
-		String newServiceUrl = ((String) requestContext.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY))
-				.replace(canonicalApiUrl, apiUrl);
+		String newServiceUrl = changeBaseUrl(apiUrl,
+				(String) requestContext.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY));
 		requestContext.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, newServiceUrl);
 		return service;
 	}

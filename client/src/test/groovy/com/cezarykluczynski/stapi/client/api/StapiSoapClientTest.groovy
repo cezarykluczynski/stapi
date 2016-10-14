@@ -1,15 +1,23 @@
 package com.cezarykluczynski.stapi.client.api
 
-import spock.lang.Specification
+class StapiSoapClientTest extends AbstractStapiClientTest {
 
-class StapiSoapClientTest extends Specification {
+	private StapiSoapClient stapiSoapClient
 
-	def "soap client is constructed using port types provider"() {
+	def "soap client can be instantiated with canonical URL"() {
 		when:
-		new StapiSoapClient(Mock(StapiSoapPortTypesProvider))
+		stapiSoapClient = new StapiSoapClient()
 
 		then:
-		notThrown(Throwable)
+		((String) toBindingProvider(stapiSoapClient.seriesPortType).requestContext.get(URL_KEY)).contains(StapiClient.CANONICAL_API_URL)
+	}
+
+	def "soap client can be instantiated with custom URL"() {
+		when:
+		stapiSoapClient = new StapiSoapClient(CUSTOM_URL)
+
+		then:
+		((String) toBindingProvider(stapiSoapClient.seriesPortType).requestContext.get(URL_KEY)).contains(CUSTOM_URL)
 	}
 
 }
