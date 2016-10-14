@@ -13,6 +13,8 @@ buildscript {
 }
 
 allprojects {
+	apply plugin: 'idea'
+	apply plugin: 'eclipse'
 	apply plugin: 'java'
 	apply plugin: 'groovy'
 	apply plugin: 'jacoco'
@@ -32,10 +34,6 @@ allprojects {
 		compile group: 'org.springframework.boot', name: 'spring-boot', version: springBootVersion
 		compile group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: springBootVersion
 		compile group: 'javax.inject', name: 'javax.inject', version: '1'
-
-		// CXF
-//		compile group: 'org.apache.cxf', name: 'cxf-spring-boot-starter-jaxws', version:'3.1.7'
-//		compile group: 'org.apache.cxf', name: 'cxf-spring-boot-starter-jaxrs', version:'3.1.7'
 
 		// Utils
 		compile group: 'org.projectlombok', name: 'lombok', version: '1.16.6'

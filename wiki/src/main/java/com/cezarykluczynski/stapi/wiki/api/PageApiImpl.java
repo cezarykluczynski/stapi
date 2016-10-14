@@ -21,8 +21,8 @@ public class PageApiImpl implements PageApi {
 
 	private Page parsePageInfo(String xml) {
 		try {
-			XMLParseParser xmlCategoryMembersParser = new XMLParseParser(xml);
-			return xmlCategoryMembersParser.getPage();
+			XMLParseParser xmlParseParser = new XMLParseParser(xml);
+			return xmlParseParser.getPage();
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

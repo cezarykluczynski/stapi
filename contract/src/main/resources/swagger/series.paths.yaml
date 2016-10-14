@@ -1,0 +1,18 @@
+get:
+  parameters:
+    - name: title
+      in: query
+      required: false
+      type: string
+  responses:
+    200:
+      schema:
+        type: array
+        items:
+          $ref: '#/definitions/Series'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - Series

@@ -1,0 +1,18 @@
+swagger: '2.0'
+info:
+  title: STAPI
+  version: '1.0.0'
+host: stapi.co
+schemes:
+  - http
+basePath: /api/v1/rest
+produces:
+  - application/json
+paths:
+  /series:
+    $ref: ./series.paths.yaml
+definitions:
+  Series:
+    $ref: ./series.definitions.yaml
+  Error:
+    $ref: ./error.definitions.yaml

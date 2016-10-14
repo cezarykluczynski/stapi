@@ -1,0 +1,18 @@
+type: object
+properties:
+  id:
+    type: long
+  title:
+    type: string
+  abbreviation:
+    type: string
+  productionStartYear:
+    type: integer
+  productionEndYear:
+    type: integer
+  originalRunStartDate:
+    type: string
+    format: date
+  originalRunEndDate:
+    type: string
+    format: date

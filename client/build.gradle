@@ -1,5 +1,14 @@
 dependencies {
 	compile project(':contract')
+
+	compile(group: 'io.swagger', name: 'swagger-codegen-cli', version: '2.2.1') {
+		exclude(module: 'org.slf4j')
+		exclude(module: 'log4j')
+		exclude(module: 'logback-classic')
+	}
+	compile group: 'com.squareup.okhttp', name: 'okhttp', version: '2.7.5'
+	compile group: 'com.squareup.okhttp', name: 'logging-interceptor', version: '2.7.5'
+	compile group: 'com.google.code.gson', name: 'gson', version: '2.7'
 }
 
 wsdl2java {
@@ -8,15 +17,28 @@ wsdl2java {
 			[
 					'-wsdlLocation', 'classpath:wsdl/series.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.soap',
-					'-autoNameResolution',
-					"./contract/src/main/resources/wsdl/series.wsdl"
+					'-autoNameResolution', "./contract/src/main/resources/wsdl/series.wsdl"
 			]
 	]
-	generatedWsdlDir = file("$projectDir/build/generated/src/main")
+	generatedWsdlDir = file("$projectDir/build/generated/src/main/java")
 	wsdlDir = file("$projectDir/src/main/resources")
 }
 
-compileJava{
-	dependsOn(wsdl2java)
-	source    += "build/generated/src/main/"
+task swaggerGenerate(type: Exec) {
+	File file = project.configurations.compile.find {
+		it.name.startsWith("swagger-codegen-cli-")
+	}
+
+	workingDir "../"
+
+	commandLine "java", "-jar", "${file.absolutePath}",  "generate",
+			"-l", "java",
+			"-i", "contract/src/main/resources/swagger/stapi.yaml",
+			"-c", "contract/src/main/resources/swagger/config.json",
+			"-o", "./client/build/generated"
+}
+
+compileJava {
+	dependsOn(wsdl2java, swaggerGenerate)
+	source    += "build/generated/src/main/java/"
 }
