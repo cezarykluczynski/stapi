@@ -104,7 +104,18 @@ class JsonTemplateParser {
 			name = jsonObject.getString("name");
 		} catch (JSONException e2) {
 			try {
-				JSONObject jsonObjectName = (JSONObject) jsonObject.get("name");
+				JSONObject jsonObjectName;
+				try {
+					jsonObjectName = (JSONObject) jsonObject.get("name");
+				} catch (ClassCastException e3) {
+					try {
+						return String.valueOf(jsonObject.getLong("name"));
+					} catch (Exception e4) {
+						throw new RuntimeException(e4);
+					}
+				} catch (Throwable e3) {
+					throw new RuntimeException(e3);
+				}
 				name = jsonObjectName.get("index").toString();
 			} catch(JSONException e3) {
 			}

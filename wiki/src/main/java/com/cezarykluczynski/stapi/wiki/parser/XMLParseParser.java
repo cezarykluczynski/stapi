@@ -22,6 +22,7 @@ public class XMLParseParser extends AbstractXMLParser {
 	private static final String API = "api";
 	private static final String PARSE = "parse";
 	private static final String CATEGORIES = "categories";
+	private static final String WIKITEXT = "wikitext";
 	private static final String CL = "cl";
 	private static final String TITLE = "title";
 	private static final String PAGE_ID = "pageid";
@@ -34,6 +35,8 @@ public class XMLParseParser extends AbstractXMLParser {
 	private boolean hasParse;
 
 	private boolean isCL;
+
+	private boolean isWikitext;
 
 	private String xmlTextContent;
 
@@ -64,6 +67,10 @@ public class XMLParseParser extends AbstractXMLParser {
 			page.setCategories(Lists.newArrayList());
 		}
 
+		if (hasParse && WIKITEXT.equals(qName)) {
+			isWikitext = true;
+		}
+
 		if (hasParse && CL.equals(qName)) {
 			isCL = true;
 		}
@@ -87,11 +94,19 @@ public class XMLParseParser extends AbstractXMLParser {
 			categoryHeader.setTitle(fData.toString());
 			page.getCategories().add(categoryHeader);
 		}
+
+		if (isWikitext) {
+			fData = null;
+			super.characters(ch, 0, length);
+			String wikitext = page.getWikitext() == null ? "" : page.getWikitext();
+			page.setWikitext(wikitext + fData.toString());
+		}
 	}
 
 	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		isCL = false;
+		isWikitext = false;
 	}
 
 	private void setParsetreeXml(String xml) {

@@ -11,6 +11,8 @@ public class Page {
 
 	private String title;
 
+	private String wikitext;
+
 	private List<CategoryHeader> categories;
 
 	private List<Template> templates;

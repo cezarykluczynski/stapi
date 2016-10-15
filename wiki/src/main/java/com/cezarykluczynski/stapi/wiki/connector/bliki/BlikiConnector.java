@@ -28,6 +28,8 @@ public class BlikiConnector {
 		RequestBuilder requestBuilder = RequestBuilder.create();
 		requestBuilder.putAll(params);
 
+		// TODO: remove private method call once this PR is merged and published in Maven Central
+		// https://bitbucket.org/axelclk/info.bliki.wiki/pull-requests/10/connector-sendxml-should-be-public/diff
 		try {
 			Method method = connector.getClass().getDeclaredMethod("sendXML", User.class, RequestBuilder.class);
 			method.setAccessible(true);
@@ -41,7 +43,7 @@ public class BlikiConnector {
 		Map<String, String> params = Maps.newHashMap();
 		params.put(ApiParams.KEY_ACTION, ApiParams.KEY_ACTION_VALUE_PARSE);
 		params.put(ApiParams.KEY_PAGE, title);
-		params.put(ApiParams.KEY_PROP, ApiParams.KEY_PROP_VALUE_CATEGORIES_PARSETREE);
+		params.put(ApiParams.KEY_PROP, ApiParams.KEY_PROP_VALUE);
 		return readXML(params);
 	}
 
