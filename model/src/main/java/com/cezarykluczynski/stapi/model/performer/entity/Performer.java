@@ -24,44 +24,46 @@ public class Performer {
 	@Column(nullable = false)
 	private String name;
 
-	private String birth_name;
+	private String birthName;
 
+	// TODO: make into enum
 	private String gender;
 
-	private LocalDate date_of_birth;
+	private LocalDate dateOfBirth;
 
-	private String place_of_birth;
+	private String placeOfBirth;
 
-	private LocalDate date_of_death;
+	private LocalDate dateOfDeath;
 
-	private String place_of_death;
+	private String placeOfDeath;
 
 	private String roles;
 
-	private Boolean animal_performer;
+	private Boolean animalPerformer;
 
-	private Boolean dis_performer;
+	private Boolean disPerformer;
 
-	private Boolean ds9_performer;
+	@Column(name = "ds9_performer")
+	private Boolean ds9Performer;
 
-	private Boolean ent_performer;
+	private Boolean entPerformer;
 
-	private Boolean film_performer;
+	private Boolean filmPerformer;
 
-	private Boolean stand_in_performer;
+	private Boolean standInPerformer;
 
-	private Boolean stunt_performer;
+	private Boolean stuntPerformer;
 
-	private Boolean tas_performer;
+	private Boolean tasPerformer;
 
-	private Boolean tng_performer;
+	private Boolean tngPerformer;
 
-	private Boolean tos_performer;
+	private Boolean tosPerformer;
 
-	private Boolean video_game_performer;
+	private Boolean videoGamePerformer;
 
-	private Boolean voice_performer;
+	private Boolean voicePerformer;
 
-	private Boolean voy_performer;
+	private Boolean voyPerformer;
 
 }

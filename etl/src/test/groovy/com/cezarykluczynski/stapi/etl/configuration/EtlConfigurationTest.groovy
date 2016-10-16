@@ -30,6 +30,7 @@ class EtlConfigurationTest extends Specification {
 	def "Job is built"() {
 		given:
 		Step step1Mock = Mock(Step)
+		Step step2Mock = Mock(Step)
 		JobBuilder jobBuilderMock = Mock(JobBuilder)
 		JobFlowBuilder jobFlowBuilderMock = Mock(JobFlowBuilder)
 		FlowJobBuilder flowJobBuilderMock = Mock(FlowJobBuilder)
@@ -45,6 +46,10 @@ class EtlConfigurationTest extends Specification {
 		then: 'first step is retrieved from application context, then set'
 		1 * applicationContextMock.getBean(Steps.STEP_001_CREATE_SERIES, Step.class) >> step1Mock
 		1 * jobBuilderMock.flow(step1Mock) >> jobFlowBuilderMock
+
+		then: 'second step is retrieved from application context, then set'
+		1 * applicationContextMock.getBean(Steps.STEP_002_CREATE_PERFORMERS, Step.class) >> step2Mock
+		1 * jobFlowBuilderMock.next(step2Mock) >> jobFlowBuilderMock
 
 		then: 'job is built'
 		1 * jobFlowBuilderMock._() >> flowJobBuilderMock

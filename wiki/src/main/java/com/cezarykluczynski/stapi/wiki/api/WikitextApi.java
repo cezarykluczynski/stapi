@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface WikitextApi {
 
-	List<String> pageTitlesFromWikitext(String wikitext);
+	List<String> getPageTitlesFromWikitext(String wikitext);
 
 }

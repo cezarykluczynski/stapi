@@ -27,6 +27,7 @@ public class EtlConfiguration {
 		return jobBuilderFactory.get("job")
 				.incrementer(new RunIdIncrementer())
 				.flow(applicationContext.getBean(Steps.STEP_001_CREATE_SERIES, Step.class))
+				.next(applicationContext.getBean(Steps.STEP_002_CREATE_PERFORMERS, Step.class))
 				.end()
 				.build();
 	}

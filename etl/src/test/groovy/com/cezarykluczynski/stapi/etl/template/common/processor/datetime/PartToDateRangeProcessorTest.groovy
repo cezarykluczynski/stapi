@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.common.processor
+package com.cezarykluczynski.stapi.etl.template.common.processor.datetime
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange
 import com.cezarykluczynski.stapi.util.constants.TemplateNames

@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.series.creation.processor
 
 import com.cezarykluczynski.stapi.etl.common.listener.CommonStepExecutionListener
 import com.cezarykluczynski.stapi.etl.util.Steps
-import com.cezarykluczynski.stapi.util.constants.Categories
+import com.cezarykluczynski.stapi.util.constants.CategoryName
 import com.cezarykluczynski.stapi.wiki.api.CategoryApi
 import com.cezarykluczynski.stapi.wiki.dto.PageHeader
 import com.google.common.collect.Lists
@@ -28,13 +28,13 @@ class SeriesCreationConfigurationTest extends Specification {
 
 	private ApplicationContext applicationContextMock
 
-	private SeriesCreationConfiguration seriesConfiguration
+	private SeriesCreationConfiguration seriesCreationConfiguration
 
 	def setup() {
 		categoryApiMock = Mock(CategoryApi)
 		stepBuilderFactoryMock = Mock(StepBuilderFactory)
 		applicationContextMock = Mock(ApplicationContext)
-		seriesConfiguration = new SeriesCreationConfiguration(
+		seriesCreationConfiguration = new SeriesCreationConfiguration(
 				categoryApi: categoryApiMock,
 				stepBuilderFactory: stepBuilderFactoryMock,
 				applicationContext: applicationContextMock)
@@ -45,10 +45,10 @@ class SeriesCreationConfigurationTest extends Specification {
 		List<PageHeader> pageHeaderList = Lists.newArrayList(PageHeader.builder().title(TITLE).build())
 
 		when:
-		SeriesReader seriesReader = seriesConfiguration.seriesReader()
+		SeriesReader seriesReader = seriesCreationConfiguration.seriesReader()
 
 		then:
-		1 * categoryApiMock.getPages(Categories.STAR_TREK_SERIES) >> pageHeaderList
+		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_SERIES) >> pageHeaderList
 		seriesReader.read().title == TITLE
 		seriesReader.read() == null
 	}
@@ -64,7 +64,7 @@ class SeriesCreationConfigurationTest extends Specification {
 		TaskletStep taskletStepMock = Mock(TaskletStep)
 
 		when:
-		Step step = seriesConfiguration.step()
+		Step step = seriesCreationConfiguration.step()
 
 		then: 'StepBuilder is retrieved'
 		1 * stepBuilderMock.chunk(*_) >> simpleStepBuilderMock

@@ -50,7 +50,7 @@ public class PageApiImpl implements PageApi {
 		}
 
 		if (wikitext.substring(0, Math.min(200, wikitext.length())).contains(REDIRECT_PREFIX)) {
-			List<String> redirects = wikitextApi.pageTitlesFromWikitext(wikitext);
+			List<String> redirects = wikitextApi.getPageTitlesFromWikitext(wikitext);
 			if (redirects.isEmpty()) {
 				log.warn("Page {} appears to be redirect, but no page to redirect to was found", title);
 				return page;

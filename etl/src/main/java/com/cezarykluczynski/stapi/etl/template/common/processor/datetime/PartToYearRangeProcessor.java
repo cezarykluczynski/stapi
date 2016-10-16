@@ -1,6 +1,7 @@
-package com.cezarykluczynski.stapi.etl.template.common.processor;
+package com.cezarykluczynski.stapi.etl.template.common.processor.datetime;
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.YearRange;
+import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
 import com.cezarykluczynski.stapi.util.constants.TemplateNames;
 import com.cezarykluczynski.stapi.wiki.dto.Template;
 import com.google.common.collect.Lists;
@@ -10,6 +11,7 @@ import org.apache.commons.validator.routines.IntegerValidator;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -19,6 +21,7 @@ public class PartToYearRangeProcessor extends AbstractTemplateProcessor
 
 	private TemplateToYearProcessor templateToYearProcessor;
 
+	@Inject
 	public PartToYearRangeProcessor(TemplateToYearProcessor templateToYearProcessor) {
 		this.templateToYearProcessor = templateToYearProcessor;
 	}

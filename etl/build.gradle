@@ -6,4 +6,7 @@ dependencies {
 	compile project(':model'), project(':util'), project(':wiki')
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-batch', version: springBootVersion
 	compile group: 'commons-validator', name: 'commons-validator', version: '1.5.1'
+
+	testCompile group: 'org.mock-server', name: 'mockserver-netty', version: '3.10.4'
+
 }

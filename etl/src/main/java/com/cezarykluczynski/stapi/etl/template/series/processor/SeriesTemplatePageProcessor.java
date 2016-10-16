@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.etl.template.series.processor;
 
 import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
-import com.cezarykluczynski.stapi.etl.template.common.processor.PartToDateRangeProcessor;
-import com.cezarykluczynski.stapi.etl.template.common.processor.PartToYearRangeProcessor;
+import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToDateRangeProcessor;
+import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToYearRangeProcessor;
 import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplate;
 import com.cezarykluczynski.stapi.util.constants.TemplateNames;
 import com.cezarykluczynski.stapi.wiki.dto.Page;
@@ -14,7 +14,7 @@ import javax.inject.Inject;
 import java.util.Optional;
 
 @Service
-public class PageProcessor extends AbstractTemplateProcessor implements ItemProcessor<Page, SeriesTemplate> {
+public class SeriesTemplatePageProcessor extends AbstractTemplateProcessor implements ItemProcessor<Page, SeriesTemplate> {
 
 	private static final String ABBR = "abbr";
 	private static final String DATES = "dates";
@@ -25,15 +25,15 @@ public class PageProcessor extends AbstractTemplateProcessor implements ItemProc
 	private PartToDateRangeProcessor partToDateRangeProcessor;
 
 	@Inject
-	public PageProcessor(PartToYearRangeProcessor partToYearRangeProcessor,
+	public SeriesTemplatePageProcessor(PartToYearRangeProcessor partToYearRangeProcessor,
 			PartToDateRangeProcessor partToDateRangeProcessor) {
 		this.partToYearRangeProcessor = partToYearRangeProcessor;
 		this.partToDateRangeProcessor = partToDateRangeProcessor;
 	}
 
 	@Override
-	public SeriesTemplate process(Page page) throws Exception {
-		Optional<Template> templateOptional = findTemplate(page, TemplateNames.SIDEBAR_SERIES);
+	public SeriesTemplate process(Page item) throws Exception {
+		Optional<Template> templateOptional = findTemplate(item, TemplateNames.SIDEBAR_SERIES);
 
 		if (!templateOptional.isPresent()) {
 			return null;
@@ -43,7 +43,7 @@ public class PageProcessor extends AbstractTemplateProcessor implements ItemProc
 		SeriesTemplate seriesTemplate = new SeriesTemplate();
 
 		// Title from the template is ambiguous in ENT, so page title is preferred.
-		seriesTemplate.setTitle(page.getTitle());
+		seriesTemplate.setTitle(item.getTitle());
 
 		for (Template.Part part : template.getParts()) {
 			String key = part.getKey();

@@ -14,7 +14,7 @@ public class WikitextApiImpl implements WikitextApi {
 	private static final Pattern LINK = Pattern.compile("\\[\\[(.+?)]]");
 
 	@Override
-	public List<String> pageTitlesFromWikitext(String wikitext) {
+	public List<String> getPageTitlesFromWikitext(String wikitext) {
 		Matcher matcher = LINK.matcher(wikitext);
 		List<String> allMatches = Lists.newArrayList();
 

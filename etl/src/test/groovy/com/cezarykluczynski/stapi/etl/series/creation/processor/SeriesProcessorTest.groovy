@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.series.creation.processor
 
 import com.cezarykluczynski.stapi.etl.page.common.processor.PageHeaderProcessor
 import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplate
-import com.cezarykluczynski.stapi.etl.template.series.processor.PageProcessor
+import com.cezarykluczynski.stapi.etl.template.series.processor.SeriesTemplatePageProcessor
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.wiki.dto.Page
 import com.cezarykluczynski.stapi.wiki.dto.PageHeader
@@ -12,7 +12,7 @@ class SeriesProcessorTest extends Specification {
 
 	private PageHeaderProcessor pageHeaderProcessorMock
 
-	private PageProcessor pageProcessorMock
+	private SeriesTemplatePageProcessor pageProcessorMock
 
 	private SeriesTemplateProcessor seriesTemplateProcessorMock
 
@@ -20,7 +20,7 @@ class SeriesProcessorTest extends Specification {
 
 	def setup() {
 		pageHeaderProcessorMock = Mock(PageHeaderProcessor)
-		pageProcessorMock = Mock(PageProcessor)
+		pageProcessorMock = Mock(SeriesTemplatePageProcessor)
 		seriesTemplateProcessorMock = Mock(SeriesTemplateProcessor)
 		seriesProcessor = new SeriesProcessor(pageHeaderProcessorMock, pageProcessorMock, seriesTemplateProcessorMock)
 	}

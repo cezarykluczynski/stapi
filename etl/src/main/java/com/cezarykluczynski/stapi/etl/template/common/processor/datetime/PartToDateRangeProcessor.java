@@ -1,6 +1,7 @@
-package com.cezarykluczynski.stapi.etl.template.common.processor;
+package com.cezarykluczynski.stapi.etl.template.common.processor.datetime;
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange;
+import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
 import com.cezarykluczynski.stapi.util.constants.TemplateNames;
 import com.cezarykluczynski.stapi.wiki.dto.Template;
 import lombok.extern.slf4j.Slf4j;

@@ -2,8 +2,8 @@ package com.cezarykluczynski.stapi.etl.template.series.processor
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange
 import com.cezarykluczynski.stapi.etl.template.common.dto.YearRange
-import com.cezarykluczynski.stapi.etl.template.common.processor.PartToDateRangeProcessor
-import com.cezarykluczynski.stapi.etl.template.common.processor.PartToYearRangeProcessor
+import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToDateRangeProcessor
+import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToYearRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplate
 import com.cezarykluczynski.stapi.util.constants.TemplateNames
 import com.cezarykluczynski.stapi.wiki.dto.Page
@@ -11,7 +11,7 @@ import com.cezarykluczynski.stapi.wiki.dto.Template
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
-class PageProcessorTest extends Specification {
+class SeriesTemplatePageProcessorTest extends Specification {
 
 	private static final String TITLE = 'TITLE'
 	private static final String ABBREVIATION = 'abbreviation'
@@ -20,12 +20,12 @@ class PageProcessorTest extends Specification {
 
 	private PartToDateRangeProcessor partToDateRangeProcessorMock
 
-	private PageProcessor pageProcessor
+	private SeriesTemplatePageProcessor seriesTemplatePageProcessor
 
 	def setup() {
 		partToYearRangeProcessorMock = Mock(PartToYearRangeProcessor)
 		partToDateRangeProcessorMock = Mock(PartToDateRangeProcessor)
-		pageProcessor = new PageProcessor(partToYearRangeProcessorMock, partToDateRangeProcessorMock)
+		seriesTemplatePageProcessor = new SeriesTemplatePageProcessor(partToYearRangeProcessorMock, partToDateRangeProcessorMock)
 	}
 
 	def "missing template results in null SeriesTemplate"() {
@@ -33,7 +33,7 @@ class PageProcessorTest extends Specification {
 		Page page = new Page()
 
 		when:
-		SeriesTemplate seriesTemplate = pageProcessor.process(page)
+		SeriesTemplate seriesTemplate = seriesTemplatePageProcessor.process(page)
 
 		then:
 		seriesTemplate == null
@@ -41,8 +41,8 @@ class PageProcessorTest extends Specification {
 
 	def "valid template is parsed"() {
 		given:
-		Template.Part yearRangePart = new Template.Part(key: PageProcessor.DATES)
-		Template.Part dateRangePart = new Template.Part(key: PageProcessor.RUN)
+		Template.Part yearRangePart = new Template.Part(key: SeriesTemplatePageProcessor.DATES)
+		Template.Part dateRangePart = new Template.Part(key: SeriesTemplatePageProcessor.RUN)
 		YearRange yearRange = Mock(YearRange)
 		DateRange dateRange = Mock(DateRange)
 
@@ -50,7 +50,7 @@ class PageProcessorTest extends Specification {
 				title: TITLE,
 				templates: Lists.newArrayList(
 						new Template(title: TemplateNames.SIDEBAR_SERIES, parts: Lists.newArrayList(
-								new Template.Part(key: PageProcessor.ABBR, value: ABBREVIATION),
+								new Template.Part(key: SeriesTemplatePageProcessor.ABBR, value: ABBREVIATION),
 								yearRangePart,
 								dateRangePart
 						)
@@ -58,7 +58,7 @@ class PageProcessorTest extends Specification {
 		))
 
 		when:
-		SeriesTemplate seriesTemplate = pageProcessor.process(page)
+		SeriesTemplate seriesTemplate = seriesTemplatePageProcessor.process(page)
 
 		then: 'year range and date range parsing is delegated'
 		1 * partToYearRangeProcessorMock.process(yearRangePart) >> yearRange

@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.series.creation.processor;
 import com.cezarykluczynski.stapi.etl.common.listener.CommonStepExecutionListener;
 import com.cezarykluczynski.stapi.etl.util.Steps;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
-import com.cezarykluczynski.stapi.util.constants.Categories;
+import com.cezarykluczynski.stapi.util.constants.CategoryName;
 import com.cezarykluczynski.stapi.wiki.api.CategoryApi;
 import com.cezarykluczynski.stapi.wiki.dto.PageHeader;
 import org.springframework.batch.core.Step;
@@ -28,7 +28,7 @@ public class SeriesCreationConfiguration {
 
 	@Bean
 	public SeriesReader seriesReader() {
-		return new SeriesReader(categoryApi.getPages(Categories.STAR_TREK_SERIES));
+		return new SeriesReader(categoryApi.getPages(CategoryName.STAR_TREK_SERIES));
 	}
 
 	@Bean(name = Steps.STEP_001_CREATE_SERIES)

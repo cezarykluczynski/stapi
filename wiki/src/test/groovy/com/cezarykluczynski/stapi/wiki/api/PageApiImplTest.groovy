@@ -67,7 +67,7 @@ class PageApiImplTest extends Specification {
 
 		then:
 		1 * blikiConnectorMock.getPage(TITLE_1) >> XML_REDIRECT_1
-		1 * wikitextApiMock.pageTitlesFromWikitext(_) >> Lists.newArrayList(TITLE_2)
+		1 * wikitextApiMock.getPageTitlesFromWikitext(_) >> Lists.newArrayList(TITLE_2)
 		1 * blikiConnectorMock.getPage(TITLE_2) >> XML_2
 		page.pageId == PAGE_ID_2
 		page.title == TITLE_2
@@ -79,11 +79,11 @@ class PageApiImplTest extends Specification {
 
 		then:
 		1 * blikiConnectorMock.getPage(TITLE_1) >> XML_REDIRECT_1
-		1 * wikitextApiMock.pageTitlesFromWikitext(_) >> Lists.newArrayList(TITLE_2)
+		1 * wikitextApiMock.getPageTitlesFromWikitext(_) >> Lists.newArrayList(TITLE_2)
 		1 * blikiConnectorMock.getPage(TITLE_2) >> XML_REDIRECT_2
-		1 * wikitextApiMock.pageTitlesFromWikitext(_) >> Lists.newArrayList(TITLE_3)
+		1 * wikitextApiMock.getPageTitlesFromWikitext(_) >> Lists.newArrayList(TITLE_3)
 		1 * blikiConnectorMock.getPage(TITLE_3) >> XML_REDIRECT_3
-		0 * wikitextApiMock.pageTitlesFromWikitext(_)
+		0 * wikitextApiMock.getPageTitlesFromWikitext(_)
 		page.pageId == PAGE_ID_3
 		page.title == TITLE_3
 	}
@@ -94,7 +94,7 @@ class PageApiImplTest extends Specification {
 
 		then:
 		1 * blikiConnectorMock.getPage(TITLE_1) >> XML_REDIRECT_1
-		1 * wikitextApiMock.pageTitlesFromWikitext(_) >> Lists.newArrayList()
+		1 * wikitextApiMock.getPageTitlesFromWikitext(_) >> Lists.newArrayList()
 		page.pageId == PAGE_ID_1
 		page.title == TITLE_1
 	}
