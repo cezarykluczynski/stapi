@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.model.performer.entity;
 
+import com.cezarykluczynski.stapi.model.page.entity.Page;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +21,10 @@ public class Performer {
 	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator="performer_sequence_generator")
 	@SequenceGenerator(name="performer_sequence_generator", sequenceName="performer_sequence", allocationSize = 1)
 	private Long id;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "page_id")
+	private Page page;
 
 	@Column(nullable = false)
 	private String name;

@@ -28,4 +28,11 @@ public abstract class AbstractTemplateProcessor {
 				.collect(Collectors.toList());
 	}
 
+	protected com.cezarykluczynski.stapi.model.page.entity.Page toPageEntity(Page page) {
+		return com.cezarykluczynski.stapi.model.page.entity.Page.builder()
+				.pageId(page.getPageId())
+				.title(page.getTitle())
+				.build();
+	}
+
 }

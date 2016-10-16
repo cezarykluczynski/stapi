@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.model.series.entity;
 
+import com.cezarykluczynski.stapi.model.page.entity.Page;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +21,10 @@ public class Series {
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="series_sequence_generator")
 	@SequenceGenerator(name="series_sequence_generator", sequenceName="series_sequence", allocationSize = 1)
 	private Long id;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "page_id")
+	private Page page;
 
 	@Column(nullable = false)
 	private String title;

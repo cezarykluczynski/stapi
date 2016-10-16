@@ -4,18 +4,15 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.Gender;
 import com.cezarykluczynski.stapi.etl.template.common.processor.FullNameToFirstNameProcessor;
 import com.cezarykluczynski.stapi.etl.vendor.genderize.client.GenderizeClient;
 import com.cezarykluczynski.stapi.etl.vendor.genderize.dto.NameGender;
-import com.cezarykluczynski.stapi.util.constants.SpringProfiles;
 import com.cezarykluczynski.stapi.wiki.dto.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 
 @Service
 @Slf4j
-@Profile(SpringProfiles.GENDERIZE)
 public class PageToGenderNameProcessor implements ItemProcessor<Page, Gender> {
 
 	private static final float MINIMAL_PROBABILITY = (float) 0.95;

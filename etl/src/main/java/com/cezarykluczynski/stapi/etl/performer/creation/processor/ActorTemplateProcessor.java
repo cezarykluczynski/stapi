@@ -15,6 +15,7 @@ public class ActorTemplateProcessor implements ItemProcessor<ActorTemplate, Perf
 
 		return Performer.builder()
 				.name(item.getName())
+				.page(item.getPage())
 				.birthName(item.getBirthName())
 				.gender(gender != null ? gender.name() : null)
 				.build();

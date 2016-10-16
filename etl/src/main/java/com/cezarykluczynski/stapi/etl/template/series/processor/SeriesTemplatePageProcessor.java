@@ -41,6 +41,7 @@ public class SeriesTemplatePageProcessor extends AbstractTemplateProcessor imple
 
 		Template template = templateOptional.get();
 		SeriesTemplate seriesTemplate = new SeriesTemplate();
+		seriesTemplate.setPage(toPageEntity(item));
 
 		// Title from the template is ambiguous in ENT, so page title is preferred.
 		seriesTemplate.setTitle(item.getTitle());

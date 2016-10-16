@@ -12,6 +12,7 @@ public class SeriesTemplateProcessor implements ItemProcessor<SeriesTemplate, Se
 	public Series process(SeriesTemplate item) throws Exception {
 		return Series.builder()
 				.title(item.getTitle())
+				.page(item.getPage())
 				.abbreviation(item.getAbbreviation())
 				.productionStartYear(item.getProductionYearRange().getStartYear())
 				.productionEndYear(item.getProductionYearRange().getEndYear())

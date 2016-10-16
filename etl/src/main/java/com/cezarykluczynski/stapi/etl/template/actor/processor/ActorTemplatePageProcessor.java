@@ -12,6 +12,7 @@ import com.cezarykluczynski.stapi.wiki.dto.CategoryHeader;
 import com.cezarykluczynski.stapi.wiki.dto.Page;
 import com.cezarykluczynski.stapi.wiki.dto.Template;
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
@@ -44,8 +45,9 @@ public class ActorTemplatePageProcessor extends AbstractTemplateProcessor implem
 		}
 
 		ActorTemplate actorTemplate = new ActorTemplate();
-		actorTemplate.setName(item.getTitle()); // TODO: remove brackets once pageId is added
+		actorTemplate.setName(StringUtils.trim(StringUtils.substringBefore(item.getTitle(), "(")));
 		actorTemplate.setLifeRange(new DateRange());
+		actorTemplate.setPage(toPageEntity(item));
 
 		actorTemplate.setGender(pageToGenderProcessor.process(item));
 		actorTemplate.setLifeRange(pageToLifeRangeProcessor.process(item));

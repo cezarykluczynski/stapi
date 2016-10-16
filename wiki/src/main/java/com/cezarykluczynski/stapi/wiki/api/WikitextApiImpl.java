@@ -20,7 +20,7 @@ public class WikitextApiImpl implements WikitextApi {
 
 		while (matcher.find()) {
 			String group = matcher.group(1);
-			allMatches.add(group.contains("|") ? StringUtils.split(group, "|")[0] : group);
+			allMatches.add(StringUtils.trim(StringUtils.substringBefore(group, "|")));
 		}
 
 		return allMatches;

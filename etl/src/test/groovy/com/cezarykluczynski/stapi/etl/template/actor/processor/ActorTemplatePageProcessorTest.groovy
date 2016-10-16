@@ -17,6 +17,7 @@ import spock.lang.Specification
 class ActorTemplatePageProcessorTest extends Specification {
 
 	private static final String TITLE = 'TITLE'
+	private static final String TITLE_WITH_BRACKETS = 'TITLE (actor)'
 	private static final String NAME = 'NAME'
 	private static final String BIRTH_NAME = 'BIRTH_NAME'
 	private static final Gender GENDER = Gender.F
@@ -72,6 +73,17 @@ class ActorTemplatePageProcessorTest extends Specification {
 	def "sets name from page title"() {
 		given:
 		Page page = new Page(title: TITLE)
+
+		when:
+		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(page)
+
+		then:
+		actorTemplate.name == TITLE
+	}
+
+	def "sets name from page title, and cuts brackets when they are present"() {
+		given:
+		Page page = new Page(title: TITLE_WITH_BRACKETS)
 
 		when:
 		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(page)

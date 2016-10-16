@@ -13,7 +13,7 @@ class WikitextApiImplTest extends Specification {
 	def "gets titles from wikitext"() {
 		when:
 		List<String> pageList = wikitextApiImpl
-				.getPageTitlesFromWikitext("blah blah [[Some page|some page]] and [[another page]] blah blah")
+				.getPageTitlesFromWikitext("blah blah [[Some page|some page]] and [[another page]] blah blah [[blah")
 
 		then:
 		pageList.size() == 2
