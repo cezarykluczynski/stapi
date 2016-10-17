@@ -38,6 +38,7 @@ allprojects {
 		// Utils
 		compile group: 'org.projectlombok', name: 'lombok', version: '1.16.6'
 		compile group: 'com.google.guava', name: 'guava', version: '19.0'
+		compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
 
 		// Testing
 		testCompile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.7'

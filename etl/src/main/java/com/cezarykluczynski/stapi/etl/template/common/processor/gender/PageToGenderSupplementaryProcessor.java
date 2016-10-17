@@ -26,6 +26,7 @@ public class PageToGenderSupplementaryProcessor implements ItemProcessor<Page, P
 		NAME_TO_GENDER_MAP.put("Kamala Lopez-Dawson", Gender.F); // genderize.io is not sure, photo used to determine
 		NAME_TO_GENDER_MAP.put("Chris Nelson Norris", Gender.M); // genderize.io is not sure, photo used to determine
 		NAME_TO_GENDER_MAP.put("Al Rodrigo", Gender.M); // genderize.io is not sure, photo used to determine
+		NAME_TO_GENDER_MAP.put("Leslie Shatner", Gender.F); // processors gave ambiguous results, photo used to determine
 		NAME_TO_GENDER_MAP.put("Hilary Shepard-Turner", Gender.F); // genderize.io is not sure, photo used to determine
 		NAME_TO_GENDER_MAP.put("Jerry Sroka", Gender.M); // Zarabeth (wife's role) is picked by parsed because it has individual template
 		NAME_TO_GENDER_MAP.put("Tadeski twins", null); // two people in one page, uncertain

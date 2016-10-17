@@ -56,6 +56,11 @@
 		<appender-ref ref="CONSOLE"/>
 	</logger>
 
+	<logger name="com.cezarykluczynski.stapi.model" additivity="FALSE">
+		<appender-ref ref="ETL"/>
+		<appender-ref ref="CONSOLE"/>
+	</logger>
+
 	<root>
 		<appender-ref ref="FULL"/>
 	</root>

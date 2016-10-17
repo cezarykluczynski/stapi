@@ -1,10 +1,8 @@
 package com.cezarykluczynski.stapi.model.series.entity;
 
+import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.entity.Page;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,7 +12,8 @@ import java.time.LocalDate;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Series {
+@ToString
+public class Series implements PageAware {
 
 	@Id
 	@Column(nullable = false)
