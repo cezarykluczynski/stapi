@@ -152,7 +152,7 @@ class ActorTemplatePageProcessorTest extends Specification {
 		actorTemplate.gender == Gender.F
 	}
 
-	def "do not uses gender from subprocessor if current gender is not null"() {
+	def "sets gender to null when genders found by ActorTemplateTemplateProcessor and ActorTemplatePageProcessor differs"() {
 		given:
 		ActorTemplate actorTemplateFromTemplate = new ActorTemplate(gender: Gender.F)
 
@@ -162,7 +162,7 @@ class ActorTemplatePageProcessorTest extends Specification {
 		then:
 		1 * pageToGenderProcessorMock.process(pageWithTemplate) >> Gender.M
 		1 * actorTemplateTemplateProcessorMock.process(template) >> actorTemplateFromTemplate
-		actorTemplate.gender == Gender.M
+		actorTemplate.gender == null
 	}
 
 }
