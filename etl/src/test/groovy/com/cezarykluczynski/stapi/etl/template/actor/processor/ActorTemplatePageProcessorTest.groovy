@@ -20,6 +20,8 @@ class ActorTemplatePageProcessorTest extends Specification {
 	private static final String TITLE_WITH_BRACKETS = 'TITLE (actor)'
 	private static final String NAME = 'NAME'
 	private static final String BIRTH_NAME = 'BIRTH_NAME'
+	private static final String PLACE_OF_BIRTH = 'PLACE_OF_BIRTH'
+	private static final String PLACE_OF_DEATH = 'PLACE_OF_DEATH'
 	private static final Gender GENDER = Gender.F
 	private static final DateRange LIFE_RANGE = new DateRange()
 
@@ -163,6 +165,30 @@ class ActorTemplatePageProcessorTest extends Specification {
 		then:
 		1 * actorTemplateTemplateProcessorMock.process(template) >> actorTemplateFromTemplate
 		actorTemplate.birthName == BIRTH_NAME
+	}
+
+	def "uses place of birth from subprocessor, if it is present"() {
+		given:
+		ActorTemplate actorTemplateFromTemplate = new ActorTemplate(placeOfBirth: PLACE_OF_BIRTH)
+
+		when:
+		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(pageWithTemplate)
+
+		then:
+		1 * actorTemplateTemplateProcessorMock.process(template) >> actorTemplateFromTemplate
+		actorTemplate.placeOfBirth == PLACE_OF_BIRTH
+	}
+
+	def "uses place of death from subprocessor, if it is present"() {
+		given:
+		ActorTemplate actorTemplateFromTemplate = new ActorTemplate(placeOfBirth: PLACE_OF_DEATH)
+
+		when:
+		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(pageWithTemplate)
+
+		then:
+		1 * actorTemplateTemplateProcessorMock.process(template) >> actorTemplateFromTemplate
+		actorTemplate.placeOfBirth == PLACE_OF_DEATH
 	}
 
 	def "uses gender from subprocessor only if current gender is null"() {

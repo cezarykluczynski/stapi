@@ -21,7 +21,9 @@ public class ActorTemplateProcessor implements ItemProcessor<ActorTemplate, Perf
 				.page(item.getPage())
 				.birthName(item.getBirthName())
 				.dateOfBirth(lifeRange.getStartDate())
+				.placeOfBirth(item.getPlaceOfBirth())
 				.dateOfDeath(lifeRange.getEndDate())
+				.placeOfDeath(item.getPlaceOfDeath())
 				.gender(gender != null ? gender.name() : null)
 				.build();
 	}

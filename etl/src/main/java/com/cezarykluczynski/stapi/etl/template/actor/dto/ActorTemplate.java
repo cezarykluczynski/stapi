@@ -14,6 +14,10 @@ public class ActorTemplate {
 
 	private String birthName;
 
+	private String placeOfBirth;
+
+	private String placeOfDeath;
+
 	private Gender gender;
 
 	private DateRange lifeRange;

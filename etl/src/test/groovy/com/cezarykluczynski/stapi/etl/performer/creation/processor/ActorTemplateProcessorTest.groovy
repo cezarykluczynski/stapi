@@ -12,6 +12,8 @@ class ActorTemplateProcessorTest extends Specification {
 
 	private static final String NAME = 'NAME'
 	private static final String BIRTH_NAME = 'BIRTH_NAME'
+	private static final String PLACE_OF_BIRTH = 'PLACE_OF_BIRTH'
+	private static final String PLACE_OF_DEATH = 'PLACE_OF_DEATH'
 	private static final Gender GENDER = Gender.F
 	private static final LocalDate DATE_OF_BIRTH = LocalDate.of(1980, 1, 2)
 	private static final LocalDate DATE_OF_DEATH = LocalDate.of(2020, 3, 4)
@@ -27,6 +29,8 @@ class ActorTemplateProcessorTest extends Specification {
 		ActorTemplate actorTemplate = new ActorTemplate(
 				name: NAME,
 				birthName: BIRTH_NAME,
+				placeOfBirth: PLACE_OF_BIRTH,
+				placeOfDeath: PLACE_OF_DEATH,
 				gender: GENDER,
 				lifeRange: new DateRange(
 						startDate: DATE_OF_BIRTH,
@@ -39,6 +43,8 @@ class ActorTemplateProcessorTest extends Specification {
 		then:
 		performer.name == NAME
 		performer.birthName == BIRTH_NAME
+		performer.placeOfBirth == PLACE_OF_BIRTH
+		performer.placeOfDeath == PLACE_OF_DEATH
 		performer.gender == GENDER.name()
 	}
 
@@ -52,6 +58,8 @@ class ActorTemplateProcessorTest extends Specification {
 		then:
 		performer.name == null
 		performer.birthName == null
+		performer.placeOfBirth == null
+		performer.placeOfDeath == null
 		performer.gender == null
 		performer.dateOfBirth == null
 		performer.dateOfDeath == null

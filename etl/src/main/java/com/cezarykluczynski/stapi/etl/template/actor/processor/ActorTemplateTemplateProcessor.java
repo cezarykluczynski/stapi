@@ -15,6 +15,8 @@ public class ActorTemplateTemplateProcessor implements ItemProcessor<Template, A
 	private static final String NAME = "name";
 	private static final String BIRTH_NAME = "birth name";
 	private static final String GENDER = "gender";
+	private static final String PLACE_OF_BIRTH = "place of birth";
+	private static final String PLACE_OF_DEATH = "place of death";
 
 	private PartToGenderProcessor partToGenderProcessor;
 
@@ -30,14 +32,23 @@ public class ActorTemplateTemplateProcessor implements ItemProcessor<Template, A
 		for (Template.Part part : item.getParts()) {
 			String key = part.getKey();
 			String value = part.getValue();
+
+			if (StringUtils.isBlank(value)) {
+				continue;
+			}
+
 			switch(key) {
 				case NAME:
-					if (StringUtils.isNotBlank(value)) {
-						actorTemplate.setName(value);
-					}
+					actorTemplate.setName(value);
 					break;
 				case BIRTH_NAME:
 					actorTemplate.setBirthName(value);
+					break;
+				case PLACE_OF_BIRTH:
+					actorTemplate.setPlaceOfBirth(value);
+					break;
+				case PLACE_OF_DEATH:
+					actorTemplate.setPlaceOfDeath(value);
 					break;
 				case GENDER:
 					actorTemplate.setGender(partToGenderProcessor.process(part));

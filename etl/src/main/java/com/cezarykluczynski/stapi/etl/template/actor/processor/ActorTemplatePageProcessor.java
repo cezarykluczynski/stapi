@@ -82,6 +82,10 @@ public class ActorTemplatePageProcessor extends AbstractTemplateProcessor
 	private void supplementUsingActorTemplateTemplateProcessor(ActorTemplate actorTemplate, Template template)
 			throws Exception {
 		ActorTemplate actorTemplateFromTemplate = actorTemplateTemplateProcessor.process(template);
+
+		actorTemplate.setPlaceOfBirth(actorTemplateFromTemplate.getPlaceOfBirth());
+		actorTemplate.setPlaceOfDeath(actorTemplateFromTemplate.getPlaceOfDeath());
+
 		if (actorTemplateFromTemplate.getName() != null) {
 			actorTemplate.setName(actorTemplateFromTemplate.getName());
 		}
