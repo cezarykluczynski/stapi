@@ -15,12 +15,12 @@ class PartToDateRangeProcessorTest extends Specification {
 	private static final LocalDate START_DATE = LocalDate.of(2001, 1, 1)
 	private static final LocalDate END_DATE = LocalDate.of(2012, 2, 2)
 
-	private TemplateToLocalDateProcessor templateToLocalDateProcessorMock
+	private DatelinkTemplateToLocalDateProcessor templateToLocalDateProcessorMock
 
 	private PartToDateRangeProcessor partToDateRangeProcessor
 
 	def setup() {
-		templateToLocalDateProcessorMock = Mock(TemplateToLocalDateProcessor)
+		templateToLocalDateProcessorMock = Mock(DatelinkTemplateToLocalDateProcessor)
 		partToDateRangeProcessor = new PartToDateRangeProcessor(templateToLocalDateProcessorMock)
 	}
 

@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.datetime;
 
-import com.cezarykluczynski.stapi.util.constants.TemplateNames;
-import com.cezarykluczynski.stapi.wiki.dto.Template;
+import com.cezarykluczynski.stapi.etl.template.common.dto.DayMonthYearCandidate;
+import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -13,35 +13,17 @@ import java.time.Month;
 
 @Service
 @Slf4j
-public class TemplateToLocalDateProcessor implements ItemProcessor<Template, LocalDate> {
+public class DayMonthYearProcessor implements ItemProcessor<DayMonthYearCandidate, LocalDate> {
 
 	@Override
-	public LocalDate process(Template item) throws Exception {
-		String title = item.getTitle();
-		if (!TemplateNames.D.equals(title) && !TemplateNames.DATELINK.equals(title)) {
-			log.warn("Template {} passed to TemplateToLocalDateProcessor::process was of different type.", item);
+	public LocalDate process(DayMonthYearCandidate item) throws Exception {
+		String dayValue = item.getDay();
+		String monthValue = item.getMonth();
+		String yearValue = item.getYear();
+
+		/* "?" here means that the data is not complete, so there is no point in going further. */
+		if (Lists.newArrayList(dayValue, monthValue, yearValue).contains("?")) {
 			return null;
-		}
-
-		String dayValue = null;
-		String monthValue = null;
-		String yearValue = null;
-
-		for (Template.Part part : item.getParts()) {
-			String key = part.getKey();
-			String value = part.getValue();
-
-			if (key.equals("1")) {
-				dayValue = value;
-			}
-
-			if (key.equals("2")) {
-				monthValue = value;
-			}
-
-			if (key.equals("3")) {
-				yearValue = value;
-			}
 		}
 
 		if (dayValue != null && monthValue != null && yearValue != null) {
@@ -56,13 +38,14 @@ public class TemplateToLocalDateProcessor implements ItemProcessor<Template, Loc
 				}
 
 				if (day == null) {
-					log.error("{} candidate day could not be parsed to integer.", monthValue);
+					log.error("{} candidate day could not be parsed to integer.", dayValue);
 				}
 			}
 		}
 
 		return null;
 	}
+
 
 	private Integer getInteger(String value) {
 		return Ints.tryParse(value);

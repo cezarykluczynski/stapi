@@ -17,11 +17,11 @@ import java.util.List;
 public class PartToDateRangeProcessor extends AbstractTemplateProcessor
 		implements ItemProcessor<Template.Part, DateRange> {
 
-	private TemplateToLocalDateProcessor templateToLocalDateProcessor;
+	private DatelinkTemplateToLocalDateProcessor datelinkTemplateToLocalDateProcessor;
 
 	@Inject
-	public PartToDateRangeProcessor(TemplateToLocalDateProcessor templateToLocalDateProcessor) {
-		this.templateToLocalDateProcessor = templateToLocalDateProcessor;
+	public PartToDateRangeProcessor(DatelinkTemplateToLocalDateProcessor datelinkTemplateToLocalDateProcessor) {
+		this.datelinkTemplateToLocalDateProcessor = datelinkTemplateToLocalDateProcessor;
 	}
 
 	@Override
@@ -39,11 +39,11 @@ public class PartToDateRangeProcessor extends AbstractTemplateProcessor
 		Integer size = dateTemplateList.size();
 
 		if (IntegerValidator.getInstance().isInRange(size, 1, 2)) {
-			dateRange.setStartDate(templateToLocalDateProcessor.process(templateList.get(0)));
+			dateRange.setStartDate(datelinkTemplateToLocalDateProcessor.process(templateList.get(0)));
 		}
 
 		if (size == 2) {
-			dateRange.setEndDate(templateToLocalDateProcessor.process(templateList.get(1)));
+			dateRange.setEndDate(datelinkTemplateToLocalDateProcessor.process(templateList.get(1)));
 		}
 
 		if (size > 2) {

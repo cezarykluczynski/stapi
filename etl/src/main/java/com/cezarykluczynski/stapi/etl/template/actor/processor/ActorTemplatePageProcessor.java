@@ -1,7 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.actor.processor;
 
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate;
-import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange;
 import com.cezarykluczynski.stapi.etl.template.common.dto.Gender;
 import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PageToLifeRangeProcessor;
@@ -49,7 +48,6 @@ public class ActorTemplatePageProcessor extends AbstractTemplateProcessor implem
 
 		ActorTemplate actorTemplate = new ActorTemplate();
 		actorTemplate.setName(StringUtils.trim(StringUtils.substringBefore(item.getTitle(), "(")));
-		actorTemplate.setLifeRange(new DateRange());
 		actorTemplate.setPage(toPageEntity(item));
 
 		actorTemplate.setGender(pageToGenderProcessor.process(item));

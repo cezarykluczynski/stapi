@@ -17,7 +17,7 @@ public class TemplateToYearProcessor implements ItemProcessor<Template, Integer>
 	public Integer process(Template item) throws Exception {
 		String title = item.getTitle();
 		if (!TemplateNames.Y.equals(title) && !TemplateNames.YEARLINK.equals(title)) {
-			log.warn("Template {} passed to TemplateToYearProcessor::process was of different type.", item);
+			log.warn("Template {} passed to TemplateToYearProcessor::process was of different type", item);
 			return null;
 		}
 
