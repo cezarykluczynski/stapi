@@ -128,6 +128,31 @@ class ActorTemplatePageProcessorTest extends Specification {
 		actorTemplate.name == NAME
 	}
 
+	def "sets birth name from page content"() {
+		given:
+		pageWithTemplate.wikitext = "'''${BIRTH_NAME}''' is an actor."
+
+		when:
+		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(pageWithTemplate)
+
+		then:
+		1 * actorTemplateTemplateProcessorMock.process(template) >> new ActorTemplate()
+		actorTemplate.birthName == BIRTH_NAME
+	}
+
+	def "sets birth name from page content, then removes it if it equals name"() {
+		given:
+		pageWithTemplate.title = NAME
+		pageWithTemplate.wikitext = "'''${NAME}''' is an actor."
+
+		when:
+		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(pageWithTemplate)
+
+		then:
+		1 * actorTemplateTemplateProcessorMock.process(template) >> new ActorTemplate()
+		actorTemplate.birthName == null
+	}
+
 	def "uses birth name from subprocessor, if it is present"() {
 		given:
 		ActorTemplate actorTemplateFromTemplate = new ActorTemplate(birthName: BIRTH_NAME)

@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGen
 import com.cezarykluczynski.stapi.util.constants.CategoryName;
 import com.cezarykluczynski.stapi.util.constants.PageNames;
 import com.cezarykluczynski.stapi.util.constants.TemplateNames;
+import com.cezarykluczynski.stapi.util.tool.LogicUtil;
 import com.cezarykluczynski.stapi.wiki.dto.CategoryHeader;
 import com.cezarykluczynski.stapi.wiki.dto.Page;
 import com.cezarykluczynski.stapi.wiki.dto.Template;
@@ -19,11 +20,17 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @Slf4j
-public class ActorTemplatePageProcessor extends AbstractTemplateProcessor implements ItemProcessor<Page, ActorTemplate> {
+public class ActorTemplatePageProcessor extends AbstractTemplateProcessor
+		implements ItemProcessor<Page, ActorTemplate> {
+
+	private static final Pattern BIRTH_NAME = Pattern.compile("'''(.+?)'''");
 
 	private PageToGenderProcessor pageToGenderProcessor;
 
@@ -48,6 +55,8 @@ public class ActorTemplatePageProcessor extends AbstractTemplateProcessor implem
 
 		ActorTemplate actorTemplate = new ActorTemplate();
 		actorTemplate.setName(StringUtils.trim(StringUtils.substringBefore(item.getTitle(), "(")));
+		actorTemplate.setBirthName(getBirthName(item.getWikitext()));
+
 		actorTemplate.setPage(toPageEntity(item));
 
 		actorTemplate.setGender(pageToGenderProcessor.process(item));
@@ -58,6 +67,8 @@ public class ActorTemplatePageProcessor extends AbstractTemplateProcessor implem
 		if (templateOptional.isPresent()) {
 			supplementUsingActorTemplateTemplateProcessor(actorTemplate, templateOptional.get());
 		}
+
+		removeBirthNameIfItEqualsName(actorTemplate);
 
 		return actorTemplate;
 	}
@@ -92,6 +103,26 @@ public class ActorTemplatePageProcessor extends AbstractTemplateProcessor implem
 
 		if (originalGender == null) {
 			actorTemplate.setGender(supplementedGender);
+		}
+	}
+
+	private String getBirthName(String wikitext) {
+		if (wikitext == null) {
+			return null;
+		}
+
+		Matcher matcher = BIRTH_NAME.matcher(wikitext);
+		return matcher.find() ? matcher.group(1) : null;
+	}
+
+	private void removeBirthNameIfItEqualsName(ActorTemplate actorTemplate) {
+		String name = actorTemplate.getName();
+		String birthName = actorTemplate.getBirthName();
+
+		if (LogicUtil.xorNull(name, birthName)) {
+			return;
+		} else if (Objects.equals(name, birthName)) {
+			actorTemplate.setBirthName(null);
 		}
 	}
 
