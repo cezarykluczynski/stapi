@@ -1,35 +1,20 @@
 package com.cezarykluczynski.stapi.etl.configuration;
 
-import com.cezarykluczynski.stapi.etl.util.Steps;
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
-import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
-import org.springframework.batch.core.launch.support.RunIdIncrementer;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.inject.Inject;
+import org.springframework.context.annotation.ImportResource;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
+import org.springframework.core.task.TaskExecutor;
 
 @Configuration
 @EnableBatchProcessing
+@ImportResource(locations = {"classpath:spring/batch/jobs/create.xml"})
 public class EtlConfiguration {
 
-	@Inject
-	private JobBuilderFactory jobBuilderFactory;
-
-	@Inject
-	private ApplicationContext applicationContext;
-
 	@Bean
-	public Job job() {
-		return jobBuilderFactory.get("job")
-				.incrementer(new RunIdIncrementer())
-				.flow(applicationContext.getBean(Steps.STEP_001_CREATE_SERIES, Step.class))
-				.next(applicationContext.getBean(Steps.STEP_002_CREATE_PERFORMERS, Step.class))
-				.end()
-				.build();
+	public TaskExecutor taskExecutor() {
+		return new SimpleAsyncTaskExecutor();
 	}
 
 }

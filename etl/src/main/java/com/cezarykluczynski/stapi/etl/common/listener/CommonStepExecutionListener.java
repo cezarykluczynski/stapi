@@ -4,11 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.StepExecutionListener;
+import org.springframework.batch.core.StepListener;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class CommonStepExecutionListener implements StepExecutionListener {
+public class CommonStepExecutionListener implements StepExecutionListener, StepListener {
 
 	@Override
 	public void beforeStep(StepExecution stepExecution) {
