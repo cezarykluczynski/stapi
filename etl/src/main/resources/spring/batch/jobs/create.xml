@@ -8,13 +8,10 @@
 				http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 	">
 	<batch:job id="CREATE">
-		<batch:listeners>
-			<batch:listener ref="commonStepExecutionListener"/>
-		</batch:listeners>
 		<batch:split id="CREATE_01" task-executor="taskExecutor">
 			<batch:flow>
-				<batch:step id="STEP_001_CREATE_SERIES" allow-start-if-complete="false">
-					<batch:tasklet>
+				<batch:step id="STEP_001_CREATE_SERIES">
+					<batch:tasklet start-limit="1" allow-start-if-complete="false">
 						<batch:chunk
 								commit-interval="50"
 								reader="seriesReader"
@@ -27,8 +24,8 @@
 				</batch:step>
 			</batch:flow>
 			<batch:flow>
-				<batch:step id="STEP_002_CREATE_PRODUCERS" allow-start-if-complete="false">
-					<batch:tasklet>
+				<batch:step id="STEP_002_CREATE_PRODUCERS">
+					<batch:tasklet start-limit="1" allow-start-if-complete="false">
 						<batch:chunk
 								commit-interval="50"
 								reader="performerReader"
