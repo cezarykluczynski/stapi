@@ -1,10 +1,12 @@
 package com.cezarykluczynski.stapi.etl.template.actor.processor
 
+import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
+import com.cezarykluczynski.stapi.etl.performer.creation.processor.CategoriesActorTemplateEnrichingProcessor
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange
 import com.cezarykluczynski.stapi.etl.template.common.dto.Gender
-import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGenderProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PageToLifeRangeProcessor
+import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGenderProcessor
 import com.cezarykluczynski.stapi.util.constants.CategoryName
 import com.cezarykluczynski.stapi.util.constants.PageNames
 import com.cezarykluczynski.stapi.util.constants.TemplateNames
@@ -31,6 +33,8 @@ class ActorTemplatePageProcessorTest extends Specification {
 
 	private ActorTemplateTemplateProcessor actorTemplateTemplateProcessorMock
 
+	private CategoriesActorTemplateEnrichingProcessor categoriesActorTemplateEnrichingProcessorMock
+
 	private ActorTemplatePageProcessor actorTemplatePageProcessor
 
 	private Template template
@@ -41,8 +45,10 @@ class ActorTemplatePageProcessorTest extends Specification {
 		pageToGenderProcessorMock = Mock(PageToGenderProcessor)
 		pageToLifeRangeProcessorMock = Mock(PageToLifeRangeProcessor)
 		actorTemplateTemplateProcessorMock = Mock(ActorTemplateTemplateProcessor)
+		categoriesActorTemplateEnrichingProcessorMock = Mock(CategoriesActorTemplateEnrichingProcessor)
 		actorTemplatePageProcessor = new ActorTemplatePageProcessor(pageToGenderProcessorMock,
-				pageToLifeRangeProcessorMock, actorTemplateTemplateProcessorMock)
+				pageToLifeRangeProcessorMock, actorTemplateTemplateProcessorMock,
+				categoriesActorTemplateEnrichingProcessorMock)
 
 		template = new Template(title: TemplateNames.SIDEBAR_ACTOR)
 		pageWithTemplate = new Page(templates: Lists.newArrayList(
@@ -214,6 +220,20 @@ class ActorTemplatePageProcessorTest extends Specification {
 		1 * pageToGenderProcessorMock.process(pageWithTemplate) >> Gender.M
 		1 * actorTemplateTemplateProcessorMock.process(template) >> actorTemplateFromTemplate
 		actorTemplate.gender == null
+	}
+
+	def "uses CategoriesActorTemplateEnrichingProcessor to enrich ActorTemplate"() {
+		given:
+		actorTemplateTemplateProcessorMock.process(_) >> new ActorTemplate()
+
+		when:
+		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(pageWithTemplate)
+
+		then:
+		1 * categoriesActorTemplateEnrichingProcessorMock.enrich(_) >> { EnrichablePair<List<CategoryHeader>, ActorTemplate> enrichablePair ->
+			enrichablePair.output.animalPerformer = true
+		}
+		actorTemplate.animalPerformer
 	}
 
 }

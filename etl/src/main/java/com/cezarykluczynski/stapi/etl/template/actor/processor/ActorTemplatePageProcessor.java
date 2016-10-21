@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.actor.processor;
 
+import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
+import com.cezarykluczynski.stapi.etl.performer.creation.processor.CategoriesActorTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate;
 import com.cezarykluczynski.stapi.etl.template.common.dto.Gender;
 import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
@@ -38,13 +40,17 @@ public class ActorTemplatePageProcessor extends AbstractTemplateProcessor
 
 	private ActorTemplateTemplateProcessor actorTemplateTemplateProcessor;
 
+	private CategoriesActorTemplateEnrichingProcessor categoriesActorTemplateEnrichingProcessor;
+
 	@Inject
 	public ActorTemplatePageProcessor(PageToGenderProcessor pageToGenderProcessor,
 			PageToLifeRangeProcessor pageToLifeRangeProcessor,
-			ActorTemplateTemplateProcessor actorTemplateTemplateProcessor) {
+			ActorTemplateTemplateProcessor actorTemplateTemplateProcessor,
+			CategoriesActorTemplateEnrichingProcessor categoriesActorTemplateEnrichingProcessor) {
 		this.pageToGenderProcessor = pageToGenderProcessor;
 		this.pageToLifeRangeProcessor = pageToLifeRangeProcessor;
 		this.actorTemplateTemplateProcessor = actorTemplateTemplateProcessor;
+		this.categoriesActorTemplateEnrichingProcessor = categoriesActorTemplateEnrichingProcessor;
 	}
 
 	@Override
@@ -69,6 +75,8 @@ public class ActorTemplatePageProcessor extends AbstractTemplateProcessor
 		}
 
 		removeBirthNameIfItEqualsName(actorTemplate);
+
+		categoriesActorTemplateEnrichingProcessor.enrich(EnrichablePair.of(item.getCategories(), actorTemplate));
 
 		return actorTemplate;
 	}
