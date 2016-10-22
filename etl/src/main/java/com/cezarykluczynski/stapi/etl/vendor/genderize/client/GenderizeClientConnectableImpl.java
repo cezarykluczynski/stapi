@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.vendor.genderize.client;
 
 import com.cezarykluczynski.stapi.etl.vendor.genderize.dto.NameGender;
-import com.cezarykluczynski.stapi.util.constants.SpringProfiles;
+import com.cezarykluczynski.stapi.util.constant.SpringProfiles;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;

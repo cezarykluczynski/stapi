@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.individual.processor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PartToGenderProcessor;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
-import com.cezarykluczynski.stapi.util.constants.TemplateNames;
+import com.cezarykluczynski.stapi.util.constant.TemplateNames;
 import com.cezarykluczynski.stapi.wiki.dto.Page;
 import com.cezarykluczynski.stapi.wiki.dto.Template;
 import org.springframework.batch.item.ItemProcessor;

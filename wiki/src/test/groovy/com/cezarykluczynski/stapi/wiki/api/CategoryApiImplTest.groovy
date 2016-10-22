@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.wiki.api
 
-import com.cezarykluczynski.stapi.util.constants.ApiParams
+import com.cezarykluczynski.stapi.wiki.util.constant.ApiParams
 import com.cezarykluczynski.stapi.wiki.connector.bliki.BlikiConnector
 import com.cezarykluczynski.stapi.wiki.converter.PageHeaderConverter
 import com.cezarykluczynski.stapi.wiki.dto.PageHeader

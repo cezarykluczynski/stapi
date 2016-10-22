@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.series.creation.processor
 
-import com.cezarykluczynski.stapi.util.constants.CategoryName
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
 import com.cezarykluczynski.stapi.wiki.api.CategoryApi
 import com.cezarykluczynski.stapi.wiki.dto.PageHeader
 import com.google.common.collect.Lists

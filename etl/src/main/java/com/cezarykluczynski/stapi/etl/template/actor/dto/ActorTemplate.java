@@ -22,30 +22,30 @@ public class ActorTemplate {
 
 	private DateRange lifeRange;
 
-	private Boolean animalPerformer;
+	private boolean animalPerformer;
 
-	private Boolean disPerformer;
+	private boolean disPerformer;
 
-	private Boolean ds9Performer;
+	private boolean ds9Performer;
 
-	private Boolean entPerformer;
+	private boolean entPerformer;
 
-	private Boolean filmPerformer;
+	private boolean filmPerformer;
 
-	private Boolean standInPerformer;
+	private boolean standInPerformer;
 
-	private Boolean stuntPerformer;
+	private boolean stuntPerformer;
 
-	private Boolean tasPerformer;
+	private boolean tasPerformer;
 
-	private Boolean tngPerformer;
+	private boolean tngPerformer;
 
-	private Boolean tosPerformer;
+	private boolean tosPerformer;
 
-	private Boolean videoGamePerformer;
+	private boolean videoGamePerformer;
 
-	private Boolean voicePerformer;
+	private boolean voicePerformer;
 
-	private Boolean voyPerformer;
+	private boolean voyPerformer;
 
 }

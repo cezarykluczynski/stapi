@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.util.constants;
+package com.cezarykluczynski.stapi.util.constant;
 
 public class TemplateNames {
 

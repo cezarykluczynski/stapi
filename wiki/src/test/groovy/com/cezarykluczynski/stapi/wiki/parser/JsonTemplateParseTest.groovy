@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.wiki.parser
 
-import com.cezarykluczynski.stapi.util.constants.TemplateNames
+import com.cezarykluczynski.stapi.util.constant.TemplateNames
 import com.cezarykluczynski.stapi.wiki.dto.Template
 import com.google.common.collect.Lists
 import spock.lang.Specification

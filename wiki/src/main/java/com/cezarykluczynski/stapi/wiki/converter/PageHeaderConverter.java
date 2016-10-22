@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.wiki.converter;
 
-import com.cezarykluczynski.stapi.util.constants.MemoryAlpha;
+import com.cezarykluczynski.stapi.wiki.util.constant.MemoryAlpha;
 import com.cezarykluczynski.stapi.wiki.dto.PageHeader;
 import info.bliki.api.PageInfo;
 import org.springframework.stereotype.Service;

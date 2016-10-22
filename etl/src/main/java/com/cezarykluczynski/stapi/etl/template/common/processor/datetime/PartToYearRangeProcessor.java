@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.common.processor.datetime;
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.YearRange;
 import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
-import com.cezarykluczynski.stapi.util.constants.TemplateNames;
+import com.cezarykluczynski.stapi.util.constant.TemplateNames;
 import com.cezarykluczynski.stapi.wiki.dto.Template;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;

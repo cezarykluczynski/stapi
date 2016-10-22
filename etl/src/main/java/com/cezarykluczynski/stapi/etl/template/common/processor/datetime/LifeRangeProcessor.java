@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.common.processor.datetime;
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateToLifeRangeProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange;
 import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
-import com.cezarykluczynski.stapi.util.constants.TemplateNames;
+import com.cezarykluczynski.stapi.util.constant.TemplateNames;
 import com.cezarykluczynski.stapi.util.tool.LogicUtil;
 import com.cezarykluczynski.stapi.wiki.dto.Page;
 import com.cezarykluczynski.stapi.wiki.dto.Template;

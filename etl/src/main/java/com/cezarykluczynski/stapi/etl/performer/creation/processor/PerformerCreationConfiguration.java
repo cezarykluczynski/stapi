@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.performer.creation.processor;
 
-import com.cezarykluczynski.stapi.util.constants.CategoryName;
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
 import com.cezarykluczynski.stapi.wiki.api.CategoryApi;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.context.ApplicationContext;

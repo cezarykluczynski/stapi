@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.actor.processor;
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange;
 import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DatelinkTemplateToLocalDateProcessor;
-import com.cezarykluczynski.stapi.util.constants.TemplateNames;
+import com.cezarykluczynski.stapi.util.constant.TemplateNames;
 import com.cezarykluczynski.stapi.wiki.dto.Template;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;

@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.wiki.connector.bliki;
 
-import com.cezarykluczynski.stapi.util.constants.ApiParams;
+import com.cezarykluczynski.stapi.wiki.util.constant.ApiParams;
 import com.google.common.collect.Maps;
 import info.bliki.api.Connector;
 import info.bliki.api.User;

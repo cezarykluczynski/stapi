@@ -25,6 +25,19 @@ public class ActorTemplateProcessor implements ItemProcessor<ActorTemplate, Perf
 				.dateOfDeath(lifeRange.getEndDate())
 				.placeOfDeath(item.getPlaceOfDeath())
 				.gender(gender != null ? gender.name() : null)
+				.animalPerformer(item.isAnimalPerformer())
+				.disPerformer(item.isDisPerformer())
+				.ds9Performer(item.isDs9Performer())
+				.entPerformer(item.isEntPerformer())
+				.filmPerformer(item.isFilmPerformer())
+				.standInPerformer(item.isStandInPerformer())
+				.stuntPerformer(item.isStuntPerformer())
+				.tasPerformer(item.isTasPerformer())
+				.tngPerformer(item.isTngPerformer())
+				.tosPerformer(item.isTosPerformer())
+				.videoGamePerformer(item.isVideoGamePerformer())
+				.voicePerformer(item.isVoicePerformer())
+				.voyPerformer(item.isVoyPerformer())
 				.build();
 	}
 }

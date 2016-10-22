@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.util.constants;
+package com.cezarykluczynski.stapi.etl.util.constant;
 
 public class PageNames {
 

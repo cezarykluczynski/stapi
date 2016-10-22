@@ -7,9 +7,9 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange
 import com.cezarykluczynski.stapi.etl.template.common.dto.Gender
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PageToLifeRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGenderProcessor
-import com.cezarykluczynski.stapi.util.constants.CategoryName
-import com.cezarykluczynski.stapi.util.constants.PageNames
-import com.cezarykluczynski.stapi.util.constants.TemplateNames
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
+import com.cezarykluczynski.stapi.etl.util.constant.PageNames
+import com.cezarykluczynski.stapi.util.constant.TemplateNames
 import com.cezarykluczynski.stapi.wiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.wiki.dto.Page
 import com.cezarykluczynski.stapi.wiki.dto.Template
