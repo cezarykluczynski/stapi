@@ -5,6 +5,7 @@ import lombok.*;
 @Builder
 @Data
 @AllArgsConstructor
+@EqualsAndHashCode
 public class PageHeader {
 
 	private Long pageId;
