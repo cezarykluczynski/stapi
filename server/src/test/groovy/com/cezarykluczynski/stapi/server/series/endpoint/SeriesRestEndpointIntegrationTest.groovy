@@ -1,18 +1,11 @@
 package com.cezarykluczynski.stapi.server.series.endpoint
 
-import com.cezarykluczynski.stapi.client.api.StapiRestClient
 import com.cezarykluczynski.stapi.server.series.common.EndpointIntegrationTest
-import org.springframework.boot.context.embedded.LocalServerPort
 
 class SeriesRestEndpointIntegrationTest extends EndpointIntegrationTest {
 
-	@LocalServerPort
-	private Integer localServerPost
-
-	private StapiRestClient stapiRestClient
-
 	def setup() {
-		stapiRestClient = new StapiRestClient("http://localhost:${localServerPost}/stapi/")
+		createRestClient()
 	}
 
 	def "gets all series"() {
