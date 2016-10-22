@@ -29,6 +29,8 @@ subprojects {
 			events "failed", "standardOut", "standardError"
 		}
 
+		exclude '**/**IntegrationTest**'
+
 		testLogging.showStandardStreams = true
 
 		minHeapSize = "64m"

@@ -1,9 +1,4 @@
 get:
-  parameters:
-    - name: title
-      in: query
-      required: false
-      type: string
   responses:
     200:
       schema:
@@ -16,3 +11,21 @@ get:
         $ref: '#/definitions/Error'
   tags:
   - Series
+post:
+  consumes:
+    - application/x-www-form-urlencoded
+  producers:
+    - application/json
+  parameters:
+    - name: title
+      in: formData
+      required: false
+      type: string
+  responses:
+    200:
+      schema:
+        type: array
+        items:
+          $ref: '#/definitions/Series'
+  tags:
+    - Series

@@ -28,7 +28,7 @@ class SeriesRestReaderTest extends Specification {
 		List<DBSeries> dbSeriesList = Lists.newArrayList()
 
 		when:
-		List<RESTSeries> restSeriesListOutput = seriesRestReader.read(seriesRestBeanParams)
+		List<RESTSeries> restSeriesListOutput = seriesRestReader.search(seriesRestBeanParams)
 
 		then:
 		1 * seriesQueryBuilderMock.query(seriesRestBeanParams) >> dbSeriesList

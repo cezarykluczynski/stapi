@@ -19,16 +19,28 @@ class SeriesRestEndpointTest extends Specification {
 		seriesRestEndpoint = new SeriesRestEndpoint(seriesRestReaderMock)
 	}
 
-	def "passes call to SeriesRestReader"() {
+	def "passes get call to SeriesRestReader"() {
+		given:
+		List<Series> seriesList = Lists.newArrayList()
+
+		when:
+		List<Series> seriesListOutput = seriesRestEndpoint.getSeries()
+
+		then:
+		1 * seriesRestReaderMock.getAll() >> seriesList
+		seriesListOutput == seriesList
+	}
+
+	def "passes post call to SeriesRestReader"() {
 		given:
 		SeriesRestBeanParams seriesRestBeanParams = new SeriesRestBeanParams(title: TITLE)
 		List<Series> seriesList = Lists.newArrayList()
 
 		when:
-		List<Series> seriesListOutput = seriesRestEndpoint.getSeries(seriesRestBeanParams)
+		List<Series> seriesListOutput = seriesRestEndpoint.searchSeries(seriesRestBeanParams)
 
 		then:
-		1 * seriesRestReaderMock.read(seriesRestBeanParams as SeriesRestBeanParams) >> { SeriesRestBeanParams params ->
+		1 * seriesRestReaderMock.search(seriesRestBeanParams as SeriesRestBeanParams) >> { SeriesRestBeanParams params ->
 			assert params.title == TITLE
 			return seriesList
 		}

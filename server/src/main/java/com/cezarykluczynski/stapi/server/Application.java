@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.server;
 
+import com.cezarykluczynski.stapi.etl.configuration.EtlConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -8,12 +9,15 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.context.annotation.Import;
 
 @Configuration
 @SpringBootApplication
-@EnableScheduling
-@ComponentScan("com.cezarykluczynski.stapi")
+@ComponentScan({
+		"com.cezarykluczynski.stapi.server",
+		"com.cezarykluczynski.stapi.model"
+})
+@Import(value = EtlConfiguration.class)
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 public class Application extends SpringBootServletInitializer {
 

@@ -1,10 +1,10 @@
 package com.cezarykluczynski.stapi.server.series.dto;
 
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.FormParam;
 
 public class SeriesRestBeanParams {
 
-	@QueryParam("title")
+	@FormParam(value = "title")
 	private String title;
 
 	public String getTitle() {

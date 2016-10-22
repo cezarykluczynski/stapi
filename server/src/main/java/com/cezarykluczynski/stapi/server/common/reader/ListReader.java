@@ -4,6 +4,8 @@ import java.util.List;
 
 public interface ListReader<I, O> {
 
-	List<O> read(I input);
+	List<O> search(I input);
+
+	List<O> getAll();
 
 }

@@ -24,8 +24,13 @@ public class SeriesRestReader implements ListReader<SeriesRestBeanParams, Series
 	}
 
 	@Override
-	public List<Series> read(SeriesRestBeanParams seriesRestBeanParams) {
+	public List<Series> search(SeriesRestBeanParams seriesRestBeanParams) {
 		return seriesRestMapper.map(seriesQueryBuilder.query(seriesRestBeanParams));
+	}
+
+	@Override
+	public List<Series> getAll() {
+		return seriesRestMapper.map(seriesQueryBuilder.query(new SeriesRestBeanParams()));
 	}
 
 }
