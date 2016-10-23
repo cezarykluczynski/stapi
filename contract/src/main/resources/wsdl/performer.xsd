@@ -8,35 +8,43 @@
 	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd" />
 	<xs:element name="PerformerRequest">
 		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="name" type="xs:string" minOccurs="0"/>
-				<xs:element name="birthName" type="xs:string" minOccurs="0"/>
-				<xs:element name="gender" type="common:GenderEnum" minOccurs="0"/>
-				<xs:element name="dateOfBirth" type="common:DateRange" minOccurs="0"/>
-				<xs:element name="dateOfDeath" type="common:DateRange" minOccurs="0"/>
-				<xs:element name="placeOfBirth" type="xs:string" minOccurs="0"/>
-				<xs:element name="placeOfDeath" type="xs:string" minOccurs="0"/>
-				<xs:element name="animalPerformer" type="xs:boolean" minOccurs="0"/>
-				<xs:element name="disPerformer" type="xs:boolean" minOccurs="0"/>
-				<xs:element name="ds9Performer" type="xs:boolean" minOccurs="0"/>
-				<xs:element name="entPerformer" type="xs:boolean" minOccurs="0"/>
-				<xs:element name="filmPerformer" type="xs:boolean" minOccurs="0"/>
-				<xs:element name="standInPerformer" type="xs:boolean" minOccurs="0"/>
-				<xs:element name="stuntPerformer" type="xs:boolean" minOccurs="0"/>
-				<xs:element name="tasPerformer" type="xs:boolean" minOccurs="0"/>
-				<xs:element name="tngPerformer" type="xs:boolean" minOccurs="0"/>
-				<xs:element name="tosPerformer" type="xs:boolean" minOccurs="0"/>
-				<xs:element name="videoGamePerformer" type="xs:boolean" minOccurs="0"/>
-				<xs:element name="voicePerformer" type="xs:boolean" minOccurs="0"/>
-				<xs:element name="voyPerformer" type="xs:boolean" minOccurs="0"/>
-			</xs:sequence>
+			<xs:complexContent>
+				<xs:extension base="common:Request">
+					<xs:sequence>
+						<xs:element name="name" type="xs:string" minOccurs="0"/>
+						<xs:element name="birthName" type="xs:string" minOccurs="0"/>
+						<xs:element name="gender" type="common:GenderEnum" minOccurs="0"/>
+						<xs:element name="dateOfBirth" type="common:DateRange" minOccurs="0"/>
+						<xs:element name="dateOfDeath" type="common:DateRange" minOccurs="0"/>
+						<xs:element name="placeOfBirth" type="xs:string" minOccurs="0"/>
+						<xs:element name="placeOfDeath" type="xs:string" minOccurs="0"/>
+						<xs:element name="animalPerformer" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="disPerformer" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="ds9Performer" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="entPerformer" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="filmPerformer" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="standInPerformer" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="stuntPerformer" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="tasPerformer" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="tngPerformer" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="tosPerformer" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="videoGamePerformer" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="voicePerformer" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="voyPerformer" type="xs:boolean" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="PerformerResponse">
 		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="performers" type="stapi:Performer" minOccurs="0" maxOccurs="unbounded"/>
-			</xs:sequence>
+			<xs:complexContent>
+				<xs:extension base="common:Response">
+					<xs:sequence>
+						<xs:element name="performers" type="stapi:Performer" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:complexType name="Performer">

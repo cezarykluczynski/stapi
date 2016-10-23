@@ -1,8 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:common="http://stapi.co/api/v1/soap/common"
 		elementFormDefault="unqualified"
 		targetNamespace="http://stapi.co/api/v1/soap/common">
+	<xs:complexType name="Request">
+		<xs:sequence>
+			<xs:element name="page" type="common:RequestPage" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Response">
+		<xs:sequence>
+			<xs:element name="page" type="common:ResponsePage"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RequestPage">
+		<xs:sequence>
+			<xs:element name="pageNumber" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>Zero-based page number.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pageSize" type="xs:int"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ResponsePage">
+		<xs:sequence>
+			<xs:element name="pageNumber" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>Zero-based page number.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pageSize" type="xs:int"/>
+			<xs:element name="numberOfElements" type="xs:int"/>
+			<xs:element name="totalElements" type="xs:int"/>
+			<xs:element name="totalPages" type="xs:int"/>
+			<xs:element name="firstPage" type="xs:boolean"/>
+			<xs:element name="lastPage" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
 	<xs:simpleType name="GenderEnum">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="MALE" />

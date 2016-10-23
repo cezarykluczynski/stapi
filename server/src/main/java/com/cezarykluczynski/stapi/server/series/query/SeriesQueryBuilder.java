@@ -3,36 +3,42 @@ package com.cezarykluczynski.stapi.server.series.query;
 import com.cezarykluczynski.stapi.client.soap.SeriesRequest;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.model.series.repository.SeriesRepository;
+import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.series.dto.SeriesRestBeanParams;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.List;
 
 @Service
 public class SeriesQueryBuilder {
 
 	private SeriesRepository seriesRepository;
 
+	private PageMapper pageMapper;
+
 	@Inject
-	public SeriesQueryBuilder(SeriesRepository seriesRepository) {
+	public SeriesQueryBuilder(SeriesRepository seriesRepository, PageMapper pageMapper) {
 		this.seriesRepository = seriesRepository;
+		this.pageMapper = pageMapper;
 	}
 
-	public List<Series> query(SeriesRequest seriesRequest) {
-		return queryWithTitle(seriesRequest.getTitle());
+	public Page<Series> query(SeriesRequest seriesRequest) {
+		PageRequest pageRequest = pageMapper.toPageRequest(seriesRequest.getPage());
+		return queryWithTitleAndPageRequest(seriesRequest.getTitle(), pageRequest);
 	}
 
-	public List<Series> query(SeriesRestBeanParams seriesRestBeanParams) {
-		return queryWithTitle(seriesRestBeanParams.getTitle());
+	public Page<Series> query(SeriesRestBeanParams seriesRestBeanParams) {
+		return queryWithTitleAndPageRequest(seriesRestBeanParams.getTitle(), null);
 	}
 
-	private List<Series> queryWithTitle(String title) {
+	private Page<Series> queryWithTitleAndPageRequest(String title, PageRequest pageRequest) {
 		if (StringUtils.isEmpty(title)) {
-			return seriesRepository.findAll();
+			return seriesRepository.findAll(pageRequest);
 		} else {
-			return seriesRepository.findByTitleIgnoreCaseContaining(title);
+			return seriesRepository.findByTitleIgnoreCaseContaining(title, pageRequest);
 		}
 	}
 

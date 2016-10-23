@@ -2,10 +2,12 @@ package com.cezarykluczynski.stapi.server.series.reader
 
 import com.cezarykluczynski.stapi.client.rest.model.Series as RESTSeries
 import com.cezarykluczynski.stapi.model.series.entity.Series as DBSeries
+import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.series.dto.SeriesRestBeanParams
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesRestMapper
 import com.cezarykluczynski.stapi.server.series.query.SeriesQueryBuilder
 import com.google.common.collect.Lists
+import org.springframework.data.domain.Page
 import spock.lang.Specification
 
 class SeriesRestReaderTest extends Specification {
@@ -14,25 +16,32 @@ class SeriesRestReaderTest extends Specification {
 
 	private SeriesRestMapper seriesRestMapperMock
 
+	private PageMapper pageMapperMock
+
 	private SeriesRestReader seriesRestReader
 
 	def setup() {
 		seriesQueryBuilderMock = Mock(SeriesQueryBuilder)
 		seriesRestMapperMock = Mock(SeriesRestMapper)
-		seriesRestReader = new SeriesRestReader(seriesQueryBuilderMock, seriesRestMapperMock)
+		pageMapperMock = Mock(PageMapper)
+		seriesRestReader = new SeriesRestReader(seriesQueryBuilderMock, seriesRestMapperMock, pageMapperMock)
 	}
 
 	def "passed request to queryBuilder, then to mapper, and returns result"() {
 		SeriesRestBeanParams seriesRestBeanParams = Mock(SeriesRestBeanParams)
 		List<RESTSeries> restSeriesList = Lists.newArrayList()
 		List<DBSeries> dbSeriesList = Lists.newArrayList()
+		Page<DBSeries> dbSeriesPage = Mock(Page) {
+			getContent() >> dbSeriesList
+		}
 
 		when:
 		List<RESTSeries> restSeriesListOutput = seriesRestReader.search(seriesRestBeanParams)
 
 		then:
-		1 * seriesQueryBuilderMock.query(seriesRestBeanParams) >> dbSeriesList
+		1 * seriesQueryBuilderMock.query(seriesRestBeanParams) >> dbSeriesPage
 		1 * seriesRestMapperMock.map(dbSeriesList) >> restSeriesList
+		1 * pageMapperMock.toResponsePage(dbSeriesPage)
 		restSeriesListOutput == restSeriesList
 	}
 
