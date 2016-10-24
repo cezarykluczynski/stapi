@@ -1,0 +1,8 @@
+type: object
+properties:
+  page:
+    $ref: ./responsePage.definitions.yaml
+  series:
+    type: array
+    items:
+      $ref: '#/definitions/Series'

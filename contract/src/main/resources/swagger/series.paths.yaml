@@ -1,10 +1,17 @@
 get:
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
   responses:
     200:
       schema:
-        type: array
-        items:
-          $ref: '#/definitions/Series'
+        $ref: '#/definitions/SeriesResponse'
     default:
       description: Unexpected error
       schema:
@@ -21,11 +28,17 @@ post:
       in: formData
       required: false
       type: string
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
   responses:
     200:
       schema:
-        type: array
-        items:
-          $ref: '#/definitions/Series'
+        $ref: '#/definitions/SeriesResponse'
   tags:
     - Series

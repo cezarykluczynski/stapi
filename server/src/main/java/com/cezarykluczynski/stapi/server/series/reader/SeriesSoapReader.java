@@ -32,7 +32,7 @@ public class SeriesSoapReader implements Reader<SeriesRequest, SeriesResponse> {
 	public SeriesResponse read(SeriesRequest seriesRequest) {
 		Page<Series> seriesPage = seriesQueryBuilder.query(seriesRequest);
 		SeriesResponse seriesResponse = new SeriesResponse();
-		seriesResponse.setPage(pageMapper.toResponsePage(seriesPage));
+		seriesResponse.setPage(pageMapper.fromPageToSoapResponsePage(seriesPage));
 		seriesResponse.getSeries().addAll(seriesSoapMapper.map(seriesPage.getContent()));
 		return seriesResponse;
 	}

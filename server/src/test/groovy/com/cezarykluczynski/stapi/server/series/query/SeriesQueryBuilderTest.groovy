@@ -31,12 +31,15 @@ class SeriesQueryBuilderTest extends Specification {
 	def "when empty title is passed to rest method, all entities are returned"() {
 		given:
 		Page<Series> seriesPage = Mock(Page)
+		PageRequest pageRequest = Mock(PageRequest)
+		SeriesRestBeanParams seriesRestBeanParams = new SeriesRestBeanParams(title: TITLE_EMPTY)
 
 		when:
-		Page<Series> seriesPageResult = seriesQueryBuilder.query(new SeriesRestBeanParams(title: TITLE_EMPTY))
+		Page<Series> seriesPageResult = seriesQueryBuilder.query(seriesRestBeanParams)
 
 		then:
-		1 * seriesRepositoryMock.findAll(_) >> seriesPage
+		1 * pageMapperMock.fromPageAwareBeanParamsToPageRequest(seriesRestBeanParams) >> pageRequest
+		1 * seriesRepositoryMock.findAll(pageRequest) >> seriesPage
 		seriesPageResult == seriesPage
 
 		then: 'no other interactions are expected'
@@ -46,12 +49,15 @@ class SeriesQueryBuilderTest extends Specification {
 	def "when non empty title is passed to rest method, filter is used"() {
 		given:
 		Page<Series> seriesPage = Mock(Page)
+		PageRequest pageRequest = Mock(PageRequest)
+		SeriesRestBeanParams seriesRestBeanParams = new SeriesRestBeanParams(title: TITLE)
 
 		when:
-		Page<Series> seriesPageResult = seriesQueryBuilder.query(new SeriesRestBeanParams(title: TITLE))
+		Page<Series> seriesPageResult = seriesQueryBuilder.query(seriesRestBeanParams)
 
 		then:
-		1 * seriesRepositoryMock.findByTitleIgnoreCaseContaining(TITLE, _) >> seriesPage
+		1 * pageMapperMock.fromPageAwareBeanParamsToPageRequest(seriesRestBeanParams) >> pageRequest
+		1 * seriesRepositoryMock.findByTitleIgnoreCaseContaining(TITLE, pageRequest) >> seriesPage
 		seriesPageResult == seriesPage
 
 		then: 'no other interactions are expected'
@@ -68,11 +74,13 @@ class SeriesQueryBuilderTest extends Specification {
 		PageRequest pageRequest = Mock(PageRequest)
 
 		when:
-		Page<Series> seriesPageResult = seriesQueryBuilder.query(new SeriesRequest(title: TITLE_EMPTY, page: requestPage))
+		Page<Series> seriesPageResult = seriesQueryBuilder.query(new SeriesRequest(
+				title: TITLE_EMPTY,
+				page: requestPage))
 
 		then:
 		1 * seriesRepositoryMock.findAll(pageRequest) >> seriesPage
-		1 * pageMapperMock.toPageRequest(requestPage) >> pageRequest
+		1 * pageMapperMock.fromRequestPageToPageRequest(requestPage) >> pageRequest
 		seriesPageResult == seriesPage
 
 		then: 'no other interactions are expected'
@@ -89,11 +97,13 @@ class SeriesQueryBuilderTest extends Specification {
 		PageRequest pageRequest = Mock(PageRequest)
 
 		when:
-		Page<Series> seriesPageResult = seriesQueryBuilder.query(new SeriesRequest(title: TITLE, page: requestPage))
+		Page<Series> seriesPageResult = seriesQueryBuilder.query(new SeriesRequest(
+				title: TITLE,
+				page: requestPage))
 
 		then:
 		1 * seriesRepositoryMock.findByTitleIgnoreCaseContaining(TITLE, pageRequest) >> seriesPage
-		1 * pageMapperMock.toPageRequest(requestPage) >> pageRequest
+		1 * pageMapperMock.fromRequestPageToPageRequest(requestPage) >> pageRequest
 		seriesPageResult == seriesPage
 
 		then: 'no other interactions are expected'

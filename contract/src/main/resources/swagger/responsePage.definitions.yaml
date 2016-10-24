@@ -1,0 +1,21 @@
+type: object
+properties:
+  pageNumber:
+    type: integer
+    format: int32
+  pageSize:
+    type: integer
+    format: int32
+  numberOfElements:
+    type: integer
+    format: int32
+  totalElements:
+    type: integer
+    format: int32
+  totalPages:
+    type: integer
+    format: int32
+  firstPage:
+    type: boolean
+  lastPage:
+    type: boolean

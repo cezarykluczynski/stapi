@@ -1,6 +1,8 @@
 package com.cezarykluczynski.stapi.server.series.reader
 
+import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
 import com.cezarykluczynski.stapi.client.rest.model.Series as RESTSeries
+import com.cezarykluczynski.stapi.client.rest.model.SeriesResponse
 import com.cezarykluczynski.stapi.model.series.entity.Series as DBSeries
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.series.dto.SeriesRestBeanParams
@@ -34,15 +36,17 @@ class SeriesRestReaderTest extends Specification {
 		Page<DBSeries> dbSeriesPage = Mock(Page) {
 			getContent() >> dbSeriesList
 		}
+		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		List<RESTSeries> restSeriesListOutput = seriesRestReader.search(seriesRestBeanParams)
+		SeriesResponse seriesResponseOutput = seriesRestReader.read(seriesRestBeanParams)
 
 		then:
 		1 * seriesQueryBuilderMock.query(seriesRestBeanParams) >> dbSeriesPage
+		1 * pageMapperMock.fromPageToRestResponsePage(dbSeriesPage) >> responsePage
 		1 * seriesRestMapperMock.map(dbSeriesList) >> restSeriesList
-		1 * pageMapperMock.toResponsePage(dbSeriesPage)
-		restSeriesListOutput == restSeriesList
+		seriesResponseOutput.series == restSeriesList
+		seriesResponseOutput.page == responsePage
 	}
 
 }

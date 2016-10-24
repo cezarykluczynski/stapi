@@ -46,7 +46,7 @@ class SeriesSoapReaderTest extends Specification {
 
 		then:
 		1 * seriesQueryBuilderMock.query(seriesRequest) >> dbSeriesPage
-		1 * pageMapperMock.toResponsePage(dbSeriesPage) >> responsePage
+		1 * pageMapperMock.fromPageToSoapResponsePage(dbSeriesPage) >> responsePage
 		1 * seriesSoapMapperMock.map(dbSeriesList) >> soapSeriesList
 		seriesResponse.series[0].id == ID
 		seriesResponse.page == responsePage

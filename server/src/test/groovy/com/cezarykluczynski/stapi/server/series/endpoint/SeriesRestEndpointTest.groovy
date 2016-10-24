@@ -1,12 +1,15 @@
 package com.cezarykluczynski.stapi.server.series.endpoint
 
-import com.cezarykluczynski.stapi.client.rest.model.Series
+import com.cezarykluczynski.stapi.client.rest.model.SeriesResponse
+import com.cezarykluczynski.stapi.server.common.dto.PageAwareBeanParams
 import com.cezarykluczynski.stapi.server.series.dto.SeriesRestBeanParams
 import com.cezarykluczynski.stapi.server.series.reader.SeriesRestReader
-import com.google.common.collect.Lists
 import spock.lang.Specification
 
 class SeriesRestEndpointTest extends Specification {
+
+	private static final Integer PAGE_NUMBER = 1
+	private static final Integer PAGE_SIZE = 10
 
 	private static final String TITLE = 'TITLE'
 
@@ -21,30 +24,38 @@ class SeriesRestEndpointTest extends Specification {
 
 	def "passes get call to SeriesRestReader"() {
 		given:
-		List<Series> seriesList = Lists.newArrayList()
+		PageAwareBeanParams pageAwareBeanParams = Mock(PageAwareBeanParams) {
+			getPageNumber() >> PAGE_NUMBER
+			getPageSize() >> PAGE_SIZE
+		}
+		SeriesResponse seriesResponse = Mock(SeriesResponse)
 
 		when:
-		List<Series> seriesListOutput = seriesRestEndpoint.getSeries()
+		SeriesResponse seriesResponseOutput = seriesRestEndpoint.getSeries(pageAwareBeanParams)
 
 		then:
-		1 * seriesRestReaderMock.getAll() >> seriesList
-		seriesListOutput == seriesList
+		1 * seriesRestReaderMock.read(_ as SeriesRestBeanParams) >> { SeriesRestBeanParams seriesRestBeanParams ->
+			assert pageAwareBeanParams.pageNumber == PAGE_NUMBER
+			assert pageAwareBeanParams.pageSize == PAGE_SIZE
+			return seriesResponse
+		}
+		seriesResponseOutput == seriesResponse
 	}
 
 	def "passes post call to SeriesRestReader"() {
 		given:
 		SeriesRestBeanParams seriesRestBeanParams = new SeriesRestBeanParams(title: TITLE)
-		List<Series> seriesList = Lists.newArrayList()
+		SeriesResponse seriesResponse = Mock(SeriesResponse)
 
 		when:
-		List<Series> seriesListOutput = seriesRestEndpoint.searchSeries(seriesRestBeanParams)
+		SeriesResponse seriesResponseOutput = seriesRestEndpoint.searchSeries(seriesRestBeanParams)
 
 		then:
-		1 * seriesRestReaderMock.search(seriesRestBeanParams as SeriesRestBeanParams) >> { SeriesRestBeanParams params ->
+		1 * seriesRestReaderMock.read(seriesRestBeanParams as SeriesRestBeanParams) >> { SeriesRestBeanParams params ->
 			assert params.title == TITLE
-			return seriesList
+			return seriesResponse
 		}
-		seriesListOutput == seriesList
+		seriesResponseOutput == seriesResponse
 	}
 
 }

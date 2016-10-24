@@ -14,5 +14,11 @@ paths:
 definitions:
   Series:
     $ref: ./series.definitions.yaml
+  SeriesResponse:
+    $ref: ./seriesResponse.definitions.yaml
   Error:
     $ref: ./error.definitions.yaml
+  RequestPage:
+    $ref: ./requestPage.definitions.yaml
+  ResponsePage:
+      $ref: ./responsePage.definitions.yaml

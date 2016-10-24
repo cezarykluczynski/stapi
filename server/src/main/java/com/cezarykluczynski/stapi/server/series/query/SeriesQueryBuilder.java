@@ -26,12 +26,13 @@ public class SeriesQueryBuilder {
 	}
 
 	public Page<Series> query(SeriesRequest seriesRequest) {
-		PageRequest pageRequest = pageMapper.toPageRequest(seriesRequest.getPage());
+		PageRequest pageRequest = pageMapper.fromRequestPageToPageRequest(seriesRequest.getPage());
 		return queryWithTitleAndPageRequest(seriesRequest.getTitle(), pageRequest);
 	}
 
 	public Page<Series> query(SeriesRestBeanParams seriesRestBeanParams) {
-		return queryWithTitleAndPageRequest(seriesRestBeanParams.getTitle(), null);
+		PageRequest pageRequest = pageMapper.fromPageAwareBeanParamsToPageRequest(seriesRestBeanParams);
+		return queryWithTitleAndPageRequest(seriesRestBeanParams.getTitle(), pageRequest);
 	}
 
 	private Page<Series> queryWithTitleAndPageRequest(String title, PageRequest pageRequest) {

@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.server.series.endpoint
 
+import com.cezarykluczynski.stapi.client.rest.model.SeriesResponse
 import com.cezarykluczynski.stapi.server.series.common.EndpointIntegrationTest
 
 class SeriesRestEndpointIntegrationTest extends EndpointIntegrationTest {
@@ -9,13 +10,31 @@ class SeriesRestEndpointIntegrationTest extends EndpointIntegrationTest {
 	}
 
 	def "gets all series"() {
-		expect:
-		stapiRestClient.seriesApi.seriesGet().size() == 6
+		given:
+		Integer pageNumber = 0
+		Integer pageSize = 10
+
+		when:
+		SeriesResponse seriesResponse = stapiRestClient.seriesApi.seriesGet(pageNumber, pageSize)
+
+		then:
+		seriesResponse.page.pageNumber == pageNumber
+		seriesResponse.page.pageSize == pageSize
+		seriesResponse.series.size() == 6
 	}
 
 	def "gets series by title"() {
-		expect:
-		stapiRestClient.seriesApi.seriesPost("Voyager").size() == 1
+		given:
+		Integer pageNumber = 0
+		Integer pageSize = 2
+
+		when:
+		SeriesResponse seriesResponse = stapiRestClient.seriesApi.seriesPost("Voyager", pageNumber, pageSize)
+
+		then:
+		seriesResponse.series.size() == 1
+		seriesResponse.page.pageNumber == pageNumber
+		seriesResponse.page.pageSize == pageSize
 	}
 
 }
