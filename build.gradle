@@ -5,6 +5,9 @@ buildscript {
 		maven {
 			url "http://maven.jahia.org/maven2/"
 		}
+		flatDir {
+			dirs 'libs'
+		}
 	}
 	dependencies {
 		classpath "org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE"
@@ -19,6 +22,12 @@ allprojects {
 	apply plugin: 'groovy'
 	apply plugin: 'jacoco'
 	apply plugin: 'no.nils.wsdl2java'
+
+//	configurations.all {
+//		resolutionStrategy {
+//			force 'org.apache.commons:commons-lang3:3.4'
+//		}
+//	}
 
 	repositories {
 		mavenCentral()
@@ -39,8 +48,12 @@ allprojects {
 		compile group: 'org.projectlombok', name: 'lombok', version: '1.16.6'
 		compile group: 'com.google.guava', name: 'guava', version: '19.0'
 		compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
+		compile group: 'commons-validator', name: 'commons-validator', version: '1.5.1'
+		compile group: 'commons-logging', name: 'commons-logging', version: '1.2'
+		compile group: 'commons-validator', name: 'commons-validator', version: '1.5.1'
 
 		// Testing
+		testCompile group: 'commons-io', name: 'commons-io', version: '2.5'
 		testCompile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.7'
 		testCompile group: 'org.spockframework', name: 'spock-core', version: '1.1-groovy-2.4-rc-1'
 		testCompile group: 'org.spockframework', name: 'spock-spring', version: '1.1-groovy-2.4-rc-1'

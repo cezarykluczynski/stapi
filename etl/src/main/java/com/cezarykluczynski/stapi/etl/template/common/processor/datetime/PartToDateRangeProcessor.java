@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.common.processor.datetime;
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange;
 import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
 import com.cezarykluczynski.stapi.util.constant.TemplateNames;
-import com.cezarykluczynski.stapi.wiki.dto.Template;
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.validator.routines.IntegerValidator;
 import org.springframework.batch.item.ItemProcessor;

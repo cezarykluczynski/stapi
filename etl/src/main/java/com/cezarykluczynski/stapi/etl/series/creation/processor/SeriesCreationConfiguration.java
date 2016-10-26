@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.series.creation.processor;
 
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
-import com.cezarykluczynski.stapi.wiki.api.CategoryApi;
+import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;

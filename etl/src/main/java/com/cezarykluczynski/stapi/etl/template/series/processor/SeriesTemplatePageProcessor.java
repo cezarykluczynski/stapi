@@ -5,8 +5,8 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToD
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToYearRangeProcessor;
 import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplate;
 import com.cezarykluczynski.stapi.util.constant.TemplateNames;
-import com.cezarykluczynski.stapi.wiki.dto.Page;
-import com.cezarykluczynski.stapi.wiki.dto.Template;
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 

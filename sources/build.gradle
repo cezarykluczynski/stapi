@@ -1,0 +1,18 @@
+apply plugin: 'groovy'
+apply plugin: 'java'
+
+dependencies {
+	ext.springBootVersion = "1.4.1.RELEASE"
+	compile project(':util'), project(':model')
+	compile group: 'info.bliki.wiki', name: 'bliki-core', version: '3.1.0'
+	compile group: 'org.json', name: 'json', version: '20160810'
+	testCompile(group: 'org.mock-server', name: 'mockserver-netty', version: '3.10.4') {
+		// When 'xerces:xerces' is on classpath, XMLReaderFactory::createXMLReader picks
+		// 'org.apache.xerces.parsers.SAXParser' instead of 'com.sun.org.apache.xerces.internal.parsers.SAXParser',
+		// the parser assumed by 'info.bliki.wiki'. This results in failing tests in PageApiImplTest,
+		// specifically all those that tests redirects. To prevent that, either 'xerces:xerces' can be excluded,
+		// or 'com.sun.org.apache.xerces.internal.parsers.SAXParser' can be set in PageApiImplTest like this:
+		// System.setProperty('org.xml.sax.driver', 'com.sun.org.apache.xerces.internal.parsers.SAXParser')
+		exclude group: 'xerces', module: 'xerces'
+	}
+}

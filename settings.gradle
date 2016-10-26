@@ -4,6 +4,6 @@ include 'contract'
 include 'etl'
 include 'model'
 include 'server'
+include 'sources'
 include 'util'
-include 'wiki'
 

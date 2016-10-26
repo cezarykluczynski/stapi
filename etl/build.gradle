@@ -3,10 +3,6 @@ apply plugin: 'java'
 
 dependencies {
 	ext.springBootVersion = "1.4.1.RELEASE"
-	compile project(':model'), project(':util'), project(':wiki')
+	compile project(':model'), project(':util'), project(':sources')
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-batch', version: springBootVersion
-	compile group: 'commons-validator', name: 'commons-validator', version: '1.5.1'
-
-	testCompile group: 'org.mock-server', name: 'mockserver-netty', version: '3.10.4'
-
 }

@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.performer.creation.processor
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
-import com.cezarykluczynski.stapi.wiki.dto.CategoryHeader
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.google.common.collect.Lists
 import spock.lang.Specification
 

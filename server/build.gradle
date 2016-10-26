@@ -10,7 +10,7 @@ springBoot {
 
 dependencies {
 	ext.springBootVersion = "1.4.1.RELEASE"
-	compile project(':model'), project(':util'), project(':wiki'), project(':etl'), project(':client')
+	compile project(':model'), project(':util'), project(':sources'), project(':etl'), project(':client')
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: springBootVersion
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
@@ -35,7 +35,6 @@ dependencies {
 	// Other
 	compile group: 'javax.servlet', name: 'jstl', version: '1.2'
 	compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
-	compile group: 'commons-logging', name: 'commons-logging', version: '1.2'
 	compile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
 	compile group: 'javax.json', name: 'javax.json-api', version: '1.0'
 	compile group: 'org.glassfish', name: 'javax.json', version: '1.0.4'

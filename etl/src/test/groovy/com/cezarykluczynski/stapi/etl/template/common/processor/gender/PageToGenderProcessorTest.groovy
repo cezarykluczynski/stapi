@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.gender
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.Gender
-import com.cezarykluczynski.stapi.wiki.dto.Page
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import spock.lang.Specification
 
 class PageToGenderProcessorTest extends Specification {

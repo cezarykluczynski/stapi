@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor;
 
-import com.cezarykluczynski.stapi.wiki.dto.Page;
-import com.cezarykluczynski.stapi.wiki.dto.Template;
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.google.common.collect.Lists;
 import org.apache.commons.collections.CollectionUtils;
 

@@ -4,8 +4,8 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.Gender
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PartToGenderProcessor
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate
 import com.cezarykluczynski.stapi.util.constant.TemplateNames
-import com.cezarykluczynski.stapi.wiki.dto.Page
-import com.cezarykluczynski.stapi.wiki.dto.Template
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
 import spock.lang.Specification
 

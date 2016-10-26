@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.common.processor.datetime
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange
 import com.cezarykluczynski.stapi.util.constant.TemplateNames
-import com.cezarykluczynski.stapi.wiki.dto.Template
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
 import spock.lang.Specification
 

@@ -11,7 +11,7 @@ import org.springframework.core.task.TaskExecutor;
 @ImportResource(locations = {"classpath:spring/batch/jobs/create.xml"})
 @ComponentScan({
 		"com.cezarykluczynski.stapi.etl",
-		"com.cezarykluczynski.stapi.wiki"
+		"com.cezarykluczynski.stapi.sources"
 })
 public class EtlConfiguration {
 

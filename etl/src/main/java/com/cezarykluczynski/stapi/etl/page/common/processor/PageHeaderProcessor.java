@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.etl.page.common.processor;
 
-import com.cezarykluczynski.stapi.wiki.api.PageApi;
-import com.cezarykluczynski.stapi.wiki.dto.Page;
-import com.cezarykluczynski.stapi.wiki.dto.PageHeader;
+import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi;
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 

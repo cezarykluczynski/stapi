@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange
 import com.cezarykluczynski.stapi.etl.template.common.dto.Gender
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
-import org.apache.commons.lang.math.RandomUtils
+import com.cezarykluczynski.stapi.util.tool.LogicUtil
 import spock.lang.Specification
 
 import java.time.LocalDate
@@ -18,19 +18,19 @@ class ActorTemplateProcessorTest extends Specification {
 	private static final Gender GENDER = Gender.F
 	private static final LocalDate DATE_OF_BIRTH = LocalDate.of(1980, 1, 2)
 	private static final LocalDate DATE_OF_DEATH = LocalDate.of(2020, 3, 4)
-	private static final boolean ANIMAL_PERFORMER = RandomUtils.nextBoolean()
-	private static final boolean DIS_PERFORMER = RandomUtils.nextBoolean()
-	private static final boolean DS9_PERFORMER = RandomUtils.nextBoolean()
-	private static final boolean ENT_PERFORMER = RandomUtils.nextBoolean()
-	private static final boolean FILM_PERFORMER = RandomUtils.nextBoolean()
-	private static final boolean STAND_IN_PERFORMER = RandomUtils.nextBoolean()
-	private static final boolean STUNT_PERFORMER = RandomUtils.nextBoolean()
-	private static final boolean TAS_PERFORMER = RandomUtils.nextBoolean()
-	private static final boolean TNG_PERFORMER = RandomUtils.nextBoolean()
-	private static final boolean TOS_PERFORMER = RandomUtils.nextBoolean()
-	private static final boolean VIDEO_GAME_PERFORMER = RandomUtils.nextBoolean()
-	private static final boolean VOICE_PERFORMER = RandomUtils.nextBoolean()
-	private static final boolean VOY_PERFORMER = RandomUtils.nextBoolean()
+	private static final boolean ANIMAL_PERFORMER = LogicUtil.nextBoolean()
+	private static final boolean DIS_PERFORMER = LogicUtil.nextBoolean()
+	private static final boolean DS9_PERFORMER = LogicUtil.nextBoolean()
+	private static final boolean ENT_PERFORMER = LogicUtil.nextBoolean()
+	private static final boolean FILM_PERFORMER = LogicUtil.nextBoolean()
+	private static final boolean STAND_IN_PERFORMER = LogicUtil.nextBoolean()
+	private static final boolean STUNT_PERFORMER = LogicUtil.nextBoolean()
+	private static final boolean TAS_PERFORMER = LogicUtil.nextBoolean()
+	private static final boolean TNG_PERFORMER = LogicUtil.nextBoolean()
+	private static final boolean TOS_PERFORMER = LogicUtil.nextBoolean()
+	private static final boolean VIDEO_GAME_PERFORMER = LogicUtil.nextBoolean()
+	private static final boolean VOICE_PERFORMER = LogicUtil.nextBoolean()
+	private static final boolean VOY_PERFORMER = LogicUtil.nextBoolean()
 
 	private ActorTemplateProcessor actorTemplateProcessor
 

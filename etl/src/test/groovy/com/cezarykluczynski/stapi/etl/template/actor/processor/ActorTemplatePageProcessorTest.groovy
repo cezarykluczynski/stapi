@@ -10,9 +10,9 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGen
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
 import com.cezarykluczynski.stapi.etl.util.constant.PageNames
 import com.cezarykluczynski.stapi.util.constant.TemplateNames
-import com.cezarykluczynski.stapi.wiki.dto.CategoryHeader
-import com.cezarykluczynski.stapi.wiki.dto.Page
-import com.cezarykluczynski.stapi.wiki.dto.Template
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
 import spock.lang.Specification
 

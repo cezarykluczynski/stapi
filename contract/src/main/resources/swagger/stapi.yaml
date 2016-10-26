@@ -21,4 +21,4 @@ definitions:
   RequestPage:
     $ref: ./requestPage.definitions.yaml
   ResponsePage:
-      $ref: ./responsePage.definitions.yaml
+    $ref: ./responsePage.definitions.yaml

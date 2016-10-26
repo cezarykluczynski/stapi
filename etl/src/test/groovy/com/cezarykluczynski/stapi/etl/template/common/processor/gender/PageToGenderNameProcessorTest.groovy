@@ -2,9 +2,9 @@ package com.cezarykluczynski.stapi.etl.template.common.processor.gender
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.Gender
 import com.cezarykluczynski.stapi.etl.template.common.processor.FullNameToFirstNameProcessor
-import com.cezarykluczynski.stapi.etl.vendor.genderize.client.GenderizeClient
-import com.cezarykluczynski.stapi.etl.vendor.genderize.dto.NameGender
-import com.cezarykluczynski.stapi.wiki.dto.Page
+import com.cezarykluczynski.stapi.sources.genderize.client.GenderizeClient
+import com.cezarykluczynski.stapi.sources.genderize.dto.NameGender
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import spock.lang.Specification
 
 class PageToGenderNameProcessorTest extends Specification {
