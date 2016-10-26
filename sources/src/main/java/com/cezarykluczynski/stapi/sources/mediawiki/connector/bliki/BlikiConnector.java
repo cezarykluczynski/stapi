@@ -5,6 +5,7 @@ import com.google.common.collect.Maps;
 import info.bliki.api.Connector;
 import info.bliki.api.User;
 import info.bliki.api.query.RequestBuilder;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -39,6 +40,8 @@ public class BlikiConnector {
 		}
 	}
 
+	@Cacheable(cacheNames = "pagesCache", condition = "@pageCacheService.isCacheable(#title)",
+			key = "@pageCacheService.resolveKey(#title)")
 	public String getPage(String title) {
 		Map<String, String> params = Maps.newHashMap();
 		params.put(ApiParams.KEY_ACTION, ApiParams.KEY_ACTION_VALUE_PARSE);

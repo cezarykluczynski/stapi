@@ -15,7 +15,6 @@ dependencies {
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: springBootVersion
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web-services', version: springBootVersion
-	compile group: 'org.springframework.integration', name: 'spring-integration-core', version: '4.3.4.RELEASE'
 	compile group: 'org.liquibase', name: 'liquibase-core', version: '1.9.5'
 	compile group: 'com.oracle', name: 'ojdbc6', version: '11.1.0.7.0'
 
