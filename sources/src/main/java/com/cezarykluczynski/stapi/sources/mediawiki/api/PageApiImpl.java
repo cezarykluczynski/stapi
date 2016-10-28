@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.sources.mediawiki.api;
 
 import com.cezarykluczynski.stapi.sources.mediawiki.connector.bliki.BlikiConnector;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.parser.XMLParseParser;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
@@ -56,7 +57,9 @@ public class PageApiImpl implements PageApi {
 				return page;
 			} else {
 				log.info("Following redirect from {} to {}", title, redirects.get(0));
-				return getPage(redirects.get(0), redirectCount + 1);
+				Page redirectPage = getPage(redirects.get(0), redirectCount + 1);
+				redirectPage.getRedirectPath().add(PageHeader.builder().title(title).pageId(page.getPageId()).build());
+				return redirectPage;
 			}
 		}
 

@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor;
 
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.google.common.collect.Lists;
 import org.apache.commons.collections.CollectionUtils;
@@ -28,10 +29,17 @@ public abstract class AbstractTemplateProcessor {
 				.collect(Collectors.toList());
 	}
 
-	protected com.cezarykluczynski.stapi.model.page.entity.Page toPageEntity(Page page) {
+	protected com.cezarykluczynski.stapi.model.page.entity.Page fromPageToPageEntity(Page page) {
 		return com.cezarykluczynski.stapi.model.page.entity.Page.builder()
 				.pageId(page.getPageId())
 				.title(page.getTitle())
+				.build();
+	}
+
+	protected com.cezarykluczynski.stapi.model.page.entity.Page fromPageHeaderToPageEntity(PageHeader pageHeader) {
+		return com.cezarykluczynski.stapi.model.page.entity.Page.builder()
+				.pageId(pageHeader.getPageId())
+				.title(pageHeader.getTitle())
 				.build();
 	}
 

@@ -13,15 +13,10 @@ import javax.inject.Inject;
 @Service
 public class PerformerProcessor extends CompositeItemProcessor<PageHeader, Performer> {
 
-	private PageHeaderProcessor pageHeaderProcessor;
-
-	private ActorTemplatePageProcessor actorTemplatePageProcessor;
-
-	private ActorTemplateProcessor actorTemplateProcessor;
-
 	@Inject
 	public PerformerProcessor(PageHeaderProcessor pageHeaderProcessor,
-			ActorTemplatePageProcessor actorTemplatePageProcessor, ActorTemplateProcessor actorTemplateProcessor) {
+			ActorTemplatePageProcessor actorTemplatePageProcessor,
+			ActorTemplateProcessor actorTemplateProcessor) {
 		setDelegates(Lists.newArrayList(pageHeaderProcessor, actorTemplatePageProcessor, actorTemplateProcessor));
 	}
 
