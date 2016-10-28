@@ -21,7 +21,6 @@ public class ActorTemplatePageProcessor implements ItemProcessor<Page, ActorTemp
 		this.actorTemplateListPageProcessor = actorTemplateListPageProcessor;
 	}
 
-
 	@Override
 	public ActorTemplate process(Page item) throws Exception {
 		ActorTemplate actorTemplateFromSinglePage = actorTemplateSinglePageProcessor.process(item);
@@ -32,5 +31,5 @@ public class ActorTemplatePageProcessor implements ItemProcessor<Page, ActorTemp
 
 		return actorTemplateListPageProcessor.process(item);
 	}
-}
 
+}

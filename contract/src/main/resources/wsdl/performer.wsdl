@@ -18,18 +18,18 @@
 		<wsdl:part name="response" element="stapi:PerformerResponse"/>
 	</wsdl:message>
 	<wsdl:portType name="PerformerPortType">
-		<wsdl:operation name="getPerformer">
-			<wsdl:input name="getPerformerRequest" message="stapi:PerformerRequest"/>
-			<wsdl:output name="getPerformerResponse" message="stapi:PerformerResponse"/>
+		<wsdl:operation name="getPerformers">
+			<wsdl:input name="getPerformersRequest" message="stapi:PerformerRequest"/>
+			<wsdl:output name="getPerformersResponse" message="stapi:PerformerResponse"/>
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="PerformerBinding" type="stapi:PerformerPortType">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-		<wsdl:operation name="getPerformer">
-			<wsdl:input name="getPerformerRequest">
+		<wsdl:operation name="getPerformers">
+			<wsdl:input name="getPerformersRequest">
 				<soap:body use="literal"/>
 			</wsdl:input>
-			<wsdl:output name="getPerformerResponse">
+			<wsdl:output name="getPerformersResponse">
 				<soap:body use="literal"/>
 			</wsdl:output>
 		</wsdl:operation>
