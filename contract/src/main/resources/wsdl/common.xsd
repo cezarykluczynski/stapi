@@ -41,8 +41,8 @@
 	</xs:complexType>
 	<xs:simpleType name="GenderEnum">
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="MALE" />
-			<xs:enumeration value="FEMALE" />
+			<xs:enumeration value="M" />
+			<xs:enumeration value="F" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:complexType name="DateRange">

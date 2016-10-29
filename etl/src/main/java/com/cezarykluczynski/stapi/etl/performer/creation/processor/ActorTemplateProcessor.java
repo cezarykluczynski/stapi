@@ -11,10 +11,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class ActorTemplateProcessor implements ItemProcessor<ActorTemplate, Performer> {
 
+
+
 	@Override
 	public Performer process(ActorTemplate item) throws Exception {
 		Gender gender = item.getGender();
 		DateRange lifeRange = ObjectUtils.defaultIfNull(item.getLifeRange(), new DateRange());
+		com.cezarykluczynski.stapi.model.common.entity.Gender genderModel = gender != null ?
+				com.cezarykluczynski.stapi.model.common.entity.Gender.valueOf(gender.name()) : null;
 
 		return Performer.builder()
 				.name(item.getName())
@@ -24,7 +28,7 @@ public class ActorTemplateProcessor implements ItemProcessor<ActorTemplate, Perf
 				.placeOfBirth(item.getPlaceOfBirth())
 				.dateOfDeath(lifeRange.getEndDate())
 				.placeOfDeath(item.getPlaceOfDeath())
-				.gender(gender != null ? gender.name() : null)
+				.gender(genderModel)
 				.animalPerformer(item.isAnimalPerformer())
 				.disPerformer(item.isDisPerformer())
 				.ds9Performer(item.isDs9Performer())

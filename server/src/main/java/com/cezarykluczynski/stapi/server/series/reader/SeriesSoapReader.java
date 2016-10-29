@@ -29,8 +29,8 @@ public class SeriesSoapReader implements Reader<SeriesRequest, SeriesResponse> {
 	}
 
 	@Override
-	public SeriesResponse read(SeriesRequest seriesRequest) {
-		Page<Series> seriesPage = seriesQueryBuilder.query(seriesRequest);
+	public SeriesResponse read(SeriesRequest input) {
+		Page<Series> seriesPage = seriesQueryBuilder.query(input);
 		SeriesResponse seriesResponse = new SeriesResponse();
 		seriesResponse.setPage(pageMapper.fromPageToSoapResponsePage(seriesPage));
 		seriesResponse.getSeries().addAll(seriesSoapMapper.map(seriesPage.getContent()));

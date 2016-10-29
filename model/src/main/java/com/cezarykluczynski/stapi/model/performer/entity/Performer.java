@@ -1,7 +1,8 @@
 package com.cezarykluczynski.stapi.model.performer.entity;
 
-import com.cezarykluczynski.stapi.model.page.entity.PageAware;
+import com.cezarykluczynski.stapi.model.common.entity.Gender;
 import com.cezarykluczynski.stapi.model.page.entity.Page;
+import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,8 +31,8 @@ public class Performer implements PageAware {
 
 	private String birthName;
 
-	// TODO: make into enum
-	private String gender;
+	@Enumerated(EnumType.STRING)
+	private Gender gender;
 
 	private LocalDate dateOfBirth;
 

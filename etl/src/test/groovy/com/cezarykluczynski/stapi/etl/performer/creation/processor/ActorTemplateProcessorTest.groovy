@@ -73,7 +73,7 @@ class ActorTemplateProcessorTest extends Specification {
 		performer.birthName == BIRTH_NAME
 		performer.placeOfBirth == PLACE_OF_BIRTH
 		performer.placeOfDeath == PLACE_OF_DEATH
-		performer.gender == GENDER.name()
+		performer.gender.name() == GENDER.name()
 		performer.animalPerformer == ANIMAL_PERFORMER
 		performer.disPerformer == DIS_PERFORMER
 		performer.ds9Performer == DS9_PERFORMER
