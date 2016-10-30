@@ -99,7 +99,7 @@ class PartToYearRangeProcessorTest extends Specification {
 		yearRange.startYear == null
 		yearRange.endYear == null
 
-		then: 'no interactions are expected'
+		then: 'no other interactions are expected'
 		0 * _
 	}
 

@@ -2,7 +2,6 @@ package com.cezarykluczynski.stapi.server.performer.mapper
 
 import com.cezarykluczynski.stapi.client.soap.DateRange
 import com.cezarykluczynski.stapi.client.soap.GenderEnum
-import com.cezarykluczynski.stapi.model.common.dto.DateRangeDTO
 import com.cezarykluczynski.stapi.model.common.entity.Gender
 import com.cezarykluczynski.stapi.util.tool.LogicUtil
 import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl
@@ -55,12 +54,6 @@ abstract class AbstractPerformerMapperTest extends Specification {
 	protected static final DateRange DATE_OF_DEATH_SOAP = new DateRange(
 			dateFrom: DATE_OF_DEATH_FROM_SOAP,
 			dateTo: DATE_OF_DEATH_TO_SOAP)
-	protected static final DateRangeDTO DATE_OF_BIRTH_DB = new DateRangeDTO(
-			startDate: DATE_OF_BIRTH_FROM_DB,
-			endDate: DATE_OF_BIRTH_TO_DB)
-	protected static final DateRangeDTO DATE_OF_DEATH_DB = new DateRangeDTO(
-			startDate: DATE_OF_DEATH_FROM_DB,
-			endDate: DATE_OF_DEATH_TO_DB)
 
 	protected static final String PLACE_OF_BIRTH = 'PLACE_OF_BIRTH'
 	protected static final String PLACE_OF_DEATH = 'PLACE_OF_DEATH'

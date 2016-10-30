@@ -74,7 +74,7 @@ class PartToDateRangeProcessorTest extends Specification {
 		dateRange.startDate == null
 		dateRange.endDate == null
 
-		then: 'no interactions are expected'
+		then: 'no other interactions are expected'
 		0 * _
 	}
 
