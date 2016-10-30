@@ -10,14 +10,21 @@ class EnumMapperTest extends Specification {
 	private EnumMapper enumMapper
 
 	def setup() {
-		enumMapper = Mappers.getMapper(EnumMapper.class)
+		enumMapper = Mappers.getMapper(EnumMapper)
 	}
 
-	def "maps entity to dto"() {
+	def "maps entity enum to dto enum"() {
 		expect:
-		enumMapper.mapFromEntityToSoapEnum(null) == null
-		enumMapper.mapFromEntityToSoapEnum(GenderEntity.F) == GenderEnum.F
-		enumMapper.mapFromEntityToSoapEnum(GenderEntity.M) == GenderEnum.M
+		enumMapper.mapFromEntityEnumToSoapEnum(null) == null
+		enumMapper.mapFromEntityEnumToSoapEnum(GenderEntity.F) == GenderEnum.F
+		enumMapper.mapFromEntityEnumToSoapEnum(GenderEntity.M) == GenderEnum.M
+	}
+
+	def "maps dto enum to entity enum"() {
+		expect:
+		enumMapper.mapFromSoapEnumToEntityEnum(null) == null
+		enumMapper.mapFromSoapEnumToEntityEnum(GenderEnum.F) == GenderEntity.F
+		enumMapper.mapFromSoapEnumToEntityEnum(GenderEnum.M) == GenderEntity.M
 	}
 
 }

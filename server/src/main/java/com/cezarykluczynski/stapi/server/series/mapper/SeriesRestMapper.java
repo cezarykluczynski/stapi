@@ -1,11 +1,12 @@
 package com.cezarykluczynski.stapi.server.series.mapper;
 
 import com.cezarykluczynski.stapi.model.series.entity.Series;
+import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(config = MapstructConfiguration.class)
 public interface SeriesRestMapper {
 
 	com.cezarykluczynski.stapi.client.rest.model.Series map(Series series);

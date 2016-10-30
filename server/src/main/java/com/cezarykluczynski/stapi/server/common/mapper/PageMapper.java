@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.common.mapper;
 import com.cezarykluczynski.stapi.client.soap.RequestPage;
 import com.cezarykluczynski.stapi.client.soap.ResponsePage;
 import com.cezarykluczynski.stapi.server.common.dto.PageAwareBeanParams;
+import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import com.cezarykluczynski.stapi.server.util.PageDefault;
 import com.cezarykluczynski.stapi.util.tool.NumberUtil;
 import org.apache.commons.lang3.ObjectUtils;
@@ -10,7 +11,7 @@ import org.mapstruct.Mapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-@Mapper(componentModel = "spring")
+@Mapper(config = MapstructConfiguration.class)
 public interface PageMapper {
 
 	default ResponsePage fromPageToSoapResponsePage(Page pageRequest) {

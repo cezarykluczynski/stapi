@@ -23,7 +23,7 @@ class PageMapperTest extends Specification {
 	private PageMapper pageMapper
 
 	def setup() {
-		pageMapper = Mappers.getMapper(PageMapper.class)
+		pageMapper = Mappers.getMapper(PageMapper)
 	}
 
 	def "maps Page to SOAP ResponsePage"() {

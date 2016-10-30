@@ -10,7 +10,7 @@ class SeriesSoapMapperTest extends AbstractSeriesMapperTest {
 	private SeriesSoapMapper seriesSoapMapper
 
 	def setup() {
-		seriesSoapMapper = Mappers.getMapper(SeriesSoapMapper.class)
+		seriesSoapMapper = Mappers.getMapper(SeriesSoapMapper)
 	}
 
 	def "maps DB entity to SOAP entity"() {
