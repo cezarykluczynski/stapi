@@ -1,6 +1,8 @@
 package com.cezarykluczynski.stapi.model.common.query
 
+import com.cezarykluczynski.stapi.model.common.entity.Gender
 import com.cezarykluczynski.stapi.model.series.entity.Series
+import com.cezarykluczynski.stapi.util.tool.LogicUtil
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
@@ -14,13 +16,19 @@ import javax.persistence.criteria.*
 import javax.persistence.metamodel.Attribute
 import javax.persistence.metamodel.EntityType
 import javax.persistence.metamodel.Metamodel
+import java.time.LocalDate
 
 class QueryBuilderTest extends Specification {
 
-	private static final String VALID_KEY = 'VALID_KEY'
-	private static final String VALID_VALUE = 'VALID_VALUE'
-	private static final String VALID_KEY_2 = 'VALID_KEY_2'
-	private static final String VALID_VALUE_2 = 'VALID_VALUE_2'
+	private static final String VALID_KEY_STRING = 'VALID_KEY_STRING'
+	private static final String VALID_VALUE_STRING = 'VALID_VALUE_STRING'
+	private static final String VALID_KEY_BOOLEAN = 'VALID_KEY_BOOLEAN'
+	private static final Boolean VALID_VALUE_BOOLEAN = LogicUtil.nextBoolean()
+	private static final String VALID_KEY_LOCAL_DATE = 'VALID_KEY_LOCAL_DATE'
+	private static final LocalDate VALID_VALUE_LOCAL_DATE_FROM = LocalDate.of(2000, 1, 1)
+	private static final LocalDate VALID_VALUE_LOCAL_DATE_TO = LocalDate.of(2010, 1, 1)
+	private static final String VALID_KEY_GENDER = 'VALID_KEY_GENDER'
+	private static final Gender VALID_VALUE_GENDER = Gender.F
 	private static final String KEY_WITH_INVALID_TYPE = 'INVALID_KEY'
 	private static final String KEY_NOT_IN_ATTRIBUTE_SET = 'KEY_NOT_IN_ATTRIBUTE_SET'
 	private static final Integer PAGE_SIZE = 50
@@ -73,11 +81,19 @@ class QueryBuilderTest extends Specification {
 		attributeSet = Sets.newHashSet(
 				Mock(Attribute) {
 					getJavaType() >> String.class
-					getName() >> VALID_KEY
+					getName() >> VALID_KEY_STRING
 				},
 				Mock(Attribute) {
-					getJavaType() >> String.class
-					getName() >> VALID_KEY_2
+					getJavaType() >> Boolean.class
+					getName() >> VALID_KEY_BOOLEAN
+				},
+				Mock(Attribute) {
+					getJavaType() >> LocalDate.class
+					getName() >> VALID_KEY_LOCAL_DATE
+				},
+				Mock(Attribute) {
+					getJavaType() >> Gender.class
+					getName() >> VALID_KEY_GENDER
 				},
 				Mock(Attribute) {
 					getJavaType() >> Long.class
@@ -116,21 +132,50 @@ class QueryBuilderTest extends Specification {
 		then: 'query builder is returned'
 		queryBuilder != null
 
-		when: 'valid keys are added'
-		queryBuilder.like(VALID_KEY, VALID_VALUE)
-		queryBuilder.like(VALID_KEY_2, VALID_VALUE_2)
+		when: 'valid string key is added'
+		queryBuilder.like(VALID_KEY_STRING, VALID_VALUE_STRING)
+
+		then: 'no exception is thrown'
+		notThrown(RuntimeException)
+
+		when: 'valid boolean key is added'
+		queryBuilder.equal(VALID_KEY_BOOLEAN, VALID_VALUE_BOOLEAN)
+
+		then: 'no exception is thrown'
+		notThrown(RuntimeException)
+
+		when: 'valid LocalDate range key is added'
+		queryBuilder.between(VALID_KEY_LOCAL_DATE, VALID_VALUE_LOCAL_DATE_FROM, VALID_VALUE_LOCAL_DATE_TO)
+
+		then: 'no exception is thrown'
+		notThrown(RuntimeException)
+
+		when: 'only start LocalDate is specified'
+		queryBuilder.between(VALID_KEY_LOCAL_DATE, VALID_VALUE_LOCAL_DATE_FROM, null)
+
+		then: 'correct method is called on criteria builder'
+		1 * criteriaBuilder.greaterThanOrEqualTo(_, VALID_VALUE_LOCAL_DATE_FROM)
+
+		when: 'only end LocalDate is specified'
+		queryBuilder.between(VALID_KEY_LOCAL_DATE, null, VALID_VALUE_LOCAL_DATE_TO)
+
+		then: 'correct method is called on criteria builder'
+		1 * criteriaBuilder.lessThanOrEqualTo(_, VALID_VALUE_LOCAL_DATE_TO)
+
+		when: 'valid gender key is added'
+		queryBuilder.equal(VALID_KEY_GENDER, VALID_VALUE_GENDER)
 
 		then: 'no exception is thrown'
 		notThrown(RuntimeException)
 
 		when: 'key with invalid type is added'
-		queryBuilder.like(KEY_WITH_INVALID_TYPE, VALID_VALUE)
+		queryBuilder.like(KEY_WITH_INVALID_TYPE, VALID_VALUE_STRING)
 
 		then: 'exception is thrown'
 		thrown(RuntimeException)
 
 		when: 'key that does not exists is added'
-		queryBuilder.like(KEY_NOT_IN_ATTRIBUTE_SET, VALID_VALUE)
+		queryBuilder.like(KEY_NOT_IN_ATTRIBUTE_SET, VALID_VALUE_STRING)
 
 		then: 'exception is thrown'
 		thrown(RuntimeException)

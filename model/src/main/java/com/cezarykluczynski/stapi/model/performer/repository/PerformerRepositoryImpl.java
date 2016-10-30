@@ -30,6 +30,24 @@ public class PerformerRepositoryImpl implements PerformerRepositoryCustom {
 		performerQueryBuilder.like("birthName", performerRequestDTO.getBirthName());
 		performerQueryBuilder.like("placeOfBirth", performerRequestDTO.getPlaceOfBirth());
 		performerQueryBuilder.like("placeOfDeath", performerRequestDTO.getPlaceOfDeath());
+		performerQueryBuilder.between("dateOfBirth", performerRequestDTO.getDateOfBirthFrom(),
+				performerRequestDTO.getDateOfBirthTo());
+		performerQueryBuilder.between("dateOfDeath", performerRequestDTO.getDateOfDeathFrom(),
+				performerRequestDTO.getDateOfDeathTo());
+		performerQueryBuilder.equal("gender", performerRequestDTO.getGender());
+		performerQueryBuilder.equal("animalPerformer", performerRequestDTO.getAnimalPerformer());
+		performerQueryBuilder.equal("disPerformer", performerRequestDTO.getDisPerformer());
+		performerQueryBuilder.equal("ds9Performer", performerRequestDTO.getDs9Performer());
+		performerQueryBuilder.equal("entPerformer", performerRequestDTO.getEntPerformer());
+		performerQueryBuilder.equal("filmPerformer", performerRequestDTO.getFilmPerformer());
+		performerQueryBuilder.equal("standInPerformer", performerRequestDTO.getStandInPerformer());
+		performerQueryBuilder.equal("stuntPerformer", performerRequestDTO.getStuntPerformer());
+		performerQueryBuilder.equal("tasPerformer", performerRequestDTO.getTasPerformer());
+		performerQueryBuilder.equal("tngPerformer", performerRequestDTO.getTngPerformer());
+		performerQueryBuilder.equal("tosPerformer", performerRequestDTO.getTosPerformer());
+		performerQueryBuilder.equal("videoGamePerformer", performerRequestDTO.getVideoGamePerformer());
+		performerQueryBuilder.equal("voicePerformer", performerRequestDTO.getVoicePerformer());
+		performerQueryBuilder.equal("voyPerformer", performerRequestDTO.getVoyPerformer());
 
 		return performerQueryBuilder.search();
 	}

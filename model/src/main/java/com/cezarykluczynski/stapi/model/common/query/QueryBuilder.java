@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.model.common.query;
 
+import com.cezarykluczynski.stapi.model.common.entity.Gender;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import org.springframework.data.domain.Page;
@@ -14,6 +15,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.Attribute;
 import javax.persistence.metamodel.EntityType;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -49,10 +51,44 @@ public class QueryBuilder<T> {
 	}
 
 	public QueryBuilder<T> like(String key, String value) {
+		validateAttributeExistenceAndType(key, String.class);
 		if (value != null) {
-			validateAttributeExistenceAndType(key, String.class);
 			predicateList.add(criteriaBuilder.like(baseRoot.get(key), wildcardLike(value)));
 		}
+		return this;
+	}
+
+	public QueryBuilder<T> equal(String key, Boolean value) {
+		validateAttributeExistenceAndType(key, Boolean.class);
+		if (value != null) {
+			predicateList.add(criteriaBuilder.equal(baseRoot.get(key), value));
+		}
+		return this;
+	}
+
+	public QueryBuilder<T> equal(String key, Gender value) {
+		validateAttributeExistenceAndType(key, Gender.class);
+		if (value != null) {
+			predicateList.add(criteriaBuilder.equal(baseRoot.get(key), value));
+		}
+		return this;
+	}
+
+	public QueryBuilder<T> between(String key, LocalDate from, LocalDate to) {
+		validateAttributeExistenceAndType(key, LocalDate.class);
+
+		if (from != null && to != null) {
+			predicateList.add(criteriaBuilder.between(baseRoot.get(key), from, to));
+		}
+
+		if (from != null && to == null) {
+			predicateList.add(criteriaBuilder.greaterThanOrEqualTo(baseRoot.get(key), from));
+		}
+
+		if (from == null && to != null) {
+			predicateList.add(criteriaBuilder.lessThanOrEqualTo(baseRoot.get(key), to));
+		}
+
 		return this;
 	}
 
@@ -107,7 +143,8 @@ public class QueryBuilder<T> {
 	private void validateAttributeExistenceAndType(String key, Class type) {
 		attributeSet.stream()
 				.filter(tAttribute -> key.equals(tAttribute.getName()))
-				.filter(tAttribute -> type.equals(tAttribute.getJavaType()))
+				.filter(tAttribute -> type.equals(Boolean.class) ? type.getName().equals("java.lang.Boolean") :
+						type.equals(tAttribute.getJavaType()))
 				.findFirst()
 				.orElseThrow(() -> new RuntimeException(String.format("No attribute named %s of type %s for entity " +
 						"%s found", key, type, baseClass.getName())));
