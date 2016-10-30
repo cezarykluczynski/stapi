@@ -1,6 +1,8 @@
 package com.cezarykluczynski.stapi.server.performer.configuration
 
 import com.cezarykluczynski.stapi.server.performer.endpoint.PerformerSoapEndpoint
+import com.cezarykluczynski.stapi.server.performer.mapper.PerformerRequestMapper
+import com.cezarykluczynski.stapi.server.performer.mapper.PerformerSoapMapper
 import com.cezarykluczynski.stapi.server.performer.reader.PerformerSoapReader
 import org.apache.cxf.bus.spring.SpringBus
 import org.apache.cxf.jaxws.EndpointImpl
@@ -36,6 +38,22 @@ class PerformerConfigurationTest extends Specification {
 		((EndpointImpl) performerSoapEndpoint).implementor instanceof PerformerSoapEndpoint
 		((EndpointImpl) performerSoapEndpoint).bus == springBus
 		performerSoapEndpoint.published
+	}
+
+	def "PerformerRequestMapper is created"() {
+		when:
+		PerformerRequestMapper performerRequestMapper = performerConfiguration.performerRequestMapper()
+
+		then:
+		performerRequestMapper != null
+	}
+
+	def "PerformerSoapMapper is created"() {
+		when:
+		PerformerSoapMapper performerSoapMapper = performerConfiguration.performerSoapMapper()
+
+		then:
+		performerSoapMapper != null
 	}
 
 }

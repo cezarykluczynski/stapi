@@ -1,6 +1,8 @@
 package com.cezarykluczynski.stapi.server.series.configuration
 
 import com.cezarykluczynski.stapi.server.series.endpoint.SeriesSoapEndpoint
+import com.cezarykluczynski.stapi.server.series.mapper.SeriesRestMapper
+import com.cezarykluczynski.stapi.server.series.mapper.SeriesSoapMapper
 import com.cezarykluczynski.stapi.server.series.reader.SeriesSoapReader
 import org.apache.cxf.bus.spring.SpringBus
 import org.apache.cxf.jaxws.EndpointImpl
@@ -36,6 +38,22 @@ class SeriesConfigurationTest extends Specification {
 		((EndpointImpl) seriesSoapEndpoint).implementor instanceof SeriesSoapEndpoint
 		((EndpointImpl) seriesSoapEndpoint).bus == springBus
 		seriesSoapEndpoint.published
+	}
+
+	def "SeriesSoapMapper is created"() {
+		when:
+		SeriesSoapMapper seriesSoapMapper = seriesConfiguration.seriesSoapMapper()
+
+		then:
+		seriesSoapMapper != null
+	}
+
+	def "SeriesRestMapper is created"() {
+		when:
+		SeriesRestMapper seriesRestMapper = seriesConfiguration.seriesRestMapper()
+
+		then:
+		seriesRestMapper != null
 	}
 
 }

@@ -4,8 +4,7 @@ import org.mapstruct.MapperConfig;
 import org.mapstruct.ReportingPolicy;
 
 @MapperConfig(
-		unmappedTargetPolicy = ReportingPolicy.ERROR,
-		componentModel = "default"
+		unmappedTargetPolicy = ReportingPolicy.ERROR
 )
 public class MapstructConfiguration {
 }
