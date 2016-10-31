@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO;
 import com.cezarykluczynski.stapi.server.common.mapper.DateMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.EnumMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
+import com.cezarykluczynski.stapi.server.performer.dto.PerformerRestBeanParams;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -19,5 +20,7 @@ public interface PerformerRequestMapper {
 			@Mapping(source = "dateOfDeath.dateTo", target = "dateOfDeathTo")
 	})
 	PerformerRequestDTO map(PerformerRequest performerRequest);
+
+	PerformerRequestDTO map(PerformerRestBeanParams performerRestBeanParams);
 
 }

@@ -2,14 +2,11 @@ package com.cezarykluczynski.stapi.server.series.endpoint
 
 import com.cezarykluczynski.stapi.client.rest.model.SeriesResponse
 import com.cezarykluczynski.stapi.server.common.dto.PageAwareBeanParams
+import com.cezarykluczynski.stapi.server.common.endpoint.AbstractRestEndpointTest
 import com.cezarykluczynski.stapi.server.series.dto.SeriesRestBeanParams
 import com.cezarykluczynski.stapi.server.series.reader.SeriesRestReader
-import spock.lang.Specification
 
-class SeriesRestEndpointTest extends Specification {
-
-	private static final Integer PAGE_NUMBER = 1
-	private static final Integer PAGE_SIZE = 10
+class SeriesRestEndpointTest extends AbstractRestEndpointTest {
 
 	private static final String TITLE = 'TITLE'
 

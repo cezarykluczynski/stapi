@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.client.api;
 
+import com.cezarykluczynski.stapi.client.rest.api.PerformerApi;
 import com.cezarykluczynski.stapi.client.rest.api.SeriesApi;
 import com.cezarykluczynski.stapi.client.rest.invoker.ApiClient;
 import lombok.Getter;
@@ -13,19 +14,25 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 	@Getter
 	private SeriesApi seriesApi;
 
+	@Getter
+	private PerformerApi performerApi;
+
 	public StapiRestClient() {
 		seriesApi = new SeriesApi();
+		performerApi = new PerformerApi();
 	}
 
 	public StapiRestClient(String apiUrl) {
 		this.apiUrl = apiUrl;
 		createApiClient();
 		seriesApi = new SeriesApi(apiClient);
+		performerApi = new PerformerApi(apiClient);
 	}
 
 	private void createApiClient() {
 		apiClient = new ApiClient();
 		apiClient.setBasePath(changeBaseUrl(apiUrl, apiClient.getBasePath()));
+		apiClient.setConnectTimeout(30000);
 	}
 
 }

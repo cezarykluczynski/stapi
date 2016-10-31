@@ -1,7 +1,8 @@
 package com.cezarykluczynski.stapi.server.performer.mapper
 
+import com.cezarykluczynski.stapi.client.rest.model.Gender as GenderEnumRest
 import com.cezarykluczynski.stapi.client.soap.DateRange
-import com.cezarykluczynski.stapi.client.soap.GenderEnum
+import com.cezarykluczynski.stapi.client.soap.GenderEnum as GenderEnumSoap
 import com.cezarykluczynski.stapi.model.common.entity.Gender
 import com.cezarykluczynski.stapi.util.tool.LogicUtil
 import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl
@@ -16,7 +17,8 @@ abstract class AbstractPerformerMapperTest extends Specification {
 	protected static final String NAME = 'NAME'
 	protected static final String BIRTH_NAME = 'BIRTH_NAME'
 
-	protected static final GenderEnum GENDER_ENUM = GenderEnum.F
+	protected static final GenderEnumSoap GENDER_ENUM_SOAP = GenderEnumSoap.F
+	protected static final com.cezarykluczynski.stapi.client.rest.model.Gender GENDER_ENUM_REST = GenderEnumRest.F
 	protected static final Gender GENDER = Gender.F
 
 	protected static final Integer DATE_OF_BIRTH_FROM_YEAR = 1930

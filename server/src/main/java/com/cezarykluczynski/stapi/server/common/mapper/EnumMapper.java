@@ -12,8 +12,16 @@ public interface EnumMapper {
 		return gender == null ? null : GenderEnum.valueOf(gender.name());
 	}
 
+	default com.cezarykluczynski.stapi.client.rest.model.Gender mapFromEntityEnumToRestEnum(Gender gender) {
+		return gender == null ? null : com.cezarykluczynski.stapi.client.rest.model.Gender.valueOf(gender.name());
+	}
+
 	default Gender mapFromSoapEnumToEntityEnum(GenderEnum genderEnum) {
-		return genderEnum == null ? null : com.cezarykluczynski.stapi.model.common.entity.Gender.valueOf(genderEnum.name());
+		return genderEnum == null ? null : Gender.valueOf(genderEnum.name());
+	}
+
+	default Gender mapFromRestEnumToEntityEnum(com.cezarykluczynski.stapi.client.rest.model.Gender gender) {
+		return gender == null ? null : Gender.valueOf(gender.name());
 	}
 
 }

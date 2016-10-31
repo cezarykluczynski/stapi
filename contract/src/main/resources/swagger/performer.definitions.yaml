@@ -1,0 +1,49 @@
+type: object
+properties:
+  id:
+    type: integer
+    format: int64
+  name:
+    type: string
+  birthName:
+    type: string
+  gender:
+    $ref: ./gender.definitions.yaml
+  dateOfBirth:
+    type: string
+    format: date
+  placeOfBirth:
+    type: string
+  dateOfDeath:
+    type: string
+    format: date
+  placeOfDeath:
+    type: string
+  roles:
+    type: string
+  animalPerformer:
+    type: boolean
+  disPerformer:
+    type: boolean
+  ds9Performer:
+    type: boolean
+  entPerformer:
+    type: boolean
+  filmPerformer:
+    type: boolean
+  standInPerformer:
+    type: boolean
+  stuntPerformer:
+    type: boolean
+  tasPerformer:
+    type: boolean
+  tngPerformer:
+    type: boolean
+  tosPerformer:
+    type: boolean
+  videoGamePerformer:
+    type: boolean
+  voicePerformer:
+    type: boolean
+  voyPerformer:
+    type: boolean

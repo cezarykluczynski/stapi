@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Import;
 		"com.cezarykluczynski.stapi.server",
 		"com.cezarykluczynski.stapi.model"
 })
-@Import(value = EtlConfiguration.class)
+@Import(EtlConfiguration.class)
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 public class Application extends SpringBootServletInitializer {
 

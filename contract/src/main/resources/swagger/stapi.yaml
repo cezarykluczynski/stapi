@@ -11,11 +11,17 @@ produces:
 paths:
   /series:
     $ref: ./series.paths.yaml
+  /performer:
+      $ref: ./performer.paths.yaml
 definitions:
   Series:
     $ref: ./series.definitions.yaml
   SeriesResponse:
     $ref: ./seriesResponse.definitions.yaml
+  Performer:
+    $ref: ./performer.definitions.yaml
+  PerformerResponse:
+    $ref: ./performerResponse.definitions.yaml
   Error:
     $ref: ./error.definitions.yaml
   RequestPage:

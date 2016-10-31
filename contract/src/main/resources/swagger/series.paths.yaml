@@ -24,10 +24,6 @@ post:
   producers:
     - application/json
   parameters:
-    - name: title
-      in: formData
-      required: false
-      type: string
     - name: pageNumber
       in: query
       type: integer
@@ -36,6 +32,9 @@ post:
       in: query
       type: integer
       format: int32
+    - name: title
+      in: formData
+      type: string
   responses:
     200:
       schema:

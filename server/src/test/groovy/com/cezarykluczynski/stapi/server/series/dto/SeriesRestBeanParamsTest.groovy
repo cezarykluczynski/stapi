@@ -1,12 +1,9 @@
 package com.cezarykluczynski.stapi.server.series.dto
 
+import com.cezarykluczynski.stapi.server.common.dto.AbstractsRestBeanParamsTest
 import com.cezarykluczynski.stapi.server.common.dto.PageAwareBeanParams
-import spock.lang.Specification
 
-class SeriesRestBeanParamsTest extends Specification {
-
-	private static final Integer PAGE_NUMBER = 1
-	private static final Integer PAGE_SIZE = 20
+class SeriesRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
 	def "creates SeriesRestBeanParams from PageAwareBeanParams"() {
 		when:

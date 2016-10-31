@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.server.performer.configuration
 
 import com.cezarykluczynski.stapi.server.performer.endpoint.PerformerSoapEndpoint
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerRequestMapper
+import com.cezarykluczynski.stapi.server.performer.mapper.PerformerRestMapper
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerSoapMapper
 import com.cezarykluczynski.stapi.server.performer.reader.PerformerSoapReader
 import org.apache.cxf.bus.spring.SpringBus
@@ -54,6 +55,14 @@ class PerformerConfigurationTest extends Specification {
 
 		then:
 		performerSoapMapper != null
+	}
+
+	def "PerformerRestMapper is created"() {
+		when:
+		PerformerRestMapper performerRestMapper = performerConfiguration.performerRestMapper()
+
+		then:
+		performerRestMapper != null
 	}
 
 }

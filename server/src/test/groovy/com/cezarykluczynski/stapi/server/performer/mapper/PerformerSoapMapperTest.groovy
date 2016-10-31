@@ -43,7 +43,7 @@ class PerformerSoapMapperTest extends AbstractPerformerMapperTest {
 		then:
 		soapPerformer.name == NAME
 		soapPerformer.birthName == BIRTH_NAME
-		soapPerformer.gender == GENDER_ENUM
+		soapPerformer.gender == GENDER_ENUM_SOAP
 		soapPerformer.dateOfBirth == DATE_OF_BIRTH_FROM_SOAP
 		soapPerformer.dateOfDeath == DATE_OF_DEATH_FROM_SOAP
 		soapPerformer.placeOfBirth == PLACE_OF_BIRTH

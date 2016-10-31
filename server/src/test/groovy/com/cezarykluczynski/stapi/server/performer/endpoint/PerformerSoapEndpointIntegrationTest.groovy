@@ -4,9 +4,7 @@ import com.cezarykluczynski.stapi.client.soap.PerformerRequest
 import com.cezarykluczynski.stapi.client.soap.PerformerResponse
 import com.cezarykluczynski.stapi.client.soap.RequestPage
 import com.cezarykluczynski.stapi.server.series.common.EndpointIntegrationTest
-import spock.lang.Ignore
 
-@Ignore
 class PerformerSoapEndpointIntegrationTest extends EndpointIntegrationTest {
 
 	def setup() {
@@ -28,6 +26,22 @@ class PerformerSoapEndpointIntegrationTest extends EndpointIntegrationTest {
 		performerResponse.page.pageNumber == pageNumber
 		performerResponse.page.pageSize == pageSize
 		performerResponse.performers.size() == 10
+	}
+
+	def "gets the only person to star in 6 series"() {
+		when:
+		PerformerResponse performerResponse = stapiSoapClient.performerPortType.getPerformers(new PerformerRequest(
+				ds9Performer: true,
+				entPerformer: true,
+				tasPerformer: true,
+				tngPerformer: true,
+				tosPerformer: true,
+				voyPerformer: true
+		))
+
+		then:
+		performerResponse.page.totalElements == 1
+		performerResponse.performers[0].name == "Majel Barrett-Roddenberry"
 	}
 
 }
