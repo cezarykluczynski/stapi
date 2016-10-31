@@ -1,11 +1,12 @@
 package com.cezarykluczynski.stapi.etl.configuration;
 
+import com.cezarykluczynski.stapi.util.constant.SpringProfiles;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.context.annotation.*;
 import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.core.task.TaskExecutor;
 
-@Profile("etl")
+@Profile(SpringProfiles.ETL)
 @Configuration
 @EnableBatchProcessing
 @ImportResource(locations = {"classpath:spring/batch/jobs/create.xml"})

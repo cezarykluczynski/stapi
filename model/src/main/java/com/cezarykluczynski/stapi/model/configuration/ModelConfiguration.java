@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.model.configuration;
 
+import com.cezarykluczynski.stapi.util.constant.SpringProfiles;
 import com.google.common.collect.Maps;
 import liquibase.spring.SpringLiquibase;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
@@ -8,6 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -60,6 +62,7 @@ public class ModelConfiguration {
 	}
 
 	@Bean
+	@Profile(SpringProfiles.ETL)
 	public SpringLiquibase liquibase() {
 		SpringLiquibase springLiquibase = new SpringLiquibase();
 		springLiquibase.setChangeLog("classpath:liquibase/changelog.xml");
