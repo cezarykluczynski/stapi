@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.actor.processor
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DatelinkTemplateToLocalDateProcessor
-import com.cezarykluczynski.stapi.util.constant.TemplateNames
+import com.cezarykluczynski.stapi.util.constant.TemplateName
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
 import spock.lang.Specification
@@ -34,9 +34,9 @@ class ActorTemplateToLifeRangeProcessorTest extends Specification {
 		LocalDate dateOfDeath = LocalDate.of(2009, 5, 5)
 
 		given:
-		Template templateDateOfBirth = new Template(title: TemplateNames.D)
-		Template templateDateOfDeath = new Template(title: TemplateNames.DATELINK)
-		Template template = new Template(title: TemplateNames.SIDEBAR_ACTOR,
+		Template templateDateOfBirth = new Template(title: TemplateName.D)
+		Template templateDateOfDeath = new Template(title: TemplateName.DATELINK)
+		Template template = new Template(title: TemplateName.SIDEBAR_ACTOR,
 				parts: Lists.newArrayList(
 						new Template.Part(
 								key: ActorTemplateToLifeRangeProcessor.KEY_DATE_OF_BIRTH,
@@ -57,7 +57,7 @@ class ActorTemplateToLifeRangeProcessorTest extends Specification {
 
 	def "returns null when no 'd' or 'datelink' templates were found"() {
 		given:
-		Template template = new Template(title: TemplateNames.SIDEBAR_ACTOR,
+		Template template = new Template(title: TemplateName.SIDEBAR_ACTOR,
 				parts: Lists.newArrayList())
 
 		when:
@@ -69,7 +69,7 @@ class ActorTemplateToLifeRangeProcessorTest extends Specification {
 
 	def "returns null when templates child templates list is empty or does not contain 'd' nor 'datelink' templates"() {
 		given:
-		Template template = new Template(title: TemplateNames.SIDEBAR_ACTOR,
+		Template template = new Template(title: TemplateName.SIDEBAR_ACTOR,
 				parts: Lists.newArrayList(
 						new Template.Part(
 								key: ActorTemplateToLifeRangeProcessor.KEY_DATE_OF_BIRTH,

@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.common.processor.datetime;
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.YearRange;
 import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
-import com.cezarykluczynski.stapi.util.constant.TemplateNames;
+import com.cezarykluczynski.stapi.util.constant.TemplateName;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
@@ -56,7 +56,7 @@ public class PartToYearRangeProcessor extends AbstractTemplateProcessor
 	private YearRange fromTemplates(List<Template> templateList) throws Exception {
 		YearRange yearRange = new YearRange();
 
-		List<Template> yearTemplateList = filterByTitle(templateList, TemplateNames.Y, TemplateNames.YEARLINK);
+		List<Template> yearTemplateList = filterByTitle(templateList, TemplateName.Y, TemplateName.YEARLINK);
 
 		Integer size = yearTemplateList.size();
 

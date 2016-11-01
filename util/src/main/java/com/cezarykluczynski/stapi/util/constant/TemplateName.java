@@ -1,8 +1,9 @@
 package com.cezarykluczynski.stapi.util.constant;
 
-public class TemplateNames {
+public class TemplateName {
 
 	public static final String SIDEBAR_ACTOR = "sidebar actor";
+	public static final String SIDEBAR_CREW = "sidebar crew";
 	public static final String SIDEBAR_INDIVIDUAL = "sidebar individual";
 	public static final String SIDEBAR_SERIES = "sidebar series";
 

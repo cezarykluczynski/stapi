@@ -11,8 +11,8 @@ import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.PageNames;
-import com.cezarykluczynski.stapi.util.constant.TemplateNames;
+import com.cezarykluczynski.stapi.util.constant.PageName;
+import com.cezarykluczynski.stapi.util.constant.TemplateName;
 import com.cezarykluczynski.stapi.util.tool.LogicUtil;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
@@ -66,7 +66,7 @@ public class ActorTemplateSinglePageProcessor extends AbstractTemplateProcessor
 		actorTemplate.setGender(pageToGenderProcessor.process(item));
 		actorTemplate.setLifeRange(pageToLifeRangeProcessor.process(item));
 
-		Optional<Template> templateOptional = findTemplate(item, TemplateNames.SIDEBAR_ACTOR);
+		Optional<Template> templateOptional = findTemplate(item, TemplateName.SIDEBAR_ACTOR, TemplateName.SIDEBAR_CREW);
 
 		if (templateOptional.isPresent()) {
 			supplementUsingActorTemplateTemplateProcessor(actorTemplate, templateOptional.get());
@@ -80,7 +80,7 @@ public class ActorTemplateSinglePageProcessor extends AbstractTemplateProcessor
 
 	private boolean shouldBeFilteredOut(Page item) {
 		List<CategoryHeader> categoryHeaderList = Optional.ofNullable(item.getCategories()).orElse(Lists.newArrayList());
-		return PageNames.UNKNOWN_PERFORMERS.equals(item.getTitle()) || categoryHeaderList.stream()
+		return PageName.UNKNOWN_PERFORMERS.equals(item.getTitle()) || categoryHeaderList.stream()
 				.anyMatch(categoryHeader -> CategoryName.PRODUCTION_LISTS.equals(categoryHeader.getTitle()));
 	}
 

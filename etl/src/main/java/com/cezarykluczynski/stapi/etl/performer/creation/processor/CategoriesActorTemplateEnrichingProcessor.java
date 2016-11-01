@@ -29,7 +29,8 @@ public class CategoriesActorTemplateEnrichingProcessor
 		actorTemplate.setStuntPerformer(categoryTitlesList.contains(CategoryName.STUNT_PERFORMERS));
 		actorTemplate.setTasPerformer(categoryTitlesList.contains(CategoryName.TAS_PERFORMERS));
 		actorTemplate.setTngPerformer(categoryTitlesList.contains(CategoryName.TNG_PERFORMERS));
-		actorTemplate.setTosPerformer(categoryTitlesList.contains(CategoryName.TOS_PERFORMERS));
+		actorTemplate.setTosPerformer(categoryTitlesList.contains(CategoryName.TOS_PERFORMERS)
+				|| categoryTitlesList.contains(CategoryName.TOS_REMASTERED_PERFORMERS));
 		actorTemplate.setVideoGamePerformer(categoryTitlesList.contains(CategoryName.VIDEO_GAME_PERFORMERS));
 		actorTemplate.setVoicePerformer(categoryTitlesList.contains(CategoryName.VOICE_PERFORMERS));
 		actorTemplate.setVoyPerformer(categoryTitlesList.contains(CategoryName.VOY_PERFORMERS));

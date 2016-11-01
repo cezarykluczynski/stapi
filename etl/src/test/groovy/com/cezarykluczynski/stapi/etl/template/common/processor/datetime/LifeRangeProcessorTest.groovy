@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.common.processor.datetime
 
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateToLifeRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange
-import com.cezarykluczynski.stapi.util.constant.TemplateNames
+import com.cezarykluczynski.stapi.util.constant.TemplateName
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
@@ -26,7 +26,7 @@ class LifeRangeProcessorTest extends Specification {
 		pageToLifeRangeProcessorMock = Mock(PageToLifeRangeProcessor)
 		actorTemplateToLifeRangeProcessorMock = Mock(ActorTemplateToLifeRangeProcessor)
 		lifeRangeProcessor = new LifeRangeProcessor(pageToLifeRangeProcessorMock, actorTemplateToLifeRangeProcessorMock)
-		template = new Template(title: TemplateNames.SIDEBAR_ACTOR)
+		template = new Template(title: TemplateName.SIDEBAR_ACTOR)
 		page = Mock(Page) {
 			getTemplates() >> Lists.newArrayList(template)
 		}

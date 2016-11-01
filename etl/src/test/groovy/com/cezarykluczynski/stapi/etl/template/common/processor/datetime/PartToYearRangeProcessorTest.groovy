@@ -1,15 +1,15 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.datetime
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.YearRange
-import com.cezarykluczynski.stapi.util.constant.TemplateNames
+import com.cezarykluczynski.stapi.util.constant.TemplateName
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
 class PartToYearRangeProcessorTest extends Specification {
 
-	private static final Template START_TEMPLATE = new Template(title: TemplateNames.Y)
-	private static final Template END_TEMPLATE = new Template(title: TemplateNames.Y)
+	private static final Template START_TEMPLATE = new Template(title: TemplateName.Y)
+	private static final Template END_TEMPLATE = new Template(title: TemplateName.Y)
 	private static final Integer START_YEAR = 1997
 	private static final Integer END_YEAR = 2005
 

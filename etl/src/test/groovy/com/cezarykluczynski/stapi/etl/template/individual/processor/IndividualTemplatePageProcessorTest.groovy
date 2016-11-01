@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.individual.processor
 import com.cezarykluczynski.stapi.etl.template.common.dto.Gender
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PartToGenderProcessor
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate
-import com.cezarykluczynski.stapi.util.constant.TemplateNames
+import com.cezarykluczynski.stapi.util.constant.TemplateName
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
@@ -37,7 +37,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		given:
 		Template.Part genderTemplatePart = new Template.Part(key: IndividualTemplatePageProcessor.GENDER)
 		Page page = new Page(templates: Lists.newArrayList(
-				new Template(title: TemplateNames.SIDEBAR_INDIVIDUAL, parts: Lists.newArrayList(
+				new Template(title: TemplateName.SIDEBAR_INDIVIDUAL, parts: Lists.newArrayList(
 						genderTemplatePart
 				))
 		))

@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.datetime
 
-import com.cezarykluczynski.stapi.util.constant.TemplateNames
+import com.cezarykluczynski.stapi.util.constant.TemplateName
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
 import spock.lang.Specification
@@ -16,7 +16,7 @@ class TemplateToYearProcessorTest extends Specification {
 	def setup() {
 		templateToYearProcessor = new TemplateToYearProcessor()
 		template = new Template(
-				title: TemplateNames.Y,
+				title: TemplateName.Y,
 				parts: Lists.newArrayList(
 						new Template.Part(key: "1", value: YEAR.toString()),
 				)
@@ -33,7 +33,7 @@ class TemplateToYearProcessorTest extends Specification {
 
 	def "valid template with title 'yearlink' is parsed to year"() {
 		given:
-		template.title = TemplateNames.YEARLINK
+		template.title = TemplateName.YEARLINK
 
 		when:
 		Integer year = templateToYearProcessor.process(template)

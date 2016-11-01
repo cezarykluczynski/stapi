@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.util.constant;
 
-public class SpringProfiles {
+public class SpringProfile {
 
 	public static final String ETL = "etl";
 	public static final String ETL_NOT = "!etl";

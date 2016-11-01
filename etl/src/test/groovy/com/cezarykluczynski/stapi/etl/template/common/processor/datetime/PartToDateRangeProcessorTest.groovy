@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.datetime
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange
-import com.cezarykluczynski.stapi.util.constant.TemplateNames
+import com.cezarykluczynski.stapi.util.constant.TemplateName
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
 import spock.lang.Specification
@@ -10,8 +10,8 @@ import java.time.LocalDate
 
 class PartToDateRangeProcessorTest extends Specification {
 
-	private static final Template START_TEMPLATE = new Template(title: TemplateNames.D)
-	private static final Template END_TEMPLATE = new Template(title: TemplateNames.D)
+	private static final Template START_TEMPLATE = new Template(title: TemplateName.D)
+	private static final Template END_TEMPLATE = new Template(title: TemplateName.D)
 	private static final LocalDate START_DATE = LocalDate.of(2001, 1, 1)
 	private static final LocalDate END_DATE = LocalDate.of(2012, 2, 2)
 

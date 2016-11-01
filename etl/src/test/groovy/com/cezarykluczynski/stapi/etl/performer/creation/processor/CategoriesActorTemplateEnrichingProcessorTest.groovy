@@ -254,10 +254,34 @@ class CategoriesActorTemplateEnrichingProcessorTest extends Specification {
 		!actorTemplate.voyPerformer
 	}
 
-	def "should set tosPerformer flag based on category"() {
+	def "should set tosPerformer flag based on category TOS performers"() {
 		given:
 		ActorTemplate actorTemplate = new ActorTemplate()
 		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(createCategoryHeaderList(CategoryName.TOS_PERFORMERS))
+
+		when:
+		categoriesActorTemplateEnrichingProcessor.enrich(EnrichablePair.of(categoryHeaderList, actorTemplate))
+
+		then:
+		!actorTemplate.animalPerformer
+		!actorTemplate.disPerformer
+		!actorTemplate.ds9Performer
+		!actorTemplate.entPerformer
+		!actorTemplate.filmPerformer
+		!actorTemplate.standInPerformer
+		!actorTemplate.stuntPerformer
+		!actorTemplate.tasPerformer
+		!actorTemplate.tngPerformer
+		actorTemplate.tosPerformer
+		!actorTemplate.videoGamePerformer
+		!actorTemplate.voicePerformer
+		!actorTemplate.voyPerformer
+	}
+
+	def "should set tosPerformer flag based on category TOS remastered performers"() {
+		given:
+		ActorTemplate actorTemplate = new ActorTemplate()
+		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(createCategoryHeaderList(CategoryName.TOS_REMASTERED_PERFORMERS))
 
 		when:
 		categoriesActorTemplateEnrichingProcessor.enrich(EnrichablePair.of(categoryHeaderList, actorTemplate))

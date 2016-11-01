@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.sources.genderize.client;
 
 import com.cezarykluczynski.stapi.sources.genderize.dto.NameGender;
-import com.cezarykluczynski.stapi.util.constant.SpringProfiles;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-@Profile(SpringProfiles.GENDERIZE)
+@Profile(SpringProfile.GENDERIZE)
 public class GenderizeClientConnectableImpl implements GenderizeClient {
 
 	private Map<String, NameGender> nameGenderCache = Maps.newHashMap();

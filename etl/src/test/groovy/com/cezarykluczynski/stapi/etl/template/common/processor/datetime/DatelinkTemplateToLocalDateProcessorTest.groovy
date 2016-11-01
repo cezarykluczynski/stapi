@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.datetime
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.DayMonthYearCandidate
-import com.cezarykluczynski.stapi.util.constant.TemplateNames
+import com.cezarykluczynski.stapi.util.constant.TemplateName
 import com.cezarykluczynski.stapi.etl.util.constant.TemplateParam
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
@@ -29,7 +29,7 @@ class DatelinkTemplateToLocalDateProcessorTest extends Specification {
 		dayMonthYearProcessorMock = Mock(DayMonthYearProcessor)
 		templateToLocalDateProcessor = new DatelinkTemplateToLocalDateProcessor(dayMonthYearProcessorMock)
 		template = new Template(
-				title: TemplateNames.D,
+				title: TemplateName.D,
 				parts: Lists.newArrayList(
 						new Template.Part(key: TemplateParam.FIRST, value: DAY_STRING),
 						new Template.Part(key: TemplateParam.SECOND, value: MONTH_STRING),
@@ -57,7 +57,7 @@ class DatelinkTemplateToLocalDateProcessorTest extends Specification {
 
 	def "valid template with title 'datelink' passed findings to DayMonthYearProcessor"() {
 		given:
-		template.title = TemplateNames.DATELINK
+		template.title = TemplateName.DATELINK
 		LocalDate localDate = LocalDate.of(YEAR, MONTH, DAY)
 
 		when:

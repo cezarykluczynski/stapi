@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.individual.processor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PartToGenderProcessor;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
-import com.cezarykluczynski.stapi.util.constant.TemplateNames;
+import com.cezarykluczynski.stapi.util.constant.TemplateName;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.springframework.batch.item.ItemProcessor;
@@ -27,7 +27,7 @@ public class IndividualTemplatePageProcessor extends AbstractTemplateProcessor
 
 	@Override
 	public IndividualTemplate process(Page item) throws Exception {
-		Optional<Template> templateOptional = findTemplate(item, TemplateNames.SIDEBAR_INDIVIDUAL);
+		Optional<Template> templateOptional = findTemplate(item, TemplateName.SIDEBAR_INDIVIDUAL);
 
 		if (!templateOptional.isPresent()) {
 			return null;

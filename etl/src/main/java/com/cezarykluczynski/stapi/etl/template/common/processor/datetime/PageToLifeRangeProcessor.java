@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.common.processor.datetime;
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange;
 import com.cezarykluczynski.stapi.etl.template.common.dto.DayMonthYearCandidate;
-import com.cezarykluczynski.stapi.util.constant.TemplateNames;
+import com.cezarykluczynski.stapi.util.constant.TemplateName;
 import com.cezarykluczynski.stapi.etl.util.constant.TemplateParam;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
@@ -29,7 +29,7 @@ public class PageToLifeRangeProcessor implements ItemProcessor<Page, DateRange> 
 	@Override
 	public DateRange process(Page item) throws Exception {
 		List<Template> bornTemplates = item.getTemplates().stream()
-				.filter(template -> TemplateNames.BORN.equals(template.getTitle()))
+				.filter(template -> TemplateName.BORN.equals(template.getTitle()))
 				.collect(Collectors.toList());
 
 		if (bornTemplates.isEmpty()) {
@@ -37,7 +37,7 @@ public class PageToLifeRangeProcessor implements ItemProcessor<Page, DateRange> 
 		}
 
 		if (bornTemplates.size() > 1) {
-			log.warn("More than one {} template found for {}, using the first one", TemplateNames.BORN, item.getTitle());
+			log.warn("More than one {} template found for {}, using the first one", TemplateName.BORN, item.getTitle());
 		}
 
 		Template bornTemplate = bornTemplates.get(0);

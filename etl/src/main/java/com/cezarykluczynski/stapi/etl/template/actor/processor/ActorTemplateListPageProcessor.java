@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate;
 import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
-import com.cezarykluczynski.stapi.util.constant.PageNames;
+import com.cezarykluczynski.stapi.util.constant.PageName;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +34,7 @@ public class ActorTemplateListPageProcessor extends AbstractTemplateProcessor
 
 
 	private boolean isGamePerformer(Page item) {
-		return PageNames.STAR_TREK_GAME_PERFORMERS.equals(item.getTitle());
+		return PageName.STAR_TREK_GAME_PERFORMERS.equals(item.getTitle());
 	}
 
 	private PageHeader getGamePerformerPageHeader(Page item) {

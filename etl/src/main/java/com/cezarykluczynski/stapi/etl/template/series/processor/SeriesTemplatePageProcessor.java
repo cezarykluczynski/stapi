@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplate
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToDateRangeProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToYearRangeProcessor;
 import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplate;
-import com.cezarykluczynski.stapi.util.constant.TemplateNames;
+import com.cezarykluczynski.stapi.util.constant.TemplateName;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.springframework.batch.item.ItemProcessor;
@@ -33,7 +33,7 @@ public class SeriesTemplatePageProcessor extends AbstractTemplateProcessor imple
 
 	@Override
 	public SeriesTemplate process(Page item) throws Exception {
-		Optional<Template> templateOptional = findTemplate(item, TemplateNames.SIDEBAR_SERIES);
+		Optional<Template> templateOptional = findTemplate(item, TemplateName.SIDEBAR_SERIES);
 
 		if (!templateOptional.isPresent()) {
 			return null;

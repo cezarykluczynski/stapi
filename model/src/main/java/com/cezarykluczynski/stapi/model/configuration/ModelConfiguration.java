@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.model.configuration;
 
-import com.cezarykluczynski.stapi.util.constant.SpringProfiles;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.google.common.collect.Maps;
 import liquibase.spring.SpringLiquibase;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
@@ -62,7 +62,7 @@ public class ModelConfiguration {
 	}
 
 	@Bean
-	@Profile(SpringProfiles.ETL)
+	@Profile(SpringProfile.ETL)
 	public SpringLiquibase liquibase() {
 		SpringLiquibase springLiquibase = new SpringLiquibase();
 		springLiquibase.setChangeLog("classpath:liquibase/changelog.xml");

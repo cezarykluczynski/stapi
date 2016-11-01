@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.common.processor.datetime;
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateToLifeRangeProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange;
 import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
-import com.cezarykluczynski.stapi.util.constant.TemplateNames;
+import com.cezarykluczynski.stapi.util.constant.TemplateName;
 import com.cezarykluczynski.stapi.util.tool.LogicUtil;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
@@ -75,7 +75,7 @@ public class LifeRangeProcessor extends AbstractTemplateProcessor implements Ite
 	}
 
 	private DateRange getTemplateDateRange(Page item) throws Exception {
-		Optional<Template> bornTemplateOptional = findTemplate(item, TemplateNames.SIDEBAR_ACTOR);
+		Optional<Template> bornTemplateOptional = findTemplate(item, TemplateName.SIDEBAR_ACTOR);
 
 		if (bornTemplateOptional.isPresent()) {
 			return actorTemplateToLifeRangeProcessor.process(bornTemplateOptional.get());

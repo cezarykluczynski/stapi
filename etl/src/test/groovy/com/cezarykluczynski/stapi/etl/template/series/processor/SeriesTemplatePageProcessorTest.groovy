@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.YearRange
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToDateRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToYearRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplate
-import com.cezarykluczynski.stapi.util.constant.TemplateNames
+import com.cezarykluczynski.stapi.util.constant.TemplateName
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
@@ -49,7 +49,7 @@ class SeriesTemplatePageProcessorTest extends Specification {
 		Page page = new Page(
 				title: TITLE,
 				templates: Lists.newArrayList(
-						new Template(title: TemplateNames.SIDEBAR_SERIES, parts: Lists.newArrayList(
+						new Template(title: TemplateName.SIDEBAR_SERIES, parts: Lists.newArrayList(
 								new Template.Part(key: SeriesTemplatePageProcessor.ABBR, value: ABBREVIATION),
 								yearRangePart,
 								dateRangePart

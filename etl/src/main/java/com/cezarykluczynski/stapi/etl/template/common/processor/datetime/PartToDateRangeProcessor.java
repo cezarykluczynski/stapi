@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.common.processor.datetime;
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange;
 import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
-import com.cezarykluczynski.stapi.util.constant.TemplateNames;
+import com.cezarykluczynski.stapi.util.constant.TemplateName;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.validator.routines.IntegerValidator;
@@ -34,7 +34,7 @@ public class PartToDateRangeProcessor extends AbstractTemplateProcessor
 	private DateRange fromTemplate(List<Template> templateList, Template.Part part) throws Exception {
 		DateRange dateRange = new DateRange();
 
-		List<Template> dateTemplateList = filterByTitle(templateList, TemplateNames.D, TemplateNames.DATELINK);
+		List<Template> dateTemplateList = filterByTitle(templateList, TemplateName.D, TemplateName.DATELINK);
 
 		Integer size = dateTemplateList.size();
 

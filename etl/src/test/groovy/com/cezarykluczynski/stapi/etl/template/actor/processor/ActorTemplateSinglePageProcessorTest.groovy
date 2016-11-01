@@ -11,8 +11,8 @@ import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
-import com.cezarykluczynski.stapi.util.constant.PageNames
-import com.cezarykluczynski.stapi.util.constant.TemplateNames
+import com.cezarykluczynski.stapi.util.constant.PageName
+import com.cezarykluczynski.stapi.util.constant.TemplateName
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -51,7 +51,7 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 				pageToLifeRangeProcessorMock, actorTemplateTemplateProcessorMock,
 				categoriesActorTemplateEnrichingProcessorMock)
 
-		template = new Template(title: TemplateNames.SIDEBAR_ACTOR)
+		template = new Template(title: TemplateName.SIDEBAR_ACTOR)
 		pageWithTemplate = new Page(templates: Lists.newArrayList(
 				template
 		))
@@ -59,7 +59,7 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 
 	def "unknown performs page should produce null template"() {
 		given:
-		Page page = new Page(title: PageNames.UNKNOWN_PERFORMERS)
+		Page page = new Page(title: PageName.UNKNOWN_PERFORMERS)
 
 		when:
 		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(page)
@@ -82,6 +82,18 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 	def "sets name from page title"() {
 		given:
 		Page page = new Page(title: TITLE)
+
+		when:
+		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(page)
+
+		then:
+		actorTemplate.name == TITLE
+	}
+
+	def "sets name from page title, when template name is 'sidebar crew'"() {
+		given:
+		Page page = new Page(title: TITLE)
+		template.title == TemplateName.SIDEBAR_CREW
 
 		when:
 		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(page)

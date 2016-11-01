@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.datetime;
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.DayMonthYearCandidate;
-import com.cezarykluczynski.stapi.util.constant.TemplateNames;
+import com.cezarykluczynski.stapi.util.constant.TemplateName;
 import com.cezarykluczynski.stapi.etl.util.constant.TemplateParam;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ public class DatelinkTemplateToLocalDateProcessor implements ItemProcessor<Templ
 	@Override
 	public LocalDate process(Template item) throws Exception {
 		String title = item.getTitle();
-		if (!TemplateNames.D.equals(title) && !TemplateNames.DATELINK.equals(title)) {
+		if (!TemplateName.D.equals(title) && !TemplateName.DATELINK.equals(title)) {
 			log.warn("Template {} passed to TemplateToLocalDateProcessor::process was of different type", item);
 			return null;
 		}
