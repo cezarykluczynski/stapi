@@ -10,4 +10,5 @@ dependencies {
 	compile group: 'org.liquibase', name: 'liquibase-core', version: '1.9.5'
 	compile group: 'com.oracle', name: 'ojdbc6', version: '11.1.0.7.0'
 	compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.0.Final'
+	testCompile project(':util').sourceSets.test.output
 }

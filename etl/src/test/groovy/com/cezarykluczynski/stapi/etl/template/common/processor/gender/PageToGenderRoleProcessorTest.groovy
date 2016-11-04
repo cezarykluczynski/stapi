@@ -3,8 +3,10 @@ package com.cezarykluczynski.stapi.etl.template.common.processor.gender
 import com.cezarykluczynski.stapi.etl.template.common.dto.Gender
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate
 import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTemplatePageProcessor
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryNames
 import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.google.common.collect.Lists
 import spock.lang.Specification
@@ -36,6 +38,34 @@ class PageToGenderRoleProcessorTest extends Specification {
 		Gender gender = pageToGenderRoleProcessor.process(new Page())
 
 		then:
+		gender == null
+	}
+
+	def "logs that no roles were found when page is a performer page"() {
+		given:
+		Page page = Mock(Page) {
+			getCategories() >> Lists.newArrayList(new CategoryHeader(title: CategoryNames.PERFORMER.get(0)))
+		}
+
+		when:
+		Gender gender = pageToGenderRoleProcessor.process(page)
+
+		then:
+		1 * page.getTitle()
+		gender == null
+	}
+
+	def "does not log that no roles were found when page is not a performer page"() {
+		given:
+		Page page = Mock(Page) {
+			getCategories() >> Lists.newArrayList(new CategoryHeader(title: CategoryNames.STAFF.get(0)))
+		}
+
+		when:
+		Gender gender = pageToGenderRoleProcessor.process(page)
+
+		then:
+		0 * page.getTitle()
 		gender == null
 	}
 

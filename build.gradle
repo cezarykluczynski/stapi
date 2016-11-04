@@ -23,12 +23,6 @@ allprojects {
 	apply plugin: 'jacoco'
 	apply plugin: 'no.nils.wsdl2java'
 
-//	configurations.all {
-//		resolutionStrategy {
-//			force 'org.apache.commons:commons-lang3:3.4'
-//		}
-//	}
-
 	repositories {
 		mavenCentral()
 		jcenter()

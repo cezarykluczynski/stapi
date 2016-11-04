@@ -5,4 +5,5 @@
 	<include file="page/0001_create.xml" relativeToChangelogFile="true"/>
 	<include file="series/0002_create.xml" relativeToChangelogFile="true"/>
 	<include file="performer/0003_create.xml" relativeToChangelogFile="true"/>
+	<include file="staff/0004_create.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

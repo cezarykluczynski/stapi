@@ -9,10 +9,7 @@ import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import javax.persistence.metamodel.Attribute;
 import javax.persistence.metamodel.EntityType;
 import java.time.LocalDate;
@@ -37,7 +34,11 @@ public class QueryBuilder<T> {
 
 	private List<Predicate> predicateList;
 
-	private Set<Attribute<T, ?>> attributeSet;
+	private Set<Attribute<? super T, ?>> attributeSet;
+
+	private TypedQuery<T> baseTypedQuery;
+
+	private TypedQuery<Long> countTypedQuery;
 
 	QueryBuilder(EntityManager entityManager, Class baseClass, Pageable pageable) {
 		Preconditions.checkNotNull(entityManager, "EntityManager has to be set");
@@ -54,6 +55,14 @@ public class QueryBuilder<T> {
 		validateAttributeExistenceAndType(key, String.class);
 		if (value != null) {
 			predicateList.add(criteriaBuilder.like(baseRoot.get(key), wildcardLike(value)));
+		}
+		return this;
+	}
+
+	public QueryBuilder<T> joinIn(String join, String key, Set<Long> value, Class joinClassType) {
+		validateAttributeExistenceAndType(join, joinClassType);
+		if (value != null) {
+			predicateList.add(baseRoot.get(join).get(key).in(value));
 		}
 		return this;
 	}
@@ -92,17 +101,10 @@ public class QueryBuilder<T> {
 		return this;
 	}
 
-	public Page<T> search() {
-		if (predicateList.size() > 0) {
-			Predicate predicate = criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
-			baseCriteriaQuery.where(predicate);
-			countCriteriaQuery.where(predicate);
-		}
+	public Page<T> findPage() {
+		prepareQueries();
 
-		TypedQuery<T> baseTypedQuery = entityManager.createQuery(baseCriteriaQuery);
-		baseTypedQuery.setMaxResults(pageable.getPageSize());
-		baseTypedQuery.setFirstResult(pageable.getPageSize() * pageable.getPageNumber());
-		TypedQuery<Long> countTypedQuery = entityManager.createQuery(countCriteriaQuery);
+		countTypedQuery = entityManager.createQuery(countCriteriaQuery);
 
 		List<T> baseEntityList = baseTypedQuery.getResultList();
 		Long count = countTypedQuery.getSingleResult();
@@ -110,6 +112,11 @@ public class QueryBuilder<T> {
 		return new PageImpl<>(baseEntityList, pageable, count);
 	}
 
+	public List<T> findAll() {
+		prepareQueries();
+
+		return baseTypedQuery.getResultList();
+	}
 
 	private void prepare() {
 		Preconditions.checkNotNull(entityManager, "EntityManager has to be set");
@@ -137,7 +144,19 @@ public class QueryBuilder<T> {
 
 	private void prepareAttributeSets() {
 		EntityType<T> entityType = entityManager.getMetamodel().entity(baseClass);
-		attributeSet = entityType.getDeclaredAttributes();
+		attributeSet = entityType.getAttributes();
+	}
+
+	private void prepareQueries() {
+		if (predicateList.size() > 0) {
+			Predicate predicate = criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
+			baseCriteriaQuery.where(predicate);
+			countCriteriaQuery.where(predicate);
+		}
+
+		baseTypedQuery = entityManager.createQuery(baseCriteriaQuery);
+		baseTypedQuery.setMaxResults(pageable.getPageSize());
+		baseTypedQuery.setFirstResult(pageable.getPageSize() * pageable.getPageNumber());
 	}
 
 	private void validateAttributeExistenceAndType(String key, Class type) {
@@ -153,7 +172,5 @@ public class QueryBuilder<T> {
 	private String wildcardLike(String subject) {
 		return "%" + subject.replaceAll("\\s", "%") + "%";
 	}
-
-
 
 }

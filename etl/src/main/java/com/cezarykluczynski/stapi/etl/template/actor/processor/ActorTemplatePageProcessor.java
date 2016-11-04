@@ -3,18 +3,13 @@ package com.cezarykluczynski.stapi.etl.template.actor.processor;
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import org.springframework.batch.item.ItemProcessor;
-import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
-@Service
 public class ActorTemplatePageProcessor implements ItemProcessor<Page, ActorTemplate> {
 
 	private ActorTemplateSinglePageProcessor actorTemplateSinglePageProcessor;
 
 	private ActorTemplateListPageProcessor actorTemplateListPageProcessor;
 
-	@Inject
 	public ActorTemplatePageProcessor(ActorTemplateSinglePageProcessor actorTemplateSinglePageProcessor,
 			ActorTemplateListPageProcessor actorTemplateListPageProcessor) {
 		this.actorTemplateSinglePageProcessor = actorTemplateSinglePageProcessor;

@@ -9,7 +9,7 @@ import java.util.List;
 @Slf4j
 public class PerformerReader extends ListItemReader<PageHeader> {
 
-	PerformerReader(List<PageHeader> list) {
+	public PerformerReader(List<PageHeader> list) {
 		super(list);
 		log.info("Initial size of performers list: {}", list.size());
 	}

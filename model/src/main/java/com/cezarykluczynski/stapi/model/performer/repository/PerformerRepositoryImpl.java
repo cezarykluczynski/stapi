@@ -23,33 +23,33 @@ public class PerformerRepositoryImpl implements PerformerRepositoryCustom {
 
 	@Override
 	@Transactional(readOnly = true)
-	public Page<Performer> findMatching(PerformerRequestDTO performerRequestDTO, Pageable pageable) {
+	public Page<Performer> findMatching(PerformerRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<Performer> performerQueryBuilder = performerQueryBuiler.createQueryBuilder(pageable);
 
-		performerQueryBuilder.like("name", performerRequestDTO.getName());
-		performerQueryBuilder.like("birthName", performerRequestDTO.getBirthName());
-		performerQueryBuilder.like("placeOfBirth", performerRequestDTO.getPlaceOfBirth());
-		performerQueryBuilder.like("placeOfDeath", performerRequestDTO.getPlaceOfDeath());
-		performerQueryBuilder.between("dateOfBirth", performerRequestDTO.getDateOfBirthFrom(),
-				performerRequestDTO.getDateOfBirthTo());
-		performerQueryBuilder.between("dateOfDeath", performerRequestDTO.getDateOfDeathFrom(),
-				performerRequestDTO.getDateOfDeathTo());
-		performerQueryBuilder.equal("gender", performerRequestDTO.getGender());
-		performerQueryBuilder.equal("animalPerformer", performerRequestDTO.getAnimalPerformer());
-		performerQueryBuilder.equal("disPerformer", performerRequestDTO.getDisPerformer());
-		performerQueryBuilder.equal("ds9Performer", performerRequestDTO.getDs9Performer());
-		performerQueryBuilder.equal("entPerformer", performerRequestDTO.getEntPerformer());
-		performerQueryBuilder.equal("filmPerformer", performerRequestDTO.getFilmPerformer());
-		performerQueryBuilder.equal("standInPerformer", performerRequestDTO.getStandInPerformer());
-		performerQueryBuilder.equal("stuntPerformer", performerRequestDTO.getStuntPerformer());
-		performerQueryBuilder.equal("tasPerformer", performerRequestDTO.getTasPerformer());
-		performerQueryBuilder.equal("tngPerformer", performerRequestDTO.getTngPerformer());
-		performerQueryBuilder.equal("tosPerformer", performerRequestDTO.getTosPerformer());
-		performerQueryBuilder.equal("videoGamePerformer", performerRequestDTO.getVideoGamePerformer());
-		performerQueryBuilder.equal("voicePerformer", performerRequestDTO.getVoicePerformer());
-		performerQueryBuilder.equal("voyPerformer", performerRequestDTO.getVoyPerformer());
+		performerQueryBuilder.like("name", criteria.getName());
+		performerQueryBuilder.like("birthName", criteria.getBirthName());
+		performerQueryBuilder.like("placeOfBirth", criteria.getPlaceOfBirth());
+		performerQueryBuilder.like("placeOfDeath", criteria.getPlaceOfDeath());
+		performerQueryBuilder.between("dateOfBirth", criteria.getDateOfBirthFrom(),
+				criteria.getDateOfBirthTo());
+		performerQueryBuilder.between("dateOfDeath", criteria.getDateOfDeathFrom(),
+				criteria.getDateOfDeathTo());
+		performerQueryBuilder.equal("gender", criteria.getGender());
+		performerQueryBuilder.equal("animalPerformer", criteria.getAnimalPerformer());
+		performerQueryBuilder.equal("disPerformer", criteria.getDisPerformer());
+		performerQueryBuilder.equal("ds9Performer", criteria.getDs9Performer());
+		performerQueryBuilder.equal("entPerformer", criteria.getEntPerformer());
+		performerQueryBuilder.equal("filmPerformer", criteria.getFilmPerformer());
+		performerQueryBuilder.equal("standInPerformer", criteria.getStandInPerformer());
+		performerQueryBuilder.equal("stuntPerformer", criteria.getStuntPerformer());
+		performerQueryBuilder.equal("tasPerformer", criteria.getTasPerformer());
+		performerQueryBuilder.equal("tngPerformer", criteria.getTngPerformer());
+		performerQueryBuilder.equal("tosPerformer", criteria.getTosPerformer());
+		performerQueryBuilder.equal("videoGamePerformer", criteria.getVideoGamePerformer());
+		performerQueryBuilder.equal("voicePerformer", criteria.getVoicePerformer());
+		performerQueryBuilder.equal("voyPerformer", criteria.getVoyPerformer());
 
-		return performerQueryBuilder.search();
+		return performerQueryBuilder.findPage();
 	}
 
 }

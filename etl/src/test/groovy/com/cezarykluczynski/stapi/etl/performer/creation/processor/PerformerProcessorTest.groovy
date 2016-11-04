@@ -14,14 +14,14 @@ class PerformerProcessorTest extends Specification {
 
 	private ActorTemplatePageProcessor actorTemplatePageProcessorMock
 
-	private ActorTemplateProcessor actorTemplateProcessorMock
+	private PerformerActorTemplateProcessor actorTemplateProcessorMock
 
 	private PerformerProcessor performerProcessor
 
 	def setup() {
 		pageHeaderProcessorMock = Mock(PageHeaderProcessor)
 		actorTemplatePageProcessorMock = Mock(ActorTemplatePageProcessor)
-		actorTemplateProcessorMock = Mock(ActorTemplateProcessor)
+		actorTemplateProcessorMock = Mock(PerformerActorTemplateProcessor)
 		performerProcessor = new PerformerProcessor(pageHeaderProcessorMock, actorTemplatePageProcessorMock,
 				actorTemplateProcessorMock)
 	}

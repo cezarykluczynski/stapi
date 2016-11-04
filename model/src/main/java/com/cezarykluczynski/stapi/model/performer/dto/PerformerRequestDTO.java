@@ -1,30 +1,10 @@
 package com.cezarykluczynski.stapi.model.performer.dto;
 
-import com.cezarykluczynski.stapi.model.common.entity.Gender;
+import com.cezarykluczynski.stapi.model.common.dto.RealWorldPersonRequestDTO;
 import lombok.Data;
 
-import java.time.LocalDate;
-
 @Data
-public class PerformerRequestDTO {
-
-	private String name;
-
-	private String birthName;
-
-	private Gender gender;
-
-	private LocalDate dateOfBirthFrom;
-
-	private LocalDate dateOfBirthTo;
-
-	private LocalDate dateOfDeathFrom;
-
-	private LocalDate dateOfDeathTo;
-
-	private String placeOfBirth;
-
-	private String placeOfDeath;
+public class PerformerRequestDTO extends RealWorldPersonRequestDTO {
 
 	private Boolean animalPerformer;
 

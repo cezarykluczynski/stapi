@@ -42,7 +42,7 @@ class GenderizeClientConnectableImplTest extends Specification {
 		mockServerClient
 				.when(HttpRequest.request().withMethod("GET").withQueryStringParameter("name", NAME))
 				.respond(HttpResponse.response().withStatusCode(200).withBody(
-				JsonBody.json('{"name":"' + NAME + '","gender":"male","probability":"1.00","count":1000}', MatchType.STRICT)))
+				JsonBody.json('{"name":"' + NAME + '","gender":"male","probability":0.98,"count":1000}', MatchType.STRICT)))
 
 		when:
 		NameGender nameGender = genderizeClientConnectableImpl.getNameGender(NAME)
@@ -97,6 +97,19 @@ class GenderizeClientConnectableImplTest extends Specification {
 
 		then:
 		nameGender == null
+	}
+
+	def "another call to API is postponed"() {
+		given:
+		long startInMilliseconds = System.currentTimeMillis()
+
+		when:
+		genderizeClientConnectableImpl.getNameGender(NAME)
+		genderizeClientConnectableImpl.getNameGender(NAME_PRODUCING_NULL_GENDER)
+		long endInMillis = System.currentTimeMillis()
+
+		then:
+		startInMilliseconds + genderizeClientConnectableImpl.minimalInterval <= endInMillis
 	}
 
 }

@@ -31,17 +31,23 @@ public class GenderizeClientConnectableImpl implements GenderizeClient {
 
 	private int callsCount = 0;
 
+	private long lastCallTime = 0L;
+
+	private long minimalInterval = 1000L;
+
 	@Inject
 	public GenderizeClientConnectableImpl(@Value("${url.genderize}") String apiUrl) {
 		Preconditions.checkNotNull(apiUrl);
 		this.apiUrl = apiUrl;
 	}
 
-	public NameGender getNameGender(String name) {
+	public synchronized NameGender getNameGender(String name) {
 		if (nameGenderCache.containsKey(name)) {
 			log.info("Using name to gender cache for name {}", name);
 			return nameGenderCache.get(name);
 		}
+
+		ensureInterval();
 
 		try {
 			URL url = new URL(apiUrl + "?name=" + name);
@@ -70,7 +76,7 @@ public class GenderizeClientConnectableImpl implements GenderizeClient {
 			}
 		}
 		try {
-			nameGender.setProbability(Float.parseFloat(jsonObject.getString("probability")));
+			nameGender.setProbability((float) jsonObject.getDouble("probability"));
 		} catch(JSONException e2) {
 			if (!e2.getMessage().contains("JSONObject[\"probability\"] not found.")) {
 				throw e2;
@@ -81,5 +87,22 @@ public class GenderizeClientConnectableImpl implements GenderizeClient {
 		nameGenderCache.put(name, nameGender);
 		return nameGender;
 	}
+
+	private void ensureInterval() {
+		long diff = System.currentTimeMillis() - lastCallTime;
+
+		if (diff < minimalInterval) {
+			long postpone = minimalInterval - diff;
+			log.info("Postponing call to genderize.io for another {} milliseconds", postpone);
+			try {
+				Thread.sleep(postpone);
+			} catch(InterruptedException e) {
+				Thread.currentThread().interrupt();
+			}
+		}
+
+		lastCallTime = System.currentTimeMillis();
+	}
+
 
 }

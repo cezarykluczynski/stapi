@@ -4,37 +4,11 @@ import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.model.performer.query.PerformerQueryBuiler
-import com.cezarykluczynski.stapi.util.tool.LogicUtil
+import com.cezarykluczynski.stapi.util.AbstractPerformerTest
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
-import spock.lang.Specification
 
-import java.time.LocalDate
-
-class PerformerRepositoryImplTest extends Specification {
-
-	private static final String NAME = 'NAME'
-	private static final String BIRTH_NAME = 'BIRTH_NAME'
-	private static final String PLACE_OF_BIRTH = 'PLACE_OF_BIRTH'
-	private static final String PLACE_OF_DEATH = 'PLACE_OF_DEATH'
-	private static final LocalDate DATE_OF_BIRTH_FROM = LocalDate.of(1960, 1, 1)
-	private static final LocalDate DATE_OF_BIRTH_TO = LocalDate.of(1970, 2, 2)
-	private static final LocalDate DATE_OF_DEATH_FROM = LocalDate.of(1980, 3, 3)
-	private static final LocalDate DATE_OF_DEATH_TO = LocalDate.of(1990, 4, 4)
-
-	private static final Boolean ANIMAL_PERFORMER = LogicUtil.nextBoolean()
-	private static final Boolean DIS_PERFORMER =  LogicUtil.nextBoolean()
-	private static final Boolean DS9_PERFORMER =  LogicUtil.nextBoolean()
-	private static final Boolean ENT_PERFORMER =  LogicUtil.nextBoolean()
-	private static final Boolean FILM_PERFORMER =  LogicUtil.nextBoolean()
-	private static final Boolean STAND_IN_PERFORMER =  LogicUtil.nextBoolean()
-	private static final Boolean STUNT_PERFORMER =  LogicUtil.nextBoolean()
-	private static final Boolean TAS_PERFORMER =  LogicUtil.nextBoolean()
-	private static final Boolean TNG_PERFORMER =  LogicUtil.nextBoolean()
-	private static final Boolean TOS_PERFORMER =  LogicUtil.nextBoolean()
-	private static final Boolean VIDEO_GAME_PERFORMER =  LogicUtil.nextBoolean()
-	private static final Boolean VOICE_PERFORMER =  LogicUtil.nextBoolean()
-	private static final Boolean VOY_PERFORMER =  LogicUtil.nextBoolean()
+class PerformerRepositoryImplTest extends AbstractPerformerTest {
 
 	private PerformerQueryBuiler performerQueryBuilerMock
 
@@ -111,7 +85,7 @@ class PerformerRepositoryImplTest extends Specification {
 		1 * performerQueryBuilder.equal("voyPerformer", VOY_PERFORMER)
 
 		then: 'page is searched for and returned'
-		1 * performerQueryBuilder.search() >> page
+		1 * performerQueryBuilder.findPage() >> page
 		pageOutput == page
 	}
 

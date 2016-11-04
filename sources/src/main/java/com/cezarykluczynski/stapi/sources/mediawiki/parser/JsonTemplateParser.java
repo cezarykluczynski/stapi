@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.google.common.collect.Lists;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,7 +36,14 @@ class JsonTemplateParser {
 				return;
 			}
 
-			JSONArray jsonArrayTemplates = arrayFromNode(root, "template");
+			JSONArray jsonArrayTemplates = new JSONArray();
+			try {
+				jsonArrayTemplates = arrayFromNode(root, "template");
+			} catch (RuntimeException e) {
+				if (ExceptionUtils.indexOfThrowable(e, JSONException.class) == -1) {
+					throw e;
+				}
+			}
 
 			templates = toJsonObjectList(jsonArrayTemplates).stream()
 					.map(this::toTemplate)

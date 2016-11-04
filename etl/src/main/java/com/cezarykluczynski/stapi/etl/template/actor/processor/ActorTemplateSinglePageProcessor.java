@@ -18,16 +18,13 @@ import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
-import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Service
 @Slf4j
 public class ActorTemplateSinglePageProcessor extends AbstractTemplateProcessor
 		implements ItemProcessor<Page, ActorTemplate> {
@@ -42,7 +39,6 @@ public class ActorTemplateSinglePageProcessor extends AbstractTemplateProcessor
 
 	private CategoriesActorTemplateEnrichingProcessor categoriesActorTemplateEnrichingProcessor;
 
-	@Inject
 	public ActorTemplateSinglePageProcessor(PageToGenderProcessor pageToGenderProcessor,
 	PageToLifeRangeProcessor pageToLifeRangeProcessor, ActorTemplateTemplateProcessor actorTemplateTemplateProcessor,
 	CategoriesActorTemplateEnrichingProcessor categoriesActorTemplateEnrichingProcessor) {

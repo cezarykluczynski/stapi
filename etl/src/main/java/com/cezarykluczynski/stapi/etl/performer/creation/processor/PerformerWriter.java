@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.performer.creation.processor;
 
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
-import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareProcessor;
+import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository;
 import org.springframework.batch.item.ItemWriter;
@@ -16,11 +16,11 @@ public class PerformerWriter implements ItemWriter<Performer> {
 
 	private PerformerRepository performerRepository;
 
-	private DuplicateFilteringPreSavePageAwareProcessor duplicateFilteringPreSavePageAwareProcessor;
+	private DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
 
 	@Inject
 	public PerformerWriter(PerformerRepository performerRepository,
-			DuplicateFilteringPreSavePageAwareProcessor duplicateFilteringPreSavePageAwareProcessor) {
+			DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor) {
 		this.performerRepository = performerRepository;
 		this.duplicateFilteringPreSavePageAwareProcessor = duplicateFilteringPreSavePageAwareProcessor;
 	}
@@ -33,7 +33,7 @@ public class PerformerWriter implements ItemWriter<Performer> {
 	private List<Performer> process(List<? extends Performer> performerList) {
 		return duplicateFilteringPreSavePageAwareProcessor.process(performerList.stream()
 				.map(performer -> (PageAware) performer)
-				.collect(Collectors.toList())).stream()
+				.collect(Collectors.toList()), Performer.class).stream()
 				.map(pageAware -> (Performer) pageAware)
 				.collect(Collectors.toList());
 	}

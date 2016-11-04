@@ -28,6 +28,8 @@ class QueryBuilderTest extends Specification {
 	private static final LocalDate VALID_VALUE_LOCAL_DATE_FROM = LocalDate.of(2000, 1, 1)
 	private static final LocalDate VALID_VALUE_LOCAL_DATE_TO = LocalDate.of(2010, 1, 1)
 	private static final String VALID_KEY_GENDER = 'VALID_KEY_GENDER'
+	private static final String VALID_KEY_PAGE = 'page'
+	private static final String VALID_JOIN_PAGE_ID = 'pageId'
 	private static final Gender VALID_VALUE_GENDER = Gender.F
 	private static final String KEY_WITH_INVALID_TYPE = 'INVALID_KEY'
 	private static final String KEY_NOT_IN_ATTRIBUTE_SET = 'KEY_NOT_IN_ATTRIBUTE_SET'
@@ -67,6 +69,8 @@ class QueryBuilderTest extends Specification {
 
 	private List<Series> baseEntityList
 
+	private Path path
+
 	private Long count
 
 	def setup() {
@@ -80,24 +84,28 @@ class QueryBuilderTest extends Specification {
 		entityType = Mock(EntityType)
 		attributeSet = Sets.newHashSet(
 				Mock(Attribute) {
-					getJavaType() >> String.class
+					getJavaType() >> String
 					getName() >> VALID_KEY_STRING
 				},
 				Mock(Attribute) {
-					getJavaType() >> Boolean.class
+					getJavaType() >> Boolean
 					getName() >> VALID_KEY_BOOLEAN
 				},
 				Mock(Attribute) {
-					getJavaType() >> LocalDate.class
+					getJavaType() >> LocalDate
 					getName() >> VALID_KEY_LOCAL_DATE
 				},
 				Mock(Attribute) {
-					getJavaType() >> Gender.class
+					getJavaType() >> Gender
 					getName() >> VALID_KEY_GENDER
 				},
 				Mock(Attribute) {
-					getJavaType() >> Long.class
+					getJavaType() >> Long
 					getName() >> KEY_WITH_INVALID_TYPE
+				},
+				Mock(Attribute) {
+					getJavaType() >>com.cezarykluczynski.stapi.model.page.entity.Page.class
+					getName() >> VALID_KEY_PAGE
 				}
 		)
 		baseClass = Series
@@ -106,6 +114,7 @@ class QueryBuilderTest extends Specification {
 		baseTypedQuery = Mock(TypedQuery)
 		countTypedQuery = Mock(TypedQuery)
 		baseEntityList = Lists.newArrayList()
+		path = Mock(Path)
 		count = 7L
 	}
 
@@ -124,7 +133,7 @@ class QueryBuilderTest extends Specification {
 		1 * countCriteriaQuery.select(countExpression)
 		1 * entityManager.getMetamodel() >> metamodel
 		1 * metamodel.entity(baseClass) >> entityType
-		1 * entityType.getDeclaredAttributes() >> attributeSet
+		1 * entityType.getAttributes() >> attributeSet
 
 		then: 'no other interactions are expected'
 		0 * _
@@ -168,6 +177,15 @@ class QueryBuilderTest extends Specification {
 		then: 'no exception is thrown'
 		notThrown(RuntimeException)
 
+		when: 'join key is added'
+		queryBuilder.joinIn(VALID_KEY_PAGE, VALID_JOIN_PAGE_ID, Sets.newHashSet(1L), com.cezarykluczynski.stapi.model.page.entity.Page)
+
+		then: 'no exception is thrown'
+		1 * baseRoot.get(VALID_KEY_PAGE) >> path
+		1 * path.get(VALID_JOIN_PAGE_ID) >> path
+		1 * path.in(_)
+		notThrown(RuntimeException)
+
 		when: 'key with invalid type is added'
 		queryBuilder.like(KEY_WITH_INVALID_TYPE, VALID_VALUE_STRING)
 
@@ -181,7 +199,7 @@ class QueryBuilderTest extends Specification {
 		thrown(RuntimeException)
 
 		when: 'search is performer'
-		Page<Series> seriesPage = queryBuilder.search()
+		Page<Series> seriesPage = queryBuilder.findPage()
 
 		then: 'queries are built'
 		1 * criteriaBuilder.and(_) >> predicate
@@ -203,6 +221,24 @@ class QueryBuilderTest extends Specification {
 		seriesPage.content == baseEntityList
 		seriesPage.totalElements == count
 		((PageImpl) seriesPage).pageable == pageable
+
+		when: 'all entities are to be found'
+		List<Series> seriesList = queryBuilder.findAll()
+
+		then: 'queries are build'
+		1 * criteriaBuilder.and(_) >> predicate
+		1 * baseCriteriaQuery.where(predicate)
+		1 * countCriteriaQuery.where(predicate)
+		1 * entityManager.createQuery(baseCriteriaQuery) >> baseTypedQuery
+		1 * pageable.getPageSize() >> PAGE_SIZE
+		1 * baseTypedQuery.setMaxResults(PAGE_SIZE)
+		1 * pageable.getPageSize() >> PAGE_SIZE
+		1 * pageable.getPageNumber() >> PAGE_NUMBER
+		1 * baseTypedQuery.setFirstResult(FIRST_RESULT)
+		1 * baseTypedQuery.getResultList() >> baseEntityList
+
+		then: 'all entities are found'
+		seriesList == baseEntityList
 	}
 
 }

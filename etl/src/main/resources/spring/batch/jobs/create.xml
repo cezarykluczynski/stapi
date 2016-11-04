@@ -24,13 +24,25 @@
 				</batch:step>
 			</batch:flow>
 			<batch:flow>
-				<batch:step id="STEP_002_CREATE_PRODUCERS">
+				<batch:step id="STEP_002_CREATE_PERFORMERS" next="STEP_003_CREATE_STAFF">
 					<batch:tasklet start-limit="1" allow-start-if-complete="false">
 						<batch:chunk
-								commit-interval="50"
+								commit-interval="1"
 								reader="performerReader"
 								processor="performerProcessor"
 								writer="performerWriter" />
+					</batch:tasklet>
+					<batch:listeners>
+						<batch:listener ref="commonStepExecutionListener"/>
+					</batch:listeners>
+				</batch:step>
+				<batch:step id="STEP_003_CREATE_STAFF" parent="STEP_002_CREATE_PERFORMERS">
+					<batch:tasklet start-limit="1" allow-start-if-complete="false">
+						<batch:chunk
+								commit-interval="50"
+								reader="staffReader"
+								processor="staffProcessor"
+								writer="staffWriter" />
 					</batch:tasklet>
 					<batch:listeners>
 						<batch:listener ref="commonStepExecutionListener"/>

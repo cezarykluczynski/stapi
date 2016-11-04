@@ -7,7 +7,7 @@ import java.util.List;
 
 public class SeriesReader extends ListItemReader<PageHeader> {
 
-	SeriesReader(List<PageHeader> list) {
+	public SeriesReader(List<PageHeader> list) {
 		super(list);
 	}
 
