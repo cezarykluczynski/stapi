@@ -3,11 +3,11 @@ package com.cezarykluczynski.stapi.model.staff.query
 import org.springframework.data.jpa.repository.JpaContext
 import spock.lang.Specification
 
-class StaffQueryBuilerTest extends Specification {
+class StaffQueryBuilerFactoryTest extends Specification {
 
 	private JpaContext jpaContextMock
 
-	private StaffQueryBuiler staffQueryBuiler
+	private StaffQueryBuilerFactory staffQueryBuilerFactory
 
 	def setup() {
 		jpaContextMock = Mock(JpaContext)
@@ -15,10 +15,10 @@ class StaffQueryBuilerTest extends Specification {
 
 	def "StaffQueryBuiler is created"() {
 		when:
-		staffQueryBuiler = new StaffQueryBuiler(jpaContextMock)
+		staffQueryBuilerFactory = new StaffQueryBuilerFactory(jpaContextMock)
 
 		then:
-		staffQueryBuiler != null
+		staffQueryBuilerFactory != null
 	}
 
 }

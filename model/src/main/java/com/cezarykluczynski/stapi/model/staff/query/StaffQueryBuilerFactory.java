@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 
 @Service
-public class StaffQueryBuiler extends AbstractQueryBuilderFactory<Staff> {
+public class StaffQueryBuilerFactory extends AbstractQueryBuilderFactory<Staff> {
 
 	@Inject
-	public StaffQueryBuiler(JpaContext jpaContext) {
+	public StaffQueryBuilerFactory(JpaContext jpaContext) {
 		super(jpaContext, Staff.class);
 	}
 

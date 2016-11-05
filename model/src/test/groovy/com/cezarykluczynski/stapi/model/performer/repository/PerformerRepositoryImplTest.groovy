@@ -1,16 +1,19 @@
 package com.cezarykluczynski.stapi.model.performer.repository
 
+import com.cezarykluczynski.stapi.model.common.entity.Gender
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
-import com.cezarykluczynski.stapi.model.performer.query.PerformerQueryBuiler
+import com.cezarykluczynski.stapi.model.performer.query.PerformerQueryBuilerFactory
 import com.cezarykluczynski.stapi.util.AbstractRealWorldPersonTest
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
 class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 
-	private PerformerQueryBuiler performerQueryBuilerMock
+	private static final Gender GENDER = Gender.F
+
+	private PerformerQueryBuilerFactory performerQueryBuilerMock
 
 	private PerformerRepositoryImpl performerRepositoryImpl
 
@@ -23,7 +26,7 @@ class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 	private Page page
 
 	def setup() {
-		performerQueryBuilerMock = Mock(PerformerQueryBuiler)
+		performerQueryBuilerMock = Mock(PerformerQueryBuilerFactory)
 		performerRepositoryImpl = new PerformerRepositoryImpl(performerQueryBuilerMock)
 		performerQueryBuilder = Mock(QueryBuilder)
 		pageable = Mock(Pageable)
@@ -56,6 +59,10 @@ class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 		1 * performerRequestDTO.getDateOfDeathTo() >> DATE_OF_DEATH_TO
 		1 * performerQueryBuilder.between("dateOfDeath", DATE_OF_DEATH_FROM, DATE_OF_DEATH_TO)
 
+		then: 'enum criteria is set'
+		1 * performerRequestDTO.getGender() >> GENDER
+		1 * performerQueryBuilder.equal("gender", GENDER)
+
 		then: 'boolean criteria are set'
 		1 * performerRequestDTO.getAnimalPerformer() >> ANIMAL_PERFORMER
 		1 * performerQueryBuilder.equal("animalPerformer", ANIMAL_PERFORMER)
@@ -87,6 +94,9 @@ class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 		then: 'page is searched for and returned'
 		1 * performerQueryBuilder.findPage() >> page
 		pageOutput == page
+
+		then: 'no other interactions are expected'
+		0 * _
 	}
 
 }

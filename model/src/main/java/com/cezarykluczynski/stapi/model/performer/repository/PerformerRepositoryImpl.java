@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.model.performer.repository;
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
-import com.cezarykluczynski.stapi.model.performer.query.PerformerQueryBuiler;
+import com.cezarykluczynski.stapi.model.performer.query.PerformerQueryBuilerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -14,17 +14,17 @@ import javax.inject.Inject;
 @Repository
 public class PerformerRepositoryImpl implements PerformerRepositoryCustom {
 
-	private PerformerQueryBuiler performerQueryBuiler;
+	private PerformerQueryBuilerFactory performerQueryBuilder;
 
 	@Inject
-	public PerformerRepositoryImpl(PerformerQueryBuiler performerQueryBuiler) {
-		this.performerQueryBuiler = performerQueryBuiler;
+	public PerformerRepositoryImpl(PerformerQueryBuilerFactory performerQueryBuilder) {
+		this.performerQueryBuilder = performerQueryBuilder;
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Page<Performer> findMatching(PerformerRequestDTO criteria, Pageable pageable) {
-		QueryBuilder<Performer> performerQueryBuilder = performerQueryBuiler.createQueryBuilder(pageable);
+		QueryBuilder<Performer> performerQueryBuilder = this.performerQueryBuilder.createQueryBuilder(pageable);
 
 		performerQueryBuilder.like("name", criteria.getName());
 		performerQueryBuilder.like("birthName", criteria.getBirthName());
