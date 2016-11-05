@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.model.page.service
 
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.page.entity.PageAware
-import com.cezarykluczynski.stapi.model.page.repository.PageRepository
+import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -10,13 +10,13 @@ class DuplicateForbiddingPreSavePageAwareFilterTest extends Specification {
 
 	private static final Long PAGE_ID = 1
 
-	private PageRepository pageRepositoryMock
+	private PageBoundToEntityFilteringFinder pageBoundToEntityFilteringFinderMock
 
 	private DuplicateForbiddingPreSavePageAwareFilter strictPreSavePageAwareProcessor
 
 	def setup() {
-		pageRepositoryMock = Mock(PageRepository)
-		strictPreSavePageAwareProcessor = new DuplicateForbiddingPreSavePageAwareFilter(pageRepositoryMock)
+		pageBoundToEntityFilteringFinderMock = Mock(PageBoundToEntityFilteringFinder)
+		strictPreSavePageAwareProcessor = new DuplicateForbiddingPreSavePageAwareFilter(pageBoundToEntityFilteringFinderMock)
 	}
 
 	def "throws exception when chunk contains entities with equal pageIds"() {
@@ -47,11 +47,12 @@ class DuplicateForbiddingPreSavePageAwareFilterTest extends Specification {
 		)
 
 		when:
-		strictPreSavePageAwareProcessor.process(pageAwareList, null)
+		strictPreSavePageAwareProcessor.process(pageAwareList, Performer)
 
 		then:
-		1 * pageRepositoryMock.findByPageIdIn(*_) >> { args ->
+		1 * pageBoundToEntityFilteringFinderMock.find(*_) >> { args ->
 			assert ((Collection<Long>) args[0]).contains(PAGE_ID)
+			assert args[1] == Performer
 			return Lists.newArrayList(new Page(pageId: PAGE_ID))
 		}
 		RuntimeException ex = thrown(RuntimeException)
@@ -67,11 +68,12 @@ class DuplicateForbiddingPreSavePageAwareFilterTest extends Specification {
 		)
 
 		when:
-		List<PageAware> pageAwareListOutput = strictPreSavePageAwareProcessor.process(pageAwareList, null)
+		List<PageAware> pageAwareListOutput = strictPreSavePageAwareProcessor.process(pageAwareList, Performer)
 
 		then:
-		1 * pageRepositoryMock.findByPageIdIn(*_) >> { args ->
+		1 * pageBoundToEntityFilteringFinderMock.find(*_) >> { args ->
 			assert ((Collection<Long>) args[0]).contains(PAGE_ID)
+			assert args[1] == Performer
 			return Lists.newArrayList()
 		}
 		pageAwareListOutput == pageAwareList

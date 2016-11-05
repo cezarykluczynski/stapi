@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.Gender
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PageToLifeRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGenderProcessor
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
+import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
@@ -20,6 +21,7 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 
 	private static final String TITLE = 'TITLE'
 	private static final Long PAGE_ID = 1L
+	private static final MediaWikiSource MEDIA_WIKI_SOURCE = MediaWikiSource.MEMORY_ALPHA_EN
 	private static final String TITLE_WITH_BRACKETS = 'TITLE (actor)'
 	private static final String NAME = 'NAME'
 	private static final String BIRTH_NAME = 'BIRTH_NAME'

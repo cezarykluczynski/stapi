@@ -1,13 +1,14 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.api;
 
+import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 
 import java.util.List;
 
 public interface PageApi {
 
-	Page getPage(String title);
+	Page getPage(String title, MediaWikiSource mediaWikiSource);
 
-	List<Page> getPages(List<String> titles);
+	List<Page> getPages(List<String> titles, MediaWikiSource mediaWikiSource);
 
 }

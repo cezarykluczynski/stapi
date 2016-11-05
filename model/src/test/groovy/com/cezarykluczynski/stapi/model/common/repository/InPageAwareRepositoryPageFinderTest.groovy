@@ -1,77 +1,35 @@
 package com.cezarykluczynski.stapi.model.common.repository
 
+import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.page.entity.PageAware
+import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.google.common.collect.Lists
-import com.google.common.collect.Sets
-import org.springframework.data.jpa.repository.JpaContext
+import org.springframework.data.domain.Pageable
 import spock.lang.Specification
-
-import javax.persistence.EntityManager
-import javax.persistence.TypedQuery
-import javax.persistence.criteria.CriteriaBuilder
-import javax.persistence.criteria.CriteriaQuery
-import javax.persistence.criteria.Path
-import javax.persistence.criteria.Root
-import javax.persistence.metamodel.Attribute
-import javax.persistence.metamodel.EntityType
-import javax.persistence.metamodel.Metamodel
 
 class InPageAwareRepositoryPageFinderTest extends Specification {
 
 	private static final Long PAGE_ID_1 = 1L
 	private static final Long PAGE_ID_2 = 2L
+	private static final MediaWikiSource MEDIA_WIKI_SOURCE = MediaWikiSource.MEMORY_ALPHA_EN
+
+	private PageAwareQueryBuilderSingletonFactoryProducer pageAwareQueryBuilderSingletonFactoryProducerMock
+
+	PageAwareQueryBuilderFactory pageAwareQueryBuilderFactoryMock
 
 	private InPageAwareRepositoryPageFinder inPageAwareRepositoryPageFinder
 
-	private JpaContext jpaContextMock
-
-	private CriteriaQuery<Performer> baseCriteriaQuery
-
-	private CriteriaQuery<Long> countCriteriaQuery
-
-	private CriteriaBuilder criteriaBuilder
-
-	private EntityManager entityManager
-
-	private Root baseRoot
-
-	private Path path
+	private QueryBuilder<PageAware> pageAwareQueryBuilderMock
 
 	private Set<Long> pageIds
 
-	private TypedQuery baseTypedQuery
-
 	def setup() {
-		jpaContextMock = Mock(JpaContext)
-		inPageAwareRepositoryPageFinder = new InPageAwareRepositoryPageFinder(jpaContextMock)
-
-		given:
-		baseCriteriaQuery = Mock(CriteriaQuery)
-		countCriteriaQuery = Mock(CriteriaQuery)
-		criteriaBuilder = Mock(CriteriaBuilder) {
-			createQuery(Performer) >> baseCriteriaQuery
-			createQuery(Long) >> countCriteriaQuery
-		}
-		entityManager = Mock(EntityManager) {
-			getCriteriaBuilder() >> criteriaBuilder
-			getMetamodel() >> Mock(Metamodel) {
-				entity(Performer) >> Mock(EntityType) {
-					getAttributes() >> Sets.newHashSet(
-							Mock(Attribute) {
-								getJavaType() >> Page.class
-								getName() >> "page"
-							}
-					)
-				}
-			}
-		}
-		baseRoot = Mock(Root)
-		path = Mock(Path)
-		pageIds = Sets.newHashSet(PAGE_ID_1, PAGE_ID_2)
-		baseTypedQuery = Mock(TypedQuery)
-
+		pageAwareQueryBuilderSingletonFactoryProducerMock = Mock(PageAwareQueryBuilderSingletonFactoryProducer)
+		pageAwareQueryBuilderFactoryMock = Mock(PageAwareQueryBuilderFactory)
+		pageAwareQueryBuilderMock = Mock(QueryBuilder)
+		inPageAwareRepositoryPageFinder = new InPageAwareRepositoryPageFinder(pageAwareQueryBuilderSingletonFactoryProducerMock)
 	}
 
 	def "returns empty list if no entities were found"() {
@@ -82,28 +40,33 @@ class InPageAwareRepositoryPageFinderTest extends Specification {
 		List<Page> pageList = inPageAwareRepositoryPageFinder.findByPagePageIdIn(pageIds, Performer)
 
 		then:
-		1 * jpaContextMock.getEntityManagerByManagedType(Performer) >> entityManager
-		1 * baseCriteriaQuery.from(Performer) >> baseRoot
-		1 * baseRoot.get("page") >> path
-		1 * path.get("pageId") >> path
-		1 * path.in(pageIds)
-		1 * entityManager.createQuery(baseCriteriaQuery) >> baseTypedQuery
-		1 * baseTypedQuery.getResultList() >> pageAwareList
+		1 * pageAwareQueryBuilderSingletonFactoryProducerMock.create(Performer) >> pageAwareQueryBuilderFactoryMock
+		1 * pageAwareQueryBuilderFactoryMock.createQueryBuilder(_ as Pageable) >> { Pageable pageable ->
+			assert pageable.pageNumber == 0
+			assert pageable.pageSize == 100
+			return pageAwareQueryBuilderMock
+		}
+		1 * pageAwareQueryBuilderMock.joinIn("page", "pageId", pageIds, Page)
+		1 * pageAwareQueryBuilderMock.joinEquals("page", "mediaWikiSource", MEDIA_WIKI_SOURCE, Page)
+		1 * pageAwareQueryBuilderMock.findAll() >> pageAwareList
 		pageList.empty
 	}
 
 	def "finds entities by page ids"() {
 		given:
+		Page page1 = Mock(Page) {
+			getPageId() >> PAGE_ID_1
+		}
+		Page page2 = Mock(Page) {
+			getPageId() >> PAGE_ID_2
+		}
+
 		List<PageAware> pageAwareList = Lists.newArrayList(
 				Mock(PageAware) {
-					getPage() >> Mock(Page) {
-						getPageId() >> PAGE_ID_1
-					}
+					getPage() >> page1
 				},
 				Mock(PageAware) {
-					getPage() >> Mock(Page) {
-						getPageId() >> PAGE_ID_2
-					}
+					getPage() >> page2
 				}
 		)
 
@@ -111,16 +74,18 @@ class InPageAwareRepositoryPageFinderTest extends Specification {
 		List<Page> pageList = inPageAwareRepositoryPageFinder.findByPagePageIdIn(pageIds, Performer)
 
 		then:
-		1 * jpaContextMock.getEntityManagerByManagedType(Performer) >> entityManager
-		1 * baseCriteriaQuery.from(Performer) >> baseRoot
-		1 * baseRoot.get("page") >> path
-		1 * path.get("pageId") >> path
-		1 * path.in(pageIds)
-		1 * entityManager.createQuery(baseCriteriaQuery) >> baseTypedQuery
-		1 * baseTypedQuery.getResultList() >> pageAwareList
+		1 * pageAwareQueryBuilderSingletonFactoryProducerMock.create(Performer) >> pageAwareQueryBuilderFactoryMock
+		1 * pageAwareQueryBuilderFactoryMock.createQueryBuilder(_ as Pageable) >> { Pageable pageable ->
+			assert pageable.pageNumber == 0
+			assert pageable.pageSize == 100
+			return pageAwareQueryBuilderMock
+		}
+		1 * pageAwareQueryBuilderMock.joinIn("page", "pageId", pageIds, Page)
+		1 * pageAwareQueryBuilderMock.joinEquals("page", "mediaWikiSource", MEDIA_WIKI_SOURCE, Page)
+		1 * pageAwareQueryBuilderMock.findAll() >> pageAwareList
 		pageList.size() == 2
-		pageList[0].pageId == PAGE_ID_1
-		pageList[1].pageId == PAGE_ID_2
+		pageList[0] == page1
+		pageList[1] == page2
 	}
 
 }

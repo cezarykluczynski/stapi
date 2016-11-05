@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.series.creation.configuration
 import com.cezarykluczynski.stapi.etl.series.creation.processor.SeriesReader
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
+import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.google.common.collect.Lists
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory
@@ -39,7 +40,7 @@ class SeriesCreationConfigurationTest extends Specification {
 		SeriesReader seriesReader = seriesCreationConfiguration.seriesReader()
 
 		then:
-		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_SERIES) >> pageHeaderList
+		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_SERIES, MediaWikiSource.MEMORY_ALPHA_EN) >> pageHeaderList
 		seriesReader.read().title == TITLE
 		seriesReader.read() == null
 	}

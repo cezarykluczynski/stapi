@@ -1,10 +1,11 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.api;
 
-import com.cezarykluczynski.stapi.sources.mediawiki.util.constant.ApiParams;
+import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.connector.bliki.BlikiConnector;
 import com.cezarykluczynski.stapi.sources.mediawiki.converter.PageHeaderConverter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.parser.XMLCategoryMembersParser;
+import com.cezarykluczynski.stapi.sources.mediawiki.util.constant.ApiParams;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import info.bliki.api.PageInfo;
@@ -29,7 +30,7 @@ public class CategoryApiImpl implements CategoryApi {
 	}
 
 	@Override
-	public List<PageHeader> getPages(String title) {
+	public List<PageHeader> getPages(String title, MediaWikiSource mediaWikiSource) {
 		Map<String, String> params = getInitialParams(title);
 		List<PageInfo> pageInfoList = Lists.newArrayList();
 
@@ -49,7 +50,7 @@ public class CategoryApiImpl implements CategoryApi {
 			}
 		} while (true);
 
-		return pageHeaderConverter.fromPageInfoList(pageInfoList);
+		return pageHeaderConverter.fromPageInfoList(pageInfoList, mediaWikiSource);
 	}
 
 	private Map<String, String> getInitialParams(String title) {

@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.api;
 
+import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.connector.bliki.BlikiConnector;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
@@ -28,13 +29,17 @@ public class PageApiImpl implements PageApi {
 	}
 
 	@Override
-	public Page getPage(String title) {
-		return getPage(title, 0);
+	public Page getPage(String title, MediaWikiSource mediaWikiSource) {
+		return getPage(title, 0, mediaWikiSource);
 	}
 
-	private Page getPage(String title, int redirectCount) {
+	private Page getPage(String title, int redirectCount, MediaWikiSource mediaWikiSource) {
 		String pageBody = blikiConnector.getPage(title);
 		Page page = parsePageInfo(pageBody);
+
+		if (page != null) {
+			page.setMediaWikiSource(mediaWikiSource);
+		}
 
 		if (redirectCount == 2) {
 			return page;
@@ -57,8 +62,12 @@ public class PageApiImpl implements PageApi {
 				return page;
 			} else {
 				log.info("Following redirect from {} to {}", title, redirects.get(0));
-				Page redirectPage = getPage(redirects.get(0), redirectCount + 1);
-				redirectPage.getRedirectPath().add(PageHeader.builder().title(title).pageId(page.getPageId()).build());
+				Page redirectPage = getPage(redirects.get(0), redirectCount + 1, mediaWikiSource);
+				redirectPage.getRedirectPath().add(PageHeader.builder()
+						.title(title)
+						.pageId(page.getPageId())
+						.mediaWikiSource(mediaWikiSource)
+						.build());
 				return redirectPage;
 			}
 		}
@@ -67,11 +76,11 @@ public class PageApiImpl implements PageApi {
 	}
 
 	@Override
-	public List<Page> getPages(List<String> titleList) {
+	public List<Page> getPages(List<String> titleList, MediaWikiSource mediaWikiSource) {
 		List<Page> pageList = Lists.newArrayList();
 
 		for (String title : titleList) {
-			Page page = getPage(title);
+			Page page = getPage(title, mediaWikiSource);
 
 			if (page == null) {
 				log.warn("Could not get page with title {}", title);

@@ -27,10 +27,10 @@
 				<batch:step id="STEP_002_CREATE_PERFORMERS" next="STEP_003_CREATE_STAFF">
 					<batch:tasklet start-limit="1" allow-start-if-complete="false">
 						<batch:chunk
-								commit-interval="1"
+								commit-interval="50"
 								reader="performerReader"
 								processor="performerProcessor"
-								writer="performerWriter" />
+								writer="performerWriter"/>
 					</batch:tasklet>
 					<batch:listeners>
 						<batch:listener ref="commonStepExecutionListener"/>
@@ -42,7 +42,7 @@
 								commit-interval="50"
 								reader="staffReader"
 								processor="staffProcessor"
-								writer="staffWriter" />
+								writer="staffWriter"/>
 					</batch:tasklet>
 					<batch:listeners>
 						<batch:listener ref="commonStepExecutionListener"/>

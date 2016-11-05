@@ -2,25 +2,24 @@ package com.cezarykluczynski.stapi.model.page.service;
 
 import com.cezarykluczynski.stapi.model.page.entity.Page;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
-import com.cezarykluczynski.stapi.model.page.repository.PageRepository;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class DuplicateForbiddingPreSavePageAwareFilter extends AbstractPageAttacher implements PreSavePageAwareFilter {
+public class DuplicateForbiddingPreSavePageAwareFilter extends AbstractPreSavePageAwareFilter implements PreSavePageAwareFilter {
 
-	private PageRepository pageRepository;
+	private PageBoundToEntityFilteringFinder pageBoundToEntityFilteringFinder;
 
 	@Inject
-	public DuplicateForbiddingPreSavePageAwareFilter(PageRepository pageRepository) {
-		this.pageRepository = pageRepository;
+	public DuplicateForbiddingPreSavePageAwareFilter(PageBoundToEntityFilteringFinder pageBoundToEntityFilteringFinder) {
+		this.pageBoundToEntityFilteringFinder = pageBoundToEntityFilteringFinder;
 	}
 
 	@Override
@@ -35,9 +34,9 @@ public class DuplicateForbiddingPreSavePageAwareFilter extends AbstractPageAttac
 			}
 		});
 
-		Collection<Long> pagePageIds = flattenPages.keySet();
+		Set<Long> pagePageIds = flattenPages.keySet();
 
-		List<Page> pageList = pageRepository.findByPageIdIn(pagePageIds);
+		List<Page> pageList = pageBoundToEntityFilteringFinder.find(pagePageIds, baseClass);
 
 		if (!pageList.isEmpty()) {
 			throw new RuntimeException(String.format("Pages already persisted, pageIds are %s",

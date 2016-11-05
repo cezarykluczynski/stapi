@@ -9,7 +9,10 @@ import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.Attribute;
 import javax.persistence.metamodel.EntityType;
 import java.time.LocalDate;
@@ -63,6 +66,14 @@ public class QueryBuilder<T> {
 		validateAttributeExistenceAndType(join, joinClassType);
 		if (value != null) {
 			predicateList.add(baseRoot.get(join).get(key).in(value));
+		}
+		return this;
+	}
+
+	public QueryBuilder<T> joinEquals(String join, String key, Enum<?> value, Class joinClassType) {
+		validateAttributeExistenceAndType(join, joinClassType);
+		if (value != null) {
+			predicateList.add(baseRoot.get(join).get(key).in(Lists.newArrayList(value)));
 		}
 		return this;
 	}

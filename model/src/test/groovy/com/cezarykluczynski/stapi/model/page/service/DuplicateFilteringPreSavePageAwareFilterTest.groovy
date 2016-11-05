@@ -90,4 +90,16 @@ class DuplicateFilteringPreSavePageAwareFilterTest extends Specification {
 		pageAwareListOutput == pageAwareList
 	}
 
+	def "does no call InPageAwareRepositoryPageFinder when page list is empty"() {
+		given:
+		List<PageAware> pageAwareList = Lists.newArrayList()
+
+		when:
+		List<PageAware> pageAwareListOutput = filteringPreSavePageAwareProcessor.process(pageAwareList, null)
+
+		then:
+		0 * inPageAwareRepositoryPageFinderMock.findByPagePageIdIn(*_)
+		pageAwareListOutput == pageAwareList
+	}
+
 }

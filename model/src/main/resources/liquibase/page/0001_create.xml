@@ -5,13 +5,16 @@
 	<changeSet id="0001_create" author="cezarykluczynski">
 		<createTable tableName="page">
 			<column name="id" type="number(38, 0)">
-				<constraints unique="true" nullable="false" />
+				<constraints unique="true" nullable="false"/>
 			</column>
 			<column name="page_id" type="number(38, 0)">
-				<constraints unique="true" nullable="false" />
+				<constraints unique="true" nullable="false"/>
 			</column>
-			<column name="title" type="varchar(64)">
-				<constraints nullable="false" unique="true" />
+			<column name="media_wiki_source" type="varchar(32)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="title" type="varchar(128)">
+				<constraints nullable="false"/>
 			</column>
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="page_sequence"/>

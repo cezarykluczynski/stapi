@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString(callSuper = true)
 @EqualsAndHashCode
 public class Performer extends RealWorldPerson implements PageAware {
 

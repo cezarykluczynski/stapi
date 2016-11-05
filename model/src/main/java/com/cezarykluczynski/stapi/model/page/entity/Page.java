@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.model.page.entity;
 
+import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,6 +20,9 @@ public class Page {
 	private Long id;
 
 	private Long pageId;
+
+	@Enumerated(EnumType.STRING)
+	private MediaWikiSource mediaWikiSource;
 
 	private String title;
 

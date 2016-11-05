@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.converter
 
+import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.util.constant.MemoryAlpha
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.google.common.collect.Lists
@@ -14,6 +15,7 @@ class PageHeaderConverterTest extends Specification {
 	private static final String PAGE_ID_2_STRING = '10'
 	private static final Long PAGE_ID_1_LONG = 5L
 	private static final Long PAGE_ID_2_LONG = 10L
+	private static final MediaWikiSource MEDIA_WIKI_SOURCE = MediaWikiSource.MEMORY_ALPHA_EN
 
 	private PageHeaderConverter pageHeaderConverter
 
@@ -30,14 +32,16 @@ class PageHeaderConverterTest extends Specification {
 		)
 
 		when:
-		List<PageHeader> pageHeaderList = pageHeaderConverter.fromPageInfoList(pageInfoList)
+		List<PageHeader> pageHeaderList = pageHeaderConverter.fromPageInfoList(pageInfoList, MEDIA_WIKI_SOURCE)
 
 		then:
 		pageHeaderList.size() == 2
 		pageHeaderList[0].pageId == PAGE_ID_1_LONG
 		pageHeaderList[0].title == TITLE_1
+		pageHeaderList[0].mediaWikiSource == MEDIA_WIKI_SOURCE
 		pageHeaderList[1].pageId == PAGE_ID_2_LONG
 		pageHeaderList[1].title == TITLE_2
+		pageHeaderList[1].mediaWikiSource == MEDIA_WIKI_SOURCE
 	}
 
 }

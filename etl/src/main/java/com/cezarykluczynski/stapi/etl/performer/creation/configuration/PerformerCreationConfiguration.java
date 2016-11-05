@@ -10,6 +10,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PageToL
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGenderProcessor;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi;
+import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -36,20 +37,20 @@ public class PerformerCreationConfiguration {
 	public PerformerReader performerReader() {
 		List<PageHeader> performers = Lists.newArrayList();
 
-		performers.addAll(categoryApi.getPages(CategoryName.PERFORMERS));
-		performers.addAll(categoryApi.getPages(CategoryName.ANIMAL_PERFORMERS));
-		performers.addAll(categoryApi.getPages(CategoryName.DIS_PERFORMERS));
-		performers.addAll(categoryApi.getPages(CategoryName.DS9_PERFORMERS));
-		performers.addAll(categoryApi.getPages(CategoryName.ENT_PERFORMERS));
-		performers.addAll(categoryApi.getPages(CategoryName.FILM_PERFORMERS));
-		performers.addAll(categoryApi.getPages(CategoryName.STAND_INS));
-		performers.addAll(categoryApi.getPages(CategoryName.STUNT_PERFORMERS));
-		performers.addAll(categoryApi.getPages(CategoryName.TAS_PERFORMERS));
-		performers.addAll(categoryApi.getPages(CategoryName.TNG_PERFORMERS));
-		performers.addAll(categoryApi.getPages(CategoryName.TOS_PERFORMERS));
-		performers.addAll(categoryApi.getPages(CategoryName.VIDEO_GAME_PERFORMERS));
-		performers.addAll(categoryApi.getPages(CategoryName.VOICE_PERFORMERS));
-		performers.addAll(categoryApi.getPages(CategoryName.VOY_PERFORMERS));
+		performers.addAll(categoryApi.getPages(CategoryName.PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+		performers.addAll(categoryApi.getPages(CategoryName.ANIMAL_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+		performers.addAll(categoryApi.getPages(CategoryName.DIS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+		performers.addAll(categoryApi.getPages(CategoryName.DS9_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+		performers.addAll(categoryApi.getPages(CategoryName.ENT_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+		performers.addAll(categoryApi.getPages(CategoryName.FILM_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+		performers.addAll(categoryApi.getPages(CategoryName.STAND_INS, MediaWikiSource.MEMORY_ALPHA_EN));
+		performers.addAll(categoryApi.getPages(CategoryName.STUNT_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+		performers.addAll(categoryApi.getPages(CategoryName.TAS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+		performers.addAll(categoryApi.getPages(CategoryName.TNG_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+		performers.addAll(categoryApi.getPages(CategoryName.TOS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+		performers.addAll(categoryApi.getPages(CategoryName.VIDEO_GAME_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+		performers.addAll(categoryApi.getPages(CategoryName.VOICE_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+		performers.addAll(categoryApi.getPages(CategoryName.VOY_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
 
 		return new PerformerReader(Lists.newArrayList(Sets.newHashSet(performers)));
 	}

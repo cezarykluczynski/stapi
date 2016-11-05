@@ -11,11 +11,12 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-public class DuplicateFilteringPreSavePageAwareFilter extends AbstractPageAttacher implements PreSavePageAwareFilter {
+public class DuplicateFilteringPreSavePageAwareFilter extends AbstractPreSavePageAwareFilter implements PreSavePageAwareFilter {
 
 	private InPageAwareRepositoryPageFinder inPageAwareRepositoryPageFinder;
 
@@ -47,7 +48,10 @@ public class DuplicateFilteringPreSavePageAwareFilter extends AbstractPageAttach
 		removeAtIndices(indicesToRemove, pageAwareList);
 		indicesToRemove.clear();
 
-		List<Page> pageList = inPageAwareRepositoryPageFinder.findByPagePageIdIn(flattenPages.keySet(), baseClass);
+		Set<Long> pageIds = flattenPages.keySet();
+
+		List<Page> pageList = pageIds.isEmpty() ? Lists.newArrayList() :
+				inPageAwareRepositoryPageFinder.findByPagePageIdIn(pageIds, baseClass);
 
 		if (!pageList.isEmpty()) {
 			List<Long> foundPagePageIdList = pageList.stream().map(Page::getPageId).collect(Collectors.toList());

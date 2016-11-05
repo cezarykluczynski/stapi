@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.api
 
+import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.connector.bliki.BlikiConnector
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.google.common.collect.Lists
@@ -16,6 +17,8 @@ class PageApiImplTest extends Specification {
 	private static final Long PAGE_ID_1 = 2501L
 	private static final Long PAGE_ID_2 = 1580L
 	private static final Long PAGE_ID_3 = 1576L
+
+	private static final MediaWikiSource MEDIA_WIKI_SOURCE = MediaWikiSource.MEMORY_ALPHA_EN
 
 	private static final String XML_1 = createXml(TITLE_1, PAGE_ID_1)
 	private static final String XML_2 = createXml(TITLE_2, PAGE_ID_2)
@@ -43,27 +46,29 @@ class PageApiImplTest extends Specification {
 
 	def "gets page from title"() {
 		when:
-		Page page = pageApiImpl.getPage(TITLE_1)
+		Page page = pageApiImpl.getPage(TITLE_1, MEDIA_WIKI_SOURCE)
 
 		then:
 		1 * blikiConnectorMock.getPage(TITLE_1) >> XML_1
 		page.pageId == PAGE_ID_1
 		page.title == TITLE_1
+		page.mediaWikiSource == MEDIA_WIKI_SOURCE
 	}
 
 	def "returns page when there is no wikitext"() {
 		when:
-		Page page = pageApiImpl.getPage(TITLE_1)
+		Page page = pageApiImpl.getPage(TITLE_1, MEDIA_WIKI_SOURCE)
 
 		then:
 		1 * blikiConnectorMock.getPage(TITLE_1) >> XML_WITHOUT_WIKITEXT
 		page.pageId == PAGE_ID_1
 		page.title == TITLE_1
+		page.mediaWikiSource == MEDIA_WIKI_SOURCE
 	}
 
 	def "follows redirect"() {
 		when:
-		Page page = pageApiImpl.getPage(TITLE_1)
+		Page page = pageApiImpl.getPage(TITLE_1, MEDIA_WIKI_SOURCE)
 
 		then:
 		1 * blikiConnectorMock.getPage(TITLE_1) >> XML_REDIRECT_1
@@ -71,11 +76,16 @@ class PageApiImplTest extends Specification {
 		1 * blikiConnectorMock.getPage(TITLE_2) >> XML_2
 		page.pageId == PAGE_ID_2
 		page.title == TITLE_2
+		page.mediaWikiSource == MEDIA_WIKI_SOURCE
+		page.redirectPath.size() == 1
+		page.redirectPath[0].pageId == PAGE_ID_1
+		page.redirectPath[0].title == TITLE_1
+		page.redirectPath[0].mediaWikiSource == MEDIA_WIKI_SOURCE
 	}
 
 	def "does not follow more than 2 redirects"() {
 		when:
-		Page page = pageApiImpl.getPage(TITLE_1)
+		Page page = pageApiImpl.getPage(TITLE_1, MEDIA_WIKI_SOURCE)
 
 		then:
 		1 * blikiConnectorMock.getPage(TITLE_1) >> XML_REDIRECT_1
@@ -86,22 +96,31 @@ class PageApiImplTest extends Specification {
 		0 * wikitextApiMock.getPageTitlesFromWikitext(_)
 		page.pageId == PAGE_ID_3
 		page.title == TITLE_3
+		page.mediaWikiSource == MEDIA_WIKI_SOURCE
+		page.redirectPath.size() == 2
+		page.redirectPath[0].pageId == PAGE_ID_2
+		page.redirectPath[0].title == TITLE_2
+		page.redirectPath[0].mediaWikiSource == MEDIA_WIKI_SOURCE
+		page.redirectPath[1].pageId == PAGE_ID_1
+		page.redirectPath[1].title == TITLE_1
+		page.redirectPath[1].mediaWikiSource == MEDIA_WIKI_SOURCE
 	}
 
 	def "returns page when redirect list is empty"() {
 		when:
-		Page page = pageApiImpl.getPage(TITLE_1)
+		Page page = pageApiImpl.getPage(TITLE_1, MEDIA_WIKI_SOURCE)
 
 		then:
 		1 * blikiConnectorMock.getPage(TITLE_1) >> XML_REDIRECT_1
 		1 * wikitextApiMock.getPageTitlesFromWikitext(_) >> Lists.newArrayList()
 		page.pageId == PAGE_ID_1
 		page.title == TITLE_1
+		page.mediaWikiSource == MEDIA_WIKI_SOURCE
 	}
 
 	def "converts exceptions to runtime exceptions"() {
 		when: "not found page is called"
-		pageApiImpl.getPage("")
+		pageApiImpl.getPage("", MEDIA_WIKI_SOURCE)
 
 		then:
 		thrown(RuntimeException)
@@ -109,7 +128,7 @@ class PageApiImplTest extends Specification {
 
 	def "gets pages from found titles"() {
 		when:
-		List<Page> pageList = pageApiImpl.getPages(Lists.newArrayList(TITLE_1, NOT_FOUND_TITLE, TITLE_2))
+		List<Page> pageList = pageApiImpl.getPages(Lists.newArrayList(TITLE_1, NOT_FOUND_TITLE, TITLE_2), MEDIA_WIKI_SOURCE)
 
 		then:
 		1 * blikiConnectorMock.getPage(TITLE_1) >> XML_1
@@ -117,7 +136,9 @@ class PageApiImplTest extends Specification {
 		1 * blikiConnectorMock.getPage(TITLE_2) >> XML_2
 		pageList.size() == 2
 		pageList[0].title == TITLE_1
+		pageList[0].mediaWikiSource == MEDIA_WIKI_SOURCE
 		pageList[1].title == TITLE_2
+		pageList[1].mediaWikiSource == MEDIA_WIKI_SOURCE
 	}
 
 	private static String createXml(String title, Long pageId, withWikitext = true) {

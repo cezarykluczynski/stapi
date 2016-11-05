@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Service
 @Slf4j
-public class DuplicateReattachingPreSavePageAwareFilter extends AbstractPageAttacher implements PreSavePageAwareFilter {
+public class DuplicateReattachingPreSavePageAwareFilter extends AbstractPreSavePageAwareFilter implements PreSavePageAwareFilter {
 
 	private PageRepository pageRepository;
 

@@ -6,11 +6,11 @@ import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTe
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryNames
 import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
+import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.google.common.collect.Lists
 import spock.lang.Specification
-
 
 class PageToGenderRoleProcessorTest extends Specification {
 
@@ -89,7 +89,7 @@ class PageToGenderRoleProcessorTest extends Specification {
 
 		then:
 		1 * wikitextApiMock.getPageTitlesFromWikitext(VALID_WIKITEXT) >> titleList
-		1 * pageApiMock.getPages(titleList) >> Lists.newArrayList()
+		1 * pageApiMock.getPages(titleList, MediaWikiSource.MEMORY_ALPHA_EN) >> Lists.newArrayList()
 		gender == null
 	}
 
@@ -106,7 +106,7 @@ class PageToGenderRoleProcessorTest extends Specification {
 
 		then:
 		1 * wikitextApiMock.getPageTitlesFromWikitext(VALID_WIKITEXT) >> titleList
-		1 * pageApiMock.getPages(titleList) >> Lists.newArrayList(subpageMock)
+		1 * pageApiMock.getPages(titleList, MediaWikiSource.MEMORY_ALPHA_EN) >> Lists.newArrayList(subpageMock)
 		1 * individualTemplatePageProcessorMock.process(subpageMock) >> new IndividualTemplate()
 		gender == null
 
@@ -128,7 +128,7 @@ class PageToGenderRoleProcessorTest extends Specification {
 
 		then:
 		1 * wikitextApiMock.getPageTitlesFromWikitext(VALID_WIKITEXT) >> titleList
-		1 * pageApiMock.getPages(titleList) >> Lists.newArrayList(subpageMock)
+		1 * pageApiMock.getPages(titleList, MediaWikiSource.MEMORY_ALPHA_EN) >> Lists.newArrayList(subpageMock)
 		1 * individualTemplatePageProcessorMock.process(subpageMock) >> new IndividualTemplate(gender: GENDER)
 		gender == GENDER
 

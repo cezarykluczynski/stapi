@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTe
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryNames;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
+import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import lombok.extern.slf4j.Slf4j;
@@ -58,7 +59,7 @@ public class PageToGenderRoleProcessor implements ItemProcessor<Page, Gender> {
 			return null;
 		}
 
-		List<Page> pageList = pageApi.getPages(linkedPagesList);
+		List<Page> pageList = pageApi.getPages(linkedPagesList, MediaWikiSource.MEMORY_ALPHA_EN);
 
 		for (Page page : pageList) {
 			IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page);

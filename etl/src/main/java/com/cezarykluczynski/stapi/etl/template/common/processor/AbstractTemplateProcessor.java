@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor;
 
+import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
@@ -36,6 +37,7 @@ public abstract class AbstractTemplateProcessor {
 		return com.cezarykluczynski.stapi.model.page.entity.Page.builder()
 				.pageId(page.getPageId())
 				.title(page.getTitle())
+				.mediaWikiSource(map(page.getMediaWikiSource()))
 				.build();
 	}
 
@@ -43,7 +45,13 @@ public abstract class AbstractTemplateProcessor {
 		return com.cezarykluczynski.stapi.model.page.entity.Page.builder()
 				.pageId(pageHeader.getPageId())
 				.title(pageHeader.getTitle())
+				.mediaWikiSource(map(pageHeader.getMediaWikiSource()))
 				.build();
+	}
+
+	protected MediaWikiSource map(com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource mediaWikiSource) {
+		// TODO: write separate mapper
+		return mediaWikiSource == null ? null : MediaWikiSource.valueOf(mediaWikiSource.name());
 	}
 
 }

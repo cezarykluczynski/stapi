@@ -18,7 +18,7 @@ public class CommonStepExecutionListener implements StepExecutionListener, StepL
 
 	@Override
 	public ExitStatus afterStep(StepExecution stepExecution) {
-		log.info("Step {} finished at {} with exit code {}, with {} reads, and {} writes",
+		log.info("Step {} finished at {} with exit code {}, with {} reads, and {} entities to write",
 				stepExecution.getStepName(),
 				stepExecution.getLastUpdated(),
 				stepExecution.getExitStatus().getExitCode(),

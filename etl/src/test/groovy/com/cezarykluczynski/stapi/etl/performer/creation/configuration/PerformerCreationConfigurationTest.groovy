@@ -11,6 +11,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PageToL
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGenderProcessor
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
+import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 import org.springframework.context.ApplicationContext
 
 class PerformerCreationConfigurationTest extends AbstractCreationConfigurationTest {
@@ -50,20 +51,20 @@ class PerformerCreationConfigurationTest extends AbstractCreationConfigurationTe
 		List<String> categoryHeaderTitleList = readerToList(performerReader)
 
 		then:
-		1 * categoryApiMock.getPages(CategoryName.PERFORMERS) >> createListWithPageHeaderTitle(TITLE_PERFORMERS)
-		1 * categoryApiMock.getPages(CategoryName.ANIMAL_PERFORMERS) >> createListWithPageHeaderTitle(TITLE_ANIMAL_PERFORMERS)
-		1 * categoryApiMock.getPages(CategoryName.DIS_PERFORMERS) >> createListWithPageHeaderTitle(TITLE_DIS_PERFORMERS)
-		1 * categoryApiMock.getPages(CategoryName.DS9_PERFORMERS) >> createListWithPageHeaderTitle(TITLE_DS9_PERFORMERS)
-		1 * categoryApiMock.getPages(CategoryName.ENT_PERFORMERS) >> createListWithPageHeaderTitle(TITLE_ENT_PERFORMERS)
-		1 * categoryApiMock.getPages(CategoryName.FILM_PERFORMERS) >> createListWithPageHeaderTitle(TITLE_FILM_PERFORMERS)
-		1 * categoryApiMock.getPages(CategoryName.STAND_INS) >> createListWithPageHeaderTitle(TITLE_STAND_INS)
-		1 * categoryApiMock.getPages(CategoryName.STUNT_PERFORMERS) >> createListWithPageHeaderTitle(TITLE_STUNT_PERFORMERS)
-		1 * categoryApiMock.getPages(CategoryName.TAS_PERFORMERS) >> createListWithPageHeaderTitle(TITLE_TAS_PERFORMERS)
-		1 * categoryApiMock.getPages(CategoryName.TNG_PERFORMERS) >> createListWithPageHeaderTitle(TITLE_TNG_PERFORMERS)
-		1 * categoryApiMock.getPages(CategoryName.TOS_PERFORMERS) >> createListWithPageHeaderTitle(TITLE_TOS_PERFORMERS)
-		1 * categoryApiMock.getPages(CategoryName.VIDEO_GAME_PERFORMERS) >> createListWithPageHeaderTitle(TITLE_VIDEO_GAME_PERFORMERS)
-		1 * categoryApiMock.getPages(CategoryName.VOICE_PERFORMERS) >> createListWithPageHeaderTitle(TITLE_VOICE_PERFORMERS)
-		1 * categoryApiMock.getPages(CategoryName.VOY_PERFORMERS) >> createListWithPageHeaderTitle(TITLE_VOY_PERFORMERS)
+		1 * categoryApiMock.getPages(CategoryName.PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_PERFORMERS)
+		1 * categoryApiMock.getPages(CategoryName.ANIMAL_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_ANIMAL_PERFORMERS)
+		1 * categoryApiMock.getPages(CategoryName.DIS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_DIS_PERFORMERS)
+		1 * categoryApiMock.getPages(CategoryName.DS9_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_DS9_PERFORMERS)
+		1 * categoryApiMock.getPages(CategoryName.ENT_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_ENT_PERFORMERS)
+		1 * categoryApiMock.getPages(CategoryName.FILM_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_FILM_PERFORMERS)
+		1 * categoryApiMock.getPages(CategoryName.STAND_INS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_STAND_INS)
+		1 * categoryApiMock.getPages(CategoryName.STUNT_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_STUNT_PERFORMERS)
+		1 * categoryApiMock.getPages(CategoryName.TAS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_TAS_PERFORMERS)
+		1 * categoryApiMock.getPages(CategoryName.TNG_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_TNG_PERFORMERS)
+		1 * categoryApiMock.getPages(CategoryName.TOS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_TOS_PERFORMERS)
+		1 * categoryApiMock.getPages(CategoryName.VIDEO_GAME_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_VIDEO_GAME_PERFORMERS)
+		1 * categoryApiMock.getPages(CategoryName.VOICE_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_VOICE_PERFORMERS)
+		1 * categoryApiMock.getPages(CategoryName.VOY_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_VOY_PERFORMERS)
 		0 * _
 		categoryHeaderTitleList.contains TITLE_PERFORMERS
 		categoryHeaderTitleList.contains TITLE_ANIMAL_PERFORMERS

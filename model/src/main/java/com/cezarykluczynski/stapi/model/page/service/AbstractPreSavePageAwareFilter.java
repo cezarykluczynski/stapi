@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-abstract class AbstractPageAttacher {
+abstract class AbstractPreSavePageAwareFilter {
 
 	Map<Long, List<Pair<Page, PageAware>>> flattenPages(Collection<PageAware> pageAwareList) {
 		Map<Long, List<Pair<Page, PageAware>>> map = Maps.newHashMap();

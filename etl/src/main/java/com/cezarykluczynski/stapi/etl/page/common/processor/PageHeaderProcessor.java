@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.page.common.processor;
 
 import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi;
+import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import org.springframework.batch.item.ItemProcessor;
@@ -20,7 +21,7 @@ public class PageHeaderProcessor implements ItemProcessor<PageHeader, Page> {
 
 	@Override
 	public Page process(PageHeader item) throws Exception {
-		return pageApi.getPage(item.getTitle());
+		return pageApi.getPage(item.getTitle(), MediaWikiSource.MEMORY_ALPHA_EN);
 	}
 
 }
