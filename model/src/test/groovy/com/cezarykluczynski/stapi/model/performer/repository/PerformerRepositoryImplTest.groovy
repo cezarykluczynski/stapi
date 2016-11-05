@@ -4,11 +4,11 @@ import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.model.performer.query.PerformerQueryBuiler
-import com.cezarykluczynski.stapi.util.AbstractPerformerTest
+import com.cezarykluczynski.stapi.util.AbstractRealWorldPersonTest
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
-class PerformerRepositoryImplTest extends AbstractPerformerTest {
+class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 
 	private PerformerQueryBuiler performerQueryBuilerMock
 

@@ -37,6 +37,8 @@ dependencies {
 	compile group: 'commons-dbcp', name: 'commons-dbcp', version: '1.4'
 	compile group: 'javax.json', name: 'javax.json-api', version: '1.0'
 	compile group: 'org.glassfish', name: 'javax.json', version: '1.0.4'
+
+	testCompile project(':util').sourceSets.test.output
 }
 
 configurations.compile.exclude group: 'io.swagger'

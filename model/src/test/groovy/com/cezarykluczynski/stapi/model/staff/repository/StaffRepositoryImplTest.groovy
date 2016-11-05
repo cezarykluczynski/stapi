@@ -4,11 +4,11 @@ import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.staff.dto.StaffRequestDTO
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.model.staff.query.StaffQueryBuiler
-import com.cezarykluczynski.stapi.util.AbstractStaffTest
+import com.cezarykluczynski.stapi.util.AbstractRealWorldPersonTest
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
-class StaffRepositoryImplTest extends AbstractStaffTest {
+class StaffRepositoryImplTest extends AbstractRealWorldPersonTest {
 
 	private StaffQueryBuiler staffQueryBuilerMock
 

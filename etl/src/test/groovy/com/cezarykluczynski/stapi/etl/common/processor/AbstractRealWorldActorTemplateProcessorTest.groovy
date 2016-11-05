@@ -1,10 +1,10 @@
 package com.cezarykluczynski.stapi.etl.common.processor
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.Gender
-import com.cezarykluczynski.stapi.util.AbstractStaffTest
+import com.cezarykluczynski.stapi.util.AbstractRealWorldPersonTest
 
-class AbstractRealWorldActorTemplateProcessorTest extends AbstractStaffTest {
+class AbstractRealWorldActorTemplateProcessorTest extends AbstractRealWorldPersonTest {
 
-	protected static final Gender GENDER = Gender.F
+	static final Gender GENDER = Gender.F
 
 }

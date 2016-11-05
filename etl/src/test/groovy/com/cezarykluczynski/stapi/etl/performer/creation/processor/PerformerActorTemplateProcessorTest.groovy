@@ -4,23 +4,8 @@ import com.cezarykluczynski.stapi.etl.common.processor.AbstractRealWorldActorTem
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
-import com.cezarykluczynski.stapi.util.tool.LogicUtil
 
 class PerformerActorTemplateProcessorTest extends AbstractRealWorldActorTemplateProcessorTest {
-
-	private static final boolean ANIMAL_PERFORMER = LogicUtil.nextBoolean()
-	private static final boolean DIS_PERFORMER = LogicUtil.nextBoolean()
-	private static final boolean DS9_PERFORMER = LogicUtil.nextBoolean()
-	private static final boolean ENT_PERFORMER = LogicUtil.nextBoolean()
-	private static final boolean FILM_PERFORMER = LogicUtil.nextBoolean()
-	private static final boolean STAND_IN_PERFORMER = LogicUtil.nextBoolean()
-	private static final boolean STUNT_PERFORMER = LogicUtil.nextBoolean()
-	private static final boolean TAS_PERFORMER = LogicUtil.nextBoolean()
-	private static final boolean TNG_PERFORMER = LogicUtil.nextBoolean()
-	private static final boolean TOS_PERFORMER = LogicUtil.nextBoolean()
-	private static final boolean VIDEO_GAME_PERFORMER = LogicUtil.nextBoolean()
-	private static final boolean VOICE_PERFORMER = LogicUtil.nextBoolean()
-	private static final boolean VOY_PERFORMER = LogicUtil.nextBoolean()
 
 	private PerformerActorTemplateProcessor performerActorTemplateProcessor
 
