@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.performer.mapper
 
-import com.cezarykluczynski.stapi.client.soap.Performer as SOAPPerformer
+import com.cezarykluczynski.stapi.client.v1.soap.Performer as SOAPPerformer
 import com.cezarykluczynski.stapi.model.performer.entity.Performer as DBPerformer
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers

@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.common.mapper
 
-import com.cezarykluczynski.stapi.client.soap.RequestPage
-import com.cezarykluczynski.stapi.client.soap.ResponsePage as SOAPResponsePage
-import com.cezarykluczynski.stapi.client.rest.model.ResponsePage as RESTResponsePage
+import com.cezarykluczynski.stapi.client.v1.soap.RequestPage
+import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage as SOAPResponsePage
+import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage as RESTResponsePage
 import com.cezarykluczynski.stapi.server.common.dto.PageAwareBeanParams
 import com.cezarykluczynski.stapi.server.util.PageDefault
 import org.mapstruct.factory.Mappers

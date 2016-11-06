@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.performer.query;
 
-import com.cezarykluczynski.stapi.client.soap.PerformerRequest;
+import com.cezarykluczynski.stapi.client.v1.soap.PerformerRequest;
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository;

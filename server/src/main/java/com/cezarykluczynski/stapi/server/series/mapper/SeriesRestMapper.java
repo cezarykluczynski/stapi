@@ -9,8 +9,8 @@ import java.util.List;
 @Mapper(config = MapstructConfiguration.class)
 public interface SeriesRestMapper {
 
-	com.cezarykluczynski.stapi.client.rest.model.Series map(Series series);
+	com.cezarykluczynski.stapi.client.v1.rest.model.Series map(Series series);
 
-	List<com.cezarykluczynski.stapi.client.rest.model.Series> map(List<Series> seriesList);
+	List<com.cezarykluczynski.stapi.client.v1.rest.model.Series> map(List<Series> seriesList);
 
 }

@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.common.mapper
 
-import com.cezarykluczynski.stapi.client.rest.model.Gender as RestGenderEnum
-import com.cezarykluczynski.stapi.client.soap.GenderEnum as SoapGenderEnum
+import com.cezarykluczynski.stapi.client.v1.rest.model.Gender as RestGenderEnum
+import com.cezarykluczynski.stapi.client.v1.soap.GenderEnum as SoapGenderEnum
 import com.cezarykluczynski.stapi.model.common.entity.Gender as GenderEntity
 import org.mapstruct.factory.Mappers
 import spock.lang.Specification

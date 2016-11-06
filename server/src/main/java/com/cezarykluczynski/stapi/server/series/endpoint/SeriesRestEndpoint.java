@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.series.endpoint;
 
-import com.cezarykluczynski.stapi.client.rest.model.SeriesResponse;
+import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesResponse;
 import com.cezarykluczynski.stapi.server.common.dto.PageAwareBeanParams;
 import com.cezarykluczynski.stapi.server.series.dto.SeriesRestBeanParams;
 import com.cezarykluczynski.stapi.server.series.reader.SeriesRestReader;

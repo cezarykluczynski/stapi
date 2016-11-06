@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.performer.endpoint;
 
-import com.cezarykluczynski.stapi.client.rest.model.PerformerResponse;
+import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerResponse;
 import com.cezarykluczynski.stapi.server.common.dto.PageAwareBeanParams;
 import com.cezarykluczynski.stapi.server.performer.dto.PerformerRestBeanParams;
 import com.cezarykluczynski.stapi.server.performer.reader.PerformerRestReader;

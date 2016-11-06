@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.series.endpoint
 
-import com.cezarykluczynski.stapi.client.soap.RequestPage
-import com.cezarykluczynski.stapi.client.soap.SeriesRequest
-import com.cezarykluczynski.stapi.client.soap.SeriesResponse
+import com.cezarykluczynski.stapi.client.v1.soap.RequestPage
+import com.cezarykluczynski.stapi.client.v1.soap.SeriesRequest
+import com.cezarykluczynski.stapi.client.v1.soap.SeriesResponse
 import com.cezarykluczynski.stapi.server.series.common.EndpointIntegrationTest
 
 class SeriesSoapEndpointIntegrationTest extends EndpointIntegrationTest {

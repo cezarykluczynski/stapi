@@ -9,8 +9,8 @@ import java.util.List;
 @Mapper(config = MapstructConfiguration.class)
 public interface SeriesSoapMapper {
 
-	com.cezarykluczynski.stapi.client.soap.Series map(Series series);
+	com.cezarykluczynski.stapi.client.v1.soap.Series map(Series series);
 
-	List<com.cezarykluczynski.stapi.client.soap.Series> map(List<Series> seriesList);
+	List<com.cezarykluczynski.stapi.client.v1.soap.Series> map(List<Series> seriesList);
 
 }

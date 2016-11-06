@@ -37,7 +37,7 @@ class PerformerRestMapperTest extends AbstractPerformerMapperTest {
 				voyPerformer: VOY_PERFORMER)
 
 		when:
-		com.cezarykluczynski.stapi.client.rest.model.Performer restPerformer = performerRestMapper.map(Lists.newArrayList(dBPerformer))[0]
+		com.cezarykluczynski.stapi.client.v1.rest.model.Performer restPerformer = performerRestMapper.map(Lists.newArrayList(dBPerformer))[0]
 
 		then:
 		restPerformer.name == NAME

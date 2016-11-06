@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.server.performer.reader
 
-import com.cezarykluczynski.stapi.client.soap.Performer as SOAPPerformer
-import com.cezarykluczynski.stapi.client.soap.PerformerRequest
-import com.cezarykluczynski.stapi.client.soap.PerformerResponse
-import com.cezarykluczynski.stapi.client.soap.ResponsePage
+import com.cezarykluczynski.stapi.client.v1.soap.Performer as SOAPPerformer
+import com.cezarykluczynski.stapi.client.v1.soap.PerformerRequest
+import com.cezarykluczynski.stapi.client.v1.soap.PerformerResponse
+import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
 import com.cezarykluczynski.stapi.model.performer.entity.Performer as DBPerformer
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerSoapMapper

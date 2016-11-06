@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.performer.query
 
-import com.cezarykluczynski.stapi.client.soap.PerformerRequest
-import com.cezarykluczynski.stapi.client.soap.RequestPage
+import com.cezarykluczynski.stapi.client.v1.soap.PerformerRequest
+import com.cezarykluczynski.stapi.client.v1.soap.RequestPage
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO
 import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper

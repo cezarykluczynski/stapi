@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.series.query
 
-import com.cezarykluczynski.stapi.client.soap.RequestPage
-import com.cezarykluczynski.stapi.client.soap.SeriesRequest
+import com.cezarykluczynski.stapi.client.v1.soap.RequestPage
+import com.cezarykluczynski.stapi.client.v1.soap.SeriesRequest
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.model.series.repository.SeriesRepository
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper

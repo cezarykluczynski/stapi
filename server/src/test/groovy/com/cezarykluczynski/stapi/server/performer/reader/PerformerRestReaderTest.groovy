@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.performer.reader
 
-import com.cezarykluczynski.stapi.client.rest.model.Performer as RESTPerformer
-import com.cezarykluczynski.stapi.client.rest.model.PerformerResponse
-import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.v1.rest.model.Performer as RESTPerformer
+import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.performer.dto.PerformerRestBeanParams

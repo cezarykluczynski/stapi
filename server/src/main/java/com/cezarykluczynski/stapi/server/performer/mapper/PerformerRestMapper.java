@@ -10,8 +10,8 @@ import java.util.List;
 @Mapper(config = MapstructConfiguration.class, uses = {EnumMapper.class})
 public interface PerformerRestMapper {
 
-	com.cezarykluczynski.stapi.client.rest.model.Performer map(Performer series);
+	com.cezarykluczynski.stapi.client.v1.rest.model.Performer map(Performer series);
 
-	List<com.cezarykluczynski.stapi.client.rest.model.Performer> map(List<Performer> series);
+	List<com.cezarykluczynski.stapi.client.v1.rest.model.Performer> map(List<Performer> series);
 
 }

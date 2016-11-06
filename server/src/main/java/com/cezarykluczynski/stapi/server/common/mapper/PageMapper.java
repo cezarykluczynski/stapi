@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.common.mapper;
 
-import com.cezarykluczynski.stapi.client.soap.RequestPage;
-import com.cezarykluczynski.stapi.client.soap.ResponsePage;
+import com.cezarykluczynski.stapi.client.v1.soap.RequestPage;
+import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage;
 import com.cezarykluczynski.stapi.server.common.dto.PageAwareBeanParams;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import com.cezarykluczynski.stapi.server.util.PageDefault;
@@ -26,9 +26,9 @@ public interface PageMapper {
 		return responsePage;
 	}
 
-	default com.cezarykluczynski.stapi.client.rest.model.ResponsePage fromPageToRestResponsePage(Page pageRequest) {
-		com.cezarykluczynski.stapi.client.rest.model.ResponsePage responsePage =
-				new com.cezarykluczynski.stapi.client.rest.model.ResponsePage();
+	default com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage fromPageToRestResponsePage(Page pageRequest) {
+		com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage responsePage =
+				new com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage();
 		responsePage.setPageNumber(pageRequest.getNumber());
 		responsePage.setPageSize(pageRequest.getSize());
 		responsePage.setNumberOfElements(pageRequest.getNumberOfElements());

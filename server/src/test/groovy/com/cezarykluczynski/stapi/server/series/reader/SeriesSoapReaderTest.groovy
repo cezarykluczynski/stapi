@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.server.series.reader
 
-import com.cezarykluczynski.stapi.client.soap.ResponsePage
-import com.cezarykluczynski.stapi.client.soap.Series as SOAPSeries
-import com.cezarykluczynski.stapi.client.soap.SeriesRequest
-import com.cezarykluczynski.stapi.client.soap.SeriesResponse
+import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
+import com.cezarykluczynski.stapi.client.v1.soap.Series as SOAPSeries
+import com.cezarykluczynski.stapi.client.v1.soap.SeriesRequest
+import com.cezarykluczynski.stapi.client.v1.soap.SeriesResponse
 import com.cezarykluczynski.stapi.model.series.entity.Series as DBSeries
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesSoapMapper

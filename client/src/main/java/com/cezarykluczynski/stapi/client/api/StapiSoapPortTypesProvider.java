@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.client.api;
 
-import com.cezarykluczynski.stapi.client.soap.PerformerPortType;
-import com.cezarykluczynski.stapi.client.soap.PerformerService;
-import com.cezarykluczynski.stapi.client.soap.SeriesPortType;
-import com.cezarykluczynski.stapi.client.soap.SeriesService;
+import com.cezarykluczynski.stapi.client.v1.soap.PerformerPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.PerformerService;
+import com.cezarykluczynski.stapi.client.v1.soap.SeriesPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.SeriesService;
 import lombok.Getter;
 
 import javax.xml.ws.BindingProvider;

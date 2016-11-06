@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.series.reader
 
-import com.cezarykluczynski.stapi.client.rest.model.ResponsePage
-import com.cezarykluczynski.stapi.client.rest.model.Series as RESTSeries
-import com.cezarykluczynski.stapi.client.rest.model.SeriesResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.v1.rest.model.Series as RESTSeries
+import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesResponse
 import com.cezarykluczynski.stapi.model.series.entity.Series as DBSeries
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.series.dto.SeriesRestBeanParams

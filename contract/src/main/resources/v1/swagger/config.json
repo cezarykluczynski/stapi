@@ -1,0 +1,6 @@
+{
+	"modelPackage": "com.cezarykluczynski.stapi.client.v1.rest.model",
+	"invokerPackage": "com.cezarykluczynski.stapi.client.v1.rest.invoker",
+	"apiPackage": "com.cezarykluczynski.stapi.client.v1.rest.api",
+	"dateLibrary": "java8"
+}

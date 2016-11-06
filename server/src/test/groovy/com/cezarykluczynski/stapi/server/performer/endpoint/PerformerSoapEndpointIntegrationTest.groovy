@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.performer.endpoint
 
-import com.cezarykluczynski.stapi.client.soap.PerformerRequest
-import com.cezarykluczynski.stapi.client.soap.PerformerResponse
-import com.cezarykluczynski.stapi.client.soap.RequestPage
+import com.cezarykluczynski.stapi.client.v1.soap.PerformerRequest
+import com.cezarykluczynski.stapi.client.v1.soap.PerformerResponse
+import com.cezarykluczynski.stapi.client.v1.soap.RequestPage
 import com.cezarykluczynski.stapi.server.series.common.EndpointIntegrationTest
 
 class PerformerSoapEndpointIntegrationTest extends EndpointIntegrationTest {

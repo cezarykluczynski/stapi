@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.series.mapper
 
-import com.cezarykluczynski.stapi.client.soap.Series as SOAPSeries
+import com.cezarykluczynski.stapi.client.v1.soap.Series as SOAPSeries
 import com.cezarykluczynski.stapi.model.series.entity.Series as DBSeries
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers

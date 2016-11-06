@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.performer.mapper
 
-import com.cezarykluczynski.stapi.client.soap.PerformerRequest
+import com.cezarykluczynski.stapi.client.v1.soap.PerformerRequest
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO
 import com.cezarykluczynski.stapi.server.performer.dto.PerformerRestBeanParams
 import org.mapstruct.factory.Mappers

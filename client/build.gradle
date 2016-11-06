@@ -15,14 +15,14 @@ wsdl2java {
 	encoding = 'utf-8'
 	wsdlsToGenerate = [
 			[
-					'-wsdlLocation', 'classpath:wsdl/series.wsdl',
-					'-p','com.cezarykluczynski.stapi.client.soap',
-					'-autoNameResolution', "./contract/src/main/resources/wsdl/series.wsdl"
+					'-wsdlLocation', 'classpath:v1/wsdl/series.wsdl',
+					'-p','com.cezarykluczynski.stapi.client.v1.soap',
+					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/series.wsdl"
 			],
 			[
-					'-wsdlLocation', 'classpath:wsdl/performer.wsdl',
-					'-p','com.cezarykluczynski.stapi.client.soap',
-					'-autoNameResolution', "./contract/src/main/resources/wsdl/performer.wsdl"
+					'-wsdlLocation', 'classpath:v1/wsdl/performer.wsdl',
+					'-p','com.cezarykluczynski.stapi.client.v1.soap',
+					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/performer.wsdl"
 			]
 	]
 	generatedWsdlDir = file("$projectDir/build/generated/src/main/java")
@@ -38,8 +38,8 @@ task swaggerGenerate(type: Exec) {
 
 	commandLine "java", "-jar", "${file.absolutePath}",  "generate",
 			"-l", "java",
-			"-i", "contract/src/main/resources/swagger/stapi.yaml",
-			"-c", "contract/src/main/resources/swagger/config.json",
+			"-i", "contract/src/main/resources/v1/swagger/stapi.yaml",
+			"-c", "contract/src/main/resources/v1/swagger/config.json",
 			"-o", "./client/build/generated"
 }
 

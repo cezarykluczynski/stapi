@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.client.api;
 
-import com.cezarykluczynski.stapi.client.rest.api.PerformerApi;
-import com.cezarykluczynski.stapi.client.rest.api.SeriesApi;
-import com.cezarykluczynski.stapi.client.rest.invoker.ApiClient;
+import com.cezarykluczynski.stapi.client.v1.rest.api.PerformerApi;
+import com.cezarykluczynski.stapi.client.v1.rest.api.SeriesApi;
+import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiClient;
 import lombok.Getter;
 
 public class StapiRestClient extends AbstractStapiClient implements StapiClient {
