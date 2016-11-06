@@ -3,11 +3,11 @@ package com.cezarykluczynski.stapi.model.performer.query
 import org.springframework.data.jpa.repository.JpaContext
 import spock.lang.Specification
 
-class PerformerQueryBuilerFactoryTest extends Specification {
+class PerformerQueryBuilderFactoryTest extends Specification {
 
 	private JpaContext jpaContextMock
 
-	private PerformerQueryBuilerFactory performerQueryBuilerFactory
+	private PerformerQueryBuilderFactory performerQueryBuilerFactory
 
 	def setup() {
 		jpaContextMock = Mock(JpaContext)
@@ -15,7 +15,7 @@ class PerformerQueryBuilerFactoryTest extends Specification {
 
 	def "PerformerQueryBuilder is created"() {
 		when:
-		performerQueryBuilerFactory = new PerformerQueryBuilerFactory(jpaContextMock)
+		performerQueryBuilerFactory = new PerformerQueryBuilderFactory(jpaContextMock)
 
 		then:
 		performerQueryBuilerFactory != null

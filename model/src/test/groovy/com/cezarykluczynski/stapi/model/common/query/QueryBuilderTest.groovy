@@ -25,8 +25,11 @@ class QueryBuilderTest extends Specification {
 	private static final String VALID_KEY_BOOLEAN = 'VALID_KEY_BOOLEAN'
 	private static final Boolean VALID_VALUE_BOOLEAN = LogicUtil.nextBoolean()
 	private static final String VALID_KEY_LOCAL_DATE = 'VALID_KEY_LOCAL_DATE'
-	private static final LocalDate VALID_VALUE_LOCAL_DATE_FROM = LocalDate.of(2000, 1, 1)
-	private static final LocalDate VALID_VALUE_LOCAL_DATE_TO = LocalDate.of(2010, 1, 1)
+	private static final String VALID_KEY_INTEGER = 'VALID_KEY_INTEGER'
+	private static final LocalDate VALID_VALUE_LOCAL_DATE_FROM = LocalDate.of(2000, 1, 2)
+	private static final LocalDate VALID_VALUE_LOCAL_DATE_TO = LocalDate.of(2010, 3, 4)
+	private static final Integer VALID_VALUE_INTEGER_FROM = 1970
+	private static final Integer VALID_VALUE_INTEGER_TO = 2000
 	private static final String VALID_KEY_GENDER = 'VALID_KEY_GENDER'
 	private static final String VALID_KEY_PAGE = 'page'
 	private static final String VALID_JOIN_PAGE_ID = 'pageId'
@@ -104,8 +107,12 @@ class QueryBuilderTest extends Specification {
 					getName() >> KEY_WITH_INVALID_TYPE
 				},
 				Mock(Attribute) {
-					getJavaType() >>com.cezarykluczynski.stapi.model.page.entity.Page.class
+					getJavaType() >> com.cezarykluczynski.stapi.model.page.entity.Page
 					getName() >> VALID_KEY_PAGE
+				},
+				Mock(Attribute) {
+					getJavaType() >> Integer
+					getName() >> VALID_KEY_INTEGER
 				}
 		)
 		baseClass = Series
@@ -156,8 +163,8 @@ class QueryBuilderTest extends Specification {
 		when: 'valid LocalDate range key is added'
 		queryBuilder.between(VALID_KEY_LOCAL_DATE, VALID_VALUE_LOCAL_DATE_FROM, VALID_VALUE_LOCAL_DATE_TO)
 
-		then: 'no exception is thrown'
-		notThrown(RuntimeException)
+		then: 'correct method is called on criteria builder'
+		1 * criteriaBuilder.between(_, VALID_VALUE_LOCAL_DATE_FROM, VALID_VALUE_LOCAL_DATE_TO)
 
 		when: 'only start LocalDate is specified'
 		queryBuilder.between(VALID_KEY_LOCAL_DATE, VALID_VALUE_LOCAL_DATE_FROM, null)
@@ -170,6 +177,24 @@ class QueryBuilderTest extends Specification {
 
 		then: 'correct method is called on criteria builder'
 		1 * criteriaBuilder.lessThanOrEqualTo(_, VALID_VALUE_LOCAL_DATE_TO)
+
+		when: 'valid Integer range key is added'
+		queryBuilder.between(VALID_KEY_INTEGER, VALID_VALUE_INTEGER_FROM, VALID_VALUE_INTEGER_TO)
+
+		then: 'correct method is called on criteria builder'
+		1 * criteriaBuilder.between(_, VALID_VALUE_INTEGER_FROM, VALID_VALUE_INTEGER_TO)
+
+		when: 'only start Integer is specified'
+		queryBuilder.between(VALID_KEY_INTEGER, VALID_VALUE_INTEGER_FROM, null)
+
+		then: 'correct method is called on criteria builder'
+		1 * criteriaBuilder.greaterThanOrEqualTo(_, VALID_VALUE_INTEGER_FROM)
+
+		when: 'only end Integer is specified'
+		queryBuilder.between(VALID_KEY_INTEGER, null, VALID_VALUE_INTEGER_TO)
+
+		then: 'correct method is called on criteria builder'
+		1 * criteriaBuilder.lessThanOrEqualTo(_, VALID_VALUE_INTEGER_TO)
 
 		when: 'valid gender key is added'
 		queryBuilder.equal(VALID_KEY_GENDER, VALID_VALUE_GENDER)

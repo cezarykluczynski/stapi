@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.model.common.entity.Gender
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
-import com.cezarykluczynski.stapi.model.performer.query.PerformerQueryBuilerFactory
+import com.cezarykluczynski.stapi.model.performer.query.PerformerQueryBuilderFactory
 import com.cezarykluczynski.stapi.util.AbstractRealWorldPersonTest
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -13,7 +13,7 @@ class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 
 	private static final Gender GENDER = Gender.F
 
-	private PerformerQueryBuilerFactory performerQueryBuilerMock
+	private PerformerQueryBuilderFactory performerQueryBuilderMock
 
 	private PerformerRepositoryImpl performerRepositoryImpl
 
@@ -26,8 +26,8 @@ class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 	private Page page
 
 	def setup() {
-		performerQueryBuilerMock = Mock(PerformerQueryBuilerFactory)
-		performerRepositoryImpl = new PerformerRepositoryImpl(performerQueryBuilerMock)
+		performerQueryBuilderMock = Mock(PerformerQueryBuilderFactory)
+		performerRepositoryImpl = new PerformerRepositoryImpl(performerQueryBuilderMock)
 		performerQueryBuilder = Mock(QueryBuilder)
 		pageable = Mock(Pageable)
 		performerRequestDTO = Mock(PerformerRequestDTO)
@@ -39,7 +39,7 @@ class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 		Page pageOutput = performerRepositoryImpl.findMatching(performerRequestDTO, pageable)
 
 		then:
-		1 * performerQueryBuilerMock.createQueryBuilder(pageable) >> performerQueryBuilder
+		1 * performerQueryBuilderMock.createQueryBuilder(pageable) >> performerQueryBuilder
 
 		then: 'string criteria are set'
 		1 * performerRequestDTO.getName() >> NAME

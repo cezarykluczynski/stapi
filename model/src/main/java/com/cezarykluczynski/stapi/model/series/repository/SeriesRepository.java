@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SeriesRepository extends JpaRepository<Series, Long> {
+public interface SeriesRepository extends JpaRepository<Series, Long>, SeriesRepositoryCustom {
 
 	Page<Series> findByTitleIgnoreCaseContaining(String title, Pageable pageable);
 

@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.model.staff.repository;
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
 import com.cezarykluczynski.stapi.model.staff.dto.StaffRequestDTO;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
-import com.cezarykluczynski.stapi.model.staff.query.StaffQueryBuilerFactory;
+import com.cezarykluczynski.stapi.model.staff.query.StaffQueryBuilderFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -14,17 +14,17 @@ import javax.inject.Inject;
 @Repository
 public class StaffRepositoryImpl implements StaffRepositoryCustom {
 
-	private StaffQueryBuilerFactory staffQueryBuilerFactory;
+	private StaffQueryBuilderFactory staffQueryBuilderFactory;
 
 	@Inject
-	public StaffRepositoryImpl(StaffQueryBuilerFactory staffQueryBuilerFactory) {
-		this.staffQueryBuilerFactory = staffQueryBuilerFactory;
+	public StaffRepositoryImpl(StaffQueryBuilderFactory staffQueryBuilderFactory) {
+		this.staffQueryBuilderFactory = staffQueryBuilderFactory;
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Page<Staff> findMatching(StaffRequestDTO criteria, Pageable pageable) {
-		QueryBuilder<Staff> staffQueryBuilder = staffQueryBuilerFactory.createQueryBuilder(pageable);
+		QueryBuilder<Staff> staffQueryBuilder = staffQueryBuilderFactory.createQueryBuilder(pageable);
 
 		staffQueryBuilder.like("name", criteria.getName());
 		staffQueryBuilder.like("birthName", criteria.getBirthName());

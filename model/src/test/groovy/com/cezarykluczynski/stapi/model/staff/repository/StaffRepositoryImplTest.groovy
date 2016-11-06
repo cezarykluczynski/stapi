@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.model.common.entity.Gender
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.staff.dto.StaffRequestDTO
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
-import com.cezarykluczynski.stapi.model.staff.query.StaffQueryBuilerFactory
+import com.cezarykluczynski.stapi.model.staff.query.StaffQueryBuilderFactory
 import com.cezarykluczynski.stapi.util.AbstractRealWorldPersonTest
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -13,7 +13,7 @@ class StaffRepositoryImplTest extends AbstractRealWorldPersonTest {
 
 	private static final Gender GENDER = Gender.F
 
-	private StaffQueryBuilerFactory staffQueryBuilerMock
+	private StaffQueryBuilderFactory staffQueryBuilerMock
 
 	private StaffRepositoryImpl staffRepositoryImpl
 
@@ -26,7 +26,7 @@ class StaffRepositoryImplTest extends AbstractRealWorldPersonTest {
 	private Page page
 
 	def setup() {
-		staffQueryBuilerMock = Mock(StaffQueryBuilerFactory)
+		staffQueryBuilerMock = Mock(StaffQueryBuilderFactory)
 		staffRepositoryImpl = new StaffRepositoryImpl(staffQueryBuilerMock)
 		staffQueryBuilder = Mock(QueryBuilder)
 		pageable = Mock(Pageable)

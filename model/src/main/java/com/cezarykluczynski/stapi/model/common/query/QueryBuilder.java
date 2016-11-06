@@ -112,6 +112,24 @@ public class QueryBuilder<T> {
 		return this;
 	}
 
+	public QueryBuilder<T> between(String key, Integer from, Integer to) {
+		validateAttributeExistenceAndType(key, Integer.class);
+
+		if (from != null && to != null) {
+			predicateList.add(criteriaBuilder.between(baseRoot.get(key), from, to));
+		}
+
+		if (from != null && to == null) {
+			predicateList.add(criteriaBuilder.greaterThanOrEqualTo(baseRoot.get(key), from));
+		}
+
+		if (from == null && to != null) {
+			predicateList.add(criteriaBuilder.lessThanOrEqualTo(baseRoot.get(key), to));
+		}
+
+		return this;
+	}
+
 	public Page<T> findPage() {
 		prepareQueries();
 
