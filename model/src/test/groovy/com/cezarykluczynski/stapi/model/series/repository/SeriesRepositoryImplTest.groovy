@@ -64,12 +64,12 @@ class SeriesRepositoryImplTest extends Specification {
 		1 * seriesRequestDTO.getProductionEndYearFrom() >> PRODUCTION_END_YEAR_FROM
 		1 * seriesRequestDTO.getProductionEndYearTo() >> PRODUCTION_END_YEAR_TO
 		1 * seriesQueryBuilder.between("productionEndYear", PRODUCTION_END_YEAR_FROM, PRODUCTION_END_YEAR_TO)
-		1 * seriesRequestDTO.getOriginalRunStartFrom() >> ORIGINAL_RUN_START_FROM
-		1 * seriesRequestDTO.getOriginalRunStartTo() >> ORIGINAL_RUN_START_TO
-		1 * seriesQueryBuilder.between("originalRunStart", ORIGINAL_RUN_START_FROM, ORIGINAL_RUN_START_TO)
-		1 * seriesRequestDTO.getOriginalRunEndFrom() >> ORIGINAL_RUN_END_FROM
-		1 * seriesRequestDTO.getOriginalRunEndTo() >> ORIGINAL_RUN_END_TO
-		1 * seriesQueryBuilder.between("originalRunEnd", ORIGINAL_RUN_END_FROM, ORIGINAL_RUN_END_TO)
+		1 * seriesRequestDTO.getOriginalRunStartDateFrom() >> ORIGINAL_RUN_START_FROM
+		1 * seriesRequestDTO.getOriginalRunStartDateTo() >> ORIGINAL_RUN_START_TO
+		1 * seriesQueryBuilder.between("originalRunStartDate", ORIGINAL_RUN_START_FROM, ORIGINAL_RUN_START_TO)
+		1 * seriesRequestDTO.getOriginalRunEndDateFrom() >> ORIGINAL_RUN_END_FROM
+		1 * seriesRequestDTO.getOriginalRunEndDateTo() >> ORIGINAL_RUN_END_TO
+		1 * seriesQueryBuilder.between("originalRunEndDate", ORIGINAL_RUN_END_FROM, ORIGINAL_RUN_END_TO)
 
 		then: 'page is searched for and returned'
 		1 * seriesQueryBuilder.findPage() >> page

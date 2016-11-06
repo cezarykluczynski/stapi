@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.performer.dto.PerformerRestBeanParams
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerRestMapper
-import com.cezarykluczynski.stapi.server.performer.query.PerformerQueryBuilder
+import com.cezarykluczynski.stapi.server.performer.query.PerformerQuery
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
 import spock.lang.Specification
@@ -16,7 +16,7 @@ class PerformerRestReaderTest extends Specification {
 
 	private static final Long ID = 1L
 
-	private PerformerQueryBuilder performerQueryBuilderMock
+	private PerformerQuery performerQueryBuilderMock
 
 	private PerformerRestMapper performerRestMapperMock
 
@@ -25,7 +25,7 @@ class PerformerRestReaderTest extends Specification {
 	private PerformerRestReader performerRestReader
 
 	def setup() {
-		performerQueryBuilderMock = Mock(PerformerQueryBuilder)
+		performerQueryBuilderMock = Mock(PerformerQuery)
 		performerRestMapperMock = Mock(PerformerRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		performerRestReader = new PerformerRestReader(performerQueryBuilderMock, performerRestMapperMock, pageMapperMock)

@@ -11,7 +11,13 @@
 			<xs:complexContent>
 				<xs:extension base="common:Request">
 					<xs:sequence>
-						<xs:element name="title" type="xs:string" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="id" type="xs:long"/>
+						<xs:element name="title" type="xs:string"/>
+						<xs:element name="abbreviation" type="xs:string"/>
+						<xs:element name="productionStartYear" type="common:IntegerRange"/>
+						<xs:element name="productionEndYear" type="common:IntegerRange"/>
+						<xs:element name="originalRunStartDate" type="common:DateRange"/>
+						<xs:element name="originalRunEndDate" type="common:DateRange"/>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>

@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.Reader;
 import com.cezarykluczynski.stapi.server.series.dto.SeriesRestBeanParams;
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesRestMapper;
-import com.cezarykluczynski.stapi.server.series.query.SeriesQueryBuilder;
+import com.cezarykluczynski.stapi.server.series.query.SeriesQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -14,16 +14,15 @@ import javax.inject.Inject;
 @Service
 public class SeriesRestReader implements Reader<SeriesRestBeanParams, SeriesResponse> {
 
-	private SeriesQueryBuilder seriesQueryBuilder;
+	private SeriesQuery seriesQuery;
 
 	private SeriesRestMapper seriesRestMapper;
 
 	private PageMapper pageMapper;
 
 	@Inject
-	public SeriesRestReader(SeriesQueryBuilder seriesQueryBuilder, SeriesRestMapper seriesRestMapper,
-			PageMapper pageMapper) {
-		this.seriesQueryBuilder = seriesQueryBuilder;
+	public SeriesRestReader(SeriesQuery seriesQuery, SeriesRestMapper seriesRestMapper, PageMapper pageMapper) {
+		this.seriesQuery = seriesQuery;
 		this.seriesRestMapper = seriesRestMapper;
 		this.pageMapper = pageMapper;
 	}
@@ -34,7 +33,7 @@ public class SeriesRestReader implements Reader<SeriesRestBeanParams, SeriesResp
 	}
 
 	private SeriesResponse toResponse(SeriesRestBeanParams seriesRestBeanParams) {
-		Page<com.cezarykluczynski.stapi.model.series.entity.Series> seriesPage = seriesQueryBuilder
+		Page<com.cezarykluczynski.stapi.model.series.entity.Series> seriesPage = seriesQuery
 				.query(seriesRestBeanParams);
 		SeriesResponse seriesResponse = new SeriesResponse();
 		seriesResponse.setPage(pageMapper.fromPageToRestResponsePage(seriesPage));

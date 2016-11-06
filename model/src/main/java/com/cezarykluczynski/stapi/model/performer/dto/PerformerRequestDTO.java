@@ -2,8 +2,10 @@ package com.cezarykluczynski.stapi.model.performer.dto;
 
 import com.cezarykluczynski.stapi.model.common.dto.RealWorldPersonRequestDTO;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class PerformerRequestDTO extends RealWorldPersonRequestDTO {
 
 	private Boolean animalPerformer;

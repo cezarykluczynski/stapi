@@ -30,10 +30,10 @@ public class SeriesRepositoryImpl implements SeriesRepositoryCustom {
 				criteria.getProductionStartYearTo());
 		seriesQueryBuilder.between("productionEndYear", criteria.getProductionEndYearFrom(),
 				criteria.getProductionEndYearTo());
-		seriesQueryBuilder.between("originalRunStart", criteria.getOriginalRunStartFrom(),
-				criteria.getOriginalRunStartTo());
-		seriesQueryBuilder.between("originalRunEnd", criteria.getOriginalRunEndFrom(),
-				criteria.getOriginalRunEndTo());
+		seriesQueryBuilder.between("originalRunStartDate", criteria.getOriginalRunStartDateFrom(),
+				criteria.getOriginalRunStartDateTo());
+		seriesQueryBuilder.between("originalRunEndDate", criteria.getOriginalRunEndDateFrom(),
+				criteria.getOriginalRunEndDateTo());
 
 		return seriesQueryBuilder.findPage();
 	}

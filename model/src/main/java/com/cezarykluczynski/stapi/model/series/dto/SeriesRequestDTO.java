@@ -19,12 +19,12 @@ public class SeriesRequestDTO {
 
 	private Integer productionEndYearTo;
 
-	private LocalDate originalRunStartFrom;
+	private LocalDate originalRunStartDateFrom;
 
-	private LocalDate originalRunStartTo;
+	private LocalDate originalRunStartDateTo;
 
-	private LocalDate originalRunEndFrom;
+	private LocalDate originalRunEndDateFrom;
 
-	private LocalDate originalRunEndTo;
+	private LocalDate originalRunEndDateTo;
 
 }

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 
 @Service
-public class PerformerQueryBuilder {
+public class PerformerQuery {
 
 	private PerformerRequestMapper performerRequestMapper;
 
@@ -23,7 +23,7 @@ public class PerformerQueryBuilder {
 	private PerformerRepository performerRepository;
 
 	@Inject
-	public PerformerQueryBuilder(PerformerRequestMapper performerRequestMapper, PageMapper pageMapper,
+	public PerformerQuery(PerformerRequestMapper performerRequestMapper, PageMapper pageMapper,
 			PerformerRepository performerRepository) {
 		this.performerRequestMapper = performerRequestMapper;
 		this.pageMapper = pageMapper;

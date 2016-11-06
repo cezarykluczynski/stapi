@@ -2,8 +2,10 @@ package com.cezarykluczynski.stapi.model.staff.dto;
 
 import com.cezarykluczynski.stapi.model.common.dto.RealWorldPersonRequestDTO;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class StaffRequestDTO extends RealWorldPersonRequestDTO {
 
 	private Boolean artDepartment;

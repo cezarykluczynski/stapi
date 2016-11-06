@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
 import com.cezarykluczynski.stapi.model.performer.entity.Performer as DBPerformer
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerSoapMapper
-import com.cezarykluczynski.stapi.server.performer.query.PerformerQueryBuilder
+import com.cezarykluczynski.stapi.server.performer.query.PerformerQuery
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
 import spock.lang.Specification
@@ -16,7 +16,7 @@ class PerformerSoapReaderTest extends Specification {
 
 	private static final Long ID = 1L
 
-	private PerformerQueryBuilder performerQueryBuilderMock
+	private PerformerQuery performerQueryBuilderMock
 
 	private PerformerSoapMapper performerSoapMapperMock
 
@@ -25,7 +25,7 @@ class PerformerSoapReaderTest extends Specification {
 	private PerformerSoapReader performerSoapReader
 
 	def setup() {
-		performerQueryBuilderMock = Mock(PerformerQueryBuilder)
+		performerQueryBuilderMock = Mock(PerformerQuery)
 		performerSoapMapperMock = Mock(PerformerSoapMapper)
 		pageMapperMock = Mock(PageMapper)
 		performerSoapReader = new PerformerSoapReader(performerQueryBuilderMock, performerSoapMapperMock, pageMapperMock)

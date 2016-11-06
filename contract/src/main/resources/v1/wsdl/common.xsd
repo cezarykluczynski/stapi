@@ -51,4 +51,10 @@
 			<xs:element name="dateTo" type="xs:date" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="IntegerRange">
+		<xs:sequence>
+			<xs:element name="from" type="xs:int" minOccurs="0"/>
+			<xs:element name="to" type="xs:int" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
 </xs:schema>

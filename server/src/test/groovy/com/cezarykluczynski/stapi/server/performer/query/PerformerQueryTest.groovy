@@ -11,7 +11,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import spock.lang.Specification
 
-class PerformerQueryBuilderTest extends Specification {
+class PerformerQueryTest extends Specification {
 
 	private PerformerRequestMapper performerRequestMapperMock
 
@@ -19,13 +19,13 @@ class PerformerQueryBuilderTest extends Specification {
 
 	private PerformerRepository performerRepositoryMock
 
-	private PerformerQueryBuilder performerQueryBuilder
+	private PerformerQuery performerQuery
 
 	def setup() {
 		performerRequestMapperMock = Mock(PerformerRequestMapper)
 		pageMapperMock = Mock(PageMapper)
 		performerRepositoryMock = Mock(PerformerRepository)
-		performerQueryBuilder = new PerformerQueryBuilder(performerRequestMapperMock, pageMapperMock,
+		performerQuery = new PerformerQuery(performerRequestMapperMock, pageMapperMock,
 				performerRepositoryMock)
 	}
 
@@ -40,7 +40,7 @@ class PerformerQueryBuilderTest extends Specification {
 		Page page = Mock(Page)
 
 		when:
-		Page pageOutput = performerQueryBuilder.query(performerRequest)
+		Page pageOutput = performerQuery.query(performerRequest)
 
 		then:
 		1 * performerRequestMapperMock.map(performerRequest) >> performerRequestDTO
@@ -59,7 +59,7 @@ class PerformerQueryBuilderTest extends Specification {
 		Page page = Mock(Page)
 
 		when:
-		Page pageOutput = performerQueryBuilder.query(performerRestBeanParams)
+		Page pageOutput = performerQuery.query(performerRestBeanParams)
 
 		then:
 		1 * performerRequestMapperMock.map(performerRestBeanParams) >> performerRequestDTO

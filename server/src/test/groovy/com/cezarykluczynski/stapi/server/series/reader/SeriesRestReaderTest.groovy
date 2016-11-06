@@ -7,14 +7,14 @@ import com.cezarykluczynski.stapi.model.series.entity.Series as DBSeries
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.series.dto.SeriesRestBeanParams
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesRestMapper
-import com.cezarykluczynski.stapi.server.series.query.SeriesQueryBuilder
+import com.cezarykluczynski.stapi.server.series.query.SeriesQuery
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
 import spock.lang.Specification
 
 class SeriesRestReaderTest extends Specification {
 
-	private SeriesQueryBuilder seriesQueryBuilderMock
+	private SeriesQuery seriesQueryBuilderMock
 
 	private SeriesRestMapper seriesRestMapperMock
 
@@ -23,7 +23,7 @@ class SeriesRestReaderTest extends Specification {
 	private SeriesRestReader seriesRestReader
 
 	def setup() {
-		seriesQueryBuilderMock = Mock(SeriesQueryBuilder)
+		seriesQueryBuilderMock = Mock(SeriesQuery)
 		seriesRestMapperMock = Mock(SeriesRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		seriesRestReader = new SeriesRestReader(seriesQueryBuilderMock, seriesRestMapperMock, pageMapperMock)

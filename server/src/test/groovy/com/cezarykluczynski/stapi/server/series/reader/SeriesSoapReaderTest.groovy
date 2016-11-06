@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.SeriesResponse
 import com.cezarykluczynski.stapi.model.series.entity.Series as DBSeries
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesSoapMapper
-import com.cezarykluczynski.stapi.server.series.query.SeriesQueryBuilder
+import com.cezarykluczynski.stapi.server.series.query.SeriesQuery
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
 import spock.lang.Specification
@@ -16,7 +16,7 @@ class SeriesSoapReaderTest extends Specification {
 
 	private static final Long ID = 1L
 
-	private SeriesQueryBuilder seriesQueryBuilderMock
+	private SeriesQuery seriesQueryBuilderMock
 
 	private SeriesSoapMapper seriesSoapMapperMock
 
@@ -25,7 +25,7 @@ class SeriesSoapReaderTest extends Specification {
 	private SeriesSoapReader seriesSoapReader
 
 	def setup() {
-		seriesQueryBuilderMock = Mock(SeriesQueryBuilder)
+		seriesQueryBuilderMock = Mock(SeriesQuery)
 		seriesSoapMapperMock = Mock(SeriesSoapMapper)
 		pageMapperMock = Mock(PageMapper)
 		seriesSoapReader = new SeriesSoapReader(seriesQueryBuilderMock, seriesSoapMapperMock, pageMapperMock)

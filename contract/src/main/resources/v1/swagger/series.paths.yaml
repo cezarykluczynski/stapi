@@ -35,9 +35,45 @@ post:
     - name: title
       in: formData
       type: string
+    - name: abbreviation
+      in: formData
+      type: string
+    - name: productionStartYearFrom
+      in: formData
+      type: integer
+      format: int32
+    - name: productionStartYearTo
+      in: formData
+      type: integer
+      format: int32
+    - name: productionStartEndFrom
+      in: formData
+      type: integer
+      format: int32
+    - name: productionStartEndTo
+      in: formData
+      type: integer
+      format: int32
+    - name: originalRunStartDateFrom
+      in: formData
+      type: string
+      format: date
+    - name: originalRunStartDateTo
+      in: formData
+      type: string
+      format: date
+    - name: originalRunEndDateFrom
+      in: formData
+      type: string
+      format: date
+    - name: originalRunEndDateTo
+      in: formData
+      type: string
+      format: date
   responses:
     200:
       schema:
         $ref: '#/definitions/SeriesResponse'
   tags:
     - Series
+

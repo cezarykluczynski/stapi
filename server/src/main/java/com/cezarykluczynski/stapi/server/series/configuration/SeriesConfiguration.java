@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.server.series.configuration;
 
+import com.cezarykluczynski.stapi.server.series.mapper.SeriesRequestMapper;
 import com.cezarykluczynski.stapi.server.series.endpoint.SeriesSoapEndpoint;
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesRestMapper;
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesSoapMapper;
@@ -38,6 +39,11 @@ public class SeriesConfiguration {
 	@Bean
 	public SeriesRestMapper seriesRestMapper() {
 		return Mappers.getMapper(SeriesRestMapper.class);
+	}
+
+	@Bean
+	public SeriesRequestMapper seriesRequestMapper() {
+		return Mappers.getMapper(SeriesRequestMapper.class);
 	}
 
 }
