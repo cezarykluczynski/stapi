@@ -8,6 +8,9 @@ import java.time.LocalDate;
 
 public class PerformerRestBeanParams extends PageAwareBeanParams {
 
+	@FormParam("id")
+	private Long id;
+
 	@FormParam("name")
 	private String name;
 
@@ -73,6 +76,10 @@ public class PerformerRestBeanParams extends PageAwareBeanParams {
 
 	@FormParam("voyPerformer")
 	private Boolean voyPerformer;
+
+	public Long getId() {
+		return id;
+	}
 
 	public String getName() {
 		return name;

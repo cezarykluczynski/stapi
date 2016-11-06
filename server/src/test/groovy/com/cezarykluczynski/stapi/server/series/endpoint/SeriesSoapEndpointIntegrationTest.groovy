@@ -51,4 +51,27 @@ class SeriesSoapEndpointIntegrationTest extends EndpointIntegrationTest {
 		seriesResponse.series.size() == 1
 	}
 
+	def "gets series by id"() {
+		given:
+		Integer pageNumber = 0
+		Integer pageSize = 2
+
+		when:
+		SeriesResponse seriesResponse = stapiSoapClient.seriesPortType.getSeries(new SeriesRequest(
+				page: new RequestPage(
+						pageNumber: pageNumber,
+						pageSize: pageSize
+				),
+				id: 1L
+		))
+
+		then:
+		seriesResponse.page.pageNumber == pageNumber
+		seriesResponse.page.pageSize == pageSize
+		seriesResponse.series.size() == 1
+		seriesResponse.series[0].abbreviation == "TAS"
+	}
+
+
+
 }

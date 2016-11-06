@@ -32,6 +32,10 @@ post:
       in: query
       type: integer
       format: int32
+    - name: id
+      in: formData
+      type: integer
+      format: int64
     - name: name
       in: formData
       type: string

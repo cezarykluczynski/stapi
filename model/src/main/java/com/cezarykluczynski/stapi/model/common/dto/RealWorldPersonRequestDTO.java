@@ -9,6 +9,8 @@ import java.time.LocalDate;
 @Data
 public class RealWorldPersonRequestDTO {
 
+	private Long id;
+
 	private String name;
 
 	private String birthName;

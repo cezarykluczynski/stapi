@@ -26,10 +26,13 @@ class QueryBuilderTest extends Specification {
 	private static final Boolean VALID_VALUE_BOOLEAN = LogicUtil.nextBoolean()
 	private static final String VALID_KEY_LOCAL_DATE = 'VALID_KEY_LOCAL_DATE'
 	private static final String VALID_KEY_INTEGER = 'VALID_KEY_INTEGER'
+	private static final String VALID_KEY_LONG = 'VALID_KEY_LONG'
+
 	private static final LocalDate VALID_VALUE_LOCAL_DATE_FROM = LocalDate.of(2000, 1, 2)
 	private static final LocalDate VALID_VALUE_LOCAL_DATE_TO = LocalDate.of(2010, 3, 4)
 	private static final Integer VALID_VALUE_INTEGER_FROM = 1970
 	private static final Integer VALID_VALUE_INTEGER_TO = 2000
+	private static final Integer VALID_VALUE_LONG = 5L
 	private static final String VALID_KEY_GENDER = 'VALID_KEY_GENDER'
 	private static final String VALID_KEY_PAGE = 'page'
 	private static final String VALID_JOIN_PAGE_ID = 'pageId'
@@ -95,6 +98,10 @@ class QueryBuilderTest extends Specification {
 					getName() >> VALID_KEY_BOOLEAN
 				},
 				Mock(Attribute) {
+					getJavaType() >> Long
+					getName() >> VALID_KEY_LONG
+				},
+				Mock(Attribute) {
 					getJavaType() >> LocalDate
 					getName() >> VALID_KEY_LOCAL_DATE
 				},
@@ -151,65 +158,74 @@ class QueryBuilderTest extends Specification {
 		when: 'valid string key is added'
 		queryBuilder.like(VALID_KEY_STRING, VALID_VALUE_STRING)
 
-		then: 'no exception is thrown'
-		notThrown(RuntimeException)
+		then: 'right methods are called'
+		1 * baseRoot.get(VALID_KEY_STRING) >> path
+		1 * criteriaBuilder.like(path, "%${VALID_VALUE_STRING}%")
 
 		when: 'valid boolean key is added'
 		queryBuilder.equal(VALID_KEY_BOOLEAN, VALID_VALUE_BOOLEAN)
 
-		then: 'no exception is thrown'
-		notThrown(RuntimeException)
+		then: 'right methods are called'
+		1 * baseRoot.get(VALID_KEY_BOOLEAN) >> path
+		1 * criteriaBuilder.equal(path, VALID_VALUE_BOOLEAN)
+
+		when: 'valid long key is added'
+		queryBuilder.equal(VALID_KEY_LONG, VALID_VALUE_LONG)
+
+		then: 'right methods are called'
+		1 * baseRoot.get(VALID_KEY_LONG) >> path
+		1 * criteriaBuilder.equal(path, VALID_VALUE_LONG)
 
 		when: 'valid LocalDate range key is added'
 		queryBuilder.between(VALID_KEY_LOCAL_DATE, VALID_VALUE_LOCAL_DATE_FROM, VALID_VALUE_LOCAL_DATE_TO)
 
-		then: 'correct method is called on criteria builder'
+		then: 'right methods are called'
 		1 * criteriaBuilder.between(_, VALID_VALUE_LOCAL_DATE_FROM, VALID_VALUE_LOCAL_DATE_TO)
 
 		when: 'only start LocalDate is specified'
 		queryBuilder.between(VALID_KEY_LOCAL_DATE, VALID_VALUE_LOCAL_DATE_FROM, null)
 
-		then: 'correct method is called on criteria builder'
+		then: 'right methods are called'
 		1 * criteriaBuilder.greaterThanOrEqualTo(_, VALID_VALUE_LOCAL_DATE_FROM)
 
 		when: 'only end LocalDate is specified'
 		queryBuilder.between(VALID_KEY_LOCAL_DATE, null, VALID_VALUE_LOCAL_DATE_TO)
 
-		then: 'correct method is called on criteria builder'
+		then: 'right methods are called'
 		1 * criteriaBuilder.lessThanOrEqualTo(_, VALID_VALUE_LOCAL_DATE_TO)
 
 		when: 'valid Integer range key is added'
 		queryBuilder.between(VALID_KEY_INTEGER, VALID_VALUE_INTEGER_FROM, VALID_VALUE_INTEGER_TO)
 
-		then: 'correct method is called on criteria builder'
+		then: 'right methods are called'
 		1 * criteriaBuilder.between(_, VALID_VALUE_INTEGER_FROM, VALID_VALUE_INTEGER_TO)
 
 		when: 'only start Integer is specified'
 		queryBuilder.between(VALID_KEY_INTEGER, VALID_VALUE_INTEGER_FROM, null)
 
-		then: 'correct method is called on criteria builder'
+		then: 'right methods are called'
 		1 * criteriaBuilder.greaterThanOrEqualTo(_, VALID_VALUE_INTEGER_FROM)
 
 		when: 'only end Integer is specified'
 		queryBuilder.between(VALID_KEY_INTEGER, null, VALID_VALUE_INTEGER_TO)
 
-		then: 'correct method is called on criteria builder'
+		then: 'right methods are called'
 		1 * criteriaBuilder.lessThanOrEqualTo(_, VALID_VALUE_INTEGER_TO)
 
 		when: 'valid gender key is added'
 		queryBuilder.equal(VALID_KEY_GENDER, VALID_VALUE_GENDER)
 
-		then: 'no exception is thrown'
-		notThrown(RuntimeException)
+		then: 'right methods are called'
+		1 * baseRoot.get(VALID_KEY_GENDER) >> path
+		1 * criteriaBuilder.equal(path, VALID_VALUE_GENDER)
 
 		when: 'join key is added'
 		queryBuilder.joinIn(VALID_KEY_PAGE, VALID_JOIN_PAGE_ID, Sets.newHashSet(1L), com.cezarykluczynski.stapi.model.page.entity.Page)
 
-		then: 'no exception is thrown'
+		then: 'right methods are called'
 		1 * baseRoot.get(VALID_KEY_PAGE) >> path
 		1 * path.get(VALID_JOIN_PAGE_ID) >> path
 		1 * path.in(_)
-		notThrown(RuntimeException)
 
 		when: 'key with invalid type is added'
 		queryBuilder.like(KEY_WITH_INVALID_TYPE, VALID_VALUE_STRING)

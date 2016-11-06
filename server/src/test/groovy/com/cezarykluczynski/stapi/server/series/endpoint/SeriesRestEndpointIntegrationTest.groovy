@@ -29,11 +29,28 @@ class SeriesRestEndpointIntegrationTest extends EndpointIntegrationTest {
 		Integer pageSize = 2
 
 		when:
-		SeriesResponse seriesResponse = stapiRestClient.seriesApi.seriesPost(pageNumber, pageSize, "Voyager", null,
+		SeriesResponse seriesResponse = stapiRestClient.seriesApi.seriesPost(pageNumber, pageSize, null, "Voyager", null,
 				null, null, null, null, null, null, null, null)
 
 		then:
 		seriesResponse.series.size() == 1
+		seriesResponse.series[0].title == "Star Trek: Voyager"
+		seriesResponse.page.pageNumber == pageNumber
+		seriesResponse.page.pageSize == pageSize
+	}
+
+	def "gets series by id"() {
+		given:
+		Integer pageNumber = 0
+		Integer pageSize = 2
+
+		when:
+		SeriesResponse seriesResponse = stapiRestClient.seriesApi.seriesPost(pageNumber, pageSize, 1, null, null,
+				null, null, null, null, null, null, null, null)
+
+		then:
+		seriesResponse.series.size() == 1
+		seriesResponse.series[0].abbreviation == "TAS"
 		seriesResponse.page.pageNumber == pageNumber
 		seriesResponse.page.pageSize == pageSize
 	}

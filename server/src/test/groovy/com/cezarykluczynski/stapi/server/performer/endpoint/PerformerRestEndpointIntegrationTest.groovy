@@ -5,6 +5,8 @@ import com.cezarykluczynski.stapi.server.series.common.EndpointIntegrationTest
 
 class PerformerRestEndpointIntegrationTest extends EndpointIntegrationTest {
 
+	private static final Long ID = 100L
+
 	def setup() {
 		createRestClient()
 	}
@@ -26,11 +28,23 @@ class PerformerRestEndpointIntegrationTest extends EndpointIntegrationTest {
 	def "gets the only person to star in 6 series"() {
 		when:
 		PerformerResponse performerResponse = stapiRestClient.performerApi.performerPost(null, null, null, null, null,
-				null, null, null, null, null, null, true, true, null, null, null, true, true, true, null, null, true)
+				null, null, null, null, null, null, null, true, true, null, null, null, true, true, true, null, null,
+				true)
 
 		then:
 		performerResponse.page.totalElements == 1
 		performerResponse.performers[0].name == "Majel Barrett-Roddenberry"
+	}
+
+	def "gets performer by id"() {
+		when:
+		PerformerResponse performerResponse = stapiRestClient.performerApi.performerPost(null, null, ID, null, null,
+				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+				null)
+
+		then:
+		performerResponse.page.totalElements == 1
+		performerResponse.performers[0].id == ID
 	}
 
 }

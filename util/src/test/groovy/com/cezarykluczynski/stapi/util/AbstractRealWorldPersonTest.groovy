@@ -10,6 +10,7 @@ import java.time.LocalDate
 
 class AbstractRealWorldPersonTest extends Specification {
 
+	protected static final Long ID = 1L
 	protected static final String NAME = 'NAME'
 	protected static final String BIRTH_NAME = 'BIRTH_NAME'
 	protected static final String PLACE_OF_BIRTH = 'PLACE_OF_BIRTH'

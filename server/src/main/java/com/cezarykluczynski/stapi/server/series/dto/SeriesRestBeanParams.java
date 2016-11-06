@@ -7,6 +7,9 @@ import java.time.LocalDate;
 
 public class SeriesRestBeanParams extends PageAwareBeanParams {
 
+	@FormParam(value = "id")
+	private Long id;
+
 	@FormParam(value = "title")
 	private String title;
 
@@ -36,6 +39,10 @@ public class SeriesRestBeanParams extends PageAwareBeanParams {
 
 	@FormParam(value = "originalRunEndDateTo")
 	private LocalDate originalRunEndDateTo;
+
+	public Long getId() {
+		return id;
+	}
 
 	public String getTitle() {
 		return title;

@@ -7,6 +7,8 @@ import com.cezarykluczynski.stapi.server.series.common.EndpointIntegrationTest
 
 class PerformerSoapEndpointIntegrationTest extends EndpointIntegrationTest {
 
+	private static final Long ID = 100L
+
 	def setup() {
 		createSoapClient()
 	}
@@ -42,6 +44,17 @@ class PerformerSoapEndpointIntegrationTest extends EndpointIntegrationTest {
 		then:
 		performerResponse.page.totalElements == 1
 		performerResponse.performers[0].name == "Majel Barrett-Roddenberry"
+	}
+
+	def "gets performer by id"() {
+		when:
+		PerformerResponse performerResponse = stapiSoapClient.performerPortType.getPerformers(new PerformerRequest(
+				id: ID
+		))
+
+		then:
+		performerResponse.page.totalElements == 1
+		performerResponse.performers[0].id == ID
 	}
 
 }

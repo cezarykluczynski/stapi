@@ -18,6 +18,7 @@ class SeriesRequestMapperTest extends AbstractSeriesMapperTest {
 	def "maps SOAP SeriesRequest to SeriesRequestDTO"() {
 		given:
 		SeriesRequest seriesRequest = new SeriesRequest(
+				id: ID,
 				title: TITLE,
 				abbreviation: ABBREVIATION,
 				productionStartYear: new IntegerRange(
@@ -41,6 +42,7 @@ class SeriesRequestMapperTest extends AbstractSeriesMapperTest {
 		SeriesRequestDTO seriesRequestDTO = seriesRequestMapper.map seriesRequest
 
 		then:
+		seriesRequestDTO.id == ID
 		seriesRequestDTO.title == TITLE
 		seriesRequestDTO.abbreviation == ABBREVIATION
 		seriesRequestDTO.productionStartYearFrom == PRODUCTION_START_YEAR_FROM
@@ -56,6 +58,7 @@ class SeriesRequestMapperTest extends AbstractSeriesMapperTest {
 	def "maps SeriesRestBeanParams to SeriesRequestDTO"() {
 		given:
 		SeriesRestBeanParams seriesRestBeanParams = new SeriesRestBeanParams(
+				id: ID,
 				title: TITLE,
 				abbreviation: ABBREVIATION,
 				productionStartYearFrom: PRODUCTION_START_YEAR_FROM,
@@ -71,6 +74,7 @@ class SeriesRequestMapperTest extends AbstractSeriesMapperTest {
 		SeriesRequestDTO seriesRequestDTO = seriesRequestMapper.map seriesRestBeanParams
 
 		then:
+		seriesRequestDTO.id == ID
 		seriesRequestDTO.title == TITLE
 		seriesRequestDTO.abbreviation == ABBREVIATION
 		seriesRequestDTO.productionStartYearFrom == PRODUCTION_START_YEAR_FROM

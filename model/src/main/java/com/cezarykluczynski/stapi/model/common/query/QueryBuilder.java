@@ -86,6 +86,14 @@ public class QueryBuilder<T> {
 		return this;
 	}
 
+	public QueryBuilder<T> equal(String key, Long value) {
+		validateAttributeExistenceAndType(key, Long.class);
+		if (value != null) {
+			predicateList.add(criteriaBuilder.equal(baseRoot.get(key), value));
+		}
+		return this;
+	}
+
 	public QueryBuilder<T> equal(String key, Gender value) {
 		validateAttributeExistenceAndType(key, Gender.class);
 		if (value != null) {
