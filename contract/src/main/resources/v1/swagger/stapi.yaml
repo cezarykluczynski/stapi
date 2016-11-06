@@ -12,7 +12,9 @@ paths:
   /series:
     $ref: ./series.paths.yaml
   /performer:
-      $ref: ./performer.paths.yaml
+    $ref: ./performer.paths.yaml
+  /staff:
+    $ref: ./staff.paths.yaml
 definitions:
   Series:
     $ref: ./series.definitions.yaml
@@ -22,6 +24,10 @@ definitions:
     $ref: ./performer.definitions.yaml
   PerformerResponse:
     $ref: ./performerResponse.definitions.yaml
+  Staff:
+    $ref: ./staff.definitions.yaml
+  StaffResponse:
+    $ref: ./staffResponse.definitions.yaml
   Error:
     $ref: ./error.definitions.yaml
   RequestPage:

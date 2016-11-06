@@ -1,0 +1,8 @@
+type: object
+properties:
+  page:
+    $ref: ./responsePage.definitions.yaml
+  staff:
+    type: array
+    items:
+      $ref: '#/definitions/Staff'

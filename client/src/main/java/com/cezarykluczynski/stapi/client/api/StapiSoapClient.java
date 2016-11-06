@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.client.api;
 
 import com.cezarykluczynski.stapi.client.v1.soap.PerformerPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.SeriesPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.StaffPortType;
 import lombok.Getter;
 
 public class StapiSoapClient {
@@ -13,6 +14,9 @@ public class StapiSoapClient {
 
 	@Getter
 	private PerformerPortType performerPortType;
+
+	@Getter
+	private StaffPortType staffPortType;
 
 	public StapiSoapClient() {
 		this.stapiSoapPortTypesProvider = new StapiSoapPortTypesProvider();
@@ -26,8 +30,8 @@ public class StapiSoapClient {
 
 	private void bindPortTypes() {
 		this.seriesPortType = stapiSoapPortTypesProvider.getSeriesPortType();
-		this.performerPortType =  stapiSoapPortTypesProvider.getPerformerPortType();
+		this.performerPortType = stapiSoapPortTypesProvider.getPerformerPortType();
+		this.staffPortType = stapiSoapPortTypesProvider.getStaffPortType();
 	}
-
 
 }

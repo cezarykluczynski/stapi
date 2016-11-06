@@ -1,0 +1,232 @@
+get:
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/StaffResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - Staff
+post:
+  consumes:
+    - application/x-www-form-urlencoded
+  producers:
+    - application/json
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+    - name: id
+      in: formData
+      type: integer
+      format: int64
+    - name: name
+      in: formData
+      type: string
+    - name: birthName
+      in: formData
+      type: string
+    - name: gender
+      in: formData
+      type: string
+    - name: dateOfBirth
+      in: formData
+      type: string
+      format: date
+    - name: placeOfBirth
+      in: formData
+      type: string
+    - name: dateOfDeath
+      in: formData
+      type: string
+      format: date
+    - name: placeOfDeath
+      in: formData
+      type: string
+    - artDepartment:
+      in: formData
+      type: boolean
+    - artDirector:
+      in: formData
+      type: boolean
+    - productionDesigner:
+      in: formData
+      type: boolean
+    - cameraAndElectricalDepartment:
+      in: formData
+      type: boolean
+    - cinematographer:
+      in: formData
+      type: boolean
+    - castingDepartment:
+      in: formData
+      type: boolean
+    - costumeDepartment:
+      in: formData
+      type: boolean
+    - costumeDesigner:
+      in: formData
+      type: boolean
+    - director:
+      in: formData
+      type: boolean
+    - assistantAndSecondUnitDirector:
+      in: formData
+      type: boolean
+    - exhibitAndAttractionStaff:
+      in: formData
+      type: boolean
+    - filmEditor:
+      in: formData
+      type: boolean
+    - linguist:
+      in: formData
+      type: boolean
+    - locationStaff:
+      in: formData
+      type: boolean
+    - makeupStaff:
+      in: formData
+      type: boolean
+    - musicDepartment:
+      in: formData
+      type: boolean
+    - composer:
+      in: formData
+      type: boolean
+    - personalAssistant:
+      in: formData
+      type: boolean
+    - producer:
+      in: formData
+      type: boolean
+    - productionAssociate:
+      in: formData
+      type: boolean
+    - productionStaff:
+      in: formData
+      type: boolean
+    - publicationStaff:
+      in: formData
+      type: boolean
+    - scienceConsultant:
+      in: formData
+      type: boolean
+    - soundDepartment:
+      in: formData
+      type: boolean
+    - specialAndVisualEffectsStaff:
+      in: formData
+      type: boolean
+    - author:
+      in: formData
+      type: boolean
+    - audioAuthor:
+      in: formData
+      type: boolean
+    - calendarArtist:
+      in: formData
+      type: boolean
+    - comicArtist:
+      in: formData
+      type: boolean
+    - comicAuthor:
+      in: formData
+      type: boolean
+    - comicColorArtist:
+      in: formData
+      type: boolean
+    - comicInteriorArtist:
+      in: formData
+      type: boolean
+    - comicInkArtist:
+      in: formData
+      type: boolean
+    - comicPencilArtist:
+      in: formData
+      type: boolean
+    - comicLetterArtist:
+      in: formData
+      type: boolean
+    - comicStripArtist:
+      in: formData
+      type: boolean
+    - gameArtist:
+      in: formData
+      type: boolean
+    - gameAuthor:
+      in: formData
+      type: boolean
+    - novelArtist:
+      in: formData
+      type: boolean
+    - novelAuthor:
+      in: formData
+      type: boolean
+    - referenceArtist:
+      in: formData
+      type: boolean
+    - referenceAuthor:
+      in: formData
+      type: boolean
+    - publicationArtist:
+      in: formData
+      type: boolean
+    - publicationDesigner:
+      in: formData
+      type: boolean
+    - publicationEditor:
+      in: formData
+      type: boolean
+    - publicityArtist:
+      in: formData
+      type: boolean
+    - cbsDigitalStaff:
+      in: formData
+      type: boolean
+    - ilmProductionStaff:
+      in: formData
+      type: boolean
+    - specialFeaturesStaff:
+      in: formData
+      type: boolean
+    - storyEditor:
+      in: formData
+      type: boolean
+    - studioExecutive:
+      in: formData
+      type: boolean
+    - stuntDepartment:
+      in: formData
+      type: boolean
+    - transportationDepartment:
+      in: formData
+      type: boolean
+    - videoGameProductionStaff:
+      in: formData
+      type: boolean
+    - writer:
+      in: formData
+      type: boolean
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/StaffResponse'
+  tags:
+    - Staff

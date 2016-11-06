@@ -1,9 +1,6 @@
 package com.cezarykluczynski.stapi.client.api;
 
-import com.cezarykluczynski.stapi.client.v1.soap.PerformerPortType;
-import com.cezarykluczynski.stapi.client.v1.soap.PerformerService;
-import com.cezarykluczynski.stapi.client.v1.soap.SeriesPortType;
-import com.cezarykluczynski.stapi.client.v1.soap.SeriesService;
+import com.cezarykluczynski.stapi.client.v1.soap.*;
 import lombok.Getter;
 
 import javax.xml.ws.BindingProvider;
@@ -19,15 +16,20 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 	@Getter
 	private PerformerPortType performerPortType;
 
+	@Getter
+	private StaffPortType staffPortType;
+
 	public StapiSoapPortTypesProvider() {
 		seriesPortType = new SeriesService().getSeriesPortType();
 		performerPortType = new PerformerService().getPerformerPortType();
+		staffPortType = new StaffService().getStaffPortType();
 	}
 
 	public StapiSoapPortTypesProvider(String apiUrl) {
 		this.apiUrl = apiUrl;
-		seriesPortType = ((SeriesPortType) changeUrl(new SeriesService().getSeriesPortType()));
-		performerPortType = ((PerformerPortType) changeUrl(new PerformerService().getPerformerPortType()));
+		seriesPortType = (SeriesPortType) changeUrl(new SeriesService().getSeriesPortType());
+		performerPortType = (PerformerPortType) changeUrl(new PerformerService().getPerformerPortType());
+		staffPortType = (StaffPortType) changeUrl(new StaffService().getStaffPortType());
 	}
 
 	private Object changeUrl(Object service) {

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:stapi="http://stapi.co/api/v1/soap/staff"
+		xmlns:common="http://stapi.co/api/v1/soap/common"
+		elementFormDefault="qualified"
+		targetNamespace="http://stapi.co/api/v1/soap/staff">
+	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd" />
+	<xs:element name="StaffRequest">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Request">
+					<xs:sequence>
+						<xs:element name="id" type="xs:long" minOccurs="0"/>
+						<xs:element name="name" type="xs:string" minOccurs="0"/>
+						<xs:element name="birthName" type="xs:string" minOccurs="0"/>
+						<xs:element name="gender" type="common:GenderEnum" minOccurs="0"/>
+						<xs:element name="dateOfBirth" type="common:DateRange" minOccurs="0"/>
+						<xs:element name="dateOfDeath" type="common:DateRange" minOccurs="0"/>
+						<xs:element name="placeOfBirth" type="xs:string" minOccurs="0"/>
+						<xs:element name="placeOfDeath" type="xs:string" minOccurs="0"/>
+						<xs:element name="artDepartment" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="artDirector" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="productionDesigner" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="cameraAndElectricalDepartment" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="cinematographer" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="castingDepartment" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="costumeDepartment" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="costumeDesigner" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="director" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="assistantAndSecondUnitDirector" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="exhibitAndAttractionStaff" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="filmEditor" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="linguist" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="locationStaff" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="makeupStaff" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="musicDepartment" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="composer" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="personalAssistant" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="producer" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="productionAssociate" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="productionStaff" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="publicationStaff" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="scienceConsultant" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="soundDepartment" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="specialAndVisualEffectsStaff" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="author" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="audioAuthor" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="calendarArtist" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="comicArtist" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="comicAuthor" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="comicColorArtist" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="comicInteriorArtist" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="comicInkArtist" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="comicPencilArtist" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="comicLetterArtist" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="comicStripArtist" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="gameArtist" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="gameAuthor" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="novelArtist" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="novelAuthor" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="referenceArtist" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="referenceAuthor" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="publicationArtist" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="publicationDesigner" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="publicationEditor" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="publicityArtist" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="cbsDigitalStaff" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="ilmProductionStaff" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="specialFeaturesStaff" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="storyEditor" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="studioExecutive" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="stuntDepartment" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="transportationDepartment" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="videoGameProductionStaff" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="writer" type="xs:boolean" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="StaffResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Response">
+					<xs:sequence>
+						<xs:element name="staffs" type="stapi:Staff" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="Staff">
+		<xs:sequence>
+			<xs:element name="id" type="xs:long"/>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="birthName" type="xs:string" minOccurs="0" />
+			<xs:element name="gender" type="common:GenderEnum" minOccurs="0"/>
+			<xs:element name="dateOfBirth" type="xs:date" minOccurs="0"/>
+			<xs:element name="dateOfDeath" type="xs:date" minOccurs="0"/>
+			<xs:element name="placeOfBirth" type="xs:string" minOccurs="0"/>
+			<xs:element name="placeOfDeath" type="xs:string" minOccurs="0"/>
+			<xs:element name="artDepartment" type="xs:boolean"/>
+			<xs:element name="artDirector" type="xs:boolean"/>
+			<xs:element name="productionDesigner" type="xs:boolean"/>
+			<xs:element name="cameraAndElectricalDepartment" type="xs:boolean"/>
+			<xs:element name="cinematographer" type="xs:boolean"/>
+			<xs:element name="castingDepartment" type="xs:boolean"/>
+			<xs:element name="costumeDepartment" type="xs:boolean"/>
+			<xs:element name="costumeDesigner" type="xs:boolean"/>
+			<xs:element name="director" type="xs:boolean"/>
+			<xs:element name="assistantAndSecondUnitDirector" type="xs:boolean"/>
+			<xs:element name="exhibitAndAttractionStaff" type="xs:boolean"/>
+			<xs:element name="filmEditor" type="xs:boolean"/>
+			<xs:element name="linguist" type="xs:boolean"/>
+			<xs:element name="locationStaff" type="xs:boolean"/>
+			<xs:element name="makeupStaff" type="xs:boolean"/>
+			<xs:element name="musicDepartment" type="xs:boolean"/>
+			<xs:element name="composer" type="xs:boolean"/>
+			<xs:element name="personalAssistant" type="xs:boolean"/>
+			<xs:element name="producer" type="xs:boolean"/>
+			<xs:element name="productionAssociate" type="xs:boolean"/>
+			<xs:element name="productionStaff" type="xs:boolean"/>
+			<xs:element name="publicationStaff" type="xs:boolean"/>
+			<xs:element name="scienceConsultant" type="xs:boolean"/>
+			<xs:element name="soundDepartment" type="xs:boolean"/>
+			<xs:element name="specialAndVisualEffectsStaff" type="xs:boolean"/>
+			<xs:element name="author" type="xs:boolean"/>
+			<xs:element name="audioAuthor" type="xs:boolean"/>
+			<xs:element name="calendarArtist" type="xs:boolean"/>
+			<xs:element name="comicArtist" type="xs:boolean"/>
+			<xs:element name="comicAuthor" type="xs:boolean"/>
+			<xs:element name="comicColorArtist" type="xs:boolean"/>
+			<xs:element name="comicInteriorArtist" type="xs:boolean"/>
+			<xs:element name="comicInkArtist" type="xs:boolean"/>
+			<xs:element name="comicPencilArtist" type="xs:boolean"/>
+			<xs:element name="comicLetterArtist" type="xs:boolean"/>
+			<xs:element name="comicStripArtist" type="xs:boolean"/>
+			<xs:element name="gameArtist" type="xs:boolean"/>
+			<xs:element name="gameAuthor" type="xs:boolean"/>
+			<xs:element name="novelArtist" type="xs:boolean"/>
+			<xs:element name="novelAuthor" type="xs:boolean"/>
+			<xs:element name="referenceArtist" type="xs:boolean"/>
+			<xs:element name="referenceAuthor" type="xs:boolean"/>
+			<xs:element name="publicationArtist" type="xs:boolean"/>
+			<xs:element name="publicationDesigner" type="xs:boolean"/>
+			<xs:element name="publicationEditor" type="xs:boolean"/>
+			<xs:element name="publicityArtist" type="xs:boolean"/>
+			<xs:element name="cbsDigitalStaff" type="xs:boolean"/>
+			<xs:element name="ilmProductionStaff" type="xs:boolean"/>
+			<xs:element name="specialFeaturesStaff" type="xs:boolean"/>
+			<xs:element name="storyEditor" type="xs:boolean"/>
+			<xs:element name="studioExecutive" type="xs:boolean"/>
+			<xs:element name="stuntDepartment" type="xs:boolean"/>
+			<xs:element name="transportationDepartment" type="xs:boolean"/>
+			<xs:element name="videoGameProductionStaff" type="xs:boolean"/>
+			<xs:element name="writer" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

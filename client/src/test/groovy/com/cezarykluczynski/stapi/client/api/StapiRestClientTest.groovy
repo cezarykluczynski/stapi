@@ -11,6 +11,7 @@ class StapiRestClientTest extends AbstractStapiClientTest {
 		then:
 		stapiRestClient.seriesApi.apiClient.basePath.contains(StapiClient.CANONICAL_API_URL)
 		stapiRestClient.performerApi.apiClient.basePath.contains(StapiClient.CANONICAL_API_URL)
+		stapiRestClient.staffApi.apiClient.basePath.contains(StapiClient.CANONICAL_API_URL)
 	}
 
 	def "rest client can be instantiated with custom URL"() {
@@ -20,6 +21,7 @@ class StapiRestClientTest extends AbstractStapiClientTest {
 		then:
 		stapiRestClient.seriesApi.apiClient.basePath.contains(CUSTOM_URL)
 		stapiRestClient.performerApi.apiClient.basePath.contains(CUSTOM_URL)
+		stapiRestClient.staffApi.apiClient.basePath.contains(CUSTOM_URL)
 	}
 
 }
