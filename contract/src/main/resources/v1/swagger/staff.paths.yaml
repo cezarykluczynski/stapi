@@ -62,166 +62,166 @@ post:
     - artDepartment:
       in: formData
       type: boolean
-    - artDirector:
+    - name: artDirector
       in: formData
       type: boolean
-    - productionDesigner:
+    - name: productionDesigner
       in: formData
       type: boolean
-    - cameraAndElectricalDepartment:
+    - name: cameraAndElectricalDepartment
       in: formData
       type: boolean
-    - cinematographer:
+    - name: cinematographer
       in: formData
       type: boolean
-    - castingDepartment:
+    - name: castingDepartment
       in: formData
       type: boolean
-    - costumeDepartment:
+    - name: costumeDepartment
       in: formData
       type: boolean
-    - costumeDesigner:
+    - name: costumeDesigner
       in: formData
       type: boolean
-    - director:
+    - name: director
       in: formData
       type: boolean
-    - assistantAndSecondUnitDirector:
+    - name: assistantAndSecondUnitDirector
       in: formData
       type: boolean
-    - exhibitAndAttractionStaff:
+    - name: exhibitAndAttractionStaff
       in: formData
       type: boolean
-    - filmEditor:
+    - name: filmEditor
       in: formData
       type: boolean
-    - linguist:
+    - name: linguist
       in: formData
       type: boolean
-    - locationStaff:
+    - name: locationStaff
       in: formData
       type: boolean
-    - makeupStaff:
+    - name: makeupStaff
       in: formData
       type: boolean
-    - musicDepartment:
+    - name: musicDepartment
       in: formData
       type: boolean
-    - composer:
+    - name: composer
       in: formData
       type: boolean
-    - personalAssistant:
+    - name: personalAssistant
       in: formData
       type: boolean
-    - producer:
+    - name: producer
       in: formData
       type: boolean
-    - productionAssociate:
+    - name: productionAssociate
       in: formData
       type: boolean
-    - productionStaff:
+    - name: productionStaff
       in: formData
       type: boolean
-    - publicationStaff:
+    - name: publicationStaff
       in: formData
       type: boolean
-    - scienceConsultant:
+    - name: scienceConsultant
       in: formData
       type: boolean
-    - soundDepartment:
+    - name: soundDepartment
       in: formData
       type: boolean
-    - specialAndVisualEffectsStaff:
+    - name: specialAndVisualEffectsStaff
       in: formData
       type: boolean
-    - author:
+    - name: author
       in: formData
       type: boolean
-    - audioAuthor:
+    - name: audioAuthor
       in: formData
       type: boolean
-    - calendarArtist:
+    - name: calendarArtist
       in: formData
       type: boolean
-    - comicArtist:
+    - name: comicArtist
       in: formData
       type: boolean
-    - comicAuthor:
+    - name: comicAuthor
       in: formData
       type: boolean
-    - comicColorArtist:
+    - name: comicColorArtist
       in: formData
       type: boolean
-    - comicInteriorArtist:
+    - name: comicInteriorArtist
       in: formData
       type: boolean
-    - comicInkArtist:
+    - name: comicInkArtist
       in: formData
       type: boolean
-    - comicPencilArtist:
+    - name: comicPencilArtist
       in: formData
       type: boolean
-    - comicLetterArtist:
+    - name: comicLetterArtist
       in: formData
       type: boolean
-    - comicStripArtist:
+    - name: comicStripArtist
       in: formData
       type: boolean
-    - gameArtist:
+    - name: gameArtist
       in: formData
       type: boolean
-    - gameAuthor:
+    - name: gameAuthor
       in: formData
       type: boolean
-    - novelArtist:
+    - name: novelArtist
       in: formData
       type: boolean
-    - novelAuthor:
+    - name: novelAuthor
       in: formData
       type: boolean
-    - referenceArtist:
+    - name: referenceArtist
       in: formData
       type: boolean
-    - referenceAuthor:
+    - name: referenceAuthor
       in: formData
       type: boolean
-    - publicationArtist:
+    - name: publicationArtist
       in: formData
       type: boolean
-    - publicationDesigner:
+    - name: publicationDesigner
       in: formData
       type: boolean
-    - publicationEditor:
+    - name: publicationEditor
       in: formData
       type: boolean
-    - publicityArtist:
+    - name: publicityArtist
       in: formData
       type: boolean
-    - cbsDigitalStaff:
+    - name: cbsDigitalStaff
       in: formData
       type: boolean
-    - ilmProductionStaff:
+    - name: ilmProductionStaff
       in: formData
       type: boolean
-    - specialFeaturesStaff:
+    - name: specialFeaturesStaff
       in: formData
       type: boolean
-    - storyEditor:
+    - name: storyEditor
       in: formData
       type: boolean
-    - studioExecutive:
+    - name: studioExecutive
       in: formData
       type: boolean
-    - stuntDepartment:
+    - name: stuntDepartment
       in: formData
       type: boolean
-    - transportationDepartment:
+    - name: transportationDepartment
       in: formData
       type: boolean
-    - videoGameProductionStaff:
+    - name: videoGameProductionStaff
       in: formData
       type: boolean
-    - writer:
+    - name: writer
       in: formData
       type: boolean
   responses:

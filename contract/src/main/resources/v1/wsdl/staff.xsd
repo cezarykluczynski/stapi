@@ -84,7 +84,7 @@
 			<xs:complexContent>
 				<xs:extension base="common:Response">
 					<xs:sequence>
-						<xs:element name="staffs" type="stapi:Staff" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="staff" type="stapi:Staff" minOccurs="0" maxOccurs="unbounded"/>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>

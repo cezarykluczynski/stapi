@@ -5,8 +5,6 @@ import com.cezarykluczynski.stapi.server.series.common.EndpointIntegrationTest
 
 class PerformerRestEndpointIntegrationTest extends EndpointIntegrationTest {
 
-	private static final Long ID = 100L
-
 	def setup() {
 		createRestClient()
 	}
@@ -22,7 +20,7 @@ class PerformerRestEndpointIntegrationTest extends EndpointIntegrationTest {
 		then:
 		performerResponse.page.pageNumber == pageNumber
 		performerResponse.page.pageSize == pageSize
-		performerResponse.performers.size() == 10
+		performerResponse.performers.size() == pageSize
 	}
 
 	def "gets the only person to star in 6 series"() {

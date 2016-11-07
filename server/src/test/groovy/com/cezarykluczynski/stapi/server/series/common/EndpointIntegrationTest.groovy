@@ -15,6 +15,8 @@ import spock.lang.Specification
 @ActiveProfiles("default")
 abstract class EndpointIntegrationTest extends Specification {
 
+	protected static final Long ID = 100L
+
 	@LocalServerPort
 	protected Integer localServerPost
 

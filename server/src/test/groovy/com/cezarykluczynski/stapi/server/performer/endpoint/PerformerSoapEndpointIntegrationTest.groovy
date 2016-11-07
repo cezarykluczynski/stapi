@@ -7,8 +7,6 @@ import com.cezarykluczynski.stapi.server.series.common.EndpointIntegrationTest
 
 class PerformerSoapEndpointIntegrationTest extends EndpointIntegrationTest {
 
-	private static final Long ID = 100L
-
 	def setup() {
 		createSoapClient()
 	}
@@ -27,7 +25,7 @@ class PerformerSoapEndpointIntegrationTest extends EndpointIntegrationTest {
 		then:
 		performerResponse.page.pageNumber == pageNumber
 		performerResponse.page.pageSize == pageSize
-		performerResponse.performers.size() == 10
+		performerResponse.performers.size() == pageSize
 	}
 
 	def "gets the only person to star in 6 series"() {

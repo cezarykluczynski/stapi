@@ -18,18 +18,18 @@
 		<wsdl:part name="response" element="stapi:StaffResponse"/>
 	</wsdl:message>
 	<wsdl:portType name="StaffPortType">
-		<wsdl:operation name="getStaffs">
-			<wsdl:input name="getStaffsRequest" message="stapi:StaffRequest"/>
-			<wsdl:output name="getStaffsResponse" message="stapi:StaffResponse"/>
+		<wsdl:operation name="getStaff">
+			<wsdl:input name="getStaffRequest" message="stapi:StaffRequest"/>
+			<wsdl:output name="getStaffResponse" message="stapi:StaffResponse"/>
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="StaffBinding" type="stapi:StaffPortType">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-		<wsdl:operation name="getStaffs">
-			<wsdl:input name="getStaffsRequest">
+		<wsdl:operation name="getStaff">
+			<wsdl:input name="getStaffRequest">
 				<soap:body use="literal"/>
 			</wsdl:input>
-			<wsdl:output name="getStaffsResponse">
+			<wsdl:output name="getStaffResponse">
 				<soap:body use="literal"/>
 			</wsdl:output>
 		</wsdl:operation>
