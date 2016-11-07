@@ -1,10 +1,12 @@
 package com.cezarykluczynski.stapi.server.performer.mapper
 
-import com.cezarykluczynski.stapi.model.performer.entity.Performer
+import com.cezarykluczynski.stapi.client.v1.rest.model.Performer as RESTPerformer
+import com.cezarykluczynski.stapi.model.performer.entity.Performer as DBPerformer
+import com.cezarykluczynski.stapi.server.common.mapper.AbstractRealWorldPersonMapperTest
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers
 
-class PerformerRestMapperTest extends AbstractPerformerMapperTest {
+class PerformerRestMapperTest extends AbstractRealWorldPersonMapperTest {
 
 	private PerformerRestMapper performerRestMapper
 
@@ -14,7 +16,7 @@ class PerformerRestMapperTest extends AbstractPerformerMapperTest {
 
 	def "maps DB entity to REST entity"() {
 		given:
-		Performer dBPerformer = new Performer(
+		DBPerformer dBPerformer = new DBPerformer(
 				name: NAME,
 				birthName: BIRTH_NAME,
 				gender: GENDER,
@@ -37,7 +39,7 @@ class PerformerRestMapperTest extends AbstractPerformerMapperTest {
 				voyPerformer: VOY_PERFORMER)
 
 		when:
-		com.cezarykluczynski.stapi.client.v1.rest.model.Performer restPerformer = performerRestMapper.map(Lists.newArrayList(dBPerformer))[0]
+		RESTPerformer restPerformer = performerRestMapper.map(Lists.newArrayList(dBPerformer))[0]
 
 		then:
 		restPerformer.name == NAME
