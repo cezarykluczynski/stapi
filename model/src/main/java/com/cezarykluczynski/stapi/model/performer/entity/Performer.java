@@ -22,8 +22,6 @@ public class Performer extends RealWorldPerson implements PageAware {
 	@SequenceGenerator(name="performer_sequence_generator", sequenceName="performer_sequence", allocationSize = 1)
 	private Long id;
 
-	private String roles;
-
 	private boolean animalPerformer;
 
 	private boolean disPerformer;

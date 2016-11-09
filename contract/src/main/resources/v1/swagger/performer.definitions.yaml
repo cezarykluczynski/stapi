@@ -19,8 +19,6 @@ properties:
     format: date
   placeOfDeath:
     type: string
-  roles:
-    type: string
   animalPerformer:
     type: boolean
   disPerformer:

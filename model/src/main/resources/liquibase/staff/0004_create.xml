@@ -5,13 +5,13 @@
 	<changeSet id="0004_create" author="cezarykluczynski">
 		<createTable tableName="staff">
 			<column name="id" type="number(38, 0)">
-				<constraints unique="true" nullable="false" />
+				<constraints unique="true" nullable="false"/>
 			</column>
 			<column name="page_id" type="number(38, 0)">
-				<constraints nullable="false" />
+				<constraints nullable="false"/>
 			</column>
 			<column name="name" type="varchar(128)">
-				<constraints nullable="false" />
+				<constraints nullable="false"/>
 			</column>
 			<column name="birth_name" type="varchar(128)"/>
 			<column name="gender" type="varchar(1)"/>

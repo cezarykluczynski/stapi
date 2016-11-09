@@ -5,7 +5,7 @@
 		xmlns:common="http://stapi.co/api/v1/soap/common"
 		elementFormDefault="qualified"
 		targetNamespace="http://stapi.co/api/v1/soap/performer">
-	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd" />
+	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
 	<xs:element name="PerformerRequest">
 		<xs:complexType>
 			<xs:complexContent>
@@ -52,13 +52,12 @@
 		<xs:sequence>
 			<xs:element name="id" type="xs:long"/>
 			<xs:element name="name" type="xs:string"/>
-			<xs:element name="birthName" type="xs:string" minOccurs="0" />
+			<xs:element name="birthName" type="xs:string" minOccurs="0"/>
 			<xs:element name="gender" type="common:GenderEnum" minOccurs="0"/>
 			<xs:element name="dateOfBirth" type="xs:date" minOccurs="0"/>
 			<xs:element name="dateOfDeath" type="xs:date" minOccurs="0"/>
 			<xs:element name="placeOfBirth" type="xs:string" minOccurs="0"/>
 			<xs:element name="placeOfDeath" type="xs:string" minOccurs="0"/>
-			<xs:element name="roles" type="xs:string" minOccurs="0"/>
 			<xs:element name="animalPerformer" type="xs:boolean"/>
 			<xs:element name="disPerformer" type="xs:boolean"/>
 			<xs:element name="ds9Performer" type="xs:boolean"/>

@@ -5,7 +5,7 @@
 		xmlns:common="http://stapi.co/api/v1/soap/common"
 		elementFormDefault="qualified"
 		targetNamespace="http://stapi.co/api/v1/soap/series">
-	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd" />
+	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
 	<xs:element name="SeriesRequest">
 		<xs:complexType>
 			<xs:complexContent>
