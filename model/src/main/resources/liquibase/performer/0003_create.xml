@@ -37,7 +37,7 @@
 		<createSequence incrementBy="1" sequenceName="performer_sequence"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="performer"
-				constraintName="performer_page_pk"
+				constraintName="performer_page_fkey"
 				referencedColumnNames="id"
 				referencedTableName="page"/>
 	</changeSet>

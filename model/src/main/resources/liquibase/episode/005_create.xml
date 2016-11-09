@@ -1,0 +1,162 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+	<changeSet id="0005_create" author="cezarykluczynski">
+		<createTable tableName="episode">
+			<column name="id" type="number(38, 0)">
+				<constraints unique="true" nullable="false"/>
+			</column>
+			<column name="page_id" type="number(38, 0)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="series_id" type="number(38, 0)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="title" type="varchar(128)">
+				<constraints nullable="false" unique="true"/>
+			</column>
+			<column name="season_number" type="number(10, 0)"/>
+			<column name="episode_number" type="number(10, 0)"/>
+			<column name="production_serial_number" type="varchar(32)"/>
+			<column name="feature_length" type="boolean"/>
+			<column name="stardate" type="FLOAT"/>
+			<column name="year" type="number(10, 0)"/>
+			<column name="us_air_date" type="date"/>
+			<column name="uk_air_date" type="date"/>
+			<column name="revised_script_date" type="date"/>
+			<column name="second_revised_script_date" type="date"/>
+		</createTable>
+		<createSequence incrementBy="1" sequenceName="episode_sequence"/>
+		<addForeignKeyConstraint baseColumnNames="page_id"
+				baseTableName="episode"
+				constraintName="episode_page_fkey"
+				referencedColumnNames="id"
+				referencedTableName="page"/>
+		<addForeignKeyConstraint baseColumnNames="series_id"
+				baseTableName="episode"
+				constraintName="episode_series_fkey"
+				referencedColumnNames="id"
+				referencedTableName="series"/>
+
+		<createTable tableName="episodes_writers">
+			<column name="episode_id" type="number(38, 0)"/>
+			<column name="staff_id" type="number(38, 0)"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="episode_id"
+				baseTableName="episodes_writers"
+				constraintName="ew_episode_fkey"
+				referencedColumnNames="id"
+				referencedTableName="episode"/>
+		<addForeignKeyConstraint baseColumnNames="staff_id"
+				baseTableName="episodes_writers"
+				constraintName="ew_writer_fkey"
+				referencedColumnNames="id"
+				referencedTableName="staff"/>
+
+		<createTable tableName="episodes_teleplay_authors">
+			<column name="episode_id" type="number(38, 0)"/>
+			<column name="staff_id" type="number(38, 0)"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="episode_id"
+				baseTableName="episodes_teleplay_authors"
+				constraintName="eta_episode_fkey"
+				referencedColumnNames="id"
+				referencedTableName="episode"/>
+		<addForeignKeyConstraint baseColumnNames="staff_id"
+				baseTableName="episodes_teleplay_authors"
+				constraintName="eta_teleplay_author_fkey"
+				referencedColumnNames="id"
+				referencedTableName="staff"/>
+
+		<createTable tableName="episodes_story_authors">
+			<column name="episode_id" type="number(38, 0)"/>
+			<column name="staff_id" type="number(38, 0)"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="episode_id"
+				baseTableName="episodes_story_authors"
+				constraintName="esa_episode_fkey"
+				referencedColumnNames="id"
+				referencedTableName="episode"/>
+		<addForeignKeyConstraint baseColumnNames="staff_id"
+				baseTableName="episodes_story_authors"
+				constraintName="esa_story_author_fkey"
+				referencedColumnNames="id"
+				referencedTableName="staff"/>
+
+		<createTable tableName="episodes_directors">
+			<column name="episode_id" type="number(38, 0)"/>
+			<column name="staff_id" type="number(38, 0)"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="episode_id"
+				baseTableName="episodes_directors"
+				constraintName="ed_episode_fkey"
+				referencedColumnNames="id"
+				referencedTableName="episode"/>
+		<addForeignKeyConstraint baseColumnNames="staff_id"
+				baseTableName="episodes_directors"
+				constraintName="ed_director_fkey"
+				referencedColumnNames="id"
+				referencedTableName="staff"/>
+
+		<createTable tableName="episodes_staff">
+			<column name="episode_id" type="number(38, 0)"/>
+			<column name="staff_id" type="number(38, 0)"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="episode_id"
+				baseTableName="episodes_staff"
+				constraintName="es_episode_fkey"
+				referencedColumnNames="id"
+				referencedTableName="episode"/>
+		<addForeignKeyConstraint baseColumnNames="staff_id"
+				baseTableName="episodes_staff"
+				constraintName="es_staff_fkey"
+				referencedColumnNames="id"
+				referencedTableName="staff"/>
+
+		<createTable tableName="episodes_performers">
+			<column name="episode_id" type="number(38, 0)"/>
+			<column name="performer_id" type="number(38, 0)"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="episode_id"
+				baseTableName="episodes_performers"
+				constraintName="ep_episode_fkey"
+				referencedColumnNames="id"
+				referencedTableName="episode"/>
+		<addForeignKeyConstraint baseColumnNames="performer_id"
+				baseTableName="episodes_performers"
+				constraintName="ep_performer_fkey"
+				referencedColumnNames="id"
+				referencedTableName="performer"/>
+
+		<createTable tableName="episodes_stunt_performers">
+			<column name="episode_id" type="number(38, 0)"/>
+			<column name="performer_id" type="number(38, 0)"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="episode_id"
+				baseTableName="episodes_stunt_performers"
+				constraintName="ep_episode_fkey"
+				referencedColumnNames="id"
+				referencedTableName="episode"/>
+		<addForeignKeyConstraint baseColumnNames="performer_id"
+				baseTableName="episodes_stunt_performers"
+				constraintName="ep_performer_fkey"
+				referencedColumnNames="id"
+				referencedTableName="performer"/>
+
+		<createTable tableName="episodes_stand_in_performers">
+			<column name="episode_id" type="number(38, 0)"/>
+			<column name="performer_id" type="number(38, 0)"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="episode_id"
+				baseTableName="episodes_stand_in_performers"
+				constraintName="esip_episode_fkey"
+				referencedColumnNames="id"
+				referencedTableName="episode"/>
+		<addForeignKeyConstraint baseColumnNames="performer_id"
+				baseTableName="episodes_stand_in_performers"
+				constraintName="esip_performer_fkey"
+				referencedColumnNames="id"
+				referencedTableName="performer"/>
+	</changeSet>
+</databaseChangeLog>

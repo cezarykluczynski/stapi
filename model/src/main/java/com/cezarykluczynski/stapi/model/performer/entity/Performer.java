@@ -1,10 +1,12 @@
 package com.cezarykluczynski.stapi.model.performer.entity;
 
 import com.cezarykluczynski.stapi.model.common.entity.RealWorldPerson;
+import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Entity
@@ -48,5 +50,14 @@ public class Performer extends RealWorldPerson implements PageAware {
 	private boolean voicePerformer;
 
 	private boolean voyPerformer;
+
+	@ManyToMany(mappedBy = "performers")
+	private Set<Episode> performances;
+
+	@ManyToMany(mappedBy = "stuntPerformers")
+	private Set<Episode> stuntPerformances;
+
+	@ManyToMany(mappedBy = "standInPerformers")
+	private Set<Episode> standInPerformances;
 
 }

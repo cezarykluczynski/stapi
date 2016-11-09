@@ -1,10 +1,12 @@
 package com.cezarykluczynski.stapi.model.staff.entity;
 
 import com.cezarykluczynski.stapi.model.common.entity.RealWorldPerson;
+import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Entity
@@ -132,5 +134,20 @@ public class Staff extends RealWorldPerson implements PageAware {
 	private Boolean videoGameProductionStaff;
 
 	private Boolean writer;
+
+	@ManyToMany(mappedBy = "writers")
+	private Set<Episode> writtenEpisodes;
+
+	@ManyToMany(mappedBy = "teleplayAuthors")
+	private Set<Episode> teleplayAuthoredEpisodes;
+
+	@ManyToMany(mappedBy = "teleplayAuthors")
+	private Set<Episode> storyAuthoredEpisodes;
+
+	@ManyToMany(mappedBy = "directors")
+	private Set<Episode> directedEpisodes;
+
+	@ManyToMany(mappedBy = "staff")
+	private Set<Episode> episodes;
 
 }

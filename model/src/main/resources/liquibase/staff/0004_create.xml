@@ -77,9 +77,9 @@
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="staff_sequence"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
-								 baseTableName="staff"
-								 constraintName="staff_page_pk"
-								 referencedColumnNames="id"
-								 referencedTableName="page"/>
+				baseTableName="staff"
+				constraintName="staff_page_fkey"
+				referencedColumnNames="id"
+				referencedTableName="page"/>
 	</changeSet>
 </databaseChangeLog>

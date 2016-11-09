@@ -77,4 +77,12 @@ public class CategoryName {
 	public static final String VIDEO_GAME_PRODUCTION_STAFF = "Video_game_production_staff";
 	public static final String WRITERS = "Writers";
 
+	public static final String TOS_EPISODES = "TOS_episodes";
+	public static final String TAS_EPISODES = "TAS_episodes";
+	public static final String TNG_EPISODES = "TNG_episodes";
+	public static final String DS9_EPISODES = "DS9_episodes";
+	public static final String VOY_EPISODES = "VOY_episodes";
+	public static final String ENT_EPISODES = "ENT_episodes";
+	public static final String DIS_EPISODES = "DIS_episodes";
+
 }
