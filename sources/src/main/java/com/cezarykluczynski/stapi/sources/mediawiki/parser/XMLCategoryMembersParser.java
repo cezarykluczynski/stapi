@@ -14,6 +14,7 @@ import java.util.List;
 public class XMLCategoryMembersParser extends AbstractXMLParser {
 	private static final String CM_TAG = "cm";
 	private static final String CONTINUE_TAG = "continue";
+	private static final String CATEGORYMEMBERS_TAG = "categorymembers";
 	private static final String CMCONTINUE_ID = "cmcontinue";
 
 	private PageInfo fPage;
@@ -63,8 +64,7 @@ public class XMLCategoryMembersParser extends AbstractXMLParser {
 	}
 
 	@Override
-	public void startElement(String namespaceURI, String localName,
-	                         String qName, Attributes atts) {
+	public void startElement(String namespaceURI, String localName, String qName, Attributes atts) {
 		fAttributes = atts;
 
 		if (CM_TAG.equals(qName)) {
@@ -72,7 +72,7 @@ public class XMLCategoryMembersParser extends AbstractXMLParser {
 			fPage.setPageid(fAttributes.getValue(AbstractXMLParser.PAGE_ID));
 			fPage.setNs(fAttributes.getValue(AbstractXMLParser.NS_ID));
 			fPage.setTitle(fAttributes.getValue(AbstractXMLParser.TITLE_ID));
-		} else if (CONTINUE_TAG.equals(qName)) {
+		} else if (CONTINUE_TAG.equals(qName) || CATEGORYMEMBERS_TAG.equals(qName)) {
 			String value = fAttributes.getValue(CMCONTINUE_ID);
 			if (value != null) {
 				cmContinue = value;

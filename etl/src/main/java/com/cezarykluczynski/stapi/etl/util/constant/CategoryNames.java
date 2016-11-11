@@ -82,4 +82,14 @@ public class CategoryNames {
 			CategoryName.WRITERS
 	);
 
+	public static final List<String> EPISODES = Lists.newArrayList(
+			CategoryName.TOS_EPISODES,
+			CategoryName.TAS_EPISODES,
+			CategoryName.TNG_EPISODES,
+			CategoryName.DS9_EPISODES,
+			CategoryName.VOY_EPISODES,
+			CategoryName.ENT_EPISODES,
+			CategoryName.DIS_EPISODES
+	);
+
 }

@@ -47,6 +47,7 @@ class JsonTemplateParser {
 
 			templates = toJsonObjectList(jsonArrayTemplates).stream()
 					.map(this::toTemplate)
+					.filter(template -> template != null)
 					.collect(Collectors.toList());
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -68,7 +69,12 @@ class JsonTemplateParser {
 	}
 
 	private Template toTemplate(JSONObject jsonObject) {
-		String title = jsonObject.getString("title");
+		String title;
+		try {
+			title = jsonObject.getString("title");
+		} catch (JSONException e) {
+			return null;
+		}
 
 		Template template = new Template();
 
@@ -162,6 +168,7 @@ class JsonTemplateParser {
 		templatePart.setTemplates(toJsonObjectList(partTemplatesJsonArray)
 				.stream()
 				.map(this::toTemplate)
+				.filter(template -> template != null)
 				.collect(Collectors.toList()));
 	}
 
