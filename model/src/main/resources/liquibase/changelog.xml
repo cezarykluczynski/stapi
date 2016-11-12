@@ -6,6 +6,6 @@
 	<include file="series/0002_create.xml" relativeToChangelogFile="true"/>
 	<include file="performer/0003_create.xml" relativeToChangelogFile="true"/>
 	<include file="staff/0004_create.xml" relativeToChangelogFile="true"/>
-	<include file="character/005_create.xml" relativeToChangelogFile="true"/>
-	<include file="episode/006_create.xml" relativeToChangelogFile="true"/>
+	<include file="character/0005_create.xml" relativeToChangelogFile="true"/>
+	<include file="episode/0006_create.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

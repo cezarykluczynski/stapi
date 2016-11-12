@@ -135,12 +135,12 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="episode_id"
 				baseTableName="episodes_stunt_performers"
-				constraintName="ep_episode_fkey"
+				constraintName="esp_episode_fkey"
 				referencedColumnNames="id"
 				referencedTableName="episode"/>
 		<addForeignKeyConstraint baseColumnNames="performer_id"
 				baseTableName="episodes_stunt_performers"
-				constraintName="ep_performer_fkey"
+				constraintName="esp_performer_fkey"
 				referencedColumnNames="id"
 				referencedTableName="performer"/>
 

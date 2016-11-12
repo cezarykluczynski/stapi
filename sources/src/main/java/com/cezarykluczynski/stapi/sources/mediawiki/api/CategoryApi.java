@@ -9,4 +9,6 @@ public interface CategoryApi {
 
 	List<PageHeader> getPages(String title, MediaWikiSource mediaWikiSource);
 
+	List<PageHeader> getPagesIncludingSubcategories(String title, MediaWikiSource mediaWikiSource);
+
 }

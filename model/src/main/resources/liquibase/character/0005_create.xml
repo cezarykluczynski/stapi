@@ -2,7 +2,7 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
-	<changeSet id="0006_create" author="cezarykluczynski">
+	<changeSet id="0005_create" author="cezarykluczynski">
 		<createTable tableName="character">
 			<column name="id" type="number(38, 0)">
 				<constraints unique="true" nullable="false"/>
@@ -28,7 +28,7 @@
 			<column name="status_date" type="number(10, 0)"/>
 			<column name="blood_type" type="varchar(32)"/>
 			<column name="marital_status" type="varchar(32)"/>
-			<column name="serial number" type="varchar(32)"/>
+			<column name="serial_number" type="varchar(32)"/>
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="character_sequence"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"

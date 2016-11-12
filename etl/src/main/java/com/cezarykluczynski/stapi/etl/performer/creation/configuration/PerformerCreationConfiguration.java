@@ -48,6 +48,7 @@ public class PerformerCreationConfiguration {
 		performers.addAll(categoryApi.getPages(CategoryName.TAS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
 		performers.addAll(categoryApi.getPages(CategoryName.TNG_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
 		performers.addAll(categoryApi.getPages(CategoryName.TOS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+		performers.addAll(categoryApi.getPages(CategoryName.TOS_REMASTERED_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
 		performers.addAll(categoryApi.getPages(CategoryName.VIDEO_GAME_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
 		performers.addAll(categoryApi.getPages(CategoryName.VOICE_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
 		performers.addAll(categoryApi.getPages(CategoryName.VOY_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));

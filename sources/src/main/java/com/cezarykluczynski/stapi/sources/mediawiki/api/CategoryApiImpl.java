@@ -6,8 +6,10 @@ import com.cezarykluczynski.stapi.sources.mediawiki.converter.PageHeaderConverte
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.parser.XMLCategoryMembersParser;
 import com.cezarykluczynski.stapi.sources.mediawiki.util.constant.ApiParams;
+import com.cezarykluczynski.stapi.sources.mediawiki.util.constant.MemoryAlpha;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import info.bliki.api.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -31,7 +33,42 @@ public class CategoryApiImpl implements CategoryApi {
 
 	@Override
 	public List<PageHeader> getPages(String title, MediaWikiSource mediaWikiSource) {
-		Map<String, String> params = getInitialParams(title);
+		List<PageInfo> pageInfoList = getPageInfoList(title, mediaWikiSource);
+		return pageHeaderConverter.fromPageInfoList(pageInfoList, mediaWikiSource);
+	}
+
+	@Override
+	public List<PageHeader> getPagesIncludingSubcategories(String title, MediaWikiSource mediaWikiSource) {
+		List<PageInfo> pageInfoIncludingSubcategoriesList = getPagesIncludingSubcategories(
+				title, mediaWikiSource, Lists.newArrayList(title));
+		pageInfoIncludingSubcategoriesList = Lists.newArrayList(Sets.newHashSet(pageInfoIncludingSubcategoriesList));
+		return pageHeaderConverter.fromPageInfoList(pageInfoIncludingSubcategoriesList, mediaWikiSource);
+	}
+
+	private List<PageInfo> getPagesIncludingSubcategories(String title, MediaWikiSource mediaWikiSource,
+			List<String> visitedCategoriesNames) {
+		List<PageInfo> pageInfoList = getPageInfoList(title, mediaWikiSource);
+		List<PageInfo> pages = Lists.newArrayList();
+
+		for (PageInfo pageInfo : pageInfoList) {
+			String namespace = pageInfo.getNs();
+			String categoryTitle = toQueryableCategoryName(pageInfo.getTitle());
+			if (MemoryAlpha.CONTENT_NAMESPACE.equals(namespace)) {
+				pages.add(pageInfo);
+			} else if (MemoryAlpha.CATEGORY_NAMESPACE.equals(namespace)) {
+				if (!visitedCategoriesNames.contains(categoryTitle)) {
+					visitedCategoriesNames.add(categoryTitle);
+					pages.addAll(getPagesIncludingSubcategories(categoryTitle,
+							mediaWikiSource, visitedCategoriesNames));
+				}
+			}
+		}
+
+		return pages;
+	}
+
+	private List<PageInfo> getPageInfoList(String title, MediaWikiSource mediaWikiSource) {
+		Map<String, String> params = getCategoryMembersInitialParams(title);
 		List<PageInfo> pageInfoList = Lists.newArrayList();
 
 		String lastCmContinue = null;
@@ -50,14 +87,14 @@ public class CategoryApiImpl implements CategoryApi {
 			}
 		} while (true);
 
-		return pageHeaderConverter.fromPageInfoList(pageInfoList, mediaWikiSource);
+		return pageInfoList;
 	}
 
-	private Map<String, String> getInitialParams(String title) {
+	private Map<String, String> getCategoryMembersInitialParams(String title) {
 		Map<String, String> params = Maps.newHashMap();
-		params.put(ApiParams.KEY_LIST, ApiParams.KEY_LIST_VALUE_CATEGORYMEMBERS);
 		params.put(ApiParams.KEY_CATEGORY_TITLE, ApiParams.KEY_CATEGORY_TITLE_VALUE_PREFIX + title);
 		params.put(ApiParams.KEY_CATEGORY_LIMIT, ApiParams.KEY_CATEGORY_LIMIT_VALUE);
+		params.put(ApiParams.KEY_LIST, ApiParams.KEY_LIST_VALUE_CATEGORYMEMBERS);
 		return params;
 	}
 
@@ -70,5 +107,10 @@ public class CategoryApiImpl implements CategoryApi {
 			throw new RuntimeException(e);
 		}
 	}
+
+	private String toQueryableCategoryName(String categoryName) {
+		return StringUtils.substringAfter(categoryName.replaceAll(" ", "_"), ":");
+	}
+
 
 }
