@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.model.episode.entity;
 
-import com.cezarykluczynski.stapi.model.page.entity.Page;
+import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
+import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
@@ -15,18 +16,15 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-public class Episode {
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+public class Episode extends PageAwareEntity implements PageAware {
 
 	@Id
 	@Column(nullable = false)
 	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator="episode_sequence_generator")
 	@SequenceGenerator(name="episode_sequence_generator", sequenceName="episode_sequence", allocationSize = 1)
 	private Long id;
-
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "page_id")
-	private Page page;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "series_id")

@@ -10,15 +10,17 @@ public class SeriesTemplateProcessor implements ItemProcessor<SeriesTemplate, Se
 
 	@Override
 	public Series process(SeriesTemplate item) throws Exception {
-		return Series.builder()
-				.title(item.getTitle())
-				.page(item.getPage())
-				.abbreviation(item.getAbbreviation())
-				.productionStartYear(item.getProductionYearRange().getStartYear())
-				.productionEndYear(item.getProductionYearRange().getEndYear())
-				.originalRunStartDate(item.getOriginalRunDateRange().getStartDate())
-				.originalRunEndDate(item.getOriginalRunDateRange().getEndDate())
-				.build();
+		Series series = new Series();
+
+		series.setTitle(item.getTitle());
+		series.setPage(item.getPage());
+		series.setAbbreviation(item.getAbbreviation());
+		series.setProductionStartYear(item.getProductionYearRange().getStartYear());
+		series.setProductionEndYear(item.getProductionYearRange().getEndYear());
+		series.setOriginalRunStartDate(item.getOriginalRunDateRange().getStartDate());
+		series.setOriginalRunEndDate(item.getOriginalRunDateRange().getEndDate());
+
+		return series;
 	}
 
 }

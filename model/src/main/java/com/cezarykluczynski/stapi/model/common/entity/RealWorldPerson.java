@@ -1,23 +1,21 @@
 package com.cezarykluczynski.stapi.model.common.entity;
 
-import com.cezarykluczynski.stapi.model.page.entity.Page;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.MappedSuperclass;
 import java.time.LocalDate;
 
 @MappedSuperclass
 @Data
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @ToString
-public class RealWorldPerson implements PageAware {
-
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "page_id")
-	private Page page;
+public class RealWorldPerson extends PageAwareEntity implements PageAware {
 
 	@Column(nullable = false)
 	private String name;
