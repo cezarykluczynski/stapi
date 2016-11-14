@@ -20,4 +20,18 @@ class ReflectionTestUtils  {
 		return numberOfTrueBooleanFields
 	}
 
+	public static int getNumberOfNotNullFields(Object object) {
+		int numberOfNotNullFields = 0
+		BeanInfo beanInfo = Introspector.getBeanInfo(object.class)
+
+		for (PropertyDescriptor propertyDesc : beanInfo.propertyDescriptors) {
+			Object value = propertyDesc.readMethod.invoke(object)
+			if (value != null && propertyDesc.name != "class") {
+				numberOfNotNullFields++
+			}
+		}
+
+		return numberOfNotNullFields
+	}
+
 }

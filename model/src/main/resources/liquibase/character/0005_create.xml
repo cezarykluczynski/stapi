@@ -24,8 +24,7 @@
 			<column name="place_of_death" type="varchar(128)"/>
 			<column name="height" type="number(10, 0)"/>
 			<column name="weight" type="number(10, 0)"/>
-			<column name="status" type="varchar(32)"/>
-			<column name="status_date" type="number(10, 0)"/>
+			<column name="deceased" type="boolean"/>
 			<column name="blood_type" type="varchar(32)"/>
 			<column name="marital_status" type="varchar(32)"/>
 			<column name="serial_number" type="varchar(32)"/>

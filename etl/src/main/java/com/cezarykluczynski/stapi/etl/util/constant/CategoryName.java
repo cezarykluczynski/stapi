@@ -3,7 +3,9 @@ package com.cezarykluczynski.stapi.etl.util.constant;
 public class CategoryName {
 
 	public static final String STAR_TREK_SERIES = "Star_Trek_series";
+
 	public static final String PRODUCTION_LISTS = "Production_lists";
+	public static final String LISTS = "Lists";
 
 	public static final String PERFORMERS = "Performers";
 	public static final String ANIMAL_PERFORMERS = "Animal_performers";
@@ -84,5 +86,10 @@ public class CategoryName {
 	public static final String VOY_EPISODES = "VOY_episodes";
 	public static final String ENT_EPISODES = "ENT_episodes";
 	public static final String DIS_EPISODES = "DIS_episodes";
+
+	public static final String INDIVIDUALS = "Individuals";
+	public static final String MILITARY_PERSONNEL = "Military_personnel";
+	public static final String Q_CONTINUUM = "Q_Continuum";
+	public static final String STARFLEET_PERSONNEL = "Starfleet_personnel";
 
 }

@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.model.character.entity;
 
+import com.cezarykluczynski.stapi.model.common.entity.BloodType;
 import com.cezarykluczynski.stapi.model.common.entity.Gender;
 import com.cezarykluczynski.stapi.model.common.entity.MaritalStatus;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
-import com.cezarykluczynski.stapi.model.common.entity.Status;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import lombok.*;
 
@@ -33,7 +33,7 @@ public class Character extends PageAwareEntity implements PageAware {
 
 	private Integer monthOfBirth;
 
-	private Integer dayfBirth;
+	private Integer dayOfBirth;
 
 	private String placeOfBirth;
 
@@ -41,7 +41,7 @@ public class Character extends PageAwareEntity implements PageAware {
 
 	private Integer monthOfDeath;
 
-	private Integer dayfDeath;
+	private Integer dayOfDeath;
 
 	private String placeOfDeath;
 
@@ -49,12 +49,10 @@ public class Character extends PageAwareEntity implements PageAware {
 
 	private Integer weight;
 
+	private Boolean deceased;
+
 	@Enumerated(EnumType.STRING)
-	private Status status;
-
-	private Integer statusDate;
-
-	private String bloodType;
+	private BloodType bloodType;
 
 	@Enumerated(EnumType.STRING)
 	private MaritalStatus maritalStatus;

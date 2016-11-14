@@ -49,9 +49,23 @@
 					</batch:listeners>
 				</batch:step>
 			</batch:flow>
-			<!--uncomment when individuals are ready-->
+			<batch:flow>
+				<batch:step id="STEP_004_CREATE_CHARACTERS" parent="STEP_003_CREATE_STAFF">
+					<batch:tasklet start-limit="1" allow-start-if-complete="false">
+						<batch:chunk
+								commit-interval="50"
+								reader="characterReader"
+								processor="characterProcessor"
+								writer="characterWriter"/>
+					</batch:tasklet>
+					<batch:listeners>
+						<batch:listener ref="commonStepExecutionListener"/>
+					</batch:listeners>
+				</batch:step>
+			</batch:flow>
+			<!--uncomment when characters are ready-->
 			<!--<batch:flow>-->
-				<!--<batch:step id="STEP_004_CREATE_EPISODES" parent="STEP_003_CREATE_STAFF">-->
+				<!--<batch:step id="STEP_005_CREATE_EPISODES" parent="STEP_004_CREATE_CHARACTERS">-->
 					<!--<batch:tasklet start-limit="1" allow-start-if-complete="false">-->
 						<!--<batch:chunk-->
 								<!--commit-interval="50"-->

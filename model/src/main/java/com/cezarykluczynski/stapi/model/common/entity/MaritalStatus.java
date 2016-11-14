@@ -3,9 +3,12 @@ package com.cezarykluczynski.stapi.model.common.entity;
 public enum MaritalStatus {
 
 	SINGLE,
+	ENGAGED,
 	MARRIED,
 	DIVORCED,
 	REMARRIED,
-	WIDOWED
+	SEPARATED,
+	WIDOWED,
+	CAPTAINS_WOMAN
 
 }
