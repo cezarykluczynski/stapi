@@ -6,6 +6,7 @@ import lombok.*;
 @Builder
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode
 public class PageHeader {
 

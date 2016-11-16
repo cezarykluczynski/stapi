@@ -1,6 +1,9 @@
 package com.cezarykluczynski.stapi.etl.template.actor.processor
 
+import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate
+import com.cezarykluczynski.stapi.model.page.entity.Page as PageEntity
+import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource as SourcesMediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.util.constant.PageName
@@ -11,11 +14,15 @@ class ActorTemplateListPageProcessorTest extends Specification {
 
 	private static final String TITLE = 'TITLE'
 	private static final Long PAGE_ID = 1L
+	private static final SourcesMediaWikiSource SOURCES_MEDIA_WIKI_SOURCE = SourcesMediaWikiSource.MEMORY_ALPHA_EN
 
-	ActorTemplateListPageProcessor actorTemplateListPageProcessor
+	private PageBindingService pageBindingServiceMock
+
+	private ActorTemplateListPageProcessor actorTemplateListPageProcessor
 
 	def setup() {
-		actorTemplateListPageProcessor = new ActorTemplateListPageProcessor()
+		pageBindingServiceMock = Mock(PageBindingService)
+		actorTemplateListPageProcessor = new ActorTemplateListPageProcessor(pageBindingServiceMock)
 	}
 
 	def "returns null when it is not a game performers list"() {
@@ -26,6 +33,7 @@ class ActorTemplateListPageProcessorTest extends Specification {
 		ActorTemplate actorTemplate = actorTemplateListPageProcessor.process(page)
 
 		then:
+		0 * pageBindingServiceMock.fromPageHeaderToPageEntity(_)
 		actorTemplate == null
 	}
 
@@ -37,6 +45,7 @@ class ActorTemplateListPageProcessorTest extends Specification {
 		ActorTemplate actorTemplate = actorTemplateListPageProcessor.process(page)
 
 		then:
+		0 * pageBindingServiceMock.fromPageHeaderToPageEntity(_)
 		actorTemplate == null
 	}
 
@@ -47,14 +56,21 @@ class ActorTemplateListPageProcessorTest extends Specification {
 				redirectPath: Lists.newArrayList(PageHeader.builder()
 						.title(TITLE)
 						.pageId(PAGE_ID)
+						.mediaWikiSource(SOURCES_MEDIA_WIKI_SOURCE)
 						.build()))
+		PageEntity pageEntity = Mock(PageEntity)
 
 		when:
 		ActorTemplate actorTemplate = actorTemplateListPageProcessor.process(page)
 
 		then:
-		actorTemplate.page.title == TITLE
-		actorTemplate.page.pageId == PAGE_ID
+		1 * pageBindingServiceMock.fromPageHeaderToPageEntity(_ as PageHeader) >> { PageHeader pageHeader ->
+			assert pageHeader.title == TITLE
+			assert pageHeader.pageId == PAGE_ID
+			assert pageHeader.mediaWikiSource == SOURCES_MEDIA_WIKI_SOURCE
+			return pageEntity
+		}
+		actorTemplate.page == pageEntity
 	}
 
 	def "sets name from original page wiki page dto"() {
@@ -68,6 +84,7 @@ class ActorTemplateListPageProcessorTest extends Specification {
 		ActorTemplate actorTemplate = actorTemplateListPageProcessor.process(page)
 
 		then:
+		1 * pageBindingServiceMock.fromPageHeaderToPageEntity(_)
 		actorTemplate.name == TITLE
 	}
 
@@ -82,6 +99,7 @@ class ActorTemplateListPageProcessorTest extends Specification {
 		ActorTemplate actorTemplate = actorTemplateListPageProcessor.process(page)
 
 		then:
+		1 * pageBindingServiceMock.fromPageHeaderToPageEntity(_)
 		!actorTemplate.animalPerformer
 		!actorTemplate.disPerformer
 		!actorTemplate.ds9Performer

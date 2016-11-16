@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.staff.creation.configuration;
 
+import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffCategoriesActorTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffReader;
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateListPageProcessor;
@@ -102,7 +103,8 @@ public class StaffCreationConfiguration {
 				applicationContext.getBean(PageToGenderProcessor.class),
 				applicationContext.getBean(PageToLifeRangeProcessor.class),
 				applicationContext.getBean(ActorTemplateTemplateProcessor.class),
-				applicationContext.getBean(StaffCategoriesActorTemplateEnrichingProcessor.class));
+				applicationContext.getBean(StaffCategoriesActorTemplateEnrichingProcessor.class),
+				applicationContext.getBean(PageBindingService.class));
 	}
 
 	@Bean(STAFF_ACTOR_TEMPLATE_PAGE_PROCESSOR)

@@ -1,12 +1,14 @@
 package com.cezarykluczynski.stapi.etl.template.actor.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
+import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.CategoriesActorTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate;
 import com.cezarykluczynski.stapi.etl.template.common.dto.Gender;
 import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PageToLifeRangeProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGenderProcessor;
+import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
@@ -16,7 +18,6 @@ import com.cezarykluczynski.stapi.util.constant.TemplateName;
 import com.cezarykluczynski.stapi.util.tool.LogicUtil;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 
 import java.util.List;
@@ -39,13 +40,18 @@ public class ActorTemplateSinglePageProcessor extends AbstractTemplateProcessor
 
 	private CategoriesActorTemplateEnrichingProcessor categoriesActorTemplateEnrichingProcessor;
 
+	private PageBindingService pageBindingService;
+
 	public ActorTemplateSinglePageProcessor(PageToGenderProcessor pageToGenderProcessor,
-	PageToLifeRangeProcessor pageToLifeRangeProcessor, ActorTemplateTemplateProcessor actorTemplateTemplateProcessor,
-	CategoriesActorTemplateEnrichingProcessor categoriesActorTemplateEnrichingProcessor) {
+			PageToLifeRangeProcessor pageToLifeRangeProcessor,
+			ActorTemplateTemplateProcessor actorTemplateTemplateProcessor,
+			CategoriesActorTemplateEnrichingProcessor categoriesActorTemplateEnrichingProcessor,
+			PageBindingService pageBindingService) {
 		this.pageToGenderProcessor = pageToGenderProcessor;
 		this.pageToLifeRangeProcessor = pageToLifeRangeProcessor;
 		this.actorTemplateTemplateProcessor = actorTemplateTemplateProcessor;
 		this.categoriesActorTemplateEnrichingProcessor = categoriesActorTemplateEnrichingProcessor;
+		this.pageBindingService = pageBindingService;
 	}
 
 	@Override
@@ -55,9 +61,9 @@ public class ActorTemplateSinglePageProcessor extends AbstractTemplateProcessor
 		}
 
 		ActorTemplate actorTemplate = new ActorTemplate();
-		actorTemplate.setName(StringUtils.trim(StringUtils.substringBefore(item.getTitle(), "(")));
+		actorTemplate.setName(TitleUtil.getNameFromTitle(item.getTitle()));
 		actorTemplate.setBirthName(getBirthName(item.getWikitext()));
-		actorTemplate.setPage(fromPageToPageEntity(item));
+		actorTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 
 		actorTemplate.setGender(pageToGenderProcessor.process(item));
 		actorTemplate.setLifeRange(pageToLifeRangeProcessor.process(item));

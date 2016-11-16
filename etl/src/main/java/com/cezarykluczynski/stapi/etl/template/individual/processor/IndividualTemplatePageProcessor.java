@@ -1,16 +1,19 @@
 package com.cezarykluczynski.stapi.etl.template.individual.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
+import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PartToGenderProcessor;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualLifeBoundaryDTO;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
+import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
+import com.cezarykluczynski.stapi.util.constant.PageName;
 import com.cezarykluczynski.stapi.util.constant.TemplateName;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -36,6 +39,8 @@ public class IndividualTemplatePageProcessor extends AbstractTemplateProcessor
 	private static final String DIED = "died";
 	private static final String MARITAL_STATUS = "marital_status";
 	private static final String BLOOD_TYPE = "blood type";
+	private static final String UNNAMED_PREFIX = "Unnamed ";
+	private static final String LIST_OF_PREFIX = "List of ";
 
 	private PartToGenderProcessor partToGenderProcessor;
 
@@ -55,6 +60,8 @@ public class IndividualTemplatePageProcessor extends AbstractTemplateProcessor
 
 	private WikitextApi wikitextApi;
 
+	private PageBindingService pageBindingService;
+
 	@Inject
 	public IndividualTemplatePageProcessor(PartToGenderProcessor partToGenderProcessor,
 			IndividualLifeBoundaryProcessor individualLifeBoundaryProcessor,
@@ -62,7 +69,8 @@ public class IndividualTemplatePageProcessor extends AbstractTemplateProcessor
 			IndividualDateOfDeathEnrichingProcessor individualDateOfDeathEnrichingProcessor,
 			IndividualHeightProcessor individualHeightProcessor, IndividualWeightProcessor individualWeightProcessor,
 			IndividualBloodTypeProcessor individualBloodTypeProcessor,
-			IndividualMaritalStatusProcessor individualMaritalStatusProcessor, WikitextApi wikitextApi) {
+			IndividualMaritalStatusProcessor individualMaritalStatusProcessor, WikitextApi wikitextApi,
+			PageBindingService pageBindingService) {
 		this.partToGenderProcessor = partToGenderProcessor;
 		this.individualLifeBoundaryProcessor = individualLifeBoundaryProcessor;
 		this.individualActorLinkingProcessor = individualActorLinkingProcessor;
@@ -72,6 +80,7 @@ public class IndividualTemplatePageProcessor extends AbstractTemplateProcessor
 		this.individualBloodTypeProcessor = individualBloodTypeProcessor;
 		this.individualMaritalStatusProcessor = individualMaritalStatusProcessor;
 		this.wikitextApi = wikitextApi;
+		this.pageBindingService = pageBindingService;
 	}
 
 	@Override
@@ -83,7 +92,8 @@ public class IndividualTemplatePageProcessor extends AbstractTemplateProcessor
 		Optional<Template> templateOptional = findTemplate(item, TemplateName.SIDEBAR_INDIVIDUAL);
 
 		IndividualTemplate individualTemplate = new IndividualTemplate();
-		individualTemplate.setName(StringUtils.trim(StringUtils.substringBefore(item.getTitle(), "(")));
+		individualTemplate.setName(TitleUtil.getNameFromTitle(item.getTitle()));
+		individualTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 
 		if (!templateOptional.isPresent()) {
 			return individualTemplate;
@@ -144,7 +154,12 @@ public class IndividualTemplatePageProcessor extends AbstractTemplateProcessor
 	}
 
 	private boolean shouldBeFilteredOut(Page item) {
-		if (item.getTitle().startsWith("Unnamed ")) {
+		String title = item.getTitle();
+		if (title.startsWith(UNNAMED_PREFIX) || title.startsWith(LIST_OF_PREFIX)) {
+			return true;
+		}
+
+		if (item.getTitle().equals(PageName.MEMORY_ALPHA_PERSONNEL)) {
 			return true;
 		}
 

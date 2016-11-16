@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.performer.creation.configuration;
 
+import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerCategoriesActorTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerReader;
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateListPageProcessor;
@@ -62,7 +63,8 @@ public class PerformerCreationConfiguration {
 				applicationContext.getBean(PageToGenderProcessor.class),
 				applicationContext.getBean(PageToLifeRangeProcessor.class),
 				applicationContext.getBean(ActorTemplateTemplateProcessor.class),
-				applicationContext.getBean(PerformerCategoriesActorTemplateEnrichingProcessor.class));
+				applicationContext.getBean(PerformerCategoriesActorTemplateEnrichingProcessor.class),
+				applicationContext.getBean(PageBindingService.class));
 	}
 
 	@Bean(PERFORMER_ACTOR_TEMPLATE_PAGE_PROCESSOR)

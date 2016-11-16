@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.actor.processor;
 
+import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate;
 import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
@@ -8,11 +9,19 @@ import com.cezarykluczynski.stapi.util.constant.PageName;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import java.util.List;
 
 @Service
 public class ActorTemplateListPageProcessor extends AbstractTemplateProcessor
 		implements ItemProcessor<Page, ActorTemplate> {
+
+	private PageBindingService pageBindingService;
+
+	@Inject
+	public ActorTemplateListPageProcessor(PageBindingService pageBindingService) {
+		this.pageBindingService = pageBindingService;
+	}
 
 	@Override
 	public ActorTemplate process(Page item) throws Exception {
@@ -27,7 +36,7 @@ public class ActorTemplateListPageProcessor extends AbstractTemplateProcessor
 
 		ActorTemplate actorTemplate = new ActorTemplate();
 		actorTemplate.setName(gamePerformerPageHeader.getTitle());
-		actorTemplate.setPage(fromPageHeaderToPageEntity(gamePerformerPageHeader));
+		actorTemplate.setPage(pageBindingService.fromPageHeaderToPageEntity(gamePerformerPageHeader));
 		actorTemplate.setVideoGamePerformer(true);
 		return actorTemplate;
 	}

@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 
 @MappedSuperclass
 @Data
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = "page")
 @ToString
 public class PageAwareEntity {
 

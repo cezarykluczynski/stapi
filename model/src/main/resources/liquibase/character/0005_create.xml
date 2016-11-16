@@ -35,5 +35,20 @@
 				constraintName="character_page_fkey"
 				referencedColumnNames="id"
 				referencedTableName="page"/>
+
+		<createTable tableName="performers_characters">
+			<column name="performer_id" type="number(38, 0)"/>
+			<column name="character_id" type="number(38, 0)"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="performer_id"
+				baseTableName="performers_characters"
+				constraintName="pc_performer_fkey"
+				referencedColumnNames="id"
+				referencedTableName="performer"/>
+		<addForeignKeyConstraint baseColumnNames="character_id"
+				baseTableName="performers_characters"
+				constraintName="pc_character_fkey"
+				referencedColumnNames="id"
+				referencedTableName="character"/>
 	</changeSet>
 </databaseChangeLog>

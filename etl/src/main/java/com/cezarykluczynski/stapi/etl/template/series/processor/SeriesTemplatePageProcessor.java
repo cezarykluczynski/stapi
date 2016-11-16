@@ -1,12 +1,13 @@
 package com.cezarykluczynski.stapi.etl.template.series.processor;
 
+import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToDateRangeProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToYearRangeProcessor;
 import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplate;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
+import com.cezarykluczynski.stapi.util.constant.TemplateName;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
@@ -24,11 +25,14 @@ public class SeriesTemplatePageProcessor extends AbstractTemplateProcessor imple
 
 	private PartToDateRangeProcessor partToDateRangeProcessor;
 
+	private PageBindingService pageBindingService;
+
 	@Inject
 	public SeriesTemplatePageProcessor(PartToYearRangeProcessor partToYearRangeProcessor,
-			PartToDateRangeProcessor partToDateRangeProcessor) {
+			PartToDateRangeProcessor partToDateRangeProcessor, PageBindingService pageBindingService) {
 		this.partToYearRangeProcessor = partToYearRangeProcessor;
 		this.partToDateRangeProcessor = partToDateRangeProcessor;
+		this.pageBindingService = pageBindingService;
 	}
 
 	@Override
@@ -41,7 +45,7 @@ public class SeriesTemplatePageProcessor extends AbstractTemplateProcessor imple
 
 		Template template = templateOptional.get();
 		SeriesTemplate seriesTemplate = new SeriesTemplate();
-		seriesTemplate.setPage(fromPageToPageEntity(item));
+		seriesTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 
 		// Title from the template is ambiguous in ENT, so page title is preferred.
 		seriesTemplate.setTitle(item.getTitle());

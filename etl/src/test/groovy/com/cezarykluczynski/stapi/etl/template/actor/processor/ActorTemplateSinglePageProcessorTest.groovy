@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.actor.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
+import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.CategoriesActorTemplateEnrichingProcessor
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange
@@ -8,7 +9,8 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.Gender
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PageToLifeRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGenderProcessor
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
-import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
+import com.cezarykluczynski.stapi.model.page.entity.Page as PageEntity
+import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource as SourcesMediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
@@ -21,7 +23,7 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 
 	private static final String TITLE = 'TITLE'
 	private static final Long PAGE_ID = 1L
-	private static final MediaWikiSource MEDIA_WIKI_SOURCE = MediaWikiSource.MEMORY_ALPHA_EN
+	private static final SourcesMediaWikiSource SOURCES_MEDIA_WIKI_SOURCE = SourcesMediaWikiSource.MEMORY_ALPHA_EN
 	private static final String TITLE_WITH_BRACKETS = 'TITLE (actor)'
 	private static final String NAME = 'NAME'
 	private static final String BIRTH_NAME = 'BIRTH_NAME'
@@ -38,6 +40,8 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 
 	private CategoriesActorTemplateEnrichingProcessor categoriesActorTemplateEnrichingProcessorMock
 
+	private PageBindingService pageBindingServiceMock
+
 	private ActorTemplateSinglePageProcessor actorTemplatePageProcessor
 
 	private Template template
@@ -49,9 +53,10 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		pageToLifeRangeProcessorMock = Mock(PageToLifeRangeProcessor)
 		actorTemplateTemplateProcessorMock = Mock(ActorTemplateTemplateProcessor)
 		categoriesActorTemplateEnrichingProcessorMock = Mock(CategoriesActorTemplateEnrichingProcessor)
+		pageBindingServiceMock = Mock(PageBindingService)
 		actorTemplatePageProcessor = new ActorTemplateSinglePageProcessor(pageToGenderProcessorMock,
 				pageToLifeRangeProcessorMock, actorTemplateTemplateProcessorMock,
-				categoriesActorTemplateEnrichingProcessorMock)
+				categoriesActorTemplateEnrichingProcessorMock, pageBindingServiceMock)
 
 		template = new Template(title: TemplateName.SIDEBAR_ACTOR)
 		pageWithTemplate = new Page(templates: Lists.newArrayList(
@@ -81,15 +86,22 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		actorTemplate == null
 	}
 
-	def "sets name from page title"() {
+	def "sets name and page from page title"() {
 		given:
-		Page page = new Page(title: TITLE)
+		Page page = new Page(
+				title: TITLE,
+				pageId: PAGE_ID,
+				mediaWikiSource: SOURCES_MEDIA_WIKI_SOURCE
+		)
+		PageEntity pageEntity = new PageEntity()
 
 		when:
 		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(page)
 
 		then:
+		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> pageEntity
 		actorTemplate.name == TITLE
+		actorTemplate.page == pageEntity
 	}
 
 	def "sets name from page title, when template name is 'sidebar crew'"() {
@@ -120,13 +132,14 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		Page page = new Page(
 				title: TITLE,
 				pageId: PAGE_ID)
+		PageEntity pageEntity = new PageEntity()
 
 		when:
 		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(page)
 
 		then:
-		actorTemplate.page.title == TITLE
-		actorTemplate.page.pageId == PAGE_ID
+		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> pageEntity
+		actorTemplate.page == pageEntity
 	}
 
 

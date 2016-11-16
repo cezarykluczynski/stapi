@@ -3,12 +3,19 @@ package com.cezarykluczynski.stapi.etl.template.individual.dto;
 import com.cezarykluczynski.stapi.etl.template.common.dto.Gender;
 import com.cezarykluczynski.stapi.model.common.entity.BloodType;
 import com.cezarykluczynski.stapi.model.common.entity.MaritalStatus;
+import com.cezarykluczynski.stapi.model.page.entity.Page;
+import com.cezarykluczynski.stapi.model.performer.entity.Performer;
+import com.google.common.collect.Sets;
 import lombok.Data;
+
+import java.util.Set;
 
 @Data
 public class IndividualTemplate {
 
 	private String name;
+
+	private Page page;
 
 	private Gender gender;
 
@@ -41,5 +48,7 @@ public class IndividualTemplate {
 	private MaritalStatus maritalStatus;
 
 	private String serialNumber;
+
+	private Set<Performer> performers = Sets.newHashSet();
 
 }

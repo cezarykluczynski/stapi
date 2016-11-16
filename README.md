@@ -35,3 +35,42 @@ Otherwise, use gradle:
 ```sh
 gradle bootRun
 ```
+
+### Done
+- [x] Series
+- [x] Performers
+- [x] Staff
+- [x] Characters
+
+### To do
+- [ ] Episodes
+- [ ] Planets
+- [ ] Star systems
+- [ ] Comics
+- [ ] Comic series
+- [ ] Comic strips
+- [ ] Technology
+- [ ] Novels
+- [ ] Novel series
+- [ ] Species
+- [ ] Food
+- [ ] Occupations
+- [ ] Starships
+- [ ] Starship classes
+- [ ] Weapons
+- [ ] Chemical compounds
+- [ ] Animals
+- [ ] Elements
+- [ ] Governments
+- [ ] Magazines
+- [ ] Magazine series
+- [ ] Military conflicts
+- [ ] Ranks
+- [ ] Reference books
+- [ ] RPG books
+- [ ] Soundtracks
+- [ ] Trading cards
+- [ ] Video
+- [ ] Video games
+- [ ] Conflicts
+- [ ] Stations

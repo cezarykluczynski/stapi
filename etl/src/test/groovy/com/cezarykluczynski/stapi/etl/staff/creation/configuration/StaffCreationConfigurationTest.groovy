@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.staff.creation.configuration
 
 import com.cezarykluczynski.stapi.etl.common.configuration.AbstractCreationConfigurationTest
+import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerCategoriesActorTemplateEnrichingProcessor
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffCategoriesActorTemplateEnrichingProcessor
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffReader
@@ -213,6 +214,7 @@ class StaffCreationConfigurationTest extends AbstractCreationConfigurationTest {
 		ActorTemplateTemplateProcessor actorTemplateTemplateProcessorMock = Mock(ActorTemplateTemplateProcessor)
 		PerformerCategoriesActorTemplateEnrichingProcessor performerCategoriesActorTemplateEnrichingProcessorMock =
 				Mock(PerformerCategoriesActorTemplateEnrichingProcessor)
+		PageBindingService pageBindingServiceMock = Mock(PageBindingService)
 
 		when:
 		ActorTemplateSinglePageProcessor actorTemplateSinglePageProcessor = staffCreationConfiguration
@@ -224,10 +226,13 @@ class StaffCreationConfigurationTest extends AbstractCreationConfigurationTest {
 		1 * applicationContextMock.getBean(ActorTemplateTemplateProcessor) >> actorTemplateTemplateProcessorMock
 		1 * applicationContextMock.getBean(StaffCategoriesActorTemplateEnrichingProcessor) >>
 				performerCategoriesActorTemplateEnrichingProcessorMock
+		1 * applicationContextMock.getBean(PageBindingService) >> pageBindingServiceMock
+		0 * _
 		actorTemplateSinglePageProcessor.pageToGenderProcessor == pageToGenderProcessorMock
 		actorTemplateSinglePageProcessor.pageToLifeRangeProcessor == pageToLifeRangeProcessorMock
 		actorTemplateSinglePageProcessor.actorTemplateTemplateProcessor == actorTemplateTemplateProcessorMock
 		actorTemplateSinglePageProcessor.categoriesActorTemplateEnrichingProcessor == performerCategoriesActorTemplateEnrichingProcessorMock
+		actorTemplateSinglePageProcessor.pageBindingService == pageBindingServiceMock
 
 	}
 
@@ -244,6 +249,7 @@ class StaffCreationConfigurationTest extends AbstractCreationConfigurationTest {
 		1 * applicationContextMock.getBean(StaffCreationConfiguration.STAFF_ACTOR_TEMPLATE_SINGLE_PAGE_PROCESSOR,
 				ActorTemplateSinglePageProcessor) >> actorTemplateSinglePageProcessorMock
 		1 * applicationContextMock.getBean(ActorTemplateListPageProcessor) >> actorTemplateListPageProcessorMock
+		0 * _
 		actorTemplatePageProcessor.actorTemplateSinglePageProcessor == actorTemplateSinglePageProcessorMock
 		actorTemplatePageProcessor.actorTemplateListPageProcessor == actorTemplateListPageProcessorMock
 	}

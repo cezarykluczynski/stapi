@@ -1,8 +1,10 @@
 package com.cezarykluczynski.stapi.model.performer.entity;
 
+import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.common.entity.RealWorldPerson;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
+import com.google.common.collect.Sets;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,7 +15,8 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true,
+		exclude = {"performances", "stuntPerformances", "standInPerformances", "characters"})
 public class Performer extends RealWorldPerson implements PageAware {
 
 	@Id
@@ -50,12 +53,18 @@ public class Performer extends RealWorldPerson implements PageAware {
 	private boolean voyPerformer;
 
 	@ManyToMany(mappedBy = "performers")
-	private Set<Episode> performances;
+	private Set<Episode> performances = Sets.newHashSet();
 
 	@ManyToMany(mappedBy = "stuntPerformers")
-	private Set<Episode> stuntPerformances;
+	private Set<Episode> stuntPerformances = Sets.newHashSet();
 
 	@ManyToMany(mappedBy = "standInPerformers")
-	private Set<Episode> standInPerformances;
+	private Set<Episode> standInPerformances = Sets.newHashSet();
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "performers_characters",
+			joinColumns = @JoinColumn(name = "performer_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "character_id", nullable = false, updatable = false))
+	private Set<Character> characters = Sets.newHashSet();
 
 }

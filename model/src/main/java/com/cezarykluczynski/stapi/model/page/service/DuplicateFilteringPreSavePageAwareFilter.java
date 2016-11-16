@@ -76,9 +76,6 @@ public class DuplicateFilteringPreSavePageAwareFilter extends AbstractPreSavePag
 	private void removeAtIndices(List<Integer> indicesToRemove, List<PageAware> pageAwareList) {
 		for (int j = indicesToRemove.size() - 1; j >= 0; j--) {
 			int index = indicesToRemove.get(j);
-			PageAware pageAware = pageAwareList.get(index);
-			log.info("Removing duplicated entity {} for pageId {} with title {}",
-					pageAware, pageAware.getPage().getPageId(), pageAware.getPage().getTitle());
 			pageAwareList.remove(index);
 		}
 	}

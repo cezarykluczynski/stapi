@@ -5,16 +5,19 @@ import com.cezarykluczynski.stapi.model.common.entity.Gender;
 import com.cezarykluczynski.stapi.model.common.entity.MaritalStatus;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
+import com.cezarykluczynski.stapi.model.performer.entity.Performer;
+import com.google.common.collect.Sets;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, exclude = {"performers"})
 public class Character extends PageAwareEntity implements PageAware {
 
 	@Id
@@ -58,5 +61,8 @@ public class Character extends PageAwareEntity implements PageAware {
 	private MaritalStatus maritalStatus;
 
 	private String serialNumber;
+
+	@ManyToMany(mappedBy = "characters")
+	private Set<Performer> performers = Sets.newHashSet();
 
 }
