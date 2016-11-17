@@ -5,7 +5,7 @@
 Star Trek API is an attempt to create public Star Trek API, similiar to what
 [Star Wars API](https://github.com/phalt/swapi) and [PokeAPI](https://github.com/PokeAPI/pokeapi) accomplished.
 
-**Note:** this is a research project, not suitable for production use.
+**Note:** this is still a research project, not suitable for production use.
 
 ## Installation
 Star Trek API could be run by anyone, using resources found free on the internet. Some technical knowledge is required.
@@ -24,7 +24,7 @@ Java 8, Oracle Database Express Edition 11g (or compatible) will be required for
 
 Gradle is used for building. If you do not plan on development, you can use Gradle Wrapper:
 
-Edit server/src/main/resources/application.properties so that bliki.sourceUrl points to your MediaWiki's api.php.
+Edit server/src/main/resources/application.properties so that source.mediaWiki.memoryAlpha points to your MediaWiki's api.php.
 
 ```sh
 ./gradlew bootRun
@@ -40,10 +40,12 @@ gradle bootRun
 - [x] Series
 - [x] Performers
 - [x] Staff
-- [x] Characters
+
+### In progress
+- [ ] Characters
+- [ ] Episodes
 
 ### To do
-- [ ] Episodes
 - [ ] Planets
 - [ ] Star systems
 - [ ] Comics

@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.connector.bliki
 
+import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourcesProperties
 import info.bliki.api.Connector
 import info.bliki.api.User
 import spock.lang.Specification
@@ -8,15 +9,15 @@ class BlikiConnectorConfigurationTest extends Specification {
 
 	private static final String URL = 'URL'
 
-	private BlikiConnectorProperties blikiConnectorProperties
+	private MediaWikiSourcesProperties mediaWikiSourcesProperties
 
 	private BlikiConnectorConfiguration blikiConnectorConfiguration
 
 	def setup() {
-		blikiConnectorProperties = new BlikiConnectorProperties()
-		blikiConnectorProperties.setSourceUrl(URL)
+		mediaWikiSourcesProperties = new MediaWikiSourcesProperties()
+		mediaWikiSourcesProperties.setMemoryAlpha(URL)
 		blikiConnectorConfiguration = new BlikiConnectorConfiguration()
-		blikiConnectorConfiguration.blikiConnectorProperties = blikiConnectorProperties
+		blikiConnectorConfiguration.mediaWikiSourcesProperties = mediaWikiSourcesProperties
 	}
 
 	def "creates user bean"() {
