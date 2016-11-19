@@ -79,7 +79,7 @@ class CategoryApiImplTest extends Specification {
 		List<PageHeader> pageHeaderListOutput = categoryApiImpl.getPages(TITLE_1, MEDIA_WIKI_SOURCE)
 
 		then:
-		1 * blikiConnectorMock.readXML(_ as Map) >> { Map map ->
+		1 * blikiConnectorMock.readXML(_ as Map, _ as MediaWikiSource) >> { Map map, MediaWikiSource mediaWikiSource ->
 			assert map.get(ApiParams.KEY_LIST) == ApiParams.KEY_LIST_VALUE_CATEGORYMEMBERS
 			assert map.get(ApiParams.KEY_CATEGORY_TITLE) == ApiParams.KEY_CATEGORY_TITLE_VALUE_PREFIX + TITLE_1
 			assert map.get(ApiParams.KEY_CATEGORY_LIMIT) == ApiParams.KEY_CATEGORY_LIMIT_VALUE
@@ -97,14 +97,14 @@ class CategoryApiImplTest extends Specification {
 		List<PageHeader> pageHeaderListOutput = categoryApiImpl.getPages(TITLE_1, MEDIA_WIKI_SOURCE)
 
 		then:
-		1 * blikiConnectorMock.readXML(_ as Map) >> { Map map ->
+		1 * blikiConnectorMock.readXML(_ as Map, _ as MediaWikiSource) >> { Map map, MediaWikiSource mediaWikiSource ->
 			assert map.size() == 3
 			assert map.get(ApiParams.KEY_LIST) == ApiParams.KEY_LIST_VALUE_CATEGORYMEMBERS
 			assert map.get(ApiParams.KEY_CATEGORY_TITLE) == ApiParams.KEY_CATEGORY_TITLE_VALUE_PREFIX + TITLE_1
 			assert map.get(ApiParams.KEY_CATEGORY_LIMIT) == ApiParams.KEY_CATEGORY_LIMIT_VALUE
 			return VALID_XML_CONTINUE
 		}
-		1 * blikiConnectorMock.readXML(_ as Map) >> { Map map ->
+		1 * blikiConnectorMock.readXML(_ as Map, _ as MediaWikiSource) >> { Map map, MediaWikiSource mediaWikiSource ->
 			assert map.size() == 4
 			assert map.get(ApiParams.KEY_LIST) == ApiParams.KEY_LIST_VALUE_CATEGORYMEMBERS
 			assert map.get(ApiParams.KEY_CATEGORY_TITLE) == ApiParams.KEY_CATEGORY_TITLE_VALUE_PREFIX + TITLE_1
@@ -119,7 +119,7 @@ class CategoryApiImplTest extends Specification {
 
 	def "throws runtime exception when pages in category cannot be retrieved by title"() {
 		given: "invalid XML_1 is passed XMLCategoryMembersParser"
-		blikiConnectorMock.readXML(_ as Map) >> INVALID_XML
+		blikiConnectorMock.readXML(_ as Map, _ as MediaWikiSource) >> INVALID_XML
 
 		when:
 		categoryApiImpl.getPages(TITLE_1, MEDIA_WIKI_SOURCE)
@@ -136,8 +136,8 @@ class CategoryApiImplTest extends Specification {
 		List<PageHeader> pageHeaderListOutput = categoryApiImpl.getPagesIncludingSubcategories(TITLE_1, MEDIA_WIKI_SOURCE)
 
 		then:
-		1 * blikiConnectorMock.readXML(_ as Map) >> VALID_XML_WITH_PAGES_AND_CATEGORIES
-		1 * blikiConnectorMock.readXML(_ as Map) >> VALID_XML_WITH_PAGES_AND_PARENT_CATEGORY
+		1 * blikiConnectorMock.readXML(_ as Map, _ as MediaWikiSource) >> VALID_XML_WITH_PAGES_AND_CATEGORIES
+		1 * blikiConnectorMock.readXML(_ as Map, _ as MediaWikiSource) >> VALID_XML_WITH_PAGES_AND_PARENT_CATEGORY
 		1 * pageHeaderConverterMock.fromPageInfoList(_ as List<PageInfo>, MEDIA_WIKI_SOURCE) >> { List<PageInfo> pageInfoList, MediaWikiSource mediaWikiSource ->
 			assert pageInfoList.size() == 2
 			List<String> titles = pageInfoList.stream()

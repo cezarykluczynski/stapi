@@ -9,6 +9,12 @@ public class MediaWikiSourcesProperties {
 
 	public static final String PREFIX = "source.mediaWiki";
 
-	private String memoryAlpha;
+	private String memoryAlphaEnApiUrl;
+
+	private String memoryBetaEnApiUrl;
+
+	private String memoryAlphaEnMinimalInterval;
+
+	private String memoryBetaEnMinimalInterval;
 
 }

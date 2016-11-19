@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.common.service;
 
+import com.cezarykluczynski.stapi.etl.common.mapper.MediaWikiSourceMapper;
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.model.page.repository.PageRepository;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
@@ -14,9 +15,12 @@ public class PageBindingService {
 
 	private PageRepository pageRepository;
 
+	private MediaWikiSourceMapper mediaWikiSourceMapper;
+
 	@Inject
-	public PageBindingService(PageRepository pageRepository) {
+	public PageBindingService(PageRepository pageRepository, MediaWikiSourceMapper mediaWikiSourceMapper) {
 		this.pageRepository = pageRepository;
+		this.mediaWikiSourceMapper = mediaWikiSourceMapper;
 	}
 
 	public com.cezarykluczynski.stapi.model.page.entity.Page fromPageToPageEntity(Page page) {
@@ -54,8 +58,7 @@ public class PageBindingService {
 	}
 
 	public MediaWikiSource map(com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource mediaWikiSource) {
-		// TODO: write separate mapper
-		return mediaWikiSource == null ? null : MediaWikiSource.valueOf(mediaWikiSource.name());
+		return mediaWikiSourceMapper.fromSourcesToEntity(mediaWikiSource);
 	}
 
 

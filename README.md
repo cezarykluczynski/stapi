@@ -24,7 +24,7 @@ Java 8, Oracle Database Express Edition 11g (or compatible) will be required for
 
 Gradle is used for building. If you do not plan on development, you can use Gradle Wrapper:
 
-Edit server/src/main/resources/application.properties so that source.mediaWiki.memoryAlpha points to your MediaWiki's api.php.
+Edit server/src/main/resources/application.properties so that source.mediaWiki.memoryAlphaEnApiUrl points to your MediaWiki's api.php.
 
 ```sh
 ./gradlew bootRun

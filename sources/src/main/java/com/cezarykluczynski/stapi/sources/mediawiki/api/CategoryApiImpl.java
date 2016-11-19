@@ -74,7 +74,7 @@ public class CategoryApiImpl implements CategoryApi {
 		String lastCmContinue = null;
 
 		do {
-			String xml = blikiConnector.readXML(params);
+			String xml = blikiConnector.readXML(params, mediaWikiSource);
 			XMLCategoryMembersParser xmlCategoryMembersParser = parsePageInfo(xml);
 			pageInfoList.addAll(xmlCategoryMembersParser.getPagesList());
 			String cmContinue = xmlCategoryMembersParser.getCmContinue();

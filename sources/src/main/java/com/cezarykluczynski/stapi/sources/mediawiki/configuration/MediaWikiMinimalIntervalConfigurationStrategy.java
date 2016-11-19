@@ -1,0 +1,38 @@
+package com.cezarykluczynski.stapi.sources.mediawiki.configuration;
+
+import com.google.common.base.Preconditions;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.BeanInitializationException;
+import org.springframework.stereotype.Service;
+
+@Service
+@Slf4j
+public class MediaWikiMinimalIntervalConfigurationStrategy {
+
+	private static final Long WIKIA_INTERVAL = 1000L;
+
+	public Long configureInterval(String apiUrl, String minimalInterval) {
+		Preconditions.checkNotNull(apiUrl, "MediaWiki API URL cannot be null");
+
+		boolean isWikia = apiUrl.contains(".wikia.com");
+
+		if (minimalInterval == null || "auto".equals(minimalInterval.toLowerCase())) {
+			// It's safe to assume that requests to Wikia should not by more frequent than 1 per second
+			return isWikia ? WIKIA_INTERVAL : 0L;
+		}
+
+		try {
+			Long interval = Long.parseLong(minimalInterval);
+
+			if (isWikia && interval < WIKIA_INTERVAL) {
+				log.warn("Setting interval for less than 1000 milliseconds when using Wikia's wiki is not advised");
+			}
+
+			return interval;
+		} catch (NumberFormatException e) {
+			throw new BeanInitializationException(String.format("minimal interval for %s should be either \"auto\" " +
+					"or a number of milliseconds, but %s given.", apiUrl, minimalInterval), e);
+		}
+	}
+
+}

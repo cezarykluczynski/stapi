@@ -1,8 +1,6 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.connector.bliki;
 
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourcesProperties;
-import info.bliki.api.Connector;
-import info.bliki.api.User;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,19 +11,24 @@ import javax.inject.Inject;
 @EnableConfigurationProperties({MediaWikiSourcesProperties.class})
 public class BlikiConnectorConfiguration {
 
+	public static final String MEMORY_ALPHA_EN_USER_DECORATOR = "MEMORY_ALPHA_EN_USER_DECORATOR";
+	public static final String MEMORY_BETA_EN_USER_DECORATOR = "MEMORY_BETA_EN_USER_DECORATOR";
+
 	@Inject
 	private MediaWikiSourcesProperties mediaWikiSourcesProperties;
 
-	@Bean
-	public User user() {
-		User user = new User("", "", mediaWikiSourcesProperties.getMemoryAlpha());
-		user.login();
-		return user;
+	@Bean(name = MEMORY_ALPHA_EN_USER_DECORATOR)
+	public UserDecorator memoryAlphaEnUserDecorator() {
+		UserDecorator userDecorator = new UserDecorator("", "", mediaWikiSourcesProperties.getMemoryAlphaEnApiUrl());
+		userDecorator.login();
+		return userDecorator;
 	}
 
-	@Bean
-	public Connector connector() {
-		return new Connector();
+	@Bean(name = MEMORY_BETA_EN_USER_DECORATOR)
+	public UserDecorator memoryBetaEnUserDecorator() {
+		UserDecorator userDecorator = new UserDecorator("", "", mediaWikiSourcesProperties.getMemoryBetaEnApiUrl());
+		userDecorator.login();
+		return userDecorator;
 	}
 
 }

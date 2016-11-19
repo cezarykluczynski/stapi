@@ -1,13 +1,12 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.connector.bliki
 
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourcesProperties
-import info.bliki.api.Connector
-import info.bliki.api.User
 import spock.lang.Specification
 
 class BlikiConnectorConfigurationTest extends Specification {
 
-	private static final String URL = 'URL'
+	private static final String MEMORY_ALPHA_EN_API_URL = 'MEMORY_ALPHA_EN_API_URL'
+	private static final String MEMORY_BETA_EN_API_URL = 'MEMORY_BETA_EN_API_URL'
 
 	private MediaWikiSourcesProperties mediaWikiSourcesProperties
 
@@ -15,25 +14,26 @@ class BlikiConnectorConfigurationTest extends Specification {
 
 	def setup() {
 		mediaWikiSourcesProperties = new MediaWikiSourcesProperties()
-		mediaWikiSourcesProperties.setMemoryAlpha(URL)
+		mediaWikiSourcesProperties.memoryAlphaEnApiUrl = MEMORY_ALPHA_EN_API_URL
+		mediaWikiSourcesProperties.memoryBetaEnApiUrl = MEMORY_BETA_EN_API_URL
 		blikiConnectorConfiguration = new BlikiConnectorConfiguration()
 		blikiConnectorConfiguration.mediaWikiSourcesProperties = mediaWikiSourcesProperties
 	}
 
-	def "creates user bean"() {
+	def "creates Memory Alpha EN user decorator"() {
 		when:
-		User user = blikiConnectorConfiguration.user()
+		UserDecorator userDecorator = blikiConnectorConfiguration.memoryAlphaEnUserDecorator()
 
 		then:
-		user.actionUrl == URL
+		userDecorator.actionUrl == MEMORY_ALPHA_EN_API_URL
 	}
 
-	def "creates connector bean"() {
+	def "creates Memory Beta EN user decorator"() {
 		when:
-		Connector connector = blikiConnectorConfiguration.connector()
+		UserDecorator userDecorator = blikiConnectorConfiguration.memoryBetaEnUserDecorator()
 
 		then:
-		connector instanceof Connector
+		userDecorator.actionUrl == MEMORY_BETA_EN_API_URL
 	}
 
 }
