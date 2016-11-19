@@ -1,7 +1,5 @@
 package com.cezarykluczynski.stapi.server.performer.query
 
-import com.cezarykluczynski.stapi.client.v1.soap.PerformerRequest
-import com.cezarykluczynski.stapi.client.v1.soap.RequestPage
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO
 import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
@@ -11,7 +9,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import spock.lang.Specification
 
-class PerformerQueryTest extends Specification {
+class PerformerRestQueryTest extends Specification {
 
 	private PerformerRequestMapper performerRequestMapperMock
 
@@ -19,34 +17,14 @@ class PerformerQueryTest extends Specification {
 
 	private PerformerRepository performerRepositoryMock
 
-	private PerformerQuery performerQuery
+	private PerformerRestQuery performerRestQuery
 
 	def setup() {
 		performerRequestMapperMock = Mock(PerformerRequestMapper)
 		pageMapperMock = Mock(PageMapper)
 		performerRepositoryMock = Mock(PerformerRepository)
-		performerQuery = new PerformerQuery(performerRequestMapperMock, pageMapperMock,
+		performerRestQuery = new PerformerRestQuery(performerRequestMapperMock, pageMapperMock,
 				performerRepositoryMock)
-	}
-
-	def "maps PerformerRequest to PerformerRequestDTO and to PageRequest, then calls repository, then returns result"() {
-		given:
-		RequestPage requestPage = Mock(RequestPage)
-		PageRequest pageRequest = Mock(PageRequest)
-		PerformerRequest performerRequest = Mock(PerformerRequest) {
-			getPage() >> requestPage
-		}
-		PerformerRequestDTO performerRequestDTO = Mock(PerformerRequestDTO)
-		Page page = Mock(Page)
-
-		when:
-		Page pageOutput = performerQuery.query(performerRequest)
-
-		then:
-		1 * performerRequestMapperMock.map(performerRequest) >> performerRequestDTO
-		1 * pageMapperMock.fromRequestPageToPageRequest(requestPage) >> pageRequest
-		1 * performerRepositoryMock.findMatching(performerRequestDTO, pageRequest) >> page
-		pageOutput == page
 	}
 
 	def "maps PerformerRestBeanParams to PerformerRequestDTO and to PageRequest, then calls repository, then returns result"() {
@@ -59,7 +37,7 @@ class PerformerQueryTest extends Specification {
 		Page page = Mock(Page)
 
 		when:
-		Page pageOutput = performerQuery.query(performerRestBeanParams)
+		Page pageOutput = performerRestQuery.query(performerRestBeanParams)
 
 		then:
 		1 * performerRequestMapperMock.map(performerRestBeanParams) >> performerRequestDTO

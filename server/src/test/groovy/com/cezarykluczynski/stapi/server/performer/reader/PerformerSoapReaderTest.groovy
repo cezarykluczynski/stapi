@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
 import com.cezarykluczynski.stapi.model.performer.entity.Performer as DBPerformer
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerSoapMapper
-import com.cezarykluczynski.stapi.server.performer.query.PerformerQuery
+import com.cezarykluczynski.stapi.server.performer.query.PerformerSoapQuery
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
 import spock.lang.Specification
@@ -16,7 +16,7 @@ class PerformerSoapReaderTest extends Specification {
 
 	private static final Long ID = 1L
 
-	private PerformerQuery performerQueryBuilderMock
+	private PerformerSoapQuery performerSoapQueryBuilderMock
 
 	private PerformerSoapMapper performerSoapMapperMock
 
@@ -25,10 +25,10 @@ class PerformerSoapReaderTest extends Specification {
 	private PerformerSoapReader performerSoapReader
 
 	def setup() {
-		performerQueryBuilderMock = Mock(PerformerQuery)
+		performerSoapQueryBuilderMock = Mock(PerformerSoapQuery)
 		performerSoapMapperMock = Mock(PerformerSoapMapper)
 		pageMapperMock = Mock(PageMapper)
-		performerSoapReader = new PerformerSoapReader(performerQueryBuilderMock, performerSoapMapperMock, pageMapperMock)
+		performerSoapReader = new PerformerSoapReader(performerSoapQueryBuilderMock, performerSoapMapperMock, pageMapperMock)
 	}
 
 	def "gets database entities and puts them into PerformerResponse"() {
@@ -45,7 +45,7 @@ class PerformerSoapReaderTest extends Specification {
 		PerformerResponse performerResponse = performerSoapReader.read(performerRequest)
 
 		then:
-		1 * performerQueryBuilderMock.query(performerRequest) >> dbPerformerPage
+		1 * performerSoapQueryBuilderMock.query(performerRequest) >> dbPerformerPage
 		1 * pageMapperMock.fromPageToSoapResponsePage(dbPerformerPage) >> responsePage
 		1 * performerSoapMapperMock.map(dbPerformerList) >> soapPerformerList
 		performerResponse.performers[0].id == ID

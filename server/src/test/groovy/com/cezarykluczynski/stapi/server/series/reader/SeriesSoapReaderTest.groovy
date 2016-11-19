@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.SeriesResponse
 import com.cezarykluczynski.stapi.model.series.entity.Series as DBSeries
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesSoapMapper
-import com.cezarykluczynski.stapi.server.series.query.SeriesQuery
+import com.cezarykluczynski.stapi.server.series.query.SeriesSoapQuery
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
 import spock.lang.Specification
@@ -16,7 +16,7 @@ class SeriesSoapReaderTest extends Specification {
 
 	private static final Long ID = 1L
 
-	private SeriesQuery seriesQueryBuilderMock
+	private SeriesSoapQuery seriesSoapQueryBuilderMock
 
 	private SeriesSoapMapper seriesSoapMapperMock
 
@@ -25,10 +25,10 @@ class SeriesSoapReaderTest extends Specification {
 	private SeriesSoapReader seriesSoapReader
 
 	def setup() {
-		seriesQueryBuilderMock = Mock(SeriesQuery)
+		seriesSoapQueryBuilderMock = Mock(SeriesSoapQuery)
 		seriesSoapMapperMock = Mock(SeriesSoapMapper)
 		pageMapperMock = Mock(PageMapper)
-		seriesSoapReader = new SeriesSoapReader(seriesQueryBuilderMock, seriesSoapMapperMock, pageMapperMock)
+		seriesSoapReader = new SeriesSoapReader(seriesSoapQueryBuilderMock, seriesSoapMapperMock, pageMapperMock)
 	}
 
 	def "gets database entities and puts them into SeriesResponse"() {
@@ -45,7 +45,7 @@ class SeriesSoapReaderTest extends Specification {
 		SeriesResponse seriesResponse = seriesSoapReader.read(seriesRequest)
 
 		then:
-		1 * seriesQueryBuilderMock.query(seriesRequest) >> dbSeriesPage
+		1 * seriesSoapQueryBuilderMock.query(seriesRequest) >> dbSeriesPage
 		1 * pageMapperMock.fromPageToSoapResponsePage(dbSeriesPage) >> responsePage
 		1 * seriesSoapMapperMock.map(dbSeriesList) >> soapSeriesList
 		seriesResponse.series[0].id == ID

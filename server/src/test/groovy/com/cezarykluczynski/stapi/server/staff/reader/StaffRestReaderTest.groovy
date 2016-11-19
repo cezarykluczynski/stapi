@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.model.staff.entity.Staff as DBStaff
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.staff.dto.StaffRestBeanParams
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffRestMapper
-import com.cezarykluczynski.stapi.server.staff.query.StaffQuery
+import com.cezarykluczynski.stapi.server.staff.query.StaffRestQuery
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
 import spock.lang.Specification
@@ -16,7 +16,7 @@ class StaffRestReaderTest extends Specification {
 
 	private static final Long ID = 1L
 
-	private StaffQuery staffQueryBuilderMock
+	private StaffRestQuery staffRestQueryBuilderMock
 
 	private StaffRestMapper staffRestMapperMock
 
@@ -25,10 +25,10 @@ class StaffRestReaderTest extends Specification {
 	private StaffRestReader staffRestReader
 
 	def setup() {
-		staffQueryBuilderMock = Mock(StaffQuery)
+		staffRestQueryBuilderMock = Mock(StaffRestQuery)
 		staffRestMapperMock = Mock(StaffRestMapper)
 		pageMapperMock = Mock(PageMapper)
-		staffRestReader = new StaffRestReader(staffQueryBuilderMock, staffRestMapperMock, pageMapperMock)
+		staffRestReader = new StaffRestReader(staffRestQueryBuilderMock, staffRestMapperMock, pageMapperMock)
 	}
 
 	def "gets database entities and puts them into StaffResponse"() {
@@ -45,7 +45,7 @@ class StaffRestReaderTest extends Specification {
 		StaffResponse staffResponse = staffRestReader.read(seriesRestBeanParams)
 
 		then:
-		1 * staffQueryBuilderMock.query(seriesRestBeanParams) >> dbStaffPage
+		1 * staffRestQueryBuilderMock.query(seriesRestBeanParams) >> dbStaffPage
 		1 * pageMapperMock.fromPageToRestResponsePage(dbStaffPage) >> responsePage
 		1 * staffRestMapperMock.map(dbStaffList) >> soapStaffList
 		staffResponse.staff[0].id == ID
