@@ -15,8 +15,8 @@ public class Page {
 
 	@Id
 	@Column(nullable = false)
-	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator="page_sequence_generator")
-	@SequenceGenerator(name="page_sequence_generator", sequenceName="page_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "page_sequence_generator")
+	@SequenceGenerator(name = "page_sequence_generator", sequenceName = "page_sequence", allocationSize = 1)
 	private Long id;
 
 	private Long pageId;

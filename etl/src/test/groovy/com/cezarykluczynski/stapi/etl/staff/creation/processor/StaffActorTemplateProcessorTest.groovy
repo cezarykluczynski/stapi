@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.staff.creation.processor
 import com.cezarykluczynski.stapi.etl.common.processor.AbstractRealWorldActorTemplateProcessorTest
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange
+import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.util.ReflectionTestUtils
 
@@ -10,14 +11,18 @@ class StaffActorTemplateProcessorTest extends AbstractRealWorldActorTemplateProc
 
 	private StaffActorTemplateProcessor staffActorTemplateProcessor
 
+	private GuidGenerator guidGeneratorMock
+
 	def setup() {
-		staffActorTemplateProcessor = new StaffActorTemplateProcessor()
+		guidGeneratorMock = Mock(GuidGenerator)
+		staffActorTemplateProcessor = new StaffActorTemplateProcessor(guidGeneratorMock)
 	}
 
 	def "converts ActorTemplate to Staff"() {
 		given:
 		ActorTemplate actorTemplate = new ActorTemplate(
 				name: NAME,
+				page: PAGE,
 				birthName: BIRTH_NAME,
 				placeOfBirth: PLACE_OF_BIRTH,
 				placeOfDeath: PLACE_OF_DEATH,
@@ -87,7 +92,10 @@ class StaffActorTemplateProcessorTest extends AbstractRealWorldActorTemplateProc
 		Staff staff = staffActorTemplateProcessor.process(actorTemplate)
 
 		then:
+		1 * guidGeneratorMock.generateFromPage(PAGE, Staff) >> GUID
 		staff.name == NAME
+		staff.page == PAGE
+		staff.guid == GUID
 		staff.birthName == BIRTH_NAME
 		staff.placeOfBirth == PLACE_OF_BIRTH
 		staff.placeOfDeath == PLACE_OF_DEATH

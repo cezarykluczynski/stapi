@@ -31,6 +31,18 @@ public class CharacterWriter implements ItemWriter<Character> {
 	}
 
 	private List<Character> process(List<? extends Character> characterList) {
+		List<Character> characterListWithoutExtends = fromExtendsListToCharacterList(characterList);
+		return filterDuplicates(characterListWithoutExtends);
+	}
+
+	private List<Character> fromExtendsListToCharacterList(List<? extends Character> characterList) {
+		return characterList
+				.stream()
+				.map(pageAware -> (Character) pageAware)
+				.collect(Collectors.toList());
+	}
+
+	private List<Character> filterDuplicates(List<Character> characterList) {
 		return duplicateFilteringPreSavePageAwareProcessor.process(characterList.stream()
 				.map(character -> (PageAware) character)
 				.collect(Collectors.toList()), Character.class).stream()

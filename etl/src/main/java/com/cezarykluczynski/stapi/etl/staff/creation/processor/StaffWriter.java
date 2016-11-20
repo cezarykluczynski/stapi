@@ -32,13 +32,24 @@ public class StaffWriter implements ItemWriter<Staff> {
 
 	@Override
 	public void write(List<? extends Staff> items) throws Exception {
-		List<Staff> staffListWithoutDuplicates = filterDuplicates(items);
-		List<Staff> staffListWithAttachedPages = reattach(staffListWithoutDuplicates);
-		List<Staff> staffListWithAttachedPagesAndWithoutDuplicates = filterDuplicates(staffListWithAttachedPages);
-		staffRepository.save(staffListWithAttachedPagesAndWithoutDuplicates);
+		staffRepository.save(process(items));
 	}
 
-	private List<Staff> filterDuplicates(List<? extends Staff> staffList) {
+	private List<Staff> process(List<? extends Staff> performerList) {
+		List<Staff> staffListWithoutExtends = fromExtendsListToStaffList(performerList);
+		List<Staff> staffListWithoutDuplicates = filterDuplicates(staffListWithoutExtends);
+		List<Staff> staffListWithAttachedPages = reattach(staffListWithoutDuplicates);
+		return filterDuplicates(staffListWithAttachedPages);
+	}
+
+	private List<Staff> fromExtendsListToStaffList(List<? extends Staff> performerList) {
+		return performerList
+				.stream()
+				.map(pageAware -> (Staff) pageAware)
+				.collect(Collectors.toList());
+	}
+
+	private List<Staff> filterDuplicates(List<Staff> staffList) {
 		return duplicateFilteringPreSavePageAwareProcessor.process(staffList.stream()
 				.map(staff -> (PageAware) staff)
 				.collect(Collectors.toList()), Staff.class).stream()

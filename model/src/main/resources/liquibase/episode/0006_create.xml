@@ -13,6 +13,9 @@
 			<column name="series_id" type="number(38, 0)">
 				<constraints nullable="false"/>
 			</column>
+			<column name="guid" type="varchar(14)">
+				<constraints nullable="false"/>
+			</column>
 			<column name="title" type="varchar(128)">
 				<constraints nullable="false" unique="true"/>
 			</column>

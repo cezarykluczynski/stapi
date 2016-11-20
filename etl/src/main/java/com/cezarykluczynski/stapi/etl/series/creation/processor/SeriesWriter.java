@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SeriesWriter implements ItemWriter<Series> {
@@ -20,7 +21,18 @@ public class SeriesWriter implements ItemWriter<Series> {
 
 	@Override
 	public void write(List<? extends Series> items) throws Exception {
-		seriesRepository.save(items);
+		seriesRepository.save(process(items));
+	}
+
+	private List<Series> process(List<? extends Series> seriesList) {
+		return fromGenericsListToSeriesList(seriesList);
+	}
+
+	private List<Series> fromGenericsListToSeriesList(List<? extends Series> seriesList) {
+		return seriesList
+				.stream()
+				.map(pageAware -> (Series) pageAware)
+				.collect(Collectors.toList());
 	}
 
 }

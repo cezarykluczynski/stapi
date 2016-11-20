@@ -18,8 +18,8 @@ public class Series extends PageAwareEntity implements PageAware {
 
 	@Id
 	@Column(nullable = false)
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="series_sequence_generator")
-	@SequenceGenerator(name="series_sequence_generator", sequenceName="series_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "series_sequence_generator")
+	@SequenceGenerator(name = "series_sequence_generator", sequenceName = "series_sequence", allocationSize = 1)
 	private Long id;
 
 	@Column(nullable = false)

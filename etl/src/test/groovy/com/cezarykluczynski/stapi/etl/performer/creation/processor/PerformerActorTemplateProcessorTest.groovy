@@ -3,20 +3,25 @@ package com.cezarykluczynski.stapi.etl.performer.creation.processor
 import com.cezarykluczynski.stapi.etl.common.processor.AbstractRealWorldActorTemplateProcessorTest
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange
+import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 
 class PerformerActorTemplateProcessorTest extends AbstractRealWorldActorTemplateProcessorTest {
 
 	private PerformerActorTemplateProcessor performerActorTemplateProcessor
 
+	private GuidGenerator guidGeneratorMock
+
 	def setup() {
-		performerActorTemplateProcessor = new PerformerActorTemplateProcessor()
+		guidGeneratorMock = Mock(GuidGenerator)
+		performerActorTemplateProcessor = new PerformerActorTemplateProcessor(guidGeneratorMock)
 	}
 
 	def "converts ActorTemplate to Performer"() {
 		given:
 		ActorTemplate actorTemplate = new ActorTemplate(
 				name: NAME,
+				page: PAGE,
 				birthName: BIRTH_NAME,
 				placeOfBirth: PLACE_OF_BIRTH,
 				placeOfDeath: PLACE_OF_DEATH,
@@ -44,7 +49,10 @@ class PerformerActorTemplateProcessorTest extends AbstractRealWorldActorTemplate
 		Performer performer = performerActorTemplateProcessor.process(actorTemplate)
 
 		then:
+		1 * guidGeneratorMock.generateFromPage(PAGE, Performer) >> GUID
 		performer.name == NAME
+		performer.page == PAGE
+		performer.guid == GUID
 		performer.birthName == BIRTH_NAME
 		performer.placeOfBirth == PLACE_OF_BIRTH
 		performer.placeOfDeath == PLACE_OF_DEATH

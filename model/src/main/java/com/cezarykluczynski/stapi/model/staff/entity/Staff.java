@@ -18,8 +18,8 @@ public class Staff extends RealWorldPerson implements PageAware {
 
 	@Id
 	@Column(nullable = false)
-	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator="staff_sequence_generator")
-	@SequenceGenerator(name="staff_sequence_generator", sequenceName="staff_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "staff_sequence_generator")
+	@SequenceGenerator(name = "staff_sequence_generator", sequenceName = "staff_sequence", allocationSize = 1)
 	private Long id;
 
 	private Boolean artDepartment;

@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.common.entity.BloodType
 import com.cezarykluczynski.stapi.model.common.entity.Gender as EntityGender
 import com.cezarykluczynski.stapi.model.common.entity.MaritalStatus
+import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.util.tool.LogicUtil
@@ -16,6 +17,7 @@ class CharacterIndividualTemplateProcessorTest extends Specification {
 
 	private static final String NAME = 'NAME'
 	private static final Page PAGE = new Page(id: 1L)
+	private static final String GUID = 'GUID'
 	private static final EtlGender ETL_GENDER = EtlGender.F
 	private static final EntityGender ENTITY_GENDER = EntityGender.F
 	private static final Integer YEAR_OF_BIRTH = 1965
@@ -35,10 +37,13 @@ class CharacterIndividualTemplateProcessorTest extends Specification {
 	private static final Performer PERFORMER_1 = new Performer(id: 11L)
 	private static final Performer PERFORMER_2 = new Performer(id: 12L)
 
+	private GuidGenerator guidGeneratorMock
+
 	private CharacterIndividualTemplateProcessor characterIndividualTemplateProcessor
 
 	def setup() {
-		characterIndividualTemplateProcessor = new CharacterIndividualTemplateProcessor()
+		guidGeneratorMock = Mock(GuidGenerator)
+		characterIndividualTemplateProcessor = new CharacterIndividualTemplateProcessor(guidGeneratorMock)
 	}
 
 	def "converts IndividualTemplate to Character"() {
@@ -67,7 +72,9 @@ class CharacterIndividualTemplateProcessorTest extends Specification {
 		Character character = characterIndividualTemplateProcessor.process(individualTemplate)
 
 		then:
+		1 * guidGeneratorMock.generateFromPage(PAGE, Character) >> GUID
 		character.page == PAGE
+		character.guid == GUID
 		character.name == NAME
 		character.gender == ENTITY_GENDER
 		character.yearOfBirth == YEAR_OF_BIRTH

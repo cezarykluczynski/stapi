@@ -2,19 +2,30 @@ package com.cezarykluczynski.stapi.etl.staff.creation.processor;
 
 import com.cezarykluczynski.stapi.etl.common.processor.AbstractActorTemplateProcessor;
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate;
+import com.cezarykluczynski.stapi.model.common.service.GuidGenerator;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
+
 @Service
 public class StaffActorTemplateProcessor  extends AbstractActorTemplateProcessor
 		implements ItemProcessor<ActorTemplate, Staff> {
+
+	private GuidGenerator guidGenerator;
+
+	@Inject
+	public StaffActorTemplateProcessor(GuidGenerator guidGenerator) {
+		this.guidGenerator = guidGenerator;
+	}
 
 	@Override
 	public Staff process(ActorTemplate item) throws Exception {
 		Staff staff = new Staff();
 
 		processCommonFields(staff, item);
+		staff.setGuid(guidGenerator.generateFromPage(item.getPage(), Staff.class));
 		staff.setArtDepartment(item.isArtDepartment());
 		staff.setArtDirector(item.isArtDirector());
 		staff.setProductionDesigner(item.isProductionDesigner());

@@ -10,6 +10,9 @@
 			<column name="page_id" type="number(38, 0)">
 				<constraints nullable="false"/>
 			</column>
+			<column name="guid" type="varchar(14)">
+				<constraints nullable="false"/>
+			</column>
 			<column name="name" type="varchar(128)">
 				<constraints nullable="false"/>
 			</column>

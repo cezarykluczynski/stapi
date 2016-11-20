@@ -22,8 +22,8 @@ public class Character extends PageAwareEntity implements PageAware {
 
 	@Id
 	@Column(nullable = false)
-	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator="character_sequence_generator")
-	@SequenceGenerator(name="character_sequence_generator", sequenceName="character_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "character_sequence_generator")
+	@SequenceGenerator(name = "character_sequence_generator", sequenceName = "character_sequence", allocationSize = 1)
 	private Long id;
 
 	@Column(nullable = false)

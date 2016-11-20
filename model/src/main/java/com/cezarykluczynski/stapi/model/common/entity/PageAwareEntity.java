@@ -20,4 +20,6 @@ public class PageAwareEntity {
 	@JoinColumn(name = "page_id")
 	private Page page;
 
+	private String guid;
+
 }

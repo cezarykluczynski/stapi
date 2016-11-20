@@ -1,10 +1,13 @@
 package com.cezarykluczynski.stapi.etl.common.processor
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.Gender
+import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.util.AbstractRealWorldPersonTest
 
 class AbstractRealWorldActorTemplateProcessorTest extends AbstractRealWorldPersonTest {
 
-	static final Gender GENDER = Gender.F
+	protected static final Gender GENDER = Gender.F
+	protected static final String GUID = 'GUID'
+	protected static final Page PAGE = new Page(id: 1L)
 
 }

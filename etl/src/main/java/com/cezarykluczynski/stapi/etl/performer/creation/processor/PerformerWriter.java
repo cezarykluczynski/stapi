@@ -31,6 +31,18 @@ public class PerformerWriter implements ItemWriter<Performer> {
 	}
 
 	private List<Performer> process(List<? extends Performer> performerList) {
+		List<Performer> performerListWithoutExtends = fromExtendsListToPerformerList(performerList);
+		return filterDuplicates(performerListWithoutExtends);
+	}
+
+	private List<Performer> fromExtendsListToPerformerList(List<? extends Performer> performerList) {
+		return performerList
+				.stream()
+				.map(pageAware -> (Performer) pageAware)
+				.collect(Collectors.toList());
+	}
+
+	private List<Performer> filterDuplicates(List<Performer> performerList) {
 		return duplicateFilteringPreSavePageAwareProcessor.process(performerList.stream()
 				.map(performer -> (PageAware) performer)
 				.collect(Collectors.toList()), Performer.class).stream()

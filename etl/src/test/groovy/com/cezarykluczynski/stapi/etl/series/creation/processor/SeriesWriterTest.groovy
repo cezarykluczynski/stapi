@@ -16,15 +16,17 @@ class SeriesWriterTest extends Specification {
 		seriesWriter = new SeriesWriter(seriesRepositoryMock)
 	}
 
-	def "writes all entites using repository"() {
+	def "writes all entities using repository"() {
 		given:
-		List<Series> seriesList = Lists.newArrayList()
+		Series series = new Series()
+		List<Series> seriesList = Lists.newArrayList(series)
 
 		when:
 		seriesWriter.write(seriesList)
 
 		then:
 		1 * seriesRepositoryMock.save(seriesList)
+		0 * _
 	}
 
 }

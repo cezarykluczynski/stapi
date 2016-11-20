@@ -3,11 +3,21 @@ package com.cezarykluczynski.stapi.etl.character.creation.processor;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.common.entity.Gender;
+import com.cezarykluczynski.stapi.model.common.service.GuidGenerator;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
+
 @Service
 public class CharacterIndividualTemplateProcessor implements ItemProcessor<IndividualTemplate, Character> {
+
+	private GuidGenerator guidGenerator;
+
+	@Inject
+	public CharacterIndividualTemplateProcessor(GuidGenerator guidGenerator) {
+		this.guidGenerator = guidGenerator;
+	}
 
 	@Override
 	public Character process(IndividualTemplate item) throws Exception {
@@ -15,6 +25,7 @@ public class CharacterIndividualTemplateProcessor implements ItemProcessor<Indiv
 
 		character.setName(item.getName());
 		character.setPage(item.getPage());
+		character.setGuid(guidGenerator.generateFromPage(item.getPage(), Character.class));
 		if (item.getGender() != null) {
 			character.setGender(Gender.valueOf(item.getGender().name()));
 		}

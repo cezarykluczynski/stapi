@@ -25,8 +25,8 @@ public class Episode extends PageAwareEntity implements PageAware {
 
 	@Id
 	@Column(nullable = false)
-	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator="episode_sequence_generator")
-	@SequenceGenerator(name="episode_sequence_generator", sequenceName="episode_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "episode_sequence_generator")
+	@SequenceGenerator(name = "episode_sequence_generator", sequenceName ="episode_sequence", allocationSize = 1)
 	private Long id;
 
 	@OneToOne(cascade = CascadeType.ALL)

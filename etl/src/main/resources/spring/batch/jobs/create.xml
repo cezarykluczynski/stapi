@@ -36,7 +36,7 @@
 						<batch:listener ref="commonStepExecutionListener"/>
 					</batch:listeners>
 				</batch:step>
-				<batch:step id="STEP_003_CREATE_STAFF" parent="STEP_002_CREATE_PERFORMERS">
+				<batch:step id="STEP_003_CREATE_STAFF" parent="STEP_002_CREATE_PERFORMERS" next="STEP_004_CREATE_CHARACTERS"><!--next="STEP_004_CREATE_CHARACTERS"-->
 					<batch:tasklet start-limit="1" allow-start-if-complete="false">
 						<batch:chunk
 								commit-interval="50"
@@ -48,8 +48,6 @@
 						<batch:listener ref="commonStepExecutionListener"/>
 					</batch:listeners>
 				</batch:step>
-			</batch:flow>
-			<batch:flow>
 				<batch:step id="STEP_004_CREATE_CHARACTERS" parent="STEP_003_CREATE_STAFF">
 					<batch:tasklet start-limit="1" allow-start-if-complete="false">
 						<batch:chunk

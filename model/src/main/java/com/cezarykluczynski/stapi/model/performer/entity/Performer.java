@@ -21,8 +21,8 @@ public class Performer extends RealWorldPerson implements PageAware {
 
 	@Id
 	@Column(nullable = false)
-	@GeneratedValue(strategy= GenerationType.SEQUENCE, generator="performer_sequence_generator")
-	@SequenceGenerator(name="performer_sequence_generator", sequenceName="performer_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "performer_sequence_generator")
+	@SequenceGenerator(name = "performer_sequence_generator", sequenceName = "performer_sequence", allocationSize = 1)
 	private Long id;
 
 	private boolean animalPerformer;
