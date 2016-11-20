@@ -37,7 +37,8 @@ class PerformerRequestMapperTest extends AbstractRealWorldPersonMapperTest {
 				tosPerformer: TOS_PERFORMER,
 				videoGamePerformer: VIDEO_GAME_PERFORMER,
 				voicePerformer: VOICE_PERFORMER,
-				voyPerformer: VOY_PERFORMER)
+				voyPerformer: VOY_PERFORMER
+		)
 
 		when:
 		PerformerRequestDTO performerRequestDTO = performerRequestMapper.map performerRequest

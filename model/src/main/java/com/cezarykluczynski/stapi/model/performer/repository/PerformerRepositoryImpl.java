@@ -49,6 +49,7 @@ public class PerformerRepositoryImpl implements PerformerRepositoryCustom {
 		performerQueryBuilder.equal("videoGamePerformer", criteria.getVideoGamePerformer());
 		performerQueryBuilder.equal("voicePerformer", criteria.getVoicePerformer());
 		performerQueryBuilder.equal("voyPerformer", criteria.getVoyPerformer());
+		performerQueryBuilder.setOrder(criteria.getOrder());
 
 		return performerQueryBuilder.findPage();
 	}

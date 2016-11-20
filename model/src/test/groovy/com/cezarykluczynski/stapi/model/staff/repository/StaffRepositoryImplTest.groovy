@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.model.staff.repository
 
+import com.cezarykluczynski.stapi.model.common.dto.RequestOrderDTO
 import com.cezarykluczynski.stapi.model.common.entity.Gender
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.staff.dto.StaffRequestDTO
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Pageable
 class StaffRepositoryImplTest extends AbstractRealWorldPersonTest {
 
 	private static final Gender GENDER = Gender.F
+	private static final RequestOrderDTO ORDER = new RequestOrderDTO()
 
 	private StaffQueryBuilderFactory staffQueryBuilerMock
 
@@ -178,6 +180,10 @@ class StaffRepositoryImplTest extends AbstractRealWorldPersonTest {
 		1 * staffQueryBuilder.equal("videoGameProductionStaff", VIDEO_GAME_PRODUCTION_STAFF)
 		1 * staffRequestDTO.getWriter() >> WRITER
 		1 * staffQueryBuilder.equal("writer", WRITER)
+
+		then: 'order is set'
+		1 * staffRequestDTO.getOrder() >> ORDER
+		1 * staffQueryBuilder.setOrder(ORDER)
 
 		then: 'page is searched for and returned'
 		1 * staffQueryBuilder.findPage() >> page

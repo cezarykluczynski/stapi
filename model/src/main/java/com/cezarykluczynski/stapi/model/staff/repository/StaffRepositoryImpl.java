@@ -91,6 +91,7 @@ public class StaffRepositoryImpl implements StaffRepositoryCustom {
 		staffQueryBuilder.equal("transportationDepartment", criteria.getTransportationDepartment());
 		staffQueryBuilder.equal("videoGameProductionStaff", criteria.getVideoGameProductionStaff());
 		staffQueryBuilder.equal("writer", criteria.getWriter());
+		staffQueryBuilder.setOrder(criteria.getOrder());
 
 		return staffQueryBuilder.findPage();
 	}

@@ -1,23 +1,26 @@
 package com.cezarykluczynski.stapi.model.common.query;
 
+import com.cezarykluczynski.stapi.model.common.dto.RequestOrderClauseDTO;
+import com.cezarykluczynski.stapi.model.common.dto.RequestOrderDTO;
+import com.cezarykluczynski.stapi.model.common.dto.enums.RequestOrderEnumDTO;
 import com.cezarykluczynski.stapi.model.common.entity.Gender;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import javax.persistence.metamodel.Attribute;
 import javax.persistence.metamodel.EntityType;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class QueryBuilder<T> {
 
@@ -42,6 +45,8 @@ public class QueryBuilder<T> {
 	private TypedQuery<T> baseTypedQuery;
 
 	private TypedQuery<Long> countTypedQuery;
+
+	private List<RequestOrderClauseDTO> requestOrderClauseDTOList = Lists.newArrayList();
 
 	QueryBuilder(EntityManager entityManager, Class baseClass, Pageable pageable) {
 		Preconditions.checkNotNull(entityManager, "EntityManager has to be set");
@@ -146,6 +151,16 @@ public class QueryBuilder<T> {
 		return this;
 	}
 
+	public QueryBuilder<T> setOrder(RequestOrderDTO requestOrderDTO) {
+		if (requestOrderDTO == null || CollectionUtils.isEmpty(requestOrderDTO.getClauses())) {
+			return this;
+		}
+
+		requestOrderClauseDTOList.addAll(requestOrderDTO.getClauses());
+
+		return this;
+	}
+
 	public Page<T> findPage() {
 		prepareQueries();
 
@@ -199,9 +214,57 @@ public class QueryBuilder<T> {
 			countCriteriaQuery.where(predicate);
 		}
 
+		baseCriteriaQuery.orderBy(getOrderByList());
 		baseTypedQuery = entityManager.createQuery(baseCriteriaQuery);
 		baseTypedQuery.setMaxResults(pageable.getPageSize());
 		baseTypedQuery.setFirstResult(pageable.getPageSize() * pageable.getPageNumber());
+	}
+
+	private List<javax.persistence.criteria.Order> getOrderByList() {
+		return getSortedRequestOrderClauseDTOList()
+				.stream()
+				.map(requestOrderClauseDTO -> {
+					RequestOrderEnumDTO requestOrderEnumDTO = Optional
+							.ofNullable(requestOrderClauseDTO.getOrder())
+							.orElse(RequestOrderEnumDTO.ASC);
+
+					Path<String> path;
+					String name = requestOrderClauseDTO.getName();
+					try {
+						path = baseRoot.get(name);
+					} catch (IllegalArgumentException e) {
+						throw new RuntimeException(String.format("Could not find field \"%s\" in resource \"%s\".",
+								name, baseClass.getSimpleName()));
+					}
+
+					return requestOrderEnumDTO.equals(RequestOrderEnumDTO.ASC) ? criteriaBuilder.asc(path) :
+							criteriaBuilder.desc(path);
+				})
+				.collect(Collectors.toList());
+	}
+
+	private List<RequestOrderClauseDTO> getSortedRequestOrderClauseDTOList() {
+		Integer maxOrder = requestOrderClauseDTOList
+				.stream()
+				.map(RequestOrderClauseDTO::getClauseOrder)
+				.filter(clauseOrder -> clauseOrder != null)
+				.reduce(Integer::max)
+				.orElse(0);
+
+		List<RequestOrderClauseDTO> requestOrderClauseDTOListWithoutClauseOrder = requestOrderClauseDTOList
+				.stream()
+				.filter(requestOrderClauseDTO -> requestOrderClauseDTO.getClauseOrder() == null)
+				.collect(Collectors.toList());
+
+		for (RequestOrderClauseDTO requestOrderClauseDTO : requestOrderClauseDTOListWithoutClauseOrder) {
+			maxOrder++;
+			requestOrderClauseDTO.setClauseOrder(maxOrder);
+		}
+
+		return requestOrderClauseDTOList
+				.stream()
+				.sorted((a, b) -> a.getClauseOrder().compareTo(b.getClauseOrder()))
+				.collect(Collectors.toList());
 	}
 
 	private void validateAttributeExistenceAndType(String key, Class type) {

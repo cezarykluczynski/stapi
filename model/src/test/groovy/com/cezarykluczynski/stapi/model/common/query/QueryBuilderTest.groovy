@@ -1,5 +1,8 @@
 package com.cezarykluczynski.stapi.model.common.query
 
+import com.cezarykluczynski.stapi.model.common.dto.RequestOrderClauseDTO
+import com.cezarykluczynski.stapi.model.common.dto.RequestOrderDTO
+import com.cezarykluczynski.stapi.model.common.dto.enums.RequestOrderEnumDTO
 import com.cezarykluczynski.stapi.model.common.entity.Gender
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.util.tool.LogicUtil
@@ -42,6 +45,38 @@ class QueryBuilderTest extends Specification {
 	private static final Integer PAGE_SIZE = 50
 	private static final Integer PAGE_NUMBER = 5
 	private static final Integer FIRST_RESULT = PAGE_SIZE * PAGE_NUMBER
+
+	private static final String REQUEST_ORDER_CLAUSE_NAME_1 = 'REQUEST_ORDER_CLAUSE_NAME_1'
+	private static final String REQUEST_ORDER_CLAUSE_NAME_2 = 'REQUEST_ORDER_CLAUSE_NAME_2'
+	private static final String REQUEST_ORDER_CLAUSE_NAME_3 = 'REQUEST_ORDER_CLAUSE_NAME_3'
+	private static final RequestOrderEnumDTO REQUEST_ORDER_CLAUSE_ORDER_ENUM_1 = RequestOrderEnumDTO.ASC
+	private static final RequestOrderEnumDTO REQUEST_ORDER_CLAUSE_ORDER_ENUM_3 = RequestOrderEnumDTO.DESC
+	private static final Integer REQUEST_ORDER_CLAUSE_CLAUSE_ORDER_1 = 1
+	private static final Integer REQUEST_ORDER_CLAUSE_CLAUSE_ORDER_2 = 2
+	private final Path REQUEST_ORDER_CLAUSE_PATH_1 = Mock(Path)
+	private final Path REQUEST_ORDER_CLAUSE_PATH_2 = Mock(Path)
+	private final Path REQUEST_ORDER_CLAUSE_PATH_3 = Mock(Path)
+	private final Order REQUEST_ORDER_CLAUSE_ORDER_3 = Mock(Order)
+	private final Order REQUEST_ORDER_CLAUSE_ORDER_2 = Mock(Order)
+	private final Order REQUEST_ORDER_CLAUSE_ORDER_1 = Mock(Order)
+
+	private static final RequestOrderDTO ORDER_REQUEST = new RequestOrderDTO(
+			clauses: Lists.newArrayList(
+					new RequestOrderClauseDTO(
+							name: REQUEST_ORDER_CLAUSE_NAME_3,
+							order: REQUEST_ORDER_CLAUSE_ORDER_ENUM_3
+					),
+					new RequestOrderClauseDTO(
+							name: REQUEST_ORDER_CLAUSE_NAME_2,
+							clauseOrder: REQUEST_ORDER_CLAUSE_CLAUSE_ORDER_2
+					),
+					new RequestOrderClauseDTO(
+							name: REQUEST_ORDER_CLAUSE_NAME_1,
+							order: REQUEST_ORDER_CLAUSE_ORDER_ENUM_1,
+							clauseOrder: REQUEST_ORDER_CLAUSE_CLAUSE_ORDER_1
+					)
+			)
+	)
 
 	private QueryBuilder<Series> queryBuilder
 
@@ -254,7 +289,8 @@ class QueryBuilderTest extends Specification {
 		then: 'exception is thrown'
 		thrown(RuntimeException)
 
-		when: 'search is performer'
+		when: 'order is added and search is performer'
+		queryBuilder.setOrder(ORDER_REQUEST)
 		Page<Series> seriesPage = queryBuilder.findPage()
 
 		then: 'queries are built'
@@ -285,6 +321,18 @@ class QueryBuilderTest extends Specification {
 		1 * criteriaBuilder.and(_) >> predicate
 		1 * baseCriteriaQuery.where(predicate)
 		1 * countCriteriaQuery.where(predicate)
+		1 * baseRoot.get(REQUEST_ORDER_CLAUSE_NAME_3) >> REQUEST_ORDER_CLAUSE_PATH_3
+		1 * criteriaBuilder.desc(REQUEST_ORDER_CLAUSE_PATH_3) >> REQUEST_ORDER_CLAUSE_ORDER_3
+		1 * baseRoot.get(REQUEST_ORDER_CLAUSE_NAME_2) >> REQUEST_ORDER_CLAUSE_PATH_2
+		1 * criteriaBuilder.asc(REQUEST_ORDER_CLAUSE_PATH_2) >> REQUEST_ORDER_CLAUSE_ORDER_2
+		1 * baseRoot.get(REQUEST_ORDER_CLAUSE_NAME_1) >> REQUEST_ORDER_CLAUSE_PATH_1
+		1 * criteriaBuilder.asc(REQUEST_ORDER_CLAUSE_PATH_1) >> REQUEST_ORDER_CLAUSE_ORDER_1
+		1 * baseCriteriaQuery.orderBy(_) >> { args ->
+			List<Order> orderList = args[0]
+			assert orderList[0] == REQUEST_ORDER_CLAUSE_ORDER_1
+			assert orderList[1] == REQUEST_ORDER_CLAUSE_ORDER_2
+			assert orderList[2] == REQUEST_ORDER_CLAUSE_ORDER_3
+		}
 		1 * entityManager.createQuery(baseCriteriaQuery) >> baseTypedQuery
 		1 * pageable.getPageSize() >> PAGE_SIZE
 		1 * baseTypedQuery.setMaxResults(PAGE_SIZE)
@@ -295,6 +343,9 @@ class QueryBuilderTest extends Specification {
 
 		then: 'all entities are found'
 		seriesList == baseEntityList
+
+		then: 'no other interactions are expected'
+		0 * _
 	}
 
 }

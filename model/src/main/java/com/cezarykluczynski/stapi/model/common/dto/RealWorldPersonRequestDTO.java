@@ -29,4 +29,6 @@ public class RealWorldPersonRequestDTO {
 
 	private String placeOfDeath;
 
+	private RequestOrderDTO order;
+
 }

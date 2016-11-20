@@ -11,6 +11,7 @@ abstract class AbstractRealWorldPersonMapperTest extends AbstractRealWorldPerson
 	static final GenderEnumSoap GENDER_ENUM_SOAP = GenderEnumSoap.F
 	static final com.cezarykluczynski.stapi.client.v1.rest.model.Gender GENDER_ENUM_REST = GenderEnumRest.F
 	static final Gender GENDER = Gender.F
+	static final O
 
 	static final DateRange DATE_OF_BIRTH_SOAP = new DateRange(
 			dateFrom: DATE_OF_BIRTH_FROM_SOAP,

@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.model.performer.repository
 
+import com.cezarykluczynski.stapi.model.common.dto.RequestOrderDTO
 import com.cezarykluczynski.stapi.model.common.entity.Gender
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Pageable
 class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 
 	private static final Gender GENDER = Gender.F
+	private static final RequestOrderDTO ORDER = new RequestOrderDTO()
 
 	private PerformerQueryBuilderFactory performerQueryBuilderMock
 
@@ -94,6 +96,10 @@ class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 		1 * performerQueryBuilder.equal("voicePerformer", VOICE_PERFORMER)
 		1 * performerRequestDTO.getVoyPerformer() >> VOY_PERFORMER
 		1 * performerQueryBuilder.equal("voyPerformer", VOY_PERFORMER)
+
+		then: 'order is set'
+		1 * performerRequestDTO.getOrder() >> ORDER
+		1 * performerQueryBuilder.setOrder(ORDER)
 
 		then: 'page is searched for and returned'
 		1 * performerQueryBuilder.findPage() >> page

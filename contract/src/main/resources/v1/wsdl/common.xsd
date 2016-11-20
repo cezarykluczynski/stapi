@@ -7,6 +7,7 @@
 	<xs:complexType name="Request">
 		<xs:sequence>
 			<xs:element name="page" type="common:RequestPage" minOccurs="0"/>
+			<xs:element name="order" type="common:RequestOrder" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="Response">
@@ -57,4 +58,22 @@
 			<xs:element name="to" type="xs:int" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="RequestOrder">
+		<xs:sequence>
+			<xs:element name="clauses" type="common:RequestOrderClause" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RequestOrderClause">
+		<xs:sequence>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="order" type="common:RequestOrderEnum" minOccurs="0"/>
+			<xs:element name="clauseOrder" type="xs:int" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="RequestOrderEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ASC"/>
+			<xs:enumeration value="DESC"/>
+		</xs:restriction>
+	</xs:simpleType>
 </xs:schema>

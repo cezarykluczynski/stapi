@@ -4,13 +4,14 @@ import com.cezarykluczynski.stapi.client.v1.soap.PerformerRequest;
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO;
 import com.cezarykluczynski.stapi.server.common.mapper.DateMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.EnumMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.RequestOrderMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import com.cezarykluczynski.stapi.server.performer.dto.PerformerRestBeanParams;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-@Mapper(config = MapstructConfiguration.class, uses = {EnumMapper.class, DateMapper.class})
+@Mapper(config = MapstructConfiguration.class, uses = {EnumMapper.class, DateMapper.class, RequestOrderMapper.class})
 public interface PerformerRequestMapper {
 
 	@Mappings({
@@ -21,6 +22,9 @@ public interface PerformerRequestMapper {
 	})
 	PerformerRequestDTO map(PerformerRequest performerRequest);
 
+	@Mappings({
+			@Mapping(target = "order", ignore = true)
+	})
 	PerformerRequestDTO map(PerformerRestBeanParams performerRestBeanParams);
 
 }
