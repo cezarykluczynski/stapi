@@ -41,9 +41,9 @@ class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 		then:
 		1 * performerQueryBuilderMock.createQueryBuilder(pageable) >> performerQueryBuilder
 
-		then: 'id criteria is set'
-		1 * performerRequestDTO.getId() >> ID
-		1 * performerQueryBuilder.equal("id", ID)
+		then: 'guid criteria is set'
+		1 * performerRequestDTO.getGuid() >> GUID
+		1 * performerQueryBuilder.equal("guid", GUID)
 
 		then: 'string criteria are set'
 		1 * performerRequestDTO.getName() >> NAME

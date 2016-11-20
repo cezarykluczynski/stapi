@@ -9,7 +9,7 @@ import java.time.LocalDate
 
 abstract class AbstractSeriesMapperTest extends Specification {
 
-	protected static final Long ID = 1L
+	protected static final String GUID = 'GUID'
 	protected static final String TITLE = 'TITLE'
 	protected static final String ABBREVIATION = 'ABBREVIATION'
 	protected static final Integer PRODUCTION_START_YEAR = 1998

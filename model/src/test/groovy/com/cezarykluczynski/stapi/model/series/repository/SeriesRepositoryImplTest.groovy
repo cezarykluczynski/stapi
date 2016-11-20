@@ -12,7 +12,7 @@ import java.time.LocalDate
 
 class SeriesRepositoryImplTest extends Specification {
 
-	private static final Long ID = 1L
+	private static final String GUID = 'GUID'
 	private static final String TITLE = 'TITLE'
 	private static final String ABBREVIATION = 'ABBREVIATION'
 	private static final Integer PRODUCTION_START_YEAR_FROM = 1970
@@ -52,9 +52,9 @@ class SeriesRepositoryImplTest extends Specification {
 		then:
 		1 * seriesQueryBuilderMock.createQueryBuilder(pageable) >> seriesQueryBuilder
 
-		then: 'id criteria is set'
-		1 * seriesRequestDTO.getId() >> ID
-		1 * seriesQueryBuilder.equal("id", ID)
+		then: 'guid criteria is set'
+		1 * seriesRequestDTO.getGuid() >> GUID
+		1 * seriesQueryBuilder.equal("guid", GUID)
 
 		then: 'string criteria are set'
 		1 * seriesRequestDTO.getTitle() >> TITLE

@@ -1,11 +1,10 @@
 package com.cezarykluczynski.stapi.server.staff.endpoint
 
+import com.cezarykluczynski.stapi.client.v1.soap.RequestPage
 import com.cezarykluczynski.stapi.client.v1.soap.StaffRequest
 import com.cezarykluczynski.stapi.client.v1.soap.StaffResponse
-import com.cezarykluczynski.stapi.client.v1.soap.RequestPage
-import com.cezarykluczynski.stapi.server.series.common.EndpointIntegrationTest
 
-class StaffSoapEndpointIntegrationTest  extends EndpointIntegrationTest {
+class StaffSoapEndpointIntegrationTest extends AbstractStaffEndpointIntegrationTest {
 
 	def setup() {
 		createSoapClient()
@@ -28,15 +27,15 @@ class StaffSoapEndpointIntegrationTest  extends EndpointIntegrationTest {
 		staffResponse.staff.size() == pageSize
 	}
 
-	def "gets staff by id"() {
+	def "gets staff by guid"() {
 		when:
 		StaffResponse staffResponse = stapiSoapClient.staffPortType.getStaff(new StaffRequest(
-				id: ID
+				guid: GUID
 		))
 
 		then:
 		staffResponse.page.totalElements == 1
-		staffResponse.staff[0].id == ID
+		staffResponse.staff[0].guid == GUID
 	}
 
 }

@@ -26,7 +26,7 @@ public class StaffRepositoryImpl implements StaffRepositoryCustom {
 	public Page<Staff> findMatching(StaffRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<Staff> staffQueryBuilder = staffQueryBuilderFactory.createQueryBuilder(pageable);
 
-		staffQueryBuilder.equal("id", criteria.getId());
+		staffQueryBuilder.equal("guid", criteria.getGuid());
 		staffQueryBuilder.like("name", criteria.getName());
 		staffQueryBuilder.like("birthName", criteria.getBirthName());
 		staffQueryBuilder.like("placeOfBirth", criteria.getPlaceOfBirth());

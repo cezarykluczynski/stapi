@@ -14,7 +14,7 @@ import spock.lang.Specification
 
 class SeriesSoapReaderTest extends Specification {
 
-	private static final Long ID = 1L
+	private static final String GUID = 'GUID'
 
 	private SeriesSoapQuery seriesSoapQueryBuilderMock
 
@@ -37,7 +37,7 @@ class SeriesSoapReaderTest extends Specification {
 		Page<DBSeries> dbSeriesPage = Mock(Page) {
 			getContent() >> dbSeriesList
 		}
-		List<SOAPSeries> soapSeriesList = Lists.newArrayList(new SOAPSeries(id:  ID))
+		List<SOAPSeries> soapSeriesList = Lists.newArrayList(new SOAPSeries(guid: GUID))
 		SeriesRequest seriesRequest = Mock(SeriesRequest)
 		ResponsePage responsePage = Mock(ResponsePage)
 
@@ -48,7 +48,7 @@ class SeriesSoapReaderTest extends Specification {
 		1 * seriesSoapQueryBuilderMock.query(seriesRequest) >> dbSeriesPage
 		1 * pageMapperMock.fromPageToSoapResponsePage(dbSeriesPage) >> responsePage
 		1 * seriesSoapMapperMock.map(dbSeriesList) >> soapSeriesList
-		seriesResponse.series[0].id == ID
+		seriesResponse.series[0].guid == GUID
 		seriesResponse.page == responsePage
 	}
 

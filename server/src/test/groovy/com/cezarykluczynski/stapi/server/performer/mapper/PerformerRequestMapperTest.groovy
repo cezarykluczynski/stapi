@@ -17,7 +17,7 @@ class PerformerRequestMapperTest extends AbstractRealWorldPersonMapperTest {
 	def "maps SOAP PerformerRequest to PerformerRequestDTO"() {
 		given:
 		PerformerRequest performerRequest = new PerformerRequest(
-				id: ID,
+				guid: GUID,
 				name: NAME,
 				birthName: BIRTH_NAME,
 				gender: GENDER_ENUM_SOAP,
@@ -43,7 +43,7 @@ class PerformerRequestMapperTest extends AbstractRealWorldPersonMapperTest {
 		PerformerRequestDTO performerRequestDTO = performerRequestMapper.map performerRequest
 
 		then:
-		performerRequestDTO.id == ID
+		performerRequestDTO.guid == GUID
 		performerRequestDTO.name == NAME
 		performerRequestDTO.birthName == BIRTH_NAME
 		performerRequestDTO.gender == GENDER
@@ -71,7 +71,7 @@ class PerformerRequestMapperTest extends AbstractRealWorldPersonMapperTest {
 	def "maps PerformerRestBeanParams to PerformerRequestDTO"() {
 		given:
 		PerformerRestBeanParams performerRestBeanParams = new PerformerRestBeanParams(
-				id: ID,
+				guid: GUID,
 				name: NAME,
 				birthName: BIRTH_NAME,
 				gender: GENDER,
@@ -99,7 +99,7 @@ class PerformerRequestMapperTest extends AbstractRealWorldPersonMapperTest {
 		PerformerRequestDTO performerRequestDTO = performerRequestMapper.map performerRestBeanParams
 
 		then:
-		performerRequestDTO.id == ID
+		performerRequestDTO.guid == GUID
 		performerRequestDTO.name == NAME
 		performerRequestDTO.birthName == BIRTH_NAME
 		performerRequestDTO.gender == GENDER

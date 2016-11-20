@@ -1,9 +1,8 @@
 package com.cezarykluczynski.stapi.server.performer.endpoint
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerResponse
-import com.cezarykluczynski.stapi.server.series.common.EndpointIntegrationTest
 
-class PerformerRestEndpointIntegrationTest extends EndpointIntegrationTest {
+class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointIntegrationTest {
 
 	def setup() {
 		createRestClient()
@@ -34,15 +33,15 @@ class PerformerRestEndpointIntegrationTest extends EndpointIntegrationTest {
 		performerResponse.performers[0].name == "Majel Barrett-Roddenberry"
 	}
 
-	def "gets performer by id"() {
+	def "gets performer by guid"() {
 		when:
-		PerformerResponse performerResponse = stapiRestClient.performerApi.performerPost(null, null, ID, null, null,
+		PerformerResponse performerResponse = stapiRestClient.performerApi.performerPost(null, null, GUID, null, null,
 				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
 				null)
 
 		then:
 		performerResponse.page.totalElements == 1
-		performerResponse.performers[0].id == ID
+		performerResponse.performers[0].guid == GUID
 	}
 
 }

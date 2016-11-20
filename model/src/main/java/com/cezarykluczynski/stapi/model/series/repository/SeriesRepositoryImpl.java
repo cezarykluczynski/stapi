@@ -24,7 +24,7 @@ public class SeriesRepositoryImpl implements SeriesRepositoryCustom {
 	public Page<Series> findMatching(SeriesRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<Series> seriesQueryBuilder = seriesQueryBuilderFactory.createQueryBuilder(pageable);
 
-		seriesQueryBuilder.equal("id", criteria.getId());
+		seriesQueryBuilder.equal("guid", criteria.getGuid());
 		seriesQueryBuilder.like("title", criteria.getTitle());
 		seriesQueryBuilder.like("abbreviation", criteria.getAbbreviation());
 		seriesQueryBuilder.between("productionStartYear", criteria.getProductionStartYearFrom(),

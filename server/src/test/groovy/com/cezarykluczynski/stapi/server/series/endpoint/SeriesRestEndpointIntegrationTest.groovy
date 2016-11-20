@@ -1,9 +1,8 @@
 package com.cezarykluczynski.stapi.server.series.endpoint
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesResponse
-import com.cezarykluczynski.stapi.server.series.common.EndpointIntegrationTest
 
-class SeriesRestEndpointIntegrationTest extends EndpointIntegrationTest {
+class SeriesRestEndpointIntegrationTest extends AbstractSeriesEndpointIntegrationTest {
 
 	def setup() {
 		createRestClient()
@@ -29,28 +28,28 @@ class SeriesRestEndpointIntegrationTest extends EndpointIntegrationTest {
 		Integer pageSize = 2
 
 		when:
-		SeriesResponse seriesResponse = stapiRestClient.seriesApi.seriesPost(pageNumber, pageSize, null, "Voyager", null,
+		SeriesResponse seriesResponse = stapiRestClient.seriesApi.seriesPost(pageNumber, pageSize, null, VOYAGER, null,
 				null, null, null, null, null, null, null, null)
 
 		then:
-		seriesResponse.series.size() == 1
-		seriesResponse.series[0].title == "Star Trek: Voyager"
 		seriesResponse.page.pageNumber == pageNumber
 		seriesResponse.page.pageSize == pageSize
+		seriesResponse.series.size() == 1
+		seriesResponse.series[0].title.contains VOYAGER
 	}
 
-	def "gets series by id"() {
+	def "gets series by guid"() {
 		given:
 		Integer pageNumber = 0
 		Integer pageSize = 2
 
 		when:
-		SeriesResponse seriesResponse = stapiRestClient.seriesApi.seriesPost(pageNumber, pageSize, 1, null, null,
+		SeriesResponse seriesResponse = stapiRestClient.seriesApi.seriesPost(pageNumber, pageSize, GUID, null, null,
 				null, null, null, null, null, null, null, null)
 
 		then:
 		seriesResponse.series.size() == 1
-		seriesResponse.series[0].abbreviation == "TAS"
+		seriesResponse.series[0].abbreviation == TAS
 		seriesResponse.page.pageNumber == pageNumber
 		seriesResponse.page.pageSize == pageSize
 	}

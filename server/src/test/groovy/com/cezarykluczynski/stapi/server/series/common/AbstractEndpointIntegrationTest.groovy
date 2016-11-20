@@ -13,9 +13,7 @@ import spock.lang.Specification
 		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
 @ActiveProfiles("default")
-abstract class EndpointIntegrationTest extends Specification {
-
-	protected static final Long ID = 100L
+abstract class AbstractEndpointIntegrationTest extends Specification {
 
 	@LocalServerPort
 	protected Integer localServerPost

@@ -14,7 +14,7 @@ import spock.lang.Specification
 
 class PerformerSoapReaderTest extends Specification {
 
-	private static final Long ID = 1L
+	private static final String GUID = 'GUID'
 
 	private PerformerSoapQuery performerSoapQueryBuilderMock
 
@@ -37,7 +37,7 @@ class PerformerSoapReaderTest extends Specification {
 		Page<DBPerformer> dbPerformerPage = Mock(Page) {
 			getContent() >> dbPerformerList
 		}
-		List<SOAPPerformer> soapPerformerList = Lists.newArrayList(new SOAPPerformer(id: ID))
+		List<SOAPPerformer> soapPerformerList = Lists.newArrayList(new SOAPPerformer(guid: GUID))
 		PerformerRequest performerRequest = Mock(PerformerRequest)
 		ResponsePage responsePage = Mock(ResponsePage)
 
@@ -48,7 +48,7 @@ class PerformerSoapReaderTest extends Specification {
 		1 * performerSoapQueryBuilderMock.query(performerRequest) >> dbPerformerPage
 		1 * pageMapperMock.fromPageToSoapResponsePage(dbPerformerPage) >> responsePage
 		1 * performerSoapMapperMock.map(dbPerformerList) >> soapPerformerList
-		performerResponse.performers[0].id == ID
+		performerResponse.performers[0].guid == GUID
 		performerResponse.page == responsePage
 	}
 

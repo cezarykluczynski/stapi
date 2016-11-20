@@ -17,7 +17,7 @@ class StaffRequestMapperTest extends AbstractRealWorldPersonMapperTest {
 	def "maps SOAP StaffRequest to StaffRequestDTO"() {
 		given:
 		StaffRequest staffRequest = new StaffRequest(
-				id: ID,
+				guid: GUID,
 				name: NAME,
 				birthName: BIRTH_NAME,
 				gender: GENDER_ENUM_SOAP,
@@ -85,7 +85,7 @@ class StaffRequestMapperTest extends AbstractRealWorldPersonMapperTest {
 		StaffRequestDTO staffRequestDTO = staffRequestMapper.map staffRequest
 
 		then:
-		staffRequestDTO.id == ID
+		staffRequestDTO.guid == GUID
 		staffRequestDTO.name == NAME
 		staffRequestDTO.birthName == BIRTH_NAME
 		staffRequestDTO.gender == GENDER
@@ -155,7 +155,7 @@ class StaffRequestMapperTest extends AbstractRealWorldPersonMapperTest {
 	def "maps StaffRestBeanParams to StaffRequestDTO"() {
 		given:
 		StaffRestBeanParams staffRestBeanParams = new StaffRestBeanParams(
-				id: ID,
+				guid: GUID,
 				name: NAME,
 				birthName: BIRTH_NAME,
 				gender: GENDER,
@@ -225,7 +225,7 @@ class StaffRequestMapperTest extends AbstractRealWorldPersonMapperTest {
 		StaffRequestDTO staffRequestDTO = staffRequestMapper.map staffRestBeanParams
 
 		then:
-		staffRequestDTO.id == ID
+		staffRequestDTO.guid == GUID
 		staffRequestDTO.name == NAME
 		staffRequestDTO.birthName == BIRTH_NAME
 		staffRequestDTO.gender == GENDER

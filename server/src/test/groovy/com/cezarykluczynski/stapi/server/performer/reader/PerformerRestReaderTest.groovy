@@ -14,7 +14,7 @@ import spock.lang.Specification
 
 class PerformerRestReaderTest extends Specification {
 
-	private static final Long ID = 1L
+	private static final String GUID = 'GUID'
 
 	private PerformerRestQuery performerRestQueryBuilderMock
 
@@ -37,7 +37,7 @@ class PerformerRestReaderTest extends Specification {
 		Page<Performer> dbPerformerPage = Mock(Page) {
 			getContent() >> dbPerformerList
 		}
-		List<RESTPerformer> soapPerformerList = Lists.newArrayList(new RESTPerformer(id: ID))
+		List<RESTPerformer> soapPerformerList = Lists.newArrayList(new RESTPerformer(guid: GUID))
 		PerformerRestBeanParams seriesRestBeanParams = Mock(PerformerRestBeanParams)
 		ResponsePage responsePage = Mock(ResponsePage)
 
@@ -48,7 +48,7 @@ class PerformerRestReaderTest extends Specification {
 		1 * performerRestQueryBuilderMock.query(seriesRestBeanParams) >> dbPerformerPage
 		1 * pageMapperMock.fromPageToRestResponsePage(dbPerformerPage) >> responsePage
 		1 * performerRestMapperMock.map(dbPerformerList) >> soapPerformerList
-		performerResponse.performers[0].id == ID
+		performerResponse.performers[0].guid == GUID
 		performerResponse.page == responsePage
 	}
 

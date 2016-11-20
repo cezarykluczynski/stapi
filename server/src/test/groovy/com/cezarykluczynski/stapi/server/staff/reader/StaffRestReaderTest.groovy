@@ -14,7 +14,7 @@ import spock.lang.Specification
 
 class StaffRestReaderTest extends Specification {
 
-	private static final Long ID = 1L
+	private static final String GUID = 'GUID'
 
 	private StaffRestQuery staffRestQueryBuilderMock
 
@@ -37,7 +37,7 @@ class StaffRestReaderTest extends Specification {
 		Page<DBStaff> dbStaffPage = Mock(Page) {
 			getContent() >> dbStaffList
 		}
-		List<SOAPStaff> soapStaffList = Lists.newArrayList(new SOAPStaff(id: ID))
+		List<SOAPStaff> soapStaffList = Lists.newArrayList(new SOAPStaff(guid: GUID))
 		StaffRestBeanParams seriesRestBeanParams = Mock(StaffRestBeanParams)
 		ResponsePage responsePage = Mock(ResponsePage)
 
@@ -48,7 +48,7 @@ class StaffRestReaderTest extends Specification {
 		1 * staffRestQueryBuilderMock.query(seriesRestBeanParams) >> dbStaffPage
 		1 * pageMapperMock.fromPageToRestResponsePage(dbStaffPage) >> responsePage
 		1 * staffRestMapperMock.map(dbStaffList) >> soapStaffList
-		staffResponse.staff[0].id == ID
+		staffResponse.staff[0].guid == GUID
 		staffResponse.page == responsePage
 	}
 

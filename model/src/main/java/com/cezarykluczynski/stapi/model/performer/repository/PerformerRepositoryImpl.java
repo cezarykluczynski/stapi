@@ -26,7 +26,7 @@ public class PerformerRepositoryImpl implements PerformerRepositoryCustom {
 	public Page<Performer> findMatching(PerformerRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<Performer> performerQueryBuilder = performerQueryBuilderFactory.createQueryBuilder(pageable);
 
-		performerQueryBuilder.equal("id", criteria.getId());
+		performerQueryBuilder.equal("guid", criteria.getGuid());
 		performerQueryBuilder.like("name", criteria.getName());
 		performerQueryBuilder.like("birthName", criteria.getBirthName());
 		performerQueryBuilder.like("placeOfBirth", criteria.getPlaceOfBirth());

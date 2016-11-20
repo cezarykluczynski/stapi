@@ -1,8 +1,7 @@
 type: object
 properties:
-  id:
-    type: integer
-    format: int64
+  guid:
+    type: string
   name:
     type: string
   birthName:

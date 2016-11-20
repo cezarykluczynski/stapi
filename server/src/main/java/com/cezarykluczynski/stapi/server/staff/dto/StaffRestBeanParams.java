@@ -8,8 +8,8 @@ import java.time.LocalDate;
 
 public class StaffRestBeanParams extends PageAwareBeanParams {
 
-	@FormParam("id")
-	private Long id;
+	@FormParam("guid")
+	private String guid;
 
 	@FormParam("name")
 	private String name;
@@ -203,8 +203,8 @@ public class StaffRestBeanParams extends PageAwareBeanParams {
 	@FormParam("writer")
 	private Boolean writer;
 
-	public Long getId() {
-		return id;
+	public String getGuid() {
+		return guid;
 	}
 
 	public String getName() {

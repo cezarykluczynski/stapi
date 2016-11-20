@@ -155,12 +155,19 @@ class QueryBuilderTest extends Specification {
 		then: 'query builder is returned'
 		queryBuilder != null
 
-		when: 'valid string key is added'
+		when: 'valid string key is added for like comparison'
 		queryBuilder.like(VALID_KEY_STRING, VALID_VALUE_STRING)
 
 		then: 'right methods are called'
 		1 * baseRoot.get(VALID_KEY_STRING) >> path
 		1 * criteriaBuilder.like(path, "%${VALID_VALUE_STRING}%")
+
+		when: 'valid string key is added to equal comparison'
+		queryBuilder.equal(VALID_KEY_STRING, VALID_VALUE_STRING)
+
+		then: 'right methods are called'
+		1 * baseRoot.get(VALID_KEY_STRING) >> path
+		1 * criteriaBuilder.equal(path, VALID_VALUE_STRING)
 
 		when: 'valid boolean key is added'
 		queryBuilder.equal(VALID_KEY_BOOLEAN, VALID_VALUE_BOOLEAN)
@@ -219,13 +226,21 @@ class QueryBuilderTest extends Specification {
 		1 * baseRoot.get(VALID_KEY_GENDER) >> path
 		1 * criteriaBuilder.equal(path, VALID_VALUE_GENDER)
 
-		when: 'join key is added'
+		when: 'join equals key is added'
 		queryBuilder.joinIn(VALID_KEY_PAGE, VALID_JOIN_PAGE_ID, Sets.newHashSet(1L), com.cezarykluczynski.stapi.model.page.entity.Page)
 
 		then: 'right methods are called'
 		1 * baseRoot.get(VALID_KEY_PAGE) >> path
 		1 * path.get(VALID_JOIN_PAGE_ID) >> path
 		1 * path.in(_)
+
+		when: 'join in key is added'
+		queryBuilder.joinEquals(VALID_KEY_PAGE, VALID_KEY_GENDER, VALID_VALUE_GENDER, com.cezarykluczynski.stapi.model.page.entity.Page)
+
+		then:
+		1 * baseRoot.get(VALID_KEY_PAGE) >> path
+		1 * path.get(VALID_KEY_GENDER) >> path
+		1 * path.in(Lists.newArrayList(VALID_VALUE_GENDER))
 
 		when: 'key with invalid type is added'
 		queryBuilder.like(KEY_WITH_INVALID_TYPE, VALID_VALUE_STRING)

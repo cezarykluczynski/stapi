@@ -32,10 +32,9 @@ post:
       in: query
       type: integer
       format: int32
-    - name: id
+    - name: guid
       in: formData
-      type: integer
-      format: int64
+      type: string
     - name: title
       in: formData
       type: string

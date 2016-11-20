@@ -1,9 +1,8 @@
 package com.cezarykluczynski.stapi.server.staff.endpoint
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.StaffResponse
-import com.cezarykluczynski.stapi.server.series.common.EndpointIntegrationTest
 
-class StaffRestEndpointIntegrationTest extends EndpointIntegrationTest {
+class StaffRestEndpointIntegrationTest extends AbstractStaffEndpointIntegrationTest {
 
 	def setup() {
 		createRestClient()
@@ -23,9 +22,9 @@ class StaffRestEndpointIntegrationTest extends EndpointIntegrationTest {
 		staffResponse.staff.size() == pageSize
 	}
 
-	def "gets staff by id"() {
+	def "gets staff by guid"() {
 		when:
-		StaffResponse staffResponse = stapiRestClient.staffApi.staffPost(null, null, ID, null, null,
+		StaffResponse staffResponse = stapiRestClient.staffApi.staffPost(null, null, GUID, null, null,
 				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
 				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
 				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
@@ -33,7 +32,7 @@ class StaffRestEndpointIntegrationTest extends EndpointIntegrationTest {
 
 		then:
 		staffResponse.page.totalElements == 1
-		staffResponse.staff[0].id == ID
+		staffResponse.staff[0].guid == GUID
 	}
 
 }

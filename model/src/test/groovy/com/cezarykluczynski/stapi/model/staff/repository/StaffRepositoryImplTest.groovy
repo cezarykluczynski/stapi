@@ -41,9 +41,9 @@ class StaffRepositoryImplTest extends AbstractRealWorldPersonTest {
 		then:
 		1 * staffQueryBuilerMock.createQueryBuilder(pageable) >> staffQueryBuilder
 
-		then: 'id criteria is set'
-		1 * staffRequestDTO.getId() >> ID
-		1 * staffQueryBuilder.equal("id", ID)
+		then: 'guid criteria is set'
+		1 * staffRequestDTO.getGuid() >> GUID
+		1 * staffQueryBuilder.equal("guid", GUID)
 
 		then: 'string criteria are set'
 		1 * staffRequestDTO.getName() >> NAME

@@ -16,7 +16,7 @@ class SeriesSoapMapperTest extends AbstractSeriesMapperTest {
 	def "maps DB entity to SOAP entity"() {
 		given:
 		DBSeries dBSeries = new DBSeries(
-				id: ID,
+				guid: GUID,
 				title: TITLE,
 				abbreviation: ABBREVIATION,
 				productionStartYear: PRODUCTION_START_YEAR,
@@ -28,7 +28,7 @@ class SeriesSoapMapperTest extends AbstractSeriesMapperTest {
 		SOAPSeries soapSeries = seriesSoapMapper.map(Lists.newArrayList(dBSeries))[0]
 
 		then:
-		soapSeries.id == ID
+		soapSeries.guid == GUID
 		soapSeries.title == TITLE
 		soapSeries.abbreviation == ABBREVIATION
 		soapSeries.productionStartYear == PRODUCTION_START_YEAR

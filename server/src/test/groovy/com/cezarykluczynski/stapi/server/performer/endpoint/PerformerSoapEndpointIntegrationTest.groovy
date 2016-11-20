@@ -3,9 +3,8 @@ package com.cezarykluczynski.stapi.server.performer.endpoint
 import com.cezarykluczynski.stapi.client.v1.soap.PerformerRequest
 import com.cezarykluczynski.stapi.client.v1.soap.PerformerResponse
 import com.cezarykluczynski.stapi.client.v1.soap.RequestPage
-import com.cezarykluczynski.stapi.server.series.common.EndpointIntegrationTest
 
-class PerformerSoapEndpointIntegrationTest extends EndpointIntegrationTest {
+class PerformerSoapEndpointIntegrationTest extends AbstractPerformerEndpointIntegrationTest {
 
 	def setup() {
 		createSoapClient()
@@ -44,15 +43,15 @@ class PerformerSoapEndpointIntegrationTest extends EndpointIntegrationTest {
 		performerResponse.performers[0].name == "Majel Barrett-Roddenberry"
 	}
 
-	def "gets performer by id"() {
+	def "gets performer by guid"() {
 		when:
 		PerformerResponse performerResponse = stapiSoapClient.performerPortType.getPerformers(new PerformerRequest(
-				id: ID
+				guid: GUID
 		))
 
 		then:
 		performerResponse.page.totalElements == 1
-		performerResponse.performers[0].id == ID
+		performerResponse.performers[0].guid == GUID
 	}
 
 }

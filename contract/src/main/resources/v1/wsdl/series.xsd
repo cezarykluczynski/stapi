@@ -11,7 +11,7 @@
 			<xs:complexContent>
 				<xs:extension base="common:Request">
 					<xs:sequence>
-						<xs:element name="id" type="xs:long" minOccurs="0"/>
+						<xs:element name="guid" type="xs:string" minOccurs="0"/>
 						<xs:element name="title" type="xs:string" minOccurs="0"/>
 						<xs:element name="abbreviation" type="xs:string" minOccurs="0"/>
 						<xs:element name="productionStartYear" type="common:IntegerRange" minOccurs="0"/>
@@ -36,7 +36,7 @@
 	</xs:element>
 	<xs:complexType name="Series">
 		<xs:sequence>
-			<xs:element name="id" type="xs:long"/>
+			<xs:element name="guid" type="xs:string"/>
 			<xs:element name="title" type="xs:string"/>
 			<xs:element name="abbreviation" type="xs:string"/>
 			<xs:element name="productionStartYear" type="xs:int"/>
