@@ -2,10 +2,10 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
 
-	<include file="page/0001_create.xml" relativeToChangelogFile="true"/>
-	<include file="series/0002_create.xml" relativeToChangelogFile="true"/>
-	<include file="performer/0003_create.xml" relativeToChangelogFile="true"/>
-	<include file="staff/0004_create.xml" relativeToChangelogFile="true"/>
-	<include file="character/0005_create.xml" relativeToChangelogFile="true"/>
-	<include file="episode/0006_create.xml" relativeToChangelogFile="true"/>
+	<include file="page/0001_create_page.xml" relativeToChangelogFile="true"/>
+	<include file="series/0002_create_series.xml" relativeToChangelogFile="true"/>
+	<include file="performer/0003_create_performer.xml" relativeToChangelogFile="true"/>
+	<include file="staff/0004_create_staff.xml" relativeToChangelogFile="true"/>
+	<include file="character/0005_create_character.xml" relativeToChangelogFile="true"/>
+	<include file="episode/0006_create_episode.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

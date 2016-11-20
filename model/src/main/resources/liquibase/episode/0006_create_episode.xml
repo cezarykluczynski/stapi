@@ -25,10 +25,10 @@
 			<column name="feature_length" type="boolean"/>
 			<column name="stardate" type="FLOAT"/>
 			<column name="year" type="number(10, 0)"/>
-			<column name="us_air_date" type="date"/>
-			<column name="uk_air_date" type="date"/>
-			<column name="revised_script_date" type="date"/>
-			<column name="second_revised_script_date" type="date"/>
+			<column name="us_air_date" type="timestamp(0)"/>
+			<column name="uk_air_date" type="timestamp(0)"/>
+			<column name="revised_script_date" type="timestamp(0)"/>
+			<column name="second_revised_script_date" type="timestamp(0)"/>
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="episode_sequence"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
