@@ -7,6 +7,8 @@ import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.model.performer.query.PerformerQueryBuilderFactory
 import com.cezarykluczynski.stapi.util.AbstractRealWorldPersonTest
+import com.google.common.collect.Lists
+import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
@@ -14,6 +16,7 @@ class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 
 	private static final Gender GENDER = Gender.F
 	private static final RequestOrderDTO ORDER = new RequestOrderDTO()
+	private static final String CHARACTERS = 'characters'
 
 	private PerformerQueryBuilderFactory performerQueryBuilderMock
 
@@ -25,6 +28,8 @@ class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 
 	private PerformerRequestDTO performerRequestDTO
 
+	private Performer performer
+
 	private Page page
 
 	def setup() {
@@ -34,6 +39,7 @@ class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 		pageable = Mock(Pageable)
 		performerRequestDTO = Mock(PerformerRequestDTO)
 		page = Mock(Page)
+		performer = Mock(Performer)
 	}
 
 	def "query is built and performed"() {
@@ -101,12 +107,41 @@ class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 		1 * performerRequestDTO.getOrder() >> ORDER
 		1 * performerQueryBuilder.setOrder(ORDER)
 
+		then: 'fetch is performed with true flag'
+		1 * performerQueryBuilder.fetch(CHARACTERS, true)
+
 		then: 'page is searched for and returned'
 		1 * performerQueryBuilder.findPage() >> page
+		0 * page.getContent()
 		pageOutput == page
 
 		then: 'no other interactions are expected'
 		0 * _
+	}
+
+	def "proxies are cleared when no related entities should be fetched"() {
+		when:
+		Page pageOutput = performerRepositoryImpl.findMatching(performerRequestDTO, pageable)
+
+		then:
+		1 * performerQueryBuilderMock.createQueryBuilder(pageable) >> performerQueryBuilder
+
+		then: 'guid criteria is set to null'
+		1 * performerRequestDTO.getGuid() >> null
+
+		then: 'fetch is performed with false flag'
+		1 * performerQueryBuilder.fetch(CHARACTERS, false)
+
+		then: 'page is searched for and returned'
+		1 * performerQueryBuilder.findPage() >> page
+
+		then: 'proxies are cleared'
+		1 * page.getContent() >> Lists.newArrayList(performer)
+		1 * performer.setPerformances(Sets.newHashSet())
+		1 * performer.setStuntPerformances(Sets.newHashSet())
+		1 * performer.setStandInPerformances(Sets.newHashSet())
+		1 * performer.setCharacters(Sets.newHashSet())
+		pageOutput == page
 	}
 
 }

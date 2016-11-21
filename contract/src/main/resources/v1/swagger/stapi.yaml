@@ -30,7 +30,5 @@ definitions:
     $ref: ./staffResponse.definitions.yaml
   Error:
     $ref: ./error.definitions.yaml
-  RequestPage:
-    $ref: ./requestPage.definitions.yaml
   ResponsePage:
     $ref: ./responsePage.definitions.yaml

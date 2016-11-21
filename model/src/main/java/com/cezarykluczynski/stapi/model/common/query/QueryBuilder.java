@@ -151,6 +151,16 @@ public class QueryBuilder<T> {
 		return this;
 	}
 
+	public QueryBuilder<T> fetch(String name) {
+		baseRoot.fetch(name);
+
+		return this;
+	}
+
+	public QueryBuilder<T> fetch(String name, boolean doFetch) {
+		return doFetch ? fetch(name) : this;
+	}
+
 	public QueryBuilder<T> setOrder(RequestOrderDTO requestOrderDTO) {
 		if (requestOrderDTO == null || CollectionUtils.isEmpty(requestOrderDTO.getClauses())) {
 			return this;

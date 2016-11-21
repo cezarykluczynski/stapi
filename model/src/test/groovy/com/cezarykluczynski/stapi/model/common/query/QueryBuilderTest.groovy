@@ -45,6 +45,7 @@ class QueryBuilderTest extends Specification {
 	private static final Integer PAGE_SIZE = 50
 	private static final Integer PAGE_NUMBER = 5
 	private static final Integer FIRST_RESULT = PAGE_SIZE * PAGE_NUMBER
+	private static final String FETCH_NAME = 'CHARACTERS'
 
 	private static final String REQUEST_ORDER_CLAUSE_NAME_1 = 'REQUEST_ORDER_CLAUSE_NAME_1'
 	private static final String REQUEST_ORDER_CLAUSE_NAME_2 = 'REQUEST_ORDER_CLAUSE_NAME_2'
@@ -288,6 +289,24 @@ class QueryBuilderTest extends Specification {
 
 		then: 'exception is thrown'
 		thrown(RuntimeException)
+
+		when: 'fetch is performed'
+		queryBuilder.fetch(FETCH_NAME)
+
+		then: 'right methods are called'
+		1 * baseRoot.fetch(FETCH_NAME)
+
+		when: 'fetch is performed with boolean flag set to true'
+		queryBuilder.fetch(FETCH_NAME, true)
+
+		then: 'right methods are called'
+		1 * baseRoot.fetch(FETCH_NAME)
+
+		when: 'fetch is performed with boolean flag set to false'
+		queryBuilder.fetch(FETCH_NAME, false)
+
+		then: 'right methods are called'
+		0 * baseRoot.fetch(FETCH_NAME)
 
 		when: 'order is added and search is performer'
 		queryBuilder.setOrder(ORDER_REQUEST)
