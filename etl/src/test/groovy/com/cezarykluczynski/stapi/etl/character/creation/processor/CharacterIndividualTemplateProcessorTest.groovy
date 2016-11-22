@@ -9,31 +9,16 @@ import com.cezarykluczynski.stapi.model.common.entity.MaritalStatus
 import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
-import com.cezarykluczynski.stapi.util.tool.LogicUtil
+import com.cezarykluczynski.stapi.util.AbstractIndividualTest
 import com.google.common.collect.Sets
-import spock.lang.Specification
 
-class CharacterIndividualTemplateProcessorTest extends Specification {
+class CharacterIndividualTemplateProcessorTest extends AbstractIndividualTest {
 
-	private static final String NAME = 'NAME'
 	private static final Page PAGE = new Page(id: 1L)
-	private static final String GUID = 'GUID'
 	private static final EtlGender ETL_GENDER = EtlGender.F
 	private static final EntityGender ENTITY_GENDER = EntityGender.F
-	private static final Integer YEAR_OF_BIRTH = 1965
-	private static final Integer MONTH_OF_BIRTH = 2
-	private static final Integer DAY_OF_BIRTH = 17
-	private static final String PLACE_OF_BIRTH = 'PLACE_OF_BIRTH'
-	private static final Integer YEAR_OF_DEATH = 1967
-	private static final Integer MONTH_OF_DEATH = 7
-	private static final Integer DAY_OF_DEATH = 19
-	private static final String PLACE_OF_DEATH = 'PLACE_OF_DEATH'
-	private static final Integer HEIGHT = 175
-	private static final Integer WEIGHT = 80
-	private static final Boolean DECEASED = LogicUtil.nextBoolean()
 	private static final BloodType BLOOD_TYPE = BloodType.B_NEGATIVE
 	private static final MaritalStatus MARITAL_STATUS = MaritalStatus.MARRIED
-	private static final String SERIAL_NUMBER = 'SERIAL_NUMBER'
 	private static final Performer PERFORMER_1 = new Performer(id: 11L)
 	private static final Performer PERFORMER_2 = new Performer(id: 12L)
 

@@ -18,6 +18,7 @@ class PerformerSoapMapperTest extends AbstractRealWorldPersonMapperTest {
 		given:
 		DBPerformer dBPerformer = new DBPerformer(
 				name: NAME,
+				guid: GUID,
 				birthName: BIRTH_NAME,
 				gender: GENDER,
 				dateOfBirth: DATE_OF_BIRTH_FROM_DB,
@@ -43,6 +44,7 @@ class PerformerSoapMapperTest extends AbstractRealWorldPersonMapperTest {
 
 		then:
 		soapPerformer.name == NAME
+		soapPerformer.guid == GUID
 		soapPerformer.birthName == BIRTH_NAME
 		soapPerformer.gender == GENDER_ENUM_SOAP
 		soapPerformer.dateOfBirth == DATE_OF_BIRTH_FROM_SOAP

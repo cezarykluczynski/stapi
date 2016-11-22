@@ -28,10 +28,10 @@ public class PerformerSoapReader implements Reader<PerformerRequest, PerformerRe
 
 	@Override
 	public PerformerResponse read(PerformerRequest input) {
-		Page<Performer> seriesPage = performerSoapQuery.query(input);
+		Page<Performer> performerPage = performerSoapQuery.query(input);
 		PerformerResponse performerResponse = new PerformerResponse();
-		performerResponse.setPage(pageMapper.fromPageToSoapResponsePage(seriesPage));
-		performerResponse.getPerformers().addAll(performerSoapMapper.map(seriesPage.getContent()));
+		performerResponse.setPage(pageMapper.fromPageToSoapResponsePage(performerPage));
+		performerResponse.getPerformers().addAll(performerSoapMapper.map(performerPage.getContent()));
 		return performerResponse;
 	}
 

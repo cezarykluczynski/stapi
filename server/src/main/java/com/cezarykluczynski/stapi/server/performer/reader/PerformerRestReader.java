@@ -31,10 +31,10 @@ public class PerformerRestReader implements Reader<PerformerRestBeanParams, Perf
 
 	@Override
 	public PerformerResponse read(PerformerRestBeanParams input) {
-		Page<Performer> seriesPage = performerRestQuery.query(input);
+		Page<Performer> performerPage = performerRestQuery.query(input);
 		PerformerResponse performerResponse = new PerformerResponse();
-		performerResponse.setPage(pageMapper.fromPageToRestResponsePage(seriesPage));
-		performerResponse.getPerformers().addAll(performerRestMapper.map(seriesPage.getContent()));
+		performerResponse.setPage(pageMapper.fromPageToRestResponsePage(performerPage));
+		performerResponse.getPerformers().addAll(performerRestMapper.map(performerPage.getContent()));
 		return performerResponse;
 	}
 

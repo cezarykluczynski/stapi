@@ -31,10 +31,10 @@ public class StaffRestReader implements Reader<StaffRestBeanParams, StaffRespons
 
 	@Override
 	public StaffResponse read(StaffRestBeanParams input) {
-		Page<Staff> seriesPage = staffRestQuery.query(input);
+		Page<Staff> staffPage = staffRestQuery.query(input);
 		StaffResponse staffResponse = new StaffResponse();
-		staffResponse.setPage(pageMapper.fromPageToRestResponsePage(seriesPage));
-		staffResponse.getStaff().addAll(staffRestMapper.map(seriesPage.getContent()));
+		staffResponse.setPage(pageMapper.fromPageToRestResponsePage(staffPage));
+		staffResponse.getStaff().addAll(staffRestMapper.map(staffPage.getContent()));
 		return staffResponse;
 	}
 

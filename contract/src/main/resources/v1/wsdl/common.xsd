@@ -46,6 +46,25 @@
 			<xs:enumeration value="F"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="BloodTypeEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="B_NEGATIVE"/>
+			<xs:enumeration value="O_NEGATIVE"/>
+			<xs:enumeration value="T_NEGATIVE"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MaritalStatusEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SINGLE"/>
+			<xs:enumeration value="ENGAGED"/>
+			<xs:enumeration value="MARRIED"/>
+			<xs:enumeration value="DIVORCED"/>
+			<xs:enumeration value="REMARRIED"/>
+			<xs:enumeration value="SEPARATED"/>
+			<xs:enumeration value="WIDOWED"/>
+			<xs:enumeration value="CAPTAINS_WOMAN"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:complexType name="DateRange">
 		<xs:sequence>
 			<xs:element name="dateFrom" type="xs:date" minOccurs="0"/>
