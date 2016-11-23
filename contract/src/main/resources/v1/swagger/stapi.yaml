@@ -9,6 +9,8 @@ basePath: /api/v1/rest
 produces:
   - application/json
 paths:
+  /character:
+    $ref: ./character.paths.yaml
   /series:
     $ref: ./series.paths.yaml
   /performer:
@@ -16,12 +18,20 @@ paths:
   /staff:
     $ref: ./staff.paths.yaml
 definitions:
+  Character:
+    $ref: ./character.definitions.yaml
+  CharacterHeader:
+    $ref: ./characterHeader.definitions.yaml
+  CharacterResponse:
+    $ref: ./characterResponse.definitions.yaml
   Series:
     $ref: ./series.definitions.yaml
   SeriesResponse:
     $ref: ./seriesResponse.definitions.yaml
   Performer:
     $ref: ./performer.definitions.yaml
+  PerformerHeader:
+    $ref: ./performerHeader.definitions.yaml
   PerformerResponse:
     $ref: ./performerResponse.definitions.yaml
   Staff:

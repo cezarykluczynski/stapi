@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.client.api;
 
+import com.cezarykluczynski.stapi.client.v1.rest.api.CharacterApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.PerformerApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.SeriesApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.StaffApi;
@@ -21,10 +22,14 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 	@Getter
 	private StaffApi staffApi;
 
+	@Getter
+	private CharacterApi characterApi;
+
 	public StapiRestClient() {
 		seriesApi = new SeriesApi();
 		performerApi = new PerformerApi();
 		staffApi = new StaffApi();
+		characterApi = new CharacterApi();
 	}
 
 	public StapiRestClient(String apiUrl) {
@@ -33,6 +38,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 		seriesApi = new SeriesApi(apiClient);
 		performerApi = new PerformerApi(apiClient);
 		staffApi = new StaffApi(apiClient);
+		characterApi = new CharacterApi(apiClient);
 	}
 
 	private void createApiClient() {

@@ -7,14 +7,14 @@ class PerformerRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
 	def "creates PerformerRestBeanParams from PageAwareBeanParams"() {
 		when:
-		PerformerRestBeanParams seriesRestBeanParams = PerformerRestBeanParams.fromPageAwareBeanParams(new PageAwareBeanParams(
+		PerformerRestBeanParams performerRestBeanParams = PerformerRestBeanParams.fromPageAwareBeanParams(new PageAwareBeanParams(
 				pageNumber: PAGE_NUMBER,
 				pageSize: PAGE_SIZE
 		))
 
 		then:
-		seriesRestBeanParams.pageNumber == PAGE_NUMBER
-		seriesRestBeanParams.pageSize == PAGE_SIZE
+		performerRestBeanParams.pageNumber == PAGE_NUMBER
+		performerRestBeanParams.pageSize == PAGE_SIZE
 	}
 
 	def "creates null PerformerRestBeanParams from null PageAwareBeanParams"() {

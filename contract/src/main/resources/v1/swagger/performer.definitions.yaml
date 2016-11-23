@@ -44,3 +44,7 @@ properties:
     type: boolean
   voyPerformer:
     type: boolean
+  characterHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/CharacterHeader'

@@ -19,10 +19,14 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 	@Getter
 	private StaffPortType staffPortType;
 
+	@Getter
+	private CharacterPortType characterPortType;
+
 	public StapiSoapPortTypesProvider() {
 		seriesPortType = new SeriesService().getSeriesPortType();
 		performerPortType = new PerformerService().getPerformerPortType();
 		staffPortType = new StaffService().getStaffPortType();
+		characterPortType = new CharacterService().getCharacterPortType();
 	}
 
 	public StapiSoapPortTypesProvider(String apiUrl) {
@@ -30,6 +34,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		seriesPortType = (SeriesPortType) changeUrl(new SeriesService().getSeriesPortType());
 		performerPortType = (PerformerPortType) changeUrl(new PerformerService().getPerformerPortType());
 		staffPortType = (StaffPortType) changeUrl(new StaffService().getStaffPortType());
+		characterPortType = (CharacterPortType) changeUrl(new CharacterService().getCharacterPortType());
 	}
 
 	private Object changeUrl(Object service) {

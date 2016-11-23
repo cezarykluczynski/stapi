@@ -7,6 +7,8 @@ import com.cezarykluczynski.stapi.model.common.entity.MaritalStatus as MaritalSt
 import com.cezarykluczynski.stapi.client.v1.soap.MaritalStatusEnum as SoapMaritalStatusEnum
 import com.cezarykluczynski.stapi.client.v1.soap.BloodTypeEnum as SoapBloodTypeEnum
 import com.cezarykluczynski.stapi.model.common.entity.BloodType as BloodTypeEntity
+import com.cezarykluczynski.stapi.client.v1.rest.model.MaritalStatus as RestMaritalStatusEnum
+import com.cezarykluczynski.stapi.client.v1.rest.model.BloodType as RestBloodTypeEnum
 import org.mapstruct.factory.Mappers
 import spock.lang.Specification
 
@@ -72,6 +74,32 @@ class EnumMapperTest extends Specification {
 		enumMapper.mapMaritalStatusFromSoapEnumToEntityEnum(SoapMaritalStatusEnum.CAPTAINS_WOMAN) == MaritalStatusEntity.CAPTAINS_WOMAN
 	}
 
+	def "maps maritalStatus entity enum to rest enum"() {
+		expect:
+		enumMapper.mapMaritalStatusFromEntityEnumToRestEnum(null) == null
+		enumMapper.mapMaritalStatusFromEntityEnumToRestEnum(MaritalStatusEntity.SINGLE) == RestMaritalStatusEnum.SINGLE
+		enumMapper.mapMaritalStatusFromEntityEnumToRestEnum(MaritalStatusEntity.ENGAGED) == RestMaritalStatusEnum.ENGAGED
+		enumMapper.mapMaritalStatusFromEntityEnumToRestEnum(MaritalStatusEntity.MARRIED) == RestMaritalStatusEnum.MARRIED
+		enumMapper.mapMaritalStatusFromEntityEnumToRestEnum(MaritalStatusEntity.DIVORCED) == RestMaritalStatusEnum.DIVORCED
+		enumMapper.mapMaritalStatusFromEntityEnumToRestEnum(MaritalStatusEntity.REMARRIED) == RestMaritalStatusEnum.REMARRIED
+		enumMapper.mapMaritalStatusFromEntityEnumToRestEnum(MaritalStatusEntity.SEPARATED) == RestMaritalStatusEnum.SEPARATED
+		enumMapper.mapMaritalStatusFromEntityEnumToRestEnum(MaritalStatusEntity.WIDOWED) == RestMaritalStatusEnum.WIDOWED
+		enumMapper.mapMaritalStatusFromEntityEnumToRestEnum(MaritalStatusEntity.CAPTAINS_WOMAN) == RestMaritalStatusEnum.CAPTAINS_WOMAN
+	}
+
+	def "maps maritalStatus rest enum to entity enum"() {
+		expect:
+		enumMapper.mapMaritalStatusFromRestEnumToEntityEnum(null) == null
+		enumMapper.mapMaritalStatusFromRestEnumToEntityEnum(RestMaritalStatusEnum.SINGLE) == MaritalStatusEntity.SINGLE
+		enumMapper.mapMaritalStatusFromRestEnumToEntityEnum(RestMaritalStatusEnum.ENGAGED) == MaritalStatusEntity.ENGAGED
+		enumMapper.mapMaritalStatusFromRestEnumToEntityEnum(RestMaritalStatusEnum.MARRIED) == MaritalStatusEntity.MARRIED
+		enumMapper.mapMaritalStatusFromRestEnumToEntityEnum(RestMaritalStatusEnum.DIVORCED) == MaritalStatusEntity.DIVORCED
+		enumMapper.mapMaritalStatusFromRestEnumToEntityEnum(RestMaritalStatusEnum.REMARRIED) == MaritalStatusEntity.REMARRIED
+		enumMapper.mapMaritalStatusFromRestEnumToEntityEnum(RestMaritalStatusEnum.SEPARATED) == MaritalStatusEntity.SEPARATED
+		enumMapper.mapMaritalStatusFromRestEnumToEntityEnum(RestMaritalStatusEnum.WIDOWED) == MaritalStatusEntity.WIDOWED
+		enumMapper.mapMaritalStatusFromRestEnumToEntityEnum(RestMaritalStatusEnum.CAPTAINS_WOMAN) == MaritalStatusEntity.CAPTAINS_WOMAN
+	}
+
 	def "maps blood type entity enum to soap enum"() {
 		expect:
 		enumMapper.mapBloodTypeFromEntityEnumToSoapEnum(null) == null
@@ -86,6 +114,22 @@ class EnumMapperTest extends Specification {
 		enumMapper.mapBloodTypeFromSoapEnumToEntityEnum(SoapBloodTypeEnum.B_NEGATIVE) == BloodTypeEntity.B_NEGATIVE
 		enumMapper.mapBloodTypeFromSoapEnumToEntityEnum(SoapBloodTypeEnum.O_NEGATIVE) == BloodTypeEntity.O_NEGATIVE
 		enumMapper.mapBloodTypeFromSoapEnumToEntityEnum(SoapBloodTypeEnum.T_NEGATIVE) == BloodTypeEntity.T_NEGATIVE
+	}
+
+	def "maps blood type entity enum to rest enum"() {
+		expect:
+		enumMapper.mapBloodTypeFromEntityEnumToRestEnum(null) == null
+		enumMapper.mapBloodTypeFromEntityEnumToRestEnum(BloodTypeEntity.B_NEGATIVE) == RestBloodTypeEnum.B_NEGATIVE
+		enumMapper.mapBloodTypeFromEntityEnumToRestEnum(BloodTypeEntity.O_NEGATIVE) == RestBloodTypeEnum.O_NEGATIVE
+		enumMapper.mapBloodTypeFromEntityEnumToRestEnum(BloodTypeEntity.T_NEGATIVE) == RestBloodTypeEnum.T_NEGATIVE
+	}
+
+	def "maps gender rest enum to entity enum"() {
+		expect:
+		enumMapper.mapBloodTypeFromRestEnumToEntityEnum(null) == null
+		enumMapper.mapBloodTypeFromRestEnumToEntityEnum(RestBloodTypeEnum.B_NEGATIVE) == BloodTypeEntity.B_NEGATIVE
+		enumMapper.mapBloodTypeFromRestEnumToEntityEnum(RestBloodTypeEnum.O_NEGATIVE) == BloodTypeEntity.O_NEGATIVE
+		enumMapper.mapBloodTypeFromRestEnumToEntityEnum(RestBloodTypeEnum.T_NEGATIVE) == BloodTypeEntity.T_NEGATIVE
 	}
 
 }

@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.CharacterRequest
 import com.cezarykluczynski.stapi.client.v1.soap.GenderEnum
 import com.cezarykluczynski.stapi.model.character.dto.CharacterRequestDTO
 import com.cezarykluczynski.stapi.model.common.entity.Gender
+import com.cezarykluczynski.stapi.server.character.dto.CharacterRestBeanParams
 import com.cezarykluczynski.stapi.util.tool.LogicUtil
 import org.mapstruct.factory.Mappers
 import spock.lang.Specification
@@ -22,7 +23,7 @@ class CharacterRequestMapperTest extends Specification {
 		characterRequestMapper = Mappers.getMapper(CharacterRequestMapper)
 	}
 
-	def "maps SOAP PerformerRequest to PerformerRequestDTO"() {
+	def "maps SOAP CharacterRequest to CharacterRequestDTO"() {
 		given:
 		CharacterRequest characterRequest = new CharacterRequest(
 				guid: GUID,
@@ -39,6 +40,25 @@ class CharacterRequestMapperTest extends Specification {
 		characterRequestDTO.name == NAME
 		characterRequestDTO.gender == GENDER
 		characterRequestDTO.deceased == DECEASED
+	}
+
+	def "maps CharacterRestBeanParams to CharacterRequestDTO"() {
+		given:
+		CharacterRestBeanParams characterRestBeanParams = new CharacterRestBeanParams(
+				guid: GUID,
+				name: NAME,
+				gender: GENDER,
+				deceased: DECEASED
+		)
+
+		when:
+		CharacterRequestDTO characterRequestDTO = characterRequestMapper.map characterRestBeanParams
+
+		then:
+		characterRequestDTO.guid == GUID
+		characterRequestDTO.name == NAME
+		characterRequestDTO.gender == GENDER
+		characterRequestDTO.getDeceased() == DECEASED
 	}
 
 }

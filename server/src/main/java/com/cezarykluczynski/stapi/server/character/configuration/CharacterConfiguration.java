@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.server.character.configuration;
 
 import com.cezarykluczynski.stapi.server.character.endpoint.CharacterSoapEndpoint;
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterRequestMapper;
+import com.cezarykluczynski.stapi.server.character.mapper.CharacterRestMapper;
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterSoapMapper;
 import com.cezarykluczynski.stapi.server.character.reader.CharacterSoapReader;
 import org.apache.cxf.Bus;
@@ -38,6 +39,11 @@ public class CharacterConfiguration {
 	@Bean
 	public CharacterSoapMapper characterSoapMapper() {
 		return Mappers.getMapper(CharacterSoapMapper.class);
+	}
+
+	@Bean
+	public CharacterRestMapper characterRestMapper() {
+		return Mappers.getMapper(CharacterRestMapper.class);
 	}
 
 }

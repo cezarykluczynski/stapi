@@ -1,0 +1,40 @@
+type: object
+properties:
+  guid:
+    type: string
+  name:
+    type: string
+  gender:
+    $ref: ./gender.definitions.yaml
+  yearOfBirth:
+    type: integer
+  monthOfBirth:
+    type: integer
+  dayOfBirth:
+    type: integer
+  placeOfBirth:
+    type: string
+  yearOfDeath:
+    type: integer
+  monthOfDeath:
+    type: integer
+  dayOfDeath:
+    type: integer
+  placeOfDeath:
+    type: string
+  height:
+    type: integer
+  weight:
+    type: integer
+  deceased:
+    type: boolean
+  bloodType:
+    $ref: ./bloodType.definitions.yaml
+  maritalStatus:
+    $ref: ./maritalStatus.definitions.yaml
+  serialNumber:
+    type: string
+  performerHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/PerformerHeader'

@@ -1,0 +1,52 @@
+get:
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/CharacterResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - Character
+post:
+  consumes:
+    - application/x-www-form-urlencoded
+  producers:
+    - application/json
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+    - name: guid
+      in: formData
+      type: string
+    - name: name
+      in: formData
+      type: string
+    - name: gender
+      in: formData
+      type: string
+    - name: deceased
+      in: formData
+      type: boolean
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/CharacterResponse'
+  tags:
+    - Character
