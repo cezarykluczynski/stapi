@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.character.creation.configuration;
 
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterReader;
+import com.cezarykluczynski.stapi.etl.common.service.JobCompletenessDecider;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
@@ -23,14 +24,19 @@ public class CharacterCreationConfiguration {
 	@Inject
 	private CategoryApi categoryApi;
 
+	@Inject
+	private JobCompletenessDecider jobCompletenessDecider;
+
 	@Bean
 	public CharacterReader characterReader() {
 		List<PageHeader> characters = Lists.newArrayList();
 
-		characters.addAll(categoryApi.getPagesIncludingSubcategories(CategoryName.INDIVIDUALS, MediaWikiSource.MEMORY_ALPHA_EN));
-		characters.addAll(categoryApi.getPagesIncludingSubcategories(CategoryName.MILITARY_PERSONNEL, MediaWikiSource.MEMORY_ALPHA_EN));
-		characters.addAll(categoryApi.getPagesIncludingSubcategories(CategoryName.Q_CONTINUUM, MediaWikiSource.MEMORY_ALPHA_EN));
-		characters.addAll(categoryApi.getPagesIncludingSubcategories(CategoryName.STARFLEET_PERSONNEL, MediaWikiSource.MEMORY_ALPHA_EN));
+		if (!jobCompletenessDecider.isStepComplete(JobCompletenessDecider.STEP_004_CREATE_CHARACTERS)) {
+			characters.addAll(categoryApi.getPagesIncludingSubcategories(CategoryName.INDIVIDUALS, MediaWikiSource.MEMORY_ALPHA_EN));
+			characters.addAll(categoryApi.getPagesIncludingSubcategories(CategoryName.MILITARY_PERSONNEL, MediaWikiSource.MEMORY_ALPHA_EN));
+			characters.addAll(categoryApi.getPagesIncludingSubcategories(CategoryName.Q_CONTINUUM, MediaWikiSource.MEMORY_ALPHA_EN));
+			characters.addAll(categoryApi.getPagesIncludingSubcategories(CategoryName.STARFLEET_PERSONNEL, MediaWikiSource.MEMORY_ALPHA_EN));
+		}
 
 		return new CharacterReader(Lists.newArrayList(Sets.newHashSet(characters)));
 	}

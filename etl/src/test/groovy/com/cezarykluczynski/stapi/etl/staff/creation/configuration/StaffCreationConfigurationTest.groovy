@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.staff.creation.configuration
 
 import com.cezarykluczynski.stapi.etl.common.configuration.AbstractCreationConfigurationTest
+import com.cezarykluczynski.stapi.etl.common.service.JobCompletenessDecider
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerCategoriesActorTemplateEnrichingProcessor
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffCategoriesActorTemplateEnrichingProcessor
@@ -78,22 +79,27 @@ class StaffCreationConfigurationTest extends AbstractCreationConfigurationTest {
 
 	private CategoryApi categoryApiMock
 
+	private JobCompletenessDecider jobCompletenessDeciderMock
+
 	private StaffCreationConfiguration staffCreationConfiguration
 
 	def setup() {
 		applicationContextMock = Mock(ApplicationContext)
 		categoryApiMock = Mock(CategoryApi)
+		jobCompletenessDeciderMock = Mock(JobCompletenessDecider)
 		staffCreationConfiguration = new StaffCreationConfiguration(
 				applicationContext: applicationContextMock,
-				categoryApi: categoryApiMock)
+				categoryApi: categoryApiMock,
+				jobCompletenessDecider: jobCompletenessDeciderMock)
 	}
 
-	def "StaffReader is created"() {
+	def "StaffReader is created with all pages when step is not completed"() {
 		when:
 		StaffReader staffReader = staffCreationConfiguration.staffReader()
 		List<String> categoryHeaderTitleList = readerToList(staffReader)
 
 		then:
+		1 * jobCompletenessDeciderMock.isStepComplete(JobCompletenessDecider.STEP_003_CREATE_STAFF) >> false
 		1 * categoryApiMock.getPages(CategoryName.ART_DEPARTMENT, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_ART_DEPARTMENT)
 		1 * categoryApiMock.getPages(CategoryName.ART_DIRECTORS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_ART_DIRECTORS)
 		1 * categoryApiMock.getPages(CategoryName.PRODUCTION_DESIGNERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_PRODUCTION_DESIGNERS)
@@ -205,6 +211,17 @@ class StaffCreationConfigurationTest extends AbstractCreationConfigurationTest {
 		categoryHeaderTitleList.contains TITLE_TRANSPORTATION_DEPARTMENT
 		categoryHeaderTitleList.contains TITLE_VIDEO_GAME_PRODUCTION_STAFF
 		categoryHeaderTitleList.contains TITLE_WRITERS
+	}
+
+	def "StaffReader is created with no pages when step is completed"() {
+		when:
+		StaffReader staffReader = staffCreationConfiguration.staffReader()
+		List<String> categoryHeaderTitleList = readerToList(staffReader)
+
+		then:
+		1 * jobCompletenessDeciderMock.isStepComplete(JobCompletenessDecider.STEP_003_CREATE_STAFF) >> true
+		0 * _
+		categoryHeaderTitleList.empty
 	}
 
 	def "ActorTemplateSinglePageProcessor is created"() {

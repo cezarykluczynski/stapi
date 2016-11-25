@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.performer.creation.configuration
 
 import com.cezarykluczynski.stapi.etl.common.configuration.AbstractCreationConfigurationTest
+import com.cezarykluczynski.stapi.etl.common.service.JobCompletenessDecider
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerCategoriesActorTemplateEnrichingProcessor
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerReader
@@ -36,22 +37,27 @@ class PerformerCreationConfigurationTest extends AbstractCreationConfigurationTe
 
 	private CategoryApi categoryApiMock
 
+	private JobCompletenessDecider jobCompletenessDeciderMock
+
 	private PerformerCreationConfiguration performerCreationConfiguration
 
 	def setup() {
 		applicationContextMock = Mock(ApplicationContext)
 		categoryApiMock = Mock(CategoryApi)
+		jobCompletenessDeciderMock = Mock(JobCompletenessDecider)
 		performerCreationConfiguration = new PerformerCreationConfiguration(
 				applicationContext: applicationContextMock,
-				categoryApi: categoryApiMock)
+				categoryApi: categoryApiMock,
+				jobCompletenessDecider: jobCompletenessDeciderMock)
 	}
 
-	def "PerformerReader is created"() {
+	def "PerformerReader is created is created with all pages when step is not completed"() {
 		when:
 		PerformerReader performerReader = performerCreationConfiguration.performerReader()
 		List<String> categoryHeaderTitleList = readerToList(performerReader)
 
 		then:
+		1 * jobCompletenessDeciderMock.isStepComplete(JobCompletenessDecider.STEP_002_CREATE_PERFORMERS) >> false
 		1 * categoryApiMock.getPages(CategoryName.PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_PERFORMERS)
 		1 * categoryApiMock.getPages(CategoryName.ANIMAL_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_ANIMAL_PERFORMERS)
 		1 * categoryApiMock.getPages(CategoryName.DIS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_DIS_PERFORMERS)
@@ -82,6 +88,17 @@ class PerformerCreationConfigurationTest extends AbstractCreationConfigurationTe
 		categoryHeaderTitleList.contains TITLE_VIDEO_GAME_PERFORMERS
 		categoryHeaderTitleList.contains TITLE_VOICE_PERFORMERS
 		categoryHeaderTitleList.contains TITLE_VOY_PERFORMERS
+	}
+
+	def "PerformerReader is created with no pages when step is completed"() {
+		when:
+		PerformerReader performerReader = performerCreationConfiguration.performerReader()
+		List<String> categoryHeaderTitleList = readerToList(performerReader)
+
+		then:
+		1 * jobCompletenessDeciderMock.isStepComplete(JobCompletenessDecider.STEP_002_CREATE_PERFORMERS) >> true
+		0 * _
+		categoryHeaderTitleList.empty
 	}
 
 	def "ActorTemplateSinglePageProcessor is created"() {

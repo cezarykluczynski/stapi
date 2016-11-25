@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.performer.creation.configuration;
 
+import com.cezarykluczynski.stapi.etl.common.service.JobCompletenessDecider;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerCategoriesActorTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerReader;
@@ -34,25 +35,30 @@ public class PerformerCreationConfiguration {
 	@Inject
 	private CategoryApi categoryApi;
 
+	@Inject
+	private JobCompletenessDecider jobCompletenessDecider;
+
 	@Bean
 	public PerformerReader performerReader() {
 		List<PageHeader> performers = Lists.newArrayList();
 
-		performers.addAll(categoryApi.getPages(CategoryName.PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
-		performers.addAll(categoryApi.getPages(CategoryName.ANIMAL_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
-		performers.addAll(categoryApi.getPages(CategoryName.DIS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
-		performers.addAll(categoryApi.getPages(CategoryName.DS9_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
-		performers.addAll(categoryApi.getPages(CategoryName.ENT_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
-		performers.addAll(categoryApi.getPages(CategoryName.FILM_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
-		performers.addAll(categoryApi.getPages(CategoryName.STAND_INS, MediaWikiSource.MEMORY_ALPHA_EN));
-		performers.addAll(categoryApi.getPages(CategoryName.STUNT_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
-		performers.addAll(categoryApi.getPages(CategoryName.TAS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
-		performers.addAll(categoryApi.getPages(CategoryName.TNG_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
-		performers.addAll(categoryApi.getPages(CategoryName.TOS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
-		performers.addAll(categoryApi.getPages(CategoryName.TOS_REMASTERED_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
-		performers.addAll(categoryApi.getPages(CategoryName.VIDEO_GAME_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
-		performers.addAll(categoryApi.getPages(CategoryName.VOICE_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
-		performers.addAll(categoryApi.getPages(CategoryName.VOY_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+		if (!jobCompletenessDecider.isStepComplete(JobCompletenessDecider.STEP_002_CREATE_PERFORMERS)) {
+			performers.addAll(categoryApi.getPages(CategoryName.PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryName.ANIMAL_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryName.DIS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryName.DS9_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryName.ENT_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryName.FILM_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryName.STAND_INS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryName.STUNT_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryName.TAS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryName.TNG_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryName.TOS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryName.TOS_REMASTERED_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryName.VIDEO_GAME_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryName.VOICE_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryName.VOY_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+		}
 
 		return new PerformerReader(Lists.newArrayList(Sets.newHashSet(performers)));
 	}
