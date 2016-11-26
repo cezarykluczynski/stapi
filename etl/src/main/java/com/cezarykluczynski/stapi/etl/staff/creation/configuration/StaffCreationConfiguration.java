@@ -16,6 +16,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import org.springframework.boot.autoconfigure.batch.BatchDatabaseInitializer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,6 +38,10 @@ public class StaffCreationConfiguration {
 
 	@Inject
 	private JobCompletenessDecider jobCompletenessDecider;
+
+	// ensure Spring Batch migrates it's schema before reader is instantiated
+	@Inject
+	private BatchDatabaseInitializer batchDatabaseInitializer;
 
 	@Bean
 	public StaffReader staffReader() {

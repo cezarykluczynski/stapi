@@ -6,6 +6,7 @@ import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.repository.JobRepository;
+import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -35,8 +36,14 @@ public class JobCompletenessDecider {
 	}
 
 	private Collection<StepExecution> getAllStepExecutions() {
-		JobExecution jobExecution = jobRepository
-				.getLastJobExecution(JOB_CREATE, new JobParameters());
+		JobExecution jobExecution;
+
+		try {
+			jobExecution = jobRepository
+					.getLastJobExecution(JOB_CREATE, new JobParameters());
+		} catch (BadSqlGrammarException e) {
+			return Lists.newArrayList();
+		}
 
 		return jobExecution == null ? Lists.newArrayList() : jobExecution.getStepExecutions();
 	}

@@ -3,7 +3,13 @@ package com.cezarykluczynski.stapi.server.performer.endpoint
 import com.cezarykluczynski.stapi.client.v1.soap.PerformerRequest
 import com.cezarykluczynski.stapi.client.v1.soap.PerformerResponse
 import com.cezarykluczynski.stapi.client.v1.soap.RequestPage
+import com.cezarykluczynski.stapi.etl.common.service.JobCompletenessDecider
+import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
+import spock.lang.Requires
 
+@Requires({
+	StaticJobCompletenessDecider.isStepCompleted(JobCompletenessDecider.STEP_002_CREATE_PERFORMERS)
+})
 class PerformerSoapEndpointIntegrationTest extends AbstractPerformerEndpointIntegrationTest {
 
 	def setup() {

@@ -22,7 +22,11 @@ import org.springframework.context.annotation.Import;
 public class Application extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
-		new Application().configure(new SpringApplicationBuilder(Application.class)).run(args);
+		produceSpringApplicationBuilder().run(args);
+	}
+
+	public static SpringApplicationBuilder produceSpringApplicationBuilder() {
+		return new Application().configure(new SpringApplicationBuilder(Application.class));
 	}
 
 	@Override

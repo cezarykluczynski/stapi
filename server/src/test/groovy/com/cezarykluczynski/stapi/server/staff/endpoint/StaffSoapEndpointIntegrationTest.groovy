@@ -3,7 +3,13 @@ package com.cezarykluczynski.stapi.server.staff.endpoint
 import com.cezarykluczynski.stapi.client.v1.soap.RequestPage
 import com.cezarykluczynski.stapi.client.v1.soap.StaffRequest
 import com.cezarykluczynski.stapi.client.v1.soap.StaffResponse
+import com.cezarykluczynski.stapi.etl.common.service.JobCompletenessDecider
+import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
+import spock.lang.Requires
 
+@Requires({
+	StaticJobCompletenessDecider.isStepCompleted(JobCompletenessDecider.STEP_003_CREATE_STAFF)
+})
 class StaffSoapEndpointIntegrationTest extends AbstractStaffEndpointIntegrationTest {
 
 	def setup() {
