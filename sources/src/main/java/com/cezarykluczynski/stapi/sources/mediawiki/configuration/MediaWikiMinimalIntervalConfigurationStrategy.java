@@ -25,12 +25,12 @@ public class MediaWikiMinimalIntervalConfigurationStrategy {
 			Long interval = Long.parseLong(minimalInterval);
 
 			if (isWikia && interval < WIKIA_INTERVAL) {
-				log.warn("Setting interval for less than 1000 milliseconds when using Wikia's wiki is not advised");
+				log.warn("Setting interval for less than 1000 milliseconds when using Wikia's wiki is not recommended");
 			}
 
 			return interval;
 		} catch (NumberFormatException e) {
-			throw new BeanInitializationException(String.format("minimal interval for %s should be either \"auto\" " +
+			throw new BeanInitializationException(String.format("Minimal interval for %s should be either \"auto\" " +
 					"or a number of milliseconds, but %s given.", apiUrl, minimalInterval), e);
 		}
 	}

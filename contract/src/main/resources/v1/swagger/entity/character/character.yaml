@@ -5,7 +5,7 @@ properties:
   name:
     type: string
   gender:
-    $ref: ./gender.definitions.yaml
+    $ref: ./entity/common/enum/gender.definitions.yaml
   yearOfBirth:
     type: integer
   monthOfBirth:
@@ -29,9 +29,9 @@ properties:
   deceased:
     type: boolean
   bloodType:
-    $ref: ./bloodType.definitions.yaml
+    $ref: ./entity/common/enum/bloodType.definitions.yaml
   maritalStatus:
-    $ref: ./maritalStatus.definitions.yaml
+    $ref: ./entity/common/enum/maritalStatus.definitions.yaml
   serialNumber:
     type: string
   performerHeaders:
