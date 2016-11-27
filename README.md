@@ -2,82 +2,10 @@
 [![codecov](https://codecov.io/gh/cezarykluczynski/stapi/branch/master/graph/badge.svg)](https://codecov.io/gh/cezarykluczynski/stapi)
 
 ## About
-Star Trek API is an attempt to create public Star Trek API, similiar to what
+STAPI, a Star Trek API, is an attempt to create public Star Trek API, similar to what
 [Star Wars API](https://github.com/phalt/swapi) and [PokeAPI](https://github.com/PokeAPI/pokeapi) accomplished.
 
 **Note:** this is still a research project, not suitable for production use.
 
-## Installation
-Star Trek API could be run by anyone, using resources found free on the internet. Some technical knowledge is required.
-
-### Prerequisites
-PHP, MySQL (or other database of choice) will be required for this part.
-
-Star Trek API uses content from well-known [Memory Alpha](http://memory-alpha.wikia.com/wiki/Portal:Main).
-Therefore, MediaWiki, the software Wikipedia runs on, and
-[Memory Alpha XML dump](http://memory-alpha.wikia.com/wiki/Special:Statistics) is required. MediaWiki has documentation
-on [installation](https://www.mediawiki.org/wiki/Manual:Installation_guide) and
-[importing XML dumps](https://www.mediawiki.org/wiki/Manual:Importing_XML_dumps).
-
-### Running STAPI server
-Java 8, Oracle Database Express Edition 11g (or compatible) will be required for this part.
-
-Gradle is used for building. If you do not plan on development, you can use Gradle Wrapper:
-
-Copy server/src/main/resources/source/application-source.properties to server/src/main/resources/application-source.properties
-
-Copy server/src/main/resources/database/oracle/application-db.properties to server/src/main/resources/application-db.properties
-
-Edit server/src/main/resources/application-source.properties so that source.mediaWiki.memoryAlphaEn.apiUrl points
-to your copy of Memory Alpha, and source.mediaWiki.memoryBetaEn.apiUrl points to your copy of Memory Beta.
-
-```sh
-./gradlew bootRun
-```
-
-Otherwise, use gradle:
-
-```sh
-gradle bootRun
-```
-
-### Done
-- [x] Series
-- [x] Performers
-- [x] Staff
-
-### In progress
-- [ ] Characters
-- [ ] Episodes
-
-### To do
-- [ ] Planets
-- [ ] Star systems
-- [ ] Comics
-- [ ] Comic series
-- [ ] Comic strips
-- [ ] Technology
-- [ ] Novels
-- [ ] Novel series
-- [ ] Species
-- [ ] Food
-- [ ] Occupations
-- [ ] Starships
-- [ ] Starship classes
-- [ ] Weapons
-- [ ] Chemical compounds
-- [ ] Animals
-- [ ] Elements
-- [ ] Governments
-- [ ] Magazines
-- [ ] Magazine series
-- [ ] Military conflicts
-- [ ] Ranks
-- [ ] Reference books
-- [ ] RPG books
-- [ ] Soundtracks
-- [ ] Trading cards
-- [ ] Video
-- [ ] Video games
-- [ ] Conflicts
-- [ ] Stations
+## Documentation
+Documentation can be found on [wiki home](https://github.com/cezarykluczynski/stapi/wiki).
