@@ -2,15 +2,15 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
-	<changeSet id="0006_create" author="cezarykluczynski">
+	<changeSet id="0006_create_episode" author="cezarykluczynski">
 		<createTable tableName="episode">
-			<column name="id" type="number(38, 0)">
+			<column name="id" type="bigint">
 				<constraints unique="true" nullable="false"/>
 			</column>
-			<column name="page_id" type="number(38, 0)">
+			<column name="page_id" type="bigint">
 				<constraints nullable="false"/>
 			</column>
-			<column name="series_id" type="number(38, 0)">
+			<column name="series_id" type="bigint">
 				<constraints nullable="false"/>
 			</column>
 			<column name="guid" type="varchar(14)">
@@ -19,16 +19,16 @@
 			<column name="title" type="varchar(128)">
 				<constraints nullable="false" unique="true"/>
 			</column>
-			<column name="season_number" type="number(10, 0)"/>
-			<column name="episode_number" type="number(10, 0)"/>
+			<column name="season_number" type="int"/>
+			<column name="episode_number" type="int"/>
 			<column name="production_serial_number" type="varchar(32)"/>
 			<column name="feature_length" type="boolean"/>
 			<column name="stardate" type="FLOAT"/>
-			<column name="year" type="number(10, 0)"/>
-			<column name="us_air_date" type="timestamp(0)"/>
-			<column name="uk_air_date" type="timestamp(0)"/>
-			<column name="revised_script_date" type="timestamp(0)"/>
-			<column name="second_revised_script_date" type="timestamp(0)"/>
+			<column name="year" type="int"/>
+			<column name="us_air_date" type="timestamp"/>
+			<column name="uk_air_date" type="timestamp"/>
+			<column name="revised_script_date" type="timestamp"/>
+			<column name="second_revised_script_date" type="timestamp"/>
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="episode_sequence"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
@@ -43,8 +43,8 @@
 				referencedTableName="series"/>
 
 		<createTable tableName="episodes_writers">
-			<column name="episode_id" type="number(38, 0)"/>
-			<column name="staff_id" type="number(38, 0)"/>
+			<column name="episode_id" type="bigint"/>
+			<column name="staff_id" type="bigint"/>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="episode_id"
 				baseTableName="episodes_writers"
@@ -58,8 +58,8 @@
 				referencedTableName="staff"/>
 
 		<createTable tableName="episodes_teleplay_authors">
-			<column name="episode_id" type="number(38, 0)"/>
-			<column name="staff_id" type="number(38, 0)"/>
+			<column name="episode_id" type="bigint"/>
+			<column name="staff_id" type="bigint"/>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="episode_id"
 				baseTableName="episodes_teleplay_authors"
@@ -73,8 +73,8 @@
 				referencedTableName="staff"/>
 
 		<createTable tableName="episodes_story_authors">
-			<column name="episode_id" type="number(38, 0)"/>
-			<column name="staff_id" type="number(38, 0)"/>
+			<column name="episode_id" type="bigint"/>
+			<column name="staff_id" type="bigint"/>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="episode_id"
 				baseTableName="episodes_story_authors"
@@ -88,8 +88,8 @@
 				referencedTableName="staff"/>
 
 		<createTable tableName="episodes_directors">
-			<column name="episode_id" type="number(38, 0)"/>
-			<column name="staff_id" type="number(38, 0)"/>
+			<column name="episode_id" type="bigint"/>
+			<column name="staff_id" type="bigint"/>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="episode_id"
 				baseTableName="episodes_directors"
@@ -103,8 +103,8 @@
 				referencedTableName="staff"/>
 
 		<createTable tableName="episodes_staff">
-			<column name="episode_id" type="number(38, 0)"/>
-			<column name="staff_id" type="number(38, 0)"/>
+			<column name="episode_id" type="bigint"/>
+			<column name="staff_id" type="bigint"/>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="episode_id"
 				baseTableName="episodes_staff"
@@ -118,8 +118,8 @@
 				referencedTableName="staff"/>
 
 		<createTable tableName="episodes_performers">
-			<column name="episode_id" type="number(38, 0)"/>
-			<column name="performer_id" type="number(38, 0)"/>
+			<column name="episode_id" type="bigint"/>
+			<column name="performer_id" type="bigint"/>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="episode_id"
 				baseTableName="episodes_performers"
@@ -133,8 +133,8 @@
 				referencedTableName="performer"/>
 
 		<createTable tableName="episodes_stunt_performers">
-			<column name="episode_id" type="number(38, 0)"/>
-			<column name="performer_id" type="number(38, 0)"/>
+			<column name="episode_id" type="bigint"/>
+			<column name="performer_id" type="bigint"/>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="episode_id"
 				baseTableName="episodes_stunt_performers"
@@ -148,8 +148,8 @@
 				referencedTableName="performer"/>
 
 		<createTable tableName="episodes_stand_in_performers">
-			<column name="episode_id" type="number(38, 0)"/>
-			<column name="performer_id" type="number(38, 0)"/>
+			<column name="episode_id" type="bigint"/>
+			<column name="performer_id" type="bigint"/>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="episode_id"
 				baseTableName="episodes_stand_in_performers"

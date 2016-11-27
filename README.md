@@ -26,6 +26,8 @@ Gradle is used for building. If you do not plan on development, you can use Grad
 
 Edit server/src/main/resources/application.properties so that source.mediaWiki.memoryAlphaEnApiUrl points to your MediaWiki's api.php.
 
+Copy server/src/main/resources/database/oracle/application-db.properties to server/src/main/resources/application-db.properties
+
 ```sh
 ./gradlew bootRun
 ```

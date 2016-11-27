@@ -2,12 +2,12 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
-	<changeSet id="0003_create" author="cezarykluczynski">
+	<changeSet id="0003_create_performer" author="cezarykluczynski">
 		<createTable tableName="performer">
-			<column name="id" type="number(38, 0)">
+			<column name="id" type="bigint">
 				<constraints unique="true" nullable="false"/>
 			</column>
-			<column name="page_id" type="number(38, 0)">
+			<column name="page_id" type="bigint">
 				<constraints nullable="false"/>
 			</column>
 			<column name="guid" type="varchar(14)">
@@ -18,9 +18,9 @@
 			</column>
 			<column name="birth_name" type="varchar(128)"/>
 			<column name="gender" type="varchar(1)"/>
-			<column name="date_of_birth" type="timestamp(0)"/>
+			<column name="date_of_birth" type="timestamp"/>
 			<column name="place_of_birth" type="varchar(128)"/>
-			<column name="date_of_death" type="timestamp(0)"/>
+			<column name="date_of_death" type="timestamp"/>
 			<column name="place_of_death" type="varchar(128)"/>
 			<column name="animal_performer" type="boolean"/>
 			<column name="dis_performer" type="boolean"/>

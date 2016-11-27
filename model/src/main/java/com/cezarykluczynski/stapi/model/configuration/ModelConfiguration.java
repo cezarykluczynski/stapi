@@ -17,6 +17,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Map;
@@ -25,7 +26,7 @@ import static com.cezarykluczynski.stapi.model.configuration.ModelConfiguration.
 import static org.hibernate.jpa.AvailableSettings.PERSISTENCE_UNIT_NAME;
 
 @Configuration
-@EnableConfigurationProperties({DataSourceProperties.class})
+@EnableConfigurationProperties({DataSourceProperties.class, HibernateProperties.class})
 @EnableJpaRepositories(basePackages = JPA_BASE_PACKAGES)
 @EnableTransactionManagement
 public class ModelConfiguration {
@@ -33,6 +34,9 @@ public class ModelConfiguration {
 	private static final String DATASOURCE_PREFIX = "stapi.datasource.main";
 
 	public static final String JPA_BASE_PACKAGES = "com.cezarykluczynski.stapi.model";
+
+	@Inject
+	private HibernateProperties hibernateProperties;
 
 	@Bean
 	@ConfigurationProperties(prefix = DATASOURCE_PREFIX)
@@ -56,6 +60,7 @@ public class ModelConfiguration {
 		properties.put("spring.jpa.properties.hibernate.format_sql", "true");
 		properties.put("spring.jpa.hibernate.show_sql", "true");
 		properties.put("spring.jpa.hibernate.format_sql", "true");
+		properties.put("hibernate.dialect", hibernateProperties.getDialect());
 		lef.setJpaPropertyMap(properties);
 		lef.afterPropertiesSet();
 		return lef.getObject();

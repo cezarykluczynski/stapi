@@ -2,12 +2,12 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
-	<changeSet id="0005_create" author="cezarykluczynski">
+	<changeSet id="0005_create_character" author="cezarykluczynski">
 		<createTable tableName="character">
-			<column name="id" type="number(38, 0)">
+			<column name="id" type="bigint">
 				<constraints unique="true" nullable="false"/>
 			</column>
-			<column name="page_id" type="number(38, 0)">
+			<column name="page_id" type="bigint">
 				<constraints nullable="false"/>
 			</column>
 			<column name="guid" type="varchar(14)">
@@ -17,16 +17,16 @@
 				<constraints nullable="false"/>
 			</column>
 			<column name="gender" type="varchar(1)"/>
-			<column name="year_of_birth" type="number(10, 0)"/>
-			<column name="month_of_birth" type="number(10, 0)"/>
-			<column name="day_of_birth" type="number(10, 0)"/>
+			<column name="year_of_birth" type="int"/>
+			<column name="month_of_birth" type="int"/>
+			<column name="day_of_birth" type="int"/>
 			<column name="place_of_birth" type="varchar(128)"/>
-			<column name="year_of_death" type="number(10, 0)"/>
-			<column name="month_of_death" type="number(10, 0)"/>
-			<column name="day_of_death" type="number(10, 0)"/>
+			<column name="year_of_death" type="int"/>
+			<column name="month_of_death" type="int"/>
+			<column name="day_of_death" type="int"/>
 			<column name="place_of_death" type="varchar(128)"/>
-			<column name="height" type="number(10, 0)"/>
-			<column name="weight" type="number(10, 0)"/>
+			<column name="height" type="int"/>
+			<column name="weight" type="int"/>
 			<column name="deceased" type="boolean"/>
 			<column name="blood_type" type="varchar(32)"/>
 			<column name="marital_status" type="varchar(32)"/>
@@ -40,8 +40,8 @@
 				referencedTableName="page"/>
 
 		<createTable tableName="performers_characters">
-			<column name="performer_id" type="number(38, 0)"/>
-			<column name="character_id" type="number(38, 0)"/>
+			<column name="performer_id" type="bigint"/>
+			<column name="character_id" type="bigint"/>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="performer_id"
 				baseTableName="performers_characters"

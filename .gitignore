@@ -5,3 +5,4 @@ server/build/
 model/build/
 client/build/
 logs/
+server/src/main/resources/application-db.properties

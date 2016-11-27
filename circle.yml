@@ -2,6 +2,10 @@ machine:
   java:
     version:
       oraclejdk8
+dependencies:
+  pre:
+    - cp server/src/main/resources/database/postgres/application-db.properties server/src/main/resources/application-db.properties
+    - psql -c 'create database stapi;' -U postgres
 test:
   override:
     - ./gradlew test -i

@@ -2,12 +2,12 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
-	<changeSet id="0002_create" author="cezarykluczynski">
+	<changeSet id="0002_create_series" author="cezarykluczynski">
 		<createTable tableName="series">
-			<column name="id" type="number(38, 0)">
+			<column name="id" type="bigint">
 				<constraints unique="true" nullable="false"/>
 			</column>
-			<column name="page_id" type="number(38, 0)">
+			<column name="page_id" type="bigint">
 				<constraints nullable="false"/>
 			</column>
 			<column name="guid" type="varchar(14)">
@@ -17,10 +17,10 @@
 				<constraints nullable="false" unique="true"/>
 			</column>
 			<column name="abbreviation" type="varchar(8)"/>
-			<column name="production_start_year" type="number(10, 0)"/>
-			<column name="production_end_year" type="number(10, 0)"/>
-			<column name="original_run_start_date" type="timestamp(0)"/>
-			<column name="original_run_end_date" type="timestamp(0)"/>
+			<column name="production_start_year" type="int"/>
+			<column name="production_end_year" type="int"/>
+			<column name="original_run_start_date" type="timestamp"/>
+			<column name="original_run_end_date" type="timestamp"/>
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="series_sequence"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
