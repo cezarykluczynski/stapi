@@ -6,3 +6,4 @@ model/build/
 client/build/
 logs/
 server/src/main/resources/application-db.properties
+server/src/main/resources/application-source.properties

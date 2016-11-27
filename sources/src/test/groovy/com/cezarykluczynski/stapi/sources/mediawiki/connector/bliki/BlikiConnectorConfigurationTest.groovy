@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.connector.bliki
 
+import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourceProperties
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourcesProperties
 import spock.lang.Specification
 
@@ -14,10 +15,14 @@ class BlikiConnectorConfigurationTest extends Specification {
 
 	def setup() {
 		mediaWikiSourcesProperties = new MediaWikiSourcesProperties()
-		mediaWikiSourcesProperties.memoryAlphaEnApiUrl = MEMORY_ALPHA_EN_API_URL
-		mediaWikiSourcesProperties.memoryBetaEnApiUrl = MEMORY_BETA_EN_API_URL
-		blikiConnectorConfiguration = new BlikiConnectorConfiguration()
-		blikiConnectorConfiguration.mediaWikiSourcesProperties = mediaWikiSourcesProperties
+
+		mediaWikiSourcesProperties.memoryAlphaEn = new MediaWikiSourceProperties()
+		mediaWikiSourcesProperties.memoryAlphaEn.apiUrl = MEMORY_ALPHA_EN_API_URL
+		mediaWikiSourcesProperties.memoryBetaEn = new MediaWikiSourceProperties()
+		mediaWikiSourcesProperties.memoryBetaEn.apiUrl = MEMORY_BETA_EN_API_URL
+		blikiConnectorConfiguration = new BlikiConnectorConfiguration(
+				mediaWikiSourcesProperties: mediaWikiSourcesProperties
+		)
 	}
 
 	def "creates Memory Alpha EN user decorator"() {

@@ -2,6 +2,8 @@ package com.cezarykluczynski.stapi.sources.mediawiki.connector.bliki
 
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiMinimalIntervalProvider
+import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourceProperties
+import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourcesProperties
 import com.google.common.collect.Maps
 import info.bliki.api.Connector
 import org.apache.commons.io.IOUtils
@@ -22,6 +24,8 @@ class BlikiConnectorTest extends Specification {
 
 	private MediaWikiMinimalIntervalProvider mediaWikiMinimalIntervalProviderMock
 
+	private MediaWikiSourcesProperties mediaWikiSourcesProperties
+
 	private static final MediaWikiSource MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN = MediaWikiSource.MEMORY_ALPHA_EN
 	private static final MediaWikiSource MEDIA_WIKI_SOURCE_MEMORY_BETA_EN = MediaWikiSource.MEMORY_BETA_EN
 
@@ -32,6 +36,10 @@ class BlikiConnectorTest extends Specification {
 	def setup() {
 		blikiUserDecoratorBeanMapProviderMock = Mock(BlikiUserDecoratorBeanMapProvider)
 		mediaWikiMinimalIntervalProviderMock = Mock(MediaWikiMinimalIntervalProvider)
+		mediaWikiSourcesProperties = new MediaWikiSourcesProperties(
+				memoryAlphaEn: new MediaWikiSourceProperties(),
+				memoryBetaEn: new MediaWikiSourceProperties()
+		)
 
 		httpClientBuilderMock = Mock(HttpClientBuilder) {
 			build() >> Mock(CloseableHttpClient) {
@@ -56,7 +64,8 @@ class BlikiConnectorTest extends Specification {
 			}
 		}
 
-		blikiConnector = new BlikiConnector(blikiUserDecoratorBeanMapProviderMock, mediaWikiMinimalIntervalProviderMock)
+		blikiConnector = new BlikiConnector(blikiUserDecoratorBeanMapProviderMock, mediaWikiMinimalIntervalProviderMock,
+				mediaWikiSourcesProperties)
 	}
 
 	def "reads page for Memory Alpha EN"() {

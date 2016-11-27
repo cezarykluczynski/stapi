@@ -23,17 +23,23 @@ class MediaWikiMinimalIntervalProviderTest extends Specification {
 	}
 
 	def "uses dependencies to do configuration"() {
+		given:
+		MediaWikiSourceProperties memoryAlphaEn = Mock(MediaWikiSourceProperties)
+		MediaWikiSourceProperties memoryBetaEn = Mock(MediaWikiSourceProperties)
+
 		when:
 		mediaWikiMinimalIntervalProvider = new MediaWikiMinimalIntervalProvider(mediaWikiSourcesPropertiesMock,
 				mediaWikiMiminalIntervalConfigurationStrategy)
 
 		then:
-		1 * mediaWikiSourcesPropertiesMock.getMemoryAlphaEnApiUrl() >> MEMORY_ALPHA_EN_URL
-		1 * mediaWikiSourcesPropertiesMock.getMemoryAlphaEnMinimalInterval() >> MEMORY_ALPHA_EN_MINIMAL_INTERVAL
+		2 * mediaWikiSourcesPropertiesMock.getMemoryAlphaEn() >> memoryAlphaEn
+		1 * memoryAlphaEn.getApiUrl() >> MEMORY_ALPHA_EN_URL
+		1 * memoryAlphaEn.getMinimalInterval() >> MEMORY_ALPHA_EN_MINIMAL_INTERVAL
 		1 * mediaWikiMiminalIntervalConfigurationStrategy.configureInterval(MEMORY_ALPHA_EN_URL, MEMORY_ALPHA_EN_MINIMAL_INTERVAL) >> MEMORY_ALPHA_EN_INTERVAL
 		mediaWikiMinimalIntervalProvider.memoryAlphaEnInterval == MEMORY_ALPHA_EN_INTERVAL
-		1 * mediaWikiSourcesPropertiesMock.getMemoryBetaEnApiUrl() >> MEMORY_BETA_EN_URL
-		1 * mediaWikiSourcesPropertiesMock.getMemoryBetaEnMinimalInterval() >> MEMORY_BETA_EN_MINIMAL_INTERVAL
+		2 * mediaWikiSourcesPropertiesMock.getMemoryBetaEn() >> memoryBetaEn
+		1 * memoryBetaEn.getApiUrl() >> MEMORY_BETA_EN_URL
+		1 * memoryBetaEn.getMinimalInterval() >> MEMORY_BETA_EN_MINIMAL_INTERVAL
 		1 * mediaWikiMiminalIntervalConfigurationStrategy.configureInterval(MEMORY_BETA_EN_URL, MEMORY_BETA_EN_MINIMAL_INTERVAL) >> MEMORY_BETA_EN_INTERVAL
 		mediaWikiMinimalIntervalProvider.memoryBetaEnInterval == MEMORY_BETA_EN_INTERVAL
 	}

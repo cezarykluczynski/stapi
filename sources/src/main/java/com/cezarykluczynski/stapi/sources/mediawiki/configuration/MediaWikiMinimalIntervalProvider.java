@@ -20,11 +20,11 @@ public class MediaWikiMinimalIntervalProvider {
 	public MediaWikiMinimalIntervalProvider(MediaWikiSourcesProperties mediaWikiSourcesProperties,
 		MediaWikiMinimalIntervalConfigurationStrategy mediaWikiMinimalIntervalConfigurationStrategy) {
 		this.memoryAlphaEnInterval = mediaWikiMinimalIntervalConfigurationStrategy.configureInterval(
-				mediaWikiSourcesProperties.getMemoryAlphaEnApiUrl(),
-				mediaWikiSourcesProperties.getMemoryAlphaEnMinimalInterval());
+				mediaWikiSourcesProperties.getMemoryAlphaEn().getApiUrl(),
+				mediaWikiSourcesProperties.getMemoryAlphaEn().getMinimalInterval());
 		this.memoryBetaEnInterval = mediaWikiMinimalIntervalConfigurationStrategy.configureInterval(
-				mediaWikiSourcesProperties.getMemoryBetaEnApiUrl(),
-				mediaWikiSourcesProperties.getMemoryBetaEnMinimalInterval());
+				mediaWikiSourcesProperties.getMemoryBetaEn().getApiUrl(),
+				mediaWikiSourcesProperties.getMemoryBetaEn().getMinimalInterval());
 	}
 
 }

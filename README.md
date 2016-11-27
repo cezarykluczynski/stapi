@@ -24,9 +24,12 @@ Java 8, Oracle Database Express Edition 11g (or compatible) will be required for
 
 Gradle is used for building. If you do not plan on development, you can use Gradle Wrapper:
 
-Edit server/src/main/resources/application.properties so that source.mediaWiki.memoryAlphaEnApiUrl points to your MediaWiki's api.php.
+Copy server/src/main/resources/source/application-source.properties to server/src/main/resources/application-source.properties
 
 Copy server/src/main/resources/database/oracle/application-db.properties to server/src/main/resources/application-db.properties
+
+Edit server/src/main/resources/application-source.properties so that source.mediaWiki.memoryAlphaEn.apiUrl points
+to your copy of Memory Alpha, and source.mediaWiki.memoryBetaEn.apiUrl points to your copy of Memory Beta.
 
 ```sh
 ./gradlew bootRun

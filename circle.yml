@@ -5,6 +5,7 @@ machine:
 dependencies:
   pre:
     - cp server/src/main/resources/database/postgres/application-db.properties server/src/main/resources/application-db.properties
+    - cp server/src/main/resources/source/application-source.properties server/src/main/resources/application-source.properties
     - psql -c 'create database stapi;' -U postgres
 test:
   override:

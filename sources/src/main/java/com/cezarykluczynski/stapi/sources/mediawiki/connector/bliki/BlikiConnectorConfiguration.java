@@ -19,14 +19,14 @@ public class BlikiConnectorConfiguration {
 
 	@Bean(name = MEMORY_ALPHA_EN_USER_DECORATOR)
 	public UserDecorator memoryAlphaEnUserDecorator() {
-		UserDecorator userDecorator = new UserDecorator("", "", mediaWikiSourcesProperties.getMemoryAlphaEnApiUrl());
+		UserDecorator userDecorator = new UserDecorator("", "", mediaWikiSourcesProperties.getMemoryAlphaEn().getApiUrl());
 		userDecorator.login();
 		return userDecorator;
 	}
 
 	@Bean(name = MEMORY_BETA_EN_USER_DECORATOR)
 	public UserDecorator memoryBetaEnUserDecorator() {
-		UserDecorator userDecorator = new UserDecorator("", "", mediaWikiSourcesProperties.getMemoryBetaEnApiUrl());
+		UserDecorator userDecorator = new UserDecorator("", "", mediaWikiSourcesProperties.getMemoryBetaEn().getApiUrl());
 		userDecorator.login();
 		return userDecorator;
 	}

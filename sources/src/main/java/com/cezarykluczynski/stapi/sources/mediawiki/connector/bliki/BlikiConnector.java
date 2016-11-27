@@ -1,13 +1,16 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.connector.bliki;
 
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
+import com.cezarykluczynski.stapi.sources.mediawiki.configuration.IntervalCalculationStrategy;
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiMinimalIntervalProvider;
+import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourcesProperties;
 import com.cezarykluczynski.stapi.sources.mediawiki.util.constant.ApiParams;
 import com.google.common.collect.Maps;
 import info.bliki.api.Connector;
 import info.bliki.api.User;
 import info.bliki.api.query.RequestBuilder;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -25,17 +28,37 @@ public class BlikiConnector {
 
 	private Map<MediaWikiSource, String> names = Maps.newHashMap();
 
+	private Map<MediaWikiSource, Boolean> logPostpones = Maps.newHashMap();
+
+	private Map<MediaWikiSource, IntervalCalculationStrategy> intervalCalculationStrategies = Maps.newHashMap();
+
 	private MediaWikiMinimalIntervalProvider mediaWikiMinimalIntervalProvider;
+
+	private MediaWikiSourcesProperties mediaWikiSourcesProperties;
 
 	@Inject
 	public BlikiConnector(BlikiUserDecoratorBeanMapProvider blikiUserDecoratorBeanMapProvider,
-			MediaWikiMinimalIntervalProvider mediaWikiMinimalIntervalProvider) {
+			MediaWikiMinimalIntervalProvider mediaWikiMinimalIntervalProvider,
+			MediaWikiSourcesProperties mediaWikiSourcesProperties) {
 		this.mediaWikiMinimalIntervalProvider = mediaWikiMinimalIntervalProvider;
 		this.blikiUserDecoratorBeanMapProvider = blikiUserDecoratorBeanMapProvider;
+		this.mediaWikiSourcesProperties = mediaWikiSourcesProperties;
+		configure();
+	}
+
+	private void configure() {
 		lastCallTimes.put(MediaWikiSource.MEMORY_ALPHA_EN, 0L);
 		lastCallTimes.put(MediaWikiSource.MEMORY_BETA_EN, 0L);
 		names.put(MediaWikiSource.MEMORY_ALPHA_EN, "Memory Alpha (EN)");
 		names.put(MediaWikiSource.MEMORY_BETA_EN, "Memory Beta (EN)");
+		logPostpones.put(MediaWikiSource.MEMORY_ALPHA_EN, mediaWikiSourcesProperties
+				.getMemoryAlphaEn().getLogPostpones());
+		logPostpones.put(MediaWikiSource.MEMORY_BETA_EN, mediaWikiSourcesProperties
+				.getMemoryBetaEn().getLogPostpones());
+		intervalCalculationStrategies.put(MediaWikiSource.MEMORY_ALPHA_EN, mediaWikiSourcesProperties
+				.getMemoryAlphaEn().getIntervalCalculationStrategy());
+		intervalCalculationStrategies.put(MediaWikiSource.MEMORY_BETA_EN, mediaWikiSourcesProperties
+				.getMemoryBetaEn().getIntervalCalculationStrategy());
 	}
 
 	@Cacheable(cacheNames = "pagesCache", condition = "@pageCacheService.isCacheable(#title, #mediaWikiSource)",
@@ -79,7 +102,9 @@ public class BlikiConnector {
 
 		if (diff < minimalInterval) {
 			long postpone = minimalInterval - diff;
-			log.info("Postponing call to {} for another {} milliseconds", names.get(mediaWikiSource), postpone);
+			if (BooleanUtils.isTrue(logPostpones.get(mediaWikiSource))) {
+				log.info("Postponing call to {} for another {} milliseconds", names.get(mediaWikiSource), postpone);
+			}
 			try {
 				Thread.sleep(postpone);
 			} catch(InterruptedException e) {
@@ -88,7 +113,10 @@ public class BlikiConnector {
 		}
 
 		String xml = doQuery(requestBuilder, mediaWikiSource);
-		lastCallTimes.put(mediaWikiSource, startTime);
+		// TODO: test it
+		long lsstCallTime = IntervalCalculationStrategy.FROM_AFTER_RECEIVED
+				.equals(intervalCalculationStrategies.get(mediaWikiSource)) ? System.currentTimeMillis() : startTime;
+		lastCallTimes.put(mediaWikiSource, lsstCallTime);
 		return xml;
 	}
 
