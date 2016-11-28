@@ -1,3 +1,7 @@
+configurations {
+	jpamodelgen
+}
+
 dependencies {
 	ext.springBootVersion = "1.4.1.RELEASE"
 	compile project(':util')
@@ -11,5 +15,18 @@ dependencies {
 	compile group: 'com.oracle', name: 'ojdbc6', version: '11.1.0.7.0'
 	compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.0.Final'
 	compile group: 'org.postgresql', name: 'postgresql', version:'9.4.1207'
+	jpamodelgen group: 'org.hibernate', name: 'hibernate-jpamodelgen', version: '5.2.5.Final'
 	testCompile project(':util').sourceSets.test.output
+}
+
+task generateMetamodel(type: JavaCompile) {
+	source = sourceSets.main.java
+	classpath = configurations.compile + configurations.jpamodelgen
+	options.compilerArgs = [
+			"-proc:only"
+	]
+	destinationDir = sourceSets.main.java.srcDirs.iterator().next()
+}
+compileJava {
+	dependsOn generateMetamodel
 }
