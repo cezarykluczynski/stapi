@@ -46,7 +46,7 @@ class InPageAwareRepositoryPageFinderTest extends Specification {
 			assert pageable.pageSize == 100
 			return pageAwareQueryBuilderMock
 		}
-		1 * pageAwareQueryBuilderMock.joinIn("page", "pageId", pageIds, Page)
+		1 * pageAwareQueryBuilderMock.joinPageIdsIn(pageIds)
 		1 * pageAwareQueryBuilderMock.joinEquals("page", "mediaWikiSource", MEDIA_WIKI_SOURCE, Page)
 		1 * pageAwareQueryBuilderMock.findAll() >> pageAwareList
 		pageList.empty
@@ -80,7 +80,7 @@ class InPageAwareRepositoryPageFinderTest extends Specification {
 			assert pageable.pageSize == 100
 			return pageAwareQueryBuilderMock
 		}
-		1 * pageAwareQueryBuilderMock.joinIn("page", "pageId", pageIds, Page)
+		1 * pageAwareQueryBuilderMock.joinPageIdsIn(pageIds)
 		1 * pageAwareQueryBuilderMock.joinEquals("page", "mediaWikiSource", MEDIA_WIKI_SOURCE, Page)
 		1 * pageAwareQueryBuilderMock.findAll() >> pageAwareList
 		pageList.size() == 2

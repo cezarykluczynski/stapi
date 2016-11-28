@@ -16,44 +16,43 @@ import spock.lang.Specification
 import javax.persistence.EntityManager
 import javax.persistence.TypedQuery
 import javax.persistence.criteria.*
-import javax.persistence.metamodel.Attribute
-import javax.persistence.metamodel.EntityType
-import javax.persistence.metamodel.Metamodel
+import javax.persistence.metamodel.*
 import java.time.LocalDate
 
 class QueryBuilderTest extends Specification {
 
-	private static final String VALID_KEY_STRING = 'VALID_KEY_STRING'
 	private static final String VALID_VALUE_STRING = 'VALID_VALUE_STRING'
-	private static final String VALID_KEY_BOOLEAN = 'VALID_KEY_BOOLEAN'
 	private static final Boolean VALID_VALUE_BOOLEAN = LogicUtil.nextBoolean()
-	private static final String VALID_KEY_LOCAL_DATE = 'VALID_KEY_LOCAL_DATE'
-	private static final String VALID_KEY_INTEGER = 'VALID_KEY_INTEGER'
-	private static final String VALID_KEY_LONG = 'VALID_KEY_LONG'
-
 	private static final LocalDate VALID_VALUE_LOCAL_DATE_FROM = LocalDate.of(2000, 1, 2)
 	private static final LocalDate VALID_VALUE_LOCAL_DATE_TO = LocalDate.of(2010, 3, 4)
 	private static final Integer VALID_VALUE_INTEGER_FROM = 1970
+	private static final String VALID_KEY_GENDER_STRING = 'VALID_KEY_GENDER'
+
 	private static final Integer VALID_VALUE_INTEGER_TO = 2000
-	private static final Integer VALID_VALUE_LONG = 5L
-	private static final String VALID_KEY_GENDER = 'VALID_KEY_GENDER'
-	private static final String VALID_KEY_PAGE = 'page'
+	private static final Long VALID_VALUE_LONG = 5L
 	private static final String VALID_JOIN_PAGE_ID = 'pageId'
 	private static final Gender VALID_VALUE_GENDER = Gender.F
-	private static final String KEY_WITH_INVALID_TYPE = 'INVALID_KEY'
-	private static final String KEY_NOT_IN_ATTRIBUTE_SET = 'KEY_NOT_IN_ATTRIBUTE_SET'
 	private static final Integer PAGE_SIZE = 50
 	private static final Integer PAGE_NUMBER = 5
 	private static final Integer FIRST_RESULT = PAGE_SIZE * PAGE_NUMBER
-	private static final String FETCH_NAME = 'CHARACTERS'
-
 	private static final String REQUEST_ORDER_CLAUSE_NAME_1 = 'REQUEST_ORDER_CLAUSE_NAME_1'
 	private static final String REQUEST_ORDER_CLAUSE_NAME_2 = 'REQUEST_ORDER_CLAUSE_NAME_2'
 	private static final String REQUEST_ORDER_CLAUSE_NAME_3 = 'REQUEST_ORDER_CLAUSE_NAME_3'
 	private static final RequestOrderEnumDTO REQUEST_ORDER_CLAUSE_ORDER_ENUM_1 = RequestOrderEnumDTO.ASC
 	private static final RequestOrderEnumDTO REQUEST_ORDER_CLAUSE_ORDER_ENUM_3 = RequestOrderEnumDTO.DESC
+
 	private static final Integer REQUEST_ORDER_CLAUSE_CLAUSE_ORDER_1 = 1
 	private static final Integer REQUEST_ORDER_CLAUSE_CLAUSE_ORDER_2 = 2
+	private final SingularAttribute<?, String> VALID_KEY_STRING = Mock(SingularAttribute)
+	private final SingularAttribute<?, Boolean> VALID_KEY_BOOLEAN = Mock(SingularAttribute)
+	private final SingularAttribute<?, Long> VALID_KEY_LONG = Mock(SingularAttribute)
+	private final SetAttribute<?, ?> FETCH_NAME = Mock(SetAttribute)
+	private final SingularAttribute<?, LocalDate> VALID_KEY_LOCAL_DATE = Mock(SingularAttribute)
+	private final SingularAttribute<?, Integer> VALID_KEY_INTEGER = Mock(SingularAttribute)
+	private final SingularAttribute<?, Gender> VALID_KEY_GENDER = Mock(SingularAttribute)
+	private final SingularAttribute<?, ?> KEY_WITH_INVALID_TYPE = Mock(SingularAttribute)
+	private final String VALID_KEY_PAGE = 'page'
+	private final String INVALID_KEY_PAGE = 'notPage'
 	private final Path REQUEST_ORDER_CLAUSE_PATH_1 = Mock(Path)
 	private final Path REQUEST_ORDER_CLAUSE_PATH_2 = Mock(Path)
 	private final Path REQUEST_ORDER_CLAUSE_PATH_3 = Mock(Path)
@@ -263,29 +262,23 @@ class QueryBuilderTest extends Specification {
 		1 * criteriaBuilder.equal(path, VALID_VALUE_GENDER)
 
 		when: 'join equals key is added'
-		queryBuilder.joinIn(VALID_KEY_PAGE, VALID_JOIN_PAGE_ID, Sets.newHashSet(1L), com.cezarykluczynski.stapi.model.page.entity.Page)
+		queryBuilder.joinPageIdsIn(Sets.newHashSet(1L))
 
 		then: 'right methods are called'
 		1 * baseRoot.get(VALID_KEY_PAGE) >> path
 		1 * path.get(VALID_JOIN_PAGE_ID) >> path
 		1 * path.in(_)
 
-		when: 'join in key is added'
-		queryBuilder.joinEquals(VALID_KEY_PAGE, VALID_KEY_GENDER, VALID_VALUE_GENDER, com.cezarykluczynski.stapi.model.page.entity.Page)
+		when: 'join equals key is added'
+		queryBuilder.joinEquals(VALID_KEY_PAGE, VALID_KEY_GENDER_STRING, VALID_VALUE_GENDER, com.cezarykluczynski.stapi.model.page.entity.Page)
 
 		then:
 		1 * baseRoot.get(VALID_KEY_PAGE) >> path
-		1 * path.get(VALID_KEY_GENDER) >> path
+		1 * path.get(VALID_KEY_GENDER_STRING) >> path
 		1 * path.in(Lists.newArrayList(VALID_VALUE_GENDER))
 
 		when: 'key with invalid type is added'
-		queryBuilder.like(KEY_WITH_INVALID_TYPE, VALID_VALUE_STRING)
-
-		then: 'exception is thrown'
-		thrown(RuntimeException)
-
-		when: 'key that does not exists is added'
-		queryBuilder.like(KEY_NOT_IN_ATTRIBUTE_SET, VALID_VALUE_STRING)
+		queryBuilder.joinEquals(INVALID_KEY_PAGE, VALID_VALUE_STRING, VALID_VALUE_GENDER, com.cezarykluczynski.stapi.model.page.entity.Page)
 
 		then: 'exception is thrown'
 		thrown(RuntimeException)

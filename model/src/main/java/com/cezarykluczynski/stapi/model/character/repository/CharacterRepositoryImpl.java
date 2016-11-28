@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.model.character.repository;
 
 import com.cezarykluczynski.stapi.model.character.dto.CharacterRequestDTO;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
+import com.cezarykluczynski.stapi.model.character.entity.Character_;
 import com.cezarykluczynski.stapi.model.character.query.CharacterQueryBuilderFactory;
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
 import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
@@ -28,12 +29,12 @@ public class CharacterRepositoryImpl extends AbstractRepositoryImpl<Character> i
 		String guid = criteria.getGuid();
 		boolean doFetch = guid != null;
 
-		characterQueryBuilder.equal("guid", guid);
-		characterQueryBuilder.like("name", criteria.getName());
-		characterQueryBuilder.equal("gender", criteria.getGender());
-		characterQueryBuilder.equal("deceased", criteria.getDeceased());
+		characterQueryBuilder.equal(Character_.guid, guid);
+		characterQueryBuilder.like(Character_.name, criteria.getName());
+		characterQueryBuilder.equal(Character_.gender, criteria.getGender());
+		characterQueryBuilder.equal(Character_.deceased, criteria.getDeceased());
 		characterQueryBuilder.setOrder(criteria.getOrder());
-		characterQueryBuilder.fetch("performers", doFetch);
+		characterQueryBuilder.fetch(Character_.performers, doFetch);
 
 		Page<Character> performerPage = characterQueryBuilder.findPage();
 		clearProxies(performerPage, !doFetch);

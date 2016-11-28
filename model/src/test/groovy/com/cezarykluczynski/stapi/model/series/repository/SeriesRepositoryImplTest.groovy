@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.common.dto.RequestOrderDTO
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.series.dto.SeriesRequestDTO
 import com.cezarykluczynski.stapi.model.series.entity.Series
+import com.cezarykluczynski.stapi.model.series.entity.Series_
 import com.cezarykluczynski.stapi.model.series.query.SeriesQueryBuilderFactory
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -56,27 +57,27 @@ class SeriesRepositoryImplTest extends Specification {
 
 		then: 'guid criteria is set'
 		1 * seriesRequestDTO.getGuid() >> GUID
-		1 * seriesQueryBuilder.equal("guid", GUID)
+		1 * seriesQueryBuilder.equal(Series_.guid, GUID)
 
 		then: 'string criteria are set'
 		1 * seriesRequestDTO.getTitle() >> TITLE
-		1 * seriesQueryBuilder.like("title", TITLE)
+		1 * seriesQueryBuilder.like(Series_.title, TITLE)
 		1 * seriesRequestDTO.getAbbreviation() >> ABBREVIATION
-		1 * seriesQueryBuilder.like("abbreviation", ABBREVIATION)
+		1 * seriesQueryBuilder.like(Series_.abbreviation, ABBREVIATION)
 
 		then: 'date criteria are set'
 		1 * seriesRequestDTO.getProductionStartYearFrom() >> PRODUCTION_START_YEAR_FROM
 		1 * seriesRequestDTO.getProductionStartYearTo() >> PRODUCTION_START_YEAR_TO
-		1 * seriesQueryBuilder.between("productionStartYear", PRODUCTION_START_YEAR_FROM, PRODUCTION_START_YEAR_TO)
+		1 * seriesQueryBuilder.between(Series_.productionStartYear, PRODUCTION_START_YEAR_FROM, PRODUCTION_START_YEAR_TO)
 		1 * seriesRequestDTO.getProductionEndYearFrom() >> PRODUCTION_END_YEAR_FROM
 		1 * seriesRequestDTO.getProductionEndYearTo() >> PRODUCTION_END_YEAR_TO
-		1 * seriesQueryBuilder.between("productionEndYear", PRODUCTION_END_YEAR_FROM, PRODUCTION_END_YEAR_TO)
+		1 * seriesQueryBuilder.between(Series_.productionEndYear, PRODUCTION_END_YEAR_FROM, PRODUCTION_END_YEAR_TO)
 		1 * seriesRequestDTO.getOriginalRunStartDateFrom() >> ORIGINAL_RUN_START_FROM
 		1 * seriesRequestDTO.getOriginalRunStartDateTo() >> ORIGINAL_RUN_START_TO
-		1 * seriesQueryBuilder.between("originalRunStartDate", ORIGINAL_RUN_START_FROM, ORIGINAL_RUN_START_TO)
+		1 * seriesQueryBuilder.between(Series_.originalRunStartDate, ORIGINAL_RUN_START_FROM, ORIGINAL_RUN_START_TO)
 		1 * seriesRequestDTO.getOriginalRunEndDateFrom() >> ORIGINAL_RUN_END_FROM
 		1 * seriesRequestDTO.getOriginalRunEndDateTo() >> ORIGINAL_RUN_END_TO
-		1 * seriesQueryBuilder.between("originalRunEndDate", ORIGINAL_RUN_END_FROM, ORIGINAL_RUN_END_TO)
+		1 * seriesQueryBuilder.between(Series_.originalRunEndDate, ORIGINAL_RUN_END_FROM, ORIGINAL_RUN_END_TO)
 
 		then: 'order is set'
 		1 * seriesRequestDTO.getOrder() >> ORDER

@@ -16,6 +16,8 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import javax.persistence.metamodel.Attribute;
 import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.SetAttribute;
+import javax.persistence.metamodel.SingularAttribute;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -59,18 +61,16 @@ public class QueryBuilder<T> {
 		this.prepare();
 	}
 
-	public QueryBuilder<T> like(String key, String value) {
-		validateAttributeExistenceAndType(key, String.class);
+	public QueryBuilder<T> like(SingularAttribute<? super T, String> key, String value) {
 		if (value != null) {
 			predicateList.add(criteriaBuilder.like(baseRoot.get(key), wildcardLike(value)));
 		}
 		return this;
 	}
 
-	public QueryBuilder<T> joinIn(String join, String key, Set<Long> value, Class joinClassType) {
-		validateAttributeExistenceAndType(join, joinClassType);
+	public QueryBuilder<T> joinPageIdsIn(Set<Long> value) {
 		if (value != null) {
-			predicateList.add(baseRoot.get(join).get(key).in(value));
+			predicateList.add(baseRoot.get("page").get("pageId").in(value));
 		}
 		return this;
 	}
@@ -83,40 +83,52 @@ public class QueryBuilder<T> {
 		return this;
 	}
 
-	public QueryBuilder<T> equal(String key, Boolean value) {
-		validateAttributeExistenceAndType(key, Boolean.class);
+	public QueryBuilder<T> equal(SingularAttribute<? super T, Boolean> key, Boolean value) {
 		if (value != null) {
 			predicateList.add(criteriaBuilder.equal(baseRoot.get(key), value));
 		}
 		return this;
 	}
 
-	public QueryBuilder<T> equal(String key, String value) {
-		validateAttributeExistenceAndType(key, String.class);
+	public QueryBuilder<T> equal(SingularAttribute<? super T, String> key, String value) {
 		if (value != null) {
 			predicateList.add(criteriaBuilder.equal(baseRoot.get(key), value));
 		}
 		return this;
 	}
 
-	public QueryBuilder<T> equal(String key, Long value) {
-		validateAttributeExistenceAndType(key, Long.class);
+	public QueryBuilder<T> equal(SingularAttribute<? super T, Long> key, Long value) {
 		if (value != null) {
 			predicateList.add(criteriaBuilder.equal(baseRoot.get(key), value));
 		}
 		return this;
 	}
 
-	public QueryBuilder<T> equal(String key, Gender value) {
-		validateAttributeExistenceAndType(key, Gender.class);
+	public QueryBuilder<T> equal(SingularAttribute<? super T, Gender> key, Gender value) {
 		if (value != null) {
 			predicateList.add(criteriaBuilder.equal(baseRoot.get(key), value));
 		}
 		return this;
 	}
 
-	public QueryBuilder<T> between(String key, LocalDate from, LocalDate to) {
-		validateAttributeExistenceAndType(key, LocalDate.class);
+	public QueryBuilder<T> between(SingularAttribute<? super T, LocalDate> key, LocalDate from, LocalDate to) {
+		if (from != null && to != null) {
+			predicateList.add(criteriaBuilder.between(baseRoot.get(key), from, to));
+		}
+
+		if (from != null && to == null) {
+			predicateList.add(criteriaBuilder.greaterThanOrEqualTo(baseRoot.get(key), from));
+		}
+
+		if (from == null && to != null) {
+			predicateList.add(criteriaBuilder.lessThanOrEqualTo(baseRoot.get(key), to));
+		}
+
+		return this;
+	}
+
+	public QueryBuilder<T> between(SingularAttribute<? super T, Integer> key, Integer from, Integer to) {
+//		validateAttributeExistenceAndType(key, Integer.class);
 
 		if (from != null && to != null) {
 			predicateList.add(criteriaBuilder.between(baseRoot.get(key), from, to));
@@ -133,31 +145,13 @@ public class QueryBuilder<T> {
 		return this;
 	}
 
-	public QueryBuilder<T> between(String key, Integer from, Integer to) {
-		validateAttributeExistenceAndType(key, Integer.class);
-
-		if (from != null && to != null) {
-			predicateList.add(criteriaBuilder.between(baseRoot.get(key), from, to));
-		}
-
-		if (from != null && to == null) {
-			predicateList.add(criteriaBuilder.greaterThanOrEqualTo(baseRoot.get(key), from));
-		}
-
-		if (from == null && to != null) {
-			predicateList.add(criteriaBuilder.lessThanOrEqualTo(baseRoot.get(key), to));
-		}
-
-		return this;
-	}
-
-	public QueryBuilder<T> fetch(String name) {
+	public QueryBuilder<T> fetch(SetAttribute<T, ?> name) {
 		baseRoot.fetch(name);
 
 		return this;
 	}
 
-	public QueryBuilder<T> fetch(String name, boolean doFetch) {
+	public QueryBuilder<T> fetch(SetAttribute<T, ?> name, boolean doFetch) {
 		return doFetch ? fetch(name) : this;
 	}
 

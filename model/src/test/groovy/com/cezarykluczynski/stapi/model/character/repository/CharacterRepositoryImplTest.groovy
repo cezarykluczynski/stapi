@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.model.character.repository
 
 import com.cezarykluczynski.stapi.model.character.dto.CharacterRequestDTO
 import com.cezarykluczynski.stapi.model.character.entity.Character
+import com.cezarykluczynski.stapi.model.character.entity.Character_
 import com.cezarykluczynski.stapi.model.character.query.CharacterQueryBuilderFactory
 import com.cezarykluczynski.stapi.model.common.dto.RequestOrderDTO
 import com.cezarykluczynski.stapi.model.common.entity.Gender
@@ -20,7 +21,6 @@ class CharacterRepositoryImplTest extends Specification {
 	private static final Gender GENDER = Gender.F
 	private static final Boolean DECEASED = LogicUtil.nextBoolean()
 	private static final RequestOrderDTO ORDER = new RequestOrderDTO()
-	private static final String PERFORMERS = 'performers'
 
 	private CharacterQueryBuilderFactory characterQueryBuilderMock
 
@@ -55,26 +55,26 @@ class CharacterRepositoryImplTest extends Specification {
 
 		then: 'guid criteria is set'
 		1 * characterRequestDTO.getGuid() >> GUID
-		1 * characterQueryBuilder.equal("guid", GUID)
+		1 * characterQueryBuilder.equal(Character_.guid, GUID)
 
 		then: 'string criteria are set'
 		1 * characterRequestDTO.getName() >> NAME
-		1 * characterQueryBuilder.like("name", NAME)
+		1 * characterQueryBuilder.like(Character_.name, NAME)
 
 		then: 'enum criteria is set'
 		1 * characterRequestDTO.getGender() >> GENDER
-		1 * characterQueryBuilder.equal("gender", GENDER)
+		1 * characterQueryBuilder.equal(Character_.gender, GENDER)
 
 		then: 'boolean criteria are set'
 		1 * characterRequestDTO.getDeceased() >> DECEASED
-		1 * characterQueryBuilder.equal("deceased", DECEASED)
+		1 * characterQueryBuilder.equal(Character_.deceased, DECEASED)
 
 		then: 'order is set'
 		1 * characterRequestDTO.getOrder() >> ORDER
 		1 * characterQueryBuilder.setOrder(ORDER)
 
 		then: 'fetch is performed with true flag'
-		1 * characterQueryBuilder.fetch(PERFORMERS, true)
+		1 * characterQueryBuilder.fetch(Character_.performers, true)
 
 		then: 'page is searched for and returned'
 		1 * characterQueryBuilder.findPage() >> page
@@ -96,7 +96,7 @@ class CharacterRepositoryImplTest extends Specification {
 		1 * characterRequestDTO.getGuid() >> null
 
 		then: 'fetch is performed with false flag'
-		1 * characterQueryBuilder.fetch(PERFORMERS, false)
+		1 * characterQueryBuilder.fetch(Character_.performers, false)
 
 		then: 'page is searched for and returned'
 		1 * characterQueryBuilder.findPage() >> page

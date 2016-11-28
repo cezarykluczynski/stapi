@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.model.series.repository;
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
 import com.cezarykluczynski.stapi.model.series.dto.SeriesRequestDTO;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
+import com.cezarykluczynski.stapi.model.series.entity.Series_;
 import com.cezarykluczynski.stapi.model.series.query.SeriesQueryBuilderFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,16 +25,16 @@ public class SeriesRepositoryImpl implements SeriesRepositoryCustom {
 	public Page<Series> findMatching(SeriesRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<Series> seriesQueryBuilder = seriesQueryBuilderFactory.createQueryBuilder(pageable);
 
-		seriesQueryBuilder.equal("guid", criteria.getGuid());
-		seriesQueryBuilder.like("title", criteria.getTitle());
-		seriesQueryBuilder.like("abbreviation", criteria.getAbbreviation());
-		seriesQueryBuilder.between("productionStartYear", criteria.getProductionStartYearFrom(),
+		seriesQueryBuilder.equal(Series_.guid, criteria.getGuid());
+		seriesQueryBuilder.like(Series_.title, criteria.getTitle());
+		seriesQueryBuilder.like(Series_.abbreviation, criteria.getAbbreviation());
+		seriesQueryBuilder.between(Series_.productionStartYear, criteria.getProductionStartYearFrom(),
 				criteria.getProductionStartYearTo());
-		seriesQueryBuilder.between("productionEndYear", criteria.getProductionEndYearFrom(),
+		seriesQueryBuilder.between(Series_.productionEndYear, criteria.getProductionEndYearFrom(),
 				criteria.getProductionEndYearTo());
-		seriesQueryBuilder.between("originalRunStartDate", criteria.getOriginalRunStartDateFrom(),
+		seriesQueryBuilder.between(Series_.originalRunStartDate, criteria.getOriginalRunStartDateFrom(),
 				criteria.getOriginalRunStartDateTo());
-		seriesQueryBuilder.between("originalRunEndDate", criteria.getOriginalRunEndDateFrom(),
+		seriesQueryBuilder.between(Series_.originalRunEndDate, criteria.getOriginalRunEndDateFrom(),
 				criteria.getOriginalRunEndDateTo());
 		seriesQueryBuilder.setOrder(criteria.getOrder());
 

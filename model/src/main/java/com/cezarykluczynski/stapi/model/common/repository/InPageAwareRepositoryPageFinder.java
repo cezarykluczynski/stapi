@@ -30,7 +30,7 @@ public class InPageAwareRepositoryPageFinder {
 		PageRequest pageRequest = new PageRequest(0, 100);
 		QueryBuilder<PageAware> pageAwareQueryBuilder = pageAwareQueryBuilderFactory.createQueryBuilder(pageRequest);
 
-		pageAwareQueryBuilder.joinIn("page", "pageId", pageIds, Page.class);
+		pageAwareQueryBuilder.joinPageIdsIn(pageIds);
 		pageAwareQueryBuilder.joinEquals("page", "mediaWikiSource", MediaWikiSource.MEMORY_ALPHA_EN, Page.class);
 		List<PageAware> pageAwareList = pageAwareQueryBuilder.findAll();
 

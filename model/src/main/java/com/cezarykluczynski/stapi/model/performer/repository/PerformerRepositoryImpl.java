@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
 import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
+import com.cezarykluczynski.stapi.model.performer.entity.Performer_;
 import com.cezarykluczynski.stapi.model.performer.query.PerformerQueryBuilderFactory;
 import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
@@ -30,31 +31,31 @@ public class PerformerRepositoryImpl extends AbstractRepositoryImpl<Performer> i
 		String guid = criteria.getGuid();
 		boolean doFetch = guid != null;
 
-		performerQueryBuilder.equal("guid", guid);
-		performerQueryBuilder.like("name", criteria.getName());
-		performerQueryBuilder.like("birthName", criteria.getBirthName());
-		performerQueryBuilder.like("placeOfBirth", criteria.getPlaceOfBirth());
-		performerQueryBuilder.like("placeOfDeath", criteria.getPlaceOfDeath());
-		performerQueryBuilder.between("dateOfBirth", criteria.getDateOfBirthFrom(),
+		performerQueryBuilder.equal(Performer_.guid, guid);
+		performerQueryBuilder.like(Performer_.name, criteria.getName());
+		performerQueryBuilder.like(Performer_.birthName, criteria.getBirthName());
+		performerQueryBuilder.like(Performer_.placeOfBirth, criteria.getPlaceOfBirth());
+		performerQueryBuilder.like(Performer_.placeOfDeath, criteria.getPlaceOfDeath());
+		performerQueryBuilder.between(Performer_.dateOfBirth, criteria.getDateOfBirthFrom(),
 				criteria.getDateOfBirthTo());
-		performerQueryBuilder.between("dateOfDeath", criteria.getDateOfDeathFrom(),
+		performerQueryBuilder.between(Performer_.dateOfDeath, criteria.getDateOfDeathFrom(),
 				criteria.getDateOfDeathTo());
-		performerQueryBuilder.equal("gender", criteria.getGender());
-		performerQueryBuilder.equal("animalPerformer", criteria.getAnimalPerformer());
-		performerQueryBuilder.equal("disPerformer", criteria.getDisPerformer());
-		performerQueryBuilder.equal("ds9Performer", criteria.getDs9Performer());
-		performerQueryBuilder.equal("entPerformer", criteria.getEntPerformer());
-		performerQueryBuilder.equal("filmPerformer", criteria.getFilmPerformer());
-		performerQueryBuilder.equal("standInPerformer", criteria.getStandInPerformer());
-		performerQueryBuilder.equal("stuntPerformer", criteria.getStuntPerformer());
-		performerQueryBuilder.equal("tasPerformer", criteria.getTasPerformer());
-		performerQueryBuilder.equal("tngPerformer", criteria.getTngPerformer());
-		performerQueryBuilder.equal("tosPerformer", criteria.getTosPerformer());
-		performerQueryBuilder.equal("videoGamePerformer", criteria.getVideoGamePerformer());
-		performerQueryBuilder.equal("voicePerformer", criteria.getVoicePerformer());
-		performerQueryBuilder.equal("voyPerformer", criteria.getVoyPerformer());
+		performerQueryBuilder.equal(Performer_.gender, criteria.getGender());
+		performerQueryBuilder.equal(Performer_.animalPerformer, criteria.getAnimalPerformer());
+		performerQueryBuilder.equal(Performer_.disPerformer, criteria.getDisPerformer());
+		performerQueryBuilder.equal(Performer_.ds9Performer, criteria.getDs9Performer());
+		performerQueryBuilder.equal(Performer_.entPerformer, criteria.getEntPerformer());
+		performerQueryBuilder.equal(Performer_.filmPerformer, criteria.getFilmPerformer());
+		performerQueryBuilder.equal(Performer_.standInPerformer, criteria.getStandInPerformer());
+		performerQueryBuilder.equal(Performer_.stuntPerformer, criteria.getStuntPerformer());
+		performerQueryBuilder.equal(Performer_.tasPerformer, criteria.getTasPerformer());
+		performerQueryBuilder.equal(Performer_.tngPerformer, criteria.getTngPerformer());
+		performerQueryBuilder.equal(Performer_.tosPerformer, criteria.getTosPerformer());
+		performerQueryBuilder.equal(Performer_.videoGamePerformer, criteria.getVideoGamePerformer());
+		performerQueryBuilder.equal(Performer_.voicePerformer, criteria.getVoicePerformer());
+		performerQueryBuilder.equal(Performer_.voyPerformer, criteria.getVoyPerformer());
 		performerQueryBuilder.setOrder(criteria.getOrder());
-		performerQueryBuilder.fetch("characters", doFetch);
+		performerQueryBuilder.fetch(Performer_.characters, doFetch);
 
 		Page<Performer> performerPage = performerQueryBuilder.findPage();
 		clearProxies(performerPage, !doFetch);
