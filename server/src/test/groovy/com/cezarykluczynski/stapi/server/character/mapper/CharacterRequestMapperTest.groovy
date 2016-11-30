@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.server.character.mapper
 import com.cezarykluczynski.stapi.client.v1.soap.CharacterRequest
 import com.cezarykluczynski.stapi.client.v1.soap.GenderEnum
 import com.cezarykluczynski.stapi.model.character.dto.CharacterRequestDTO
-import com.cezarykluczynski.stapi.model.common.entity.Gender
+import com.cezarykluczynski.stapi.model.common.entity.enums.Gender
 import com.cezarykluczynski.stapi.server.character.dto.CharacterRestBeanParams
 import com.cezarykluczynski.stapi.util.tool.LogicUtil
 import org.mapstruct.factory.Mappers

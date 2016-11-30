@@ -5,9 +5,9 @@ import com.cezarykluczynski.stapi.client.v1.soap.Character as SOAPCharacter
 import com.cezarykluczynski.stapi.client.v1.soap.GenderEnum
 import com.cezarykluczynski.stapi.client.v1.soap.MaritalStatusEnum
 import com.cezarykluczynski.stapi.model.character.entity.Character as DBCharacter
-import com.cezarykluczynski.stapi.model.common.entity.BloodType
-import com.cezarykluczynski.stapi.model.common.entity.Gender
-import com.cezarykluczynski.stapi.model.common.entity.MaritalStatus
+import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType
+import com.cezarykluczynski.stapi.model.common.entity.enums.Gender
+import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.util.AbstractIndividualTest
 import com.google.common.collect.Lists

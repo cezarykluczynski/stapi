@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.model.common.query
 import com.cezarykluczynski.stapi.model.common.dto.RequestOrderClauseDTO
 import com.cezarykluczynski.stapi.model.common.dto.RequestOrderDTO
 import com.cezarykluczynski.stapi.model.common.dto.enums.RequestOrderEnumDTO
-import com.cezarykluczynski.stapi.model.common.entity.Gender
+import com.cezarykluczynski.stapi.model.common.entity.enums.Gender
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.util.tool.LogicUtil
 import com.google.common.collect.Lists

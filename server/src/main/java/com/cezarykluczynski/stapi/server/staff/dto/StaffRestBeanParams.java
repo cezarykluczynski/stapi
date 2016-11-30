@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.staff.dto;
 
-import com.cezarykluczynski.stapi.model.common.entity.Gender;
+import com.cezarykluczynski.stapi.model.common.entity.enums.Gender;
 import com.cezarykluczynski.stapi.server.common.dto.PageAwareBeanParams;
 
 import javax.ws.rs.FormParam;

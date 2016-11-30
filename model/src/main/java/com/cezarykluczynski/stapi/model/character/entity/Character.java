@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.model.character.entity;
 
-import com.cezarykluczynski.stapi.model.common.entity.BloodType;
-import com.cezarykluczynski.stapi.model.common.entity.Gender;
-import com.cezarykluczynski.stapi.model.common.entity.MaritalStatus;
+import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType;
+import com.cezarykluczynski.stapi.model.common.entity.enums.Gender;
+import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;

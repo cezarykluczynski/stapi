@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.individual.processor
 
-import com.cezarykluczynski.stapi.model.common.entity.MaritalStatus
+import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus
 import spock.lang.Specification
 import spock.lang.Unroll
 

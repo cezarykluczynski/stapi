@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.individual.processor;
 
-import com.cezarykluczynski.stapi.model.common.entity.BloodType;
+import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

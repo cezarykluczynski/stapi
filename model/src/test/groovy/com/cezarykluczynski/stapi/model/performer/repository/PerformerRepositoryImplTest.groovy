@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.model.performer.repository
 
 import com.cezarykluczynski.stapi.model.common.dto.RequestOrderDTO
-import com.cezarykluczynski.stapi.model.common.entity.Gender
+import com.cezarykluczynski.stapi.model.common.entity.enums.Gender
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO
 import com.cezarykluczynski.stapi.model.performer.entity.Performer

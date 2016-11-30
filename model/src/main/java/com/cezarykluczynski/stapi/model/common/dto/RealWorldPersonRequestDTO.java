@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.model.common.dto;
 
 
-import com.cezarykluczynski.stapi.model.common.entity.Gender;
+import com.cezarykluczynski.stapi.model.common.entity.enums.Gender;
 import lombok.Data;
 
 import java.time.LocalDate;

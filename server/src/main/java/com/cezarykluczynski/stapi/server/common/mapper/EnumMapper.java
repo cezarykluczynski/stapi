@@ -3,9 +3,9 @@ package com.cezarykluczynski.stapi.server.common.mapper;
 import com.cezarykluczynski.stapi.client.v1.soap.BloodTypeEnum;
 import com.cezarykluczynski.stapi.client.v1.soap.GenderEnum;
 import com.cezarykluczynski.stapi.client.v1.soap.MaritalStatusEnum;
-import com.cezarykluczynski.stapi.model.common.entity.BloodType;
-import com.cezarykluczynski.stapi.model.common.entity.Gender;
-import com.cezarykluczynski.stapi.model.common.entity.MaritalStatus;
+import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType;
+import com.cezarykluczynski.stapi.model.common.entity.enums.Gender;
+import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import org.mapstruct.Mapper;
 

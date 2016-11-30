@@ -7,8 +7,8 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PartToGen
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualLifeBoundaryDTO
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
-import com.cezarykluczynski.stapi.model.common.entity.BloodType
-import com.cezarykluczynski.stapi.model.common.entity.MaritalStatus
+import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType
+import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus
 import com.cezarykluczynski.stapi.model.page.entity.Page as PageEntity
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink

@@ -11,8 +11,8 @@ public abstract class AbstractActorTemplateProcessor {
 	protected void processCommonFields(RealWorldPerson realWorldPerson, ActorTemplate actorTemplate) {
 		Gender gender = actorTemplate.getGender();
 		DateRange lifeRange = ObjectUtils.defaultIfNull(actorTemplate.getLifeRange(), new DateRange());
-		com.cezarykluczynski.stapi.model.common.entity.Gender genderModel = gender != null ?
-				com.cezarykluczynski.stapi.model.common.entity.Gender.valueOf(gender.name()) : null;
+		com.cezarykluczynski.stapi.model.common.entity.enums.Gender genderModel = gender != null ?
+				com.cezarykluczynski.stapi.model.common.entity.enums.Gender.valueOf(gender.name()) : null;
 
 		realWorldPerson.setName(actorTemplate.getName());
 		realWorldPerson.setPage(actorTemplate.getPage());

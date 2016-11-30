@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.individual.processor
 
-import com.cezarykluczynski.stapi.model.common.entity.BloodType
+import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType
 import spock.lang.Specification
 import spock.lang.Unroll
 

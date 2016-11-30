@@ -53,6 +53,20 @@ class PageApiImplTest extends Specification {
 		page.pageId == PAGE_ID_1
 		page.title == TITLE_1
 		page.mediaWikiSource == MEDIA_WIKI_SOURCE
+
+		then: 'sections are parsed'
+		page.sections[0].anchor == 'Biography'
+		page.sections[0].byteOffset == 11
+		page.sections[0].number == '1'
+		page.sections[0].level == 2
+		page.sections[0].text == 'Biography'
+		page.sections[0].wikitext == 'Biography content.'
+		page.sections[1].anchor == 'Star_Trek'
+		page.sections[1].byteOffset == 46
+		page.sections[1].number == '2'
+		page.sections[1].level == 2
+		page.sections[1].text == '<i>Star Trek</i>'
+		page.sections[1].wikitext == 'Star Trek content.'
 	}
 
 	def "returns page when there is no wikitext"() {
@@ -142,12 +156,25 @@ class PageApiImplTest extends Specification {
 	}
 
 	private static String createXml(String title, Long pageId, withWikitext = true) {
-		String wikitext = withWikitext ? '<wikitext xml:space="preserve"> Some wikitext </wikitext>' : ''
+		String wikitext = withWikitext ? '''<wikitext xml:space="preserve">
+Ten chars.
+== Biography ==
+Biography content.
+== Star Trek ==
+Star Trek content.
+				</wikitext>''' : ''
+		String sections = withWikitext ? '''<sections>
+				<s toclevel="1" level="2" line="Biography" number="1" index="1" fromtitle="Patrick_Stewart"
+						byteoffset="11" anchor="Biography"/>
+				<s toclevel="1" level="2" line="&lt;i&gt;Star Trek&lt;/i&gt;" number="2" index="2" fromtitle="Patrick_Stewart"
+						byteoffset="46" anchor="Star_Trek"/>
+		</sections>''' : ''
 		return """
 			<api>
 				<parse title=\"${title}\" pageid=\"${pageId}\">
 					<parsetree xml:space="preserve">&lt;root&gt;&lt;/root&gt;</parsetree>
 					${wikitext}
+					${sections}
 				</parse>
 			</api>
 		"""

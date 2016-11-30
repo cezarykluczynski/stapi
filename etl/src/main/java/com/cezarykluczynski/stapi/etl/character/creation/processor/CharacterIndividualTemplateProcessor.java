@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.character.creation.processor;
 
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
-import com.cezarykluczynski.stapi.model.common.entity.Gender;
+import com.cezarykluczynski.stapi.model.common.entity.enums.Gender;
 import com.cezarykluczynski.stapi.model.common.service.GuidGenerator;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;

@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.api;
 
+import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.connector.bliki.BlikiConnector;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
@@ -7,16 +8,21 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.parser.XMLParseParser;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
 public class PageApiImpl implements PageApi {
 
 	private static final String REDIRECT_PREFIX = "#redirect";
+	private static final Pattern SECTION_HEADER = Pattern.compile("(={1,6})(?!=.+?)(={1,6})");
 
 	private BlikiConnector blikiConnector;
 
@@ -38,6 +44,7 @@ public class PageApiImpl implements PageApi {
 		Page page = parsePageInfo(pageBody);
 
 		if (page != null) {
+			supplementSectionsWikitext(page);
 			page.setMediaWikiSource(mediaWikiSource);
 		}
 
@@ -73,6 +80,35 @@ public class PageApiImpl implements PageApi {
 		}
 
 		return page;
+	}
+
+	private void supplementSectionsWikitext(Page page) {
+		List<PageSection> sortedPageSectionList = page.getSections()
+				.stream()
+				.sorted((left, right) -> left.getByteOffset().compareTo(right.getByteOffset()))
+				.collect(Collectors.toList());
+		String wikitext = page.getWikitext();
+
+		for (int i = 0; i < sortedPageSectionList.size(); i++) {
+			PageSection pageSection = sortedPageSectionList.get(i);
+			Integer nextIndex;
+
+			try {
+				nextIndex = sortedPageSectionList.get(i + 1).getByteOffset();
+			} catch (IndexOutOfBoundsException e) {
+				nextIndex = wikitext.length();
+			}
+
+			String sectionWikitext = wikitext.substring(pageSection.getByteOffset(), nextIndex);
+
+			Matcher matcher = SECTION_HEADER.matcher(sectionWikitext);
+
+			if (matcher.find()) {
+				sectionWikitext = sectionWikitext.substring(matcher.end(), sectionWikitext.length());
+			}
+
+			sortedPageSectionList.get(i).setWikitext(StringUtils.trim(sectionWikitext));
+		}
 	}
 
 	@Override

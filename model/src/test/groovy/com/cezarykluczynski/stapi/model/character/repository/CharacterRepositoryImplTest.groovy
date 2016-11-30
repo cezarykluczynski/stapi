@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.character.entity.Character_
 import com.cezarykluczynski.stapi.model.character.query.CharacterQueryBuilderFactory
 import com.cezarykluczynski.stapi.model.common.dto.RequestOrderDTO
-import com.cezarykluczynski.stapi.model.common.entity.Gender
+import com.cezarykluczynski.stapi.model.common.entity.enums.Gender
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.util.tool.LogicUtil
 import com.google.common.collect.Lists

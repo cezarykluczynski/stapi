@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.parser;
 
+import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
-import com.google.common.collect.Lists;
 import info.bliki.api.AbstractXMLParser;
 import lombok.Getter;
 import org.w3c.dom.Document;
@@ -21,11 +21,17 @@ public class XMLParseParser extends AbstractXMLParser {
 
 	private static final String API = "api";
 	private static final String PARSE = "parse";
-	private static final String CATEGORIES = "categories";
 	private static final String WIKITEXT = "wikitext";
+	private static final String SECTIONS = "sections";
 	private static final String CL = "cl";
+	private static final String S = "s";
 	private static final String TITLE = "title";
 	private static final String PAGE_ID = "pageid";
+	private static final String LEVEL = "level";
+	private static final String LINE = "line";
+	private static final String ANCHOR = "anchor";
+	private static final String NUMBER = "number";
+	private static final String BYTE_OFFSET = "byteoffset";
 
 	@Getter
 	private Page page;
@@ -37,6 +43,8 @@ public class XMLParseParser extends AbstractXMLParser {
 	private boolean isCL;
 
 	private boolean isWikitext;
+
+	private boolean isSections;
 
 	private String xmlTextContent;
 
@@ -63,16 +71,26 @@ public class XMLParseParser extends AbstractXMLParser {
 			hasParse = true;
 		}
 
-		if (hasParse && CATEGORIES.equals(qName)) {
-			page.setCategories(Lists.newArrayList());
-		}
-
 		if (hasParse && WIKITEXT.equals(qName)) {
 			isWikitext = true;
 		}
 
 		if (hasParse && CL.equals(qName)) {
 			isCL = true;
+		}
+
+		if (hasParse && SECTIONS.equals(qName)) {
+			isSections = true;
+		}
+
+		if (isSections && S.equals(qName)) {
+			PageSection pageSection = new PageSection();
+			pageSection.setAnchor(attributes.getValue(ANCHOR));
+			pageSection.setByteOffset(Integer.valueOf(attributes.getValue(BYTE_OFFSET)));
+			pageSection.setLevel(Integer.valueOf(attributes.getValue(LEVEL)));
+			pageSection.setNumber(attributes.getValue(NUMBER));
+			pageSection.setText(attributes.getValue(LINE));
+			page.getSections().add(pageSection);
 		}
 	}
 
@@ -107,6 +125,9 @@ public class XMLParseParser extends AbstractXMLParser {
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		isCL = false;
 		isWikitext = false;
+		if (SECTIONS.equals(qName)) {
+			isSections = false;
+		}
 	}
 
 	private void setParsetreeXml(String xml) {

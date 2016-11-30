@@ -2,11 +2,11 @@ package com.cezarykluczynski.stapi.server.common.mapper
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.Gender as RestGenderEnum
 import com.cezarykluczynski.stapi.client.v1.soap.GenderEnum as SoapGenderEnum
-import com.cezarykluczynski.stapi.model.common.entity.Gender as GenderEntity
-import com.cezarykluczynski.stapi.model.common.entity.MaritalStatus as MaritalStatusEntity
+import com.cezarykluczynski.stapi.model.common.entity.enums.Gender as GenderEntity
+import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus as MaritalStatusEntity
 import com.cezarykluczynski.stapi.client.v1.soap.MaritalStatusEnum as SoapMaritalStatusEnum
 import com.cezarykluczynski.stapi.client.v1.soap.BloodTypeEnum as SoapBloodTypeEnum
-import com.cezarykluczynski.stapi.model.common.entity.BloodType as BloodTypeEntity
+import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType as BloodTypeEntity
 import com.cezarykluczynski.stapi.client.v1.rest.model.MaritalStatus as RestMaritalStatusEnum
 import com.cezarykluczynski.stapi.client.v1.rest.model.BloodType as RestBloodTypeEnum
 import org.mapstruct.factory.Mappers

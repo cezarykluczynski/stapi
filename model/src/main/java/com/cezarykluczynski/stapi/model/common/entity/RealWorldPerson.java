@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.model.common.entity;
 
+import com.cezarykluczynski.stapi.model.common.entity.enums.Gender;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

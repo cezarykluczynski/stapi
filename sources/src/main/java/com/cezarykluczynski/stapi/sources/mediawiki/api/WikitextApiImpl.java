@@ -44,4 +44,5 @@ public class WikitextApiImpl implements WikitextApi {
 
 		return allMatches;
 	}
+
 }

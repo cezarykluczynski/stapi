@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.etl.template.individual.dto;
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.Gender;
-import com.cezarykluczynski.stapi.model.common.entity.BloodType;
-import com.cezarykluczynski.stapi.model.common.entity.MaritalStatus;
+import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType;
+import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus;
 import com.cezarykluczynski.stapi.model.page.entity.Page;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.google.common.collect.Sets;

@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.model.common.entity;
+package com.cezarykluczynski.stapi.model.common.entity.enums;
 
 public enum MaritalStatus {
 

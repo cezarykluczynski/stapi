@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.episode.creation.configuration;
 
 import com.cezarykluczynski.stapi.etl.common.service.JobCompletenessDecider;
 import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeReader;
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryNames;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
@@ -36,13 +36,9 @@ public class EpisodeCreationConfiguration {
 		List<PageHeader> episodes = Lists.newArrayList();
 
 		if (!jobCompletenessDecider.isStepComplete(JobCompletenessDecider.STEP_005_CREATE_EPISODES)) {
-			episodes.addAll(categoryApi.getPages(CategoryName.TOS_EPISODES, MediaWikiSource.MEMORY_ALPHA_EN));
-			episodes.addAll(categoryApi.getPages(CategoryName.TAS_EPISODES, MediaWikiSource.MEMORY_ALPHA_EN));
-			episodes.addAll(categoryApi.getPages(CategoryName.TNG_EPISODES, MediaWikiSource.MEMORY_ALPHA_EN));
-			episodes.addAll(categoryApi.getPages(CategoryName.DS9_EPISODES, MediaWikiSource.MEMORY_ALPHA_EN));
-			episodes.addAll(categoryApi.getPages(CategoryName.VOY_EPISODES, MediaWikiSource.MEMORY_ALPHA_EN));
-			episodes.addAll(categoryApi.getPages(CategoryName.ENT_EPISODES, MediaWikiSource.MEMORY_ALPHA_EN));
-			episodes.addAll(categoryApi.getPages(CategoryName.DIS_EPISODES, MediaWikiSource.MEMORY_ALPHA_EN));
+			CategoryNames.EPISODES
+					.stream()
+					.forEachOrdered(episode -> episodes.addAll(categoryApi.getPages(episode, MediaWikiSource.MEMORY_ALPHA_EN)));
 		}
 
 		return new EpisodeReader(episodes);
