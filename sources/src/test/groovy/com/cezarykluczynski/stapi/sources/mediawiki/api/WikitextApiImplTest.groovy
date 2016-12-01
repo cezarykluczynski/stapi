@@ -5,6 +5,8 @@ import spock.lang.Specification
 
 class WikitextApiImplTest extends Specification {
 
+	private static final String WIKITEXT = "blah blah [[Some page|description]] and [[another page]] blah blah [[blah"
+
 	WikitextApiImpl wikitextApiImpl
 
 	def setup() {
@@ -14,7 +16,7 @@ class WikitextApiImplTest extends Specification {
 	def "gets titles from wikitext"() {
 		when:
 		List<String> pageList = wikitextApiImpl
-				.getPageTitlesFromWikitext("blah blah [[Some page|some page]] and [[another page]] blah blah [[blah")
+				.getPageTitlesFromWikitext(WIKITEXT)
 
 		then:
 		pageList.size() == 2
@@ -25,7 +27,7 @@ class WikitextApiImplTest extends Specification {
 	def "gets page links from wikitext"() {
 		when:
 		List<PageLink> pageList = wikitextApiImpl
-				.getPageLinksFromWikitext("blah blah [[Some page|description]] and [[another page]] blah blah [[blah")
+				.getPageLinksFromWikitext(WIKITEXT)
 
 		then:
 		pageList.size() == 2

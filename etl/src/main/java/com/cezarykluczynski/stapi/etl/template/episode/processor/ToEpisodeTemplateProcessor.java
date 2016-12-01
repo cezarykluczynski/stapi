@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.episode.processor;
 
-import com.cezarykluczynski.stapi.etl.template.common.processor.linker.EpisodePerformancesLinkingWorker;
+import com.cezarykluczynski.stapi.etl.template.common.linker.EpisodePerformancesLinkingWorker;
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import org.springframework.batch.item.ItemProcessor;

@@ -1,11 +1,12 @@
-package com.cezarykluczynski.stapi.etl.template.common.processor.linker;
+package com.cezarykluczynski.stapi.etl.template.common.linker;
 
 import com.cezarykluczynski.stapi.etl.common.processor.LinkingWorker;
+import com.cezarykluczynski.stapi.etl.template.common.dto.EpisodePerformanceDTO;
+import com.cezarykluczynski.stapi.etl.template.common.service.EpisodePerformancesExtractor;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryNames;
 import com.cezarykluczynski.stapi.model.character.repository.CharacterRepository;
 import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import org.springframework.stereotype.Service;
@@ -20,14 +21,14 @@ public class EpisodePerformancesLinkingWorker implements LinkingWorker<Page> {
 
 	private PerformerRepository performerRepository;
 
-	private WikitextApi wikitextApi;
+	private EpisodePerformancesExtractor episodePerformancesExtractor;
 
 	@Inject
 	public EpisodePerformancesLinkingWorker(CharacterRepository characterRepository,
-			PerformerRepository performerRepository, WikitextApi wikitextApi) {
+			PerformerRepository performerRepository, EpisodePerformancesExtractor episodePerformancesExtractor) {
 		this.characterRepository = characterRepository;
 		this.performerRepository = performerRepository;
-		this.wikitextApi = wikitextApi;
+		this.episodePerformancesExtractor = episodePerformancesExtractor;
 	}
 
 	@Override
@@ -36,7 +37,9 @@ public class EpisodePerformancesLinkingWorker implements LinkingWorker<Page> {
 			return;
 		}
 
-		// TODO
+		List<EpisodePerformanceDTO> episodePerformances = episodePerformancesExtractor.getEpisodePerformances(source);
+
+
 }
 
 	private boolean isEpisodePage(Page source) {

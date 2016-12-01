@@ -1,10 +1,10 @@
 package com.cezarykluczynski.stapi.etl.common.processor.linker
 
-import com.cezarykluczynski.stapi.etl.template.common.processor.linker.EpisodePerformancesLinkingWorker
+import com.cezarykluczynski.stapi.etl.template.common.linker.EpisodePerformancesLinkingWorker
+import com.cezarykluczynski.stapi.etl.template.common.service.EpisodePerformancesExtractor
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
 import com.cezarykluczynski.stapi.model.character.repository.CharacterRepository
 import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.google.common.collect.Lists
@@ -16,16 +16,16 @@ class EpisodePerformancesLinkingWorkerTest extends Specification {
 
 	private PerformerRepository performerRepositoryMock
 
-	private WikitextApi wikitextApiMock
+	private EpisodePerformancesExtractor episodePerformancesExtractorMock
 
 	private EpisodePerformancesLinkingWorker episodePerformancesLinkingProcessor
 
 	def setup() {
 		characterRepositoryMock = Mock(CharacterRepository)
 		performerRepositoryMock = Mock(PerformerRepository)
-		wikitextApiMock = Mock(WikitextApi)
+		episodePerformancesExtractorMock = Mock(EpisodePerformancesExtractor)
 		episodePerformancesLinkingProcessor = new EpisodePerformancesLinkingWorker(characterRepositoryMock,
-				performerRepositoryMock, wikitextApiMock)
+				performerRepositoryMock, episodePerformancesExtractorMock)
 	}
 
 	def "does not interact with repositories when page does not have episode category"() {
@@ -46,6 +46,22 @@ class EpisodePerformancesLinkingWorkerTest extends Specification {
 		))
 
 		then:
+		0 * _
+	}
+
+	def "when page has category episode, EpisodePerformancesExtractor is called"() {
+		given:
+		Page page = new Page(
+				categories: Lists.newArrayList(
+						new CategoryHeader(title: CategoryName.TOS_EPISODES)
+				)
+		)
+
+		when:
+		episodePerformancesLinkingProcessor.link(page)
+
+		then:
+		1 * episodePerformancesExtractorMock.getEpisodePerformances(page)
 		0 * _
 	}
 
