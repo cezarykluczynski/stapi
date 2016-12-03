@@ -21,6 +21,10 @@ public class CharacterIndividualTemplateProcessor implements ItemProcessor<Indiv
 
 	@Override
 	public Character process(IndividualTemplate item) throws Exception {
+		if (item.isProductOfRedirect()) {
+			return null;
+		}
+
 		Character character = new Character();
 
 		character.setName(item.getName());

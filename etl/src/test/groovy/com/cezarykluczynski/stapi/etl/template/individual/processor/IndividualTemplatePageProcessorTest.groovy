@@ -15,6 +15,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource as SourcesMediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.ReflectionTestUtils
 import com.cezarykluczynski.stapi.util.constant.PageName
@@ -202,7 +203,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		0 * _
 		individualTemplate.name == TITLE
 		individualTemplate.page == pageEntity
-		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 3
+		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 4
 	}
 
 	def "sets name from page title, and cuts brackets when they are present"() {
@@ -219,7 +220,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		then:
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> new PageEntity()
 		individualTemplate.name == TITLE
-		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 3
+		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 4
 	}
 
 	def "sets gender from PartToGenderProcessor"() {
@@ -237,7 +238,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> new PageEntity()
 		0 * _
 		individualTemplate.gender == GENDER
-		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 4
+		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 5
 	}
 
 	def "when actor key is found, part is passed to IndividualActorLinkingProcessor"() {
@@ -279,7 +280,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> new PageEntity()
 		0 * _
 		individualTemplate.height == HEIGHT
-		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 4
+		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 5
 	}
 
 	def "sets weight from IndividualWeightProcessor"() {
@@ -299,7 +300,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> new PageEntity()
 		0 * _
 		individualTemplate.weight == WEIGHT
-		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 4
+		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 5
 	}
 
 	def "sets serial number when it is not empty"() {
@@ -318,7 +319,36 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> new PageEntity()
 		0 * _
 		individualTemplate.serialNumber == VALUE
-		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 4
+		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 5
+	}
+
+	def "sets productOfRedirect flag to true"() {
+		given:
+		Page page = new Page(
+				title: TITLE,
+				redirectPath: Lists.newArrayList(Mock(PageHeader))
+		)
+		wikitextApiMock.getPageLinksFromWikitext(_) >> Lists.newArrayList()
+
+		when:
+		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
+
+		then:
+		individualTemplate.productOfRedirect
+	}
+
+	def "sets productOfRedirect flag to false"() {
+		given:
+		Page page = new Page(
+				title: TITLE
+		)
+		wikitextApiMock.getPageLinksFromWikitext(_) >> Lists.newArrayList()
+
+		when:
+		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
+
+		then:
+		!individualTemplate.productOfRedirect
 	}
 
 	def "does not set serial number when it is not empty"() {
@@ -338,7 +368,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> pageEntity
 		0 * _
 		individualTemplate.serialNumber == null
-		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 3
+		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 4
 	}
 
 	def "sets birth values from IndividualLifeBoundaryProcessor"() {
@@ -367,7 +397,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		individualTemplate.monthOfBirth == MONTH
 		individualTemplate.dayOfBirth == DAY
 		individualTemplate.placeOfBirth == PLACE
-		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 7
+		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 8
 	}
 
 	def "sets death values from IndividualLifeBoundaryProcessor"() {
@@ -396,7 +426,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		individualTemplate.monthOfDeath == MONTH
 		individualTemplate.dayOfDeath == DAY
 		individualTemplate.placeOfDeath == PLACE
-		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 7
+		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 8
 	}
 
 	def "sets marital status from IndividualMaritalStatusProcessor"() {
@@ -416,7 +446,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> new PageEntity()
 		0 * _
 		individualTemplate.maritalStatus == MARITAL_STATUS
-		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 4
+		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 5
 	}
 
 	def "sets blood type from IndividualBloodTypeProcessor"() {
@@ -436,7 +466,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> new PageEntity()
 		0 * _
 		individualTemplate.bloodType == BLOOD_TYPE
-		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 4
+		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 5
 	}
 
 	private static Page createPageWithTemplatePart(Template.Part templatePart) {

@@ -94,6 +94,7 @@ public class IndividualTemplatePageProcessor extends AbstractTemplateProcessor
 		IndividualTemplate individualTemplate = new IndividualTemplate();
 		individualTemplate.setName(TitleUtil.getNameFromTitle(item.getTitle()));
 		individualTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
+		individualTemplate.setProductOfRedirect(!item.getRedirectPath().isEmpty());
 
 		if (!templateOptional.isPresent()) {
 			return individualTemplate;
