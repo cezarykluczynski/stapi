@@ -38,10 +38,10 @@ public class EpisodePerformancesLinkingWorker implements LinkingWorker<Page, Epi
 	}
 
 	@Override
-	public void link(Page source, Episode episode) {
+	public void link(Page source, Episode baseEntity) {
 		List<EpisodePerformanceDTO> episodePerformances = episodePerformancesExtractor.getEpisodePerformances(source);
 		EpisodePerformancesEntitiesDTO episodePerformancesEntitiesDTO = episodePerformancesToEntityMapper
-				.mapToEntities(episodePerformances, episode);
+				.mapToEntities(episodePerformances, baseEntity);
 
 		characterRepository.save(episodePerformancesEntitiesDTO.getCharacterSet());
 		performerRepository.save(episodePerformancesEntitiesDTO.getPerformerSet());

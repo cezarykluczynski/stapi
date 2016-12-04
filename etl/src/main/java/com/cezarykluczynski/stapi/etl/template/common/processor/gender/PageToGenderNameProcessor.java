@@ -34,7 +34,7 @@ public class PageToGenderNameProcessor implements ItemProcessor<Page, Gender> {
 		NameGender nameGender = genderizeClient.getNameGender(name);
 
 		if (nameGender == null) {
-			log.warn("Could not determine gender of {} using external API because response was invalid",
+			log.info("Could not determine gender of {} using external API because response was invalid",
 					item.getTitle());
 			return null;
 		}
@@ -42,7 +42,7 @@ public class PageToGenderNameProcessor implements ItemProcessor<Page, Gender> {
 		String foundGender = nameGender.getGender();
 
 		if (foundGender == null) {
-			log.warn("Could not determine gender of {} using external API", item.getTitle());
+			log.info("Could not determine gender of {} using external API", item.getTitle());
 			return null;
 		}
 

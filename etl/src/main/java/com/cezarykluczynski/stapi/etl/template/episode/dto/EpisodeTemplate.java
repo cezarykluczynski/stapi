@@ -32,10 +32,6 @@ public class EpisodeTemplate {
 
 	private LocalDate usAirDate;
 
-	private LocalDate ukAirDate;
-
-	private LocalDate revisedFinalDraftScriptDate;
-
-	private LocalDate secondRevisedFinalDraftScriptDate;
+	private LocalDate finalScriptDate;
 
 }

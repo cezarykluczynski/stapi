@@ -40,7 +40,7 @@ public class PageToGenderPronounProcessor implements ItemProcessor<Page, Gender>
 			}
 			return Gender.F;
 		} else if (femaleFindings == maleFindings && maleFindings > 0) {
-			log.warn("Could not determine gender of {}, because equal number of male and female pronouns found ({})",
+			log.info("Could not determine gender of {}, because equal number of male and female pronouns found ({})",
 					item.getTitle(), maleFindings);
 			return null;
 		}

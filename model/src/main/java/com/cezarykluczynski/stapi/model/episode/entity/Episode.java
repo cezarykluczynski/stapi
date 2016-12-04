@@ -50,13 +50,7 @@ public class Episode extends PageAwareEntity implements PageAware {
 
 	private LocalDate usAirDate;
 
-	private LocalDate ukAirDate;
-
-	@Column(name = "revised_script_date")
-	private LocalDate revisedFinalDraftScriptDate;
-
-	@Column(name = "second_revised_script_date")
-	private LocalDate secondRevisedFinalDraftScriptDate;
+	private LocalDate finalScriptDate;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "episodes_writers",

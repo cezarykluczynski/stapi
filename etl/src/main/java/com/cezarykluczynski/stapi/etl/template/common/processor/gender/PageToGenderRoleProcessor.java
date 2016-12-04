@@ -46,7 +46,7 @@ public class PageToGenderRoleProcessor implements ItemProcessor<Page, Gender> {
 
 		if (position == -1) {
 			if (isPerformer(item)) {
-				log.warn("Could not determine gender of {} from played roles", item.getTitle());
+				log.info("Could not determine gender of {} from played roles", item.getTitle());
 			}
 			return null;
 		}
@@ -70,13 +70,13 @@ public class PageToGenderRoleProcessor implements ItemProcessor<Page, Gender> {
 							gender, item.getTitle(), page.getTitle());
 					return gender;
 				} else {
-					log.warn("Performer {} played individual {}, but the latter has no gender specified.",
+					log.info("Performer {} played individual {}, but the latter have no gender specified.",
 							item.getTitle(), page.getTitle());
 				}
 			}
 		}
 
-		log.warn("Could not guess gender of performer {} from pages {}", item.getTitle(),
+		log.info("Could not guess gender of performer {} from pages {}", item.getTitle(),
 				pageList.stream().map(Page::getTitle).collect(Collectors.toList()));
 
 		return null;
