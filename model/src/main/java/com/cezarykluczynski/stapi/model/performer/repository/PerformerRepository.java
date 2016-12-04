@@ -9,4 +9,7 @@ public interface PerformerRepository extends JpaRepository<Performer, Long>, Per
 
 	Optional<Performer> findByPageTitle(String title);
 
+	Optional<Performer> findByName(String name);
+
+	Optional<Performer> findByPagePageId(Long pageId);
 }

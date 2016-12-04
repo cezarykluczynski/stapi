@@ -68,8 +68,15 @@ public class PageApiImpl implements PageApi {
 				log.warn("Page {} appears to be redirect, but no page to redirect to was found", title);
 				return page;
 			} else {
-				log.info("Following redirect from {} to {}", title, redirects.get(0));
-				Page redirectPage = getPage(redirects.get(0), redirectCount + 1, mediaWikiSource);
+				String redirectTarget = redirects.get(0);
+				log.info("Following redirect from {} to {}", title, redirectTarget);
+				Page redirectPage = getPage(redirectTarget, redirectCount + 1, mediaWikiSource);
+
+				if (redirectPage == null) {
+					log.warn("Redirect {} leaded to unexisting page", redirectTarget);
+					return null;
+				}
+
 				redirectPage.getRedirectPath().add(PageHeader.builder()
 						.title(title)
 						.pageId(page.getPageId())

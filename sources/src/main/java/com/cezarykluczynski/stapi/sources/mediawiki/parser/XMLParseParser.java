@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import info.bliki.api.AbstractXMLParser;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.w3c.dom.Document;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -17,6 +18,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
+@Slf4j
 public class XMLParseParser extends AbstractXMLParser {
 
 	private static final String API = "api";
@@ -86,7 +88,12 @@ public class XMLParseParser extends AbstractXMLParser {
 		if (isSections && S.equals(qName)) {
 			PageSection pageSection = new PageSection();
 			pageSection.setAnchor(attributes.getValue(ANCHOR));
-			pageSection.setByteOffset(Integer.valueOf(attributes.getValue(BYTE_OFFSET)));
+			try {
+				pageSection.setByteOffset(Integer.valueOf(attributes.getValue(BYTE_OFFSET)));
+			} catch(NumberFormatException e) {
+				pageSection.setByteOffset(0);
+				log.error("Page {} section {} does not have byte offset specified", page, pageSection.getAnchor());
+			}
 			pageSection.setLevel(Integer.valueOf(attributes.getValue(LEVEL)));
 			pageSection.setNumber(attributes.getValue(NUMBER));
 			pageSection.setText(attributes.getValue(LINE));

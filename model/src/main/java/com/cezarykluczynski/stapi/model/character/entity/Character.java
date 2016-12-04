@@ -16,7 +16,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true)
+@ToString(callSuper = true, exclude = {"performers"})
 @EqualsAndHashCode(callSuper = true, exclude = {"performers"})
 public class Character extends PageAwareEntity implements PageAware {
 

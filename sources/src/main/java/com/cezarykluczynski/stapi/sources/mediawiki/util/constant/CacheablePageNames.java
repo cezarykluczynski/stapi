@@ -14,7 +14,11 @@ public class CacheablePageNames {
 
 	static {
 		SOURCES_TITLES.put(MediaWikiSource.MEMORY_ALPHA_EN, Lists.newArrayList(
-				PageName.STAR_TREK_GAME_PERFORMERS
+				PageName.STAR_TREK_GAME_PERFORMERS,
+				PageName.MAJEL_BARRETT,
+				PageName.MAJEL_BARRETT_RODDENBERRY,
+				PageName.DAVID_KEITH_ANDERSON,
+				PageName.DAVID_ANDERSON
 		));
 	}
 

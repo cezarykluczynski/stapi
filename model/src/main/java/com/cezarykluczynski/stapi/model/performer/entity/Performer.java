@@ -14,7 +14,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true)
+@ToString(callSuper = true, exclude = {"performances", "stuntPerformances", "standInPerformances", "characters"})
 @EqualsAndHashCode(callSuper = true,
 		exclude = {"performances", "stuntPerformances", "standInPerformances", "characters"})
 public class Performer extends RealWorldPerson implements PageAware {

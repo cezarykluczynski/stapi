@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.common.service
 
-import com.cezarykluczynski.stapi.etl.template.common.dto.EpisodePerformanceDTO
-import com.cezarykluczynski.stapi.etl.template.common.dto.enums.PerformanceType
+import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformanceDTO
+import com.cezarykluczynski.stapi.etl.template.common.dto.performance.enums.PerformanceType
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApiImpl
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
@@ -66,10 +66,11 @@ class EpisodePerformancesExtractorTest extends Specification {
 				starringPageSection,
 				unkownPageSection
 		)
-		4 * linksAndReferencesPageSection.getText() >> EpisodePerformancesExtractor.LINKS_AND_REFERENCES
+		3 * linksAndReferencesPageSection.getText() >> EpisodePerformancesExtractor.LINKS_AND_REFERENCES
 		2 * linksAndReferencesPageSection.getNumber() >> '4'
 		2 * starringPageSection.getText() >> EpisodePerformancesExtractor.STARRING
-		3 * unkownPageSection.getText() >> UNKNOWN_PAGE_SECTION
+		1 * unkownPageSection.getNumber() >> '4.1'
+		2 * unkownPageSection.getText() >> UNKNOWN_PAGE_SECTION
 	}
 
 	def "extracts the right links from the right sections"() {

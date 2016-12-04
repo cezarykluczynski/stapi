@@ -17,7 +17,8 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true)
+@ToString(callSuper = true, exclude = {"writers", "teleplayAuthors", "storyAuthors", "directors", "staff", "performers",
+		"stuntPerformers", "standInPerformers"})
 @EqualsAndHashCode(callSuper = true,
 		exclude = {"writers", "teleplayAuthors", "storyAuthors", "directors", "staff", "performers", "stuntPerformers",
 				"standInPerformers"})
@@ -33,7 +34,6 @@ public class Episode extends PageAwareEntity implements PageAware {
 	@JoinColumn(name = "series_id")
 	private Series series;
 
-	@Column(nullable = false)
 	private String title;
 
 	private Integer seasonNumber;
@@ -52,8 +52,10 @@ public class Episode extends PageAwareEntity implements PageAware {
 
 	private LocalDate ukAirDate;
 
+	@Column(name = "revised_script_date")
 	private LocalDate revisedFinalDraftScriptDate;
 
+	@Column(name = "second_revised_script_date")
 	private LocalDate secondRevisedFinalDraftScriptDate;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

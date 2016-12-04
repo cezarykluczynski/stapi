@@ -1,6 +1,6 @@
-package com.cezarykluczynski.stapi.etl.template.common.dto;
+package com.cezarykluczynski.stapi.etl.template.common.dto.performance;
 
-import com.cezarykluczynski.stapi.etl.template.common.dto.enums.PerformanceType;
+import com.cezarykluczynski.stapi.etl.template.common.dto.performance.enums.PerformanceType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

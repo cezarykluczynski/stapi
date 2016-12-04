@@ -54,7 +54,11 @@ public class DuplicateFilteringPreSavePageAwareFilter extends AbstractPreSavePag
 				inPageAwareRepositoryPageFinder.findByPagePageIdIn(pageIds, baseClass);
 
 		if (!pageList.isEmpty()) {
-			List<Long> foundPagePageIdList = pageList.stream().map(Page::getPageId).collect(Collectors.toList());
+			List<Long> foundPagePageIdList = pageList
+					.stream()
+					.map(Page::getPageId)
+					.collect(Collectors.toList());
+
 			for (int i = 0; i < pageAwareList.size(); i++) {
 				Long pageAwarePageId = pageAwareList.get(i).getPage().getPageId();
 				if (foundPagePageIdList.contains(pageAwarePageId)) {
@@ -74,6 +78,11 @@ public class DuplicateFilteringPreSavePageAwareFilter extends AbstractPreSavePag
 	}
 
 	private void removeAtIndices(List<Integer> indicesToRemove, List<PageAware> pageAwareList) {
+		indicesToRemove = indicesToRemove
+				.stream()
+				.sorted()
+				.collect(Collectors.toList());
+
 		for (int j = indicesToRemove.size() - 1; j >= 0; j--) {
 			int index = indicesToRemove.get(j);
 			pageAwareList.remove(index);

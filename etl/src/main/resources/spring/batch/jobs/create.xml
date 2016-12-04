@@ -63,7 +63,7 @@
 				<batch:step id="STEP_005_CREATE_EPISODES" parent="STEP_004_CREATE_CHARACTERS">
 					<batch:tasklet start-limit="1" allow-start-if-complete="false">
 						<batch:chunk
-								commit-interval="50"
+								commit-interval="1"
 								reader="episodeReader"
 								processor="episodeProcessor"
 								writer="episodeWriter"/>

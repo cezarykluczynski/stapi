@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.performer.creation.processor;
 
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter;
+import com.cezarykluczynski.stapi.model.page.service.DuplicateReattachingPreSavePageAwareFilter;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository;
 import org.springframework.batch.item.ItemWriter;
@@ -18,11 +19,15 @@ public class PerformerWriter implements ItemWriter<Performer> {
 
 	private DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
 
+	private DuplicateReattachingPreSavePageAwareFilter duplicateReattachingPreSavePageAwareFilter;
+
 	@Inject
 	public PerformerWriter(PerformerRepository performerRepository,
-			DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor) {
+			DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor,
+			DuplicateReattachingPreSavePageAwareFilter duplicateReattachingPreSavePageAwareFilter) {
 		this.performerRepository = performerRepository;
-		this.duplicateFilteringPreSavePageAwareProcessor = duplicateFilteringPreSavePageAwareProcessor;
+		this.duplicateFilteringPreSavePageAwareProcessor  = duplicateFilteringPreSavePageAwareProcessor;
+		this.duplicateReattachingPreSavePageAwareFilter = duplicateReattachingPreSavePageAwareFilter;
 	}
 
 	@Override
@@ -32,7 +37,9 @@ public class PerformerWriter implements ItemWriter<Performer> {
 
 	private List<Performer> process(List<? extends Performer> performerList) {
 		List<Performer> performerListWithoutExtends = fromExtendsListToPerformerList(performerList);
-		return filterDuplicates(performerListWithoutExtends);
+		List<Performer> performerListWithoutDuplicates = filterDuplicates(performerListWithoutExtends);
+		List<Performer> performerListWithAttachedPages = reattach(performerListWithoutDuplicates);
+		return filterDuplicates(performerListWithAttachedPages);
 	}
 
 	private List<Performer> fromExtendsListToPerformerList(List<? extends Performer> performerList) {
@@ -44,6 +51,14 @@ public class PerformerWriter implements ItemWriter<Performer> {
 
 	private List<Performer> filterDuplicates(List<Performer> performerList) {
 		return duplicateFilteringPreSavePageAwareProcessor.process(performerList.stream()
+				.map(performer -> (PageAware) performer)
+				.collect(Collectors.toList()), Performer.class).stream()
+				.map(pageAware -> (Performer) pageAware)
+				.collect(Collectors.toList());
+	}
+
+	private List<Performer> reattach(List<Performer> performerList) {
+		return duplicateReattachingPreSavePageAwareFilter.process(performerList.stream()
 				.map(performer -> (PageAware) performer)
 				.collect(Collectors.toList()), Performer.class).stream()
 				.map(pageAware -> (Performer) pageAware)

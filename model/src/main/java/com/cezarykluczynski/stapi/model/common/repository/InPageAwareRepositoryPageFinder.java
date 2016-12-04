@@ -38,7 +38,10 @@ public class InPageAwareRepositoryPageFinder {
 			return Lists.newArrayList();
 		}
 
-		return pageAwareList.stream().map(PageAware::getPage).collect(Collectors.toList());
+		return pageAwareList
+				.stream()
+				.map(PageAware::getPage)
+				.collect(Collectors.toList());
 	}
 
 }

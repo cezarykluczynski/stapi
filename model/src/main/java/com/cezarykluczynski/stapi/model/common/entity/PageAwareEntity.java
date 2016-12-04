@@ -5,10 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @MappedSuperclass
 @Data
@@ -20,6 +17,7 @@ public class PageAwareEntity {
 	@JoinColumn(name = "page_id")
 	private Page page;
 
+	@Column(length = 14)
 	private String guid;
 
 }

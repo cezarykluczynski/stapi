@@ -62,6 +62,6 @@
 	</logger>
 
 	<root>
-		<appender-ref ref="FULL"/>
+		<appender-ref ref="FULL" level="INFO"/>
 	</root>
 </configuration>

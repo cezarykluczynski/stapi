@@ -1,9 +1,15 @@
 package com.cezarykluczynski.stapi.etl.common.processor.linker
 
+import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformanceDTO
+import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformancesEntitiesDTO
 import com.cezarykluczynski.stapi.etl.template.common.linker.EpisodePerformancesLinkingWorker
 import com.cezarykluczynski.stapi.etl.template.common.service.EpisodePerformancesExtractor
+import com.cezarykluczynski.stapi.etl.template.common.service.EpisodePerformancesToEntityMapper
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
+import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.character.repository.CharacterRepository
+import com.cezarykluczynski.stapi.model.episode.entity.Episode
+import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
@@ -18,39 +24,26 @@ class EpisodePerformancesLinkingWorkerTest extends Specification {
 
 	private EpisodePerformancesExtractor episodePerformancesExtractorMock
 
+	private EpisodePerformancesToEntityMapper episodePerformancesToEntityMapperMock
+
 	private EpisodePerformancesLinkingWorker episodePerformancesLinkingProcessor
 
 	def setup() {
 		characterRepositoryMock = Mock(CharacterRepository)
 		performerRepositoryMock = Mock(PerformerRepository)
 		episodePerformancesExtractorMock = Mock(EpisodePerformancesExtractor)
+		episodePerformancesToEntityMapperMock = Mock(EpisodePerformancesToEntityMapper)
 		episodePerformancesLinkingProcessor = new EpisodePerformancesLinkingWorker(characterRepositoryMock,
-				performerRepositoryMock, episodePerformancesExtractorMock)
-	}
-
-	def "does not interact with repositories when page does not have episode category"() {
-		when:
-		episodePerformancesLinkingProcessor.link(new Page())
-
-		then:
-		0 * _
-	}
-
-	def "does not interact with repositories when page does have episode category, but the production lists category too"() {
-		when:
-		episodePerformancesLinkingProcessor.link(new Page(
-				categories: Lists.newArrayList(
-						new CategoryHeader(title: CategoryName.TOS_EPISODES),
-						new CategoryHeader(title: CategoryName.PRODUCTION_LISTS)
-				)
-		))
-
-		then:
-		0 * _
+				performerRepositoryMock, episodePerformancesExtractorMock, episodePerformancesToEntityMapperMock)
 	}
 
 	def "when page has category episode, EpisodePerformancesExtractor is called"() {
 		given:
+		List<EpisodePerformanceDTO> episodePerformanceDTOList = Mock(List)
+		Set<Character> charactersSet = Mock(Set)
+		Set<Performer> performersSet = Mock(Set)
+		EpisodePerformancesEntitiesDTO episodePerformancesEntitiesDTO = Mock(EpisodePerformancesEntitiesDTO)
+		Episode episode = Mock(Episode)
 		Page page = new Page(
 				categories: Lists.newArrayList(
 						new CategoryHeader(title: CategoryName.TOS_EPISODES)
@@ -58,11 +51,15 @@ class EpisodePerformancesLinkingWorkerTest extends Specification {
 		)
 
 		when:
-		episodePerformancesLinkingProcessor.link(page)
+		episodePerformancesLinkingProcessor.link(page, episode)
 
 		then:
-		1 * episodePerformancesExtractorMock.getEpisodePerformances(page)
-		0 * _
+		1 * episodePerformancesExtractorMock.getEpisodePerformances(page) >> episodePerformanceDTOList
+		1 * episodePerformancesToEntityMapperMock.mapToEntities(episodePerformanceDTOList, episode) >> episodePerformancesEntitiesDTO
+		1 * episodePerformancesEntitiesDTO.getCharacterSet() >> charactersSet
+		1 * characterRepositoryMock.save(charactersSet)
+		1 * episodePerformancesEntitiesDTO.getPerformerSet() >> performersSet
+		1 * performerRepositoryMock.save(performersSet)
 	}
 
 }

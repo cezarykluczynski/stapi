@@ -97,6 +97,18 @@ class PageApiImplTest extends Specification {
 		page.redirectPath[0].mediaWikiSource == MEDIA_WIKI_SOURCE
 	}
 
+	def "returns null when redirect follows to unexisting page"() {
+		when:
+		Page page = pageApiImpl.getPage(TITLE_1, MEDIA_WIKI_SOURCE)
+
+		then:
+		1 * blikiConnectorMock.getPage(TITLE_1, MEDIA_WIKI_SOURCE) >> XML_REDIRECT_1
+		1 * wikitextApiMock.getPageTitlesFromWikitext(_) >> Lists.newArrayList(TITLE_2)
+		1 * blikiConnectorMock.getPage(TITLE_2, MEDIA_WIKI_SOURCE) >> NOT_FOUND_XML
+		page == null
+	}
+
+
 	def "does not follow more than 2 redirects"() {
 		when:
 		Page page = pageApiImpl.getPage(TITLE_1, MEDIA_WIKI_SOURCE)

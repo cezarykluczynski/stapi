@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.common.service;
 
-import com.cezarykluczynski.stapi.etl.template.common.dto.EpisodePerformanceDTO;
-import com.cezarykluczynski.stapi.etl.template.common.dto.enums.PerformanceType;
+import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformanceDTO;
+import com.cezarykluczynski.stapi.etl.template.common.dto.performance.enums.PerformanceType;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection;
@@ -195,7 +195,7 @@ public class EpisodePerformancesExtractor {
 				.filter(pageSection -> {
 					String text = pageSection.getText();
 					return !PEFORMANCES_SECTION.contains(text) && !IGNORABLE_SECTIONS.contains(text) &&
-							!text.startsWith(mainSectionNumber);
+							text.startsWith(mainSectionNumber);
 				}).forEach(pageSection -> log.error("Unknown section {} in parent section {}",
 						pageSection.getText(),  LINKS_AND_REFERENCES));
 	}
