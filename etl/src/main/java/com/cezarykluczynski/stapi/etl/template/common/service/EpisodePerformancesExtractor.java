@@ -139,6 +139,10 @@ public class EpisodePerformancesExtractor {
 		List<String> lines = Lists.newArrayList(wikitext.split("\n"));
 
 		for (String line : lines) {
+			if (!line.startsWith("*")) {
+				continue;
+			}
+
 			List<PageLink> pageLinkList = wikitextApi.getPageLinksFromWikitext(line)
 					.stream()
 					.filter(pageLink -> !SKIPPABLE_PAGES.contains(pageLink.getTitle().toLowerCase()))
@@ -150,7 +154,8 @@ public class EpisodePerformancesExtractor {
 					.collect(Collectors.toList());
 
 			if (pageTitlesLowercase.stream()
-					.anyMatch(pageTitleToLowercase -> pageTitleToLowercase.startsWith("unnamed "))) {
+					.anyMatch(pageTitleToLowercase -> pageTitleToLowercase.startsWith("unnamed ") ||
+							pageTitleToLowercase.startsWith("unknown "))) {
 				continue;
 			}
 

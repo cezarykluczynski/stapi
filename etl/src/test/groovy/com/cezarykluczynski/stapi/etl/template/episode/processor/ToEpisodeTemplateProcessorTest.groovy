@@ -1,12 +1,19 @@
 package com.cezarykluczynski.stapi.etl.template.episode.processor
 
+import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.episode.creation.service.SeriesToEpisodeBindingService
 import com.cezarykluczynski.stapi.etl.template.common.linker.EpisodePerformancesLinkingWorker
+import com.cezarykluczynski.stapi.etl.template.common.linker.EpisodeStaffLinkingWorker
+import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
 import com.cezarykluczynski.stapi.model.episode.entity.Episode
+import com.cezarykluczynski.stapi.model.page.entity.Page as PageEntity
+import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.util.constant.TemplateName
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -15,21 +22,35 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 	private static final Long PAGE_ID = 1L
 	private static final String PAGE_TITLE = 'All Good Things... (episode)'
 	private static final String EPISODE_TITLE = 'All Good Things...'
+	private final Template SIDEBAR_EPISODE_TEMPLATE = new Template(
+			title: TemplateName.SIDEBAR_EPISODE
+	)
+	private final Series SERIES = Mock(Series)
+
+	private EpisodeTemplateProcessor episodeTemplateProcessorMock
 
 	private EpisodePerformancesLinkingWorker episodePerformancesLinkingWorkerMock
+
+	private EpisodeStaffLinkingWorker episodeStaffLinkingWorkerMock
 
 	private PageBindingService pageBindingServiceMock
 
 	private SeriesToEpisodeBindingService seriesToEpisodeBindingServiceMock
 
+	private EpisodeTemplateDatesEnrichingProcessor episodeTemplateDatesEnrichingProcessorMock
+
 	private ToEpisodeTemplateProcessor toEpisodeTemplateProcessor
 
 	def setup() {
+		episodeTemplateProcessorMock = Mock(EpisodeTemplateProcessor)
 		episodePerformancesLinkingWorkerMock = Mock(EpisodePerformancesLinkingWorker)
+		episodeStaffLinkingWorkerMock = Mock(EpisodeStaffLinkingWorker)
 		pageBindingServiceMock = Mock(PageBindingService)
 		seriesToEpisodeBindingServiceMock = Mock(SeriesToEpisodeBindingService)
-		toEpisodeTemplateProcessor = new ToEpisodeTemplateProcessor(episodePerformancesLinkingWorkerMock,
-				pageBindingServiceMock, seriesToEpisodeBindingServiceMock)
+		episodeTemplateDatesEnrichingProcessorMock = Mock(EpisodeTemplateDatesEnrichingProcessor)
+		toEpisodeTemplateProcessor = new ToEpisodeTemplateProcessor(episodeTemplateProcessorMock,
+				episodePerformancesLinkingWorkerMock, episodeStaffLinkingWorkerMock, pageBindingServiceMock,
+				seriesToEpisodeBindingServiceMock, episodeTemplateDatesEnrichingProcessorMock)
 	}
 
 
@@ -43,18 +64,20 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 
 	def "does not interact with dependencies when page does have episode category, but the production lists category too"() {
 		when:
-		toEpisodeTemplateProcessor.process(new Page(
+		EpisodeTemplate episodeTemplate = toEpisodeTemplateProcessor.process(new Page(
 				categories: Lists.newArrayList(
 						new CategoryHeader(title: CategoryName.TOS_EPISODES),
 						new CategoryHeader(title: CategoryName.PRODUCTION_LISTS)
-				)
+				),
+				templates: Lists.newArrayList(SIDEBAR_EPISODE_TEMPLATE)
 		))
 
 		then:
 		0 * _
+		episodeTemplate == null
 	}
 
-	def "passes page to EpisodePerformancesLinkingWorker"() {
+	def "does not interact with dependencies when page have episode category, but no template"() {
 		given:
 		Page page = new Page(
 				pageId: PAGE_ID,
@@ -65,11 +88,65 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 		)
 
 		when:
-		toEpisodeTemplateProcessor.process(page)
+		EpisodeTemplate episodeTemplate = toEpisodeTemplateProcessor.process(page)
 
 		then:
-		1 * episodePerformancesLinkingWorkerMock.link(page, _ as Episode)
+		0 * _
+		episodeTemplate == null
+	}
 
+	def "page is processed using dependencies"() {
+		given:
+		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(
+				new CategoryHeader(title: CategoryName.TOS_EPISODES)
+		)
+		Page page = new Page(
+				pageId: PAGE_ID,
+				title: PAGE_TITLE,
+				categories: categoryHeaderList,
+				templates: Lists.newArrayList(SIDEBAR_EPISODE_TEMPLATE)
+		)
+		PageEntity pageEntity = Mock(PageEntity)
+		Episode episodeStub = Mock(Episode)
+		EpisodeTemplate episodeTemplate = new EpisodeTemplate(
+				episodeStub: episodeStub
+		)
+
+		when:
+		EpisodeTemplate episodeTemplateOutput = toEpisodeTemplateProcessor.process(page)
+
+		then:
+		1 * episodeTemplateProcessorMock.process(SIDEBAR_EPISODE_TEMPLATE) >> episodeTemplate
+		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> pageEntity
+		1 * episodePerformancesLinkingWorkerMock.link(page, episodeStub)
+		1 * episodeStaffLinkingWorkerMock.link(page, episodeStub)
+		1 * seriesToEpisodeBindingServiceMock.mapCategoriesToSeries(categoryHeaderList) >> SERIES
+		1 * episodeTemplateDatesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair enrichablePair ->
+			enrichablePair.input == page
+			enrichablePair.output == episodeTemplate
+		}
+		0 * _
+		episodeTemplateOutput == episodeTemplate
+		episodeTemplateOutput.title == EPISODE_TITLE
+		episodeTemplateOutput.page == pageEntity
+		episodeTemplateOutput.series == SERIES
+	}
+
+	def "returns null when EpisodeTemplateProcessor returns null"() {
+		given:
+		Page page = new Page(
+				categories: Lists.newArrayList(
+						new CategoryHeader(title: CategoryName.TOS_EPISODES)
+				),
+				templates: Lists.newArrayList(SIDEBAR_EPISODE_TEMPLATE)
+		)
+
+		when:
+		EpisodeTemplate episodeTemplateOutput = toEpisodeTemplateProcessor.process(page)
+
+		then:
+		1 * episodeTemplateProcessorMock.process(_) >> null
+		episodeTemplateOutput == null
 	}
 
 }

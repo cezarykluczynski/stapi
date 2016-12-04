@@ -5,6 +5,8 @@ import com.cezarykluczynski.stapi.model.page.entity.Page;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 public class EpisodeTemplate {
 
@@ -15,5 +17,25 @@ public class EpisodeTemplate {
 	private String title;
 
 	private Episode episodeStub;
+
+	private Integer seasonNumber;
+
+	private Integer episodeNumber;
+
+	private String productionSerialNumber;
+
+	private Boolean featureLength;
+
+	private Float stardate;
+
+	private Integer year;
+
+	private LocalDate usAirDate;
+
+	private LocalDate ukAirDate;
+
+	private LocalDate revisedFinalDraftScriptDate;
+
+	private LocalDate secondRevisedFinalDraftScriptDate;
 
 }

@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.Gender
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.util.AbstractRealWorldPersonTest
 
-class AbstractRealWorldActorTemplateProcessorTest extends AbstractRealWorldPersonTest {
+abstract class AbstractRealWorldActorTemplateProcessorTest extends AbstractRealWorldPersonTest {
 
 	protected static final Gender GENDER = Gender.F
 	protected static final String GUID = 'GUID'
