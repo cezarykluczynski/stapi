@@ -183,6 +183,42 @@ class EpisodeTemplateProcessorTest extends Specification {
 		0 * _
 		episodeTemplate6.stardate == STARDATE
 		episodeTemplate6.year == null
+
+		when:
+		EpisodeTemplate episodeTemplate7 = episodeTemplateProcessor.process(new Template(
+				parts: Lists.newArrayList(
+						createTemplatePart(EpisodeTemplateProcessor.WS_DATE, null)
+				)
+		))
+
+		then:
+		0 * _
+		episodeTemplate7.stardate == null
+		episodeTemplate7.year == null
+	}
+
+	def "tolerates invalid or ill-formatted season numbers"() {
+		when:
+		EpisodeTemplate episodeTemplate = episodeTemplateProcessor.process(new Template(
+				parts: Lists.newArrayList(
+						createTemplatePart(EpisodeTemplateProcessor.N_EPISODE, "25/26")
+				)
+		))
+
+		then:
+		0 * _
+		episodeTemplate.episodeNumber == 25
+
+		when:
+		EpisodeTemplate episodeTemplate2 = episodeTemplateProcessor.process(new Template(
+				parts: Lists.newArrayList(
+						createTemplatePart(EpisodeTemplateProcessor.N_EPISODE, "NOT A NUMBER")
+				)
+		))
+
+		then:
+		0 * _
+		episodeTemplate2.episodeNumber == null
 	}
 
 	private static Template.Part createTemplatePart(String key, String value) {

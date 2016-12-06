@@ -18,7 +18,9 @@ public class CacheablePageNames {
 				PageName.MAJEL_BARRETT,
 				PageName.MAJEL_BARRETT_RODDENBERRY,
 				PageName.DAVID_KEITH_ANDERSON,
-				PageName.DAVID_ANDERSON
+				PageName.DAVID_ANDERSON,
+				PageName.SIDDIG_EL_FADIL,
+				PageName.ALEXANDER_SIDDIG
 		));
 	}
 

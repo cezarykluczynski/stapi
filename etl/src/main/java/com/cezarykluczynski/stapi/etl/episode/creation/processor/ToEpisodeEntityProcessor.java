@@ -25,10 +25,20 @@ public class ToEpisodeEntityProcessor implements ItemProcessor<EpisodeTemplate, 
 	@Override
 	public Episode process(EpisodeTemplate item) throws Exception {
 		Episode episode = item.getEpisodeStub();
+
 		episode.setTitle(item.getTitle());
 		episode.setPage(item.getPage());
 		episode.setSeries(seriesRepository.findOne(item.getSeries().getId()));
 		episode.setGuid(guidGenerator.generateFromPage(item.getPage(), Episode.class));
+		episode.setSeasonNumber(item.getSeasonNumber());
+		episode.setEpisodeNumber(item.getEpisodeNumber());
+		episode.setProductionSerialNumber(item.getProductionSerialNumber());
+		episode.setFeatureLength(item.getFeatureLength());
+		episode.setStardate(item.getStardate());
+		episode.setYear(item.getYear());
+		episode.setUsAirDate(item.getUsAirDate());
+		episode.setFinalScriptDate(item.getFinalScriptDate());
+
 		return episode;
 	}
 

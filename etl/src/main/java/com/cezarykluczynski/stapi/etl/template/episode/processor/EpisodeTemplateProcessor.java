@@ -19,14 +19,14 @@ import java.util.List;
 @Slf4j
 public class EpisodeTemplateProcessor implements ItemProcessor<Template, EpisodeTemplate> {
 
-	private static final String N_SEASON = "nSeason";
-	private static final String N_EPISODE = "nEpisode";
-	private static final String S_PRODUCTION_SERIAL_NUMBER = "sProductionSerialNumber";
-	private static final String B_FEATURE_LENGTH = "bFeatureLength";
-	private static final String WS_DATE = "wsDate";
-	private static final String N_AIRDATE_YEAR = "nAirdateYear";
-	private static final String S_AIRDATE_MONTH = "sAirdateMonth";
-	private static final String N_AIRDATE_DAY = "nAirdateDay";
+	private static final String N_SEASON = "nseason";
+	private static final String N_EPISODE = "nepisode";
+	private static final String S_PRODUCTION_SERIAL_NUMBER = "sproductionserialnumber";
+	private static final String B_FEATURE_LENGTH = "bfeaturelength";
+	private static final String WS_DATE = "wsdate";
+	private static final String N_AIRDATE_YEAR = "nairdateyear";
+	private static final String S_AIRDATE_MONTH = "sairdatemonth";
+	private static final String N_AIRDATE_DAY = "nairdateday";
 
 	private WikitextApi wikitextApi;
 
@@ -56,7 +56,7 @@ public class EpisodeTemplateProcessor implements ItemProcessor<Template, Episode
 					episodeTemplate.setSeasonNumber(Integer.valueOf(value));
 					break;
 				case N_EPISODE:
-					episodeTemplate.setEpisodeNumber(Integer.valueOf(value));
+					episodeTemplate.setEpisodeNumber(getEpisodeNumber(value));
 					break;
 				case S_PRODUCTION_SERIAL_NUMBER:
 					episodeTemplate.setProductionSerialNumber(value);
@@ -86,7 +86,22 @@ public class EpisodeTemplateProcessor implements ItemProcessor<Template, Episode
 		return episodeTemplate;
 	}
 
+	private Integer getEpisodeNumber(String episodeNumberCandidate) {
+		List<String> numbers = Lists.newArrayList(episodeNumberCandidate.split("/"));
+
+		try {
+			return Integer.valueOf(numbers.get(0));
+		} catch (Exception e) {
+			log.error("Could not parse episode number {}", episodeNumberCandidate);
+			return null;
+		}
+	}
+
 	private void setDates(EpisodeTemplate episodeTemplate, String value) {
+		if (value == null) {
+			return;
+		}
+
 		List<String> dateParts = Lists.newArrayList(value.split("\\s"));
 
 		if (dateParts.size() == 2) {
