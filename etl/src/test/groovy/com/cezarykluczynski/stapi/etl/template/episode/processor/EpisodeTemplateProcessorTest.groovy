@@ -18,7 +18,9 @@ class EpisodeTemplateProcessorTest extends Specification {
 	private static final Integer SEASON_NUMBER_INTEGER = 3
 	private static final String EPISODE_NUMBER_STRING = '8'
 	private static final Integer EPISODE_NUMBER_INTEGER = 8
-	private static final String PRODUCTION_SERIAL_NUMBER = 'PRODUCTION_SERIAL_NUMBER'
+	private static final String PRODUCTION_SERIAL_NUMBER = '40511-721'
+	private static final String PRODUCTION_SERIAL_NUMBER_ILL_FORMATTED =
+			'{"comment":"<!-- Extra data production numbers = 401-402-->","content":"' + PRODUCTION_SERIAL_NUMBER + '"}'
 	private static final String YEAR_BARE_STRING = '2360'
 	private static final String YEAR_TOO_EARLY_BARE_STRING = "999"
 	private static final String YEAR_TOO_LATE_BARE_STRING = "10000"
@@ -90,6 +92,21 @@ class EpisodeTemplateProcessorTest extends Specification {
 		episodeTemplate.stardate == STARDATE
 		episodeTemplate.year == YEAR_INTEGER
 		episodeTemplate.usAirDate == usAirDate
+	}
+
+	def "tolerates ill-formated production serial number"() {
+		given:
+		Template template = new Template(
+				parts: Lists.newArrayList(
+						createTemplatePart(EpisodeTemplateProcessor.S_PRODUCTION_SERIAL_NUMBER, PRODUCTION_SERIAL_NUMBER_ILL_FORMATTED),
+				)
+		)
+
+		when:
+		EpisodeTemplate episodeTemplate = episodeTemplateProcessor.process(template)
+
+		then:
+		episodeTemplate.productionSerialNumber == PRODUCTION_SERIAL_NUMBER
 	}
 
 	def "tolerates invalid dates"() {

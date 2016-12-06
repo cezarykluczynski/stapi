@@ -53,6 +53,7 @@ public class SeriesTemplatePageProcessor extends AbstractTemplateProcessor imple
 		for (Template.Part part : template.getParts()) {
 			String key = part.getKey();
 			String value = part.getValue();
+
 			switch(key) {
 				case ABBR:
 					seriesTemplate.setAbbreviation(value);

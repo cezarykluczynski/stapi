@@ -1,8 +1,7 @@
-package com.cezarykluczynski.stapi.etl.common.processor.linker
+package com.cezarykluczynski.stapi.etl.template.common.linker
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformanceDTO
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformancesEntitiesDTO
-import com.cezarykluczynski.stapi.etl.template.common.linker.EpisodePerformancesLinkingWorker
 import com.cezarykluczynski.stapi.etl.template.common.service.EpisodePerformancesExtractor
 import com.cezarykluczynski.stapi.etl.template.common.service.EpisodePerformancesToEntityMapper
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName

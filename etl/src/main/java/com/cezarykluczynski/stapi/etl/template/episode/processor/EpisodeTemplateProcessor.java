@@ -9,6 +9,8 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
@@ -59,7 +61,7 @@ public class EpisodeTemplateProcessor implements ItemProcessor<Template, Episode
 					episodeTemplate.setEpisodeNumber(getEpisodeNumber(value));
 					break;
 				case S_PRODUCTION_SERIAL_NUMBER:
-					episodeTemplate.setProductionSerialNumber(value);
+					episodeTemplate.setProductionSerialNumber(extractProductionSerialNumber(value));
 					break;
 				case B_FEATURE_LENGTH:
 					episodeTemplate.setFeatureLength("1".equals(value));
@@ -84,6 +86,20 @@ public class EpisodeTemplateProcessor implements ItemProcessor<Template, Episode
 		}
 
 		return episodeTemplate;
+	}
+
+	private String extractProductionSerialNumber(String value) {
+		if (value != null && value.length() < 20) {
+			return value;
+		} else {
+			try {
+				JSONObject jsonObject = new JSONObject(value);
+				return jsonObject.has("content") ? (String) jsonObject.get("content") : null;
+			} catch (JSONException e) {
+				log.error("Could not parse production serial number {} as JSON, and it is too long", value);
+				return null;
+			}
+		}
 	}
 
 	private Integer getEpisodeNumber(String episodeNumberCandidate) {
