@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.datetime
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange
+import com.cezarykluczynski.stapi.etl.template.service.TemplateFilter
 import com.cezarykluczynski.stapi.util.constant.TemplateName
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
@@ -17,21 +18,28 @@ class PartToDateRangeProcessorTest extends Specification {
 
 	private DatelinkTemplateToLocalDateProcessor templateToLocalDateProcessorMock
 
+	private TemplateFilter templateFilterMock
+
 	private PartToDateRangeProcessor partToDateRangeProcessor
 
 	def setup() {
 		templateToLocalDateProcessorMock = Mock(DatelinkTemplateToLocalDateProcessor)
-		partToDateRangeProcessor = new PartToDateRangeProcessor(templateToLocalDateProcessorMock)
+		templateFilterMock = Mock(TemplateFilter)
+		partToDateRangeProcessor = new PartToDateRangeProcessor(templateToLocalDateProcessorMock, templateFilterMock)
 	}
 
 	def "valid Part is converted to DateRange with both dates"() {
 		given:
-		Template.Part part = new Template.Part(templates: Lists.newArrayList(
+		List<Template> templateList = Lists.newArrayList(
 				START_TEMPLATE, END_TEMPLATE
-		))
+		)
+		Template.Part part = new Template.Part(templates: templateList)
 
 		when:
 		DateRange dateRange = partToDateRangeProcessor.process(part)
+
+		then: 'date templates are filtered'
+		1 * templateFilterMock.filterByTitle(templateList, TemplateName.D, TemplateName.DATELINK) >> templateList
 
 		then:
 		1 * templateToLocalDateProcessorMock.process(START_TEMPLATE) >> START_DATE
@@ -42,12 +50,16 @@ class PartToDateRangeProcessorTest extends Specification {
 
 	def "Part with only start date is converted to DateRange with only start date"() {
 		given:
-		Template.Part part = new Template.Part(templates: Lists.newArrayList(
+		List<Template> templateList = Lists.newArrayList(
 				START_TEMPLATE
-		))
+		)
+				Template.Part part = new Template.Part(templates: templateList)
 
 		when:
 		DateRange dateRange = partToDateRangeProcessor.process(part)
+
+		then: 'date templates are filtered'
+		1 * templateFilterMock.filterByTitle(templateList, TemplateName.D, TemplateName.DATELINK) >> templateList
 
 		then: 'only start date is parsed'
 		1 * templateToLocalDateProcessorMock.process(START_TEMPLATE) >> START_DATE
@@ -63,12 +75,16 @@ class PartToDateRangeProcessorTest extends Specification {
 
 	def "Part with more than 2 date templates results in empty DateRange"() {
 		given:
-		Template.Part part = new Template.Part(templates: Lists.newArrayList(
+		List<Template> templateList = Lists.newArrayList(
 				START_TEMPLATE, END_TEMPLATE, START_TEMPLATE
-		))
+		)
+		Template.Part part = new Template.Part(templates: templateList)
 
 		when:
 		DateRange dateRange = partToDateRangeProcessor.process(part)
+
+		then: 'date templates are filtered'
+		1 * templateFilterMock.filterByTitle(templateList, TemplateName.D, TemplateName.DATELINK) >> templateList
 
 		then: 'both dates are null'
 		dateRange.startDate == null

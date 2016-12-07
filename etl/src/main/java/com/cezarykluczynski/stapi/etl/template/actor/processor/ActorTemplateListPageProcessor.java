@@ -2,7 +2,6 @@ package com.cezarykluczynski.stapi.etl.template.actor.processor;
 
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate;
-import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import com.cezarykluczynski.stapi.util.constant.PageName;
@@ -13,8 +12,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Service
-public class ActorTemplateListPageProcessor extends AbstractTemplateProcessor
-		implements ItemProcessor<Page, ActorTemplate> {
+public class ActorTemplateListPageProcessor implements ItemProcessor<Page, ActorTemplate> {
 
 	private PageBindingService pageBindingService;
 

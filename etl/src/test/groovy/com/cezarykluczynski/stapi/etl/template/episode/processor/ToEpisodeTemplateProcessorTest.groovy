@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.etl.episode.creation.service.SeriesToEpisodeBi
 import com.cezarykluczynski.stapi.etl.template.common.linker.EpisodePerformancesLinkingWorker
 import com.cezarykluczynski.stapi.etl.template.common.linker.EpisodeStaffLinkingWorker
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate
+import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
 import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.model.page.entity.Page as PageEntity
@@ -39,6 +40,8 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 
 	private EpisodeTemplateDatesEnrichingProcessor episodeTemplateDatesEnrichingProcessorMock
 
+	private TemplateFinder templateFinderMock
+
 	private ToEpisodeTemplateProcessor toEpisodeTemplateProcessor
 
 	def setup() {
@@ -48,36 +51,45 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 		pageBindingServiceMock = Mock(PageBindingService)
 		seriesToEpisodeBindingServiceMock = Mock(SeriesToEpisodeBindingService)
 		episodeTemplateDatesEnrichingProcessorMock = Mock(EpisodeTemplateDatesEnrichingProcessor)
+		templateFinderMock = Mock(TemplateFinder)
 		toEpisodeTemplateProcessor = new ToEpisodeTemplateProcessor(episodeTemplateProcessorMock,
 				episodePerformancesLinkingWorkerMock, episodeStaffLinkingWorkerMock, pageBindingServiceMock,
-				seriesToEpisodeBindingServiceMock, episodeTemplateDatesEnrichingProcessorMock)
+				seriesToEpisodeBindingServiceMock, episodeTemplateDatesEnrichingProcessorMock, templateFinderMock)
 	}
 
 
-	def "does not interact with dependencies when page does not have episode category"() {
+	def "does not interact with dependencies other than TemplateFinder when page does not have episode category"() {
+		given:
+		Page page = new Page()
+
 		when:
-		toEpisodeTemplateProcessor.process(new Page())
+		toEpisodeTemplateProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_EPISODE) >> Optional.empty()
 		0 * _
 	}
 
-	def "does not interact with dependencies when page does have episode category, but the production lists category too"() {
-		when:
-		EpisodeTemplate episodeTemplate = toEpisodeTemplateProcessor.process(new Page(
+	def "does not interact with dependencies other than TemplateFinder when page does have episode category, but the production lists category too"() {
+		given:
+		Page page = new Page(
 				categories: Lists.newArrayList(
 						new CategoryHeader(title: CategoryName.TOS_EPISODES),
 						new CategoryHeader(title: CategoryName.PRODUCTION_LISTS)
 				),
 				templates: Lists.newArrayList(SIDEBAR_EPISODE_TEMPLATE)
-		))
+		)
+
+		when:
+		EpisodeTemplate episodeTemplate = toEpisodeTemplateProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_EPISODE) >> Optional.of(SIDEBAR_EPISODE_TEMPLATE)
 		0 * _
 		episodeTemplate == null
 	}
 
-	def "does not interact with dependencies when page have episode category, but no template"() {
+	def "does not interact with dependencies other than TemplateFinder when page have episode category, but no template"() {
 		given:
 		Page page = new Page(
 				pageId: PAGE_ID,
@@ -91,6 +103,7 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 		EpisodeTemplate episodeTemplate = toEpisodeTemplateProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_EPISODE) >> Optional.empty()
 		0 * _
 		episodeTemplate == null
 	}
@@ -116,6 +129,7 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 		EpisodeTemplate episodeTemplateOutput = toEpisodeTemplateProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_EPISODE) >> Optional.of(SIDEBAR_EPISODE_TEMPLATE)
 		1 * episodeTemplateProcessorMock.process(SIDEBAR_EPISODE_TEMPLATE) >> episodeTemplate
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> pageEntity
 		1 * episodePerformancesLinkingWorkerMock.link(page, episodeStub)
@@ -145,6 +159,7 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 		EpisodeTemplate episodeTemplateOutput = toEpisodeTemplateProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_EPISODE) >> Optional.of(SIDEBAR_EPISODE_TEMPLATE)
 		1 * episodeTemplateProcessorMock.process(_) >> null
 		episodeTemplateOutput == null
 	}

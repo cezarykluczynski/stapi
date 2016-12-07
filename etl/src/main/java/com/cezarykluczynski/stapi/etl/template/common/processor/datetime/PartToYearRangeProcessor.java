@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.datetime;
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.YearRange;
-import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.etl.template.service.TemplateFilter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
+import com.cezarykluczynski.stapi.util.constant.TemplateName;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
 import lombok.extern.slf4j.Slf4j;
@@ -16,14 +16,16 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class PartToYearRangeProcessor extends AbstractTemplateProcessor
-		implements ItemProcessor<Template.Part, YearRange> {
+public class PartToYearRangeProcessor implements ItemProcessor<Template.Part, YearRange> {
 
 	private TemplateToYearProcessor templateToYearProcessor;
 
+	private TemplateFilter templateFilter;
+
 	@Inject
-	public PartToYearRangeProcessor(TemplateToYearProcessor templateToYearProcessor) {
+	public PartToYearRangeProcessor(TemplateToYearProcessor templateToYearProcessor, TemplateFilter templateFilter) {
 		this.templateToYearProcessor = templateToYearProcessor;
+		this.templateFilter = templateFilter;
 	}
 
 	@Override
@@ -56,7 +58,8 @@ public class PartToYearRangeProcessor extends AbstractTemplateProcessor
 	private YearRange fromTemplates(List<Template> templateList) throws Exception {
 		YearRange yearRange = new YearRange();
 
-		List<Template> yearTemplateList = filterByTitle(templateList, TemplateName.Y, TemplateName.YEARLINK);
+		List<Template> yearTemplateList = templateFilter
+				.filterByTitle(templateList, TemplateName.Y, TemplateName.YEARLINK);
 
 		Integer size = yearTemplateList.size();
 

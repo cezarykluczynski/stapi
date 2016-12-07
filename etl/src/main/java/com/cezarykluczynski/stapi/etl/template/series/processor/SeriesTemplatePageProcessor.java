@@ -1,10 +1,10 @@
 package com.cezarykluczynski.stapi.etl.template.series.processor;
 
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
-import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToDateRangeProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToYearRangeProcessor;
 import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplate;
+import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateName;
@@ -15,7 +15,7 @@ import javax.inject.Inject;
 import java.util.Optional;
 
 @Service
-public class SeriesTemplatePageProcessor extends AbstractTemplateProcessor implements ItemProcessor<Page, SeriesTemplate> {
+public class SeriesTemplatePageProcessor implements ItemProcessor<Page, SeriesTemplate> {
 
 	private static final String ABBR = "abbr";
 	private static final String DATES = "dates";
@@ -27,17 +27,21 @@ public class SeriesTemplatePageProcessor extends AbstractTemplateProcessor imple
 
 	private PageBindingService pageBindingService;
 
+	private TemplateFinder templateFinder;
+
 	@Inject
 	public SeriesTemplatePageProcessor(PartToYearRangeProcessor partToYearRangeProcessor,
-			PartToDateRangeProcessor partToDateRangeProcessor, PageBindingService pageBindingService) {
+			PartToDateRangeProcessor partToDateRangeProcessor, PageBindingService pageBindingService,
+			TemplateFinder templateFinder) {
 		this.partToYearRangeProcessor = partToYearRangeProcessor;
 		this.partToDateRangeProcessor = partToDateRangeProcessor;
 		this.pageBindingService = pageBindingService;
+		this.templateFinder = templateFinder;
 	}
 
 	@Override
 	public SeriesTemplate process(Page item) throws Exception {
-		Optional<Template> templateOptional = findTemplate(item, TemplateName.SIDEBAR_SERIES);
+		Optional<Template> templateOptional = templateFinder.findTemplate(item, TemplateName.SIDEBAR_SERIES);
 
 		if (!templateOptional.isPresent()) {
 			return null;

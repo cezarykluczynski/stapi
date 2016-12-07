@@ -5,9 +5,9 @@ import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.CategoriesActorTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate;
 import com.cezarykluczynski.stapi.etl.template.common.dto.Gender;
-import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PageToLifeRangeProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGenderProcessor;
+import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
@@ -27,8 +27,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Slf4j
-public class ActorTemplateSinglePageProcessor extends AbstractTemplateProcessor
-		implements ItemProcessor<Page, ActorTemplate> {
+public class ActorTemplateSinglePageProcessor implements ItemProcessor<Page, ActorTemplate> {
 
 	private static final Pattern BIRTH_NAME = Pattern.compile("'''(.+?)'''");
 
@@ -42,16 +41,19 @@ public class ActorTemplateSinglePageProcessor extends AbstractTemplateProcessor
 
 	private PageBindingService pageBindingService;
 
+	private TemplateFinder templateFinder;
+
 	public ActorTemplateSinglePageProcessor(PageToGenderProcessor pageToGenderProcessor,
 			PageToLifeRangeProcessor pageToLifeRangeProcessor,
 			ActorTemplateTemplateProcessor actorTemplateTemplateProcessor,
 			CategoriesActorTemplateEnrichingProcessor categoriesActorTemplateEnrichingProcessor,
-			PageBindingService pageBindingService) {
+			PageBindingService pageBindingService, TemplateFinder templateFinder) {
 		this.pageToGenderProcessor = pageToGenderProcessor;
 		this.pageToLifeRangeProcessor = pageToLifeRangeProcessor;
 		this.actorTemplateTemplateProcessor = actorTemplateTemplateProcessor;
 		this.categoriesActorTemplateEnrichingProcessor = categoriesActorTemplateEnrichingProcessor;
 		this.pageBindingService = pageBindingService;
+		this.templateFinder = templateFinder;
 	}
 
 	@Override
@@ -68,7 +70,8 @@ public class ActorTemplateSinglePageProcessor extends AbstractTemplateProcessor
 		actorTemplate.setGender(pageToGenderProcessor.process(item));
 		actorTemplate.setLifeRange(pageToLifeRangeProcessor.process(item));
 
-		Optional<Template> templateOptional = findTemplate(item, TemplateName.SIDEBAR_ACTOR, TemplateName.SIDEBAR_CREW);
+		Optional<Template> templateOptional = templateFinder
+				.findTemplate(item, TemplateName.SIDEBAR_ACTOR, TemplateName.SIDEBAR_CREW);
 
 		if (templateOptional.isPresent()) {
 			supplementUsingActorTemplateTemplateProcessor(actorTemplate, templateOptional.get());

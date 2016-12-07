@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.common.processor
 
 import com.cezarykluczynski.stapi.etl.template.common.linker.EpisodeStaffLinkingWorker
+import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.model.staff.repository.StaffRepository
@@ -32,16 +33,20 @@ class EpisodeStaffLinkingWorkerTest extends Specification {
 
 	private StaffRepository staffRepositoryMock
 
+	private TemplateFinder templateFinderMock
+
 	private EpisodeStaffLinkingWorker episodeStaffLinkingWorker
 
 	def setup() {
 		wikitextApiMock = Mock(WikitextApi)
 		pageApiMock = Mock(PageApi)
 		staffRepositoryMock = Mock(StaffRepository)
-		episodeStaffLinkingWorker = new EpisodeStaffLinkingWorker(wikitextApiMock, pageApiMock, staffRepositoryMock)
+		templateFinderMock = Mock(TemplateFinder)
+		episodeStaffLinkingWorker = new EpisodeStaffLinkingWorker(wikitextApiMock, pageApiMock, staffRepositoryMock,
+				templateFinderMock)
 	}
 
-	def "does not interact with dependencies if sidebar episode template could not be found"() {
+	def "does not interact with dependencies other than template finder if sidebar episode template could not be found"() {
 		given:
 		Page page = new Page(
 				templates: Lists.newArrayList()
@@ -51,35 +56,37 @@ class EpisodeStaffLinkingWorkerTest extends Specification {
 		episodeStaffLinkingWorker.link(page, new Episode())
 
 		then:
+		templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_EPISODE) >> Optional.empty()
 		0 * _
 	}
 
 	def "gets staff from template parts"() {
 		given:
+		Template sidebarEpisodeTemplate = new Template(
+				title: TemplateName.SIDEBAR_EPISODE,
+				parts: Lists.newArrayList(
+						new Template.Part(
+								key: EpisodeStaffLinkingWorker.WS_WRITTEN_BY,
+								value: WS_WRITTEN_BY_VALUE
+						),
+						new Template.Part(
+								key: EpisodeStaffLinkingWorker.WS_TELEPLAY_BY,
+								value: WS_TELEPLAY_BY_VALUE
+						),
+						new Template.Part(
+								key: EpisodeStaffLinkingWorker.WS_STORY_BY,
+								value: WS_STORY_BY_VALUE
+						),
+						new Template.Part(
+								key: EpisodeStaffLinkingWorker.WS_DIRECTED_BY,
+								value: WS_DIRECTED_BY_VALUE
+						)
+				)
+		)
 		Episode episode = new Episode()
 		Page page = new Page(
 				templates: Lists.newArrayList(
-						new Template(
-								title: TemplateName.SIDEBAR_EPISODE,
-								parts: Lists.newArrayList(
-										new Template.Part(
-												key: EpisodeStaffLinkingWorker.WS_WRITTEN_BY,
-												value: WS_WRITTEN_BY_VALUE
-										),
-										new Template.Part(
-												key: EpisodeStaffLinkingWorker.WS_TELEPLAY_BY,
-												value: WS_TELEPLAY_BY_VALUE
-										),
-										new Template.Part(
-												key: EpisodeStaffLinkingWorker.WS_STORY_BY,
-												value: WS_STORY_BY_VALUE
-										),
-										new Template.Part(
-												key: EpisodeStaffLinkingWorker.WS_DIRECTED_BY,
-												value: WS_DIRECTED_BY_VALUE
-										)
-								)
-						)
+						sidebarEpisodeTemplate
 				)
 		)
 		Staff writer = Mock(Staff)
@@ -89,6 +96,9 @@ class EpisodeStaffLinkingWorkerTest extends Specification {
 
 		when:
 		episodeStaffLinkingWorker.link(page, episode)
+
+		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_EPISODE) >> Optional.of(sidebarEpisodeTemplate)
 
 		then: 'gets writer from repository'
 		1 * wikitextApiMock.getPageLinksFromWikitext(WS_WRITTEN_BY_VALUE) >> Lists.newArrayList(new PageLink(title: WRITER_NAME))

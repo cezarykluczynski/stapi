@@ -1,10 +1,10 @@
 package com.cezarykluczynski.stapi.etl.template.actor.processor;
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange;
-import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DatelinkTemplateToLocalDateProcessor;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.etl.template.service.TemplateFilter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
+import com.cezarykluczynski.stapi.util.constant.TemplateName;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.batch.item.ItemProcessor;
@@ -16,17 +16,20 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class ActorTemplateToLifeRangeProcessor extends AbstractTemplateProcessor
-		implements ItemProcessor<Template, DateRange> {
+public class ActorTemplateToLifeRangeProcessor implements ItemProcessor<Template, DateRange> {
 
 	private static final String KEY_DATE_OF_BIRTH = "date of birth";
 	private static final String KEY_DATE_OF_DEATH = "date of death";
 
 	private DatelinkTemplateToLocalDateProcessor datelinkTemplateToLocalDateProcessor;
 
+	private TemplateFilter templateFilter;
+
 	@Inject
-	public ActorTemplateToLifeRangeProcessor(DatelinkTemplateToLocalDateProcessor datelinkTemplateToLocalDateProcessor) {
+	public ActorTemplateToLifeRangeProcessor(DatelinkTemplateToLocalDateProcessor datelinkTemplateToLocalDateProcessor,
+			TemplateFilter templateFilter) {
 		this.datelinkTemplateToLocalDateProcessor = datelinkTemplateToLocalDateProcessor;
+		this.templateFilter = templateFilter;
 	}
 
 	@Override
@@ -65,7 +68,8 @@ public class ActorTemplateToLifeRangeProcessor extends AbstractTemplateProcessor
 			return null;
 		}
 
-		List<Template> dateTemplateList = filterByTitle(templateList, TemplateName.D, TemplateName.DATELINK);
+		List<Template> dateTemplateList = templateFilter
+				.filterByTitle(templateList, TemplateName.D, TemplateName.DATELINK);
 
 		if (dateTemplateList.isEmpty()) {
 			return null;

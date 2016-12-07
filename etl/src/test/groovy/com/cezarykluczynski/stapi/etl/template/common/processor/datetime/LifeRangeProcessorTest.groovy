@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.common.processor.datetime
 
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateToLifeRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange
+import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.util.constant.TemplateName
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
@@ -16,6 +17,8 @@ class LifeRangeProcessorTest extends Specification {
 
 	private ActorTemplateToLifeRangeProcessor actorTemplateToLifeRangeProcessorMock
 
+	private TemplateFinder templateFinderMock
+
 	private LifeRangeProcessor lifeRangeProcessor
 
 	private Template template
@@ -25,7 +28,9 @@ class LifeRangeProcessorTest extends Specification {
 	def setup() {
 		pageToLifeRangeProcessorMock = Mock(PageToLifeRangeProcessor)
 		actorTemplateToLifeRangeProcessorMock = Mock(ActorTemplateToLifeRangeProcessor)
-		lifeRangeProcessor = new LifeRangeProcessor(pageToLifeRangeProcessorMock, actorTemplateToLifeRangeProcessorMock)
+		templateFinderMock = Mock(TemplateFinder)
+		lifeRangeProcessor = new LifeRangeProcessor(pageToLifeRangeProcessorMock, actorTemplateToLifeRangeProcessorMock,
+				templateFinderMock)
 		template = new Template(title: TemplateName.SIDEBAR_ACTOR)
 		page = Mock(Page) {
 			getTemplates() >> Lists.newArrayList(template)
@@ -40,6 +45,7 @@ class LifeRangeProcessorTest extends Specification {
 		DateRange dateRangeOutput = lifeRangeProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_ACTOR) >> Optional.empty()
 		dateRangeOutput.startDate == null
 		dateRangeOutput.endDate == null
 	}
@@ -53,6 +59,7 @@ class LifeRangeProcessorTest extends Specification {
 		DateRange dateRangeOutput = lifeRangeProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_ACTOR) >> Optional.empty()
 		1 * pageToLifeRangeProcessorMock.process(page) >> dateRange
 		dateRangeOutput == dateRange
 	}
@@ -65,6 +72,7 @@ class LifeRangeProcessorTest extends Specification {
 		DateRange dateRangeOutput = lifeRangeProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_ACTOR) >> Optional.of(template)
 		1 * actorTemplateToLifeRangeProcessorMock.process(template) >> dateRange
 		dateRangeOutput == dateRange
 	}
@@ -74,6 +82,7 @@ class LifeRangeProcessorTest extends Specification {
 		DateRange dateRangeOutput = lifeRangeProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_ACTOR) >> Optional.of(template)
 		1 * pageToLifeRangeProcessorMock.process(page) >> new DateRange()
 		1 * actorTemplateToLifeRangeProcessorMock.process(template) >> new DateRange()
 		dateRangeOutput.startDate == null
@@ -93,6 +102,7 @@ class LifeRangeProcessorTest extends Specification {
 		DateRange dateRangeOutput = lifeRangeProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_ACTOR) >> Optional.of(template)
 		1 * pageToLifeRangeProcessorMock.process(page) >> pageDateRange
 		1 * actorTemplateToLifeRangeProcessorMock.process(template) >> actorTemplateDateRange
 		dateRangeOutput.startDate == LocalDate.of(1960, 10, 10)
@@ -110,6 +120,7 @@ class LifeRangeProcessorTest extends Specification {
 		DateRange dateRangeOutput = lifeRangeProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_ACTOR) >> Optional.of(template)
 		1 * pageToLifeRangeProcessorMock.process(page) >> pageDateRange
 		1 * actorTemplateToLifeRangeProcessorMock.process(template) >> actorTemplateDateRange
 		dateRangeOutput.startDate == LocalDate.of(1960, 10, 10)
@@ -129,6 +140,7 @@ class LifeRangeProcessorTest extends Specification {
 		DateRange dateRangeOutput = lifeRangeProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_ACTOR) >> Optional.of(template)
 		1 * pageToLifeRangeProcessorMock.process(page) >> pageDateRange
 		1 * actorTemplateToLifeRangeProcessorMock.process(template) >> actorTemplateDateRange
 		dateRangeOutput.startDate == null

@@ -2,10 +2,10 @@ package com.cezarykluczynski.stapi.etl.template.individual.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
-import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PartToGenderProcessor;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualLifeBoundaryDTO;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
+import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
@@ -27,8 +27,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-public class IndividualTemplatePageProcessor extends AbstractTemplateProcessor
-		implements ItemProcessor<Page, IndividualTemplate> {
+public class IndividualTemplatePageProcessor implements ItemProcessor<Page, IndividualTemplate> {
 
 	private static final String GENDER = "gender";
 	private static final String ACTOR = "actor";
@@ -62,6 +61,8 @@ public class IndividualTemplatePageProcessor extends AbstractTemplateProcessor
 
 	private PageBindingService pageBindingService;
 
+	private TemplateFinder templateFinder;
+
 	@Inject
 	public IndividualTemplatePageProcessor(PartToGenderProcessor partToGenderProcessor,
 			IndividualLifeBoundaryProcessor individualLifeBoundaryProcessor,
@@ -70,7 +71,7 @@ public class IndividualTemplatePageProcessor extends AbstractTemplateProcessor
 			IndividualHeightProcessor individualHeightProcessor, IndividualWeightProcessor individualWeightProcessor,
 			IndividualBloodTypeProcessor individualBloodTypeProcessor,
 			IndividualMaritalStatusProcessor individualMaritalStatusProcessor, WikitextApi wikitextApi,
-			PageBindingService pageBindingService) {
+			PageBindingService pageBindingService, TemplateFinder templateFinder) {
 		this.partToGenderProcessor = partToGenderProcessor;
 		this.individualLifeBoundaryProcessor = individualLifeBoundaryProcessor;
 		this.individualActorLinkingProcessor = individualActorLinkingProcessor;
@@ -81,6 +82,7 @@ public class IndividualTemplatePageProcessor extends AbstractTemplateProcessor
 		this.individualMaritalStatusProcessor = individualMaritalStatusProcessor;
 		this.wikitextApi = wikitextApi;
 		this.pageBindingService = pageBindingService;
+		this.templateFinder = templateFinder;
 	}
 
 	@Override
@@ -89,7 +91,7 @@ public class IndividualTemplatePageProcessor extends AbstractTemplateProcessor
 			return null;
 		}
 
-		Optional<Template> templateOptional = findTemplate(item, TemplateName.SIDEBAR_INDIVIDUAL);
+		Optional<Template> templateOptional = templateFinder.findTemplate(item, TemplateName.SIDEBAR_INDIVIDUAL);
 
 		IndividualTemplate individualTemplate = new IndividualTemplate();
 		individualTemplate.setName(TitleUtil.getNameFromTitle(item.getTitle()));

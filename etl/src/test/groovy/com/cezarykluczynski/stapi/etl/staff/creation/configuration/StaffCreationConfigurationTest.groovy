@@ -12,6 +12,7 @@ import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateSing
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateTemplateProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PageToLifeRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGenderProcessor
+import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
@@ -232,6 +233,7 @@ class StaffCreationConfigurationTest extends AbstractCreationConfigurationTest {
 		PerformerCategoriesActorTemplateEnrichingProcessor performerCategoriesActorTemplateEnrichingProcessorMock =
 				Mock(PerformerCategoriesActorTemplateEnrichingProcessor)
 		PageBindingService pageBindingServiceMock = Mock(PageBindingService)
+		TemplateFinder templateFinderMock = Mock(TemplateFinder)
 
 		when:
 		ActorTemplateSinglePageProcessor actorTemplateSinglePageProcessor = staffCreationConfiguration
@@ -244,12 +246,14 @@ class StaffCreationConfigurationTest extends AbstractCreationConfigurationTest {
 		1 * applicationContextMock.getBean(StaffCategoriesActorTemplateEnrichingProcessor) >>
 				performerCategoriesActorTemplateEnrichingProcessorMock
 		1 * applicationContextMock.getBean(PageBindingService) >> pageBindingServiceMock
+		1 * applicationContextMock.getBean(TemplateFinder) >> templateFinderMock
 		0 * _
 		actorTemplateSinglePageProcessor.pageToGenderProcessor == pageToGenderProcessorMock
 		actorTemplateSinglePageProcessor.pageToLifeRangeProcessor == pageToLifeRangeProcessorMock
 		actorTemplateSinglePageProcessor.actorTemplateTemplateProcessor == actorTemplateTemplateProcessorMock
 		actorTemplateSinglePageProcessor.categoriesActorTemplateEnrichingProcessor == performerCategoriesActorTemplateEnrichingProcessorMock
 		actorTemplateSinglePageProcessor.pageBindingService == pageBindingServiceMock
+		actorTemplateSinglePageProcessor.templateFinder == templateFinderMock
 
 	}
 

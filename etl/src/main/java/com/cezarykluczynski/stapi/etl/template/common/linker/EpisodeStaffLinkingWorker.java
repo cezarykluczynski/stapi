@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.common.linker;
 
 import com.cezarykluczynski.stapi.etl.common.processor.LinkingWorker;
-import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
+import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.model.staff.repository.StaffRepository;
@@ -21,7 +21,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class EpisodeStaffLinkingWorker extends AbstractTemplateProcessor implements LinkingWorker<Page, Episode> {
+public class EpisodeStaffLinkingWorker implements LinkingWorker<Page, Episode> {
 
 	private static final MediaWikiSource SOURCE = MediaWikiSource.MEMORY_ALPHA_EN;
 	private static final String WS_WRITTEN_BY = "wswrittenby";
@@ -35,16 +35,20 @@ public class EpisodeStaffLinkingWorker extends AbstractTemplateProcessor impleme
 
 	private StaffRepository staffRepository;
 
+	private TemplateFinder templateFinder;
+
 	@Inject
-	public EpisodeStaffLinkingWorker(WikitextApi wikitextApi, PageApi pageApi, StaffRepository staffRepository) {
+	public EpisodeStaffLinkingWorker(WikitextApi wikitextApi, PageApi pageApi, StaffRepository staffRepository,
+			TemplateFinder templateFinder) {
 		this.wikitextApi = wikitextApi;
 		this.pageApi = pageApi;
 		this.staffRepository = staffRepository;
+		this.templateFinder = templateFinder;
 	}
 
 	@Override
 	public void link(Page source, Episode baseEntity) {
-		Optional<Template> templateOptional = findTemplate(source, TemplateName.SIDEBAR_EPISODE);
+		Optional<Template> templateOptional = templateFinder.findTemplate(source, TemplateName.SIDEBAR_EPISODE);
 
 		if (!templateOptional.isPresent()) {
 			return;

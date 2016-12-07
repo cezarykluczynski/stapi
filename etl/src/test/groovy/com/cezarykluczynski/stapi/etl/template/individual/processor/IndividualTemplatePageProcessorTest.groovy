@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.Gender
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PartToGenderProcessor
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualLifeBoundaryDTO
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate
+import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus
@@ -59,9 +60,11 @@ class IndividualTemplatePageProcessorTest extends Specification {
 
 	private WikitextApi wikitextApiMock
 
-	private IndividualTemplatePageProcessor individualTemplatePageProcessor
-
 	private PageBindingService pageBindingServiceMock
+
+	private TemplateFinder templateFinderMock
+
+	private IndividualTemplatePageProcessor individualTemplatePageProcessor
 
 	def setup() {
 		partToGenderProcessorMock = Mock(PartToGenderProcessor)
@@ -74,11 +77,12 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		individualMaritalStatusProcessorMock = Mock(IndividualMaritalStatusProcessor)
 		wikitextApiMock = Mock(WikitextApi)
 		pageBindingServiceMock = Mock(PageBindingService)
+		templateFinderMock = Mock(TemplateFinder)
 		individualTemplatePageProcessor = new IndividualTemplatePageProcessor(partToGenderProcessorMock,
 				individualLifeBoundaryProcessorMock,individualActorLinkingProcessorMock,
 				individualDateOfDeathEnrichingProcessorMock, individualHeightProcessorMock,
 				individualWeightProcessorMock, individualBloodTypeProcessorMock, individualMaritalStatusProcessorMock,
-				wikitextApiMock, pageBindingServiceMock)
+				wikitextApiMock, pageBindingServiceMock, templateFinderMock)
 
 	}
 
@@ -198,6 +202,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.empty()
 		1 * wikitextApiMock.getPageLinksFromWikitext(null) >> Lists.newArrayList()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> pageEntity
 		0 * _
@@ -218,6 +223,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> new PageEntity()
 		individualTemplate.name == TITLE
 		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 4
@@ -232,6 +238,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.of(page.templates[0])
 		1 * partToGenderProcessorMock.process(templatePart) >> GENDER
 		1 * wikitextApiMock.getPageLinksFromWikitext(null) >> Lists.newArrayList()
 		1 * individualDateOfDeathEnrichingProcessorMock.enrich(_)
@@ -251,6 +258,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.of(page.templates[0])
 		1 * wikitextApiMock.getPageLinksFromWikitext(null) >> Lists.newArrayList()
 		1 * individualDateOfDeathEnrichingProcessorMock.enrich(_)
 		1 * individualActorLinkingProcessorMock.enrich(_ as EnrichablePair<Template.Part, IndividualTemplate>) >> {
@@ -274,6 +282,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.of(page.templates[0])
 		1 * individualHeightProcessorMock.process(VALUE) >> HEIGHT
 		1 * wikitextApiMock.getPageLinksFromWikitext(null) >> Lists.newArrayList()
 		1 * individualDateOfDeathEnrichingProcessorMock.enrich(_)
@@ -294,6 +303,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.of(page.templates[0])
 		1 * individualWeightProcessorMock.process(VALUE) >> WEIGHT
 		1 * wikitextApiMock.getPageLinksFromWikitext(null) >> Lists.newArrayList()
 		1 * individualDateOfDeathEnrichingProcessorMock.enrich(_)
@@ -314,6 +324,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.of(page.templates[0])
 		1 * wikitextApiMock.getPageLinksFromWikitext(null) >> Lists.newArrayList()
 		1 * individualDateOfDeathEnrichingProcessorMock.enrich(_)
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> new PageEntity()
@@ -334,6 +345,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.empty()
 		individualTemplate.productOfRedirect
 	}
 
@@ -348,6 +360,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.empty()
 		!individualTemplate.productOfRedirect
 	}
 
@@ -363,6 +376,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.of(page.templates[0])
 		1 * wikitextApiMock.getPageLinksFromWikitext(null) >> Lists.newArrayList()
 		1 * individualDateOfDeathEnrichingProcessorMock.enrich(_)
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> pageEntity
@@ -388,6 +402,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.of(page.templates[0])
 		1 * individualLifeBoundaryProcessorMock.process(VALUE) >> individualLifeBoundaryDTO
 		1 * wikitextApiMock.getPageLinksFromWikitext(null) >> Lists.newArrayList()
 		1 * individualDateOfDeathEnrichingProcessorMock.enrich(_)
@@ -417,6 +432,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.of(page.templates[0])
 		1 * individualLifeBoundaryProcessorMock.process(VALUE) >> individualLifeBoundaryDTO
 		1 * wikitextApiMock.getPageLinksFromWikitext(null) >> Lists.newArrayList()
 		1 * individualDateOfDeathEnrichingProcessorMock.enrich(_)
@@ -440,6 +456,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.of(page.templates[0])
 		1 * individualMaritalStatusProcessorMock.process(VALUE) >> MARITAL_STATUS
 		1 * wikitextApiMock.getPageLinksFromWikitext(null) >> Lists.newArrayList()
 		1 * individualDateOfDeathEnrichingProcessorMock.enrich(_)
@@ -460,6 +477,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.of(page.templates[0])
 		1 * individualBloodTypeProcessorMock.process(VALUE) >> BLOOD_TYPE
 		1 * wikitextApiMock.getPageLinksFromWikitext(null) >> Lists.newArrayList()
 		1 * individualDateOfDeathEnrichingProcessorMock.enrich(_)

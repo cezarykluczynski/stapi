@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.datetime;
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange;
-import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.etl.template.service.TemplateFilter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
+import com.cezarykluczynski.stapi.util.constant.TemplateName;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.validator.routines.IntegerValidator;
 import org.springframework.batch.item.ItemProcessor;
@@ -14,14 +14,17 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class PartToDateRangeProcessor extends AbstractTemplateProcessor
-		implements ItemProcessor<Template.Part, DateRange> {
+public class PartToDateRangeProcessor implements ItemProcessor<Template.Part, DateRange> {
 
 	private DatelinkTemplateToLocalDateProcessor datelinkTemplateToLocalDateProcessor;
 
+	private TemplateFilter templateFilter;
+
 	@Inject
-	public PartToDateRangeProcessor(DatelinkTemplateToLocalDateProcessor datelinkTemplateToLocalDateProcessor) {
+	public PartToDateRangeProcessor(DatelinkTemplateToLocalDateProcessor datelinkTemplateToLocalDateProcessor,
+			TemplateFilter templateFilter) {
 		this.datelinkTemplateToLocalDateProcessor = datelinkTemplateToLocalDateProcessor;
+		this.templateFilter = templateFilter;
 	}
 
 	@Override
@@ -34,7 +37,8 @@ public class PartToDateRangeProcessor extends AbstractTemplateProcessor
 	private DateRange fromTemplate(List<Template> templateList, Template.Part part) throws Exception {
 		DateRange dateRange = new DateRange();
 
-		List<Template> dateTemplateList = filterByTitle(templateList, TemplateName.D, TemplateName.DATELINK);
+		List<Template> dateTemplateList = templateFilter
+				.filterByTitle(templateList, TemplateName.D, TemplateName.DATELINK);
 
 		Integer size = dateTemplateList.size();
 

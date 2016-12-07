@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange
 import com.cezarykluczynski.stapi.etl.template.common.dto.Gender
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PageToLifeRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGenderProcessor
+import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
 import com.cezarykluczynski.stapi.model.page.entity.Page as PageEntity
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource as SourcesMediaWikiSource
@@ -42,7 +43,9 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 
 	private PageBindingService pageBindingServiceMock
 
-	private ActorTemplateSinglePageProcessor actorTemplatePageProcessor
+	private TemplateFinder templateFinderMock
+
+	private ActorTemplateSinglePageProcessor actorTemplateSinglePageProcessor
 
 	private Template template
 
@@ -54,9 +57,10 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		actorTemplateTemplateProcessorMock = Mock(ActorTemplateTemplateProcessor)
 		categoriesActorTemplateEnrichingProcessorMock = Mock(CategoriesActorTemplateEnrichingProcessor)
 		pageBindingServiceMock = Mock(PageBindingService)
-		actorTemplatePageProcessor = new ActorTemplateSinglePageProcessor(pageToGenderProcessorMock,
+		templateFinderMock = Mock(TemplateFinder)
+		actorTemplateSinglePageProcessor = new ActorTemplateSinglePageProcessor(pageToGenderProcessorMock,
 				pageToLifeRangeProcessorMock, actorTemplateTemplateProcessorMock,
-				categoriesActorTemplateEnrichingProcessorMock, pageBindingServiceMock)
+				categoriesActorTemplateEnrichingProcessorMock, pageBindingServiceMock, templateFinderMock)
 
 		template = new Template(title: TemplateName.SIDEBAR_ACTOR)
 		pageWithTemplate = new Page(templates: Lists.newArrayList(
@@ -69,7 +73,7 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		Page page = new Page(title: PageName.UNKNOWN_PERFORMERS)
 
 		when:
-		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(page)
+		ActorTemplate actorTemplate = actorTemplateSinglePageProcessor.process(page)
 
 		then:
 		actorTemplate == null
@@ -80,7 +84,7 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		Page page = new Page(categories: Lists.newArrayList(new CategoryHeader(title: CategoryName.PRODUCTION_LISTS)))
 
 		when:
-		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(page)
+		ActorTemplate actorTemplate = actorTemplateSinglePageProcessor.process(page)
 
 		then:
 		actorTemplate == null
@@ -96,10 +100,11 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		PageEntity pageEntity = new PageEntity()
 
 		when:
-		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(page)
+		ActorTemplate actorTemplate = actorTemplateSinglePageProcessor.process(page)
 
 		then:
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> pageEntity
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_ACTOR, TemplateName.SIDEBAR_CREW) >> Optional.empty()
 		actorTemplate.name == TITLE
 		actorTemplate.page == pageEntity
 	}
@@ -110,9 +115,10 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		template.title == TemplateName.SIDEBAR_CREW
 
 		when:
-		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(page)
+		ActorTemplate actorTemplate = actorTemplateSinglePageProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_ACTOR, TemplateName.SIDEBAR_CREW) >> Optional.empty()
 		actorTemplate.name == TITLE
 	}
 
@@ -121,9 +127,10 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		Page page = new Page(title: TITLE_WITH_BRACKETS)
 
 		when:
-		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(page)
+		ActorTemplate actorTemplate = actorTemplateSinglePageProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_ACTOR, TemplateName.SIDEBAR_CREW) >> Optional.empty()
 		actorTemplate.name == TITLE
 	}
 
@@ -135,9 +142,10 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		PageEntity pageEntity = new PageEntity()
 
 		when:
-		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(page)
+		ActorTemplate actorTemplate = actorTemplateSinglePageProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_ACTOR, TemplateName.SIDEBAR_CREW) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> pageEntity
 		actorTemplate.page == pageEntity
 	}
@@ -148,9 +156,10 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		Page page = new Page()
 
 		when:
-		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(page)
+		ActorTemplate actorTemplate = actorTemplateSinglePageProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_ACTOR, TemplateName.SIDEBAR_CREW) >> Optional.empty()
 		1 * pageToGenderProcessorMock.process(page) >> GENDER
 		actorTemplate.gender == GENDER
 	}
@@ -160,9 +169,10 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		Page page = new Page()
 
 		when:
-		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(page)
+		ActorTemplate actorTemplate = actorTemplateSinglePageProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_ACTOR, TemplateName.SIDEBAR_CREW) >> Optional.empty()
 		1 * pageToLifeRangeProcessorMock.process(page) >> LIFE_RANGE
 		actorTemplate.lifeRange == LIFE_RANGE
 	}
@@ -172,9 +182,10 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		ActorTemplate actorTemplateFromTemplate = new ActorTemplate(name: NAME)
 
 		when:
-		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(pageWithTemplate)
+		ActorTemplate actorTemplate = actorTemplateSinglePageProcessor.process(pageWithTemplate)
 
 		then:
+		1 * templateFinderMock.findTemplate(pageWithTemplate, TemplateName.SIDEBAR_ACTOR, TemplateName.SIDEBAR_CREW) >> Optional.of(template)
 		1 * actorTemplateTemplateProcessorMock.process(template) >> actorTemplateFromTemplate
 		actorTemplate.name == NAME
 	}
@@ -184,9 +195,10 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		pageWithTemplate.wikitext = "'''${BIRTH_NAME}''' is an actor."
 
 		when:
-		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(pageWithTemplate)
+		ActorTemplate actorTemplate = actorTemplateSinglePageProcessor.process(pageWithTemplate)
 
 		then:
+		1 * templateFinderMock.findTemplate(pageWithTemplate, TemplateName.SIDEBAR_ACTOR, TemplateName.SIDEBAR_CREW) >> Optional.of(template)
 		1 * actorTemplateTemplateProcessorMock.process(template) >> new ActorTemplate()
 		actorTemplate.birthName == BIRTH_NAME
 	}
@@ -197,9 +209,10 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		pageWithTemplate.wikitext = "'''${NAME}''' is an actor."
 
 		when:
-		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(pageWithTemplate)
+		ActorTemplate actorTemplate = actorTemplateSinglePageProcessor.process(pageWithTemplate)
 
 		then:
+		1 * templateFinderMock.findTemplate(pageWithTemplate, TemplateName.SIDEBAR_ACTOR, TemplateName.SIDEBAR_CREW) >> Optional.of(template)
 		1 * actorTemplateTemplateProcessorMock.process(template) >> new ActorTemplate()
 		actorTemplate.birthName == null
 	}
@@ -209,9 +222,10 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		ActorTemplate actorTemplateFromTemplate = new ActorTemplate(birthName: BIRTH_NAME)
 
 		when:
-		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(pageWithTemplate)
+		ActorTemplate actorTemplate = actorTemplateSinglePageProcessor.process(pageWithTemplate)
 
 		then:
+		1 * templateFinderMock.findTemplate(pageWithTemplate, TemplateName.SIDEBAR_ACTOR, TemplateName.SIDEBAR_CREW) >> Optional.of(template)
 		1 * actorTemplateTemplateProcessorMock.process(template) >> actorTemplateFromTemplate
 		actorTemplate.birthName == BIRTH_NAME
 	}
@@ -221,9 +235,10 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		ActorTemplate actorTemplateFromTemplate = new ActorTemplate(placeOfBirth: PLACE_OF_BIRTH)
 
 		when:
-		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(pageWithTemplate)
+		ActorTemplate actorTemplate = actorTemplateSinglePageProcessor.process(pageWithTemplate)
 
 		then:
+		1 * templateFinderMock.findTemplate(pageWithTemplate, TemplateName.SIDEBAR_ACTOR, TemplateName.SIDEBAR_CREW) >> Optional.of(template)
 		1 * actorTemplateTemplateProcessorMock.process(template) >> actorTemplateFromTemplate
 		actorTemplate.placeOfBirth == PLACE_OF_BIRTH
 	}
@@ -233,9 +248,10 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		ActorTemplate actorTemplateFromTemplate = new ActorTemplate(placeOfBirth: PLACE_OF_DEATH)
 
 		when:
-		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(pageWithTemplate)
+		ActorTemplate actorTemplate = actorTemplateSinglePageProcessor.process(pageWithTemplate)
 
 		then:
+		1 * templateFinderMock.findTemplate(pageWithTemplate, TemplateName.SIDEBAR_ACTOR, TemplateName.SIDEBAR_CREW) >> Optional.of(template)
 		1 * actorTemplateTemplateProcessorMock.process(template) >> actorTemplateFromTemplate
 		actorTemplate.placeOfBirth == PLACE_OF_DEATH
 	}
@@ -245,9 +261,10 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		ActorTemplate actorTemplateFromTemplate = new ActorTemplate(gender: Gender.F)
 
 		when:
-		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(pageWithTemplate)
+		ActorTemplate actorTemplate = actorTemplateSinglePageProcessor.process(pageWithTemplate)
 
 		then:
+		1 * templateFinderMock.findTemplate(pageWithTemplate, TemplateName.SIDEBAR_ACTOR, TemplateName.SIDEBAR_CREW) >> Optional.of(template)
 		1 * actorTemplateTemplateProcessorMock.process(template) >> actorTemplateFromTemplate
 		actorTemplate.gender == Gender.F
 	}
@@ -257,10 +274,11 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		ActorTemplate actorTemplateFromTemplate = new ActorTemplate(gender: Gender.F)
 
 		when:
-		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(pageWithTemplate)
+		ActorTemplate actorTemplate = actorTemplateSinglePageProcessor.process(pageWithTemplate)
 
 		then:
 		1 * pageToGenderProcessorMock.process(pageWithTemplate) >> Gender.M
+		1 * templateFinderMock.findTemplate(pageWithTemplate, TemplateName.SIDEBAR_ACTOR, TemplateName.SIDEBAR_CREW) >> Optional.of(template)
 		1 * actorTemplateTemplateProcessorMock.process(template) >> actorTemplateFromTemplate
 		actorTemplate.gender == null
 	}
@@ -270,9 +288,10 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		actorTemplateTemplateProcessorMock.process(_) >> new ActorTemplate()
 
 		when:
-		ActorTemplate actorTemplate = actorTemplatePageProcessor.process(pageWithTemplate)
+		ActorTemplate actorTemplate = actorTemplateSinglePageProcessor.process(pageWithTemplate)
 
 		then:
+		1 * templateFinderMock.findTemplate(pageWithTemplate, TemplateName.SIDEBAR_ACTOR, TemplateName.SIDEBAR_CREW) >> Optional.empty()
 		1 * categoriesActorTemplateEnrichingProcessorMock.enrich(_) >> { EnrichablePair<List<CategoryHeader>, ActorTemplate> enrichablePair ->
 			enrichablePair.output.animalPerformer = true
 		}

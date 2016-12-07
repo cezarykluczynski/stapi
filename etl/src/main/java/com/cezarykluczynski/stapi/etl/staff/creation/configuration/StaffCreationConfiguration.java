@@ -10,6 +10,7 @@ import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateSing
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateTemplateProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PageToLifeRangeProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGenderProcessor;
+import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
@@ -115,7 +116,8 @@ public class StaffCreationConfiguration {
 				applicationContext.getBean(PageToLifeRangeProcessor.class),
 				applicationContext.getBean(ActorTemplateTemplateProcessor.class),
 				applicationContext.getBean(StaffCategoriesActorTemplateEnrichingProcessor.class),
-				applicationContext.getBean(PageBindingService.class));
+				applicationContext.getBean(PageBindingService.class),
+				applicationContext.getBean(TemplateFinder.class));
 	}
 
 	@Bean(STAFF_ACTOR_TEMPLATE_PAGE_PROCESSOR)

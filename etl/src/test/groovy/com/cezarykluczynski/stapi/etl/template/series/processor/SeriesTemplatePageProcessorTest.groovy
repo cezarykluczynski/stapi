@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.YearRange
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToDateRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToYearRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplate
+import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.model.page.entity.Page as PageEntity
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource as SourcesMediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
@@ -27,14 +28,17 @@ class SeriesTemplatePageProcessorTest extends Specification {
 
 	private PageBindingService pageBindingServiceMock
 
+	private TemplateFinder templateFinderMock
+
 	private SeriesTemplatePageProcessor seriesTemplatePageProcessor
 
 	def setup() {
 		partToYearRangeProcessorMock = Mock(PartToYearRangeProcessor)
 		partToDateRangeProcessorMock = Mock(PartToDateRangeProcessor)
 		pageBindingServiceMock = Mock(PageBindingService)
+		templateFinderMock = Mock(TemplateFinder)
 		seriesTemplatePageProcessor = new SeriesTemplatePageProcessor(partToYearRangeProcessorMock,
-				partToDateRangeProcessorMock, pageBindingServiceMock)
+				partToDateRangeProcessorMock, pageBindingServiceMock, templateFinderMock)
 	}
 
 	def "missing template results in null SeriesTemplate"() {
@@ -45,6 +49,7 @@ class SeriesTemplatePageProcessorTest extends Specification {
 		SeriesTemplate seriesTemplate = seriesTemplatePageProcessor.process(page)
 
 		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_SERIES) >> Optional.empty()
 		seriesTemplate == null
 	}
 
@@ -55,22 +60,24 @@ class SeriesTemplatePageProcessorTest extends Specification {
 		YearRange yearRange = Mock(YearRange)
 		DateRange dateRange = Mock(DateRange)
 
+		Template template = new Template(title: TemplateName.SIDEBAR_SERIES, parts: Lists.newArrayList(
+				new Template.Part(key: SeriesTemplatePageProcessor.ABBR, value: ABBREVIATION),
+				yearRangePart,
+				dateRangePart
+		))
 		Page page = new Page(
 				title: TITLE,
 				pageId: PAGE_ID,
 				mediaWikiSource: SOURCES_MEDIA_WIKI_SOURCE,
-				templates: Lists.newArrayList(
-						new Template(title: TemplateName.SIDEBAR_SERIES, parts: Lists.newArrayList(
-								new Template.Part(key: SeriesTemplatePageProcessor.ABBR, value: ABBREVIATION),
-								yearRangePart,
-								dateRangePart
-						)
-				)
-		))
+				templates: Lists.newArrayList(template)
+		)
 		PageEntity pageEntity = new PageEntity()
 
 		when:
 		SeriesTemplate seriesTemplate = seriesTemplatePageProcessor.process(page)
+
+		then: 'template is passed through TemplateFinder'
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_SERIES) >> Optional.of(template)
 
 		then: 'year range and date range parsing is delegated'
 		1 * partToYearRangeProcessorMock.process(yearRangePart) >> yearRange

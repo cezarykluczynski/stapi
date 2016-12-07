@@ -2,11 +2,11 @@ package com.cezarykluczynski.stapi.etl.template.common.processor.datetime;
 
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateToLifeRangeProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange;
-import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
-import com.cezarykluczynski.stapi.util.tool.LogicUtil;
+import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
+import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.util.tool.LogicUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.batch.item.ItemProcessor;
@@ -18,17 +18,20 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-public class LifeRangeProcessor extends AbstractTemplateProcessor implements ItemProcessor<Page, DateRange> {
+public class LifeRangeProcessor implements ItemProcessor<Page, DateRange> {
 
 	private PageToLifeRangeProcessor pageToLifeRangeProcessor;
 
 	private ActorTemplateToLifeRangeProcessor actorTemplateToLifeRangeProcessor;
 
+	private TemplateFinder templateFinder;
+
 	@Inject
 	public LifeRangeProcessor(PageToLifeRangeProcessor pageToLifeRangeProcessor,
-			ActorTemplateToLifeRangeProcessor actorTemplateToLifeRangeProcessor) {
+			ActorTemplateToLifeRangeProcessor actorTemplateToLifeRangeProcessor, TemplateFinder templateFinder) {
 		this.pageToLifeRangeProcessor = pageToLifeRangeProcessor;
 		this.actorTemplateToLifeRangeProcessor = actorTemplateToLifeRangeProcessor;
+		this.templateFinder = templateFinder;
 	}
 
 	@Override
@@ -75,7 +78,7 @@ public class LifeRangeProcessor extends AbstractTemplateProcessor implements Ite
 	}
 
 	private DateRange getTemplateDateRange(Page item) throws Exception {
-		Optional<Template> bornTemplateOptional = findTemplate(item, TemplateName.SIDEBAR_ACTOR);
+		Optional<Template> bornTemplateOptional = templateFinder.findTemplate(item, TemplateName.SIDEBAR_ACTOR);
 
 		if (bornTemplateOptional.isPresent()) {
 			return actorTemplateToLifeRangeProcessor.process(bornTemplateOptional.get());

@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.datetime
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.YearRange
+import com.cezarykluczynski.stapi.etl.template.service.TemplateFilter
 import com.cezarykluczynski.stapi.util.constant.TemplateName
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
@@ -9,17 +10,20 @@ import spock.lang.Specification
 class PartToYearRangeProcessorTest extends Specification {
 
 	private static final Template START_TEMPLATE = new Template(title: TemplateName.Y)
-	private static final Template END_TEMPLATE = new Template(title: TemplateName.Y)
+	private static final Template END_TEMPLATE = new Template(title: TemplateName.YEARLINK)
 	private static final Integer START_YEAR = 1997
 	private static final Integer END_YEAR = 2005
 
 	private TemplateToYearProcessor templateToYearProcessorMock
 
+	private TemplateFilter templateFilterMock
+
 	private PartToYearRangeProcessor partToYearRangeProcessor
 
 	def setup() {
 		templateToYearProcessorMock = Mock(TemplateToYearProcessor)
-		partToYearRangeProcessor = new PartToYearRangeProcessor(templateToYearProcessorMock)
+		templateFilterMock = Mock(TemplateFilter)
+		partToYearRangeProcessor = new PartToYearRangeProcessor(templateToYearProcessorMock, templateFilterMock)
 	}
 
 	def "returns empty YearRange when value is null, templates are null"() {
@@ -51,12 +55,16 @@ class PartToYearRangeProcessorTest extends Specification {
 
 	def "valid Part is converted to YearRange with both dates"() {
 		given:
-		Template.Part part = createTemplatePart(null, Lists.newArrayList(
+		List<Template> templateList = Lists.newArrayList(
 				START_TEMPLATE, END_TEMPLATE
-		))
+		)
+		Template.Part part = createTemplatePart(null, templateList)
 
 		when:
 		YearRange yearRange = partToYearRangeProcessor.process(part)
+
+		then: 'date templates are filtered'
+		1 * templateFilterMock.filterByTitle(templateList, TemplateName.Y, TemplateName.YEARLINK) >> templateList
 
 		then:
 		1 * templateToYearProcessorMock.process(START_TEMPLATE) >> START_YEAR
@@ -67,12 +75,16 @@ class PartToYearRangeProcessorTest extends Specification {
 
 	def "Part with only start year is converted to YearRange with only start year"() {
 		given:
-		Template.Part part = createTemplatePart(null, Lists.newArrayList(
+		List<Template> templateList = Lists.newArrayList(
 				START_TEMPLATE
-		))
+		)
+				Template.Part part = createTemplatePart(null, templateList)
 
 		when:
 		YearRange yearRange = partToYearRangeProcessor.process(part)
+
+		then: 'date templates are filtered'
+		1 * templateFilterMock.filterByTitle(templateList, TemplateName.Y, TemplateName.YEARLINK) >> templateList
 
 		then: 'only start year is parsed'
 		1 * templateToYearProcessorMock.process(START_TEMPLATE) >> START_YEAR
@@ -88,12 +100,16 @@ class PartToYearRangeProcessorTest extends Specification {
 
 	def "Part with more than 2 year templates results in empty YearRange"() {
 		given:
-		Template.Part part = createTemplatePart(null, Lists.newArrayList(
+		List<Template> templateList = Lists.newArrayList(
 				START_TEMPLATE, END_TEMPLATE, START_TEMPLATE
-		))
+		)
+		Template.Part part = createTemplatePart(null, templateList)
 
 		when:
 		YearRange yearRange = partToYearRangeProcessor.process(part)
+
+		then: 'date templates are filtered'
+		1 * templateFilterMock.filterByTitle(templateList, TemplateName.Y, TemplateName.YEARLINK) >> templateList
 
 		then: 'both years are null'
 		yearRange.startYear == null

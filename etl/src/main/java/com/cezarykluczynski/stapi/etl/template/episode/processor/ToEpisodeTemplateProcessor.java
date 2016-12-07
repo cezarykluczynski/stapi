@@ -5,8 +5,8 @@ import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.episode.creation.service.SeriesToEpisodeBindingService;
 import com.cezarykluczynski.stapi.etl.template.common.linker.EpisodePerformancesLinkingWorker;
 import com.cezarykluczynski.stapi.etl.template.common.linker.EpisodeStaffLinkingWorker;
-import com.cezarykluczynski.stapi.etl.template.common.processor.AbstractTemplateProcessor;
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate;
+import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryNames;
@@ -25,8 +25,7 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-public class ToEpisodeTemplateProcessor extends AbstractTemplateProcessor
-		implements ItemProcessor<Page, EpisodeTemplate> {
+public class ToEpisodeTemplateProcessor implements ItemProcessor<Page, EpisodeTemplate> {
 
 	private EpisodeTemplateProcessor episodeTemplateProcessor;
 
@@ -40,23 +39,27 @@ public class ToEpisodeTemplateProcessor extends AbstractTemplateProcessor
 
 	private EpisodeTemplateDatesEnrichingProcessor episodeTemplateDatesEnrichingProcessor;
 
+	private TemplateFinder templateFinder;
+
 	@Inject
 	public ToEpisodeTemplateProcessor(EpisodeTemplateProcessor episodeTemplateProcessor,
 			EpisodePerformancesLinkingWorker episodePerformancesLinkingWorker,
 			EpisodeStaffLinkingWorker episodeStaffLinkingWorker, PageBindingService pageBindingService,
 			SeriesToEpisodeBindingService seriesToEpisodeBindingService,
-			EpisodeTemplateDatesEnrichingProcessor episodeTemplateDatesEnrichingProcessor) {
+			EpisodeTemplateDatesEnrichingProcessor episodeTemplateDatesEnrichingProcessor,
+			TemplateFinder templateFinder) {
 		this.episodeTemplateProcessor = episodeTemplateProcessor;
 		this.episodePerformancesLinkingWorker = episodePerformancesLinkingWorker;
 		this.episodeStaffLinkingWorker = episodeStaffLinkingWorker;
 		this.pageBindingService = pageBindingService;
 		this.seriesToEpisodeBindingService = seriesToEpisodeBindingService;
 		this.episodeTemplateDatesEnrichingProcessor = episodeTemplateDatesEnrichingProcessor;
+		this.templateFinder = templateFinder;
 	}
 
 	@Override
 	public EpisodeTemplate process(Page item) throws Exception {
-		Optional<Template> templateOptional = findTemplate(item, TemplateName.SIDEBAR_EPISODE);
+		Optional<Template> templateOptional = templateFinder.findTemplate(item, TemplateName.SIDEBAR_EPISODE);
 
 		if (!isEpisodePage(item) || !templateOptional.isPresent()) {
 			return null;
