@@ -36,7 +36,7 @@ public class GenderizeClientConnectableImpl implements GenderizeClient {
 	private long minimalInterval = 1000L;
 
 	@Inject
-	public GenderizeClientConnectableImpl(@Value("${url.genderize}") String apiUrl) {
+	public GenderizeClientConnectableImpl(@Value("${source.genderize.apiUrl}") String apiUrl) {
 		Preconditions.checkNotNull(apiUrl);
 		this.apiUrl = apiUrl;
 	}

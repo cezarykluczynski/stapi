@@ -2,7 +2,6 @@ package com.cezarykluczynski.stapi.etl.template.episode.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
-import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DayMonthYearProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.RawDatelinkExtractingProcessor;
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection;
@@ -45,14 +44,10 @@ public class EpisodeTemplateDatesEnrichingProcessor
 		FIXED_DATES.put("Lifesigns", LocalDate.of(1995, 12, 4));
 	}
 
-	private DayMonthYearProcessor dayMonthYearProcessor;
-
 	private RawDatelinkExtractingProcessor rawDatelinkExtractingProcessor;
 
 	@Inject
-	public EpisodeTemplateDatesEnrichingProcessor(DayMonthYearProcessor dayMonthYearProcessor,
-			RawDatelinkExtractingProcessor rawDatelinkExtractingProcessor) {
-		this.dayMonthYearProcessor = dayMonthYearProcessor;
+	public EpisodeTemplateDatesEnrichingProcessor(RawDatelinkExtractingProcessor rawDatelinkExtractingProcessor) {
 		this.rawDatelinkExtractingProcessor = rawDatelinkExtractingProcessor;
 	}
 

@@ -1,7 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.episode.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
-import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DayMonthYearProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.RawDatelinkExtractingProcessor
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection
@@ -17,17 +16,13 @@ class EpisodeTemplateDatesEnrichingProcessorTest extends Specification {
 	private static final String TITLE = 'TITLE'
 	private static final String WIKITEXT = '* Final draft blah blah'
 
-	private DayMonthYearProcessor dayMonthYearProcessorMock
-
 	private RawDatelinkExtractingProcessor rawDatelinkExtractingProcessorMock
 
 	private EpisodeTemplateDatesEnrichingProcessor episodeTemplateDatesEnrichingProcessor
 
 	def setup() {
-		dayMonthYearProcessorMock = Mock(DayMonthYearProcessor)
 		rawDatelinkExtractingProcessorMock = Mock(RawDatelinkExtractingProcessor)
-		episodeTemplateDatesEnrichingProcessor = new EpisodeTemplateDatesEnrichingProcessor(dayMonthYearProcessorMock,
-				rawDatelinkExtractingProcessorMock)
+		episodeTemplateDatesEnrichingProcessor = new EpisodeTemplateDatesEnrichingProcessor(rawDatelinkExtractingProcessorMock)
 	}
 
 	def "gets fixed date when it is present"() {
