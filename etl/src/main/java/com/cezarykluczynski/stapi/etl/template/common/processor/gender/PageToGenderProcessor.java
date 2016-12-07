@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.gender;
 
+import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
 import com.cezarykluczynski.stapi.etl.template.common.dto.Gender;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import lombok.extern.slf4j.Slf4j;
@@ -16,27 +17,27 @@ public class PageToGenderProcessor implements ItemProcessor<Page, Gender> {
 
 	private PageToGenderRoleProcessor pageToGenderRoleProcessor;
 
-	private PageToGenderSupplementaryProcessor pageToGenderSupplementaryProcessor;
+	private GenderFixedValueProvider genderFixedValueProvider;
 
 	private PageToGenderNameProcessor pageToGenderNameProcessor;
 
 	@Inject
 	public PageToGenderProcessor(PageToGenderPronounProcessor pageToGenderPronounProcessor,
 			PageToGenderRoleProcessor pageToGenderRoleProcessor,
-			PageToGenderSupplementaryProcessor pageToGenderSupplementaryProcessor,
+			GenderFixedValueProvider genderFixedValueProvider,
 			PageToGenderNameProcessor pageToGenderNameProcessor) {
 		this.pageToGenderPronounProcessor = pageToGenderPronounProcessor;
 		this.pageToGenderRoleProcessor = pageToGenderRoleProcessor;
-		this.pageToGenderSupplementaryProcessor = pageToGenderSupplementaryProcessor;
+		this.genderFixedValueProvider = genderFixedValueProvider;
 		this.pageToGenderNameProcessor = pageToGenderNameProcessor;
 	}
 
 	@Override
 	public Gender process(Page item) throws Exception {
-		PageToGenderSupplementaryProcessor.Finding finding = pageToGenderSupplementaryProcessor.process(item);
+		FixedValueHolder<Gender> fixedValueHolder = genderFixedValueProvider.getSearchedValue(item.getTitle());
 
-		if (finding.isFound()) {
-			return finding.getGender();
+		if (fixedValueHolder.isFound()) {
+			return fixedValueHolder.getValue();
 		}
 
 		if(item.getWikitext() != null) {

@@ -81,7 +81,8 @@ public class EpisodePerformancesExtractor {
 			"stunt double",
 			"stand-in",
 			"ensign",
-			"photo double"
+			"photo double",
+			"crewman"
 	);
 
 	private static final List<String> INVALID_PAGE_TITLES = Lists.newArrayList(

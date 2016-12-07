@@ -1,16 +1,15 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.gender;
 
+import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
+import com.cezarykluczynski.stapi.etl.common.service.FixedValueProvider;
 import com.cezarykluczynski.stapi.etl.template.common.dto.Gender;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.google.common.collect.Maps;
-import lombok.Data;
-import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
 @Service
-public class PageToGenderSupplementaryProcessor implements ItemProcessor<Page, PageToGenderSupplementaryProcessor.Finding> {
+public class GenderFixedValueProvider implements FixedValueProvider<String, Gender> {
 
 	private static final Map<String, Gender> NAME_TO_GENDER_MAP = Maps.newHashMap();
 
@@ -66,24 +65,9 @@ public class PageToGenderSupplementaryProcessor implements ItemProcessor<Page, P
 		NAME_TO_GENDER_MAP.put("Ilbra Yacoob", Gender.F); // genderize.io is not sure, photo used to determine
 	}
 
-	@Data
-	public static class Finding {
-
-		private boolean found;
-
-		private Gender gender;
-
-	}
-
 	@Override
-	public Finding process(Page item) throws Exception {
-		String title = item.getTitle();
-		boolean found = NAME_TO_GENDER_MAP.containsKey(title);
-		Finding finding = new Finding();
-
-		finding.setFound(found);
-		finding.setGender(found ? NAME_TO_GENDER_MAP.get(title) : null);
-		return finding;
+	public FixedValueHolder<Gender> getSearchedValue(String key) {
+		return FixedValueHolder.of(NAME_TO_GENDER_MAP.containsKey(key), NAME_TO_GENDER_MAP.get(key));
 	}
 
 }

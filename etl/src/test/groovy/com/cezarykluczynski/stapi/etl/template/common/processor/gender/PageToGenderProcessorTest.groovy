@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.gender
 
+import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder
 import com.cezarykluczynski.stapi.etl.template.common.dto.Gender
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import spock.lang.Specification
@@ -7,12 +8,13 @@ import spock.lang.Specification
 class PageToGenderProcessorTest extends Specification {
 
 	private static final Gender GENDER = Gender.F
+	private static final String TITLE = 'TITLE'
 
 	private PageToGenderPronounProcessor pageToGenderPronounProcessorMock
 
 	private PageToGenderRoleProcessor pageToGenderRoleProcessorMock
 
-	private PageToGenderSupplementaryProcessor pageToGenderSupplementaryProcessorMock
+	private GenderFixedValueProvider genderFixedValueProvider
 
 	private PageToGenderNameProcessor pageToGenderNameProcessorMock
 
@@ -23,11 +25,13 @@ class PageToGenderProcessorTest extends Specification {
 	def setup() {
 		pageToGenderPronounProcessorMock = Mock(PageToGenderPronounProcessor)
 		pageToGenderRoleProcessorMock = Mock(PageToGenderRoleProcessor)
-		pageToGenderSupplementaryProcessorMock = Mock(PageToGenderSupplementaryProcessor)
+		genderFixedValueProvider = Mock(GenderFixedValueProvider)
 		pageToGenderNameProcessorMock = Mock(PageToGenderNameProcessor)
 		pageToGenderProcessor = new PageToGenderProcessor(pageToGenderPronounProcessorMock,
-				pageToGenderRoleProcessorMock, pageToGenderSupplementaryProcessorMock, pageToGenderNameProcessorMock)
-		pageMock = Mock(Page)
+				pageToGenderRoleProcessorMock, genderFixedValueProvider, pageToGenderNameProcessorMock)
+		pageMock = Mock(Page) {
+			getTitle() >> TITLE
+		}
 	}
 
 	def "gets gender from PageToGenderSupplementaryProcessor when it is found"() {
@@ -35,9 +39,7 @@ class PageToGenderProcessorTest extends Specification {
 		Gender gender = pageToGenderProcessor.process(pageMock)
 
 		then:
-		1 * pageToGenderSupplementaryProcessorMock.process(pageMock) >> new PageToGenderSupplementaryProcessor.Finding(
-				gender: GENDER,
-				found: true)
+		1 * genderFixedValueProvider.getSearchedValue(TITLE) >> FixedValueHolder.of(true, GENDER)
 		gender == GENDER
 	}
 
@@ -46,7 +48,7 @@ class PageToGenderProcessorTest extends Specification {
 		pageToGenderProcessor.process(pageMock)
 
 		then:
-		1 * pageToGenderSupplementaryProcessorMock.process(pageMock) >> new PageToGenderSupplementaryProcessor.Finding()
+		1 * genderFixedValueProvider.getSearchedValue(TITLE) >> FixedValueHolder.empty()
 		0 * pageToGenderPronounProcessorMock._
 		0 * pageToGenderRoleProcessorMock._
 		1 * pageToGenderNameProcessorMock._
@@ -58,7 +60,7 @@ class PageToGenderProcessorTest extends Specification {
 
 		then:
 		1 * pageMock.getWikitext() >> ""
-		1 * pageToGenderSupplementaryProcessorMock.process(pageMock) >> new PageToGenderSupplementaryProcessor.Finding()
+		1 * genderFixedValueProvider.getSearchedValue(TITLE) >> FixedValueHolder.empty()
 		1 * pageToGenderPronounProcessorMock.process(pageMock) >> GENDER
 		gender == GENDER
 	}
@@ -69,7 +71,7 @@ class PageToGenderProcessorTest extends Specification {
 
 		then:
 		1 * pageMock.getWikitext() >> ""
-		1 * pageToGenderSupplementaryProcessorMock.process(pageMock) >> new PageToGenderSupplementaryProcessor.Finding()
+		1 * genderFixedValueProvider.getSearchedValue(TITLE) >> FixedValueHolder.empty()
 		1 * pageToGenderPronounProcessorMock.process(pageMock) >> null
 		1 * pageToGenderRoleProcessorMock.process(pageMock) >> GENDER
 		gender == GENDER
@@ -81,7 +83,7 @@ class PageToGenderProcessorTest extends Specification {
 
 		then:
 		1 * pageMock.getWikitext() >> ""
-		1 * pageToGenderSupplementaryProcessorMock.process(pageMock) >> new PageToGenderSupplementaryProcessor.Finding()
+		1 * genderFixedValueProvider.getSearchedValue(TITLE) >> FixedValueHolder.empty()
 		1 * pageToGenderPronounProcessorMock.process(pageMock) >> null
 		1 * pageToGenderRoleProcessorMock.process(pageMock) >> null
 		1 * pageToGenderNameProcessorMock.process(pageMock) >> GENDER
@@ -94,7 +96,7 @@ class PageToGenderProcessorTest extends Specification {
 
 		then:
 		1 * pageMock.getWikitext() >> ""
-		1 * pageToGenderSupplementaryProcessorMock.process(pageMock) >> new PageToGenderSupplementaryProcessor.Finding()
+		1 * genderFixedValueProvider.getSearchedValue(TITLE) >> FixedValueHolder.empty()
 		1 * pageToGenderPronounProcessorMock.process(pageMock) >> null
 		1 * pageToGenderRoleProcessorMock.process(pageMock) >> null
 		1 * pageToGenderNameProcessorMock.process(pageMock) >> null

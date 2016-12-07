@@ -1,8 +1,10 @@
 package com.cezarykluczynski.stapi.etl.template.episode.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
+import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.RawDatelinkExtractingProcessor
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate
+import com.cezarykluczynski.stapi.etl.template.episode.provider.EpisodeFinalScriptDateFixedValueProvider
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.google.common.collect.Lists
@@ -12,17 +14,23 @@ import java.time.LocalDate
 
 class EpisodeTemplateDatesEnrichingProcessorTest extends Specification {
 
-	private static final String FIXED_TITLE = 'Albatross'
+	private static final String FIXED_TITLE = 'FIXED_TITLE'
 	private static final String TITLE = 'TITLE'
 	private static final String WIKITEXT = '* Final draft blah blah'
 
 	private RawDatelinkExtractingProcessor rawDatelinkExtractingProcessorMock
 
+	private EpisodeFinalScriptDateFixedValueProvider episodeFinalScriptDateFixedValueProviderMock
+
 	private EpisodeTemplateDatesEnrichingProcessor episodeTemplateDatesEnrichingProcessor
+
+	private LocalDate finalScriptDate = LocalDate.of(1996, 4, 5)
 
 	def setup() {
 		rawDatelinkExtractingProcessorMock = Mock(RawDatelinkExtractingProcessor)
-		episodeTemplateDatesEnrichingProcessor = new EpisodeTemplateDatesEnrichingProcessor(rawDatelinkExtractingProcessorMock)
+		episodeFinalScriptDateFixedValueProviderMock = Mock(EpisodeFinalScriptDateFixedValueProvider)
+		episodeTemplateDatesEnrichingProcessor = new EpisodeTemplateDatesEnrichingProcessor(
+				rawDatelinkExtractingProcessorMock, episodeFinalScriptDateFixedValueProviderMock)
 	}
 
 	def "gets fixed date when it is present"() {
@@ -35,7 +43,8 @@ class EpisodeTemplateDatesEnrichingProcessorTest extends Specification {
 		episodeTemplateDatesEnrichingProcessor.enrich(EnrichablePair.of(new Page(), episodeTemplate))
 
 		then:
-		episodeTemplate.finalScriptDate == EpisodeTemplateDatesEnrichingProcessor.FIXED_DATES.get(FIXED_TITLE)
+		1 * episodeFinalScriptDateFixedValueProviderMock.getSearchedValue(FIXED_TITLE) >> FixedValueHolder.found(finalScriptDate)
+		episodeTemplate.finalScriptDate == finalScriptDate
 	}
 
 	def "gets date from section when only one is present"() {
@@ -57,6 +66,7 @@ class EpisodeTemplateDatesEnrichingProcessorTest extends Specification {
 		episodeTemplateDatesEnrichingProcessor.enrich(EnrichablePair.of(page, episodeTemplate))
 
 		then:
+		1 * episodeFinalScriptDateFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.notFound(null)
 		1 * rawDatelinkExtractingProcessorMock.process(WIKITEXT) >> Lists.newArrayList(localDate)
 		episodeTemplate.finalScriptDate == localDate
 	}
@@ -81,6 +91,7 @@ class EpisodeTemplateDatesEnrichingProcessorTest extends Specification {
 		episodeTemplateDatesEnrichingProcessor.enrich(EnrichablePair.of(page, episodeTemplate))
 
 		then:
+		1 * episodeFinalScriptDateFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.notFound(null)
 		1 * rawDatelinkExtractingProcessorMock.process(WIKITEXT) >> Lists.newArrayList(localDate1, localDate2)
 		episodeTemplate.finalScriptDate == null
 	}
