@@ -10,35 +10,35 @@ produces:
   - application/json
 paths:
   /character:
-    $ref: ./path/character.path.yaml
+    $ref: ./character/path/character.path.yaml
   /performer:
-    $ref: ./path/performer.path.yaml
+    $ref: ./performer/path/performer.path.yaml
   /series:
-    $ref: ./path/series.path.yaml
+    $ref: ./series/path/series.path.yaml
   /staff:
-    $ref: ./path/staff.path.yaml
+    $ref: ./staff/path/staff.path.yaml
 definitions:
   Character:
-    $ref: ./entity/character/character.yaml
+    $ref: ./character/entity/character.yaml
   CharacterHeader:
-    $ref: ./entity/character/characterHeader.yaml
+    $ref: ./character/entity/characterHeader.yaml
   CharacterResponse:
-    $ref: ./entity/character/characterResponse.yaml
+    $ref: ./character/entity/characterResponse.yaml
   Error:
-    $ref: ./entity/common/error.yaml
+    $ref: ./common/entity/error.yaml
   Performer:
-    $ref: ./entity/performer/performer.yaml
+    $ref: ./performer/entity/performer.yaml
   PerformerHeader:
-    $ref: ./entity/performer/performerHeader.yaml
+    $ref: ./performer/entity/performerHeader.yaml
   PerformerResponse:
-    $ref: ./entity/performer/performerResponse.yaml
+    $ref: ./performer/entity/performerResponse.yaml
   ResponsePage:
-    $ref: ./entity/common/responsePage.yaml
+    $ref: ./common/entity/responsePage.yaml
   Series:
-    $ref: ./entity/series/series.yaml
+    $ref: ./series/entity/series.yaml
   SeriesResponse:
-    $ref: ./entity/series/seriesResponse.yaml
+    $ref: ./series/entity/seriesResponse.yaml
   Staff:
-    $ref: ./entity/staff/staff.yaml
+    $ref: ./staff/entity/staff.yaml
   StaffResponse:
-    $ref: ./entity/staff/staffResponse.yaml
+    $ref: ./staff/entity/staffResponse.yaml

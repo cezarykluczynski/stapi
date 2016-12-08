@@ -1,7 +1,7 @@
 type: object
 properties:
   page:
-    $ref: ./entity/common/responsePage.yaml
+    $ref: ./common/entity/responsePage.yaml
   performers:
     type: array
     items:
