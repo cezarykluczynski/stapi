@@ -77,6 +77,12 @@
 			<xs:element name="to" type="xs:int" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="FloatRange">
+		<xs:sequence>
+			<xs:element name="from" type="xs:float" minOccurs="0"/>
+			<xs:element name="to" type="xs:float" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
 	<xs:complexType name="RequestOrder">
 		<xs:sequence>
 			<xs:element name="clauses" type="common:RequestOrderClause" minOccurs="0" maxOccurs="unbounded"/>

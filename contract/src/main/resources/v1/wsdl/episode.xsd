@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:episode="http://stapi.co/api/v1/soap/episode"
+		xmlns:performer="http://stapi.co/api/v1/soap/performer"
+		xmlns:series="http://stapi.co/api/v1/soap/series"
+		xmlns:staff="http://stapi.co/api/v1/soap/staff"
+		xmlns:common="http://stapi.co/api/v1/soap/common"
+		elementFormDefault="qualified"
+		targetNamespace="http://stapi.co/api/v1/soap/episode">
+	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/performer" schemaLocation="performer.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/series" schemaLocation="series.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/staff" schemaLocation="staff.xsd"/>
+	<xs:element name="EpisodeRequest">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Request">
+					<xs:sequence>
+						<xs:element name="guid" type="xs:string" minOccurs="0"/>
+						<xs:element name="title" type="xs:string" minOccurs="0"/>
+						<xs:element name="seasonNumber" type="common:IntegerRange" minOccurs="0"/>
+						<xs:element name="episodeNumber" type="common:IntegerRange" minOccurs="0"/>
+						<xs:element name="productionSerialNumber" type="xs:string" minOccurs="0"/>
+						<xs:element name="featureLength" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="stardate" type="common:FloatRange" minOccurs="0"/>
+						<xs:element name="year" type="common:IntegerRange" minOccurs="0"/>
+						<xs:element name="usAirDate" type="xs:date" minOccurs="0"/>
+						<xs:element name="finalScriptDate" type="xs:date" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="EpisodeResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Response">
+					<xs:sequence>
+						<xs:element name="episodes" type="episode:Episode" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="Episode">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="series" type="series:Series"/>
+			<xs:element name="title" type="xs:string"/>
+			<xs:element name="seasonNumber" type="xs:int"/>
+			<xs:element name="episodeNumber" type="xs:int"/>
+			<xs:element name="productionSerialNumber" type="xs:string"/>
+			<xs:element name="featureLength" type="xs:boolean"/>
+			<xs:element name="stardate" type="xs:float"/>
+			<xs:element name="year" type="xs:integer"/>
+			<xs:element name="usAirDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="finalScriptDate" type="xs:date" minOccurs="0"/>
+			<xs:sequence>
+				<xs:element name="writers" type="staff:StaffHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="teleplayAuthors" type="staff:StaffHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="storyAuthors" type="staff:StaffHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="directors" type="staff:StaffHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="performers" type="performer:PerformerHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="stuntPerformers" type="performer:PerformerHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="standInPerformers" type="performer:PerformerHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EpisodeHeader">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="name" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

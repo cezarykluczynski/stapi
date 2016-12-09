@@ -157,4 +157,10 @@
 			<xs:element name="writer" type="xs:boolean"/>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="StaffHeader">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="name" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
 </xs:schema>
