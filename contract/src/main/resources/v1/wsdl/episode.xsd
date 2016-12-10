@@ -3,11 +3,13 @@
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		xmlns:episode="http://stapi.co/api/v1/soap/episode"
 		xmlns:performer="http://stapi.co/api/v1/soap/performer"
+		xmlns:character="http://stapi.co/api/v1/soap/character"
 		xmlns:series="http://stapi.co/api/v1/soap/series"
 		xmlns:staff="http://stapi.co/api/v1/soap/staff"
 		xmlns:common="http://stapi.co/api/v1/soap/common"
 		elementFormDefault="qualified"
 		targetNamespace="http://stapi.co/api/v1/soap/episode">
+	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/performer" schemaLocation="performer.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/series" schemaLocation="series.xsd"/>
@@ -76,6 +78,9 @@
 			</xs:sequence>
 			<xs:sequence>
 				<xs:element name="standInPerformers" type="performer:PerformerHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="characters" type="character:CharacterHeader" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:sequence>
 	</xs:complexType>

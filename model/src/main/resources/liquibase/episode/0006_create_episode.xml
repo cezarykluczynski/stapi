@@ -159,5 +159,20 @@
 				constraintName="esip_performer_fkey"
 				referencedColumnNames="id"
 				referencedTableName="performer"/>
+
+		<createTable tableName="episodes_characters">
+			<column name="episode_id" type="bigint"/>
+			<column name="character_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="episode_id"
+				baseTableName="episodes_characters"
+				constraintName="ec_episode_fkey"
+				referencedColumnNames="id"
+				referencedTableName="episode"/>
+		<addForeignKeyConstraint baseColumnNames="character_id"
+				baseTableName="episodes_characters"
+				constraintName="ec_performer_fkey"
+				referencedColumnNames="id"
+				referencedTableName="character"/>
 	</changeSet>
 </databaseChangeLog>

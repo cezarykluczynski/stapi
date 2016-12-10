@@ -112,6 +112,7 @@ public class EpisodePerformancesToEntityMapper {
 
 			if (character != null) {
 				episodePerformancesEntitiesDTO.getCharacterSet().add(character);
+				episode.getCharacters().add(character);
 			}
 
 			if (performer != null) {

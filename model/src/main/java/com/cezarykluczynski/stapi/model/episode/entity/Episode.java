@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.model.episode.entity;
 
+import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
@@ -99,5 +100,11 @@ public class Episode extends PageAwareEntity implements PageAware {
 			joinColumns = @JoinColumn(name = "episode_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "performer_id", nullable = false, updatable = false))
 	private Set<Performer> standInPerformers = Sets.newHashSet();
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "episodes_characters",
+			joinColumns = @JoinColumn(name = "episode_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "character_id", nullable = false, updatable = false))
+	private Set<Character> characters = Sets.newHashSet();
 
 }
