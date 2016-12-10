@@ -26,9 +26,10 @@ class QueryBuilderTest extends Specification {
 	private static final LocalDate VALID_VALUE_LOCAL_DATE_FROM = LocalDate.of(2000, 1, 2)
 	private static final LocalDate VALID_VALUE_LOCAL_DATE_TO = LocalDate.of(2010, 3, 4)
 	private static final Integer VALID_VALUE_INTEGER_FROM = 1970
-	private static final String VALID_KEY_GENDER_STRING = 'VALID_KEY_GENDER'
-
 	private static final Integer VALID_VALUE_INTEGER_TO = 2000
+	private static final Float VALID_VALUE_FLOAT_FROM = (Float) 7.3
+	private static final Float VALID_VALUE_FLOAT_TO = (Float) 8.1
+	private static final String VALID_KEY_GENDER_STRING = 'VALID_KEY_GENDER'
 	private static final Long VALID_VALUE_LONG = 5L
 	private static final String VALID_JOIN_PAGE_ID = 'pageId'
 	private static final Gender VALID_VALUE_GENDER = Gender.F
@@ -40,7 +41,6 @@ class QueryBuilderTest extends Specification {
 	private static final String REQUEST_ORDER_CLAUSE_NAME_3 = 'REQUEST_ORDER_CLAUSE_NAME_3'
 	private static final RequestOrderEnumDTO REQUEST_ORDER_CLAUSE_ORDER_ENUM_1 = RequestOrderEnumDTO.ASC
 	private static final RequestOrderEnumDTO REQUEST_ORDER_CLAUSE_ORDER_ENUM_3 = RequestOrderEnumDTO.DESC
-
 	private static final Integer REQUEST_ORDER_CLAUSE_CLAUSE_ORDER_1 = 1
 	private static final Integer REQUEST_ORDER_CLAUSE_CLAUSE_ORDER_2 = 2
 	private final SingularAttribute<?, String> VALID_KEY_STRING = Mock(SingularAttribute)
@@ -49,6 +49,7 @@ class QueryBuilderTest extends Specification {
 	private final SetAttribute<?, ?> FETCH_NAME = Mock(SetAttribute)
 	private final SingularAttribute<?, LocalDate> VALID_KEY_LOCAL_DATE = Mock(SingularAttribute)
 	private final SingularAttribute<?, Integer> VALID_KEY_INTEGER = Mock(SingularAttribute)
+	private final SingularAttribute<?, Float> VALID_KEY_FLOAT = Mock(SingularAttribute)
 	private final SingularAttribute<?, Gender> VALID_KEY_GENDER = Mock(SingularAttribute)
 	private final SingularAttribute<?, ?> KEY_WITH_INVALID_TYPE = Mock(SingularAttribute)
 	private final String VALID_KEY_PAGE = 'page'
@@ -253,6 +254,24 @@ class QueryBuilderTest extends Specification {
 
 		then: 'right methods are called'
 		1 * criteriaBuilder.lessThanOrEqualTo(_, VALID_VALUE_INTEGER_TO)
+
+		when: 'valid Float range key is added'
+		queryBuilder.between(VALID_KEY_FLOAT, VALID_VALUE_FLOAT_FROM, VALID_VALUE_FLOAT_TO)
+
+		then: 'right methods are called'
+		1 * criteriaBuilder.between(_, VALID_VALUE_FLOAT_FROM, VALID_VALUE_FLOAT_TO)
+
+		when: 'only start Float is specified'
+		queryBuilder.between(VALID_KEY_FLOAT, VALID_VALUE_FLOAT_FROM, null)
+
+		then: 'right methods are called'
+		1 * criteriaBuilder.greaterThanOrEqualTo(_, VALID_VALUE_FLOAT_FROM)
+
+		when: 'only end Float is specified'
+		queryBuilder.between(VALID_KEY_FLOAT, null, VALID_VALUE_FLOAT_TO)
+
+		then: 'right methods are called'
+		1 * criteriaBuilder.lessThanOrEqualTo(_, VALID_VALUE_FLOAT_TO)
 
 		when: 'valid gender key is added'
 		queryBuilder.equal(VALID_KEY_GENDER, VALID_VALUE_GENDER)

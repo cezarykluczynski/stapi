@@ -128,8 +128,22 @@ public class QueryBuilder<T> {
 	}
 
 	public QueryBuilder<T> between(SingularAttribute<? super T, Integer> key, Integer from, Integer to) {
-//		validateAttributeExistenceAndType(key, Integer.class);
+		if (from != null && to != null) {
+			predicateList.add(criteriaBuilder.between(baseRoot.get(key), from, to));
+		}
 
+		if (from != null && to == null) {
+			predicateList.add(criteriaBuilder.greaterThanOrEqualTo(baseRoot.get(key), from));
+		}
+
+		if (from == null && to != null) {
+			predicateList.add(criteriaBuilder.lessThanOrEqualTo(baseRoot.get(key), to));
+		}
+
+		return this;
+	}
+
+	public QueryBuilder<T> between(SingularAttribute<? super T, Float> key, Float from, Float to) {
 		if (from != null && to != null) {
 			predicateList.add(criteriaBuilder.between(baseRoot.get(key), from, to));
 		}
