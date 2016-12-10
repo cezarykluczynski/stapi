@@ -5,14 +5,14 @@ import com.cezarykluczynski.stapi.client.v1.soap.SeriesRequest
 import com.cezarykluczynski.stapi.model.series.dto.SeriesRequestDTO
 import com.cezarykluczynski.stapi.model.series.repository.SeriesRepository
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.series.mapper.SeriesRequestMapper
+import com.cezarykluczynski.stapi.server.series.mapper.SeriesSoapMapper
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import spock.lang.Specification
 
 class SeriesSoapQueryTest extends Specification {
 
-	private SeriesRequestMapper seriesRequestMapperMock
+	private SeriesSoapMapper seriesSoapMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -21,10 +21,10 @@ class SeriesSoapQueryTest extends Specification {
 	private SeriesSoapQuery seriesSoapQuery
 
 	def setup() {
-		seriesRequestMapperMock = Mock(SeriesRequestMapper)
+		seriesSoapMapperMock = Mock(SeriesSoapMapper)
 		pageMapperMock = Mock(PageMapper)
 		seriesRepositoryMock = Mock(SeriesRepository)
-		seriesSoapQuery = new SeriesSoapQuery(seriesRequestMapperMock, pageMapperMock,
+		seriesSoapQuery = new SeriesSoapQuery(seriesSoapMapperMock, pageMapperMock,
 				seriesRepositoryMock)
 	}
 
@@ -42,7 +42,7 @@ class SeriesSoapQueryTest extends Specification {
 		Page pageOutput = seriesSoapQuery.query(seriesRequest)
 
 		then:
-		1 * seriesRequestMapperMock.map(seriesRequest) >> seriesRequestDTO
+		1 * seriesSoapMapperMock.map(seriesRequest) >> seriesRequestDTO
 		1 * pageMapperMock.fromRequestPageToPageRequest(requestPage) >> pageRequest
 		1 * seriesRepositoryMock.findMatching(seriesRequestDTO, pageRequest) >> page
 		pageOutput == page

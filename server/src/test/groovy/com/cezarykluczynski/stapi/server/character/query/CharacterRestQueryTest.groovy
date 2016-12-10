@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.server.character.query
 import com.cezarykluczynski.stapi.model.character.dto.CharacterRequestDTO
 import com.cezarykluczynski.stapi.model.character.repository.CharacterRepository
 import com.cezarykluczynski.stapi.server.character.dto.CharacterRestBeanParams
-import com.cezarykluczynski.stapi.server.character.mapper.CharacterRequestMapper
+import com.cezarykluczynski.stapi.server.character.mapper.CharacterRestMapper
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
@@ -11,7 +11,7 @@ import spock.lang.Specification
 
 class CharacterRestQueryTest extends Specification {
 
-	private CharacterRequestMapper characterRequestMapperMock
+	private CharacterRestMapper characterRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,10 +20,10 @@ class CharacterRestQueryTest extends Specification {
 	private CharacterRestQuery characterRestQuery
 
 	def setup() {
-		characterRequestMapperMock = Mock(CharacterRequestMapper)
+		characterRestMapperMock = Mock(CharacterRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		characterRepositoryMock = Mock(CharacterRepository)
-		characterRestQuery = new CharacterRestQuery(characterRequestMapperMock, pageMapperMock,
+		characterRestQuery = new CharacterRestQuery(characterRestMapperMock, pageMapperMock,
 				characterRepositoryMock)
 	}
 
@@ -40,7 +40,7 @@ class CharacterRestQueryTest extends Specification {
 		Page pageOutput = characterRestQuery.query(characterRestBeanParams)
 
 		then:
-		1 * characterRequestMapperMock.map(characterRestBeanParams) >> characterRequestDTO
+		1 * characterRestMapperMock.map(characterRestBeanParams) >> characterRequestDTO
 		1 * pageMapperMock.fromPageAwareBeanParamsToPageRequest(characterRestBeanParams) >> pageRequest
 		1 * characterRepositoryMock.findMatching(characterRequestDTO, pageRequest) >> page
 		pageOutput == page

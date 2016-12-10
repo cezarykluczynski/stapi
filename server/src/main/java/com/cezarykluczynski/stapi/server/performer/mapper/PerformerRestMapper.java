@@ -1,17 +1,27 @@
 package com.cezarykluczynski.stapi.server.performer.mapper;
 
+import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterHeaderRestMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.DateMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.EnumMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.RequestOrderMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
+import com.cezarykluczynski.stapi.server.performer.dto.PerformerRestBeanParams;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
 import java.util.List;
 
-@Mapper(config = MapstructConfiguration.class, uses = {EnumMapper.class, CharacterHeaderRestMapper.class})
+@Mapper(config = MapstructConfiguration.class, uses = {CharacterHeaderRestMapper.class, DateMapper.class,
+		EnumMapper.class, RequestOrderMapper.class})
 public interface PerformerRestMapper {
+
+	@Mappings({
+			@Mapping(target = "order", ignore = true)
+	})
+	PerformerRequestDTO map(PerformerRestBeanParams performerRestBeanParams);
 
 	@Mappings({
 			@Mapping(source = "characters", target = "characterHeaders")

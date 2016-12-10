@@ -1,7 +1,6 @@
 package com.cezarykluczynski.stapi.server.character.configuration;
 
 import com.cezarykluczynski.stapi.server.character.endpoint.CharacterSoapEndpoint;
-import com.cezarykluczynski.stapi.server.character.mapper.CharacterRequestMapper;
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterRestMapper;
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterSoapMapper;
 import com.cezarykluczynski.stapi.server.character.reader.CharacterSoapReader;
@@ -29,11 +28,6 @@ public class CharacterConfiguration {
 		EndpointImpl endpoint = new EndpointImpl(bus, implementor);
 		endpoint.publish("/v1/soap/character");
 		return endpoint;
-	}
-
-	@Bean
-	public CharacterRequestMapper characterRequestMapper() {
-		return Mappers.getMapper(CharacterRequestMapper.class);
 	}
 
 	@Bean

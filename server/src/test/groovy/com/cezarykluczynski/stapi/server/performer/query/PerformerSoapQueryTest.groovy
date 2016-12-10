@@ -5,14 +5,14 @@ import com.cezarykluczynski.stapi.client.v1.soap.RequestPage
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO
 import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.performer.mapper.PerformerRequestMapper
+import com.cezarykluczynski.stapi.server.performer.mapper.PerformerSoapMapper
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import spock.lang.Specification
 
 class PerformerSoapQueryTest extends Specification {
 
-	private PerformerRequestMapper performerRequestMapperMock
+	private PerformerSoapMapper performerSoapMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -21,10 +21,10 @@ class PerformerSoapQueryTest extends Specification {
 	private PerformerSoapQuery performerSoapQuery
 
 	def setup() {
-		performerRequestMapperMock = Mock(PerformerRequestMapper)
+		performerSoapMapperMock = Mock(PerformerSoapMapper)
 		pageMapperMock = Mock(PageMapper)
 		performerRepositoryMock = Mock(PerformerRepository)
-		performerSoapQuery = new PerformerSoapQuery(performerRequestMapperMock, pageMapperMock,
+		performerSoapQuery = new PerformerSoapQuery(performerSoapMapperMock, pageMapperMock,
 				performerRepositoryMock)
 	}
 
@@ -42,7 +42,7 @@ class PerformerSoapQueryTest extends Specification {
 		Page pageOutput = performerSoapQuery.query(performerRequest)
 
 		then:
-		1 * performerRequestMapperMock.map(performerRequest) >> performerRequestDTO
+		1 * performerSoapMapperMock.map(performerRequest) >> performerRequestDTO
 		1 * pageMapperMock.fromRequestPageToPageRequest(requestPage) >> pageRequest
 		1 * performerRepositoryMock.findMatching(performerRequestDTO, pageRequest) >> page
 		pageOutput == page

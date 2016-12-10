@@ -1,7 +1,6 @@
 package com.cezarykluczynski.stapi.server.performer.configuration;
 
 import com.cezarykluczynski.stapi.server.performer.endpoint.PerformerSoapEndpoint;
-import com.cezarykluczynski.stapi.server.performer.mapper.PerformerRequestMapper;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerRestMapper;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerSoapMapper;
 import com.cezarykluczynski.stapi.server.performer.reader.PerformerSoapReader;
@@ -29,11 +28,6 @@ public class PerformerConfiguration {
 		EndpointImpl endpoint = new EndpointImpl(bus, implementor);
 		endpoint.publish("/v1/soap/performer");
 		return endpoint;
-	}
-
-	@Bean
-	public PerformerRequestMapper performerRequestMapper() {
-		return Mappers.getMapper(PerformerRequestMapper.class);
 	}
 
 	@Bean

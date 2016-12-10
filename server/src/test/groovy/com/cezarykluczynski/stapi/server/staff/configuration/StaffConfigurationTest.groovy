@@ -1,7 +1,6 @@
 package com.cezarykluczynski.stapi.server.staff.configuration
 
 import com.cezarykluczynski.stapi.server.staff.endpoint.StaffSoapEndpoint
-import com.cezarykluczynski.stapi.server.staff.mapper.StaffRequestMapper
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffRestMapper
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffSoapMapper
 import com.cezarykluczynski.stapi.server.staff.reader.StaffSoapReader
@@ -39,14 +38,6 @@ class StaffConfigurationTest extends Specification {
 		((EndpointImpl) staffSoapEndpoint).implementor instanceof StaffSoapEndpoint
 		((EndpointImpl) staffSoapEndpoint).bus == springBus
 		staffSoapEndpoint.published
-	}
-
-	def "StaffRequestMapper is created"() {
-		when:
-		StaffRequestMapper staffRequestMapper = staffConfiguration.staffRequestMapper()
-
-		then:
-		staffRequestMapper != null
 	}
 
 	def "StaffSoapMapper is created"() {

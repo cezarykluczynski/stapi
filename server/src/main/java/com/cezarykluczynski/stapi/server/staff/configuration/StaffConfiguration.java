@@ -1,7 +1,6 @@
 package com.cezarykluczynski.stapi.server.staff.configuration;
 
 import com.cezarykluczynski.stapi.server.staff.endpoint.StaffSoapEndpoint;
-import com.cezarykluczynski.stapi.server.staff.mapper.StaffRequestMapper;
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffRestMapper;
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffSoapMapper;
 import com.cezarykluczynski.stapi.server.staff.reader.StaffSoapReader;
@@ -29,11 +28,6 @@ public class StaffConfiguration {
 		EndpointImpl endpoint = new EndpointImpl(bus, implementor);
 		endpoint.publish("/v1/soap/staff");
 		return endpoint;
-	}
-
-	@Bean
-	public StaffRequestMapper staffRequestMapper() {
-		return Mappers.getMapper(StaffRequestMapper.class);
 	}
 
 	@Bean

@@ -4,14 +4,14 @@ import com.cezarykluczynski.stapi.model.series.dto.SeriesRequestDTO
 import com.cezarykluczynski.stapi.model.series.repository.SeriesRepository
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.series.dto.SeriesRestBeanParams
-import com.cezarykluczynski.stapi.server.series.mapper.SeriesRequestMapper
+import com.cezarykluczynski.stapi.server.series.mapper.SeriesRestMapper
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import spock.lang.Specification
 
 class SeriesRestQueryTest extends Specification {
 
-	private SeriesRequestMapper seriesRequestMapperMock
+	private SeriesRestMapper seriesRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,10 +20,10 @@ class SeriesRestQueryTest extends Specification {
 	private SeriesRestQuery seriesRestQuery
 
 	def setup() {
-		seriesRequestMapperMock = Mock(SeriesRequestMapper)
+		seriesRestMapperMock = Mock(SeriesRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		seriesRepositoryMock = Mock(SeriesRepository)
-		seriesRestQuery = new SeriesRestQuery(seriesRequestMapperMock, pageMapperMock,
+		seriesRestQuery = new SeriesRestQuery(seriesRestMapperMock, pageMapperMock,
 				seriesRepositoryMock)
 	}
 
@@ -40,7 +40,7 @@ class SeriesRestQueryTest extends Specification {
 		Page pageOutput = seriesRestQuery.query(seriesRestBeanParams)
 
 		then:
-		1 * seriesRequestMapperMock.map(seriesRestBeanParams) >> seriesRequestDTO
+		1 * seriesRestMapperMock.map(seriesRestBeanParams) >> seriesRequestDTO
 		1 * pageMapperMock.fromPageAwareBeanParamsToPageRequest(seriesRestBeanParams) >> pageRequest
 		1 * seriesRepositoryMock.findMatching(seriesRequestDTO, pageRequest) >> page
 		pageOutput == page

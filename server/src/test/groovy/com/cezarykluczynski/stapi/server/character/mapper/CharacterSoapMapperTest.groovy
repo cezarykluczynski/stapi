@@ -2,8 +2,10 @@ package com.cezarykluczynski.stapi.server.character.mapper
 
 import com.cezarykluczynski.stapi.client.v1.soap.BloodTypeEnum
 import com.cezarykluczynski.stapi.client.v1.soap.Character as SOAPCharacter
+import com.cezarykluczynski.stapi.client.v1.soap.CharacterRequest
 import com.cezarykluczynski.stapi.client.v1.soap.GenderEnum
 import com.cezarykluczynski.stapi.client.v1.soap.MaritalStatusEnum
+import com.cezarykluczynski.stapi.model.character.dto.CharacterRequestDTO
 import com.cezarykluczynski.stapi.model.character.entity.Character as DBCharacter
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender
@@ -27,6 +29,25 @@ class CharacterSoapMapperTest extends AbstractIndividualTest {
 
 	def setup() {
 		characterSoapMapper = Mappers.getMapper(CharacterSoapMapper)
+	}
+
+	def "maps SOAP CharacterRequest to CharacterRequestDTO"() {
+		given:
+		CharacterRequest characterRequest = new CharacterRequest(
+				guid: GUID,
+				name: NAME,
+				gender: SOAP_GENDER,
+				deceased: DECEASED
+		)
+
+		when:
+		CharacterRequestDTO characterRequestDTO = characterSoapMapper.map characterRequest
+
+		then:
+		characterRequestDTO.guid == GUID
+		characterRequestDTO.name == NAME
+		characterRequestDTO.gender == ENTITY_GENDER
+		characterRequestDTO.deceased == DECEASED
 	}
 
 	def "maps DB entity to SOAP entity"() {

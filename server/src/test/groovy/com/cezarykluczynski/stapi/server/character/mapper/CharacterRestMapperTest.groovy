@@ -4,11 +4,13 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.BloodType as RestBloodTyp
 import com.cezarykluczynski.stapi.client.v1.rest.model.Character as RESTCharacter
 import com.cezarykluczynski.stapi.client.v1.rest.model.Gender as RestGender
 import com.cezarykluczynski.stapi.client.v1.rest.model.MaritalStatus as RestMaritalStatus
+import com.cezarykluczynski.stapi.model.character.dto.CharacterRequestDTO
 import com.cezarykluczynski.stapi.model.character.entity.Character as DBCharacter
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
+import com.cezarykluczynski.stapi.server.character.dto.CharacterRestBeanParams
 import com.cezarykluczynski.stapi.util.AbstractIndividualTest
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
@@ -27,6 +29,25 @@ class CharacterRestMapperTest extends AbstractIndividualTest {
 
 	def setup() {
 		characterRestMapper = Mappers.getMapper(CharacterRestMapper)
+	}
+
+	def "maps CharacterRestBeanParams to CharacterRequestDTO"() {
+		given:
+		CharacterRestBeanParams characterRestBeanParams = new CharacterRestBeanParams(
+				guid: GUID,
+				name: NAME,
+				gender: ENTITY_GENDER,
+				deceased: DECEASED
+		)
+
+		when:
+		CharacterRequestDTO characterRequestDTO = characterRestMapper.map characterRestBeanParams
+
+		then:
+		characterRequestDTO.guid == GUID
+		characterRequestDTO.name == NAME
+		characterRequestDTO.gender == ENTITY_GENDER
+		characterRequestDTO.getDeceased() == DECEASED
 	}
 
 	def "maps DB entity to REST entity"() {

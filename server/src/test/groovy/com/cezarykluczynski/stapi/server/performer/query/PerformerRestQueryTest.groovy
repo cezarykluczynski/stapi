@@ -4,14 +4,14 @@ import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO
 import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.performer.dto.PerformerRestBeanParams
-import com.cezarykluczynski.stapi.server.performer.mapper.PerformerRequestMapper
+import com.cezarykluczynski.stapi.server.performer.mapper.PerformerRestMapper
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import spock.lang.Specification
 
 class PerformerRestQueryTest extends Specification {
 
-	private PerformerRequestMapper performerRequestMapperMock
+	private PerformerRestMapper performerRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,10 +20,10 @@ class PerformerRestQueryTest extends Specification {
 	private PerformerRestQuery performerRestQuery
 
 	def setup() {
-		performerRequestMapperMock = Mock(PerformerRequestMapper)
+		performerRestMapperMock = Mock(PerformerRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		performerRepositoryMock = Mock(PerformerRepository)
-		performerRestQuery = new PerformerRestQuery(performerRequestMapperMock, pageMapperMock,
+		performerRestQuery = new PerformerRestQuery(performerRestMapperMock, pageMapperMock,
 				performerRepositoryMock)
 	}
 
@@ -40,7 +40,7 @@ class PerformerRestQueryTest extends Specification {
 		Page pageOutput = performerRestQuery.query(performerRestBeanParams)
 
 		then:
-		1 * performerRequestMapperMock.map(performerRestBeanParams) >> performerRequestDTO
+		1 * performerRestMapperMock.map(performerRestBeanParams) >> performerRequestDTO
 		1 * pageMapperMock.fromPageAwareBeanParamsToPageRequest(performerRestBeanParams) >> pageRequest
 		1 * performerRepositoryMock.findMatching(performerRequestDTO, pageRequest) >> page
 		pageOutput == page

@@ -4,14 +4,14 @@ import com.cezarykluczynski.stapi.model.staff.dto.StaffRequestDTO
 import com.cezarykluczynski.stapi.model.staff.repository.StaffRepository
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.staff.dto.StaffRestBeanParams
-import com.cezarykluczynski.stapi.server.staff.mapper.StaffRequestMapper
+import com.cezarykluczynski.stapi.server.staff.mapper.StaffRestMapper
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import spock.lang.Specification
 
 class StaffRestQueryTest extends Specification {
 
-	private StaffRequestMapper staffRequestMapperMock
+	private StaffRestMapper staffRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,10 +20,10 @@ class StaffRestQueryTest extends Specification {
 	private StaffRestQuery staffRestQuery
 
 	def setup() {
-		staffRequestMapperMock = Mock(StaffRequestMapper)
+		staffRestMapperMock = Mock(StaffRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		staffRepositoryMock = Mock(StaffRepository)
-		staffRestQuery = new StaffRestQuery(staffRequestMapperMock, pageMapperMock,
+		staffRestQuery = new StaffRestQuery(staffRestMapperMock, pageMapperMock,
 				staffRepositoryMock)
 	}
 
@@ -40,7 +40,7 @@ class StaffRestQueryTest extends Specification {
 		Page pageOutput = staffRestQuery.query(staffRestBeanParams)
 
 		then:
-		1 * staffRequestMapperMock.map(staffRestBeanParams) >> staffRequestDTO
+		1 * staffRestMapperMock.map(staffRestBeanParams) >> staffRequestDTO
 		1 * pageMapperMock.fromPageAwareBeanParamsToPageRequest(staffRestBeanParams) >> pageRequest
 		1 * staffRepositoryMock.findMatching(staffRequestDTO, pageRequest) >> page
 		pageOutput == page

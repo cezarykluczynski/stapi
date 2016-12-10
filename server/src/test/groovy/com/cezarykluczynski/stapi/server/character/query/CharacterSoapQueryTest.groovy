@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.CharacterRequest
 import com.cezarykluczynski.stapi.client.v1.soap.RequestPage
 import com.cezarykluczynski.stapi.model.character.dto.CharacterRequestDTO
 import com.cezarykluczynski.stapi.model.character.repository.CharacterRepository
-import com.cezarykluczynski.stapi.server.character.mapper.CharacterRequestMapper
+import com.cezarykluczynski.stapi.server.character.mapper.CharacterSoapMapper
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
@@ -12,7 +12,7 @@ import spock.lang.Specification
 
 class CharacterSoapQueryTest extends Specification {
 
-	private CharacterRequestMapper characterRequestMapperMock
+	private CharacterSoapMapper characterSoapMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -21,10 +21,10 @@ class CharacterSoapQueryTest extends Specification {
 	private CharacterSoapQuery characterSoapQuery
 
 	def setup() {
-		characterRequestMapperMock = Mock(CharacterRequestMapper)
+		characterSoapMapperMock = Mock(CharacterSoapMapper)
 		pageMapperMock = Mock(PageMapper)
 		characterRepositoryMock = Mock(CharacterRepository)
-		characterSoapQuery = new CharacterSoapQuery(characterRequestMapperMock, pageMapperMock,
+		characterSoapQuery = new CharacterSoapQuery(characterSoapMapperMock, pageMapperMock,
 				characterRepositoryMock)
 	}
 
@@ -42,7 +42,7 @@ class CharacterSoapQueryTest extends Specification {
 		Page pageOutput = characterSoapQuery.query(characterRequest)
 
 		then:
-		1 * characterRequestMapperMock.map(characterRequest) >> characterRequestDTO
+		1 * characterSoapMapperMock.map(characterRequest) >> characterRequestDTO
 		1 * pageMapperMock.fromRequestPageToPageRequest(requestPage) >> pageRequest
 		1 * characterRepositoryMock.findMatching(characterRequestDTO, pageRequest) >> page
 		pageOutput == page
