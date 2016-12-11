@@ -48,7 +48,7 @@ class StaticJobCompletenessDecider {
 	public static class AlwaysCompletedJobCompletenessDecider extends JobCompletenessDecider {
 
 		public AlwaysCompletedJobCompletenessDecider() {
-			super(null)
+			super(null, null)
 		}
 
 		@Override

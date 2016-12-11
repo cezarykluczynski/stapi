@@ -1,12 +1,12 @@
 package com.cezarykluczynski.stapi.server.performer.endpoint
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerResponse
-import com.cezarykluczynski.stapi.etl.common.service.JobCompletenessDecider
+import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import spock.lang.Requires
 
 @Requires({
-	StaticJobCompletenessDecider.isStepCompleted(JobCompletenessDecider.STEP_002_CREATE_PERFORMERS)
+	StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_PERFORMERS)
 })
 class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointIntegrationTest {
 

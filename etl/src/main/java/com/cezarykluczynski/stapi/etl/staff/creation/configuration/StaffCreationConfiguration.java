@@ -12,6 +12,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PageToL
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGenderProcessor;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
+import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
@@ -48,7 +49,7 @@ public class StaffCreationConfiguration {
 	public StaffReader staffReader() {
 		List<PageHeader> staff = Lists.newArrayList();
 
-		if (!jobCompletenessDecider.isStepComplete(JobCompletenessDecider.STEP_003_CREATE_STAFF)) {
+		if (!jobCompletenessDecider.isStepComplete(StepName.CREATE_STAFF)) {
 			staff.addAll(categoryApi.getPages(CategoryName.ART_DEPARTMENT, MediaWikiSource.MEMORY_ALPHA_EN));
 			staff.addAll(categoryApi.getPages(CategoryName.ART_DIRECTORS, MediaWikiSource.MEMORY_ALPHA_EN));
 			staff.addAll(categoryApi.getPages(CategoryName.PRODUCTION_DESIGNERS, MediaWikiSource.MEMORY_ALPHA_EN));

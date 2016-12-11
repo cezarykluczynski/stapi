@@ -22,4 +22,3 @@ public class CharacterProcessor extends CompositeItemProcessor<PageHeader, Chara
 	}
 
 }
-

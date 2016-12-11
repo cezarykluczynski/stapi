@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.configuration.AbstractCreationConfi
 import com.cezarykluczynski.stapi.etl.common.service.JobCompletenessDecider
 import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeReader
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
+import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 import org.springframework.context.ApplicationContext
@@ -42,7 +43,7 @@ class EpisodeCreationConfigurationTest extends AbstractCreationConfigurationTest
 		List<String> categoryHeaderTitleList = readerToList(episodeReader)
 
 		then:
-		1 * jobCompletenessDeciderMock.isStepComplete(JobCompletenessDecider.STEP_005_CREATE_EPISODES) >> false
+		1 * jobCompletenessDeciderMock.isStepComplete(StepName.CREATE_EPISODES) >> false
 		1 * categoryApiMock.getPages(CategoryName.TOS_EPISODES, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_TOS_EPISODES)
 		1 * categoryApiMock.getPages(CategoryName.TAS_EPISODES, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_TAS_EPISODES)
 		1 * categoryApiMock.getPages(CategoryName.TNG_EPISODES, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_TNG_EPISODES)
@@ -66,7 +67,7 @@ class EpisodeCreationConfigurationTest extends AbstractCreationConfigurationTest
 		List<String> categoryHeaderTitleList = readerToList(episodeReader)
 
 		then:
-		1 * jobCompletenessDeciderMock.isStepComplete(JobCompletenessDecider.STEP_005_CREATE_EPISODES) >> true
+		1 * jobCompletenessDeciderMock.isStepComplete(StepName.CREATE_EPISODES) >> true
 		0 * _
 		categoryHeaderTitleList.empty
 	}

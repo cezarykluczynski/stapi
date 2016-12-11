@@ -14,6 +14,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PageToL
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGenderProcessor
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
+import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 import org.springframework.context.ApplicationContext
@@ -100,7 +101,7 @@ class StaffCreationConfigurationTest extends AbstractCreationConfigurationTest {
 		List<String> categoryHeaderTitleList = readerToList(staffReader)
 
 		then:
-		1 * jobCompletenessDeciderMock.isStepComplete(JobCompletenessDecider.STEP_003_CREATE_STAFF) >> false
+		1 * jobCompletenessDeciderMock.isStepComplete(StepName.CREATE_STAFF) >> false
 		1 * categoryApiMock.getPages(CategoryName.ART_DEPARTMENT, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_ART_DEPARTMENT)
 		1 * categoryApiMock.getPages(CategoryName.ART_DIRECTORS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_ART_DIRECTORS)
 		1 * categoryApiMock.getPages(CategoryName.PRODUCTION_DESIGNERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_PRODUCTION_DESIGNERS)
@@ -220,7 +221,7 @@ class StaffCreationConfigurationTest extends AbstractCreationConfigurationTest {
 		List<String> categoryHeaderTitleList = readerToList(staffReader)
 
 		then:
-		1 * jobCompletenessDeciderMock.isStepComplete(JobCompletenessDecider.STEP_003_CREATE_STAFF) >> true
+		1 * jobCompletenessDeciderMock.isStepComplete(StepName.CREATE_STAFF) >> true
 		0 * _
 		categoryHeaderTitleList.empty
 	}

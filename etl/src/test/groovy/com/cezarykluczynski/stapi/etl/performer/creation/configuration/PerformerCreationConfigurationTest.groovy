@@ -13,6 +13,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PageToL
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGenderProcessor
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
+import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 import org.springframework.context.ApplicationContext
@@ -58,7 +59,7 @@ class PerformerCreationConfigurationTest extends AbstractCreationConfigurationTe
 		List<String> categoryHeaderTitleList = readerToList(performerReader)
 
 		then:
-		1 * jobCompletenessDeciderMock.isStepComplete(JobCompletenessDecider.STEP_002_CREATE_PERFORMERS) >> false
+		1 * jobCompletenessDeciderMock.isStepComplete(StepName.CREATE_PERFORMERS) >> false
 		1 * categoryApiMock.getPages(CategoryName.PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_PERFORMERS)
 		1 * categoryApiMock.getPages(CategoryName.ANIMAL_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_ANIMAL_PERFORMERS)
 		1 * categoryApiMock.getPages(CategoryName.DIS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_DIS_PERFORMERS)
@@ -97,7 +98,7 @@ class PerformerCreationConfigurationTest extends AbstractCreationConfigurationTe
 		List<String> categoryHeaderTitleList = readerToList(performerReader)
 
 		then:
-		1 * jobCompletenessDeciderMock.isStepComplete(JobCompletenessDecider.STEP_002_CREATE_PERFORMERS) >> true
+		1 * jobCompletenessDeciderMock.isStepComplete(StepName.CREATE_PERFORMERS) >> true
 		0 * _
 		categoryHeaderTitleList.empty
 	}

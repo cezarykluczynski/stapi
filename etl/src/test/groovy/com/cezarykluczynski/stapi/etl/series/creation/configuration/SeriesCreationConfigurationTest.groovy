@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.configuration.AbstractCreationConfi
 import com.cezarykluczynski.stapi.etl.common.service.JobCompletenessDecider
 import com.cezarykluczynski.stapi.etl.series.creation.processor.SeriesReader
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
+import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
@@ -35,7 +36,7 @@ class SeriesCreationConfigurationTest extends AbstractCreationConfigurationTest 
 		SeriesReader seriesReader = seriesCreationConfiguration.seriesReader()
 
 		then:
-		1 * jobCompletenessDeciderMock.isStepComplete(JobCompletenessDecider.STEP_001_CREATE_SERIES) >> false
+		1 * jobCompletenessDeciderMock.isStepComplete(StepName.CREATE_SERIES) >> false
 		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_SERIES, MediaWikiSource.MEMORY_ALPHA_EN) >> pageHeaderList
 		0 * _
 		seriesReader.read().title == TITLE
@@ -48,7 +49,7 @@ class SeriesCreationConfigurationTest extends AbstractCreationConfigurationTest 
 		List<String> categoryHeaderTitleList = readerToList(seriesReader)
 
 		then:
-		1 * jobCompletenessDeciderMock.isStepComplete(JobCompletenessDecider.STEP_001_CREATE_SERIES) >> true
+		1 * jobCompletenessDeciderMock.isStepComplete(StepName.CREATE_SERIES) >> true
 		0 * _
 		categoryHeaderTitleList.empty
 	}

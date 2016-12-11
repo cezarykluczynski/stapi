@@ -1,12 +1,12 @@
 package com.cezarykluczynski.stapi.server.series.endpoint
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesResponse
-import com.cezarykluczynski.stapi.etl.common.service.JobCompletenessDecider
+import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import spock.lang.Requires
 
 @Requires({
-	StaticJobCompletenessDecider.isStepCompleted(JobCompletenessDecider.STEP_001_CREATE_SERIES)
+	StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_SERIES)
 })
 class SeriesRestEndpointIntegrationTest extends AbstractSeriesEndpointIntegrationTest {
 

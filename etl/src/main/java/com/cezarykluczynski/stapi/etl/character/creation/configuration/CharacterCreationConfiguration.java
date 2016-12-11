@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.character.creation.configuration;
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterReader;
 import com.cezarykluczynski.stapi.etl.common.service.JobCompletenessDecider;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
+import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
@@ -36,7 +37,7 @@ public class CharacterCreationConfiguration {
 	public CharacterReader characterReader() {
 		List<PageHeader> characters = Lists.newArrayList();
 
-		if (!jobCompletenessDecider.isStepComplete(JobCompletenessDecider.STEP_004_CREATE_CHARACTERS)) {
+		if (!jobCompletenessDecider.isStepComplete(StepName.CREATE_CHARACTERS)) {
 			characters.addAll(categoryApi.getPagesIncludingSubcategories(CategoryName.INDIVIDUALS, MediaWikiSource.MEMORY_ALPHA_EN));
 			characters.addAll(categoryApi.getPagesIncludingSubcategories(CategoryName.MILITARY_PERSONNEL, MediaWikiSource.MEMORY_ALPHA_EN));
 			characters.addAll(categoryApi.getPagesIncludingSubcategories(CategoryName.Q_CONTINUUM, MediaWikiSource.MEMORY_ALPHA_EN));

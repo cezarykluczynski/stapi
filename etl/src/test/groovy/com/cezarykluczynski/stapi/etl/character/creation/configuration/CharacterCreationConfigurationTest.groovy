@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterRead
 import com.cezarykluczynski.stapi.etl.common.configuration.AbstractCreationConfigurationTest
 import com.cezarykluczynski.stapi.etl.common.service.JobCompletenessDecider
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
+import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 import org.springframework.context.ApplicationContext
@@ -36,7 +37,7 @@ class CharacterCreationConfigurationTest extends AbstractCreationConfigurationTe
 		List<String> categoryHeaderTitleList = readerToList(characterReader)
 
 		then:
-		1 * jobCompletenessDeciderMock.isStepComplete(JobCompletenessDecider.STEP_004_CREATE_CHARACTERS) >> false
+		1 * jobCompletenessDeciderMock.isStepComplete(StepName.CREATE_CHARACTERS) >> false
 		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryName.INDIVIDUALS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_INDIVIDUALS)
 		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryName.MILITARY_PERSONNEL, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_INDIVIDUALS)
 		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryName.Q_CONTINUUM, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_INDIVIDUALS)
@@ -51,7 +52,7 @@ class CharacterCreationConfigurationTest extends AbstractCreationConfigurationTe
 		List<String> categoryHeaderTitleList = readerToList(characterReader)
 
 		then:
-		1 * jobCompletenessDeciderMock.isStepComplete(JobCompletenessDecider.STEP_004_CREATE_CHARACTERS) >> true
+		1 * jobCompletenessDeciderMock.isStepComplete(StepName.CREATE_CHARACTERS) >> true
 		0 * _
 		categoryHeaderTitleList.empty
 	}

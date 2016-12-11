@@ -1,5 +1,8 @@
 package com.cezarykluczynski.stapi.etl.common.service;
 
+import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepProperties;
+import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepToStepPropertiesProvider;
+import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.google.common.collect.Lists;
 import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.JobExecution;
@@ -11,25 +14,30 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.Collection;
+import java.util.Map;
 
 @Service
 public class JobCompletenessDecider {
 
-	public static final String JOB_CREATE = "CREATE";
-	public static final String STEP_001_CREATE_SERIES = "STEP_001_CREATE_SERIES";
-	public static final String STEP_002_CREATE_PERFORMERS = "STEP_002_CREATE_PERFORMERS";
-	public static final String STEP_003_CREATE_STAFF = "STEP_003_CREATE_STAFF";
-	public static final String STEP_004_CREATE_CHARACTERS = "STEP_004_CREATE_CHARACTERS";
-	public static final String STEP_005_CREATE_EPISODES= "STEP_005_CREATE_EPISODES";
-
 	private JobRepository jobRepository;
 
+	private StepToStepPropertiesProvider stepToStepPropertiesProvider;
+
 	@Inject
-	public JobCompletenessDecider(JobRepository jobRepository) {
+	public JobCompletenessDecider(JobRepository jobRepository,
+			StepToStepPropertiesProvider stepToStepPropertiesProvider) {
 		this.jobRepository = jobRepository;
+		this.stepToStepPropertiesProvider = stepToStepPropertiesProvider;
 	}
 
 	public boolean isStepComplete(String stepName) {
+		Map<String, StepProperties> stepPropertiesMap = stepToStepPropertiesProvider.provide();
+		StepProperties stepProperties = stepPropertiesMap.get(stepName);
+
+		if (stepProperties != null && !stepProperties.isEnabled()) {
+			return true;
+		}
+
 		Collection<StepExecution> stepExecutions = getAllStepExecutions();
 		return stepExecutions.stream().anyMatch(stepExecution ->
 			stepExecution.getStepName().equals(stepName) && BatchStatus.COMPLETED.equals(stepExecution.getStatus()));
@@ -40,7 +48,7 @@ public class JobCompletenessDecider {
 
 		try {
 			jobExecution = jobRepository
-					.getLastJobExecution(JOB_CREATE, new JobParameters());
+					.getLastJobExecution(JobName.JOB_CREATE, new JobParameters());
 		} catch (BadSqlGrammarException e) {
 			return Lists.newArrayList();
 		}
