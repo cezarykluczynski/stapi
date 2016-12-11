@@ -160,6 +160,7 @@ class EpisodeRepositoryImplTest extends Specification {
 		1 * episode.setPerformers(Sets.newHashSet())
 		1 * episode.setStuntPerformers(Sets.newHashSet())
 		1 * episode.setStandInPerformers(Sets.newHashSet())
+		1 * episode.setCharacters(Sets.newConcurrentHashSet())
 		pageOutput == page
 	}
 

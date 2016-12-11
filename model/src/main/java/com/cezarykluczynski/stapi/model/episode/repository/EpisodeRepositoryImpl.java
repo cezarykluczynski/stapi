@@ -74,6 +74,7 @@ public class EpisodeRepositoryImpl extends AbstractRepositoryImpl<Episode> imple
 			episode.setPerformers(Sets.newHashSet());
 			episode.setStuntPerformers(Sets.newHashSet());
 			episode.setStandInPerformers(Sets.newHashSet());
+			episode.setCharacters(Sets.newHashSet());
 		});
 	}
 
