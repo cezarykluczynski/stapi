@@ -14,7 +14,7 @@ class CharacterHeaderSoapMapperTest extends AbstractRealWorldPersonMapperTest {
 		characterHeaderSoapMapper = Mappers.getMapper(CharacterHeaderSoapMapper)
 	}
 
-	def "maps DB entity to SOAP entity"() {
+	def "maps DB entity to SOAP header"() {
 		given:
 		Character character = new Character(
 				name: NAME,

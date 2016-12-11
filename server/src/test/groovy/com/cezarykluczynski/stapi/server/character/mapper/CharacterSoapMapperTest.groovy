@@ -69,7 +69,7 @@ class CharacterSoapMapperTest extends AbstractIndividualTest {
 				bloodType: ENTITY_BLOOD_TYPE,
 				maritalStatus: ENTITY_MARITAL_STATUS,
 				serialNumber: SERIAL_NUMBER,
-				performers: Sets.newHashSet(new Performer())
+				performers: Sets.newHashSet(Mock(Performer))
 		)
 
 		when:

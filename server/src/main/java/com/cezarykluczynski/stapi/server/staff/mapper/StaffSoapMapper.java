@@ -22,7 +22,7 @@ public interface StaffSoapMapper {
 			@Mapping(source = "dateOfDeath.dateFrom", target = "dateOfDeathFrom"),
 			@Mapping(source = "dateOfDeath.dateTo", target = "dateOfDeathTo")
 	})
-	StaffRequestDTO map(StaffRequest performerRequest);
+	StaffRequestDTO map(StaffRequest staffRequest);
 
 	com.cezarykluczynski.stapi.client.v1.soap.Staff map(Staff series);
 

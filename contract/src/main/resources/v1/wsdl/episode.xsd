@@ -27,8 +27,8 @@
 						<xs:element name="featureLength" type="xs:boolean" minOccurs="0"/>
 						<xs:element name="stardate" type="common:FloatRange" minOccurs="0"/>
 						<xs:element name="year" type="common:IntegerRange" minOccurs="0"/>
-						<xs:element name="usAirDate" type="xs:date" minOccurs="0"/>
-						<xs:element name="finalScriptDate" type="xs:date" minOccurs="0"/>
+						<xs:element name="usAirDate" type="common:DateRange" minOccurs="0"/>
+						<xs:element name="finalScriptDate" type="common:DateRange" minOccurs="0"/>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
@@ -48,7 +48,7 @@
 	<xs:complexType name="Episode">
 		<xs:sequence>
 			<xs:element name="guid" type="xs:string"/>
-			<xs:element name="series" type="series:Series"/>
+			<xs:element name="series" type="series:SeriesHeader"/>
 			<xs:element name="title" type="xs:string"/>
 			<xs:element name="seasonNumber" type="xs:int"/>
 			<xs:element name="episodeNumber" type="xs:int"/>
@@ -59,35 +59,35 @@
 			<xs:element name="usAirDate" type="xs:date" minOccurs="0"/>
 			<xs:element name="finalScriptDate" type="xs:date" minOccurs="0"/>
 			<xs:sequence>
-				<xs:element name="writers" type="staff:StaffHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="writerHeaders" type="staff:StaffHeader" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="teleplayAuthors" type="staff:StaffHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="teleplayAuthorHeaders" type="staff:StaffHeader" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="storyAuthors" type="staff:StaffHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="storyAuthorHeaders" type="staff:StaffHeader" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="directors" type="staff:StaffHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="directorHeaders" type="staff:StaffHeader" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="performers" type="performer:PerformerHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="performerHeaders" type="performer:PerformerHeader" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="stuntPerformers" type="performer:PerformerHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="stuntPerformerHeaders" type="performer:PerformerHeader" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="standInPerformers" type="performer:PerformerHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="standInPerformerHeaders" type="performer:PerformerHeader" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="characters" type="character:CharacterHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="characterHeaders" type="character:CharacterHeader" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="EpisodeHeader">
 		<xs:sequence>
 			<xs:element name="guid" type="xs:string"/>
-			<xs:element name="name" type="xs:string"/>
+			<xs:element name="title" type="xs:string"/>
 		</xs:sequence>
 	</xs:complexType>
 </xs:schema>

@@ -45,4 +45,10 @@
 			<xs:element name="originalRunEndDate" type="xs:date"/>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="SeriesHeader">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="title" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
 </xs:schema>

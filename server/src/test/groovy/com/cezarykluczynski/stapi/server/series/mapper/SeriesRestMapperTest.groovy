@@ -47,7 +47,7 @@ class SeriesRestMapperTest extends AbstractSeriesMapperTest {
 		seriesRequestDTO.originalRunEndDateTo == ORIGINAL_RUN_END_DATE_TO_DB
 	}
 
-	def "maps DB entity to SOAP entity"() {
+	def "maps DB entity to REST entity"() {
 		given:
 		Series dBSeries = new Series(
 				guid: GUID,
