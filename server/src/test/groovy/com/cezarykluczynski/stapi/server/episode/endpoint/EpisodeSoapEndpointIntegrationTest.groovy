@@ -44,8 +44,8 @@ class EpisodeSoapEndpointIntegrationTest extends AbstractEpisodeEndpointIntegrat
 						pageSize: pageSize
 				),
 				usAirDate: new DateRange(
-						dateFrom: XMLGregorianCalendarImpl.createDate(1996, 1, 1, DatatypeConstants.FIELD_UNDEFINED),
-						dateTo: XMLGregorianCalendarImpl.createDate(1996, 12, 31, DatatypeConstants.FIELD_UNDEFINED)
+						from: XMLGregorianCalendarImpl.createDate(1996, 1, 1, DatatypeConstants.FIELD_UNDEFINED),
+						to: XMLGregorianCalendarImpl.createDate(1996, 12, 31, DatatypeConstants.FIELD_UNDEFINED)
 				),
 				order: new RequestOrder(
 						clauses: Lists.newArrayList(

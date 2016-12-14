@@ -1,0 +1,79 @@
+package com.cezarykluczynski.stapi.etl.common.service
+
+import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepProperties
+import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepToStepPropertiesProvider
+import com.cezarykluczynski.stapi.etl.configuration.job.service.AllStepExecutionsProvider
+import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider
+import com.google.common.collect.Lists
+import com.google.common.collect.Maps
+import org.springframework.batch.core.BatchStatus
+import org.springframework.batch.core.StepExecution
+import spock.lang.Specification
+
+class StepCompletenessDeciderTest extends Specification {
+
+	private static final String JOB_NAME = 'JOB_NAME'
+	private static final String STEP_NAME = 'STEP_NAME'
+
+	private StepToStepPropertiesProvider stepToStepPropertiesProviderMock
+
+	private AllStepExecutionsProvider allStepExecutionsProviderMock
+
+	private StepCompletenessDecider jobCompletenessDecider
+
+	def setup() {
+		stepToStepPropertiesProviderMock = Mock(StepToStepPropertiesProvider)
+		allStepExecutionsProviderMock = Mock(AllStepExecutionsProvider)
+		jobCompletenessDecider = new StepCompletenessDecider(stepToStepPropertiesProviderMock,
+				allStepExecutionsProviderMock)
+	}
+
+	def "returns true when step is not enabled"() {
+		given:
+		StepProperties stepProperties = Mock(StepProperties)
+		Map<String, StepProperties> stepPropertiesMap = Maps.newHashMap()
+		stepPropertiesMap.put(STEP_NAME, stepProperties)
+
+		when:
+		boolean complete = jobCompletenessDecider.isStepComplete(JOB_NAME, STEP_NAME)
+
+		then:
+		1 * stepProperties.isEnabled() >> false
+		1 * stepToStepPropertiesProviderMock.provide() >> stepPropertiesMap
+		0 * _
+		complete
+	}
+
+	def "returns true when step is completed"() {
+		when:
+		boolean complete = jobCompletenessDecider.isStepComplete(JOB_NAME, STEP_NAME)
+
+		then:
+		1 * stepToStepPropertiesProviderMock.provide() >> Maps.newHashMap()
+		1 * allStepExecutionsProviderMock.provide(JOB_NAME) >> Lists.newArrayList(
+				Mock(StepExecution) {
+					getStepName() >> STEP_NAME
+					getStatus() >> BatchStatus.COMPLETED
+				}
+		)
+		0 * _
+		complete
+	}
+
+	def "returns false when step is not completed"() {
+		when:
+		boolean complete = jobCompletenessDecider.isStepComplete(JOB_NAME, STEP_NAME)
+
+		then:
+		1 * stepToStepPropertiesProviderMock.provide() >> Maps.newHashMap()
+		1 * allStepExecutionsProviderMock.provide(JOB_NAME) >> Lists.newArrayList(
+				Mock(StepExecution) {
+					getStepName() >> STEP_NAME
+					getStatus() >> BatchStatus.UNKNOWN
+				}
+		)
+		0 * _
+		!complete
+	}
+
+}

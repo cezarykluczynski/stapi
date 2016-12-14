@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.staff.creation.configuration;
 
-import com.cezarykluczynski.stapi.etl.common.service.JobCompletenessDecider;
+import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffCategoriesActorTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffReader;
@@ -12,6 +12,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PageToL
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGenderProcessor;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
+import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
@@ -39,7 +40,7 @@ public class StaffCreationConfiguration {
 	private CategoryApi categoryApi;
 
 	@Inject
-	private JobCompletenessDecider jobCompletenessDecider;
+	private StepCompletenessDecider stepCompletenessDecider;
 
 	// ensure Spring Batch migrates it's schema before reader is instantiated
 	@Inject
@@ -49,7 +50,7 @@ public class StaffCreationConfiguration {
 	public StaffReader staffReader() {
 		List<PageHeader> staff = Lists.newArrayList();
 
-		if (!jobCompletenessDecider.isStepComplete(StepName.CREATE_STAFF)) {
+		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_STAFF)) {
 			staff.addAll(categoryApi.getPages(CategoryName.ART_DEPARTMENT, MediaWikiSource.MEMORY_ALPHA_EN));
 			staff.addAll(categoryApi.getPages(CategoryName.ART_DIRECTORS, MediaWikiSource.MEMORY_ALPHA_EN));
 			staff.addAll(categoryApi.getPages(CategoryName.PRODUCTION_DESIGNERS, MediaWikiSource.MEMORY_ALPHA_EN));

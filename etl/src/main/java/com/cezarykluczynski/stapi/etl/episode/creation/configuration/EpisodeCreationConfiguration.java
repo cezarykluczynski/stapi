@@ -1,8 +1,9 @@
 package com.cezarykluczynski.stapi.etl.episode.creation.configuration;
 
-import com.cezarykluczynski.stapi.etl.common.service.JobCompletenessDecider;
+import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
 import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeReader;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryNames;
+import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
@@ -26,7 +27,7 @@ public class EpisodeCreationConfiguration {
 	private CategoryApi categoryApi;
 
 	@Inject
-	private JobCompletenessDecider jobCompletenessDecider;
+	private StepCompletenessDecider stepCompletenessDecider;
 
 	// ensure Spring Batch migrates it's schema before reader is instantiated
 	@Inject
@@ -36,7 +37,7 @@ public class EpisodeCreationConfiguration {
 	public EpisodeReader episodeReader() {
 		List<PageHeader> episodes = Lists.newArrayList();
 
-		if (!jobCompletenessDecider.isStepComplete(StepName.CREATE_EPISODES)) {
+		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_EPISODES)) {
 			CategoryNames.EPISODES
 					.stream()
 					.forEachOrdered(episode -> episodes.addAll(categoryApi.getPages(episode, MediaWikiSource.MEMORY_ALPHA_EN)));

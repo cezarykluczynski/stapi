@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server
 
-import com.cezarykluczynski.stapi.etl.common.service.JobCompletenessDecider
+import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider
 import com.cezarykluczynski.stapi.model.step.SimpleStep
 import com.cezarykluczynski.stapi.util.constant.SpringProfile
 import com.google.common.collect.Lists
@@ -45,14 +45,14 @@ class StaticJobCompletenessDecider {
 
 	}
 
-	public static class AlwaysCompletedJobCompletenessDecider extends JobCompletenessDecider {
+	public static class AlwaysCompletedStepCompletenessDecider extends StepCompletenessDecider {
 
-		public AlwaysCompletedJobCompletenessDecider() {
+		public AlwaysCompletedStepCompletenessDecider() {
 			super(null, null)
 		}
 
 		@Override
-		public boolean isStepComplete(String stepName) {
+		public boolean isStepComplete(String jobName, String stepName) {
 			return true
 		}
 
@@ -67,8 +67,8 @@ class StaticJobCompletenessDecider {
 
 		@Primary
 		@Bean
-		JobCompletenessDecider jobCompletenessDecider() {
-			return new AlwaysCompletedJobCompletenessDecider()
+		StepCompletenessDecider jobCompletenessDecider() {
+			return new AlwaysCompletedStepCompletenessDecider()
 		}
 
 		@Bean

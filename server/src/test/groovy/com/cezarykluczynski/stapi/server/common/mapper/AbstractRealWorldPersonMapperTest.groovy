@@ -13,10 +13,10 @@ abstract class AbstractRealWorldPersonMapperTest extends AbstractRealWorldPerson
 	static final Gender GENDER = Gender.F
 
 	static final DateRange DATE_OF_BIRTH_SOAP = new DateRange(
-			dateFrom: DATE_OF_BIRTH_FROM_SOAP,
-			dateTo: DATE_OF_BIRTH_TO_SOAP)
+			from: DATE_OF_BIRTH_FROM_SOAP,
+			to: DATE_OF_BIRTH_TO_SOAP)
 	static final DateRange DATE_OF_DEATH_SOAP = new DateRange(
-			dateFrom: DATE_OF_DEATH_FROM_SOAP,
-			dateTo: DATE_OF_DEATH_TO_SOAP)
+			from: DATE_OF_DEATH_FROM_SOAP,
+			to: DATE_OF_DEATH_TO_SOAP)
 
 }

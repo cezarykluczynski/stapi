@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.performer.creation.configuration
 
 import com.cezarykluczynski.stapi.etl.common.configuration.AbstractCreationConfigurationTest
-import com.cezarykluczynski.stapi.etl.common.service.JobCompletenessDecider
+import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerCategoriesActorTemplateEnrichingProcessor
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerReader
@@ -13,6 +13,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PageToL
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGenderProcessor
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
+import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
@@ -39,18 +40,18 @@ class PerformerCreationConfigurationTest extends AbstractCreationConfigurationTe
 
 	private CategoryApi categoryApiMock
 
-	private JobCompletenessDecider jobCompletenessDeciderMock
+	private StepCompletenessDecider jobCompletenessDeciderMock
 
 	private PerformerCreationConfiguration performerCreationConfiguration
 
 	def setup() {
 		applicationContextMock = Mock(ApplicationContext)
 		categoryApiMock = Mock(CategoryApi)
-		jobCompletenessDeciderMock = Mock(JobCompletenessDecider)
+		jobCompletenessDeciderMock = Mock(StepCompletenessDecider)
 		performerCreationConfiguration = new PerformerCreationConfiguration(
 				applicationContext: applicationContextMock,
 				categoryApi: categoryApiMock,
-				jobCompletenessDecider: jobCompletenessDeciderMock)
+				stepCompletenessDecider: jobCompletenessDeciderMock)
 	}
 
 	def "PerformerReader is created is created with all pages when step is not completed"() {
@@ -59,7 +60,7 @@ class PerformerCreationConfigurationTest extends AbstractCreationConfigurationTe
 		List<String> categoryHeaderTitleList = readerToList(performerReader)
 
 		then:
-		1 * jobCompletenessDeciderMock.isStepComplete(StepName.CREATE_PERFORMERS) >> false
+		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_PERFORMERS) >> false
 		1 * categoryApiMock.getPages(CategoryName.PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_PERFORMERS)
 		1 * categoryApiMock.getPages(CategoryName.ANIMAL_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_ANIMAL_PERFORMERS)
 		1 * categoryApiMock.getPages(CategoryName.DIS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_DIS_PERFORMERS)
@@ -98,7 +99,7 @@ class PerformerCreationConfigurationTest extends AbstractCreationConfigurationTe
 		List<String> categoryHeaderTitleList = readerToList(performerReader)
 
 		then:
-		1 * jobCompletenessDeciderMock.isStepComplete(StepName.CREATE_PERFORMERS) >> true
+		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_PERFORMERS) >> true
 		0 * _
 		categoryHeaderTitleList.empty
 	}

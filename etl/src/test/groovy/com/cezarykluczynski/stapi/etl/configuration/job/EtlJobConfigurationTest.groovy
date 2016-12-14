@@ -30,6 +30,7 @@ import org.springframework.batch.core.step.tasklet.TaskletStep
 import org.springframework.batch.item.ItemProcessor
 import org.springframework.batch.item.ItemReader
 import org.springframework.batch.item.ItemWriter
+import org.springframework.beans.factory.FactoryBean
 import org.springframework.context.ApplicationContext
 import spock.lang.Specification
 
@@ -84,16 +85,16 @@ class EtlJobConfigurationTest extends Specification {
 		stepProperties = Mock(StepProperties)
 	}
 
-	def "passed JOB_CREATE bean creation to JobBuilder"() {
+	def "passed JOB_CREATE bean creation to JobBuilder, and returns FactoryBean"() {
 		given:
 		Job job = Mock(Job)
 
 		when:
-		Job jobOutput = etlJobConfiguration.jobCreate()
+		FactoryBean<Job> factoryBean = etlJobConfiguration.jobCreate()
 
 		then:
 		1 * jobBuilderMock.build() >> job
-		jobOutput == job
+		factoryBean.object == job
 		0 * _
 	}
 

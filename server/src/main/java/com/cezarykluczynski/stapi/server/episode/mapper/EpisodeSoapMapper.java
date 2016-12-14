@@ -31,10 +31,10 @@ public interface EpisodeSoapMapper {
 			@Mapping(source = "stardate.to", target = "stardateTo"),
 			@Mapping(source = "year.from", target = "yearFrom"),
 			@Mapping(source = "year.to", target = "yearTo"),
-			@Mapping(source = "usAirDate.dateFrom", target = "usAirDateFrom"),
-			@Mapping(source = "usAirDate.dateTo", target = "usAirDateTo"),
-			@Mapping(source = "finalScriptDate.dateFrom", target = "finalScriptDateFrom"),
-			@Mapping(source = "finalScriptDate.dateTo", target = "finalScriptDateTo")
+			@Mapping(source = "usAirDate.from", target = "usAirDateFrom"),
+			@Mapping(source = "usAirDate.to", target = "usAirDateTo"),
+			@Mapping(source = "finalScriptDate.from", target = "finalScriptDateFrom"),
+			@Mapping(source = "finalScriptDate.to", target = "finalScriptDateTo")
 	})
 	EpisodeRequestDTO map(EpisodeRequest performerRequest);
 

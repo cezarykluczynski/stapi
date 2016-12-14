@@ -2,8 +2,9 @@ package com.cezarykluczynski.stapi.etl.character.creation.configuration
 
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterReader
 import com.cezarykluczynski.stapi.etl.common.configuration.AbstractCreationConfigurationTest
-import com.cezarykluczynski.stapi.etl.common.service.JobCompletenessDecider
+import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
+import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
@@ -17,18 +18,18 @@ class CharacterCreationConfigurationTest extends AbstractCreationConfigurationTe
 
 	private CategoryApi categoryApiMock
 
-	private JobCompletenessDecider jobCompletenessDeciderMock
+	private StepCompletenessDecider jobCompletenessDeciderMock
 
 	private CharacterCreationConfiguration characterCreationConfiguration
 
 	def setup() {
 		applicationContextMock = Mock(ApplicationContext)
 		categoryApiMock = Mock(CategoryApi)
-		jobCompletenessDeciderMock = Mock(JobCompletenessDecider)
+		jobCompletenessDeciderMock = Mock(StepCompletenessDecider)
 		characterCreationConfiguration = new CharacterCreationConfiguration(
 				applicationContext: applicationContextMock,
 				categoryApi: categoryApiMock,
-				jobCompletenessDecider: jobCompletenessDeciderMock)
+				stepCompletenessDecider: jobCompletenessDeciderMock)
 	}
 
 	def "CharacterReader is created with all pages when step is not completed"() {
@@ -37,7 +38,7 @@ class CharacterCreationConfigurationTest extends AbstractCreationConfigurationTe
 		List<String> categoryHeaderTitleList = readerToList(characterReader)
 
 		then:
-		1 * jobCompletenessDeciderMock.isStepComplete(StepName.CREATE_CHARACTERS) >> false
+		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_CHARACTERS) >> false
 		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryName.INDIVIDUALS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_INDIVIDUALS)
 		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryName.MILITARY_PERSONNEL, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_INDIVIDUALS)
 		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryName.Q_CONTINUUM, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_INDIVIDUALS)
@@ -52,7 +53,7 @@ class CharacterCreationConfigurationTest extends AbstractCreationConfigurationTe
 		List<String> categoryHeaderTitleList = readerToList(characterReader)
 
 		then:
-		1 * jobCompletenessDeciderMock.isStepComplete(StepName.CREATE_CHARACTERS) >> true
+		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_CHARACTERS) >> true
 		0 * _
 		categoryHeaderTitleList.empty
 	}

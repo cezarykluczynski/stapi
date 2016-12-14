@@ -32,12 +32,12 @@ class SeriesSoapMapperTest extends AbstractSeriesMapperTest {
 						to: PRODUCTION_END_YEAR_TO,
 				),
 				originalRunStartDate: new DateRange(
-						dateFrom: ORIGINAL_RUN_START_DATE_FROM_XML,
-						dateTo: ORIGINAL_RUN_START_DATE_TO_XML
+						from: ORIGINAL_RUN_START_DATE_FROM_XML,
+						to: ORIGINAL_RUN_START_DATE_TO_XML
 				),
 				originalRunEndDate: new DateRange(
-						dateFrom: ORIGINAL_RUN_END_DATE_FROM_XML,
-						dateTo: ORIGINAL_RUN_END_DATE_TO_XML
+						from: ORIGINAL_RUN_END_DATE_FROM_XML,
+						to: ORIGINAL_RUN_END_DATE_TO_XML
 				))
 
 		when:

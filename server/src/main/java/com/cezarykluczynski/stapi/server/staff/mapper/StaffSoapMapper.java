@@ -17,10 +17,10 @@ import java.util.List;
 public interface StaffSoapMapper {
 
 	@Mappings({
-			@Mapping(source = "dateOfBirth.dateFrom", target = "dateOfBirthFrom"),
-			@Mapping(source = "dateOfBirth.dateTo", target = "dateOfBirthTo"),
-			@Mapping(source = "dateOfDeath.dateFrom", target = "dateOfDeathFrom"),
-			@Mapping(source = "dateOfDeath.dateTo", target = "dateOfDeathTo")
+			@Mapping(source = "dateOfBirth.from", target = "dateOfBirthFrom"),
+			@Mapping(source = "dateOfBirth.to", target = "dateOfBirthTo"),
+			@Mapping(source = "dateOfDeath.from", target = "dateOfDeathFrom"),
+			@Mapping(source = "dateOfDeath.to", target = "dateOfDeathTo")
 	})
 	StaffRequestDTO map(StaffRequest staffRequest);
 

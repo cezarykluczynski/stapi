@@ -20,10 +20,10 @@ public interface SeriesSoapMapper {
 			@Mapping(source = "productionStartYear.to", target = "productionStartYearTo"),
 			@Mapping(source = "productionEndYear.from", target = "productionEndYearFrom"),
 			@Mapping(source = "productionEndYear.to", target = "productionEndYearTo"),
-			@Mapping(source = "originalRunStartDate.dateFrom", target = "originalRunStartDateFrom"),
-			@Mapping(source = "originalRunStartDate.dateTo", target = "originalRunStartDateTo"),
-			@Mapping(source = "originalRunEndDate.dateFrom", target = "originalRunEndDateFrom"),
-			@Mapping(source = "originalRunEndDate.dateTo", target = "originalRunEndDateTo")
+			@Mapping(source = "originalRunStartDate.from", target = "originalRunStartDateFrom"),
+			@Mapping(source = "originalRunStartDate.to", target = "originalRunStartDateTo"),
+			@Mapping(source = "originalRunEndDate.from", target = "originalRunEndDateFrom"),
+			@Mapping(source = "originalRunEndDate.to", target = "originalRunEndDateTo")
 	})
 	SeriesRequestDTO map(SeriesRequest performerRequest);
 

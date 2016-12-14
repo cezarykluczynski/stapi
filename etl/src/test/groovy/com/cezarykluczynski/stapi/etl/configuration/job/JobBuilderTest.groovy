@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.configuration.job
 
+import com.cezarykluczynski.stapi.etl.configuration.job.service.JobCompletenessDecider
 import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import org.springframework.batch.core.Step
@@ -20,13 +21,17 @@ class JobBuilderTest extends Specification {
 
 	private StepConfigurationValidator stepConfigurationValidatorMock
 
+	private JobCompletenessDecider jobCompletenessDeciderMock
+
 	private JobBuilder jobBuilder
 
 	def setup() {
 		applicationContextMock = Mock(ApplicationContext)
 		jobBuilderFactoryMock = Mock(JobBuilderFactory)
 		stepConfigurationValidatorMock = Mock(StepConfigurationValidator)
-		jobBuilder = new JobBuilder(applicationContextMock, jobBuilderFactoryMock, stepConfigurationValidatorMock)
+		jobCompletenessDeciderMock = Mock(JobCompletenessDecider)
+		jobBuilder = new JobBuilder(applicationContextMock, jobBuilderFactoryMock, stepConfigurationValidatorMock,
+				jobCompletenessDeciderMock)
 	}
 
 	def "Job is built"() {
@@ -43,10 +48,13 @@ class JobBuilderTest extends Specification {
 		TaskExecutor taskExecutor = Mock(TaskExecutor)
 
 		when:
-		FlowJob job = jobBuilder.build()
+		FlowJob job = (FlowJob) jobBuilder.build()
 
 		then: 'validation is performed'
 		1 * stepConfigurationValidatorMock.validate()
+
+		then: 'check is performed whether job is completed'
+		1 * jobCompletenessDeciderMock.isJobCompleted(JobName.JOB_CREATE) >> false
 
 		then: 'jobCreate builder is retrieved'
 		1 * jobBuilderFactoryMock.get(JobName.JOB_CREATE) >> jobBuilderMock
@@ -83,6 +91,30 @@ class JobBuilderTest extends Specification {
 		((SplitState) ((SimpleFlow) job.flow).startState).flows.size() == 2
 		((SplitState) ((SimpleFlow) job.flow).startState).flows[0].name == 'flow1'
 		((SplitState) ((SimpleFlow) job.flow).startState).flows[1].name == 'flow2'
+	}
+
+	def "Job is not built when job is completed"() {
+		given:
+		JobRepository jobRepository = Mock(JobRepository)
+		org.springframework.batch.core.job.builder.JobBuilder jobBuilderMock =
+				new org.springframework.batch.core.job.builder.JobBuilder(JobName.JOB_CREATE)
+		jobBuilderMock.repository(jobRepository)
+
+		when:
+		FlowJob job = (FlowJob) jobBuilder.build()
+
+		then: 'validation is performed'
+		1 * stepConfigurationValidatorMock.validate()
+
+		then: 'check is performed whether all steps in job are completed'
+		1 * jobCompletenessDeciderMock.isJobCompleted(JobName.JOB_CREATE) >> true
+
+		then: 'no other interactions are expected'
+		0 * _
+
+		then: 'job is null'
+		job == null
+
 	}
 
 }

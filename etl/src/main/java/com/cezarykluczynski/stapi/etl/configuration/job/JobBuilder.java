@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.configuration.job;
 
+import com.cezarykluczynski.stapi.etl.configuration.job.service.JobCompletenessDecider;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import lombok.extern.slf4j.Slf4j;
@@ -25,16 +26,23 @@ public class JobBuilder {
 
 	private StepConfigurationValidator stepConfigurationValidator;
 
+	private JobCompletenessDecider jobCompletenessDecider;
+
 	@Inject
 	public JobBuilder(ApplicationContext applicationContext, JobBuilderFactory jobBuilderFactory,
-			StepConfigurationValidator stepConfigurationValidator) {
+			StepConfigurationValidator stepConfigurationValidator, JobCompletenessDecider jobCompletenessDecider) {
 		this.applicationContext = applicationContext;
 		this.jobBuilderFactory = jobBuilderFactory;
 		this.stepConfigurationValidator = stepConfigurationValidator;
+		this.jobCompletenessDecider = jobCompletenessDecider;
 	}
 
 	public synchronized Job build() {
 		stepConfigurationValidator.validate();
+
+		if (jobCompletenessDecider.isJobCompleted(JobName.JOB_CREATE)) {
+			return null;
+		}
 
 		org.springframework.batch.core.job.builder.JobBuilder jobBuilder = jobBuilderFactory.get(JobName.JOB_CREATE);
 		SimpleJobBuilder simpleJobBuilder = new SimpleJobBuilder(jobBuilder);
@@ -56,5 +64,6 @@ public class JobBuilder {
 				.end()
 				.build();
 	}
+
 }
 

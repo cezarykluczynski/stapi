@@ -8,7 +8,7 @@ import javax.xml.datatype.DatatypeConstants
 import javax.xml.datatype.XMLGregorianCalendar
 import java.time.LocalDate
 
-class AbstractRealWorldPersonTest extends Specification {
+abstract class AbstractRealWorldPersonTest extends Specification {
 
 	protected static final String GUID = "ABCD0123456789"
 	protected static final String NAME = 'NAME'

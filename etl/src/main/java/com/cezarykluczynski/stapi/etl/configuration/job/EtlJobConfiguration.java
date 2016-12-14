@@ -27,6 +27,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.beans.factory.FactoryBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -51,8 +52,8 @@ public class EtlJobConfiguration {
 	private StepsProperties stepsProperties;
 
 	@Bean
-	public Job jobCreate() {
-		return jobBuilder.build();
+	public FactoryBean<Job> jobCreate() {
+		return new JobFactoryBean(jobBuilder.build());
 	}
 
 	@Bean(name = StepName.CREATE_SERIES)

@@ -1,8 +1,9 @@
 package com.cezarykluczynski.stapi.etl.character.creation.configuration;
 
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterReader;
-import com.cezarykluczynski.stapi.etl.common.service.JobCompletenessDecider;
+import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
+import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
@@ -27,7 +28,7 @@ public class CharacterCreationConfiguration {
 	private CategoryApi categoryApi;
 
 	@Inject
-	private JobCompletenessDecider jobCompletenessDecider;
+	private StepCompletenessDecider stepCompletenessDecider;
 
 	// ensure Spring Batch migrates it's schema before reader is instantiated
 	@Inject
@@ -37,7 +38,7 @@ public class CharacterCreationConfiguration {
 	public CharacterReader characterReader() {
 		List<PageHeader> characters = Lists.newArrayList();
 
-		if (!jobCompletenessDecider.isStepComplete(StepName.CREATE_CHARACTERS)) {
+		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_CHARACTERS)) {
 			characters.addAll(categoryApi.getPagesIncludingSubcategories(CategoryName.INDIVIDUALS, MediaWikiSource.MEMORY_ALPHA_EN));
 			characters.addAll(categoryApi.getPagesIncludingSubcategories(CategoryName.MILITARY_PERSONNEL, MediaWikiSource.MEMORY_ALPHA_EN));
 			characters.addAll(categoryApi.getPagesIncludingSubcategories(CategoryName.Q_CONTINUUM, MediaWikiSource.MEMORY_ALPHA_EN));

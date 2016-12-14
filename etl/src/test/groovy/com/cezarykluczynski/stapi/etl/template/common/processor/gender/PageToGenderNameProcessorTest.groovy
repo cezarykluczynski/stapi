@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.common.processor.gender
 import com.cezarykluczynski.stapi.etl.template.common.dto.Gender
 import com.cezarykluczynski.stapi.etl.template.common.processor.FullNameToFirstNameProcessor
 import com.cezarykluczynski.stapi.sources.genderize.client.GenderizeClient
-import com.cezarykluczynski.stapi.sources.genderize.dto.NameGender
+import com.cezarykluczynski.stapi.sources.genderize.dto.NameGenderDTO
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import spock.lang.Specification
 
@@ -47,7 +47,7 @@ class PageToGenderNameProcessorTest extends Specification {
 
 		then:
 		1 * fullNameToFirstNameProcessor.process(TITLE) >> FIRST_NAME
-		1 * genderizeClientMock.getNameGender(FIRST_NAME) >> new NameGender()
+		1 * genderizeClientMock.getNameGender(FIRST_NAME) >> new NameGenderDTO()
 		gender == null
 	}
 
@@ -60,7 +60,7 @@ class PageToGenderNameProcessorTest extends Specification {
 
 		then:
 		1 * fullNameToFirstNameProcessor.process(TITLE) >> FIRST_NAME
-		1 * genderizeClientMock.getNameGender(FIRST_NAME) >> new NameGender(
+		1 * genderizeClientMock.getNameGender(FIRST_NAME) >> new NameGenderDTO(
 				probability: PageToGenderNameProcessor.MINIMAL_PROBABILITY + 0.01,
 				gender: GENDER)
 		gender == GENDER
@@ -75,7 +75,7 @@ class PageToGenderNameProcessorTest extends Specification {
 
 		then:
 		1 * fullNameToFirstNameProcessor.process(TITLE) >> FIRST_NAME
-		1 * genderizeClientMock.getNameGender(FIRST_NAME) >> new NameGender(
+		1 * genderizeClientMock.getNameGender(FIRST_NAME) >> new NameGenderDTO(
 				probability: PageToGenderNameProcessor.MINIMAL_PROBABILITY - 0.01,
 				gender: GENDER)
 		gender == null

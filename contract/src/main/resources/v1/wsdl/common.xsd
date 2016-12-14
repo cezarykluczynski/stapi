@@ -67,8 +67,8 @@
 	</xs:simpleType>
 	<xs:complexType name="DateRange">
 		<xs:sequence>
-			<xs:element name="dateFrom" type="xs:date" minOccurs="0"/>
-			<xs:element name="dateTo" type="xs:date" minOccurs="0"/>
+			<xs:element name="from" type="xs:date" minOccurs="0"/>
+			<xs:element name="to" type="xs:date" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="IntegerRange">

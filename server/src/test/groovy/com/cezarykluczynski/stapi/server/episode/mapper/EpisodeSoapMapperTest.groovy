@@ -44,12 +44,12 @@ class EpisodeSoapMapperTest extends AbstractEpisodeMapperTest {
 						to: YEAR_TO
 				),
 				usAirDate: new DateRange(
-						dateFrom: US_AIR_DATE_FROM_XML,
-						dateTo: US_AIR_DATE_TO_XML
+						from: US_AIR_DATE_FROM_XML,
+						to: US_AIR_DATE_TO_XML
 				),
 				finalScriptDate: new DateRange(
-						dateFrom: FINAL_SCRIPT_DATE_FROM_XML,
-						dateTo: FINAL_SCRIPT_DATE_TO_XML
+						from: FINAL_SCRIPT_DATE_FROM_XML,
+						to: FINAL_SCRIPT_DATE_TO_XML
 				)
 		)
 

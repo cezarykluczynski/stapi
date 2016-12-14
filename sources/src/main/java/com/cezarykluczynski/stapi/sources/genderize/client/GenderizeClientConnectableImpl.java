@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.sources.genderize.client;
 
-import com.cezarykluczynski.stapi.sources.genderize.dto.NameGender;
+import com.cezarykluczynski.stapi.sources.genderize.dto.NameGenderDTO;
 import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @Profile(SpringProfile.GENDERIZE)
 public class GenderizeClientConnectableImpl implements GenderizeClient {
 
-	private Map<String, NameGender> nameGenderCache = Maps.newHashMap();
+	private Map<String, NameGenderDTO> nameGenderCache = Maps.newHashMap();
 
 	private String apiUrl;
 
@@ -41,7 +41,7 @@ public class GenderizeClientConnectableImpl implements GenderizeClient {
 		this.apiUrl = apiUrl;
 	}
 
-	public synchronized NameGender getNameGender(String name) {
+	public synchronized NameGenderDTO getNameGender(String name) {
 		if (nameGenderCache.containsKey(name)) {
 			log.info("Using name to gender cache for name {}", name);
 			return nameGenderCache.get(name);
@@ -65,18 +65,18 @@ public class GenderizeClientConnectableImpl implements GenderizeClient {
 		}
 	}
 
-	private NameGender tryParseResponse(JSONObject jsonObject, String name) {
-		NameGender nameGender = new NameGender();
-		nameGender.setName(name);
+	private NameGenderDTO tryParseResponse(JSONObject jsonObject, String name) {
+		NameGenderDTO nameGenderDTO = new NameGenderDTO();
+		nameGenderDTO.setName(name);
 		try {
-			nameGender.setGender(jsonObject.getString("gender"));
+			nameGenderDTO.setGender(jsonObject.getString("gender"));
 		} catch (JSONException e2) {
 			if (!e2.getMessage().contains("JSONObject[\"gender\"] not a string.")) {
 				throw e2;
 			}
 		}
 		try {
-			nameGender.setProbability((float) jsonObject.getDouble("probability"));
+			nameGenderDTO.setProbability((float) jsonObject.getDouble("probability"));
 		} catch(JSONException e2) {
 			if (!e2.getMessage().contains("JSONObject[\"probability\"] not found.")) {
 				throw e2;
@@ -84,8 +84,8 @@ public class GenderizeClientConnectableImpl implements GenderizeClient {
 
 			return null;
 		}
-		nameGenderCache.put(name, nameGender);
-		return nameGender;
+		nameGenderCache.put(name, nameGenderDTO);
+		return nameGenderDTO;
 	}
 
 	private void ensureInterval() {

@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.sources.genderize.client;
 
-import com.cezarykluczynski.stapi.sources.genderize.dto.NameGender;
+import com.cezarykluczynski.stapi.sources.genderize.dto.NameGenderDTO;
 
 public interface GenderizeClient {
 
-	NameGender getNameGender(String name);
+	NameGenderDTO getNameGender(String name);
 
 }

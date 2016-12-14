@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.sources.genderize.dto;
 import lombok.Data;
 
 @Data
-public class NameGender {
+public class NameGenderDTO {
 
 	private String name;
 

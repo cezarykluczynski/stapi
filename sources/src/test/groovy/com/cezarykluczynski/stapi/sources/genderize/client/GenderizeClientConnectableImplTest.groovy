@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.sources.genderize.client
 
-import com.cezarykluczynski.stapi.sources.genderize.dto.NameGender
+import com.cezarykluczynski.stapi.sources.genderize.dto.NameGenderDTO
 import org.mockserver.client.server.MockServerClient
 import org.mockserver.integration.ClientAndServer
 import org.mockserver.matchers.MatchType
@@ -45,14 +45,14 @@ class GenderizeClientConnectableImplTest extends Specification {
 				JsonBody.json('{"name":"' + NAME + '","gender":"male","probability":0.98,"count":1000}', MatchType.STRICT)))
 
 		when:
-		NameGender nameGender = genderizeClientConnectableImpl.getNameGender(NAME)
+		NameGenderDTO nameGender = genderizeClientConnectableImpl.getNameGender(NAME)
 
 		then:
 		nameGender.name == NAME
 		nameGender.gender == "male"
 
 		when: 'another call is performed'
-		NameGender nameGenderCached = genderizeClientConnectableImpl.getNameGender(NAME)
+		NameGenderDTO nameGenderCached = genderizeClientConnectableImpl.getNameGender(NAME)
 
 		then: 'the same object is returned'
 		nameGenderCached == nameGender
@@ -66,7 +66,7 @@ class GenderizeClientConnectableImplTest extends Specification {
 				JsonBody.json('{"name":"' + NAME_PRODUCING_NULL_GENDER + '","gender":null}', MatchType.STRICT)))
 
 		when:
-		NameGender nameGender = genderizeClientConnectableImpl.getNameGender(NAME_PRODUCING_NULL_GENDER)
+		NameGenderDTO nameGender = genderizeClientConnectableImpl.getNameGender(NAME_PRODUCING_NULL_GENDER)
 
 		then:
 		nameGender == null
@@ -80,7 +80,7 @@ class GenderizeClientConnectableImplTest extends Specification {
 				JsonBody.json('{"name":"' + NAME_PRODUCING_NULL_GENDER + '","gender":"male", "probability": null}', MatchType.STRICT)))
 
 		when:
-		NameGender nameGender = genderizeClientConnectableImpl.getNameGender(NAME_PRODUCING_NULL_GENDER)
+		NameGenderDTO nameGender = genderizeClientConnectableImpl.getNameGender(NAME_PRODUCING_NULL_GENDER)
 
 		then:
 		nameGender == null
@@ -93,7 +93,7 @@ class GenderizeClientConnectableImplTest extends Specification {
 				.respond(HttpResponse.response().withStatusCode(404))
 
 		when:
-		NameGender nameGender = genderizeClientConnectableImpl.getNameGender(NAME_PRODUCING_404)
+		NameGenderDTO nameGender = genderizeClientConnectableImpl.getNameGender(NAME_PRODUCING_404)
 
 		then:
 		nameGender == null

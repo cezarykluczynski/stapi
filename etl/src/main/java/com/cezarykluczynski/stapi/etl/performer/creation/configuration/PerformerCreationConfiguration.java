@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.performer.creation.configuration;
 
-import com.cezarykluczynski.stapi.etl.common.service.JobCompletenessDecider;
+import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerCategoriesActorTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerReader;
@@ -12,6 +12,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PageToL
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGenderProcessor;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
+import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
@@ -39,7 +40,7 @@ public class PerformerCreationConfiguration {
 	private CategoryApi categoryApi;
 
 	@Inject
-	private JobCompletenessDecider jobCompletenessDecider;
+	private StepCompletenessDecider stepCompletenessDecider;
 
 	// ensure Spring Batch migrates it's schema before reader is instantiated
 	@Inject
@@ -49,7 +50,7 @@ public class PerformerCreationConfiguration {
 	public PerformerReader performerReader() {
 		List<PageHeader> performers = Lists.newArrayList();
 
-		if (!jobCompletenessDecider.isStepComplete(StepName.CREATE_PERFORMERS)) {
+		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_PERFORMERS)) {
 			performers.addAll(categoryApi.getPages(CategoryName.PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
 			performers.addAll(categoryApi.getPages(CategoryName.ANIMAL_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
 			performers.addAll(categoryApi.getPages(CategoryName.DIS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
