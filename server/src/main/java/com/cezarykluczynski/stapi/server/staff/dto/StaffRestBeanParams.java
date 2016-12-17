@@ -1,12 +1,12 @@
 package com.cezarykluczynski.stapi.server.staff.dto;
 
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender;
-import com.cezarykluczynski.stapi.server.common.dto.PageAwareBeanParams;
+import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 
 import javax.ws.rs.FormParam;
 import java.time.LocalDate;
 
-public class StaffRestBeanParams extends PageAwareBeanParams {
+public class StaffRestBeanParams extends PageSortBeanParams {
 
 	@FormParam("guid")
 	private String guid;
@@ -463,14 +463,15 @@ public class StaffRestBeanParams extends PageAwareBeanParams {
 		return writer;
 	}
 
-	public static StaffRestBeanParams fromPageAwareBeanParams(PageAwareBeanParams pageAwareBeanParams) {
-		if (pageAwareBeanParams == null) {
+	public static StaffRestBeanParams fromPageSortBeanParams(PageSortBeanParams pageSortBeanParams) {
+		if (pageSortBeanParams == null) {
 			return null;
 		}
 
 		StaffRestBeanParams staffRestBeanParams = new StaffRestBeanParams();
-		staffRestBeanParams.setPageNumber(pageAwareBeanParams.getPageNumber());
-		staffRestBeanParams.setPageSize(pageAwareBeanParams.getPageSize());
+		staffRestBeanParams.setPageNumber(pageSortBeanParams.getPageNumber());
+		staffRestBeanParams.setPageSize(pageSortBeanParams.getPageSize());
+		staffRestBeanParams.setSort(pageSortBeanParams.getSort());
 		return staffRestBeanParams;
 	}
 

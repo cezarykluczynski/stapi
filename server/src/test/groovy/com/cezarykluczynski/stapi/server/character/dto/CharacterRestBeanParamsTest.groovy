@@ -1,25 +1,27 @@
 package com.cezarykluczynski.stapi.server.character.dto
 
 import com.cezarykluczynski.stapi.server.common.dto.AbstractsRestBeanParamsTest
-import com.cezarykluczynski.stapi.server.common.dto.PageAwareBeanParams
+import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams
 
 class CharacterRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
-	def "creates CharacterRestBeanParams from PageAwareBeanParams"() {
+	def "creates CharacterRestBeanParams from PageSortBeanParams"() {
 		when:
-		CharacterRestBeanParams characterRestBeanParams = CharacterRestBeanParams.fromPageAwareBeanParams(new PageAwareBeanParams(
+		CharacterRestBeanParams characterRestBeanParams = CharacterRestBeanParams.fromPageSortBeanParams(new PageSortBeanParams(
 				pageNumber: PAGE_NUMBER,
-				pageSize: PAGE_SIZE
+				pageSize: PAGE_SIZE,
+				sort: SORT
 		))
 
 		then:
 		characterRestBeanParams.pageNumber == PAGE_NUMBER
 		characterRestBeanParams.pageSize == PAGE_SIZE
+		characterRestBeanParams.sort == SORT
 	}
 
-	def "creates null CharacterRestBeanParams from null PageAwareBeanParams"() {
+	def "creates null CharacterRestBeanParams from null PageSortBeanParams"() {
 		when:
-		CharacterRestBeanParams seriesRestBeanParams = CharacterRestBeanParams.fromPageAwareBeanParams null
+		CharacterRestBeanParams seriesRestBeanParams = CharacterRestBeanParams.fromPageSortBeanParams null
 
 		then:
 		seriesRestBeanParams == null

@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.server.common.mapper;
 
 import com.cezarykluczynski.stapi.client.v1.soap.RequestPage;
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage;
-import com.cezarykluczynski.stapi.server.common.dto.PageAwareBeanParams;
+import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import com.cezarykluczynski.stapi.server.util.PageDefault;
 import com.cezarykluczynski.stapi.util.tool.NumberUtil;
@@ -46,11 +46,11 @@ public interface PageMapper {
 		return fromPageNumberAndPageSize(requestPage.getPageNumber(), requestPage.getPageSize());
 	}
 
-	default PageRequest fromPageAwareBeanParamsToPageRequest(PageAwareBeanParams pageAwareBeanParams) {
-		if (pageAwareBeanParams == null) {
+	default PageRequest fromPageSortBeanParamsToPageRequest(PageSortBeanParams pageSortBeanParams) {
+		if (pageSortBeanParams == null) {
 			return PageDefault.PAGE_REQUEST;
 		}
-		return fromPageNumberAndPageSize(pageAwareBeanParams.getPageNumber(), pageAwareBeanParams.getPageSize());
+		return fromPageNumberAndPageSize(pageSortBeanParams.getPageNumber(), pageSortBeanParams.getPageSize());
 	}
 
 	static PageRequest fromPageNumberAndPageSize(Integer pageNumber, Integer pageSize) {

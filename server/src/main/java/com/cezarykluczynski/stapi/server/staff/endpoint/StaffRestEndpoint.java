@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.staff.endpoint;
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.StaffResponse;
-import com.cezarykluczynski.stapi.server.common.dto.PageAwareBeanParams;
+import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 import com.cezarykluczynski.stapi.server.staff.dto.StaffRestBeanParams;
 import com.cezarykluczynski.stapi.server.staff.reader.StaffRestReader;
 import org.springframework.stereotype.Service;
@@ -24,8 +24,8 @@ public class StaffRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public StaffResponse getStaffs(@BeanParam PageAwareBeanParams pageAwareBeanParams) {
-		return staffRestReader.read(StaffRestBeanParams.fromPageAwareBeanParams(pageAwareBeanParams));
+	public StaffResponse getStaffs(@BeanParam PageSortBeanParams pageSortBeanParams) {
+		return staffRestReader.read(StaffRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
 	}
 
 	@POST

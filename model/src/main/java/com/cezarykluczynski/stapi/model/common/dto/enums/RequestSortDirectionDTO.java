@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.model.common.dto.enums;
 
-public enum RequestOrderEnumDTO {
+public enum RequestSortDirectionDTO {
 
 	ASC, DESC
 

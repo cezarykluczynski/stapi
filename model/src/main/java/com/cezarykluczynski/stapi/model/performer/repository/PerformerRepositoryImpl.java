@@ -54,7 +54,7 @@ public class PerformerRepositoryImpl extends AbstractRepositoryImpl<Performer> i
 		performerQueryBuilder.equal(Performer_.videoGamePerformer, criteria.getVideoGamePerformer());
 		performerQueryBuilder.equal(Performer_.voicePerformer, criteria.getVoicePerformer());
 		performerQueryBuilder.equal(Performer_.voyPerformer, criteria.getVoyPerformer());
-		performerQueryBuilder.setOrder(criteria.getOrder());
+		performerQueryBuilder.setSort(criteria.getSort());
 		performerQueryBuilder.fetch(Performer_.characters, doFetch);
 
 		Page<Performer> performerPage = performerQueryBuilder.findPage();

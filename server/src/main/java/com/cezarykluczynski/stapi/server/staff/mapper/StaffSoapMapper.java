@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.model.staff.dto.StaffRequestDTO;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.server.common.mapper.DateMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.EnumMapper;
-import com.cezarykluczynski.stapi.server.common.mapper.RequestOrderMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.RequestSortSoapMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -13,7 +13,7 @@ import org.mapstruct.Mappings;
 
 import java.util.List;
 
-@Mapper(config = MapstructConfiguration.class, uses = {DateMapper.class, EnumMapper.class, RequestOrderMapper.class})
+@Mapper(config = MapstructConfiguration.class, uses = {DateMapper.class, EnumMapper.class, RequestSortSoapMapper.class})
 public interface StaffSoapMapper {
 
 	@Mappings({

@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.model.character.dto.CharacterRequestDTO
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.character.entity.Character_
 import com.cezarykluczynski.stapi.model.character.query.CharacterQueryBuilderFactory
-import com.cezarykluczynski.stapi.model.common.dto.RequestOrderDTO
+import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.util.tool.LogicUtil
@@ -20,7 +20,7 @@ class CharacterRepositoryImplTest extends Specification {
 	private static final String NAME = 'NAME'
 	private static final Gender GENDER = Gender.F
 	private static final Boolean DECEASED = LogicUtil.nextBoolean()
-	private static final RequestOrderDTO ORDER = new RequestOrderDTO()
+	private static final RequestSortDTO SORT = new RequestSortDTO()
 
 	private CharacterQueryBuilderFactory characterQueryBuilderMock
 
@@ -69,9 +69,9 @@ class CharacterRepositoryImplTest extends Specification {
 		1 * characterRequestDTO.getDeceased() >> DECEASED
 		1 * characterQueryBuilder.equal(Character_.deceased, DECEASED)
 
-		then: 'order is set'
-		1 * characterRequestDTO.getOrder() >> ORDER
-		1 * characterQueryBuilder.setOrder(ORDER)
+		then: 'sort is set'
+		1 * characterRequestDTO.getSort() >> SORT
+		1 * characterQueryBuilder.setSort(SORT)
 
 		then: 'fetch is performed with true flag'
 		1 * characterQueryBuilder.fetch(Character_.performers, true)

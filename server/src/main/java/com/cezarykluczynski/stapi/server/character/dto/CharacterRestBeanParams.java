@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.server.character.dto;
 
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender;
-import com.cezarykluczynski.stapi.server.common.dto.PageAwareBeanParams;
+import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 
 import javax.ws.rs.FormParam;
 
-public class CharacterRestBeanParams extends PageAwareBeanParams {
+public class CharacterRestBeanParams extends PageSortBeanParams {
 
 	@FormParam("guid")
 	private String guid;
@@ -35,14 +35,15 @@ public class CharacterRestBeanParams extends PageAwareBeanParams {
 		return gender;
 	}
 
-	public static CharacterRestBeanParams fromPageAwareBeanParams(PageAwareBeanParams pageAwareBeanParams) {
-		if (pageAwareBeanParams == null) {
+	public static CharacterRestBeanParams fromPageSortBeanParams(PageSortBeanParams pageSortBeanParams) {
+		if (pageSortBeanParams == null) {
 			return null;
 		}
 
 		CharacterRestBeanParams characterRestBeanParams = new CharacterRestBeanParams();
-		characterRestBeanParams.setPageNumber(pageAwareBeanParams.getPageNumber());
-		characterRestBeanParams.setPageSize(pageAwareBeanParams.getPageSize());
+		characterRestBeanParams.setPageNumber(pageSortBeanParams.getPageNumber());
+		characterRestBeanParams.setPageSize(pageSortBeanParams.getPageSize());
+		characterRestBeanParams.setSort(pageSortBeanParams.getSort());
 		return characterRestBeanParams;
 	}
 

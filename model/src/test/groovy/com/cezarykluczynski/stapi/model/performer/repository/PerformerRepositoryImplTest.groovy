@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.model.performer.repository
 
-import com.cezarykluczynski.stapi.model.common.dto.RequestOrderDTO
+import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO
@@ -16,7 +16,7 @@ import org.springframework.data.domain.Pageable
 class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 
 	private static final Gender GENDER = Gender.F
-	private static final RequestOrderDTO ORDER = new RequestOrderDTO()
+	private static final RequestSortDTO SORT = new RequestSortDTO()
 
 	private PerformerQueryBuilderFactory performerQueryBuilderMock
 
@@ -103,9 +103,9 @@ class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 		1 * performerRequestDTO.getVoyPerformer() >> VOY_PERFORMER
 		1 * performerQueryBuilder.equal(Performer_.voyPerformer, VOY_PERFORMER)
 
-		then: 'order is set'
-		1 * performerRequestDTO.getOrder() >> ORDER
-		1 * performerQueryBuilder.setOrder(ORDER)
+		then: 'sort is set'
+		1 * performerRequestDTO.getSort() >> SORT
+		1 * performerQueryBuilder.setSort(SORT)
 
 		then: 'fetch is performed with true flag'
 		1 * performerQueryBuilder.fetch(Performer_.characters, true)

@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.server.common.dto;
 
 import javax.ws.rs.QueryParam;
 
-public class PageAwareBeanParams {
+public class PageSortBeanParams {
 
 	@QueryParam(value = "pageNumber")
 	private Integer pageNumber;
@@ -10,6 +10,8 @@ public class PageAwareBeanParams {
 	@QueryParam(value = "pageSize")
 	private Integer pageSize;
 
+	@QueryParam(value = "sort")
+	private String sort;
 
 	public Integer getPageNumber() {
 		return pageNumber;
@@ -26,4 +28,13 @@ public class PageAwareBeanParams {
 	public void setPageSize(Integer pageSize) {
 		this.pageSize = pageSize;
 	}
+
+	public String getSort() {
+		return sort;
+	}
+
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
+
 }

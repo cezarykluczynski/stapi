@@ -33,7 +33,7 @@ public class CharacterRepositoryImpl extends AbstractRepositoryImpl<Character> i
 		characterQueryBuilder.like(Character_.name, criteria.getName());
 		characterQueryBuilder.equal(Character_.gender, criteria.getGender());
 		characterQueryBuilder.equal(Character_.deceased, criteria.getDeceased());
-		characterQueryBuilder.setOrder(criteria.getOrder());
+		characterQueryBuilder.setSort(criteria.getSort());
 		characterQueryBuilder.fetch(Character_.performers, doFetch);
 
 		Page<Character> performerPage = characterQueryBuilder.findPage();

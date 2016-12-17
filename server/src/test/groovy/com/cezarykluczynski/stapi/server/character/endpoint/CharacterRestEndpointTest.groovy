@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.server.character.endpoint
 import com.cezarykluczynski.stapi.client.v1.rest.model.CharacterResponse
 import com.cezarykluczynski.stapi.server.character.dto.CharacterRestBeanParams
 import com.cezarykluczynski.stapi.server.character.reader.CharacterRestReader
-import com.cezarykluczynski.stapi.server.common.dto.PageAwareBeanParams
+import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractRestEndpointTest
 
 class CharacterRestEndpointTest extends AbstractRestEndpointTest {
@@ -19,7 +19,7 @@ class CharacterRestEndpointTest extends AbstractRestEndpointTest {
 
 	def "passes get call to CharacterRestReader"() {
 		given:
-		PageAwareBeanParams pageAwareBeanParams = Mock(PageAwareBeanParams) {
+		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams) {
 			getPageNumber() >> PAGE_NUMBER
 			getPageSize() >> PAGE_SIZE
 		}

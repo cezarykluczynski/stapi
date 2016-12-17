@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.server.character.endpoint;
 import com.cezarykluczynski.stapi.client.v1.rest.model.CharacterResponse;
 import com.cezarykluczynski.stapi.server.character.dto.CharacterRestBeanParams;
 import com.cezarykluczynski.stapi.server.character.reader.CharacterRestReader;
-import com.cezarykluczynski.stapi.server.common.dto.PageAwareBeanParams;
+import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -24,8 +24,8 @@ public class CharacterRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public CharacterResponse getCharacters(@BeanParam PageAwareBeanParams pageAwareBeanParams) {
-		return characterRestReader.read(CharacterRestBeanParams.fromPageAwareBeanParams(pageAwareBeanParams));
+	public CharacterResponse getCharacters(@BeanParam PageSortBeanParams pageSortBeanParams) {
+		return characterRestReader.read(CharacterRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
 	}
 
 	@POST

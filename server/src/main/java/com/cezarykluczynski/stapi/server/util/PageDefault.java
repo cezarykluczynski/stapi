@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.util;
 
-import com.cezarykluczynski.stapi.server.common.dto.PageAwareBeanParams;
+import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 import org.springframework.data.domain.PageRequest;
 
 public class PageDefault {
@@ -12,7 +12,7 @@ public class PageDefault {
 	public static final int PAGE_SIZE_MAX = 100;
 
 	public static final PageRequest PAGE_REQUEST = new PageRequest(PAGE_NUMBER, PAGE_SIZE);
-	public static final PageAwareBeanParams SINGLE_PAGE_BEAN_PARAMS = new PageAwareBeanParams();
+	public static final PageSortBeanParams SINGLE_PAGE_BEAN_PARAMS = new PageSortBeanParams();
 
 	static {
 		SINGLE_PAGE_BEAN_PARAMS.setPageNumber(PAGE_NUMBER);

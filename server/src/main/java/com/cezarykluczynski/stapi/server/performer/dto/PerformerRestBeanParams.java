@@ -1,12 +1,12 @@
 package com.cezarykluczynski.stapi.server.performer.dto;
 
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender;
-import com.cezarykluczynski.stapi.server.common.dto.PageAwareBeanParams;
+import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 
 import javax.ws.rs.FormParam;
 import java.time.LocalDate;
 
-public class PerformerRestBeanParams extends PageAwareBeanParams {
+public class PerformerRestBeanParams extends PageSortBeanParams {
 
 	@FormParam("guid")
 	private String guid;
@@ -169,14 +169,15 @@ public class PerformerRestBeanParams extends PageAwareBeanParams {
 		return voyPerformer;
 	}
 
-	public static PerformerRestBeanParams fromPageAwareBeanParams(PageAwareBeanParams pageAwareBeanParams) {
-		if (pageAwareBeanParams == null) {
+	public static PerformerRestBeanParams fromPageSortBeanParams(PageSortBeanParams pageSortBeanParams) {
+		if (pageSortBeanParams == null) {
 			return null;
 		}
 
 		PerformerRestBeanParams performerRestBeanParams = new PerformerRestBeanParams();
-		performerRestBeanParams.setPageNumber(pageAwareBeanParams.getPageNumber());
-		performerRestBeanParams.setPageSize(pageAwareBeanParams.getPageSize());
+		performerRestBeanParams.setPageNumber(pageSortBeanParams.getPageNumber());
+		performerRestBeanParams.setPageSize(pageSortBeanParams.getPageSize());
+		performerRestBeanParams.setSort(pageSortBeanParams.getSort());
 		return performerRestBeanParams;
 	}
 

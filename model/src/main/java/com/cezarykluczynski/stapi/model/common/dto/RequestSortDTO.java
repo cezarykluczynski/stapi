@@ -5,8 +5,8 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class RequestOrderDTO {
+public class RequestSortDTO {
 
-	List<RequestOrderClauseDTO> clauses;
+	List<RequestSortClauseDTO> clauses;
 
 }

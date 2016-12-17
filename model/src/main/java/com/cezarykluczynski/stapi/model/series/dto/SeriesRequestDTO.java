@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.model.series.dto;
 
-import com.cezarykluczynski.stapi.model.common.dto.RequestOrderDTO;
+import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -30,6 +30,6 @@ public class SeriesRequestDTO {
 
 	private LocalDate originalRunEndDateTo;
 
-	private RequestOrderDTO order;
+	private RequestSortDTO sort;
 
 }

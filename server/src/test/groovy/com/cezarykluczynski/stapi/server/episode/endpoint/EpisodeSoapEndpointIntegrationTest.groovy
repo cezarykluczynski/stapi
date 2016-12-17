@@ -47,11 +47,11 @@ class EpisodeSoapEndpointIntegrationTest extends AbstractEpisodeEndpointIntegrat
 						from: XMLGregorianCalendarImpl.createDate(1996, 1, 1, DatatypeConstants.FIELD_UNDEFINED),
 						to: XMLGregorianCalendarImpl.createDate(1996, 12, 31, DatatypeConstants.FIELD_UNDEFINED)
 				),
-				order: new RequestOrder(
+				sort: new RequestSort(
 						clauses: Lists.newArrayList(
-								new RequestOrderClause(
+								new RequestSortClause(
 										name: 'usAirDate',
-										order: RequestOrderEnum.ASC
+										direction: RequestSortDirectionEnum.ASC
 						)
 						)
 				)

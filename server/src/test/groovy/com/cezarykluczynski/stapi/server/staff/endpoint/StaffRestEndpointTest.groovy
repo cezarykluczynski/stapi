@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.staff.endpoint
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.StaffResponse
-import com.cezarykluczynski.stapi.server.common.dto.PageAwareBeanParams
+import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractRestEndpointTest
 import com.cezarykluczynski.stapi.server.staff.dto.StaffRestBeanParams
 import com.cezarykluczynski.stapi.server.staff.reader.StaffRestReader
@@ -19,7 +19,7 @@ class StaffRestEndpointTest extends AbstractRestEndpointTest {
 
 	def "passes get call to StaffRestReader"() {
 		given:
-		PageAwareBeanParams pageAwareBeanParams = Mock(PageAwareBeanParams) {
+		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams) {
 			getPageNumber() >> PAGE_NUMBER
 			getPageSize() >> PAGE_SIZE
 		}

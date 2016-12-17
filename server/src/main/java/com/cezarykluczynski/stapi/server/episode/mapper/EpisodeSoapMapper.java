@@ -6,7 +6,7 @@ import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterHeaderSoapMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.DateMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.EnumMapper;
-import com.cezarykluczynski.stapi.server.common.mapper.RequestOrderMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.RequestSortSoapMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerHeaderSoapMapper;
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesHeaderSoapMapper;
@@ -18,7 +18,7 @@ import org.mapstruct.Mappings;
 import java.util.List;
 
 @Mapper(config = MapstructConfiguration.class, uses = {CharacterHeaderSoapMapper.class, DateMapper.class,
-		EnumMapper.class, RequestOrderMapper.class, PerformerHeaderSoapMapper.class, SeriesHeaderSoapMapper.class,
+		EnumMapper.class, RequestSortSoapMapper.class, PerformerHeaderSoapMapper.class, SeriesHeaderSoapMapper.class,
 		StaffHeaderSoapMapper.class})
 public interface EpisodeSoapMapper {
 

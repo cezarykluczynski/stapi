@@ -36,7 +36,7 @@ public class SeriesRepositoryImpl implements SeriesRepositoryCustom {
 				criteria.getOriginalRunStartDateTo());
 		seriesQueryBuilder.between(Series_.originalRunEndDate, criteria.getOriginalRunEndDateFrom(),
 				criteria.getOriginalRunEndDateTo());
-		seriesQueryBuilder.setOrder(criteria.getOrder());
+		seriesQueryBuilder.setSort(criteria.getSort());
 
 		return seriesQueryBuilder.findPage();
 	}

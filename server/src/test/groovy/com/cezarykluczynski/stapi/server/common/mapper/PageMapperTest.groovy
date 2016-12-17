@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.server.common.mapper
 import com.cezarykluczynski.stapi.client.v1.soap.RequestPage
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage as SOAPResponsePage
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage as RESTResponsePage
-import com.cezarykluczynski.stapi.server.common.dto.PageAwareBeanParams
+import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams
 import com.cezarykluczynski.stapi.server.util.PageDefault
 import org.mapstruct.factory.Mappers
 import org.springframework.data.domain.Page
@@ -127,22 +127,22 @@ class PageMapperTest extends Specification {
 
 	def "maps PageAwareBeanParams to PageRequest"() {
 		given:
-		PageAwareBeanParams pageAwareBeanParams = Mock(PageAwareBeanParams) {
+		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams) {
 			getPageNumber() >> PAGE_NUMBER
 			getPageSize() >> PAGE_SIZE
 		}
 
 		when:
-		PageRequest pageRequest = pageMapper.fromPageAwareBeanParamsToPageRequest pageAwareBeanParams
+		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest pageAwareBeanParams
 
 		then:
 		pageRequest.pageNumber == PAGE_NUMBER
 		pageRequest.pageSize == PAGE_SIZE
 	}
 
-	def "ensures that ranges are respected when mapping from PageAwareBeanParams"() {
+	def "ensures that ranges are respected when mapping from PageSortBeanParams"() {
 		when:
-		PageRequest pageRequestWithTooLowPageNumber = pageMapper.fromPageAwareBeanParamsToPageRequest Mock(PageAwareBeanParams) {
+		PageRequest pageRequestWithTooLowPageNumber = pageMapper.fromPageSortBeanParamsToPageRequest Mock(PageSortBeanParams) {
 			getPageNumber() >> -1
 		}
 
@@ -150,7 +150,7 @@ class PageMapperTest extends Specification {
 		pageRequestWithTooLowPageNumber.pageNumber == PageDefault.PAGE_NUMBER
 
 		when:
-		PageRequest pageRequestWithTooLowPageSize = pageMapper.fromPageAwareBeanParamsToPageRequest Mock(PageAwareBeanParams) {
+		PageRequest pageRequestWithTooLowPageSize = pageMapper.fromPageSortBeanParamsToPageRequest Mock(PageSortBeanParams) {
 			getPageSize() >> -1
 		}
 
@@ -158,7 +158,7 @@ class PageMapperTest extends Specification {
 		pageRequestWithTooLowPageSize.pageSize == PageDefault.PAGE_SIZE
 
 		when:
-		PageRequest pageRequestWithTooHighPageSize = pageMapper.fromPageAwareBeanParamsToPageRequest Mock(PageAwareBeanParams) {
+		PageRequest pageRequestWithTooHighPageSize = pageMapper.fromPageSortBeanParamsToPageRequest Mock(PageSortBeanParams) {
 			getPageSize() >> 10000
 		}
 
@@ -168,7 +168,7 @@ class PageMapperTest extends Specification {
 
 	def "maps PageAwareBeanParams with null values to PageRequest with default values"() {
 		when:
-		PageRequest pageRequest = pageMapper.fromPageAwareBeanParamsToPageRequest Mock(PageAwareBeanParams)
+		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest Mock(PageSortBeanParams)
 
 		then:
 		pageRequest.pageNumber == PageDefault.PAGE_NUMBER
@@ -177,7 +177,7 @@ class PageMapperTest extends Specification {
 
 	def "maps null PageAwareBeanParams to default PageRequest"() {
 		when:
-		PageRequest pageRequest = pageMapper.fromPageAwareBeanParamsToPageRequest null
+		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest null
 
 		then:
 		pageRequest == PageDefault.PAGE_REQUEST

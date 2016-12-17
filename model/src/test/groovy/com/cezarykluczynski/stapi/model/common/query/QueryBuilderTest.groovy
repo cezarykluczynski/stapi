@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.model.common.query
 
-import com.cezarykluczynski.stapi.model.common.dto.RequestOrderClauseDTO
-import com.cezarykluczynski.stapi.model.common.dto.RequestOrderDTO
-import com.cezarykluczynski.stapi.model.common.dto.enums.RequestOrderEnumDTO
+import com.cezarykluczynski.stapi.model.common.dto.RequestSortClauseDTO
+import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
+import com.cezarykluczynski.stapi.model.common.dto.enums.RequestSortDirectionDTO
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.util.tool.LogicUtil
@@ -39,8 +39,8 @@ class QueryBuilderTest extends Specification {
 	private static final String REQUEST_ORDER_CLAUSE_NAME_1 = 'REQUEST_ORDER_CLAUSE_NAME_1'
 	private static final String REQUEST_ORDER_CLAUSE_NAME_2 = 'REQUEST_ORDER_CLAUSE_NAME_2'
 	private static final String REQUEST_ORDER_CLAUSE_NAME_3 = 'REQUEST_ORDER_CLAUSE_NAME_3'
-	private static final RequestOrderEnumDTO REQUEST_ORDER_CLAUSE_ORDER_ENUM_1 = RequestOrderEnumDTO.ASC
-	private static final RequestOrderEnumDTO REQUEST_ORDER_CLAUSE_ORDER_ENUM_3 = RequestOrderEnumDTO.DESC
+	private static final RequestSortDirectionDTO REQUEST_SORT_DIRECTION_1 = RequestSortDirectionDTO.ASC
+	private static final RequestSortDirectionDTO REQUEST_SORT_DIRECTION_3 = RequestSortDirectionDTO.DESC
 	private static final Integer REQUEST_ORDER_CLAUSE_CLAUSE_ORDER_1 = 1
 	private static final Integer REQUEST_ORDER_CLAUSE_CLAUSE_ORDER_2 = 2
 	private final SingularAttribute<?, String> VALID_KEY_STRING = Mock(SingularAttribute)
@@ -61,19 +61,19 @@ class QueryBuilderTest extends Specification {
 	private final Order REQUEST_ORDER_CLAUSE_ORDER_2 = Mock(Order)
 	private final Order REQUEST_ORDER_CLAUSE_ORDER_1 = Mock(Order)
 
-	private static final RequestOrderDTO ORDER_REQUEST = new RequestOrderDTO(
+	private static final RequestSortDTO ORDER_REQUEST = new RequestSortDTO(
 			clauses: Lists.newArrayList(
-					new RequestOrderClauseDTO(
+					new RequestSortClauseDTO(
 							name: REQUEST_ORDER_CLAUSE_NAME_3,
-							order: REQUEST_ORDER_CLAUSE_ORDER_ENUM_3
+							direction: REQUEST_SORT_DIRECTION_3
 					),
-					new RequestOrderClauseDTO(
+					new RequestSortClauseDTO(
 							name: REQUEST_ORDER_CLAUSE_NAME_2,
 							clauseOrder: REQUEST_ORDER_CLAUSE_CLAUSE_ORDER_2
 					),
-					new RequestOrderClauseDTO(
+					new RequestSortClauseDTO(
 							name: REQUEST_ORDER_CLAUSE_NAME_1,
-							order: REQUEST_ORDER_CLAUSE_ORDER_ENUM_1,
+							direction: REQUEST_SORT_DIRECTION_1,
 							clauseOrder: REQUEST_ORDER_CLAUSE_CLAUSE_ORDER_1
 					)
 			)
@@ -321,7 +321,7 @@ class QueryBuilderTest extends Specification {
 		0 * baseRoot.fetch(FETCH_NAME)
 
 		when: 'order is added and search is performer'
-		queryBuilder.setOrder(ORDER_REQUEST)
+		queryBuilder.setSort(ORDER_REQUEST)
 		Page<Series> seriesPage = queryBuilder.findPage()
 
 		then: 'queries are built'

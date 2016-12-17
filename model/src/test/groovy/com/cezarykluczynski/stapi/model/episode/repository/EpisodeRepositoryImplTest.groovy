@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.model.episode.repository
 
-import com.cezarykluczynski.stapi.model.common.dto.RequestOrderDTO
+import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.episode.dto.EpisodeRequestDTO
 import com.cezarykluczynski.stapi.model.episode.entity.Episode
@@ -33,7 +33,7 @@ class EpisodeRepositoryImplTest extends Specification {
 	private static final Boolean FEATURE_LENGTH = LogicUtil.nextBoolean()
 	private static final Integer YEAR_FROM = 2250
 	private static final Integer YEAR_TO = 2370
-	private static final RequestOrderDTO ORDER = new RequestOrderDTO()
+	private static final RequestSortDTO SORT = new RequestSortDTO()
 
 	private EpisodeQueryBuilderFactory episodeQueryBuilderMock
 
@@ -104,9 +104,9 @@ class EpisodeRepositoryImplTest extends Specification {
 		1 * episodeRequestDTO.getFinalScriptDateTo() >> FINAL_SCRIPT_DATE_TO
 		1 * episodeQueryBuilder.between(Episode_.usAirDate, FINAL_SCRIPT_DATE_FROM, FINAL_SCRIPT_DATE_TO)
 
-		then: 'order is set'
-		1 * episodeRequestDTO.getOrder() >> ORDER
-		1 * episodeQueryBuilder.setOrder(ORDER)
+		then: 'sort is set'
+		1 * episodeRequestDTO.getSort() >> SORT
+		1 * episodeQueryBuilder.setSort(SORT)
 
 		then: 'fetch is performed with true flag'
 		1 * episodeQueryBuilder.fetch(Episode_.writers, true)

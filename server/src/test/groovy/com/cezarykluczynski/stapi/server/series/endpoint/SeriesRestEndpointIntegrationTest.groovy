@@ -1,8 +1,12 @@
 package com.cezarykluczynski.stapi.server.series.endpoint
 
+import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer
+import com.cezarykluczynski.stapi.client.api.dto.RestSortClause
+import com.cezarykluczynski.stapi.client.api.dto.enums.RestSortOrder
 import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
+import com.google.common.collect.Lists
 import spock.lang.Requires
 
 @Requires({
@@ -34,8 +38,8 @@ class SeriesRestEndpointIntegrationTest extends AbstractSeriesEndpointIntegratio
 		Integer pageSize = 2
 
 		when:
-		SeriesResponse seriesResponse = stapiRestClient.seriesApi.seriesPost(pageNumber, pageSize, null, VOYAGER, null,
-				null, null, null, null, null, null, null, null)
+		SeriesResponse seriesResponse = stapiRestClient.seriesApi.seriesPost(pageNumber, pageSize, null, null, VOYAGER,
+				null, null, null, null, null, null, null, null, null)
 
 		then:
 		seriesResponse.page.pageNumber == pageNumber
@@ -50,14 +54,27 @@ class SeriesRestEndpointIntegrationTest extends AbstractSeriesEndpointIntegratio
 		Integer pageSize = 2
 
 		when:
-		SeriesResponse seriesResponse = stapiRestClient.seriesApi.seriesPost(pageNumber, pageSize, GUID, null, null,
-				null, null, null, null, null, null, null, null)
+		SeriesResponse seriesResponse = stapiRestClient.seriesApi.seriesPost(pageNumber, pageSize, null, GUID, null,
+				null, null, null, null, null, null, null, null, null)
 
 		then:
 		seriesResponse.series.size() == 1
 		seriesResponse.series[0].abbreviation == TAS
 		seriesResponse.page.pageNumber == pageNumber
 		seriesResponse.page.pageSize == pageSize
+	}
+
+	def "gets series sorted by production end year descending"() {
+		when:
+		SeriesResponse seriesResponse = stapiRestClient.seriesApi.seriesPost(null, null,
+				StapiRestSortSerializer.serialize(Lists.newArrayList(
+						new RestSortClause(name: 'productionEndYear', sortOrder: RestSortOrder.DESC)
+				)), null, null, null, null, null, null, null, null, null, null, null)
+
+		then:
+		seriesResponse.series.size() == 6
+		seriesResponse.series[0].abbreviation == ENT
+		seriesResponse.series[5].abbreviation == TOS
 	}
 
 }

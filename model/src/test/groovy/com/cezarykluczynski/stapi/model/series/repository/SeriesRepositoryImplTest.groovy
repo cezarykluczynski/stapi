@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.model.series.repository
 
-import com.cezarykluczynski.stapi.model.common.dto.RequestOrderDTO
+import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.series.dto.SeriesRequestDTO
 import com.cezarykluczynski.stapi.model.series.entity.Series
@@ -25,7 +25,7 @@ class SeriesRepositoryImplTest extends Specification {
 	private static final LocalDate ORIGINAL_RUN_START_TO = LocalDate.of(1991, 3, 4)
 	private static final LocalDate ORIGINAL_RUN_END_FROM = LocalDate.of(1998, 5, 6)
 	private static final LocalDate ORIGINAL_RUN_END_TO = LocalDate.of(1999, 7, 8)
-	private static final RequestOrderDTO ORDER = new RequestOrderDTO()
+	private static final RequestSortDTO SORT = new RequestSortDTO()
 
 	private SeriesQueryBuilderFactory seriesQueryBuilderMock
 
@@ -79,9 +79,9 @@ class SeriesRepositoryImplTest extends Specification {
 		1 * seriesRequestDTO.getOriginalRunEndDateTo() >> ORIGINAL_RUN_END_TO
 		1 * seriesQueryBuilder.between(Series_.originalRunEndDate, ORIGINAL_RUN_END_FROM, ORIGINAL_RUN_END_TO)
 
-		then: 'order is set'
-		1 * seriesRequestDTO.getOrder() >> ORDER
-		1 * seriesQueryBuilder.setOrder(ORDER)
+		then: 'sort is set'
+		1 * seriesRequestDTO.getSort() >> SORT
+		1 * seriesQueryBuilder.setSort(SORT)
 
 		then: 'page is searched for and returned'
 		1 * seriesQueryBuilder.findPage() >> page

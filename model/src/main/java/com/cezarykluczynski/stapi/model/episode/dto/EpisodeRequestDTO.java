@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.model.episode.dto;
 
 
-import com.cezarykluczynski.stapi.model.common.dto.RequestOrderDTO;
+import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -43,6 +43,6 @@ public class EpisodeRequestDTO {
 
 	private LocalDate finalScriptDateTo;
 
-	private RequestOrderDTO order;
+	private RequestSortDTO sort;
 
 }

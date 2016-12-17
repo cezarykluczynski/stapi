@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.SeriesRequest;
 import com.cezarykluczynski.stapi.model.series.dto.SeriesRequestDTO;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.server.common.mapper.DateMapper;
-import com.cezarykluczynski.stapi.server.common.mapper.RequestOrderMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.RequestSortSoapMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -12,7 +12,7 @@ import org.mapstruct.Mappings;
 
 import java.util.List;
 
-@Mapper(config = MapstructConfiguration.class, uses = {DateMapper.class, RequestOrderMapper.class})
+@Mapper(config = MapstructConfiguration.class, uses = {DateMapper.class, RequestSortSoapMapper.class})
 public interface SeriesSoapMapper {
 
 	@Mappings({

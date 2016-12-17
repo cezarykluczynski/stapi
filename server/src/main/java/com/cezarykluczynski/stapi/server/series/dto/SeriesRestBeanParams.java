@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.server.series.dto;
 
-import com.cezarykluczynski.stapi.server.common.dto.PageAwareBeanParams;
+import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 
 import javax.ws.rs.FormParam;
 import java.time.LocalDate;
 
-public class SeriesRestBeanParams extends PageAwareBeanParams {
+public class SeriesRestBeanParams extends PageSortBeanParams {
 
 	@FormParam(value = "guid")
 	private String guid;
@@ -84,14 +84,15 @@ public class SeriesRestBeanParams extends PageAwareBeanParams {
 		return originalRunEndDateTo;
 	}
 
-	public static SeriesRestBeanParams fromPageAwareBeanParams(PageAwareBeanParams pageAwareBeanParams) {
-		if (pageAwareBeanParams == null) {
+	public static SeriesRestBeanParams fromPageSortBeanParams(PageSortBeanParams pageSortBeanParams) {
+		if (pageSortBeanParams == null) {
 			return null;
 		}
 
 		SeriesRestBeanParams seriesRestBeanParams = new SeriesRestBeanParams();
-		seriesRestBeanParams.setPageNumber(pageAwareBeanParams.getPageNumber());
-		seriesRestBeanParams.setPageSize(pageAwareBeanParams.getPageSize());
+		seriesRestBeanParams.setPageNumber(pageSortBeanParams.getPageNumber());
+		seriesRestBeanParams.setPageSize(pageSortBeanParams.getPageSize());
+		seriesRestBeanParams.setSort(pageSortBeanParams.getSort());
 		return seriesRestBeanParams;
 	}
 

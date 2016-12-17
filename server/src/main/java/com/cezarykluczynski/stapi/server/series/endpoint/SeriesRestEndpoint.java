@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.series.endpoint;
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesResponse;
-import com.cezarykluczynski.stapi.server.common.dto.PageAwareBeanParams;
+import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 import com.cezarykluczynski.stapi.server.series.dto.SeriesRestBeanParams;
 import com.cezarykluczynski.stapi.server.series.reader.SeriesRestReader;
 import org.springframework.stereotype.Service;
@@ -24,8 +24,8 @@ public class SeriesRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public SeriesResponse getSeries(@BeanParam PageAwareBeanParams pageAwareBeanParams) {
-		return seriesRestReader.read(SeriesRestBeanParams.fromPageAwareBeanParams(pageAwareBeanParams));
+	public SeriesResponse getSeries(@BeanParam PageSortBeanParams pageSortBeanParams) {
+		return seriesRestReader.read(SeriesRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
 	}
 
 	@POST

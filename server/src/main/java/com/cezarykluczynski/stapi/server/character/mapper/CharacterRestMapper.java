@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.model.character.dto.CharacterRequestDTO;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.server.character.dto.CharacterRestBeanParams;
 import com.cezarykluczynski.stapi.server.common.mapper.EnumMapper;
-import com.cezarykluczynski.stapi.server.common.mapper.RequestOrderMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.RequestSortRestMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerHeaderRestMapper;
 import org.mapstruct.Mapper;
@@ -14,12 +14,9 @@ import org.mapstruct.Mappings;
 import java.util.List;
 
 @Mapper(config = MapstructConfiguration.class, uses = {EnumMapper.class, PerformerHeaderRestMapper.class,
-		RequestOrderMapper.class})
+		RequestSortRestMapper.class})
 public interface CharacterRestMapper {
 
-	@Mappings({
-			@Mapping(target = "order", ignore = true)
-	})
 	CharacterRequestDTO map(CharacterRestBeanParams characterRestBeanParams);
 
 	@Mappings({

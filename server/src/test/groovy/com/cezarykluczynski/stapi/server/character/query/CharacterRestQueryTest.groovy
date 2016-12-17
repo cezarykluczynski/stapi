@@ -41,7 +41,7 @@ class CharacterRestQueryTest extends Specification {
 
 		then:
 		1 * characterRestMapperMock.map(characterRestBeanParams) >> characterRequestDTO
-		1 * pageMapperMock.fromPageAwareBeanParamsToPageRequest(characterRestBeanParams) >> pageRequest
+		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(characterRestBeanParams) >> pageRequest
 		1 * characterRepositoryMock.findMatching(characterRequestDTO, pageRequest) >> page
 		pageOutput == page
 	}

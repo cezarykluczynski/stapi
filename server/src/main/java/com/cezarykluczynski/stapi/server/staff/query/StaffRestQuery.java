@@ -30,7 +30,7 @@ public class StaffRestQuery {
 
 	public Page<Staff> query(StaffRestBeanParams staffRestBeanParams) {
 		StaffRequestDTO staffRequestDTO = staffRestMapper.map(staffRestBeanParams);
-		PageRequest pageRequest = pageMapper.fromPageAwareBeanParamsToPageRequest(staffRestBeanParams);
+		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(staffRestBeanParams);
 		return staffRepository.findMatching(staffRequestDTO, pageRequest);
 	}
 

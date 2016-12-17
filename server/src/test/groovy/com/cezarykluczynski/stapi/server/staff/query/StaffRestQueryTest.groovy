@@ -41,7 +41,7 @@ class StaffRestQueryTest extends Specification {
 
 		then:
 		1 * staffRestMapperMock.map(staffRestBeanParams) >> staffRequestDTO
-		1 * pageMapperMock.fromPageAwareBeanParamsToPageRequest(staffRestBeanParams) >> pageRequest
+		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(staffRestBeanParams) >> pageRequest
 		1 * staffRepositoryMock.findMatching(staffRequestDTO, pageRequest) >> page
 		pageOutput == page
 	}

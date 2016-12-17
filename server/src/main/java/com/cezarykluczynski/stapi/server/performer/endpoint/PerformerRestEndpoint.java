@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.performer.endpoint;
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerResponse;
-import com.cezarykluczynski.stapi.server.common.dto.PageAwareBeanParams;
+import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 import com.cezarykluczynski.stapi.server.performer.dto.PerformerRestBeanParams;
 import com.cezarykluczynski.stapi.server.performer.reader.PerformerRestReader;
 import org.springframework.stereotype.Service;
@@ -24,8 +24,8 @@ public class PerformerRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public PerformerResponse getPerformers(@BeanParam PageAwareBeanParams pageAwareBeanParams) {
-		return performerRestReader.read(PerformerRestBeanParams.fromPageAwareBeanParams(pageAwareBeanParams));
+	public PerformerResponse getPerformers(@BeanParam PageSortBeanParams pageSortBeanParams) {
+		return performerRestReader.read(PerformerRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
 	}
 
 	@POST

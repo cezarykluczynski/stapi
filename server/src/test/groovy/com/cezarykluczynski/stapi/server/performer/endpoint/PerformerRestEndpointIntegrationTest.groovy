@@ -1,8 +1,12 @@
 package com.cezarykluczynski.stapi.server.performer.endpoint
 
+import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer
+import com.cezarykluczynski.stapi.client.api.dto.RestSortClause
+import com.cezarykluczynski.stapi.client.api.dto.enums.RestSortOrder
 import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
+import com.google.common.collect.Lists
 import spock.lang.Requires
 
 @Requires({
@@ -31,8 +35,8 @@ class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointInte
 	def "gets the only person to star in 6 series"() {
 		when:
 		PerformerResponse performerResponse = stapiRestClient.performerApi.performerPost(null, null, null, null, null,
-				null, null, null, null, null, null, null, true, true, null, null, null, true, true, true, null, null,
-				true)
+				null, null, null, null, null, null, null, null, true, true, null, null, null, true, true, true, null,
+				null, true)
 
 		then:
 		performerResponse.page.totalElements == 1
@@ -41,13 +45,27 @@ class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointInte
 
 	def "gets performer by guid"() {
 		when:
-		PerformerResponse performerResponse = stapiRestClient.performerApi.performerPost(null, null, GUID, null, null,
+		PerformerResponse performerResponse = stapiRestClient.performerApi.performerPost(null, null, null, GUID, null,
 				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-				null)
+				null, null)
 
 		then:
 		performerResponse.page.totalElements == 1
 		performerResponse.performers[0].guid == GUID
+	}
+
+	def "gets performers sorted by name"() {
+		when:
+		PerformerResponse performerResponse = stapiRestClient.performerApi.performerPost(null, null,
+				StapiRestSortSerializer.serialize(Lists.newArrayList(
+						new RestSortClause(name: 'name', sortOrder: RestSortOrder.ASC)
+				)), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+				null, null, null, null, null)
+
+		then:
+		performerResponse.performers[0].name.startsWith("A. ")
+		performerResponse.performers[1].name.startsWith("A. ")
+		performerResponse.performers[2].name.startsWith("A. ")
 	}
 
 }

@@ -1,25 +1,27 @@
 package com.cezarykluczynski.stapi.server.staff.dto
 
 import com.cezarykluczynski.stapi.server.common.dto.AbstractsRestBeanParamsTest
-import com.cezarykluczynski.stapi.server.common.dto.PageAwareBeanParams
+import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams
 
 class StaffRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
-	def "creates StaffRestBeanParams from PageAwareBeanParams"() {
+	def "creates StaffRestBeanParams from PageSortBeanParams"() {
 		when:
-		StaffRestBeanParams staffRestBeanParams = StaffRestBeanParams.fromPageAwareBeanParams(new PageAwareBeanParams(
+		StaffRestBeanParams staffRestBeanParams = StaffRestBeanParams.fromPageSortBeanParams(new PageSortBeanParams(
 				pageNumber: PAGE_NUMBER,
-				pageSize: PAGE_SIZE
+				pageSize: PAGE_SIZE,
+				sort: SORT
 		))
 
 		then:
 		staffRestBeanParams.pageNumber == PAGE_NUMBER
 		staffRestBeanParams.pageSize == PAGE_SIZE
+		staffRestBeanParams.sort == SORT
 	}
 
-	def "creates null StaffRestBeanParams from null PageAwareBeanParams"() {
+	def "creates null StaffRestBeanParams from null PageSortBeanParams"() {
 		when:
-		StaffRestBeanParams seriesRestBeanParams = StaffRestBeanParams.fromPageAwareBeanParams null
+		StaffRestBeanParams seriesRestBeanParams = StaffRestBeanParams.fromPageSortBeanParams null
 
 		then:
 		seriesRestBeanParams == null

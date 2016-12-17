@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.model.common.query;
 
-import com.cezarykluczynski.stapi.model.common.dto.RequestOrderClauseDTO;
-import com.cezarykluczynski.stapi.model.common.dto.RequestOrderDTO;
-import com.cezarykluczynski.stapi.model.common.dto.enums.RequestOrderEnumDTO;
+import com.cezarykluczynski.stapi.model.common.dto.RequestSortClauseDTO;
+import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO;
+import com.cezarykluczynski.stapi.model.common.dto.enums.RequestSortDirectionDTO;
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
@@ -48,7 +48,7 @@ public class QueryBuilder<T> {
 
 	private TypedQuery<Long> countTypedQuery;
 
-	private List<RequestOrderClauseDTO> requestOrderClauseDTOList = Lists.newArrayList();
+	private List<RequestSortClauseDTO> requestSortClauseDTOList = Lists.newArrayList();
 
 	QueryBuilder(EntityManager entityManager, Class baseClass, Pageable pageable) {
 		Preconditions.checkNotNull(entityManager, "EntityManager has to be set");
@@ -169,12 +169,12 @@ public class QueryBuilder<T> {
 		return doFetch ? fetch(name) : this;
 	}
 
-	public QueryBuilder<T> setOrder(RequestOrderDTO requestOrderDTO) {
-		if (requestOrderDTO == null || CollectionUtils.isEmpty(requestOrderDTO.getClauses())) {
+	public QueryBuilder<T> setSort(RequestSortDTO requestSortDTO) {
+		if (requestSortDTO == null || CollectionUtils.isEmpty(requestSortDTO.getClauses())) {
 			return this;
 		}
 
-		requestOrderClauseDTOList.addAll(requestOrderDTO.getClauses());
+		requestSortClauseDTOList.addAll(requestSortDTO.getClauses());
 
 		return this;
 	}
@@ -239,15 +239,15 @@ public class QueryBuilder<T> {
 	}
 
 	private List<javax.persistence.criteria.Order> getOrderByList() {
-		return getSortedRequestOrderClauseDTOList()
+		return getSortedRequestSortClauseDTOList()
 				.stream()
-				.map(requestOrderClauseDTO -> {
-					RequestOrderEnumDTO requestOrderEnumDTO = Optional
-							.ofNullable(requestOrderClauseDTO.getOrder())
-							.orElse(RequestOrderEnumDTO.ASC);
+				.map(requestSortClauseDTO -> {
+					RequestSortDirectionDTO requestSortDirectionDTO = Optional
+							.ofNullable(requestSortClauseDTO.getDirection())
+							.orElse(RequestSortDirectionDTO.ASC);
 
 					Path<String> path;
-					String name = requestOrderClauseDTO.getName();
+					String name = requestSortClauseDTO.getName();
 					try {
 						path = baseRoot.get(name);
 					} catch (IllegalArgumentException e) {
@@ -255,31 +255,31 @@ public class QueryBuilder<T> {
 								name, baseClass.getSimpleName()));
 					}
 
-					return requestOrderEnumDTO.equals(RequestOrderEnumDTO.ASC) ? criteriaBuilder.asc(path) :
+					return requestSortDirectionDTO.equals(RequestSortDirectionDTO.ASC) ? criteriaBuilder.asc(path) :
 							criteriaBuilder.desc(path);
 				})
 				.collect(Collectors.toList());
 	}
 
-	private List<RequestOrderClauseDTO> getSortedRequestOrderClauseDTOList() {
-		Integer maxOrder = requestOrderClauseDTOList
+	private List<RequestSortClauseDTO> getSortedRequestSortClauseDTOList() {
+		Integer maxOrder = requestSortClauseDTOList
 				.stream()
-				.map(RequestOrderClauseDTO::getClauseOrder)
+				.map(RequestSortClauseDTO::getClauseOrder)
 				.filter(clauseOrder -> clauseOrder != null)
 				.reduce(Integer::max)
 				.orElse(0);
 
-		List<RequestOrderClauseDTO> requestOrderClauseDTOListWithoutClauseOrder = requestOrderClauseDTOList
+		List<RequestSortClauseDTO> requestSortClauseDTOListWithoutClauseSort = requestSortClauseDTOList
 				.stream()
-				.filter(requestOrderClauseDTO -> requestOrderClauseDTO.getClauseOrder() == null)
+				.filter(requestSortClauseDTO -> requestSortClauseDTO.getClauseOrder() == null)
 				.collect(Collectors.toList());
 
-		for (RequestOrderClauseDTO requestOrderClauseDTO : requestOrderClauseDTOListWithoutClauseOrder) {
+		for (RequestSortClauseDTO requestSortClauseDTO : requestSortClauseDTOListWithoutClauseSort) {
 			maxOrder++;
-			requestOrderClauseDTO.setClauseOrder(maxOrder);
+			requestSortClauseDTO.setClauseOrder(maxOrder);
 		}
 
-		return requestOrderClauseDTOList
+		return requestSortClauseDTOList
 				.stream()
 				.sorted((a, b) -> a.getClauseOrder().compareTo(b.getClauseOrder()))
 				.collect(Collectors.toList());

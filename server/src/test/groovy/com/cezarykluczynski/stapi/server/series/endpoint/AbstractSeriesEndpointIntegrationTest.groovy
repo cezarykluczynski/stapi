@@ -5,6 +5,8 @@ import com.cezarykluczynski.stapi.server.series.common.AbstractEndpointIntegrati
 abstract class AbstractSeriesEndpointIntegrationTest extends AbstractEndpointIntegrationTest {
 
 	protected static final String TAS = 'TAS'
+	protected static final String TOS = 'TOS'
+	protected static final String ENT = 'ENT'
 	protected static final String VOYAGER = 'Voyager'
 	protected static final String GUID = 'SEMA0000034504'
 

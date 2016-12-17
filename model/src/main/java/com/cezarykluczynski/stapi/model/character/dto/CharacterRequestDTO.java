@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.model.character.dto;
 
-import com.cezarykluczynski.stapi.model.common.dto.RequestOrderDTO;
+import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO;
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender;
 import lombok.Data;
 
@@ -15,6 +15,6 @@ public class CharacterRequestDTO {
 
 	private Boolean deceased;
 
-	private RequestOrderDTO order;
+	private RequestSortDTO sort;
 
 }

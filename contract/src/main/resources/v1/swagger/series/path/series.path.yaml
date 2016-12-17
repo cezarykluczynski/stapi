@@ -32,6 +32,9 @@ post:
       in: query
       type: integer
       format: int32
+    - name: sort
+      type: string
+      in: query
     - name: guid
       in: formData
       type: string

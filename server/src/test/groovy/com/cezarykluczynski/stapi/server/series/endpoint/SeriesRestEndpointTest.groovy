@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.series.endpoint
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesResponse
-import com.cezarykluczynski.stapi.server.common.dto.PageAwareBeanParams
+import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractRestEndpointTest
 import com.cezarykluczynski.stapi.server.series.dto.SeriesRestBeanParams
 import com.cezarykluczynski.stapi.server.series.reader.SeriesRestReader
@@ -21,7 +21,7 @@ class SeriesRestEndpointTest extends AbstractRestEndpointTest {
 
 	def "passes get call to SeriesRestReader"() {
 		given:
-		PageAwareBeanParams pageAwareBeanParams = Mock(PageAwareBeanParams) {
+		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams) {
 			getPageNumber() >> PAGE_NUMBER
 			getPageSize() >> PAGE_SIZE
 		}
