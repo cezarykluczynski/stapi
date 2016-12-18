@@ -19,8 +19,8 @@
 			<column name="abbreviation" type="varchar(8)"/>
 			<column name="production_start_year" type="int"/>
 			<column name="production_end_year" type="int"/>
-			<column name="original_run_start_date" type="timestamp"/>
-			<column name="original_run_end_date" type="timestamp"/>
+			<column name="original_run_start_date" type="date"/>
+			<column name="original_run_end_date" type="date"/>
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="series_sequence"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"

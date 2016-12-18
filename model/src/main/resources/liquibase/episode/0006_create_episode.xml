@@ -25,8 +25,8 @@
 			<column name="feature_length" type="boolean"/>
 			<column name="stardate" type="FLOAT"/>
 			<column name="year" type="int"/>
-			<column name="us_air_date" type="timestamp"/>
-			<column name="final_script_date" type="timestamp"/>
+			<column name="us_air_date" type="date"/>
+			<column name="final_script_date" type="date"/>
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="episode_sequence"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
