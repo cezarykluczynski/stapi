@@ -76,6 +76,7 @@ class SeriesSoapEndpointIntegrationTest extends AbstractSeriesEndpointIntegratio
 		seriesResponse.page.pageSize == pageSize
 		seriesResponse.series.size() == 1
 		seriesResponse.series[0].guid == GUID
+		seriesResponse.series[0].episodeHeaders.size() == 22
 		seriesResponse.series[0].abbreviation == TAS
 	}
 

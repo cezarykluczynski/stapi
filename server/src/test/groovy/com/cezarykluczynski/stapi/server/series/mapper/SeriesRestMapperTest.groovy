@@ -62,6 +62,7 @@ class SeriesRestMapperTest extends AbstractSeriesMapperTest {
 		restSeries.productionEndYear == PRODUCTION_END_YEAR
 		restSeries.originalRunStartDate == ORIGINAL_RUN_START_DATE
 		restSeries.originalRunEndDate == ORIGINAL_RUN_END_DATE
+		restSeries.episodeHeaders.size() == dBSeries.episodes.size()
 	}
 
 }

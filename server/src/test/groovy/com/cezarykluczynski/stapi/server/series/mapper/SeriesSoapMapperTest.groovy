@@ -72,6 +72,7 @@ class SeriesSoapMapperTest extends AbstractSeriesMapperTest {
 		soapSeries.productionEndYear == PRODUCTION_END_YEAR
 		soapSeries.originalRunStartDate == ORIGINAL_RUN_START_DATE_XML
 		soapSeries.originalRunEndDate == ORIGINAL_RUN_END_DATE_XML
+		soapSeries.episodeHeaders.size() == dBSeries.episodes.size()
 	}
 
 }

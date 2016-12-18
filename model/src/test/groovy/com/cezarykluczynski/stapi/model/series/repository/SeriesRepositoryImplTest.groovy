@@ -6,6 +6,8 @@ import com.cezarykluczynski.stapi.model.series.dto.SeriesRequestDTO
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.model.series.entity.Series_
 import com.cezarykluczynski.stapi.model.series.query.SeriesQueryBuilderFactory
+import com.google.common.collect.Lists
+import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import spock.lang.Specification
@@ -37,6 +39,8 @@ class SeriesRepositoryImplTest extends Specification {
 
 	private SeriesRequestDTO seriesRequestDTO
 
+	private Series series
+
 	private Page page
 
 	def setup() {
@@ -45,6 +49,7 @@ class SeriesRepositoryImplTest extends Specification {
 		seriesQueryBuilder = Mock(QueryBuilder)
 		pageable = Mock(Pageable)
 		seriesRequestDTO = Mock(SeriesRequestDTO)
+		series = Mock(Series)
 		page = Mock(Page)
 	}
 
@@ -83,12 +88,37 @@ class SeriesRepositoryImplTest extends Specification {
 		1 * seriesRequestDTO.getSort() >> SORT
 		1 * seriesQueryBuilder.setSort(SORT)
 
+		then: 'fetch is performed with true flag'
+		1 * seriesQueryBuilder.fetch(Series_.episodes, true)
+
 		then: 'page is searched for and returned'
 		1 * seriesQueryBuilder.findPage() >> page
 		pageOutput == page
 
 		then: 'no other interactions are expected'
 		0 * _
+	}
+
+	def "proxies are cleared when no related entities should be fetched"() {
+		when:
+		Page pageOutput = seriesRepositoryImpl.findMatching(seriesRequestDTO, pageable)
+
+		then:
+		1 * seriesQueryBuilderMock.createQueryBuilder(pageable) >> seriesQueryBuilder
+
+		then: 'guid criteria is set to null'
+		1 * seriesRequestDTO.getGuid() >> null
+
+		then: 'fetch is performed with false flag'
+		1 * seriesQueryBuilder.fetch(Series_.episodes, false)
+
+		then: 'page is searched for and returned'
+		1 * seriesQueryBuilder.findPage() >> page
+
+		then: 'proxies are cleared'
+		1 * page.getContent() >> Lists.newArrayList(series)
+		1 * series.setEpisodes(Sets.newHashSet())
+		pageOutput == page
 	}
 
 }

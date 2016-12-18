@@ -1,6 +1,8 @@
 package com.cezarykluczynski.stapi.server.series.mapper
 
+import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.model.series.entity.Series
+import com.google.common.collect.Lists
 import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl
 import spock.lang.Specification
 
@@ -38,7 +40,7 @@ abstract class AbstractSeriesMapperTest extends Specification {
 	protected static final XMLGregorianCalendar ORIGINAL_RUN_END_DATE_XML = XMLGregorianCalendarImpl
 			.createDate(2001, 2, 18, DatatypeConstants.FIELD_UNDEFINED)
 
-	protected static Series createSeries() {
+	protected Series createSeries() {
 		return new Series(
 				guid: GUID,
 				title: TITLE,
@@ -46,7 +48,8 @@ abstract class AbstractSeriesMapperTest extends Specification {
 				productionStartYear: PRODUCTION_START_YEAR,
 				productionEndYear: PRODUCTION_END_YEAR,
 				originalRunStartDate: ORIGINAL_RUN_START_DATE,
-				originalRunEndDate: ORIGINAL_RUN_END_DATE)
+				originalRunEndDate: ORIGINAL_RUN_END_DATE,
+				episodes: Lists.newArrayList(Mock(Episode)))
 	}
 
 }

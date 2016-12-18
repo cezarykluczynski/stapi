@@ -1,11 +1,13 @@
 package com.cezarykluczynski.stapi.model.series.entity;
 
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
+import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Builder
 @Data
@@ -13,7 +15,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, exclude = {"episodes"})
 public class Series extends PageAwareEntity implements PageAware {
 
 	@Id
@@ -27,12 +29,6 @@ public class Series extends PageAwareEntity implements PageAware {
 
 	private String abbreviation;
 
-//	TODO
-//	private Company productionCompany;
-
-//	TODO
-//	private Company originalBroadcaster;
-
 	private Integer productionStartYear;
 
 	private Integer productionEndYear;
@@ -41,4 +37,12 @@ public class Series extends PageAwareEntity implements PageAware {
 
 	private LocalDate originalRunEndDate;
 
+	@OneToMany(mappedBy = "series")
+	private Set<Episode> episodes;
+
+//	TODO
+//	private Company productionCompany;
+
+//	TODO
+//	private Company originalBroadcaster;
 }

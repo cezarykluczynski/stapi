@@ -21,8 +21,8 @@ import java.util.Set;
 @ToString(callSuper = true, exclude = {"writers", "teleplayAuthors", "storyAuthors", "directors", "staff", "performers",
 		"stuntPerformers", "standInPerformers"})
 @EqualsAndHashCode(callSuper = true,
-		exclude = {"writers", "teleplayAuthors", "storyAuthors", "directors", "staff", "performers", "stuntPerformers",
-				"standInPerformers"})
+		exclude = {"series", "writers", "teleplayAuthors", "storyAuthors", "directors", "staff", "performers",
+				"stuntPerformers", "standInPerformers"})
 public class Episode extends PageAwareEntity implements PageAware {
 
 	@Id
@@ -31,7 +31,7 @@ public class Episode extends PageAwareEntity implements PageAware {
 	@SequenceGenerator(name = "episode_sequence_generator", sequenceName ="episode_sequence", allocationSize = 1)
 	private Long id;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "series_id")
 	private Series series;
 

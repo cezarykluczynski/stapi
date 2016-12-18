@@ -16,3 +16,7 @@ properties:
   originalRunEndDate:
     type: string
     format: date
+  episodeHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/EpisodeHeader'

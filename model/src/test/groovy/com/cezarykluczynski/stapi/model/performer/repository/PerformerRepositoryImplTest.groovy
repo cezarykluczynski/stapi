@@ -38,8 +38,8 @@ class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 		performerQueryBuilder = Mock(QueryBuilder)
 		pageable = Mock(Pageable)
 		performerRequestDTO = Mock(PerformerRequestDTO)
-		page = Mock(Page)
 		performer = Mock(Performer)
+		page = Mock(Page)
 	}
 
 	def "query is built and performed"() {
