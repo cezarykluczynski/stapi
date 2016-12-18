@@ -11,6 +11,8 @@ produces:
 paths:
   /character:
     $ref: ./character/path/character.path.yaml
+  /episode:
+    $ref: ./episode/path/episode.path.yaml
   /performer:
     $ref: ./performer/path/performer.path.yaml
   /series:
@@ -24,6 +26,10 @@ definitions:
     $ref: ./character/entity/characterHeader.yaml
   CharacterResponse:
     $ref: ./character/entity/characterResponse.yaml
+  Episode:
+    $ref: ./episode/entity/episode.yaml
+  EpisodeResponse:
+    $ref: ./episode/entity/episodeResponse.yaml
   Error:
     $ref: ./common/entity/error.yaml
   Performer:
@@ -36,9 +42,13 @@ definitions:
     $ref: ./common/entity/responsePage.yaml
   Series:
     $ref: ./series/entity/series.yaml
+  SeriesHeader:
+    $ref: ./series/entity/seriesHeader.yaml
   SeriesResponse:
     $ref: ./series/entity/seriesResponse.yaml
   Staff:
     $ref: ./staff/entity/staff.yaml
+  StaffHeader:
+    $ref: ./staff/entity/staffHeader.yaml
   StaffResponse:
     $ref: ./staff/entity/staffResponse.yaml

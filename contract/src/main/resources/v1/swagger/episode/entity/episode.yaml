@@ -1,0 +1,59 @@
+type: object
+properties:
+  guid:
+    type: string
+  title:
+    type: string
+  series:
+    $ref: ./series/entity/seriesHeader.yaml
+  seasonNumber:
+    type: integer
+  episodeNumber:
+    type: integer
+  productionSerialNumber:
+    type: string
+  featureLength:
+    type: boolean
+  stardate:
+    type: number
+    format: float
+  year:
+    type: integer
+  usAirDate:
+    type: string
+    format: date
+  finalScriptDate:
+    type: string
+    format: date
+  writerHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/StaffHeader'
+  teleplayAuthorHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/StaffHeader'
+  storyAuthorHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/StaffHeader'
+  directorHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/StaffHeader'
+  performerHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/PerformerHeader'
+  stuntPerformerHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/PerformerHeader'
+  standInPerformerHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/PerformerHeader'
+  characterHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/CharacterHeader'

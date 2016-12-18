@@ -23,8 +23,8 @@ public interface PerformerRestMapper {
 	@Mappings({
 			@Mapping(source = "characters", target = "characterHeaders")
 	})
-	com.cezarykluczynski.stapi.client.v1.rest.model.Performer map(Performer series);
+	com.cezarykluczynski.stapi.client.v1.rest.model.Performer map(Performer performer);
 
-	List<com.cezarykluczynski.stapi.client.v1.rest.model.Performer> map(List<Performer> series);
+	List<com.cezarykluczynski.stapi.client.v1.rest.model.Performer> map(List<Performer> performerList);
 
 }

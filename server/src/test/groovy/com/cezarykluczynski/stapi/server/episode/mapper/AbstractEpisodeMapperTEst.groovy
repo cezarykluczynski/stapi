@@ -1,6 +1,12 @@
 package com.cezarykluczynski.stapi.server.episode.mapper
 
+import com.cezarykluczynski.stapi.model.character.entity.Character
+import com.cezarykluczynski.stapi.model.episode.entity.Episode
+import com.cezarykluczynski.stapi.model.performer.entity.Performer
+import com.cezarykluczynski.stapi.model.series.entity.Series
+import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.util.tool.LogicUtil
+import com.google.common.collect.Sets
 import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl
 import spock.lang.Specification
 
@@ -44,5 +50,28 @@ abstract class AbstractEpisodeMapperTest extends Specification {
 			.createDate(1996, 5, 6, DatatypeConstants.FIELD_UNDEFINED)
 	protected static final XMLGregorianCalendar FINAL_SCRIPT_DATE_TO_XML = XMLGregorianCalendarImpl
 			.createDate(1998, 7, 8, DatatypeConstants.FIELD_UNDEFINED)
+
+	protected Episode createEpisode() {
+		return new Episode(
+				guid: GUID,
+				title: TITLE,
+				series: Mock(Series),
+				seasonNumber: SEASON_NUMBER,
+				episodeNumber: EPISODE_NUMBER,
+				productionSerialNumber: PRODUCTION_SERIAL_NUMBER,
+				featureLength: FEATURE_LENGTH,
+				stardate: STARDATE,
+				year: YEAR,
+				usAirDate: US_AIR_DATE,
+				finalScriptDate: FINAL_SCRIPT_DATE,
+				writers: Sets.newHashSet(Mock(Staff)),
+				teleplayAuthors: Sets.newHashSet(Mock(Staff)),
+				storyAuthors: Sets.newHashSet(Mock(Staff)),
+				directors: Sets.newHashSet(Mock(Staff)),
+				performers: Sets.newHashSet(Mock(Performer)),
+				stuntPerformers: Sets.newHashSet(Mock(Performer)),
+				standInPerformers: Sets.newHashSet(Mock(Performer)),
+				characters: Sets.newHashSet(Mock(Character)))
+	}
 
 }

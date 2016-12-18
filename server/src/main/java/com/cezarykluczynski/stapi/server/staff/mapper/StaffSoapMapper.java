@@ -24,8 +24,8 @@ public interface StaffSoapMapper {
 	})
 	StaffRequestDTO map(StaffRequest staffRequest);
 
-	com.cezarykluczynski.stapi.client.v1.soap.Staff map(Staff series);
+	com.cezarykluczynski.stapi.client.v1.soap.Staff map(Staff staff);
 
-	List<com.cezarykluczynski.stapi.client.v1.soap.Staff> map(List<Staff> series);
+	List<com.cezarykluczynski.stapi.client.v1.soap.Staff> map(List<Staff> staffList);
 
 }

@@ -121,10 +121,14 @@ public class EpisodeTemplateProcessor implements ItemProcessor<Template, Episode
 		List<String> dateParts = Lists.newArrayList(value.split("\\s"));
 
 		if (dateParts.size() == 2) {
+			String stardate = dateParts.get(0);
+
 			try {
-				episodeTemplate.setStardate(Float.valueOf(dateParts.get(0)));
+				episodeTemplate.setStardate(Float.valueOf(stardate));
 			} catch (NumberFormatException e) {
-				log.warn("Could not cast episode stardate {} to float", dateParts.get(0));
+				if (stardate != null && !stardate.contains("Unknown")) {
+					log.warn("Could not cast episode stardate {} to float", dateParts.get(0));
+				}
 			}
 
 			String datePartSecond = dateParts.get(1);

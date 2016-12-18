@@ -35,5 +35,4 @@ public class PerformerRestQuery {
 		return performerRepository.findMatching(performerRequestDTO, pageRequest);
 	}
 
-
 }

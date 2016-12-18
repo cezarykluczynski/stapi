@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.episode.configuration
 
 import com.cezarykluczynski.stapi.server.episode.endpoint.EpisodeSoapEndpoint
+import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeRestMapper
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeSoapMapper
 import com.cezarykluczynski.stapi.server.episode.reader.EpisodeSoapReader
 import org.apache.cxf.bus.spring.SpringBus
@@ -45,6 +46,14 @@ class EpisodeConfigurationTest extends Specification {
 
 		then:
 		episodeSoapMapper != null
+	}
+
+	def "EpisodeRestMapper is created"() {
+		when:
+		EpisodeRestMapper episodeRestMapper = episodeConfiguration.episodeRestMapper()
+
+		then:
+		episodeRestMapper != null
 	}
 
 }

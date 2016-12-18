@@ -61,9 +61,9 @@ class EpisodeSoapEndpointIntegrationTest extends AbstractEpisodeEndpointIntegrat
 		then:
 		episodeResponse.page.pageNumber == pageNumber
 		episodeResponse.page.pageSize == pageSize
-		episodeList.size() == 51
+		episodeList.size() == 52
 		episodeList.stream().filter({ episode -> episode.series.title.equals('Star Trek: Deep Space Nine')}).collect(Collectors.toList()).size() == 26
-		episodeList.stream().filter({ episode -> episode.series.title.equals('Star Trek: Voyager')}).collect(Collectors.toList()).size() == 25
+		episodeList.stream().filter({ episode -> episode.series.title.equals('Star Trek: Voyager')}).collect(Collectors.toList()).size() == 26
 	}
 
 }

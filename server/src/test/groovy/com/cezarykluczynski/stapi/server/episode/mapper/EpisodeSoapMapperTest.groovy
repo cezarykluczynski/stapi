@@ -2,14 +2,9 @@ package com.cezarykluczynski.stapi.server.episode.mapper
 
 import com.cezarykluczynski.stapi.client.v1.soap.*
 import com.cezarykluczynski.stapi.client.v1.soap.Episode as SOAPEpisode
-import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.episode.dto.EpisodeRequestDTO
 import com.cezarykluczynski.stapi.model.episode.entity.Episode as DBEpisode
-import com.cezarykluczynski.stapi.model.performer.entity.Performer
-import com.cezarykluczynski.stapi.model.series.entity.Series
-import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.google.common.collect.Lists
-import com.google.common.collect.Sets
 import org.mapstruct.factory.Mappers
 
 class EpisodeSoapMapperTest extends AbstractEpisodeMapperTest {
@@ -73,26 +68,7 @@ class EpisodeSoapMapperTest extends AbstractEpisodeMapperTest {
 
 	def "maps DB entity to SOAP entity"() {
 		given:
-		DBEpisode dBEpisode = new DBEpisode(
-				guid: GUID,
-				title: TITLE,
-				series: Mock(Series),
-				seasonNumber: SEASON_NUMBER,
-				episodeNumber: EPISODE_NUMBER,
-				productionSerialNumber: PRODUCTION_SERIAL_NUMBER,
-				featureLength: FEATURE_LENGTH,
-				stardate: STARDATE,
-				year: YEAR,
-				usAirDate: US_AIR_DATE,
-				finalScriptDate: FINAL_SCRIPT_DATE,
-				writers: Sets.newHashSet(Mock(Staff)),
-				teleplayAuthors: Sets.newHashSet(Mock(Staff)),
-				storyAuthors: Sets.newHashSet(Mock(Staff)),
-				directors: Sets.newHashSet(Mock(Staff)),
-				performers: Sets.newHashSet(Mock(Performer)),
-				stuntPerformers: Sets.newHashSet(Mock(Performer)),
-				standInPerformers: Sets.newHashSet(Mock(Performer)),
-				characters: Sets.newHashSet(Mock(Character)))
+		DBEpisode dBEpisode = createEpisode()
 
 		when:
 		SOAPEpisode soapEpisode = episodeSoapMapper.map(Lists.newArrayList(dBEpisode))[0]

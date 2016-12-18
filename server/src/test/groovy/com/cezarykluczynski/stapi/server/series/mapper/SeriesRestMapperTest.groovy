@@ -49,14 +49,7 @@ class SeriesRestMapperTest extends AbstractSeriesMapperTest {
 
 	def "maps DB entity to REST entity"() {
 		given:
-		Series dBSeries = new Series(
-				guid: GUID,
-				title: TITLE,
-				abbreviation: ABBREVIATION,
-				productionStartYear: PRODUCTION_START_YEAR,
-				productionEndYear: PRODUCTION_END_YEAR,
-				originalRunStartDate: ORIGINAL_RUN_START_DATE,
-				originalRunEndDate: ORIGINAL_RUN_END_DATE)
+		Series dBSeries = createSeries()
 
 		when:
 		RESTSeries restSeries = seriesRestMapper.map(Lists.newArrayList(dBSeries))[0]

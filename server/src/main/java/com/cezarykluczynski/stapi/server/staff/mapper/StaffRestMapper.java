@@ -17,8 +17,8 @@ public interface StaffRestMapper {
 
 	StaffRequestDTO map(StaffRestBeanParams performerRestBeanParams);
 
-	com.cezarykluczynski.stapi.client.v1.rest.model.Staff map(Staff series);
+	com.cezarykluczynski.stapi.client.v1.rest.model.Staff map(Staff staff);
 
-	List<com.cezarykluczynski.stapi.client.v1.rest.model.Staff> map(List<Staff> series);
+	List<com.cezarykluczynski.stapi.client.v1.rest.model.Staff> map(List<Staff> staffList);
 
 }

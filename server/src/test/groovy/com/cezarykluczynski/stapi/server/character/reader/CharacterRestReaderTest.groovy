@@ -2,10 +2,11 @@ package com.cezarykluczynski.stapi.server.character.reader
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.CharacterResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
-import com.cezarykluczynski.stapi.model.character.entity.Character
+import com.cezarykluczynski.stapi.model.character.entity.Character as DBCharacter
 import com.cezarykluczynski.stapi.server.character.dto.CharacterRestBeanParams
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterRestMapper
 import com.cezarykluczynski.stapi.server.character.query.CharacterRestQuery
+import com.cezarykluczynski.stapi.client.v1.rest.model.Character as RESTCharacter
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
@@ -32,11 +33,11 @@ class CharacterRestReaderTest extends Specification {
 
 	def "gets database entities and puts them into CharacterResponse"() {
 		given:
-		List<Character> dbCharacterList = Lists.newArrayList()
-		Page<Character> dbCharacterPage = Mock(Page) {
+		List<DBCharacter> dbCharacterList = Lists.newArrayList()
+		Page<DBCharacter> dbCharacterPage = Mock(Page) {
 			getContent() >> dbCharacterList
 		}
-		List<com.cezarykluczynski.stapi.client.v1.rest.model.Character> soapCharacterList = Lists.newArrayList(new com.cezarykluczynski.stapi.client.v1.rest.model.Character(guid: GUID))
+		List<RESTCharacter> soapCharacterList = Lists.newArrayList(new RESTCharacter(guid: GUID))
 		CharacterRestBeanParams seriesRestBeanParams = Mock(CharacterRestBeanParams)
 		ResponsePage responsePage = Mock(ResponsePage)
 

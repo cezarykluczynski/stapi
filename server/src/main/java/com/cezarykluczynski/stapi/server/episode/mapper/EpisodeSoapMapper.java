@@ -36,7 +36,7 @@ public interface EpisodeSoapMapper {
 			@Mapping(source = "finalScriptDate.from", target = "finalScriptDateFrom"),
 			@Mapping(source = "finalScriptDate.to", target = "finalScriptDateTo")
 	})
-	EpisodeRequestDTO map(EpisodeRequest performerRequest);
+	EpisodeRequestDTO map(EpisodeRequest episodeRequest);
 
 	@Mappings({
 			@Mapping(source = "writers", target = "writerHeaders"),

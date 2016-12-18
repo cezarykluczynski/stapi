@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.episode.configuration;
 
 import com.cezarykluczynski.stapi.server.episode.endpoint.EpisodeSoapEndpoint;
+import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeRestMapper;
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeSoapMapper;
 import com.cezarykluczynski.stapi.server.episode.reader.EpisodeSoapReader;
 import org.apache.cxf.Bus;
@@ -32,6 +33,11 @@ public class EpisodeConfiguration {
 	@Bean
 	public EpisodeSoapMapper episodeSoapMapper() {
 		return Mappers.getMapper(EpisodeSoapMapper.class);
+	}
+
+	@Bean
+	public EpisodeRestMapper episodeRestMapper() {
+		return Mappers.getMapper(EpisodeRestMapper.class);
 	}
 
 }
