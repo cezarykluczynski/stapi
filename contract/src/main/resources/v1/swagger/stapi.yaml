@@ -28,6 +28,8 @@ definitions:
     $ref: ./character/entity/characterResponse.yaml
   Episode:
     $ref: ./episode/entity/episode.yaml
+  EpisodeHeader:
+    $ref: ./episode/entity/episodeHeader.yaml
   EpisodeResponse:
     $ref: ./episode/entity/episodeResponse.yaml
   Error:

@@ -2,6 +2,8 @@ package com.cezarykluczynski.stapi.server.performer.mapper
 
 import com.cezarykluczynski.stapi.client.v1.soap.Performer as SOAPPerformer
 import com.cezarykluczynski.stapi.client.v1.soap.PerformerRequest
+import com.cezarykluczynski.stapi.model.character.entity.Character
+import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO
 import com.cezarykluczynski.stapi.model.performer.entity.Performer as DBPerformer
 import com.cezarykluczynski.stapi.server.common.mapper.AbstractRealWorldPersonMapperTest
@@ -94,7 +96,11 @@ class PerformerSoapMapperTest extends AbstractRealWorldPersonMapperTest {
 				tosPerformer: TOS_PERFORMER,
 				videoGamePerformer: VIDEO_GAME_PERFORMER,
 				voicePerformer: VOICE_PERFORMER,
-				voyPerformer: VOY_PERFORMER)
+				voyPerformer: VOY_PERFORMER,
+				performances: Lists.newArrayList(Mock(Episode)),
+				stuntPerformances: Lists.newArrayList(Mock(Episode)),
+				standInPerformances: Lists.newArrayList(Mock(Episode)),
+				characters: Lists.newArrayList(Mock(Character)))
 
 		when:
 		SOAPPerformer soapPerformer = performerSoapMapper.map(Lists.newArrayList(dBPerformer))[0]
@@ -121,6 +127,10 @@ class PerformerSoapMapperTest extends AbstractRealWorldPersonMapperTest {
 		soapPerformer.videoGamePerformer == VIDEO_GAME_PERFORMER
 		soapPerformer.voicePerformer == VOICE_PERFORMER
 		soapPerformer.voyPerformer == VOY_PERFORMER
+		soapPerformer.performanceHeaders.size() == dBPerformer.performances.size()
+		soapPerformer.stuntPerformanceHeaders.size() == dBPerformer.stuntPerformances.size()
+		soapPerformer.standInPerformanceHeaders.size() == dBPerformer.standInPerformances.size()
+		soapPerformer.characterHeaders.size() == dBPerformer.characters.size()
 	}
 
 }

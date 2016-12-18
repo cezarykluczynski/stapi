@@ -44,6 +44,18 @@ properties:
     type: boolean
   voyPerformer:
     type: boolean
+  performanceHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/EpisodeHeader'
+  stuntPerformanceHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/EpisodeHeader'
+  standInPerformanceHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/EpisodeHeader'
   characterHeaders:
     type: array
     items:

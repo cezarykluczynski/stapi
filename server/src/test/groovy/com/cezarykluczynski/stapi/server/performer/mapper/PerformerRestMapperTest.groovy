@@ -1,6 +1,8 @@
 package com.cezarykluczynski.stapi.server.performer.mapper
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.Performer as RESTPerformer
+import com.cezarykluczynski.stapi.model.character.entity.Character
+import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO
 import com.cezarykluczynski.stapi.model.performer.entity.Performer as DBPerformer
 import com.cezarykluczynski.stapi.server.common.mapper.AbstractRealWorldPersonMapperTest
@@ -94,7 +96,11 @@ class PerformerRestMapperTest extends AbstractRealWorldPersonMapperTest {
 				tosPerformer: TOS_PERFORMER,
 				videoGamePerformer: VIDEO_GAME_PERFORMER,
 				voicePerformer: VOICE_PERFORMER,
-				voyPerformer: VOY_PERFORMER)
+				voyPerformer: VOY_PERFORMER,
+				performances: Lists.newArrayList(Mock(Episode)),
+				stuntPerformances: Lists.newArrayList(Mock(Episode)),
+				standInPerformances: Lists.newArrayList(Mock(Episode)),
+				characters: Lists.newArrayList(Mock(Character)))
 
 		when:
 		RESTPerformer restPerformer = performerRestMapper.map(Lists.newArrayList(dBPerformer))[0]
@@ -120,6 +126,10 @@ class PerformerRestMapperTest extends AbstractRealWorldPersonMapperTest {
 		restPerformer.videoGamePerformer == VIDEO_GAME_PERFORMER
 		restPerformer.voicePerformer == VOICE_PERFORMER
 		restPerformer.voyPerformer == VOY_PERFORMER
+		restPerformer.performanceHeaders.size() == dBPerformer.performances.size()
+		restPerformer.stuntPerformanceHeaders.size() == dBPerformer.stuntPerformances.size()
+		restPerformer.standInPerformanceHeaders.size() == dBPerformer.standInPerformances.size()
+		restPerformer.characterHeaders.size() == dBPerformer.characters.size()
 	}
 
 }

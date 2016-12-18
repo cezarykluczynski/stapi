@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.server.common.mapper.DateMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.EnumMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.RequestSortSoapMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
+import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeHeaderSoapMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -15,7 +16,7 @@ import org.mapstruct.Mappings;
 import java.util.List;
 
 @Mapper(config = MapstructConfiguration.class, uses = {CharacterHeaderSoapMapper.class, DateMapper.class,
-		EnumMapper.class, RequestSortSoapMapper.class})
+		EnumMapper.class, EpisodeHeaderSoapMapper.class, RequestSortSoapMapper.class})
 public interface PerformerSoapMapper {
 
 	@Mappings({
@@ -27,6 +28,9 @@ public interface PerformerSoapMapper {
 	PerformerRequestDTO map(PerformerRequest performerRequest);
 
 	@Mappings({
+			@Mapping(source = "performances", target = "performanceHeaders"),
+			@Mapping(source = "stuntPerformances", target = "stuntPerformanceHeaders"),
+			@Mapping(source = "standInPerformances", target = "standInPerformanceHeaders"),
 			@Mapping(source = "characters", target = "characterHeaders")
 	})
 	com.cezarykluczynski.stapi.client.v1.soap.Performer map(Performer performer);

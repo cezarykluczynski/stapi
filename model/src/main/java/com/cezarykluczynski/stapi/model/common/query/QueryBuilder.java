@@ -160,7 +160,7 @@ public class QueryBuilder<T> {
 	}
 
 	public QueryBuilder<T> fetch(SetAttribute<T, ?> name) {
-		baseRoot.fetch(name);
+		baseRoot.fetch(name, JoinType.LEFT);
 
 		return this;
 	}

@@ -306,19 +306,19 @@ class QueryBuilderTest extends Specification {
 		queryBuilder.fetch(FETCH_NAME)
 
 		then: 'right methods are called'
-		1 * baseRoot.fetch(FETCH_NAME)
+		1 * baseRoot.fetch(FETCH_NAME, JoinType.LEFT)
 
 		when: 'fetch is performed with boolean flag set to true'
 		queryBuilder.fetch(FETCH_NAME, true)
 
 		then: 'right methods are called'
-		1 * baseRoot.fetch(FETCH_NAME)
+		1 * baseRoot.fetch(FETCH_NAME, JoinType.LEFT)
 
 		when: 'fetch is performed with boolean flag set to false'
 		queryBuilder.fetch(FETCH_NAME, false)
 
-		then: 'right methods are called'
-		0 * baseRoot.fetch(FETCH_NAME)
+		then: 'no fetch methods are called'
+		0 * baseRoot.fetch(*_)
 
 		when: 'order is added and search is performer'
 		queryBuilder.setSort(ORDER_REQUEST)

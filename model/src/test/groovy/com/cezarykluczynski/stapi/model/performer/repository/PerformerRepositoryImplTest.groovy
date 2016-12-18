@@ -108,6 +108,9 @@ class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 		1 * performerQueryBuilder.setSort(SORT)
 
 		then: 'fetch is performed with true flag'
+		1 * performerQueryBuilder.fetch(Performer_.performances, true)
+		1 * performerQueryBuilder.fetch(Performer_.standInPerformances, true)
+		1 * performerQueryBuilder.fetch(Performer_.stuntPerformances, true)
 		1 * performerQueryBuilder.fetch(Performer_.characters, true)
 
 		then: 'page is searched for and returned'
@@ -130,6 +133,9 @@ class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 		1 * performerRequestDTO.getGuid() >> null
 
 		then: 'fetch is performed with false flag'
+		1 * performerQueryBuilder.fetch(Performer_.performances, false)
+		1 * performerQueryBuilder.fetch(Performer_.standInPerformances, false)
+		1 * performerQueryBuilder.fetch(Performer_.stuntPerformances, false)
 		1 * performerQueryBuilder.fetch(Performer_.characters, false)
 
 		then: 'page is searched for and returned'
