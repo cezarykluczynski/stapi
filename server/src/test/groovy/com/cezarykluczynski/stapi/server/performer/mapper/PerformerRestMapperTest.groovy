@@ -1,16 +1,13 @@
 package com.cezarykluczynski.stapi.server.performer.mapper
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.Performer as RESTPerformer
-import com.cezarykluczynski.stapi.model.character.entity.Character
-import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO
 import com.cezarykluczynski.stapi.model.performer.entity.Performer as DBPerformer
-import com.cezarykluczynski.stapi.server.common.mapper.AbstractRealWorldPersonMapperTest
 import com.cezarykluczynski.stapi.server.performer.dto.PerformerRestBeanParams
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers
 
-class PerformerRestMapperTest extends AbstractRealWorldPersonMapperTest {
+class PerformerRestMapperTest extends AbstractPerformerMapperTest {
 
 	private PerformerRestMapper performerRestMapper
 
@@ -76,37 +73,14 @@ class PerformerRestMapperTest extends AbstractRealWorldPersonMapperTest {
 
 	def "maps DB entity to REST entity"() {
 		given:
-		DBPerformer dBPerformer = new DBPerformer(
-				name: NAME,
-				birthName: BIRTH_NAME,
-				gender: GENDER,
-				dateOfBirth: DATE_OF_BIRTH_FROM_DB,
-				dateOfDeath: DATE_OF_DEATH_FROM_DB,
-				placeOfBirth: PLACE_OF_BIRTH,
-				placeOfDeath: PLACE_OF_DEATH,
-				animalPerformer: ANIMAL_PERFORMER,
-				disPerformer: DIS_PERFORMER,
-				ds9Performer: DS9_PERFORMER,
-				entPerformer: ENT_PERFORMER,
-				filmPerformer: FILM_PERFORMER,
-				standInPerformer: STAND_IN_PERFORMER,
-				stuntPerformer: STUNT_PERFORMER,
-				tasPerformer: TAS_PERFORMER,
-				tngPerformer: TNG_PERFORMER,
-				tosPerformer: TOS_PERFORMER,
-				videoGamePerformer: VIDEO_GAME_PERFORMER,
-				voicePerformer: VOICE_PERFORMER,
-				voyPerformer: VOY_PERFORMER,
-				performances: Lists.newArrayList(Mock(Episode)),
-				stuntPerformances: Lists.newArrayList(Mock(Episode)),
-				standInPerformances: Lists.newArrayList(Mock(Episode)),
-				characters: Lists.newArrayList(Mock(Character)))
+		DBPerformer dBPerformer = createPerformer()
 
 		when:
 		RESTPerformer restPerformer = performerRestMapper.map(Lists.newArrayList(dBPerformer))[0]
 
 		then:
 		restPerformer.name == NAME
+		restPerformer.guid == GUID
 		restPerformer.birthName == BIRTH_NAME
 		restPerformer.gender == GENDER_ENUM_REST
 		restPerformer.dateOfBirth == DATE_OF_BIRTH_FROM_DB

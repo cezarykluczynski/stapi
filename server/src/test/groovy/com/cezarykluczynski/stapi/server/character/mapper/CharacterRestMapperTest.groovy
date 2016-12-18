@@ -6,24 +6,17 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.Gender as RestGender
 import com.cezarykluczynski.stapi.client.v1.rest.model.MaritalStatus as RestMaritalStatus
 import com.cezarykluczynski.stapi.model.character.dto.CharacterRequestDTO
 import com.cezarykluczynski.stapi.model.character.entity.Character as DBCharacter
-import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType
-import com.cezarykluczynski.stapi.model.common.entity.enums.Gender
-import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.server.character.dto.CharacterRestBeanParams
-import com.cezarykluczynski.stapi.util.AbstractIndividualTest
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import org.mapstruct.factory.Mappers
 
-class CharacterRestMapperTest extends AbstractIndividualTest {
+class CharacterRestMapperTest extends AbstractCharacterMapperTest {
 
 	private static final RestGender REST_GENDER = RestGender.F
-	private static final Gender ENTITY_GENDER = Gender.F
 	private static final RestBloodType REST_BLOOD_TYPE = RestBloodType.B_NEGATIVE
-	private static final BloodType ENTITY_BLOOD_TYPE = BloodType.B_NEGATIVE
 	private static final RestMaritalStatus REST_MARITAL_STATUS = RestMaritalStatus.MARRIED
-	private static final MaritalStatus ENTITY_MARITAL_STATUS = MaritalStatus.MARRIED
 
 	private CharacterRestMapper characterRestMapper
 
