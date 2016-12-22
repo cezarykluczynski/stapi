@@ -17,8 +17,8 @@ public class FixedValueHolder<VALUE> {
 		return FixedValueHolder.of(true, value);
 	}
 
-	public static <T> FixedValueHolder<T> notFound(T value) {
-		return FixedValueHolder.of(false, value);
+	public static <T> FixedValueHolder<T> notFound() {
+		return FixedValueHolder.of(false, null);
 	}
 
 }

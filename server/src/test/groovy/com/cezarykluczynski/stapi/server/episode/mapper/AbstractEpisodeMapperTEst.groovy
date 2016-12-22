@@ -18,6 +18,9 @@ abstract class AbstractEpisodeMapperTest extends Specification {
 
 	protected static final String GUID = 'GUID'
 	protected static final String TITLE = 'TITLE'
+	protected static final String TITLE_GERMAN = 'TITLE_GERMAN'
+	protected static final String TITLE_ITALIAN = 'TITLE_ITALIAN'
+	protected static final String TITLE_JAPANESE = 'TITLE_JAPANESE'
 	protected static final Integer SEASON_NUMBER = 1
 	protected static final Integer SEASON_NUMBER_FROM = 2
 	protected static final Integer SEASON_NUMBER_TO = 3
@@ -26,10 +29,8 @@ abstract class AbstractEpisodeMapperTest extends Specification {
 	protected static final Integer EPISODE_NUMBER_TO = 6
 	protected static final String PRODUCTION_SERIAL_NUMBER = 'PRODUCTION_SERIAL_NUMBER'
 	protected static final Boolean FEATURE_LENGTH = LogicUtil.nextBoolean()
-	protected static final Float STARDATE = (Float) 1515.9
-	protected static final Float STARDATE_FROM = (Float) 1514.2
-	protected static final Float STARDATE_TO = (Float) 1517.5
-	protected static final Integer YEAR = 2370
+	protected static final Float STARDATE_FROM = 1514.2F
+	protected static final Float STARDATE_TO = 1517.5F
 	protected static final Integer YEAR_FROM = 2350
 	protected static final Integer YEAR_TO = 2390
 	protected static final LocalDate US_AIR_DATE = LocalDate.of(1990, 8, 4)
@@ -55,13 +56,18 @@ abstract class AbstractEpisodeMapperTest extends Specification {
 		return new Episode(
 				guid: GUID,
 				title: TITLE,
+				titleGerman: TITLE_GERMAN,
+				titleItalian: TITLE_ITALIAN,
+				titleJapanese: TITLE_JAPANESE,
 				series: Mock(Series),
 				seasonNumber: SEASON_NUMBER,
 				episodeNumber: EPISODE_NUMBER,
 				productionSerialNumber: PRODUCTION_SERIAL_NUMBER,
 				featureLength: FEATURE_LENGTH,
-				stardate: STARDATE,
-				year: YEAR,
+				stardateFrom: STARDATE_FROM,
+				stardateTo: STARDATE_TO,
+				yearFrom: YEAR_FROM,
+				yearTo: YEAR_TO,
 				usAirDate: US_AIR_DATE,
 				finalScriptDate: FINAL_SCRIPT_DATE,
 				writers: Sets.newHashSet(Mock(Staff)),

@@ -21,6 +21,9 @@ abstract class AbstractSeriesMapperTest extends Specification {
 	protected static final Integer PRODUCTION_START_YEAR_TO = 1992
 	protected static final Integer PRODUCTION_END_YEAR_FROM = 1997
 	protected static final Integer PRODUCTION_END_YEAR_TO = 1999
+	protected static final Integer SEASONS_COUNT = 1
+	protected static final Integer EPISODES_COUNT = 2
+	protected static final Integer FEATURE_LENGTH_EPISODES_COUNT = 3
 	protected static final LocalDate ORIGINAL_RUN_START_DATE = LocalDate.of(1999, 5, 3)
 	protected static final LocalDate ORIGINAL_RUN_END_DATE = LocalDate.of(2001, 2, 18)
 	protected static final LocalDate ORIGINAL_RUN_START_DATE_FROM_DB = LocalDate.of(1991, 1, 2)
@@ -49,6 +52,9 @@ abstract class AbstractSeriesMapperTest extends Specification {
 				productionEndYear: PRODUCTION_END_YEAR,
 				originalRunStartDate: ORIGINAL_RUN_START_DATE,
 				originalRunEndDate: ORIGINAL_RUN_END_DATE,
+				seasonsCount: SEASONS_COUNT,
+				episodesCount: EPISODES_COUNT,
+				featureLengthEpisodesCount: FEATURE_LENGTH_EPISODES_COUNT,
 				episodes: Lists.newArrayList(Mock(Episode)))
 	}
 

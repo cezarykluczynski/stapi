@@ -38,8 +38,10 @@ public class EpisodeRepositoryImpl extends AbstractRepositoryImpl<Episode> imple
 				criteria.getSeasonNumberTo());
 		episodeQueryBuilder.between(Episode_.episodeNumber, criteria.getEpisodeNumberFrom(),
 				criteria.getEpisodeNumberTo());
-		episodeQueryBuilder.between(Episode_.year, criteria.getYearFrom(), criteria.getYearTo());
-		episodeQueryBuilder.between(Episode_.stardate, criteria.getStardateFrom(), criteria.getStardateTo());
+		episodeQueryBuilder.between(Episode_.yearFrom, criteria.getYearFrom(), null);
+		episodeQueryBuilder.between(Episode_.yearTo, null, criteria.getYearTo());
+		episodeQueryBuilder.between(Episode_.stardateFrom, criteria.getStardateFrom(), null);
+		episodeQueryBuilder.between(Episode_.stardateTo, null, criteria.getStardateTo());
 		episodeQueryBuilder.equal(Episode_.featureLength, criteria.getFeatureLength());
 		episodeQueryBuilder.between(Episode_.usAirDate, criteria.getUsAirDateFrom(), criteria.getUsAirDateTo());
 		episodeQueryBuilder.between(Episode_.finalScriptDate, criteria.getFinalScriptDateFrom(),

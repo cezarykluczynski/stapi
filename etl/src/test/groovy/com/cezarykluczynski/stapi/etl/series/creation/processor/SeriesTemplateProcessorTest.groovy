@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.etl.series.creation.processor
 
+import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder
+import com.cezarykluczynski.stapi.etl.series.creation.dto.SeriesEpisodeStatisticsDTO
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange
 import com.cezarykluczynski.stapi.etl.template.common.dto.YearRange
 import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplate
@@ -20,14 +22,21 @@ class SeriesTemplateProcessorTest extends Specification {
 	private static final Integer END_YEAR = 2000
 	private static final LocalDate START_DATE = LocalDate.of(1996, 1, 1)
 	private static final LocalDate END_DATE = LocalDate.of(1999, 2, 2)
+	private static final SEASONS_COUNT = 1
+	private static final EPISODES_COUNT = 2
+	private static final FEATURE_LENGTH_EPISODES_COUNT = 3
 
 	private GuidGenerator guidGeneratorMock
+
+	private SeriesEpisodeStatisticsFixedValueProvider seriesEpisodeStatisticsFixedValueProviderMock
 
 	private SeriesTemplateProcessor seriesTemplateProcessor
 
 	def setup() {
 		guidGeneratorMock = Mock(GuidGenerator)
-		seriesTemplateProcessor = new SeriesTemplateProcessor(guidGeneratorMock)
+		seriesEpisodeStatisticsFixedValueProviderMock = Mock(SeriesEpisodeStatisticsFixedValueProvider)
+		seriesTemplateProcessor = new SeriesTemplateProcessor(guidGeneratorMock,
+				seriesEpisodeStatisticsFixedValueProviderMock)
 	}
 
 	def "SeriesTemplate is mapped to Series"() {
@@ -38,12 +47,17 @@ class SeriesTemplateProcessorTest extends Specification {
 				abbreviation: ABBREVIATION,
 				productionYearRange: new YearRange(startYear: START_YEAR, endYear: END_YEAR),
 				originalRunDateRange: new DateRange(startDate: START_DATE, endDate: END_DATE))
+		SeriesEpisodeStatisticsDTO seriesEpisodeStatisticsDTO = SeriesEpisodeStatisticsDTO
+				.of(SEASONS_COUNT, EPISODES_COUNT, FEATURE_LENGTH_EPISODES_COUNT)
+		FixedValueHolder<SeriesEpisodeStatisticsDTO> seriesEpisodeStatisticsDTOFixedValueHolder = FixedValueHolder
+				.found(seriesEpisodeStatisticsDTO)
 
 		when:
 		Series series = seriesTemplateProcessor.process(seriesTemplate)
 
 		then:
 		1 * guidGeneratorMock.generateFromPage(PAGE, Series) >> GUID
+		1 * seriesEpisodeStatisticsFixedValueProviderMock.getSearchedValue(ABBREVIATION) >> seriesEpisodeStatisticsDTOFixedValueHolder
 		series.guid == GUID
 		series.title == TITLE
 		series.page == PAGE
@@ -52,6 +66,37 @@ class SeriesTemplateProcessorTest extends Specification {
 		series.productionEndYear == END_YEAR
 		series.originalRunStartDate == START_DATE
 		series.originalRunEndDate == END_DATE
+		series.seasonsCount == SEASONS_COUNT
+		series.episodesCount == EPISODES_COUNT
+		series.featureLengthEpisodesCount == FEATURE_LENGTH_EPISODES_COUNT
+	}
+
+	def "null values are tolerated"() {
+		given:
+		SeriesTemplate seriesTemplate = new SeriesTemplate(
+				productionYearRange: new YearRange(),
+				originalRunDateRange: new DateRange(),
+				page: PAGE)
+		FixedValueHolder<SeriesEpisodeStatisticsDTO> seriesEpisodeStatisticsDTOFixedValueHolder = FixedValueHolder
+				.empty()
+
+		when:
+		Series series = seriesTemplateProcessor.process(seriesTemplate)
+
+		then:
+		1 * guidGeneratorMock.generateFromPage(PAGE, Series) >> null
+		1 * seriesEpisodeStatisticsFixedValueProviderMock.getSearchedValue(null) >> seriesEpisodeStatisticsDTOFixedValueHolder
+		series.guid == null
+		series.title == null
+		series.page == PAGE
+		series.abbreviation == null
+		series.productionStartYear == null
+		series.productionEndYear == null
+		series.originalRunStartDate == null
+		series.originalRunEndDate == null
+		series.seasonsCount == null
+		series.episodesCount == null
+		series.featureLengthEpisodesCount == null
 	}
 
 }

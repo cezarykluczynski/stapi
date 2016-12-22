@@ -17,6 +17,7 @@ public class CacheablePageNames {
 				PageName.STAR_TREK_GAME_PERFORMERS,
 				PageName.MAJEL_BARRETT,
 				PageName.MAJEL_BARRETT_RODDENBERRY,
+				PageName.M_LEIGH_HUDEC,
 				PageName.DAVID_KEITH_ANDERSON,
 				PageName.DAVID_ANDERSON,
 				PageName.SIDDIG_EL_FADIL,

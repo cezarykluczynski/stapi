@@ -19,12 +19,17 @@
 			<column name="title" type="varchar(128)">
 				<constraints nullable="false" unique="true"/>
 			</column>
+			<column name="title_german" type="varchar(128)"/>
+			<column name="title_italian" type="varchar(128)"/>
+			<column name="title_japanese" type="varchar(128)"/>
 			<column name="season_number" type="int"/>
 			<column name="episode_number" type="int"/>
 			<column name="production_serial_number" type="varchar(32)"/>
 			<column name="feature_length" type="boolean"/>
-			<column name="stardate" type="FLOAT"/>
-			<column name="year" type="int"/>
+			<column name="stardate_from" type="float"/>
+			<column name="stardate_to" type="float"/>
+			<column name="year_from" type="int"/>
+			<column name="year_to" type="int"/>
 			<column name="us_air_date" type="date"/>
 			<column name="final_script_date" type="date"/>
 		</createTable>

@@ -42,6 +42,8 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 
 	private TemplateFinder templateFinderMock
 
+	private EpisodeTemplateTitleLanguagesEnrichingProcessor episodeTemplateTitleLanguagesEnrichingProcessor
+
 	private ToEpisodeTemplateProcessor toEpisodeTemplateProcessor
 
 	def setup() {
@@ -52,9 +54,11 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 		seriesToEpisodeBindingServiceMock = Mock(SeriesToEpisodeBindingService)
 		episodeTemplateDatesEnrichingProcessorMock = Mock(EpisodeTemplateDatesEnrichingProcessor)
 		templateFinderMock = Mock(TemplateFinder)
+		episodeTemplateTitleLanguagesEnrichingProcessor = Mock(EpisodeTemplateTitleLanguagesEnrichingProcessor)
 		toEpisodeTemplateProcessor = new ToEpisodeTemplateProcessor(episodeTemplateProcessorMock,
 				episodePerformancesLinkingWorkerMock, episodeStaffLinkingWorkerMock, pageBindingServiceMock,
-				seriesToEpisodeBindingServiceMock, episodeTemplateDatesEnrichingProcessorMock, templateFinderMock)
+				seriesToEpisodeBindingServiceMock, episodeTemplateDatesEnrichingProcessorMock, templateFinderMock,
+				episodeTemplateTitleLanguagesEnrichingProcessor)
 	}
 
 
@@ -136,6 +140,10 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 		1 * episodeStaffLinkingWorkerMock.link(page, episodeStub)
 		1 * seriesToEpisodeBindingServiceMock.mapCategoriesToSeries(categoryHeaderList) >> SERIES
 		1 * episodeTemplateDatesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair enrichablePair ->
+			enrichablePair.input == page
+			enrichablePair.output == episodeTemplate
+		}
+		1 * episodeTemplateTitleLanguagesEnrichingProcessor.enrich(_ as EnrichablePair) >> { EnrichablePair enrichablePair ->
 			enrichablePair.input == page
 			enrichablePair.output == episodeTemplate
 		}

@@ -41,13 +41,16 @@ public class ToEpisodeTemplateProcessor implements ItemProcessor<Page, EpisodeTe
 
 	private TemplateFinder templateFinder;
 
+	private EpisodeTemplateTitleLanguagesEnrichingProcessor episodeTemplateTitleLanguagesEnrichingProcessor;
+
 	@Inject
 	public ToEpisodeTemplateProcessor(EpisodeTemplateProcessor episodeTemplateProcessor,
 			EpisodePerformancesLinkingWorker episodePerformancesLinkingWorker,
 			EpisodeStaffLinkingWorker episodeStaffLinkingWorker, PageBindingService pageBindingService,
 			SeriesToEpisodeBindingService seriesToEpisodeBindingService,
 			EpisodeTemplateDatesEnrichingProcessor episodeTemplateDatesEnrichingProcessor,
-			TemplateFinder templateFinder) {
+			TemplateFinder templateFinder,
+			EpisodeTemplateTitleLanguagesEnrichingProcessor episodeTemplateTitleLanguagesEnrichingProcessor) {
 		this.episodeTemplateProcessor = episodeTemplateProcessor;
 		this.episodePerformancesLinkingWorker = episodePerformancesLinkingWorker;
 		this.episodeStaffLinkingWorker = episodeStaffLinkingWorker;
@@ -55,6 +58,7 @@ public class ToEpisodeTemplateProcessor implements ItemProcessor<Page, EpisodeTe
 		this.seriesToEpisodeBindingService = seriesToEpisodeBindingService;
 		this.episodeTemplateDatesEnrichingProcessor = episodeTemplateDatesEnrichingProcessor;
 		this.templateFinder = templateFinder;
+		this.episodeTemplateTitleLanguagesEnrichingProcessor = episodeTemplateTitleLanguagesEnrichingProcessor;
 	}
 
 	@Override
@@ -74,12 +78,13 @@ public class ToEpisodeTemplateProcessor implements ItemProcessor<Page, EpisodeTe
 		Episode episodeStub = episodeTemplate.getEpisodeStub();
 		episodePerformancesLinkingWorker.link(item, episodeStub);
 		episodeStaffLinkingWorker.link(item, episodeStub);
+		episodeTemplateTitleLanguagesEnrichingProcessor.enrich(EnrichablePair.of(item, episodeTemplate));
+		episodeTemplateDatesEnrichingProcessor.enrich(EnrichablePair.of(item, episodeTemplate));
 
 		episodeTemplate.setTitle(TitleUtil.getNameFromTitle(item.getTitle()));
 		episodeTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 		episodeTemplate.setSeries(seriesToEpisodeBindingService.mapCategoriesToSeries(item.getCategories()));
 
-		episodeTemplateDatesEnrichingProcessor.enrich(EnrichablePair.of(item, episodeTemplate));
 
 		return episodeTemplate;
 	}

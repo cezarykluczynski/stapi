@@ -77,12 +77,17 @@ class EpisodeSoapMapperTest extends AbstractEpisodeMapperTest {
 		soapEpisode.guid == GUID
 		soapEpisode.series instanceof SeriesHeader
 		soapEpisode.title == TITLE
+		soapEpisode.titleGerman == TITLE_GERMAN
+		soapEpisode.titleItalian == TITLE_ITALIAN
+		soapEpisode.titleJapanese == TITLE_JAPANESE
 		soapEpisode.seasonNumber == SEASON_NUMBER
 		soapEpisode.episodeNumber == EPISODE_NUMBER
 		soapEpisode.productionSerialNumber == PRODUCTION_SERIAL_NUMBER
 		soapEpisode.featureLength == FEATURE_LENGTH
-		soapEpisode.stardate == STARDATE
-		soapEpisode.year.toInteger() == YEAR
+		soapEpisode.stardateFrom == STARDATE_FROM
+		soapEpisode.stardateTo == STARDATE_TO
+		soapEpisode.yearFrom.toInteger() == YEAR_FROM
+		soapEpisode.yearTo.toInteger() == YEAR_TO
 		soapEpisode.usAirDate == US_AIR_DATE_XML
 		soapEpisode.finalScriptDate == FINAL_SCRIPT_DATE_XML
 		soapEpisode.writerHeaders.size() == dBEpisode.writers.size()

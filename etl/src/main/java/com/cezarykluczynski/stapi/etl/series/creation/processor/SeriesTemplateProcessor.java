@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.etl.series.creation.processor;
 
+import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
+import com.cezarykluczynski.stapi.etl.series.creation.dto.SeriesEpisodeStatisticsDTO;
 import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplate;
 import com.cezarykluczynski.stapi.model.common.service.GuidGenerator;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
@@ -13,9 +15,13 @@ public class SeriesTemplateProcessor implements ItemProcessor<SeriesTemplate, Se
 
 	private GuidGenerator guidGenerator;
 
+	private SeriesEpisodeStatisticsFixedValueProvider seriesEpisodeStatisticsFixedValueProvider;
+
 	@Inject
-	public SeriesTemplateProcessor(GuidGenerator guidGenerator) {
+	public SeriesTemplateProcessor(GuidGenerator guidGenerator,
+			SeriesEpisodeStatisticsFixedValueProvider seriesEpisodeStatisticsFixedValueProvider) {
 		this.guidGenerator = guidGenerator;
+		this.seriesEpisodeStatisticsFixedValueProvider = seriesEpisodeStatisticsFixedValueProvider;
 	}
 
 	@Override
@@ -30,6 +36,17 @@ public class SeriesTemplateProcessor implements ItemProcessor<SeriesTemplate, Se
 		series.setProductionEndYear(item.getProductionYearRange().getEndYear());
 		series.setOriginalRunStartDate(item.getOriginalRunDateRange().getStartDate());
 		series.setOriginalRunEndDate(item.getOriginalRunDateRange().getEndDate());
+
+		FixedValueHolder<SeriesEpisodeStatisticsDTO> seriesEpisodeStatisticsDTOFixedValueHolder =
+				seriesEpisodeStatisticsFixedValueProvider.getSearchedValue(series.getAbbreviation());
+
+		if (seriesEpisodeStatisticsDTOFixedValueHolder.isFound()) {
+			SeriesEpisodeStatisticsDTO seriesEpisodeStatisticsDTO = seriesEpisodeStatisticsDTOFixedValueHolder
+					.getValue();
+			series.setSeasonsCount(seriesEpisodeStatisticsDTO.getSeasonsCount());
+			series.setEpisodesCount(seriesEpisodeStatisticsDTO.getEpisodesCount());
+			series.setFeatureLengthEpisodesCount(seriesEpisodeStatisticsDTO.getFeatureLengthEpisodesCount());
+		}
 
 		return series;
 	}

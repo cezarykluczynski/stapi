@@ -61,12 +61,17 @@ class EpisodeRestMapperTest extends AbstractEpisodeMapperTest {
 		restEpisode.guid == GUID
 		restEpisode.series instanceof SeriesHeader
 		restEpisode.title == TITLE
+		restEpisode.titleGerman == TITLE_GERMAN
+		restEpisode.titleItalian == TITLE_ITALIAN
+		restEpisode.titleJapanese == TITLE_JAPANESE
 		restEpisode.seasonNumber == SEASON_NUMBER
 		restEpisode.episodeNumber == EPISODE_NUMBER
 		restEpisode.productionSerialNumber == PRODUCTION_SERIAL_NUMBER
 		restEpisode.featureLength == FEATURE_LENGTH
-		restEpisode.stardate == STARDATE
-		restEpisode.year == YEAR
+		restEpisode.stardateFrom == STARDATE_FROM
+		restEpisode.stardateTo == STARDATE_TO
+		restEpisode.yearFrom == YEAR_FROM
+		restEpisode.yearTo == YEAR_TO
 		restEpisode.usAirDate == US_AIR_DATE
 		restEpisode.finalScriptDate == FINAL_SCRIPT_DATE
 		restEpisode.writerHeaders.size() == dBEpisode.writers.size()

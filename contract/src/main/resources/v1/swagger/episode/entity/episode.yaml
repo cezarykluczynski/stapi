@@ -4,6 +4,12 @@ properties:
     type: string
   title:
     type: string
+  titleGerman:
+    type: string
+  titleItalian:
+    type: string
+  titleJapanese:
+    type: string
   series:
     $ref: ./series/entity/seriesHeader.yaml
   seasonNumber:
@@ -14,10 +20,15 @@ properties:
     type: string
   featureLength:
     type: boolean
-  stardate:
+  stardate_from:
     type: number
     format: float
-  year:
+  stardate_to:
+    type: number
+    format: float
+  year_from:
+    type: integer
+  year_to:
     type: integer
   usAirDate:
     type: string

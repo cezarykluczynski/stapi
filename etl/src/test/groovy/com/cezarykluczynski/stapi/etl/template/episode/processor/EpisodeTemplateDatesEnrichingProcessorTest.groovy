@@ -66,7 +66,7 @@ class EpisodeTemplateDatesEnrichingProcessorTest extends Specification {
 		episodeTemplateDatesEnrichingProcessor.enrich(EnrichablePair.of(page, episodeTemplate))
 
 		then:
-		1 * episodeFinalScriptDateFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.notFound(null)
+		1 * episodeFinalScriptDateFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
 		1 * rawDatelinkExtractingProcessorMock.process(WIKITEXT) >> Lists.newArrayList(localDate)
 		episodeTemplate.finalScriptDate == localDate
 	}
@@ -91,7 +91,7 @@ class EpisodeTemplateDatesEnrichingProcessorTest extends Specification {
 		episodeTemplateDatesEnrichingProcessor.enrich(EnrichablePair.of(page, episodeTemplate))
 
 		then:
-		1 * episodeFinalScriptDateFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.notFound(null)
+		1 * episodeFinalScriptDateFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
 		1 * rawDatelinkExtractingProcessorMock.process(WIKITEXT) >> Lists.newArrayList(localDate1, localDate2)
 		episodeTemplate.finalScriptDate == null
 	}

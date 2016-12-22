@@ -16,6 +16,12 @@ properties:
   originalRunEndDate:
     type: string
     format: date
+  seasonsCount:
+    type: integer
+  episodesCount:
+    type: integer
+  featureLengthEpisodesCount:
+    type: integer
   episodeHeaders:
     type: array
     items:

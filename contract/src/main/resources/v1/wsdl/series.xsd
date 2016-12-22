@@ -45,6 +45,9 @@
 			<xs:element name="productionEndYear" type="xs:int"/>
 			<xs:element name="originalRunStartDate" type="xs:date"/>
 			<xs:element name="originalRunEndDate" type="xs:date"/>
+			<xs:element name="seasonsCount" type="xs:int"/>
+			<xs:element name="episodesCount" type="xs:int"/>
+			<xs:element name="featureLengthEpisodesCount" type="xs:int"/>
 			<xs:sequence>
 				<xs:element name="episodeHeaders" type="episode:EpisodeHeader" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>

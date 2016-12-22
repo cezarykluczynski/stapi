@@ -49,10 +49,7 @@ public class JobBuilder {
 
 		Flow flow1 = new FlowBuilder<Flow>("flow1")
 				.from(applicationContext.getBean(StepName.CREATE_SERIES, Step.class))
-				.end();
-
-		Flow flow2 = new FlowBuilder<Flow>("flow2")
-				.from(applicationContext.getBean(StepName.CREATE_PERFORMERS, Step.class))
+				.next(applicationContext.getBean(StepName.CREATE_PERFORMERS, Step.class))
 				.next(applicationContext.getBean(StepName.CREATE_STAFF, Step.class))
 				.next(applicationContext.getBean(StepName.CREATE_CHARACTERS, Step.class))
 				.next(applicationContext.getBean(StepName.CREATE_EPISODES, Step.class))
@@ -60,7 +57,7 @@ public class JobBuilder {
 
 		return simpleJobBuilder
 				.split(applicationContext.getBean(TaskExecutor.class))
-				.add(flow1, flow2)
+				.add(flow1/*, flow2*/)
 				.end()
 				.build();
 	}

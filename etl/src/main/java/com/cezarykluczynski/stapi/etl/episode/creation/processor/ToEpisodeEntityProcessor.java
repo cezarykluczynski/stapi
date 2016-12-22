@@ -27,6 +27,9 @@ public class ToEpisodeEntityProcessor implements ItemProcessor<EpisodeTemplate, 
 		Episode episode = item.getEpisodeStub();
 
 		episode.setTitle(item.getTitle());
+		episode.setTitleGerman(item.getTitleGerman());
+		episode.setTitleItalian(item.getTitleItalian());
+		episode.setTitleJapanese(item.getTitleJapanese());
 		episode.setPage(item.getPage());
 		episode.setSeries(seriesRepository.findOne(item.getSeries().getId()));
 		episode.setGuid(guidGenerator.generateFromPage(item.getPage(), Episode.class));
@@ -34,8 +37,10 @@ public class ToEpisodeEntityProcessor implements ItemProcessor<EpisodeTemplate, 
 		episode.setEpisodeNumber(item.getEpisodeNumber());
 		episode.setProductionSerialNumber(item.getProductionSerialNumber());
 		episode.setFeatureLength(item.getFeatureLength());
-		episode.setStardate(item.getStardate());
-		episode.setYear(item.getYear());
+		episode.setStardateFrom(item.getStardateFrom());
+		episode.setStardateTo(item.getStardateTo());
+		episode.setYearFrom(item.getYearFrom());
+		episode.setYearTo(item.getYearTo());
 		episode.setUsAirDate(item.getUsAirDate());
 		episode.setFinalScriptDate(item.getFinalScriptDate());
 

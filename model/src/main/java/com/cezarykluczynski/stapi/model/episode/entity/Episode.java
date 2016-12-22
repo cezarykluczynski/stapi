@@ -37,6 +37,12 @@ public class Episode extends PageAwareEntity implements PageAware {
 
 	private String title;
 
+	private String titleGerman;
+
+	private String titleItalian;
+
+	private String titleJapanese;
+
 	private Integer seasonNumber;
 
 	private Integer episodeNumber;
@@ -45,9 +51,13 @@ public class Episode extends PageAwareEntity implements PageAware {
 
 	private Boolean featureLength;
 
-	private Float stardate;
+	private Float stardateFrom;
 
-	private Integer year;
+	private Float stardateTo;
+
+	private Integer yearFrom;
+
+	private Integer yearTo;
 
 	private LocalDate usAirDate;
 

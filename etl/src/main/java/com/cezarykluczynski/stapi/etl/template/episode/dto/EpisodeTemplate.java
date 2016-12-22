@@ -16,6 +16,12 @@ public class EpisodeTemplate {
 
 	private String title;
 
+	private String titleGerman;
+
+	private String titleItalian;
+
+	private String titleJapanese;
+
 	private Episode episodeStub;
 
 	private Integer seasonNumber;
@@ -26,9 +32,13 @@ public class EpisodeTemplate {
 
 	private Boolean featureLength;
 
-	private Float stardate;
+	private Float stardateFrom;
 
-	private Integer year;
+	private Float stardateTo;
+
+	private Integer yearFrom;
+
+	private Integer yearTo;
 
 	private LocalDate usAirDate;
 

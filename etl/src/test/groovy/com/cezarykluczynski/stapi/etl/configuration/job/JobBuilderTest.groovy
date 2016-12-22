@@ -88,9 +88,8 @@ class JobBuilderTest extends Specification {
 		then: 'job is being returned'
 		job.name == JobName.JOB_CREATE
 		job.jobRepository == jobRepository
-		((SplitState) ((SimpleFlow) job.flow).startState).flows.size() == 2
+		((SplitState) ((SimpleFlow) job.flow).startState).flows.size() == 1
 		((SplitState) ((SimpleFlow) job.flow).startState).flows[0].name == 'flow1'
-		((SplitState) ((SimpleFlow) job.flow).startState).flows[1].name == 'flow2'
 	}
 
 	def "Job is not built when job is completed"() {

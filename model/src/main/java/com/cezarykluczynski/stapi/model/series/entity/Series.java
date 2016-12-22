@@ -37,6 +37,12 @@ public class Series extends PageAwareEntity implements PageAware {
 
 	private LocalDate originalRunEndDate;
 
+	private Integer seasonsCount;
+
+	private Integer episodesCount;
+
+	private Integer featureLengthEpisodesCount;
+
 	@OneToMany(mappedBy = "series")
 	private Set<Episode> episodes;
 
