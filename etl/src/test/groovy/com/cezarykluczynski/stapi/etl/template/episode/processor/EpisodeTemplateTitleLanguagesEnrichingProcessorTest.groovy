@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.episode.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
+import com.cezarykluczynski.stapi.etl.common.service.PageSectionExtractor
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection
@@ -8,7 +9,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.google.common.collect.Lists
 import spock.lang.Specification
 import spock.lang.Unroll
-
 
 class EpisodeTemplateTitleLanguagesEnrichingProcessorTest extends Specification {
 
@@ -19,38 +19,29 @@ class EpisodeTemplateTitleLanguagesEnrichingProcessorTest extends Specification 
 
 	private WikitextApi wikitextApiMock
 
+	private PageSectionExtractor pageSectionExtractorMock
+
 	private EpisodeTemplateTitleLanguagesEnrichingProcessor episodeTemplateTitleLanguagesEnrichingProcessor
 
 	def setup() {
 		wikitextApiMock = Mock(WikitextApi)
+		pageSectionExtractorMock = Mock(PageSectionExtractor)
 		episodeTemplateTitleLanguagesEnrichingProcessor = new EpisodeTemplateTitleLanguagesEnrichingProcessor(
-				wikitextApiMock)
+				wikitextApiMock, pageSectionExtractorMock)
 	}
 
 	def "gets links from last page section and puts them into episode template"() {
 		given:
-		Page page = new Page(
-				sections: Lists.newArrayList(
-						new PageSection(
-								byteOffset: 300,
-								wikitext: ''
-						),
-						new PageSection(
-								byteOffset: 500,
-								wikitext: WIKITEXT
-						),
-						new PageSection(
-								byteOffset: 100,
-								wikitext: ''
-						),
-				)
-		)
+		PageSection pageSection = new PageSection(wikitext: WIKITEXT)
+		List<PageSection> pageSectionList = Lists.newArrayList(pageSection)
+		Page page = new Page(sections: pageSectionList)
 		EpisodeTemplate episodeTemplate = new EpisodeTemplate()
 
 		when:
 		episodeTemplateTitleLanguagesEnrichingProcessor.enrich(EnrichablePair.of(page, episodeTemplate))
 
 		then:
+		1 * pageSectionExtractorMock.extractLastPageSection(page) >> pageSection
 		1 * wikitextApiMock.getPageTitlesFromWikitext(WIKITEXT) >> Lists.newArrayList(
 				"de:${TITLE_GERMAN}".toString(),
 				"it:${TITLE_ITALIAN}".toString(),
@@ -64,15 +55,11 @@ class EpisodeTemplateTitleLanguagesEnrichingProcessorTest extends Specification 
 	@Unroll("removes prefix #prefix from japanese title with prefix")
 	def "removes prefix from japanese title with prefix"() {
 		given:
-		Page page = new Page(
-				sections: Lists.newArrayList(
-						new PageSection(
-								byteOffset: 500,
-								wikitext: WIKITEXT
-						)
-				)
-		)
+		PageSection pageSection = new PageSection(wikitext: WIKITEXT)
+		List<PageSection> pageSectionList = Lists.newArrayList(pageSection)
+		Page page = new Page(sections: pageSectionList)
 		EpisodeTemplate episodeTemplate = new EpisodeTemplate()
+		pageSectionExtractorMock.extractLastPageSection(page) >> pageSection
 		wikitextApiMock.getPageTitlesFromWikitext(WIKITEXT) >> Lists.newArrayList(
 				"ja:${prefix}${TITLE_JAPANESE}".toString())
 
@@ -99,6 +86,7 @@ class EpisodeTemplateTitleLanguagesEnrichingProcessorTest extends Specification 
 		episodeTemplateTitleLanguagesEnrichingProcessor.enrich(EnrichablePair.of(page, episodeTemplate))
 
 		then:
+		1 * pageSectionExtractorMock.extractLastPageSection(page) >> null
 		0 * _
 		notThrown(Throwable)
 		episodeTemplate.titleGerman == null

@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.common.processor.gender;
 
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
 import com.cezarykluczynski.stapi.etl.common.service.FixedValueProvider;
-import com.cezarykluczynski.stapi.etl.template.common.dto.Gender;
+import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender;
 import com.google.common.collect.Maps;
 import org.springframework.stereotype.Service;
 

@@ -19,4 +19,6 @@ public class StepsProperties {
 
 	private StepProperties createEpisodes;
 
+	private StepProperties createMovies;
+
 }

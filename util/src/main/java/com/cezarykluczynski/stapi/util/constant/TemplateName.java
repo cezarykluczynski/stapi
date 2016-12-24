@@ -7,6 +7,7 @@ public class TemplateName {
 	public static final String SIDEBAR_INDIVIDUAL = "sidebar individual";
 	public static final String SIDEBAR_SERIES = "sidebar series";
 	public static final String SIDEBAR_EPISODE = "sidebar episode";
+	public static final String SIDEBAR_FILM = "sidebar film";
 
 	public static final String BORN = "born";
 

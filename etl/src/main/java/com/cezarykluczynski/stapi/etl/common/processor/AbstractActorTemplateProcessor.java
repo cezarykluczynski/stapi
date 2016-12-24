@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.common.processor;
 
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate;
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange;
-import com.cezarykluczynski.stapi.etl.template.common.dto.Gender;
+import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender;
 import com.cezarykluczynski.stapi.model.common.entity.RealWorldPerson;
 import org.apache.commons.lang3.ObjectUtils;
 

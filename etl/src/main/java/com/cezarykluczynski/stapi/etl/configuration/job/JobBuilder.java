@@ -53,11 +53,12 @@ public class JobBuilder {
 				.next(applicationContext.getBean(StepName.CREATE_STAFF, Step.class))
 				.next(applicationContext.getBean(StepName.CREATE_CHARACTERS, Step.class))
 				.next(applicationContext.getBean(StepName.CREATE_EPISODES, Step.class))
+				.next(applicationContext.getBean(StepName.CREATE_MOVIES, Step.class))
 				.end();
 
 		return simpleJobBuilder
 				.split(applicationContext.getBean(TaskExecutor.class))
-				.add(flow1/*, flow2*/)
+				.add(flow1)
 				.end()
 				.build();
 	}

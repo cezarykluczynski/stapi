@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.gender
 
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder
-import com.cezarykluczynski.stapi.etl.template.common.dto.Gender
+import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender
 import spock.lang.Specification
 
 class GenderFixedValueProviderTest extends Specification {

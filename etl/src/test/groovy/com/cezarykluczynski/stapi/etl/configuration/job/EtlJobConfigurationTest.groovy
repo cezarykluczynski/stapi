@@ -9,6 +9,9 @@ import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepsProperti
 import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeProcessor
 import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeReader
 import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeWriter
+import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieProcessor
+import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieReader
+import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieWriter
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerProcessor
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerReader
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerWriter
@@ -248,6 +251,39 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(EpisodeProcessor) >> itemProcessorMock
 		1 * simpleStepBuilderMock.processor(itemProcessorMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(EpisodeWriter) >> itemWriterMock
+		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
+		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
+		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+
+		then: 'step is configured to run only once'
+		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
+		1 * simpleStepBuilderMock.allowStartIfComplete(false) >> simpleStepBuilderMock
+
+		then: 'tasklet step is returned'
+		1 * simpleStepBuilderMock.build() >> taskletStepMock
+
+		then: 'step is being returned'
+		step == taskletStepMock
+	}
+
+	def "CREATE_MOVIES step is created"() {
+		when:
+		Step step = etlJobConfiguration.stepCreateMovies()
+
+		then: 'StepBuilder is retrieved'
+		1 * stepBuilderFactoryMock.get(StepName.CREATE_MOVIES) >> stepBuilderMock
+
+		then: 'commit interval is configured'
+		1 * stepsPropertiesMock.getCreateMovies() >> stepProperties
+		1 * stepProperties.getCommitInterval() >> STEP_SIZE
+		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+
+		then: 'beans are retrieved from application context, then passed to builder'
+		1 * applicationContextMock.getBean(MovieReader) >> itemReaderMock
+		1 * simpleStepBuilderMock.reader(itemReaderMock) >> simpleStepBuilderMock
+		1 * applicationContextMock.getBean(MovieProcessor) >> itemProcessorMock
+		1 * simpleStepBuilderMock.processor(itemProcessorMock) >> simpleStepBuilderMock
+		1 * applicationContextMock.getBean(MovieWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
 		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock

@@ -1,9 +1,9 @@
-package com.cezarykluczynski.stapi.etl.template.episode.processor
+package com.cezarykluczynski.stapi.etl.common.processor
 
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import spock.lang.Specification
 
-abstract class AbstractEpisodeTemplateProcessorTest extends Specification {
+abstract class AbstractTemplateProcessorTest extends Specification {
 
 	protected static Template.Part createTemplatePart(String key, String value) {
 		return new Template.Part(

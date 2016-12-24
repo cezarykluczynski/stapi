@@ -25,7 +25,7 @@ class StepConfigurationValidatorTest extends Specification {
 
 		then:
 		JobBuilderException jobBuilderException = thrown(JobBuilderException)
-		jobBuilderException.message == 'java.lang.RuntimeException: Number of configured steps is 5, but 0 steps found'
+		jobBuilderException.message == 'java.lang.RuntimeException: Number of configured steps is 6, but 0 steps found'
 
 	}
 
@@ -45,6 +45,9 @@ class StepConfigurationValidatorTest extends Specification {
 		}
 		stepsPropertiesMock.getCreateEpisodes() >> Mock(StepProperties) {
 			getOrder() >> 1
+		}
+		stepsPropertiesMock.getCreateMovies() >> Mock(StepProperties) {
+			getOrder() >> 6
 		}
 
 		when:
@@ -72,6 +75,9 @@ class StepConfigurationValidatorTest extends Specification {
 		}
 		stepsPropertiesMock.getCreateEpisodes() >> Mock(StepProperties) {
 			getOrder() >> 5
+		}
+		stepsPropertiesMock.getCreateMovies() >> Mock(StepProperties) {
+			getOrder() >> 6
 		}
 
 		when:

@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.episode.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
 import com.cezarykluczynski.stapi.etl.common.service.FixedValueProvider;
-import com.cezarykluczynski.stapi.etl.template.episode.dto.StardateYearDTO;
+import com.cezarykluczynski.stapi.etl.template.common.dto.StardateYearDTO;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -12,6 +12,7 @@ import java.util.Map;
 @Service
 @Slf4j
 public class EpisodeTemplateStardateYearFixedValueProvider implements FixedValueProvider<String, StardateYearDTO> {
+
 
 	private static final Map<String, StardateYearDTO> TITLE_TO_STARDATE_YEAR_MAP = Maps.newHashMap();
 
@@ -100,7 +101,6 @@ public class EpisodeTemplateStardateYearFixedValueProvider implements FixedValue
 		TITLE_TO_STARDATE_YEAR_MAP.put("Zero Hour", StardateYearDTO.of(null, null, 1944, 2161));
 		TITLE_TO_STARDATE_YEAR_MAP.put("The Andorian Incident", StardateYearDTO.of(null, null, 2151, 2151));
 	}
-
 	@Override
 	public FixedValueHolder<StardateYearDTO> getSearchedValue(String key) {
 		return FixedValueHolder.of(TITLE_TO_STARDATE_YEAR_MAP.containsKey(key), TITLE_TO_STARDATE_YEAR_MAP.get(key));

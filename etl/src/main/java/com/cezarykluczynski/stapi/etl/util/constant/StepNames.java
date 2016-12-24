@@ -16,7 +16,8 @@ public class StepNames {
 				StepName.CREATE_PERFORMERS,
 				StepName.CREATE_STAFF,
 				StepName.CREATE_CHARACTERS,
-				StepName.CREATE_EPISODES
+				StepName.CREATE_EPISODES,
+				StepName.CREATE_MOVIES
 		));
 	}
 

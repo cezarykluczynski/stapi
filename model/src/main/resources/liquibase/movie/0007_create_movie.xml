@@ -1,0 +1,177 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+	<changeSet id="0007_create_movie" author="cezarykluczynski">
+		<createTable tableName="movie">
+			<column name="id" type="bigint">
+				<constraints unique="true" nullable="false"/>
+			</column>
+			<column name="page_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="guid" type="varchar(14)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="title" type="varchar(128)">
+				<constraints nullable="false" unique="true"/>
+			</column>
+			<column name="title_bulgarian" type="varchar(128)"/>
+			<column name="title_catalan" type="varchar(128)"/>
+			<column name="title_chinese_traditional" type="varchar(256)"/>
+			<column name="title_german" type="varchar(128)"/>
+			<column name="title_italian" type="varchar(128)"/>
+			<column name="title_japanese" type="varchar(256)"/>
+			<column name="title_polish" type="varchar(128)"/>
+			<column name="title_russian" type="varchar(128)"/>
+			<column name="title_serbian" type="varchar(128)"/>
+			<column name="title_spanish" type="varchar(128)"/>
+			<column name="stardate_from" type="float"/>
+			<column name="stardate_to" type="float"/>
+			<column name="year_from" type="int"/>
+			<column name="year_to" type="int"/>
+			<column name="us_release_date" type="date"/>
+		</createTable>
+		<createSequence incrementBy="1" sequenceName="movie_sequence"/>
+		<addForeignKeyConstraint baseColumnNames="page_id"
+				baseTableName="movie"
+				constraintName="movie_page_fkey"
+				referencedColumnNames="id"
+				referencedTableName="page"/>
+
+		<createTable tableName="movies_screenplay_authors">
+			<column name="movie_id" type="bigint"/>
+			<column name="staff_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="movie_id"
+				baseTableName="movies_screenplay_authors"
+				constraintName="mspa_movie_fkey"
+				referencedColumnNames="id"
+				referencedTableName="movie"/>
+		<addForeignKeyConstraint baseColumnNames="staff_id"
+				baseTableName="movies_screenplay_authors"
+				constraintName="mspa_screenplay_author_fkey"
+				referencedColumnNames="id"
+				referencedTableName="staff"/>
+
+		<createTable tableName="movies_story_authors">
+			<column name="movie_id" type="bigint"/>
+			<column name="staff_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="movie_id"
+				baseTableName="movies_story_authors"
+				constraintName="msa_movie_fkey"
+				referencedColumnNames="id"
+				referencedTableName="movie"/>
+		<addForeignKeyConstraint baseColumnNames="staff_id"
+				baseTableName="movies_story_authors"
+				constraintName="mpa_story_author_fkey"
+				referencedColumnNames="id"
+				referencedTableName="staff"/>
+
+		<createTable tableName="movies_directors">
+			<column name="movie_id" type="bigint"/>
+			<column name="staff_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="movie_id"
+				baseTableName="movies_directors"
+				constraintName="md_movie_fkey"
+				referencedColumnNames="id"
+				referencedTableName="movie"/>
+		<addForeignKeyConstraint baseColumnNames="staff_id"
+				baseTableName="movies_directors"
+				constraintName="md_director_fkey"
+				referencedColumnNames="id"
+				referencedTableName="staff"/>
+
+		<createTable tableName="movies_producers">
+			<column name="movie_id" type="bigint"/>
+			<column name="staff_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="movie_id"
+				baseTableName="movies_producers"
+				constraintName="mpro_movie_fkey"
+				referencedColumnNames="id"
+				referencedTableName="movie"/>
+		<addForeignKeyConstraint baseColumnNames="staff_id"
+				baseTableName="movies_producers"
+				constraintName="mpro_staff_fkey"
+				referencedColumnNames="id"
+				referencedTableName="staff"/>
+
+		<createTable tableName="movies_staff">
+			<column name="movie_id" type="bigint"/>
+			<column name="staff_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="movie_id"
+				baseTableName="movies_staff"
+				constraintName="ms_movie_fkey"
+				referencedColumnNames="id"
+				referencedTableName="movie"/>
+		<addForeignKeyConstraint baseColumnNames="staff_id"
+				baseTableName="movies_staff"
+				constraintName="ms_staff_fkey"
+				referencedColumnNames="id"
+				referencedTableName="staff"/>
+
+		<createTable tableName="movies_performers">
+			<column name="movie_id" type="bigint"/>
+			<column name="performer_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="movie_id"
+				baseTableName="movies_performers"
+				constraintName="mper_movie_fkey"
+				referencedColumnNames="id"
+				referencedTableName="movie"/>
+		<addForeignKeyConstraint baseColumnNames="performer_id"
+				baseTableName="movies_performers"
+				constraintName="mper_performer_fkey"
+				referencedColumnNames="id"
+				referencedTableName="performer"/>
+
+		<createTable tableName="movies_stunt_performers">
+			<column name="movie_id" type="bigint"/>
+			<column name="performer_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="movie_id"
+				baseTableName="movies_stunt_performers"
+				constraintName="mstup_movie_fkey"
+				referencedColumnNames="id"
+				referencedTableName="movie"/>
+		<addForeignKeyConstraint baseColumnNames="performer_id"
+				baseTableName="movies_stunt_performers"
+				constraintName="mstup_performer_fkey"
+				referencedColumnNames="id"
+				referencedTableName="performer"/>
+
+		<createTable tableName="movies_stand_in_performers">
+			<column name="movie_id" type="bigint"/>
+			<column name="performer_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="movie_id"
+				baseTableName="movies_stand_in_performers"
+				constraintName="mstap_movie_fkey"
+				referencedColumnNames="id"
+				referencedTableName="movie"/>
+		<addForeignKeyConstraint baseColumnNames="performer_id"
+				baseTableName="movies_stand_in_performers"
+				constraintName="mstap_performer_fkey"
+				referencedColumnNames="id"
+				referencedTableName="performer"/>
+
+		<createTable tableName="movies_characters">
+			<column name="movie_id" type="bigint"/>
+			<column name="character_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="movie_id"
+				baseTableName="movies_characters"
+				constraintName="mc_movie_fkey"
+				referencedColumnNames="id"
+				referencedTableName="movie"/>
+		<addForeignKeyConstraint baseColumnNames="character_id"
+				baseTableName="movies_characters"
+				constraintName="mc_performer_fkey"
+				referencedColumnNames="id"
+				referencedTableName="character"/>
+	</changeSet>
+</databaseChangeLog>

@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
-import org.springframework.context.ApplicationContext
 
 class EpisodeCreationConfigurationTest extends AbstractCreationConfigurationTest {
 
@@ -20,8 +19,6 @@ class EpisodeCreationConfigurationTest extends AbstractCreationConfigurationTest
 	private static final String TITLE_ENT_EPISODES = 'TITLE_ENT_EPISODES'
 	private static final String TITLE_DIS_EPISODES = 'TITLE_DIS_EPISODES'
 
-	private ApplicationContext applicationContextMock
-
 	private CategoryApi categoryApiMock
 
 	private StepCompletenessDecider jobCompletenessDeciderMock
@@ -29,11 +26,9 @@ class EpisodeCreationConfigurationTest extends AbstractCreationConfigurationTest
 	private EpisodeCreationConfiguration episodeCreationConfiguration
 
 	def setup() {
-		applicationContextMock = Mock(ApplicationContext)
 		categoryApiMock = Mock(CategoryApi)
 		jobCompletenessDeciderMock = Mock(StepCompletenessDecider)
 		episodeCreationConfiguration = new EpisodeCreationConfiguration(
-				applicationContext: applicationContextMock,
 				categoryApi: categoryApiMock,
 				stepCompletenessDecider: jobCompletenessDeciderMock)
 	}

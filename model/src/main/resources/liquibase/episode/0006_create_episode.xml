@@ -21,7 +21,7 @@
 			</column>
 			<column name="title_german" type="varchar(128)"/>
 			<column name="title_italian" type="varchar(128)"/>
-			<column name="title_japanese" type="varchar(128)"/>
+			<column name="title_japanese" type="varchar(256)"/>
 			<column name="season_number" type="int"/>
 			<column name="episode_number" type="int"/>
 			<column name="production_serial_number" type="varchar(32)"/>

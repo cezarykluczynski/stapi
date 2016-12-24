@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.gender;
 
-import com.cezarykluczynski.stapi.etl.template.common.dto.Gender;
+import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;

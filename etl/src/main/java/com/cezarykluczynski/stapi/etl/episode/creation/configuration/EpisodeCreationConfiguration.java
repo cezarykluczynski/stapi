@@ -10,7 +10,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import com.google.common.collect.Lists;
 import org.springframework.boot.autoconfigure.batch.BatchDatabaseInitializer;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -19,9 +18,6 @@ import java.util.List;
 
 @Configuration
 public class EpisodeCreationConfiguration {
-
-	@Inject
-	private ApplicationContext applicationContext;
 
 	@Inject
 	private CategoryApi categoryApi;

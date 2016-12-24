@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.configuration.job.service
 
+import com.cezarykluczynski.stapi.etl.configuration.job.StepConfigurationValidator
 import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.google.common.collect.Lists
 import org.springframework.batch.core.BatchStatus
@@ -9,6 +10,8 @@ import spock.lang.Specification
 class JobCompletenessDeciderTest extends Specification {
 
 	private static final String JOB_NAME = JobName.JOB_CREATE
+	private static final Integer VALID_NUMBER_OF_STEPS = (int) StepConfigurationValidator.NUMBER_OF_STEPS
+	private static final Integer INVALID_NUMBER_OF_STEPS = VALID_NUMBER_OF_STEPS - 1
 
 	private AllStepExecutionsProvider allStepExecutionsProviderMock
 
@@ -21,7 +24,7 @@ class JobCompletenessDeciderTest extends Specification {
 
 	def "returns true when all step executions in step are completed and number of executions equals number of steps"() {
 		given:
-		List<StepExecution> stepExecutionList = createStepExecutionList(5)
+		List<StepExecution> stepExecutionList = createStepExecutionList(VALID_NUMBER_OF_STEPS)
 
 		when:
 		boolean completed = jobCompletenessDecider.isJobCompleted(JOB_NAME)
@@ -33,7 +36,7 @@ class JobCompletenessDeciderTest extends Specification {
 
 	def "returns false when number of executions does not equal number of steps"() {
 		given:
-		List<StepExecution> stepExecutionList = createStepExecutionList(4)
+		List<StepExecution> stepExecutionList = createStepExecutionList(INVALID_NUMBER_OF_STEPS)
 
 		when:
 		boolean completed = jobCompletenessDecider.isJobCompleted(JOB_NAME)
@@ -45,7 +48,7 @@ class JobCompletenessDeciderTest extends Specification {
 
 	def "returns false when number of executions equals number of steps, but not all step executions are completed"() {
 		given:
-		List<StepExecution> stepExecutionList = createStepExecutionList(4)
+		List<StepExecution> stepExecutionList = createStepExecutionList(INVALID_NUMBER_OF_STEPS)
 		stepExecutionList.add(Mock(StepExecution) {
 			getStatus() >> BatchStatus.UNKNOWN
 		})

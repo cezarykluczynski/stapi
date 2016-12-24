@@ -8,6 +8,9 @@ import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepsProperti
 import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeProcessor;
 import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeReader;
 import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeWriter;
+import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieProcessor;
+import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieReader;
+import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieWriter;
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerProcessor;
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerReader;
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerWriter;
@@ -20,6 +23,7 @@ import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffWriter;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
+import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
@@ -115,6 +119,19 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(EpisodeReader.class))
 				.processor(applicationContext.getBean(EpisodeProcessor.class))
 				.writer(applicationContext.getBean(EpisodeWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_MOVIES)
+	public Step stepCreateMovies() {
+		return stepBuilderFactory.get(StepName.CREATE_MOVIES)
+				.<PageHeader, Movie> chunk(stepsProperties.getCreateMovies().getCommitInterval())
+				.reader(applicationContext.getBean(MovieReader.class))
+				.processor(applicationContext.getBean(MovieProcessor.class))
+				.writer(applicationContext.getBean(MovieWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)

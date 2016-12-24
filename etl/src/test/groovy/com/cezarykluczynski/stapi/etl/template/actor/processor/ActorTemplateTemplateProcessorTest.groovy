@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.actor.processor
 
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate
-import com.cezarykluczynski.stapi.etl.template.common.dto.Gender
+import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PartToGenderProcessor
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists

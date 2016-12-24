@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.individual.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
-import com.cezarykluczynski.stapi.etl.template.common.dto.Gender
+import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PartToGenderProcessor
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualLifeBoundaryDTO
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate

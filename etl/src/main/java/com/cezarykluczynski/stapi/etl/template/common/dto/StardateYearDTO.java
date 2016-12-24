@@ -1,10 +1,12 @@
-package com.cezarykluczynski.stapi.etl.template.episode.dto;
+package com.cezarykluczynski.stapi.etl.template.common.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
+@Data
 @AllArgsConstructor(staticName = "of")
+@NoArgsConstructor
 public class StardateYearDTO {
 
 	private Float stardateFrom;

@@ -2,19 +2,18 @@ package com.cezarykluczynski.stapi.etl.template.episode.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.service.PageSectionExtractor;
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -25,9 +24,13 @@ public class EpisodeTemplateTitleLanguagesEnrichingProcessor implements
 
 	private WikitextApi wikitextApi;
 
+	private PageSectionExtractor pageSectionExtractor;
+
 	@Inject
-	public EpisodeTemplateTitleLanguagesEnrichingProcessor(WikitextApi wikitextApi) {
+	public EpisodeTemplateTitleLanguagesEnrichingProcessor(WikitextApi wikitextApi,
+			PageSectionExtractor pageSectionExtractor) {
 		this.wikitextApi = wikitextApi;
+		this.pageSectionExtractor = pageSectionExtractor;
 	}
 
 	@Override
@@ -35,18 +38,12 @@ public class EpisodeTemplateTitleLanguagesEnrichingProcessor implements
 		Page page = enrichablePair.getInput();
 		EpisodeTemplate episodeTemplate = enrichablePair.getOutput();
 
-		List<PageSection> pageSectionList = page.getSections();
+		PageSection externalLinksPageSection = pageSectionExtractor.extractLastPageSection(page);
 
-		if (CollectionUtils.isEmpty(pageSectionList)) {
+		if (externalLinksPageSection == null) {
 			return;
 		}
 
-		List<PageSection> pageSectionListInverted = pageSectionList
-				.stream()
-				.sorted((left, right) -> left.getByteOffset().compareTo(right.getByteOffset()))
-				.collect(Collectors.toList());
-
-		PageSection externalLinksPageSection = pageSectionListInverted.get(pageSectionListInverted.size() - 1);
 		List<String> pageLinkList = wikitextApi.getPageTitlesFromWikitext(externalLinksPageSection.getWikitext());
 
 		pageLinkList.forEach(pageLink -> {

@@ -41,6 +41,7 @@ class JobBuilderTest extends Specification {
 		Step createStaffStep = Mock(Step)
 		Step createCharactersStep = Mock(Step)
 		Step createEpisodesStep = Mock(Step)
+		Step createMoviesStep = Mock(Step)
 		JobRepository jobRepository = Mock(JobRepository)
 		org.springframework.batch.core.job.builder.JobBuilder jobBuilderMock =
 				new org.springframework.batch.core.job.builder.JobBuilder(JobName.JOB_CREATE)
@@ -78,6 +79,10 @@ class JobBuilderTest extends Specification {
 		then: 'CREATE_EPISODES step is retrieved from application context'
 		1 * applicationContextMock.getBean(StepName.CREATE_EPISODES, Step) >> createEpisodesStep
 		1 * createEpisodesStep.getName() >> ''
+
+		then: 'CREATE_MOVIES step is retrieved from application context'
+		1 * applicationContextMock.getBean(StepName.CREATE_MOVIES, Step) >> createMoviesStep
+		1 * createMoviesStep.getName() >> ''
 
 		then: 'Task executor is retrieved from application context'
 		1 * applicationContextMock.getBean(TaskExecutor) >> taskExecutor

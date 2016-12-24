@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.gender
 
-import com.cezarykluczynski.stapi.etl.template.common.dto.Gender
+import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender
 import com.cezarykluczynski.stapi.etl.template.common.processor.FullNameToFirstNameProcessor
 import com.cezarykluczynski.stapi.sources.genderize.client.GenderizeClient
 import com.cezarykluczynski.stapi.sources.genderize.dto.NameGenderDTO

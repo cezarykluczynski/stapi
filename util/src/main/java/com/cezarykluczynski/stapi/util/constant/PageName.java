@@ -12,5 +12,7 @@ public class PageName {
 	public static final String SIDDIG_EL_FADIL = "Siddig El Fadil";
 	public static final String ALEXANDER_SIDDIG = "Alexander Siddig";
 	public static final String MEMORY_ALPHA_PERSONNEL = "Memory Alpha personnel";
+	public static final String STAR_TREK_FILMS = "Star Trek films";
+	public static final String STAR_TREK_XIV = "Star Trek XIV";
 
 }

@@ -8,4 +8,5 @@
 	<include file="staff/0004_create_staff.xml" relativeToChangelogFile="true"/>
 	<include file="character/0005_create_character.xml" relativeToChangelogFile="true"/>
 	<include file="episode/0006_create_episode.xml" relativeToChangelogFile="true"/>
+	<include file="movie/0007_create_movie.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

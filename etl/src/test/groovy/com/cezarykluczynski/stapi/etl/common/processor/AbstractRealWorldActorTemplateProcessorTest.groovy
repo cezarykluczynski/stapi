@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.common.processor
 
-import com.cezarykluczynski.stapi.etl.template.common.dto.Gender
+import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.util.AbstractRealWorldPersonTest
 

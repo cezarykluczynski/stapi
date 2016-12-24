@@ -1,16 +1,18 @@
 package com.cezarykluczynski.stapi.etl.template.episode.processor;
 
+import com.cezarykluczynski.stapi.etl.common.configuration.CommonTemplateConfiguration;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
+import com.cezarykluczynski.stapi.etl.common.processor.ImageTemplateStardateYearEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.dto.DayMonthYearCandidate;
+import com.cezarykluczynski.stapi.etl.template.common.processor.ProductionSerialNumberProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DayMonthYearProcessor;
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -30,13 +32,18 @@ public class EpisodeTemplateProcessor implements ItemProcessor<Template, Episode
 
 	private DayMonthYearProcessor dayMonthYearProcessor;
 
-	private EpisodeTemplateStardateYearEnrichingProcessor episodeTemplateStardateYearEnrichingProcessor;
+	private ImageTemplateStardateYearEnrichingProcessor imageTemplateStardateYearEnrichingProcessor;
+
+	private ProductionSerialNumberProcessor productionSerialNumberProcessor;
 
 	@Inject
 	public EpisodeTemplateProcessor(DayMonthYearProcessor dayMonthYearProcessor,
-			EpisodeTemplateStardateYearEnrichingProcessor episodeTemplateStardateYearEnrichingProcessor) {
+			@Qualifier(CommonTemplateConfiguration.EPISODE_TEMPALTE_STARDATE_YEAR_ENRICHING_PROCESSOR)
+					ImageTemplateStardateYearEnrichingProcessor imageTemplateStardateYearEnrichingProcessor,
+			ProductionSerialNumberProcessor productionSerialNumberProcessor) {
 		this.dayMonthYearProcessor = dayMonthYearProcessor;
-		this.episodeTemplateStardateYearEnrichingProcessor = episodeTemplateStardateYearEnrichingProcessor;
+		this.imageTemplateStardateYearEnrichingProcessor = imageTemplateStardateYearEnrichingProcessor;
+		this.productionSerialNumberProcessor = productionSerialNumberProcessor;
 	}
 
 	@Override
@@ -48,7 +55,7 @@ public class EpisodeTemplateProcessor implements ItemProcessor<Template, Episode
 		String month = null;
 		String year = null;
 
-		episodeTemplateStardateYearEnrichingProcessor.enrich(EnrichablePair.of(item, episodeTemplate));
+		imageTemplateStardateYearEnrichingProcessor.enrich(EnrichablePair.of(item, episodeTemplate));
 
 		for (Template.Part part : item.getParts()) {
 			String key = part.getKey();
@@ -62,7 +69,7 @@ public class EpisodeTemplateProcessor implements ItemProcessor<Template, Episode
 					episodeTemplate.setEpisodeNumber(extractEpisodeNumber(value));
 					break;
 				case S_PRODUCTION_SERIAL_NUMBER:
-					episodeTemplate.setProductionSerialNumber(extractProductionSerialNumber(value));
+					episodeTemplate.setProductionSerialNumber(productionSerialNumberProcessor.process(value));
 					break;
 				case B_FEATURE_LENGTH:
 					episodeTemplate.setFeatureLength("1".equals(value));
@@ -84,20 +91,6 @@ public class EpisodeTemplateProcessor implements ItemProcessor<Template, Episode
 		}
 
 		return episodeTemplate;
-	}
-
-	private String extractProductionSerialNumber(String value) {
-		if (value != null && value.length() < 20) {
-			return value;
-		} else {
-			try {
-				JSONObject jsonObject = new JSONObject(value);
-				return jsonObject.has("content") ? (String) jsonObject.get("content") : null;
-			} catch (JSONException e) {
-				log.error("Could not parse production serial number {} as JSON, and it is too long", value);
-				return null;
-			}
-		}
 	}
 
 	private Integer extractEpisodeNumber(String episodeNumberCandidate) {

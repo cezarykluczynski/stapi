@@ -144,7 +144,7 @@ public class Staff extends RealWorldPerson implements PageAware {
 	@ManyToMany(mappedBy = "teleplayAuthors")
 	private Set<Episode> storyAuthoredEpisodes;
 
-	@ManyToMany(mappedBy = "directors")
+	@ManyToMany(mappedBy = "directors", targetEntity = Episode.class)
 	private Set<Episode> directedEpisodes;
 
 	@ManyToMany(mappedBy = "staff")

@@ -1,9 +1,7 @@
-package com.cezarykluczynski.stapi.etl.common.service
+package com.cezarykluczynski.stapi.etl.configuration.job.service
 
 import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepProperties
 import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepToStepPropertiesProvider
-import com.cezarykluczynski.stapi.etl.configuration.job.service.AllStepExecutionsProvider
-import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider
 import com.google.common.collect.Lists
 import com.google.common.collect.Maps
 import org.springframework.batch.core.BatchStatus

@@ -92,4 +92,6 @@ public class CategoryName {
 	public static final String Q_CONTINUUM = "Q_Continuum";
 	public static final String STARFLEET_PERSONNEL = "Starfleet_personnel";
 
+	public static final String STAR_TREK_FILMS = "Star Trek films";
+
 }

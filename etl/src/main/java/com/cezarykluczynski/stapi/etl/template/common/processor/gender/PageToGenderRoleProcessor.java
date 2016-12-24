@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.gender;
 
-import com.cezarykluczynski.stapi.etl.template.common.dto.Gender;
+import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
 import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTemplatePageProcessor;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryNames;

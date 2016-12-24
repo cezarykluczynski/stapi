@@ -7,5 +7,6 @@ public class StepName {
 	public static final String CREATE_STAFF = "CREATE_STAFF";
 	public static final String CREATE_CHARACTERS = "CREATE_CHARACTERS";
 	public static final String CREATE_EPISODES = "CREATE_EPISODES";
+	public static final String CREATE_MOVIES = "CREATE_MOVIES";
 
 }

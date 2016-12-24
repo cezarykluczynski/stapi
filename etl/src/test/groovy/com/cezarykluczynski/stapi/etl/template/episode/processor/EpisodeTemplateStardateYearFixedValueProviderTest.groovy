@@ -1,10 +1,13 @@
 package com.cezarykluczynski.stapi.etl.template.episode.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder
-import com.cezarykluczynski.stapi.etl.template.episode.dto.StardateYearDTO
+import com.cezarykluczynski.stapi.etl.template.common.dto.StardateYearDTO
 import spock.lang.Specification
 
 class EpisodeTemplateStardateYearFixedValueProviderTest extends Specification {
+
+	private static final String EXISTING_TITLE = 'Year of Hell'
+	private static final String NONEXISTING_TITLE = 'NONEXISTING_TITLE'
 
 	private EpisodeTemplateStardateYearFixedValueProvider episodeStardateYearFixedValueProvider
 
@@ -15,7 +18,7 @@ class EpisodeTemplateStardateYearFixedValueProviderTest extends Specification {
 	def "gets fixed value holder when episode is found"() {
 		when:
 		FixedValueHolder<StardateYearDTO> stardateYearFixedValueHolder = episodeStardateYearFixedValueProvider
-				.getSearchedValue('Year of Hell')
+				.getSearchedValue(EXISTING_TITLE)
 
 		then:
 		stardateYearFixedValueHolder.found
@@ -29,7 +32,7 @@ class EpisodeTemplateStardateYearFixedValueProviderTest extends Specification {
 	def "gets fixed value holder when episode is not found"() {
 		when:
 		FixedValueHolder<StardateYearDTO> stardateYearFixedValueHolder = episodeStardateYearFixedValueProvider
-				.getSearchedValue('Not a title')
+				.getSearchedValue(NONEXISTING_TITLE)
 
 		then:
 		!stardateYearFixedValueHolder.found

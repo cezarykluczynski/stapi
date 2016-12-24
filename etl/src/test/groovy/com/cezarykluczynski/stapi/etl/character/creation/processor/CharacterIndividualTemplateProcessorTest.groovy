@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.character.creation.processor
 
-import com.cezarykluczynski.stapi.etl.template.common.dto.Gender as EtlGender
+import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender as EtlGender
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType
