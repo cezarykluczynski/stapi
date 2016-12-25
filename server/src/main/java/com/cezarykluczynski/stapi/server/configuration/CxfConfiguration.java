@@ -38,7 +38,7 @@ public class CxfConfiguration extends SpringBootServletInitializer {
 	public Server cxfServer() {
 		JAXRSServerFactoryBean factory = new JAXRSServerFactoryBean();
 		factory.setBus(applicationContext.getBean(SpringBus.class));
-		factory.setProviders(Lists.newArrayList(new JacksonJsonProvider(getObjectMapper())));
+		factory.setProviders(Lists.newArrayList(new JacksonJsonProvider(getObjectMapper()), new CxfRestPrettyPrintContainerResponseFilter()));
 		factory.setServiceBeans(Lists.newArrayList(applicationContext.getBeansWithAnnotation(Path.class).values()));
 		return factory.create();
 	}

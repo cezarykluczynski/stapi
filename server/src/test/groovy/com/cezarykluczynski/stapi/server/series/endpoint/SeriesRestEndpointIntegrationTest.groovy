@@ -10,7 +10,8 @@ import com.google.common.collect.Lists
 import spock.lang.Requires
 
 @Requires({
-	StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_SERIES)
+	StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_SERIES) &&
+			StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_EPISODES)
 })
 class SeriesRestEndpointIntegrationTest extends AbstractSeriesEndpointIntegrationTest {
 

@@ -8,7 +8,8 @@ import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import spock.lang.Requires
 
 @Requires({
-	StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_SERIES)
+	StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_SERIES) &&
+			StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_EPISODES)
 })
 class SeriesSoapEndpointIntegrationTest extends AbstractSeriesEndpointIntegrationTest {
 

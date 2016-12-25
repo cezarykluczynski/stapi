@@ -65,7 +65,6 @@ class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointInte
 		then:
 		performerResponse.performers[0].name.startsWith("A. ")
 		performerResponse.performers[1].name.startsWith("A. ")
-		performerResponse.performers[2].name.startsWith("A. ")
 	}
 
 }
