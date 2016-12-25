@@ -57,7 +57,7 @@ public class IndividualActorLinkingProcessor implements
 				performerOptional.ifPresent(performerSet::add);
 
 				if (!performerOptional.isPresent()) {
-					log.warn("Could not find performer {} played by {} in local database",
+					log.warn("Could not find performer {} playing {} in local database",
 							pageLink.getTitle(), individualTemplate.getName());
 				}
 			} catch (Throwable e) {

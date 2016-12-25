@@ -4,10 +4,12 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.ImageTemplate;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.model.page.entity.Page;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDate;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class MovieTemplate extends ImageTemplate {
 
 	private Page page;

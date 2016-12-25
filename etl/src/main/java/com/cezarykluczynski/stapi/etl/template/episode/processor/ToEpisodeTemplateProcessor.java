@@ -76,15 +76,14 @@ public class ToEpisodeTemplateProcessor implements ItemProcessor<Page, EpisodeTe
 		}
 
 		Episode episodeStub = episodeTemplate.getEpisodeStub();
-		episodePerformancesLinkingWorker.link(item, episodeStub);
-		episodeStaffLinkingWorker.link(item, episodeStub);
-		episodeTemplateTitleLanguagesEnrichingProcessor.enrich(EnrichablePair.of(item, episodeTemplate));
-		episodeTemplateDatesEnrichingProcessor.enrich(EnrichablePair.of(item, episodeTemplate));
-
 		episodeTemplate.setTitle(TitleUtil.getNameFromTitle(item.getTitle()));
 		episodeTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 		episodeTemplate.setSeries(seriesToEpisodeBindingService.mapCategoriesToSeries(item.getCategories()));
 
+		episodePerformancesLinkingWorker.link(item, episodeStub);
+		episodeStaffLinkingWorker.link(item, episodeStub);
+		episodeTemplateTitleLanguagesEnrichingProcessor.enrich(EnrichablePair.of(item, episodeTemplate));
+		episodeTemplateDatesEnrichingProcessor.enrich(EnrichablePair.of(item, episodeTemplate));
 
 		return episodeTemplate;
 	}

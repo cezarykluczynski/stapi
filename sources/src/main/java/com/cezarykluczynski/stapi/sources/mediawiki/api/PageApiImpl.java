@@ -41,7 +41,14 @@ public class PageApiImpl implements PageApi {
 
 	private Page getPage(String title, int redirectCount, MediaWikiSource mediaWikiSource) {
 		String pageBody = blikiConnector.getPage(title, mediaWikiSource);
-		Page page = parsePageInfo(pageBody);
+
+		Page page;
+		if (pageBody == null) {
+			log.warn("Null returned instead of page {} body", title);
+			page = null;
+		} else {
+			page = parsePageInfo(pageBody);
+		}
 
 		if (page != null) {
 			supplementSectionsWikitext(page);

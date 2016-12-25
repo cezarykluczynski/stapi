@@ -12,6 +12,9 @@ class TitleUtilTest extends Specification {
 		TitleUtil.getNameFromTitle('Title (civilian)') == 'Title'
 		TitleUtil.getNameFromTitle(' Title (civilian)') == 'Title'
 		TitleUtil.getNameFromTitle(' Title (civilian) ') == 'Title'
+		TitleUtil.getNameFromTitle('Title （エピソード）') == 'Title'
+		TitleUtil.getNameFromTitle(' Title （エピソード）') == 'Title'
+		TitleUtil.getNameFromTitle(' Title （エピソード） ') == 'Title'
 	}
 
 }

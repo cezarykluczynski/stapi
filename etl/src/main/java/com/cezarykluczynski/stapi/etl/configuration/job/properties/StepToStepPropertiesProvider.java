@@ -17,10 +17,10 @@ public class StepToStepPropertiesProvider {
 	@Inject
 	public StepToStepPropertiesProvider(StepsProperties stepsProperties) {
 		this.stepsProperties = stepsProperties;
+		addAllToMap();
 	}
 
 	public synchronized Map<String, StepProperties> provide() {
-		addAllToMap();
 		return stepPropertiesMap;
 	}
 

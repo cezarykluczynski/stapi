@@ -1,6 +1,12 @@
 apply plugin: 'groovy'
 apply plugin: 'java'
 
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
 dependencies {
 	ext.springBootVersion = "1.4.1.RELEASE"
 	compile project(':model'), project(':util'), project(':sources')

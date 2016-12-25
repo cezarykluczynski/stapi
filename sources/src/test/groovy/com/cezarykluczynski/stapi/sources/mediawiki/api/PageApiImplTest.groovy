@@ -12,6 +12,7 @@ class PageApiImplTest extends Specification {
 	private static final String TITLE_2 = 'Brent Spiner'
 	private static final String TITLE_3 = 'Jonathan Frakes'
 	private static final String TITLE_4 = 'Shoud never be used'
+	private static final String TITLE_NOT_FOUND = ''
 	private static final String NOT_FOUND_TITLE = 'Harrison Ford'
 
 	private static final Long PAGE_ID_1 = 2501L
@@ -28,6 +29,7 @@ class PageApiImplTest extends Specification {
 			<error code="missingtitle" info="The page you specified doesn&#039;t exist" xml:space="preserve"></error>
 		</api>
 '''
+	private static final String INVALID_XML = '<'
 	private static final String XML_REDIRECT_1 = createRedirectXml(TITLE_1, PAGE_ID_1, TITLE_2)
 	private static final String XML_REDIRECT_2 = createRedirectXml(TITLE_2, PAGE_ID_2, TITLE_3)
 	private static final String XML_REDIRECT_3 = createRedirectXml(TITLE_3, PAGE_ID_3, TITLE_4)
@@ -144,11 +146,21 @@ class PageApiImplTest extends Specification {
 		page.mediaWikiSource == MEDIA_WIKI_SOURCE
 	}
 
-	def "converts exceptions to runtime exceptions"() {
+	def "returns null when page is not found"() {
 		when: "not found page is called"
-		pageApiImpl.getPage("", MEDIA_WIKI_SOURCE)
+		Page page = pageApiImpl.getPage(TITLE_NOT_FOUND, MEDIA_WIKI_SOURCE)
 
 		then:
+		1 * blikiConnectorMock.getPage(TITLE_NOT_FOUND, MEDIA_WIKI_SOURCE) >> null
+		page == null
+	}
+
+	def "converts exception thrown during parsing to RuntimeException"() {
+		when: "not found page is called"
+		Page page = pageApiImpl.getPage(TITLE_NOT_FOUND, MEDIA_WIKI_SOURCE)
+
+		then:
+		1 * blikiConnectorMock.getPage(TITLE_NOT_FOUND, MEDIA_WIKI_SOURCE) >> INVALID_XML
 		thrown(RuntimeException)
 	}
 

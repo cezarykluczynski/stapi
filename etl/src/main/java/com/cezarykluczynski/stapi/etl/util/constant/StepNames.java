@@ -1,17 +1,17 @@
 package com.cezarykluczynski.stapi.etl.util.constant;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class StepNames {
 
-	public static final Map<String, Set<String>> JOB_STEPS = Maps.newHashMap();
+	public static final Map<String, List<String>> JOB_STEPS = Maps.newHashMap();
 
 	static {
-		JOB_STEPS.put(JobName.JOB_CREATE, Sets.newHashSet(
+		JOB_STEPS.put(JobName.JOB_CREATE, Lists.newArrayList(
 				StepName.CREATE_SERIES,
 				StepName.CREATE_PERFORMERS,
 				StepName.CREATE_STAFF,
