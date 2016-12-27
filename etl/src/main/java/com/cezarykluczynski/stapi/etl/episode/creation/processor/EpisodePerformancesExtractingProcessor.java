@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.common.service;
+package com.cezarykluczynski.stapi.etl.episode.creation.processor;
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformanceDTO;
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.enums.PerformanceType;
@@ -10,6 +10,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-public class EpisodePerformancesExtractor {
+public class EpisodePerformancesExtractingProcessor implements ItemProcessor<Page, List<EpisodePerformanceDTO>> {
 
 	private static final String LINKS_AND_REFERENCES = "Links and references";
 	private static final String STARRING = "Starring";
@@ -92,11 +93,12 @@ public class EpisodePerformancesExtractor {
 	private WikitextApi wikitextApi;
 
 	@Inject
-	public EpisodePerformancesExtractor(WikitextApi wikitextApi) {
+	public EpisodePerformancesExtractingProcessor(WikitextApi wikitextApi) {
 		this.wikitextApi = wikitextApi;
 	}
 
-	public List<EpisodePerformanceDTO> getEpisodePerformances(Page page) {
+	@Override
+	public List<EpisodePerformanceDTO> process(Page page) {
 		List<EpisodePerformanceDTO> episodePerformances = Lists.newArrayList();
 		List<PageSection> pageSectionList =  page.getSections();
 

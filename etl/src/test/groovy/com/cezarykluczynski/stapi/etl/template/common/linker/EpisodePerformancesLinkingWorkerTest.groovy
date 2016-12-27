@@ -2,8 +2,8 @@ package com.cezarykluczynski.stapi.etl.template.common.linker
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformanceDTO
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformancesEntitiesDTO
-import com.cezarykluczynski.stapi.etl.template.common.service.EpisodePerformancesExtractor
-import com.cezarykluczynski.stapi.etl.template.common.service.EpisodePerformancesToEntityMapper
+import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodePerformancesExtractingProcessor
+import com.cezarykluczynski.stapi.etl.episode.creation.service.EpisodePerformancesToEntityMapper
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.character.repository.CharacterRepository
@@ -21,7 +21,7 @@ class EpisodePerformancesLinkingWorkerTest extends Specification {
 
 	private PerformerRepository performerRepositoryMock
 
-	private EpisodePerformancesExtractor episodePerformancesExtractorMock
+	private EpisodePerformancesExtractingProcessor episodePerformancesExtractorMock
 
 	private EpisodePerformancesToEntityMapper episodePerformancesToEntityMapperMock
 
@@ -30,7 +30,7 @@ class EpisodePerformancesLinkingWorkerTest extends Specification {
 	def setup() {
 		characterRepositoryMock = Mock(CharacterRepository)
 		performerRepositoryMock = Mock(PerformerRepository)
-		episodePerformancesExtractorMock = Mock(EpisodePerformancesExtractor)
+		episodePerformancesExtractorMock = Mock(EpisodePerformancesExtractingProcessor)
 		episodePerformancesToEntityMapperMock = Mock(EpisodePerformancesToEntityMapper)
 		episodePerformancesLinkingProcessor = new EpisodePerformancesLinkingWorker(characterRepositoryMock,
 				performerRepositoryMock, episodePerformancesExtractorMock, episodePerformancesToEntityMapperMock)
@@ -53,7 +53,7 @@ class EpisodePerformancesLinkingWorkerTest extends Specification {
 		episodePerformancesLinkingProcessor.link(page, episode)
 
 		then:
-		1 * episodePerformancesExtractorMock.getEpisodePerformances(page) >> episodePerformanceDTOList
+		1 * episodePerformancesExtractorMock.process(page) >> episodePerformanceDTOList
 		1 * episodePerformancesToEntityMapperMock.mapToEntities(episodePerformanceDTOList, episode) >> episodePerformancesEntitiesDTO
 		1 * episodePerformancesEntitiesDTO.getCharacterSet() >> charactersSet
 		1 * characterRepositoryMock.save(charactersSet)

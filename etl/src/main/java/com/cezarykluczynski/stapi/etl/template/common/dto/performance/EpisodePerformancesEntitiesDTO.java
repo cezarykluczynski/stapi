@@ -1,7 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.common.dto.performance;
 
 import com.cezarykluczynski.stapi.model.character.entity.Character;
-import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.google.common.collect.Sets;
 import lombok.Data;
@@ -10,8 +9,6 @@ import java.util.Set;
 
 @Data
 public class EpisodePerformancesEntitiesDTO {
-
-	private Episode episode;
 
 	private Set<Performer> performerSet = Sets.newHashSet();
 

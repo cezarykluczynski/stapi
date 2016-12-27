@@ -121,13 +121,11 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 				pageId: PAGE_ID,
 				title: PAGE_TITLE,
 				categories: categoryHeaderList,
-				templates: Lists.newArrayList(SIDEBAR_EPISODE_TEMPLATE)
-		)
+				templates: Lists.newArrayList(SIDEBAR_EPISODE_TEMPLATE))
 		PageEntity pageEntity = Mock(PageEntity)
 		Episode episodeStub = Mock(Episode)
 		EpisodeTemplate episodeTemplate = new EpisodeTemplate(
-				episodeStub: episodeStub
-		)
+				episodeStub: episodeStub)
 
 		when:
 		EpisodeTemplate episodeTemplateOutput = toEpisodeTemplateProcessor.process(page)

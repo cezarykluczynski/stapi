@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.common.service
+package com.cezarykluczynski.stapi.etl.episode.creation.processor
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformanceDTO
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.enums.PerformanceType
@@ -8,7 +8,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
-class EpisodePerformancesExtractorTest extends Specification {
+class EpisodePerformancesExtractingProcessorTest extends Specification {
 
 	private static final String UNKNOWN_PAGE_SECTION = 'Unknown page section'
 
@@ -30,10 +30,10 @@ class EpisodePerformancesExtractorTest extends Specification {
 			new PageSection(level: 3, text: 'External links', anchor: 'External_links', number: '4.11', byteOffset: 73970, wikitext: '* {{mbeta-quote|All Good Things...}}\n* {{wikipedia-quote|All Good Things... (Star Trek: The Next Generation)|All Good Things...}}\n* {{startrek.com|all-good-things-part-i|All Good Things..., Part I}}\n* {{startrek.com|all-good-things-part-ii|All Good Things..., Part II}}\n\n{{Q episodes}}\n{{featured|date=August 2004|id=23544}}\n{{TNG nav|season=7|last={{e|Preemptive Strike}}|next={{final|episode}}}}\n\n[[de:Gestern, Heute, Morgen, Teil I]]\n[[es:All Good Things...]]\n[[fr:All Good Things...]]\n[[ja:永遠への旅（エピソード）]]\n[[nl:All Good Things...]]\n[[sv:All Good Things...]]\n[[Category:TNG episodes]])')
 	)
 
-	private EpisodePerformancesExtractor episodePerformancesExtractor
+	private EpisodePerformancesExtractingProcessor episodePerformancesExtractor
 
 	def setup() {
-		episodePerformancesExtractor = new EpisodePerformancesExtractor(new WikitextApiImpl())
+		episodePerformancesExtractor = new EpisodePerformancesExtractingProcessor(new WikitextApiImpl())
 	}
 
 	def "logs error and returns when page section list does not contain 'Links and references'"() {
@@ -41,7 +41,7 @@ class EpisodePerformancesExtractorTest extends Specification {
 		Page page = Mock(Page)
 
 		when:
-		List<EpisodePerformanceDTO> episodePerformances = episodePerformancesExtractor.getEpisodePerformances(page)
+		List<EpisodePerformanceDTO> episodePerformances = episodePerformancesExtractor.process(page)
 
 		then:
 		1 * page.getSections() >> Lists.newArrayList()
@@ -58,7 +58,7 @@ class EpisodePerformancesExtractorTest extends Specification {
 		PageSection unkownPageSection = Mock(PageSection)
 
 		when:
-		episodePerformancesExtractor.getEpisodePerformances(page)
+		episodePerformancesExtractor.process(page)
 
 		then:
 		page.getSections() >> Lists.newArrayList(
@@ -66,9 +66,9 @@ class EpisodePerformancesExtractorTest extends Specification {
 				starringPageSection,
 				unkownPageSection
 		)
-		3 * linksAndReferencesPageSection.getText() >> EpisodePerformancesExtractor.LINKS_AND_REFERENCES
+		3 * linksAndReferencesPageSection.getText() >> EpisodePerformancesExtractingProcessor.LINKS_AND_REFERENCES
 		2 * linksAndReferencesPageSection.getNumber() >> '4'
-		2 * starringPageSection.getText() >> EpisodePerformancesExtractor.STARRING
+		2 * starringPageSection.getText() >> EpisodePerformancesExtractingProcessor.STARRING
 		1 * unkownPageSection.getNumber() >> '4.1'
 		2 * unkownPageSection.getText() >> UNKNOWN_PAGE_SECTION
 	}
@@ -80,7 +80,7 @@ class EpisodePerformancesExtractorTest extends Specification {
 		)
 
 		when:
-		List<EpisodePerformanceDTO> episodePerformances = episodePerformancesExtractor.getEpisodePerformances(page)
+		List<EpisodePerformanceDTO> episodePerformances = episodePerformancesExtractor.process(page)
 
 		then:
 		episodePerformances.size() == 27

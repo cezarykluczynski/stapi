@@ -2,8 +2,10 @@ package com.cezarykluczynski.stapi.etl.template.movie.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
+import com.cezarykluczynski.stapi.etl.template.common.linker.MovieRealPeopleLinkingWorker
 import com.cezarykluczynski.stapi.etl.template.movie.dto.MovieTemplate
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
+import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.model.page.entity.Page as PageEntity
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
@@ -24,17 +26,21 @@ class ToMovieTemplateProcessorTest extends Specification {
 
 	private PageBindingService pageBindingServiceMock
 
-	private ToMovieTemplateProcessor toMovieTemplateProcessor
-
 	private MovieTemplateTitleLanguagesEnrichingProcessor movieTemplateTitleLanguagesEnrichingProcessorMock
+
+	private MovieRealPeopleLinkingWorker moviePerformancesLinkingWorkerMock
+
+	private ToMovieTemplateProcessor toMovieTemplateProcessor
 
 	def setup() {
 		movieTemplateProcessorMock = Mock(MovieTemplateProcessor)
 		templateFinderMock = Mock(TemplateFinder)
 		pageBindingServiceMock = Mock(PageBindingService)
 		movieTemplateTitleLanguagesEnrichingProcessorMock = Mock(MovieTemplateTitleLanguagesEnrichingProcessor)
+		moviePerformancesLinkingWorkerMock = Mock(MovieRealPeopleLinkingWorker)
 		toMovieTemplateProcessor = new ToMovieTemplateProcessor(movieTemplateProcessorMock, templateFinderMock,
-				pageBindingServiceMock, movieTemplateTitleLanguagesEnrichingProcessorMock)
+				pageBindingServiceMock, movieTemplateTitleLanguagesEnrichingProcessorMock,
+				moviePerformancesLinkingWorkerMock)
 	}
 
 	def "does not interact with dependencies other than TemplateFinder when template was not found"() {
@@ -80,7 +86,8 @@ class ToMovieTemplateProcessorTest extends Specification {
 		Page page = new Page(
 				templates: Lists.newArrayList(SIDEBAR_FILM_TEMPLATE)
 		)
-		MovieTemplate movieTemplate = new MovieTemplate()
+		Movie movieStub = new Movie()
+		MovieTemplate movieTemplate = new MovieTemplate(movieStub: movieStub)
 		PageEntity pageEntity = new PageEntity()
 
 		when:
@@ -94,6 +101,7 @@ class ToMovieTemplateProcessorTest extends Specification {
 			assert enrichablePair.input == page
 			assert enrichablePair.output == movieTemplate
 		}
+		1 * moviePerformancesLinkingWorkerMock.link(page, movieStub)
 		movieTemplateOutput == movieTemplate
 		movieTemplateOutput.page == pageEntity
 

@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.common.service;
+package com.cezarykluczynski.stapi.etl.episode.creation.service;
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformanceDTO;
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformancesEntitiesDTO;
@@ -56,7 +56,7 @@ public class EpisodePerformancesToEntityMapper {
 	}
 
 	public EpisodePerformancesEntitiesDTO mapToEntities(List<EpisodePerformanceDTO> episodePerformanceDTOList, Episode episode) {
-		EpisodePerformancesEntitiesDTO episodePerformancesEntitiesDTO = new EpisodePerformancesEntitiesDTO();
+		EpisodePerformancesEntitiesDTO imageEpisodePerformancesEntitiesDTO = new EpisodePerformancesEntitiesDTO();
 		List<EpisodePerformanceEntitiesPair> episodePerformanceEntitiesPairList =
 				getEpisodePerformanceEntitiesPairList(episodePerformanceDTOList);
 		List<EpisodePerformanceForEntity> episodeStuntPerformanceEntityList =
@@ -64,11 +64,11 @@ public class EpisodePerformancesToEntityMapper {
 		List<EpisodePerformanceForEntity> episodeStandInPerformanceEntityList =
 				getEpisodePerformanceForEntitiesPairList(episodePerformanceDTOList, PerformanceType.STAND_IN);
 
-		addPerformances(episodePerformanceEntitiesPairList, episodePerformancesEntitiesDTO, episode);
+		addPerformances(episodePerformanceEntitiesPairList, imageEpisodePerformancesEntitiesDTO, episode);
 		addStuntPerformances(episodeStuntPerformanceEntityList, episode);
 		addStandInPerformances(episodeStandInPerformanceEntityList, episode);
 
-		return episodePerformancesEntitiesDTO;
+		return imageEpisodePerformancesEntitiesDTO;
 	}
 
 	private List<EpisodePerformanceEntitiesPair> getEpisodePerformanceEntitiesPairList(List<EpisodePerformanceDTO> episodePerformanceDTOList) {
@@ -100,7 +100,7 @@ public class EpisodePerformancesToEntityMapper {
 	}
 
 	private void addPerformances(List<EpisodePerformanceEntitiesPair> episodePerformanceEntitiesPairList,
-			EpisodePerformancesEntitiesDTO episodePerformancesEntitiesDTO, Episode episode) {
+			EpisodePerformancesEntitiesDTO imageEpisodePerformancesEntitiesDTO, Episode episode) {
 		episodePerformanceEntitiesPairList.forEach(pair -> {
 			Character character = pair.getCharacter();
 			Performer performer = pair.getPerformer();
@@ -111,24 +111,26 @@ public class EpisodePerformancesToEntityMapper {
 			}
 
 			if (character != null) {
-				episodePerformancesEntitiesDTO.getCharacterSet().add(character);
+				imageEpisodePerformancesEntitiesDTO.getCharacterSet().add(character);
 				episode.getCharacters().add(character);
 			}
 
 			if (performer != null) {
-				episodePerformancesEntitiesDTO.getPerformerSet().add(performer);
+				imageEpisodePerformancesEntitiesDTO.getPerformerSet().add(performer);
 			}
 		});
 	}
 
-	private void addStuntPerformances(List<EpisodePerformanceForEntity> episodeStuntPerformanceEntityList, Episode episode) {
+	private void addStuntPerformances(List<EpisodePerformanceForEntity> episodeStuntPerformanceEntityList,
+			Episode episode) {
 		episode.getStuntPerformers().addAll(
 				episodeStuntPerformanceEntityList
 				.stream()
 				.map(EpisodePerformanceForEntity::getPerformer).collect(Collectors.toSet()));
 	}
 
-	private void addStandInPerformances(List<EpisodePerformanceForEntity> episodeStandInPerformanceEntityList, Episode episode) {
+	private void addStandInPerformances(List<EpisodePerformanceForEntity> episodeStandInPerformanceEntityList,
+			Episode episode) {
 		episode.getStandInPerformers().addAll(episodeStandInPerformanceEntityList
 				.stream()
 				.map(EpisodePerformanceForEntity::getPerformer).collect(Collectors.toSet()));

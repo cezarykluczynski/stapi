@@ -67,7 +67,6 @@ public class MovieTemplateProcessor implements ItemProcessor<Template, MovieTemp
 
 		}
 
-
 		return movieTemplate;
 	}
 }

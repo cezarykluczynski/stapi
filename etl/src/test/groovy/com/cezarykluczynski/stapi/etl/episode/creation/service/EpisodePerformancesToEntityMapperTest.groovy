@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.common.service
+package com.cezarykluczynski.stapi.etl.episode.creation.service
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformanceDTO
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformancesEntitiesDTO

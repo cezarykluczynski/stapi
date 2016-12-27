@@ -20,7 +20,7 @@ public class ToMovieEntityProcessor implements ItemProcessor<MovieTemplate, Movi
 
 	@Override
 	public Movie process(MovieTemplate item) throws Exception {
-		Movie movie = new Movie();
+		Movie movie = item.getMovieStub();
 
 		movie.setPage(item.getPage());
 		movie.setTitle(item.getTitle());

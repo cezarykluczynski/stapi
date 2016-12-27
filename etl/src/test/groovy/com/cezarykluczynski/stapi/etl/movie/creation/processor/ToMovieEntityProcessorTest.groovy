@@ -41,8 +41,10 @@ class ToMovieEntityProcessorTest extends Specification {
 
 	def "converts EpisodeTemplate to Episode"() {
 		given:
+		Movie movie = new Movie()
 		MovieTemplate movieTemplate = new MovieTemplate(
 				page: PAGE,
+				movieStub: movie,
 				title: TITLE,
 				titleBulgarian: TITLE_BULGARIAN,
 				titleCatalan: TITLE_CATALAN,
@@ -61,28 +63,29 @@ class ToMovieEntityProcessorTest extends Specification {
 				usReleaseDate: US_RELEASE_DATE)
 
 		when:
-		Movie movie = toMovieEntityProcessor.process(movieTemplate)
+		Movie movieOutput = toMovieEntityProcessor.process(movieTemplate)
 
 		then:
 		1 * guidGeneratorMock.generateFromPage(PAGE, Movie) >> GUID
-		movie.guid == GUID
-		movie.page == PAGE
-		movie.title == TITLE
-		movie.titleBulgarian == TITLE_BULGARIAN
-		movie.titleCatalan == TITLE_CATALAN
-		movie.titleChineseTraditional == TITLE_CHINESE_TRADITIONAL
-		movie.titleGerman == TITLE_GERMAN
-		movie.titleItalian == TITLE_ITALIAN
-		movie.titleJapanese == TITLE_JAPANESE
-		movie.titlePolish == TITLE_POLISH
-		movie.titleRussian == TITLE_RUSSIAN
-		movie.titleSerbian == TITLE_SERBIAN
-		movie.titleSpanish == TITLE_SPANISH
-		movie.stardateFrom == STARDATE_FROM
-		movie.stardateTo == STARDATE_TO
-		movie.yearFrom == YEAR_FROM
-		movie.yearTo == YEAR_TO
-		movie.usReleaseDate == US_RELEASE_DATE
+		movieOutput == movie
+		movieOutput.guid == GUID
+		movieOutput.page == PAGE
+		movieOutput.title == TITLE
+		movieOutput.titleBulgarian == TITLE_BULGARIAN
+		movieOutput.titleCatalan == TITLE_CATALAN
+		movieOutput.titleChineseTraditional == TITLE_CHINESE_TRADITIONAL
+		movieOutput.titleGerman == TITLE_GERMAN
+		movieOutput.titleItalian == TITLE_ITALIAN
+		movieOutput.titleJapanese == TITLE_JAPANESE
+		movieOutput.titlePolish == TITLE_POLISH
+		movieOutput.titleRussian == TITLE_RUSSIAN
+		movieOutput.titleSerbian == TITLE_SERBIAN
+		movieOutput.titleSpanish == TITLE_SPANISH
+		movieOutput.stardateFrom == STARDATE_FROM
+		movieOutput.stardateTo == STARDATE_TO
+		movieOutput.yearFrom == YEAR_FROM
+		movieOutput.yearTo == YEAR_TO
+		movieOutput.usReleaseDate == US_RELEASE_DATE
 	}
 
 }

@@ -7,6 +7,8 @@ import spock.lang.Specification
 
 class PageSectionExtractorTest extends Specification {
 
+	private static final String TEXT = 'TEXT'
+
 	private PageSectionExtractor pageSectionExtractor
 
 	def setup() {
@@ -34,21 +36,66 @@ class PageSectionExtractorTest extends Specification {
 		)
 
 		when:
-		PageSection pagesection = pageSectionExtractor.extractLastPageSection(page)
+		PageSection pageSection = pageSectionExtractor.extractLastPageSection(page)
 
 		then:
-		pagesection == lastPageSection
+		pageSection == lastPageSection
 	}
 
-	def "returns null when page section list is empty"() {
+	def "returns null when getting last page section, but page section list is empty"() {
 		given:
 		Page page = new Page()
 
 		when:
-		PageSection pagesection = pageSectionExtractor.extractLastPageSection(page)
+		PageSection pageSection = pageSectionExtractor.extractLastPageSection(page)
 
 		then:
-		pagesection == null
+		pageSection == null
+	}
+
+	def "gets section by title"() {
+		given:
+		PageSection pageSectionToFind = new PageSection(
+				text: TEXT
+		)
+		Page page = new Page(
+				sections: Lists.newArrayList(
+						new PageSection(),
+						pageSectionToFind,
+						new PageSection(),
+				)
+		)
+
+		when:
+		List<PageSection> pageSectionList = pageSectionExtractor.findByTitles(page, TEXT)
+
+		then:
+		pageSectionList[0] == pageSectionToFind
+	}
+
+	def "returns null when section cannot be found by title"() {
+		given:
+		Page page = new Page(sections: Lists.newArrayList())
+
+		when:
+		List<PageSection> pageSectionList = pageSectionExtractor.findByTitles(page, TEXT)
+
+		then:
+		pageSectionList[0] == null
+	}
+
+	def "requires parameters not to be null when section is searched for by tile"() {
+		when:
+		pageSectionExtractor.findByTitles(new Page(), null)
+
+		then:
+		thrown(NullPointerException)
+
+		when:
+		pageSectionExtractor.findByTitles(null, TEXT)
+
+		then:
+		thrown(NullPointerException)
 	}
 
 }

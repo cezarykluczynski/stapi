@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.movie.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
+import com.cezarykluczynski.stapi.etl.template.common.linker.MovieRealPeopleLinkingWorker;
 import com.cezarykluczynski.stapi.etl.template.movie.dto.MovieTemplate;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
@@ -31,14 +32,18 @@ public class ToMovieTemplateProcessor implements ItemProcessor<Page, MovieTempla
 
 	private MovieTemplateTitleLanguagesEnrichingProcessor movieTemplateTitleLanguagesEnrichingProcessor;
 
+	private MovieRealPeopleLinkingWorker movieRealPeopleLinkingWorker;
+
 	@Inject
 	public ToMovieTemplateProcessor(MovieTemplateProcessor movieTemplateProcessor, TemplateFinder templateFinder,
 			PageBindingService pageBindingService,
-			MovieTemplateTitleLanguagesEnrichingProcessor movieTemplateTitleLanguagesEnrichingProcessor) {
+			MovieTemplateTitleLanguagesEnrichingProcessor movieTemplateTitleLanguagesEnrichingProcessor,
+			MovieRealPeopleLinkingWorker movieRealPeopleLinkingWorker) {
 		this.movieTemplateProcessor = movieTemplateProcessor;
 		this.templateFinder = templateFinder;
 		this.pageBindingService = pageBindingService;
 		this.movieTemplateTitleLanguagesEnrichingProcessor = movieTemplateTitleLanguagesEnrichingProcessor;
+		this.movieRealPeopleLinkingWorker = movieRealPeopleLinkingWorker;
 	}
 
 	@Override
@@ -54,6 +59,7 @@ public class ToMovieTemplateProcessor implements ItemProcessor<Page, MovieTempla
 		movieTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 
 		movieTemplateTitleLanguagesEnrichingProcessor.enrich(EnrichablePair.of(item, movieTemplate));
+		movieRealPeopleLinkingWorker.link(item, movieTemplate.getMovieStub());
 
 		return movieTemplate;
 	}

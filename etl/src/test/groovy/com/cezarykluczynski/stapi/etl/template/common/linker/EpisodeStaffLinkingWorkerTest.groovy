@@ -1,6 +1,5 @@
-package com.cezarykluczynski.stapi.etl.common.processor
+package com.cezarykluczynski.stapi.etl.template.common.linker
 
-import com.cezarykluczynski.stapi.etl.template.common.linker.EpisodeStaffLinkingWorker
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
