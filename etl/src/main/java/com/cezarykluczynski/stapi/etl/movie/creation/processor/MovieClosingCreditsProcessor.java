@@ -25,7 +25,7 @@ public class MovieClosingCreditsProcessor implements ItemProcessor<Page, List<Pa
 	);
 
 	private static final List<String> SECTIONS_WITHOUT_DEFINITION_MARKUP = Lists.newArrayList(
-			"Rigging Grips", "Casting Assistants"
+			"Rigging Grips:", "Casting Assistants:"
 	);
 
 	private static final Pattern INTERWIKI = Pattern.compile("\\[\\[[a-z\\-]{2,5}:.*");

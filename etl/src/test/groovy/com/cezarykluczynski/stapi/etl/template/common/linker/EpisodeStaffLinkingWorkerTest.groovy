@@ -1,12 +1,12 @@
 package com.cezarykluczynski.stapi.etl.template.common.linker
 
+import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
-import com.cezarykluczynski.stapi.model.staff.repository.StaffRepository
-import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
+import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.constant.TemplateName
@@ -23,14 +23,10 @@ class EpisodeStaffLinkingWorkerTest extends Specification {
 	private static final String TELEPLAY_AUTHOR_NAME = 'TELEPLAY_AUTHOR_NAME'
 	private static final String STORY_AUTHOR_NAME = 'STORY_AUTHOR_NAME'
 	private static final String DIRECTOR_NAME = 'DIRECTOR_NAME'
-	private static final Long STORY_AUTHOR_PAGE_ID = 1L
-	private static final Long DIRECTOR_PAGE_ID = 2L
 
 	private WikitextApi wikitextApiMock
 
-	private PageApi pageApiMock
-
-	private StaffRepository staffRepositoryMock
+	private EntityLookupByNameService entityLookupByNameServiceMock
 
 	private TemplateFinder templateFinderMock
 
@@ -38,10 +34,9 @@ class EpisodeStaffLinkingWorkerTest extends Specification {
 
 	def setup() {
 		wikitextApiMock = Mock(WikitextApi)
-		pageApiMock = Mock(PageApi)
-		staffRepositoryMock = Mock(StaffRepository)
+		entityLookupByNameServiceMock = Mock(EntityLookupByNameService)
 		templateFinderMock = Mock(TemplateFinder)
-		episodeStaffLinkingWorker = new EpisodeStaffLinkingWorker(wikitextApiMock, pageApiMock, staffRepositoryMock,
+		episodeStaffLinkingWorker = new EpisodeStaffLinkingWorker(wikitextApiMock, entityLookupByNameServiceMock,
 				templateFinderMock)
 	}
 
@@ -99,25 +94,21 @@ class EpisodeStaffLinkingWorkerTest extends Specification {
 		then:
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_EPISODE) >> Optional.of(sidebarEpisodeTemplate)
 
-		then: 'gets writer from repository'
+		then: 'gets writer from service'
 		1 * wikitextApiMock.getPageLinksFromWikitext(WS_WRITTEN_BY_VALUE) >> Lists.newArrayList(new PageLink(title: WRITER_NAME))
-		1 * staffRepositoryMock.findByName(WRITER_NAME) >> Optional.of(writer)
+		1 * entityLookupByNameServiceMock.findStaffByName(WRITER_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(writer)
 
-		then: 'gets teleplay author from repository'
+		then: 'gets teleplay author from service'
 		1 * wikitextApiMock.getPageLinksFromWikitext(WS_TELEPLAY_BY_VALUE) >> Lists.newArrayList(new PageLink(title: TELEPLAY_AUTHOR_NAME))
-		1 * staffRepositoryMock.findByName(TELEPLAY_AUTHOR_NAME) >> Optional.of(teleplayAuthor)
+		1 * entityLookupByNameServiceMock.findStaffByName(TELEPLAY_AUTHOR_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(teleplayAuthor)
 
-		then: 'gets story author from MediaWiki API, when from repository, by page ID'
+		then: 'gets story author from service'
 		1 * wikitextApiMock.getPageLinksFromWikitext(WS_STORY_BY_VALUE) >> Lists.newArrayList(new PageLink(title: STORY_AUTHOR_NAME))
-		1 * staffRepositoryMock.findByName(STORY_AUTHOR_NAME) >> Optional.empty()
-		1 * pageApiMock.getPage(STORY_AUTHOR_NAME, EpisodeStaffLinkingWorker.SOURCE) >> new Page(pageId: STORY_AUTHOR_PAGE_ID)
-		1 * staffRepositoryMock.findByPagePageId(STORY_AUTHOR_PAGE_ID) >> Optional.of(storyAuthor)
+		1 * entityLookupByNameServiceMock.findStaffByName(STORY_AUTHOR_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(storyAuthor)
 
-		then: 'gets director from MediaWiki API, when from repository, by page ID'
+		then: 'gets director from service'
 		1 * wikitextApiMock.getPageLinksFromWikitext(WS_DIRECTED_BY_VALUE) >> Lists.newArrayList(new PageLink(title: DIRECTOR_NAME))
-		1 * staffRepositoryMock.findByName(DIRECTOR_NAME) >> Optional.empty()
-		1 * pageApiMock.getPage(DIRECTOR_NAME, EpisodeStaffLinkingWorker.SOURCE) >> new Page(pageId: DIRECTOR_PAGE_ID)
-		1 * staffRepositoryMock.findByPagePageId(DIRECTOR_PAGE_ID) >> Optional.of(director)
+		1 * entityLookupByNameServiceMock.findStaffByName(DIRECTOR_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(director)
 
 		then: 'episode has staff set'
 		episode.writers.contains writer

@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.common.linker;
+package com.cezarykluczynski.stapi.etl.template.movie.linker;
 
 import com.cezarykluczynski.stapi.etl.common.processor.LinkingWorker;
 import com.cezarykluczynski.stapi.etl.movie.creation.dto.MovieLinkedTitlesDTO;
@@ -15,17 +15,21 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class MovieRealPeopleLinkingWorker implements LinkingWorker<Page, Movie> {
+public class MovieRealPeopleLinkingWorkerComposite implements LinkingWorker<Page, Movie> {
 
 	private MovieClosingCreditsProcessor movieClosingCreditsProcessor;
 
 	private MovieLinkedTitlesProcessor movieLinkedTitlesProcessor;
 
+	private MovieDirectorsLinkingWorker movieDirectorsLinkingWorker;
+
 	@Inject
-	public MovieRealPeopleLinkingWorker(MovieClosingCreditsProcessor movieClosingCreditsProcessor,
-			MovieLinkedTitlesProcessor movieLinkedTitlesProcessor) {
+	public MovieRealPeopleLinkingWorkerComposite(MovieClosingCreditsProcessor movieClosingCreditsProcessor,
+			MovieLinkedTitlesProcessor movieLinkedTitlesProcessor,
+			MovieDirectorsLinkingWorker movieDirectorsLinkingWorker) {
 		this.movieClosingCreditsProcessor = movieClosingCreditsProcessor;
 		this.movieLinkedTitlesProcessor = movieLinkedTitlesProcessor;
+		this.movieDirectorsLinkingWorker = movieDirectorsLinkingWorker;
 	}
 
 	@Override
@@ -38,7 +42,7 @@ public class MovieRealPeopleLinkingWorker implements LinkingWorker<Page, Movie> 
 			return;
 		}
 
-		// TODO
+		movieDirectorsLinkingWorker.link(movieLinkedTitlesDTO.getDirectors(), baseEntity);
 	}
 
 }

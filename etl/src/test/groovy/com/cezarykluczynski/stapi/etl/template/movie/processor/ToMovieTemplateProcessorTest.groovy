@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.movie.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
-import com.cezarykluczynski.stapi.etl.template.common.linker.MovieRealPeopleLinkingWorker
+import com.cezarykluczynski.stapi.etl.template.movie.linker.MovieRealPeopleLinkingWorkerComposite
 import com.cezarykluczynski.stapi.etl.template.movie.dto.MovieTemplate
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.model.movie.entity.Movie
@@ -16,9 +16,7 @@ import spock.lang.Specification
 
 class ToMovieTemplateProcessorTest extends Specification {
 
-	private final Template SIDEBAR_FILM_TEMPLATE = new Template(
-			title: TemplateName.SIDEBAR_FILM
-	)
+	private final Template SIDEBAR_FILM_TEMPLATE = new Template(title: TemplateName.SIDEBAR_FILM)
 
 	private MovieTemplateProcessor movieTemplateProcessorMock
 
@@ -28,7 +26,7 @@ class ToMovieTemplateProcessorTest extends Specification {
 
 	private MovieTemplateTitleLanguagesEnrichingProcessor movieTemplateTitleLanguagesEnrichingProcessorMock
 
-	private MovieRealPeopleLinkingWorker moviePerformancesLinkingWorkerMock
+	private MovieRealPeopleLinkingWorkerComposite moviePerformancesLinkingWorkerMock
 
 	private ToMovieTemplateProcessor toMovieTemplateProcessor
 
@@ -37,7 +35,7 @@ class ToMovieTemplateProcessorTest extends Specification {
 		templateFinderMock = Mock(TemplateFinder)
 		pageBindingServiceMock = Mock(PageBindingService)
 		movieTemplateTitleLanguagesEnrichingProcessorMock = Mock(MovieTemplateTitleLanguagesEnrichingProcessor)
-		moviePerformancesLinkingWorkerMock = Mock(MovieRealPeopleLinkingWorker)
+		moviePerformancesLinkingWorkerMock = Mock(MovieRealPeopleLinkingWorkerComposite)
 		toMovieTemplateProcessor = new ToMovieTemplateProcessor(movieTemplateProcessorMock, templateFinderMock,
 				pageBindingServiceMock, movieTemplateTitleLanguagesEnrichingProcessorMock,
 				moviePerformancesLinkingWorkerMock)

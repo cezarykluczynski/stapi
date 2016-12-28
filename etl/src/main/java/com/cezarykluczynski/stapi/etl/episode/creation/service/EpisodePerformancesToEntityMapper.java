@@ -1,21 +1,17 @@
 package com.cezarykluczynski.stapi.etl.episode.creation.service;
 
+import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService;
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformanceDTO;
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformancesEntitiesDTO;
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.enums.PerformanceType;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
-import com.cezarykluczynski.stapi.model.character.repository.CharacterRepository;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
-import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import javax.persistence.NonUniqueResultException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,18 +37,11 @@ public class EpisodePerformancesToEntityMapper {
 
 	}
 
-	private CharacterRepository characterRepository;
-
-	private PerformerRepository performerRepository;
-
-	private PageApi pageApi;
+	private EntityLookupByNameService entityLookupByNameService;
 
 	@Inject
-	public EpisodePerformancesToEntityMapper(CharacterRepository characterRepository,
-			PerformerRepository performerRepository, PageApi pageApi) {
-		this.characterRepository = characterRepository;
-		this.performerRepository = performerRepository;
-		this.pageApi = pageApi;
+	public EpisodePerformancesToEntityMapper(EntityLookupByNameService entityLookupByNameService) {
+		this.entityLookupByNameService = entityLookupByNameService;
 	}
 
 	public EpisodePerformancesEntitiesDTO mapToEntities(List<EpisodePerformanceDTO> episodePerformanceDTOList, Episode episode) {
@@ -137,45 +126,11 @@ public class EpisodePerformancesToEntityMapper {
 	}
 
 	private Optional<Performer> getPerformer(String performerName) {
-		Optional<Performer> performerOptional;
-
-		try {
-			performerOptional = performerRepository.findByName(performerName);
-		} catch (NonUniqueResultException e) {
-			performerOptional = Optional.empty();
-		}
-
-		if (performerOptional.isPresent()) {
-			return performerOptional;
-		} else {
-			Page page = pageApi.getPage(performerName, SOURCE);
-			if (page != null) {
-				return performerRepository.findByPagePageId(page.getPageId());
-			}
-		}
-
-		return Optional.empty();
+		return entityLookupByNameService.findPerformerByName(performerName, SOURCE);
 	}
 
 	private Optional<Character> getCharacter(String characterName) {
-		Optional<Character> characterOptional;
-
-		try {
-			characterOptional = characterRepository.findByName(characterName);
-		} catch (NonUniqueResultException e) {
-			characterOptional = Optional.empty();
-		}
-
-		if (characterOptional.isPresent()) {
-			return characterOptional;
-		} else {
-			Page page = pageApi.getPage(characterName, SOURCE);
-			if (page != null) {
-				return characterRepository.findByPagePageId(page.getPageId());
-			}
-		}
-
-		return Optional.empty();
+		return entityLookupByNameService.findCharacterByName(characterName, SOURCE);
 	}
 
 }

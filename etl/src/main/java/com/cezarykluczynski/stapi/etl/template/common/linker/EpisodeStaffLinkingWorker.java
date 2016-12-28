@@ -1,11 +1,10 @@
 package com.cezarykluczynski.stapi.etl.template.common.linker;
 
 import com.cezarykluczynski.stapi.etl.common.processor.LinkingWorker;
+import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
-import com.cezarykluczynski.stapi.model.staff.repository.StaffRepository;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
@@ -15,7 +14,6 @@ import com.cezarykluczynski.stapi.util.constant.TemplateName;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import javax.persistence.NonUniqueResultException;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -31,18 +29,15 @@ public class EpisodeStaffLinkingWorker implements LinkingWorker<Page, Episode> {
 
 	private WikitextApi wikitextApi;
 
-	private PageApi pageApi;
-
-	private StaffRepository staffRepository;
+	private EntityLookupByNameService entityLookupByNameService;
 
 	private TemplateFinder templateFinder;
 
 	@Inject
-	public EpisodeStaffLinkingWorker(WikitextApi wikitextApi, PageApi pageApi, StaffRepository staffRepository,
+	public EpisodeStaffLinkingWorker(WikitextApi wikitextApi, EntityLookupByNameService entityLookupByNameService,
 			TemplateFinder templateFinder) {
 		this.wikitextApi = wikitextApi;
-		this.pageApi = pageApi;
-		this.staffRepository = staffRepository;
+		this.entityLookupByNameService = entityLookupByNameService;
 		this.templateFinder = templateFinder;
 	}
 
@@ -80,31 +75,14 @@ public class EpisodeStaffLinkingWorker implements LinkingWorker<Page, Episode> {
 	private Set<Staff> extractStaffFromWikitext(String value) {
 		return wikitextApi.getPageLinksFromWikitext(value).stream()
 				.map(PageLink::getTitle)
-				.map(this::getStaff)
+				.map(this::findStaffByName)
 				.filter(Optional::isPresent)
 				.map(Optional::get)
 				.collect(Collectors.toSet());
 	}
 
-	private Optional<Staff> getStaff(String staffName) {
-		Optional<Staff> staffOptional;
-
-		try {
-			staffOptional = staffRepository.findByName(staffName);
-		} catch (NonUniqueResultException e) {
-			staffOptional = Optional.empty();
-		}
-
-		if (staffOptional.isPresent()) {
-			return staffOptional;
-		} else {
-			Page page = pageApi.getPage(staffName, SOURCE);
-			if (page != null) {
-				return staffRepository.findByPagePageId(page.getPageId());
-			}
-		}
-
-		return Optional.empty();
+	private Optional<Staff> findStaffByName(String staffName) {
+		return entityLookupByNameService.findStaffByName(staffName, SOURCE);
 	}
 
 }

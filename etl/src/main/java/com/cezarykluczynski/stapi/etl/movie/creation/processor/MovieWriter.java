@@ -11,16 +11,16 @@ import java.util.List;
 @Service
 public class MovieWriter implements ItemWriter<Movie> {
 
-	private MovieRepository MovieRepository;
+	private MovieRepository movieRepository;
 
 	@Inject
 	public MovieWriter(MovieRepository MovieRepository) {
-		this.MovieRepository = MovieRepository;
+		this.movieRepository = MovieRepository;
 	}
 
 	@Override
 	public void write(List<? extends Movie> items) throws Exception {
-		MovieRepository.save(items);
+		movieRepository.save(items);
 	}
 
 }
