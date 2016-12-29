@@ -17,8 +17,10 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-@EqualsAndHashCode(callSuper = true)
+@ToString(exclude = {"screenplayAuthors", "storyAuthors", "directors", "producers", "staff", "performers",
+		"stuntPerformers", "standInPerformers", "characters"})
+@EqualsAndHashCode(callSuper = true, exclude = {"screenplayAuthors", "storyAuthors", "directors", "producers", "staff",
+		"performers", "stuntPerformers", "standInPerformers", "characters"})
 public class Movie extends PageAwareEntity implements PageAware {
 
 	@Id
@@ -26,7 +28,7 @@ public class Movie extends PageAwareEntity implements PageAware {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "movie_sequence_generator")
 	@SequenceGenerator(name = "movie_sequence_generator", sequenceName ="movie_sequence", allocationSize = 1)
 	private Long id;
-	
+
 	private String title;
 
 	private String titleBulgarian;

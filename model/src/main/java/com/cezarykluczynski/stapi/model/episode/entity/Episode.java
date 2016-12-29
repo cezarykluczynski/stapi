@@ -20,9 +20,8 @@ import java.util.Set;
 @AllArgsConstructor
 @ToString(callSuper = true, exclude = {"writers", "teleplayAuthors", "storyAuthors", "directors", "staff", "performers",
 		"stuntPerformers", "standInPerformers"})
-@EqualsAndHashCode(callSuper = true,
-		exclude = {"series", "writers", "teleplayAuthors", "storyAuthors", "directors", "staff", "performers",
-				"stuntPerformers", "standInPerformers"})
+@EqualsAndHashCode(callSuper = true, exclude = {"series", "writers", "teleplayAuthors", "storyAuthors", "directors",
+		"staff", "performers", "stuntPerformers", "standInPerformers"})
 public class Episode extends PageAwareEntity implements PageAware {
 
 	@Id
