@@ -12,6 +12,9 @@ class MovieLinkedTitlesProcessorTest extends Specification {
 	private static final String IGNORABLE_SECTION_WIKITEXT = 'IGNORABLE_SECTION_WIKITEXT'
 	private static final String UNKNOWN_SECTION_TITLE = 'UNKNOWN_SECTION_TITLE'
 	private static final String UNKNOWN_SECTION_WIKITEXT = 'UNKNOWN_SECTION_WIKITEXT'
+	private static final String WRITERS_SECTION_TITLE = MovieLinkedTitlesProcessor.WRITERS_SECTION_EXACT_TITLE_LIST[0]
+	private static final String WRITERS_WIKITEXT = 'WRITERS_WIKITEXT'
+	private static final String WRITERS_LINK = 'WRITERS_LINK'
 	private static final String SCREENPLAY_AUTHORS_SECTION_TITLE = MovieLinkedTitlesProcessor.SCREENPLAY_AUTHORS_SECTION_EXACT_TITLE_LIST[0]
 	private static final String SCREENPLAY_AUTHORS_WIKITEXT = 'SCREENPLAY_AUTHORS_WIKITEXT'
 	private static final String SCREENPLAY_AUTHORS_LINK = 'SCREENPLAY_AUTHORS_LINK'
@@ -66,6 +69,7 @@ class MovieLinkedTitlesProcessorTest extends Specification {
 
 	def "get titles in sections by exact titles"() {
 		given:
+		PageSection writersPageSection = createPageSection(WRITERS_SECTION_TITLE, WRITERS_WIKITEXT)
 		PageSection ignorablePageSection = createPageSection(IGNORABLE_SECTION_TITLE, IGNORABLE_SECTION_WIKITEXT)
 		PageSection unknownPageSection = createPageSection(UNKNOWN_SECTION_TITLE, UNKNOWN_SECTION_WIKITEXT)
 		PageSection screenplayAuthorsPageSection = createPageSection(SCREENPLAY_AUTHORS_SECTION_TITLE, SCREENPLAY_AUTHORS_WIKITEXT)
@@ -76,15 +80,20 @@ class MovieLinkedTitlesProcessorTest extends Specification {
 		PageSection performersPageSection = createPageSection(PERFORMERS_SECTION_TITLE, PERFORMERS_WIKITEXT)
 		PageSection stuntPerformersPageSection = createPageSection(STUNT_PERFORMERS_SECTION_TITLE, STUNT_PERFORMERS_WIKITEXT)
 		PageSection standInPerformersPageSection = createPageSection(STAND_IN_PERFORMERS_SECTION_TITLE, STAND_IN_PERFORMERS_WIKITEXT)
-		List<PageSection> pageSectionList = Lists.newArrayList(ignorablePageSection, screenplayAuthorsPageSection,
-				storyAuthorsPageSection, directorsPageSection, producersPageSection, staffPageSection,
-				performersPageSection, stuntPerformersPageSection, standInPerformersPageSection)
+		List<PageSection> pageSectionList = Lists.newArrayList(writersPageSection, ignorablePageSection,
+				unknownPageSection, screenplayAuthorsPageSection, storyAuthorsPageSection, directorsPageSection,
+				producersPageSection, staffPageSection, performersPageSection, stuntPerformersPageSection,
+				standInPerformersPageSection)
 
 		when:
 		MovieLinkedTitlesDTO movieLinkedTitlesDTO = movieLinkedTitlesProcessor.process(pageSectionList)
 
 		then:
+		1 * wikitextApiMock.getPageTitlesFromWikitext(WRITERS_WIKITEXT) >> Lists.newArrayList(WRITERS_LINK)
+		movieLinkedTitlesDTO.writers.size() == 1
+		movieLinkedTitlesDTO.writers[0][0] == WRITERS_LINK
 		1 * wikitextApiMock.getPageTitlesFromWikitext(IGNORABLE_SECTION_WIKITEXT) >> Lists.newArrayList()
+		1 * wikitextApiMock.getPageTitlesFromWikitext(UNKNOWN_SECTION_WIKITEXT) >> Lists.newArrayList()
 		1 * wikitextApiMock.getPageTitlesFromWikitext(SCREENPLAY_AUTHORS_WIKITEXT) >> Lists.newArrayList(SCREENPLAY_AUTHORS_LINK)
 		movieLinkedTitlesDTO.screenplayAuthors.size() == 1
 		movieLinkedTitlesDTO.screenplayAuthors[0][0] == SCREENPLAY_AUTHORS_LINK
@@ -145,6 +154,5 @@ class MovieLinkedTitlesProcessorTest extends Specification {
 				text: text,
 				wikitext: wikitext)
 	}
-
 
 }

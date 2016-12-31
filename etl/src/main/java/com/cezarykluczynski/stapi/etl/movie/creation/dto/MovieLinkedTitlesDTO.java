@@ -9,6 +9,8 @@ import java.util.Set;
 @Data
 public class MovieLinkedTitlesDTO {
 
+	private Set<List<String>> writers = Sets.newHashSet();
+
 	private Set<List<String>> screenplayAuthors = Sets.newHashSet();
 
 	private Set<List<String>> storyAuthors = Sets.newHashSet();

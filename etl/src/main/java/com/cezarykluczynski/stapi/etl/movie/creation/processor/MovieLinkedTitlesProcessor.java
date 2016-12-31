@@ -39,8 +39,11 @@ public class MovieLinkedTitlesProcessor implements ItemProcessor<List<PageSectio
 	private static final List<String> SCREENPLAY_AUTHORS_SECTION_EXACT_TITLE_LIST = Lists.newArrayList(
 			"Screenplay by"
 	);
+	private static final List<String> WRITERS_SECTION_EXACT_TITLE_LIST = Lists.newArrayList(
+			"Written by"
+	);
 	private static final List<String> STORY_AUTHORS_SECTION_EXACT_TITLE_LIST = Lists.newArrayList(
-			"Story by", "Written by"
+			"Story by"
 	);
 	private static final List<String> DIRECTORS_SECTION_EXACT_TITLE_LIST = Lists.newArrayList(
 			"Directed by", "Second Unit Director"
@@ -186,7 +189,9 @@ public class MovieLinkedTitlesProcessor implements ItemProcessor<List<PageSectio
 				continue;
 			}
 
-			if (isScreenplayAuthorsSection(pageSectionTitle)) {
+			if (isWritersSection(pageSectionTitle)) {
+				movieLinkedTitlesDTO.getWriters().addAll(sectionLinkListSet);
+			} else if (isScreenplayAuthorsSection(pageSectionTitle)) {
 				movieLinkedTitlesDTO.getScreenplayAuthors().addAll(sectionLinkListSet);
 			} else if (isStoryAuthorsSection(pageSectionTitle)) {
 				movieLinkedTitlesDTO.getStoryAuthors().addAll(sectionLinkListSet);
@@ -216,6 +221,10 @@ public class MovieLinkedTitlesProcessor implements ItemProcessor<List<PageSectio
 			wikitextLinks.add(wikitextApi.getPageTitlesFromWikitext(wikitextLine));
 		});
 		return wikitextLinks;
+	}
+
+	private boolean isWritersSection(String pageSectionTitle) {
+		return WRITERS_SECTION_EXACT_TITLE_LIST.contains(pageSectionTitle);
 	}
 
 	private boolean isIgnorableSection(String pageSectionTitle) {

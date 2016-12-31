@@ -15,6 +15,12 @@ class MovieRealPeopleLinkingWorkerCompositeTest extends Specification {
 
 	private MovieLinkedTitlesProcessor movieLinkedTitlesProcessorMock
 
+	private MovieWritersLinkingWorker movieWritersLinkingWorkerMock
+
+	private MovieScreenplayAuthorsLinkingWorker movieScreenplayAuthorsLinkingWorkerMock
+
+	private MovieStoryAuthorsLinkingWorker movieStoryAuthorsLinkingWorkerMock
+
 	private MovieDirectorsLinkingWorker movieDirectorsLinkingWorkerMock
 
 	private MovieProducersLinkingWorker movieProducersLinkingWorkerMock
@@ -24,17 +30,24 @@ class MovieRealPeopleLinkingWorkerCompositeTest extends Specification {
 	def setup() {
 		movieClosingCreditsProcessorMock = Mock(MovieClosingCreditsProcessor)
 		movieLinkedTitlesProcessorMock = Mock(MovieLinkedTitlesProcessor)
+		movieWritersLinkingWorkerMock = Mock(MovieWritersLinkingWorker)
+		movieScreenplayAuthorsLinkingWorkerMock = Mock(MovieScreenplayAuthorsLinkingWorker)
+		movieStoryAuthorsLinkingWorkerMock = Mock(MovieStoryAuthorsLinkingWorker)
 		movieDirectorsLinkingWorkerMock = Mock(MovieDirectorsLinkingWorker)
 		movieProducersLinkingWorkerMock = Mock(MovieProducersLinkingWorker)
 		movieRealPeopleLinkingWorkerComposite = new MovieRealPeopleLinkingWorkerComposite(
-				movieClosingCreditsProcessorMock, movieLinkedTitlesProcessorMock, movieDirectorsLinkingWorkerMock,
-				movieProducersLinkingWorkerMock)
+				movieClosingCreditsProcessorMock, movieLinkedTitlesProcessorMock, movieWritersLinkingWorkerMock,
+				movieScreenplayAuthorsLinkingWorkerMock, movieStoryAuthorsLinkingWorkerMock,
+				movieDirectorsLinkingWorkerMock, movieProducersLinkingWorkerMock)
 	}
 
 	def "gets closing credits, then gets titles in sections, then passes results to movie linkers"() {
 		given:
 		MovieLinkedTitlesDTO movieLinkedTitlesDTO = Mock(MovieLinkedTitlesDTO)
 		List<PageSection> pageSectionList = Lists.newArrayList()
+		Set<List<String>> writers = Mock(Set)
+		Set<List<String>> screenplayAuthors = Mock(Set)
+		Set<List<String>> storyAuthors = Mock(Set)
 		Set<List<String>> directors = Mock(Set)
 		Set<List<String>> producers = Mock(Set)
 		Page page = Mock(Page)
@@ -48,6 +61,12 @@ class MovieRealPeopleLinkingWorkerCompositeTest extends Specification {
 		1 * movieLinkedTitlesProcessorMock.process(pageSectionList) >> movieLinkedTitlesDTO
 
 		then: 'linking workers are used to process particulars sets of link lists'
+		1 * movieLinkedTitlesDTO.getWriters() >> writers
+		1 * movieWritersLinkingWorkerMock.link(writers, movie)
+		1 * movieLinkedTitlesDTO.getScreenplayAuthors() >> screenplayAuthors
+		1 * movieScreenplayAuthorsLinkingWorkerMock.link(screenplayAuthors, movie)
+		1 * movieLinkedTitlesDTO.getStoryAuthors() >> storyAuthors
+		1 * movieStoryAuthorsLinkingWorkerMock.link(storyAuthors, movie)
 		1 * movieLinkedTitlesDTO.getDirectors() >> directors
 		1 * movieDirectorsLinkingWorkerMock.link(directors, movie)
 		1 * movieLinkedTitlesDTO.getProducers() >> producers
