@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.batch.item.ItemProcessor;
@@ -12,6 +13,11 @@ public class ProductionSerialNumberProcessor implements ItemProcessor<String, St
 
 	@Override
 	public String process(String item) throws Exception {
+		String processedItem = doProcess(item);
+		return StringUtils.substringBefore(StringUtils.substringBefore(processedItem, "\n"), " ");
+	}
+
+	private String doProcess(String item) {
 		if (item != null && item.length() < 20) {
 			return item;
 		} else {

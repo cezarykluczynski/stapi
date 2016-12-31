@@ -39,6 +39,21 @@
 				referencedColumnNames="id"
 				referencedTableName="page"/>
 
+		<createTable tableName="movies_writers">
+			<column name="movie_id" type="bigint"/>
+			<column name="staff_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="movie_id"
+				baseTableName="movies_writers"
+				constraintName="mw_movie_fkey"
+				referencedColumnNames="id"
+				referencedTableName="movie"/>
+		<addForeignKeyConstraint baseColumnNames="staff_id"
+				baseTableName="movies_writers"
+				constraintName="mw_writer_fkey"
+				referencedColumnNames="id"
+				referencedTableName="staff"/>
+
 		<createTable tableName="movies_screenplay_authors">
 			<column name="movie_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>

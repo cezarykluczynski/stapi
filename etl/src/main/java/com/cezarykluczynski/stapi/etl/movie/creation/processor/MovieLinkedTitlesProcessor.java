@@ -49,14 +49,13 @@ public class MovieLinkedTitlesProcessor implements ItemProcessor<List<PageSectio
 			"assistant director"
 	);
 	private static final List<String> PRODUCERS_SECTION_EXACT_TITLE_LIST = Lists.newArrayList(
-			"Produced by", "Executive Producers", "Visual Effects Producer", "Co-Producers", "Assistant Producer",
-			"Associate Producer", "Producer", "Unit Production Manager, Co-Producer", "Co-Producer",
-			"Executive in Charge of Production", "Associate Producer", "Executive producer", "Associate Producers",
-			"Co-Produced by"
+			"Produced by", "Executive Producers", "Co-Producers", "Assistant Producer", "Associate Producer",
+			"Producer", "Unit Production Manager, Co-Producer", "Co-Producer", "Executive in Charge of Production",
+			"Associate Producer", "Executive producer", "Associate Producers", "Co-Produced by"
 	);
 	private static final List<String> STAFF_SECTION_EXACT_TITLE_LIST = Lists.newArrayList(
 			"Director of Photography", "Production Designer", "Edited by", "Music by", "Costume Designer",
-			"Visual Effects Supervisor", "Unit Production Manager", "Stunt Coordinator",
+			"Visual Effects Supervisor", "Unit Production Manager", "Stunt Coordinator",  "Visual Effects Producer",
 			"ILM Visual Effects Supervisor", "ILM Animation Supervisor", "ILM Visual Effects Producers",
 			"Post Production Supervisor", "Production Supervisor", "Production Auditor", "Supervising Art Director",
 			"Art Directors", "Assistant Art Director", "Concept Illustrators", "Graphic Designer", "Model Maker",

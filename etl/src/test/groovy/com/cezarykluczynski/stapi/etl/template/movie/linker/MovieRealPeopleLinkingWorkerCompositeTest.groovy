@@ -17,14 +17,18 @@ class MovieRealPeopleLinkingWorkerCompositeTest extends Specification {
 
 	private MovieDirectorsLinkingWorker movieDirectorsLinkingWorkerMock
 
+	private MovieProducersLinkingWorker movieProducersLinkingWorkerMock
+
 	private MovieRealPeopleLinkingWorkerComposite movieRealPeopleLinkingWorkerComposite
 
 	def setup() {
 		movieClosingCreditsProcessorMock = Mock(MovieClosingCreditsProcessor)
 		movieLinkedTitlesProcessorMock = Mock(MovieLinkedTitlesProcessor)
 		movieDirectorsLinkingWorkerMock = Mock(MovieDirectorsLinkingWorker)
-		movieRealPeopleLinkingWorkerComposite = new MovieRealPeopleLinkingWorkerComposite(movieClosingCreditsProcessorMock,
-				movieLinkedTitlesProcessorMock, movieDirectorsLinkingWorkerMock)
+		movieProducersLinkingWorkerMock = Mock(MovieProducersLinkingWorker)
+		movieRealPeopleLinkingWorkerComposite = new MovieRealPeopleLinkingWorkerComposite(
+				movieClosingCreditsProcessorMock, movieLinkedTitlesProcessorMock, movieDirectorsLinkingWorkerMock,
+				movieProducersLinkingWorkerMock)
 	}
 
 	def "gets closing credits, then gets titles in sections, then passes results to movie linkers"() {
@@ -32,6 +36,7 @@ class MovieRealPeopleLinkingWorkerCompositeTest extends Specification {
 		MovieLinkedTitlesDTO movieLinkedTitlesDTO = Mock(MovieLinkedTitlesDTO)
 		List<PageSection> pageSectionList = Lists.newArrayList()
 		Set<List<String>> directors = Mock(Set)
+		Set<List<String>> producers = Mock(Set)
 		Page page = Mock(Page)
 		Movie movie = Mock(Movie)
 
@@ -45,6 +50,8 @@ class MovieRealPeopleLinkingWorkerCompositeTest extends Specification {
 		then: 'linking workers are used to process particulars sets of link lists'
 		1 * movieLinkedTitlesDTO.getDirectors() >> directors
 		1 * movieDirectorsLinkingWorkerMock.link(directors, movie)
+		1 * movieLinkedTitlesDTO.getProducers() >> producers
+		1 * movieProducersLinkingWorkerMock.link(producers, movie)
 		0 * _
 	}
 

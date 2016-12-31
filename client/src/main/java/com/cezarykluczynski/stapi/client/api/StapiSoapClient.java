@@ -1,6 +1,10 @@
 package com.cezarykluczynski.stapi.client.api;
 
-import com.cezarykluczynski.stapi.client.v1.soap.*;
+import com.cezarykluczynski.stapi.client.v1.soap.CharacterPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.EpisodePortType;
+import com.cezarykluczynski.stapi.client.v1.soap.PerformerPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.SeriesPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.StaffPortType;
 import lombok.Getter;
 
 public class StapiSoapClient {

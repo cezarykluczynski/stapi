@@ -23,13 +23,17 @@ public class MovieRealPeopleLinkingWorkerComposite implements LinkingWorker<Page
 
 	private MovieDirectorsLinkingWorker movieDirectorsLinkingWorker;
 
+	private MovieProducersLinkingWorker movieProducersLinkingWorker;
+
 	@Inject
 	public MovieRealPeopleLinkingWorkerComposite(MovieClosingCreditsProcessor movieClosingCreditsProcessor,
 			MovieLinkedTitlesProcessor movieLinkedTitlesProcessor,
-			MovieDirectorsLinkingWorker movieDirectorsLinkingWorker) {
+			MovieDirectorsLinkingWorker movieDirectorsLinkingWorker,
+			MovieProducersLinkingWorker movieProducersLinkingWorker) {
 		this.movieClosingCreditsProcessor = movieClosingCreditsProcessor;
 		this.movieLinkedTitlesProcessor = movieLinkedTitlesProcessor;
 		this.movieDirectorsLinkingWorker = movieDirectorsLinkingWorker;
+		this.movieProducersLinkingWorker = movieProducersLinkingWorker;
 	}
 
 	@Override
@@ -43,6 +47,7 @@ public class MovieRealPeopleLinkingWorkerComposite implements LinkingWorker<Page
 		}
 
 		movieDirectorsLinkingWorker.link(movieLinkedTitlesDTO.getDirectors(), baseEntity);
+		movieProducersLinkingWorker.link(movieLinkedTitlesDTO.getProducers(), baseEntity);
 	}
 
 }

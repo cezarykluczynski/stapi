@@ -6,9 +6,24 @@ import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.google.common.collect.Sets;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -17,10 +32,10 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {"screenplayAuthors", "storyAuthors", "directors", "producers", "staff", "performers",
+@ToString(exclude = {"writers", "screenplayAuthors", "storyAuthors", "directors", "producers", "staff", "performers",
 		"stuntPerformers", "standInPerformers", "characters"})
-@EqualsAndHashCode(callSuper = true, exclude = {"screenplayAuthors", "storyAuthors", "directors", "producers", "staff",
-		"performers", "stuntPerformers", "standInPerformers", "characters"})
+@EqualsAndHashCode(callSuper = true, exclude = {"writers", "screenplayAuthors", "storyAuthors", "directors",
+		"producers", "staff", "performers", "stuntPerformers", "standInPerformers", "characters"})
 public class Movie extends PageAwareEntity implements PageAware {
 
 	@Id
@@ -60,6 +75,12 @@ public class Movie extends PageAwareEntity implements PageAware {
 	private Integer yearTo;
 
 	private LocalDate usReleaseDate;
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "movies_writers",
+			joinColumns = @JoinColumn(name = "movie_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "staff_id", nullable = false, updatable = false))
+	private Set<Staff> writers = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "movies_screenplay_authors",

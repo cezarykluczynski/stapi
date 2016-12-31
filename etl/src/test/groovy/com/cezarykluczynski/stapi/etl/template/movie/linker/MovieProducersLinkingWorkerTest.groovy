@@ -6,31 +6,31 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 import com.google.common.collect.Sets
 import spock.lang.Specification
 
-class MovieDirectorsLinkingWorkerTest extends Specification {
+class MovieProducersLinkingWorkerTest extends Specification {
 
 	private SimpleMovieRealPeopleLinkingWorkerHelper simpleMovieRealPeopleLinkingWorkerHelperMock
 
-	private MovieDirectorsLinkingWorker movieDirectorsLinkingWorker
+	private MovieProducersLinkingWorker movieProducersLinkingWorker
 
 	def setup() {
 		simpleMovieRealPeopleLinkingWorkerHelperMock = Mock(SimpleMovieRealPeopleLinkingWorkerHelper)
-		movieDirectorsLinkingWorker = new MovieDirectorsLinkingWorker(simpleMovieRealPeopleLinkingWorkerHelperMock)
+		movieProducersLinkingWorker = new MovieProducersLinkingWorker(simpleMovieRealPeopleLinkingWorkerHelperMock)
 	}
 
-	def "adds directors found by SimpleMovieRealPeopleLinkingWorkerHelper"() {
+	def "adds producers found by SimpleMovieRealPeopleLinkingWorkerHelper"() {
 		given:
 		LinkedHashSet<List<String>> source = Sets.newHashSet()
-		Staff director = new Staff()
+		Staff producer = new Staff()
 		Movie baseEntity = new Movie()
 
 		when:
-		movieDirectorsLinkingWorker.link(source, baseEntity)
+		movieProducersLinkingWorker.link(source, baseEntity)
 
 		then:
-		1 * simpleMovieRealPeopleLinkingWorkerHelperMock.linkListsToStaff(source, MediaWikiSource.MEMORY_ALPHA_EN) >> Sets.newHashSet(director)
+		1 * simpleMovieRealPeopleLinkingWorkerHelperMock.linkListsToStaff(source, MediaWikiSource.MEMORY_ALPHA_EN) >> Sets.newHashSet(producer)
 		0 * _
-		baseEntity.directors.size() == 1
-		baseEntity.directors.contains director
+		baseEntity.producers.size() == 1
+		baseEntity.producers.contains producer
 	}
 
 }
