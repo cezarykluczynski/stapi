@@ -48,7 +48,7 @@ class EntityLookupByNameServiceTest extends Specification {
 		Optional<Character> characterOptional = entityLookupByNameService.findCharacterByName(CHARACTER_NAME, SOURCE)
 
 		then:
-		1 * characterRepositoryMock.findByName(CHARACTER_NAME) >> Optional.of(character)
+		1 * characterRepositoryMock.findByPageTitle(CHARACTER_NAME) >> Optional.of(character)
 		0 * _
 		characterOptional.get() == character
 	}
@@ -62,7 +62,7 @@ class EntityLookupByNameServiceTest extends Specification {
 		Optional<Character> characterOptional = entityLookupByNameService.findCharacterByName(CHARACTER_NAME, SOURCE)
 
 		then:
-		1 * characterRepositoryMock.findByName(CHARACTER_NAME) >> Optional.empty()
+		1 * characterRepositoryMock.findByPageTitle(CHARACTER_NAME) >> Optional.empty()
 		1 * pageApiMock.getPage(CHARACTER_NAME, SOURCE) >> page
 		1 * page.getPageId() >> PAGE_ID
 		1 * characterRepositoryMock.findByPagePageId(PAGE_ID) >> Optional.of(character)
@@ -79,7 +79,7 @@ class EntityLookupByNameServiceTest extends Specification {
 		Optional<Character> characterOptional = entityLookupByNameService.findCharacterByName(CHARACTER_NAME, SOURCE)
 
 		then:
-		1 * characterRepositoryMock.findByName(CHARACTER_NAME) >> { args ->
+		1 * characterRepositoryMock.findByPageTitle(CHARACTER_NAME) >> { args ->
 			throw new NonUniqueResultException()
 		}
 		1 * pageApiMock.getPage(CHARACTER_NAME, SOURCE) >> page
@@ -94,7 +94,7 @@ class EntityLookupByNameServiceTest extends Specification {
 		Optional<Character> characterOptional = entityLookupByNameService.findCharacterByName(CHARACTER_NAME, SOURCE)
 
 		then:
-		1 * characterRepositoryMock.findByName(CHARACTER_NAME) >> Optional.empty()
+		1 * characterRepositoryMock.findByPageTitle(CHARACTER_NAME) >> Optional.empty()
 		1 * pageApiMock.getPage(CHARACTER_NAME, SOURCE) >> null
 		0 * _
 		!characterOptional.present
@@ -108,7 +108,7 @@ class EntityLookupByNameServiceTest extends Specification {
 		Optional<Character> characterOptional = entityLookupByNameService.findCharacterByName(CHARACTER_NAME, SOURCE)
 
 		then:
-		1 * characterRepositoryMock.findByName(CHARACTER_NAME) >> Optional.empty()
+		1 * characterRepositoryMock.findByPageTitle(CHARACTER_NAME) >> Optional.empty()
 		1 * pageApiMock.getPage(CHARACTER_NAME, SOURCE) >> page
 		1 * page.getPageId() >> PAGE_ID
 		1 * characterRepositoryMock.findByPagePageId(PAGE_ID) >> Optional.empty()
@@ -124,7 +124,7 @@ class EntityLookupByNameServiceTest extends Specification {
 		Optional<Performer> performerOptional = entityLookupByNameService.findPerformerByName(PERFORMER_NAME, SOURCE)
 
 		then:
-		1 * performerRepositoryMock.findByName(PERFORMER_NAME) >> Optional.of(performer)
+		1 * performerRepositoryMock.findByPageTitle(PERFORMER_NAME) >> Optional.of(performer)
 		0 * _
 		performerOptional.get() == performer
 	}
@@ -138,7 +138,7 @@ class EntityLookupByNameServiceTest extends Specification {
 		Optional<Performer> performerOptional = entityLookupByNameService.findPerformerByName(PERFORMER_NAME, SOURCE)
 
 		then:
-		1 * performerRepositoryMock.findByName(PERFORMER_NAME) >> Optional.empty()
+		1 * performerRepositoryMock.findByPageTitle(PERFORMER_NAME) >> Optional.empty()
 		1 * pageApiMock.getPage(PERFORMER_NAME, SOURCE) >> page
 		1 * page.getPageId() >> PAGE_ID
 		1 * performerRepositoryMock.findByPagePageId(PAGE_ID) >> Optional.of(performer)
@@ -155,7 +155,7 @@ class EntityLookupByNameServiceTest extends Specification {
 		Optional<Performer> performerOptional = entityLookupByNameService.findPerformerByName(PERFORMER_NAME, SOURCE)
 
 		then:
-		1 * performerRepositoryMock.findByName(PERFORMER_NAME) >> { args ->
+		1 * performerRepositoryMock.findByPageTitle(PERFORMER_NAME) >> { args ->
 			throw new NonUniqueResultException()
 		}
 		1 * pageApiMock.getPage(PERFORMER_NAME, SOURCE) >> page
@@ -170,7 +170,7 @@ class EntityLookupByNameServiceTest extends Specification {
 		Optional<Performer> performerOptional = entityLookupByNameService.findPerformerByName(PERFORMER_NAME, SOURCE)
 
 		then:
-		1 * performerRepositoryMock.findByName(PERFORMER_NAME) >> Optional.empty()
+		1 * performerRepositoryMock.findByPageTitle(PERFORMER_NAME) >> Optional.empty()
 		1 * pageApiMock.getPage(PERFORMER_NAME, SOURCE) >> null
 		0 * _
 		!performerOptional.present
@@ -184,7 +184,7 @@ class EntityLookupByNameServiceTest extends Specification {
 		Optional<Performer> performerOptional = entityLookupByNameService.findPerformerByName(PERFORMER_NAME, SOURCE)
 
 		then:
-		1 * performerRepositoryMock.findByName(PERFORMER_NAME) >> Optional.empty()
+		1 * performerRepositoryMock.findByPageTitle(PERFORMER_NAME) >> Optional.empty()
 		1 * pageApiMock.getPage(PERFORMER_NAME, SOURCE) >> page
 		1 * page.getPageId() >> PAGE_ID
 		1 * performerRepositoryMock.findByPagePageId(PAGE_ID) >> Optional.empty()
@@ -201,7 +201,7 @@ class EntityLookupByNameServiceTest extends Specification {
 		Optional<Staff> staffOptional = entityLookupByNameService.findStaffByName(STAFF_NAME, SOURCE)
 
 		then:
-		1 * staffRepositoryMock.findByName(STAFF_NAME) >> Optional.of(staff)
+		1 * staffRepositoryMock.findByPageTitle(STAFF_NAME) >> Optional.of(staff)
 		0 * _
 		staffOptional.get() == staff
 	}
@@ -215,7 +215,7 @@ class EntityLookupByNameServiceTest extends Specification {
 		Optional<Staff> staffOptional = entityLookupByNameService.findStaffByName(STAFF_NAME, SOURCE)
 
 		then:
-		1 * staffRepositoryMock.findByName(STAFF_NAME) >> Optional.empty()
+		1 * staffRepositoryMock.findByPageTitle(STAFF_NAME) >> Optional.empty()
 		1 * pageApiMock.getPage(STAFF_NAME, SOURCE) >> page
 		1 * page.getPageId() >> PAGE_ID
 		1 * staffRepositoryMock.findByPagePageId(PAGE_ID) >> Optional.of(staff)
@@ -232,7 +232,7 @@ class EntityLookupByNameServiceTest extends Specification {
 		Optional<Staff> staffOptional = entityLookupByNameService.findStaffByName(STAFF_NAME, SOURCE)
 
 		then:
-		1 * staffRepositoryMock.findByName(STAFF_NAME) >> { args ->
+		1 * staffRepositoryMock.findByPageTitle(STAFF_NAME) >> { args ->
 			throw new NonUniqueResultException()
 		}
 		1 * pageApiMock.getPage(STAFF_NAME, SOURCE) >> page
@@ -247,7 +247,7 @@ class EntityLookupByNameServiceTest extends Specification {
 		Optional<Staff> staffOptional = entityLookupByNameService.findStaffByName(STAFF_NAME, SOURCE)
 
 		then:
-		1 * staffRepositoryMock.findByName(STAFF_NAME) >> Optional.empty()
+		1 * staffRepositoryMock.findByPageTitle(STAFF_NAME) >> Optional.empty()
 		1 * pageApiMock.getPage(STAFF_NAME, SOURCE) >> null
 		0 * _
 		!staffOptional.present
@@ -261,7 +261,7 @@ class EntityLookupByNameServiceTest extends Specification {
 		Optional<Staff> staffOptional = entityLookupByNameService.findStaffByName(STAFF_NAME, SOURCE)
 
 		then:
-		1 * staffRepositoryMock.findByName(STAFF_NAME) >> Optional.empty()
+		1 * staffRepositoryMock.findByPageTitle(STAFF_NAME) >> Optional.empty()
 		1 * pageApiMock.getPage(STAFF_NAME, SOURCE) >> page
 		1 * page.getPageId() >> PAGE_ID
 		1 * staffRepositoryMock.findByPagePageId(PAGE_ID) >> Optional.empty()

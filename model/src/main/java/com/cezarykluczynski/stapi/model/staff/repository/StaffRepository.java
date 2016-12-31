@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface StaffRepository extends JpaRepository<Staff, Long>, StaffRepositoryCustom {
 
-	Optional<Staff> findByName(String name);
+	Optional<Staff> findByPageTitle(String name);
 
 	Optional<Staff> findByPagePageId(Long pageId);
 

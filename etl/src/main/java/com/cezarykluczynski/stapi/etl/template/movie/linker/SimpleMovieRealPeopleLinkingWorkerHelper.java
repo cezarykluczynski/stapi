@@ -32,7 +32,7 @@ public class SimpleMovieRealPeopleLinkingWorkerHelper {
 					if (staffOptional.isPresent()) {
 						staffSet.add(staffOptional.get());
 					} else {
-						log.warn("Director not found by name {}", line);
+						log.warn("Staff not found by name {}", line);
 					}
 				})
 		);

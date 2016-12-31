@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface CharacterRepository extends JpaRepository<Character, Long>, CharacterRepositoryCustom {
 
-	Optional<Character> findByName(String name);
+	Optional<Character> findByPageTitle(String title);
 
 	Optional<Character> findByPagePageId(Long pageId);
 

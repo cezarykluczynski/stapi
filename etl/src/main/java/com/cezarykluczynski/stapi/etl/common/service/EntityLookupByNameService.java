@@ -41,7 +41,7 @@ public class EntityLookupByNameService {
 		Optional<Performer> performerOptional;
 
 		try {
-			performerOptional = performerRepository.findByName(performerName);
+			performerOptional = performerRepository.findByPageTitle(performerName);
 		} catch (NonUniqueResultException e) {
 			performerOptional = Optional.empty();
 		}
@@ -62,7 +62,7 @@ public class EntityLookupByNameService {
 		Optional<Character> characterOptional;
 
 		try {
-			characterOptional = characterRepository.findByName(characterName);
+			characterOptional = characterRepository.findByPageTitle(characterName);
 		} catch (NonUniqueResultException e) {
 			characterOptional = Optional.empty();
 		}
@@ -83,7 +83,7 @@ public class EntityLookupByNameService {
 		Optional<Staff> staffOptional;
 
 		try {
-			staffOptional = staffRepository.findByName(staffName);
+			staffOptional = staffRepository.findByPageTitle(staffName);
 		} catch (NonUniqueResultException e) {
 			staffOptional = Optional.empty();
 		}

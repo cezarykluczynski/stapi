@@ -25,6 +25,10 @@ class MovieRealPeopleLinkingWorkerCompositeTest extends Specification {
 
 	private MovieProducersLinkingWorker movieProducersLinkingWorkerMock
 
+	private MovieStaffLinkingWorker movieStaffLinkingWorkerMock
+
+	private MoviePerformersCharactersLinkingWorker moviePerformersCharacterLinkingWorkerMock
+
 	private MovieRealPeopleLinkingWorkerComposite movieRealPeopleLinkingWorkerComposite
 
 	def setup() {
@@ -35,10 +39,13 @@ class MovieRealPeopleLinkingWorkerCompositeTest extends Specification {
 		movieStoryAuthorsLinkingWorkerMock = Mock(MovieStoryAuthorsLinkingWorker)
 		movieDirectorsLinkingWorkerMock = Mock(MovieDirectorsLinkingWorker)
 		movieProducersLinkingWorkerMock = Mock(MovieProducersLinkingWorker)
+		movieStaffLinkingWorkerMock = Mock(MovieStaffLinkingWorker)
+		moviePerformersCharacterLinkingWorkerMock = Mock(MoviePerformersCharactersLinkingWorker)
 		movieRealPeopleLinkingWorkerComposite = new MovieRealPeopleLinkingWorkerComposite(
 				movieClosingCreditsProcessorMock, movieLinkedTitlesProcessorMock, movieWritersLinkingWorkerMock,
 				movieScreenplayAuthorsLinkingWorkerMock, movieStoryAuthorsLinkingWorkerMock,
-				movieDirectorsLinkingWorkerMock, movieProducersLinkingWorkerMock)
+				movieDirectorsLinkingWorkerMock, movieProducersLinkingWorkerMock, movieStaffLinkingWorkerMock,
+				moviePerformersCharacterLinkingWorkerMock)
 	}
 
 	def "gets closing credits, then gets titles in sections, then passes results to movie linkers"() {
@@ -50,6 +57,8 @@ class MovieRealPeopleLinkingWorkerCompositeTest extends Specification {
 		Set<List<String>> storyAuthors = Mock(Set)
 		Set<List<String>> directors = Mock(Set)
 		Set<List<String>> producers = Mock(Set)
+		Set<List<String>> staff = Mock(Set)
+		Set<List<String>> performers = Mock(Set)
 		Page page = Mock(Page)
 		Movie movie = Mock(Movie)
 
@@ -71,6 +80,10 @@ class MovieRealPeopleLinkingWorkerCompositeTest extends Specification {
 		1 * movieDirectorsLinkingWorkerMock.link(directors, movie)
 		1 * movieLinkedTitlesDTO.getProducers() >> producers
 		1 * movieProducersLinkingWorkerMock.link(producers, movie)
+		1 * movieLinkedTitlesDTO.getStaff() >> staff
+		1 * movieStaffLinkingWorkerMock.link(staff, movie)
+		1 * movieLinkedTitlesDTO.getPerformers() >> performers
+		1 * moviePerformersCharacterLinkingWorkerMock.link(performers, movie)
 		0 * _
 	}
 
