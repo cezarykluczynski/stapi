@@ -32,6 +32,7 @@ class MovieTemplateStaffEnrichingProcessorTest extends AbstractTemplateProcessor
 	private static final String DIRECTORS = 'DIRECTORS'
 	private static final String UNKNOWN = 'UNKNOWN'
 	private static final String DIRECTOR = 'DIRECTOR'
+	private static final String DIRECTOR_2 = 'DIRECTOR_2'
 	private static final String PRODUCERS = 'PRODUCERS'
 	private static final String PRODUCER = 'PRODUCER'
 
@@ -99,6 +100,7 @@ class MovieTemplateStaffEnrichingProcessorTest extends AbstractTemplateProcessor
 		movieStub.directors.contains director
 		movieStub.producers.size() == 1
 		movieStub.producers.contains producer
+		movieStub.mainDirector == director
 	}
 
 	def "enriches MovieTemplate with staff, when links are present in some of the sections"() {
@@ -168,6 +170,7 @@ class MovieTemplateStaffEnrichingProcessorTest extends AbstractTemplateProcessor
 		movieStub.directors.contains writer4
 		movieStub.producers.size() == 1
 		movieStub.producers.contains writer5
+		movieStub.mainDirector == writer4
 	}
 
 	def "tolerates null raw value"() {
@@ -197,6 +200,32 @@ class MovieTemplateStaffEnrichingProcessorTest extends AbstractTemplateProcessor
 		movieStub.storyAuthors.empty
 		movieStub.directors.empty
 		movieStub.producers.empty
+	}
+
+	def "does not set main director when there is more than one"() {
+		given:
+		Movie movieStub = new Movie()
+		Template template = new Template(parts: Lists.newArrayList(
+				createTemplatePart(MovieTemplateStaffEnrichingProcessor.WS_DIRECTED_BY, DIRECTORS)
+		))
+		MovieTemplate movieTemplate = new MovieTemplate(
+				movieStub: movieStub
+		)
+		Staff director = new Staff(name: DIRECTOR)
+		Staff director2 = new Staff(name: DIRECTOR_2)
+		when:
+		movieTemplateStaffEnrichingProcessor.enrich(EnrichablePair.of(template, movieTemplate))
+
+		then:
+		1 * wikitextApiMock.getPageLinksFromWikitext(DIRECTORS) >> Lists.newArrayList(
+				new PageLink(title: DIRECTOR),
+				new PageLink(title: DIRECTOR_2))
+		1 * entityLookupByNameServiceMock.findStaffByName(DIRECTOR, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(director)
+		1 * entityLookupByNameServiceMock.findStaffByName(DIRECTOR_2, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(director2)
+		0 * _
+		movieStub.directors.contains director
+		movieStub.directors.contains director2
+		movieStub.mainDirector == null
 	}
 
 }

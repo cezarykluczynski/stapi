@@ -23,6 +23,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import java.time.LocalDate;
 import java.util.Set;
@@ -43,6 +44,10 @@ public class Movie extends PageAwareEntity implements PageAware {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "movie_sequence_generator")
 	@SequenceGenerator(name = "movie_sequence_generator", sequenceName ="movie_sequence", allocationSize = 1)
 	private Long id;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "main_director_id")
+	private Staff mainDirector;
 
 	private String title;
 

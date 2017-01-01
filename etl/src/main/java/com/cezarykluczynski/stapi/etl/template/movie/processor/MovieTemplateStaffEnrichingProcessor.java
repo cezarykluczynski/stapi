@@ -94,6 +94,16 @@ public class MovieTemplateStaffEnrichingProcessor implements ItemEnrichingProces
 
 		propagateUnlinkedStaff(movieStub, writersStaffParsingState, screenplayAuthorsStaffParsingState,
 				storyAuthorsStaffParsingState, directorsStaffParsingState, producersStaffParsingState);
+		chooseMainDirector(directorsStaffParsingState, movieStub);
+	}
+
+	private void chooseMainDirector(StaffParsingState directorsStaffParsingState, Movie movieStub) {
+		Set<Staff> directorSet = directorsStaffParsingState.getSupplementedStaffSet();
+		if (directorSet.size() == 1) {
+			movieStub.setMainDirector(directorSet.iterator().next());
+		} else {
+			log.error("Could not select main director, because directors set was {}", directorSet);
+		}
 	}
 
 	private void addAllStaff(MovieTemplateStaffEnrichingProcessor.StaffParsingState staffParsingState, String value) {

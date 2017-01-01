@@ -10,6 +10,9 @@
 			<column name="page_id" type="bigint">
 				<constraints nullable="false"/>
 			</column>
+			<column name="main_director_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
 			<column name="guid" type="varchar(14)">
 				<constraints nullable="false"/>
 			</column>
@@ -38,6 +41,11 @@
 				constraintName="movie_page_fkey"
 				referencedColumnNames="id"
 				referencedTableName="page"/>
+		<addForeignKeyConstraint baseColumnNames="main_director_id"
+				baseTableName="movie"
+				constraintName="movie_main_director_fkey"
+				referencedColumnNames="id"
+				referencedTableName="staff"/>
 
 		<createTable tableName="movies_writers">
 			<column name="movie_id" type="bigint"/>
