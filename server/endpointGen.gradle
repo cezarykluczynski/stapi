@@ -1,0 +1,175 @@
+import groovy.io.FileType
+
+import java.util.stream.Collectors
+
+task endpointGen(type: EndpointScaffoldingGeneratorTask) << {
+	entityName = project.property("entityName")
+}
+
+class EndpointScaffoldingGeneratorTask extends DefaultTask {
+
+	private static final String PERFORMER_ENTITY_NAME = "Performer"
+	private static final String PERFORMER_PACKAGE_NAME = "performer"
+
+	List<String> serverFilesToCopy = [
+			"PerformerConfiguration.java",
+			"PerformerRestBeanParams.java",
+			"PerformerRestEndpoint.java",
+			"PerformerSoapEndpoint.java",
+			"PerformerHeaderRestMapper.java",
+			"PerformerHeaderSoapMapper.java",
+			"PerformerRestMapper.java",
+			"PerformerSoapMapper.java",
+			"PerformerRestQuery.java",
+			"PerformerSoapQuery.java",
+			"PerformerRestReader.java",
+			"PerformerSoapReader.java"
+	]
+
+	List<String> serverTestFilesToCopy = [
+			"AbstractPerformerEndpointIntegrationTest.groovy",
+			"AbstractPerformerMapperTest.groovy",
+			"PerformerConfigurationTest.groovy",
+			"PerformerRestBeanParamsTest.groovy",
+			"PerformerRestEndpointTest.groovy",
+			"PerformerSoapEndpointTest.groovy",
+			"PerformerHeaderRestMapperTest.groovy",
+			"PerformerHeaderSoapMapperTest.groovy",
+			"PerformerRestMapperTest.groovy",
+			"PerformerSoapMapperTest.groovy",
+			"PerformerRestQueryTest.groovy",
+			"PerformerSoapQueryTest.groovy",
+			"PerformerRestReaderTest.groovy",
+			"PerformerSoapReaderTest.groovy",
+	]
+
+	List<String> modelFilesToCopy = [
+			"PerformerRequestDTO.java"
+	]
+
+	@Input
+	String entityName
+
+	String packageName
+
+	int total = 0
+
+	int copied = 0
+
+	@TaskAction
+	def generateEnpoint() {
+		if (entityName == "") {
+			println "Entity name cannot be empty"
+			System.exit(-1)
+		}
+
+		packageName = entityName.toLowerCase()
+		entityName = packageName.capitalize()
+
+		println "Generating scaffolding for endpoint ${entityName}..."
+
+		copyInDirectory("server/src/main/java/com/cezarykluczynski/stapi/server/performer", serverFilesToCopy)
+		copyInDirectory("server/src/test/groovy/com/cezarykluczynski/stapi/server/performer", serverTestFilesToCopy)
+		copyInDirectory("model/src/main/java/com/cezarykluczynski/stapi/model/performer/dto", modelFilesToCopy)
+
+		println "Files copies: ${copied}, files skipped: ${total - copied}."
+	}
+
+	def copyInDirectory(String path, List<String> filesToCopy) {
+		def dir = new File(path)
+		dir.eachFileRecurse (FileType.FILES) { file ->
+			total++
+			def baseFileAbsolutePath = file.absolutePath.toString()
+			if (!filesToCopy.stream().anyMatch({ fileToCopy -> baseFileAbsolutePath.endsWith(fileToCopy)})) {
+				println "Skipping ${baseFileAbsolutePath} - not on list of files to copy."
+				return
+			}
+			def targetAbsolutePath = transformToNewEntity(baseFileAbsolutePath)
+
+			File targetFile = new File(targetAbsolutePath)
+
+			if (targetFile.exists()) {
+				println "Skipping ${targetAbsolutePath} - file already exists."
+				return
+			}
+
+			targetFile.parentFile.mkdirs()
+			targetFile.createNewFile()
+
+			def targetContents = transformToNewEntity(new File(baseFileAbsolutePath).text)
+			targetContents = maybeClear(targetContents, baseFileAbsolutePath)
+
+			targetFile.write(targetContents)
+
+			copied++
+		}
+	}
+
+	def transformToNewEntity(String content) {
+		content
+				.replace(PERFORMER_ENTITY_NAME, entityName)
+				.replace(PERFORMER_PACKAGE_NAME, packageName)
+	}
+
+	def maybeClear(String content, String fileName) {
+		if (fileName.contains('RestBeanParams') && !fileName.contains(".groovy")) {
+			def parts = content.split('extends PageSortBeanParams \\{')
+			def end = parts[1].split("public static ${entityName}RestBeanParams")
+			content = "${parts[0]}extends PageSortBeanParams {\n\npublic static ${entityName}RestBeanParams${end[1]}"
+			content = content.readLines().stream().filter({
+				line -> !line.startsWith("import ") || line.contains("PageSortBeanParams")
+			}).collect(Collectors.toList()).join("\n")
+			content = content.replace("\npublic class", "public class")
+		}
+
+		if (fileName.contains("${entityName}RestMapper") || fileName.contains("${entityName}SoapMapper")) {
+			boolean isMapper = false
+			boolean isMappings = false
+
+			content = content.readLines().stream().map({ line ->
+				isMapper = isMapper || line.startsWith("@Mapper(")
+				isMappings = isMappings || line.startsWith("\t@Mappings({")
+
+				if (line.startsWith("import ")) {
+					if (line.contains("server.common.mapper.") || line.contains("mapstruct.Mapping") ||
+							line.contains("HeaderRestMapper") || line.contains("HeaderSoapMapper")) {
+						return null
+					}
+				}
+
+				if (isMapper && (line.endsWith(".class})") || line.endsWith(".class })"))) {
+					isMapper = false;
+					return '@Mapper(config = MapstructConfiguration.class, uses = {})'
+				}
+
+				if (isMappings && line.endsWith("\t})")) {
+					isMappings = false;
+					return null
+				}
+
+				if (isMapper || isMappings) {
+					return null
+				}
+
+				return line
+			})
+			.filter({line -> line != null})
+			.collect(Collectors.toList()).join("\n")
+		}
+
+		if (fileName.contains("RequestDTO")) {
+			content = content
+					.replace("@EqualsAndHashCode(callSuper = true)", "@EqualsAndHashCode")
+
+			List<String> parts = content.split("extends RealWorldPersonRequestDTO \\{")
+			content = "${parts[0]} {\n}\n"
+
+			content = content.readLines().stream().filter({ line ->
+					!line.contains("RealWorldPerson")
+			}).collect(Collectors.toList()).join("\n")
+		}
+
+		return content
+	}
+
+}
