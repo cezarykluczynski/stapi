@@ -35,6 +35,10 @@ public class MovieRealPeopleLinkingWorkerComposite implements LinkingWorker<Page
 
 	private MoviePerformersCharactersLinkingWorker moviePerformersCharactersLinkingWorker;
 
+	private MovieStuntPerformersLinkingWorker movieStuntPerformersLinkingWorker;
+
+	private MovieStandInPerformersLinkingWorker movieStandInPerformersLinkingWorker;
+
 	@Inject
 	public MovieRealPeopleLinkingWorkerComposite(MovieClosingCreditsProcessor movieClosingCreditsProcessor,
 			MovieLinkedTitlesProcessor movieLinkedTitlesProcessor, MovieWritersLinkingWorker movieWritersLinkingWorker,
@@ -43,7 +47,9 @@ public class MovieRealPeopleLinkingWorkerComposite implements LinkingWorker<Page
 			MovieDirectorsLinkingWorker movieDirectorsLinkingWorker,
 			MovieProducersLinkingWorker movieProducersLinkingWorker,
 			MovieStaffLinkingWorker movieStaffLinkingWorker,
-			MoviePerformersCharactersLinkingWorker moviePerformersCharactersLinkingWorker) {
+			MoviePerformersCharactersLinkingWorker moviePerformersCharactersLinkingWorker,
+			MovieStuntPerformersLinkingWorker movieStuntPerformersLinkingWorker,
+			MovieStandInPerformersLinkingWorker movieStandInPerformersLinkingWorker) {
 		this.movieClosingCreditsProcessor = movieClosingCreditsProcessor;
 		this.movieLinkedTitlesProcessor = movieLinkedTitlesProcessor;
 		this.movieWritersLinkingWorker = movieWritersLinkingWorker;
@@ -53,6 +59,8 @@ public class MovieRealPeopleLinkingWorkerComposite implements LinkingWorker<Page
 		this.movieProducersLinkingWorker = movieProducersLinkingWorker;
 		this.movieStaffLinkingWorker = movieStaffLinkingWorker;
 		this.moviePerformersCharactersLinkingWorker = moviePerformersCharactersLinkingWorker;
+		this.movieStuntPerformersLinkingWorker = movieStuntPerformersLinkingWorker;
+		this.movieStandInPerformersLinkingWorker = movieStandInPerformersLinkingWorker;
 	}
 
 	@Override
@@ -72,6 +80,8 @@ public class MovieRealPeopleLinkingWorkerComposite implements LinkingWorker<Page
 		movieProducersLinkingWorker.link(movieLinkedTitlesDTO.getProducers(), baseEntity);
 		movieStaffLinkingWorker.link(movieLinkedTitlesDTO.getStaff(), baseEntity);
 		moviePerformersCharactersLinkingWorker.link(movieLinkedTitlesDTO.getPerformers(), baseEntity);
+		movieStuntPerformersLinkingWorker.link(movieLinkedTitlesDTO.getStuntPerformers(), baseEntity);
+		movieStandInPerformersLinkingWorker.link(movieLinkedTitlesDTO.getStandInPerformers(), baseEntity);
 	}
 
 }

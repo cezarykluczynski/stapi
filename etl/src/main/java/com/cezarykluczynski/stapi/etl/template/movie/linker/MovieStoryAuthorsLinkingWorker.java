@@ -13,16 +13,16 @@ import java.util.Set;
 @Slf4j
 public class MovieStoryAuthorsLinkingWorker implements MovieRealPeopleLinkingWorker {
 
-	private SimpleMovieRealPeopleLinkingWorkerHelper simpleMovieRealPeopleLinkingWorkerHelper;
+	private AllStaffFindingMovieRealPeopleLinkingWorkerHelper allStaffFindingMovieRealPeopleLinkingWorkerHelper;
 
 	@Inject
-	public MovieStoryAuthorsLinkingWorker(SimpleMovieRealPeopleLinkingWorkerHelper simpleMovieRealPeopleLinkingWorkerHelper) {
-		this.simpleMovieRealPeopleLinkingWorkerHelper = simpleMovieRealPeopleLinkingWorkerHelper;
+	public MovieStoryAuthorsLinkingWorker(AllStaffFindingMovieRealPeopleLinkingWorkerHelper allStaffFindingMovieRealPeopleLinkingWorkerHelper) {
+		this.allStaffFindingMovieRealPeopleLinkingWorkerHelper = allStaffFindingMovieRealPeopleLinkingWorkerHelper;
 	}
 
 	@Override
 	public void link(Set<List<String>> source, Movie baseEntity) {
-		baseEntity.getStoryAuthors().addAll(simpleMovieRealPeopleLinkingWorkerHelper
+		baseEntity.getStoryAuthors().addAll(allStaffFindingMovieRealPeopleLinkingWorkerHelper
 				.linkListsToStaff(source, MovieRealPeopleLinkingWorker.SOURCE));
 	}
 

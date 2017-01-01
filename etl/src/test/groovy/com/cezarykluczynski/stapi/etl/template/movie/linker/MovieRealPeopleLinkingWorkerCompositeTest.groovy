@@ -29,6 +29,10 @@ class MovieRealPeopleLinkingWorkerCompositeTest extends Specification {
 
 	private MoviePerformersCharactersLinkingWorker moviePerformersCharacterLinkingWorkerMock
 
+	private MovieStuntPerformersLinkingWorker movieStuntPerformersLinkingWorkerMock
+
+	private MovieStandInPerformersLinkingWorker movieStandInPerformersLinkingWorkerMock
+
 	private MovieRealPeopleLinkingWorkerComposite movieRealPeopleLinkingWorkerComposite
 
 	def setup() {
@@ -41,11 +45,14 @@ class MovieRealPeopleLinkingWorkerCompositeTest extends Specification {
 		movieProducersLinkingWorkerMock = Mock(MovieProducersLinkingWorker)
 		movieStaffLinkingWorkerMock = Mock(MovieStaffLinkingWorker)
 		moviePerformersCharacterLinkingWorkerMock = Mock(MoviePerformersCharactersLinkingWorker)
+		movieStuntPerformersLinkingWorkerMock = Mock(MovieStuntPerformersLinkingWorker)
+		movieStandInPerformersLinkingWorkerMock = Mock(MovieStandInPerformersLinkingWorker)
 		movieRealPeopleLinkingWorkerComposite = new MovieRealPeopleLinkingWorkerComposite(
 				movieClosingCreditsProcessorMock, movieLinkedTitlesProcessorMock, movieWritersLinkingWorkerMock,
 				movieScreenplayAuthorsLinkingWorkerMock, movieStoryAuthorsLinkingWorkerMock,
 				movieDirectorsLinkingWorkerMock, movieProducersLinkingWorkerMock, movieStaffLinkingWorkerMock,
-				moviePerformersCharacterLinkingWorkerMock)
+				moviePerformersCharacterLinkingWorkerMock, movieStuntPerformersLinkingWorkerMock,
+				movieStandInPerformersLinkingWorkerMock)
 	}
 
 	def "gets closing credits, then gets titles in sections, then passes results to movie linkers"() {
@@ -59,6 +66,8 @@ class MovieRealPeopleLinkingWorkerCompositeTest extends Specification {
 		Set<List<String>> producers = Mock(Set)
 		Set<List<String>> staff = Mock(Set)
 		Set<List<String>> performers = Mock(Set)
+		Set<List<String>> stuntPerformers = Mock(Set)
+		Set<List<String>> standInPerformers = Mock(Set)
 		Page page = Mock(Page)
 		Movie movie = Mock(Movie)
 
@@ -84,6 +93,10 @@ class MovieRealPeopleLinkingWorkerCompositeTest extends Specification {
 		1 * movieStaffLinkingWorkerMock.link(staff, movie)
 		1 * movieLinkedTitlesDTO.getPerformers() >> performers
 		1 * moviePerformersCharacterLinkingWorkerMock.link(performers, movie)
+		1 * movieLinkedTitlesDTO.getStuntPerformers() >> stuntPerformers
+		1 * movieStuntPerformersLinkingWorkerMock.link(stuntPerformers, movie)
+		1 * movieLinkedTitlesDTO.getStandInPerformers() >> standInPerformers
+		1 * movieStandInPerformersLinkingWorkerMock.link(standInPerformers, movie)
 		0 * _
 	}
 

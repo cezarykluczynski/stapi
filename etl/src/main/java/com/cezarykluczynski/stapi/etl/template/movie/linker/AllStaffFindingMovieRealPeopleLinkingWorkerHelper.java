@@ -14,12 +14,12 @@ import java.util.Set;
 
 @Service
 @Slf4j
-public class SimpleMovieRealPeopleLinkingWorkerHelper {
+public class AllStaffFindingMovieRealPeopleLinkingWorkerHelper {
 
 	private EntityLookupByNameService entityLookupByNameService;
 
 	@Inject
-	public SimpleMovieRealPeopleLinkingWorkerHelper(EntityLookupByNameService entityLookupByNameService) {
+	public AllStaffFindingMovieRealPeopleLinkingWorkerHelper(EntityLookupByNameService entityLookupByNameService) {
 		this.entityLookupByNameService = entityLookupByNameService;
 	}
 

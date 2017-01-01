@@ -7,7 +7,7 @@ import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import spock.lang.Specification
 
-class SimpleMovieRealPeopleLinkingWorkerHelperTest extends Specification {
+class AllStaffFindingMovieRealPeopleLinkingWorkerHelperTest extends Specification {
 
 	private static final String DIRECTOR = 'DIRECTOR'
 	private static final String DIRECTOR_NOT_FOUND = 'DIRECTOR_NOT_FOUND'
@@ -15,22 +15,21 @@ class SimpleMovieRealPeopleLinkingWorkerHelperTest extends Specification {
 
 	private EntityLookupByNameService entityLookupByNameServiceMock
 
-	private SimpleMovieRealPeopleLinkingWorkerHelper simpleMovieRealPeopleLinkingWorkerHelper
+	private AllStaffFindingMovieRealPeopleLinkingWorkerHelper allStaffFindingMovieRealPeopleLinkingWorkerHelper
 
 	def setup() {
 		entityLookupByNameServiceMock = Mock(EntityLookupByNameService)
-		simpleMovieRealPeopleLinkingWorkerHelper = new SimpleMovieRealPeopleLinkingWorkerHelper(entityLookupByNameServiceMock)
+		allStaffFindingMovieRealPeopleLinkingWorkerHelper = new AllStaffFindingMovieRealPeopleLinkingWorkerHelper(entityLookupByNameServiceMock)
 	}
 
 	def "adds entities found by name"() {
 		given:
-		LinkedHashSet<List<String>> source = Sets.newLinkedHashSet()
-		source.add(Lists.newArrayList(DIRECTOR))
-		source.add(Lists.newArrayList(DIRECTOR_NOT_FOUND))
+		Set<List<String>> source = Sets.newHashSet()
+		source.add(Lists.newArrayList(DIRECTOR, DIRECTOR_NOT_FOUND))
 		Staff director = new Staff()
 
 		when:
-		Set<Staff> staffSet = simpleMovieRealPeopleLinkingWorkerHelper.linkListsToStaff(source, SOURCE)
+		Set<Staff> staffSet = allStaffFindingMovieRealPeopleLinkingWorkerHelper.linkListsToStaff(source, SOURCE)
 
 		then:
 		1 * entityLookupByNameServiceMock.findStaffByName(DIRECTOR, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(director)

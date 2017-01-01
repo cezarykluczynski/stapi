@@ -8,16 +8,16 @@ import spock.lang.Specification
 
 class MovieDirectorsLinkingWorkerTest extends Specification {
 
-	private SimpleMovieRealPeopleLinkingWorkerHelper simpleMovieRealPeopleLinkingWorkerHelperMock
+	private AllStaffFindingMovieRealPeopleLinkingWorkerHelper allStaffFindingMovieRealPeopleLinkingWorkerHelper
 
 	private MovieDirectorsLinkingWorker movieDirectorsLinkingWorker
 
 	def setup() {
-		simpleMovieRealPeopleLinkingWorkerHelperMock = Mock(SimpleMovieRealPeopleLinkingWorkerHelper)
-		movieDirectorsLinkingWorker = new MovieDirectorsLinkingWorker(simpleMovieRealPeopleLinkingWorkerHelperMock)
+		allStaffFindingMovieRealPeopleLinkingWorkerHelper = Mock(AllStaffFindingMovieRealPeopleLinkingWorkerHelper)
+		movieDirectorsLinkingWorker = new MovieDirectorsLinkingWorker(allStaffFindingMovieRealPeopleLinkingWorkerHelper)
 	}
 
-	def "adds directors found by SimpleMovieRealPeopleLinkingWorkerHelper"() {
+	def "adds directors found by AllStaffFindingMovieRealPeopleLinkingWorkerHelperTest"() {
 		given:
 		LinkedHashSet<List<String>> source = Sets.newHashSet()
 		Staff director = new Staff()
@@ -27,7 +27,7 @@ class MovieDirectorsLinkingWorkerTest extends Specification {
 		movieDirectorsLinkingWorker.link(source, baseEntity)
 
 		then:
-		1 * simpleMovieRealPeopleLinkingWorkerHelperMock.linkListsToStaff(source, MediaWikiSource.MEMORY_ALPHA_EN) >> Sets.newHashSet(director)
+		1 * allStaffFindingMovieRealPeopleLinkingWorkerHelper.linkListsToStaff(source, MediaWikiSource.MEMORY_ALPHA_EN) >> Sets.newHashSet(director)
 		0 * _
 		baseEntity.directors.size() == 1
 		baseEntity.directors.contains director

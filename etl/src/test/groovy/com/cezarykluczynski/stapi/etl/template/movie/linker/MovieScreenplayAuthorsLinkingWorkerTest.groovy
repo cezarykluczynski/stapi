@@ -8,16 +8,16 @@ import spock.lang.Specification
 
 class MovieScreenplayAuthorsLinkingWorkerTest extends Specification {
 
-	private SimpleMovieRealPeopleLinkingWorkerHelper simpleMovieRealPeopleLinkingWorkerHelperMock
+	private AllStaffFindingMovieRealPeopleLinkingWorkerHelper allStaffFindingMovieRealPeopleLinkingWorkerHelper
 
 	private MovieScreenplayAuthorsLinkingWorker movieScreenplayAuthorsLinkingWorker
 
 	def setup() {
-		simpleMovieRealPeopleLinkingWorkerHelperMock = Mock(SimpleMovieRealPeopleLinkingWorkerHelper)
-		movieScreenplayAuthorsLinkingWorker = new MovieScreenplayAuthorsLinkingWorker(simpleMovieRealPeopleLinkingWorkerHelperMock)
+		allStaffFindingMovieRealPeopleLinkingWorkerHelper = Mock(AllStaffFindingMovieRealPeopleLinkingWorkerHelper)
+		movieScreenplayAuthorsLinkingWorker = new MovieScreenplayAuthorsLinkingWorker(allStaffFindingMovieRealPeopleLinkingWorkerHelper)
 	}
 
-	def "adds screenplayAuthors found by SimpleMovieRealPeopleLinkingWorkerHelper"() {
+	def "adds screenplayAuthors found by AllStaffFindingMovieRealPeopleLinkingWorkerHelperTest"() {
 		given:
 		LinkedHashSet<List<String>> source = Sets.newHashSet()
 		Staff screenplayAuthor = new Staff()
@@ -27,7 +27,7 @@ class MovieScreenplayAuthorsLinkingWorkerTest extends Specification {
 		movieScreenplayAuthorsLinkingWorker.link(source, baseEntity)
 
 		then:
-		1 * simpleMovieRealPeopleLinkingWorkerHelperMock.linkListsToStaff(source, MediaWikiSource.MEMORY_ALPHA_EN) >> Sets.newHashSet(screenplayAuthor)
+		1 * allStaffFindingMovieRealPeopleLinkingWorkerHelper.linkListsToStaff(source, MediaWikiSource.MEMORY_ALPHA_EN) >> Sets.newHashSet(screenplayAuthor)
 		0 * _
 		baseEntity.screenplayAuthors.size() == 1
 		baseEntity.screenplayAuthors.contains screenplayAuthor

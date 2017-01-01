@@ -25,7 +25,7 @@ class MovieStaffLinkingWorkerTest extends Specification {
 	def "adds entities found by name"() {
 		given:
 		Movie movie = new Movie()
-		LinkedHashSet<List<String>> source = Sets.newLinkedHashSet()
+		Set<List<String>> source = Sets.newHashSet()
 		source.add(Lists.newArrayList(STAFF))
 		source.add(Lists.newArrayList(STAFF_NOT_FOUND))
 		Staff director = new Staff()

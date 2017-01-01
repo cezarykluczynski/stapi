@@ -10,16 +10,16 @@ import java.util.Set;
 @Service
 public class MovieProducersLinkingWorker implements MovieRealPeopleLinkingWorker {
 
-	private SimpleMovieRealPeopleLinkingWorkerHelper simpleMovieRealPeopleLinkingWorkerHelper;
+	private AllStaffFindingMovieRealPeopleLinkingWorkerHelper allStaffFindingMovieRealPeopleLinkingWorkerHelper;
 
 	@Inject
-	public MovieProducersLinkingWorker(SimpleMovieRealPeopleLinkingWorkerHelper simpleMovieRealPeopleLinkingWorkerHelper) {
-		this.simpleMovieRealPeopleLinkingWorkerHelper = simpleMovieRealPeopleLinkingWorkerHelper;
+	public MovieProducersLinkingWorker(AllStaffFindingMovieRealPeopleLinkingWorkerHelper allStaffFindingMovieRealPeopleLinkingWorkerHelper) {
+		this.allStaffFindingMovieRealPeopleLinkingWorkerHelper = allStaffFindingMovieRealPeopleLinkingWorkerHelper;
 	}
 
 	@Override
 	public void link(Set<List<String>> source, Movie baseEntity) {
-		baseEntity.getProducers().addAll(simpleMovieRealPeopleLinkingWorkerHelper
+		baseEntity.getProducers().addAll(allStaffFindingMovieRealPeopleLinkingWorkerHelper
 				.linkListsToStaff(source, MovieRealPeopleLinkingWorker.SOURCE));
 	}
 }
