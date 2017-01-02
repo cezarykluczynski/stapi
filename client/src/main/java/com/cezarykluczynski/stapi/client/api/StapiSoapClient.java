@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.client.api;
 
 import com.cezarykluczynski.stapi.client.v1.soap.CharacterPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.EpisodePortType;
+import com.cezarykluczynski.stapi.client.v1.soap.MoviePortType;
 import com.cezarykluczynski.stapi.client.v1.soap.PerformerPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.SeriesPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.StaffPortType;
@@ -26,6 +27,9 @@ public class StapiSoapClient {
 	@Getter
 	private EpisodePortType episodePortType;
 
+	@Getter
+	private MoviePortType moviePortType;
+
 	public StapiSoapClient() {
 		this.stapiSoapPortTypesProvider = new StapiSoapPortTypesProvider();
 		this.bindPortTypes();
@@ -42,6 +46,7 @@ public class StapiSoapClient {
 		this.staffPortType = stapiSoapPortTypesProvider.getStaffPortType();
 		this.characterPortType = stapiSoapPortTypesProvider.getCharacterPortType();
 		this.episodePortType = stapiSoapPortTypesProvider.getEpisodePortType();
+		this.moviePortType = stapiSoapPortTypesProvider.getMoviePortType();
 	}
 
 }

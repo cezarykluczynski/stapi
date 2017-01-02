@@ -19,8 +19,7 @@ class SeriesConfigurationTest extends Specification {
 
 	def setup() {
 		applicationContextMock = Mock(ApplicationContext)
-		seriesConfiguration = new SeriesConfiguration()
-		seriesConfiguration.applicationContext = applicationContextMock
+		seriesConfiguration = new SeriesConfiguration(applicationContext: applicationContextMock)
 	}
 
 	def "series soap endpoint is created"() {

@@ -19,8 +19,7 @@ class PerformerConfigurationTest extends Specification {
 
 	def setup() {
 		applicationContextMock = Mock(ApplicationContext)
-		performerConfiguration = new PerformerConfiguration()
-		performerConfiguration.applicationContext = applicationContextMock
+		performerConfiguration = new PerformerConfiguration(applicationContext: applicationContextMock)
 	}
 
 	def "performer soap endpoint is created"() {

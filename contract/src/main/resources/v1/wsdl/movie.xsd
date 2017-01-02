@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:character="http://stapi.co/api/v1/soap/character"
+		xmlns:movie="http://stapi.co/api/v1/soap/movie"
+		xmlns:staff="http://stapi.co/api/v1/soap/staff"
+		xmlns:performer="http://stapi.co/api/v1/soap/performer"
+		xmlns:common="http://stapi.co/api/v1/soap/common"
+		elementFormDefault="qualified"
+		targetNamespace="http://stapi.co/api/v1/soap/movie">
+	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/character" schemaLocation="character.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/performer" schemaLocation="performer.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/staff" schemaLocation="staff.xsd"/>
+	<xs:element name="MovieRequest">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Request">
+					<xs:sequence>
+						<xs:element name="guid" type="xs:string" minOccurs="0"/>
+						<xs:element name="title" type="xs:string" minOccurs="0"/>
+						<xs:element name="stardate" type="common:FloatRange" minOccurs="0"/>
+						<xs:element name="year" type="common:IntegerRange" minOccurs="0"/>
+						<xs:element name="usReleaseDate" type="common:DateRange" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="MovieResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Response">
+					<xs:sequence>
+						<xs:element name="movies" type="movie:Movie" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="Movie">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="mainDirector" type="staff:StaffHeader"/>
+			<xs:element name="title" type="xs:string"/>
+			<xs:element name="titleBulgarian" type="xs:string"/>
+			<xs:element name="titleCatalan" type="xs:string"/>
+			<xs:element name="titleChineseTraditional" type="xs:string"/>
+			<xs:element name="titleGerman" type="xs:string"/>
+			<xs:element name="titleItalian" type="xs:string"/>
+			<xs:element name="titleJapanese" type="xs:string"/>
+			<xs:element name="titlePolish" type="xs:string"/>
+			<xs:element name="titleRussian" type="xs:string"/>
+			<xs:element name="titleSerbian" type="xs:string"/>
+			<xs:element name="titleSpanish" type="xs:string"/>
+			<xs:element name="stardate_from" type="xs:float"/>
+			<xs:element name="stardate_to" type="xs:float"/>
+			<xs:element name="year_from" type="xs:integer"/>
+			<xs:element name="year_to" type="xs:integer"/>
+			<xs:element name="usReleaseDate" type="xs:date" minOccurs="0"/>
+			<xs:sequence>
+				<xs:element name="writerHeaders" type="staff:StaffHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="screenplayAuthorHeaders" type="staff:StaffHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="storyAuthorHeaders" type="staff:StaffHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="directorHeaders" type="staff:StaffHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="producerHeaders" type="staff:StaffHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="staffHeaders" type="staff:StaffHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="performerHeaders" type="performer:PerformerHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="stuntPerformerHeaders" type="performer:PerformerHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="standInPerformerHeaders" type="performer:PerformerHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="characterHeaders" type="character:CharacterHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MovieHeader">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="title" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -19,8 +19,7 @@ class EpisodeConfigurationTest extends Specification {
 
 	def setup() {
 		applicationContextMock = Mock(ApplicationContext)
-		episodeConfiguration = new EpisodeConfiguration()
-		episodeConfiguration.applicationContext = applicationContextMock
+		episodeConfiguration = new EpisodeConfiguration(applicationContext: applicationContextMock)
 	}
 
 	def "episode soap endpoint is created"() {

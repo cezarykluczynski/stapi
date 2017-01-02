@@ -16,7 +16,7 @@ class PerformerRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 		then:
 		performerRestBeanParams.pageNumber == PAGE_NUMBER
 		performerRestBeanParams.pageSize == PAGE_SIZE
-		performerRestBeanParams.sort.equals(SORT)
+		performerRestBeanParams.sort == SORT
 	}
 
 	def "creates null PerformerRestBeanParams from null PageSortBeanParams"() {

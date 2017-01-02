@@ -20,15 +20,15 @@ properties:
     type: string
   featureLength:
     type: boolean
-  stardate_from:
+  stardateFrom:
     type: number
     format: float
-  stardate_to:
+  stardateTo:
     type: number
     format: float
-  year_from:
+  yearFrom:
     type: integer
-  year_to:
+  yearTo:
     type: integer
   usAirDate:
     type: string

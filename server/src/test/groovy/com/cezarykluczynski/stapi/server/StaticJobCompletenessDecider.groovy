@@ -27,17 +27,17 @@ class StaticJobCompletenessDecider {
 	private static List<SimpleStep> simpleStepList
 
 	@Service
-	public static class MockJobCompletenessDecider {
+	static class MockJobCompletenessDecider {
 
 		@Inject
 		private EntityManager entityManager
 
-		public MockJobCompletenessDecider(EntityManager entityManager) {
+		MockJobCompletenessDecider(EntityManager entityManager) {
 			this.entityManager = entityManager
 		}
 
 		@Transactional
-		public List<SimpleStep> getSteps() {
+		List<SimpleStep> getSteps() {
 			return simpleStepList = entityManager
 					.createQuery("from SimpleStep")
 					.resultList
@@ -45,14 +45,14 @@ class StaticJobCompletenessDecider {
 
 	}
 
-	public static class AlwaysCompletedStepCompletenessDecider extends StepCompletenessDecider {
+	static class AlwaysCompletedStepCompletenessDecider extends StepCompletenessDecider {
 
-		public AlwaysCompletedStepCompletenessDecider() {
+		AlwaysCompletedStepCompletenessDecider() {
 			super(null, null)
 		}
 
 		@Override
-		public boolean isStepComplete(String jobName, String stepName) {
+		boolean isStepComplete(String jobName, String stepName) {
 			return true
 		}
 
@@ -60,7 +60,7 @@ class StaticJobCompletenessDecider {
 
 	@Configuration
 	@EnableBatchProcessing
-	public static class EtlMockConfiguration {
+	static class EtlMockConfiguration {
 
 		@Inject
 		private ApplicationContext applicationContext
@@ -73,7 +73,7 @@ class StaticJobCompletenessDecider {
 
 		@Bean
 		@Profile(SpringProfile.ETL_NOT)
-		public SpringLiquibase liquibase() {
+		SpringLiquibase liquibase() {
 			return new SpringLiquibase(
 					changeLog: "classpath:liquibase/changelog.xml",
 					dataSource: applicationContext.getBean(DataSource)
@@ -82,11 +82,11 @@ class StaticJobCompletenessDecider {
 
 	}
 
-	public static boolean isStepCompleted(String stepName) {
+	static boolean isStepCompleted(String stepName) {
 		initializeMockJobCompletenessDecider()
 
 		return simpleStepList.stream().anyMatch({
-			step -> step.stepName.equals(stepName) && BatchStatus.COMPLETED.equals(step.status)
+			step -> step.stepName == stepName && BatchStatus.COMPLETED == step.status
 		})
 	}
 

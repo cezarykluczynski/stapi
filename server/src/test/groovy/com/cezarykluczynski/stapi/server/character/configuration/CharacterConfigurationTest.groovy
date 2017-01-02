@@ -19,8 +19,7 @@ class CharacterConfigurationTest extends Specification {
 
 	def setup() {
 		applicationContextMock = Mock(ApplicationContext)
-		characterConfiguration = new CharacterConfiguration()
-		characterConfiguration.applicationContext = applicationContextMock
+		characterConfiguration = new CharacterConfiguration(applicationContext: applicationContextMock)
 	}
 
 	def "character soap endpoint is created"() {

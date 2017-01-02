@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+		name="Movie"
+		targetNamespace="http://stapi.co/api/v1/soap/movie"
+		xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+		xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+		xmlns:stapi="http://stapi.co/api/v1/soap/movie"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<xs:schema targetNamespace="http://stapi.co/api/v1/soap/movie">
+			<xs:include schemaLocation="movie.xsd"/>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="MovieRequest">
+		<wsdl:part name="request" element="stapi:MovieRequest"/>
+	</wsdl:message>
+	<wsdl:message name="MovieResponse">
+		<wsdl:part name="response" element="stapi:MovieResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="MoviePortType">
+		<wsdl:operation name="getMovies">
+			<wsdl:input name="getMoviesRequest" message="stapi:MovieRequest"/>
+			<wsdl:output name="getMoviesResponse" message="stapi:MovieResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="MovieBinding" type="stapi:MoviePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getMovies">
+			<wsdl:input name="getMoviesRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getMoviesResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="MovieService">
+		<wsdl:port name="MoviePortType" binding="stapi:MovieBinding">
+			<soap:address location="http://stapi.co/api/v1/soap/movie"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

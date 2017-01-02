@@ -1,0 +1,81 @@
+type: object
+properties:
+  guid:
+    type: string
+  mainDirector:
+    $ref: ./staff/entity/staffHeader.yaml
+  title:
+    type: string
+  titleBulgarian:
+    type: string
+  titleCatalan:
+    type: string
+  titleChineseTraditional:
+    type: string
+  titleGerman:
+    type: string
+  titleItalian:
+    type: string
+  titleJapanese:
+    type: string
+  titlePolish:
+    type: string
+  titleRussian:
+    type: string
+  titleSerbian:
+    type: string
+  titleSpanish:
+    type: string
+  stardateFrom:
+    type: number
+    format: float
+  stardateTo:
+    type: number
+    format: float
+  yearFrom:
+    type: integer
+  yearTo:
+    type: integer
+  usReleaseDate:
+    type: string
+    format: date
+  writerHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/StaffHeader'
+  screenplayAuthorHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/StaffHeader'
+  storyAuthorHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/StaffHeader'
+  directorHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/StaffHeader'
+  producerHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/StaffHeader'
+  staffHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/StaffHeader'
+  performerHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/PerformerHeader'
+  stuntPerformerHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/PerformerHeader'
+  standInPerformerHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/PerformerHeader'
+  characterHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/CharacterHeader'

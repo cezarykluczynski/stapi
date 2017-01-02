@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.server.configuration;
 
+import com.cezarykluczynski.stapi.server.common.converter.LocalDateRestParamConverterProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -38,7 +39,10 @@ public class CxfConfiguration extends SpringBootServletInitializer {
 	public Server cxfServer() {
 		JAXRSServerFactoryBean factory = new JAXRSServerFactoryBean();
 		factory.setBus(applicationContext.getBean(SpringBus.class));
-		factory.setProviders(Lists.newArrayList(new JacksonJsonProvider(getObjectMapper()), new CxfRestPrettyPrintContainerResponseFilter()));
+		factory.setProviders(Lists.newArrayList(
+				new JacksonJsonProvider(getObjectMapper()),
+				new CxfRestPrettyPrintContainerResponseFilter(),
+				new LocalDateRestParamConverterProvider()));
 		factory.setServiceBeans(Lists.newArrayList(applicationContext.getBeansWithAnnotation(Path.class).values()));
 		return factory.create();
 	}

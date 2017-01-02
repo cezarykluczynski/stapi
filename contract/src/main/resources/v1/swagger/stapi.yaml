@@ -13,6 +13,8 @@ paths:
     $ref: ./character/path/character.path.yaml
   /episode:
     $ref: ./episode/path/episode.path.yaml
+  /movie:
+    $ref: ./movie/path/movie.path.yaml
   /performer:
     $ref: ./performer/path/performer.path.yaml
   /series:
@@ -34,6 +36,12 @@ definitions:
     $ref: ./episode/entity/episodeResponse.yaml
   Error:
     $ref: ./common/entity/error.yaml
+  Movie:
+    $ref: ./movie/entity/movie.yaml
+  MovieHeader:
+    $ref: ./movie/entity/movieHeader.yaml
+  MovieResponse:
+    $ref: ./movie/entity/movieResponse.yaml
   Performer:
     $ref: ./performer/entity/performer.yaml
   PerformerHeader:

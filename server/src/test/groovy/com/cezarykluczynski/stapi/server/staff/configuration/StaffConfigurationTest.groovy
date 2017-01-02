@@ -19,8 +19,7 @@ class StaffConfigurationTest extends Specification {
 
 	def setup() {
 		applicationContextMock = Mock(ApplicationContext)
-		staffConfiguration = new StaffConfiguration()
-		staffConfiguration.applicationContext = applicationContextMock
+		staffConfiguration = new StaffConfiguration(applicationContext: applicationContextMock)
 	}
 
 	def "staff soap endpoint is created"() {

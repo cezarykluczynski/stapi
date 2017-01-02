@@ -67,6 +67,14 @@ post:
       in: formData
       type: string
       format: date
+    - name: yearFrom
+      in: formData
+      type: integer
+      format: int32
+    - name: yearTo
+      in: formData
+      type: integer
+      format: int32
     - name: usAirDateTo
       in: formData
       type: string
