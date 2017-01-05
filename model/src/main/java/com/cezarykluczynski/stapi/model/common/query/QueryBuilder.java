@@ -170,6 +170,12 @@ public class QueryBuilder<T> {
 		return this;
 	}
 
+	public QueryBuilder<T> fetch(SingularAttribute<T, ?> name) {
+		baseRoot.fetch(name, JoinType.LEFT);
+
+		return this;
+	}
+
 	public QueryBuilder<T> fetch(SetAttribute<T, ?> name, boolean doFetch) {
 		return doFetch ? fetch(name) : this;
 	}

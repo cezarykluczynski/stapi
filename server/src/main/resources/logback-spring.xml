@@ -38,6 +38,19 @@
 		</encoder>
 	</appender>
 
+	<appender name="HIBERNATE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${destinationPath}/hibernate/hibernate.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${FILE_PATTERN}</pattern>
+			<charset>utf8</charset>
+		</encoder>
+	</appender>
+
 	<logger name="org.springframework" additivity="FALSE" level="INFO">
 		<appender-ref ref="CONSOLE"/>
 	</logger>
@@ -59,6 +72,10 @@
 	<logger name="com.cezarykluczynski.stapi.model" additivity="FALSE">
 		<appender-ref ref="ETL"/>
 		<appender-ref ref="CONSOLE"/>
+	</logger>
+
+	<logger name="org.hibernate.SQL" additivity="FALSE">
+		<appender-ref ref="HIBERNATE"/>
 	</logger>
 
 	<root>

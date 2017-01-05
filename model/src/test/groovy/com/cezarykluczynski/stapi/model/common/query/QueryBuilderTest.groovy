@@ -46,7 +46,8 @@ class QueryBuilderTest extends Specification {
 	private final SingularAttribute<?, String> VALID_KEY_STRING = Mock(SingularAttribute)
 	private final SingularAttribute<?, Boolean> VALID_KEY_BOOLEAN = Mock(SingularAttribute)
 	private final SingularAttribute<?, Long> VALID_KEY_LONG = Mock(SingularAttribute)
-	private final SetAttribute<?, ?> FETCH_NAME = Mock(SetAttribute)
+	private final SetAttribute<?, ?> FETCH_SET_NAME = Mock(SetAttribute)
+	private final SetAttribute<?, ?> FETCH_SINGULAR_NAME = Mock(SetAttribute)
 	private final SingularAttribute<?, LocalDate> VALID_KEY_LOCAL_DATE = Mock(SingularAttribute)
 	private final SingularAttribute<?, Integer> VALID_KEY_INTEGER = Mock(SingularAttribute)
 	private final SingularAttribute<?, Float> VALID_KEY_FLOAT = Mock(SingularAttribute)
@@ -303,22 +304,29 @@ class QueryBuilderTest extends Specification {
 		thrown(RuntimeException)
 
 		when: 'fetch is performed'
-		queryBuilder.fetch(FETCH_NAME)
+		queryBuilder.fetch(FETCH_SET_NAME)
 
 		then: 'right methods are called'
-		1 * baseRoot.fetch(FETCH_NAME, JoinType.LEFT)
+		1 * baseRoot.fetch(FETCH_SET_NAME, JoinType.LEFT)
 
 		when: 'fetch is performed with boolean flag set to true'
-		queryBuilder.fetch(FETCH_NAME, true)
+		queryBuilder.fetch(FETCH_SET_NAME, true)
 
 		then: 'right methods are called'
-		1 * baseRoot.fetch(FETCH_NAME, JoinType.LEFT)
+		1 * baseRoot.fetch(FETCH_SET_NAME, JoinType.LEFT)
 
 		when: 'fetch is performed with boolean flag set to false'
-		queryBuilder.fetch(FETCH_NAME, false)
+		queryBuilder.fetch(FETCH_SET_NAME, false)
 
 		then: 'no fetch methods are called'
 		0 * baseRoot.fetch(*_)
+
+		when: 'singular fetch is performed'
+		queryBuilder.fetch(FETCH_SINGULAR_NAME)
+
+		then: 'singular set right methods are called'
+		1 * baseRoot.fetch(FETCH_SINGULAR_NAME, JoinType.LEFT)
+
 
 		when: 'order is added and search is performer'
 		queryBuilder.setSort(ORDER_REQUEST)

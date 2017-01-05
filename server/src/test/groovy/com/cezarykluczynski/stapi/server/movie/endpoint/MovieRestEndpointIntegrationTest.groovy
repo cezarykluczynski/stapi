@@ -45,4 +45,18 @@ class MovieRestEndpointIntegrationTest extends AbstractMovieEndpointIntegrationT
 		movieResponse.movies[0].yearTo != null
 	}
 
+	def "confirms that Kathryn Janeway appeared in Nemesis"() {
+		when:
+		MovieResponse movieResponseFromTitle = stapiRestClient.movieApi.moviePost(null, null, null, null,
+				'Star Trek Nemesis', null, null, null, null, null, null)
+		MovieResponse movieResponse = stapiRestClient.movieApi.moviePost(null, null, null,
+				movieResponseFromTitle.movies[0].guid, null, null, null, null, null, null, null)
+
+		then:
+		movieResponse.movies.size() == 1
+		movieResponse.movies[0].characterHeaders.stream().anyMatch({
+			return it.name == 'Kathryn Janeway'
+		})
+	}
+
 }
