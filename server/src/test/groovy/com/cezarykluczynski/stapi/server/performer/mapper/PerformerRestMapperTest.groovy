@@ -100,9 +100,12 @@ class PerformerRestMapperTest extends AbstractPerformerMapperTest {
 		restPerformer.videoGamePerformer == VIDEO_GAME_PERFORMER
 		restPerformer.voicePerformer == VOICE_PERFORMER
 		restPerformer.voyPerformer == VOY_PERFORMER
-		restPerformer.performanceHeaders.size() == dBPerformer.performances.size()
-		restPerformer.stuntPerformanceHeaders.size() == dBPerformer.stuntPerformances.size()
-		restPerformer.standInPerformanceHeaders.size() == dBPerformer.standInPerformances.size()
+		restPerformer.episodesPerformanceHeaders.size() == dBPerformer.episodesPerformances.size()
+		restPerformer.episodesStuntPerformanceHeaders.size() == dBPerformer.episodesStuntPerformances.size()
+		restPerformer.episodesStandInPerformanceHeaders.size() == dBPerformer.episodesStandInPerformances.size()
+		restPerformer.moviesPerformanceHeaders.size() == dBPerformer.moviesPerformances.size()
+		restPerformer.moviesStuntPerformanceHeaders.size() == dBPerformer.moviesStuntPerformances.size()
+		restPerformer.moviesStandInPerformanceHeaders.size() == dBPerformer.moviesStandInPerformances.size()
 		restPerformer.characterHeaders.size() == dBPerformer.characters.size()
 	}
 

@@ -55,9 +55,12 @@ public class PerformerRepositoryImpl extends AbstractRepositoryImpl<Performer> i
 		performerQueryBuilder.equal(Performer_.voicePerformer, criteria.getVoicePerformer());
 		performerQueryBuilder.equal(Performer_.voyPerformer, criteria.getVoyPerformer());
 		performerQueryBuilder.setSort(criteria.getSort());
-		performerQueryBuilder.fetch(Performer_.performances, doFetch);
-		performerQueryBuilder.fetch(Performer_.standInPerformances, doFetch);
-		performerQueryBuilder.fetch(Performer_.stuntPerformances, doFetch);
+		performerQueryBuilder.fetch(Performer_.episodesPerformances, doFetch);
+		performerQueryBuilder.fetch(Performer_.episodesStandInPerformances, doFetch);
+		performerQueryBuilder.fetch(Performer_.episodesStuntPerformances, doFetch);
+		performerQueryBuilder.fetch(Performer_.moviesPerformances, doFetch);
+		performerQueryBuilder.fetch(Performer_.moviesStandInPerformances, doFetch);
+		performerQueryBuilder.fetch(Performer_.moviesStuntPerformances, doFetch);
 		performerQueryBuilder.fetch(Performer_.characters, doFetch);
 
 		Page<Performer> performerPage = performerQueryBuilder.findPage();
@@ -72,9 +75,12 @@ public class PerformerRepositoryImpl extends AbstractRepositoryImpl<Performer> i
 		}
 
 		page.getContent().forEach(performer -> {
-			performer.setPerformances(Sets.newHashSet());
-			performer.setStuntPerformances(Sets.newHashSet());
-			performer.setStandInPerformances(Sets.newHashSet());
+			performer.setEpisodesPerformances(Sets.newHashSet());
+			performer.setEpisodesStuntPerformances(Sets.newHashSet());
+			performer.setEpisodesStandInPerformances(Sets.newHashSet());
+			performer.setMoviesPerformances(Sets.newHashSet());
+			performer.setMoviesStuntPerformances(Sets.newHashSet());
+			performer.setMoviesStandInPerformances(Sets.newHashSet());
 			performer.setCharacters(Sets.newHashSet());
 		});
 	}

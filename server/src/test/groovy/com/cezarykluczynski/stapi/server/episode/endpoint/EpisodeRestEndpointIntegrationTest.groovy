@@ -27,4 +27,14 @@ class EpisodeRestEndpointIntegrationTest extends AbstractEpisodeEndpointIntegrat
 		episodeResponse.episodes[0].yearTo != null
 	}
 
+	def "episodes could be found by guid"() {
+		when:
+		EpisodeResponse episodeResponse = stapiRestClient.episodeApi.episodePost(null, null, null, 'EPMA0000001458',
+				null, null, null, null, null, null, null, null, null, null, null, null, null)
+
+		then:
+		episodeResponse.episodes.size() == 1
+		episodeResponse.episodes[0].title == 'All Good Things...'
+	}
+
 }

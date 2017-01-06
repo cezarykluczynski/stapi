@@ -43,6 +43,10 @@ class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointInte
 		performerResponse.performers[0].name == "Majel Barrett-Roddenberry"
 	}
 
+	@Requires({
+		StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_EPISODES) &&
+				StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_MOVIES)
+	})
 	def "gets performer by guid"() {
 		when:
 		PerformerResponse performerResponse = stapiRestClient.performerApi.performerPost(null, null, null, GUID, null,
@@ -52,6 +56,8 @@ class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointInte
 		then:
 		performerResponse.page.totalElements == 1
 		performerResponse.performers[0].guid == GUID
+		performerResponse.performers[0].episodesPerformanceHeaders.size() == 177
+		performerResponse.performers[0].moviesPerformanceHeaders.size() == 4
 	}
 
 	def "gets performers sorted by name"() {

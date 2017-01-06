@@ -108,9 +108,12 @@ class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 		1 * performerQueryBuilder.setSort(SORT)
 
 		then: 'fetch is performed with true flag'
-		1 * performerQueryBuilder.fetch(Performer_.performances, true)
-		1 * performerQueryBuilder.fetch(Performer_.standInPerformances, true)
-		1 * performerQueryBuilder.fetch(Performer_.stuntPerformances, true)
+		1 * performerQueryBuilder.fetch(Performer_.episodesPerformances, true)
+		1 * performerQueryBuilder.fetch(Performer_.episodesStandInPerformances, true)
+		1 * performerQueryBuilder.fetch(Performer_.episodesStuntPerformances, true)
+		1 * performerQueryBuilder.fetch(Performer_.moviesPerformances, true)
+		1 * performerQueryBuilder.fetch(Performer_.moviesStandInPerformances, true)
+		1 * performerQueryBuilder.fetch(Performer_.moviesStuntPerformances, true)
 		1 * performerQueryBuilder.fetch(Performer_.characters, true)
 
 		then: 'page is searched for and returned'
@@ -133,9 +136,12 @@ class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 		1 * performerRequestDTO.getGuid() >> null
 
 		then: 'fetch is performed with false flag'
-		1 * performerQueryBuilder.fetch(Performer_.performances, false)
-		1 * performerQueryBuilder.fetch(Performer_.standInPerformances, false)
-		1 * performerQueryBuilder.fetch(Performer_.stuntPerformances, false)
+		1 * performerQueryBuilder.fetch(Performer_.episodesPerformances, false)
+		1 * performerQueryBuilder.fetch(Performer_.episodesStandInPerformances, false)
+		1 * performerQueryBuilder.fetch(Performer_.episodesStuntPerformances, false)
+		1 * performerQueryBuilder.fetch(Performer_.moviesPerformances, false)
+		1 * performerQueryBuilder.fetch(Performer_.moviesStandInPerformances, false)
+		1 * performerQueryBuilder.fetch(Performer_.moviesStuntPerformances, false)
 		1 * performerQueryBuilder.fetch(Performer_.characters, false)
 
 		then: 'page is searched for and returned'
@@ -143,9 +149,9 @@ class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 
 		then: 'proxies are cleared'
 		1 * page.getContent() >> Lists.newArrayList(performer)
-		1 * performer.setPerformances(Sets.newHashSet())
-		1 * performer.setStuntPerformances(Sets.newHashSet())
-		1 * performer.setStandInPerformances(Sets.newHashSet())
+		1 * performer.setEpisodesPerformances(Sets.newHashSet())
+		1 * performer.setEpisodesStuntPerformances(Sets.newHashSet())
+		1 * performer.setEpisodesStandInPerformances(Sets.newHashSet())
 		1 * performer.setCharacters(Sets.newHashSet())
 		pageOutput == page
 	}

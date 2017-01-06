@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.server.common.mapper.EnumMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.RequestSortSoapMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeHeaderSoapMapper;
+import com.cezarykluczynski.stapi.server.movie.mapper.MovieHeaderSoapMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -16,7 +17,7 @@ import org.mapstruct.Mappings;
 import java.util.List;
 
 @Mapper(config = MapstructConfiguration.class, uses = {CharacterHeaderSoapMapper.class, DateMapper.class,
-		EnumMapper.class, EpisodeHeaderSoapMapper.class, RequestSortSoapMapper.class})
+		EnumMapper.class, EpisodeHeaderSoapMapper.class, MovieHeaderSoapMapper.class, RequestSortSoapMapper.class})
 public interface PerformerSoapMapper {
 
 	@Mappings({
@@ -28,10 +29,13 @@ public interface PerformerSoapMapper {
 	PerformerRequestDTO map(PerformerRequest performerRequest);
 
 	@Mappings({
-			@Mapping(source = "performances", target = "performanceHeaders"),
-			@Mapping(source = "stuntPerformances", target = "stuntPerformanceHeaders"),
-			@Mapping(source = "standInPerformances", target = "standInPerformanceHeaders"),
-			@Mapping(source = "characters", target = "characterHeaders")
+			@Mapping(target = "episodesPerformanceHeaders", source = "episodesPerformances"),
+			@Mapping(target = "episodesStuntPerformanceHeaders", source = "episodesStuntPerformances"),
+			@Mapping(target = "episodesStandInPerformanceHeaders", source = "episodesStandInPerformances"),
+			@Mapping(target = "moviesPerformanceHeaders", source = "moviesPerformances"),
+			@Mapping(target = "moviesStuntPerformanceHeaders", source = "moviesStuntPerformances"),
+			@Mapping(target = "moviesStandInPerformanceHeaders", source = "moviesStandInPerformances"),
+			@Mapping(target = "characterHeaders", source = "characters")
 	})
 	com.cezarykluczynski.stapi.client.v1.soap.Performer map(Performer performer);
 

@@ -119,6 +119,7 @@ class EpisodeRepositoryImplTest extends Specification {
 		1 * episodeQueryBuilder.fetch(Episode_.performers, true)
 		1 * episodeQueryBuilder.fetch(Episode_.stuntPerformers, true)
 		1 * episodeQueryBuilder.fetch(Episode_.standInPerformers, true)
+		1 * episodeQueryBuilder.fetch(Episode_.characters, true)
 
 		then: 'page is searched for and returned'
 		1 * episodeQueryBuilder.findPage() >> page
@@ -148,6 +149,7 @@ class EpisodeRepositoryImplTest extends Specification {
 		1 * episodeQueryBuilder.fetch(Episode_.performers, false)
 		1 * episodeQueryBuilder.fetch(Episode_.stuntPerformers, false)
 		1 * episodeQueryBuilder.fetch(Episode_.standInPerformers, false)
+		1 * episodeQueryBuilder.fetch(Episode_.characters, false)
 
 		then: 'page is searched for and returned'
 		1 * episodeQueryBuilder.findPage() >> page

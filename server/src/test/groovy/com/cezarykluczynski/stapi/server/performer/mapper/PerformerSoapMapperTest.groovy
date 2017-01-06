@@ -99,9 +99,12 @@ class PerformerSoapMapperTest extends AbstractPerformerMapperTest {
 		soapPerformer.videoGamePerformer == VIDEO_GAME_PERFORMER
 		soapPerformer.voicePerformer == VOICE_PERFORMER
 		soapPerformer.voyPerformer == VOY_PERFORMER
-		soapPerformer.performanceHeaders.size() == dBPerformer.performances.size()
-		soapPerformer.stuntPerformanceHeaders.size() == dBPerformer.stuntPerformances.size()
-		soapPerformer.standInPerformanceHeaders.size() == dBPerformer.standInPerformances.size()
+		soapPerformer.episodesPerformanceHeaders.size() == dBPerformer.episodesPerformances.size()
+		soapPerformer.episodesStuntPerformanceHeaders.size() == dBPerformer.episodesStuntPerformances.size()
+		soapPerformer.episodesStandInPerformanceHeaders.size() == dBPerformer.episodesStandInPerformances.size()
+		soapPerformer.moviesPerformanceHeaders.size() == dBPerformer.moviesPerformances.size()
+		soapPerformer.moviesStuntPerformanceHeaders.size() == dBPerformer.moviesStuntPerformances.size()
+		soapPerformer.moviesStandInPerformanceHeaders.size() == dBPerformer.moviesStandInPerformances.size()
 		soapPerformer.characterHeaders.size() == dBPerformer.characters.size()
 	}
 

@@ -6,7 +6,7 @@ import java.beans.PropertyDescriptor
 
 class ReflectionTestUtils  {
 
-	public static int getNumberOfTrueBooleanFields(Object object) {
+	static int getNumberOfTrueBooleanFields(Object object) {
 		int numberOfTrueBooleanFields = 0
 		BeanInfo beanInfo = Introspector.getBeanInfo(object.class)
 
@@ -20,7 +20,7 @@ class ReflectionTestUtils  {
 		return numberOfTrueBooleanFields
 	}
 
-	public static int getNumberOfNotNullFields(Object object) {
+	static int getNumberOfNotNullFields(Object object) {
 		int numberOfNotNullFields = 0
 		BeanInfo beanInfo = Introspector.getBeanInfo(object.class)
 

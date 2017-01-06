@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.model.performer.entity;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.common.entity.RealWorldPerson;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
+import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.google.common.collect.Sets;
 import lombok.AllArgsConstructor;
@@ -28,8 +29,11 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true, exclude = {"performances", "stuntPerformances", "standInPerformances", "characters"})
-@EqualsAndHashCode(callSuper = true, exclude = {"performances", "stuntPerformances", "standInPerformances",
+@ToString(callSuper = true, exclude = {"episodesPerformances", "episodesStuntPerformances",
+		"episodesStandInPerformances", "moviesPerformances", "moviesStuntPerformances", "moviesStandInPerformances",
+		"characters"})
+@EqualsAndHashCode(callSuper = true, exclude = {"episodesPerformances", "episodesStuntPerformances",
+		"episodesStandInPerformances", "moviesPerformances", "moviesStuntPerformances", "moviesStandInPerformances",
 		"characters"})
 public class Performer extends RealWorldPerson implements PageAware {
 
@@ -66,14 +70,23 @@ public class Performer extends RealWorldPerson implements PageAware {
 
 	private boolean voyPerformer;
 
-	@ManyToMany(mappedBy = "performers")
-	private Set<Episode> performances = Sets.newHashSet();
+	@ManyToMany(mappedBy = "performers", targetEntity = Episode.class)
+	private Set<Episode> episodesPerformances = Sets.newHashSet();
 
-	@ManyToMany(mappedBy = "stuntPerformers")
-	private Set<Episode> stuntPerformances = Sets.newHashSet();
+	@ManyToMany(mappedBy = "stuntPerformers", targetEntity = Episode.class)
+	private Set<Episode> episodesStuntPerformances = Sets.newHashSet();
 
-	@ManyToMany(mappedBy = "standInPerformers")
-	private Set<Episode> standInPerformances = Sets.newHashSet();
+	@ManyToMany(mappedBy = "standInPerformers", targetEntity = Episode.class)
+	private Set<Episode> episodesStandInPerformances = Sets.newHashSet();
+
+	@ManyToMany(mappedBy = "performers", targetEntity = Movie.class)
+	private Set<Movie> moviesPerformances = Sets.newHashSet();
+
+	@ManyToMany(mappedBy = "stuntPerformers", targetEntity = Movie.class)
+	private Set<Movie> moviesStuntPerformances = Sets.newHashSet();
+
+	@ManyToMany(mappedBy = "standInPerformers", targetEntity = Movie.class)
+	private Set<Movie> moviesStandInPerformances = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "performers_characters",

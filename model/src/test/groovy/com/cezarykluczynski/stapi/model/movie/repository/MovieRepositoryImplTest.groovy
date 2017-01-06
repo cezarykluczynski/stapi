@@ -247,6 +247,4 @@ class MovieRepositoryImplTest extends Specification {
 		pageOutput == page
 	}
 
-
-
 }

@@ -44,18 +44,30 @@ properties:
     type: boolean
   voyPerformer:
     type: boolean
-  performanceHeaders:
+  episodesPerformanceHeaders:
     type: array
     items:
       $ref: '#/definitions/EpisodeHeader'
-  stuntPerformanceHeaders:
+  episodesStuntPerformanceHeaders:
     type: array
     items:
       $ref: '#/definitions/EpisodeHeader'
-  standInPerformanceHeaders:
+  episodesStandInPerformanceHeaders:
     type: array
     items:
       $ref: '#/definitions/EpisodeHeader'
+  moviesPerformanceHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/MovieHeader'
+  moviesStuntPerformanceHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/MovieHeader'
+  moviesStandInPerformanceHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/MovieHeader'
   characterHeaders:
     type: array
     items:

@@ -55,6 +55,7 @@ public class EpisodeRepositoryImpl extends AbstractRepositoryImpl<Episode> imple
 		episodeQueryBuilder.fetch(Episode_.performers, doFetch);
 		episodeQueryBuilder.fetch(Episode_.stuntPerformers, doFetch);
 		episodeQueryBuilder.fetch(Episode_.standInPerformers, doFetch);
+		episodeQueryBuilder.fetch(Episode_.characters, doFetch);
 
 		Page<Episode> episodePage = episodeQueryBuilder.findPage();
 		clearProxies(episodePage, !doFetch);
