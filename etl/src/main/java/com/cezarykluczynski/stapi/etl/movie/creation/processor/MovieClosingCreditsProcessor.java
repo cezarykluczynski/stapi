@@ -70,19 +70,26 @@ public class MovieClosingCreditsProcessor implements ItemProcessor<Page, List<Pa
 
 		PageSection creditsPageSection = null;
 		List<String> creditsPageSectionWikitextLines = null;
+		boolean createNewSection = false;
+		String previousLine = null;
 
 		for (String pageSectionLine : pageSectionLineList) {
 			boolean isSectionWithoutDefinitionMarkup = SECTIONS_WITHOUT_DEFINITION_MARKUP.contains(pageSectionLine);
-			if (pageSectionLine.startsWith(";") || isSectionWithoutDefinitionMarkup) {
-				if (creditsPageSection != null) {
-					creditsPageSection.setWikitext(String.join("\n", creditsPageSectionWikitextLines));
-					creditsPageSectionList.add(creditsPageSection);
+			boolean hasDefinitionMarkup = pageSectionLine.startsWith(";");
+			boolean isListItem = pageSectionLine.startsWith("*");
+			boolean isCast = creditsPageSection != null && "Cast".equals(creditsPageSection.getText());
+			boolean couldBeCastMultiline = hasDefinitionMarkup || isListItem && previousLine != null;
+			if (creditsPageSection != null && ";Stunt Coordinator:".equals(pageSectionLine)) {
+				createNewSection = true;
+			} else if (isCast && couldBeCastMultiline) {
+				if (hasDefinitionMarkup) {
+					previousLine = pageSectionLine;
+				} else {
+					creditsPageSectionWikitextLines.add(previousLine + " " + pageSectionLine);
 				}
-
-				creditsPageSection = new PageSection();
-				creditsPageSection.setText(isSectionWithoutDefinitionMarkup ? pageSectionLine : pageSectionLine.substring(1));
-				creditsPageSectionWikitextLines = Lists.newArrayList();
-			} else if (pageSectionLine.startsWith("*") || pageSectionLine.startsWith(":")) {
+			} else if (hasDefinitionMarkup || isSectionWithoutDefinitionMarkup) {
+				createNewSection = true;
+			} else if (isListItem || pageSectionLine.startsWith(":")) {
 				if (creditsPageSection == null) {
 					log.warn("List item \"{}\" on page {} found before any section started", pageSectionLine,
 							pageTitle);
@@ -93,6 +100,18 @@ public class MovieClosingCreditsProcessor implements ItemProcessor<Page, List<Pa
 					!isNonInclude(pageSectionLine) && !isInterwiki(pageSectionLine)) {
 				log.warn("List item \"{}\" on page {} found, but not a list item nor a section part", pageSectionLine,
 						pageTitle);
+			}
+
+			if (createNewSection) {
+				if (creditsPageSection != null) {
+					creditsPageSection.setWikitext(String.join("\n", creditsPageSectionWikitextLines));
+					creditsPageSectionList.add(creditsPageSection);
+				}
+
+				creditsPageSection = new PageSection();
+				creditsPageSection.setText(isSectionWithoutDefinitionMarkup ? pageSectionLine : pageSectionLine.substring(1));
+				creditsPageSectionWikitextLines = Lists.newArrayList();
+				createNewSection = false;
 			}
 		}
 

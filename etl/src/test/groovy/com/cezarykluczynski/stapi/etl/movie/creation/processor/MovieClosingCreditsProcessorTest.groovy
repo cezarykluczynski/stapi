@@ -87,4 +87,32 @@ class MovieClosingCreditsProcessorTest extends Specification {
 		pageSectionListOutput[2].wikitext == '*Third list item'
 	}
 
+	def "parses multiline cast, but without stunt coordinator"() {
+		given:
+		Page basePage = Mock(Page)
+		Page creditsPage = Mock(Page)
+		List<PageSection> pageSectionList = Lists.newArrayList(
+				new PageSection(
+						text: 'Cast',
+						wikitext: ';[[Worf]]:\n* [[Michael Dorn]]\n;[[Deanna Troi]]:\n* [[Marina Sirtis]]\n' +
+								';Stunt Coordinator:\n* [[Doug Coleman]]'
+				)
+		)
+
+		when:
+		List<PageSection> pageSectionListOutput = movieClosingCreditsProcessor.process(basePage)
+
+		then:
+		1 * pageApiMock.getPage("Credits for " + TITLE, MEDIA_WIKI_SOURCE) >> creditsPage
+		1 * basePage.getTitle() >> TITLE
+		1 * basePage.getMediaWikiSource() >> MEDIA_WIKI_SOURCE
+		1 * pageSectionExtractorMock.findByTitles(creditsPage, "Closing credits", "Closing Credits", "Cast", "Crew") >> pageSectionList
+		0 * _
+		pageSectionListOutput.size() == 2
+		pageSectionListOutput[0].text == 'Cast'
+		pageSectionListOutput[0].wikitext == ';[[Worf]]: * [[Michael Dorn]]\n;[[Deanna Troi]]: * [[Marina Sirtis]]'
+		pageSectionListOutput[1].text == 'Stunt Coordinator:'
+		pageSectionListOutput[1].wikitext == '* [[Doug Coleman]]'
+	}
+
 }
