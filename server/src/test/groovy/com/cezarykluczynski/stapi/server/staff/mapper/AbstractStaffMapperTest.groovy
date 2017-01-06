@@ -1,7 +1,10 @@
 package com.cezarykluczynski.stapi.server.staff.mapper
 
+import com.cezarykluczynski.stapi.model.episode.entity.Episode
+import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.server.common.mapper.AbstractRealWorldPersonMapperTest
+import com.google.common.collect.Lists
 
 abstract class AbstractStaffMapperTest extends AbstractRealWorldPersonMapperTest {
 
@@ -69,7 +72,18 @@ abstract class AbstractStaffMapperTest extends AbstractRealWorldPersonMapperTest
 				stuntDepartment: STUNT_DEPARTMENT,
 				transportationDepartment: TRANSPORTATION_DEPARTMENT,
 				videoGameProductionStaff: VIDEO_GAME_PRODUCTION_STAFF,
-				writer: WRITER)
+				writer: WRITER,
+				writtenEpisodes: Lists.newArrayList(Mock(Episode)),
+				teleplayAuthoredEpisodes: Lists.newArrayList(Mock(Episode)),
+				storyAuthoredEpisodes: Lists.newArrayList(Mock(Episode)),
+				directedEpisodes: Lists.newArrayList(Mock(Episode)),
+				episodes: Lists.newArrayList(Mock(Episode)),
+				writtenMovies: Lists.newArrayList(Mock(Movie)),
+				screenplayAuthoredMovies: Lists.newArrayList(Mock(Movie)),
+				storyAuthoredMovies: Lists.newArrayList(Mock(Movie)),
+				directedMovies: Lists.newArrayList(Mock(Movie)),
+				producedMovies: Lists.newArrayList(Mock(Movie)),
+				movies: Lists.newArrayList(Mock(Movie)))
 	}
 
 }

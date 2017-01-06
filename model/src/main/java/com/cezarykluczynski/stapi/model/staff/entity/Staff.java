@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.model.staff.entity;
 
 import com.cezarykluczynski.stapi.model.common.entity.RealWorldPerson;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
+import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,9 +24,11 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(callSuper = true, exclude = {"writtenEpisodes", "teleplayAuthoredEpisodes", "storyAuthoredEpisodes",
-		"directedEpisodes", "episodes"})
+		"directedEpisodes", "episodes", "writtenMovies", "screenplayAuthoredMovies", "storyAuthoredMovies",
+		"directedMovies", "producedMovies", "movies"})
 @EqualsAndHashCode(callSuper = true, exclude = {"writtenEpisodes", "teleplayAuthoredEpisodes", "storyAuthoredEpisodes",
-		"directedEpisodes", "episodes"})
+		"directedEpisodes", "episodes", "writtenMovies", "screenplayAuthoredMovies", "storyAuthoredMovies",
+		"directedMovies", "producedMovies", "movies"})
 public class Staff extends RealWorldPerson implements PageAware {
 
 	@Id
@@ -147,19 +150,37 @@ public class Staff extends RealWorldPerson implements PageAware {
 
 	private Boolean writer;
 
-	@ManyToMany(mappedBy = "writers")
+	@ManyToMany(mappedBy = "writers", targetEntity = Episode.class)
 	private Set<Episode> writtenEpisodes;
 
-	@ManyToMany(mappedBy = "teleplayAuthors")
+	@ManyToMany(mappedBy = "teleplayAuthors", targetEntity = Episode.class)
 	private Set<Episode> teleplayAuthoredEpisodes;
 
-	@ManyToMany(mappedBy = "teleplayAuthors")
+	@ManyToMany(mappedBy = "storyAuthors", targetEntity = Episode.class)
 	private Set<Episode> storyAuthoredEpisodes;
 
 	@ManyToMany(mappedBy = "directors", targetEntity = Episode.class)
 	private Set<Episode> directedEpisodes;
 
-	@ManyToMany(mappedBy = "staff")
+	@ManyToMany(mappedBy = "staff", targetEntity = Episode.class)
 	private Set<Episode> episodes;
+
+	@ManyToMany(mappedBy = "writers", targetEntity = Movie.class)
+	private Set<Movie> writtenMovies;
+
+	@ManyToMany(mappedBy = "screenplayAuthors", targetEntity = Movie.class)
+	private Set<Movie> screenplayAuthoredMovies;
+
+	@ManyToMany(mappedBy = "storyAuthors", targetEntity = Movie.class)
+	private Set<Movie> storyAuthoredMovies;
+
+	@ManyToMany(mappedBy = "directors", targetEntity = Movie.class)
+	private Set<Movie> directedMovies;
+
+	@ManyToMany(mappedBy = "producers", targetEntity = Movie.class)
+	private Set<Movie> producedMovies;
+
+	@ManyToMany(mappedBy = "producers", targetEntity = Movie.class)
+	private Set<Movie> movies;
 
 }

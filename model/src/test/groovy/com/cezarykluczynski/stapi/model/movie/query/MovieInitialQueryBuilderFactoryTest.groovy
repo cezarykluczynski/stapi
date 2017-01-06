@@ -47,7 +47,7 @@ class MovieInitialQueryBuilderFactoryTest extends Specification {
 		movie = Mock(Movie)
 	}
 
-	def "query is built and performed"() {
+	def "initial query builder is built, then returned"() {
 		when:
 		QueryBuilder<Movie> movieQueryBuilderOutput = movieInitialQueryBuilderFactory
 				.createInitialQueryBuilder(movieRequestDTO, pageable)
@@ -86,6 +86,9 @@ class MovieInitialQueryBuilderFactoryTest extends Specification {
 
 		then: 'query builder is returned'
 		movieQueryBuilderOutput == movieQueryBuilder
+
+		then: 'no other interactions are expected'
+		0 * _
 	}
 
 }

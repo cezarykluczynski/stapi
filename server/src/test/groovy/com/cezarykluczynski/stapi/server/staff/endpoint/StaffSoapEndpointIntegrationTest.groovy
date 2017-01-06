@@ -36,12 +36,12 @@ class StaffSoapEndpointIntegrationTest extends AbstractStaffEndpointIntegrationT
 	def "gets staff by guid"() {
 		when:
 		StaffResponse staffResponse = stapiSoapClient.staffPortType.getStaff(new StaffRequest(
-				guid: GUID
+				guid: IRA_STEVEN_BEHR_GUID
 		))
 
 		then:
 		staffResponse.page.totalElements == 1
-		staffResponse.staff[0].guid == GUID
+		staffResponse.staff[0].guid == IRA_STEVEN_BEHR_GUID
 	}
 
 }

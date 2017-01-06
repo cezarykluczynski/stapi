@@ -43,13 +43,13 @@ class MovieRepositoryImplTest extends Specification {
 
 	private Page charactersPage
 
-	private Set<Performer> performerSet
+	private Set<Performer> performersSet
 
-	private Set<Performer> stuntPerformerSet
+	private Set<Performer> stuntPerformersSet
 
-	private Set<Performer> standInPerformerSet
+	private Set<Performer> standInPerformersSet
 
-	private Set<Character> characterSet
+	private Set<Character> charactersSet
 
 	def setup() {
 		movieInitialQueryBuilderFactory = Mock(MovieInitialQueryBuilderFactory)
@@ -65,10 +65,10 @@ class MovieRepositoryImplTest extends Specification {
 		movie = Mock(Movie)
 		performersMovie = Mock(Movie)
 		charactersMovie = Mock(Movie)
-		performerSet = Mock(Set)
-		stuntPerformerSet = Mock(Set)
-		standInPerformerSet = Mock(Set)
-		characterSet = Mock(Set)
+		performersSet = Mock(Set)
+		stuntPerformersSet = Mock(Set)
+		standInPerformersSet = Mock(Set)
+		charactersSet = Mock(Set)
 	}
 
 	def "query is built and performed"() {
@@ -108,12 +108,12 @@ class MovieRepositoryImplTest extends Specification {
 		1 * moviePerformersQueryBuilder.findAll() >> Lists.newArrayList(performersMovie)
 
 		then: 'performers from performers movie are set to movie'
-		1 * performersMovie.getPerformers() >> performerSet
-		1 * movie.setPerformers(performerSet)
-		1 * performersMovie.getStuntPerformers() >> stuntPerformerSet
-		1 * movie.setStuntPerformers(stuntPerformerSet)
-		1 * performersMovie.getStandInPerformers() >> standInPerformerSet
-		1 * movie.setStandInPerformers(standInPerformerSet)
+		1 * performersMovie.getPerformers() >> performersSet
+		1 * movie.setPerformers(performersSet)
+		1 * performersMovie.getStuntPerformers() >> stuntPerformersSet
+		1 * movie.setStuntPerformers(stuntPerformersSet)
+		1 * performersMovie.getStandInPerformers() >> standInPerformersSet
+		1 * movie.setStandInPerformers(standInPerformersSet)
 
 		then: 'another criteria builder is retrieved for characters'
 		1 * movieInitialQueryBuilderFactory.createInitialQueryBuilder(movieRequestDTO, pageable) >> movieCharactersQueryBuilder
@@ -125,8 +125,8 @@ class MovieRepositoryImplTest extends Specification {
 		1 * movieCharactersQueryBuilder.findAll() >> Lists.newArrayList(charactersMovie)
 
 		then: 'performers from performers movie are set to movie'
-		1 * charactersMovie.getCharacters() >> characterSet
-		1 * movie.setCharacters(characterSet)
+		1 * charactersMovie.getCharacters() >> charactersSet
+		1 * movie.setCharacters(charactersSet)
 
 		then: 'page is returned'
 		pageOutput == page
@@ -168,7 +168,7 @@ class MovieRepositoryImplTest extends Specification {
 		1 * moviePerformersQueryBuilder.fetch(Movie_.stuntPerformers)
 		1 * moviePerformersQueryBuilder.fetch(Movie_.standInPerformers)
 
-		then: 'performers page is retrieved'
+		then: 'empty performers list is retrieved'
 		1 * moviePerformersQueryBuilder.findAll() >> Lists.newArrayList()
 
 		then: 'another criteria builder is retrieved for characters'
@@ -177,7 +177,7 @@ class MovieRepositoryImplTest extends Specification {
 		then: 'characters fetch is performed'
 		1 * movieCharactersQueryBuilder.fetch(Movie_.characters)
 
-		then: 'characters page is retrieved'
+		then: 'empty characters list is retrieved'
 		1 * movieCharactersQueryBuilder.findAll() >> Lists.newArrayList()
 
 		then: 'page is returned'

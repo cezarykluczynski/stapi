@@ -1,100 +1,106 @@
 package com.cezarykluczynski.stapi.model.staff.repository;
 
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
+import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
 import com.cezarykluczynski.stapi.model.staff.dto.StaffRequestDTO;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff_;
-import com.cezarykluczynski.stapi.model.staff.query.StaffQueryBuilderFactory;
+import com.cezarykluczynski.stapi.model.staff.query.StaffInitialQueryBuilderFactory;
+import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.util.List;
 
 @Repository
-public class StaffRepositoryImpl implements StaffRepositoryCustom {
+public class StaffRepositoryImpl extends AbstractRepositoryImpl<Staff> implements StaffRepositoryCustom {
 
-	private StaffQueryBuilderFactory staffQueryBuilderFactory;
+	private StaffInitialQueryBuilderFactory staffInitialQueryBuilderFactory;
 
 	@Inject
-	public StaffRepositoryImpl(StaffQueryBuilderFactory staffQueryBuilderFactory) {
-		this.staffQueryBuilderFactory = staffQueryBuilderFactory;
+	public StaffRepositoryImpl(StaffInitialQueryBuilderFactory staffInitialQueryBuilderFactory) {
+		this.staffInitialQueryBuilderFactory = staffInitialQueryBuilderFactory;
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Page<Staff> findMatching(StaffRequestDTO criteria, Pageable pageable) {
-		QueryBuilder<Staff> staffQueryBuilder = staffQueryBuilderFactory.createQueryBuilder(pageable);
+		QueryBuilder<Staff> staffQueryBuilder = createInitialStaffQueryBuilder(criteria, pageable);
+		boolean doFetch = criteria.getGuid() != null;
 
-		staffQueryBuilder.equal(Staff_.guid, criteria.getGuid());
-		staffQueryBuilder.like(Staff_.name, criteria.getName());
-		staffQueryBuilder.like(Staff_.birthName, criteria.getBirthName());
-		staffQueryBuilder.like(Staff_.placeOfBirth, criteria.getPlaceOfBirth());
-		staffQueryBuilder.like(Staff_.placeOfDeath, criteria.getPlaceOfDeath());
-		staffQueryBuilder.between(Staff_.dateOfBirth, criteria.getDateOfBirthFrom(),
-				criteria.getDateOfBirthTo());
-		staffQueryBuilder.between(Staff_.dateOfDeath, criteria.getDateOfDeathFrom(),
-				criteria.getDateOfDeathTo());
-		staffQueryBuilder.equal(Staff_.gender, criteria.getGender());
-		staffQueryBuilder.equal(Staff_.artDepartment, criteria.getArtDepartment());
-		staffQueryBuilder.equal(Staff_.artDirector, criteria.getArtDirector());
-		staffQueryBuilder.equal(Staff_.productionDesigner, criteria.getProductionDesigner());
-		staffQueryBuilder.equal(Staff_.cameraAndElectricalDepartment, criteria.getCameraAndElectricalDepartment());
-		staffQueryBuilder.equal(Staff_.cinematographer, criteria.getCinematographer());
-		staffQueryBuilder.equal(Staff_.castingDepartment, criteria.getCastingDepartment());
-		staffQueryBuilder.equal(Staff_.costumeDepartment, criteria.getCostumeDepartment());
-		staffQueryBuilder.equal(Staff_.costumeDesigner, criteria.getCostumeDesigner());
-		staffQueryBuilder.equal(Staff_.director, criteria.getDirector());
-		staffQueryBuilder.equal(Staff_.assistantAndSecondUnitDirector, criteria.getAssistantAndSecondUnitDirector());
-		staffQueryBuilder.equal(Staff_.exhibitAndAttractionStaff, criteria.getExhibitAndAttractionStaff());
-		staffQueryBuilder.equal(Staff_.filmEditor, criteria.getFilmEditor());
-		staffQueryBuilder.equal(Staff_.linguist, criteria.getLinguist());
-		staffQueryBuilder.equal(Staff_.locationStaff, criteria.getLocationStaff());
-		staffQueryBuilder.equal(Staff_.makeupStaff, criteria.getMakeupStaff());
-		staffQueryBuilder.equal(Staff_.musicDepartment, criteria.getMusicDepartment());
-		staffQueryBuilder.equal(Staff_.composer, criteria.getComposer());
-		staffQueryBuilder.equal(Staff_.personalAssistant, criteria.getPersonalAssistant());
-		staffQueryBuilder.equal(Staff_.producer, criteria.getProducer());
-		staffQueryBuilder.equal(Staff_.productionAssociate, criteria.getProductionAssociate());
-		staffQueryBuilder.equal(Staff_.productionStaff, criteria.getProductionStaff());
-		staffQueryBuilder.equal(Staff_.publicationStaff, criteria.getPublicationStaff());
-		staffQueryBuilder.equal(Staff_.scienceConsultant, criteria.getScienceConsultant());
-		staffQueryBuilder.equal(Staff_.soundDepartment, criteria.getSoundDepartment());
-		staffQueryBuilder.equal(Staff_.specialAndVisualEffectsStaff, criteria.getSpecialAndVisualEffectsStaff());
-		staffQueryBuilder.equal(Staff_.author, criteria.getAuthor());
-		staffQueryBuilder.equal(Staff_.audioAuthor, criteria.getAudioAuthor());
-		staffQueryBuilder.equal(Staff_.calendarArtist, criteria.getCalendarArtist());
-		staffQueryBuilder.equal(Staff_.comicArtist, criteria.getComicArtist());
-		staffQueryBuilder.equal(Staff_.comicAuthor, criteria.getComicAuthor());
-		staffQueryBuilder.equal(Staff_.comicColorArtist, criteria.getComicColorArtist());
-		staffQueryBuilder.equal(Staff_.comicInteriorArtist, criteria.getComicInteriorArtist());
-		staffQueryBuilder.equal(Staff_.comicInkArtist, criteria.getComicInkArtist());
-		staffQueryBuilder.equal(Staff_.comicPencilArtist, criteria.getComicPencilArtist());
-		staffQueryBuilder.equal(Staff_.comicLetterArtist, criteria.getComicLetterArtist());
-		staffQueryBuilder.equal(Staff_.comicStripArtist, criteria.getComicStripArtist());
-		staffQueryBuilder.equal(Staff_.gameArtist, criteria.getGameArtist());
-		staffQueryBuilder.equal(Staff_.gameAuthor, criteria.getGameAuthor());
-		staffQueryBuilder.equal(Staff_.novelArtist, criteria.getNovelArtist());
-		staffQueryBuilder.equal(Staff_.novelAuthor, criteria.getNovelAuthor());
-		staffQueryBuilder.equal(Staff_.referenceArtist, criteria.getReferenceArtist());
-		staffQueryBuilder.equal(Staff_.referenceAuthor, criteria.getReferenceAuthor());
-		staffQueryBuilder.equal(Staff_.publicationArtist, criteria.getPublicationArtist());
-		staffQueryBuilder.equal(Staff_.publicationDesigner, criteria.getPublicationDesigner());
-		staffQueryBuilder.equal(Staff_.publicationEditor, criteria.getPublicationEditor());
-		staffQueryBuilder.equal(Staff_.publicityArtist, criteria.getPublicityArtist());
-		staffQueryBuilder.equal(Staff_.cbsDigitalStaff, criteria.getCbsDigitalStaff());
-		staffQueryBuilder.equal(Staff_.ilmProductionStaff, criteria.getIlmProductionStaff());
-		staffQueryBuilder.equal(Staff_.specialFeaturesStaff, criteria.getSpecialFeaturesStaff());
-		staffQueryBuilder.equal(Staff_.storyEditor, criteria.getStoryEditor());
-		staffQueryBuilder.equal(Staff_.studioExecutive, criteria.getStudioExecutive());
-		staffQueryBuilder.equal(Staff_.stuntDepartment, criteria.getStuntDepartment());
-		staffQueryBuilder.equal(Staff_.transportationDepartment, criteria.getTransportationDepartment());
-		staffQueryBuilder.equal(Staff_.videoGameProductionStaff, criteria.getVideoGameProductionStaff());
-		staffQueryBuilder.equal(Staff_.writer, criteria.getWriter());
-		staffQueryBuilder.setSort(criteria.getSort());
+		Page<Staff> staffPage;
 
-		return staffQueryBuilder.findPage();
+		if (doFetch) {
+			staffQueryBuilder.fetch(Staff_.writtenEpisodes);
+			staffQueryBuilder.fetch(Staff_.teleplayAuthoredEpisodes);
+			staffQueryBuilder.fetch(Staff_.storyAuthoredEpisodes);
+			staffQueryBuilder.fetch(Staff_.directedEpisodes);
+			staffQueryBuilder.fetch(Staff_.episodes);
+			staffPage = staffQueryBuilder.findPage();
+
+			List<Staff> staffList = staffPage.getContent();
+
+			if (staffList.size() == 0) {
+				return staffPage;
+			}
+
+			Staff staff = staffList.get(0);
+
+			QueryBuilder<Staff> staffMoviesQueryBuilder = createInitialStaffQueryBuilder(criteria, pageable);
+
+			staffMoviesQueryBuilder.fetch(Staff_.writtenMovies);
+			staffMoviesQueryBuilder.fetch(Staff_.screenplayAuthoredMovies);
+			staffMoviesQueryBuilder.fetch(Staff_.storyAuthoredMovies);
+			staffMoviesQueryBuilder.fetch(Staff_.directedMovies);
+			staffMoviesQueryBuilder.fetch(Staff_.producedMovies);
+			staffMoviesQueryBuilder.fetch(Staff_.movies);
+
+			List<Staff> moviesStaffList = staffMoviesQueryBuilder.findAll();
+
+			if (moviesStaffList.size() == 1) {
+				Staff moviesStaff = moviesStaffList.get(0);
+				staff.setWrittenMovies(moviesStaff.getWrittenMovies());
+				staff.setScreenplayAuthoredMovies(moviesStaff.getScreenplayAuthoredMovies());
+				staff.setStoryAuthoredMovies(moviesStaff.getStoryAuthoredMovies());
+				staff.setDirectedMovies(moviesStaff.getWrittenMovies());
+				staff.setProducedMovies(moviesStaff.getProducedMovies());
+				staff.setMovies(moviesStaff.getMovies());
+			}
+		} else {
+			staffPage = staffQueryBuilder.findPage();
+		}
+
+		clearProxies(staffPage, !doFetch);
+		return staffPage;
+	}
+
+	@Override
+	protected void clearProxies(Page<Staff> page, boolean doClearProxies) {
+		if (!doClearProxies) {
+			return;
+		}
+
+		page.getContent().forEach(staff -> {
+			staff.setWrittenEpisodes(Sets.newHashSet());
+			staff.setTeleplayAuthoredEpisodes(Sets.newHashSet());
+			staff.setStoryAuthoredEpisodes(Sets.newHashSet());
+			staff.setDirectedEpisodes(Sets.newHashSet());
+			staff.setEpisodes(Sets.newHashSet());
+			staff.setWrittenMovies(Sets.newHashSet());
+			staff.setScreenplayAuthoredMovies(Sets.newHashSet());
+			staff.setWrittenEpisodes(Sets.newHashSet());
+			staff.setStoryAuthoredMovies(Sets.newHashSet());
+			staff.setDirectedMovies(Sets.newHashSet());
+			staff.setProducedMovies(Sets.newHashSet());
+			staff.setMovies(Sets.newHashSet());
+		});
+	}
+
+	private QueryBuilder<Staff> createInitialStaffQueryBuilder(StaffRequestDTO criteria, Pageable pageable) {
+		return staffInitialQueryBuilderFactory.createInitialQueryBuilder(criteria, pageable);
 	}
 
 }

@@ -224,6 +224,17 @@ class StaffSoapMapperTest extends AbstractStaffMapperTest {
 		soapStaff.transportationDepartment == TRANSPORTATION_DEPARTMENT
 		soapStaff.videoGameProductionStaff == VIDEO_GAME_PRODUCTION_STAFF
 		soapStaff.writer == WRITER
+		soapStaff.writtenEpisodeHeaders.size() == dBStaff.writtenEpisodes.size()
+		soapStaff.teleplayAuthoredEpisodeHeaders.size() == dBStaff.teleplayAuthoredEpisodes.size()
+		soapStaff.storyAuthoredEpisodeHeaders.size() == dBStaff.storyAuthoredEpisodes.size()
+		soapStaff.directedEpisodeHeaders.size() == dBStaff.directedEpisodes.size()
+		soapStaff.episodeHeaders.size() == dBStaff.episodes.size()
+		soapStaff.writtenMovieHeaders.size() == dBStaff.writtenMovies.size()
+		soapStaff.screenplayAuthoredMovieHeaders.size() == dBStaff.screenplayAuthoredMovies.size()
+		soapStaff.storyAuthoredMovieHeaders.size() == dBStaff.storyAuthoredMovies.size()
+		soapStaff.directedMovieHeaders.size() == dBStaff.directedMovies.size()
+		soapStaff.producedMovieHeaders.size() == dBStaff.producedMovies.size()
+		soapStaff.movieHeaders.size() == dBStaff.movies.size()
 	}
 
 }

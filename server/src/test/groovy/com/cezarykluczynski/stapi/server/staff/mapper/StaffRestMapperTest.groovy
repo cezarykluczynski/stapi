@@ -226,6 +226,17 @@ class StaffRestMapperTest extends AbstractStaffMapperTest {
 		restStaff.transportationDepartment == TRANSPORTATION_DEPARTMENT
 		restStaff.videoGameProductionStaff == VIDEO_GAME_PRODUCTION_STAFF
 		restStaff.writer == WRITER
+		restStaff.writtenEpisodeHeaders.size() == dBStaff.writtenEpisodes.size()
+		restStaff.teleplayAuthoredEpisodeHeaders.size() == dBStaff.teleplayAuthoredEpisodes.size()
+		restStaff.storyAuthoredEpisodeHeaders.size() == dBStaff.storyAuthoredEpisodes.size()
+		restStaff.directedEpisodeHeaders.size() == dBStaff.directedEpisodes.size()
+		restStaff.episodeHeaders.size() == dBStaff.episodes.size()
+		restStaff.writtenMovieHeaders.size() == dBStaff.writtenMovies.size()
+		restStaff.screenplayAuthoredMovieHeaders.size() == dBStaff.screenplayAuthoredMovies.size()
+		restStaff.storyAuthoredMovieHeaders.size() == dBStaff.storyAuthoredMovies.size()
+		restStaff.directedMovieHeaders.size() == dBStaff.directedMovies.size()
+		restStaff.producedMovieHeaders.size() == dBStaff.producedMovies.size()
+		restStaff.movieHeaders.size() == dBStaff.movies.size()
 	}
 
 }

@@ -3,9 +3,13 @@
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		xmlns:staff="http://stapi.co/api/v1/soap/staff"
 		xmlns:common="http://stapi.co/api/v1/soap/common"
+		xmlns:episode="http://stapi.co/api/v1/soap/episode"
+		xmlns:movie="http://stapi.co/api/v1/soap/movie"
 		elementFormDefault="qualified"
 		targetNamespace="http://stapi.co/api/v1/soap/staff">
 	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/episode" schemaLocation="episode.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/movie" schemaLocation="movie.xsd"/>
 	<xs:element name="StaffRequest">
 		<xs:complexType>
 			<xs:complexContent>
@@ -155,6 +159,39 @@
 			<xs:element name="transportationDepartment" type="xs:boolean"/>
 			<xs:element name="videoGameProductionStaff" type="xs:boolean"/>
 			<xs:element name="writer" type="xs:boolean"/>
+			<xs:sequence>
+				<xs:element name="writtenEpisodeHeaders" type="episode:EpisodeHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="teleplayAuthoredEpisodeHeaders" type="episode:EpisodeHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="storyAuthoredEpisodeHeaders" type="episode:EpisodeHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="directedEpisodeHeaders" type="episode:EpisodeHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="episodeHeaders" type="episode:EpisodeHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="writtenMovieHeaders" type="movie:MovieHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="screenplayAuthoredMovieHeaders" type="movie:MovieHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="storyAuthoredMovieHeaders" type="movie:MovieHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="directedMovieHeaders" type="movie:MovieHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="producedMovieHeaders" type="movie:MovieHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="movieHeaders" type="movie:MovieHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="StaffHeader">

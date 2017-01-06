@@ -32,17 +32,36 @@ class StaffRestEndpointIntegrationTest extends AbstractStaffEndpointIntegrationT
 		staffResponse.staff.size() == pageSize
 	}
 
-	def "gets staff by guid"() {
+	def "gets staff with series experience by guid"() {
 		when:
-		StaffResponse staffResponse = stapiRestClient.staffApi.staffPost(null, null, null, GUID, null, null, null, null,
+		StaffResponse staffResponse = stapiRestClient.staffApi.staffPost(null, null, null, IRA_STEVEN_BEHR_GUID, null,
 				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
 				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
 				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-				null, null, null, null, null, null, null)
+				null, null, null, null, null, null, null, null, null, null)
 
 		then:
 		staffResponse.page.totalElements == 1
-		staffResponse.staff[0].guid == GUID
+		staffResponse.staff[0].guid == IRA_STEVEN_BEHR_GUID
+		staffResponse.staff[0].writtenEpisodeHeaders.size() == 34
+		staffResponse.staff[0].teleplayAuthoredEpisodeHeaders.size() == 18
+		staffResponse.staff[0].storyAuthoredEpisodeHeaders.size() == 10
+	}
+
+	def "gets staff with movie experience by guid"() {
+		when:
+		StaffResponse staffResponse = stapiRestClient.staffApi.staffPost(null, null, null, RICK_BERMAN_GUID, null, null,
+				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+				null, null, null, null, null, null, null, null, null)
+
+		then:
+		staffResponse.page.totalElements == 1
+		staffResponse.staff[0].guid == RICK_BERMAN_GUID
+		staffResponse.staff[0].storyAuthoredMovieHeaders.size() == 4
+		staffResponse.staff[0].producedMovieHeaders.size() == 4
+		staffResponse.staff[0].movieHeaders.size() == 4
 	}
 
 	def "gets staff sorted by name"() {

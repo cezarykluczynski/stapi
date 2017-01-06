@@ -128,3 +128,47 @@ properties:
     type: boolean
   writer:
     type: boolean
+  writtenEpisodeHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/EpisodeHeader'
+  teleplayAuthoredEpisodeHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/EpisodeHeader'
+  storyAuthoredEpisodeHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/EpisodeHeader'
+  directedEpisodeHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/EpisodeHeader'
+  episodeHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/EpisodeHeader'
+  writtenMovieHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/MovieHeader'
+  screenplayAuthoredMovieHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/MovieHeader'
+  storyAuthoredMovieHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/MovieHeader'
+  directedMovieHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/MovieHeader'
+  producedMovieHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/MovieHeader'
+  movieHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/MovieHeader'

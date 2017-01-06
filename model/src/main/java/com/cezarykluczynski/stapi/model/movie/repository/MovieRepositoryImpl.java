@@ -51,6 +51,7 @@ public class MovieRepositoryImpl extends AbstractRepositoryImpl<Movie> implement
 			Movie movie = movieList.get(0);
 
 			QueryBuilder<Movie> moviePerformersQueryBuilder = createInitialMovieQueryBuilder(criteria, pageable);
+
 			moviePerformersQueryBuilder.fetch(Movie_.performers);
 			moviePerformersQueryBuilder.fetch(Movie_.stuntPerformers);
 			moviePerformersQueryBuilder.fetch(Movie_.standInPerformers);
@@ -81,10 +82,6 @@ public class MovieRepositoryImpl extends AbstractRepositoryImpl<Movie> implement
 		return moviePage;
 	}
 
-	private QueryBuilder<Movie> createInitialMovieQueryBuilder(MovieRequestDTO criteria, Pageable pageable) {
-		return movieInitialQueryBuilderFactory.createInitialQueryBuilder(criteria, pageable);
-	}
-
 	@Override
 	protected void clearProxies(Page<Movie> page, boolean doClearProxies) {
 		if (!doClearProxies) {
@@ -103,5 +100,9 @@ public class MovieRepositoryImpl extends AbstractRepositoryImpl<Movie> implement
 			episode.setStandInPerformers(Sets.newHashSet());
 			episode.setCharacters(Sets.newHashSet());
 		});
+	}
+
+	private QueryBuilder<Movie> createInitialMovieQueryBuilder(MovieRequestDTO criteria, Pageable pageable) {
+		return movieInitialQueryBuilderFactory.createInitialQueryBuilder(criteria, pageable);
 	}
 }
