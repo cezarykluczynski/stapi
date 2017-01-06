@@ -35,6 +35,8 @@ public class CharacterRepositoryImpl extends AbstractRepositoryImpl<Character> i
 		characterQueryBuilder.equal(Character_.deceased, criteria.getDeceased());
 		characterQueryBuilder.setSort(criteria.getSort());
 		characterQueryBuilder.fetch(Character_.performers, doFetch);
+		characterQueryBuilder.fetch(Character_.episodes, doFetch);
+		characterQueryBuilder.fetch(Character_.movies, doFetch);
 
 		Page<Character> performerPage = characterQueryBuilder.findPage();
 		clearProxies(performerPage, !doFetch);
@@ -49,6 +51,8 @@ public class CharacterRepositoryImpl extends AbstractRepositoryImpl<Character> i
 
 		page.getContent().forEach(character -> {
 			character.setPerformers(Sets.newHashSet());
+			character.setEpisodes(Sets.newHashSet());
+			character.setMovies(Sets.newHashSet());
 		});
 	}
 

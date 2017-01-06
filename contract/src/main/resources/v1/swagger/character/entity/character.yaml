@@ -38,3 +38,11 @@ properties:
     type: array
     items:
       $ref: '#/definitions/PerformerHeader'
+  episodeHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/EpisodeHeader'
+  movieHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/MovieHeader'

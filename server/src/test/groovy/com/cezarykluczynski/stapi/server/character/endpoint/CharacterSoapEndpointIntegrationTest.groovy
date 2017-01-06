@@ -18,12 +18,12 @@ class CharacterSoapEndpointIntegrationTest extends AbstractCharacterEndpointInte
 	def "gets character by guid"() {
 		when:
 		CharacterResponse characterResponse = stapiSoapClient.characterPortType.getCharacters(new CharacterRequest(
-				guid: GUID
+				guid: DEANNA_TROI_GUID
 		))
 
 		then:
 		characterResponse.page.totalElements == 1
-		characterResponse.characters[0].guid == GUID
+		characterResponse.characters[0].guid == DEANNA_TROI_GUID
 	}
 
 }

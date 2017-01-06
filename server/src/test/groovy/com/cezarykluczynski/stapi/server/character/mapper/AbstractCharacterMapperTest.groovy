@@ -3,6 +3,8 @@ package com.cezarykluczynski.stapi.server.character.mapper
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus
+import com.cezarykluczynski.stapi.model.episode.entity.Episode
+import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.util.AbstractIndividualTest
 import com.cezarykluczynski.stapi.model.character.entity.Character
@@ -14,7 +16,7 @@ abstract class AbstractCharacterMapperTest extends AbstractIndividualTest {
 	protected static final BloodType ENTITY_BLOOD_TYPE = BloodType.B_NEGATIVE
 	protected static final MaritalStatus ENTITY_MARITAL_STATUS = MaritalStatus.MARRIED
 
-	protected static Character createCharacter() {
+	protected Character createCharacter() {
 		return new Character(
 				name: NAME,
 				guid: GUID,
@@ -33,7 +35,9 @@ abstract class AbstractCharacterMapperTest extends AbstractIndividualTest {
 				bloodType: ENTITY_BLOOD_TYPE,
 				maritalStatus: ENTITY_MARITAL_STATUS,
 				serialNumber: SERIAL_NUMBER,
-				performers: Sets.newHashSet(new Performer())
+				performers: Sets.newHashSet(Mock(Performer)),
+				episodes: Sets.newHashSet(Mock(Episode)),
+				movies: Sets.newHashSet(Mock(Movie))
 		)
 	}
 

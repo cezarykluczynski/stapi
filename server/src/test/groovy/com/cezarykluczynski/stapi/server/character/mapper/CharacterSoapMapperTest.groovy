@@ -67,6 +67,8 @@ class CharacterSoapMapperTest extends AbstractCharacterMapperTest {
 		soapCharacter.maritalStatus == SOAP_MARITAL_STATUS
 		soapCharacter.serialNumber == SERIAL_NUMBER
 		soapCharacter.performerHeaders.size() == dbCharacter.performers.size()
+		soapCharacter.episodeHeaders.size() == dbCharacter.episodes.size()
+		soapCharacter.movieHeaders.size() == dbCharacter.movies.size()
 	}
 
 }

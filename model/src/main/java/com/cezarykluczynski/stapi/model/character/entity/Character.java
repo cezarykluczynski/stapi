@@ -4,6 +4,8 @@ import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType;
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender;
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus;
+import com.cezarykluczynski.stapi.model.episode.entity.Episode;
+import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.google.common.collect.Sets;
@@ -28,8 +30,8 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true, exclude = {"performers"})
-@EqualsAndHashCode(callSuper = true, exclude = {"performers"})
+@ToString(callSuper = true, exclude = {"performers", "episodes", "movies"})
+@EqualsAndHashCode(callSuper = true, exclude = {"performers", "episodes", "movies"})
 public class Character extends PageAwareEntity implements PageAware {
 
 	@Id
@@ -74,7 +76,13 @@ public class Character extends PageAwareEntity implements PageAware {
 
 	private String serialNumber;
 
-	@ManyToMany(mappedBy = "characters")
+	@ManyToMany(mappedBy = "characters", targetEntity = Performer.class)
 	private Set<Performer> performers = Sets.newHashSet();
+
+	@ManyToMany(mappedBy = "characters", targetEntity = Episode.class)
+	private Set<Episode> episodes = Sets.newHashSet();
+
+	@ManyToMany(mappedBy = "characters", targetEntity = Movie.class)
+	private Set<Movie> movies = Sets.newHashSet();
 
 }

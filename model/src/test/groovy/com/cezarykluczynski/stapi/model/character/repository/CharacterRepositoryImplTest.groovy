@@ -75,6 +75,8 @@ class CharacterRepositoryImplTest extends Specification {
 
 		then: 'fetch is performed with true flag'
 		1 * characterQueryBuilder.fetch(Character_.performers, true)
+		1 * characterQueryBuilder.fetch(Character_.episodes, true)
+		1 * characterQueryBuilder.fetch(Character_.movies, true)
 
 		then: 'page is searched for and returned'
 		1 * characterQueryBuilder.findPage() >> page
@@ -97,6 +99,8 @@ class CharacterRepositoryImplTest extends Specification {
 
 		then: 'fetch is performed with false flag'
 		1 * characterQueryBuilder.fetch(Character_.performers, false)
+		1 * characterQueryBuilder.fetch(Character_.episodes, false)
+		1 * characterQueryBuilder.fetch(Character_.movies, false)
 
 		then: 'page is searched for and returned'
 		1 * characterQueryBuilder.findPage() >> page
@@ -104,6 +108,8 @@ class CharacterRepositoryImplTest extends Specification {
 		then: 'proxies are cleared'
 		1 * page.getContent() >> Lists.newArrayList(character)
 		1 * character.setPerformers(Sets.newHashSet())
+		1 * character.setEpisodes(Sets.newHashSet())
+		1 * character.setMovies(Sets.newHashSet())
 		pageOutput == page
 	}
 

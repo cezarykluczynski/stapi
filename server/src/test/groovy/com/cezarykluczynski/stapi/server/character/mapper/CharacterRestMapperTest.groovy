@@ -86,6 +86,8 @@ class CharacterRestMapperTest extends AbstractCharacterMapperTest {
 		restCharacter.maritalStatus == REST_MARITAL_STATUS
 		restCharacter.serialNumber == SERIAL_NUMBER
 		restCharacter.performerHeaders.size() == dbCharacter.performers.size()
+		restCharacter.episodeHeaders.size() == dbCharacter.episodes.size()
+		restCharacter.movieHeaders.size() == dbCharacter.movies.size()
 	}
 
 }

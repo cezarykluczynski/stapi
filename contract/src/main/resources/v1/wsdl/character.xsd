@@ -2,11 +2,15 @@
 <xs:schema
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		xmlns:character="http://stapi.co/api/v1/soap/character"
+		xmlns:episode="http://stapi.co/api/v1/soap/episode"
+		xmlns:movie="http://stapi.co/api/v1/soap/movie"
 		xmlns:performer="http://stapi.co/api/v1/soap/performer"
 		xmlns:common="http://stapi.co/api/v1/soap/common"
 		elementFormDefault="qualified"
 		targetNamespace="http://stapi.co/api/v1/soap/character">
 	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/episode" schemaLocation="episode.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/movie" schemaLocation="movie.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/performer" schemaLocation="performer.xsd"/>
 	<xs:element name="CharacterRequest">
 		<xs:complexType>
@@ -54,6 +58,12 @@
 			<xs:element name="serialNumber" type="xs:string"/>
 			<xs:sequence>
 				<xs:element name="performerHeaders" type="performer:PerformerHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="episodeHeaders" type="episode:EpisodeHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="movieHeaders" type="movie:MovieHeader" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:sequence>
 	</xs:complexType>

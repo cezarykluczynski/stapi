@@ -20,12 +20,14 @@ class CharacterRestEndpointIntegrationTest extends AbstractCharacterEndpointInte
 
 	def "gets character by guid"() {
 		when:
-		CharacterResponse characterResponse = stapiRestClient.characterApi.characterPost(null, null, null, GUID, null,
-				null, null)
+		CharacterResponse characterResponse = stapiRestClient.characterApi.characterPost(null, null, null,
+				DEANNA_TROI_GUID, null, null, null)
 
 		then:
 		characterResponse.page.totalElements == 1
-		characterResponse.characters[0].guid == GUID
+		characterResponse.characters[0].guid == DEANNA_TROI_GUID
+		characterResponse.characters[0].episodeHeaders.size() == 166
+		characterResponse.characters[0].movieHeaders.size() == 4
 	}
 
 	def "gets characters sorted by year of birth"() {
