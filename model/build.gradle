@@ -11,7 +11,7 @@ dependencies {
 	compile(group: 'org.springframework.data', name: 'spring-data-jdbc-core', version: '1.2.1.RELEASE') {
 		exclude(module: '*')
 	}
-	compile group: 'org.liquibase', name: 'liquibase-core', version: '1.9.5'
+	compile group: 'org.liquibase', name: 'liquibase-core', version: '3.5.3'
 	compile group: 'com.oracle', name: 'ojdbc6', version: '11.1.0.7.0'
 	compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.0.Final'
 	compile group: 'org.postgresql', name: 'postgresql', version:'9.4.1207'

@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.model.configuration;
 
 import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.google.common.collect.Maps;
-import liquibase.spring.SpringLiquibase;
+import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;

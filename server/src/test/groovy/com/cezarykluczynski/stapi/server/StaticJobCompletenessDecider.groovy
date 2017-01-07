@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompleteness
 import com.cezarykluczynski.stapi.model.step.SimpleStep
 import com.cezarykluczynski.stapi.util.constant.SpringProfile
 import com.google.common.collect.Lists
-import liquibase.spring.SpringLiquibase
+import liquibase.integration.spring.SpringLiquibase
 import org.springframework.batch.core.BatchStatus
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing
 import org.springframework.context.ApplicationContext
