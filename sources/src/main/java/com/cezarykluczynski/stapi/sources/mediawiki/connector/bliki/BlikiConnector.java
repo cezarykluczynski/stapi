@@ -62,7 +62,7 @@ public class BlikiConnector {
 	}
 
 	@Cacheable(cacheNames = "pagesCache", condition = "@pageCacheService.isCacheable(#title, #mediaWikiSource)",
-			key = "@pageCacheService.resolveKey(#title)")
+			key = "@pageCacheService.resolveKey(#title)", sync = true)
 	public String getPage(String title, MediaWikiSource mediaWikiSource) {
 		Map<String, String> params = Maps.newHashMap();
 		params.put(ApiParams.KEY_ACTION, ApiParams.KEY_ACTION_VALUE_PARSE);

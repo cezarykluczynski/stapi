@@ -1,18 +1,28 @@
 package com.cezarykluczynski.stapi.etl.common.listener
 
+import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
+import com.cezarykluczynski.stapi.sources.mediawiki.cache.FrequentHitCachingHelper
+import com.cezarykluczynski.stapi.sources.mediawiki.cache.FrequentHitCachingHelperDumpFormatter
 import org.springframework.batch.core.ExitStatus
 import org.springframework.batch.core.StepExecution
 import spock.lang.Specification
 
 class CommonStepExecutionListenerTest extends Specification {
 
+	private FrequentHitCachingHelper frequentHitCachingHelperMock
+
+	private FrequentHitCachingHelperDumpFormatter frequentHitCachingHelperDumpFormatterMock
+
 	private StepExecution stepExecutionMock
 
 	private CommonStepExecutionListener commonStepExecutionListener
 
 	def setup() {
+		frequentHitCachingHelperMock = Mock(FrequentHitCachingHelper)
+		frequentHitCachingHelperDumpFormatterMock = Mock(FrequentHitCachingHelperDumpFormatter)
 		stepExecutionMock = Mock(StepExecution)
-		commonStepExecutionListener = new CommonStepExecutionListener()
+		commonStepExecutionListener = new CommonStepExecutionListener(frequentHitCachingHelperMock,
+				frequentHitCachingHelperDumpFormatterMock)
 	}
 
 	def "logs before step"() {
@@ -30,6 +40,7 @@ class CommonStepExecutionListenerTest extends Specification {
 	def "logs after step"() {
 		given:
 		ExitStatus exitStatusMock = Mock(ExitStatus)
+		Map<MediaWikiSource, Map<String, Integer>> cacheMap = Mock(Map)
 
 		when: 'after step callback is called'
 		commonStepExecutionListener.afterStep(stepExecutionMock)
@@ -41,6 +52,10 @@ class CommonStepExecutionListenerTest extends Specification {
 		1 * exitStatusMock.getExitCode()
 		1 * stepExecutionMock.getReadCount()
 		1 * stepExecutionMock.getWriteCount()
+
+		then: 'cache statistics are dumped'
+		1 * frequentHitCachingHelperMock.dumpStatisticsAndReset() >> cacheMap
+		1 * frequentHitCachingHelperDumpFormatterMock.format(cacheMap)
 
 		then: 'no other interactions are expected'
 		0 * _

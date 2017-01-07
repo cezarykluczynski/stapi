@@ -6,11 +6,24 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
+
 @Service
 @Slf4j
 public class PageCacheService {
 
+	private FrequentHitCachingHelper frequentHitCachingHelper;
+
+	@Inject
+	public PageCacheService(FrequentHitCachingHelper frequentHitCachingHelper) {
+		this.frequentHitCachingHelper = frequentHitCachingHelper;
+	}
+
 	public boolean isCacheable(String title, MediaWikiSource mediaWikiSource) {
+		if (frequentHitCachingHelper.isCacheable(title, mediaWikiSource)) {
+			return true;
+		}
+
 		if (!CacheablePageNames.SOURCES_TITLES.containsKey(mediaWikiSource)) {
 			return false;
 		}

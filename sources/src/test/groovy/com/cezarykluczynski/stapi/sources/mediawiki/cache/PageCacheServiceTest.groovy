@@ -7,14 +7,28 @@ import spock.lang.Specification
 class PageCacheServiceTest extends Specification {
 
 	private static final String TITLE = "Title"
+	private static final MediaWikiSource SOURCE = MediaWikiSource.MEMORY_ALPHA_EN
 	private static final String SECTION = "#Section"
 	private static final String TITLE_WITH_SECTION = TITLE + SECTION
 	private static final MediaWikiSource MEDIA_WIKI_SOURCE = MediaWikiSource.MEMORY_ALPHA_EN
 
+	private FrequentHitCachingHelper frequentHitCachingHelperMock
+
 	private PageCacheService pageCacheService
 
 	def setup() {
-		pageCacheService = new PageCacheService()
+		frequentHitCachingHelperMock = Mock(FrequentHitCachingHelper)
+		pageCacheService = new PageCacheService(frequentHitCachingHelperMock)
+	}
+
+	def "if FrequentHitCachingHelper returns true, returns true"() {
+		when:
+		boolean cacheable = pageCacheService.isCacheable(TITLE, SOURCE)
+
+		then:
+		1 * frequentHitCachingHelperMock.isCacheable(TITLE, SOURCE) >> true
+		cacheable
+
 	}
 
 	def "tells when page is cacheable"() {
@@ -22,6 +36,7 @@ class PageCacheServiceTest extends Specification {
 		boolean result = pageCacheService.isCacheable(CacheablePageNames.SOURCES_TITLES.get(MEDIA_WIKI_SOURCE)[0], MEDIA_WIKI_SOURCE)
 
 		then:
+		1 * frequentHitCachingHelperMock.isCacheable(*_) >> false
 		result
 	}
 
@@ -30,6 +45,7 @@ class PageCacheServiceTest extends Specification {
 		boolean result = pageCacheService.isCacheable(CacheablePageNames.SOURCES_TITLES.get(MEDIA_WIKI_SOURCE)[0] + SECTION, MEDIA_WIKI_SOURCE)
 
 		then:
+		1 * frequentHitCachingHelperMock.isCacheable(*_) >> false
 		result
 	}
 
