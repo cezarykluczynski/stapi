@@ -70,30 +70,34 @@ public class PageApiImpl implements PageApi {
 		}
 
 		if (wikitext.substring(0, Math.min(200, wikitext.length())).contains(REDIRECT_PREFIX)) {
-			List<String> redirects = wikitextApi.getPageTitlesFromWikitext(wikitext);
-			if (redirects.isEmpty()) {
-				log.warn("Page {} appears to be redirect, but no page to redirect to was found", title);
-				return page;
-			} else {
-				String redirectTarget = redirects.get(0);
-				log.info("Following redirect from {} to {}", title, redirectTarget);
-				Page redirectPage = getPage(redirectTarget, redirectCount + 1, mediaWikiSource);
-
-				if (redirectPage == null) {
-					log.warn("Redirect {} leaded to unexisting page", redirectTarget);
-					return null;
-				}
-
-				redirectPage.getRedirectPath().add(PageHeader.builder()
-						.title(title)
-						.pageId(page.getPageId())
-						.mediaWikiSource(mediaWikiSource)
-						.build());
-				return redirectPage;
-			}
+			return redirectFromWikitextOrPage(wikitext, page, title, redirectCount, mediaWikiSource);
 		}
 
 		return page;
+	}
+
+	private Page redirectFromWikitextOrPage(String wikitext, Page page, String title, int redirectCount, MediaWikiSource mediaWikiSource) {
+		List<String> redirects = wikitextApi.getPageTitlesFromWikitext(wikitext);
+		if (redirects.isEmpty()) {
+			log.warn("Page {} appears to be redirect, but no page to redirect to was found", title);
+			return page;
+		} else {
+			String redirectTarget = redirects.get(0);
+			log.info("Following redirect from {} to {}", title, redirectTarget);
+			Page redirectPage = getPage(redirectTarget, redirectCount + 1, mediaWikiSource);
+
+			if (redirectPage == null) {
+				log.warn("Redirect {} leaded to unexisting page", redirectTarget);
+				return null;
+			}
+
+			redirectPage.getRedirectPath().add(PageHeader.builder()
+					.title(title)
+					.pageId(page.getPageId())
+					.mediaWikiSource(mediaWikiSource)
+					.build());
+			return redirectPage;
+		}
 	}
 
 	private void supplementSectionsWikitext(Page page) {

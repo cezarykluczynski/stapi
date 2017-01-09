@@ -77,11 +77,11 @@ public class BlikiConnector {
 		requestBuilder.putAll(params);
 
 		switch (mediaWikiSource) {
+			case MEMORY_BETA_EN:
+				return doQueryMemoryBeta(requestBuilder);
 			default:
 			case MEMORY_ALPHA_EN:
 				return doQueryMemoryAlpha(requestBuilder);
-			case MEMORY_BETA_EN:
-				return doQueryMemoryBeta(requestBuilder);
 		}
 	}
 
@@ -107,7 +107,7 @@ public class BlikiConnector {
 			}
 			try {
 				Thread.sleep(postpone);
-			} catch(InterruptedException e) {
+			} catch (InterruptedException e) {
 				Thread.currentThread().interrupt();
 			}
 		}

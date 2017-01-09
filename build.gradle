@@ -25,6 +25,7 @@ allprojects {
 	apply plugin: 'groovy'
 	apply plugin: 'jacoco'
 	apply plugin: 'no.nils.wsdl2java'
+	apply plugin: 'checkstyle'
 
 	repositories {
 		mavenCentral()
@@ -66,6 +67,17 @@ allprojects {
 			exclude(module: 'spring-boot-starter-logging')
 		}
 		testCompile group: 'cglib', name: 'cglib-nodep', version: '3.2.4'
+	}
+
+	checkstyle {
+		configFile = "$rootDir/checkstyle.xml" as File
+		toolVersion = '7.4'
+	}
+
+	checkstyleMain {
+		configProperties = [
+				'baseDir': "$rootDir"
+		]
 	}
 }
 

@@ -13,12 +13,6 @@ import javax.inject.Inject;
 @Service
 public class SeriesProcessor extends CompositeItemProcessor<PageHeader, Series> {
 
-	private PageHeaderProcessor pageHeaderProcessor;
-
-	private SeriesTemplatePageProcessor seriesTemplatePageProcessor;
-
-	private SeriesTemplateProcessor seriesTemplateProcessor;
-
 	@Inject
 	public SeriesProcessor(PageHeaderProcessor pageHeaderProcessor, SeriesTemplatePageProcessor seriesTemplatePageProcessor,
 			SeriesTemplateProcessor seriesTemplateProcessor) {

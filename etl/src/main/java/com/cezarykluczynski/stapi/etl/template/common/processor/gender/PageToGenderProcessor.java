@@ -40,7 +40,7 @@ public class PageToGenderProcessor implements ItemProcessor<Page, Gender> {
 			return fixedValueHolder.getValue();
 		}
 
-		if(item.getWikitext() != null) {
+		if (item.getWikitext() != null) {
 			Gender genderFromPronouns = pageToGenderPronounProcessor.process(item);
 
 			if (genderFromPronouns != null) {

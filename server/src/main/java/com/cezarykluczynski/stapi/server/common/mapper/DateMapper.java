@@ -10,8 +10,7 @@ import java.time.LocalDate;
 public interface DateMapper {
 
 	default LocalDate map(XMLGregorianCalendar xmlGregorianCalendar) {
-		return xmlGregorianCalendar == null ? null :
-				xmlGregorianCalendar.toGregorianCalendar().toZonedDateTime().toLocalDate();
+		return xmlGregorianCalendar == null ? null : xmlGregorianCalendar.toGregorianCalendar().toZonedDateTime().toLocalDate();
 	}
 
 }

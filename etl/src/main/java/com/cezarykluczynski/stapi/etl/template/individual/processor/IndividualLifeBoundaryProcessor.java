@@ -39,8 +39,8 @@ public class IndividualLifeBoundaryProcessor implements ItemProcessor<String, In
 				if (currentYear == null || currentYear.equals(yearFromProcessor)) {
 					individualLifeBoundaryDTO.setYear(yearFromProcessor);
 				} else {
-					log.error("Trying to set life boundary year value to {}, but value {} already present, " +
-							"original value: {}", yearFromProcessor, currentYear, item);
+					log.error("Trying to set life boundary year value to {}, but value {} already present, original value: {}",
+							yearFromProcessor, currentYear, item);
 				}
 			}
 		}

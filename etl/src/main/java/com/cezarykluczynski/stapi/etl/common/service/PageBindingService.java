@@ -24,8 +24,8 @@ public class PageBindingService {
 	}
 
 	public com.cezarykluczynski.stapi.model.page.entity.Page fromPageToPageEntity(Page page) {
-		Optional<com.cezarykluczynski.stapi.model.page.entity.Page> pageEntityOptional =
-				findPageByPageId(page.getPageId());
+		Optional<com.cezarykluczynski.stapi.model.page.entity.Page> pageEntityOptional
+				= findPageByPageId(page.getPageId());
 
 		if (pageEntityOptional.isPresent()) {
 			return pageEntityOptional.get();
@@ -39,8 +39,8 @@ public class PageBindingService {
 	}
 
 	public com.cezarykluczynski.stapi.model.page.entity.Page fromPageHeaderToPageEntity(PageHeader pageHeader) {
-		Optional<com.cezarykluczynski.stapi.model.page.entity.Page> pageEntityOptional =
-				findPageByPageId(pageHeader.getPageId());
+		Optional<com.cezarykluczynski.stapi.model.page.entity.Page> pageEntityOptional
+				= findPageByPageId(pageHeader.getPageId());
 
 		if (pageEntityOptional.isPresent()) {
 			return pageEntityOptional.get();

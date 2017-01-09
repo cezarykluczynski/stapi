@@ -24,36 +24,36 @@ public class IndividualMaritalStatusProcessor implements ItemProcessor<String, M
 	private static final String MARRIED = "married";
 	private static final String BONDED = "bonded";
 
-	private static final Map<String, MaritalStatus> maritalStatusMappings = Maps.newLinkedHashMap();
+	private static final Map<String, MaritalStatus> MARITAL_STATUS_MAPPINGS = Maps.newLinkedHashMap();
 
 	static {
-		maritalStatusMappings.put(SINGLE, MaritalStatus.SINGLE);
-		maritalStatusMappings.put(ANNULLED, MaritalStatus.SINGLE);
-		maritalStatusMappings.put(WIDOW, MaritalStatus.WIDOWED);
-		maritalStatusMappings.put(ENGAGED, MaritalStatus.ENGAGED);
-		maritalStatusMappings.put(DIVORCED, MaritalStatus.DIVORCED);
-		maritalStatusMappings.put(SEPARATED, MaritalStatus.SEPARATED);
-		maritalStatusMappings.put(REMARRIED, MaritalStatus.REMARRIED);
-		maritalStatusMappings.put(MARRIED, MaritalStatus.MARRIED);
-		maritalStatusMappings.put(BONDED, MaritalStatus.MARRIED);
-		maritalStatusMappings.put(CAPTAINS_WOMAN, MaritalStatus.CAPTAINS_WOMAN);
+		MARITAL_STATUS_MAPPINGS.put(SINGLE, MaritalStatus.SINGLE);
+		MARITAL_STATUS_MAPPINGS.put(ANNULLED, MaritalStatus.SINGLE);
+		MARITAL_STATUS_MAPPINGS.put(WIDOW, MaritalStatus.WIDOWED);
+		MARITAL_STATUS_MAPPINGS.put(ENGAGED, MaritalStatus.ENGAGED);
+		MARITAL_STATUS_MAPPINGS.put(DIVORCED, MaritalStatus.DIVORCED);
+		MARITAL_STATUS_MAPPINGS.put(SEPARATED, MaritalStatus.SEPARATED);
+		MARITAL_STATUS_MAPPINGS.put(REMARRIED, MaritalStatus.REMARRIED);
+		MARITAL_STATUS_MAPPINGS.put(MARRIED, MaritalStatus.MARRIED);
+		MARITAL_STATUS_MAPPINGS.put(BONDED, MaritalStatus.MARRIED);
+		MARITAL_STATUS_MAPPINGS.put(CAPTAINS_WOMAN, MaritalStatus.CAPTAINS_WOMAN);
 	}
 
 	@Override
 	public MaritalStatus process(String item) throws Exception {
-		item = StringUtils.lowerCase(StringUtils.trim(item));
+		String itemTrimmedLowerCase = StringUtils.lowerCase(StringUtils.trim(item));
 
-		if (StringUtils.isBlank(item)) {
+		if (StringUtils.isBlank(itemTrimmedLowerCase)) {
 			return null;
 		}
 
-		for (Map.Entry<String, MaritalStatus> entry : maritalStatusMappings.entrySet()) {
-			if (item.contains(entry.getKey())) {
+		for (Map.Entry<String, MaritalStatus> entry : MARITAL_STATUS_MAPPINGS.entrySet()) {
+			if (itemTrimmedLowerCase.contains(entry.getKey())) {
 				return entry.getValue();
 			}
 		}
 
-		log.error("Unknown individual marital status: {} ", item);
+		log.error("Unknown individual marital status: {} ", itemTrimmedLowerCase);
 		return null;
 	}
 

@@ -31,8 +31,7 @@ public class IndividualDateStatusValueToYearProcessor implements ItemProcessor<S
 
 	@Override
 	public Integer process(String value) throws Exception {
-		if (StringUtils.isBlank(value) || value.contains(CENTURY) ||
-				value.length() > 4 && "s".equals(String.valueOf(value.charAt(4)))) {
+		if (StringUtils.isBlank(value) || value.contains(CENTURY) || value.length() > 4 && "s".equals(String.valueOf(value.charAt(4)))) {
 			return null;
 		}
 
@@ -47,7 +46,7 @@ public class IndividualDateStatusValueToYearProcessor implements ItemProcessor<S
 					.map(pageLink -> {
 						try {
 							return pageLinkToYearProcessor.process(pageLink);
-						} catch(Exception e) {
+						} catch (Exception e) {
 							return null;
 						}
 					})

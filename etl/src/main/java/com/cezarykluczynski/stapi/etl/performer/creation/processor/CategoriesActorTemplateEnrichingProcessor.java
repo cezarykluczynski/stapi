@@ -7,6 +7,5 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
 
 import java.util.List;
 
-public interface CategoriesActorTemplateEnrichingProcessor
-		extends ItemEnrichingProcessor<EnrichablePair<List<CategoryHeader>, ActorTemplate>> {
+public interface CategoriesActorTemplateEnrichingProcessor extends ItemEnrichingProcessor<EnrichablePair<List<CategoryHeader>, ActorTemplate>> {
 }

@@ -83,6 +83,8 @@ public class EpisodeTemplateProcessor implements ItemProcessor<Template, Episode
 				case N_AIRDATE_YEAR:
 					year = value;
 					break;
+				default:
+					break;
 			}
 		}
 

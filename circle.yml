@@ -9,6 +9,6 @@ dependencies:
     - psql -c 'create database stapi;' -U postgres
 test:
   override:
-    - ./gradlew test -i
+    - ./gradlew checkstyleMain build -i
   post:
     - bash <(curl -s https://codecov.io/bash) -f "build/reports/jacoco/codeCoverageReport/codeCoverageReport.xml"

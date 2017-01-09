@@ -13,8 +13,8 @@ public class MovieStandInPerformersLinkingWorker implements MovieRealPeopleLinki
 	private FirstPerformerFindingMovieRealPeopleLinkingWorkerHelper firstPerformerFindingMovieRealPeopleLinkingWorkerHelper;
 
 	@Inject
-	public MovieStandInPerformersLinkingWorker(
-			FirstPerformerFindingMovieRealPeopleLinkingWorkerHelper firstPerformerFindingMovieRealPeopleLinkingWorkerHelper) {
+	public MovieStandInPerformersLinkingWorker(FirstPerformerFindingMovieRealPeopleLinkingWorkerHelper
+			firstPerformerFindingMovieRealPeopleLinkingWorkerHelper) {
 		this.firstPerformerFindingMovieRealPeopleLinkingWorkerHelper = firstPerformerFindingMovieRealPeopleLinkingWorkerHelper;
 	}
 

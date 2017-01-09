@@ -4,13 +4,13 @@ import javax.ws.rs.QueryParam;
 
 public class PageSortBeanParams {
 
-	@QueryParam(value = "pageNumber")
+	@QueryParam("pageNumber")
 	private Integer pageNumber;
 
-	@QueryParam(value = "pageSize")
+	@QueryParam("pageSize")
 	private Integer pageSize;
 
-	@QueryParam(value = "sort")
+	@QueryParam("sort")
 	private String sort;
 
 	public Integer getPageNumber() {

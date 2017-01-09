@@ -37,7 +37,7 @@ public class ActorTemplateTemplateProcessor implements ItemProcessor<Template, A
 				continue;
 			}
 
-			switch(key) {
+			switch (key) {
 				case NAME:
 					actorTemplate.setName(value);
 					break;
@@ -52,6 +52,8 @@ public class ActorTemplateTemplateProcessor implements ItemProcessor<Template, A
 					break;
 				case GENDER:
 					actorTemplate.setGender(partToGenderProcessor.process(part));
+					break;
+				default:
 					break;
 			}
 		}

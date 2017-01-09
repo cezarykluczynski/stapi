@@ -26,7 +26,7 @@ public class PerformerWriter implements ItemWriter<Performer> {
 			DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor,
 			DuplicateReattachingPreSavePageAwareFilter duplicateReattachingPreSavePageAwareFilter) {
 		this.performerRepository = performerRepository;
-		this.duplicateFilteringPreSavePageAwareProcessor  = duplicateFilteringPreSavePageAwareProcessor;
+		this.duplicateFilteringPreSavePageAwareProcessor = duplicateFilteringPreSavePageAwareProcessor;
 		this.duplicateReattachingPreSavePageAwareFilter = duplicateReattachingPreSavePageAwareFilter;
 	}
 

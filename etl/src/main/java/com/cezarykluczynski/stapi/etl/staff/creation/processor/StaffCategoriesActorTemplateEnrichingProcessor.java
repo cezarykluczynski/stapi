@@ -63,34 +63,32 @@ public class StaffCategoriesActorTemplateEnrichingProcessor extends AbstractCate
 	}
 
 	private void setAuthorFlags(ActorTemplate actorTemplate, List<String> categoryTitlesList) {
-		actorTemplate.setAuthor(categoryTitlesList.contains(CategoryName.STAR_TREK_AUTHORS) || actorTemplate.isAudioAuthor() ||
-				actorTemplate.isComicAuthor() || actorTemplate.isGameAuthor() || actorTemplate.isNovelAuthor() ||
-				actorTemplate.isReferenceAuthor());
+		actorTemplate.setAuthor(categoryTitlesList.contains(CategoryName.STAR_TREK_AUTHORS) || actorTemplate.isAudioAuthor()
+				|| actorTemplate.isComicAuthor() || actorTemplate.isGameAuthor() || actorTemplate.isNovelAuthor()
+				|| actorTemplate.isReferenceAuthor());
 	}
 
 	private void setArtFlags(ActorTemplate actorTemplate, List<String> categoryTitlesList) {
 		actorTemplate.setArtDirector(categoryTitlesList.contains(CategoryName.ART_DIRECTORS));
 		actorTemplate.setProductionDesigner(categoryTitlesList.contains(CategoryName.PRODUCTION_DESIGNERS));
-		actorTemplate.setArtDepartment(categoryTitlesList.contains(CategoryName.ART_DEPARTMENT) ||
-				actorTemplate.isArtDirector() || actorTemplate.isProductionDesigner());
+		actorTemplate.setArtDepartment(categoryTitlesList.contains(CategoryName.ART_DEPARTMENT) || actorTemplate.isArtDirector()
+				|| actorTemplate.isProductionDesigner());
 	}
 
 	private void setCostumeFlags(ActorTemplate actorTemplate, List<String> categoryTitlesList) {
 		actorTemplate.setCostumeDesigner(categoryTitlesList.contains(CategoryName.COSTUME_DESIGNERS));
-		actorTemplate.setCostumeDepartment(categoryTitlesList.contains(CategoryName.COSTUME_DEPARTMENT) ||
-				actorTemplate.isCostumeDesigner());
+		actorTemplate.setCostumeDepartment(categoryTitlesList.contains(CategoryName.COSTUME_DEPARTMENT) || actorTemplate.isCostumeDesigner());
 	}
 
 	private void setDirectorsFlags(ActorTemplate actorTemplate, List<String> categoryTitlesList) {
 		actorTemplate.setDirector(categoryTitlesList.contains(CategoryName.DIRECTORS));
-		actorTemplate.setAssistantAndSecondUnitDirector(categoryTitlesList.contains(CategoryName.ASSISTANT_AND_SECOND_UNIT_DIRECTORS) ||
-				actorTemplate.isDirector());
+		actorTemplate.setAssistantAndSecondUnitDirector(categoryTitlesList.contains(CategoryName.ASSISTANT_AND_SECOND_UNIT_DIRECTORS)
+				|| actorTemplate.isDirector());
 	}
 
 	private void setMusicFlags(ActorTemplate actorTemplate, List<String> categoryTitlesList) {
 		actorTemplate.setComposer(categoryTitlesList.contains(CategoryName.COMPOSERS));
-		actorTemplate.setMusicDepartment(categoryTitlesList.contains(CategoryName.MUSIC_DEPARTMENT) ||
-				actorTemplate.isComposer());
+		actorTemplate.setMusicDepartment(categoryTitlesList.contains(CategoryName.MUSIC_DEPARTMENT) || actorTemplate.isComposer());
 	}
 
 	private void setCameraFlags(ActorTemplate actorTemplate, List<String> categoryTitlesList) {
@@ -107,17 +105,19 @@ public class StaffCategoriesActorTemplateEnrichingProcessor extends AbstractCate
 		actorTemplate.setComicPencilArtist(categoryTitlesList.contains(CategoryName.STAR_TREK_COMIC_PENCIL_ARTISTS));
 		actorTemplate.setComicLetterArtist(categoryTitlesList.contains(CategoryName.STAR_TREK_COMIC_LETTER_ARTISTS));
 		actorTemplate.setComicStripArtist(categoryTitlesList.contains(CategoryName.STAR_TREK_COMIC_STRIP_ARTISTS));
-		actorTemplate.setComicArtist(categoryTitlesList.contains(CategoryName.STAR_TREK_COMIC_ARTISTS) ||
-				actorTemplate.isComicColorArtist() || actorTemplate.isComicInteriorArtist() ||
-				actorTemplate.isComicInkArtist() || actorTemplate.isComicPencilArtist() ||
-				actorTemplate.isComicLetterArtist() || actorTemplate.isComicStripArtist());
+		actorTemplate.setComicArtist(categoryTitlesList.contains(CategoryName.STAR_TREK_COMIC_ARTISTS) || isComicActorTemplate(actorTemplate));
+	}
+
+	private boolean isComicActorTemplate(ActorTemplate actorTemplate) {
+		return actorTemplate.isComicColorArtist() || actorTemplate.isComicInteriorArtist() || actorTemplate.isComicInkArtist()
+				|| actorTemplate.isComicPencilArtist() || actorTemplate.isComicLetterArtist() || actorTemplate.isComicStripArtist();
 	}
 
 	private void setSpecialEffectsFlags(ActorTemplate actorTemplate, List<String> categoryTitlesList) {
 		actorTemplate.setCbsDigitalStaff(categoryTitlesList.contains(CategoryName.CBS_DIGITAL_STAFF));
 		actorTemplate.setIlmProductionStaff(categoryTitlesList.contains(CategoryName.ILM_PRODUCTION_STAFF));
-		actorTemplate.setSpecialAndVisualEffectsStaff(categoryTitlesList.contains(CategoryName.SPECIAL_AND_VISUAL_EFFECTS_STAFF) ||
-				actorTemplate.isCbsDigitalStaff() || actorTemplate.isIlmProductionStaff());
+		actorTemplate.setSpecialAndVisualEffectsStaff(categoryTitlesList.contains(CategoryName.SPECIAL_AND_VISUAL_EFFECTS_STAFF)
+				|| actorTemplate.isCbsDigitalStaff() || actorTemplate.isIlmProductionStaff());
 	}
 
 }

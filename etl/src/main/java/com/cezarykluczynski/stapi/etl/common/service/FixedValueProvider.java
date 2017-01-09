@@ -2,8 +2,8 @@ package com.cezarykluczynski.stapi.etl.common.service;
 
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
 
-public interface FixedValueProvider<KEY, VALUE> {
+public interface FixedValueProvider<K, V> {
 
-	FixedValueHolder<VALUE> getSearchedValue(KEY key);
+	FixedValueHolder<V> getSearchedValue(K key);
 
 }

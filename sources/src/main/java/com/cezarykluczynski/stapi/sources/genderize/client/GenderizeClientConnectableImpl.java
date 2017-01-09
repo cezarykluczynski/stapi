@@ -29,9 +29,9 @@ public class GenderizeClientConnectableImpl implements GenderizeClient {
 
 	private String apiUrl;
 
-	private int callsCount = 0;
+	private int callsCount;
 
-	private long lastCallTime = 0L;
+	private long lastCallTime;
 
 	private long minimalInterval = 1000L;
 
@@ -59,7 +59,7 @@ public class GenderizeClientConnectableImpl implements GenderizeClient {
 			log.info("A total of {} calls were made to genderize.io API", callsCount);
 			JSONObject jsonObject = new JSONObject(result);
 			return tryParseResponse(jsonObject, name);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			log.warn("Could not get details about name " + name + " from API because of exception", e);
 			return null;
 		}
@@ -77,7 +77,7 @@ public class GenderizeClientConnectableImpl implements GenderizeClient {
 		}
 		try {
 			nameGenderDTO.setProbability((float) jsonObject.getDouble("probability"));
-		} catch(JSONException e2) {
+		} catch (JSONException e2) {
 			if (!e2.getMessage().contains("JSONObject[\"probability\"] not found.")) {
 				throw e2;
 			}
@@ -96,7 +96,7 @@ public class GenderizeClientConnectableImpl implements GenderizeClient {
 			log.info("Postponing call to genderize.io for another {} milliseconds", postpone);
 			try {
 				Thread.sleep(postpone);
-			} catch(InterruptedException e) {
+			} catch (InterruptedException e) {
 				Thread.currentThread().interrupt();
 			}
 		}

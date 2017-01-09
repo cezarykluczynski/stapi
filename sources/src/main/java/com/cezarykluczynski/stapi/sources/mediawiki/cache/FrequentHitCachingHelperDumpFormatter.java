@@ -15,14 +15,15 @@ import java.util.stream.Collectors;
 @Service
 public class FrequentHitCachingHelperDumpFormatter {
 
-	private static final List<MediaWikiSource> sourcesOrder = Lists.newArrayList(MediaWikiSource.MEMORY_ALPHA_EN,
+	private static final String NEW_LINE = "\n";
+	private static final List<MediaWikiSource> SOURCES_ORDER = Lists.newArrayList(MediaWikiSource.MEMORY_ALPHA_EN,
 			MediaWikiSource.MEMORY_BETA_EN);
 
 	public String format(Map<MediaWikiSource, Map<String, Integer>> cacheMap) {
-		String output = "\n";
+		String output = NEW_LINE;
 		Map<MediaWikiSource, List<Pair<String, Integer>>> sortedTitlesMap = Maps.newHashMap();
 
-		for (MediaWikiSource mediaWikiSource : sourcesOrder) {
+		for (MediaWikiSource mediaWikiSource : SOURCES_ORDER) {
 			List<Pair<String, Integer>> cachedTitlesPairList = cacheMap.get(mediaWikiSource).entrySet()
 					.stream()
 					.sorted((left, right) -> right.getValue().compareTo(left.getValue()))
@@ -39,14 +40,13 @@ public class FrequentHitCachingHelperDumpFormatter {
 
 		int numberOfDigits = String.valueOf(max).length();
 
-		for (MediaWikiSource mediaWikiSource : sourcesOrder) {
-			output += mediaWikiSource.name() + ":\n";
+		for (MediaWikiSource mediaWikiSource : SOURCES_ORDER) {
+			output += mediaWikiSource.name() + ":" + NEW_LINE;
 
 			List<Pair<String, Integer>> pairList = sortedTitlesMap.get(mediaWikiSource);
 
 			for (Pair<String, Integer> pair : pairList) {
-				output += StringUtils.leftPad(String.valueOf(pair.getValue()), numberOfDigits + 1) +
-						" :: " + pair.getKey() + "\n";
+				output += StringUtils.leftPad(String.valueOf(pair.getValue()), numberOfDigits + 1) + " :: " + pair.getKey() + NEW_LINE;
 			}
 		}
 

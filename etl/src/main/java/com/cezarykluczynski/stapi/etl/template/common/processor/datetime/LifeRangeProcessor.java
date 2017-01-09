@@ -69,9 +69,8 @@ public class LifeRangeProcessor implements ItemProcessor<Page, DateRange> {
 				return left;
 			} else {
 				String dateType = dateOfBirth ? "birth" : "death";
-				log.error("Date of {} {} from for PageToLifeRangeProcessor does not equal date of {} {} from " +
-						"ActorTemplateToLifeRangeProcessor for {} - setting date to null",
-						dateType, left, dateType, right, item.getTitle());
+				log.error("Date of {} {} from for PageToLifeRangeProcessor does not equal date of {} {} from ActorTemplateToLifeRangeProcessor for "
+						+ "{} - setting date to null", dateType, left, dateType, right, item.getTitle());
 				return null;
 			}
 		}

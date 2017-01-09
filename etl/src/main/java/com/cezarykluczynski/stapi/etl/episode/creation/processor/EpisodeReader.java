@@ -7,7 +7,7 @@ import org.springframework.batch.item.support.ListItemReader;
 import java.util.List;
 
 @Slf4j
-public class EpisodeReader extends ListItemReader<PageHeader>  {
+public class EpisodeReader extends ListItemReader<PageHeader> {
 
 	public EpisodeReader(List<PageHeader> list) {
 		super(list);

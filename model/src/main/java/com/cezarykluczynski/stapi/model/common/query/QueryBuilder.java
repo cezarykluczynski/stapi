@@ -25,11 +25,14 @@ import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class QueryBuilder<T> {
+
+	private static final String PERCENT_SIGN = "%";
 
 	private EntityManager entityManager;
 
@@ -119,13 +122,9 @@ public class QueryBuilder<T> {
 	public QueryBuilder<T> between(SingularAttribute<? super T, LocalDate> key, LocalDate from, LocalDate to) {
 		if (from != null && to != null) {
 			predicateList.add(criteriaBuilder.between(baseRoot.get(key), from, to));
-		}
-
-		if (from != null && to == null) {
+		} else if (from != null) {
 			predicateList.add(criteriaBuilder.greaterThanOrEqualTo(baseRoot.get(key), from));
-		}
-
-		if (from == null && to != null) {
+		} else if (to != null) {
 			predicateList.add(criteriaBuilder.lessThanOrEqualTo(baseRoot.get(key), to));
 		}
 
@@ -135,13 +134,9 @@ public class QueryBuilder<T> {
 	public QueryBuilder<T> between(SingularAttribute<? super T, Integer> key, Integer from, Integer to) {
 		if (from != null && to != null) {
 			predicateList.add(criteriaBuilder.between(baseRoot.get(key), from, to));
-		}
-
-		if (from != null && to == null) {
+		} else if (from != null) {
 			predicateList.add(criteriaBuilder.greaterThanOrEqualTo(baseRoot.get(key), from));
-		}
-
-		if (from == null && to != null) {
+		} else if (to != null) {
 			predicateList.add(criteriaBuilder.lessThanOrEqualTo(baseRoot.get(key), to));
 		}
 
@@ -151,13 +146,9 @@ public class QueryBuilder<T> {
 	public QueryBuilder<T> between(SingularAttribute<? super T, Float> key, Float from, Float to) {
 		if (from != null && to != null) {
 			predicateList.add(criteriaBuilder.between(baseRoot.get(key), from, to));
-		}
-
-		if (from != null && to == null) {
+		} else if (from != null) {
 			predicateList.add(criteriaBuilder.greaterThanOrEqualTo(baseRoot.get(key), from));
-		}
-
-		if (from == null && to != null) {
+		} else if (to != null) {
 			predicateList.add(criteriaBuilder.lessThanOrEqualTo(baseRoot.get(key), to));
 		}
 
@@ -166,13 +157,11 @@ public class QueryBuilder<T> {
 
 	public QueryBuilder<T> fetch(SetAttribute<T, ?> name) {
 		baseRoot.fetch(name, JoinType.LEFT);
-
 		return this;
 	}
 
 	public QueryBuilder<T> fetch(SingularAttribute<T, ?> name) {
 		baseRoot.fetch(name, JoinType.LEFT);
-
 		return this;
 	}
 
@@ -186,7 +175,6 @@ public class QueryBuilder<T> {
 		}
 
 		requestSortClauseDTOList.addAll(requestSortDTO.getClauses());
-
 		return this;
 	}
 
@@ -208,9 +196,6 @@ public class QueryBuilder<T> {
 	}
 
 	private void prepare() {
-		Preconditions.checkNotNull(entityManager, "EntityManager has to be set");
-		Preconditions.checkNotNull(baseClass, "Base class has to be set");
-
 		criteriaBuilder = entityManager.getCriteriaBuilder();
 		predicateList = Lists.newArrayList();
 
@@ -266,8 +251,7 @@ public class QueryBuilder<T> {
 								name, baseClass.getSimpleName()));
 					}
 
-					return requestSortDirectionDTO.equals(RequestSortDirectionDTO.ASC) ? criteriaBuilder.asc(path) :
-							criteriaBuilder.desc(path);
+					return requestSortDirectionDTO.equals(RequestSortDirectionDTO.ASC) ? criteriaBuilder.asc(path) : criteriaBuilder.desc(path);
 				})
 				.collect(Collectors.toList());
 	}
@@ -276,7 +260,7 @@ public class QueryBuilder<T> {
 		Integer maxOrder = requestSortClauseDTOList
 				.stream()
 				.map(RequestSortClauseDTO::getClauseOrder)
-				.filter(clauseOrder -> clauseOrder != null)
+				.filter(Objects::nonNull)
 				.reduce(Integer::max)
 				.orElse(0);
 
@@ -299,15 +283,14 @@ public class QueryBuilder<T> {
 	private void validateAttributeExistenceAndType(String key, Class type) {
 		attributeSet.stream()
 				.filter(tAttribute -> key.equals(tAttribute.getName()))
-				.filter(tAttribute -> type.equals(Boolean.class) ? type.getName().equals("java.lang.Boolean") :
-						type.equals(tAttribute.getJavaType()))
+				.filter(tAttribute -> type.equals(Boolean.class) ? type.getName().equals("java.lang.Boolean") : type.equals(tAttribute.getJavaType()))
 				.findFirst()
-				.orElseThrow(() -> new RuntimeException(String.format("No attribute named %s of type %s for entity " +
-						"%s found", key, type, baseClass.getName())));
+				.orElseThrow(() -> new RuntimeException(String.format("No attribute named %s of type %s for entity %s found",
+						key, type, baseClass.getName())));
 	}
 
 	private String wildcardLike(String subject) {
-		return "%" + subject.replaceAll("\\s", "%") + "%";
+		return PERCENT_SIGN + subject.replaceAll("\\s", PERCENT_SIGN) + PERCENT_SIGN;
 	}
 
 }

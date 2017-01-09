@@ -42,7 +42,7 @@ public class Movie extends PageAwareEntity implements PageAware {
 	@Id
 	@Column(nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "movie_sequence_generator")
-	@SequenceGenerator(name = "movie_sequence_generator", sequenceName ="movie_sequence", allocationSize = 1)
+	@SequenceGenerator(name = "movie_sequence_generator", sequenceName = "movie_sequence", allocationSize = 1)
 	private Long id;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

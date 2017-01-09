@@ -27,8 +27,8 @@ public interface PageMapper {
 	}
 
 	default com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage fromPageToRestResponsePage(Page pageRequest) {
-		com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage responsePage =
-				new com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage();
+		com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage responsePage
+				= new com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage();
 		responsePage.setPageNumber(pageRequest.getNumber());
 		responsePage.setPageSize(pageRequest.getSize());
 		responsePage.setNumberOfElements(pageRequest.getNumberOfElements());
@@ -54,12 +54,12 @@ public interface PageMapper {
 	}
 
 	static PageRequest fromPageNumberAndPageSize(Integer pageNumber, Integer pageSize) {
-		pageNumber = ObjectUtils.defaultIfNull(pageNumber, PageDefault.PAGE_NUMBER);
-		pageNumber = pageNumber < 0 ? PageDefault.PAGE_NUMBER : pageNumber;
-		pageSize = ObjectUtils.defaultIfNull(pageSize, PageDefault.PAGE_SIZE);
-		pageSize = pageSize <= 0 ? PageDefault.PAGE_SIZE : pageSize;
-		pageSize = NumberUtil.ensureWithinRangeInclusive(PageDefault.PAGE_SIZE_MIN, pageSize, PageDefault.PAGE_SIZE_MAX);
-		return new PageRequest(pageNumber, pageSize);
+		Integer actualPageNumber = ObjectUtils.defaultIfNull(pageNumber, PageDefault.PAGE_NUMBER);
+		actualPageNumber = actualPageNumber < 0 ? PageDefault.PAGE_NUMBER : actualPageNumber;
+		Integer actualPageSize = ObjectUtils.defaultIfNull(pageSize, PageDefault.PAGE_SIZE);
+		actualPageSize = actualPageSize <= 0 ? PageDefault.PAGE_SIZE : actualPageSize;
+		actualPageSize = NumberUtil.ensureWithinRangeInclusive(PageDefault.PAGE_SIZE_MIN, actualPageSize, PageDefault.PAGE_SIZE_MAX);
+		return new PageRequest(actualPageNumber, actualPageSize);
 	}
 
 }

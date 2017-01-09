@@ -39,17 +39,6 @@ public class MovieTemplateStaffEnrichingProcessor implements ItemEnrichingProces
 
 	private EntityLookupByNameService entityLookupByNameService;
 
-	@Data
-	private static class StaffParsingState {
-
-		private String rawValue;
-
-		private Set<Pair<Staff, PageLink>> initialStaffPageLinkPair = Sets.newHashSet();
-
-		private Set<Staff> supplementedStaffSet = Sets.newHashSet();
-
-	}
-
 	@Inject
 	public MovieTemplateStaffEnrichingProcessor(WikitextApi wikitextApi,
 			EntityLookupByNameService entityLookupByNameService) {
@@ -88,6 +77,8 @@ public class MovieTemplateStaffEnrichingProcessor implements ItemEnrichingProces
 					break;
 				case WS_PRODUCED_BY:
 					addAllStaff(producersStaffParsingState, value);
+					break;
+				default:
 					break;
 			}
 		}
@@ -166,23 +157,19 @@ public class MovieTemplateStaffEnrichingProcessor implements ItemEnrichingProces
 
 				if (StringUtils.contains(baseRawValue, otherStaff.getName())) {
 					log.info("Adding unlinked staff {} to set of {}, because raw value was \"{}\", name was: \"{}\"",
-							otherStaff.getName(), toNameList(baseStaffSet),
-							baseRawValue, otherStaff.getName());
+							otherStaff.getName(), toNameList(baseStaffSet), baseRawValue, otherStaff.getName());
 					baseStaffSet.add(otherStaff);
 				} else if (StringUtils.contains(baseRawValue, otherStaff.getBirthName())) {
-					log.info("Adding unlinked staff {} to set of {}, because raw value was \"{}\", " +
-							"birth name was: \"{}\"", otherStaff.getName(), toNameList(baseStaffSet), baseRawValue,
-							otherStaff.getBirthName());
+					log.info("Adding unlinked staff {} to set of {}, because raw value was \"{}\", birth name was: \"{}\"",
+							otherStaff.getName(), toNameList(baseStaffSet), baseRawValue, otherStaff.getBirthName());
 					baseStaffSet.add(otherStaff);
 				} else if (StringUtils.contains(baseRawValue, otherPageLink.getTitle())) {
-					log.info("Adding unlinked staff {} to set of {}, because raw value was \"{}\", " +
-							"link title was: \"{}\"", otherStaff.getName(), toNameList(baseStaffSet), baseRawValue,
-							otherPageLink.getTitle());
+					log.info("Adding unlinked staff {} to set of {}, because raw value was \"{}\", link title was: \"{}\"",
+							otherStaff.getName(), toNameList(baseStaffSet), baseRawValue, otherPageLink.getTitle());
 					baseStaffSet.add(otherStaff);
 				} else if (StringUtils.contains(baseRawValue, otherPageLink.getDescription())) {
-					log.info("Adding unlinked staff {} to set of {}, because raw value was \"{}\", " +
-							"link description was: \"{}\"", otherStaff.getName(), toNameList(baseStaffSet),
-							baseRawValue, otherPageLink.getDescription());
+					log.info("Adding unlinked staff {} to set of {}, because raw value was \"{}\", link description was: \"{}\"",
+							otherStaff.getName(), toNameList(baseStaffSet), baseRawValue, otherPageLink.getDescription());
 					baseStaffSet.add(otherStaff);
 				}
 			}
@@ -194,6 +181,17 @@ public class MovieTemplateStaffEnrichingProcessor implements ItemEnrichingProces
 				.stream()
 				.map(Staff::getName)
 				.collect(Collectors.toList());
+	}
+
+	@Data
+	private static class StaffParsingState {
+
+		private String rawValue;
+
+		private Set<Pair<Staff, PageLink>> initialStaffPageLinkPair = Sets.newHashSet();
+
+		private Set<Staff> supplementedStaffSet = Sets.newHashSet();
+
 	}
 
 }

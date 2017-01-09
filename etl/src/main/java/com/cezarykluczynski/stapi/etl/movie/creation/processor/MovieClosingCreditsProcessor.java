@@ -68,6 +68,10 @@ public class MovieClosingCreditsProcessor implements ItemProcessor<Page, List<Pa
 			pageSectionLineList.addAll(Lists.newArrayList(pageSection.getWikitext().split("\n")));
 		});
 
+		return getPageSectionList(pageSectionLineList, pageTitle, creditsPageSectionList);
+	}
+
+	private List<PageSection> getPageSectionList(List<String> pageSectionLineList, String pageTitle, List<PageSection> creditsPageSectionList) {
 		PageSection creditsPageSection = null;
 		List<String> creditsPageSectionWikitextLines = null;
 		boolean createNewSection = false;
@@ -77,7 +81,7 @@ public class MovieClosingCreditsProcessor implements ItemProcessor<Page, List<Pa
 			boolean isSectionWithoutDefinitionMarkup = SECTIONS_WITHOUT_DEFINITION_MARKUP.contains(pageSectionLine);
 			boolean hasDefinitionMarkup = pageSectionLine.startsWith(";");
 			boolean isListItem = pageSectionLine.startsWith("*");
-			boolean isCast = creditsPageSection != null && "Cast".equals(creditsPageSection.getText());
+			boolean isCast = isCastPageSection(creditsPageSection);
 			boolean couldBeCastMultiline = hasDefinitionMarkup || isListItem && previousLine != null;
 			if (creditsPageSection != null && ";Stunt Coordinator:".equals(pageSectionLine)) {
 				createNewSection = true;
@@ -96,17 +100,14 @@ public class MovieClosingCreditsProcessor implements ItemProcessor<Page, List<Pa
 					continue;
 				}
 				creditsPageSectionWikitextLines.add(pageSectionLine);
-			} else if (pageSectionLine.length() > 2 && !isSkippable(pageSectionLine) &&
-					!isNonInclude(pageSectionLine) && !isInterwiki(pageSectionLine)) {
+			} else if (pageSectionLine.length() > 2 && !isSkippable(pageSectionLine) && !isNonInclude(pageSectionLine)
+					&& !isInterwiki(pageSectionLine)) {
 				log.warn("List item \"{}\" on page {} found, but not a list item nor a section part", pageSectionLine,
 						pageTitle);
 			}
 
 			if (createNewSection) {
-				if (creditsPageSection != null) {
-					creditsPageSection.setWikitext(String.join("\n", creditsPageSectionWikitextLines));
-					creditsPageSectionList.add(creditsPageSection);
-				}
+				addWikitextToPageSection(creditsPageSection, creditsPageSectionList, creditsPageSectionWikitextLines);
 
 				creditsPageSection = new PageSection();
 				creditsPageSection.setText(isSectionWithoutDefinitionMarkup ? pageSectionLine : pageSectionLine.substring(1));
@@ -115,12 +116,21 @@ public class MovieClosingCreditsProcessor implements ItemProcessor<Page, List<Pa
 			}
 		}
 
+		addWikitextToPageSection(creditsPageSection, creditsPageSectionList, creditsPageSectionWikitextLines);
+
+		return creditsPageSectionList;
+	}
+
+	private boolean isCastPageSection(PageSection creditsPageSection) {
+		return creditsPageSection != null && "Cast".equals(creditsPageSection.getText());
+	}
+
+	private void addWikitextToPageSection(PageSection creditsPageSection, List<PageSection> creditsPageSectionList,
+			List<String> creditsPageSectionWikitextLines) {
 		if (creditsPageSection != null) {
 			creditsPageSection.setWikitext(String.join("\n", creditsPageSectionWikitextLines));
 			creditsPageSectionList.add(creditsPageSection);
 		}
-
-		return creditsPageSectionList;
 	}
 
 	private boolean isNonInclude(String pageSectionLine) {

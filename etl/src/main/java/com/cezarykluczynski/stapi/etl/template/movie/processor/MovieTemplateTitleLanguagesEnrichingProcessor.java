@@ -61,7 +61,7 @@ public class MovieTemplateTitleLanguagesEnrichingProcessor
 				movieTemplate.setTitleGerman(titleCandidate);
 			}
 
-			if (StringUtils.startsWith(pageLink,  "it:")) {
+			if (StringUtils.startsWith(pageLink, "it:")) {
 				movieTemplate.setTitleItalian(titleCandidate);
 			}
 

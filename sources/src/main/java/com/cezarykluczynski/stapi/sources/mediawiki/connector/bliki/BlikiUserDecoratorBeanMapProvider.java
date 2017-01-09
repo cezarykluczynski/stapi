@@ -11,14 +11,14 @@ import java.util.Map;
 @Service
 public class BlikiUserDecoratorBeanMapProvider {
 
+	private static final Map<String, MediaWikiSource> STRING_ENUM_MAP = Maps.newHashMap();
+
 	@Getter
 	private Map<MediaWikiSource, UserDecorator> userEnumMap = Maps.newHashMap();
 
-	private static final Map<String, MediaWikiSource> stringEnumMap = Maps.newHashMap();
-
 	static {
-		stringEnumMap.put(BlikiConnectorConfiguration.MEMORY_ALPHA_EN_USER_DECORATOR, MediaWikiSource.MEMORY_ALPHA_EN);
-		stringEnumMap.put(BlikiConnectorConfiguration.MEMORY_BETA_EN_USER_DECORATOR, MediaWikiSource.MEMORY_BETA_EN);
+		STRING_ENUM_MAP.put(BlikiConnectorConfiguration.MEMORY_ALPHA_EN_USER_DECORATOR, MediaWikiSource.MEMORY_ALPHA_EN);
+		STRING_ENUM_MAP.put(BlikiConnectorConfiguration.MEMORY_BETA_EN_USER_DECORATOR, MediaWikiSource.MEMORY_BETA_EN);
 	}
 
 	@Inject
@@ -28,7 +28,7 @@ public class BlikiUserDecoratorBeanMapProvider {
 
 	private void translateStringMappingsToEnumMappings(Map<String, UserDecorator> stringUserDecoratorMap) {
 		stringUserDecoratorMap.entrySet().forEach(stringUserEntry -> {
-			MediaWikiSource mediaWikiSourceKey = stringEnumMap.get(stringUserEntry.getKey());
+			MediaWikiSource mediaWikiSourceKey = STRING_ENUM_MAP.get(stringUserEntry.getKey());
 			userEnumMap.put(mediaWikiSourceKey, stringUserEntry.getValue());
 		});
 	}

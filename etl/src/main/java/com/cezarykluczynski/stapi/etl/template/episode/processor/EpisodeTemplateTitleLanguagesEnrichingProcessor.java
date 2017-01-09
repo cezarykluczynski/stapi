@@ -51,7 +51,7 @@ public class EpisodeTemplateTitleLanguagesEnrichingProcessor implements
 				episodeTemplate.setTitleGerman(TitleUtil.getNameFromTitle(pageLink.substring(3)));
 			}
 
-			if (StringUtils.startsWith(pageLink,  "it:")) {
+			if (StringUtils.startsWith(pageLink, "it:")) {
 				episodeTemplate.setTitleItalian(TitleUtil.getNameFromTitle(pageLink.substring(3)));
 			}
 

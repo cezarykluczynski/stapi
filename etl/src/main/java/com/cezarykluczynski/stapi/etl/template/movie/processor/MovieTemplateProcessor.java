@@ -67,6 +67,8 @@ public class MovieTemplateProcessor implements ItemProcessor<Template, MovieTemp
 				case N_RELEASE_DAY:
 					day = value;
 					break;
+				default:
+					break;
 			}
 		}
 

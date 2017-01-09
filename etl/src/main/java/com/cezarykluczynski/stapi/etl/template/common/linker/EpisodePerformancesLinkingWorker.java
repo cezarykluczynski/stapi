@@ -1,10 +1,10 @@
 package com.cezarykluczynski.stapi.etl.template.common.linker;
 
 import com.cezarykluczynski.stapi.etl.common.processor.LinkingWorker;
-import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformanceDTO;
-import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformancesEntitiesDTO;
 import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodePerformancesExtractingProcessor;
 import com.cezarykluczynski.stapi.etl.episode.creation.service.EpisodePerformancesToEntityMapper;
+import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformanceDTO;
+import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformancesEntitiesDTO;
 import com.cezarykluczynski.stapi.model.character.repository.CharacterRepository;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository;

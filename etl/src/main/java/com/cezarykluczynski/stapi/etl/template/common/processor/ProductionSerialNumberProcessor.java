@@ -23,7 +23,8 @@ public class ProductionSerialNumberProcessor implements ItemProcessor<String, St
 		} else {
 			try {
 				JSONObject jsonObject = new JSONObject(item);
-				return jsonObject.has("content") ? (String) jsonObject.get("content") : null;
+				String key = "content";
+				return jsonObject.has(key) ? (String) jsonObject.get(key) : null;
 			} catch (JSONException e) {
 				log.error("Could not parse production serial number {} as JSON, and it is too long", item);
 				return null;

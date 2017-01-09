@@ -35,8 +35,8 @@ public class ActorTemplateToLifeRangeProcessor implements ItemProcessor<Template
 	@Override
 	public DateRange process(Template item) throws Exception {
 		if (!TemplateName.SIDEBAR_ACTOR.equals(item.getTitle())) {
-				log.warn("Template {} passed to TemplateToLifeRangeProcessor::process was of different type", item);
-				return null;
+			log.warn("Template {} passed to TemplateToLifeRangeProcessor::process was of different type", item);
+			return null;
 		}
 
 		LocalDate dateOfBirth = null;

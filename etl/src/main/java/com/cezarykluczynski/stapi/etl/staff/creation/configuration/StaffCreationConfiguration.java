@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.staff.creation.configuration;
 
-import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
+import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffCategoriesActorTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffReader;
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateListPageProcessor;
@@ -84,7 +84,7 @@ public class StaffCreationConfiguration {
 			staff.addAll(categoryApi.getPages(CategoryName.STAR_TREK_COMIC_COLOR_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN));
 			staff.addAll(categoryApi.getPages(CategoryName.STAR_TREK_COMIC_INTERIOR_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN));
 			staff.addAll(categoryApi.getPages(CategoryName.STAR_TREK_COMIC_INK_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN));
-			staff.addAll(categoryApi.getPages(CategoryName.STAR_TREK_COMIC_PENCIL_ARTISTS , MediaWikiSource.MEMORY_ALPHA_EN));
+			staff.addAll(categoryApi.getPages(CategoryName.STAR_TREK_COMIC_PENCIL_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN));
 			staff.addAll(categoryApi.getPages(CategoryName.STAR_TREK_COMIC_LETTER_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN));
 			staff.addAll(categoryApi.getPages(CategoryName.STAR_TREK_COMIC_STRIP_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN));
 			staff.addAll(categoryApi.getPages(CategoryName.STAR_TREK_GAME_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN));

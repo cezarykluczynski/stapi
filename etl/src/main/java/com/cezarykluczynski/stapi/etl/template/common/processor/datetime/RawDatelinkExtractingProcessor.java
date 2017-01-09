@@ -15,8 +15,8 @@ import java.util.regex.Pattern;
 @Service
 public class RawDatelinkExtractingProcessor implements ItemProcessor<String, List<LocalDate>> {
 
-	private static final Pattern RAW_DATELINK = Pattern.compile("\\{\\{(d|datelink)\\|(\\d{1,2})\\|" +
-			PatternDictionary.MONTH_GROUP + "\\|(\\d{4})}}");
+	private static final Pattern RAW_DATELINK = Pattern.compile("\\{\\{(d|datelink)\\|(\\d{1,2})\\|"
+			+ PatternDictionary.MONTH_GROUP + "\\|(\\d{4})}}");
 
 	@Inject
 	private DayMonthYearProcessor dayMonthYearProcessor;

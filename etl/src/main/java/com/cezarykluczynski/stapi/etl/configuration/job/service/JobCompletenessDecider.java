@@ -21,7 +21,6 @@ public class JobCompletenessDecider {
 
 		return stepExecutionList.stream()
 				.map(StepExecution::getStatus)
-				.allMatch(BatchStatus.COMPLETED::equals) &&
-				stepExecutionList.size() == StepNames.JOB_STEPS.get(jobName).size();
+				.allMatch(BatchStatus.COMPLETED::equals) && stepExecutionList.size() == StepNames.JOB_STEPS.get(jobName).size();
 	}
 }

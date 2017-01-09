@@ -17,29 +17,29 @@ public class IndividualBloodTypeProcessor implements ItemProcessor<String, Blood
 	private static final String O_NEGATIVE = "o-negative";
 	private static final String T_NEGATIVE = "t-negative";
 
-	private static final Map<String, BloodType> bloodTypeMappings = Maps.newLinkedHashMap();
+	private static final Map<String, BloodType> BLOOD_TYPE_MAPPINGS = Maps.newLinkedHashMap();
 
 	static {
-		bloodTypeMappings.put(B_NEGATIVE, BloodType.B_NEGATIVE);
-		bloodTypeMappings.put(O_NEGATIVE, BloodType.O_NEGATIVE);
-		bloodTypeMappings.put(T_NEGATIVE, BloodType.T_NEGATIVE);
+		BLOOD_TYPE_MAPPINGS.put(B_NEGATIVE, BloodType.B_NEGATIVE);
+		BLOOD_TYPE_MAPPINGS.put(O_NEGATIVE, BloodType.O_NEGATIVE);
+		BLOOD_TYPE_MAPPINGS.put(T_NEGATIVE, BloodType.T_NEGATIVE);
 	}
 
 	@Override
 	public BloodType process(String item) throws Exception {
-		item = StringUtils.lowerCase(StringUtils.trim(item));
+		String itemTrimmedLowerCase = StringUtils.lowerCase(StringUtils.trim(item));
 
-		if (StringUtils.isBlank(item)) {
+		if (StringUtils.isBlank(itemTrimmedLowerCase)) {
 			return null;
 		}
 
-		for (Map.Entry<String, BloodType> entry : bloodTypeMappings.entrySet()) {
-			if (item.contains(entry.getKey())) {
+		for (Map.Entry<String, BloodType> entry : BLOOD_TYPE_MAPPINGS.entrySet()) {
+			if (itemTrimmedLowerCase.contains(entry.getKey())) {
 				return entry.getValue();
 			}
 		}
 
-		log.error("Unknown individual blood type: {} ", item);
+		log.error("Unknown individual blood type: {} ", itemTrimmedLowerCase);
 		return null;
 	}
 

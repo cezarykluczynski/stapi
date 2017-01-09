@@ -56,7 +56,7 @@ public class SpringBatchDaoConfiguration {
 	private SimpleJobRepository getSimpleJobRepository() {
 		try {
 			return getTargetObject(jobRepository);
-		} catch(Exception e) {
+		} catch (Exception e) {
 			throw new RuntimeException("Could not extract actual SimpleJobRepository from proxy");
 		}
 	}
@@ -64,7 +64,7 @@ public class SpringBatchDaoConfiguration {
 	// source: http://stackoverflow.com/a/37946701/3807342
 	@SuppressWarnings({"unchecked"})
 	private <T> T getTargetObject(Object proxy) throws Exception {
-		if(AopUtils.isJdkDynamicProxy(proxy)){
+		if (AopUtils.isJdkDynamicProxy(proxy)) {
 			return (T) getTargetObject(((Advised) proxy).getTargetSource().getTarget());
 		}
 		return (T) proxy;

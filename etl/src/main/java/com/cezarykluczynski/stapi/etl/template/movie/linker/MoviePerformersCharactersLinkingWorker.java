@@ -21,7 +21,7 @@ public class MoviePerformersCharactersLinkingWorker implements MovieRealPeopleLi
 
 	private static final String DELETED_SCENE = "deleted scene";
 	private static final String[] IGNORABLE_PAGE_PREFIXES = {"USS ", "Unnamed ", "Human ", "Klingon ", "Mercy Hospital",
-			"HMS Bounty personnel", "Computer voice", "Vulcan ", "Humanoid ", "Romulan ", "US military personnel"};
+		"HMS Bounty personnel", "Computer voice", "Vulcan ", "Humanoid ", "Romulan ", "US military personnel"};
 
 	private EntityLookupByNameService entityLookupByNameService;
 
@@ -43,10 +43,8 @@ public class MoviePerformersCharactersLinkingWorker implements MovieRealPeopleLi
 			String characterName = lineList.get(0);
 			String performerName = lineList.get(1);
 
-			if (StringUtils.startsWithAny(characterName, IGNORABLE_PAGE_PREFIXES)) {
-				return;
-			}
-			if (StringUtils.startsWithAny(performerName, IGNORABLE_PAGE_PREFIXES)) {
+			if (StringUtils.startsWithAny(characterName, IGNORABLE_PAGE_PREFIXES)
+					|| StringUtils.startsWithAny(performerName, IGNORABLE_PAGE_PREFIXES)) {
 				return;
 			}
 

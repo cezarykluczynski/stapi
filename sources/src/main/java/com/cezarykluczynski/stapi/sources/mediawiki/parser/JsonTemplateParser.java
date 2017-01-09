@@ -12,9 +12,12 @@ import org.json.JSONObject;
 import org.json.XML;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 class JsonTemplateParser {
+
+	private static final String KEY_TEMPLATE = "template";
 
 	@Getter
 	private List<Template> templates = Lists.newArrayList();
@@ -38,7 +41,7 @@ class JsonTemplateParser {
 
 			JSONArray jsonArrayTemplates = new JSONArray();
 			try {
-				jsonArrayTemplates = arrayFromNode(root, "template");
+				jsonArrayTemplates = arrayFromNode(root, KEY_TEMPLATE);
 			} catch (RuntimeException e) {
 				if (ExceptionUtils.indexOfThrowable(e, JSONException.class) == -1) {
 					throw e;
@@ -47,7 +50,7 @@ class JsonTemplateParser {
 
 			templates = toJsonObjectList(jsonArrayTemplates).stream()
 					.map(this::toTemplate)
-					.filter(template -> template != null)
+					.filter(Objects::nonNull)
 					.collect(Collectors.toList());
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -60,7 +63,7 @@ class JsonTemplateParser {
 		for (int i = 0; i < jsonArray.length(); i++) {
 			Object next = jsonArray.get(i);
 
-			if(next instanceof JSONObject) {
+			if (next instanceof JSONObject) {
 				jsonObjectList.add((JSONObject) next);
 			}
 		}
@@ -68,10 +71,10 @@ class JsonTemplateParser {
 		return jsonObjectList;
 	}
 
-	private Template toTemplate(JSONObject jsonObject) {
+	private Template toTemplate(JSONObject jsonObjectToConvert) {
 		String title;
 		try {
-			title = jsonObject.getString("title");
+			title = jsonObjectToConvert.getString("title");
 		} catch (JSONException e) {
 			return null;
 		}
@@ -84,7 +87,7 @@ class JsonTemplateParser {
 		JSONArray jsonArrayParts;
 
 		try {
-			jsonArrayParts = arrayFromNode(jsonObject, "part");
+			jsonArrayParts = arrayFromNode(jsonObjectToConvert, "part");
 		} catch (RuntimeException e) {
 			return template;
 		}
@@ -103,27 +106,29 @@ class JsonTemplateParser {
 				.collect(Collectors.toList()));
 	}
 
-	private Template.Part toPart(JSONObject jsonObject) {
+	private Template.Part toPart(JSONObject jsonObjectToConvert) {
 		Template.Part templatePart = new Template.Part();
-		String name = getName(jsonObject);
+		String name = getName(jsonObjectToConvert);
 		templatePart.setKey(name);
-		addValueOrTemplates(templatePart, jsonObject);
+		addValueOrTemplates(templatePart, jsonObjectToConvert);
 		return templatePart;
 	}
 
-	private String getName(JSONObject jsonObject) {
+	private String getName(JSONObject jsonObjectToConvert) {
 		String name = null;
+		String key = "name";
+
 
 		try {
-			name = jsonObject.getString("name");
+			name = jsonObjectToConvert.getString(key);
 		} catch (JSONException e2) {
 			try {
 				JSONObject jsonObjectName;
 				try {
-					jsonObjectName = (JSONObject) jsonObject.get("name");
+					jsonObjectName = (JSONObject) jsonObjectToConvert.get(key);
 				} catch (ClassCastException e3) {
 					try {
-						return String.valueOf(jsonObject.getLong("name"));
+						return String.valueOf(jsonObjectToConvert.getLong(key));
 					} catch (Exception e4) {
 						throw new RuntimeException(e4);
 					}
@@ -131,7 +136,8 @@ class JsonTemplateParser {
 					throw new RuntimeException(e3);
 				}
 				name = jsonObjectName.get("index").toString();
-			} catch(JSONException e3) {
+			} catch (JSONException e3) {
+				// do nothing
 			}
 		}
 
@@ -150,14 +156,16 @@ class JsonTemplateParser {
 	private Pair<String, JSONArray> getValueOrTemplates(JSONObject partJsonObject) {
 		String value = null;
 		JSONArray partTemplatesJsonArray = null;
+		String key = "value";
 
 		try {
-			JSONObject jsonObjectValue = (JSONObject) partJsonObject.get("value");
-			partTemplatesJsonArray = arrayFromNode(jsonObjectValue, "template");
+			JSONObject jsonObjectValue = (JSONObject) partJsonObject.get(key);
+			partTemplatesJsonArray = arrayFromNode(jsonObjectValue, KEY_TEMPLATE);
 		} catch (Exception e) {
 			try {
-				value = partJsonObject.get("value").toString();
+				value = partJsonObject.get(key).toString();
 			} catch (JSONException e2) {
+				// do nothing
 			}
 		}
 
@@ -168,19 +176,19 @@ class JsonTemplateParser {
 		templatePart.setTemplates(toJsonObjectList(partTemplatesJsonArray)
 				.stream()
 				.map(this::toTemplate)
-				.filter(template -> template != null)
+				.filter(Objects::nonNull)
 				.collect(Collectors.toList()));
 	}
 
-	private JSONArray arrayFromNode(JSONObject jsonObject, String key) {
+	private JSONArray arrayFromNode(JSONObject jsonObjectToConvert, String key) {
 		JSONArray jsonArray;
 		try {
-			jsonArray = (JSONArray) jsonObject.get(key);
+			jsonArray = (JSONArray) jsonObjectToConvert.get(key);
 		} catch (ClassCastException e) {
 			try {
-				JSONObject template = (JSONObject) jsonObject.get(key);
+				JSONObject template = (JSONObject) jsonObjectToConvert.get(key);
 				jsonArray = new JSONArray(Lists.newArrayList(template));
-			} catch(Exception e2) {
+			} catch (Exception e2) {
 				throw new RuntimeException(e2);
 			}
 		}

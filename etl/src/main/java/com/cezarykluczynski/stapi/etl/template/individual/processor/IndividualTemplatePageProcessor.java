@@ -91,12 +91,12 @@ public class IndividualTemplatePageProcessor implements ItemProcessor<Page, Indi
 			return null;
 		}
 
-		Optional<Template> templateOptional = templateFinder.findTemplate(item, TemplateName.SIDEBAR_INDIVIDUAL);
-
 		IndividualTemplate individualTemplate = new IndividualTemplate();
 		individualTemplate.setName(TitleUtil.getNameFromTitle(item.getTitle()));
 		individualTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 		individualTemplate.setProductOfRedirect(!item.getRedirectPath().isEmpty());
+
+		Optional<Template> templateOptional = templateFinder.findTemplate(item, TemplateName.SIDEBAR_INDIVIDUAL);
 
 		if (!templateOptional.isPresent()) {
 			return individualTemplate;
@@ -110,7 +110,7 @@ public class IndividualTemplatePageProcessor implements ItemProcessor<Page, Indi
 			String key = part.getKey();
 			String value = part.getValue();
 
-			switch(key) {
+			switch (key) {
 				case GENDER:
 					individualTemplate.setGender(partToGenderProcessor.process(part));
 					break;
@@ -149,6 +149,8 @@ public class IndividualTemplatePageProcessor implements ItemProcessor<Page, Indi
 					break;
 				case BLOOD_TYPE:
 					individualTemplate.setBloodType(individualBloodTypeProcessor.process(value));
+					break;
+				default:
 					break;
 			}
 		}

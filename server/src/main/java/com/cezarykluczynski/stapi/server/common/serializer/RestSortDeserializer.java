@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 
 public class RestSortDeserializer {
 
-	private static final String EXCEPTION_MESSAGE = "Sort clause should be in form of \"fieldName,ORDER\", where " +
-			"ORDER is \"ASC\" or \"DESC\", and fieldName is name of field in main entity that is queried.";
+	private static final String EXCEPTION_MESSAGE = "Sort clause should be in form of \"fieldName,ORDER\", where ORDER is \"ASC\" or \"DESC\", and "
+			+ "fieldName is name of field in main entity that is queried.";
 	private static final List<String> VALID_ORDERS = Lists.newArrayList(RestSortOrder.values())
 			.stream()
 			.map(RestSortOrder::name)

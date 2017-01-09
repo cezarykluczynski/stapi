@@ -43,8 +43,7 @@ public class GuidGenerator {
 		}
 
 		if (page.getPageId() > MAX_PAGE_ID) {
-			throw new RuntimeException(String.format("Page ID %s is greater than allowed, cannot guarantee " +
-					"GUID uniqueness.", page.getPageId()));
+			throw new RuntimeException(String.format("Page ID %s is greater than allowed, cannot guarantee GUID uniqueness.", page.getPageId()));
 		}
 
 		Class mappedClass = classMetadata.getMappedClass();
@@ -65,8 +64,8 @@ public class GuidGenerator {
 			String symbol = buildClassSymbol(mappedClass);
 
 			if (canonicalEntityNameToSymbolMap.values().contains(symbol)) {
-				throw new RuntimeException(String.format("Entity class collection no longer suitable for symbol " +
-						"generation. Trying to put symbol %s, but symbol already present.", symbol));
+				throw new RuntimeException(String.format("Entity class collection no longer suitable for symbol generation. Trying to put symbol "
+						+ "%s, but symbol already present.", symbol));
 			}
 
 			canonicalEntityNameToSymbolMap.put(mappedClassCanonicalName, symbol);

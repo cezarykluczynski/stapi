@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.converter;
 
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
-import com.cezarykluczynski.stapi.sources.mediawiki.util.constant.MemoryAlpha;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
+import com.cezarykluczynski.stapi.sources.mediawiki.util.constant.MemoryAlpha;
 import info.bliki.api.PageInfo;
 import org.springframework.stereotype.Service;
 

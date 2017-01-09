@@ -19,7 +19,7 @@ public class CxfRestPrettyPrintContainerResponseFilter implements ContainerRespo
 
 	@Override
 	public void filter(ContainerRequestContext reqCtx, ContainerResponseContext respCtx) throws IOException {
-		if(reqCtx.getUriInfo().getQueryParameters().containsKey(PRETTY_PRINT_TRIGGER_QUERY_PARAM)) {
+		if (reqCtx.getUriInfo().getQueryParameters().containsKey(PRETTY_PRINT_TRIGGER_QUERY_PARAM)) {
 			ObjectWriterInjector.set(new PrettyPrintObjectWriterModifier());
 		}
 	}
@@ -27,9 +27,8 @@ public class CxfRestPrettyPrintContainerResponseFilter implements ContainerRespo
 	private static class PrettyPrintObjectWriterModifier extends ObjectWriterModifier {
 
 		@Override
-		public ObjectWriter modify(EndpointConfigBase<?> endpointConfigBase,
-				MultivaluedMap<String, Object> multivaluedMap, Object o, ObjectWriter objectWriter,
-				JsonGenerator jsonGenerator) throws IOException {
+		public ObjectWriter modify(EndpointConfigBase<?> endpointConfigBase, MultivaluedMap<String, Object> multivaluedMap, Object object,
+				ObjectWriter objectWriter, JsonGenerator jsonGenerator) throws IOException {
 			jsonGenerator.useDefaultPrettyPrinter();
 			return objectWriter;
 		}

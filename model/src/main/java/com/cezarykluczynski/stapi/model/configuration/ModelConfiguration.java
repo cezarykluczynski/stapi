@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.model.configuration;
 import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.google.common.collect.Maps;
 import liquibase.integration.spring.SpringLiquibase;
+import org.hibernate.jpa.AvailableSettings;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -22,18 +23,17 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Map;
 
-import static com.cezarykluczynski.stapi.model.configuration.ModelConfiguration.JPA_BASE_PACKAGES;
-import static org.hibernate.jpa.AvailableSettings.PERSISTENCE_UNIT_NAME;
-
 @Configuration
 @EnableConfigurationProperties({DataSourceProperties.class, HibernateProperties.class})
-@EnableJpaRepositories(basePackages = JPA_BASE_PACKAGES)
+@EnableJpaRepositories(basePackages = ModelConfiguration.JPA_BASE_PACKAGES)
 @EnableTransactionManagement
 public class ModelConfiguration {
 
+	static final String JPA_BASE_PACKAGES = "com.cezarykluczynski.stapi.model";
+
 	private static final String DATASOURCE_PREFIX = "stapi.datasource.main";
 
-	public static final String JPA_BASE_PACKAGES = "com.cezarykluczynski.stapi.model";
+	private static final String TRUE = "true";
 
 	@Inject
 	private HibernateProperties hibernateProperties;
@@ -49,17 +49,17 @@ public class ModelConfiguration {
 		LocalContainerEntityManagerFactoryBean lef = new LocalContainerEntityManagerFactoryBean();
 		lef.setDataSource(dataSource());
 		lef.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-		lef.setPackagesToScan(JPA_BASE_PACKAGES);
-		lef.setPersistenceUnitName(PERSISTENCE_UNIT_NAME);
+		lef.setPackagesToScan(ModelConfiguration.JPA_BASE_PACKAGES);
+		lef.setPersistenceUnitName(AvailableSettings.PERSISTENCE_UNIT_NAME);
 		Map<String, String> properties = Maps.newHashMap();
 		properties.put("hibernate.implicit_naming_strategy",
 				"org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl");
 		properties.put("hibernate.physical_naming_strategy",
 				"org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy");
-		properties.put("spring.jpa.properties.hibernate.show_sql", "true");
-		properties.put("spring.jpa.properties.hibernate.format_sql", "true");
-		properties.put("spring.jpa.hibernate.show_sql", "true");
-		properties.put("spring.jpa.hibernate.format_sql", "true");
+		properties.put("spring.jpa.properties.hibernate.show_sql", TRUE);
+		properties.put("spring.jpa.properties.hibernate.format_sql", TRUE);
+		properties.put("spring.jpa.hibernate.show_sql", TRUE);
+		properties.put("spring.jpa.hibernate.format_sql", TRUE);
 		properties.put("hibernate.dialect", hibernateProperties.getDialect());
 		lef.setJpaPropertyMap(properties);
 		lef.afterPropertiesSet();

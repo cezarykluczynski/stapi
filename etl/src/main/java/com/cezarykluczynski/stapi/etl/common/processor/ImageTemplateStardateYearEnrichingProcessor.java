@@ -58,8 +58,11 @@ public class ImageTemplateStardateYearEnrichingProcessor
 							stardateYearDTO = stardateYearProcessor
 									.process(StardateYearCandidateDTO.of(value, StardateYearSource.EPISODE, title));
 						} catch (Exception e) {
+							// do nothing
 						}
 					}
+					break;
+				default:
 					break;
 			}
 		}

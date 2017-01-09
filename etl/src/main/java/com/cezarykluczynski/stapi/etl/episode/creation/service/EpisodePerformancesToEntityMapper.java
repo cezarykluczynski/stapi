@@ -21,22 +21,6 @@ public class EpisodePerformancesToEntityMapper {
 
 	private static final MediaWikiSource SOURCE = MediaWikiSource.MEMORY_ALPHA_EN;
 
-	@Data
-	private static class EpisodePerformanceEntitiesPair {
-
-		private Performer performer;
-
-		private Character character;
-
-	}
-
-	@Data
-	private static class EpisodePerformanceForEntity {
-
-		private Performer performer;
-
-	}
-
 	private EntityLookupByNameService entityLookupByNameService;
 
 	@Inject
@@ -46,12 +30,12 @@ public class EpisodePerformancesToEntityMapper {
 
 	public EpisodePerformancesEntitiesDTO mapToEntities(List<EpisodePerformanceDTO> episodePerformanceDTOList, Episode episode) {
 		EpisodePerformancesEntitiesDTO imageEpisodePerformancesEntitiesDTO = new EpisodePerformancesEntitiesDTO();
-		List<EpisodePerformanceEntitiesPair> episodePerformanceEntitiesPairList =
-				getEpisodePerformanceEntitiesPairList(episodePerformanceDTOList);
-		List<EpisodePerformanceForEntity> episodeStuntPerformanceEntityList =
-				getEpisodePerformanceForEntitiesPairList(episodePerformanceDTOList, PerformanceType.STUNT);
-		List<EpisodePerformanceForEntity> episodeStandInPerformanceEntityList =
-				getEpisodePerformanceForEntitiesPairList(episodePerformanceDTOList, PerformanceType.STAND_IN);
+		List<EpisodePerformanceEntitiesPair> episodePerformanceEntitiesPairList
+				= getEpisodePerformanceEntitiesPairList(episodePerformanceDTOList);
+		List<EpisodePerformanceForEntity> episodeStuntPerformanceEntityList
+				= getEpisodePerformanceForEntitiesPairList(episodePerformanceDTOList, PerformanceType.STUNT);
+		List<EpisodePerformanceForEntity> episodeStandInPerformanceEntityList
+				= getEpisodePerformanceForEntitiesPairList(episodePerformanceDTOList, PerformanceType.STAND_IN);
 
 		addPerformances(episodePerformanceEntitiesPairList, imageEpisodePerformancesEntitiesDTO, episode);
 		addStuntPerformances(episodeStuntPerformanceEntityList, episode);
@@ -131,6 +115,22 @@ public class EpisodePerformancesToEntityMapper {
 
 	private Optional<Character> getCharacter(String characterName) {
 		return entityLookupByNameService.findCharacterByName(characterName, SOURCE);
+	}
+
+	@Data
+	private static class EpisodePerformanceEntitiesPair {
+
+		private Performer performer;
+
+		private Character character;
+
+	}
+
+	@Data
+	private static class EpisodePerformanceForEntity {
+
+		private Performer performer;
+
 	}
 
 }

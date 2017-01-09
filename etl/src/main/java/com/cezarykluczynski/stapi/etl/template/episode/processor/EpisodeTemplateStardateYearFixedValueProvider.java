@@ -101,6 +101,7 @@ public class EpisodeTemplateStardateYearFixedValueProvider implements FixedValue
 		TITLE_TO_STARDATE_YEAR_MAP.put("Zero Hour", StardateYearDTO.of(null, null, 1944, 2161));
 		TITLE_TO_STARDATE_YEAR_MAP.put("The Andorian Incident", StardateYearDTO.of(null, null, 2151, 2151));
 	}
+
 	@Override
 	public FixedValueHolder<StardateYearDTO> getSearchedValue(String key) {
 		return FixedValueHolder.of(TITLE_TO_STARDATE_YEAR_MAP.containsKey(key), TITLE_TO_STARDATE_YEAR_MAP.get(key));

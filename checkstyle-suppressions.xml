@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+		"-//Puppy Crawl//DTD Suppressions 1.1//EN"
+		"http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
+
+<suppressions>
+	<suppress files="[\\/]generated[\\/]|_" checks="."/>
+	<suppress files=".+RestBeanParams\.java" checks="FileLength|MethodCount"/>
+	<suppress files=".+MovieClosingCreditsProcessor\.java" checks="MultipleStringLiterals"/>
+	<suppress files=".+MovieLinkedTitlesProcessor\.java" checks="MultipleStringLiterals"/>
+	<suppress files="[\\/]Application\.java" checks="UncommentedMain"/>
+</suppressions>

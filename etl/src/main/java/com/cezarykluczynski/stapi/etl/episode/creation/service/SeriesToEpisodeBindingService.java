@@ -18,15 +18,15 @@ import java.util.Map;
 @Slf4j
 public class SeriesToEpisodeBindingService {
 
-	private static final BiMap<String, String> categoryTitlesToAbbreviations = HashBiMap.create();
+	private static final BiMap<String, String> CATEGORY_TITLES_TO_ABBREVIATIONS = HashBiMap.create();
 
 	static {
-		categoryTitlesToAbbreviations.put(CategoryName.TOS_EPISODES, "TOS");
-		categoryTitlesToAbbreviations.put(CategoryName.TAS_EPISODES, "TAS");
-		categoryTitlesToAbbreviations.put(CategoryName.TNG_EPISODES, "TNG");
-		categoryTitlesToAbbreviations.put(CategoryName.DS9_EPISODES, "DS9");
-		categoryTitlesToAbbreviations.put(CategoryName.VOY_EPISODES, "VOY");
-		categoryTitlesToAbbreviations.put(CategoryName.ENT_EPISODES, "ENT");
+		CATEGORY_TITLES_TO_ABBREVIATIONS.put(CategoryName.TOS_EPISODES, "TOS");
+		CATEGORY_TITLES_TO_ABBREVIATIONS.put(CategoryName.TAS_EPISODES, "TAS");
+		CATEGORY_TITLES_TO_ABBREVIATIONS.put(CategoryName.TNG_EPISODES, "TNG");
+		CATEGORY_TITLES_TO_ABBREVIATIONS.put(CategoryName.DS9_EPISODES, "DS9");
+		CATEGORY_TITLES_TO_ABBREVIATIONS.put(CategoryName.VOY_EPISODES, "VOY");
+		CATEGORY_TITLES_TO_ABBREVIATIONS.put(CategoryName.ENT_EPISODES, "ENT");
 	}
 
 	private SeriesRepository seriesRepository;
@@ -70,7 +70,7 @@ public class SeriesToEpisodeBindingService {
 	}
 
 	private void fillCategoryTitlesToSeries() {
-		final BiMap<String, String> categoryAbbreviationsToTitles = categoryTitlesToAbbreviations.inverse();
+		final BiMap<String, String> categoryAbbreviationsToTitles = CATEGORY_TITLES_TO_ABBREVIATIONS.inverse();
 		seriesList.forEach(seriesEntity -> {
 			String categoryName = categoryAbbreviationsToTitles.get(seriesEntity.getAbbreviation());
 			categoryTitlesToSeries.put(categoryName, seriesEntity);

@@ -40,7 +40,7 @@ import org.springframework.context.annotation.Configuration;
 import javax.inject.Inject;
 
 @Configuration
-@EnableConfigurationProperties(value = StepsProperties.class)
+@EnableConfigurationProperties(StepsProperties.class)
 public class EtlJobConfiguration {
 
 	@Inject
@@ -63,7 +63,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_SERIES)
 	public Step stepCreateSeries() {
 		return stepBuilderFactory.get(StepName.CREATE_SERIES)
-				.<PageHeader, Series> chunk(stepsProperties.getCreateSeries().getCommitInterval())
+				.<PageHeader, Series>chunk(stepsProperties.getCreateSeries().getCommitInterval())
 				.reader(applicationContext.getBean(SeriesReader.class))
 				.processor(applicationContext.getBean(SeriesProcessor.class))
 				.writer(applicationContext.getBean(SeriesWriter.class))
@@ -76,7 +76,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_PERFORMERS)
 	public Step stepCreatePerformers() {
 		return stepBuilderFactory.get(StepName.CREATE_PERFORMERS)
-				.<PageHeader, Performer> chunk(stepsProperties.getCreatePerformers().getCommitInterval())
+				.<PageHeader, Performer>chunk(stepsProperties.getCreatePerformers().getCommitInterval())
 				.reader(applicationContext.getBean(PerformerReader.class))
 				.processor(applicationContext.getBean(PerformerProcessor.class))
 				.writer(applicationContext.getBean(PerformerWriter.class))
@@ -89,7 +89,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_STAFF)
 	public Step stepCreateStaff() {
 		return stepBuilderFactory.get(StepName.CREATE_STAFF)
-				.<PageHeader, Staff> chunk(stepsProperties.getCreateStaff().getCommitInterval())
+				.<PageHeader, Staff>chunk(stepsProperties.getCreateStaff().getCommitInterval())
 				.reader(applicationContext.getBean(StaffReader.class))
 				.processor(applicationContext.getBean(StaffProcessor.class))
 				.writer(applicationContext.getBean(StaffWriter.class))
@@ -102,7 +102,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_CHARACTERS)
 	public Step stepCreateCharacters() {
 		return stepBuilderFactory.get(StepName.CREATE_CHARACTERS)
-				.<PageHeader, Character> chunk(stepsProperties.getCreateCharacters().getCommitInterval())
+				.<PageHeader, Character>chunk(stepsProperties.getCreateCharacters().getCommitInterval())
 				.reader(applicationContext.getBean(CharacterReader.class))
 				.processor(applicationContext.getBean(CharacterProcessor.class))
 				.writer(applicationContext.getBean(CharacterWriter.class))
@@ -115,7 +115,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_EPISODES)
 	public Step stepCreateEpisodes() {
 		return stepBuilderFactory.get(StepName.CREATE_EPISODES)
-				.<PageHeader, Episode> chunk(stepsProperties.getCreateEpisodes().getCommitInterval())
+				.<PageHeader, Episode>chunk(stepsProperties.getCreateEpisodes().getCommitInterval())
 				.reader(applicationContext.getBean(EpisodeReader.class))
 				.processor(applicationContext.getBean(EpisodeProcessor.class))
 				.writer(applicationContext.getBean(EpisodeWriter.class))
@@ -128,7 +128,7 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_MOVIES)
 	public Step stepCreateMovies() {
 		return stepBuilderFactory.get(StepName.CREATE_MOVIES)
-				.<PageHeader, Movie> chunk(stepsProperties.getCreateMovies().getCommitInterval())
+				.<PageHeader, Movie>chunk(stepsProperties.getCreateMovies().getCommitInterval())
 				.reader(applicationContext.getBean(MovieReader.class))
 				.processor(applicationContext.getBean(MovieProcessor.class))
 				.writer(applicationContext.getBean(MovieWriter.class))

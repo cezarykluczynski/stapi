@@ -55,7 +55,7 @@ public class DayMonthYearProcessor implements ItemProcessor<DayMonthYearCandidat
 		String monthNameUpperCase = StringUtils.upperCase(monthName);
 		try {
 			return Month.valueOf(monthNameUpperCase);
-		} catch(IllegalArgumentException e) {
+		} catch (IllegalArgumentException e) {
 			log.error("{} could not be mapped to Month.", monthNameUpperCase);
 			return null;
 		}

@@ -26,7 +26,7 @@ public class StaffWriter implements ItemWriter<Staff> {
 			DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor,
 			DuplicateReattachingPreSavePageAwareFilter duplicateReattachingPreSavePageAwareFilter) {
 		this.staffRepository = staffRepository;
-		this.duplicateFilteringPreSavePageAwareProcessor  = duplicateFilteringPreSavePageAwareProcessor;
+		this.duplicateFilteringPreSavePageAwareProcessor = duplicateFilteringPreSavePageAwareProcessor;
 		this.duplicateReattachingPreSavePageAwareFilter = duplicateReattachingPreSavePageAwareFilter;
 	}
 

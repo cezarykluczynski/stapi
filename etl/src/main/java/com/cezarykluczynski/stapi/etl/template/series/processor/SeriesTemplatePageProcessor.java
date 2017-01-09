@@ -58,7 +58,7 @@ public class SeriesTemplatePageProcessor implements ItemProcessor<Page, SeriesTe
 			String key = part.getKey();
 			String value = part.getValue();
 
-			switch(key) {
+			switch (key) {
 				case ABBR:
 					seriesTemplate.setAbbreviation(value);
 					break;
@@ -67,6 +67,8 @@ public class SeriesTemplatePageProcessor implements ItemProcessor<Page, SeriesTe
 					break;
 				case RUN:
 					seriesTemplate.setOriginalRunDateRange(partToDateRangeProcessor.process(part));
+					break;
+				default:
 					break;
 			}
 		}

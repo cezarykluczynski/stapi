@@ -17,7 +17,7 @@ public class XMLCategoryMembersParser extends AbstractXMLParser {
 	private static final String CATEGORYMEMBERS_TAG = "categorymembers";
 	private static final String CMCONTINUE_ID = "cmcontinue";
 
-	private PageInfo fPage;
+	private PageInfo pageInfo;
 
 	private List<PageInfo> pagesList;
 
@@ -30,13 +30,13 @@ public class XMLCategoryMembersParser extends AbstractXMLParser {
 	}
 
 	@Override
-	public void endElement(String uri, String name, String qName) {
+	public void endElement(String uri, String name, String qualifiedName) {
 		try {
-			if (CM_TAG.equals(qName)) {// ||
-				// CATEGORY_ID.equals(qName))
+			if (CM_TAG.equals(qualifiedName)) { // ||
+				// CATEGORY_ID.equals(qualifiedName))
 				// {
-				if (fPage != null) {
-					pagesList.add(fPage);
+				if (pageInfo != null) {
+					pagesList.add(pageInfo);
 				}
 				// System.out.println(getString());
 			}
@@ -49,9 +49,6 @@ public class XMLCategoryMembersParser extends AbstractXMLParser {
 		}
 	}
 
-	/**
-	 * @return the cmContinue
-	 */
 	public String getCmContinue() {
 		if (cmContinue == null) {
 			return "";
@@ -64,16 +61,16 @@ public class XMLCategoryMembersParser extends AbstractXMLParser {
 	}
 
 	@Override
-	public void startElement(String namespaceURI, String localName, String qName, Attributes atts) {
+	public void startElement(String namespaceURI, String localName, String qualifiedName, Attributes atts) {
 		fAttributes = atts;
 
-		if (CM_TAG.equals(qName)) {
-			fPage = new PageInfo();
-			fPage.setPageid(fAttributes.getValue(AbstractXMLParser.PAGE_ID));
-			fPage.setNs(fAttributes.getValue(AbstractXMLParser.NS_ID));
-			fPage.setTitle(fAttributes.getValue(AbstractXMLParser.TITLE_ID));
+		if (CM_TAG.equals(qualifiedName)) {
+			pageInfo = new PageInfo();
+			pageInfo.setPageid(fAttributes.getValue(AbstractXMLParser.PAGE_ID));
+			pageInfo.setNs(fAttributes.getValue(AbstractXMLParser.NS_ID));
+			pageInfo.setTitle(fAttributes.getValue(AbstractXMLParser.TITLE_ID));
 			// CONTINUE_TAG is for latest versions of MediaWiki, CATEGORYMEMBERS_TAG for older ones, like Wikia's wikis
-		} else if (CONTINUE_TAG.equals(qName) || CATEGORYMEMBERS_TAG.equals(qName)) {
+		} else if (CONTINUE_TAG.equals(qualifiedName) || CATEGORYMEMBERS_TAG.equals(qualifiedName)) {
 			String value = fAttributes.getValue(CMCONTINUE_ID);
 			if (value != null) {
 				cmContinue = value;

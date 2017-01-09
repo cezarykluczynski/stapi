@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor(staticName = "of")
 @NoArgsConstructor(staticName = "empty")
 @Getter
-public class FixedValueHolder<VALUE> {
+public class FixedValueHolder<T> {
 
 	private boolean found;
 
-	private VALUE value;
+	private T value;
 
 	public static <T> FixedValueHolder<T> found(T value) {
 		return FixedValueHolder.of(true, value);

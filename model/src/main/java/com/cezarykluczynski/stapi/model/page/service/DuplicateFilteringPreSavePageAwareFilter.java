@@ -50,8 +50,7 @@ public class DuplicateFilteringPreSavePageAwareFilter extends AbstractPreSavePag
 
 		Set<Long> pageIds = flattenPages.keySet();
 
-		List<Page> pageList = pageIds.isEmpty() ? Lists.newArrayList() :
-				inPageAwareRepositoryPageFinder.findByPagePageIdIn(pageIds, baseClass);
+		List<Page> pageList = pageIds.isEmpty() ? Lists.newArrayList() : inPageAwareRepositoryPageFinder.findByPagePageIdIn(pageIds, baseClass);
 
 		if (!pageList.isEmpty()) {
 			List<Long> foundPagePageIdList = pageList
@@ -78,13 +77,13 @@ public class DuplicateFilteringPreSavePageAwareFilter extends AbstractPreSavePag
 	}
 
 	private void removeAtIndices(List<Integer> indicesToRemove, List<PageAware> pageAwareList) {
-		indicesToRemove = indicesToRemove
+		List<Integer> sortedIndicesToRemove = indicesToRemove
 				.stream()
 				.sorted()
 				.collect(Collectors.toList());
 
-		for (int j = indicesToRemove.size() - 1; j >= 0; j--) {
-			int index = indicesToRemove.get(j);
+		for (int j = sortedIndicesToRemove.size() - 1; j >= 0; j--) {
+			int index = sortedIndicesToRemove.get(j);
 			pageAwareList.remove(index);
 		}
 	}

@@ -67,7 +67,6 @@ public class IndividualDateOfDeathEnrichingProcessor implements
 			"pending trial",
 			"assumed the identity",
 			"captured",
-			"assimilate",
 			"merged",
 			"separated from the collective"
 	);
@@ -101,6 +100,8 @@ public class IndividualDateOfDeathEnrichingProcessor implements
 				case DATE_STATUS:
 					dateStatus = part;
 					break;
+				default:
+					break;
 			}
 		}
 
@@ -108,6 +109,7 @@ public class IndividualDateOfDeathEnrichingProcessor implements
 			try {
 				doEnrich(individualTemplate, status, dateStatus);
 			} catch (Exception e) {
+				// do nothing
 			}
 		}
 	}

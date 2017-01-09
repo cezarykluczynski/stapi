@@ -33,7 +33,7 @@ public class MovieStaffLinkingWorker implements MovieRealPeopleLinkingWorker {
 						.findStaffByName(line, MovieRealPeopleLinkingWorker.SOURCE);
 				if (staffOptional.isPresent()) {
 					staffSet.add(staffOptional.get());
-				} else if (false) {
+				//} else if (false) {
 					// TODO: Check is we dealing with company, rename to MovieStaffCompanyLinkingWorker
 				} else {
 					log.warn("Staff not found by name {}", line);

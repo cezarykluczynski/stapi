@@ -51,17 +51,17 @@ public class EpisodePerformancesExtractingProcessor implements ItemProcessor<Pag
 			STAND_INS
 	);
 
-	private static final Map<String, PerformanceType> sectionsToPerformanceTypeMap = Maps.newHashMap();
+	private static final Map<String, PerformanceType> SECTIONS_TO_PERFORMANCE_TYPE_MAP = Maps.newHashMap();
 
 	static {
-		sectionsToPerformanceTypeMap.put(STARRING, PerformanceType.PERFORMANCE);
-		sectionsToPerformanceTypeMap.put(ALSO_STARRING, PerformanceType.PERFORMANCE);
-		sectionsToPerformanceTypeMap.put(GUEST_STARS, PerformanceType.PERFORMANCE);
-		sectionsToPerformanceTypeMap.put(SPECIAL_GUEST_STARS, PerformanceType.PERFORMANCE);
-		sectionsToPerformanceTypeMap.put(CO_STARS, PerformanceType.PERFORMANCE);
-		sectionsToPerformanceTypeMap.put(UNCREDITED_CO_STARS, PerformanceType.PERFORMANCE);
-		sectionsToPerformanceTypeMap.put(STUNT_DOUBLE, PerformanceType.STUNT);
-		sectionsToPerformanceTypeMap.put(STAND_INS, PerformanceType.STAND_IN);
+		SECTIONS_TO_PERFORMANCE_TYPE_MAP.put(STARRING, PerformanceType.PERFORMANCE);
+		SECTIONS_TO_PERFORMANCE_TYPE_MAP.put(ALSO_STARRING, PerformanceType.PERFORMANCE);
+		SECTIONS_TO_PERFORMANCE_TYPE_MAP.put(GUEST_STARS, PerformanceType.PERFORMANCE);
+		SECTIONS_TO_PERFORMANCE_TYPE_MAP.put(SPECIAL_GUEST_STARS, PerformanceType.PERFORMANCE);
+		SECTIONS_TO_PERFORMANCE_TYPE_MAP.put(CO_STARS, PerformanceType.PERFORMANCE);
+		SECTIONS_TO_PERFORMANCE_TYPE_MAP.put(UNCREDITED_CO_STARS, PerformanceType.PERFORMANCE);
+		SECTIONS_TO_PERFORMANCE_TYPE_MAP.put(STUNT_DOUBLE, PerformanceType.STUNT);
+		SECTIONS_TO_PERFORMANCE_TYPE_MAP.put(STAND_INS, PerformanceType.STAND_IN);
 	}
 
 	private static final List<String> IGNORABLE_SECTIONS = Lists.newArrayList(
@@ -100,7 +100,7 @@ public class EpisodePerformancesExtractingProcessor implements ItemProcessor<Pag
 	@Override
 	public List<EpisodePerformanceDTO> process(Page page) {
 		List<EpisodePerformanceDTO> episodePerformances = Lists.newArrayList();
-		List<PageSection> pageSectionList =  page.getSections();
+		List<PageSection> pageSectionList = page.getSections();
 
 		Optional<PageSection> pageSectionOptional = findSubsectionsOfSectionWithTitle(pageSectionList, LINKS_AND_REFERENCES);
 
@@ -125,12 +125,11 @@ public class EpisodePerformancesExtractingProcessor implements ItemProcessor<Pag
 			String number = pageSection.getNumber();
 			String text = pageSection.getText();
 			String wikitext = pageSection.getWikitext();
-			if (!StringUtils.defaultIfBlank(number, StringUtils.EMPTY).startsWith(linksAndReferencesNumber) ||
-					!PEFORMANCES_SECTION.contains(text)) {
+			if (!StringUtils.defaultIfBlank(number, StringUtils.EMPTY).startsWith(linksAndReferencesNumber) || !PEFORMANCES_SECTION.contains(text)) {
 				continue;
 			}
 
-			episodePerformances.addAll(getPerformancesFromWikitext(wikitext, sectionsToPerformanceTypeMap.get(text)));
+			episodePerformances.addAll(getPerformancesFromWikitext(wikitext, SECTIONS_TO_PERFORMANCE_TYPE_MAP.get(text)));
 		}
 
 		return episodePerformances;
@@ -157,8 +156,7 @@ public class EpisodePerformancesExtractingProcessor implements ItemProcessor<Pag
 					.collect(Collectors.toList());
 
 			if (pageTitlesLowercase.stream()
-					.anyMatch(pageTitleToLowercase -> pageTitleToLowercase.startsWith("unnamed ") ||
-							pageTitleToLowercase.startsWith("unknown "))) {
+					.anyMatch(pageTitleToLowercase -> pageTitleToLowercase.startsWith("unnamed ") || pageTitleToLowercase.startsWith("unknown "))) {
 				continue;
 			}
 
@@ -202,10 +200,9 @@ public class EpisodePerformancesExtractingProcessor implements ItemProcessor<Pag
 				.stream()
 				.filter(pageSection -> {
 					String text = pageSection.getText();
-					return !PEFORMANCES_SECTION.contains(text) && !IGNORABLE_SECTIONS.contains(text) &&
-							text.startsWith(mainSectionNumber);
+					return !PEFORMANCES_SECTION.contains(text) && !IGNORABLE_SECTIONS.contains(text) && text.startsWith(mainSectionNumber);
 				}).forEach(pageSection -> log.error("Unknown section {} in parent section {}",
-						pageSection.getText(),  LINKS_AND_REFERENCES));
+						pageSection.getText(), LINKS_AND_REFERENCES));
 	}
 
 }

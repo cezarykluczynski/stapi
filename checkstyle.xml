@@ -1,0 +1,299 @@
+<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.3//EN" "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+<module name = "Checker">
+	<property name="charset" value="UTF-8"/>
+	<property name="severity" value="error"/>
+	<property name="fileExtensions" value="java, properties, xml"/>
+
+	<module name="SuppressionFilter">
+		<property name="file" value="checkstyle-suppressions.xml"/>
+	</module>
+
+	<module name="TreeWalker">
+		<property name="tabWidth" value="4"/>
+
+		<module name="AbbreviationAsWordInName">
+			<property name="ignoreFinal" value="false"/>
+			<property name="allowedAbbreviationLength" value="3"/>
+		</module>
+		<module name="AbstractClassName"/>
+		<module name="AnnotationLocation">
+			<property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF, PARAMETER_DEF, ANNOTATION_DEF,
+				TYPECAST, LITERAL_THROWS, IMPLEMENTS_CLAUSE, TYPE_ARGUMENT, LITERAL_NEW, DOT, ANNOTATION_FIELD_DEF"/>
+		</module>
+		<module name="AnnotationUseStyle">
+			<property name="elementStyle" value="compact"/>
+			<property name="trailingArrayComma" value="never"/>
+			<property name="closingParens" value="never"/>
+		</module>
+		<module name="AnonInnerLength">
+			<property name="max" value="10"/>
+		</module>
+		<module name="ArrayTypeStyle"/>
+		<module name="AvoidEscapedUnicodeCharacters">
+			<property name="allowEscapesForControlCharacters" value="true"/>
+			<property name="allowByTailComment" value="true"/>
+			<property name="allowNonPrintableEscapes" value="true"/>
+		</module>
+		<module name="AvoidNestedBlocks"/>
+		<module name="AvoidStarImport"/>
+		<module name="AvoidStaticImport"/>
+		<module name="BooleanExpressionComplexity">
+			<property name="max" value="5"/>
+		</module>
+		<module name="CatchParameterName">
+			<property name="format" value="^[a-zA-Z0-9]*$"/>
+			<message key="name.invalidPattern"
+					 value="Catch parameter name ''{0}'' must match pattern ''{1}''."/>
+		</module>
+		<module name="ClassFanOutComplexity">
+			<property name="max" value="20"/>
+		</module>
+		<module name="ClassTypeParameterName">
+			<property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
+			<message key="name.invalidPattern"
+					 value="Class type name ''{0}'' must match pattern ''{1}''."/>
+		</module>
+		<module name="CommentsIndentation"/>
+		<module name="ConstantName"/>
+		<module name="CovariantEquals"/>
+		<module name="CyclomaticComplexity">
+			<property name="max" value="20"/>
+		</module>
+		<module name="DeclarationOrder"/>
+		<module name="DefaultComesLast"/>
+		<module name="DescendantToken"/>
+		<module name="EmptyBlock">
+			<property name="option" value="TEXT"/>
+			<property name="tokens" value="LITERAL_WHILE, LITERAL_TRY, LITERAL_CATCH, LITERAL_FINALLY, LITERAL_DO,
+					LITERAL_IF, LITERAL_ELSE, LITERAL_FOR, INSTANCE_INIT, STATIC_INIT, LITERAL_SWITCH,
+					LITERAL_SYNCHRONIZED, LITERAL_CASE, LITERAL_DEFAULT, ARRAY_INIT"/>
+		</module>
+		<module name="EmptyCatchBlock">
+			<property name="exceptionVariableName" value="expected"/>
+		</module>
+		<module name="EmptyForInitializerPad"/>
+		<module name="EmptyForIteratorPad"/>
+		<module name="EmptyLineSeparator">
+			<property name="allowNoEmptyLineBetweenFields" value="true"/>
+		</module>
+		<module name="EmptyStatement"/>
+		<module name="EqualsAvoidNull"/>
+		<module name="EqualsHashCode"/>
+		<module name="ExplicitInitialization"/>
+		<module name="FallThrough"/>
+		<module name="FinalClass"/>
+		<module name="GenericWhitespace">
+			<message key="ws.followed"
+					 value="GenericWhitespace ''{0}'' is followed by whitespace."/>
+			<message key="ws.preceded"
+					 value="GenericWhitespace ''{0}'' is preceded with whitespace."/>
+			<message key="ws.illegalFollow"
+					 value="GenericWhitespace ''{0}'' should followed by whitespace."/>
+			<message key="ws.notPreceded"
+					 value="GenericWhitespace ''{0}'' is not preceded with whitespace."/>
+		</module>
+		<module name="HiddenField">
+			<property name="ignoreConstructorParameter" value="true"/>
+			<property name="ignoreSetter" value="true"/>
+		</module>
+		<module name="IllegalImport"/>
+		<module name="IllegalInstantiation"/>
+		<module name="IllegalThrows"/>
+		<module name="IllegalToken"/>
+		<module name="IllegalTokenText">
+			<property name="tokens" value="STRING_LITERAL, CHAR_LITERAL"/>
+			<property name="format" value="\\u00(08|09|0(a|A)|0(c|C)|0(d|D)|22|27|5(C|c))|\\(0(10|11|12|14|15|42|47)|134)"/>
+			<property name="message" value="Avoid using corresponding octal or Unicode escape."/>
+		</module>
+		<module name="IllegalType"/>
+		<module name="ImportOrder">
+			<property name="groups" value="*,javax,java"/>
+			<property name="ordered" value="true"/>
+			<property name="separated" value="false"/>
+			<property name="option" value="bottom"/>
+			<property name="sortStaticImportsAlphabetically" value="true"/>
+		</module>
+		<module name="InnerAssignment"/>
+		<module name="InnerTypeLast"/>
+		<module name="InterfaceTypeParameterName">
+			<property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
+			<message key="name.invalidPattern"
+					 value="Interface type name ''{0}'' must match pattern ''{1}''."/>
+		</module>
+		<module name="LeftCurly">
+			<property name="maxLineLength" value="150"/>
+		</module>
+		<module name="LineLength">
+			<property name="max" value="150"/>
+			<property name="ignorePattern" value="^package.*|^import.*|\/\/"/>
+		</module>
+		<module name="LocalFinalVariableName"/>
+		<module name="LocalVariableName">
+			<property name="tokens" value="VARIABLE_DEF"/>
+			<property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9]*$"/>
+			<property name="allowOneCharVarInForLoop" value="true"/>
+			<message key="name.invalidPattern"
+					 value="Local variable name ''{0}'' must match pattern ''{1}''."/>
+		</module>
+		<module name="MemberName">
+			<property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9]*$"/>
+			<message key="name.invalidPattern"
+					 value="Member name ''{0}'' must match pattern ''{1}''."/>
+		</module>
+		<module name="MethodCount">
+			<property name="maxTotal" value="50"/>
+			<property name="maxPrivate" value="30"/>
+			<property name="maxPackage" value="5"/>
+			<property name="maxProtected" value="15"/>
+			<property name="maxPublic" value="25"/>
+		</module>
+		<module name="MethodLength"/>
+		<module name="MethodName">
+			<property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9_]*$"/>
+			<message key="name.invalidPattern"
+					 value="Method name ''{0}'' must match pattern ''{1}''."/>
+		</module>
+		<module name="MethodParamPad"/>
+		<module name="MethodTypeParameterName">
+			<property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)"/>
+			<message key="name.invalidPattern"
+					 value="Method type name ''{0}'' must match pattern ''{1}''."/>
+		</module>
+		<module name="MissingOverride"/>
+		<module name="MissingSwitchDefault"/>
+		<module name="ModifiedControlVariable"/>
+		<module name="ModifierOrder"/>
+		<module name="MultipleStringLiterals"/>
+		<module name="MultipleVariableDeclarations"/>
+		<module name="MutableException"/>
+		<module name="NeedBraces"/>
+		<module name="NestedForDepth">
+			<property name="max" value="2"/>
+		</module>
+		<module name="NestedForDepth">
+			<property name="max" value="3"/>
+		</module>
+		<module name="NestedTryDepth">
+			<property name="max" value="3"/>
+		</module>
+		<module name="NoClone"/>
+		<module name="NoFinalizer"/>
+		<module name="NoLineWrap">
+			<property name="tokens" value="IMPORT, PACKAGE_DEF, ENUM_DEF"/>
+		</module>
+		<module name="NoWhitespaceBefore">
+			<property name="tokens" value="COMMA, SEMI, POST_INC, POST_DEC, DOT, GENERIC_END"/>
+			<property name="allowLineBreaks" value="true"/>
+		</module>
+		<module name="OneStatementPerLine"/>
+		<module name="OneTopLevelClass"/>
+		<module name="OperatorWrap">
+			<property name="option" value="NL"/>
+			<property name="tokens" value="QUESTION, COLON, EQUAL, NOT_EQUAL, DIV, PLUS, MINUS, STAR, MOD, SR, BSR, GE, GT, SL, LE, LT, BXOR, BOR,
+					LOR, BAND, LAND, LITERAL_INSTANCEOF, TYPE_EXTENSION_AND, ASSIGN, DIV_ASSIGN, PLUS_ASSIGN, MINUS_ASSIGN, STAR_ASSIGN, MOD_ASSIGN,
+					SR_ASSIGN, BSR_ASSIGN, SL_ASSIGN, BXOR_ASSIGN, BOR_ASSIGN, BAND_ASSIGN, METHOD_REF"/>
+		</module>
+		<module name="OuterTypeFilename"/>
+		<module name="OuterTypeNumber"/>
+		<module name="OverloadMethodsDeclarationOrder"/>
+		<module name="PackageAnnotation"/>
+		<module name="PackageName">
+			<property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$"/>
+			<message key="name.invalidPattern"
+					 value="Package name ''{0}'' must match pattern ''{1}''."/>
+		</module>
+		<module name="ParameterAssignment"/>
+		<module name="ParameterName">
+			<property name="id" value="ParameterNameNonPublic"/>
+			<property name="format" value="^[a-z]([a-z0-9][a-zA-Z0-9]*)?$"/>
+			<property name="excludeScope" value="public"/>
+			<message key="name.invalidPattern"
+					 value="Parameter name ''{0}'' must match pattern ''{1}''."/>
+		</module>
+		<module name="ParameterName">
+			<property name="id" value="ParameterNamePublic"/>
+			<property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9]*$"/>
+			<property name="scope" value="public"/>
+			<message key="name.invalidPattern"
+					 value="Parameter name ''{0}'' must match pattern ''{1}''."/>
+		</module>
+		<module name="ParameterNumber">
+			<property name="ignoreOverriddenMethods" value="true"/>
+			<property name="max" value="6"/>
+			<property name="tokens" value="METHOD_DEF"/>
+		</module>
+		<module name="ParameterNumber">
+			<property name="ignoreOverriddenMethods" value="true"/>
+			<property name="max" value="11"/>
+			<property name="tokens" value="CTOR_DEF"/>
+		</module>
+		<module name="ParenPad"/>
+		<module name="RedundantImport"/>
+		<module name="RedundantModifier"/>
+		<module name="RegexpSinglelineJava">
+			<property name="format" value="^\t* "/>
+			<property name="message" value="Indent must use tab characters"/>
+			<property name="ignoreComments" value="true"/>
+		</module>
+		<module name="RequireThis"/>
+		<module name="ReturnCount">
+			<property name="max" value="5"/>
+			<property name="maxForVoid" value="3"/>
+		</module>
+		<module name="RightCurly">
+			<property name="id" value="RightCurlySame"/>
+			<property name="tokens" value="LITERAL_TRY, LITERAL_CATCH, LITERAL_FINALLY, LITERAL_IF, LITERAL_ELSE, LITERAL_DO"/>
+		</module>
+		<module name="RightCurly">
+			<property name="id" value="RightCurlyAlone"/>
+			<property name="option" value="alone"/>
+			<property name="tokens" value="CLASS_DEF, METHOD_DEF, CTOR_DEF, LITERAL_FOR, LITERAL_WHILE, STATIC_INIT, INSTANCE_INIT"/>
+		</module>
+		<module name="SeparatorWrap">
+			<property name="id" value="SeparatorWrapDot"/>
+			<property name="tokens" value="DOT"/>
+			<property name="option" value="nl"/>
+		</module>
+		<module name="SeparatorWrap">
+			<property name="id" value="SeparatorWrapComma"/>
+			<property name="tokens" value="COMMA"/>
+			<property name="option" value="EOL"/>
+		</module>
+		<module name="SimplifyBooleanExpression"/>
+		<module name="SimplifyBooleanReturn"/>
+		<module name="SingleSpaceSeparator"/>
+		<module name="StaticVariableName"/>
+		<module name="StringLiteralEquality"/>
+		<module name="SuppressWarningsHolder"/>
+		<module name="ThrowsCount">
+			<property name="max" value="1"/>
+		</module>
+		<module name="TypecastParenPad"/>
+		<module name="TypeName">
+			<property name="format" value="^[A-Z][a-zA-Z0-9]*$"/>
+			<message key="name.invalidPattern"
+					 value="Type name ''{0}'' must match pattern ''{1}''."/>
+		</module>
+		<module name="UncommentedMain"/>
+		<module name="UnnecessaryParentheses"/>
+		<module name="UnusedImports"/>
+		<module name="UpperEll"/>
+		<module name="VariableDeclarationUsageDistance"/>
+		<module name="NoWhitespaceAfter">
+			<property name="tokens" value="ARRAY_INIT, INC, DEC, UNARY_MINUS, UNARY_PLUS,  BNOT, LNOT, DOT, ARRAY_DECLARATOR, INDEX_OP"/>
+			<property name="allowLineBreaks" value="false"/>
+		</module>
+
+		<module name="WhitespaceAround">
+			<property name="allowEmptyConstructors" value="true"/>
+			<property name="allowEmptyMethods" value="true"/>
+			<property name="allowEmptyTypes" value="true"/>
+			<property name="allowEmptyLoops" value="true"/>
+		</module>
+	</module>
+	<module name="FileLength">
+		<property name="max" value="300"/>
+	</module>
+	<module name="UniqueProperties"/>
+</module>

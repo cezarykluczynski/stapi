@@ -14,8 +14,8 @@ public class MovieWriter implements ItemWriter<Movie> {
 	private MovieRepository movieRepository;
 
 	@Inject
-	public MovieWriter(MovieRepository MovieRepository) {
-		this.movieRepository = MovieRepository;
+	public MovieWriter(MovieRepository movieRepository) {
+		this.movieRepository = movieRepository;
 	}
 
 	@Override

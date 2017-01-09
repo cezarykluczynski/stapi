@@ -115,7 +115,7 @@ public class StardateYearProcessor implements ItemProcessor<StardateYearCandidat
 		try {
 			Integer year = Integer.valueOf(linkTitle);
 			if (year < 1000 || year > 9999) {
-				String type =  from ? "\"from\"" : "\"to\"";
+				String type = from ? "\"from\"" : "\"to\"";
 				log.warn("Tried to parse {} {} year {}, but it was out of range", imageType, type, year);
 				return null;
 			}

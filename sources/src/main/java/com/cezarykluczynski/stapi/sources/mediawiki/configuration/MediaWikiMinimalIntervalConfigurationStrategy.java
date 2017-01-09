@@ -30,8 +30,8 @@ public class MediaWikiMinimalIntervalConfigurationStrategy {
 
 			return interval;
 		} catch (NumberFormatException e) {
-			throw new BeanInitializationException(String.format("Minimal interval for %s should be either \"auto\" " +
-					"or a number of milliseconds, but %s given.", apiUrl, minimalInterval), e);
+			throw new BeanInitializationException(String.format("Minimal interval for %s should be either \"auto\" or a number of milliseconds, "
+					+ "but %s given.", apiUrl, minimalInterval), e);
 		}
 	}
 

@@ -7,37 +7,37 @@ import java.time.LocalDate;
 
 public class SeriesRestBeanParams extends PageSortBeanParams {
 
-	@FormParam(value = "guid")
+	@FormParam("guid")
 	private String guid;
 
-	@FormParam(value = "title")
+	@FormParam("title")
 	private String title;
 
-	@FormParam(value = "abbreviation")
+	@FormParam("abbreviation")
 	private String abbreviation;
 
-	@FormParam(value = "productionStartYearFrom")
+	@FormParam("productionStartYearFrom")
 	private Integer productionStartYearFrom;
 
-	@FormParam(value = "productionStartYearTo")
+	@FormParam("productionStartYearTo")
 	private Integer productionStartYearTo;
 
-	@FormParam(value = "productionEndYearFrom")
+	@FormParam("productionEndYearFrom")
 	private Integer productionEndYearFrom;
 
-	@FormParam(value = "productionEndYearTo")
+	@FormParam("productionEndYearTo")
 	private Integer productionEndYearTo;
 
-	@FormParam(value = "originalRunStartDateFrom")
+	@FormParam("originalRunStartDateFrom")
 	private LocalDate originalRunStartDateFrom;
 
-	@FormParam(value = "originalRunStartDateTo")
+	@FormParam("originalRunStartDateTo")
 	private LocalDate originalRunStartDateTo;
 
-	@FormParam(value = "originalRunEndDateFrom")
+	@FormParam("originalRunEndDateFrom")
 	private LocalDate originalRunEndDateFrom;
 
-	@FormParam(value = "originalRunEndDateTo")
+	@FormParam("originalRunEndDateTo")
 	private LocalDate originalRunEndDateTo;
 
 	public String getGuid() {

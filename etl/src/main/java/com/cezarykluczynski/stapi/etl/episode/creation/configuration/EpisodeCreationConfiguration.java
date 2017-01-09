@@ -35,8 +35,7 @@ public class EpisodeCreationConfiguration {
 
 		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_EPISODES)) {
 			CategoryNames.EPISODES
-					.stream()
-					.forEachOrdered(episode -> episodes.addAll(categoryApi.getPages(episode, MediaWikiSource.MEMORY_ALPHA_EN)));
+					.forEach(episode -> episodes.addAll(categoryApi.getPages(episode, MediaWikiSource.MEMORY_ALPHA_EN)));
 		}
 
 		return new EpisodeReader(episodes);

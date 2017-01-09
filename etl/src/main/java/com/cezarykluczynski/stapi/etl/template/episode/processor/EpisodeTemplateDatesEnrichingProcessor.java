@@ -17,12 +17,26 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.google.common.collect.Lists.newArrayList;
-
 @Service
 @Slf4j
 public class EpisodeTemplateDatesEnrichingProcessor
 		implements ItemEnrichingProcessor<EnrichablePair<Page, EpisodeTemplate>> {
+
+	private static final List<String> RELEVANT_PAGE_SECTIONS_NAMES = Lists.newArrayList(
+			"Background information",
+			"Title, story, and script",
+			"Story",
+			"Production",
+			"Story and production",
+			"Title, story, script, and production",
+			"Story, script and cast"
+	);
+
+	private static final List<String> FINAL_SCRIPT_DATES_KEYWORDS = Lists.newArrayList(
+			"final script draft",
+			"final draft",
+			"revised draft"
+	);
 
 	private RawDatelinkExtractingProcessor rawDatelinkExtractingProcessor;
 
@@ -34,22 +48,6 @@ public class EpisodeTemplateDatesEnrichingProcessor
 		this.rawDatelinkExtractingProcessor = rawDatelinkExtractingProcessor;
 		this.episodeFinalScriptDateFixedValueProvider = episodeFinalScriptDateFixedValueProvider;
 	}
-
-	private static final List<String> RELEVANT_PAGE_SECTIONS_NAMES = newArrayList(
-			"Background information",
-			"Title, story, and script",
-			"Story",
-			"Production",
-			"Story and production",
-			"Title, story, script, and production",
-			"Story, script and cast"
-	);
-
-	private static final List<String> FINAL_SCRIPT_DATES_KEYWORDS = newArrayList(
-			"final script draft",
-			"final draft",
-			"revised draft"
-	);
 
 	@Override
 	public void enrich(EnrichablePair<Page, EpisodeTemplate> enrichablePair) {
@@ -74,9 +72,10 @@ public class EpisodeTemplateDatesEnrichingProcessor
 		});
 	}
 
-	private boolean isFinalDraftScriptSection(String section) {section = section.toLowerCase();
+	private boolean isFinalDraftScriptSection(String section) {
+		String sectionLowerCase = section.toLowerCase();
 		return FINAL_SCRIPT_DATES_KEYWORDS.stream()
-				.anyMatch(section::contains);
+				.anyMatch(sectionLowerCase::contains);
 	}
 
 	private void trySetFinalScriptDate(String sectionsListItem, EpisodeTemplate episodeTemplate) {
@@ -84,13 +83,14 @@ public class EpisodeTemplateDatesEnrichingProcessor
 		try {
 			localDateList = rawDatelinkExtractingProcessor.process(sectionsListItem);
 		} catch (Exception e) {
+			// do nothing
 		}
 
 		if (localDateList.size() == 1) {
 			episodeTemplate.setFinalScriptDate(localDateList.get(0));
 		} else if (localDateList.size() > 1) {
-			log.warn("Could not extract final script date for episode \"{}\" from string \"{}\", " +
-					"found multiple dates: {}", episodeTemplate.getTitle(), sectionsListItem, localDateList);
+			log.warn("Could not extract final script date for episode \"{}\" from string \"{}\", found multiple dates: {}",
+					episodeTemplate.getTitle(), sectionsListItem, localDateList);
 		}
 	}
 
@@ -102,7 +102,7 @@ public class EpisodeTemplateDatesEnrichingProcessor
 	}
 
 	private List<String> getSectionsListItems(List<PageSection> pageSectionList) {
-		List<String> sectionsListItems = newArrayList();
+		List<String> sectionsListItems = Lists.newArrayList();
 
 		pageSectionList.forEach(pageSection ->
 			sectionsListItems.addAll(Lists.newArrayList(pageSection.getWikitext().split("\n")).stream()

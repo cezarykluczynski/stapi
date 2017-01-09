@@ -10,6 +10,10 @@ import java.util.List;
 @ToString
 public class Template {
 
+	private String title;
+
+	private List<Part> parts = Lists.newArrayList();
+
 	@Data
 	@ToString
 	public static class Part {
@@ -21,9 +25,5 @@ public class Template {
 		private List<Template> templates;
 
 	}
-
-	private String title;
-
-	private List<Part> parts = Lists.newArrayList();
 
 }

@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class MediaWikiSourceMapper {
 
+	private static final String NO_MAPPINGS = "No mapping for %s";
+
 	public MediaWikiSource fromEntityToSources(com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource entity) {
 		if (entity == null) {
 			return null;
@@ -17,7 +19,7 @@ public class MediaWikiSourceMapper {
 			case MEMORY_BETA_EN:
 				return MediaWikiSource.MEMORY_BETA_EN;
 			default:
-				throw new RuntimeException(String.format("No mapping for %s", entity));
+				throw new RuntimeException(String.format(NO_MAPPINGS, entity));
 		}
 	}
 
@@ -32,7 +34,7 @@ public class MediaWikiSourceMapper {
 			case MEMORY_BETA_EN:
 				return com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource.MEMORY_BETA_EN;
 			default:
-				throw new RuntimeException(String.format("No mapping for %s", source));
+				throw new RuntimeException(String.format(NO_MAPPINGS, source));
 		}
 	}
 

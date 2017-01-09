@@ -65,36 +65,36 @@ public class XMLParseParser extends AbstractXMLParser {
 	}
 
 	@Override
-	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-		if (API.equals(qName)) {
+	public void startElement(String uri, String localName, String qualifiedName, Attributes attributes) throws SAXException {
+		if (API.equals(qualifiedName)) {
 			hasAPI = true;
 		}
 
-		if (hasAPI && PARSE.equals(qName)) {
+		if (hasAPI && PARSE.equals(qualifiedName)) {
 			page = new Page();
 			page.setTitle(attributes.getValue(TITLE));
 			page.setPageId(Long.valueOf(attributes.getValue(PAGE_ID)));
 			hasParse = true;
 		}
 
-		if (hasParse && WIKITEXT.equals(qName)) {
+		if (hasParse && WIKITEXT.equals(qualifiedName)) {
 			isWikitext = true;
 		}
 
-		if (hasParse && CL.equals(qName)) {
+		if (hasParse && CL.equals(qualifiedName)) {
 			isCL = true;
 		}
 
-		if (hasParse && SECTIONS.equals(qName)) {
+		if (hasParse && SECTIONS.equals(qualifiedName)) {
 			isSections = true;
 		}
 
-		if (isSections && S.equals(qName)) {
+		if (isSections && S.equals(qualifiedName)) {
 			PageSection pageSection = new PageSection();
 			pageSection.setAnchor(attributes.getValue(ANCHOR));
 			try {
 				pageSection.setByteOffset(Integer.valueOf(attributes.getValue(BYTE_OFFSET)));
-			} catch(NumberFormatException e) {
+			} catch (NumberFormatException e) {
 				pageSection.setByteOffset(0);
 				log.error("Page {} section {} does not have byte offset specified", page, pageSection.getAnchor());
 			}
@@ -133,10 +133,10 @@ public class XMLParseParser extends AbstractXMLParser {
 	}
 
 	@Override
-	public void endElement(String uri, String localName, String qName) throws SAXException {
+	public void endElement(String uri, String localName, String qualifiedName) throws SAXException {
 		isCL = false;
 		isWikitext = false;
-		if (SECTIONS.equals(qName)) {
+		if (SECTIONS.equals(qualifiedName)) {
 			isSections = false;
 		}
 	}
@@ -161,6 +161,7 @@ public class XMLParseParser extends AbstractXMLParser {
 				xmlTextContent = textContent;
 			}
 		} catch (ParserConfigurationException | SAXException | IOException | XPathException e) {
+			// do nothing
 		}
 	}
 
