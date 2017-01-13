@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-class JsonTemplateParser {
+public class JsonTemplateParser {
 
 	private static final String KEY_TEMPLATE = "template";
 
@@ -24,11 +24,12 @@ class JsonTemplateParser {
 
 	private JSONObject jsonObject;
 
-	JsonTemplateParser(String xmlText) {
+	public JsonTemplateParser(String xmlText) {
 		jsonObject = XML.toJSONObject(xmlText);
 		parse();
 	}
 
+	// TODO: no need to create instance every time
 	private void parse() {
 		try {
 			JSONObject root;

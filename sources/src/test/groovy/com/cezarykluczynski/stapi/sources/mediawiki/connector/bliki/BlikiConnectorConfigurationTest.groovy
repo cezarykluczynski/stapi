@@ -8,6 +8,7 @@ class BlikiConnectorConfigurationTest extends Specification {
 
 	private static final String MEMORY_ALPHA_EN_API_URL = 'MEMORY_ALPHA_EN_API_URL'
 	private static final String MEMORY_BETA_EN_API_URL = 'MEMORY_BETA_EN_API_URL'
+	private static final String TECHNICAL_HELPER_API_URL = 'TECHNICAL_HELPER_API_URL'
 
 	private MediaWikiSourcesProperties mediaWikiSourcesProperties
 
@@ -20,6 +21,8 @@ class BlikiConnectorConfigurationTest extends Specification {
 		mediaWikiSourcesProperties.memoryAlphaEn.apiUrl = MEMORY_ALPHA_EN_API_URL
 		mediaWikiSourcesProperties.memoryBetaEn = new MediaWikiSourceProperties()
 		mediaWikiSourcesProperties.memoryBetaEn.apiUrl = MEMORY_BETA_EN_API_URL
+		mediaWikiSourcesProperties.technicalHelper = new MediaWikiSourceProperties()
+		mediaWikiSourcesProperties.technicalHelper.apiUrl = TECHNICAL_HELPER_API_URL
 		blikiConnectorConfiguration = new BlikiConnectorConfiguration(
 				mediaWikiSourcesProperties: mediaWikiSourcesProperties
 		)
@@ -39,6 +42,14 @@ class BlikiConnectorConfigurationTest extends Specification {
 
 		then:
 		userDecorator.actionUrl == MEMORY_BETA_EN_API_URL
+	}
+
+	def "creates technical helper user decorator"() {
+		when:
+		UserDecorator userDecorator = blikiConnectorConfiguration.technicalHelperUserDecorator()
+
+		then:
+		userDecorator.actionUrl == TECHNICAL_HELPER_API_URL
 	}
 
 }

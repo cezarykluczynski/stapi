@@ -13,4 +13,6 @@ public class MediaWikiSourcesProperties {
 
 	private MediaWikiSourceProperties memoryBetaEn;
 
+	private MediaWikiSourceProperties technicalHelper;
+
 }

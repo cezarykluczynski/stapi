@@ -6,7 +6,10 @@ import com.cezarykluczynski.stapi.sources.mediawiki.connector.bliki.BlikiConnect
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.parser.XMLParseParser;
+import com.cezarykluczynski.stapi.sources.mediawiki.parser.XMLQueryParser;
+import com.cezarykluczynski.stapi.sources.mediawiki.service.complement.ParseComplementingService;
 import com.google.common.collect.Lists;
+import info.bliki.api.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -28,10 +31,13 @@ public class PageApiImpl implements PageApi {
 
 	private WikitextApi wikitextApi;
 
+	private ParseComplementingService parseComplementingService;
+
 	@Inject
-	public PageApiImpl(BlikiConnector blikiConnector, WikitextApi wikitextApi) {
+	public PageApiImpl(BlikiConnector blikiConnector, WikitextApi wikitextApi, ParseComplementingService parseComplementingService) {
 		this.blikiConnector = blikiConnector;
 		this.wikitextApi = wikitextApi;
+		this.parseComplementingService = parseComplementingService;
 	}
 
 	@Override
@@ -47,7 +53,7 @@ public class PageApiImpl implements PageApi {
 			log.warn("Null returned instead of page {} body", title);
 			page = null;
 		} else {
-			page = parsePageInfo(pageBody);
+			page = parseInfo(pageBody, mediaWikiSource);
 		}
 
 		if (page != null) {
@@ -147,10 +153,31 @@ public class PageApiImpl implements PageApi {
 		return pageList;
 	}
 
-	private Page parsePageInfo(String xml) {
+	@Override
+	public PageInfo getPageInfo(String title, MediaWikiSource mediaWikiSource) {
+		String pageBody = blikiConnector.getPageInfo(title, mediaWikiSource);
+		return parsePageInfo(pageBody);
+	}
+
+	private PageInfo parsePageInfo(String xml) {
+		try {
+			XMLQueryParser xmlQueryParser = new XMLQueryParser(xml);
+			return xmlQueryParser.getPageInfo();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	private Page parseInfo(String xml, MediaWikiSource mediaWikiSource) {
 		try {
 			XMLParseParser xmlParseParser = new XMLParseParser(xml);
-			return xmlParseParser.getPage();
+			Page page = xmlParseParser.getPage();
+
+			if (page != null) {
+				page.setMediaWikiSource(mediaWikiSource);
+				parseComplementingService.complement(page);
+			}
+			return page;
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}

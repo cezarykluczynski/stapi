@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import info.bliki.api.AbstractXMLParser;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.w3c.dom.Document;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -73,7 +74,11 @@ public class XMLParseParser extends AbstractXMLParser {
 		if (hasAPI && PARSE.equals(qualifiedName)) {
 			page = new Page();
 			page.setTitle(attributes.getValue(TITLE));
-			page.setPageId(Long.valueOf(attributes.getValue(PAGE_ID)));
+			try {
+				page.setPageId(Long.valueOf(attributes.getValue(PAGE_ID)));
+			} catch (NumberFormatException e) {
+				// do nothing
+			}
 			hasParse = true;
 		}
 
@@ -111,7 +116,9 @@ public class XMLParseParser extends AbstractXMLParser {
 			return;
 		}
 
-		page.setTemplates(new JsonTemplateParser(xmlTextContent).getTemplates());
+		if (StringUtils.isNotEmpty(xmlTextContent)) {
+			page.setTemplates(new JsonTemplateParser(xmlTextContent).getTemplates());
+		}
 	}
 
 	@Override

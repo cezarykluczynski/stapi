@@ -13,6 +13,7 @@ public class BlikiConnectorConfiguration {
 
 	public static final String MEMORY_ALPHA_EN_USER_DECORATOR = "MEMORY_ALPHA_EN_USER_DECORATOR";
 	public static final String MEMORY_BETA_EN_USER_DECORATOR = "MEMORY_BETA_EN_USER_DECORATOR";
+	public static final String TECHNICAL_HELPER_USER_DECORATOR = "TECHNICAL_HELPER_USER_DECORATOR";
 
 	@Inject
 	private MediaWikiSourcesProperties mediaWikiSourcesProperties;
@@ -27,6 +28,13 @@ public class BlikiConnectorConfiguration {
 	@Bean(name = MEMORY_BETA_EN_USER_DECORATOR)
 	public UserDecorator memoryBetaEnUserDecorator() {
 		UserDecorator userDecorator = new UserDecorator("", "", mediaWikiSourcesProperties.getMemoryBetaEn().getApiUrl());
+		userDecorator.login();
+		return userDecorator;
+	}
+
+	@Bean(name = TECHNICAL_HELPER_USER_DECORATOR)
+	public UserDecorator technicalHelperUserDecorator() {
+		UserDecorator userDecorator = new UserDecorator("", "", mediaWikiSourcesProperties.getTechnicalHelper().getApiUrl());
 		userDecorator.login();
 		return userDecorator;
 	}

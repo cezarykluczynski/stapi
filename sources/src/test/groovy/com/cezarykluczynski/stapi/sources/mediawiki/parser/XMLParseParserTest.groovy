@@ -7,31 +7,63 @@ import spock.lang.Specification
 
 class XMLParseParserTest extends Specification {
 
-	private static final String XML = '''
+	private static final String TITLE = 'Patrick Stewart'
+	private static final Long PAGE_ID = 2501
+	private static final String CATEGORY_1 = 'Performers'
+	private static final String CATEGORY_2 = 'TNG_performers'
+
+	private static final String XML = """
 		<api>
-			<parse title="Patrick Stewart" pageid="2501">
+			<parse title="${TITLE}" pageid="${PAGE_ID}">
 				<categories>
-					<cl sortkey="Stewart, Patrick" missing="" xml:space="preserve">Performers</cl>
-					<cl sortkey="Stewart, Patrick" missing="" xml:space="preserve">TNG_performers</cl>
+					<cl sortkey="Stewart, Patrick" missing="" xml:space="preserve">${CATEGORY_1}</cl>
+					<cl sortkey="Stewart, Patrick" missing="" xml:space="preserve">${CATEGORY_2}</cl>
 				</categories>
 				<parsetree xml:space="preserve">&lt;root&gt;&lt;/root&gt;</parsetree>
 			</parse>
 		</api>
-'''
+"""
+	private static final String XML_WITHOUT_PAGE_ID_AND_PARSETREE = """
+		<api>
+			<parse title="${TITLE}">
+				<categories>
+					<cl sortkey="Stewart, Patrick" missing="" xml:space="preserve">${CATEGORY_1}</cl>
+					<cl sortkey="Stewart, Patrick" missing="" xml:space="preserve">${CATEGORY_2}</cl>
+				</categories>
+			</parse>
+		</api>
+"""
 
 	def "converts XML to Page"() {
 		given:
-		Page expectedPage = new Page()
-		expectedPage.pageId = 2501L
-		expectedPage.title = "Patrick Stewart"
-		expectedPage.categories = Lists.newArrayList(
-				new CategoryHeader(title: "Performers"),
-				new CategoryHeader(title: "TNG_performers")
+		Page expectedPage = new Page(
+				pageId: PAGE_ID,
+				title: TITLE,
+				categories: Lists.newArrayList(
+						new CategoryHeader(title: CATEGORY_1),
+						new CategoryHeader(title: CATEGORY_2)
+				)
 		)
-		expectedPage.templates = Lists.newArrayList()
 
 		when:
 		Page page = new XMLParseParser(XML).getPage()
+
+		then:
+		page == expectedPage
+	}
+
+	def "tolerate XML with missing page id and not parseetree"() {
+		given:
+		Page expectedPage = new Page(
+				title: TITLE,
+				categories: Lists.newArrayList(
+						new CategoryHeader(title: CATEGORY_1),
+						new CategoryHeader(title: CATEGORY_2)
+				)
+		)
+
+		when:
+		Page page = new XMLParseParser(XML_WITHOUT_PAGE_ID_AND_PARSETREE).getPage()
 
 		then:
 		page == expectedPage

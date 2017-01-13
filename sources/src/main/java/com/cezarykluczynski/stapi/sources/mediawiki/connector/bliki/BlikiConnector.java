@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.IntervalCalculationStrategy;
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiMinimalIntervalProvider;
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourcesProperties;
+import com.cezarykluczynski.stapi.sources.mediawiki.service.wikia.WikiaWikisDetector;
 import com.cezarykluczynski.stapi.sources.mediawiki.util.constant.ApiParams;
 import com.google.common.collect.Maps;
 import info.bliki.api.Connector;
@@ -22,8 +23,6 @@ import java.util.Map;
 @Slf4j
 public class BlikiConnector {
 
-	private BlikiUserDecoratorBeanMapProvider blikiUserDecoratorBeanMapProvider;
-
 	private Map<MediaWikiSource, Long> lastCallTimes = Maps.newHashMap();
 
 	private Map<MediaWikiSource, String> names = Maps.newHashMap();
@@ -32,16 +31,20 @@ public class BlikiConnector {
 
 	private Map<MediaWikiSource, IntervalCalculationStrategy> intervalCalculationStrategies = Maps.newHashMap();
 
+	private BlikiUserDecoratorBeanMapProvider blikiUserDecoratorBeanMapProvider;
+
+	private WikiaWikisDetector wikiaWikisDetector;
+
 	private MediaWikiMinimalIntervalProvider mediaWikiMinimalIntervalProvider;
 
 	private MediaWikiSourcesProperties mediaWikiSourcesProperties;
 
 	@Inject
-	public BlikiConnector(BlikiUserDecoratorBeanMapProvider blikiUserDecoratorBeanMapProvider,
-			MediaWikiMinimalIntervalProvider mediaWikiMinimalIntervalProvider,
-			MediaWikiSourcesProperties mediaWikiSourcesProperties) {
-		this.mediaWikiMinimalIntervalProvider = mediaWikiMinimalIntervalProvider;
+	public BlikiConnector(BlikiUserDecoratorBeanMapProvider blikiUserDecoratorBeanMapProvider, WikiaWikisDetector wikiaWikisDetector,
+			MediaWikiMinimalIntervalProvider mediaWikiMinimalIntervalProvider, MediaWikiSourcesProperties mediaWikiSourcesProperties) {
 		this.blikiUserDecoratorBeanMapProvider = blikiUserDecoratorBeanMapProvider;
+		this.wikiaWikisDetector = wikiaWikisDetector;
+		this.mediaWikiMinimalIntervalProvider = mediaWikiMinimalIntervalProvider;
 		this.mediaWikiSourcesProperties = mediaWikiSourcesProperties;
 		configure();
 	}
@@ -67,10 +70,16 @@ public class BlikiConnector {
 		Map<String, String> params = Maps.newHashMap();
 		params.put(ApiParams.KEY_ACTION, ApiParams.KEY_ACTION_VALUE_PARSE);
 		params.put(ApiParams.KEY_PAGE, title);
-		params.put(ApiParams.KEY_PROP, ApiParams.KEY_PROP_VALUE);
+		params.put(ApiParams.KEY_PROP, resolveProperties(mediaWikiSource));
 		return readXML(params, mediaWikiSource);
 	}
 
+	public String getPageInfo(String title, MediaWikiSource mediaWikiSource) {
+		Map<String, String> params = Maps.newHashMap();
+		params.put(ApiParams.KEY_ACTION, ApiParams.KEY_ACTION_VALUE_QUERY);
+		params.put(ApiParams.KEY_TITLES, title);
+		return readXML(params, mediaWikiSource);
+	}
 
 	public String readXML(Map<String, String> params, MediaWikiSource mediaWikiSource) {
 		RequestBuilder requestBuilder = RequestBuilder.create();
@@ -113,10 +122,10 @@ public class BlikiConnector {
 		}
 
 		String xml = doQuery(requestBuilder, mediaWikiSource);
-		// TODO: test it
-		long lsstCallTime = IntervalCalculationStrategy.FROM_AFTER_RECEIVED
+
+		long lastCallTime = IntervalCalculationStrategy.FROM_AFTER_RECEIVED
 				.equals(intervalCalculationStrategies.get(mediaWikiSource)) ? System.currentTimeMillis() : startTime;
-		lastCallTimes.put(mediaWikiSource, lsstCallTime);
+		lastCallTimes.put(mediaWikiSource, lastCallTime);
 		return xml;
 	}
 
@@ -132,6 +141,10 @@ public class BlikiConnector {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	private String resolveProperties(MediaWikiSource mediaWikiSource) {
+		return wikiaWikisDetector.isWikiaWiki(mediaWikiSource) ? ApiParams.KEY_PROP_VALUE : ApiParams.KEY_PROP_VALUE_MW_1_26_UP;
 	}
 
 }

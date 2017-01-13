@@ -19,6 +19,7 @@ public class BlikiUserDecoratorBeanMapProvider {
 	static {
 		STRING_ENUM_MAP.put(BlikiConnectorConfiguration.MEMORY_ALPHA_EN_USER_DECORATOR, MediaWikiSource.MEMORY_ALPHA_EN);
 		STRING_ENUM_MAP.put(BlikiConnectorConfiguration.MEMORY_BETA_EN_USER_DECORATOR, MediaWikiSource.MEMORY_BETA_EN);
+		STRING_ENUM_MAP.put(BlikiConnectorConfiguration.TECHNICAL_HELPER_USER_DECORATOR, MediaWikiSource.TECHNICAL_HELPER);
 	}
 
 	@Inject
