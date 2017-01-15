@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.individual.processor;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
+import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
@@ -53,7 +54,7 @@ public class IndividualActorLinkingProcessor implements
 
 			Optional<Performer> performerOptional;
 			try {
-				performerOptional = performerRepository.findByPageTitle(title);
+				performerOptional = performerRepository.findByPageTitleAndPageMediaWikiSource(title, MediaWikiSource.MEMORY_ALPHA_EN);
 				performerOptional.ifPresent(performerSet::add);
 
 				if (!performerOptional.isPresent()) {

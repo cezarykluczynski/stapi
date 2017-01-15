@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.common.service;
 
+import com.cezarykluczynski.stapi.etl.common.mapper.MediaWikiSourceMapper;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.character.repository.CharacterRepository;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
@@ -28,20 +29,24 @@ public class EntityLookupByNameService {
 
 	private StaffRepository staffRepository;
 
+	private MediaWikiSourceMapper mediaWikiSourceMapper;
+
 	@Inject
-	public EntityLookupByNameService(PageApi pageApi, CharacterRepository characterRepository,
-			PerformerRepository performerRepository, StaffRepository staffRepository) {
+	public EntityLookupByNameService(PageApi pageApi, CharacterRepository characterRepository, PerformerRepository performerRepository,
+			StaffRepository staffRepository, MediaWikiSourceMapper mediaWikiSourceMapper) {
 		this.pageApi = pageApi;
 		this.characterRepository = characterRepository;
 		this.performerRepository = performerRepository;
 		this.staffRepository = staffRepository;
+		this.mediaWikiSourceMapper = mediaWikiSourceMapper;
 	}
 
 	public Optional<Performer> findPerformerByName(String performerName, MediaWikiSource mediaWikiSource) {
 		Optional<Performer> performerOptional;
 
 		try {
-			performerOptional = performerRepository.findByPageTitle(performerName);
+			performerOptional = performerRepository.findByPageTitleAndPageMediaWikiSource(performerName,
+					mediaWikiSourceMapper.fromSourcesToEntity(mediaWikiSource));
 		} catch (NonUniqueResultException e) {
 			performerOptional = Optional.empty();
 		}
@@ -51,7 +56,8 @@ public class EntityLookupByNameService {
 		} else {
 			Page page = pageApi.getPage(performerName, mediaWikiSource);
 			if (page != null) {
-				return performerRepository.findByPagePageId(page.getPageId());
+				return performerRepository.findByPagePageIdAndPageMediaWikiSource(page.getPageId(),
+						mediaWikiSourceMapper.fromSourcesToEntity(page.getMediaWikiSource()));
 			}
 		}
 
@@ -62,7 +68,8 @@ public class EntityLookupByNameService {
 		Optional<Character> characterOptional;
 
 		try {
-			characterOptional = characterRepository.findByPageTitle(characterName);
+			characterOptional = characterRepository.findByPageTitleAndPageMediaWikiSource(characterName,
+					mediaWikiSourceMapper.fromSourcesToEntity(mediaWikiSource));
 		} catch (NonUniqueResultException e) {
 			characterOptional = Optional.empty();
 		}
@@ -72,7 +79,8 @@ public class EntityLookupByNameService {
 		} else {
 			Page page = pageApi.getPage(characterName, mediaWikiSource);
 			if (page != null) {
-				return characterRepository.findByPagePageId(page.getPageId());
+				return characterRepository.findByPagePageIdAndPageMediaWikiSource(page.getPageId(),
+						mediaWikiSourceMapper.fromSourcesToEntity(page.getMediaWikiSource()));
 			}
 		}
 
@@ -83,7 +91,8 @@ public class EntityLookupByNameService {
 		Optional<Staff> staffOptional;
 
 		try {
-			staffOptional = staffRepository.findByPageTitle(staffName);
+			staffOptional = staffRepository.findByPageTitleAndPageMediaWikiSource(staffName,
+					mediaWikiSourceMapper.fromSourcesToEntity(mediaWikiSource));
 		} catch (NonUniqueResultException e) {
 			staffOptional = Optional.empty();
 		}
@@ -93,7 +102,8 @@ public class EntityLookupByNameService {
 		} else {
 			Page page = pageApi.getPage(staffName, mediaWikiSource);
 			if (page != null) {
-				return staffRepository.findByPagePageId(page.getPageId());
+				return staffRepository.findByPagePageIdAndPageMediaWikiSource(page.getPageId(),
+						mediaWikiSourceMapper.fromSourcesToEntity(page.getMediaWikiSource()));
 			}
 		}
 

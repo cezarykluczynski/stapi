@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.individual.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate
+import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
@@ -21,6 +22,7 @@ class IndividualActorLinkingProcessorTest extends Specification {
 	private static final String TITLE_UNKNOWN = 'Unknown actor'
 	private static final Long ID_1 = 1L
 	private static final Long ID_2 = 2L
+	private static final MediaWikiSource SOURCE = MediaWikiSource.MEMORY_ALPHA_EN
 
 	private WikitextApi wikitextApiMock
 
@@ -73,17 +75,17 @@ class IndividualActorLinkingProcessorTest extends Specification {
 				pageLink1, pageLink2, pageLink3, pageLink4, pageLink5)
 
 		then: 'performers are found by page titles'
-		1 * performerRepositoryMock.findByPageTitle(TITLE_1) >> Optional.of(performer1)
-		1 * performerRepositoryMock.findByPageTitle(TITLE_2) >> Optional.of(performer2)
+		1 * performerRepositoryMock.findByPageTitleAndPageMediaWikiSource(TITLE_1, SOURCE) >> Optional.of(performer1)
+		1 * performerRepositoryMock.findByPageTitleAndPageMediaWikiSource(TITLE_2, SOURCE) >> Optional.of(performer2)
 		1 * pageLink3.getTitle() >> TITLE_3
-		1 * performerRepositoryMock.findByPageTitle(TITLE_3) >> Optional.empty()
+		1 * performerRepositoryMock.findByPageTitleAndPageMediaWikiSource(TITLE_3, SOURCE) >> Optional.empty()
 
 		then: 'missing page title and individual name is used for logging'
 		1 * pageLink3.getTitle() >> TITLE_3
 		1 * individualTemplate.getName()
 
 		then: 'remaining page is found'
-		1 * performerRepositoryMock.findByPageTitle(TITLE_4) >> Optional.of(performer4)
+		1 * performerRepositoryMock.findByPageTitleAndPageMediaWikiSource(TITLE_4, SOURCE) >> Optional.of(performer4)
 
 		then: 'list of performers consist of two unique performers'
 		1 * individualTemplate.getPerformers() >> performerList
