@@ -225,7 +225,7 @@
 		</module>
 		<module name="ParameterNumber">
 			<property name="ignoreOverriddenMethods" value="true"/>
-			<property name="max" value="11"/>
+			<property name="max" value="8"/>
 			<property name="tokens" value="CTOR_DEF"/>
 		</module>
 		<module name="ParenPad"/>

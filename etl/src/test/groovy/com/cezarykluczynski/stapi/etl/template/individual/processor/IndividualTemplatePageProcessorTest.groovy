@@ -55,7 +55,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 	def "returns null when page name starts with 'Unnamed '"() {
 		given:
 		Page page = new Page(
-				title: "Unnamed humanoids",
+				title: 'Unnamed humanoids',
 				categories: Lists.newArrayList(),
 				templates: Lists.newArrayList())
 
@@ -69,7 +69,21 @@ class IndividualTemplatePageProcessorTest extends Specification {
 	def "returns null when page name starts with 'List of '"() {
 		given:
 		Page page = new Page(
-				title: "List of some people",
+				title: 'List of some people',
+				categories: Lists.newArrayList(),
+				templates: Lists.newArrayList())
+
+		when:
+		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
+
+		then:
+		individualTemplate == null
+	}
+
+	def "returns null when page name starts with 'Memory Alpha images '"() {
+		given:
+		Page page = new Page(
+				title: 'Memory Alpha images (Greek gods)',
 				categories: Lists.newArrayList(),
 				templates: Lists.newArrayList())
 
@@ -188,15 +202,15 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		then:
 		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT) >> Lists.newArrayList(
 				new PageLink(
-						title: "Category:Some page"
+						title: 'Category:Some page'
 				),
 				new PageLink(
-						title: "category:Some other page",
+						title: 'category:Some other page',
 						description: StringUtils.EMPTY
 				),
 				new PageLink(
-						title: "category:Yet another page",
-						description: "Page, yet another"
+						title: 'category:Yet another page',
+						description: 'Page, yet another'
 				)
 		)
 		individualTemplate == null
@@ -228,7 +242,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 	def "sets name from page title, and cuts brackets when they are present"() {
 		given:
 		Page page = new Page(
-				title: TITLE + " (civilian)",
+				title: TITLE + ' (civilian)',
 				categories: Lists.newArrayList(),
 				templates: Lists.newArrayList())
 		wikitextApiMock.getPageLinksFromWikitext(*_) >> Lists.newArrayList()

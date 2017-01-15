@@ -21,46 +21,18 @@ public class MovieRealPeopleLinkingWorkerComposite implements LinkingWorker<Page
 
 	private MovieLinkedTitlesProcessor movieLinkedTitlesProcessor;
 
-	private MovieWritersLinkingWorker movieWritersLinkingWorker;
+	private MovieStaffLinkingWorkerComposite movieStaffLinkingWorkerComposite;
 
-	private MovieScreenplayAuthorsLinkingWorker movieScreenplayAuthorsLinkingWorker;
-
-	private MovieStoryAuthorsLinkingWorker movieStoryAuthorsLinkingWorker;
-
-	private MovieDirectorsLinkingWorker movieDirectorsLinkingWorker;
-
-	private MovieProducersLinkingWorker movieProducersLinkingWorker;
-
-	private MovieStaffLinkingWorker movieStaffLinkingWorker;
-
-	private MoviePerformersCharactersLinkingWorker moviePerformersCharactersLinkingWorker;
-
-	private MovieStuntPerformersLinkingWorker movieStuntPerformersLinkingWorker;
-
-	private MovieStandInPerformersLinkingWorker movieStandInPerformersLinkingWorker;
+	private MoviePerformersLinkingWorkerComposite moviePerformersLinkingWorkerComposite;
 
 	@Inject
 	public MovieRealPeopleLinkingWorkerComposite(MovieClosingCreditsProcessor movieClosingCreditsProcessor,
-			MovieLinkedTitlesProcessor movieLinkedTitlesProcessor, MovieWritersLinkingWorker movieWritersLinkingWorker,
-			MovieScreenplayAuthorsLinkingWorker movieScreenplayAuthorsLinkingWorker,
-			MovieStoryAuthorsLinkingWorker movieStoryAuthorsLinkingWorker,
-			MovieDirectorsLinkingWorker movieDirectorsLinkingWorker,
-			MovieProducersLinkingWorker movieProducersLinkingWorker,
-			MovieStaffLinkingWorker movieStaffLinkingWorker,
-			MoviePerformersCharactersLinkingWorker moviePerformersCharactersLinkingWorker,
-			MovieStuntPerformersLinkingWorker movieStuntPerformersLinkingWorker,
-			MovieStandInPerformersLinkingWorker movieStandInPerformersLinkingWorker) {
+			MovieLinkedTitlesProcessor movieLinkedTitlesProcessor, MovieStaffLinkingWorkerComposite movieStaffLinkingWorkerComposite,
+			MoviePerformersLinkingWorkerComposite moviePerformersLinkingWorkerComposite) {
 		this.movieClosingCreditsProcessor = movieClosingCreditsProcessor;
 		this.movieLinkedTitlesProcessor = movieLinkedTitlesProcessor;
-		this.movieWritersLinkingWorker = movieWritersLinkingWorker;
-		this.movieScreenplayAuthorsLinkingWorker = movieScreenplayAuthorsLinkingWorker;
-		this.movieStoryAuthorsLinkingWorker = movieStoryAuthorsLinkingWorker;
-		this.movieDirectorsLinkingWorker = movieDirectorsLinkingWorker;
-		this.movieProducersLinkingWorker = movieProducersLinkingWorker;
-		this.movieStaffLinkingWorker = movieStaffLinkingWorker;
-		this.moviePerformersCharactersLinkingWorker = moviePerformersCharactersLinkingWorker;
-		this.movieStuntPerformersLinkingWorker = movieStuntPerformersLinkingWorker;
-		this.movieStandInPerformersLinkingWorker = movieStandInPerformersLinkingWorker;
+		this.movieStaffLinkingWorkerComposite = movieStaffLinkingWorkerComposite;
+		this.moviePerformersLinkingWorkerComposite = moviePerformersLinkingWorkerComposite;
 	}
 
 	@Override
@@ -73,15 +45,8 @@ public class MovieRealPeopleLinkingWorkerComposite implements LinkingWorker<Page
 			return;
 		}
 
-		movieWritersLinkingWorker.link(movieLinkedTitlesDTO.getWriters(), baseEntity);
-		movieScreenplayAuthorsLinkingWorker.link(movieLinkedTitlesDTO.getScreenplayAuthors(), baseEntity);
-		movieStoryAuthorsLinkingWorker.link(movieLinkedTitlesDTO.getStoryAuthors(), baseEntity);
-		movieDirectorsLinkingWorker.link(movieLinkedTitlesDTO.getDirectors(), baseEntity);
-		movieProducersLinkingWorker.link(movieLinkedTitlesDTO.getProducers(), baseEntity);
-		movieStaffLinkingWorker.link(movieLinkedTitlesDTO.getStaff(), baseEntity);
-		moviePerformersCharactersLinkingWorker.link(movieLinkedTitlesDTO.getPerformers(), baseEntity);
-		movieStuntPerformersLinkingWorker.link(movieLinkedTitlesDTO.getStuntPerformers(), baseEntity);
-		movieStandInPerformersLinkingWorker.link(movieLinkedTitlesDTO.getStandInPerformers(), baseEntity);
+		movieStaffLinkingWorkerComposite.link(movieLinkedTitlesDTO, baseEntity);
+		moviePerformersLinkingWorkerComposite.link(movieLinkedTitlesDTO, baseEntity);
 	}
 
 }

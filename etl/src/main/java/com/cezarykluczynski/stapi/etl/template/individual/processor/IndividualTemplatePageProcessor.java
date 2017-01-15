@@ -16,6 +16,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateName;
 import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,7 @@ public class IndividualTemplatePageProcessor implements ItemProcessor<Page, Indi
 
 	private static final String UNNAMED_PREFIX = "Unnamed";
 	private static final String LIST_OF_PREFIX = "List of ";
+	private static final String MEMORY_ALPHA_IMAGES_PREFIX = "Memory Alpha images";
 	private static final String PERSONNEL = "personnel";
 
 	private static final Set<String> NOT_CHARACTERS_CATEGORY_TITLES = Sets.newHashSet(CategoryNames.LISTS);
@@ -97,7 +99,7 @@ public class IndividualTemplatePageProcessor implements ItemProcessor<Page, Indi
 
 	private boolean shouldBeFilteredOut(Page item) {
 		String title = item.getTitle();
-		if (title.startsWith(UNNAMED_PREFIX) || title.startsWith(LIST_OF_PREFIX) || item.getTitle().contains(PERSONNEL)) {
+		if (StringUtils.startsWithAny(title, UNNAMED_PREFIX, LIST_OF_PREFIX, MEMORY_ALPHA_IMAGES_PREFIX) || item.getTitle().contains(PERSONNEL)) {
 			return true;
 		}
 
