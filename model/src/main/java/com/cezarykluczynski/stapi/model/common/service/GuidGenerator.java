@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.model.common.service;
 import com.cezarykluczynski.stapi.model.page.entity.Page;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Session;
@@ -36,6 +37,8 @@ public class GuidGenerator {
 	}
 
 	public String generateFromPage(Page page, Class<? extends PageAware> clazz) {
+		Preconditions.checkNotNull(page, "Page cannot be null");
+		Preconditions.checkNotNull(page.getPageId(), "Page ID cannot be null");
 		Map<String, ClassMetadata> classMetadataMap = getClassMetadata();
 		ClassMetadata classMetadata = classMetadataMap.get(clazz.getCanonicalName());
 		if (classMetadata == null) {

@@ -95,7 +95,7 @@ public class ToEpisodeTemplateProcessor implements ItemProcessor<Page, EpisodeTe
 		episodeStaffLinkingWorker.link(item, episodeStub);
 	}
 
-	private void enrichTemplateWithPage(EpisodeTemplate episodeTemplate, Page item) {
+	private void enrichTemplateWithPage(EpisodeTemplate episodeTemplate, Page item) throws Exception {
 		episodeTemplateTitleLanguagesEnrichingProcessor.enrich(EnrichablePair.of(item, episodeTemplate));
 		episodeTemplateDatesEnrichingProcessor.enrich(EnrichablePair.of(item, episodeTemplate));
 	}

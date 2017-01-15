@@ -8,4 +8,8 @@ public class TitleUtil {
 		return StringUtils.trim(StringUtils.substringBefore(StringUtils.substringBefore(title, "("), "（"));
 	}
 
+	public static String toMediaWikiTitle(String title) {
+		return StringUtils.replaceChars(title, " ", "_");
+	}
+
 }

@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.individual.processor;
+package com.cezarykluczynski.stapi.etl.template.common.processor;
 
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus;
 import com.google.common.collect.Maps;
@@ -11,7 +11,7 @@ import java.util.Map;
 
 @Service
 @Slf4j
-public class IndividualMaritalStatusProcessor implements ItemProcessor<String, MaritalStatus> {
+public class MaritalStatusProcessor implements ItemProcessor<String, MaritalStatus> {
 
 	private static final String SINGLE = "single";
 	private static final String WIDOW = "widow";
@@ -53,7 +53,7 @@ public class IndividualMaritalStatusProcessor implements ItemProcessor<String, M
 			}
 		}
 
-		log.error("Unknown individual marital status: {} ", itemTrimmedLowerCase);
+		log.error("Unknown character marital status: {} ", itemTrimmedLowerCase);
 		return null;
 	}
 

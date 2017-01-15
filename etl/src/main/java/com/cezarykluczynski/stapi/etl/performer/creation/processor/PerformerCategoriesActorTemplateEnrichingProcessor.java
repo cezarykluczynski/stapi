@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PerformerCategoriesActorTemplateEnrichingProcessor
-		extends AbstractCategoriesActorTemplateEnrichingProcessor implements CategoriesActorTemplateEnrichingProcessor {
+public class PerformerCategoriesActorTemplateEnrichingProcessor extends AbstractCategoriesActorTemplateEnrichingProcessor
+		implements CategoriesActorTemplateEnrichingProcessor {
 
 	@Override
-	public void enrich(EnrichablePair<List<CategoryHeader>, ActorTemplate> enrichablePair) {
+	public void enrich(EnrichablePair<List<CategoryHeader>, ActorTemplate> enrichablePair) throws Exception {
 		List<String> categoryTitlesList = getCategoryTitlesList(enrichablePair);
 		ActorTemplate actorTemplate = enrichablePair.getOutput();
 

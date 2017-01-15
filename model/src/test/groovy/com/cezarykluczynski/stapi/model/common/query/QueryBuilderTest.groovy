@@ -15,8 +15,19 @@ import spock.lang.Specification
 
 import javax.persistence.EntityManager
 import javax.persistence.TypedQuery
-import javax.persistence.criteria.*
-import javax.persistence.metamodel.*
+import javax.persistence.criteria.CriteriaBuilder
+import javax.persistence.criteria.CriteriaQuery
+import javax.persistence.criteria.Expression
+import javax.persistence.criteria.JoinType
+import javax.persistence.criteria.Order
+import javax.persistence.criteria.Path
+import javax.persistence.criteria.Predicate
+import javax.persistence.criteria.Root
+import javax.persistence.metamodel.Attribute
+import javax.persistence.metamodel.EntityType
+import javax.persistence.metamodel.Metamodel
+import javax.persistence.metamodel.SetAttribute
+import javax.persistence.metamodel.SingularAttribute
 import java.time.LocalDate
 
 class QueryBuilderTest extends Specification {

@@ -33,7 +33,7 @@ public class IndividualActorLinkingProcessor implements
 	}
 
 	@Override
-	public void enrich(EnrichablePair<Template.Part, IndividualTemplate> enrichablePair) {
+	public void enrich(EnrichablePair<Template.Part, IndividualTemplate> enrichablePair) throws Exception {
 		Template.Part actorTemplatePart = enrichablePair.getInput();
 		IndividualTemplate individualTemplate = enrichablePair.getOutput();
 

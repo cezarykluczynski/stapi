@@ -1,7 +1,6 @@
 package com.cezarykluczynski.stapi.etl.page.common.processor;
 
 import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import info.bliki.api.PageInfo;
@@ -10,6 +9,7 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -24,18 +24,31 @@ public class PageHeaderProcessor implements ItemProcessor<PageHeader, Page> {
 
 	@Override
 	public Page process(PageHeader item) throws Exception {
-		Page page = pageApi.getPage(item.getTitle(), MediaWikiSource.MEMORY_ALPHA_EN);
+		Page page = pageApi.getPage(item.getTitle(), item.getMediaWikiSource());
 
 		if (page.getPageId() == null) {
-			if (page.getRedirectPath().isEmpty()) {
+			List<PageHeader> redirectPath = page.getRedirectPath();
+			if (redirectPath.isEmpty()) {
 				page.setPageId(item.getPageId());
 			} else {
-				PageInfo pageInfo = pageApi.getPageInfo(page.getTitle(), MediaWikiSource.MEMORY_ALPHA_EN);
-				page.setPageId(Long.valueOf(pageInfo.getPageid()));
+				page.setPageId(supplementPageId(item));
+				page.getRedirectPath().forEach(pageHeader -> pageHeader.setPageId(supplementPageId(pageHeader)));
+
+				if (page.getPageId() == null || page.getRedirectPath().stream().anyMatch(pageHeader -> pageHeader.getPageId() == null)) {
+					throw new RuntimeException(String.format("Could not supplement page id for page %s or one of it's redirects", page));
+				}
 			}
 		}
 
 		return page;
+	}
+
+	private Long supplementPageId(PageHeader item) {
+		if (item.getPageId() != null) {
+			return item.getPageId();
+		}
+		PageInfo pageInfo = pageApi.getPageInfo(item.getTitle(), item.getMediaWikiSource());
+		return pageInfo == null ? null : Long.valueOf(pageInfo.getPageid());
 	}
 
 }

@@ -50,7 +50,7 @@ public class EpisodeTemplateDatesEnrichingProcessor
 	}
 
 	@Override
-	public void enrich(EnrichablePair<Page, EpisodeTemplate> enrichablePair) {
+	public void enrich(EnrichablePair<Page, EpisodeTemplate> enrichablePair) throws Exception {
 		EpisodeTemplate episodeTemplate = enrichablePair.getOutput();
 		String episodeTitle = episodeTemplate.getTitle();
 
@@ -65,11 +65,11 @@ public class EpisodeTemplateDatesEnrichingProcessor
 		List<PageSection> pageSectionList = getDateRelevantPageSectionList(enrichablePair.getInput());
 		List<String> sectionsListItems = getSectionsListItems(pageSectionList);
 
-		sectionsListItems.forEach(sectionsListItem -> {
+		for (String sectionsListItem : sectionsListItems) {
 			if (isFinalDraftScriptSection(sectionsListItem)) {
 				trySetFinalScriptDate(sectionsListItem, enrichablePair.getOutput());
 			}
-		});
+		}
 	}
 
 	private boolean isFinalDraftScriptSection(String section) {
@@ -78,13 +78,8 @@ public class EpisodeTemplateDatesEnrichingProcessor
 				.anyMatch(sectionLowerCase::contains);
 	}
 
-	private void trySetFinalScriptDate(String sectionsListItem, EpisodeTemplate episodeTemplate) {
-		List<LocalDate> localDateList = Lists.newArrayList();
-		try {
-			localDateList = rawDatelinkExtractingProcessor.process(sectionsListItem);
-		} catch (Exception e) {
-			// do nothing
-		}
+	private void trySetFinalScriptDate(String sectionsListItem, EpisodeTemplate episodeTemplate) throws Exception {
+		List<LocalDate> localDateList = rawDatelinkExtractingProcessor.process(sectionsListItem);
 
 		if (localDateList.size() == 1) {
 			episodeTemplate.setFinalScriptDate(localDateList.get(0));

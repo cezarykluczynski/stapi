@@ -15,8 +15,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Service
-public class MovieTemplateTitleLanguagesEnrichingProcessor
-		implements ItemEnrichingProcessor<EnrichablePair<Page, MovieTemplate>> {
+public class MovieTemplateTitleLanguagesEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Page, MovieTemplate>> {
 
 	private WikitextApi wikitextApi;
 
@@ -30,7 +29,7 @@ public class MovieTemplateTitleLanguagesEnrichingProcessor
 	}
 
 	@Override
-	public void enrich(EnrichablePair<Page, MovieTemplate> enrichablePair) {
+	public void enrich(EnrichablePair<Page, MovieTemplate> enrichablePair) throws Exception {
 		Page page = enrichablePair.getInput();
 		MovieTemplate movieTemplate = enrichablePair.getOutput();
 

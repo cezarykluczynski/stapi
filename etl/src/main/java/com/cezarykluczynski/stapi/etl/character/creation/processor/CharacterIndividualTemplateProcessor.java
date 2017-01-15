@@ -31,6 +31,7 @@ public class CharacterIndividualTemplateProcessor implements ItemProcessor<Indiv
 		character.setPage(item.getPage());
 		character.setGuid(guidGenerator.generateFromPage(item.getPage(), Character.class));
 		if (item.getGender() != null) {
+			// TODO: separate mapper
 			character.setGender(Gender.valueOf(item.getGender().name()));
 		}
 		character.setYearOfBirth(item.getYearOfBirth());

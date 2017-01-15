@@ -34,7 +34,7 @@ public class EpisodeTemplateTitleLanguagesEnrichingProcessor implements
 	}
 
 	@Override
-	public void enrich(EnrichablePair<Page, EpisodeTemplate> enrichablePair) {
+	public void enrich(EnrichablePair<Page, EpisodeTemplate> enrichablePair) throws Exception {
 		Page page = enrichablePair.getInput();
 		EpisodeTemplate episodeTemplate = enrichablePair.getOutput();
 

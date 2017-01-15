@@ -2,60 +2,44 @@ package com.cezarykluczynski.stapi.etl.template.individual.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
-import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PartToGenderProcessor;
-import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualLifeBoundaryDTO;
+import com.cezarykluczynski.stapi.etl.template.characterbox.processor.CharacterboxIndividualTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryNames;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.PageName;
 import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 @Slf4j
 public class IndividualTemplatePageProcessor implements ItemProcessor<Page, IndividualTemplate> {
 
-	private static final String GENDER = "gender";
-	private static final String ACTOR = "actor";
-	private static final String HEIGHT = "height";
-	private static final String WEIGHT = "weight";
-	private static final String SERIAL_NUMBER = "serial number";
-	private static final String BORN = "born";
-	private static final String DIED = "died";
-	private static final String MARITAL_STATUS = "marital_status";
-	private static final String BLOOD_TYPE = "blood type";
-	private static final String UNNAMED_PREFIX = "Unnamed ";
+	private static final String UNNAMED_PREFIX = "Unnamed";
 	private static final String LIST_OF_PREFIX = "List of ";
+	private static final String PERSONNEL = "personnel";
 
-	private PartToGenderProcessor partToGenderProcessor;
+	private static final Set<String> NOT_CHARACTERS_CATEGORY_TITLES = Sets.newHashSet(CategoryNames.LISTS);
 
-	private IndividualLifeBoundaryProcessor individualLifeBoundaryProcessor;
-
-	private IndividualActorLinkingProcessor individualActorLinkingProcessor;
+	static {
+		NOT_CHARACTERS_CATEGORY_TITLES.add(CategoryName.FAMILIES);
+	}
 
 	private IndividualDateOfDeathEnrichingProcessor individualDateOfDeathEnrichingProcessor;
-
-	private IndividualHeightProcessor individualHeightProcessor;
-
-	private IndividualWeightProcessor individualWeightProcessor;
-
-	private IndividualBloodTypeProcessor individualBloodTypeProcessor;
-
-	private IndividualMaritalStatusProcessor individualMaritalStatusProcessor;
 
 	private WikitextApi wikitextApi;
 
@@ -63,26 +47,21 @@ public class IndividualTemplatePageProcessor implements ItemProcessor<Page, Indi
 
 	private TemplateFinder templateFinder;
 
+	private IndividualTemplatePartsEnrichingProcessor individualTemplatePartsEnrichingProcessor;
+
+	private CharacterboxIndividualTemplateEnrichingProcessor characterboxIndividualTemplateEnrichingProcessor;
+
 	@Inject
-	public IndividualTemplatePageProcessor(PartToGenderProcessor partToGenderProcessor,
-			IndividualLifeBoundaryProcessor individualLifeBoundaryProcessor,
-			IndividualActorLinkingProcessor individualActorLinkingProcessor,
-			IndividualDateOfDeathEnrichingProcessor individualDateOfDeathEnrichingProcessor,
-			IndividualHeightProcessor individualHeightProcessor, IndividualWeightProcessor individualWeightProcessor,
-			IndividualBloodTypeProcessor individualBloodTypeProcessor,
-			IndividualMaritalStatusProcessor individualMaritalStatusProcessor, WikitextApi wikitextApi,
-			PageBindingService pageBindingService, TemplateFinder templateFinder) {
-		this.partToGenderProcessor = partToGenderProcessor;
-		this.individualLifeBoundaryProcessor = individualLifeBoundaryProcessor;
-		this.individualActorLinkingProcessor = individualActorLinkingProcessor;
+	public IndividualTemplatePageProcessor(IndividualDateOfDeathEnrichingProcessor individualDateOfDeathEnrichingProcessor, WikitextApi wikitextApi,
+			PageBindingService pageBindingService, TemplateFinder templateFinder,
+			IndividualTemplatePartsEnrichingProcessor individualTemplatePartsEnrichingProcessor,
+			CharacterboxIndividualTemplateEnrichingProcessor characterboxIndividualTemplateEnrichingProcessor) {
 		this.individualDateOfDeathEnrichingProcessor = individualDateOfDeathEnrichingProcessor;
-		this.individualHeightProcessor = individualHeightProcessor;
-		this.individualWeightProcessor = individualWeightProcessor;
-		this.individualBloodTypeProcessor = individualBloodTypeProcessor;
-		this.individualMaritalStatusProcessor = individualMaritalStatusProcessor;
 		this.wikitextApi = wikitextApi;
 		this.pageBindingService = pageBindingService;
 		this.templateFinder = templateFinder;
+		this.individualTemplatePartsEnrichingProcessor = individualTemplatePartsEnrichingProcessor;
+		this.characterboxIndividualTemplateEnrichingProcessor = characterboxIndividualTemplateEnrichingProcessor;
 	}
 
 	@Override
@@ -96,63 +75,21 @@ public class IndividualTemplatePageProcessor implements ItemProcessor<Page, Indi
 		individualTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 		individualTemplate.setProductOfRedirect(!item.getRedirectPath().isEmpty());
 
-		Optional<Template> templateOptional = templateFinder.findTemplate(item, TemplateName.SIDEBAR_INDIVIDUAL);
+		Optional<Template> sidebarIndividualTemplateOptional = templateFinder.findTemplate(item, TemplateName.SIDEBAR_INDIVIDUAL);
 
-		if (!templateOptional.isPresent()) {
+		if (!sidebarIndividualTemplateOptional.isPresent()) {
 			return individualTemplate;
 		}
 
-		Template template = templateOptional.get();
+		Template template = sidebarIndividualTemplateOptional.get();
 
 		individualDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate));
+		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(template.getParts(), individualTemplate));
 
-		for (Template.Part part : template.getParts()) {
-			String key = part.getKey();
-			String value = part.getValue();
+		Optional<Template> memoryBetaTemplateOptional = templateFinder.findTemplate(item, TemplateName.MBETA);
 
-			switch (key) {
-				case GENDER:
-					individualTemplate.setGender(partToGenderProcessor.process(part));
-					break;
-				case ACTOR:
-					individualActorLinkingProcessor.enrich(EnrichablePair.of(part, individualTemplate));
-					break;
-				case HEIGHT:
-					individualTemplate.setHeight(individualHeightProcessor.process(value));
-					break;
-				case WEIGHT:
-					individualTemplate.setWeight(individualWeightProcessor.process(value));
-					break;
-				case SERIAL_NUMBER:
-					if (StringUtils.isNotBlank(value)) {
-						individualTemplate.setSerialNumber(value);
-					}
-					break;
-				case BORN:
-					IndividualLifeBoundaryDTO birthBoundaryDTO = individualLifeBoundaryProcessor
-							.process(value);
-					individualTemplate.setYearOfBirth(birthBoundaryDTO.getYear());
-					individualTemplate.setMonthOfBirth(birthBoundaryDTO.getMonth());
-					individualTemplate.setDayOfBirth(birthBoundaryDTO.getDay());
-					individualTemplate.setPlaceOfBirth(birthBoundaryDTO.getPlace());
-					break;
-				case DIED:
-					IndividualLifeBoundaryDTO deathBoundaryDTO = individualLifeBoundaryProcessor
-							.process(value);
-					individualTemplate.setYearOfDeath(deathBoundaryDTO.getYear());
-					individualTemplate.setMonthOfDeath(deathBoundaryDTO.getMonth());
-					individualTemplate.setDayOfDeath(deathBoundaryDTO.getDay());
-					individualTemplate.setPlaceOfDeath(deathBoundaryDTO.getPlace());
-					break;
-				case MARITAL_STATUS:
-					individualTemplate.setMaritalStatus(individualMaritalStatusProcessor.process(value));
-					break;
-				case BLOOD_TYPE:
-					individualTemplate.setBloodType(individualBloodTypeProcessor.process(value));
-					break;
-				default:
-					break;
-			}
+		if (memoryBetaTemplateOptional.isPresent()) {
+			characterboxIndividualTemplateEnrichingProcessor.enrich(EnrichablePair.of(memoryBetaTemplateOptional.get(), individualTemplate));
 		}
 
 		return individualTemplate;
@@ -160,11 +97,7 @@ public class IndividualTemplatePageProcessor implements ItemProcessor<Page, Indi
 
 	private boolean shouldBeFilteredOut(Page item) {
 		String title = item.getTitle();
-		if (title.startsWith(UNNAMED_PREFIX) || title.startsWith(LIST_OF_PREFIX)) {
-			return true;
-		}
-
-		if (item.getTitle().equals(PageName.MEMORY_ALPHA_PERSONNEL)) {
+		if (title.startsWith(UNNAMED_PREFIX) || title.startsWith(LIST_OF_PREFIX) || item.getTitle().contains(PERSONNEL)) {
 			return true;
 		}
 
@@ -173,17 +106,23 @@ public class IndividualTemplatePageProcessor implements ItemProcessor<Page, Indi
 				.map(CategoryHeader::getTitle)
 				.collect(Collectors.toList());
 
-		if (categoryTitles.contains(CategoryName.PRODUCTION_LISTS) || categoryTitles.contains(CategoryName.LISTS)) {
+		if (categoryTitles.stream().anyMatch(NOT_CHARACTERS_CATEGORY_TITLES::contains)) {
 			return true;
 		}
 
-		List<PageLink> pageLinkList = wikitextApi.getPageLinksFromWikitext(item.getWikitext())
+		if (categoryTitles.stream().anyMatch(categoryTitle -> categoryTitle.startsWith(UNNAMED_PREFIX))) {
+			return true;
+		}
+
+		List<PageLink> pageLinkList = wikitextApi.getPageLinksFromWikitext(item.getWikitext());
+
+		List<PageLink> categoryPageLinkList = pageLinkList
 				.stream()
 				.filter(pageLink -> pageLink.getTitle().toLowerCase().startsWith("category:"))
 				.filter(pageLink -> pageLink.getDescription() != null && pageLink.getDescription().length() == 0)
 				.collect(Collectors.toList());
 
-		if (!pageLinkList.isEmpty()) {
+		if (!categoryPageLinkList.isEmpty()) {
 			return true;
 		}
 

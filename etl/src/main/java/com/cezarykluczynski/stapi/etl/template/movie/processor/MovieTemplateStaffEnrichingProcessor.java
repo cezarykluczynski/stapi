@@ -47,7 +47,7 @@ public class MovieTemplateStaffEnrichingProcessor implements ItemEnrichingProces
 	}
 
 	@Override
-	public void enrich(EnrichablePair<Template, MovieTemplate> enrichablePair) {
+	public void enrich(EnrichablePair<Template, MovieTemplate> enrichablePair) throws Exception {
 		Template template = enrichablePair.getInput();
 		MovieTemplate movieTemplate = enrichablePair.getOutput();
 		Movie movieStub = movieTemplate.getMovieStub();

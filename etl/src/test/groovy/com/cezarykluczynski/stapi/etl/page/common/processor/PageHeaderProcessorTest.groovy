@@ -11,7 +11,9 @@ import spock.lang.Specification
 class PageHeaderProcessorTest extends Specification {
 
 	private static final Long PAGE_ID = 1L
-	private static final String PAGE_ID_STRING = "1"
+	private static final Long REDIRECT_PAGE_ID = 2L
+	private static final String PAGE_ID_STRING = '1'
+	private static final String REDIRECT_PAGE_ID_STRING = '2'
 	private static final String TITLE = 'TITLE'
 	private static final String TITLE_AFTER_REDIRECT = 'TITLE_AFTER_REDIRECT'
 	private static final MediaWikiSource MEDIA_WIKI_SOURCE = MediaWikiSource.MEMORY_ALPHA_EN
@@ -25,7 +27,7 @@ class PageHeaderProcessorTest extends Specification {
 		pageHeaderProcessor = new PageHeaderProcessor(pageApiMock)
 	}
 
-	def "should get page using page header's title"() {
+	def "gets page using page header's title"() {
 		given:
 		PageHeader pageHeader = PageHeader.builder()
 				.title(TITLE)
@@ -39,10 +41,10 @@ class PageHeaderProcessorTest extends Specification {
 		then:
 		1 * pageApiMock.getPage(TITLE, MEDIA_WIKI_SOURCE) >> page
 		0 * _
-		page == pageOutput
+		pageOutput == page
 	}
 
-	def "should get page, and supplement page id from page header when redirect list is empty"() {
+	def "gets page, and supplement page id from page header when redirect list is empty"() {
 		given:
 		PageHeader pageHeader = PageHeader.builder()
 				.title(TITLE)
@@ -57,29 +59,105 @@ class PageHeaderProcessorTest extends Specification {
 		then:
 		1 * pageApiMock.getPage(TITLE, MEDIA_WIKI_SOURCE) >> page
 		0 * _
-		page == pageOutput
-		page.pageId == PAGE_ID
+		pageOutput == page
+		pageOutput.pageId == PAGE_ID
 	}
 
-
-	def "should get page, and supplement page from another API call, when redirect list is not empty"() {
+	def "gets page, and supplement page id from page header and redirect list item, when redirect list is not empty"() {
 		given:
 		PageHeader pageHeader = PageHeader.builder()
 				.title(TITLE)
 				.mediaWikiSource(MEDIA_WIKI_SOURCE)
+				.pageId(PAGE_ID)
 				.build()
-		Page page = new Page(title: TITLE_AFTER_REDIRECT, redirectPath: Lists.newArrayList(Mock(PageHeader)))
-		PageInfo pageInfo = new PageInfo(pageid: PAGE_ID_STRING)
+		PageHeader redirectPageHeader = PageHeader.builder()
+				.title(TITLE_AFTER_REDIRECT)
+				.mediaWikiSource(MEDIA_WIKI_SOURCE)
+				.pageId(REDIRECT_PAGE_ID)
+				.build()
+		Page page = new Page(redirectPath: Lists.newArrayList(redirectPageHeader))
 
 		when:
 		Page pageOutput = pageHeaderProcessor.process(pageHeader)
 
 		then:
 		1 * pageApiMock.getPage(TITLE, MEDIA_WIKI_SOURCE) >> page
-		1 * pageApiMock.getPageInfo(TITLE_AFTER_REDIRECT, MEDIA_WIKI_SOURCE) >> pageInfo
 		0 * _
-		page == pageOutput
-		page.pageId == PAGE_ID
+		pageOutput == page
+		pageOutput.pageId == PAGE_ID
+		pageOutput.redirectPath[0].pageId == REDIRECT_PAGE_ID
+	}
+
+	def "gets page, and supplement page if for both page header and redirect list items"() {
+		given:
+		PageHeader pageHeader = PageHeader.builder()
+				.title(TITLE)
+				.mediaWikiSource(MEDIA_WIKI_SOURCE)
+				.build()
+		PageHeader redirectPageHeader = PageHeader.builder()
+				.title(TITLE_AFTER_REDIRECT)
+				.mediaWikiSource(MEDIA_WIKI_SOURCE)
+				.build()
+		Page page = new Page(
+				title: TITLE_AFTER_REDIRECT,
+				redirectPath: Lists.newArrayList(redirectPageHeader))
+		PageInfo pageInfo = new PageInfo(pageid: PAGE_ID_STRING)
+		PageInfo redirectPageInfo = new PageInfo(pageid: REDIRECT_PAGE_ID_STRING)
+
+		when:
+		Page pageOutput = pageHeaderProcessor.process(pageHeader)
+
+		then:
+		1 * pageApiMock.getPage(TITLE, MEDIA_WIKI_SOURCE) >> page
+		1 * pageApiMock.getPageInfo(TITLE, MEDIA_WIKI_SOURCE) >> pageInfo
+		1 * pageApiMock.getPageInfo(TITLE_AFTER_REDIRECT, MEDIA_WIKI_SOURCE) >> redirectPageInfo
+		pageOutput == page
+		pageOutput.pageId == PAGE_ID
+		pageOutput.redirectPath[0].pageId == REDIRECT_PAGE_ID
+	}
+
+	def "throws exception when PageInfo for original page is null"() {
+		given:
+		PageHeader pageHeader = PageHeader.builder()
+				.title(TITLE)
+				.mediaWikiSource(MEDIA_WIKI_SOURCE)
+				.build()
+		Page page = new Page(
+				title: TITLE_AFTER_REDIRECT,
+				redirectPath: Lists.newArrayList(Mock(PageHeader)))
+
+		when:
+		pageHeaderProcessor.process(pageHeader)
+
+		then:
+		1 * pageApiMock.getPage(TITLE, MEDIA_WIKI_SOURCE) >> page
+		1 * pageApiMock.getPageInfo(TITLE, MEDIA_WIKI_SOURCE) >> null
+		thrown(RuntimeException)
+	}
+
+	def "throws exception when PageInfo for item from redirect list is null"() {
+		given:
+		PageHeader pageHeader = PageHeader.builder()
+				.title(TITLE)
+				.mediaWikiSource(MEDIA_WIKI_SOURCE)
+				.build()
+		PageHeader redirectPageHeader = PageHeader.builder()
+				.title(TITLE_AFTER_REDIRECT)
+				.mediaWikiSource(MEDIA_WIKI_SOURCE)
+				.build()
+		Page page = new Page(
+				title: TITLE,
+				redirectPath: Lists.newArrayList(redirectPageHeader))
+		PageInfo pageInfo = new PageInfo(pageid: PAGE_ID_STRING)
+
+		when:
+		pageHeaderProcessor.process(pageHeader)
+
+		then:
+		1 * pageApiMock.getPage(TITLE, MEDIA_WIKI_SOURCE) >> page
+		1 * pageApiMock.getPageInfo(TITLE, MEDIA_WIKI_SOURCE) >> pageInfo
+		1 * pageApiMock.getPageInfo(TITLE_AFTER_REDIRECT, MEDIA_WIKI_SOURCE) >> null
+		thrown(RuntimeException)
 	}
 
 }

@@ -79,11 +79,27 @@ class GuidGeneratorTest extends Specification {
 
 	def "throws exception when there is no mappings available for given class"() {
 		when:
-		guidGenerator.generateFromPage(new Page(), NotTrackedPageAware)
+		guidGenerator.generateFromPage(new Page(pageId: 1L), NotTrackedPageAware)
 
 		then:
 		RuntimeException runtimeException = thrown(RuntimeException)
 		runtimeException.message == "No class metadata for entity com.cezarykluczynski.stapi.model.common.service.GuidGeneratorTest.NotTrackedPageAware."
+	}
+
+	def "throws exception when page is null"() {
+		when:
+		guidGenerator.generateFromPage(null, Character)
+
+		then:
+		thrown(NullPointerException)
+	}
+
+	def "throws exception when page ID is null"() {
+		when:
+		guidGenerator.generateFromPage(new Page(), Character)
+
+		then:
+		thrown(NullPointerException)
 	}
 
 	def "throws exception when page ID is too large"() {

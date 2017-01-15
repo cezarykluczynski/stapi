@@ -83,7 +83,7 @@ public class IndividualDateOfDeathEnrichingProcessor implements
 	}
 
 	@Override
-	public void enrich(EnrichablePair<Template, IndividualTemplate> enrichablePair) {
+	public void enrich(EnrichablePair<Template, IndividualTemplate> enrichablePair) throws Exception {
 		Template template = enrichablePair.getInput();
 		IndividualTemplate individualTemplate = enrichablePair.getOutput();
 
@@ -106,16 +106,11 @@ public class IndividualDateOfDeathEnrichingProcessor implements
 		}
 
 		if (status != null && dateStatus != null) {
-			try {
-				doEnrich(individualTemplate, status, dateStatus);
-			} catch (Exception e) {
-				// do nothing
-			}
+			doEnrich(individualTemplate, status, dateStatus);
 		}
 	}
 
-	private void doEnrich(IndividualTemplate individualTemplate, Template.Part status, Template.Part dateStatus)
-			throws Exception {
+	private void doEnrich(IndividualTemplate individualTemplate, Template.Part status, Template.Part dateStatus) throws Exception {
 		String statusValue = StringUtils.lowerCase(StringUtils.trim(status.getValue()));
 
 		if (StringUtils.isBlank(statusValue)) {

@@ -1,14 +1,18 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.gender;
 
+import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
-import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTemplatePageProcessor;
+import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTemplatePartsEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryNames;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
+import com.cezarykluczynski.stapi.util.constant.TemplateName;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.batch.item.ItemProcessor;
@@ -28,14 +32,17 @@ public class PageToGenderRoleProcessor implements ItemProcessor<Page, Gender> {
 
 	private WikitextApi wikitextApi;
 
-	private IndividualTemplatePageProcessor individualTemplatePageProcessor;
+	private TemplateFinder templateFinder;
+
+	private IndividualTemplatePartsEnrichingProcessor individualTemplatePartsEnrichingProcessor;
 
 	@Inject
-	public PageToGenderRoleProcessor(PageApi pageApi, WikitextApi wikitextApi,
-			IndividualTemplatePageProcessor individualTemplatePageProcessor) {
+	public PageToGenderRoleProcessor(PageApi pageApi, WikitextApi wikitextApi, TemplateFinder templateFinder,
+			IndividualTemplatePartsEnrichingProcessor individualTemplatePartsEnrichingProcessor) {
 		this.pageApi = pageApi;
 		this.wikitextApi = wikitextApi;
-		this.individualTemplatePageProcessor = individualTemplatePageProcessor;
+		this.templateFinder = templateFinder;
+		this.individualTemplatePartsEnrichingProcessor = individualTemplatePartsEnrichingProcessor;
 	}
 
 	@Override
@@ -62,7 +69,7 @@ public class PageToGenderRoleProcessor implements ItemProcessor<Page, Gender> {
 		List<Page> pageList = pageApi.getPages(linkedPagesList, MediaWikiSource.MEMORY_ALPHA_EN);
 
 		for (Page page : pageList) {
-			IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page);
+			IndividualTemplate individualTemplate = getEnrichedIndividualTemplate(page);
 			if (individualTemplate != null) {
 				Gender gender = individualTemplate.getGender();
 				if (gender != null) {
@@ -80,6 +87,18 @@ public class PageToGenderRoleProcessor implements ItemProcessor<Page, Gender> {
 				pageList.stream().map(Page::getTitle).collect(Collectors.toList()));
 
 		return null;
+	}
+
+	private IndividualTemplate getEnrichedIndividualTemplate(Page page) throws Exception {
+		IndividualTemplate individualTemplate = new IndividualTemplate();
+		Optional<Template> templateOptional = templateFinder.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL);
+
+		if (!templateOptional.isPresent()) {
+			return individualTemplate;
+		}
+
+		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(templateOptional.get().getParts(), individualTemplate));
+		return individualTemplate;
 	}
 
 	private boolean isPerformer(Page item) {

@@ -91,6 +91,8 @@ public class CategoryName {
 	public static final String MILITARY_PERSONNEL = "Military_personnel";
 	public static final String Q_CONTINUUM = "Q_Continuum";
 	public static final String STARFLEET_PERSONNEL = "Starfleet_personnel";
+	public static final String PERSONNEL_LISTS = "Personnel_lists";
+	public static final String FAMILIES = "Families";
 
 	public static final String STAR_TREK_FILMS = "Star Trek films";
 

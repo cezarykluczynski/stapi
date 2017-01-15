@@ -81,10 +81,10 @@ class FrequentHitCachingHelperTest extends Specification {
 		Map<MediaWikiSource, Map<String, Integer>> dump = frequentHitCachingHelper.dumpStatisticsAndReset()
 
 		then:
-		dump[SOURCE_1][TITLE_1] == 5
-		dump[SOURCE_1][TITLE_2] == 5
-		dump[SOURCE_2][TITLE_1] == 5
-		dump[SOURCE_2][TITLE_2] == 5
+		dump[SOURCE_1][TITLE_1] == FrequentHitCachingHelper.CACHE_THRESHOLD
+		dump[SOURCE_1][TITLE_2] == FrequentHitCachingHelper.CACHE_THRESHOLD
+		dump[SOURCE_2][TITLE_1] == FrequentHitCachingHelper.CACHE_THRESHOLD
+		dump[SOURCE_2][TITLE_2] == FrequentHitCachingHelper.CACHE_THRESHOLD
 
 		then: 'titles are once again marked as not cacheable yet'
 		!frequentHitCachingHelper.isCacheable(TITLE_1, SOURCE_1)

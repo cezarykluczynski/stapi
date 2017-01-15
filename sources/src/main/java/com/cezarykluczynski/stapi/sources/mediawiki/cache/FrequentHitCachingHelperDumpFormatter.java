@@ -26,6 +26,7 @@ public class FrequentHitCachingHelperDumpFormatter {
 		for (MediaWikiSource mediaWikiSource : SOURCES_ORDER) {
 			List<Pair<String, Integer>> cachedTitlesPairList = cacheMap.get(mediaWikiSource).entrySet()
 					.stream()
+					.filter(pair -> pair.getValue() >= FrequentHitCachingHelper.CACHE_THRESHOLD)
 					.sorted((left, right) -> right.getValue().compareTo(left.getValue()))
 					.map(stringIntegerEntry -> Pair.of(stringIntegerEntry.getKey(), stringIntegerEntry.getValue()))
 					.collect(Collectors.toList());

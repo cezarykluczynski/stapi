@@ -1,7 +1,11 @@
 package com.cezarykluczynski.stapi.server.episode.mapper
 
-import com.cezarykluczynski.stapi.client.v1.soap.*
+import com.cezarykluczynski.stapi.client.v1.soap.DateRange
 import com.cezarykluczynski.stapi.client.v1.soap.Episode as SOAPEpisode
+import com.cezarykluczynski.stapi.client.v1.soap.EpisodeRequest
+import com.cezarykluczynski.stapi.client.v1.soap.FloatRange
+import com.cezarykluczynski.stapi.client.v1.soap.IntegerRange
+import com.cezarykluczynski.stapi.client.v1.soap.SeriesHeader
 import com.cezarykluczynski.stapi.model.episode.dto.EpisodeRequestDTO
 import com.cezarykluczynski.stapi.model.episode.entity.Episode as DBEpisode
 import com.google.common.collect.Lists

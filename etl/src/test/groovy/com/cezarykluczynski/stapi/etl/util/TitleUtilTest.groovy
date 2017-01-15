@@ -17,4 +17,12 @@ class TitleUtilTest extends Specification {
 		TitleUtil.getNameFromTitle(' Title （エピソード） ') == 'Title'
 	}
 
+	def "converts title to title that can be put into MediaWiki API query"() {
+		expect:
+		TitleUtil.toMediaWikiTitle('Title') == 'Title'
+		TitleUtil.toMediaWikiTitle('Title title') == 'Title_title'
+		TitleUtil.toMediaWikiTitle('Title title#section') == 'Title_title#section'
+		TitleUtil.toMediaWikiTitle('Title title#section section') == 'Title_title#section_section'
+	}
+
 }

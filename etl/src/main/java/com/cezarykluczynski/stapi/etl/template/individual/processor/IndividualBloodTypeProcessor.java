@@ -39,7 +39,7 @@ public class IndividualBloodTypeProcessor implements ItemProcessor<String, Blood
 			}
 		}
 
-		log.error("Unknown individual blood type: {} ", itemTrimmedLowerCase);
+		log.error("Unknown character blood type: {} ", itemTrimmedLowerCase);
 		return null;
 	}
 

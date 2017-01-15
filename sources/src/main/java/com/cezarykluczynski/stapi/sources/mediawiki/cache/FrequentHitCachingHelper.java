@@ -9,6 +9,8 @@ import java.util.Map;
 @Service
 public class FrequentHitCachingHelper {
 
+	public static final int CACHE_THRESHOLD = 5;
+
 	private Map<MediaWikiSource, Map<String, Integer>> cacheMap;
 
 	public FrequentHitCachingHelper() {
@@ -19,7 +21,7 @@ public class FrequentHitCachingHelper {
 		cacheMap.get(mediaWikiSource).putIfAbsent(title, 0);
 		Integer updatedHitCount = cacheMap.get(mediaWikiSource).get(title) + 1;
 		cacheMap.get(mediaWikiSource).put(title, updatedHitCount);
-		return updatedHitCount >= 5;
+		return updatedHitCount >= CACHE_THRESHOLD;
 	}
 
 	public Map<MediaWikiSource, Map<String, Integer>> dumpStatisticsAndReset() {

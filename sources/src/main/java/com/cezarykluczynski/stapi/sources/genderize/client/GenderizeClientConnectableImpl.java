@@ -51,8 +51,8 @@ public class GenderizeClientConnectableImpl implements GenderizeClient {
 
 		try {
 			URL url = new URL(apiUrl + "?name=" + name);
-			URLConnection con = url.openConnection();
-			InputStream in = con.getInputStream();
+			URLConnection connection = url.openConnection();
+			InputStream in = connection.getInputStream();
 			String result = new BufferedReader(new InputStreamReader(in))
 					.lines().collect(Collectors.joining("\n"));
 			callsCount++;

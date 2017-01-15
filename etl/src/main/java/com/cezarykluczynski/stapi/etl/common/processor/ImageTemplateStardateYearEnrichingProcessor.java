@@ -30,7 +30,7 @@ public class ImageTemplateStardateYearEnrichingProcessor
 	}
 
 	@Override
-	public void enrich(EnrichablePair<Template, ImageTemplate> enrichablePair) {
+	public void enrich(EnrichablePair<Template, ImageTemplate> enrichablePair) throws Exception {
 		Template template = enrichablePair.getInput();
 		ImageTemplate imageTemplate = enrichablePair.getOutput();
 		StardateYearDTO stardateYearDTO = null;
@@ -54,12 +54,7 @@ public class ImageTemplateStardateYearEnrichingProcessor
 					break;
 				case WS_DATE:
 					if (!stardateFixedValueFound) {
-						try {
-							stardateYearDTO = stardateYearProcessor
-									.process(StardateYearCandidateDTO.of(value, StardateYearSource.EPISODE, title));
-						} catch (Exception e) {
-							// do nothing
-						}
+						stardateYearDTO = stardateYearProcessor.process(StardateYearCandidateDTO.of(value, StardateYearSource.EPISODE, title));
 					}
 					break;
 				default:

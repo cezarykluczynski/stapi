@@ -1,6 +1,13 @@
 package com.cezarykluczynski.stapi.server.episode.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.soap.*
+import com.cezarykluczynski.stapi.client.v1.soap.DateRange
+import com.cezarykluczynski.stapi.client.v1.soap.Episode
+import com.cezarykluczynski.stapi.client.v1.soap.EpisodeRequest
+import com.cezarykluczynski.stapi.client.v1.soap.EpisodeResponse
+import com.cezarykluczynski.stapi.client.v1.soap.RequestPage
+import com.cezarykluczynski.stapi.client.v1.soap.RequestSort
+import com.cezarykluczynski.stapi.client.v1.soap.RequestSortClause
+import com.cezarykluczynski.stapi.client.v1.soap.RequestSortDirectionEnum
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.google.common.collect.Lists

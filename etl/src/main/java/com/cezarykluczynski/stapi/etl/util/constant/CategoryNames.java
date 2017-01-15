@@ -92,4 +92,10 @@ public class CategoryNames {
 			CategoryName.DIS_EPISODES
 	);
 
+	public static final List<String> LISTS = Lists.newArrayList(
+			CategoryName.PRODUCTION_LISTS,
+			CategoryName.LISTS,
+			CategoryName.PERSONNEL_LISTS
+	);
+
 }
