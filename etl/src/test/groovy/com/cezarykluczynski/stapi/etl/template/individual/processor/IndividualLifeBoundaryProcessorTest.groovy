@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.individual.processor
 
 import com.cezarykluczynski.stapi.etl.template.common.processor.PageLinkToYearProcessor
+import com.cezarykluczynski.stapi.etl.template.individual.dto.DayMonthDTO
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualLifeBoundaryDTO
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
@@ -8,6 +9,8 @@ import com.cezarykluczynski.stapi.util.ReflectionTestUtils
 import com.google.common.collect.Lists
 import org.apache.commons.lang3.StringUtils
 import spock.lang.Specification
+
+import java.time.Month
 
 class IndividualLifeBoundaryProcessorTest extends Specification {
 
@@ -18,13 +21,19 @@ class IndividualLifeBoundaryProcessorTest extends Specification {
 
 	private WikitextApi wikitextApiMock
 
+	private DayMonthPageLinkProcessor dayMonthPageLinkProcessorMock
+
+	private DayInMonthProximityFindingProcessor dayInMonthProximityFindingProcessorMock
+
 	private IndividualLifeBoundaryProcessor individualLifeBoundaryProcessor
 
 	def setup() {
 		pageLinkToYearProcessorMock = Mock(PageLinkToYearProcessor)
 		wikitextApiMock = Mock(WikitextApi)
-		individualLifeBoundaryProcessor = new IndividualLifeBoundaryProcessor(wikitextApiMock,
-				pageLinkToYearProcessorMock)
+		dayMonthPageLinkProcessorMock = Mock(DayMonthPageLinkProcessor)
+		dayInMonthProximityFindingProcessorMock = Mock(DayInMonthProximityFindingProcessor)
+		individualLifeBoundaryProcessor = new IndividualLifeBoundaryProcessor(wikitextApiMock, pageLinkToYearProcessorMock,
+				dayMonthPageLinkProcessorMock, dayInMonthProximityFindingProcessorMock)
 	}
 
 	def "returns empty dto when wikitext has no links"() {
@@ -33,6 +42,7 @@ class IndividualLifeBoundaryProcessorTest extends Specification {
 
 		then:
 		1 * wikitextApiMock.getPageLinksFromWikitext(StringUtils.EMPTY) >> Lists.newArrayList()
+		0 * _
 		ReflectionTestUtils.getNumberOfNotNullFields(individualLifeBoundaryDTO) == 0
 	}
 
@@ -48,8 +58,48 @@ class IndividualLifeBoundaryProcessorTest extends Specification {
 		1 * wikitextApiMock.getPageLinksFromWikitext(StringUtils.EMPTY) >> Lists.newArrayList(pageLink1, pageLink2)
 		1 * pageLinkToYearProcessorMock.process(pageLink1) >> YEAR_1
 		1 * pageLinkToYearProcessorMock.process(pageLink2) >> YEAR_2
+		0 * _
 		individualLifeBoundaryDTO.year == YEAR_1
 		ReflectionTestUtils.getNumberOfNotNullFields(individualLifeBoundaryDTO) == 1
+	}
+
+	def "when no year was found, link is passed to DayMonthPageLinkProcessor"() {
+		given:
+		PageLink pageLink = Mock(PageLink)
+		Integer day = 2
+		Month month = Month.SEPTEMBER
+
+		when:
+		IndividualLifeBoundaryDTO individualLifeBoundaryDTO = individualLifeBoundaryProcessor.process(StringUtils.EMPTY)
+
+		then:
+		1 * wikitextApiMock.getPageLinksFromWikitext(StringUtils.EMPTY) >> Lists.newArrayList(pageLink)
+		1 * pageLinkToYearProcessorMock.process(pageLink) >> null
+		1 * dayMonthPageLinkProcessorMock.process(pageLink) >> DayMonthDTO.of(day, month)
+		individualLifeBoundaryDTO.day == day
+		individualLifeBoundaryDTO.month == month.value
+		individualLifeBoundaryDTO.year == null
+		ReflectionTestUtils.getNumberOfNotNullFields(individualLifeBoundaryDTO) == 2
+	}
+
+	def "when no year was found, and DayMonthPageLinkProcessor returns only month, day is looked up with DayInMonthProximityFindingProcessor"() {
+		given:
+		PageLink pageLink = Mock(PageLink)
+		Integer day = 2
+		Month month = Month.SEPTEMBER
+
+		when:
+		IndividualLifeBoundaryDTO individualLifeBoundaryDTO = individualLifeBoundaryProcessor.process(StringUtils.EMPTY)
+
+		then:
+		1 * wikitextApiMock.getPageLinksFromWikitext(StringUtils.EMPTY) >> Lists.newArrayList(pageLink)
+		1 * pageLinkToYearProcessorMock.process(pageLink) >> null
+		1 * dayMonthPageLinkProcessorMock.process(pageLink) >> DayMonthDTO.of(null, month)
+		1 * dayInMonthProximityFindingProcessorMock.process(_) >> day
+		individualLifeBoundaryDTO.day == day
+		individualLifeBoundaryDTO.month == month.value
+		individualLifeBoundaryDTO.year == null
+		ReflectionTestUtils.getNumberOfNotNullFields(individualLifeBoundaryDTO) == 2
 	}
 
 }

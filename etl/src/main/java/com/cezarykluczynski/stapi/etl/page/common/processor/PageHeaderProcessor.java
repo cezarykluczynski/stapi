@@ -26,6 +26,10 @@ public class PageHeaderProcessor implements ItemProcessor<PageHeader, Page> {
 	public Page process(PageHeader item) throws Exception {
 		Page page = pageApi.getPage(item.getTitle(), item.getMediaWikiSource());
 
+		if (page == null) {
+			return null;
+		}
+
 		if (page.getPageId() == null) {
 			List<PageHeader> redirectPath = page.getRedirectPath();
 			if (redirectPath.isEmpty()) {

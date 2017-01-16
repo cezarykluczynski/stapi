@@ -33,8 +33,12 @@ class WikitextApiImplTest extends Specification {
 		pageList.size() == 2
 		pageList[0].title == 'Some page'
 		pageList[0].description == 'description'
+		pageList[0].startPosition == 10
+		pageList[0].endPosition == 35
 		pageList[1].title == 'another page'
 		pageList[1].description == null
+		pageList[1].startPosition == 40
+		pageList[1].endPosition == 56
 	}
 
 }

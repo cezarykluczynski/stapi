@@ -27,6 +27,18 @@ class PageHeaderProcessorTest extends Specification {
 		pageHeaderProcessor = new PageHeaderProcessor(pageApiMock)
 	}
 
+	def "when Page Api returns null, null is returned"() {
+		given:
+		PageHeader pageHeader = new PageHeader()
+
+		when:
+		Page page = pageHeaderProcessor.process(pageHeader)
+
+		then:
+		1 * pageApiMock.getPage(*_) >> null
+		page == null
+	}
+
 	def "gets page using page header's title"() {
 		given:
 		PageHeader pageHeader = PageHeader.builder()
