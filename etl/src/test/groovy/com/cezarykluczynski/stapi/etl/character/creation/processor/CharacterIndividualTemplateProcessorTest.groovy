@@ -64,6 +64,8 @@ class CharacterIndividualTemplateProcessorTest extends AbstractIndividualTest {
 				bloodType: BLOOD_TYPE,
 				maritalStatus: MARITAL_STATUS,
 				serialNumber: SERIAL_NUMBER,
+				mirror: MIRROR,
+				alternateReality: ALTERNATE_REALITY,
 				performers: Sets.newHashSet(PERFORMER_1, PERFORMER_2)
 		)
 		when:
@@ -89,6 +91,8 @@ class CharacterIndividualTemplateProcessorTest extends AbstractIndividualTest {
 		character.bloodType == BLOOD_TYPE
 		character.maritalStatus == MARITAL_STATUS
 		character.serialNumber == SERIAL_NUMBER
+		character.mirror == MIRROR
+		character.alternateReality == ALTERNATE_REALITY
 		character.performers.size() == 2
 		character.performers.contains PERFORMER_1
 		character.performers.contains PERFORMER_2

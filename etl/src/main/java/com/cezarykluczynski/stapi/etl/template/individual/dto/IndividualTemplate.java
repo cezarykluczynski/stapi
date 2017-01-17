@@ -49,6 +49,10 @@ public class IndividualTemplate {
 
 	private String serialNumber;
 
+	private Boolean mirror;
+
+	private Boolean alternateReality;
+
 	private boolean productOfRedirect;
 
 	private Set<Performer> performers = Sets.newHashSet();

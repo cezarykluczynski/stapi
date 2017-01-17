@@ -13,11 +13,17 @@ public class CharacterRestBeanParams extends PageSortBeanParams {
 	@FormParam("name")
 	private String name;
 
+	@FormParam("gender")
+	private Gender gender;
+
 	@FormParam("deceased")
 	private Boolean deceased;
 
-	@FormParam("gender")
-	private Gender gender;
+	@FormParam("mirror")
+	private Boolean mirror;
+
+	@FormParam("alternateReality")
+	private Boolean alternateReality;
 
 	public String getGuid() {
 		return guid;
@@ -27,12 +33,20 @@ public class CharacterRestBeanParams extends PageSortBeanParams {
 		return name;
 	}
 
+	public Gender getGender() {
+		return gender;
+	}
+
 	public Boolean getDeceased() {
 		return deceased;
 	}
 
-	public Gender getGender() {
-		return gender;
+	public Boolean getMirror() {
+		return mirror;
+	}
+
+	public Boolean getAlternateReality() {
+		return alternateReality;
 	}
 
 	public static CharacterRestBeanParams fromPageSortBeanParams(PageSortBeanParams pageSortBeanParams) {

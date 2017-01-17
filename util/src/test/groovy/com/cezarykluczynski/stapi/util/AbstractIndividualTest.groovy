@@ -18,6 +18,8 @@ abstract class AbstractIndividualTest extends Specification {
 	protected static final Integer HEIGHT = 175
 	protected static final Integer WEIGHT = 80
 	protected static final Boolean DECEASED = LogicUtil.nextBoolean()
+	protected static final Boolean MIRROR = LogicUtil.nextBoolean()
+	protected static final Boolean ALTERNATE_REALITY = LogicUtil.nextBoolean()
 	protected static final String SERIAL_NUMBER = 'SERIAL_NUMBER'
 
 }

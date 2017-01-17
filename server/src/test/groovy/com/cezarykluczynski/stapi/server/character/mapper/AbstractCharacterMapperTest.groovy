@@ -35,6 +35,8 @@ abstract class AbstractCharacterMapperTest extends AbstractIndividualTest {
 				bloodType: ENTITY_BLOOD_TYPE,
 				maritalStatus: ENTITY_MARITAL_STATUS,
 				serialNumber: SERIAL_NUMBER,
+				mirror: MIRROR,
+				alternateReality: ALTERNATE_REALITY,
 				performers: Sets.newHashSet(Mock(Performer)),
 				episodes: Sets.newHashSet(Mock(Episode)),
 				movies: Sets.newHashSet(Mock(Movie))

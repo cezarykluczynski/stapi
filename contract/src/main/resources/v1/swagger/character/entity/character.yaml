@@ -34,6 +34,10 @@ properties:
     $ref: ./common/entity/enum/maritalStatus.definitions.yaml
   serialNumber:
     type: string
+  mirror:
+    type: boolean
+  alternateReality:
+    type: boolean
   performerHeaders:
     type: array
     items:

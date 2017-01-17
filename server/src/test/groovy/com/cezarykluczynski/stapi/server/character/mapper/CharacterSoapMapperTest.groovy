@@ -28,8 +28,10 @@ class CharacterSoapMapperTest extends AbstractCharacterMapperTest {
 				guid: GUID,
 				name: NAME,
 				gender: SOAP_GENDER,
-				deceased: DECEASED
-		)
+				deceased: DECEASED,
+				mirror: MIRROR,
+				alternateReality: ALTERNATE_REALITY)
+
 
 		when:
 		CharacterRequestDTO characterRequestDTO = characterSoapMapper.map characterRequest
@@ -39,6 +41,8 @@ class CharacterSoapMapperTest extends AbstractCharacterMapperTest {
 		characterRequestDTO.name == NAME
 		characterRequestDTO.gender == ENTITY_GENDER
 		characterRequestDTO.deceased == DECEASED
+		characterRequestDTO.mirror == MIRROR
+		characterRequestDTO.alternateReality == ALTERNATE_REALITY
 	}
 
 	def "maps DB entity to SOAP entity"() {
@@ -62,10 +66,12 @@ class CharacterSoapMapperTest extends AbstractCharacterMapperTest {
 		soapCharacter.placeOfDeath == PLACE_OF_DEATH
 		soapCharacter.height == HEIGHT
 		soapCharacter.weight == WEIGHT
-		soapCharacter.isDeceased() == DECEASED
+		soapCharacter.deceased == DECEASED
 		soapCharacter.bloodType == SOAP_BLOOD_TYPE
 		soapCharacter.maritalStatus == SOAP_MARITAL_STATUS
 		soapCharacter.serialNumber == SERIAL_NUMBER
+		soapCharacter.mirror == MIRROR
+		soapCharacter.alternateReality == ALTERNATE_REALITY
 		soapCharacter.performerHeaders.size() == dbCharacter.performers.size()
 		soapCharacter.episodeHeaders.size() == dbCharacter.episodes.size()
 		soapCharacter.movieHeaders.size() == dbCharacter.movies.size()

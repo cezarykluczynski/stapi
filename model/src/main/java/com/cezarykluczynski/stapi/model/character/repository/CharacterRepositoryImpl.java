@@ -33,6 +33,8 @@ public class CharacterRepositoryImpl extends AbstractRepositoryImpl<Character> i
 		characterQueryBuilder.like(Character_.name, criteria.getName());
 		characterQueryBuilder.equal(Character_.gender, criteria.getGender());
 		characterQueryBuilder.equal(Character_.deceased, criteria.getDeceased());
+		characterQueryBuilder.equal(Character_.mirror, criteria.getMirror());
+		characterQueryBuilder.equal(Character_.alternateReality, criteria.getAlternateReality());
 		characterQueryBuilder.setSort(criteria.getSort());
 		characterQueryBuilder.fetch(Character_.performers, doFetch);
 		characterQueryBuilder.fetch(Character_.episodes, doFetch);

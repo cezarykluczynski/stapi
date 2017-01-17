@@ -6,10 +6,8 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.Gender as RestGender
 import com.cezarykluczynski.stapi.client.v1.rest.model.MaritalStatus as RestMaritalStatus
 import com.cezarykluczynski.stapi.model.character.dto.CharacterRequestDTO
 import com.cezarykluczynski.stapi.model.character.entity.Character as DBCharacter
-import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.server.character.dto.CharacterRestBeanParams
 import com.google.common.collect.Lists
-import com.google.common.collect.Sets
 import org.mapstruct.factory.Mappers
 
 class CharacterRestMapperTest extends AbstractCharacterMapperTest {
@@ -30,8 +28,9 @@ class CharacterRestMapperTest extends AbstractCharacterMapperTest {
 				guid: GUID,
 				name: NAME,
 				gender: ENTITY_GENDER,
-				deceased: DECEASED
-		)
+				deceased: DECEASED,
+				mirror: MIRROR,
+				alternateReality: ALTERNATE_REALITY)
 
 		when:
 		CharacterRequestDTO characterRequestDTO = characterRestMapper.map characterRestBeanParams
@@ -40,30 +39,14 @@ class CharacterRestMapperTest extends AbstractCharacterMapperTest {
 		characterRequestDTO.guid == GUID
 		characterRequestDTO.name == NAME
 		characterRequestDTO.gender == ENTITY_GENDER
-		characterRequestDTO.getDeceased() == DECEASED
+		characterRequestDTO.deceased == DECEASED
+		characterRequestDTO.mirror == MIRROR
+		characterRequestDTO.alternateReality == ALTERNATE_REALITY
 	}
 
 	def "maps DB entity to REST entity"() {
 		given:
-		DBCharacter dbCharacter = new DBCharacter(
-				name: NAME,
-				gender: ENTITY_GENDER,
-				yearOfBirth: YEAR_OF_BIRTH,
-				monthOfBirth: MONTH_OF_BIRTH,
-				dayOfBirth: DAY_OF_BIRTH,
-				placeOfBirth: PLACE_OF_BIRTH,
-				yearOfDeath: YEAR_OF_DEATH,
-				monthOfDeath: MONTH_OF_DEATH,
-				dayOfDeath: DAY_OF_DEATH,
-				placeOfDeath: PLACE_OF_DEATH,
-				height: HEIGHT,
-				weight: WEIGHT,
-				deceased: DECEASED,
-				bloodType: ENTITY_BLOOD_TYPE,
-				maritalStatus: ENTITY_MARITAL_STATUS,
-				serialNumber: SERIAL_NUMBER,
-				performers: Sets.newHashSet(new Performer())
-		)
+		DBCharacter dbCharacter = createCharacter()
 
 		when:
 		RESTCharacter restCharacter = characterRestMapper.map(Lists.newArrayList(dbCharacter))[0]
@@ -85,6 +68,8 @@ class CharacterRestMapperTest extends AbstractCharacterMapperTest {
 		restCharacter.bloodType == REST_BLOOD_TYPE
 		restCharacter.maritalStatus == REST_MARITAL_STATUS
 		restCharacter.serialNumber == SERIAL_NUMBER
+		restCharacter.mirror == MIRROR
+		restCharacter.alternateReality == ALTERNATE_REALITY
 		restCharacter.performerHeaders.size() == dbCharacter.performers.size()
 		restCharacter.episodeHeaders.size() == dbCharacter.episodes.size()
 		restCharacter.movieHeaders.size() == dbCharacter.movies.size()

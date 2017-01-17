@@ -47,6 +47,12 @@ post:
     - name: deceased
       in: formData
       type: boolean
+    - name: mirror
+      in: formData
+      type: boolean
+    - name: alternateReality
+      in: formData
+      type: boolean
   responses:
     200:
       schema:

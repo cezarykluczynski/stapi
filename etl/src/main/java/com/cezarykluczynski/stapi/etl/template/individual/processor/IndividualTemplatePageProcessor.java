@@ -52,18 +52,22 @@ public class IndividualTemplatePageProcessor implements ItemProcessor<Page, Indi
 
 	private IndividualTemplatePartsEnrichingProcessor individualTemplatePartsEnrichingProcessor;
 
+	private IndividualMirrorAlternateUniverseEnrichingProcessor individualMirrorAlternateUniverseEnrichingProcessor;
+
 	private CharacterboxIndividualTemplateEnrichingProcessor characterboxIndividualTemplateEnrichingProcessor;
 
 	@Inject
 	public IndividualTemplatePageProcessor(IndividualDateOfDeathEnrichingProcessor individualDateOfDeathEnrichingProcessor, WikitextApi wikitextApi,
 			PageBindingService pageBindingService, TemplateFinder templateFinder,
 			IndividualTemplatePartsEnrichingProcessor individualTemplatePartsEnrichingProcessor,
+			IndividualMirrorAlternateUniverseEnrichingProcessor individualMirrorAlternateUniverseEnrichingProcessor,
 			CharacterboxIndividualTemplateEnrichingProcessor characterboxIndividualTemplateEnrichingProcessor) {
 		this.individualDateOfDeathEnrichingProcessor = individualDateOfDeathEnrichingProcessor;
 		this.wikitextApi = wikitextApi;
 		this.pageBindingService = pageBindingService;
 		this.templateFinder = templateFinder;
 		this.individualTemplatePartsEnrichingProcessor = individualTemplatePartsEnrichingProcessor;
+		this.individualMirrorAlternateUniverseEnrichingProcessor = individualMirrorAlternateUniverseEnrichingProcessor;
 		this.characterboxIndividualTemplateEnrichingProcessor = characterboxIndividualTemplateEnrichingProcessor;
 	}
 
@@ -88,6 +92,7 @@ public class IndividualTemplatePageProcessor implements ItemProcessor<Page, Indi
 
 		individualDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate));
 		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(template.getParts(), individualTemplate));
+		individualMirrorAlternateUniverseEnrichingProcessor.enrich(EnrichablePair.of(item, individualTemplate));
 
 		Optional<Template> memoryBetaTemplateOptional = templateFinder.findTemplate(item, TemplateName.MBETA);
 

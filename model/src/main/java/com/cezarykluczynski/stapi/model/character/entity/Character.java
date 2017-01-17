@@ -76,6 +76,10 @@ public class Character extends PageAwareEntity implements PageAware {
 
 	private String serialNumber;
 
+	private Boolean mirror;
+
+	private Boolean alternateReality;
+
 	@ManyToMany(mappedBy = "characters", targetEntity = Performer.class)
 	private Set<Performer> performers = Sets.newHashSet();
 

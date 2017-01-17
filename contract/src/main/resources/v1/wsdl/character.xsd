@@ -21,6 +21,8 @@
 						<xs:element name="name" type="xs:string" minOccurs="0"/>
 						<xs:element name="gender" type="common:GenderEnum" minOccurs="0"/>
 						<xs:element name="deceased" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="mirror" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="alternateReality" type="xs:boolean" minOccurs="0"/>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
@@ -56,6 +58,8 @@
 			<xs:element name="bloodType" type="common:BloodTypeEnum" minOccurs="0"/>
 			<xs:element name="maritalStatus" type="common:MaritalStatusEnum" minOccurs="0"/>
 			<xs:element name="serialNumber" type="xs:string"/>
+			<xs:element name="mirror" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="alternateReality" type="xs:boolean" minOccurs="0"/>
 			<xs:sequence>
 				<xs:element name="performerHeaders" type="performer:PerformerHeader" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>

@@ -38,6 +38,8 @@ class IndividualTemplatePageProcessorTest extends Specification {
 
 	private IndividualTemplatePartsEnrichingProcessor individualTemplatePartsEnrichingProcessorMock
 
+	private IndividualMirrorAlternateUniverseEnrichingProcessor individualMirrorAlternateUniverseEnrichingProcessorMock
+
 	private CharacterboxIndividualTemplateEnrichingProcessor characterboxIndividualTemplateEnrichingProcessorMock
 
 	private IndividualTemplatePageProcessor individualTemplatePageProcessor
@@ -48,10 +50,11 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		pageBindingServiceMock = Mock(PageBindingService)
 		templateFinderMock = Mock(TemplateFinder)
 		individualTemplatePartsEnrichingProcessorMock = Mock(IndividualTemplatePartsEnrichingProcessor)
+		individualMirrorAlternateUniverseEnrichingProcessorMock = Mock(IndividualMirrorAlternateUniverseEnrichingProcessor)
 		characterboxIndividualTemplateEnrichingProcessorMock = Mock(CharacterboxIndividualTemplateEnrichingProcessor)
 		individualTemplatePageProcessor = new IndividualTemplatePageProcessor(individualDateOfDeathEnrichingProcessorMock,
 				wikitextApiMock, pageBindingServiceMock, templateFinderMock, individualTemplatePartsEnrichingProcessorMock,
-				characterboxIndividualTemplateEnrichingProcessorMock)
+				individualMirrorAlternateUniverseEnrichingProcessorMock, characterboxIndividualTemplateEnrichingProcessorMock)
 	}
 
 	def "returns null when page name starts with 'Unnamed '"() {
@@ -307,10 +310,17 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		1 * pageBindingServiceMock.fromPageToPageEntity(page)
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.of(sidebarIndividualTemplate)
 		1 * individualDateOfDeathEnrichingProcessorMock.enrich(_) >> { EnrichablePair<Template, IndividualTemplate> enrichablePair ->
-			enrichablePair.input == sidebarIndividualTemplate
-			enrichablePair.output != null
+			assert enrichablePair.input == sidebarIndividualTemplate
+			assert enrichablePair.output != null
 		}
-		1 * individualTemplatePartsEnrichingProcessorMock.enrich(_)
+		1 * individualTemplatePartsEnrichingProcessorMock.enrich(_) >> { EnrichablePair<List<Template.Part>, IndividualTemplate> enrichablePair ->
+			assert enrichablePair.input == templatePartList
+			assert enrichablePair.output != null
+		}
+		1 * individualMirrorAlternateUniverseEnrichingProcessorMock.enrich(_) >> { EnrichablePair<Page, IndividualTemplate> enrichablePair ->
+			assert enrichablePair.input == page
+			assert enrichablePair.output != null
+		}
 		1 * templateFinderMock.findTemplate(page, TemplateName.MBETA) >> Optional.empty()
 		0 * _
 	}
@@ -333,14 +343,21 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		1 * pageBindingServiceMock.fromPageToPageEntity(page)
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.of(sidebarIndividualTemplate)
 		1 * individualDateOfDeathEnrichingProcessorMock.enrich(_) >> { EnrichablePair<Template, IndividualTemplate> enrichablePair ->
-			enrichablePair.input == sidebarIndividualTemplate
-			enrichablePair.output != null
+			assert enrichablePair.input == sidebarIndividualTemplate
+			assert enrichablePair.output != null
 		}
-		1 * individualTemplatePartsEnrichingProcessorMock.enrich(_)
+		1 * individualTemplatePartsEnrichingProcessorMock.enrich(_) >> { EnrichablePair<List<Template.Part>, IndividualTemplate> enrichablePair ->
+			assert enrichablePair.input == templatePartList
+			assert enrichablePair.output != null
+		}
+		1 * individualMirrorAlternateUniverseEnrichingProcessorMock.enrich(_) >> { EnrichablePair<Page, IndividualTemplate> enrichablePair ->
+			assert enrichablePair.input == page
+			assert enrichablePair.output != null
+		}
 		1 * templateFinderMock.findTemplate(page, TemplateName.MBETA) >> Optional.of(mbetaTemplate)
 		1 * characterboxIndividualTemplateEnrichingProcessorMock.enrich(_) >> { EnrichablePair<Template, IndividualTemplate> enrichablePair ->
-			enrichablePair.input == mbetaTemplate
-			enrichablePair.output != null
+			assert enrichablePair.input == mbetaTemplate
+			assert enrichablePair.output != null
 		}
 		0 * _
 	}

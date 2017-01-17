@@ -20,6 +20,8 @@ class CharacterRepositoryImplTest extends Specification {
 	private static final String NAME = 'NAME'
 	private static final Gender GENDER = Gender.F
 	private static final Boolean DECEASED = LogicUtil.nextBoolean()
+	private static final Boolean MIRROR = LogicUtil.nextBoolean()
+	private static final Boolean ALTERNATE_REALITY = LogicUtil.nextBoolean()
 	private static final RequestSortDTO SORT = new RequestSortDTO()
 
 	private CharacterQueryBuilderFactory characterQueryBuilderMock
@@ -68,6 +70,10 @@ class CharacterRepositoryImplTest extends Specification {
 		then: 'boolean criteria are set'
 		1 * characterRequestDTO.getDeceased() >> DECEASED
 		1 * characterQueryBuilder.equal(Character_.deceased, DECEASED)
+		1 * characterRequestDTO.getMirror() >> MIRROR
+		1 * characterQueryBuilder.equal(Character_.mirror, MIRROR)
+		1 * characterRequestDTO.getAlternateReality() >> ALTERNATE_REALITY
+		1 * characterQueryBuilder.equal(Character_.alternateReality, ALTERNATE_REALITY)
 
 		then: 'sort is set'
 		1 * characterRequestDTO.getSort() >> SORT
