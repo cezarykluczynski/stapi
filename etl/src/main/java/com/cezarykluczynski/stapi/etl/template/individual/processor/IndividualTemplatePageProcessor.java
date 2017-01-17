@@ -35,9 +35,10 @@ public class IndividualTemplatePageProcessor implements ItemProcessor<Page, Indi
 	private static final String MEMORY_ALPHA_IMAGES_PREFIX = "Memory Alpha images";
 	private static final String PERSONNEL = "personnel";
 
-	private static final Set<String> NOT_CHARACTERS_CATEGORY_TITLES = Sets.newHashSet(CategoryNames.LISTS);
+	private static final Set<String> NOT_CHARACTERS_CATEGORY_TITLES = Sets.newHashSet();
 
 	static {
+		NOT_CHARACTERS_CATEGORY_TITLES.addAll(CategoryNames.LISTS);
 		NOT_CHARACTERS_CATEGORY_TITLES.add(CategoryName.FAMILIES);
 	}
 

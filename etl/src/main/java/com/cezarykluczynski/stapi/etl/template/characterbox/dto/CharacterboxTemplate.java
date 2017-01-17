@@ -17,4 +17,20 @@ public class CharacterboxTemplate {
 
 	private MaritalStatus maritalStatus;
 
+	private Integer yearOfBirth;
+
+	private Integer monthOfBirth;
+
+	private Integer dayOfBirth;
+
+	private String placeOfBirth;
+
+	private Integer yearOfDeath;
+
+	private Integer monthOfDeath;
+
+	private Integer dayOfDeath;
+
+	private String placeOfDeath;
+
 }

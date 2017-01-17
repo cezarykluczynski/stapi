@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.individual.processor
 
+import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.template.characterbox.processor.CharacterboxIndividualTemplateEnrichingProcessor
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate
@@ -12,6 +13,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource as
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.ReflectionTestUtils
 import com.cezarykluczynski.stapi.util.constant.PageName
 import com.cezarykluczynski.stapi.util.constant.TemplateName
@@ -286,6 +288,61 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		then:
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.empty()
 		!individualTemplate.productOfRedirect
+	}
+
+	def "when sidebar individual is found, enriching processors are called, but not the characterbox processor, when there is no mbeta template"() {
+		given:
+		List<Template.Part> templatePartList = Lists.newArrayList(Mock(Template.Part))
+		Page page = new Page(
+				title: TITLE
+		)
+		Template sidebarIndividualTemplate = new Template(parts: templatePartList)
+		wikitextApiMock.getPageLinksFromWikitext(_) >> Lists.newArrayList()
+
+		when:
+		individualTemplatePageProcessor.process(page)
+
+		then:
+		1 * wikitextApiMock.getPageLinksFromWikitext(_) >> Lists.newArrayList()
+		1 * pageBindingServiceMock.fromPageToPageEntity(page)
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.of(sidebarIndividualTemplate)
+		1 * individualDateOfDeathEnrichingProcessorMock.enrich(_) >> { EnrichablePair<Template, IndividualTemplate> enrichablePair ->
+			enrichablePair.input == sidebarIndividualTemplate
+			enrichablePair.output != null
+		}
+		1 * individualTemplatePartsEnrichingProcessorMock.enrich(_)
+		1 * templateFinderMock.findTemplate(page, TemplateName.MBETA) >> Optional.empty()
+		0 * _
+	}
+
+	def "when sidebar individual is found, enriching processors are called, including characterbox processor, when mbeta template is found"() {
+		given:
+		List<Template.Part> templatePartList = Lists.newArrayList(Mock(Template.Part))
+		Page page = new Page(
+				title: TITLE
+		)
+		Template sidebarIndividualTemplate = new Template(parts: templatePartList)
+		Template mbetaTemplate = Mock(Template)
+		wikitextApiMock.getPageLinksFromWikitext(_) >> Lists.newArrayList()
+
+		when:
+		individualTemplatePageProcessor.process(page)
+
+		then:
+		1 * wikitextApiMock.getPageLinksFromWikitext(_) >> Lists.newArrayList()
+		1 * pageBindingServiceMock.fromPageToPageEntity(page)
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.of(sidebarIndividualTemplate)
+		1 * individualDateOfDeathEnrichingProcessorMock.enrich(_) >> { EnrichablePair<Template, IndividualTemplate> enrichablePair ->
+			enrichablePair.input == sidebarIndividualTemplate
+			enrichablePair.output != null
+		}
+		1 * individualTemplatePartsEnrichingProcessorMock.enrich(_)
+		1 * templateFinderMock.findTemplate(page, TemplateName.MBETA) >> Optional.of(mbetaTemplate)
+		1 * characterboxIndividualTemplateEnrichingProcessorMock.enrich(_) >> { EnrichablePair<Template, IndividualTemplate> enrichablePair ->
+			enrichablePair.input == mbetaTemplate
+			enrichablePair.output != null
+		}
+		0 * _
 	}
 
 }

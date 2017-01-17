@@ -16,6 +16,14 @@ class IndividualTemplateWithCharacterboxTemplateEnrichingProcessorTest extends S
 	private static final Integer HEIGHT_2 = 2
 	private static final Integer WEIGHT_1 = 3
 	private static final Integer WEIGHT_2 = 4
+	private static final Integer YEAR_1 = 1970
+	private static final Integer YEAR_2 = 1975
+	private static final Integer MONTH_1 = 7
+	private static final Integer MONTH_2 = 11
+	private static final Integer DAY_1 = 7
+	private static final Integer DAY_2 = 16
+	private static final String PLACE_1 = 'PLACE_1'
+	private static final String PLACE_2 = 'PLACE_2'
 	private static final MaritalStatus MARITAL_STATUS_MARRIED = MaritalStatus.MARRIED
 	private static final MaritalStatus MARITAL_STATUS_DIVORCED = MaritalStatus.DIVORCED
 
@@ -96,6 +104,151 @@ class IndividualTemplateWithCharacterboxTemplateEnrichingProcessorTest extends S
 		MARITAL_STATUS_MARRIED  | MARITAL_STATUS_MARRIED    | MARITAL_STATUS_MARRIED
 		MARITAL_STATUS_DIVORCED | MARITAL_STATUS_MARRIED    | MARITAL_STATUS_DIVORCED
 		MARITAL_STATUS_MARRIED  | null                      | MARITAL_STATUS_MARRIED
+	}
+
+	@Unroll("sets IndividualTemplate year of birth to #expectedIndividualYearOfBirth when IndividualTemplate has #individualYearOfBirth and CharacterboxTemplate has #characterboxYearOfBirth")
+	def "sets year of birth values of IndividualTemplate with values of CharacterboxTemplate"() {
+		given:
+		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(yearOfBirth: characterboxYearOfBirth)
+		IndividualTemplate individualTemplate = new IndividualTemplate(yearOfBirth: individualYearOfBirth)
+
+		expect:
+		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, individualTemplate))
+		individualTemplate.yearOfBirth == expectedIndividualYearOfBirth
+
+		where:
+		individualYearOfBirth | characterboxYearOfBirth | expectedIndividualYearOfBirth
+		null                  | YEAR_1                  | YEAR_1
+		YEAR_1                | YEAR_1                  | YEAR_1
+		YEAR_2                | YEAR_1                  | YEAR_2
+		YEAR_1                | null                    | YEAR_1
+	}
+
+	@Unroll("sets IndividualTemplate month of birth to #expectedIndividualMonthOfBirth when IndividualTemplate has #individualMonthOfBirth and CharacterboxTemplate has #characterboxMonthOfBirth")
+	def "sets month of birth values of IndividualTemplate with values of CharacterboxTemplate"() {
+		given:
+		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(monthOfBirth: characterboxMonthOfBirth)
+		IndividualTemplate individualTemplate = new IndividualTemplate(monthOfBirth: individualMonthOfBirth)
+
+		expect:
+		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, individualTemplate))
+		individualTemplate.monthOfBirth == expectedIndividualMonthOfBirth
+
+		where:
+		individualMonthOfBirth | characterboxMonthOfBirth | expectedIndividualMonthOfBirth
+		null                   | MONTH_1                  | MONTH_1
+		MONTH_1                | MONTH_1                  | MONTH_1
+		MONTH_2                | MONTH_1                  | MONTH_2
+		MONTH_1                | null                     | MONTH_1
+	}
+
+	@Unroll("sets IndividualTemplate day of birth to #expectedIndividualDayOfBirth when IndividualTemplate has #individualDayOfBirth and CharacterboxTemplate has #characterboxDayOfBirth")
+	def "sets day of birth values of IndividualTemplate with values of CharacterboxTemplate"() {
+		given:
+		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(dayOfBirth: characterboxDayOfBirth)
+		IndividualTemplate individualTemplate = new IndividualTemplate(dayOfBirth: individualDayOfBirth)
+
+		expect:
+		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, individualTemplate))
+		individualTemplate.dayOfBirth == expectedIndividualDayOfBirth
+
+		where:
+		individualDayOfBirth | characterboxDayOfBirth | expectedIndividualDayOfBirth
+		null                 | DAY_1                  | DAY_1
+		DAY_1                | DAY_1                  | DAY_1
+		DAY_2                | DAY_1                  | DAY_2
+		DAY_1                | null                   | DAY_1
+	}
+
+	@Unroll("sets IndividualTemplate place of birth to #expectedIndividualPlaceOfBirth when IndividualTemplate has #individualPlaceOfBirth and CharacterboxTemplate has #characterboxPlaceOfBirth")
+	def "sets place of birth values of IndividualTemplate with values of CharacterboxTemplate"() {
+		given:
+		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(placeOfBirth: characterboxPlaceOfBirth)
+		IndividualTemplate individualTemplate = new IndividualTemplate(placeOfBirth: individualPlaceOfBirth)
+
+		expect:
+		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, individualTemplate))
+		individualTemplate.placeOfBirth == expectedIndividualPlaceOfBirth
+
+		where:
+		individualPlaceOfBirth | characterboxPlaceOfBirth | expectedIndividualPlaceOfBirth
+		null                   | PLACE_1                  | PLACE_1
+		PLACE_1                | PLACE_1                  | PLACE_1
+		PLACE_2                | PLACE_1                  | PLACE_2
+		PLACE_1                | null                     | PLACE_1
+	}
+
+
+	@Unroll("sets IndividualTemplate year of death to #expectedIndividualYearOfDeath when IndividualTemplate has #individualYearOfDeath and CharacterboxTemplate has #characterboxYearOfDeath")
+	def "sets year of death values of IndividualTemplate with values of CharacterboxTemplate"() {
+		given:
+		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(yearOfDeath: characterboxYearOfDeath)
+		IndividualTemplate individualTemplate = new IndividualTemplate(yearOfDeath: individualYearOfDeath)
+
+		expect:
+		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, individualTemplate))
+		individualTemplate.yearOfDeath == expectedIndividualYearOfDeath
+
+		where:
+		individualYearOfDeath | characterboxYearOfDeath | expectedIndividualYearOfDeath
+		null                  | YEAR_1                  | YEAR_1
+		YEAR_1                | YEAR_1                  | YEAR_1
+		YEAR_2                | YEAR_1                  | YEAR_2
+		YEAR_1                | null                    | YEAR_1
+	}
+
+	@Unroll("sets IndividualTemplate month of death to #expectedIndividualMonthOfDeath when IndividualTemplate has #individualMonthOfDeath and CharacterboxTemplate has #characterboxMonthOfDeath")
+	def "sets month of death values of IndividualTemplate with values of CharacterboxTemplate"() {
+		given:
+		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(monthOfDeath: characterboxMonthOfDeath)
+		IndividualTemplate individualTemplate = new IndividualTemplate(monthOfDeath: individualMonthOfDeath)
+
+		expect:
+		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, individualTemplate))
+		individualTemplate.monthOfDeath == expectedIndividualMonthOfDeath
+
+		where:
+		individualMonthOfDeath | characterboxMonthOfDeath | expectedIndividualMonthOfDeath
+		null                   | MONTH_1                  | MONTH_1
+		MONTH_1                | MONTH_1                  | MONTH_1
+		MONTH_2                | MONTH_1                  | MONTH_2
+		MONTH_1                | null                     | MONTH_1
+	}
+
+	@Unroll("sets IndividualTemplate day of death to #expectedIndividualDayOfDeath when IndividualTemplate has #individualDayOfDeath and CharacterboxTemplate has #characterboxDayOfDeath")
+	def "sets day of death values of IndividualTemplate with values of CharacterboxTemplate"() {
+		given:
+		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(dayOfDeath: characterboxDayOfDeath)
+		IndividualTemplate individualTemplate = new IndividualTemplate(dayOfDeath: individualDayOfDeath)
+
+		expect:
+		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, individualTemplate))
+		individualTemplate.dayOfDeath == expectedIndividualDayOfDeath
+
+		where:
+		individualDayOfDeath | characterboxDayOfDeath | expectedIndividualDayOfDeath
+		null                 | DAY_1                  | DAY_1
+		DAY_1                | DAY_1                  | DAY_1
+		DAY_2                | DAY_1                  | DAY_2
+		DAY_1                | null                   | DAY_1
+	}
+
+	@Unroll("sets IndividualTemplate place of death to #expectedIndividualPlaceOfDeath when IndividualTemplate has #individualPlaceOfDeath and CharacterboxTemplate has #characterboxPlaceOfDeath")
+	def "sets place of death values of IndividualTemplate with values of CharacterboxTemplate"() {
+		given:
+		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(placeOfDeath: characterboxPlaceOfDeath)
+		IndividualTemplate individualTemplate = new IndividualTemplate(placeOfDeath: individualPlaceOfDeath)
+
+		expect:
+		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, individualTemplate))
+		individualTemplate.placeOfDeath == expectedIndividualPlaceOfDeath
+
+		where:
+		individualPlaceOfDeath | characterboxPlaceOfDeath | expectedIndividualPlaceOfDeath
+		null                   | PLACE_1                  | PLACE_1
+		PLACE_1                | PLACE_1                  | PLACE_1
+		PLACE_2                | PLACE_1                  | PLACE_2
+		PLACE_1                | null                     | PLACE_1
 	}
 
 }
