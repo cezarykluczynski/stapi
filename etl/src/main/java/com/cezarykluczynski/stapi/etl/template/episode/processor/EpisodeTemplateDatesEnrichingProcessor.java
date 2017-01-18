@@ -19,8 +19,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-public class EpisodeTemplateDatesEnrichingProcessor
-		implements ItemEnrichingProcessor<EnrichablePair<Page, EpisodeTemplate>> {
+public class EpisodeTemplateDatesEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Page, EpisodeTemplate>> {
 
 	private static final List<String> RELEVANT_PAGE_SECTIONS_NAMES = Lists.newArrayList(
 			"Background information",

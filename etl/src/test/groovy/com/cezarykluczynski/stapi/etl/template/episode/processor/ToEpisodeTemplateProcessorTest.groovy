@@ -1,10 +1,10 @@
 package com.cezarykluczynski.stapi.etl.template.episode.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
+import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.episode.creation.service.SeriesToEpisodeBindingService
-import com.cezarykluczynski.stapi.etl.template.common.linker.EpisodePerformancesLinkingWorker
-import com.cezarykluczynski.stapi.etl.template.common.linker.EpisodeStaffLinkingWorker
+import com.cezarykluczynski.stapi.etl.template.common.linker.EpisodeLinkingWorkerComposite
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
@@ -30,35 +30,31 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 
 	private EpisodeTemplateProcessor episodeTemplateProcessorMock
 
-	private EpisodePerformancesLinkingWorker episodePerformancesLinkingWorkerMock
-
-	private EpisodeStaffLinkingWorker episodeStaffLinkingWorkerMock
+	private EpisodeLinkingWorkerComposite episodeLinkingWorkerCompositeMock
 
 	private PageBindingService pageBindingServiceMock
 
 	private SeriesToEpisodeBindingService seriesToEpisodeBindingServiceMock
 
-	private EpisodeTemplateDatesEnrichingProcessor episodeTemplateDatesEnrichingProcessorMock
+	private EpisodeTemplateEnrichingProcessorComposite episodeTemplateEnrichingProcessorCompositeMock
 
 	private TemplateFinder templateFinderMock
 
-	private EpisodeTemplateTitleLanguagesEnrichingProcessor episodeTemplateTitleLanguagesEnrichingProcessor
+	private EpisodeTitleFixedValueProvider episodeTitleFixedValueProviderMock
 
 	private ToEpisodeTemplateProcessor toEpisodeTemplateProcessor
 
 	def setup() {
 		episodeTemplateProcessorMock = Mock(EpisodeTemplateProcessor)
-		episodePerformancesLinkingWorkerMock = Mock(EpisodePerformancesLinkingWorker)
-		episodeStaffLinkingWorkerMock = Mock(EpisodeStaffLinkingWorker)
+		episodeLinkingWorkerCompositeMock = Mock(EpisodeLinkingWorkerComposite)
 		pageBindingServiceMock = Mock(PageBindingService)
 		seriesToEpisodeBindingServiceMock = Mock(SeriesToEpisodeBindingService)
-		episodeTemplateDatesEnrichingProcessorMock = Mock(EpisodeTemplateDatesEnrichingProcessor)
+		episodeTemplateEnrichingProcessorCompositeMock = Mock(EpisodeTemplateEnrichingProcessorComposite)
 		templateFinderMock = Mock(TemplateFinder)
-		episodeTemplateTitleLanguagesEnrichingProcessor = Mock(EpisodeTemplateTitleLanguagesEnrichingProcessor)
-		toEpisodeTemplateProcessor = new ToEpisodeTemplateProcessor(episodeTemplateProcessorMock,
-				episodePerformancesLinkingWorkerMock, episodeStaffLinkingWorkerMock, pageBindingServiceMock,
-				seriesToEpisodeBindingServiceMock, episodeTemplateDatesEnrichingProcessorMock, templateFinderMock,
-				episodeTemplateTitleLanguagesEnrichingProcessor)
+		episodeTitleFixedValueProviderMock = Mock(EpisodeTitleFixedValueProvider)
+		toEpisodeTemplateProcessor = new ToEpisodeTemplateProcessor(episodeTemplateProcessorMock, episodeLinkingWorkerCompositeMock,
+				pageBindingServiceMock, seriesToEpisodeBindingServiceMock, episodeTemplateEnrichingProcessorCompositeMock, templateFinderMock,
+				episodeTitleFixedValueProviderMock)
 	}
 
 
@@ -134,14 +130,10 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_EPISODE) >> Optional.of(SIDEBAR_EPISODE_TEMPLATE)
 		1 * episodeTemplateProcessorMock.process(SIDEBAR_EPISODE_TEMPLATE) >> episodeTemplate
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> pageEntity
-		1 * episodePerformancesLinkingWorkerMock.link(page, episodeStub)
-		1 * episodeStaffLinkingWorkerMock.link(page, episodeStub)
+		1 * episodeLinkingWorkerCompositeMock.link(page, episodeStub)
+		1 * episodeTitleFixedValueProviderMock.getSearchedValue(EPISODE_TITLE) >> FixedValueHolder.notFound()
 		1 * seriesToEpisodeBindingServiceMock.mapCategoriesToSeries(categoryHeaderList) >> SERIES
-		1 * episodeTemplateDatesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair enrichablePair ->
-			enrichablePair.input == page
-			enrichablePair.output == episodeTemplate
-		}
-		1 * episodeTemplateTitleLanguagesEnrichingProcessor.enrich(_ as EnrichablePair) >> { EnrichablePair enrichablePair ->
+		1 * episodeTemplateEnrichingProcessorCompositeMock.enrich(_ as EnrichablePair) >> { EnrichablePair enrichablePair ->
 			enrichablePair.input == page
 			enrichablePair.output == episodeTemplate
 		}

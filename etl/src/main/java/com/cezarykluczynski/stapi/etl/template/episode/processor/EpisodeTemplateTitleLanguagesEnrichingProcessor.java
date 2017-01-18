@@ -17,8 +17,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class EpisodeTemplateTitleLanguagesEnrichingProcessor implements
-		ItemEnrichingProcessor<EnrichablePair<Page, EpisodeTemplate>> {
+public class EpisodeTemplateTitleLanguagesEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Page, EpisodeTemplate>> {
 
 	private static final String[] JAPANESE_SERIES_PREFIXES = {"ENT:", "TNG:", "DS9:", "VOY:", "TAS:", "TOS:"};
 

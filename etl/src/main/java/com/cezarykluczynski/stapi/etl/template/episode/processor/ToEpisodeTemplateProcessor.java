@@ -1,10 +1,10 @@
 package com.cezarykluczynski.stapi.etl.template.episode.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
+import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.episode.creation.service.SeriesToEpisodeBindingService;
-import com.cezarykluczynski.stapi.etl.template.common.linker.EpisodePerformancesLinkingWorker;
-import com.cezarykluczynski.stapi.etl.template.common.linker.EpisodeStaffLinkingWorker;
+import com.cezarykluczynski.stapi.etl.template.common.linker.EpisodeLinkingWorkerComposite;
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
@@ -29,36 +29,30 @@ public class ToEpisodeTemplateProcessor implements ItemProcessor<Page, EpisodeTe
 
 	private EpisodeTemplateProcessor episodeTemplateProcessor;
 
-	private EpisodePerformancesLinkingWorker episodePerformancesLinkingWorker;
-
-	private EpisodeStaffLinkingWorker episodeStaffLinkingWorker;
+	private EpisodeLinkingWorkerComposite episodeLinkingWorkerComposite;
 
 	private PageBindingService pageBindingService;
 
 	private SeriesToEpisodeBindingService seriesToEpisodeBindingService;
 
-	private EpisodeTemplateDatesEnrichingProcessor episodeTemplateDatesEnrichingProcessor;
+	private EpisodeTemplateEnrichingProcessorComposite episodeTemplateEnrichingProcessorComposite;
 
 	private TemplateFinder templateFinder;
 
-	private EpisodeTemplateTitleLanguagesEnrichingProcessor episodeTemplateTitleLanguagesEnrichingProcessor;
+	private EpisodeTitleFixedValueProvider episodeTitleFixedValueProvider;
 
 	@Inject
-	public ToEpisodeTemplateProcessor(EpisodeTemplateProcessor episodeTemplateProcessor,
-			EpisodePerformancesLinkingWorker episodePerformancesLinkingWorker,
-			EpisodeStaffLinkingWorker episodeStaffLinkingWorker, PageBindingService pageBindingService,
-			SeriesToEpisodeBindingService seriesToEpisodeBindingService,
-			EpisodeTemplateDatesEnrichingProcessor episodeTemplateDatesEnrichingProcessor,
-			TemplateFinder templateFinder,
-			EpisodeTemplateTitleLanguagesEnrichingProcessor episodeTemplateTitleLanguagesEnrichingProcessor) {
+	public ToEpisodeTemplateProcessor(EpisodeTemplateProcessor episodeTemplateProcessor, EpisodeLinkingWorkerComposite episodeLinkingWorkerComposite,
+			PageBindingService pageBindingService, SeriesToEpisodeBindingService seriesToEpisodeBindingService,
+			EpisodeTemplateEnrichingProcessorComposite episodeTemplateEnrichingProcessorComposite, TemplateFinder templateFinder,
+			EpisodeTitleFixedValueProvider episodeTitleFixedValueProvider) {
 		this.episodeTemplateProcessor = episodeTemplateProcessor;
-		this.episodePerformancesLinkingWorker = episodePerformancesLinkingWorker;
-		this.episodeStaffLinkingWorker = episodeStaffLinkingWorker;
+		this.episodeLinkingWorkerComposite = episodeLinkingWorkerComposite;
 		this.pageBindingService = pageBindingService;
 		this.seriesToEpisodeBindingService = seriesToEpisodeBindingService;
-		this.episodeTemplateDatesEnrichingProcessor = episodeTemplateDatesEnrichingProcessor;
+		this.episodeTemplateEnrichingProcessorComposite = episodeTemplateEnrichingProcessorComposite;
 		this.templateFinder = templateFinder;
-		this.episodeTemplateTitleLanguagesEnrichingProcessor = episodeTemplateTitleLanguagesEnrichingProcessor;
+		this.episodeTitleFixedValueProvider = episodeTitleFixedValueProvider;
 	}
 
 	@Override
@@ -86,18 +80,22 @@ public class ToEpisodeTemplateProcessor implements ItemProcessor<Page, EpisodeTe
 
 	private void setTemplateValuesFromPage(EpisodeTemplate episodeTemplate, Page item) {
 		episodeTemplate.setTitle(TitleUtil.getNameFromTitle(item.getTitle()));
+
+		FixedValueHolder<String> titleFixedValueHolder = episodeTitleFixedValueProvider.getSearchedValue(episodeTemplate.getTitle());
+		if (titleFixedValueHolder.isFound()) {
+			episodeTemplate.setTitle(titleFixedValueHolder.getValue());
+		}
+
 		episodeTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 		episodeTemplate.setSeries(seriesToEpisodeBindingService.mapCategoriesToSeries(item.getCategories()));
 	}
 
 	private void linkPerformancesAndStaff(Episode episodeStub, Page item) {
-		episodePerformancesLinkingWorker.link(item, episodeStub);
-		episodeStaffLinkingWorker.link(item, episodeStub);
+		episodeLinkingWorkerComposite.link(item, episodeStub);
 	}
 
 	private void enrichTemplateWithPage(EpisodeTemplate episodeTemplate, Page item) throws Exception {
-		episodeTemplateTitleLanguagesEnrichingProcessor.enrich(EnrichablePair.of(item, episodeTemplate));
-		episodeTemplateDatesEnrichingProcessor.enrich(EnrichablePair.of(item, episodeTemplate));
+		episodeTemplateEnrichingProcessorComposite.enrich(EnrichablePair.of(item, episodeTemplate));
 	}
 
 	private boolean isEpisodePage(Page source) {
