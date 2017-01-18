@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.server.movie.endpoint
 
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer
 import com.cezarykluczynski.stapi.client.api.dto.RestSortClause
-import com.cezarykluczynski.stapi.client.api.dto.enums.RestSortOrder
+import com.cezarykluczynski.stapi.client.api.dto.enums.RestSortDirection
 import com.cezarykluczynski.stapi.client.v1.rest.model.MovieResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
@@ -25,7 +25,7 @@ class MovieRestEndpointIntegrationTest extends AbstractMovieEndpointIntegrationT
 		MovieResponse movieResponse = stapiRestClient.movieApi.moviePost(null, null,
 				StapiRestSortSerializer.serialize(Lists.newArrayList(new RestSortClause(
 						name: 'usReleaseDate',
-						sortOrder: RestSortOrder.ASC))
+						direction: RestSortDirection.ASC))
 				), null, null, null, null, null, null, LocalDate.of(1991, 1, 1), LocalDate.of(2000, 12, 30))
 
 		then:

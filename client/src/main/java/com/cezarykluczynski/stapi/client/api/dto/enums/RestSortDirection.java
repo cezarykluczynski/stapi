@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.client.api.dto.enums;
 
-public enum RestSortOrder {
+public enum RestSortDirection {
 
 	ASC,
 	DESC

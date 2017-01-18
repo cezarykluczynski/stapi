@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.common.serializer;
 
-import com.cezarykluczynski.stapi.client.api.dto.enums.RestSortOrder;
+import com.cezarykluczynski.stapi.client.api.dto.enums.RestSortDirection;
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortClauseDTO;
 import com.cezarykluczynski.stapi.model.common.dto.enums.RequestSortDirectionDTO;
 import com.google.common.collect.Lists;
@@ -13,9 +13,9 @@ public class RestSortDeserializer {
 
 	private static final String EXCEPTION_MESSAGE = "Sort clause should be in form of \"fieldName,ORDER\", where ORDER is \"ASC\" or \"DESC\", and "
 			+ "fieldName is name of field in main entity that is queried.";
-	private static final List<String> VALID_ORDERS = Lists.newArrayList(RestSortOrder.values())
+	private static final List<String> VALID_ORDERS = Lists.newArrayList(RestSortDirection.values())
 			.stream()
-			.map(RestSortOrder::name)
+			.map(RestSortDirection::name)
 			.collect(Collectors.toList());
 
 	public static List<RequestSortClauseDTO> deserialize(String sort) {
