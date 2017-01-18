@@ -19,8 +19,10 @@ class IndividualWeightProcessorTest extends Specification {
 		where:
 		input            | output
 		"116 lb."        | 53
+		"116 pounds"     | 53
 		"120 [[pound]]s" | 54
 		"240 lbs"        | 109
+		'77 kg'          | 77
 		""               | null
 		null             | null
 	}

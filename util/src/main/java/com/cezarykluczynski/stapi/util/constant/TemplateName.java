@@ -19,7 +19,9 @@ public class TemplateName {
 
 	public static final String MBETA = "mbeta";
 
+	public static final String MIRROR = "mirror";
+	public static final String ALT_REALITY = "alt reality";
+
 	// Memory Beta
 	public static final String CHARACTER_BOX = "characterbox";
-
 }

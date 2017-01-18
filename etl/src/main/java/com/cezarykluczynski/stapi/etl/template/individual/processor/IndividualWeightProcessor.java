@@ -12,7 +12,8 @@ import java.util.regex.Pattern;
 @Slf4j
 public class IndividualWeightProcessor implements ItemProcessor<String, Integer> {
 
-	private static final Pattern POUNDS = Pattern.compile("(\\d{1,4})(\\s?)(lb(\\.|s)|\\[?\\[?pound)");
+	private static final Pattern POUNDS = Pattern.compile("(\\d{1,4})(\\s?)((\\[{2})?pound|lb\\.|lbs).*");
+	private static final Pattern KILOGRAMS = Pattern.compile("(\\d{1,4})(\\s?)(kg).*");
 	private static final double POUNDS_IN_KILOGRAM = 2.20462262;
 
 	@Override
@@ -23,9 +24,15 @@ public class IndividualWeightProcessor implements ItemProcessor<String, Integer>
 
 		Matcher poundsMatcher = POUNDS.matcher(item);
 
-		if (poundsMatcher.find()) {
+		if (poundsMatcher.matches()) {
 			double feet = Integer.valueOf(poundsMatcher.group(1)) / POUNDS_IN_KILOGRAM;
 			return ((Long) Math.round(feet)).intValue();
+		}
+
+		Matcher kilogramMatcher = KILOGRAMS.matcher(item);
+
+		if (kilogramMatcher.matches()) {
+			return Integer.valueOf(kilogramMatcher.group(1));
 		}
 
 		log.warn("Could not extract weight from not-empty value {}", item);
