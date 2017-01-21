@@ -12,13 +12,13 @@ class EpisodeLinkingWorkerCompositeTest extends Specification {
 
 	private EpisodeLinkingWorkerComposite episodeLinkingWorkerComposite
 
-	def setup() {
+	void setup() {
 		episodePerformancesLinkingWorkerMock = Mock(EpisodePerformancesLinkingWorker)
 		episodeStaffLinkingWorkerMock = Mock(EpisodeStaffLinkingWorker)
 		episodeLinkingWorkerComposite = new EpisodeLinkingWorkerComposite(episodePerformancesLinkingWorkerMock, episodeStaffLinkingWorkerMock)
 	}
 
-	def "passes arguments to dependencies"() {
+	void "passes arguments to dependencies"() {
 		given:
 		Page page = Mock(Page)
 		Episode episode = Mock(Episode)

@@ -10,11 +10,11 @@ class PerformerHeaderSoapMapperTest extends AbstractRealWorldPersonMapperTest {
 
 	private PerformerHeaderSoapMapper performerHeaderSoapMapper
 
-	def setup() {
+	void setup() {
 		performerHeaderSoapMapper = Mappers.getMapper(PerformerHeaderSoapMapper)
 	}
 
-	def "maps DB entity to SOAP header"() {
+	void "maps DB entity to SOAP header"() {
 		given:
 		Performer performer = new Performer(
 				name: NAME,

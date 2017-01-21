@@ -10,7 +10,7 @@ import com.google.common.collect.Lists
 abstract class AbstractPerformerMapperTest extends AbstractRealWorldPersonMapperTest {
 
 	protected Performer createPerformer() {
-		return new Performer(
+		new Performer(
 				name: NAME,
 				guid: GUID,
 				birthName: BIRTH_NAME,

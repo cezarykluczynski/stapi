@@ -12,14 +12,14 @@ class MovieWritersLinkingWorkerTest extends Specification {
 
 	private MovieWritersLinkingWorker movieWritersLinkingWorker
 
-	def setup() {
+	void setup() {
 		allStaffFindingMovieRealPeopleLinkingWorkerHelper = Mock(AllStaffFindingMovieRealPeopleLinkingWorkerHelper)
 		movieWritersLinkingWorker = new MovieWritersLinkingWorker(allStaffFindingMovieRealPeopleLinkingWorkerHelper)
 	}
 
-	def "adds writers found by AllStaffFindingMovieRealPeopleLinkingWorkerHelperTest"() {
+	void "adds writers found by AllStaffFindingMovieRealPeopleLinkingWorkerHelperTest"() {
 		given:
-		LinkedHashSet<List<String>> source = Sets.newHashSet()
+		Set<List<String>> source = Sets.newHashSet()
 		Staff writer = new Staff()
 		Movie baseEntity = new Movie()
 

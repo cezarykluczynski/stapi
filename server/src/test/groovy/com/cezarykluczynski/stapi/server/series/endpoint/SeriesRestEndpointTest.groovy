@@ -14,17 +14,16 @@ class SeriesRestEndpointTest extends AbstractRestEndpointTest {
 
 	private SeriesRestEndpoint seriesRestEndpoint
 
-	def setup() {
+	void setup() {
 		seriesRestReaderMock = Mock(SeriesRestReader)
 		seriesRestEndpoint = new SeriesRestEndpoint(seriesRestReaderMock)
 	}
 
-	def "passes get call to SeriesRestReader"() {
+	void "passes get call to SeriesRestReader"() {
 		given:
-		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams) {
-			getPageNumber() >> PAGE_NUMBER
-			getPageSize() >> PAGE_SIZE
-		}
+		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams)
+		pageAwareBeanParams.pageNumber >> PAGE_NUMBER
+		pageAwareBeanParams.pageSize >> PAGE_SIZE
 		SeriesResponse seriesResponse = Mock(SeriesResponse)
 
 		when:
@@ -34,12 +33,12 @@ class SeriesRestEndpointTest extends AbstractRestEndpointTest {
 		1 * seriesRestReaderMock.read(_ as SeriesRestBeanParams) >> { SeriesRestBeanParams seriesRestBeanParams ->
 			assert pageAwareBeanParams.pageNumber == PAGE_NUMBER
 			assert pageAwareBeanParams.pageSize == PAGE_SIZE
-			return seriesResponse
+			seriesResponse
 		}
 		seriesResponseOutput == seriesResponse
 	}
 
-	def "passes post call to SeriesRestReader"() {
+	void "passes post call to SeriesRestReader"() {
 		given:
 		SeriesRestBeanParams seriesRestBeanParams = new SeriesRestBeanParams(title: TITLE)
 		SeriesResponse seriesResponse = Mock(SeriesResponse)
@@ -50,7 +49,7 @@ class SeriesRestEndpointTest extends AbstractRestEndpointTest {
 		then:
 		1 * seriesRestReaderMock.read(seriesRestBeanParams as SeriesRestBeanParams) >> { SeriesRestBeanParams params ->
 			assert params.title == TITLE
-			return seriesResponse
+			seriesResponse
 		}
 		seriesResponseOutput == seriesResponse
 	}

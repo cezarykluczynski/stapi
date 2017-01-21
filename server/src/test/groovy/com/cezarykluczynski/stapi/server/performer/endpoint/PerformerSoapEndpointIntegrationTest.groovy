@@ -12,11 +12,11 @@ import spock.lang.Requires
 })
 class PerformerSoapEndpointIntegrationTest extends AbstractPerformerEndpointIntegrationTest {
 
-	def setup() {
+	void setup() {
 		createSoapClient()
 	}
 
-	def "gets first page of performers"() {
+	void "gets first page of performers"() {
 		given:
 		Integer pageNumber = 0
 		Integer pageSize = 10
@@ -33,7 +33,7 @@ class PerformerSoapEndpointIntegrationTest extends AbstractPerformerEndpointInte
 		performerResponse.performers.size() == pageSize
 	}
 
-	def "gets the only person to star in 6 series"() {
+	void "gets the only person to star in 6 series"() {
 		when:
 		PerformerResponse performerResponse = stapiSoapClient.performerPortType.getPerformers(new PerformerRequest(
 				ds9Performer: true,
@@ -46,10 +46,10 @@ class PerformerSoapEndpointIntegrationTest extends AbstractPerformerEndpointInte
 
 		then:
 		performerResponse.page.totalElements == 1
-		performerResponse.performers[0].name == "Majel Barrett-Roddenberry"
+		performerResponse.performers[0].name == 'Majel Barrett-Roddenberry'
 	}
 
-	def "gets performer by guid"() {
+	void "gets performer by guid"() {
 		when:
 		PerformerResponse performerResponse = stapiSoapClient.performerPortType.getPerformers(new PerformerRequest(
 				guid: GUID

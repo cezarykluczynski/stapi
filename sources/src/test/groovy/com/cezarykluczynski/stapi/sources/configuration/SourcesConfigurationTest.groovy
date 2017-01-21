@@ -7,11 +7,11 @@ class SourcesConfigurationTest extends Specification {
 
 	private SourcesConfiguration sourcesConfiguration
 
-	def setup() {
+	void setup() {
 		sourcesConfiguration = new SourcesConfiguration()
 	}
 
-	def "creates cache manager"() {
+	void "creates cache manager"() {
 		when:
 		CacheManager cacheManager = sourcesConfiguration.cacheManager()
 

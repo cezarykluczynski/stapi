@@ -19,7 +19,7 @@ class EpisodeRestQueryTest extends Specification {
 
 	private EpisodeRestQuery episodeRestQuery
 
-	def setup() {
+	void setup() {
 		episodeRestMapperMock = Mock(EpisodeRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		episodeRepositoryMock = Mock(EpisodeRepository)
@@ -27,7 +27,7 @@ class EpisodeRestQueryTest extends Specification {
 				episodeRepositoryMock)
 	}
 
-	def "maps EpisodeRestBeanParams to EpisodeRequestDTO and to PageRequest, then calls repository, then returns result"() {
+	void "maps EpisodeRestBeanParams to EpisodeRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
 		PageRequest pageRequest = Mock(PageRequest)
 		EpisodeRestBeanParams episodeRestBeanParams = Mock(EpisodeRestBeanParams) {

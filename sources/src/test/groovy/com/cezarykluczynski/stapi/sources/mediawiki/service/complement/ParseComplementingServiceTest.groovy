@@ -18,13 +18,13 @@ class ParseComplementingServiceTest extends Specification {
 
 	private ParseComplementingService parseComplementingService
 
-	def setup() {
+	void setup() {
 		wikiaWikisDetectorMock = Mock(WikiaWikisDetector)
 		parseApiMock = Mock(ParseApi)
 		parseComplementingService = new ParseComplementingService(wikiaWikisDetectorMock, parseApiMock)
 	}
 
-	def "does not get parsed templates when it is not Wikia's wiki"() {
+	void "does not get parsed templates when it is not Wikia's wiki"() {
 		given:
 		Page page = new Page(mediaWikiSource: SOURCE)
 
@@ -36,7 +36,7 @@ class ParseComplementingServiceTest extends Specification {
 		0 * _
 	}
 
-	def "sets parsed templates when it is a Wikia's wiki"() {
+	void "sets parsed templates when it is a Wikia's wiki"() {
 		given:
 		Page page = new Page(
 				mediaWikiSource: SOURCE,

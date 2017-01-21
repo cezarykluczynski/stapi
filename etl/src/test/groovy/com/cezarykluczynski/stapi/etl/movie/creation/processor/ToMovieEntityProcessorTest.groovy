@@ -28,22 +28,22 @@ class ToMovieEntityProcessorTest extends Specification {
 	private static final Integer YEAR_TO = 2369
 	private static final LocalDate US_RELEASE_DATE = LocalDate.of(1995, 4, 8)
 
-	private final Page PAGE = Mock(Page)
+	private final Page page = Mock(Page)
 
 	private GuidGenerator guidGeneratorMock
 
 	private ToMovieEntityProcessor toMovieEntityProcessor
 
-	def setup() {
+	void setup() {
 		guidGeneratorMock = Mock(GuidGenerator)
 		toMovieEntityProcessor = new ToMovieEntityProcessor(guidGeneratorMock)
 	}
 
-	def "converts EpisodeTemplate to Episode"() {
+	void "converts EpisodeTemplate to Episode"() {
 		given:
 		Movie movie = new Movie()
 		MovieTemplate movieTemplate = new MovieTemplate(
-				page: PAGE,
+				page: page,
 				movieStub: movie,
 				title: TITLE,
 				titleBulgarian: TITLE_BULGARIAN,
@@ -66,10 +66,10 @@ class ToMovieEntityProcessorTest extends Specification {
 		Movie movieOutput = toMovieEntityProcessor.process(movieTemplate)
 
 		then:
-		1 * guidGeneratorMock.generateFromPage(PAGE, Movie) >> GUID
+		1 * guidGeneratorMock.generateFromPage(page, Movie) >> GUID
 		movieOutput == movie
 		movieOutput.guid == GUID
-		movieOutput.page == PAGE
+		movieOutput.page == page
 		movieOutput.title == TITLE
 		movieOutput.titleBulgarian == TITLE_BULGARIAN
 		movieOutput.titleCatalan == TITLE_CATALAN

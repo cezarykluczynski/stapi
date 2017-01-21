@@ -24,19 +24,18 @@ class PerformerSoapReaderTest extends Specification {
 
 	private PerformerSoapReader performerSoapReader
 
-	def setup() {
+	void setup() {
 		performerSoapQueryBuilderMock = Mock(PerformerSoapQuery)
 		performerSoapMapperMock = Mock(PerformerSoapMapper)
 		pageMapperMock = Mock(PageMapper)
 		performerSoapReader = new PerformerSoapReader(performerSoapQueryBuilderMock, performerSoapMapperMock, pageMapperMock)
 	}
 
-	def "gets database entities and puts them into PerformerResponse"() {
+	void "gets database entities and puts them into PerformerResponse"() {
 		given:
 		List<DBPerformer> dbPerformerList = Lists.newArrayList()
-		Page<DBPerformer> dbPerformerPage = Mock(Page) {
-			getContent() >> dbPerformerList
-		}
+		Page<DBPerformer> dbPerformerPage = Mock(Page)
+		dbPerformerPage.content >> dbPerformerList
 		List<SOAPPerformer> soapPerformerList = Lists.newArrayList(new SOAPPerformer(guid: GUID))
 		PerformerRequest performerRequest = Mock(PerformerRequest)
 		ResponsePage responsePage = Mock(ResponsePage)

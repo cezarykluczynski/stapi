@@ -12,17 +12,16 @@ class CharacterRestEndpointTest extends AbstractRestEndpointTest {
 
 	private CharacterRestEndpoint characterRestEndpoint
 
-	def setup() {
+	void setup() {
 		characterRestReaderMock = Mock(CharacterRestReader)
 		characterRestEndpoint = new CharacterRestEndpoint(characterRestReaderMock)
 	}
 
-	def "passes get call to CharacterRestReader"() {
+	void "passes get call to CharacterRestReader"() {
 		given:
-		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams) {
-			getPageNumber() >> PAGE_NUMBER
-			getPageSize() >> PAGE_SIZE
-		}
+		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams)
+		pageAwareBeanParams.pageNumber >> PAGE_NUMBER
+		pageAwareBeanParams.pageSize >> PAGE_SIZE
 		CharacterResponse characterResponse = Mock(CharacterResponse)
 
 		when:
@@ -32,12 +31,12 @@ class CharacterRestEndpointTest extends AbstractRestEndpointTest {
 		1 * characterRestReaderMock.read(_ as CharacterRestBeanParams) >> { CharacterRestBeanParams characterRestBeanParams ->
 			assert pageAwareBeanParams.pageNumber == PAGE_NUMBER
 			assert pageAwareBeanParams.pageSize == PAGE_SIZE
-			return characterResponse
+			characterResponse
 		}
 		characterResponseOutput == characterResponse
 	}
 
-	def "passes post call to CharacterRestReader"() {
+	void "passes post call to CharacterRestReader"() {
 		given:
 		CharacterRestBeanParams characterRestBeanParams = new CharacterRestBeanParams()
 		CharacterResponse characterResponse = Mock(CharacterResponse)
@@ -47,7 +46,7 @@ class CharacterRestEndpointTest extends AbstractRestEndpointTest {
 
 		then:
 		1 * characterRestReaderMock.read(characterRestBeanParams as CharacterRestBeanParams) >> { CharacterRestBeanParams params ->
-			return characterResponse
+			characterResponse
 		}
 		characterResponseOutput == characterResponse
 	}

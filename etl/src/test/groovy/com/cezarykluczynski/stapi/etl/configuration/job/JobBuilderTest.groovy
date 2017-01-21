@@ -50,7 +50,7 @@ class JobBuilderTest extends Specification {
 
 	private SpringBatchJobBuilder springBatchJobBuilder
 
-	def setup() {
+	void setup() {
 		applicationContextMock = Mock(ApplicationContext)
 		jobBuilderFactoryMock = Mock(JobBuilderFactory)
 		stepConfigurationValidatorMock = Mock(StepConfigurationValidator)
@@ -71,7 +71,7 @@ class JobBuilderTest extends Specification {
 				jobCompletenessDeciderMock, stepToStepPropertiesProviderMock)
 	}
 
-	def "Job is built"() {
+	void "Job is built"() {
 		given:
 		TaskExecutor taskExecutor = Mock(TaskExecutor)
 
@@ -94,37 +94,37 @@ class JobBuilderTest extends Specification {
 		1 * stepPropertiesMap.get(StepName.CREATE_SERIES) >> stepProperties
 		1 * stepProperties.isEnabled() >> true
 		1 * applicationContextMock.getBean(StepName.CREATE_SERIES, Step) >> createSeriesStep
-		1 * createSeriesStep.getName() >> ''
+		1 * createSeriesStep.name >> ''
 
 		then: 'CREATE_PERFORMERS step is retrieved from application context'
 		1 * stepPropertiesMap.get(StepName.CREATE_PERFORMERS) >> stepProperties
 		1 * stepProperties.isEnabled() >> true
 		1 * applicationContextMock.getBean(StepName.CREATE_PERFORMERS, Step) >> createPerformersStep
-		1 * createPerformersStep.getName() >> ''
+		1 * createPerformersStep.name >> ''
 
 		then: 'CREATE_STAFF step is retrieved from application context'
 		1 * stepPropertiesMap.get(StepName.CREATE_STAFF) >> stepProperties
 		1 * stepProperties.isEnabled() >> true
 		1 * applicationContextMock.getBean(StepName.CREATE_STAFF, Step) >> createStaffStep
-		1 * createStaffStep.getName() >> ''
+		1 * createStaffStep.name >> ''
 
 		then: 'CREATE_CHARACTERS step is retrieved from application context'
 		1 * stepPropertiesMap.get(StepName.CREATE_CHARACTERS) >> stepProperties
 		1 * stepProperties.isEnabled() >> true
 		1 * applicationContextMock.getBean(StepName.CREATE_CHARACTERS, Step) >> createCharactersStep
-		1 * createCharactersStep.getName() >> ''
+		1 * createCharactersStep.name >> ''
 
 		then: 'CREATE_EPISODES step is retrieved from application context'
 		1 * stepPropertiesMap.get(StepName.CREATE_EPISODES) >> stepProperties
 		1 * stepProperties.isEnabled() >> true
 		1 * applicationContextMock.getBean(StepName.CREATE_EPISODES, Step) >> createEpisodesStep
-		1 * createEpisodesStep.getName() >> ''
+		1 * createEpisodesStep.name >> ''
 
 		then: 'CREATE_MOVIES step is retrieved from application context'
 		1 * stepPropertiesMap.get(StepName.CREATE_MOVIES) >> stepProperties
 		1 * stepProperties.isEnabled() >> true
 		1 * applicationContextMock.getBean(StepName.CREATE_MOVIES, Step) >> createMoviesStep
-		1 * createMoviesStep.getName() >> ''
+		1 * createMoviesStep.name >> ''
 
 		then: 'Task executor is retrieved from application context'
 		1 * applicationContextMock.getBean(TaskExecutor) >> taskExecutor
@@ -139,7 +139,7 @@ class JobBuilderTest extends Specification {
 		((SplitState) ((SimpleFlow) job.flow).startState).flows[0].name == 'flow1'
 	}
 
-	def "Job is not built when job is completed"() {
+	void "Job is not built when job is completed"() {
 		when:
 		FlowJob job = (FlowJob) jobBuilder.build()
 
@@ -156,7 +156,7 @@ class JobBuilderTest extends Specification {
 		job == null
 	}
 
-	def "job is built with only two steps"() {
+	void "job is built with only two steps"() {
 		given:
 		TaskExecutor taskExecutor = Mock(TaskExecutor)
 
@@ -179,13 +179,13 @@ class JobBuilderTest extends Specification {
 		1 * stepPropertiesMap.get(StepName.CREATE_SERIES) >> stepProperties
 		1 * stepProperties.isEnabled() >> true
 		1 * applicationContextMock.getBean(StepName.CREATE_SERIES, Step) >> createSeriesStep
-		1 * createSeriesStep.getName() >> ''
+		1 * createSeriesStep.name >> ''
 
 		then: 'CREATE_PERFORMERS step is retrieved from application context'
 		1 * stepPropertiesMap.get(StepName.CREATE_PERFORMERS) >> stepProperties
 		1 * stepProperties.isEnabled() >> true
 		1 * applicationContextMock.getBean(StepName.CREATE_PERFORMERS, Step) >> createPerformersStep
-		1 * createPerformersStep.getName() >> ''
+		1 * createPerformersStep.name >> ''
 
 		then: 'other steps are skiped'
 		4 * stepPropertiesMap.get(_) >> stepProperties

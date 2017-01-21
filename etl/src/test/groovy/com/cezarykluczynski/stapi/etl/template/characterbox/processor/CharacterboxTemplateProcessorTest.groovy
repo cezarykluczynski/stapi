@@ -44,7 +44,7 @@ class CharacterboxTemplateProcessorTest extends Specification {
 
 	private CharacterboxTemplateProcessor characterboxTemplateProcessor
 
-	def setup() {
+	void setup() {
 		templateFinderMock = Mock(TemplateFinder)
 		partToGenderProcessorMock = Mock(PartToGenderProcessor)
 		individualHeightProcessorMock = Mock(IndividualHeightProcessor)
@@ -55,7 +55,7 @@ class CharacterboxTemplateProcessorTest extends Specification {
 				individualHeightProcessorMock, individualWeightProcessorMock, maritalStatusProcessorMock, individualLifeBoundaryProcessorMock)
 	}
 
-	def "sets gender from PartToGenderProcessor"() {
+	void "sets gender from PartToGenderProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: CharacterboxTemplateProcessor.GENDER)
 		Template template = createTemplateWithTemplatePart(templatePart)
@@ -72,7 +72,7 @@ class CharacterboxTemplateProcessorTest extends Specification {
 		ReflectionTestUtils.getNumberOfNotNullFields(characterboxTemplate) == 1
 	}
 
-	def "sets height from IndividualHeightProcessor"() {
+	void "sets height from IndividualHeightProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: CharacterboxTemplateProcessor.HEIGHT, value: VALUE)
 		Template template = createTemplateWithTemplatePart(templatePart)
@@ -89,7 +89,7 @@ class CharacterboxTemplateProcessorTest extends Specification {
 		ReflectionTestUtils.getNumberOfNotNullFields(characterboxTemplate) == 1
 	}
 
-	def "sets weight from IndividualWeightProcessor"() {
+	void "sets weight from IndividualWeightProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: CharacterboxTemplateProcessor.WEIGHT, value: VALUE)
 		Template template = createTemplateWithTemplatePart(templatePart)
@@ -106,7 +106,7 @@ class CharacterboxTemplateProcessorTest extends Specification {
 		ReflectionTestUtils.getNumberOfNotNullFields(characterboxTemplate) == 1
 	}
 
-	def "sets marital status from MaritalStatusProcessor"() {
+	void "sets marital status from MaritalStatusProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: CharacterboxTemplateProcessor.MARITAL_STATUS, value: VALUE)
 		Template template = createTemplateWithTemplatePart(templatePart)
@@ -123,7 +123,7 @@ class CharacterboxTemplateProcessorTest extends Specification {
 		ReflectionTestUtils.getNumberOfNotNullFields(characterboxTemplate) == 1
 	}
 
-	def "sets birth values from IndividualLifeBoundaryProcessor"() {
+	void "sets birth values from IndividualLifeBoundaryProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(
 				key: CharacterboxTemplateProcessor.BORN,
@@ -151,7 +151,7 @@ class CharacterboxTemplateProcessorTest extends Specification {
 		ReflectionTestUtils.getNumberOfNotNullFields(characterboxTemplate) == 4
 	}
 
-	def "sets death values from IndividualLifeBoundaryProcessor"() {
+	void "sets death values from IndividualLifeBoundaryProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(
 				key: CharacterboxTemplateProcessor.DIED,
@@ -179,7 +179,7 @@ class CharacterboxTemplateProcessorTest extends Specification {
 		ReflectionTestUtils.getNumberOfNotNullFields(characterboxTemplate) == 4
 	}
 
-	def "returns null when Characterbox template is not found"() {
+	void "returns null when Characterbox template is not found"() {
 		given:
 		Template template = createTemplateWithTemplatePart(new Template.Part())
 		Page page = createPageWithTemplate(template)
@@ -194,14 +194,14 @@ class CharacterboxTemplateProcessorTest extends Specification {
 	}
 
 	private static Template createTemplateWithTemplatePart(Template.Part templatePart) {
-		return new Template(
+		new Template(
 				title: TemplateName.CHARACTER_BOX,
 				parts: Lists.newArrayList(templatePart)
 		)
 	}
 
 	private static Page createPageWithTemplate(Template template) {
-		return new Page(
+		new Page(
 				title: TITLE,
 				categories: Lists.newArrayList(),
 				templates: Lists.newArrayList(

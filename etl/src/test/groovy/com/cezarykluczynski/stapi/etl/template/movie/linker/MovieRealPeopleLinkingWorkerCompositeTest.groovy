@@ -21,7 +21,7 @@ class MovieRealPeopleLinkingWorkerCompositeTest extends Specification {
 
 	private MovieRealPeopleLinkingWorkerComposite movieRealPeopleLinkingWorkerComposite
 
-	def setup() {
+	void setup() {
 		movieClosingCreditsProcessorMock = Mock(MovieClosingCreditsProcessor)
 		movieLinkedTitlesProcessorMock = Mock(MovieLinkedTitlesProcessor)
 		movieStaffLinkingWorkerCompositeMock = Mock(MovieStaffLinkingWorkerComposite)
@@ -30,7 +30,7 @@ class MovieRealPeopleLinkingWorkerCompositeTest extends Specification {
 				movieLinkedTitlesProcessorMock, movieStaffLinkingWorkerCompositeMock, moviePerformersLinkingWorkerCompositeMock)
 	}
 
-	def "gets closing credits, then gets titles in sections, then passes results to movie linkers"() {
+	void "gets closing credits, then gets titles in sections, then passes results to movie linkers"() {
 		given:
 		MovieLinkedTitlesDTO movieLinkedTitlesDTO = Mock(MovieLinkedTitlesDTO)
 		List<PageSection> pageSectionList = Lists.newArrayList()

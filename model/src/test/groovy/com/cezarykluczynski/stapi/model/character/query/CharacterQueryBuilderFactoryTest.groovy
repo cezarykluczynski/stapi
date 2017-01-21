@@ -9,11 +9,11 @@ class CharacterQueryBuilderFactoryTest extends Specification {
 
 	private CharacterQueryBuilderFactory characterQueryBuilerFactory
 
-	def setup() {
+	void setup() {
 		jpaContextMock = Mock(JpaContext)
 	}
 
-	def "CharacterQueryBuilder is created"() {
+	void "CharacterQueryBuilder is created"() {
 		when:
 		characterQueryBuilerFactory = new CharacterQueryBuilderFactory(jpaContextMock)
 

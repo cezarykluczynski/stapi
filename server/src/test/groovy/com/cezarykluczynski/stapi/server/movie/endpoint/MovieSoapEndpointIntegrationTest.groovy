@@ -12,11 +12,11 @@ import spock.lang.Requires
 })
 class MovieSoapEndpointIntegrationTest extends AbstractMovieEndpointIntegrationTest {
 
-	def setup() {
+	void setup() {
 		createSoapClient()
 	}
 
-	def "gets movie by title"() {
+	void "gets movie by title"() {
 		when:
 		MovieResponse movieResponse = stapiSoapClient.moviePortType.getMovies(new MovieRequest(
 				title: 'Star Trek Into Darkness'

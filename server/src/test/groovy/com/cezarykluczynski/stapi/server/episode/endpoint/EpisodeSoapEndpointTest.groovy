@@ -11,12 +11,12 @@ class EpisodeSoapEndpointTest extends Specification {
 
 	private EpisodeSoapEndpoint episodeSoapEndpoint
 
-	def setup() {
+	void setup() {
 		episodeSoapReaderMock = Mock(EpisodeSoapReader)
 		episodeSoapEndpoint = new EpisodeSoapEndpoint(episodeSoapReaderMock)
 	}
 
-	def "passes call to EpisodeSoapReader"() {
+	void "passes call to EpisodeSoapReader"() {
 		given:
 		EpisodeRequest episodeRequest = Mock(EpisodeRequest)
 		EpisodeResponse episodeResponse = Mock(EpisodeResponse)

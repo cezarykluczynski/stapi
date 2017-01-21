@@ -18,14 +18,14 @@ class SeriesProcessorTest extends Specification {
 
 	private SeriesProcessor seriesProcessor
 
-	def setup() {
+	void setup() {
 		pageHeaderProcessorMock = Mock(PageHeaderProcessor)
 		pageProcessorMock = Mock(SeriesTemplatePageProcessor)
 		seriesTemplateProcessorMock = Mock(SeriesTemplateProcessor)
 		seriesProcessor = new SeriesProcessor(pageHeaderProcessorMock, pageProcessorMock, seriesTemplateProcessorMock)
 	}
 
-	def "converts PageHeader to Series"() {
+	void "converts PageHeader to Series"() {
 		given:
 		PageHeader pageHeader = PageHeader.builder().build()
 		Page page = new Page()

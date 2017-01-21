@@ -19,7 +19,7 @@ class MovieCreationConfigurationTest extends AbstractCreationConfigurationTest {
 
 	private MovieCreationConfiguration movieCreationConfiguration
 
-	def setup() {
+	void setup() {
 		categoryApiMock = Mock(CategoryApi)
 		jobCompletenessDeciderMock = Mock(StepCompletenessDecider)
 		movieCreationConfiguration = new MovieCreationConfiguration(
@@ -27,19 +27,20 @@ class MovieCreationConfigurationTest extends AbstractCreationConfigurationTest {
 				stepCompletenessDecider: jobCompletenessDeciderMock)
 	}
 
-	def "MovieReader is created with all pages when step is not completed"() {
+	void "MovieReader is created with all pages when step is not completed"() {
 		when:
 		MovieReader movieReader = movieCreationConfiguration.movieReader()
 		List<String> categoryHeaderTitleList = readerToList(movieReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_MOVIES) >> false
-		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_FILMS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_STAR_TREK_GENERATIONS)
+		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_FILMS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+				createListWithPageHeaderTitle(TITLE_STAR_TREK_GENERATIONS)
 		0 * _
 		categoryHeaderTitleList.contains TITLE_STAR_TREK_GENERATIONS
 	}
 
-	def "MovieReader is created with no pages when step is completed"() {
+	void "MovieReader is created with no pages when step is completed"() {
 		when:
 		MovieReader movieReader = movieCreationConfiguration.movieReader()
 		List<String> categoryHeaderTitleList = readerToList(movieReader)

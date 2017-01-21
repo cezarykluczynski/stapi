@@ -22,14 +22,14 @@ class PageBoundToEntityFilteringFinderTest extends Specification {
 
 	private PageBoundToEntityFilteringFinder pageBoundToEntityFilteringFinder
 
-	def setup() {
+	void setup() {
 		pageRepositoryMock = Mock(PageRepository)
 		inPageAwareRepositoryPageFinderMock = Mock(InPageAwareRepositoryPageFinder)
 		pageBoundToEntityFilteringFinder = new PageBoundToEntityFilteringFinder(pageRepositoryMock,
 				inPageAwareRepositoryPageFinderMock)
 	}
 
-	def "returns only pages found by PageRepository that are not found by InPageAwareRepositoryPageFinder"() {
+	void "returns only pages found by PageRepository that are not found by InPageAwareRepositoryPageFinder"() {
 		given:
 		List<Page> inPageAwareRepositoryPageFinderPageList = Lists.newArrayList(
 				createPage(PAGE_ID_1),
@@ -56,10 +56,9 @@ class PageBoundToEntityFilteringFinderTest extends Specification {
 	}
 
 	private Page createPage(Long pageId) {
-		return Mock(Page) {
-			getId() >> pageId
-		}
+		Page page = Mock(Page)
+		page.id >> pageId
+		page
 	}
-
 
 }

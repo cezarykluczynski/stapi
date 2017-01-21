@@ -8,29 +8,29 @@ class PartToGenderProcessorTest extends Specification {
 
 	private PartToGenderProcessor partToGenderProcessor
 
-	def setup() {
+	void setup() {
 		partToGenderProcessor = new PartToGenderProcessor()
 	}
 
-	def "gets female gender"() {
+	void "gets female gender"() {
 		when:
-		Gender gender = partToGenderProcessor.process(new Template.Part(value: " Female "))
+		Gender gender = partToGenderProcessor.process(new Template.Part(value: ' Female '))
 
 		then:
 		gender == Gender.F
 	}
 
-	def "gets male gender"() {
+	void "gets male gender"() {
 		when:
-		Gender gender = partToGenderProcessor.process(new Template.Part(value: " Male "))
+		Gender gender = partToGenderProcessor.process(new Template.Part(value: ' Male '))
 
 		then:
 		gender == Gender.M
 	}
 
-	def "return null when gender could not be determined"() {
+	void "return null when gender could not be determined"() {
 		when:
-		Gender gender = partToGenderProcessor.process(new Template.Part(value: "err value"))
+		Gender gender = partToGenderProcessor.process(new Template.Part(value: 'err value'))
 
 		then:
 		gender == null

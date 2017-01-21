@@ -17,7 +17,7 @@ abstract class AbstractCharacterMapperTest extends AbstractIndividualTest {
 	protected static final MaritalStatus ENTITY_MARITAL_STATUS = MaritalStatus.MARRIED
 
 	protected Character createCharacter() {
-		return new Character(
+		new Character(
 				name: NAME,
 				guid: GUID,
 				gender: ENTITY_GENDER,

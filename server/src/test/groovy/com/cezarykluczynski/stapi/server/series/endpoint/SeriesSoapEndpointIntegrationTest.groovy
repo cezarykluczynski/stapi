@@ -13,11 +13,11 @@ import spock.lang.Requires
 })
 class SeriesSoapEndpointIntegrationTest extends AbstractSeriesEndpointIntegrationTest {
 
-	def setup() {
+	void setup() {
 		createSoapClient()
 	}
 
-	def "gets all series"() {
+	void "gets all series"() {
 		given:
 		Integer pageNumber = 0
 		Integer pageSize = 10
@@ -37,7 +37,7 @@ class SeriesSoapEndpointIntegrationTest extends AbstractSeriesEndpointIntegratio
 
 	}
 
-	def "gets series by title"() {
+	void "gets series by title"() {
 		given:
 		Integer pageNumber = 0
 		Integer pageSize = 2
@@ -58,7 +58,7 @@ class SeriesSoapEndpointIntegrationTest extends AbstractSeriesEndpointIntegratio
 		seriesResponse.series[0].title.contains VOYAGER
 	}
 
-	def "gets series by guid"() {
+	void "gets series by guid"() {
 		given:
 		Integer pageNumber = 0
 		Integer pageSize = 2
@@ -80,7 +80,5 @@ class SeriesSoapEndpointIntegrationTest extends AbstractSeriesEndpointIntegratio
 		seriesResponse.series[0].episodeHeaders.size() == 22
 		seriesResponse.series[0].abbreviation == TAS
 	}
-
-
 
 }

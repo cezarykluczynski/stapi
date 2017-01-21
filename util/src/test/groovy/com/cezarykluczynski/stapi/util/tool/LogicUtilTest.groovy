@@ -6,7 +6,7 @@ class LogicUtilTest extends Specification {
 
 	private static final Object NOT_NULL = new Object()
 
-	def "xor null is handled properly"() {
+	void "xor null is handled properly"() {
 		expect:
 		LogicUtil.xorNull(NOT_NULL, null)
 		LogicUtil.xorNull(null, NOT_NULL)

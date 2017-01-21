@@ -9,11 +9,11 @@ class SeriesQueryBuilderFactoryTest extends Specification {
 
 	private SeriesQueryBuilderFactory seriesQueryBuilerFactory
 
-	def setup() {
+	void setup() {
 		jpaContextMock = Mock(JpaContext)
 	}
 
-	def "SeriesQueryBuiler is created"() {
+	void "SeriesQueryBuiler is created"() {
 		when:
 		seriesQueryBuilerFactory = new SeriesQueryBuilderFactory(jpaContextMock)
 

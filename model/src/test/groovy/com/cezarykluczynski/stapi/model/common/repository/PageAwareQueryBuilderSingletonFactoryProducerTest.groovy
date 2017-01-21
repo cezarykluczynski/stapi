@@ -10,12 +10,12 @@ class PageAwareQueryBuilderSingletonFactoryProducerTest extends Specification {
 
 	private PageAwareQueryBuilderSingletonFactoryProducer pageAwareQueryBuilderSingletonFactoryProducer
 
-	def setup() {
+	void setup() {
 		jpaContextMock = Mock(JpaContext)
 		pageAwareQueryBuilderSingletonFactoryProducer = new PageAwareQueryBuilderSingletonFactoryProducer(jpaContextMock)
 	}
 
-	def "creates factories only once"() {
+	void "creates factories only once"() {
 		when:
 		PageAwareQueryBuilderFactory pageAwareQueryBuilderFactory1 = pageAwareQueryBuilderSingletonFactoryProducer.create(Performer)
 		PageAwareQueryBuilderFactory pageAwareQueryBuilderFactory2 = pageAwareQueryBuilderSingletonFactoryProducer.create(Performer)

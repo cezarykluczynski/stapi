@@ -51,7 +51,7 @@ class MovieRepositoryImplTest extends Specification {
 
 	private Set<Character> charactersSet
 
-	def setup() {
+	void setup() {
 		movieInitialQueryBuilderFactory = Mock(MovieInitialQueryBuilderFactory)
 		movieRepositoryImpl = new MovieRepositoryImpl(movieInitialQueryBuilderFactory)
 		movieQueryBuilder = Mock(QueryBuilder)
@@ -71,7 +71,7 @@ class MovieRepositoryImplTest extends Specification {
 		charactersSet = Mock(Set)
 	}
 
-	def "query is built and performed"() {
+	void "query is built and performed"() {
 		when:
 		Page pageOutput = movieRepositoryImpl.findMatching(movieRequestDTO, pageable)
 
@@ -79,7 +79,7 @@ class MovieRepositoryImplTest extends Specification {
 		1 * movieInitialQueryBuilderFactory.createInitialQueryBuilder(movieRequestDTO, pageable) >> movieQueryBuilder
 
 		then: 'guid is retrieved, and it is not null'
-		1 * movieRequestDTO.getGuid() >> GUID
+		1 * movieRequestDTO.guid >> GUID
 
 		then: 'main director is fetched'
 		1 * movieQueryBuilder.fetch(Movie_.mainDirector)
@@ -94,7 +94,7 @@ class MovieRepositoryImplTest extends Specification {
 
 		then: 'page is retrieved'
 		1 * movieQueryBuilder.findPage() >> page
-		1 * page.getContent() >> Lists.newArrayList(movie)
+		1 * page.content >> Lists.newArrayList(movie)
 
 		then: 'another criteria builder is retrieved for performers'
 		1 * movieInitialQueryBuilderFactory.createInitialQueryBuilder(movieRequestDTO, pageable) >> moviePerformersQueryBuilder
@@ -108,11 +108,11 @@ class MovieRepositoryImplTest extends Specification {
 		1 * moviePerformersQueryBuilder.findAll() >> Lists.newArrayList(performersMovie)
 
 		then: 'performers from performers movie are set to movie'
-		1 * performersMovie.getPerformers() >> performersSet
+		1 * performersMovie.performers >> performersSet
 		1 * movie.setPerformers(performersSet)
-		1 * performersMovie.getStuntPerformers() >> stuntPerformersSet
+		1 * performersMovie.stuntPerformers >> stuntPerformersSet
 		1 * movie.setStuntPerformers(stuntPerformersSet)
-		1 * performersMovie.getStandInPerformers() >> standInPerformersSet
+		1 * performersMovie.standInPerformers >> standInPerformersSet
 		1 * movie.setStandInPerformers(standInPerformersSet)
 
 		then: 'another criteria builder is retrieved for characters'
@@ -125,7 +125,7 @@ class MovieRepositoryImplTest extends Specification {
 		1 * movieCharactersQueryBuilder.findAll() >> Lists.newArrayList(charactersMovie)
 
 		then: 'performers from performers movie are set to movie'
-		1 * charactersMovie.getCharacters() >> charactersSet
+		1 * charactersMovie.characters >> charactersSet
 		1 * movie.setCharacters(charactersSet)
 
 		then: 'page is returned'
@@ -135,7 +135,7 @@ class MovieRepositoryImplTest extends Specification {
 		0 * _
 	}
 
-	def "query is built and performed without results from additional queries"() {
+	void "query is built and performed without results from additional queries"() {
 		when:
 		Page pageOutput = movieRepositoryImpl.findMatching(movieRequestDTO, pageable)
 
@@ -143,7 +143,7 @@ class MovieRepositoryImplTest extends Specification {
 		1 * movieInitialQueryBuilderFactory.createInitialQueryBuilder(movieRequestDTO, pageable) >> movieQueryBuilder
 
 		then: 'guid is retrieved, and it is not null'
-		1 * movieRequestDTO.getGuid() >> GUID
+		1 * movieRequestDTO.guid >> GUID
 
 		then: 'main director is fetched'
 		1 * movieQueryBuilder.fetch(Movie_.mainDirector)
@@ -158,7 +158,7 @@ class MovieRepositoryImplTest extends Specification {
 
 		then: 'page is retrieved'
 		1 * movieQueryBuilder.findPage() >> page
-		1 * page.getContent() >> Lists.newArrayList(movie)
+		1 * page.content >> Lists.newArrayList(movie)
 
 		then: 'another criteria builder is retrieved for performers'
 		1 * movieInitialQueryBuilderFactory.createInitialQueryBuilder(movieRequestDTO, pageable) >> moviePerformersQueryBuilder
@@ -187,7 +187,7 @@ class MovieRepositoryImplTest extends Specification {
 		0 * _
 	}
 
-	def "empty page is returned"() {
+	void "empty page is returned"() {
 		when:
 		Page pageOutput = movieRepositoryImpl.findMatching(movieRequestDTO, pageable)
 
@@ -195,7 +195,7 @@ class MovieRepositoryImplTest extends Specification {
 		1 * movieInitialQueryBuilderFactory.createInitialQueryBuilder(movieRequestDTO, pageable) >> movieQueryBuilder
 
 		then: 'guid is retrieved, and it is not null'
-		1 * movieRequestDTO.getGuid() >> GUID
+		1 * movieRequestDTO.guid >> GUID
 
 		then: 'main director is fetched'
 		1 * movieQueryBuilder.fetch(Movie_.mainDirector)
@@ -210,7 +210,7 @@ class MovieRepositoryImplTest extends Specification {
 
 		then: 'page is retrieved'
 		1 * movieQueryBuilder.findPage() >> page
-		1 * page.getContent() >> Lists.newArrayList()
+		1 * page.content >> Lists.newArrayList()
 
 		then: 'page is returned'
 		pageOutput == page
@@ -219,7 +219,7 @@ class MovieRepositoryImplTest extends Specification {
 		0 * _
 	}
 
-	def "proxies are cleared when no related entities should be fetched"() {
+	void "proxies are cleared when no related entities should be fetched"() {
 		when:
 		Page pageOutput = movieRepositoryImpl.findMatching(movieRequestDTO, pageable)
 
@@ -227,13 +227,13 @@ class MovieRepositoryImplTest extends Specification {
 		1 * movieInitialQueryBuilderFactory.createInitialQueryBuilder(movieRequestDTO, pageable) >> movieQueryBuilder
 
 		then: 'guid criteria is set to null'
-		1 * movieRequestDTO.getGuid() >> null
+		1 * movieRequestDTO.guid >> null
 
 		then: 'page is searched for and returned'
 		1 * movieQueryBuilder.findPage() >> page
 
 		then: 'proxies are cleared'
-		1 * page.getContent() >> Lists.newArrayList(movie)
+		1 * page.content >> Lists.newArrayList(movie)
 		1 * movie.setWriters(Sets.newHashSet())
 		1 * movie.setScreenplayAuthors(Sets.newHashSet())
 		1 * movie.setStoryAuthors(Sets.newHashSet())

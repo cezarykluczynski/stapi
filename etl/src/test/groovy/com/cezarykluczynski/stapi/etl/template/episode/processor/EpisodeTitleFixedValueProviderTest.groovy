@@ -6,11 +6,11 @@ class EpisodeTitleFixedValueProviderTest extends Specification {
 
 	private EpisodeTitleFixedValueProvider episodeTitleFixedValueProvider
 
-	def setup() {
+	void setup() {
 		episodeTitleFixedValueProvider = new EpisodeTitleFixedValueProvider()
 	}
 
-	def "provides correct title"() {
+	void "provides correct title"() {
 		expect:
 		episodeTitleFixedValueProvider.getSearchedValue('E┬▓').found
 		episodeTitleFixedValueProvider.getSearchedValue('E┬▓').value == 'E²'

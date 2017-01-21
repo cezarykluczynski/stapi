@@ -29,14 +29,14 @@ class MovieTemplateTitleLanguagesEnrichingProcessorTest extends Specification {
 
 	private MovieTemplateTitleLanguagesEnrichingProcessor movieTemplateTitleLanguagesEnrichingProcessor
 
-	def setup() {
+	void setup() {
 		wikitextApiMock = Mock(WikitextApi)
 		pageSectionExtractorMock = Mock(PageSectionExtractor)
 		movieTemplateTitleLanguagesEnrichingProcessor = new MovieTemplateTitleLanguagesEnrichingProcessor(
 				wikitextApiMock, pageSectionExtractorMock)
 	}
 
-	def "gets links from last page section and puts them into episode template"() {
+	void "gets links from last page section and puts them into episode template"() {
 		given:
 		PageSection pageSection = new PageSection(wikitext: WIKITEXT)
 		List<PageSection> pageSectionList = Lists.newArrayList(pageSection)
@@ -72,7 +72,7 @@ class MovieTemplateTitleLanguagesEnrichingProcessorTest extends Specification {
 		movieTemplate.titleSpanish == TITLE_SPANISH
 	}
 
-	def "tolerates empty section list"() {
+	void "tolerates empty section list"() {
 		given:
 		Page page = new Page(sections: Lists.newArrayList())
 		MovieTemplate movieTemplate = new MovieTemplate()

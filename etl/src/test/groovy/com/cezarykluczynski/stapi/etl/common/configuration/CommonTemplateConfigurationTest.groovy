@@ -13,12 +13,12 @@ class CommonTemplateConfigurationTest extends Specification {
 
 	private CommonTemplateConfiguration commonTemplateConfiguration
 
-	def setup() {
+	void setup() {
 		applicationContextMock = Mock(ApplicationContext)
 		commonTemplateConfiguration = new CommonTemplateConfiguration(applicationContext: applicationContextMock)
 	}
 
-	def "creates EPISODE_TEMPALTE_STARDATE_YEAR_ENRICHING_PROCESSOR"() {
+	void "creates EPISODE_TEMPALTE_STARDATE_YEAR_ENRICHING_PROCESSOR"() {
 		given:
 		EpisodeTemplateStardateYearFixedValueProvider episodeTemplateStardateYearFixedValueProvider =
 				Mock(EpisodeTemplateStardateYearFixedValueProvider)
@@ -35,7 +35,7 @@ class CommonTemplateConfigurationTest extends Specification {
 		episodeTemplateStardateYearEnrichingProcessor.stardateYearProcessor instanceof StardateYearProcessor
 	}
 
-	def "creates MOVIE_TEMPALTE_STARDATE_YEAR_ENRICHING_PROCESSOR"() {
+	void "creates MOVIE_TEMPALTE_STARDATE_YEAR_ENRICHING_PROCESSOR"() {
 		given:
 		MovieTemplateStardateYearFixedValueProvider movieTemplateStardateYearFixedValueProvider =
 				Mock(MovieTemplateStardateYearFixedValueProvider)

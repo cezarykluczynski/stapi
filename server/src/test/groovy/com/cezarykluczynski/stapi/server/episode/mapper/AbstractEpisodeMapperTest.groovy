@@ -14,6 +14,7 @@ import javax.xml.datatype.DatatypeConstants
 import javax.xml.datatype.XMLGregorianCalendar
 import java.time.LocalDate
 
+@SuppressWarnings('DuplicateNumberLiteral')
 abstract class AbstractEpisodeMapperTest extends Specification {
 
 	protected static final String GUID = 'GUID'
@@ -53,7 +54,7 @@ abstract class AbstractEpisodeMapperTest extends Specification {
 			.createDate(1998, 7, 8, DatatypeConstants.FIELD_UNDEFINED)
 
 	protected Episode createEpisode() {
-		return new Episode(
+		new Episode(
 				guid: GUID,
 				title: TITLE,
 				titleGerman: TITLE_GERMAN,

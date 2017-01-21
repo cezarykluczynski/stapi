@@ -16,12 +16,12 @@ class SeriesToEpisodeBindingServiceTest extends Specification {
 
 	private SeriesToEpisodeBindingService seriesToEpisodeBindingService
 
-	def setup() {
+	void setup() {
 		seriesRepositoryMock = Mock(SeriesRepository)
 		seriesToEpisodeBindingService = new SeriesToEpisodeBindingService(seriesRepositoryMock)
 	}
 
-	def "gets series from category"() {
+	void "gets series from category"() {
 		given:
 		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(
 				new CategoryHeader(
@@ -41,7 +41,7 @@ class SeriesToEpisodeBindingServiceTest extends Specification {
 		seriesOutput == seriesTos
 	}
 
-	def "returns null when there is more than one series category"() {
+	void "returns null when there is more than one series category"() {
 		given:
 		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(
 				new CategoryHeader(
@@ -68,7 +68,7 @@ class SeriesToEpisodeBindingServiceTest extends Specification {
 		seriesOutput == null
 	}
 
-	def "returns null when series cannot be found"() {
+	void "returns null when series cannot be found"() {
 		given:
 		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(
 				new CategoryHeader(

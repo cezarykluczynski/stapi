@@ -20,7 +20,7 @@ class StaffSoapQueryTest extends Specification {
 
 	private StaffSoapQuery staffSoapQuery
 
-	def setup() {
+	void setup() {
 		staffSoapMapperMock = Mock(StaffSoapMapper)
 		pageMapperMock = Mock(PageMapper)
 		staffRepositoryMock = Mock(StaffRepository)
@@ -28,13 +28,12 @@ class StaffSoapQueryTest extends Specification {
 				staffRepositoryMock)
 	}
 
-	def "maps StaffRequest to StaffRequestDTO and to PageRequest, then calls repository, then returns result"() {
+	void "maps StaffRequest to StaffRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
 		RequestPage requestPage = Mock(RequestPage)
 		PageRequest pageRequest = Mock(PageRequest)
-		StaffRequest staffRequest = Mock(StaffRequest) {
-			getPage() >> requestPage
-		}
+		StaffRequest staffRequest = Mock(StaffRequest)
+		staffRequest.page >> requestPage
 		StaffRequestDTO staffRequestDTO = Mock(StaffRequestDTO)
 		Page page = Mock(Page)
 

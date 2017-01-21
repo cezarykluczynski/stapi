@@ -13,8 +13,8 @@ class StardateYearProcessorTest extends Specification {
 	private static final String TITLE = 'TITLE'
 	private static final String YEAR_BARE_STRING_FROM = '2368'
 	private static final String YEAR_BARE_STRING_TO = '2369'
-	private static final String YEAR_TOO_EARLY_BARE_STRING = "999"
-	private static final String YEAR_TOO_LATE_BARE_STRING = "10000"
+	private static final String YEAR_TOO_EARLY_BARE_STRING = '999'
+	private static final String YEAR_TOO_LATE_BARE_STRING = '10000'
 	private static final String YEAR_STRING_FROM = "([[${YEAR_BARE_STRING_FROM}]])"
 	private static final String YEAR_STRING_FROM_TO = "([[${YEAR_BARE_STRING_FROM}]]-[[${YEAR_BARE_STRING_TO}]])"
 	private static final String YEAR_STRING_TO_FROM = "([[${YEAR_BARE_STRING_TO}]]-[[${YEAR_BARE_STRING_FROM}]])"
@@ -40,13 +40,12 @@ class StardateYearProcessorTest extends Specification {
 
 	private StardateYearProcessor stardateYearProcessor
 
-	def setup() {
+	void setup() {
 		wikitextApiMock = Mock(WikitextApi)
 		stardateYearProcessor = new StardateYearProcessor(wikitextApiMock)
 	}
 
-
-	def "sets stardates and years from and to values"() {
+	void "sets stardates and years from and to values"() {
 		when:
 		StardateYearDTO stardateYearDTO = stardateYearProcessor
 				.process(StardateYearCandidateDTO.of(WS_DATE_FROM_TO, StardateYearSource.EPISODE, TITLE))
@@ -66,7 +65,7 @@ class StardateYearProcessorTest extends Specification {
 		stardateYearDTO.yearTo == YEAR_INTEGER_TO
 	}
 
-	def "sets stardates and years from and to values, then reverse values so the lower if always 'from'"() {
+	void "sets stardates and years from and to values, then reverse values so the lower if always 'from'"() {
 		when:
 		StardateYearDTO stardateYearDTO = stardateYearProcessor
 				.process(StardateYearCandidateDTO.of(WS_DATE_TO_FROM, StardateYearSource.EPISODE, TITLE))
@@ -86,7 +85,7 @@ class StardateYearProcessorTest extends Specification {
 		stardateYearDTO.yearTo == YEAR_INTEGER_TO
 	}
 
-	def "tolerates invalid dates"() {
+	void "tolerates invalid dates"() {
 		when:
 		StardateYearDTO stardateYearDTO1 = stardateYearProcessor
 				.process(StardateYearCandidateDTO.of(WS_DATE_INVALID_1, StardateYearSource.EPISODE, TITLE))

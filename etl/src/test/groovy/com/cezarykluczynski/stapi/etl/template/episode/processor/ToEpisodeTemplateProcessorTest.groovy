@@ -23,10 +23,10 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 	private static final Long PAGE_ID = 1L
 	private static final String PAGE_TITLE = 'All Good Things... (episode)'
 	private static final String EPISODE_TITLE = 'All Good Things...'
-	private final Template SIDEBAR_EPISODE_TEMPLATE = new Template(
+	private final Template sidebarEpisodeTemplate = new Template(
 			title: TemplateName.SIDEBAR_EPISODE
 	)
-	private final Series SERIES = Mock(Series)
+	private final Series series = Mock(Series)
 
 	private EpisodeTemplateProcessor episodeTemplateProcessorMock
 
@@ -44,7 +44,7 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 
 	private ToEpisodeTemplateProcessor toEpisodeTemplateProcessor
 
-	def setup() {
+	void setup() {
 		episodeTemplateProcessorMock = Mock(EpisodeTemplateProcessor)
 		episodeLinkingWorkerCompositeMock = Mock(EpisodeLinkingWorkerComposite)
 		pageBindingServiceMock = Mock(PageBindingService)
@@ -57,8 +57,7 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 				episodeTitleFixedValueProviderMock)
 	}
 
-
-	def "does not interact with dependencies other than TemplateFinder when page does not have episode category"() {
+	void "does not interact with dependencies other than TemplateFinder when page does not have episode category"() {
 		given:
 		Page page = new Page()
 
@@ -70,26 +69,26 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 		0 * _
 	}
 
-	def "does not interact with dependencies other than TemplateFinder when page does have episode category, but the production lists category too"() {
+	void "does not interact with dependencies other than TemplateFinder when page does have episode category, but the production lists category too"() {
 		given:
 		Page page = new Page(
 				categories: Lists.newArrayList(
 						new CategoryHeader(title: CategoryName.TOS_EPISODES),
 						new CategoryHeader(title: CategoryName.PRODUCTION_LISTS)
 				),
-				templates: Lists.newArrayList(SIDEBAR_EPISODE_TEMPLATE)
+				templates: Lists.newArrayList(sidebarEpisodeTemplate)
 		)
 
 		when:
 		EpisodeTemplate episodeTemplate = toEpisodeTemplateProcessor.process(page)
 
 		then:
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_EPISODE) >> Optional.of(SIDEBAR_EPISODE_TEMPLATE)
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_EPISODE) >> Optional.of(sidebarEpisodeTemplate)
 		0 * _
 		episodeTemplate == null
 	}
 
-	def "does not interact with dependencies other than TemplateFinder when page have episode category, but no template"() {
+	void "does not interact with dependencies other than TemplateFinder when page have episode category, but no template"() {
 		given:
 		Page page = new Page(
 				pageId: PAGE_ID,
@@ -108,7 +107,7 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 		episodeTemplate == null
 	}
 
-	def "page is processed using dependencies"() {
+	void "page is processed using dependencies"() {
 		given:
 		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(
 				new CategoryHeader(title: CategoryName.TOS_EPISODES)
@@ -117,7 +116,7 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 				pageId: PAGE_ID,
 				title: PAGE_TITLE,
 				categories: categoryHeaderList,
-				templates: Lists.newArrayList(SIDEBAR_EPISODE_TEMPLATE))
+				templates: Lists.newArrayList(sidebarEpisodeTemplate))
 		PageEntity pageEntity = Mock(PageEntity)
 		Episode episodeStub = Mock(Episode)
 		EpisodeTemplate episodeTemplate = new EpisodeTemplate(
@@ -127,12 +126,12 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 		EpisodeTemplate episodeTemplateOutput = toEpisodeTemplateProcessor.process(page)
 
 		then:
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_EPISODE) >> Optional.of(SIDEBAR_EPISODE_TEMPLATE)
-		1 * episodeTemplateProcessorMock.process(SIDEBAR_EPISODE_TEMPLATE) >> episodeTemplate
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_EPISODE) >> Optional.of(sidebarEpisodeTemplate)
+		1 * episodeTemplateProcessorMock.process(sidebarEpisodeTemplate) >> episodeTemplate
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> pageEntity
 		1 * episodeLinkingWorkerCompositeMock.link(page, episodeStub)
 		1 * episodeTitleFixedValueProviderMock.getSearchedValue(EPISODE_TITLE) >> FixedValueHolder.notFound()
-		1 * seriesToEpisodeBindingServiceMock.mapCategoriesToSeries(categoryHeaderList) >> SERIES
+		1 * seriesToEpisodeBindingServiceMock.mapCategoriesToSeries(categoryHeaderList) >> series
 		1 * episodeTemplateEnrichingProcessorCompositeMock.enrich(_ as EnrichablePair) >> { EnrichablePair enrichablePair ->
 			enrichablePair.input == page
 			enrichablePair.output == episodeTemplate
@@ -141,23 +140,23 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 		episodeTemplateOutput == episodeTemplate
 		episodeTemplateOutput.title == EPISODE_TITLE
 		episodeTemplateOutput.page == pageEntity
-		episodeTemplateOutput.series == SERIES
+		episodeTemplateOutput.series == series
 	}
 
-	def "returns null when EpisodeTemplateProcessor returns null"() {
+	void "returns null when EpisodeTemplateProcessor returns null"() {
 		given:
 		Page page = new Page(
 				categories: Lists.newArrayList(
 						new CategoryHeader(title: CategoryName.TOS_EPISODES)
 				),
-				templates: Lists.newArrayList(SIDEBAR_EPISODE_TEMPLATE)
+				templates: Lists.newArrayList(sidebarEpisodeTemplate)
 		)
 
 		when:
 		EpisodeTemplate episodeTemplateOutput = toEpisodeTemplateProcessor.process(page)
 
 		then:
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_EPISODE) >> Optional.of(SIDEBAR_EPISODE_TEMPLATE)
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_EPISODE) >> Optional.of(sidebarEpisodeTemplate)
 		1 * episodeTemplateProcessorMock.process(_) >> null
 		episodeTemplateOutput == null
 	}

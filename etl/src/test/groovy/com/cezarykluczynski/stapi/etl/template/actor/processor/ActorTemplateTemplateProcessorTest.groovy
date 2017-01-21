@@ -21,12 +21,12 @@ class ActorTemplateTemplateProcessorTest extends Specification {
 
 	private ActorTemplateTemplateProcessor actorTemplateTemplateProcessor
 
-	def setup() {
+	void setup() {
 		partToGenderProcessorMock = Mock(PartToGenderProcessor)
 		actorTemplateTemplateProcessor = new ActorTemplateTemplateProcessor(partToGenderProcessorMock)
 	}
 
-	def "valid template is parsed"() {
+	void "valid template is parsed"() {
 		given:
 		Template.Part genderPart = new Template.Part(key: ActorTemplateTemplateProcessor.GENDER, value: NOT_EMPTY_STRING)
 		Template template = new Template(parts: Lists.newArrayList(
@@ -51,7 +51,7 @@ class ActorTemplateTemplateProcessorTest extends Specification {
 		actorTemplate.gender == GENDER
 	}
 
-	def "blank values are not set"() {
+	void "blank values are not set"() {
 		given:
 		Template template = new Template(parts: Lists.newArrayList(
 				new Template.Part(key: ActorTemplateTemplateProcessor.NAME, value: StringUtils.EMPTY),

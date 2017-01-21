@@ -13,11 +13,11 @@ class TemplateFinderTest extends Specification {
 
 	private TemplateFinder templateFinder
 
-	def setup() {
+	void setup() {
 		templateFinder = new TemplateFinder()
 	}
 
-	def "finds first template by name"() {
+	void "finds first template by name"() {
 		given:
 		Template template1title1 = new Template(title: TITLE_1)
 		Template template1title2 = new Template(title: TITLE_1)
@@ -30,7 +30,7 @@ class TemplateFinderTest extends Specification {
 		templateOptional.get() == template1title1
 	}
 
-	def "finds first template by multiple names"() {
+	void "finds first template by multiple names"() {
 		Template template1 = new Template(title: TITLE_1)
 		Template template2 = new Template(title: TITLE_2)
 		Template templateInvalid = new Template(title: INVALID_TITLE)
@@ -43,7 +43,7 @@ class TemplateFinderTest extends Specification {
 		templateOptional.get() == template2
 	}
 
-	def "returns empty optional is nothing is found"() {
+	void "returns empty optional is nothing is found"() {
 		Page page = new Page()
 
 		when:

@@ -24,19 +24,18 @@ class PerformerRestReaderTest extends Specification {
 
 	private PerformerRestReader performerRestReader
 
-	def setup() {
+	void setup() {
 		performerRestQueryBuilderMock = Mock(PerformerRestQuery)
 		performerRestMapperMock = Mock(PerformerRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		performerRestReader = new PerformerRestReader(performerRestQueryBuilderMock, performerRestMapperMock, pageMapperMock)
 	}
 
-	def "gets database entities and puts them into PerformerResponse"() {
+	void "gets database entities and puts them into PerformerResponse"() {
 		given:
 		List<Performer> dbPerformerList = Lists.newArrayList()
-		Page<Performer> dbPerformerPage = Mock(Page) {
-			getContent() >> dbPerformerList
-		}
+		Page<Performer> dbPerformerPage = Mock(Page)
+		dbPerformerPage.content >> dbPerformerList
 		List<RESTPerformer> soapPerformerList = Lists.newArrayList(new RESTPerformer(guid: GUID))
 		PerformerRestBeanParams seriesRestBeanParams = Mock(PerformerRestBeanParams)
 		ResponsePage responsePage = Mock(ResponsePage)

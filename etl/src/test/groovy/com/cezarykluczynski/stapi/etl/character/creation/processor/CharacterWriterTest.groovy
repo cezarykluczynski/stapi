@@ -14,14 +14,14 @@ class CharacterWriterTest extends Specification {
 
 	private CharacterWriter characterWriterMock
 
-	def setup() {
+	void setup() {
 		characterRepositoryMock = Mock(CharacterRepository)
 		duplicateFilteringPreSavePageAwareProcessorMock = Mock(DuplicateFilteringPreSavePageAwareFilter)
 		characterWriterMock = new CharacterWriter(characterRepositoryMock,
 				duplicateFilteringPreSavePageAwareProcessorMock)
 	}
 
-	def "filters all entities using pre save processor, then writes all entities using repository"() {
+	void "filters all entities using pre save processor, then writes all entities using repository"() {
 		given:
 		Character character = new Character()
 		List<Character> characterList = Lists.newArrayList(character)
@@ -32,7 +32,7 @@ class CharacterWriterTest extends Specification {
 		then:
 		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, Character) >> { args ->
 			assert args[0][0] == character
-			return characterList
+			characterList
 		}
 		1 * characterRepositoryMock.save(characterList)
 		0 * _

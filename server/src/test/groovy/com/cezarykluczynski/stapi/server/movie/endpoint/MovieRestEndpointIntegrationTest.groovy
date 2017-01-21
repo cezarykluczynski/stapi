@@ -16,11 +16,11 @@ import java.time.LocalDate
 })
 class MovieRestEndpointIntegrationTest extends AbstractMovieEndpointIntegrationTest {
 
-	def setup() {
+	void setup() {
 		createRestClient()
 	}
 
-	def "gets all movie releases in the last decade of XX century, sorted by us release date"() {
+	void "gets all movie releases in the last decade of XX century, sorted by us release date"() {
 		when:
 		MovieResponse movieResponse = stapiRestClient.movieApi.moviePost(null, null,
 				StapiRestSortSerializer.serialize(Lists.newArrayList(new RestSortClause(
@@ -32,7 +32,7 @@ class MovieRestEndpointIntegrationTest extends AbstractMovieEndpointIntegrationT
 		movieResponse.movies.size() == 4
 	}
 
-	def "movie has stardate and year set"() {
+	void "movie has stardate and year set"() {
 		when:
 		MovieResponse movieResponse = stapiRestClient.movieApi.moviePost(null, null, null, null,
 				'Star Trek Into Darkness', null, null, null, null, null, null)
@@ -45,7 +45,8 @@ class MovieRestEndpointIntegrationTest extends AbstractMovieEndpointIntegrationT
 		movieResponse.movies[0].yearTo != null
 	}
 
-	def "confirms that Kathryn Janeway appeared in Nemesis"() {
+	@SuppressWarnings('ClosureAsLastMethodParameter')
+	void "confirms that Kathryn Janeway appeared in Nemesis"() {
 		when:
 		MovieResponse movieResponseFromTitle = stapiRestClient.movieApi.moviePost(null, null, null, null,
 				'Star Trek Nemesis', null, null, null, null, null, null)
@@ -55,7 +56,7 @@ class MovieRestEndpointIntegrationTest extends AbstractMovieEndpointIntegrationT
 		then:
 		movieResponse.movies.size() == 1
 		movieResponse.movies[0].characterHeaders.stream().anyMatch({
-			return it.name == 'Kathryn Janeway'
+			it.name == 'Kathryn Janeway'
 		})
 	}
 

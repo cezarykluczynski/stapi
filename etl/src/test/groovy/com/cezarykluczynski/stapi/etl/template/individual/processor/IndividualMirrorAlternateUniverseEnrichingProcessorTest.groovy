@@ -17,12 +17,12 @@ class IndividualMirrorAlternateUniverseEnrichingProcessorTest extends Specificat
 
 	private IndividualMirrorAlternateUniverseEnrichingProcessor individualMirrorAlternateUniverseEnrichingProcessor
 
-	def setup() {
+	void setup() {
 		templateFinderMock = Mock(TemplateFinder)
 		individualMirrorAlternateUniverseEnrichingProcessor = new IndividualMirrorAlternateUniverseEnrichingProcessor(templateFinderMock)
 	}
 
-	def "adds mirror flag when title contains mirror"() {
+	void "adds mirror flag when title contains mirror"() {
 		given:
 		Page page = new Page(title: 'Jonathan Archer (mirror)')
 		IndividualTemplate individualTemplate = new IndividualTemplate()
@@ -37,7 +37,7 @@ class IndividualMirrorAlternateUniverseEnrichingProcessorTest extends Specificat
 		!individualTemplate.alternateReality
 	}
 
-	def "adds mirror flag when mirror template is present"() {
+	void "adds mirror flag when mirror template is present"() {
 		given:
 		Page page = new Page(title: 'Jonathan Archer')
 		IndividualTemplate individualTemplate = new IndividualTemplate()
@@ -53,7 +53,7 @@ class IndividualMirrorAlternateUniverseEnrichingProcessorTest extends Specificat
 		!individualTemplate.alternateReality
 	}
 
-	def "adds mirror flag when category contains mirror inhabitants"() {
+	void "adds mirror flag when category contains mirror inhabitants"() {
 		given:
 		Page page = new Page(
 				title: 'Jonathan Archer',
@@ -70,7 +70,7 @@ class IndividualMirrorAlternateUniverseEnrichingProcessorTest extends Specificat
 		!individualTemplate.alternateReality
 	}
 
-	def "adds alternate reality flag when title contains mirror"() {
+	void "adds alternate reality flag when title contains mirror"() {
 		given:
 		Page page = new Page(title: 'Carol Marcus (alternate reality)')
 		IndividualTemplate individualTemplate = new IndividualTemplate()
@@ -85,7 +85,7 @@ class IndividualMirrorAlternateUniverseEnrichingProcessorTest extends Specificat
 		individualTemplate.alternateReality
 	}
 
-	def "adds alternate reality flag when alternate reality template is present"() {
+	void "adds alternate reality flag when alternate reality template is present"() {
 		given:
 		Page page = new Page(title: 'Jonathan Archer')
 		IndividualTemplate individualTemplate = new IndividualTemplate()
@@ -101,7 +101,7 @@ class IndividualMirrorAlternateUniverseEnrichingProcessorTest extends Specificat
 		individualTemplate.alternateReality
 	}
 
-	def "adds alternate reality flag when category name contains alternate reality"() {
+	void "adds alternate reality flag when category name contains alternate reality"() {
 		given:
 		Page page = new Page(
 				title: 'Jonathan Archer',

@@ -15,7 +15,7 @@ class GenderizeClientConnectableImplTest extends Specification {
 	private static final String NAME = 'John'
 	private static final String NAME_PRODUCING_404 = 'Mark'
 	private static final String NAME_PRODUCING_NULL_GENDER = 'Tom'
-	private static final String URL = "http://localhost:9761/"
+	private static final String URL = 'http://localhost:9761/'
 
 	private GenderizeClientConnectableImpl genderizeClientConnectableImpl
 
@@ -24,23 +24,23 @@ class GenderizeClientConnectableImplTest extends Specification {
 
 	private MockServerClient mockServerClient
 
-	def setupSpec() {
+	void setupSpec() {
 		mockServer = ClientAndServer.startClientAndServer(9761)
 	}
 
-	def cleanupSpec() {
+	void cleanupSpec() {
 		mockServer.stop()
 	}
 
-	def setup() {
+	void setup() {
 		genderizeClientConnectableImpl = new GenderizeClientConnectableImpl(URL)
-		mockServerClient = new MockServerClient("localhost", 9761)
+		mockServerClient = new MockServerClient('localhost', 9761)
 	}
 
-	def "returns NameGender when response was valid, then returns cache response"() {
+	void "returns NameGender when response was valid, then returns cache response"() {
 		given:
 		mockServerClient
-				.when(HttpRequest.request().withMethod("GET").withQueryStringParameter("name", NAME))
+				.when(HttpRequest.request().withMethod('GET').withQueryStringParameter('name', NAME))
 				.respond(HttpResponse.response().withStatusCode(200).withBody(
 				JsonBody.json('{"name":"' + NAME + '","gender":"male","probability":0.98,"count":1000}', MatchType.STRICT)))
 
@@ -49,7 +49,7 @@ class GenderizeClientConnectableImplTest extends Specification {
 
 		then:
 		nameGender.name == NAME
-		nameGender.gender == "male"
+		nameGender.gender == 'male'
 
 		when: 'another call is performed'
 		NameGenderDTO nameGenderCached = genderizeClientConnectableImpl.getNameGender(NAME)
@@ -58,10 +58,10 @@ class GenderizeClientConnectableImplTest extends Specification {
 		nameGenderCached == nameGender
 	}
 
-	def "gets null when gender was null in response"() {
+	void "gets null when gender was null in response"() {
 		given:
 		mockServerClient
-				.when(HttpRequest.request().withMethod("GET").withQueryStringParameter("name", NAME_PRODUCING_NULL_GENDER))
+				.when(HttpRequest.request().withMethod('GET').withQueryStringParameter('name', NAME_PRODUCING_NULL_GENDER))
 				.respond(HttpResponse.response().withStatusCode(202).withBody(
 				JsonBody.json('{"name":"' + NAME_PRODUCING_NULL_GENDER + '","gender":null}', MatchType.STRICT)))
 
@@ -72,10 +72,10 @@ class GenderizeClientConnectableImplTest extends Specification {
 		nameGender == null
 	}
 
-	def "gets null when probability was null in response"() {
+	void "gets null when probability was null in response"() {
 		given:
 		mockServerClient
-				.when(HttpRequest.request().withMethod("GET").withQueryStringParameter("name", NAME_PRODUCING_NULL_GENDER))
+				.when(HttpRequest.request().withMethod('GET').withQueryStringParameter('name', NAME_PRODUCING_NULL_GENDER))
 				.respond(HttpResponse.response().withStatusCode(202).withBody(
 				JsonBody.json('{"name":"' + NAME_PRODUCING_NULL_GENDER + '","gender":"male", "probability": null}', MatchType.STRICT)))
 
@@ -86,10 +86,10 @@ class GenderizeClientConnectableImplTest extends Specification {
 		nameGender == null
 	}
 
-	def "gets null when API was not there"() {
+	void "gets null when API was not there"() {
 		given:
 		mockServerClient
-				.when(HttpRequest.request().withMethod("GET").withQueryStringParameter("name", NAME_PRODUCING_404))
+				.when(HttpRequest.request().withMethod('GET').withQueryStringParameter('name', NAME_PRODUCING_404))
 				.respond(HttpResponse.response().withStatusCode(404))
 
 		when:
@@ -99,7 +99,7 @@ class GenderizeClientConnectableImplTest extends Specification {
 		nameGender == null
 	}
 
-	def "another call to API is postponed"() {
+	void "another call to API is postponed"() {
 		given:
 		long startInMilliseconds = System.currentTimeMillis()
 

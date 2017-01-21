@@ -10,11 +10,11 @@ class StaffHeaderSoapMapperTest extends AbstractRealWorldPersonMapperTest {
 
 	private StaffHeaderSoapMapper staffHeaderSoapMapper
 
-	def setup() {
+	void setup() {
 		staffHeaderSoapMapper = Mappers.getMapper(StaffHeaderSoapMapper)
 	}
 
-	def "maps DB entity to SOAP header"() {
+	void "maps DB entity to SOAP header"() {
 		given:
 		Staff staff = new Staff(
 				name: NAME,

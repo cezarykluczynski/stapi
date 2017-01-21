@@ -4,7 +4,7 @@ import spock.lang.Specification
 
 class TitleUtilTest extends Specification {
 
-	def "clears title"() {
+	void "clears title"() {
 		expect:
 		TitleUtil.getNameFromTitle('Title') == 'Title'
 		TitleUtil.getNameFromTitle(' Title') == 'Title'
@@ -17,7 +17,7 @@ class TitleUtilTest extends Specification {
 		TitleUtil.getNameFromTitle(' Title （エピソード） ') == 'Title'
 	}
 
-	def "converts title to title that can be put into MediaWiki API query"() {
+	void "converts title to title that can be put into MediaWiki API query"() {
 		expect:
 		TitleUtil.toMediaWikiTitle('Title') == 'Title'
 		TitleUtil.toMediaWikiTitle('Title title') == 'Title_title'

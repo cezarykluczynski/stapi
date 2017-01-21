@@ -8,13 +8,13 @@ import spock.lang.Specification
 abstract class AbstractCreationConfigurationTest extends Specification {
 
 	protected static List<PageHeader> createListWithPageHeaderTitle(String title) {
-		return Lists.newArrayList(PageHeader.builder().title(title).build())
+		Lists.newArrayList(PageHeader.builder().title(title).build())
 	}
 
 	protected static List<String> readerToList(ListItemReader<PageHeader> listItemReader) {
 		List<String> pageHeaderList = Lists.newArrayList()
 
-		while(true) {
+		while (true) {
 			PageHeader pageHeader = listItemReader.read()
 
 			if (pageHeader == null) {
@@ -24,7 +24,7 @@ abstract class AbstractCreationConfigurationTest extends Specification {
 			pageHeaderList.add pageHeader.title
 		}
 
-		return pageHeaderList
+		pageHeaderList
 	}
 
 }

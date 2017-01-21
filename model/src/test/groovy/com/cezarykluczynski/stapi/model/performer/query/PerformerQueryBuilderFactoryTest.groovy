@@ -9,11 +9,11 @@ class PerformerQueryBuilderFactoryTest extends Specification {
 
 	private PerformerQueryBuilderFactory performerQueryBuilerFactory
 
-	def setup() {
+	void setup() {
 		jpaContextMock = Mock(JpaContext)
 	}
 
-	def "PerformerQueryBuilder is created"() {
+	void "PerformerQueryBuilder is created"() {
 		when:
 		performerQueryBuilerFactory = new PerformerQueryBuilderFactory(jpaContextMock)
 

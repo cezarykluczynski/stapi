@@ -20,13 +20,13 @@ class PartToYearRangeProcessorTest extends Specification {
 
 	private PartToYearRangeProcessor partToYearRangeProcessor
 
-	def setup() {
+	void setup() {
 		templateToYearProcessorMock = Mock(TemplateToYearProcessor)
 		templateFilterMock = Mock(TemplateFilter)
 		partToYearRangeProcessor = new PartToYearRangeProcessor(templateToYearProcessorMock, templateFilterMock)
 	}
 
-	def "returns empty YearRange when value is null, templates are null"() {
+	void "returns empty YearRange when value is null, templates are null"() {
 		when:
 		YearRange yearRange = partToYearRangeProcessor.process(createTemplatePart(null, null))
 
@@ -35,25 +35,25 @@ class PartToYearRangeProcessorTest extends Specification {
 		yearRange.endYear == null
 	}
 
-	def "returns start date when value contains a single number"() {
+	void "returns start date when value contains a single number"() {
 		when:
-		YearRange yearRange = partToYearRangeProcessor.process(createTemplatePart("1995", null))
+		YearRange yearRange = partToYearRangeProcessor.process(createTemplatePart('1995', null))
 
 		then:
 		yearRange.startYear == 1995
 		yearRange.endYear == null
 	}
 
-	def "returns start date and end date, when value contains then, separated by &ndash;"() {
+	void "returns start date and end date, when value contains then, separated by &ndash;"() {
 		when:
-		YearRange yearRange = partToYearRangeProcessor.process(createTemplatePart("1990&ndash;2000", null))
+		YearRange yearRange = partToYearRangeProcessor.process(createTemplatePart('1990&ndash;2000', null))
 
 		then:
 		yearRange.startYear == 1990
 		yearRange.endYear == 2000
 	}
 
-	def "valid Part is converted to YearRange with both dates"() {
+	void "valid Part is converted to YearRange with both dates"() {
 		given:
 		List<Template> templateList = Lists.newArrayList(
 				START_TEMPLATE, END_TEMPLATE
@@ -73,7 +73,7 @@ class PartToYearRangeProcessorTest extends Specification {
 		yearRange.endYear == END_YEAR
 	}
 
-	def "Part with only start year is converted to YearRange with only start year"() {
+	void "Part with only start year is converted to YearRange with only start year"() {
 		given:
 		List<Template> templateList = Lists.newArrayList(
 				START_TEMPLATE
@@ -98,7 +98,7 @@ class PartToYearRangeProcessorTest extends Specification {
 		0 * _
 	}
 
-	def "Part with more than 2 year templates results in empty YearRange"() {
+	void "Part with more than 2 year templates results in empty YearRange"() {
 		given:
 		List<Template> templateList = Lists.newArrayList(
 				START_TEMPLATE, END_TEMPLATE, START_TEMPLATE
@@ -120,7 +120,9 @@ class PartToYearRangeProcessorTest extends Specification {
 	}
 
 	private static Template.Part createTemplatePart(String value, List<Template> templates) {
-		return new Template.Part(value: value, templates: templates)
+		new Template.Part(
+				value: value,
+				templates: templates)
 	}
 
 }

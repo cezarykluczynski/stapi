@@ -22,12 +22,12 @@ class PageHeaderProcessorTest extends Specification {
 
 	private PageHeaderProcessor pageHeaderProcessor
 
-	def setup() {
+	void setup() {
 		pageApiMock = Mock(PageApi)
 		pageHeaderProcessor = new PageHeaderProcessor(pageApiMock)
 	}
 
-	def "when Page Api returns null, null is returned"() {
+	void "when Page Api returns null, null is returned"() {
 		given:
 		PageHeader pageHeader = new PageHeader()
 
@@ -39,7 +39,7 @@ class PageHeaderProcessorTest extends Specification {
 		page == null
 	}
 
-	def "gets page using page header's title"() {
+	void "gets page using page header's title"() {
 		given:
 		PageHeader pageHeader = PageHeader.builder()
 				.title(TITLE)
@@ -56,7 +56,7 @@ class PageHeaderProcessorTest extends Specification {
 		pageOutput == page
 	}
 
-	def "gets page, and supplement page id from page header when redirect list is empty"() {
+	void "gets page, and supplement page id from page header when redirect list is empty"() {
 		given:
 		PageHeader pageHeader = PageHeader.builder()
 				.title(TITLE)
@@ -75,7 +75,7 @@ class PageHeaderProcessorTest extends Specification {
 		pageOutput.pageId == PAGE_ID
 	}
 
-	def "gets page, and supplement page id from page header and redirect list item, when redirect list is not empty"() {
+	void "gets page, and supplement page id from page header and redirect list item, when redirect list is not empty"() {
 		given:
 		PageHeader pageHeader = PageHeader.builder()
 				.title(TITLE)
@@ -100,7 +100,7 @@ class PageHeaderProcessorTest extends Specification {
 		pageOutput.redirectPath[0].pageId == REDIRECT_PAGE_ID
 	}
 
-	def "gets page, and supplement page if for both page header and redirect list items"() {
+	void "gets page, and supplement page if for both page header and redirect list items"() {
 		given:
 		PageHeader pageHeader = PageHeader.builder()
 				.title(TITLE)
@@ -128,7 +128,7 @@ class PageHeaderProcessorTest extends Specification {
 		pageOutput.redirectPath[0].pageId == REDIRECT_PAGE_ID
 	}
 
-	def "throws exception when PageInfo for original page is null"() {
+	void "throws exception when PageInfo for original page is null"() {
 		given:
 		PageHeader pageHeader = PageHeader.builder()
 				.title(TITLE)
@@ -147,7 +147,7 @@ class PageHeaderProcessorTest extends Specification {
 		thrown(RuntimeException)
 	}
 
-	def "throws exception when PageInfo for item from redirect list is null"() {
+	void "throws exception when PageInfo for item from redirect list is null"() {
 		given:
 		PageHeader pageHeader = PageHeader.builder()
 				.title(TITLE)

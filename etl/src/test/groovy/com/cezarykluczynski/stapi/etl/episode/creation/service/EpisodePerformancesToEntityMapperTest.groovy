@@ -27,12 +27,12 @@ class EpisodePerformancesToEntityMapperTest extends Specification {
 
 	private EpisodePerformancesToEntityMapper episodePerformancesToEntityMapper
 
-	def setup() {
+	void setup() {
 		entityLookupByNameServiceMock = Mock(EntityLookupByNameService)
 		episodePerformancesToEntityMapper = new EpisodePerformancesToEntityMapper(entityLookupByNameServiceMock)
 	}
 
-	def "creates EpisodePerformancesEntitiesDTO and enriches Episode entity"() {
+	void "createss EpisodePerformancesEntitiesDTO and enriches Episode entity"() {
 		given:
 		Episode episode = new Episode()
 		EpisodePerformanceDTO performanceDTO = new EpisodePerformanceDTO(
@@ -67,8 +67,10 @@ class EpisodePerformancesToEntityMapperTest extends Specification {
 		then:
 		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMANCE_1_PERFORMER_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(performer)
 		1 * entityLookupByNameServiceMock.findCharacterByName(PERFORMANCE_1_CHARACTER_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(character)
-		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMANCE_2_PERFORMER_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(stuntPerformer)
-		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMANCE_3_PERFORMER_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(standInPerformer)
+		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMANCE_2_PERFORMER_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >>
+				Optional.of(stuntPerformer)
+		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMANCE_3_PERFORMER_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >>
+				Optional.of(standInPerformer)
 		performer.characters.contains character
 		character.performers.contains performer
 		episodePerformancesEntitiesDTO.characterSet.contains character

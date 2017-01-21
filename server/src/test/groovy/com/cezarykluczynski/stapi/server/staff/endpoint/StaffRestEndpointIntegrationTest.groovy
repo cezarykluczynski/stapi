@@ -14,11 +14,11 @@ import spock.lang.Requires
 })
 class StaffRestEndpointIntegrationTest extends AbstractStaffEndpointIntegrationTest {
 
-	def setup() {
+	void setup() {
 		createRestClient()
 	}
 
-	def "gets first page of staff"() {
+	void "gets first page of staff"() {
 		given:
 		Integer pageNumber = 0
 		Integer pageSize = 10
@@ -32,7 +32,7 @@ class StaffRestEndpointIntegrationTest extends AbstractStaffEndpointIntegrationT
 		staffResponse.staff.size() == pageSize
 	}
 
-	def "gets staff with series experience by guid"() {
+	void "gets staff with series experience by guid"() {
 		when:
 		StaffResponse staffResponse = stapiRestClient.staffApi.staffPost(null, null, null, IRA_STEVEN_BEHR_GUID, null,
 				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
@@ -48,7 +48,7 @@ class StaffRestEndpointIntegrationTest extends AbstractStaffEndpointIntegrationT
 		staffResponse.staff[0].storyAuthoredEpisodeHeaders.size() == 10
 	}
 
-	def "gets staff with movie experience by guid"() {
+	void "gets staff with movie experience by guid"() {
 		when:
 		StaffResponse staffResponse = stapiRestClient.staffApi.staffPost(null, null, null, RICK_BERMAN_GUID, null, null,
 				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
@@ -64,7 +64,7 @@ class StaffRestEndpointIntegrationTest extends AbstractStaffEndpointIntegrationT
 		staffResponse.staff[0].movieHeaders.size() == 4
 	}
 
-	def "gets staff sorted by name"() {
+	void "gets staff sorted by name"() {
 		when:
 		StaffResponse staffResponse = stapiRestClient.staffApi.staffPost(null, null,
 				StapiRestSortSerializer.serialize(Lists.newArrayList(
@@ -75,9 +75,9 @@ class StaffRestEndpointIntegrationTest extends AbstractStaffEndpointIntegrationT
 				null, null, null, null, null, null, null, null, null, null, null, null, null)
 
 		then:
-		staffResponse.staff[0].name.startsWith("Aaron ")
-		staffResponse.staff[1].name.startsWith("Aaron ")
-		staffResponse.staff[2].name.startsWith("Aaron ")
+		staffResponse.staff[0].name.startsWith('Aaron ')
+		staffResponse.staff[1].name.startsWith('Aaron ')
+		staffResponse.staff[2].name.startsWith('Aaron ')
 	}
 
 }

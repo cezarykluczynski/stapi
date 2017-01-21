@@ -42,7 +42,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 
 	private IndividualTemplatePartsEnrichingProcessor individualTemplatePartsEnrichingProcessor
 
-	def setup() {
+	void setup() {
 		partToGenderProcessorMock = Mock(PartToGenderProcessor)
 		individualLifeBoundaryProcessorMock = Mock(IndividualLifeBoundaryProcessor)
 		individualActorLinkingProcessorMock = Mock(IndividualActorLinkingProcessor)
@@ -55,7 +55,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 				individualWeightProcessorMock, individualBloodTypeProcessorMock, maritalStatusProcessorMock)
 	}
 
-	def "sets gender from PartToGenderProcessor"() {
+	void "sets gender from PartToGenderProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: IndividualTemplatePartsEnrichingProcessor.GENDER)
 		IndividualTemplate individualTemplate = new IndividualTemplate()
@@ -70,7 +70,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 3
 	}
 
-	def "when actor key is found, part is passed to IndividualActorLinkingProcessor"() {
+	void "when actor key is found, part is passed to IndividualActorLinkingProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: IndividualTemplatePartsEnrichingProcessor.ACTOR)
 		IndividualTemplate individualTemplateInActorLinkingProcessor = null
@@ -90,7 +90,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		individualTemplateInActorLinkingProcessor == individualTemplate
 	}
 
-	def "sets height from IndividualHeightProcessor"() {
+	void "sets height from IndividualHeightProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(
 				key: IndividualTemplatePartsEnrichingProcessor.HEIGHT,
@@ -107,7 +107,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 3
 	}
 
-	def "sets weight from IndividualWeightProcessor"() {
+	void "sets weight from IndividualWeightProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(
 				key: IndividualTemplatePartsEnrichingProcessor.WEIGHT,
@@ -124,11 +124,11 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 3
 	}
 
-	def "does not set serial number when it is not empty"() {
+	void "does not set serial number when it is not empty"() {
 		given:
 		Template.Part templatePart = new Template.Part(
 				key: IndividualTemplatePartsEnrichingProcessor.SERIAL_NUMBER,
-				value: "")
+				value: '')
 		IndividualTemplate individualTemplate = new IndividualTemplate()
 
 		when:
@@ -140,7 +140,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 2
 	}
 
-	def "sets serial number when it is not empty"() {
+	void "sets serial number when it is not empty"() {
 		given:
 		Template.Part templatePart = new Template.Part(
 				key: IndividualTemplatePartsEnrichingProcessor.SERIAL_NUMBER,
@@ -156,7 +156,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 3
 	}
 
-	def "sets birth values from IndividualLifeBoundaryProcessor"() {
+	void "sets birth values from IndividualLifeBoundaryProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(
 				key: IndividualTemplatePartsEnrichingProcessor.BORN,
@@ -182,7 +182,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 6
 	}
 
-	def "sets death values from IndividualLifeBoundaryProcessor"() {
+	void "sets death values from IndividualLifeBoundaryProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(
 				key: IndividualTemplatePartsEnrichingProcessor.DIED,
@@ -208,7 +208,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 6
 	}
 
-	def "sets marital status from MaritalStatusProcessor"() {
+	void "sets marital status from MaritalStatusProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(
 				key: IndividualTemplatePartsEnrichingProcessor.MARITAL_STATUS,
@@ -225,7 +225,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 3
 	}
 
-	def "sets blood type from BloodTypeProcessor"() {
+	void "sets blood type from BloodTypeProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(
 				key: IndividualTemplatePartsEnrichingProcessor.BLOOD_TYPE,

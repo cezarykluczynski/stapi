@@ -12,15 +12,15 @@ B
 '''
 	private static final String PRODUCTION_SERIAL_NUMBER_JSON_FORMATTED =
 			'{"comment":"<!-- Extra data production numbers = 401-402-->","content":"' + PRODUCTION_SERIAL_NUMBER + '"}'
-	private static final String PRODUCTION_SERIAL_TOO_LONG_NUMBER = "Too long too long too long too long too long"
+	private static final String PRODUCTION_SERIAL_TOO_LONG_NUMBER = 'Too long too long too long too long too long'
 
 	private ProductionSerialNumberProcessor serialNumberProcessor
 
-	def setup() {
+	void setup() {
 		serialNumberProcessor = new ProductionSerialNumberProcessor()
 	}
 
-	def "extracts production serial number that is not too long to be processed"() {
+	void "extracts production serial number that is not too long to be processed"() {
 		when:
 		String productionSerialNumber = serialNumberProcessor.process(PRODUCTION_SERIAL_NUMBER)
 
@@ -28,7 +28,7 @@ B
 		productionSerialNumber == PRODUCTION_SERIAL_NUMBER
 	}
 
-	def "extracts production serial number that is not too long to be processed, excluding everything before space"() {
+	void "extracts production serial number that is not too long to be processed, excluding everything before space"() {
 		when:
 		String productionSerialNumber = serialNumberProcessor.process(PRODUCTION_SERIAL_NUMBER_WITH_SPACES)
 
@@ -36,7 +36,7 @@ B
 		productionSerialNumber == PRODUCTION_SERIAL_NUMBER
 	}
 
-	def "extracts production serial number that is not too long to be processed, excluding everything before new line"() {
+	void "extracts production serial number that is not too long to be processed, excluding everything before new line"() {
 		when:
 		String productionSerialNumber = serialNumberProcessor.process(PRODUCTION_SERIAL_NUMBER_WITH_MULTIPLE_LINES)
 
@@ -44,7 +44,7 @@ B
 		productionSerialNumber == PRODUCTION_SERIAL_NUMBER
 	}
 
-	def "tolerates JSON-formatted production serial number"() {
+	void "tolerates JSON-formatted production serial number"() {
 		when:
 		String productionSerialNumber = serialNumberProcessor.process(PRODUCTION_SERIAL_NUMBER_JSON_FORMATTED)
 
@@ -52,7 +52,7 @@ B
 		productionSerialNumber == PRODUCTION_SERIAL_NUMBER
 	}
 
-	def "tolerates too long production serial number"() {
+	void "tolerates too long production serial number"() {
 		when:
 		String productionSerialNumber = serialNumberProcessor.process(PRODUCTION_SERIAL_TOO_LONG_NUMBER)
 

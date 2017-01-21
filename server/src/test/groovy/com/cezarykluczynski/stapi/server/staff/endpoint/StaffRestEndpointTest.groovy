@@ -12,17 +12,16 @@ class StaffRestEndpointTest extends AbstractRestEndpointTest {
 
 	private StaffRestEndpoint staffRestEndpoint
 
-	def setup() {
+	void setup() {
 		staffRestReaderMock = Mock(StaffRestReader)
 		staffRestEndpoint = new StaffRestEndpoint(staffRestReaderMock)
 	}
 
-	def "passes get call to StaffRestReader"() {
+	void "passes get call to StaffRestReader"() {
 		given:
-		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams) {
-			getPageNumber() >> PAGE_NUMBER
-			getPageSize() >> PAGE_SIZE
-		}
+		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams)
+		pageAwareBeanParams.pageNumber >> PAGE_NUMBER
+		pageAwareBeanParams.pageSize >> PAGE_SIZE
 		StaffResponse staffResponse = Mock(StaffResponse)
 
 		when:
@@ -32,12 +31,12 @@ class StaffRestEndpointTest extends AbstractRestEndpointTest {
 		1 * staffRestReaderMock.read(_ as StaffRestBeanParams) >> { StaffRestBeanParams staffRestBeanParams ->
 			assert pageAwareBeanParams.pageNumber == PAGE_NUMBER
 			assert pageAwareBeanParams.pageSize == PAGE_SIZE
-			return staffResponse
+			staffResponse
 		}
 		staffResponseOutput == staffResponse
 	}
 
-	def "passes post call to StaffRestReader"() {
+	void "passes post call to StaffRestReader"() {
 		given:
 		StaffRestBeanParams staffRestBeanParams = new StaffRestBeanParams()
 		StaffResponse staffResponse = Mock(StaffResponse)
@@ -47,7 +46,7 @@ class StaffRestEndpointTest extends AbstractRestEndpointTest {
 
 		then:
 		1 * staffRestReaderMock.read(staffRestBeanParams as StaffRestBeanParams) >> { StaffRestBeanParams params ->
-			return staffResponse
+			staffResponse
 		}
 		staffResponseOutput == staffResponse
 	}

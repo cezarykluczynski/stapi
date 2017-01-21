@@ -14,7 +14,7 @@ class ActorTemplatePageProcessorTest extends Specification {
 
 	private Page pageMock
 
-	def setup() {
+	void setup() {
 		actorTemplateSinglePageProcessorMock = Mock(ActorTemplateSinglePageProcessor)
 		actorTemplateListPageProcessorMock = Mock(ActorTemplateListPageProcessor)
 		actorTemplatePageProcessor = new ActorTemplatePageProcessor(actorTemplateSinglePageProcessorMock,
@@ -22,7 +22,7 @@ class ActorTemplatePageProcessorTest extends Specification {
 		pageMock = Mock(Page)
 	}
 
-	def "gets ActorTemplate from ActorTemplateSinglePageProcessor when it is found"() {
+	void "gets ActorTemplate from ActorTemplateSinglePageProcessor when it is found"() {
 		given:
 		ActorTemplate actorTemplate = Mock(ActorTemplate)
 
@@ -35,7 +35,7 @@ class ActorTemplatePageProcessorTest extends Specification {
 		actorTemplateOutput == actorTemplate
 	}
 
-	def "gets ActorTemplate from ActorTemplateListPageProcessor when ActorTemplateSinglePageProcessor returns null"() {
+	void "gets ActorTemplate from ActorTemplateListPageProcessor when ActorTemplateSinglePageProcessor returns null"() {
 		given:
 		ActorTemplate actorTemplate = Mock(ActorTemplate)
 

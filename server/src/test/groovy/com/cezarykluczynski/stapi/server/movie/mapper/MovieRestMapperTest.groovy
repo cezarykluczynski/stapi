@@ -11,11 +11,11 @@ class MovieRestMapperTest extends AbstractMovieMapperTest {
 
 	private MovieRestMapper movieRestMapper
 
-	def setup() {
+	void setup() {
 		movieRestMapper = Mappers.getMapper(MovieRestMapper)
 	}
 
-	def "maps MovieRestBeanParams to MovieRequestDTO"() {
+	void "maps MovieRestBeanParams to MovieRequestDTO"() {
 		given:
 		MovieRestBeanParams movieRestBeanParams = new MovieRestBeanParams(
 				guid: GUID,
@@ -41,7 +41,7 @@ class MovieRestMapperTest extends AbstractMovieMapperTest {
 		movieRequestDTO.usReleaseDateTo == US_RELEASE_DATE_TO
 	}
 
-	def "maps DB entity to REST entity"() {
+	void "maps DB entity to REST entity"() {
 		given:
 		DBMovie dBMovie = createMovie()
 

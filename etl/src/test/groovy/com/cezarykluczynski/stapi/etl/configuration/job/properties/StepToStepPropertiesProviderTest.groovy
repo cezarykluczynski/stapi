@@ -9,12 +9,12 @@ class StepToStepPropertiesProviderTest extends Specification {
 
 	private StepToStepPropertiesProvider stepToStepPropertiesProvider
 
-	def setup() {
+	void setup() {
 		stepsPropertiesMock = Mock(StepsProperties)
 		stepToStepPropertiesProvider = new StepToStepPropertiesProvider(stepsPropertiesMock)
 	}
 
-	def "should provide properties"() {
+	void "should provide properties"() {
 		when:
 		Map<String, StepProperties> stepPropertiesMap = stepToStepPropertiesProvider.provide()
 

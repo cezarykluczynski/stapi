@@ -18,13 +18,13 @@ class FirstPerformerFindingMovieRealPeopleLinkingWorkerHelperTest extends Specif
 
 	private FirstPerformerFindingMovieRealPeopleLinkingWorkerHelper firstPerformerFindingMovieRealPeopleLinkingWorkerHelper
 
-	def setup() {
+	void setup() {
 		entityLookupByNameServiceMock = Mock(EntityLookupByNameService)
 		firstPerformerFindingMovieRealPeopleLinkingWorkerHelper = new FirstPerformerFindingMovieRealPeopleLinkingWorkerHelper(
 				entityLookupByNameServiceMock)
 	}
 
-	def "adds entities found by name"() {
+	void "adds entities found by name"() {
 		given:
 		Set<List<String>> source = Sets.newHashSet()
 		source.add(Lists.newArrayList())

@@ -44,7 +44,7 @@ abstract class AbstractSeriesMapperTest extends Specification {
 			.createDate(2001, 2, 18, DatatypeConstants.FIELD_UNDEFINED)
 
 	protected Series createSeries() {
-		return new Series(
+		new Series(
 				guid: GUID,
 				title: TITLE,
 				abbreviation: ABBREVIATION,

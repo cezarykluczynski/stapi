@@ -19,7 +19,7 @@ class MovieRestQueryTest extends Specification {
 
 	private MovieRestQuery movieRestQuery
 
-	def setup() {
+	void setup() {
 		movieRestMapperMock = Mock(MovieRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		movieRepositoryMock = Mock(MovieRepository)
@@ -27,7 +27,7 @@ class MovieRestQueryTest extends Specification {
 				movieRepositoryMock)
 	}
 
-	def "maps MovieRestBeanParams to MovieRequestDTO and to PageRequest, then calls repository, then returns result"() {
+	void "maps MovieRestBeanParams to MovieRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
 		PageRequest pageRequest = Mock(PageRequest)
 		MovieRestBeanParams movieRestBeanParams = Mock(MovieRestBeanParams) {

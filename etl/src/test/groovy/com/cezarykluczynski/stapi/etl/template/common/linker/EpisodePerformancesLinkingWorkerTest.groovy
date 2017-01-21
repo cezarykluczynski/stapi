@@ -27,7 +27,7 @@ class EpisodePerformancesLinkingWorkerTest extends Specification {
 
 	private EpisodePerformancesLinkingWorker episodePerformancesLinkingProcessor
 
-	def setup() {
+	void setup() {
 		characterRepositoryMock = Mock(CharacterRepository)
 		performerRepositoryMock = Mock(PerformerRepository)
 		episodePerformancesExtractorMock = Mock(EpisodePerformancesExtractingProcessor)
@@ -36,7 +36,7 @@ class EpisodePerformancesLinkingWorkerTest extends Specification {
 				performerRepositoryMock, episodePerformancesExtractorMock, episodePerformancesToEntityMapperMock)
 	}
 
-	def "when page has category episode, EpisodePerformancesExtractor is called"() {
+	void "when page has category episode, EpisodePerformancesExtractor is called"() {
 		given:
 		List<EpisodePerformanceDTO> episodePerformanceDTOList = Mock(List)
 		Set<Character> charactersSet = Mock(Set)
@@ -55,9 +55,9 @@ class EpisodePerformancesLinkingWorkerTest extends Specification {
 		then:
 		1 * episodePerformancesExtractorMock.process(page) >> episodePerformanceDTOList
 		1 * episodePerformancesToEntityMapperMock.mapToEntities(episodePerformanceDTOList, episode) >> episodePerformancesEntitiesDTO
-		1 * episodePerformancesEntitiesDTO.getCharacterSet() >> charactersSet
+		1 * episodePerformancesEntitiesDTO.characterSet >> charactersSet
 		1 * characterRepositoryMock.save(charactersSet)
-		1 * episodePerformancesEntitiesDTO.getPerformerSet() >> performersSet
+		1 * episodePerformancesEntitiesDTO.performerSet >> performersSet
 		1 * performerRepositoryMock.save(performersSet)
 	}
 

@@ -9,11 +9,11 @@ class SeriesHeaderRestMapperTest extends AbstractSeriesMapperTest {
 
 	private SeriesHeaderRestMapper seriesHeaderRestMapper
 
-	def setup() {
+	void setup() {
 		seriesHeaderRestMapper = Mappers.getMapper(SeriesHeaderRestMapper)
 	}
 
-	def "maps DB entity to REST header"() {
+	void "maps DB entity to REST header"() {
 		given:
 		Series series = new Series(
 				title: TITLE,

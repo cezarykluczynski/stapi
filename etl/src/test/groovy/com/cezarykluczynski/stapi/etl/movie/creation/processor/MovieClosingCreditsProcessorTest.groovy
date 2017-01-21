@@ -19,13 +19,13 @@ class MovieClosingCreditsProcessorTest extends Specification {
 
 	private MovieClosingCreditsProcessor movieClosingCreditsProcessor
 
-	def setup() {
+	void setup() {
 		pageApiMock = Mock(PageApi)
 		pageSectionExtractorMock = Mock(PageSectionExtractor)
 		movieClosingCreditsProcessor = new MovieClosingCreditsProcessor(pageApiMock, pageSectionExtractorMock)
 	}
 
-	def "returns empty list when credits page cannot be found"() {
+	void "returns empty list when credits page cannot be found"() {
 		when:
 		List<PageSection> pageSectionList = movieClosingCreditsProcessor.process(new Page())
 
@@ -35,7 +35,7 @@ class MovieClosingCreditsProcessorTest extends Specification {
 		pageSectionList.empty
 	}
 
-	def "returns empty list when no sections are found"() {
+	void "returns empty list when no sections are found"() {
 		given:
 		Page basePage = Mock(Page)
 		Page creditsPage = Mock(Page)
@@ -44,15 +44,15 @@ class MovieClosingCreditsProcessorTest extends Specification {
 		List<PageSection> pageSectionList = movieClosingCreditsProcessor.process(basePage)
 
 		then:
-		1 * pageApiMock.getPage("Credits for " + TITLE, MEDIA_WIKI_SOURCE) >> creditsPage
-		1 * basePage.getTitle() >> TITLE
-		1 * basePage.getMediaWikiSource() >> MEDIA_WIKI_SOURCE
-		1 * pageSectionExtractorMock.findByTitles(creditsPage, "Closing credits", "Closing Credits", "Cast", "Crew") >> Lists.newArrayList()
+		1 * pageApiMock.getPage('Credits for ' + TITLE, MEDIA_WIKI_SOURCE) >> creditsPage
+		1 * basePage.title >> TITLE
+		1 * basePage.mediaWikiSource >> MEDIA_WIKI_SOURCE
+		1 * pageSectionExtractorMock.findByTitles(creditsPage, 'Closing credits', 'Closing Credits', 'Cast', 'Crew') >> Lists.newArrayList()
 		0 * _
 		pageSectionList.empty
 	}
 
-	def "parses page to list of PageSection"() {
+	void "parses page to list of PageSection"() {
 		given:
 		Page basePage = Mock(Page)
 		Page creditsPage = Mock(Page)
@@ -73,10 +73,10 @@ class MovieClosingCreditsProcessorTest extends Specification {
 		List<PageSection> pageSectionListOutput = movieClosingCreditsProcessor.process(basePage)
 
 		then:
-		1 * pageApiMock.getPage("Credits for " + TITLE, MEDIA_WIKI_SOURCE) >> creditsPage
-		1 * basePage.getTitle() >> TITLE
-		1 * basePage.getMediaWikiSource() >> MEDIA_WIKI_SOURCE
-		1 * pageSectionExtractorMock.findByTitles(creditsPage, "Closing credits", "Closing Credits", "Cast", "Crew") >> pageSectionList
+		1 * pageApiMock.getPage('Credits for ' + TITLE, MEDIA_WIKI_SOURCE) >> creditsPage
+		1 * basePage.title >> TITLE
+		1 * basePage.mediaWikiSource >> MEDIA_WIKI_SOURCE
+		1 * pageSectionExtractorMock.findByTitles(creditsPage, 'Closing credits', 'Closing Credits', 'Cast', 'Crew') >> pageSectionList
 		0 * _
 		pageSectionListOutput.size() == 3
 		pageSectionListOutput[0].text == 'Crew'
@@ -87,7 +87,7 @@ class MovieClosingCreditsProcessorTest extends Specification {
 		pageSectionListOutput[2].wikitext == '*Third list item'
 	}
 
-	def "parses multiline cast, but without stunt coordinator"() {
+	void "parses multiline cast, but without stunt coordinator"() {
 		given:
 		Page basePage = Mock(Page)
 		Page creditsPage = Mock(Page)
@@ -103,10 +103,10 @@ class MovieClosingCreditsProcessorTest extends Specification {
 		List<PageSection> pageSectionListOutput = movieClosingCreditsProcessor.process(basePage)
 
 		then:
-		1 * pageApiMock.getPage("Credits for " + TITLE, MEDIA_WIKI_SOURCE) >> creditsPage
-		1 * basePage.getTitle() >> TITLE
-		1 * basePage.getMediaWikiSource() >> MEDIA_WIKI_SOURCE
-		1 * pageSectionExtractorMock.findByTitles(creditsPage, "Closing credits", "Closing Credits", "Cast", "Crew") >> pageSectionList
+		1 * pageApiMock.getPage('Credits for ' + TITLE, MEDIA_WIKI_SOURCE) >> creditsPage
+		1 * basePage.title >> TITLE
+		1 * basePage.mediaWikiSource >> MEDIA_WIKI_SOURCE
+		1 * pageSectionExtractorMock.findByTitles(creditsPage, 'Closing credits', 'Closing Credits', 'Cast', 'Crew') >> pageSectionList
 		0 * _
 		pageSectionListOutput.size() == 2
 		pageSectionListOutput[0].text == 'Cast'

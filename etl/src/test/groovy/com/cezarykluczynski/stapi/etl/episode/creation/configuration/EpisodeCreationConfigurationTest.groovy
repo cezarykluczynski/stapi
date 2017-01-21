@@ -25,7 +25,7 @@ class EpisodeCreationConfigurationTest extends AbstractCreationConfigurationTest
 
 	private EpisodeCreationConfiguration episodeCreationConfiguration
 
-	def setup() {
+	void setup() {
 		categoryApiMock = Mock(CategoryApi)
 		jobCompletenessDeciderMock = Mock(StepCompletenessDecider)
 		episodeCreationConfiguration = new EpisodeCreationConfiguration(
@@ -33,7 +33,7 @@ class EpisodeCreationConfigurationTest extends AbstractCreationConfigurationTest
 				stepCompletenessDecider: jobCompletenessDeciderMock)
 	}
 
-	def "EpisodeReader is created with all pages when step is not completed"() {
+	void "EpisodeReader is created with all pages when step is not completed"() {
 		when:
 		EpisodeReader episodeReader = episodeCreationConfiguration.episodeReader()
 		List<String> categoryHeaderTitleList = readerToList(episodeReader)
@@ -57,7 +57,7 @@ class EpisodeCreationConfigurationTest extends AbstractCreationConfigurationTest
 		categoryHeaderTitleList.contains TITLE_DIS_EPISODES
 	}
 
-	def "EpisodeReader is created with no pages when step is completed"() {
+	void "EpisodeReader is created with no pages when step is completed"() {
 		when:
 		EpisodeReader episodeReader = episodeCreationConfiguration.episodeReader()
 		List<String> categoryHeaderTitleList = readerToList(episodeReader)

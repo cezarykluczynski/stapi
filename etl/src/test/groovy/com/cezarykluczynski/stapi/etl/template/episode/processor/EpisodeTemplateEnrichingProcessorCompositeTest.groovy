@@ -13,14 +13,14 @@ class EpisodeTemplateEnrichingProcessorCompositeTest extends Specification {
 
 	private EpisodeTemplateEnrichingProcessorComposite episodeTemplateEnrichingProcessorComposite
 
-	def setup() {
+	void setup() {
 		episodeTemplateDatesEnrichingProcessorMock = Mock(EpisodeTemplateDatesEnrichingProcessor)
 		episodeTemplateTitleLanguagesEnrichingProcessorMock = Mock(EpisodeTemplateTitleLanguagesEnrichingProcessor)
 		episodeTemplateEnrichingProcessorComposite = new EpisodeTemplateEnrichingProcessorComposite(episodeTemplateDatesEnrichingProcessorMock,
 				episodeTemplateTitleLanguagesEnrichingProcessorMock)
 	}
 
-	def "passes argument to dependencies"() {
+	void "passes argument to dependencies"() {
 		given:
 		EnrichablePair<Page, EpisodeTemplate> enrichablePair = EnrichablePair.of(Mock(Page), Mock(EpisodeTemplate))
 

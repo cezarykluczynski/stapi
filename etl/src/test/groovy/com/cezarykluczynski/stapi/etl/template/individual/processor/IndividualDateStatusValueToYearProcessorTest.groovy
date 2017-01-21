@@ -9,8 +9,8 @@ import spock.lang.Specification
 
 class IndividualDateStatusValueToYearProcessorTest extends Specification {
 
-	private static final String YEAR_STRING = "1960"
-	private static final String INVALID_YEAR_STRING = "Not a year"
+	private static final String YEAR_STRING = '1960'
+	private static final String INVALID_YEAR_STRING = 'Not a year'
 	private static final Integer YEAR_INTEGER = 1960
 	private static final Integer YEAR_INTEGER_2 = 1970
 
@@ -20,14 +20,14 @@ class IndividualDateStatusValueToYearProcessorTest extends Specification {
 
 	private IndividualDateStatusValueToYearProcessor individualDateStatusValueToYearProcessor
 
-	def setup() {
+	void setup() {
 		wikitextApiMock = Mock(WikitextApi)
 		pageLinkToYearProcessorMock = Mock(PageLinkToYearProcessor)
 		individualDateStatusValueToYearProcessor = new IndividualDateStatusValueToYearProcessor(wikitextApiMock,
 				pageLinkToYearProcessorMock)
 	}
 
-	def "returns null for empty value"() {
+	void "returns null for empty value"() {
 		when:
 		Integer year = individualDateStatusValueToYearProcessor.process(StringUtils.EMPTY)
 
@@ -35,7 +35,7 @@ class IndividualDateStatusValueToYearProcessorTest extends Specification {
 		year == null
 	}
 
-	def "returns null when input contains 'century'"() {
+	void "returns null when input contains 'century'"() {
 		when:
 		Integer year = individualDateStatusValueToYearProcessor.process(IndividualDateStatusValueToYearProcessor.CENTURY)
 
@@ -43,15 +43,15 @@ class IndividualDateStatusValueToYearProcessorTest extends Specification {
 		year == null
 	}
 
-	def "returns null when input is a decade"() {
+	void "returns null when input is a decade"() {
 		when:
-		Integer year = individualDateStatusValueToYearProcessor.process("2360s")
+		Integer year = individualDateStatusValueToYearProcessor.process('2360s')
 
 		then:
 		year == null
 	}
 
-	def "returns null when input cannot be casted to integer"() {
+	void "returns null when input cannot be casted to integer"() {
 		when:
 		Integer year = individualDateStatusValueToYearProcessor.process(INVALID_YEAR_STRING)
 
@@ -60,7 +60,7 @@ class IndividualDateStatusValueToYearProcessorTest extends Specification {
 		year == null
 	}
 
-	def "returns integer when input can be casted to integer"() {
+	void "returns integer when input can be casted to integer"() {
 		when:
 		Integer year = individualDateStatusValueToYearProcessor.process(YEAR_STRING)
 
@@ -69,7 +69,7 @@ class IndividualDateStatusValueToYearProcessorTest extends Specification {
 		year == YEAR_INTEGER
 	}
 
-	def "returns integer when one link to year is found"() {
+	void "returns integer when one link to year is found"() {
 		given:
 		PageLink pageLink = Mock(PageLink)
 
@@ -82,7 +82,7 @@ class IndividualDateStatusValueToYearProcessorTest extends Specification {
 		year == YEAR_INTEGER
 	}
 
-	def "returns null when more than one link to year is found"() {
+	void "returns null when more than one link to year is found"() {
 		given:
 		PageLink pageLink = Mock(PageLink)
 		PageLink pageLink2 = Mock(PageLink)

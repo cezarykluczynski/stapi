@@ -18,7 +18,7 @@ class PerformerProcessorTest extends Specification {
 
 	private PerformerProcessor performerProcessor
 
-	def setup() {
+	void setup() {
 		pageHeaderProcessorMock = Mock(PageHeaderProcessor)
 		actorTemplatePageProcessorMock = Mock(ActorTemplatePageProcessor)
 		actorTemplateProcessorMock = Mock(PerformerActorTemplateProcessor)
@@ -26,7 +26,7 @@ class PerformerProcessorTest extends Specification {
 				actorTemplateProcessorMock)
 	}
 
-	def "converts PageHeader to Performer"() {
+	void "converts PageHeader to Performer"() {
 		given:
 		PageHeader pageHeader = PageHeader.builder().build()
 		Page page = new Page()

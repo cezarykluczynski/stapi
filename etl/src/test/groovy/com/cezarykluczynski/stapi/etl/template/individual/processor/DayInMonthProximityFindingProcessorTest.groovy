@@ -9,12 +9,12 @@ class DayInMonthProximityFindingProcessorTest extends Specification {
 
 	private DayInMonthProximityFindingProcessor dayInMonthProximityFindingProcessor
 
-	def setup() {
+	void setup() {
 		dayInMonthProximityFindingProcessor = new DayInMonthProximityFindingProcessor()
 	}
 
-	@Unroll("when #wikitext and #PageLink is passed, #day is returned")
-	def "when wikitext and PageLink is passed, day is returned"() {
+	@Unroll('when #wikitext and #PageLink is passed, #day is returned')
+	void "when wikitext and PageLink is passed, day is returned"() {
 		expect:
 		dayInMonthProximityFindingProcessor.process(Pair.of(wikitext, pageLink)) == day
 
@@ -27,6 +27,5 @@ class DayInMonthProximityFindingProcessorTest extends Specification {
 		'[[June]] 6'   | new PageLink(startPosition: 0, endPosition: 8)  | 6
 		'[[June]] 7th' | new PageLink(startPosition: 0, endPosition: 8)  | 7
 	}
-
 
 }

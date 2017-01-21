@@ -6,19 +6,18 @@ class WikiaUrlDetectorTest extends Specification {
 
 	private WikiaUrlDetector wikiaUrlDetector
 
-	def setup() {
+	void setup() {
 		wikiaUrlDetector = new WikiaUrlDetector()
 	}
 
-	def "detects Wikia's url"() {
+	void "detects Wikia's url"() {
 		expect:
 		wikiaUrlDetector.isWikiaWikiUrl('http://memory-alpha.wikia.com/api.php')
 	}
 
-	def "detects non-Wikia's url"() {
+	void "detects non-Wikia's url"() {
 		expect:
 		!wikiaUrlDetector.isWikiaWikiUrl('http://localhost/some_wiki/api.php')
 	}
-
 
 }

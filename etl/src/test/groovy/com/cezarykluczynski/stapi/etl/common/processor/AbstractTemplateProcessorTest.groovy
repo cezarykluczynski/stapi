@@ -6,7 +6,7 @@ import spock.lang.Specification
 abstract class AbstractTemplateProcessorTest extends Specification {
 
 	protected static Template.Part createTemplatePart(String key, String value) {
-		return new Template.Part(
+		new Template.Part(
 				key: key,
 				value: value
 		)

@@ -12,17 +12,16 @@ class PerformerRestEndpointTest extends AbstractRestEndpointTest {
 
 	private PerformerRestEndpoint performerRestEndpoint
 
-	def setup() {
+	void setup() {
 		performerRestReaderMock = Mock(PerformerRestReader)
 		performerRestEndpoint = new PerformerRestEndpoint(performerRestReaderMock)
 	}
 
-	def "passes get call to PerformerRestReader"() {
+	void "passes get call to PerformerRestReader"() {
 		given:
-		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams) {
-			getPageNumber() >> PAGE_NUMBER
-			getPageSize() >> PAGE_SIZE
-		}
+		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams)
+		pageAwareBeanParams.pageNumber >> PAGE_NUMBER
+		pageAwareBeanParams.pageSize >> PAGE_SIZE
 		PerformerResponse performerResponse = Mock(PerformerResponse)
 
 		when:
@@ -32,12 +31,12 @@ class PerformerRestEndpointTest extends AbstractRestEndpointTest {
 		1 * performerRestReaderMock.read(_ as PerformerRestBeanParams) >> { PerformerRestBeanParams performerRestBeanParams ->
 			assert pageAwareBeanParams.pageNumber == PAGE_NUMBER
 			assert pageAwareBeanParams.pageSize == PAGE_SIZE
-			return performerResponse
+			performerResponse
 		}
 		performerResponseOutput == performerResponse
 	}
 
-	def "passes post call to PerformerRestReader"() {
+	void "passes post call to PerformerRestReader"() {
 		given:
 		PerformerRestBeanParams performerRestBeanParams = new PerformerRestBeanParams()
 		PerformerResponse performerResponse = Mock(PerformerResponse)
@@ -47,7 +46,7 @@ class PerformerRestEndpointTest extends AbstractRestEndpointTest {
 
 		then:
 		1 * performerRestReaderMock.read(performerRestBeanParams as PerformerRestBeanParams) >> { PerformerRestBeanParams params ->
-			return performerResponse
+			performerResponse
 		}
 		performerResponseOutput == performerResponse
 	}

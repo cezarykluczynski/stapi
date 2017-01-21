@@ -10,11 +10,11 @@ class RequestSortSoapMapperTest extends AbstractRequestSortMapperTest {
 
 	private RequestSortSoapMapper requestSortSoapMapper
 
-	def setup() {
+	void setup() {
 		requestSortSoapMapper = Mappers.getMapper(RequestSortSoapMapper)
 	}
 
-	def "maps SOAP RequestSort to RequestSortDTO"() {
+	void "maps SOAP RequestSort to RequestSortDTO"() {
 		given:
 		RequestSort requestSort = new RequestSort(
 				clauses: Lists.newArrayList(

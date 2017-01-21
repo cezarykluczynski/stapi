@@ -15,22 +15,20 @@ class DuplicateFilteringPreSavePageAwareFilterTest extends Specification {
 
 	private DuplicateFilteringPreSavePageAwareFilter filteringPreSavePageAwareProcessor
 
-	def setup() {
+	void setup() {
 		inPageAwareRepositoryPageFinderMock = Mock(InPageAwareRepositoryPageFinder)
 		filteringPreSavePageAwareProcessor = new DuplicateFilteringPreSavePageAwareFilter(inPageAwareRepositoryPageFinderMock)
 	}
 
-	def "filters duplicated entities from chunk"() {
+	void "filters duplicated entities from chunk"() {
 		given:
 
 		Page originalPage = new Page(pageId: PAGE_ID_1)
 		Page duplicatePage = new Page(pageId: PAGE_ID_1)
-		PageAware originalPageAware = Mock(PageAware) {
-			getPage() >> originalPage
-		}
-		PageAware duplicatePageAware = Mock(PageAware) {
-			getPage() >> duplicatePage
-		}
+		PageAware originalPageAware = Mock(PageAware)
+		originalPageAware.page >> originalPage
+		PageAware duplicatePageAware = Mock(PageAware)
+		duplicatePageAware.page >> duplicatePage
 		List<PageAware> pageAwareList = Lists.newArrayList(originalPageAware, duplicatePageAware)
 
 		when:
@@ -39,25 +37,21 @@ class DuplicateFilteringPreSavePageAwareFilterTest extends Specification {
 		then:
 		1 * inPageAwareRepositoryPageFinderMock.findByPagePageIdIn(*_) >> { args ->
 			assert ((Collection<Long>) args[0]).contains(PAGE_ID_1)
-			return Lists.newArrayList()
+			Lists.newArrayList()
 		}
 		pageAwareListOutput.size() == 1
 		pageAwareListOutput[0] == originalPageAware
 	}
 
-	def "filters duplicated entities when they are already persisted"() {
+	void "filters duplicated entities when they are already persisted"() {
 		given:
-		List<PageAware> pageAwareList = Lists.newArrayList(
-				Mock(PageAware) {
-					getPage() >> new Page(pageId: PAGE_ID_1)
-				},
-				Mock(PageAware) {
-					getPage() >> new Page(pageId: PAGE_ID_2)
-				},
-				Mock(PageAware) {
-					getPage() >> new Page(pageId: PAGE_ID_1)
-				}
-		)
+		PageAware pageAware1 = Mock(PageAware)
+		pageAware1.page >> new Page(pageId: PAGE_ID_1)
+		PageAware pageAware2 = Mock(PageAware)
+		pageAware2.page >> new Page(pageId: PAGE_ID_2)
+		PageAware pageAware3 = Mock(PageAware)
+		pageAware3.page >> new Page(pageId: PAGE_ID_1)
+		List<PageAware> pageAwareList = Lists.newArrayList(pageAware1, pageAware2, pageAware3)
 
 		when:
 		List<PageAware> pageAwareListOutput = filteringPreSavePageAwareProcessor.process(pageAwareList, null)
@@ -65,19 +59,17 @@ class DuplicateFilteringPreSavePageAwareFilterTest extends Specification {
 		then:
 		1 * inPageAwareRepositoryPageFinderMock.findByPagePageIdIn(*_) >> { args ->
 			assert ((Collection<Long>) args[0]).contains(PAGE_ID_1)
-			return Lists.newArrayList(new Page(pageId: PAGE_ID_1))
+			Lists.newArrayList(new Page(pageId: PAGE_ID_1))
 		}
 		pageAwareListOutput.size() == 1
 		pageAwareListOutput[0].page.pageId == PAGE_ID_2
 	}
 
-	def "returns original collection when there is no duplicates"() {
+	void "returns original collection when there is no duplicates"() {
 		given:
-		List<PageAware> pageAwareList = Lists.newArrayList(
-				Mock(PageAware) {
-					getPage() >> new Page(pageId: PAGE_ID_1)
-				}
-		)
+		PageAware pageAware = Mock(PageAware)
+		pageAware.page >> new Page(pageId: PAGE_ID_1)
+		List<PageAware> pageAwareList = Lists.newArrayList(pageAware)
 
 		when:
 		List<PageAware> pageAwareListOutput = filteringPreSavePageAwareProcessor.process(pageAwareList, null)
@@ -85,12 +77,12 @@ class DuplicateFilteringPreSavePageAwareFilterTest extends Specification {
 		then:
 		1 * inPageAwareRepositoryPageFinderMock.findByPagePageIdIn(*_) >> { args ->
 			assert ((Collection<Long>) args[0]).contains(PAGE_ID_1)
-			return Lists.newArrayList()
+			Lists.newArrayList()
 		}
 		pageAwareListOutput == pageAwareList
 	}
 
-	def "does no call InPageAwareRepositoryPageFinder when page list is empty"() {
+	void "does no call InPageAwareRepositoryPageFinder when page list is empty"() {
 		given:
 		List<PageAware> pageAwareList = Lists.newArrayList()
 

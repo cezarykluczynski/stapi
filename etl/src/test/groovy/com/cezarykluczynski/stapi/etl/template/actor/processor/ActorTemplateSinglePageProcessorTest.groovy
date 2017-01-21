@@ -51,7 +51,7 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 
 	private Page pageWithTemplate
 
-	def setup() {
+	void setup() {
 		pageToGenderProcessorMock = Mock(PageToGenderProcessor)
 		pageToLifeRangeProcessorMock = Mock(PageToLifeRangeProcessor)
 		actorTemplateTemplateProcessorMock = Mock(ActorTemplateTemplateProcessor)
@@ -68,7 +68,7 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		))
 	}
 
-	def "unknown performs page should produce null template"() {
+	void "unknown performs page should produce null template"() {
 		given:
 		Page page = new Page(title: PageName.UNKNOWN_PERFORMERS)
 
@@ -79,7 +79,7 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		actorTemplate == null
 	}
 
-	def "page with production lists category should produce null template"() {
+	void "page with production lists category should produce null template"() {
 		given:
 		Page page = new Page(categories: Lists.newArrayList(new CategoryHeader(title: CategoryName.PRODUCTION_LISTS)))
 
@@ -90,7 +90,7 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		actorTemplate == null
 	}
 
-	def "sets name and page from page title"() {
+	void "sets name and page from page title"() {
 		given:
 		Page page = new Page(
 				title: TITLE,
@@ -109,7 +109,7 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		actorTemplate.page == pageEntity
 	}
 
-	def "sets name from page title, when template name is 'sidebar crew'"() {
+	void "sets name from page title, when template name is 'sidebar crew'"() {
 		given:
 		Page page = new Page(title: TITLE)
 		template.title == TemplateName.SIDEBAR_CREW
@@ -122,7 +122,7 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		actorTemplate.name == TITLE
 	}
 
-	def "sets name from page title, and cuts brackets when they are present"() {
+	void "sets name from page title, and cuts brackets when they are present"() {
 		given:
 		Page page = new Page(title: TITLE_WITH_BRACKETS)
 
@@ -134,7 +134,7 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		actorTemplate.name == TITLE
 	}
 
-	def "sets page entity from wiki page dto"() {
+	void "sets page entity from wiki page dto"() {
 		given:
 		Page page = new Page(
 				title: TITLE,
@@ -150,8 +150,7 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		actorTemplate.page == pageEntity
 	}
 
-
-	def "sets gender from PageToGenderProcessor"() {
+	void "sets gender from PageToGenderProcessor"() {
 		given:
 		Page page = new Page()
 
@@ -164,7 +163,7 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		actorTemplate.gender == GENDER
 	}
 
-	def "sets life range from PageToLifeRangeProcessor"() {
+	void "sets life range from PageToLifeRangeProcessor"() {
 		given:
 		Page page = new Page()
 
@@ -177,7 +176,7 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		actorTemplate.lifeRange == LIFE_RANGE
 	}
 
-	def "uses name from subprocessor, if it is present"() {
+	void "uses name from subprocessor, if it is present"() {
 		given:
 		ActorTemplate actorTemplateFromTemplate = new ActorTemplate(name: NAME)
 
@@ -190,7 +189,7 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		actorTemplate.name == NAME
 	}
 
-	def "sets birth name from page content"() {
+	void "sets birth name from page content"() {
 		given:
 		pageWithTemplate.wikitext = "'''${BIRTH_NAME}''' is an actor."
 
@@ -203,7 +202,7 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		actorTemplate.birthName == BIRTH_NAME
 	}
 
-	def "sets birth name from page content, then removes it if it equals name"() {
+	void "sets birth name from page content, then removes it if it equals name"() {
 		given:
 		pageWithTemplate.title = NAME
 		pageWithTemplate.wikitext = "'''${NAME}''' is an actor."
@@ -217,7 +216,7 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		actorTemplate.birthName == null
 	}
 
-	def "uses birth name from subprocessor, if it is present"() {
+	void "uses birth name from subprocessor, if it is present"() {
 		given:
 		ActorTemplate actorTemplateFromTemplate = new ActorTemplate(birthName: BIRTH_NAME)
 
@@ -230,7 +229,7 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		actorTemplate.birthName == BIRTH_NAME
 	}
 
-	def "uses place of birth from subprocessor, if it is present"() {
+	void "uses place of birth from subprocessor, if it is present"() {
 		given:
 		ActorTemplate actorTemplateFromTemplate = new ActorTemplate(placeOfBirth: PLACE_OF_BIRTH)
 
@@ -243,7 +242,7 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		actorTemplate.placeOfBirth == PLACE_OF_BIRTH
 	}
 
-	def "uses place of death from subprocessor, if it is present"() {
+	void "uses place of death from subprocessor, if it is present"() {
 		given:
 		ActorTemplate actorTemplateFromTemplate = new ActorTemplate(placeOfBirth: PLACE_OF_DEATH)
 
@@ -256,7 +255,7 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		actorTemplate.placeOfBirth == PLACE_OF_DEATH
 	}
 
-	def "uses gender from subprocessor only if current gender is null"() {
+	void "uses gender from subprocessor only if current gender is null"() {
 		given:
 		ActorTemplate actorTemplateFromTemplate = new ActorTemplate(gender: Gender.F)
 
@@ -269,7 +268,7 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		actorTemplate.gender == Gender.F
 	}
 
-	def "sets gender to null when genders found by ActorTemplateTemplateProcessor and ActorTemplatePageProcessor differs"() {
+	void "sets gender to null when genders found by ActorTemplateTemplateProcessor and ActorTemplatePageProcessor differs"() {
 		given:
 		ActorTemplate actorTemplateFromTemplate = new ActorTemplate(gender: Gender.F)
 
@@ -283,7 +282,7 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		actorTemplate.gender == null
 	}
 
-	def "uses CategoriesActorTemplateEnrichingProcessor to enrich ActorTemplate"() {
+	void "uses CategoriesActorTemplateEnrichingProcessor to enrich ActorTemplate"() {
 		given:
 		actorTemplateTemplateProcessorMock.process(_) >> new ActorTemplate()
 

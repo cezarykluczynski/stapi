@@ -23,14 +23,14 @@ class EpisodeTemplateTitleLanguagesEnrichingProcessorTest extends Specification 
 
 	private EpisodeTemplateTitleLanguagesEnrichingProcessor episodeTemplateTitleLanguagesEnrichingProcessor
 
-	def setup() {
+	void setup() {
 		wikitextApiMock = Mock(WikitextApi)
 		pageSectionExtractorMock = Mock(PageSectionExtractor)
 		episodeTemplateTitleLanguagesEnrichingProcessor = new EpisodeTemplateTitleLanguagesEnrichingProcessor(
 				wikitextApiMock, pageSectionExtractorMock)
 	}
 
-	def "gets links from last page section and puts them into episode template"() {
+	void "gets links from last page section and puts them into episode template"() {
 		given:
 		PageSection pageSection = new PageSection(wikitext: WIKITEXT)
 		List<PageSection> pageSectionList = Lists.newArrayList(pageSection)
@@ -52,8 +52,8 @@ class EpisodeTemplateTitleLanguagesEnrichingProcessorTest extends Specification 
 		episodeTemplate.titleJapanese == TITLE_JAPANESE
 	}
 
-	@Unroll("removes prefix #prefix from japanese title with prefix")
-	def "removes prefix from japanese title with prefix"() {
+	@Unroll('removes prefix #prefix from japanese title with prefix')
+	void "removes prefix from japanese title with prefix"() {
 		given:
 		PageSection pageSection = new PageSection(wikitext: WIKITEXT)
 		List<PageSection> pageSectionList = Lists.newArrayList(pageSection)
@@ -77,7 +77,7 @@ class EpisodeTemplateTitleLanguagesEnrichingProcessorTest extends Specification 
 		EpisodeTemplateTitleLanguagesEnrichingProcessor.JAPANESE_SERIES_PREFIXES[5] | TITLE_JAPANESE
 	}
 
-	def "tolerates empty section list"() {
+	void "tolerates empty section list"() {
 		given:
 		Page page = new Page(sections: Lists.newArrayList())
 		EpisodeTemplate episodeTemplate = new EpisodeTemplate()
@@ -93,6 +93,5 @@ class EpisodeTemplateTitleLanguagesEnrichingProcessorTest extends Specification 
 		episodeTemplate.titleItalian == null
 		episodeTemplate.titleJapanese == null
 	}
-
 
 }

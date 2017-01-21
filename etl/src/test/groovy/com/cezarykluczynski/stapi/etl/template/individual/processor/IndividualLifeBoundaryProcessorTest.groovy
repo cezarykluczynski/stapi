@@ -27,7 +27,7 @@ class IndividualLifeBoundaryProcessorTest extends Specification {
 
 	private IndividualLifeBoundaryProcessor individualLifeBoundaryProcessor
 
-	def setup() {
+	void setup() {
 		pageLinkToYearProcessorMock = Mock(PageLinkToYearProcessor)
 		wikitextApiMock = Mock(WikitextApi)
 		dayMonthPageLinkProcessorMock = Mock(DayMonthPageLinkProcessor)
@@ -36,7 +36,7 @@ class IndividualLifeBoundaryProcessorTest extends Specification {
 				dayMonthPageLinkProcessorMock, dayInMonthProximityFindingProcessorMock)
 	}
 
-	def "returns empty dto when wikitext has no links"() {
+	void "returns empty dto when wikitext has no links"() {
 		when:
 		IndividualLifeBoundaryDTO individualLifeBoundaryDTO = individualLifeBoundaryProcessor.process(StringUtils.EMPTY)
 
@@ -46,7 +46,7 @@ class IndividualLifeBoundaryProcessorTest extends Specification {
 		ReflectionTestUtils.getNumberOfNotNullFields(individualLifeBoundaryDTO) == 0
 	}
 
-	def "sets only first value returned by PageLinkToYearProcessor"() {
+	void "sets only first value returned by PageLinkToYearProcessor"() {
 		given:
 		PageLink pageLink1 = Mock(PageLink)
 		PageLink pageLink2 = Mock(PageLink)
@@ -63,7 +63,7 @@ class IndividualLifeBoundaryProcessorTest extends Specification {
 		ReflectionTestUtils.getNumberOfNotNullFields(individualLifeBoundaryDTO) == 1
 	}
 
-	def "when no year was found, link is passed to DayMonthPageLinkProcessor"() {
+	void "when no year was found, link is passed to DayMonthPageLinkProcessor"() {
 		given:
 		PageLink pageLink = Mock(PageLink)
 		Integer day = 2
@@ -82,7 +82,7 @@ class IndividualLifeBoundaryProcessorTest extends Specification {
 		ReflectionTestUtils.getNumberOfNotNullFields(individualLifeBoundaryDTO) == 2
 	}
 
-	def "when no year was found, and DayMonthPageLinkProcessor returns only month, day is looked up with DayInMonthProximityFindingProcessor"() {
+	void "when no year was found, and DayMonthPageLinkProcessor returns only month, day is looked up with DayInMonthProximityFindingProcessor"() {
 		given:
 		PageLink pageLink = Mock(PageLink)
 		Integer day = 2

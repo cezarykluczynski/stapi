@@ -18,22 +18,22 @@ class WikiaWikisDetectorTest extends Specification {
 
 	private WikiaWikisDetector wikiaWikisDetector
 
-	def setup() {
+	void setup() {
 		mediaWikiSourcesPropertiesMock = Mock(MediaWikiSourcesProperties)
 		wikiaUrlDetectorMock = Mock(WikiaUrlDetector) {
 			isWikiaWikiUrl(MEMORY_ALPHA_EN_API_URL) >> true
 			isWikiaWikiUrl(MEMORY_BETA_EN_API_URL) >> false
 		}
-		mediaWikiSourcesPropertiesMock.getMemoryAlphaEn() >> Mock(MediaWikiSourceProperties) {
-			getApiUrl() >> MEMORY_ALPHA_EN_API_URL
-		}
-		mediaWikiSourcesPropertiesMock.getMemoryBetaEn() >> Mock(MediaWikiSourceProperties) {
-			getApiUrl() >> MEMORY_BETA_EN_API_URL
-		}
+		MediaWikiSourceProperties memoryAlphaEnMediaWikiSourceProperties = Mock(MediaWikiSourceProperties)
+		memoryAlphaEnMediaWikiSourceProperties.apiUrl >> MEMORY_ALPHA_EN_API_URL
+		mediaWikiSourcesPropertiesMock.memoryAlphaEn >> memoryAlphaEnMediaWikiSourceProperties
+		MediaWikiSourceProperties memoryBetaEnMediaWikiSourceProperties = Mock(MediaWikiSourceProperties)
+		memoryBetaEnMediaWikiSourceProperties.apiUrl >> MEMORY_BETA_EN_API_URL
+		mediaWikiSourcesPropertiesMock.memoryBetaEn >> memoryBetaEnMediaWikiSourceProperties
 		wikiaWikisDetector = new WikiaWikisDetector(mediaWikiSourcesPropertiesMock, wikiaUrlDetectorMock)
 	}
 
-	def "detects Wikia wikis and not wikia Wikis"() {
+	void "detects Wikia wikis and not wikia Wikis"() {
 		when:
 		boolean memoryAlphaEnIsWikiaWiki = wikiaWikisDetector.isWikiaWiki(MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN)
 
@@ -46,6 +46,5 @@ class WikiaWikisDetectorTest extends Specification {
 		then:
 		!memoryBetaEnIsWikiaWiki
 	}
-
 
 }

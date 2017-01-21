@@ -24,19 +24,18 @@ class StaffSoapReaderTest extends Specification {
 
 	private StaffSoapReader staffSoapReader
 
-	def setup() {
+	void setup() {
 		staffSoapQueryBuilderMock = Mock(StaffSoapQuery)
 		staffSoapMapperMock = Mock(StaffSoapMapper)
 		pageMapperMock = Mock(PageMapper)
 		staffSoapReader = new StaffSoapReader(staffSoapQueryBuilderMock, staffSoapMapperMock, pageMapperMock)
 	}
 
-	def "gets database entities and puts them into StaffResponse"() {
+	void "gets database entities and puts them into StaffResponse"() {
 		given:
 		List<DBStaff> dbStaffList = Lists.newArrayList()
-		Page<DBStaff> dbStaffPage = Mock(Page) {
-			getContent() >> dbStaffList
-		}
+		Page<DBStaff> dbStaffPage = Mock(Page)
+		dbStaffPage.content >> dbStaffList
 		List<SOAPStaff> soapStaffList = Lists.newArrayList(new SOAPStaff(guid: GUID))
 		StaffRequest staffRequest = Mock(StaffRequest)
 		ResponsePage responsePage = Mock(ResponsePage)

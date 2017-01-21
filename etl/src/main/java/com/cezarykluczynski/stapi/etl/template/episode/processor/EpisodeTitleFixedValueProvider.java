@@ -14,6 +14,8 @@ public class EpisodeTitleFixedValueProvider implements FixedValueProvider<String
 
 	static {
 		TITLE_TO_TITLE_MAP.put("E┬▓", "E²");
+		TITLE_TO_TITLE_MAP.put("M├ęnage ├á Troi", "Ménage à Troi");
+		TITLE_TO_TITLE_MAP.put("Vis ├á Vis", "Vis à Vis");
 	}
 
 	@Override

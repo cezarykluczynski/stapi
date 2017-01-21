@@ -24,19 +24,18 @@ class SeriesSoapReaderTest extends Specification {
 
 	private SeriesSoapReader seriesSoapReader
 
-	def setup() {
+	void setup() {
 		seriesSoapQueryBuilderMock = Mock(SeriesSoapQuery)
 		seriesSoapMapperMock = Mock(SeriesSoapMapper)
 		pageMapperMock = Mock(PageMapper)
 		seriesSoapReader = new SeriesSoapReader(seriesSoapQueryBuilderMock, seriesSoapMapperMock, pageMapperMock)
 	}
 
-	def "gets database entities and puts them into SeriesResponse"() {
+	void "gets database entities and puts them into SeriesResponse"() {
 		given:
 		List<DBSeries> dbSeriesList = Lists.newArrayList()
-		Page<DBSeries> dbSeriesPage = Mock(Page) {
-			getContent() >> dbSeriesList
-		}
+		Page<DBSeries> dbSeriesPage = Mock(Page)
+		dbSeriesPage.content >> dbSeriesList
 		List<SOAPSeries> soapSeriesList = Lists.newArrayList(new SOAPSeries(guid: GUID))
 		SeriesRequest seriesRequest = Mock(SeriesRequest)
 		ResponsePage responsePage = Mock(ResponsePage)

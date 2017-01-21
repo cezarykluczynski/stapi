@@ -8,11 +8,11 @@ class EtlConfigurationTest extends Specification {
 
 	private EtlConfiguration etlConfiguration
 
-	def setup() {
+	void setup() {
 		etlConfiguration = new EtlConfiguration()
 	}
 
-	def "task exeturor is created"() {
+	void "task exeturor is created"() {
 		when:
 		TaskExecutor taskExecutor = etlConfiguration.taskExecutor()
 

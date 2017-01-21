@@ -17,7 +17,7 @@ class ReflectionTestUtils  {
 			}
 		}
 
-		return numberOfTrueBooleanFields
+		numberOfTrueBooleanFields
 	}
 
 	static int getNumberOfNotNullFields(Object object) {
@@ -26,12 +26,12 @@ class ReflectionTestUtils  {
 
 		for (PropertyDescriptor propertyDesc : beanInfo.propertyDescriptors) {
 			Object value = propertyDesc.readMethod.invoke(object)
-			if (value != null && propertyDesc.name != "class") {
+			if (value != null && propertyDesc.name != 'class') {
 				numberOfNotNullFields++
 			}
 		}
 
-		return numberOfNotNullFields
+		numberOfNotNullFields
 	}
 
 }

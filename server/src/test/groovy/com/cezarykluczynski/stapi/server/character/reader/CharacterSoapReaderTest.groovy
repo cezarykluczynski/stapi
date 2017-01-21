@@ -24,19 +24,18 @@ class CharacterSoapReaderTest extends Specification {
 
 	private CharacterSoapReader characterSoapReader
 
-	def setup() {
+	void setup() {
 		characterSoapQueryBuilderMock = Mock(CharacterSoapQuery)
 		characterSoapMapperMock = Mock(CharacterSoapMapper)
 		pageMapperMock = Mock(PageMapper)
 		characterSoapReader = new CharacterSoapReader(characterSoapQueryBuilderMock, characterSoapMapperMock, pageMapperMock)
 	}
 
-	def "gets database entities and puts them into CharacterResponse"() {
+	void "gets database entities and puts them into CharacterResponse"() {
 		given:
 		List<DBCharacter> dbCharacterList = Lists.newArrayList()
-		Page<DBCharacter> dbCharacterPage = Mock(Page) {
-			getContent() >> dbCharacterList
-		}
+		Page<DBCharacter> dbCharacterPage = Mock(Page)
+		dbCharacterPage.content >> dbCharacterList
 		List<SOAPCharacter> soapCharacterList = Lists.newArrayList(new SOAPCharacter(guid: GUID))
 		CharacterRequest characterRequest = Mock(CharacterRequest)
 		ResponsePage responsePage = Mock(ResponsePage)

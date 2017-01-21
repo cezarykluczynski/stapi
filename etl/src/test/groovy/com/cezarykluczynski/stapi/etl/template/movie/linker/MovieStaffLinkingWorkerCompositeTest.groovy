@@ -20,7 +20,7 @@ class MovieStaffLinkingWorkerCompositeTest extends Specification {
 
 	private MovieStaffLinkingWorkerComposite movieStaffLinkingWorkerComposite
 
-	def setup() {
+	void setup() {
 		movieWritersLinkingWorkerMock = Mock(MovieWritersLinkingWorker)
 		movieScreenplayAuthorsLinkingWorkerMock = Mock(MovieScreenplayAuthorsLinkingWorker)
 		movieStoryAuthorsLinkingWorkerMock = Mock(MovieStoryAuthorsLinkingWorker)
@@ -32,7 +32,7 @@ class MovieStaffLinkingWorkerCompositeTest extends Specification {
 				movieProducersLinkingWorkerMock, movieStaffLinkingWorkerMock)
 	}
 
-	def "passes the right sets of staff to particular workers"() {
+	void "passes the right sets of staff to particular workers"() {
 		given:
 		MovieLinkedTitlesDTO movieLinkedTitlesDTO = Mock(MovieLinkedTitlesDTO)
 		Set<List<String>> writers = Mock(Set)
@@ -47,17 +47,17 @@ class MovieStaffLinkingWorkerCompositeTest extends Specification {
 		movieStaffLinkingWorkerComposite.link(movieLinkedTitlesDTO, movie)
 
 		then: 'linking workers are used to process particulars sets of link lists'
-		1 * movieLinkedTitlesDTO.getWriters() >> writers
+		1 * movieLinkedTitlesDTO.writers >> writers
 		1 * movieWritersLinkingWorkerMock.link(writers, movie)
-		1 * movieLinkedTitlesDTO.getScreenplayAuthors() >> screenplayAuthors
+		1 * movieLinkedTitlesDTO.screenplayAuthors >> screenplayAuthors
 		1 * movieScreenplayAuthorsLinkingWorkerMock.link(screenplayAuthors, movie)
-		1 * movieLinkedTitlesDTO.getStoryAuthors() >> storyAuthors
+		1 * movieLinkedTitlesDTO.storyAuthors >> storyAuthors
 		1 * movieStoryAuthorsLinkingWorkerMock.link(storyAuthors, movie)
-		1 * movieLinkedTitlesDTO.getDirectors() >> directors
+		1 * movieLinkedTitlesDTO.directors >> directors
 		1 * movieDirectorsLinkingWorkerMock.link(directors, movie)
-		1 * movieLinkedTitlesDTO.getProducers() >> producers
+		1 * movieLinkedTitlesDTO.producers >> producers
 		1 * movieProducersLinkingWorkerMock.link(producers, movie)
-		1 * movieLinkedTitlesDTO.getStaff() >> staff
+		1 * movieLinkedTitlesDTO.staff >> staff
 		1 * movieStaffLinkingWorkerMock.link(staff, movie)
 		0 * _
 	}

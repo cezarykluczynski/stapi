@@ -4,9 +4,9 @@ import spock.lang.Specification
 
 class UserDecoratorTest extends Specification {
 
-	def "connector is exposed"() {
+	void "connector is exposed"() {
 		when:
-		UserDecorator userDecorator = new UserDecorator("", "", "")
+		UserDecorator userDecorator = new UserDecorator('', '', '')
 
 		then:
 		userDecorator.connector != null

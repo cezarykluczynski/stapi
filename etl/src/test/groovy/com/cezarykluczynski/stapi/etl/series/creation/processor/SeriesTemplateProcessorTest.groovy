@@ -32,14 +32,14 @@ class SeriesTemplateProcessorTest extends Specification {
 
 	private SeriesTemplateProcessor seriesTemplateProcessor
 
-	def setup() {
+	void setup() {
 		guidGeneratorMock = Mock(GuidGenerator)
 		seriesEpisodeStatisticsFixedValueProviderMock = Mock(SeriesEpisodeStatisticsFixedValueProvider)
 		seriesTemplateProcessor = new SeriesTemplateProcessor(guidGeneratorMock,
 				seriesEpisodeStatisticsFixedValueProviderMock)
 	}
 
-	def "SeriesTemplate is mapped to Series"() {
+	void "SeriesTemplate is mapped to Series"() {
 		given:
 		SeriesTemplate seriesTemplate = new SeriesTemplate(
 				title: TITLE,
@@ -71,7 +71,7 @@ class SeriesTemplateProcessorTest extends Specification {
 		series.featureLengthEpisodesCount == FEATURE_LENGTH_EPISODES_COUNT
 	}
 
-	def "null values are tolerated"() {
+	void "null values are tolerated"() {
 		given:
 		SeriesTemplate seriesTemplate = new SeriesTemplate(
 				productionYearRange: new YearRange(),

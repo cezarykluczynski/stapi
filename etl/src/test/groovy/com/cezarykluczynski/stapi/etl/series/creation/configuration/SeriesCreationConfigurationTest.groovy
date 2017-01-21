@@ -21,7 +21,7 @@ class SeriesCreationConfigurationTest extends AbstractCreationConfigurationTest 
 
 	private SeriesCreationConfiguration seriesCreationConfiguration
 
-	def setup() {
+	void setup() {
 		categoryApiMock = Mock(CategoryApi)
 		jobCompletenessDeciderMock = Mock(StepCompletenessDecider)
 		seriesCreationConfiguration = new SeriesCreationConfiguration(
@@ -29,7 +29,7 @@ class SeriesCreationConfigurationTest extends AbstractCreationConfigurationTest 
 				stepCompletenessDecider: jobCompletenessDeciderMock)
 	}
 
-	def "SeriesReader is created with all pages when step is not completed"() {
+	void "SeriesReader is created with all pages when step is not completed"() {
 		given:
 		List<PageHeader> pageHeaderList = Lists.newArrayList(PageHeader.builder().title(TITLE).build())
 
@@ -44,7 +44,7 @@ class SeriesCreationConfigurationTest extends AbstractCreationConfigurationTest 
 		seriesReader.read() == null
 	}
 
-	def "SeriesReader is created with no pages when step is completed"() {
+	void "SeriesReader is created with no pages when step is completed"() {
 		when:
 		SeriesReader seriesReader = seriesCreationConfiguration.seriesReader()
 		List<String> categoryHeaderTitleList = readerToList(seriesReader)

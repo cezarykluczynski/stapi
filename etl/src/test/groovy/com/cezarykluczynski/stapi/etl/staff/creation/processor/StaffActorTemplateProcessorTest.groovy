@@ -13,12 +13,12 @@ class StaffActorTemplateProcessorTest extends AbstractRealWorldActorTemplateProc
 
 	private GuidGenerator guidGeneratorMock
 
-	def setup() {
+	void setup() {
 		guidGeneratorMock = Mock(GuidGenerator)
 		staffActorTemplateProcessor = new StaffActorTemplateProcessor(guidGeneratorMock)
 	}
 
-	def "converts ActorTemplate to Staff"() {
+	void "converts ActorTemplate to Staff"() {
 		given:
 		ActorTemplate actorTemplate = new ActorTemplate(
 				name: NAME,
@@ -159,7 +159,7 @@ class StaffActorTemplateProcessorTest extends AbstractRealWorldActorTemplateProc
 		staff.writer == WRITER
 	}
 
-	def "ActorTemplate with only nulls and false values is converted to Staff with only nulls and false values"() {
+	void "ActorTemplate with only nulls and false values is converted to Staff with only nulls and false values"() {
 		given:
 		ActorTemplate actorTemplate = new ActorTemplate()
 

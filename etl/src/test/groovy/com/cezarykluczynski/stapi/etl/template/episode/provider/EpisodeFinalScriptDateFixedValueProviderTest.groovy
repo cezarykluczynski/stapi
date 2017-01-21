@@ -12,11 +12,11 @@ class EpisodeFinalScriptDateFixedValueProviderTest extends Specification {
 
 	private EpisodeFinalScriptDateFixedValueProvider episodeScriptDateFixedValueProvider
 
-	def setup() {
+	void setup() {
 		episodeScriptDateFixedValueProvider = new EpisodeFinalScriptDateFixedValueProvider()
 	}
 
-	def "gets fixed value holder when episode is found"() {
+	void "gets fixed value holder when episode is found"() {
 		when:
 		FixedValueHolder<LocalDate> fixedValueHolder = episodeScriptDateFixedValueProvider.getSearchedValue(FIXED_TITLE)
 
@@ -25,7 +25,7 @@ class EpisodeFinalScriptDateFixedValueProviderTest extends Specification {
 		fixedValueHolder.value == EpisodeFinalScriptDateFixedValueProvider.FIXED_DATES.get(FIXED_TITLE)
 	}
 
-	def "gets fixed value holder when episode is not found"() {
+	void "gets fixed value holder when episode is not found"() {
 		when:
 		FixedValueHolder<LocalDate> fixedValueHolder = episodeScriptDateFixedValueProvider
 				.getSearchedValue(UNEXISTING_TITLE)

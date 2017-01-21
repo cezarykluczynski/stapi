@@ -42,14 +42,14 @@ class MovieTemplateStaffEnrichingProcessorTest extends AbstractTemplateProcessor
 
 	private MovieTemplateStaffEnrichingProcessor movieTemplateStaffEnrichingProcessor
 
-	def setup() {
+	void setup() {
 		wikitextApiMock = Mock(WikitextApi)
 		entityLookupByNameServiceMock = Mock(EntityLookupByNameService)
 		movieTemplateStaffEnrichingProcessor = new MovieTemplateStaffEnrichingProcessor(wikitextApiMock,
 				entityLookupByNameServiceMock)
 	}
 
-	def "enriches MovieTemplate with staff, when links are present in all sections"() {
+	void "enriches MovieTemplate with staff, when links are present in all sections"() {
 		given:
 		Movie movieStub = new Movie()
 		Template template = new Template(parts: Lists.newArrayList(
@@ -103,12 +103,12 @@ class MovieTemplateStaffEnrichingProcessorTest extends AbstractTemplateProcessor
 		movieStub.mainDirector == director
 	}
 
-	def "enriches MovieTemplate with staff, when links are present in some of the sections"() {
+	void "enriches MovieTemplate with staff, when links are present in some of the sections"() {
 		given:
-		String screenplayAuthorsWikitext = SCREENPLAY_AUTHORS + " " + WRITER_2_NAME + " " + WRITER_DESCRIPTION_3
-		String storyAuthorWikitext = "blah " + WRITER_3_BIRTH_NAME + " " + WRITER_DESCRIPTION_2
-		String directorsWikitext = "blah " + WRITER_4_BIRTH_NAME
-		String producersWikitext = "blah " + WRITER_5
+		String screenplayAuthorsWikitext = SCREENPLAY_AUTHORS + ' ' + WRITER_2_NAME + ' ' + WRITER_DESCRIPTION_3
+		String storyAuthorWikitext = 'blah ' + WRITER_3_BIRTH_NAME + ' ' + WRITER_DESCRIPTION_2
+		String directorsWikitext = 'blah ' + WRITER_4_BIRTH_NAME
+		String producersWikitext = 'blah ' + WRITER_5
 		Movie movieStub = new Movie()
 		Template template = new Template(parts: Lists.newArrayList(
 				createTemplatePart(MovieTemplateStaffEnrichingProcessor.WS_WRITTEN_BY, WRITERS),
@@ -173,7 +173,7 @@ class MovieTemplateStaffEnrichingProcessorTest extends AbstractTemplateProcessor
 		movieStub.mainDirector == writer4
 	}
 
-	def "tolerates null raw value"() {
+	void "tolerates null raw value"() {
 		given:
 		Movie movieStub = new Movie()
 		Template template = new Template(parts: Lists.newArrayList(
@@ -202,7 +202,7 @@ class MovieTemplateStaffEnrichingProcessorTest extends AbstractTemplateProcessor
 		movieStub.producers.empty
 	}
 
-	def "does not set main director when there is more than one"() {
+	void "does not set main director when there is more than one"() {
 		given:
 		Movie movieStub = new Movie()
 		Template template = new Template(parts: Lists.newArrayList(

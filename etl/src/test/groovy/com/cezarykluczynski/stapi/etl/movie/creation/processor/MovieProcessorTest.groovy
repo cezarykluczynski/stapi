@@ -18,7 +18,7 @@ class MovieProcessorTest extends Specification {
 
 	private MovieProcessor episodeProcessor
 
-	def setup() {
+	void setup() {
 		pageHeaderProcessorMock = Mock(PageHeaderProcessor)
 		toMovieTemplateProcessorMock = Mock(ToMovieTemplateProcessor)
 		toMovieEntityProcessorMock = Mock(ToMovieEntityProcessor)
@@ -26,7 +26,7 @@ class MovieProcessorTest extends Specification {
 				toMovieEntityProcessorMock)
 	}
 
-	def "converts PageHeader to Movie"() {
+	void "converts PageHeader to Movie"() {
 		given:
 		PageHeader pageHeader = PageHeader.builder().build()
 		Page page = new Page()

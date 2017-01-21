@@ -10,11 +10,11 @@ class StaffHeaderRestMapperTest extends AbstractRealWorldPersonMapperTest {
 
 	private StaffHeaderRestMapper staffHeaderRestMapper
 
-	def setup() {
+	void setup() {
 		staffHeaderRestMapper = Mappers.getMapper(StaffHeaderRestMapper)
 	}
 
-	def "maps DB entity to REST header"() {
+	void "maps DB entity to REST header"() {
 		given:
 		Staff staff = new Staff(
 				name: NAME,

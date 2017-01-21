@@ -22,7 +22,7 @@ class CharacterCreationConfigurationTest extends AbstractCreationConfigurationTe
 
 	private CharacterCreationConfiguration characterCreationConfiguration
 
-	def setup() {
+	void setup() {
 		applicationContextMock = Mock(ApplicationContext)
 		categoryApiMock = Mock(CategoryApi)
 		jobCompletenessDeciderMock = Mock(StepCompletenessDecider)
@@ -32,22 +32,26 @@ class CharacterCreationConfigurationTest extends AbstractCreationConfigurationTe
 				stepCompletenessDecider: jobCompletenessDeciderMock)
 	}
 
-	def "CharacterReader is created with all pages when step is not completed"() {
+	void "CharacterReader is created with all pages when step is not completed"() {
 		when:
 		CharacterReader characterReader = characterCreationConfiguration.characterReader()
 		List<String> categoryHeaderTitleList = readerToList(characterReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_CHARACTERS) >> false
-		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryName.INDIVIDUALS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_INDIVIDUALS)
-		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryName.MILITARY_PERSONNEL, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_INDIVIDUALS)
-		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryName.Q_CONTINUUM, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_INDIVIDUALS)
-		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryName.STARFLEET_PERSONNEL, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_INDIVIDUALS)
+		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryName.INDIVIDUALS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+				createListWithPageHeaderTitle(TITLE_INDIVIDUALS)
+		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryName.MILITARY_PERSONNEL, MediaWikiSource.MEMORY_ALPHA_EN) >>
+				createListWithPageHeaderTitle(TITLE_INDIVIDUALS)
+		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryName.Q_CONTINUUM, MediaWikiSource.MEMORY_ALPHA_EN) >>
+				createListWithPageHeaderTitle(TITLE_INDIVIDUALS)
+		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryName.STARFLEET_PERSONNEL, MediaWikiSource.MEMORY_ALPHA_EN) >>
+				createListWithPageHeaderTitle(TITLE_INDIVIDUALS)
 		0 * _
 		categoryHeaderTitleList.contains TITLE_INDIVIDUALS
 	}
 
-	def "CharacterReader is created with no pages when step is completed"() {
+	void "CharacterReader is created with no pages when step is completed"() {
 		when:
 		CharacterReader characterReader = characterCreationConfiguration.characterReader()
 		List<String> categoryHeaderTitleList = readerToList(characterReader)

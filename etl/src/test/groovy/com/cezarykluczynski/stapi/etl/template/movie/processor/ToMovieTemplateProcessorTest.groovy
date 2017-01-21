@@ -16,7 +16,7 @@ import spock.lang.Specification
 
 class ToMovieTemplateProcessorTest extends Specification {
 
-	private final Template SIDEBAR_FILM_TEMPLATE = new Template(title: TemplateName.SIDEBAR_FILM)
+	private static final Template SIDEBAR_FILM_TEMPLATE = new Template(title: TemplateName.SIDEBAR_FILM)
 
 	private MovieTemplateProcessor movieTemplateProcessorMock
 
@@ -30,7 +30,7 @@ class ToMovieTemplateProcessorTest extends Specification {
 
 	private ToMovieTemplateProcessor toMovieTemplateProcessor
 
-	def setup() {
+	void setup() {
 		movieTemplateProcessorMock = Mock(MovieTemplateProcessor)
 		templateFinderMock = Mock(TemplateFinder)
 		pageBindingServiceMock = Mock(PageBindingService)
@@ -41,7 +41,7 @@ class ToMovieTemplateProcessorTest extends Specification {
 				moviePerformancesLinkingWorkerMock)
 	}
 
-	def "does not interact with dependencies other than TemplateFinder when template was not found"() {
+	void "does not interact with dependencies other than TemplateFinder when template was not found"() {
 		given:
 		Page page = new Page()
 
@@ -53,7 +53,7 @@ class ToMovieTemplateProcessorTest extends Specification {
 		0 * _
 	}
 
-	def "returns null when page is Star Trek films"() {
+	void "returns null when page is Star Trek films"() {
 		given:
 		Page page = new Page(title: PageName.STAR_TREK_FILMS)
 
@@ -66,7 +66,7 @@ class ToMovieTemplateProcessorTest extends Specification {
 		0 * _
 	}
 
-	def "returns null when page is Star Trek XIV"() {
+	void "returns null when page is Star Trek XIV"() {
 		given:
 		Page page = new Page(title: PageName.STAR_TREK_XIV)
 
@@ -79,7 +79,7 @@ class ToMovieTemplateProcessorTest extends Specification {
 		0 * _
 	}
 
-	def "page is processed using dependencies"() {
+	void "page is processed using dependencies"() {
 		given:
 		Page page = new Page(
 				templates: Lists.newArrayList(SIDEBAR_FILM_TEMPLATE)

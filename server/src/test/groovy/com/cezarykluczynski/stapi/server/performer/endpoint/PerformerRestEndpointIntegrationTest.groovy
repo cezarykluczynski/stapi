@@ -14,11 +14,11 @@ import spock.lang.Requires
 })
 class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointIntegrationTest {
 
-	def setup() {
+	void setup() {
 		createRestClient()
 	}
 
-	def "gets first page of performers"() {
+	void "gets first page of performers"() {
 		given:
 		Integer pageNumber = 0
 		Integer pageSize = 10
@@ -32,7 +32,7 @@ class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointInte
 		performerResponse.performers.size() == pageSize
 	}
 
-	def "gets the only person to star in 6 series"() {
+	void "gets the only person to star in 6 series"() {
 		when:
 		PerformerResponse performerResponse = stapiRestClient.performerApi.performerPost(null, null, null, null, null,
 				null, null, null, null, null, null, null, null, true, true, null, null, null, true, true, true, null,
@@ -40,14 +40,14 @@ class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointInte
 
 		then:
 		performerResponse.page.totalElements == 1
-		performerResponse.performers[0].name == "Majel Barrett-Roddenberry"
+		performerResponse.performers[0].name == 'Majel Barrett-Roddenberry'
 	}
 
 	@Requires({
 		StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_EPISODES) &&
 				StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_MOVIES)
 	})
-	def "gets performer by guid"() {
+	void "gets performer by guid"() {
 		when:
 		PerformerResponse performerResponse = stapiRestClient.performerApi.performerPost(null, null, null, GUID, null,
 				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
@@ -60,7 +60,7 @@ class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointInte
 		performerResponse.performers[0].moviesPerformanceHeaders.size() == 4
 	}
 
-	def "gets performers sorted by name"() {
+	void "gets performers sorted by name"() {
 		when:
 		PerformerResponse performerResponse = stapiRestClient.performerApi.performerPost(null, null,
 				StapiRestSortSerializer.serialize(Lists.newArrayList(
@@ -69,8 +69,8 @@ class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointInte
 				null, null, null, null, null)
 
 		then:
-		performerResponse.performers[0].name.startsWith("A. ")
-		performerResponse.performers[1].name.startsWith("A. ")
+		performerResponse.performers[0].name.startsWith('A. ')
+		performerResponse.performers[1].name.startsWith('A. ')
 	}
 
 }

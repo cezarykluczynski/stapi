@@ -10,11 +10,11 @@ class PerformerHeaderRestMapperTest extends AbstractRealWorldPersonMapperTest {
 
 	private PerformerHeaderRestMapper performerHeaderRestMapper
 
-	def setup() {
+	void setup() {
 		performerHeaderRestMapper = Mappers.getMapper(PerformerHeaderRestMapper)
 	}
 
-	def "maps DB entity to REST header"() {
+	void "maps DB entity to REST header"() {
 		given:
 		Performer performer = new Performer(
 				name: NAME,

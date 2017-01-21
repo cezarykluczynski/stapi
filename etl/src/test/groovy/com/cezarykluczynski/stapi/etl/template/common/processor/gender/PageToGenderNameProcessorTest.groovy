@@ -19,13 +19,13 @@ class PageToGenderNameProcessorTest extends Specification {
 
 	private PageToGenderNameProcessor pageToGenderNameProcessor
 
-	def setup() {
+	void setup() {
 		fullNameToFirstNameProcessor = Mock(FullNameToFirstNameProcessor)
 		genderizeClientMock = Mock(GenderizeClient)
 		pageToGenderNameProcessor = new PageToGenderNameProcessor(fullNameToFirstNameProcessor, genderizeClientMock)
 	}
 
-	def "returns null when genderize client returns null"() {
+	void "returns null when genderize client returns null"() {
 		given:
 		Page page = new Page(title: TITLE)
 
@@ -38,7 +38,7 @@ class PageToGenderNameProcessorTest extends Specification {
 		gender == null
 	}
 
-	def "returns null when genderize client returns entity with null gender"() {
+	void "returns null when genderize client returns entity with null gender"() {
 		given:
 		Page page = new Page(title: TITLE)
 
@@ -51,7 +51,7 @@ class PageToGenderNameProcessorTest extends Specification {
 		gender == null
 	}
 
-	def "returns gender when probability is higher than required"() {
+	void "returns gender when probability is higher than required"() {
 		given:
 		Page page = new Page(title: TITLE)
 
@@ -66,7 +66,7 @@ class PageToGenderNameProcessorTest extends Specification {
 		gender == GENDER
 	}
 
-	def "returns null when probability is lower than required"() {
+	void "returns null when probability is lower than required"() {
 		given:
 		Page page = new Page(title: TITLE)
 

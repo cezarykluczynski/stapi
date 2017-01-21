@@ -19,14 +19,14 @@ class StepCompletenessDeciderTest extends Specification {
 
 	private StepCompletenessDecider jobCompletenessDecider
 
-	def setup() {
+	void setup() {
 		stepToStepPropertiesProviderMock = Mock(StepToStepPropertiesProvider)
 		allStepExecutionsProviderMock = Mock(AllStepExecutionsProvider)
 		jobCompletenessDecider = new StepCompletenessDecider(stepToStepPropertiesProviderMock,
 				allStepExecutionsProviderMock)
 	}
 
-	def "returns true when step is not enabled"() {
+	void "returns true when step is not enabled"() {
 		given:
 		StepProperties stepProperties = Mock(StepProperties)
 		Map<String, StepProperties> stepPropertiesMap = Maps.newHashMap()
@@ -42,34 +42,34 @@ class StepCompletenessDeciderTest extends Specification {
 		complete
 	}
 
-	def "returns true when step is completed"() {
+	void "returns true when step is completed"() {
+		given:
+		StepExecution stepExecution = Mock(StepExecution)
+
 		when:
 		boolean complete = jobCompletenessDecider.isStepComplete(JOB_NAME, STEP_NAME)
 
 		then:
 		1 * stepToStepPropertiesProviderMock.provide() >> Maps.newHashMap()
-		1 * allStepExecutionsProviderMock.provide(JOB_NAME) >> Lists.newArrayList(
-				Mock(StepExecution) {
-					getStepName() >> STEP_NAME
-					getStatus() >> BatchStatus.COMPLETED
-				}
-		)
+		1 * allStepExecutionsProviderMock.provide(JOB_NAME) >> Lists.newArrayList(stepExecution)
+		1 * stepExecution.stepName >> STEP_NAME
+		1 * stepExecution.status >> BatchStatus.COMPLETED
 		0 * _
 		complete
 	}
 
-	def "returns false when step is not completed"() {
+	void "returns false when step is not completed"() {
+		given:
+		StepExecution stepExecution = Mock(StepExecution)
+
 		when:
 		boolean complete = jobCompletenessDecider.isStepComplete(JOB_NAME, STEP_NAME)
 
 		then:
 		1 * stepToStepPropertiesProviderMock.provide() >> Maps.newHashMap()
-		1 * allStepExecutionsProviderMock.provide(JOB_NAME) >> Lists.newArrayList(
-				Mock(StepExecution) {
-					getStepName() >> STEP_NAME
-					getStatus() >> BatchStatus.UNKNOWN
-				}
-		)
+		1 * allStepExecutionsProviderMock.provide(JOB_NAME) >> Lists.newArrayList(stepExecution)
+		1 * stepExecution.stepName >> STEP_NAME
+		1 * stepExecution.status >> BatchStatus.UNKNOWN
 		0 * _
 		!complete
 	}

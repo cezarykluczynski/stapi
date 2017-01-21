@@ -11,11 +11,11 @@ class SeriesRestMapperTest extends AbstractSeriesMapperTest {
 
 	private SeriesRestMapper seriesRestMapper
 
-	def setup() {
+	void setup() {
 		seriesRestMapper = Mappers.getMapper(SeriesRestMapper)
 	}
 
-	def "maps SeriesRestBeanParams to SeriesRequestDTO"() {
+	void "maps SeriesRestBeanParams to SeriesRequestDTO"() {
 		given:
 		SeriesRestBeanParams seriesRestBeanParams = new SeriesRestBeanParams(
 				guid: GUID,
@@ -47,7 +47,7 @@ class SeriesRestMapperTest extends AbstractSeriesMapperTest {
 		seriesRequestDTO.originalRunEndDateTo == ORIGINAL_RUN_END_DATE_TO_DB
 	}
 
-	def "maps DB entity to REST entity"() {
+	void "maps DB entity to REST entity"() {
 		given:
 		Series dBSeries = createSeries()
 

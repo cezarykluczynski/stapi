@@ -19,7 +19,7 @@ class SeriesRestQueryTest extends Specification {
 
 	private SeriesRestQuery seriesRestQuery
 
-	def setup() {
+	void setup() {
 		seriesRestMapperMock = Mock(SeriesRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		seriesRepositoryMock = Mock(SeriesRepository)
@@ -27,7 +27,7 @@ class SeriesRestQueryTest extends Specification {
 				seriesRepositoryMock)
 	}
 
-	def "maps SeriesRestBeanParams to SeriesRequestDTO and to PageRequest, then calls repository, then returns result"() {
+	void "maps SeriesRestBeanParams to SeriesRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
 		PageRequest pageRequest = Mock(PageRequest)
 		SeriesRestBeanParams seriesRestBeanParams = Mock(SeriesRestBeanParams) {

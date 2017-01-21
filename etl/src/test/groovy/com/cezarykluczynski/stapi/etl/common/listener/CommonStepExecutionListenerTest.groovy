@@ -17,7 +17,7 @@ class CommonStepExecutionListenerTest extends Specification {
 
 	private CommonStepExecutionListener commonStepExecutionListener
 
-	def setup() {
+	void setup() {
 		frequentHitCachingHelperMock = Mock(FrequentHitCachingHelper)
 		frequentHitCachingHelperDumpFormatterMock = Mock(FrequentHitCachingHelperDumpFormatter)
 		stepExecutionMock = Mock(StepExecution)
@@ -25,19 +25,19 @@ class CommonStepExecutionListenerTest extends Specification {
 				frequentHitCachingHelperDumpFormatterMock)
 	}
 
-	def "logs before step"() {
-		when: "before step callback is called"
+	void "logs before step"() {
+		when: 'before step callback is called'
 		commonStepExecutionListener.beforeStep(stepExecutionMock)
 
 		then: 'name and start time is used to build message'
-		1 * stepExecutionMock.getStepName()
-		1 * stepExecutionMock.getStartTime()
+		1 * stepExecutionMock.stepName
+		1 * stepExecutionMock.startTime
 
 		then: 'no other interactions are expected'
 		0 * _
 	}
 
-	def "logs after step"() {
+	void "logs after step"() {
 		given:
 		ExitStatus exitStatusMock = Mock(ExitStatus)
 		Map<MediaWikiSource, Map<String, Integer>> cacheMap = Mock(Map)
@@ -46,12 +46,12 @@ class CommonStepExecutionListenerTest extends Specification {
 		commonStepExecutionListener.afterStep(stepExecutionMock)
 
 		then: 'name, last update time, exit code, read count, and write count is used to build message'
-		1 * stepExecutionMock.getStepName()
-		1 * stepExecutionMock.getLastUpdated()
-		1 * stepExecutionMock.getExitStatus() >> exitStatusMock
-		1 * exitStatusMock.getExitCode()
-		1 * stepExecutionMock.getReadCount()
-		1 * stepExecutionMock.getWriteCount()
+		1 * stepExecutionMock.stepName
+		1 * stepExecutionMock.lastUpdated
+		1 * stepExecutionMock.exitStatus >> exitStatusMock
+		1 * exitStatusMock.exitCode
+		1 * stepExecutionMock.readCount
+		1 * stepExecutionMock.writeCount
 
 		then: 'cache statistics are dumped'
 		1 * frequentHitCachingHelperMock.dumpStatisticsAndReset() >> cacheMap

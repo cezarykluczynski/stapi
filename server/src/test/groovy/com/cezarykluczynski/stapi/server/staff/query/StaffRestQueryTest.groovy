@@ -19,7 +19,7 @@ class StaffRestQueryTest extends Specification {
 
 	private StaffRestQuery staffRestQuery
 
-	def setup() {
+	void setup() {
 		staffRestMapperMock = Mock(StaffRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		staffRepositoryMock = Mock(StaffRepository)
@@ -27,7 +27,7 @@ class StaffRestQueryTest extends Specification {
 				staffRepositoryMock)
 	}
 
-	def "maps StaffRestBeanParams to StaffRequestDTO and to PageRequest, then calls repository, then returns result"() {
+	void "maps StaffRestBeanParams to StaffRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
 		PageRequest pageRequest = Mock(PageRequest)
 		StaffRestBeanParams staffRestBeanParams = Mock(StaffRestBeanParams) {

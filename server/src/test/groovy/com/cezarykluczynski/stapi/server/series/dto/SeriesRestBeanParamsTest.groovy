@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams
 
 class SeriesRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 
-	def "creates SeriesRestBeanParams from PageSortBeanParams"() {
+	void "creates SeriesRestBeanParams from PageSortBeanParams"() {
 		when:
 		SeriesRestBeanParams seriesRestBeanParams = SeriesRestBeanParams.fromPageSortBeanParams(new PageSortBeanParams(
 				pageNumber: PAGE_NUMBER,
@@ -19,7 +19,7 @@ class SeriesRestBeanParamsTest extends AbstractsRestBeanParamsTest {
 		seriesRestBeanParams.sort == SORT
 	}
 
-	def "creates null SeriesRestBeanParams from null PageSortBeanParams"() {
+	void "creates null SeriesRestBeanParams from null PageSortBeanParams"() {
 		when:
 		SeriesRestBeanParams seriesRestBeanParams = SeriesRestBeanParams.fromPageSortBeanParams null
 

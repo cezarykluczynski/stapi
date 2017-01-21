@@ -18,11 +18,11 @@ class CharacterSoapMapperTest extends AbstractCharacterMapperTest {
 
 	private CharacterSoapMapper characterSoapMapper
 
-	def setup() {
+	void setup() {
 		characterSoapMapper = Mappers.getMapper(CharacterSoapMapper)
 	}
 
-	def "maps SOAP CharacterRequest to CharacterRequestDTO"() {
+	void "maps SOAP CharacterRequest to CharacterRequestDTO"() {
 		given:
 		CharacterRequest characterRequest = new CharacterRequest(
 				guid: GUID,
@@ -31,7 +31,6 @@ class CharacterSoapMapperTest extends AbstractCharacterMapperTest {
 				deceased: DECEASED,
 				mirror: MIRROR,
 				alternateReality: ALTERNATE_REALITY)
-
 
 		when:
 		CharacterRequestDTO characterRequestDTO = characterSoapMapper.map characterRequest
@@ -45,7 +44,7 @@ class CharacterSoapMapperTest extends AbstractCharacterMapperTest {
 		characterRequestDTO.alternateReality == ALTERNATE_REALITY
 	}
 
-	def "maps DB entity to SOAP entity"() {
+	void "maps DB entity to SOAP entity"() {
 		given:
 		DBCharacter dbCharacter = createCharacter()
 

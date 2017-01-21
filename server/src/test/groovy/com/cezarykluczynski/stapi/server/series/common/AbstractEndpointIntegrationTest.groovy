@@ -9,10 +9,10 @@ import org.springframework.test.context.ActiveProfiles
 import spock.lang.Specification
 
 @SpringBootTest(
-		classes = [Application.class],
+		classes = [Application],
 		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
-@ActiveProfiles("default,db,source")
+@ActiveProfiles('default,db,source')
 abstract class AbstractEndpointIntegrationTest extends Specification {
 
 	@LocalServerPort

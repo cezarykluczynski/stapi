@@ -19,15 +19,15 @@ class PageHeaderConverterTest extends Specification {
 
 	private PageHeaderConverter pageHeaderConverter
 
-	def setup() {
+	void setup() {
 		pageHeaderConverter = new PageHeaderConverter()
 	}
 
-	def "converts PageInfo list to PageHeaderList, while filtering out pages from non-content namespaces"() {
+	void "converts PageInfo list to PageHeaderList, while filtering out pages from non-content namespaces"() {
 		given:
 		List<PageInfo> pageInfoList = Lists.newArrayList(
 				new PageInfo(ns: MemoryAlpha.CONTENT_NAMESPACE, title: TITLE_1, pageid: PAGE_ID_1_STRING),
-				new PageInfo(ns: "1"),
+				new PageInfo(ns: '1'),
 				new PageInfo(ns: MemoryAlpha.CONTENT_NAMESPACE, title: TITLE_2, pageid: PAGE_ID_2_STRING),
 		)
 

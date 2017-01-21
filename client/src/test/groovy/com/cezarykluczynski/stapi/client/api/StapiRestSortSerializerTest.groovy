@@ -12,7 +12,7 @@ class StapiRestSortSerializerTest extends Specification {
 	private static final String NAME_2 = 'NAME_2'
 	private static final RestSortDirection SORT_ORDER_2 = RestSortDirection.DESC
 
-	def "serializes to string"() {
+	void "serializes to string"() {
 		given:
 		List<RestSortClause> restSortClauseList = Lists.newArrayList(
 				new RestSortClause(name: NAME_1, direction: SORT_ORDER_1),
@@ -24,7 +24,6 @@ class StapiRestSortSerializerTest extends Specification {
 
 		then:
 		sort == "${NAME_1},${SORT_ORDER_1.name()};${NAME_2},${SORT_ORDER_2.name()}".toString()
-
 	}
 
 }

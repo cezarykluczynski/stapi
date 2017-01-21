@@ -10,12 +10,12 @@ class CommonConfigurationTest extends Specification {
 
 	private CommonConfiguration commonConfiguration
 
-	def setup() {
+	void setup() {
 		applicationContextMock = Mock(ApplicationContext)
 		commonConfiguration = new CommonConfiguration(applicationContext: applicationContextMock)
 	}
 
-	def "PageMapper is created"() {
+	void "PageMapper is created"() {
 		when:
 		PageMapper pageMapper = commonConfiguration.pageMapper()
 

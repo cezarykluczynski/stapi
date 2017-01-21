@@ -8,12 +8,12 @@ class IndividualBloodTypeProcessorTest extends Specification {
 
 	private IndividualBloodTypeProcessor individualBloodTypeProcessor
 
-	def setup() {
+	void setup() {
 		individualBloodTypeProcessor = new IndividualBloodTypeProcessor()
 	}
 
-	@Unroll("#output is returned when #input is passed")
-	def "valid input produces not null output, invalid input produces null output"() {
+	@Unroll('#output is returned when #input is passed')
+	void "valid input produces not null output, invalid input produces null output"() {
 		expect:
 		individualBloodTypeProcessor.process(input) == output
 
@@ -22,7 +22,7 @@ class IndividualBloodTypeProcessorTest extends Specification {
 		IndividualBloodTypeProcessor.B_NEGATIVE | BloodType.B_NEGATIVE
 		IndividualBloodTypeProcessor.O_NEGATIVE | BloodType.O_NEGATIVE
 		IndividualBloodTypeProcessor.T_NEGATIVE | BloodType.T_NEGATIVE
-		""                                      | null
+		''                                      | null
 		null                                    | null
 	}
 

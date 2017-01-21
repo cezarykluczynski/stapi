@@ -11,12 +11,12 @@ class StaffSoapEndpointTest extends Specification {
 
 	private StaffSoapEndpoint staffSoapEndpoint
 
-	def setup() {
+	void setup() {
 		staffSoapReaderMock = Mock(StaffSoapReader)
 		staffSoapEndpoint = new StaffSoapEndpoint(staffSoapReaderMock)
 	}
 
-	def "passes call to StaffSoapReader"() {
+	void "passes call to StaffSoapReader"() {
 		given:
 		StaffRequest staffRequest = Mock(StaffRequest)
 		StaffResponse staffResponse = Mock(StaffResponse)

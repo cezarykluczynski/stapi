@@ -15,11 +15,11 @@ class EpisodeSoapMapperTest extends AbstractEpisodeMapperTest {
 
 	private EpisodeSoapMapper episodeSoapMapper
 
-	def setup() {
+	void setup() {
 		episodeSoapMapper = Mappers.getMapper(EpisodeSoapMapper)
 	}
 
-	def "maps SOAP EpisodeRequest to EpisodeRequestDTO"() {
+	void "maps SOAP EpisodeRequest to EpisodeRequestDTO"() {
 		given:
 		EpisodeRequest episodeRequest = new EpisodeRequest(
 				guid: GUID,
@@ -70,7 +70,7 @@ class EpisodeSoapMapperTest extends AbstractEpisodeMapperTest {
 		episodeRequestDTO.finalScriptDateTo == FINAL_SCRIPT_DATE_TO
 	}
 
-	def "maps DB entity to SOAP entity"() {
+	void "maps DB entity to SOAP entity"() {
 		given:
 		DBEpisode dBEpisode = createEpisode()
 
@@ -103,7 +103,5 @@ class EpisodeSoapMapperTest extends AbstractEpisodeMapperTest {
 		soapEpisode.standInPerformerHeaders.size() == dBEpisode.standInPerformers.size()
 		soapEpisode.characterHeaders.size() == dBEpisode.characters.size()
 	}
-
-
 
 }

@@ -5,7 +5,7 @@ import spock.lang.Specification
 
 class JobFactoryBeanTest extends Specification {
 
-	def "should create factory with non-null Job"() {
+	void "should create factory with non-null Job"() {
 		given:
 		Job job = Mock(Job)
 
@@ -14,11 +14,11 @@ class JobFactoryBeanTest extends Specification {
 
 		then:
 		jobFactoryBean.object == job
-		jobFactoryBean.objectType == Job.class
+		jobFactoryBean.objectType == Job
 		jobFactoryBean.singleton
 	}
 
-	def "should create factory with null Job"() {
+	void "should create factory with null Job"() {
 		when:
 		JobFactoryBean jobFactoryBean = new JobFactoryBean(null)
 

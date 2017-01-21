@@ -10,11 +10,11 @@ import spock.lang.Requires
 })
 class EpisodeRestEndpointIntegrationTest extends AbstractEpisodeEndpointIntegrationTest {
 
-	def setup() {
+	void setup() {
 		createRestClient()
 	}
 
-	def "episode has stardate and year set"() {
+	void "episode has stardate and year set"() {
 		when:
 		EpisodeResponse episodeResponse = stapiRestClient.episodeApi.episodePost(null, null, null, null, 'Bem', null,
 				null, null, null, null, null, null, null, null, null, null, null)
@@ -27,7 +27,7 @@ class EpisodeRestEndpointIntegrationTest extends AbstractEpisodeEndpointIntegrat
 		episodeResponse.episodes[0].yearTo != null
 	}
 
-	def "episodes could be found by guid"() {
+	void "episodes could be found by guid"() {
 		when:
 		EpisodeResponse episodeResponse = stapiRestClient.episodeApi.episodePost(null, null, null, 'EPMA0000001458',
 				null, null, null, null, null, null, null, null, null, null, null, null, null)

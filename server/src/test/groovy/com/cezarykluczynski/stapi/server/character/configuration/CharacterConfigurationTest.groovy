@@ -17,12 +17,12 @@ class CharacterConfigurationTest extends Specification {
 
 	private CharacterConfiguration characterConfiguration
 
-	def setup() {
+	void setup() {
 		applicationContextMock = Mock(ApplicationContext)
 		characterConfiguration = new CharacterConfiguration(applicationContext: applicationContextMock)
 	}
 
-	def "character soap endpoint is created"() {
+	void "character soap endpoint is created"() {
 		given:
 		SpringBus springBus = new SpringBus()
 		CharacterSoapReader characterSoapReaderMock = Mock(CharacterSoapReader)
@@ -31,15 +31,15 @@ class CharacterConfigurationTest extends Specification {
 		Endpoint characterSoapEndpoint = characterConfiguration.characterSoapEndpoint()
 
 		then:
-		1 * applicationContextMock.getBean(SpringBus.class) >> springBus
-		1 * applicationContextMock.getBean(CharacterSoapReader.class) >> characterSoapReaderMock
+		1 * applicationContextMock.getBean(SpringBus) >> springBus
+		1 * applicationContextMock.getBean(CharacterSoapReader) >> characterSoapReaderMock
 		characterSoapEndpoint != null
 		((EndpointImpl) characterSoapEndpoint).implementor instanceof CharacterSoapEndpoint
 		((EndpointImpl) characterSoapEndpoint).bus == springBus
 		characterSoapEndpoint.published
 	}
 
-	def "CharacterSoapMapper is created"() {
+	void "CharacterSoapMapper is created"() {
 		when:
 		CharacterSoapMapper characterSoapMapper = characterConfiguration.characterSoapMapper()
 
@@ -47,7 +47,7 @@ class CharacterConfigurationTest extends Specification {
 		characterSoapMapper != null
 	}
 
-	def "CharacterRestMapper is created"() {
+	void "CharacterRestMapper is created"() {
 		when:
 		CharacterRestMapper characterRestMapper = characterConfiguration.characterRestMapper()
 

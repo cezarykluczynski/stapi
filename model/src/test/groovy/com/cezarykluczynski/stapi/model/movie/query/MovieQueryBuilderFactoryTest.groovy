@@ -9,11 +9,11 @@ class MovieQueryBuilderFactoryTest extends Specification {
 
 	private MovieQueryBuilderFactory movieQueryBuilerFactory
 
-	def setup() {
+	void setup() {
 		jpaContextMock = Mock(JpaContext)
 	}
 
-	def "MovieQueryBuilder is created"() {
+	void "MovieQueryBuilder is created"() {
 		when:
 		movieQueryBuilerFactory = new MovieQueryBuilderFactory(jpaContextMock)
 

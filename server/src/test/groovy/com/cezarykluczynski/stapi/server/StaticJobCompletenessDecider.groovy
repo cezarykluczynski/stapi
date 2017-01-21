@@ -7,6 +7,7 @@ import com.google.common.collect.Lists
 import liquibase.integration.spring.SpringLiquibase
 import org.springframework.batch.core.BatchStatus
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing
+import org.springframework.beans.BeansException
 import org.springframework.context.ApplicationContext
 import org.springframework.context.ConfigurableApplicationContext
 import org.springframework.context.annotation.Bean
@@ -30,6 +31,7 @@ class StaticJobCompletenessDecider {
 	static class MockJobCompletenessDecider {
 
 		@Inject
+		@SuppressWarnings('PrivateFieldCouldBeFinal')
 		private EntityManager entityManager
 
 		MockJobCompletenessDecider(EntityManager entityManager) {
@@ -38,8 +40,8 @@ class StaticJobCompletenessDecider {
 
 		@Transactional
 		List<SimpleStep> getSteps() {
-			return simpleStepList = entityManager
-					.createQuery("from SimpleStep")
+			entityManager
+					.createQuery('from SimpleStep')
 					.resultList
 		}
 
@@ -53,7 +55,7 @@ class StaticJobCompletenessDecider {
 
 		@Override
 		boolean isStepComplete(String jobName, String stepName) {
-			return true
+			true
 		}
 
 	}
@@ -68,24 +70,25 @@ class StaticJobCompletenessDecider {
 		@Primary
 		@Bean
 		StepCompletenessDecider jobCompletenessDecider() {
-			return new AlwaysCompletedStepCompletenessDecider()
+			new AlwaysCompletedStepCompletenessDecider()
 		}
 
 		@Bean
 		@Profile(SpringProfile.ETL_NOT)
 		SpringLiquibase liquibase() {
-			return new SpringLiquibase(
-					changeLog: "classpath:liquibase/changelog.xml",
+			new SpringLiquibase(
+					changeLog: 'classpath:liquibase/changelog.xml',
 					dataSource: applicationContext.getBean(DataSource)
 			)
 		}
 
 	}
 
+	@SuppressWarnings('ClosureAsLastMethodParameter')
 	static boolean isStepCompleted(String stepName) {
 		initializeMockJobCompletenessDecider()
 
-		return simpleStepList.stream().anyMatch({
+		simpleStepList.stream().anyMatch({
 			step -> step.stepName == stepName && BatchStatus.COMPLETED == step.status
 		})
 	}
@@ -94,22 +97,22 @@ class StaticJobCompletenessDecider {
 		if (simpleStepList == null) {
 			ConfigurableApplicationContext applicationContext = getApplicationContext()
 			try {
-				simpleStepList = applicationContext.getBean(MockJobCompletenessDecider).getSteps()
-			} catch (Throwable e) {
+				simpleStepList = applicationContext.getBean(MockJobCompletenessDecider).steps
+			} catch (BeansException e) {
 				simpleStepList = Lists.newArrayList()
 		}
 			applicationContext.close()
 		}
 	}
 
+	@SuppressWarnings(['InconsistentPropertySynchronization', 'SynchronizedMethod'])
 	private static synchronized ConfigurableApplicationContext getApplicationContext() {
-		return applicationContext = Application
-				.produceSpringApplicationBuilder()
-						.sources(EtlMockConfiguration)
-						.run(
-								"--server.port=8543",
-								"--spring.profiles.active=default,db,source"
-						)
+		Application.produceSpringApplicationBuilder()
+				.sources(EtlMockConfiguration)
+				.run(
+						'--server.port=8543',
+						'--spring.profiles.active=default,db,source'
+				)
 	}
 
 }

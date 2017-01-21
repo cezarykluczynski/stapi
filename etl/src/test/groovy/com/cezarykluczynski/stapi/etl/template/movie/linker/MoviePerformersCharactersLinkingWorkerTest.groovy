@@ -18,13 +18,13 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 
 	private MoviePerformersCharactersLinkingWorker moviePerformersCharactersLinkingWorker
 
-	def setup() {
+	void setup() {
 		entityLookupByNameServiceMock = Mock(EntityLookupByNameService)
 		moviePerformersCharactersLinkingWorker = new MoviePerformersCharactersLinkingWorker(entityLookupByNameServiceMock)
 		moviePerformersCharactersLinkingWorker.log
 	}
 
-	def "ignores empty link title list"() {
+	void "ignores empty link title list"() {
 		given:
 		Set<List<String>> source = Sets.newHashSet(Lists.newArrayList())
 		Movie baseEntity = new Movie()
@@ -38,7 +38,7 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 		baseEntity.characters.empty
 	}
 
-	def "ignores link title list with one item"() {
+	void "ignores link title list with one item"() {
 		given:
 		Set<List<String>> source = Sets.newHashSet()
 		source.add Lists.newArrayList('IGNORE ME')
@@ -53,7 +53,7 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 		baseEntity.characters.empty
 	}
 
-	def "ignores link title list with two items if performer name contains phrase that mark it as ignored"() {
+	void "ignores link title list with two items if performer name contains phrase that mark it as ignored"() {
 		given:
 		Set<List<String>> source = Sets.newHashSet()
 		source.add Lists.newArrayList(CHARACTER_NAME, MoviePerformersCharactersLinkingWorker.IGNORABLE_PAGE_PREFIXES[0])
@@ -68,7 +68,7 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 		baseEntity.characters.empty
 	}
 
-	def "ignores link title list with two items if character name contains phrase that mark it as ignored"() {
+	void "ignores link title list with two items if character name contains phrase that mark it as ignored"() {
 		given:
 		Set<List<String>> source = Sets.newHashSet()
 		source.add Lists.newArrayList(MoviePerformersCharactersLinkingWorker.IGNORABLE_PAGE_PREFIXES[0], PERFORMER_NAME)
@@ -83,7 +83,7 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 		baseEntity.characters.empty
 	}
 
-	def "parses link title list with two items, both found by link title"() {
+	void "parses link title list with two items, both found by link title"() {
 		given:
 		Set<List<String>> source = Sets.newHashSet()
 		source.add Lists.newArrayList(CHARACTER_NAME, PERFORMER_NAME)
@@ -104,7 +104,7 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 		baseEntity.characters.contains character
 	}
 
-	def "parses link title list with two items, none found"() {
+	void "parses link title list with two items, none found"() {
 		given:
 		Set<List<String>> source = Sets.newHashSet()
 		source.add Lists.newArrayList(CHARACTER_NAME, PERFORMER_NAME)
@@ -120,7 +120,7 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 		baseEntity.characters.empty
 	}
 
-	def "parses link title list with two items, and only performer found"() {
+	void "parses link title list with two items, and only performer found"() {
 		given:
 		Set<List<String>> source = Sets.newHashSet()
 		source.add Lists.newArrayList(CHARACTER_NAME, PERFORMER_NAME)
@@ -139,7 +139,7 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 		baseEntity.characters.empty
 	}
 
-	def "parses link title list with two items, and only character found"() {
+	void "parses link title list with two items, and only character found"() {
 		given:
 		Set<List<String>> source = Sets.newHashSet()
 		source.add Lists.newArrayList(CHARACTER_NAME, PERFORMER_NAME)
@@ -158,7 +158,7 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 		baseEntity.characters.contains character
 	}
 
-	def "parses link title list with more than two items"() {
+	void "parses link title list with more than two items"() {
 		given:
 		Set<List<String>> source = Sets.newHashSet()
 		source.add Lists.newArrayList(CHARACTER_NAME, PERFORMER_NAME, 'ANOTHER PAGE TITLE')
@@ -179,7 +179,7 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 		baseEntity.characters.contains character
 	}
 
-	def "ignores link title list with more than two items, if it is deleted scene"() {
+	void "ignores link title list with more than two items, if it is deleted scene"() {
 		given:
 		Set<List<String>> source = Sets.newHashSet()
 		source.add Lists.newArrayList(CHARACTER_NAME, PERFORMER_NAME, MoviePerformersCharactersLinkingWorker.DELETED_SCENE)

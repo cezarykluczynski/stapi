@@ -8,7 +8,7 @@ class BlikiUserDecoratorBeanMapProviderTest extends Specification {
 
 	private BlikiUserDecoratorBeanMapProvider blikiUserDecoratorBeanMapProvider
 
-	def "map is set"() {
+	void "map is set"() {
 		given:
 		UserDecorator memoryAlphaEnUserDecorator = Mock(UserDecorator)
 		UserDecorator memoryBetaEnUserDecorator = Mock(UserDecorator)
@@ -22,9 +22,9 @@ class BlikiUserDecoratorBeanMapProviderTest extends Specification {
 		blikiUserDecoratorBeanMapProvider = new BlikiUserDecoratorBeanMapProvider(stringUserDecoratorMap)
 
 		then:
-		blikiUserDecoratorBeanMapProvider.getUserEnumMap().get(MediaWikiSource.MEMORY_ALPHA_EN) == memoryAlphaEnUserDecorator
-		blikiUserDecoratorBeanMapProvider.getUserEnumMap().get(MediaWikiSource.MEMORY_BETA_EN) == memoryBetaEnUserDecorator
-		blikiUserDecoratorBeanMapProvider.getUserEnumMap().get(MediaWikiSource.TECHNICAL_HELPER) == technicalHelperUserDecorator
+		blikiUserDecoratorBeanMapProvider.userEnumMap.get(MediaWikiSource.MEMORY_ALPHA_EN) == memoryAlphaEnUserDecorator
+		blikiUserDecoratorBeanMapProvider.userEnumMap.get(MediaWikiSource.MEMORY_BETA_EN) == memoryBetaEnUserDecorator
+		blikiUserDecoratorBeanMapProvider.userEnumMap.get(MediaWikiSource.TECHNICAL_HELPER) == technicalHelperUserDecorator
 	}
 
 }

@@ -11,12 +11,12 @@ class EpisodeWriterTest extends Specification {
 
 	private EpisodeWriter episodeWriter
 
-	def setup() {
+	void setup() {
 		episodeRepositoryMock = Mock(EpisodeRepository)
 		episodeWriter = new EpisodeWriter(episodeRepositoryMock)
 	}
 
-	def "writes all entities using repository"() {
+	void "writes all entities using repository"() {
 		given:
 		Episode episode = new Episode()
 		List<Episode> episodeList = Lists.newArrayList(episode)

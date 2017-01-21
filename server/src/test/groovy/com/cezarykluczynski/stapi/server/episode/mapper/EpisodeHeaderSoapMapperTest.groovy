@@ -9,11 +9,11 @@ class EpisodeHeaderSoapMapperTest extends AbstractEpisodeMapperTest {
 
 	private EpisodeHeaderSoapMapper episodeHeaderSoapMapper
 
-	def setup() {
+	void setup() {
 		episodeHeaderSoapMapper = Mappers.getMapper(EpisodeHeaderSoapMapper)
 	}
 
-	def "maps DB entity to SOAP header"() {
+	void "maps DB entity to SOAP header"() {
 		given:
 		Episode episode = new Episode(
 				title: TITLE,

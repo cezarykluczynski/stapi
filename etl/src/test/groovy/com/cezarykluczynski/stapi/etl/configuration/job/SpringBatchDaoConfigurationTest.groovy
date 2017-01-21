@@ -22,7 +22,7 @@ class SpringBatchDaoConfigurationTest extends Specification {
 
 	private SpringBatchDaoConfiguration springBatchDaoConfiguration
 
-	def setup() {
+	void setup() {
 		jobInstanceDaoMock = Mock(JobInstanceDao)
 		jobExecutionDaoMock = Mock(JobExecutionDao)
 		stepExecutionDaoMock = Mock(StepExecutionDao)
@@ -32,14 +32,12 @@ class SpringBatchDaoConfigurationTest extends Specification {
 		springBatchDaoConfiguration = new SpringBatchDaoConfiguration(jobRepository: jobRepository)
 	}
 
-	def "gets JobRepository dependencies"() {
+	void "gets JobRepository dependencies"() {
 		expect:
 		springBatchDaoConfiguration.jobInstanceDao() == jobInstanceDaoMock
 		springBatchDaoConfiguration.jobExecutionDao() == jobExecutionDaoMock
 		springBatchDaoConfiguration.stepExecutionDao() == stepExecutionDaoMock
 		springBatchDaoConfiguration.executionContextDao() == executionContextDaoMock
-
 	}
-
 
 }

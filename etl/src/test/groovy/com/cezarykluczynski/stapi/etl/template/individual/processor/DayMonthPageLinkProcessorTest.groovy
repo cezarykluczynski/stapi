@@ -11,12 +11,12 @@ class DayMonthPageLinkProcessorTest extends Specification {
 
 	private DayMonthPageLinkProcessor dayMonthPageLinkProcessor
 
-	def setup() {
+	void setup() {
 		dayMonthPageLinkProcessor = new DayMonthPageLinkProcessor()
 	}
 
-	@Unroll("when #pageLink is passed, #dayMonth is returned")
-	def "when PageLink is passed, DayMonthDTO with parsed values is returned"() {
+	@Unroll('when #pageLink is passed, #dayMonth is returned')
+	void "when PageLink is passed, DayMonthDTO with parsed values is returned"() {
 		expect:
 		dayMonthPageLinkProcessor.process(pageLink) == dayMonth
 

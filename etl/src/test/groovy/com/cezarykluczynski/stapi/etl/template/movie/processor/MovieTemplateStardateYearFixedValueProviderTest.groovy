@@ -11,11 +11,11 @@ class MovieTemplateStardateYearFixedValueProviderTest extends Specification {
 
 	private MovieTemplateStardateYearFixedValueProvider movieTemplateStardateYearFixedValueProvider
 
-	def setup() {
+	void setup() {
 		movieTemplateStardateYearFixedValueProvider = new MovieTemplateStardateYearFixedValueProvider()
 	}
 
-	def "gets fixed value holder when movie is found"() {
+	void "gets fixed value holder when movie is found"() {
 		when:
 		FixedValueHolder<StardateYearDTO> stardateYearFixedValueHolder = movieTemplateStardateYearFixedValueProvider
 				.getSearchedValue(EXISTING_TITLE)
@@ -25,11 +25,11 @@ class MovieTemplateStardateYearFixedValueProviderTest extends Specification {
 		stardateYearFixedValueHolder.value != null
 		stardateYearFixedValueHolder.value.stardateFrom == 2233.04F
 		stardateYearFixedValueHolder.value.stardateTo == 2258.42F
-		stardateYearFixedValueHolder.value.yearFrom ==2233
+		stardateYearFixedValueHolder.value.yearFrom == 2233
 		stardateYearFixedValueHolder.value.yearTo == 2387
 	}
 
-	def "gets fixed value holder when movie is not found"() {
+	void "gets fixed value holder when movie is not found"() {
 		when:
 		FixedValueHolder<StardateYearDTO> stardateYearFixedValueHolder = movieTemplateStardateYearFixedValueProvider
 				.getSearchedValue(NONEXISTING_TITLE)

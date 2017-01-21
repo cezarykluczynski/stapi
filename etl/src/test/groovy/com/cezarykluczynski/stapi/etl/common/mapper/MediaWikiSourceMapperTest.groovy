@@ -8,25 +8,25 @@ class MediaWikiSourceMapperTest extends Specification {
 
 	private MediaWikiSourceMapper mediaWikiSourceMapper
 
-	def setup () {
+	void setup() {
 		mediaWikiSourceMapper = new MediaWikiSourceMapper()
 	}
 
-	def "maps entity enum to sources enum"() {
+	void "maps entity enum to sources enum"() {
 		expect:
 		mediaWikiSourceMapper.fromEntityToSources(null) == null
 		mediaWikiSourceMapper.fromEntityToSources(ModelMediaWikiSource.MEMORY_ALPHA_EN) == SourcesMediaWikiSource.MEMORY_ALPHA_EN
 		mediaWikiSourceMapper.fromEntityToSources(ModelMediaWikiSource.MEMORY_BETA_EN) == SourcesMediaWikiSource.MEMORY_BETA_EN
 	}
 
-	def "maps source enum to entity enum"() {
+	void "maps source enum to entity enum"() {
 		expect:
 		mediaWikiSourceMapper.fromSourcesToEntity(null) == null
 		mediaWikiSourceMapper.fromSourcesToEntity(SourcesMediaWikiSource.MEMORY_ALPHA_EN) == ModelMediaWikiSource.MEMORY_ALPHA_EN
 		mediaWikiSourceMapper.fromSourcesToEntity(SourcesMediaWikiSource.MEMORY_BETA_EN) == ModelMediaWikiSource.MEMORY_BETA_EN
 	}
 
-	def "should not map source technical helper, because it's not a source of data"() {
+	void "should not map source technical helper, because it's not a source of data"() {
 		when:
 		mediaWikiSourceMapper.fromSourcesToEntity(SourcesMediaWikiSource.TECHNICAL_HELPER)
 

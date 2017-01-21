@@ -37,7 +37,7 @@ class MovieInitialQueryBuilderFactoryTest extends Specification {
 
 	private Page page
 
-	def setup() {
+	void setup() {
 		movieQueryBuilderMock = Mock(MovieQueryBuilderFactory)
 		movieInitialQueryBuilderFactory = new MovieInitialQueryBuilderFactory(movieQueryBuilderMock)
 		movieQueryBuilder = Mock(QueryBuilder)
@@ -47,7 +47,7 @@ class MovieInitialQueryBuilderFactoryTest extends Specification {
 		movie = Mock(Movie)
 	}
 
-	def "initial query builder is built, then returned"() {
+	void "initial query builder is built, then returned"() {
 		when:
 		QueryBuilder<Movie> movieQueryBuilderOutput = movieInitialQueryBuilderFactory
 				.createInitialQueryBuilder(movieRequestDTO, pageable)
@@ -56,32 +56,32 @@ class MovieInitialQueryBuilderFactoryTest extends Specification {
 		1 * movieQueryBuilderMock.createQueryBuilder(pageable) >> movieQueryBuilder
 
 		then: 'guid criteria is set'
-		1 * movieRequestDTO.getGuid() >> GUID
+		1 * movieRequestDTO.guid >> GUID
 		1 * movieQueryBuilder.equal(Movie_.guid, GUID)
 
 		then: 'string criteria are set'
-		1 * movieRequestDTO.getTitle() >> TITLE
+		1 * movieRequestDTO.title >> TITLE
 		1 * movieQueryBuilder.like(Movie_.title, TITLE)
 
 		then: 'integer criteria are set'
-		1 * movieRequestDTO.getYearFrom() >> YEAR_FROM
-		1 * movieRequestDTO.getYearTo() >> YEAR_TO
+		1 * movieRequestDTO.yearFrom >> YEAR_FROM
+		1 * movieRequestDTO.yearTo >> YEAR_TO
 		1 * movieQueryBuilder.between(Movie_.yearFrom, YEAR_FROM, null)
 		1 * movieQueryBuilder.between(Movie_.yearTo, null, YEAR_TO)
 
 		then: 'float criteria are set'
-		1 * movieRequestDTO.getStardateFrom() >> STARDATE_FROM
-		1 * movieRequestDTO.getStardateTo() >> STARDATE_TO
+		1 * movieRequestDTO.stardateFrom >> STARDATE_FROM
+		1 * movieRequestDTO.stardateTo >> STARDATE_TO
 		1 * movieQueryBuilder.between(Movie_.stardateFrom, STARDATE_FROM, null)
 		1 * movieQueryBuilder.between(Movie_.stardateTo, null, STARDATE_TO)
 
 		then: 'date criteria are set'
-		1 * movieRequestDTO.getUsReleaseDateFrom() >> US_RELEASE_DATE_FROM
-		1 * movieRequestDTO.getUsReleaseDateTo() >> US_RELEASE_DATE_TO
+		1 * movieRequestDTO.usReleaseDateFrom >> US_RELEASE_DATE_FROM
+		1 * movieRequestDTO.usReleaseDateTo >> US_RELEASE_DATE_TO
 		1 * movieQueryBuilder.between(Movie_.usReleaseDate, US_RELEASE_DATE_FROM, US_RELEASE_DATE_TO)
 
 		then: 'sort is set'
-		1 * movieRequestDTO.getSort() >> SORT
+		1 * movieRequestDTO.sort >> SORT
 		1 * movieQueryBuilder.setSort(SORT)
 
 		then: 'query builder is returned'

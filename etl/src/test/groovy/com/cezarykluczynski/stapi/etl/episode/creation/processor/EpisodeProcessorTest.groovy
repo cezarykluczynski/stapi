@@ -18,7 +18,7 @@ class EpisodeProcessorTest extends Specification {
 
 	private EpisodeProcessor episodeProcessor
 
-	def setup() {
+	void setup() {
 		pageHeaderProcessorMock = Mock(PageHeaderProcessor)
 		toEpisodeTemplateProcessorMock = Mock(ToEpisodeTemplateProcessor)
 		toEpisodeEntityProcessorMock = Mock(ToEpisodeEntityProcessor)
@@ -26,7 +26,7 @@ class EpisodeProcessorTest extends Specification {
 				toEpisodeEntityProcessorMock)
 	}
 
-	def "converts PageHeader to Episode"() {
+	void "converts PageHeader to Episode"() {
 		given:
 		PageHeader pageHeader = PageHeader.builder().build()
 		Page page = new Page()

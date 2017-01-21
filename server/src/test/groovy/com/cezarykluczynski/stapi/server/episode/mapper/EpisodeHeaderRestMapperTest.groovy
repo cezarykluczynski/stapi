@@ -9,11 +9,11 @@ class EpisodeHeaderRestMapperTest extends AbstractEpisodeMapperTest {
 
 	private EpisodeHeaderRestMapper episodeHeaderRestMapper
 
-	def setup() {
+	void setup() {
 		episodeHeaderRestMapper = Mappers.getMapper(EpisodeHeaderRestMapper)
 	}
 
-	def "maps DB entity to REST header"() {
+	void "maps DB entity to REST header"() {
 		given:
 		Episode episode = new Episode(
 				title: TITLE,

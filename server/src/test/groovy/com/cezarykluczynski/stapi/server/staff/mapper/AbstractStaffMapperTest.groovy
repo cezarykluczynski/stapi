@@ -9,7 +9,7 @@ import com.google.common.collect.Lists
 abstract class AbstractStaffMapperTest extends AbstractRealWorldPersonMapperTest {
 
 	protected Staff createStaff() {
-		return new Staff(
+		new Staff(
 				name: NAME,
 				guid: GUID,
 				birthName: BIRTH_NAME,

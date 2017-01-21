@@ -14,11 +14,11 @@ import spock.lang.Requires
 })
 class CharacterRestEndpointIntegrationTest extends AbstractCharacterEndpointIntegrationTest {
 
-	def setup() {
+	void setup() {
 		createRestClient()
 	}
 
-	def "gets character by guid"() {
+	void "gets character by guid"() {
 		when:
 		CharacterResponse characterResponse = stapiRestClient.characterApi.characterPost(null, null, null,
 				DEANNA_TROI_GUID, null, null, null, null, null)
@@ -30,7 +30,7 @@ class CharacterRestEndpointIntegrationTest extends AbstractCharacterEndpointInte
 		characterResponse.characters[0].movieHeaders.size() == 4
 	}
 
-	def "gets characters sorted by year of birth"() {
+	void "gets characters sorted by year of birth"() {
 		when:
 		CharacterResponse characterResponse = stapiRestClient.characterApi.characterPost(null, null,
 				StapiRestSortSerializer.serialize(Lists.newArrayList(

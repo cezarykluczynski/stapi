@@ -47,33 +47,33 @@ class MovieLinkedTitlesProcessorTest extends Specification {
 	private WikitextApi wikitextApiMock
 	private MovieLinkedTitlesProcessor movieLinkedTitlesProcessor
 
-	def setup() {
+	void setup() {
 		wikitextApiMock = Mock(WikitextApi)
 		movieLinkedTitlesProcessor = new MovieLinkedTitlesProcessor(wikitextApiMock)
 	}
 
-	def "tolerates empty PageSection list"() {
+	void "tolerates empty PageSection list"() {
 		when:
 		MovieLinkedTitlesDTO movieLinkedTitlesDTO = movieLinkedTitlesProcessor.process(Lists.newArrayList())
 
 		then:
-		movieLinkedTitlesDTO.getScreenplayAuthors().empty
-		movieLinkedTitlesDTO.getStoryAuthors().empty
-		movieLinkedTitlesDTO.getDirectors().empty
-		movieLinkedTitlesDTO.getProducers().empty
-		movieLinkedTitlesDTO.getStaff().empty
-		movieLinkedTitlesDTO.getPerformers().empty
-		movieLinkedTitlesDTO.getStuntPerformers().empty
-		movieLinkedTitlesDTO.getStandInPerformers().empty
+		movieLinkedTitlesDTO.screenplayAuthors.empty
+		movieLinkedTitlesDTO.storyAuthors.empty
+		movieLinkedTitlesDTO.directors.empty
+		movieLinkedTitlesDTO.producers.empty
+		movieLinkedTitlesDTO.staff.empty
+		movieLinkedTitlesDTO.performers.empty
+		movieLinkedTitlesDTO.stuntPerformers.empty
+		movieLinkedTitlesDTO.standInPerformers.empty
 	}
 
-	def "get titles in sections by exact titles"() {
+	void "get titles in sections by exact titles"() {
 		given:
 		PageSection writersPageSection = createPageSection(WRITERS_SECTION_TITLE, WRITERS_WIKITEXT)
 		PageSection ignorablePageSection = createPageSection(IGNORABLE_SECTION_TITLE, IGNORABLE_SECTION_WIKITEXT)
 		PageSection unknownPageSection = createPageSection(UNKNOWN_SECTION_TITLE, UNKNOWN_SECTION_WIKITEXT)
 		PageSection screenplayAuthorsPageSection = createPageSection(SCREENPLAY_AUTHORS_SECTION_TITLE, SCREENPLAY_AUTHORS_WIKITEXT)
-		PageSection storyAuthorsPageSection = createPageSection(STORY_AUTHORS_SECTION_TITLE + ":", STORY_AUTHORS_WIKITEXT)
+		PageSection storyAuthorsPageSection = createPageSection(STORY_AUTHORS_SECTION_TITLE + ':', STORY_AUTHORS_WIKITEXT)
 		PageSection directorsPageSection = createPageSection(DIRECTORS_SECTION_TITLE, DIRECTORS_WIKITEXT)
 		PageSection producersPageSection = createPageSection(PRODUCERS_SECTION_TITLE, PRODUCERS_WIKITEXT)
 		PageSection staffPageSection = createPageSection(STAFF_SECTION_TITLE, STAFF_WIKITEXT)
@@ -121,7 +121,7 @@ class MovieLinkedTitlesProcessorTest extends Specification {
 		0 * _
 	}
 
-	def "gets titles in sections by matching titles"() {
+	void "gets titles in sections by matching titles"() {
 		given:
 		PageSection directorsPageSection = createPageSection(DIRECTORS_SECTION_MATCH, DIRECTORS_WIKITEXT)
 		PageSection staffPageSection = createPageSection(STAFF_SECTION_MATCH, STAFF_WIKITEXT)
@@ -150,7 +150,7 @@ class MovieLinkedTitlesProcessorTest extends Specification {
 	}
 
 	private static PageSection createPageSection(String text, String wikitext) {
-		return new PageSection(
+		new PageSection(
 				text: text,
 				wikitext: wikitext)
 	}

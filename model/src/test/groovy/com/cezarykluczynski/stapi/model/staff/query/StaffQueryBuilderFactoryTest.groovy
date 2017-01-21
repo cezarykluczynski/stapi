@@ -9,11 +9,11 @@ class StaffQueryBuilderFactoryTest extends Specification {
 
 	private StaffQueryBuilderFactory staffQueryBuilerFactory
 
-	def setup() {
+	void setup() {
 		jpaContextMock = Mock(JpaContext)
 	}
 
-	def "StaffQueryBuiler is created"() {
+	void "StaffQueryBuiler is created"() {
 		when:
 		staffQueryBuilerFactory = new StaffQueryBuilderFactory(jpaContextMock)
 

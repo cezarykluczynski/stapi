@@ -11,12 +11,13 @@ import javax.persistence.Id
 import javax.persistence.Table
 
 @Data
-@Entity(name = "SimpleStep")
-@Table(name = "batch_step_execution")
-public class SimpleStep {
+@Entity(name = 'SimpleStep')
+@Table(name = 'batch_step_execution')
+@SuppressWarnings('UnusedPrivateField')
+class SimpleStep {
 
 	@Id
-	@Column(name = "step_execution_id")
+	@Column(name = 'step_execution_id')
 	private Long id
 
 	private String stepName

@@ -15,11 +15,11 @@ import spock.lang.Requires
 })
 class SeriesRestEndpointIntegrationTest extends AbstractSeriesEndpointIntegrationTest {
 
-	def setup() {
+	void setup() {
 		createRestClient()
 	}
 
-	def "gets all series"() {
+	void "gets all series"() {
 		given:
 		Integer pageNumber = 0
 		Integer pageSize = 10
@@ -33,7 +33,7 @@ class SeriesRestEndpointIntegrationTest extends AbstractSeriesEndpointIntegratio
 		seriesResponse.series.size() == 6
 	}
 
-	def "gets series by title"() {
+	void "gets series by title"() {
 		given:
 		Integer pageNumber = 0
 		Integer pageSize = 2
@@ -49,7 +49,7 @@ class SeriesRestEndpointIntegrationTest extends AbstractSeriesEndpointIntegratio
 		seriesResponse.series[0].title.contains VOYAGER
 	}
 
-	def "gets series by guid"() {
+	void "gets series by guid"() {
 		given:
 		Integer pageNumber = 0
 		Integer pageSize = 2
@@ -66,7 +66,7 @@ class SeriesRestEndpointIntegrationTest extends AbstractSeriesEndpointIntegratio
 		seriesResponse.page.pageSize == pageSize
 	}
 
-	def "gets series sorted by production end year descending"() {
+	void "gets series sorted by production end year descending"() {
 		when:
 		SeriesResponse seriesResponse = stapiRestClient.seriesApi.seriesPost(null, null,
 				StapiRestSortSerializer.serialize(Lists.newArrayList(

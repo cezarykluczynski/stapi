@@ -44,7 +44,7 @@ class StaffRepositoryImplTest extends AbstractRealWorldPersonTest {
 
 	private Set<Movie> moviesSet
 
-	def setup() {
+	void setup() {
 		staffInitialQueryBuilderFactory = Mock(StaffInitialQueryBuilderFactory)
 		staffRepositoryImpl = new StaffRepositoryImpl(staffInitialQueryBuilderFactory)
 		staffQueryBuilder = Mock(QueryBuilder)
@@ -56,7 +56,7 @@ class StaffRepositoryImplTest extends AbstractRealWorldPersonTest {
 		page = Mock(Page)
 	}
 
-	def "query is built and performed"() {
+	void "query is built and performed"() {
 		when:
 		Page pageOutput = staffRepositoryImpl.findMatching(staffRequestDTO, pageable)
 
@@ -64,7 +64,7 @@ class StaffRepositoryImplTest extends AbstractRealWorldPersonTest {
 		1 * staffInitialQueryBuilderFactory.createInitialQueryBuilder(staffRequestDTO, pageable) >> staffQueryBuilder
 
 		then: 'guid is retrieved, and it is not null'
-		1 * staffRequestDTO.getGuid() >> GUID
+		1 * staffRequestDTO.guid >> GUID
 
 		then: 'episodes fetch is performed'
 		1 * staffQueryBuilder.fetch(Staff_.writtenEpisodes)
@@ -75,7 +75,7 @@ class StaffRepositoryImplTest extends AbstractRealWorldPersonTest {
 
 		then: 'page is retrieved'
 		1 * staffQueryBuilder.findPage() >> page
-		1 * page.getContent() >> Lists.newArrayList(staff)
+		1 * page.content >> Lists.newArrayList(staff)
 
 		then: 'another criteria builder is retrieved for performers'
 		1 * staffInitialQueryBuilderFactory.createInitialQueryBuilder(staffRequestDTO, pageable) >> staffMoviesQueryBuilder
@@ -92,17 +92,17 @@ class StaffRepositoryImplTest extends AbstractRealWorldPersonTest {
 		1 * staffMoviesQueryBuilder.findAll() >> Lists.newArrayList(moviesStaff)
 
 		then: 'movies from movies staff are set to movie'
-		1 * moviesStaff.getWrittenMovies() >> writtenMoviesSet
+		1 * moviesStaff.writtenMovies >> writtenMoviesSet
 		1 * staff.setWrittenMovies(writtenMoviesSet)
-		1 * moviesStaff.getScreenplayAuthoredMovies() >> screenplayAuthoredMoviesSet
+		1 * moviesStaff.screenplayAuthoredMovies >> screenplayAuthoredMoviesSet
 		1 * staff.setScreenplayAuthoredMovies(screenplayAuthoredMoviesSet)
-		1 * moviesStaff.getStoryAuthoredMovies() >> storyAuthoredMovies
+		1 * moviesStaff.storyAuthoredMovies >> storyAuthoredMovies
 		1 * staff.setStoryAuthoredMovies(storyAuthoredMovies)
-		1 * moviesStaff.getWrittenMovies() >> writtenMoviesSet
+		1 * moviesStaff.writtenMovies >> writtenMoviesSet
 		1 * staff.setDirectedMovies(directedMovies)
-		1 * moviesStaff.getProducedMovies() >> producedMovies
+		1 * moviesStaff.producedMovies >> producedMovies
 		1 * staff.setProducedMovies(producedMovies)
-		1 * moviesStaff.getMovies() >> moviesSet
+		1 * moviesStaff.movies >> moviesSet
 		1 * staff.setMovies(moviesSet)
 
 		then: 'page is returned'
@@ -112,7 +112,7 @@ class StaffRepositoryImplTest extends AbstractRealWorldPersonTest {
 		0 * _
 	}
 
-	def "query is built and performed without results from additional queries"() {
+	void "query is built and performed without results from additional queries"() {
 		when:
 		Page pageOutput = staffRepositoryImpl.findMatching(staffRequestDTO, pageable)
 
@@ -120,7 +120,7 @@ class StaffRepositoryImplTest extends AbstractRealWorldPersonTest {
 		1 * staffInitialQueryBuilderFactory.createInitialQueryBuilder(staffRequestDTO, pageable) >> staffQueryBuilder
 
 		then: 'guid is retrieved, and it is not null'
-		1 * staffRequestDTO.getGuid() >> GUID
+		1 * staffRequestDTO.guid >> GUID
 
 		then: 'episodes fetch is performed'
 		1 * staffQueryBuilder.fetch(Staff_.writtenEpisodes)
@@ -131,7 +131,7 @@ class StaffRepositoryImplTest extends AbstractRealWorldPersonTest {
 
 		then: 'page is retrieved'
 		1 * staffQueryBuilder.findPage() >> page
-		1 * page.getContent() >> Lists.newArrayList(staff)
+		1 * page.content >> Lists.newArrayList(staff)
 
 		then: 'another criteria builder is retrieved for performers'
 		1 * staffInitialQueryBuilderFactory.createInitialQueryBuilder(staffRequestDTO, pageable) >> staffMoviesQueryBuilder
@@ -154,7 +154,7 @@ class StaffRepositoryImplTest extends AbstractRealWorldPersonTest {
 		0 * _
 	}
 
-	def "empty page is returned"() {
+	void "empty page is returned"() {
 		when:
 		Page pageOutput = staffRepositoryImpl.findMatching(staffRequestDTO, pageable)
 
@@ -162,7 +162,7 @@ class StaffRepositoryImplTest extends AbstractRealWorldPersonTest {
 		1 * staffInitialQueryBuilderFactory.createInitialQueryBuilder(staffRequestDTO, pageable) >> staffQueryBuilder
 
 		then: 'guid is retrieved, and it is not null'
-		1 * staffRequestDTO.getGuid() >> GUID
+		1 * staffRequestDTO.guid >> GUID
 
 		then: 'episodes fetch is performed'
 		1 * staffQueryBuilder.fetch(Staff_.writtenEpisodes)
@@ -173,13 +173,13 @@ class StaffRepositoryImplTest extends AbstractRealWorldPersonTest {
 
 		then: 'page is retrieved'
 		1 * staffQueryBuilder.findPage() >> page
-		1 * page.getContent() >> Lists.newArrayList()
+		1 * page.content >> Lists.newArrayList()
 
 		then: 'page is returned'
 		pageOutput == page
 	}
 
-	def "proxies are cleared when no related entities should be fetched"() {
+	void "proxies are cleared when no related entities should be fetched"() {
 		when:
 		Page pageOutput = staffRepositoryImpl.findMatching(staffRequestDTO, pageable)
 
@@ -187,13 +187,13 @@ class StaffRepositoryImplTest extends AbstractRealWorldPersonTest {
 		1 * staffInitialQueryBuilderFactory.createInitialQueryBuilder(staffRequestDTO, pageable) >> staffQueryBuilder
 
 		then: 'guid criteria is set to null'
-		1 * staffRequestDTO.getGuid() >> null
+		1 * staffRequestDTO.guid >> null
 
 		then: 'page is searched for and returned'
 		1 * staffQueryBuilder.findPage() >> page
 
 		then: 'proxies are cleared'
-		1 * page.getContent() >> Lists.newArrayList(staff)
+		1 * page.content >> Lists.newArrayList(staff)
 		1 * staff.setWrittenEpisodes(Sets.newHashSet())
 		1 * staff.setTeleplayAuthoredEpisodes(Sets.newHashSet())
 		1 * staff.setStoryAuthoredEpisodes(Sets.newHashSet())

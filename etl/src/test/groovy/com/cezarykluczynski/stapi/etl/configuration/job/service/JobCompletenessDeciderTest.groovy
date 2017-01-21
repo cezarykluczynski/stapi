@@ -17,12 +17,12 @@ class JobCompletenessDeciderTest extends Specification {
 
 	private JobCompletenessDecider jobCompletenessDecider
 
-	def setup() {
+	void setup() {
 		allStepExecutionsProviderMock = Mock(AllStepExecutionsProvider)
 		jobCompletenessDecider = new JobCompletenessDecider(allStepExecutionsProviderMock)
 	}
 
-	def "returns true when all step executions in step are completed and number of executions equals number of steps"() {
+	void "returns true when all step executions in step are completed and number of executions equals number of steps"() {
 		given:
 		List<StepExecution> stepExecutionList = createStepExecutionList(VALID_NUMBER_OF_STEPS)
 
@@ -34,7 +34,7 @@ class JobCompletenessDeciderTest extends Specification {
 		completed
 	}
 
-	def "returns false when number of executions does not equal number of steps"() {
+	void "returns false when number of executions does not equal number of steps"() {
 		given:
 		List<StepExecution> stepExecutionList = createStepExecutionList(INVALID_NUMBER_OF_STEPS)
 
@@ -46,35 +46,34 @@ class JobCompletenessDeciderTest extends Specification {
 		!completed
 	}
 
-	def "returns false when number of executions equals number of steps, but not all step executions are completed"() {
+	void "returns false when number of executions equals number of steps, but not all step executions are completed"() {
 		given:
+		StepExecution stepExecution = Mock(StepExecution)
 		List<StepExecution> stepExecutionList = createStepExecutionList(INVALID_NUMBER_OF_STEPS)
-		stepExecutionList.add(Mock(StepExecution) {
-			getStatus() >> BatchStatus.UNKNOWN
-		})
+		stepExecutionList.add(stepExecution)
 
 		when:
 		boolean completed = jobCompletenessDecider.isJobCompleted(JOB_NAME)
 
 		then:
 		1 * allStepExecutionsProviderMock.provide(JOB_NAME) >> stepExecutionList
+		1 * stepExecution.status >> BatchStatus.UNKNOWN
 		!completed
 	}
 
 	private List<StepExecution> createStepExecutionList(int numberOfMocks) {
 		List<StepExecution> stepExecutionList = Lists.newArrayList()
 
-		int i = 0;
+		int i = 0
 		while (numberOfMocks > i) {
 			i++
 
-			stepExecutionList.add(Mock(StepExecution) {
-				getStatus() >> BatchStatus.COMPLETED
-			})
+			StepExecution stepExecution = Mock(StepExecution)
+			stepExecution.status >> BatchStatus.COMPLETED
+			stepExecutionList.add(stepExecution)
 		}
 
-		return stepExecutionList
+		stepExecutionList
 	}
-
 
 }

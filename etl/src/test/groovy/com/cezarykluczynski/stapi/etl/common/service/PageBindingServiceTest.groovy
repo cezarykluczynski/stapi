@@ -22,13 +22,13 @@ class PageBindingServiceTest extends Specification {
 
 	private PageBindingService pageBindingService
 
-	def setup() {
+	void setup() {
 		pageRepositoryMock = Mock(PageRepository)
 		mediaWikiSourceMapperMock = Mock(MediaWikiSourceMapper)
 		pageBindingService = new PageBindingService(pageRepositoryMock, mediaWikiSourceMapperMock)
 	}
 
-	def "returns existing page when it is found using Page"() {
+	void "returns existing page when it is found using Page"() {
 		given:
 		PageEntity pageEntity = new PageEntity()
 
@@ -43,7 +43,7 @@ class PageBindingServiceTest extends Specification {
 		pageEntityOutput == pageEntity
 	}
 
-	def "returns new saved entity when it is not found using Page"() {
+	void "returns new saved entity when it is not found using Page"() {
 		given:
 		PageEntity pageEntity = new PageEntity()
 
@@ -61,13 +61,13 @@ class PageBindingServiceTest extends Specification {
 			pageEntityInput.pageId == PAGE_ID
 			pageEntityInput.title == TITLE
 			pageEntityInput.mediaWikiSource == MODEL_MEDIA_WIKI_SOURCE
-			return pageEntity
+			pageEntity
 		}
 		0 * _
 		pageEntityOutput == pageEntity
 	}
 
-	def "returns existing page when it is found using PageHeader"() {
+	void "returns existing page when it is found using PageHeader"() {
 		given:
 		PageEntity pageEntity = new PageEntity()
 
@@ -82,7 +82,7 @@ class PageBindingServiceTest extends Specification {
 		pageEntityOutput == pageEntity
 	}
 
-	def "returns new saved entity when it is not found using PageHeader"() {
+	void "returns new saved entity when it is not found using PageHeader"() {
 		given:
 		PageEntity pageEntity = new PageEntity()
 
@@ -100,7 +100,7 @@ class PageBindingServiceTest extends Specification {
 			pageEntityInput.pageId == PAGE_ID
 			pageEntityInput.title == TITLE
 			pageEntityInput.mediaWikiSource == MODEL_MEDIA_WIKI_SOURCE
-			return pageEntity
+			pageEntity
 		}
 		0 * _
 		pageEntityOutput == pageEntity

@@ -26,12 +26,12 @@ class CharacterIndividualTemplateProcessorTest extends AbstractIndividualTest {
 
 	private CharacterIndividualTemplateProcessor characterIndividualTemplateProcessor
 
-	def setup() {
+	void setup() {
 		guidGeneratorMock = Mock(GuidGenerator)
 		characterIndividualTemplateProcessor = new CharacterIndividualTemplateProcessor(guidGeneratorMock)
 	}
 
-	def "should return null when template is product of redirect"() {
+	void "should return null when template is product of redirect"() {
 		given:
 		IndividualTemplate individualTemplate = new IndividualTemplate(
 				productOfRedirect: true
@@ -44,7 +44,7 @@ class CharacterIndividualTemplateProcessorTest extends AbstractIndividualTest {
 		character == null
 	}
 
-	def "converts IndividualTemplate to Character"() {
+	void "converts IndividualTemplate to Character"() {
 		given:
 		IndividualTemplate individualTemplate = new IndividualTemplate(
 				page: PAGE,

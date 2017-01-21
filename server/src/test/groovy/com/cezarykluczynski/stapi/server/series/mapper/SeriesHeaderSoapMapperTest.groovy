@@ -9,11 +9,11 @@ class SeriesHeaderSoapMapperTest extends AbstractSeriesMapperTest {
 
 	private SeriesHeaderSoapMapper seriesHeaderSoapMapper
 
-	def setup() {
+	void setup() {
 		seriesHeaderSoapMapper = Mappers.getMapper(SeriesHeaderSoapMapper)
 	}
 
-	def "maps DB entity to SOAP header"() {
+	void "maps DB entity to SOAP header"() {
 		given:
 		Series series = new Series(
 				title: TITLE,

@@ -11,11 +11,11 @@ class EpisodeTemplateStardateYearFixedValueProviderTest extends Specification {
 
 	private EpisodeTemplateStardateYearFixedValueProvider episodeStardateYearFixedValueProvider
 
-	def setup() {
+	void setup() {
 		episodeStardateYearFixedValueProvider = new EpisodeTemplateStardateYearFixedValueProvider()
 	}
 
-	def "gets fixed value holder when episode is found"() {
+	void "gets fixed value holder when episode is found"() {
 		when:
 		FixedValueHolder<StardateYearDTO> stardateYearFixedValueHolder = episodeStardateYearFixedValueProvider
 				.getSearchedValue(EXISTING_TITLE)
@@ -29,7 +29,7 @@ class EpisodeTemplateStardateYearFixedValueProviderTest extends Specification {
 		stardateYearFixedValueHolder.value.yearTo == 2374
 	}
 
-	def "gets fixed value holder when episode is not found"() {
+	void "gets fixed value holder when episode is not found"() {
 		when:
 		FixedValueHolder<StardateYearDTO> stardateYearFixedValueHolder = episodeStardateYearFixedValueProvider
 				.getSearchedValue(NONEXISTING_TITLE)

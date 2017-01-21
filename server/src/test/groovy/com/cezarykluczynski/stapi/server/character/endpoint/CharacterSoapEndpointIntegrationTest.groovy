@@ -11,11 +11,11 @@ import spock.lang.Requires
 })
 class CharacterSoapEndpointIntegrationTest extends AbstractCharacterEndpointIntegrationTest {
 
-	def setup() {
+	void setup() {
 		createSoapClient()
 	}
 
-	def "gets character by guid"() {
+	void "gets character by guid"() {
 		when:
 		CharacterResponse characterResponse = stapiSoapClient.characterPortType.getCharacters(new CharacterRequest(
 				guid: DEANNA_TROI_GUID

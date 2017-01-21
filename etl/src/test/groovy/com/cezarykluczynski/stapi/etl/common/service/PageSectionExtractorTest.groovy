@@ -11,11 +11,11 @@ class PageSectionExtractorTest extends Specification {
 
 	private PageSectionExtractor pageSectionExtractor
 
-	def setup() {
+	void setup() {
 		pageSectionExtractor = new PageSectionExtractor()
 	}
 
-	def "extract last page section"() {
+	void "extract last page section"() {
 		given:
 		PageSection lastPageSection = new PageSection(
 				byteOffset: 500,
@@ -42,7 +42,7 @@ class PageSectionExtractorTest extends Specification {
 		pageSection == lastPageSection
 	}
 
-	def "returns null when getting last page section, but page section list is empty"() {
+	void "returns null when getting last page section, but page section list is empty"() {
 		given:
 		Page page = new Page()
 
@@ -53,7 +53,7 @@ class PageSectionExtractorTest extends Specification {
 		pageSection == null
 	}
 
-	def "gets section by title"() {
+	void "gets section by title"() {
 		given:
 		PageSection pageSectionToFind = new PageSection(
 				text: TEXT
@@ -73,7 +73,7 @@ class PageSectionExtractorTest extends Specification {
 		pageSectionList[0] == pageSectionToFind
 	}
 
-	def "returns null when section cannot be found by title"() {
+	void "returns null when section cannot be found by title"() {
 		given:
 		Page page = new Page(sections: Lists.newArrayList())
 
@@ -84,7 +84,7 @@ class PageSectionExtractorTest extends Specification {
 		pageSectionList[0] == null
 	}
 
-	def "requires parameters not to be null when section is searched for by tile"() {
+	void "requires parameters not to be null when section is searched for by tile"() {
 		when:
 		pageSectionExtractor.findByTitles(new Page(), null)
 

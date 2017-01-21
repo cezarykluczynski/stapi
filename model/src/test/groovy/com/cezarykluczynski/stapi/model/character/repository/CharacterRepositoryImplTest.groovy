@@ -38,7 +38,7 @@ class CharacterRepositoryImplTest extends Specification {
 
 	private Page page
 
-	def setup() {
+	void setup() {
 		characterQueryBuilderMock = Mock(CharacterQueryBuilderFactory)
 		characterRepositoryImpl = new CharacterRepositoryImpl(characterQueryBuilderMock)
 		characterQueryBuilder = Mock(QueryBuilder)
@@ -48,7 +48,7 @@ class CharacterRepositoryImplTest extends Specification {
 		character = Mock(Character)
 	}
 
-	def "query is built and performed"() {
+	void "query is built and performed"() {
 		when:
 		Page pageOutput = characterRepositoryImpl.findMatching(characterRequestDTO, pageable)
 
@@ -56,27 +56,27 @@ class CharacterRepositoryImplTest extends Specification {
 		1 * characterQueryBuilderMock.createQueryBuilder(pageable) >> characterQueryBuilder
 
 		then: 'guid criteria is set'
-		1 * characterRequestDTO.getGuid() >> GUID
+		1 * characterRequestDTO.guid >> GUID
 		1 * characterQueryBuilder.equal(Character_.guid, GUID)
 
 		then: 'string criteria are set'
-		1 * characterRequestDTO.getName() >> NAME
+		1 * characterRequestDTO.name >> NAME
 		1 * characterQueryBuilder.like(Character_.name, NAME)
 
 		then: 'enum criteria is set'
-		1 * characterRequestDTO.getGender() >> GENDER
+		1 * characterRequestDTO.gender >> GENDER
 		1 * characterQueryBuilder.equal(Character_.gender, GENDER)
 
 		then: 'boolean criteria are set'
-		1 * characterRequestDTO.getDeceased() >> DECEASED
+		1 * characterRequestDTO.deceased >> DECEASED
 		1 * characterQueryBuilder.equal(Character_.deceased, DECEASED)
-		1 * characterRequestDTO.getMirror() >> MIRROR
+		1 * characterRequestDTO.mirror >> MIRROR
 		1 * characterQueryBuilder.equal(Character_.mirror, MIRROR)
-		1 * characterRequestDTO.getAlternateReality() >> ALTERNATE_REALITY
+		1 * characterRequestDTO.alternateReality >> ALTERNATE_REALITY
 		1 * characterQueryBuilder.equal(Character_.alternateReality, ALTERNATE_REALITY)
 
 		then: 'sort is set'
-		1 * characterRequestDTO.getSort() >> SORT
+		1 * characterRequestDTO.sort >> SORT
 		1 * characterQueryBuilder.setSort(SORT)
 
 		then: 'fetch is performed with true flag'
@@ -86,14 +86,14 @@ class CharacterRepositoryImplTest extends Specification {
 
 		then: 'page is searched for and returned'
 		1 * characterQueryBuilder.findPage() >> page
-		0 * page.getContent()
+		0 * page.content
 		pageOutput == page
 
 		then: 'no other interactions are expected'
 		0 * _
 	}
 
-	def "proxies are cleared when no related entities should be fetched"() {
+	void "proxies are cleared when no related entities should be fetched"() {
 		when:
 		Page pageOutput = characterRepositoryImpl.findMatching(characterRequestDTO, pageable)
 
@@ -101,7 +101,7 @@ class CharacterRepositoryImplTest extends Specification {
 		1 * characterQueryBuilderMock.createQueryBuilder(pageable) >> characterQueryBuilder
 
 		then: 'guid criteria is set to null'
-		1 * characterRequestDTO.getGuid() >> null
+		1 * characterRequestDTO.guid >> null
 
 		then: 'fetch is performed with false flag'
 		1 * characterQueryBuilder.fetch(Character_.performers, false)
@@ -112,7 +112,7 @@ class CharacterRepositoryImplTest extends Specification {
 		1 * characterQueryBuilder.findPage() >> page
 
 		then: 'proxies are cleared'
-		1 * page.getContent() >> Lists.newArrayList(character)
+		1 * page.content >> Lists.newArrayList(character)
 		1 * character.setPerformers(Sets.newHashSet())
 		1 * character.setEpisodes(Sets.newHashSet())
 		1 * character.setMovies(Sets.newHashSet())

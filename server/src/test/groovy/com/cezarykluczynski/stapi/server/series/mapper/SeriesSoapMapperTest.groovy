@@ -13,11 +13,11 @@ class SeriesSoapMapperTest extends AbstractSeriesMapperTest {
 
 	private SeriesSoapMapper seriesSoapMapper
 
-	def setup() {
+	void setup() {
 		seriesSoapMapper = Mappers.getMapper(SeriesSoapMapper)
 	}
 
-	def "maps SOAP SeriesRequest to SeriesRequestDTO"() {
+	void "maps SOAP SeriesRequest to SeriesRequestDTO"() {
 		given:
 		SeriesRequest seriesRequest = new SeriesRequest(
 				guid: GUID,
@@ -57,7 +57,7 @@ class SeriesSoapMapperTest extends AbstractSeriesMapperTest {
 		seriesRequestDTO.originalRunEndDateTo == ORIGINAL_RUN_END_DATE_TO_DB
 	}
 
-	def "maps DB entity to SOAP entity"() {
+	void "maps DB entity to SOAP entity"() {
 		given:
 		DBSeries dBSeries = createSeries()
 

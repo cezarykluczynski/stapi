@@ -4,7 +4,7 @@ class StapiRestClientTest extends AbstractStapiClientTest {
 
 	private StapiRestClient stapiRestClient
 
-	def "rest client can be instantiated with canonical URL"() {
+	void "rest client can be instantiated with canonical URL"() {
 		when:
 		stapiRestClient = new StapiRestClient()
 
@@ -17,7 +17,7 @@ class StapiRestClientTest extends AbstractStapiClientTest {
 		stapiRestClient.movieApi.apiClient.basePath.contains(StapiClient.CANONICAL_API_URL)
 	}
 
-	def "rest client can be instantiated with custom URL"() {
+	void "rest client can be instantiated with custom URL"() {
 		when:
 		stapiRestClient = new StapiRestClient(CUSTOM_URL)
 

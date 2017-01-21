@@ -14,19 +14,18 @@ class DateMapperTest extends Specification {
 	private static final Integer MONTH = 1
 	private static final Integer DAY = 15
 
-
 	private DateMapper dateMapper
 
-	def setup() {
+	void setup() {
 		dateMapper = Mappers.getMapper(DateMapper)
 	}
 
-	def "maps null XMLGregorianCalendar to null LocalDate"() {
+	void "maps null XMLGregorianCalendar to null LocalDate"() {
 		expect:
 		dateMapper.map(null) == null
 	}
 
-	def "maps XMLGregorianCalendar  LocalDate"() {
+	void "maps XMLGregorianCalendar  LocalDate"() {
 		given:
 		XMLGregorianCalendar xmlGregorianCalendar = new XMLGregorianCalendarImpl()
 		xmlGregorianCalendar.setYear(YEAR)

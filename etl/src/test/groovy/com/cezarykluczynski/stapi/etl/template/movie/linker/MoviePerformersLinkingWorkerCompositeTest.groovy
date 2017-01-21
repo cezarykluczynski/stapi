@@ -14,7 +14,7 @@ class MoviePerformersLinkingWorkerCompositeTest extends Specification {
 
 	private MoviePerformersLinkingWorkerComposite moviePerformersLinkingWorkerComposite
 
-	def setup() {
+	void setup() {
 		moviePerformersCharacterLinkingWorkerMock = Mock(MoviePerformersCharactersLinkingWorker)
 		movieStuntPerformersLinkingWorkerMock = Mock(MovieStuntPerformersLinkingWorker)
 		movieStandInPerformersLinkingWorkerMock = Mock(MovieStandInPerformersLinkingWorker)
@@ -22,7 +22,7 @@ class MoviePerformersLinkingWorkerCompositeTest extends Specification {
 				movieStuntPerformersLinkingWorkerMock, movieStandInPerformersLinkingWorkerMock)
 	}
 
-	def "passes the right sets of performers to particular workers"() {
+	void "passes the right sets of performers to particular workers"() {
 		given:
 		MovieLinkedTitlesDTO movieLinkedTitlesDTO = Mock(MovieLinkedTitlesDTO)
 		Set<List<String>> performers = Mock(Set)
@@ -34,11 +34,11 @@ class MoviePerformersLinkingWorkerCompositeTest extends Specification {
 		moviePerformersLinkingWorkerComposite.link(movieLinkedTitlesDTO, movie)
 
 		then: 'linking workers are used to process particulars sets of link lists'
-		1 * movieLinkedTitlesDTO.getPerformers() >> performers
+		1 * movieLinkedTitlesDTO.performers >> performers
 		1 * moviePerformersCharacterLinkingWorkerMock.link(performers, movie)
-		1 * movieLinkedTitlesDTO.getStuntPerformers() >> stuntPerformers
+		1 * movieLinkedTitlesDTO.stuntPerformers >> stuntPerformers
 		1 * movieStuntPerformersLinkingWorkerMock.link(stuntPerformers, movie)
-		1 * movieLinkedTitlesDTO.getStandInPerformers() >> standInPerformers
+		1 * movieLinkedTitlesDTO.standInPerformers >> standInPerformers
 		1 * movieStandInPerformersLinkingWorkerMock.link(standInPerformers, movie)
 		0 * _
 	}

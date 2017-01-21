@@ -20,7 +20,7 @@ class XMLQueryParserTest extends Specification {
 		</api>
 """
 
-	def "converts XML to Page"() {
+	void "converts XML to Page"() {
 		given:
 		PageInfo expectedPageInfo = new PageInfo(
 				pageid: PAGE_ID_STRING,
@@ -29,7 +29,7 @@ class XMLQueryParserTest extends Specification {
 		)
 
 		when:
-		PageInfo pageInfo = new XMLQueryParser(XML).getPageInfo()
+		PageInfo pageInfo = new XMLQueryParser(XML).pageInfo
 
 		then:
 		pageInfo == expectedPageInfo

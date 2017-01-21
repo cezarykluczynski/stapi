@@ -55,14 +55,14 @@ class PageApiImplTest extends Specification {
 
 	private PageApiImpl pageApiImpl
 
-	def setup() {
+	void setup() {
 		blikiConnectorMock = Mock(BlikiConnector)
 		wikitextApiMock = Mock(WikitextApi)
 		parseComplementingServiceMock = Mock(ParseComplementingService)
 		pageApiImpl = new PageApiImpl(blikiConnectorMock, wikitextApiMock, parseComplementingServiceMock)
 	}
 
-	def "gets page from title"() {
+	void "gets page from title"() {
 		when:
 		Page page = pageApiImpl.getPage(TITLE_1, MEDIA_WIKI_SOURCE)
 
@@ -87,7 +87,7 @@ class PageApiImplTest extends Specification {
 		page.sections[1].wikitext == 'Star Trek content.'
 	}
 
-	def "returns page when there is no wikitext"() {
+	void "returns page when there is no wikitext"() {
 		when:
 		Page page = pageApiImpl.getPage(TITLE_1, MEDIA_WIKI_SOURCE)
 
@@ -99,7 +99,7 @@ class PageApiImplTest extends Specification {
 		page.mediaWikiSource == MEDIA_WIKI_SOURCE
 	}
 
-	def "follows redirect"() {
+	void "follows redirect"() {
 		when:
 		Page page = pageApiImpl.getPage(TITLE_1, MEDIA_WIKI_SOURCE)
 
@@ -117,7 +117,7 @@ class PageApiImplTest extends Specification {
 		page.redirectPath[0].mediaWikiSource == MEDIA_WIKI_SOURCE
 	}
 
-	def "returns null when redirect follows to unexisting page"() {
+	void "returns null when redirect follows to unexisting page"() {
 		when:
 		Page page = pageApiImpl.getPage(TITLE_1, MEDIA_WIKI_SOURCE)
 
@@ -129,8 +129,7 @@ class PageApiImplTest extends Specification {
 		page == null
 	}
 
-
-	def "does not follow more than 2 redirects"() {
+	void "does not follow more than 2 redirects"() {
 		when:
 		Page page = pageApiImpl.getPage(TITLE_1, MEDIA_WIKI_SOURCE)
 
@@ -154,7 +153,7 @@ class PageApiImplTest extends Specification {
 		page.redirectPath[1].mediaWikiSource == MEDIA_WIKI_SOURCE
 	}
 
-	def "returns page when redirect list is empty"() {
+	void "returns page when redirect list is empty"() {
 		when:
 		Page page = pageApiImpl.getPage(TITLE_1, MEDIA_WIKI_SOURCE)
 
@@ -167,8 +166,8 @@ class PageApiImplTest extends Specification {
 		page.mediaWikiSource == MEDIA_WIKI_SOURCE
 	}
 
-	def "returns null when page is not found"() {
-		when: "not found page is called"
+	void "returns null when page is not found"() {
+		when: 'not found page is called'
 		Page page = pageApiImpl.getPage(TITLE_NOT_FOUND, MEDIA_WIKI_SOURCE)
 
 		then:
@@ -177,8 +176,8 @@ class PageApiImplTest extends Specification {
 		page == null
 	}
 
-	def "converts exception thrown during parsing to RuntimeException"() {
-		when: "not found page is called"
+	void "converts exception thrown during parsing to RuntimeException"() {
+		when: 'not found page is called'
 		pageApiImpl.getPage(TITLE_NOT_FOUND, MEDIA_WIKI_SOURCE)
 
 		then:
@@ -187,7 +186,7 @@ class PageApiImplTest extends Specification {
 		thrown(RuntimeException)
 	}
 
-	def "gets pages from found titles"() {
+	void "gets pages from found titles"() {
 		when:
 		List<Page> pageList = pageApiImpl.getPages(Lists.newArrayList(TITLE_1, NOT_FOUND_TITLE, TITLE_2), MEDIA_WIKI_SOURCE)
 
@@ -203,7 +202,7 @@ class PageApiImplTest extends Specification {
 		pageList[1].mediaWikiSource == MEDIA_WIKI_SOURCE
 	}
 
-	def "gets page info"() {
+	void "gets page info"() {
 		when:
 		PageInfo pageInfo = pageApiImpl.getPageInfo(TITLE_1, MEDIA_WIKI_SOURCE)
 
@@ -228,7 +227,7 @@ Star Trek content.
 				<s toclevel="1" level="2" line="&lt;i&gt;Star Trek&lt;/i&gt;" number="2" index="2" fromtitle="Patrick_Stewart"
 						byteoffset="46" anchor="Star_Trek"/>
 		</sections>''' : ''
-		return """
+		"""
 			<api>
 				<parse title=\"${title}\" pageid=\"${pageId}\">
 					<parsetree xml:space="preserve">&lt;root&gt;&lt;/root&gt;</parsetree>
@@ -240,7 +239,7 @@ Star Trek content.
 	}
 
 	private static String createRedirectXml(String title, Long pageId, String redirect) {
-		return """
+		"""
 			<api>
 				<parse title=\"${title}\" pageid=\"${pageId}\">
 					<parsetree xml:space="preserve">&lt;root&gt;&lt;/root&gt;</parsetree>

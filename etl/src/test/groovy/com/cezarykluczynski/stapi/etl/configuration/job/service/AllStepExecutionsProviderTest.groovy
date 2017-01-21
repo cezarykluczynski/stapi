@@ -25,7 +25,7 @@ class AllStepExecutionsProviderTest extends Specification {
 
 	private AllStepExecutionsProvider allStepExecutionsProvider
 
-	def setup() {
+	void setup() {
 		jobInstanceDaoMock = Mock(JobInstanceDao)
 		jobExecutionDaoMock = Mock(JobExecutionDao)
 		stepExecutionDaoMock = Mock(StepExecutionDao)
@@ -34,7 +34,7 @@ class AllStepExecutionsProviderTest extends Specification {
 				stepExecutionDaoMock, executionContextDaoMock)
 	}
 
-	def "returns empty list when no job instance can be found"() {
+	void "returns empty list when no job instance can be found"() {
 		when:
 		List<StepExecution> stepExecutionList = allStepExecutionsProvider.provide(JobName.JOB_CREATE)
 
@@ -44,7 +44,7 @@ class AllStepExecutionsProviderTest extends Specification {
 		stepExecutionList.empty
 	}
 
-	def "returns empty list when no JobExecution can be found"() {
+	void "returns empty list when no JobExecution can be found"() {
 		given:
 		JobInstance jobInstance = Mock(JobInstance)
 
@@ -58,7 +58,7 @@ class AllStepExecutionsProviderTest extends Specification {
 		stepExecutionList.empty
 	}
 
-	def "returns step executions from all job executions"() {
+	void "returns step executions from all job executions"() {
 		given:
 		JobExecution jobExecution1 = Mock(JobExecution)
 		JobExecution jobExecution2 = Mock(JobExecution)
@@ -79,11 +79,11 @@ class AllStepExecutionsProviderTest extends Specification {
 		1 * executionContextDaoMock.getExecutionContext(jobExecution1) >> executionContext1
 		1 * jobExecution1.setExecutionContext(executionContext1)
 		1 * stepExecutionDaoMock.addStepExecutions(jobExecution1)
-		1 * jobExecution1.getStepExecutions() >> Lists.newArrayList(job1stepExecution1, job1stepExecution2)
+		1 * jobExecution1.stepExecutions >> Lists.newArrayList(job1stepExecution1, job1stepExecution2)
 		1 * executionContextDaoMock.getExecutionContext(jobExecution2) >> executionContext2
 		1 * jobExecution2.setExecutionContext(executionContext2)
 		1 * stepExecutionDaoMock.addStepExecutions(jobExecution2)
-		1 * jobExecution2.getStepExecutions() >> Lists.newArrayList(job2stepExecution1, job2stepExecution2)
+		1 * jobExecution2.stepExecutions >> Lists.newArrayList(job2stepExecution1, job2stepExecution2)
 		0 * _
 		stepExecutionList.size() == 4
 		stepExecutionList.contains job1stepExecution1

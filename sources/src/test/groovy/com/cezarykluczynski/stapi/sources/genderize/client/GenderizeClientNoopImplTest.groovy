@@ -6,13 +6,13 @@ class GenderizeClientNoopImplTest extends Specification {
 
 	private GenderizeClientNoopImpl genderizeClientNoopImpl
 
-	def setup() {
+	void setup() {
 		genderizeClientNoopImpl = new GenderizeClientNoopImpl()
 	}
 
-	def "returns null"() {
+	void "returns null"() {
 		expect:
-		genderizeClientNoopImpl.getNameGender("") == null
+		genderizeClientNoopImpl.getNameGender('') == null
 	}
 
 }

@@ -17,12 +17,12 @@ class PerformerConfigurationTest extends Specification {
 
 	private PerformerConfiguration performerConfiguration
 
-	def setup() {
+	void setup() {
 		applicationContextMock = Mock(ApplicationContext)
 		performerConfiguration = new PerformerConfiguration(applicationContext: applicationContextMock)
 	}
 
-	def "performer soap endpoint is created"() {
+	void "performer soap endpoint is created"() {
 		given:
 		SpringBus springBus = new SpringBus()
 		PerformerSoapReader performerSoapReaderMock = Mock(PerformerSoapReader)
@@ -31,15 +31,15 @@ class PerformerConfigurationTest extends Specification {
 		Endpoint performerSoapEndpoint = performerConfiguration.performerSoapEndpoint()
 
 		then:
-		1 * applicationContextMock.getBean(SpringBus.class) >> springBus
-		1 * applicationContextMock.getBean(PerformerSoapReader.class) >> performerSoapReaderMock
+		1 * applicationContextMock.getBean(SpringBus) >> springBus
+		1 * applicationContextMock.getBean(PerformerSoapReader) >> performerSoapReaderMock
 		performerSoapEndpoint != null
 		((EndpointImpl) performerSoapEndpoint).implementor instanceof PerformerSoapEndpoint
 		((EndpointImpl) performerSoapEndpoint).bus == springBus
 		performerSoapEndpoint.published
 	}
 
-	def "PerformerSoapMapper is created"() {
+	void "PerformerSoapMapper is created"() {
 		when:
 		PerformerSoapMapper performerSoapMapper = performerConfiguration.performerSoapMapper()
 
@@ -47,7 +47,7 @@ class PerformerConfigurationTest extends Specification {
 		performerSoapMapper != null
 	}
 
-	def "PerformerRestMapper is created"() {
+	void "PerformerRestMapper is created"() {
 		when:
 		PerformerRestMapper performerRestMapper = performerConfiguration.performerRestMapper()
 

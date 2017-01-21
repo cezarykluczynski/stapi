@@ -41,7 +41,7 @@ abstract class AbstractMovieMapperTest extends Specification {
 			.createDate(1993, 3, 4, DatatypeConstants.FIELD_UNDEFINED)
 
 	protected Movie createMovie() {
-		return new Movie(
+		new Movie(
 				guid: GUID,
 				mainDirector: Mock(Staff),
 				title: TITLE,

@@ -15,9 +15,9 @@ import java.time.LocalDate
 
 class MovieTemplateProcessorTest extends AbstractTemplateProcessorTest {
 
-	private static final String RELEASE_DATE_YEAR = "1998"
-	private static final String RELEASE_DATE_MONTH = "April"
-	private static final String RELEASE_DATE_DAY = "15"
+	private static final String RELEASE_DATE_YEAR = '1998'
+	private static final String RELEASE_DATE_MONTH = 'April'
+	private static final String RELEASE_DATE_DAY = '15'
 
 	private DayMonthYearProcessor dayMonthYearProcessorMock
 
@@ -27,7 +27,7 @@ class MovieTemplateProcessorTest extends AbstractTemplateProcessorTest {
 
 	private MovieTemplateProcessor movieTemplateProcessor
 
-	def setup() {
+	void setup() {
 		dayMonthYearProcessorMock = Mock(DayMonthYearProcessor)
 		imageTemplateStardateYearEnrichingProcessorMock = Mock(ImageTemplateStardateYearEnrichingProcessor)
 		movieTemplateStaffEnrichingProcessorMock = Mock(MovieTemplateStaffEnrichingProcessor)
@@ -35,7 +35,7 @@ class MovieTemplateProcessorTest extends AbstractTemplateProcessorTest {
 				imageTemplateStardateYearEnrichingProcessorMock, movieTemplateStaffEnrichingProcessorMock)
 	}
 
-	def "sets values from template parts"() {
+	void "sets values from template parts"() {
 		given:
 		Template template = new Template(
 				parts: Lists.newArrayList(
@@ -62,7 +62,7 @@ class MovieTemplateProcessorTest extends AbstractTemplateProcessorTest {
 			dayMonthYearCandidate.day == RELEASE_DATE_DAY
 			dayMonthYearCandidate.month == RELEASE_DATE_MONTH
 			dayMonthYearCandidate.year == RELEASE_DATE_YEAR
-			return usReleaseDate
+			usReleaseDate
 		}
 		0 * _
 		movieTemplate.movieStub instanceof Movie

@@ -24,19 +24,18 @@ class MovieSoapReaderTest extends Specification {
 
 	private MovieSoapReader movieSoapReader
 
-	def setup() {
+	void setup() {
 		movieSoapQueryBuilderMock = Mock(MovieSoapQuery)
 		movieSoapMapperMock = Mock(MovieSoapMapper)
 		pageMapperMock = Mock(PageMapper)
 		movieSoapReader = new MovieSoapReader(movieSoapQueryBuilderMock, movieSoapMapperMock, pageMapperMock)
 	}
 
-	def "gets database entities and puts them into MovieResponse"() {
+	void "gets database entities and puts them into MovieResponse"() {
 		given:
 		List<DBMovie> dbMovieList = Lists.newArrayList()
-		Page<DBMovie> dbMoviePage = Mock(Page) {
-			getContent() >> dbMovieList
-		}
+		Page<DBMovie> dbMoviePage = Mock(Page)
+		dbMoviePage.content >> dbMovieList
 		List<SOAPMovie> soapMovieList = Lists.newArrayList(new SOAPMovie(guid: GUID))
 		MovieRequest movieRequest = Mock(MovieRequest)
 		ResponsePage responsePage = Mock(ResponsePage)

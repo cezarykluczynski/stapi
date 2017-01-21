@@ -6,11 +6,11 @@ class FullNameToFirstNameProcessorTest extends Specification {
 
 	private FullNameToFirstNameProcessor fullNameToFirstNameProcessor
 
-	def setup() {
+	void setup() {
 		fullNameToFirstNameProcessor = new FullNameToFirstNameProcessor()
 	}
 
-	def "gets only word"() {
+	void "gets only word"() {
 		when:
 		String firstName = fullNameToFirstNameProcessor.process('Mark')
 
@@ -18,7 +18,7 @@ class FullNameToFirstNameProcessorTest extends Specification {
 		firstName == 'Mark'
 	}
 
-	def "gets first word of two word string"() {
+	void "gets first word of two word string"() {
 		when:
 		String firstName = fullNameToFirstNameProcessor.process('Patrick Stewart')
 
@@ -26,7 +26,7 @@ class FullNameToFirstNameProcessorTest extends Specification {
 		firstName == 'Patrick'
 	}
 
-	def "gets second word if first word is an initial"() {
+	void "gets second word if first word is an initial"() {
 		when:
 		String firstName = fullNameToFirstNameProcessor.process('J. John Doe')
 

@@ -18,6 +18,7 @@ import spock.lang.Specification
 
 class PageToGenderRoleProcessorTest extends Specification {
 
+	private static final String TITLE = 'Title'
 	private static final String VALID_WIKITEXT = 'played frisbee for fun'
 	private static final Gender GENDER = Gender.F
 
@@ -31,7 +32,7 @@ class PageToGenderRoleProcessorTest extends Specification {
 
 	private PageToGenderRoleProcessor pageToGenderRoleProcessor
 
-	def setup() {
+	void setup() {
 		pageApiMock = Mock(PageApi)
 		wikitextApiMock = Mock(WikitextApi)
 		templateFinderMock = Mock(TemplateFinder)
@@ -40,7 +41,7 @@ class PageToGenderRoleProcessorTest extends Specification {
 				individualTemplatePartsEnrichingProcessorMock)
 	}
 
-	def "returns null when wikitext does not contain 'played' word"() {
+	void "returns null when wikitext does not contain 'played' word"() {
 		when:
 		Gender gender = pageToGenderRoleProcessor.process(new Page())
 
@@ -48,35 +49,33 @@ class PageToGenderRoleProcessorTest extends Specification {
 		gender == null
 	}
 
-	def "logs that no roles were found when page is a performer page"() {
+	void "logs that no roles were found when page is a performer page"() {
 		given:
-		Page page = Mock(Page) {
-			getCategories() >> Lists.newArrayList(new CategoryHeader(title: CategoryNames.PERFORMER.get(0)))
-		}
+		Page page = Mock(Page)
+		page.categories >> Lists.newArrayList(new CategoryHeader(title: CategoryNames.PERFORMER.get(0)))
 
 		when:
 		Gender gender = pageToGenderRoleProcessor.process(page)
 
 		then:
-		1 * page.getTitle()
+		1 * page.title
 		gender == null
 	}
 
-	def "does not log that no roles were found when page is not a performer page"() {
+	void "does not log that no roles were found when page is not a performer page"() {
 		given:
-		Page page = Mock(Page) {
-			getCategories() >> Lists.newArrayList(new CategoryHeader(title: CategoryNames.STAFF.get(0)))
-		}
+		Page page = Mock(Page)
+		page.categories >> Lists.newArrayList(new CategoryHeader(title: CategoryNames.STAFF.get(0)))
 
 		when:
 		Gender gender = pageToGenderRoleProcessor.process(page)
 
 		then:
-		0 * page.getTitle()
+		0 * page.title
 		gender == null
 	}
 
-	def "returns null when wikitext does not contain any roles"() {
+	void "returns null when wikitext does not contain any roles"() {
 		when:
 		Gender gender = pageToGenderRoleProcessor.process(new Page(
 				wikitext: VALID_WIKITEXT))
@@ -86,9 +85,9 @@ class PageToGenderRoleProcessorTest extends Specification {
 		gender == null
 	}
 
-	def "returns null when there were no pages found"() {
+	void "returns null when there were no pages found"() {
 		given:
-		List<String> titleList = Lists.newArrayList("Title")
+		List<String> titleList = Lists.newArrayList(TITLE)
 
 		when:
 		Gender gender = pageToGenderRoleProcessor.process(new Page(
@@ -100,52 +99,50 @@ class PageToGenderRoleProcessorTest extends Specification {
 		gender == null
 	}
 
-	def "returns null when individual template does not contain gender"() {
+	void "returns null when individual template does not contain gender"() {
 		given:
-		List<String> titleList = Lists.newArrayList("Title")
-		Page pageMock = Mock(Page) {
-			getWikitext() >> VALID_WIKITEXT
-		}
-		Page subpageMock = Mock(Page)
+		List<String> titleList = Lists.newArrayList(TITLE)
+		Page page = Mock(Page)
+		page.wikitext >> VALID_WIKITEXT
+		Page subpage = Mock(Page)
 
 		when:
-		Gender gender = pageToGenderRoleProcessor.process(pageMock)
+		Gender gender = pageToGenderRoleProcessor.process(page)
 
 		then:
 		1 * wikitextApiMock.getPageTitlesFromWikitext(VALID_WIKITEXT) >> titleList
-		1 * pageApiMock.getPages(titleList, MediaWikiSource.MEMORY_ALPHA_EN) >> Lists.newArrayList(subpageMock)
-		1 * templateFinderMock.findTemplate(subpageMock, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.empty()
+		1 * pageApiMock.getPages(titleList, MediaWikiSource.MEMORY_ALPHA_EN) >> Lists.newArrayList(subpage)
+		1 * templateFinderMock.findTemplate(subpage, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.empty()
 		gender == null
 
 		then: 'titles are used for logging'
-		2 * pageMock.getTitle()
-		2 * subpageMock.getTitle()
+		2 * page.title
+		2 * subpage.title
 	}
 
-	def "returns gender when individual template does contain it"() {
+	void "returns gender when individual template does contain it"() {
 		given:
-		List<String> titleList = Lists.newArrayList("Title")
-		Page pageMock = Mock(Page) {
-			getWikitext() >> VALID_WIKITEXT
-		}
-		Page subpageMock = Mock(Page)
+		List<String> titleList = Lists.newArrayList(TITLE)
+		Page page = Mock(Page)
+		page.wikitext >> VALID_WIKITEXT
+		Page subpage = Mock(Page)
 		Template sidebarIndividualTemplate = Mock(Template)
 
 		when:
-		Gender gender = pageToGenderRoleProcessor.process(pageMock)
+		Gender gender = pageToGenderRoleProcessor.process(page)
 
 		then:
 		1 * wikitextApiMock.getPageTitlesFromWikitext(VALID_WIKITEXT) >> titleList
-		1 * pageApiMock.getPages(titleList, MediaWikiSource.MEMORY_ALPHA_EN) >> Lists.newArrayList(subpageMock)
-		1 * templateFinderMock.findTemplate(subpageMock, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.of(sidebarIndividualTemplate)
+		1 * pageApiMock.getPages(titleList, MediaWikiSource.MEMORY_ALPHA_EN) >> Lists.newArrayList(subpage)
+		1 * templateFinderMock.findTemplate(subpage, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.of(sidebarIndividualTemplate)
 		1 * individualTemplatePartsEnrichingProcessorMock.enrich(_) >> { EnrichablePair<List<Template.Part>, IndividualTemplate> enrichablePair ->
 			enrichablePair.output.gender = GENDER
 		}
 		gender == GENDER
 
 		then: 'titles are used for logging'
-		1 * pageMock.getTitle()
-		1 * subpageMock.getTitle()
+		1 * page.title
+		1 * subpage.title
 	}
 
 }

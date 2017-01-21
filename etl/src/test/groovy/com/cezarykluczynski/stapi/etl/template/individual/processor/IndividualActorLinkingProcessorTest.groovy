@@ -30,13 +30,13 @@ class IndividualActorLinkingProcessorTest extends Specification {
 
 	private IndividualActorLinkingProcessor individualActorLinkingProcessor
 
-	def setup() {
+	void setup() {
 		wikitextApiMock = Mock(WikitextApi)
 		performerRepositoryMock = Mock(PerformerRepository)
 		individualActorLinkingProcessor = new IndividualActorLinkingProcessor(wikitextApiMock, performerRepositoryMock)
 	}
 
-	def "should do nothing if either template part or individual template is null"() {
+	void "should do nothing if either template part or individual template is null"() {
 		when: 'Template.Part is null'
 		individualActorLinkingProcessor.enrich(EnrichablePair.of(null, new IndividualTemplate()))
 
@@ -50,7 +50,7 @@ class IndividualActorLinkingProcessorTest extends Specification {
 		0 * _
 	}
 
-	def "found performers should be added"() {
+	void "found performers should be added"() {
 		given:
 		Template.Part templatePart = new Template.Part(
 				value: VALUE
@@ -77,18 +77,18 @@ class IndividualActorLinkingProcessorTest extends Specification {
 		then: 'performers are found by page titles'
 		1 * performerRepositoryMock.findByPageTitleAndPageMediaWikiSource(TITLE_1, SOURCE) >> Optional.of(performer1)
 		1 * performerRepositoryMock.findByPageTitleAndPageMediaWikiSource(TITLE_2, SOURCE) >> Optional.of(performer2)
-		1 * pageLink3.getTitle() >> TITLE_3
+		1 * pageLink3.title >> TITLE_3
 		1 * performerRepositoryMock.findByPageTitleAndPageMediaWikiSource(TITLE_3, SOURCE) >> Optional.empty()
 
 		then: 'missing page title and individual name is used for logging'
-		1 * pageLink3.getTitle() >> TITLE_3
-		1 * individualTemplate.getName()
+		1 * pageLink3.title >> TITLE_3
+		1 * individualTemplate.name
 
 		then: 'remaining page is found'
 		1 * performerRepositoryMock.findByPageTitleAndPageMediaWikiSource(TITLE_4, SOURCE) >> Optional.of(performer4)
 
 		then: 'list of performers consist of two unique performers'
-		1 * individualTemplate.getPerformers() >> performerList
+		1 * individualTemplate.performers >> performerList
 		performerList.size() == 2
 		performerList.contains performer1
 		performerList.contains performer2

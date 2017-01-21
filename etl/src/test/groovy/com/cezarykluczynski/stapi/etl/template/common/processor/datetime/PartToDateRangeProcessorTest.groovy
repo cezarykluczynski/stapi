@@ -22,13 +22,13 @@ class PartToDateRangeProcessorTest extends Specification {
 
 	private PartToDateRangeProcessor partToDateRangeProcessor
 
-	def setup() {
+	void setup() {
 		templateToLocalDateProcessorMock = Mock(DatelinkTemplateToLocalDateProcessor)
 		templateFilterMock = Mock(TemplateFilter)
 		partToDateRangeProcessor = new PartToDateRangeProcessor(templateToLocalDateProcessorMock, templateFilterMock)
 	}
 
-	def "valid Part is converted to DateRange with both dates"() {
+	void "valid Part is converted to DateRange with both dates"() {
 		given:
 		List<Template> templateList = Lists.newArrayList(
 				START_TEMPLATE, END_TEMPLATE
@@ -48,7 +48,7 @@ class PartToDateRangeProcessorTest extends Specification {
 		dateRange.endDate == END_DATE
 	}
 
-	def "Part with only start date is converted to DateRange with only start date"() {
+	void "Part with only start date is converted to DateRange with only start date"() {
 		given:
 		List<Template> templateList = Lists.newArrayList(
 				START_TEMPLATE
@@ -73,7 +73,7 @@ class PartToDateRangeProcessorTest extends Specification {
 		0 * _
 	}
 
-	def "Part with more than 2 date templates results in empty DateRange"() {
+	void "Part with more than 2 date templates results in empty DateRange"() {
 		given:
 		List<Template> templateList = Lists.newArrayList(
 				START_TEMPLATE, END_TEMPLATE, START_TEMPLATE

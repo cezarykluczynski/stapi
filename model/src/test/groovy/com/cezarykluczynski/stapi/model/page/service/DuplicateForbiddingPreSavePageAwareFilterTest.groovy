@@ -14,21 +14,16 @@ class DuplicateForbiddingPreSavePageAwareFilterTest extends Specification {
 
 	private DuplicateForbiddingPreSavePageAwareFilter strictPreSavePageAwareProcessor
 
-	def setup() {
+	void setup() {
 		pageBoundToEntityFilteringFinderMock = Mock(PageBoundToEntityFilteringFinder)
 		strictPreSavePageAwareProcessor = new DuplicateForbiddingPreSavePageAwareFilter(pageBoundToEntityFilteringFinderMock)
 	}
 
-	def "throws exception when chunk contains entities with equal pageIds"() {
+	void "throws exception when chunk contains entities with equal pageIds"() {
 		given:
-		List<PageAware> pageAwareList = Lists.newArrayList(
-				Mock(PageAware) {
-					getPage() >> new Page(pageId: PAGE_ID)
-				},
-				Mock(PageAware) {
-					getPage() >> new Page(pageId: PAGE_ID)
-				}
-		)
+		PageAware pageAware = Mock(PageAware)
+		pageAware.page >> new Page(pageId: PAGE_ID)
+		List<PageAware> pageAwareList = Lists.newArrayList(pageAware, pageAware)
 
 		when:
 		strictPreSavePageAwareProcessor.process(pageAwareList, null)
@@ -38,13 +33,11 @@ class DuplicateForbiddingPreSavePageAwareFilterTest extends Specification {
 		ex.message.contains('Duplicated page entries in chunk')
 	}
 
-	def "throws exception when pages with given pageId already exists in database"() {
+	void "throws exception when pages with given pageId already exists in database"() {
 		given:
-		List<PageAware> pageAwareList = Lists.newArrayList(
-				Mock(PageAware) {
-					getPage() >> new Page(pageId: PAGE_ID)
-				}
-		)
+		PageAware pageAware = Mock(PageAware)
+		pageAware.page >> new Page(pageId: PAGE_ID)
+		List<PageAware> pageAwareList = Lists.newArrayList(pageAware)
 
 		when:
 		strictPreSavePageAwareProcessor.process(pageAwareList, Performer)
@@ -53,19 +46,17 @@ class DuplicateForbiddingPreSavePageAwareFilterTest extends Specification {
 		1 * pageBoundToEntityFilteringFinderMock.find(*_) >> { args ->
 			assert ((Collection<Long>) args[0]).contains(PAGE_ID)
 			assert args[1] == Performer
-			return Lists.newArrayList(new Page(pageId: PAGE_ID))
+			Lists.newArrayList(new Page(pageId: PAGE_ID))
 		}
 		RuntimeException ex = thrown(RuntimeException)
 		ex.message.contains('Pages already persisted')
 	}
 
-	def "returns original collection when there is no duplicates"() {
+	void "returns original collection when there is no duplicates"() {
 		given:
-		List<PageAware> pageAwareList = Lists.newArrayList(
-				Mock(PageAware) {
-					getPage() >> new Page(pageId: PAGE_ID)
-				}
-		)
+		PageAware pageAware = Mock(PageAware)
+		pageAware.page >> new Page(pageId: PAGE_ID)
+		List<PageAware> pageAwareList = Lists.newArrayList(pageAware)
 
 		when:
 		List<PageAware> pageAwareListOutput = strictPreSavePageAwareProcessor.process(pageAwareList, Performer)
@@ -74,7 +65,7 @@ class DuplicateForbiddingPreSavePageAwareFilterTest extends Specification {
 		1 * pageBoundToEntityFilteringFinderMock.find(*_) >> { args ->
 			assert ((Collection<Long>) args[0]).contains(PAGE_ID)
 			assert args[1] == Performer
-			return Lists.newArrayList()
+			Lists.newArrayList()
 		}
 		pageAwareListOutput == pageAwareList
 	}

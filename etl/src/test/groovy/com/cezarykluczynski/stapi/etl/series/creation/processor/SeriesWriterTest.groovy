@@ -11,12 +11,12 @@ class SeriesWriterTest extends Specification {
 
 	private SeriesWriter seriesWriter
 
-	def setup() {
+	void setup() {
 		seriesRepositoryMock = Mock(SeriesRepository)
 		seriesWriter = new SeriesWriter(seriesRepositoryMock)
 	}
 
-	def "writes all entities using repository"() {
+	void "writes all entities using repository"() {
 		given:
 		Series series = new Series()
 		List<Series> seriesList = Lists.newArrayList(series)

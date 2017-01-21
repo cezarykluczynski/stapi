@@ -24,19 +24,18 @@ class EpisodeRestReaderTest extends Specification {
 
 	private EpisodeRestReader episodeRestReader
 
-	def setup() {
+	void setup() {
 		episodeRestQueryBuilderMock = Mock(EpisodeRestQuery)
 		episodeRestMapperMock = Mock(EpisodeRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		episodeRestReader = new EpisodeRestReader(episodeRestQueryBuilderMock, episodeRestMapperMock, pageMapperMock)
 	}
 
-	def "gets database entities and puts them into EpisodeResponse"() {
+	void "gets database entities and puts them into EpisodeResponse"() {
 		given:
 		List<DBEpisode> dbEpisodeList = Lists.newArrayList()
-		Page<DBEpisode> dbEpisodePage = Mock(Page) {
-			getContent() >> dbEpisodeList
-		}
+		Page<DBEpisode> dbEpisodePage = Mock(Page)
+		dbEpisodePage.content >> dbEpisodeList
 		List<RESTEpisode> soapEpisodeList = Lists.newArrayList(new RESTEpisode(guid: GUID))
 		EpisodeRestBeanParams seriesRestBeanParams = Mock(EpisodeRestBeanParams)
 		ResponsePage responsePage = Mock(ResponsePage)

@@ -7,19 +7,19 @@ class RequestSortRestMapperTest extends AbstractRequestSortMapperTest {
 
 	private RequestSortRestMapper requestSortRestMapper
 
-	def setup() {
+	void setup() {
 		requestSortRestMapper = Mappers.getMapper(RequestSortRestMapper)
 	}
 
-	def "maps valid string RequestSortDTO"() {
+	void "maps valid string RequestSortDTO"() {
 		when:
-		RequestSortDTO requestSortDTO = requestSortRestMapper.mapString("abc,ASC")
+		RequestSortDTO requestSortDTO = requestSortRestMapper.mapString('abc,ASC')
 
 		then:
 		requestSortDTO.clauses.size() == 1
 	}
 
-	def "maps null string to RequestSortDTO with empty list of clauses"() {
+	void "maps null string to RequestSortDTO with empty list of clauses"() {
 		when:
 		RequestSortDTO requestSortDTO = requestSortRestMapper.mapString(null)
 
@@ -27,15 +27,15 @@ class RequestSortRestMapperTest extends AbstractRequestSortMapperTest {
 		requestSortDTO.clauses.empty
 	}
 
-	def "maps empty string to RequestSortDTO with empty list of clauses"() {
+	void "maps empty string to RequestSortDTO with empty list of clauses"() {
 		when:
-		RequestSortDTO requestSortDTO = requestSortRestMapper.mapString("")
+		RequestSortDTO requestSortDTO = requestSortRestMapper.mapString('')
 
 		then:
 		requestSortDTO.clauses.empty
 	}
 
-	def "maps string to RequestSortDTO"() {
+	void "maps string to RequestSortDTO"() {
 		given:
 		String sort = "${NAME_1},${SORT_DIRECTION_1.name()};${NAME_2},${SORT_DIRECTION_2.name()}"
 
@@ -52,7 +52,7 @@ class RequestSortRestMapperTest extends AbstractRequestSortMapperTest {
 		requestSortDTO.clauses[1].clauseOrder == 1
 	}
 
-	def "throws exception for uncomplete rule"() {
+	void "throws exception for uncomplete rule"() {
 		when:
 		requestSortRestMapper.mapString(NAME_1)
 
@@ -60,7 +60,7 @@ class RequestSortRestMapperTest extends AbstractRequestSortMapperTest {
 		thrown(RuntimeException)
 	}
 
-	def "throws exception when order is neither ASC nor DESC"() {
+	void "throws exception when order is neither ASC nor DESC"() {
 		given:
 		String sort = "${NAME_1},${NAME_1}"
 
@@ -71,7 +71,7 @@ class RequestSortRestMapperTest extends AbstractRequestSortMapperTest {
 		thrown(RuntimeException)
 	}
 
-	def "throws exception when field name is empty"() {
+	void "throws exception when field name is empty"() {
 		given:
 		String sort = ",${SORT_DIRECTION_1}"
 
@@ -81,6 +81,5 @@ class RequestSortRestMapperTest extends AbstractRequestSortMapperTest {
 		then:
 		thrown(RuntimeException)
 	}
-
 
 }

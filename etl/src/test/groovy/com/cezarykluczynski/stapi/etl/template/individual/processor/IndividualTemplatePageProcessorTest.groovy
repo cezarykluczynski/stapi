@@ -44,7 +44,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 
 	private IndividualTemplatePageProcessor individualTemplatePageProcessor
 
-	def setup() {
+	void setup() {
 		individualDateOfDeathEnrichingProcessorMock = Mock(IndividualDateOfDeathEnrichingProcessor)
 		wikitextApiMock = Mock(WikitextApi)
 		pageBindingServiceMock = Mock(PageBindingService)
@@ -57,7 +57,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 				individualMirrorAlternateUniverseEnrichingProcessorMock, characterboxIndividualTemplateEnrichingProcessorMock)
 	}
 
-	def "returns null when page name starts with 'Unnamed '"() {
+	void "returns null when page name starts with 'Unnamed '"() {
 		given:
 		Page page = new Page(
 				title: 'Unnamed humanoids',
@@ -71,7 +71,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		individualTemplate == null
 	}
 
-	def "returns null when page name starts with 'List of '"() {
+	void "returns null when page name starts with 'List of '"() {
 		given:
 		Page page = new Page(
 				title: 'List of some people',
@@ -85,7 +85,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		individualTemplate == null
 	}
 
-	def "returns null when page name starts with 'Memory Alpha images '"() {
+	void "returns null when page name starts with 'Memory Alpha images '"() {
 		given:
 		Page page = new Page(
 				title: 'Memory Alpha images (Greek gods)',
@@ -99,7 +99,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		individualTemplate == null
 	}
 
-	def "returns null when page name contains 'personnel'"() {
+	void "returns null when page name contains 'personnel'"() {
 		given:
 		Page page = new Page(
 				title: PageName.MEMORY_ALPHA_PERSONNEL,
@@ -113,7 +113,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		individualTemplate == null
 	}
 
-	def "returns null when category list contains Production lists"() {
+	void "returns null when category list contains Production lists"() {
 		given:
 		Page page = new Page(
 				title: TITLE,
@@ -129,7 +129,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		individualTemplate == null
 	}
 
-	def "returns null when category list contains Families"() {
+	void "returns null when category list contains Families"() {
 		given:
 		Page page = new Page(
 				title: TITLE,
@@ -145,7 +145,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		individualTemplate == null
 	}
 
-	def "returns null when category list contains Personnel lists"() {
+	void "returns null when category list contains Personnel lists"() {
 		given:
 		Page page = new Page(
 				title: TITLE,
@@ -161,7 +161,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		individualTemplate == null
 	}
 
-	def "returns null when category list contains Lists"() {
+	void "returns null when category list contains Lists"() {
 		given:
 		Page page = new Page(
 				title: TITLE,
@@ -177,7 +177,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		individualTemplate == null
 	}
 
-	def "returns null when category list contains category that start with 'Unnamed'"() {
+	void "returns null when category list contains category that start with 'Unnamed'"() {
 		given:
 		Page page = new Page(
 				title: TITLE,
@@ -193,7 +193,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		individualTemplate == null
 	}
 
-	def "returns null when page is sorted on top of any category"() {
+	void "returns null when page is sorted on top of any category"() {
 		given:
 		Page page = new Page(
 				title: TITLE,
@@ -221,7 +221,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		individualTemplate == null
 	}
 
-	def "missing template results IndividualTemplate with only the name and page"() {
+	void "missing template results IndividualTemplate with only the name and page"() {
 		given:
 		Page page = new Page(
 				title: TITLE,
@@ -244,7 +244,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 4
 	}
 
-	def "sets name from page title, and cuts brackets when they are present"() {
+	void "sets name from page title, and cuts brackets when they are present"() {
 		given:
 		Page page = new Page(
 				title: TITLE + ' (civilian)',
@@ -262,7 +262,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 4
 	}
 
-	def "sets productOfRedirect flag to true"() {
+	void "sets productOfRedirect flag to true"() {
 		given:
 		Page page = new Page(
 				title: TITLE,
@@ -278,7 +278,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		individualTemplate.productOfRedirect
 	}
 
-	def "sets productOfRedirect flag to false"() {
+	void "sets productOfRedirect flag to false"() {
 		given:
 		Page page = new Page(
 				title: TITLE
@@ -293,7 +293,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		!individualTemplate.productOfRedirect
 	}
 
-	def "when sidebar individual is found, enriching processors are called, but not the characterbox processor, when there is no mbeta template"() {
+	void "when sidebar individual is found, enriching processors are called, but not the characterbox processor, when there is no mbeta template"() {
 		given:
 		List<Template.Part> templatePartList = Lists.newArrayList(Mock(Template.Part))
 		Page page = new Page(
@@ -325,7 +325,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		0 * _
 	}
 
-	def "when sidebar individual is found, enriching processors are called, including characterbox processor, when mbeta template is found"() {
+	void "when sidebar individual is found, enriching processors are called, including characterbox processor, when mbeta template is found"() {
 		given:
 		List<Template.Part> templatePartList = Lists.newArrayList(Mock(Template.Part))
 		Page page = new Page(

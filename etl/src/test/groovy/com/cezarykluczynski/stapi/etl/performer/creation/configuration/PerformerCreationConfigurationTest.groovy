@@ -22,19 +22,19 @@ import org.springframework.context.ApplicationContext
 class PerformerCreationConfigurationTest extends AbstractCreationConfigurationTest {
 
 	private static final String TITLE_PERFORMERS = 'TITLE_PERFORMERS'
-	private static final String TITLE_ANIMAL_PERFORMERS = "TITLE_ANIMAL_PERFORMERS"
-	private static final String TITLE_DIS_PERFORMERS = "TITLE_DIS_PERFORMERS"
-	private static final String TITLE_DS9_PERFORMERS = "TITLE_DS9_PERFORMERS"
-	private static final String TITLE_ENT_PERFORMERS = "TITLE_ENT_PERFORMERS"
-	private static final String TITLE_FILM_PERFORMERS = "TITLE_FILM_PERFORMERS"
-	private static final String TITLE_STAND_INS = "TITLE_STAND_INS"
-	private static final String TITLE_STUNT_PERFORMERS = "TITLE_STUNT_PERFORMERS"
-	private static final String TITLE_TAS_PERFORMERS = "TITLE_TAS_PERFORMERS"
-	private static final String TITLE_TNG_PERFORMERS = "TITLE_TNG_PERFORMERS"
-	private static final String TITLE_TOS_PERFORMERS = "TITLE_TOS_PERFORMERS"
-	private static final String TITLE_VIDEO_GAME_PERFORMERS = "TITLE_VIDEO_GAME_PERFORMERS"
-	private static final String TITLE_VOICE_PERFORMERS = "TITLE_VOICE_PERFORMERS"
-	private static final String TITLE_VOY_PERFORMERS = "TITLE_VOY_PERFORMERS"
+	private static final String TITLE_ANIMAL_PERFORMERS = 'TITLE_ANIMAL_PERFORMERS'
+	private static final String TITLE_DIS_PERFORMERS = 'TITLE_DIS_PERFORMERS'
+	private static final String TITLE_DS9_PERFORMERS = 'TITLE_DS9_PERFORMERS'
+	private static final String TITLE_ENT_PERFORMERS = 'TITLE_ENT_PERFORMERS'
+	private static final String TITLE_FILM_PERFORMERS = 'TITLE_FILM_PERFORMERS'
+	private static final String TITLE_STAND_INS = 'TITLE_STAND_INS'
+	private static final String TITLE_STUNT_PERFORMERS = 'TITLE_STUNT_PERFORMERS'
+	private static final String TITLE_TAS_PERFORMERS = 'TITLE_TAS_PERFORMERS'
+	private static final String TITLE_TNG_PERFORMERS = 'TITLE_TNG_PERFORMERS'
+	private static final String TITLE_TOS_PERFORMERS = 'TITLE_TOS_PERFORMERS'
+	private static final String TITLE_VIDEO_GAME_PERFORMERS = 'TITLE_VIDEO_GAME_PERFORMERS'
+	private static final String TITLE_VOICE_PERFORMERS = 'TITLE_VOICE_PERFORMERS'
+	private static final String TITLE_VOY_PERFORMERS = 'TITLE_VOY_PERFORMERS'
 
 	private ApplicationContext applicationContextMock
 
@@ -44,7 +44,7 @@ class PerformerCreationConfigurationTest extends AbstractCreationConfigurationTe
 
 	private PerformerCreationConfiguration performerCreationConfiguration
 
-	def setup() {
+	void setup() {
 		applicationContextMock = Mock(ApplicationContext)
 		categoryApiMock = Mock(CategoryApi)
 		jobCompletenessDeciderMock = Mock(StepCompletenessDecider)
@@ -54,7 +54,7 @@ class PerformerCreationConfigurationTest extends AbstractCreationConfigurationTe
 				stepCompletenessDecider: jobCompletenessDeciderMock)
 	}
 
-	def "PerformerReader is created is created with all pages when step is not completed"() {
+	void "PerformerReader is created is created with all pages when step is not completed"() {
 		when:
 		PerformerReader performerReader = performerCreationConfiguration.performerReader()
 		List<String> categoryHeaderTitleList = readerToList(performerReader)
@@ -62,20 +62,33 @@ class PerformerCreationConfigurationTest extends AbstractCreationConfigurationTe
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_PERFORMERS) >> false
 		1 * categoryApiMock.getPages(CategoryName.PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_PERFORMERS)
-		1 * categoryApiMock.getPages(CategoryName.ANIMAL_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_ANIMAL_PERFORMERS)
-		1 * categoryApiMock.getPages(CategoryName.DIS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_DIS_PERFORMERS)
-		1 * categoryApiMock.getPages(CategoryName.DS9_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_DS9_PERFORMERS)
-		1 * categoryApiMock.getPages(CategoryName.ENT_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_ENT_PERFORMERS)
-		1 * categoryApiMock.getPages(CategoryName.FILM_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_FILM_PERFORMERS)
+		1 * categoryApiMock.getPages(CategoryName.ANIMAL_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+				createListWithPageHeaderTitle(TITLE_ANIMAL_PERFORMERS)
+		1 * categoryApiMock.getPages(CategoryName.DIS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+				createListWithPageHeaderTitle(TITLE_DIS_PERFORMERS)
+		1 * categoryApiMock.getPages(CategoryName.DS9_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+				createListWithPageHeaderTitle(TITLE_DS9_PERFORMERS)
+		1 * categoryApiMock.getPages(CategoryName.ENT_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+				createListWithPageHeaderTitle(TITLE_ENT_PERFORMERS)
+		1 * categoryApiMock.getPages(CategoryName.FILM_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+				createListWithPageHeaderTitle(TITLE_FILM_PERFORMERS)
 		1 * categoryApiMock.getPages(CategoryName.STAND_INS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_STAND_INS)
-		1 * categoryApiMock.getPages(CategoryName.STUNT_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_STUNT_PERFORMERS)
-		1 * categoryApiMock.getPages(CategoryName.TAS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_TAS_PERFORMERS)
-		1 * categoryApiMock.getPages(CategoryName.TNG_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_TNG_PERFORMERS)
-		1 * categoryApiMock.getPages(CategoryName.TOS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_TOS_PERFORMERS)
-		1 * categoryApiMock.getPages(CategoryName.TOS_REMASTERED_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_TOS_PERFORMERS)
-		1 * categoryApiMock.getPages(CategoryName.VIDEO_GAME_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_VIDEO_GAME_PERFORMERS)
-		1 * categoryApiMock.getPages(CategoryName.VOICE_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_VOICE_PERFORMERS)
-		1 * categoryApiMock.getPages(CategoryName.VOY_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_VOY_PERFORMERS)
+		1 * categoryApiMock.getPages(CategoryName.STUNT_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+				createListWithPageHeaderTitle(TITLE_STUNT_PERFORMERS)
+		1 * categoryApiMock.getPages(CategoryName.TAS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+				createListWithPageHeaderTitle(TITLE_TAS_PERFORMERS)
+		1 * categoryApiMock.getPages(CategoryName.TNG_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+				createListWithPageHeaderTitle(TITLE_TNG_PERFORMERS)
+		1 * categoryApiMock.getPages(CategoryName.TOS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+				createListWithPageHeaderTitle(TITLE_TOS_PERFORMERS)
+		1 * categoryApiMock.getPages(CategoryName.TOS_REMASTERED_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+				createListWithPageHeaderTitle(TITLE_TOS_PERFORMERS)
+		1 * categoryApiMock.getPages(CategoryName.VIDEO_GAME_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+				createListWithPageHeaderTitle(TITLE_VIDEO_GAME_PERFORMERS)
+		1 * categoryApiMock.getPages(CategoryName.VOICE_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+				createListWithPageHeaderTitle(TITLE_VOICE_PERFORMERS)
+		1 * categoryApiMock.getPages(CategoryName.VOY_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+				createListWithPageHeaderTitle(TITLE_VOY_PERFORMERS)
 		0 * _
 		categoryHeaderTitleList.contains TITLE_PERFORMERS
 		categoryHeaderTitleList.contains TITLE_ANIMAL_PERFORMERS
@@ -93,7 +106,7 @@ class PerformerCreationConfigurationTest extends AbstractCreationConfigurationTe
 		categoryHeaderTitleList.contains TITLE_VOY_PERFORMERS
 	}
 
-	def "PerformerReader is created with no pages when step is completed"() {
+	void "PerformerReader is created with no pages when step is completed"() {
 		when:
 		PerformerReader performerReader = performerCreationConfiguration.performerReader()
 		List<String> categoryHeaderTitleList = readerToList(performerReader)
@@ -104,7 +117,7 @@ class PerformerCreationConfigurationTest extends AbstractCreationConfigurationTe
 		categoryHeaderTitleList.empty
 	}
 
-	def "ActorTemplateSinglePageProcessor is created"() {
+	void "ActorTemplateSinglePageProcessor is created"() {
 		given:
 		PageToGenderProcessor pageToGenderProcessorMock = Mock(PageToGenderProcessor)
 		PageToLifeRangeProcessor pageToLifeRangeProcessorMock = Mock(PageToLifeRangeProcessor)
@@ -136,7 +149,7 @@ class PerformerCreationConfigurationTest extends AbstractCreationConfigurationTe
 
 	}
 
-	def "ActorTemplatePageProcessor is created"() {
+	void "ActorTemplatePageProcessor is created"() {
 		given:
 		ActorTemplateSinglePageProcessor actorTemplateSinglePageProcessorMock = Mock(ActorTemplateSinglePageProcessor)
 		ActorTemplateListPageProcessor actorTemplateListPageProcessorMock = Mock(ActorTemplateListPageProcessor)

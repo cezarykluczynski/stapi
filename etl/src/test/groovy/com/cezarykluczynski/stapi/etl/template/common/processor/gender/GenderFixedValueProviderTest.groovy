@@ -8,11 +8,11 @@ class GenderFixedValueProviderTest extends Specification {
 
 	private GenderFixedValueProvider pageToGenderSupplementaryProcessor
 
-	def setup() {
+	void setup() {
 		pageToGenderSupplementaryProcessor = new GenderFixedValueProvider()
 	}
 
-	def "gets fixed value holder when name is found"() {
+	void "gets fixed value holder when name is found"() {
 		when:
 		FixedValueHolder<Gender> fixedValueHolder = pageToGenderSupplementaryProcessor.getSearchedValue('Maurishka')
 
@@ -21,7 +21,7 @@ class GenderFixedValueProviderTest extends Specification {
 		fixedValueHolder.value == Gender.F
 	}
 
-	def "gets fixed value holder when name is not found"() {
+	void "gets fixed value holder when name is not found"() {
 		when:
 		FixedValueHolder<Gender> fixedValueHolder = pageToGenderSupplementaryProcessor.getSearchedValue('Brent Spiner')
 
@@ -30,7 +30,7 @@ class GenderFixedValueProviderTest extends Specification {
 		fixedValueHolder.value == null
 	}
 
-	def "gets fixed value holder when name is found, but null"() {
+	void "gets fixed value holder when name is found, but null"() {
 		when:
 		FixedValueHolder<Gender> fixedValueHolder = pageToGenderSupplementaryProcessor
 				.getSearchedValue('Two Steps From Hell')

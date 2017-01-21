@@ -16,39 +16,39 @@ class EnumMapperTest extends Specification {
 
 	private EnumMapper enumMapper
 
-	def setup() {
+	void setup() {
 		enumMapper = Mappers.getMapper(EnumMapper)
 	}
 
-	def "maps gender entity enum to soap enum"() {
+	void "maps gender entity enum to soap enum"() {
 		expect:
 		enumMapper.mapGenderFromEntityEnumToSoapEnum(null) == null
 		enumMapper.mapGenderFromEntityEnumToSoapEnum(GenderEntity.F) == SoapGenderEnum.F
 		enumMapper.mapGenderFromEntityEnumToSoapEnum(GenderEntity.M) == SoapGenderEnum.M
 	}
 
-	def "maps gender soap dto enum to entity enum"() {
+	void "maps gender soap dto enum to entity enum"() {
 		expect:
 		enumMapper.mapGenderFromSoapEnumToEntityEnum(null) == null
 		enumMapper.mapGenderFromSoapEnumToEntityEnum(SoapGenderEnum.F) == GenderEntity.F
 		enumMapper.mapGenderFromSoapEnumToEntityEnum(SoapGenderEnum.M) == GenderEntity.M
 	}
 
-	def "maps gender entity enum to rest enum"() {
+	void "maps gender entity enum to rest enum"() {
 		expect:
 		enumMapper.mapGenderFromEntityEnumToRestEnum(null) == null
 		enumMapper.mapGenderFromEntityEnumToRestEnum(GenderEntity.F) == RestGenderEnum.F
 		enumMapper.mapGenderFromEntityEnumToRestEnum(GenderEntity.M) == RestGenderEnum.M
 	}
 
-	def "maps gender rest dto enum to entity enum"() {
+	void "maps gender rest dto enum to entity enum"() {
 		expect:
 		enumMapper.mapGenderFromRestEnumToEntityEnum(null) == null
 		enumMapper.mapGenderFromRestEnumToEntityEnum(RestGenderEnum.F) == GenderEntity.F
 		enumMapper.mapGenderFromRestEnumToEntityEnum(RestGenderEnum.M) == GenderEntity.M
 	}
 
-	def "maps maritalStatus entity enum to soap enum"() {
+	void "maps maritalStatus entity enum to soap enum"() {
 		expect:
 		enumMapper.mapMaritalStatusFromEntityEnumToSoapEnum(null) == null
 		enumMapper.mapMaritalStatusFromEntityEnumToSoapEnum(MaritalStatusEntity.SINGLE) == SoapMaritalStatusEnum.SINGLE
@@ -61,7 +61,7 @@ class EnumMapperTest extends Specification {
 		enumMapper.mapMaritalStatusFromEntityEnumToSoapEnum(MaritalStatusEntity.CAPTAINS_WOMAN) == SoapMaritalStatusEnum.CAPTAINS_WOMAN
 	}
 
-	def "maps maritalStatus soap enum to entity enum"() {
+	void "maps maritalStatus soap enum to entity enum"() {
 		expect:
 		enumMapper.mapMaritalStatusFromSoapEnumToEntityEnum(null) == null
 		enumMapper.mapMaritalStatusFromSoapEnumToEntityEnum(SoapMaritalStatusEnum.SINGLE) == MaritalStatusEntity.SINGLE
@@ -74,7 +74,7 @@ class EnumMapperTest extends Specification {
 		enumMapper.mapMaritalStatusFromSoapEnumToEntityEnum(SoapMaritalStatusEnum.CAPTAINS_WOMAN) == MaritalStatusEntity.CAPTAINS_WOMAN
 	}
 
-	def "maps maritalStatus entity enum to rest enum"() {
+	void "maps maritalStatus entity enum to rest enum"() {
 		expect:
 		enumMapper.mapMaritalStatusFromEntityEnumToRestEnum(null) == null
 		enumMapper.mapMaritalStatusFromEntityEnumToRestEnum(MaritalStatusEntity.SINGLE) == RestMaritalStatusEnum.SINGLE
@@ -87,7 +87,7 @@ class EnumMapperTest extends Specification {
 		enumMapper.mapMaritalStatusFromEntityEnumToRestEnum(MaritalStatusEntity.CAPTAINS_WOMAN) == RestMaritalStatusEnum.CAPTAINS_WOMAN
 	}
 
-	def "maps maritalStatus rest enum to entity enum"() {
+	void "maps maritalStatus rest enum to entity enum"() {
 		expect:
 		enumMapper.mapMaritalStatusFromRestEnumToEntityEnum(null) == null
 		enumMapper.mapMaritalStatusFromRestEnumToEntityEnum(RestMaritalStatusEnum.SINGLE) == MaritalStatusEntity.SINGLE
@@ -100,7 +100,7 @@ class EnumMapperTest extends Specification {
 		enumMapper.mapMaritalStatusFromRestEnumToEntityEnum(RestMaritalStatusEnum.CAPTAINS_WOMAN) == MaritalStatusEntity.CAPTAINS_WOMAN
 	}
 
-	def "maps blood type entity enum to soap enum"() {
+	void "maps blood type entity enum to soap enum"() {
 		expect:
 		enumMapper.mapBloodTypeFromEntityEnumToSoapEnum(null) == null
 		enumMapper.mapBloodTypeFromEntityEnumToSoapEnum(BloodTypeEntity.B_NEGATIVE) == SoapBloodTypeEnum.B_NEGATIVE
@@ -108,7 +108,7 @@ class EnumMapperTest extends Specification {
 		enumMapper.mapBloodTypeFromEntityEnumToSoapEnum(BloodTypeEntity.T_NEGATIVE) == SoapBloodTypeEnum.T_NEGATIVE
 	}
 
-	def "maps gender soap enum to entity enum"() {
+	void "maps gender soap enum to entity enum"() {
 		expect:
 		enumMapper.mapBloodTypeFromSoapEnumToEntityEnum(null) == null
 		enumMapper.mapBloodTypeFromSoapEnumToEntityEnum(SoapBloodTypeEnum.B_NEGATIVE) == BloodTypeEntity.B_NEGATIVE
@@ -116,7 +116,7 @@ class EnumMapperTest extends Specification {
 		enumMapper.mapBloodTypeFromSoapEnumToEntityEnum(SoapBloodTypeEnum.T_NEGATIVE) == BloodTypeEntity.T_NEGATIVE
 	}
 
-	def "maps blood type entity enum to rest enum"() {
+	void "maps blood type entity enum to rest enum"() {
 		expect:
 		enumMapper.mapBloodTypeFromEntityEnumToRestEnum(null) == null
 		enumMapper.mapBloodTypeFromEntityEnumToRestEnum(BloodTypeEntity.B_NEGATIVE) == RestBloodTypeEnum.B_NEGATIVE
@@ -124,7 +124,7 @@ class EnumMapperTest extends Specification {
 		enumMapper.mapBloodTypeFromEntityEnumToRestEnum(BloodTypeEntity.T_NEGATIVE) == RestBloodTypeEnum.T_NEGATIVE
 	}
 
-	def "maps gender rest enum to entity enum"() {
+	void "maps gender rest enum to entity enum"() {
 		expect:
 		enumMapper.mapBloodTypeFromRestEnumToEntityEnum(null) == null
 		enumMapper.mapBloodTypeFromRestEnumToEntityEnum(RestBloodTypeEnum.B_NEGATIVE) == BloodTypeEntity.B_NEGATIVE

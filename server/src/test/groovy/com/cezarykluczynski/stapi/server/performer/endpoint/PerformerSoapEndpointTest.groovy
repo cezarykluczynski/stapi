@@ -11,12 +11,12 @@ class PerformerSoapEndpointTest extends Specification {
 
 	private PerformerSoapEndpoint performerSoapEndpoint
 
-	def setup() {
+	void setup() {
 		performerSoapReaderMock = Mock(PerformerSoapReader)
 		performerSoapEndpoint = new PerformerSoapEndpoint(performerSoapReaderMock)
 	}
 
-	def "passes call to PerformerSoapReader"() {
+	void "passes call to PerformerSoapReader"() {
 		given:
 		PerformerRequest performerRequest = Mock(PerformerRequest)
 		PerformerResponse performerResponse = Mock(PerformerResponse)

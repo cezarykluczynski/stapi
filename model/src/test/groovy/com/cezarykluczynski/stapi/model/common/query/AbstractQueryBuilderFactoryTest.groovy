@@ -16,7 +16,7 @@ class AbstractQueryBuilderFactoryTest extends Specification {
 
 	private static class ConcreteQueryBuilderFactory extends AbstractQueryBuilderFactory<Series> {
 
-		public ConcreteQueryBuilderFactory(JpaContext jpaContext) {
+		ConcreteQueryBuilderFactory(JpaContext jpaContext) {
 			super(jpaContext, Series)
 		}
 
@@ -24,7 +24,7 @@ class AbstractQueryBuilderFactoryTest extends Specification {
 
 	private static class ConcreteWithoutBaseClassQueryBuilderFactory extends AbstractQueryBuilderFactory<Series> {
 
-		public ConcreteWithoutBaseClassQueryBuilderFactory(JpaContext jpaContext) {
+		ConcreteWithoutBaseClassQueryBuilderFactory(JpaContext jpaContext) {
 			super(jpaContext, null)
 		}
 
@@ -34,12 +34,12 @@ class AbstractQueryBuilderFactoryTest extends Specification {
 
 	private AbstractQueryBuilderFactory abstractQueryBuilerFactory
 
-	def setup() {
+	void setup() {
 		jpaContextMock = Mock(JpaContext)
 		abstractQueryBuilerFactory = new ConcreteQueryBuilderFactory(jpaContextMock)
 	}
 
-	def "QueryBuilder is created"() {
+	void "QueryBuilder is created"() {
 		given:
 		CriteriaQuery<Series> criteriaQuery = Mock(CriteriaQuery)
 		CriteriaQuery<Long> countCriteriaQuery = Mock(CriteriaQuery)
@@ -47,14 +47,13 @@ class AbstractQueryBuilderFactoryTest extends Specification {
 			createQuery(Series) >> criteriaQuery
 			createQuery(Long) >> countCriteriaQuery
 		}
-		EntityManager entityManager = Mock(EntityManager) {
-			getCriteriaBuilder() >> criteriaBuilder
-			getMetamodel() >> Mock(Metamodel) {
-				entity(Series) >> Mock(EntityType) {
-					getDeclaredAttributes() >> Sets.newHashSet()
-				}
-			}
-		}
+		EntityManager entityManager = Mock(EntityManager)
+		EntityType entityType = Mock(EntityType)
+		entityType.declaredAttributes >> Sets.newHashSet()
+		Metamodel metamodel = Mock(Metamodel)
+		metamodel.entity(Series) >> entityType
+		entityManager.criteriaBuilder >> criteriaBuilder
+		entityManager.metamodel >> metamodel
 		Pageable pageable = Mock(Pageable)
 
 		when:
@@ -65,7 +64,7 @@ class AbstractQueryBuilderFactoryTest extends Specification {
 		seriesQueryBuilder != null
 	}
 
-	def "throws exception then entity manager is not set"() {
+	void "throws exception then entity manager is not set"() {
 		given:
 		Pageable pageable = Mock(Pageable)
 
@@ -76,7 +75,7 @@ class AbstractQueryBuilderFactoryTest extends Specification {
 		thrown(NullPointerException)
 	}
 
-	def "throws exception when base class is not set"() {
+	void "throws exception when base class is not set"() {
 		when:
 		new ConcreteWithoutBaseClassQueryBuilderFactory(jpaContextMock)
 
@@ -84,7 +83,7 @@ class AbstractQueryBuilderFactoryTest extends Specification {
 		thrown(NullPointerException)
 	}
 
-	def "throws exception when JPA context is not set"() {
+	void "throws exception when JPA context is not set"() {
 		when:
 		new ConcreteQueryBuilderFactory(null)
 

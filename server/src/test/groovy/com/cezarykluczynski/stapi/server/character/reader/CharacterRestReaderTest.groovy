@@ -24,19 +24,18 @@ class CharacterRestReaderTest extends Specification {
 
 	private CharacterRestReader characterRestReader
 
-	def setup() {
+	void setup() {
 		characterRestQueryBuilderMock = Mock(CharacterRestQuery)
 		characterRestMapperMock = Mock(CharacterRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		characterRestReader = new CharacterRestReader(characterRestQueryBuilderMock, characterRestMapperMock, pageMapperMock)
 	}
 
-	def "gets database entities and puts them into CharacterResponse"() {
+	void "gets database entities and puts them into CharacterResponse"() {
 		given:
 		List<DBCharacter> dbCharacterList = Lists.newArrayList()
-		Page<DBCharacter> dbCharacterPage = Mock(Page) {
-			getContent() >> dbCharacterList
-		}
+		Page<DBCharacter> dbCharacterPage = Mock(Page)
+		dbCharacterPage.content >> dbCharacterList
 		List<RESTCharacter> soapCharacterList = Lists.newArrayList(new RESTCharacter(guid: GUID))
 		CharacterRestBeanParams seriesRestBeanParams = Mock(CharacterRestBeanParams)
 		ResponsePage responsePage = Mock(ResponsePage)

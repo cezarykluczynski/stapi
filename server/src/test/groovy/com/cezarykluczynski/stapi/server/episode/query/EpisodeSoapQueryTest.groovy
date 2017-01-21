@@ -20,7 +20,7 @@ class EpisodeSoapQueryTest extends Specification {
 
 	private EpisodeSoapQuery episodeSoapQuery
 
-	def setup() {
+	void setup() {
 		episodeSoapMapperMock = Mock(EpisodeSoapMapper)
 		pageMapperMock = Mock(PageMapper)
 		episodeRepositoryMock = Mock(EpisodeRepository)
@@ -28,13 +28,12 @@ class EpisodeSoapQueryTest extends Specification {
 				episodeRepositoryMock)
 	}
 
-	def "maps EpisodeRequest to EpisodeRequestDTO and to PageRequest, then calls repository, then returns result"() {
+	void "maps EpisodeRequest to EpisodeRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
 		RequestPage requestPage = Mock(RequestPage)
 		PageRequest pageRequest = Mock(PageRequest)
-		EpisodeRequest episodeRequest = Mock(EpisodeRequest) {
-			getPage() >> requestPage
-		}
+		EpisodeRequest episodeRequest = Mock(EpisodeRequest)
+		episodeRequest.page >> requestPage
 		EpisodeRequestDTO episodeRequestDTO = Mock(EpisodeRequestDTO)
 		Page page = Mock(Page)
 

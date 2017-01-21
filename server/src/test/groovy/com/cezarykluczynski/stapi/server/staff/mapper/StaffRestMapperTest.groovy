@@ -11,11 +11,11 @@ class StaffRestMapperTest extends AbstractStaffMapperTest {
 
 	private StaffRestMapper staffRestMapper
 
-	def setup() {
+	void setup() {
 		staffRestMapper = Mappers.getMapper(StaffRestMapper)
 	}
 
-	def "maps StaffRestBeanParams to StaffRequestDTO"() {
+	void "maps StaffRestBeanParams to StaffRequestDTO"() {
 		given:
 		StaffRestBeanParams staffRestBeanParams = new StaffRestBeanParams(
 				guid: GUID,
@@ -155,7 +155,7 @@ class StaffRestMapperTest extends AbstractStaffMapperTest {
 		staffRequestDTO.writer == WRITER
 	}
 
-	def "maps DB entity to REST entity"() {
+	void "maps DB entity to REST entity"() {
 		given:
 		DBStaff dBStaff = createStaff()
 

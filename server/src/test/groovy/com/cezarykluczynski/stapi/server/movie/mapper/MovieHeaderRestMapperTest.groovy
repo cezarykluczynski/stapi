@@ -9,11 +9,11 @@ class MovieHeaderRestMapperTest extends AbstractMovieMapperTest {
 
 	private MovieHeaderRestMapper movieHeaderRestMapper
 
-	def setup() {
+	void setup() {
 		movieHeaderRestMapper = Mappers.getMapper(MovieHeaderRestMapper)
 	}
 
-	def "maps DB entity to REST header"() {
+	void "maps DB entity to REST header"() {
 		given:
 		Movie movie = new Movie(
 				guid: GUID,

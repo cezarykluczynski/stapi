@@ -67,7 +67,7 @@ class EtlJobConfigurationTest extends Specification {
 
 	private StepProperties stepProperties
 
-	def setup() {
+	void setup() {
 		jobBuilderMock = Mock(JobBuilder)
 		applicationContextMock = Mock(ApplicationContext)
 		stepBuilderFactoryMock = Mock(StepBuilderFactory)
@@ -88,7 +88,7 @@ class EtlJobConfigurationTest extends Specification {
 		stepProperties = Mock(StepProperties)
 	}
 
-	def "passed JOB_CREATE bean creation to JobBuilder, and returns FactoryBean"() {
+	void "passed JOB_CREATE bean creation to JobBuilder, and returns FactoryBean"() {
 		given:
 		Job job = Mock(Job)
 
@@ -101,7 +101,7 @@ class EtlJobConfigurationTest extends Specification {
 		0 * _
 	}
 
-	def "CREATE_SERIES step is created"() {
+	void "CREATE_SERIES step is created"() {
 		when:
 		Step step = etlJobConfiguration.stepCreateSeries()
 
@@ -109,8 +109,8 @@ class EtlJobConfigurationTest extends Specification {
 		1 * stepBuilderFactoryMock.get(StepName.CREATE_SERIES) >> stepBuilderMock
 
 		then: 'commit interval is configured'
-		1 * stepsPropertiesMock.getCreateSeries() >> stepProperties
-		1 * stepProperties.getCommitInterval() >> STEP_SIZE
+		1 * stepsPropertiesMock.createSeries >> stepProperties
+		1 * stepProperties.commitInterval >> STEP_SIZE
 		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
@@ -134,7 +134,7 @@ class EtlJobConfigurationTest extends Specification {
 		step == taskletStepMock
 	}
 
-	def "CREATE_PERFORMERS step is created"() {
+	void "CREATE_PERFORMERS step is created"() {
 		when:
 		Step step = etlJobConfiguration.stepCreatePerformers()
 
@@ -142,8 +142,8 @@ class EtlJobConfigurationTest extends Specification {
 		1 * stepBuilderFactoryMock.get(StepName.CREATE_PERFORMERS) >> stepBuilderMock
 
 		then: 'commit interval is configured'
-		1 * stepsPropertiesMock.getCreatePerformers() >> stepProperties
-		1 * stepProperties.getCommitInterval() >> STEP_SIZE
+		1 * stepsPropertiesMock.createPerformers >> stepProperties
+		1 * stepProperties.commitInterval >> STEP_SIZE
 		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
@@ -167,7 +167,7 @@ class EtlJobConfigurationTest extends Specification {
 		step == taskletStepMock
 	}
 
-	def "CREATE_STAFF step is created"() {
+	void "CREATE_STAFF step is created"() {
 		when:
 		Step step = etlJobConfiguration.stepCreateStaff()
 
@@ -175,8 +175,8 @@ class EtlJobConfigurationTest extends Specification {
 		1 * stepBuilderFactoryMock.get(StepName.CREATE_STAFF) >> stepBuilderMock
 
 		then: 'commit interval is configured'
-		1 * stepsPropertiesMock.getCreateStaff() >> stepProperties
-		1 * stepProperties.getCommitInterval() >> STEP_SIZE
+		1 * stepsPropertiesMock.createStaff >> stepProperties
+		1 * stepProperties.commitInterval >> STEP_SIZE
 		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
@@ -200,7 +200,7 @@ class EtlJobConfigurationTest extends Specification {
 		step == taskletStepMock
 	}
 
-	def "CREATE_CHARACTERS step is created"() {
+	void "CREATE_CHARACTERS step is created"() {
 		when:
 		Step step = etlJobConfiguration.stepCreateCharacters()
 
@@ -208,8 +208,8 @@ class EtlJobConfigurationTest extends Specification {
 		1 * stepBuilderFactoryMock.get(StepName.CREATE_CHARACTERS) >> stepBuilderMock
 
 		then: 'commit interval is configured'
-		1 * stepsPropertiesMock.getCreateCharacters() >> stepProperties
-		1 * stepProperties.getCommitInterval() >> STEP_SIZE
+		1 * stepsPropertiesMock.createCharacters >> stepProperties
+		1 * stepProperties.commitInterval >> STEP_SIZE
 		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
@@ -233,7 +233,7 @@ class EtlJobConfigurationTest extends Specification {
 		step == taskletStepMock
 	}
 
-	def "CREATE_EPISODES step is created"() {
+	void "CREATE_EPISODES step is created"() {
 		when:
 		Step step = etlJobConfiguration.stepCreateEpisodes()
 
@@ -241,8 +241,8 @@ class EtlJobConfigurationTest extends Specification {
 		1 * stepBuilderFactoryMock.get(StepName.CREATE_EPISODES) >> stepBuilderMock
 
 		then: 'commit interval is configured'
-		1 * stepsPropertiesMock.getCreateEpisodes() >> stepProperties
-		1 * stepProperties.getCommitInterval() >> STEP_SIZE
+		1 * stepsPropertiesMock.createEpisodes >> stepProperties
+		1 * stepProperties.commitInterval >> STEP_SIZE
 		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'
@@ -266,7 +266,7 @@ class EtlJobConfigurationTest extends Specification {
 		step == taskletStepMock
 	}
 
-	def "CREATE_MOVIES step is created"() {
+	void "CREATE_MOVIES step is created"() {
 		when:
 		Step step = etlJobConfiguration.stepCreateMovies()
 
@@ -274,8 +274,8 @@ class EtlJobConfigurationTest extends Specification {
 		1 * stepBuilderFactoryMock.get(StepName.CREATE_MOVIES) >> stepBuilderMock
 
 		then: 'commit interval is configured'
-		1 * stepsPropertiesMock.getCreateMovies() >> stepProperties
-		1 * stepProperties.getCommitInterval() >> STEP_SIZE
+		1 * stepsPropertiesMock.createMovies >> stepProperties
+		1 * stepProperties.commitInterval >> STEP_SIZE
 		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
 
 		then: 'beans are retrieved from application context, then passed to builder'

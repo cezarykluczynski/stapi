@@ -36,17 +36,16 @@ ${MediaWikiSource.MEMORY_BETA_EN.name()}:
 
 	FrequentHitCachingHelperDumpFormatter frequentHitCachingHelperDumpFormatter
 
-	def setup() {
+	void setup() {
 		frequentHitCachingHelperDumpFormatter = new FrequentHitCachingHelperDumpFormatter()
 	}
 
-	def "formats cache map"() {
+	void "formats cache map"() {
 		when:
 		String formattedMap = frequentHitCachingHelperDumpFormatter.format(CACHE_MAP)
 
 		then:
 		formattedMap == FORMATTED_MAP
 	}
-
 
 }

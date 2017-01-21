@@ -24,19 +24,18 @@ class EpisodeSoapReaderTest extends Specification {
 
 	private EpisodeSoapReader episodeSoapReader
 
-	def setup() {
+	void setup() {
 		episodeSoapQueryBuilderMock = Mock(EpisodeSoapQuery)
 		episodeSoapMapperMock = Mock(EpisodeSoapMapper)
 		pageMapperMock = Mock(PageMapper)
 		episodeSoapReader = new EpisodeSoapReader(episodeSoapQueryBuilderMock, episodeSoapMapperMock, pageMapperMock)
 	}
 
-	def "gets database entities and puts them into EpisodeResponse"() {
+	void "gets database entities and puts them into EpisodeResponse"() {
 		given:
 		List<DBEpisode> dbEpisodeList = Lists.newArrayList()
-		Page<DBEpisode> dbEpisodePage = Mock(Page) {
-			getContent() >> dbEpisodeList
-		}
+		Page<DBEpisode> dbEpisodePage = Mock(Page)
+		dbEpisodePage.content >> dbEpisodeList
 		List<SOAPEpisode> soapEpisodeList = Lists.newArrayList(new SOAPEpisode(guid: GUID))
 		EpisodeRequest episodeRequest = Mock(EpisodeRequest)
 		ResponsePage responsePage = Mock(ResponsePage)

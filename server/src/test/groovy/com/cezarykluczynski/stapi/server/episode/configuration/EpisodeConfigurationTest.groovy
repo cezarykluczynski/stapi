@@ -17,12 +17,12 @@ class EpisodeConfigurationTest extends Specification {
 
 	private EpisodeConfiguration episodeConfiguration
 
-	def setup() {
+	void setup() {
 		applicationContextMock = Mock(ApplicationContext)
 		episodeConfiguration = new EpisodeConfiguration(applicationContext: applicationContextMock)
 	}
 
-	def "episode soap endpoint is created"() {
+	void "episode soap endpoint is created"() {
 		given:
 		SpringBus springBus = new SpringBus()
 		EpisodeSoapReader episodeSoapReaderMock = Mock(EpisodeSoapReader)
@@ -31,15 +31,15 @@ class EpisodeConfigurationTest extends Specification {
 		Endpoint episodeSoapEndpoint = episodeConfiguration.episodeSoapEndpoint()
 
 		then:
-		1 * applicationContextMock.getBean(SpringBus.class) >> springBus
-		1 * applicationContextMock.getBean(EpisodeSoapReader.class) >> episodeSoapReaderMock
+		1 * applicationContextMock.getBean(SpringBus) >> springBus
+		1 * applicationContextMock.getBean(EpisodeSoapReader) >> episodeSoapReaderMock
 		episodeSoapEndpoint != null
 		((EndpointImpl) episodeSoapEndpoint).implementor instanceof EpisodeSoapEndpoint
 		((EndpointImpl) episodeSoapEndpoint).bus == springBus
 		episodeSoapEndpoint.published
 	}
 
-	def "EpisodeSoapMapper is created"() {
+	void "EpisodeSoapMapper is created"() {
 		when:
 		EpisodeSoapMapper episodeSoapMapper = episodeConfiguration.episodeSoapMapper()
 
@@ -47,7 +47,7 @@ class EpisodeConfigurationTest extends Specification {
 		episodeSoapMapper != null
 	}
 
-	def "EpisodeRestMapper is created"() {
+	void "EpisodeRestMapper is created"() {
 		when:
 		EpisodeRestMapper episodeRestMapper = episodeConfiguration.episodeRestMapper()
 

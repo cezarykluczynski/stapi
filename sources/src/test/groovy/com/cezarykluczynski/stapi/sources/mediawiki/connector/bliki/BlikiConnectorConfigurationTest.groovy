@@ -14,7 +14,7 @@ class BlikiConnectorConfigurationTest extends Specification {
 
 	private BlikiConnectorConfiguration blikiConnectorConfiguration
 
-	def setup() {
+	void setup() {
 		mediaWikiSourcesProperties = new MediaWikiSourcesProperties()
 
 		mediaWikiSourcesProperties.memoryAlphaEn = new MediaWikiSourceProperties()
@@ -28,7 +28,7 @@ class BlikiConnectorConfigurationTest extends Specification {
 		)
 	}
 
-	def "creates Memory Alpha EN user decorator"() {
+	void "creates Memory Alpha EN user decorator"() {
 		when:
 		UserDecorator userDecorator = blikiConnectorConfiguration.memoryAlphaEnUserDecorator()
 
@@ -36,7 +36,7 @@ class BlikiConnectorConfigurationTest extends Specification {
 		userDecorator.actionUrl == MEMORY_ALPHA_EN_API_URL
 	}
 
-	def "creates Memory Beta EN user decorator"() {
+	void "creates Memory Beta EN user decorator"() {
 		when:
 		UserDecorator userDecorator = blikiConnectorConfiguration.memoryBetaEnUserDecorator()
 
@@ -44,7 +44,7 @@ class BlikiConnectorConfigurationTest extends Specification {
 		userDecorator.actionUrl == MEMORY_BETA_EN_API_URL
 	}
 
-	def "creates technical helper user decorator"() {
+	void "creates technical helper user decorator"() {
 		when:
 		UserDecorator userDecorator = blikiConnectorConfiguration.technicalHelperUserDecorator()
 

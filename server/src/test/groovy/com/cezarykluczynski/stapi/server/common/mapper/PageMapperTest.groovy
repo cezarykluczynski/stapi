@@ -22,21 +22,20 @@ class PageMapperTest extends Specification {
 
 	private PageMapper pageMapper
 
-	def setup() {
+	void setup() {
 		pageMapper = Mappers.getMapper(PageMapper)
 	}
 
-	def "maps Page to SOAP ResponsePage"() {
+	void "maps Page to SOAP ResponsePage"() {
 		given:
-		Page page = Mock(Page) {
-			getNumber() >> PAGE_NUMBER
-			getSize() >> PAGE_SIZE
-			getTotalElements() >> TOTAL_ELEMENTS
-			getTotalPages() >> TOTAL_PAGES
-			getNumberOfElements() >> NUMBER_OF_ELEMENTS
-			isFirst() >> IS_FIRST_PAGE
-			isLast() >> IS_LAST_PAGE
-		}
+		Page page = Mock(Page)
+		page.number >> PAGE_NUMBER
+		page.size >> PAGE_SIZE
+		page.totalElements >> TOTAL_ELEMENTS
+		page.totalPages >> TOTAL_PAGES
+		page.numberOfElements >> NUMBER_OF_ELEMENTS
+		page.isFirst() >> IS_FIRST_PAGE
+		page.isLast() >> IS_LAST_PAGE
 
 		when:
 		SOAPResponsePage responsePage = pageMapper.fromPageToSoapResponsePage(page)
@@ -51,17 +50,16 @@ class PageMapperTest extends Specification {
 		responsePage.lastPage == IS_LAST_PAGE
 	}
 
-	def "maps Page to REST ResponsePage"() {
+	void "maps Page to REST ResponsePage"() {
 		given:
-		Page page = Mock(Page) {
-			getNumber() >> PAGE_NUMBER
-			getSize() >> PAGE_SIZE
-			getTotalElements() >> TOTAL_ELEMENTS
-			getTotalPages() >> TOTAL_PAGES
-			getNumberOfElements() >> NUMBER_OF_ELEMENTS
-			isFirst() >> IS_FIRST_PAGE
-			isLast() >> IS_LAST_PAGE
-		}
+		Page page = Mock(Page)
+		page.number >> PAGE_NUMBER
+		page.size >> PAGE_SIZE
+		page.totalElements >> TOTAL_ELEMENTS
+		page.totalPages >> TOTAL_PAGES
+		page.numberOfElements >> NUMBER_OF_ELEMENTS
+		page.isFirst() >> IS_FIRST_PAGE
+		page.isLast() >> IS_LAST_PAGE
 
 		when:
 		RESTResponsePage responsePage = pageMapper.fromPageToRestResponsePage(page)
@@ -76,7 +74,7 @@ class PageMapperTest extends Specification {
 		responsePage.lastPage == IS_LAST_PAGE
 	}
 
-	def "maps RequestPage to PageRequest"() {
+	void "maps RequestPage to PageRequest"() {
 		given:
 		RequestPage requestPage = new RequestPage(pageNumber: PAGE_NUMBER, pageSize: PAGE_SIZE)
 
@@ -88,7 +86,7 @@ class PageMapperTest extends Specification {
 		pageRequest.pageSize == PAGE_SIZE
 	}
 
-	def "ensures that ranges are respected when mapping from RequestPage"() {
+	void "ensures that ranges are respected when mapping from RequestPage"() {
 		when:
 		PageRequest requestPageWithTooLowPageNumber = pageMapper.fromRequestPageToPageRequest new RequestPage(pageNumber: -1)
 
@@ -108,7 +106,7 @@ class PageMapperTest extends Specification {
 		pageRequestWithTooHighPageSize.pageSize == PageDefault.PAGE_SIZE_MAX
 	}
 
-	def "maps RequestPage with null values to PageRequest with default values"() {
+	void "maps RequestPage with null values to PageRequest with default values"() {
 		when:
 		PageRequest pageRequest = pageMapper.fromRequestPageToPageRequest new RequestPage()
 
@@ -117,7 +115,7 @@ class PageMapperTest extends Specification {
 		pageRequest.pageSize == PageDefault.PAGE_SIZE
 	}
 
-	def "maps null RequestPage to default PageRequest"() {
+	void "maps null RequestPage to default PageRequest"() {
 		when:
 		PageRequest pageRequest = pageMapper.fromRequestPageToPageRequest null
 
@@ -125,12 +123,11 @@ class PageMapperTest extends Specification {
 		pageRequest == PageDefault.PAGE_REQUEST
 	}
 
-	def "maps PageAwareBeanParams to PageRequest"() {
+	void "maps PageAwareBeanParams to PageRequest"() {
 		given:
-		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams) {
-			getPageNumber() >> PAGE_NUMBER
-			getPageSize() >> PAGE_SIZE
-		}
+		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams)
+		pageAwareBeanParams.pageNumber >> PAGE_NUMBER
+		pageAwareBeanParams.pageSize >> PAGE_SIZE
 
 		when:
 		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest pageAwareBeanParams
@@ -140,33 +137,35 @@ class PageMapperTest extends Specification {
 		pageRequest.pageSize == PAGE_SIZE
 	}
 
-	def "ensures that ranges are respected when mapping from PageSortBeanParams"() {
+	void "ensures that ranges are respected when mapping from PageSortBeanParams"() {
+		given:
+		PageSortBeanParams pageSortBeanParams1 = Mock(PageSortBeanParams)
+		pageSortBeanParams1.pageNumber >> -1
+		PageSortBeanParams pageSortBeanParams2 = Mock(PageSortBeanParams)
+		pageSortBeanParams2.pageSize >> -1
+		PageSortBeanParams pageSortBeanParams3 = Mock(PageSortBeanParams)
+		pageSortBeanParams3.pageSize >> 10000
+
 		when:
-		PageRequest pageRequestWithTooLowPageNumber = pageMapper.fromPageSortBeanParamsToPageRequest Mock(PageSortBeanParams) {
-			getPageNumber() >> -1
-		}
+		PageRequest pageRequestWithTooLowPageNumber = pageMapper.fromPageSortBeanParamsToPageRequest pageSortBeanParams1
 
 		then:
 		pageRequestWithTooLowPageNumber.pageNumber == PageDefault.PAGE_NUMBER
 
 		when:
-		PageRequest pageRequestWithTooLowPageSize = pageMapper.fromPageSortBeanParamsToPageRequest Mock(PageSortBeanParams) {
-			getPageSize() >> -1
-		}
+		PageRequest pageRequestWithTooLowPageSize = pageMapper.fromPageSortBeanParamsToPageRequest pageSortBeanParams2
 
 		then:
 		pageRequestWithTooLowPageSize.pageSize == PageDefault.PAGE_SIZE
 
 		when:
-		PageRequest pageRequestWithTooHighPageSize = pageMapper.fromPageSortBeanParamsToPageRequest Mock(PageSortBeanParams) {
-			getPageSize() >> 10000
-		}
+		PageRequest pageRequestWithTooHighPageSize = pageMapper.fromPageSortBeanParamsToPageRequest pageSortBeanParams3
 
 		then:
 		pageRequestWithTooHighPageSize.pageSize == PageDefault.PAGE_SIZE_MAX
 	}
 
-	def "maps PageAwareBeanParams with null values to PageRequest with default values"() {
+	void "maps PageAwareBeanParams with null values to PageRequest with default values"() {
 		when:
 		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest Mock(PageSortBeanParams)
 
@@ -175,7 +174,7 @@ class PageMapperTest extends Specification {
 		pageRequest.pageSize == PageDefault.PAGE_SIZE
 	}
 
-	def "maps null PageAwareBeanParams to default PageRequest"() {
+	void "maps null PageAwareBeanParams to default PageRequest"() {
 		when:
 		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest null
 

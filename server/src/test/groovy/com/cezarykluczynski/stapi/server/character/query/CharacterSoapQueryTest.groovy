@@ -20,7 +20,7 @@ class CharacterSoapQueryTest extends Specification {
 
 	private CharacterSoapQuery characterSoapQuery
 
-	def setup() {
+	void setup() {
 		characterSoapMapperMock = Mock(CharacterSoapMapper)
 		pageMapperMock = Mock(PageMapper)
 		characterRepositoryMock = Mock(CharacterRepository)
@@ -28,13 +28,12 @@ class CharacterSoapQueryTest extends Specification {
 				characterRepositoryMock)
 	}
 
-	def "maps CharacterRequest to CharacterRequestDTO and to PageRequest, then calls repository, then returns result"() {
+	void "maps CharacterRequest to CharacterRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
 		RequestPage requestPage = Mock(RequestPage)
 		PageRequest pageRequest = Mock(PageRequest)
-		CharacterRequest characterRequest = Mock(CharacterRequest) {
-			getPage() >> requestPage
-		}
+		CharacterRequest characterRequest = Mock(CharacterRequest)
+		characterRequest.page >> requestPage
 		CharacterRequestDTO characterRequestDTO = Mock(CharacterRequestDTO)
 		Page page = Mock(Page)
 

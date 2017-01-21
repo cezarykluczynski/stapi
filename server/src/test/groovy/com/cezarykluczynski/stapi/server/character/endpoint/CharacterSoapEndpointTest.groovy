@@ -11,12 +11,12 @@ class CharacterSoapEndpointTest extends Specification {
 
 	private CharacterSoapEndpoint characterSoapEndpoint
 
-	def setup() {
+	void setup() {
 		characterSoapReaderMock = Mock(CharacterSoapReader)
 		characterSoapEndpoint = new CharacterSoapEndpoint(characterSoapReaderMock)
 	}
 
-	def "passes call to CharacterSoapReader"() {
+	void "passes call to CharacterSoapReader"() {
 		given:
 		CharacterRequest characterRequest = Mock(CharacterRequest)
 		CharacterResponse characterResponse = Mock(CharacterResponse)

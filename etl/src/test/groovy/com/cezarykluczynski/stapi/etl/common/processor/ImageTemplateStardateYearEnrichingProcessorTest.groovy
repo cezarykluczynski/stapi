@@ -28,14 +28,14 @@ class ImageTemplateStardateYearEnrichingProcessorTest extends AbstractTemplatePr
 
 	private ImageTemplateStardateYearEnrichingProcessor imageTemplateStardateYearEnrichingProcessor
 
-	def setup() {
+	void setup() {
 		episodeTemplateStardateYearFixedValueProviderMock = Mock(EpisodeTemplateStardateYearFixedValueProvider)
 		stardateYearProcessorMock = Mock(StardateYearProcessor)
 		imageTemplateStardateYearEnrichingProcessor = new ImageTemplateStardateYearEnrichingProcessor(
 				episodeTemplateStardateYearFixedValueProviderMock, stardateYearProcessorMock)
 	}
 
-	def "when title is not found, values is set from StardateYearProcessor"() {
+	void "when title is not found, values is set from StardateYearProcessor"() {
 		given:
 		Template template = new Template(
 				parts: Lists.newArrayList(
@@ -60,7 +60,7 @@ class ImageTemplateStardateYearEnrichingProcessorTest extends AbstractTemplatePr
 		imageTemplate.yearTo == YEAR_INTEGER_TO
 	}
 
-	def "when title is found, and then FixedValueHolder holds value"() {
+	void "when title is found, and then FixedValueHolder holds value"() {
 		given:
 		ImageTemplate imageTemplate = new ImageTemplate()
 		StardateYearDTO stardateYear = new StardateYearDTO(STARDATE_FROM, STARDATE_TO, YEAR_INTEGER_FROM, YEAR_INTEGER_TO)
@@ -87,7 +87,7 @@ class ImageTemplateStardateYearEnrichingProcessorTest extends AbstractTemplatePr
 		0 * _
 	}
 
-	def "when title is found, and then FixedValueHolder does not hold value"() {
+	void "when title is found, and then FixedValueHolder does not hold value"() {
 		given:
 		ImageTemplate imageTemplate = new ImageTemplate()
 		FixedValueHolder<StardateYearDTO> stardateYearFixedValueHolder = FixedValueHolder.notFound()

@@ -49,7 +49,7 @@ class EpisodeRepositoryImplTest extends Specification {
 
 	private Page page
 
-	def setup() {
+	void setup() {
 		episodeQueryBuilderMock = Mock(EpisodeQueryBuilderFactory)
 		episodeRepositoryImpl = new EpisodeRepositoryImpl(episodeQueryBuilderMock)
 		episodeQueryBuilder = Mock(QueryBuilder)
@@ -59,7 +59,7 @@ class EpisodeRepositoryImplTest extends Specification {
 		episode = Mock(Episode)
 	}
 
-	def "query is built and performed"() {
+	void "query is built and performed"() {
 		when:
 		Page pageOutput = episodeRepositoryImpl.findMatching(episodeRequestDTO, pageable)
 
@@ -67,47 +67,47 @@ class EpisodeRepositoryImplTest extends Specification {
 		1 * episodeQueryBuilderMock.createQueryBuilder(pageable) >> episodeQueryBuilder
 
 		then: 'guid criteria is set'
-		1 * episodeRequestDTO.getGuid() >> GUID
+		1 * episodeRequestDTO.guid >> GUID
 		1 * episodeQueryBuilder.equal(Episode_.guid, GUID)
 
 		then: 'string criteria are set'
-		1 * episodeRequestDTO.getTitle() >> TITLE
+		1 * episodeRequestDTO.title >> TITLE
 		1 * episodeQueryBuilder.like(Episode_.title, TITLE)
-		1 * episodeRequestDTO.getProductionSerialNumber() >> PRODUCTION_SERIAL_NUMBER
+		1 * episodeRequestDTO.productionSerialNumber >> PRODUCTION_SERIAL_NUMBER
 		1 * episodeQueryBuilder.like(Episode_.productionSerialNumber, PRODUCTION_SERIAL_NUMBER)
 
 		then: 'integer criteria are set'
-		1 * episodeRequestDTO.getSeasonNumberFrom() >> SEASON_NUMBER_FROM
-		1 * episodeRequestDTO.getSeasonNumberTo() >> SEASON_NUMBER_TO
+		1 * episodeRequestDTO.seasonNumberFrom >> SEASON_NUMBER_FROM
+		1 * episodeRequestDTO.seasonNumberTo >> SEASON_NUMBER_TO
 		1 * episodeQueryBuilder.between(Episode_.seasonNumber, SEASON_NUMBER_FROM, SEASON_NUMBER_TO)
-		1 * episodeRequestDTO.getEpisodeNumberFrom() >> EPISODE_NUMBER_FROM
-		1 * episodeRequestDTO.getEpisodeNumberTo() >> EPISODE_NUMBER_TO
+		1 * episodeRequestDTO.episodeNumberFrom >> EPISODE_NUMBER_FROM
+		1 * episodeRequestDTO.episodeNumberTo >> EPISODE_NUMBER_TO
 		1 * episodeQueryBuilder.between(Episode_.episodeNumber, EPISODE_NUMBER_FROM, EPISODE_NUMBER_TO)
-		1 * episodeRequestDTO.getYearFrom() >> YEAR_FROM
-		1 * episodeRequestDTO.getYearTo() >> YEAR_TO
+		1 * episodeRequestDTO.yearFrom >> YEAR_FROM
+		1 * episodeRequestDTO.yearTo >> YEAR_TO
 		1 * episodeQueryBuilder.between(Episode_.yearFrom, YEAR_FROM, null)
 		1 * episodeQueryBuilder.between(Episode_.yearTo, null, YEAR_TO)
 
 		then: 'float criteria are set'
-		1 * episodeRequestDTO.getStardateFrom() >> STARDATE_FROM
-		1 * episodeRequestDTO.getStardateTo() >> STARDATE_TO
+		1 * episodeRequestDTO.stardateFrom >> STARDATE_FROM
+		1 * episodeRequestDTO.stardateTo >> STARDATE_TO
 		1 * episodeQueryBuilder.between(Episode_.stardateFrom, STARDATE_FROM, null)
 		1 * episodeQueryBuilder.between(Episode_.stardateTo, null, STARDATE_TO)
 
 		then: 'boolean criteria are set'
-		1 * episodeRequestDTO.getFeatureLength() >> FEATURE_LENGTH
+		1 * episodeRequestDTO.featureLength >> FEATURE_LENGTH
 		1 * episodeQueryBuilder.equal(Episode_.featureLength, FEATURE_LENGTH)
 
 		then: 'date criteria are set'
-		1 * episodeRequestDTO.getUsAirDateFrom() >> US_AIR_DATE_FROM
-		1 * episodeRequestDTO.getUsAirDateTo() >> US_AIR_DATE_TO
+		1 * episodeRequestDTO.usAirDateFrom >> US_AIR_DATE_FROM
+		1 * episodeRequestDTO.usAirDateTo >> US_AIR_DATE_TO
 		1 * episodeQueryBuilder.between(Episode_.usAirDate, US_AIR_DATE_FROM, US_AIR_DATE_TO)
-		1 * episodeRequestDTO.getFinalScriptDateFrom() >> FINAL_SCRIPT_DATE_FROM
-		1 * episodeRequestDTO.getFinalScriptDateTo() >> FINAL_SCRIPT_DATE_TO
+		1 * episodeRequestDTO.finalScriptDateFrom >> FINAL_SCRIPT_DATE_FROM
+		1 * episodeRequestDTO.finalScriptDateTo >> FINAL_SCRIPT_DATE_TO
 		1 * episodeQueryBuilder.between(Episode_.usAirDate, FINAL_SCRIPT_DATE_FROM, FINAL_SCRIPT_DATE_TO)
 
 		then: 'sort is set'
-		1 * episodeRequestDTO.getSort() >> SORT
+		1 * episodeRequestDTO.sort >> SORT
 		1 * episodeQueryBuilder.setSort(SORT)
 
 		then: 'fetch is performed with true flag'
@@ -123,14 +123,14 @@ class EpisodeRepositoryImplTest extends Specification {
 
 		then: 'page is searched for and returned'
 		1 * episodeQueryBuilder.findPage() >> page
-		0 * page.getContent()
+		0 * page.content
 		pageOutput == page
 
 		then: 'no other interactions are expected'
 		0 * _
 	}
 
-	def "proxies are cleared when no related entities should be fetched"() {
+	void "proxies are cleared when no related entities should be fetched"() {
 		when:
 		Page pageOutput = episodeRepositoryImpl.findMatching(episodeRequestDTO, pageable)
 
@@ -138,7 +138,7 @@ class EpisodeRepositoryImplTest extends Specification {
 		1 * episodeQueryBuilderMock.createQueryBuilder(pageable) >> episodeQueryBuilder
 
 		then: 'guid criteria is set to null'
-		1 * episodeRequestDTO.getGuid() >> null
+		1 * episodeRequestDTO.guid >> null
 
 		then: 'fetch is performed with false flag'
 		1 * episodeQueryBuilder.fetch(Episode_.writers, false)
@@ -155,7 +155,7 @@ class EpisodeRepositoryImplTest extends Specification {
 		1 * episodeQueryBuilder.findPage() >> page
 
 		then: 'proxies are cleared'
-		1 * page.getContent() >> Lists.newArrayList(episode)
+		1 * page.content >> Lists.newArrayList(episode)
 		1 * episode.setWriters(Sets.newHashSet())
 		1 * episode.setTeleplayAuthors(Sets.newHashSet())
 		1 * episode.setStoryAuthors(Sets.newHashSet())

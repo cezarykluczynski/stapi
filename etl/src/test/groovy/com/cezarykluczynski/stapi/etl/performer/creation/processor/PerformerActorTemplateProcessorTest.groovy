@@ -12,12 +12,12 @@ class PerformerActorTemplateProcessorTest extends AbstractRealWorldActorTemplate
 
 	private GuidGenerator guidGeneratorMock
 
-	def setup() {
+	void setup() {
 		guidGeneratorMock = Mock(GuidGenerator)
 		performerActorTemplateProcessor = new PerformerActorTemplateProcessor(guidGeneratorMock)
 	}
 
-	def "converts ActorTemplate to Performer"() {
+	void "converts ActorTemplate to Performer"() {
 		given:
 		ActorTemplate actorTemplate = new ActorTemplate(
 				name: NAME,
@@ -74,7 +74,7 @@ class PerformerActorTemplateProcessorTest extends AbstractRealWorldActorTemplate
 		performer.voyPerformer == VOY_PERFORMER
 	}
 
-	def "ActorTemplate with only nulls and false values is converted to Performer with only nulls and false values"() {
+	void "ActorTemplate with only nulls and false values is converted to Performer with only nulls and false values"() {
 		given:
 		ActorTemplate actorTemplate = new ActorTemplate()
 

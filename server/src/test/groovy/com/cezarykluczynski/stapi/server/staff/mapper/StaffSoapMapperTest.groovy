@@ -11,11 +11,11 @@ class StaffSoapMapperTest extends AbstractStaffMapperTest {
 
 	private StaffSoapMapper staffSoapMapper
 
-	def setup() {
+	void setup() {
 		staffSoapMapper = Mappers.getMapper(StaffSoapMapper)
 	}
 
-	def "maps SOAP StaffRequest to StaffRequestDTO"() {
+	void "maps SOAP StaffRequest to StaffRequestDTO"() {
 		given:
 		StaffRequest staffRequest = new StaffRequest(
 				guid: GUID,
@@ -153,7 +153,7 @@ class StaffSoapMapperTest extends AbstractStaffMapperTest {
 		staffRequestDTO.writer == WRITER
 	}
 
-	def "maps DB entity to SOAP entity"() {
+	void "maps DB entity to SOAP entity"() {
 		given:
 		DBStaff dBStaff = createStaff()
 

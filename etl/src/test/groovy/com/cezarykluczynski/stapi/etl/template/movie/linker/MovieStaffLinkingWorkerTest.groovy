@@ -17,12 +17,12 @@ class MovieStaffLinkingWorkerTest extends Specification {
 
 	private MovieStaffLinkingWorker movieStaffLinkingWorkerMock
 
-	def setup() {
+	void setup() {
 		entityLookupByNameServiceMock = Mock(EntityLookupByNameService)
 		movieStaffLinkingWorkerMock = new MovieStaffLinkingWorker(entityLookupByNameServiceMock)
 	}
 
-	def "adds entities found by name"() {
+	void "adds entities found by name"() {
 		given:
 		Movie movie = new Movie()
 		Set<List<String>> source = Sets.newHashSet()

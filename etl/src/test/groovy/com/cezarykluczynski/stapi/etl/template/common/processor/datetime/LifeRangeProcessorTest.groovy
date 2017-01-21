@@ -25,19 +25,18 @@ class LifeRangeProcessorTest extends Specification {
 
 	private Page page
 
-	def setup() {
+	void setup() {
 		pageToLifeRangeProcessorMock = Mock(PageToLifeRangeProcessor)
 		actorTemplateToLifeRangeProcessorMock = Mock(ActorTemplateToLifeRangeProcessor)
 		templateFinderMock = Mock(TemplateFinder)
 		lifeRangeProcessor = new LifeRangeProcessor(pageToLifeRangeProcessorMock, actorTemplateToLifeRangeProcessorMock,
 				templateFinderMock)
 		template = new Template(title: TemplateName.SIDEBAR_ACTOR)
-		page = Mock(Page) {
-			getTemplates() >> Lists.newArrayList(template)
-		}
+		page = Mock(Page)
+		page.templates >> Lists.newArrayList(template)
 	}
 
-	def "returns empty date range when both subprocessors returned null"() {
+	void "returns empty date range when both subprocessors returned null"() {
 		given:
 		Page page = new Page()
 
@@ -50,7 +49,7 @@ class LifeRangeProcessorTest extends Specification {
 		dateRangeOutput.endDate == null
 	}
 
-	def "returns value from PageToLifeRangeProcessor if it is the only present"() {
+	void "returns value from PageToLifeRangeProcessor if it is the only present"() {
 		given:
 		Page page = new Page()
 		DateRange dateRange = new DateRange()
@@ -64,7 +63,7 @@ class LifeRangeProcessorTest extends Specification {
 		dateRangeOutput == dateRange
 	}
 
-	def "returns value from ActorTemplateToLifeRangeProcessor if it is the only present"() {
+	void "returns value from ActorTemplateToLifeRangeProcessor if it is the only present"() {
 		given:
 		DateRange dateRange = new DateRange()
 
@@ -77,7 +76,7 @@ class LifeRangeProcessorTest extends Specification {
 		dateRangeOutput == dateRange
 	}
 
-	def "return null if both subprocessors returns nulls"() {
+	void "return null if both subprocessors returns nulls"() {
 		when:
 		DateRange dateRangeOutput = lifeRangeProcessor.process(page)
 
@@ -89,7 +88,7 @@ class LifeRangeProcessorTest extends Specification {
 		dateRangeOutput.endDate == null
 	}
 
-	def "returns values of both subprocessors if they are equal"() {
+	void "returns values of both subprocessors if they are equal"() {
 		given:
 		DateRange pageDateRange = new DateRange(
 				startDate: LocalDate.of(1960, 10, 10),
@@ -109,7 +108,7 @@ class LifeRangeProcessorTest extends Specification {
 		dateRangeOutput.endDate == LocalDate.of(2030, 11, 11)
 	}
 
-	def "returns values of one of subprocessors if only value is present"() {
+	void "returns values of one of subprocessors if only value is present"() {
 		given:
 		DateRange pageDateRange = new DateRange(
 				startDate: LocalDate.of(1960, 10, 10))
@@ -127,7 +126,7 @@ class LifeRangeProcessorTest extends Specification {
 		dateRangeOutput.endDate == LocalDate.of(2030, 11, 11)
 	}
 
-	def "returns nulls when values from both subprocessors differs"() {
+	void "returns nulls when values from both subprocessors differs"() {
 		given:
 		DateRange pageDateRange = new DateRange(
 				startDate: LocalDate.of(2030, 11, 11),
@@ -147,7 +146,7 @@ class LifeRangeProcessorTest extends Specification {
 		dateRangeOutput.endDate == null
 
 		then: 'page title is used for logging'
-		2 * page.getTitle()
+		2 * page.title
 	}
 
 }

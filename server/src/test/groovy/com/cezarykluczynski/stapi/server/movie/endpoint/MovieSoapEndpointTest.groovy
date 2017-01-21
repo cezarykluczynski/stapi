@@ -11,12 +11,12 @@ class MovieSoapEndpointTest extends Specification {
 
 	private MovieSoapEndpoint movieSoapEndpoint
 
-	def setup() {
+	void setup() {
 		movieSoapReaderMock = Mock(MovieSoapReader)
 		movieSoapEndpoint = new MovieSoapEndpoint(movieSoapReaderMock)
 	}
 
-	def "passes call to MovieSoapReader"() {
+	void "passes call to MovieSoapReader"() {
 		given:
 		MovieRequest movieRequest = Mock(MovieRequest)
 		MovieResponse movieResponse = Mock(MovieResponse)

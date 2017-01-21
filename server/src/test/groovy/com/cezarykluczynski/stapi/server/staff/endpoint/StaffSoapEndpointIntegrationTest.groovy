@@ -12,11 +12,11 @@ import spock.lang.Requires
 })
 class StaffSoapEndpointIntegrationTest extends AbstractStaffEndpointIntegrationTest {
 
-	def setup() {
+	void setup() {
 		createSoapClient()
 	}
 
-	def "gets first page of staff"() {
+	void "gets first page of staff"() {
 		given:
 		Integer pageNumber = 0
 		Integer pageSize = 10
@@ -33,7 +33,7 @@ class StaffSoapEndpointIntegrationTest extends AbstractStaffEndpointIntegrationT
 		staffResponse.staff.size() == pageSize
 	}
 
-	def "gets staff by guid"() {
+	void "gets staff by guid"() {
 		when:
 		StaffResponse staffResponse = stapiSoapClient.staffPortType.getStaff(new StaffRequest(
 				guid: IRA_STEVEN_BEHR_GUID

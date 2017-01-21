@@ -17,12 +17,12 @@ class StaffConfigurationTest extends Specification {
 
 	private StaffConfiguration staffConfiguration
 
-	def setup() {
+	void setup() {
 		applicationContextMock = Mock(ApplicationContext)
 		staffConfiguration = new StaffConfiguration(applicationContext: applicationContextMock)
 	}
 
-	def "staff soap endpoint is created"() {
+	void "staff soap endpoint is created"() {
 		given:
 		SpringBus springBus = new SpringBus()
 		StaffSoapReader staffSoapReaderMock = Mock(StaffSoapReader)
@@ -31,15 +31,15 @@ class StaffConfigurationTest extends Specification {
 		Endpoint staffSoapEndpoint = staffConfiguration.staffSoapEndpoint()
 
 		then:
-		1 * applicationContextMock.getBean(SpringBus.class) >> springBus
-		1 * applicationContextMock.getBean(StaffSoapReader.class) >> staffSoapReaderMock
+		1 * applicationContextMock.getBean(SpringBus) >> springBus
+		1 * applicationContextMock.getBean(StaffSoapReader) >> staffSoapReaderMock
 		staffSoapEndpoint != null
 		((EndpointImpl) staffSoapEndpoint).implementor instanceof StaffSoapEndpoint
 		((EndpointImpl) staffSoapEndpoint).bus == springBus
 		staffSoapEndpoint.published
 	}
 
-	def "StaffSoapMapper is created"() {
+	void "StaffSoapMapper is created"() {
 		when:
 		StaffSoapMapper staffSoapMapper = staffConfiguration.staffSoapMapper()
 
@@ -47,7 +47,7 @@ class StaffConfigurationTest extends Specification {
 		staffSoapMapper != null
 	}
 
-	def "StaffRestMapper is created"() {
+	void "StaffRestMapper is created"() {
 		when:
 		StaffRestMapper staffRestMapper = staffConfiguration.staffRestMapper()
 

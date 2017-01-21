@@ -18,7 +18,7 @@ class ParseApiImplTest extends Specification {
 	private static final String WIKIPEDIA_API_URL = 'https://en.wikipedia.org/w/api.php'
 	private static final String WIKIPEDIA_EXPAND_TEMPLATES_URL = 'https://en.wikipedia.org/wiki/Special:ExpandTemplates'
 	private static final String MALFORMED_URL = 'MALFORMED_URL'
-	private static final String BODY = """
+	private static final String BODY = '''
 <html lang="en" dir="ltr" class="client-js">
 	<head>
 		<meta charset="UTF-8">
@@ -30,26 +30,26 @@ class ParseApiImplTest extends Specification {
 		</div>
 	</body>
 </html>
-"""
+'''
 
 	@Shared
 	private ClientAndServer mockServer
 
 	private MockServerClient mockServerClient
 
-	def setupSpec() {
+	void setupSpec() {
 		mockServer = ClientAndServer.startClientAndServer(9761)
 	}
 
-	def cleanupSpec() {
+	void cleanupSpec() {
 		mockServer.stop()
 	}
 
-	def setup() {
-		mockServerClient = new MockServerClient("localhost", 9761)
+	void setup() {
+		mockServerClient = new MockServerClient('localhost', 9761)
 	}
 
-	def "sets correct url to Wikipedia's special page"() {
+	void "sets correct url to Wikipedia's special page"() {
 		given:
 		MediaWikiSourcesProperties mediaWikiSourcesProperties = new MediaWikiSourcesProperties(
 				technicalHelper: new MediaWikiSourceProperties(apiUrl: WIKIPEDIA_API_URL))
@@ -61,7 +61,7 @@ class ParseApiImplTest extends Specification {
 		parseApiImpl.expandTemplatesUrl == WIKIPEDIA_EXPAND_TEMPLATES_URL
 	}
 
-	def "throws exception when api url is null"() {
+	void "throws exception when api url is null"() {
 		given:
 		MediaWikiSourcesProperties mediaWikiSourcesProperties = new MediaWikiSourcesProperties(
 				technicalHelper: new MediaWikiSourceProperties())
@@ -73,7 +73,7 @@ class ParseApiImplTest extends Specification {
 		thrown(RuntimeException)
 	}
 
-	def "throws exception when api url is malformed"() {
+	void "throws exception when api url is malformed"() {
 		given:
 		MediaWikiSourcesProperties mediaWikiSourcesProperties = new MediaWikiSourcesProperties(
 				technicalHelper: new MediaWikiSourceProperties(apiUrl: MALFORMED_URL))
@@ -85,12 +85,12 @@ class ParseApiImplTest extends Specification {
 		thrown(RuntimeException)
 	}
 
-	def "gets parse tree"() {
+	void "gets parse tree"() {
 		given:
 		mockServerClient
 				.when(HttpRequest
 						.request()
-						.withMethod("POST")
+						.withMethod('POST')
 						.withBody(new ParameterBody(
 								new Parameter('wpInput', WIKITEXT),
 								new Parameter('wpRemoveComments', '1'),
@@ -98,7 +98,7 @@ class ParseApiImplTest extends Specification {
 								new Parameter('wpEditToken', '+\\'),
 								new Parameter('title', 'Special:ExpandTemplates')
 						))
-						.withPath("/local_wiki/index.php/Special:ExpandTemplates")
+						.withPath('/local_wiki/index.php/Special:ExpandTemplates')
 				)
 				.respond(HttpResponse.response().withStatusCode(200).withBody(BODY))
 

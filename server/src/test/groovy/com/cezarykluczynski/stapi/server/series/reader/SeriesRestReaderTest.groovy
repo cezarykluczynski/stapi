@@ -22,20 +22,19 @@ class SeriesRestReaderTest extends Specification {
 
 	private SeriesRestReader seriesRestReader
 
-	def setup() {
+	void setup() {
 		seriesRestQueryBuilderMock = Mock(SeriesRestQuery)
 		seriesRestMapperMock = Mock(SeriesRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		seriesRestReader = new SeriesRestReader(seriesRestQueryBuilderMock, seriesRestMapperMock, pageMapperMock)
 	}
 
-	def "passed request to queryBuilder, then to mapper, and returns result"() {
+	void "passed request to queryBuilder, then to mapper, and returns result"() {
 		SeriesRestBeanParams seriesRestBeanParams = Mock(SeriesRestBeanParams)
 		List<RESTSeries> restSeriesList = Lists.newArrayList()
 		List<DBSeries> dbSeriesList = Lists.newArrayList()
-		Page<DBSeries> dbSeriesPage = Mock(Page) {
-			getContent() >> dbSeriesList
-		}
+		Page<DBSeries> dbSeriesPage = Mock(Page)
+		dbSeriesPage.content >> dbSeriesList
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:

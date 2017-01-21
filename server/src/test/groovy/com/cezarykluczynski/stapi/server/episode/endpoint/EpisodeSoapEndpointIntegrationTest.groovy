@@ -22,11 +22,11 @@ import java.util.stream.Collectors
 })
 class EpisodeSoapEndpointIntegrationTest extends AbstractEpisodeEndpointIntegrationTest {
 
-	def setup() {
+	void setup() {
 		createSoapClient()
 	}
 
-	def "gets episode by title"() {
+	void "gets episode by title"() {
 		when:
 		EpisodeResponse episodeResponse = stapiSoapClient.episodePortType.getEpisodes(new EpisodeRequest(
 				title: 'All Good Things...'
@@ -39,7 +39,8 @@ class EpisodeSoapEndpointIntegrationTest extends AbstractEpisodeEndpointIntegrat
 		episodeList[0].series.title == 'Star Trek: The Next Generation'
 	}
 
-	def "gets all episodes aired in 1996"() {
+	@SuppressWarnings('ClosureAsLastMethodParameter')
+	void "gets all episodes aired in 1996"() {
 		given:
 		Integer pageNumber = 0
 		Integer pageSize = 100
@@ -69,8 +70,8 @@ class EpisodeSoapEndpointIntegrationTest extends AbstractEpisodeEndpointIntegrat
 		episodeResponse.page.pageNumber == pageNumber
 		episodeResponse.page.pageSize == pageSize
 		episodeList.size() == 52
-		episodeList.stream().filter({ episode -> episode.series.title.equals('Star Trek: Deep Space Nine')}).collect(Collectors.toList()).size() == 26
-		episodeList.stream().filter({ episode -> episode.series.title.equals('Star Trek: Voyager')}).collect(Collectors.toList()).size() == 26
+		episodeList.stream().filter({ episode -> episode.series.title == 'Star Trek: Deep Space Nine' }).collect(Collectors.toList()).size() == 26
+		episodeList.stream().filter({ episode -> episode.series.title == 'Star Trek: Voyager' }).collect(Collectors.toList()).size() == 26
 	}
 
 }

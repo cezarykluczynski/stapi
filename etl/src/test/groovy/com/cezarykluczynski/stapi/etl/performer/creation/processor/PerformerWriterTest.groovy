@@ -20,7 +20,7 @@ class PerformerWriterTest extends Specification {
 
 	private PerformerWriter performerWriterMock
 
-	def setup() {
+	void setup() {
 		performerRepositoryMock = Mock(PerformerRepository)
 		duplicateFilteringPreSavePageAwareProcessorMock = Mock(DuplicateFilteringPreSavePageAwareFilter)
 		duplicateReattachingPreSavePageAwareFilterMock = Mock(DuplicateReattachingPreSavePageAwareFilter)
@@ -28,7 +28,7 @@ class PerformerWriterTest extends Specification {
 				duplicateReattachingPreSavePageAwareFilterMock)
 	}
 
-	def "filters duplicates, then writes all entities using repository"() {
+	void "filters duplicates, then writes all entities using repository"() {
 		given:
 		Performer performer = new Performer(page: new Page(pageId: PAGE_ID))
 		List<Performer> seriesList = Lists.newArrayList(performer)
@@ -39,15 +39,15 @@ class PerformerWriterTest extends Specification {
 		then:
 		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, Performer) >> { args ->
 			assert args[0][0] == performer
-			return seriesList
+			seriesList
 		}
 		1 * duplicateReattachingPreSavePageAwareFilterMock.process(_, Performer) >> { args ->
 			assert args[0][0] == performer
-			return seriesList
+			seriesList
 		}
 		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, Performer) >> { args ->
 			assert args[0][0] == performer
-			return seriesList
+			seriesList
 		}
 		1 * performerRepositoryMock.save(seriesList)
 		0 * _

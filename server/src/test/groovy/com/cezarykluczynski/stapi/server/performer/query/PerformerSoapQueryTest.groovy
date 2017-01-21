@@ -20,7 +20,7 @@ class PerformerSoapQueryTest extends Specification {
 
 	private PerformerSoapQuery performerSoapQuery
 
-	def setup() {
+	void setup() {
 		performerSoapMapperMock = Mock(PerformerSoapMapper)
 		pageMapperMock = Mock(PageMapper)
 		performerRepositoryMock = Mock(PerformerRepository)
@@ -28,13 +28,12 @@ class PerformerSoapQueryTest extends Specification {
 				performerRepositoryMock)
 	}
 
-	def "maps PerformerRequest to PerformerRequestDTO and to PageRequest, then calls repository, then returns result"() {
+	void "maps PerformerRequest to PerformerRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
 		RequestPage requestPage = Mock(RequestPage)
 		PageRequest pageRequest = Mock(PageRequest)
-		PerformerRequest performerRequest = Mock(PerformerRequest) {
-			getPage() >> requestPage
-		}
+		PerformerRequest performerRequest = Mock(PerformerRequest)
+		performerRequest.page >> requestPage
 		PerformerRequestDTO performerRequestDTO = Mock(PerformerRequestDTO)
 		Page page = Mock(Page)
 

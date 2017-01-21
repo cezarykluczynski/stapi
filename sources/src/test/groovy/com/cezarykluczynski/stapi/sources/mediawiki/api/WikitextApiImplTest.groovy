@@ -5,15 +5,15 @@ import spock.lang.Specification
 
 class WikitextApiImplTest extends Specification {
 
-	private static final String WIKITEXT = "blah blah [[Some page|description]] and [[another page]] blah blah [[blah"
+	private static final String WIKITEXT = 'blah blah [[Some page|description]] and [[another page]] blah blah [[blah'
 
 	WikitextApiImpl wikitextApiImpl
 
-	def setup() {
+	void setup() {
 		wikitextApiImpl = new WikitextApiImpl()
 	}
 
-	def "gets titles from wikitext"() {
+	void "gets titles from wikitext"() {
 		when:
 		List<String> pageList = wikitextApiImpl
 				.getPageTitlesFromWikitext(WIKITEXT)
@@ -24,7 +24,7 @@ class WikitextApiImplTest extends Specification {
 		pageList[1] == 'another page'
 	}
 
-	def "gets page links from wikitext"() {
+	void "gets page links from wikitext"() {
 		when:
 		List<PageLink> pageList = wikitextApiImpl
 				.getPageLinksFromWikitext(WIKITEXT)

@@ -23,7 +23,7 @@ class CharacterboxIndividualTemplateEnrichingProcessorTest extends Specification
 
 	private CharacterboxIndividualTemplateEnrichingProcessor characterboxIndividualTemplateEnrichingProcessor
 
-	def setup() {
+	void setup() {
 		pageApiMock = Mock(PageApi)
 		characterboxTemplateProcessorMock = Mock(CharacterboxTemplateProcessor)
 		individualTemplateWithCharacterboxTemplateEnrichingProcessorMock = Mock(IndividualTemplateWithCharacterboxTemplateEnrichingProcessor)
@@ -31,7 +31,7 @@ class CharacterboxIndividualTemplateEnrichingProcessorTest extends Specification
 				characterboxTemplateProcessorMock, individualTemplateWithCharacterboxTemplateEnrichingProcessorMock)
 	}
 
-	def "adds template part with page title when no template parts are present"() {
+	void "adds template part with page title when no template parts are present"() {
 		given:
 		Template template = new Template()
 		IndividualTemplate individualTemplate = new IndividualTemplate(page: new PageEntity(
@@ -47,7 +47,7 @@ class CharacterboxIndividualTemplateEnrichingProcessorTest extends Specification
 
 	}
 
-	def "does not interact with other dependencies when PageApi returns null"() {
+	void "does not interact with other dependencies when PageApi returns null"() {
 		given:
 		Template template = new Template(title: TemplateName.MBETA)
 		IndividualTemplate individualTemplate = new IndividualTemplate(page: new PageEntity(
@@ -62,7 +62,8 @@ class CharacterboxIndividualTemplateEnrichingProcessorTest extends Specification
 		0 * _
 	}
 
-	def "when template and page is found, and CharacterboxTemplateProcessor returns null, IndividualTemplateWithCharacterboxTemplateEnrichingProcessor is not called"() {
+	@SuppressWarnings('LineLength')
+	void "when template and page is found, and CharacterboxTemplateProcessor returns null, IndividualTemplateWithCharacterboxTemplateEnrichingProcessor is not called"() {
 		given:
 		Template template = new Template(title: TemplateName.MBETA)
 		IndividualTemplate individualTemplate = new IndividualTemplate(page: new PageEntity(
@@ -78,7 +79,8 @@ class CharacterboxIndividualTemplateEnrichingProcessorTest extends Specification
 		1 * characterboxTemplateProcessorMock.process(page) >> null
 	}
 
-	def "when template and page is found, and CharacterboxTemplateProcessor returns template, IndividualTemplateWithCharacterboxTemplateEnrichingProcessor is called"() {
+	@SuppressWarnings('LineLength')
+	void "when template and page is found, and CharacterboxTemplateProcessor returns template, IndividualTemplateWithCharacterboxTemplateEnrichingProcessor is called"() {
 		given:
 		Template template = new Template(title: TemplateName.MBETA)
 		IndividualTemplate individualTemplate = new IndividualTemplate(page: new PageEntity(
@@ -93,7 +95,8 @@ class CharacterboxIndividualTemplateEnrichingProcessorTest extends Specification
 		then:
 		1 * pageApiMock.getPage(TITLE, CharacterboxIndividualTemplateEnrichingProcessor.SOURCE) >> page
 		1 * characterboxTemplateProcessorMock.process(page) >> characterboxTemplate
-		1 * individualTemplateWithCharacterboxTemplateEnrichingProcessorMock.enrich(_) >> { EnrichablePair<CharacterboxTemplate, IndividualTemplate> enrichablePair ->
+		1 * individualTemplateWithCharacterboxTemplateEnrichingProcessorMock
+				.enrich(_) >> { EnrichablePair<CharacterboxTemplate, IndividualTemplate> enrichablePair ->
 			assert enrichablePair.input == characterboxTemplate
 			assert enrichablePair.output == individualTemplate
 		}

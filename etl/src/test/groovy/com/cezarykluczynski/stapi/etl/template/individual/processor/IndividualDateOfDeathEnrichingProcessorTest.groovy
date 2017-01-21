@@ -11,10 +11,10 @@ import spock.lang.Specification
 
 class IndividualDateOfDeathEnrichingProcessorTest extends Specification {
 
-	private static final String KIA_TITLE = "Casualties"
-	private static final String KIA_DESCRIPTION = "kia"
+	private static final String KIA_TITLE = 'Casualties'
+	private static final String KIA_DESCRIPTION = 'kia'
 	private static final String KIA = "[[${KIA_TITLE}|${KIA_DESCRIPTION}]] in some massacre"
-	private static final String YEAR_STRING = "1960"
+	private static final String YEAR_STRING = '1960'
 	private static final Integer YEAR_INTEGER = 1960
 	private static final String DEAD_SYNONYM = IndividualDateOfDeathEnrichingProcessor.DEAD_SYNONYMS[0]
 	private static final String NOT_DEAD_SYNONYM = IndividualDateOfDeathEnrichingProcessor.NOT_DEAD_SYNONYMS[0]
@@ -26,14 +26,14 @@ class IndividualDateOfDeathEnrichingProcessorTest extends Specification {
 
 	private IndividualDateOfDeathEnrichingProcessor individualDateOfDeathEnrichingProcessor
 
-	def setup() {
+	void setup() {
 		individualDateStatusValueToYearProcessorMock = Mock(IndividualDateStatusValueToYearProcessor)
 		wikitextApiMock = Mock(WikitextApi)
 		individualDateOfDeathEnrichingProcessor = new IndividualDateOfDeathEnrichingProcessor(wikitextApiMock,
 				individualDateStatusValueToYearProcessorMock)
 	}
 
-	def "does nothing to individual template when there is no parts"() {
+	void "does nothing to individual template when there is no parts"() {
 		given:
 		Template.Part templatePart = Mock(Template.Part)
 		Template template = Mock(Template)
@@ -43,12 +43,12 @@ class IndividualDateOfDeathEnrichingProcessorTest extends Specification {
 		individualDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
 
 		then:
-		1 * template.getParts() >> Lists.newArrayList(templatePart)
-		1 * templatePart.getKey() >> ""
+		1 * template.parts >> Lists.newArrayList(templatePart)
+		1 * templatePart.key >> ''
 		0 * _
 	}
 
-	def "does nothing to individual template when there is only status part"() {
+	void "does nothing to individual template when there is only status part"() {
 		given:
 		Template.Part templatePart = Mock(Template.Part)
 		Template template = Mock(Template)
@@ -58,12 +58,12 @@ class IndividualDateOfDeathEnrichingProcessorTest extends Specification {
 		individualDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
 
 		then:
-		1 * template.getParts() >> Lists.newArrayList(templatePart)
-		1 * templatePart.getKey() >> IndividualDateOfDeathEnrichingProcessor.STATUS
+		1 * template.parts >> Lists.newArrayList(templatePart)
+		1 * templatePart.key >> IndividualDateOfDeathEnrichingProcessor.STATUS
 		0 * _
 	}
 
-	def "does nothing to individual template when there is only date status part"() {
+	void "does nothing to individual template when there is only date status part"() {
 		given:
 		Template.Part templatePart = Mock(Template.Part)
 		Template template = Mock(Template)
@@ -73,12 +73,12 @@ class IndividualDateOfDeathEnrichingProcessorTest extends Specification {
 		individualDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
 
 		then:
-		1 * template.getParts() >> Lists.newArrayList(templatePart)
-		1 * templatePart.getKey() >> IndividualDateOfDeathEnrichingProcessor.DATE_STATUS
+		1 * template.parts >> Lists.newArrayList(templatePart)
+		1 * templatePart.key >> IndividualDateOfDeathEnrichingProcessor.DATE_STATUS
 		0 * _
 	}
 
-	def "does nothing to individual template when status part value is empty"() {
+	void "does nothing to individual template when status part value is empty"() {
 		given:
 		Template.Part dateTemplatePart = Mock(Template.Part)
 		Template.Part dateStatusTemplatePart = Mock(Template.Part)
@@ -89,14 +89,14 @@ class IndividualDateOfDeathEnrichingProcessorTest extends Specification {
 		individualDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
 
 		then:
-		1 * template.getParts() >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
-		1 * dateTemplatePart.getKey() >> IndividualDateOfDeathEnrichingProcessor.STATUS
-		1 * dateTemplatePart.getValue() >> StringUtils.EMPTY
-		1 * dateStatusTemplatePart.getKey() >> IndividualDateOfDeathEnrichingProcessor.DATE_STATUS
+		1 * template.parts >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
+		1 * dateTemplatePart.key >> IndividualDateOfDeathEnrichingProcessor.STATUS
+		1 * dateTemplatePart.value >> StringUtils.EMPTY
+		1 * dateStatusTemplatePart.key >> IndividualDateOfDeathEnrichingProcessor.DATE_STATUS
 		0 * _
 	}
 
-	def "sets deceased flag to true when status contains 'kia'"() {
+	void "sets deceased flag to true when status contains 'kia'"() {
 		given:
 		Template.Part dateTemplatePart = Mock(Template.Part)
 		Template.Part dateStatusTemplatePart = Mock(Template.Part)
@@ -107,11 +107,11 @@ class IndividualDateOfDeathEnrichingProcessorTest extends Specification {
 		individualDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
 
 		then:
-		1 * template.getParts() >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
-		1 * dateTemplatePart.getKey() >> IndividualDateOfDeathEnrichingProcessor.STATUS
-		2 * dateTemplatePart.getValue() >> KIA
-		1 * dateStatusTemplatePart.getKey() >> IndividualDateOfDeathEnrichingProcessor.DATE_STATUS
-		1 * dateStatusTemplatePart.getValue() >> YEAR_STRING
+		1 * template.parts >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
+		1 * dateTemplatePart.key >> IndividualDateOfDeathEnrichingProcessor.STATUS
+		2 * dateTemplatePart.value >> KIA
+		1 * dateStatusTemplatePart.key >> IndividualDateOfDeathEnrichingProcessor.DATE_STATUS
+		1 * dateStatusTemplatePart.value >> YEAR_STRING
 		1 * wikitextApiMock.getPageLinksFromWikitext(KIA) >> Lists.newArrayList(
 				new PageLink(
 						title: KIA_TITLE,
@@ -124,7 +124,7 @@ class IndividualDateOfDeathEnrichingProcessorTest extends Specification {
 		0 * _
 	}
 
-	def "sets deceased flag to true when status contains dead word"() {
+	void "sets deceased flag to true when status contains dead word"() {
 		given:
 		Template.Part dateTemplatePart = Mock(Template.Part)
 		Template.Part dateStatusTemplatePart = Mock(Template.Part)
@@ -135,11 +135,11 @@ class IndividualDateOfDeathEnrichingProcessorTest extends Specification {
 		individualDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
 
 		then:
-		1 * template.getParts() >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
-		1 * dateTemplatePart.getKey() >> IndividualDateOfDeathEnrichingProcessor.STATUS
-		2 * dateTemplatePart.getValue() >> DEAD_SYNONYM
-		1 * dateStatusTemplatePart.getKey() >> IndividualDateOfDeathEnrichingProcessor.DATE_STATUS
-		1 * dateStatusTemplatePart.getValue() >> YEAR_STRING
+		1 * template.parts >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
+		1 * dateTemplatePart.key >> IndividualDateOfDeathEnrichingProcessor.STATUS
+		2 * dateTemplatePart.value >> DEAD_SYNONYM
+		1 * dateStatusTemplatePart.key >> IndividualDateOfDeathEnrichingProcessor.DATE_STATUS
+		1 * dateStatusTemplatePart.value >> YEAR_STRING
 		1 * wikitextApiMock.getPageLinksFromWikitext(DEAD_SYNONYM) >> Lists.newArrayList()
 		1 * individualTemplate.setDeceased(true)
 		1 * individualDateStatusValueToYearProcessorMock.process(YEAR_STRING) >> YEAR_INTEGER
@@ -147,7 +147,7 @@ class IndividualDateOfDeathEnrichingProcessorTest extends Specification {
 		0 * _
 	}
 
-	def "does not set deceased flag to true when status contains not dead word"() {
+	void "does not set deceased flag to true when status contains not dead word"() {
 		given:
 		Template.Part dateTemplatePart = Mock(Template.Part)
 		Template.Part dateStatusTemplatePart = Mock(Template.Part)
@@ -158,15 +158,15 @@ class IndividualDateOfDeathEnrichingProcessorTest extends Specification {
 		individualDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
 
 		then:
-		1 * template.getParts() >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
-		1 * dateTemplatePart.getKey() >> IndividualDateOfDeathEnrichingProcessor.STATUS
-		2 * dateTemplatePart.getValue() >> NOT_DEAD_SYNONYM
-		1 * dateStatusTemplatePart.getKey() >> IndividualDateOfDeathEnrichingProcessor.DATE_STATUS
+		1 * template.parts >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
+		1 * dateTemplatePart.key >> IndividualDateOfDeathEnrichingProcessor.STATUS
+		2 * dateTemplatePart.value >> NOT_DEAD_SYNONYM
+		1 * dateStatusTemplatePart.key >> IndividualDateOfDeathEnrichingProcessor.DATE_STATUS
 		1 * wikitextApiMock.getPageLinksFromWikitext(NOT_DEAD_SYNONYM) >> Lists.newArrayList()
 		0 * _
 	}
 
-	def "does not set deceased flag and logs when status contains neither dead nor not dead word"() {
+	void "does not set deceased flag and logs when status contains neither dead nor not dead word"() {
 		given:
 		Template.Part dateTemplatePart = Mock(Template.Part)
 		Template.Part dateStatusTemplatePart = Mock(Template.Part)
@@ -177,16 +177,16 @@ class IndividualDateOfDeathEnrichingProcessorTest extends Specification {
 		individualDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
 
 		then:
-		1 * template.getParts() >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
-		1 * dateTemplatePart.getKey() >> IndividualDateOfDeathEnrichingProcessor.STATUS
-		2 * dateTemplatePart.getValue() >> NEITHER_WORD
-		1 * dateStatusTemplatePart.getKey() >> IndividualDateOfDeathEnrichingProcessor.DATE_STATUS
+		1 * template.parts >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
+		1 * dateTemplatePart.key >> IndividualDateOfDeathEnrichingProcessor.STATUS
+		2 * dateTemplatePart.value >> NEITHER_WORD
+		1 * dateStatusTemplatePart.key >> IndividualDateOfDeathEnrichingProcessor.DATE_STATUS
 		1 * wikitextApiMock.getPageLinksFromWikitext(NEITHER_WORD) >> Lists.newArrayList()
-		1 * individualTemplate.getName()
+		1 * individualTemplate.name
 		0 * _
 	}
 
-	def "does not set deceased flag and logs when status contains both dead word and not dead word"() {
+	void "does not set deceased flag and logs when status contains both dead word and not dead word"() {
 		given:
 		Template.Part dateTemplatePart = Mock(Template.Part)
 		Template.Part dateStatusTemplatePart = Mock(Template.Part)
@@ -197,12 +197,12 @@ class IndividualDateOfDeathEnrichingProcessorTest extends Specification {
 		individualDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
 
 		then:
-		1 * template.getParts() >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
-		1 * dateTemplatePart.getKey() >> IndividualDateOfDeathEnrichingProcessor.STATUS
-		2 * dateTemplatePart.getValue() >> DEAD_SYNONYM + " " + NOT_DEAD_SYNONYM
-		1 * dateStatusTemplatePart.getKey() >> IndividualDateOfDeathEnrichingProcessor.DATE_STATUS
-		1 * wikitextApiMock.getPageLinksFromWikitext(DEAD_SYNONYM + " " + NOT_DEAD_SYNONYM) >> Lists.newArrayList()
-		1 * individualTemplate.getName()
+		1 * template.parts >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
+		1 * dateTemplatePart.key >> IndividualDateOfDeathEnrichingProcessor.STATUS
+		2 * dateTemplatePart.value >> DEAD_SYNONYM + ' ' + NOT_DEAD_SYNONYM
+		1 * dateStatusTemplatePart.key >> IndividualDateOfDeathEnrichingProcessor.DATE_STATUS
+		1 * wikitextApiMock.getPageLinksFromWikitext(DEAD_SYNONYM + ' ' + NOT_DEAD_SYNONYM) >> Lists.newArrayList()
+		1 * individualTemplate.name
 		0 * _
 	}
 

@@ -19,7 +19,7 @@ class PerformerRestQueryTest extends Specification {
 
 	private PerformerRestQuery performerRestQuery
 
-	def setup() {
+	void setup() {
 		performerRestMapperMock = Mock(PerformerRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		performerRepositoryMock = Mock(PerformerRepository)
@@ -27,7 +27,7 @@ class PerformerRestQueryTest extends Specification {
 				performerRepositoryMock)
 	}
 
-	def "maps PerformerRestBeanParams to PerformerRequestDTO and to PageRequest, then calls repository, then returns result"() {
+	void "maps PerformerRestBeanParams to PerformerRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
 		PageRequest pageRequest = Mock(PageRequest)
 		PerformerRestBeanParams performerRestBeanParams = Mock(PerformerRestBeanParams) {

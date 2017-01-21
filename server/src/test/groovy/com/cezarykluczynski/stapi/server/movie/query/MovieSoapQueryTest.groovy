@@ -20,7 +20,7 @@ class MovieSoapQueryTest extends Specification {
 
 	private MovieSoapQuery movieSoapQuery
 
-	def setup() {
+	void setup() {
 		movieSoapMapperMock = Mock(MovieSoapMapper)
 		pageMapperMock = Mock(PageMapper)
 		movieRepositoryMock = Mock(MovieRepository)
@@ -28,13 +28,12 @@ class MovieSoapQueryTest extends Specification {
 				movieRepositoryMock)
 	}
 
-	def "maps MovieRequest to MovieRequestDTO and to PageRequest, then calls repository, then returns result"() {
+	void "maps MovieRequest to MovieRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
 		RequestPage requestPage = Mock(RequestPage)
 		PageRequest pageRequest = Mock(PageRequest)
-		MovieRequest movieRequest = Mock(MovieRequest) {
-			getPage() >> requestPage
-		}
+		MovieRequest movieRequest = Mock(MovieRequest)
+		movieRequest.page >> requestPage
 		MovieRequestDTO movieRequestDTO = Mock(MovieRequestDTO)
 		Page page = Mock(Page)
 

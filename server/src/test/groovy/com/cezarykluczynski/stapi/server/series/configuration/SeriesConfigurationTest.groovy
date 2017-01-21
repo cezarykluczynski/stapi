@@ -17,12 +17,12 @@ class SeriesConfigurationTest extends Specification {
 
 	private SeriesConfiguration seriesConfiguration
 
-	def setup() {
+	void setup() {
 		applicationContextMock = Mock(ApplicationContext)
 		seriesConfiguration = new SeriesConfiguration(applicationContext: applicationContextMock)
 	}
 
-	def "series soap endpoint is created"() {
+	void "series soap endpoint is created"() {
 		given:
 		SpringBus springBus = new SpringBus()
 		SeriesSoapReader seriesSoapReaderMock = Mock(SeriesSoapReader)
@@ -31,15 +31,15 @@ class SeriesConfigurationTest extends Specification {
 		Endpoint seriesSoapEndpoint = seriesConfiguration.seriesSoapEndpoint()
 
 		then:
-		1 * applicationContextMock.getBean(SpringBus.class) >> springBus
-		1 * applicationContextMock.getBean(SeriesSoapReader.class) >> seriesSoapReaderMock
+		1 * applicationContextMock.getBean(SpringBus) >> springBus
+		1 * applicationContextMock.getBean(SeriesSoapReader) >> seriesSoapReaderMock
 		seriesSoapEndpoint != null
 		((EndpointImpl) seriesSoapEndpoint).implementor instanceof SeriesSoapEndpoint
 		((EndpointImpl) seriesSoapEndpoint).bus == springBus
 		seriesSoapEndpoint.published
 	}
 
-	def "SeriesSoapMapper is created"() {
+	void "SeriesSoapMapper is created"() {
 		when:
 		SeriesSoapMapper seriesSoapMapper = seriesConfiguration.seriesSoapMapper()
 
@@ -47,7 +47,7 @@ class SeriesConfigurationTest extends Specification {
 		seriesSoapMapper != null
 	}
 
-	def "SeriesRestMapper is created"() {
+	void "SeriesRestMapper is created"() {
 		when:
 		SeriesRestMapper seriesRestMapper = seriesConfiguration.seriesRestMapper()
 

@@ -20,32 +20,31 @@ class PageToGenderProcessorTest extends Specification {
 
 	private PageToGenderProcessor pageToGenderProcessor
 
-	private Page pageMock
+	private Page page
 
-	def setup() {
+	void setup() {
 		pageToGenderPronounProcessorMock = Mock(PageToGenderPronounProcessor)
 		pageToGenderRoleProcessorMock = Mock(PageToGenderRoleProcessor)
 		genderFixedValueProvider = Mock(GenderFixedValueProvider)
 		pageToGenderNameProcessorMock = Mock(PageToGenderNameProcessor)
 		pageToGenderProcessor = new PageToGenderProcessor(pageToGenderPronounProcessorMock,
 				pageToGenderRoleProcessorMock, genderFixedValueProvider, pageToGenderNameProcessorMock)
-		pageMock = Mock(Page) {
-			getTitle() >> TITLE
-		}
+		page = Mock(Page)
+		page.title >> TITLE
 	}
 
-	def "gets gender from PageToGenderSupplementaryProcessor when it is found"() {
+	void "gets gender from PageToGenderSupplementaryProcessor when it is found"() {
 		when:
-		Gender gender = pageToGenderProcessor.process(pageMock)
+		Gender gender = pageToGenderProcessor.process(page)
 
 		then:
 		1 * genderFixedValueProvider.getSearchedValue(TITLE) >> FixedValueHolder.of(true, GENDER)
 		gender == GENDER
 	}
 
-	def "skips PageToGenderPronounProcessor and PageToGenderRoleProcessor when wikitext is null"() {
+	void "skips PageToGenderPronounProcessor and PageToGenderRoleProcessor when wikitext is null"() {
 		when:
-		pageToGenderProcessor.process(pageMock)
+		pageToGenderProcessor.process(page)
 
 		then:
 		1 * genderFixedValueProvider.getSearchedValue(TITLE) >> FixedValueHolder.empty()
@@ -54,52 +53,52 @@ class PageToGenderProcessorTest extends Specification {
 		1 * pageToGenderNameProcessorMock._
 	}
 
-	def "gets gender from PageToGenderPronounProcessor when it is not null"() {
+	void "gets gender from PageToGenderPronounProcessor when it is not null"() {
 		when:
-		Gender gender = pageToGenderProcessor.process(pageMock)
+		Gender gender = pageToGenderProcessor.process(page)
 
 		then:
-		1 * pageMock.getWikitext() >> ""
+		1 * page.wikitext >> ''
 		1 * genderFixedValueProvider.getSearchedValue(TITLE) >> FixedValueHolder.empty()
-		1 * pageToGenderPronounProcessorMock.process(pageMock) >> GENDER
+		1 * pageToGenderPronounProcessorMock.process(page) >> GENDER
 		gender == GENDER
 	}
 
-	def "gets gender from PageToGenderRoleProcessor when it is not null"() {
+	void "gets gender from PageToGenderRoleProcessor when it is not null"() {
 		when:
-		Gender gender = pageToGenderProcessor.process(pageMock)
+		Gender gender = pageToGenderProcessor.process(page)
 
 		then:
-		1 * pageMock.getWikitext() >> ""
+		1 * page.wikitext >> ''
 		1 * genderFixedValueProvider.getSearchedValue(TITLE) >> FixedValueHolder.empty()
-		1 * pageToGenderPronounProcessorMock.process(pageMock) >> null
-		1 * pageToGenderRoleProcessorMock.process(pageMock) >> GENDER
+		1 * pageToGenderPronounProcessorMock.process(page) >> null
+		1 * pageToGenderRoleProcessorMock.process(page) >> GENDER
 		gender == GENDER
 	}
 
-	def "gets gender from PageToGenderNameProcessor when it is not null"() {
+	void "gets gender from PageToGenderNameProcessor when it is not null"() {
 		when:
-		Gender gender = pageToGenderProcessor.process(pageMock)
+		Gender gender = pageToGenderProcessor.process(page)
 
 		then:
-		1 * pageMock.getWikitext() >> ""
+		1 * page.wikitext >> ''
 		1 * genderFixedValueProvider.getSearchedValue(TITLE) >> FixedValueHolder.empty()
-		1 * pageToGenderPronounProcessorMock.process(pageMock) >> null
-		1 * pageToGenderRoleProcessorMock.process(pageMock) >> null
-		1 * pageToGenderNameProcessorMock.process(pageMock) >> GENDER
+		1 * pageToGenderPronounProcessorMock.process(page) >> null
+		1 * pageToGenderRoleProcessorMock.process(page) >> null
+		1 * pageToGenderNameProcessorMock.process(page) >> GENDER
 		gender == GENDER
 	}
 
-	def "returns null when all processor returned null"() {
+	void "returns null when all processor returned null"() {
 		when:
-		Gender gender = pageToGenderProcessor.process(pageMock)
+		Gender gender = pageToGenderProcessor.process(page)
 
 		then:
-		1 * pageMock.getWikitext() >> ""
+		1 * page.wikitext >> ''
 		1 * genderFixedValueProvider.getSearchedValue(TITLE) >> FixedValueHolder.empty()
-		1 * pageToGenderPronounProcessorMock.process(pageMock) >> null
-		1 * pageToGenderRoleProcessorMock.process(pageMock) >> null
-		1 * pageToGenderNameProcessorMock.process(pageMock) >> null
+		1 * pageToGenderPronounProcessorMock.process(page) >> null
+		1 * pageToGenderRoleProcessorMock.process(page) >> null
+		1 * pageToGenderNameProcessorMock.process(page) >> null
 		gender == null
 	}
 }

@@ -26,6 +26,7 @@ allprojects {
 	apply plugin: 'jacoco'
 	apply plugin: 'no.nils.wsdl2java'
 	apply plugin: 'checkstyle'
+	apply plugin: 'codenarc'
 
 	repositories {
 		mavenCentral()
@@ -72,6 +73,11 @@ allprojects {
 	checkstyle {
 		configFile = "$rootDir/checkstyle.xml" as File
 		toolVersion = '7.4'
+	}
+
+	codenarc {
+		configFile = "$rootDir/codenarc.groovy" as File
+		toolVersion = '0.26.0'
 	}
 
 	checkstyleMain {

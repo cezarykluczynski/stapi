@@ -32,21 +32,21 @@ class EpisodeTemplateProcessorTest extends AbstractTemplateProcessorTest {
 
 	private EpisodeTemplateProcessor episodeTemplateProcessor
 
-	def setup() {
+	void setup() {
 		dayMonthYearProcessorMock = Mock(DayMonthYearProcessor)
 		imageTemplateStardateYearEnrichingProcessorMock = Mock(ImageTemplateStardateYearEnrichingProcessor)
 		productionSerialNumberProcessor = Mock(ProductionSerialNumberProcessor)
 		episodeTemplateProcessor = new EpisodeTemplateProcessor(dayMonthYearProcessorMock,
 				imageTemplateStardateYearEnrichingProcessorMock, productionSerialNumberProcessor)
 	}
-	def "sets values from template parts"() {
+	void "sets values from template parts"() {
 		given:
 		Template template = new Template(
 				parts: Lists.newArrayList(
 						createTemplatePart(EpisodeTemplateProcessor.N_SEASON, SEASON_NUMBER_STRING),
 						createTemplatePart(EpisodeTemplateProcessor.N_EPISODE, EPISODE_NUMBER_STRING),
 						createTemplatePart(EpisodeTemplateProcessor.S_PRODUCTION_SERIAL_NUMBER, PRODUCTION_SERIAL_NUMBER_INPUT),
-						createTemplatePart(EpisodeTemplateProcessor.B_FEATURE_LENGTH, "1"),
+						createTemplatePart(EpisodeTemplateProcessor.B_FEATURE_LENGTH, '1'),
 						createTemplatePart(EpisodeTemplateProcessor.N_AIRDATE_YEAR, AIRDATE_YEAR),
 						createTemplatePart(EpisodeTemplateProcessor.S_AIRDATE_MONTH, AIRDATE_MONTH),
 						createTemplatePart(EpisodeTemplateProcessor.N_AIRDATE_DAY, AIRDATE_DAY)
@@ -62,7 +62,7 @@ class EpisodeTemplateProcessorTest extends AbstractTemplateProcessorTest {
 			dayMonthYearCandidate.day == AIRDATE_DAY
 			dayMonthYearCandidate.month == AIRDATE_MONTH
 			dayMonthYearCandidate.year == AIRDATE_YEAR
-			return usAirDate
+			usAirDate
 		}
 		1 * productionSerialNumberProcessor.process(PRODUCTION_SERIAL_NUMBER_INPUT) >> PRODUCTION_SERIAL_NUMBER_OUTPUT
 		1 * imageTemplateStardateYearEnrichingProcessorMock.enrich(_)
@@ -75,11 +75,11 @@ class EpisodeTemplateProcessorTest extends AbstractTemplateProcessorTest {
 		episodeTemplate.usAirDate == usAirDate
 	}
 
-	def "tolerates invalid or ill-formatted season numbers"() {
+	void "tolerates invalid or ill-formatted season numbers"() {
 		when:
 		EpisodeTemplate episodeTemplate = episodeTemplateProcessor.process(new Template(
 				parts: Lists.newArrayList(
-						createTemplatePart(EpisodeTemplateProcessor.N_EPISODE, "25/26")
+						createTemplatePart(EpisodeTemplateProcessor.N_EPISODE, '25/26')
 				)
 		))
 
@@ -91,7 +91,7 @@ class EpisodeTemplateProcessorTest extends AbstractTemplateProcessorTest {
 		when:
 		EpisodeTemplate episodeTemplate2 = episodeTemplateProcessor.process(new Template(
 				parts: Lists.newArrayList(
-						createTemplatePart(EpisodeTemplateProcessor.N_EPISODE, "NOT A NUMBER")
+						createTemplatePart(EpisodeTemplateProcessor.N_EPISODE, 'NOT A NUMBER')
 				)
 		))
 

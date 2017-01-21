@@ -12,13 +12,13 @@ class MovieStuntPerformersLinkingWorkerTest extends Specification {
 
 	private MovieStuntPerformersLinkingWorker movieStuntPerformersLinkingWorker
 
-	def setup() {
+	void setup() {
 		firstPerformerFindingMovieRealPeopleLinkingWorkerHelperMock = Mock(FirstPerformerFindingMovieRealPeopleLinkingWorkerHelper)
 		movieStuntPerformersLinkingWorker = new MovieStuntPerformersLinkingWorker(
 				firstPerformerFindingMovieRealPeopleLinkingWorkerHelperMock)
 	}
 
-	def "adds stunt performers found by FirstPerformerFindingMovieRealPeopleLinkingWorkerHelper"() {
+	void "adds stunt performers found by FirstPerformerFindingMovieRealPeopleLinkingWorkerHelper"() {
 		given:
 		Set<List<String>> source = Sets.newHashSet()
 		Performer stuntPerformer = new Performer()

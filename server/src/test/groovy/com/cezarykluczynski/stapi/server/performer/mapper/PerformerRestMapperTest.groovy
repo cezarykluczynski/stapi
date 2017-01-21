@@ -11,11 +11,11 @@ class PerformerRestMapperTest extends AbstractPerformerMapperTest {
 
 	private PerformerRestMapper performerRestMapper
 
-	def setup() {
+	void setup() {
 		performerRestMapper = Mappers.getMapper(PerformerRestMapper)
 	}
 
-	def "maps PerformerRestBeanParams to PerformerRequestDTO"() {
+	void "maps PerformerRestBeanParams to PerformerRequestDTO"() {
 		given:
 		PerformerRestBeanParams performerRestBeanParams = new PerformerRestBeanParams(
 				guid: GUID,
@@ -71,7 +71,7 @@ class PerformerRestMapperTest extends AbstractPerformerMapperTest {
 		performerRequestDTO.voyPerformer == VOY_PERFORMER
 	}
 
-	def "maps DB entity to REST entity"() {
+	void "maps DB entity to REST entity"() {
 		given:
 		DBPerformer dBPerformer = createPerformer()
 

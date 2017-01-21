@@ -12,11 +12,11 @@ class EpisodeRestMapperTest extends AbstractEpisodeMapperTest {
 
 	private EpisodeRestMapper episodeRestMapper
 
-	def setup() {
+	void setup() {
 		episodeRestMapper = Mappers.getMapper(EpisodeRestMapper)
 	}
 
-	def "maps EpisodeRestBeanParams to EpisodeRequestDTO"() {
+	void "maps EpisodeRestBeanParams to EpisodeRequestDTO"() {
 		given:
 		EpisodeRestBeanParams episodeRestBeanParams = new EpisodeRestBeanParams(
 				guid: GUID,
@@ -50,7 +50,7 @@ class EpisodeRestMapperTest extends AbstractEpisodeMapperTest {
 		episodeRequestDTO.finalScriptDateTo == FINAL_SCRIPT_DATE_TO
 	}
 
-	def "maps DB entity to REST entity"() {
+	void "maps DB entity to REST entity"() {
 		given:
 		DBEpisode dBEpisode = createEpisode()
 

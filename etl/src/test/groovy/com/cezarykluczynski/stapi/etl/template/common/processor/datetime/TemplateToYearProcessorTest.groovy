@@ -13,25 +13,25 @@ class TemplateToYearProcessorTest extends Specification {
 
 	private Template template
 
-	def setup() {
+	void setup() {
 		templateToYearProcessor = new TemplateToYearProcessor()
 		template = new Template(
 				title: TemplateName.Y,
 				parts: Lists.newArrayList(
-						new Template.Part(key: "1", value: YEAR.toString()),
+						new Template.Part(key: '1', value: YEAR),
 				)
 		)
 	}
 
-	def "valid template with title 'y' is parsed to year"() {
+	void "valid template with title 'y' is parsed to year"() {
 		when:
 		Integer year = templateToYearProcessor.process(template)
 
 		then:
-		year == year
+		year == YEAR
 	}
 
-	def "valid template with title 'yearlink' is parsed to year"() {
+	void "valid template with title 'yearlink' is parsed to year"() {
 		given:
 		template.title = TemplateName.YEARLINK
 
@@ -39,18 +39,18 @@ class TemplateToYearProcessorTest extends Specification {
 		Integer year = templateToYearProcessor.process(template)
 
 		then:
-		year == year
+		year == YEAR
 	}
 
-	def "template of different title produces null year"() {
+	void "template of different title produces null year"() {
 		when:
-		Integer year = templateToYearProcessor.process(new Template(title: "different template"))
+		Integer year = templateToYearProcessor.process(new Template(title: 'different template'))
 
 		then:
 		year == null
 	}
 
-	def "when key 1 does not exists, null year is returned"() {
+	void "when key 1 does not exists, null year is returned"() {
 		given:
 		template.parts.clear()
 
@@ -61,10 +61,9 @@ class TemplateToYearProcessorTest extends Specification {
 		year == null
 	}
 
-
-	def "invalid value produces null year"() {
+	void "invalid value produces null year"() {
 		given:
-		template.parts[0].value = "INVALID"
+		template.parts[0].value = 'INVALID'
 
 		when:
 		Integer year = templateToYearProcessor.process(template)

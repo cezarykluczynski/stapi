@@ -11,11 +11,11 @@ class PageToGenderPronounProcessorTest extends Specification {
 
 	PageToGenderPronounProcessor pageToGenderPronounProcessor
 
-	def setup() {
+	void setup() {
 		pageToGenderPronounProcessor = new PageToGenderPronounProcessor()
 	}
 
-	def "returns F is there is more female than male pronouns"() {
+	void "returns F is there is more female than male pronouns"() {
 		when:
 		Gender gender = pageToGenderPronounProcessor.process(new Page(
 				wikitext: 'Is she a real she or is she a he?'))
@@ -24,23 +24,22 @@ class PageToGenderPronounProcessorTest extends Specification {
 		gender == FEMALE
 	}
 
-	def "returns F is there is more female than male pronouns, but logs the fact that difference was not too big"() {
+	void "returns F is there is more female than male pronouns, but logs the fact that difference was not too big"() {
 		given:
-		Page pageMock = Mock(Page) {
-			getWikitext() >> 'Is she a real she or is she a he - and how about him then?'
-		}
+		Page page = Mock(Page)
+		page.wikitext >> 'Is she a real she or is she a he - and how about him then?'
 
 		when:
-		Gender gender = pageToGenderPronounProcessor.process(pageMock)
+		Gender gender = pageToGenderPronounProcessor.process(page)
 
 		then:
 		gender == FEMALE
 
 		then: 'title is used for logging'
-		1 * pageMock.getTitle()
+		1 * page.title
 	}
 
-	def "returns M is there is more male than female pronouns"() {
+	void "returns M is there is more male than female pronouns"() {
 		when:
 		Gender gender = pageToGenderPronounProcessor.process(new Page(
 				wikitext: 'Is he a real he or is he a she?'))
@@ -49,39 +48,37 @@ class PageToGenderPronounProcessorTest extends Specification {
 		gender == MALE
 	}
 
-	def "returns M is there is more male than female pronouns, but logs the fact that difference was not too big"() {
+	void "returns M is there is more male than female pronouns, but logs the fact that difference was not too big"() {
 		given:
-		Page pageMock = Mock(Page) {
-			getWikitext() >> 'Is he a real he or is he a she - and how about her then?'
-		}
+		Page page = Mock(Page)
+		page.wikitext >> 'Is he a real he or is he a she - and how about her then?'
 
 		when:
-		Gender gender = pageToGenderPronounProcessor.process(pageMock)
+		Gender gender = pageToGenderPronounProcessor.process(page)
 
 		then:
 		gender == MALE
 
 		then: 'title is used for logging'
-		1 * pageMock.getTitle()
+		1 * page.title
 	}
 
-	def "returns null when there was equal number of findings"() {
+	void "returns null when there was equal number of findings"() {
 		given:
-		Page pageMock = Mock(Page) {
-			getWikitext() >> 'Is her problem his problem?'
-		}
+		Page page = Mock(Page)
+		page.wikitext >> 'Is her problem his problem?'
 
 		when:
-		Gender gender = pageToGenderPronounProcessor.process(pageMock)
+		Gender gender = pageToGenderPronounProcessor.process(page)
 
 		then:
 		gender == null
 
 		then: 'title is used for logging'
-		1 * pageMock.getTitle()
+		1 * page.title
 	}
 
-	def "returns null when there was no findinds"() {
+	void "returns null when there was no findinds"() {
 		when:
 		Gender gender = pageToGenderPronounProcessor.process(new Page(wikitext: ''))
 

@@ -5,7 +5,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
-
 class JsonTemplateParseTest extends Specification {
 
 	private static final String XML = """
@@ -38,37 +37,37 @@ class JsonTemplateParseTest extends Specification {
 		</root>
 	"""
 
-	private static final String XML_WITHOUT_TEMPLATE = "<root></root>"
+	private static final String XML_WITHOUT_TEMPLATE = '<root></root>'
 
-	def "converts XML to Template"() {
+	void "converts XML to Template"() {
 		when:
-		List<Template> template = new JsonTemplateParser(XML).getTemplates()
+		List<Template> template = new JsonTemplateParser(XML).templates
 
 		then:
 		template == Lists.newArrayList(
-				new Template(title: "realworld"),
+				new Template(title: 'realworld'),
 				new Template(title: TemplateName.SIDEBAR_ACTOR, parts: Lists.newArrayList(
-						new Template.Part(key: "name", value: "Sir Patrick Stewart"),
-						new Template.Part(key: "birth name", value: "Patrick Hewes Stewart"),
-						new Template.Part(key: "date of birth", value: null, templates: Lists.newArrayList(
+						new Template.Part(key: 'name', value: 'Sir Patrick Stewart'),
+						new Template.Part(key: 'birth name', value: 'Patrick Hewes Stewart'),
+						new Template.Part(key: 'date of birth', value: null, templates: Lists.newArrayList(
 								new Template(title: TemplateName.D, parts: Lists.newArrayList(
-										new Template.Part(key: "1", value: "13"),
-										new Template.Part(key: "2", value: "July"),
-										new Template.Part(key: "3", value: "1940"),
+										new Template.Part(key: '1', value: '13'),
+										new Template.Part(key: '2', value: 'July'),
+										new Template.Part(key: '3', value: '1940'),
 								))
 						))
 				)),
-				new Template(title: "born", parts: Lists.newArrayList(
-						new Template.Part(key: "1", value: "13"),
-						new Template.Part(key: "2", value: "July"),
-						new Template.Part(key: "3", value: "1940"),
+				new Template(title: 'born', parts: Lists.newArrayList(
+						new Template.Part(key: '1', value: '13'),
+						new Template.Part(key: '2', value: 'July'),
+						new Template.Part(key: '3', value: '1940'),
 				))
 		)
 	}
 
-	def "converts XML without templates"() {
+	void "converts XML without templates"() {
 		when:
-		List<Template> templates = new JsonTemplateParser(XML_WITHOUT_TEMPLATE).getTemplates()
+		List<Template> templates = new JsonTemplateParser(XML_WITHOUT_TEMPLATE).templates
 
 		then:
 		templates.empty

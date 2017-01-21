@@ -11,15 +11,15 @@ class MovieWriterTest extends Specification {
 
 	private MovieWriter movieWriter
 
-	def setup() {
+	void setup() {
 		movieRepositoryMock = Mock(MovieRepository)
 		movieWriter = new MovieWriter(movieRepositoryMock)
 	}
 
-	def "writes all entities using repository"() {
+	void "writes all entities using repository"() {
 		given:
-		Movie Movie = new Movie()
-		List<Movie> movieList = Lists.newArrayList(Movie)
+		Movie movie = new Movie()
+		List<Movie> movieList = Lists.newArrayList(movie)
 
 		when:
 		movieWriter.write(movieList)

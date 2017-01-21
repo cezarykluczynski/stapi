@@ -20,12 +20,12 @@ class PageToLifeRangeProcessorTest extends Specification {
 	private static final Integer YEAR_END = 2020
 	private static final Month MONTH_END = Month.SEPTEMBER
 	private static final Integer DAY_END = 15
-	private static final String YEAR_START_STRING = YEAR_START.toString()
-	private static final String MONTH_START_STRING = MONTH_START.toString()
-	private static final String DAY_START_STRING = DAY_START.toString()
-	private static final String YEAR_END_STRING = YEAR_END.toString()
-	private static final String MONTH_END_STRING = MONTH_END.toString()
-	private static final String DAY_END_STRING = DAY_END.toString()
+	private static final String YEAR_START_STRING = YEAR_START
+	private static final String MONTH_START_STRING = MONTH_START
+	private static final String DAY_START_STRING = DAY_START
+	private static final String YEAR_END_STRING = YEAR_END
+	private static final String MONTH_END_STRING = MONTH_END
+	private static final String DAY_END_STRING = DAY_END
 
 	private DayMonthYearProcessor dayMonthYearProcessorMock
 
@@ -35,7 +35,7 @@ class PageToLifeRangeProcessorTest extends Specification {
 
 	private Template templateInvalid
 
-	def setup() {
+	void setup() {
 		dayMonthYearProcessorMock = Mock(DayMonthYearProcessor)
 		pageToLifeRangeProcessor = new PageToLifeRangeProcessor(dayMonthYearProcessorMock)
 
@@ -45,7 +45,7 @@ class PageToLifeRangeProcessorTest extends Specification {
 						new Template.Part(key: TemplateParam.FIRST, value: DAY_START_STRING),
 						new Template.Part(key: TemplateParam.SECOND, value: MONTH_START_STRING),
 						new Template.Part(key: TemplateParam.THIRD, value: YEAR_START_STRING),
-						new Template.Part(key: TemplateParam.FOURTH, value: "ignored"),
+						new Template.Part(key: TemplateParam.FOURTH, value: 'ignored'),
 						new Template.Part(key: TemplateParam.FIFTH, value: DAY_END_STRING),
 						new Template.Part(key: TemplateParam.SIXTH, value: MONTH_END_STRING),
 						new Template.Part(key: TemplateParam.SEVENTH, value: YEAR_END_STRING)
@@ -56,7 +56,7 @@ class PageToLifeRangeProcessorTest extends Specification {
 				parts: Lists.newArrayList())
 	}
 
-	def "valid values are passed to DayMonthYearProcessor"() {
+	void "valid values are passed to DayMonthYearProcessor"() {
 		given:
 		LocalDate dateOfBirth = LocalDate.of(YEAR_START, MONTH_START, DAY_START)
 		LocalDate dateOfDeath = LocalDate.of(YEAR_END, MONTH_END, DAY_END)
@@ -69,19 +69,19 @@ class PageToLifeRangeProcessorTest extends Specification {
 			assert dayMonthYearCandidate.day == DAY_START_STRING
 			assert dayMonthYearCandidate.month == MONTH_START_STRING
 			assert dayMonthYearCandidate.year == YEAR_START_STRING
-			return dateOfBirth
+			dateOfBirth
 		}
 		1 * dayMonthYearProcessorMock.process(_ as DayMonthYearCandidate) >> { DayMonthYearCandidate dayMonthYearCandidate ->
 			assert dayMonthYearCandidate.day == DAY_END_STRING
 			assert dayMonthYearCandidate.month == MONTH_END_STRING
 			assert dayMonthYearCandidate.year == YEAR_END_STRING
-			return dateOfDeath
+			dateOfDeath
 		}
 		dateRange.startDate == dateOfBirth
 		dateRange.endDate == dateOfDeath
 	}
 
-	def "null values are tolerated and produces null output"() {
+	void "null values are tolerated and produces null output"() {
 		when:
 		DateRange dateRange = pageToLifeRangeProcessor.process(new Page(templates: Lists.newArrayList(templateInvalid)))
 
@@ -90,18 +90,18 @@ class PageToLifeRangeProcessorTest extends Specification {
 			assert dayMonthYearCandidate.day == null
 			assert dayMonthYearCandidate.month == null
 			assert dayMonthYearCandidate.year == null
-			return null
+			null
 		}
 		1 * dayMonthYearProcessorMock.process(_ as DayMonthYearCandidate) >> { DayMonthYearCandidate dayMonthYearCandidate ->
 			assert dayMonthYearCandidate.day == null
 			assert dayMonthYearCandidate.month == null
 			assert dayMonthYearCandidate.year == null
-			return null
+			null
 		}
 		dateRange == null
 	}
 
-	def "returns null when no 'born' templates are found"() {
+	void "returns null when no 'born' templates are found"() {
 		when:
 		DateRange dateRange = pageToLifeRangeProcessor.process(new Page(templates: Lists.newArrayList()))
 
@@ -109,20 +109,19 @@ class PageToLifeRangeProcessorTest extends Specification {
 		dateRange == null
 	}
 
-	def "returns null when more than one 'born' template is found"() {
+	void "returns null when more than one 'born' template is found"() {
 		given:
-		Page pageMock = Mock(Page) {
-			getTemplates() >> Lists.newArrayList(templateValid, templateInvalid)
-		}
+		Page page = Mock(Page)
 
 		when:
-		DateRange dateRange = pageToLifeRangeProcessor.process(pageMock)
+		DateRange dateRange = pageToLifeRangeProcessor.process(page)
 
 		then:
+		1 * page.templates >> Lists.newArrayList(templateValid, templateInvalid)
 		dateRange == null
 
 		then: 'page title is used for logging'
-		1 * pageMock.getTitle()
+		1 * page.title
 	}
 
 }

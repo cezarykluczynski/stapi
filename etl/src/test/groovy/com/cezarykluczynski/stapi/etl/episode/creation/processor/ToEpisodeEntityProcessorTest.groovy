@@ -30,9 +30,9 @@ class ToEpisodeEntityProcessorTest extends Specification {
 	private static final LocalDate US_AIR_DATE = LocalDate.of(1995, 4, 8)
 	private static final LocalDate FINAL_SCRIPT_DATE = LocalDate.of(1995, 2, 3)
 
-	private final Page PAGE = Mock(Page)
-	private final Series SERIES_DETACHED = Mock(Series)
-	private final Series SERIES_NEW = Mock(Series)
+	private final Page page = Mock(Page)
+	private final Series seriesDetached = Mock(Series)
+	private final Series seriesNew = Mock(Series)
 
 	private GuidGenerator guidGeneratorMock
 
@@ -40,19 +40,19 @@ class ToEpisodeEntityProcessorTest extends Specification {
 
 	private ToEpisodeEntityProcessor toEpisodeEntityProcessor
 
-	def setup() {
+	void setup() {
 		guidGeneratorMock = Mock(GuidGenerator)
 		seriesRepositoryMock = Mock(SeriesRepository)
 		toEpisodeEntityProcessor = new ToEpisodeEntityProcessor(guidGeneratorMock, seriesRepositoryMock)
 	}
 
-	def "converts EpisodeTemplate to Episode"() {
+	void "converts EpisodeTemplate to Episode"() {
 		given:
 		Episode episodeStub = new Episode()
 		EpisodeTemplate episodeTemplate = new EpisodeTemplate(
 				episodeStub: episodeStub,
-				series: SERIES_DETACHED,
-				page: PAGE,
+				series: seriesDetached,
+				page: page,
 				title: TITLE,
 				titleGerman: TITLE_GERMAN,
 				titleItalian: TITLE_ITALIAN,
@@ -74,15 +74,15 @@ class ToEpisodeEntityProcessorTest extends Specification {
 
 		then:
 		episode == episodeStub
-		1 * SERIES_DETACHED.getId() >> SERIES_ID
-		1 * seriesRepositoryMock.findOne(SERIES_ID) >> SERIES_NEW
-		1 * guidGeneratorMock.generateFromPage(PAGE, Episode) >> GUID
+		1 * seriesDetached.id >> SERIES_ID
+		1 * seriesRepositoryMock.findOne(SERIES_ID) >> seriesNew
+		1 * guidGeneratorMock.generateFromPage(page, Episode) >> GUID
 		episode.title == TITLE
 		episode.titleGerman == TITLE_GERMAN
 		episode.titleItalian == TITLE_ITALIAN
 		episode.titleJapanese == TITLE_JAPANESE
-		episode.page == PAGE
-		episode.series == SERIES_NEW
+		episode.page == page
+		episode.series == seriesNew
 		episode.guid == GUID
 		episode.seasonNumber == SEASON_NUMBER
 		episode.episodeNumber == EPISODE_NUMBER

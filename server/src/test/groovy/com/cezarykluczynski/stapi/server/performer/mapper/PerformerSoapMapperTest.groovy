@@ -11,11 +11,11 @@ class PerformerSoapMapperTest extends AbstractPerformerMapperTest {
 
 	private PerformerSoapMapper performerSoapMapper
 
-	def setup() {
+	void setup() {
 		performerSoapMapper = Mappers.getMapper(PerformerSoapMapper)
 	}
 
-	def "maps SOAP PerformerRequest to PerformerRequestDTO"() {
+	void "maps SOAP PerformerRequest to PerformerRequestDTO"() {
 		given:
 		PerformerRequest performerRequest = new PerformerRequest(
 				guid: GUID,
@@ -70,7 +70,7 @@ class PerformerSoapMapperTest extends AbstractPerformerMapperTest {
 		performerRequestDTO.voyPerformer == VOY_PERFORMER
 	}
 
-	def "maps DB entity to SOAP entity"() {
+	void "maps DB entity to SOAP entity"() {
 		given:
 		DBPerformer dBPerformer = createPerformer()
 

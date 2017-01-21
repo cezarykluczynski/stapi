@@ -45,7 +45,7 @@ class BlikiConnectorTest extends Specification {
 
 	private BlikiConnector blikiConnector
 
-	def setup() {
+	void setup() {
 		blikiUserDecoratorBeanMapProviderMock = Mock(BlikiUserDecoratorBeanMapProvider)
 		wikiaWikisDetector = Mock(WikiaWikisDetector)
 		mediaWikiMinimalIntervalProviderMock = Mock(MediaWikiMinimalIntervalProvider)
@@ -54,23 +54,24 @@ class BlikiConnectorTest extends Specification {
 				memoryBetaEn: new MediaWikiSourceProperties()
 		)
 
-		closeableHttpResponse = Mock(CloseableHttpResponse) {
-			getStatusLine() >> Mock(StatusLine) {
-				getStatusCode() >> HttpStatus.SC_OK
-			}
-			getEntity() >> Mock(HttpEntity) {
-				getContentType() >> Mock(Header) {
-					getElements() >> [
-							Mock(HeaderElement) {
-								getName() >> 'text/xml'
-								getParameters() >> []
-							}
-					]
-				}
-				getContent() >>> [IOUtils.toInputStream(XML), IOUtils.toInputStream(XML)]
-				getContentLength() >>> [XML.length(), XML.length()]
-			}
-		}
+		StatusLine statusLine = Mock(StatusLine)
+		statusLine.statusCode >> HttpStatus.SC_OK
+		HeaderElement headerElement = Mock(HeaderElement)
+		headerElement.name >> 'text/xml'
+		headerElement.parameters >> []
+		Header header = Mock(Header)
+		header.elements >> [headerElement]
+
+		HttpEntity httpEntity = Mock(HttpEntity)
+		httpEntity.contentType >> header
+		httpEntity.content >>> [IOUtils.toInputStream(XML), IOUtils.toInputStream(XML)]
+		httpEntity.contentLength >>> [XML.length(), XML.length()]
+
+		closeableHttpResponse = Mock(CloseableHttpResponse)
+		closeableHttpResponse.entity >> httpEntity
+
+		closeableHttpResponse.statusLine >> statusLine
+		closeableHttpResponse.entity >> httpEntity
 
 		closeableHttpClient = Mock(CloseableHttpClient) {
 			execute(*_) >> closeableHttpResponse
@@ -84,7 +85,7 @@ class BlikiConnectorTest extends Specification {
 				mediaWikiSourcesProperties)
 	}
 
-	def "reads page from Memory Alpha EN"() {
+	void "reads page from Memory Alpha EN"() {
 		given:
 		long startInMilliseconds = System.currentTimeMillis()
 		Connector connector = new Connector(httpClientBuilderMock)
@@ -97,10 +98,10 @@ class BlikiConnectorTest extends Specification {
 
 		then: 'page is returned'
 		1 * wikiaWikisDetector.isWikiaWiki(_) >> false
-		1 * mediaWikiMinimalIntervalProviderMock.getMemoryAlphaEnInterval() >> INTERVAL
-		1 * blikiUserDecoratorBeanMapProviderMock.getUserEnumMap() >> mediaWikiSourceUserDecoratorMap
-		1 * userDecorator.getConnector() >> connector
-		2 * userDecorator.getActionUrl() >> ACTION_URL
+		1 * mediaWikiMinimalIntervalProviderMock.memoryAlphaEnInterval >> INTERVAL
+		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
+		1 * userDecorator.connector >> connector
+		2 * userDecorator.actionUrl >> ACTION_URL
 		xml == XML
 
 		when: 'another page is requested'
@@ -109,15 +110,15 @@ class BlikiConnectorTest extends Specification {
 
 		then: 'another page is returned,  but call is postponed'
 		1 * wikiaWikisDetector.isWikiaWiki(_) >> false
-		1 * mediaWikiMinimalIntervalProviderMock.getMemoryAlphaEnInterval() >> INTERVAL
-		1 * blikiUserDecoratorBeanMapProviderMock.getUserEnumMap() >> mediaWikiSourceUserDecoratorMap
-		1 * userDecorator.getConnector() >> connector
-		2 * userDecorator.getActionUrl() >> ACTION_URL
+		1 * mediaWikiMinimalIntervalProviderMock.memoryAlphaEnInterval >> INTERVAL
+		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
+		1 * userDecorator.connector >> connector
+		2 * userDecorator.actionUrl >> ACTION_URL
 		startInMilliseconds + INTERVAL <= endInMillis
 		xml2 == XML
 	}
 
-	def "reads XML from Memory Alpha EN"() {
+	void "reads XML from Memory Alpha EN"() {
 		given:
 		long startInMilliseconds = System.currentTimeMillis()
 		Connector connector = new Connector(httpClientBuilderMock)
@@ -129,10 +130,10 @@ class BlikiConnectorTest extends Specification {
 		String xml = blikiConnector.readXML(Maps.newHashMap(), MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN)
 
 		then: 'xml is returned'
-		1 * mediaWikiMinimalIntervalProviderMock.getMemoryAlphaEnInterval() >> INTERVAL
-		1 * blikiUserDecoratorBeanMapProviderMock.getUserEnumMap() >> mediaWikiSourceUserDecoratorMap
-		1 * userDecorator.getConnector() >> connector
-		2 * userDecorator.getActionUrl() >> ACTION_URL
+		1 * mediaWikiMinimalIntervalProviderMock.memoryAlphaEnInterval >> INTERVAL
+		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
+		1 * userDecorator.connector >> connector
+		2 * userDecorator.actionUrl >> ACTION_URL
 		xml == XML
 
 		when: 'another xml is requested'
@@ -140,15 +141,15 @@ class BlikiConnectorTest extends Specification {
 		long endInMillis = System.currentTimeMillis()
 
 		then: 'another xml is returned, but call is postponed'
-		1 * mediaWikiMinimalIntervalProviderMock.getMemoryAlphaEnInterval() >> INTERVAL
-		1 * blikiUserDecoratorBeanMapProviderMock.getUserEnumMap() >> mediaWikiSourceUserDecoratorMap
-		1 * userDecorator.getConnector() >> connector
-		2 * userDecorator.getActionUrl() >> ACTION_URL
+		1 * mediaWikiMinimalIntervalProviderMock.memoryAlphaEnInterval >> INTERVAL
+		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
+		1 * userDecorator.connector >> connector
+		2 * userDecorator.actionUrl >> ACTION_URL
 		startInMilliseconds + INTERVAL <= endInMillis
 		xml2 == XML
 	}
 
-	def "reads page for Memory Beta EN"() {
+	void "reads page for Memory Beta EN"() {
 		given:
 		long startInMilliseconds = System.currentTimeMillis()
 		Connector connector = new Connector(httpClientBuilderMock)
@@ -161,10 +162,10 @@ class BlikiConnectorTest extends Specification {
 
 		then: 'page is returned'
 		1 * wikiaWikisDetector.isWikiaWiki(_) >> false
-		1 * mediaWikiMinimalIntervalProviderMock.getMemoryBetaEnInterval() >> INTERVAL
-		1 * blikiUserDecoratorBeanMapProviderMock.getUserEnumMap() >> mediaWikiSourceUserDecoratorMap
-		1 * userDecorator.getConnector() >> connector
-		2 * userDecorator.getActionUrl() >> ACTION_URL
+		1 * mediaWikiMinimalIntervalProviderMock.memoryBetaEnInterval >> INTERVAL
+		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
+		1 * userDecorator.connector >> connector
+		2 * userDecorator.actionUrl >> ACTION_URL
 		xml == XML
 
 		when: 'another page is requested'
@@ -173,15 +174,15 @@ class BlikiConnectorTest extends Specification {
 
 		then: 'another page is returned,  but call is postponed'
 		1 * wikiaWikisDetector.isWikiaWiki(_) >> false
-		1 * mediaWikiMinimalIntervalProviderMock.getMemoryBetaEnInterval() >> INTERVAL
-		1 * blikiUserDecoratorBeanMapProviderMock.getUserEnumMap() >> mediaWikiSourceUserDecoratorMap
-		1 * userDecorator.getConnector() >> connector
-		2 * userDecorator.getActionUrl() >> ACTION_URL
+		1 * mediaWikiMinimalIntervalProviderMock.memoryBetaEnInterval >> INTERVAL
+		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
+		1 * userDecorator.connector >> connector
+		2 * userDecorator.actionUrl >> ACTION_URL
 		startInMilliseconds + INTERVAL <= endInMillis
 		xml2 == XML
 	}
 
-	def "reads XML for Memory Beta EN"() {
+	void "reads XML for Memory Beta EN"() {
 		given:
 		long startInMilliseconds = System.currentTimeMillis()
 		Connector connector = new Connector(httpClientBuilderMock)
@@ -193,10 +194,10 @@ class BlikiConnectorTest extends Specification {
 		String xml = blikiConnector.readXML(Maps.newHashMap(), MEDIA_WIKI_SOURCE_MEMORY_BETA_EN)
 
 		then: 'xml is returned'
-		1 * mediaWikiMinimalIntervalProviderMock.getMemoryBetaEnInterval() >> INTERVAL
-		1 * blikiUserDecoratorBeanMapProviderMock.getUserEnumMap() >> mediaWikiSourceUserDecoratorMap
-		1 * userDecorator.getConnector() >> connector
-		2 * userDecorator.getActionUrl() >> ACTION_URL
+		1 * mediaWikiMinimalIntervalProviderMock.memoryBetaEnInterval >> INTERVAL
+		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
+		1 * userDecorator.connector >> connector
+		2 * userDecorator.actionUrl >> ACTION_URL
 		xml == XML
 
 		when: 'another xml is requested'
@@ -205,15 +206,15 @@ class BlikiConnectorTest extends Specification {
 
 		then: 'another xml is returned, but call is postponed'
 		1 * wikiaWikisDetector.isWikiaWiki(_) >> false
-		1 * mediaWikiMinimalIntervalProviderMock.getMemoryBetaEnInterval() >> INTERVAL
-		1 * blikiUserDecoratorBeanMapProviderMock.getUserEnumMap() >> mediaWikiSourceUserDecoratorMap
-		1 * userDecorator.getConnector() >> connector
-		2 * userDecorator.getActionUrl() >> ACTION_URL
+		1 * mediaWikiMinimalIntervalProviderMock.memoryBetaEnInterval >> INTERVAL
+		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
+		1 * userDecorator.connector >> connector
+		2 * userDecorator.actionUrl >> ACTION_URL
 		startInMilliseconds + INTERVAL <= endInMillis
 		xml2 == XML
 	}
 
-	def "do pass parsetree in props when url is not Wikia's"() {
+	void "do pass parsetree in props when url is not Wikia's"() {
 		given:
 		closeableHttpClient = Mock(CloseableHttpClient)
 		httpClientBuilderMock = Mock(HttpClientBuilder) {
@@ -233,31 +234,31 @@ class BlikiConnectorTest extends Specification {
 
 		then: 'page is returned, and URL is not Wikia\'s wiki'
 		1 * wikiaWikisDetector.isWikiaWiki(MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN) >> false
-		1 * mediaWikiMinimalIntervalProviderMock.getMemoryAlphaEnInterval() >> INTERVAL
-		1 * blikiUserDecoratorBeanMapProviderMock.getUserEnumMap() >> mediaWikiSourceUserDecoratorMap
-		1 * userDecorator.getConnector() >> connector
+		1 * mediaWikiMinimalIntervalProviderMock.memoryAlphaEnInterval >> INTERVAL
+		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
+		1 * userDecorator.connector >> connector
 		1 * closeableHttpClient.execute(_ as HttpGet) >> { HttpGet httpGet ->
-			assert httpGet.getURI().query.contains('parsetree')
-			return closeableHttpResponse
+			assert httpGet.URI.query.contains('parsetree')
+			closeableHttpResponse
 		}
-		2 * userDecorator.getActionUrl() >> ACTION_URL
+		2 * userDecorator.actionUrl >> ACTION_URL
 
 		when: 'page is requested'
 		blikiConnector.getPage(TITLE, MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN)
 
 		then: 'page is returned, and URL is Wikia\'s wiki'
 		1 * wikiaWikisDetector.isWikiaWiki(MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN) >> true
-		1 * mediaWikiMinimalIntervalProviderMock.getMemoryAlphaEnInterval() >> INTERVAL
-		1 * blikiUserDecoratorBeanMapProviderMock.getUserEnumMap() >> mediaWikiSourceUserDecoratorMap
-		1 * userDecorator.getConnector() >> connector
+		1 * mediaWikiMinimalIntervalProviderMock.memoryAlphaEnInterval >> INTERVAL
+		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
+		1 * userDecorator.connector >> connector
 		1 * closeableHttpClient.execute(_ as HttpGet) >> { HttpGet httpGet ->
-			assert !httpGet.getURI().query.contains('parsetree')
-			return closeableHttpResponse
+			assert !httpGet.URI.query.contains('parsetree')
+			closeableHttpResponse
 		}
-		2 * userDecorator.getActionUrl() >> ACTION_URL
+		2 * userDecorator.actionUrl >> ACTION_URL
 	}
 
-	def "gets page info from Memory Alpha EN"() {
+	void "gets page info from Memory Alpha EN"() {
 		given:
 		Map<MediaWikiSource, UserDecorator> mediaWikiSourceUserDecoratorMap = Maps.newHashMap()
 		Connector connector = new Connector(httpClientBuilderMock)
@@ -268,18 +269,17 @@ class BlikiConnectorTest extends Specification {
 		String xml = blikiConnector.getPageInfo(TITLE, MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN)
 
 		then:
-		1 * mediaWikiMinimalIntervalProviderMock.getMemoryAlphaEnInterval() >> INTERVAL
-		1 * blikiUserDecoratorBeanMapProviderMock.getUserEnumMap() >> mediaWikiSourceUserDecoratorMap
-		1 * userDecorator.getConnector() >> connector
-		2 * userDecorator.getActionUrl() >> ACTION_URL
+		1 * mediaWikiMinimalIntervalProviderMock.memoryAlphaEnInterval >> INTERVAL
+		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
+		1 * userDecorator.connector >> connector
+		2 * userDecorator.actionUrl >> ACTION_URL
 		xml == XML
 	}
 
-	def "throws RuntimeError on any error"() {
+	void "throws RuntimeError on any error"() {
 		given: 'connector without sendXML method is injected'
-		UserDecorator userDecorator = Mock(UserDecorator) {
-			getConnector() >> Mock(Connector)
-		}
+		UserDecorator userDecorator = Mock(UserDecorator)
+		userDecorator.connector >> Mock(Connector)
 		Map<MediaWikiSource, UserDecorator> mediaWikiSourceUserDecoratorMap = Maps.newHashMap()
 		mediaWikiSourceUserDecoratorMap.put(MediaWikiSource.MEMORY_ALPHA_EN, userDecorator)
 

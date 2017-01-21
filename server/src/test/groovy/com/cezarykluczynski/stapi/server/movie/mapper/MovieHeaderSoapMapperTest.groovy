@@ -9,11 +9,11 @@ class MovieHeaderSoapMapperTest extends AbstractMovieMapperTest {
 
 	private MovieHeaderSoapMapper movieHeaderSoapMapper
 
-	def setup() {
+	void setup() {
 		movieHeaderSoapMapper = Mappers.getMapper(MovieHeaderSoapMapper)
 	}
 
-	def "maps DB entity to SOAP header"() {
+	void "maps DB entity to SOAP header"() {
 		given:
 		Movie movie = new Movie(
 				guid: GUID,

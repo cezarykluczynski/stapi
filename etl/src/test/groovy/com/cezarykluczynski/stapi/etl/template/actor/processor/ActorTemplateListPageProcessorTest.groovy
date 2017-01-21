@@ -20,12 +20,12 @@ class ActorTemplateListPageProcessorTest extends Specification {
 
 	private ActorTemplateListPageProcessor actorTemplateListPageProcessor
 
-	def setup() {
+	void setup() {
 		pageBindingServiceMock = Mock(PageBindingService)
 		actorTemplateListPageProcessor = new ActorTemplateListPageProcessor(pageBindingServiceMock)
 	}
 
-	def "returns null when it is not a game performers list"() {
+	void "returns null when it is not a game performers list"() {
 		given:
 		Page page = new Page()
 
@@ -37,7 +37,7 @@ class ActorTemplateListPageProcessorTest extends Specification {
 		actorTemplate == null
 	}
 
-	def "return null when source page cannot be found"() {
+	void "return null when source page cannot be found"() {
 		given:
 		Page page = new Page(title: PageName.STAR_TREK_GAME_PERFORMERS)
 
@@ -49,7 +49,7 @@ class ActorTemplateListPageProcessorTest extends Specification {
 		actorTemplate == null
 	}
 
-	def "sets page entity from original page wiki page dto"() {
+	void "sets page entity from original page wiki page dto"() {
 		given:
 		Page page = new Page(
 				title: PageName.STAR_TREK_GAME_PERFORMERS,
@@ -68,12 +68,12 @@ class ActorTemplateListPageProcessorTest extends Specification {
 			assert pageHeader.title == TITLE
 			assert pageHeader.pageId == PAGE_ID
 			assert pageHeader.mediaWikiSource == SOURCES_MEDIA_WIKI_SOURCE
-			return pageEntity
+			pageEntity
 		}
 		actorTemplate.page == pageEntity
 	}
 
-	def "sets name from original page wiki page dto"() {
+	void "sets name from original page wiki page dto"() {
 		given:
 		Page page = new Page(title: PageName.STAR_TREK_GAME_PERFORMERS,
 				redirectPath: Lists.newArrayList(PageHeader.builder()
@@ -88,7 +88,7 @@ class ActorTemplateListPageProcessorTest extends Specification {
 		actorTemplate.name == TITLE
 	}
 
-	def "should only set videoGamePerformer flag"() {
+	void "should only set videoGamePerformer flag"() {
 		given:
 		Page page = new Page(title: PageName.STAR_TREK_GAME_PERFORMERS,
 				redirectPath: Lists.newArrayList(PageHeader.builder()

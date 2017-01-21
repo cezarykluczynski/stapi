@@ -17,12 +17,12 @@ class MediaWikiMinimalIntervalConfigurationStrategyTest extends Specification {
 
 	private MediaWikiMinimalIntervalConfigurationStrategy mediaWikiMinimalIntervalConfigurationStrategy
 
-	def setup() {
+	void setup() {
 		wikiaUrlDetectorMock = Mock(WikiaUrlDetector)
 		mediaWikiMinimalIntervalConfigurationStrategy = new MediaWikiMinimalIntervalConfigurationStrategy(wikiaUrlDetectorMock)
 	}
 
-	def "throws exception when URL is null"() {
+	void "throws exception when URL is null"() {
 		when:
 		mediaWikiMinimalIntervalConfigurationStrategy.configureInterval(null, VALID_INTERVAL_STRING)
 
@@ -30,7 +30,7 @@ class MediaWikiMinimalIntervalConfigurationStrategyTest extends Specification {
 		thrown(NullPointerException)
 	}
 
-	def "when minimal interval is null, and URL is non-Wikia, zero is returned"() {
+	void "when minimal interval is null, and URL is non-Wikia, zero is returned"() {
 		when:
 		Long interval = mediaWikiMinimalIntervalConfigurationStrategy.configureInterval(API_URL, null)
 
@@ -39,7 +39,7 @@ class MediaWikiMinimalIntervalConfigurationStrategyTest extends Specification {
 		interval == ZERO_INTERVAL
 	}
 
-	def "when minimal interval is auto, and URL is non-Wikia, zero is returned"() {
+	void "when minimal interval is auto, and URL is non-Wikia, zero is returned"() {
 		when:
 		Long interval = mediaWikiMinimalIntervalConfigurationStrategy.configureInterval(API_URL, VALID_INTERVAL_AUTO)
 
@@ -48,8 +48,7 @@ class MediaWikiMinimalIntervalConfigurationStrategyTest extends Specification {
 		interval == ZERO_INTERVAL
 	}
 
-
-	def "when minimal interval is null, and URL is Wikia, default non-zero interval is returned"() {
+	void "when minimal interval is null, and URL is Wikia, default non-zero interval is returned"() {
 		when:
 		Long interval = mediaWikiMinimalIntervalConfigurationStrategy.configureInterval(API_URL, null)
 
@@ -58,7 +57,7 @@ class MediaWikiMinimalIntervalConfigurationStrategyTest extends Specification {
 		interval == MediaWikiMinimalIntervalConfigurationStrategy.WIKIA_INTERVAL
 	}
 
-	def "when minimal interval is not null, and URL is Wikia, default non-zero interval is returned"() {
+	void "when minimal interval is not null, and URL is Wikia, default non-zero interval is returned"() {
 		when:
 		Long interval = mediaWikiMinimalIntervalConfigurationStrategy.configureInterval(API_URL, VALID_INTERVAL_AUTO)
 
@@ -67,7 +66,7 @@ class MediaWikiMinimalIntervalConfigurationStrategyTest extends Specification {
 		interval == MediaWikiMinimalIntervalConfigurationStrategy.WIKIA_INTERVAL
 	}
 
-	def "when minimal interval is not null, it is returned"() {
+	void "when minimal interval is not null, it is returned"() {
 		when:
 		Long interval = mediaWikiMinimalIntervalConfigurationStrategy.configureInterval(API_URL, VALID_INTERVAL_STRING)
 
@@ -76,7 +75,7 @@ class MediaWikiMinimalIntervalConfigurationStrategyTest extends Specification {
 		interval == VALID_INTERVAL_LONG
 	}
 
-	def "when minimal interval cannot be parsed, exception is thrown"() {
+	void "when minimal interval cannot be parsed, exception is thrown"() {
 		when:
 		mediaWikiMinimalIntervalConfigurationStrategy.configureInterval(API_URL, INVALID_INTERVAL_STRING)
 

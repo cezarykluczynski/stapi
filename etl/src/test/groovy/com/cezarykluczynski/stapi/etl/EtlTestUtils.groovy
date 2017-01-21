@@ -5,8 +5,8 @@ import com.google.common.collect.Lists
 
 class EtlTestUtils {
 
-	public static List<CategoryHeader> createCategoryHeaderList(String title) {
-		return Lists.newArrayList(new CategoryHeader(title: title))
+	static List<CategoryHeader> createCategoryHeaderList(String title) {
+		Lists.newArrayList(new CategoryHeader(title: title))
 	}
 
 }

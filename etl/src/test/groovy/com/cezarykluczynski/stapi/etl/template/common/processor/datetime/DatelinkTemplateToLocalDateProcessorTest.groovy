@@ -15,9 +15,9 @@ class DatelinkTemplateToLocalDateProcessorTest extends Specification {
 	private static final Integer YEAR = 2000
 	private static final Month MONTH = Month.APRIL
 	private static final Integer DAY = 3
-	private static final String YEAR_STRING = YEAR.toString()
-	private static final String MONTH_STRING = MONTH.toString()
-	private static final String DAY_STRING = DAY.toString()
+	private static final String YEAR_STRING = YEAR
+	private static final String MONTH_STRING = MONTH
+	private static final String DAY_STRING = DAY
 
 	private DayMonthYearProcessor dayMonthYearProcessorMock
 
@@ -25,7 +25,7 @@ class DatelinkTemplateToLocalDateProcessorTest extends Specification {
 
 	private Template template
 
-	def setup() {
+	void setup() {
 		dayMonthYearProcessorMock = Mock(DayMonthYearProcessor)
 		templateToLocalDateProcessor = new DatelinkTemplateToLocalDateProcessor(dayMonthYearProcessorMock)
 		template = new Template(
@@ -38,7 +38,7 @@ class DatelinkTemplateToLocalDateProcessorTest extends Specification {
 		)
 	}
 
-	def "valid template with title 'd' passed findings to DayMonthYearProcessor"() {
+	void "valid template with title 'd' passed findings to DayMonthYearProcessor"() {
 		given:
 		LocalDate localDate = LocalDate.of(YEAR, MONTH, DAY)
 
@@ -50,12 +50,12 @@ class DatelinkTemplateToLocalDateProcessorTest extends Specification {
 			dayMonthYearCandidate.day == DAY_STRING
 			dayMonthYearCandidate.month == MONTH_STRING
 			dayMonthYearCandidate.year == YEAR_STRING
-			return localDate
+			localDate
 		}
 		localDateOutput == localDate
 	}
 
-	def "valid template with title 'datelink' passed findings to DayMonthYearProcessor"() {
+	void "valid template with title 'datelink' passed findings to DayMonthYearProcessor"() {
 		given:
 		template.title = TemplateName.DATELINK
 		LocalDate localDate = LocalDate.of(YEAR, MONTH, DAY)
@@ -68,14 +68,14 @@ class DatelinkTemplateToLocalDateProcessorTest extends Specification {
 			dayMonthYearCandidate.day == DAY_STRING
 			dayMonthYearCandidate.month == MONTH_STRING
 			dayMonthYearCandidate.year == YEAR_STRING
-			return localDate
+			localDate
 		}
 		localDateOutput == localDate
 	}
 
-	def "template of different title produces null LocalDate"() {
+	void "template of different title produces null LocalDate"() {
 		when:
-		LocalDate localDate = templateToLocalDateProcessor.process(new Template(title: "different template"))
+		LocalDate localDate = templateToLocalDateProcessor.process(new Template(title: 'different template'))
 
 		then:
 		localDate == null

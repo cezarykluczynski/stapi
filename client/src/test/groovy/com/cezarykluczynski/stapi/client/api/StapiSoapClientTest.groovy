@@ -4,7 +4,7 @@ class StapiSoapClientTest extends AbstractStapiClientTest {
 
 	private StapiSoapClient stapiSoapClient
 
-	def "soap client can be instantiated with canonical URL"() {
+	void "soap client can be instantiated with canonical URL"() {
 		when:
 		stapiSoapClient = new StapiSoapClient()
 
@@ -17,7 +17,7 @@ class StapiSoapClientTest extends AbstractStapiClientTest {
 		((String) toBindingProvider(stapiSoapClient.moviePortType).requestContext.get(URL_KEY)).contains(StapiClient.CANONICAL_API_URL)
 	}
 
-	def "soap client can be instantiated with custom URL"() {
+	void "soap client can be instantiated with custom URL"() {
 		when:
 		stapiSoapClient = new StapiSoapClient(CUSTOM_URL)
 

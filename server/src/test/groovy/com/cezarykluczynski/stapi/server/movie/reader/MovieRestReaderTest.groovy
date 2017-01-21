@@ -24,19 +24,18 @@ class MovieRestReaderTest extends Specification {
 
 	private MovieRestReader movieRestReader
 
-	def setup() {
+	void setup() {
 		movieRestQueryBuilderMock = Mock(MovieRestQuery)
 		movieRestMapperMock = Mock(MovieRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		movieRestReader = new MovieRestReader(movieRestQueryBuilderMock, movieRestMapperMock, pageMapperMock)
 	}
 
-	def "gets database entities and puts them into MovieResponse"() {
+	void "gets database entities and puts them into MovieResponse"() {
 		given:
 		List<Movie> dbMovieList = Lists.newArrayList()
-		Page<Movie> dbMoviePage = Mock(Page) {
-			getContent() >> dbMovieList
-		}
+		Page<Movie> dbMoviePage = Mock(Page)
+		dbMoviePage.content >> dbMovieList
 		List<RESTMovie> soapMovieList = Lists.newArrayList(new RESTMovie(guid: GUID))
 		MovieRestBeanParams seriesRestBeanParams = Mock(MovieRestBeanParams)
 		ResponsePage responsePage = Mock(ResponsePage)

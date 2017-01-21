@@ -18,7 +18,7 @@ class StaffProcessorTest extends Specification {
 
 	private StaffProcessor staffProcessor
 
-	def setup() {
+	void setup() {
 		pageHeaderProcessorMock = Mock(PageHeaderProcessor)
 		actorTemplatePageProcessorMock = Mock(ActorTemplatePageProcessor)
 		staffActorTemplateProcessorMock = Mock(StaffActorTemplateProcessor)
@@ -26,7 +26,7 @@ class StaffProcessorTest extends Specification {
 				staffActorTemplateProcessorMock)
 	}
 
-	def "converts PageHeader to Staff"() {
+	void "converts PageHeader to Staff"() {
 		given:
 		PageHeader pageHeader = PageHeader.builder().build()
 		Page page = new Page()

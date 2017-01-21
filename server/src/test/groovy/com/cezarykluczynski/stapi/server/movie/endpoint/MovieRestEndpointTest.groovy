@@ -12,17 +12,16 @@ class MovieRestEndpointTest extends AbstractRestEndpointTest {
 
 	private MovieRestEndpoint movieRestEndpoint
 
-	def setup() {
+	void setup() {
 		movieRestReaderMock = Mock(MovieRestReader)
 		movieRestEndpoint = new MovieRestEndpoint(movieRestReaderMock)
 	}
 
-	def "passes get call to MovieRestReader"() {
+	void "passes get call to MovieRestReader"() {
 		given:
-		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams) {
-			getPageNumber() >> PAGE_NUMBER
-			getPageSize() >> PAGE_SIZE
-		}
+		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams)
+		pageAwareBeanParams.pageNumber >> PAGE_NUMBER
+		pageAwareBeanParams.pageSize >> PAGE_SIZE
 		MovieResponse movieResponse = Mock(MovieResponse)
 
 		when:
@@ -32,12 +31,12 @@ class MovieRestEndpointTest extends AbstractRestEndpointTest {
 		1 * movieRestReaderMock.read(_ as MovieRestBeanParams) >> { MovieRestBeanParams movieRestBeanParams ->
 			assert pageAwareBeanParams.pageNumber == PAGE_NUMBER
 			assert pageAwareBeanParams.pageSize == PAGE_SIZE
-			return movieResponse
+			movieResponse
 		}
 		movieResponseOutput == movieResponse
 	}
 
-	def "passes post call to MovieRestReader"() {
+	void "passes post call to MovieRestReader"() {
 		given:
 		MovieRestBeanParams movieRestBeanParams = new MovieRestBeanParams()
 		MovieResponse movieResponse = Mock(MovieResponse)
@@ -47,7 +46,7 @@ class MovieRestEndpointTest extends AbstractRestEndpointTest {
 
 		then:
 		1 * movieRestReaderMock.read(movieRestBeanParams as MovieRestBeanParams) >> { MovieRestBeanParams params ->
-			return movieResponse
+			movieResponse
 		}
 		movieResponseOutput == movieResponse
 	}

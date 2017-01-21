@@ -20,7 +20,7 @@ class StaffWriterTest extends Specification {
 
 	private StaffWriter staffWriterMock
 
-	def setup() {
+	void setup() {
 		staffRepositoryMock = Mock(StaffRepository)
 		duplicateFilteringPreSavePageAwareProcessorMock = Mock(DuplicateFilteringPreSavePageAwareFilter)
 		duplicateReattachingPreSavePageAwareFilterMock = Mock(DuplicateReattachingPreSavePageAwareFilter)
@@ -28,7 +28,7 @@ class StaffWriterTest extends Specification {
 				duplicateReattachingPreSavePageAwareFilterMock)
 	}
 
-	def "filters duplicates, then writes all entities using repository"() {
+	void "filters duplicates, then writes all entities using repository"() {
 		given:
 		Staff staff = new Staff(page: new Page(pageId: PAGE_ID))
 		List<Staff> seriesList = Lists.newArrayList(staff)
@@ -39,15 +39,15 @@ class StaffWriterTest extends Specification {
 		then:
 		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, Staff) >> { args ->
 			assert args[0][0] == staff
-			return seriesList
+			seriesList
 		}
 		1 * duplicateReattachingPreSavePageAwareFilterMock.process(_, Staff) >> { args ->
 			assert args[0][0] == staff
-			return seriesList
+			seriesList
 		}
 		1 * duplicateFilteringPreSavePageAwareProcessorMock.process(_, Staff) >> { args ->
 			assert args[0][0] == staff
-			return seriesList
+			seriesList
 		}
 		1 * staffRepositoryMock.save(seriesList)
 		0 * _

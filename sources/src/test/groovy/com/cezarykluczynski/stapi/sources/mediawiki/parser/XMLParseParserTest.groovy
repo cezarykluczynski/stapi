@@ -34,7 +34,7 @@ class XMLParseParserTest extends Specification {
 		</api>
 """
 
-	def "converts XML to Page"() {
+	void "converts XML to Page"() {
 		given:
 		Page expectedPage = new Page(
 				pageId: PAGE_ID,
@@ -46,13 +46,13 @@ class XMLParseParserTest extends Specification {
 		)
 
 		when:
-		Page page = new XMLParseParser(XML).getPage()
+		Page page = new XMLParseParser(XML).page
 
 		then:
 		page == expectedPage
 	}
 
-	def "tolerate XML with missing page id and not parseetree"() {
+	void "tolerate XML with missing page id and not parseetree"() {
 		given:
 		Page expectedPage = new Page(
 				title: TITLE,
@@ -63,15 +63,15 @@ class XMLParseParserTest extends Specification {
 		)
 
 		when:
-		Page page = new XMLParseParser(XML_WITHOUT_PAGE_ID_AND_PARSETREE).getPage()
+		Page page = new XMLParseParser(XML_WITHOUT_PAGE_ID_AND_PARSETREE).page
 
 		then:
 		page == expectedPage
 	}
 
-	def "convert exceptions to runtime exceptions"() {
+	void "convert exceptions to runtime exceptions"() {
 		when:
-		new XMLParseParser("").getPage()
+		new XMLParseParser('').page
 
 		then:
 		thrown(RuntimeException)

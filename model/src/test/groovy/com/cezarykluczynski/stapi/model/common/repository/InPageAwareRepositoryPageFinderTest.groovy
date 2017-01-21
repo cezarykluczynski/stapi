@@ -25,14 +25,14 @@ class InPageAwareRepositoryPageFinderTest extends Specification {
 
 	private Set<Long> pageIds
 
-	def setup() {
+	void setup() {
 		pageAwareQueryBuilderSingletonFactoryProducerMock = Mock(PageAwareQueryBuilderSingletonFactoryProducer)
 		pageAwareQueryBuilderFactoryMock = Mock(PageAwareQueryBuilderFactory)
 		pageAwareQueryBuilderMock = Mock(QueryBuilder)
 		inPageAwareRepositoryPageFinder = new InPageAwareRepositoryPageFinder(pageAwareQueryBuilderSingletonFactoryProducerMock)
 	}
 
-	def "returns empty list if no entities were found"() {
+	void "returns empty list if no entities were found"() {
 		given:
 		List<PageAware> pageAwareList = Lists.newArrayList()
 
@@ -44,31 +44,26 @@ class InPageAwareRepositoryPageFinderTest extends Specification {
 		1 * pageAwareQueryBuilderFactoryMock.createQueryBuilder(_ as Pageable) >> { Pageable pageable ->
 			assert pageable.pageNumber == 0
 			assert pageable.pageSize == 100
-			return pageAwareQueryBuilderMock
+			pageAwareQueryBuilderMock
 		}
 		1 * pageAwareQueryBuilderMock.joinPageIdsIn(pageIds)
-		1 * pageAwareQueryBuilderMock.joinEquals("page", "mediaWikiSource", MEDIA_WIKI_SOURCE, Page)
+		1 * pageAwareQueryBuilderMock.joinEquals('page', 'mediaWikiSource', MEDIA_WIKI_SOURCE, Page)
 		1 * pageAwareQueryBuilderMock.findAll() >> pageAwareList
 		pageList.empty
 	}
 
-	def "finds entities by page ids"() {
+	void "finds entities by page ids"() {
 		given:
-		Page page1 = Mock(Page) {
-			getPageId() >> PAGE_ID_1
-		}
-		Page page2 = Mock(Page) {
-			getPageId() >> PAGE_ID_2
-		}
+		Page page1 = Mock(Page)
+		page1.pageId >> PAGE_ID_1
+		Page page2 = Mock(Page)
+		page2.pageId >> PAGE_ID_2
+		PageAware pageAware1 = Mock(PageAware)
+		pageAware1.page >> page1
+		PageAware pageAware2 = Mock(PageAware)
+		pageAware2.page >> page2
 
-		List<PageAware> pageAwareList = Lists.newArrayList(
-				Mock(PageAware) {
-					getPage() >> page1
-				},
-				Mock(PageAware) {
-					getPage() >> page2
-				}
-		)
+		List<PageAware> pageAwareList = Lists.newArrayList(pageAware1, pageAware2)
 
 		when:
 		List<Page> pageList = inPageAwareRepositoryPageFinder.findByPagePageIdIn(pageIds, Performer)
@@ -78,10 +73,10 @@ class InPageAwareRepositoryPageFinderTest extends Specification {
 		1 * pageAwareQueryBuilderFactoryMock.createQueryBuilder(_ as Pageable) >> { Pageable pageable ->
 			assert pageable.pageNumber == 0
 			assert pageable.pageSize == 100
-			return pageAwareQueryBuilderMock
+			pageAwareQueryBuilderMock
 		}
 		1 * pageAwareQueryBuilderMock.joinPageIdsIn(pageIds)
-		1 * pageAwareQueryBuilderMock.joinEquals("page", "mediaWikiSource", MEDIA_WIKI_SOURCE, Page)
+		1 * pageAwareQueryBuilderMock.joinEquals('page', 'mediaWikiSource', MEDIA_WIKI_SOURCE, Page)
 		1 * pageAwareQueryBuilderMock.findAll() >> pageAwareList
 		pageList.size() == 2
 		pageList[0] == page1

@@ -32,7 +32,7 @@ class EpisodeStaffLinkingWorkerTest extends Specification {
 
 	private EpisodeStaffLinkingWorker episodeStaffLinkingWorker
 
-	def setup() {
+	void setup() {
 		wikitextApiMock = Mock(WikitextApi)
 		entityLookupByNameServiceMock = Mock(EntityLookupByNameService)
 		templateFinderMock = Mock(TemplateFinder)
@@ -40,7 +40,7 @@ class EpisodeStaffLinkingWorkerTest extends Specification {
 				templateFinderMock)
 	}
 
-	def "does not interact with dependencies other than template finder if sidebar episode template could not be found"() {
+	void "does not interact with dependencies other than template finder if sidebar episode template could not be found"() {
 		given:
 		Page page = new Page(
 				templates: Lists.newArrayList()
@@ -54,7 +54,7 @@ class EpisodeStaffLinkingWorkerTest extends Specification {
 		0 * _
 	}
 
-	def "gets staff from template parts"() {
+	void "gets staff from template parts"() {
 		given:
 		Template sidebarEpisodeTemplate = new Template(
 				title: TemplateName.SIDEBAR_EPISODE,

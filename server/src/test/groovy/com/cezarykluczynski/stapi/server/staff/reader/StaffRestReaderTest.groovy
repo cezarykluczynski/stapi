@@ -24,19 +24,18 @@ class StaffRestReaderTest extends Specification {
 
 	private StaffRestReader staffRestReader
 
-	def setup() {
+	void setup() {
 		staffRestQueryBuilderMock = Mock(StaffRestQuery)
 		staffRestMapperMock = Mock(StaffRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		staffRestReader = new StaffRestReader(staffRestQueryBuilderMock, staffRestMapperMock, pageMapperMock)
 	}
 
-	def "gets database entities and puts them into StaffResponse"() {
+	void "gets database entities and puts them into StaffResponse"() {
 		given:
 		List<DBStaff> dbStaffList = Lists.newArrayList()
-		Page<DBStaff> dbStaffPage = Mock(Page) {
-			getContent() >> dbStaffList
-		}
+		Page<DBStaff> dbStaffPage = Mock(Page)
+		dbStaffPage.content >> dbStaffList
 		List<SOAPStaff> soapStaffList = Lists.newArrayList(new SOAPStaff(guid: GUID))
 		StaffRestBeanParams seriesRestBeanParams = Mock(StaffRestBeanParams)
 		ResponsePage responsePage = Mock(ResponsePage)

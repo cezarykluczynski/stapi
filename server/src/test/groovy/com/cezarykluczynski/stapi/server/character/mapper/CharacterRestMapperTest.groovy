@@ -18,11 +18,11 @@ class CharacterRestMapperTest extends AbstractCharacterMapperTest {
 
 	private CharacterRestMapper characterRestMapper
 
-	def setup() {
+	void setup() {
 		characterRestMapper = Mappers.getMapper(CharacterRestMapper)
 	}
 
-	def "maps CharacterRestBeanParams to CharacterRequestDTO"() {
+	void "maps CharacterRestBeanParams to CharacterRequestDTO"() {
 		given:
 		CharacterRestBeanParams characterRestBeanParams = new CharacterRestBeanParams(
 				guid: GUID,
@@ -44,7 +44,7 @@ class CharacterRestMapperTest extends AbstractCharacterMapperTest {
 		characterRequestDTO.alternateReality == ALTERNATE_REALITY
 	}
 
-	def "maps DB entity to REST entity"() {
+	void "maps DB entity to REST entity"() {
 		given:
 		DBCharacter dbCharacter = createCharacter()
 

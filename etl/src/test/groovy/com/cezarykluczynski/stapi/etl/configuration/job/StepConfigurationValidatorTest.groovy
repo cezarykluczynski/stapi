@@ -11,14 +11,14 @@ class StepConfigurationValidatorTest extends Specification {
 
 	private StepConfigurationValidator stepConfigurationValidator
 
-	def setup() {
+	void setup() {
 		stepsPropertiesMock = Mock()
 		stepConfigurationValidator = new StepConfigurationValidator(stepsPropertiesMock)
 	}
 
-	def "throws exception when there are null steps"() {
+	void "throws exception when there are null steps"() {
 		given:
-		stepsPropertiesMock.getCreateCharacters() >> null
+		stepsPropertiesMock.createCharacters >> null
 
 		when:
 		stepConfigurationValidator.validate()
@@ -26,29 +26,28 @@ class StepConfigurationValidatorTest extends Specification {
 		then:
 		JobBuilderException jobBuilderException = thrown(JobBuilderException)
 		jobBuilderException.message == 'java.lang.RuntimeException: Number of configured steps is 6, but 0 steps found'
-
 	}
 
-	def "throws exception when two steps has the same order"() {
+	void "throws exception when two steps has the same order"() {
 		given:
-		stepsPropertiesMock.getCreateSeries() >> Mock(StepProperties) {
-			getOrder() >> 1
-		}
-		stepsPropertiesMock.getCreatePerformers() >> Mock(StepProperties) {
-			getOrder() >> 2
-		}
-		stepsPropertiesMock.getCreateStaff() >> Mock(StepProperties) {
-			getOrder() >> 3
-		}
-		stepsPropertiesMock.getCreateCharacters() >> Mock(StepProperties) {
-			getOrder() >> 4
-		}
-		stepsPropertiesMock.getCreateEpisodes() >> Mock(StepProperties) {
-			getOrder() >> 1
-		}
-		stepsPropertiesMock.getCreateMovies() >> Mock(StepProperties) {
-			getOrder() >> 6
-		}
+		StepProperties seriesStepProperties = Mock(StepProperties)
+		seriesStepProperties.order >> 1
+		stepsPropertiesMock.createSeries >> seriesStepProperties
+		StepProperties performersStepProperties = Mock(StepProperties)
+		seriesStepProperties.order >> 2
+		stepsPropertiesMock.createPerformers >> performersStepProperties
+		StepProperties staffStepProperties = Mock(StepProperties)
+		staffStepProperties.order >> 3
+		stepsPropertiesMock.createStaff >> staffStepProperties
+		StepProperties charactersStepProperties = Mock(StepProperties)
+		charactersStepProperties.order >> 4
+		stepsPropertiesMock.createCharacters >> charactersStepProperties
+		StepProperties episodesStepProperties = Mock(StepProperties)
+		episodesStepProperties.order >> 1
+		stepsPropertiesMock.createEpisodes >> episodesStepProperties
+		StepProperties moviesStepProperties = Mock(StepProperties)
+		moviesStepProperties.order >> 6
+		stepsPropertiesMock.createMovies >> moviesStepProperties
 
 		when:
 		stepConfigurationValidator.validate()
@@ -59,26 +58,26 @@ class StepConfigurationValidatorTest extends Specification {
 				'but this order was already given to step CREATE_SERIES'
 	}
 
-	def "correctly configured steps passed validation"() {
+	void "correctly configured steps passed validation"() {
 		given:
-		stepsPropertiesMock.getCreateSeries() >> Mock(StepProperties) {
-			getOrder() >> 1
-		}
-		stepsPropertiesMock.getCreatePerformers() >> Mock(StepProperties) {
-			getOrder() >> 2
-		}
-		stepsPropertiesMock.getCreateStaff() >> Mock(StepProperties) {
-			getOrder() >> 3
-		}
-		stepsPropertiesMock.getCreateCharacters() >> Mock(StepProperties) {
-			getOrder() >> 4
-		}
-		stepsPropertiesMock.getCreateEpisodes() >> Mock(StepProperties) {
-			getOrder() >> 5
-		}
-		stepsPropertiesMock.getCreateMovies() >> Mock(StepProperties) {
-			getOrder() >> 6
-		}
+		StepProperties seriesStepProperties = Mock(StepProperties)
+		seriesStepProperties.order >> 1
+		stepsPropertiesMock.createSeries >> seriesStepProperties
+		StepProperties performersStepProperties = Mock(StepProperties)
+		seriesStepProperties.order >> 2
+		stepsPropertiesMock.createPerformers >> performersStepProperties
+		StepProperties staffStepProperties = Mock(StepProperties)
+		staffStepProperties.order >> 3
+		stepsPropertiesMock.createStaff >> staffStepProperties
+		StepProperties charactersStepProperties = Mock(StepProperties)
+		charactersStepProperties.order >> 4
+		stepsPropertiesMock.createCharacters >> charactersStepProperties
+		StepProperties episodesStepProperties = Mock(StepProperties)
+		episodesStepProperties.order >> 5
+		stepsPropertiesMock.createEpisodes >> episodesStepProperties
+		StepProperties moviesStepProperties = Mock(StepProperties)
+		moviesStepProperties.order >> 6
+		stepsPropertiesMock.createMovies >> moviesStepProperties
 
 		when:
 		stepConfigurationValidator.validate()

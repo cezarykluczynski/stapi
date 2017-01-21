@@ -36,7 +36,7 @@ class EntityLookupByNameServiceTest extends Specification {
 
 	private MediaWikiSourceMapper mediaWikiSourceMapper
 
-	def setup() {
+	void setup() {
 		pageApiMock = Mock(PageApi)
 		characterRepositoryMock = Mock(CharacterRepository)
 		performerRepositoryMock = Mock(PerformerRepository)
@@ -46,7 +46,7 @@ class EntityLookupByNameServiceTest extends Specification {
 				mediaWikiSourceMapper)
 	}
 
-	def "gets character by name from repository"() {
+	void "gets character by name from repository"() {
 		given:
 		Character character = Mock(Character)
 
@@ -60,7 +60,7 @@ class EntityLookupByNameServiceTest extends Specification {
 		characterOptional.get() == character
 	}
 
-	def "gets character by name from page api, then from repository"() {
+	void "gets character by name from page api, then from repository"() {
 		given:
 		Character character = Mock(Character)
 		Page page = Mock(Page)
@@ -72,14 +72,14 @@ class EntityLookupByNameServiceTest extends Specification {
 		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
 		1 * characterRepositoryMock.findByPageTitleAndPageMediaWikiSource(CHARACTER_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
 		1 * pageApiMock.getPage(CHARACTER_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
-		1 * page.getPageId() >> PAGE_ID
-		1 * page.getMediaWikiSource() >> SOURCES_MEDIA_WIKI_SOURCE
+		1 * page.pageId >> PAGE_ID
+		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
 		1 * characterRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.of(character)
 		0 * _
 		characterOptional.get() == character
 	}
 
-	def "gets character by name from page api, then from repository, when NonUniqueResultException was thrown"() {
+	void "gets character by name from page api, then from repository, when NonUniqueResultException was thrown"() {
 		given:
 		Character character = Mock(Character)
 		Page page = Mock(Page)
@@ -93,14 +93,14 @@ class EntityLookupByNameServiceTest extends Specification {
 			throw new NonUniqueResultException()
 		}
 		1 * pageApiMock.getPage(CHARACTER_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
-		1 * page.getPageId() >> PAGE_ID
-		1 * page.getMediaWikiSource() >> SOURCES_MEDIA_WIKI_SOURCE
+		1 * page.pageId >> PAGE_ID
+		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
 		1 * characterRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.of(character)
 		0 * _
 		characterOptional.get() == character
 	}
 
-	def "does not get character when page api returns null"() {
+	void "does not get character when page api returns null"() {
 		when:
 		Optional<Character> characterOptional = entityLookupByNameService.findCharacterByName(CHARACTER_NAME, SOURCES_MEDIA_WIKI_SOURCE)
 
@@ -112,7 +112,7 @@ class EntityLookupByNameServiceTest extends Specification {
 		!characterOptional.present
 	}
 
-	def "does not get character when page api returns page, but character repository returns empty optional"() {
+	void "does not get character when page api returns page, but character repository returns empty optional"() {
 		given:
 		Page page = Mock(Page)
 
@@ -123,14 +123,14 @@ class EntityLookupByNameServiceTest extends Specification {
 		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
 		1 * characterRepositoryMock.findByPageTitleAndPageMediaWikiSource(CHARACTER_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
 		1 * pageApiMock.getPage(CHARACTER_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
-		1 * page.getPageId() >> PAGE_ID
-		1 * page.getMediaWikiSource() >> SOURCES_MEDIA_WIKI_SOURCE
+		1 * page.pageId >> PAGE_ID
+		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
 		1 * characterRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
 		0 * _
 		!characterOptional.present
 	}
 
-	def "gets performer by name from repository"() {
+	void "gets performer by name from repository"() {
 		given:
 		Performer performer = Mock(Performer)
 
@@ -144,7 +144,7 @@ class EntityLookupByNameServiceTest extends Specification {
 		performerOptional.get() == performer
 	}
 
-	def "gets performer by name from page api, then from repository"() {
+	void "gets performer by name from page api, then from repository"() {
 		given:
 		Performer performer = Mock(Performer)
 		Page page = Mock(Page)
@@ -156,14 +156,14 @@ class EntityLookupByNameServiceTest extends Specification {
 		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
 		1 * performerRepositoryMock.findByPageTitleAndPageMediaWikiSource(PERFORMER_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
 		1 * pageApiMock.getPage(PERFORMER_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
-		1 * page.getPageId() >> PAGE_ID
-		1 * page.getMediaWikiSource() >> SOURCES_MEDIA_WIKI_SOURCE
+		1 * page.pageId >> PAGE_ID
+		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
 		1 * performerRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.of(performer)
 		0 * _
 		performerOptional.get() == performer
 	}
 
-	def "gets performer by name from page api, then from repository, when NonUniqueResultException was thrown"() {
+	void "gets performer by name from page api, then from repository, when NonUniqueResultException was thrown"() {
 		given:
 		Performer performer = Mock(Performer)
 		Page page = Mock(Page)
@@ -177,14 +177,14 @@ class EntityLookupByNameServiceTest extends Specification {
 			throw new NonUniqueResultException()
 		}
 		1 * pageApiMock.getPage(PERFORMER_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
-		1 * page.getPageId() >> PAGE_ID
-		1 * page.getMediaWikiSource() >> SOURCES_MEDIA_WIKI_SOURCE
+		1 * page.pageId >> PAGE_ID
+		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
 		1 * performerRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.of(performer)
 		0 * _
 		performerOptional.get() == performer
 	}
 
-	def "does not get performer when page api returns null"() {
+	void "does not get performer when page api returns null"() {
 		when:
 		Optional<Performer> performerOptional = entityLookupByNameService.findPerformerByName(PERFORMER_NAME, SOURCES_MEDIA_WIKI_SOURCE)
 
@@ -196,7 +196,7 @@ class EntityLookupByNameServiceTest extends Specification {
 		!performerOptional.present
 	}
 
-	def "does not get performer when page api returns page, but performer repository returns empty optional"() {
+	void "does not get performer when page api returns page, but performer repository returns empty optional"() {
 		given:
 		Page page = Mock(Page)
 
@@ -207,15 +207,14 @@ class EntityLookupByNameServiceTest extends Specification {
 		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
 		1 * performerRepositoryMock.findByPageTitleAndPageMediaWikiSource(PERFORMER_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
 		1 * pageApiMock.getPage(PERFORMER_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
-		1 * page.getPageId() >> PAGE_ID
-		1 * page.getMediaWikiSource() >> SOURCES_MEDIA_WIKI_SOURCE
+		1 * page.pageId >> PAGE_ID
+		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
 		1 * performerRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
 		0 * _
 		!performerOptional.present
 	}
 
-
-	def "gets staff by name from repository"() {
+	void "gets staff by name from repository"() {
 		given:
 		Staff staff = Mock(Staff)
 
@@ -229,7 +228,7 @@ class EntityLookupByNameServiceTest extends Specification {
 		staffOptional.get() == staff
 	}
 
-	def "gets staff by name from page api, then from repository"() {
+	void "gets staff by name from page api, then from repository"() {
 		given:
 		Staff staff = Mock(Staff)
 		Page page = Mock(Page)
@@ -241,14 +240,14 @@ class EntityLookupByNameServiceTest extends Specification {
 		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
 		1 * staffRepositoryMock.findByPageTitleAndPageMediaWikiSource(STAFF_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
 		1 * pageApiMock.getPage(STAFF_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
-		1 * page.getPageId() >> PAGE_ID
-		1 * page.getMediaWikiSource() >> SOURCES_MEDIA_WIKI_SOURCE
+		1 * page.pageId >> PAGE_ID
+		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
 		1 * staffRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.of(staff)
 		0 * _
 		staffOptional.get() == staff
 	}
 
-	def "gets staff by name from page api, then from repository, when NonUniqueResultException was thrown"() {
+	void "gets staff by name from page api, then from repository, when NonUniqueResultException was thrown"() {
 		given:
 		Staff staff = Mock(Staff)
 		Page page = Mock(Page)
@@ -262,14 +261,14 @@ class EntityLookupByNameServiceTest extends Specification {
 			throw new NonUniqueResultException()
 		}
 		1 * pageApiMock.getPage(STAFF_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
-		1 * page.getPageId() >> PAGE_ID
-		1 * page.getMediaWikiSource() >> SOURCES_MEDIA_WIKI_SOURCE
+		1 * page.pageId >> PAGE_ID
+		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
 		1 * staffRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.of(staff)
 		0 * _
 		staffOptional.get() == staff
 	}
 
-	def "does not get staff when page api returns null"() {
+	void "does not get staff when page api returns null"() {
 		when:
 		Optional<Staff> staffOptional = entityLookupByNameService.findStaffByName(STAFF_NAME, SOURCES_MEDIA_WIKI_SOURCE)
 
@@ -281,7 +280,7 @@ class EntityLookupByNameServiceTest extends Specification {
 		!staffOptional.present
 	}
 
-	def "does not get staff when page api returns page, but staff repository returns empty optional"() {
+	void "does not get staff when page api returns page, but staff repository returns empty optional"() {
 		given:
 		Page page = Mock(Page)
 
@@ -292,8 +291,8 @@ class EntityLookupByNameServiceTest extends Specification {
 		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
 		1 * staffRepositoryMock.findByPageTitleAndPageMediaWikiSource(STAFF_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
 		1 * pageApiMock.getPage(STAFF_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
-		1 * page.getPageId() >> PAGE_ID
-		1 * page.getMediaWikiSource() >> SOURCES_MEDIA_WIKI_SOURCE
+		1 * page.pageId >> PAGE_ID
+		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
 		1 * staffRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
 		0 * _
 		!staffOptional.present

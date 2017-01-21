@@ -18,39 +18,41 @@ class CxfConfigurationTest extends Specification {
 
 	private CxfConfiguration cxfConfiguration
 
-	def setup() {
+	void setup() {
 		applicationContextMock = Mock(ApplicationContext)
 		cxfConfiguration = new CxfConfiguration()
 	}
 
-	def "ServletRegistrationBean is created"() {
+	void "ServletRegistrationBean is created"() {
 		when:
 		ServletRegistrationBean servletRegistrationBean = cxfConfiguration.cxfServletRegistrationBean()
 
 		then:
 		servletRegistrationBean.servlet instanceof CXFServlet
-		servletRegistrationBean.urlMappings.contains("/api/*")
+		servletRegistrationBean.urlMappings.contains('/api/*')
 	}
 
-	def "CxfServer is created"() {
+	@SuppressWarnings(['EmptyCatchBlock', 'CatchException'])
+	void "CxfServer is created"() {
 		given:
 		Map<String, Object> serviceBeans = Maps.newHashMap()
-		serviceBeans.put("SeriesRestEndpoint", new SeriesRestEndpoint(null))
+		serviceBeans.put('SeriesRestEndpoint', new SeriesRestEndpoint(null))
 		cxfConfiguration.applicationContext = applicationContextMock
 
 		when:
 		Server server = cxfConfiguration.cxfServer()
 
 		then:
-		1 * applicationContextMock.getBean(SpringBus.class) >> new SpringBus()
-		1 * applicationContextMock.getBeansWithAnnotation(Path.class) >> serviceBeans
+		1 * applicationContextMock.getBean(SpringBus) >> new SpringBus()
+		1 * applicationContextMock.getBeansWithAnnotation(Path) >> serviceBeans
 		server instanceof ServerImpl
 		server.started
 
 		cleanup:
 		try {
 			server.destroy()
-		} catch (Throwable e) {}
+		} catch (Exception e) {
+		}
 	}
 
 }

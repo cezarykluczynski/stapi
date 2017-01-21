@@ -17,12 +17,12 @@ class MovieConfigurationTest extends Specification {
 
 	private MovieConfiguration movieConfiguration
 
-	def setup() {
+	void setup() {
 		applicationContextMock = Mock(ApplicationContext)
 		movieConfiguration = new MovieConfiguration(applicationContext: applicationContextMock)
 	}
 
-	def "movie soap endpoint is created"() {
+	void "movie soap endpoint is created"() {
 		given:
 		SpringBus springBus = new SpringBus()
 		MovieSoapReader movieSoapReaderMock = Mock(MovieSoapReader)
@@ -31,15 +31,15 @@ class MovieConfigurationTest extends Specification {
 		Endpoint movieSoapEndpoint = movieConfiguration.movieSoapEndpoint()
 
 		then:
-		1 * applicationContextMock.getBean(SpringBus.class) >> springBus
-		1 * applicationContextMock.getBean(MovieSoapReader.class) >> movieSoapReaderMock
+		1 * applicationContextMock.getBean(SpringBus) >> springBus
+		1 * applicationContextMock.getBean(MovieSoapReader) >> movieSoapReaderMock
 		movieSoapEndpoint != null
 		((EndpointImpl) movieSoapEndpoint).implementor instanceof MovieSoapEndpoint
 		((EndpointImpl) movieSoapEndpoint).bus == springBus
 		movieSoapEndpoint.published
 	}
 
-	def "MovieSoapMapper is created"() {
+	void "MovieSoapMapper is created"() {
 		when:
 		MovieSoapMapper movieSoapMapper = movieConfiguration.movieSoapMapper()
 
@@ -47,7 +47,7 @@ class MovieConfigurationTest extends Specification {
 		movieSoapMapper != null
 	}
 
-	def "MovieRestMapper is created"() {
+	void "MovieRestMapper is created"() {
 		when:
 		MovieRestMapper movieRestMapper = movieConfiguration.movieRestMapper()
 

@@ -17,6 +17,7 @@ class EpisodeTemplateDatesEnrichingProcessorTest extends Specification {
 	private static final String FIXED_TITLE = 'FIXED_TITLE'
 	private static final String TITLE = 'TITLE'
 	private static final String WIKITEXT = '* Final draft blah blah'
+	private static final LocalDate FINAL_SCRIPT_DATE = LocalDate.of(1996, 4, 5)
 
 	private RawDatelinkExtractingProcessor rawDatelinkExtractingProcessorMock
 
@@ -24,16 +25,14 @@ class EpisodeTemplateDatesEnrichingProcessorTest extends Specification {
 
 	private EpisodeTemplateDatesEnrichingProcessor episodeTemplateDatesEnrichingProcessor
 
-	private LocalDate finalScriptDate = LocalDate.of(1996, 4, 5)
-
-	def setup() {
+	void setup() {
 		rawDatelinkExtractingProcessorMock = Mock(RawDatelinkExtractingProcessor)
 		episodeFinalScriptDateFixedValueProviderMock = Mock(EpisodeFinalScriptDateFixedValueProvider)
 		episodeTemplateDatesEnrichingProcessor = new EpisodeTemplateDatesEnrichingProcessor(
 				rawDatelinkExtractingProcessorMock, episodeFinalScriptDateFixedValueProviderMock)
 	}
 
-	def "gets fixed date when it is present"() {
+	void "gets fixed date when it is present"() {
 		given:
 		EpisodeTemplate episodeTemplate = new EpisodeTemplate(
 				title: FIXED_TITLE
@@ -43,11 +42,11 @@ class EpisodeTemplateDatesEnrichingProcessorTest extends Specification {
 		episodeTemplateDatesEnrichingProcessor.enrich(EnrichablePair.of(new Page(), episodeTemplate))
 
 		then:
-		1 * episodeFinalScriptDateFixedValueProviderMock.getSearchedValue(FIXED_TITLE) >> FixedValueHolder.found(finalScriptDate)
-		episodeTemplate.finalScriptDate == finalScriptDate
+		1 * episodeFinalScriptDateFixedValueProviderMock.getSearchedValue(FIXED_TITLE) >> FixedValueHolder.found(FINAL_SCRIPT_DATE)
+		episodeTemplate.finalScriptDate == FINAL_SCRIPT_DATE
 	}
 
-	def "gets date from section when only one is present"() {
+	void "gets date from section when only one is present"() {
 		given:
 		Page page = new Page(
 				sections: Lists.newArrayList(
@@ -71,7 +70,7 @@ class EpisodeTemplateDatesEnrichingProcessorTest extends Specification {
 		episodeTemplate.finalScriptDate == localDate
 	}
 
-	def "does not get date when there is more than one date"() {
+	void "does not get date when there is more than one date"() {
 		given:
 		Page page = new Page(
 				sections: Lists.newArrayList(

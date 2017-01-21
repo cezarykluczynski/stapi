@@ -14,11 +14,11 @@ class MovieSoapMapperTest extends AbstractMovieMapperTest {
 
 	private MovieSoapMapper movieSoapMapper
 
-	def setup() {
+	void setup() {
 		movieSoapMapper = Mappers.getMapper(MovieSoapMapper)
 	}
 
-	def "maps SOAP MovieRequest to MovieRequestDTO"() {
+	void "maps SOAP MovieRequest to MovieRequestDTO"() {
 		given:
 		MovieRequest movieRequest = new MovieRequest(
 				guid: GUID,
@@ -50,7 +50,7 @@ class MovieSoapMapperTest extends AbstractMovieMapperTest {
 		movieRequestDTO.usReleaseDateTo == US_RELEASE_DATE_TO
 	}
 
-	def "maps DB entity to SOAP entity"() {
+	void "maps DB entity to SOAP entity"() {
 		given:
 		DBMovie dBMovie = createMovie()
 

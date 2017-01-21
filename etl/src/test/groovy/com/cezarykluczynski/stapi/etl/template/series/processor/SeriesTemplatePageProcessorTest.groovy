@@ -32,7 +32,7 @@ class SeriesTemplatePageProcessorTest extends Specification {
 
 	private SeriesTemplatePageProcessor seriesTemplatePageProcessor
 
-	def setup() {
+	void setup() {
 		partToYearRangeProcessorMock = Mock(PartToYearRangeProcessor)
 		partToDateRangeProcessorMock = Mock(PartToDateRangeProcessor)
 		pageBindingServiceMock = Mock(PageBindingService)
@@ -41,7 +41,7 @@ class SeriesTemplatePageProcessorTest extends Specification {
 				partToDateRangeProcessorMock, pageBindingServiceMock, templateFinderMock)
 	}
 
-	def "missing template results in null SeriesTemplate"() {
+	void "missing template results in null SeriesTemplate"() {
 		given:
 		Page page = new Page()
 
@@ -53,7 +53,7 @@ class SeriesTemplatePageProcessorTest extends Specification {
 		seriesTemplate == null
 	}
 
-	def "valid template is parsed"() {
+	void "valid template is parsed"() {
 		given:
 		Template.Part yearRangePart = new Template.Part(key: SeriesTemplatePageProcessor.DATES)
 		Template.Part dateRangePart = new Template.Part(key: SeriesTemplatePageProcessor.RUN)
@@ -91,6 +91,5 @@ class SeriesTemplatePageProcessorTest extends Specification {
 		seriesTemplate.productionYearRange == yearRange
 		seriesTemplate.originalRunDateRange == dateRange
 	}
-
 
 }

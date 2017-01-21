@@ -12,12 +12,11 @@ class LocalDateRestParamConverterProviderTest extends Specification {
 
 	private LocalDateRestParamConverterProvider localDateRestParamConverterProvider
 
-	def setup() {
+	void setup() {
 		localDateRestParamConverterProvider = new LocalDateRestParamConverterProvider()
 	}
 
-
-	def "provides LocalDateRestParamConverter"() {
+	void "provides LocalDateRestParamConverter"() {
 		when:
 		ParamConverter converter = localDateRestParamConverterProvider.getConverter(LocalDate, Mock(Type), new Annotation[0])
 
@@ -25,7 +24,7 @@ class LocalDateRestParamConverterProviderTest extends Specification {
 		converter instanceof LocalDateRestParamConverter
 	}
 
-	def "provides null for other type"() {
+	void "provides null for other type"() {
 		when:
 		ParamConverter converter = localDateRestParamConverterProvider.getConverter(LocalDateTime, Mock(Type), new Annotation[0])
 

@@ -19,7 +19,7 @@ class CharacterRestQueryTest extends Specification {
 
 	private CharacterRestQuery characterRestQuery
 
-	def setup() {
+	void setup() {
 		characterRestMapperMock = Mock(CharacterRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		characterRepositoryMock = Mock(CharacterRepository)
@@ -27,7 +27,7 @@ class CharacterRestQueryTest extends Specification {
 				characterRepositoryMock)
 	}
 
-	def "maps CharacterRestBeanParams to CharacterRequestDTO and to PageRequest, then calls repository, then returns result"() {
+	void "maps CharacterRestBeanParams to CharacterRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
 		PageRequest pageRequest = Mock(PageRequest)
 		CharacterRestBeanParams characterRestBeanParams = Mock(CharacterRestBeanParams) {

@@ -8,12 +8,12 @@ class MaritalStatusProcessorTest extends Specification {
 
 	private MaritalStatusProcessor maritalStatusProcessor
 
-	def setup() {
+	void setup() {
 		maritalStatusProcessor = new MaritalStatusProcessor()
 	}
 
-	@Unroll("#output is returned when #input is passed")
-	def "valid input produces not null output, invalid input produces null output"() {
+	@Unroll('#output is returned when #input is passed')
+	void "valid input produces not null output, invalid input produces null output"() {
 		expect:
 		maritalStatusProcessor.process(input) == output
 
@@ -29,7 +29,7 @@ class MaritalStatusProcessorTest extends Specification {
 		MaritalStatusProcessor.MARRIED        | MaritalStatus.MARRIED
 		MaritalStatusProcessor.BONDED         | MaritalStatus.MARRIED
 		MaritalStatusProcessor.CAPTAINS_WOMAN | MaritalStatus.CAPTAINS_WOMAN
-		""                                    | null
+		''                                    | null
 		null                                  | null
 	}
 

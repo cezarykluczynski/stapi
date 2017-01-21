@@ -12,11 +12,11 @@ class TemplateFilterTest extends Specification {
 
 	private TemplateFilter templateFilter
 
-	def setup() {
+	void setup() {
 		templateFilter = new TemplateFilter()
 	}
 
-	def "filters templates by title"() {
+	void "filters templates by title"() {
 		given:
 		Template template1 = new Template(title: TITLE_1)
 		Template template2 = new Template(title: TITLE_2)

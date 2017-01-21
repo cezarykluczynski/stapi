@@ -40,7 +40,7 @@ class QueryBuilderTest extends Specification {
 	private static final Integer VALID_VALUE_INTEGER_TO = 2000
 	private static final Float VALID_VALUE_FLOAT_FROM = (Float) 7.3
 	private static final Float VALID_VALUE_FLOAT_TO = (Float) 8.1
-	private static final String VALID_KEY_GENDER_STRING = 'VALID_KEY_GENDER'
+	private static final String VALID_KEY_GENDER_STRING = 'VALID_KEY_GENDER_STRING'
 	private static final Long VALID_VALUE_LONG = 5L
 	private static final String VALID_JOIN_PAGE_ID = 'pageId'
 	private static final Gender VALID_VALUE_GENDER = Gender.F
@@ -54,24 +54,24 @@ class QueryBuilderTest extends Specification {
 	private static final RequestSortDirectionDTO REQUEST_SORT_DIRECTION_3 = RequestSortDirectionDTO.DESC
 	private static final Integer REQUEST_ORDER_CLAUSE_CLAUSE_ORDER_1 = 1
 	private static final Integer REQUEST_ORDER_CLAUSE_CLAUSE_ORDER_2 = 2
-	private final SingularAttribute<?, String> VALID_KEY_STRING = Mock(SingularAttribute)
-	private final SingularAttribute<?, Boolean> VALID_KEY_BOOLEAN = Mock(SingularAttribute)
-	private final SingularAttribute<?, Long> VALID_KEY_LONG = Mock(SingularAttribute)
-	private final SetAttribute<?, ?> FETCH_SET_NAME = Mock(SetAttribute)
-	private final SetAttribute<?, ?> FETCH_SINGULAR_NAME = Mock(SetAttribute)
-	private final SingularAttribute<?, LocalDate> VALID_KEY_LOCAL_DATE = Mock(SingularAttribute)
-	private final SingularAttribute<?, Integer> VALID_KEY_INTEGER = Mock(SingularAttribute)
-	private final SingularAttribute<?, Float> VALID_KEY_FLOAT = Mock(SingularAttribute)
-	private final SingularAttribute<?, Gender> VALID_KEY_GENDER = Mock(SingularAttribute)
-	private final SingularAttribute<?, ?> KEY_WITH_INVALID_TYPE = Mock(SingularAttribute)
-	private final String VALID_KEY_PAGE = 'page'
-	private final String INVALID_KEY_PAGE = 'notPage'
-	private final Path REQUEST_ORDER_CLAUSE_PATH_1 = Mock(Path)
-	private final Path REQUEST_ORDER_CLAUSE_PATH_2 = Mock(Path)
-	private final Path REQUEST_ORDER_CLAUSE_PATH_3 = Mock(Path)
-	private final Order REQUEST_ORDER_CLAUSE_ORDER_3 = Mock(Order)
-	private final Order REQUEST_ORDER_CLAUSE_ORDER_2 = Mock(Order)
-	private final Order REQUEST_ORDER_CLAUSE_ORDER_1 = Mock(Order)
+	private final SingularAttribute<?, String> validKeyString = Mock(SingularAttribute)
+	private final SingularAttribute<?, Boolean> validKeyBoolean = Mock(SingularAttribute)
+	private final SingularAttribute<?, Long> validKeyLong = Mock(SingularAttribute)
+	private final SetAttribute<?, ?> fetchSetName = Mock(SetAttribute)
+	private final SetAttribute<?, ?> fetchSingularName = Mock(SetAttribute)
+	private final SingularAttribute<?, LocalDate> validKeyLocalDate = Mock(SingularAttribute)
+	private final SingularAttribute<?, Integer> validKeyInteger = Mock(SingularAttribute)
+	private final SingularAttribute<?, Float> validKeyFloat = Mock(SingularAttribute)
+	private final SingularAttribute<?, Gender> validKeyGender = Mock(SingularAttribute)
+	private final SingularAttribute<?, ?> keyWithInvalidType = Mock(SingularAttribute)
+	private final String validKeyPage = 'page'
+	private final String invalidKeyPage = 'notPage'
+	private final Path requestOrderClausePath1 = Mock(Path)
+	private final Path requestOrderClausePath2 = Mock(Path)
+	private final Path requestOrderClausePath3 = Mock(Path)
+	private final Order requestOrderClauseOrder3 = Mock(Order)
+	private final Order requestOrderClauseOrder2 = Mock(Order)
+	private final Order requestOrderClauseOrder1 = Mock(Order)
 
 	private static final RequestSortDTO ORDER_REQUEST = new RequestSortDTO(
 			clauses: Lists.newArrayList(
@@ -127,7 +127,7 @@ class QueryBuilderTest extends Specification {
 
 	private Long count
 
-	def setup() {
+	void setup() {
 		baseCriteriaQuery = Mock(CriteriaQuery)
 		countCriteriaQuery = Mock(CriteriaQuery)
 		criteriaBuilder = Mock(CriteriaBuilder)
@@ -136,39 +136,39 @@ class QueryBuilderTest extends Specification {
 		countExpression = Mock(Expression)
 		metamodel = Mock(Metamodel)
 		entityType = Mock(EntityType)
+		Attribute validKeyStringAttribute = Mock(Attribute)
+		validKeyStringAttribute.javaType >> String
+		validKeyStringAttribute.name >> validKeyString
+		Attribute validKeyBooleanAttribute = Mock(Attribute)
+		validKeyBooleanAttribute.javaType >> Boolean
+		validKeyBooleanAttribute.name >> validKeyBoolean
+		Attribute validKeyLongAttribute = Mock(Attribute)
+		validKeyLongAttribute.javaType >> Long
+		validKeyLongAttribute.name >> validKeyLong
+		Attribute validKeyLocalDateAttribute = Mock(Attribute)
+		validKeyLocalDateAttribute.javaType >> LocalDate
+		validKeyLocalDateAttribute.name >> validKeyLocalDate
+		Attribute validKeyGenderAttribute = Mock(Attribute)
+		validKeyGenderAttribute.javaType >> Gender
+		validKeyGenderAttribute.name >> validKeyGender
+		Attribute validKeyInvalidTypeAttribute = Mock(Attribute)
+		validKeyInvalidTypeAttribute.javaType >> Long
+		validKeyInvalidTypeAttribute.name >> keyWithInvalidType
+		Attribute validKeyPageAttribute = Mock(Attribute)
+		validKeyPageAttribute.javaType >> com.cezarykluczynski.stapi.model.page.entity.Page
+		validKeyPageAttribute.name >> validKeyPage
+		Attribute validKeyIntegerAttribute = Mock(Attribute)
+		validKeyIntegerAttribute.javaType >> Integer
+		validKeyIntegerAttribute.name >> validKeyInteger
 		attributeSet = Sets.newHashSet(
-				Mock(Attribute) {
-					getJavaType() >> String
-					getName() >> VALID_KEY_STRING
-				},
-				Mock(Attribute) {
-					getJavaType() >> Boolean
-					getName() >> VALID_KEY_BOOLEAN
-				},
-				Mock(Attribute) {
-					getJavaType() >> Long
-					getName() >> VALID_KEY_LONG
-				},
-				Mock(Attribute) {
-					getJavaType() >> LocalDate
-					getName() >> VALID_KEY_LOCAL_DATE
-				},
-				Mock(Attribute) {
-					getJavaType() >> Gender
-					getName() >> VALID_KEY_GENDER
-				},
-				Mock(Attribute) {
-					getJavaType() >> Long
-					getName() >> KEY_WITH_INVALID_TYPE
-				},
-				Mock(Attribute) {
-					getJavaType() >> com.cezarykluczynski.stapi.model.page.entity.Page
-					getName() >> VALID_KEY_PAGE
-				},
-				Mock(Attribute) {
-					getJavaType() >> Integer
-					getName() >> VALID_KEY_INTEGER
-				}
+				validKeyStringAttribute,
+				validKeyBooleanAttribute,
+				validKeyLongAttribute,
+				validKeyLocalDateAttribute,
+				validKeyGenderAttribute,
+				validKeyInvalidTypeAttribute,
+				validKeyPageAttribute,
+				validKeyIntegerAttribute
 		)
 		baseClass = Series
 		pageable = Mock(Pageable)
@@ -180,7 +180,8 @@ class QueryBuilderTest extends Specification {
 		count = 7L
 	}
 
-	def "query builder is created, preconditions are added, then search is performed"() {
+	@SuppressWarnings('ExplicitCallToAndMethod')
+	void "query builder is created, preconditions are added, then search is performed"() {
 		when: 'query builder is create'
 		queryBuilder = new QueryBuilder<>(entityManager, baseClass, pageable)
 
@@ -195,7 +196,7 @@ class QueryBuilderTest extends Specification {
 		1 * countCriteriaQuery.select(countExpression)
 		1 * entityManager.getMetamodel() >> metamodel
 		1 * metamodel.entity(baseClass) >> entityType
-		1 * entityType.getAttributes() >> attributeSet
+		1 * entityType.attributes >> attributeSet
 
 		then: 'no other interactions are expected'
 		0 * _
@@ -204,140 +205,139 @@ class QueryBuilderTest extends Specification {
 		queryBuilder != null
 
 		when: 'valid string key is added for like comparison'
-		queryBuilder.like(VALID_KEY_STRING, VALID_VALUE_STRING)
+		queryBuilder.like(validKeyString, VALID_VALUE_STRING)
 
 		then: 'right methods are called'
-		1 * baseRoot.get(VALID_KEY_STRING) >> path
+		1 * baseRoot.get(validKeyString) >> path
 		1 * criteriaBuilder.like(path, "%${VALID_VALUE_STRING}%")
 
 		when: 'valid string key is added to equal comparison'
-		queryBuilder.equal(VALID_KEY_STRING, VALID_VALUE_STRING)
+		queryBuilder.equal(validKeyString, VALID_VALUE_STRING)
 
 		then: 'right methods are called'
-		1 * baseRoot.get(VALID_KEY_STRING) >> path
+		1 * baseRoot.get(validKeyString) >> path
 		1 * criteriaBuilder.equal(path, VALID_VALUE_STRING)
 
 		when: 'valid boolean key is added'
-		queryBuilder.equal(VALID_KEY_BOOLEAN, VALID_VALUE_BOOLEAN)
+		queryBuilder.equal(validKeyBoolean, VALID_VALUE_BOOLEAN)
 
 		then: 'right methods are called'
-		1 * baseRoot.get(VALID_KEY_BOOLEAN) >> path
+		1 * baseRoot.get(validKeyBoolean) >> path
 		1 * criteriaBuilder.equal(path, VALID_VALUE_BOOLEAN)
 
 		when: 'valid long key is added'
-		queryBuilder.equal(VALID_KEY_LONG, VALID_VALUE_LONG)
+		queryBuilder.equal(validKeyLong, VALID_VALUE_LONG)
 
 		then: 'right methods are called'
-		1 * baseRoot.get(VALID_KEY_LONG) >> path
+		1 * baseRoot.get(validKeyLong) >> path
 		1 * criteriaBuilder.equal(path, VALID_VALUE_LONG)
 
 		when: 'valid LocalDate range key is added'
-		queryBuilder.between(VALID_KEY_LOCAL_DATE, VALID_VALUE_LOCAL_DATE_FROM, VALID_VALUE_LOCAL_DATE_TO)
+		queryBuilder.between(validKeyLocalDate, VALID_VALUE_LOCAL_DATE_FROM, VALID_VALUE_LOCAL_DATE_TO)
 
 		then: 'right methods are called'
 		1 * criteriaBuilder.between(_, VALID_VALUE_LOCAL_DATE_FROM, VALID_VALUE_LOCAL_DATE_TO)
 
 		when: 'only start LocalDate is specified'
-		queryBuilder.between(VALID_KEY_LOCAL_DATE, VALID_VALUE_LOCAL_DATE_FROM, null)
+		queryBuilder.between(validKeyLocalDate, VALID_VALUE_LOCAL_DATE_FROM, null)
 
 		then: 'right methods are called'
 		1 * criteriaBuilder.greaterThanOrEqualTo(_, VALID_VALUE_LOCAL_DATE_FROM)
 
 		when: 'only end LocalDate is specified'
-		queryBuilder.between(VALID_KEY_LOCAL_DATE, null, VALID_VALUE_LOCAL_DATE_TO)
+		queryBuilder.between(validKeyLocalDate, null, VALID_VALUE_LOCAL_DATE_TO)
 
 		then: 'right methods are called'
 		1 * criteriaBuilder.lessThanOrEqualTo(_, VALID_VALUE_LOCAL_DATE_TO)
 
 		when: 'valid Integer range key is added'
-		queryBuilder.between(VALID_KEY_INTEGER, VALID_VALUE_INTEGER_FROM, VALID_VALUE_INTEGER_TO)
+		queryBuilder.between(validKeyInteger, VALID_VALUE_INTEGER_FROM, VALID_VALUE_INTEGER_TO)
 
 		then: 'right methods are called'
 		1 * criteriaBuilder.between(_, VALID_VALUE_INTEGER_FROM, VALID_VALUE_INTEGER_TO)
 
 		when: 'only start Integer is specified'
-		queryBuilder.between(VALID_KEY_INTEGER, VALID_VALUE_INTEGER_FROM, null)
+		queryBuilder.between(validKeyInteger, VALID_VALUE_INTEGER_FROM, null)
 
 		then: 'right methods are called'
 		1 * criteriaBuilder.greaterThanOrEqualTo(_, VALID_VALUE_INTEGER_FROM)
 
 		when: 'only end Integer is specified'
-		queryBuilder.between(VALID_KEY_INTEGER, null, VALID_VALUE_INTEGER_TO)
+		queryBuilder.between(validKeyInteger, null, VALID_VALUE_INTEGER_TO)
 
 		then: 'right methods are called'
 		1 * criteriaBuilder.lessThanOrEqualTo(_, VALID_VALUE_INTEGER_TO)
 
 		when: 'valid Float range key is added'
-		queryBuilder.between(VALID_KEY_FLOAT, VALID_VALUE_FLOAT_FROM, VALID_VALUE_FLOAT_TO)
+		queryBuilder.between(validKeyFloat, VALID_VALUE_FLOAT_FROM, VALID_VALUE_FLOAT_TO)
 
 		then: 'right methods are called'
 		1 * criteriaBuilder.between(_, VALID_VALUE_FLOAT_FROM, VALID_VALUE_FLOAT_TO)
 
 		when: 'only start Float is specified'
-		queryBuilder.between(VALID_KEY_FLOAT, VALID_VALUE_FLOAT_FROM, null)
+		queryBuilder.between(validKeyFloat, VALID_VALUE_FLOAT_FROM, null)
 
 		then: 'right methods are called'
 		1 * criteriaBuilder.greaterThanOrEqualTo(_, VALID_VALUE_FLOAT_FROM)
 
 		when: 'only end Float is specified'
-		queryBuilder.between(VALID_KEY_FLOAT, null, VALID_VALUE_FLOAT_TO)
+		queryBuilder.between(validKeyFloat, null, VALID_VALUE_FLOAT_TO)
 
 		then: 'right methods are called'
 		1 * criteriaBuilder.lessThanOrEqualTo(_, VALID_VALUE_FLOAT_TO)
 
 		when: 'valid gender key is added'
-		queryBuilder.equal(VALID_KEY_GENDER, VALID_VALUE_GENDER)
+		queryBuilder.equal(validKeyGender, VALID_VALUE_GENDER)
 
 		then: 'right methods are called'
-		1 * baseRoot.get(VALID_KEY_GENDER) >> path
+		1 * baseRoot.get(validKeyGender) >> path
 		1 * criteriaBuilder.equal(path, VALID_VALUE_GENDER)
 
 		when: 'join equals key is added'
 		queryBuilder.joinPageIdsIn(Sets.newHashSet(1L))
 
 		then: 'right methods are called'
-		1 * baseRoot.get(VALID_KEY_PAGE) >> path
+		1 * baseRoot.get(validKeyPage) >> path
 		1 * path.get(VALID_JOIN_PAGE_ID) >> path
 		1 * path.in(_)
 
 		when: 'join equals key is added'
-		queryBuilder.joinEquals(VALID_KEY_PAGE, VALID_KEY_GENDER_STRING, VALID_VALUE_GENDER, com.cezarykluczynski.stapi.model.page.entity.Page)
+		queryBuilder.joinEquals(validKeyPage, VALID_KEY_GENDER_STRING, VALID_VALUE_GENDER, com.cezarykluczynski.stapi.model.page.entity.Page)
 
 		then:
-		1 * baseRoot.get(VALID_KEY_PAGE) >> path
+		1 * baseRoot.get(validKeyPage) >> path
 		1 * path.get(VALID_KEY_GENDER_STRING) >> path
 		1 * path.in(Lists.newArrayList(VALID_VALUE_GENDER))
 
 		when: 'key with invalid type is added'
-		queryBuilder.joinEquals(INVALID_KEY_PAGE, VALID_VALUE_STRING, VALID_VALUE_GENDER, com.cezarykluczynski.stapi.model.page.entity.Page)
+		queryBuilder.joinEquals(invalidKeyPage, VALID_VALUE_STRING, VALID_VALUE_GENDER, com.cezarykluczynski.stapi.model.page.entity.Page)
 
 		then: 'exception is thrown'
 		thrown(RuntimeException)
 
 		when: 'fetch is performed'
-		queryBuilder.fetch(FETCH_SET_NAME)
+		queryBuilder.fetch(fetchSetName)
 
 		then: 'right methods are called'
-		1 * baseRoot.fetch(FETCH_SET_NAME, JoinType.LEFT)
+		1 * baseRoot.fetch(fetchSetName, JoinType.LEFT)
 
 		when: 'fetch is performed with boolean flag set to true'
-		queryBuilder.fetch(FETCH_SET_NAME, true)
+		queryBuilder.fetch(fetchSetName, true)
 
 		then: 'right methods are called'
-		1 * baseRoot.fetch(FETCH_SET_NAME, JoinType.LEFT)
+		1 * baseRoot.fetch(fetchSetName, JoinType.LEFT)
 
 		when: 'fetch is performed with boolean flag set to false'
-		queryBuilder.fetch(FETCH_SET_NAME, false)
+		queryBuilder.fetch(fetchSetName, false)
 
 		then: 'no fetch methods are called'
 		0 * baseRoot.fetch(*_)
 
 		when: 'singular fetch is performed'
-		queryBuilder.fetch(FETCH_SINGULAR_NAME)
+		queryBuilder.fetch(fetchSingularName)
 
 		then: 'singular set right methods are called'
-		1 * baseRoot.fetch(FETCH_SINGULAR_NAME, JoinType.LEFT)
-
+		1 * baseRoot.fetch(fetchSingularName, JoinType.LEFT)
 
 		when: 'order is added and search is performer'
 		queryBuilder.setSort(ORDER_REQUEST)
@@ -348,16 +348,16 @@ class QueryBuilderTest extends Specification {
 		1 * baseCriteriaQuery.where(predicate)
 		1 * countCriteriaQuery.where(predicate)
 		1 * entityManager.createQuery(baseCriteriaQuery) >> baseTypedQuery
-		1 * pageable.getPageSize() >> PAGE_SIZE
+		1 * pageable.pageSize >> PAGE_SIZE
 		1 * baseTypedQuery.setMaxResults(PAGE_SIZE)
-		1 * pageable.getPageSize() >> PAGE_SIZE
-		1 * pageable.getPageNumber() >> PAGE_NUMBER
+		1 * pageable.pageSize >> PAGE_SIZE
+		1 * pageable.pageNumber >> PAGE_NUMBER
 		1 * baseTypedQuery.setFirstResult(FIRST_RESULT)
 		1 * entityManager.createQuery(countCriteriaQuery) >> countTypedQuery
 
 		then: 'queries are executed'
-		1 * baseTypedQuery.getResultList() >> baseEntityList
-		1 * countTypedQuery.getSingleResult() >> count
+		1 * baseTypedQuery.resultList >> baseEntityList
+		1 * countTypedQuery.singleResult >> count
 
 		then: 'page is returned'
 		seriesPage.content == baseEntityList
@@ -371,25 +371,25 @@ class QueryBuilderTest extends Specification {
 		1 * criteriaBuilder.and(_) >> predicate
 		1 * baseCriteriaQuery.where(predicate)
 		1 * countCriteriaQuery.where(predicate)
-		1 * baseRoot.get(REQUEST_ORDER_CLAUSE_NAME_3) >> REQUEST_ORDER_CLAUSE_PATH_3
-		1 * criteriaBuilder.desc(REQUEST_ORDER_CLAUSE_PATH_3) >> REQUEST_ORDER_CLAUSE_ORDER_3
-		1 * baseRoot.get(REQUEST_ORDER_CLAUSE_NAME_2) >> REQUEST_ORDER_CLAUSE_PATH_2
-		1 * criteriaBuilder.asc(REQUEST_ORDER_CLAUSE_PATH_2) >> REQUEST_ORDER_CLAUSE_ORDER_2
-		1 * baseRoot.get(REQUEST_ORDER_CLAUSE_NAME_1) >> REQUEST_ORDER_CLAUSE_PATH_1
-		1 * criteriaBuilder.asc(REQUEST_ORDER_CLAUSE_PATH_1) >> REQUEST_ORDER_CLAUSE_ORDER_1
+		1 * baseRoot.get(REQUEST_ORDER_CLAUSE_NAME_3) >> requestOrderClausePath3
+		1 * criteriaBuilder.desc(requestOrderClausePath3) >> requestOrderClauseOrder3
+		1 * baseRoot.get(REQUEST_ORDER_CLAUSE_NAME_2) >> requestOrderClausePath2
+		1 * criteriaBuilder.asc(requestOrderClausePath2) >> requestOrderClauseOrder2
+		1 * baseRoot.get(REQUEST_ORDER_CLAUSE_NAME_1) >> requestOrderClausePath1
+		1 * criteriaBuilder.asc(requestOrderClausePath1) >> requestOrderClauseOrder1
 		1 * baseCriteriaQuery.orderBy(_) >> { args ->
 			List<Order> orderList = args[0]
-			assert orderList[0] == REQUEST_ORDER_CLAUSE_ORDER_1
-			assert orderList[1] == REQUEST_ORDER_CLAUSE_ORDER_2
-			assert orderList[2] == REQUEST_ORDER_CLAUSE_ORDER_3
+			assert orderList[0] == requestOrderClauseOrder1
+			assert orderList[1] == requestOrderClauseOrder2
+			assert orderList[2] == requestOrderClauseOrder3
 		}
 		1 * entityManager.createQuery(baseCriteriaQuery) >> baseTypedQuery
-		1 * pageable.getPageSize() >> PAGE_SIZE
+		1 * pageable.pageSize >> PAGE_SIZE
 		1 * baseTypedQuery.setMaxResults(PAGE_SIZE)
-		1 * pageable.getPageSize() >> PAGE_SIZE
-		1 * pageable.getPageNumber() >> PAGE_NUMBER
+		1 * pageable.pageSize >> PAGE_SIZE
+		1 * pageable.pageNumber >> PAGE_NUMBER
 		1 * baseTypedQuery.setFirstResult(FIRST_RESULT)
-		1 * baseTypedQuery.getResultList() >> baseEntityList
+		1 * baseTypedQuery.resultList >> baseEntityList
 
 		then: 'all entities are found'
 		seriesList == baseEntityList

@@ -12,11 +12,11 @@ class FrequentHitCachingHelperTest extends Specification {
 
 	private FrequentHitCachingHelper frequentHitCachingHelper
 
-	def setup() {
+	void setup() {
 		frequentHitCachingHelper = new FrequentHitCachingHelper()
 	}
 
-	def "marks title a cacheable when it was requested more than 5 times"() {
+	void "marks title a cacheable when it was requested more than 5 times"() {
 		when: 'title 1 with source 1 is asked for 4 times'
 		frequentHitCachingHelper.isCacheable(TITLE_1, SOURCE_1)
 		frequentHitCachingHelper.isCacheable(TITLE_1, SOURCE_1)
@@ -92,6 +92,5 @@ class FrequentHitCachingHelperTest extends Specification {
 		!frequentHitCachingHelper.isCacheable(TITLE_2, SOURCE_1)
 		!frequentHitCachingHelper.isCacheable(TITLE_2, SOURCE_2)
 	}
-
 
 }
