@@ -1,10 +1,11 @@
 package com.cezarykluczynski.stapi.etl.character.creation.processor
 
+import com.cezarykluczynski.stapi.etl.common.mapper.GenderMapper
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender as EtlGender
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType
-import com.cezarykluczynski.stapi.model.common.entity.enums.Gender as EntityGender
+import com.cezarykluczynski.stapi.model.common.entity.enums.Gender as ModelGender
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus
 import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
 import com.cezarykluczynski.stapi.model.page.entity.Page
@@ -16,7 +17,7 @@ class CharacterIndividualTemplateProcessorTest extends AbstractIndividualTest {
 
 	private static final Page PAGE = new Page(id: 1L)
 	private static final EtlGender ETL_GENDER = EtlGender.F
-	private static final EntityGender ENTITY_GENDER = EntityGender.F
+	private static final ModelGender MODEL_GENDER = ModelGender.F
 	private static final BloodType BLOOD_TYPE = BloodType.B_NEGATIVE
 	private static final MaritalStatus MARITAL_STATUS = MaritalStatus.MARRIED
 	private static final Performer PERFORMER_1 = new Performer(id: 11L)
@@ -24,11 +25,14 @@ class CharacterIndividualTemplateProcessorTest extends AbstractIndividualTest {
 
 	private GuidGenerator guidGeneratorMock
 
+	private GenderMapper genderMapperMock
+
 	private CharacterIndividualTemplateProcessor characterIndividualTemplateProcessor
 
 	void setup() {
 		guidGeneratorMock = Mock(GuidGenerator)
-		characterIndividualTemplateProcessor = new CharacterIndividualTemplateProcessor(guidGeneratorMock)
+		genderMapperMock = Mock(GenderMapper)
+		characterIndividualTemplateProcessor = new CharacterIndividualTemplateProcessor(guidGeneratorMock, genderMapperMock)
 	}
 
 	void "should return null when template is product of redirect"() {
@@ -73,10 +77,11 @@ class CharacterIndividualTemplateProcessorTest extends AbstractIndividualTest {
 
 		then:
 		1 * guidGeneratorMock.generateFromPage(PAGE, Character) >> GUID
+		1 * genderMapperMock.fromEtlToModel(ETL_GENDER) >> MODEL_GENDER
 		character.page == PAGE
 		character.guid == GUID
 		character.name == NAME
-		character.gender == ENTITY_GENDER
+		character.gender == MODEL_GENDER
 		character.yearOfBirth == YEAR_OF_BIRTH
 		character.monthOfBirth == MONTH_OF_BIRTH
 		character.dayOfBirth == DAY_OF_BIRTH

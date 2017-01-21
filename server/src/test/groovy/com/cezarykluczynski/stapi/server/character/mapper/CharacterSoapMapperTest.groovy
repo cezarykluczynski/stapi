@@ -38,7 +38,7 @@ class CharacterSoapMapperTest extends AbstractCharacterMapperTest {
 		then:
 		characterRequestDTO.guid == GUID
 		characterRequestDTO.name == NAME
-		characterRequestDTO.gender == ENTITY_GENDER
+		characterRequestDTO.gender == MODEL_GENDER
 		characterRequestDTO.deceased == DECEASED
 		characterRequestDTO.mirror == MIRROR
 		characterRequestDTO.alternateReality == ALTERNATE_REALITY

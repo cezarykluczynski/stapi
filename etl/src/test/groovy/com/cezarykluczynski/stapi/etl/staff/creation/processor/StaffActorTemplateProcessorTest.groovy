@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.staff.creation.processor
 
+import com.cezarykluczynski.stapi.etl.common.mapper.GenderMapper
 import com.cezarykluczynski.stapi.etl.common.processor.AbstractRealWorldActorTemplateProcessorTest
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange
@@ -9,13 +10,16 @@ import com.cezarykluczynski.stapi.util.ReflectionTestUtils
 
 class StaffActorTemplateProcessorTest extends AbstractRealWorldActorTemplateProcessorTest {
 
-	private StaffActorTemplateProcessor staffActorTemplateProcessor
-
 	private GuidGenerator guidGeneratorMock
+
+	private GenderMapper genderMapperMock
+
+	private StaffActorTemplateProcessor staffActorTemplateProcessor
 
 	void setup() {
 		guidGeneratorMock = Mock(GuidGenerator)
-		staffActorTemplateProcessor = new StaffActorTemplateProcessor(guidGeneratorMock)
+		genderMapperMock = Mock(GenderMapper)
+		staffActorTemplateProcessor = new StaffActorTemplateProcessor(guidGeneratorMock, genderMapperMock)
 	}
 
 	void "converts ActorTemplate to Staff"() {
@@ -26,7 +30,7 @@ class StaffActorTemplateProcessorTest extends AbstractRealWorldActorTemplateProc
 				birthName: BIRTH_NAME,
 				placeOfBirth: PLACE_OF_BIRTH,
 				placeOfDeath: PLACE_OF_DEATH,
-				gender: GENDER,
+				gender: ETL_GENDER,
 				lifeRange: new DateRange(
 						startDate: DATE_OF_BIRTH,
 						endDate: DATE_OF_DEATH
@@ -93,13 +97,14 @@ class StaffActorTemplateProcessorTest extends AbstractRealWorldActorTemplateProc
 
 		then:
 		1 * guidGeneratorMock.generateFromPage(PAGE, Staff) >> GUID
+		1 * genderMapperMock.fromEtlToModel(ETL_GENDER) >> MODEL_GENDER
 		staff.name == NAME
 		staff.page == PAGE
 		staff.guid == GUID
 		staff.birthName == BIRTH_NAME
 		staff.placeOfBirth == PLACE_OF_BIRTH
 		staff.placeOfDeath == PLACE_OF_DEATH
-		staff.gender.name() == GENDER.name()
+		staff.gender == MODEL_GENDER
 		staff.dateOfBirth == DATE_OF_BIRTH
 		staff.dateOfDeath == DATE_OF_DEATH
 		staff.artDepartment == ART_DEPARTMENT

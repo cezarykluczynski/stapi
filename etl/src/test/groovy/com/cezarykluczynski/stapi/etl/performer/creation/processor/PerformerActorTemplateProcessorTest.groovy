@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.performer.creation.processor
 
+import com.cezarykluczynski.stapi.etl.common.mapper.GenderMapper
 import com.cezarykluczynski.stapi.etl.common.processor.AbstractRealWorldActorTemplateProcessorTest
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange
@@ -8,13 +9,16 @@ import com.cezarykluczynski.stapi.model.performer.entity.Performer
 
 class PerformerActorTemplateProcessorTest extends AbstractRealWorldActorTemplateProcessorTest {
 
-	private PerformerActorTemplateProcessor performerActorTemplateProcessor
-
 	private GuidGenerator guidGeneratorMock
+
+	private GenderMapper genderMapperMock
+
+	private PerformerActorTemplateProcessor performerActorTemplateProcessor
 
 	void setup() {
 		guidGeneratorMock = Mock(GuidGenerator)
-		performerActorTemplateProcessor = new PerformerActorTemplateProcessor(guidGeneratorMock)
+		genderMapperMock = Mock(GenderMapper)
+		performerActorTemplateProcessor = new PerformerActorTemplateProcessor(guidGeneratorMock, genderMapperMock)
 	}
 
 	void "converts ActorTemplate to Performer"() {
@@ -25,7 +29,7 @@ class PerformerActorTemplateProcessorTest extends AbstractRealWorldActorTemplate
 				birthName: BIRTH_NAME,
 				placeOfBirth: PLACE_OF_BIRTH,
 				placeOfDeath: PLACE_OF_DEATH,
-				gender: GENDER,
+				gender: ETL_GENDER,
 				lifeRange: new DateRange(
 						startDate: DATE_OF_BIRTH,
 						endDate: DATE_OF_DEATH
@@ -50,13 +54,14 @@ class PerformerActorTemplateProcessorTest extends AbstractRealWorldActorTemplate
 
 		then:
 		1 * guidGeneratorMock.generateFromPage(PAGE, Performer) >> GUID
+		1 * genderMapperMock.fromEtlToModel(ETL_GENDER) >> MODEL_GENDER
 		performer.name == NAME
 		performer.page == PAGE
 		performer.guid == GUID
 		performer.birthName == BIRTH_NAME
 		performer.placeOfBirth == PLACE_OF_BIRTH
 		performer.placeOfDeath == PLACE_OF_DEATH
-		performer.gender.name() == GENDER.name()
+		performer.gender == MODEL_GENDER
 		performer.dateOfBirth == DATE_OF_BIRTH
 		performer.dateOfDeath == DATE_OF_DEATH
 		performer.animalPerformer == ANIMAL_PERFORMER

@@ -12,7 +12,7 @@ import com.google.common.collect.Sets
 
 abstract class AbstractCharacterMapperTest extends AbstractIndividualTest {
 
-	protected static final Gender ENTITY_GENDER = Gender.F
+	protected static final Gender MODEL_GENDER = Gender.F
 	protected static final BloodType ENTITY_BLOOD_TYPE = BloodType.B_NEGATIVE
 	protected static final MaritalStatus ENTITY_MARITAL_STATUS = MaritalStatus.MARRIED
 
@@ -20,7 +20,7 @@ abstract class AbstractCharacterMapperTest extends AbstractIndividualTest {
 		new Character(
 				name: NAME,
 				guid: GUID,
-				gender: ENTITY_GENDER,
+				gender: MODEL_GENDER,
 				yearOfBirth: YEAR_OF_BIRTH,
 				monthOfBirth: MONTH_OF_BIRTH,
 				dayOfBirth: DAY_OF_BIRTH,

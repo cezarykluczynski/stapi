@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.performer.creation.processor;
 
+import com.cezarykluczynski.stapi.etl.common.mapper.GenderMapper;
 import com.cezarykluczynski.stapi.etl.common.processor.AbstractActorTemplateProcessor;
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate;
 import com.cezarykluczynski.stapi.model.common.service.GuidGenerator;
@@ -10,13 +11,13 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 
 @Service
-public class PerformerActorTemplateProcessor extends AbstractActorTemplateProcessor
-		implements ItemProcessor<ActorTemplate, Performer> {
+public class PerformerActorTemplateProcessor extends AbstractActorTemplateProcessor implements ItemProcessor<ActorTemplate, Performer> {
 
 	private GuidGenerator guidGenerator;
 
 	@Inject
-	public PerformerActorTemplateProcessor(GuidGenerator guidGenerator) {
+	public PerformerActorTemplateProcessor(GuidGenerator guidGenerator, GenderMapper genderMapper) {
+		super(genderMapper);
 		this.guidGenerator = guidGenerator;
 	}
 

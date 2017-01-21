@@ -27,7 +27,7 @@ class CharacterRestMapperTest extends AbstractCharacterMapperTest {
 		CharacterRestBeanParams characterRestBeanParams = new CharacterRestBeanParams(
 				guid: GUID,
 				name: NAME,
-				gender: ENTITY_GENDER,
+				gender: MODEL_GENDER,
 				deceased: DECEASED,
 				mirror: MIRROR,
 				alternateReality: ALTERNATE_REALITY)
@@ -38,7 +38,7 @@ class CharacterRestMapperTest extends AbstractCharacterMapperTest {
 		then:
 		characterRequestDTO.guid == GUID
 		characterRequestDTO.name == NAME
-		characterRequestDTO.gender == ENTITY_GENDER
+		characterRequestDTO.gender == MODEL_GENDER
 		characterRequestDTO.deceased == DECEASED
 		characterRequestDTO.mirror == MIRROR
 		characterRequestDTO.alternateReality == ALTERNATE_REALITY

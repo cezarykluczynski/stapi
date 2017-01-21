@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.etl.character.creation.processor;
 
+import com.cezarykluczynski.stapi.etl.common.mapper.GenderMapper;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
-import com.cezarykluczynski.stapi.model.common.entity.enums.Gender;
 import com.cezarykluczynski.stapi.model.common.service.GuidGenerator;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
@@ -14,9 +14,12 @@ public class CharacterIndividualTemplateProcessor implements ItemProcessor<Indiv
 
 	private GuidGenerator guidGenerator;
 
+	private GenderMapper genderMapper;
+
 	@Inject
-	public CharacterIndividualTemplateProcessor(GuidGenerator guidGenerator) {
+	public CharacterIndividualTemplateProcessor(GuidGenerator guidGenerator, GenderMapper genderMapper) {
 		this.guidGenerator = guidGenerator;
+		this.genderMapper = genderMapper;
 	}
 
 	@Override
@@ -30,10 +33,7 @@ public class CharacterIndividualTemplateProcessor implements ItemProcessor<Indiv
 		character.setName(item.getName());
 		character.setPage(item.getPage());
 		character.setGuid(guidGenerator.generateFromPage(item.getPage(), Character.class));
-		if (item.getGender() != null) {
-			// TODO: separate mapper
-			character.setGender(Gender.valueOf(item.getGender().name()));
-		}
+		character.setGender(genderMapper.fromEtlToModel(item.getGender()));
 		character.setYearOfBirth(item.getYearOfBirth());
 		character.setMonthOfBirth(item.getMonthOfBirth());
 		character.setDayOfBirth(item.getDayOfBirth());

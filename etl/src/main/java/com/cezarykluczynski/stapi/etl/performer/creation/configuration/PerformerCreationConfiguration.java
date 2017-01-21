@@ -19,10 +19,10 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import org.springframework.boot.autoconfigure.batch.BatchDatabaseInitializer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -42,11 +42,8 @@ public class PerformerCreationConfiguration {
 	@Inject
 	private StepCompletenessDecider stepCompletenessDecider;
 
-	// ensure Spring Batch migrates it's schema before reader is instantiated
-	@Inject
-	private BatchDatabaseInitializer batchDatabaseInitializer;
-
 	@Bean
+	@DependsOn("batchDatabaseInitializer")
 	public PerformerReader performerReader() {
 		List<PageHeader> performers = Lists.newArrayList();
 

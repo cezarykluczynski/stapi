@@ -9,9 +9,9 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import com.google.common.collect.Lists;
-import org.springframework.boot.autoconfigure.batch.BatchDatabaseInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -25,11 +25,8 @@ public class SeriesCreationConfiguration {
 	@Inject
 	private StepCompletenessDecider stepCompletenessDecider;
 
-	// ensure Spring Batch migrates it's schema before reader is instantiated
-	@Inject
-	private BatchDatabaseInitializer batchDatabaseInitializer;
-
 	@Bean
+	@DependsOn("batchDatabaseInitializer")
 	public SeriesReader seriesReader() {
 		List<PageHeader> pageHeaderList = Lists.newArrayList();
 
