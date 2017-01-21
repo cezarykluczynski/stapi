@@ -55,25 +55,15 @@ public class PageToLifeRangeProcessor implements ItemProcessor<Page, DateRange> 
 
 			if (key.equals(TemplateParam.FIRST)) {
 				bornDay = value;
-			}
-
-			if (key.equals(TemplateParam.SECOND)) {
+			} else if (key.equals(TemplateParam.SECOND)) {
 				bornMonth = value;
-			}
-
-			if (key.equals(TemplateParam.THIRD)) {
+			} else if (key.equals(TemplateParam.THIRD)) {
 				bornYear = value;
-			}
-
-			if (key.equals(TemplateParam.FIFTH)) {
+			} else if (key.equals(TemplateParam.FIFTH)) {
 				diedDay = value;
-			}
-
-			if (key.equals(TemplateParam.SIXTH)) {
+			} else if (key.equals(TemplateParam.SIXTH)) {
 				diedMonth = value;
-			}
-
-			if (key.equals(TemplateParam.SEVENTH)) {
+			} else if (key.equals(TemplateParam.SEVENTH)) {
 				diedYear = value;
 			}
 		}

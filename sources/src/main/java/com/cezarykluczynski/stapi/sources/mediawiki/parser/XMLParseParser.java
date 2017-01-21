@@ -82,16 +82,14 @@ public class XMLParseParser extends AbstractXMLParser {
 			hasParse = true;
 		}
 
-		if (hasParse && WIKITEXT.equals(qualifiedName)) {
-			isWikitext = true;
-		}
-
-		if (hasParse && CL.equals(qualifiedName)) {
-			isCL = true;
-		}
-
-		if (hasParse && SECTIONS.equals(qualifiedName)) {
-			isSections = true;
+		if (hasParse) {
+			if (WIKITEXT.equals(qualifiedName)) {
+				isWikitext = true;
+			} else if (CL.equals(qualifiedName)) {
+				isCL = true;
+			} else if (SECTIONS.equals(qualifiedName)) {
+				isSections = true;
+			}
 		}
 
 		if (isSections && S.equals(qualifiedName)) {

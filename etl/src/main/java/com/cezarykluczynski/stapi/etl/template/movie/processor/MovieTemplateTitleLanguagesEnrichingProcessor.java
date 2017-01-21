@@ -46,41 +46,23 @@ public class MovieTemplateTitleLanguagesEnrichingProcessor implements ItemEnrich
 
 			if (StringUtils.startsWith(pageLink, "bg:")) {
 				movieTemplate.setTitleBulgarian(titleCandidate);
-			}
-
-			if (StringUtils.startsWith(pageLink, "ca:")) {
+			} else if (StringUtils.startsWith(pageLink, "ca:")) {
 				movieTemplate.setTitleCatalan(titleCandidate);
-			}
-
-			if (StringUtils.startsWith(pageLink, "zh-cn:")) {
+			} else if (StringUtils.startsWith(pageLink, "zh-cn:")) {
 				movieTemplate.setTitleChineseTraditional(TitleUtil.getNameFromTitle(pageLink.substring(6)));
-			}
-
-			if (StringUtils.startsWith(pageLink, "de:")) {
+			} else if (StringUtils.startsWith(pageLink, "de:")) {
 				movieTemplate.setTitleGerman(titleCandidate);
-			}
-
-			if (StringUtils.startsWith(pageLink, "it:")) {
+			} else if (StringUtils.startsWith(pageLink, "it:")) {
 				movieTemplate.setTitleItalian(titleCandidate);
-			}
-
-			if (StringUtils.startsWith(pageLink, "ja:")) {
+			} else if (StringUtils.startsWith(pageLink, "ja:")) {
 				movieTemplate.setTitleJapanese(titleCandidate);
-			}
-
-			if (StringUtils.startsWith(pageLink, "pl:")) {
+			} else if (StringUtils.startsWith(pageLink, "pl:")) {
 				movieTemplate.setTitlePolish(titleCandidate);
-			}
-
-			if (StringUtils.startsWith(pageLink, "ru:")) {
+			} else if (StringUtils.startsWith(pageLink, "ru:")) {
 				movieTemplate.setTitleRussian(titleCandidate);
-			}
-
-			if (StringUtils.startsWith(pageLink, "sr:")) {
+			} else if (StringUtils.startsWith(pageLink, "sr:")) {
 				movieTemplate.setTitleSerbian(titleCandidate);
-			}
-
-			if (StringUtils.startsWith(pageLink, "es:")) {
+			} else if (StringUtils.startsWith(pageLink, "es:")) {
 				movieTemplate.setTitleSpanish(titleCandidate);
 			}
 		});
