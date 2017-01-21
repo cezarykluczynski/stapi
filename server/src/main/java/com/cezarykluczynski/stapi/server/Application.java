@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server;
 
 import com.cezarykluczynski.stapi.etl.configuration.EtlConfiguration;
+import com.google.common.collect.ImmutableMap;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -31,7 +32,7 @@ public class Application extends SpringBootServletInitializer {
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		return builder.sources(Application.class);
+		return builder.sources(Application.class).properties(ImmutableMap.of("spring.config.name", "application-stapi"));
 	}
 
 }
