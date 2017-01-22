@@ -266,7 +266,10 @@ ruleset {
 	InterfaceName
 	InterfaceNameSameAsSuperInterface
 	ObjectOverrideMisspelledMethodName
-	PackageName
+	PackageName {
+		regex = '^[a-z]+(\\.[a-z][a-zA-Z0-9]*)*$'
+		packageNameRequired = true
+	}
 	PackageNameMatchesFilePath
 	ParameterName
 	PropertyName

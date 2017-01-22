@@ -15,6 +15,7 @@ public class StepNames {
 				StepName.CREATE_SERIES,
 				StepName.CREATE_PERFORMERS,
 				StepName.CREATE_STAFF,
+				StepName.CREATE_ASTRONOMICAL_OBJECTS,
 				StepName.CREATE_CHARACTERS,
 				StepName.CREATE_EPISODES,
 				StepName.CREATE_MOVIES

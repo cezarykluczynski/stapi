@@ -15,6 +15,8 @@ public class StepsProperties {
 
 	private StepProperties createStaff;
 
+	private StepProperties createAstronomicalObjects;
+
 	private StepProperties createCharacters;
 
 	private StepProperties createEpisodes;

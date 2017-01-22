@@ -17,8 +17,7 @@ class CharacterWriterTest extends Specification {
 	void setup() {
 		characterRepositoryMock = Mock(CharacterRepository)
 		duplicateFilteringPreSavePageAwareProcessorMock = Mock(DuplicateFilteringPreSavePageAwareFilter)
-		characterWriterMock = new CharacterWriter(characterRepositoryMock,
-				duplicateFilteringPreSavePageAwareProcessorMock)
+		characterWriterMock = new CharacterWriter(characterRepositoryMock, duplicateFilteringPreSavePageAwareProcessorMock)
 	}
 
 	void "filters all entities using pre save processor, then writes all entities using repository"() {
@@ -36,7 +35,6 @@ class CharacterWriterTest extends Specification {
 		}
 		1 * characterRepositoryMock.save(characterList)
 		0 * _
-
 	}
 
 }

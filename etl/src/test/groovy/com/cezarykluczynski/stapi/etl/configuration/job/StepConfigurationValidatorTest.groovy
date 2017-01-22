@@ -25,7 +25,7 @@ class StepConfigurationValidatorTest extends Specification {
 
 		then:
 		JobBuilderException jobBuilderException = thrown(JobBuilderException)
-		jobBuilderException.message == 'java.lang.RuntimeException: Number of configured steps is 6, but 0 steps found'
+		jobBuilderException.message == 'java.lang.RuntimeException: Number of configured steps is 7, but 0 steps found'
 	}
 
 	void "throws exception when two steps has the same order"() {
@@ -39,14 +39,17 @@ class StepConfigurationValidatorTest extends Specification {
 		StepProperties staffStepProperties = Mock(StepProperties)
 		staffStepProperties.order >> 3
 		stepsPropertiesMock.createStaff >> staffStepProperties
+		StepProperties astronomicalObjectsStepProperties  = Mock(StepProperties)
+		astronomicalObjectsStepProperties .order >> 4
+		stepsPropertiesMock.createAstronomicalObjects >> astronomicalObjectsStepProperties
 		StepProperties charactersStepProperties = Mock(StepProperties)
-		charactersStepProperties.order >> 4
+		charactersStepProperties.order >> 5
 		stepsPropertiesMock.createCharacters >> charactersStepProperties
 		StepProperties episodesStepProperties = Mock(StepProperties)
 		episodesStepProperties.order >> 1
 		stepsPropertiesMock.createEpisodes >> episodesStepProperties
 		StepProperties moviesStepProperties = Mock(StepProperties)
-		moviesStepProperties.order >> 6
+		moviesStepProperties.order >> 7
 		stepsPropertiesMock.createMovies >> moviesStepProperties
 
 		when:
@@ -69,14 +72,17 @@ class StepConfigurationValidatorTest extends Specification {
 		StepProperties staffStepProperties = Mock(StepProperties)
 		staffStepProperties.order >> 3
 		stepsPropertiesMock.createStaff >> staffStepProperties
+		StepProperties astronomicalObjectsStepProperties  = Mock(StepProperties)
+		astronomicalObjectsStepProperties .order >> 4
+		stepsPropertiesMock.createAstronomicalObjects >> astronomicalObjectsStepProperties
 		StepProperties charactersStepProperties = Mock(StepProperties)
-		charactersStepProperties.order >> 4
+		charactersStepProperties.order >> 5
 		stepsPropertiesMock.createCharacters >> charactersStepProperties
 		StepProperties episodesStepProperties = Mock(StepProperties)
-		episodesStepProperties.order >> 5
+		episodesStepProperties.order >> 6
 		stepsPropertiesMock.createEpisodes >> episodesStepProperties
 		StepProperties moviesStepProperties = Mock(StepProperties)
-		moviesStepProperties.order >> 6
+		moviesStepProperties.order >> 7
 		stepsPropertiesMock.createMovies >> moviesStepProperties
 
 		when:

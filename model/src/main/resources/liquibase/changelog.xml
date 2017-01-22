@@ -6,7 +6,8 @@
 	<include file="series/0002_create_series.xml" relativeToChangelogFile="true"/>
 	<include file="performer/0003_create_performer.xml" relativeToChangelogFile="true"/>
 	<include file="staff/0004_create_staff.xml" relativeToChangelogFile="true"/>
-	<include file="character/0005_create_character.xml" relativeToChangelogFile="true"/>
-	<include file="episode/0006_create_episode.xml" relativeToChangelogFile="true"/>
-	<include file="movie/0007_create_movie.xml" relativeToChangelogFile="true"/>
+	<include file="astronomical_object/0005_create_astronomical_object.xml" relativeToChangelogFile="true"/>
+	<include file="character/0006_create_character.xml" relativeToChangelogFile="true"/>
+	<include file="episode/0007_create_episode.xml" relativeToChangelogFile="true"/>
+	<include file="movie/0008_create_movie.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

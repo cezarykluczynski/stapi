@@ -14,8 +14,7 @@ import javax.inject.Inject;
 public class CharacterProcessor extends CompositeItemProcessor<PageHeader, Character> {
 
 	@Inject
-	public CharacterProcessor(PageHeaderProcessor pageHeaderProcessor,
-			IndividualTemplatePageProcessor individualTemplatePageProcessor,
+	public CharacterProcessor(PageHeaderProcessor pageHeaderProcessor, IndividualTemplatePageProcessor individualTemplatePageProcessor,
 			CharacterIndividualTemplateProcessor characterIndividualTemplateProcessor) {
 		setDelegates(Lists.newArrayList(pageHeaderProcessor, individualTemplatePageProcessor,
 				characterIndividualTemplateProcessor));

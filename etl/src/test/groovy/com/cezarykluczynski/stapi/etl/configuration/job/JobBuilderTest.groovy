@@ -40,6 +40,8 @@ class JobBuilderTest extends Specification {
 
 	private Step createStaffStep
 
+	private Step createAstronomicalObjectsStep
+
 	private Step createCharactersStep
 
 	private Step createEpisodesStep
@@ -61,6 +63,7 @@ class JobBuilderTest extends Specification {
 		createSeriesStep = Mock(Step)
 		createPerformersStep = Mock(Step)
 		createStaffStep = Mock(Step)
+		createAstronomicalObjectsStep = Mock(Step)
 		createCharactersStep = Mock(Step)
 		createEpisodesStep = Mock(Step)
 		createMoviesStep = Mock(Step)
@@ -107,6 +110,12 @@ class JobBuilderTest extends Specification {
 		1 * stepProperties.isEnabled() >> true
 		1 * applicationContextMock.getBean(StepName.CREATE_STAFF, Step) >> createStaffStep
 		1 * createStaffStep.name >> ''
+
+		then: 'CREATE_ASTRONOMICAL_OBJECTS step is retrieved from application context'
+		1 * stepPropertiesMap.get(StepName.CREATE_ASTRONOMICAL_OBJECTS) >> stepProperties
+		1 * stepProperties.isEnabled() >> true
+		1 * applicationContextMock.getBean(StepName.CREATE_ASTRONOMICAL_OBJECTS, Step) >> createAstronomicalObjectsStep
+		1 * createAstronomicalObjectsStep.name >> ''
 
 		then: 'CREATE_CHARACTERS step is retrieved from application context'
 		1 * stepPropertiesMap.get(StepName.CREATE_CHARACTERS) >> stepProperties
@@ -187,9 +196,9 @@ class JobBuilderTest extends Specification {
 		1 * applicationContextMock.getBean(StepName.CREATE_PERFORMERS, Step) >> createPerformersStep
 		1 * createPerformersStep.name >> ''
 
-		then: 'other steps are skiped'
-		4 * stepPropertiesMap.get(_) >> stepProperties
-		4 * stepProperties.isEnabled() >> false
+		then: 'other steps are skipped'
+		5 * stepPropertiesMap.get(_) >> stepProperties
+		5 * stepProperties.isEnabled() >> false
 
 		then: 'Task executor is retrieved from application context'
 		1 * applicationContextMock.getBean(TaskExecutor) >> taskExecutor

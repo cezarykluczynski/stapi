@@ -97,4 +97,19 @@ public class CategoryName {
 
 	public static final String STAR_TREK_FILMS = "Star Trek films";
 
+	public static final String ASTEROIDS = "Asteroids";
+	public static final String ASTEROID_BELTS = "Asteroid_belts";
+	public static final String COMETS = "Comets";
+	public static final String CONSTELLATIONS = "Constellations";
+	public static final String GALAXIES = "Galaxies";
+	public static final String HOMEWORLDS = "Homeworlds";
+	public static final String MOONS = "Moons";
+	public static final String NEBULAE = "Nebulae";
+	public static final String PLANETS = "Planets";
+	public static final String PLANETOIDS = "Planetoids";
+	public static final String QUASARS = "Quasars";
+	public static final String STAR_SYSTEMS = "Star_systems";
+	public static final String STARS = "Stars";
+	public static final String PLANET_LISTS = "Planet_lists";
+
 }

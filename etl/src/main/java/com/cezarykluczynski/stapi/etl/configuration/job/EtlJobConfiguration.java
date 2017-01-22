@@ -1,5 +1,8 @@
 package com.cezarykluczynski.stapi.etl.configuration.job;
 
+import com.cezarykluczynski.stapi.etl.astronomicalObject.creation.processor.AstronomicalObjectProcessor;
+import com.cezarykluczynski.stapi.etl.astronomicalObject.creation.processor.AstronomicalObjectReader;
+import com.cezarykluczynski.stapi.etl.astronomicalObject.creation.processor.AstronomicalObjectWriter;
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterProcessor;
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterReader;
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterWriter;
@@ -21,6 +24,7 @@ import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffProcessor;
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffReader;
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffWriter;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
+import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
@@ -93,6 +97,19 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(StaffReader.class))
 				.processor(applicationContext.getBean(StaffProcessor.class))
 				.writer(applicationContext.getBean(StaffWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_ASTRONOMICAL_OBJECTS)
+	public Step stepCreateAstronomicalObject() {
+		return stepBuilderFactory.get(StepName.CREATE_ASTRONOMICAL_OBJECTS)
+				.<PageHeader, AstronomicalObject>chunk(stepsProperties.getCreateAstronomicalObjects().getCommitInterval())
+				.reader(applicationContext.getBean(AstronomicalObjectReader.class))
+				.processor(applicationContext.getBean(AstronomicalObjectProcessor.class))
+				.writer(applicationContext.getBean(AstronomicalObjectWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)

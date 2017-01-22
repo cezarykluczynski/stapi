@@ -50,4 +50,5 @@ class MovieCreationConfigurationTest extends AbstractCreationConfigurationTest {
 		0 * _
 		categoryHeaderTitleList.empty
 	}
+
 }
