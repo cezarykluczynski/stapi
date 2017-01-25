@@ -6,6 +6,8 @@ import spock.lang.Specification
 class WikitextApiImplTest extends Specification {
 
 	private static final String WIKITEXT = 'blah blah [[Some page|description]] and [[another page]] blah blah [[blah'
+	private static final String WIKITEXT_WITH_TEMPLATES = '{{realworld}}{{sidebar planet\nName=Mantiles}}blah blah{{ds9|Some page}} blah'
+	private static final String WIKITEXT_WITHOUT_TEMPLATES = 'blah blah blah'
 
 	WikitextApiImpl wikitextApiImpl
 
@@ -39,6 +41,14 @@ class WikitextApiImplTest extends Specification {
 		pageList[1].description == null
 		pageList[1].startPosition == 40
 		pageList[1].endPosition == 56
+	}
+
+	void "removes templates from wikitext"() {
+		when:
+		String wikitextWithoutTemplates = wikitextApiImpl.getWikitextWithoutTemplates(WIKITEXT_WITH_TEMPLATES)
+
+		then:
+		wikitextWithoutTemplates == WIKITEXT_WITHOUT_TEMPLATES
 	}
 
 }

@@ -10,4 +10,6 @@ public interface WikitextApi {
 
 	List<PageLink> getPageLinksFromWikitext(String wikitext);
 
+	String getWikitextWithoutTemplates(String wikitext);
+
 }

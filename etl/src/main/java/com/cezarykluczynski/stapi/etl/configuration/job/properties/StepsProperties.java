@@ -23,4 +23,6 @@ public class StepsProperties {
 
 	private StepProperties createMovies;
 
+	private StepProperties linkAstronomicalObjects;
+
 }

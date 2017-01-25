@@ -29,7 +29,6 @@ public class PlanetTemplatePageProcessor implements ItemProcessor<Page, PlanetTe
 	private static final String CLASS = "class";
 	private static final String PLANETARY_CLASSIFICATION = "Planetary classification";
 	private static final String UNNAMED_PREFIX = "Unnamed";
-	private static final String LOCATION = "location";
 
 	private TemplateFinder templateFinder;
 
@@ -66,6 +65,7 @@ public class PlanetTemplatePageProcessor implements ItemProcessor<Page, PlanetTe
 		PlanetTemplate planetTemplate = new PlanetTemplate();
 		planetTemplate.setName(TitleUtil.getNameFromTitle(item.getTitle()));
 		planetTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
+		planetTemplate.setProductOfRedirect(!item.getRedirectPath().isEmpty());
 
 		astronomicalObjectTypeEnrichingProcessor.enrich(EnrichablePair.of(item, planetTemplate));
 
@@ -85,8 +85,6 @@ public class PlanetTemplatePageProcessor implements ItemProcessor<Page, PlanetTe
 				AstronomicalObjectType currentAstronomicalObjectType = planetTemplate.getAstronomicalObjectType();
 				astronomicalObjectCompositeEnrichingProcessor.enrich(EnrichablePair.of(Pair
 						.of(currentAstronomicalObjectType, astronomicalObjectTypeFromProcessor), planetTemplate));
-			} else if (LOCATION.equals(key)) {
-				planetTemplate.setLocation(value);
 			}
 		}
 

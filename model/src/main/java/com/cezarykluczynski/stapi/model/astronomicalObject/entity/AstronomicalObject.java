@@ -26,8 +26,8 @@ import javax.persistence.SequenceGenerator;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true, exclude = "location")
+@EqualsAndHashCode(callSuper = true, exclude = "location")
 public class AstronomicalObject extends PageAwareEntity implements PageAware {
 
 	@Id

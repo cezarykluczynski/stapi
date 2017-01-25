@@ -44,7 +44,7 @@ public class AstronomicalObjectWriter implements ItemWriter<AstronomicalObject> 
 
 	private List<AstronomicalObject> filterDuplicates(List<AstronomicalObject> astronomicalObjectList) {
 		return duplicateFilteringPreSavePageAwareProcessor.process(astronomicalObjectList.stream()
-				.map(planet -> (PageAware) planet)
+				.map(astronomicalObject -> (PageAware) astronomicalObject)
 				.collect(Collectors.toList()), AstronomicalObject.class).stream()
 				.map(pageAware -> (AstronomicalObject) pageAware)
 				.collect(Collectors.toList());

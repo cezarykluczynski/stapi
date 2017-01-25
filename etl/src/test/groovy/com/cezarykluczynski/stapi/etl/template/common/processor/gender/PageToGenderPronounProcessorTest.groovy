@@ -1,7 +1,9 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.gender
 
+import com.cezarykluczynski.stapi.etl.common.service.ParagraphExtractor
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.google.common.collect.Lists
 import spock.lang.Specification
 
 class PageToGenderPronounProcessorTest extends Specification {
@@ -9,10 +11,13 @@ class PageToGenderPronounProcessorTest extends Specification {
 	private static final Gender FEMALE = Gender.F
 	private static final Gender MALE = Gender.M
 
-	PageToGenderPronounProcessor pageToGenderPronounProcessor
+	private ParagraphExtractor paragraphExtractorMock
+
+	private PageToGenderPronounProcessor pageToGenderPronounProcessor
 
 	void setup() {
-		pageToGenderPronounProcessor = new PageToGenderPronounProcessor()
+		paragraphExtractorMock = Mock(ParagraphExtractor)
+		pageToGenderPronounProcessor = new PageToGenderPronounProcessor(paragraphExtractorMock)
 	}
 
 	void "returns F is there is more female than male pronouns"() {
@@ -21,6 +26,7 @@ class PageToGenderPronounProcessorTest extends Specification {
 				wikitext: 'Is she a real she or is she a he?'))
 
 		then:
+		1 * paragraphExtractorMock.extractParagraphs(_) >> { String wikitext -> Lists.newArrayList(wikitext) }
 		gender == FEMALE
 	}
 
@@ -33,6 +39,7 @@ class PageToGenderPronounProcessorTest extends Specification {
 		Gender gender = pageToGenderPronounProcessor.process(page)
 
 		then:
+		1 * paragraphExtractorMock.extractParagraphs(_) >> { String wikitext -> Lists.newArrayList(wikitext) }
 		gender == FEMALE
 
 		then: 'title is used for logging'
@@ -45,6 +52,7 @@ class PageToGenderPronounProcessorTest extends Specification {
 				wikitext: 'Is he a real he or is he a she?'))
 
 		then:
+		1 * paragraphExtractorMock.extractParagraphs(_) >> { String wikitext -> Lists.newArrayList(wikitext) }
 		gender == MALE
 	}
 
@@ -57,6 +65,7 @@ class PageToGenderPronounProcessorTest extends Specification {
 		Gender gender = pageToGenderPronounProcessor.process(page)
 
 		then:
+		1 * paragraphExtractorMock.extractParagraphs(_) >> { String wikitext -> Lists.newArrayList(wikitext) }
 		gender == MALE
 
 		then: 'title is used for logging'
@@ -72,6 +81,7 @@ class PageToGenderPronounProcessorTest extends Specification {
 		Gender gender = pageToGenderPronounProcessor.process(page)
 
 		then:
+		1 * paragraphExtractorMock.extractParagraphs(_) >> { String wikitext -> Lists.newArrayList(wikitext) }
 		gender == null
 
 		then: 'title is used for logging'
@@ -83,6 +93,7 @@ class PageToGenderPronounProcessorTest extends Specification {
 		Gender gender = pageToGenderPronounProcessor.process(new Page(wikitext: ''))
 
 		then:
+		1 * paragraphExtractorMock.extractParagraphs(_) >> { String wikitext -> Lists.newArrayList(wikitext) }
 		gender == null
 	}
 

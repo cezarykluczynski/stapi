@@ -30,6 +30,17 @@ class PlanetTemplateProcessorTest extends Specification {
 		planetTemplateProcessor = new PlanetTemplateProcessor(guidGeneratorMock, astronomicalObjectTypeMapperMock)
 	}
 
+	void "returns null when PlanetTemplate is a product of redirect"() {
+		given:
+		PlanetTemplate planetTemplate = new PlanetTemplate(productOfRedirect: true)
+
+		when:
+		AstronomicalObject astronomicalObject = planetTemplateProcessor.process(planetTemplate)
+
+		then:
+		astronomicalObject == null
+	}
+
 	void "maps PlanetTemplate to AstronomicalObject"() {
 		given:
 		PlanetTemplate planetTemplate = new PlanetTemplate(

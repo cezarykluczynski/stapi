@@ -3,6 +3,8 @@ package com.cezarykluczynski.stapi.etl.configuration.job;
 import com.cezarykluczynski.stapi.etl.astronomicalObject.creation.processor.AstronomicalObjectProcessor;
 import com.cezarykluczynski.stapi.etl.astronomicalObject.creation.processor.AstronomicalObjectReader;
 import com.cezarykluczynski.stapi.etl.astronomicalObject.creation.processor.AstronomicalObjectWriter;
+import com.cezarykluczynski.stapi.etl.astronomicalObject.link.processor.AstronomicalObjectLinkProcessor;
+import com.cezarykluczynski.stapi.etl.astronomicalObject.link.processor.AstronomicalObjectLinkReader;
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterProcessor;
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterReader;
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterWriter;
@@ -149,6 +151,19 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(MovieReader.class))
 				.processor(applicationContext.getBean(MovieProcessor.class))
 				.writer(applicationContext.getBean(MovieWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.LINK_ASTRONOMICAL_OBJECTS)
+	public Step stepLinkAstronomicalObject() {
+		return stepBuilderFactory.get(StepName.LINK_ASTRONOMICAL_OBJECTS)
+				.<AstronomicalObject, AstronomicalObject>chunk(stepsProperties.getLinkAstronomicalObjects().getCommitInterval())
+				.reader(applicationContext.getBean(AstronomicalObjectLinkReader.class))
+				.processor(applicationContext.getBean(AstronomicalObjectLinkProcessor.class))
+				.writer(applicationContext.getBean(AstronomicalObjectWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)

@@ -24,6 +24,10 @@ public class PlanetTemplateProcessor implements ItemProcessor<PlanetTemplate, As
 
 	@Override
 	public AstronomicalObject process(PlanetTemplate item) throws Exception {
+		if (item.isProductOfRedirect()) {
+			return null;
+		}
+
 		AstronomicalObject astronomicalObject = new AstronomicalObject();
 		astronomicalObject.setName(item.getName());
 		astronomicalObject.setGuid(guidGenerator.generateFromPage(item.getPage(), AstronomicalObject.class));

@@ -18,7 +18,8 @@ public class StepNames {
 				StepName.CREATE_ASTRONOMICAL_OBJECTS,
 				StepName.CREATE_CHARACTERS,
 				StepName.CREATE_EPISODES,
-				StepName.CREATE_MOVIES
+				StepName.CREATE_MOVIES,
+				StepName.LINK_ASTRONOMICAL_OBJECTS
 		));
 	}
 

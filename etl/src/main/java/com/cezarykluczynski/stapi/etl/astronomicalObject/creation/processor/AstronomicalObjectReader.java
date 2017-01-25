@@ -11,7 +11,7 @@ public class AstronomicalObjectReader extends ListItemReader<PageHeader> {
 
 	public AstronomicalObjectReader(List<PageHeader> list) {
 		super(list);
-		log.info("Initial size of planet list: {}", list.size());
+		log.info("Initial size of astronomical object list: {}", list.size());
 	}
 
 }

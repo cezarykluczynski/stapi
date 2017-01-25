@@ -21,6 +21,8 @@ public class WikitextApiImpl implements WikitextApi {
 
 	private static final Pattern LINK = Pattern.compile("\\[\\[(.+?)]]");
 
+	private static final Pattern MULTILINE_WITHOUT_TEMPLATES = Pattern.compile("\\{\\{(.*?)}}", Pattern.DOTALL);
+
 	@Override
 	public List<String> getPageTitlesFromWikitext(String wikitext) {
 		return getPageLinksFromWikitext(wikitext)
@@ -51,4 +53,12 @@ public class WikitextApiImpl implements WikitextApi {
 		return allMatches;
 	}
 
+	@Override
+	public String getWikitextWithoutTemplates(String wikitext) {
+		if (wikitext == null) {
+			return null;
+		}
+
+		return MULTILINE_WITHOUT_TEMPLATES.matcher(wikitext).replaceAll("");
+	}
 }

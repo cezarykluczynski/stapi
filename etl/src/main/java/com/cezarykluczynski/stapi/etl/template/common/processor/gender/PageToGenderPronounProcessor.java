@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.gender;
 
+import com.cezarykluczynski.stapi.etl.common.service.ParagraphExtractor;
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
-import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
@@ -22,6 +22,12 @@ public class PageToGenderPronounProcessor implements ItemProcessor<Page, Gender>
 			.compile("(\\s|\\-)actor|\\she\\s|\\shis\\s|\\shim\\s|himself|stuntman|\\smale", Pattern.CASE_INSENSITIVE);
 	private static final Pattern FEMALE = Pattern
 			.compile("\\sactress|\\sshe\\s|\\sher\\s|herself|stuntwoman|female", Pattern.CASE_INSENSITIVE);
+
+	private ParagraphExtractor paragraphExtractor;
+
+	public PageToGenderPronounProcessor(ParagraphExtractor paragraphExtractor) {
+		this.paragraphExtractor = paragraphExtractor;
+	}
 
 	@Override
 	public Gender process(Page item) throws Exception {
@@ -52,7 +58,7 @@ public class PageToGenderPronounProcessor implements ItemProcessor<Page, Gender>
 	}
 
 	private String getFirstParagraphs(Page item) {
-		List<String> paragraphs = Lists.newArrayList(item.getWikitext().split("\n\n"));
+		List<String> paragraphs = paragraphExtractor.extractParagraphs(item.getWikitext());
 		return paragraphs.isEmpty() ? item.getWikitext() : String.join(" ", paragraphs.subList(0, Math.min(3, paragraphs.size())));
 	}
 

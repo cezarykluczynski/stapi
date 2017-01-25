@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.common.service;
+package com.cezarykluczynski.stapi.etl.common.interfaces;
 
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
 

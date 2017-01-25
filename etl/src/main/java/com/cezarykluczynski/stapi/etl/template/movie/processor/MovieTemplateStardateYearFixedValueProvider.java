@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.movie.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
-import com.cezarykluczynski.stapi.etl.common.service.FixedValueProvider;
+import com.cezarykluczynski.stapi.etl.common.interfaces.FixedValueProvider;
 import com.cezarykluczynski.stapi.etl.template.common.dto.StardateYearDTO;
 import com.google.common.collect.Maps;
 import org.springframework.stereotype.Service;

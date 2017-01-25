@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page as EtlPage
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.constant.TemplateName
 import com.google.common.collect.Lists
@@ -19,7 +20,6 @@ class PlanetTemplatePageProcessorTest extends Specification {
 
 	private static final String TITLE = 'TITLE'
 	private static final String CLASS = 'CLASS'
-	private static final String LOCATION = 'LOCATION'
 	private static final AstronomicalObjectType GALAXY = AstronomicalObjectType.GALAXY
 	private static final AstronomicalObjectType NEBULA = AstronomicalObjectType.NEBULA
 
@@ -88,18 +88,19 @@ class PlanetTemplatePageProcessorTest extends Specification {
 		1 * astronomicalObjectWikitextProcessorMock.process(_) >> null
 		0 * _
 		planetTemplate.page == modelPage
+		!planetTemplate.productOfRedirect
 	}
 
 	void "calls all dependencies when page with planet template is passed"() {
 		given:
 		Template.Part classTemplatePart = new Template.Part(key: PlanetTemplatePageProcessor.CLASS, value: CLASS)
-		Template.Part locationTemplatePart = new Template.Part(key: PlanetTemplatePageProcessor.LOCATION, value: LOCATION)
 		Template template = new Template(
-				parts: Lists.newArrayList(classTemplatePart, locationTemplatePart)
+				parts: Lists.newArrayList(classTemplatePart)
 		)
 		EtlPage page = new EtlPage(
 				title: TITLE,
-				templates: Lists.newArrayList(template))
+				templates: Lists.newArrayList(template),
+				redirectPath: Lists.newArrayList(Mock(PageHeader)))
 		ModelPage modelPage = Mock(ModelPage)
 
 		when:
@@ -123,6 +124,7 @@ class PlanetTemplatePageProcessorTest extends Specification {
 		0 * _
 		planetTemplate.page == modelPage
 		planetTemplate.astronomicalObjectType == NEBULA
+		planetTemplate.productOfRedirect
 	}
 
 }

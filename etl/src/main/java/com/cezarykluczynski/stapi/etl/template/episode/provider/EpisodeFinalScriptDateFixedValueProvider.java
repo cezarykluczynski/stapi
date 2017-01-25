@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.episode.provider;
 
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
-import com.cezarykluczynski.stapi.etl.common.service.FixedValueProvider;
+import com.cezarykluczynski.stapi.etl.common.interfaces.FixedValueProvider;
 import com.google.common.collect.Maps;
 import org.springframework.stereotype.Service;
 
