@@ -3,51 +3,62 @@ import groovy.io.FileType
 import java.util.stream.Collectors
 
 task endpointGen(type: EndpointScaffoldingGeneratorTask) << {
-	entityName = project.property("entityName")
+
 }
 
 class EndpointScaffoldingGeneratorTask extends DefaultTask {
 
-	private static final String PERFORMER_ENTITY_NAME = "Performer"
-	private static final String PERFORMER_PACKAGE_NAME = "performer"
+	private static final String MOVIE_ENTITY_NAME = "Movie"
+	private static final String MOVIE_PACKAGE_NAME = "movie"
 
 	List<String> serverFilesToCopy = [
-			"PerformerConfiguration.java",
-			"PerformerRestBeanParams.java",
-			"PerformerRestEndpoint.java",
-			"PerformerSoapEndpoint.java",
-			"PerformerHeaderRestMapper.java",
-			"PerformerHeaderSoapMapper.java",
-			"PerformerRestMapper.java",
-			"PerformerSoapMapper.java",
-			"PerformerRestQuery.java",
-			"PerformerSoapQuery.java",
-			"PerformerRestReader.java",
-			"PerformerSoapReader.java"
+			"MovieConfiguration.java",
+			"MovieRestBeanParams.java",
+			"MovieRestEndpoint.java",
+			"MovieSoapEndpoint.java",
+			"MovieHeaderRestMapper.java",
+			"MovieHeaderSoapMapper.java",
+			"MovieRestMapper.java",
+			"MovieSoapMapper.java",
+			"MovieRestQuery.java",
+			"MovieSoapQuery.java",
+			"MovieRestReader.java",
+			"MovieSoapReader.java"
 	]
 
 	List<String> serverTestFilesToCopy = [
-			"AbstractPerformerEndpointIntegrationTest.groovy",
-			"AbstractPerformerMapperTest.groovy",
-			"PerformerConfigurationTest.groovy",
-			"PerformerRestBeanParamsTest.groovy",
-			"PerformerRestEndpointTest.groovy",
-			"PerformerSoapEndpointTest.groovy",
-			"PerformerHeaderRestMapperTest.groovy",
-			"PerformerHeaderSoapMapperTest.groovy",
-			"PerformerRestMapperTest.groovy",
-			"PerformerSoapMapperTest.groovy",
-			"PerformerRestQueryTest.groovy",
-			"PerformerSoapQueryTest.groovy",
-			"PerformerRestReaderTest.groovy",
-			"PerformerSoapReaderTest.groovy",
+			"AbstractMovieEndpointIntegrationTest.groovy",
+			"AbstractMovieMapperTest.groovy",
+			"MovieConfigurationTest.groovy",
+			"MovieRestBeanParamsTest.groovy",
+			"MovieRestEndpointTest.groovy",
+			"MovieSoapEndpointTest.groovy",
+			"MovieHeaderRestMapperTest.groovy",
+			"MovieHeaderSoapMapperTest.groovy",
+			"MovieRestMapperTest.groovy",
+			"MovieSoapMapperTest.groovy",
+			"MovieRestQueryTest.groovy",
+			"MovieSoapQueryTest.groovy",
+			"MovieRestReaderTest.groovy",
+			"MovieSoapReaderTest.groovy",
 	]
 
 	List<String> modelFilesToCopy = [
-			"PerformerRequestDTO.java"
+			"MovieRequestDTO.java",
+			"MovieRepository.java",
+			"MovieRepositoryCustom.java",
+			"MovieRepositoryImpl.java",
+			"MovieQueryBuilderFactory.java",
+			"MovieInitialQueryBuilderFactory.java"
 	]
 
-	@Input
+	List<String> modelTestFilesToCopy = [
+			"MovieRepositoryImplTest.groovy",
+			"MovieQueryBuilderFactoryTest.groovy",
+			"MovieInitialQueryBuilderFactoryTest.groovy",
+	]
+
+//	@Input
 	String entityName
 
 	String packageName
@@ -58,19 +69,21 @@ class EndpointScaffoldingGeneratorTask extends DefaultTask {
 
 	@TaskAction
 	def generateEnpoint() {
+		entityName = project.property('entityName')
 		if (entityName == "") {
 			println "Entity name cannot be empty"
 			System.exit(-1)
 		}
 
-		packageName = entityName.toLowerCase()
+		packageName = entityName[0].toLowerCase() + entityName.substring(1)
 		entityName = packageName.capitalize()
 
 		println "Generating scaffolding for endpoint ${entityName}..."
 
-		copyInDirectory("server/src/main/java/com/cezarykluczynski/stapi/server/performer", serverFilesToCopy)
-		copyInDirectory("server/src/test/groovy/com/cezarykluczynski/stapi/server/performer", serverTestFilesToCopy)
-		copyInDirectory("model/src/main/java/com/cezarykluczynski/stapi/model/performer/dto", modelFilesToCopy)
+		copyInDirectory("server/src/main/java/com/cezarykluczynski/stapi/server/movie", serverFilesToCopy)
+		copyInDirectory("server/src/test/groovy/com/cezarykluczynski/stapi/server/movie", serverTestFilesToCopy)
+		copyInDirectory("model/src/main/java/com/cezarykluczynski/stapi/model/movie", modelFilesToCopy)
+		copyInDirectory("model/src/test/groovy/com/cezarykluczynski/stapi/model/movie", modelTestFilesToCopy)
 
 		println "Files copies: ${copied}, files skipped: ${total - copied}."
 	}
@@ -107,8 +120,8 @@ class EndpointScaffoldingGeneratorTask extends DefaultTask {
 
 	def transformToNewEntity(String content) {
 		content
-				.replace(PERFORMER_ENTITY_NAME, entityName)
-				.replace(PERFORMER_PACKAGE_NAME, packageName)
+				.replace(MOVIE_ENTITY_NAME, entityName)
+				.replace(MOVIE_PACKAGE_NAME, packageName)
 	}
 
 	def maybeClear(String content, String fileName) {
