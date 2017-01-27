@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
-class JsonTemplateParseTest extends Specification {
+class JsonTemplateParserTest extends Specification {
 
 	private static final String XML = """
 		<root>
@@ -41,7 +41,7 @@ class JsonTemplateParseTest extends Specification {
 
 	void "converts XML to Template"() {
 		when:
-		List<Template> template = new JsonTemplateParser(XML).templates
+		List<Template> template = new JsonTemplateParser().parse(XML)
 
 		then:
 		template == Lists.newArrayList(
@@ -67,7 +67,7 @@ class JsonTemplateParseTest extends Specification {
 
 	void "converts XML without templates"() {
 		when:
-		List<Template> templates = new JsonTemplateParser(XML_WITHOUT_TEMPLATE).templates
+		List<Template> templates = new JsonTemplateParser().parse(XML_WITHOUT_TEMPLATE)
 
 		then:
 		templates.empty

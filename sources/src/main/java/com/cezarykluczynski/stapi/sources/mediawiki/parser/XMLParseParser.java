@@ -55,6 +55,8 @@ public class XMLParseParser extends AbstractXMLParser {
 
 	private String xmlTextContent;
 
+	private JsonTemplateParser jsonTemplateParser = new JsonTemplateParser();
+
 	public XMLParseParser(String xmlText) throws SAXException {
 		super(xmlText);
 		setParsetreeXml(xmlText);
@@ -115,7 +117,7 @@ public class XMLParseParser extends AbstractXMLParser {
 		}
 
 		if (StringUtils.isNotEmpty(xmlTextContent)) {
-			page.setTemplates(new JsonTemplateParser(xmlTextContent).getTemplates());
+			page.setTemplates(jsonTemplateParser.parse(xmlTextContent));
 		}
 	}
 

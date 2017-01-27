@@ -2,7 +2,6 @@ package com.cezarykluczynski.stapi.sources.mediawiki.parser;
 
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.google.common.collect.Lists;
-import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.tuple.Pair;
@@ -19,25 +18,16 @@ public class JsonTemplateParser {
 
 	private static final String KEY_TEMPLATE = "template";
 
-	@Getter
-	private List<Template> templates = Lists.newArrayList();
-
-	private JSONObject jsonObject;
-
-	public JsonTemplateParser(String xmlText) {
-		jsonObject = XML.toJSONObject(xmlText);
-		parse();
-	}
-
-	// TODO: no need to create instance every time
-	private void parse() {
+	public List<Template> parse(String xmlText) {
+		JSONObject jsonObject = XML.toJSONObject(xmlText);
+		List<Template> templates = Lists.newArrayList();
 		try {
 			JSONObject root;
 
 			try {
 				root = (JSONObject) jsonObject.get("root");
 			} catch (ClassCastException e) {
-				return;
+				return templates;
 			}
 
 			JSONArray jsonArrayTemplates = new JSONArray();
@@ -56,6 +46,8 @@ public class JsonTemplateParser {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
+
+		return templates;
 	}
 
 	private List<JSONObject> toJsonObjectList(JSONArray jsonArray) {

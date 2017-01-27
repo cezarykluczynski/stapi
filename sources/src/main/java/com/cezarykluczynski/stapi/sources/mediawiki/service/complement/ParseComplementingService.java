@@ -15,6 +15,8 @@ public class ParseComplementingService {
 
 	private ParseApi parseApi;
 
+	private JsonTemplateParser jsonTemplateParser = new JsonTemplateParser();
+
 	@Inject
 	ParseComplementingService(WikiaWikisDetector wikiaWikisDetector, ParseApi parseApi) {
 		this.wikiaWikisDetector = wikiaWikisDetector;
@@ -24,7 +26,7 @@ public class ParseComplementingService {
 	public void complement(Page page) {
 		if (wikiaWikisDetector.isWikiaWiki(page.getMediaWikiSource())) {
 			String xmlParseTreeContent = parseWikitextToXml(page.getWikitext());
-			page.setTemplates(new JsonTemplateParser(xmlParseTreeContent).getTemplates());
+			page.setTemplates(jsonTemplateParser.parse(xmlParseTreeContent));
 		}
 	}
 
