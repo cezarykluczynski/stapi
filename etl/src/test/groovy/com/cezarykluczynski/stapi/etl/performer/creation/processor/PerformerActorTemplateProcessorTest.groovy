@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.etl.performer.creation.processor
 
-import com.cezarykluczynski.stapi.etl.common.mapper.GenderMapper
 import com.cezarykluczynski.stapi.etl.common.processor.AbstractRealWorldActorTemplateProcessorTest
+import com.cezarykluczynski.stapi.etl.common.processor.CommonActorTemplateProcessor
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate
-import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange
+import com.cezarykluczynski.stapi.model.common.entity.RealWorldPerson
 import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 
@@ -11,29 +11,20 @@ class PerformerActorTemplateProcessorTest extends AbstractRealWorldActorTemplate
 
 	private GuidGenerator guidGeneratorMock
 
-	private GenderMapper genderMapperMock
+	private CommonActorTemplateProcessor commonActorTemplateProcessorMock
 
 	private PerformerActorTemplateProcessor performerActorTemplateProcessor
 
 	void setup() {
 		guidGeneratorMock = Mock(GuidGenerator)
-		genderMapperMock = Mock(GenderMapper)
-		performerActorTemplateProcessor = new PerformerActorTemplateProcessor(guidGeneratorMock, genderMapperMock)
+		commonActorTemplateProcessorMock = Mock(CommonActorTemplateProcessor)
+		performerActorTemplateProcessor = new PerformerActorTemplateProcessor(guidGeneratorMock, commonActorTemplateProcessorMock)
 	}
 
 	void "converts ActorTemplate to Performer"() {
 		given:
 		ActorTemplate actorTemplate = new ActorTemplate(
-				name: NAME,
 				page: PAGE,
-				birthName: BIRTH_NAME,
-				placeOfBirth: PLACE_OF_BIRTH,
-				placeOfDeath: PLACE_OF_DEATH,
-				gender: ETL_GENDER,
-				lifeRange: new DateRange(
-						startDate: DATE_OF_BIRTH,
-						endDate: DATE_OF_DEATH
-				),
 				animalPerformer: ANIMAL_PERFORMER,
 				disPerformer: DIS_PERFORMER,
 				ds9Performer: DS9_PERFORMER,
@@ -53,17 +44,8 @@ class PerformerActorTemplateProcessorTest extends AbstractRealWorldActorTemplate
 		Performer performer = performerActorTemplateProcessor.process(actorTemplate)
 
 		then:
+		1 * commonActorTemplateProcessorMock.processCommonFields(_ as RealWorldPerson, actorTemplate)
 		1 * guidGeneratorMock.generateFromPage(PAGE, Performer) >> GUID
-		1 * genderMapperMock.fromEtlToModel(ETL_GENDER) >> MODEL_GENDER
-		performer.name == NAME
-		performer.page == PAGE
-		performer.guid == GUID
-		performer.birthName == BIRTH_NAME
-		performer.placeOfBirth == PLACE_OF_BIRTH
-		performer.placeOfDeath == PLACE_OF_DEATH
-		performer.gender == MODEL_GENDER
-		performer.dateOfBirth == DATE_OF_BIRTH
-		performer.dateOfDeath == DATE_OF_DEATH
 		performer.animalPerformer == ANIMAL_PERFORMER
 		performer.disPerformer == DIS_PERFORMER
 		performer.ds9Performer == DS9_PERFORMER
@@ -87,13 +69,6 @@ class PerformerActorTemplateProcessorTest extends AbstractRealWorldActorTemplate
 		Performer performer = performerActorTemplateProcessor.process(actorTemplate)
 
 		then:
-		performer.name == null
-		performer.birthName == null
-		performer.placeOfBirth == null
-		performer.placeOfDeath == null
-		performer.gender == null
-		performer.dateOfBirth == null
-		performer.dateOfDeath == null
 		!performer.animalPerformer
 		!performer.disPerformer
 		!performer.ds9Performer

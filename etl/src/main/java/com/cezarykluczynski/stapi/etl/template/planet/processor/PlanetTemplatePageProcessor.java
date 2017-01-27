@@ -114,6 +114,7 @@ public class PlanetTemplatePageProcessor implements ItemProcessor<Page, PlanetTe
 			return true;
 		}
 
+		// TODO CategoryTitlesExtractingProcessor
 		List<String> categoryHeaderList = item.getCategories()
 				.stream()
 				.map(CategoryHeader::getTitle)

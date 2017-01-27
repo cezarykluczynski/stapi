@@ -7,7 +7,7 @@ dependencies:
     - psql -c 'create database stapi;' -U postgres
 test:
   override:
-    - ./gradlew check build -i
+    - ./gradlew check build
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
     - find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} $CIRCLE_TEST_REPORTS/junit/ \;

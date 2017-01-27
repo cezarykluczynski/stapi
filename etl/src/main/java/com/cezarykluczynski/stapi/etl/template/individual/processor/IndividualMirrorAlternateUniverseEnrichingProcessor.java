@@ -1,18 +1,17 @@
 package com.cezarykluczynski.stapi.etl.template.individual.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
+import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.util.constant.TemplateName;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class IndividualMirrorAlternateUniverseEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Page, IndividualTemplate>> {
@@ -23,9 +22,13 @@ public class IndividualMirrorAlternateUniverseEnrichingProcessor implements Item
 
 	private TemplateFinder templateFinder;
 
+	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
+
 	@Inject
-	public IndividualMirrorAlternateUniverseEnrichingProcessor(TemplateFinder templateFinder) {
+	public IndividualMirrorAlternateUniverseEnrichingProcessor(TemplateFinder templateFinder,
+			CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {
 		this.templateFinder = templateFinder;
+		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
 	}
 
 	@Override
@@ -33,10 +36,7 @@ public class IndividualMirrorAlternateUniverseEnrichingProcessor implements Item
 		Page page = enrichablePair.getInput();
 		IndividualTemplate individualTemplate = enrichablePair.getOutput();
 		String pageTitle = page.getTitle();
-		List<String> categoryNameList = page.getCategories()
-				.stream()
-				.map(CategoryHeader::getTitle)
-				.collect(Collectors.toList());
+		List<String> categoryNameList = categoryTitlesExtractingProcessor.process(page.getCategories());
 
 		if (pageTitle.contains(MIRROR)) {
 			individualTemplate.setMirror(true);

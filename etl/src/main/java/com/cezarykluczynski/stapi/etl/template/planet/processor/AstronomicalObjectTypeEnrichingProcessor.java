@@ -1,29 +1,33 @@
 package com.cezarykluczynski.stapi.etl.template.planet.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
+import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.planet.dto.PlanetTemplate;
 import com.cezarykluczynski.stapi.etl.template.planet.dto.enums.AstronomicalObjectType;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class AstronomicalObjectTypeEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Page, PlanetTemplate>> {
+
+	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
+
+	@Inject
+	public AstronomicalObjectTypeEnrichingProcessor(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {
+		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
+	}
 
 	@Override
 	public void enrich(EnrichablePair<Page, PlanetTemplate> enrichablePair) throws Exception {
 		Page page = enrichablePair.getInput();
 		PlanetTemplate planetTemplate = enrichablePair.getOutput();
 
-		List<String> categoryTitleList = page.getCategories()
-				.stream()
-				.map(CategoryHeader::getTitle)
-				.collect(Collectors.toList());
+		List<String> categoryTitleList = categoryTitlesExtractingProcessor.process(page.getCategories());
 
 		if (categoryTitleList.contains(CategoryName.PLANETS)) {
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.PLANET);

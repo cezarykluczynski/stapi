@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.etl.staff.creation.processor
 
-import com.cezarykluczynski.stapi.etl.common.mapper.GenderMapper
 import com.cezarykluczynski.stapi.etl.common.processor.AbstractRealWorldActorTemplateProcessorTest
+import com.cezarykluczynski.stapi.etl.common.processor.CommonActorTemplateProcessor
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate
-import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange
+import com.cezarykluczynski.stapi.model.common.entity.RealWorldPerson
 import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.util.ReflectionTestUtils
@@ -12,29 +12,20 @@ class StaffActorTemplateProcessorTest extends AbstractRealWorldActorTemplateProc
 
 	private GuidGenerator guidGeneratorMock
 
-	private GenderMapper genderMapperMock
+	private CommonActorTemplateProcessor commonActorTemplateProcessorMock
 
 	private StaffActorTemplateProcessor staffActorTemplateProcessor
 
 	void setup() {
 		guidGeneratorMock = Mock(GuidGenerator)
-		genderMapperMock = Mock(GenderMapper)
-		staffActorTemplateProcessor = new StaffActorTemplateProcessor(guidGeneratorMock, genderMapperMock)
+		commonActorTemplateProcessorMock = Mock(CommonActorTemplateProcessor)
+		staffActorTemplateProcessor = new StaffActorTemplateProcessor(guidGeneratorMock, commonActorTemplateProcessorMock)
 	}
 
 	void "converts ActorTemplate to Staff"() {
 		given:
 		ActorTemplate actorTemplate = new ActorTemplate(
-				name: NAME,
 				page: PAGE,
-				birthName: BIRTH_NAME,
-				placeOfBirth: PLACE_OF_BIRTH,
-				placeOfDeath: PLACE_OF_DEATH,
-				gender: ETL_GENDER,
-				lifeRange: new DateRange(
-						startDate: DATE_OF_BIRTH,
-						endDate: DATE_OF_DEATH
-				),
 				artDepartment: ART_DEPARTMENT,
 				artDirector: ART_DIRECTOR,
 				productionDesigner: PRODUCTION_DESIGNER,
@@ -96,17 +87,8 @@ class StaffActorTemplateProcessorTest extends AbstractRealWorldActorTemplateProc
 		Staff staff = staffActorTemplateProcessor.process(actorTemplate)
 
 		then:
+		1 * commonActorTemplateProcessorMock.processCommonFields(_ as RealWorldPerson, actorTemplate)
 		1 * guidGeneratorMock.generateFromPage(PAGE, Staff) >> GUID
-		1 * genderMapperMock.fromEtlToModel(ETL_GENDER) >> MODEL_GENDER
-		staff.name == NAME
-		staff.page == PAGE
-		staff.guid == GUID
-		staff.birthName == BIRTH_NAME
-		staff.placeOfBirth == PLACE_OF_BIRTH
-		staff.placeOfDeath == PLACE_OF_DEATH
-		staff.gender == MODEL_GENDER
-		staff.dateOfBirth == DATE_OF_BIRTH
-		staff.dateOfDeath == DATE_OF_DEATH
 		staff.artDepartment == ART_DEPARTMENT
 		staff.artDirector == ART_DIRECTOR
 		staff.productionDesigner == PRODUCTION_DESIGNER
@@ -172,13 +154,8 @@ class StaffActorTemplateProcessorTest extends AbstractRealWorldActorTemplateProc
 		Staff staff = staffActorTemplateProcessor.process(actorTemplate)
 
 		then:
-		staff.name == null
-		staff.birthName == null
-		staff.placeOfBirth == null
-		staff.placeOfDeath == null
-		staff.gender == null
-		staff.dateOfBirth == null
-		staff.dateOfDeath == null
+		1 * commonActorTemplateProcessorMock.processCommonFields(_ as RealWorldPerson, actorTemplate)
+		1 * guidGeneratorMock.generateFromPage(null, Staff) >> null
 		ReflectionTestUtils.getNumberOfTrueBooleanFields(staff) == 0
 	}
 

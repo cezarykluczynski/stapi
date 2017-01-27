@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.performer.creation.processor
 
 import com.cezarykluczynski.stapi.etl.EtlTestUtils
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
+import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
@@ -12,14 +13,22 @@ import spock.lang.Unroll
 
 class PerformerCategoriesActorTemplateEnrichingProcessorTest extends Specification {
 
+	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessorMock
+
 	private PerformerCategoriesActorTemplateEnrichingProcessor performerCategoriesActorTemplateEnrichingProcessor
 
 	void setup() {
-		performerCategoriesActorTemplateEnrichingProcessor = new PerformerCategoriesActorTemplateEnrichingProcessor()
+		categoryTitlesExtractingProcessorMock = Mock(CategoryTitlesExtractingProcessor)
+		performerCategoriesActorTemplateEnrichingProcessor = new PerformerCategoriesActorTemplateEnrichingProcessor(categoryTitlesExtractingProcessorMock)
 	}
 
 	@Unroll('set #flagName flag when #categoryHeaderList is passed')
 	void "set flagName when categoryHeaderList is passed"() {
+		given:
+		categoryTitlesExtractingProcessorMock.process(_ as List<CategoryHeader>) >> {
+			List<CategoryHeader> categoryHeaderList -> Lists.newArrayList(categoryHeaderList[0].title)
+		}
+
 		expect:
 		performerCategoriesActorTemplateEnrichingProcessor.enrich(EnrichablePair.of(categoryHeaderList, actorTemplate))
 		flag == actorTemplate[flagName]

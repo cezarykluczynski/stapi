@@ -5,16 +5,21 @@ import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate;
 import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange;
 import com.cezarykluczynski.stapi.model.common.entity.RealWorldPerson;
 import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.stereotype.Service;
 
-public abstract class AbstractActorTemplateProcessor {
+import javax.inject.Inject;
+
+@Service
+public class CommonActorTemplateProcessor {
 
 	private GenderMapper genderMapper;
 
-	protected AbstractActorTemplateProcessor(GenderMapper genderMapper) {
+	@Inject
+	public CommonActorTemplateProcessor(GenderMapper genderMapper) {
 		this.genderMapper = genderMapper;
 	}
 
-	protected void processCommonFields(RealWorldPerson realWorldPerson, ActorTemplate actorTemplate) {
+	public void processCommonFields(RealWorldPerson realWorldPerson, ActorTemplate actorTemplate) {
 		DateRange lifeRange = ObjectUtils.defaultIfNull(actorTemplate.getLifeRange(), new DateRange());
 
 		realWorldPerson.setName(actorTemplate.getName());

@@ -1,22 +1,29 @@
 package com.cezarykluczynski.stapi.etl.staff.creation.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
-import com.cezarykluczynski.stapi.etl.common.processor.AbstractCategoriesActorTemplateEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.CategoriesActorTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import java.util.List;
 
 @Service
-public class StaffCategoriesActorTemplateEnrichingProcessor extends AbstractCategoriesActorTemplateEnrichingProcessor
-		implements CategoriesActorTemplateEnrichingProcessor {
+public class StaffCategoriesActorTemplateEnrichingProcessor implements CategoriesActorTemplateEnrichingProcessor {
+
+	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
+
+	@Inject
+	public StaffCategoriesActorTemplateEnrichingProcessor(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {
+		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
+	}
 
 	@Override
 	public void enrich(EnrichablePair<List<CategoryHeader>, ActorTemplate> enrichablePair) throws Exception {
-		List<String> categoryTitlesList = getCategoryTitlesList(enrichablePair);
+		List<String> categoryTitlesList = categoryTitlesExtractingProcessor.process(enrichablePair.getInput());
 		ActorTemplate actorTemplate = enrichablePair.getOutput();
 
 		actorTemplate.setCastingDepartment(categoryTitlesList.contains(CategoryName.CASTING_DEPARTMENT));

@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.individual.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
+import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
@@ -15,11 +16,15 @@ class IndividualMirrorAlternateUniverseEnrichingProcessorTest extends Specificat
 
 	private TemplateFinder templateFinderMock
 
+	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessorMock
+
 	private IndividualMirrorAlternateUniverseEnrichingProcessor individualMirrorAlternateUniverseEnrichingProcessor
 
 	void setup() {
 		templateFinderMock = Mock(TemplateFinder)
-		individualMirrorAlternateUniverseEnrichingProcessor = new IndividualMirrorAlternateUniverseEnrichingProcessor(templateFinderMock)
+		categoryTitlesExtractingProcessorMock = Mock(CategoryTitlesExtractingProcessor)
+		individualMirrorAlternateUniverseEnrichingProcessor = new IndividualMirrorAlternateUniverseEnrichingProcessor(templateFinderMock,
+				categoryTitlesExtractingProcessorMock)
 	}
 
 	void "adds mirror flag when title contains mirror"() {
@@ -32,6 +37,7 @@ class IndividualMirrorAlternateUniverseEnrichingProcessorTest extends Specificat
 
 		then:
 		2 * templateFinderMock.findTemplate(page, _) >> Optional.empty()
+		1 * categoryTitlesExtractingProcessorMock.process(_ as List<CategoryHeader>) >> Lists.newArrayList()
 		0 * _
 		individualTemplate.mirror
 		!individualTemplate.alternateReality
@@ -46,6 +52,7 @@ class IndividualMirrorAlternateUniverseEnrichingProcessorTest extends Specificat
 		individualMirrorAlternateUniverseEnrichingProcessor.enrich(EnrichablePair.of(page, individualTemplate))
 
 		then:
+		1 * categoryTitlesExtractingProcessorMock.process(_ as List<CategoryHeader>) >> Lists.newArrayList()
 		1 * templateFinderMock.findTemplate(page, TemplateName.MIRROR) >> Optional.of(new Template())
 		1 * templateFinderMock.findTemplate(page, TemplateName.ALT_REALITY) >> Optional.empty()
 		0 * _
@@ -64,6 +71,9 @@ class IndividualMirrorAlternateUniverseEnrichingProcessorTest extends Specificat
 		individualMirrorAlternateUniverseEnrichingProcessor.enrich(EnrichablePair.of(page, individualTemplate))
 
 		then:
+		1 * categoryTitlesExtractingProcessorMock.process(_ as List<CategoryHeader>) >> {
+			List<CategoryHeader> categoryHeaderList -> Lists.newArrayList(categoryHeaderList[0].title)
+		}
 		2 * templateFinderMock.findTemplate(page, _) >> Optional.empty()
 		0 * _
 		individualTemplate.mirror
@@ -79,6 +89,7 @@ class IndividualMirrorAlternateUniverseEnrichingProcessorTest extends Specificat
 		individualMirrorAlternateUniverseEnrichingProcessor.enrich(EnrichablePair.of(page, individualTemplate))
 
 		then:
+		1 * categoryTitlesExtractingProcessorMock.process(_ as List<CategoryHeader>) >> Lists.newArrayList()
 		2 * templateFinderMock.findTemplate(page, _) >> Optional.empty()
 		0 * _
 		!individualTemplate.mirror
@@ -94,6 +105,7 @@ class IndividualMirrorAlternateUniverseEnrichingProcessorTest extends Specificat
 		individualMirrorAlternateUniverseEnrichingProcessor.enrich(EnrichablePair.of(page, individualTemplate))
 
 		then:
+		1 * categoryTitlesExtractingProcessorMock.process(_ as List<CategoryHeader>) >> Lists.newArrayList()
 		1 * templateFinderMock.findTemplate(page, TemplateName.MIRROR) >> Optional.empty()
 		1 * templateFinderMock.findTemplate(page, TemplateName.ALT_REALITY) >> Optional.of(new Template())
 		0 * _
@@ -112,6 +124,9 @@ class IndividualMirrorAlternateUniverseEnrichingProcessorTest extends Specificat
 		individualMirrorAlternateUniverseEnrichingProcessor.enrich(EnrichablePair.of(page, individualTemplate))
 
 		then:
+		1 * categoryTitlesExtractingProcessorMock.process(_ as List<CategoryHeader>) >> {
+			List<CategoryHeader> categoryHeaderList -> Lists.newArrayList(categoryHeaderList[0].title)
+		}
 		2 * templateFinderMock.findTemplate(page, _) >> Optional.empty()
 		0 * _
 		!individualTemplate.mirror

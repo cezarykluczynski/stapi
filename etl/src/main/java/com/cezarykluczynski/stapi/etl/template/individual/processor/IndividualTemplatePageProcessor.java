@@ -109,6 +109,7 @@ public class IndividualTemplatePageProcessor implements ItemProcessor<Page, Indi
 			return true;
 		}
 
+		// TODO CategoryTitlesExtractingProcessor
 		List<String> categoryTitles = item.getCategories()
 				.stream()
 				.map(CategoryHeader::getTitle)

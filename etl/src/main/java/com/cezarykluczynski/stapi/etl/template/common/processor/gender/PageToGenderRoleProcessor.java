@@ -108,6 +108,7 @@ public class PageToGenderRoleProcessor implements ItemProcessor<Page, Gender> {
 			return false;
 		}
 
+		// TODO CategoryTitlesExtractingProcessor
 		List<String> categories = categoryHeaderList
 				.stream()
 				.map(CategoryHeader::getTitle)

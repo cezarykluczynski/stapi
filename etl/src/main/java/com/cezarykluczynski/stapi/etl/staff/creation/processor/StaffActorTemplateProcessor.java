@@ -1,7 +1,6 @@
 package com.cezarykluczynski.stapi.etl.staff.creation.processor;
 
-import com.cezarykluczynski.stapi.etl.common.mapper.GenderMapper;
-import com.cezarykluczynski.stapi.etl.common.processor.AbstractActorTemplateProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.CommonActorTemplateProcessor;
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate;
 import com.cezarykluczynski.stapi.model.common.service.GuidGenerator;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
@@ -11,22 +10,23 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 
 @Service
-public class StaffActorTemplateProcessor extends AbstractActorTemplateProcessor
-		implements ItemProcessor<ActorTemplate, Staff> {
+public class StaffActorTemplateProcessor implements ItemProcessor<ActorTemplate, Staff> {
 
 	private GuidGenerator guidGenerator;
 
+	private CommonActorTemplateProcessor commonActorTemplateProcessor;
+
 	@Inject
-	public StaffActorTemplateProcessor(GuidGenerator guidGenerator, GenderMapper genderMapper) {
-		super(genderMapper);
+	public StaffActorTemplateProcessor(GuidGenerator guidGenerator, CommonActorTemplateProcessor commonActorTemplateProcessor) {
 		this.guidGenerator = guidGenerator;
+		this.commonActorTemplateProcessor = commonActorTemplateProcessor;
 	}
 
 	@Override
 	public Staff process(ActorTemplate item) throws Exception {
 		Staff staff = new Staff();
 
-		processCommonFields(staff, item);
+		commonActorTemplateProcessor.processCommonFields(staff, item);
 		staff.setGuid(guidGenerator.generateFromPage(item.getPage(), Staff.class));
 		staff.setArtDepartment(item.isArtDepartment());
 		staff.setArtDirector(item.isArtDirector());
