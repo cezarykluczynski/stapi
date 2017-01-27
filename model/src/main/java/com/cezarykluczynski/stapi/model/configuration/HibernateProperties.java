@@ -11,5 +11,4 @@ public class HibernateProperties {
 
 	private String dialect;
 
-
 }

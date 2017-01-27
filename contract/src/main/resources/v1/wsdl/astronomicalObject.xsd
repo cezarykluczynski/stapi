@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:astronomicalObject="http://stapi.co/api/v1/soap/astronomicalObject"
+		xmlns:common="http://stapi.co/api/v1/soap/common"
+		elementFormDefault="qualified"
+		targetNamespace="http://stapi.co/api/v1/soap/astronomicalObject">
+	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
+	<xs:element name="AstronomicalObjectRequest">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Request">
+					<xs:sequence>
+						<xs:element name="guid" type="xs:string" minOccurs="0"/>
+						<xs:element name="locationGuid" type="xs:string" minOccurs="0"/>
+						<xs:element name="name" type="xs:string" minOccurs="0"/>
+						<xs:element name="astronomicalObjectType" type="astronomicalObject:AstronomicalObjectTypeEnum" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="AstronomicalObjectResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Response">
+					<xs:sequence>
+						<xs:element name="astronomicalObjects" type="astronomicalObject:AstronomicalObject" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="AstronomicalObject">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="astronomicalObjectType" type="astronomicalObject:AstronomicalObjectTypeEnum" minOccurs="0"/>
+			<xs:element name="locationHeader" type="astronomicalObject:AstronomicalObjectHeader" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AstronomicalObjectHeader">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="name" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="AstronomicalObjectTypeEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="PLANET"/>
+			<xs:enumeration value="D_CLASS_PLANET"/>
+			<xs:enumeration value="H_CLASS_PLANET"/>
+			<xs:enumeration value="GAS_GIANT_PLANET"/>
+			<xs:enumeration value="K_CLASS_PLANET"/>
+			<xs:enumeration value="L_CLASS_PLANET"/>
+			<xs:enumeration value="M_CLASS_PLANET"/>
+			<xs:enumeration value="Y_CLASS_PLANET"/>
+			<xs:enumeration value="ROGUE_PLANET"/>
+			<xs:enumeration value="ARTIFICIAL_PLANET"/>
+			<xs:enumeration value="ASTEROID"/>
+			<xs:enumeration value="ASTEROIDAL_MOON"/>
+			<xs:enumeration value="ASTEROID_BELT"/>
+			<xs:enumeration value="CLUSTER"/>
+			<xs:enumeration value="COMET"/>
+			<xs:enumeration value="CONSTELLATION"/>
+			<xs:enumeration value="GALAXY"/>
+			<xs:enumeration value="MOON"/>
+			<xs:enumeration value="M_CLASS_MOON"/>
+			<xs:enumeration value="NEBULA"/>
+			<xs:enumeration value="PLANETOID"/>
+			<xs:enumeration value="D_CLASS_PLANETOID"/>
+			<xs:enumeration value="QUASAR"/>
+			<xs:enumeration value="STAR"/>
+			<xs:enumeration value="STAR_SYSTEM"/>
+			<xs:enumeration value="SECTOR"/>
+			<xs:enumeration value="REGION"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

@@ -3,7 +3,6 @@ package com.cezarykluczynski.stapi.model.common.query;
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortClauseDTO;
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO;
 import com.cezarykluczynski.stapi.model.common.dto.enums.RequestSortDirectionDTO;
-import com.cezarykluczynski.stapi.model.common.entity.enums.Gender;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import org.apache.commons.collections.CollectionUtils;
@@ -83,6 +82,13 @@ public class QueryBuilder<T> {
 		return this;
 	}
 
+	public QueryBuilder<T> joinPropertyEqual(SingularAttribute<? super T, ?> key, String propertyName, Object value) {
+		if (value != null) {
+			predicateList.add(baseRoot.get(key).get(propertyName).in(value));
+		}
+		return this;
+	}
+
 	public QueryBuilder<T> joinEquals(String join, String key, Enum<?> value, Class joinClassType) {
 		validateAttributeExistenceAndType(join, joinClassType);
 		if (value != null) {
@@ -112,7 +118,7 @@ public class QueryBuilder<T> {
 		return this;
 	}
 
-	public QueryBuilder<T> equal(SingularAttribute<? super T, Gender> key, Gender value) {
+	public QueryBuilder<T> equal(SingularAttribute<? super T, ? extends Enum> key, Enum value) {
 		if (value != null) {
 			predicateList.add(criteriaBuilder.equal(baseRoot.get(key), value));
 		}
@@ -127,7 +133,6 @@ public class QueryBuilder<T> {
 		} else if (to != null) {
 			predicateList.add(criteriaBuilder.lessThanOrEqualTo(baseRoot.get(key), to));
 		}
-
 		return this;
 	}
 
@@ -139,7 +144,6 @@ public class QueryBuilder<T> {
 		} else if (to != null) {
 			predicateList.add(criteriaBuilder.lessThanOrEqualTo(baseRoot.get(key), to));
 		}
-
 		return this;
 	}
 
@@ -151,7 +155,6 @@ public class QueryBuilder<T> {
 		} else if (to != null) {
 			predicateList.add(criteriaBuilder.lessThanOrEqualTo(baseRoot.get(key), to));
 		}
-
 		return this;
 	}
 

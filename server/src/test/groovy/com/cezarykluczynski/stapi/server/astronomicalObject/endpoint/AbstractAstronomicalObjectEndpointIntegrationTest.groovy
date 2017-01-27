@@ -1,0 +1,6 @@
+package com.cezarykluczynski.stapi.server.astronomicalObject.endpoint
+
+import com.cezarykluczynski.stapi.server.series.common.AbstractEndpointIntegrationTest
+
+abstract class AbstractAstronomicalObjectEndpointIntegrationTest extends AbstractEndpointIntegrationTest {
+}

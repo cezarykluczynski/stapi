@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface AstronomicalObjectRepository extends JpaRepository<AstronomicalObject, Long> {
+public interface AstronomicalObjectRepository extends JpaRepository<AstronomicalObject, Long>, AstronomicalObjectRepositoryCustom {
 
 	Optional<AstronomicalObject> findByPageTitleAndPageMediaWikiSource(String title, MediaWikiSource mediaWikiSource);
 

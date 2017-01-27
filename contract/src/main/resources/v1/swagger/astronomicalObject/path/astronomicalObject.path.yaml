@@ -1,0 +1,55 @@
+get:
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/AstronomicalObjectResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - AstronomicalObject
+post:
+  consumes:
+    - application/x-www-form-urlencoded
+  producers:
+    - application/json
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+    - name: sort
+      type: string
+      in: query
+    - name: guid
+      in: formData
+      type: string
+    - name: name
+      in: formData
+      type: string
+    - name: astronomicalObjectType
+      in: formData
+      type: string
+    - name: locationGuid
+      in: formData
+      type: string
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/AstronomicalObjectResponse'
+  tags:
+    - AstronomicalObject

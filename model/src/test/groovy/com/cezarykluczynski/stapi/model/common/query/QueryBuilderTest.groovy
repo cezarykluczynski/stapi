@@ -301,6 +301,14 @@ class QueryBuilderTest extends Specification {
 		1 * path.get(VALID_JOIN_PAGE_ID) >> path
 		1 * path.in(_)
 
+		when: 'join property equals is performed'
+		queryBuilder.joinPropertyEqual(validKeyString, VALID_KEY_GENDER_STRING, Sets.newHashSet(VALID_VALUE_GENDER))
+
+		then:
+		1 * baseRoot.get(validKeyString) >> path
+		1 * path.get(VALID_KEY_GENDER_STRING) >> path
+		1 * path.in(_)
+
 		when: 'join equals key is added'
 		queryBuilder.joinEquals(validKeyPage, VALID_KEY_GENDER_STRING, VALID_VALUE_GENDER, com.cezarykluczynski.stapi.model.page.entity.Page)
 

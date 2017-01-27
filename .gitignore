@@ -5,5 +5,5 @@ server/build/
 model/build/
 client/build/
 logs/
-server/src/main/resources/application-stapi-*.properties
+server/src/main/resources/application-*.properties
 model/**/*_.java

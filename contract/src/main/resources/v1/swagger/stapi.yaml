@@ -9,6 +9,8 @@ basePath: /api/v1/rest
 produces:
   - application/json
 paths:
+  /astronomicalObject:
+    $ref: ./astronomicalObject/path/astronomicalObject.path.yaml
   /character:
     $ref: ./character/path/character.path.yaml
   /episode:
@@ -22,6 +24,12 @@ paths:
   /staff:
     $ref: ./staff/path/staff.path.yaml
 definitions:
+  AstronomicalObject:
+    $ref: ./astronomicalObject/entity/astronomicalObject.yaml
+  AstronomicalObjectHeader:
+    $ref: ./astronomicalObject/entity/astronomicalObjectHeader.yaml
+  AstronomicalObjectResponse:
+    $ref: ./astronomicalObject/entity/astronomicalObjectResponse.yaml
   Character:
     $ref: ./character/entity/character.yaml
   CharacterHeader:

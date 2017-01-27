@@ -2,7 +2,7 @@
 	<timestamp key="byDay" datePattern="yyyyMMdd"/>
 	<property name="CONSOLE_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${PID:- } %-60.60logger{59} :: %msg %n"/>
 	<property name="FILE_PATTERN"    value="%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${PID:- } %logger :: %msg %n"/>
-	<property resource="application-stapi.properties"/>
+	<property resource="application.properties"/>
 	<springProperty name="destinationPath" source="logging.log-files-path"/>
 
 	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">

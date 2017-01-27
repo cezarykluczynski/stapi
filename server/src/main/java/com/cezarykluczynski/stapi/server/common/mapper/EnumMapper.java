@@ -1,8 +1,10 @@
 package com.cezarykluczynski.stapi.server.common.mapper;
 
+import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectTypeEnum;
 import com.cezarykluczynski.stapi.client.v1.soap.BloodTypeEnum;
 import com.cezarykluczynski.stapi.client.v1.soap.GenderEnum;
 import com.cezarykluczynski.stapi.client.v1.soap.MaritalStatusEnum;
+import com.cezarykluczynski.stapi.model.astronomicalObject.entity.enums.AstronomicalObjectType;
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType;
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender;
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus;
@@ -58,6 +60,25 @@ public interface EnumMapper {
 
 	default BloodType mapBloodTypeFromRestEnumToEntityEnum(com.cezarykluczynski.stapi.client.v1.rest.model.BloodType bloodType) {
 		return bloodType == null ? null : BloodType.valueOf(bloodType.name());
+	}
+
+	default AstronomicalObjectTypeEnum mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectType astronomicalObjectType) {
+		return astronomicalObjectType == null ? null : AstronomicalObjectTypeEnum.valueOf(astronomicalObjectType.name());
+	}
+
+	default AstronomicalObjectType mapAstronomicalObjectTypeFromSoapEnumToEntityEnum(AstronomicalObjectTypeEnum astronomicalObjectTypeEnum) {
+		return astronomicalObjectTypeEnum == null ? null : AstronomicalObjectType.valueOf(astronomicalObjectTypeEnum.name());
+	}
+
+	default com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectType mapAstronomicalObjectTypeFromEntityEnumToRestEnum(
+			AstronomicalObjectType astronomicalObjectType) {
+		return astronomicalObjectType == null ? null : com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectType
+				.valueOf(astronomicalObjectType.name());
+	}
+
+	default AstronomicalObjectType mapAstronomicalObjectTypeFromRestEnumToEntityEnum(
+			com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectType astronomicalObjectType) {
+		return astronomicalObjectType == null ? null : AstronomicalObjectType.valueOf(astronomicalObjectType.name());
 	}
 
 }
