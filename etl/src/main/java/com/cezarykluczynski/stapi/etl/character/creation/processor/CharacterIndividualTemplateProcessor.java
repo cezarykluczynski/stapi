@@ -48,11 +48,12 @@ public class CharacterIndividualTemplateProcessor implements ItemProcessor<Indiv
 		character.setBloodType(item.getBloodType());
 		character.setMaritalStatus(item.getMaritalStatus());
 		character.setSerialNumber(item.getSerialNumber());
-		character.setMirror(item.getMirror());
-		character.setAlternateReality(item.getAlternateReality());
+		character.setMirror(Boolean.TRUE.equals(item.getMirror()));
+		character.setAlternateReality(Boolean.TRUE.equals(item.getAlternateReality()));
 		character.getPerformers().addAll(item.getPerformers());
 		item.getPerformers().forEach(performer -> performer.getCharacters().add(character));
 
 		return character;
 	}
+
 }

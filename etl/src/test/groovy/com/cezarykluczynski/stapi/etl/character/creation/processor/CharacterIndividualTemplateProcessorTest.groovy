@@ -105,4 +105,18 @@ class CharacterIndividualTemplateProcessorTest extends AbstractIndividualTest {
 		PERFORMER_2.characters.contains character
 	}
 
+	void "when mirror and alternate universe flags are null, false is put into Character"() {
+		given:
+		IndividualTemplate individualTemplate = new IndividualTemplate()
+
+		when:
+		Character character = characterIndividualTemplateProcessor.process(individualTemplate)
+
+		then:
+		1 * guidGeneratorMock.generateFromPage(null, Character) >> null
+		1 * genderMapperMock.fromEtlToModel(null) >> null
+		!character.mirror
+		!character.alternateReality
+	}
+
 }
