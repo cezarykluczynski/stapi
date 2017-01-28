@@ -42,9 +42,7 @@ class EpisodeStaffLinkingWorkerTest extends Specification {
 
 	void "does not interact with dependencies other than template finder if sidebar episode template could not be found"() {
 		given:
-		Page page = new Page(
-				templates: Lists.newArrayList()
-		)
+		Page page = new Page(templates: Lists.newArrayList())
 
 		when:
 		episodeStaffLinkingWorker.link(page, new Episode())
@@ -78,11 +76,7 @@ class EpisodeStaffLinkingWorkerTest extends Specification {
 				)
 		)
 		Episode episode = new Episode()
-		Page page = new Page(
-				templates: Lists.newArrayList(
-						sidebarEpisodeTemplate
-				)
-		)
+		Page page = new Page(templates: Lists.newArrayList(sidebarEpisodeTemplate))
 		Staff writer = Mock(Staff)
 		Staff teleplayAuthor = Mock(Staff)
 		Staff storyAuthor = Mock(Staff)
@@ -118,6 +112,28 @@ class EpisodeStaffLinkingWorkerTest extends Specification {
 
 		then: 'no other interactions are expected'
 		0 * _
+	}
+
+	void "tolerates template part with null key"() {
+		given:
+		Template sidebarEpisodeTemplate = new Template(
+				title: TemplateName.SIDEBAR_EPISODE,
+				parts: Lists.newArrayList(
+						new Template.Part(
+								key: null,
+								value: null
+						)
+				)
+		)
+		Episode episode = new Episode()
+		Page page = new Page(templates: Lists.newArrayList(sidebarEpisodeTemplate))
+
+		when:
+		episodeStaffLinkingWorker.link(page, episode)
+
+		then:
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_EPISODE) >> Optional.of(sidebarEpisodeTemplate)
+		notThrown(Exception)
 	}
 
 }

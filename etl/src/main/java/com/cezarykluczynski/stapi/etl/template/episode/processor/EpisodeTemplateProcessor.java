@@ -61,6 +61,10 @@ public class EpisodeTemplateProcessor implements ItemProcessor<Template, Episode
 			String key = part.getKey();
 			String value = part.getValue();
 
+			if (key == null) {
+				continue;
+			}
+
 			switch (key) {
 				case N_SEASON:
 					episodeTemplate.setSeasonNumber(Integer.valueOf(value));

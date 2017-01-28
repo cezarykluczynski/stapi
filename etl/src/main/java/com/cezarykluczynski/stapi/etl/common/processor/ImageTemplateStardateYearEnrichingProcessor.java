@@ -42,6 +42,10 @@ public class ImageTemplateStardateYearEnrichingProcessor
 			String key = part.getKey();
 			String value = part.getValue();
 
+			if (key == null) {
+				continue;
+			}
+
 			switch (key) {
 				case S_TITLE:
 					title = value;

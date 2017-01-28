@@ -119,4 +119,18 @@ class ImageTemplateStardateYearEnrichingProcessorTest extends AbstractTemplatePr
 		0 * _
 	}
 
+	void "tolerates template part with null key"() {
+		given:
+		Template template = new Template(
+				parts: Lists.newArrayList(createTemplatePart(null, WS_DATE),)
+		)
+		ImageTemplate imageTemplate = new ImageTemplate()
+
+		when:
+		imageTemplateStardateYearEnrichingProcessor.enrich(EnrichablePair.of(template, imageTemplate))
+
+		then:
+		notThrown(Exception)
+	}
+
 }

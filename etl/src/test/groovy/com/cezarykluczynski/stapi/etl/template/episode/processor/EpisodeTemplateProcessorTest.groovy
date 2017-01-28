@@ -101,4 +101,16 @@ class EpisodeTemplateProcessorTest extends AbstractTemplateProcessorTest {
 		episodeTemplate2.episodeNumber == null
 	}
 
+	void "tolerates template part with null key"() {
+		when:
+		episodeTemplateProcessor.process(new Template(
+				parts: Lists.newArrayList(createTemplatePart(null, null))
+		))
+
+		then:
+		1 * imageTemplateStardateYearEnrichingProcessorMock.enrich(_)
+		0 * _
+		notThrown(Exception)
+	}
+
 }

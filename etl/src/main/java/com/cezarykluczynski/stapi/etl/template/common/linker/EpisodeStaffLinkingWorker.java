@@ -55,6 +55,10 @@ public class EpisodeStaffLinkingWorker implements LinkingWorker<Page, Episode> {
 			String key = part.getKey();
 			String value = part.getValue();
 
+			if (key == null) {
+				continue;
+			}
+
 			switch (key) {
 				case WS_WRITTEN_BY:
 					baseEntity.setWriters(extractStaffFromWikitext(value));
