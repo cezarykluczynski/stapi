@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.client.api;
 
 import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.CharacterPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.EpisodePortType;
 import com.cezarykluczynski.stapi.client.v1.soap.MoviePortType;
 import com.cezarykluczynski.stapi.client.v1.soap.PerformerPortType;
@@ -34,24 +35,28 @@ public class StapiSoapClient {
 	@Getter
 	private AstronomicalObjectPortType astronomicalObjectPortType;
 
+	@Getter
+	private CompanyPortType companyPortType;
+
 	public StapiSoapClient() {
-		this.stapiSoapPortTypesProvider = new StapiSoapPortTypesProvider();
-		this.bindPortTypes();
+		stapiSoapPortTypesProvider = new StapiSoapPortTypesProvider();
+		bindPortTypes();
 	}
 
 	public StapiSoapClient(String apiUrl) {
-		this.stapiSoapPortTypesProvider = new StapiSoapPortTypesProvider(apiUrl);
-		this.bindPortTypes();
+		stapiSoapPortTypesProvider = new StapiSoapPortTypesProvider(apiUrl);
+		bindPortTypes();
 	}
 
 	private void bindPortTypes() {
-		this.seriesPortType = stapiSoapPortTypesProvider.getSeriesPortType();
-		this.performerPortType = stapiSoapPortTypesProvider.getPerformerPortType();
-		this.staffPortType = stapiSoapPortTypesProvider.getStaffPortType();
-		this.characterPortType = stapiSoapPortTypesProvider.getCharacterPortType();
-		this.episodePortType = stapiSoapPortTypesProvider.getEpisodePortType();
-		this.moviePortType = stapiSoapPortTypesProvider.getMoviePortType();
+		seriesPortType = stapiSoapPortTypesProvider.getSeriesPortType();
+		performerPortType = stapiSoapPortTypesProvider.getPerformerPortType();
+		staffPortType = stapiSoapPortTypesProvider.getStaffPortType();
+		characterPortType = stapiSoapPortTypesProvider.getCharacterPortType();
+		episodePortType = stapiSoapPortTypesProvider.getEpisodePortType();
+		moviePortType = stapiSoapPortTypesProvider.getMoviePortType();
 		astronomicalObjectPortType = stapiSoapPortTypesProvider.getAstronomicalObjectPortType();
+		companyPortType = stapiSoapPortTypesProvider.getCompanyPortType();
 	}
 
 }

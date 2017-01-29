@@ -1,0 +1,40 @@
+type: object
+properties:
+  guid:
+    type: string
+  name:
+    type: string
+  broadcaster:
+    type: boolean
+  collectibleCompany:
+    type: boolean
+  conglomerate:
+    type: boolean
+  digitalVisualEffectsCompany:
+    type: boolean
+  distributor:
+    type: boolean
+  gameCompany:
+    type: boolean
+  filmEquipmentCompany:
+    type: boolean
+  makeUpEffectsStudio:
+    type: boolean
+  mattePaintingCompany:
+    type: boolean
+  modelAndMiniatureEffectsCompany:
+    type: boolean
+  postProductionCompany:
+    type: boolean
+  productionCompany:
+    type: boolean
+  propCompany:
+    type: boolean
+  recordLabel:
+    type: boolean
+  specialEffectsCompany:
+    type: boolean
+  tvAndFilmProductionCompany:
+    type: boolean
+  videoGameCompany:
+    type: boolean

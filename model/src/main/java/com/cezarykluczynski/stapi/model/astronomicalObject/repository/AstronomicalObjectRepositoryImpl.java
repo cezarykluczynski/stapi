@@ -6,7 +6,6 @@ import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalOb
 import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject_;
 import com.cezarykluczynski.stapi.model.astronomicalObject.query.AstronomicalObjectQueryBuilderFactory;
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
-import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import javax.inject.Inject;
 
 @Repository
-public class AstronomicalObjectRepositoryImpl extends AbstractRepositoryImpl<AstronomicalObject> implements AstronomicalObjectRepositoryCustom {
+public class AstronomicalObjectRepositoryImpl implements AstronomicalObjectRepositoryCustom {
 
 	private AstronomicalObjectQueryBuilderFactory astronomicalObjectQueryBuilderFactory;
 
@@ -35,11 +34,6 @@ public class AstronomicalObjectRepositoryImpl extends AbstractRepositoryImpl<Ast
 		astronomicalObjectQueryBuilder.fetch(AstronomicalObject_.location);
 
 		return astronomicalObjectQueryBuilder.findPage();
-	}
-
-	@Override
-	protected void clearProxies(Page<AstronomicalObject> page, boolean doClearProxies) {
-		// do nothing
 	}
 
 }
