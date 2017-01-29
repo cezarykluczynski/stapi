@@ -36,6 +36,8 @@ public class SeriesTemplateProcessor implements ItemProcessor<SeriesTemplate, Se
 		series.setProductionEndYear(item.getProductionYearRange().getEndYear());
 		series.setOriginalRunStartDate(item.getOriginalRunDateRange().getStartDate());
 		series.setOriginalRunEndDate(item.getOriginalRunDateRange().getEndDate());
+		series.setProductionCompany(item.getProductionCompany());
+		series.setOriginalBroadcaster(item.getOriginalBroadcaster());
 
 		FixedValueHolder<SeriesEpisodeStatisticsDTO> seriesEpisodeStatisticsDTOFixedValueHolder
 				= seriesEpisodeStatisticsFixedValueProvider.getSearchedValue(series.getAbbreviation());

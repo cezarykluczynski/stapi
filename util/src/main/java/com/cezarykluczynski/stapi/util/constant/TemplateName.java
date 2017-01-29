@@ -17,6 +17,7 @@ public class TemplateName {
 	public static final String DATELINK = "datelink";
 	public static final String Y = "y";
 	public static final String YEARLINK = "yearlink";
+	public static final String DIS = "dis";
 
 	public static final String MBETA = "mbeta";
 

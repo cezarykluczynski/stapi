@@ -1,13 +1,19 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.api
 
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.util.constant.TemplateName
+import com.google.common.collect.Lists
 import spock.lang.Specification
+import spock.lang.Unroll
 
 class WikitextApiImplTest extends Specification {
 
 	private static final String WIKITEXT = 'blah blah [[Some page|description]] and [[another page]] blah blah [[blah'
 	private static final String WIKITEXT_WITH_TEMPLATES = '{{realworld}}{{sidebar planet\nName=Mantiles}}blah blah{{ds9|Some page}} blah'
 	private static final String WIKITEXT_WITHOUT_TEMPLATES = 'blah blah blah'
+	private static final String DIS_TEMPLATE_PAGE_NAME = 'Page'
+	private static final String DIS_TEMPLATE_PAGE_DETAIL = '(detail)'
 
 	WikitextApiImpl wikitextApiImpl
 
@@ -49,6 +55,27 @@ class WikitextApiImplTest extends Specification {
 
 		then:
 		wikitextWithoutTemplates == WIKITEXT_WITHOUT_TEMPLATES
+	}
+
+	@SuppressWarnings('LineLength')
+	@Unroll('returns #linkTitle when #template is passed')
+	void "returns links title from DIS templates"() {
+		expect:
+		wikitextApiImpl.disTemplateToPageTitle(template) == pageLink
+
+		where:
+		template                                                                                                                              | pageLink
+		new Template()                                                                                                                        | null
+		new Template(title: TemplateName.D)                                                                                                   | null
+		new Template(title: TemplateName.DIS)                                                                                                 | null
+		createValid(new Template.Part(key: '1', value: DIS_TEMPLATE_PAGE_NAME))                                                               | DIS_TEMPLATE_PAGE_NAME
+		createValid(new Template.Part(key: '1', value: DIS_TEMPLATE_PAGE_NAME), new Template.Part(key: 'other'))                              | DIS_TEMPLATE_PAGE_NAME
+		createValid(new Template.Part(key: '1', value: DIS_TEMPLATE_PAGE_NAME), new Template.Part(key: '2', value: DIS_TEMPLATE_PAGE_DETAIL)) | "${DIS_TEMPLATE_PAGE_NAME} (${DIS_TEMPLATE_PAGE_DETAIL})"
+		createValid(new Template.Part(key: '1'), new Template.Part(key: '2'), new Template.Part(key: '3'))                                    | null
+	}
+
+	private static Template createValid(Template.Part... templateParts) {
+		new Template(title: TemplateName.DIS, parts: Lists.newArrayList(templateParts))
 	}
 
 }

@@ -1,0 +1,40 @@
+package com.cezarykluczynski.stapi.etl.company.creation.processor
+
+import com.cezarykluczynski.stapi.etl.page.common.processor.PageHeaderProcessor
+import com.cezarykluczynski.stapi.model.company.entity.Company
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
+import spock.lang.Specification
+
+class CompanyProcessorTest extends Specification {
+
+	private PageHeaderProcessor pageHeaderProcessorMock
+
+	private CompanyPageProcessor companyPageProcessorMock
+
+	private CompanyProcessor companyProcessor
+
+	void setup() {
+		pageHeaderProcessorMock = Mock(PageHeaderProcessor)
+		companyPageProcessorMock = Mock(CompanyPageProcessor)
+		companyProcessor = new CompanyProcessor(pageHeaderProcessorMock, companyPageProcessorMock)
+	}
+
+	void "converts PageHeader to Company"() {
+		given:
+		PageHeader pageHeader = PageHeader.builder().build()
+		Page page = new Page()
+		Company company = new Company()
+
+		when:
+		Company outputCompany = companyProcessor.process(pageHeader)
+
+		then: 'processors are used in right order'
+		1 * pageHeaderProcessorMock.process(pageHeader) >> page
+		1 * companyPageProcessorMock.process(page) >> company
+
+		then: 'last processor output is returned'
+		outputCompany == company
+	}
+
+}

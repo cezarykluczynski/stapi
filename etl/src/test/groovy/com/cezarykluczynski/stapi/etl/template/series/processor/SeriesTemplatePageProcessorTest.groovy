@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToD
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToYearRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplate
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
+import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.page.entity.Page as PageEntity
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource as SourcesMediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
@@ -30,6 +31,8 @@ class SeriesTemplatePageProcessorTest extends Specification {
 
 	private TemplateFinder templateFinderMock
 
+	private SeriesTemplateCompanyProcessor seriesTemplateCompanyProcessorMock
+
 	private SeriesTemplatePageProcessor seriesTemplatePageProcessor
 
 	void setup() {
@@ -37,8 +40,9 @@ class SeriesTemplatePageProcessorTest extends Specification {
 		partToDateRangeProcessorMock = Mock(PartToDateRangeProcessor)
 		pageBindingServiceMock = Mock(PageBindingService)
 		templateFinderMock = Mock(TemplateFinder)
-		seriesTemplatePageProcessor = new SeriesTemplatePageProcessor(partToYearRangeProcessorMock,
-				partToDateRangeProcessorMock, pageBindingServiceMock, templateFinderMock)
+		seriesTemplateCompanyProcessorMock = Mock(SeriesTemplateCompanyProcessor)
+		seriesTemplatePageProcessor = new SeriesTemplatePageProcessor(partToYearRangeProcessorMock, partToDateRangeProcessorMock,
+				pageBindingServiceMock, templateFinderMock, seriesTemplateCompanyProcessorMock)
 	}
 
 	void "missing template results in null SeriesTemplate"() {
@@ -57,13 +61,19 @@ class SeriesTemplatePageProcessorTest extends Specification {
 		given:
 		Template.Part yearRangePart = new Template.Part(key: SeriesTemplatePageProcessor.DATES)
 		Template.Part dateRangePart = new Template.Part(key: SeriesTemplatePageProcessor.RUN)
+		Company productionCompany = Mock(Company)
+		Company originalBroadcaster = Mock(Company)
+		Template.Part productionCompanyPart = new Template.Part(key: SeriesTemplatePageProcessor.STUDIO)
+		Template.Part originalBroadcasterPart = new Template.Part(key: SeriesTemplatePageProcessor.NETWORK)
 		YearRange yearRange = Mock(YearRange)
 		DateRange dateRange = Mock(DateRange)
 
 		Template template = new Template(title: TemplateName.SIDEBAR_SERIES, parts: Lists.newArrayList(
 				new Template.Part(key: SeriesTemplatePageProcessor.ABBR, value: ABBREVIATION),
 				yearRangePart,
-				dateRangePart
+				dateRangePart,
+				productionCompanyPart,
+				originalBroadcasterPart
 		))
 		Page page = new Page(
 				title: TITLE,
@@ -84,12 +94,18 @@ class SeriesTemplatePageProcessorTest extends Specification {
 		1 * partToDateRangeProcessorMock.process(dateRangePart) >> dateRange
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> pageEntity
 
+		then: 'company parsing is delegated'
+		1 * seriesTemplateCompanyProcessorMock.process(productionCompanyPart) >> productionCompany
+		1 * seriesTemplateCompanyProcessorMock.process(originalBroadcasterPart) >> originalBroadcaster
+
 		then: 'all values are parsed'
 		seriesTemplate.title == TITLE
 		seriesTemplate.page == pageEntity
 		seriesTemplate.abbreviation == ABBREVIATION
 		seriesTemplate.productionYearRange == yearRange
 		seriesTemplate.originalRunDateRange == dateRange
+		seriesTemplate.productionCompany == productionCompany
+		seriesTemplate.originalBroadcaster == originalBroadcaster
 	}
 
 }

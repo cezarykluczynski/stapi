@@ -34,6 +34,8 @@ class JobBuilderTest extends Specification {
 
 	private JobBuilder jobBuilder
 
+	private Step createCompaniesStep
+
 	private Step createSeriesStep
 
 	private Step createPerformersStep
@@ -62,6 +64,7 @@ class JobBuilderTest extends Specification {
 		stepToStepPropertiesProviderMock = Mock(StepToStepPropertiesProvider)
 		stepPropertiesMap = Mock(Map)
 		stepProperties = Mock(StepProperties)
+		createCompaniesStep = Mock(Step)
 		createSeriesStep = Mock(Step)
 		createPerformersStep = Mock(Step)
 		createStaffStep = Mock(Step)
@@ -95,6 +98,12 @@ class JobBuilderTest extends Specification {
 
 		then: 'step properties are provided'
 		1 * stepToStepPropertiesProviderMock.provide() >> stepPropertiesMap
+
+		then: 'CREATE_COMPANIES step is retrieved from application context'
+		1 * stepPropertiesMap.get(StepName.CREATE_COMPANIES) >> stepProperties
+		1 * stepProperties.isEnabled() >> true
+		1 * applicationContextMock.getBean(StepName.CREATE_COMPANIES, Step) >> createCompaniesStep
+		1 * createCompaniesStep.name >> ''
 
 		then: 'CREATE_SERIES step is retrieved from application context'
 		1 * stepPropertiesMap.get(StepName.CREATE_SERIES) >> stepProperties
@@ -193,21 +202,21 @@ class JobBuilderTest extends Specification {
 		then: 'step properties are provided'
 		1 * stepToStepPropertiesProviderMock.provide() >> stepPropertiesMap
 
+		then: 'CREATE_COMPANIES step is retrieved from application context'
+		1 * stepPropertiesMap.get(StepName.CREATE_COMPANIES) >> stepProperties
+		1 * stepProperties.isEnabled() >> true
+		1 * applicationContextMock.getBean(StepName.CREATE_COMPANIES, Step) >> createCompaniesStep
+		1 * createCompaniesStep.name >> ''
+
 		then: 'CREATE_SERIES step is retrieved from application context'
 		1 * stepPropertiesMap.get(StepName.CREATE_SERIES) >> stepProperties
 		1 * stepProperties.isEnabled() >> true
 		1 * applicationContextMock.getBean(StepName.CREATE_SERIES, Step) >> createSeriesStep
 		1 * createSeriesStep.name >> ''
 
-		then: 'CREATE_PERFORMERS step is retrieved from application context'
-		1 * stepPropertiesMap.get(StepName.CREATE_PERFORMERS) >> stepProperties
-		1 * stepProperties.isEnabled() >> true
-		1 * applicationContextMock.getBean(StepName.CREATE_PERFORMERS, Step) >> createPerformersStep
-		1 * createPerformersStep.name >> ''
-
 		then: 'other steps are skipped'
-		6 * stepPropertiesMap.get(_) >> stepProperties
-		6 * stepProperties.isEnabled() >> false
+		7 * stepPropertiesMap.get(_) >> stepProperties
+		7 * stepProperties.isEnabled() >> false
 
 		then: 'Task executor is retrieved from application context'
 		1 * applicationContextMock.getBean(TaskExecutor) >> taskExecutor

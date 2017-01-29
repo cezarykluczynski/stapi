@@ -14,5 +14,6 @@ public class PageName {
 	public static final String MEMORY_ALPHA_PERSONNEL = "Memory Alpha personnel";
 	public static final String STAR_TREK_FILMS = "Star Trek films";
 	public static final String STAR_TREK_XIV = "Star Trek XIV";
+	public static final String STAR_TREK_STARSHIP_MINIATURES = "Star Trek starship miniatures";
 
 }

@@ -22,7 +22,7 @@ public class Template {
 
 		private String value;
 
-		private List<Template> templates;
+		private List<Template> templates = Lists.newArrayList();
 
 	}
 

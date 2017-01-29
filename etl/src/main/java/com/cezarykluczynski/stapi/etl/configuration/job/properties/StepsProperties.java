@@ -9,6 +9,8 @@ public class StepsProperties {
 
 	public static final String PREFIX = "step";
 
+	private StepProperties createCompanies;
+
 	private StepProperties createSeries;
 
 	private StepProperties createPerformers;

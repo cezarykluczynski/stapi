@@ -12,17 +12,18 @@ class CharacterProcessorTest extends Specification {
 
 	private PageHeaderProcessor pageHeaderProcessorMock
 
-	private IndividualTemplatePageProcessor individualTemplatePageProcessor
+	private IndividualTemplatePageProcessor individualTemplatePageProcessorMock
 
-	private CharacterIndividualTemplateProcessor characterIndividualTemplateProcessor
+	private CharacterIndividualTemplateProcessor characterIndividualTemplateProcessorMock
 
 	private CharacterProcessor characterProcessor
 
 	void setup() {
 		pageHeaderProcessorMock = Mock(PageHeaderProcessor)
-		individualTemplatePageProcessor = Mock(IndividualTemplatePageProcessor)
-		characterIndividualTemplateProcessor = Mock(CharacterIndividualTemplateProcessor)
-		characterProcessor = new CharacterProcessor(pageHeaderProcessorMock, individualTemplatePageProcessor, characterIndividualTemplateProcessor)
+		individualTemplatePageProcessorMock = Mock(IndividualTemplatePageProcessor)
+		characterIndividualTemplateProcessorMock = Mock(CharacterIndividualTemplateProcessor)
+		characterProcessor = new CharacterProcessor(pageHeaderProcessorMock, individualTemplatePageProcessorMock,
+				characterIndividualTemplateProcessorMock)
 	}
 
 	void "converts PageHeader to Character"() {
@@ -37,8 +38,8 @@ class CharacterProcessorTest extends Specification {
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
-		1 * individualTemplatePageProcessor.process(page) >> individualTemplate
-		1 * characterIndividualTemplateProcessor.process(individualTemplate) >> character
+		1 * individualTemplatePageProcessorMock.process(page) >> individualTemplate
+		1 * characterIndividualTemplateProcessorMock.process(individualTemplate) >> character
 
 		then: 'last processor output is returned'
 		outputCharacter == character

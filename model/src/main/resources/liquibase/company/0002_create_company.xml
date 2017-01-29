@@ -1,0 +1,44 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet id="0002_create_company" author="cezarykluczynski">
+		<createTable tableName="company">
+			<column name="id" type="bigint">
+				<constraints unique="true" nullable="false"/>
+			</column>
+			<column name="page_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="guid" type="varchar(14)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="name" type="varchar(128)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="broadcaster" type="boolean"/>
+			<column name="collectible_company" type="boolean"/>
+			<column name="conglomerate" type="boolean"/>
+			<column name="digital_visual_effects_company" type="boolean"/>
+			<column name="distributor" type="boolean"/>
+			<column name="game_company" type="boolean"/>
+			<column name="film_equipment_company" type="boolean"/>
+			<column name="make_up_effects_studio" type="boolean"/>
+			<column name="matte_painting_company" type="boolean"/>
+			<column name="model_and_miniature_company" type="boolean"/>
+			<column name="post_production_company" type="boolean"/>
+			<column name="production_company" type="boolean"/>
+			<column name="prop_company" type="boolean"/>
+			<column name="record_label" type="boolean"/>
+			<column name="special_effects_company" type="boolean"/>
+			<column name="tv_and_film_production_company" type="boolean"/>
+			<column name="video_game_company" type="boolean"/>
+		</createTable>
+		<createSequence incrementBy="1" sequenceName="company_sequence"/>
+		<addForeignKeyConstraint baseColumnNames="page_id"
+				baseTableName="company"
+				constraintName="company_page_fkey"
+				referencedColumnNames="id"
+				referencedTableName="page"/>
+	</changeSet>
+</databaseChangeLog>

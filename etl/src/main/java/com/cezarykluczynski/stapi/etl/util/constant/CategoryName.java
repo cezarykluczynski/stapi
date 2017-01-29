@@ -112,4 +112,23 @@ public class CategoryName {
 	public static final String STARS = "Stars";
 	public static final String PLANET_LISTS = "Planet_lists";
 
+	public static final String COMPANIES = "Companies";
+	public static final String BROADCASTERS = "Broadcasters";
+	public static final String COLLECTIBLE_COMPANIES = "Collectible_companies";
+	public static final String CONGLOMERATES = "Conglomerates";
+	public static final String DIGITAL_VISUAL_EFFECTS_COMPANIES = "Digital_visual_effects_companies";
+	public static final String DISTRIBUTORS = "Distributors";
+	public static final String GAME_COMPANIES = "Game_companies";
+	public static final String FILM_EQUIPMENT_COMPANIES = "Film_equipment_companies";
+	public static final String MAKE_UP_EFFECTS_STUDIOS = "Make-up_effects_studios";
+	public static final String MATTE_PAINTING_COMPANIES = "Matte_painting_companies";
+	public static final String MODEL_AND_MINIATURE_EFFECTS_COMPANIES = "Model_and_miniature_effects_companies";
+	public static final String POST_PRODUCTION_COMPANIES = "Post-production_companies";
+	public static final String PRODUCTION_COMPANIES = "Production_companies";
+	public static final String PROP_COMPANIES = "Prop_companies";
+	public static final String RECORD_LABELS = "Record_labels";
+	public static final String SPECIAL_EFFECTS_COMPANIES = "Special_effects_companies";
+	public static final String TV_AND_FILM_PRODUCTION_COMPANIES = "TV_and_film_production_companies";
+	public static final String VIDEO_GAME_COMPANIES = "Video_game_companies";
+
 }

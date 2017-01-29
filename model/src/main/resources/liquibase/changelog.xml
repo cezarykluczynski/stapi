@@ -3,11 +3,12 @@
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
 	<include file="page/0001_create_page.xml" relativeToChangelogFile="true"/>
-	<include file="series/0002_create_series.xml" relativeToChangelogFile="true"/>
-	<include file="performer/0003_create_performer.xml" relativeToChangelogFile="true"/>
-	<include file="staff/0004_create_staff.xml" relativeToChangelogFile="true"/>
-	<include file="astronomical_object/0005_create_astronomical_object.xml" relativeToChangelogFile="true"/>
-	<include file="character/0006_create_character.xml" relativeToChangelogFile="true"/>
-	<include file="episode/0007_create_episode.xml" relativeToChangelogFile="true"/>
-	<include file="movie/0008_create_movie.xml" relativeToChangelogFile="true"/>
+	<include file="company/0002_create_company.xml" relativeToChangelogFile="true"/>
+	<include file="series/0003_create_series.xml" relativeToChangelogFile="true"/>
+	<include file="performer/0004_create_performer.xml" relativeToChangelogFile="true"/>
+	<include file="staff/0005_create_staff.xml" relativeToChangelogFile="true"/>
+	<include file="astronomical_object/0006_create_astronomical_object.xml" relativeToChangelogFile="true"/>
+	<include file="character/0007_create_character.xml" relativeToChangelogFile="true"/>
+	<include file="episode/0008_create_episode.xml" relativeToChangelogFile="true"/>
+	<include file="movie/0009_create_movie.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

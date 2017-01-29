@@ -1,7 +1,10 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.api;
 
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
+import com.cezarykluczynski.stapi.util.constant.TemplateName;
 import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +14,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class WikitextApiImpl implements WikitextApi {
 
 	private static final Integer LINK_CONTENTS_GROUP = 1;
@@ -22,6 +26,9 @@ public class WikitextApiImpl implements WikitextApi {
 	private static final Pattern LINK = Pattern.compile("\\[\\[(.+?)]]");
 
 	private static final Pattern MULTILINE_WITHOUT_TEMPLATES = Pattern.compile("\\{\\{(.*?)}}", Pattern.DOTALL);
+
+	private static final String ONE = "1";
+	private static final String TWO = "2";
 
 	@Override
 	public List<String> getPageTitlesFromWikitext(String wikitext) {
@@ -61,4 +68,36 @@ public class WikitextApiImpl implements WikitextApi {
 
 		return MULTILINE_WITHOUT_TEMPLATES.matcher(wikitext).replaceAll("");
 	}
+
+	@Override
+	public String disTemplateToPageTitle(Template template) {
+		if (!TemplateName.DIS.equals(template.getTitle())) {
+			return null;
+		}
+
+		List<Template.Part> templatePartList = template.getParts();
+		if (templatePartList.size() == 1) {
+			Template.Part templatePart = getTemplatePartByKey(templatePartList, ONE);
+			return templatePart == null ? null : templatePart.getValue();
+		} else if (templatePartList.size() == 2) {
+			Template.Part templatePart1 = getTemplatePartByKey(templatePartList, ONE);
+			Template.Part templatePart2 = getTemplatePartByKey(templatePartList, TWO);
+			if (templatePart1 != null && templatePart2 == null) {
+				log.warn("Two template parts were found, but \"{}\" key was not found", TWO);
+				return templatePart1.getValue();
+			} else if (templatePart1 != null) {
+				return templatePart1.getValue() + " (" + templatePart2.getValue() + ")";
+			}
+		}
+
+		return null;
+	}
+
+	private Template.Part getTemplatePartByKey(List<Template.Part> templatePartList, String key) {
+		return templatePartList
+				.stream()
+				.filter(part -> key.equals(part.getKey()))
+				.findFirst().orElse(null);
+	}
+
 }

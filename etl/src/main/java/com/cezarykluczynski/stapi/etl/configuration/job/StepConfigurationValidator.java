@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Service
 public class StepConfigurationValidator {
 
-	private static final long NUMBER_OF_STEPS = 8;
+	private static final long NUMBER_OF_STEPS = 9;
 
 	private StepsProperties stepsProperties;
 
@@ -40,6 +40,7 @@ public class StepConfigurationValidator {
 
 	private void addAllToList() {
 		stepPropertiesList = Lists.newArrayList();
+		stepPropertiesList.add(stepsProperties.getCreateCompanies());
 		stepPropertiesList.add(stepsProperties.getCreateSeries());
 		stepPropertiesList.add(stepsProperties.getCreatePerformers());
 		stepPropertiesList.add(stepsProperties.getCreateStaff());
@@ -55,6 +56,7 @@ public class StepConfigurationValidator {
 
 	private void addAllToMap() {
 		stepPropertiesMap = Maps.newHashMap();
+		stepPropertiesMap.put(StepName.CREATE_COMPANIES, stepsProperties.getCreateCompanies());
 		stepPropertiesMap.put(StepName.CREATE_SERIES, stepsProperties.getCreateSeries());
 		stepPropertiesMap.put(StepName.CREATE_PERFORMERS, stepsProperties.getCreatePerformers());
 		stepPropertiesMap.put(StepName.CREATE_STAFF, stepsProperties.getCreateStaff());

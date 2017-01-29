@@ -20,6 +20,8 @@ public class SeriesTemplatePageProcessor implements ItemProcessor<Page, SeriesTe
 	private static final String ABBR = "abbr";
 	private static final String DATES = "dates";
 	private static final String RUN = "run";
+	private static final String STUDIO = "studio";
+	private static final String NETWORK = "network";
 
 	private PartToYearRangeProcessor partToYearRangeProcessor;
 
@@ -29,14 +31,17 @@ public class SeriesTemplatePageProcessor implements ItemProcessor<Page, SeriesTe
 
 	private TemplateFinder templateFinder;
 
+	private SeriesTemplateCompanyProcessor seriesTemplateCompanyProcessor;
+
 	@Inject
 	public SeriesTemplatePageProcessor(PartToYearRangeProcessor partToYearRangeProcessor,
 			PartToDateRangeProcessor partToDateRangeProcessor, PageBindingService pageBindingService,
-			TemplateFinder templateFinder) {
+			TemplateFinder templateFinder, SeriesTemplateCompanyProcessor seriesTemplateCompanyProcessor) {
 		this.partToYearRangeProcessor = partToYearRangeProcessor;
 		this.partToDateRangeProcessor = partToDateRangeProcessor;
 		this.pageBindingService = pageBindingService;
 		this.templateFinder = templateFinder;
+		this.seriesTemplateCompanyProcessor = seriesTemplateCompanyProcessor;
 	}
 
 	@Override
@@ -67,6 +72,12 @@ public class SeriesTemplatePageProcessor implements ItemProcessor<Page, SeriesTe
 					break;
 				case RUN:
 					seriesTemplate.setOriginalRunDateRange(partToDateRangeProcessor.process(part));
+					break;
+				case STUDIO:
+					seriesTemplate.setProductionCompany(seriesTemplateCompanyProcessor.process(part));
+					break;
+				case NETWORK:
+					seriesTemplate.setOriginalBroadcaster(seriesTemplateCompanyProcessor.process(part));
 					break;
 				default:
 					break;

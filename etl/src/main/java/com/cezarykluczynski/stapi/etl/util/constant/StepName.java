@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.util.constant;
 
 public class StepName {
 
+	public static final String CREATE_COMPANIES = "CREATE_COMPANIES";
 	public static final String CREATE_SERIES = "CREATE_SERIES";
 	public static final String CREATE_PERFORMERS = "CREATE_PERFORMERS";
 	public static final String CREATE_STAFF = "CREATE_STAFF";

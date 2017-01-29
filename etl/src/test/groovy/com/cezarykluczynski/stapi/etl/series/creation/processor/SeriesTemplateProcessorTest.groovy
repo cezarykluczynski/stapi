@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange
 import com.cezarykluczynski.stapi.etl.template.common.dto.YearRange
 import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplate
 import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
+import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import spock.lang.Specification
@@ -41,12 +42,16 @@ class SeriesTemplateProcessorTest extends Specification {
 
 	void "SeriesTemplate is mapped to Series"() {
 		given:
+		Company productionCompany = Mock(Company)
+		Company originalBroadcaster = Mock(Company)
 		SeriesTemplate seriesTemplate = new SeriesTemplate(
 				title: TITLE,
 				page: PAGE,
 				abbreviation: ABBREVIATION,
 				productionYearRange: new YearRange(startYear: START_YEAR, endYear: END_YEAR),
-				originalRunDateRange: new DateRange(startDate: START_DATE, endDate: END_DATE))
+				originalRunDateRange: new DateRange(startDate: START_DATE, endDate: END_DATE),
+			productionCompany: productionCompany,
+			originalBroadcaster: originalBroadcaster)
 		SeriesEpisodeStatisticsDTO seriesEpisodeStatisticsDTO = SeriesEpisodeStatisticsDTO
 				.of(SEASONS_COUNT, EPISODES_COUNT, FEATURE_LENGTH_EPISODES_COUNT)
 		FixedValueHolder<SeriesEpisodeStatisticsDTO> seriesEpisodeStatisticsDTOFixedValueHolder = FixedValueHolder
@@ -69,6 +74,8 @@ class SeriesTemplateProcessorTest extends Specification {
 		series.seasonsCount == SEASONS_COUNT
 		series.episodesCount == EPISODES_COUNT
 		series.featureLengthEpisodesCount == FEATURE_LENGTH_EPISODES_COUNT
+		series.productionCompany == productionCompany
+		series.originalBroadcaster == originalBroadcaster
 	}
 
 	void "null values are tolerated"() {
@@ -97,6 +104,8 @@ class SeriesTemplateProcessorTest extends Specification {
 		series.seasonsCount == null
 		series.episodesCount == null
 		series.featureLengthEpisodesCount == null
+		series.productionCompany == null
+		series.originalBroadcaster == null
 	}
 
 }

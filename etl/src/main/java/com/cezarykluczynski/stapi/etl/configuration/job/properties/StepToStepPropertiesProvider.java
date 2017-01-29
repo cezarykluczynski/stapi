@@ -26,6 +26,7 @@ public class StepToStepPropertiesProvider {
 
 	private void addAllToMap() {
 		stepPropertiesMap = Maps.newHashMap();
+		stepPropertiesMap.put(StepName.CREATE_COMPANIES, stepsProperties.getCreateCompanies());
 		stepPropertiesMap.put(StepName.CREATE_SERIES, stepsProperties.getCreateSeries());
 		stepPropertiesMap.put(StepName.CREATE_PERFORMERS, stepsProperties.getCreatePerformers());
 		stepPropertiesMap.put(StepName.CREATE_STAFF, stepsProperties.getCreateStaff());

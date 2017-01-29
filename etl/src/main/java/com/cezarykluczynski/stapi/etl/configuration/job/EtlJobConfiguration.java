@@ -9,6 +9,9 @@ import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterProc
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterReader;
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterWriter;
 import com.cezarykluczynski.stapi.etl.common.listener.CommonStepExecutionListener;
+import com.cezarykluczynski.stapi.etl.company.creation.processor.CompanyProcessor;
+import com.cezarykluczynski.stapi.etl.company.creation.processor.CompanyReader;
+import com.cezarykluczynski.stapi.etl.company.creation.processor.CompanyWriter;
 import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepsProperties;
 import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeProcessor;
 import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeReader;
@@ -28,6 +31,7 @@ import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffWriter;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
+import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
@@ -64,6 +68,19 @@ public class EtlJobConfiguration {
 	@Bean
 	public FactoryBean<Job> jobCreate() {
 		return new JobFactoryBean(jobBuilder.build());
+	}
+
+	@Bean(name = StepName.CREATE_COMPANIES)
+	public Step stepCreateCompanies() {
+		return stepBuilderFactory.get(StepName.CREATE_COMPANIES)
+				.<PageHeader, Company>chunk(stepsProperties.getCreateCompanies().getCommitInterval())
+				.reader(applicationContext.getBean(CompanyReader.class))
+				.processor(applicationContext.getBean(CompanyProcessor.class))
+				.writer(applicationContext.getBean(CompanyWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
 	}
 
 	@Bean(name = StepName.CREATE_SERIES)
