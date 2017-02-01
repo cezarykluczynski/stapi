@@ -14,9 +14,9 @@ public class DayInMonthProximityFindingProcessor implements ItemProcessor<Pair<S
 
 	private static final Integer DAY_PROXIMITY_TOLERANCE = 6;
 
-	private static final Pattern DAY_LEFT = Pattern.compile(PatternDictionary.DAY + "(\\s?)$");
+	private static final Pattern DAY_LEFT = Pattern.compile(PatternDictionary.DAY_GROUP + "(\\s?)$");
 
-	private static final Pattern DAY_RIGHT = Pattern.compile("(\\s?)" + PatternDictionary.DAY);
+	private static final Pattern DAY_RIGHT = Pattern.compile("(\\s?)" + PatternDictionary.DAY_GROUP);
 
 	@Override
 	public Integer process(Pair<String, PageLink> item) throws Exception {

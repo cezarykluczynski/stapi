@@ -8,6 +8,9 @@ import com.cezarykluczynski.stapi.etl.astronomicalObject.link.processor.Astronom
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterProcessor;
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterReader;
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterWriter;
+import com.cezarykluczynski.stapi.etl.comicSeries.creation.processor.ComicSeriesProcessor;
+import com.cezarykluczynski.stapi.etl.comicSeries.creation.processor.ComicSeriesReader;
+import com.cezarykluczynski.stapi.etl.comicSeries.creation.processor.ComicSeriesWriter;
 import com.cezarykluczynski.stapi.etl.common.listener.CommonStepExecutionListener;
 import com.cezarykluczynski.stapi.etl.company.creation.processor.CompanyProcessor;
 import com.cezarykluczynski.stapi.etl.company.creation.processor.CompanyReader;
@@ -31,6 +34,7 @@ import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffWriter;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
+import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
@@ -181,6 +185,19 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(AstronomicalObjectLinkReader.class))
 				.processor(applicationContext.getBean(AstronomicalObjectLinkProcessor.class))
 				.writer(applicationContext.getBean(AstronomicalObjectWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_COMIC_SERIES)
+	public Step stepCreateComicSeries() {
+		return stepBuilderFactory.get(StepName.CREATE_COMIC_SERIES)
+				.<PageHeader, ComicSeries>chunk(stepsProperties.getCreateComicSeries().getCommitInterval())
+				.reader(applicationContext.getBean(ComicSeriesReader.class))
+				.processor(applicationContext.getBean(ComicSeriesProcessor.class))
+				.writer(applicationContext.getBean(ComicSeriesWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)

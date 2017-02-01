@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.datetime
 
-import com.cezarykluczynski.stapi.etl.template.common.dto.YearRange
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFilter
 import com.cezarykluczynski.stapi.util.constant.TemplateName
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
@@ -14,14 +14,14 @@ class PartToYearRangeProcessorTest extends Specification {
 	private static final Integer START_YEAR = 1997
 	private static final Integer END_YEAR = 2005
 
-	private TemplateToYearProcessor templateToYearProcessorMock
+	private YearlinkToYearProcessor templateToYearProcessorMock
 
 	private TemplateFilter templateFilterMock
 
 	private PartToYearRangeProcessor partToYearRangeProcessor
 
 	void setup() {
-		templateToYearProcessorMock = Mock(TemplateToYearProcessor)
+		templateToYearProcessorMock = Mock(YearlinkToYearProcessor)
 		templateFilterMock = Mock(TemplateFilter)
 		partToYearRangeProcessor = new PartToYearRangeProcessor(templateToYearProcessorMock, templateFilterMock)
 	}

@@ -11,5 +11,7 @@ public class StepName {
 	public static final String CREATE_EPISODES = "CREATE_EPISODES";
 	public static final String CREATE_MOVIES = "CREATE_MOVIES";
 	public static final String LINK_ASTRONOMICAL_OBJECTS = "LINK_ASTRONOMICAL_OBJECTS";
+	public static final String CREATE_COMIC_SERIES = "CREATE_COMIC_SERIES";
+	public static final String LINK_COMIC_SERIES = "LINK_COMIC_SERIES";
 
 }

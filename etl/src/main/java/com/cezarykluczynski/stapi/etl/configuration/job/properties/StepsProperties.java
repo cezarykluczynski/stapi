@@ -27,4 +27,8 @@ public class StepsProperties {
 
 	private StepProperties linkAstronomicalObjects;
 
+	private StepProperties createComicSeries;
+
+	private StepProperties linkComicSeries;
+
 }

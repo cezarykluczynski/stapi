@@ -10,11 +10,14 @@ public class TemplateName {
 	public static final String SIDEBAR_EPISODE = "sidebar episode";
 	public static final String SIDEBAR_FILM = "sidebar film";
 	public static final String SIDEBAR_PLANET = "sidebar planet";
+	public static final String SIDEBAR_COMIC_SERIES = "sidebar comic series";
 
 	public static final String BORN = "born";
 
 	public static final String D = "d";
 	public static final String DATELINK = "datelink";
+	public static final String M = "m";
+	public static final String MONTHLINK = "monthlink";
 	public static final String Y = "y";
 	public static final String YEARLINK = "yearlink";
 	public static final String DIS = "dis";

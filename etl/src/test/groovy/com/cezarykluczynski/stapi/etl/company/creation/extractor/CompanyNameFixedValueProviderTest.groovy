@@ -20,6 +20,7 @@ class CompanyNameFixedValueProviderTest extends Specification {
 	void "provides missing company name"() {
 		expect:
 		!companyNameFixedValueProvider.getSearchedValue('Not found').found
+		companyNameFixedValueProvider.getSearchedValue('Not found').value == null
 	}
 
 }

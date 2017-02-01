@@ -28,13 +28,13 @@ class StaffProcessorTest extends Specification {
 
 	void "converts PageHeader to Staff"() {
 		given:
-		PageHeader pageHeader = PageHeader.builder().build()
+		PageHeader pageHeader = new PageHeader()
 		Page page = new Page()
 		ActorTemplate actorTemplate = new ActorTemplate()
 		Staff staff = new Staff()
 
 		when:
-		Staff outputStaff = staffProcessor.process(pageHeader)
+		Staff staffOutput = staffProcessor.process(pageHeader)
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
@@ -42,7 +42,7 @@ class StaffProcessorTest extends Specification {
 		1 * staffActorTemplateProcessorMock.process(actorTemplate) >> staff
 
 		then: 'last processor output is returned'
-		outputStaff == staff
+		staffOutput == staff
 	}
 
 }

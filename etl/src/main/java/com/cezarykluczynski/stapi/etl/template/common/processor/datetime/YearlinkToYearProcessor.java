@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @Service
 @Slf4j
-public class TemplateToYearProcessor implements ItemProcessor<Template, Integer> {
+public class YearlinkToYearProcessor implements ItemProcessor<Template, Integer> {
 
 	@Override
 	public Integer process(Template item) throws Exception {

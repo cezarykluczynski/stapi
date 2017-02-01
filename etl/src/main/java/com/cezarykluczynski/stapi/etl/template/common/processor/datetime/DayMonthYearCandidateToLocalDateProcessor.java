@@ -1,19 +1,26 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.datetime;
 
-import com.cezarykluczynski.stapi.etl.template.common.dto.DayMonthYearCandidate;
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYearCandidate;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import java.time.LocalDate;
 import java.time.Month;
 
 @Service
 @Slf4j
-public class DayMonthYearProcessor implements ItemProcessor<DayMonthYearCandidate, LocalDate> {
+public class DayMonthYearCandidateToLocalDateProcessor implements ItemProcessor<DayMonthYearCandidate, LocalDate> {
+
+	private MonthNameToMonthProcessor monthNameToMonthProcessor;
+
+	@Inject
+	public DayMonthYearCandidateToLocalDateProcessor(MonthNameToMonthProcessor monthNameToMonthProcessor) {
+		this.monthNameToMonthProcessor = monthNameToMonthProcessor;
+	}
 
 	@Override
 	public LocalDate process(DayMonthYearCandidate item) throws Exception {
@@ -28,7 +35,7 @@ public class DayMonthYearProcessor implements ItemProcessor<DayMonthYearCandidat
 
 		if (dayValue != null && monthValue != null && yearValue != null) {
 			Integer year = getInteger(yearValue);
-			Month month = getMonth(monthValue);
+			Month month = monthNameToMonthProcessor.process(monthValue);
 			Integer day = getInteger(dayValue);
 			if (year != null && month != null && day != null) {
 				return LocalDate.of(year, month, day);
@@ -46,19 +53,8 @@ public class DayMonthYearProcessor implements ItemProcessor<DayMonthYearCandidat
 		return null;
 	}
 
-
 	private Integer getInteger(String value) {
 		return Ints.tryParse(value);
-	}
-
-	private Month getMonth(String monthName) {
-		String monthNameUpperCase = StringUtils.upperCase(monthName);
-		try {
-			return Month.valueOf(monthNameUpperCase);
-		} catch (IllegalArgumentException e) {
-			log.error("{} could not be mapped to Month.", monthNameUpperCase);
-			return null;
-		}
 	}
 
 }

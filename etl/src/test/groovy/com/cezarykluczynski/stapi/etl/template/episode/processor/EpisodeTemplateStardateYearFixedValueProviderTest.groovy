@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.episode.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder
-import com.cezarykluczynski.stapi.etl.template.common.dto.StardateYearDTO
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateYearDTO
 import spock.lang.Specification
 
 class EpisodeTemplateStardateYearFixedValueProviderTest extends Specification {

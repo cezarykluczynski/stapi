@@ -29,13 +29,13 @@ public class CompanyRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public CompanyResponse getCompanys(@BeanParam PageSortBeanParams pageSortBeanParams) {
+	public CompanyResponse getCompanies(@BeanParam PageSortBeanParams pageSortBeanParams) {
 		return companyRestReader.read(CompanyRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public CompanyResponse searchCompanys(@BeanParam CompanyRestBeanParams seriesRestBeanParams) {
+	public CompanyResponse searchCompanies(@BeanParam CompanyRestBeanParams seriesRestBeanParams) {
 		return companyRestReader.read(seriesRestBeanParams);
 	}
 

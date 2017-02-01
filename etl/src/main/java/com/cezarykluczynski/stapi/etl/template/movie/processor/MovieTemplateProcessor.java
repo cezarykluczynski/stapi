@@ -3,8 +3,8 @@ package com.cezarykluczynski.stapi.etl.template.movie.processor;
 import com.cezarykluczynski.stapi.etl.common.configuration.CommonTemplateConfiguration;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ImageTemplateStardateYearEnrichingProcessor;
-import com.cezarykluczynski.stapi.etl.template.common.dto.DayMonthYearCandidate;
-import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DayMonthYearProcessor;
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYearCandidate;
+import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DayMonthYearCandidateToLocalDateProcessor;
 import com.cezarykluczynski.stapi.etl.template.movie.dto.MovieTemplate;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
@@ -24,18 +24,18 @@ public class MovieTemplateProcessor implements ItemProcessor<Template, MovieTemp
 	private static final String S_RELEASE_MONTH = "sreleasemonth";
 	private static final String N_RELEASE_DAY = "nreleaseday";
 
-	private DayMonthYearProcessor dayMonthYearProcessor;
+	private DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor;
 
 	private ImageTemplateStardateYearEnrichingProcessor imageTemplateStardateYearEnrichingProcessor;
 
 	private MovieTemplateStaffEnrichingProcessor movieTemplateStaffEnrichingProcessor;
 
 	@Inject
-	public MovieTemplateProcessor(DayMonthYearProcessor dayMonthYearProcessor,
+	public MovieTemplateProcessor(DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor,
 			@Qualifier(CommonTemplateConfiguration.MOVIE_TEMPALTE_STARDATE_YEAR_ENRICHING_PROCESSOR)
 					ImageTemplateStardateYearEnrichingProcessor imageTemplateStardateYearEnrichingProcessor,
 			MovieTemplateStaffEnrichingProcessor movieTemplateStaffEnrichingProcessor) {
-		this.dayMonthYearProcessor = dayMonthYearProcessor;
+		this.dayMonthYearCandidateToLocalDateProcessor = dayMonthYearCandidateToLocalDateProcessor;
 		this.imageTemplateStardateYearEnrichingProcessor = imageTemplateStardateYearEnrichingProcessor;
 		this.movieTemplateStaffEnrichingProcessor = movieTemplateStaffEnrichingProcessor;
 	}
@@ -73,7 +73,7 @@ public class MovieTemplateProcessor implements ItemProcessor<Template, MovieTemp
 		}
 
 		if (day != null && month != null && year != null) {
-			movieTemplate.setUsReleaseDate(dayMonthYearProcessor.process(DayMonthYearCandidate
+			movieTemplate.setUsReleaseDate(dayMonthYearCandidateToLocalDateProcessor.process(DayMonthYearCandidate
 					.of(day, month, year)));
 		}
 

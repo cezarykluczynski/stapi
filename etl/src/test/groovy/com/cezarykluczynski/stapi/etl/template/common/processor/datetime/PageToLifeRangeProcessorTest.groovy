@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.datetime
 
-import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange
-import com.cezarykluczynski.stapi.etl.template.common.dto.DayMonthYearCandidate
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DateRange
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYearCandidate
 import com.cezarykluczynski.stapi.util.constant.TemplateName
 import com.cezarykluczynski.stapi.etl.util.constant.TemplateParam
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
@@ -27,7 +27,7 @@ class PageToLifeRangeProcessorTest extends Specification {
 	private static final String MONTH_END_STRING = MONTH_END
 	private static final String DAY_END_STRING = DAY_END
 
-	private DayMonthYearProcessor dayMonthYearProcessorMock
+	private DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessorMock
 
 	private PageToLifeRangeProcessor pageToLifeRangeProcessor
 
@@ -36,8 +36,8 @@ class PageToLifeRangeProcessorTest extends Specification {
 	private Template templateInvalid
 
 	void setup() {
-		dayMonthYearProcessorMock = Mock(DayMonthYearProcessor)
-		pageToLifeRangeProcessor = new PageToLifeRangeProcessor(dayMonthYearProcessorMock)
+		dayMonthYearCandidateToLocalDateProcessorMock = Mock(DayMonthYearCandidateToLocalDateProcessor)
+		pageToLifeRangeProcessor = new PageToLifeRangeProcessor(dayMonthYearCandidateToLocalDateProcessorMock)
 
 		templateValid = new Template(
 				title: TemplateName.BORN,
@@ -65,13 +65,13 @@ class PageToLifeRangeProcessorTest extends Specification {
 		DateRange dateRange = pageToLifeRangeProcessor.process(new Page(templates: Lists.newArrayList(templateValid)))
 
 		then:
-		1 * dayMonthYearProcessorMock.process(_ as DayMonthYearCandidate) >> { DayMonthYearCandidate dayMonthYearCandidate ->
+		1 * dayMonthYearCandidateToLocalDateProcessorMock.process(_ as DayMonthYearCandidate) >> { DayMonthYearCandidate dayMonthYearCandidate ->
 			assert dayMonthYearCandidate.day == DAY_START_STRING
 			assert dayMonthYearCandidate.month == MONTH_START_STRING
 			assert dayMonthYearCandidate.year == YEAR_START_STRING
 			dateOfBirth
 		}
-		1 * dayMonthYearProcessorMock.process(_ as DayMonthYearCandidate) >> { DayMonthYearCandidate dayMonthYearCandidate ->
+		1 * dayMonthYearCandidateToLocalDateProcessorMock.process(_ as DayMonthYearCandidate) >> { DayMonthYearCandidate dayMonthYearCandidate ->
 			assert dayMonthYearCandidate.day == DAY_END_STRING
 			assert dayMonthYearCandidate.month == MONTH_END_STRING
 			assert dayMonthYearCandidate.year == YEAR_END_STRING
@@ -86,13 +86,13 @@ class PageToLifeRangeProcessorTest extends Specification {
 		DateRange dateRange = pageToLifeRangeProcessor.process(new Page(templates: Lists.newArrayList(templateInvalid)))
 
 		then:
-		1 * dayMonthYearProcessorMock.process(_ as DayMonthYearCandidate) >> { DayMonthYearCandidate dayMonthYearCandidate ->
+		1 * dayMonthYearCandidateToLocalDateProcessorMock.process(_ as DayMonthYearCandidate) >> { DayMonthYearCandidate dayMonthYearCandidate ->
 			assert dayMonthYearCandidate.day == null
 			assert dayMonthYearCandidate.month == null
 			assert dayMonthYearCandidate.year == null
 			null
 		}
-		1 * dayMonthYearProcessorMock.process(_ as DayMonthYearCandidate) >> { DayMonthYearCandidate dayMonthYearCandidate ->
+		1 * dayMonthYearCandidateToLocalDateProcessorMock.process(_ as DayMonthYearCandidate) >> { DayMonthYearCandidate dayMonthYearCandidate ->
 			assert dayMonthYearCandidate.day == null
 			assert dayMonthYearCandidate.month == null
 			assert dayMonthYearCandidate.year == null

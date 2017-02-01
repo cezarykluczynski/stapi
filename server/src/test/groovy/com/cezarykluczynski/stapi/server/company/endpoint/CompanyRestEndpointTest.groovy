@@ -25,7 +25,7 @@ class CompanyRestEndpointTest extends AbstractRestEndpointTest {
 		CompanyResponse companyResponse = Mock(CompanyResponse)
 
 		when:
-		CompanyResponse companyResponseOutput = companyRestEndpoint.getCompanys(pageAwareBeanParams)
+		CompanyResponse companyResponseOutput = companyRestEndpoint.getCompanies(pageAwareBeanParams)
 
 		then:
 		1 * companyRestReaderMock.read(_ as CompanyRestBeanParams) >> { CompanyRestBeanParams companyRestBeanParams ->
@@ -42,7 +42,7 @@ class CompanyRestEndpointTest extends AbstractRestEndpointTest {
 		CompanyResponse companyResponse = Mock(CompanyResponse)
 
 		when:
-		CompanyResponse companyResponseOutput = companyRestEndpoint.searchCompanys(companyRestBeanParams)
+		CompanyResponse companyResponseOutput = companyRestEndpoint.searchCompanies(companyRestBeanParams)
 
 		then:
 		1 * companyRestReaderMock.read(companyRestBeanParams as CompanyRestBeanParams) >> { CompanyRestBeanParams params ->

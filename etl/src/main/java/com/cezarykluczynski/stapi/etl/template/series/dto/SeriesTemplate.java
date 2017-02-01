@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.series.dto;
 
-import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange;
-import com.cezarykluczynski.stapi.etl.template.common.dto.YearRange;
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DateRange;
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.page.entity.Page;
 import lombok.Data;

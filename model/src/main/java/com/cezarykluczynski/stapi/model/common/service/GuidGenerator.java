@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.model.common.service;
 
+import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries;
 import com.cezarykluczynski.stapi.model.page.entity.Page;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource;
@@ -18,6 +19,12 @@ import java.util.Map;
 public class GuidGenerator {
 
 	private static final Long MAX_PAGE_ID = 9999999999L;
+
+	private static final Map<Class, String> CUSTOM_SYMBOL_MAP = Maps.newHashMap();
+
+	static {
+		CUSTOM_SYMBOL_MAP.put(ComicSeries.class, "CS");
+	}
 
 	private EntityManager entityManager;
 
@@ -81,6 +88,10 @@ public class GuidGenerator {
 	}
 
 	private String buildClassSymbol(Class clazz) {
+		if (CUSTOM_SYMBOL_MAP.containsKey(clazz)) {
+			return CUSTOM_SYMBOL_MAP.get(clazz);
+		}
+
 		return clazz.getSimpleName().substring(0, 2).toUpperCase();
 	}
 

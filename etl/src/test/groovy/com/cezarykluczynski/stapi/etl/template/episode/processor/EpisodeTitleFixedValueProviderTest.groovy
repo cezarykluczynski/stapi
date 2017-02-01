@@ -19,6 +19,7 @@ class EpisodeTitleFixedValueProviderTest extends Specification {
 	void "provides missing title"() {
 		expect:
 		!episodeTitleFixedValueProvider.getSearchedValue('Not found').found
+		episodeTitleFixedValueProvider.getSearchedValue('Not found').value == null
 	}
 
 }

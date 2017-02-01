@@ -131,4 +131,6 @@ public class CategoryName {
 	public static final String TV_AND_FILM_PRODUCTION_COMPANIES = "TV_and_film_production_companies";
 	public static final String VIDEO_GAME_COMPANIES = "Video_game_companies";
 
+	public static final String COMIC_SERIES = "Comic_series";
+
 }

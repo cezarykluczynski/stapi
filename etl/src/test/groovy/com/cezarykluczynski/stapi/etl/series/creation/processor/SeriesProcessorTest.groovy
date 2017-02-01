@@ -27,13 +27,13 @@ class SeriesProcessorTest extends Specification {
 
 	void "converts PageHeader to Series"() {
 		given:
-		PageHeader pageHeader = PageHeader.builder().build()
+		PageHeader pageHeader = new PageHeader()
 		Page page = new Page()
 		SeriesTemplate seriesTemplate = new SeriesTemplate()
 		Series series = new Series()
 
 		when:
-		Series outputSeries = seriesProcessor.process(pageHeader)
+		Series seriesOutput = seriesProcessor.process(pageHeader)
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
@@ -41,7 +41,7 @@ class SeriesProcessorTest extends Specification {
 		1 * seriesTemplateProcessorMock.process(seriesTemplate) >> series
 
 		then: 'last processor output is returned'
-		outputSeries == series
+		seriesOutput == series
 	}
 
 }

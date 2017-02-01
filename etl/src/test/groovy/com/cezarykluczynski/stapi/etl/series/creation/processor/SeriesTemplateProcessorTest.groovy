@@ -2,8 +2,8 @@ package com.cezarykluczynski.stapi.etl.series.creation.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder
 import com.cezarykluczynski.stapi.etl.series.creation.dto.SeriesEpisodeStatisticsDTO
-import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange
-import com.cezarykluczynski.stapi.etl.template.common.dto.YearRange
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DateRange
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange
 import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplate
 import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
 import com.cezarykluczynski.stapi.model.company.entity.Company

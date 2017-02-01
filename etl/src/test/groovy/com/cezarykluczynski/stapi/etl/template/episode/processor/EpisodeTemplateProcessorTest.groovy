@@ -2,9 +2,9 @@ package com.cezarykluczynski.stapi.etl.template.episode.processor
 
 import com.cezarykluczynski.stapi.etl.common.processor.AbstractTemplateProcessorTest
 import com.cezarykluczynski.stapi.etl.common.processor.ImageTemplateStardateYearEnrichingProcessor
-import com.cezarykluczynski.stapi.etl.template.common.dto.DayMonthYearCandidate
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYearCandidate
 import com.cezarykluczynski.stapi.etl.template.common.processor.ProductionSerialNumberProcessor
-import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DayMonthYearProcessor
+import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DayMonthYearCandidateToLocalDateProcessor
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate
 import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
@@ -24,7 +24,7 @@ class EpisodeTemplateProcessorTest extends AbstractTemplateProcessorTest {
 	private static final String AIRDATE_MONTH = 'April'
 	private static final String AIRDATE_DAY = '15'
 
-	private DayMonthYearProcessor dayMonthYearProcessorMock
+	private DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessorMock
 
 	private ImageTemplateStardateYearEnrichingProcessor imageTemplateStardateYearEnrichingProcessorMock
 
@@ -33,10 +33,10 @@ class EpisodeTemplateProcessorTest extends AbstractTemplateProcessorTest {
 	private EpisodeTemplateProcessor episodeTemplateProcessor
 
 	void setup() {
-		dayMonthYearProcessorMock = Mock(DayMonthYearProcessor)
+		dayMonthYearCandidateToLocalDateProcessorMock = Mock(DayMonthYearCandidateToLocalDateProcessor)
 		imageTemplateStardateYearEnrichingProcessorMock = Mock(ImageTemplateStardateYearEnrichingProcessor)
 		productionSerialNumberProcessor = Mock(ProductionSerialNumberProcessor)
-		episodeTemplateProcessor = new EpisodeTemplateProcessor(dayMonthYearProcessorMock,
+		episodeTemplateProcessor = new EpisodeTemplateProcessor(dayMonthYearCandidateToLocalDateProcessorMock,
 				imageTemplateStardateYearEnrichingProcessorMock, productionSerialNumberProcessor)
 	}
 	void "sets values from template parts"() {
@@ -58,7 +58,7 @@ class EpisodeTemplateProcessorTest extends AbstractTemplateProcessorTest {
 		EpisodeTemplate episodeTemplate = episodeTemplateProcessor.process(template)
 
 		then:
-		1 * dayMonthYearProcessorMock.process(_ as DayMonthYearCandidate) >> { DayMonthYearCandidate dayMonthYearCandidate ->
+		1 * dayMonthYearCandidateToLocalDateProcessorMock.process(_ as DayMonthYearCandidate) >> { DayMonthYearCandidate dayMonthYearCandidate ->
 			dayMonthYearCandidate.day == AIRDATE_DAY
 			dayMonthYearCandidate.month == AIRDATE_MONTH
 			dayMonthYearCandidate.year == AIRDATE_YEAR

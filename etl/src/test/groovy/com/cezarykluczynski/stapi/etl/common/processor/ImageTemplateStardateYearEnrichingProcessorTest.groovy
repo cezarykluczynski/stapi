@@ -3,8 +3,8 @@ package com.cezarykluczynski.stapi.etl.common.processor
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder
 import com.cezarykluczynski.stapi.etl.template.common.dto.ImageTemplate
-import com.cezarykluczynski.stapi.etl.template.common.dto.StardateYearDTO
-import com.cezarykluczynski.stapi.etl.template.common.dto.enums.StardateYearSource
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateYearDTO
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.enums.StardateYearSource
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.StardateYearCandidateDTO
 import com.cezarykluczynski.stapi.etl.template.common.processor.StardateYearProcessor
 import com.cezarykluczynski.stapi.etl.template.episode.processor.EpisodeTemplateStardateYearFixedValueProvider

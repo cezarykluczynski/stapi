@@ -28,21 +28,21 @@ class MovieProcessorTest extends Specification {
 
 	void "converts PageHeader to Movie"() {
 		given:
-		PageHeader pageHeader = PageHeader.builder().build()
+		PageHeader pageHeader = new PageHeader()
 		Page page = new Page()
 		MovieTemplate episodeTemplate = new MovieTemplate()
-		Movie episode = new Movie()
+		Movie movie = new Movie()
 
 		when:
-		Movie outputMovie = episodeProcessor.process(pageHeader)
+		Movie movieOutput = episodeProcessor.process(pageHeader)
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
 		1 * toMovieTemplateProcessorMock.process(page) >> episodeTemplate
-		1 * toMovieEntityProcessorMock.process(episodeTemplate) >> episode
+		1 * toMovieEntityProcessorMock.process(episodeTemplate) >> movie
 
 		then: 'last processor output is returned'
-		outputMovie == episode
+		movieOutput == movie
 	}
 
 }

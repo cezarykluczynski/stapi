@@ -25,38 +25,45 @@ class StepConfigurationValidatorTest extends Specification {
 
 		then:
 		JobBuilderException jobBuilderException = thrown(JobBuilderException)
-		jobBuilderException.message == 'java.lang.RuntimeException: Number of configured steps is 9, but 0 steps found'
+		jobBuilderException.message == 'java.lang.RuntimeException: Number of configured steps is 11, but 0 steps found'
 	}
 
 	void "throws exception when two steps has the same order"() {
 		given:
-		StepProperties companiesStepProperties = Mock(StepProperties)
-		companiesStepProperties.order >> 1
-		stepsPropertiesMock.createCompanies >> companiesStepProperties
-		StepProperties seriesStepProperties = Mock(StepProperties)
-		seriesStepProperties.order >> 2
-		stepsPropertiesMock.createSeries >> seriesStepProperties
+		given:
+		StepProperties createCompaniesStepProperties = Mock(StepProperties)
+		createCompaniesStepProperties.order >> 1
+		stepsPropertiesMock.createCompanies >> createCompaniesStepProperties
+		StepProperties createSeriesStepProperties = Mock(StepProperties)
+		createSeriesStepProperties.order >> 2
+		stepsPropertiesMock.createSeries >> createSeriesStepProperties
 		StepProperties performersStepProperties = Mock(StepProperties)
-		seriesStepProperties.order >> 3
+		performersStepProperties.order >> 3
 		stepsPropertiesMock.createPerformers >> performersStepProperties
-		StepProperties staffStepProperties = Mock(StepProperties)
-		staffStepProperties.order >> 4
-		stepsPropertiesMock.createStaff >> staffStepProperties
-		StepProperties astronomicalObjectsStepProperties  = Mock(StepProperties)
-		astronomicalObjectsStepProperties .order >> 5
-		stepsPropertiesMock.createAstronomicalObjects >> astronomicalObjectsStepProperties
-		StepProperties charactersStepProperties = Mock(StepProperties)
-		charactersStepProperties.order >> 6
-		stepsPropertiesMock.createCharacters >> charactersStepProperties
-		StepProperties episodesStepProperties = Mock(StepProperties)
-		episodesStepProperties.order >> 1
-		stepsPropertiesMock.createEpisodes >> episodesStepProperties
-		StepProperties moviesStepProperties = Mock(StepProperties)
-		moviesStepProperties.order >> 8
-		stepsPropertiesMock.createMovies >> moviesStepProperties
-		StepProperties astronomicalObjectsLinkStepProperties = Mock(StepProperties)
-		astronomicalObjectsLinkStepProperties.order >> 9
-		stepsPropertiesMock.linkAstronomicalObjects >> astronomicalObjectsLinkStepProperties
+		StepProperties createStaffStepProperties = Mock(StepProperties)
+		createStaffStepProperties.order >> 4
+		stepsPropertiesMock.createStaff >> createStaffStepProperties
+		StepProperties createAstronomicalObjectsStepProperties  = Mock(StepProperties)
+		createAstronomicalObjectsStepProperties .order >> 5
+		stepsPropertiesMock.createAstronomicalObjects >> createAstronomicalObjectsStepProperties
+		StepProperties createCharactersStepProperties = Mock(StepProperties)
+		createCharactersStepProperties.order >> 6
+		stepsPropertiesMock.createCharacters >> createCharactersStepProperties
+		StepProperties createEpisodesStepProperties = Mock(StepProperties)
+		createEpisodesStepProperties.order >> 1
+		stepsPropertiesMock.createEpisodes >> createEpisodesStepProperties
+		StepProperties createMoviesStepProperties = Mock(StepProperties)
+		createMoviesStepProperties.order >> 8
+		stepsPropertiesMock.createMovies >> createMoviesStepProperties
+		StepProperties linkAstronomicalObjectsStepProperties = Mock(StepProperties)
+		linkAstronomicalObjectsStepProperties.order >> 9
+		stepsPropertiesMock.linkAstronomicalObjects >> linkAstronomicalObjectsStepProperties
+		StepProperties createComicSeriesStepProperties = Mock(StepProperties)
+		createComicSeriesStepProperties.order >> 10
+		stepsPropertiesMock.createComicSeries >> createComicSeriesStepProperties
+		StepProperties linkComicSeriesStepProperties = Mock(StepProperties)
+		linkComicSeriesStepProperties.order >> 11
+		stepsPropertiesMock.linkComicSeries >> linkComicSeriesStepProperties
 
 		when:
 		stepConfigurationValidator.validate()
@@ -69,33 +76,39 @@ class StepConfigurationValidatorTest extends Specification {
 
 	void "correctly configured steps passed validation"() {
 		given:
-		StepProperties companiesStepProperties = Mock(StepProperties)
-		companiesStepProperties.order >> 1
-		stepsPropertiesMock.createCompanies >> companiesStepProperties
-		StepProperties seriesStepProperties = Mock(StepProperties)
-		seriesStepProperties.order >> 2
-		stepsPropertiesMock.createSeries >> seriesStepProperties
+		StepProperties createCompaniesStepProperties = Mock(StepProperties)
+		createCompaniesStepProperties.order >> 1
+		stepsPropertiesMock.createCompanies >> createCompaniesStepProperties
+		StepProperties createSeriesStepProperties = Mock(StepProperties)
+		createSeriesStepProperties.order >> 2
+		stepsPropertiesMock.createSeries >> createSeriesStepProperties
 		StepProperties performersStepProperties = Mock(StepProperties)
-		seriesStepProperties.order >> 3
+		performersStepProperties.order >> 3
 		stepsPropertiesMock.createPerformers >> performersStepProperties
-		StepProperties staffStepProperties = Mock(StepProperties)
-		staffStepProperties.order >> 4
-		stepsPropertiesMock.createStaff >> staffStepProperties
-		StepProperties astronomicalObjectsStepProperties  = Mock(StepProperties)
-		astronomicalObjectsStepProperties .order >> 5
-		stepsPropertiesMock.createAstronomicalObjects >> astronomicalObjectsStepProperties
-		StepProperties charactersStepProperties = Mock(StepProperties)
-		charactersStepProperties.order >> 6
-		stepsPropertiesMock.createCharacters >> charactersStepProperties
-		StepProperties episodesStepProperties = Mock(StepProperties)
-		episodesStepProperties.order >> 7
-		stepsPropertiesMock.createEpisodes >> episodesStepProperties
-		StepProperties moviesStepProperties = Mock(StepProperties)
-		moviesStepProperties.order >> 8
-		stepsPropertiesMock.createMovies >> moviesStepProperties
-		StepProperties astronomicalObjectsLinkStepProperties = Mock(StepProperties)
-		astronomicalObjectsLinkStepProperties.order >> 9
-		stepsPropertiesMock.linkAstronomicalObjects >> astronomicalObjectsLinkStepProperties
+		StepProperties createStaffStepProperties = Mock(StepProperties)
+		createStaffStepProperties.order >> 4
+		stepsPropertiesMock.createStaff >> createStaffStepProperties
+		StepProperties createAstronomicalObjectsStepProperties  = Mock(StepProperties)
+		createAstronomicalObjectsStepProperties .order >> 5
+		stepsPropertiesMock.createAstronomicalObjects >> createAstronomicalObjectsStepProperties
+		StepProperties createCharactersStepProperties = Mock(StepProperties)
+		createCharactersStepProperties.order >> 6
+		stepsPropertiesMock.createCharacters >> createCharactersStepProperties
+		StepProperties createEpisodesStepProperties = Mock(StepProperties)
+		createEpisodesStepProperties.order >> 7
+		stepsPropertiesMock.createEpisodes >> createEpisodesStepProperties
+		StepProperties createMoviesStepProperties = Mock(StepProperties)
+		createMoviesStepProperties.order >> 8
+		stepsPropertiesMock.createMovies >> createMoviesStepProperties
+		StepProperties linkAstronomicalObjectsStepProperties = Mock(StepProperties)
+		linkAstronomicalObjectsStepProperties.order >> 9
+		stepsPropertiesMock.linkAstronomicalObjects >> linkAstronomicalObjectsStepProperties
+		StepProperties createComicSeriesStepProperties = Mock(StepProperties)
+		createComicSeriesStepProperties.order >> 10
+		stepsPropertiesMock.createComicSeries >> createComicSeriesStepProperties
+		StepProperties linkComicSeriesStepProperties = Mock(StepProperties)
+		linkComicSeriesStepProperties.order >> 11
+		stepsPropertiesMock.linkComicSeries >> linkComicSeriesStepProperties
 
 		when:
 		stepConfigurationValidator.validate()

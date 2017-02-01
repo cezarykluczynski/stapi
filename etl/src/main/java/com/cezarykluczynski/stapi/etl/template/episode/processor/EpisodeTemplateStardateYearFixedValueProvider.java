@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.episode.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
 import com.cezarykluczynski.stapi.etl.common.interfaces.FixedValueProvider;
-import com.cezarykluczynski.stapi.etl.template.common.dto.StardateYearDTO;
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateYearDTO;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

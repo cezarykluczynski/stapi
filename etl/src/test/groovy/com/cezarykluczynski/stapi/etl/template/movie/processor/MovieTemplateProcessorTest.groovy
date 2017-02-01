@@ -3,9 +3,9 @@ package com.cezarykluczynski.stapi.etl.template.movie.processor
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.processor.AbstractTemplateProcessorTest
 import com.cezarykluczynski.stapi.etl.common.processor.ImageTemplateStardateYearEnrichingProcessor
-import com.cezarykluczynski.stapi.etl.template.common.dto.DayMonthYearCandidate
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYearCandidate
 import com.cezarykluczynski.stapi.etl.template.common.dto.ImageTemplate
-import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DayMonthYearProcessor
+import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DayMonthYearCandidateToLocalDateProcessor
 import com.cezarykluczynski.stapi.etl.template.movie.dto.MovieTemplate
 import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
@@ -19,7 +19,7 @@ class MovieTemplateProcessorTest extends AbstractTemplateProcessorTest {
 	private static final String RELEASE_DATE_MONTH = 'April'
 	private static final String RELEASE_DATE_DAY = '15'
 
-	private DayMonthYearProcessor dayMonthYearProcessorMock
+	private DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessorMock
 
 	private ImageTemplateStardateYearEnrichingProcessor imageTemplateStardateYearEnrichingProcessorMock
 
@@ -28,10 +28,10 @@ class MovieTemplateProcessorTest extends AbstractTemplateProcessorTest {
 	private MovieTemplateProcessor movieTemplateProcessor
 
 	void setup() {
-		dayMonthYearProcessorMock = Mock(DayMonthYearProcessor)
+		dayMonthYearCandidateToLocalDateProcessorMock = Mock(DayMonthYearCandidateToLocalDateProcessor)
 		imageTemplateStardateYearEnrichingProcessorMock = Mock(ImageTemplateStardateYearEnrichingProcessor)
 		movieTemplateStaffEnrichingProcessorMock = Mock(MovieTemplateStaffEnrichingProcessor)
-		movieTemplateProcessor = new MovieTemplateProcessor(dayMonthYearProcessorMock,
+		movieTemplateProcessor = new MovieTemplateProcessor(dayMonthYearCandidateToLocalDateProcessorMock,
 				imageTemplateStardateYearEnrichingProcessorMock, movieTemplateStaffEnrichingProcessorMock)
 	}
 
@@ -58,7 +58,7 @@ class MovieTemplateProcessorTest extends AbstractTemplateProcessorTest {
 			assert enrichablePair.input == template
 			assert enrichablePair.output instanceof MovieTemplate
 		}
-		1 * dayMonthYearProcessorMock.process(_ as DayMonthYearCandidate) >> { DayMonthYearCandidate dayMonthYearCandidate ->
+		1 * dayMonthYearCandidateToLocalDateProcessorMock.process(_ as DayMonthYearCandidate) >> { DayMonthYearCandidate dayMonthYearCandidate ->
 			dayMonthYearCandidate.day == RELEASE_DATE_DAY
 			dayMonthYearCandidate.month == RELEASE_DATE_MONTH
 			dayMonthYearCandidate.year == RELEASE_DATE_YEAR

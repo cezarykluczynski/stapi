@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.datetime;
 
-import com.cezarykluczynski.stapi.etl.template.common.dto.YearRange;
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFilter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateName;
@@ -18,13 +18,13 @@ import java.util.List;
 @Slf4j
 public class PartToYearRangeProcessor implements ItemProcessor<Template.Part, YearRange> {
 
-	private TemplateToYearProcessor templateToYearProcessor;
+	private YearlinkToYearProcessor yearlinkToYearProcessor;
 
 	private TemplateFilter templateFilter;
 
 	@Inject
-	public PartToYearRangeProcessor(TemplateToYearProcessor templateToYearProcessor, TemplateFilter templateFilter) {
-		this.templateToYearProcessor = templateToYearProcessor;
+	public PartToYearRangeProcessor(YearlinkToYearProcessor yearlinkToYearProcessor, TemplateFilter templateFilter) {
+		this.yearlinkToYearProcessor = yearlinkToYearProcessor;
 		this.templateFilter = templateFilter;
 	}
 
@@ -64,10 +64,10 @@ public class PartToYearRangeProcessor implements ItemProcessor<Template.Part, Ye
 		Integer size = yearTemplateList.size();
 
 		if (IntegerValidator.getInstance().isInRange(size, 1, 2)) {
-			yearRange.setStartYear(templateToYearProcessor.process(yearTemplateList.get(0)));
+			yearRange.setStartYear(yearlinkToYearProcessor.process(yearTemplateList.get(0)));
 		}
 		if (size == 2) {
-			yearRange.setEndYear(templateToYearProcessor.process(yearTemplateList.get(1)));
+			yearRange.setEndYear(yearlinkToYearProcessor.process(yearTemplateList.get(1)));
 		}
 
 		if (size > 2) {

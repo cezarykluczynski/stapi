@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.model.common.service
 
 import com.cezarykluczynski.stapi.model.character.entity.Character
+import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.page.entity.PageAware
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource
@@ -54,6 +55,9 @@ class GuidGeneratorTest extends Specification {
 		ClassMetadata seriesClassMetadata = Mock(ClassMetadata)
 		seriesClassMetadata.mappedClass >> Series
 		classMetadataMap.put('com.cezarykluczynski.stapi.model.series.entity.Series', seriesClassMetadata)
+		ClassMetadata comicSeriesClassMetadata = Mock(ClassMetadata)
+		comicSeriesClassMetadata.mappedClass >> ComicSeries
+		classMetadataMap.put('com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries', comicSeriesClassMetadata)
 
 		SessionFactory sessionFactory = Mock(SessionFactory)
 		sessionFactory.allClassMetadata >> classMetadataMap
@@ -73,11 +77,12 @@ class GuidGeneratorTest extends Specification {
 		guid == guidGenerator.generateFromPage(page, clazz)
 
 		where:
-		guid             | page                                                                       | clazz
-		'CHMA0000000012' | new Page(pageId: 12L, mediaWikiSource: MediaWikiSource.MEMORY_ALPHA_EN)    | Character
-		'SEMA0000023421' | new Page(pageId: 23421L, mediaWikiSource: MediaWikiSource.MEMORY_ALPHA_EN) | Series
-		'CHMB0000000876' | new Page(pageId: 876L, mediaWikiSource: MediaWikiSource.MEMORY_BETA_EN)    | Character
-		'SEMB0000006543' | new Page(pageId: 6543L, mediaWikiSource: MediaWikiSource.MEMORY_BETA_EN)   | Series
+		guid             | page                                                                        | clazz
+		'CHMA0000000012' | new Page(pageId: 12L, mediaWikiSource: MediaWikiSource.MEMORY_ALPHA_EN)     | Character
+		'SEMA0000023421' | new Page(pageId: 23421L, mediaWikiSource: MediaWikiSource.MEMORY_ALPHA_EN)  | Series
+		'CHMB0000000876' | new Page(pageId: 876L, mediaWikiSource: MediaWikiSource.MEMORY_BETA_EN)     | Character
+		'SEMB0000006543' | new Page(pageId: 6543L, mediaWikiSource: MediaWikiSource.MEMORY_BETA_EN)    | Series
+		'CSMA0000987654' | new Page(pageId: 987654L, mediaWikiSource: MediaWikiSource.MEMORY_ALPHA_EN) | ComicSeries
 	}
 
 	void "throws exception when there is no mappings available for given class"() {

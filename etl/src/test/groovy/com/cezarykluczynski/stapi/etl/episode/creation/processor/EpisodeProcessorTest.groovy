@@ -28,13 +28,13 @@ class EpisodeProcessorTest extends Specification {
 
 	void "converts PageHeader to Episode"() {
 		given:
-		PageHeader pageHeader = PageHeader.builder().build()
+		PageHeader pageHeader = new PageHeader()
 		Page page = new Page()
 		EpisodeTemplate episodeTemplate = new EpisodeTemplate()
 		Episode episode = new Episode()
 
 		when:
-		Episode outputEpisode = episodeProcessor.process(pageHeader)
+		Episode episodeOutput = episodeProcessor.process(pageHeader)
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
@@ -42,7 +42,7 @@ class EpisodeProcessorTest extends Specification {
 		1 * toEpisodeEntityProcessorMock.process(episodeTemplate) >> episode
 
 		then: 'last processor output is returned'
-		outputEpisode == episode
+		episodeOutput == episode
 	}
 
 }

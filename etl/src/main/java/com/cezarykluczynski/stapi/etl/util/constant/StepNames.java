@@ -20,7 +20,9 @@ public class StepNames {
 				StepName.CREATE_CHARACTERS,
 				StepName.CREATE_EPISODES,
 				StepName.CREATE_MOVIES,
-				StepName.LINK_ASTRONOMICAL_OBJECTS
+				StepName.LINK_ASTRONOMICAL_OBJECTS,
+				StepName.CREATE_COMIC_SERIES,
+				StepName.LINK_COMIC_SERIES
 		));
 	}
 

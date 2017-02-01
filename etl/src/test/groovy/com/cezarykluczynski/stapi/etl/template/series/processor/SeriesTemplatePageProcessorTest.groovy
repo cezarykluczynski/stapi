@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.etl.template.series.processor
 
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
-import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange
-import com.cezarykluczynski.stapi.etl.template.common.dto.YearRange
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DateRange
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToDateRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToYearRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplate

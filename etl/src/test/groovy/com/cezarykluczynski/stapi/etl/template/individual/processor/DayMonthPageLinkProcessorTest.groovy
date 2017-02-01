@@ -1,7 +1,9 @@
 package com.cezarykluczynski.stapi.etl.template.individual.processor
 
+import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.MonthNameToMonthProcessor
 import com.cezarykluczynski.stapi.etl.template.individual.dto.DayMonthDTO
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
+import com.google.common.collect.Maps
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -9,14 +11,30 @@ import java.time.Month
 
 class DayMonthPageLinkProcessorTest extends Specification {
 
+	private MonthNameToMonthProcessor monthNameToMonthProcessorMock
+
 	private DayMonthPageLinkProcessor dayMonthPageLinkProcessor
 
 	void setup() {
-		dayMonthPageLinkProcessor = new DayMonthPageLinkProcessor()
+		monthNameToMonthProcessorMock = Mock()
+		dayMonthPageLinkProcessor = new DayMonthPageLinkProcessor(monthNameToMonthProcessorMock)
 	}
 
 	@Unroll('when #pageLink is passed, #dayMonth is returned')
 	void "when PageLink is passed, DayMonthDTO with parsed values is returned"() {
+		given:
+		Map<String, Month> monthMap = Maps.newHashMap()
+		monthMap['January'] = Month.JANUARY
+		monthMap['February'] = Month.FEBRUARY
+		monthMap['March'] = Month.MARCH
+		monthMap['April'] = Month.APRIL
+		monthMap['May'] = Month.MAY
+		monthMap['June'] = Month.JUNE
+
+		monthNameToMonthProcessorMock.process(_ as String) >> { String item ->
+			monthMap.containsKey(item) ? monthMap.get(item) : null
+		}
+
 		expect:
 		dayMonthPageLinkProcessor.process(pageLink) == dayMonth
 

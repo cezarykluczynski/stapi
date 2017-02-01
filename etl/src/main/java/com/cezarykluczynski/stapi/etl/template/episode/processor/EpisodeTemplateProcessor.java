@@ -3,9 +3,9 @@ package com.cezarykluczynski.stapi.etl.template.episode.processor;
 import com.cezarykluczynski.stapi.etl.common.configuration.CommonTemplateConfiguration;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ImageTemplateStardateYearEnrichingProcessor;
-import com.cezarykluczynski.stapi.etl.template.common.dto.DayMonthYearCandidate;
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYearCandidate;
 import com.cezarykluczynski.stapi.etl.template.common.processor.ProductionSerialNumberProcessor;
-import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DayMonthYearProcessor;
+import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DayMonthYearCandidateToLocalDateProcessor;
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
@@ -30,18 +30,18 @@ public class EpisodeTemplateProcessor implements ItemProcessor<Template, Episode
 	private static final String S_AIRDATE_MONTH = "sairdatemonth";
 	private static final String N_AIRDATE_DAY = "nairdateday";
 
-	private DayMonthYearProcessor dayMonthYearProcessor;
+	private DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor;
 
 	private ImageTemplateStardateYearEnrichingProcessor imageTemplateStardateYearEnrichingProcessor;
 
 	private ProductionSerialNumberProcessor productionSerialNumberProcessor;
 
 	@Inject
-	public EpisodeTemplateProcessor(DayMonthYearProcessor dayMonthYearProcessor,
+	public EpisodeTemplateProcessor(DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor,
 			@Qualifier(CommonTemplateConfiguration.EPISODE_TEMPALTE_STARDATE_YEAR_ENRICHING_PROCESSOR)
 					ImageTemplateStardateYearEnrichingProcessor imageTemplateStardateYearEnrichingProcessor,
 			ProductionSerialNumberProcessor productionSerialNumberProcessor) {
-		this.dayMonthYearProcessor = dayMonthYearProcessor;
+		this.dayMonthYearCandidateToLocalDateProcessor = dayMonthYearCandidateToLocalDateProcessor;
 		this.imageTemplateStardateYearEnrichingProcessor = imageTemplateStardateYearEnrichingProcessor;
 		this.productionSerialNumberProcessor = productionSerialNumberProcessor;
 	}
@@ -93,7 +93,7 @@ public class EpisodeTemplateProcessor implements ItemProcessor<Template, Episode
 		}
 
 		if (day != null && month != null && year != null) {
-			episodeTemplate.setUsAirDate(dayMonthYearProcessor.process(DayMonthYearCandidate.of(day, month, year)));
+			episodeTemplate.setUsAirDate(dayMonthYearCandidateToLocalDateProcessor.process(DayMonthYearCandidate.of(day, month, year)));
 		}
 
 		return episodeTemplate;

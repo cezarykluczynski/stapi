@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.datetime;
 
-import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange;
-import com.cezarykluczynski.stapi.etl.template.common.dto.DayMonthYearCandidate;
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DateRange;
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYearCandidate;
 import com.cezarykluczynski.stapi.etl.util.constant.TemplateParam;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
@@ -19,11 +19,11 @@ import java.util.stream.Collectors;
 @Slf4j
 public class PageToLifeRangeProcessor implements ItemProcessor<Page, DateRange> {
 
-	private DayMonthYearProcessor dayMonthYearProcessor;
+	private DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor;
 
 	@Inject
-	public PageToLifeRangeProcessor(DayMonthYearProcessor dayMonthYearProcessor) {
-		this.dayMonthYearProcessor = dayMonthYearProcessor;
+	public PageToLifeRangeProcessor(DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor) {
+		this.dayMonthYearCandidateToLocalDateProcessor = dayMonthYearCandidateToLocalDateProcessor;
 	}
 
 	@Override
@@ -68,8 +68,8 @@ public class PageToLifeRangeProcessor implements ItemProcessor<Page, DateRange> 
 			}
 		}
 
-		LocalDate dateOfBirth = dayMonthYearProcessor.process(DayMonthYearCandidate.of(bornDay, bornMonth, bornYear));
-		LocalDate dateOfDeath = dayMonthYearProcessor.process(DayMonthYearCandidate.of(diedDay, diedMonth, diedYear));
+		LocalDate dateOfBirth = dayMonthYearCandidateToLocalDateProcessor.process(DayMonthYearCandidate.of(bornDay, bornMonth, bornYear));
+		LocalDate dateOfDeath = dayMonthYearCandidateToLocalDateProcessor.process(DayMonthYearCandidate.of(diedDay, diedMonth, diedYear));
 
 		if (dateOfBirth == null && dateOfDeath == null) {
 			return null;

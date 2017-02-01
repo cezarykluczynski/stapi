@@ -22,19 +22,19 @@ class CompanyProcessorTest extends Specification {
 
 	void "converts PageHeader to Company"() {
 		given:
-		PageHeader pageHeader = PageHeader.builder().build()
+		PageHeader pageHeader = new PageHeader()
 		Page page = new Page()
 		Company company = new Company()
 
 		when:
-		Company outputCompany = companyProcessor.process(pageHeader)
+		Company companyOutput = companyProcessor.process(pageHeader)
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
 		1 * companyPageProcessorMock.process(page) >> company
 
 		then: 'last processor output is returned'
-		outputCompany == company
+		companyOutput == company
 	}
 
 }

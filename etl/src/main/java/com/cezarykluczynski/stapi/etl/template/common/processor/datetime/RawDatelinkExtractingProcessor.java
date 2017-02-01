@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.datetime;
 
-import com.cezarykluczynski.stapi.etl.template.common.dto.DayMonthYearCandidate;
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYearCandidate;
 import com.cezarykluczynski.stapi.etl.template.util.PatternDictionary;
 import com.google.common.collect.Lists;
 import org.springframework.batch.item.ItemProcessor;
@@ -19,10 +19,10 @@ public class RawDatelinkExtractingProcessor implements ItemProcessor<String, Lis
 			+ PatternDictionary.MONTH_GROUP + "\\|(\\d{4})}}");
 
 	@Inject
-	private DayMonthYearProcessor dayMonthYearProcessor;
+	private DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor;
 
-	public RawDatelinkExtractingProcessor(DayMonthYearProcessor dayMonthYearProcessor) {
-		this.dayMonthYearProcessor = dayMonthYearProcessor;
+	public RawDatelinkExtractingProcessor(DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor) {
+		this.dayMonthYearCandidateToLocalDateProcessor = dayMonthYearCandidateToLocalDateProcessor;
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class RawDatelinkExtractingProcessor implements ItemProcessor<String, Lis
 		Matcher matcher = RAW_DATELINK.matcher(item);
 
 		while (matcher.find()) {
-			localDateList.add(dayMonthYearProcessor.process(DayMonthYearCandidate.of(
+			localDateList.add(dayMonthYearCandidateToLocalDateProcessor.process(DayMonthYearCandidate.of(
 					matcher.group(2), matcher.group(3), matcher.group(4))));
 		}
 

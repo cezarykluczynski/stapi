@@ -35,6 +35,8 @@ public class StepToStepPropertiesProvider {
 		stepPropertiesMap.put(StepName.CREATE_EPISODES, stepsProperties.getCreateEpisodes());
 		stepPropertiesMap.put(StepName.CREATE_MOVIES, stepsProperties.getCreateMovies());
 		stepPropertiesMap.put(StepName.LINK_ASTRONOMICAL_OBJECTS, stepsProperties.getLinkAstronomicalObjects());
+		stepPropertiesMap.put(StepName.CREATE_COMIC_SERIES, stepsProperties.getCreateComicSeries());
+		stepPropertiesMap.put(StepName.LINK_COMIC_SERIES, stepsProperties.getLinkComicSeries());
 	}
 
 }

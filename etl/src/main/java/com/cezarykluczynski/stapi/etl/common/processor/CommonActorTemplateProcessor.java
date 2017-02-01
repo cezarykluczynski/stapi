@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.common.processor;
 
 import com.cezarykluczynski.stapi.etl.common.mapper.GenderMapper;
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate;
-import com.cezarykluczynski.stapi.etl.template.common.dto.DateRange;
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DateRange;
 import com.cezarykluczynski.stapi.model.common.entity.RealWorldPerson;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;

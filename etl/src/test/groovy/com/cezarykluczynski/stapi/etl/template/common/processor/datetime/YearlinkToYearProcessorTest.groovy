@@ -5,16 +5,16 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
-class TemplateToYearProcessorTest extends Specification {
+class YearlinkToYearProcessorTest extends Specification {
 
 	private static final Integer YEAR = 2000
 
-	private TemplateToYearProcessor templateToYearProcessor
+	private YearlinkToYearProcessor yearlinkToYearProcessor
 
 	private Template template
 
 	void setup() {
-		templateToYearProcessor = new TemplateToYearProcessor()
+		yearlinkToYearProcessor = new YearlinkToYearProcessor()
 		template = new Template(
 				title: TemplateName.Y,
 				parts: Lists.newArrayList(
@@ -25,7 +25,7 @@ class TemplateToYearProcessorTest extends Specification {
 
 	void "valid template with title 'y' is parsed to year"() {
 		when:
-		Integer year = templateToYearProcessor.process(template)
+		Integer year = yearlinkToYearProcessor.process(template)
 
 		then:
 		year == YEAR
@@ -36,7 +36,7 @@ class TemplateToYearProcessorTest extends Specification {
 		template.title = TemplateName.YEARLINK
 
 		when:
-		Integer year = templateToYearProcessor.process(template)
+		Integer year = yearlinkToYearProcessor.process(template)
 
 		then:
 		year == YEAR
@@ -44,7 +44,7 @@ class TemplateToYearProcessorTest extends Specification {
 
 	void "template of different title produces null year"() {
 		when:
-		Integer year = templateToYearProcessor.process(new Template(title: 'different template'))
+		Integer year = yearlinkToYearProcessor.process(new Template(title: 'different template'))
 
 		then:
 		year == null
@@ -55,7 +55,7 @@ class TemplateToYearProcessorTest extends Specification {
 		template.parts.clear()
 
 		when:
-		Integer year = templateToYearProcessor.process(template)
+		Integer year = yearlinkToYearProcessor.process(template)
 
 		then:
 		year == null
@@ -66,7 +66,7 @@ class TemplateToYearProcessorTest extends Specification {
 		template.parts[0].value = 'INVALID'
 
 		when:
-		Integer year = templateToYearProcessor.process(template)
+		Integer year = yearlinkToYearProcessor.process(template)
 
 		then:
 		year == null

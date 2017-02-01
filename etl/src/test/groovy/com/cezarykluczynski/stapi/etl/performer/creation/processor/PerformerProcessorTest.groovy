@@ -28,13 +28,13 @@ class PerformerProcessorTest extends Specification {
 
 	void "converts PageHeader to Performer"() {
 		given:
-		PageHeader pageHeader = PageHeader.builder().build()
+		PageHeader pageHeader = new PageHeader()
 		Page page = new Page()
 		ActorTemplate actorTemplate = new ActorTemplate()
 		Performer performer = new Performer()
 
 		when:
-		Performer outputPerformer = performerProcessor.process(pageHeader)
+		Performer performerOutput = performerProcessor.process(pageHeader)
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
@@ -42,7 +42,7 @@ class PerformerProcessorTest extends Specification {
 		1 * actorTemplateProcessorMock.process(actorTemplate) >> performer
 
 		then: 'last processor output is returned'
-		outputPerformer == performer
+		performerOutput == performer
 	}
 
 }

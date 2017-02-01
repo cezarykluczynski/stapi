@@ -28,7 +28,7 @@ class CharacterProcessorTest extends Specification {
 
 	void "converts PageHeader to Character"() {
 		given:
-		PageHeader pageHeader = PageHeader.builder().build()
+		PageHeader pageHeader = new PageHeader()
 		Page page = new Page()
 		IndividualTemplate individualTemplate = new IndividualTemplate()
 		Character character = new Character()

@@ -28,7 +28,7 @@ class AstronomicalObjectProcessorTest extends Specification {
 
 	void "converts PageHeader to AstronomicalObject"() {
 		given:
-		PageHeader pageHeader = PageHeader.builder().build()
+		PageHeader pageHeader = new PageHeader()
 		Page page = new Page()
 		PlanetTemplate planetTemplate = new PlanetTemplate()
 		AstronomicalObject astronomicalObject = new AstronomicalObject()

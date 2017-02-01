@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.common.dto;
+package com.cezarykluczynski.stapi.etl.template.common.dto.datetime;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
