@@ -5,6 +5,9 @@ import spock.lang.Specification
 
 class CompanyNameFixedValueProviderTest extends Specification {
 
+	private static final String EXISTING_TITLE = 'RT├ë'
+	private static final String NONEXISTING_TITLE = 'NONEXISTING_TITLE'
+
 	private CompanyNameFixedValueProvider companyNameFixedValueProvider
 
 	void setup() {
@@ -13,14 +16,14 @@ class CompanyNameFixedValueProviderTest extends Specification {
 
 	void "provides correct company name"() {
 		expect:
-		companyNameFixedValueProvider.getSearchedValue('RT├ë').found
-		companyNameFixedValueProvider.getSearchedValue('RT├ë').value == 'RTÉ'
+		companyNameFixedValueProvider.getSearchedValue(EXISTING_TITLE).found
+		companyNameFixedValueProvider.getSearchedValue(EXISTING_TITLE).value == 'RTÉ'
 	}
 
 	void "provides missing company name"() {
 		expect:
-		!companyNameFixedValueProvider.getSearchedValue('Not found').found
-		companyNameFixedValueProvider.getSearchedValue('Not found').value == null
+		!companyNameFixedValueProvider.getSearchedValue(NONEXISTING_TITLE).found
+		companyNameFixedValueProvider.getSearchedValue(NONEXISTING_TITLE).value == null
 	}
 
 }

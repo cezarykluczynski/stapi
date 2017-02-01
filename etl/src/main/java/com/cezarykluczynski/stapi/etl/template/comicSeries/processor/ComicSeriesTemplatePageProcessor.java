@@ -1,11 +1,8 @@
 package com.cezarykluczynski.stapi.etl.template.comicSeries.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
-import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
-import com.cezarykluczynski.stapi.etl.common.dto.Range;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplate;
-import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
@@ -31,20 +28,16 @@ public class ComicSeriesTemplatePageProcessor implements ItemProcessor<Page, Com
 
 	private ComicSeriesTemplatePartsEnrichingProcessor comicSeriesTemplatePartsEnrichingProcessor;
 
-	private ComicSeriesPublishedDateFixedValueProvider comicSeriesPublishedDateFixedValueProvider;
-
-	private ComicSeriesTemplateDayMonthYearRangeEnrichingProcessor comicSeriesTemplateDayMonthYearRangeEnrichingProcessor;
+	private ComicSeriesTemplateFixedValuesEnrichingProcessor comicSeriesTemplateFixedValuesEnrichingProcessor;
 
 	@Inject
 	public ComicSeriesTemplatePageProcessor(PageBindingService pageBindingService, TemplateFinder templateFinder,
 			ComicSeriesTemplatePartsEnrichingProcessor comicSeriesTemplatePartsEnrichingProcessor,
-			ComicSeriesPublishedDateFixedValueProvider comicSeriesPublishedDateFixedValueProvider,
-			ComicSeriesTemplateDayMonthYearRangeEnrichingProcessor comicSeriesTemplateDayMonthYearRangeEnrichingProcessor) {
+			ComicSeriesTemplateFixedValuesEnrichingProcessor comicSeriesTemplateFixedValuesEnrichingProcessor) {
 		this.pageBindingService = pageBindingService;
 		this.templateFinder = templateFinder;
 		this.comicSeriesTemplatePartsEnrichingProcessor = comicSeriesTemplatePartsEnrichingProcessor;
-		this.comicSeriesPublishedDateFixedValueProvider = comicSeriesPublishedDateFixedValueProvider;
-		this.comicSeriesTemplateDayMonthYearRangeEnrichingProcessor = comicSeriesTemplateDayMonthYearRangeEnrichingProcessor;
+		this.comicSeriesTemplateFixedValuesEnrichingProcessor = comicSeriesTemplateFixedValuesEnrichingProcessor;
 	}
 
 	@Override
@@ -60,14 +53,7 @@ public class ComicSeriesTemplatePageProcessor implements ItemProcessor<Page, Com
 
 		Optional<Template> sidebarIndividualTemplateOptional = templateFinder.findTemplate(item, TemplateName.SIDEBAR_COMIC_SERIES);
 
-
-		FixedValueHolder<Range<DayMonthYear>> dayMonthYearRangeFixedValueHolder = comicSeriesPublishedDateFixedValueProvider
-				.getSearchedValue(comicSeriesTemplate.getTitle());
-
-		if (dayMonthYearRangeFixedValueHolder.isFound()) {
-			Range<DayMonthYear> dayMonthYearRange = dayMonthYearRangeFixedValueHolder.getValue();
-			comicSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(dayMonthYearRange, comicSeriesTemplate));
-		}
+		comicSeriesTemplateFixedValuesEnrichingProcessor.enrich(EnrichablePair.of(comicSeriesTemplate, comicSeriesTemplate));
 
 		if (!sidebarIndividualTemplateOptional.isPresent()) {
 			return comicSeriesTemplate;

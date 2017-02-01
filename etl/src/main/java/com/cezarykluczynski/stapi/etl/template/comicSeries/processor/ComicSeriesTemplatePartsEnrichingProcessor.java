@@ -14,16 +14,21 @@ public class ComicSeriesTemplatePartsEnrichingProcessor implements ItemEnriching
 
 	private static final String PUBLISHED = "published";
 	private static final String PUBLISHER = "publisher";
+	private static final String ISSUES = "issues";
 
 	private ComicSeriesTemplatePublishersProcessor comicSeriesTemplatePublishersProcessor;
 
 	private ComicSeriesPublishedDatesEnrichingProcessor comicSeriesPublishedDatesEnrichingProcessor;
 
+	private ComicSeriesTemplateNumberOfIssuesProcessor comicSeriesTemplateNumberOfIssuesProcessor;
+
 	@Inject
 	public ComicSeriesTemplatePartsEnrichingProcessor(ComicSeriesTemplatePublishersProcessor comicSeriesTemplatePublishersProcessor,
-			ComicSeriesPublishedDatesEnrichingProcessor comicSeriesPublishedDatesEnrichingProcessor) {
+			ComicSeriesPublishedDatesEnrichingProcessor comicSeriesPublishedDatesEnrichingProcessor,
+			ComicSeriesTemplateNumberOfIssuesProcessor comicSeriesTemplateNumberOfIssuesProcessor) {
 		this.comicSeriesTemplatePublishersProcessor = comicSeriesTemplatePublishersProcessor;
 		this.comicSeriesPublishedDatesEnrichingProcessor = comicSeriesPublishedDatesEnrichingProcessor;
+		this.comicSeriesTemplateNumberOfIssuesProcessor = comicSeriesTemplateNumberOfIssuesProcessor;
 	}
 
 	@Override
@@ -41,6 +46,11 @@ public class ComicSeriesTemplatePartsEnrichingProcessor implements ItemEnriching
 				case PUBLISHED:
 					if (comicSeriesTemplate.getPublishedYearFrom() == null && comicSeriesTemplate.getPublishedYearTo() == null) {
 						comicSeriesPublishedDatesEnrichingProcessor.enrich(EnrichablePair.of(part, comicSeriesTemplate));
+					}
+					break;
+				case ISSUES:
+					if (comicSeriesTemplate.getNumberOfIssues() == null) {
+						comicSeriesTemplate.setNumberOfIssues(comicSeriesTemplateNumberOfIssuesProcessor.process(value));
 					}
 					break;
 				default:

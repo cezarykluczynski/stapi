@@ -16,7 +16,6 @@
 			<column name="title" type="varchar(128)">
 				<constraints nullable="false"/>
 			</column>
-			<column name="comic_series_id" type="bigint"/>
 			<column name="published_year_from" type="int"/>
 			<column name="published_month_from" type="int"/>
 			<column name="published_day_from" type="int"/>
@@ -37,9 +36,19 @@
 				constraintName="comic_series_page_fkey"
 				referencedColumnNames="id"
 				referencedTableName="page"/>
+
+		<createTable tableName="comic_series_comic_series">
+			<column name="comic_series_id" type="bigint"/>
+			<column name="comic_series_parent_id" type="bigint"/>
+		</createTable>
 		<addForeignKeyConstraint baseColumnNames="comic_series_id"
-				baseTableName="comic_series"
-				constraintName="cs_series_fkey"
+				baseTableName="comic_series_comic_series"
+				constraintName="cs_comic_series_fkey"
+				referencedColumnNames="id"
+				referencedTableName="comic_series"/>
+		<addForeignKeyConstraint baseColumnNames="comic_series_parent_id"
+				baseTableName="comic_series_comic_series"
+				constraintName="cs_comic_series_parent_fkey"
 				referencedColumnNames="id"
 				referencedTableName="comic_series"/>
 

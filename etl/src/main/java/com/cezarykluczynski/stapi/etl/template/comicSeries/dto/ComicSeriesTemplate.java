@@ -1,6 +1,5 @@
 package com.cezarykluczynski.stapi.etl.template.comicSeries.dto;
 
-import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.page.entity.Page;
 import com.google.common.collect.Sets;
@@ -14,8 +13,6 @@ public class ComicSeriesTemplate {
 	private Page page;
 
 	private String title;
-
-	private ComicSeries series;
 
 	private Integer publishedYearFrom;
 

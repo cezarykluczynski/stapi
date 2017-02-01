@@ -25,7 +25,6 @@ public class ComicSeriesTemplateProcessor implements ItemProcessor<ComicSeriesTe
 		comicSeries.setGuid(guidGenerator.generateFromPage(item.getPage(), ComicSeries.class));
 		comicSeries.setPage(item.getPage());
 		comicSeries.setTitle(item.getTitle());
-		comicSeries.setSeries(item.getSeries());
 		comicSeries.setPublishedYearFrom(item.getPublishedYearFrom());
 		comicSeries.setPublishedMonthFrom(item.getPublishedMonthFrom());
 		comicSeries.setPublishedDayFrom(item.getPublishedDayFrom());

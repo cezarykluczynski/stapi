@@ -4,6 +4,9 @@ import spock.lang.Specification
 
 class ComicSeriesPublishedDateFixedValueProviderTest extends Specification {
 
+	private static final String EXISTING_TITLE = 'Star Trek Fotonovels'
+	private static final String NONEXISTING_TITLE = 'NONEXISTING_TITLE'
+
 	private ComicSeriesPublishedDateFixedValueProvider comicSeriesPublishedDateFixedValueProvider
 
 	void setup() {
@@ -12,15 +15,15 @@ class ComicSeriesPublishedDateFixedValueProviderTest extends Specification {
 
 	void "provides correct range"() {
 		expect:
-		comicSeriesPublishedDateFixedValueProvider.getSearchedValue('Star Trek Fotonovels').found
-		comicSeriesPublishedDateFixedValueProvider.getSearchedValue('Star Trek Fotonovels').value.from.year == 1977
-		comicSeriesPublishedDateFixedValueProvider.getSearchedValue('Star Trek Fotonovels').value.to.year == 1978
+		comicSeriesPublishedDateFixedValueProvider.getSearchedValue(EXISTING_TITLE).found
+		comicSeriesPublishedDateFixedValueProvider.getSearchedValue(EXISTING_TITLE).value.from.year == 1977
+		comicSeriesPublishedDateFixedValueProvider.getSearchedValue(EXISTING_TITLE).value.to.year == 1978
 	}
 
 	void "provides missing range"() {
 		expect:
-		!comicSeriesPublishedDateFixedValueProvider.getSearchedValue('Not found').found
-		comicSeriesPublishedDateFixedValueProvider.getSearchedValue('Not found').value == null
+		!comicSeriesPublishedDateFixedValueProvider.getSearchedValue(NONEXISTING_TITLE).found
+		comicSeriesPublishedDateFixedValueProvider.getSearchedValue(NONEXISTING_TITLE).value == null
 	}
 
 }

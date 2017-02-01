@@ -1,10 +1,8 @@
 package com.cezarykluczynski.stapi.etl.template.comicSeries.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
-import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplate
-import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
@@ -16,7 +14,6 @@ import com.cezarykluczynski.stapi.util.constant.PageName
 import com.cezarykluczynski.stapi.util.constant.TemplateName
 import com.google.common.collect.Lists
 import spock.lang.Specification
-import com.cezarykluczynski.stapi.etl.common.dto.Range
 
 class ComicSeriesTemplatePageProcessorTest extends Specification {
 
@@ -30,9 +27,7 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 
 	private ComicSeriesTemplatePartsEnrichingProcessor comicSeriesTemplatePartsEnrichingProcessorMock
 
-	private ComicSeriesPublishedDateFixedValueProvider comicSeriesPublishedDateFixedValueProviderMock
-
-	private ComicSeriesTemplateDayMonthYearRangeEnrichingProcessor comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock
+	private ComicSeriesTemplateFixedValuesEnrichingProcessor comicSeriesTemplateFixedValuesEnrichingProcessorMock
 
 	private ComicSeriesTemplatePageProcessor comicSeriesTemplatePageProcessor
 
@@ -40,11 +35,9 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 		pageBindingServiceMock = Mock(PageBindingService)
 		templateFinderMock = Mock(TemplateFinder)
 		comicSeriesTemplatePartsEnrichingProcessorMock = Mock(ComicSeriesTemplatePartsEnrichingProcessor)
-		comicSeriesPublishedDateFixedValueProviderMock = Mock(ComicSeriesPublishedDateFixedValueProvider)
-		comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock = Mock(ComicSeriesTemplateDayMonthYearRangeEnrichingProcessor)
+		comicSeriesTemplateFixedValuesEnrichingProcessorMock = Mock(ComicSeriesTemplateFixedValuesEnrichingProcessor)
 		comicSeriesTemplatePageProcessor = new ComicSeriesTemplatePageProcessor(pageBindingServiceMock, templateFinderMock,
-				comicSeriesTemplatePartsEnrichingProcessorMock, comicSeriesPublishedDateFixedValueProviderMock,
-				comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock)
+				comicSeriesTemplatePartsEnrichingProcessorMock, comicSeriesTemplateFixedValuesEnrichingProcessorMock)
 	}
 
 	void "returns null when page is 'DC Comics TNG timeline'"() {
@@ -75,33 +68,9 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 		then:
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_SERIES) >> Optional.empty()
-		1 * comicSeriesPublishedDateFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
-		0 * _
-		comicSeriesTemplate.title == TITLE
-		comicSeriesTemplate.page == modelPage
-		ReflectionTestUtils.getNumberOfNotNullFields(comicSeriesTemplate) == 4
-	}
-
-	void "when fixed value for published dates is found, it is passed to enriching processor"() {
-		given:
-		Page page = new Page(
-				title: TITLE,
-				pageId: PAGE_ID,
-				mediaWikiSource: SOURCES_MEDIA_WIKI_SOURCE)
-		ModelPage modelPage = new ModelPage()
-		Range<DayMonthYear> dayMonthYearRange = Mock(Range)
-
-		when:
-		ComicSeriesTemplate comicSeriesTemplate = comicSeriesTemplatePageProcessor.process(page)
-
-		then:
-		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_SERIES) >> Optional.empty()
-		1 * comicSeriesPublishedDateFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.found(dayMonthYearRange)
-		1 * comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
-				EnrichablePair<Range<DayMonthYear>, ComicSeriesTemplate> enrichablePair ->
-			assert enrichablePair.input == dayMonthYearRange
-			assert enrichablePair.output != null
+		1 * comicSeriesTemplateFixedValuesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+				EnrichablePair<ComicSeriesTemplate, ComicSeriesTemplate> enrichablePair ->
+			assert enrichablePair.input == enrichablePair.output
 		}
 		0 * _
 		comicSeriesTemplate.title == TITLE
@@ -122,7 +91,10 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 		then:
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_SERIES) >> Optional.empty()
-		1 * comicSeriesPublishedDateFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
+		1 * comicSeriesTemplateFixedValuesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+				EnrichablePair<ComicSeriesTemplate, ComicSeriesTemplate> enrichablePair ->
+			assert enrichablePair.input == enrichablePair.output
+		}
 		comicSeriesTemplate.productOfRedirect
 	}
 
@@ -137,7 +109,10 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 		then:
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_SERIES) >> Optional.empty()
-		1 * comicSeriesPublishedDateFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
+		1 * comicSeriesTemplateFixedValuesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+				EnrichablePair<ComicSeriesTemplate, ComicSeriesTemplate> enrichablePair ->
+			assert enrichablePair.input == enrichablePair.output
+		}
 		!comicSeriesTemplate.productOfRedirect
 	}
 
@@ -153,7 +128,10 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 		then:
 		1 * pageBindingServiceMock.fromPageToPageEntity(page)
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_SERIES) >> Optional.of(sidebarComicSeriesTemplate)
-		1 * comicSeriesPublishedDateFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
+		1 * comicSeriesTemplateFixedValuesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+				EnrichablePair<ComicSeriesTemplate, ComicSeriesTemplate> enrichablePair ->
+			assert enrichablePair.input == enrichablePair.output
+		}
 		1 * comicSeriesTemplatePartsEnrichingProcessorMock.enrich(_) >> { EnrichablePair<List<Template.Part>, ComicSeriesTemplate> enrichablePair ->
 			assert enrichablePair.input == templatePartList
 			assert enrichablePair.output != null

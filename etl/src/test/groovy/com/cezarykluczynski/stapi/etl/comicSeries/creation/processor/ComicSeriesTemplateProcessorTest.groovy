@@ -11,7 +11,6 @@ import com.google.common.collect.Sets
 class ComicSeriesTemplateProcessorTest extends AbstractComicSeriesTest {
 
 	private final Page page = Mock(Page)
-	private final ComicSeries parentComicSeries = Mock(ComicSeries)
 
 	private GuidGenerator guidGeneratorMock
 
@@ -29,7 +28,6 @@ class ComicSeriesTemplateProcessorTest extends AbstractComicSeriesTest {
 		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate(
 				page: page,
 				title: TITLE,
-				series: parentComicSeries,
 				publishedYearFrom: PUBLISHED_YEAR_FROM,
 				publishedMonthFrom: PUBLISHED_MONTH_FROM,
 				publishedDayFrom: PUBLISHED_DAY_FROM,
@@ -54,7 +52,6 @@ class ComicSeriesTemplateProcessorTest extends AbstractComicSeriesTest {
 		comicSeries.guid == GUID
 		comicSeries.page == page
 		comicSeries.title == TITLE
-		comicSeries.series == parentComicSeries
 		comicSeries.publishedYearFrom == PUBLISHED_YEAR_FROM
 		comicSeries.publishedMonthFrom == PUBLISHED_MONTH_FROM
 		comicSeries.publishedDayFrom == PUBLISHED_DAY_FROM

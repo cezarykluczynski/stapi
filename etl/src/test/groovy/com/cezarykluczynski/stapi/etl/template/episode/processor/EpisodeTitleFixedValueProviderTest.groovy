@@ -4,6 +4,9 @@ import spock.lang.Specification
 
 class EpisodeTitleFixedValueProviderTest extends Specification {
 
+	private static final String EXISTING_TITLE = 'E┬▓'
+	private static final String NONEXISTING_TITLE = 'NONEXISTING_TITLE'
+
 	private EpisodeTitleFixedValueProvider episodeTitleFixedValueProvider
 
 	void setup() {
@@ -12,14 +15,14 @@ class EpisodeTitleFixedValueProviderTest extends Specification {
 
 	void "provides correct title"() {
 		expect:
-		episodeTitleFixedValueProvider.getSearchedValue('E┬▓').found
-		episodeTitleFixedValueProvider.getSearchedValue('E┬▓').value == 'E²'
+		episodeTitleFixedValueProvider.getSearchedValue(EXISTING_TITLE).found
+		episodeTitleFixedValueProvider.getSearchedValue(EXISTING_TITLE).value == 'E²'
 	}
 
 	void "provides missing title"() {
 		expect:
-		!episodeTitleFixedValueProvider.getSearchedValue('Not found').found
-		episodeTitleFixedValueProvider.getSearchedValue('Not found').value == null
+		!episodeTitleFixedValueProvider.getSearchedValue(NONEXISTING_TITLE).found
+		episodeTitleFixedValueProvider.getSearchedValue(NONEXISTING_TITLE).value == null
 	}
 
 }

@@ -20,7 +20,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import java.util.Set;
 
@@ -40,10 +39,6 @@ public class ComicSeries extends PageAwareEntity implements PageAware {
 
 	@Column(nullable = false)
 	private String title;
-
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "comic_series_id")
-	private ComicSeries series;
 
 	private Integer publishedYearFrom;
 
@@ -70,6 +65,12 @@ public class ComicSeries extends PageAwareEntity implements PageAware {
 	private Boolean miniseries;
 
 	private Boolean photonovelSeries;
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "comic_series_comic_series",
+			joinColumns = @JoinColumn(name = "comic_series_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "comic_series_parent_id", nullable = false, updatable = false))
+	private Set<ComicSeries> parentSeries = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "comic_series_publishers",
