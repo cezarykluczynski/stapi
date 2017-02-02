@@ -2,7 +2,9 @@ package com.cezarykluczynski.stapi.etl.template.comicSeries.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplate
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange
+import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToStardateRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToYearRangeProcessor
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
@@ -16,6 +18,9 @@ class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 	private static final Integer YEAR = 1995
 	private static final Integer YEAR_FROM = 1995
 	private static final Integer YEAR_TO = 1997
+	private static final String STARDATES = '1995-1997'
+	private static final Float STARDATE_FROM = 123.4F
+	private static final Float STARDATE_TO = 456.7F
 	private static final String ISSUES_STRING = '12'
 	private static final Integer ISSUES_INTEGER = 12
 
@@ -27,6 +32,8 @@ class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 
 	private WikitextToYearRangeProcessor wikitextToYearRangeProcessorMock
 
+	private WikitextToStardateRangeProcessor wikitextToStardateRangeProcessorMock
+
 	private ComicSeriesTemplatePartsEnrichingProcessor comicSeriesTemplatePartsEnrichingProcessor
 
 	void setup() {
@@ -34,8 +41,10 @@ class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 		comicSeriesPublishedDatesEnrichingProcessorMock = Mock(ComicSeriesPublishedDatesEnrichingProcessor)
 		comicSeriesTemplateNumberOfIssuesProcessorMock = Mock(ComicSeriesTemplateNumberOfIssuesProcessor)
 		wikitextToYearRangeProcessorMock = Mock(WikitextToYearRangeProcessor)
+		wikitextToStardateRangeProcessorMock = Mock(WikitextToStardateRangeProcessor)
 		comicSeriesTemplatePartsEnrichingProcessor = new ComicSeriesTemplatePartsEnrichingProcessor(comicSeriesTemplatePublishersProcessorMock,
-				comicSeriesPublishedDatesEnrichingProcessorMock, comicSeriesTemplateNumberOfIssuesProcessorMock, wikitextToYearRangeProcessorMock)
+				comicSeriesPublishedDatesEnrichingProcessorMock, comicSeriesTemplateNumberOfIssuesProcessorMock, wikitextToYearRangeProcessorMock,
+				wikitextToStardateRangeProcessorMock)
 	}
 
 	void "sets publishers from ComicSeriesTemplatePublishersProcessor"() {
@@ -145,6 +154,35 @@ class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 		then:
 		0 * _
 		comicSeriesTemplate.yearFrom == YEAR_FROM
+	}
+
+	void "sets stardate from and stardate to from WikitextToStardateRangeProcessor"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplatePartsEnrichingProcessor.STARDATE, value: STARDATES)
+		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate()
+		StardateRange stardateRange = new StardateRange(stardateFrom: STARDATE_FROM, stardateTo: STARDATE_TO)
+
+		when:
+		comicSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicSeriesTemplate))
+
+		then:
+		1 * wikitextToStardateRangeProcessorMock.process(STARDATES) >> stardateRange
+		0 * _
+		comicSeriesTemplate.stardateFrom == STARDATE_FROM
+		comicSeriesTemplate.stardateTo == STARDATE_TO
+	}
+
+	void "does not set year from and year to from WikitextToStardateRangeProcessor, when value is already present"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplatePartsEnrichingProcessor.STARDATE, value: STARDATES)
+		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate(stardateFrom: STARDATE_FROM)
+
+		when:
+		comicSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicSeriesTemplate))
+
+		then:
+		0 * _
+		comicSeriesTemplate.stardateFrom == STARDATE_FROM
 	}
 
 }
