@@ -7,12 +7,14 @@ import com.cezarykluczynski.stapi.util.constant.TemplateName;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.routines.IntegerValidator;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -44,7 +46,11 @@ public class PartToYearRangeProcessor implements ItemProcessor<Template.Part, Ye
 	private YearRange fromValue(String value) {
 		YearRange yearRange = new YearRange();
 
-		List<String> dates = Lists.newArrayList(value.split("&ndash;"));
+		List<String> dates = Lists.newArrayList(value.split("&ndash;|\\sto\\s"))
+				.stream()
+				.map(StringUtils::trim)
+				.collect(Collectors.toList());
+
 		if (dates.size() >= 1) {
 			yearRange.setStartYear(Ints.tryParse(dates.get(0)));
 		}

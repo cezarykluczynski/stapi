@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.Range;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplate;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear;
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateYearDTO;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,12 +19,16 @@ public class ComicSeriesTemplateFixedValuesEnrichingProcessor
 
 	private ComicSeriesTemplateNumberOfIssuesFixedValueProvider comicSeriesTemplateNumberOfIssuesFixedValueProvider;
 
+	private ComicSeriesStardateYearFixedValueProvider comicSeriesStardateYearFixedValueProvider;
+
 	public ComicSeriesTemplateFixedValuesEnrichingProcessor(ComicSeriesPublishedDateFixedValueProvider comicSeriesPublishedDateFixedValueProvider,
 			ComicSeriesTemplateDayMonthYearRangeEnrichingProcessor comicSeriesTemplateDayMonthYearRangeEnrichingProcessor,
-			ComicSeriesTemplateNumberOfIssuesFixedValueProvider comicSeriesTemplateNumberOfIssuesFixedValueProvider) {
+			ComicSeriesTemplateNumberOfIssuesFixedValueProvider comicSeriesTemplateNumberOfIssuesFixedValueProvider,
+			ComicSeriesStardateYearFixedValueProvider comicSeriesStardateYearFixedValueProvider) {
 		this.comicSeriesPublishedDateFixedValueProvider = comicSeriesPublishedDateFixedValueProvider;
 		this.comicSeriesTemplateDayMonthYearRangeEnrichingProcessor = comicSeriesTemplateDayMonthYearRangeEnrichingProcessor;
 		this.comicSeriesTemplateNumberOfIssuesFixedValueProvider = comicSeriesTemplateNumberOfIssuesFixedValueProvider;
+		this.comicSeriesStardateYearFixedValueProvider = comicSeriesStardateYearFixedValueProvider;
 	}
 
 	@Override
@@ -42,6 +47,16 @@ public class ComicSeriesTemplateFixedValuesEnrichingProcessor
 
 		if (numberOfIssuesFixedValueHolder.isFound()) {
 			comicSeriesTemplate.setNumberOfIssues(numberOfIssuesFixedValueHolder.getValue());
+		}
+
+		FixedValueHolder<StardateYearDTO> stardateYearDTOFixedValueHolder = comicSeriesStardateYearFixedValueProvider.getSearchedValue(title);
+
+		if (stardateYearDTOFixedValueHolder.isFound()) {
+			StardateYearDTO stardateYearDTO = stardateYearDTOFixedValueHolder.getValue();
+			comicSeriesTemplate.setYearFrom(stardateYearDTO.getYearFrom());
+			comicSeriesTemplate.setYearTo(stardateYearDTO.getYearTo());
+			comicSeriesTemplate.setStardateFrom(stardateYearDTO.getStardateFrom());
+			comicSeriesTemplate.setStardateTo(stardateYearDTO.getStardateTo());
 		}
 	}
 

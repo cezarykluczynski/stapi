@@ -36,8 +36,8 @@ class CompanySoapEndpointIntegrationTest extends AbstractCompanyEndpointIntegrat
 
 		then:
 		astronomicalObjectResponse.companies.size() == 2
-		astronomicalObjectResponse.companies[0].name == 'Digital Domain'
-		astronomicalObjectResponse.companies[1].name == 'Industrial Light & Magic'
+		astronomicalObjectResponse.companies[0].name == 'Industrial Light & Magic'
+		astronomicalObjectResponse.companies[1].name == 'Digital Domain'
 	}
 
 }

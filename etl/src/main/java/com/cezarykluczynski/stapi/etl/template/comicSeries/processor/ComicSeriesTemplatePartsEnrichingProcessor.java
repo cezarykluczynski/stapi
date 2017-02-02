@@ -3,6 +3,8 @@ package com.cezarykluczynski.stapi.etl.template.comicSeries.processor;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplate;
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange;
+import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToYearRangeProcessor;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,8 @@ public class ComicSeriesTemplatePartsEnrichingProcessor implements ItemEnriching
 	private static final String PUBLISHED = "published";
 	private static final String PUBLISHER = "publisher";
 	private static final String ISSUES = "issues";
+	private static final String YEAR = "year";
+	private static final String STARDATE = "stardate";
 
 	private ComicSeriesTemplatePublishersProcessor comicSeriesTemplatePublishersProcessor;
 
@@ -22,13 +26,17 @@ public class ComicSeriesTemplatePartsEnrichingProcessor implements ItemEnriching
 
 	private ComicSeriesTemplateNumberOfIssuesProcessor comicSeriesTemplateNumberOfIssuesProcessor;
 
+	private WikitextToYearRangeProcessor wikitextToYearRangeProcessor;
+
 	@Inject
 	public ComicSeriesTemplatePartsEnrichingProcessor(ComicSeriesTemplatePublishersProcessor comicSeriesTemplatePublishersProcessor,
 			ComicSeriesPublishedDatesEnrichingProcessor comicSeriesPublishedDatesEnrichingProcessor,
-			ComicSeriesTemplateNumberOfIssuesProcessor comicSeriesTemplateNumberOfIssuesProcessor) {
+			ComicSeriesTemplateNumberOfIssuesProcessor comicSeriesTemplateNumberOfIssuesProcessor,
+			WikitextToYearRangeProcessor wikitextToYearRangeProcessor) {
 		this.comicSeriesTemplatePublishersProcessor = comicSeriesTemplatePublishersProcessor;
 		this.comicSeriesPublishedDatesEnrichingProcessor = comicSeriesPublishedDatesEnrichingProcessor;
 		this.comicSeriesTemplateNumberOfIssuesProcessor = comicSeriesTemplateNumberOfIssuesProcessor;
+		this.wikitextToYearRangeProcessor = wikitextToYearRangeProcessor;
 	}
 
 	@Override
@@ -51,6 +59,15 @@ public class ComicSeriesTemplatePartsEnrichingProcessor implements ItemEnriching
 				case ISSUES:
 					if (comicSeriesTemplate.getNumberOfIssues() == null) {
 						comicSeriesTemplate.setNumberOfIssues(comicSeriesTemplateNumberOfIssuesProcessor.process(value));
+					}
+					break;
+				case YEAR:
+					if (comicSeriesTemplate.getYearFrom() == null && comicSeriesTemplate.getYearTo() == null) {
+						YearRange yearRange = wikitextToYearRangeProcessor.process(value);
+						if (yearRange != null) {
+							comicSeriesTemplate.setYearFrom(yearRange.getStartYear());
+							comicSeriesTemplate.setYearTo(yearRange.getEndYear());
+						}
 					}
 					break;
 				default:

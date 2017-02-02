@@ -53,6 +53,15 @@ class PartToYearRangeProcessorTest extends Specification {
 		yearRange.endYear == 2000
 	}
 
+	void "returns start date and end date, when value contains then, separated by ' to '"() {
+		when:
+		YearRange yearRange = partToYearRangeProcessor.process(createTemplatePart('1990 to 2000', null))
+
+		then:
+		yearRange.startYear == 1990
+		yearRange.endYear == 2000
+	}
+
 	void "valid Part is converted to YearRange with both dates"() {
 		given:
 		List<Template> templateList = Lists.newArrayList(

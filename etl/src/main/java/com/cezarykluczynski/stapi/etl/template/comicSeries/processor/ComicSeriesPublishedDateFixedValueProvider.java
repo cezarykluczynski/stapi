@@ -28,6 +28,8 @@ public class ComicSeriesPublishedDateFixedValueProvider implements FixedValuePro
 		TITLES_TO_PUBLISHED_RANGE.put("Peter Pan Records", Range.of(DayMonthYear.of(null, null, 1975), DayMonthYear.of(null, null, 1979)));
 		TITLES_TO_PUBLISHED_RANGE.put("Star Trek Fotonovels", Range.of(DayMonthYear.of(null, null, 1977), DayMonthYear.of(null, null, 1978)));
 		TITLES_TO_PUBLISHED_RANGE.put("Star Trek Classics", Range.of(DayMonthYear.of(null, 12, 2011), DayMonthYear.of(null, null, null)));
+		TITLES_TO_PUBLISHED_RANGE.put("Star Trek (WildStorm)", Range.of(DayMonthYear.of(null, 4, 2000), DayMonthYear.of(null, null, 2001)));
+		TITLES_TO_PUBLISHED_RANGE.put("Star Trek: The Enterprise Logs", Range.of(DayMonthYear.of(null, 8, 1976), DayMonthYear.of(null, 11, 2008)));
 		TITLES_TO_PUBLISHED_RANGE.put("Star Trek: Deep Space Nine (IDW)", Range.of(DayMonthYear.of(null, 12, 2009),
 				DayMonthYear.of(null, null, null)));
 		TITLES_TO_PUBLISHED_RANGE.put("Star Trek: The Original Series (IDW)", Range.of(DayMonthYear.of(null, 4, 2007),
