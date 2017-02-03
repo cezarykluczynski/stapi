@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToStardateRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToYearRangeProcessor
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.util.tool.LogicUtil
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -23,6 +24,8 @@ class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 	private static final Float STARDATE_TO = 456.7F
 	private static final String ISSUES_STRING = '12'
 	private static final Integer ISSUES_INTEGER = 12
+	private static final String SERIES = 'SERIES'
+	private static final Boolean MINISERIES = LogicUtil.nextBoolean()
 
 	private ComicSeriesTemplatePublishersProcessor comicSeriesTemplatePublishersProcessorMock
 
@@ -34,6 +37,8 @@ class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 
 	private WikitextToStardateRangeProcessor wikitextToStardateRangeProcessorMock
 
+	private ComicSeriesTemplateMiniseriesProcessor comicSeriesTemplateMiniseriesProcessorMock
+
 	private ComicSeriesTemplatePartsEnrichingProcessor comicSeriesTemplatePartsEnrichingProcessor
 
 	void setup() {
@@ -42,9 +47,10 @@ class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 		comicSeriesTemplateNumberOfIssuesProcessorMock = Mock(ComicSeriesTemplateNumberOfIssuesProcessor)
 		wikitextToYearRangeProcessorMock = Mock(WikitextToYearRangeProcessor)
 		wikitextToStardateRangeProcessorMock = Mock(WikitextToStardateRangeProcessor)
+		comicSeriesTemplateMiniseriesProcessorMock = Mock(ComicSeriesTemplateMiniseriesProcessor)
 		comicSeriesTemplatePartsEnrichingProcessor = new ComicSeriesTemplatePartsEnrichingProcessor(comicSeriesTemplatePublishersProcessorMock,
 				comicSeriesPublishedDatesEnrichingProcessorMock, comicSeriesTemplateNumberOfIssuesProcessorMock, wikitextToYearRangeProcessorMock,
-				wikitextToStardateRangeProcessorMock)
+				wikitextToStardateRangeProcessorMock, comicSeriesTemplateMiniseriesProcessorMock)
 	}
 
 	void "sets publishers from ComicSeriesTemplatePublishersProcessor"() {
@@ -183,6 +189,33 @@ class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 		then:
 		0 * _
 		comicSeriesTemplate.stardateFrom == STARDATE_FROM
+	}
+
+	void "sets miniseries flag from ComicSeriesTemplateMiniseriesProcessor"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplatePartsEnrichingProcessor.SERIES, value: SERIES)
+		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate()
+
+		when:
+		comicSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicSeriesTemplate))
+
+		then:
+		1 * comicSeriesTemplateMiniseriesProcessorMock.process(SERIES) >> MINISERIES
+		0 * _
+		comicSeriesTemplate.miniseries == MINISERIES
+	}
+
+	void "does not set miniseries flag from ComicSeriesTemplateMiniseriesProcessor, when value is already present"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplatePartsEnrichingProcessor.SERIES, value: SERIES)
+		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate(miniseries: MINISERIES)
+
+		when:
+		comicSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicSeriesTemplate))
+
+		then:
+		0 * _
+		comicSeriesTemplate.miniseries == MINISERIES
 	}
 
 }

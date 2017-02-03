@@ -16,8 +16,7 @@ public class AstronomicalObjectProcessor extends CompositeItemProcessor<PageHead
 	@Inject
 	public AstronomicalObjectProcessor(PageHeaderProcessor pageHeaderProcessor, PlanetTemplatePageProcessor planetTemplatePageProcessor,
 			PlanetTemplateProcessor planetTemplateProcessor) {
-		setDelegates(Lists.newArrayList(pageHeaderProcessor, planetTemplatePageProcessor,
-				planetTemplateProcessor));
+		setDelegates(Lists.newArrayList(pageHeaderProcessor, planetTemplatePageProcessor, planetTemplateProcessor));
 	}
 
 }

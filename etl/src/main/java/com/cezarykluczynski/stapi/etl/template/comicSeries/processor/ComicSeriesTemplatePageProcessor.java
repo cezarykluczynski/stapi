@@ -30,14 +30,18 @@ public class ComicSeriesTemplatePageProcessor implements ItemProcessor<Page, Com
 
 	private ComicSeriesTemplateFixedValuesEnrichingProcessor comicSeriesTemplateFixedValuesEnrichingProcessor;
 
+	private ComicSeriesTemplatePhotonovelSeriesProcessor comicSeriesTemplatePhotonovelSeriesProcessor;
+
 	@Inject
 	public ComicSeriesTemplatePageProcessor(PageBindingService pageBindingService, TemplateFinder templateFinder,
 			ComicSeriesTemplatePartsEnrichingProcessor comicSeriesTemplatePartsEnrichingProcessor,
-			ComicSeriesTemplateFixedValuesEnrichingProcessor comicSeriesTemplateFixedValuesEnrichingProcessor) {
+			ComicSeriesTemplateFixedValuesEnrichingProcessor comicSeriesTemplateFixedValuesEnrichingProcessor,
+			ComicSeriesTemplatePhotonovelSeriesProcessor comicSeriesTemplatePhotonovelSeriesProcessor) {
 		this.pageBindingService = pageBindingService;
 		this.templateFinder = templateFinder;
 		this.comicSeriesTemplatePartsEnrichingProcessor = comicSeriesTemplatePartsEnrichingProcessor;
 		this.comicSeriesTemplateFixedValuesEnrichingProcessor = comicSeriesTemplateFixedValuesEnrichingProcessor;
+		this.comicSeriesTemplatePhotonovelSeriesProcessor = comicSeriesTemplatePhotonovelSeriesProcessor;
 	}
 
 	@Override
@@ -50,6 +54,7 @@ public class ComicSeriesTemplatePageProcessor implements ItemProcessor<Page, Com
 		comicSeriesTemplate.setTitle(item.getTitle());
 		comicSeriesTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 		comicSeriesTemplate.setProductOfRedirect(!item.getRedirectPath().isEmpty());
+		comicSeriesTemplate.setPhotonovelSeries(comicSeriesTemplatePhotonovelSeriesProcessor.process(item));
 
 		Optional<Template> sidebarIndividualTemplateOptional = templateFinder.findTemplate(item, TemplateName.SIDEBAR_COMIC_SERIES);
 

@@ -12,6 +12,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.ReflectionTestUtils
 import com.cezarykluczynski.stapi.util.constant.PageName
 import com.cezarykluczynski.stapi.util.constant.TemplateName
+import com.cezarykluczynski.stapi.util.tool.LogicUtil
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -20,6 +21,7 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 	private static final String TITLE = 'TITLE'
 	private static final Long PAGE_ID = 11L
 	private static final MediaWikiSource SOURCES_MEDIA_WIKI_SOURCE = MediaWikiSource.MEMORY_ALPHA_EN
+	private static final Boolean PHOTONOVEL_SERIES = LogicUtil.nextBoolean()
 
 	private PageBindingService pageBindingServiceMock
 
@@ -29,6 +31,8 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 
 	private ComicSeriesTemplateFixedValuesEnrichingProcessor comicSeriesTemplateFixedValuesEnrichingProcessorMock
 
+	private ComicSeriesTemplatePhotonovelSeriesProcessor comicSeriesTemplatePhotonovelSeriesProcessorMock
+
 	private ComicSeriesTemplatePageProcessor comicSeriesTemplatePageProcessor
 
 	void setup() {
@@ -36,8 +40,10 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 		templateFinderMock = Mock(TemplateFinder)
 		comicSeriesTemplatePartsEnrichingProcessorMock = Mock(ComicSeriesTemplatePartsEnrichingProcessor)
 		comicSeriesTemplateFixedValuesEnrichingProcessorMock = Mock(ComicSeriesTemplateFixedValuesEnrichingProcessor)
+		comicSeriesTemplatePhotonovelSeriesProcessorMock = Mock(ComicSeriesTemplatePhotonovelSeriesProcessor)
 		comicSeriesTemplatePageProcessor = new ComicSeriesTemplatePageProcessor(pageBindingServiceMock, templateFinderMock,
-				comicSeriesTemplatePartsEnrichingProcessorMock, comicSeriesTemplateFixedValuesEnrichingProcessorMock)
+				comicSeriesTemplatePartsEnrichingProcessorMock, comicSeriesTemplateFixedValuesEnrichingProcessorMock,
+				comicSeriesTemplatePhotonovelSeriesProcessorMock)
 	}
 
 	void "returns null when page is 'DC Comics TNG timeline'"() {
@@ -67,6 +73,7 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 
 		then:
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
+		1 * comicSeriesTemplatePhotonovelSeriesProcessorMock.process(page) >> PHOTONOVEL_SERIES
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_SERIES) >> Optional.empty()
 		1 * comicSeriesTemplateFixedValuesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 				EnrichablePair<ComicSeriesTemplate, ComicSeriesTemplate> enrichablePair ->
@@ -75,7 +82,8 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 		0 * _
 		comicSeriesTemplate.title == TITLE
 		comicSeriesTemplate.page == modelPage
-		ReflectionTestUtils.getNumberOfNotNullFields(comicSeriesTemplate) == 4
+		comicSeriesTemplate.photonovelSeries == PHOTONOVEL_SERIES
+		ReflectionTestUtils.getNumberOfNotNullFields(comicSeriesTemplate) == 5
 	}
 
 	void "sets productOfRedirect flag to true"() {
@@ -90,6 +98,7 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 
 		then:
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
+		1 * comicSeriesTemplatePhotonovelSeriesProcessorMock.process(page)
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_SERIES) >> Optional.empty()
 		1 * comicSeriesTemplateFixedValuesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 				EnrichablePair<ComicSeriesTemplate, ComicSeriesTemplate> enrichablePair ->
@@ -108,6 +117,7 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 
 		then:
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
+		1 * comicSeriesTemplatePhotonovelSeriesProcessorMock.process(page)
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_SERIES) >> Optional.empty()
 		1 * comicSeriesTemplateFixedValuesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 				EnrichablePair<ComicSeriesTemplate, ComicSeriesTemplate> enrichablePair ->
@@ -127,6 +137,7 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 
 		then:
 		1 * pageBindingServiceMock.fromPageToPageEntity(page)
+		1 * comicSeriesTemplatePhotonovelSeriesProcessorMock.process(page)
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_SERIES) >> Optional.of(sidebarComicSeriesTemplate)
 		1 * comicSeriesTemplateFixedValuesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 				EnrichablePair<ComicSeriesTemplate, ComicSeriesTemplate> enrichablePair ->

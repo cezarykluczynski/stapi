@@ -36,8 +36,8 @@ public class ComicSeriesTemplateProcessor implements ItemProcessor<ComicSeriesTe
 		comicSeries.setStardateTo(item.getStardateTo());
 		comicSeries.setYearFrom(item.getYearFrom());
 		comicSeries.setYearTo(item.getYearTo());
-		comicSeries.setMiniseries(item.getMiniseries());
-		comicSeries.setPhotonovelSeries(item.getPhotonovelSeries());
+		comicSeries.setMiniseries(item.getMiniseries() != null && item.getMiniseries());
+		comicSeries.setPhotonovelSeries(item.getPhotonovelSeries() != null && item.getPhotonovelSeries());
 		comicSeries.getPublishers().addAll(item.getPublishers());
 
 		return comicSeries;

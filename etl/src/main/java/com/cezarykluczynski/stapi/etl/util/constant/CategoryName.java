@@ -132,5 +132,6 @@ public class CategoryName {
 	public static final String VIDEO_GAME_COMPANIES = "Video_game_companies";
 
 	public static final String COMIC_SERIES = "Comic_series";
+	public static final String PHOTONOVEL_SERIES = "Photonovel_series";
 
 }

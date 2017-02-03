@@ -21,6 +21,7 @@ public class ComicSeriesTemplatePartsEnrichingProcessor implements ItemEnriching
 	private static final String ISSUES = "issues";
 	private static final String YEAR = "year";
 	private static final String STARDATE = "stardate";
+	private static final String SERIES = "series";
 
 	private ComicSeriesTemplatePublishersProcessor comicSeriesTemplatePublishersProcessor;
 
@@ -32,17 +33,21 @@ public class ComicSeriesTemplatePartsEnrichingProcessor implements ItemEnriching
 
 	private WikitextToStardateRangeProcessor wikitextToStardateRangeProcessor;
 
+	private ComicSeriesTemplateMiniseriesProcessor comicSeriesTemplateMiniseriesProcessor;
+
 	@Inject
 	public ComicSeriesTemplatePartsEnrichingProcessor(ComicSeriesTemplatePublishersProcessor comicSeriesTemplatePublishersProcessor,
 			ComicSeriesPublishedDatesEnrichingProcessor comicSeriesPublishedDatesEnrichingProcessor,
 			ComicSeriesTemplateNumberOfIssuesProcessor comicSeriesTemplateNumberOfIssuesProcessor,
 			WikitextToYearRangeProcessor wikitextToYearRangeProcessor,
-			WikitextToStardateRangeProcessor wikitextToStardateRangeProcessor) {
+			WikitextToStardateRangeProcessor wikitextToStardateRangeProcessor,
+			ComicSeriesTemplateMiniseriesProcessor comicSeriesTemplateMiniseriesProcessor) {
 		this.comicSeriesTemplatePublishersProcessor = comicSeriesTemplatePublishersProcessor;
 		this.comicSeriesPublishedDatesEnrichingProcessor = comicSeriesPublishedDatesEnrichingProcessor;
 		this.comicSeriesTemplateNumberOfIssuesProcessor = comicSeriesTemplateNumberOfIssuesProcessor;
 		this.wikitextToYearRangeProcessor = wikitextToYearRangeProcessor;
 		this.wikitextToStardateRangeProcessor = wikitextToStardateRangeProcessor;
+		this.comicSeriesTemplateMiniseriesProcessor = comicSeriesTemplateMiniseriesProcessor;
 	}
 
 	@Override
@@ -83,6 +88,11 @@ public class ComicSeriesTemplatePartsEnrichingProcessor implements ItemEnriching
 							comicSeriesTemplate.setStardateFrom(stardateRange.getStardateFrom());
 							comicSeriesTemplate.setStardateTo(stardateRange.getStardateTo());
 						}
+					}
+					break;
+				case SERIES:
+					if (comicSeriesTemplate.getMiniseries() == null) {
+						comicSeriesTemplate.setMiniseries(comicSeriesTemplateMiniseriesProcessor.process(value));
 					}
 					break;
 				default:

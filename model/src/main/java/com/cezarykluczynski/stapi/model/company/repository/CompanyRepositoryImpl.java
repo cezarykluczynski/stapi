@@ -44,6 +44,7 @@ public class CompanyRepositoryImpl implements CompanyRepositoryCustom {
 		companyQueryBuilder.equal(Company_.specialEffectsCompany, criteria.getSpecialEffectsCompany());
 		companyQueryBuilder.equal(Company_.tvAndFilmProductionCompany, criteria.getTvAndFilmProductionCompany());
 		companyQueryBuilder.equal(Company_.videoGameCompany, criteria.getVideoGameCompany());
+		companyQueryBuilder.setSort(criteria.getSort());
 
 		return companyQueryBuilder.findPage();
 	}

@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.model.company.repository
 
 import com.cezarykluczynski.stapi.model.character.entity.Character
+import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.company.dto.CompanyRequestDTO
 import com.cezarykluczynski.stapi.model.company.entity.Company
@@ -12,6 +13,8 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
 class CompanyRepositoryImplTest extends AbstractCompanyTest {
+
+	private static final RequestSortDTO SORT = new RequestSortDTO()
 
 	private CompanyQueryBuilderFactory companyQueryBuilderFactory
 
@@ -117,6 +120,10 @@ class CompanyRepositoryImplTest extends AbstractCompanyTest {
 		1 * companyQueryBuilder.equal(Company_.tvAndFilmProductionCompany, TV_AND_FILM_PRODUCTION_COMPANY)
 		1 * companyRequestDTO.videoGameCompany >> VIDEO_GAME_COMPANY
 		1 * companyQueryBuilder.equal(Company_.videoGameCompany, VIDEO_GAME_COMPANY)
+
+		then: 'sort is set'
+		1 * companyRequestDTO.sort >> SORT
+		1 * companyQueryBuilder.setSort(SORT)
 
 		then: 'page is retrieved'
 		1 * companyQueryBuilder.findPage() >> page
