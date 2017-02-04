@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:common="http://stapi.co/api/v1/soap/common"
+		xmlns:comicSeries="http://stapi.co/api/v1/soap/comicSeries"
+		elementFormDefault="qualified"
+		targetNamespace="http://stapi.co/api/v1/soap/comicSeries">
+	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
+	<xs:element name="ComicSeriesRequest">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Request">
+					<xs:sequence>
+						<xs:element name="guid" type="xs:string" minOccurs="0"/>
+						<xs:element name="title" type="xs:string" minOccurs="0"/>
+						<xs:element name="publishedYear" type="common:IntegerRange" minOccurs="0"/>
+						<xs:element name="numberOfIssues" type="common:IntegerRange" minOccurs="0"/>
+						<xs:element name="stardate" type="common:FloatRange" minOccurs="0"/>
+						<xs:element name="year" type="common:IntegerRange" minOccurs="0"/>
+						<xs:element name="miniseries" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="photonovelSeries" type="xs:boolean" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ComicSeriesResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Response">
+					<xs:sequence>
+						<xs:element name="comicSeries" type="comicSeries:ComicSeries" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ComicSeries">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="title" type="xs:string"/>
+			<xs:element name="publishedYearFrom" type="xs:int" minOccurs="0"/>
+			<xs:element name="publishedMonthFrom" type="xs:int" minOccurs="0"/>
+			<xs:element name="publishedDayFrom" type="xs:int" minOccurs="0"/>
+			<xs:element name="publishedYearTo" type="xs:int" minOccurs="0"/>
+			<xs:element name="publishedMonthTo" type="xs:int" minOccurs="0"/>
+			<xs:element name="publishedDayTo" type="xs:int" minOccurs="0"/>
+			<xs:element name="numberOfIssues" type="xs:int" minOccurs="0"/>
+			<xs:element name="stardateFrom" type="xs:float" minOccurs="0"/>
+			<xs:element name="stardateTo" type="xs:float" minOccurs="0"/>
+			<xs:element name="yearFrom" type="xs:integer" minOccurs="0"/>
+			<xs:element name="yearTo" type="xs:integer" minOccurs="0"/>
+			<xs:element name="miniseries" type="xs:boolean"/>
+			<xs:element name="photonovelSeries" type="xs:boolean"/>
+
+			<xs:sequence>
+				<xs:element name="parentSeriesHeaders" type="comicSeries:ComicSeriesHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="childSeriesHeaders" type="comicSeries:ComicSeriesHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ComicSeriesHeader">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="title" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

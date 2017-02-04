@@ -65,14 +65,14 @@ class MovieInitialQueryBuilderFactoryTest extends Specification {
 
 		then: 'integer criteria are set'
 		1 * movieRequestDTO.yearFrom >> YEAR_FROM
-		1 * movieRequestDTO.yearTo >> YEAR_TO
 		1 * movieQueryBuilder.between(Movie_.yearFrom, YEAR_FROM, null)
+		1 * movieRequestDTO.yearTo >> YEAR_TO
 		1 * movieQueryBuilder.between(Movie_.yearTo, null, YEAR_TO)
 
 		then: 'float criteria are set'
 		1 * movieRequestDTO.stardateFrom >> STARDATE_FROM
-		1 * movieRequestDTO.stardateTo >> STARDATE_TO
 		1 * movieQueryBuilder.between(Movie_.stardateFrom, STARDATE_FROM, null)
+		1 * movieRequestDTO.stardateTo >> STARDATE_TO
 		1 * movieQueryBuilder.between(Movie_.stardateTo, null, STARDATE_TO)
 
 		then: 'date criteria are set'

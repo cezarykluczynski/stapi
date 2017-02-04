@@ -84,14 +84,14 @@ class EpisodeRepositoryImplTest extends Specification {
 		1 * episodeRequestDTO.episodeNumberTo >> EPISODE_NUMBER_TO
 		1 * episodeQueryBuilder.between(Episode_.episodeNumber, EPISODE_NUMBER_FROM, EPISODE_NUMBER_TO)
 		1 * episodeRequestDTO.yearFrom >> YEAR_FROM
-		1 * episodeRequestDTO.yearTo >> YEAR_TO
 		1 * episodeQueryBuilder.between(Episode_.yearFrom, YEAR_FROM, null)
+		1 * episodeRequestDTO.yearTo >> YEAR_TO
 		1 * episodeQueryBuilder.between(Episode_.yearTo, null, YEAR_TO)
 
 		then: 'float criteria are set'
 		1 * episodeRequestDTO.stardateFrom >> STARDATE_FROM
-		1 * episodeRequestDTO.stardateTo >> STARDATE_TO
 		1 * episodeQueryBuilder.between(Episode_.stardateFrom, STARDATE_FROM, null)
+		1 * episodeRequestDTO.stardateTo >> STARDATE_TO
 		1 * episodeQueryBuilder.between(Episode_.stardateTo, null, STARDATE_TO)
 
 		then: 'boolean criteria are set'

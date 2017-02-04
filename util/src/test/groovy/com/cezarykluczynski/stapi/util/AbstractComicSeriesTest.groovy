@@ -14,6 +14,8 @@ abstract class AbstractComicSeriesTest extends Specification {
 	protected static final Integer PUBLISHED_MONTH_TO = 6
 	protected static final Integer PUBLISHED_DAY_TO = 17
 	protected static final Integer NUMBER_OF_ISSUES = 9
+	protected static final Integer NUMBER_OF_ISSUES_FROM = 13
+	protected static final Integer NUMBER_OF_ISSUES_TO = 15
 	protected static final Float STARDATE_FROM = 12093.5F
 	protected static final Float STARDATE_TO = 12321.4F
 	protected static final Integer YEAR_FROM = 2350

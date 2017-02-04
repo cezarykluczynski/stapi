@@ -50,17 +50,17 @@
 			<xs:element name="guid" type="xs:string"/>
 			<xs:element name="series" type="series:SeriesHeader"/>
 			<xs:element name="title" type="xs:string"/>
-			<xs:element name="titleGerman" type="xs:string"/>
-			<xs:element name="titleItalian" type="xs:string"/>
-			<xs:element name="titleJapanese" type="xs:string"/>
+			<xs:element name="titleGerman" type="xs:string" minOccurs="0"/>
+			<xs:element name="titleItalian" type="xs:string" minOccurs="0"/>
+			<xs:element name="titleJapanese" type="xs:string" minOccurs="0"/>
 			<xs:element name="seasonNumber" type="xs:int"/>
 			<xs:element name="episodeNumber" type="xs:int"/>
-			<xs:element name="productionSerialNumber" type="xs:string"/>
+			<xs:element name="productionSerialNumber" type="xs:string" minOccurs="0"/>
 			<xs:element name="featureLength" type="xs:boolean"/>
-			<xs:element name="stardate_from" type="xs:float"/>
-			<xs:element name="stardate_to" type="xs:float"/>
-			<xs:element name="year_from" type="xs:integer"/>
-			<xs:element name="year_to" type="xs:integer"/>
+			<xs:element name="stardate_from" type="xs:float" minOccurs="0"/>
+			<xs:element name="stardate_to" type="xs:float" minOccurs="0"/>
+			<xs:element name="year_from" type="xs:integer" minOccurs="0"/>
+			<xs:element name="year_to" type="xs:integer" minOccurs="0"/>
 			<xs:element name="usAirDate" type="xs:date" minOccurs="0"/>
 			<xs:element name="finalScriptDate" type="xs:date" minOccurs="0"/>
 			<xs:sequence>

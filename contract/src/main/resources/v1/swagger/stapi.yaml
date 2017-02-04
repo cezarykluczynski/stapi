@@ -13,6 +13,8 @@ paths:
     $ref: ./astronomicalObject/path/astronomicalObject.path.yaml
   /character:
     $ref: ./character/path/character.path.yaml
+  /comicSeries:
+    $ref: ./comicSeries/path/comicSeries.path.yaml
   /company:
     $ref: ./company/path/company.path.yaml
   /episode:
@@ -38,6 +40,12 @@ definitions:
     $ref: ./character/entity/characterHeader.yaml
   CharacterResponse:
     $ref: ./character/entity/characterResponse.yaml
+  ComicSeries:
+    $ref: ./comicSeries/entity/comicSeries.yaml
+  ComicSeriesHeader:
+    $ref: ./comicSeries/entity/comicSeriesHeader.yaml
+  ComicSeriesResponse:
+    $ref: ./comicSeries/entity/comicSeriesResponse.yaml
   Company:
     $ref: ./company/entity/company.yaml
   CompanyHeader:

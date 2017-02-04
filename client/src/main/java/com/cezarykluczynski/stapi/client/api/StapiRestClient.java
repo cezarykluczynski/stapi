@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.client.api;
 
 import com.cezarykluczynski.stapi.client.v1.rest.api.AstronomicalObjectApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.CharacterApi;
+import com.cezarykluczynski.stapi.client.v1.rest.api.ComicSeriesApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.CompanyApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.EpisodeApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.MovieApi;
@@ -41,6 +42,9 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 	@Getter
 	private CompanyApi companyApi;
 
+	@Getter
+	private ComicSeriesApi comicSeriesApi;
+
 	public StapiRestClient() {
 		seriesApi = new SeriesApi();
 		performerApi = new PerformerApi();
@@ -50,6 +54,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 		movieApi = new MovieApi();
 		astronomicalObjectApi = new AstronomicalObjectApi();
 		companyApi = new CompanyApi();
+		comicSeriesApi = new ComicSeriesApi();
 	}
 
 	public StapiRestClient(String apiUrl) {
@@ -63,6 +68,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 		movieApi = new MovieApi(apiClient);
 		astronomicalObjectApi = new AstronomicalObjectApi(apiClient);
 		companyApi = new CompanyApi(apiClient);
+		comicSeriesApi = new ComicSeriesApi(apiClient);
 	}
 
 	private void createApiClient() {

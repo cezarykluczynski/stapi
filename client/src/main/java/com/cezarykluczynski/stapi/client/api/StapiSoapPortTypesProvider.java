@@ -4,6 +4,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectService;
 import com.cezarykluczynski.stapi.client.v1.soap.CharacterPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.CharacterService;
+import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesService;
 import com.cezarykluczynski.stapi.client.v1.soap.CompanyPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.CompanyService;
 import com.cezarykluczynski.stapi.client.v1.soap.EpisodePortType;
@@ -49,6 +51,9 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 	@Getter
 	private CompanyPortType companyPortType;
 
+	@Getter
+	private ComicSeriesPortType comicSeriesPortType;
+
 	public StapiSoapPortTypesProvider() {
 		seriesPortType = new SeriesService().getSeriesPortType();
 		performerPortType = new PerformerService().getPerformerPortType();
@@ -58,6 +63,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		moviePortType = new MovieService().getMoviePortType();
 		astronomicalObjectPortType = new AstronomicalObjectService().getAstronomicalObjectPortType();
 		companyPortType = new CompanyService().getCompanyPortType();
+		comicSeriesPortType = new ComicSeriesService().getComicSeriesPortType();
 	}
 
 	public StapiSoapPortTypesProvider(String apiUrl) {
@@ -70,6 +76,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		moviePortType = (MoviePortType) changeUrl(new MovieService().getMoviePortType());
 		astronomicalObjectPortType = (AstronomicalObjectPortType) changeUrl(new AstronomicalObjectService().getAstronomicalObjectPortType());
 		companyPortType = (CompanyPortType) changeUrl(new CompanyService().getCompanyPortType());
+		comicSeriesPortType = (ComicSeriesPortType) changeUrl(new ComicSeriesService().getComicSeriesPortType());
 	}
 
 	private Object changeUrl(Object service) {

@@ -73,6 +73,12 @@ public class ComicSeries extends PageAwareEntity implements PageAware {
 	private Set<ComicSeries> parentSeries = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "comic_series_comic_series",
+			joinColumns = @JoinColumn(name = "comic_series_parent_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "comic_series_id", nullable = false, updatable = false))
+	private Set<ComicSeries> childSeries = Sets.newHashSet();
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "comic_series_publishers",
 			joinColumns = @JoinColumn(name = "comic_series_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "company_id", nullable = false, updatable = false))
