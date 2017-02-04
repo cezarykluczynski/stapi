@@ -100,4 +100,5 @@ public class ComicSeriesTemplatePartsEnrichingProcessor implements ItemEnriching
 			}
 		}
 	}
+
 }
