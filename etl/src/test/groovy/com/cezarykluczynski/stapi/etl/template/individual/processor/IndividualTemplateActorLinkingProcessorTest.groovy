@@ -12,7 +12,7 @@ import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import spock.lang.Specification
 
-class IndividualActorLinkingProcessorTest extends Specification {
+class IndividualTemplateActorLinkingProcessorTest extends Specification {
 
 	private static final String VALUE = 'VALUE'
 	private static final String TITLE_1 = 'TITLE_1'
@@ -28,23 +28,23 @@ class IndividualActorLinkingProcessorTest extends Specification {
 
 	private PerformerRepository performerRepositoryMock
 
-	private IndividualActorLinkingProcessor individualActorLinkingProcessor
+	private IndividualTemplateActorLinkingProcessor individualTemplateActorLinkingProcessor
 
 	void setup() {
 		wikitextApiMock = Mock(WikitextApi)
 		performerRepositoryMock = Mock(PerformerRepository)
-		individualActorLinkingProcessor = new IndividualActorLinkingProcessor(wikitextApiMock, performerRepositoryMock)
+		individualTemplateActorLinkingProcessor = new IndividualTemplateActorLinkingProcessor(wikitextApiMock, performerRepositoryMock)
 	}
 
 	void "should do nothing if either template part or individual template is null"() {
 		when: 'Template.Part is null'
-		individualActorLinkingProcessor.enrich(EnrichablePair.of(null, new IndividualTemplate()))
+		individualTemplateActorLinkingProcessor.enrich(EnrichablePair.of(null, new IndividualTemplate()))
 
 		then: 'there is no interactions with dependencies'
 		0 * _
 
 		when: 'Template.Part is null'
-		individualActorLinkingProcessor.enrich(EnrichablePair.of(new Template.Part(), null))
+		individualTemplateActorLinkingProcessor.enrich(EnrichablePair.of(new Template.Part(), null))
 
 		then: 'there is no interactions with dependencies'
 		0 * _
@@ -68,7 +68,7 @@ class IndividualActorLinkingProcessorTest extends Specification {
 		Performer performer4 = new Performer(id: ID_2)
 
 		when:
-		individualActorLinkingProcessor.enrich(EnrichablePair.of(templatePart, individualTemplate))
+		individualTemplateActorLinkingProcessor.enrich(EnrichablePair.of(templatePart, individualTemplate))
 
 		then: 'page links are found'
 		1 * wikitextApiMock.getPageLinksFromWikitext(VALUE) >> Lists.newArrayList(

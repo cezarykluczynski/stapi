@@ -21,7 +21,6 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 	private static final Integer YEAR = 1970
 	private static final Integer MONTH = 10
 	private static final Integer DAY = 7
-	private static final String PLACE = 'PLACE'
 	private static final Gender GENDER = Gender.F
 	private static final MaritalStatus MARITAL_STATUS = MaritalStatus.MARRIED
 	private static final BloodType BLOOD_TYPE = BloodType.B_NEGATIVE
@@ -30,7 +29,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 
 	private IndividualLifeBoundaryProcessor individualLifeBoundaryProcessorMock
 
-	private IndividualActorLinkingProcessor individualActorLinkingProcessorMock
+	private IndividualTemplateActorLinkingProcessor individualActorLinkingProcessorMock
 
 	private IndividualHeightProcessor individualHeightProcessorMock
 
@@ -45,7 +44,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 	void setup() {
 		partToGenderProcessorMock = Mock(PartToGenderProcessor)
 		individualLifeBoundaryProcessorMock = Mock(IndividualLifeBoundaryProcessor)
-		individualActorLinkingProcessorMock = Mock(IndividualActorLinkingProcessor)
+		individualActorLinkingProcessorMock = Mock(IndividualTemplateActorLinkingProcessor)
 		individualHeightProcessorMock = Mock(IndividualHeightProcessor)
 		individualWeightProcessorMock = Mock(IndividualWeightProcessor)
 		individualBloodTypeProcessorMock = Mock(IndividualBloodTypeProcessor)
@@ -164,9 +163,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		IndividualLifeBoundaryDTO individualLifeBoundaryDTO = new IndividualLifeBoundaryDTO(
 				year: YEAR,
 				month: MONTH,
-				day: DAY,
-				place: PLACE
-		)
+				day: DAY)
 		IndividualTemplate individualTemplate = new IndividualTemplate()
 
 		when:
@@ -178,8 +175,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		individualTemplate.yearOfBirth == YEAR
 		individualTemplate.monthOfBirth == MONTH
 		individualTemplate.dayOfBirth == DAY
-		individualTemplate.placeOfBirth == PLACE
-		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 6
+		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 5
 	}
 
 	void "sets death values from IndividualLifeBoundaryProcessor"() {
@@ -190,9 +186,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		IndividualLifeBoundaryDTO individualLifeBoundaryDTO = new IndividualLifeBoundaryDTO(
 				year: YEAR,
 				month: MONTH,
-				day: DAY,
-				place: PLACE
-		)
+				day: DAY)
 		IndividualTemplate individualTemplate = new IndividualTemplate()
 
 		when:
@@ -204,8 +198,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		individualTemplate.yearOfDeath == YEAR
 		individualTemplate.monthOfDeath == MONTH
 		individualTemplate.dayOfDeath == DAY
-		individualTemplate.placeOfDeath == PLACE
-		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 6
+		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 5
 	}
 
 	void "sets marital status from MaritalStatusProcessor"() {

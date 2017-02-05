@@ -26,7 +26,6 @@ class CharacterboxTemplateProcessorTest extends Specification {
 	private static final Integer YEAR = 1970
 	private static final Integer MONTH = 10
 	private static final Integer DAY = 7
-	private static final String PLACE = 'PLACE'
 	private static final Gender GENDER = Gender.F
 	private static final MaritalStatus MARITAL_STATUS = MaritalStatus.MARRIED
 
@@ -131,9 +130,7 @@ class CharacterboxTemplateProcessorTest extends Specification {
 		IndividualLifeBoundaryDTO individualLifeBoundaryDTO = new IndividualLifeBoundaryDTO(
 				year: YEAR,
 				month: MONTH,
-				day: DAY,
-				place: PLACE
-		)
+				day: DAY)
 		Template template = createTemplateWithTemplatePart(templatePart)
 		Page page = createPageWithTemplate(template)
 
@@ -147,8 +144,7 @@ class CharacterboxTemplateProcessorTest extends Specification {
 		characterboxTemplate.yearOfBirth == YEAR
 		characterboxTemplate.monthOfBirth == MONTH
 		characterboxTemplate.dayOfBirth == DAY
-		characterboxTemplate.placeOfBirth == PLACE
-		ReflectionTestUtils.getNumberOfNotNullFields(characterboxTemplate) == 4
+		ReflectionTestUtils.getNumberOfNotNullFields(characterboxTemplate) == 3
 	}
 
 	void "sets death values from IndividualLifeBoundaryProcessor"() {
@@ -159,9 +155,7 @@ class CharacterboxTemplateProcessorTest extends Specification {
 		IndividualLifeBoundaryDTO individualLifeBoundaryDTO = new IndividualLifeBoundaryDTO(
 				year: YEAR,
 				month: MONTH,
-				day: DAY,
-				place: PLACE
-		)
+				day: DAY)
 		Template template = createTemplateWithTemplatePart(templatePart)
 		Page page = createPageWithTemplate(template)
 
@@ -175,8 +169,7 @@ class CharacterboxTemplateProcessorTest extends Specification {
 		characterboxTemplate.yearOfDeath == YEAR
 		characterboxTemplate.monthOfDeath == MONTH
 		characterboxTemplate.dayOfDeath == DAY
-		characterboxTemplate.placeOfDeath == PLACE
-		ReflectionTestUtils.getNumberOfNotNullFields(characterboxTemplate) == 4
+		ReflectionTestUtils.getNumberOfNotNullFields(characterboxTemplate) == 3
 	}
 
 	void "returns null when Characterbox template is not found"() {

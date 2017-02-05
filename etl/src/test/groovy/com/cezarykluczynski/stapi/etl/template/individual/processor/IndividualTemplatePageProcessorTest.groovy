@@ -4,220 +4,56 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.template.characterbox.processor.CharacterboxIndividualTemplateEnrichingProcessor
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate
+import com.cezarykluczynski.stapi.etl.template.individual.service.IndividualTemplateFilter
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
 import com.cezarykluczynski.stapi.model.page.entity.Page as PageEntity
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource as SourcesMediaWikiSource
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.ReflectionTestUtils
-import com.cezarykluczynski.stapi.util.constant.PageName
 import com.cezarykluczynski.stapi.util.constant.TemplateName
 import com.google.common.collect.Lists
-import org.apache.commons.lang3.StringUtils
 import spock.lang.Specification
 
 class IndividualTemplatePageProcessorTest extends Specification {
 
 	private static final String TITLE = 'TITLE'
-	private static final String WIKITEXT = 'WIKITEXT'
 	private static final Long PAGE_ID = 11L
 	private static final SourcesMediaWikiSource SOURCES_MEDIA_WIKI_SOURCE = SourcesMediaWikiSource.MEMORY_ALPHA_EN
 
-	private IndividualDateOfDeathEnrichingProcessor individualDateOfDeathEnrichingProcessorMock
-
-	private WikitextApi wikitextApiMock
+	private IndividualTemplateFilter individualTemplateFilterMock
 
 	private PageBindingService pageBindingServiceMock
 
 	private TemplateFinder templateFinderMock
 
-	private IndividualTemplatePartsEnrichingProcessor individualTemplatePartsEnrichingProcessorMock
-
-	private IndividualMirrorAlternateUniverseEnrichingProcessor individualMirrorAlternateUniverseEnrichingProcessorMock
+	private IndividualTemplateCompositeEnrichingProcessor invidiualTemplateCompositeEnrichingProcessorMock
 
 	private CharacterboxIndividualTemplateEnrichingProcessor characterboxIndividualTemplateEnrichingProcessorMock
 
 	private IndividualTemplatePageProcessor individualTemplatePageProcessor
 
 	void setup() {
-		individualDateOfDeathEnrichingProcessorMock = Mock(IndividualDateOfDeathEnrichingProcessor)
-		wikitextApiMock = Mock(WikitextApi)
+		individualTemplateFilterMock = Mock(IndividualTemplateFilter)
 		pageBindingServiceMock = Mock(PageBindingService)
 		templateFinderMock = Mock(TemplateFinder)
-		individualTemplatePartsEnrichingProcessorMock = Mock(IndividualTemplatePartsEnrichingProcessor)
-		individualMirrorAlternateUniverseEnrichingProcessorMock = Mock(IndividualMirrorAlternateUniverseEnrichingProcessor)
+		invidiualTemplateCompositeEnrichingProcessorMock = Mock(IndividualTemplateCompositeEnrichingProcessor)
 		characterboxIndividualTemplateEnrichingProcessorMock = Mock(CharacterboxIndividualTemplateEnrichingProcessor)
-		individualTemplatePageProcessor = new IndividualTemplatePageProcessor(individualDateOfDeathEnrichingProcessorMock,
-				wikitextApiMock, pageBindingServiceMock, templateFinderMock, individualTemplatePartsEnrichingProcessorMock,
-				individualMirrorAlternateUniverseEnrichingProcessorMock, characterboxIndividualTemplateEnrichingProcessorMock)
+		individualTemplatePageProcessor = new IndividualTemplatePageProcessor(individualTemplateFilterMock,
+				pageBindingServiceMock, templateFinderMock, invidiualTemplateCompositeEnrichingProcessorMock,
+				characterboxIndividualTemplateEnrichingProcessorMock)
 	}
 
-	void "returns null when page name starts with 'Unnamed '"() {
+	void "returns null when IndividualTemplateFilter returns true"() {
 		given:
-		Page page = new Page(
-				title: 'Unnamed humanoids',
-				categories: Lists.newArrayList(),
-				templates: Lists.newArrayList())
+		Page page = new Page()
 
 		when:
 		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
 
 		then:
-		individualTemplate == null
-	}
-
-	void "returns null when page name starts with 'List of '"() {
-		given:
-		Page page = new Page(
-				title: 'List of some people',
-				categories: Lists.newArrayList(),
-				templates: Lists.newArrayList())
-
-		when:
-		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
-
-		then:
-		individualTemplate == null
-	}
-
-	void "returns null when page name starts with 'Memory Alpha images '"() {
-		given:
-		Page page = new Page(
-				title: 'Memory Alpha images (Greek gods)',
-				categories: Lists.newArrayList(),
-				templates: Lists.newArrayList())
-
-		when:
-		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
-
-		then:
-		individualTemplate == null
-	}
-
-	void "returns null when page name contains 'personnel'"() {
-		given:
-		Page page = new Page(
-				title: PageName.MEMORY_ALPHA_PERSONNEL,
-				categories: Lists.newArrayList(),
-				templates: Lists.newArrayList())
-
-		when:
-		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
-
-		then:
-		individualTemplate == null
-	}
-
-	void "returns null when category list contains Production lists"() {
-		given:
-		Page page = new Page(
-				title: TITLE,
-				categories: Lists.newArrayList(
-						new CategoryHeader(title: CategoryName.PRODUCTION_LISTS)
-				),
-				templates: Lists.newArrayList())
-
-		when:
-		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
-
-		then:
-		individualTemplate == null
-	}
-
-	void "returns null when category list contains Families"() {
-		given:
-		Page page = new Page(
-				title: TITLE,
-				categories: Lists.newArrayList(
-						new CategoryHeader(title: CategoryName.FAMILIES)
-				),
-				templates: Lists.newArrayList())
-
-		when:
-		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
-
-		then:
-		individualTemplate == null
-	}
-
-	void "returns null when category list contains Personnel lists"() {
-		given:
-		Page page = new Page(
-				title: TITLE,
-				categories: Lists.newArrayList(
-						new CategoryHeader(title: CategoryName.PERSONNEL_LISTS)
-				),
-				templates: Lists.newArrayList())
-
-		when:
-		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
-
-		then:
-		individualTemplate == null
-	}
-
-	void "returns null when category list contains Lists"() {
-		given:
-		Page page = new Page(
-				title: TITLE,
-				categories: Lists.newArrayList(
-						new CategoryHeader(title: CategoryName.LISTS)
-				),
-				templates: Lists.newArrayList())
-
-		when:
-		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
-
-		then:
-		individualTemplate == null
-	}
-
-	void "returns null when category list contains category that start with 'Unnamed'"() {
-		given:
-		Page page = new Page(
-				title: TITLE,
-				categories: Lists.newArrayList(
-						new CategoryHeader(title: 'Unnamed Klingons')
-				),
-				templates: Lists.newArrayList())
-
-		when:
-		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
-
-		then:
-		individualTemplate == null
-	}
-
-	void "returns null when page is sorted on top of any category"() {
-		given:
-		Page page = new Page(
-				title: TITLE,
-				wikitext: WIKITEXT,
-				categories: Lists.newArrayList(),
-				templates: Lists.newArrayList())
-
-		when:
-		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
-
-		then:
-		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT) >> Lists.newArrayList(
-				new PageLink(
-						title: 'Category:Some page'
-				),
-				new PageLink(
-						title: 'category:Some other page',
-						description: StringUtils.EMPTY
-				),
-				new PageLink(
-						title: 'category:Yet another page',
-						description: 'Page, yet another'
-				)
-		)
+		1 * individualTemplateFilterMock.shouldBeFilteredOut(page) >> true
 		individualTemplate == null
 	}
 
@@ -235,8 +71,8 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
 
 		then:
+		1 * individualTemplateFilterMock.shouldBeFilteredOut(page) >> false
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.empty()
-		1 * wikitextApiMock.getPageLinksFromWikitext(null) >> Lists.newArrayList()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> pageEntity
 		0 * _
 		individualTemplate.name == TITLE
@@ -250,12 +86,12 @@ class IndividualTemplatePageProcessorTest extends Specification {
 				title: TITLE + ' (civilian)',
 				categories: Lists.newArrayList(),
 				templates: Lists.newArrayList())
-		wikitextApiMock.getPageLinksFromWikitext(*_) >> Lists.newArrayList()
 
 		when:
 		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
 
 		then:
+		1 * individualTemplateFilterMock.shouldBeFilteredOut(page) >> false
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> new PageEntity()
 		individualTemplate.name == TITLE
@@ -268,12 +104,12 @@ class IndividualTemplatePageProcessorTest extends Specification {
 				title: TITLE,
 				redirectPath: Lists.newArrayList(Mock(PageHeader))
 		)
-		wikitextApiMock.getPageLinksFromWikitext(_) >> Lists.newArrayList()
 
 		when:
 		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
 
 		then:
+		1 * individualTemplateFilterMock.shouldBeFilteredOut(page) >> false
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.empty()
 		individualTemplate.productOfRedirect
 	}
@@ -283,12 +119,12 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		Page page = new Page(
 				title: TITLE
 		)
-		wikitextApiMock.getPageLinksFromWikitext(_) >> Lists.newArrayList()
 
 		when:
 		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
 
 		then:
+		1 * individualTemplateFilterMock.shouldBeFilteredOut(page) >> false
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.empty()
 		!individualTemplate.productOfRedirect
 	}
@@ -300,24 +136,15 @@ class IndividualTemplatePageProcessorTest extends Specification {
 				title: TITLE
 		)
 		Template sidebarIndividualTemplate = new Template(parts: templatePartList)
-		wikitextApiMock.getPageLinksFromWikitext(_) >> Lists.newArrayList()
 
 		when:
 		individualTemplatePageProcessor.process(page)
 
 		then:
-		1 * wikitextApiMock.getPageLinksFromWikitext(_) >> Lists.newArrayList()
+		1 * individualTemplateFilterMock.shouldBeFilteredOut(page) >> false
 		1 * pageBindingServiceMock.fromPageToPageEntity(page)
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.of(sidebarIndividualTemplate)
-		1 * individualDateOfDeathEnrichingProcessorMock.enrich(_) >> { EnrichablePair<Template, IndividualTemplate> enrichablePair ->
-			assert enrichablePair.input == sidebarIndividualTemplate
-			assert enrichablePair.output != null
-		}
-		1 * individualTemplatePartsEnrichingProcessorMock.enrich(_) >> { EnrichablePair<List<Template.Part>, IndividualTemplate> enrichablePair ->
-			assert enrichablePair.input == templatePartList
-			assert enrichablePair.output != null
-		}
-		1 * individualMirrorAlternateUniverseEnrichingProcessorMock.enrich(_) >> { EnrichablePair<Page, IndividualTemplate> enrichablePair ->
+		1 * invidiualTemplateCompositeEnrichingProcessorMock.enrich(_) >> { EnrichablePair<Page, IndividualTemplate> enrichablePair ->
 			assert enrichablePair.input == page
 			assert enrichablePair.output != null
 		}
@@ -333,24 +160,15 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		)
 		Template sidebarIndividualTemplate = new Template(parts: templatePartList)
 		Template mbetaTemplate = Mock(Template)
-		wikitextApiMock.getPageLinksFromWikitext(_) >> Lists.newArrayList()
 
 		when:
 		individualTemplatePageProcessor.process(page)
 
 		then:
-		1 * wikitextApiMock.getPageLinksFromWikitext(_) >> Lists.newArrayList()
+		1 * individualTemplateFilterMock.shouldBeFilteredOut(page) >> false
 		1 * pageBindingServiceMock.fromPageToPageEntity(page)
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.of(sidebarIndividualTemplate)
-		1 * individualDateOfDeathEnrichingProcessorMock.enrich(_) >> { EnrichablePair<Template, IndividualTemplate> enrichablePair ->
-			assert enrichablePair.input == sidebarIndividualTemplate
-			assert enrichablePair.output != null
-		}
-		1 * individualTemplatePartsEnrichingProcessorMock.enrich(_) >> { EnrichablePair<List<Template.Part>, IndividualTemplate> enrichablePair ->
-			assert enrichablePair.input == templatePartList
-			assert enrichablePair.output != null
-		}
-		1 * individualMirrorAlternateUniverseEnrichingProcessorMock.enrich(_) >> { EnrichablePair<Page, IndividualTemplate> enrichablePair ->
+		1 * invidiualTemplateCompositeEnrichingProcessorMock.enrich(_) >> { EnrichablePair<Page, IndividualTemplate> enrichablePair ->
 			assert enrichablePair.input == page
 			assert enrichablePair.output != null
 		}

@@ -16,8 +16,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class IndividualDateOfDeathEnrichingProcessor implements
-		ItemEnrichingProcessor<EnrichablePair<Template, IndividualTemplate>> {
+public class IndividualTemplateDateOfDeathEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template, IndividualTemplate>> {
 
 	private static final String STATUS = "status";
 	private static final String DATE_STATUS = "datestatus";
@@ -76,7 +75,7 @@ public class IndividualDateOfDeathEnrichingProcessor implements
 	private IndividualDateStatusValueToYearProcessor individualDateStatusValueToYearProcessor;
 
 	@Inject
-	public IndividualDateOfDeathEnrichingProcessor(WikitextApi wikitextApi,
+	public IndividualTemplateDateOfDeathEnrichingProcessor(WikitextApi wikitextApi,
 			IndividualDateStatusValueToYearProcessor individualDateStatusValueToYearProcessor) {
 		this.wikitextApi = wikitextApi;
 		this.individualDateStatusValueToYearProcessor = individualDateStatusValueToYearProcessor;

@@ -9,27 +9,27 @@ import com.google.common.collect.Lists
 import org.apache.commons.lang3.StringUtils
 import spock.lang.Specification
 
-class IndividualDateOfDeathEnrichingProcessorTest extends Specification {
+class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification {
 
 	private static final String KIA_TITLE = 'Casualties'
 	private static final String KIA_DESCRIPTION = 'kia'
 	private static final String KIA = "[[${KIA_TITLE}|${KIA_DESCRIPTION}]] in some massacre"
 	private static final String YEAR_STRING = '1960'
 	private static final Integer YEAR_INTEGER = 1960
-	private static final String DEAD_SYNONYM = IndividualDateOfDeathEnrichingProcessor.DEAD_SYNONYMS[0]
-	private static final String NOT_DEAD_SYNONYM = IndividualDateOfDeathEnrichingProcessor.NOT_DEAD_SYNONYMS[0]
+	private static final String DEAD_SYNONYM = IndividualTemplateDateOfDeathEnrichingProcessor.DEAD_SYNONYMS[0]
+	private static final String NOT_DEAD_SYNONYM = IndividualTemplateDateOfDeathEnrichingProcessor.NOT_DEAD_SYNONYMS[0]
 	private static final String NEITHER_WORD = 'Neither'
 
 	private IndividualDateStatusValueToYearProcessor individualDateStatusValueToYearProcessorMock
 
 	private WikitextApi wikitextApiMock
 
-	private IndividualDateOfDeathEnrichingProcessor individualDateOfDeathEnrichingProcessor
+	private IndividualTemplateDateOfDeathEnrichingProcessor individualTemplateDateOfDeathEnrichingProcessor
 
 	void setup() {
 		individualDateStatusValueToYearProcessorMock = Mock(IndividualDateStatusValueToYearProcessor)
 		wikitextApiMock = Mock(WikitextApi)
-		individualDateOfDeathEnrichingProcessor = new IndividualDateOfDeathEnrichingProcessor(wikitextApiMock,
+		individualTemplateDateOfDeathEnrichingProcessor = new IndividualTemplateDateOfDeathEnrichingProcessor(wikitextApiMock,
 				individualDateStatusValueToYearProcessorMock)
 	}
 
@@ -40,7 +40,7 @@ class IndividualDateOfDeathEnrichingProcessorTest extends Specification {
 		IndividualTemplate individualTemplate = Mock(IndividualTemplate)
 
 		when:
-		individualDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
+		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
 
 		then:
 		1 * template.parts >> Lists.newArrayList(templatePart)
@@ -55,11 +55,11 @@ class IndividualDateOfDeathEnrichingProcessorTest extends Specification {
 		IndividualTemplate individualTemplate = Mock(IndividualTemplate)
 
 		when:
-		individualDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
+		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
 
 		then:
 		1 * template.parts >> Lists.newArrayList(templatePart)
-		1 * templatePart.key >> IndividualDateOfDeathEnrichingProcessor.STATUS
+		1 * templatePart.key >> IndividualTemplateDateOfDeathEnrichingProcessor.STATUS
 		0 * _
 	}
 
@@ -70,11 +70,11 @@ class IndividualDateOfDeathEnrichingProcessorTest extends Specification {
 		IndividualTemplate individualTemplate = Mock(IndividualTemplate)
 
 		when:
-		individualDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
+		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
 
 		then:
 		1 * template.parts >> Lists.newArrayList(templatePart)
-		1 * templatePart.key >> IndividualDateOfDeathEnrichingProcessor.DATE_STATUS
+		1 * templatePart.key >> IndividualTemplateDateOfDeathEnrichingProcessor.DATE_STATUS
 		0 * _
 	}
 
@@ -86,13 +86,13 @@ class IndividualDateOfDeathEnrichingProcessorTest extends Specification {
 		IndividualTemplate individualTemplate = Mock(IndividualTemplate)
 
 		when:
-		individualDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
+		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
 
 		then:
 		1 * template.parts >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
-		1 * dateTemplatePart.key >> IndividualDateOfDeathEnrichingProcessor.STATUS
+		1 * dateTemplatePart.key >> IndividualTemplateDateOfDeathEnrichingProcessor.STATUS
 		1 * dateTemplatePart.value >> StringUtils.EMPTY
-		1 * dateStatusTemplatePart.key >> IndividualDateOfDeathEnrichingProcessor.DATE_STATUS
+		1 * dateStatusTemplatePart.key >> IndividualTemplateDateOfDeathEnrichingProcessor.DATE_STATUS
 		0 * _
 	}
 
@@ -104,13 +104,13 @@ class IndividualDateOfDeathEnrichingProcessorTest extends Specification {
 		IndividualTemplate individualTemplate = Mock(IndividualTemplate)
 
 		when:
-		individualDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
+		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
 
 		then:
 		1 * template.parts >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
-		1 * dateTemplatePart.key >> IndividualDateOfDeathEnrichingProcessor.STATUS
+		1 * dateTemplatePart.key >> IndividualTemplateDateOfDeathEnrichingProcessor.STATUS
 		2 * dateTemplatePart.value >> KIA
-		1 * dateStatusTemplatePart.key >> IndividualDateOfDeathEnrichingProcessor.DATE_STATUS
+		1 * dateStatusTemplatePart.key >> IndividualTemplateDateOfDeathEnrichingProcessor.DATE_STATUS
 		1 * dateStatusTemplatePart.value >> YEAR_STRING
 		1 * wikitextApiMock.getPageLinksFromWikitext(KIA) >> Lists.newArrayList(
 				new PageLink(
@@ -132,13 +132,13 @@ class IndividualDateOfDeathEnrichingProcessorTest extends Specification {
 		IndividualTemplate individualTemplate = Mock(IndividualTemplate)
 
 		when:
-		individualDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
+		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
 
 		then:
 		1 * template.parts >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
-		1 * dateTemplatePart.key >> IndividualDateOfDeathEnrichingProcessor.STATUS
+		1 * dateTemplatePart.key >> IndividualTemplateDateOfDeathEnrichingProcessor.STATUS
 		2 * dateTemplatePart.value >> DEAD_SYNONYM
-		1 * dateStatusTemplatePart.key >> IndividualDateOfDeathEnrichingProcessor.DATE_STATUS
+		1 * dateStatusTemplatePart.key >> IndividualTemplateDateOfDeathEnrichingProcessor.DATE_STATUS
 		1 * dateStatusTemplatePart.value >> YEAR_STRING
 		1 * wikitextApiMock.getPageLinksFromWikitext(DEAD_SYNONYM) >> Lists.newArrayList()
 		1 * individualTemplate.setDeceased(true)
@@ -155,13 +155,13 @@ class IndividualDateOfDeathEnrichingProcessorTest extends Specification {
 		IndividualTemplate individualTemplate = Mock(IndividualTemplate)
 
 		when:
-		individualDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
+		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
 
 		then:
 		1 * template.parts >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
-		1 * dateTemplatePart.key >> IndividualDateOfDeathEnrichingProcessor.STATUS
+		1 * dateTemplatePart.key >> IndividualTemplateDateOfDeathEnrichingProcessor.STATUS
 		2 * dateTemplatePart.value >> NOT_DEAD_SYNONYM
-		1 * dateStatusTemplatePart.key >> IndividualDateOfDeathEnrichingProcessor.DATE_STATUS
+		1 * dateStatusTemplatePart.key >> IndividualTemplateDateOfDeathEnrichingProcessor.DATE_STATUS
 		1 * wikitextApiMock.getPageLinksFromWikitext(NOT_DEAD_SYNONYM) >> Lists.newArrayList()
 		0 * _
 	}
@@ -174,13 +174,13 @@ class IndividualDateOfDeathEnrichingProcessorTest extends Specification {
 		IndividualTemplate individualTemplate = Mock(IndividualTemplate)
 
 		when:
-		individualDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
+		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
 
 		then:
 		1 * template.parts >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
-		1 * dateTemplatePart.key >> IndividualDateOfDeathEnrichingProcessor.STATUS
+		1 * dateTemplatePart.key >> IndividualTemplateDateOfDeathEnrichingProcessor.STATUS
 		2 * dateTemplatePart.value >> NEITHER_WORD
-		1 * dateStatusTemplatePart.key >> IndividualDateOfDeathEnrichingProcessor.DATE_STATUS
+		1 * dateStatusTemplatePart.key >> IndividualTemplateDateOfDeathEnrichingProcessor.DATE_STATUS
 		1 * wikitextApiMock.getPageLinksFromWikitext(NEITHER_WORD) >> Lists.newArrayList()
 		1 * individualTemplate.name
 		0 * _
@@ -194,13 +194,13 @@ class IndividualDateOfDeathEnrichingProcessorTest extends Specification {
 		IndividualTemplate individualTemplate = Mock(IndividualTemplate)
 
 		when:
-		individualDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
+		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
 
 		then:
 		1 * template.parts >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
-		1 * dateTemplatePart.key >> IndividualDateOfDeathEnrichingProcessor.STATUS
+		1 * dateTemplatePart.key >> IndividualTemplateDateOfDeathEnrichingProcessor.STATUS
 		2 * dateTemplatePart.value >> DEAD_SYNONYM + ' ' + NOT_DEAD_SYNONYM
-		1 * dateStatusTemplatePart.key >> IndividualDateOfDeathEnrichingProcessor.DATE_STATUS
+		1 * dateStatusTemplatePart.key >> IndividualTemplateDateOfDeathEnrichingProcessor.DATE_STATUS
 		1 * wikitextApiMock.getPageLinksFromWikitext(DEAD_SYNONYM + ' ' + NOT_DEAD_SYNONYM) >> Lists.newArrayList()
 		1 * individualTemplate.name
 		0 * _

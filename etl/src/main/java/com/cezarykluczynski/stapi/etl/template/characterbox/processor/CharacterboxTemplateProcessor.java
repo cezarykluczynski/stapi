@@ -80,7 +80,6 @@ public class CharacterboxTemplateProcessor implements ItemProcessor<Page, Charac
 					characterboxTemplate.setYearOfBirth(birthBoundaryDTO.getYear());
 					characterboxTemplate.setMonthOfBirth(birthBoundaryDTO.getMonth());
 					characterboxTemplate.setDayOfBirth(birthBoundaryDTO.getDay());
-					characterboxTemplate.setPlaceOfBirth(birthBoundaryDTO.getPlace());
 					break;
 				case DIED:
 					IndividualLifeBoundaryDTO deathBoundaryDTO = individualLifeBoundaryProcessor
@@ -88,7 +87,6 @@ public class CharacterboxTemplateProcessor implements ItemProcessor<Page, Charac
 					characterboxTemplate.setYearOfDeath(deathBoundaryDTO.getYear());
 					characterboxTemplate.setMonthOfDeath(deathBoundaryDTO.getMonth());
 					characterboxTemplate.setDayOfDeath(deathBoundaryDTO.getDay());
-					characterboxTemplate.setPlaceOfDeath(deathBoundaryDTO.getPlace());
 					break;
 				case MARITAL_STATUS:
 					characterboxTemplate.setMaritalStatus(maritalStatusProcessor.process(value));

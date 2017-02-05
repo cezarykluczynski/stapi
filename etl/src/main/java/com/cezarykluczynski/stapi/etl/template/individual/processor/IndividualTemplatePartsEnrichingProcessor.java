@@ -30,7 +30,7 @@ public class IndividualTemplatePartsEnrichingProcessor implements ItemEnrichingP
 
 	private IndividualLifeBoundaryProcessor individualLifeBoundaryProcessor;
 
-	private IndividualActorLinkingProcessor individualActorLinkingProcessor;
+	private IndividualTemplateActorLinkingProcessor individualTemplateActorLinkingProcessor;
 
 	private IndividualHeightProcessor individualHeightProcessor;
 
@@ -42,12 +42,13 @@ public class IndividualTemplatePartsEnrichingProcessor implements ItemEnrichingP
 
 	@Inject
 	public IndividualTemplatePartsEnrichingProcessor(PartToGenderProcessor partToGenderProcessor,
-			IndividualLifeBoundaryProcessor individualLifeBoundaryProcessor, IndividualActorLinkingProcessor individualActorLinkingProcessor,
-			IndividualHeightProcessor individualHeightProcessor, IndividualWeightProcessor individualWeightProcessor,
-			IndividualBloodTypeProcessor individualBloodTypeProcessor, MaritalStatusProcessor maritalStatusProcessor) {
+			IndividualLifeBoundaryProcessor individualLifeBoundaryProcessor,
+			IndividualTemplateActorLinkingProcessor individualTemplateActorLinkingProcessor, IndividualHeightProcessor individualHeightProcessor,
+			IndividualWeightProcessor individualWeightProcessor, IndividualBloodTypeProcessor individualBloodTypeProcessor,
+			MaritalStatusProcessor maritalStatusProcessor) {
 		this.partToGenderProcessor = partToGenderProcessor;
 		this.individualLifeBoundaryProcessor = individualLifeBoundaryProcessor;
-		this.individualActorLinkingProcessor = individualActorLinkingProcessor;
+		this.individualTemplateActorLinkingProcessor = individualTemplateActorLinkingProcessor;
 		this.individualHeightProcessor = individualHeightProcessor;
 		this.individualWeightProcessor = individualWeightProcessor;
 		this.individualBloodTypeProcessor = individualBloodTypeProcessor;
@@ -67,7 +68,7 @@ public class IndividualTemplatePartsEnrichingProcessor implements ItemEnrichingP
 					individualTemplate.setGender(partToGenderProcessor.process(part));
 					break;
 				case ACTOR:
-					individualActorLinkingProcessor.enrich(EnrichablePair.of(part, individualTemplate));
+					individualTemplateActorLinkingProcessor.enrich(EnrichablePair.of(part, individualTemplate));
 					break;
 				case HEIGHT:
 					individualTemplate.setHeight(individualHeightProcessor.process(value));
@@ -86,7 +87,6 @@ public class IndividualTemplatePartsEnrichingProcessor implements ItemEnrichingP
 					individualTemplate.setYearOfBirth(birthBoundaryDTO.getYear());
 					individualTemplate.setMonthOfBirth(birthBoundaryDTO.getMonth());
 					individualTemplate.setDayOfBirth(birthBoundaryDTO.getDay());
-					individualTemplate.setPlaceOfBirth(birthBoundaryDTO.getPlace());
 					break;
 				case DIED:
 					IndividualLifeBoundaryDTO deathBoundaryDTO = individualLifeBoundaryProcessor
@@ -94,7 +94,6 @@ public class IndividualTemplatePartsEnrichingProcessor implements ItemEnrichingP
 					individualTemplate.setYearOfDeath(deathBoundaryDTO.getYear());
 					individualTemplate.setMonthOfDeath(deathBoundaryDTO.getMonth());
 					individualTemplate.setDayOfDeath(deathBoundaryDTO.getDay());
-					individualTemplate.setPlaceOfDeath(deathBoundaryDTO.getPlace());
 					break;
 				case MARITAL_STATUS:
 					individualTemplate.setMaritalStatus(maritalStatusProcessor.process(value));

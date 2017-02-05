@@ -20,15 +20,14 @@ import java.util.Set;
 
 @Service
 @Slf4j
-public class IndividualActorLinkingProcessor implements
-		ItemEnrichingProcessor<EnrichablePair<Template.Part, IndividualTemplate>> {
+public class IndividualTemplateActorLinkingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template.Part, IndividualTemplate>> {
 
 	private WikitextApi wikitextApi;
 
 	private PerformerRepository performerRepository;
 
 	@Inject
-	public IndividualActorLinkingProcessor(WikitextApi wikitextApi, PerformerRepository performerRepository) {
+	public IndividualTemplateActorLinkingProcessor(WikitextApi wikitextApi, PerformerRepository performerRepository) {
 		this.wikitextApi = wikitextApi;
 		this.performerRepository = performerRepository;
 	}
