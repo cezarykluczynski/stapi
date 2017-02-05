@@ -1,7 +1,9 @@
 package com.cezarykluczynski.stapi.etl.template.individual.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
+import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualLifeBoundaryPlacesDTO;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
@@ -23,15 +25,19 @@ public class IndividualTemplateCompositeEnrichingProcessor implements ItemEnrich
 
 	private IndividualMirrorAlternateUniverseEnrichingProcessor individualMirrorAlternateUniverseEnrichingProcessor;
 
+	private IndividualTemplatePlacesFixedValueProvider individualTemplatePlacesFixedValueProvider;
+
 	@Inject
 	public IndividualTemplateCompositeEnrichingProcessor(TemplateFinder templateFinder,
 			IndividualTemplateDateOfDeathEnrichingProcessor individualTemplateDateOfDeathEnrichingProcessor,
 			IndividualTemplatePartsEnrichingProcessor individualTemplatePartsEnrichingProcessor,
-			IndividualMirrorAlternateUniverseEnrichingProcessor individualMirrorAlternateUniverseEnrichingProcessor) {
+			IndividualMirrorAlternateUniverseEnrichingProcessor individualMirrorAlternateUniverseEnrichingProcessor,
+			IndividualTemplatePlacesFixedValueProvider individualTemplatePlacesFixedValueProvider) {
 		this.templateFinder = templateFinder;
 		this.individualTemplateDateOfDeathEnrichingProcessor = individualTemplateDateOfDeathEnrichingProcessor;
 		this.individualTemplatePartsEnrichingProcessor = individualTemplatePartsEnrichingProcessor;
 		this.individualMirrorAlternateUniverseEnrichingProcessor = individualMirrorAlternateUniverseEnrichingProcessor;
+		this.individualTemplatePlacesFixedValueProvider = individualTemplatePlacesFixedValueProvider;
 	}
 
 	@Override
@@ -40,6 +46,15 @@ public class IndividualTemplateCompositeEnrichingProcessor implements ItemEnrich
 		Page item = enrichablePair.getInput();
 
 		Optional<Template> sidebarIndividualTemplateOptional = templateFinder.findTemplate(item, TemplateName.SIDEBAR_INDIVIDUAL);
+
+		FixedValueHolder<IndividualLifeBoundaryPlacesDTO> individualLifeBoundaryPlacesDTOFixedValueHolder
+				= individualTemplatePlacesFixedValueProvider.getSearchedValue(item.getTitle());
+
+		if (individualLifeBoundaryPlacesDTOFixedValueHolder.isFound()) {
+			IndividualLifeBoundaryPlacesDTO individualLifeBoundaryPlacesDTO = individualLifeBoundaryPlacesDTOFixedValueHolder.getValue();
+			individualTemplate.setPlaceOfBirth(individualLifeBoundaryPlacesDTO.getPlaceOfBirth());
+			individualTemplate.setPlaceOfDeath(individualLifeBoundaryPlacesDTO.getPlaceOfDeath());
+		}
 
 		if (!sidebarIndividualTemplateOptional.isPresent()) {
 			return;
