@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.model.configuration;
 
 import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.google.common.collect.Maps;
+import com.zaxxer.hikari.HikariDataSource;
 import liquibase.integration.spring.SpringLiquibase;
 import org.hibernate.jpa.AvailableSettings;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
@@ -41,7 +42,9 @@ public class ModelConfiguration {
 	@Bean
 	@ConfigurationProperties(prefix = DATASOURCE_PREFIX)
 	DataSource dataSource() {
-		return DataSourceBuilder.create().build();
+		return DataSourceBuilder.create()
+				.type(HikariDataSource.class)
+				.build();
 	}
 
 	@Bean
@@ -52,10 +55,8 @@ public class ModelConfiguration {
 		lef.setPackagesToScan(ModelConfiguration.JPA_BASE_PACKAGES);
 		lef.setPersistenceUnitName(AvailableSettings.PERSISTENCE_UNIT_NAME);
 		Map<String, String> properties = Maps.newHashMap();
-		properties.put("hibernate.implicit_naming_strategy",
-				"org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl");
-		properties.put("hibernate.physical_naming_strategy",
-				"org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy");
+		properties.put("hibernate.implicit_naming_strategy", "org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl");
+		properties.put("hibernate.physical_naming_strategy", "org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy");
 		properties.put("spring.jpa.properties.hibernate.show_sql", TRUE);
 		properties.put("spring.jpa.properties.hibernate.format_sql", TRUE);
 		properties.put("spring.jpa.hibernate.show_sql", TRUE);
