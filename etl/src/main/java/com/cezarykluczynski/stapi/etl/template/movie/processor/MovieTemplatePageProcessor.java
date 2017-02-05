@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ToMovieTemplateProcessor implements ItemProcessor<Page, MovieTemplate> {
+public class MovieTemplatePageProcessor implements ItemProcessor<Page, MovieTemplate> {
 
 	private static final List<String> IGNORABLE_TITLES = Lists.newArrayList(PageName.STAR_TREK_FILMS,
 			PageName.STAR_TREK_XIV);
@@ -35,7 +35,7 @@ public class ToMovieTemplateProcessor implements ItemProcessor<Page, MovieTempla
 	private MovieRealPeopleLinkingWorkerComposite movieRealPeopleLinkingWorkerComposite;
 
 	@Inject
-	public ToMovieTemplateProcessor(MovieTemplateProcessor movieTemplateProcessor, TemplateFinder templateFinder,
+	public MovieTemplatePageProcessor(MovieTemplateProcessor movieTemplateProcessor, TemplateFinder templateFinder,
 			PageBindingService pageBindingService,
 			MovieTemplateTitleLanguagesEnrichingProcessor movieTemplateTitleLanguagesEnrichingProcessor,
 			MovieRealPeopleLinkingWorkerComposite movieRealPeopleLinkingWorkerComposite) {

@@ -76,8 +76,8 @@ public class ComicSeriesTemplatePartsEnrichingProcessor implements ItemEnriching
 					if (comicSeriesTemplate.getYearFrom() == null && comicSeriesTemplate.getYearTo() == null) {
 						YearRange yearRange = wikitextToYearRangeProcessor.process(value);
 						if (yearRange != null) {
-							comicSeriesTemplate.setYearFrom(yearRange.getStartYear());
-							comicSeriesTemplate.setYearTo(yearRange.getEndYear());
+							comicSeriesTemplate.setYearFrom(yearRange.getYearFrom());
+							comicSeriesTemplate.setYearTo(yearRange.getYearTo());
 						}
 					}
 					break;

@@ -38,10 +38,10 @@ public class WikitextToYearRangeProcessor implements ItemProcessor<String, YearR
 		templatePart.setValue(item);
 		YearRange yearRange = partToYearRangeProcessor.process(templatePart);
 
-		if (yearRange != null && (yearRange.getStartYear() != null || yearRange.getEndYear() != null)) {
-			if (LogicUtil.xorNull(yearRange.getStartYear(), yearRange.getEndYear())) {
+		if (yearRange != null && (yearRange.getYearFrom() != null || yearRange.getYearTo() != null)) {
+			if (LogicUtil.xorNull(yearRange.getYearFrom(), yearRange.getYearTo())) {
 				log.warn("When parsing {} with PartToYearRangeProcessor, start year was {}, while end year was: {}",
-						item, yearRange.getStartYear(), yearRange.getEndYear());
+						item, yearRange.getYearFrom(), yearRange.getYearTo());
 			}
 
 			return yearRange;

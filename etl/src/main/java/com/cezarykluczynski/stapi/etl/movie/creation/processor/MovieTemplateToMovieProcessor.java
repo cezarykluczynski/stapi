@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 
 @Service
-public class ToMovieEntityProcessor implements ItemProcessor<MovieTemplate, Movie> {
+public class MovieTemplateToMovieProcessor implements ItemProcessor<MovieTemplate, Movie> {
 
 	private GuidGenerator guidGenerator;
 
 	@Inject
-	public ToMovieEntityProcessor(GuidGenerator guidGenerator) {
+	public MovieTemplateToMovieProcessor(GuidGenerator guidGenerator) {
 		this.guidGenerator = guidGenerator;
 	}
 

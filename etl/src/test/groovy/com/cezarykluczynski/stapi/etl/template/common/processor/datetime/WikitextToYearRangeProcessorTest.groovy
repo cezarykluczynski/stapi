@@ -69,8 +69,8 @@ class WikitextToYearRangeProcessorTest extends Specification {
 		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT) >> Lists.newArrayList(pageLink)
 		1 * pageLinkToYearProcessorMock.process(pageLink) >> YEAR_FROM
 		0 * _
-		yearRange.startYear == YEAR_FROM
-		yearRange.endYear == YEAR_FROM
+		yearRange.yearFrom == YEAR_FROM
+		yearRange.yearTo == YEAR_FROM
 	}
 
 	void "when WikitextApi returns two links, one is used as a year from, and the second is used as a year to"() {
@@ -87,8 +87,8 @@ class WikitextToYearRangeProcessorTest extends Specification {
 		1 * pageLinkToYearProcessorMock.process(pageLinkFrom) >> YEAR_FROM
 		1 * pageLinkToYearProcessorMock.process(pageLinkTo) >> YEAR_TO
 		0 * _
-		yearRange.startYear == YEAR_FROM
-		yearRange.endYear == YEAR_TO
+		yearRange.yearFrom == YEAR_FROM
+		yearRange.yearTo == YEAR_TO
 	}
 
 	void "returns null when dependencies could not find and years"() {

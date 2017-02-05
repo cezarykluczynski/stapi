@@ -52,10 +52,10 @@ public class PartToYearRangeProcessor implements ItemProcessor<Template.Part, Ye
 				.collect(Collectors.toList());
 
 		if (dates.size() >= 1) {
-			yearRange.setStartYear(Ints.tryParse(dates.get(0)));
+			yearRange.setYearFrom(Ints.tryParse(dates.get(0)));
 		}
 		if (dates.size() == 2) {
-			yearRange.setEndYear(Ints.tryParse(dates.get(1)));
+			yearRange.setYearTo(Ints.tryParse(dates.get(1)));
 		}
 
 		return yearRange;
@@ -70,10 +70,10 @@ public class PartToYearRangeProcessor implements ItemProcessor<Template.Part, Ye
 		Integer size = yearTemplateList.size();
 
 		if (IntegerValidator.getInstance().isInRange(size, 1, 2)) {
-			yearRange.setStartYear(yearlinkToYearProcessor.process(yearTemplateList.get(0)));
+			yearRange.setYearFrom(yearlinkToYearProcessor.process(yearTemplateList.get(0)));
 		}
 		if (size == 2) {
-			yearRange.setEndYear(yearlinkToYearProcessor.process(yearTemplateList.get(1)));
+			yearRange.setYearTo(yearlinkToYearProcessor.process(yearTemplateList.get(1)));
 		}
 
 		if (size > 2) {

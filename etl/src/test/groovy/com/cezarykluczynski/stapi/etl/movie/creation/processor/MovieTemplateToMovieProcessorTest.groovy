@@ -8,7 +8,7 @@ import spock.lang.Specification
 
 import java.time.LocalDate
 
-class ToMovieEntityProcessorTest extends Specification {
+class MovieTemplateToMovieProcessorTest extends Specification {
 
 	private static final String TITLE = 'TITLE'
 	private static final String TITLE_BULGARIAN = 'TITLE_BULGARIAN'
@@ -32,11 +32,11 @@ class ToMovieEntityProcessorTest extends Specification {
 
 	private GuidGenerator guidGeneratorMock
 
-	private ToMovieEntityProcessor toMovieEntityProcessor
+	private MovieTemplateToMovieProcessor movieTemplateToMovieProcessor
 
 	void setup() {
 		guidGeneratorMock = Mock(GuidGenerator)
-		toMovieEntityProcessor = new ToMovieEntityProcessor(guidGeneratorMock)
+		movieTemplateToMovieProcessor = new MovieTemplateToMovieProcessor(guidGeneratorMock)
 	}
 
 	void "converts EpisodeTemplate to Episode"() {
@@ -63,7 +63,7 @@ class ToMovieEntityProcessorTest extends Specification {
 				usReleaseDate: US_RELEASE_DATE)
 
 		when:
-		Movie movieOutput = toMovieEntityProcessor.process(movieTemplate)
+		Movie movieOutput = movieTemplateToMovieProcessor.process(movieTemplate)
 
 		then:
 		1 * guidGeneratorMock.generateFromPage(page, Movie) >> GUID

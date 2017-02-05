@@ -14,7 +14,7 @@ import com.cezarykluczynski.stapi.util.constant.TemplateName
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
-class ToMovieTemplateProcessorTest extends Specification {
+class MovieTemplatePageProcessorTest extends Specification {
 
 	private static final Template SIDEBAR_FILM_TEMPLATE = new Template(title: TemplateName.SIDEBAR_FILM)
 
@@ -28,7 +28,7 @@ class ToMovieTemplateProcessorTest extends Specification {
 
 	private MovieRealPeopleLinkingWorkerComposite moviePerformancesLinkingWorkerMock
 
-	private ToMovieTemplateProcessor toMovieTemplateProcessor
+	private MovieTemplatePageProcessor movieTemplatePageProcessor
 
 	void setup() {
 		movieTemplateProcessorMock = Mock(MovieTemplateProcessor)
@@ -36,7 +36,7 @@ class ToMovieTemplateProcessorTest extends Specification {
 		pageBindingServiceMock = Mock(PageBindingService)
 		movieTemplateTitleLanguagesEnrichingProcessorMock = Mock(MovieTemplateTitleLanguagesEnrichingProcessor)
 		moviePerformancesLinkingWorkerMock = Mock(MovieRealPeopleLinkingWorkerComposite)
-		toMovieTemplateProcessor = new ToMovieTemplateProcessor(movieTemplateProcessorMock, templateFinderMock,
+		movieTemplatePageProcessor = new MovieTemplatePageProcessor(movieTemplateProcessorMock, templateFinderMock,
 				pageBindingServiceMock, movieTemplateTitleLanguagesEnrichingProcessorMock,
 				moviePerformancesLinkingWorkerMock)
 	}
@@ -46,7 +46,7 @@ class ToMovieTemplateProcessorTest extends Specification {
 		Page page = new Page()
 
 		when:
-		toMovieTemplateProcessor.process(page)
+		movieTemplatePageProcessor.process(page)
 
 		then:
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_FILM) >> Optional.empty()
@@ -58,7 +58,7 @@ class ToMovieTemplateProcessorTest extends Specification {
 		Page page = new Page(title: PageName.STAR_TREK_FILMS)
 
 		when:
-		MovieTemplate movieTemplate = toMovieTemplateProcessor.process(page)
+		MovieTemplate movieTemplate = movieTemplatePageProcessor.process(page)
 
 		then:
 		movieTemplate == null
@@ -71,7 +71,7 @@ class ToMovieTemplateProcessorTest extends Specification {
 		Page page = new Page(title: PageName.STAR_TREK_XIV)
 
 		when:
-		MovieTemplate movieTemplate = toMovieTemplateProcessor.process(page)
+		MovieTemplate movieTemplate = movieTemplatePageProcessor.process(page)
 
 		then:
 		movieTemplate == null
@@ -89,7 +89,7 @@ class ToMovieTemplateProcessorTest extends Specification {
 		PageEntity pageEntity = new PageEntity()
 
 		when:
-		MovieTemplate movieTemplateOutput = toMovieTemplateProcessor.process(page)
+		MovieTemplate movieTemplateOutput = movieTemplatePageProcessor.process(page)
 
 		then:
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_FILM) >> Optional.of(SIDEBAR_FILM_TEMPLATE)

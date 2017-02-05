@@ -48,7 +48,7 @@ class SeriesTemplateProcessorTest extends Specification {
 				title: TITLE,
 				page: PAGE,
 				abbreviation: ABBREVIATION,
-				productionYearRange: new YearRange(startYear: START_YEAR, endYear: END_YEAR),
+				productionYearRange: new YearRange(yearFrom: START_YEAR, yearTo: END_YEAR),
 				originalRunDateRange: new DateRange(startDate: START_DATE, endDate: END_DATE),
 			productionCompany: productionCompany,
 			originalBroadcaster: originalBroadcaster)

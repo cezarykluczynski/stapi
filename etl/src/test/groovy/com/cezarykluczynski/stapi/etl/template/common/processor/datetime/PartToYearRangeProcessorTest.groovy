@@ -31,8 +31,8 @@ class PartToYearRangeProcessorTest extends Specification {
 		YearRange yearRange = partToYearRangeProcessor.process(createTemplatePart(null, null))
 
 		then:
-		yearRange.startYear == null
-		yearRange.endYear == null
+		yearRange.yearFrom == null
+		yearRange.yearTo == null
 	}
 
 	void "returns start date when value contains a single number"() {
@@ -40,8 +40,8 @@ class PartToYearRangeProcessorTest extends Specification {
 		YearRange yearRange = partToYearRangeProcessor.process(createTemplatePart('1995', null))
 
 		then:
-		yearRange.startYear == 1995
-		yearRange.endYear == null
+		yearRange.yearFrom == 1995
+		yearRange.yearTo == null
 	}
 
 	void "returns start date and end date, when value contains then, separated by &ndash;"() {
@@ -49,8 +49,8 @@ class PartToYearRangeProcessorTest extends Specification {
 		YearRange yearRange = partToYearRangeProcessor.process(createTemplatePart('1990&ndash;2000', null))
 
 		then:
-		yearRange.startYear == 1990
-		yearRange.endYear == 2000
+		yearRange.yearFrom == 1990
+		yearRange.yearTo == 2000
 	}
 
 	void "returns start date and end date, when value contains then, separated by ' to '"() {
@@ -58,8 +58,8 @@ class PartToYearRangeProcessorTest extends Specification {
 		YearRange yearRange = partToYearRangeProcessor.process(createTemplatePart('1990 to 2000', null))
 
 		then:
-		yearRange.startYear == 1990
-		yearRange.endYear == 2000
+		yearRange.yearFrom == 1990
+		yearRange.yearTo == 2000
 	}
 
 	void "valid Part is converted to YearRange with both dates"() {
@@ -78,8 +78,8 @@ class PartToYearRangeProcessorTest extends Specification {
 		then:
 		1 * templateToYearProcessorMock.process(START_TEMPLATE) >> START_YEAR
 		1 * templateToYearProcessorMock.process(END_TEMPLATE) >> END_YEAR
-		yearRange.startYear == START_YEAR
-		yearRange.endYear == END_YEAR
+		yearRange.yearFrom == START_YEAR
+		yearRange.yearTo == END_YEAR
 	}
 
 	void "Part with only start year is converted to YearRange with only start year"() {
@@ -98,10 +98,10 @@ class PartToYearRangeProcessorTest extends Specification {
 		then: 'only start year is parsed'
 		1 * templateToYearProcessorMock.process(START_TEMPLATE) >> START_YEAR
 
-		yearRange.startYear == START_YEAR
+		yearRange.yearFrom == START_YEAR
 
 		then: 'there is no end date'
-		yearRange.endYear == null
+		yearRange.yearTo == null
 
 		then: 'no other interactions are expected'
 		0 * _
@@ -121,8 +121,8 @@ class PartToYearRangeProcessorTest extends Specification {
 		1 * templateFilterMock.filterByTitle(templateList, TemplateName.Y, TemplateName.YEARLINK) >> templateList
 
 		then: 'both years are null'
-		yearRange.startYear == null
-		yearRange.endYear == null
+		yearRange.yearFrom == null
+		yearRange.yearTo == null
 
 		then: 'no other interactions are expected'
 		0 * _

@@ -137,7 +137,7 @@ class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 		given:
 		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplatePartsEnrichingProcessor.YEAR, value: YEARS)
 		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate()
-		YearRange yearRange = new YearRange(startYear: YEAR_FROM, endYear: YEAR_TO)
+		YearRange yearRange = new YearRange(yearFrom: YEAR_FROM, yearTo: YEAR_TO)
 
 		when:
 		comicSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicSeriesTemplate))

@@ -32,8 +32,8 @@ public class SeriesTemplateProcessor implements ItemProcessor<SeriesTemplate, Se
 		series.setPage(item.getPage());
 		series.setGuid(guidGenerator.generateFromPage(item.getPage(), Series.class));
 		series.setAbbreviation(item.getAbbreviation());
-		series.setProductionStartYear(item.getProductionYearRange().getStartYear());
-		series.setProductionEndYear(item.getProductionYearRange().getEndYear());
+		series.setProductionStartYear(item.getProductionYearRange().getYearFrom());
+		series.setProductionEndYear(item.getProductionYearRange().getYearTo());
 		series.setOriginalRunStartDate(item.getOriginalRunDateRange().getStartDate());
 		series.setOriginalRunEndDate(item.getOriginalRunDateRange().getEndDate());
 		series.setProductionCompany(item.getProductionCompany());
