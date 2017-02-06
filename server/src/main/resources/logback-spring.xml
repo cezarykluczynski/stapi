@@ -1,6 +1,7 @@
 <configuration debug="true">
 	<timestamp key="byDay" datePattern="yyyyMMdd"/>
-	<property name="CONSOLE_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${PID:- } %-60.60logger{59} :: %msg %n"/>
+	<conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+	<property name="CONSOLE_PATTERN" value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){yellow} %clr(%5p){blue} %clr(${PID:- }){green} %clr(%-60.60logger{59}){magenta} %clr(::){red} %msg %n"/>
 	<property name="FILE_PATTERN"    value="%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${PID:- } %logger :: %msg %n"/>
 	<property resource="application.properties"/>
 	<springProperty name="destinationPath" source="logging.log-files-path"/>
