@@ -2,7 +2,6 @@ apply plugin: 'groovy'
 apply plugin: 'java'
 
 dependencies {
-	ext.springBootVersion = "1.4.1.RELEASE"
 	compile project(':util'), project(':model')
 	compile group: 'info.bliki.wiki', name: 'bliki-core', version: '3.1.0'
 	compile group: 'org.jsoup', name: 'jsoup', version: '1.10.2'

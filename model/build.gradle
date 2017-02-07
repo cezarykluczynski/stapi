@@ -3,7 +3,6 @@ configurations {
 }
 
 dependencies {
-	ext.springBootVersion = "1.4.1.RELEASE"
 	compile project(':util')
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: springBootVersion
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: springBootVersion

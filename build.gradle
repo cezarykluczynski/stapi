@@ -9,11 +9,8 @@ buildscript {
 			dirs 'libs'
 		}
 	}
-	ext {
-		springBootVersion = '1.4.1.RELEASE'
-	}
 	dependencies {
-		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+		classpath 'org.springframework.boot:spring-boot-gradle-plugin:' << springBootVersion
 		classpath "no.nils:wsdl2java:0.10"
 	}
 }
@@ -37,8 +34,6 @@ allprojects {
 	}
 
 	dependencies {
-		ext.springBootVersion = '1.4.1.RELEASE'
-
 		compile group: 'org.springframework.boot', name: 'spring-boot', version: springBootVersion
 		compile group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: springBootVersion
 		compile group: 'javax.inject', name: 'javax.inject', version: '1'

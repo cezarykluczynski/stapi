@@ -9,7 +9,6 @@ springBoot {
 }
 
 dependencies {
-	ext.springBootVersion = "1.4.1.RELEASE"
 	compile project(':model'), project(':util'), project(':sources'), project(':etl'), project(':client')
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: springBootVersion

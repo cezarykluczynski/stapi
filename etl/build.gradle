@@ -1,14 +1,13 @@
 apply plugin: 'groovy'
 apply plugin: 'java'
 
-compileJava.options.encoding = 'UTF-8'
+compileJava.options.encoding = javaEncoding
 
 tasks.withType(JavaCompile) {
-	options.encoding = 'UTF-8'
+	options.encoding = javaEncoding
 }
 
 dependencies {
-	ext.springBootVersion = "1.4.1.RELEASE"
 	compile project(':model'), project(':util'), project(':sources')
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-batch', version: springBootVersion
 	testCompile project(':util').sourceSets.test.output
