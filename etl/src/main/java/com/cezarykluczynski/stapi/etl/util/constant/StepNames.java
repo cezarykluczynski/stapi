@@ -22,7 +22,8 @@ public class StepNames {
 				StepName.CREATE_MOVIES,
 				StepName.LINK_ASTRONOMICAL_OBJECTS,
 				StepName.CREATE_COMIC_SERIES,
-				StepName.LINK_COMIC_SERIES
+				StepName.LINK_COMIC_SERIES,
+				StepName.CREATE_COMICS
 		));
 	}
 

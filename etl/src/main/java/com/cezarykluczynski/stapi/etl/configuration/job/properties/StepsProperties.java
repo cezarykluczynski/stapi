@@ -31,4 +31,6 @@ public class StepsProperties {
 
 	private StepProperties linkComicSeries;
 
+	private StepProperties createComics;
+
 }

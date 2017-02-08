@@ -56,6 +56,8 @@ class JobBuilderTest extends Specification {
 
 	private Step linkComicSeriesStep
 
+	private Step createComicsStep
+
 	private JobRepository jobRepository
 
 	private SpringBatchJobBuilder springBatchJobBuilder
@@ -79,6 +81,7 @@ class JobBuilderTest extends Specification {
 		linkAstronomicalObjectsStep = Mock(Step)
 		createComicSeriesStep = Mock(Step)
 		linkComicSeriesStep = Mock(Step)
+		createComicsStep = Mock(Step)
 		jobRepository = Mock(JobRepository)
 		springBatchJobBuilder = new SpringBatchJobBuilder(JobName.JOB_CREATE)
 		springBatchJobBuilder.repository(jobRepository)
@@ -171,6 +174,12 @@ class JobBuilderTest extends Specification {
 		1 * applicationContextMock.getBean(StepName.LINK_COMIC_SERIES, Step) >> linkComicSeriesStep
 		1 * linkComicSeriesStep.name >> ''
 
+		then: 'CREATE_COMICS step is retrieved from application context'
+		1 * stepPropertiesMap.get(StepName.CREATE_COMICS) >> stepProperties
+		1 * stepProperties.isEnabled() >> true
+		1 * applicationContextMock.getBean(StepName.CREATE_COMICS, Step) >> createComicsStep
+		1 * createComicsStep.name >> ''
+
 		then: 'Task executor is retrieved from application context'
 		1 * applicationContextMock.getBean(TaskExecutor) >> taskExecutor
 
@@ -218,8 +227,8 @@ class JobBuilderTest extends Specification {
 		1 * stepToStepPropertiesProviderMock.provide() >> stepPropertiesMap
 
 		then: 'all steps are disabled'
-		11 * stepPropertiesMap.get(_) >> stepProperties
-		11 * stepProperties.isEnabled() >> false
+		12 * stepPropertiesMap.get(_) >> stepProperties
+		12 * stepProperties.isEnabled() >> false
 
 		then: 'no other interactions are expected'
 		0 * _
@@ -261,8 +270,8 @@ class JobBuilderTest extends Specification {
 		1 * createSeriesStep.name >> ''
 
 		then: 'other steps are skipped'
-		9 * stepPropertiesMap.get(_) >> stepProperties
-		9 * stepProperties.isEnabled() >> false
+		10 * stepPropertiesMap.get(_) >> stepProperties
+		10 * stepProperties.isEnabled() >> false
 
 		then: 'Task executor is retrieved from application context'
 		1 * applicationContextMock.getBean(TaskExecutor) >> taskExecutor

@@ -12,4 +12,5 @@
 	<include file="episode/0008_create_episode.xml" relativeToChangelogFile="true"/>
 	<include file="movie/0009_create_movie.xml" relativeToChangelogFile="true"/>
 	<include file="comicSeries/0010_create_comic_series.xml" relativeToChangelogFile="true"/>
+	<include file="comics/0011_create_comics.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
