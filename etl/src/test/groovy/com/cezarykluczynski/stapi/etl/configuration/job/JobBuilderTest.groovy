@@ -201,6 +201,34 @@ class JobBuilderTest extends Specification {
 		job == null
 	}
 
+	void "Job is not build when no step is enabled"() {
+		when:
+		FlowJob job = (FlowJob) jobBuilder.build()
+
+		then: 'validation is performed'
+		1 * stepConfigurationValidatorMock.validate()
+
+		then: 'check is performed whether job is completed'
+		1 * jobCompletenessDeciderMock.isJobCompleted(JobName.JOB_CREATE) >> false
+
+		then: 'jobCreate builder is retrieved'
+		1 * jobBuilderFactoryMock.get(JobName.JOB_CREATE) >> springBatchJobBuilder
+
+		then: 'step properties are provided'
+		1 * stepToStepPropertiesProviderMock.provide() >> stepPropertiesMap
+
+		then: 'all steps are disabled'
+		11 * stepPropertiesMap.get(_) >> stepProperties
+		11 * stepProperties.isEnabled() >> false
+
+		then: 'no other interactions are expected'
+		0 * _
+
+		then: 'null is being returned'
+		job == null
+
+	}
+
 	void "job is built with only two steps"() {
 		given:
 		TaskExecutor taskExecutor = Mock(TaskExecutor)

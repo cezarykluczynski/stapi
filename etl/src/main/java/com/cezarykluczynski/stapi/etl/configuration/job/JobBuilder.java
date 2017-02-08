@@ -60,9 +60,11 @@ public class JobBuilder {
 
 		List<String> stepNameList = StepNames.JOB_STEPS.get(JobName.JOB_CREATE);
 		boolean fromCalled = false;
+		boolean allStepsAreDisabled = true;
 
 		for (String stepName : stepNameList) {
 			if (stepPropertiesMap.get(stepName).isEnabled()) {
+				allStepsAreDisabled = false;
 				Step step = applicationContext.getBean(stepName, Step.class);
 				if (fromCalled) {
 					flowBuilder.next(step);
@@ -73,7 +75,7 @@ public class JobBuilder {
 			}
 		}
 
-		return simpleJobBuilder
+		return allStepsAreDisabled ? null : simpleJobBuilder
 				.split(applicationContext.getBean(TaskExecutor.class))
 				.add(flowBuilder.build())
 				.end()
