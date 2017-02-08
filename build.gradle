@@ -3,7 +3,7 @@ buildscript {
 		mavenCentral()
 		jcenter()
 		maven {
-			url "http://maven.jahia.org/maven2/"
+			url 'https://maven.atlassian.com/repository/public'
 		}
 		flatDir {
 			dirs 'libs'
