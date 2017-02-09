@@ -21,7 +21,30 @@ public class ComicsTemplateProcessor implements ItemProcessor<ComicsTemplate, Co
 	@Override
 	public Comics process(ComicsTemplate item) throws Exception {
 		Comics comics = new Comics();
-		// TODO
+
+		comics.setTitle(item.getTitle());
+		comics.setPage(item.getPage());
+		comics.setGuid(guidGenerator.generateFromPage(item.getPage(), Comics.class));
+		comics.setComicSeries(item.getComicSeries());
+		comics.setComicsType(item.getComicsType());
+		comics.setPublishedYear(item.getPublishedYear());
+		comics.setPublishedMonth(item.getPublishedMonth());
+		comics.setPublishedDay(item.getPublishedDay());
+		comics.setCoverYear(item.getCoverYear());
+		comics.setCoverMonth(item.getCoverMonth());
+		comics.setCoverDay(item.getCoverDay());
+		comics.setNumberOfPages(item.getNumberOfPages());
+		comics.setStardateFrom(item.getStardateFrom());
+		comics.setStardateTo(item.getStardateTo());
+		comics.setYearFrom(item.getYearFrom());
+		comics.setYearTo(item.getYearTo());
+		comics.getWriters().addAll(item.getWriters());
+		comics.getArtists().addAll(item.getArtists());
+		comics.getEditors().addAll(item.getEditors());
+		comics.getStaff().addAll(item.getStaff());
+		comics.getPublishers().addAll(item.getPublishers());
+		comics.getCharacters().addAll(item.getCharacters());
+
 		return comics;
 
 	}

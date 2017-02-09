@@ -20,4 +20,5 @@ public class PageName {
 	public static final String STAR_TREK_THE_ORIGINAL_SERIES_DC = "Star Trek: The Original Series (DC)";
 	public static final String STAR_TREK_ANNUAL = "Star Trek Annual";
 	public static final String STAR_TREK_VOYAGER_MALIBU = "Star Trek: Voyager (Malibu)";
+	public static final String COMICS = "Comics";
 }

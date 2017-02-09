@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.model.comics.entity;
 
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries;
+import com.cezarykluczynski.stapi.model.comics.entity.enums.ComicsType;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
@@ -16,6 +17,8 @@ import lombok.ToString;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -47,6 +50,9 @@ public class Comics extends PageAwareEntity implements PageAware {
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "comic_series_id")
 	private ComicSeries comicSeries;
+
+	@Enumerated(EnumType.STRING)
+	private ComicsType comicsType;
 
 	private Integer publishedYear;
 

@@ -56,10 +56,9 @@ public class ComicSeriesTemplatePageProcessor implements ItemProcessor<Page, Com
 		comicSeriesTemplate.setProductOfRedirect(!item.getRedirectPath().isEmpty());
 		comicSeriesTemplate.setPhotonovelSeries(comicSeriesTemplatePhotonovelSeriesProcessor.process(item));
 
-		Optional<Template> sidebarIndividualTemplateOptional = templateFinder.findTemplate(item, TemplateName.SIDEBAR_COMIC_SERIES);
-
 		comicSeriesTemplateFixedValuesEnrichingProcessor.enrich(EnrichablePair.of(comicSeriesTemplate, comicSeriesTemplate));
 
+		Optional<Template> sidebarIndividualTemplateOptional = templateFinder.findTemplate(item, TemplateName.SIDEBAR_COMIC_SERIES);
 		if (!sidebarIndividualTemplateOptional.isPresent()) {
 			return comicSeriesTemplate;
 		}

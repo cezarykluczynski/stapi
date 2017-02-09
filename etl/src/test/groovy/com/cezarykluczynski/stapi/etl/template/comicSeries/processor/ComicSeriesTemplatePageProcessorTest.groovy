@@ -48,10 +48,7 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 
 	void "returns null when page is 'DC Comics TNG timeline'"() {
 		given:
-		Page page = new Page(
-				title: PageName.DC_COMICS_TNG_TIMELINE,
-				categories: Lists.newArrayList(),
-				templates: Lists.newArrayList())
+		Page page = new Page(title: PageName.DC_COMICS_TNG_TIMELINE)
 
 		when:
 		ComicSeriesTemplate comicSeriesTemplate = comicSeriesTemplatePageProcessor.process(page)
@@ -74,11 +71,11 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 		then:
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * comicSeriesTemplatePhotonovelSeriesProcessorMock.process(page) >> PHOTONOVEL_SERIES
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_SERIES) >> Optional.empty()
 		1 * comicSeriesTemplateFixedValuesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 				EnrichablePair<ComicSeriesTemplate, ComicSeriesTemplate> enrichablePair ->
 			assert enrichablePair.input == enrichablePair.output
 		}
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_SERIES) >> Optional.empty()
 		0 * _
 		comicSeriesTemplate.title == TITLE
 		comicSeriesTemplate.page == modelPage
@@ -99,11 +96,11 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 		then:
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * comicSeriesTemplatePhotonovelSeriesProcessorMock.process(page)
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_SERIES) >> Optional.empty()
 		1 * comicSeriesTemplateFixedValuesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 				EnrichablePair<ComicSeriesTemplate, ComicSeriesTemplate> enrichablePair ->
 			assert enrichablePair.input == enrichablePair.output
 		}
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_SERIES) >> Optional.empty()
 		comicSeriesTemplate.productOfRedirect
 	}
 
@@ -118,11 +115,11 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 		then:
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * comicSeriesTemplatePhotonovelSeriesProcessorMock.process(page)
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_SERIES) >> Optional.empty()
 		1 * comicSeriesTemplateFixedValuesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 				EnrichablePair<ComicSeriesTemplate, ComicSeriesTemplate> enrichablePair ->
 			assert enrichablePair.input == enrichablePair.output
 		}
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_SERIES) >> Optional.empty()
 		!comicSeriesTemplate.productOfRedirect
 	}
 
@@ -138,11 +135,11 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 		then:
 		1 * pageBindingServiceMock.fromPageToPageEntity(page)
 		1 * comicSeriesTemplatePhotonovelSeriesProcessorMock.process(page)
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_SERIES) >> Optional.of(sidebarComicSeriesTemplate)
 		1 * comicSeriesTemplateFixedValuesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 				EnrichablePair<ComicSeriesTemplate, ComicSeriesTemplate> enrichablePair ->
 			assert enrichablePair.input == enrichablePair.output
 		}
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_SERIES) >> Optional.of(sidebarComicSeriesTemplate)
 		1 * comicSeriesTemplatePartsEnrichingProcessorMock.enrich(_) >> { EnrichablePair<List<Template.Part>, ComicSeriesTemplate> enrichablePair ->
 			assert enrichablePair.input == templatePartList
 			assert enrichablePair.output != null

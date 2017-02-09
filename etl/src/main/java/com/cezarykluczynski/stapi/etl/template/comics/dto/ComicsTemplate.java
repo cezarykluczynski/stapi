@@ -2,7 +2,9 @@ package com.cezarykluczynski.stapi.etl.template.comics.dto;
 
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries;
+import com.cezarykluczynski.stapi.model.comics.entity.enums.ComicsType;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
+import com.cezarykluczynski.stapi.model.page.entity.Page;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.google.common.collect.Sets;
 import lombok.Data;
@@ -13,6 +15,10 @@ import java.util.Set;
 public class ComicsTemplate {
 
 	private String title;
+
+	private Page page;
+
+	private ComicsType comicsType;
 
 	private ComicSeries comicSeries;
 
