@@ -6,10 +6,10 @@ import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ComicsTemplateFixedValuesEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<ComicsTemplate, ComicsTemplate>> {
+public class ComicsTemplateWikitextCharactersEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<String, ComicsTemplate>> {
 
 	@Override
-	public void enrich(EnrichablePair<ComicsTemplate, ComicsTemplate> enrichablePair) throws Exception {
+	public void enrich(EnrichablePair<String, ComicsTemplate> enrichablePair) throws Exception {
 		// TODO
 	}
 

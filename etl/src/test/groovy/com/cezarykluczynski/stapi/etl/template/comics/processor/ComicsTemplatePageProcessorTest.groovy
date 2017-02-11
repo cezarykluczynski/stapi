@@ -29,7 +29,7 @@ class ComicsTemplatePageProcessorTest extends Specification {
 
 	private TemplateFinder templateFinderMock
 
-	private ComicsTemplateFixedValuesEnrichingProcessor comicsTemplateFixedValuesEnrichingProcessorMock
+	private ComicsTemplateCompositeEnrichingProcessor comicsTemplateCompositeEnrichingProcessorMock
 
 	private ComicsTemplatePartsEnrichingProcessor comicsTemplatePartsEnrichingProcessorMock
 
@@ -40,10 +40,10 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		comicStripCandidatePageGatheringService = Mock(ComicStripCandidatePageGatheringService)
 		pageBindingServiceMock = Mock(PageBindingService)
 		templateFinderMock = Mock(TemplateFinder)
-		comicsTemplateFixedValuesEnrichingProcessorMock = Mock(ComicsTemplateFixedValuesEnrichingProcessor)
+		comicsTemplateCompositeEnrichingProcessorMock = Mock(ComicsTemplateCompositeEnrichingProcessor)
 		comicsTemplatePartsEnrichingProcessorMock = Mock(ComicsTemplatePartsEnrichingProcessor)
 		comicsTemplatePageProcessor = new ComicsTemplatePageProcessor(categoryTitlesExtractingProcessorMock, comicStripCandidatePageGatheringService,
-				pageBindingServiceMock, templateFinderMock, comicsTemplateFixedValuesEnrichingProcessorMock,
+				pageBindingServiceMock, templateFinderMock, comicsTemplateCompositeEnrichingProcessorMock,
 				comicsTemplatePartsEnrichingProcessorMock)
 	}
 
@@ -90,7 +90,7 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		2 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryName.PHOTONOVELS)
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_STRIP) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
-		1 * comicsTemplateFixedValuesEnrichingProcessorMock.enrich(_ as EnrichablePair)
+		1 * comicsTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair)
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC) >> Optional.empty()
 		0 * _
 		comicsTemplate.photonovel
@@ -111,7 +111,7 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		2 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryName.PHOTONOVELS)
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_STRIP) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
-		1 * comicsTemplateFixedValuesEnrichingProcessorMock.enrich(_ as EnrichablePair)
+		1 * comicsTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair)
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC) >> Optional.empty()
 		0 * _
 		comicsTemplate.title == TITLE
@@ -145,8 +145,8 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		2 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_STRIP) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
-		1 * comicsTemplateFixedValuesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair enrichablePair ->
-			assert enrichablePair.input != null
+		1 * comicsTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair enrichablePair ->
+			assert enrichablePair.input == page
 			assert enrichablePair.output != null
 		}
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC) >> Optional.empty()
@@ -172,8 +172,8 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		2 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_STRIP) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
-		1 * comicsTemplateFixedValuesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair enrichablePair ->
-			assert enrichablePair.input != null
+		1 * comicsTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair enrichablePair ->
+			assert enrichablePair.input == page
 			assert enrichablePair.output != null
 		}
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC) >> Optional.of(template)

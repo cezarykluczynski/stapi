@@ -34,20 +34,20 @@ public class ComicsTemplatePageProcessor implements ItemProcessor<Page, ComicsTe
 
 	private TemplateFinder templateFinder;
 
-	private ComicsTemplateFixedValuesEnrichingProcessor comicsTemplateFixedValuesEnrichingProcessor;
+	private ComicsTemplateCompositeEnrichingProcessor comicsTemplateCompositeEnrichingProcessor;
 
 	private ComicsTemplatePartsEnrichingProcessor comicsTemplatePartsEnrichingProcessor;
 
 	@Inject
 	public ComicsTemplatePageProcessor(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor,
 			ComicStripCandidatePageGatheringService comicStripCandidatePageGatheringService, PageBindingService pageBindingService,
-			TemplateFinder templateFinder, ComicsTemplateFixedValuesEnrichingProcessor comicsTemplateFixedValuesEnrichingProcessor,
+			TemplateFinder templateFinder, ComicsTemplateCompositeEnrichingProcessor comicsTemplateCompositeEnrichingProcessor,
 			ComicsTemplatePartsEnrichingProcessor comicsTemplatePartsEnrichingProcessor) {
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
 		this.comicStripCandidatePageGatheringService = comicStripCandidatePageGatheringService;
 		this.pageBindingService = pageBindingService;
 		this.templateFinder = templateFinder;
-		this.comicsTemplateFixedValuesEnrichingProcessor = comicsTemplateFixedValuesEnrichingProcessor;
+		this.comicsTemplateCompositeEnrichingProcessor = comicsTemplateCompositeEnrichingProcessor;
 		this.comicsTemplatePartsEnrichingProcessor = comicsTemplatePartsEnrichingProcessor;
 	}
 
@@ -71,7 +71,7 @@ public class ComicsTemplatePageProcessor implements ItemProcessor<Page, ComicsTe
 		comicsTemplate.setProductOfRedirect(!item.getRedirectPath().isEmpty());
 		comicsTemplate.setPhotonovel(isPhotonovel(item));
 
-		comicsTemplateFixedValuesEnrichingProcessor.enrich(EnrichablePair.of(comicsTemplate, comicsTemplate));
+		comicsTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(item, comicsTemplate));
 
 		Optional<Template> sidebarComicsTemplateOptional = templateFinder.findTemplate(item, TemplateName.SIDEBAR_COMIC);
 		if (!sidebarComicsTemplateOptional.isPresent()) {
