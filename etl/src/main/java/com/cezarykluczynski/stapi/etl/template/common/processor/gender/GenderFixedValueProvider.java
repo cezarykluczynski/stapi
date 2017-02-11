@@ -63,6 +63,16 @@ public class GenderFixedValueProvider implements FixedValueProvider<String, Gend
 		NAME_TO_GENDER_MAP.put("Jordu Schell", Gender.M); // source: http://memory-alpha.wikia.com/wiki/Jordu_Schell
 		NAME_TO_GENDER_MAP.put("Daryl Towles", Gender.M); // determined from MA page content
 		NAME_TO_GENDER_MAP.put("Ilbra Yacoob", Gender.F); // genderize.io is not sure, photo used to determine
+		NAME_TO_GENDER_MAP.put("Zimmerman (costumer)", null); // no way of telling from the description
+		NAME_TO_GENDER_MAP.put("Hagen", null); // no way of telling from the description
+		NAME_TO_GENDER_MAP.put("Schultz", null); // no way of telling from the description
+		NAME_TO_GENDER_MAP.put("Soufle", null); // no way of telling from the description
+		NAME_TO_GENDER_MAP.put("Fulghan", null); // no way of telling from the description
+		NAME_TO_GENDER_MAP.put("Marvellen", null); // no way of telling from the description
+		NAME_TO_GENDER_MAP.put("Serc Soc", null); // no way of telling from the description
+		NAME_TO_GENDER_MAP.put("Evangelatos", null); // no way of telling from the description
+		NAME_TO_GENDER_MAP.put("T.L. Mancour", null); // no way of telling from the description
+		NAME_TO_GENDER_MAP.put("D. Harrington", null); // no way of telling from the description
 	}
 
 	@Override

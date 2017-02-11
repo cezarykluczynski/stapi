@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingP
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
+import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
@@ -23,6 +24,7 @@ import java.util.Set;
 public class ComicsTemplatePageProcessor implements ItemProcessor<Page, ComicsTemplate> {
 
 	private static final Set<String> INVALID_TITLES = Sets.newHashSet(PageName.COMICS, PageName.PHOTONOVELS);
+	private static final String COMIC = "(comic";
 
 	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
@@ -62,8 +64,9 @@ public class ComicsTemplatePageProcessor implements ItemProcessor<Page, ComicsTe
 			return null;
 		}
 
+		String title = item.getTitle();
 		ComicsTemplate comicsTemplate = new ComicsTemplate();
-		comicsTemplate.setTitle(item.getTitle());
+		comicsTemplate.setTitle(title.contains(COMIC) ? TitleUtil.getNameFromTitle(title) : title);
 		comicsTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 		comicsTemplate.setProductOfRedirect(!item.getRedirectPath().isEmpty());
 		comicsTemplate.setPhotonovel(isPhotonovel(item));

@@ -19,6 +19,7 @@ import spock.lang.Specification
 class ComicsTemplatePageProcessorTest extends Specification {
 
 	private static final String TITLE = 'TITLE'
+	private static final String TITLE_COMICS = 'TITLE (comic)'
 
 	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessorMock
 
@@ -93,6 +94,27 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC) >> Optional.empty()
 		0 * _
 		comicsTemplate.photonovel
+	}
+
+	void "clears title when it contains '(comic)'"() {
+		given:
+		List<CategoryHeader> categoryHeaderList = Mock(List)
+		Page page = new Page(
+				title: TITLE_COMICS,
+				categories: categoryHeaderList)
+		ModelPage modelPage = new ModelPage()
+
+		when:
+		ComicsTemplate comicsTemplate = comicsTemplatePageProcessor.process(page)
+
+		then:
+		2 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryName.PHOTONOVELS)
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_STRIP) >> Optional.empty()
+		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
+		1 * comicsTemplateFixedValuesEnrichingProcessorMock.enrich(_ as EnrichablePair)
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC) >> Optional.empty()
+		0 * _
+		comicsTemplate.title == TITLE
 	}
 
 	void "returns null when sidebar comic strip template is found, and adds page to ComicStripCandidatePageGatheringService"() {

@@ -43,5 +43,4 @@ public class ComicsCreationConfiguration {
 		return new ComicsReader(Lists.newArrayList(Sets.newHashSet(comicsList)));
 	}
 
-
 }
