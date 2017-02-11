@@ -5,9 +5,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.Range;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplate;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear;
-import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DatelinkTemplateToDayMonthYearProcessor;
-import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.MonthlinkTemplateToMonthYearProcessor;
-import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.YearlinkToYearProcessor;
+import com.cezarykluczynski.stapi.etl.template.common.service.TemplateToDayMonthYearParser;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFilter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateName;
@@ -29,23 +27,15 @@ public class ComicSeriesPublishedDatesEnrichingProcessor implements ItemEnrichin
 
 	private TemplateFilter templateFilter;
 
-	private DatelinkTemplateToDayMonthYearProcessor datelinkTemplateToDayMonthYearProcessor;
-
-	private MonthlinkTemplateToMonthYearProcessor monthlinkTemplateToMonthYearProcessor;
-
-	private YearlinkToYearProcessor yearlinkToYearProcessor;
+	private TemplateToDayMonthYearParser templateToDayMonthYearParser;
 
 	private ComicSeriesTemplateDayMonthYearRangeEnrichingProcessor comicSeriesTemplateDayMonthYearRangeEnrichingProcessor;
 
 	@Inject
-	public ComicSeriesPublishedDatesEnrichingProcessor(TemplateFilter templateFilter,
-			DatelinkTemplateToDayMonthYearProcessor datelinkTemplateToDayMonthYearProcessor,
-			MonthlinkTemplateToMonthYearProcessor monthlinkTemplateToMonthYearProcessor, YearlinkToYearProcessor yearlinkToYearProcessor,
+	public ComicSeriesPublishedDatesEnrichingProcessor(TemplateFilter templateFilter, TemplateToDayMonthYearParser templateToDayMonthYearParser,
 			ComicSeriesTemplateDayMonthYearRangeEnrichingProcessor comicSeriesTemplateDayMonthYearRangeEnrichingProcessor) {
 		this.templateFilter = templateFilter;
-		this.datelinkTemplateToDayMonthYearProcessor = datelinkTemplateToDayMonthYearProcessor;
-		this.monthlinkTemplateToMonthYearProcessor = monthlinkTemplateToMonthYearProcessor;
-		this.yearlinkToYearProcessor = yearlinkToYearProcessor;
+		this.templateToDayMonthYearParser = templateToDayMonthYearParser;
 		this.comicSeriesTemplateDayMonthYearRangeEnrichingProcessor = comicSeriesTemplateDayMonthYearRangeEnrichingProcessor;
 	}
 
@@ -87,24 +77,16 @@ public class ComicSeriesPublishedDatesEnrichingProcessor implements ItemEnrichin
 		comicSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(dayMonthYearRange, comicSeriesTemplate));
 	}
 
-	private DayMonthYear parseYearCandidate(Template template) throws Exception {
-		Integer year = yearlinkToYearProcessor.process(template);
-
-		if (year == null) {
-			return null;
-		}
-
-		DayMonthYear dayMonthYear = new DayMonthYear();
-		dayMonthYear.setYear(year);
-		return dayMonthYear;
-	}
-
 	private DayMonthYear parseDayMonthYearCandidate(Template template) throws Exception {
-		return datelinkTemplateToDayMonthYearProcessor.process(template);
+		return templateToDayMonthYearParser.parseDayMonthYearCandidate(template);
 	}
 
 	private DayMonthYear parseMonthYearCandidate(Template template) throws Exception {
-		return monthlinkTemplateToMonthYearProcessor.process(template);
+		return templateToDayMonthYearParser.parseMonthYearCandidate(template);
+	}
+
+	private DayMonthYear parseYearCandidate(Template template) throws Exception {
+		return templateToDayMonthYearParser.parseYearCandidate(template);
 	}
 
 }

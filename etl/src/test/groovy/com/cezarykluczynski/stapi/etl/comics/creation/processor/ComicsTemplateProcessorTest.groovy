@@ -4,7 +4,6 @@ import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries
 import com.cezarykluczynski.stapi.model.comics.entity.Comics
-import com.cezarykluczynski.stapi.model.comics.entity.enums.ComicsType
 import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.page.entity.Page
@@ -14,14 +13,11 @@ import com.google.common.collect.Sets
 
 class ComicsTemplateProcessorTest extends AbstractComicsTest {
 
-	private static final ComicsType COMICS_TYPE = ComicsType.PHOTONOVEL
-
 	private GuidGenerator guidGeneratorMock
 
 	private ComicsTemplateProcessor comicsTemplateProcessor
 
 	private final Page page = Mock(Page)
-	private final ComicSeries comicSeries = Mock(ComicSeries)
 
 	void setup() {
 		guidGeneratorMock = Mock(GuidGenerator)
@@ -30,6 +26,8 @@ class ComicsTemplateProcessorTest extends AbstractComicsTest {
 
 	void "converts ComicsTemplate to Comics"() {
 		given:
+		ComicSeries comicSeries1 = Mock(ComicSeries)
+		ComicSeries comicSeries2 = Mock(ComicSeries)
 		Staff writer1 = Mock(Staff)
 		Staff writer2 = Mock(Staff)
 		Staff artist1 = Mock(Staff)
@@ -46,8 +44,6 @@ class ComicsTemplateProcessorTest extends AbstractComicsTest {
 		ComicsTemplate comicsTemplate = new ComicsTemplate(
 				page: page,
 				title: TITLE,
-				comicSeries: comicSeries,
-				comicsType: COMICS_TYPE,
 				publishedYear: PUBLISHED_YEAR,
 				publishedMonth: PUBLISHED_MONTH,
 				publishedDay: PUBLISHED_DAY,
@@ -59,6 +55,8 @@ class ComicsTemplateProcessorTest extends AbstractComicsTest {
 				stardateTo: STARDATE_TO,
 				yearFrom: YEAR_FROM,
 				yearTo: YEAR_TO,
+				photonovel: PHOTONOVEL,
+				comicSeries: Sets.newHashSet(comicSeries1, comicSeries2),
 				writers: Sets.newHashSet(writer1, writer2),
 				artists: Sets.newHashSet(artist1, artist2),
 				editors: Sets.newHashSet(editor1, editor2),
@@ -75,8 +73,6 @@ class ComicsTemplateProcessorTest extends AbstractComicsTest {
 		comics.guid == GUID
 		comics.page == page
 		comics.title == TITLE
-		comics.comicSeries == comicSeries
-		comics.comicsType == COMICS_TYPE
 		comics.publishedYear == PUBLISHED_YEAR
 		comics.publishedMonth == PUBLISHED_MONTH
 		comics.publishedDay == PUBLISHED_DAY
@@ -88,6 +84,9 @@ class ComicsTemplateProcessorTest extends AbstractComicsTest {
 		comics.stardateTo == STARDATE_TO
 		comics.yearFrom == YEAR_FROM
 		comics.yearTo == YEAR_TO
+		comics.photonovel == PHOTONOVEL
+		comics.comicSeries.contains comicSeries1
+		comics.comicSeries.contains comicSeries2
 		comics.writers.contains writer1
 		comics.writers.contains writer2
 		comics.artists.contains artist1

@@ -12,6 +12,7 @@ public class TemplateName {
 	public static final String SIDEBAR_PLANET = "sidebar planet";
 	public static final String SIDEBAR_COMIC_SERIES = "sidebar comic series";
 	public static final String SIDEBAR_COMIC = "sidebar comic";
+	public static final String SIDEBAR_COMIC_STRIP = "sidebar comic strip";
 
 	public static final String BORN = "born";
 

@@ -2,7 +2,6 @@ package com.cezarykluczynski.stapi.model.comics.entity;
 
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries;
-import com.cezarykluczynski.stapi.model.comics.entity.enums.ComicsType;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
@@ -17,8 +16,6 @@ import lombok.ToString;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,7 +23,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import java.util.Set;
 
@@ -34,8 +30,8 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true, exclude = {"comicSeries", "writers", "artists", "editors", "staff", "publishers", "characters"})
+@EqualsAndHashCode(callSuper = true, exclude = {"comicSeries", "writers", "artists", "editors", "staff", "publishers", "characters"})
 public class Comics extends PageAwareEntity implements PageAware {
 
 	@Id
@@ -46,13 +42,6 @@ public class Comics extends PageAwareEntity implements PageAware {
 
 	@Column(nullable = false)
 	private String title;
-
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "comic_series_id")
-	private ComicSeries comicSeries;
-
-	@Enumerated(EnumType.STRING)
-	private ComicsType comicsType;
 
 	private Integer publishedYear;
 
@@ -75,6 +64,14 @@ public class Comics extends PageAwareEntity implements PageAware {
 	private Integer yearFrom;
 
 	private Integer yearTo;
+
+	private Boolean photonovel;
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "comics_comics_series",
+			joinColumns = @JoinColumn(name = "comics_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "comic_series_id", nullable = false, updatable = false))
+	private Set<ComicSeries> comicSeries = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "comics_writers",

@@ -4,9 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.dto.Range
 import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplate
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear
-import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DatelinkTemplateToDayMonthYearProcessor
-import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.MonthlinkTemplateToMonthYearProcessor
-import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.YearlinkToYearProcessor
+import com.cezarykluczynski.stapi.etl.template.common.service.TemplateToDayMonthYearParser
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFilter
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.constant.TemplateName
@@ -24,11 +22,7 @@ class ComicSeriesPublishedDatesEnrichingProcessorTest extends Specification {
 
 	private TemplateFilter templateFilterMock
 
-	private DatelinkTemplateToDayMonthYearProcessor datelinkTemplateToDayMonthYearProcessorMock
-
-	private MonthlinkTemplateToMonthYearProcessor monthlinkTemplateToMonthYearProcessorMock
-
-	private YearlinkToYearProcessor yearlinkToYearProcessorMock
+	private TemplateToDayMonthYearParser templateToDayMonthYearParserMock
 
 	private ComicSeriesTemplateDayMonthYearRangeEnrichingProcessor comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock
 
@@ -54,15 +48,16 @@ class ComicSeriesPublishedDatesEnrichingProcessorTest extends Specification {
 
 	private final DayMonthYear monthlinkDayMonthYearTo = DayMonthYear.of(null, MONTH_TO, YEAR_TO)
 
+	private final DayMonthYear yearlinkDayMonthYearFrom = DayMonthYear.of(null, null, YEAR_FROM)
+
+	private final DayMonthYear yearlinkDayMonthYearTo = DayMonthYear.of(null, null, YEAR_TO)
+
 	void setup() {
 		templateFilterMock = Mock(TemplateFilter)
-		datelinkTemplateToDayMonthYearProcessorMock = Mock(DatelinkTemplateToDayMonthYearProcessor)
-		monthlinkTemplateToMonthYearProcessorMock = Mock(MonthlinkTemplateToMonthYearProcessor)
-		yearlinkToYearProcessorMock = Mock(YearlinkToYearProcessor)
+		templateToDayMonthYearParserMock = Mock(TemplateToDayMonthYearParser)
 		comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock = Mock(ComicSeriesTemplateDayMonthYearRangeEnrichingProcessor)
 		comicSeriesPublishedDatesEnrichingProcessor = new ComicSeriesPublishedDatesEnrichingProcessor(templateFilterMock,
-				datelinkTemplateToDayMonthYearProcessorMock, monthlinkTemplateToMonthYearProcessorMock, yearlinkToYearProcessorMock,
-				comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock)
+				templateToDayMonthYearParserMock, comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock)
 	}
 
 	void "when single datelink template is found, it is used to populate star and end publication dates"() {
@@ -77,7 +72,7 @@ class ComicSeriesPublishedDatesEnrichingProcessorTest extends Specification {
 		1 * templateFilterMock.filterByTitle(Lists.newArrayList(), TemplateName.D, TemplateName.DATELINK) >> Lists.newArrayList(datelinkTemplateFrom)
 		1 * templateFilterMock.filterByTitle(Lists.newArrayList(), TemplateName.M, TemplateName.MONTHLINK) >> Lists.newArrayList()
 		1 * templateFilterMock.filterByTitle(Lists.newArrayList(), TemplateName.Y, TemplateName.YEARLINK) >> Lists.newArrayList()
-		1 * datelinkTemplateToDayMonthYearProcessorMock.process(datelinkTemplateFrom) >> datelinkDayMonthYearFrom
+		1 * templateToDayMonthYearParserMock.parseDayMonthYearCandidate(datelinkTemplateFrom) >> datelinkDayMonthYearFrom
 		1 * comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 				EnrichablePair<Range<DayMonthYear>, ComicSeriesTemplate> enrichablePair ->
 			assert enrichablePair.input.from.day == DAY_FROM
@@ -101,8 +96,8 @@ class ComicSeriesPublishedDatesEnrichingProcessorTest extends Specification {
 				datelinkTemplateFrom, datelinkTemplateTo)
 		1 * templateFilterMock.filterByTitle(Lists.newArrayList(), TemplateName.M, TemplateName.MONTHLINK) >> Lists.newArrayList()
 		1 * templateFilterMock.filterByTitle(Lists.newArrayList(), TemplateName.Y, TemplateName.YEARLINK) >> Lists.newArrayList()
-		1 * datelinkTemplateToDayMonthYearProcessorMock.process(datelinkTemplateFrom) >> datelinkDayMonthYearFrom
-		1 * datelinkTemplateToDayMonthYearProcessorMock.process(datelinkTemplateTo) >> datelinkDayMonthYearTo
+		1 * templateToDayMonthYearParserMock.parseDayMonthYearCandidate(datelinkTemplateFrom) >> datelinkDayMonthYearFrom
+		1 * templateToDayMonthYearParserMock.parseDayMonthYearCandidate(datelinkTemplateTo) >> datelinkDayMonthYearTo
 		1 * comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 				EnrichablePair<Range<DayMonthYear>, ComicSeriesTemplate> enrichablePair ->
 			assert enrichablePair.input.from.day == DAY_FROM
@@ -129,7 +124,7 @@ class ComicSeriesPublishedDatesEnrichingProcessorTest extends Specification {
 		1 * templateFilterMock.filterByTitle(Lists.newArrayList(), TemplateName.M, TemplateName.MONTHLINK) >> Lists
 				.newArrayList(monthlinkTemplateFrom)
 		1 * templateFilterMock.filterByTitle(Lists.newArrayList(), TemplateName.Y, TemplateName.YEARLINK) >> Lists.newArrayList()
-		1 * monthlinkTemplateToMonthYearProcessorMock.process(monthlinkTemplateFrom) >> monthlinkDayMonthYearFrom
+		1 * templateToDayMonthYearParserMock.parseMonthYearCandidate(monthlinkTemplateFrom) >> monthlinkDayMonthYearFrom
 		1 * comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 				EnrichablePair<Range<DayMonthYear>, ComicSeriesTemplate> enrichablePair ->
 			assert enrichablePair.input.from.day == null
@@ -154,8 +149,8 @@ class ComicSeriesPublishedDatesEnrichingProcessorTest extends Specification {
 		1 * templateFilterMock.filterByTitle(Lists.newArrayList(), TemplateName.M, TemplateName.MONTHLINK) >> Lists
 				.newArrayList(monthlinkTemplateFrom, monthlinkTemplateTo)
 		1 * templateFilterMock.filterByTitle(Lists.newArrayList(), TemplateName.Y, TemplateName.YEARLINK) >> Lists.newArrayList()
-		1 * monthlinkTemplateToMonthYearProcessorMock.process(monthlinkTemplateFrom) >> monthlinkDayMonthYearFrom
-		1 * monthlinkTemplateToMonthYearProcessorMock.process(monthlinkTemplateTo) >> monthlinkDayMonthYearTo
+		1 * templateToDayMonthYearParserMock.parseMonthYearCandidate(monthlinkTemplateFrom) >> monthlinkDayMonthYearFrom
+		1 * templateToDayMonthYearParserMock.parseMonthYearCandidate(monthlinkTemplateTo) >> monthlinkDayMonthYearTo
 		1 * comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 				EnrichablePair<Range<DayMonthYear>, ComicSeriesTemplate> enrichablePair ->
 			assert enrichablePair.input.from.day == null
@@ -181,7 +176,7 @@ class ComicSeriesPublishedDatesEnrichingProcessorTest extends Specification {
 		1 * templateFilterMock.filterByTitle(Lists.newArrayList(), TemplateName.D, TemplateName.DATELINK) >> Lists.newArrayList()
 		1 * templateFilterMock.filterByTitle(Lists.newArrayList(), TemplateName.M, TemplateName.MONTHLINK) >> Lists.newArrayList()
 		1 * templateFilterMock.filterByTitle(Lists.newArrayList(), TemplateName.Y, TemplateName.YEARLINK) >> Lists.newArrayList(yearlinkTemplateFrom)
-		1 * yearlinkToYearProcessorMock.process(yearlinkTemplateFrom) >> YEAR_FROM
+		1 * templateToDayMonthYearParserMock.parseYearCandidate(yearlinkTemplateFrom) >> yearlinkDayMonthYearFrom
 		1 * comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 			EnrichablePair<Range<DayMonthYear>, ComicSeriesTemplate> enrichablePair ->
 				assert enrichablePair.input.from.day == null
@@ -206,8 +201,8 @@ class ComicSeriesPublishedDatesEnrichingProcessorTest extends Specification {
 		1 * templateFilterMock.filterByTitle(Lists.newArrayList(), TemplateName.M, TemplateName.MONTHLINK) >> Lists.newArrayList()
 		1 * templateFilterMock.filterByTitle(Lists.newArrayList(), TemplateName.Y, TemplateName.YEARLINK) >> Lists.newArrayList(yearlinkTemplateFrom,
 				yearlinkTemplateTo)
-		1 * yearlinkToYearProcessorMock.process(yearlinkTemplateFrom) >> YEAR_FROM
-		1 * yearlinkToYearProcessorMock.process(yearlinkTemplateTo) >> YEAR_TO
+		1 * templateToDayMonthYearParserMock.parseYearCandidate(yearlinkTemplateFrom) >> yearlinkDayMonthYearFrom
+		1 * templateToDayMonthYearParserMock.parseYearCandidate(yearlinkTemplateTo) >> yearlinkDayMonthYearTo
 		1 * comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 			EnrichablePair<Range<DayMonthYear>, ComicSeriesTemplate> enrichablePair ->
 				assert enrichablePair.input.from.day == null
@@ -234,8 +229,8 @@ class ComicSeriesPublishedDatesEnrichingProcessorTest extends Specification {
 		1 * templateFilterMock.filterByTitle(Lists.newArrayList(), TemplateName.M, TemplateName.MONTHLINK) >> Lists.newArrayList()
 		1 * templateFilterMock.filterByTitle(Lists.newArrayList(), TemplateName.Y, TemplateName.YEARLINK) >> Lists.newArrayList(yearlinkTemplateFrom,
 				yearlinkTemplateTo)
-		1 * yearlinkToYearProcessorMock.process(yearlinkTemplateFrom) >> null
-		1 * yearlinkToYearProcessorMock.process(yearlinkTemplateTo) >> null
+		1 * templateToDayMonthYearParserMock.parseYearCandidate(yearlinkTemplateFrom) >> null
+		1 * templateToDayMonthYearParserMock.parseYearCandidate(yearlinkTemplateTo) >> null
 		1 * comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 			EnrichablePair<Range<DayMonthYear>, ComicSeriesTemplate> enrichablePair ->
 				assert enrichablePair.input.from == null

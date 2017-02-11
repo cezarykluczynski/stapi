@@ -25,8 +25,6 @@ public class ComicsTemplateProcessor implements ItemProcessor<ComicsTemplate, Co
 		comics.setTitle(item.getTitle());
 		comics.setPage(item.getPage());
 		comics.setGuid(guidGenerator.generateFromPage(item.getPage(), Comics.class));
-		comics.setComicSeries(item.getComicSeries());
-		comics.setComicsType(item.getComicsType());
 		comics.setPublishedYear(item.getPublishedYear());
 		comics.setPublishedMonth(item.getPublishedMonth());
 		comics.setPublishedDay(item.getPublishedDay());
@@ -38,6 +36,8 @@ public class ComicsTemplateProcessor implements ItemProcessor<ComicsTemplate, Co
 		comics.setStardateTo(item.getStardateTo());
 		comics.setYearFrom(item.getYearFrom());
 		comics.setYearTo(item.getYearTo());
+		comics.setPhotonovel(item.isPhotonovel());
+		comics.getComicSeries().addAll(item.getComicSeries());
 		comics.getWriters().addAll(item.getWriters());
 		comics.getArtists().addAll(item.getArtists());
 		comics.getEditors().addAll(item.getEditors());

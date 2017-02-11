@@ -16,8 +16,6 @@
 			<column name="title" type="varchar(128)">
 				<constraints nullable="false"/>
 			</column>
-			<column name="comics_type" type="varchar(32)"/>
-			<column name="comic_series_id" type="bigint"/>
 			<column name="published_year" type="int"/>
 			<column name="published_month" type="int"/>
 			<column name="published_day" type="int"/>
@@ -29,6 +27,7 @@
 			<column name="stardate_to" type="float"/>
 			<column name="year_from" type="int"/>
 			<column name="year_to" type="int"/>
+			<column name="photonovel" type="boolean"/>
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="comics_sequence"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
@@ -36,9 +35,19 @@
 				constraintName="comics_page_fkey"
 				referencedColumnNames="id"
 				referencedTableName="page"/>
+
+		<createTable tableName="comics_comics_series">
+			<column name="comics_id" type="bigint"/>
+			<column name="comic_series_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="comics_id"
+				baseTableName="comics_comics_series"
+				constraintName="ccs_comics_fkey"
+				referencedColumnNames="id"
+				referencedTableName="comics"/>
 		<addForeignKeyConstraint baseColumnNames="comic_series_id"
-				baseTableName="comics"
-				constraintName="comic_comis_series_fkey"
+				baseTableName="comics_comics_series"
+				constraintName="ccs_comic_series_fkey"
 				referencedColumnNames="id"
 				referencedTableName="comic_series"/>
 
@@ -50,7 +59,7 @@
 				baseTableName="comics_writers"
 				constraintName="cw_comics_fkey"
 				referencedColumnNames="id"
-				referencedTableName="staff"/>
+				referencedTableName="comics"/>
 		<addForeignKeyConstraint baseColumnNames="staff_id"
 				baseTableName="comics_writers"
 				constraintName="cw_writer_fkey"
@@ -131,6 +140,5 @@
 				constraintName="cc_character_fkey"
 				referencedColumnNames="id"
 				referencedTableName="character"/>
-
 	</changeSet>
 </databaseChangeLog>

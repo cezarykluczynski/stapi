@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.comicSeries.processor
+package com.cezarykluczynski.stapi.etl.common.processor.company
 
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.company.repository.CompanyRepository
@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
-class ComicSeriesTemplatePublishersProcessorTest extends Specification {
+class WikitextToCompaniesProcessorTest extends Specification {
 
 	private static final MediaWikiSource SOURCE = MediaWikiSource.MEMORY_ALPHA_EN
 	private static final String LINK_TITLE_1 = 'LINK_TITLE_1'
@@ -18,12 +18,12 @@ class ComicSeriesTemplatePublishersProcessorTest extends Specification {
 
 	private CompanyRepository companyRepositoryMock
 
-	private ComicSeriesTemplatePublishersProcessor comicSeriesTemplatePublishersProcessor
+	private WikitextToCompaniesProcessor wikitextToCompaniesProcessor
 
 	void setup() {
 		wikitextApiMock = Mock(WikitextApi)
 		companyRepositoryMock = Mock(CompanyRepository)
-		comicSeriesTemplatePublishersProcessor = new ComicSeriesTemplatePublishersProcessor(wikitextApiMock, companyRepositoryMock)
+		wikitextToCompaniesProcessor = new WikitextToCompaniesProcessor(wikitextApiMock, companyRepositoryMock)
 	}
 
 	void "given wikitext, gets links from it, then returns companies that have associated pages with matching titles"() {
@@ -31,7 +31,7 @@ class ComicSeriesTemplatePublishersProcessorTest extends Specification {
 		Company company = Mock(Company)
 
 		when:
-		Set<Company> companySet = comicSeriesTemplatePublishersProcessor.process(WIKITEXT)
+		Set<Company> companySet = wikitextToCompaniesProcessor.process(WIKITEXT)
 
 		then:
 		1 * wikitextApiMock.getPageTitlesFromWikitext(WIKITEXT) >> Lists.newArrayList(LINK_TITLE_1, LINK_TITLE_2)

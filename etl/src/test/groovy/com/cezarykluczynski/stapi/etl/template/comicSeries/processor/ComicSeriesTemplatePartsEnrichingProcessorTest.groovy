@@ -1,14 +1,17 @@
 package com.cezarykluczynski.stapi.etl.template.comicSeries.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
+import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor
 import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplate
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToStardateRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToYearRangeProcessor
+import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.tool.LogicUtil
 import com.google.common.collect.Lists
+import com.google.common.collect.Sets
 import spock.lang.Specification
 
 class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
@@ -27,7 +30,7 @@ class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 	private static final String SERIES = 'SERIES'
 	private static final Boolean MINISERIES = LogicUtil.nextBoolean()
 
-	private ComicSeriesTemplatePublishersProcessor comicSeriesTemplatePublishersProcessorMock
+	private WikitextToCompaniesProcessor wikitextToCompaniesProcessorMock
 
 	private ComicSeriesPublishedDatesEnrichingProcessor comicSeriesPublishedDatesEnrichingProcessorMock
 
@@ -42,13 +45,13 @@ class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 	private ComicSeriesTemplatePartsEnrichingProcessor comicSeriesTemplatePartsEnrichingProcessor
 
 	void setup() {
-		comicSeriesTemplatePublishersProcessorMock = Mock(ComicSeriesTemplatePublishersProcessor)
+		wikitextToCompaniesProcessorMock = Mock(WikitextToCompaniesProcessor)
 		comicSeriesPublishedDatesEnrichingProcessorMock = Mock(ComicSeriesPublishedDatesEnrichingProcessor)
 		comicSeriesTemplateNumberOfIssuesProcessorMock = Mock(ComicSeriesTemplateNumberOfIssuesProcessor)
 		wikitextToYearRangeProcessorMock = Mock(WikitextToYearRangeProcessor)
 		wikitextToStardateRangeProcessorMock = Mock(WikitextToStardateRangeProcessor)
 		comicSeriesTemplateMiniseriesProcessorMock = Mock(ComicSeriesTemplateMiniseriesProcessor)
-		comicSeriesTemplatePartsEnrichingProcessor = new ComicSeriesTemplatePartsEnrichingProcessor(comicSeriesTemplatePublishersProcessorMock,
+		comicSeriesTemplatePartsEnrichingProcessor = new ComicSeriesTemplatePartsEnrichingProcessor(wikitextToCompaniesProcessorMock,
 				comicSeriesPublishedDatesEnrichingProcessorMock, comicSeriesTemplateNumberOfIssuesProcessorMock, wikitextToYearRangeProcessorMock,
 				wikitextToStardateRangeProcessorMock, comicSeriesTemplateMiniseriesProcessorMock)
 	}
@@ -57,15 +60,18 @@ class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 		given:
 		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplatePartsEnrichingProcessor.PUBLISHER, value: PUBLISHER)
 		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate()
-		Set publisherSet = Mock(Set)
+		Company publisher1 = Mock(Company)
+		Company publisher2 = Mock(Company)
 
 		when:
 		comicSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicSeriesTemplate))
 
 		then:
-		1 * comicSeriesTemplatePublishersProcessorMock.process(PUBLISHER) >> publisherSet
+		1 * wikitextToCompaniesProcessorMock.process(PUBLISHER) >> Sets.newHashSet(publisher1, publisher2)
 		0 * _
-		comicSeriesTemplate.publishers == publisherSet
+		comicSeriesTemplate.publishers.size() == 2
+		comicSeriesTemplate.publishers.contains publisher1
+		comicSeriesTemplate.publishers.contains publisher2
 	}
 
 	void "passes ComicSeriesTemplate to ComicSeriesPublishedDatesEnrichingProcessor"() {
@@ -151,7 +157,7 @@ class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "does not set year from and year to from WikitextToYearRangeProcessor, when value is already present"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplatePartsEnrichingProcessor.YEAR, value: ISSUES_STRING)
+		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplatePartsEnrichingProcessor.YEAR, value: YEARS)
 		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate(yearFrom: YEAR_FROM)
 
 		when:

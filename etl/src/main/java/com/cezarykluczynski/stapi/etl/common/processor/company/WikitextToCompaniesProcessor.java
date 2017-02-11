@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.comicSeries.processor;
+package com.cezarykluczynski.stapi.etl.common.processor.company;
 
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.company.repository.CompanyRepository;
@@ -14,14 +14,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class ComicSeriesTemplatePublishersProcessor implements ItemProcessor<String, Set<Company>> {
+public class WikitextToCompaniesProcessor implements ItemProcessor<String, Set<Company>> {
 
 	private WikitextApi wikitextApi;
 
 	private CompanyRepository companyRepository;
 
 	@Inject
-	public ComicSeriesTemplatePublishersProcessor(WikitextApi wikitextApi, CompanyRepository companyRepository) {
+	public WikitextToCompaniesProcessor(WikitextApi wikitextApi, CompanyRepository companyRepository) {
 		this.wikitextApi = wikitextApi;
 		this.companyRepository = companyRepository;
 	}

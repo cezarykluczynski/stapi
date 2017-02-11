@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.comicSeries.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor;
 import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplate;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange;
@@ -23,7 +24,7 @@ public class ComicSeriesTemplatePartsEnrichingProcessor implements ItemEnriching
 	private static final String STARDATE = "stardate";
 	private static final String SERIES = "series";
 
-	private ComicSeriesTemplatePublishersProcessor comicSeriesTemplatePublishersProcessor;
+	private WikitextToCompaniesProcessor wikitextToCompaniesProcessor;
 
 	private ComicSeriesPublishedDatesEnrichingProcessor comicSeriesPublishedDatesEnrichingProcessor;
 
@@ -36,13 +37,13 @@ public class ComicSeriesTemplatePartsEnrichingProcessor implements ItemEnriching
 	private ComicSeriesTemplateMiniseriesProcessor comicSeriesTemplateMiniseriesProcessor;
 
 	@Inject
-	public ComicSeriesTemplatePartsEnrichingProcessor(ComicSeriesTemplatePublishersProcessor comicSeriesTemplatePublishersProcessor,
+	public ComicSeriesTemplatePartsEnrichingProcessor(WikitextToCompaniesProcessor wikitextToCompaniesProcessor,
 			ComicSeriesPublishedDatesEnrichingProcessor comicSeriesPublishedDatesEnrichingProcessor,
 			ComicSeriesTemplateNumberOfIssuesProcessor comicSeriesTemplateNumberOfIssuesProcessor,
 			WikitextToYearRangeProcessor wikitextToYearRangeProcessor,
 			WikitextToStardateRangeProcessor wikitextToStardateRangeProcessor,
 			ComicSeriesTemplateMiniseriesProcessor comicSeriesTemplateMiniseriesProcessor) {
-		this.comicSeriesTemplatePublishersProcessor = comicSeriesTemplatePublishersProcessor;
+		this.wikitextToCompaniesProcessor = wikitextToCompaniesProcessor;
 		this.comicSeriesPublishedDatesEnrichingProcessor = comicSeriesPublishedDatesEnrichingProcessor;
 		this.comicSeriesTemplateNumberOfIssuesProcessor = comicSeriesTemplateNumberOfIssuesProcessor;
 		this.wikitextToYearRangeProcessor = wikitextToYearRangeProcessor;
@@ -60,7 +61,7 @@ public class ComicSeriesTemplatePartsEnrichingProcessor implements ItemEnriching
 
 			switch (key) {
 				case PUBLISHER:
-					comicSeriesTemplate.setPublishers(comicSeriesTemplatePublishersProcessor.process(value));
+					comicSeriesTemplate.getPublishers().addAll(wikitextToCompaniesProcessor.process(value));
 					break;
 				case PUBLISHED:
 					if (comicSeriesTemplate.getPublishedYearFrom() == null && comicSeriesTemplate.getPublishedYearTo() == null) {

@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.model.comicSeries.entity;
 
+import com.cezarykluczynski.stapi.model.comics.entity.Comics;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
@@ -20,6 +21,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import java.util.Set;
 
@@ -27,8 +29,8 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true, exclude = {"parentSeries", "childSeries", "publishers", "comics"})
+@EqualsAndHashCode(callSuper = true, exclude = {"parentSeries", "childSeries", "publishers", "comics"})
 public class ComicSeries extends PageAwareEntity implements PageAware {
 
 	@Id
@@ -83,6 +85,9 @@ public class ComicSeries extends PageAwareEntity implements PageAware {
 			joinColumns = @JoinColumn(name = "comic_series_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "company_id", nullable = false, updatable = false))
 	private Set<Company> publishers = Sets.newHashSet();
+
+	@OneToMany(mappedBy = "comicSeries")
+	private Set<Comics> comics;
 
 
 }

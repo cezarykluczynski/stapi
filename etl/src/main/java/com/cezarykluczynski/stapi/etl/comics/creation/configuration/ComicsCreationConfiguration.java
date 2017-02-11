@@ -33,14 +33,14 @@ public class ComicsCreationConfiguration {
 	@Bean
 	@DependsOn("batchDatabaseInitializer")
 	public ComicsReader comicsReader() {
-		List<PageHeader> comics = Lists.newArrayList();
+		List<PageHeader> comicsList = Lists.newArrayList();
 
 		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_COMICS)) {
-			comics.addAll(categoryApi.getPages(CategoryName.COMICS, MediaWikiSource.MEMORY_ALPHA_EN));
-			comics.addAll(categoryApi.getPages(CategoryName.PHOTONOVELS, MediaWikiSource.MEMORY_ALPHA_EN));
+			comicsList.addAll(categoryApi.getPages(CategoryName.COMICS, MediaWikiSource.MEMORY_ALPHA_EN));
+			comicsList.addAll(categoryApi.getPages(CategoryName.PHOTONOVELS, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 
-		return new ComicsReader(Lists.newArrayList(Sets.newHashSet(comics)));
+		return new ComicsReader(Lists.newArrayList(Sets.newHashSet(comicsList)));
 	}
 
 

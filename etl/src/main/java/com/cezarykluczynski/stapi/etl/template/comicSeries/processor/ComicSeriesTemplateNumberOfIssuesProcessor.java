@@ -4,6 +4,7 @@ import com.google.common.primitives.Ints;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
+// TODO: remove?
 @Service
 public class ComicSeriesTemplateNumberOfIssuesProcessor implements ItemProcessor<String, Integer> {
 

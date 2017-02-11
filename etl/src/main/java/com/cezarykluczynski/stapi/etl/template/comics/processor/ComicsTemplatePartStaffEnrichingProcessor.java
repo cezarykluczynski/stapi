@@ -7,10 +7,10 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ComicsTemplateCompositeEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template, ComicsTemplate>> {
+public class ComicsTemplatePartStaffEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template.Part, ComicsTemplate>> {
 
 	@Override
-	public void enrich(EnrichablePair<Template, ComicsTemplate> enrichablePair) throws Exception {
+	public void enrich(EnrichablePair<Template.Part, ComicsTemplate> enrichablePair) throws Exception {
 		// TODO
 	}
 

@@ -21,4 +21,5 @@ public class PageName {
 	public static final String STAR_TREK_ANNUAL = "Star Trek Annual";
 	public static final String STAR_TREK_VOYAGER_MALIBU = "Star Trek: Voyager (Malibu)";
 	public static final String COMICS = "Comics";
+	public static final String PHOTONOVELS = "Photonovels";
 }
