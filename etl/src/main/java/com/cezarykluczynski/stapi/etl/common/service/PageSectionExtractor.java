@@ -39,4 +39,42 @@ public class PageSectionExtractor {
 				.collect(Collectors.toList());
 	}
 
+	public List<PageSection> findByTitlesIncludingSubsections(Page page, String... titles) {
+		Preconditions.checkNotNull(page);
+		Preconditions.checkNotNull(titles[0]);
+		List<String> titleList = Lists.newArrayList(titles);
+
+		List<PageSection> matchingPageSectionList = Lists.newArrayList();
+
+		boolean isTrackingParent = false;
+		int trackingParentLevel = 0;
+
+		for (PageSection pageSection : page.getSections()) {
+			int currentPageSectionLevel = pageSection.getLevel();
+			boolean added = false;
+			if (isTrackingParent) {
+				if (currentPageSectionLevel <= trackingParentLevel) {
+					trackingParentLevel = 0;
+					isTrackingParent = false;
+				} else {
+					added = true;
+					matchingPageSectionList.add(pageSection);
+				}
+			}
+
+			if (titleList.contains(pageSection.getText())) {
+				if (!isTrackingParent) {
+					isTrackingParent = true;
+					trackingParentLevel = currentPageSectionLevel;
+				}
+
+				if (!added) {
+					matchingPageSectionList.add(pageSection);
+				}
+			}
+		}
+
+		return matchingPageSectionList;
+	}
+
 }

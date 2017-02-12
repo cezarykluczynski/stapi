@@ -68,7 +68,7 @@ public class ComicsTemplateWikitextStaffEnrichingProcessor implements ItemEnrich
 	public void enrich(EnrichablePair<String, ComicsTemplate> enrichablePair) throws Exception {
 		String pageSectionWikitext = enrichablePair.getInput();
 		ComicsTemplate comicsTemplate = enrichablePair.getOutput();
-		List<WikitextList> wikitextListList = wikitextListsExtractor.extractFromWikitext(pageSectionWikitext);
+		List<WikitextList> wikitextListList = wikitextListsExtractor.extractListsFromWikitext(pageSectionWikitext);
 
 		for (WikitextList wikitextList : wikitextListList) {
 			String wikitextListText = wikitextList.getText();

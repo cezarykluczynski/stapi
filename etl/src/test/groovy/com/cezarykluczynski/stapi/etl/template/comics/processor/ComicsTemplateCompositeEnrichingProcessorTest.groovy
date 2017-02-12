@@ -11,6 +11,8 @@ import spock.lang.Specification
 class ComicsTemplateCompositeEnrichingProcessorTest extends Specification {
 
 	private static final String WIKITEXT = 'WIKITEXT'
+	private static final String SUBSECTION_1_WIKITEXT = 'SUBSECTION_1_WIKITEXT'
+	private static final String SUBSECTION_2_WIKITEXT = 'SUBSECTION_2_WIKITEXT'
 
 	private PageSectionExtractor pageSectionExtractorMock
 
@@ -41,7 +43,7 @@ class ComicsTemplateCompositeEnrichingProcessorTest extends Specification {
 		then:
 		1 * pageSectionExtractorMock.findByTitles(page, ComicsTemplateCompositeEnrichingProcessor.CREATORS,
 				ComicsTemplateCompositeEnrichingProcessor.CREDITS) >> Lists.newArrayList(pageSection1, pageSection2)
-		1 * pageSectionExtractorMock.findByTitles(page, ComicsTemplateCompositeEnrichingProcessor.CHARACTERS) >> Lists.newArrayList()
+		1 * pageSectionExtractorMock.findByTitlesIncludingSubsections(page, ComicsTemplateCompositeEnrichingProcessor.CHARACTERS) >> Lists.newArrayList()
 		1 * comicsTemplateWikitextStaffEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 				EnrichablePair<String, ComicsTemplate> enrichablePair ->
 			assert enrichablePair.input == WIKITEXT
@@ -50,12 +52,15 @@ class ComicsTemplateCompositeEnrichingProcessorTest extends Specification {
 		0 * _
 	}
 
-	void "when characters sections is found, first section's wikitext is passed to ComicsTemplateWikitextStaffEnrichingProcessor"() {
+	@SuppressWarnings('BracesForMethod')
+	void """when characters sections is found, first section's wikitext alongs with subsection is passed
+			to ComicsTemplateWikitextStaffEnrichingProcessor"""() {
 		given:
 		Page page = Mock(Page)
 		ComicsTemplate comicsTemplate = Mock(ComicsTemplate)
 		PageSection pageSection1 = new PageSection(wikitext: WIKITEXT)
-		PageSection pageSection2 = new PageSection()
+		PageSection pageSection2 = new PageSection(wikitext: SUBSECTION_1_WIKITEXT)
+		PageSection pageSection3 = new PageSection(wikitext: SUBSECTION_2_WIKITEXT)
 
 		when:
 		comicsTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(page, comicsTemplate))
@@ -63,11 +68,11 @@ class ComicsTemplateCompositeEnrichingProcessorTest extends Specification {
 		then:
 		1 * pageSectionExtractorMock.findByTitles(page, ComicsTemplateCompositeEnrichingProcessor.CREATORS,
 				ComicsTemplateCompositeEnrichingProcessor.CREDITS) >> Lists.newArrayList()
-		1 * pageSectionExtractorMock.findByTitles(page, ComicsTemplateCompositeEnrichingProcessor.CHARACTERS) >> Lists
-				.newArrayList(pageSection1, pageSection2)
+		1 * pageSectionExtractorMock.findByTitlesIncludingSubsections(page, ComicsTemplateCompositeEnrichingProcessor.CHARACTERS) >> Lists
+				.newArrayList(pageSection1, pageSection2, pageSection3)
 		1 * comicsTemplateWikitextCharactersEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 			EnrichablePair<String, ComicsTemplate> enrichablePair ->
-				assert enrichablePair.input == WIKITEXT
+				assert enrichablePair.input == "${WIKITEXT}\n${SUBSECTION_1_WIKITEXT}\n${SUBSECTION_2_WIKITEXT}".toString()
 				assert enrichablePair.output == comicsTemplate
 		}
 		0 * _

@@ -48,7 +48,7 @@ class ComicsTemplateWikitextStaffEnrichingProcessorTest extends Specification {
 		comicsTemplateWikitextStaffEnrichingProcessor.enrich(EnrichablePair.of(WIKITEXT, comicsTemplate))
 
 		then:
-		1 * wikitextListsExtractorMock.extractFromWikitext(WIKITEXT) >> Lists.newArrayList(wikitextList)
+		1 * wikitextListsExtractorMock.extractListsFromWikitext(WIKITEXT) >> Lists.newArrayList(wikitextList)
 		1 * wikitextApiMock.getPageTitlesFromWikitext(ComicsTemplateWikitextStaffEnrichingProcessor.WRITER) >> Lists.newArrayList()
 		1 * wikitextApiMock.getPageTitlesFromWikitext(CHILD_WIKITEXT) >> Lists.newArrayList(CHILD_PAGE_TITLE)
 		1 * entityLookupByNameServiceMock.findStaffByName(CHILD_PAGE_TITLE, MEDIA_WIKI_SOURCE) >> Optional.of(writer)
@@ -74,7 +74,7 @@ class ComicsTemplateWikitextStaffEnrichingProcessorTest extends Specification {
 		comicsTemplateWikitextStaffEnrichingProcessor.enrich(EnrichablePair.of(WIKITEXT, comicsTemplate))
 
 		then:
-		1 * wikitextListsExtractorMock.extractFromWikitext(WIKITEXT) >> Lists.newArrayList(wikitextList)
+		1 * wikitextListsExtractorMock.extractListsFromWikitext(WIKITEXT) >> Lists.newArrayList(wikitextList)
 		1 * wikitextApiMock.getPageTitlesFromWikitext(ComicsTemplateWikitextStaffEnrichingProcessor.ARTIST) >> Lists.newArrayList()
 		1 * wikitextApiMock.getPageTitlesFromWikitext(CHILD_WIKITEXT) >> Lists.newArrayList(CHILD_PAGE_TITLE)
 		1 * entityLookupByNameServiceMock.findStaffByName(CHILD_PAGE_TITLE, MEDIA_WIKI_SOURCE) >> Optional.of(artist)
@@ -100,7 +100,7 @@ class ComicsTemplateWikitextStaffEnrichingProcessorTest extends Specification {
 		comicsTemplateWikitextStaffEnrichingProcessor.enrich(EnrichablePair.of(WIKITEXT, comicsTemplate))
 
 		then:
-		1 * wikitextListsExtractorMock.extractFromWikitext(WIKITEXT) >> Lists.newArrayList(wikitextList)
+		1 * wikitextListsExtractorMock.extractListsFromWikitext(WIKITEXT) >> Lists.newArrayList(wikitextList)
 		1 * wikitextApiMock.getPageTitlesFromWikitext(ComicsTemplateWikitextStaffEnrichingProcessor.EDITOR) >> Lists.newArrayList()
 		1 * wikitextApiMock.getPageTitlesFromWikitext(CHILD_WIKITEXT) >> Lists.newArrayList(CHILD_PAGE_TITLE)
 		1 * entityLookupByNameServiceMock.findStaffByName(CHILD_PAGE_TITLE, MEDIA_WIKI_SOURCE) >> Optional.of(editor)
@@ -126,7 +126,7 @@ class ComicsTemplateWikitextStaffEnrichingProcessorTest extends Specification {
 		comicsTemplateWikitextStaffEnrichingProcessor.enrich(EnrichablePair.of(WIKITEXT, comicsTemplate))
 
 		then:
-		1 * wikitextListsExtractorMock.extractFromWikitext(WIKITEXT) >> Lists.newArrayList(wikitextList)
+		1 * wikitextListsExtractorMock.extractListsFromWikitext(WIKITEXT) >> Lists.newArrayList(wikitextList)
 		1 * wikitextApiMock.getPageTitlesFromWikitext(ComicsTemplateWikitextStaffEnrichingProcessor.PUBLISHER) >> Lists.newArrayList()
 		1 * wikitextApiMock.getPageTitlesFromWikitext(CHILD_WIKITEXT) >> Lists.newArrayList(CHILD_PAGE_TITLE)
 		1 * entityLookupByNameServiceMock.findStaffByName(CHILD_PAGE_TITLE, MEDIA_WIKI_SOURCE) >> Optional.of(staff)
@@ -147,7 +147,7 @@ class ComicsTemplateWikitextStaffEnrichingProcessorTest extends Specification {
 		comicsTemplateWikitextStaffEnrichingProcessor.enrich(EnrichablePair.of(WIKITEXT, comicsTemplate))
 
 		then:
-		1 * wikitextListsExtractorMock.extractFromWikitext(WIKITEXT) >> Lists.newArrayList(wikitextList)
+		1 * wikitextListsExtractorMock.extractListsFromWikitext(WIKITEXT) >> Lists.newArrayList(wikitextList)
 		0 * _
 		comicsTemplate.writers.empty
 		comicsTemplate.artists.empty
@@ -164,7 +164,7 @@ class ComicsTemplateWikitextStaffEnrichingProcessorTest extends Specification {
 		comicsTemplateWikitextStaffEnrichingProcessor.enrich(EnrichablePair.of(WIKITEXT, comicsTemplate))
 
 		then:
-		1 * wikitextListsExtractorMock.extractFromWikitext(WIKITEXT) >> Lists.newArrayList(wikitextList)
+		1 * wikitextListsExtractorMock.extractListsFromWikitext(WIKITEXT) >> Lists.newArrayList(wikitextList)
 		1 * comicsTemplate.title
 		0 * _
 	}

@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.common.service;
 
 import com.cezarykluczynski.stapi.etl.common.dto.WikitextList;
+import com.cezarykluczynski.stapi.util.tool.StringUtil;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -14,11 +15,22 @@ import java.util.stream.Collectors;
 @Slf4j
 public class WikitextListsExtractor {
 
-	private static final String ASTERISK_STRING = "*";
-	private static final char ASTERISK_CHAR = '*';
+	private static final String ASTERISK = "*";
+	private static final String SEMICOLON = ";";
+	private static final String COLON = ":";
+
 	private static final Pattern REMOVE_COMMENTS = Pattern.compile("<!--(.+?)-->", Pattern.DOTALL);
 
-	public List<WikitextList> extractFromWikitext(String wikitext) {
+	public List<WikitextList> extractListsFromWikitext(String wikitext) {
+		return extractListLikeFromWikitext(wikitext, ASTERISK, ASTERISK);
+	}
+
+
+	public List<WikitextList> extractDefinitionsFromWikitext(String wikitext) {
+		return extractListLikeFromWikitext(wikitext, SEMICOLON, COLON);
+	}
+
+	private List<WikitextList> extractListLikeFromWikitext(String wikitext, String firstLevelMarker, String nextLevelMarker) {
 		List<WikitextList> wikitextListList = Lists.newArrayList();
 
 		if (StringUtils.isEmpty(wikitext)) {
@@ -29,8 +41,8 @@ public class WikitextListsExtractor {
 		List<String> lines = trimLines(wikitextWithoutComments);
 
 		for (String line : lines) {
-			if (line.startsWith(ASTERISK_STRING)) {
-				addLineToWikitextListList(line, wikitextListList);
+			if (StringUtil.startsWithAnyIgnoreCase(line, Lists.newArrayList(firstLevelMarker, nextLevelMarker))) {
+				addLineToWikitextListList(line, wikitextListList, firstLevelMarker, nextLevelMarker);
 			}
 		}
 
@@ -48,16 +60,18 @@ public class WikitextListsExtractor {
 				.collect(Collectors.toList());
 	}
 
-	private void addLineToWikitextListList(String line, List<WikitextList> wikitextListList) {
-		WikitextList wikitextList = createWikitextList(line);
+	private void addLineToWikitextListList(String line, List<WikitextList> wikitextListList, String firstLevelMarker, String nextLevelMarker) {
+		WikitextList wikitextList = createWikitextList(line, firstLevelMarker, nextLevelMarker);
 		int level = wikitextList.getLevel();
 
 		List<WikitextList> lastWikitextListListAtLevel = getLastWikitextListListAtLevel(wikitextListList, level);
-		lastWikitextListListAtLevel.add(wikitextList);
+		if (level < 2 || !wikitextListList.isEmpty()) {
+			lastWikitextListListAtLevel.add(wikitextList);
+		}
 	}
 
-	private WikitextList createWikitextList(String line) {
-		int level = determineLevel(line);
+	private WikitextList createWikitextList(String line, String firstLevelMarker, String nextLevelMarker) {
+		int level = determineLevel(line, firstLevelMarker, nextLevelMarker);
 
 		WikitextList wikitextList = new WikitextList();
 		wikitextList.setLevel(level);
@@ -66,10 +80,20 @@ public class WikitextListsExtractor {
 		return wikitextList;
 	}
 
-	private int determineLevel(String line) {
+	private int determineLevel(String line, String firstLevelMarker, String nextLevelMarker) {
 		char[] characters = line.toCharArray();
+		boolean markersDiffers = !firstLevelMarker.equals(nextLevelMarker);
+		boolean lookingForNextLevelMarkers = false;
 		for (int i = 0; i < line.length(); i++) {
-			if (characters[i] != ASTERISK_CHAR) {
+			boolean atFirstChar = i == 0;
+			char firstLevelMarkerChar = firstLevelMarker.charAt(0);
+			char nextLevelMarkerChar = nextLevelMarker.charAt(0);
+
+			if (atFirstChar) {
+				lookingForNextLevelMarkers = characters[0] == nextLevelMarkerChar;
+			} else if (lookingForNextLevelMarkers && characters[i] != nextLevelMarkerChar && markersDiffers) {
+				return i + 1;
+			} else if (characters[i] != firstLevelMarkerChar) {
 				return i;
 			}
 		}

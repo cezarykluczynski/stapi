@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -40,7 +41,7 @@ public class ComicsTemplateCompositeEnrichingProcessor implements ItemEnrichingP
 		Page page = enrichablePair.getInput();
 		ComicsTemplate comicsTemplate = enrichablePair.getOutput();
 		List<PageSection> staffPageSectionList = pageSectionExtractor.findByTitles(page, CREATORS, CREDITS);
-		List<PageSection> charactersPageSectionList = pageSectionExtractor.findByTitles(page, CHARACTERS);
+		List<PageSection> charactersPageSectionList = pageSectionExtractor.findByTitlesIncludingSubsections(page, CHARACTERS);
 
 		if (!staffPageSectionList.isEmpty()) {
 			comicsTemplateWikitextStaffEnrichingProcessor.enrich(EnrichablePair.of(staffPageSectionList.get(0).getWikitext(), comicsTemplate));
@@ -48,8 +49,12 @@ public class ComicsTemplateCompositeEnrichingProcessor implements ItemEnrichingP
 
 		if (!charactersPageSectionList.isEmpty()) {
 			comicsTemplateWikitextCharactersEnrichingProcessor
-					.enrich(EnrichablePair.of(charactersPageSectionList.get(0).getWikitext(), comicsTemplate));
+					.enrich(EnrichablePair.of(joinSectionsWikitext(charactersPageSectionList), comicsTemplate));
 		}
+	}
+
+	private String joinSectionsWikitext(List<PageSection> charactersPageSectionList) {
+		return String.join("\n", charactersPageSectionList.stream().map(PageSection::getWikitext).collect(Collectors.toList()));
 	}
 
 }

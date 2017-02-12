@@ -32,7 +32,7 @@ public class ComicStripReader implements ItemReader<PageHeader> {
 
 	private Iterator<PageHeader> pageHeaderIterator;
 
-	private boolean firstReadWasMade;
+	private boolean initialized;
 
 	@Inject
 	public ComicStripReader(ComicStripCandidatePageGatheringService comicStripCandidatePageGatheringService, CategoryApi categoryApi,
@@ -44,11 +44,11 @@ public class ComicStripReader implements ItemReader<PageHeader> {
 
 	@Override
 	public synchronized PageHeader read() throws Exception {
-		if (!firstReadWasMade) {
+		if (!initialized) {
 			initializeSourceList();
 			log.info("Initial size of comic strips list: {}", pageHeaderList.size());
 			createIterator();
-			firstReadWasMade = true;
+			initialized = true;
 		}
 
 		return doRead();
