@@ -66,6 +66,7 @@ public class PageApiImpl implements PageApi {
 		}
 
 		if (page == null) {
+			log.info("Page with title {} and source {} was not found after {} redirects", title, mediaWikiSource, redirectCount);
 			return null;
 		}
 
@@ -89,7 +90,7 @@ public class PageApiImpl implements PageApi {
 			return page;
 		} else {
 			String redirectTarget = redirects.get(0);
-			log.info("Following redirect from {} to {}", title, redirectTarget);
+			log.debug("Following redirect from {} to {}", title, redirectTarget);
 			Page redirectPage = getPage(redirectTarget, redirectCount + 1, mediaWikiSource);
 
 			if (redirectPage == null) {

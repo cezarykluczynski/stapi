@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.sources.mediawiki.api;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -67,6 +68,20 @@ public class WikitextApiImpl implements WikitextApi {
 		}
 
 		return MULTILINE_WITHOUT_TEMPLATES.matcher(wikitext).replaceAll("");
+	}
+
+	@Override
+	public String getWikitextWithoutLinks(String wikitext) {
+		String wikitextWithoutLinks = wikitext;
+		List<PageLink> pageLinkList = Lists.reverse(getPageLinksFromWikitext(wikitext));
+
+		for (PageLink pageLink : pageLinkList) {
+			String pageLinkDescription = Objects.firstNonNull(pageLink.getDescription(), pageLink.getTitle());
+			wikitextWithoutLinks = wikitextWithoutLinks.substring(0,
+					pageLink.getStartPosition()) + pageLinkDescription + wikitextWithoutLinks.substring(pageLink.getEndPosition());
+		}
+
+		return wikitextWithoutLinks;
 	}
 
 	@Override

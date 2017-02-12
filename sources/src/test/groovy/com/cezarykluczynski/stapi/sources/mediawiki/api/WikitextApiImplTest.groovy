@@ -12,6 +12,8 @@ class WikitextApiImplTest extends Specification {
 	private static final String WIKITEXT = 'blah blah [[Some page|description]] and [[another page]] blah blah [[blah'
 	private static final String WIKITEXT_WITH_TEMPLATES = '{{realworld}}{{sidebar planet\nName=Mantiles}}blah blah{{ds9|Some page}} blah'
 	private static final String WIKITEXT_WITHOUT_TEMPLATES = 'blah blah blah'
+	private static final String WIKITEXT_WITH_LINKS = '\'\'[[Star Trek]]\'\' created by [[Gene Roddenberry]]'
+	private static final String WIKITEXT_WITHOUT_LINKS = '\'\'Star Trek\'\' created by Gene Roddenberry'
 	private static final String DIS_TEMPLATE_PAGE_NAME = 'Page'
 	private static final String DIS_TEMPLATE_PAGE_DETAIL = '(detail)'
 
@@ -55,6 +57,14 @@ class WikitextApiImplTest extends Specification {
 
 		then:
 		wikitextWithoutTemplates == WIKITEXT_WITHOUT_TEMPLATES
+	}
+
+	void "gets text without links"() {
+		when:
+		String wikitextWithoutLinks = wikitextApiImpl.getWikitextWithoutLinks(WIKITEXT_WITH_LINKS)
+
+		then:
+		wikitextWithoutLinks == WIKITEXT_WITHOUT_LINKS
 	}
 
 	@SuppressWarnings('LineLength')

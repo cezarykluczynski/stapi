@@ -13,6 +13,8 @@ public interface WikitextApi {
 
 	String getWikitextWithoutTemplates(String wikitext);
 
+	String getWikitextWithoutLinks(String wikitext);
+
 	String disTemplateToPageTitle(Template template);
 
 }
