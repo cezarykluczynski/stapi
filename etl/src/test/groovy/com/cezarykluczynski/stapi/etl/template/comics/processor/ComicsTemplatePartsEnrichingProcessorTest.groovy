@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.comics.processor
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.processor.comicSeries.WikitextToComicSeriesProcessor
 import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor
+import com.cezarykluczynski.stapi.etl.reference.processor.ReferencesFromTemplatePartProcessor
 import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplate
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange
@@ -11,6 +12,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.Wikitex
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToYearRangeProcessor
 import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries
 import com.cezarykluczynski.stapi.model.company.entity.Company
+import com.cezarykluczynski.stapi.model.reference.entity.Reference
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
@@ -32,6 +34,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 	private static final String WRITER = 'WRITER'
 	private static final String ARTIST = 'ARTIST'
 	private static final String EDITOR = 'EDITOR'
+	private static final String REFERENCE = 'REFERENCE'
 
 	private ComicsTemplatePartStaffEnrichingProcessor comicsTemplatePartStaffEnrichingProcessorMock
 
@@ -45,6 +48,8 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 
 	private ComicsTemplatePublishedDatesEnrichingProcessor comicsTemplatePublishedDatesEnrichingProcessorMock
 
+	private ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessorMock
+
 	private ComicsTemplatePartsEnrichingProcessor comicsTemplatePartsEnrichingProcessor
 
 	void setup() {
@@ -54,9 +59,11 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 		wikitextToYearRangeProcessorMock = Mock(WikitextToYearRangeProcessor)
 		wikitextToStardateRangeProcessorMock = Mock(WikitextToStardateRangeProcessor)
 		comicsTemplatePublishedDatesEnrichingProcessorMock = Mock(ComicsTemplatePublishedDatesEnrichingProcessor)
+		referencesFromTemplatePartProcessorMock = Mock(ReferencesFromTemplatePartProcessor)
 		comicsTemplatePartsEnrichingProcessor = new ComicsTemplatePartsEnrichingProcessor(comicsTemplatePartStaffEnrichingProcessorMock,
 				wikitextToCompaniesProcessorMock, wikitextToComicSeriesProcessorMock, wikitextToYearRangeProcessorMock,
-				wikitextToStardateRangeProcessorMock, comicsTemplatePublishedDatesEnrichingProcessorMock)
+				wikitextToStardateRangeProcessorMock, comicsTemplatePublishedDatesEnrichingProcessorMock,
+				referencesFromTemplatePartProcessorMock)
 	}
 
 	void "passes ComicsTemplate to ComicsTemplatePartStaffEnrichingProcessor when writer part is found"() {
@@ -246,6 +253,24 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 		then:
 		0 * _
 		comicsTemplate.stardateFrom == STARDATE_FROM
+	}
+
+	void "sets references from ReferencesFromTemplatePartProcessor"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: ComicsTemplatePartsEnrichingProcessor.REFERENCE, value: REFERENCE)
+		ComicsTemplate comicsTemplate = new ComicsTemplate()
+		Reference reference1 = Mock(Reference)
+		Reference reference2 = Mock(Reference)
+
+		when:
+		comicsTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicsTemplate))
+
+		then:
+		1 * referencesFromTemplatePartProcessorMock.process(templatePart) >> Sets.newHashSet(reference1, reference2)
+		0 * _
+		comicsTemplate.references.size() == 2
+		comicsTemplate.references.contains reference1
+		comicsTemplate.references.contains reference2
 	}
 
 }

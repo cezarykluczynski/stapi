@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.comicSeries.WikitextToComicSeriesProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor;
+import com.cezarykluczynski.stapi.etl.reference.processor.ReferencesFromTemplatePartProcessor;
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange;
@@ -29,6 +30,7 @@ public class ComicsTemplatePartsEnrichingProcessor implements ItemEnrichingProce
 	private static final String EDITOR = "editor";
 	private static final String COVER_DATE = "coverdate";
 	private static final String PAGES = "pages";
+	private static final String REFERENCE = "reference";
 
 	private ComicsTemplatePartStaffEnrichingProcessor comicsTemplatePartStaffEnrichingProcessor;
 
@@ -42,17 +44,21 @@ public class ComicsTemplatePartsEnrichingProcessor implements ItemEnrichingProce
 
 	private ComicsTemplatePublishedDatesEnrichingProcessor comicsTemplatePublishedDatesEnrichingProcessor;
 
+	private ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor;
+
 	@Inject
 	public ComicsTemplatePartsEnrichingProcessor(ComicsTemplatePartStaffEnrichingProcessor comicsTemplatePartStaffEnrichingProcessor,
 			WikitextToCompaniesProcessor wikitextToCompaniesProcessor, WikitextToComicSeriesProcessor wikitextToComicSeriesProcessor,
 			WikitextToYearRangeProcessor wikitextToYearRangeProcessor, WikitextToStardateRangeProcessor wikitextToStardateRangeProcessor,
-			ComicsTemplatePublishedDatesEnrichingProcessor comicsTemplatePublishedDatesEnrichingProcessor) {
+			ComicsTemplatePublishedDatesEnrichingProcessor comicsTemplatePublishedDatesEnrichingProcessor,
+			ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor) {
 		this.comicsTemplatePartStaffEnrichingProcessor = comicsTemplatePartStaffEnrichingProcessor;
 		this.wikitextToCompaniesProcessor = wikitextToCompaniesProcessor;
 		this.wikitextToComicSeriesProcessor = wikitextToComicSeriesProcessor;
 		this.wikitextToYearRangeProcessor = wikitextToYearRangeProcessor;
 		this.wikitextToStardateRangeProcessor = wikitextToStardateRangeProcessor;
 		this.comicsTemplatePublishedDatesEnrichingProcessor = comicsTemplatePublishedDatesEnrichingProcessor;
+		this.referencesFromTemplatePartProcessor = referencesFromTemplatePartProcessor;
 	}
 
 	@Override
@@ -99,6 +105,9 @@ public class ComicsTemplatePartsEnrichingProcessor implements ItemEnrichingProce
 							comicsTemplate.setStardateTo(stardateRange.getStardateTo());
 						}
 					}
+					break;
+				case REFERENCE:
+					comicsTemplate.getReferences().addAll(referencesFromTemplatePartProcessor.process(part));
 					break;
 				default:
 					break;

@@ -65,15 +65,11 @@ public class ComicStripReader implements ItemReader<PageHeader> {
 	private void initializeSourceList() {
 		if (stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_COMIC_STRIPS)) {
 			pageHeaderList = Lists.newArrayList();
-			return;
-		}
-
-		if (!comicStripCandidatePageGatheringService.isEmpty()) {
+		} else if (!comicStripCandidatePageGatheringService.isEmpty()) {
 			pageHeaderList = comicStripCandidatePageGatheringService.getAllPageHeadersThenClean();
-			return;
+		} else {
+			initializeFromApi();
 		}
-
-		initializeFromApi();
 	}
 
 	private void initializeFromApi() {

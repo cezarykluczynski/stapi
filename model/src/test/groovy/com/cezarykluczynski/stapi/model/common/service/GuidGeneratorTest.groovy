@@ -5,8 +5,10 @@ import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.page.entity.PageAware
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource
+import com.cezarykluczynski.stapi.model.reference.entity.enums.ReferenceType
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.google.common.collect.Maps
+import org.apache.commons.lang3.tuple.Pair
 import org.hibernate.Session
 import org.hibernate.SessionFactory
 import org.hibernate.metadata.ClassMetadata
@@ -131,6 +133,31 @@ class GuidGeneratorTest extends Specification {
 		then:
 		RuntimeException runtimeException = thrown(RuntimeException)
 		runtimeException.message == 'Entity class collection no longer suitable for symbol generation. Trying to put symbol CH, but symbol already present.'
+	}
+
+	@Unroll('when pair of #referenceType and #referenceNumber if passed, #result is returned')
+	void "when pair of ReferenceType and reference number is passed, it is converted to guid"() {
+		expect:
+		result == guidGenerator.generateFromReference(Pair.of(referenceType, referenceNumber))
+
+		where:
+		referenceType      | referenceNumber     | result
+		ReferenceType.ASIN | 'B001PUYIGQ'        | 'ASINB001PUYIGQ'
+		ReferenceType.ASIN | 'B223213FCF'        | 'ASINB223213FCF'
+		ReferenceType.ASIN | '232342342X'        | 'ASIN232342342X'
+		ReferenceType.ASIN | '2323423421'        | 'ASIN2323423421'
+		ReferenceType.ASIN | 'A223213FCF'        | null
+		null               | 'B001PUYIGQ'        | null
+		ReferenceType.ASIN | null                | null
+		ReferenceType.ISBN | '9971502100'        | 'ISBN9971502100'
+		ReferenceType.ISBN | '960 425 059 0'     | 'ISBN9604250590'
+		ReferenceType.ISBN | '99921-58-10-6'     | 'ISBN9992158106'
+		ReferenceType.ISBN | '9780306406157'     | 'I9780306406157'
+		ReferenceType.ISBN | '978-0-306-40615-6' | 'I9780306406156'
+		ReferenceType.ISBN | '978406154'         | null
+		ReferenceType.ISBN | '978-0-306-4061546' | null
+		null               | '9971502100'        | null
+		ReferenceType.ISBN | null                | null
 	}
 
 }

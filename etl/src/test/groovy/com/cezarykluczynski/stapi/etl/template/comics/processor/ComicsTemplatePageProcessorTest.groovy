@@ -20,6 +20,7 @@ class ComicsTemplatePageProcessorTest extends Specification {
 
 	private static final String TITLE = 'TITLE'
 	private static final String TITLE_COMICS = 'TITLE (comic)'
+	private static final String TITLE_FOTONOVEL = 'TITLE (fotonovel)'
 
 	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessorMock
 
@@ -91,7 +92,8 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_STRIP) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * comicsTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair)
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC) >> Optional.empty()
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC, TemplateName.SIDEBAR_NOVEL, TemplateName.SIDEBAR_AUDIO) >>
+				Optional.empty()
 		0 * _
 		comicsTemplate.photonovel
 	}
@@ -112,7 +114,31 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_STRIP) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * comicsTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair)
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC) >> Optional.empty()
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC, TemplateName.SIDEBAR_NOVEL, TemplateName.SIDEBAR_AUDIO) >>
+				Optional.empty()
+		0 * _
+		comicsTemplate.title == TITLE
+	}
+
+	void "clears title when it contains '(fotonovel)'"() {
+		given:
+		List<CategoryHeader> categoryHeaderList = Mock(List)
+		Page page = new Page(
+				title: TITLE_FOTONOVEL,
+				categories: categoryHeaderList)
+		ModelPage modelPage = new ModelPage()
+
+		when:
+		ComicsTemplate comicsTemplate = comicsTemplatePageProcessor.process(page)
+
+		then:
+		2 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryName.PHOTONOVELS)
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_STRIP) >>
+				Optional.empty()
+		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
+		1 * comicsTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair)
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC, TemplateName.SIDEBAR_NOVEL, TemplateName.SIDEBAR_AUDIO) >>
+				Optional.empty()
 		0 * _
 		comicsTemplate.title == TITLE
 	}
@@ -143,13 +169,15 @@ class ComicsTemplatePageProcessorTest extends Specification {
 
 		then:
 		2 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_STRIP) >> Optional.empty()
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_STRIP) >>
+				Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * comicsTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair enrichablePair ->
 			assert enrichablePair.input == page
 			assert enrichablePair.output != null
 		}
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC) >> Optional.empty()
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC, TemplateName.SIDEBAR_NOVEL, TemplateName.SIDEBAR_AUDIO) >>
+				Optional.empty()
 		0 * _
 		comicsTemplate.title == TITLE
 		comicsTemplate.page == modelPage
@@ -176,7 +204,8 @@ class ComicsTemplatePageProcessorTest extends Specification {
 			assert enrichablePair.input == page
 			assert enrichablePair.output != null
 		}
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC) >> Optional.of(template)
+		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC, TemplateName.SIDEBAR_NOVEL, TemplateName.SIDEBAR_AUDIO) >>
+				Optional.of(template)
 		1 * comicsTemplatePartsEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 				EnrichablePair<List<Template.Part>, ComicsTemplate> enrichablePair ->
 			assert enrichablePair.input[0] == templatePart

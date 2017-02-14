@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.page.entity.Page;
+import com.cezarykluczynski.stapi.model.reference.entity.Reference;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.google.common.collect.Sets;
 import lombok.Data;
@@ -56,5 +57,7 @@ public class ComicsTemplate {
 	private Set<Company> publishers = Sets.newHashSet();
 
 	private Set<Character> characters = Sets.newHashSet();
+
+	private Set<Reference> references = Sets.newHashSet();
 
 }

@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.model.comics.entity.Comics
 import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.page.entity.Page
+import com.cezarykluczynski.stapi.model.reference.entity.Reference
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.util.AbstractComicsTest
 import com.google.common.collect.Sets
@@ -40,6 +41,8 @@ class ComicsTemplateProcessorTest extends AbstractComicsTest {
 		Company publisher2 = Mock(Company)
 		Character character1 = Mock(Character)
 		Character character2 = Mock(Character)
+		Reference reference1 = Mock(Reference)
+		Reference reference2 = Mock(Reference)
 
 		ComicsTemplate comicsTemplate = new ComicsTemplate(
 				page: page,
@@ -62,7 +65,8 @@ class ComicsTemplateProcessorTest extends AbstractComicsTest {
 				editors: Sets.newHashSet(editor1, editor2),
 				staff: Sets.newHashSet(staff1, staff2),
 				publishers: Sets.newHashSet(publisher1, publisher2),
-				characters: Sets.newHashSet(character1, character2))
+				characters: Sets.newHashSet(character1, character2),
+				references: Sets.newHashSet(reference1, reference2))
 
 		when:
 		Comics comics = comicsTemplateProcessor.process(comicsTemplate)
@@ -99,6 +103,8 @@ class ComicsTemplateProcessorTest extends AbstractComicsTest {
 		comics.publishers.contains publisher2
 		comics.characters.contains character1
 		comics.characters.contains character2
+		comics.references.contains reference1
+		comics.references.contains reference2
 	}
 
 }

@@ -13,6 +13,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.PageName;
 import com.cezarykluczynski.stapi.util.constant.TemplateName;
 import com.google.common.collect.Sets;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,7 @@ public class ComicsTemplatePageProcessor implements ItemProcessor<Page, ComicsTe
 
 	private static final Set<String> INVALID_TITLES = Sets.newHashSet(PageName.COMICS, PageName.PHOTONOVELS);
 	private static final String COMIC = "(comic";
+	private static final String FOTONOVEL = "(fotonovel";
 
 	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
@@ -66,14 +68,15 @@ public class ComicsTemplatePageProcessor implements ItemProcessor<Page, ComicsTe
 
 		String title = item.getTitle();
 		ComicsTemplate comicsTemplate = new ComicsTemplate();
-		comicsTemplate.setTitle(title.contains(COMIC) ? TitleUtil.getNameFromTitle(title) : title);
+		comicsTemplate.setTitle(StringUtils.containsAny(title, COMIC, FOTONOVEL) ? TitleUtil.getNameFromTitle(title) : title);
 		comicsTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 		comicsTemplate.setProductOfRedirect(!item.getRedirectPath().isEmpty());
 		comicsTemplate.setPhotonovel(isPhotonovel(item));
 
 		comicsTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(item, comicsTemplate));
 
-		Optional<Template> sidebarComicsTemplateOptional = templateFinder.findTemplate(item, TemplateName.SIDEBAR_COMIC);
+		Optional<Template> sidebarComicsTemplateOptional = templateFinder.findTemplate(item, TemplateName.SIDEBAR_COMIC, TemplateName.SIDEBAR_NOVEL,
+				TemplateName.SIDEBAR_AUDIO);
 		if (!sidebarComicsTemplateOptional.isPresent()) {
 			return comicsTemplate;
 		}

@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
+import com.cezarykluczynski.stapi.model.reference.entity.Reference;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.google.common.collect.Sets;
 import lombok.AllArgsConstructor;
@@ -108,5 +109,11 @@ public class Comics extends PageAwareEntity implements PageAware {
 			joinColumns = @JoinColumn(name = "comics_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "character_id", nullable = false, updatable = false))
 	private Set<Character> characters = Sets.newHashSet();
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "comics_references",
+			joinColumns = @JoinColumn(name = "comics_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "reference_id", nullable = false, updatable = false))
+	private Set<Reference> references = Sets.newHashSet();
 
 }

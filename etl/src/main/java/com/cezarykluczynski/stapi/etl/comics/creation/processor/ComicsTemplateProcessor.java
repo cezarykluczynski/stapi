@@ -44,6 +44,7 @@ public class ComicsTemplateProcessor implements ItemProcessor<ComicsTemplate, Co
 		comics.getStaff().addAll(item.getStaff());
 		comics.getPublishers().addAll(item.getPublishers());
 		comics.getCharacters().addAll(item.getCharacters());
+		comics.getReferences().addAll(item.getReferences());
 
 		return comics;
 
