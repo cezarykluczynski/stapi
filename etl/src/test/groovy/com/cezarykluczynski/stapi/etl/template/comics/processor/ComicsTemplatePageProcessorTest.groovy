@@ -6,13 +6,13 @@ import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingP
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
-import com.cezarykluczynski.stapi.util.constant.TemplateName
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -71,7 +71,7 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		ComicsTemplate comicsTemplate = comicsTemplatePageProcessor.process(page)
 
 		then:
-		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryName.STAR_TREK_SERIES_MAGAZINES)
+		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.STAR_TREK_SERIES_MAGAZINES)
 		0 * _
 		comicsTemplate == null
 	}
@@ -88,11 +88,11 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		ComicsTemplate comicsTemplate = comicsTemplatePageProcessor.process(page)
 
 		then:
-		2 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryName.PHOTONOVELS)
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_STRIP) >> Optional.empty()
+		2 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.PHOTONOVELS)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * comicsTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair)
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC, TemplateName.SIDEBAR_NOVEL, TemplateName.SIDEBAR_AUDIO) >>
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC, TemplateTitle.SIDEBAR_NOVEL, TemplateTitle.SIDEBAR_AUDIO) >>
 				Optional.empty()
 		0 * _
 		comicsTemplate.photonovel
@@ -110,11 +110,11 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		ComicsTemplate comicsTemplate = comicsTemplatePageProcessor.process(page)
 
 		then:
-		2 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryName.PHOTONOVELS)
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_STRIP) >> Optional.empty()
+		2 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.PHOTONOVELS)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * comicsTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair)
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC, TemplateName.SIDEBAR_NOVEL, TemplateName.SIDEBAR_AUDIO) >>
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC, TemplateTitle.SIDEBAR_NOVEL, TemplateTitle.SIDEBAR_AUDIO) >>
 				Optional.empty()
 		0 * _
 		comicsTemplate.title == TITLE
@@ -132,12 +132,12 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		ComicsTemplate comicsTemplate = comicsTemplatePageProcessor.process(page)
 
 		then:
-		2 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryName.PHOTONOVELS)
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_STRIP) >>
+		2 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.PHOTONOVELS)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >>
 				Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * comicsTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair)
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC, TemplateName.SIDEBAR_NOVEL, TemplateName.SIDEBAR_AUDIO) >>
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC, TemplateTitle.SIDEBAR_NOVEL, TemplateTitle.SIDEBAR_AUDIO) >>
 				Optional.empty()
 		0 * _
 		comicsTemplate.title == TITLE
@@ -153,7 +153,7 @@ class ComicsTemplatePageProcessorTest extends Specification {
 
 		then:
 		1 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_STRIP) >> Optional.of(comisStripTemplate)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >> Optional.of(comisStripTemplate)
 		1 * comicStripCandidatePageGatheringService.addCandidate(page)
 		0 * _
 		comicsTemplate == null
@@ -169,14 +169,14 @@ class ComicsTemplatePageProcessorTest extends Specification {
 
 		then:
 		2 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_STRIP) >>
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >>
 				Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * comicsTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair enrichablePair ->
 			assert enrichablePair.input == page
 			assert enrichablePair.output != null
 		}
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC, TemplateName.SIDEBAR_NOVEL, TemplateName.SIDEBAR_AUDIO) >>
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC, TemplateTitle.SIDEBAR_NOVEL, TemplateTitle.SIDEBAR_AUDIO) >>
 				Optional.empty()
 		0 * _
 		comicsTemplate.title == TITLE
@@ -198,13 +198,13 @@ class ComicsTemplatePageProcessorTest extends Specification {
 
 		then:
 		2 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_STRIP) >> Optional.empty()
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * comicsTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair enrichablePair ->
 			assert enrichablePair.input == page
 			assert enrichablePair.output != null
 		}
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC, TemplateName.SIDEBAR_NOVEL, TemplateName.SIDEBAR_AUDIO) >>
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC, TemplateTitle.SIDEBAR_NOVEL, TemplateTitle.SIDEBAR_AUDIO) >>
 				Optional.of(template)
 		1 * comicsTemplatePartsEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 				EnrichablePair<List<Template.Part>, ComicsTemplate> enrichablePair ->

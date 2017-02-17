@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.series.creation.configuration
 import com.cezarykluczynski.stapi.etl.common.configuration.AbstractCreationConfigurationTest
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider
 import com.cezarykluczynski.stapi.etl.series.creation.processor.SeriesReader
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
@@ -38,7 +38,7 @@ class SeriesCreationConfigurationTest extends AbstractCreationConfigurationTest 
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_SERIES) >> false
-		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_SERIES, MediaWikiSource.MEMORY_ALPHA_EN) >> pageHeaderList
+		1 * categoryApiMock.getPages(CategoryTitle.STAR_TREK_SERIES, MediaWikiSource.MEMORY_ALPHA_EN) >> pageHeaderList
 		0 * _
 		seriesReader.read().title == TITLE
 		seriesReader.read() == null

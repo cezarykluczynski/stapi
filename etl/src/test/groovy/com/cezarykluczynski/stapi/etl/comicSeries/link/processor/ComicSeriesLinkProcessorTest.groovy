@@ -11,7 +11,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource as SourcesMediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page as SourcesPage
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
-import com.cezarykluczynski.stapi.util.constant.TemplateName
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -75,7 +75,7 @@ class ComicSeriesLinkProcessorTest extends Specification {
 		then:
 		1 * mediaWikiSourceMapperMock.fromEntityToSources(MODEL_MEDIA_WIKI_SOURCE) >> SOURCES_MEDIA_WIKI_SOURCE
 		1 * pageApiMock.getPage(TITLE, SOURCES_MEDIA_WIKI_SOURCE) >> sourcesPage
-		1 * templateFinderMock.findTemplate(sourcesPage, TemplateName.SIDEBAR_COMIC_SERIES) >> Optional.empty()
+		1 * templateFinderMock.findTemplate(sourcesPage, TemplateTitle.SIDEBAR_COMIC_SERIES) >> Optional.empty()
 		0 * _
 		comicSeries.parentSeries.empty
 	}
@@ -99,7 +99,7 @@ class ComicSeriesLinkProcessorTest extends Specification {
 		then:
 		1 * mediaWikiSourceMapperMock.fromEntityToSources(MODEL_MEDIA_WIKI_SOURCE) >> SOURCES_MEDIA_WIKI_SOURCE
 		1 * pageApiMock.getPage(TITLE, SOURCES_MEDIA_WIKI_SOURCE) >> sourcesPage
-		1 * templateFinderMock.findTemplate(sourcesPage, TemplateName.SIDEBAR_COMIC_SERIES) >> Optional.of(sidebarComicSeriesTemplate)
+		1 * templateFinderMock.findTemplate(sourcesPage, TemplateTitle.SIDEBAR_COMIC_SERIES) >> Optional.of(sidebarComicSeriesTemplate)
 		1 * wikitextApiMock.getPageTitlesFromWikitext(PARENT_SERIES_WIKITEXT) >> Lists.newArrayList(PARENT_SERIES_TITLE)
 		1 * comicSeriesRepositoryMock.findByPageTitleAndPageMediaWikiSource(PARENT_SERIES_TITLE, MODEL_MEDIA_WIKI_SOURCE) >> Optional
 				.of(parentComicSeries)
@@ -128,7 +128,7 @@ class ComicSeriesLinkProcessorTest extends Specification {
 		then:
 		1 * mediaWikiSourceMapperMock.fromEntityToSources(MODEL_MEDIA_WIKI_SOURCE) >> SOURCES_MEDIA_WIKI_SOURCE
 		1 * pageApiMock.getPage(TITLE, SOURCES_MEDIA_WIKI_SOURCE) >> sourcesPage
-		1 * templateFinderMock.findTemplate(sourcesPage, TemplateName.SIDEBAR_COMIC_SERIES) >> Optional.of(sidebarComicSeriesTemplate)
+		1 * templateFinderMock.findTemplate(sourcesPage, TemplateTitle.SIDEBAR_COMIC_SERIES) >> Optional.of(sidebarComicSeriesTemplate)
 		1 * wikitextApiMock.getPageTitlesFromWikitext(PARENT_SERIES_WIKITEXT) >> Lists.newArrayList(PARENT_SERIES_TITLE)
 		1 * comicSeriesRepositoryMock.findByPageTitleAndPageMediaWikiSource(PARENT_SERIES_TITLE, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
 		1 * mediaWikiSourceMapperMock.fromEntityToSources(MODEL_MEDIA_WIKI_SOURCE) >> SOURCES_MEDIA_WIKI_SOURCE

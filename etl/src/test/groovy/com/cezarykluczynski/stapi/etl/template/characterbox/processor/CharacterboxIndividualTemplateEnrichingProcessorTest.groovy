@@ -8,7 +8,7 @@ import com.cezarykluczynski.stapi.model.page.entity.Page as PageEntity
 import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
-import com.cezarykluczynski.stapi.util.constant.TemplateName
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import spock.lang.Specification
 
 class CharacterboxIndividualTemplateEnrichingProcessorTest extends Specification {
@@ -49,7 +49,7 @@ class CharacterboxIndividualTemplateEnrichingProcessorTest extends Specification
 
 	void "does not interact with other dependencies when PageApi returns null"() {
 		given:
-		Template template = new Template(title: TemplateName.MBETA)
+		Template template = new Template(title: TemplateTitle.MBETA)
 		IndividualTemplate individualTemplate = new IndividualTemplate(page: new PageEntity(
 				title: TITLE
 		))
@@ -65,7 +65,7 @@ class CharacterboxIndividualTemplateEnrichingProcessorTest extends Specification
 	@SuppressWarnings('LineLength')
 	void "when template and page is found, and CharacterboxTemplateProcessor returns null, IndividualTemplateWithCharacterboxTemplateEnrichingProcessor is not called"() {
 		given:
-		Template template = new Template(title: TemplateName.MBETA)
+		Template template = new Template(title: TemplateTitle.MBETA)
 		IndividualTemplate individualTemplate = new IndividualTemplate(page: new PageEntity(
 				title: TITLE
 		))
@@ -82,7 +82,7 @@ class CharacterboxIndividualTemplateEnrichingProcessorTest extends Specification
 	@SuppressWarnings('LineLength')
 	void "when template and page is found, and CharacterboxTemplateProcessor returns template, IndividualTemplateWithCharacterboxTemplateEnrichingProcessor is called"() {
 		given:
-		Template template = new Template(title: TemplateName.MBETA)
+		Template template = new Template(title: TemplateTitle.MBETA)
 		IndividualTemplate individualTemplate = new IndividualTemplate(page: new PageEntity(
 				title: TITLE
 		))

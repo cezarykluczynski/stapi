@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.episode.creation.configuration
 import com.cezarykluczynski.stapi.etl.common.configuration.AbstractCreationConfigurationTest
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider
 import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeReader
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
@@ -40,13 +40,13 @@ class EpisodeCreationConfigurationTest extends AbstractCreationConfigurationTest
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_EPISODES) >> false
-		1 * categoryApiMock.getPages(CategoryName.TOS_EPISODES, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_TOS_EPISODES)
-		1 * categoryApiMock.getPages(CategoryName.TAS_EPISODES, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_TAS_EPISODES)
-		1 * categoryApiMock.getPages(CategoryName.TNG_EPISODES, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_TNG_EPISODES)
-		1 * categoryApiMock.getPages(CategoryName.DS9_EPISODES, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_DS9_EPISODES)
-		1 * categoryApiMock.getPages(CategoryName.VOY_EPISODES, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_VOY_EPISODES)
-		1 * categoryApiMock.getPages(CategoryName.ENT_EPISODES, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_ENT_EPISODES)
-		1 * categoryApiMock.getPages(CategoryName.DIS_EPISODES, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_DIS_EPISODES)
+		1 * categoryApiMock.getPages(CategoryTitle.TOS_EPISODES, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_TOS_EPISODES)
+		1 * categoryApiMock.getPages(CategoryTitle.TAS_EPISODES, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_TAS_EPISODES)
+		1 * categoryApiMock.getPages(CategoryTitle.TNG_EPISODES, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_TNG_EPISODES)
+		1 * categoryApiMock.getPages(CategoryTitle.DS9_EPISODES, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_DS9_EPISODES)
+		1 * categoryApiMock.getPages(CategoryTitle.VOY_EPISODES, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_VOY_EPISODES)
+		1 * categoryApiMock.getPages(CategoryTitle.ENT_EPISODES, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_ENT_EPISODES)
+		1 * categoryApiMock.getPages(CategoryTitle.DIS_EPISODES, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_DIS_EPISODES)
 		0 * _
 		categoryHeaderTitleList.contains TITLE_TOS_EPISODES
 		categoryHeaderTitleList.contains TITLE_TAS_EPISODES

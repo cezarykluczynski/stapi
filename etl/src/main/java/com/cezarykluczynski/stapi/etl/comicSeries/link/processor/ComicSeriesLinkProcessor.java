@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
@@ -56,7 +56,7 @@ public class ComicSeriesLinkProcessor implements ItemProcessor<ComicSeries, Comi
 			return;
 		}
 
-		Optional<Template> templateOptional = templateFinder.findTemplate(page, TemplateName.SIDEBAR_COMIC_SERIES);
+		Optional<Template> templateOptional = templateFinder.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_SERIES);
 
 		if (!templateOptional.isPresent()) {
 			return;

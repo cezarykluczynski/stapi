@@ -2,15 +2,15 @@ package com.cezarykluczynski.stapi.etl.template.common.processor.datetime
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFilter
-import com.cezarykluczynski.stapi.util.constant.TemplateName
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
 class PartToYearRangeProcessorTest extends Specification {
 
-	private static final Template START_TEMPLATE = new Template(title: TemplateName.Y)
-	private static final Template END_TEMPLATE = new Template(title: TemplateName.YEARLINK)
+	private static final Template START_TEMPLATE = new Template(title: TemplateTitle.Y)
+	private static final Template END_TEMPLATE = new Template(title: TemplateTitle.YEARLINK)
 	private static final Integer START_YEAR = 1997
 	private static final Integer END_YEAR = 2005
 
@@ -73,7 +73,7 @@ class PartToYearRangeProcessorTest extends Specification {
 		YearRange yearRange = partToYearRangeProcessor.process(part)
 
 		then: 'date templates are filtered'
-		1 * templateFilterMock.filterByTitle(templateList, TemplateName.Y, TemplateName.YEARLINK) >> templateList
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.Y, TemplateTitle.YEARLINK) >> templateList
 
 		then:
 		1 * templateToYearProcessorMock.process(START_TEMPLATE) >> START_YEAR
@@ -93,7 +93,7 @@ class PartToYearRangeProcessorTest extends Specification {
 		YearRange yearRange = partToYearRangeProcessor.process(part)
 
 		then: 'date templates are filtered'
-		1 * templateFilterMock.filterByTitle(templateList, TemplateName.Y, TemplateName.YEARLINK) >> templateList
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.Y, TemplateTitle.YEARLINK) >> templateList
 
 		then: 'only start year is parsed'
 		1 * templateToYearProcessorMock.process(START_TEMPLATE) >> START_YEAR
@@ -118,7 +118,7 @@ class PartToYearRangeProcessorTest extends Specification {
 		YearRange yearRange = partToYearRangeProcessor.process(part)
 
 		then: 'date templates are filtered'
-		1 * templateFilterMock.filterByTitle(templateList, TemplateName.Y, TemplateName.YEARLINK) >> templateList
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.Y, TemplateTitle.YEARLINK) >> templateList
 
 		then: 'both years are null'
 		yearRange.yearFrom == null

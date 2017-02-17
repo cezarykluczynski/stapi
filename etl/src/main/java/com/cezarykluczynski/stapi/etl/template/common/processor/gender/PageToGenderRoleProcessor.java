@@ -5,14 +5,14 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
 import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTemplatePartsEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryNames;
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.batch.item.ItemProcessor;
@@ -91,7 +91,7 @@ public class PageToGenderRoleProcessor implements ItemProcessor<Page, Gender> {
 
 	private IndividualTemplate getEnrichedIndividualTemplate(Page page) throws Exception {
 		IndividualTemplate individualTemplate = new IndividualTemplate();
-		Optional<Template> templateOptional = templateFinder.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL);
+		Optional<Template> templateOptional = templateFinder.findTemplate(page, TemplateTitle.SIDEBAR_INDIVIDUAL);
 
 		if (!templateOptional.isPresent()) {
 			return individualTemplate;
@@ -114,7 +114,7 @@ public class PageToGenderRoleProcessor implements ItemProcessor<Page, Gender> {
 				.map(CategoryHeader::getTitle)
 				.collect(Collectors.toList());
 
-		return !Collections.disjoint(categories, CategoryNames.PERFORMER);
+		return !Collections.disjoint(categories, CategoryTitles.PERFORMER);
 
 	}
 

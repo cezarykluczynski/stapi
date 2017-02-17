@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.comicStrip.creation.processor
 
 import com.cezarykluczynski.stapi.etl.comicStrip.creation.service.ComicStripCandidatePageGatheringService
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
@@ -73,8 +73,8 @@ class ComicStripReaderTest extends Specification {
 		then:
 		1 * stepCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_COMIC_STRIPS) >> false
 		1 * comicStripCandidatePageGatheringServiceMock.isEmpty() >> true
-		1 * categoryApiMock.getPages(CategoryName.COMICS, MediaWikiSource.MEMORY_ALPHA_EN) >> Lists.newArrayList(pageHeaderFromApi)
-		1 * categoryApiMock.getPages(CategoryName.PHOTONOVELS, MediaWikiSource.MEMORY_ALPHA_EN) >> Lists.newArrayList(pageHeaderFromApi)
+		1 * categoryApiMock.getPages(CategoryTitle.COMICS, MediaWikiSource.MEMORY_ALPHA_EN) >> Lists.newArrayList(pageHeaderFromApi)
+		1 * categoryApiMock.getPages(CategoryTitle.PHOTONOVELS, MediaWikiSource.MEMORY_ALPHA_EN) >> Lists.newArrayList(pageHeaderFromApi)
 		0 * _
 		pageHeader == pageHeaderFromApi
 

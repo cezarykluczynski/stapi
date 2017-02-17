@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.cache
 
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
-import com.cezarykluczynski.stapi.sources.mediawiki.util.constant.CacheablePageNames
+import com.cezarykluczynski.stapi.sources.mediawiki.util.constant.CacheablePageTitles
 import spock.lang.Specification
 
 class PageCacheServiceTest extends Specification {
@@ -32,7 +32,7 @@ class PageCacheServiceTest extends Specification {
 
 	void "tells when page is cacheable"() {
 		when:
-		boolean result = pageCacheService.isCacheable(CacheablePageNames.SOURCES_TITLES.get(MEDIA_WIKI_SOURCE)[0], MEDIA_WIKI_SOURCE)
+		boolean result = pageCacheService.isCacheable(CacheablePageTitles.SOURCES_TITLES.get(MEDIA_WIKI_SOURCE)[0], MEDIA_WIKI_SOURCE)
 
 		then:
 		1 * frequentHitCachingHelperMock.isCacheable(*_) >> false
@@ -41,7 +41,7 @@ class PageCacheServiceTest extends Specification {
 
 	void "tells when page is cacheable despite redirecting to section"() {
 		when:
-		boolean result = pageCacheService.isCacheable(CacheablePageNames.SOURCES_TITLES.get(MEDIA_WIKI_SOURCE)[0] + SECTION, MEDIA_WIKI_SOURCE)
+		boolean result = pageCacheService.isCacheable(CacheablePageTitles.SOURCES_TITLES.get(MEDIA_WIKI_SOURCE)[0] + SECTION, MEDIA_WIKI_SOURCE)
 
 		then:
 		1 * frequentHitCachingHelperMock.isCacheable(*_) >> false

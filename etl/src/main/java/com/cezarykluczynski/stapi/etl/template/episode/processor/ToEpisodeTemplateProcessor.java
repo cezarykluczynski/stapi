@@ -8,13 +8,13 @@ import com.cezarykluczynski.stapi.etl.template.common.linker.EpisodeLinkingWorke
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryNames;
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
@@ -57,7 +57,7 @@ public class ToEpisodeTemplateProcessor implements ItemProcessor<Page, EpisodeTe
 
 	@Override
 	public EpisodeTemplate process(Page item) throws Exception {
-		Optional<Template> templateOptional = templateFinder.findTemplate(item, TemplateName.SIDEBAR_EPISODE);
+		Optional<Template> templateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_EPISODE);
 
 		if (!isEpisodePage(item) || !templateOptional.isPresent()) {
 			return null;
@@ -114,11 +114,11 @@ public class ToEpisodeTemplateProcessor implements ItemProcessor<Page, EpisodeTe
 	}
 
 	private boolean isProductionList(String categoryName) {
-		return CategoryName.PRODUCTION_LISTS.equals(categoryName);
+		return CategoryTitle.PRODUCTION_LISTS.equals(categoryName);
 	}
 
 	private boolean isEpisodeCategory(String categoryName) {
-		return CategoryNames.EPISODES.contains(categoryName);
+		return CategoryTitles.EPISODES.contains(categoryName);
 	}
 
 }

@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.common.processor.datetime
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYearCandidate
 import com.cezarykluczynski.stapi.etl.util.constant.TemplateParam
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
-import com.cezarykluczynski.stapi.util.constant.TemplateName
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -28,7 +28,7 @@ class DatelinkTemplateToDayMonthYearCandiateProcessorTest extends Specification 
 		dayMonthYearCandidateToLocalDateProcessorMock = Mock(DayMonthYearCandidateToLocalDateProcessor)
 		datelinkTemplateToDayMonthYearCandiateProcessor = new DatelinkTemplateToDayMonthYearCandiateProcessor()
 		template = new Template(
-				title: TemplateName.D,
+				title: TemplateTitle.D,
 				parts: Lists.newArrayList(
 						new Template.Part(key: TemplateParam.FIRST, value: DAY_STRING),
 						new Template.Part(key: TemplateParam.SECOND, value: MONTH_STRING),
@@ -49,7 +49,7 @@ class DatelinkTemplateToDayMonthYearCandiateProcessorTest extends Specification 
 
 	void "valid template with title 'datelink' passed findings to DayMonthYearProcessor"() {
 		given:
-		template.title = TemplateName.DATELINK
+		template.title = TemplateTitle.DATELINK
 
 		when:
 		DayMonthYearCandidate dayMonthYearCandidate = datelinkTemplateToDayMonthYearCandiateProcessor.process(template)

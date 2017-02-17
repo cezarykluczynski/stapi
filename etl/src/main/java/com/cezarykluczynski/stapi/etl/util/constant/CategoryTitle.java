@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.util.constant;
 
-public class CategoryName {
+public class CategoryTitle {
 
 	public static final String STAR_TREK_SERIES = "Star_Trek_series";
 

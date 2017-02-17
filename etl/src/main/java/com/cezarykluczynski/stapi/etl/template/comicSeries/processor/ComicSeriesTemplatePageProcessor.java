@@ -6,8 +6,8 @@ import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTempla
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.PageName;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.util.constant.PageTitle;
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import com.google.common.collect.Sets;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
@@ -19,8 +19,8 @@ import java.util.Set;
 @Service
 public class ComicSeriesTemplatePageProcessor implements ItemProcessor<Page, ComicSeriesTemplate> {
 
-	private static final Set<String> INVALID_TITLES = Sets.newHashSet(PageName.DC_COMICS_TNG_TIMELINE, PageName.STAR_TREK_PROBABILITY_FACTOR,
-			PageName.STAR_TREK_THE_ORIGINAL_SERIES_DC, PageName.STAR_TREK_ANNUAL, PageName.STAR_TREK_VOYAGER_MALIBU);
+	private static final Set<String> INVALID_TITLES = Sets.newHashSet(PageTitle.DC_COMICS_TNG_TIMELINE, PageTitle.STAR_TREK_PROBABILITY_FACTOR,
+			PageTitle.STAR_TREK_THE_ORIGINAL_SERIES_DC, PageTitle.STAR_TREK_ANNUAL, PageTitle.STAR_TREK_VOYAGER_MALIBU);
 
 	private PageBindingService pageBindingService;
 
@@ -58,7 +58,7 @@ public class ComicSeriesTemplatePageProcessor implements ItemProcessor<Page, Com
 
 		comicSeriesTemplateFixedValuesEnrichingProcessor.enrich(EnrichablePair.of(comicSeriesTemplate, comicSeriesTemplate));
 
-		Optional<Template> sidebarIndividualTemplateOptional = templateFinder.findTemplate(item, TemplateName.SIDEBAR_COMIC_SERIES);
+		Optional<Template> sidebarIndividualTemplateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_COMIC_SERIES);
 		if (!sidebarIndividualTemplateOptional.isPresent()) {
 			return comicSeriesTemplate;
 		}

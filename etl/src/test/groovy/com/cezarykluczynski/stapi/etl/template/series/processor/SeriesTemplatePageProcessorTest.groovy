@@ -12,7 +12,7 @@ import com.cezarykluczynski.stapi.model.page.entity.Page as PageEntity
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource as SourcesMediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
-import com.cezarykluczynski.stapi.util.constant.TemplateName
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -53,7 +53,7 @@ class SeriesTemplatePageProcessorTest extends Specification {
 		SeriesTemplate seriesTemplate = seriesTemplatePageProcessor.process(page)
 
 		then:
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_SERIES) >> Optional.empty()
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_SERIES) >> Optional.empty()
 		seriesTemplate == null
 	}
 
@@ -68,7 +68,7 @@ class SeriesTemplatePageProcessorTest extends Specification {
 		YearRange yearRange = Mock(YearRange)
 		DateRange dateRange = Mock(DateRange)
 
-		Template template = new Template(title: TemplateName.SIDEBAR_SERIES, parts: Lists.newArrayList(
+		Template template = new Template(title: TemplateTitle.SIDEBAR_SERIES, parts: Lists.newArrayList(
 				new Template.Part(key: SeriesTemplatePageProcessor.ABBR, value: ABBREVIATION),
 				yearRangePart,
 				dateRangePart,
@@ -87,7 +87,7 @@ class SeriesTemplatePageProcessorTest extends Specification {
 		SeriesTemplate seriesTemplate = seriesTemplatePageProcessor.process(page)
 
 		then: 'template is passed through TemplateFinder'
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_SERIES) >> Optional.of(template)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_SERIES) >> Optional.of(template)
 
 		then: 'year range and date range parsing is delegated'
 		1 * partToYearRangeProcessorMock.process(yearRangePart) >> yearRange

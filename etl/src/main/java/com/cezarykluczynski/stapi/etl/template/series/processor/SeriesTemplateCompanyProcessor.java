@@ -6,7 +6,7 @@ import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
@@ -50,7 +50,7 @@ public class SeriesTemplateCompanyProcessor implements ItemProcessor<Template.Pa
 
 		return templateList
 				.stream()
-				.filter(template -> TemplateName.DIS.equals(template.getTitle()))
+				.filter(template -> TemplateTitle.DIS.equals(template.getTitle()))
 				.map(wikitextApi::disTemplateToPageTitle)
 				.filter(Objects::nonNull)
 				.findFirst().orElse(null);

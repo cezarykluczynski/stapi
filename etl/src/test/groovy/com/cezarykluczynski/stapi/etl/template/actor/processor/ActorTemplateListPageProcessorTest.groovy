@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.model.page.entity.Page as PageEntity
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource as SourcesMediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
-import com.cezarykluczynski.stapi.util.constant.PageName
+import com.cezarykluczynski.stapi.util.constant.PageTitle
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -52,7 +52,7 @@ class ActorTemplateListPageProcessorTest extends Specification {
 
 	void "return null when source page cannot be found"() {
 		given:
-		Page page = new Page(title: PageName.STAR_TREK_GAME_PERFORMERS)
+		Page page = new Page(title: PageTitle.STAR_TREK_GAME_PERFORMERS)
 
 		when:
 		ActorTemplate actorTemplate = actorTemplateListPageProcessor.process(page)
@@ -66,7 +66,7 @@ class ActorTemplateListPageProcessorTest extends Specification {
 	void "sets page entity from original page wiki page dto"() {
 		given:
 		Page page = new Page(
-				title: PageName.STAR_TREK_GAME_PERFORMERS,
+				title: PageTitle.STAR_TREK_GAME_PERFORMERS,
 				redirectPath: Lists.newArrayList(PageHeader.builder()
 						.title(TITLE)
 						.pageId(PAGE_ID)
@@ -91,7 +91,7 @@ class ActorTemplateListPageProcessorTest extends Specification {
 
 	void "sets name from original page wiki page dto"() {
 		given:
-		Page page = new Page(title: PageName.STAR_TREK_GAME_PERFORMERS,
+		Page page = new Page(title: PageTitle.STAR_TREK_GAME_PERFORMERS,
 				redirectPath: Lists.newArrayList(PageHeader.builder()
 						.title(TITLE)
 						.build()))
@@ -122,7 +122,7 @@ class ActorTemplateListPageProcessorTest extends Specification {
 	void "sets values from VideoGamePerformerLifeRangeFixedValueProvider, when value is found"() {
 		given:
 		Page page = new Page(
-				title: PageName.STAR_TREK_GAME_PERFORMERS,
+				title: PageTitle.STAR_TREK_GAME_PERFORMERS,
 				redirectPath: Lists.newArrayList(PageHeader.builder()
 						.title(TITLE)
 						.pageId(PAGE_ID)

@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.util.constant;
 
-public class TemplateName {
+public class TemplateTitle {
 
 	// Memory Alpha
 	public static final String SIDEBAR_ACTOR = "sidebar actor";

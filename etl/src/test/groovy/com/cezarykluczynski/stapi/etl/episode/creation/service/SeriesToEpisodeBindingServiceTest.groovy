@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.episode.creation.service
 
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.model.series.repository.SeriesRepository
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
@@ -25,7 +25,7 @@ class SeriesToEpisodeBindingServiceTest extends Specification {
 		given:
 		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(
 				new CategoryHeader(
-						title: CategoryName.TOS_EPISODES
+						title: CategoryTitle.TOS_EPISODES
 				)
 		)
 		Series seriesTos = new Series(
@@ -45,10 +45,10 @@ class SeriesToEpisodeBindingServiceTest extends Specification {
 		given:
 		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(
 				new CategoryHeader(
-						title: CategoryName.TOS_EPISODES
+						title: CategoryTitle.TOS_EPISODES
 				),
 				new CategoryHeader(
-						title: CategoryName.TAS_EPISODES
+						title: CategoryTitle.TAS_EPISODES
 				)
 		)
 		List<Series> seriesList = Lists.newArrayList(
@@ -72,7 +72,7 @@ class SeriesToEpisodeBindingServiceTest extends Specification {
 		given:
 		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(
 				new CategoryHeader(
-						title: CategoryName.TOS_EPISODES
+						title: CategoryTitle.TOS_EPISODES
 				)
 		)
 		List<Series> seriesList = Lists.newArrayList()

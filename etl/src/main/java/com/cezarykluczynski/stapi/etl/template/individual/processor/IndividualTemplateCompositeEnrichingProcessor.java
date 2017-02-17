@@ -8,7 +8,7 @@ import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -45,7 +45,7 @@ public class IndividualTemplateCompositeEnrichingProcessor implements ItemEnrich
 		IndividualTemplate individualTemplate = enrichablePair.getOutput();
 		Page item = enrichablePair.getInput();
 
-		Optional<Template> sidebarIndividualTemplateOptional = templateFinder.findTemplate(item, TemplateName.SIDEBAR_INDIVIDUAL);
+		Optional<Template> sidebarIndividualTemplateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_INDIVIDUAL);
 
 		FixedValueHolder<IndividualLifeBoundaryPlacesDTO> individualLifeBoundaryPlacesDTOFixedValueHolder
 				= individualTemplatePlacesFixedValueProvider.getSearchedValue(item.getTitle());

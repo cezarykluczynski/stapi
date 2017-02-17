@@ -10,7 +10,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -43,7 +43,7 @@ public class EpisodeStaffLinkingWorker implements LinkingWorker<Page, Episode> {
 
 	@Override
 	public void link(Page source, Episode baseEntity) {
-		Optional<Template> templateOptional = templateFinder.findTemplate(source, TemplateName.SIDEBAR_EPISODE);
+		Optional<Template> templateOptional = templateFinder.findTemplate(source, TemplateTitle.SIDEBAR_EPISODE);
 
 		if (!templateOptional.isPresent()) {
 			return;

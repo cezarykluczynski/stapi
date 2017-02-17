@@ -10,8 +10,8 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.ReflectionTestUtils
-import com.cezarykluczynski.stapi.util.constant.PageName
-import com.cezarykluczynski.stapi.util.constant.TemplateName
+import com.cezarykluczynski.stapi.util.constant.PageTitle
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.cezarykluczynski.stapi.util.tool.LogicUtil
 import com.google.common.collect.Lists
 import spock.lang.Specification
@@ -48,7 +48,7 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 
 	void "returns null when page is 'DC Comics TNG timeline'"() {
 		given:
-		Page page = new Page(title: PageName.DC_COMICS_TNG_TIMELINE)
+		Page page = new Page(title: PageTitle.DC_COMICS_TNG_TIMELINE)
 
 		when:
 		ComicSeriesTemplate comicSeriesTemplate = comicSeriesTemplatePageProcessor.process(page)
@@ -75,7 +75,7 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 				EnrichablePair<ComicSeriesTemplate, ComicSeriesTemplate> enrichablePair ->
 			assert enrichablePair.input == enrichablePair.output
 		}
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_SERIES) >> Optional.empty()
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_SERIES) >> Optional.empty()
 		0 * _
 		comicSeriesTemplate.title == TITLE
 		comicSeriesTemplate.page == modelPage
@@ -100,7 +100,7 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 				EnrichablePair<ComicSeriesTemplate, ComicSeriesTemplate> enrichablePair ->
 			assert enrichablePair.input == enrichablePair.output
 		}
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_SERIES) >> Optional.empty()
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_SERIES) >> Optional.empty()
 		comicSeriesTemplate.productOfRedirect
 	}
 
@@ -119,7 +119,7 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 				EnrichablePair<ComicSeriesTemplate, ComicSeriesTemplate> enrichablePair ->
 			assert enrichablePair.input == enrichablePair.output
 		}
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_SERIES) >> Optional.empty()
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_SERIES) >> Optional.empty()
 		!comicSeriesTemplate.productOfRedirect
 	}
 
@@ -139,7 +139,7 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 				EnrichablePair<ComicSeriesTemplate, ComicSeriesTemplate> enrichablePair ->
 			assert enrichablePair.input == enrichablePair.output
 		}
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_COMIC_SERIES) >> Optional.of(sidebarComicSeriesTemplate)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_SERIES) >> Optional.of(sidebarComicSeriesTemplate)
 		1 * comicSeriesTemplatePartsEnrichingProcessorMock.enrich(_) >> { EnrichablePair<List<Template.Part>, ComicSeriesTemplate> enrichablePair ->
 			assert enrichablePair.input == templatePartList
 			assert enrichablePair.output != null

@@ -4,11 +4,11 @@ import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.company.creation.provider.CompanyNameFixedValueProvider;
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.model.common.service.GuidGenerator;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
-import com.cezarykluczynski.stapi.util.constant.PageName;
+import com.cezarykluczynski.stapi.util.constant.PageTitle;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
@@ -50,29 +50,29 @@ public class CompanyPageProcessor implements ItemProcessor<Page, Company> {
 
 		List<String> categoryTitleList = categoryTitlesExtractingProcessor.process(item.getCategories());
 
-		company.setBroadcaster(categoryTitleList.contains(CategoryName.BROADCASTERS));
-		company.setCollectibleCompany(categoryTitleList.contains(CategoryName.COLLECTIBLE_COMPANIES));
-		company.setConglomerate(categoryTitleList.contains(CategoryName.CONGLOMERATES));
-		company.setDigitalVisualEffectsCompany(categoryTitleList.contains(CategoryName.DIGITAL_VISUAL_EFFECTS_COMPANIES));
-		company.setDistributor(categoryTitleList.contains(CategoryName.DISTRIBUTORS));
-		company.setGameCompany(categoryTitleList.contains(CategoryName.GAME_COMPANIES));
-		company.setFilmEquipmentCompany(categoryTitleList.contains(CategoryName.FILM_EQUIPMENT_COMPANIES));
-		company.setMakeUpEffectsStudio(categoryTitleList.contains(CategoryName.MAKE_UP_EFFECTS_STUDIOS));
-		company.setMattePaintingCompany(categoryTitleList.contains(CategoryName.MATTE_PAINTING_COMPANIES));
-		company.setModelAndMiniatureEffectsCompany(categoryTitleList.contains(CategoryName.MODEL_AND_MINIATURE_EFFECTS_COMPANIES));
-		company.setPostProductionCompany(categoryTitleList.contains(CategoryName.POST_PRODUCTION_COMPANIES));
-		company.setProductionCompany(categoryTitleList.contains(CategoryName.PRODUCTION_COMPANIES));
-		company.setPropCompany(categoryTitleList.contains(CategoryName.PROP_COMPANIES));
-		company.setRecordLabel(categoryTitleList.contains(CategoryName.RECORD_LABELS));
-		company.setSpecialEffectsCompany(categoryTitleList.contains(CategoryName.SPECIAL_EFFECTS_COMPANIES));
-		company.setTvAndFilmProductionCompany(categoryTitleList.contains(CategoryName.TV_AND_FILM_PRODUCTION_COMPANIES));
-		company.setVideoGameCompany(categoryTitleList.contains(CategoryName.VIDEO_GAME_COMPANIES));
+		company.setBroadcaster(categoryTitleList.contains(CategoryTitle.BROADCASTERS));
+		company.setCollectibleCompany(categoryTitleList.contains(CategoryTitle.COLLECTIBLE_COMPANIES));
+		company.setConglomerate(categoryTitleList.contains(CategoryTitle.CONGLOMERATES));
+		company.setDigitalVisualEffectsCompany(categoryTitleList.contains(CategoryTitle.DIGITAL_VISUAL_EFFECTS_COMPANIES));
+		company.setDistributor(categoryTitleList.contains(CategoryTitle.DISTRIBUTORS));
+		company.setGameCompany(categoryTitleList.contains(CategoryTitle.GAME_COMPANIES));
+		company.setFilmEquipmentCompany(categoryTitleList.contains(CategoryTitle.FILM_EQUIPMENT_COMPANIES));
+		company.setMakeUpEffectsStudio(categoryTitleList.contains(CategoryTitle.MAKE_UP_EFFECTS_STUDIOS));
+		company.setMattePaintingCompany(categoryTitleList.contains(CategoryTitle.MATTE_PAINTING_COMPANIES));
+		company.setModelAndMiniatureEffectsCompany(categoryTitleList.contains(CategoryTitle.MODEL_AND_MINIATURE_EFFECTS_COMPANIES));
+		company.setPostProductionCompany(categoryTitleList.contains(CategoryTitle.POST_PRODUCTION_COMPANIES));
+		company.setProductionCompany(categoryTitleList.contains(CategoryTitle.PRODUCTION_COMPANIES));
+		company.setPropCompany(categoryTitleList.contains(CategoryTitle.PROP_COMPANIES));
+		company.setRecordLabel(categoryTitleList.contains(CategoryTitle.RECORD_LABELS));
+		company.setSpecialEffectsCompany(categoryTitleList.contains(CategoryTitle.SPECIAL_EFFECTS_COMPANIES));
+		company.setTvAndFilmProductionCompany(categoryTitleList.contains(CategoryTitle.TV_AND_FILM_PRODUCTION_COMPANIES));
+		company.setVideoGameCompany(categoryTitleList.contains(CategoryTitle.VIDEO_GAME_COMPANIES));
 
 		return company;
 	}
 
 	private boolean shouldBeFilteredOut(Page item) {
-		return PageName.STAR_TREK_STARSHIP_MINIATURES.equals(item.getTitle());
+		return PageTitle.STAR_TREK_STARSHIP_MINIATURES.equals(item.getTitle());
 	}
 
 }

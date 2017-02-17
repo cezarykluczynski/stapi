@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.common.processor.datetime
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DateRange
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFilter
-import com.cezarykluczynski.stapi.util.constant.TemplateName
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
 import spock.lang.Specification
@@ -11,8 +11,8 @@ import java.time.LocalDate
 
 class PartToDateRangeProcessorTest extends Specification {
 
-	private static final Template START_TEMPLATE = new Template(title: TemplateName.D)
-	private static final Template END_TEMPLATE = new Template(title: TemplateName.D)
+	private static final Template START_TEMPLATE = new Template(title: TemplateTitle.D)
+	private static final Template END_TEMPLATE = new Template(title: TemplateTitle.D)
 	private static final LocalDate START_DATE = LocalDate.of(2001, 1, 1)
 	private static final LocalDate END_DATE = LocalDate.of(2012, 2, 2)
 
@@ -39,7 +39,7 @@ class PartToDateRangeProcessorTest extends Specification {
 		DateRange dateRange = partToDateRangeProcessor.process(part)
 
 		then: 'date templates are filtered'
-		1 * templateFilterMock.filterByTitle(templateList, TemplateName.D, TemplateName.DATELINK) >> templateList
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.D, TemplateTitle.DATELINK) >> templateList
 
 		then:
 		1 * templateToLocalDateProcessorMock.process(START_TEMPLATE) >> START_DATE
@@ -59,7 +59,7 @@ class PartToDateRangeProcessorTest extends Specification {
 		DateRange dateRange = partToDateRangeProcessor.process(part)
 
 		then: 'date templates are filtered'
-		1 * templateFilterMock.filterByTitle(templateList, TemplateName.D, TemplateName.DATELINK) >> templateList
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.D, TemplateTitle.DATELINK) >> templateList
 
 		then: 'only start date is parsed'
 		1 * templateToLocalDateProcessorMock.process(START_TEMPLATE) >> START_DATE
@@ -84,7 +84,7 @@ class PartToDateRangeProcessorTest extends Specification {
 		DateRange dateRange = partToDateRangeProcessor.process(part)
 
 		then: 'date templates are filtered'
-		1 * templateFilterMock.filterByTitle(templateList, TemplateName.D, TemplateName.DATELINK) >> templateList
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.D, TemplateTitle.DATELINK) >> templateList
 
 		then: 'both dates are null'
 		dateRange.startDate == null

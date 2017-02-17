@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.etl.template.actor.dto.LifeRangeDTO;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DateRange;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
-import com.cezarykluczynski.stapi.util.constant.PageName;
+import com.cezarykluczynski.stapi.util.constant.PageTitle;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
@@ -65,7 +65,7 @@ public class ActorTemplateListPageProcessor implements ItemProcessor<Page, Actor
 
 
 	private boolean isGamePerformer(Page item) {
-		return PageName.STAR_TREK_GAME_PERFORMERS.equals(item.getTitle());
+		return PageTitle.STAR_TREK_GAME_PERFORMERS.equals(item.getTitle());
 	}
 
 	private PageHeader getGamePerformerPageHeader(Page item) {

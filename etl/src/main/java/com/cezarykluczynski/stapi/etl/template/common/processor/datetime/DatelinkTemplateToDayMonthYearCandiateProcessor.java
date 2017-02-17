@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.common.processor.datetime;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYearCandidate;
 import com.cezarykluczynski.stapi.etl.util.constant.TemplateParam;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ public class DatelinkTemplateToDayMonthYearCandiateProcessor implements ItemProc
 	@Override
 	public DayMonthYearCandidate process(Template item) throws Exception {
 		String title = item.getTitle();
-		if (!TemplateName.D.equals(title) && !TemplateName.DATELINK.equals(title)) {
+		if (!TemplateTitle.D.equals(title) && !TemplateTitle.DATELINK.equals(title)) {
 			log.warn("Template {} passed to DatelinkTemplateToDayMonthYearCandiateProcessor::process was of different type", item);
 			return null;
 		}

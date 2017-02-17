@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
-import com.cezarykluczynski.stapi.util.constant.TemplateName
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -50,7 +50,7 @@ class IndividualTemplateCompositeEnrichingProcessorTest extends Specification {
 
 		then:
 		1 * individualTemplatePlacesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.empty()
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_INDIVIDUAL) >> Optional.empty()
 		0 * _
 	}
 
@@ -64,7 +64,7 @@ class IndividualTemplateCompositeEnrichingProcessorTest extends Specification {
 		individualTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(page, individualTemplate))
 
 		then:
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.empty()
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_INDIVIDUAL) >> Optional.empty()
 		1 * individualTemplatePlacesFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.found(individualLifeBoundaryPlacesDTO)
 		0 * _
 		individualTemplate.placeOfBirth == PLACE_OF_BIRTH
@@ -82,7 +82,7 @@ class IndividualTemplateCompositeEnrichingProcessorTest extends Specification {
 		individualTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(page, individualTemplate))
 
 		then:
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.of(template)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_INDIVIDUAL) >> Optional.of(template)
 		1 * individualTemplatePlacesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
 		1 * individualDateOfDeathEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 				EnrichablePair<Template, IndividualTemplate> enrichablePair ->

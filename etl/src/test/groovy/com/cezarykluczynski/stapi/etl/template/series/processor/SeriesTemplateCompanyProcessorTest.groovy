@@ -6,7 +6,7 @@ import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
-import com.cezarykluczynski.stapi.util.constant.TemplateName
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -68,7 +68,7 @@ class SeriesTemplateCompanyProcessorTest extends Specification {
 
 	void "gets company from dis template"() {
 		given:
-		Template template = new Template(title: TemplateName.DIS)
+		Template template = new Template(title: TemplateTitle.DIS)
 		Template.Part templatePart = new Template.Part(
 				value: WIKITEXT,
 				templates: Lists.newArrayList(template))
@@ -87,7 +87,7 @@ class SeriesTemplateCompanyProcessorTest extends Specification {
 
 	void "returns null when company from dis template cannot be found"() {
 		given:
-		Template template = new Template(title: TemplateName.DIS)
+		Template template = new Template(title: TemplateTitle.DIS)
 		Template.Part templatePart = new Template.Part(
 				value: WIKITEXT,
 				templates: Lists.newArrayList(template))
@@ -105,7 +105,7 @@ class SeriesTemplateCompanyProcessorTest extends Specification {
 
 	void "returns null when dis template cannot be parse into title"() {
 		given:
-		Template template = new Template(title: TemplateName.DIS)
+		Template template = new Template(title: TemplateTitle.DIS)
 		Template.Part templatePart = new Template.Part(
 				value: WIKITEXT,
 				templates: Lists.newArrayList(template))

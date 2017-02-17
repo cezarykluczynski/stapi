@@ -6,7 +6,7 @@ import com.cezarykluczynski.stapi.model.reference.entity.enums.ReferenceType
 import com.cezarykluczynski.stapi.model.reference.factory.ReferenceFactory
 import com.cezarykluczynski.stapi.model.reference.repository.ReferenceRepository
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
-import com.cezarykluczynski.stapi.util.constant.TemplateName
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import org.apache.commons.lang3.tuple.Pair
 import spock.lang.Specification
@@ -52,7 +52,7 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 
 	void "ISBN containing template is parsed to Reference, when reference is already present"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: TemplateName.REFERENCE, value: ISBN_FULL)
+		Template.Part templatePart = new Template.Part(key: TemplateTitle.REFERENCE, value: ISBN_FULL)
 		Reference reference = Mock(Reference)
 
 		when:
@@ -72,7 +72,7 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 
 	void "ISBNs containing template is parsed to References, when references is already present"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: TemplateName.REFERENCE, value: TWO_FULL_ISBNS)
+		Template.Part templatePart = new Template.Part(key: TemplateTitle.REFERENCE, value: TWO_FULL_ISBNS)
 		Reference reference1 = Mock(Reference)
 		Reference reference2 = Mock(Reference)
 
@@ -100,7 +100,7 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 
 	void "ISBN containing template is parsed to Reference, when reference is not already present"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: TemplateName.REFERENCE, value: ISBN_FULL)
+		Template.Part templatePart = new Template.Part(key: TemplateTitle.REFERENCE, value: ISBN_FULL)
 		Reference reference = Mock(Reference)
 
 		when:
@@ -122,7 +122,7 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 
 	void "tolerates invalid value in template value"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: TemplateName.REFERENCE, value: 'INVALID')
+		Template.Part templatePart = new Template.Part(key: TemplateTitle.REFERENCE, value: 'INVALID')
 
 		when:
 		Set<Reference> referenceSet = referencesFromTemplatePartProcessor.process(templatePart)
@@ -135,10 +135,10 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 	void "ASIN template in template part is parsed, when reference is already present"() {
 		given:
 		Template.Part templatePart = new Template.Part(
-				key: TemplateName.REFERENCE,
+				key: TemplateTitle.REFERENCE,
 				templates: Lists.newArrayList(
 						new Template(
-								title: TemplateName.ASIN,
+								title: TemplateTitle.ASIN,
 								parts: Lists.newArrayList(
 										new Template.Part(value: ASIN)
 								))))
@@ -162,7 +162,7 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 	void "tolerates empty template list"() {
 		given:
 		Template.Part templatePart = new Template.Part(
-				key: TemplateName.REFERENCE,
+				key: TemplateTitle.REFERENCE,
 				templates: Lists.newArrayList())
 
 		when:
@@ -176,10 +176,10 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 	void "tolerates empty template part list"() {
 		given:
 		Template.Part templatePart = new Template.Part(
-				key: TemplateName.REFERENCE,
+				key: TemplateTitle.REFERENCE,
 				templates: Lists.newArrayList(
 						new Template(
-								title: TemplateName.ASIN,
+								title: TemplateTitle.ASIN,
 								parts: Lists.newArrayList())))
 
 		when:
@@ -193,10 +193,10 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 	void "tolerates template with unrecognized title"() {
 		given:
 		Template.Part templatePart = new Template.Part(
-				key: TemplateName.REFERENCE,
+				key: TemplateTitle.REFERENCE,
 				templates: Lists.newArrayList(
 						new Template(
-								title: TemplateName.BORN,
+								title: TemplateTitle.BORN,
 								parts: Lists.newArrayList(
 										new Template.Part(value: ASIN)
 								))))

@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.company.creation.configuration;
 
 import com.cezarykluczynski.stapi.etl.company.creation.processor.CompanyReader;
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi;
@@ -36,7 +36,7 @@ public class CompanyCreationConfiguration {
 		List<PageHeader> characters = Lists.newArrayList();
 
 		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_COMPANIES)) {
-			characters.addAll(categoryApi.getPagesIncludingSubcategories(CategoryName.COMPANIES, MediaWikiSource.MEMORY_ALPHA_EN));
+			characters.addAll(categoryApi.getPagesIncludingSubcategories(CategoryTitle.COMPANIES, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 
 		return new CompanyReader(Lists.newArrayList(Sets.newHashSet(characters)));

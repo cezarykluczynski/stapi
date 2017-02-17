@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.actor.processor
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DateRange
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DatelinkTemplateToLocalDateProcessor
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFilter
-import com.cezarykluczynski.stapi.util.constant.TemplateName
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
 import spock.lang.Specification
@@ -40,11 +40,11 @@ class ActorTemplateToLifeRangeProcessorTest extends Specification {
 		LocalDate dateOfDeath = LocalDate.of(2009, 5, 5)
 
 		given:
-		Template templateDateOfBirth = new Template(title: TemplateName.D)
-		Template templateDateOfDeath = new Template(title: TemplateName.DATELINK)
+		Template templateDateOfBirth = new Template(title: TemplateTitle.D)
+		Template templateDateOfDeath = new Template(title: TemplateTitle.DATELINK)
 		List<Template> templatesDateOfBirth = Lists.newArrayList(templateDateOfBirth)
 		List<Template> templatesDateOfDeath = Lists.newArrayList(templateDateOfDeath)
-		Template template = new Template(title: TemplateName.SIDEBAR_ACTOR,
+		Template template = new Template(title: TemplateTitle.SIDEBAR_ACTOR,
 				parts: Lists.newArrayList(
 						new Template.Part(
 								key: ActorTemplateToLifeRangeProcessor.KEY_DATE_OF_BIRTH,
@@ -57,8 +57,8 @@ class ActorTemplateToLifeRangeProcessorTest extends Specification {
 		DateRange dateRange = actorTemplateToLifeRangeProcessor.process(template)
 
 		then:
-		1 * templateFilterMock.filterByTitle(templatesDateOfBirth, TemplateName.D, TemplateName.DATELINK) >> Lists.newArrayList(templateDateOfBirth)
-		1 * templateFilterMock.filterByTitle(templatesDateOfDeath, TemplateName.D, TemplateName.DATELINK) >> Lists.newArrayList(templatesDateOfDeath)
+		1 * templateFilterMock.filterByTitle(templatesDateOfBirth, TemplateTitle.D, TemplateTitle.DATELINK) >> Lists.newArrayList(templateDateOfBirth)
+		1 * templateFilterMock.filterByTitle(templatesDateOfDeath, TemplateTitle.D, TemplateTitle.DATELINK) >> Lists.newArrayList(templatesDateOfDeath)
 		1 * datelinkTemplateToLocalDateProcessorMock.process(templateDateOfBirth) >> dateOfBirth
 		1 * datelinkTemplateToLocalDateProcessorMock.process(templateDateOfDeath) >> dateOfDeath
 		dateRange.startDate == dateOfBirth
@@ -67,7 +67,7 @@ class ActorTemplateToLifeRangeProcessorTest extends Specification {
 
 	void "returns null when no 'd' or 'datelink' templates were found"() {
 		given:
-		Template template = new Template(title: TemplateName.SIDEBAR_ACTOR,
+		Template template = new Template(title: TemplateTitle.SIDEBAR_ACTOR,
 				parts: Lists.newArrayList())
 
 		when:
@@ -80,7 +80,7 @@ class ActorTemplateToLifeRangeProcessorTest extends Specification {
 	void "returns null when templates child templates list is empty or does not contain 'd' nor 'datelink' templates"() {
 		given:
 		Template invalidTemplate = new Template(title: INVALID_TEMPLATE_NAME)
-		Template template = new Template(title: TemplateName.SIDEBAR_ACTOR,
+		Template template = new Template(title: TemplateTitle.SIDEBAR_ACTOR,
 				parts: Lists.newArrayList(
 						new Template.Part(
 								key: ActorTemplateToLifeRangeProcessor.KEY_DATE_OF_BIRTH,
@@ -93,7 +93,7 @@ class ActorTemplateToLifeRangeProcessorTest extends Specification {
 		DateRange dateRange = actorTemplateToLifeRangeProcessor.process(template)
 
 		then:
-		1 * templateFilterMock.filterByTitle(Lists.newArrayList(invalidTemplate), TemplateName.D, TemplateName.DATELINK) >> Lists.newArrayList()
+		1 * templateFilterMock.filterByTitle(Lists.newArrayList(invalidTemplate), TemplateTitle.D, TemplateTitle.DATELINK) >> Lists.newArrayList()
 		dateRange == null
 	}
 

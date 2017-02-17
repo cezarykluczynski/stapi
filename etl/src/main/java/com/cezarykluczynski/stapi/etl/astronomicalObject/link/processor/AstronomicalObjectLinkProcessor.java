@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.model.page.entity.Page;
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import com.cezarykluczynski.stapi.util.tool.LogicUtil;
 import com.google.common.base.Objects;
 import lombok.extern.slf4j.Slf4j;
@@ -69,7 +69,7 @@ public class AstronomicalObjectLinkProcessor implements ItemProcessor<Astronomic
 		AstronomicalObject astronomicalObjectFromWikitext = astronomicalObjectLinkWikitextProcessor
 				.process(extractFirstParagraph(page.getWikitext()));
 
-		Optional<Template> templateOptional = templateFinder.findTemplate(page, TemplateName.SIDEBAR_PLANET);
+		Optional<Template> templateOptional = templateFinder.findTemplate(page, TemplateTitle.SIDEBAR_PLANET);
 		if (templateOptional.isPresent()) {
 			Template template = templateOptional.get();
 

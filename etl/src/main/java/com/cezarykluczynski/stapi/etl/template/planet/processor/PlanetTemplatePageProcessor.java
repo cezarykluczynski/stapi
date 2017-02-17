@@ -6,11 +6,11 @@ import com.cezarykluczynski.stapi.etl.template.planet.dto.PlanetTemplate;
 import com.cezarykluczynski.stapi.etl.template.planet.dto.enums.AstronomicalObjectType;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
@@ -69,7 +69,7 @@ public class PlanetTemplatePageProcessor implements ItemProcessor<Page, PlanetTe
 
 		astronomicalObjectTypeEnrichingProcessor.enrich(EnrichablePair.of(item, planetTemplate));
 
-		Optional<Template> templateOptional = templateFinder.findTemplate(item, TemplateName.SIDEBAR_PLANET);
+		Optional<Template> templateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_PLANET);
 		if (!templateOptional.isPresent()) {
 			trySetTypeFromWikitext(planetTemplate, item);
 			return planetTemplate;
@@ -120,7 +120,7 @@ public class PlanetTemplatePageProcessor implements ItemProcessor<Page, PlanetTe
 				.map(CategoryHeader::getTitle)
 				.collect(Collectors.toList());
 
-		return categoryHeaderList.contains(CategoryName.PLANET_LISTS);
+		return categoryHeaderList.contains(CategoryTitle.PLANET_LISTS);
 	}
 
 }

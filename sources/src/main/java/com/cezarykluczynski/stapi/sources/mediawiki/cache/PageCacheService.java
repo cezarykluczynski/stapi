@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.cache;
 
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
-import com.cezarykluczynski.stapi.sources.mediawiki.util.constant.CacheablePageNames;
+import com.cezarykluczynski.stapi.sources.mediawiki.util.constant.CacheablePageTitles;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -24,11 +24,11 @@ public class PageCacheService {
 			return true;
 		}
 
-		if (!CacheablePageNames.SOURCES_TITLES.containsKey(mediaWikiSource)) {
+		if (!CacheablePageTitles.SOURCES_TITLES.containsKey(mediaWikiSource)) {
 			return false;
 		}
 
-		return CacheablePageNames.SOURCES_TITLES.get(mediaWikiSource).contains(getCanonicalTitle(title));
+		return CacheablePageTitles.SOURCES_TITLES.get(mediaWikiSource).contains(getCanonicalTitle(title));
 	}
 
 	public String resolveKey(String title) {

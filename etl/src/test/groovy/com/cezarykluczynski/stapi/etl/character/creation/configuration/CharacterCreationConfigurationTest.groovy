@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.character.creation.configuration
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterReader
 import com.cezarykluczynski.stapi.etl.common.configuration.AbstractCreationConfigurationTest
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
@@ -39,13 +39,13 @@ class CharacterCreationConfigurationTest extends AbstractCreationConfigurationTe
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_CHARACTERS) >> false
-		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryName.INDIVIDUALS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryTitle.INDIVIDUALS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_INDIVIDUALS)
-		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryName.MILITARY_PERSONNEL, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryTitle.MILITARY_PERSONNEL, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_INDIVIDUALS)
-		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryName.Q_CONTINUUM, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryTitle.Q_CONTINUUM, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_INDIVIDUALS)
-		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryName.STARFLEET_PERSONNEL, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryTitle.STARFLEET_PERSONNEL, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_INDIVIDUALS)
 		0 * _
 		categoryHeaderTitleList.contains TITLE_INDIVIDUALS

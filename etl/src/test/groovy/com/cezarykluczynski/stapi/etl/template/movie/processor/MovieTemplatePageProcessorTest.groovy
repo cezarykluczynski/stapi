@@ -9,14 +9,14 @@ import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.model.page.entity.Page as PageEntity
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
-import com.cezarykluczynski.stapi.util.constant.PageName
-import com.cezarykluczynski.stapi.util.constant.TemplateName
+import com.cezarykluczynski.stapi.util.constant.PageTitle
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
 class MovieTemplatePageProcessorTest extends Specification {
 
-	private static final Template SIDEBAR_FILM_TEMPLATE = new Template(title: TemplateName.SIDEBAR_FILM)
+	private static final Template SIDEBAR_FILM_TEMPLATE = new Template(title: TemplateTitle.SIDEBAR_FILM)
 
 	private MovieTemplateProcessor movieTemplateProcessorMock
 
@@ -49,33 +49,33 @@ class MovieTemplatePageProcessorTest extends Specification {
 		movieTemplatePageProcessor.process(page)
 
 		then:
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_FILM) >> Optional.empty()
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_FILM) >> Optional.empty()
 		0 * _
 	}
 
 	void "returns null when page is Star Trek films"() {
 		given:
-		Page page = new Page(title: PageName.STAR_TREK_FILMS)
+		Page page = new Page(title: PageTitle.STAR_TREK_FILMS)
 
 		when:
 		MovieTemplate movieTemplate = movieTemplatePageProcessor.process(page)
 
 		then:
 		movieTemplate == null
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_FILM) >> Optional.of(SIDEBAR_FILM_TEMPLATE)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_FILM) >> Optional.of(SIDEBAR_FILM_TEMPLATE)
 		0 * _
 	}
 
 	void "returns null when page is Star Trek XIV"() {
 		given:
-		Page page = new Page(title: PageName.STAR_TREK_XIV)
+		Page page = new Page(title: PageTitle.STAR_TREK_XIV)
 
 		when:
 		MovieTemplate movieTemplate = movieTemplatePageProcessor.process(page)
 
 		then:
 		movieTemplate == null
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_FILM) >> Optional.of(SIDEBAR_FILM_TEMPLATE)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_FILM) >> Optional.of(SIDEBAR_FILM_TEMPLATE)
 		0 * _
 	}
 
@@ -92,7 +92,7 @@ class MovieTemplatePageProcessorTest extends Specification {
 		MovieTemplate movieTemplateOutput = movieTemplatePageProcessor.process(page)
 
 		then:
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_FILM) >> Optional.of(SIDEBAR_FILM_TEMPLATE)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_FILM) >> Optional.of(SIDEBAR_FILM_TEMPLATE)
 		1 * movieTemplateProcessorMock.process(SIDEBAR_FILM_TEMPLATE) >> movieTemplate
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> pageEntity
 		1 * movieTemplateTitleLanguagesEnrichingProcessorMock.enrich(_) >> { EnrichablePair<Page, MovieTemplate> enrichablePair ->

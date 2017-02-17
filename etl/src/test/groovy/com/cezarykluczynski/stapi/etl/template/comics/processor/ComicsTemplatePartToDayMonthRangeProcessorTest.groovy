@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear
 import com.cezarykluczynski.stapi.etl.template.common.service.TemplateToDayMonthYearParser
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFilter
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
-import com.cezarykluczynski.stapi.util.constant.TemplateName
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -34,9 +34,9 @@ class ComicsTemplatePartToDayMonthRangeProcessorTest extends Specification {
 		DayMonthYear dayMonthYearOutput = comicsTemplatePartToDayMonthRangeProcessor.process(templatePart)
 
 		then:
-		1 * templateFilterMock.filterByTitle(templateList, TemplateName.D, TemplateName.DATELINK) >> Lists.newArrayList(datelinkTemplate)
-		1 * templateFilterMock.filterByTitle(templateList, TemplateName.M, TemplateName.MONTHLINK) >> Lists.newArrayList()
-		1 * templateFilterMock.filterByTitle(templateList, TemplateName.Y, TemplateName.YEARLINK) >> Lists.newArrayList()
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.D, TemplateTitle.DATELINK) >> Lists.newArrayList(datelinkTemplate)
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.M, TemplateTitle.MONTHLINK) >> Lists.newArrayList()
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.Y, TemplateTitle.YEARLINK) >> Lists.newArrayList()
 		1 * templateToDayMonthYearParserMock.parseDayMonthYearCandidate(datelinkTemplate) >> dayMonthYear
 		0 * _
 		dayMonthYearOutput == dayMonthYear
@@ -54,10 +54,10 @@ class ComicsTemplatePartToDayMonthRangeProcessorTest extends Specification {
 		DayMonthYear dayMonthYearOutput = comicsTemplatePartToDayMonthRangeProcessor.process(templatePart)
 
 		then:
-		1 * templateFilterMock.filterByTitle(templateList, TemplateName.D, TemplateName.DATELINK) >> Lists
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.D, TemplateTitle.DATELINK) >> Lists
 				.newArrayList(datelinkTemplate1, datelinkTemplate2)
-		1 * templateFilterMock.filterByTitle(templateList, TemplateName.M, TemplateName.MONTHLINK) >> Lists.newArrayList()
-		1 * templateFilterMock.filterByTitle(templateList, TemplateName.Y, TemplateName.YEARLINK) >> Lists.newArrayList()
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.M, TemplateTitle.MONTHLINK) >> Lists.newArrayList()
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.Y, TemplateTitle.YEARLINK) >> Lists.newArrayList()
 		1 * templateToDayMonthYearParserMock.parseDayMonthYearCandidate(datelinkTemplate1) >> dayMonthYear
 		0 * _
 		dayMonthYearOutput == dayMonthYear
@@ -74,9 +74,9 @@ class ComicsTemplatePartToDayMonthRangeProcessorTest extends Specification {
 		DayMonthYear dayMonthYearOutput = comicsTemplatePartToDayMonthRangeProcessor.process(templatePart)
 
 		then:
-		1 * templateFilterMock.filterByTitle(templateList, TemplateName.D, TemplateName.DATELINK) >> Lists.newArrayList()
-		1 * templateFilterMock.filterByTitle(templateList, TemplateName.M, TemplateName.MONTHLINK) >> Lists.newArrayList(monthlinkTemplate)
-		1 * templateFilterMock.filterByTitle(templateList, TemplateName.Y, TemplateName.YEARLINK) >> Lists.newArrayList()
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.D, TemplateTitle.DATELINK) >> Lists.newArrayList()
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.M, TemplateTitle.MONTHLINK) >> Lists.newArrayList(monthlinkTemplate)
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.Y, TemplateTitle.YEARLINK) >> Lists.newArrayList()
 		1 * templateToDayMonthYearParserMock.parseMonthYearCandidate(monthlinkTemplate) >> dayMonthYear
 		0 * _
 		dayMonthYearOutput == dayMonthYear
@@ -94,10 +94,10 @@ class ComicsTemplatePartToDayMonthRangeProcessorTest extends Specification {
 		DayMonthYear dayMonthYearOutput = comicsTemplatePartToDayMonthRangeProcessor.process(templatePart)
 
 		then:
-		1 * templateFilterMock.filterByTitle(templateList, TemplateName.D, TemplateName.DATELINK) >> Lists.newArrayList()
-		1 * templateFilterMock.filterByTitle(templateList, TemplateName.M, TemplateName.MONTHLINK) >> Lists
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.D, TemplateTitle.DATELINK) >> Lists.newArrayList()
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.M, TemplateTitle.MONTHLINK) >> Lists
 				.newArrayList(monthlinkTemplate1, monthlinkTemplate2)
-		1 * templateFilterMock.filterByTitle(templateList, TemplateName.Y, TemplateName.YEARLINK) >> Lists.newArrayList()
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.Y, TemplateTitle.YEARLINK) >> Lists.newArrayList()
 		1 * templateToDayMonthYearParserMock.parseMonthYearCandidate(monthlinkTemplate1) >> dayMonthYear
 		0 * _
 		dayMonthYearOutput == dayMonthYear
@@ -114,9 +114,9 @@ class ComicsTemplatePartToDayMonthRangeProcessorTest extends Specification {
 		DayMonthYear dayMonthYearOutput = comicsTemplatePartToDayMonthRangeProcessor.process(templatePart)
 
 		then:
-		1 * templateFilterMock.filterByTitle(templateList, TemplateName.D, TemplateName.DATELINK) >> Lists.newArrayList()
-		1 * templateFilterMock.filterByTitle(templateList, TemplateName.M, TemplateName.MONTHLINK) >> Lists.newArrayList()
-		1 * templateFilterMock.filterByTitle(templateList, TemplateName.Y, TemplateName.YEARLINK) >> Lists.newArrayList(yearlinkTemplate)
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.D, TemplateTitle.DATELINK) >> Lists.newArrayList()
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.M, TemplateTitle.MONTHLINK) >> Lists.newArrayList()
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.Y, TemplateTitle.YEARLINK) >> Lists.newArrayList(yearlinkTemplate)
 		1 * templateToDayMonthYearParserMock.parseYearCandidate(yearlinkTemplate) >> dayMonthYear
 		0 * _
 		dayMonthYearOutput == dayMonthYear
@@ -134,9 +134,9 @@ class ComicsTemplatePartToDayMonthRangeProcessorTest extends Specification {
 		DayMonthYear dayMonthYearOutput = comicsTemplatePartToDayMonthRangeProcessor.process(templatePart)
 
 		then:
-		1 * templateFilterMock.filterByTitle(templateList, TemplateName.D, TemplateName.DATELINK) >> Lists.newArrayList()
-		1 * templateFilterMock.filterByTitle(templateList, TemplateName.M, TemplateName.MONTHLINK) >> Lists.newArrayList()
-		1 * templateFilterMock.filterByTitle(templateList, TemplateName.Y, TemplateName.YEARLINK) >> Lists
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.D, TemplateTitle.DATELINK) >> Lists.newArrayList()
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.M, TemplateTitle.MONTHLINK) >> Lists.newArrayList()
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.Y, TemplateTitle.YEARLINK) >> Lists
 				.newArrayList(yearlinkTemplate1, yearlinkTemplate2)
 		1 * templateToDayMonthYearParserMock.parseYearCandidate(yearlinkTemplate1) >> dayMonthYear
 		0 * _

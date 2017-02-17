@@ -9,12 +9,12 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PageToL
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGenderProcessor;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.PageName;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.util.constant.PageTitle;
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import com.cezarykluczynski.stapi.util.tool.LogicUtil;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
@@ -71,7 +71,7 @@ public class ActorTemplateSinglePageProcessor implements ItemProcessor<Page, Act
 		actorTemplate.setLifeRange(pageToLifeRangeProcessor.process(item));
 
 		Optional<Template> templateOptional = templateFinder
-				.findTemplate(item, TemplateName.SIDEBAR_ACTOR, TemplateName.SIDEBAR_CREW);
+				.findTemplate(item, TemplateTitle.SIDEBAR_ACTOR, TemplateTitle.SIDEBAR_CREW);
 
 		if (templateOptional.isPresent()) {
 			supplementUsingActorTemplateTemplateProcessor(actorTemplate, templateOptional.get());
@@ -85,8 +85,8 @@ public class ActorTemplateSinglePageProcessor implements ItemProcessor<Page, Act
 
 	private boolean shouldBeFilteredOut(Page item) {
 		List<CategoryHeader> categoryHeaderList = Optional.ofNullable(item.getCategories()).orElse(Lists.newArrayList());
-		return PageName.UNKNOWN_PERFORMERS.equals(item.getTitle()) || categoryHeaderList.stream()
-				.anyMatch(categoryHeader -> CategoryName.PRODUCTION_LISTS.equals(categoryHeader.getTitle()));
+		return PageTitle.UNKNOWN_PERFORMERS.equals(item.getTitle()) || categoryHeaderList.stream()
+				.anyMatch(categoryHeader -> CategoryTitle.PRODUCTION_LISTS.equals(categoryHeader.getTitle()));
 	}
 
 	private void supplementUsingActorTemplateTemplateProcessor(ActorTemplate actorTemplate, Template template)

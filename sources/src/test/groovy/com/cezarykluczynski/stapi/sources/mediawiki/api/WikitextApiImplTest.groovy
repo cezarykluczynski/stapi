@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.sources.mediawiki.api
 
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
-import com.cezarykluczynski.stapi.util.constant.TemplateName
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -76,8 +76,8 @@ class WikitextApiImplTest extends Specification {
 		where:
 		template                                                                                                                              | pageLink
 		new Template()                                                                                                                        | null
-		new Template(title: TemplateName.D)                                                                                                   | null
-		new Template(title: TemplateName.DIS)                                                                                                 | null
+		new Template(title: TemplateTitle.D)                                                                                                  | null
+		new Template(title: TemplateTitle.DIS)                                                                                                | null
 		createValid(new Template.Part(key: '1', value: DIS_TEMPLATE_PAGE_NAME))                                                               | DIS_TEMPLATE_PAGE_NAME
 		createValid(new Template.Part(key: '1', value: DIS_TEMPLATE_PAGE_NAME), new Template.Part(key: 'other'))                              | DIS_TEMPLATE_PAGE_NAME
 		createValid(new Template.Part(key: '1', value: DIS_TEMPLATE_PAGE_NAME), new Template.Part(key: '2', value: DIS_TEMPLATE_PAGE_DETAIL)) | "${DIS_TEMPLATE_PAGE_NAME} (${DIS_TEMPLATE_PAGE_DETAIL})"
@@ -85,7 +85,7 @@ class WikitextApiImplTest extends Specification {
 	}
 
 	private static Template createValid(Template.Part... templateParts) {
-		new Template(title: TemplateName.DIS, parts: Lists.newArrayList(templateParts))
+		new Template(title: TemplateTitle.DIS, parts: Lists.newArrayList(templateParts))
 	}
 
 }

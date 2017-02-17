@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
-import com.cezarykluczynski.stapi.util.constant.TemplateName
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -48,14 +48,14 @@ class EpisodeStaffLinkingWorkerTest extends Specification {
 		episodeStaffLinkingWorker.link(page, new Episode())
 
 		then:
-		templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_EPISODE) >> Optional.empty()
+		templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_EPISODE) >> Optional.empty()
 		0 * _
 	}
 
 	void "gets staff from template parts"() {
 		given:
 		Template sidebarEpisodeTemplate = new Template(
-				title: TemplateName.SIDEBAR_EPISODE,
+				title: TemplateTitle.SIDEBAR_EPISODE,
 				parts: Lists.newArrayList(
 						new Template.Part(
 								key: EpisodeStaffLinkingWorker.WS_WRITTEN_BY,
@@ -86,7 +86,7 @@ class EpisodeStaffLinkingWorkerTest extends Specification {
 		episodeStaffLinkingWorker.link(page, episode)
 
 		then:
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_EPISODE) >> Optional.of(sidebarEpisodeTemplate)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_EPISODE) >> Optional.of(sidebarEpisodeTemplate)
 
 		then: 'gets writer from service'
 		1 * wikitextApiMock.getPageLinksFromWikitext(WS_WRITTEN_BY_VALUE) >> Lists.newArrayList(new PageLink(title: WRITER_NAME))
@@ -117,7 +117,7 @@ class EpisodeStaffLinkingWorkerTest extends Specification {
 	void "tolerates template part with null key"() {
 		given:
 		Template sidebarEpisodeTemplate = new Template(
-				title: TemplateName.SIDEBAR_EPISODE,
+				title: TemplateTitle.SIDEBAR_EPISODE,
 				parts: Lists.newArrayList(
 						new Template.Part(
 								key: null,
@@ -132,7 +132,7 @@ class EpisodeStaffLinkingWorkerTest extends Specification {
 		episodeStaffLinkingWorker.link(page, episode)
 
 		then:
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_EPISODE) >> Optional.of(sidebarEpisodeTemplate)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_EPISODE) >> Optional.of(sidebarEpisodeTemplate)
 		notThrown(Exception)
 	}
 

@@ -6,7 +6,7 @@ import com.cezarykluczynski.stapi.model.reference.entity.enums.ReferenceType;
 import com.cezarykluczynski.stapi.model.reference.factory.ReferenceFactory;
 import com.cezarykluczynski.stapi.model.reference.repository.ReferenceRepository;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
@@ -46,7 +46,7 @@ public class ReferencesFromTemplatePartProcessor implements ItemProcessor<Templa
 
 	@Override
 	public Set<Reference> process(Template.Part item) throws Exception {
-		if (!TemplateName.REFERENCE.equals(item.getKey())) {
+		if (!TemplateTitle.REFERENCE.equals(item.getKey())) {
 			return Sets.newHashSet();
 		}
 
@@ -88,7 +88,7 @@ public class ReferencesFromTemplatePartProcessor implements ItemProcessor<Templa
 
 		Template.Part firstTemplatePart = templatePartList.get(0);
 
-		if (TemplateName.ASIN.equals(templateTitle)) {
+		if (TemplateTitle.ASIN.equals(templateTitle)) {
 			return Pair.of(ReferenceType.ASIN, firstTemplatePart.getValue());
 		}
 

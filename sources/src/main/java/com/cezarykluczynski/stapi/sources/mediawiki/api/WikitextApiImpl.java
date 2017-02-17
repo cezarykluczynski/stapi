@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.sources.mediawiki.api;
 
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
@@ -86,7 +86,7 @@ public class WikitextApiImpl implements WikitextApi {
 
 	@Override
 	public String disTemplateToPageTitle(Template template) {
-		if (!TemplateName.DIS.equals(template.getTitle())) {
+		if (!TemplateTitle.DIS.equals(template.getTitle())) {
 			return null;
 		}
 

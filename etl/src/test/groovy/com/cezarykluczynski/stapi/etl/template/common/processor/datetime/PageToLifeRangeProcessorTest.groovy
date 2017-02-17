@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.common.processor.datetime
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DateRange
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYearCandidate
-import com.cezarykluczynski.stapi.util.constant.TemplateName
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.cezarykluczynski.stapi.etl.util.constant.TemplateParam
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
@@ -40,7 +40,7 @@ class PageToLifeRangeProcessorTest extends Specification {
 		pageToLifeRangeProcessor = new PageToLifeRangeProcessor(dayMonthYearCandidateToLocalDateProcessorMock)
 
 		templateValid = new Template(
-				title: TemplateName.BORN,
+				title: TemplateTitle.BORN,
 				parts: Lists.newArrayList(
 						new Template.Part(key: TemplateParam.FIRST, value: DAY_START_STRING),
 						new Template.Part(key: TemplateParam.SECOND, value: MONTH_START_STRING),
@@ -52,7 +52,7 @@ class PageToLifeRangeProcessorTest extends Specification {
 				)
 		)
 		templateInvalid = new Template(
-				title: TemplateName.BORN,
+				title: TemplateTitle.BORN,
 				parts: Lists.newArrayList())
 	}
 

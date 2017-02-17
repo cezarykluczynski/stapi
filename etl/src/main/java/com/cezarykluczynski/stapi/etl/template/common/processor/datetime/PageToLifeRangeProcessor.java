@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYearC
 import com.cezarykluczynski.stapi.etl.util.constant.TemplateParam;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ public class PageToLifeRangeProcessor implements ItemProcessor<Page, DateRange> 
 	@Override
 	public DateRange process(Page item) throws Exception {
 		List<Template> bornTemplates = item.getTemplates().stream()
-				.filter(template -> TemplateName.BORN.equals(template.getTitle()))
+				.filter(template -> TemplateTitle.BORN.equals(template.getTitle()))
 				.collect(Collectors.toList());
 
 		if (bornTemplates.isEmpty()) {
@@ -37,7 +37,7 @@ public class PageToLifeRangeProcessor implements ItemProcessor<Page, DateRange> 
 		}
 
 		if (bornTemplates.size() > 1) {
-			log.warn("More than one {} template found for {}, using the first one", TemplateName.BORN, item.getTitle());
+			log.warn("More than one {} template found for {}, using the first one", TemplateTitle.BORN, item.getTitle());
 		}
 
 		Template bornTemplate = bornTemplates.get(0);

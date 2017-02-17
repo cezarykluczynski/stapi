@@ -5,13 +5,13 @@ import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.template.planet.dto.PlanetTemplate
 import com.cezarykluczynski.stapi.etl.template.planet.dto.enums.AstronomicalObjectType
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page as EtlPage
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
-import com.cezarykluczynski.stapi.util.constant.TemplateName
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import org.apache.commons.lang3.tuple.Pair
 import spock.lang.Specification
@@ -62,7 +62,7 @@ class PlanetTemplatePageProcessorTest extends Specification {
 		PlanetTemplate planetTemplate = planetTemplatePageProcessor.process(new EtlPage(
 				title: TITLE,
 				categories: Lists.newArrayList(
-						new CategoryHeader(title: CategoryName.PLANET_LISTS)
+						new CategoryHeader(title: CategoryTitle.PLANET_LISTS)
 				)
 		))
 
@@ -84,7 +84,7 @@ class PlanetTemplatePageProcessorTest extends Specification {
 			assert enrichablePair.input == page
 			assert enrichablePair.output != null
 		}
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_PLANET) >> Optional.empty()
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_PLANET) >> Optional.empty()
 		1 * astronomicalObjectWikitextProcessorMock.process(_) >> null
 		0 * _
 		planetTemplate.page == modelPage
@@ -112,7 +112,7 @@ class PlanetTemplatePageProcessorTest extends Specification {
 			enrichablePair.input == page
 			enrichablePair.output != null
 		}
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_PLANET) >> Optional.of(template)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_PLANET) >> Optional.of(template)
 		1 * astronomicalObjectWikitextProcessorMock.process(_) >> NEBULA
 		1 * astronomicalObjectTypeProcessorMock.process(CLASS) >> GALAXY
 		1 * astronomicalObjectCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {

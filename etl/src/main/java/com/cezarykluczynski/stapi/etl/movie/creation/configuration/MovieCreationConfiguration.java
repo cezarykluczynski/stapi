@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.movie.creation.configuration;
 
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieReader;
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi;
@@ -31,7 +31,7 @@ public class MovieCreationConfiguration {
 		List<PageHeader> movies = Lists.newArrayList();
 
 		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_MOVIES)) {
-			movies.addAll(categoryApi.getPages(CategoryName.STAR_TREK_FILMS, MediaWikiSource.MEMORY_ALPHA_EN));
+			movies.addAll(categoryApi.getPages(CategoryTitle.STAR_TREK_FILMS, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 
 		return new MovieReader(movies);

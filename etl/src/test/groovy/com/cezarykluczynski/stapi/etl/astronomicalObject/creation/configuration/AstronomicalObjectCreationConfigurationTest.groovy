@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.astronomicalObject.creation.configuration
 import com.cezarykluczynski.stapi.etl.common.configuration.AbstractCreationConfigurationTest
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider
 import com.cezarykluczynski.stapi.etl.astronomicalObject.creation.processor.AstronomicalObjectReader
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
@@ -46,21 +46,21 @@ class AstronomicalObjectCreationConfigurationTest extends AbstractCreationConfig
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_ASTRONOMICAL_OBJECTS) >> false
-		1 * categoryApiMock.getPages(CategoryName.ASTEROIDS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_ASTEROID)
-		1 * categoryApiMock.getPages(CategoryName.ASTEROID_BELTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.ASTEROIDS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_ASTEROID)
+		1 * categoryApiMock.getPages(CategoryTitle.ASTEROID_BELTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_ASTEROID_BELT)
-		1 * categoryApiMock.getPages(CategoryName.COMETS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_COMET)
-		1 * categoryApiMock.getPages(CategoryName.CONSTELLATIONS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.COMETS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_COMET)
+		1 * categoryApiMock.getPages(CategoryTitle.CONSTELLATIONS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_CONSTELLATION)
-		1 * categoryApiMock.getPages(CategoryName.GALAXIES, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_GALAXY)
-		1 * categoryApiMock.getPages(CategoryName.HOMEWORLDS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_HOMEWORLD)
-		1 * categoryApiMock.getPages(CategoryName.MOONS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_MOON)
-		1 * categoryApiMock.getPages(CategoryName.NEBULAE, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_NEBULA)
-		1 * categoryApiMock.getPages(CategoryName.PLANETS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_PLANET)
-		1 * categoryApiMock.getPages(CategoryName.PLANETOIDS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_PLANETOID)
-		1 * categoryApiMock.getPages(CategoryName.QUASARS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_QUASAR)
-		1 * categoryApiMock.getPages(CategoryName.STAR_SYSTEMS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_STAR_SYSTEM)
-		1 * categoryApiMock.getPages(CategoryName.STARS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_STAR)
+		1 * categoryApiMock.getPages(CategoryTitle.GALAXIES, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_GALAXY)
+		1 * categoryApiMock.getPages(CategoryTitle.HOMEWORLDS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_HOMEWORLD)
+		1 * categoryApiMock.getPages(CategoryTitle.MOONS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_MOON)
+		1 * categoryApiMock.getPages(CategoryTitle.NEBULAE, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_NEBULA)
+		1 * categoryApiMock.getPages(CategoryTitle.PLANETS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_PLANET)
+		1 * categoryApiMock.getPages(CategoryTitle.PLANETOIDS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_PLANETOID)
+		1 * categoryApiMock.getPages(CategoryTitle.QUASARS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_QUASAR)
+		1 * categoryApiMock.getPages(CategoryTitle.STAR_SYSTEMS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_STAR_SYSTEM)
+		1 * categoryApiMock.getPages(CategoryTitle.STARS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_STAR)
 		0 * _
 		categoryHeaderTitleList.contains TITLE_ASTEROID
 		categoryHeaderTitleList.contains TITLE_ASTEROID_BELT

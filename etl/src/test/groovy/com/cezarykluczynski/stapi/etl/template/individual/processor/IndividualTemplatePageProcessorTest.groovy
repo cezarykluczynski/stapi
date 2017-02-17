@@ -12,7 +12,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.ReflectionTestUtils
-import com.cezarykluczynski.stapi.util.constant.TemplateName
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -72,7 +72,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 
 		then:
 		1 * individualTemplateFilterMock.shouldBeFilteredOut(page) >> false
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.empty()
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_INDIVIDUAL) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> pageEntity
 		0 * _
 		individualTemplate.name == TITLE
@@ -92,7 +92,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 
 		then:
 		1 * individualTemplateFilterMock.shouldBeFilteredOut(page) >> false
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.empty()
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_INDIVIDUAL) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> new PageEntity()
 		individualTemplate.name == TITLE
 		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 4
@@ -110,7 +110,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 
 		then:
 		1 * individualTemplateFilterMock.shouldBeFilteredOut(page) >> false
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.empty()
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_INDIVIDUAL) >> Optional.empty()
 		individualTemplate.productOfRedirect
 	}
 
@@ -125,7 +125,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 
 		then:
 		1 * individualTemplateFilterMock.shouldBeFilteredOut(page) >> false
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.empty()
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_INDIVIDUAL) >> Optional.empty()
 		!individualTemplate.productOfRedirect
 	}
 
@@ -143,12 +143,12 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		then:
 		1 * individualTemplateFilterMock.shouldBeFilteredOut(page) >> false
 		1 * pageBindingServiceMock.fromPageToPageEntity(page)
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.of(sidebarIndividualTemplate)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_INDIVIDUAL) >> Optional.of(sidebarIndividualTemplate)
 		1 * invidiualTemplateCompositeEnrichingProcessorMock.enrich(_) >> { EnrichablePair<Page, IndividualTemplate> enrichablePair ->
 			assert enrichablePair.input == page
 			assert enrichablePair.output != null
 		}
-		1 * templateFinderMock.findTemplate(page, TemplateName.MBETA) >> Optional.empty()
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.MBETA) >> Optional.empty()
 		0 * _
 	}
 
@@ -167,12 +167,12 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		then:
 		1 * individualTemplateFilterMock.shouldBeFilteredOut(page) >> false
 		1 * pageBindingServiceMock.fromPageToPageEntity(page)
-		1 * templateFinderMock.findTemplate(page, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.of(sidebarIndividualTemplate)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_INDIVIDUAL) >> Optional.of(sidebarIndividualTemplate)
 		1 * invidiualTemplateCompositeEnrichingProcessorMock.enrich(_) >> { EnrichablePair<Page, IndividualTemplate> enrichablePair ->
 			assert enrichablePair.input == page
 			assert enrichablePair.output != null
 		}
-		1 * templateFinderMock.findTemplate(page, TemplateName.MBETA) >> Optional.of(mbetaTemplate)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.MBETA) >> Optional.of(mbetaTemplate)
 		1 * characterboxIndividualTemplateEnrichingProcessorMock.enrich(_) >> { EnrichablePair<Template, IndividualTemplate> enrichablePair ->
 			assert enrichablePair.input == mbetaTemplate
 			assert enrichablePair.output != null

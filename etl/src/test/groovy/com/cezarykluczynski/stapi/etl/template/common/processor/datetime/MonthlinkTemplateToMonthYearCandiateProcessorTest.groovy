@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.common.processor.datetime
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.MonthYearCandidate
 import com.cezarykluczynski.stapi.etl.util.constant.TemplateParam
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
-import com.cezarykluczynski.stapi.util.constant.TemplateName
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -26,7 +26,7 @@ class MonthlinkTemplateToMonthYearCandiateProcessorTest extends Specification {
 		monthYearCandidateToYearMonthProcessorMock = Mock(MonthYearCandidateToYearMonthProcessor)
 		monthlinkTemplateToMonthYearCandiateProcessor = new MonthlinkTemplateToMonthYearCandiateProcessor()
 		template = new Template(
-				title: TemplateName.M,
+				title: TemplateTitle.M,
 				parts: Lists.newArrayList(
 						new Template.Part(key: TemplateParam.FIRST, value: MONTH_STRING),
 						new Template.Part(key: TemplateParam.SECOND, value: YEAR_STRING),
@@ -45,7 +45,7 @@ class MonthlinkTemplateToMonthYearCandiateProcessorTest extends Specification {
 
 	void "valid template with title 'monthlink' passed findings to DayMonthYearProcessor"() {
 		given:
-		template.title = TemplateName.MONTHLINK
+		template.title = TemplateTitle.MONTHLINK
 
 		when:
 		MonthYearCandidate monthYearCandidate = monthlinkTemplateToMonthYearCandiateProcessor.process(template)

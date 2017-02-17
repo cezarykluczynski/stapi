@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
@@ -53,7 +53,7 @@ public class IndividualTemplatePageProcessor implements ItemProcessor<Page, Indi
 		individualTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 		individualTemplate.setProductOfRedirect(!item.getRedirectPath().isEmpty());
 
-		Optional<Template> sidebarIndividualTemplateOptional = templateFinder.findTemplate(item, TemplateName.SIDEBAR_INDIVIDUAL);
+		Optional<Template> sidebarIndividualTemplateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_INDIVIDUAL);
 
 		if (!sidebarIndividualTemplateOptional.isPresent()) {
 			return individualTemplate;
@@ -61,7 +61,7 @@ public class IndividualTemplatePageProcessor implements ItemProcessor<Page, Indi
 
 		individualTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(item, individualTemplate));
 
-		Optional<Template> memoryBetaTemplateOptional = templateFinder.findTemplate(item, TemplateName.MBETA);
+		Optional<Template> memoryBetaTemplateOptional = templateFinder.findTemplate(item, TemplateTitle.MBETA);
 
 		if (memoryBetaTemplateOptional.isPresent()) {
 			characterboxIndividualTemplateEnrichingProcessor.enrich(EnrichablePair.of(memoryBetaTemplateOptional.get(), individualTemplate));

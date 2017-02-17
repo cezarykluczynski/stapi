@@ -1,12 +1,12 @@
 package com.cezarykluczynski.stapi.etl.template.individual.service
 
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
-import com.cezarykluczynski.stapi.util.constant.PageName
+import com.cezarykluczynski.stapi.util.constant.PageTitle
 import com.google.common.collect.Lists
 import org.apache.commons.lang3.StringUtils
 import spock.lang.Specification
@@ -73,7 +73,7 @@ class IndividualTemplateFilterTest extends Specification {
 	void "returns true when page name contains 'personnel'"() {
 		given:
 		Page page = new Page(
-				title: PageName.MEMORY_ALPHA_PERSONNEL,
+				title: PageTitle.MEMORY_ALPHA_PERSONNEL,
 				categories: Lists.newArrayList(),
 				templates: Lists.newArrayList())
 
@@ -87,7 +87,7 @@ class IndividualTemplateFilterTest extends Specification {
 	void "returns true when category list contains Production lists"() {
 		given:
 		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(
-				new CategoryHeader(title: CategoryName.PRODUCTION_LISTS))
+				new CategoryHeader(title: CategoryTitle.PRODUCTION_LISTS))
 		Page page = new Page(
 				title: TITLE,
 				categories: categoryHeaderList,
@@ -97,14 +97,14 @@ class IndividualTemplateFilterTest extends Specification {
 		boolean shouldBeFilteredOut = individualTemplateFilter.shouldBeFilteredOut(page)
 
 		then:
-		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryName.PRODUCTION_LISTS)
+		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.PRODUCTION_LISTS)
 		shouldBeFilteredOut
 	}
 
 	void "returns true when category list contains Families"() {
 		given:
 		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(
-				new CategoryHeader(title: CategoryName.FAMILIES))
+				new CategoryHeader(title: CategoryTitle.FAMILIES))
 		Page page = new Page(
 				title: TITLE,
 				categories: categoryHeaderList,
@@ -114,14 +114,14 @@ class IndividualTemplateFilterTest extends Specification {
 		boolean shouldBeFilteredOut = individualTemplateFilter.shouldBeFilteredOut(page)
 
 		then:
-		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryName.FAMILIES)
+		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.FAMILIES)
 		shouldBeFilteredOut
 	}
 
 	void "returns true when category list contains Personnel lists"() {
 		given:
 		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(
-				new CategoryHeader(title: CategoryName.PERSONNEL_LISTS))
+				new CategoryHeader(title: CategoryTitle.PERSONNEL_LISTS))
 		Page page = new Page(
 				title: TITLE,
 				categories: categoryHeaderList,
@@ -131,14 +131,14 @@ class IndividualTemplateFilterTest extends Specification {
 		boolean shouldBeFilteredOut = individualTemplateFilter.shouldBeFilteredOut(page)
 
 		then:
-		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryName.PERSONNEL_LISTS)
+		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.PERSONNEL_LISTS)
 		shouldBeFilteredOut
 	}
 
 	void "returns true when category list contains Lists"() {
 		given:
 		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(
-				new CategoryHeader(title: CategoryName.LISTS))
+				new CategoryHeader(title: CategoryTitle.LISTS))
 		Page page = new Page(
 				title: TITLE,
 				categories: categoryHeaderList,
@@ -148,7 +148,7 @@ class IndividualTemplateFilterTest extends Specification {
 		boolean shouldBeFilteredOut = individualTemplateFilter.shouldBeFilteredOut(page)
 
 		then:
-		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryName.LISTS)
+		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.LISTS)
 		shouldBeFilteredOut
 	}
 

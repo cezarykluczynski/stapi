@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.episode.creation.configuration;
 
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
 import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeReader;
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryNames;
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi;
@@ -31,7 +31,7 @@ public class EpisodeCreationConfiguration {
 		List<PageHeader> episodes = Lists.newArrayList();
 
 		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_EPISODES)) {
-			CategoryNames.EPISODES
+			CategoryTitles.EPISODES
 					.forEach(episode -> episodes.addAll(categoryApi.getPages(episode, MediaWikiSource.MEMORY_ALPHA_EN)));
 		}
 

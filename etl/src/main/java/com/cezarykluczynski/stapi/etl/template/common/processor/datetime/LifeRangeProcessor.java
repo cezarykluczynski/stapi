@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DateRange;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import com.cezarykluczynski.stapi.util.tool.LogicUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
@@ -77,7 +77,7 @@ public class LifeRangeProcessor implements ItemProcessor<Page, DateRange> {
 	}
 
 	private DateRange getTemplateDateRange(Page item) throws Exception {
-		Optional<Template> bornTemplateOptional = templateFinder.findTemplate(item, TemplateName.SIDEBAR_ACTOR);
+		Optional<Template> bornTemplateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_ACTOR);
 
 		if (bornTemplateOptional.isPresent()) {
 			return actorTemplateToLifeRangeProcessor.process(bornTemplateOptional.get());

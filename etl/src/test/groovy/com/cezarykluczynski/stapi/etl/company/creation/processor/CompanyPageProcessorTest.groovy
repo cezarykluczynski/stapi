@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.company.creation.provider.CompanyNameFixedValueProvider
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
@@ -13,7 +13,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page as EtlPage
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.util.ReflectionTestUtils
-import com.cezarykluczynski.stapi.util.constant.PageName
+import com.cezarykluczynski.stapi.util.constant.PageTitle
 import com.google.common.collect.Lists
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -58,25 +58,25 @@ class CompanyPageProcessorTest extends Specification {
 		trueBooleans == ReflectionTestUtils.getNumberOfTrueBooleanFields(company)
 
 		where:
-		page                                                                                    | flagName                          | flag  | trueBooleans
-		new EtlPage(categories: Lists.newArrayList())                                           | 'broadcaster'                     | false | 0
-		new EtlPage(categories: createList(CategoryName.BROADCASTERS))                          | 'broadcaster'                     | true  | 1
-		new EtlPage(categories: createList(CategoryName.COLLECTIBLE_COMPANIES))                 | 'collectibleCompany'              | true  | 1
-		new EtlPage(categories: createList(CategoryName.CONGLOMERATES))                         | 'conglomerate'                    | true  | 1
-		new EtlPage(categories: createList(CategoryName.DIGITAL_VISUAL_EFFECTS_COMPANIES))      | 'digitalVisualEffectsCompany'     | true  | 1
-		new EtlPage(categories: createList(CategoryName.DISTRIBUTORS))                          | 'distributor'                     | true  | 1
-		new EtlPage(categories: createList(CategoryName.GAME_COMPANIES))                        | 'gameCompany'                     | true  | 1
-		new EtlPage(categories: createList(CategoryName.FILM_EQUIPMENT_COMPANIES))              | 'filmEquipmentCompany'            | true  | 1
-		new EtlPage(categories: createList(CategoryName.MAKE_UP_EFFECTS_STUDIOS))               | 'makeUpEffectsStudio'             | true  | 1
-		new EtlPage(categories: createList(CategoryName.MATTE_PAINTING_COMPANIES))              | 'mattePaintingCompany'            | true  | 1
-		new EtlPage(categories: createList(CategoryName.MODEL_AND_MINIATURE_EFFECTS_COMPANIES)) | 'modelAndMiniatureEffectsCompany' | true  | 1
-		new EtlPage(categories: createList(CategoryName.POST_PRODUCTION_COMPANIES))             | 'postProductionCompany'           | true  | 1
-		new EtlPage(categories: createList(CategoryName.PRODUCTION_COMPANIES))                  | 'productionCompany'               | true  | 1
-		new EtlPage(categories: createList(CategoryName.PROP_COMPANIES))                        | 'propCompany'                     | true  | 1
-		new EtlPage(categories: createList(CategoryName.RECORD_LABELS))                         | 'recordLabel'                     | true  | 1
-		new EtlPage(categories: createList(CategoryName.SPECIAL_EFFECTS_COMPANIES))             | 'specialEffectsCompany'           | true  | 1
-		new EtlPage(categories: createList(CategoryName.TV_AND_FILM_PRODUCTION_COMPANIES))      | 'tvAndFilmProductionCompany'      | true  | 1
-		new EtlPage(categories: createList(CategoryName.VIDEO_GAME_COMPANIES))                  | 'videoGameCompany'                | true  | 1
+		page                                                                                     | flagName                          | flag  | trueBooleans
+		new EtlPage(categories: Lists.newArrayList())                                            | 'broadcaster'                     | false | 0
+		new EtlPage(categories: createList(CategoryTitle.BROADCASTERS))                          | 'broadcaster'                     | true  | 1
+		new EtlPage(categories: createList(CategoryTitle.COLLECTIBLE_COMPANIES))                 | 'collectibleCompany'              | true  | 1
+		new EtlPage(categories: createList(CategoryTitle.CONGLOMERATES))                         | 'conglomerate'                    | true  | 1
+		new EtlPage(categories: createList(CategoryTitle.DIGITAL_VISUAL_EFFECTS_COMPANIES))      | 'digitalVisualEffectsCompany'     | true  | 1
+		new EtlPage(categories: createList(CategoryTitle.DISTRIBUTORS))                          | 'distributor'                     | true  | 1
+		new EtlPage(categories: createList(CategoryTitle.GAME_COMPANIES))                        | 'gameCompany'                     | true  | 1
+		new EtlPage(categories: createList(CategoryTitle.FILM_EQUIPMENT_COMPANIES))              | 'filmEquipmentCompany'            | true  | 1
+		new EtlPage(categories: createList(CategoryTitle.MAKE_UP_EFFECTS_STUDIOS))               | 'makeUpEffectsStudio'             | true  | 1
+		new EtlPage(categories: createList(CategoryTitle.MATTE_PAINTING_COMPANIES))              | 'mattePaintingCompany'            | true  | 1
+		new EtlPage(categories: createList(CategoryTitle.MODEL_AND_MINIATURE_EFFECTS_COMPANIES)) | 'modelAndMiniatureEffectsCompany' | true  | 1
+		new EtlPage(categories: createList(CategoryTitle.POST_PRODUCTION_COMPANIES))             | 'postProductionCompany'           | true  | 1
+		new EtlPage(categories: createList(CategoryTitle.PRODUCTION_COMPANIES))                  | 'productionCompany'               | true  | 1
+		new EtlPage(categories: createList(CategoryTitle.PROP_COMPANIES))                        | 'propCompany'                     | true  | 1
+		new EtlPage(categories: createList(CategoryTitle.RECORD_LABELS))                         | 'recordLabel'                     | true  | 1
+		new EtlPage(categories: createList(CategoryTitle.SPECIAL_EFFECTS_COMPANIES))             | 'specialEffectsCompany'           | true  | 1
+		new EtlPage(categories: createList(CategoryTitle.TV_AND_FILM_PRODUCTION_COMPANIES))      | 'tvAndFilmProductionCompany'      | true  | 1
+		new EtlPage(categories: createList(CategoryTitle.VIDEO_GAME_COMPANIES))                  | 'videoGameCompany'                | true  | 1
 	}
 
 	void "returns null when page is a result of redirec"() {
@@ -92,7 +92,7 @@ class CompanyPageProcessorTest extends Specification {
 
 	void "returns null when it is starship miniatures list"() {
 		given:
-		EtlPage etlPage = new EtlPage(title: PageName.STAR_TREK_STARSHIP_MINIATURES)
+		EtlPage etlPage = new EtlPage(title: PageTitle.STAR_TREK_STARSHIP_MINIATURES)
 
 		when:
 		Company company = companyPageProcessor.process(etlPage)

@@ -13,7 +13,7 @@ import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateTemp
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PageToLifeRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGenderProcessor
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
@@ -103,110 +103,110 @@ class StaffCreationConfigurationTest extends AbstractCreationConfigurationTest {
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_STAFF) >> false
-		1 * categoryApiMock.getPages(CategoryName.ART_DEPARTMENT, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.ART_DEPARTMENT, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_ART_DEPARTMENT)
-		1 * categoryApiMock.getPages(CategoryName.ART_DIRECTORS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.ART_DIRECTORS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_ART_DIRECTORS)
-		1 * categoryApiMock.getPages(CategoryName.PRODUCTION_DESIGNERS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.PRODUCTION_DESIGNERS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_PRODUCTION_DESIGNERS)
-		1 * categoryApiMock.getPages(CategoryName.CAMERA_AND_ELECTRICAL_DEPARTMENT, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.CAMERA_AND_ELECTRICAL_DEPARTMENT, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_CAMERA_AND_ELECTRICAL_DEPARTMENT)
-		1 * categoryApiMock.getPages(CategoryName.CINEMATOGRAPHERS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.CINEMATOGRAPHERS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_CINEMATOGRAPHERS)
-		1 * categoryApiMock.getPages(CategoryName.CASTING_DEPARTMENT, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.CASTING_DEPARTMENT, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_CASTING_DEPARTMENT)
-		1 * categoryApiMock.getPages(CategoryName.COSTUME_DEPARTMENT, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.COSTUME_DEPARTMENT, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_COSTUME_DEPARTMENT)
-		1 * categoryApiMock.getPages(CategoryName.COSTUME_DESIGNERS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.COSTUME_DESIGNERS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_COSTUME_DESIGNERS)
-		1 * categoryApiMock.getPages(CategoryName.DIRECTORS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.DIRECTORS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_DIRECTORS)
-		1 * categoryApiMock.getPages(CategoryName.ASSISTANT_AND_SECOND_UNIT_DIRECTORS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.ASSISTANT_AND_SECOND_UNIT_DIRECTORS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_ASSISTANT_AND_SECOND_UNIT_DIRECTORS)
-		1 * categoryApiMock.getPages(CategoryName.EXHIBIT_AND_ATTRACTION_STAFF, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.EXHIBIT_AND_ATTRACTION_STAFF, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_EXHIBIT_AND_ATTRACTION_STAFF)
-		1 * categoryApiMock.getPages(CategoryName.FILM_EDITORS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_FILM_EDITORS)
-		1 * categoryApiMock.getPages(CategoryName.LINGUISTS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_LINGUISTS)
-		1 * categoryApiMock.getPages(CategoryName.LOCATION_STAFF, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.FILM_EDITORS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_FILM_EDITORS)
+		1 * categoryApiMock.getPages(CategoryTitle.LINGUISTS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_LINGUISTS)
+		1 * categoryApiMock.getPages(CategoryTitle.LOCATION_STAFF, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_LOCATION_STAFF)
-		1 * categoryApiMock.getPages(CategoryName.MAKEUP_STAFF, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_MAKEUP_STAFF)
-		1 * categoryApiMock.getPages(CategoryName.MUSIC_DEPARTMENT, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.MAKEUP_STAFF, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_MAKEUP_STAFF)
+		1 * categoryApiMock.getPages(CategoryTitle.MUSIC_DEPARTMENT, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_MUSIC_DEPARTMENT)
-		1 * categoryApiMock.getPages(CategoryName.COMPOSERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_COMPOSERS)
-		1 * categoryApiMock.getPages(CategoryName.PERSONAL_ASSISTANTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.COMPOSERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_COMPOSERS)
+		1 * categoryApiMock.getPages(CategoryTitle.PERSONAL_ASSISTANTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_PERSONAL_ASSISTANTS)
-		1 * categoryApiMock.getPages(CategoryName.PRODUCERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_PRODUCERS)
-		1 * categoryApiMock.getPages(CategoryName.PRODUCTION_ASSOCIATES, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.PRODUCERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_PRODUCERS)
+		1 * categoryApiMock.getPages(CategoryTitle.PRODUCTION_ASSOCIATES, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_PRODUCTION_ASSOCIATES)
-		1 * categoryApiMock.getPages(CategoryName.PRODUCTION_STAFF, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.PRODUCTION_STAFF, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_PRODUCTION_STAFF)
-		1 * categoryApiMock.getPages(CategoryName.PUBLICATION_STAFF, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.PUBLICATION_STAFF, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_PUBLICATION_STAFF)
-		1 * categoryApiMock.getPages(CategoryName.SCIENCE_CONSULTANTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.SCIENCE_CONSULTANTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_SCIENCE_CONSULTANTS)
-		1 * categoryApiMock.getPages(CategoryName.SOUND_DEPARTMENT, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.SOUND_DEPARTMENT, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_SOUND_DEPARTMENT)
-		1 * categoryApiMock.getPages(CategoryName.SPECIAL_AND_VISUAL_EFFECTS_STAFF, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.SPECIAL_AND_VISUAL_EFFECTS_STAFF, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_SPECIAL_AND_VISUAL_EFFECTS_STAFF)
-		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_AUTHORS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.STAR_TREK_AUTHORS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_STAR_TREK_AUTHORS)
-		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_AUDIO_AUTHORS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.STAR_TREK_AUDIO_AUTHORS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_STAR_TREK_AUDIO_AUTHORS)
-		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_CALENDAR_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.STAR_TREK_CALENDAR_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_STAR_TREK_CALENDAR_ARTISTS)
-		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_COMIC_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.STAR_TREK_COMIC_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_STAR_TREK_COMIC_ARTISTS)
-		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_COMIC_AUTHORS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.STAR_TREK_COMIC_AUTHORS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_STAR_TREK_COMIC_AUTHORS)
-		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_COMIC_COLOR_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.STAR_TREK_COMIC_COLOR_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_STAR_TREK_COMIC_COLOR_ARTISTS)
-		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_COMIC_INTERIOR_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.STAR_TREK_COMIC_INTERIOR_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_STAR_TREK_COMIC_INTERIOR_ARTISTS)
-		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_COMIC_INK_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.STAR_TREK_COMIC_INK_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_STAR_TREK_COMIC_INK_ARTISTS)
-		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_COMIC_PENCIL_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.STAR_TREK_COMIC_PENCIL_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_STAR_TREK_COMIC_PENCIL_ARTISTS)
-		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_COMIC_LETTER_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.STAR_TREK_COMIC_LETTER_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_STAR_TREK_COMIC_LETTER_ARTISTS)
-		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_COMIC_STRIP_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.STAR_TREK_COMIC_STRIP_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_STAR_TREK_COMIC_STRIP_ARTISTS)
-		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_GAME_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.STAR_TREK_GAME_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_STAR_TREK_GAME_ARTISTS)
-		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_GAME_AUTHORS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.STAR_TREK_GAME_AUTHORS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_STAR_TREK_GAME_AUTHORS)
-		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_NOVEL_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.STAR_TREK_NOVEL_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_STAR_TREK_NOVEL_ARTISTS)
-		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_NOVEL_AUTHORS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.STAR_TREK_NOVEL_AUTHORS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_STAR_TREK_NOVEL_AUTHORS)
-		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_REFERENCE_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.STAR_TREK_REFERENCE_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_STAR_TREK_REFERENCE_ARTISTS)
-		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_REFERENCE_AUTHORS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.STAR_TREK_REFERENCE_AUTHORS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_STAR_TREK_REFERENCE_AUTHORS)
-		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_PUBLICATION_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.STAR_TREK_PUBLICATION_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_STAR_TREK_PUBLICATION_ARTISTS)
-		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_PUBLICATION_DESIGNERS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.STAR_TREK_PUBLICATION_DESIGNERS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_STAR_TREK_PUBLICATION_DESIGNERS)
-		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_PUBLICATION_EDITORS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.STAR_TREK_PUBLICATION_EDITORS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_STAR_TREK_PUBLICATION_EDITORS)
-		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_PUBLICITY_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.STAR_TREK_PUBLICITY_ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_STAR_TREK_PUBLICITY_ARTISTS)
-		1 * categoryApiMock.getPages(CategoryName.CBS_DIGITAL_STAFF, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.CBS_DIGITAL_STAFF, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_CBS_DIGITAL_STAFF)
-		1 * categoryApiMock.getPages(CategoryName.ILM_PRODUCTION_STAFF, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.ILM_PRODUCTION_STAFF, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_ILM_PRODUCTION_STAFF)
-		1 * categoryApiMock.getPages(CategoryName.SPECIAL_FEATURES_STAFF, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.SPECIAL_FEATURES_STAFF, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_SPECIAL_FEATURES_STAFF)
-		1 * categoryApiMock.getPages(CategoryName.STORY_EDITORS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.STORY_EDITORS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_STORY_EDITORS)
-		1 * categoryApiMock.getPages(CategoryName.STUDIO_EXECUTIVES, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.STUDIO_EXECUTIVES, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_STUDIO_EXECUTIVES)
-		1 * categoryApiMock.getPages(CategoryName.STUNT_DEPARTMENT, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.STUNT_DEPARTMENT, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_STUNT_DEPARTMENT)
-		1 * categoryApiMock.getPages(CategoryName.TRANSPORTATION_DEPARTMENT, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.TRANSPORTATION_DEPARTMENT, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_TRANSPORTATION_DEPARTMENT)
-		1 * categoryApiMock.getPages(CategoryName.VIDEO_GAME_PRODUCTION_STAFF, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.VIDEO_GAME_PRODUCTION_STAFF, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_VIDEO_GAME_PRODUCTION_STAFF)
-		1 * categoryApiMock.getPages(CategoryName.WRITERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_WRITERS)
+		1 * categoryApiMock.getPages(CategoryTitle.WRITERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_WRITERS)
 		0 * _
 		categoryHeaderTitleList.contains TITLE_ART_DEPARTMENT
 		categoryHeaderTitleList.contains TITLE_ART_DIRECTORS

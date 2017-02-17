@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear;
 import com.cezarykluczynski.stapi.etl.template.common.service.TemplateToDayMonthYearParser;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFilter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
@@ -28,9 +28,9 @@ public class ComicsTemplatePartToDayMonthRangeProcessor implements ItemProcessor
 
 	@Override
 	public DayMonthYear process(Template.Part item) throws Exception {
-		List<Template> dayTemplateList = templateFilter.filterByTitle(item.getTemplates(), TemplateName.D, TemplateName.DATELINK);
-		List<Template> monthTemplateList = templateFilter.filterByTitle(item.getTemplates(), TemplateName.M, TemplateName.MONTHLINK);
-		List<Template> yearTemplateList = templateFilter.filterByTitle(item.getTemplates(), TemplateName.Y, TemplateName.YEARLINK);
+		List<Template> dayTemplateList = templateFilter.filterByTitle(item.getTemplates(), TemplateTitle.D, TemplateTitle.DATELINK);
+		List<Template> monthTemplateList = templateFilter.filterByTitle(item.getTemplates(), TemplateTitle.M, TemplateTitle.MONTHLINK);
+		List<Template> yearTemplateList = templateFilter.filterByTitle(item.getTemplates(), TemplateTitle.Y, TemplateTitle.YEARLINK);
 
 		DayMonthYear dayMonthYearFrom = null;
 

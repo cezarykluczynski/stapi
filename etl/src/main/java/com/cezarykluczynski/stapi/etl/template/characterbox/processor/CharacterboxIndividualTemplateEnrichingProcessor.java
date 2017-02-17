@@ -10,7 +10,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -48,7 +48,7 @@ public class CharacterboxIndividualTemplateEnrichingProcessor implements ItemEnr
 			template.getParts().add(templatePart);
 		}
 
-		if (!TemplateName.MBETA.equals(template.getTitle()) || templatePartList.size() != 1) {
+		if (!TemplateTitle.MBETA.equals(template.getTitle()) || templatePartList.size() != 1) {
 			return;
 		}
 

@@ -13,7 +13,7 @@ import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.ReflectionTestUtils
-import com.cezarykluczynski.stapi.util.constant.TemplateName
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -64,7 +64,7 @@ class CharacterboxTemplateProcessorTest extends Specification {
 		CharacterboxTemplate characterboxTemplate = characterboxTemplateProcessor.process(page)
 
 		then:
-		1 * templateFinderMock.findTemplate(page, TemplateName.CHARACTER_BOX) >> Optional.of(template)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.CHARACTER_BOX) >> Optional.of(template)
 		1 * partToGenderProcessorMock.process(templatePart) >> GENDER
 		0 * _
 		characterboxTemplate.gender == GENDER
@@ -81,7 +81,7 @@ class CharacterboxTemplateProcessorTest extends Specification {
 		CharacterboxTemplate characterboxTemplate = characterboxTemplateProcessor.process(page)
 
 		then:
-		1 * templateFinderMock.findTemplate(page, TemplateName.CHARACTER_BOX) >> Optional.of(template)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.CHARACTER_BOX) >> Optional.of(template)
 		1 * individualHeightProcessorMock.process(VALUE) >> HEIGHT
 		0 * _
 		characterboxTemplate.height == HEIGHT
@@ -98,7 +98,7 @@ class CharacterboxTemplateProcessorTest extends Specification {
 		CharacterboxTemplate characterboxTemplate = characterboxTemplateProcessor.process(page)
 
 		then:
-		1 * templateFinderMock.findTemplate(page, TemplateName.CHARACTER_BOX) >> Optional.of(template)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.CHARACTER_BOX) >> Optional.of(template)
 		1 * individualWeightProcessorMock.process(VALUE) >> WEIGHT
 		0 * _
 		characterboxTemplate.weight == WEIGHT
@@ -115,7 +115,7 @@ class CharacterboxTemplateProcessorTest extends Specification {
 		CharacterboxTemplate characterboxTemplate = characterboxTemplateProcessor.process(page)
 
 		then:
-		1 * templateFinderMock.findTemplate(page, TemplateName.CHARACTER_BOX) >> Optional.of(template)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.CHARACTER_BOX) >> Optional.of(template)
 		1 * maritalStatusProcessorMock.process(VALUE) >> MARITAL_STATUS
 		0 * _
 		characterboxTemplate.maritalStatus == MARITAL_STATUS
@@ -138,7 +138,7 @@ class CharacterboxTemplateProcessorTest extends Specification {
 		CharacterboxTemplate characterboxTemplate = characterboxTemplateProcessor.process(page)
 
 		then:
-		1 * templateFinderMock.findTemplate(page, TemplateName.CHARACTER_BOX) >> Optional.of(template)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.CHARACTER_BOX) >> Optional.of(template)
 		1 * individualLifeBoundaryProcessorMock.process(VALUE) >> individualLifeBoundaryDTO
 		0 * _
 		characterboxTemplate.yearOfBirth == YEAR
@@ -163,7 +163,7 @@ class CharacterboxTemplateProcessorTest extends Specification {
 		CharacterboxTemplate characterboxTemplate = characterboxTemplateProcessor.process(page)
 
 		then:
-		1 * templateFinderMock.findTemplate(page, TemplateName.CHARACTER_BOX) >> Optional.of(template)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.CHARACTER_BOX) >> Optional.of(template)
 		1 * individualLifeBoundaryProcessorMock.process(VALUE) >> individualLifeBoundaryDTO
 		0 * _
 		characterboxTemplate.yearOfDeath == YEAR
@@ -181,14 +181,14 @@ class CharacterboxTemplateProcessorTest extends Specification {
 		CharacterboxTemplate characterboxTemplate = characterboxTemplateProcessor.process(page)
 
 		then:
-		1 * templateFinderMock.findTemplate(page, TemplateName.CHARACTER_BOX) >> Optional.empty()
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.CHARACTER_BOX) >> Optional.empty()
 		0 * _
 		characterboxTemplate == null
 	}
 
 	private static Template createTemplateWithTemplatePart(Template.Part templatePart) {
 		new Template(
-				title: TemplateName.CHARACTER_BOX,
+				title: TemplateTitle.CHARACTER_BOX,
 				parts: Lists.newArrayList(templatePart)
 		)
 	}

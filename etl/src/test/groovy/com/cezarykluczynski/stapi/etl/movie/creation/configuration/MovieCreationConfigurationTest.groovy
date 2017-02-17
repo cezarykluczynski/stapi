@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.movie.creation.configuration
 import com.cezarykluczynski.stapi.etl.common.configuration.AbstractCreationConfigurationTest
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieReader
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
@@ -34,7 +34,7 @@ class MovieCreationConfigurationTest extends AbstractCreationConfigurationTest {
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_MOVIES) >> false
-		1 * categoryApiMock.getPages(CategoryName.STAR_TREK_FILMS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+		1 * categoryApiMock.getPages(CategoryTitle.STAR_TREK_FILMS, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_STAR_TREK_GENERATIONS)
 		0 * _
 		categoryHeaderTitleList.contains TITLE_STAR_TREK_GENERATIONS

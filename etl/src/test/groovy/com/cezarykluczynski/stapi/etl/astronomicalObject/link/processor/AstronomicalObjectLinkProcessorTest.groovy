@@ -11,7 +11,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource as SourcesMediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page as SourcesPage
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
-import com.cezarykluczynski.stapi.util.constant.TemplateName
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -85,7 +85,7 @@ class AstronomicalObjectLinkProcessorTest extends Specification {
 		1 * pageApiMock.getPage(TITLE, ETL_MEDIA_WIKI_SOURCE) >> sourcesPage
 		1 * paragraphExtractorMock.extractParagraphs(_) >> { String wikitext -> Lists.newArrayList(wikitext) }
 		1 * astronomicalObjectLinkWikitextProcessorMock.process(WIKITEXT) >> null
-		1 * templateFinderMock.findTemplate(sourcesPage, TemplateName.SIDEBAR_PLANET) >> Optional.of(template)
+		1 * templateFinderMock.findTemplate(sourcesPage, TemplateTitle.SIDEBAR_PLANET) >> Optional.of(template)
 		1 * astronomicalObjectLinkWikitextProcessorMock.process(LOCATION) >> null
 		0 * _
 	}
@@ -107,7 +107,7 @@ class AstronomicalObjectLinkProcessorTest extends Specification {
 		1 * pageApiMock.getPage(TITLE, ETL_MEDIA_WIKI_SOURCE) >> sourcesPage
 		1 * paragraphExtractorMock.extractParagraphs(_) >> { String wikitext -> Lists.newArrayList(wikitext) }
 		1 * astronomicalObjectLinkWikitextProcessorMock.process(WIKITEXT) >> astronomicalObjectFromWikitext
-		1 * templateFinderMock.findTemplate(sourcesPage, TemplateName.SIDEBAR_PLANET) >> Optional.of(template)
+		1 * templateFinderMock.findTemplate(sourcesPage, TemplateTitle.SIDEBAR_PLANET) >> Optional.of(template)
 		1 * astronomicalObjectLinkWikitextProcessorMock.process(LOCATION) >> null
 		1 * astronomicalObjectLinkEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 				EnrichablePair<AstronomicalObject, AstronomicalObject> enrichablePair ->
@@ -134,7 +134,7 @@ class AstronomicalObjectLinkProcessorTest extends Specification {
 		1 * pageApiMock.getPage(TITLE, ETL_MEDIA_WIKI_SOURCE) >> sourcesPage
 		1 * paragraphExtractorMock.extractParagraphs(_) >> { String wikitext -> Lists.newArrayList(wikitext) }
 		1 * astronomicalObjectLinkWikitextProcessorMock.process(WIKITEXT) >> null
-		1 * templateFinderMock.findTemplate(sourcesPage, TemplateName.SIDEBAR_PLANET) >> Optional.of(template)
+		1 * templateFinderMock.findTemplate(sourcesPage, TemplateTitle.SIDEBAR_PLANET) >> Optional.of(template)
 		1 * astronomicalObjectLinkWikitextProcessorMock.process(LOCATION) >> astronomicalObjectFromTemplate
 		1 * astronomicalObjectLinkEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 			EnrichablePair<AstronomicalObject, AstronomicalObject> enrichablePair ->
@@ -161,7 +161,7 @@ class AstronomicalObjectLinkProcessorTest extends Specification {
 		1 * pageApiMock.getPage(TITLE, ETL_MEDIA_WIKI_SOURCE) >> sourcesPage
 		1 * paragraphExtractorMock.extractParagraphs(_) >> { String wikitext -> Lists.newArrayList(wikitext) }
 		1 * astronomicalObjectLinkWikitextProcessorMock.process(WIKITEXT) >> astronomicalObjectFromTemplate
-		1 * templateFinderMock.findTemplate(sourcesPage, TemplateName.SIDEBAR_PLANET) >> Optional.of(template)
+		1 * templateFinderMock.findTemplate(sourcesPage, TemplateTitle.SIDEBAR_PLANET) >> Optional.of(template)
 		1 * astronomicalObjectLinkWikitextProcessorMock.process(LOCATION) >> astronomicalObjectFromTemplate
 		1 * astronomicalObjectLinkEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 			EnrichablePair<AstronomicalObject, AstronomicalObject> enrichablePair ->
@@ -188,7 +188,7 @@ class AstronomicalObjectLinkProcessorTest extends Specification {
 		1 * pageApiMock.getPage(TITLE, ETL_MEDIA_WIKI_SOURCE) >> sourcesPage
 		1 * paragraphExtractorMock.extractParagraphs(_) >> { String wikitext -> Lists.newArrayList(wikitext) }
 		1 * astronomicalObjectLinkWikitextProcessorMock.process(WIKITEXT) >> astronomicalObjectFromWikitext
-		1 * templateFinderMock.findTemplate(sourcesPage, TemplateName.SIDEBAR_PLANET) >> Optional.of(template)
+		1 * templateFinderMock.findTemplate(sourcesPage, TemplateTitle.SIDEBAR_PLANET) >> Optional.of(template)
 		1 * astronomicalObjectLinkWikitextProcessorMock.process(LOCATION) >> astronomicalObjectFromTemplate
 		1 * astronomicalObjectLinkEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 			EnrichablePair<AstronomicalObject, AstronomicalObject> enrichablePair ->

@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingP
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.planet.dto.PlanetTemplate;
 import com.cezarykluczynski.stapi.etl.template.planet.dto.enums.AstronomicalObjectType;
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import org.springframework.stereotype.Service;
 
@@ -29,29 +29,29 @@ public class AstronomicalObjectTypeEnrichingProcessor implements ItemEnrichingPr
 
 		List<String> categoryTitleList = categoryTitlesExtractingProcessor.process(page.getCategories());
 
-		if (categoryTitleList.contains(CategoryName.PLANETS)) {
+		if (categoryTitleList.contains(CategoryTitle.PLANETS)) {
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.PLANET);
-		} else if (categoryTitleList.contains(CategoryName.ASTEROIDS)) {
+		} else if (categoryTitleList.contains(CategoryTitle.ASTEROIDS)) {
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.ASTEROID);
-		} else if (categoryTitleList.contains(CategoryName.ASTEROID_BELTS)) {
+		} else if (categoryTitleList.contains(CategoryTitle.ASTEROID_BELTS)) {
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.ASTEROID_BELT);
-		} else if (categoryTitleList.contains(CategoryName.COMETS)) {
+		} else if (categoryTitleList.contains(CategoryTitle.COMETS)) {
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.COMET);
-		} else if (categoryTitleList.contains(CategoryName.CONSTELLATIONS)) {
+		} else if (categoryTitleList.contains(CategoryTitle.CONSTELLATIONS)) {
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.CONSTELLATION);
-		} else if (categoryTitleList.contains(CategoryName.GALAXIES)) {
+		} else if (categoryTitleList.contains(CategoryTitle.GALAXIES)) {
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.GALAXY);
-		} else if (categoryTitleList.contains(CategoryName.MOONS)) {
+		} else if (categoryTitleList.contains(CategoryTitle.MOONS)) {
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.MOON);
-		} else if (categoryTitleList.contains(CategoryName.NEBULAE)) {
+		} else if (categoryTitleList.contains(CategoryTitle.NEBULAE)) {
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.NEBULA);
-		} else if (categoryTitleList.contains(CategoryName.PLANETOIDS)) {
+		} else if (categoryTitleList.contains(CategoryTitle.PLANETOIDS)) {
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.PLANETOID);
-		} else if (categoryTitleList.contains(CategoryName.QUASARS)) {
+		} else if (categoryTitleList.contains(CategoryTitle.QUASARS)) {
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.QUASAR);
-		} else if (categoryTitleList.contains(CategoryName.STAR_SYSTEMS)) {
+		} else if (categoryTitleList.contains(CategoryTitle.STAR_SYSTEMS)) {
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.STAR_SYSTEM);
-		} else if (categoryTitleList.contains(CategoryName.STARS)) {
+		} else if (categoryTitleList.contains(CategoryTitle.STARS)) {
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.STAR);
 		}
 	}

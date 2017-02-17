@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplate;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
@@ -46,7 +46,7 @@ public class SeriesTemplatePageProcessor implements ItemProcessor<Page, SeriesTe
 
 	@Override
 	public SeriesTemplate process(Page item) throws Exception {
-		Optional<Template> templateOptional = templateFinder.findTemplate(item, TemplateName.SIDEBAR_SERIES);
+		Optional<Template> templateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_SERIES);
 
 		if (!templateOptional.isPresent()) {
 			return null;

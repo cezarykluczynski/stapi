@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePer
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformancesEntitiesDTO
 import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodePerformancesExtractingProcessor
 import com.cezarykluczynski.stapi.etl.episode.creation.service.EpisodePerformancesToEntityMapper
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.character.repository.CharacterRepository
 import com.cezarykluczynski.stapi.model.episode.entity.Episode
@@ -45,7 +45,7 @@ class EpisodePerformancesLinkingWorkerTest extends Specification {
 		Episode episode = Mock(Episode)
 		Page page = new Page(
 				categories: Lists.newArrayList(
-						new CategoryHeader(title: CategoryName.TOS_EPISODES)
+						new CategoryHeader(title: CategoryTitle.TOS_EPISODES)
 				)
 		)
 

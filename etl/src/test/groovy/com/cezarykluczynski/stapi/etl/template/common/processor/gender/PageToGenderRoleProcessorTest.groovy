@@ -5,14 +5,14 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate
 import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTemplatePartsEnrichingProcessor
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryNames
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles
 import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
-import com.cezarykluczynski.stapi.util.constant.TemplateName
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -52,7 +52,7 @@ class PageToGenderRoleProcessorTest extends Specification {
 	void "logs that no roles were found when page is a performer page"() {
 		given:
 		Page page = Mock(Page)
-		page.categories >> Lists.newArrayList(new CategoryHeader(title: CategoryNames.PERFORMER.get(0)))
+		page.categories >> Lists.newArrayList(new CategoryHeader(title: CategoryTitles.PERFORMER.get(0)))
 
 		when:
 		Gender gender = pageToGenderRoleProcessor.process(page)
@@ -65,7 +65,7 @@ class PageToGenderRoleProcessorTest extends Specification {
 	void "does not log that no roles were found when page is not a performer page"() {
 		given:
 		Page page = Mock(Page)
-		page.categories >> Lists.newArrayList(new CategoryHeader(title: CategoryNames.STAFF.get(0)))
+		page.categories >> Lists.newArrayList(new CategoryHeader(title: CategoryTitles.STAFF.get(0)))
 
 		when:
 		Gender gender = pageToGenderRoleProcessor.process(page)
@@ -112,7 +112,7 @@ class PageToGenderRoleProcessorTest extends Specification {
 		then:
 		1 * wikitextApiMock.getPageTitlesFromWikitext(VALID_WIKITEXT) >> titleList
 		1 * pageApiMock.getPages(titleList, MediaWikiSource.MEMORY_ALPHA_EN) >> Lists.newArrayList(subpage)
-		1 * templateFinderMock.findTemplate(subpage, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.empty()
+		1 * templateFinderMock.findTemplate(subpage, TemplateTitle.SIDEBAR_INDIVIDUAL) >> Optional.empty()
 		gender == null
 
 		then: 'titles are used for logging'
@@ -134,7 +134,7 @@ class PageToGenderRoleProcessorTest extends Specification {
 		then:
 		1 * wikitextApiMock.getPageTitlesFromWikitext(VALID_WIKITEXT) >> titleList
 		1 * pageApiMock.getPages(titleList, MediaWikiSource.MEMORY_ALPHA_EN) >> Lists.newArrayList(subpage)
-		1 * templateFinderMock.findTemplate(subpage, TemplateName.SIDEBAR_INDIVIDUAL) >> Optional.of(sidebarIndividualTemplate)
+		1 * templateFinderMock.findTemplate(subpage, TemplateTitle.SIDEBAR_INDIVIDUAL) >> Optional.of(sidebarIndividualTemplate)
 		1 * individualTemplatePartsEnrichingProcessorMock.enrich(_) >> { EnrichablePair<List<Template.Part>, IndividualTemplate> enrichablePair ->
 			enrichablePair.output.gender = GENDER
 		}

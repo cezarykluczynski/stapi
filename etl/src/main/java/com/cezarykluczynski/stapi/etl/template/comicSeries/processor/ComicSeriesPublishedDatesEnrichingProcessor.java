@@ -8,7 +8,7 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear;
 import com.cezarykluczynski.stapi.etl.template.common.service.TemplateToDayMonthYearParser;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFilter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import com.cezarykluczynski.stapi.util.tool.NumberUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -44,9 +44,9 @@ public class ComicSeriesPublishedDatesEnrichingProcessor implements ItemEnrichin
 		Template.Part templatePart = enrichablePair.getInput();
 		ComicSeriesTemplate comicSeriesTemplate = enrichablePair.getOutput();
 
-		List<Template> dayTemplateList = templateFilter.filterByTitle(templatePart.getTemplates(), TemplateName.D, TemplateName.DATELINK);
-		List<Template> monthTemplateList = templateFilter.filterByTitle(templatePart.getTemplates(), TemplateName.M, TemplateName.MONTHLINK);
-		List<Template> yearTemplateList = templateFilter.filterByTitle(templatePart.getTemplates(), TemplateName.Y, TemplateName.YEARLINK);
+		List<Template> dayTemplateList = templateFilter.filterByTitle(templatePart.getTemplates(), TemplateTitle.D, TemplateTitle.DATELINK);
+		List<Template> monthTemplateList = templateFilter.filterByTitle(templatePart.getTemplates(), TemplateTitle.M, TemplateTitle.MONTHLINK);
+		List<Template> yearTemplateList = templateFilter.filterByTitle(templatePart.getTemplates(), TemplateTitle.Y, TemplateTitle.YEARLINK);
 
 		DayMonthYear dayMonthYearFrom;
 		DayMonthYear dayMonthYearTo = null;

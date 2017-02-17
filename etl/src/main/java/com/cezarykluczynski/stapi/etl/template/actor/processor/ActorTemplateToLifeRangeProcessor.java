@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DateRange;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DatelinkTemplateToLocalDateProcessor;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFilter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.batch.item.ItemProcessor;
@@ -34,7 +34,7 @@ public class ActorTemplateToLifeRangeProcessor implements ItemProcessor<Template
 
 	@Override
 	public DateRange process(Template item) throws Exception {
-		if (!TemplateName.SIDEBAR_ACTOR.equals(item.getTitle())) {
+		if (!TemplateTitle.SIDEBAR_ACTOR.equals(item.getTitle())) {
 			log.warn("Template {} passed to TemplateToLifeRangeProcessor::process was of different type", item);
 			return null;
 		}
@@ -69,7 +69,7 @@ public class ActorTemplateToLifeRangeProcessor implements ItemProcessor<Template
 		}
 
 		List<Template> dateTemplateList = templateFilter
-				.filterByTitle(templateList, TemplateName.D, TemplateName.DATELINK);
+				.filterByTitle(templateList, TemplateTitle.D, TemplateTitle.DATELINK);
 
 		if (dateTemplateList.isEmpty()) {
 			return null;

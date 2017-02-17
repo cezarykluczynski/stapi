@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.common.processor.datetime;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DateRange;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFilter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.validator.routines.IntegerValidator;
 import org.springframework.batch.item.ItemProcessor;
@@ -38,7 +38,7 @@ public class PartToDateRangeProcessor implements ItemProcessor<Template.Part, Da
 		DateRange dateRange = new DateRange();
 
 		List<Template> dateTemplateList = templateFilter
-				.filterByTitle(templateList, TemplateName.D, TemplateName.DATELINK);
+				.filterByTitle(templateList, TemplateTitle.D, TemplateTitle.DATELINK);
 
 		Integer size = dateTemplateList.size();
 

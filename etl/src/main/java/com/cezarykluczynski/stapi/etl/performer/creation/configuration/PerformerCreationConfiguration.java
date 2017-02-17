@@ -11,7 +11,7 @@ import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateTemp
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PageToLifeRangeProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGenderProcessor;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi;
@@ -48,21 +48,21 @@ public class PerformerCreationConfiguration {
 		List<PageHeader> performers = Lists.newArrayList();
 
 		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_PERFORMERS)) {
-			performers.addAll(categoryApi.getPages(CategoryName.PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
-			performers.addAll(categoryApi.getPages(CategoryName.ANIMAL_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
-			performers.addAll(categoryApi.getPages(CategoryName.DIS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
-			performers.addAll(categoryApi.getPages(CategoryName.DS9_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
-			performers.addAll(categoryApi.getPages(CategoryName.ENT_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
-			performers.addAll(categoryApi.getPages(CategoryName.FILM_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
-			performers.addAll(categoryApi.getPages(CategoryName.STAND_INS, MediaWikiSource.MEMORY_ALPHA_EN));
-			performers.addAll(categoryApi.getPages(CategoryName.STUNT_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
-			performers.addAll(categoryApi.getPages(CategoryName.TAS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
-			performers.addAll(categoryApi.getPages(CategoryName.TNG_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
-			performers.addAll(categoryApi.getPages(CategoryName.TOS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
-			performers.addAll(categoryApi.getPages(CategoryName.TOS_REMASTERED_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
-			performers.addAll(categoryApi.getPages(CategoryName.VIDEO_GAME_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
-			performers.addAll(categoryApi.getPages(CategoryName.VOICE_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
-			performers.addAll(categoryApi.getPages(CategoryName.VOY_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryTitle.PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryTitle.ANIMAL_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryTitle.DIS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryTitle.DS9_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryTitle.ENT_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryTitle.FILM_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryTitle.STAND_INS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryTitle.STUNT_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryTitle.TAS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryTitle.TNG_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryTitle.TOS_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryTitle.TOS_REMASTERED_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryTitle.VIDEO_GAME_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryTitle.VOICE_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+			performers.addAll(categoryApi.getPages(CategoryTitle.VOY_PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 
 		return new PerformerReader(Lists.newArrayList(Sets.newHashSet(performers)));

@@ -5,9 +5,9 @@ import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingP
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -42,11 +42,11 @@ public class IndividualMirrorAlternateUniverseEnrichingProcessor implements Item
 			individualTemplate.setMirror(true);
 		}
 
-		if (templateFinder.findTemplate(page, TemplateName.MIRROR).isPresent()) {
+		if (templateFinder.findTemplate(page, TemplateTitle.MIRROR).isPresent()) {
 			individualTemplate.setMirror(true);
 		}
 
-		if (categoryNameList.contains(CategoryName.MIRROR_UNIVERSE_INHABITANTS)) {
+		if (categoryNameList.contains(CategoryTitle.MIRROR_UNIVERSE_INHABITANTS)) {
 			individualTemplate.setMirror(true);
 		}
 
@@ -54,7 +54,7 @@ public class IndividualMirrorAlternateUniverseEnrichingProcessor implements Item
 			individualTemplate.setAlternateReality(true);
 		}
 
-		if (templateFinder.findTemplate(page, TemplateName.ALT_REALITY).isPresent()) {
+		if (templateFinder.findTemplate(page, TemplateTitle.ALT_REALITY).isPresent()) {
 			individualTemplate.setAlternateReality(true);
 		}
 

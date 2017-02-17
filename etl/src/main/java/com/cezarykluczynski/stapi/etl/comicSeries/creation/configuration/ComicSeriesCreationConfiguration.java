@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.comicSeries.creation.configuration;
 
 import com.cezarykluczynski.stapi.etl.comicSeries.creation.processor.ComicSeriesReader;
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi;
@@ -33,7 +33,7 @@ public class ComicSeriesCreationConfiguration {
 		List<PageHeader> comicSeriess = Lists.newArrayList();
 
 		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_COMIC_SERIES)) {
-			comicSeriess.addAll(categoryApi.getPagesIncludingSubcategories(CategoryName.COMIC_SERIES, MediaWikiSource.MEMORY_ALPHA_EN));
+			comicSeriess.addAll(categoryApi.getPagesIncludingSubcategories(CategoryTitle.COMIC_SERIES, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 
 		return new ComicSeriesReader(Lists.newArrayList(Sets.newHashSet(comicSeriess)));

@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.comicSeries.processor
 
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryName
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.google.common.collect.Lists
@@ -28,7 +28,7 @@ class ComicSeriesTemplatePhotonovelSeriesProcessorTest extends Specification {
 		Boolean photonovel = comicSeriesTemplatePhotonovelSeriesProcessor.process(page)
 
 		then:
-		1 * categoryTitlesExtractingProcessorMock.process(Lists.newArrayList(categoryHeader)) >> Lists.newArrayList(CategoryName.PHOTONOVEL_SERIES)
+		1 * categoryTitlesExtractingProcessorMock.process(Lists.newArrayList(categoryHeader)) >> Lists.newArrayList(CategoryTitle.PHOTONOVEL_SERIES)
 		0 * _
 		photonovel
 	}

@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.common.processor.datetime;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFilter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
 import lombok.extern.slf4j.Slf4j;
@@ -65,7 +65,7 @@ public class PartToYearRangeProcessor implements ItemProcessor<Template.Part, Ye
 		YearRange yearRange = new YearRange();
 
 		List<Template> yearTemplateList = templateFilter
-				.filterByTitle(templateList, TemplateName.Y, TemplateName.YEARLINK);
+				.filterByTitle(templateList, TemplateTitle.Y, TemplateTitle.YEARLINK);
 
 		Integer size = yearTemplateList.size();
 

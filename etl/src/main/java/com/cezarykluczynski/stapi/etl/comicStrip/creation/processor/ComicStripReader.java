@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.comicStrip.creation.processor;
 
 import com.cezarykluczynski.stapi.etl.comicStrip.creation.service.ComicStripCandidatePageGatheringService;
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi;
@@ -75,8 +75,8 @@ public class ComicStripReader implements ItemReader<PageHeader> {
 	private void initializeFromApi() {
 		List<PageHeader> comicStripsList = Lists.newArrayList();
 
-		comicStripsList.addAll(categoryApi.getPages(CategoryName.COMICS, MediaWikiSource.MEMORY_ALPHA_EN));
-		comicStripsList.addAll(categoryApi.getPages(CategoryName.PHOTONOVELS, MediaWikiSource.MEMORY_ALPHA_EN));
+		comicStripsList.addAll(categoryApi.getPages(CategoryTitle.COMICS, MediaWikiSource.MEMORY_ALPHA_EN));
+		comicStripsList.addAll(categoryApi.getPages(CategoryTitle.PHOTONOVELS, MediaWikiSource.MEMORY_ALPHA_EN));
 
 		pageHeaderList = Lists.newArrayList(Sets.newHashSet(comicStripsList));
 	}

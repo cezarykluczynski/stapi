@@ -2,8 +2,8 @@ package com.cezarykluczynski.stapi.etl.template.individual.service;
 
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.service.PageFilter;
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryName;
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryNames;
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
@@ -26,8 +26,8 @@ public class IndividualTemplateFilter implements PageFilter {
 	private static final Set<String> NOT_CHARACTERS_CATEGORY_TITLES = Sets.newHashSet();
 
 	static {
-		NOT_CHARACTERS_CATEGORY_TITLES.addAll(CategoryNames.LISTS);
-		NOT_CHARACTERS_CATEGORY_TITLES.add(CategoryName.FAMILIES);
+		NOT_CHARACTERS_CATEGORY_TITLES.addAll(CategoryTitles.LISTS);
+		NOT_CHARACTERS_CATEGORY_TITLES.add(CategoryTitle.FAMILIES);
 	}
 
 	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;

@@ -8,8 +8,8 @@ import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.PageName;
-import com.cezarykluczynski.stapi.util.constant.TemplateName;
+import com.cezarykluczynski.stapi.util.constant.PageTitle;
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import com.google.common.collect.Lists;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
@@ -21,8 +21,8 @@ import java.util.Optional;
 @Service
 public class MovieTemplatePageProcessor implements ItemProcessor<Page, MovieTemplate> {
 
-	private static final List<String> IGNORABLE_TITLES = Lists.newArrayList(PageName.STAR_TREK_FILMS,
-			PageName.STAR_TREK_XIV);
+	private static final List<String> IGNORABLE_TITLES = Lists.newArrayList(PageTitle.STAR_TREK_FILMS,
+			PageTitle.STAR_TREK_XIV);
 
 	private MovieTemplateProcessor movieTemplateProcessor;
 
@@ -48,7 +48,7 @@ public class MovieTemplatePageProcessor implements ItemProcessor<Page, MovieTemp
 
 	@Override
 	public MovieTemplate process(Page item) throws Exception {
-		Optional<Template> templateOptional = templateFinder.findTemplate(item, TemplateName.SIDEBAR_FILM);
+		Optional<Template> templateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_FILM);
 
 		if (!isMoviePage(item) || !templateOptional.isPresent()) {
 			return null;
