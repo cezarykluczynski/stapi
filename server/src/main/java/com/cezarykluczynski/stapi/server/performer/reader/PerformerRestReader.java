@@ -22,8 +22,7 @@ public class PerformerRestReader implements Reader<PerformerRestBeanParams, Perf
 	private PageMapper pageMapper;
 
 	@Inject
-	public PerformerRestReader(PerformerRestQuery performerRestQuery, PerformerRestMapper performerRestMapper,
-			PageMapper pageMapper) {
+	public PerformerRestReader(PerformerRestQuery performerRestQuery, PerformerRestMapper performerRestMapper, PageMapper pageMapper) {
 		this.performerRestQuery = performerRestQuery;
 		this.performerRestMapper = performerRestMapper;
 		this.pageMapper = pageMapper;

@@ -23,8 +23,7 @@ public class EpisodeRestQuery {
 	private EpisodeRepository episodeRepository;
 
 	@Inject
-	public EpisodeRestQuery(EpisodeRestMapper episodeRestMapper, PageMapper pageMapper,
-			EpisodeRepository episodeRepository) {
+	public EpisodeRestQuery(EpisodeRestMapper episodeRestMapper, PageMapper pageMapper, EpisodeRepository episodeRepository) {
 		this.episodeRestMapper = episodeRestMapper;
 		this.pageMapper = pageMapper;
 		this.episodeRepository = episodeRepository;

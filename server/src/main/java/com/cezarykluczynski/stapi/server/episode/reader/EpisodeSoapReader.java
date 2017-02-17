@@ -19,8 +19,7 @@ public class EpisodeSoapReader implements Reader<EpisodeRequest, EpisodeResponse
 
 	private PageMapper pageMapper;
 
-	public EpisodeSoapReader(EpisodeSoapQuery episodeSoapQuery, EpisodeSoapMapper episodeSoapMapper,
-			PageMapper pageMapper) {
+	public EpisodeSoapReader(EpisodeSoapQuery episodeSoapQuery, EpisodeSoapMapper episodeSoapMapper, PageMapper pageMapper) {
 		this.episodeSoapQuery = episodeSoapQuery;
 		this.episodeSoapMapper = episodeSoapMapper;
 		this.pageMapper = pageMapper;

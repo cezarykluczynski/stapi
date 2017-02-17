@@ -19,8 +19,7 @@ public class MovieSoapReader implements Reader<MovieRequest, MovieResponse> {
 
 	private PageMapper pageMapper;
 
-	public MovieSoapReader(MovieSoapQuery movieSoapQuery, MovieSoapMapper movieSoapMapper,
-			PageMapper pageMapper) {
+	public MovieSoapReader(MovieSoapQuery movieSoapQuery, MovieSoapMapper movieSoapMapper, PageMapper pageMapper) {
 		this.movieSoapQuery = movieSoapQuery;
 		this.movieSoapMapper = movieSoapMapper;
 		this.pageMapper = pageMapper;

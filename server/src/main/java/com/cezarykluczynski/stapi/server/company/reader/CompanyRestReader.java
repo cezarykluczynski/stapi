@@ -22,8 +22,7 @@ public class CompanyRestReader implements Reader<CompanyRestBeanParams, CompanyR
 	private PageMapper pageMapper;
 
 	@Inject
-	public CompanyRestReader(CompanyRestQuery companyRestQuery, CompanyRestMapper companyRestMapper,
-			PageMapper pageMapper) {
+	public CompanyRestReader(CompanyRestQuery companyRestQuery, CompanyRestMapper companyRestMapper, PageMapper pageMapper) {
 		this.companyRestQuery = companyRestQuery;
 		this.companyRestMapper = companyRestMapper;
 		this.pageMapper = pageMapper;

@@ -19,10 +19,10 @@ class CompanyRestEndpointIntegrationTest extends AbstractCompanyEndpointIntegrat
 	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "gets CBS-related broadcasters"() {
 		when:
-		CompanyResponse companyResponseResponse = stapiRestClient.companyApi
+		CompanyResponse companyResponse = stapiRestClient.companyApi
 				.companyPost(0, 20, null, null, 'CBS', true, false, false, false, false, false, false, false, false, false, false, false, false,
 				false, false, false, false)
-		List<String> companyNameList = companyResponseResponse.companies
+		List<String> companyNameList = companyResponse.companies
 				.stream()
 				.map({ company -> company.name })
 				.collect(Collectors.toList())

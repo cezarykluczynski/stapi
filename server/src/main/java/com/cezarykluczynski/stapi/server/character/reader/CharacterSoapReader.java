@@ -19,8 +19,7 @@ public class CharacterSoapReader implements Reader<CharacterRequest, CharacterRe
 
 	private PageMapper pageMapper;
 
-	public CharacterSoapReader(CharacterSoapQuery characterSoapQuery, CharacterSoapMapper characterSoapMapper,
-			PageMapper pageMapper) {
+	public CharacterSoapReader(CharacterSoapQuery characterSoapQuery, CharacterSoapMapper characterSoapMapper, PageMapper pageMapper) {
 		this.characterSoapQuery = characterSoapQuery;
 		this.characterSoapMapper = characterSoapMapper;
 		this.pageMapper = pageMapper;

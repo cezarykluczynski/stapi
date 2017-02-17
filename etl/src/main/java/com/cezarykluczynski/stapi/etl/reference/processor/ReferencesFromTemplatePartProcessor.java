@@ -50,7 +50,7 @@ public class ReferencesFromTemplatePartProcessor implements ItemProcessor<Templa
 			return Sets.newHashSet();
 		}
 
-		Set<Pair<ReferenceType, String>> pairs = Sets.newHashSet();
+		Set<Pair<ReferenceType, String>> pairs = Sets.newLinkedHashSet();
 
 		String value = item.getValue();
 		List<Template> templateList = item.getTemplates();

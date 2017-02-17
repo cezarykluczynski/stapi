@@ -71,8 +71,7 @@ public class MovieRepositoryImpl extends AbstractRepositoryImpl<Movie> implement
 			List<Movie> charactersMovieList = movieCharactersQueryBuilder.findAll();
 
 			if (charactersMovieList.size() == 1) {
-				Movie charactersMovie = charactersMovieList.get(0);
-				movie.setCharacters(charactersMovie.getCharacters());
+				movie.setCharacters(charactersMovieList.get(0).getCharacters());
 			}
 		} else {
 			moviePage = movieQueryBuilder.findPage();

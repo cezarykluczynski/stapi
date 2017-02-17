@@ -17,9 +17,8 @@ import org.mapstruct.Mappings;
 
 import java.util.List;
 
-@Mapper(config = MapstructConfiguration.class, uses = {CharacterHeaderRestMapper.class, DateMapper.class,
-		EnumMapper.class, RequestSortRestMapper.class, PerformerHeaderRestMapper.class, SeriesHeaderRestMapper.class,
-		StaffHeaderRestMapper.class})
+@Mapper(config = MapstructConfiguration.class, uses = {CharacterHeaderRestMapper.class, DateMapper.class, EnumMapper.class,
+		RequestSortRestMapper.class, PerformerHeaderRestMapper.class, SeriesHeaderRestMapper.class, StaffHeaderRestMapper.class})
 public interface EpisodeRestMapper {
 
 	EpisodeRequestDTO map(EpisodeRestBeanParams performerRestBeanParams);

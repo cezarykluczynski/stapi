@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface ComicsRepository extends JpaRepository<Comics, Long> {
+public interface ComicsRepository extends JpaRepository<Comics, Long>, ComicsRepositoryCustom {
 
 	Optional<Comics> findByPageTitleAndPageMediaWikiSource(String title, MediaWikiSource mediaWikiSource);
 

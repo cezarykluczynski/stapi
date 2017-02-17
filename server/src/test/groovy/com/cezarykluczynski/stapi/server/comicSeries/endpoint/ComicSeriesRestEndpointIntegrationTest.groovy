@@ -16,12 +16,12 @@ class ComicSeriesRestEndpointIntegrationTest extends AbstractComicSeriesEndpoint
 
 	void "gets the only photoseries that is also a miniseries"() {
 		when:
-		ComicSeriesResponse comicSeriesResponseResponse = stapiRestClient.comicSeriesApi
+		ComicSeriesResponse comicSeriesResponse = stapiRestClient.comicSeriesApi
 				.comicSeriesPost(0, 20, null, null, null, null, null, null, null, null, null, null, null, true, true)
 
 		then:
-		comicSeriesResponseResponse.comicSeries.size() == 1
-		comicSeriesResponseResponse.comicSeries[0].title == 'Star Trek: New Visions'
+		comicSeriesResponse.comicSeries.size() == 1
+		comicSeriesResponse.comicSeries[0].title == 'Star Trek: New Visions'
 	}
 
 }

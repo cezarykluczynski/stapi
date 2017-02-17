@@ -19,8 +19,7 @@ public class ComicSeriesSoapReader implements Reader<ComicSeriesRequest, ComicSe
 
 	private PageMapper pageMapper;
 
-	public ComicSeriesSoapReader(ComicSeriesSoapQuery comicSeriesSoapQuery, ComicSeriesSoapMapper comicSeriesSoapMapper,
-			PageMapper pageMapper) {
+	public ComicSeriesSoapReader(ComicSeriesSoapQuery comicSeriesSoapQuery, ComicSeriesSoapMapper comicSeriesSoapMapper, PageMapper pageMapper) {
 		this.comicSeriesSoapQuery = comicSeriesSoapQuery;
 		this.comicSeriesSoapMapper = comicSeriesSoapMapper;
 		this.pageMapper = pageMapper;

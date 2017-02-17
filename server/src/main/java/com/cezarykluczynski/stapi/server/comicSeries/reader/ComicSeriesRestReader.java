@@ -22,8 +22,7 @@ public class ComicSeriesRestReader implements Reader<ComicSeriesRestBeanParams, 
 	private PageMapper pageMapper;
 
 	@Inject
-	public ComicSeriesRestReader(ComicSeriesRestQuery comicSeriesRestQuery, ComicSeriesRestMapper comicSeriesRestMapper,
-			PageMapper pageMapper) {
+	public ComicSeriesRestReader(ComicSeriesRestQuery comicSeriesRestQuery, ComicSeriesRestMapper comicSeriesRestMapper, PageMapper pageMapper) {
 		this.comicSeriesRestQuery = comicSeriesRestQuery;
 		this.comicSeriesRestMapper = comicSeriesRestMapper;
 		this.pageMapper = pageMapper;

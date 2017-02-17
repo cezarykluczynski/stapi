@@ -19,8 +19,7 @@ public class PerformerSoapReader implements Reader<PerformerRequest, PerformerRe
 
 	private PageMapper pageMapper;
 
-	public PerformerSoapReader(PerformerSoapQuery performerSoapQuery, PerformerSoapMapper performerSoapMapper,
-			PageMapper pageMapper) {
+	public PerformerSoapReader(PerformerSoapQuery performerSoapQuery, PerformerSoapMapper performerSoapMapper, PageMapper pageMapper) {
 		this.performerSoapQuery = performerSoapQuery;
 		this.performerSoapMapper = performerSoapMapper;
 		this.pageMapper = pageMapper;

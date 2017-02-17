@@ -4,14 +4,17 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectType as
 import com.cezarykluczynski.stapi.client.v1.rest.model.BloodType as RestBloodTypeEnum
 import com.cezarykluczynski.stapi.client.v1.rest.model.Gender as RestGenderEnum
 import com.cezarykluczynski.stapi.client.v1.rest.model.MaritalStatus as RestMaritalStatusEnum
+import com.cezarykluczynski.stapi.client.v1.rest.model.ReferenceType as RestReferenceType
 import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectTypeEnum
 import com.cezarykluczynski.stapi.client.v1.soap.BloodTypeEnum as SoapBloodTypeEnum
 import com.cezarykluczynski.stapi.client.v1.soap.GenderEnum as SoapGenderEnum
 import com.cezarykluczynski.stapi.client.v1.soap.MaritalStatusEnum as SoapMaritalStatusEnum
+import com.cezarykluczynski.stapi.client.v1.soap.ReferenceTypeEnum as SoapReferenceType
 import com.cezarykluczynski.stapi.model.astronomicalObject.entity.enums.AstronomicalObjectType as AstronomicalObjectTypeEntity
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType as BloodTypeEntity
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender as GenderEntity
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus as MaritalStatusEntity
+import com.cezarykluczynski.stapi.model.reference.entity.enums.ReferenceType as ModelReferenceType
 import org.mapstruct.factory.Mappers
 import spock.lang.Specification
 
@@ -265,6 +268,20 @@ class EnumMapperTest extends Specification {
 		enumMapper.mapAstronomicalObjectTypeFromRestEnumToEntityEnum(RestAstronomicalObjectEnum.STAR_SYSTEM) == AstronomicalObjectTypeEntity.STAR_SYSTEM
 		enumMapper.mapAstronomicalObjectTypeFromRestEnumToEntityEnum(RestAstronomicalObjectEnum.SECTOR) == AstronomicalObjectTypeEntity.SECTOR
 		enumMapper.mapAstronomicalObjectTypeFromRestEnumToEntityEnum(RestAstronomicalObjectEnum.REGION) == AstronomicalObjectTypeEntity.REGION
+	}
+
+	void "maps reference type entity enum to soap enum"() {
+		expect:
+		enumMapper.mapReferenceTypeFromEntityEnumToSoapEnum(null) == null
+		enumMapper.mapReferenceTypeFromEntityEnumToSoapEnum(ModelReferenceType.ASIN) == SoapReferenceType.ASIN
+		enumMapper.mapReferenceTypeFromEntityEnumToSoapEnum(ModelReferenceType.ISBN) == SoapReferenceType.ISBN
+	}
+
+	void "maps reference type entity enum to rest enum"() {
+		expect:
+		enumMapper.mapReferenceTypeFromEntityEnumToRestEnum(null) == null
+		enumMapper.mapReferenceTypeFromEntityEnumToRestEnum(ModelReferenceType.ASIN) == RestReferenceType.ASIN
+		enumMapper.mapReferenceTypeFromEntityEnumToRestEnum(ModelReferenceType.ISBN) == RestReferenceType.ISBN
 	}
 
 }

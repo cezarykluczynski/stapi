@@ -22,8 +22,7 @@ public class MovieRestReader implements Reader<MovieRestBeanParams, MovieRespons
 	private PageMapper pageMapper;
 
 	@Inject
-	public MovieRestReader(MovieRestQuery movieRestQuery, MovieRestMapper movieRestMapper,
-			PageMapper pageMapper) {
+	public MovieRestReader(MovieRestQuery movieRestQuery, MovieRestMapper movieRestMapper, PageMapper pageMapper) {
 		this.movieRestQuery = movieRestQuery;
 		this.movieRestMapper = movieRestMapper;
 		this.pageMapper = pageMapper;

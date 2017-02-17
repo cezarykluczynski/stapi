@@ -19,8 +19,7 @@ public class CompanySoapReader implements Reader<CompanyRequest, CompanyResponse
 
 	private PageMapper pageMapper;
 
-	public CompanySoapReader(CompanySoapQuery companySoapQuery, CompanySoapMapper companySoapMapper,
-			PageMapper pageMapper) {
+	public CompanySoapReader(CompanySoapQuery companySoapQuery, CompanySoapMapper companySoapMapper, PageMapper pageMapper) {
 		this.companySoapQuery = companySoapQuery;
 		this.companySoapMapper = companySoapMapper;
 		this.pageMapper = pageMapper;

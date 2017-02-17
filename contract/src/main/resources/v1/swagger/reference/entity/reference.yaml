@@ -1,0 +1,8 @@
+type: object
+properties:
+  guid:
+    type: string
+  referenceType:
+    $ref: ./reference/entity/enum/referenceType.definitions.yaml
+  referenceNumber:
+    type: string

@@ -8,6 +8,8 @@ abstract class AbstractComicsTest extends Specification {
 	protected static final String GUID = 'ABCD0987654321'
 	protected static final String TITLE = 'TITLE'
 	protected static final Integer PUBLISHED_YEAR = 1990
+	protected static final Integer PUBLISHED_YEAR_FROM = 1989
+	protected static final Integer PUBLISHED_YEAR_TO = 1991
 	protected static final Integer PUBLISHED_MONTH = 12
 	protected static final Integer PUBLISHED_DAY = 31
 	protected static final Integer COVER_YEAR = 1991

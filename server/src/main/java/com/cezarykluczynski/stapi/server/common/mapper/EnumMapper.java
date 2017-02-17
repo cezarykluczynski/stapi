@@ -4,10 +4,12 @@ import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectTypeEnum;
 import com.cezarykluczynski.stapi.client.v1.soap.BloodTypeEnum;
 import com.cezarykluczynski.stapi.client.v1.soap.GenderEnum;
 import com.cezarykluczynski.stapi.client.v1.soap.MaritalStatusEnum;
+import com.cezarykluczynski.stapi.client.v1.soap.ReferenceTypeEnum;
 import com.cezarykluczynski.stapi.model.astronomicalObject.entity.enums.AstronomicalObjectType;
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType;
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender;
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus;
+import com.cezarykluczynski.stapi.model.reference.entity.enums.ReferenceType;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import org.mapstruct.Mapper;
 
@@ -79,6 +81,15 @@ public interface EnumMapper {
 	default AstronomicalObjectType mapAstronomicalObjectTypeFromRestEnumToEntityEnum(
 			com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectType astronomicalObjectType) {
 		return astronomicalObjectType == null ? null : AstronomicalObjectType.valueOf(astronomicalObjectType.name());
+	}
+
+	default ReferenceTypeEnum mapReferenceTypeFromEntityEnumToSoapEnum(ReferenceType referenceType) {
+		return referenceType == null ? null : ReferenceTypeEnum.valueOf(referenceType.name());
+	}
+
+	default com.cezarykluczynski.stapi.client.v1.rest.model.ReferenceType mapReferenceTypeFromEntityEnumToRestEnum(
+			ReferenceType referenceType) {
+		return referenceType == null ? null : com.cezarykluczynski.stapi.client.v1.rest.model.ReferenceType.valueOf(referenceType.name());
 	}
 
 }

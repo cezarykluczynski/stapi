@@ -14,8 +14,12 @@ import spock.lang.Specification
 class ReferencesFromTemplatePartProcessorTest extends Specification {
 
 	private static final String ISBN_FULL = 'ISBN 0671008927'
+	private static final String TWO_FULL_ISBNS = 'ISBN 1563898500 (hardcover)<br />ISBN 1563899183 (paperback)'
+	private static final String FULL_ISBN_1 = '1563898500'
+	private static final String FULL_ISBN_2 = '1563899183'
 	private static final String ISBN_BARE = '0671008927'
-	private static final String GUID = 'ISBN0671008927'
+	private static final String GUID_1 = 'ISBN1563898500'
+	private static final String GUID_2 = 'ISBN1563899183'
 	private static final String ASIN = 'ASINB223213FCF'
 
 	private ReferenceRepository referenceRepositoryMock
@@ -58,12 +62,40 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 		1 * guidGeneratorMock.generateFromReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
 			assert pair.key == ReferenceType.ISBN
 			assert pair.value == ISBN_BARE
-			GUID
+			GUID_1
 		}
-		1 * referenceRepositoryMock.findByGuid(GUID) >> Optional.of(reference)
+		1 * referenceRepositoryMock.findByGuid(GUID_1) >> Optional.of(reference)
 		0 * _
 		referenceSet.size() == 1
-		referenceSet[0] == reference
+		referenceSet.contains reference
+	}
+
+	void "ISBNs containing template is parsed to References, when references is already present"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: TemplateName.REFERENCE, value: TWO_FULL_ISBNS)
+		Reference reference1 = Mock(Reference)
+		Reference reference2 = Mock(Reference)
+
+		when:
+		Set<Reference> referenceSet = referencesFromTemplatePartProcessor.process(templatePart)
+
+		then:
+		1 * guidGeneratorMock.generateFromReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
+			assert pair.key == ReferenceType.ISBN
+			assert pair.value == FULL_ISBN_1
+			GUID_1
+		}
+		1 * guidGeneratorMock.generateFromReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
+			assert pair.key == ReferenceType.ISBN
+			assert pair.value == FULL_ISBN_2
+			GUID_2
+		}
+		1 * referenceRepositoryMock.findByGuid(GUID_1) >> Optional.of(reference1)
+		1 * referenceRepositoryMock.findByGuid(GUID_2) >> Optional.of(reference2)
+		0 * _
+		referenceSet.size() == 2
+		referenceSet.contains reference1
+		referenceSet.contains reference2
 	}
 
 	void "ISBN containing template is parsed to Reference, when reference is not already present"() {
@@ -78,14 +110,14 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 		1 * guidGeneratorMock.generateFromReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
 			assert pair.key == ReferenceType.ISBN
 			assert pair.value == ISBN_BARE
-			GUID
+			GUID_1
 		}
-		1 * referenceRepositoryMock.findByGuid(GUID) >> Optional.empty()
-		1 * referenceFactoryMock.createFromGuid(GUID) >> reference
+		1 * referenceRepositoryMock.findByGuid(GUID_1) >> Optional.empty()
+		1 * referenceFactoryMock.createFromGuid(GUID_1) >> reference
 		1 * referenceRepositoryMock.save(_ as Reference) >> { Reference it -> it }
 		0 * _
 		referenceSet.size() == 1
-		referenceSet[0] == reference
+		referenceSet.contains reference
 	}
 
 	void "tolerates invalid value in template value"() {
@@ -119,12 +151,12 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 		1 * guidGeneratorMock.generateFromReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
 			assert pair.key == ReferenceType.ASIN
 			assert pair.value == ASIN
-			GUID
+			GUID_1
 		}
-		1 * referenceRepositoryMock.findByGuid(GUID) >> Optional.of(reference)
+		1 * referenceRepositoryMock.findByGuid(GUID_1) >> Optional.of(reference)
 		0 * _
 		referenceSet.size() == 1
-		referenceSet[0] == reference
+		referenceSet.contains reference
 	}
 
 	void "tolerates empty template list"() {

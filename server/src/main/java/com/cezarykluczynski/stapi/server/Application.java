@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server;
 
 import com.cezarykluczynski.stapi.etl.configuration.EtlConfiguration;
+import org.apache.cxf.spring.boot.autoconfigure.CxfAutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -19,7 +20,8 @@ import org.springframework.context.annotation.Import;
 		"com.cezarykluczynski.stapi.model"
 })
 @Import(EtlConfiguration.class)
-@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class, LiquibaseAutoConfiguration.class})
+@EnableAutoConfiguration(exclude = {CxfAutoConfiguration.class, DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class,
+		LiquibaseAutoConfiguration.class})
 public class Application extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {

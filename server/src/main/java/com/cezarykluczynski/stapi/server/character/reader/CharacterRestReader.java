@@ -22,8 +22,7 @@ public class CharacterRestReader implements Reader<CharacterRestBeanParams, Char
 	private PageMapper pageMapper;
 
 	@Inject
-	public CharacterRestReader(CharacterRestQuery characterRestQuery, CharacterRestMapper characterRestMapper,
-				PageMapper pageMapper) {
+	public CharacterRestReader(CharacterRestQuery characterRestQuery, CharacterRestMapper characterRestMapper, PageMapper pageMapper) {
 		this.characterRestQuery = characterRestQuery;
 		this.characterRestMapper = characterRestMapper;
 		this.pageMapper = pageMapper;

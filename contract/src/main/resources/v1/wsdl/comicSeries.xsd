@@ -52,7 +52,6 @@
 			<xs:element name="yearTo" type="xs:integer" minOccurs="0"/>
 			<xs:element name="miniseries" type="xs:boolean"/>
 			<xs:element name="photonovelSeries" type="xs:boolean"/>
-
 			<xs:sequence>
 				<xs:element name="parentSeriesHeaders" type="comicSeries:ComicSeriesHeader" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
