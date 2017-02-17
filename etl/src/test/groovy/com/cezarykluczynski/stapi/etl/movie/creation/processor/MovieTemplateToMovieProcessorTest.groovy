@@ -4,29 +4,9 @@ import com.cezarykluczynski.stapi.etl.template.movie.dto.MovieTemplate
 import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
 import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.model.page.entity.Page
-import spock.lang.Specification
+import com.cezarykluczynski.stapi.util.AbstractMovieTest
 
-import java.time.LocalDate
-
-class MovieTemplateToMovieProcessorTest extends Specification {
-
-	private static final String TITLE = 'TITLE'
-	private static final String TITLE_BULGARIAN = 'TITLE_BULGARIAN'
-	private static final String TITLE_CATALAN = 'TITLE_CATALAN'
-	private static final String TITLE_CHINESE_TRADITIONAL = 'TITLE_CHINESE_TRADITIONAL'
-	private static final String TITLE_GERMAN = 'TITLE_GERMAN'
-	private static final String TITLE_ITALIAN = 'TITLE_ITALIAN'
-	private static final String TITLE_JAPANESE = 'TITLE_JAPANESE'
-	private static final String TITLE_POLISH = 'TITLE_POLISH'
-	private static final String TITLE_RUSSIAN = 'TITLE_RUSSIAN'
-	private static final String TITLE_SERBIAN = 'TITLE_SERBIAN'
-	private static final String TITLE_SPANISH = 'TITLE_SPANISH'
-	private static final String GUID = 'GUID'
-	private static final Float STARDATE_FROM = 123.4F
-	private static final Float STARDATE_TO = 234.5F
-	private static final Integer YEAR_FROM = 2368
-	private static final Integer YEAR_TO = 2369
-	private static final LocalDate US_RELEASE_DATE = LocalDate.of(1995, 4, 8)
+class MovieTemplateToMovieProcessorTest extends AbstractMovieTest {
 
 	private final Page page = Mock(Page)
 

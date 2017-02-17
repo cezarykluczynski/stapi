@@ -104,7 +104,7 @@ class EpisodeRepositoryImplTest extends Specification {
 		1 * episodeQueryBuilder.between(Episode_.usAirDate, US_AIR_DATE_FROM, US_AIR_DATE_TO)
 		1 * episodeRequestDTO.finalScriptDateFrom >> FINAL_SCRIPT_DATE_FROM
 		1 * episodeRequestDTO.finalScriptDateTo >> FINAL_SCRIPT_DATE_TO
-		1 * episodeQueryBuilder.between(Episode_.usAirDate, FINAL_SCRIPT_DATE_FROM, FINAL_SCRIPT_DATE_TO)
+		1 * episodeQueryBuilder.between(Episode_.finalScriptDate, FINAL_SCRIPT_DATE_FROM, FINAL_SCRIPT_DATE_TO)
 
 		then: 'sort is set'
 		1 * episodeRequestDTO.sort >> SORT

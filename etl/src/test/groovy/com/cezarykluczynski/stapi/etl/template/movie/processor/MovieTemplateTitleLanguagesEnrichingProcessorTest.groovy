@@ -6,22 +6,12 @@ import com.cezarykluczynski.stapi.etl.template.movie.dto.MovieTemplate
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.util.AbstractMovieTest
 import com.google.common.collect.Lists
-import spock.lang.Specification
 
-class MovieTemplateTitleLanguagesEnrichingProcessorTest extends Specification {
+class MovieTemplateTitleLanguagesEnrichingProcessorTest extends AbstractMovieTest {
 
 	private static final String WIKITEXT = 'WIKITEXT'
-	private static final String TITLE_BULGARIAN = 'TITLE_BULGARIAN'
-	private static final String TITLE_CATALAN = 'TITLE_CATALAN'
-	private static final String TITLE_CHINESE_TRADITIONAL = 'TITLE_CHINESE_TRADITIONAL'
-	private static final String TITLE_GERMAN = 'TITLE_GERMAN'
-	private static final String TITLE_ITALIAN = 'TITLE_ITALIAN'
-	private static final String TITLE_JAPANESE = 'TITLE_JAPANESE'
-	private static final String TITLE_POLISH = 'TITLE_POLISH'
-	private static final String TITLE_RUSSIAN = 'TITLE_RUSSIAN'
-	private static final String TITLE_SERBIAN = 'TITLE_SERBIAN'
-	private static final String TITLE_SPANISH = 'TITLE_SPANISH'
 
 	private WikitextApi wikitextApiMock
 

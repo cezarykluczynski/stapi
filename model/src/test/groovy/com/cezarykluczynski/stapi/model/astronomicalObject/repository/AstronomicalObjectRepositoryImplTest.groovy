@@ -7,15 +7,12 @@ import com.cezarykluczynski.stapi.model.astronomicalObject.entity.enums.Astronom
 import com.cezarykluczynski.stapi.model.astronomicalObject.query.AstronomicalObjectQueryBuilderFactory
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
+import com.cezarykluczynski.stapi.util.AbstractAstronomicalObjectTest
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
-import spock.lang.Specification
 
-class AstronomicalObjectRepositoryImplTest extends Specification {
+class AstronomicalObjectRepositoryImplTest extends AbstractAstronomicalObjectTest {
 
-	private static final String GUID = 'GUID'
-	private static final String NAME = 'NAME'
-	private static final String LOCATION_GUID = 'LOCATION_GUID'
 	private static final AstronomicalObjectType ASTRONOMICAL_OBJECT_TYPE = AstronomicalObjectType.ASTEROID
 	private static final RequestSortDTO SORT = new RequestSortDTO()
 
