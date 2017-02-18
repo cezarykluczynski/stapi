@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.planet.processor
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.template.planet.dto.PlanetTemplate
+import com.cezarykluczynski.stapi.etl.template.planet.dto.PlanetTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.planet.dto.enums.AstronomicalObjectType
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
@@ -93,7 +94,7 @@ class PlanetTemplatePageProcessorTest extends Specification {
 
 	void "calls all dependencies when page with planet template is passed"() {
 		given:
-		Template.Part classTemplatePart = new Template.Part(key: PlanetTemplatePageProcessor.CLASS, value: CLASS)
+		Template.Part classTemplatePart = new Template.Part(key: PlanetTemplateParameter.CLASS, value: CLASS)
 		Template template = new Template(
 				parts: Lists.newArrayList(classTemplatePart)
 		)

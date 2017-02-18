@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.characterbox.processor
 
 import com.cezarykluczynski.stapi.etl.template.characterbox.dto.CharacterboxTemplate
+import com.cezarykluczynski.stapi.etl.template.characterbox.dto.CharacterboxTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender
 import com.cezarykluczynski.stapi.etl.template.common.processor.MaritalStatusProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PartToGenderProcessor
@@ -56,7 +57,7 @@ class CharacterboxTemplateProcessorTest extends Specification {
 
 	void "sets gender from PartToGenderProcessor"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: CharacterboxTemplateProcessor.GENDER)
+		Template.Part templatePart = new Template.Part(key: CharacterboxTemplateParameter.GENDER)
 		Template template = createTemplateWithTemplatePart(templatePart)
 		Page page = createPageWithTemplate(template)
 
@@ -73,7 +74,7 @@ class CharacterboxTemplateProcessorTest extends Specification {
 
 	void "sets height from IndividualHeightProcessor"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: CharacterboxTemplateProcessor.HEIGHT, value: VALUE)
+		Template.Part templatePart = new Template.Part(key: CharacterboxTemplateParameter.HEIGHT, value: VALUE)
 		Template template = createTemplateWithTemplatePart(templatePart)
 		Page page = createPageWithTemplate(template)
 
@@ -90,7 +91,7 @@ class CharacterboxTemplateProcessorTest extends Specification {
 
 	void "sets weight from IndividualWeightProcessor"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: CharacterboxTemplateProcessor.WEIGHT, value: VALUE)
+		Template.Part templatePart = new Template.Part(key: CharacterboxTemplateParameter.WEIGHT, value: VALUE)
 		Template template = createTemplateWithTemplatePart(templatePart)
 		Page page = createPageWithTemplate(template)
 
@@ -107,7 +108,7 @@ class CharacterboxTemplateProcessorTest extends Specification {
 
 	void "sets marital status from MaritalStatusProcessor"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: CharacterboxTemplateProcessor.MARITAL_STATUS, value: VALUE)
+		Template.Part templatePart = new Template.Part(key: CharacterboxTemplateParameter.MARITAL_STATUS, value: VALUE)
 		Template template = createTemplateWithTemplatePart(templatePart)
 		Page page = createPageWithTemplate(template)
 
@@ -125,7 +126,7 @@ class CharacterboxTemplateProcessorTest extends Specification {
 	void "sets birth values from IndividualLifeBoundaryProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(
-				key: CharacterboxTemplateProcessor.BORN,
+				key: CharacterboxTemplateParameter.BORN,
 				value: VALUE)
 		IndividualLifeBoundaryDTO individualLifeBoundaryDTO = new IndividualLifeBoundaryDTO(
 				year: YEAR,
@@ -150,7 +151,7 @@ class CharacterboxTemplateProcessorTest extends Specification {
 	void "sets death values from IndividualLifeBoundaryProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(
-				key: CharacterboxTemplateProcessor.DIED,
+				key: CharacterboxTemplateParameter.DIED,
 				value: VALUE)
 		IndividualLifeBoundaryDTO individualLifeBoundaryDTO = new IndividualLifeBoundaryDTO(
 				year: YEAR,

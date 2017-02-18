@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.actor.processor
 
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate
+import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PartToGenderProcessor
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
@@ -28,12 +29,12 @@ class ActorTemplateTemplateProcessorTest extends Specification {
 
 	void "valid template is parsed"() {
 		given:
-		Template.Part genderPart = new Template.Part(key: ActorTemplateTemplateProcessor.GENDER, value: NOT_EMPTY_STRING)
+		Template.Part genderPart = new Template.Part(key: ActorTemplateParameter.GENDER, value: NOT_EMPTY_STRING)
 		Template template = new Template(parts: Lists.newArrayList(
-				new Template.Part(key: ActorTemplateTemplateProcessor.NAME, value: NAME),
-				new Template.Part(key: ActorTemplateTemplateProcessor.BIRTH_NAME, value: BIRTH_NAME),
-				new Template.Part(key: ActorTemplateTemplateProcessor.PLACE_OF_BIRTH, value: PLACE_OF_BIRTH),
-				new Template.Part(key: ActorTemplateTemplateProcessor.PLACE_OF_DEATH, value: PLACE_OF_DEATH),
+				new Template.Part(key: ActorTemplateParameter.NAME, value: NAME),
+				new Template.Part(key: ActorTemplateParameter.BIRTH_NAME, value: BIRTH_NAME),
+				new Template.Part(key: ActorTemplateParameter.PLACE_OF_BIRTH, value: PLACE_OF_BIRTH),
+				new Template.Part(key: ActorTemplateParameter.PLACE_OF_DEATH, value: PLACE_OF_DEATH),
 				genderPart
 		))
 
@@ -54,11 +55,11 @@ class ActorTemplateTemplateProcessorTest extends Specification {
 	void "blank values are not set"() {
 		given:
 		Template template = new Template(parts: Lists.newArrayList(
-				new Template.Part(key: ActorTemplateTemplateProcessor.NAME, value: StringUtils.EMPTY),
-				new Template.Part(key: ActorTemplateTemplateProcessor.BIRTH_NAME, value: StringUtils.EMPTY),
-				new Template.Part(key: ActorTemplateTemplateProcessor.GENDER, value: StringUtils.EMPTY),
-				new Template.Part(key: ActorTemplateTemplateProcessor.PLACE_OF_BIRTH, value: StringUtils.EMPTY),
-				new Template.Part(key: ActorTemplateTemplateProcessor.PLACE_OF_DEATH, value: StringUtils.EMPTY)
+				new Template.Part(key: ActorTemplateParameter.NAME, value: StringUtils.EMPTY),
+				new Template.Part(key: ActorTemplateParameter.BIRTH_NAME, value: StringUtils.EMPTY),
+				new Template.Part(key: ActorTemplateParameter.GENDER, value: StringUtils.EMPTY),
+				new Template.Part(key: ActorTemplateParameter.PLACE_OF_BIRTH, value: StringUtils.EMPTY),
+				new Template.Part(key: ActorTemplateParameter.PLACE_OF_DEATH, value: StringUtils.EMPTY)
 		))
 
 		when:

@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.characterbox.processor;
 
 import com.cezarykluczynski.stapi.etl.template.characterbox.dto.CharacterboxTemplate;
+import com.cezarykluczynski.stapi.etl.template.characterbox.dto.CharacterboxTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.common.processor.MaritalStatusProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PartToGenderProcessor;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualLifeBoundaryDTO;
@@ -18,13 +19,6 @@ import java.util.Optional;
 
 @Service
 public class CharacterboxTemplateProcessor implements ItemProcessor<Page, CharacterboxTemplate> {
-
-	private static final String GENDER = "gender";
-	private static final String HEIGHT = "height";
-	private static final String WEIGHT = "weight";
-	private static final String MARITAL_STATUS = "marital status";
-	private static final String BORN = "born";
-	private static final String DIED = "died";
 
 	private TemplateFinder templateFinder;
 
@@ -65,30 +59,30 @@ public class CharacterboxTemplateProcessor implements ItemProcessor<Page, Charac
 			String value = part.getValue();
 
 			switch (key) {
-				case GENDER:
+				case CharacterboxTemplateParameter.GENDER:
 					characterboxTemplate.setGender(partToGenderProcessor.process(part));
 					break;
-				case HEIGHT:
+				case CharacterboxTemplateParameter.HEIGHT:
 					characterboxTemplate.setHeight(individualHeightProcessor.process(value));
 					break;
-				case WEIGHT:
+				case CharacterboxTemplateParameter.WEIGHT:
 					characterboxTemplate.setWeight(individualWeightProcessor.process(value));
 					break;
-				case BORN:
+				case CharacterboxTemplateParameter.BORN:
 					IndividualLifeBoundaryDTO birthBoundaryDTO = individualLifeBoundaryProcessor
 							.process(value);
 					characterboxTemplate.setYearOfBirth(birthBoundaryDTO.getYear());
 					characterboxTemplate.setMonthOfBirth(birthBoundaryDTO.getMonth());
 					characterboxTemplate.setDayOfBirth(birthBoundaryDTO.getDay());
 					break;
-				case DIED:
+				case CharacterboxTemplateParameter.DIED:
 					IndividualLifeBoundaryDTO deathBoundaryDTO = individualLifeBoundaryProcessor
 							.process(value);
 					characterboxTemplate.setYearOfDeath(deathBoundaryDTO.getYear());
 					characterboxTemplate.setMonthOfDeath(deathBoundaryDTO.getMonth());
 					characterboxTemplate.setDayOfDeath(deathBoundaryDTO.getDay());
 					break;
-				case MARITAL_STATUS:
+				case CharacterboxTemplateParameter.MARITAL_STATUS:
 					characterboxTemplate.setMaritalStatus(maritalStatusProcessor.process(value));
 					break;
 				default:

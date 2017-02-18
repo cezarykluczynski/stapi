@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYearC
 import com.cezarykluczynski.stapi.etl.template.common.processor.ProductionSerialNumberProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DayMonthYearCandidateToLocalDateProcessor;
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate;
+import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplateParameter;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.google.common.collect.Lists;
@@ -21,14 +22,6 @@ import java.util.List;
 @Service
 @Slf4j
 public class EpisodeTemplateProcessor implements ItemProcessor<Template, EpisodeTemplate> {
-
-	private static final String N_SEASON = "nseason";
-	private static final String N_EPISODE = "nepisode";
-	private static final String S_PRODUCTION_SERIAL_NUMBER = "sproductionserialnumber";
-	private static final String B_FEATURE_LENGTH = "bfeaturelength";
-	private static final String N_AIRDATE_YEAR = "nairdateyear";
-	private static final String S_AIRDATE_MONTH = "sairdatemonth";
-	private static final String N_AIRDATE_DAY = "nairdateday";
 
 	private DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor;
 
@@ -66,25 +59,25 @@ public class EpisodeTemplateProcessor implements ItemProcessor<Template, Episode
 			}
 
 			switch (key) {
-				case N_SEASON:
+				case EpisodeTemplateParameter.N_SEASON:
 					episodeTemplate.setSeasonNumber(Integer.valueOf(value));
 					break;
-				case N_EPISODE:
+				case EpisodeTemplateParameter.N_EPISODE:
 					episodeTemplate.setEpisodeNumber(extractEpisodeNumber(value));
 					break;
-				case S_PRODUCTION_SERIAL_NUMBER:
+				case EpisodeTemplateParameter.S_PRODUCTION_SERIAL_NUMBER:
 					episodeTemplate.setProductionSerialNumber(productionSerialNumberProcessor.process(value));
 					break;
-				case B_FEATURE_LENGTH:
+				case EpisodeTemplateParameter.B_FEATURE_LENGTH:
 					episodeTemplate.setFeatureLength("1".equals(value));
 					break;
-				case N_AIRDATE_DAY:
+				case EpisodeTemplateParameter.N_AIRDATE_DAY:
 					day = value;
 					break;
-				case S_AIRDATE_MONTH:
+				case EpisodeTemplateParameter.S_AIRDATE_MONTH:
 					month = value;
 					break;
-				case N_AIRDATE_YEAR:
+				case EpisodeTemplateParameter.N_AIRDATE_YEAR:
 					year = value;
 					break;
 				default:

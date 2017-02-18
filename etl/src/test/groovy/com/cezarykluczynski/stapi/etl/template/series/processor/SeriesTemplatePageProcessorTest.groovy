@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToDateRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToYearRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplate
+import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.page.entity.Page as PageEntity
@@ -59,17 +60,17 @@ class SeriesTemplatePageProcessorTest extends Specification {
 
 	void "valid template is parsed"() {
 		given:
-		Template.Part yearRangePart = new Template.Part(key: SeriesTemplatePageProcessor.DATES)
-		Template.Part dateRangePart = new Template.Part(key: SeriesTemplatePageProcessor.RUN)
+		Template.Part yearRangePart = new Template.Part(key: SeriesTemplateParameter.DATES)
+		Template.Part dateRangePart = new Template.Part(key: SeriesTemplateParameter.RUN)
 		Company productionCompany = Mock(Company)
 		Company originalBroadcaster = Mock(Company)
-		Template.Part productionCompanyPart = new Template.Part(key: SeriesTemplatePageProcessor.STUDIO)
-		Template.Part originalBroadcasterPart = new Template.Part(key: SeriesTemplatePageProcessor.NETWORK)
+		Template.Part productionCompanyPart = new Template.Part(key: SeriesTemplateParameter.STUDIO)
+		Template.Part originalBroadcasterPart = new Template.Part(key: SeriesTemplateParameter.NETWORK)
 		YearRange yearRange = Mock(YearRange)
 		DateRange dateRange = Mock(DateRange)
 
 		Template template = new Template(title: TemplateTitle.SIDEBAR_SERIES, parts: Lists.newArrayList(
-				new Template.Part(key: SeriesTemplatePageProcessor.ABBR, value: ABBREVIATION),
+				new Template.Part(key: SeriesTemplateParameter.ABBR, value: ABBREVIATION),
 				yearRangePart,
 				dateRangePart,
 				productionCompanyPart,

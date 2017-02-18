@@ -1,10 +1,11 @@
 package com.cezarykluczynski.stapi.etl.template.actor.processor
 
+import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DateRange
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DatelinkTemplateToLocalDateProcessor
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFilter
-import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -47,10 +48,10 @@ class ActorTemplateToLifeRangeProcessorTest extends Specification {
 		Template template = new Template(title: TemplateTitle.SIDEBAR_ACTOR,
 				parts: Lists.newArrayList(
 						new Template.Part(
-								key: ActorTemplateToLifeRangeProcessor.KEY_DATE_OF_BIRTH,
+								key: ActorTemplateParameter.DATE_OF_BIRTH,
 								templates: templatesDateOfBirth),
 						new Template.Part(
-								key: ActorTemplateToLifeRangeProcessor.KEY_DATE_OF_DEATH,
+								key: ActorTemplateParameter.DATE_OF_DEATH,
 								templates: templatesDateOfDeath)))
 
 		when:
@@ -83,10 +84,10 @@ class ActorTemplateToLifeRangeProcessorTest extends Specification {
 		Template template = new Template(title: TemplateTitle.SIDEBAR_ACTOR,
 				parts: Lists.newArrayList(
 						new Template.Part(
-								key: ActorTemplateToLifeRangeProcessor.KEY_DATE_OF_BIRTH,
+								key: ActorTemplateParameter.DATE_OF_BIRTH,
 								templates: Lists.newArrayList()),
 						new Template.Part(
-								key: ActorTemplateToLifeRangeProcessor.KEY_DATE_OF_DEATH,
+								key: ActorTemplateParameter.DATE_OF_DEATH,
 								templates: Lists.newArrayList(invalidTemplate))))
 
 		when:

@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.MaritalStatusPro
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PartToGenderProcessor
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualLifeBoundaryDTO
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate
+import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplateParameter
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
@@ -56,7 +57,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "sets gender from PartToGenderProcessor"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: IndividualTemplatePartsEnrichingProcessor.GENDER)
+		Template.Part templatePart = new Template.Part(key: IndividualTemplateParameter.GENDER)
 		IndividualTemplate individualTemplate = new IndividualTemplate()
 
 		when:
@@ -71,7 +72,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "when actor key is found, part is passed to IndividualActorLinkingProcessor"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: IndividualTemplatePartsEnrichingProcessor.ACTOR)
+		Template.Part templatePart = new Template.Part(key: IndividualTemplateParameter.ACTOR)
 		IndividualTemplate individualTemplateInActorLinkingProcessor = null
 		IndividualTemplate individualTemplate = new IndividualTemplate()
 
@@ -92,7 +93,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 	void "sets height from IndividualHeightProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(
-				key: IndividualTemplatePartsEnrichingProcessor.HEIGHT,
+				key: IndividualTemplateParameter.HEIGHT,
 				value: VALUE)
 		IndividualTemplate individualTemplate = new IndividualTemplate()
 
@@ -109,7 +110,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 	void "sets weight from IndividualWeightProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(
-				key: IndividualTemplatePartsEnrichingProcessor.WEIGHT,
+				key: IndividualTemplateParameter.WEIGHT,
 				value: VALUE)
 		IndividualTemplate individualTemplate = new IndividualTemplate()
 
@@ -126,7 +127,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 	void "does not set serial number when it is not empty"() {
 		given:
 		Template.Part templatePart = new Template.Part(
-				key: IndividualTemplatePartsEnrichingProcessor.SERIAL_NUMBER,
+				key: IndividualTemplateParameter.SERIAL_NUMBER,
 				value: '')
 		IndividualTemplate individualTemplate = new IndividualTemplate()
 
@@ -142,7 +143,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 	void "sets serial number when it is not empty"() {
 		given:
 		Template.Part templatePart = new Template.Part(
-				key: IndividualTemplatePartsEnrichingProcessor.SERIAL_NUMBER,
+				key: IndividualTemplateParameter.SERIAL_NUMBER,
 				value: VALUE)
 		IndividualTemplate individualTemplate = new IndividualTemplate()
 
@@ -158,7 +159,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 	void "sets birth values from IndividualLifeBoundaryProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(
-				key: IndividualTemplatePartsEnrichingProcessor.BORN,
+				key: IndividualTemplateParameter.BORN,
 				value: VALUE)
 		IndividualLifeBoundaryDTO individualLifeBoundaryDTO = new IndividualLifeBoundaryDTO(
 				year: YEAR,
@@ -181,7 +182,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 	void "sets death values from IndividualLifeBoundaryProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(
-				key: IndividualTemplatePartsEnrichingProcessor.DIED,
+				key: IndividualTemplateParameter.DIED,
 				value: VALUE)
 		IndividualLifeBoundaryDTO individualLifeBoundaryDTO = new IndividualLifeBoundaryDTO(
 				year: YEAR,
@@ -204,7 +205,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 	void "sets marital status from MaritalStatusProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(
-				key: IndividualTemplatePartsEnrichingProcessor.MARITAL_STATUS,
+				key: IndividualTemplateParameter.MARITAL_STATUS,
 				value: VALUE)
 		IndividualTemplate individualTemplate = new IndividualTemplate()
 
@@ -221,7 +222,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 	void "sets blood type from BloodTypeProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(
-				key: IndividualTemplatePartsEnrichingProcessor.BLOOD_TYPE,
+				key: IndividualTemplateParameter.BLOOD_TYPE,
 				value: VALUE)
 		IndividualTemplate individualTemplate = new IndividualTemplate()
 

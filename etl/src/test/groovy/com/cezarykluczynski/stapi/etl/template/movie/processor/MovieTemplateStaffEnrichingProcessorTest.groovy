@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.processor.AbstractTemplateProcessorTest
 import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService
 import com.cezarykluczynski.stapi.etl.template.movie.dto.MovieTemplate
+import com.cezarykluczynski.stapi.etl.template.movie.dto.MovieTemplateParameter
 import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
@@ -53,11 +54,11 @@ class MovieTemplateStaffEnrichingProcessorTest extends AbstractTemplateProcessor
 		given:
 		Movie movieStub = new Movie()
 		Template template = new Template(parts: Lists.newArrayList(
-				createTemplatePart(MovieTemplateStaffEnrichingProcessor.WS_WRITTEN_BY, WRITERS),
-				createTemplatePart(MovieTemplateStaffEnrichingProcessor.WS_SCREENPLAY_BY, SCREENPLAY_AUTHORS),
-				createTemplatePart(MovieTemplateStaffEnrichingProcessor.WS_STORY_BY, STORY_AUTHORS),
-				createTemplatePart(MovieTemplateStaffEnrichingProcessor.WS_DIRECTED_BY, DIRECTORS),
-				createTemplatePart(MovieTemplateStaffEnrichingProcessor.WS_PRODUCED_BY, PRODUCERS),
+				createTemplatePart(MovieTemplateParameter.WS_WRITTEN_BY, WRITERS),
+				createTemplatePart(MovieTemplateParameter.WS_SCREENPLAY_BY, SCREENPLAY_AUTHORS),
+				createTemplatePart(MovieTemplateParameter.WS_STORY_BY, STORY_AUTHORS),
+				createTemplatePart(MovieTemplateParameter.WS_DIRECTED_BY, DIRECTORS),
+				createTemplatePart(MovieTemplateParameter.WS_PRODUCED_BY, PRODUCERS),
 		))
 		MovieTemplate movieTemplate = new MovieTemplate(
 				movieStub: movieStub
@@ -111,11 +112,11 @@ class MovieTemplateStaffEnrichingProcessorTest extends AbstractTemplateProcessor
 		String producersWikitext = 'blah ' + WRITER_5
 		Movie movieStub = new Movie()
 		Template template = new Template(parts: Lists.newArrayList(
-				createTemplatePart(MovieTemplateStaffEnrichingProcessor.WS_WRITTEN_BY, WRITERS),
-				createTemplatePart(MovieTemplateStaffEnrichingProcessor.WS_SCREENPLAY_BY, screenplayAuthorsWikitext),
-				createTemplatePart(MovieTemplateStaffEnrichingProcessor.WS_STORY_BY, storyAuthorWikitext),
-				createTemplatePart(MovieTemplateStaffEnrichingProcessor.WS_DIRECTED_BY, directorsWikitext),
-				createTemplatePart(MovieTemplateStaffEnrichingProcessor.WS_PRODUCED_BY, producersWikitext),
+				createTemplatePart(MovieTemplateParameter.WS_WRITTEN_BY, WRITERS),
+				createTemplatePart(MovieTemplateParameter.WS_SCREENPLAY_BY, screenplayAuthorsWikitext),
+				createTemplatePart(MovieTemplateParameter.WS_STORY_BY, storyAuthorWikitext),
+				createTemplatePart(MovieTemplateParameter.WS_DIRECTED_BY, directorsWikitext),
+				createTemplatePart(MovieTemplateParameter.WS_PRODUCED_BY, producersWikitext),
 		))
 		MovieTemplate movieTemplate = new MovieTemplate(
 				movieStub: movieStub
@@ -177,8 +178,8 @@ class MovieTemplateStaffEnrichingProcessorTest extends AbstractTemplateProcessor
 		given:
 		Movie movieStub = new Movie()
 		Template template = new Template(parts: Lists.newArrayList(
-				createTemplatePart(MovieTemplateStaffEnrichingProcessor.WS_WRITTEN_BY, WRITERS),
-				createTemplatePart(MovieTemplateStaffEnrichingProcessor.WS_SCREENPLAY_BY, null)
+				createTemplatePart(MovieTemplateParameter.WS_WRITTEN_BY, WRITERS),
+				createTemplatePart(MovieTemplateParameter.WS_SCREENPLAY_BY, null)
 		))
 		MovieTemplate movieTemplate = new MovieTemplate(
 				movieStub: movieStub
@@ -206,7 +207,7 @@ class MovieTemplateStaffEnrichingProcessorTest extends AbstractTemplateProcessor
 		given:
 		Movie movieStub = new Movie()
 		Template template = new Template(parts: Lists.newArrayList(
-				createTemplatePart(MovieTemplateStaffEnrichingProcessor.WS_DIRECTED_BY, DIRECTORS)
+				createTemplatePart(MovieTemplateParameter.WS_DIRECTED_BY, DIRECTORS)
 		))
 		MovieTemplate movieTemplate = new MovieTemplate(
 				movieStub: movieStub

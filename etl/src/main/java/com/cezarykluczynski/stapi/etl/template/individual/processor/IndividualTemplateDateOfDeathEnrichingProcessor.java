@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.individual.processor;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
+import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplateParameter;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
@@ -18,8 +19,6 @@ import java.util.List;
 @Slf4j
 public class IndividualTemplateDateOfDeathEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template, IndividualTemplate>> {
 
-	private static final String STATUS = "status";
-	private static final String DATE_STATUS = "datestatus";
 	private static final String KIA = "kia";
 	private static final List<String> DEAD_SYNONYMS = Lists.newArrayList(
 			"deceased",
@@ -93,10 +92,10 @@ public class IndividualTemplateDateOfDeathEnrichingProcessor implements ItemEnri
 			String key = part.getKey();
 
 			switch (key) {
-				case STATUS:
+				case IndividualTemplateParameter.STATUS:
 					status = part;
 					break;
-				case DATE_STATUS:
+				case IndividualTemplateParameter.DATE_STATUS:
 					dateStatus = part;
 					break;
 				default:

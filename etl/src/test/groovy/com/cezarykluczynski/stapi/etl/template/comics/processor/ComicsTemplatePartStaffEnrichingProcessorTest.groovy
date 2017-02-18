@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.comics.processor
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate
+import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplateParameter
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
@@ -31,7 +32,7 @@ class ComicsTemplatePartStaffEnrichingProcessorTest extends Specification {
 
 	void "gets writers from wikitext"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicsTemplatePartStaffEnrichingProcessor.WRITER, value: WIKITEXT)
+		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.WRITER, value: WIKITEXT)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
 		Staff staff1 = Mock(Staff)
 		Staff staff2 = Mock(Staff)
@@ -54,7 +55,7 @@ class ComicsTemplatePartStaffEnrichingProcessorTest extends Specification {
 
 	void "gets artists from wikitext"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicsTemplatePartStaffEnrichingProcessor.ARTIST, value: WIKITEXT)
+		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.ARTIST, value: WIKITEXT)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
 		Staff staff1 = Mock(Staff)
 		Staff staff2 = Mock(Staff)
@@ -77,7 +78,7 @@ class ComicsTemplatePartStaffEnrichingProcessorTest extends Specification {
 
 	void "gets editors from wikitext"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicsTemplatePartStaffEnrichingProcessor.EDITOR, value: WIKITEXT)
+		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.EDITOR, value: WIKITEXT)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
 		Staff staff1 = Mock(Staff)
 		Staff staff2 = Mock(Staff)

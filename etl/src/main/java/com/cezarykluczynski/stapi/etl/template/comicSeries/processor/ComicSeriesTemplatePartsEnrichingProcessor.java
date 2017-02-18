@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor;
 import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplate;
+import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToStardateRangeProcessor;
@@ -16,13 +17,6 @@ import java.util.List;
 
 @Service
 public class ComicSeriesTemplatePartsEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<List<Template.Part>, ComicSeriesTemplate>> {
-
-	private static final String PUBLISHED = "published";
-	private static final String PUBLISHER = "publisher";
-	private static final String ISSUES = "issues";
-	private static final String YEAR = "year";
-	private static final String STARDATE = "stardate";
-	private static final String SERIES = "series";
 
 	private WikitextToCompaniesProcessor wikitextToCompaniesProcessor;
 
@@ -60,20 +54,20 @@ public class ComicSeriesTemplatePartsEnrichingProcessor implements ItemEnriching
 			String value = part.getValue();
 
 			switch (key) {
-				case PUBLISHER:
+				case ComicSeriesTemplateParameter.PUBLISHER:
 					comicSeriesTemplate.getPublishers().addAll(wikitextToCompaniesProcessor.process(value));
 					break;
-				case PUBLISHED:
+				case ComicSeriesTemplateParameter.PUBLISHED:
 					if (comicSeriesTemplate.getPublishedYearFrom() == null && comicSeriesTemplate.getPublishedYearTo() == null) {
 						comicSeriesPublishedDatesEnrichingProcessor.enrich(EnrichablePair.of(part, comicSeriesTemplate));
 					}
 					break;
-				case ISSUES:
+				case ComicSeriesTemplateParameter.ISSUES:
 					if (comicSeriesTemplate.getNumberOfIssues() == null) {
 						comicSeriesTemplate.setNumberOfIssues(comicSeriesTemplateNumberOfIssuesProcessor.process(value));
 					}
 					break;
-				case YEAR:
+				case ComicSeriesTemplateParameter.YEAR:
 					if (comicSeriesTemplate.getYearFrom() == null && comicSeriesTemplate.getYearTo() == null) {
 						YearRange yearRange = wikitextToYearRangeProcessor.process(value);
 						if (yearRange != null) {
@@ -82,7 +76,7 @@ public class ComicSeriesTemplatePartsEnrichingProcessor implements ItemEnriching
 						}
 					}
 					break;
-				case STARDATE:
+				case ComicSeriesTemplateParameter.STARDATE:
 					if (comicSeriesTemplate.getStardateFrom() == null && comicSeriesTemplate.getStardateTo() == null) {
 						StardateRange stardateRange = wikitextToStardateRangeProcessor.process(value);
 						if (stardateRange != null) {
@@ -91,7 +85,7 @@ public class ComicSeriesTemplatePartsEnrichingProcessor implements ItemEnriching
 						}
 					}
 					break;
-				case SERIES:
+				case ComicSeriesTemplateParameter.SERIES:
 					if (comicSeriesTemplate.getMiniseries() == null) {
 						comicSeriesTemplate.setMiniseries(comicSeriesTemplateMiniseriesProcessor.process(value));
 					}

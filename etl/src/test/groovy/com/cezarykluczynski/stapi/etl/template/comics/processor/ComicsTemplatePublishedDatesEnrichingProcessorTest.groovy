@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.comics.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate
+import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import spock.lang.Specification
@@ -39,7 +40,7 @@ class ComicsTemplatePublishedDatesEnrichingProcessorTest extends Specification {
 		given:
 		DayMonthYear dayMonthYear = DayMonthYear.of(DAY, MONTH, YEAR)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
-		Template.Part templatePart = new Template.Part(key: ComicsTemplatePublishedDatesEnrichingProcessor.PUBLISHED)
+		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.PUBLISHED)
 
 		when:
 		comicsTemplatePublishedDatesEnrichingProcessor.enrich(EnrichablePair.of(templatePart, comicsTemplate))
@@ -59,7 +60,7 @@ class ComicsTemplatePublishedDatesEnrichingProcessorTest extends Specification {
 		given:
 		DayMonthYear dayMonthYear = DayMonthYear.of(DAY, MONTH, YEAR)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
-		Template.Part templatePart = new Template.Part(key: ComicsTemplatePublishedDatesEnrichingProcessor.COVER_DATE)
+		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.COVER_DATE)
 
 		when:
 		comicsTemplatePublishedDatesEnrichingProcessor.enrich(EnrichablePair.of(templatePart, comicsTemplate))

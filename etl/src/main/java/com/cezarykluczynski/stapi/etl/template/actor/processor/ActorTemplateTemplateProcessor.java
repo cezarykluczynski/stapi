@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.actor.processor;
 
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate;
+import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PartToGenderProcessor;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.apache.commons.lang3.StringUtils;
@@ -11,12 +12,6 @@ import javax.inject.Inject;
 
 @Service
 public class ActorTemplateTemplateProcessor implements ItemProcessor<Template, ActorTemplate> {
-
-	private static final String NAME = "name";
-	private static final String BIRTH_NAME = "birth name";
-	private static final String GENDER = "gender";
-	private static final String PLACE_OF_BIRTH = "place of birth";
-	private static final String PLACE_OF_DEATH = "place of death";
 
 	private PartToGenderProcessor partToGenderProcessor;
 
@@ -38,19 +33,19 @@ public class ActorTemplateTemplateProcessor implements ItemProcessor<Template, A
 			}
 
 			switch (key) {
-				case NAME:
+				case ActorTemplateParameter.NAME:
 					actorTemplate.setName(value);
 					break;
-				case BIRTH_NAME:
+				case ActorTemplateParameter.BIRTH_NAME:
 					actorTemplate.setBirthName(value);
 					break;
-				case PLACE_OF_BIRTH:
+				case ActorTemplateParameter.PLACE_OF_BIRTH:
 					actorTemplate.setPlaceOfBirth(value);
 					break;
-				case PLACE_OF_DEATH:
+				case ActorTemplateParameter.PLACE_OF_DEATH:
 					actorTemplate.setPlaceOfDeath(value);
 					break;
-				case GENDER:
+				case ActorTemplateParameter.GENDER:
 					actorTemplate.setGender(partToGenderProcessor.process(part));
 					break;
 				default:

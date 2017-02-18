@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.MaritalStatusPro
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PartToGenderProcessor;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualLifeBoundaryDTO;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
+import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplateParameter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -15,16 +16,6 @@ import java.util.List;
 
 @Service
 public class IndividualTemplatePartsEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<List<Template.Part>, IndividualTemplate>> {
-
-	private static final String GENDER = "gender";
-	private static final String ACTOR = "actor";
-	private static final String HEIGHT = "height";
-	private static final String WEIGHT = "weight";
-	private static final String SERIAL_NUMBER = "serial number";
-	private static final String BORN = "born";
-	private static final String DIED = "died";
-	private static final String MARITAL_STATUS = "marital_status";
-	private static final String BLOOD_TYPE = "blood type";
 
 	private PartToGenderProcessor partToGenderProcessor;
 
@@ -64,41 +55,41 @@ public class IndividualTemplatePartsEnrichingProcessor implements ItemEnrichingP
 			String value = part.getValue();
 
 			switch (key) {
-				case GENDER:
+				case IndividualTemplateParameter.GENDER:
 					individualTemplate.setGender(partToGenderProcessor.process(part));
 					break;
-				case ACTOR:
+				case IndividualTemplateParameter.ACTOR:
 					individualTemplateActorLinkingProcessor.enrich(EnrichablePair.of(part, individualTemplate));
 					break;
-				case HEIGHT:
+				case IndividualTemplateParameter.HEIGHT:
 					individualTemplate.setHeight(individualHeightProcessor.process(value));
 					break;
-				case WEIGHT:
+				case IndividualTemplateParameter.WEIGHT:
 					individualTemplate.setWeight(individualWeightProcessor.process(value));
 					break;
-				case SERIAL_NUMBER:
+				case IndividualTemplateParameter.SERIAL_NUMBER:
 					if (StringUtils.isNotBlank(value)) {
 						individualTemplate.setSerialNumber(value);
 					}
 					break;
-				case BORN:
+				case IndividualTemplateParameter.BORN:
 					IndividualLifeBoundaryDTO birthBoundaryDTO = individualLifeBoundaryProcessor
 							.process(value);
 					individualTemplate.setYearOfBirth(birthBoundaryDTO.getYear());
 					individualTemplate.setMonthOfBirth(birthBoundaryDTO.getMonth());
 					individualTemplate.setDayOfBirth(birthBoundaryDTO.getDay());
 					break;
-				case DIED:
+				case IndividualTemplateParameter.DIED:
 					IndividualLifeBoundaryDTO deathBoundaryDTO = individualLifeBoundaryProcessor
 							.process(value);
 					individualTemplate.setYearOfDeath(deathBoundaryDTO.getYear());
 					individualTemplate.setMonthOfDeath(deathBoundaryDTO.getMonth());
 					individualTemplate.setDayOfDeath(deathBoundaryDTO.getDay());
 					break;
-				case MARITAL_STATUS:
+				case IndividualTemplateParameter.MARITAL_STATUS:
 					individualTemplate.setMaritalStatus(maritalStatusProcessor.process(value));
 					break;
-				case BLOOD_TYPE:
+				case IndividualTemplateParameter.BLOOD_TYPE:
 					individualTemplate.setBloodType(individualBloodTypeProcessor.process(value));
 					break;
 				default:

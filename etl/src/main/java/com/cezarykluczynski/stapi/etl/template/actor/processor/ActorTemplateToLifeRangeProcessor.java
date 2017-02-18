@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.actor.processor;
 
+import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DateRange;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DatelinkTemplateToLocalDateProcessor;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFilter;
@@ -17,9 +18,6 @@ import java.util.List;
 @Service
 @Slf4j
 public class ActorTemplateToLifeRangeProcessor implements ItemProcessor<Template, DateRange> {
-
-	private static final String KEY_DATE_OF_BIRTH = "date of birth";
-	private static final String KEY_DATE_OF_DEATH = "date of death";
 
 	private DatelinkTemplateToLocalDateProcessor datelinkTemplateToLocalDateProcessor;
 
@@ -45,9 +43,9 @@ public class ActorTemplateToLifeRangeProcessor implements ItemProcessor<Template
 		for (Template.Part part : item.getParts()) {
 			String key = part.getKey();
 
-			if (KEY_DATE_OF_BIRTH.equals(key)) {
+			if (ActorTemplateParameter.DATE_OF_BIRTH.equals(key)) {
 				dateOfBirth = tryExtractDate(part.getTemplates());
-			} else if (KEY_DATE_OF_DEATH.equals(key)) {
+			} else if (ActorTemplateParameter.DATE_OF_DEATH.equals(key)) {
 				dateOfDeath = tryExtractDate(part.getTemplates());
 
 			}

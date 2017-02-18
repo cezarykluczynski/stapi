@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.individual.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate
+import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplateParameter
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
@@ -59,7 +60,7 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 
 		then:
 		1 * template.parts >> Lists.newArrayList(templatePart)
-		1 * templatePart.key >> IndividualTemplateDateOfDeathEnrichingProcessor.STATUS
+		1 * templatePart.key >> IndividualTemplateParameter.STATUS
 		0 * _
 	}
 
@@ -74,7 +75,7 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 
 		then:
 		1 * template.parts >> Lists.newArrayList(templatePart)
-		1 * templatePart.key >> IndividualTemplateDateOfDeathEnrichingProcessor.DATE_STATUS
+		1 * templatePart.key >> IndividualTemplateParameter.DATE_STATUS
 		0 * _
 	}
 
@@ -90,9 +91,9 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 
 		then:
 		1 * template.parts >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
-		1 * dateTemplatePart.key >> IndividualTemplateDateOfDeathEnrichingProcessor.STATUS
+		1 * dateTemplatePart.key >> IndividualTemplateParameter.STATUS
 		1 * dateTemplatePart.value >> StringUtils.EMPTY
-		1 * dateStatusTemplatePart.key >> IndividualTemplateDateOfDeathEnrichingProcessor.DATE_STATUS
+		1 * dateStatusTemplatePart.key >> IndividualTemplateParameter.DATE_STATUS
 		0 * _
 	}
 
@@ -108,9 +109,9 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 
 		then:
 		1 * template.parts >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
-		1 * dateTemplatePart.key >> IndividualTemplateDateOfDeathEnrichingProcessor.STATUS
+		1 * dateTemplatePart.key >> IndividualTemplateParameter.STATUS
 		2 * dateTemplatePart.value >> KIA
-		1 * dateStatusTemplatePart.key >> IndividualTemplateDateOfDeathEnrichingProcessor.DATE_STATUS
+		1 * dateStatusTemplatePart.key >> IndividualTemplateParameter.DATE_STATUS
 		1 * dateStatusTemplatePart.value >> YEAR_STRING
 		1 * wikitextApiMock.getPageLinksFromWikitext(KIA) >> Lists.newArrayList(
 				new PageLink(
@@ -136,9 +137,9 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 
 		then:
 		1 * template.parts >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
-		1 * dateTemplatePart.key >> IndividualTemplateDateOfDeathEnrichingProcessor.STATUS
+		1 * dateTemplatePart.key >> IndividualTemplateParameter.STATUS
 		2 * dateTemplatePart.value >> DEAD_SYNONYM
-		1 * dateStatusTemplatePart.key >> IndividualTemplateDateOfDeathEnrichingProcessor.DATE_STATUS
+		1 * dateStatusTemplatePart.key >> IndividualTemplateParameter.DATE_STATUS
 		1 * dateStatusTemplatePart.value >> YEAR_STRING
 		1 * wikitextApiMock.getPageLinksFromWikitext(DEAD_SYNONYM) >> Lists.newArrayList()
 		1 * individualTemplate.setDeceased(true)
@@ -159,9 +160,9 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 
 		then:
 		1 * template.parts >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
-		1 * dateTemplatePart.key >> IndividualTemplateDateOfDeathEnrichingProcessor.STATUS
+		1 * dateTemplatePart.key >> IndividualTemplateParameter.STATUS
 		2 * dateTemplatePart.value >> NOT_DEAD_SYNONYM
-		1 * dateStatusTemplatePart.key >> IndividualTemplateDateOfDeathEnrichingProcessor.DATE_STATUS
+		1 * dateStatusTemplatePart.key >> IndividualTemplateParameter.DATE_STATUS
 		1 * wikitextApiMock.getPageLinksFromWikitext(NOT_DEAD_SYNONYM) >> Lists.newArrayList()
 		0 * _
 	}
@@ -178,9 +179,9 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 
 		then:
 		1 * template.parts >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
-		1 * dateTemplatePart.key >> IndividualTemplateDateOfDeathEnrichingProcessor.STATUS
+		1 * dateTemplatePart.key >> IndividualTemplateParameter.STATUS
 		2 * dateTemplatePart.value >> NEITHER_WORD
-		1 * dateStatusTemplatePart.key >> IndividualTemplateDateOfDeathEnrichingProcessor.DATE_STATUS
+		1 * dateStatusTemplatePart.key >> IndividualTemplateParameter.DATE_STATUS
 		1 * wikitextApiMock.getPageLinksFromWikitext(NEITHER_WORD) >> Lists.newArrayList()
 		1 * individualTemplate.name
 		0 * _
@@ -198,9 +199,9 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 
 		then:
 		1 * template.parts >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
-		1 * dateTemplatePart.key >> IndividualTemplateDateOfDeathEnrichingProcessor.STATUS
+		1 * dateTemplatePart.key >> IndividualTemplateParameter.STATUS
 		2 * dateTemplatePart.value >> DEAD_SYNONYM + ' ' + NOT_DEAD_SYNONYM
-		1 * dateStatusTemplatePart.key >> IndividualTemplateDateOfDeathEnrichingProcessor.DATE_STATUS
+		1 * dateStatusTemplatePart.key >> IndividualTemplateParameter.DATE_STATUS
 		1 * wikitextApiMock.getPageLinksFromWikitext(DEAD_SYNONYM + ' ' + NOT_DEAD_SYNONYM) >> Lists.newArrayList()
 		1 * individualTemplate.name
 		0 * _

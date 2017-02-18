@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToDateRangeProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToYearRangeProcessor;
 import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplate;
+import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
@@ -16,12 +17,6 @@ import java.util.Optional;
 
 @Service
 public class SeriesTemplatePageProcessor implements ItemProcessor<Page, SeriesTemplate> {
-
-	private static final String ABBR = "abbr";
-	private static final String DATES = "dates";
-	private static final String RUN = "run";
-	private static final String STUDIO = "studio";
-	private static final String NETWORK = "network";
 
 	private PartToYearRangeProcessor partToYearRangeProcessor;
 
@@ -64,19 +59,19 @@ public class SeriesTemplatePageProcessor implements ItemProcessor<Page, SeriesTe
 			String value = part.getValue();
 
 			switch (key) {
-				case ABBR:
+				case SeriesTemplateParameter.ABBR:
 					seriesTemplate.setAbbreviation(value);
 					break;
-				case DATES:
+				case SeriesTemplateParameter.DATES:
 					seriesTemplate.setProductionYearRange(partToYearRangeProcessor.process(part));
 					break;
-				case RUN:
+				case SeriesTemplateParameter.RUN:
 					seriesTemplate.setOriginalRunDateRange(partToDateRangeProcessor.process(part));
 					break;
-				case STUDIO:
+				case SeriesTemplateParameter.STUDIO:
 					seriesTemplate.setProductionCompany(seriesTemplateCompanyProcessor.process(part));
 					break;
-				case NETWORK:
+				case SeriesTemplateParameter.NETWORK:
 					seriesTemplate.setOriginalBroadcaster(seriesTemplateCompanyProcessor.process(part));
 					break;
 				default:

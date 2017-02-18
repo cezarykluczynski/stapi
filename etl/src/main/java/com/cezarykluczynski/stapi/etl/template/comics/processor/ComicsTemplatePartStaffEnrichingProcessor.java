@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService;
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate;
+import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplateParameter;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
@@ -17,10 +18,6 @@ import java.util.Set;
 
 @Service
 public class ComicsTemplatePartStaffEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template.Part, ComicsTemplate>> {
-
-	private static final String WRITER = "writer";
-	private static final String ARTIST = "artist";
-	private static final String EDITOR = "editor";
 
 	private WikitextApi wikitextApi;
 
@@ -44,11 +41,11 @@ public class ComicsTemplatePartStaffEnrichingProcessor implements ItemEnrichingP
 				.findStaffByName(pageLink, MediaWikiSource.MEMORY_ALPHA_EN)
 				.ifPresent(staffSet::add));
 
-		if (WRITER.equals(templatePartKey)) {
+		if (ComicsTemplateParameter.WRITER.equals(templatePartKey)) {
 			comicsTemplate.getWriters().addAll(staffSet);
-		} else if (ARTIST.equals(templatePartKey)) {
+		} else if (ComicsTemplateParameter.ARTIST.equals(templatePartKey)) {
 			comicsTemplate.getArtists().addAll(staffSet);
-		} else if (EDITOR.equals(templatePartKey)) {
+		} else if (ComicsTemplateParameter.EDITOR.equals(templatePartKey)) {
 			comicsTemplate.getEditors().addAll(staffSet);
 		}
 	}

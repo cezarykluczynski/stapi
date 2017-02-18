@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.planet.processor;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.template.planet.dto.PlanetTemplate;
+import com.cezarykluczynski.stapi.etl.template.planet.dto.PlanetTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.planet.dto.enums.AstronomicalObjectType;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
@@ -26,7 +27,6 @@ import java.util.stream.Collectors;
 @Slf4j
 public class PlanetTemplatePageProcessor implements ItemProcessor<Page, PlanetTemplate> {
 
-	private static final String CLASS = "class";
 	private static final String PLANETARY_CLASSIFICATION = "Planetary classification";
 	private static final String UNNAMED_PREFIX = "Unnamed";
 
@@ -80,7 +80,7 @@ public class PlanetTemplatePageProcessor implements ItemProcessor<Page, PlanetTe
 			String key = part.getKey();
 			String value = part.getValue();
 
-			if (CLASS.equals(key)) {
+			if (PlanetTemplateParameter.CLASS.equals(key)) {
 				AstronomicalObjectType astronomicalObjectTypeFromProcessor = astronomicalObjectTypeProcessor.process(value);
 				AstronomicalObjectType currentAstronomicalObjectType = planetTemplate.getAstronomicalObjectType();
 				astronomicalObjectCompositeEnrichingProcessor.enrich(EnrichablePair.of(Pair

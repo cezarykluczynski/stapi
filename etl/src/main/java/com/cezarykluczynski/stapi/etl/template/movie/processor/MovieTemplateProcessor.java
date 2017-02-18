@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.etl.common.processor.ImageTemplateStardateYear
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYearCandidate;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DayMonthYearCandidateToLocalDateProcessor;
 import com.cezarykluczynski.stapi.etl.template.movie.dto.MovieTemplate;
+import com.cezarykluczynski.stapi.etl.template.movie.dto.MovieTemplateParameter;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import lombok.extern.slf4j.Slf4j;
@@ -19,10 +20,6 @@ import javax.inject.Inject;
 @Slf4j
 
 public class MovieTemplateProcessor implements ItemProcessor<Template, MovieTemplate> {
-
-	private static final String N_RELEASE_YEAR = "nreleaseyear";
-	private static final String S_RELEASE_MONTH = "sreleasemonth";
-	private static final String N_RELEASE_DAY = "nreleaseday";
 
 	private DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor;
 
@@ -58,13 +55,13 @@ public class MovieTemplateProcessor implements ItemProcessor<Template, MovieTemp
 			String value = part.getValue();
 
 			switch (key) {
-				case N_RELEASE_YEAR:
+				case MovieTemplateParameter.N_RELEASE_YEAR:
 					year = value;
 					break;
-				case S_RELEASE_MONTH:
+				case MovieTemplateParameter.S_RELEASE_MONTH:
 					month = value;
 					break;
-				case N_RELEASE_DAY:
+				case MovieTemplateParameter.N_RELEASE_DAY:
 					day = value;
 					break;
 				default:

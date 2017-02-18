@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompani
 import com.cezarykluczynski.stapi.etl.reference.processor.ReferencesFromTemplatePartProcessor
 import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplate
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate
+import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToStardateRangeProcessor
@@ -68,7 +69,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "passes ComicsTemplate to ComicsTemplatePartStaffEnrichingProcessor when writer part is found"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicsTemplatePartsEnrichingProcessor.WRITER, value: WRITER)
+		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.WRITER, value: WRITER)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
 		when:
 		comicsTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicsTemplate))
@@ -84,7 +85,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "passes ComicsTemplate to ComicsTemplatePartStaffEnrichingProcessor when artist part is found"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicsTemplatePartsEnrichingProcessor.ARTIST, value: ARTIST)
+		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.ARTIST, value: ARTIST)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
 		when:
 		comicsTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicsTemplate))
@@ -100,7 +101,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "passes ComicsTemplate to ComicsTemplatePartStaffEnrichingProcessor when editor part is found"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicsTemplatePartsEnrichingProcessor.EDITOR, value: EDITOR)
+		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.EDITOR, value: EDITOR)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
 		when:
 		comicsTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicsTemplate))
@@ -116,7 +117,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "sets publishers from WikitextToCompaniesProcessor"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicsTemplatePartsEnrichingProcessor.PUBLISHER, value: PUBLISHER)
+		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.PUBLISHER, value: PUBLISHER)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
 		Company company1 = Mock(Company)
 		Company company2 = Mock(Company)
@@ -134,7 +135,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "sets comic series from WikitextToComicSeriesProcessor"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicsTemplatePartsEnrichingProcessor.SERIES, value: SERIES)
+		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.SERIES, value: SERIES)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
 		ComicSeries comicSeries1 = Mock(ComicSeries)
 		ComicSeries comicSeries2 = Mock(ComicSeries)
@@ -152,7 +153,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "passes ComicsTemplate to ComicsTemplatePublishedDatesEnrichingProcessor, when published part is found"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicsTemplatePartsEnrichingProcessor.PUBLISHED, value: PUBLISHED)
+		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.PUBLISHED, value: PUBLISHED)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
 
 		when:
@@ -169,7 +170,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "passes ComicsTemplate to ComicsTemplatePublishedDatesEnrichingProcessor, when cover date part is found"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicsTemplatePartsEnrichingProcessor.COVER_DATE, value: PUBLISHED)
+		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.COVER_DATE, value: PUBLISHED)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
 
 		when:
@@ -186,7 +187,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "sets number of pages"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicsTemplatePartsEnrichingProcessor.PAGES, value: PAGES_STRING)
+		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.PAGES, value: PAGES_STRING)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
 
 		when:
@@ -199,7 +200,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "sets year from and year to from WikitextToYearRangeProcessor"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicsTemplatePartsEnrichingProcessor.YEAR, value: YEARS)
+		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.YEAR, value: YEARS)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
 		YearRange yearRange = new YearRange(yearFrom: YEAR_FROM, yearTo: YEAR_TO)
 
@@ -215,7 +216,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "does not set year from and year to from WikitextToYearRangeProcessor, when value is already present"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicsTemplatePartsEnrichingProcessor.YEAR, value: STARDATES)
+		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.YEAR, value: STARDATES)
 		ComicsTemplate comicsTemplate = new ComicsTemplate(yearFrom: YEAR_FROM)
 
 		when:
@@ -228,7 +229,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "sets stardate from and stardate to from WikitextToStardateRangeProcessor"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicsTemplatePartsEnrichingProcessor.STARDATE, value: STARDATES)
+		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.STARDATE, value: STARDATES)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
 		StardateRange stardateRange = new StardateRange(stardateFrom: STARDATE_FROM, stardateTo: STARDATE_TO)
 
@@ -244,7 +245,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "does not set year from and year to from WikitextToStardateRangeProcessor, when value is already present"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicsTemplatePartsEnrichingProcessor.STARDATE, value: STARDATES)
+		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.STARDATE, value: STARDATES)
 		ComicsTemplate comicsTemplate = new ComicsTemplate(stardateFrom: STARDATE_FROM)
 
 		when:
@@ -257,7 +258,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "sets references from ReferencesFromTemplatePartProcessor"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicsTemplatePartsEnrichingProcessor.REFERENCE, value: REFERENCE)
+		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.REFERENCE, value: REFERENCE)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
 		Reference reference1 = Mock(Reference)
 		Reference reference2 = Mock(Reference)

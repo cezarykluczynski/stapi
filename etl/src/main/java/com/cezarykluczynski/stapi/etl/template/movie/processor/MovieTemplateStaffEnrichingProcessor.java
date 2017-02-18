@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService;
 import com.cezarykluczynski.stapi.etl.template.movie.dto.MovieTemplate;
+import com.cezarykluczynski.stapi.etl.template.movie.dto.MovieTemplateParameter;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
@@ -29,11 +30,6 @@ import java.util.stream.Collectors;
 public class MovieTemplateStaffEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template, MovieTemplate>> {
 
 	private static final MediaWikiSource SOURCE = MediaWikiSource.MEMORY_ALPHA_EN;
-	private static final String WS_WRITTEN_BY = "wswrittenby";
-	private static final String WS_SCREENPLAY_BY = "wsscreenplayby";
-	private static final String WS_STORY_BY = "wsstoryby";
-	private static final String WS_DIRECTED_BY = "wsdirectedby";
-	private static final String WS_PRODUCED_BY = "wsproducedby";
 
 	private WikitextApi wikitextApi;
 
@@ -63,19 +59,19 @@ public class MovieTemplateStaffEnrichingProcessor implements ItemEnrichingProces
 			String value = part.getValue();
 
 			switch (key) {
-				case WS_WRITTEN_BY:
+				case MovieTemplateParameter.WS_WRITTEN_BY:
 					addAllStaff(writersStaffParsingState, value);
 					break;
-				case WS_SCREENPLAY_BY:
+				case MovieTemplateParameter.WS_SCREENPLAY_BY:
 					addAllStaff(screenplayAuthorsStaffParsingState, value);
 					break;
-				case WS_STORY_BY:
+				case MovieTemplateParameter.WS_STORY_BY:
 					addAllStaff(storyAuthorsStaffParsingState, value);
 					break;
-				case WS_DIRECTED_BY:
+				case MovieTemplateParameter.WS_DIRECTED_BY:
 					addAllStaff(directorsStaffParsingState, value);
 					break;
-				case WS_PRODUCED_BY:
+				case MovieTemplateParameter.WS_PRODUCED_BY:
 					addAllStaff(producersStaffParsingState, value);
 					break;
 				default:

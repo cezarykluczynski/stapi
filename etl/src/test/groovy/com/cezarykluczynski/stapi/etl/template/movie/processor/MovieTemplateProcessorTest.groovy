@@ -3,10 +3,11 @@ package com.cezarykluczynski.stapi.etl.template.movie.processor
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.processor.AbstractTemplateProcessorTest
 import com.cezarykluczynski.stapi.etl.common.processor.ImageTemplateStardateYearEnrichingProcessor
-import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYearCandidate
 import com.cezarykluczynski.stapi.etl.template.common.dto.ImageTemplate
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYearCandidate
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DayMonthYearCandidateToLocalDateProcessor
 import com.cezarykluczynski.stapi.etl.template.movie.dto.MovieTemplate
+import com.cezarykluczynski.stapi.etl.template.movie.dto.MovieTemplateParameter
 import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
@@ -39,9 +40,9 @@ class MovieTemplateProcessorTest extends AbstractTemplateProcessorTest {
 		given:
 		Template template = new Template(
 				parts: Lists.newArrayList(
-						createTemplatePart(MovieTemplateProcessor.N_RELEASE_YEAR , RELEASE_DATE_YEAR),
-						createTemplatePart(MovieTemplateProcessor.S_RELEASE_MONTH, RELEASE_DATE_MONTH),
-						createTemplatePart(MovieTemplateProcessor.N_RELEASE_DAY, RELEASE_DATE_DAY)
+						createTemplatePart(MovieTemplateParameter.N_RELEASE_YEAR , RELEASE_DATE_YEAR),
+						createTemplatePart(MovieTemplateParameter.S_RELEASE_MONTH, RELEASE_DATE_MONTH),
+						createTemplatePart(MovieTemplateParameter.N_RELEASE_DAY, RELEASE_DATE_DAY)
 				)
 		)
 		LocalDate usReleaseDate = LocalDate.of(1998, 4, 15)

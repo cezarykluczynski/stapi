@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYearC
 import com.cezarykluczynski.stapi.etl.template.common.processor.ProductionSerialNumberProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DayMonthYearCandidateToLocalDateProcessor
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate
+import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplateParameter
 import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
@@ -43,13 +44,13 @@ class EpisodeTemplateProcessorTest extends AbstractTemplateProcessorTest {
 		given:
 		Template template = new Template(
 				parts: Lists.newArrayList(
-						createTemplatePart(EpisodeTemplateProcessor.N_SEASON, SEASON_NUMBER_STRING),
-						createTemplatePart(EpisodeTemplateProcessor.N_EPISODE, EPISODE_NUMBER_STRING),
-						createTemplatePart(EpisodeTemplateProcessor.S_PRODUCTION_SERIAL_NUMBER, PRODUCTION_SERIAL_NUMBER_INPUT),
-						createTemplatePart(EpisodeTemplateProcessor.B_FEATURE_LENGTH, '1'),
-						createTemplatePart(EpisodeTemplateProcessor.N_AIRDATE_YEAR, AIRDATE_YEAR),
-						createTemplatePart(EpisodeTemplateProcessor.S_AIRDATE_MONTH, AIRDATE_MONTH),
-						createTemplatePart(EpisodeTemplateProcessor.N_AIRDATE_DAY, AIRDATE_DAY)
+						createTemplatePart(EpisodeTemplateParameter.N_SEASON, SEASON_NUMBER_STRING),
+						createTemplatePart(EpisodeTemplateParameter.N_EPISODE, EPISODE_NUMBER_STRING),
+						createTemplatePart(EpisodeTemplateParameter.S_PRODUCTION_SERIAL_NUMBER, PRODUCTION_SERIAL_NUMBER_INPUT),
+						createTemplatePart(EpisodeTemplateParameter.B_FEATURE_LENGTH, '1'),
+						createTemplatePart(EpisodeTemplateParameter.N_AIRDATE_YEAR, AIRDATE_YEAR),
+						createTemplatePart(EpisodeTemplateParameter.S_AIRDATE_MONTH, AIRDATE_MONTH),
+						createTemplatePart(EpisodeTemplateParameter.N_AIRDATE_DAY, AIRDATE_DAY)
 				)
 		)
 		LocalDate usAirDate = LocalDate.of(1998, 4, 15)
@@ -79,7 +80,7 @@ class EpisodeTemplateProcessorTest extends AbstractTemplateProcessorTest {
 		when:
 		EpisodeTemplate episodeTemplate = episodeTemplateProcessor.process(new Template(
 				parts: Lists.newArrayList(
-						createTemplatePart(EpisodeTemplateProcessor.N_EPISODE, '25/26')
+						createTemplatePart(EpisodeTemplateParameter.N_EPISODE, '25/26')
 				)
 		))
 
@@ -91,7 +92,7 @@ class EpisodeTemplateProcessorTest extends AbstractTemplateProcessorTest {
 		when:
 		EpisodeTemplate episodeTemplate2 = episodeTemplateProcessor.process(new Template(
 				parts: Lists.newArrayList(
-						createTemplatePart(EpisodeTemplateProcessor.N_EPISODE, 'NOT A NUMBER')
+						createTemplatePart(EpisodeTemplateParameter.N_EPISODE, 'NOT A NUMBER')
 				)
 		))
 

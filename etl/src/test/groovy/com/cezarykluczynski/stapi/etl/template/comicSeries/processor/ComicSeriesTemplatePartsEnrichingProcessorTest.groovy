@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.comicSeries.processor
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor
 import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplate
+import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToStardateRangeProcessor
@@ -58,7 +59,7 @@ class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "sets publishers from ComicSeriesTemplatePublishersProcessor"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplatePartsEnrichingProcessor.PUBLISHER, value: PUBLISHER)
+		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplateParameter.PUBLISHER, value: PUBLISHER)
 		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate()
 		Company publisher1 = Mock(Company)
 		Company publisher2 = Mock(Company)
@@ -76,7 +77,7 @@ class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "passes ComicSeriesTemplate to ComicSeriesPublishedDatesEnrichingProcessor"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplatePartsEnrichingProcessor.PUBLISHED, value: PUBLISHED)
+		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplateParameter.PUBLISHED, value: PUBLISHED)
 		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate()
 
 		when:
@@ -93,7 +94,7 @@ class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "does not pass ComicSeriesTemplate to ComicSeriesPublishedDatesEnrichingProcessor when is already have published years"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplatePartsEnrichingProcessor.PUBLISHED, value: PUBLISHED)
+		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplateParameter.PUBLISHED, value: PUBLISHED)
 		ComicSeriesTemplate comicSeriesTemplateWithPublishedYearFrom = new ComicSeriesTemplate(publishedYearFrom: YEAR)
 		ComicSeriesTemplate comicSeriesTemplateWithPublishedYearTo = new ComicSeriesTemplate(publishedYearTo: YEAR)
 
@@ -114,7 +115,7 @@ class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "sets number of issues from ComicSeriesTemplateNumberOfIssuesProcessor"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplatePartsEnrichingProcessor.ISSUES, value: ISSUES_STRING)
+		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplateParameter.ISSUES, value: ISSUES_STRING)
 		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate()
 
 		when:
@@ -128,7 +129,7 @@ class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "does not set number of issues from ComicSeriesTemplateNumberOfIssuesProcessor, when value is already present"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplatePartsEnrichingProcessor.ISSUES, value: ISSUES_STRING)
+		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplateParameter.ISSUES, value: ISSUES_STRING)
 		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate(numberOfIssues: ISSUES_INTEGER)
 
 		when:
@@ -141,7 +142,7 @@ class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "sets year from and year to from WikitextToYearRangeProcessor"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplatePartsEnrichingProcessor.YEAR, value: YEARS)
+		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplateParameter.YEAR, value: YEARS)
 		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate()
 		YearRange yearRange = new YearRange(yearFrom: YEAR_FROM, yearTo: YEAR_TO)
 
@@ -157,7 +158,7 @@ class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "does not set year from and year to from WikitextToYearRangeProcessor, when value is already present"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplatePartsEnrichingProcessor.YEAR, value: YEARS)
+		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplateParameter.YEAR, value: YEARS)
 		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate(yearFrom: YEAR_FROM)
 
 		when:
@@ -170,7 +171,7 @@ class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "sets stardate from and stardate to from WikitextToStardateRangeProcessor"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplatePartsEnrichingProcessor.STARDATE, value: STARDATES)
+		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplateParameter.STARDATE, value: STARDATES)
 		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate()
 		StardateRange stardateRange = new StardateRange(stardateFrom: STARDATE_FROM, stardateTo: STARDATE_TO)
 
@@ -186,7 +187,7 @@ class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "does not set year from and year to from WikitextToStardateRangeProcessor, when value is already present"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplatePartsEnrichingProcessor.STARDATE, value: STARDATES)
+		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplateParameter.STARDATE, value: STARDATES)
 		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate(stardateFrom: STARDATE_FROM)
 
 		when:
@@ -199,7 +200,7 @@ class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "sets miniseries flag from ComicSeriesTemplateMiniseriesProcessor"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplatePartsEnrichingProcessor.SERIES, value: SERIES)
+		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplateParameter.SERIES, value: SERIES)
 		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate()
 
 		when:
@@ -213,7 +214,7 @@ class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "does not set miniseries flag from ComicSeriesTemplateMiniseriesProcessor, when value is already present"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplatePartsEnrichingProcessor.SERIES, value: SERIES)
+		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplateParameter.SERIES, value: SERIES)
 		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate(miniseries: MINISERIES)
 
 		when:

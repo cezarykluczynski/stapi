@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.etl.common.processor.comicSeries.WikitextToCom
 import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor;
 import com.cezarykluczynski.stapi.etl.reference.processor.ReferencesFromTemplatePartProcessor;
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate;
+import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToStardateRangeProcessor;
@@ -19,18 +20,6 @@ import java.util.List;
 
 @Service
 public class ComicsTemplatePartsEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<List<Template.Part>, ComicsTemplate>> {
-
-	private static final String PUBLISHED = "published";
-	private static final String PUBLISHER = "publisher";
-	private static final String YEAR = "year";
-	private static final String STARDATE = "stardate";
-	private static final String SERIES = "series";
-	private static final String WRITER = "writer";
-	private static final String ARTIST = "artist";
-	private static final String EDITOR = "editor";
-	private static final String COVER_DATE = "coverdate";
-	private static final String PAGES = "pages";
-	private static final String REFERENCE = "reference";
 
 	private ComicsTemplatePartStaffEnrichingProcessor comicsTemplatePartStaffEnrichingProcessor;
 
@@ -70,25 +59,25 @@ public class ComicsTemplatePartsEnrichingProcessor implements ItemEnrichingProce
 			String value = part.getValue();
 
 			switch (key) {
-				case WRITER:
-				case ARTIST:
-				case EDITOR:
+				case ComicsTemplateParameter.WRITER:
+				case ComicsTemplateParameter.ARTIST:
+				case ComicsTemplateParameter.EDITOR:
 					comicsTemplatePartStaffEnrichingProcessor.enrich(EnrichablePair.of(part, comicsTemplate));
 					break;
-				case PUBLISHER:
+				case ComicsTemplateParameter.PUBLISHER:
 					comicsTemplate.getPublishers().addAll(wikitextToCompaniesProcessor.process(value));
 					break;
-				case SERIES:
+				case ComicsTemplateParameter.SERIES:
 					comicsTemplate.getComicSeries().addAll(wikitextToComicSeriesProcessor.process(value));
 					break;
-				case PUBLISHED:
-				case COVER_DATE:
+				case ComicsTemplateParameter.PUBLISHED:
+				case ComicsTemplateParameter.COVER_DATE:
 					comicsTemplatePublishedDatesEnrichingProcessor.enrich(EnrichablePair.of(part, comicsTemplate));
 					break;
-				case PAGES:
+				case ComicsTemplateParameter.PAGES:
 					comicsTemplate.setNumberOfPages(Ints.tryParse(value));
 					break;
-				case YEAR:
+				case ComicsTemplateParameter.YEAR:
 					if (comicsTemplate.getYearFrom() == null && comicsTemplate.getYearTo() == null) {
 						YearRange yearRange = wikitextToYearRangeProcessor.process(value);
 						if (yearRange != null) {
@@ -97,7 +86,7 @@ public class ComicsTemplatePartsEnrichingProcessor implements ItemEnrichingProce
 						}
 					}
 					break;
-				case STARDATE:
+				case ComicsTemplateParameter.STARDATE:
 					if (comicsTemplate.getStardateFrom() == null && comicsTemplate.getStardateTo() == null) {
 						StardateRange stardateRange = wikitextToStardateRangeProcessor.process(value);
 						if (stardateRange != null) {
@@ -106,7 +95,7 @@ public class ComicsTemplatePartsEnrichingProcessor implements ItemEnrichingProce
 						}
 					}
 					break;
-				case REFERENCE:
+				case ComicsTemplateParameter.REFERENCE:
 					comicsTemplate.getReferences().addAll(referencesFromTemplatePartProcessor.process(part));
 					break;
 				default:
