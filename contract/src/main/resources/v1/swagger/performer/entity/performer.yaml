@@ -7,7 +7,7 @@ properties:
   birthName:
     type: string
   gender:
-    $ref: ./common/entity/enum/gender.definitions.yaml
+    $ref: ./common/entity/enum/gender.yaml
   dateOfBirth:
     type: string
     format: date
