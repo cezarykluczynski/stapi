@@ -33,8 +33,8 @@ class IndividualTemplateWithCharacterboxTemplateEnrichingProcessorTest extends S
 		individualTemplateWithCharacterboxTemplateEnrichingProcessor = new IndividualTemplateWithCharacterboxTemplateEnrichingProcessor()
 	}
 
-	@SuppressWarnings('LineLength')
-	@Unroll('sets IndividualTemplate gender to #expectedIndividualGender when IndividualTemplate has #individualGender and CharacterboxTemplate has #characterboxGender')
+	@Unroll('''sets IndividualTemplate gender to #expectedIndividualGender when IndividualTemplate has
+		#individualGender and CharacterboxTemplate has #characterboxGender''')
 	void "sets gender values of IndividualTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(gender: characterboxGender)
@@ -52,8 +52,8 @@ class IndividualTemplateWithCharacterboxTemplateEnrichingProcessorTest extends S
 		GENDER_F         | null               | GENDER_F
 	}
 
-	@SuppressWarnings('LineLength')
-	@Unroll('sets IndividualTemplate weight to #expectedIndividualWeight when IndividualTemplate has #individualWeight and CharacterboxTemplate has #characterboxWeight')
+	@Unroll('''sets IndividualTemplate weight to #expectedIndividualWeight when IndividualTemplate has
+		#individualWeight and CharacterboxTemplate has #characterboxWeight''')
 	void "sets weight values of IndividualTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(weight: characterboxWeight)
@@ -71,8 +71,8 @@ class IndividualTemplateWithCharacterboxTemplateEnrichingProcessorTest extends S
 		WEIGHT_1         | null               | WEIGHT_1
 	}
 
-	@SuppressWarnings('LineLength')
-	@Unroll('sets IndividualTemplate height to #expectedIndividualHeight when IndividualTemplate has #individualHeight and CharacterboxTemplate has #characterboxHeight')
+	@Unroll('''sets IndividualTemplate height to #expectedIndividualHeight when IndividualTemplate has
+		#individualHeight and CharacterboxTemplate has #characterboxHeight''')
 	void "sets height values of IndividualTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(height: characterboxHeight)
@@ -90,8 +90,8 @@ class IndividualTemplateWithCharacterboxTemplateEnrichingProcessorTest extends S
 		HEIGHT_1         | null               | HEIGHT_1
 	}
 
-	@SuppressWarnings('LineLength')
-	@Unroll('sets IndividualTemplate marital status to #expectedIndividualMaritalStatus when IndividualTemplate has #individualMaritalStatus and CharacterboxTemplate has #characterboxMaritalStatus')
+	@Unroll('''sets IndividualTemplate marital status to #expectedIndividualMaritalStatus when IndividualTemplate has
+		#individualMaritalStatus and CharacterboxTemplate has #characterboxMaritalStatus''')
 	void "sets marital status values of IndividualTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(maritalStatus: characterboxMaritalStatus)
@@ -109,8 +109,8 @@ class IndividualTemplateWithCharacterboxTemplateEnrichingProcessorTest extends S
 		MARITAL_STATUS_MARRIED  | null                      | MARITAL_STATUS_MARRIED
 	}
 
-	@SuppressWarnings('LineLength')
-	@Unroll('sets IndividualTemplate year of birth to #expectedIndividualYearOfBirth when IndividualTemplate has #individualYearOfBirth and CharacterboxTemplate has #characterboxYearOfBirth')
+	@Unroll('''sets IndividualTemplate year of birth to #expectedIndividualYearOfBirth when IndividualTemplate has
+		#individualYearOfBirth and CharacterboxTemplate has #characterboxYearOfBirth''')
 	void "sets year of birth values of IndividualTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(yearOfBirth: characterboxYearOfBirth)
@@ -128,8 +128,8 @@ class IndividualTemplateWithCharacterboxTemplateEnrichingProcessorTest extends S
 		YEAR_1                | null                    | YEAR_1
 	}
 
-	@SuppressWarnings('LineLength')
-	@Unroll('sets IndividualTemplate month of birth to #expectedIndividualMonthOfBirth when IndividualTemplate has #individualMonthOfBirth and CharacterboxTemplate has #characterboxMonthOfBirth')
+	@Unroll('''sets IndividualTemplate month of birth to #expectedIndividualMonthOfBirth when IndividualTemplate has
+		#individualMonthOfBirth and CharacterboxTemplate has #characterboxMonthOfBirth''')
 	void "sets month of birth values of IndividualTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(monthOfBirth: characterboxMonthOfBirth)
@@ -147,8 +147,8 @@ class IndividualTemplateWithCharacterboxTemplateEnrichingProcessorTest extends S
 		MONTH_1                | null                     | MONTH_1
 	}
 
-	@SuppressWarnings('LineLength')
-	@Unroll('sets IndividualTemplate day of birth to #expectedIndividualDayOfBirth when IndividualTemplate has #individualDayOfBirth and CharacterboxTemplate has #characterboxDayOfBirth')
+	@Unroll('''sets IndividualTemplate day of birth to #expectedIndividualDayOfBirth when IndividualTemplate has
+#individualDayOfBirth and CharacterboxTemplate has #characterboxDayOfBirth''')
 	void "sets day of birth values of IndividualTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(dayOfBirth: characterboxDayOfBirth)
@@ -166,8 +166,8 @@ class IndividualTemplateWithCharacterboxTemplateEnrichingProcessorTest extends S
 		DAY_1                | null                   | DAY_1
 	}
 
-	@SuppressWarnings('LineLength')
-	@Unroll('sets IndividualTemplate place of birth to #expectedIndividualPlaceOfBirth when IndividualTemplate has #individualPlaceOfBirth and CharacterboxTemplate has #characterboxPlaceOfBirth')
+	@Unroll('''sets IndividualTemplate place of birth to #expectedIndividualPlaceOfBirth when IndividualTemplate has
+		#individualPlaceOfBirth and CharacterboxTemplate has #characterboxPlaceOfBirth''')
 	void "sets place of birth values of IndividualTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(placeOfBirth: characterboxPlaceOfBirth)
@@ -185,8 +185,8 @@ class IndividualTemplateWithCharacterboxTemplateEnrichingProcessorTest extends S
 		PLACE_1                | null                     | PLACE_1
 	}
 
-	@SuppressWarnings('LineLength')
-	@Unroll('sets IndividualTemplate year of death to #expectedIndividualYearOfDeath when IndividualTemplate has #individualYearOfDeath and CharacterboxTemplate has #characterboxYearOfDeath')
+	@Unroll('''sets IndividualTemplate year of death to #expectedIndividualYearOfDeath when IndividualTemplate has
+		#individualYearOfDeath and CharacterboxTemplate has #characterboxYearOfDeath''')
 	void "sets year of death values of IndividualTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(yearOfDeath: characterboxYearOfDeath)
@@ -204,8 +204,8 @@ class IndividualTemplateWithCharacterboxTemplateEnrichingProcessorTest extends S
 		YEAR_1                | null                    | YEAR_1
 	}
 
-	@SuppressWarnings('LineLength')
-	@Unroll('sets IndividualTemplate month of death to #expectedIndividualMonthOfDeath when IndividualTemplate has #individualMonthOfDeath and CharacterboxTemplate has #characterboxMonthOfDeath')
+	@Unroll('''sets IndividualTemplate month of death to #expectedIndividualMonthOfDeath when IndividualTemplate has
+		#individualMonthOfDeath and CharacterboxTemplate has #characterboxMonthOfDeath''')
 	void "sets month of death values of IndividualTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(monthOfDeath: characterboxMonthOfDeath)
@@ -223,8 +223,8 @@ class IndividualTemplateWithCharacterboxTemplateEnrichingProcessorTest extends S
 		MONTH_1                | null                     | MONTH_1
 	}
 
-	@SuppressWarnings('LineLength')
-	@Unroll('sets IndividualTemplate day of death to #expectedIndividualDayOfDeath when IndividualTemplate has #individualDayOfDeath and CharacterboxTemplate has #characterboxDayOfDeath')
+	@Unroll('''sets IndividualTemplate day of death to #expectedIndividualDayOfDeath when IndividualTemplate has
+		#individualDayOfDeath and CharacterboxTemplate has #characterboxDayOfDeath''')
 	void "sets day of death values of IndividualTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(dayOfDeath: characterboxDayOfDeath)
@@ -242,8 +242,8 @@ class IndividualTemplateWithCharacterboxTemplateEnrichingProcessorTest extends S
 		DAY_1                | null                   | DAY_1
 	}
 
-	@SuppressWarnings('LineLength')
-	@Unroll('sets IndividualTemplate place of death to #expectedIndividualPlaceOfDeath when IndividualTemplate has #individualPlaceOfDeath and CharacterboxTemplate has #characterboxPlaceOfDeath')
+	@Unroll('''sets IndividualTemplate place of death to #expectedIndividualPlaceOfDeath when IndividualTemplate has
+		#individualPlaceOfDeath and CharacterboxTemplate has #characterboxPlaceOfDeath''')
 	void "sets place of death values of IndividualTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(placeOfDeath: characterboxPlaceOfDeath)

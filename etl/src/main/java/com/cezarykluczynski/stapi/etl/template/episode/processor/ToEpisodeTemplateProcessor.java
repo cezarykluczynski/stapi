@@ -1,7 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.episode.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
-import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.episode.creation.service.SeriesToEpisodeBindingService;
 import com.cezarykluczynski.stapi.etl.template.common.linker.EpisodeLinkingWorkerComposite;
@@ -39,20 +38,16 @@ public class ToEpisodeTemplateProcessor implements ItemProcessor<Page, EpisodeTe
 
 	private TemplateFinder templateFinder;
 
-	private EpisodeTitleFixedValueProvider episodeTitleFixedValueProvider;
-
 	@Inject
 	public ToEpisodeTemplateProcessor(EpisodeTemplateProcessor episodeTemplateProcessor, EpisodeLinkingWorkerComposite episodeLinkingWorkerComposite,
 			PageBindingService pageBindingService, SeriesToEpisodeBindingService seriesToEpisodeBindingService,
-			EpisodeTemplateEnrichingProcessorComposite episodeTemplateEnrichingProcessorComposite, TemplateFinder templateFinder,
-			EpisodeTitleFixedValueProvider episodeTitleFixedValueProvider) {
+			EpisodeTemplateEnrichingProcessorComposite episodeTemplateEnrichingProcessorComposite, TemplateFinder templateFinder) {
 		this.episodeTemplateProcessor = episodeTemplateProcessor;
 		this.episodeLinkingWorkerComposite = episodeLinkingWorkerComposite;
 		this.pageBindingService = pageBindingService;
 		this.seriesToEpisodeBindingService = seriesToEpisodeBindingService;
 		this.episodeTemplateEnrichingProcessorComposite = episodeTemplateEnrichingProcessorComposite;
 		this.templateFinder = templateFinder;
-		this.episodeTitleFixedValueProvider = episodeTitleFixedValueProvider;
 	}
 
 	@Override
@@ -80,12 +75,6 @@ public class ToEpisodeTemplateProcessor implements ItemProcessor<Page, EpisodeTe
 
 	private void setTemplateValuesFromPage(EpisodeTemplate episodeTemplate, Page item) {
 		episodeTemplate.setTitle(TitleUtil.getNameFromTitle(item.getTitle()));
-
-		FixedValueHolder<String> titleFixedValueHolder = episodeTitleFixedValueProvider.getSearchedValue(episodeTemplate.getTitle());
-		if (titleFixedValueHolder.isFound()) {
-			episodeTemplate.setTitle(titleFixedValueHolder.getValue());
-		}
-
 		episodeTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 		episodeTemplate.setSeries(seriesToEpisodeBindingService.mapCategoriesToSeries(item.getCategories()));
 	}
@@ -98,6 +87,7 @@ public class ToEpisodeTemplateProcessor implements ItemProcessor<Page, EpisodeTe
 		episodeTemplateEnrichingProcessorComposite.enrich(EnrichablePair.of(item, episodeTemplate));
 	}
 
+	// TODO add CategoryTitlesExtractingProcessor
 	private boolean isEpisodePage(Page source) {
 		List<CategoryHeader> categoryHeaderList = source.getCategories();
 		boolean hasEpisodeCategory = categoryHeaderList

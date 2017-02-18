@@ -62,8 +62,9 @@ class CharacterboxIndividualTemplateEnrichingProcessorTest extends Specification
 		0 * _
 	}
 
-	@SuppressWarnings('LineLength')
-	void "when template and page is found, and CharacterboxTemplateProcessor returns null, IndividualTemplateWithCharacterboxTemplateEnrichingProcessor is not called"() {
+	@SuppressWarnings('BracesForMethod')
+	void """when template and page is found, and CharacterboxTemplateProcessor returns null,
+	IndividualTemplateWithCharacterboxTemplateEnrichingProcessor is not called"""() {
 		given:
 		Template template = new Template(title: TemplateTitle.MBETA)
 		IndividualTemplate individualTemplate = new IndividualTemplate(page: new PageEntity(
@@ -79,8 +80,9 @@ class CharacterboxIndividualTemplateEnrichingProcessorTest extends Specification
 		1 * characterboxTemplateProcessorMock.process(page) >> null
 	}
 
-	@SuppressWarnings('LineLength')
-	void "when template and page is found, and CharacterboxTemplateProcessor returns template, IndividualTemplateWithCharacterboxTemplateEnrichingProcessor is called"() {
+	@SuppressWarnings('BracesForMethod')
+	void """when template and page is found, and CharacterboxTemplateProcessor returns template,
+	IndividualTemplateWithCharacterboxTemplateEnrichingProcessor is called"""() {
 		given:
 		Template template = new Template(title: TemplateTitle.MBETA)
 		IndividualTemplate individualTemplate = new IndividualTemplate(page: new PageEntity(

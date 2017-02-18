@@ -13,10 +13,6 @@ public class CompanyNameFixedValueProvider implements FixedValueProvider<String,
 	private static final Map<String, String> TITLE_TO_TITLE_MAP = Maps.newHashMap();
 
 	static {
-		TITLE_TO_TITLE_MAP.put("Chef Rob├ęrt Catering", "Chef Robért Catering");
-		TITLE_TO_TITLE_MAP.put("RT├ë", "RTÉ");
-		TITLE_TO_TITLE_MAP.put("Var├Ęse Sarabande Records", "Varèse Sarabande Records");
-		TITLE_TO_TITLE_MAP.put("Zt├ęl├ę", "Ztélé");
 		TITLE_TO_TITLE_MAP.put("Voyager (publisher)", "Voyager");
 		TITLE_TO_TITLE_MAP.put("Space (channel)", "Space");
 		TITLE_TO_TITLE_MAP.put("Fabbri Publishing (US)", "Fabbri Publishing");

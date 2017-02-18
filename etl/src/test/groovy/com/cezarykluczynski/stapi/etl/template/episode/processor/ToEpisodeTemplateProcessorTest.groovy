@@ -1,7 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.episode.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
-import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.episode.creation.service.SeriesToEpisodeBindingService
 import com.cezarykluczynski.stapi.etl.template.common.linker.EpisodeLinkingWorkerComposite
@@ -40,8 +39,6 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 
 	private TemplateFinder templateFinderMock
 
-	private EpisodeTitleFixedValueProvider episodeTitleFixedValueProviderMock
-
 	private ToEpisodeTemplateProcessor toEpisodeTemplateProcessor
 
 	void setup() {
@@ -51,10 +48,8 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 		seriesToEpisodeBindingServiceMock = Mock(SeriesToEpisodeBindingService)
 		episodeTemplateEnrichingProcessorCompositeMock = Mock(EpisodeTemplateEnrichingProcessorComposite)
 		templateFinderMock = Mock(TemplateFinder)
-		episodeTitleFixedValueProviderMock = Mock(EpisodeTitleFixedValueProvider)
 		toEpisodeTemplateProcessor = new ToEpisodeTemplateProcessor(episodeTemplateProcessorMock, episodeLinkingWorkerCompositeMock,
-				pageBindingServiceMock, seriesToEpisodeBindingServiceMock, episodeTemplateEnrichingProcessorCompositeMock, templateFinderMock,
-				episodeTitleFixedValueProviderMock)
+				pageBindingServiceMock, seriesToEpisodeBindingServiceMock, episodeTemplateEnrichingProcessorCompositeMock, templateFinderMock)
 	}
 
 	void "does not interact with dependencies other than TemplateFinder when page does not have episode category"() {
@@ -130,7 +125,6 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 		1 * episodeTemplateProcessorMock.process(sidebarEpisodeTemplate) >> episodeTemplate
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> pageEntity
 		1 * episodeLinkingWorkerCompositeMock.link(page, episodeStub)
-		1 * episodeTitleFixedValueProviderMock.getSearchedValue(EPISODE_TITLE) >> FixedValueHolder.notFound()
 		1 * seriesToEpisodeBindingServiceMock.mapCategoriesToSeries(categoryHeaderList) >> series
 		1 * episodeTemplateEnrichingProcessorCompositeMock.enrich(_ as EnrichablePair) >> { EnrichablePair enrichablePair ->
 			enrichablePair.input == page
