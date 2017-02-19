@@ -193,7 +193,7 @@
 				referencedTableName="movie"/>
 		<addForeignKeyConstraint baseColumnNames="character_id"
 				baseTableName="movies_characters"
-				constraintName="mc_performer_fkey"
+				constraintName="mc_character_fkey"
 				referencedColumnNames="id"
 				referencedTableName="character"/>
 	</changeSet>

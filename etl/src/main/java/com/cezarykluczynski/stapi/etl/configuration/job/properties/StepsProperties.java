@@ -33,4 +33,6 @@ public class StepsProperties {
 
 	private StepProperties createComics;
 
+	private StepProperties createComicStrips;
+
 }

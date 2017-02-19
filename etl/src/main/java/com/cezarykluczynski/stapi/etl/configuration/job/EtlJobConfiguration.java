@@ -13,6 +13,9 @@ import com.cezarykluczynski.stapi.etl.comicSeries.creation.processor.ComicSeries
 import com.cezarykluczynski.stapi.etl.comicSeries.creation.processor.ComicSeriesWriter;
 import com.cezarykluczynski.stapi.etl.comicSeries.link.processor.ComicSeriesLinkProcessor;
 import com.cezarykluczynski.stapi.etl.comicSeries.link.processor.ComicSeriesLinkReader;
+import com.cezarykluczynski.stapi.etl.comicStrip.creation.processor.ComicStripProcessor;
+import com.cezarykluczynski.stapi.etl.comicStrip.creation.processor.ComicStripReader;
+import com.cezarykluczynski.stapi.etl.comicStrip.creation.processor.ComicStripWriter;
 import com.cezarykluczynski.stapi.etl.comics.creation.processor.ComicsProcessor;
 import com.cezarykluczynski.stapi.etl.comics.creation.processor.ComicsReader;
 import com.cezarykluczynski.stapi.etl.comics.creation.processor.ComicsWriter;
@@ -40,6 +43,7 @@ import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries;
+import com.cezarykluczynski.stapi.model.comicStrip.entity.ComicStrip;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
@@ -230,6 +234,19 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(ComicsReader.class))
 				.processor(applicationContext.getBean(ComicsProcessor.class))
 				.writer(applicationContext.getBean(ComicsWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_COMIC_STRIPS)
+	public Step stepCreateComicStrips() {
+		return stepBuilderFactory.get(StepName.CREATE_COMIC_STRIPS)
+				.<PageHeader, ComicStrip>chunk(stepsProperties.getCreateComicStrips().getCommitInterval())
+				.reader(applicationContext.getBean(ComicStripReader.class))
+				.processor(applicationContext.getBean(ComicStripProcessor.class))
+				.writer(applicationContext.getBean(ComicStripWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)
