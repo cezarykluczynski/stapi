@@ -74,6 +74,8 @@ class ComicSeriesRestMapperTest extends AbstractComicSeriesMapperTest {
 		restComicSeries.photonovelSeries == PHOTONOVEL_SERIES
 		restComicSeries.parentSeriesHeaders.size() == dBComicSeries.parentSeries.size()
 		restComicSeries.childSeriesHeaders.size() == dBComicSeries.childSeries.size()
+		restComicSeries.publisherHeaders.size() == dBComicSeries.publishers.size()
+		restComicSeries.comicsHeaders.size() == dBComicSeries.comics.size()
 	}
 
 }

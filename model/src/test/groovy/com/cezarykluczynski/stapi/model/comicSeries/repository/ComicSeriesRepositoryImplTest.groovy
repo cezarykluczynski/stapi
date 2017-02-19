@@ -116,6 +116,8 @@ class ComicSeriesRepositoryImplTest extends AbstractComicSeriesTest {
 		then: 'fetch is performed'
 		1 * comicSeriesQueryBuilder.fetch(ComicSeries_.parentSeries, true)
 		1 * comicSeriesQueryBuilder.fetch(ComicSeries_.childSeries, true)
+		1 * comicSeriesQueryBuilder.fetch(ComicSeries_.publishers, true)
+		1 * comicSeriesQueryBuilder.fetch(ComicSeries_.comics, true)
 
 		then: 'page is retrieved'
 		1 * comicSeriesQueryBuilder.findPage() >> page
@@ -144,6 +146,8 @@ class ComicSeriesRepositoryImplTest extends AbstractComicSeriesTest {
 		1 * page.content >> Lists.newArrayList(comicSeries)
 		1 * comicSeries.setParentSeries(Sets.newHashSet())
 		1 * comicSeries.setChildSeries(Sets.newHashSet())
+		1 * comicSeries.setPublishers(Sets.newHashSet())
+		1 * comicSeries.setComics(Sets.newHashSet())
 		pageOutput == page
 	}
 

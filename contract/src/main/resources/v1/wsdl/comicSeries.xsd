@@ -2,10 +2,14 @@
 <xs:schema
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		xmlns:common="http://stapi.co/api/v1/soap/common"
+		xmlns:comics="http://stapi.co/api/v1/soap/comics"
 		xmlns:comicSeries="http://stapi.co/api/v1/soap/comicSeries"
+		xmlns:company="http://stapi.co/api/v1/soap/company"
 		elementFormDefault="qualified"
 		targetNamespace="http://stapi.co/api/v1/soap/comicSeries">
 	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/comics" schemaLocation="comics.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/company" schemaLocation="company.xsd"/>
 	<xs:element name="ComicSeriesRequest">
 		<xs:complexType>
 			<xs:complexContent>
@@ -57,6 +61,12 @@
 			</xs:sequence>
 			<xs:sequence>
 				<xs:element name="childSeriesHeaders" type="comicSeries:ComicSeriesHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="publisherHeaders" type="company:CompanyHeader" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="comicsHeaders" type="comics:ComicsHeader" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:sequence>
 	</xs:complexType>

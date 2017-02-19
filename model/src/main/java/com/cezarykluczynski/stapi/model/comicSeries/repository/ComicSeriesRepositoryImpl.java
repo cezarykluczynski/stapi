@@ -43,6 +43,8 @@ public class ComicSeriesRepositoryImpl extends AbstractRepositoryImpl<ComicSerie
 		comicSeriesQueryBuilder.setSort(criteria.getSort());
 		comicSeriesQueryBuilder.fetch(ComicSeries_.parentSeries, doFetch);
 		comicSeriesQueryBuilder.fetch(ComicSeries_.childSeries, doFetch);
+		comicSeriesQueryBuilder.fetch(ComicSeries_.publishers, doFetch);
+		comicSeriesQueryBuilder.fetch(ComicSeries_.comics, doFetch);
 
 		Page<ComicSeries> comicSeriesPage = comicSeriesQueryBuilder.findPage();
 		clearProxies(comicSeriesPage, !doFetch);
@@ -58,6 +60,8 @@ public class ComicSeriesRepositoryImpl extends AbstractRepositoryImpl<ComicSerie
 		page.getContent().forEach(episode -> {
 			episode.setParentSeries(Sets.newHashSet());
 			episode.setChildSeries(Sets.newHashSet());
+			episode.setPublishers(Sets.newHashSet());
+			episode.setComics(Sets.newHashSet());
 		});
 	}
 

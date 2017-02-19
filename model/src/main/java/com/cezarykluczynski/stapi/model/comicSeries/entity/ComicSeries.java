@@ -21,7 +21,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import java.util.Set;
 
@@ -86,8 +85,7 @@ public class ComicSeries extends PageAwareEntity implements PageAware {
 			inverseJoinColumns = @JoinColumn(name = "company_id", nullable = false, updatable = false))
 	private Set<Company> publishers = Sets.newHashSet();
 
-	@OneToMany(mappedBy = "comicSeries")
+	@ManyToMany(mappedBy = "comicSeries")
 	private Set<Comics> comics;
-
 
 }

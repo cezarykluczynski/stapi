@@ -84,6 +84,8 @@ class ComicSeriesSoapMapperTest extends AbstractComicSeriesMapperTest {
 		soapComicSeries.photonovelSeries == PHOTONOVEL_SERIES
 		soapComicSeries.parentSeriesHeaders.size() == dBComicSeries.parentSeries.size()
 		soapComicSeries.childSeriesHeaders.size() == dBComicSeries.childSeries.size()
+		soapComicSeries.publisherHeaders.size() == dBComicSeries.publishers.size()
+		soapComicSeries.comicsHeaders.size() == dBComicSeries.comics.size()
 	}
 
 }
