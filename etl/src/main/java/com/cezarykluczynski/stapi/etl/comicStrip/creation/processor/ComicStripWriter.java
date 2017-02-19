@@ -20,7 +20,8 @@ public class ComicStripWriter implements ItemWriter<ComicStrip> {
 	private DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
 
 	@Inject
-	public ComicStripWriter(ComicStripRepository comicStripRepository, DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor) {
+	public ComicStripWriter(ComicStripRepository comicStripRepository,
+			DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor) {
 		this.comicStripRepository = comicStripRepository;
 		this.duplicateFilteringPreSavePageAwareProcessor = duplicateFilteringPreSavePageAwareProcessor;
 	}
