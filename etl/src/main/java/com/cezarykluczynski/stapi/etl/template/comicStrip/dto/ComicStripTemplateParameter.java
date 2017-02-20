@@ -9,6 +9,5 @@ public class ComicStripTemplateParameter {
 	public static final String PUBLISHED = "published";
 	public static final String PAGES = "pages";
 	public static final String YEAR = "year";
-	public static final String STARDATE = "stardate";
 
 }

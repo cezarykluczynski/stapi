@@ -33,10 +33,12 @@ public class ComicStripTemplateProcessor implements ItemProcessor<ComicStripTemp
 		comicStrip.setPublishedMonthTo(item.getPublishedMonthTo());
 		comicStrip.setPublishedDayTo(item.getPublishedDayTo());
 		comicStrip.setNumberOfPages(item.getNumberOfPages());
-		comicStrip.setStardateFrom(item.getStardateFrom());
-		comicStrip.setStardateTo(item.getStardateTo());
 		comicStrip.setYearFrom(item.getYearFrom());
 		comicStrip.setYearTo(item.getYearTo());
+		comicStrip.getComicSeries().addAll(item.getComicSeries());
+		comicStrip.getWriters().addAll(item.getWriters());
+		comicStrip.getArtists().addAll(item.getArtists());
+		comicStrip.getCharacters().addAll(item.getCharacters());
 
 		return comicStrip;
 	}

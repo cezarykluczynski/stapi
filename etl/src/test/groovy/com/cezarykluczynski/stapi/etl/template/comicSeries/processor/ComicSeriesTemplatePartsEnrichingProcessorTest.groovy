@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor
 import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplate
 import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplateParameter
+import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToStardateRangeProcessor
@@ -183,6 +184,21 @@ class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 		0 * _
 		comicSeriesTemplate.stardateFrom == STARDATE_FROM
 		comicSeriesTemplate.stardateTo == STARDATE_TO
+	}
+
+	void "does not set set year from and year to from WikitextToYearRangeProcessor when YearRange is null"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.YEAR, value: YEARS)
+		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate()
+
+		when:
+		comicSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicSeriesTemplate))
+
+		then:
+		1 * wikitextToYearRangeProcessorMock.process(YEARS) >> null
+		0 * _
+		comicSeriesTemplate.yearFrom == null
+		comicSeriesTemplate.yearTo == null
 	}
 
 	void "does not set year from and year to from WikitextToStardateRangeProcessor, when value is already present"() {

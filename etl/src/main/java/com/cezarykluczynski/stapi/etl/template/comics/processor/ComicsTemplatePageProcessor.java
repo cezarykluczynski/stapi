@@ -59,9 +59,9 @@ public class ComicsTemplatePageProcessor implements ItemProcessor<Page, ComicsTe
 			return null;
 		}
 
-		Optional<Template> sidebarComicStropTemplateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_COMIC_STRIP);
+		Optional<Template> sidebarComicStripTemplateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_COMIC_STRIP);
 
-		if (sidebarComicStropTemplateOptional.isPresent()) {
+		if (sidebarComicStripTemplateOptional.isPresent()) {
 			comicStripCandidatePageGatheringService.addCandidate(item);
 			return null;
 		}

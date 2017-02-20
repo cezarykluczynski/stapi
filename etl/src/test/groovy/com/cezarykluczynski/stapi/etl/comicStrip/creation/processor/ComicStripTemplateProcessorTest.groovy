@@ -1,10 +1,14 @@
 package com.cezarykluczynski.stapi.etl.comicStrip.creation.processor
 
 import com.cezarykluczynski.stapi.etl.template.comicStrip.dto.ComicStripTemplate
+import com.cezarykluczynski.stapi.model.character.entity.Character
+import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries
 import com.cezarykluczynski.stapi.model.comicStrip.entity.ComicStrip
 import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
 import com.cezarykluczynski.stapi.model.page.entity.Page
+import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.util.AbstractComicStripTest
+import com.google.common.collect.Sets
 
 class ComicStripTemplateProcessorTest extends AbstractComicStripTest {
 
@@ -21,6 +25,15 @@ class ComicStripTemplateProcessorTest extends AbstractComicStripTest {
 
 	void "converts ComicStripTemplate to ComicStrip"() {
 		given:
+		ComicSeries comicSeries1 = Mock(ComicSeries)
+		ComicSeries comicSeries2 = Mock(ComicSeries)
+		Staff writer1 = Mock(Staff)
+		Staff writer2 = Mock(Staff)
+		Staff artist1 = Mock(Staff)
+		Staff artist2 = Mock(Staff)
+		Character character1 = Mock(Character)
+		Character character2 = Mock(Character)
+
 		ComicStripTemplate comicStripTemplate = new ComicStripTemplate(
 				page: page,
 				title: TITLE,
@@ -32,10 +45,12 @@ class ComicStripTemplateProcessorTest extends AbstractComicStripTest {
 				publishedMonthTo: PUBLISHED_MONTH_TO,
 				publishedDayTo: PUBLISHED_DAY_TO,
 				numberOfPages: NUMBER_OF_PAGES,
-				stardateFrom: STARDATE_FROM,
-				stardateTo: STARDATE_TO,
 				yearFrom: YEAR_FROM,
-				yearTo: YEAR_TO)
+				yearTo: YEAR_TO,
+				comicSeries: Sets.newHashSet(comicSeries1, comicSeries2),
+				writers: Sets.newHashSet(writer1, writer2),
+				artists: Sets.newHashSet(artist1, artist2),
+				characters: Sets.newHashSet(character1, character2))
 
 		when:
 		ComicStrip comicStrip = comicStripTemplateProcessor.process(comicStripTemplate)
@@ -53,10 +68,20 @@ class ComicStripTemplateProcessorTest extends AbstractComicStripTest {
 		comicStrip.publishedMonthTo == PUBLISHED_MONTH_TO
 		comicStrip.publishedDayTo == PUBLISHED_DAY_TO
 		comicStrip.numberOfPages == NUMBER_OF_PAGES
-		comicStrip.stardateFrom == STARDATE_FROM
-		comicStrip.stardateTo == STARDATE_TO
 		comicStrip.yearFrom == YEAR_FROM
 		comicStrip.yearTo == YEAR_TO
+		comicStrip.comicSeries.size() == 2
+		comicStrip.comicSeries.contains comicSeries1
+		comicStrip.comicSeries.contains comicSeries2
+		comicStrip.writers.size() == 2
+		comicStrip.writers.contains writer1
+		comicStrip.writers.contains writer2
+		comicStrip.artists.size() == 2
+		comicStrip.artists.contains artist1
+		comicStrip.artists.contains artist2
+		comicStrip.characters.size() == 2
+		comicStrip.characters.contains character1
+		comicStrip.characters.contains character2
 	}
 
 }

@@ -13,8 +13,6 @@ abstract class AbstractComicStripTest extends Specification {
 	protected static final Integer PUBLISHED_YEAR_TO = 1994
 	protected static final Integer PUBLISHED_MONTH_TO = 6
 	protected static final Integer PUBLISHED_DAY_TO = 17
-	protected static final Float STARDATE_FROM = 12093.5F
-	protected static final Float STARDATE_TO = 12321.4F
 	protected static final Integer YEAR_FROM = 2350
 	protected static final Integer YEAR_TO = 2351
 	protected static final Integer NUMBER_OF_PAGES = 32
