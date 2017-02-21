@@ -58,10 +58,13 @@ class EndpointScaffoldingGeneratorTask extends DefaultTask {
 			"MovieInitialQueryBuilderFactoryTest.groovy",
 	]
 
-//	@Input
-	String entityName
+	String targetEntityName
 
-	String packageName
+	String targetPackageName
+
+	String sourceEntityName
+
+	String sourcePackageName
 
 	int total = 0
 
@@ -69,21 +72,30 @@ class EndpointScaffoldingGeneratorTask extends DefaultTask {
 
 	@TaskAction
 	def generateEnpoint() {
-		entityName = project.property('entityName')
-		if (entityName == "") {
-			println "Entity name cannot be empty"
+		targetEntityName = project.property('targetEntityName')
+		if (targetEntityName == "") {
+			println "Target entity name cannot be empty"
 			System.exit(-1)
 		}
 
-		packageName = entityName[0].toLowerCase() + entityName.substring(1)
-		entityName = packageName.capitalize()
+		sourceEntityName = project.property('sourceEntityName')
+		if (sourceEntityName == "") {
+			println "Source entity name cannot be empty"
+			System.exit(-1)
+		}
 
-		println "Generating scaffolding for endpoint ${entityName}..."
+		sourcePackageName = sourceEntityName[0].toLowerCase() + sourceEntityName.substring(1)
+		sourceEntityName = sourcePackageName.capitalize()
 
-		copyInDirectory("server/src/main/java/com/cezarykluczynski/stapi/server/movie", serverFilesToCopy)
-		copyInDirectory("server/src/test/groovy/com/cezarykluczynski/stapi/server/movie", serverTestFilesToCopy)
-		copyInDirectory("model/src/main/java/com/cezarykluczynski/stapi/model/movie", modelFilesToCopy)
-		copyInDirectory("model/src/test/groovy/com/cezarykluczynski/stapi/model/movie", modelTestFilesToCopy)
+		targetPackageName = targetEntityName[0].toLowerCase() + targetEntityName.substring(1)
+		targetEntityName = targetPackageName.capitalize()
+
+		println "Generating scaffolding for endpoint ${targetEntityName}..."
+
+		copyInDirectory("server/src/main/java/com/cezarykluczynski/stapi/server/" + sourcePackageName, toSourceEntity(serverFilesToCopy))
+		copyInDirectory("server/src/test/groovy/com/cezarykluczynski/stapi/server/" + sourcePackageName, toSourceEntity(serverTestFilesToCopy))
+		copyInDirectory("model/src/main/java/com/cezarykluczynski/stapi/model/" + sourcePackageName, toSourceEntity(modelFilesToCopy))
+		copyInDirectory("model/src/test/groovy/com/cezarykluczynski/stapi/model/" + sourcePackageName, toSourceEntity(modelTestFilesToCopy))
 
 		println "Files copies: ${copied}, files skipped: ${total - copied}."
 	}
@@ -120,22 +132,29 @@ class EndpointScaffoldingGeneratorTask extends DefaultTask {
 
 	def transformToNewEntity(String content) {
 		content
-				.replace(MOVIE_ENTITY_NAME, entityName)
-				.replace(MOVIE_PACKAGE_NAME, packageName)
+				.replace(sourceEntityName, targetEntityName)
+				.replace(sourcePackageName, targetPackageName)
+	}
+
+	def toSourceEntity(List<String> fileNames) {
+		fileNames
+				.stream()
+				.map({ it -> it.replace('Movie', sourceEntityName) })
+				.collect(Collectors.toList())
 	}
 
 	def maybeClear(String content, String fileName) {
 		if (fileName.contains('RestBeanParams') && !fileName.contains(".groovy")) {
 			def parts = content.split('extends PageSortBeanParams \\{')
-			def end = parts[1].split("public static ${entityName}RestBeanParams")
-			content = "${parts[0]}extends PageSortBeanParams {\n\npublic static ${entityName}RestBeanParams${end[1]}"
+			def end = parts[1].split("public static ${targetEntityName}RestBeanParams")
+			content = "${parts[0]}extends PageSortBeanParams {\n\npublic static ${targetEntityName}RestBeanParams${end[1]}"
 			content = content.readLines().stream().filter({
 				line -> !line.startsWith("import ") || line.contains("PageSortBeanParams")
 			}).collect(Collectors.toList()).join("\n")
 			content = content.replace("\npublic class", "public class")
 		}
 
-		if (fileName.contains("${entityName}RestMapper") || fileName.contains("${entityName}SoapMapper")) {
+		if (fileName.contains("${targetEntityName}RestMapper") || fileName.contains("${targetEntityName}SoapMapper")) {
 			boolean isMapper = false
 			boolean isMappings = false
 
