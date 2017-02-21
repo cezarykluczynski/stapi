@@ -26,12 +26,16 @@ public class ComicStripTemplatePageProcessor implements ItemProcessor<Page, Comi
 
 	private ComicStripTemplatePartsEnrichingProcessor comicStripTemplatePartsEnrichingProcessor;
 
+	private ComicStripTemplateCharactersEnrichingProcessor comicStripTemplateCharactersEnrichingProcessor;
+
 	@Inject
 	public ComicStripTemplatePageProcessor(TemplateFinder templateFinder, PageBindingService pageBindingService,
-			ComicStripTemplatePartsEnrichingProcessor comicStripTemplatePartsEnrichingProcessor) {
+			ComicStripTemplatePartsEnrichingProcessor comicStripTemplatePartsEnrichingProcessor,
+			ComicStripTemplateCharactersEnrichingProcessor comicStripTemplateCharactersEnrichingProcessor) {
 		this.templateFinder = templateFinder;
 		this.pageBindingService = pageBindingService;
 		this.comicStripTemplatePartsEnrichingProcessor = comicStripTemplatePartsEnrichingProcessor;
+		this.comicStripTemplateCharactersEnrichingProcessor = comicStripTemplateCharactersEnrichingProcessor;
 	}
 
 	@Override
@@ -50,6 +54,7 @@ public class ComicStripTemplatePageProcessor implements ItemProcessor<Page, Comi
 		comicStripTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 
 		comicStripTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(template.getParts(), comicStripTemplate));
+		comicStripTemplateCharactersEnrichingProcessor.enrich(EnrichablePair.of(item, comicStripTemplate));
 
 		return comicStripTemplate;
 	}

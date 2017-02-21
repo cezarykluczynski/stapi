@@ -22,14 +22,17 @@ class ComicStripTemplatePageProcessorTest extends Specification {
 
 	private ComicStripTemplatePartsEnrichingProcessor comicStripTemplatePartsEnrichingProcessorMock
 
+	private ComicStripTemplateCharactersEnrichingProcessor comicStripTemplateCharactersEnrichingProcessorMock
+
 	private ComicStripTemplatePageProcessor comicStripTemplatePageProcessor
 
 	void setup() {
 		templateFinderMock = Mock(TemplateFinder)
 		pageBindingServiceMock = Mock(PageBindingService)
 		comicStripTemplatePartsEnrichingProcessorMock = Mock(ComicStripTemplatePartsEnrichingProcessor)
+		comicStripTemplateCharactersEnrichingProcessorMock = Mock(ComicStripTemplateCharactersEnrichingProcessor)
 		comicStripTemplatePageProcessor = new ComicStripTemplatePageProcessor(templateFinderMock, pageBindingServiceMock,
-				comicStripTemplatePartsEnrichingProcessorMock)
+				comicStripTemplatePartsEnrichingProcessorMock, comicStripTemplateCharactersEnrichingProcessorMock)
 	}
 
 	void "returns null when sidebar comic strip template is not found in the page"() {
@@ -59,6 +62,7 @@ class ComicStripTemplatePageProcessorTest extends Specification {
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >> Optional.of(template)
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * comicStripTemplatePartsEnrichingProcessorMock.enrich(_ as EnrichablePair)
+		1 * comicStripTemplateCharactersEnrichingProcessorMock.enrich(_ as EnrichablePair)
 		0 * _
 		comicStripTemplate.title == TITLE
 	}
@@ -77,9 +81,14 @@ class ComicStripTemplatePageProcessorTest extends Specification {
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >> Optional.of(template)
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * comicStripTemplatePartsEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
-			EnrichablePair<List<Template.Part>, ComicStripTemplate> enrichablePair ->
-				assert enrichablePair.input[0] == templatePart
-				assert enrichablePair.output != null
+				EnrichablePair<List<Template.Part>, ComicStripTemplate> enrichablePair ->
+			assert enrichablePair.input[0] == templatePart
+			assert enrichablePair.output != null
+		}
+		1 * comicStripTemplateCharactersEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+				EnrichablePair<Page, ComicStripTemplate> enrichablePair ->
+			assert enrichablePair.input == page
+			assert enrichablePair.output != null
 		}
 		0 * _
 		comicStripTemplate.title == TITLE

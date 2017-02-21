@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,7 +43,10 @@ public class PageSectionExtractor {
 	public List<PageSection> findByTitlesIncludingSubsections(Page page, String... titles) {
 		Preconditions.checkNotNull(page);
 		Preconditions.checkNotNull(titles[0]);
-		List<String> titleList = Lists.newArrayList(titles);
+		List<String> titleList = Lists.newArrayList(titles)
+				.stream()
+				.map(String::toLowerCase)
+				.collect(Collectors.toList());
 
 		List<PageSection> matchingPageSectionList = Lists.newArrayList();
 
@@ -62,7 +66,7 @@ public class PageSectionExtractor {
 				}
 			}
 
-			if (titleList.contains(pageSection.getText())) {
+			if (titleList.contains(StringUtils.lowerCase(pageSection.getText()))) {
 				if (!isTrackingParent) {
 					isTrackingParent = true;
 					trackingParentLevel = currentPageSectionLevel;
