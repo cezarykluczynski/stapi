@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.client.api;
 import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.CharacterPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.ComicStripPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.ComicsPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.CompanyPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.EpisodePortType;
@@ -46,6 +47,9 @@ public class StapiSoapClient {
 	@Getter
 	private ComicsPortType comicsPortType;
 
+	@Getter
+	private ComicStripPortType comicStripPortType;
+
 	public StapiSoapClient() {
 		stapiSoapPortTypesProvider = new StapiSoapPortTypesProvider();
 		bindPortTypes();
@@ -67,6 +71,7 @@ public class StapiSoapClient {
 		companyPortType = stapiSoapPortTypesProvider.getCompanyPortType();
 		comicSeriesPortType = stapiSoapPortTypesProvider.getComicSeriesPortType();
 		comicsPortType = stapiSoapPortTypesProvider.getComicsPortType();
+		comicStripPortType = stapiSoapPortTypesProvider.getComicStripPortType();
 	}
 
 }

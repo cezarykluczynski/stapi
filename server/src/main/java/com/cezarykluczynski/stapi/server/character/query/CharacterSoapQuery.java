@@ -22,8 +22,7 @@ public class CharacterSoapQuery {
 	private CharacterRepository characterRepository;
 
 	@Inject
-	public CharacterSoapQuery(CharacterSoapMapper characterSoapMapper, PageMapper pageMapper,
-			CharacterRepository characterRepository) {
+	public CharacterSoapQuery(CharacterSoapMapper characterSoapMapper, PageMapper pageMapper, CharacterRepository characterRepository) {
 		this.characterSoapMapper = characterSoapMapper;
 		this.pageMapper = pageMapper;
 		this.characterRepository = characterRepository;

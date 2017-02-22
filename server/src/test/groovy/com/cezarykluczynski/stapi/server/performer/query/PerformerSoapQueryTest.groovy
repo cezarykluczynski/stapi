@@ -24,8 +24,7 @@ class PerformerSoapQueryTest extends Specification {
 		performerSoapMapperMock = Mock(PerformerSoapMapper)
 		pageMapperMock = Mock(PageMapper)
 		performerRepositoryMock = Mock(PerformerRepository)
-		performerSoapQuery = new PerformerSoapQuery(performerSoapMapperMock, pageMapperMock,
-				performerRepositoryMock)
+		performerSoapQuery = new PerformerSoapQuery(performerSoapMapperMock, pageMapperMock, performerRepositoryMock)
 	}
 
 	void "maps PerformerRequest to PerformerRequestDTO and to PageRequest, then calls repository, then returns result"() {

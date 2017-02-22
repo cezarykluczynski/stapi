@@ -17,6 +17,8 @@ paths:
     $ref: ./comics/path/comics.path.yaml
   /comicSeries:
     $ref: ./comicSeries/path/comicSeries.path.yaml
+  /comicStrip:
+    $ref: ./comicStrip/path/comicStrip.path.yaml
   /company:
     $ref: ./company/path/company.path.yaml
   /episode:
@@ -54,6 +56,12 @@ definitions:
     $ref: ./comicSeries/entity/comicSeriesHeader.yaml
   ComicSeriesResponse:
     $ref: ./comicSeries/entity/comicSeriesResponse.yaml
+  ComicStrip:
+    $ref: ./comicStrip/entity/comicStrip.yaml
+  ComicStripHeader:
+    $ref: ./comicStrip/entity/comicStripHeader.yaml
+  ComicStripResponse:
+    $ref: ./comicStrip/entity/comicStripResponse.yaml
   Company:
     $ref: ./company/entity/company.yaml
   CompanyHeader:

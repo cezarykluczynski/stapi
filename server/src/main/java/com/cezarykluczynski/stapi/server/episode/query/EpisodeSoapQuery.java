@@ -22,8 +22,7 @@ public class EpisodeSoapQuery {
 	private EpisodeRepository episodeRepository;
 
 	@Inject
-	public EpisodeSoapQuery(EpisodeSoapMapper episodeSoapMapper, PageMapper pageMapper,
-			EpisodeRepository episodeRepository) {
+	public EpisodeSoapQuery(EpisodeSoapMapper episodeSoapMapper, PageMapper pageMapper, EpisodeRepository episodeRepository) {
 		this.episodeSoapMapper = episodeSoapMapper;
 		this.pageMapper = pageMapper;
 		this.episodeRepository = episodeRepository;

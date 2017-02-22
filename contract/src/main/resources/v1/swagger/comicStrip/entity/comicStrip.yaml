@@ -1,0 +1,42 @@
+type: object
+properties:
+  guid:
+    type: string
+  title:
+    type: string
+  periodical:
+    type: string
+  publishedYearFrom:
+    type: integer
+  publishedMonthFrom:
+    type: integer
+  publishedDayFrom:
+    type: integer
+  publishedYearTo:
+    type: integer
+  publishedMonthTo:
+    type: integer
+  publishedDayTo:
+    type: integer
+  numberOfPages:
+    type: integer
+  yearFrom:
+    type: integer
+  yearTo:
+    type: integer
+  comicSeriesHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/ComicSeriesHeader'
+  writerHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/StaffHeader'
+  artistHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/StaffHeader'
+  characterHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/CharacterHeader'

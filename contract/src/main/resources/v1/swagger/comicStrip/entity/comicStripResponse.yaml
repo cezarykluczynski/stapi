@@ -1,0 +1,8 @@
+type: object
+properties:
+  page:
+    $ref: ./common/entity/responsePage.yaml
+  comicStrips:
+    type: array
+    items:
+      $ref: '#/definitions/ComicStrip'

@@ -24,8 +24,7 @@ class SeriesSoapQueryTest extends Specification {
 		seriesSoapMapperMock = Mock(SeriesSoapMapper)
 		pageMapperMock = Mock(PageMapper)
 		seriesRepositoryMock = Mock(SeriesRepository)
-		seriesSoapQuery = new SeriesSoapQuery(seriesSoapMapperMock, pageMapperMock,
-				seriesRepositoryMock)
+		seriesSoapQuery = new SeriesSoapQuery(seriesSoapMapperMock, pageMapperMock, seriesRepositoryMock)
 	}
 
 	void "maps SeriesRequest to SeriesRequestDTO and to PageRequest, then calls repository, then returns result"() {

@@ -26,7 +26,6 @@ class ComicsRestEndpointIntegrationTest extends AbstractComicsEndpointIntegratio
 		)), null, 'Ghosts, Issue', null, null, null, null, null, null, null, null, null)
 
 		then:
-
 		comicsResponse.comics.size() == 5
 		comicsResponse.comics[0].title == 'Ghosts, Issue 1'
 		comicsResponse.comics[1].title == 'Ghosts, Issue 2'

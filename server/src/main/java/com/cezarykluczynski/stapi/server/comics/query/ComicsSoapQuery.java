@@ -22,8 +22,7 @@ public class ComicsSoapQuery {
 	private ComicsRepository comicsRepository;
 
 	@Inject
-	public ComicsSoapQuery(ComicsSoapMapper comicsSoapMapper, PageMapper pageMapper,
-			ComicsRepository comicsRepository) {
+	public ComicsSoapQuery(ComicsSoapMapper comicsSoapMapper, PageMapper pageMapper, ComicsRepository comicsRepository) {
 		this.comicsSoapMapper = comicsSoapMapper;
 		this.pageMapper = pageMapper;
 		this.comicsRepository = comicsRepository;

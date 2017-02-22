@@ -22,8 +22,7 @@ public class MovieSoapQuery {
 	private MovieRepository movieRepository;
 
 	@Inject
-	public MovieSoapQuery(MovieSoapMapper movieSoapMapper, PageMapper pageMapper,
-			MovieRepository movieRepository) {
+	public MovieSoapQuery(MovieSoapMapper movieSoapMapper, PageMapper pageMapper, MovieRepository movieRepository) {
 		this.movieSoapMapper = movieSoapMapper;
 		this.pageMapper = pageMapper;
 		this.movieRepository = movieRepository;

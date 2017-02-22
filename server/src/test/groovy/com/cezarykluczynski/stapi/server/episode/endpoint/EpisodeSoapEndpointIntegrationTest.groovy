@@ -59,11 +59,7 @@ class EpisodeSoapEndpointIntegrationTest extends AbstractEpisodeEndpointIntegrat
 						clauses: Lists.newArrayList(
 								new RequestSortClause(
 										name: 'usAirDate',
-										direction: RequestSortDirectionEnum.ASC
-						)
-						)
-				)
-		))
+										direction: RequestSortDirectionEnum.ASC)))))
 		List<Episode> episodeList = episodeResponse.episodes
 
 		then:

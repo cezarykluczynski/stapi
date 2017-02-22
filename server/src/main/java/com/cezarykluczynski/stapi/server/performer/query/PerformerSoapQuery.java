@@ -22,8 +22,7 @@ public class PerformerSoapQuery {
 	private PerformerRepository performerRepository;
 
 	@Inject
-	public PerformerSoapQuery(PerformerSoapMapper performerSoapMapper, PageMapper pageMapper,
-			PerformerRepository performerRepository) {
+	public PerformerSoapQuery(PerformerSoapMapper performerSoapMapper, PageMapper pageMapper, PerformerRepository performerRepository) {
 		this.performerSoapMapper = performerSoapMapper;
 		this.pageMapper = pageMapper;
 		this.performerRepository = performerRepository;

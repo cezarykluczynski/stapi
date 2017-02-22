@@ -24,8 +24,7 @@ class MovieSoapQueryTest extends Specification {
 		movieSoapMapperMock = Mock(MovieSoapMapper)
 		pageMapperMock = Mock(PageMapper)
 		movieRepositoryMock = Mock(MovieRepository)
-		movieSoapQuery = new MovieSoapQuery(movieSoapMapperMock, pageMapperMock,
-				movieRepositoryMock)
+		movieSoapQuery = new MovieSoapQuery(movieSoapMapperMock, pageMapperMock, movieRepositoryMock)
 	}
 
 	void "maps MovieRequest to MovieRequestDTO and to PageRequest, then calls repository, then returns result"() {

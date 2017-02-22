@@ -22,8 +22,7 @@ public class CompanySoapQuery {
 	private CompanyRepository companyRepository;
 
 	@Inject
-	public CompanySoapQuery(CompanySoapMapper companySoapMapper, PageMapper pageMapper,
-			CompanyRepository companyRepository) {
+	public CompanySoapQuery(CompanySoapMapper companySoapMapper, PageMapper pageMapper, CompanyRepository companyRepository) {
 		this.companySoapMapper = companySoapMapper;
 		this.pageMapper = pageMapper;
 		this.companyRepository = companyRepository;

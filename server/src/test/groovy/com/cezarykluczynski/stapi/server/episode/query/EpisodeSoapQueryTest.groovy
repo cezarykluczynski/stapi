@@ -24,8 +24,7 @@ class EpisodeSoapQueryTest extends Specification {
 		episodeSoapMapperMock = Mock(EpisodeSoapMapper)
 		pageMapperMock = Mock(PageMapper)
 		episodeRepositoryMock = Mock(EpisodeRepository)
-		episodeSoapQuery = new EpisodeSoapQuery(episodeSoapMapperMock, pageMapperMock,
-				episodeRepositoryMock)
+		episodeSoapQuery = new EpisodeSoapQuery(episodeSoapMapperMock, pageMapperMock, episodeRepositoryMock)
 	}
 
 	void "maps EpisodeRequest to EpisodeRequestDTO and to PageRequest, then calls repository, then returns result"() {

@@ -24,8 +24,7 @@ class CompanySoapQueryTest extends Specification {
 		companySoapMapperMock = Mock(CompanySoapMapper)
 		pageMapperMock = Mock(PageMapper)
 		companyRepositoryMock = Mock(CompanyRepository)
-		companySoapQuery = new CompanySoapQuery(companySoapMapperMock, pageMapperMock,
-				companyRepositoryMock)
+		companySoapQuery = new CompanySoapQuery(companySoapMapperMock, pageMapperMock, companyRepositoryMock)
 	}
 
 	void "maps CompanyRequest to CompanyRequestDTO and to PageRequest, then calls repository, then returns result"() {

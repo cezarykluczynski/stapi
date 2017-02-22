@@ -24,8 +24,7 @@ class ComicSeriesSoapQueryTest extends Specification {
 		comicSeriesSoapMapperMock = Mock(ComicSeriesSoapMapper)
 		pageMapperMock = Mock(PageMapper)
 		comicSeriesRepositoryMock = Mock(ComicSeriesRepository)
-		comicSeriesSoapQuery = new ComicSeriesSoapQuery(comicSeriesSoapMapperMock, pageMapperMock,
-				comicSeriesRepositoryMock)
+		comicSeriesSoapQuery = new ComicSeriesSoapQuery(comicSeriesSoapMapperMock, pageMapperMock, comicSeriesRepositoryMock)
 	}
 
 	void "maps ComicSeriesRequest to ComicSeriesRequestDTO and to PageRequest, then calls repository, then returns result"() {

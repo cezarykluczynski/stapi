@@ -24,8 +24,7 @@ class CharacterSoapQueryTest extends Specification {
 		characterSoapMapperMock = Mock(CharacterSoapMapper)
 		pageMapperMock = Mock(PageMapper)
 		characterRepositoryMock = Mock(CharacterRepository)
-		characterSoapQuery = new CharacterSoapQuery(characterSoapMapperMock, pageMapperMock,
-				characterRepositoryMock)
+		characterSoapQuery = new CharacterSoapQuery(characterSoapMapperMock, pageMapperMock, characterRepositoryMock)
 	}
 
 	void "maps CharacterRequest to CharacterRequestDTO and to PageRequest, then calls repository, then returns result"() {

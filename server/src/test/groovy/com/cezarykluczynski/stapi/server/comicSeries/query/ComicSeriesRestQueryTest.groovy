@@ -23,8 +23,7 @@ class ComicSeriesRestQueryTest extends Specification {
 		comicSeriesRestMapperMock = Mock(ComicSeriesRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		comicSeriesRepositoryMock = Mock(ComicSeriesRepository)
-		comicSeriesRestQuery = new ComicSeriesRestQuery(comicSeriesRestMapperMock, pageMapperMock,
-				comicSeriesRepositoryMock)
+		comicSeriesRestQuery = new ComicSeriesRestQuery(comicSeriesRestMapperMock, pageMapperMock, comicSeriesRepositoryMock)
 	}
 
 	void "maps ComicSeriesRestBeanParams to ComicSeriesRequestDTO and to PageRequest, then calls repository, then returns result"() {

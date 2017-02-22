@@ -60,11 +60,7 @@ class ComicsSoapEndpointIntegrationTest extends AbstractComicsEndpointIntegratio
 						clauses: Lists.newArrayList(
 								new RequestSortClause(
 										name: 'title',
-										direction: RequestSortDirectionEnum.ASC
-								)
-						)
-				)
-		))
+										direction: RequestSortDirectionEnum.ASC)))))
 
 		then:
 		comicsResponse.comics.size() == 6

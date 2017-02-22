@@ -24,8 +24,7 @@ class StaffSoapQueryTest extends Specification {
 		staffSoapMapperMock = Mock(StaffSoapMapper)
 		pageMapperMock = Mock(PageMapper)
 		staffRepositoryMock = Mock(StaffRepository)
-		staffSoapQuery = new StaffSoapQuery(staffSoapMapperMock, pageMapperMock,
-				staffRepositoryMock)
+		staffSoapQuery = new StaffSoapQuery(staffSoapMapperMock, pageMapperMock, staffRepositoryMock)
 	}
 
 	void "maps StaffRequest to StaffRequestDTO and to PageRequest, then calls repository, then returns result"() {

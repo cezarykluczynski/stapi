@@ -35,10 +35,10 @@
 				referencedTableName="page"/>
 
 		<createTable tableName="comic_strips_comics_series">
-			<column name="comics_strip_id" type="bigint"/>
+			<column name="comic_strip_id" type="bigint"/>
 			<column name="comic_series_id" type="bigint"/>
 		</createTable>
-		<addForeignKeyConstraint baseColumnNames="comics_strip_id"
+		<addForeignKeyConstraint baseColumnNames="comic_strip_id"
 				baseTableName="comic_strips_comics_series"
 				constraintName="cscs_comic_strip_fkey"
 				referencedColumnNames="id"

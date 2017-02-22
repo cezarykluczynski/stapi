@@ -1,0 +1,30 @@
+package com.cezarykluczynski.stapi.server.comicStrip.mapper
+
+import com.cezarykluczynski.stapi.client.v1.rest.model.ComicStripHeader
+import com.cezarykluczynski.stapi.model.comicStrip.entity.ComicStrip
+import com.google.common.collect.Lists
+import org.mapstruct.factory.Mappers
+
+class ComicStripHeaderRestMapperTest extends AbstractComicStripMapperTest {
+
+	private ComicStripHeaderRestMapper comicStripHeaderRestMapper
+
+	void setup() {
+		comicStripHeaderRestMapper = Mappers.getMapper(ComicStripHeaderRestMapper)
+	}
+
+	void "maps DB entity to REST header"() {
+		given:
+		ComicStrip comicStrip = new ComicStrip(
+				guid: GUID,
+				title: TITLE)
+
+		when:
+		ComicStripHeader comicStripHeader = comicStripHeaderRestMapper.map(Lists.newArrayList(comicStrip))[0]
+
+		then:
+		comicStripHeader.guid == GUID
+		comicStripHeader.title == TITLE
+	}
+
+}
