@@ -60,6 +60,8 @@ class JobBuilderTest extends Specification {
 
 	private Step createComicStripsStep
 
+	private Step createComicCollectionsStep
+
 	private JobRepository jobRepository
 
 	private SpringBatchJobBuilder springBatchJobBuilder
@@ -85,6 +87,7 @@ class JobBuilderTest extends Specification {
 		linkComicSeriesStep = Mock(Step)
 		createComicsStep = Mock(Step)
 		createComicStripsStep = Mock(Step)
+		createComicCollectionsStep = Mock(Step)
 		jobRepository = Mock(JobRepository)
 		springBatchJobBuilder = new SpringBatchJobBuilder(JobName.JOB_CREATE)
 		springBatchJobBuilder.repository(jobRepository)
@@ -189,6 +192,12 @@ class JobBuilderTest extends Specification {
 		1 * applicationContextMock.getBean(StepName.CREATE_COMIC_STRIPS, Step) >> createComicStripsStep
 		1 * createComicStripsStep.name >> ''
 
+		then: 'CREATE_COMIC_COLLECTIONS step is retrieved from application context'
+		1 * stepPropertiesMap.get(StepName.CREATE_COMIC_COLLECTIONS) >> stepProperties
+		1 * stepProperties.isEnabled() >> true
+		1 * applicationContextMock.getBean(StepName.CREATE_COMIC_COLLECTIONS, Step) >> createComicCollectionsStep
+		1 * createComicCollectionsStep.name >> ''
+
 		then: 'Task executor is retrieved from application context'
 		1 * applicationContextMock.getBean(TaskExecutor) >> taskExecutor
 
@@ -236,8 +245,8 @@ class JobBuilderTest extends Specification {
 		1 * stepToStepPropertiesProviderMock.provide() >> stepPropertiesMap
 
 		then: 'all steps are disabled'
-		13 * stepPropertiesMap.get(_) >> stepProperties
-		13 * stepProperties.isEnabled() >> false
+		14 * stepPropertiesMap.get(_) >> stepProperties
+		14 * stepProperties.isEnabled() >> false
 
 		then: 'no other interactions are expected'
 		0 * _
@@ -279,8 +288,8 @@ class JobBuilderTest extends Specification {
 		1 * createSeriesStep.name >> ''
 
 		then: 'other steps are skipped'
-		11 * stepPropertiesMap.get(_) >> stepProperties
-		11 * stepProperties.isEnabled() >> false
+		12 * stepPropertiesMap.get(_) >> stepProperties
+		12 * stepProperties.isEnabled() >> false
 
 		then: 'Task executor is retrieved from application context'
 		1 * applicationContextMock.getBean(TaskExecutor) >> taskExecutor

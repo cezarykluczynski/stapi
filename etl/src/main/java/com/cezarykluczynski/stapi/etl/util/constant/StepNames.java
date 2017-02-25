@@ -24,7 +24,8 @@ public class StepNames {
 				StepName.CREATE_COMIC_SERIES,
 				StepName.LINK_COMIC_SERIES,
 				StepName.CREATE_COMICS,
-				StepName.CREATE_COMIC_STRIPS
+				StepName.CREATE_COMIC_STRIPS,
+				StepName.CREATE_COMIC_COLLECTIONS
 		));
 	}
 

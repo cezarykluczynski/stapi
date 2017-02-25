@@ -35,4 +35,6 @@ public class StepsProperties {
 
 	private StepProperties createComicStrips;
 
+	private StepProperties createComicCollections;
+
 }

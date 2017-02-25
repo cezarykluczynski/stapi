@@ -15,4 +15,5 @@
 	<include file="comics/0011_create_comics.xml" relativeToChangelogFile="true"/>
 	<include file="reference/0012_create_reference.xml" relativeToChangelogFile="true"/>
 	<include file="comicStrip/0013_create_comic_strip.xml" relativeToChangelogFile="true"/>
+	<include file="comicCollection/0014_create_comic_collection.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

@@ -21,6 +21,7 @@ class ComicsTemplatePageProcessorTest extends Specification {
 	private static final String TITLE = 'TITLE'
 	private static final String TITLE_COMICS = 'TITLE (comic)'
 	private static final String TITLE_FOTONOVEL = 'TITLE (fotonovel)'
+	private static final String TITLE_OMNIBUS = 'TITLE (omnibus)'
 
 	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessorMock
 
@@ -98,6 +99,28 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		comicsTemplate.photonovel
 	}
 
+	void "sets photonovel flag when photonovels collection category is found"() {
+		given:
+		List<CategoryHeader> categoryHeaderList = Mock(List)
+		Page page = new Page(
+				title: TITLE,
+				categories: categoryHeaderList)
+		ModelPage modelPage = new ModelPage()
+
+		when:
+		ComicsTemplate comicsTemplate = comicsTemplatePageProcessor.process(page)
+
+		then:
+		2 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.PHOTONOVELS_COLLECTIONS)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >> Optional.empty()
+		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
+		1 * comicsTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC, TemplateTitle.SIDEBAR_NOVEL, TemplateTitle.SIDEBAR_AUDIO) >>
+				Optional.empty()
+		0 * _
+		comicsTemplate.photonovel
+	}
+
 	void "clears title when it contains '(comic)'"() {
 		given:
 		List<CategoryHeader> categoryHeaderList = Mock(List)
@@ -125,6 +148,29 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		List<CategoryHeader> categoryHeaderList = Mock(List)
 		Page page = new Page(
 				title: TITLE_FOTONOVEL,
+				categories: categoryHeaderList)
+		ModelPage modelPage = new ModelPage()
+
+		when:
+		ComicsTemplate comicsTemplate = comicsTemplatePageProcessor.process(page)
+
+		then:
+		2 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.PHOTONOVELS)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >>
+				Optional.empty()
+		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
+		1 * comicsTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC, TemplateTitle.SIDEBAR_NOVEL, TemplateTitle.SIDEBAR_AUDIO) >>
+				Optional.empty()
+		0 * _
+		comicsTemplate.title == TITLE
+	}
+
+	void "clears title when it contains '(omnibus)'"() {
+		given:
+		List<CategoryHeader> categoryHeaderList = Mock(List)
+		Page page = new Page(
+				title: TITLE_OMNIBUS,
 				categories: categoryHeaderList)
 		ModelPage modelPage = new ModelPage()
 

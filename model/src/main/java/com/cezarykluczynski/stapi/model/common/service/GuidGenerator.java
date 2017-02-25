@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.model.common.service;
 
+import com.cezarykluczynski.stapi.model.comicCollection.entity.ComicCollection;
 import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries;
 import com.cezarykluczynski.stapi.model.comicStrip.entity.ComicStrip;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics;
@@ -36,6 +37,7 @@ public class GuidGenerator {
 		CUSTOM_SYMBOL_MAP.put(ComicSeries.class, "CS");
 		CUSTOM_SYMBOL_MAP.put(Comics.class, "CC");
 		CUSTOM_SYMBOL_MAP.put(ComicStrip.class, "CT");
+		CUSTOM_SYMBOL_MAP.put(ComicCollection.class, "CL");
 	}
 
 	private EntityManager entityManager;

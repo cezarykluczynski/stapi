@@ -137,6 +137,9 @@ public class CategoryTitle {
 	public static final String COMICS = "Comics";
 	public static final String PHOTONOVELS = "Photonovels";
 
+	public static final String COMIC_COLLECTIONS = "Comic_collections";
+	public static final String PHOTONOVELS_COLLECTIONS = "Photonovel_collections";
+
 	public static final String STAR_TREK_SERIES_MAGAZINES = "Star_Trek_series_magazines";
 
 }

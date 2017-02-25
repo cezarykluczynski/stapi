@@ -23,32 +23,22 @@ import java.util.Set;
 @Slf4j
 public class ComicsTemplateWikitextStaffEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<String, ComicsTemplate>> {
 
-	private static final String WRITER = "writer";
-	private static final String WRITTEN_BY = "Written by";
-	private static final String ADDITIONAL_DIALOG_BY = "Additional dialog by";
-	private static final String FEATURING_CONCEPTS = "Featuring concepts";
-	private static final String ORIGINAL_SCRIPT_BY = "original script by";
-	private static final String PLOT_BY = "Plot by";
-	private static final String ARTIST = "Artist";
-	private static final String ART_DIRECTOR = "Art Director";
-	private static final String COVER_ART = "Cover Art";
-	private static final String SCHEDULED_ARTIST = "Scheduled Artist";
-	private static final String EDITOR = "Editor";
-	private static final String GUEST_EDITOR = "Guest Editor";
 	private static final String BASED_ON = "Based on";
-	private static final String CONSULTANT = "consultant";
-	private static final String WITH_THANKS_TO = "with thanks to";
-	private static final String CONCEPT_BY = "concept by";
-	private static final String KLINGON_LANGUAGE = "Klingon Language";
-	private static final String SPECIAL_THANKS = "Special thanks";
-	private static final String THANKS_TO = "Thanks to";
-	private static final String PUBLISHER = "Publisher";
-	private static final String PUBLISHED_BY = "Published by";
-	private static final String PRODUCTION_BY = "Production by";
-	private static final String PRODUCTION_DESIGNER = "Production Designer";
-	private static final String WITH_CHARACTERS_CREATED_BY = "With characters created by";
 	private static final String DEDICATED_TO = "Dedicated to ";
 	private static final List<String> STAR_TREK_CREATED_BY = Lists.newArrayList("Star Trek", "created by");
+
+	private static final List<String> WRITERS_TITLES = Lists.newArrayList("writer", "original script by");
+	private static final List<String> WRITERS_PREFIXES = Lists.newArrayList("Written by", "Additional dialog by", "Plot by", "Featuring concepts");
+	private static final List<String> ARTISTS_PREFIXES = Lists.newArrayList("Artist", "Cover Art", "Scheduled Artist", "Art Director", "Pencils",
+			"Inks", "Colorists", "Letterers", "Art by", "Interior artist", "Inkers", "Colors by", "Letters by", "Interior art", "Color art",
+			"Letter art", "Cover painted by");
+	private static final List<String> EDITORS_PREFIXES = Lists.newArrayList("Editor", "Guest Editor", "Collection Edits", "Collection edited by",
+			"Edits by", "Edited by");
+	private static final List<String> STAFF_TITLES = Lists.newArrayList("Publisher", "Published by", "With characters created by",
+			"Collection Design");
+	private static final List<String> STAFF_PREFIXES = Lists.newArrayList("consultant", "Special thanks", "with thanks to", "concept by",
+			"Klingon Language", "Thanks to", "Production by", "Production Designer", "Introduction by", "Book design by", "Design:", "Designed by",
+			"Collection");
 
 	private WikitextListsExtractor wikitextListsExtractor;
 
@@ -118,24 +108,21 @@ public class ComicsTemplateWikitextStaffEnrichingProcessor implements ItemEnrich
 	}
 
 	private boolean isWritersList(String wikitextListText) {
-		return StringUtil.containsAnyIgnoreCase(wikitextListText, Lists.newArrayList(WRITER, ORIGINAL_SCRIPT_BY))
-				|| StringUtil.startsWithAnyIgnoreCase(wikitextListText, Lists.newArrayList(WRITTEN_BY, ADDITIONAL_DIALOG_BY, PLOT_BY,
-				FEATURING_CONCEPTS));
+		return StringUtil.containsAnyIgnoreCase(wikitextListText, WRITERS_TITLES)
+				|| StringUtil.startsWithAnyIgnoreCase(wikitextListText, WRITERS_PREFIXES);
 	}
 
 	private boolean isArtistsList(String wikitextListText) {
-		return StringUtil.startsWithAnyIgnoreCase(wikitextListText, Lists.newArrayList(ARTIST, COVER_ART, SCHEDULED_ARTIST,
-				ART_DIRECTOR));
+		return StringUtil.startsWithAnyIgnoreCase(wikitextListText, ARTISTS_PREFIXES);
 	}
 
 	private boolean isEditorsList(String wikitextListText) {
-		return StringUtil.startsWithAnyIgnoreCase(wikitextListText, Lists.newArrayList(EDITOR, GUEST_EDITOR));
+		return StringUtil.startsWithAnyIgnoreCase(wikitextListText, EDITORS_PREFIXES);
 	}
 
 	private boolean isStaffList(String wikitextListText) {
-		return StringUtil.containsAnyIgnoreCase(wikitextListText, Lists.newArrayList(CONSULTANT, SPECIAL_THANKS, WITH_THANKS_TO, CONCEPT_BY,
-				KLINGON_LANGUAGE, THANKS_TO, PRODUCTION_BY, PRODUCTION_DESIGNER)) || StringUtil.startsWithAnyIgnoreCase(wikitextListText,
-				Lists.newArrayList(PUBLISHER, PUBLISHED_BY, WITH_CHARACTERS_CREATED_BY));
+		return StringUtil.containsAnyIgnoreCase(wikitextListText, STAFF_PREFIXES) || StringUtil.startsWithAnyIgnoreCase(wikitextListText,
+				STAFF_TITLES);
 	}
 
 }

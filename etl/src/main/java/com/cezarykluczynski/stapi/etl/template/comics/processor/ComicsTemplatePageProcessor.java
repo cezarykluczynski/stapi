@@ -25,8 +25,10 @@ import java.util.Set;
 public class ComicsTemplatePageProcessor implements ItemProcessor<Page, ComicsTemplate> {
 
 	private static final Set<String> INVALID_TITLES = Sets.newHashSet(PageTitle.COMICS, PageTitle.PHOTONOVELS);
+	private static final Set<String> PHOTONOVEL_CATEGORIES = Sets.newHashSet(CategoryTitle.PHOTONOVELS, CategoryTitle.PHOTONOVELS_COLLECTIONS);
 	private static final String COMIC = "(comic";
 	private static final String FOTONOVEL = "(fotonovel";
+	private static final String OMNIBUS = "(omnibus";
 
 	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
@@ -68,7 +70,7 @@ public class ComicsTemplatePageProcessor implements ItemProcessor<Page, ComicsTe
 
 		String title = item.getTitle();
 		ComicsTemplate comicsTemplate = new ComicsTemplate();
-		comicsTemplate.setTitle(StringUtils.containsAny(title, COMIC, FOTONOVEL) ? TitleUtil.getNameFromTitle(title) : title);
+		comicsTemplate.setTitle(StringUtils.containsAny(title, COMIC, FOTONOVEL, OMNIBUS) ? TitleUtil.getNameFromTitle(title) : title);
 		comicsTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 		comicsTemplate.setProductOfRedirect(!item.getRedirectPath().isEmpty());
 		comicsTemplate.setPhotonovel(isPhotonovel(item));
@@ -94,7 +96,7 @@ public class ComicsTemplatePageProcessor implements ItemProcessor<Page, ComicsTe
 	}
 
 	private boolean isPhotonovel(Page item) {
-		return categoryTitlesExtractingProcessor.process(item.getCategories()).stream().anyMatch(CategoryTitle.PHOTONOVELS::equals);
+		return categoryTitlesExtractingProcessor.process(item.getCategories()).stream().anyMatch(PHOTONOVEL_CATEGORIES::contains);
 	}
 
 }

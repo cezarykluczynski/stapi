@@ -8,6 +8,9 @@ import com.cezarykluczynski.stapi.etl.astronomicalObject.link.processor.Astronom
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterProcessor;
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterReader;
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterWriter;
+import com.cezarykluczynski.stapi.etl.comicCollection.creation.processor.ComicCollectionProcessor;
+import com.cezarykluczynski.stapi.etl.comicCollection.creation.processor.ComicCollectionReader;
+import com.cezarykluczynski.stapi.etl.comicCollection.creation.processor.ComicCollectionWriter;
 import com.cezarykluczynski.stapi.etl.comicSeries.creation.processor.ComicSeriesProcessor;
 import com.cezarykluczynski.stapi.etl.comicSeries.creation.processor.ComicSeriesReader;
 import com.cezarykluczynski.stapi.etl.comicSeries.creation.processor.ComicSeriesWriter;
@@ -42,6 +45,7 @@ import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffWriter;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
+import com.cezarykluczynski.stapi.model.comicCollection.entity.ComicCollection;
 import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries;
 import com.cezarykluczynski.stapi.model.comicStrip.entity.ComicStrip;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics;
@@ -247,6 +251,19 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(ComicStripReader.class))
 				.processor(applicationContext.getBean(ComicStripProcessor.class))
 				.writer(applicationContext.getBean(ComicStripWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_COMIC_COLLECTIONS)
+	public Step stepCreateComicCollections() {
+		return stepBuilderFactory.get(StepName.CREATE_COMIC_COLLECTIONS)
+				.<PageHeader, ComicCollection>chunk(stepsProperties.getCreateComicCollections().getCommitInterval())
+				.reader(applicationContext.getBean(ComicCollectionReader.class))
+				.processor(applicationContext.getBean(ComicCollectionProcessor.class))
+				.writer(applicationContext.getBean(ComicCollectionWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)

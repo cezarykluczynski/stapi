@@ -8,6 +8,9 @@ import com.cezarykluczynski.stapi.etl.astronomicalObject.link.processor.Astronom
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterProcessor
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterReader
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterWriter
+import com.cezarykluczynski.stapi.etl.comicCollection.creation.processor.ComicCollectionProcessor
+import com.cezarykluczynski.stapi.etl.comicCollection.creation.processor.ComicCollectionReader
+import com.cezarykluczynski.stapi.etl.comicCollection.creation.processor.ComicCollectionWriter
 import com.cezarykluczynski.stapi.etl.comicSeries.creation.processor.ComicSeriesProcessor
 import com.cezarykluczynski.stapi.etl.comicSeries.creation.processor.ComicSeriesReader
 import com.cezarykluczynski.stapi.etl.comicSeries.creation.processor.ComicSeriesWriter
@@ -534,6 +537,39 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(ComicStripProcessor) >> itemProcessorMock
 		1 * simpleStepBuilderMock.processor(itemProcessorMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(ComicStripWriter) >> itemWriterMock
+		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
+		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
+		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+
+		then: 'step is configured to run only once'
+		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
+		1 * simpleStepBuilderMock.allowStartIfComplete(false) >> simpleStepBuilderMock
+
+		then: 'tasklet step is returned'
+		1 * simpleStepBuilderMock.build() >> taskletStepMock
+
+		then: 'step is being returned'
+		step == taskletStepMock
+	}
+
+	void "CREATE_COMIC_COLLECTIONS step is created"() {
+		when:
+		Step step = etlJobConfiguration.stepCreateComicCollections()
+
+		then: 'StepBuilder is retrieved'
+		1 * stepBuilderFactoryMock.get(StepName.CREATE_COMIC_COLLECTIONS) >> stepBuilderMock
+
+		then: 'commit interval is configured'
+		1 * stepsPropertiesMock.createComicCollections >> stepProperties
+		1 * stepProperties.commitInterval >> STEP_SIZE
+		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+
+		then: 'beans are retrieved from application context, then passed to builder'
+		1 * applicationContextMock.getBean(ComicCollectionReader) >> itemReaderMock
+		1 * simpleStepBuilderMock.reader(itemReaderMock) >> simpleStepBuilderMock
+		1 * applicationContextMock.getBean(ComicCollectionProcessor) >> itemProcessorMock
+		1 * simpleStepBuilderMock.processor(itemProcessorMock) >> simpleStepBuilderMock
+		1 * applicationContextMock.getBean(ComicCollectionWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
 		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
