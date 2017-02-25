@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.comics.mapper
 
 import com.cezarykluczynski.stapi.model.character.entity.Character
+import com.cezarykluczynski.stapi.model.comicCollection.entity.ComicCollection
 import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries
 import com.cezarykluczynski.stapi.model.comics.entity.Comics
 import com.cezarykluczynski.stapi.model.company.entity.Company
@@ -35,8 +36,7 @@ abstract class AbstractComicsMapperTest extends AbstractComicsTest {
 				characters: Sets.newHashSet(Mock(Character)),
 				publishers: Sets.newHashSet(Mock(Company)),
 				references: Sets.newHashSet(Mock(Reference)),
-
-		)
+				comicCollections: Sets.newHashSet(Mock(ComicCollection)))
 	}
 
 }

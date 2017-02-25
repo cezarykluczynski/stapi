@@ -18,18 +18,18 @@
 		<wsdl:part name="response" element="stapi:ComicStripResponse"/>
 	</wsdl:message>
 	<wsdl:portType name="ComicStripPortType">
-		<wsdl:operation name="getComicStrip">
-			<wsdl:input name="getComicStripRequest" message="stapi:ComicStripRequest"/>
-			<wsdl:output name="getComicStripResponse" message="stapi:ComicStripResponse"/>
+		<wsdl:operation name="getComicStrips">
+			<wsdl:input name="getComicStripsRequest" message="stapi:ComicStripRequest"/>
+			<wsdl:output name="getComicStripsResponse" message="stapi:ComicStripResponse"/>
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="ComicStripBinding" type="stapi:ComicStripPortType">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-		<wsdl:operation name="getComicStrip">
-			<wsdl:input name="getComicStripRequest">
+		<wsdl:operation name="getComicStrips">
+			<wsdl:input name="getComicStripsRequest">
 				<soap:body use="literal"/>
 			</wsdl:input>
-			<wsdl:output name="getComicStripResponse">
+			<wsdl:output name="getComicStripsResponse">
 				<soap:body use="literal"/>
 			</wsdl:output>
 		</wsdl:operation>

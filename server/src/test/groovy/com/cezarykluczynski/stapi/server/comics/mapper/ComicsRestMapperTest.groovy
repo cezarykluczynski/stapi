@@ -75,6 +75,7 @@ class ComicsRestMapperTest extends AbstractComicsMapperTest {
 		restComics.publisherHeaders.size() == dBComics.publishers.size()
 		restComics.characterHeaders.size() == dBComics.characters.size()
 		restComics.references.size() == dBComics.references.size()
+		restComics.comicCollectionHeaders.size() == dBComics.comicCollections.size()
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.model.comics.entity;
 
 import com.cezarykluczynski.stapi.model.character.entity.Character;
+import com.cezarykluczynski.stapi.model.comicCollection.entity.ComicCollection;
 import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
@@ -31,8 +32,9 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true, exclude = {"comicSeries", "writers", "artists", "editors", "staff", "publishers", "characters"})
-@EqualsAndHashCode(callSuper = true, exclude = {"comicSeries", "writers", "artists", "editors", "staff", "publishers", "characters"})
+@ToString(callSuper = true, exclude = {"comicSeries", "writers", "artists", "editors", "staff", "publishers", "characters", "comicCollections"})
+@EqualsAndHashCode(callSuper = true, exclude = {"comicSeries", "writers", "artists", "editors", "staff", "publishers", "characters",
+		"comicCollections"})
 public class Comics extends PageAwareEntity implements PageAware {
 
 	@Id
@@ -115,5 +117,8 @@ public class Comics extends PageAwareEntity implements PageAware {
 			joinColumns = @JoinColumn(name = "comics_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "reference_id", nullable = false, updatable = false))
 	private Set<Reference> references = Sets.newHashSet();
+
+	@ManyToMany(mappedBy = "comics")
+	private Set<ComicCollection> comicCollections = Sets.newHashSet();
 
 }

@@ -62,3 +62,7 @@ properties:
     type: array
     items:
       $ref: '#/definitions/Reference'
+  comicCollectionHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/ComicCollectionHeader'

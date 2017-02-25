@@ -17,7 +17,7 @@ public class ComicStripSoapEndpoint implements ComicStripPortType {
 		this.seriesSoapReader = seriesSoapReader;
 	}
 
-	public ComicStripResponse getComicStrip(@WebParam(partName = "request", name = "ComicStripRequest",
+	public ComicStripResponse getComicStrips(@WebParam(partName = "request", name = "ComicStripRequest",
 			targetNamespace = "http://stapi.co/api/v1/soap/comicStrip") ComicStripRequest request) {
 		return seriesSoapReader.read(request);
 	}

@@ -85,6 +85,7 @@ class ComicsSoapMapperTest extends AbstractComicsMapperTest {
 		soapComics.publisherHeaders.size() == dBComics.publishers.size()
 		soapComics.characterHeaders.size() == dBComics.characters.size()
 		soapComics.references.size() == dBComics.references.size()
+		soapComics.comicCollectionHeaders.size() == dBComics.comicCollections.size()
 	}
 
 }

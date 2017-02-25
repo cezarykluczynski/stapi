@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.ComicsRequest;
 import com.cezarykluczynski.stapi.model.comics.dto.ComicsRequestDTO;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics;
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterHeaderSoapMapper;
+import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionHeaderSoapMapper;
 import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesHeaderSoapMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.RequestSortSoapMapper;
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyHeaderSoapMapper;
@@ -16,8 +17,9 @@ import org.mapstruct.Mappings;
 
 import java.util.List;
 
-@Mapper(config = MapstructConfiguration.class, uses = {CharacterHeaderSoapMapper.class, ComicSeriesHeaderSoapMapper.class,
-		CompanyHeaderSoapMapper.class, RequestSortSoapMapper.class, ReferenceSoapMapper.class, StaffHeaderSoapMapper.class})
+@Mapper(config = MapstructConfiguration.class, uses = {CharacterHeaderSoapMapper.class, ComicCollectionHeaderSoapMapper.class,
+		ComicSeriesHeaderSoapMapper.class, CompanyHeaderSoapMapper.class, RequestSortSoapMapper.class, ReferenceSoapMapper.class,
+		StaffHeaderSoapMapper.class})
 public interface ComicsSoapMapper {
 
 	@Mappings({
@@ -39,7 +41,8 @@ public interface ComicsSoapMapper {
 			@Mapping(source = "artists", target = "artistHeaders"),
 			@Mapping(source = "staff", target = "staffHeaders"),
 			@Mapping(source = "publishers", target = "publisherHeaders"),
-			@Mapping(source = "characters", target = "characterHeaders")
+			@Mapping(source = "characters", target = "characterHeaders"),
+			@Mapping(source = "comicCollections", target = "comicCollectionHeaders")
 	})
 	com.cezarykluczynski.stapi.client.v1.soap.Comics map(Comics comics);
 

@@ -1,0 +1,68 @@
+type: object
+properties:
+  guid:
+    type: string
+  title:
+    type: string
+  publishedYear:
+    type: integer
+  publishedMonth:
+    type: integer
+  publishedDay:
+    type: integer
+  coverYear:
+    type: integer
+  coverMonth:
+    type: integer
+  coverDay:
+    type: integer
+  numberOfPages:
+    type: integer
+  stardateFrom:
+    type: number
+    format: float
+  stardateTo:
+    type: number
+    format: float
+  yearFrom:
+    type: integer
+  yearTo:
+    type: integer
+  photonovel:
+    type: boolean
+  comicSeriesHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/ComicSeriesHeader'
+  writerHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/StaffHeader'
+  editorHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/StaffHeader'
+  artistHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/StaffHeader'
+  staffHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/StaffHeader'
+  publisherHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/CompanyHeader'
+  characterHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/CharacterHeader'
+  references:
+    type: array
+    items:
+      $ref: '#/definitions/Reference'
+  comicsHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/ComicsHeader'

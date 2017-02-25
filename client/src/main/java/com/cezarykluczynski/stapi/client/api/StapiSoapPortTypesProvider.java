@@ -4,6 +4,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectService;
 import com.cezarykluczynski.stapi.client.v1.soap.CharacterPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.CharacterService;
+import com.cezarykluczynski.stapi.client.v1.soap.ComicCollectionPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.ComicCollectionService;
 import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesService;
 import com.cezarykluczynski.stapi.client.v1.soap.ComicStripPortType;
@@ -64,6 +66,9 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 	@Getter
 	private ComicStripPortType comicStripPortType;
 
+	@Getter
+	private ComicCollectionPortType comicCollectionPortType;
+
 	public StapiSoapPortTypesProvider() {
 		seriesPortType = new SeriesService().getSeriesPortType();
 		performerPortType = new PerformerService().getPerformerPortType();
@@ -76,6 +81,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		comicSeriesPortType = new ComicSeriesService().getComicSeriesPortType();
 		comicsPortType = new ComicsService().getComicsPortType();
 		comicStripPortType = new ComicStripService().getComicStripPortType();
+		comicCollectionPortType = new ComicCollectionService().getComicCollectionPortType();
 	}
 
 	public StapiSoapPortTypesProvider(String apiUrl) {
@@ -91,13 +97,13 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		comicSeriesPortType = (ComicSeriesPortType) changeUrl(new ComicSeriesService().getComicSeriesPortType());
 		comicsPortType = (ComicsPortType) changeUrl(new ComicsService().getComicsPortType());
 		comicStripPortType = (ComicStripPortType) changeUrl(new ComicStripService().getComicStripPortType());
+		comicCollectionPortType = (ComicCollectionPortType) changeUrl(new ComicCollectionService().getComicCollectionPortType());
 	}
 
 	private Object changeUrl(Object service) {
 		BindingProvider bindingProvider = (BindingProvider) service;
 		Map<String, Object> requestContext = bindingProvider.getRequestContext();
-		String newServiceUrl = changeBaseUrl(apiUrl,
-				(String) requestContext.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY));
+		String newServiceUrl = changeBaseUrl(apiUrl, (String) requestContext.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY));
 		requestContext.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, newServiceUrl);
 		return service;
 	}

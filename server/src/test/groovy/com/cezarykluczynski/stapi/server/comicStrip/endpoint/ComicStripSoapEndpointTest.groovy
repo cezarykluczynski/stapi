@@ -22,7 +22,7 @@ class ComicStripSoapEndpointTest extends Specification {
 		ComicStripResponse comicStripResponse = Mock(ComicStripResponse)
 
 		when:
-		ComicStripResponse comicStripResponseResult = comicStripSoapEndpoint.getComicStrip(comicStripRequest)
+		ComicStripResponse comicStripResponseResult = comicStripSoapEndpoint.getComicStrips(comicStripRequest)
 
 		then:
 		1 * comicStripSoapReaderMock.read(comicStripRequest) >> comicStripResponse

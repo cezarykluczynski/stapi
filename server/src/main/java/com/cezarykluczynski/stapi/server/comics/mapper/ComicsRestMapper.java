@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.comics.mapper;
 import com.cezarykluczynski.stapi.model.comics.dto.ComicsRequestDTO;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics;
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterHeaderRestMapper;
+import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionHeaderRestMapper;
 import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesHeaderRestMapper;
 import com.cezarykluczynski.stapi.server.comics.dto.ComicsRestBeanParams;
 import com.cezarykluczynski.stapi.server.common.mapper.RequestSortRestMapper;
@@ -16,8 +17,9 @@ import org.mapstruct.Mappings;
 
 import java.util.List;
 
-@Mapper(config = MapstructConfiguration.class, uses = {CharacterHeaderRestMapper.class, ComicSeriesHeaderRestMapper.class,
-		CompanyHeaderRestMapper.class, ReferenceRestMapper.class, RequestSortRestMapper.class, StaffHeaderRestMapper.class})
+@Mapper(config = MapstructConfiguration.class, uses = {CharacterHeaderRestMapper.class, ComicCollectionHeaderRestMapper.class,
+		ComicSeriesHeaderRestMapper.class, CompanyHeaderRestMapper.class, ReferenceRestMapper.class, RequestSortRestMapper.class,
+		StaffHeaderRestMapper.class})
 public interface ComicsRestMapper {
 
 	ComicsRequestDTO map(ComicsRestBeanParams comicsRestBeanParams);
@@ -29,7 +31,8 @@ public interface ComicsRestMapper {
 			@Mapping(source = "artists", target = "artistHeaders"),
 			@Mapping(source = "staff", target = "staffHeaders"),
 			@Mapping(source = "publishers", target = "publisherHeaders"),
-			@Mapping(source = "characters", target = "characterHeaders")
+			@Mapping(source = "characters", target = "characterHeaders"),
+			@Mapping(source = "comicCollections", target = "comicCollectionHeaders")
 	})
 	com.cezarykluczynski.stapi.client.v1.rest.model.Comics map(Comics comics);
 
