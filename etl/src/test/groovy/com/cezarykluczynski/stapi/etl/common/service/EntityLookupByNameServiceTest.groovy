@@ -3,13 +3,15 @@ package com.cezarykluczynski.stapi.etl.common.service
 import com.cezarykluczynski.stapi.etl.common.mapper.MediaWikiSourceMapper
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.character.repository.CharacterRepository
+import com.cezarykluczynski.stapi.model.comics.entity.Comics
+import com.cezarykluczynski.stapi.model.comics.repository.ComicsRepository
+import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource as ModelMediaWikiSource
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.model.staff.repository.StaffRepository
 import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource as SourcesMediaWikiSource
-import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource as ModelMediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import spock.lang.Specification
 
@@ -22,6 +24,7 @@ class EntityLookupByNameServiceTest extends Specification {
 	private static final String CHARACTER_NAME = 'CHARACTER_NAME'
 	private static final String PERFORMER_NAME = 'PERFORMER_NAME'
 	private static final String STAFF_NAME = 'STAFF_NAME'
+	private static final String COMICS_NAME = 'COMICS_NAME'
 	private static final Long PAGE_ID = 1L
 
 	private PageApi pageApiMock
@@ -32,18 +35,21 @@ class EntityLookupByNameServiceTest extends Specification {
 
 	private StaffRepository staffRepositoryMock
 
-	private EntityLookupByNameService entityLookupByNameService
+	private ComicsRepository comicsRepositoryMock
 
 	private MediaWikiSourceMapper mediaWikiSourceMapper
+
+	private EntityLookupByNameService entityLookupByNameService
 
 	void setup() {
 		pageApiMock = Mock(PageApi)
 		characterRepositoryMock = Mock(CharacterRepository)
 		performerRepositoryMock = Mock(PerformerRepository)
 		staffRepositoryMock = Mock(StaffRepository)
+		comicsRepositoryMock = Mock(ComicsRepository)
 		mediaWikiSourceMapper = Mock(MediaWikiSourceMapper)
 		entityLookupByNameService = new EntityLookupByNameService(pageApiMock, characterRepositoryMock, performerRepositoryMock, staffRepositoryMock,
-				mediaWikiSourceMapper)
+				comicsRepositoryMock, mediaWikiSourceMapper)
 	}
 
 	void "gets character by name from repository"() {
@@ -296,6 +302,90 @@ class EntityLookupByNameServiceTest extends Specification {
 		1 * staffRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
 		0 * _
 		!staffOptional.present
+	}
+
+	void "gets comics by name from repository"() {
+		given:
+		Comics comics = Mock(Comics)
+
+		when:
+		Optional<Comics> comicsOptional = entityLookupByNameService.findComicsByName(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE)
+
+		then:
+		1 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
+		1 * comicsRepositoryMock.findByPageTitleAndPageMediaWikiSource(COMICS_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.of(comics)
+		0 * _
+		comicsOptional.get() == comics
+	}
+
+	void "gets comics by name from page api, then from repository"() {
+		given:
+		Comics comics = Mock(Comics)
+		Page page = Mock(Page)
+
+		when:
+		Optional<Comics> comicsOptional = entityLookupByNameService.findComicsByName(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE)
+
+		then:
+		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
+		1 * comicsRepositoryMock.findByPageTitleAndPageMediaWikiSource(COMICS_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
+		1 * pageApiMock.getPage(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
+		1 * page.pageId >> PAGE_ID
+		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
+		1 * comicsRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.of(comics)
+		0 * _
+		comicsOptional.get() == comics
+	}
+
+	void "gets comics by name from page api, then from repository, when NonUniqueResultException was thrown"() {
+		given:
+		Comics comics = Mock(Comics)
+		Page page = Mock(Page)
+
+		when:
+		Optional<Comics> comicsOptional = entityLookupByNameService.findComicsByName(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE)
+
+		then:
+		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
+		1 * comicsRepositoryMock.findByPageTitleAndPageMediaWikiSource(COMICS_NAME, MODEL_MEDIA_WIKI_SOURCE) >> { args ->
+			throw new NonUniqueResultException()
+		}
+		1 * pageApiMock.getPage(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
+		1 * page.pageId >> PAGE_ID
+		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
+		1 * comicsRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.of(comics)
+		0 * _
+		comicsOptional.get() == comics
+	}
+
+	void "does not get comics when page api returns null"() {
+		when:
+		Optional<Comics> comicsOptional = entityLookupByNameService.findComicsByName(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE)
+
+		then:
+		1 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
+		1 * comicsRepositoryMock.findByPageTitleAndPageMediaWikiSource(COMICS_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
+		1 * pageApiMock.getPage(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> null
+		0 * _
+		!comicsOptional.present
+	}
+
+	void "does not get comics when page api returns page, but staff repository returns empty optional"() {
+		given:
+		Page page = Mock(Page)
+
+		when:
+		Optional<Comics> comicsOptional = entityLookupByNameService.findComicsByName(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE)
+
+		then:
+		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
+		1 * comicsRepositoryMock.findByPageTitleAndPageMediaWikiSource(COMICS_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
+		1 * pageApiMock.getPage(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
+		1 * page.pageId >> PAGE_ID
+		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
+		1 * comicsRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
+		0 * _
+		!comicsOptional.present
 	}
 
 }

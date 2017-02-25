@@ -3,6 +3,8 @@ package com.cezarykluczynski.stapi.etl.common.service;
 import com.cezarykluczynski.stapi.etl.common.mapper.MediaWikiSourceMapper;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.character.repository.CharacterRepository;
+import com.cezarykluczynski.stapi.model.comics.entity.Comics;
+import com.cezarykluczynski.stapi.model.comics.repository.ComicsRepository;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
@@ -29,15 +31,18 @@ public class EntityLookupByNameService {
 
 	private StaffRepository staffRepository;
 
+	private ComicsRepository comicsRepository;
+
 	private MediaWikiSourceMapper mediaWikiSourceMapper;
 
 	@Inject
 	public EntityLookupByNameService(PageApi pageApi, CharacterRepository characterRepository, PerformerRepository performerRepository,
-			StaffRepository staffRepository, MediaWikiSourceMapper mediaWikiSourceMapper) {
+			StaffRepository staffRepository, ComicsRepository comicsRepository, MediaWikiSourceMapper mediaWikiSourceMapper) {
 		this.pageApi = pageApi;
 		this.characterRepository = characterRepository;
 		this.performerRepository = performerRepository;
 		this.staffRepository = staffRepository;
+		this.comicsRepository = comicsRepository;
 		this.mediaWikiSourceMapper = mediaWikiSourceMapper;
 	}
 
@@ -103,6 +108,29 @@ public class EntityLookupByNameService {
 			Page page = pageApi.getPage(staffName, mediaWikiSource);
 			if (page != null) {
 				return staffRepository.findByPagePageIdAndPageMediaWikiSource(page.getPageId(),
+						mediaWikiSourceMapper.fromSourcesToEntity(page.getMediaWikiSource()));
+			}
+		}
+
+		return Optional.empty();
+	}
+
+	public Optional<Comics> findComicsByName(String comicsName, MediaWikiSource mediaWikiSource) {
+		Optional<Comics> comicsOptional;
+
+		try {
+			comicsOptional = comicsRepository.findByPageTitleAndPageMediaWikiSource(comicsName,
+					mediaWikiSourceMapper.fromSourcesToEntity(mediaWikiSource));
+		} catch (NonUniqueResultException e) {
+			comicsOptional = Optional.empty();
+		}
+
+		if (comicsOptional.isPresent()) {
+			return comicsOptional;
+		} else {
+			Page page = pageApi.getPage(comicsName, mediaWikiSource);
+			if (page != null) {
+				return comicsRepository.findByPagePageIdAndPageMediaWikiSource(page.getPageId(),
 						mediaWikiSourceMapper.fromSourcesToEntity(page.getMediaWikiSource()));
 			}
 		}

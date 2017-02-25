@@ -15,10 +15,10 @@ class WikitextListsExtractorTest extends Specification {
 <!--
 ** [[Grant Goleash]] (cover color art)
 -->
-* Editor:
-** [[Scott Dunbier]]
-* Creative consultant: [[Roberto Orci]]
-* Special thanks to [[Risa Kessler]] and [[John Van Citters]] at CBS Consumer Products.
+# Editor:
+## [[Scott Dunbier]]
+# Creative consultant: [[Roberto Orci]]
+# Special thanks to [[Risa Kessler]] and [[John Van Citters]] at CBS Consumer Products.
 '''
 
 	private static final String DEFINITION_WIKITEXT = '''

@@ -16,13 +16,17 @@ import java.util.stream.Collectors;
 public class WikitextListsExtractor {
 
 	private static final String ASTERISK = "*";
+	private static final String HASH = "#";
 	private static final String SEMICOLON = ";";
 	private static final String COLON = ":";
 
 	private static final Pattern REMOVE_COMMENTS = Pattern.compile("<!--(.+?)-->", Pattern.DOTALL);
 
 	public List<WikitextList> extractListsFromWikitext(String wikitext) {
-		return extractListLikeFromWikitext(wikitext, ASTERISK, ASTERISK);
+		List<WikitextList> wikitextListList = Lists.newArrayList();
+		wikitextListList.addAll(extractListLikeFromWikitext(wikitext, ASTERISK, ASTERISK));
+		wikitextListList.addAll(extractListLikeFromWikitext(wikitext, HASH, HASH));
+		return wikitextListList;
 	}
 
 

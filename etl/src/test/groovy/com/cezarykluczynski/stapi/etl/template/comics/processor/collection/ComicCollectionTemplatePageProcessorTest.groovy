@@ -10,8 +10,6 @@ import spock.lang.Specification
 
 class ComicCollectionTemplatePageProcessorTest extends Specification {
 
-	private static final String WIKITEXT = 'WIKITEXT'
-
 	private ComicsTemplatePageProcessor comicsTemplatePageProcessorMock
 
 	private ComicsTemplateToComicCollectionTemplateProcessor comicsTemplateToComicCollectionTemplateProcessorMock
@@ -43,7 +41,7 @@ class ComicCollectionTemplatePageProcessorTest extends Specification {
 
 	void "maps not null ComicsTemplate to ComicCollectionTemplate, then adds comics from ComicCollectionTemplateWikitextComicsProcessor"() {
 		given:
-		Page page = new Page(wikitext: WIKITEXT)
+		Page page = new Page()
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
 		ComicCollectionTemplate comicCollectionTemplate = new ComicCollectionTemplate()
 		Comics comics1 = Mock(Comics)
@@ -55,7 +53,7 @@ class ComicCollectionTemplatePageProcessorTest extends Specification {
 		then:
 		1 * comicsTemplatePageProcessorMock.process(page) >> comicsTemplate
 		1 * comicsTemplateToComicCollectionTemplateProcessorMock.process(comicsTemplate) >> comicCollectionTemplate
-		1 * comicCollectionTemplateWikitextComicsProcessorMock.process(WIKITEXT) >> Sets.newHashSet(comics1, comics2)
+		1 * comicCollectionTemplateWikitextComicsProcessorMock.process(page) >> Sets.newHashSet(comics1, comics2)
 		0 * _
 		comicCollectionTemplateOutput == comicCollectionTemplate
 		comicCollectionTemplateOutput.comics.size() == 2

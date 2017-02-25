@@ -11,6 +11,8 @@ class WikitextApiImplTest extends Specification {
 
 	private static final String WIKITEXT = 'blah blah [[Some page|description]] and [[another page]] blah blah [[blah'
 	private static final String WIKITEXT_WITH_TEMPLATES = '{{realworld}}{{sidebar planet\nName=Mantiles}}blah blah{{ds9|Some page}} blah'
+	private static final String WIKITEXT_WITH_DIS = '* [[Malibu DS9]]:\n** #1: "{{dis|Stowaway|comic}}"\n** #2: "[[Stowaway, Part II]]"\n' +
+			'** #3: "{{dis|Old Wounds|comic|the comic}}"\n** #4: "[[Emancipation, Part I]]"'
 	private static final String WIKITEXT_WITHOUT_TEMPLATES = 'blah blah blah'
 	private static final String WIKITEXT_WITH_LINKS = '\'\'[[Star Trek]]\'\' created by [[Gene Roddenberry]]'
 	private static final String WIKITEXT_WITHOUT_LINKS = '\'\'Star Trek\'\' created by Gene Roddenberry'
@@ -25,8 +27,7 @@ class WikitextApiImplTest extends Specification {
 
 	void "gets titles from wikitext"() {
 		when:
-		List<String> pageList = wikitextApiImpl
-				.getPageTitlesFromWikitext(WIKITEXT)
+		List<String> pageList = wikitextApiImpl.getPageTitlesFromWikitext(WIKITEXT)
 
 		then:
 		pageList.size() == 2
@@ -36,19 +37,50 @@ class WikitextApiImplTest extends Specification {
 
 	void "gets page links from wikitext"() {
 		when:
-		List<PageLink> pageList = wikitextApiImpl
-				.getPageLinksFromWikitext(WIKITEXT)
+		List<PageLink> pageLinkList = wikitextApiImpl.getPageLinksFromWikitext(WIKITEXT)
 
 		then:
-		pageList.size() == 2
-		pageList[0].title == 'Some page'
-		pageList[0].description == 'description'
-		pageList[0].startPosition == 10
-		pageList[0].endPosition == 35
-		pageList[1].title == 'another page'
-		pageList[1].description == null
-		pageList[1].startPosition == 40
-		pageList[1].endPosition == 56
+		pageLinkList.size() == 2
+		pageLinkList[0].title == 'Some page'
+		pageLinkList[0].description == 'description'
+		pageLinkList[0].startPosition == 10
+		pageLinkList[0].endPosition == 35
+		pageLinkList[1].title == 'another page'
+		pageLinkList[1].description == null
+		pageLinkList[1].startPosition == 40
+		pageLinkList[1].endPosition == 56
+	}
+
+	void "gets page links from wikitext, including those from 'dis' template"() {
+		when:
+		List<PageLink> pageLinkList = wikitextApiImpl.getPageLinksFromWikitext(WIKITEXT_WITH_DIS)
+
+		then:
+		pageLinkList.size() == 5
+		pageLinkList[0].title == 'Malibu DS9'
+		pageLinkList[0].description == null
+		pageLinkList[0].startPosition == 2
+		pageLinkList[0].endPosition == 16
+
+		pageLinkList[1].title == 'Stowaway (comic)'
+		pageLinkList[1].description == 'Stowaway'
+		pageLinkList[1].startPosition == 30
+		pageLinkList[1].endPosition == 48
+
+		pageLinkList[2].title == 'Stowaway, Part II'
+		pageLinkList[2].description == null
+		pageLinkList[2].startPosition == 58
+		pageLinkList[2].endPosition == 79
+
+		pageLinkList[3].title == 'Old Wounds (comic)'
+		pageLinkList[3].description == 'the comic'
+		pageLinkList[3].startPosition == 93
+		pageLinkList[3].endPosition == 123
+
+		pageLinkList[4].title == 'Emancipation, Part I'
+		pageLinkList[4].description == null
+		pageLinkList[4].startPosition == 133
+		pageLinkList[4].endPosition == 157
 	}
 
 	void "removes templates from wikitext"() {

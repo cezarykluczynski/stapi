@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,12 +20,14 @@ import java.util.stream.Collectors;
 public class WikitextApiImpl implements WikitextApi {
 
 	private static final Integer LINK_CONTENTS_GROUP = 1;
-
-	private static final Integer WIKITEXT_LINK_PADDING = 2;
-
+	private static final Integer PADDING = 2;
 	private static final String PIPE = "|";
+	private static final String LEFT_BRACKET = "(";
+	private static final String RIGHT_BRACKET = ")";
+	private static final String SPACE = " ";
 
 	private static final Pattern LINK = Pattern.compile("\\[\\[(.+?)]]");
+	private static final Pattern DIS_LINK = Pattern.compile("\\{\\{dis\\|(.+?)}}");
 
 	private static final Pattern MULTILINE_WITHOUT_TEMPLATES = Pattern.compile("\\{\\{(.*?)}}", Pattern.DOTALL);
 
@@ -45,20 +48,15 @@ public class WikitextApiImpl implements WikitextApi {
 			return Lists.newArrayList();
 		}
 
-		Matcher matcher = LINK.matcher(wikitext);
 		List<PageLink> allMatches = Lists.newArrayList();
 
-		while (matcher.find()) {
-			String group = matcher.group(LINK_CONTENTS_GROUP);
-			PageLink pageLink = new PageLink();
-			pageLink.setTitle(StringUtils.trim(StringUtils.substringBefore(group, PIPE)));
-			pageLink.setDescription(group.contains(PIPE) ? StringUtils.trim(StringUtils.substringAfter(group, PIPE)) : null);
-			pageLink.setStartPosition(matcher.start(LINK_CONTENTS_GROUP) - WIKITEXT_LINK_PADDING);
-			pageLink.setEndPosition(matcher.end(LINK_CONTENTS_GROUP) + WIKITEXT_LINK_PADDING);
-			allMatches.add(pageLink);
-		}
+		allMatches.addAll(extractLinkMatches(wikitext));
+		allMatches.addAll(extractDisMatches(wikitext));
 
-		return allMatches;
+		return allMatches
+				.stream()
+				.sorted(Comparator.comparing(PageLink::getStartPosition))
+				.collect(Collectors.toList());
 	}
 
 	@Override
@@ -101,11 +99,57 @@ public class WikitextApiImpl implements WikitextApi {
 				log.warn("Two template parts were found, but \"{}\" key was not found", TWO);
 				return templatePart1.getValue();
 			} else if (templatePart1 != null) {
-				return templatePart1.getValue() + " (" + templatePart2.getValue() + ")";
+				return templatePart1.getValue() + SPACE + LEFT_BRACKET + templatePart2.getValue() + RIGHT_BRACKET;
 			}
 		}
 
 		return null;
+	}
+
+	private List<PageLink> extractLinkMatches(String wikitext) {
+		List<PageLink> linkMatches = Lists.newArrayList();
+		Matcher linkMatcher = LINK.matcher(wikitext);
+
+		while (linkMatcher.find()) {
+			String group = linkMatcher.group(LINK_CONTENTS_GROUP);
+			PageLink pageLink = new PageLink();
+			pageLink.setTitle(StringUtils.trim(StringUtils.substringBefore(group, PIPE)));
+			pageLink.setDescription(group.contains(PIPE) ? StringUtils.trim(StringUtils.substringAfter(group, PIPE)) : null);
+			pageLink.setStartPosition(linkMatcher.start(LINK_CONTENTS_GROUP) - PADDING);
+			pageLink.setEndPosition(linkMatcher.end(LINK_CONTENTS_GROUP) + PADDING);
+			linkMatches.add(pageLink);
+		}
+
+		return linkMatches;
+	}
+
+	private List<PageLink> extractDisMatches(String wikitext) {
+		List<PageLink> disMatches = Lists.newArrayList();
+		Matcher disMatcher = DIS_LINK.matcher(wikitext);
+
+		while (disMatcher.find()) {
+			String group = disMatcher.group(LINK_CONTENTS_GROUP);
+			List<String> templateParts = Lists.newArrayList(group.split("\\" + PIPE));
+			PageLink pageLink = new PageLink();
+
+			if (templateParts.size() < 2) {
+				continue;
+			}
+
+			String title = templateParts.get(0) + SPACE + LEFT_BRACKET + templateParts.get(1) + RIGHT_BRACKET;
+			pageLink.setTitle(title);
+			pageLink.setDescription(templateParts.get(0));
+
+			if (templateParts.size() == 3) {
+				pageLink.setDescription(templateParts.get(2));
+			}
+
+			pageLink.setStartPosition(disMatcher.start(LINK_CONTENTS_GROUP) - PADDING);
+			pageLink.setEndPosition(disMatcher.end(LINK_CONTENTS_GROUP) + PADDING);
+			disMatches.add(pageLink);
+		}
+
+		return disMatches;
 	}
 
 	private Template.Part getTemplatePartByKey(List<Template.Part> templatePartList, String key) {
