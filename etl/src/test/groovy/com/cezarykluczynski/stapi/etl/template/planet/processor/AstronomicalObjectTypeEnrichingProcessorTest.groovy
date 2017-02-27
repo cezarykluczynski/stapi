@@ -41,6 +41,7 @@ class AstronomicalObjectTypeEnrichingProcessorTest extends Specification {
 		CategoryTitle.PLANETS        | AstronomicalObjectType.PLANET
 		CategoryTitle.ASTEROIDS      | AstronomicalObjectType.ASTEROID
 		CategoryTitle.ASTEROID_BELTS | AstronomicalObjectType.ASTEROID_BELT
+		CategoryTitle.CLUSTERS       | AstronomicalObjectType.CLUSTER
 		CategoryTitle.COMETS         | AstronomicalObjectType.COMET
 		CategoryTitle.CONSTELLATIONS | AstronomicalObjectType.CONSTELLATION
 		CategoryTitle.GALAXIES       | AstronomicalObjectType.GALAXY
@@ -48,6 +49,7 @@ class AstronomicalObjectTypeEnrichingProcessorTest extends Specification {
 		CategoryTitle.NEBULAE        | AstronomicalObjectType.NEBULA
 		CategoryTitle.PLANETOIDS     | AstronomicalObjectType.PLANETOID
 		CategoryTitle.QUASARS        | AstronomicalObjectType.QUASAR
+		CategoryTitle.REGIONS        | AstronomicalObjectType.REGION
 		CategoryTitle.STAR_SYSTEMS   | AstronomicalObjectType.STAR_SYSTEM
 		CategoryTitle.STARS          | AstronomicalObjectType.STAR
 	}

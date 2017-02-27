@@ -1,14 +1,13 @@
 package com.cezarykluczynski.stapi.etl.template.individual.service
 
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor
+import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.util.constant.PageTitle
+import com.cezarykluczynski.stapi.util.tool.LogicUtil
 import com.google.common.collect.Lists
-import org.apache.commons.lang3.StringUtils
 import spock.lang.Specification
 
 class IndividualTemplateFilterTest extends Specification {
@@ -18,14 +17,14 @@ class IndividualTemplateFilterTest extends Specification {
 
 	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessorMock
 
-	private WikitextApi wikitextApiMock
+	private CategorySortingService categorySortingServiceMock
 
 	private IndividualTemplateFilter individualTemplateFilter
 
 	void setup() {
 		categoryTitlesExtractingProcessorMock = Mock(CategoryTitlesExtractingProcessor)
-		wikitextApiMock = Mock(WikitextApi)
-		individualTemplateFilter = new IndividualTemplateFilter(categoryTitlesExtractingProcessorMock, wikitextApiMock)
+		categorySortingServiceMock = Mock(CategorySortingService)
+		individualTemplateFilter = new IndividualTemplateFilter(categoryTitlesExtractingProcessorMock, categorySortingServiceMock)
 	}
 
 	void "returns true when page name starts with 'Unnamed '"() {
@@ -170,8 +169,9 @@ class IndividualTemplateFilterTest extends Specification {
 		shouldBeFilteredOut
 	}
 
-	void "returns true when page is sorted on top of any category"() {
+	void "returns results of CategorySortingService call when no other conditions were met"() {
 		given:
+		boolean sortedOnTop = LogicUtil.nextBoolean()
 		Page page = new Page(
 				title: TITLE,
 				wikitext: WIKITEXT,
@@ -183,37 +183,8 @@ class IndividualTemplateFilterTest extends Specification {
 
 		then:
 		1 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
-		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT) >> Lists.newArrayList(
-				new PageLink(
-						title: 'Category:Some page'
-				),
-				new PageLink(
-						title: 'category:Some other page',
-						description: StringUtils.EMPTY
-				),
-				new PageLink(
-						title: 'category:Yet another page',
-						description: 'Page, yet another'
-				)
-		)
-		shouldBeFilteredOut
-	}
-
-	void "returns false when there is no categories and no links in wikitext"() {
-		given:
-		Page page = new Page(
-				title: TITLE,
-				wikitext: WIKITEXT,
-				categories: Lists.newArrayList(),
-				templates: Lists.newArrayList())
-
-		when:
-		boolean shouldBeFilteredOut = individualTemplateFilter.shouldBeFilteredOut(page)
-
-		then:
-		1 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
-		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT) >> Lists.newArrayList()
-		!shouldBeFilteredOut
+		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> sortedOnTop
+		shouldBeFilteredOut ==  sortedOnTop
 	}
 
 }

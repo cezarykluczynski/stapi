@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Service
 public class StepConfigurationValidator {
 
-	private static final long NUMBER_OF_STEPS = 14;
+	private static final long NUMBER_OF_STEPS = 15;
 
 	private StepsProperties stepsProperties;
 
@@ -46,6 +46,7 @@ public class StepConfigurationValidator {
 		stepPropertiesList.add(stepsProperties.getCreatePerformers());
 		stepPropertiesList.add(stepsProperties.getCreateStaff());
 		stepPropertiesList.add(stepsProperties.getCreateAstronomicalObjects());
+		stepPropertiesList.add(stepsProperties.getCreateSpecies());
 		stepPropertiesList.add(stepsProperties.getCreateCharacters());
 		stepPropertiesList.add(stepsProperties.getCreateEpisodes());
 		stepPropertiesList.add(stepsProperties.getCreateMovies());
@@ -67,6 +68,7 @@ public class StepConfigurationValidator {
 		stepPropertiesMap.put(StepName.CREATE_PERFORMERS, stepsProperties.getCreatePerformers());
 		stepPropertiesMap.put(StepName.CREATE_STAFF, stepsProperties.getCreateStaff());
 		stepPropertiesMap.put(StepName.CREATE_ASTRONOMICAL_OBJECTS, stepsProperties.getCreateAstronomicalObjects());
+		stepPropertiesMap.put(StepName.CREATE_SPECIES, stepsProperties.getCreateSpecies());
 		stepPropertiesMap.put(StepName.CREATE_CHARACTERS, stepsProperties.getCreateCharacters());
 		stepPropertiesMap.put(StepName.CREATE_EPISODES, stepsProperties.getCreateEpisodes());
 		stepPropertiesMap.put(StepName.CREATE_MOVIES, stepsProperties.getCreateMovies());

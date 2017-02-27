@@ -1,11 +1,10 @@
 package com.cezarykluczynski.stapi.etl.template.individual.service;
 
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
+import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService;
 import com.cezarykluczynski.stapi.etl.template.common.service.PageFilter;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.google.common.collect.Sets;
 import org.apache.commons.lang3.StringUtils;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class IndividualTemplateFilter implements PageFilter {
@@ -32,11 +30,12 @@ public class IndividualTemplateFilter implements PageFilter {
 
 	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
-	private WikitextApi wikitextApi;
+	private CategorySortingService categorySortingService;
 
-	public IndividualTemplateFilter(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor, WikitextApi wikitextApi) {
+	public IndividualTemplateFilter(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor,
+			CategorySortingService categorySortingService) {
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
-		this.wikitextApi = wikitextApi;
+		this.categorySortingService = categorySortingService;
 	}
 
 	@Override
@@ -56,19 +55,7 @@ public class IndividualTemplateFilter implements PageFilter {
 			return true;
 		}
 
-		List<PageLink> pageLinkList = wikitextApi.getPageLinksFromWikitext(page.getWikitext());
-
-		List<PageLink> categoryPageLinkList = pageLinkList
-				.stream()
-				.filter(pageLink -> pageLink.getTitle().toLowerCase().startsWith("category:"))
-				.filter(pageLink -> pageLink.getDescription() != null && pageLink.getDescription().length() == 0)
-				.collect(Collectors.toList());
-
-		if (!categoryPageLinkList.isEmpty()) {
-			return true;
-		}
-
-		return false;
+		return categorySortingService.isSortedOnTopOfAnyCategory(page);
 	}
 
 }

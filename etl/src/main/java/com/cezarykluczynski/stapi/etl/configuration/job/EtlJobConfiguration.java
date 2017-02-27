@@ -39,6 +39,9 @@ import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerWrit
 import com.cezarykluczynski.stapi.etl.series.creation.processor.SeriesProcessor;
 import com.cezarykluczynski.stapi.etl.series.creation.processor.SeriesReader;
 import com.cezarykluczynski.stapi.etl.series.creation.processor.SeriesWriter;
+import com.cezarykluczynski.stapi.etl.species.creation.processor.SpeciesProcessor;
+import com.cezarykluczynski.stapi.etl.species.creation.processor.SpeciesReader;
+import com.cezarykluczynski.stapi.etl.species.creation.processor.SpeciesWriter;
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffProcessor;
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffReader;
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffWriter;
@@ -54,6 +57,7 @@ import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
+import com.cezarykluczynski.stapi.model.species.entity.Species;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import org.springframework.batch.core.Job;
@@ -147,6 +151,19 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(AstronomicalObjectReader.class))
 				.processor(applicationContext.getBean(AstronomicalObjectProcessor.class))
 				.writer(applicationContext.getBean(AstronomicalObjectWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_SPECIES)
+	public Step stepCreateSpecies() {
+		return stepBuilderFactory.get(StepName.CREATE_SPECIES)
+				.<PageHeader, Species>chunk(stepsProperties.getCreateSpecies().getCommitInterval())
+				.reader(applicationContext.getBean(SpeciesReader.class))
+				.processor(applicationContext.getBean(SpeciesProcessor.class))
+				.writer(applicationContext.getBean(SpeciesWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)

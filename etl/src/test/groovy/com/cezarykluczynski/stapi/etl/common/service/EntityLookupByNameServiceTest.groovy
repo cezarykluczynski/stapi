@@ -8,6 +8,8 @@ import com.cezarykluczynski.stapi.model.comics.repository.ComicsRepository
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource as ModelMediaWikiSource
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository
+import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject
+import com.cezarykluczynski.stapi.model.astronomicalObject.repository.AstronomicalObjectRepository
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.model.staff.repository.StaffRepository
 import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi
@@ -37,6 +39,8 @@ class EntityLookupByNameServiceTest extends Specification {
 
 	private ComicsRepository comicsRepositoryMock
 
+	private AstronomicalObjectRepository astronomicalObjectRepositoryMock
+
 	private MediaWikiSourceMapper mediaWikiSourceMapper
 
 	private EntityLookupByNameService entityLookupByNameService
@@ -47,9 +51,10 @@ class EntityLookupByNameServiceTest extends Specification {
 		performerRepositoryMock = Mock(PerformerRepository)
 		staffRepositoryMock = Mock(StaffRepository)
 		comicsRepositoryMock = Mock(ComicsRepository)
+		astronomicalObjectRepositoryMock = Mock(AstronomicalObjectRepository)
 		mediaWikiSourceMapper = Mock(MediaWikiSourceMapper)
 		entityLookupByNameService = new EntityLookupByNameService(pageApiMock, characterRepositoryMock, performerRepositoryMock, staffRepositoryMock,
-				comicsRepositoryMock, mediaWikiSourceMapper)
+				comicsRepositoryMock, astronomicalObjectRepositoryMock, mediaWikiSourceMapper)
 	}
 
 	void "gets character by name from repository"() {
@@ -386,6 +391,98 @@ class EntityLookupByNameServiceTest extends Specification {
 		1 * comicsRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
 		0 * _
 		!comicsOptional.present
+	}
+
+	void "gets astronomicalObject by name from repository"() {
+		given:
+		AstronomicalObject astronomicalObject = Mock(AstronomicalObject)
+
+		when:
+		Optional<AstronomicalObject> astronomicalObjectOptional = entityLookupByNameService
+				.findAstronomicalObjectByName(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE)
+
+		then:
+		1 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
+		1 * astronomicalObjectRepositoryMock.findByPageTitleAndPageMediaWikiSource(COMICS_NAME, MODEL_MEDIA_WIKI_SOURCE) >>
+				Optional.of(astronomicalObject)
+		0 * _
+		astronomicalObjectOptional.get() == astronomicalObject
+	}
+
+	void "gets astronomicalObject by name from page api, then from repository"() {
+		given:
+		AstronomicalObject astronomicalObject = Mock(AstronomicalObject)
+		Page page = Mock(Page)
+
+		when:
+		Optional<AstronomicalObject> astronomicalObjectOptional = entityLookupByNameService
+				.findAstronomicalObjectByName(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE)
+
+		then:
+		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
+		1 * astronomicalObjectRepositoryMock.findByPageTitleAndPageMediaWikiSource(COMICS_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
+		1 * pageApiMock.getPage(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
+		1 * page.pageId >> PAGE_ID
+		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
+		1 * astronomicalObjectRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >>
+				Optional.of(astronomicalObject)
+		0 * _
+		astronomicalObjectOptional.get() == astronomicalObject
+	}
+
+	void "gets astronomicalObject by name from page api, then from repository, when NonUniqueResultException was thrown"() {
+		given:
+		AstronomicalObject astronomicalObject = Mock(AstronomicalObject)
+		Page page = Mock(Page)
+
+		when:
+		Optional<AstronomicalObject> astronomicalObjectOptional = entityLookupByNameService
+				.findAstronomicalObjectByName(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE)
+
+		then:
+		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
+		1 * astronomicalObjectRepositoryMock.findByPageTitleAndPageMediaWikiSource(COMICS_NAME, MODEL_MEDIA_WIKI_SOURCE) >> { args ->
+			throw new NonUniqueResultException()
+		}
+		1 * pageApiMock.getPage(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
+		1 * page.pageId >> PAGE_ID
+		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
+		1 * astronomicalObjectRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >>
+				Optional.of(astronomicalObject)
+		0 * _
+		astronomicalObjectOptional.get() == astronomicalObject
+	}
+
+	void "does not get astronomicalObject when page api returns null"() {
+		when:
+		Optional<AstronomicalObject> astronomicalObjectOptional = entityLookupByNameService
+				.findAstronomicalObjectByName(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE)
+
+		then:
+		1 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
+		1 * astronomicalObjectRepositoryMock.findByPageTitleAndPageMediaWikiSource(COMICS_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
+		1 * pageApiMock.getPage(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> null
+		0 * _
+		!astronomicalObjectOptional.present
+	}
+
+	void "does not get astronomicalObject when page api returns page, but staff repository returns empty optional"() {
+		given:
+		Page page = Mock(Page)
+
+		when:
+		Optional<AstronomicalObject> astronomicalObjectOptional = entityLookupByNameService
+				.findAstronomicalObjectByName(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE)
+
+		then:
+		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
+		1 * astronomicalObjectRepositoryMock.findByPageTitleAndPageMediaWikiSource(COMICS_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
+		1 * pageApiMock.getPage(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
+		1 * page.pageId >> PAGE_ID
+		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
+		1 * astronomicalObjectRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
+		0 * _
+		!astronomicalObjectOptional.present
 	}
 
 }

@@ -15,6 +15,7 @@ public class TemplateTitle {
 	public static final String SIDEBAR_COMIC_STRIP = "sidebar comic strip";
 	public static final String SIDEBAR_NOVEL = "sidebar novel";
 	public static final String SIDEBAR_AUDIO = "sidebar audio";
+	public static final String SIDEBAR_SPECIES = "sidebar species";
 
 	public static final String BORN = "born";
 

@@ -88,6 +88,7 @@ public class CategoryTitle {
 	public static final String DIS_EPISODES = "DIS_episodes";
 
 	public static final String INDIVIDUALS = "Individuals";
+	public static final String UNNAMED_INDIVIDUALS = "Unnamed_individuals";
 	public static final String MILITARY_PERSONNEL = "Military_personnel";
 	public static final String Q_CONTINUUM = "Q_Continuum";
 	public static final String STARFLEET_PERSONNEL = "Starfleet_personnel";
@@ -100,6 +101,7 @@ public class CategoryTitle {
 	public static final String ASTEROIDS = "Asteroids";
 	public static final String ASTEROID_BELTS = "Asteroid_belts";
 	public static final String COMETS = "Comets";
+	public static final String CLUSTERS = "Clusters";
 	public static final String CONSTELLATIONS = "Constellations";
 	public static final String GALAXIES = "Galaxies";
 	public static final String HOMEWORLDS = "Homeworlds";
@@ -107,6 +109,7 @@ public class CategoryTitle {
 	public static final String NEBULAE = "Nebulae";
 	public static final String PLANETS = "Planets";
 	public static final String PLANETOIDS = "Planetoids";
+	public static final String REGIONS = "Regions";
 	public static final String QUASARS = "Quasars";
 	public static final String STAR_SYSTEMS = "Star_systems";
 	public static final String STARS = "Stars";
@@ -141,5 +144,12 @@ public class CategoryTitle {
 	public static final String PHOTONOVELS_COLLECTIONS = "Photonovel_collections";
 
 	public static final String STAR_TREK_SERIES_MAGAZINES = "Star_Trek_series_magazines";
+
+	public static final String SPECIES = "Species";
+	public static final String UNNAMED_SPECIES = "Unnamed_species";
+	public static final String NON_CORPOREALS = "Non-corporeals";
+
+	public static final String BIOLOGY = "Biology";
+
 
 }

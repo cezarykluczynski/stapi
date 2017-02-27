@@ -22,4 +22,5 @@ public class PageTitle {
 	public static final String STAR_TREK_VOYAGER_MALIBU = "Star Trek: Voyager (Malibu)";
 	public static final String COMICS = "Comics";
 	public static final String PHOTONOVELS = "Photonovels";
+	public static final String ENDANGERED_SPECIES = "Endangered species";
 }

@@ -10,4 +10,6 @@ public interface AstronomicalObjectRepository extends JpaRepository<Astronomical
 
 	Optional<AstronomicalObject> findByPageTitleAndPageMediaWikiSource(String title, MediaWikiSource mediaWikiSource);
 
+	Optional<AstronomicalObject> findByPagePageIdAndPageMediaWikiSource(Long pageId, MediaWikiSource mediaWikiSource);
+
 }

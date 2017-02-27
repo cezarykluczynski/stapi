@@ -37,6 +37,8 @@ public class AstronomicalObjectTypeEnrichingProcessor implements ItemEnrichingPr
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.ASTEROID_BELT);
 		} else if (categoryTitleList.contains(CategoryTitle.COMETS)) {
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.COMET);
+		} else if (categoryTitleList.contains(CategoryTitle.CLUSTERS)) {
+			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.CLUSTER);
 		} else if (categoryTitleList.contains(CategoryTitle.CONSTELLATIONS)) {
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.CONSTELLATION);
 		} else if (categoryTitleList.contains(CategoryTitle.GALAXIES)) {
@@ -49,6 +51,8 @@ public class AstronomicalObjectTypeEnrichingProcessor implements ItemEnrichingPr
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.PLANETOID);
 		} else if (categoryTitleList.contains(CategoryTitle.QUASARS)) {
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.QUASAR);
+		} else if (categoryTitleList.contains(CategoryTitle.REGIONS)) {
+			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.REGION);
 		} else if (categoryTitleList.contains(CategoryTitle.STAR_SYSTEMS)) {
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.STAR_SYSTEM);
 		} else if (categoryTitleList.contains(CategoryTitle.STARS)) {

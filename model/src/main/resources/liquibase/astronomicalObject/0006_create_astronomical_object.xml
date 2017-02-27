@@ -20,8 +20,13 @@
 		<createSequence incrementBy="1" sequenceName="astronomical_object_sequence"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="astronomical_object"
-				constraintName="astronomical_object_page_fkey"
+				constraintName="ao_page_fkey"
 				referencedColumnNames="id"
 				referencedTableName="page"/>
+		<addForeignKeyConstraint baseColumnNames="location_id"
+				baseTableName="astronomical_object"
+				constraintName="ao_location_fkey"
+				referencedColumnNames="id"
+				referencedTableName="astronomical_object"/>
 	</changeSet>
 </databaseChangeLog>

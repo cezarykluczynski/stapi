@@ -1,0 +1,49 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet id="0015_create_species" author="cezarykluczynski">
+		<createTable tableName="species">
+			<column name="id" type="bigint">
+				<constraints unique="true" nullable="false"/>
+			</column>
+			<column name="page_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="guid" type="varchar(14)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="name" type="varchar(128)"/>
+			<column name="homeworld_id" type="bigint"/>
+			<column name="quadrant_id" type="bigint"/>
+			<column name="extinct_species" type="boolean"/>
+			<column name="warp_capable_species" type="boolean"/>
+			<column name="extragalactic_species" type="boolean"/>
+			<column name="humanoid_species" type="boolean"/>
+			<column name="reptilian_species" type="boolean"/>
+			<column name="non_corporeal_species" type="boolean"/>
+			<column name="shapeshifting_species" type="boolean"/>
+			<column name="spaceborn_species" type="boolean"/>
+			<column name="telepathic_species" type="boolean"/>
+			<column name="trans_dimensional_species" type="boolean"/>
+			<column name="unnamed_species" type="boolean"/>
+			<column name="alternate_reality" type="boolean"/>
+		</createTable>
+		<createSequence incrementBy="1" sequenceName="species_sequence"/>
+		<addForeignKeyConstraint baseColumnNames="page_id"
+				baseTableName="species"
+				constraintName="species_page_fkey"
+				referencedColumnNames="id"
+				referencedTableName="page"/>
+		<addForeignKeyConstraint baseColumnNames="homeworld_id"
+				baseTableName="species"
+				constraintName="species_homeworld_fkey"
+				referencedColumnNames="id"
+				referencedTableName="astronomical_object"/>
+		<addForeignKeyConstraint baseColumnNames="quadrant_id"
+				baseTableName="species"
+				constraintName="species_quadrant_fkey"
+				referencedColumnNames="id"
+				referencedTableName="astronomical_object"/>
+	</changeSet>
+</databaseChangeLog>

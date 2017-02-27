@@ -36,11 +36,10 @@ class SeriesTemplateProcessorTest extends Specification {
 	void setup() {
 		guidGeneratorMock = Mock(GuidGenerator)
 		seriesEpisodeStatisticsFixedValueProviderMock = Mock(SeriesEpisodeStatisticsFixedValueProvider)
-		seriesTemplateProcessor = new SeriesTemplateProcessor(guidGeneratorMock,
-				seriesEpisodeStatisticsFixedValueProviderMock)
+		seriesTemplateProcessor = new SeriesTemplateProcessor(guidGeneratorMock, seriesEpisodeStatisticsFixedValueProviderMock)
 	}
 
-	void "SeriesTemplate is mapped to Series"() {
+	void "converts SeriesTemplate to Series"() {
 		given:
 		Company productionCompany = Mock(Company)
 		Company originalBroadcaster = Mock(Company)

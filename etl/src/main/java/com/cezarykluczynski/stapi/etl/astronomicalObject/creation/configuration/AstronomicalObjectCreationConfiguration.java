@@ -39,14 +39,16 @@ public class AstronomicalObjectCreationConfiguration {
 		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_ASTRONOMICAL_OBJECTS)) {
 			astronomicalObjects.addAll(categoryApi.getPages(CategoryTitle.ASTEROIDS, MediaWikiSource.MEMORY_ALPHA_EN));
 			astronomicalObjects.addAll(categoryApi.getPages(CategoryTitle.ASTEROID_BELTS, MediaWikiSource.MEMORY_ALPHA_EN));
+			astronomicalObjects.addAll(categoryApi.getPages(CategoryTitle.CLUSTERS, MediaWikiSource.MEMORY_ALPHA_EN));
 			astronomicalObjects.addAll(categoryApi.getPages(CategoryTitle.COMETS, MediaWikiSource.MEMORY_ALPHA_EN));
 			astronomicalObjects.addAll(categoryApi.getPages(CategoryTitle.CONSTELLATIONS, MediaWikiSource.MEMORY_ALPHA_EN));
 			astronomicalObjects.addAll(categoryApi.getPages(CategoryTitle.GALAXIES, MediaWikiSource.MEMORY_ALPHA_EN));
 			astronomicalObjects.addAll(categoryApi.getPages(CategoryTitle.HOMEWORLDS, MediaWikiSource.MEMORY_ALPHA_EN));
 			astronomicalObjects.addAll(categoryApi.getPages(CategoryTitle.MOONS, MediaWikiSource.MEMORY_ALPHA_EN));
 			astronomicalObjects.addAll(categoryApi.getPages(CategoryTitle.NEBULAE, MediaWikiSource.MEMORY_ALPHA_EN));
-			astronomicalObjects.addAll(categoryApi.getPages(CategoryTitle.PLANETS, MediaWikiSource.MEMORY_ALPHA_EN));
 			astronomicalObjects.addAll(categoryApi.getPages(CategoryTitle.PLANETOIDS, MediaWikiSource.MEMORY_ALPHA_EN));
+			astronomicalObjects.addAll(categoryApi.getPages(CategoryTitle.PLANETS, MediaWikiSource.MEMORY_ALPHA_EN));
+			astronomicalObjects.addAll(categoryApi.getPages(CategoryTitle.REGIONS, MediaWikiSource.MEMORY_ALPHA_EN));
 			astronomicalObjects.addAll(categoryApi.getPages(CategoryTitle.QUASARS, MediaWikiSource.MEMORY_ALPHA_EN));
 			astronomicalObjects.addAll(categoryApi.getPages(CategoryTitle.STAR_SYSTEMS, MediaWikiSource.MEMORY_ALPHA_EN));
 			astronomicalObjects.addAll(categoryApi.getPages(CategoryTitle.STARS, MediaWikiSource.MEMORY_ALPHA_EN));

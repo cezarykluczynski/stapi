@@ -1,6 +1,8 @@
 package com.cezarykluczynski.stapi.etl.common.service;
 
 import com.cezarykluczynski.stapi.etl.common.mapper.MediaWikiSourceMapper;
+import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject;
+import com.cezarykluczynski.stapi.model.astronomicalObject.repository.AstronomicalObjectRepository;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.character.repository.CharacterRepository;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics;
@@ -33,16 +35,20 @@ public class EntityLookupByNameService {
 
 	private ComicsRepository comicsRepository;
 
+	private AstronomicalObjectRepository astronomicalObjectRepository;
+
 	private MediaWikiSourceMapper mediaWikiSourceMapper;
 
 	@Inject
 	public EntityLookupByNameService(PageApi pageApi, CharacterRepository characterRepository, PerformerRepository performerRepository,
-			StaffRepository staffRepository, ComicsRepository comicsRepository, MediaWikiSourceMapper mediaWikiSourceMapper) {
+			StaffRepository staffRepository, ComicsRepository comicsRepository, AstronomicalObjectRepository astronomicalObjectRepository,
+			MediaWikiSourceMapper mediaWikiSourceMapper) {
 		this.pageApi = pageApi;
 		this.characterRepository = characterRepository;
 		this.performerRepository = performerRepository;
 		this.staffRepository = staffRepository;
 		this.comicsRepository = comicsRepository;
+		this.astronomicalObjectRepository = astronomicalObjectRepository;
 		this.mediaWikiSourceMapper = mediaWikiSourceMapper;
 	}
 
@@ -131,6 +137,29 @@ public class EntityLookupByNameService {
 			Page page = pageApi.getPage(comicsName, mediaWikiSource);
 			if (page != null) {
 				return comicsRepository.findByPagePageIdAndPageMediaWikiSource(page.getPageId(),
+						mediaWikiSourceMapper.fromSourcesToEntity(page.getMediaWikiSource()));
+			}
+		}
+
+		return Optional.empty();
+	}
+
+	public Optional<AstronomicalObject> findAstronomicalObjectByName(String astronomicalObjectName, MediaWikiSource mediaWikiSource) {
+		Optional<AstronomicalObject> astronomicalObjectOptional;
+
+		try {
+			astronomicalObjectOptional = astronomicalObjectRepository.findByPageTitleAndPageMediaWikiSource(astronomicalObjectName,
+					mediaWikiSourceMapper.fromSourcesToEntity(mediaWikiSource));
+		} catch (NonUniqueResultException e) {
+			astronomicalObjectOptional = Optional.empty();
+		}
+
+		if (astronomicalObjectOptional.isPresent()) {
+			return astronomicalObjectOptional;
+		} else {
+			Page page = pageApi.getPage(astronomicalObjectName, mediaWikiSource);
+			if (page != null) {
+				return astronomicalObjectRepository.findByPagePageIdAndPageMediaWikiSource(page.getPageId(),
 						mediaWikiSourceMapper.fromSourcesToEntity(page.getMediaWikiSource()));
 			}
 		}
