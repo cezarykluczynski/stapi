@@ -19,7 +19,7 @@ public class SpeciesTemplate {
 
 	private boolean warpCapableSpecies;
 
-	private boolean extragalacticSpecies;
+	private boolean extraGalacticSpecies;
 
 	private boolean humanoidSpecies;
 
@@ -29,7 +29,7 @@ public class SpeciesTemplate {
 
 	private boolean shapeshiftingSpecies;
 
-	private boolean spacebornSpecies;
+	private boolean spaceborneSpecies;
 
 	private boolean telepathicSpecies;
 

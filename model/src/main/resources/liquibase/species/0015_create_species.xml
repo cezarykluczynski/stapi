@@ -18,12 +18,12 @@
 			<column name="quadrant_id" type="bigint"/>
 			<column name="extinct_species" type="boolean"/>
 			<column name="warp_capable_species" type="boolean"/>
-			<column name="extragalactic_species" type="boolean"/>
+			<column name="extra_galactic_species" type="boolean"/>
 			<column name="humanoid_species" type="boolean"/>
 			<column name="reptilian_species" type="boolean"/>
 			<column name="non_corporeal_species" type="boolean"/>
 			<column name="shapeshifting_species" type="boolean"/>
-			<column name="spaceborn_species" type="boolean"/>
+			<column name="spaceborne_species" type="boolean"/>
 			<column name="telepathic_species" type="boolean"/>
 			<column name="trans_dimensional_species" type="boolean"/>
 			<column name="unnamed_species" type="boolean"/>

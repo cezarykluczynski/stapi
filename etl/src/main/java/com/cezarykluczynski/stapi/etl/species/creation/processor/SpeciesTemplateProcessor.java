@@ -29,12 +29,12 @@ public class SpeciesTemplateProcessor implements ItemProcessor<SpeciesTemplate, 
 		species.setQuadrant(item.getQuadrant());
 		species.setExtinctSpecies(item.isExtinctSpecies());
 		species.setWarpCapableSpecies(item.isWarpCapableSpecies());
-		species.setExtragalacticSpecies(item.isExtragalacticSpecies());
+		species.setExtraGalacticSpecies(item.isExtraGalacticSpecies());
 		species.setHumanoidSpecies(item.isHumanoidSpecies());
 		species.setReptilianSpecies(item.isReptilianSpecies());
 		species.setNonCorporealSpecies(item.isNonCorporealSpecies());
 		species.setShapeshiftingSpecies(item.isShapeshiftingSpecies());
-		species.setSpacebornSpecies(item.isSpacebornSpecies());
+		species.setSpaceborneSpecies(item.isSpaceborneSpecies());
 		species.setTelepathicSpecies(item.isTelepathicSpecies());
 		species.setTransDimensionalSpecies(item.isTransDimensionalSpecies());
 		species.setUnnamedSpecies(item.isUnnamedSpecies());

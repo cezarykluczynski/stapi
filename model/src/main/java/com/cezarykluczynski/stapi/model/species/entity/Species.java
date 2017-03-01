@@ -50,7 +50,7 @@ public class Species extends PageAwareEntity implements PageAware {
 
 	private Boolean warpCapableSpecies;
 
-	private Boolean extragalacticSpecies;
+	private Boolean extraGalacticSpecies;
 
 	private Boolean humanoidSpecies;
 
@@ -60,7 +60,7 @@ public class Species extends PageAwareEntity implements PageAware {
 
 	private Boolean shapeshiftingSpecies;
 
-	private Boolean spacebornSpecies;
+	private Boolean spaceborneSpecies;
 
 	private Boolean telepathicSpecies;
 

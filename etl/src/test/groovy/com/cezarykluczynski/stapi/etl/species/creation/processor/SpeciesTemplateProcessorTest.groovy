@@ -32,12 +32,12 @@ class SpeciesTemplateProcessorTest extends AbstractSpeciesTest {
 				quadrant: quadrant,
 				extinctSpecies: EXTINCT_SPECIES,
 				warpCapableSpecies: WARP_CAPABLE_SPECIES,
-				extragalacticSpecies: EXTRAGALACTIC_SPECIES,
+				extraGalacticSpecies: EXTRA_GALACTIC_SPECIES,
 				humanoidSpecies: HUMANOID_SPECIES,
 				reptilianSpecies: REPTILIAN_SPECIES,
 				nonCorporealSpecies: NON_CORPOREAL_SPECIES,
 				shapeshiftingSpecies: SHAPESHIFTING_SPECIES,
-				spacebornSpecies: SPACEBORN_SPECIES,
+				spaceborneSpecies: SPACEBORNE_SPECIES,
 				telepathicSpecies: TELEPATHIC_SPECIES,
 				transDimensionalSpecies: TRANS_DIMENSIONAL_SPECIES,
 				unnamedSpecies: UNNAMED_SPECIES,
@@ -56,12 +56,12 @@ class SpeciesTemplateProcessorTest extends AbstractSpeciesTest {
 		species.quadrant == quadrant
 		species.extinctSpecies == EXTINCT_SPECIES
 		species.warpCapableSpecies == WARP_CAPABLE_SPECIES
-		species.extragalacticSpecies == EXTRAGALACTIC_SPECIES
+		species.extraGalacticSpecies == EXTRA_GALACTIC_SPECIES
 		species.humanoidSpecies == HUMANOID_SPECIES
 		species.reptilianSpecies == REPTILIAN_SPECIES
 		species.nonCorporealSpecies == NON_CORPOREAL_SPECIES
 		species.shapeshiftingSpecies == SHAPESHIFTING_SPECIES
-		species.spacebornSpecies == SPACEBORN_SPECIES
+		species.spaceborneSpecies == SPACEBORNE_SPECIES
 		species.telepathicSpecies == TELEPATHIC_SPECIES
 		species.transDimensionalSpecies == TRANS_DIMENSIONAL_SPECIES
 		species.unnamedSpecies == UNNAMED_SPECIES

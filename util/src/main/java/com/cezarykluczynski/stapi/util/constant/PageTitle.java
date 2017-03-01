@@ -23,4 +23,22 @@ public class PageTitle {
 	public static final String COMICS = "Comics";
 	public static final String PHOTONOVELS = "Photonovels";
 	public static final String ENDANGERED_SPECIES = "Endangered species";
+
+	public static final String DELTA_QUADRANT_SPECIES = "Delta Quadrant species";
+	public static final String EXTRA_GALACTIC_SPECIES = "Extra-galactic species";
+	public static final String GAMMA_QUADRANT_SPECIES = "Gamma Quadrant species";
+	public static final String HUMANOID_SPECIES = "Humanoid species";
+	public static final String NON_CORPOREAL_SPECIES = "Non-corporeal species";
+	public static final String SHAPESHIFTING_SPECIES = "Shapeshifting species";
+	public static final String SPACEBORNE_SPECIES = "Spaceborne species";
+	public static final String TELEPATHIC_SPECIES = "Telepathic species";
+	public static final String TRANS_DIMENSIONAL_SPECIES = "Trans-dimensional species";
+
+	public static final String DELTA_QUADRANT = "Delta Quadrant";
+	public static final String GAMMA_QUADRANT = "Gamma Quadrant";
+
+	public static final String WARP_CAPABLE = "Warp-capable";
+	public static final String WARP_DRIVE = "Warp drive";
+	public static final String REPTILE = "Reptile";
+
 }
