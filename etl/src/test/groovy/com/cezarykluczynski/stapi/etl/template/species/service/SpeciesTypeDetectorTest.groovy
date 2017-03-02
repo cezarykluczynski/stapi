@@ -1,8 +1,10 @@
 package com.cezarykluczynski.stapi.etl.template.species.service
 
+import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor
 import com.cezarykluczynski.stapi.etl.common.service.ParagraphExtractor
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider
+import com.cezarykluczynski.stapi.etl.template.species.processor.SpeciesTypeFixedValueProvider
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
@@ -39,6 +41,7 @@ class SpeciesTypeDetectorTest extends Specification {
 	private static final String TRANS_DIMENSIONAL_SPECIES_TITLE = 'TRANS_DIMENSIONAL_SPECIES_TITLE'
 	private static final String SOME_OTHER_TITLE = 'SOME_OTHER_TITLE'
 	private static final String WIKITEXT = 'WIKITEXT'
+	private static final String TITLE = 'TITLE'
 	private static final String WIKITEXT_WITHOUT_TEMPLATES = 'WIKITEXT_WITHOUT_TEMPLATES'
 	private static final String FIRST_PARAGRAPH = 'FIRST_PARAGRAPH'
 
@@ -52,6 +55,8 @@ class SpeciesTypeDetectorTest extends Specification {
 
 	private ParagraphExtractor paragraphExtractorMock
 
+	private SpeciesTypeFixedValueProvider speciesTypeFixedValueProvider
+
 	private SpeciesTypeDetector speciesTypeDetector
 
 	void setup() {
@@ -60,8 +65,9 @@ class SpeciesTypeDetectorTest extends Specification {
 		stepCompletenessDeciderMock = Mock(StepCompletenessDecider)
 		categoryTitlesExtractingProcessorMock = Mock(CategoryTitlesExtractingProcessor)
 		paragraphExtractorMock = Mock(ParagraphExtractor)
+		speciesTypeFixedValueProvider = Mock(SpeciesTypeFixedValueProvider)
 		speciesTypeDetector = new SpeciesTypeDetector(pageApiMock, wikitextApiMock, stepCompletenessDeciderMock,
-				categoryTitlesExtractingProcessorMock, paragraphExtractorMock)
+				categoryTitlesExtractingProcessorMock, paragraphExtractorMock, speciesTypeFixedValueProvider)
 	}
 
 	void "detector is initialized when CREATE_SPECIES step is not completed"() {
@@ -136,12 +142,13 @@ class SpeciesTypeDetectorTest extends Specification {
 
 	void "warp-capable species is recognized"() {
 		given:
-		Page page = new Page(wikitext: WIKITEXT)
+		Page page = new Page(wikitext: WIKITEXT, title: TITLE)
 
 		when:
 		boolean positiveResultWarpCapable = speciesTypeDetector.isWarpCapableSpecies(page)
 
 		then:
+		1 * speciesTypeFixedValueProvider.getSearchedValue(_) >> FixedValueHolder.empty()
 		1 * wikitextApiMock.getWikitextWithoutTemplates(WIKITEXT) >> WIKITEXT_WITHOUT_TEMPLATES
 		1 * paragraphExtractorMock.extractParagraphs(WIKITEXT_WITHOUT_TEMPLATES) >> Lists.newArrayList('', FIRST_PARAGRAPH, '')
 		1 * wikitextApiMock.getPageLinksFromWikitext(FIRST_PARAGRAPH) >> Lists.newArrayList(new PageLink(title: PageTitle.WARP_CAPABLE))
@@ -151,6 +158,7 @@ class SpeciesTypeDetectorTest extends Specification {
 		boolean positiveResultWarpDriveWithDesription = speciesTypeDetector.isWarpCapableSpecies(page)
 
 		then:
+		1 * speciesTypeFixedValueProvider.getSearchedValue(_) >> FixedValueHolder.empty()
 		1 * wikitextApiMock.getWikitextWithoutTemplates(WIKITEXT) >> WIKITEXT_WITHOUT_TEMPLATES
 		1 * paragraphExtractorMock.extractParagraphs(WIKITEXT_WITHOUT_TEMPLATES) >> Lists.newArrayList('', FIRST_PARAGRAPH, '')
 		1 * wikitextApiMock.getPageLinksFromWikitext(FIRST_PARAGRAPH) >> Lists.newArrayList(new PageLink(
@@ -159,9 +167,17 @@ class SpeciesTypeDetectorTest extends Specification {
 		positiveResultWarpDriveWithDesription
 
 		when:
+		boolean positiveResultTrueFixedValue = speciesTypeDetector.isWarpCapableSpecies(page)
+
+		then:
+		1 * speciesTypeFixedValueProvider.getSearchedValue(TITLE) >> FixedValueHolder.found(true)
+		positiveResultTrueFixedValue
+
+		when:
 		boolean negativeResultDifferentLink = speciesTypeDetector.isWarpCapableSpecies(page)
 
 		then:
+		1 * speciesTypeFixedValueProvider.getSearchedValue(_) >> FixedValueHolder.empty()
 		1 * wikitextApiMock.getWikitextWithoutTemplates(WIKITEXT) >> WIKITEXT_WITHOUT_TEMPLATES
 		1 * paragraphExtractorMock.extractParagraphs(WIKITEXT_WITHOUT_TEMPLATES) >> Lists.newArrayList('', FIRST_PARAGRAPH, '')
 		1 * wikitextApiMock.getPageLinksFromWikitext(FIRST_PARAGRAPH) >> Lists.newArrayList(new PageLink(title: PageTitle.DELTA_QUADRANT))
@@ -171,6 +187,7 @@ class SpeciesTypeDetectorTest extends Specification {
 		boolean negativeResultNotEmptyLinkDescription = speciesTypeDetector.isWarpCapableSpecies(page)
 
 		then:
+		1 * speciesTypeFixedValueProvider.getSearchedValue(_) >> FixedValueHolder.empty()
 		1 * wikitextApiMock.getWikitextWithoutTemplates(WIKITEXT) >> WIKITEXT_WITHOUT_TEMPLATES
 		1 * paragraphExtractorMock.extractParagraphs(WIKITEXT_WITHOUT_TEMPLATES) >> Lists.newArrayList('', FIRST_PARAGRAPH, '')
 		1 * wikitextApiMock.getPageLinksFromWikitext(FIRST_PARAGRAPH) >> Lists.newArrayList(new PageLink(
@@ -182,6 +199,7 @@ class SpeciesTypeDetectorTest extends Specification {
 		boolean negativeResultWarpDriveWithEmptyDescription = speciesTypeDetector.isWarpCapableSpecies(page)
 
 		then:
+		1 * speciesTypeFixedValueProvider.getSearchedValue(_) >> FixedValueHolder.empty()
 		1 * wikitextApiMock.getWikitextWithoutTemplates(WIKITEXT) >> WIKITEXT_WITHOUT_TEMPLATES
 		1 * paragraphExtractorMock.extractParagraphs(WIKITEXT_WITHOUT_TEMPLATES) >> Lists.newArrayList('', FIRST_PARAGRAPH, '')
 		1 * wikitextApiMock.getPageLinksFromWikitext(FIRST_PARAGRAPH) >> Lists.newArrayList(new PageLink(
@@ -192,10 +210,21 @@ class SpeciesTypeDetectorTest extends Specification {
 		boolean negativeResultNoParagraphs = speciesTypeDetector.isWarpCapableSpecies(page)
 
 		then:
+		1 * speciesTypeFixedValueProvider.getSearchedValue(_) >> FixedValueHolder.empty()
 		1 * wikitextApiMock.getWikitextWithoutTemplates(WIKITEXT) >> WIKITEXT_WITHOUT_TEMPLATES
 		1 * paragraphExtractorMock.extractParagraphs(WIKITEXT_WITHOUT_TEMPLATES) >> Lists.newArrayList('')
 		1 * wikitextApiMock.getPageLinksFromWikitext('') >> Lists.newArrayList()
 		!negativeResultNoParagraphs
+
+		when:
+		boolean negativeResultFalseFixedValue = speciesTypeDetector.isWarpCapableSpecies(page)
+
+		then:
+		1 * speciesTypeFixedValueProvider.getSearchedValue(TITLE) >> FixedValueHolder.found(false)
+		1 * wikitextApiMock.getWikitextWithoutTemplates(WIKITEXT) >> WIKITEXT_WITHOUT_TEMPLATES
+		1 * paragraphExtractorMock.extractParagraphs(WIKITEXT_WITHOUT_TEMPLATES) >> Lists.newArrayList('')
+		1 * wikitextApiMock.getPageLinksFromWikitext('') >> Lists.newArrayList()
+		!negativeResultFalseFixedValue
 	}
 
 	void "extra-galactic species pages are recognized"() {

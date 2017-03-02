@@ -1,8 +1,10 @@
 package com.cezarykluczynski.stapi.etl.template.species.service;
 
+import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
 import com.cezarykluczynski.stapi.etl.common.service.ParagraphExtractor;
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
+import com.cezarykluczynski.stapi.etl.template.species.processor.SpeciesTypeFixedValueProvider;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
@@ -40,14 +42,18 @@ public class SpeciesTypeDetector implements InitializingBean {
 
 	private ParagraphExtractor paragraphExtractor;
 
+	private SpeciesTypeFixedValueProvider speciesTypeFixedValueProvider;
+
 	@Inject
 	public SpeciesTypeDetector(PageApi pageApi, WikitextApi wikitextApi, StepCompletenessDecider stepCompletenessDecider,
-			CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor, ParagraphExtractor paragraphExtractor) {
+			CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor, ParagraphExtractor paragraphExtractor,
+			SpeciesTypeFixedValueProvider speciesTypeFixedValueProvider) {
 		this.pageApi = pageApi;
 		this.wikitextApi = wikitextApi;
 		this.stepCompletenessDecider = stepCompletenessDecider;
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
 		this.paragraphExtractor = paragraphExtractor;
+		this.speciesTypeFixedValueProvider = speciesTypeFixedValueProvider;
 	}
 
 	@Override
@@ -72,8 +78,9 @@ public class SpeciesTypeDetector implements InitializingBean {
 	}
 
 	public boolean isWarpCapableSpecies(Page page) {
-		return wikitextApi.getPageLinksFromWikitext(getFirstParagraph(page)).stream()
-				.anyMatch(this::isWarpCapableLink);
+		FixedValueHolder<Boolean> speciesFixedValueHolder = speciesTypeFixedValueProvider.getSearchedValue(page.getTitle());
+		return speciesFixedValueHolder.isFound() && speciesFixedValueHolder.getValue()
+				|| wikitextApi.getPageLinksFromWikitext(getFirstParagraph(page)).stream().anyMatch(this::isWarpCapableLink);
 	}
 
 	public boolean isExtraGalacticSpecies(Page page) {
