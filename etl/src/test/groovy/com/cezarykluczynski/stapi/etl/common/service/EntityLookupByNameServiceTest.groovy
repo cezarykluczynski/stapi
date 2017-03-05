@@ -1,147 +1,34 @@
 package com.cezarykluczynski.stapi.etl.common.service
 
-import com.cezarykluczynski.stapi.etl.common.mapper.MediaWikiSourceMapper
-import com.cezarykluczynski.stapi.model.character.entity.Character
-import com.cezarykluczynski.stapi.model.character.repository.CharacterRepository
-import com.cezarykluczynski.stapi.model.comics.entity.Comics
-import com.cezarykluczynski.stapi.model.comics.repository.ComicsRepository
-import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource as ModelMediaWikiSource
-import com.cezarykluczynski.stapi.model.performer.entity.Performer
-import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository
 import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject
-import com.cezarykluczynski.stapi.model.astronomicalObject.repository.AstronomicalObjectRepository
+import com.cezarykluczynski.stapi.model.character.entity.Character
+import com.cezarykluczynski.stapi.model.comics.entity.Comics
+import com.cezarykluczynski.stapi.model.performer.entity.Performer
+import com.cezarykluczynski.stapi.model.species.entity.Species
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
-import com.cezarykluczynski.stapi.model.staff.repository.StaffRepository
-import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource as SourcesMediaWikiSource
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import spock.lang.Specification
-
-import javax.persistence.NonUniqueResultException
 
 class EntityLookupByNameServiceTest extends Specification {
 
 	private static final SourcesMediaWikiSource SOURCES_MEDIA_WIKI_SOURCE = SourcesMediaWikiSource.MEMORY_ALPHA_EN
-	private static final ModelMediaWikiSource MODEL_MEDIA_WIKI_SOURCE = ModelMediaWikiSource.MEMORY_ALPHA_EN
 	private static final String CHARACTER_NAME = 'CHARACTER_NAME'
 	private static final String PERFORMER_NAME = 'PERFORMER_NAME'
 	private static final String STAFF_NAME = 'STAFF_NAME'
 	private static final String COMICS_NAME = 'COMICS_NAME'
-	private static final Long PAGE_ID = 1L
+	private static final String ASTRONOMICAL_OBJECT_NAME = 'ASTRONOMICAL_OBJECT_NAME'
+	private static final String SPECIES_NAME = 'SPECIES_NAME'
 
-	private PageApi pageApiMock
-
-	private CharacterRepository characterRepositoryMock
-
-	private PerformerRepository performerRepositoryMock
-
-	private StaffRepository staffRepositoryMock
-
-	private ComicsRepository comicsRepositoryMock
-
-	private AstronomicalObjectRepository astronomicalObjectRepositoryMock
-
-	private MediaWikiSourceMapper mediaWikiSourceMapper
+	private GenericEntityLookupByNameService genericEntityLookupByNameService
 
 	private EntityLookupByNameService entityLookupByNameService
 
 	void setup() {
-		pageApiMock = Mock(PageApi)
-		characterRepositoryMock = Mock(CharacterRepository)
-		performerRepositoryMock = Mock(PerformerRepository)
-		staffRepositoryMock = Mock(StaffRepository)
-		comicsRepositoryMock = Mock(ComicsRepository)
-		astronomicalObjectRepositoryMock = Mock(AstronomicalObjectRepository)
-		mediaWikiSourceMapper = Mock(MediaWikiSourceMapper)
-		entityLookupByNameService = new EntityLookupByNameService(pageApiMock, characterRepositoryMock, performerRepositoryMock, staffRepositoryMock,
-				comicsRepositoryMock, astronomicalObjectRepositoryMock, mediaWikiSourceMapper)
+		genericEntityLookupByNameService = Mock(GenericEntityLookupByNameService)
+		entityLookupByNameService = new EntityLookupByNameService(genericEntityLookupByNameService)
 	}
 
-	void "gets character by name from repository"() {
-		given:
-		Character character = Mock(Character)
-
-		when:
-		Optional<Character> characterOptional = entityLookupByNameService.findCharacterByName(CHARACTER_NAME, SOURCES_MEDIA_WIKI_SOURCE)
-
-		then:
-		1 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * characterRepositoryMock.findByPageTitleAndPageMediaWikiSource(CHARACTER_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.of(character)
-		0 * _
-		characterOptional.get() == character
-	}
-
-	void "gets character by name from page api, then from repository"() {
-		given:
-		Character character = Mock(Character)
-		Page page = Mock(Page)
-
-		when:
-		Optional<Character> characterOptional = entityLookupByNameService.findCharacterByName(CHARACTER_NAME, SOURCES_MEDIA_WIKI_SOURCE)
-
-		then:
-		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * characterRepositoryMock.findByPageTitleAndPageMediaWikiSource(CHARACTER_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
-		1 * pageApiMock.getPage(CHARACTER_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
-		1 * page.pageId >> PAGE_ID
-		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
-		1 * characterRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.of(character)
-		0 * _
-		characterOptional.get() == character
-	}
-
-	void "gets character by name from page api, then from repository, when NonUniqueResultException was thrown"() {
-		given:
-		Character character = Mock(Character)
-		Page page = Mock(Page)
-
-		when:
-		Optional<Character> characterOptional = entityLookupByNameService.findCharacterByName(CHARACTER_NAME, SOURCES_MEDIA_WIKI_SOURCE)
-
-		then:
-		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * characterRepositoryMock.findByPageTitleAndPageMediaWikiSource(CHARACTER_NAME, MODEL_MEDIA_WIKI_SOURCE) >> { args ->
-			throw new NonUniqueResultException()
-		}
-		1 * pageApiMock.getPage(CHARACTER_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
-		1 * page.pageId >> PAGE_ID
-		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
-		1 * characterRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.of(character)
-		0 * _
-		characterOptional.get() == character
-	}
-
-	void "does not get character when page api returns null"() {
-		when:
-		Optional<Character> characterOptional = entityLookupByNameService.findCharacterByName(CHARACTER_NAME, SOURCES_MEDIA_WIKI_SOURCE)
-
-		then:
-		1 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * characterRepositoryMock.findByPageTitleAndPageMediaWikiSource(CHARACTER_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
-		1 * pageApiMock.getPage(CHARACTER_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> null
-		0 * _
-		!characterOptional.present
-	}
-
-	void "does not get character when page api returns page, but character repository returns empty optional"() {
-		given:
-		Page page = Mock(Page)
-
-		when:
-		Optional<Character> characterOptional = entityLookupByNameService.findCharacterByName(CHARACTER_NAME, SOURCES_MEDIA_WIKI_SOURCE)
-
-		then:
-		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * characterRepositoryMock.findByPageTitleAndPageMediaWikiSource(CHARACTER_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
-		1 * pageApiMock.getPage(CHARACTER_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
-		1 * page.pageId >> PAGE_ID
-		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
-		1 * characterRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
-		0 * _
-		!characterOptional.present
-	}
-
-	void "gets performer by name from repository"() {
+	void "gets performer from generic service"() {
 		given:
 		Performer performer = Mock(Performer)
 
@@ -149,83 +36,25 @@ class EntityLookupByNameServiceTest extends Specification {
 		Optional<Performer> performerOptional = entityLookupByNameService.findPerformerByName(PERFORMER_NAME, SOURCES_MEDIA_WIKI_SOURCE)
 
 		then:
-		1 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * performerRepositoryMock.findByPageTitleAndPageMediaWikiSource(PERFORMER_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.of(performer)
+		1 * genericEntityLookupByNameService.findEntityByName(PERFORMER_NAME, SOURCES_MEDIA_WIKI_SOURCE, Performer) >> Optional.of(performer)
 		0 * _
 		performerOptional.get() == performer
 	}
 
-	void "gets performer by name from page api, then from repository"() {
+	void "gets character from generic service"() {
 		given:
-		Performer performer = Mock(Performer)
-		Page page = Mock(Page)
+		Character character = Mock(Character)
 
 		when:
-		Optional<Performer> performerOptional = entityLookupByNameService.findPerformerByName(PERFORMER_NAME, SOURCES_MEDIA_WIKI_SOURCE)
+		Optional<Character> characterOptional = entityLookupByNameService.findCharacterByName(CHARACTER_NAME, SOURCES_MEDIA_WIKI_SOURCE)
 
 		then:
-		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * performerRepositoryMock.findByPageTitleAndPageMediaWikiSource(PERFORMER_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
-		1 * pageApiMock.getPage(PERFORMER_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
-		1 * page.pageId >> PAGE_ID
-		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
-		1 * performerRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.of(performer)
+		1 * genericEntityLookupByNameService.findEntityByName(CHARACTER_NAME, SOURCES_MEDIA_WIKI_SOURCE, Character) >> Optional.of(character)
 		0 * _
-		performerOptional.get() == performer
+		characterOptional.get() == character
 	}
 
-	void "gets performer by name from page api, then from repository, when NonUniqueResultException was thrown"() {
-		given:
-		Performer performer = Mock(Performer)
-		Page page = Mock(Page)
-
-		when:
-		Optional<Performer> performerOptional = entityLookupByNameService.findPerformerByName(PERFORMER_NAME, SOURCES_MEDIA_WIKI_SOURCE)
-
-		then:
-		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * performerRepositoryMock.findByPageTitleAndPageMediaWikiSource(PERFORMER_NAME, MODEL_MEDIA_WIKI_SOURCE) >> { args ->
-			throw new NonUniqueResultException()
-		}
-		1 * pageApiMock.getPage(PERFORMER_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
-		1 * page.pageId >> PAGE_ID
-		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
-		1 * performerRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.of(performer)
-		0 * _
-		performerOptional.get() == performer
-	}
-
-	void "does not get performer when page api returns null"() {
-		when:
-		Optional<Performer> performerOptional = entityLookupByNameService.findPerformerByName(PERFORMER_NAME, SOURCES_MEDIA_WIKI_SOURCE)
-
-		then:
-		1 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * performerRepositoryMock.findByPageTitleAndPageMediaWikiSource(PERFORMER_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
-		1 * pageApiMock.getPage(PERFORMER_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> null
-		0 * _
-		!performerOptional.present
-	}
-
-	void "does not get performer when page api returns page, but performer repository returns empty optional"() {
-		given:
-		Page page = Mock(Page)
-
-		when:
-		Optional<Performer> performerOptional = entityLookupByNameService.findPerformerByName(PERFORMER_NAME, SOURCES_MEDIA_WIKI_SOURCE)
-
-		then:
-		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * performerRepositoryMock.findByPageTitleAndPageMediaWikiSource(PERFORMER_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
-		1 * pageApiMock.getPage(PERFORMER_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
-		1 * page.pageId >> PAGE_ID
-		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
-		1 * performerRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
-		0 * _
-		!performerOptional.present
-	}
-
-	void "gets staff by name from repository"() {
+	void "gets staff from generic service"() {
 		given:
 		Staff staff = Mock(Staff)
 
@@ -233,83 +62,12 @@ class EntityLookupByNameServiceTest extends Specification {
 		Optional<Staff> staffOptional = entityLookupByNameService.findStaffByName(STAFF_NAME, SOURCES_MEDIA_WIKI_SOURCE)
 
 		then:
-		1 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * staffRepositoryMock.findByPageTitleAndPageMediaWikiSource(STAFF_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.of(staff)
+		1 * genericEntityLookupByNameService.findEntityByName(STAFF_NAME, SOURCES_MEDIA_WIKI_SOURCE, Staff) >> Optional.of(staff)
 		0 * _
 		staffOptional.get() == staff
 	}
 
-	void "gets staff by name from page api, then from repository"() {
-		given:
-		Staff staff = Mock(Staff)
-		Page page = Mock(Page)
-
-		when:
-		Optional<Staff> staffOptional = entityLookupByNameService.findStaffByName(STAFF_NAME, SOURCES_MEDIA_WIKI_SOURCE)
-
-		then:
-		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * staffRepositoryMock.findByPageTitleAndPageMediaWikiSource(STAFF_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
-		1 * pageApiMock.getPage(STAFF_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
-		1 * page.pageId >> PAGE_ID
-		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
-		1 * staffRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.of(staff)
-		0 * _
-		staffOptional.get() == staff
-	}
-
-	void "gets staff by name from page api, then from repository, when NonUniqueResultException was thrown"() {
-		given:
-		Staff staff = Mock(Staff)
-		Page page = Mock(Page)
-
-		when:
-		Optional<Staff> staffOptional = entityLookupByNameService.findStaffByName(STAFF_NAME, SOURCES_MEDIA_WIKI_SOURCE)
-
-		then:
-		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * staffRepositoryMock.findByPageTitleAndPageMediaWikiSource(STAFF_NAME, MODEL_MEDIA_WIKI_SOURCE) >> { args ->
-			throw new NonUniqueResultException()
-		}
-		1 * pageApiMock.getPage(STAFF_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
-		1 * page.pageId >> PAGE_ID
-		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
-		1 * staffRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.of(staff)
-		0 * _
-		staffOptional.get() == staff
-	}
-
-	void "does not get staff when page api returns null"() {
-		when:
-		Optional<Staff> staffOptional = entityLookupByNameService.findStaffByName(STAFF_NAME, SOURCES_MEDIA_WIKI_SOURCE)
-
-		then:
-		1 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * staffRepositoryMock.findByPageTitleAndPageMediaWikiSource(STAFF_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
-		1 * pageApiMock.getPage(STAFF_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> null
-		0 * _
-		!staffOptional.present
-	}
-
-	void "does not get staff when page api returns page, but staff repository returns empty optional"() {
-		given:
-		Page page = Mock(Page)
-
-		when:
-		Optional<Staff> staffOptional = entityLookupByNameService.findStaffByName(STAFF_NAME, SOURCES_MEDIA_WIKI_SOURCE)
-
-		then:
-		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * staffRepositoryMock.findByPageTitleAndPageMediaWikiSource(STAFF_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
-		1 * pageApiMock.getPage(STAFF_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
-		1 * page.pageId >> PAGE_ID
-		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
-		1 * staffRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
-		0 * _
-		!staffOptional.present
-	}
-
-	void "gets comics by name from repository"() {
+	void "gets comics from generic service"() {
 		given:
 		Comics comics = Mock(Comics)
 
@@ -317,172 +75,37 @@ class EntityLookupByNameServiceTest extends Specification {
 		Optional<Comics> comicsOptional = entityLookupByNameService.findComicsByName(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE)
 
 		then:
-		1 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * comicsRepositoryMock.findByPageTitleAndPageMediaWikiSource(COMICS_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.of(comics)
+		1 * genericEntityLookupByNameService.findEntityByName(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE, Comics) >> Optional.of(comics)
 		0 * _
 		comicsOptional.get() == comics
 	}
 
-	void "gets comics by name from page api, then from repository"() {
-		given:
-		Comics comics = Mock(Comics)
-		Page page = Mock(Page)
-
-		when:
-		Optional<Comics> comicsOptional = entityLookupByNameService.findComicsByName(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE)
-
-		then:
-		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * comicsRepositoryMock.findByPageTitleAndPageMediaWikiSource(COMICS_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
-		1 * pageApiMock.getPage(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
-		1 * page.pageId >> PAGE_ID
-		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
-		1 * comicsRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.of(comics)
-		0 * _
-		comicsOptional.get() == comics
-	}
-
-	void "gets comics by name from page api, then from repository, when NonUniqueResultException was thrown"() {
-		given:
-		Comics comics = Mock(Comics)
-		Page page = Mock(Page)
-
-		when:
-		Optional<Comics> comicsOptional = entityLookupByNameService.findComicsByName(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE)
-
-		then:
-		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * comicsRepositoryMock.findByPageTitleAndPageMediaWikiSource(COMICS_NAME, MODEL_MEDIA_WIKI_SOURCE) >> { args ->
-			throw new NonUniqueResultException()
-		}
-		1 * pageApiMock.getPage(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
-		1 * page.pageId >> PAGE_ID
-		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
-		1 * comicsRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.of(comics)
-		0 * _
-		comicsOptional.get() == comics
-	}
-
-	void "does not get comics when page api returns null"() {
-		when:
-		Optional<Comics> comicsOptional = entityLookupByNameService.findComicsByName(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE)
-
-		then:
-		1 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * comicsRepositoryMock.findByPageTitleAndPageMediaWikiSource(COMICS_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
-		1 * pageApiMock.getPage(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> null
-		0 * _
-		!comicsOptional.present
-	}
-
-	void "does not get comics when page api returns page, but staff repository returns empty optional"() {
-		given:
-		Page page = Mock(Page)
-
-		when:
-		Optional<Comics> comicsOptional = entityLookupByNameService.findComicsByName(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE)
-
-		then:
-		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * comicsRepositoryMock.findByPageTitleAndPageMediaWikiSource(COMICS_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
-		1 * pageApiMock.getPage(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
-		1 * page.pageId >> PAGE_ID
-		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
-		1 * comicsRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
-		0 * _
-		!comicsOptional.present
-	}
-
-	void "gets astronomicalObject by name from repository"() {
+	void "gets astronomical object from generic service"() {
 		given:
 		AstronomicalObject astronomicalObject = Mock(AstronomicalObject)
 
 		when:
-		Optional<AstronomicalObject> astronomicalObjectOptional = entityLookupByNameService
-				.findAstronomicalObjectByName(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE)
+		Optional<AstronomicalObject> comicsOptional = entityLookupByNameService
+				.findAstronomicalObjectByName(ASTRONOMICAL_OBJECT_NAME, SOURCES_MEDIA_WIKI_SOURCE)
 
 		then:
-		1 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * astronomicalObjectRepositoryMock.findByPageTitleAndPageMediaWikiSource(COMICS_NAME, MODEL_MEDIA_WIKI_SOURCE) >>
-				Optional.of(astronomicalObject)
+		1 * genericEntityLookupByNameService.findEntityByName(ASTRONOMICAL_OBJECT_NAME, SOURCES_MEDIA_WIKI_SOURCE, AstronomicalObject) >> Optional
+				.of(astronomicalObject)
 		0 * _
-		astronomicalObjectOptional.get() == astronomicalObject
+		comicsOptional.get() == astronomicalObject
 	}
 
-	void "gets astronomicalObject by name from page api, then from repository"() {
+	void "gets species object from generic service"() {
 		given:
-		AstronomicalObject astronomicalObject = Mock(AstronomicalObject)
-		Page page = Mock(Page)
+		Species species = Mock(Species)
 
 		when:
-		Optional<AstronomicalObject> astronomicalObjectOptional = entityLookupByNameService
-				.findAstronomicalObjectByName(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE)
+		Optional<Species> speciesOptional = entityLookupByNameService.findSpeciesByName(SPECIES_NAME, SOURCES_MEDIA_WIKI_SOURCE)
 
 		then:
-		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * astronomicalObjectRepositoryMock.findByPageTitleAndPageMediaWikiSource(COMICS_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
-		1 * pageApiMock.getPage(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
-		1 * page.pageId >> PAGE_ID
-		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
-		1 * astronomicalObjectRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >>
-				Optional.of(astronomicalObject)
+		1 * genericEntityLookupByNameService.findEntityByName(SPECIES_NAME, SOURCES_MEDIA_WIKI_SOURCE, Species) >> Optional.of(species)
 		0 * _
-		astronomicalObjectOptional.get() == astronomicalObject
-	}
-
-	void "gets astronomicalObject by name from page api, then from repository, when NonUniqueResultException was thrown"() {
-		given:
-		AstronomicalObject astronomicalObject = Mock(AstronomicalObject)
-		Page page = Mock(Page)
-
-		when:
-		Optional<AstronomicalObject> astronomicalObjectOptional = entityLookupByNameService
-				.findAstronomicalObjectByName(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE)
-
-		then:
-		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * astronomicalObjectRepositoryMock.findByPageTitleAndPageMediaWikiSource(COMICS_NAME, MODEL_MEDIA_WIKI_SOURCE) >> { args ->
-			throw new NonUniqueResultException()
-		}
-		1 * pageApiMock.getPage(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
-		1 * page.pageId >> PAGE_ID
-		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
-		1 * astronomicalObjectRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >>
-				Optional.of(astronomicalObject)
-		0 * _
-		astronomicalObjectOptional.get() == astronomicalObject
-	}
-
-	void "does not get astronomicalObject when page api returns null"() {
-		when:
-		Optional<AstronomicalObject> astronomicalObjectOptional = entityLookupByNameService
-				.findAstronomicalObjectByName(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE)
-
-		then:
-		1 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * astronomicalObjectRepositoryMock.findByPageTitleAndPageMediaWikiSource(COMICS_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
-		1 * pageApiMock.getPage(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> null
-		0 * _
-		!astronomicalObjectOptional.present
-	}
-
-	void "does not get astronomicalObject when page api returns page, but staff repository returns empty optional"() {
-		given:
-		Page page = Mock(Page)
-
-		when:
-		Optional<AstronomicalObject> astronomicalObjectOptional = entityLookupByNameService
-				.findAstronomicalObjectByName(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE)
-
-		then:
-		2 * mediaWikiSourceMapper.fromSourcesToEntity(SOURCES_MEDIA_WIKI_SOURCE) >> MODEL_MEDIA_WIKI_SOURCE
-		1 * astronomicalObjectRepositoryMock.findByPageTitleAndPageMediaWikiSource(COMICS_NAME, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
-		1 * pageApiMock.getPage(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE) >> page
-		1 * page.pageId >> PAGE_ID
-		1 * page.mediaWikiSource >> SOURCES_MEDIA_WIKI_SOURCE
-		1 * astronomicalObjectRepositoryMock.findByPagePageIdAndPageMediaWikiSource(PAGE_ID, MODEL_MEDIA_WIKI_SOURCE) >> Optional.empty()
-		0 * _
-		!astronomicalObjectOptional.present
+		speciesOptional.get() == species
 	}
 
 }

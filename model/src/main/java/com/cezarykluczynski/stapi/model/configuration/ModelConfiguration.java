@@ -9,10 +9,12 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.repository.support.Repositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -38,6 +40,9 @@ public class ModelConfiguration {
 
 	@Inject
 	private HibernateProperties hibernateProperties;
+
+	@Inject
+	private ApplicationContext applicationContext;
 
 	@Bean
 	@ConfigurationProperties(prefix = DATASOURCE_PREFIX)
@@ -79,6 +84,11 @@ public class ModelConfiguration {
 	@Bean
 	public PlatformTransactionManager transactionManager() {
 		return new JpaTransactionManager(entityManagerFactory());
+	}
+
+	@Bean
+	public Repositories repositories() {
+		return new Repositories(applicationContext);
 	}
 
 }

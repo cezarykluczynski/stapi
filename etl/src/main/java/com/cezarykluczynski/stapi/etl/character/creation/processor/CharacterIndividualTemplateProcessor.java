@@ -52,6 +52,7 @@ public class CharacterIndividualTemplateProcessor implements ItemProcessor<Indiv
 		character.setAlternateReality(Boolean.TRUE.equals(item.getAlternateReality()));
 		character.getPerformers().addAll(item.getPerformers());
 		item.getPerformers().forEach(performer -> performer.getCharacters().add(character));
+		character.getCharacterSpecies().addAll(item.getCharacterSpecies());
 
 		return character;
 	}

@@ -15,13 +15,17 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import java.util.Set;
@@ -30,8 +34,8 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true, exclude = {"performers", "episodes", "movies"})
-@EqualsAndHashCode(callSuper = true, exclude = {"performers", "episodes", "movies"})
+@ToString(callSuper = true, exclude = {"performers", "episodes", "movies", "characterSpecies"})
+@EqualsAndHashCode(callSuper = true, exclude = {"performers", "episodes", "movies", "characterSpecies"})
 public class Character extends PageAwareEntity implements PageAware {
 
 	@Id
@@ -88,5 +92,12 @@ public class Character extends PageAwareEntity implements PageAware {
 
 	@ManyToMany(mappedBy = "characters", targetEntity = Movie.class)
 	private Set<Movie> movies = Sets.newHashSet();
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "characters_character_species",
+			joinColumns = @JoinColumn(name = "character_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "character_species_id", nullable = false, updatable = false))
+	private Set<CharacterSpecies> characterSpecies = Sets.newHashSet();
+
 
 }

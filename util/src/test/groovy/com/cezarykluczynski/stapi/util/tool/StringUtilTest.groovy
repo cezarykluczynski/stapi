@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.util.tool
 
+import com.google.common.collect.Lists
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -37,6 +38,23 @@ class StringUtilTest extends Specification {
 		'blah ABC' | ['def', 'abc'] | true
 		'blah abc' | ['def', 'abc'] | true
 		'blah abc' | ['DEF', 'ABC'] | true
+	}
+
+	@Unroll('returns #positions when asked for positions of #search in #subject')
+	void "returns all positions of a substring in a string"() {
+		expect:
+		result == StringUtil.getAllSubstringPositions(subject, search)
+
+		where:
+		subject                                        | search     | result
+		''                                             | 'a'        | Lists.newArrayList()
+		'a'                                            | null       | Lists.newArrayList()
+		'a'                                            | ''         | Lists.newArrayList()
+		'bac'                                          | 'a'        | Lists.newArrayList(1)
+		'bacad'                                        | 'a'        | Lists.newArrayList(1, 3)
+		'aaaaa'                                        | 'a'        | Lists.newArrayList(0, 1, 2, 3, 4)
+		'aabbaabbaa'                                   | 'bb'       | Lists.newArrayList(2, 6)
+		'&frac12; [[Human]]<br />&frac12; [[Ocampa]]n' | '&frac12;' | Lists.newArrayList(0, 24)
 	}
 
 }

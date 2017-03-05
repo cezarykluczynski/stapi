@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PartToGen
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualLifeBoundaryDTO;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplateParameter;
+import com.cezarykluczynski.stapi.etl.template.individual.processor.species.CharacterSpeciesWikitextProcessor;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -31,12 +32,14 @@ public class IndividualTemplatePartsEnrichingProcessor implements ItemEnrichingP
 
 	private MaritalStatusProcessor maritalStatusProcessor;
 
+	private CharacterSpeciesWikitextProcessor characterSpeciesWikitextProcessor;
+
 	@Inject
 	public IndividualTemplatePartsEnrichingProcessor(PartToGenderProcessor partToGenderProcessor,
 			IndividualLifeBoundaryProcessor individualLifeBoundaryProcessor,
 			IndividualTemplateActorLinkingProcessor individualTemplateActorLinkingProcessor, IndividualHeightProcessor individualHeightProcessor,
 			IndividualWeightProcessor individualWeightProcessor, IndividualBloodTypeProcessor individualBloodTypeProcessor,
-			MaritalStatusProcessor maritalStatusProcessor) {
+			MaritalStatusProcessor maritalStatusProcessor, CharacterSpeciesWikitextProcessor characterSpeciesWikitextProcessor) {
 		this.partToGenderProcessor = partToGenderProcessor;
 		this.individualLifeBoundaryProcessor = individualLifeBoundaryProcessor;
 		this.individualTemplateActorLinkingProcessor = individualTemplateActorLinkingProcessor;
@@ -44,6 +47,7 @@ public class IndividualTemplatePartsEnrichingProcessor implements ItemEnrichingP
 		this.individualWeightProcessor = individualWeightProcessor;
 		this.individualBloodTypeProcessor = individualBloodTypeProcessor;
 		this.maritalStatusProcessor = maritalStatusProcessor;
+		this.characterSpeciesWikitextProcessor = characterSpeciesWikitextProcessor;
 	}
 
 	@Override
@@ -91,6 +95,9 @@ public class IndividualTemplatePartsEnrichingProcessor implements ItemEnrichingP
 					break;
 				case IndividualTemplateParameter.BLOOD_TYPE:
 					individualTemplate.setBloodType(individualBloodTypeProcessor.process(value));
+					break;
+				case IndividualTemplateParameter.SPECIES:
+					individualTemplate.getCharacterSpecies().addAll(characterSpeciesWikitextProcessor.process(value));
 					break;
 				default:
 					break;

@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.individual.dto;
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender;
+import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies;
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType;
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus;
 import com.cezarykluczynski.stapi.model.page.entity.Page;
@@ -56,5 +57,7 @@ public class IndividualTemplate {
 	private boolean productOfRedirect;
 
 	private Set<Performer> performers = Sets.newHashSet();
+
+	private Set<CharacterSpecies> characterSpecies = Sets.newHashSet();
 
 }

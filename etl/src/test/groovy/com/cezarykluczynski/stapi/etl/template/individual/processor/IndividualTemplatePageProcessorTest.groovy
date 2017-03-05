@@ -77,7 +77,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		0 * _
 		individualTemplate.name == TITLE
 		individualTemplate.page == pageEntity
-		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 4
+		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 5
 	}
 
 	void "sets name from page title, and cuts brackets when they are present"() {
@@ -95,7 +95,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_INDIVIDUAL) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> new PageEntity()
 		individualTemplate.name == TITLE
-		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 4
+		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 5
 	}
 
 	void "sets productOfRedirect flag to true"() {

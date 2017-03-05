@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.util.tool;
 
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
@@ -24,6 +25,31 @@ public class StringUtil {
 
 		String subjectLowerCase = subject.toLowerCase();
 		return getLowerCandidatesStream(candidates).anyMatch(subjectLowerCase::contains);
+	}
+
+	public static List<Integer> getAllSubstringPositions(String subject, String search) {
+		List<Integer> positionList = Lists.newArrayList();
+
+		if (StringUtils.isBlank(search)) {
+			return positionList;
+		}
+
+		int currentIndex = subject.indexOf(search);
+
+		if (currentIndex == -1) {
+			return positionList;
+		}
+
+		positionList.add(currentIndex);
+
+		while (currentIndex >= 0) {
+			currentIndex = subject.indexOf(search, currentIndex + search.length());
+			if (currentIndex != -1) {
+				positionList.add(currentIndex);
+			}
+		}
+
+		return positionList;
 	}
 
 	private static Stream<String> getLowerCandidatesStream(List<String> candidates) {

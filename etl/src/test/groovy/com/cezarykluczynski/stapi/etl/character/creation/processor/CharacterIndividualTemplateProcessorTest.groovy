@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.mapper.GenderMapper
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender as EtlGender
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate
 import com.cezarykluczynski.stapi.model.character.entity.Character
+import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender as ModelGender
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus
@@ -20,8 +21,6 @@ class CharacterIndividualTemplateProcessorTest extends AbstractIndividualTest {
 	private static final ModelGender MODEL_GENDER = ModelGender.F
 	private static final BloodType BLOOD_TYPE = BloodType.B_NEGATIVE
 	private static final MaritalStatus MARITAL_STATUS = MaritalStatus.MARRIED
-	private static final Performer PERFORMER_1 = new Performer(id: 11L)
-	private static final Performer PERFORMER_2 = new Performer(id: 12L)
 
 	private GuidGenerator guidGeneratorMock
 
@@ -50,6 +49,11 @@ class CharacterIndividualTemplateProcessorTest extends AbstractIndividualTest {
 
 	void "converts IndividualTemplate to Character"() {
 		given:
+		Performer performer1 = new Performer(id: 11L)
+		Performer performer2 = new Performer(id: 12L)
+		CharacterSpecies characterSpecies1 = new CharacterSpecies(id: 21L)
+		CharacterSpecies characterSpecies2 = new CharacterSpecies(id: 22L)
+
 		IndividualTemplate individualTemplate = new IndividualTemplate(
 				page: PAGE,
 				name: NAME,
@@ -70,7 +74,8 @@ class CharacterIndividualTemplateProcessorTest extends AbstractIndividualTest {
 				serialNumber: SERIAL_NUMBER,
 				mirror: MIRROR,
 				alternateReality: ALTERNATE_REALITY,
-				performers: Sets.newHashSet(PERFORMER_1, PERFORMER_2)
+				performers: Sets.newHashSet(performer1, performer2),
+				characterSpecies: Sets.newHashSet(characterSpecies1, characterSpecies2)
 		)
 		when:
 		Character character = characterIndividualTemplateProcessor.process(individualTemplate)
@@ -99,10 +104,12 @@ class CharacterIndividualTemplateProcessorTest extends AbstractIndividualTest {
 		character.mirror == MIRROR
 		character.alternateReality == ALTERNATE_REALITY
 		character.performers.size() == 2
-		character.performers.contains PERFORMER_1
-		character.performers.contains PERFORMER_2
-		PERFORMER_1.characters.contains character
-		PERFORMER_2.characters.contains character
+		character.performers.contains performer1
+		character.performers.contains performer2
+		performer1.characters.contains character
+		performer2.characters.contains character
+		character.characterSpecies.contains characterSpecies1
+		character.characterSpecies.contains characterSpecies2
 	}
 
 	void "when mirror and alternate universe flags are null, false is put into Character"() {
