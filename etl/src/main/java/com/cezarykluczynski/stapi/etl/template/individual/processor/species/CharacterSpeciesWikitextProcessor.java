@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
+import com.cezarykluczynski.stapi.util.tool.NumberUtil;
 import com.cezarykluczynski.stapi.util.tool.StringUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -26,6 +27,7 @@ public class CharacterSpeciesWikitextProcessor implements ItemProcessor<String, 
 	private static final String AUGMENT = "Augment";
 	private static final String HYBRID = "hybrid";
 	private static final String ARDANAN = "Ardanan";
+	private static final String FORMER = "former";
 
 	private static final List<String> FRACTION_NAMES = Lists.newArrayList(CharacterSpeciesLiteralFractionWikitextEnrichingProcessor
 			.FRACTIONS.keySet());
@@ -68,10 +70,12 @@ public class CharacterSpeciesWikitextProcessor implements ItemProcessor<String, 
 						tryAddSingleSpeciesTitle(pageLink.getTitle(), characterSpeciesSet, Fraction.getFraction(1, 2));
 					}
 				}
-			} else if (pageLinkList.stream().anyMatch(pageLink -> StringUtils.equalsIgnoreCase(pageLink.getTitle(), ARDANAN))) {
+			} else if (isArdanan(pageLinkList)) {
 				tryAddSingleSpeciesTitle(ARDANAN, characterSpeciesSet);
+			} else if (isFormer(item, pageLinkList)) {
+				tryAddSingleSpeciesTitle(pageLinkList.get(0).getTitle(), characterSpeciesSet);
 			} else {
-				log.info("Unknown species: {}", item);
+				log.info("Unknown species: \"{}\"", item);
 			}
 		}
 
@@ -97,6 +101,21 @@ public class CharacterSpeciesWikitextProcessor implements ItemProcessor<String, 
 
 	private void tryAddSingleSpeciesTitle(String title, Set<CharacterSpecies> characterSpeciesSet, Fraction fraction) throws Exception {
 		characterSpeciesWithSpeciesNameEnrichingProcessor.enrich(EnrichablePair.of(Pair.of(title, fraction), characterSpeciesSet));
+	}
+
+	private boolean isArdanan(List<PageLink> pageLinkList) {
+		return pageLinkList.stream().anyMatch(pageLink -> StringUtils.equalsIgnoreCase(pageLink.getTitle(), ARDANAN));
+	}
+
+	private boolean isFormer(String item, List<PageLink> pageLinkList) {
+		List<Integer> formerPositions = StringUtil.getAllSubstringPositions(item, FORMER);
+
+		if (formerPositions.size() != 1 || !NumberUtil.inRangeInclusive(pageLinkList.size(), 2, 3)) {
+			return false;
+		}
+
+		Integer lastLinkStartPosition = pageLinkList.get(pageLinkList.size() - 1).getStartPosition();
+		return lastLinkStartPosition > formerPositions.get(0);
 	}
 
 }

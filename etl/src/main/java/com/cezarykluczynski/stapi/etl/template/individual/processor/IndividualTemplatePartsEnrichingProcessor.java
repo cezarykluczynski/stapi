@@ -97,7 +97,8 @@ public class IndividualTemplatePartsEnrichingProcessor implements ItemEnrichingP
 					individualTemplate.setBloodType(individualBloodTypeProcessor.process(value));
 					break;
 				case IndividualTemplateParameter.SPECIES:
-					individualTemplate.getCharacterSpecies().addAll(characterSpeciesWikitextProcessor.process(value));
+					individualTemplate.getCharacterSpecies()
+							.addAll(characterSpeciesWikitextProcessor.process(value));
 					break;
 				default:
 					break;

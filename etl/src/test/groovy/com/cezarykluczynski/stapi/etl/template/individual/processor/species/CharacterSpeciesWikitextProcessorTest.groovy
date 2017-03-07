@@ -16,6 +16,7 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 	private static final String WIKITEXT_HYBRID = 'WIKITEXT_HYBRID'
 	private static final String TITLE_1 = 'TITLE_1'
 	private static final String TITLE_2 = 'TITLE_2'
+	private static final String WIKITEXT_FORMER = "${TITLE_1} former ${TITLE_2}"
 
 	private WikitextApi wikitextApiMock
 
@@ -76,7 +77,7 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 		then:
 		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT_WITH_FRACTIONS) >> Lists.newArrayList(pageLink1, pageLink2)
 		1 * characterSpeciesLiteralFractionWikitextEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
-			EnrichablePair<Pair<String, List<PageLink>>, Set<CharacterSpecies>> enrichablePair ->
+				EnrichablePair<Pair<String, List<PageLink>>, Set<CharacterSpecies>> enrichablePair ->
 			assert enrichablePair.input.left == WIKITEXT_WITH_FRACTIONS
 			assert enrichablePair.input.right[0] == pageLink1
 			assert enrichablePair.input.right[1] == pageLink2
@@ -98,11 +99,11 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 		then:
 		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT) >> Lists.newArrayList(humanPageLink, augmentPageLink)
 		1 * characterSpeciesWithSpeciesNameEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
-			EnrichablePair<Pair<String, Fraction>, Set<CharacterSpecies>> enrichablePair ->
-				assert enrichablePair.input.left == CharacterSpeciesWikitextProcessor.HUMAN
-				assert enrichablePair.input.right.numerator == 1
-				assert enrichablePair.input.right.denominator == 1
-				enrichablePair.output.add characterSpecies
+				EnrichablePair<Pair<String, Fraction>, Set<CharacterSpecies>> enrichablePair ->
+			assert enrichablePair.input.left == CharacterSpeciesWikitextProcessor.HUMAN
+			assert enrichablePair.input.right.numerator == 1
+			assert enrichablePair.input.right.denominator == 1
+			enrichablePair.output.add characterSpecies
 		}
 		0 * _
 		characterSpeciesSet.contains characterSpecies
@@ -121,18 +122,18 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 		then:
 		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT_HYBRID) >> Lists.newArrayList(humanPageLink, augmentPageLink)
 		1 * characterSpeciesWithSpeciesNameEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
-			EnrichablePair<Pair<String, Fraction>, Set<CharacterSpecies>> enrichablePair ->
-				assert enrichablePair.input.left == TITLE_1
-				assert enrichablePair.input.right.numerator == 1
-				assert enrichablePair.input.right.denominator == 2
-				enrichablePair.output.add characterSpeciesOneHalf
+				EnrichablePair<Pair<String, Fraction>, Set<CharacterSpecies>> enrichablePair ->
+			assert enrichablePair.input.left == TITLE_1
+			assert enrichablePair.input.right.numerator == 1
+			assert enrichablePair.input.right.denominator == 2
+			enrichablePair.output.add characterSpeciesOneHalf
 		}
 		1 * characterSpeciesWithSpeciesNameEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
-			EnrichablePair<Pair<String, Fraction>, Set<CharacterSpecies>> enrichablePair ->
-				assert enrichablePair.input.left == TITLE_2
-				assert enrichablePair.input.right.numerator == 1
-				assert enrichablePair.input.right.denominator == 2
-				enrichablePair.output.add characterSpeciesOtherHalf
+				EnrichablePair<Pair<String, Fraction>, Set<CharacterSpecies>> enrichablePair ->
+			assert enrichablePair.input.left == TITLE_2
+			assert enrichablePair.input.right.numerator == 1
+			assert enrichablePair.input.right.denominator == 2
+			enrichablePair.output.add characterSpeciesOtherHalf
 		}
 		0 * _
 		characterSpeciesSet.contains characterSpeciesOneHalf
@@ -153,11 +154,11 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 		then:
 		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT_HYBRID) >> Lists.newArrayList(pageLink1,  pageLink2, pageLinkHybrid)
 		1 * characterSpeciesWithSpeciesNameEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
-			EnrichablePair<Pair<String, Fraction>, Set<CharacterSpecies>> enrichablePair ->
-				assert enrichablePair.input.left == TITLE_1
-				assert enrichablePair.input.right.numerator == 1
-				assert enrichablePair.input.right.denominator == 2
-				enrichablePair.output.add characterSpeciesOneHalf
+				EnrichablePair<Pair<String, Fraction>, Set<CharacterSpecies>> enrichablePair ->
+			assert enrichablePair.input.left == TITLE_1
+			assert enrichablePair.input.right.numerator == 1
+			assert enrichablePair.input.right.denominator == 2
+			enrichablePair.output.add characterSpeciesOneHalf
 		}
 		1 * characterSpeciesWithSpeciesNameEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 			EnrichablePair<Pair<String, Fraction>, Set<CharacterSpecies>> enrichablePair ->
@@ -183,14 +184,36 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 		then:
 		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT) >> Lists.newArrayList(argananPageLink, otherPageLink)
 		1 * characterSpeciesWithSpeciesNameEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
-			EnrichablePair<Pair<String, Fraction>, Set<CharacterSpecies>> enrichablePair ->
-				assert enrichablePair.input.left == CharacterSpeciesWikitextProcessor.ARDANAN
-				assert enrichablePair.input.right.numerator == 1
-				assert enrichablePair.input.right.denominator == 1
-				enrichablePair.output.add characterSpecies
+				EnrichablePair<Pair<String, Fraction>, Set<CharacterSpecies>> enrichablePair ->
+			assert enrichablePair.input.left == CharacterSpeciesWikitextProcessor.ARDANAN
+			assert enrichablePair.input.right.numerator == 1
+			assert enrichablePair.input.right.denominator == 1
+			enrichablePair.output.add characterSpecies
 		}
 		0 * _
 		characterSpeciesSet.contains characterSpecies
+	}
+
+	void "former species is recognized, but ignored"() {
+		given:
+		PageLink pageLink1 = new PageLink(title: TITLE_1, startPosition: 10)
+		PageLink pageLink2 = new PageLink(title: TITLE_2, startPosition: 50)
+		CharacterSpecies characterSpeciesCurrent = Mock(CharacterSpecies)
+
+		when:
+		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor.process(WIKITEXT_FORMER)
+
+		then:
+		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT_FORMER) >> Lists.newArrayList(pageLink1, pageLink2)
+		1 * characterSpeciesWithSpeciesNameEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+				EnrichablePair<Pair<String, Fraction>, Set<CharacterSpecies>> enrichablePair ->
+			assert enrichablePair.input.left == TITLE_1
+			assert enrichablePair.input.right.numerator == 1
+			assert enrichablePair.input.right.denominator == 1
+			enrichablePair.output.add characterSpeciesCurrent
+		}
+		0 * _
+		characterSpeciesSet.contains characterSpeciesCurrent
 	}
 
 }
