@@ -1,9 +1,12 @@
 package com.cezarykluczynski.stapi.etl.template.individual.processor.species
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
+import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder
+import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
+import com.google.common.collect.ImmutableMap
 import com.google.common.collect.Lists
 import org.apache.commons.lang3.math.Fraction
 import org.apache.commons.lang3.tuple.Pair
@@ -14,11 +17,14 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 	private static final String WIKITEXT = 'WIKITEXT'
 	private static final String WIKITEXT_WITH_FRACTIONS = '&frac34; [[Human]]<br>&frac14; [[Betazoid]]'
 	private static final String WIKITEXT_HYBRID = 'WIKITEXT_HYBRID'
+	private static final String INDIVIDUAL_NAME = 'INDIVIDUAL_NAME'
 	private static final String TITLE_1 = 'TITLE_1'
 	private static final String TITLE_2 = 'TITLE_2'
 	private static final String WIKITEXT_FORMER = "${TITLE_1} former ${TITLE_2}"
 
 	private WikitextApi wikitextApiMock
+
+	private CharacterSpeciesFixedValueProvider characterSpeciesFixedValueProviderMock
 
 	private CharacterSpeciesLiteralFractionWikitextEnrichingProcessor characterSpeciesLiteralFractionWikitextEnrichingProcessorMock
 
@@ -27,21 +33,57 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 	private CharacterSpeciesWikitextProcessor characterSpeciesWikitextProcessor
 
 	void setup() {
+		characterSpeciesFixedValueProviderMock = Mock(CharacterSpeciesFixedValueProvider)
 		wikitextApiMock = Mock(WikitextApi)
 		characterSpeciesLiteralFractionWikitextEnrichingProcessorMock = Mock(CharacterSpeciesLiteralFractionWikitextEnrichingProcessor)
 		characterSpeciesWithSpeciesNameEnrichingProcessorMock = Mock(CharacterSpeciesWithSpeciesNameEnrichingProcessor)
-		characterSpeciesWikitextProcessor = new CharacterSpeciesWikitextProcessor(wikitextApiMock,
+		characterSpeciesWikitextProcessor = new CharacterSpeciesWikitextProcessor(characterSpeciesFixedValueProviderMock, wikitextApiMock,
 				characterSpeciesLiteralFractionWikitextEnrichingProcessorMock, characterSpeciesWithSpeciesNameEnrichingProcessorMock)
 	}
 
 	void "returns empty set when page links list is empty"() {
 		when:
-		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor.process(WIKITEXT)
+		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor
+				.process(Pair.of(WIKITEXT_FORMER, new IndividualTemplate(name: INDIVIDUAL_NAME)))
 
 		then:
-		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT) >> Lists.newArrayList()
+		1 * characterSpeciesFixedValueProviderMock.getSearchedValue(INDIVIDUAL_NAME) >> FixedValueHolder.empty()
+		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT_FORMER) >> Lists.newArrayList()
 		0 * _
 		characterSpeciesSet.empty
+	}
+
+	void "when fixed value is found, it is used"() {
+		given:
+		CharacterSpecies characterSpeciesFirst = Mock(CharacterSpecies)
+		CharacterSpecies characterSpeciesSecond = Mock(CharacterSpecies)
+
+		when:
+		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor
+				.process(Pair.of(WIKITEXT, new IndividualTemplate(name: INDIVIDUAL_NAME)))
+
+		then:
+		1 * characterSpeciesFixedValueProviderMock.getSearchedValue(INDIVIDUAL_NAME) >> FixedValueHolder.found(ImmutableMap.of(
+				TITLE_1, Fraction.getFraction(1, 4),
+				TITLE_2, Fraction.getFraction(3, 4)
+		))
+		1 * characterSpeciesWithSpeciesNameEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+				EnrichablePair<Pair<String, Fraction>, Set<CharacterSpecies>> enrichablePair ->
+			assert enrichablePair.input.left == TITLE_1
+			assert enrichablePair.input.right.numerator == 1
+			assert enrichablePair.input.right.denominator == 4
+			enrichablePair.output.add characterSpeciesFirst
+		}
+		1 * characterSpeciesWithSpeciesNameEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+				EnrichablePair<Pair<String, Fraction>, Set<CharacterSpecies>> enrichablePair ->
+			assert enrichablePair.input.left == TITLE_2
+			assert enrichablePair.input.right.numerator == 3
+			assert enrichablePair.input.right.denominator == 4
+			enrichablePair.output.add characterSpeciesSecond
+		}
+		0 * _
+		characterSpeciesSet.contains characterSpeciesFirst
+		characterSpeciesSet.contains characterSpeciesSecond
 	}
 
 	void "when single page link is used, it is passed to CharacterSpeciesWithSpeciesNameEnrichingProcessor"() {
@@ -50,9 +92,11 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 		CharacterSpecies characterSpecies = Mock(CharacterSpecies)
 
 		when:
-		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor.process(WIKITEXT)
+		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor
+				.process(Pair.of(WIKITEXT, new IndividualTemplate(name: INDIVIDUAL_NAME)))
 
 		then:
+		1 * characterSpeciesFixedValueProviderMock.getSearchedValue(INDIVIDUAL_NAME) >> FixedValueHolder.empty()
 		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT) >> Lists.newArrayList(pageLink)
 		1 * characterSpeciesWithSpeciesNameEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 				EnrichablePair<Pair<String, Fraction>, Set<CharacterSpecies>> enrichablePair ->
@@ -72,9 +116,11 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 		CharacterSpecies characterSpecies = Mock(CharacterSpecies)
 
 		when:
-		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor.process(WIKITEXT_WITH_FRACTIONS)
+		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor
+				.process(Pair.of(WIKITEXT_WITH_FRACTIONS, new IndividualTemplate(name: INDIVIDUAL_NAME)))
 
 		then:
+		1 * characterSpeciesFixedValueProviderMock.getSearchedValue(INDIVIDUAL_NAME) >> FixedValueHolder.empty()
 		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT_WITH_FRACTIONS) >> Lists.newArrayList(pageLink1, pageLink2)
 		1 * characterSpeciesLiteralFractionWikitextEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 				EnrichablePair<Pair<String, List<PageLink>>, Set<CharacterSpecies>> enrichablePair ->
@@ -94,9 +140,11 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 		CharacterSpecies characterSpecies = Mock(CharacterSpecies)
 
 		when:
-		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor.process(WIKITEXT)
+		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor
+				.process(Pair.of(WIKITEXT, new IndividualTemplate(name: INDIVIDUAL_NAME)))
 
 		then:
+		1 * characterSpeciesFixedValueProviderMock.getSearchedValue(INDIVIDUAL_NAME) >> FixedValueHolder.empty()
 		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT) >> Lists.newArrayList(humanPageLink, augmentPageLink)
 		1 * characterSpeciesWithSpeciesNameEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 				EnrichablePair<Pair<String, Fraction>, Set<CharacterSpecies>> enrichablePair ->
@@ -117,9 +165,11 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 		CharacterSpecies characterSpeciesOtherHalf = Mock(CharacterSpecies)
 
 		when:
-		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor.process(WIKITEXT_HYBRID)
+		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor
+				.process(Pair.of(WIKITEXT_HYBRID, new IndividualTemplate(name: INDIVIDUAL_NAME)))
 
 		then:
+		1 * characterSpeciesFixedValueProviderMock.getSearchedValue(INDIVIDUAL_NAME) >> FixedValueHolder.empty()
 		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT_HYBRID) >> Lists.newArrayList(humanPageLink, augmentPageLink)
 		1 * characterSpeciesWithSpeciesNameEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 				EnrichablePair<Pair<String, Fraction>, Set<CharacterSpecies>> enrichablePair ->
@@ -149,9 +199,11 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 		CharacterSpecies characterSpeciesOtherHalf = Mock(CharacterSpecies)
 
 		when:
-		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor.process(WIKITEXT_HYBRID)
+		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor
+				.process(Pair.of(WIKITEXT_HYBRID, new IndividualTemplate(name: INDIVIDUAL_NAME)))
 
 		then:
+		1 * characterSpeciesFixedValueProviderMock.getSearchedValue(INDIVIDUAL_NAME) >> FixedValueHolder.empty()
 		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT_HYBRID) >> Lists.newArrayList(pageLink1,  pageLink2, pageLinkHybrid)
 		1 * characterSpeciesWithSpeciesNameEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 				EnrichablePair<Pair<String, Fraction>, Set<CharacterSpecies>> enrichablePair ->
@@ -179,9 +231,11 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 		CharacterSpecies characterSpecies = Mock(CharacterSpecies)
 
 		when:
-		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor.process(WIKITEXT)
+		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor
+				.process(Pair.of(WIKITEXT, new IndividualTemplate(name: INDIVIDUAL_NAME)))
 
 		then:
+		1 * characterSpeciesFixedValueProviderMock.getSearchedValue(INDIVIDUAL_NAME) >> FixedValueHolder.empty()
 		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT) >> Lists.newArrayList(argananPageLink, otherPageLink)
 		1 * characterSpeciesWithSpeciesNameEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 				EnrichablePair<Pair<String, Fraction>, Set<CharacterSpecies>> enrichablePair ->
@@ -201,9 +255,11 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 		CharacterSpecies characterSpeciesCurrent = Mock(CharacterSpecies)
 
 		when:
-		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor.process(WIKITEXT_FORMER)
+		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor
+				.process(Pair.of(WIKITEXT_FORMER, new IndividualTemplate(name: INDIVIDUAL_NAME)))
 
 		then:
+		1 * characterSpeciesFixedValueProviderMock.getSearchedValue(INDIVIDUAL_NAME) >> FixedValueHolder.empty()
 		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT_FORMER) >> Lists.newArrayList(pageLink1, pageLink2)
 		1 * characterSpeciesWithSpeciesNameEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 				EnrichablePair<Pair<String, Fraction>, Set<CharacterSpecies>> enrichablePair ->

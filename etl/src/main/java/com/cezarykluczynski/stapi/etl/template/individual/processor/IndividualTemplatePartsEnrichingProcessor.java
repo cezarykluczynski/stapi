@@ -10,6 +10,7 @@ import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate
 import com.cezarykluczynski.stapi.etl.template.individual.processor.species.CharacterSpeciesWikitextProcessor;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -98,7 +99,7 @@ public class IndividualTemplatePartsEnrichingProcessor implements ItemEnrichingP
 					break;
 				case IndividualTemplateParameter.SPECIES:
 					individualTemplate.getCharacterSpecies()
-							.addAll(characterSpeciesWikitextProcessor.process(value));
+							.addAll(characterSpeciesWikitextProcessor.process(Pair.of(value, individualTemplate)));
 					break;
 				default:
 					break;

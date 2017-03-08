@@ -1,6 +1,8 @@
 package com.cezarykluczynski.stapi.etl.template.individual.processor.species;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
+import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
+import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
@@ -17,11 +19,12 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Service
 @Slf4j
-public class CharacterSpeciesWikitextProcessor implements ItemProcessor<String, Set<CharacterSpecies>> {
+public class CharacterSpeciesWikitextProcessor implements ItemProcessor<Pair<String, IndividualTemplate>, Set<CharacterSpecies>> {
 
 	private static final String HUMAN = "Human";
 	private static final String AUGMENT = "Augment";
@@ -32,6 +35,8 @@ public class CharacterSpeciesWikitextProcessor implements ItemProcessor<String, 
 	private static final List<String> FRACTION_NAMES = Lists.newArrayList(CharacterSpeciesLiteralFractionWikitextEnrichingProcessor
 			.FRACTIONS.keySet());
 
+	private CharacterSpeciesFixedValueProvider characterSpeciesFixedValueProvider;
+
 	private WikitextApi wikitextApi;
 
 	private CharacterSpeciesLiteralFractionWikitextEnrichingProcessor characterSpeciesLiteralFractionWikitextEnrichingProcessor;
@@ -39,17 +44,32 @@ public class CharacterSpeciesWikitextProcessor implements ItemProcessor<String, 
 	private CharacterSpeciesWithSpeciesNameEnrichingProcessor characterSpeciesWithSpeciesNameEnrichingProcessor;
 
 	@Inject
-	public CharacterSpeciesWikitextProcessor(WikitextApi wikitextApi,
+	public CharacterSpeciesWikitextProcessor(CharacterSpeciesFixedValueProvider characterSpeciesFixedValueProvider, WikitextApi wikitextApi,
 			CharacterSpeciesLiteralFractionWikitextEnrichingProcessor characterSpeciesLiteralFractionWikitextEnrichingProcessor,
 			CharacterSpeciesWithSpeciesNameEnrichingProcessor characterSpeciesWithSpeciesNameEnrichingProcessor) {
+		this.characterSpeciesFixedValueProvider = characterSpeciesFixedValueProvider;
 		this.wikitextApi = wikitextApi;
 		this.characterSpeciesLiteralFractionWikitextEnrichingProcessor = characterSpeciesLiteralFractionWikitextEnrichingProcessor;
 		this.characterSpeciesWithSpeciesNameEnrichingProcessor = characterSpeciesWithSpeciesNameEnrichingProcessor;
 	}
 
 	@Override
-	public Set<CharacterSpecies> process(String item) throws Exception {
+	public Set<CharacterSpecies> process(Pair<String, IndividualTemplate> pair) throws Exception {
+		String item = pair.getLeft();
+		IndividualTemplate individualTemplate = pair.getRight();
 		Set<CharacterSpecies> characterSpeciesSet = Sets.newHashSet();
+
+		FixedValueHolder<Map<String, Fraction>> characterSpeciesFixedValueHolder = characterSpeciesFixedValueProvider
+				.getSearchedValue(individualTemplate.getName());
+
+		if (characterSpeciesFixedValueHolder.isFound()) {
+			for (Map.Entry<String, Fraction> speciesCandidate : characterSpeciesFixedValueHolder.getValue().entrySet()) {
+				tryAddSingleSpeciesName(speciesCandidate.getKey(), characterSpeciesSet, speciesCandidate.getValue());
+			}
+
+			return characterSpeciesSet;
+		}
+
 		List<PageLink> pageLinkList = wikitextApi.getPageLinksFromWikitext(item);
 
 		if (pageLinkList.isEmpty()) {
@@ -57,23 +77,23 @@ public class CharacterSpeciesWikitextProcessor implements ItemProcessor<String, 
 		}
 
 		if (pageLinkList.size() == 1) {
-			tryAddSingleSpeciesTitle(pageLinkList.get(0).getTitle(), characterSpeciesSet);
+			tryAddSingleSpeciesName(pageLinkList.get(0).getTitle(), characterSpeciesSet);
 		} else {
 			if (StringUtil.containsAnyIgnoreCase(item, FRACTION_NAMES)) {
 				characterSpeciesLiteralFractionWikitextEnrichingProcessor
 						.enrich(EnrichablePair.of(Pair.of(item, pageLinkList), characterSpeciesSet));
 			} else if (isHumanAugment(pageLinkList)) {
-				tryAddSingleSpeciesTitle(HUMAN, characterSpeciesSet);
+				tryAddSingleSpeciesName(HUMAN, characterSpeciesSet);
 			} else if (isHybrid(item, pageLinkList)) {
 				for (PageLink pageLink : pageLinkList) {
 					if (!isHybrid(pageLink)) {
-						tryAddSingleSpeciesTitle(pageLink.getTitle(), characterSpeciesSet, Fraction.getFraction(1, 2));
+						tryAddSingleSpeciesName(pageLink.getTitle(), characterSpeciesSet, Fraction.getFraction(1, 2));
 					}
 				}
 			} else if (isArdanan(pageLinkList)) {
-				tryAddSingleSpeciesTitle(ARDANAN, characterSpeciesSet);
+				tryAddSingleSpeciesName(ARDANAN, characterSpeciesSet);
 			} else if (isFormer(item, pageLinkList)) {
-				tryAddSingleSpeciesTitle(pageLinkList.get(0).getTitle(), characterSpeciesSet);
+				tryAddSingleSpeciesName(pageLinkList.get(0).getTitle(), characterSpeciesSet);
 			} else {
 				log.info("Unknown species: \"{}\"", item);
 			}
@@ -95,12 +115,12 @@ public class CharacterSpeciesWikitextProcessor implements ItemProcessor<String, 
 		return StringUtils.equalsIgnoreCase(pageLink.getTitle(), HYBRID) || StringUtils.equalsIgnoreCase(pageLink.getDescription(), HYBRID);
 	}
 
-	private void tryAddSingleSpeciesTitle(String title, Set<CharacterSpecies> characterSpeciesSet) throws Exception {
-		tryAddSingleSpeciesTitle(title, characterSpeciesSet, Fraction.getFraction(1, 1));
+	private void tryAddSingleSpeciesName(String speciesName, Set<CharacterSpecies> characterSpeciesSet) throws Exception {
+		tryAddSingleSpeciesName(speciesName, characterSpeciesSet, Fraction.getFraction(1, 1));
 	}
 
-	private void tryAddSingleSpeciesTitle(String title, Set<CharacterSpecies> characterSpeciesSet, Fraction fraction) throws Exception {
-		characterSpeciesWithSpeciesNameEnrichingProcessor.enrich(EnrichablePair.of(Pair.of(title, fraction), characterSpeciesSet));
+	private void tryAddSingleSpeciesName(String speciesName, Set<CharacterSpecies> characterSpeciesSet, Fraction fraction) throws Exception {
+		characterSpeciesWithSpeciesNameEnrichingProcessor.enrich(EnrichablePair.of(Pair.of(speciesName, fraction), characterSpeciesSet));
 	}
 
 	private boolean isArdanan(List<PageLink> pageLinkList) {
