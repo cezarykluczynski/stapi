@@ -69,12 +69,23 @@
 			<xs:sequence>
 				<xs:element name="movieHeaders" type="movie:MovieHeader" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="characterSpecies" type="character:CharacterSpecies" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="CharacterHeader">
 		<xs:sequence>
 			<xs:element name="guid" type="xs:string"/>
 			<xs:element name="name" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CharacterSpecies">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="numerator" type="xs:int"/>
+			<xs:element name="denominator" type="xs:int"/>
 		</xs:sequence>
 	</xs:complexType>
 </xs:schema>

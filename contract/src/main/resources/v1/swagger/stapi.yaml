@@ -46,6 +46,8 @@ definitions:
     $ref: ./character/entity/characterHeader.yaml
   CharacterResponse:
     $ref: ./character/entity/characterResponse.yaml
+  CharacterSpecies:
+    $ref: ./character/entity/characterSpecies.yaml
   Comics:
     $ref: ./comics/entity/comics.yaml
   ComicsHeader:

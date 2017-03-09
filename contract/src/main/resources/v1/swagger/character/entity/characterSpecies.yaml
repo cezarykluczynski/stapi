@@ -1,0 +1,10 @@
+type: object
+properties:
+  guid:
+    type: string
+  name:
+    type: string
+  numerator:
+    type: integer
+  denominator:
+    type: integer

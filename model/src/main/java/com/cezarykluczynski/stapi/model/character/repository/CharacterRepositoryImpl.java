@@ -39,6 +39,7 @@ public class CharacterRepositoryImpl extends AbstractRepositoryImpl<Character> i
 		characterQueryBuilder.fetch(Character_.performers, doFetch);
 		characterQueryBuilder.fetch(Character_.episodes, doFetch);
 		characterQueryBuilder.fetch(Character_.movies, doFetch);
+		characterQueryBuilder.fetch(Character_.characterSpecies, doFetch);
 
 		Page<Character> performerPage = characterQueryBuilder.findPage();
 		clearProxies(performerPage, !doFetch);
@@ -55,6 +56,7 @@ public class CharacterRepositoryImpl extends AbstractRepositoryImpl<Character> i
 			character.setPerformers(Sets.newHashSet());
 			character.setEpisodes(Sets.newHashSet());
 			character.setMovies(Sets.newHashSet());
+			character.setCharacterSpecies(Sets.newHashSet());
 		});
 	}
 

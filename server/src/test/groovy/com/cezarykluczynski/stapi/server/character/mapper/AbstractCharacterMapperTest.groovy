@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.server.character.mapper
 
+import com.cezarykluczynski.stapi.model.character.entity.Character
+import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus
@@ -7,7 +9,6 @@ import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.util.AbstractIndividualTest
-import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.google.common.collect.Sets
 
 abstract class AbstractCharacterMapperTest extends AbstractIndividualTest {
@@ -15,6 +16,8 @@ abstract class AbstractCharacterMapperTest extends AbstractIndividualTest {
 	protected static final Gender MODEL_GENDER = Gender.F
 	protected static final BloodType ENTITY_BLOOD_TYPE = BloodType.B_NEGATIVE
 	protected static final MaritalStatus ENTITY_MARITAL_STATUS = MaritalStatus.MARRIED
+	protected static final Integer NUMERATOR = 1
+	protected static final Integer DENOMINATOR = 2
 
 	protected Character createCharacter() {
 		new Character(
@@ -39,8 +42,8 @@ abstract class AbstractCharacterMapperTest extends AbstractIndividualTest {
 				alternateReality: ALTERNATE_REALITY,
 				performers: Sets.newHashSet(Mock(Performer)),
 				episodes: Sets.newHashSet(Mock(Episode)),
-				movies: Sets.newHashSet(Mock(Movie))
-		)
+				movies: Sets.newHashSet(Mock(Movie)),
+				characterSpecies: Sets.newHashSet(Mock(CharacterSpecies)))
 	}
 
 }

@@ -73,6 +73,7 @@ class CharacterRestMapperTest extends AbstractCharacterMapperTest {
 		restCharacter.performerHeaders.size() == dbCharacter.performers.size()
 		restCharacter.episodeHeaders.size() == dbCharacter.episodes.size()
 		restCharacter.movieHeaders.size() == dbCharacter.movies.size()
+		restCharacter.characterSpecies.size() == dbCharacter.characterSpecies.size()
 	}
 
 }

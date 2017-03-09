@@ -74,6 +74,7 @@ class CharacterSoapMapperTest extends AbstractCharacterMapperTest {
 		soapCharacter.performerHeaders.size() == dbCharacter.performers.size()
 		soapCharacter.episodeHeaders.size() == dbCharacter.episodes.size()
 		soapCharacter.movieHeaders.size() == dbCharacter.movies.size()
+		soapCharacter.characterSpecies.size() == dbCharacter.characterSpecies.size()
 	}
 
 }

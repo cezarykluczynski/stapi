@@ -36,6 +36,7 @@ public class CharacterSpeciesRepositoryImpl implements CharacterSpeciesRepositor
 
 		characterSpeciesQueryBuilder.equal(CharacterSpecies_.numerator, numerator);
 		characterSpeciesQueryBuilder.equal(CharacterSpecies_.denominator, denominator);
+		characterSpeciesQueryBuilder.fetch(CharacterSpecies_.species, false);
 		characterSpeciesQueryBuilder.joinPropertyEqual(CharacterSpecies_.species, "id", species.getId());
 
 		List<CharacterSpecies> characterSpeciesList = characterSpeciesQueryBuilder.findAll();

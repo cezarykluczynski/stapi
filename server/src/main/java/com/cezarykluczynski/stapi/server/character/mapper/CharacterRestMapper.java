@@ -15,7 +15,7 @@ import org.mapstruct.Mappings;
 
 import java.util.List;
 
-@Mapper(config = MapstructConfiguration.class, uses = {EnumMapper.class, EpisodeHeaderRestMapper.class,
+@Mapper(config = MapstructConfiguration.class, uses = {CharacterSpeciesRestMapper.class, EnumMapper.class, EpisodeHeaderRestMapper.class,
 		MovieHeaderRestMapper.class, PerformerHeaderRestMapper.class, RequestSortRestMapper.class})
 public interface CharacterRestMapper {
 

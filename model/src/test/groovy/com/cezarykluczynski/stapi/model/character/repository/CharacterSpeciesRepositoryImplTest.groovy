@@ -55,8 +55,10 @@ class CharacterSpeciesRepositoryImplTest extends Specification {
 		}
 		1 * characterSpeciesQueryBuilder.equal(CharacterSpecies_.numerator, NUMERATOR_INTEGER)
 		1 * characterSpeciesQueryBuilder.equal(CharacterSpecies_.denominator, DENOMINATOR_INTEGER)
+		1 * characterSpeciesQueryBuilder.fetch(CharacterSpecies_.species, false)
 		1 * characterSpeciesQueryBuilder.joinPropertyEqual(CharacterSpecies_.species, 'id', SPECIES_ID)
 		1 * characterSpeciesQueryBuilder.findAll() >> Lists.newArrayList(characterSpecies)
+		0 * _
 		characterSpeciesOutput == characterSpecies
 	}
 
@@ -80,10 +82,12 @@ class CharacterSpeciesRepositoryImplTest extends Specification {
 		1 * characterSpeciesQueryBuilder.equal(CharacterSpecies_.numerator, NUMERATOR_INTEGER)
 		1 * characterSpeciesQueryBuilder.equal(CharacterSpecies_.denominator, DENOMINATOR_INTEGER)
 		1 * characterSpeciesQueryBuilder.joinPropertyEqual(CharacterSpecies_.species, 'id', SPECIES_ID)
+		1 * characterSpeciesQueryBuilder.fetch(CharacterSpecies_.species, false)
 		1 * characterSpeciesQueryBuilder.findAll() >> Lists.newArrayList()
 		1 * jpaContextMock.getEntityManagerByManagedType(CharacterSpecies) >> entityManager
 		1 * entityManager.unwrap(Session) >> session
 		1 * session.save(_ as Object) >> characterSpecies
+		0 * _
 		characterSpeciesOutput.numerator == NUMERATOR_LONG
 		characterSpeciesOutput.denominator == DENOMINATOR_LONG
 		characterSpeciesOutput.species == species

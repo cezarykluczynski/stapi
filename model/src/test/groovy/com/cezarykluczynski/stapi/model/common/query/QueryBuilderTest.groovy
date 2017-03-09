@@ -347,6 +347,18 @@ class QueryBuilderTest extends Specification {
 		then: 'singular set right methods are called'
 		1 * baseRoot.fetch(fetchSingularName, JoinType.LEFT)
 
+		when: 'singular fetch is performed with boolean flag set to true'
+		queryBuilder.fetch(fetchSingularName, true)
+
+		then: 'right methods are called'
+		1 * baseRoot.fetch(fetchSingularName, JoinType.LEFT)
+
+		when: 'singular fetch is performed with boolean flag set to false'
+		queryBuilder.fetch(fetchSingularName, false)
+
+		then: 'no fetch methods are called'
+		0 * baseRoot.fetch(*_)
+
 		when: 'order is added and search is performer'
 		queryBuilder.setSort(ORDER_REQUEST)
 		Page<Series> seriesPage = queryBuilder.findPage()

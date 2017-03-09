@@ -172,6 +172,10 @@ public class QueryBuilder<T> {
 		return doFetch ? fetch(name) : this;
 	}
 
+	public QueryBuilder<T> fetch(SingularAttribute<T, ?> name, boolean doFetch) {
+		return doFetch ? fetch(name) : this;
+	}
+
 	public QueryBuilder<T> setSort(RequestSortDTO requestSortDTO) {
 		if (requestSortDTO == null || CollectionUtils.isEmpty(requestSortDTO.getClauses())) {
 			return this;

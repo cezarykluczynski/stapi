@@ -10,6 +10,7 @@
 	<suppress files=".+MovieClosingCreditsProcessor\.java" checks="MultipleStringLiterals"/>
 	<suppress files=".+MovieLinkedTitlesProcessor\.java" checks="MultipleStringLiterals"/>
 	<suppress files=".+IndividualTemplatePartsEnrichingProcessor\.java" checks="ParameterNumber"/>
+	<suppress files=".+query[\\/]QueryBuilder\.java" checks="FileLength"/>
 	<suppress files="[\\/]Application\.java" checks="UncommentedMain"/>
 	<suppress files="com[\\/]cezarykluczynski[\\/]stapi[\\/]client[\\/]" checks="ClassFanOutComplexity"/>
 </suppressions>

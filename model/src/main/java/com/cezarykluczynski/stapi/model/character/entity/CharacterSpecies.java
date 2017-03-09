@@ -33,7 +33,7 @@ public class CharacterSpecies implements Serializable {
 	@SequenceGenerator(name = "character_species_sequence_generator", sequenceName = "character_species_sequence", allocationSize = 1)
 	private Long id;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "species_id")
 	private Species species;
 
