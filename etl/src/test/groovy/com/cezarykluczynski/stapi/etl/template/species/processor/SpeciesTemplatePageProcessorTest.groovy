@@ -15,6 +15,7 @@ import spock.lang.Specification
 class SpeciesTemplatePageProcessorTest extends Specification {
 
 	private static final String TITLE = 'TITLE'
+	private static final String TITLE_WITH_BRACKETS = 'TITLE (species)'
 
 	private SpeciesTemplateFilter speciesTemplateFilterMock
 
@@ -49,6 +50,21 @@ class SpeciesTemplatePageProcessorTest extends Specification {
 		1 * speciesTemplateFilterMock.shouldBeFilteredOut(page) >> true
 		0 * _
 		speciesTemplate == null
+	}
+
+	void "cleans title"() {
+		given:
+		SourcesPage page = new SourcesPage(title: TITLE_WITH_BRACKETS)
+		ModelPage modelPage = new ModelPage()
+
+		when:
+		SpeciesTemplate speciesTemplate = speciesTemplatePageProcessor.process(page)
+
+		then:
+		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_SPECIES) >> Optional.empty()
+		speciesTemplate.name == TITLE
+		speciesTemplate.page == modelPage
 	}
 
 	void "returns SpeciesTemplate when it is valid"() {

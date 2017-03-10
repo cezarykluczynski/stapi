@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.template.species.dto.SpeciesTemplate;
 import com.cezarykluczynski.stapi.etl.template.species.service.SpeciesTemplateFilter;
+import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
@@ -46,7 +47,7 @@ public class SpeciesTemplatePageProcessor implements ItemProcessor<Page, Species
 
 		SpeciesTemplate speciesTemplate = new SpeciesTemplate();
 
-		speciesTemplate.setName(item.getTitle());
+		speciesTemplate.setName(TitleUtil.getNameFromTitle(item.getTitle()));
 		speciesTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 
 		speciesTemplateTypeEnrichingProcessor.enrich(EnrichablePair.of(item, speciesTemplate));

@@ -4,5 +4,5 @@ import com.cezarykluczynski.stapi.model.common.repository.PageAwareRepository;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SpeciesRepository extends JpaRepository<Species, Long>, PageAwareRepository<Species> {
+public interface SpeciesRepository extends JpaRepository<Species, Long>, PageAwareRepository<Species>, SpeciesRepositoryCustom {
 }

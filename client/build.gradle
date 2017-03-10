@@ -73,6 +73,11 @@ wsdl2java {
 					'-wsdlLocation', 'classpath:v1/wsdl/comicCollection.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
 					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/comicCollection.wsdl"
+			],
+			[
+					'-wsdlLocation', 'classpath:v1/wsdl/species.wsdl',
+					'-p','com.cezarykluczynski.stapi.client.v1.soap',
+					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/species.wsdl"
 			]
 	]
 	generatedWsdlDir = file("$projectDir/build/generated/src/main/java")

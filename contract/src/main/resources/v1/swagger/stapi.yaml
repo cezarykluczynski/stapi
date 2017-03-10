@@ -31,6 +31,8 @@ paths:
     $ref: ./performer/path/performer.path.yaml
   /series:
     $ref: ./series/path/series.path.yaml
+  /species:
+    $ref: ./species/path/species.path.yaml
   /staff:
     $ref: ./staff/path/staff.path.yaml
 definitions:
@@ -108,6 +110,12 @@ definitions:
     $ref: ./series/entity/seriesHeader.yaml
   SeriesResponse:
     $ref: ./series/entity/seriesResponse.yaml
+  Species:
+    $ref: ./species/entity/species.yaml
+  SpeciesHeader:
+    $ref: ./species/entity/speciesHeader.yaml
+  SpeciesResponse:
+    $ref: ./species/entity/speciesResponse.yaml
   Staff:
     $ref: ./staff/entity/staff.yaml
   StaffHeader:

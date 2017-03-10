@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:astronomicalObject="http://stapi.co/api/v1/soap/astronomicalObject"
+		xmlns:common="http://stapi.co/api/v1/soap/common"
+		xmlns:species="http://stapi.co/api/v1/soap/species"
+		elementFormDefault="qualified"
+		targetNamespace="http://stapi.co/api/v1/soap/species">
+	<xs:import namespace="http://stapi.co/api/v1/soap/astronomicalObject" schemaLocation="astronomicalObject.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
+	<xs:element name="SpeciesRequest">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Request">
+					<xs:sequence>
+						<xs:element name="guid" type="xs:string" minOccurs="0"/>
+						<xs:element name="name" type="xs:string" minOccurs="0"/>
+						<xs:element name="extinctSpecies" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="warpCapableSpecies" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="extraGalacticSpecies" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="humanoidSpecies" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="reptilianSpecies" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="nonCorporealSpecies" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="shapeshiftingSpecies" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="spaceborneSpecies" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="telepathicSpecies" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="transDimensionalSpecies" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="unnamedSpecies" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="alternateReality" type="xs:boolean" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SpeciesResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Response">
+					<xs:sequence>
+						<xs:element name="species" type="species:Species" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="Species">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string" minOccurs="0"/>
+			<xs:element name="name" type="xs:string" minOccurs="0"/>
+			<xs:element name="homeworld" type="astronomicalObject:AstronomicalObjectHeader" minOccurs="0"/>
+			<xs:element name="quadrant" type="astronomicalObject:AstronomicalObjectHeader" minOccurs="0"/>
+			<xs:element name="extinctSpecies" type="xs:boolean"/>
+			<xs:element name="warpCapableSpecies" type="xs:boolean"/>
+			<xs:element name="extraGalacticSpecies" type="xs:boolean"/>
+			<xs:element name="humanoidSpecies" type="xs:boolean"/>
+			<xs:element name="reptilianSpecies" type="xs:boolean"/>
+			<xs:element name="nonCorporealSpecies" type="xs:boolean"/>
+			<xs:element name="shapeshiftingSpecies" type="xs:boolean"/>
+			<xs:element name="spaceborneSpecies" type="xs:boolean"/>
+			<xs:element name="telepathicSpecies" type="xs:boolean"/>
+			<xs:element name="transDimensionalSpecies" type="xs:boolean"/>
+			<xs:element name="unnamedSpecies" type="xs:boolean"/>
+			<xs:element name="alternateReality" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SpeciesHeader">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="name" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
