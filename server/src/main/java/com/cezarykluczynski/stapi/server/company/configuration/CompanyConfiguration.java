@@ -1,8 +1,10 @@
 package com.cezarykluczynski.stapi.server.company.configuration;
 
+import com.cezarykluczynski.stapi.server.company.endpoint.CompanyRestEndpoint;
 import com.cezarykluczynski.stapi.server.company.endpoint.CompanySoapEndpoint;
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyRestMapper;
 import com.cezarykluczynski.stapi.server.company.mapper.CompanySoapMapper;
+import com.cezarykluczynski.stapi.server.company.reader.CompanyRestReader;
 import com.cezarykluczynski.stapi.server.company.reader.CompanySoapReader;
 import org.apache.cxf.Bus;
 import org.apache.cxf.bus.spring.SpringBus;
@@ -28,6 +30,11 @@ public class CompanyConfiguration {
 		EndpointImpl endpoint = new EndpointImpl(bus, implementor);
 		endpoint.publish("/v1/soap/company");
 		return endpoint;
+	}
+
+	@Bean
+	public CompanyRestEndpoint companyRestEndpoint() {
+		return new CompanyRestEndpoint(applicationContext.getBean(CompanyRestReader.class));
 	}
 
 	@Bean

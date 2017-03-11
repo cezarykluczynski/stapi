@@ -3,6 +3,7 @@ plugins {
 }
 
 apply plugin: 'spring-boot'
+apply plugin: 'war'
 
 springBoot {
 	mainClass = "com.cezarykluczynski.stapi.server.Application"
@@ -42,3 +43,7 @@ dependencies {
 apply from: 'endpointGen.gradle'
 
 configurations.compile.exclude group: 'io.swagger'
+
+war {
+	archiveName = 'stapi.war'
+}

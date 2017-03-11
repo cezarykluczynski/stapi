@@ -4,7 +4,6 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyResponse;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 import com.cezarykluczynski.stapi.server.company.dto.CompanyRestBeanParams;
 import com.cezarykluczynski.stapi.server.company.reader.CompanyRestReader;
-import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import javax.ws.rs.BeanParam;
@@ -15,7 +14,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Service
 @Path("v1/rest/company")
 @Produces(MediaType.APPLICATION_JSON)
 public class CompanyRestEndpoint {

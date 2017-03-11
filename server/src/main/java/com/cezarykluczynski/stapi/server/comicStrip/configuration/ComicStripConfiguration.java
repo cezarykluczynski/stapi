@@ -1,8 +1,10 @@
 package com.cezarykluczynski.stapi.server.comicStrip.configuration;
 
+import com.cezarykluczynski.stapi.server.comicStrip.endpoint.ComicStripRestEndpoint;
 import com.cezarykluczynski.stapi.server.comicStrip.endpoint.ComicStripSoapEndpoint;
 import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripRestMapper;
 import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripSoapMapper;
+import com.cezarykluczynski.stapi.server.comicStrip.reader.ComicStripRestReader;
 import com.cezarykluczynski.stapi.server.comicStrip.reader.ComicStripSoapReader;
 import org.apache.cxf.Bus;
 import org.apache.cxf.bus.spring.SpringBus;
@@ -28,6 +30,11 @@ public class ComicStripConfiguration {
 		EndpointImpl endpoint = new EndpointImpl(bus, implementor);
 		endpoint.publish("/v1/soap/comicStrip");
 		return endpoint;
+	}
+
+	@Bean
+	public ComicStripRestEndpoint comicStripRestEndpoint() {
+		return new ComicStripRestEndpoint(applicationContext.getBean(ComicStripRestReader.class));
 	}
 
 	@Bean

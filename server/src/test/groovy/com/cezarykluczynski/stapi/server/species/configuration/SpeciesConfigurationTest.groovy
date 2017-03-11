@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.server.species.configuration
 
+import com.cezarykluczynski.stapi.server.species.endpoint.SpeciesRestEndpoint
+import com.cezarykluczynski.stapi.server.species.reader.SpeciesRestReader
 import com.cezarykluczynski.stapi.server.species.endpoint.SpeciesSoapEndpoint
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesRestMapper
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesSoapMapper
@@ -22,7 +24,7 @@ class SpeciesConfigurationTest extends Specification {
 		speciesConfiguration = new SpeciesConfiguration(applicationContext: applicationContextMock)
 	}
 
-	void "species soap endpoint is created"() {
+	void "Species SOAP endpoint is created"() {
 		given:
 		SpringBus springBus = new SpringBus()
 		SpeciesSoapReader speciesSoapReaderMock = Mock(SpeciesSoapReader)
@@ -33,10 +35,25 @@ class SpeciesConfigurationTest extends Specification {
 		then:
 		1 * applicationContextMock.getBean(SpringBus) >> springBus
 		1 * applicationContextMock.getBean(SpeciesSoapReader) >> speciesSoapReaderMock
+		0 * _
 		speciesSoapEndpoint != null
 		((EndpointImpl) speciesSoapEndpoint).implementor instanceof SpeciesSoapEndpoint
 		((EndpointImpl) speciesSoapEndpoint).bus == springBus
 		speciesSoapEndpoint.published
+	}
+
+	void "SpeciesRestEndpoint is created"() {
+		given:
+		SpeciesRestReader speciesRestMapper = Mock(SpeciesRestReader)
+
+		when:
+		SpeciesRestEndpoint speciesRestEndpoint = speciesConfiguration.speciesRestEndpoint()
+
+		then:
+		1 * applicationContextMock.getBean(SpeciesRestReader) >> speciesRestMapper
+		0 * _
+		speciesRestEndpoint != null
+		speciesRestEndpoint.speciesRestReader == speciesRestMapper
 	}
 
 	void "SpeciesSoapMapper is created"() {

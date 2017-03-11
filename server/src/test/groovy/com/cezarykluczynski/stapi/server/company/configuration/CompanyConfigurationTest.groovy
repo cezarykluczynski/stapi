@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.server.company.configuration
 
+import com.cezarykluczynski.stapi.server.company.endpoint.CompanyRestEndpoint
+import com.cezarykluczynski.stapi.server.company.reader.CompanyRestReader
 import com.cezarykluczynski.stapi.server.company.endpoint.CompanySoapEndpoint
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyRestMapper
 import com.cezarykluczynski.stapi.server.company.mapper.CompanySoapMapper
@@ -22,7 +24,7 @@ class CompanyConfigurationTest extends Specification {
 		companyConfiguration = new CompanyConfiguration(applicationContext: applicationContextMock)
 	}
 
-	void "company soap endpoint is created"() {
+	void "Company SOAP endpoint is created"() {
 		given:
 		SpringBus springBus = new SpringBus()
 		CompanySoapReader companySoapReaderMock = Mock(CompanySoapReader)
@@ -33,10 +35,25 @@ class CompanyConfigurationTest extends Specification {
 		then:
 		1 * applicationContextMock.getBean(SpringBus) >> springBus
 		1 * applicationContextMock.getBean(CompanySoapReader) >> companySoapReaderMock
+		0 * _
 		companySoapEndpoint != null
 		((EndpointImpl) companySoapEndpoint).implementor instanceof CompanySoapEndpoint
 		((EndpointImpl) companySoapEndpoint).bus == springBus
 		companySoapEndpoint.published
+	}
+
+	void "CompanyRestEndpoint is created"() {
+		given:
+		CompanyRestReader companyRestMapper = Mock(CompanyRestReader)
+
+		when:
+		CompanyRestEndpoint companyRestEndpoint = companyConfiguration.companyRestEndpoint()
+
+		then:
+		1 * applicationContextMock.getBean(CompanyRestReader) >> companyRestMapper
+		0 * _
+		companyRestEndpoint != null
+		companyRestEndpoint.companyRestReader == companyRestMapper
 	}
 
 	void "CompanySoapMapper is created"() {

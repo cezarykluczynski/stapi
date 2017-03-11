@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.server.comicStrip.configuration
 
+import com.cezarykluczynski.stapi.server.comicStrip.endpoint.ComicStripRestEndpoint
+import com.cezarykluczynski.stapi.server.comicStrip.reader.ComicStripRestReader
 import com.cezarykluczynski.stapi.server.comicStrip.endpoint.ComicStripSoapEndpoint
 import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripRestMapper
 import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripSoapMapper
@@ -22,7 +24,7 @@ class ComicStripConfigurationTest extends Specification {
 		comicStripConfiguration = new ComicStripConfiguration(applicationContext: applicationContextMock)
 	}
 
-	void "comicStrip soap endpoint is created"() {
+	void "ComicStrip SOAP endpoint is created"() {
 		given:
 		SpringBus springBus = new SpringBus()
 		ComicStripSoapReader comicStripSoapReaderMock = Mock(ComicStripSoapReader)
@@ -33,10 +35,25 @@ class ComicStripConfigurationTest extends Specification {
 		then:
 		1 * applicationContextMock.getBean(SpringBus) >> springBus
 		1 * applicationContextMock.getBean(ComicStripSoapReader) >> comicStripSoapReaderMock
+		0 * _
 		comicStripSoapEndpoint != null
 		((EndpointImpl) comicStripSoapEndpoint).implementor instanceof ComicStripSoapEndpoint
 		((EndpointImpl) comicStripSoapEndpoint).bus == springBus
 		comicStripSoapEndpoint.published
+	}
+
+	void "ComicStripRestEndpoint is created"() {
+		given:
+		ComicStripRestReader comicStripRestMapper = Mock(ComicStripRestReader)
+
+		when:
+		ComicStripRestEndpoint comicStripRestEndpoint = comicStripConfiguration.comicStripRestEndpoint()
+
+		then:
+		1 * applicationContextMock.getBean(ComicStripRestReader) >> comicStripRestMapper
+		0 * _
+		comicStripRestEndpoint != null
+		comicStripRestEndpoint.comicStripRestReader == comicStripRestMapper
 	}
 
 	void "ComicStripSoapMapper is created"() {

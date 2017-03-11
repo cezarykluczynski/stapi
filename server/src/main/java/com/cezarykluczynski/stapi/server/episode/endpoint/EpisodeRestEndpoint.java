@@ -5,7 +5,6 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeResponse;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 import com.cezarykluczynski.stapi.server.episode.dto.EpisodeRestBeanParams;
 import com.cezarykluczynski.stapi.server.episode.reader.EpisodeRestReader;
-import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import javax.ws.rs.BeanParam;
@@ -16,7 +15,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Service
 @Path("v1/rest/episode")
 @Produces(MediaType.APPLICATION_JSON)
 public class EpisodeRestEndpoint {

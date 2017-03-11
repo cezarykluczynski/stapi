@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.server.comicCollection.configuration
 
+import com.cezarykluczynski.stapi.server.comicCollection.endpoint.ComicCollectionRestEndpoint
+import com.cezarykluczynski.stapi.server.comicCollection.reader.ComicCollectionRestReader
 import com.cezarykluczynski.stapi.server.comicCollection.endpoint.ComicCollectionSoapEndpoint
 import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionRestMapper
 import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionSoapMapper
@@ -22,7 +24,7 @@ class ComicCollectionConfigurationTest extends Specification {
 		comicCollectionConfiguration = new ComicCollectionConfiguration(applicationContext: applicationContextMock)
 	}
 
-	void "comicCollection soap endpoint is created"() {
+	void "ComicCollection SOAP endpoint is created"() {
 		given:
 		SpringBus springBus = new SpringBus()
 		ComicCollectionSoapReader comicCollectionSoapReaderMock = Mock(ComicCollectionSoapReader)
@@ -33,10 +35,25 @@ class ComicCollectionConfigurationTest extends Specification {
 		then:
 		1 * applicationContextMock.getBean(SpringBus) >> springBus
 		1 * applicationContextMock.getBean(ComicCollectionSoapReader) >> comicCollectionSoapReaderMock
+		0 * _
 		comicCollectionSoapEndpoint != null
 		((EndpointImpl) comicCollectionSoapEndpoint).implementor instanceof ComicCollectionSoapEndpoint
 		((EndpointImpl) comicCollectionSoapEndpoint).bus == springBus
 		comicCollectionSoapEndpoint.published
+	}
+
+	void "ComicCollectionRestEndpoint is created"() {
+		given:
+		ComicCollectionRestReader comicCollectionRestMapper = Mock(ComicCollectionRestReader)
+
+		when:
+		ComicCollectionRestEndpoint comicCollectionRestEndpoint = comicCollectionConfiguration.comicCollectionRestEndpoint()
+
+		then:
+		1 * applicationContextMock.getBean(ComicCollectionRestReader) >> comicCollectionRestMapper
+		0 * _
+		comicCollectionRestEndpoint != null
+		comicCollectionRestEndpoint.comicCollectionRestReader == comicCollectionRestMapper
 	}
 
 	void "ComicCollectionSoapMapper is created"() {

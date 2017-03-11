@@ -1,8 +1,10 @@
 package com.cezarykluczynski.stapi.server.species.configuration;
 
+import com.cezarykluczynski.stapi.server.species.endpoint.SpeciesRestEndpoint;
 import com.cezarykluczynski.stapi.server.species.endpoint.SpeciesSoapEndpoint;
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesRestMapper;
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesSoapMapper;
+import com.cezarykluczynski.stapi.server.species.reader.SpeciesRestReader;
 import com.cezarykluczynski.stapi.server.species.reader.SpeciesSoapReader;
 import org.apache.cxf.Bus;
 import org.apache.cxf.bus.spring.SpringBus;
@@ -28,6 +30,11 @@ public class SpeciesConfiguration {
 		EndpointImpl endpoint = new EndpointImpl(bus, implementor);
 		endpoint.publish("/v1/soap/species");
 		return endpoint;
+	}
+
+	@Bean
+	public SpeciesRestEndpoint speciesRestEndpoint() {
+		return new SpeciesRestEndpoint(applicationContext.getBean(SpeciesRestReader.class));
 	}
 
 	@Bean

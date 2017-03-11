@@ -1,8 +1,10 @@
 package com.cezarykluczynski.stapi.server.astronomicalObject.configuration;
 
+import com.cezarykluczynski.stapi.server.astronomicalObject.endpoint.AstronomicalObjectRestEndpoint;
 import com.cezarykluczynski.stapi.server.astronomicalObject.endpoint.AstronomicalObjectSoapEndpoint;
 import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectRestMapper;
 import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectSoapMapper;
+import com.cezarykluczynski.stapi.server.astronomicalObject.reader.AstronomicalObjectRestReader;
 import com.cezarykluczynski.stapi.server.astronomicalObject.reader.AstronomicalObjectSoapReader;
 import org.apache.cxf.Bus;
 import org.apache.cxf.bus.spring.SpringBus;
@@ -28,6 +30,11 @@ public class AstronomicalObjectConfiguration {
 		EndpointImpl endpoint = new EndpointImpl(bus, implementor);
 		endpoint.publish("/v1/soap/astronomicalObject");
 		return endpoint;
+	}
+
+	@Bean
+	public AstronomicalObjectRestEndpoint astronomicalObjectRestEndpoint() {
+		return new AstronomicalObjectRestEndpoint(applicationContext.getBean(AstronomicalObjectRestReader.class));
 	}
 
 	@Bean

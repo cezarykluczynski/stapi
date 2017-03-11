@@ -1,8 +1,10 @@
 package com.cezarykluczynski.stapi.server.character.configuration;
 
+import com.cezarykluczynski.stapi.server.character.endpoint.CharacterRestEndpoint;
 import com.cezarykluczynski.stapi.server.character.endpoint.CharacterSoapEndpoint;
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterRestMapper;
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterSoapMapper;
+import com.cezarykluczynski.stapi.server.character.reader.CharacterRestReader;
 import com.cezarykluczynski.stapi.server.character.reader.CharacterSoapReader;
 import org.apache.cxf.Bus;
 import org.apache.cxf.bus.spring.SpringBus;
@@ -28,6 +30,11 @@ public class CharacterConfiguration {
 		EndpointImpl endpoint = new EndpointImpl(bus, implementor);
 		endpoint.publish("/v1/soap/character");
 		return endpoint;
+	}
+
+	@Bean
+	public CharacterRestEndpoint characterRestEndpoint() {
+		return new CharacterRestEndpoint(applicationContext.getBean(CharacterRestReader.class));
 	}
 
 	@Bean

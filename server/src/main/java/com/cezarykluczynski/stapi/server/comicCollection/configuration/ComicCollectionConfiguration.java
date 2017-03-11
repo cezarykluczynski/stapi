@@ -1,8 +1,10 @@
 package com.cezarykluczynski.stapi.server.comicCollection.configuration;
 
+import com.cezarykluczynski.stapi.server.comicCollection.endpoint.ComicCollectionRestEndpoint;
 import com.cezarykluczynski.stapi.server.comicCollection.endpoint.ComicCollectionSoapEndpoint;
 import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionRestMapper;
 import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionSoapMapper;
+import com.cezarykluczynski.stapi.server.comicCollection.reader.ComicCollectionRestReader;
 import com.cezarykluczynski.stapi.server.comicCollection.reader.ComicCollectionSoapReader;
 import org.apache.cxf.Bus;
 import org.apache.cxf.bus.spring.SpringBus;
@@ -28,6 +30,11 @@ public class ComicCollectionConfiguration {
 		EndpointImpl endpoint = new EndpointImpl(bus, implementor);
 		endpoint.publish("/v1/soap/comicCollection");
 		return endpoint;
+	}
+
+	@Bean
+	public ComicCollectionRestEndpoint comicCollectionRestEndpoint() {
+		return new ComicCollectionRestEndpoint(applicationContext.getBean(ComicCollectionRestReader.class));
 	}
 
 	@Bean

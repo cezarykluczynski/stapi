@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.server.comicSeries.configuration
 
+import com.cezarykluczynski.stapi.server.comicSeries.endpoint.ComicSeriesRestEndpoint
+import com.cezarykluczynski.stapi.server.comicSeries.reader.ComicSeriesRestReader
 import com.cezarykluczynski.stapi.server.comicSeries.endpoint.ComicSeriesSoapEndpoint
 import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesRestMapper
 import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesSoapMapper
@@ -22,7 +24,7 @@ class ComicSeriesConfigurationTest extends Specification {
 		comicSeriesConfiguration = new ComicSeriesConfiguration(applicationContext: applicationContextMock)
 	}
 
-	void "comicSeries soap endpoint is created"() {
+	void "ComicSeries SOAP endpoint is created"() {
 		given:
 		SpringBus springBus = new SpringBus()
 		ComicSeriesSoapReader comicSeriesSoapReaderMock = Mock(ComicSeriesSoapReader)
@@ -33,10 +35,25 @@ class ComicSeriesConfigurationTest extends Specification {
 		then:
 		1 * applicationContextMock.getBean(SpringBus) >> springBus
 		1 * applicationContextMock.getBean(ComicSeriesSoapReader) >> comicSeriesSoapReaderMock
+		0 * _
 		comicSeriesSoapEndpoint != null
 		((EndpointImpl) comicSeriesSoapEndpoint).implementor instanceof ComicSeriesSoapEndpoint
 		((EndpointImpl) comicSeriesSoapEndpoint).bus == springBus
 		comicSeriesSoapEndpoint.published
+	}
+
+	void "ComicSeriesRestEndpoint is created"() {
+		given:
+		ComicSeriesRestReader comicSeriesRestMapper = Mock(ComicSeriesRestReader)
+
+		when:
+		ComicSeriesRestEndpoint comicSeriesRestEndpoint = comicSeriesConfiguration.comicSeriesRestEndpoint()
+
+		then:
+		1 * applicationContextMock.getBean(ComicSeriesRestReader) >> comicSeriesRestMapper
+		0 * _
+		comicSeriesRestEndpoint != null
+		comicSeriesRestEndpoint.comicSeriesRestReader == comicSeriesRestMapper
 	}
 
 	void "ComicSeriesSoapMapper is created"() {

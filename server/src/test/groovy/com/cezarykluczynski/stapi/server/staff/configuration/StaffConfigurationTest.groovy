@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.server.staff.configuration
 
+import com.cezarykluczynski.stapi.server.staff.endpoint.StaffRestEndpoint
+import com.cezarykluczynski.stapi.server.staff.reader.StaffRestReader
 import com.cezarykluczynski.stapi.server.staff.endpoint.StaffSoapEndpoint
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffRestMapper
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffSoapMapper
@@ -22,7 +24,7 @@ class StaffConfigurationTest extends Specification {
 		staffConfiguration = new StaffConfiguration(applicationContext: applicationContextMock)
 	}
 
-	void "staff soap endpoint is created"() {
+	void "Staff SOAP endpoint is created"() {
 		given:
 		SpringBus springBus = new SpringBus()
 		StaffSoapReader staffSoapReaderMock = Mock(StaffSoapReader)
@@ -33,10 +35,25 @@ class StaffConfigurationTest extends Specification {
 		then:
 		1 * applicationContextMock.getBean(SpringBus) >> springBus
 		1 * applicationContextMock.getBean(StaffSoapReader) >> staffSoapReaderMock
+		0 * _
 		staffSoapEndpoint != null
 		((EndpointImpl) staffSoapEndpoint).implementor instanceof StaffSoapEndpoint
 		((EndpointImpl) staffSoapEndpoint).bus == springBus
 		staffSoapEndpoint.published
+	}
+
+	void "StaffRestEndpoint is created"() {
+		given:
+		StaffRestReader staffRestMapper = Mock(StaffRestReader)
+
+		when:
+		StaffRestEndpoint staffRestEndpoint = staffConfiguration.staffRestEndpoint()
+
+		then:
+		1 * applicationContextMock.getBean(StaffRestReader) >> staffRestMapper
+		0 * _
+		staffRestEndpoint != null
+		staffRestEndpoint.staffRestReader == staffRestMapper
 	}
 
 	void "StaffSoapMapper is created"() {

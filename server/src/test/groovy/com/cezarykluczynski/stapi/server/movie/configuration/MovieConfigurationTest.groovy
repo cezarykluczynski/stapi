@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.server.movie.configuration
 
+import com.cezarykluczynski.stapi.server.movie.endpoint.MovieRestEndpoint
+import com.cezarykluczynski.stapi.server.movie.reader.MovieRestReader
 import com.cezarykluczynski.stapi.server.movie.endpoint.MovieSoapEndpoint
 import com.cezarykluczynski.stapi.server.movie.mapper.MovieRestMapper
 import com.cezarykluczynski.stapi.server.movie.mapper.MovieSoapMapper
@@ -22,7 +24,7 @@ class MovieConfigurationTest extends Specification {
 		movieConfiguration = new MovieConfiguration(applicationContext: applicationContextMock)
 	}
 
-	void "movie soap endpoint is created"() {
+	void "Movie SOAP endpoint is created"() {
 		given:
 		SpringBus springBus = new SpringBus()
 		MovieSoapReader movieSoapReaderMock = Mock(MovieSoapReader)
@@ -33,10 +35,25 @@ class MovieConfigurationTest extends Specification {
 		then:
 		1 * applicationContextMock.getBean(SpringBus) >> springBus
 		1 * applicationContextMock.getBean(MovieSoapReader) >> movieSoapReaderMock
+		0 * _
 		movieSoapEndpoint != null
 		((EndpointImpl) movieSoapEndpoint).implementor instanceof MovieSoapEndpoint
 		((EndpointImpl) movieSoapEndpoint).bus == springBus
 		movieSoapEndpoint.published
+	}
+
+	void "MovieRestEndpoint is created"() {
+		given:
+		MovieRestReader movieRestMapper = Mock(MovieRestReader)
+
+		when:
+		MovieRestEndpoint movieRestEndpoint = movieConfiguration.movieRestEndpoint()
+
+		then:
+		1 * applicationContextMock.getBean(MovieRestReader) >> movieRestMapper
+		0 * _
+		movieRestEndpoint != null
+		movieRestEndpoint.movieRestReader == movieRestMapper
 	}
 
 	void "MovieSoapMapper is created"() {

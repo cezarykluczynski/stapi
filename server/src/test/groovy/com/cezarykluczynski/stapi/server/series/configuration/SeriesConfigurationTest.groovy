@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.server.series.configuration
 
+import com.cezarykluczynski.stapi.server.series.endpoint.SeriesRestEndpoint
+import com.cezarykluczynski.stapi.server.series.reader.SeriesRestReader
 import com.cezarykluczynski.stapi.server.series.endpoint.SeriesSoapEndpoint
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesRestMapper
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesSoapMapper
@@ -22,7 +24,7 @@ class SeriesConfigurationTest extends Specification {
 		seriesConfiguration = new SeriesConfiguration(applicationContext: applicationContextMock)
 	}
 
-	void "series soap endpoint is created"() {
+	void "Series SOAP endpoint is created"() {
 		given:
 		SpringBus springBus = new SpringBus()
 		SeriesSoapReader seriesSoapReaderMock = Mock(SeriesSoapReader)
@@ -33,10 +35,25 @@ class SeriesConfigurationTest extends Specification {
 		then:
 		1 * applicationContextMock.getBean(SpringBus) >> springBus
 		1 * applicationContextMock.getBean(SeriesSoapReader) >> seriesSoapReaderMock
+		0 * _
 		seriesSoapEndpoint != null
 		((EndpointImpl) seriesSoapEndpoint).implementor instanceof SeriesSoapEndpoint
 		((EndpointImpl) seriesSoapEndpoint).bus == springBus
 		seriesSoapEndpoint.published
+	}
+
+	void "SeriesRestEndpoint is created"() {
+		given:
+		SeriesRestReader seriesRestMapper = Mock(SeriesRestReader)
+
+		when:
+		SeriesRestEndpoint seriesRestEndpoint = seriesConfiguration.seriesRestEndpoint()
+
+		then:
+		1 * applicationContextMock.getBean(SeriesRestReader) >> seriesRestMapper
+		0 * _
+		seriesRestEndpoint != null
+		seriesRestEndpoint.seriesRestReader == seriesRestMapper
 	}
 
 	void "SeriesSoapMapper is created"() {

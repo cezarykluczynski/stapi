@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.server.episode.configuration
 
+import com.cezarykluczynski.stapi.server.episode.endpoint.EpisodeRestEndpoint
+import com.cezarykluczynski.stapi.server.episode.reader.EpisodeRestReader
 import com.cezarykluczynski.stapi.server.episode.endpoint.EpisodeSoapEndpoint
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeRestMapper
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeSoapMapper
@@ -22,7 +24,7 @@ class EpisodeConfigurationTest extends Specification {
 		episodeConfiguration = new EpisodeConfiguration(applicationContext: applicationContextMock)
 	}
 
-	void "episode soap endpoint is created"() {
+	void "Episode SOAP endpoint is created"() {
 		given:
 		SpringBus springBus = new SpringBus()
 		EpisodeSoapReader episodeSoapReaderMock = Mock(EpisodeSoapReader)
@@ -33,10 +35,25 @@ class EpisodeConfigurationTest extends Specification {
 		then:
 		1 * applicationContextMock.getBean(SpringBus) >> springBus
 		1 * applicationContextMock.getBean(EpisodeSoapReader) >> episodeSoapReaderMock
+		0 * _
 		episodeSoapEndpoint != null
 		((EndpointImpl) episodeSoapEndpoint).implementor instanceof EpisodeSoapEndpoint
 		((EndpointImpl) episodeSoapEndpoint).bus == springBus
 		episodeSoapEndpoint.published
+	}
+
+	void "EpisodeRestEndpoint is created"() {
+		given:
+		EpisodeRestReader episodeRestMapper = Mock(EpisodeRestReader)
+
+		when:
+		EpisodeRestEndpoint episodeRestEndpoint = episodeConfiguration.episodeRestEndpoint()
+
+		then:
+		1 * applicationContextMock.getBean(EpisodeRestReader) >> episodeRestMapper
+		0 * _
+		episodeRestEndpoint != null
+		episodeRestEndpoint.episodeRestReader == episodeRestMapper
 	}
 
 	void "EpisodeSoapMapper is created"() {

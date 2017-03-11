@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.server.performer.configuration
 
+import com.cezarykluczynski.stapi.server.performer.endpoint.PerformerRestEndpoint
+import com.cezarykluczynski.stapi.server.performer.reader.PerformerRestReader
 import com.cezarykluczynski.stapi.server.performer.endpoint.PerformerSoapEndpoint
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerRestMapper
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerSoapMapper
@@ -22,7 +24,7 @@ class PerformerConfigurationTest extends Specification {
 		performerConfiguration = new PerformerConfiguration(applicationContext: applicationContextMock)
 	}
 
-	void "performer soap endpoint is created"() {
+	void "Performer SOAP endpoint is created"() {
 		given:
 		SpringBus springBus = new SpringBus()
 		PerformerSoapReader performerSoapReaderMock = Mock(PerformerSoapReader)
@@ -33,10 +35,25 @@ class PerformerConfigurationTest extends Specification {
 		then:
 		1 * applicationContextMock.getBean(SpringBus) >> springBus
 		1 * applicationContextMock.getBean(PerformerSoapReader) >> performerSoapReaderMock
+		0 * _
 		performerSoapEndpoint != null
 		((EndpointImpl) performerSoapEndpoint).implementor instanceof PerformerSoapEndpoint
 		((EndpointImpl) performerSoapEndpoint).bus == springBus
 		performerSoapEndpoint.published
+	}
+
+	void "PerformerRestEndpoint is created"() {
+		given:
+		PerformerRestReader performerRestMapper = Mock(PerformerRestReader)
+
+		when:
+		PerformerRestEndpoint performerRestEndpoint = performerConfiguration.performerRestEndpoint()
+
+		then:
+		1 * applicationContextMock.getBean(PerformerRestReader) >> performerRestMapper
+		0 * _
+		performerRestEndpoint != null
+		performerRestEndpoint.performerRestReader == performerRestMapper
 	}
 
 	void "PerformerSoapMapper is created"() {

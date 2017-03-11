@@ -1,8 +1,10 @@
 package com.cezarykluczynski.stapi.server.comics.configuration;
 
+import com.cezarykluczynski.stapi.server.comics.endpoint.ComicsRestEndpoint;
 import com.cezarykluczynski.stapi.server.comics.endpoint.ComicsSoapEndpoint;
 import com.cezarykluczynski.stapi.server.comics.mapper.ComicsRestMapper;
 import com.cezarykluczynski.stapi.server.comics.mapper.ComicsSoapMapper;
+import com.cezarykluczynski.stapi.server.comics.reader.ComicsRestReader;
 import com.cezarykluczynski.stapi.server.comics.reader.ComicsSoapReader;
 import org.apache.cxf.Bus;
 import org.apache.cxf.bus.spring.SpringBus;
@@ -28,6 +30,11 @@ public class ComicsConfiguration {
 		EndpointImpl endpoint = new EndpointImpl(bus, implementor);
 		endpoint.publish("/v1/soap/comics");
 		return endpoint;
+	}
+
+	@Bean
+	public ComicsRestEndpoint comicsRestEndpoint() {
+		return new ComicsRestEndpoint(applicationContext.getBean(ComicsRestReader.class));
 	}
 
 	@Bean

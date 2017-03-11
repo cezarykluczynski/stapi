@@ -1,6 +1,19 @@
 package com.cezarykluczynski.stapi.server.configuration;
 
+import com.cezarykluczynski.stapi.server.astronomicalObject.endpoint.AstronomicalObjectRestEndpoint;
+import com.cezarykluczynski.stapi.server.character.endpoint.CharacterRestEndpoint;
+import com.cezarykluczynski.stapi.server.comicCollection.endpoint.ComicCollectionRestEndpoint;
+import com.cezarykluczynski.stapi.server.comicSeries.endpoint.ComicSeriesRestEndpoint;
+import com.cezarykluczynski.stapi.server.comicStrip.endpoint.ComicStripRestEndpoint;
+import com.cezarykluczynski.stapi.server.comics.endpoint.ComicsRestEndpoint;
 import com.cezarykluczynski.stapi.server.common.converter.LocalDateRestParamConverterProvider;
+import com.cezarykluczynski.stapi.server.company.endpoint.CompanyRestEndpoint;
+import com.cezarykluczynski.stapi.server.episode.endpoint.EpisodeRestEndpoint;
+import com.cezarykluczynski.stapi.server.movie.endpoint.MovieRestEndpoint;
+import com.cezarykluczynski.stapi.server.performer.endpoint.PerformerRestEndpoint;
+import com.cezarykluczynski.stapi.server.series.endpoint.SeriesRestEndpoint;
+import com.cezarykluczynski.stapi.server.species.endpoint.SpeciesRestEndpoint;
+import com.cezarykluczynski.stapi.server.staff.endpoint.StaffRestEndpoint;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -18,7 +31,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 
 import javax.inject.Inject;
-import javax.ws.rs.Path;
 
 @Configuration
 @ImportResource({
@@ -43,7 +55,21 @@ public class CxfConfiguration extends SpringBootServletInitializer {
 				new JacksonJsonProvider(getObjectMapper()),
 				new CxfRestPrettyPrintContainerResponseFilter(),
 				new LocalDateRestParamConverterProvider()));
-		factory.setServiceBeans(Lists.newArrayList(applicationContext.getBeansWithAnnotation(Path.class).values()));
+		factory.setServiceBeans(Lists.newArrayList(
+				applicationContext.getBean(AstronomicalObjectRestEndpoint.class),
+				applicationContext.getBean(CharacterRestEndpoint.class),
+				applicationContext.getBean(ComicCollectionRestEndpoint.class),
+				applicationContext.getBean(ComicsRestEndpoint.class),
+				applicationContext.getBean(ComicSeriesRestEndpoint.class),
+				applicationContext.getBean(ComicStripRestEndpoint.class),
+				applicationContext.getBean(CompanyRestEndpoint.class),
+				applicationContext.getBean(EpisodeRestEndpoint.class),
+				applicationContext.getBean(MovieRestEndpoint.class),
+				applicationContext.getBean(PerformerRestEndpoint.class),
+				applicationContext.getBean(SeriesRestEndpoint.class),
+				applicationContext.getBean(SpeciesRestEndpoint.class),
+				applicationContext.getBean(StaffRestEndpoint.class)
+		));
 		return factory.create();
 	}
 

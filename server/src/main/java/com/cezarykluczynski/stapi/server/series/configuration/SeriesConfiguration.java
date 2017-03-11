@@ -1,8 +1,10 @@
 package com.cezarykluczynski.stapi.server.series.configuration;
 
+import com.cezarykluczynski.stapi.server.series.endpoint.SeriesRestEndpoint;
 import com.cezarykluczynski.stapi.server.series.endpoint.SeriesSoapEndpoint;
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesRestMapper;
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesSoapMapper;
+import com.cezarykluczynski.stapi.server.series.reader.SeriesRestReader;
 import com.cezarykluczynski.stapi.server.series.reader.SeriesSoapReader;
 import org.apache.cxf.Bus;
 import org.apache.cxf.bus.spring.SpringBus;
@@ -28,6 +30,11 @@ public class SeriesConfiguration {
 		EndpointImpl endpoint = new EndpointImpl(bus, implementor);
 		endpoint.publish("/v1/soap/series");
 		return endpoint;
+	}
+
+	@Bean
+	public SeriesRestEndpoint seriesRestEndpoint() {
+		return new SeriesRestEndpoint(applicationContext.getBean(SeriesRestReader.class));
 	}
 
 	@Bean
