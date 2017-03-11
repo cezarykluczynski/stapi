@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplate;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
+import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.PageTitle;
@@ -21,6 +22,8 @@ public class ComicSeriesTemplatePageProcessor implements ItemProcessor<Page, Com
 
 	private static final Set<String> INVALID_TITLES = Sets.newHashSet(PageTitle.DC_COMICS_TNG_TIMELINE, PageTitle.STAR_TREK_PROBABILITY_FACTOR,
 			PageTitle.STAR_TREK_THE_ORIGINAL_SERIES_DC, PageTitle.STAR_TREK_ANNUAL, PageTitle.STAR_TREK_VOYAGER_MALIBU);
+
+	private static final Set<String> TITLE_PARTS_REQUIRING_CLEANING = Sets.newHashSet("(comic)", "(photonovel)");
 
 	private PageBindingService pageBindingService;
 
@@ -51,7 +54,7 @@ public class ComicSeriesTemplatePageProcessor implements ItemProcessor<Page, Com
 		}
 
 		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate();
-		comicSeriesTemplate.setTitle(item.getTitle());
+		comicSeriesTemplate.setTitle(getTitle(item.getTitle()));
 		comicSeriesTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 		comicSeriesTemplate.setProductOfRedirect(!item.getRedirectPath().isEmpty());
 		comicSeriesTemplate.setPhotonovelSeries(comicSeriesTemplatePhotonovelSeriesProcessor.process(item));
@@ -66,6 +69,10 @@ public class ComicSeriesTemplatePageProcessor implements ItemProcessor<Page, Com
 		comicSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(sidebarIndividualTemplateOptional.get().getParts(), comicSeriesTemplate));
 
 		return comicSeriesTemplate;
+	}
+
+	private String getTitle(String title) {
+		return TITLE_PARTS_REQUIRING_CLEANING.stream().anyMatch(title::contains) ? TitleUtil.getNameFromTitle(title) : title;
 	}
 
 	private boolean shouldBeFilteredOut(Page item) {

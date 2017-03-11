@@ -19,6 +19,8 @@ import spock.lang.Specification
 class ComicSeriesTemplatePageProcessorTest extends Specification {
 
 	private static final String TITLE = 'TITLE'
+	private static final String TITLE_COMIC = 'TITLE (comic)'
+	private static final String TITLE_PHOTONOVEL = 'TITLE (photonovel)'
 	private static final Long PAGE_ID = 11L
 	private static final MediaWikiSource SOURCES_MEDIA_WIKI_SOURCE = MediaWikiSource.MEMORY_ALPHA_EN
 	private static final Boolean PHOTONOVEL_SERIES = LogicUtil.nextBoolean()
@@ -55,6 +57,30 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 
 		then:
 		comicSeriesTemplate == null
+	}
+
+	void "cleans title with (comic)"() {
+		given:
+		Page page = new Page(title: TITLE_COMIC)
+
+		when:
+		ComicSeriesTemplate comicSeriesTemplate = comicSeriesTemplatePageProcessor.process(page)
+
+		then:
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_SERIES) >> Optional.empty()
+		comicSeriesTemplate.title == TITLE
+	}
+
+	void "cleans title with (photonovel)"() {
+		given:
+		Page page = new Page(title: TITLE_PHOTONOVEL)
+
+		when:
+		ComicSeriesTemplate comicSeriesTemplate = comicSeriesTemplatePageProcessor.process(page)
+
+		then:
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_SERIES) >> Optional.empty()
+		comicSeriesTemplate.title == TITLE
 	}
 
 	void "missing template results ComicSeriesTemplate with only the name and page"() {
