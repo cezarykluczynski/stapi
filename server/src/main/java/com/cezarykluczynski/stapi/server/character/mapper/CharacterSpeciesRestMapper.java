@@ -7,7 +7,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.ReportingPolicy;
 
-@Mapper(config = MapstructConfiguration.class, unmappedTargetPolicy = ReportingPolicy.WARN)
+@Mapper(config = MapstructConfiguration.class, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CharacterSpeciesRestMapper {
 
 	@Mappings({

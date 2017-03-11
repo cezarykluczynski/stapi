@@ -1,7 +1,10 @@
 package com.cezarykluczynski.stapi.model.species.repository;
 
+import com.cezarykluczynski.stapi.model.character.entity.Character;
+import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies;
+import com.cezarykluczynski.stapi.model.character.repository.CharacterRepository;
+import com.cezarykluczynski.stapi.model.character.repository.CharacterSpeciesRepository;
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
-import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
 import com.cezarykluczynski.stapi.model.species.dto.SpeciesRequestDTO;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
 import com.cezarykluczynski.stapi.model.species.entity.Species_;
@@ -11,15 +14,23 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import javax.inject.Inject;
+import java.util.Set;
 
 @Repository
-public class SpeciesRepositoryImpl extends AbstractRepositoryImpl<Species> implements SpeciesRepositoryCustom {
+public class SpeciesRepositoryImpl implements SpeciesRepositoryCustom {
 
 	private SpeciesQueryBuilderFactory speciesQueryBuilderFactory;
 
+	private CharacterSpeciesRepository characterSpeciesRepository;
+
+	private CharacterRepository characterRepository;
+
 	@Inject
-	public SpeciesRepositoryImpl(SpeciesQueryBuilderFactory speciesQueryBuilderFactory) {
+	public SpeciesRepositoryImpl(SpeciesQueryBuilderFactory speciesQueryBuilderFactory, CharacterSpeciesRepository characterSpeciesRepository,
+			CharacterRepository characterRepository) {
 		this.speciesQueryBuilderFactory = speciesQueryBuilderFactory;
+		this.characterSpeciesRepository = characterSpeciesRepository;
+		this.characterRepository = characterRepository;
 	}
 
 	@Override
@@ -47,19 +58,19 @@ public class SpeciesRepositoryImpl extends AbstractRepositoryImpl<Species> imple
 
 		boolean doFetch = guid != null;
 		Page<Species> performerPage = speciesQueryBuilder.findPage();
-		clearProxies(performerPage, !doFetch);
+		fetchCharacters(performerPage, doFetch);
 		return performerPage;
 	}
 
-	@Override
-	protected void clearProxies(Page<Species> page, boolean doClearProxies) {
-		if (!doClearProxies) {
+	private void fetchCharacters(Page<Species> performerPage, boolean doFetch) {
+		if (!doFetch || performerPage.getTotalElements() != 1) {
 			return;
 		}
 
-		page.getContent().forEach(species -> {
-			// TODO
-		});
+		Species species = performerPage.getContent().get(0);
+		Set<CharacterSpecies> characterSpecies = characterSpeciesRepository.findBySpecies(species);
+		Set<Character> characterSet = characterRepository.findByCharacterSpeciesIn(characterSpecies);
+		species.getCharacters().addAll(characterSet);
 	}
 
 }

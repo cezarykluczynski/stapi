@@ -77,6 +77,7 @@ class SpeciesSoapMapperTest extends AbstractSpeciesMapperTest {
 		soapSpecies.transDimensionalSpecies == TRANS_DIMENSIONAL_SPECIES
 		soapSpecies.unnamedSpecies == UNNAMED_SPECIES
 		soapSpecies.alternateReality == ALTERNATE_REALITY
+		soapSpecies.characterHeaders.size() == dbSpecies.characters.size()
 	}
 
 }

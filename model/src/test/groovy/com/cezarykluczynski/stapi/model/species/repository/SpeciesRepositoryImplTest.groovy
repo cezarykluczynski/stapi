@@ -1,5 +1,9 @@
 package com.cezarykluczynski.stapi.model.species.repository
 
+import com.cezarykluczynski.stapi.model.character.entity.Character
+import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies
+import com.cezarykluczynski.stapi.model.character.repository.CharacterRepository
+import com.cezarykluczynski.stapi.model.character.repository.CharacterSpeciesRepository
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.species.dto.SpeciesRequestDTO
@@ -8,6 +12,7 @@ import com.cezarykluczynski.stapi.model.species.entity.Species_
 import com.cezarykluczynski.stapi.model.species.query.SpeciesQueryBuilderFactory
 import com.cezarykluczynski.stapi.util.AbstractSpeciesTest
 import com.google.common.collect.Lists
+import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
@@ -16,6 +21,10 @@ class SpeciesRepositoryImplTest extends AbstractSpeciesTest {
 	private static final RequestSortDTO SORT = new RequestSortDTO()
 
 	private SpeciesQueryBuilderFactory speciesQueryBuilderMock
+
+	private CharacterSpeciesRepository characterSpeciesRepositoryMock
+
+	private CharacterRepository characterRepositoryMock
 
 	private SpeciesRepositoryImpl speciesRepositoryImpl
 
@@ -31,15 +40,22 @@ class SpeciesRepositoryImplTest extends AbstractSpeciesTest {
 
 	void setup() {
 		speciesQueryBuilderMock = Mock(SpeciesQueryBuilderFactory)
-		speciesRepositoryImpl = new SpeciesRepositoryImpl(speciesQueryBuilderMock)
+		characterSpeciesRepositoryMock = Mock(CharacterSpeciesRepository)
+		characterRepositoryMock = Mock(CharacterRepository)
+		speciesRepositoryImpl = new SpeciesRepositoryImpl(speciesQueryBuilderMock, characterSpeciesRepositoryMock, characterRepositoryMock)
 		speciesQueryBuilder = Mock(QueryBuilder)
 		pageable = Mock(Pageable)
 		speciesRequestDTO = Mock(SpeciesRequestDTO)
 		page = Mock(Page)
-		species = Mock(Species)
+		species = new Species()
 	}
 
 	void "query is built and performed"() {
+		given:
+		Set<CharacterSpecies> characterSpeciesSet  = Mock(Set)
+		Character character1 = Mock(Character)
+		Character character2 = Mock(Character)
+
 		when:
 		Page pageOutput = speciesRepositoryImpl.findMatching(speciesRequestDTO, pageable)
 
@@ -88,16 +104,26 @@ class SpeciesRepositoryImplTest extends AbstractSpeciesTest {
 		1 * speciesQueryBuilder.fetch(Species_.homeworld)
 		1 * speciesQueryBuilder.fetch(Species_.quadrant)
 
-		then: 'page is searched for and returned'
+		then: 'page is searched for'
 		1 * speciesQueryBuilder.findPage() >> page
 		0 * page.content
+
+		then: 'characters are fetched'
+		1 * page.totalElements >> 1
+		1 * page.content >> Lists.newArrayList(species)
+		1 * characterSpeciesRepositoryMock.findBySpecies(species) >> characterSpeciesSet
+		1 * characterRepositoryMock.findByCharacterSpeciesIn(characterSpeciesSet) >> Sets.newHashSet(character1, character2)
+		species.characters.contains character1
+		species.characters.contains character2
+
+		then: 'page is returned'
 		pageOutput == page
 
 		then: 'no other interactions are expected'
 		0 * _
 	}
 
-	void "proxies are cleared when no related entities should be fetched"() {
+	void "characters are not fetched when GUID is not provided"() {
 		when:
 		Page pageOutput = speciesRepositoryImpl.findMatching(speciesRequestDTO, pageable)
 
@@ -107,15 +133,14 @@ class SpeciesRepositoryImplTest extends AbstractSpeciesTest {
 		then: 'guid criteria is set to null'
 		1 * speciesRequestDTO.guid >> null
 
-		then: 'fetch is performed'
-		1 * speciesQueryBuilder.fetch(Species_.homeworld)
-		1 * speciesQueryBuilder.fetch(Species_.quadrant)
-
 		then: 'page is searched for and returned'
 		1 * speciesQueryBuilder.findPage() >> page
 
-		then: 'proxies are cleared'
-		1 * page.content >> Lists.newArrayList(species)
+		then: 'other repositories are not interacted with'
+		0 * characterSpeciesRepositoryMock._
+		0 * characterRepositoryMock._
+
+		then: 'page is returned'
 		pageOutput == page
 	}
 

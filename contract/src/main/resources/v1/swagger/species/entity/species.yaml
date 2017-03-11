@@ -32,3 +32,7 @@ properties:
     type: boolean
   alternateReality:
     type: boolean
+  characterHeaders:
+    type: array
+    items:
+      $ref: '#/definitions/CharacterHeader'

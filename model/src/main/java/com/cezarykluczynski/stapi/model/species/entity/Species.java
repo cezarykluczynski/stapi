@@ -1,8 +1,10 @@
 package com.cezarykluczynski.stapi.model.species.entity;
 
 import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject;
+import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
+import com.google.common.collect.Sets;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,6 +22,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Transient;
+import java.util.Set;
 
 @Builder
 @Data
@@ -69,5 +73,8 @@ public class Species extends PageAwareEntity implements PageAware {
 	private Boolean unnamedSpecies;
 
 	private Boolean alternateReality;
+
+	@Transient
+	private Set<Character> characters = Sets.newHashSet();
 
 }

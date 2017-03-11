@@ -1,8 +1,10 @@
 package com.cezarykluczynski.stapi.server.species.mapper
 
 import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject
+import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.species.entity.Species
 import com.cezarykluczynski.stapi.util.AbstractSpeciesTest
+import com.google.common.collect.Sets
 
 abstract class AbstractSpeciesMapperTest extends AbstractSpeciesTest {
 
@@ -26,7 +28,8 @@ abstract class AbstractSpeciesMapperTest extends AbstractSpeciesTest {
 				telepathicSpecies: TELEPATHIC_SPECIES,
 				transDimensionalSpecies: TRANS_DIMENSIONAL_SPECIES,
 				unnamedSpecies: UNNAMED_SPECIES,
-				alternateReality: ALTERNATE_REALITY)
+				alternateReality: ALTERNATE_REALITY,
+				characters: Sets.newHashSet(Mock(Character)))
 	}
 
 }

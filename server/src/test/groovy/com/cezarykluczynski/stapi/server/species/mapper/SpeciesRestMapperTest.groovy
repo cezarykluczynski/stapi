@@ -77,6 +77,7 @@ class SpeciesRestMapperTest extends AbstractSpeciesMapperTest {
 		restSpecies.transDimensionalSpecies == TRANS_DIMENSIONAL_SPECIES
 		restSpecies.unnamedSpecies == UNNAMED_SPECIES
 		restSpecies.alternateReality == ALTERNATE_REALITY
+		restSpecies.characterHeaders.size() == dbSpecies.characters.size()
 	}
 
 }
