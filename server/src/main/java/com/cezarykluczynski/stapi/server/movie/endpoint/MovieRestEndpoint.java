@@ -28,13 +28,13 @@ public class MovieRestEndpoint {
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
 	public MovieResponse getMovies(@BeanParam PageSortBeanParams pageSortBeanParams) {
-		return movieRestReader.read(MovieRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
+		return movieRestReader.readBase(MovieRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public MovieResponse searchMovies(@BeanParam MovieRestBeanParams seriesRestBeanParams) {
-		return movieRestReader.read(seriesRestBeanParams);
+		return movieRestReader.readBase(seriesRestBeanParams);
 	}
 
 }

@@ -20,7 +20,7 @@ public class PerformerSoapEndpoint implements PerformerPortType {
 	@Override
 	public PerformerResponse getPerformers(@WebParam(partName = "request", name = "PerformerRequest",
 			targetNamespace = "http://stapi.co/api/v1/soap/performer") PerformerRequest request) {
-		return seriesSoapReader.read(request);
+		return seriesSoapReader.readBase(request);
 	}
 
 }

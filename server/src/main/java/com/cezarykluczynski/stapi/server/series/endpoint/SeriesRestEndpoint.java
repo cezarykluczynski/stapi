@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.series.endpoint;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesResponse;
+import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesBaseResponse;
+import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesFullResponse;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 import com.cezarykluczynski.stapi.server.series.dto.SeriesRestBeanParams;
 import com.cezarykluczynski.stapi.server.series.reader.SeriesRestReader;
@@ -12,6 +13,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 @Path("v1/rest/series")
@@ -27,14 +29,22 @@ public class SeriesRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public SeriesResponse getSeries(@BeanParam PageSortBeanParams pageSortBeanParams) {
-		return seriesRestReader.read(SeriesRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
+	public SeriesFullResponse getSeries(@QueryParam("guid") String guid) {
+		return seriesRestReader.readFull(guid);
+	}
+
+	@GET
+	@Path("search")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public SeriesBaseResponse getSeries(@BeanParam PageSortBeanParams pageSortBeanParams) {
+		return seriesRestReader.readBase(SeriesRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
 	}
 
 	@POST
+	@Path("search")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public SeriesResponse searchSeries(@BeanParam SeriesRestBeanParams seriesRestBeanParams) {
-		return seriesRestReader.read(seriesRestBeanParams);
+	public SeriesBaseResponse searchSeries(@BeanParam SeriesRestBeanParams seriesRestBeanParams) {
+		return seriesRestReader.readBase(seriesRestBeanParams);
 	}
 
 }

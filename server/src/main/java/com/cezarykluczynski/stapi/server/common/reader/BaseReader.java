@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.common.reader;
 
-public interface Reader<I, O> {
+public interface BaseReader<I, O> {
 
-	O read(I input);
+	O readBase(I input);
 
 }

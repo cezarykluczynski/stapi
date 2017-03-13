@@ -42,7 +42,7 @@ class AstronomicalObjectRestReaderTest extends Specification {
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		AstronomicalObjectResponse astronomicalObjectResponse = astronomicalObjectRestReader.read(seriesRestBeanParams)
+		AstronomicalObjectResponse astronomicalObjectResponse = astronomicalObjectRestReader.readBase(seriesRestBeanParams)
 
 		then:
 		1 * astronomicalObjectRestQueryBuilderMock.query(seriesRestBeanParams) >> dbAstronomicalObjectPage

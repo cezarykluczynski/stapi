@@ -28,7 +28,7 @@ class ComicsRestEndpointTest extends AbstractRestEndpointTest {
 		ComicsResponse comicsResponseOutput = comicsRestEndpoint.getComics(pageAwareBeanParams)
 
 		then:
-		1 * comicsRestReaderMock.read(_ as ComicsRestBeanParams) >> { ComicsRestBeanParams comicsRestBeanParams ->
+		1 * comicsRestReaderMock.readBase(_ as ComicsRestBeanParams) >> { ComicsRestBeanParams comicsRestBeanParams ->
 			assert pageAwareBeanParams.pageNumber == PAGE_NUMBER
 			assert pageAwareBeanParams.pageSize == PAGE_SIZE
 			comicsResponse
@@ -45,7 +45,7 @@ class ComicsRestEndpointTest extends AbstractRestEndpointTest {
 		ComicsResponse comicsResponseOutput = comicsRestEndpoint.searchComics(comicsRestBeanParams)
 
 		then:
-		1 * comicsRestReaderMock.read(comicsRestBeanParams as ComicsRestBeanParams) >> { ComicsRestBeanParams params ->
+		1 * comicsRestReaderMock.readBase(comicsRestBeanParams as ComicsRestBeanParams) >> { ComicsRestBeanParams params ->
 			comicsResponse
 		}
 		comicsResponseOutput == comicsResponse

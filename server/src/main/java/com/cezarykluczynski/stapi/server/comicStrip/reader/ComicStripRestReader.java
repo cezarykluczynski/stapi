@@ -6,14 +6,14 @@ import com.cezarykluczynski.stapi.server.comicStrip.dto.ComicStripRestBeanParams
 import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripRestMapper;
 import com.cezarykluczynski.stapi.server.comicStrip.query.ComicStripRestQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
-import com.cezarykluczynski.stapi.server.common.reader.Reader;
+import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 
 @Service
-public class ComicStripRestReader implements Reader<ComicStripRestBeanParams, ComicStripResponse> {
+public class ComicStripRestReader implements BaseReader<ComicStripRestBeanParams, ComicStripResponse> {
 
 	private ComicStripRestQuery comicStripRestQuery;
 
@@ -29,7 +29,7 @@ public class ComicStripRestReader implements Reader<ComicStripRestBeanParams, Co
 	}
 
 	@Override
-	public ComicStripResponse read(ComicStripRestBeanParams input) {
+	public ComicStripResponse readBase(ComicStripRestBeanParams input) {
 		Page<ComicStrip> comicStripPage = comicStripRestQuery.query(input);
 		ComicStripResponse comicStripResponse = new ComicStripResponse();
 		comicStripResponse.setPage(pageMapper.fromPageToRestResponsePage(comicStripPage));

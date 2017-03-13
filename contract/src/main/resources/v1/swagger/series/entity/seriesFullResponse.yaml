@@ -1,0 +1,4 @@
+type: object
+properties:
+  series:
+    $ref: ./series/entity/seriesFull.yaml

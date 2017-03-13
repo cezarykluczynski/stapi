@@ -1,15 +1,16 @@
 package com.cezarykluczynski.stapi.server.series.endpoint
 
 import com.cezarykluczynski.stapi.client.v1.soap.RequestPage
-import com.cezarykluczynski.stapi.client.v1.soap.SeriesRequest
-import com.cezarykluczynski.stapi.client.v1.soap.SeriesResponse
+import com.cezarykluczynski.stapi.client.v1.soap.SeriesBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.SeriesBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.SeriesFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.SeriesFullResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import spock.lang.Requires
 
 @Requires({
-	StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_SERIES) &&
-			StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_EPISODES)
+	StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_SERIES)
 })
 class SeriesSoapEndpointIntegrationTest extends AbstractSeriesEndpointIntegrationTest {
 
@@ -23,7 +24,7 @@ class SeriesSoapEndpointIntegrationTest extends AbstractSeriesEndpointIntegratio
 		Integer pageSize = 10
 
 		when:
-		SeriesResponse seriesResponse = stapiSoapClient.seriesPortType.getSeries(new SeriesRequest(
+		SeriesBaseResponse seriesResponse = stapiSoapClient.seriesPortType.getSeriesBase(new SeriesBaseRequest(
 				page: new RequestPage(
 						pageNumber: pageNumber,
 						pageSize: pageSize
@@ -43,7 +44,7 @@ class SeriesSoapEndpointIntegrationTest extends AbstractSeriesEndpointIntegratio
 		Integer pageSize = 2
 
 		when:
-		SeriesResponse seriesResponse = stapiSoapClient.seriesPortType.getSeries(new SeriesRequest(
+		SeriesBaseResponse seriesResponse = stapiSoapClient.seriesPortType.getSeriesBase(new SeriesBaseRequest(
 				page: new RequestPage(
 						pageNumber: pageNumber,
 						pageSize: pageSize
@@ -58,27 +59,18 @@ class SeriesSoapEndpointIntegrationTest extends AbstractSeriesEndpointIntegratio
 		seriesResponse.series[0].title.contains VOYAGER
 	}
 
+	@Requires({
+		StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_EPISODES)
+	})
 	void "gets series by guid"() {
-		given:
-		Integer pageNumber = 0
-		Integer pageSize = 2
-
 		when:
-		SeriesResponse seriesResponse = stapiSoapClient.seriesPortType.getSeries(new SeriesRequest(
-				page: new RequestPage(
-						pageNumber: pageNumber,
-						pageSize: pageSize
-				),
+		SeriesFullResponse seriesFullResponse = stapiSoapClient.seriesPortType.getSeriesFull(new SeriesFullRequest(
 				guid: GUID
 		))
 
 		then:
-		seriesResponse.page.pageNumber == pageNumber
-		seriesResponse.page.pageSize == pageSize
-		seriesResponse.series.size() == 1
-		seriesResponse.series[0].guid == GUID
-		seriesResponse.series[0].episodeHeaders.size() == 22
-		seriesResponse.series[0].abbreviation == TAS
+		seriesFullResponse.series.guid == GUID
+		seriesFullResponse.series.abbreviation == TAS
 	}
 
 }

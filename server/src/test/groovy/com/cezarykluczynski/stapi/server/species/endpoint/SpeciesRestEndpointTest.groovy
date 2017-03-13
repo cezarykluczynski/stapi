@@ -28,7 +28,7 @@ class SpeciesRestEndpointTest extends AbstractRestEndpointTest {
 		SpeciesResponse speciesResponseOutput = speciesRestEndpoint.getSpecies(pageAwareBeanParams)
 
 		then:
-		1 * speciesRestReaderMock.read(_ as SpeciesRestBeanParams) >> { SpeciesRestBeanParams speciesRestBeanParams ->
+		1 * speciesRestReaderMock.readBase(_ as SpeciesRestBeanParams) >> { SpeciesRestBeanParams speciesRestBeanParams ->
 			assert pageAwareBeanParams.pageNumber == PAGE_NUMBER
 			assert pageAwareBeanParams.pageSize == PAGE_SIZE
 			speciesResponse
@@ -45,7 +45,7 @@ class SpeciesRestEndpointTest extends AbstractRestEndpointTest {
 		SpeciesResponse speciesResponseOutput = speciesRestEndpoint.searchSpecies(speciesRestBeanParams)
 
 		then:
-		1 * speciesRestReaderMock.read(speciesRestBeanParams as SpeciesRestBeanParams) >> { SpeciesRestBeanParams params ->
+		1 * speciesRestReaderMock.readBase(speciesRestBeanParams as SpeciesRestBeanParams) >> { SpeciesRestBeanParams params ->
 			speciesResponse
 		}
 		speciesResponseOutput == speciesResponse

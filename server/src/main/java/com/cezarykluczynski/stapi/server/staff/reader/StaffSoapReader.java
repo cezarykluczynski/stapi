@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.StaffRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.StaffResponse;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
-import com.cezarykluczynski.stapi.server.common.reader.Reader;
+import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffSoapMapper;
 import com.cezarykluczynski.stapi.server.staff.query.StaffSoapQuery;
 import org.springframework.data.domain.Page;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 
 @Service
-public class StaffSoapReader implements Reader<StaffRequest, StaffResponse> {
+public class StaffSoapReader implements BaseReader<StaffRequest, StaffResponse> {
 
 	private StaffSoapQuery staffSoapQuery;
 
@@ -29,7 +29,7 @@ public class StaffSoapReader implements Reader<StaffRequest, StaffResponse> {
 	}
 
 	@Override
-	public StaffResponse read(StaffRequest input) {
+	public StaffResponse readBase(StaffRequest input) {
 		Page<Staff> staffPage = staffSoapQuery.query(input);
 		StaffResponse staffResponse = new StaffResponse();
 		staffResponse.setPage(pageMapper.fromPageToSoapResponsePage(staffPage));

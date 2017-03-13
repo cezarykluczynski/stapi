@@ -20,7 +20,7 @@ public class StaffSoapEndpoint implements StaffPortType {
 	@Override
 	public StaffResponse getStaff(@WebParam(partName = "request", name = "StaffRequest",
 			targetNamespace = "http://stapi.co/api/v1/soap/staff") StaffRequest request) {
-		return seriesSoapReader.read(request);
+		return seriesSoapReader.readBase(request);
 	}
 
 }

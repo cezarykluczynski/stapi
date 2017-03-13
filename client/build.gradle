@@ -89,9 +89,11 @@ task swaggerGenerate(type: Exec) {
 		it.name.startsWith("swagger-codegen-cli-")
 	}
 
+	println 'Using swagger-codegen-cli: ' << file.absolutePath
+
 	workingDir "../"
 
-	commandLine "java", "-jar", "${file.absolutePath}",  "generate",
+	commandLine "java", "-jar", "${file.absolutePath}", "generate",
 			"-l", "java",
 			"-i", "contract/src/main/resources/v1/swagger/stapi.yaml",
 			"-c", "contract/src/main/resources/v1/swagger/config.json",

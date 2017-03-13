@@ -6,12 +6,12 @@ import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterSoapMapper;
 import com.cezarykluczynski.stapi.server.character.query.CharacterSoapQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
-import com.cezarykluczynski.stapi.server.common.reader.Reader;
+import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CharacterSoapReader implements Reader<CharacterRequest, CharacterResponse> {
+public class CharacterSoapReader implements BaseReader<CharacterRequest, CharacterResponse> {
 
 	private CharacterSoapQuery characterSoapQuery;
 
@@ -26,7 +26,7 @@ public class CharacterSoapReader implements Reader<CharacterRequest, CharacterRe
 	}
 
 	@Override
-	public CharacterResponse read(CharacterRequest input) {
+	public CharacterResponse readBase(CharacterRequest input) {
 		Page<Character> characterPage = characterSoapQuery.query(input);
 		CharacterResponse characterResponse = new CharacterResponse();
 		characterResponse.setPage(pageMapper.fromPageToSoapResponsePage(characterPage));

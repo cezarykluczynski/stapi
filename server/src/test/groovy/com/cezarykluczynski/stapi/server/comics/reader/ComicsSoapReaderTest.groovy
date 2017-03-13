@@ -41,7 +41,7 @@ class ComicsSoapReaderTest extends Specification {
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		ComicsResponse comicsResponse = comicsSoapReader.read(comicsRequest)
+		ComicsResponse comicsResponse = comicsSoapReader.readBase(comicsRequest)
 
 		then:
 		1 * comicsSoapQueryBuilderMock.query(comicsRequest) >> dbComicsPage

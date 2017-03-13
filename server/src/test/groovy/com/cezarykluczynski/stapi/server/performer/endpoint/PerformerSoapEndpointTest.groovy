@@ -25,7 +25,7 @@ class PerformerSoapEndpointTest extends Specification {
 		PerformerResponse performerResponseResult = performerSoapEndpoint.getPerformers(performerRequest)
 
 		then:
-		1 * performerSoapReaderMock.read(performerRequest) >> performerResponse
+		1 * performerSoapReaderMock.readBase(performerRequest) >> performerResponse
 		performerResponseResult == performerResponse
 	}
 

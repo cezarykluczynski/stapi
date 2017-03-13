@@ -28,13 +28,13 @@ public class CharacterRestEndpoint {
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
 	public CharacterResponse getCharacters(@BeanParam PageSortBeanParams pageSortBeanParams) {
-		return characterRestReader.read(CharacterRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
+		return characterRestReader.readBase(CharacterRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public CharacterResponse searchCharacters(@BeanParam CharacterRestBeanParams seriesRestBeanParams) {
-		return characterRestReader.read(seriesRestBeanParams);
+		return characterRestReader.readBase(seriesRestBeanParams);
 	}
 
 }

@@ -34,18 +34,15 @@ public class EpisodeRepositoryImpl extends AbstractRepositoryImpl<Episode> imple
 		episodeQueryBuilder.equal(Episode_.guid, guid);
 		episodeQueryBuilder.like(Episode_.title, criteria.getTitle());
 		episodeQueryBuilder.like(Episode_.productionSerialNumber, criteria.getProductionSerialNumber());
-		episodeQueryBuilder.between(Episode_.seasonNumber, criteria.getSeasonNumberFrom(),
-				criteria.getSeasonNumberTo());
-		episodeQueryBuilder.between(Episode_.episodeNumber, criteria.getEpisodeNumberFrom(),
-				criteria.getEpisodeNumberTo());
+		episodeQueryBuilder.between(Episode_.seasonNumber, criteria.getSeasonNumberFrom(), criteria.getSeasonNumberTo());
+		episodeQueryBuilder.between(Episode_.episodeNumber, criteria.getEpisodeNumberFrom(), criteria.getEpisodeNumberTo());
 		episodeQueryBuilder.between(Episode_.yearFrom, criteria.getYearFrom(), null);
 		episodeQueryBuilder.between(Episode_.yearTo, null, criteria.getYearTo());
 		episodeQueryBuilder.between(Episode_.stardateFrom, criteria.getStardateFrom(), null);
 		episodeQueryBuilder.between(Episode_.stardateTo, null, criteria.getStardateTo());
 		episodeQueryBuilder.equal(Episode_.featureLength, criteria.getFeatureLength());
 		episodeQueryBuilder.between(Episode_.usAirDate, criteria.getUsAirDateFrom(), criteria.getUsAirDateTo());
-		episodeQueryBuilder.between(Episode_.finalScriptDate, criteria.getFinalScriptDateFrom(),
-				criteria.getFinalScriptDateTo());
+		episodeQueryBuilder.between(Episode_.finalScriptDate, criteria.getFinalScriptDateFrom(), criteria.getFinalScriptDateTo());
 		episodeQueryBuilder.setSort(criteria.getSort());
 		episodeQueryBuilder.fetch(Episode_.writers, doFetch);
 		episodeQueryBuilder.fetch(Episode_.teleplayAuthors, doFetch);

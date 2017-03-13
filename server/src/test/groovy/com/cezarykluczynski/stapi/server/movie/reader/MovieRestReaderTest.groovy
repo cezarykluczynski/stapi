@@ -41,7 +41,7 @@ class MovieRestReaderTest extends Specification {
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		MovieResponse movieResponse = movieRestReader.read(seriesRestBeanParams)
+		MovieResponse movieResponse = movieRestReader.readBase(seriesRestBeanParams)
 
 		then:
 		1 * movieRestQueryBuilderMock.query(seriesRestBeanParams) >> dbMoviePage

@@ -28,13 +28,13 @@ public class AstronomicalObjectRestEndpoint {
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
 	public AstronomicalObjectResponse getAstronomicalObjects(@BeanParam PageSortBeanParams pageSortBeanParams) {
-		return astronomicalObjectRestReader.read(AstronomicalObjectRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
+		return astronomicalObjectRestReader.readBase(AstronomicalObjectRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public AstronomicalObjectResponse searchAstronomicalObjects(@BeanParam AstronomicalObjectRestBeanParams seriesRestBeanParams) {
-		return astronomicalObjectRestReader.read(seriesRestBeanParams);
+		return astronomicalObjectRestReader.readBase(seriesRestBeanParams);
 	}
 
 }

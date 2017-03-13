@@ -28,7 +28,7 @@ class MovieRestEndpointTest extends AbstractRestEndpointTest {
 		MovieResponse movieResponseOutput = movieRestEndpoint.getMovies(pageAwareBeanParams)
 
 		then:
-		1 * movieRestReaderMock.read(_ as MovieRestBeanParams) >> { MovieRestBeanParams movieRestBeanParams ->
+		1 * movieRestReaderMock.readBase(_ as MovieRestBeanParams) >> { MovieRestBeanParams movieRestBeanParams ->
 			assert pageAwareBeanParams.pageNumber == PAGE_NUMBER
 			assert pageAwareBeanParams.pageSize == PAGE_SIZE
 			movieResponse
@@ -45,7 +45,7 @@ class MovieRestEndpointTest extends AbstractRestEndpointTest {
 		MovieResponse movieResponseOutput = movieRestEndpoint.searchMovies(movieRestBeanParams)
 
 		then:
-		1 * movieRestReaderMock.read(movieRestBeanParams as MovieRestBeanParams) >> { MovieRestBeanParams params ->
+		1 * movieRestReaderMock.readBase(movieRestBeanParams as MovieRestBeanParams) >> { MovieRestBeanParams params ->
 			movieResponse
 		}
 		movieResponseOutput == movieResponse

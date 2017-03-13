@@ -17,7 +17,7 @@ import java.util.List;
 		RequestSortSoapMapper.class})
 public interface SpeciesSoapMapper {
 
-	SpeciesRequestDTO map(SpeciesRequest performerRequest);
+	SpeciesRequestDTO map(SpeciesRequest speciesRequest);
 
 	@Mappings({
 			@Mapping(source = "characters", target = "characterHeaders")

@@ -62,4 +62,8 @@ public interface PageMapper {
 		return new PageRequest(actualPageNumber, actualPageSize);
 	}
 
+	default PageRequest getDefaultPageRequest() {
+		return PageDefault.PAGE_REQUEST;
+	}
+
 }

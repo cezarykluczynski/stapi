@@ -1,85 +1,15 @@
 get:
   parameters:
-    - name: pageNumber
+    - name: guid
       in: query
-      type: integer
-      format: int32
-    - name: pageSize
-      in: query
-      type: integer
-      format: int32
+      type: string
   responses:
     200:
       schema:
-        $ref: '#/definitions/SeriesResponse'
+        $ref: '#/definitions/SeriesFullResponse'
     default:
       description: Unexpected error
       schema:
         $ref: '#/definitions/Error'
   tags:
   - Series
-post:
-  consumes:
-    - application/x-www-form-urlencoded
-  producers:
-    - application/json
-  parameters:
-    - name: pageNumber
-      in: query
-      type: integer
-      format: int32
-    - name: pageSize
-      in: query
-      type: integer
-      format: int32
-    - name: sort
-      type: string
-      in: query
-    - name: guid
-      in: formData
-      type: string
-    - name: title
-      in: formData
-      type: string
-    - name: abbreviation
-      in: formData
-      type: string
-    - name: productionStartYearFrom
-      in: formData
-      type: integer
-      format: int32
-    - name: productionStartYearTo
-      in: formData
-      type: integer
-      format: int32
-    - name: productionStartEndFrom
-      in: formData
-      type: integer
-      format: int32
-    - name: productionStartEndTo
-      in: formData
-      type: integer
-      format: int32
-    - name: originalRunStartDateFrom
-      in: formData
-      type: string
-      format: date
-    - name: originalRunStartDateTo
-      in: formData
-      type: string
-      format: date
-    - name: originalRunEndDateFrom
-      in: formData
-      type: string
-      format: date
-    - name: originalRunEndDateTo
-      in: formData
-      type: string
-      format: date
-  responses:
-    200:
-      schema:
-        $ref: '#/definitions/SeriesResponse'
-  tags:
-    - Series
-

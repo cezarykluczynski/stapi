@@ -182,4 +182,12 @@ class PageMapperTest extends Specification {
 		pageRequest == PageDefault.PAGE_REQUEST
 	}
 
+	void "gets default PageRequest"() {
+		when:
+		PageRequest pageRequest = pageMapper.defaultPageRequest
+
+		then:
+		pageRequest == PageDefault.PAGE_REQUEST
+	}
+
 }

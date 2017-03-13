@@ -11,25 +11,43 @@
 			<xs:include schemaLocation="series.xsd"/>
 		</xs:schema>
 	</wsdl:types>
-	<wsdl:message name="SeriesRequest">
-		<wsdl:part name="request" element="stapi:SeriesRequest"/>
+	<wsdl:message name="SeriesBaseRequest">
+		<wsdl:part name="request" element="stapi:SeriesBaseRequest"/>
 	</wsdl:message>
-	<wsdl:message name="SeriesResponse">
-		<wsdl:part name="response" element="stapi:SeriesResponse"/>
+	<wsdl:message name="SeriesFullRequest">
+		<wsdl:part name="request" element="stapi:SeriesFullRequest"/>
+	</wsdl:message>
+	<wsdl:message name="SeriesBaseResponse">
+		<wsdl:part name="response" element="stapi:SeriesBaseResponse"/>
+	</wsdl:message>
+	<wsdl:message name="SeriesFullResponse">
+		<wsdl:part name="response" element="stapi:SeriesFullResponse"/>
 	</wsdl:message>
 	<wsdl:portType name="SeriesPortType">
-		<wsdl:operation name="getSeries">
-			<wsdl:input name="getSeriesRequest" message="stapi:SeriesRequest"/>
-			<wsdl:output name="getSeriesResponse" message="stapi:SeriesResponse"/>
+		<wsdl:operation name="getSeriesBase">
+			<wsdl:input name="getSeriesBaseRequest" message="stapi:SeriesBaseRequest"/>
+			<wsdl:output name="getSeriesBaseResponse" message="stapi:SeriesBaseResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getSeriesFull">
+			<wsdl:input name="getSeriesFullRequest" message="stapi:SeriesFullRequest"/>
+			<wsdl:output name="getSeriesFullResponse" message="stapi:SeriesFullResponse"/>
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="SeriesBinding" type="stapi:SeriesPortType">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-		<wsdl:operation name="getSeries">
-			<wsdl:input name="getSeriesRequest">
+		<wsdl:operation name="getSeriesBase">
+			<wsdl:input name="getSeriesBaseRequest">
 				<soap:body use="literal"/>
 			</wsdl:input>
-			<wsdl:output name="getSeriesResponse">
+			<wsdl:output name="getSeriesBaseResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getSeriesFull">
+			<wsdl:input name="getSeriesFullRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getSeriesFullResponse">
 				<soap:body use="literal"/>
 			</wsdl:output>
 		</wsdl:operation>

@@ -25,7 +25,7 @@ class CharacterSoapEndpointTest extends Specification {
 		CharacterResponse characterResponseResult = characterSoapEndpoint.getCharacters(characterRequest)
 
 		then:
-		1 * characterSoapReaderMock.read(characterRequest) >> characterResponse
+		1 * characterSoapReaderMock.readBase(characterRequest) >> characterResponse
 		characterResponseResult == characterResponse
 	}
 

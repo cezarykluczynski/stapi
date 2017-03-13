@@ -28,7 +28,7 @@ class CharacterRestEndpointTest extends AbstractRestEndpointTest {
 		CharacterResponse characterResponseOutput = characterRestEndpoint.getCharacters(pageAwareBeanParams)
 
 		then:
-		1 * characterRestReaderMock.read(_ as CharacterRestBeanParams) >> { CharacterRestBeanParams characterRestBeanParams ->
+		1 * characterRestReaderMock.readBase(_ as CharacterRestBeanParams) >> { CharacterRestBeanParams characterRestBeanParams ->
 			assert pageAwareBeanParams.pageNumber == PAGE_NUMBER
 			assert pageAwareBeanParams.pageSize == PAGE_SIZE
 			characterResponse
@@ -45,7 +45,7 @@ class CharacterRestEndpointTest extends AbstractRestEndpointTest {
 		CharacterResponse characterResponseOutput = characterRestEndpoint.searchCharacters(characterRestBeanParams)
 
 		then:
-		1 * characterRestReaderMock.read(characterRestBeanParams as CharacterRestBeanParams) >> { CharacterRestBeanParams params ->
+		1 * characterRestReaderMock.readBase(characterRestBeanParams as CharacterRestBeanParams) >> { CharacterRestBeanParams params ->
 			characterResponse
 		}
 		characterResponseOutput == characterResponse

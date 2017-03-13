@@ -29,13 +29,13 @@ public class EpisodeRestEndpoint {
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
 	public EpisodeResponse getEpisodes(@BeanParam PageSortBeanParams pageSortBeanParams) {
-		return episodeRestReader.read(EpisodeRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
+		return episodeRestReader.readBase(EpisodeRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public EpisodeResponse searchEpisodes(@BeanParam EpisodeRestBeanParams seriesRestBeanParams) {
-		return episodeRestReader.read(seriesRestBeanParams);
+		return episodeRestReader.readBase(seriesRestBeanParams);
 	}
 
 }

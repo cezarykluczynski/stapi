@@ -28,13 +28,13 @@ public class ComicCollectionRestEndpoint {
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
 	public ComicCollectionResponse getComicCollections(@BeanParam PageSortBeanParams pageSortBeanParams) {
-		return comicCollectionRestReader.read(ComicCollectionRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
+		return comicCollectionRestReader.readBase(ComicCollectionRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public ComicCollectionResponse searchComicCollections(@BeanParam ComicCollectionRestBeanParams seriesRestBeanParams) {
-		return comicCollectionRestReader.read(seriesRestBeanParams);
+		return comicCollectionRestReader.readBase(seriesRestBeanParams);
 	}
 
 }

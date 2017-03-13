@@ -6,12 +6,12 @@ import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries;
 import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesSoapMapper;
 import com.cezarykluczynski.stapi.server.comicSeries.query.ComicSeriesSoapQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
-import com.cezarykluczynski.stapi.server.common.reader.Reader;
+import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ComicSeriesSoapReader implements Reader<ComicSeriesRequest, ComicSeriesResponse> {
+public class ComicSeriesSoapReader implements BaseReader<ComicSeriesRequest, ComicSeriesResponse> {
 
 	private ComicSeriesSoapQuery comicSeriesSoapQuery;
 
@@ -26,7 +26,7 @@ public class ComicSeriesSoapReader implements Reader<ComicSeriesRequest, ComicSe
 	}
 
 	@Override
-	public ComicSeriesResponse read(ComicSeriesRequest input) {
+	public ComicSeriesResponse readBase(ComicSeriesRequest input) {
 		Page<ComicSeries> comicSeriesPage = comicSeriesSoapQuery.query(input);
 		ComicSeriesResponse comicSeriesResponse = new ComicSeriesResponse();
 		comicSeriesResponse.setPage(pageMapper.fromPageToSoapResponsePage(comicSeriesPage));

@@ -30,13 +30,13 @@ public class PerformerRestEndpoint {
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
 	public PerformerResponse getPerformers(@BeanParam PageSortBeanParams pageSortBeanParams) {
-		return performerRestReader.read(PerformerRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
+		return performerRestReader.readBase(PerformerRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public PerformerResponse searchPerformers(@BeanParam PerformerRestBeanParams seriesRestBeanParams) {
-		return performerRestReader.read(seriesRestBeanParams);
+		return performerRestReader.readBase(seriesRestBeanParams);
 	}
 
 }

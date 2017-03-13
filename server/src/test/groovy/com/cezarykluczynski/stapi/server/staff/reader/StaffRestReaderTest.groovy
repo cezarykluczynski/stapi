@@ -41,7 +41,7 @@ class StaffRestReaderTest extends Specification {
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		StaffResponse staffResponse = staffRestReader.read(seriesRestBeanParams)
+		StaffResponse staffResponse = staffRestReader.readBase(seriesRestBeanParams)
 
 		then:
 		1 * staffRestQueryBuilderMock.query(seriesRestBeanParams) >> dbStaffPage

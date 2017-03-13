@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.model.comics.repository
 
 import com.cezarykluczynski.stapi.model.character.entity.Character
+import com.cezarykluczynski.stapi.model.comicCollection.entity.ComicCollection
 import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries
 import com.cezarykluczynski.stapi.model.comics.dto.ComicsRequestDTO
 import com.cezarykluczynski.stapi.model.comics.entity.Comics
@@ -25,7 +26,7 @@ class ComicsRepositoryImplTest extends Specification {
 
 	private QueryBuilder<Comics> comicsQueryBuilder
 
-	private QueryBuilder<Comics> comicsComicSeriesPublishersQueryBuilder
+	private QueryBuilder<Comics> comicsComicsSeriesPublishersComicCollectionsQueryBuilder
 
 	private QueryBuilder<Comics> comicsCharactersReferencesQueryBuilder
 
@@ -35,7 +36,7 @@ class ComicsRepositoryImplTest extends Specification {
 
 	private Comics comics
 
-	private Comics comicSeriesPerformersComics
+	private Comics comicsComicsSeriesPublishersComicCollectionsComics
 
 	private Comics charactersReferencesComics
 
@@ -53,11 +54,13 @@ class ComicsRepositoryImplTest extends Specification {
 
 	private Set<Reference> referencesSet
 
+	private Set<ComicCollection> comicCollectionSet
+
 	void setup() {
 		comicsInitialQueryBuilderFactory = Mock(ComicsInitialQueryBuilderFactory)
 		comicsRepositoryImpl = new ComicsRepositoryImpl(comicsInitialQueryBuilderFactory)
 		comicsQueryBuilder = Mock(QueryBuilder)
-		comicsComicSeriesPublishersQueryBuilder = Mock(QueryBuilder)
+		comicsComicsSeriesPublishersComicCollectionsQueryBuilder = Mock(QueryBuilder)
 		comicsCharactersReferencesQueryBuilder = Mock(QueryBuilder)
 		pageable = Mock(Pageable)
 		comicsRequestDTO = Mock(ComicsRequestDTO)
@@ -65,12 +68,13 @@ class ComicsRepositoryImplTest extends Specification {
 		performersPage = Mock(Page)
 		charactersPage = Mock(Page)
 		comics = Mock(Comics)
-		comicSeriesPerformersComics = Mock(Comics)
+		comicsComicsSeriesPublishersComicCollectionsComics = Mock(Comics)
 		charactersReferencesComics = Mock(Comics)
 		comicSeriesSet = Mock(Set)
 		publishersSet = Mock(Set)
 		charactersSet = Mock(Set)
 		referencesSet = Mock(Set)
+		comicCollectionSet = Mock(Set)
 	}
 
 	void "query is built and performed"() {
@@ -94,20 +98,25 @@ class ComicsRepositoryImplTest extends Specification {
 		1 * page.content >> Lists.newArrayList(comics)
 
 		then: 'another criteria builder is retrieved for comic series and publishers'
-		1 * comicsInitialQueryBuilderFactory.createInitialQueryBuilder(comicsRequestDTO, pageable) >> comicsComicSeriesPublishersQueryBuilder
+		1 * comicsInitialQueryBuilderFactory.createInitialQueryBuilder(comicsRequestDTO, pageable) >>
+				comicsComicsSeriesPublishersComicCollectionsQueryBuilder
 
-		then: 'comic series and publishers fetch is performed'
-		1 * comicsComicSeriesPublishersQueryBuilder.fetch(Comics_.comicSeries)
-		1 * comicsComicSeriesPublishersQueryBuilder.fetch(Comics_.publishers)
+		then: 'comic collections, comic series, and publishers fetch is performed'
+		1 * comicsComicsSeriesPublishersComicCollectionsQueryBuilder.fetch(Comics_.comicSeries)
+		1 * comicsComicsSeriesPublishersComicCollectionsQueryBuilder.fetch(Comics_.publishers)
+		1 * comicsComicsSeriesPublishersComicCollectionsQueryBuilder.fetch(Comics_.comicCollections)
 
 		then: 'comic series and publishers list is retrieved'
-		1 * comicsComicSeriesPublishersQueryBuilder.findAll() >> Lists.newArrayList(comicSeriesPerformersComics)
+		1 * comicsComicsSeriesPublishersComicCollectionsQueryBuilder.findAll() >>
+				Lists.newArrayList(comicsComicsSeriesPublishersComicCollectionsComics)
 
 		then: 'comic series and publishers are set to comics'
-		1 * comicSeriesPerformersComics.comicSeries >> comicSeriesSet
+		1 * comicsComicsSeriesPublishersComicCollectionsComics.comicSeries >> comicSeriesSet
 		1 * comics.setComicSeries(comicSeriesSet)
-		1 * comicSeriesPerformersComics.publishers >> publishersSet
+		1 * comicsComicsSeriesPublishersComicCollectionsComics.publishers >> publishersSet
 		1 * comics.setPublishers(publishersSet)
+		1 * comicsComicsSeriesPublishersComicCollectionsComics.comicCollections >> comicCollectionSet
+		1 * comics.setComicCollections(comicCollectionSet)
 
 		then: 'another criteria builder is retrieved for characters and references'
 		1 * comicsInitialQueryBuilderFactory.createInitialQueryBuilder(comicsRequestDTO, pageable) >> comicsCharactersReferencesQueryBuilder
@@ -153,14 +162,16 @@ class ComicsRepositoryImplTest extends Specification {
 		1 * page.content >> Lists.newArrayList(comics)
 
 		then: 'another criteria builder is retrieved for comic series and publishers'
-		1 * comicsInitialQueryBuilderFactory.createInitialQueryBuilder(comicsRequestDTO, pageable) >> comicsComicSeriesPublishersQueryBuilder
+		1 * comicsInitialQueryBuilderFactory.createInitialQueryBuilder(comicsRequestDTO, pageable) >>
+				comicsComicsSeriesPublishersComicCollectionsQueryBuilder
 
 		then: 'comic series and publishers fetch is performed'
-		1 * comicsComicSeriesPublishersQueryBuilder.fetch(Comics_.comicSeries)
-		1 * comicsComicSeriesPublishersQueryBuilder.fetch(Comics_.publishers)
+		1 * comicsComicsSeriesPublishersComicCollectionsQueryBuilder.fetch(Comics_.comicSeries)
+		1 * comicsComicsSeriesPublishersComicCollectionsQueryBuilder.fetch(Comics_.publishers)
+		1 * comicsComicsSeriesPublishersComicCollectionsQueryBuilder.fetch(Comics_.comicCollections)
 
 		then: 'empty comic series and publishers list is retrieved'
-		1 * comicsComicSeriesPublishersQueryBuilder.findAll() >> Lists.newArrayList()
+		1 * comicsComicsSeriesPublishersComicCollectionsQueryBuilder.findAll() >> Lists.newArrayList()
 
 		then: 'another criteria builder is retrieved for characters and references'
 		1 * comicsInitialQueryBuilderFactory.createInitialQueryBuilder(comicsRequestDTO, pageable) >> comicsCharactersReferencesQueryBuilder
@@ -229,6 +240,7 @@ class ComicsRepositoryImplTest extends Specification {
 		1 * comics.setPublishers(Sets.newHashSet())
 		1 * comics.setCharacters(Sets.newHashSet())
 		1 * comics.setReferences(Sets.newHashSet())
+		1 * comics.setComicCollections(Sets.newHashSet())
 		pageOutput == page
 	}
 

@@ -25,7 +25,7 @@ class StaffSoapEndpointTest extends Specification {
 		StaffResponse staffResponseResult = staffSoapEndpoint.getStaff(staffRequest)
 
 		then:
-		1 * staffSoapReaderMock.read(staffRequest) >> staffResponse
+		1 * staffSoapReaderMock.readBase(staffRequest) >> staffResponse
 		staffResponseResult == staffResponse
 	}
 

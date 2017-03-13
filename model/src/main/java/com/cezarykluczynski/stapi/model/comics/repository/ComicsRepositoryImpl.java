@@ -47,17 +47,19 @@ public class ComicsRepositoryImpl extends AbstractRepositoryImpl<Comics> impleme
 
 			Comics comics = comicsList.get(0);
 
-			QueryBuilder<Comics> comicsComicsSeriesPublishersQueryBuilder = createInitialComicsQueryBuilder(criteria, pageable);
+			QueryBuilder<Comics> comicsComicsSeriesPublishersComicCollectionsQueryBuilder = createInitialComicsQueryBuilder(criteria, pageable);
 
-			comicsComicsSeriesPublishersQueryBuilder.fetch(Comics_.comicSeries);
-			comicsComicsSeriesPublishersQueryBuilder.fetch(Comics_.publishers);
+			comicsComicsSeriesPublishersComicCollectionsQueryBuilder.fetch(Comics_.comicSeries);
+			comicsComicsSeriesPublishersComicCollectionsQueryBuilder.fetch(Comics_.publishers);
+			comicsComicsSeriesPublishersComicCollectionsQueryBuilder.fetch(Comics_.comicCollections);
 
-			List<Comics> comicSeriesPublishersComicsList = comicsComicsSeriesPublishersQueryBuilder.findAll();
+			List<Comics> comicSeriesPublishersComicsList = comicsComicsSeriesPublishersComicCollectionsQueryBuilder.findAll();
 
 			if (comicSeriesPublishersComicsList.size() == 1) {
-				Comics comicSeriesPublishersComics = comicSeriesPublishersComicsList.get(0);
-				comics.setComicSeries(comicSeriesPublishersComics.getComicSeries());
-				comics.setPublishers(comicSeriesPublishersComics.getPublishers());
+				Comics comicSeriesPublishersComicCollectionsComics = comicSeriesPublishersComicsList.get(0);
+				comics.setComicSeries(comicSeriesPublishersComicCollectionsComics.getComicSeries());
+				comics.setPublishers(comicSeriesPublishersComicCollectionsComics.getPublishers());
+				comics.setComicCollections(comicSeriesPublishersComicCollectionsComics.getComicCollections());
 			}
 
 			QueryBuilder<Comics> comicsCharactersReferencesQueryBuilder = createInitialComicsQueryBuilder(criteria, pageable);
@@ -94,6 +96,7 @@ public class ComicsRepositoryImpl extends AbstractRepositoryImpl<Comics> impleme
 			episode.setPublishers(Sets.newHashSet());
 			episode.setCharacters(Sets.newHashSet());
 			episode.setReferences(Sets.newHashSet());
+			episode.setComicCollections(Sets.newHashSet());
 		});
 	}
 

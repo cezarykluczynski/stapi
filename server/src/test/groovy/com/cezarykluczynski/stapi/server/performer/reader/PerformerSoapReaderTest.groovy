@@ -41,7 +41,7 @@ class PerformerSoapReaderTest extends Specification {
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		PerformerResponse performerResponse = performerSoapReader.read(performerRequest)
+		PerformerResponse performerResponse = performerSoapReader.readBase(performerRequest)
 
 		then:
 		1 * performerSoapQueryBuilderMock.query(performerRequest) >> dbPerformerPage

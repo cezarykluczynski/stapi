@@ -28,7 +28,7 @@ class PerformerRestEndpointTest extends AbstractRestEndpointTest {
 		PerformerResponse performerResponseOutput = performerRestEndpoint.getPerformers(pageAwareBeanParams)
 
 		then:
-		1 * performerRestReaderMock.read(_ as PerformerRestBeanParams) >> { PerformerRestBeanParams performerRestBeanParams ->
+		1 * performerRestReaderMock.readBase(_ as PerformerRestBeanParams) >> { PerformerRestBeanParams performerRestBeanParams ->
 			assert pageAwareBeanParams.pageNumber == PAGE_NUMBER
 			assert pageAwareBeanParams.pageSize == PAGE_SIZE
 			performerResponse
@@ -45,7 +45,7 @@ class PerformerRestEndpointTest extends AbstractRestEndpointTest {
 		PerformerResponse performerResponseOutput = performerRestEndpoint.searchPerformers(performerRestBeanParams)
 
 		then:
-		1 * performerRestReaderMock.read(performerRestBeanParams as PerformerRestBeanParams) >> { PerformerRestBeanParams params ->
+		1 * performerRestReaderMock.readBase(performerRestBeanParams as PerformerRestBeanParams) >> { PerformerRestBeanParams params ->
 			performerResponse
 		}
 		performerResponseOutput == performerResponse

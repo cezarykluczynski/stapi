@@ -1,7 +1,9 @@
 package com.cezarykluczynski.stapi.server.series.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.soap.SeriesRequest
-import com.cezarykluczynski.stapi.client.v1.soap.SeriesResponse
+import com.cezarykluczynski.stapi.client.v1.soap.SeriesBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.SeriesBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.SeriesFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.SeriesFullResponse
 import com.cezarykluczynski.stapi.server.series.reader.SeriesSoapReader
 import spock.lang.Specification
 
@@ -16,17 +18,30 @@ class SeriesSoapEndpointTest extends Specification {
 		seriesSoapEndpoint = new SeriesSoapEndpoint(seriesSoapReaderMock)
 	}
 
-	void "passes call to SeriesSoapReader"() {
+	void "passes base call to SeriesSoapReader"() {
 		given:
-		SeriesRequest seriesRequest = Mock(SeriesRequest)
-		SeriesResponse seriesResponse = Mock(SeriesResponse)
+		SeriesBaseRequest seriesBaseRequest = Mock(SeriesBaseRequest)
+		SeriesBaseResponse seriesBaseResponse = Mock(SeriesBaseResponse)
 
 		when:
-		SeriesResponse seriesResponseResult = seriesSoapEndpoint.getSeries(seriesRequest)
+		SeriesBaseResponse seriesResponseResult = seriesSoapEndpoint.getSeriesBase(seriesBaseRequest)
 
 		then:
-		1 * seriesSoapReaderMock.read(seriesRequest) >> seriesResponse
-		seriesResponseResult == seriesResponse
+		1 * seriesSoapReaderMock.readBase(seriesBaseRequest) >> seriesBaseResponse
+		seriesResponseResult == seriesBaseResponse
+	}
+
+	void "passes full call to SeriesSoapReader"() {
+		given:
+		SeriesFullRequest seriesFullRequest = Mock(SeriesFullRequest)
+		SeriesFullResponse seriesFullResponse = Mock(SeriesFullResponse)
+
+		when:
+		SeriesFullResponse seriesResponseResult = seriesSoapEndpoint.getSeriesFull(seriesFullRequest)
+
+		then:
+		1 * seriesSoapReaderMock.readFull(seriesFullRequest) >> seriesFullResponse
+		seriesResponseResult == seriesFullResponse
 	}
 
 }

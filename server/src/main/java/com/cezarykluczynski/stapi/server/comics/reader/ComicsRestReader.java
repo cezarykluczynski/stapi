@@ -6,14 +6,14 @@ import com.cezarykluczynski.stapi.server.comics.dto.ComicsRestBeanParams;
 import com.cezarykluczynski.stapi.server.comics.mapper.ComicsRestMapper;
 import com.cezarykluczynski.stapi.server.comics.query.ComicsRestQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
-import com.cezarykluczynski.stapi.server.common.reader.Reader;
+import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 
 @Service
-public class ComicsRestReader implements Reader<ComicsRestBeanParams, ComicsResponse> {
+public class ComicsRestReader implements BaseReader<ComicsRestBeanParams, ComicsResponse> {
 
 	private ComicsRestQuery comicsRestQuery;
 
@@ -29,7 +29,7 @@ public class ComicsRestReader implements Reader<ComicsRestBeanParams, ComicsResp
 	}
 
 	@Override
-	public ComicsResponse read(ComicsRestBeanParams input) {
+	public ComicsResponse readBase(ComicsRestBeanParams input) {
 		Page<Comics> comicsPage = comicsRestQuery.query(input);
 		ComicsResponse comicsResponse = new ComicsResponse();
 		comicsResponse.setPage(pageMapper.fromPageToRestResponsePage(comicsPage));

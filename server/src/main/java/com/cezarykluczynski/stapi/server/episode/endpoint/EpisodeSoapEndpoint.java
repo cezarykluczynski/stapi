@@ -20,7 +20,7 @@ public class EpisodeSoapEndpoint implements EpisodePortType {
 	@Override
 	public EpisodeResponse getEpisodes(@WebParam(partName = "request", name = "EpisodeRequest",
 			targetNamespace = "http://stapi.co/api/v1/soap/episode") EpisodeRequest request) {
-		return seriesSoapReader.read(request);
+		return seriesSoapReader.readBase(request);
 	}
 
 }

@@ -41,7 +41,7 @@ class EpisodeSoapReaderTest extends Specification {
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		EpisodeResponse episodeResponse = episodeSoapReader.read(episodeRequest)
+		EpisodeResponse episodeResponse = episodeSoapReader.readBase(episodeRequest)
 
 		then:
 		1 * episodeSoapQueryBuilderMock.query(episodeRequest) >> dbEpisodePage

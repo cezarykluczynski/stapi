@@ -20,7 +20,7 @@ public class CharacterSoapEndpoint implements CharacterPortType {
 	@Override
 	public CharacterResponse getCharacters(@WebParam(partName = "request", name = "CharacterRequest",
 			targetNamespace = "http://stapi.co/api/v1/soap/character") CharacterRequest request) {
-		return seriesSoapReader.read(request);
+		return seriesSoapReader.readBase(request);
 	}
 
 }

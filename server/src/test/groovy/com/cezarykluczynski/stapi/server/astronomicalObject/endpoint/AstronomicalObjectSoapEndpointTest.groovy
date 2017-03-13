@@ -25,7 +25,7 @@ class AstronomicalObjectSoapEndpointTest extends Specification {
 		AstronomicalObjectResponse astronomicalObjectResponseResult = astronomicalObjectSoapEndpoint.getAstronomicalObjects(astronomicalObjectRequest)
 
 		then:
-		1 * astronomicalObjectSoapReaderMock.read(astronomicalObjectRequest) >> astronomicalObjectResponse
+		1 * astronomicalObjectSoapReaderMock.readBase(astronomicalObjectRequest) >> astronomicalObjectResponse
 		astronomicalObjectResponseResult == astronomicalObjectResponse
 	}
 

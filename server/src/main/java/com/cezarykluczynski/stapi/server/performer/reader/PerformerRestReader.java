@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.server.performer.reader;
 import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerResponse;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
-import com.cezarykluczynski.stapi.server.common.reader.Reader;
+import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.performer.dto.PerformerRestBeanParams;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerRestMapper;
 import com.cezarykluczynski.stapi.server.performer.query.PerformerRestQuery;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 
 @Service
-public class PerformerRestReader implements Reader<PerformerRestBeanParams, PerformerResponse> {
+public class PerformerRestReader implements BaseReader<PerformerRestBeanParams, PerformerResponse> {
 
 	private PerformerRestQuery performerRestQuery;
 
@@ -29,7 +29,7 @@ public class PerformerRestReader implements Reader<PerformerRestBeanParams, Perf
 	}
 
 	@Override
-	public PerformerResponse read(PerformerRestBeanParams input) {
+	public PerformerResponse readBase(PerformerRestBeanParams input) {
 		Page<Performer> performerPage = performerRestQuery.query(input);
 		PerformerResponse performerResponse = new PerformerResponse();
 		performerResponse.setPage(pageMapper.fromPageToRestResponsePage(performerPage));

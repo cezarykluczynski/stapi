@@ -41,7 +41,7 @@ class EpisodeRestReaderTest extends Specification {
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		EpisodeResponse episodeResponse = episodeRestReader.read(seriesRestBeanParams)
+		EpisodeResponse episodeResponse = episodeRestReader.readBase(seriesRestBeanParams)
 
 		then:
 		1 * episodeRestQueryBuilderMock.query(seriesRestBeanParams) >> dbEpisodePage

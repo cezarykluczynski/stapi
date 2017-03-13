@@ -30,13 +30,13 @@ public class StaffRestEndpoint {
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
 	public StaffResponse getStaffs(@BeanParam PageSortBeanParams pageSortBeanParams) {
-		return staffRestReader.read(StaffRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
+		return staffRestReader.readBase(StaffRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public StaffResponse searchStaffs(@BeanParam StaffRestBeanParams seriesRestBeanParams) {
-		return staffRestReader.read(seriesRestBeanParams);
+		return staffRestReader.readBase(seriesRestBeanParams);
 	}
 
 }

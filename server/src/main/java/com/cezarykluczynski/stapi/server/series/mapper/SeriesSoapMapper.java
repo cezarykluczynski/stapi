@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.series.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.soap.SeriesRequest;
+import com.cezarykluczynski.stapi.client.v1.soap.SeriesBaseRequest;
+import com.cezarykluczynski.stapi.client.v1.soap.SeriesFullRequest;
 import com.cezarykluczynski.stapi.model.series.dto.SeriesRequestDTO;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.server.common.mapper.DateMapper;
@@ -13,8 +14,7 @@ import org.mapstruct.Mappings;
 
 import java.util.List;
 
-@Mapper(config = MapstructConfiguration.class, uses = {DateMapper.class, EpisodeHeaderSoapMapper.class,
-		RequestSortSoapMapper.class})
+@Mapper(config = MapstructConfiguration.class, uses = {DateMapper.class, EpisodeHeaderSoapMapper.class, RequestSortSoapMapper.class})
 public interface SeriesSoapMapper {
 
 	@Mappings({
@@ -25,15 +25,33 @@ public interface SeriesSoapMapper {
 			@Mapping(source = "originalRunStartDate.from", target = "originalRunStartDateFrom"),
 			@Mapping(source = "originalRunStartDate.to", target = "originalRunStartDateTo"),
 			@Mapping(source = "originalRunEndDate.from", target = "originalRunEndDateFrom"),
-			@Mapping(source = "originalRunEndDate.to", target = "originalRunEndDateTo")
+			@Mapping(source = "originalRunEndDate.to", target = "originalRunEndDateTo"),
+			@Mapping(target = "guid", ignore = true)
 	})
-	SeriesRequestDTO map(SeriesRequest performerRequest);
+	SeriesRequestDTO mapBase(SeriesBaseRequest seriesBaseRequest);
+
+	com.cezarykluczynski.stapi.client.v1.soap.SeriesBase mapBase(Series series);
+
+	List<com.cezarykluczynski.stapi.client.v1.soap.SeriesBase> mapBase(List<Series> seriesList);
+
+	@Mappings({
+			@Mapping(target = "title", ignore = true),
+			@Mapping(target = "abbreviation", ignore = true),
+			@Mapping(target = "productionStartYearFrom", ignore = true),
+			@Mapping(target = "productionStartYearTo", ignore = true),
+			@Mapping(target = "productionEndYearFrom", ignore = true),
+			@Mapping(target = "productionEndYearTo", ignore = true),
+			@Mapping(target = "originalRunStartDateFrom", ignore = true),
+			@Mapping(target = "originalRunStartDateTo", ignore = true),
+			@Mapping(target = "originalRunEndDateFrom", ignore = true),
+			@Mapping(target = "originalRunEndDateTo", ignore = true),
+			@Mapping(target = "sort", ignore = true)
+	})
+	SeriesRequestDTO mapFull(SeriesFullRequest seriesFullRequest);
 
 	@Mappings({
 			@Mapping(source = "episodes", target = "episodeHeaders")
 	})
-	com.cezarykluczynski.stapi.client.v1.soap.Series map(Series series);
-
-	List<com.cezarykluczynski.stapi.client.v1.soap.Series> map(List<Series> seriesList);
+	com.cezarykluczynski.stapi.client.v1.soap.SeriesFull mapFull(Series seriesList);
 
 }

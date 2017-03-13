@@ -4,14 +4,14 @@ import com.cezarykluczynski.stapi.client.v1.soap.SpeciesRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.SpeciesResponse;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
-import com.cezarykluczynski.stapi.server.common.reader.Reader;
+import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesSoapMapper;
 import com.cezarykluczynski.stapi.server.species.query.SpeciesSoapQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SpeciesSoapReader implements Reader<SpeciesRequest, SpeciesResponse> {
+public class SpeciesSoapReader implements BaseReader<SpeciesRequest, SpeciesResponse> {
 
 	private SpeciesSoapQuery speciesSoapQuery;
 
@@ -26,7 +26,7 @@ public class SpeciesSoapReader implements Reader<SpeciesRequest, SpeciesResponse
 	}
 
 	@Override
-	public SpeciesResponse read(SpeciesRequest input) {
+	public SpeciesResponse readBase(SpeciesRequest input) {
 		Page<Species> speciesPage = speciesSoapQuery.query(input);
 		SpeciesResponse speciesResponse = new SpeciesResponse();
 		speciesResponse.setPage(pageMapper.fromPageToSoapResponsePage(speciesPage));

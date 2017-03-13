@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.server.company.reader;
 import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyResponse;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
-import com.cezarykluczynski.stapi.server.common.reader.Reader;
+import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.company.dto.CompanyRestBeanParams;
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyRestMapper;
 import com.cezarykluczynski.stapi.server.company.query.CompanyRestQuery;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 
 @Service
-public class CompanyRestReader implements Reader<CompanyRestBeanParams, CompanyResponse> {
+public class CompanyRestReader implements BaseReader<CompanyRestBeanParams, CompanyResponse> {
 
 	private CompanyRestQuery companyRestQuery;
 
@@ -29,7 +29,7 @@ public class CompanyRestReader implements Reader<CompanyRestBeanParams, CompanyR
 	}
 
 	@Override
-	public CompanyResponse read(CompanyRestBeanParams input) {
+	public CompanyResponse readBase(CompanyRestBeanParams input) {
 		Page<Company> companyPage = companyRestQuery.query(input);
 		CompanyResponse companyResponse = new CompanyResponse();
 		companyResponse.setPage(pageMapper.fromPageToRestResponsePage(companyPage));

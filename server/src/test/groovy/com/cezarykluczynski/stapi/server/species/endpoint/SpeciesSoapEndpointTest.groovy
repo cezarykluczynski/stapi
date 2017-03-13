@@ -25,7 +25,7 @@ class SpeciesSoapEndpointTest extends Specification {
 		SpeciesResponse speciesResponseResult = speciesSoapEndpoint.getSpecies(speciesRequest)
 
 		then:
-		1 * speciesSoapReaderMock.read(speciesRequest) >> speciesResponse
+		1 * speciesSoapReaderMock.readBase(speciesRequest) >> speciesResponse
 		speciesResponseResult == speciesResponse
 	}
 

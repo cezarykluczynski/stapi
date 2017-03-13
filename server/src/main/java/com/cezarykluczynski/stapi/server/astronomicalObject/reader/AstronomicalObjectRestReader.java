@@ -6,14 +6,14 @@ import com.cezarykluczynski.stapi.server.astronomicalObject.dto.AstronomicalObje
 import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectRestMapper;
 import com.cezarykluczynski.stapi.server.astronomicalObject.query.AstronomicalObjectRestQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
-import com.cezarykluczynski.stapi.server.common.reader.Reader;
+import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 
 @Service
-public class AstronomicalObjectRestReader implements Reader<AstronomicalObjectRestBeanParams, AstronomicalObjectResponse> {
+public class AstronomicalObjectRestReader implements BaseReader<AstronomicalObjectRestBeanParams, AstronomicalObjectResponse> {
 
 	private AstronomicalObjectRestQuery astronomicalObjectRestQuery;
 
@@ -30,7 +30,7 @@ public class AstronomicalObjectRestReader implements Reader<AstronomicalObjectRe
 	}
 
 	@Override
-	public AstronomicalObjectResponse read(AstronomicalObjectRestBeanParams input) {
+	public AstronomicalObjectResponse readBase(AstronomicalObjectRestBeanParams input) {
 		Page<AstronomicalObject> astronomicalObjectPage = astronomicalObjectRestQuery.query(input);
 		AstronomicalObjectResponse astronomicalObjectResponse = new AstronomicalObjectResponse();
 		astronomicalObjectResponse.setPage(pageMapper.fromPageToRestResponsePage(astronomicalObjectPage));

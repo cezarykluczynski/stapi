@@ -22,7 +22,3 @@ properties:
     type: integer
   featureLengthEpisodesCount:
     type: integer
-  episodeHeaders:
-    type: array
-    items:
-      $ref: '#/definitions/EpisodeHeader'

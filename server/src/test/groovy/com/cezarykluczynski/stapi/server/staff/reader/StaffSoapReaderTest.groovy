@@ -41,7 +41,7 @@ class StaffSoapReaderTest extends Specification {
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		StaffResponse staffResponse = staffSoapReader.read(staffRequest)
+		StaffResponse staffResponse = staffSoapReader.readBase(staffRequest)
 
 		then:
 		1 * staffSoapQueryBuilderMock.query(staffRequest) >> dbStaffPage

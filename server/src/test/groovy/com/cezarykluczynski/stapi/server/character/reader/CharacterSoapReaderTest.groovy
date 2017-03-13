@@ -41,7 +41,7 @@ class CharacterSoapReaderTest extends Specification {
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		CharacterResponse characterResponse = characterSoapReader.read(characterRequest)
+		CharacterResponse characterResponse = characterSoapReader.readBase(characterRequest)
 
 		then:
 		1 * characterSoapQueryBuilderMock.query(characterRequest) >> dbCharacterPage

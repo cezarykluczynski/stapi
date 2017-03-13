@@ -25,7 +25,7 @@ class ComicsSoapEndpointTest extends Specification {
 		ComicsResponse comicsResponseResult = comicsSoapEndpoint.getComics(comicsRequest)
 
 		then:
-		1 * comicsSoapReaderMock.read(comicsRequest) >> comicsResponse
+		1 * comicsSoapReaderMock.readBase(comicsRequest) >> comicsResponse
 		comicsResponseResult == comicsResponse
 	}
 

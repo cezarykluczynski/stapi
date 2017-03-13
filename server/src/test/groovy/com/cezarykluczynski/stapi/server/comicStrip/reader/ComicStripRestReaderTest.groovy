@@ -41,7 +41,7 @@ class ComicStripRestReaderTest extends Specification {
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		ComicStripResponse comicStripResponse = comicStripRestReader.read(seriesRestBeanParams)
+		ComicStripResponse comicStripResponse = comicStripRestReader.readBase(seriesRestBeanParams)
 
 		then:
 		1 * comicStripRestQueryBuilderMock.query(seriesRestBeanParams) >> dbComicStripPage

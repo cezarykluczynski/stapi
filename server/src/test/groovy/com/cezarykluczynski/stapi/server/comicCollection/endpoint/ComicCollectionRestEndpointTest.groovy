@@ -28,7 +28,8 @@ class ComicCollectionRestEndpointTest extends AbstractRestEndpointTest {
 		ComicCollectionResponse comicCollectionResponseOutput = comicCollectionRestEndpoint.getComicCollections(pageAwareBeanParams)
 
 		then:
-		1 * comicCollectionRestReaderMock.read(_ as ComicCollectionRestBeanParams) >> { ComicCollectionRestBeanParams comicCollectionRestBeanParams ->
+		1 * comicCollectionRestReaderMock.readBase(_ as ComicCollectionRestBeanParams) >> {
+				ComicCollectionRestBeanParams comicCollectionRestBeanParams ->
 			assert pageAwareBeanParams.pageNumber == PAGE_NUMBER
 			assert pageAwareBeanParams.pageSize == PAGE_SIZE
 			comicCollectionResponse
@@ -45,7 +46,8 @@ class ComicCollectionRestEndpointTest extends AbstractRestEndpointTest {
 		ComicCollectionResponse comicCollectionResponseOutput = comicCollectionRestEndpoint.searchComicCollections(comicCollectionRestBeanParams)
 
 		then:
-		1 * comicCollectionRestReaderMock.read(comicCollectionRestBeanParams as ComicCollectionRestBeanParams) >> { ComicCollectionRestBeanParams params ->
+		1 * comicCollectionRestReaderMock.readBase(comicCollectionRestBeanParams as ComicCollectionRestBeanParams) >> {
+				ComicCollectionRestBeanParams params ->
 			comicCollectionResponse
 		}
 		comicCollectionResponseOutput == comicCollectionResponse

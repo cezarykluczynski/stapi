@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.server.species.reader;
 import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesResponse;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
-import com.cezarykluczynski.stapi.server.common.reader.Reader;
+import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.species.dto.SpeciesRestBeanParams;
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesRestMapper;
 import com.cezarykluczynski.stapi.server.species.query.SpeciesRestQuery;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 
 @Service
-public class SpeciesRestReader implements Reader<SpeciesRestBeanParams, SpeciesResponse> {
+public class SpeciesRestReader implements BaseReader<SpeciesRestBeanParams, SpeciesResponse> {
 
 	private SpeciesRestQuery speciesRestQuery;
 
@@ -29,7 +29,7 @@ public class SpeciesRestReader implements Reader<SpeciesRestBeanParams, SpeciesR
 	}
 
 	@Override
-	public SpeciesResponse read(SpeciesRestBeanParams input) {
+	public SpeciesResponse readBase(SpeciesRestBeanParams input) {
 		Page<Species> speciesPage = speciesRestQuery.query(input);
 		SpeciesResponse speciesResponse = new SpeciesResponse();
 		speciesResponse.setPage(pageMapper.fromPageToRestResponsePage(speciesPage));

@@ -41,7 +41,7 @@ class SpeciesRestReaderTest extends Specification {
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		SpeciesResponse speciesResponse = speciesRestReader.read(seriesRestBeanParams)
+		SpeciesResponse speciesResponse = speciesRestReader.readBase(seriesRestBeanParams)
 
 		then:
 		1 * speciesRestQueryBuilderMock.query(seriesRestBeanParams) >> dbSpeciesPage

@@ -41,7 +41,7 @@ class SpeciesSoapReaderTest extends Specification {
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		SpeciesResponse speciesResponse = speciesSoapReader.read(speciesRequest)
+		SpeciesResponse speciesResponse = speciesSoapReader.readBase(speciesRequest)
 
 		then:
 		1 * speciesSoapQueryBuilderMock.query(speciesRequest) >> dbSpeciesPage

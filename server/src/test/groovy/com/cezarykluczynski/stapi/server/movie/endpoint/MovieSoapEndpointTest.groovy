@@ -25,7 +25,7 @@ class MovieSoapEndpointTest extends Specification {
 		MovieResponse movieResponseResult = movieSoapEndpoint.getMovies(movieRequest)
 
 		then:
-		1 * movieSoapReaderMock.read(movieRequest) >> movieResponse
+		1 * movieSoapReaderMock.readBase(movieRequest) >> movieResponse
 		movieResponseResult == movieResponse
 	}
 

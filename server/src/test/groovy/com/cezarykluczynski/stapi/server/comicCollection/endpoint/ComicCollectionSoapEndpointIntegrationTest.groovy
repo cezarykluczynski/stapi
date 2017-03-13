@@ -21,7 +21,7 @@ class ComicCollectionSoapEndpointIntegrationTest extends AbstractComicCollection
 	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "'The Battle Within' is among collection with 132 to 160 pages that happened between 2365 and 2370"() {
 		when:
-		ComicCollectionResponse comicCollectionResponse = stapiSoapClient.comicCollectionPortType.getComicCollection(new ComicCollectionRequest(
+		ComicCollectionResponse comicCollectionResponse = stapiSoapClient.comicCollectionPortType.getComicCollections(new ComicCollectionRequest(
 				numberOfPages: new IntegerRange(
 						from: 132,
 						to: 160

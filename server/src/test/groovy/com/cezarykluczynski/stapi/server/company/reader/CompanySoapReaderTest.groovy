@@ -41,7 +41,7 @@ class CompanySoapReaderTest extends Specification {
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		CompanyResponse companyResponse = companySoapReader.read(companyRequest)
+		CompanyResponse companyResponse = companySoapReader.readBase(companyRequest)
 
 		then:
 		1 * companySoapQueryBuilderMock.query(companyRequest) >> dbCompanyPage

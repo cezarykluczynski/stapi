@@ -19,7 +19,7 @@ public class SpeciesSoapEndpoint implements SpeciesPortType {
 
 	public SpeciesResponse getSpecies(@WebParam(partName = "request", name = "SpeciesRequest",
 			targetNamespace = "http://stapi.co/api/v1/soap/species") SpeciesRequest request) {
-		return seriesSoapReader.read(request);
+		return seriesSoapReader.readBase(request);
 	}
 
 }

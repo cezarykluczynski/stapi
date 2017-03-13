@@ -28,7 +28,7 @@ class EpisodeRestEndpointTest extends AbstractRestEndpointTest {
 		EpisodeResponse episodeResponseOutput = episodeRestEndpoint.getEpisodes(pageAwareBeanParams)
 
 		then:
-		1 * episodeRestReaderMock.read(_ as EpisodeRestBeanParams) >> { EpisodeRestBeanParams episodeRestBeanParams ->
+		1 * episodeRestReaderMock.readBase(_ as EpisodeRestBeanParams) >> { EpisodeRestBeanParams episodeRestBeanParams ->
 			assert pageAwareBeanParams.pageNumber == PAGE_NUMBER
 			assert pageAwareBeanParams.pageSize == PAGE_SIZE
 			episodeResponse
@@ -45,7 +45,7 @@ class EpisodeRestEndpointTest extends AbstractRestEndpointTest {
 		EpisodeResponse episodeResponseOutput = episodeRestEndpoint.searchEpisodes(episodeRestBeanParams)
 
 		then:
-		1 * episodeRestReaderMock.read(episodeRestBeanParams as EpisodeRestBeanParams) >> { EpisodeRestBeanParams params ->
+		1 * episodeRestReaderMock.readBase(episodeRestBeanParams as EpisodeRestBeanParams) >> { EpisodeRestBeanParams params ->
 			episodeResponse
 		}
 		episodeResponseOutput == episodeResponse

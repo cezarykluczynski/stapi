@@ -19,7 +19,7 @@ import java.util.List;
 		MovieHeaderSoapMapper.class, PerformerHeaderSoapMapper.class, RequestSortSoapMapper.class})
 public interface CharacterSoapMapper {
 
-	CharacterRequestDTO map(CharacterRequest performerRequest);
+	CharacterRequestDTO map(CharacterRequest characterRequest);
 
 	@Mappings({
 			@Mapping(source = "performers", target = "performerHeaders"),

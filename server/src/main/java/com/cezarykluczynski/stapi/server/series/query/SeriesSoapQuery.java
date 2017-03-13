@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.series.query;
 
-import com.cezarykluczynski.stapi.client.v1.soap.SeriesRequest;
+import com.cezarykluczynski.stapi.client.v1.soap.SeriesBaseRequest;
+import com.cezarykluczynski.stapi.client.v1.soap.SeriesFullRequest;
 import com.cezarykluczynski.stapi.model.series.dto.SeriesRequestDTO;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.model.series.repository.SeriesRepository;
@@ -28,10 +29,15 @@ public class SeriesSoapQuery {
 		this.seriesRepository = seriesRepository;
 	}
 
-	public Page<Series> query(SeriesRequest seriesRequest) {
-		SeriesRequestDTO seriesRequestDTO = seriesSoapMapper.map(seriesRequest);
+	public Page<Series> query(SeriesBaseRequest seriesRequest) {
+		SeriesRequestDTO seriesRequestDTO = seriesSoapMapper.mapBase(seriesRequest);
 		PageRequest pageRequest = pageMapper.fromRequestPageToPageRequest(seriesRequest.getPage());
 		return seriesRepository.findMatching(seriesRequestDTO, pageRequest);
+	}
+
+	public Page<Series> query(SeriesFullRequest seriesFullRequest) {
+		SeriesRequestDTO seriesRequestDTO = seriesSoapMapper.mapFull(seriesFullRequest);
+		return seriesRepository.findMatching(seriesRequestDTO, pageMapper.getDefaultPageRequest());
 	}
 
 }

@@ -41,7 +41,7 @@ class CharacterRestReaderTest extends Specification {
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		CharacterResponse characterResponse = characterRestReader.read(seriesRestBeanParams)
+		CharacterResponse characterResponse = characterRestReader.readBase(seriesRestBeanParams)
 
 		then:
 		1 * characterRestQueryBuilderMock.query(seriesRestBeanParams) >> dbCharacterPage

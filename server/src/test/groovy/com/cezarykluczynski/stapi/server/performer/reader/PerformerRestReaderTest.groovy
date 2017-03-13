@@ -41,7 +41,7 @@ class PerformerRestReaderTest extends Specification {
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		PerformerResponse performerResponse = performerRestReader.read(seriesRestBeanParams)
+		PerformerResponse performerResponse = performerRestReader.readBase(seriesRestBeanParams)
 
 		then:
 		1 * performerRestQueryBuilderMock.query(seriesRestBeanParams) >> dbPerformerPage

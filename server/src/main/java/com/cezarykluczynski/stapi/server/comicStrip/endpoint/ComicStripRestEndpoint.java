@@ -28,13 +28,13 @@ public class ComicStripRestEndpoint {
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
 	public ComicStripResponse getComicStrip(@BeanParam PageSortBeanParams pageSortBeanParams) {
-		return comicStripRestReader.read(ComicStripRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
+		return comicStripRestReader.readBase(ComicStripRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public ComicStripResponse searchComicStrip(@BeanParam ComicStripRestBeanParams seriesRestBeanParams) {
-		return comicStripRestReader.read(seriesRestBeanParams);
+		return comicStripRestReader.readBase(seriesRestBeanParams);
 	}
 
 }

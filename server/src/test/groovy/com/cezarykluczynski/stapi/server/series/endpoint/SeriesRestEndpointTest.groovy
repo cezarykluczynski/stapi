@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.series.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesBaseResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesFullResponse
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractRestEndpointTest
 import com.cezarykluczynski.stapi.server.series.dto.SeriesRestBeanParams
@@ -8,6 +9,7 @@ import com.cezarykluczynski.stapi.server.series.reader.SeriesRestReader
 
 class SeriesRestEndpointTest extends AbstractRestEndpointTest {
 
+	private static final String GUID = 'GUID'
 	private static final String TITLE = 'TITLE'
 
 	private SeriesRestReader seriesRestReaderMock
@@ -21,16 +23,28 @@ class SeriesRestEndpointTest extends AbstractRestEndpointTest {
 
 	void "passes get call to SeriesRestReader"() {
 		given:
+		SeriesFullResponse seriesFullResponse = Mock(SeriesFullResponse)
+
+		when:
+		SeriesFullResponse seriesFullResponseOutput = seriesRestEndpoint.getSeries(GUID)
+
+		then:
+		1 * seriesRestReaderMock.readFull(GUID) >> seriesFullResponse
+		seriesFullResponseOutput == seriesFullResponse
+	}
+
+	void "passes search get call to SeriesRestReader"() {
+		given:
 		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams)
 		pageAwareBeanParams.pageNumber >> PAGE_NUMBER
 		pageAwareBeanParams.pageSize >> PAGE_SIZE
-		SeriesResponse seriesResponse = Mock(SeriesResponse)
+		SeriesBaseResponse seriesResponse = Mock(SeriesBaseResponse)
 
 		when:
-		SeriesResponse seriesResponseOutput = seriesRestEndpoint.getSeries(pageAwareBeanParams)
+		SeriesBaseResponse seriesResponseOutput = seriesRestEndpoint.getSeries(pageAwareBeanParams)
 
 		then:
-		1 * seriesRestReaderMock.read(_ as SeriesRestBeanParams) >> { SeriesRestBeanParams seriesRestBeanParams ->
+		1 * seriesRestReaderMock.readBase(_ as SeriesRestBeanParams) >> { SeriesRestBeanParams seriesRestBeanParams ->
 			assert pageAwareBeanParams.pageNumber == PAGE_NUMBER
 			assert pageAwareBeanParams.pageSize == PAGE_SIZE
 			seriesResponse
@@ -38,16 +52,16 @@ class SeriesRestEndpointTest extends AbstractRestEndpointTest {
 		seriesResponseOutput == seriesResponse
 	}
 
-	void "passes post call to SeriesRestReader"() {
+	void "passes search post call to SeriesRestReader"() {
 		given:
 		SeriesRestBeanParams seriesRestBeanParams = new SeriesRestBeanParams(title: TITLE)
-		SeriesResponse seriesResponse = Mock(SeriesResponse)
+		SeriesBaseResponse seriesResponse = Mock(SeriesBaseResponse)
 
 		when:
-		SeriesResponse seriesResponseOutput = seriesRestEndpoint.searchSeries(seriesRestBeanParams)
+		SeriesBaseResponse seriesResponseOutput = seriesRestEndpoint.searchSeries(seriesRestBeanParams)
 
 		then:
-		1 * seriesRestReaderMock.read(seriesRestBeanParams as SeriesRestBeanParams) >> { SeriesRestBeanParams params ->
+		1 * seriesRestReaderMock.readBase(seriesRestBeanParams as SeriesRestBeanParams) >> { SeriesRestBeanParams params ->
 			assert params.title == TITLE
 			seriesResponse
 		}

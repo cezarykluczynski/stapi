@@ -30,7 +30,7 @@ public class SeriesRestQuery {
 	}
 
 	public Page<Series> query(SeriesRestBeanParams seriesRestBeanParams) {
-		SeriesRequestDTO seriesRequestDTO = seriesRestMapper.map(seriesRestBeanParams);
+		SeriesRequestDTO seriesRequestDTO = seriesRestMapper.mapBase(seriesRestBeanParams);
 		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(seriesRestBeanParams);
 		return seriesRepository.findMatching(seriesRequestDTO, pageRequest);
 	}

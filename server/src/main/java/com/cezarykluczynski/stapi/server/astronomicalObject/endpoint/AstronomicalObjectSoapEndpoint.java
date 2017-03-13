@@ -20,7 +20,7 @@ public class AstronomicalObjectSoapEndpoint implements AstronomicalObjectPortTyp
 	@Override
 	public AstronomicalObjectResponse getAstronomicalObjects(@WebParam(partName = "request", name = "AstronomicalObjectRequest",
 			targetNamespace = "http://stapi.co/api/v1/soap/astronomicalObject") AstronomicalObjectRequest request) {
-		return seriesSoapReader.read(request);
+		return seriesSoapReader.readBase(request);
 	}
 
 }

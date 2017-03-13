@@ -40,7 +40,7 @@ class SeriesRestQueryTest extends Specification {
 		Page pageOutput = seriesRestQuery.query(seriesRestBeanParams)
 
 		then:
-		1 * seriesRestMapperMock.map(seriesRestBeanParams) >> seriesRequestDTO
+		1 * seriesRestMapperMock.mapBase(seriesRestBeanParams) >> seriesRequestDTO
 		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(seriesRestBeanParams) >> pageRequest
 		1 * seriesRepositoryMock.findMatching(seriesRequestDTO, pageRequest) >> page
 		pageOutput == page

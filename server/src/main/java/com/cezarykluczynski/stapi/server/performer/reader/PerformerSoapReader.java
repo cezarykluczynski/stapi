@@ -4,14 +4,14 @@ import com.cezarykluczynski.stapi.client.v1.soap.PerformerRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.PerformerResponse;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
-import com.cezarykluczynski.stapi.server.common.reader.Reader;
+import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerSoapMapper;
 import com.cezarykluczynski.stapi.server.performer.query.PerformerSoapQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PerformerSoapReader implements Reader<PerformerRequest, PerformerResponse> {
+public class PerformerSoapReader implements BaseReader<PerformerRequest, PerformerResponse> {
 
 	private PerformerSoapQuery performerSoapQuery;
 
@@ -26,7 +26,7 @@ public class PerformerSoapReader implements Reader<PerformerRequest, PerformerRe
 	}
 
 	@Override
-	public PerformerResponse read(PerformerRequest input) {
+	public PerformerResponse readBase(PerformerRequest input) {
 		Page<Performer> performerPage = performerSoapQuery.query(input);
 		PerformerResponse performerResponse = new PerformerResponse();
 		performerResponse.setPage(pageMapper.fromPageToSoapResponsePage(performerPage));

@@ -28,7 +28,7 @@ class StaffRestEndpointTest extends AbstractRestEndpointTest {
 		StaffResponse staffResponseOutput = staffRestEndpoint.getStaffs(pageAwareBeanParams)
 
 		then:
-		1 * staffRestReaderMock.read(_ as StaffRestBeanParams) >> { StaffRestBeanParams staffRestBeanParams ->
+		1 * staffRestReaderMock.readBase(_ as StaffRestBeanParams) >> { StaffRestBeanParams staffRestBeanParams ->
 			assert pageAwareBeanParams.pageNumber == PAGE_NUMBER
 			assert pageAwareBeanParams.pageSize == PAGE_SIZE
 			staffResponse
@@ -45,7 +45,7 @@ class StaffRestEndpointTest extends AbstractRestEndpointTest {
 		StaffResponse staffResponseOutput = staffRestEndpoint.searchStaffs(staffRestBeanParams)
 
 		then:
-		1 * staffRestReaderMock.read(staffRestBeanParams as StaffRestBeanParams) >> { StaffRestBeanParams params ->
+		1 * staffRestReaderMock.readBase(staffRestBeanParams as StaffRestBeanParams) >> { StaffRestBeanParams params ->
 			staffResponse
 		}
 		staffResponseOutput == staffResponse

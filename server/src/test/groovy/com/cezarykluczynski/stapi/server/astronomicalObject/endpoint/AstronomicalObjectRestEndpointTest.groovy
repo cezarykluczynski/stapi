@@ -28,7 +28,7 @@ class AstronomicalObjectRestEndpointTest extends AbstractRestEndpointTest {
 		AstronomicalObjectResponse astronomicalObjectResponseOutput = astronomicalObjectRestEndpoint.getAstronomicalObjects(pageAwareBeanParams)
 
 		then:
-		1 * astronomicalObjectRestReaderMock.read(_ as AstronomicalObjectRestBeanParams) >> {
+		1 * astronomicalObjectRestReaderMock.readBase(_ as AstronomicalObjectRestBeanParams) >> {
 			AstronomicalObjectRestBeanParams astronomicalObjectRestBeanParams ->
 			assert pageAwareBeanParams.pageNumber == PAGE_NUMBER
 			assert pageAwareBeanParams.pageSize == PAGE_SIZE
@@ -47,7 +47,7 @@ class AstronomicalObjectRestEndpointTest extends AbstractRestEndpointTest {
 				.searchAstronomicalObjects(astronomicalObjectRestBeanParams)
 
 		then:
-		1 * astronomicalObjectRestReaderMock.read(astronomicalObjectRestBeanParams as AstronomicalObjectRestBeanParams) >> {
+		1 * astronomicalObjectRestReaderMock.readBase(astronomicalObjectRestBeanParams as AstronomicalObjectRestBeanParams) >> {
 			AstronomicalObjectRestBeanParams params ->
 			astronomicalObjectResponse
 		}

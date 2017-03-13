@@ -17,13 +17,15 @@ import java.util.List;
 		RequestSortRestMapper.class})
 public interface SeriesRestMapper {
 
-	SeriesRequestDTO map(SeriesRestBeanParams performerRestBeanParams);
+	SeriesRequestDTO mapBase(SeriesRestBeanParams performerRestBeanParams);
+
+	com.cezarykluczynski.stapi.client.v1.rest.model.SeriesBase mapBase(Series series);
+
+	List<com.cezarykluczynski.stapi.client.v1.rest.model.SeriesBase> mapBase(List<Series> seriesList);
 
 	@Mappings({
 			@Mapping(source = "episodes", target = "episodeHeaders")
 	})
-	com.cezarykluczynski.stapi.client.v1.rest.model.Series map(Series series);
-
-	List<com.cezarykluczynski.stapi.client.v1.rest.model.Series> map(List<Series> seriesList);
+	com.cezarykluczynski.stapi.client.v1.rest.model.SeriesFull mapFull(Series series);
 
 }

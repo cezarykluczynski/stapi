@@ -25,7 +25,7 @@ class EpisodeSoapEndpointTest extends Specification {
 		EpisodeResponse episodeResponseResult = episodeSoapEndpoint.getEpisodes(episodeRequest)
 
 		then:
-		1 * episodeSoapReaderMock.read(episodeRequest) >> episodeResponse
+		1 * episodeSoapReaderMock.readBase(episodeRequest) >> episodeResponse
 		episodeResponseResult == episodeResponse
 	}
 

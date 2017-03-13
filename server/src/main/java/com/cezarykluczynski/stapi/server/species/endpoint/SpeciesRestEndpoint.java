@@ -28,13 +28,13 @@ public class SpeciesRestEndpoint {
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
 	public SpeciesResponse getSpecies(@BeanParam PageSortBeanParams pageSortBeanParams) {
-		return speciesRestReader.read(SpeciesRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
+		return speciesRestReader.readBase(SpeciesRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
 	}
 
 	@POST
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public SpeciesResponse searchSpecies(@BeanParam SpeciesRestBeanParams seriesRestBeanParams) {
-		return speciesRestReader.read(seriesRestBeanParams);
+		return speciesRestReader.readBase(seriesRestBeanParams);
 	}
 
 }

@@ -21,7 +21,7 @@ class ComicStripSoapEndpointIntegrationTest extends AbstractComicStripEndpointIn
 
 	void "gets 'UK Story Arc' comic strips sorted by publication date"() {
 		when:
-		ComicStripResponse comicStripResponse = stapiSoapClient.comicStripPortType.getComicStrip(new ComicStripRequest(
+		ComicStripResponse comicStripResponse = stapiSoapClient.comicStripPortType.getComicStrips(new ComicStripRequest(
 				title: 'UK Story Arc',
 				sort: new RequestSort(
 						clauses: Lists.newArrayList(

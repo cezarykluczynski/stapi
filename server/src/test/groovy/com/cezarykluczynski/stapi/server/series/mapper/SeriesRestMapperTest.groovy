@@ -1,11 +1,12 @@
 package com.cezarykluczynski.stapi.server.series.mapper
 
+import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesBase
+import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesFull
 import com.cezarykluczynski.stapi.model.series.dto.SeriesRequestDTO
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.server.series.dto.SeriesRestBeanParams
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers
-import com.cezarykluczynski.stapi.client.v1.rest.model.Series as RESTSeries
 
 class SeriesRestMapperTest extends AbstractSeriesMapperTest {
 
@@ -31,7 +32,7 @@ class SeriesRestMapperTest extends AbstractSeriesMapperTest {
 				originalRunEndDateTo: ORIGINAL_RUN_END_DATE_TO_DB)
 
 		when:
-		SeriesRequestDTO seriesRequestDTO = seriesRestMapper.map seriesRestBeanParams
+		SeriesRequestDTO seriesRequestDTO = seriesRestMapper.mapBase seriesRestBeanParams
 
 		then:
 		seriesRequestDTO.guid == GUID
@@ -47,25 +48,45 @@ class SeriesRestMapperTest extends AbstractSeriesMapperTest {
 		seriesRequestDTO.originalRunEndDateTo == ORIGINAL_RUN_END_DATE_TO_DB
 	}
 
-	void "maps DB entity to REST entity"() {
+	void "maps DB entity to base REST entity"() {
 		given:
 		Series dBSeries = createSeries()
 
 		when:
-		RESTSeries restSeries = seriesRestMapper.map(Lists.newArrayList(dBSeries))[0]
+		SeriesBase seriesBase = seriesRestMapper.mapBase(Lists.newArrayList(dBSeries))[0]
 
 		then:
-		restSeries.guid == GUID
-		restSeries.title == TITLE
-		restSeries.abbreviation == ABBREVIATION
-		restSeries.productionStartYear == PRODUCTION_START_YEAR
-		restSeries.productionEndYear == PRODUCTION_END_YEAR
-		restSeries.originalRunStartDate == ORIGINAL_RUN_START_DATE
-		restSeries.originalRunEndDate == ORIGINAL_RUN_END_DATE
-		restSeries.seasonsCount == SEASONS_COUNT
-		restSeries.episodesCount == EPISODES_COUNT
-		restSeries.featureLengthEpisodesCount == FEATURE_LENGTH_EPISODES_COUNT
-		restSeries.episodeHeaders.size() == dBSeries.episodes.size()
+		seriesBase.guid == GUID
+		seriesBase.title == TITLE
+		seriesBase.abbreviation == ABBREVIATION
+		seriesBase.productionStartYear == PRODUCTION_START_YEAR
+		seriesBase.productionEndYear == PRODUCTION_END_YEAR
+		seriesBase.originalRunStartDate == ORIGINAL_RUN_START_DATE
+		seriesBase.originalRunEndDate == ORIGINAL_RUN_END_DATE
+		seriesBase.seasonsCount == SEASONS_COUNT
+		seriesBase.episodesCount == EPISODES_COUNT
+		seriesBase.featureLengthEpisodesCount == FEATURE_LENGTH_EPISODES_COUNT
+	}
+
+	void "maps DB entity to full REST entity"() {
+		given:
+		Series dBSeries = createSeries()
+
+		when:
+		SeriesFull seriesFull = seriesRestMapper.mapFull(dBSeries)
+
+		then:
+		seriesFull.guid == GUID
+		seriesFull.title == TITLE
+		seriesFull.abbreviation == ABBREVIATION
+		seriesFull.productionStartYear == PRODUCTION_START_YEAR
+		seriesFull.productionEndYear == PRODUCTION_END_YEAR
+		seriesFull.originalRunStartDate == ORIGINAL_RUN_START_DATE
+		seriesFull.originalRunEndDate == ORIGINAL_RUN_END_DATE
+		seriesFull.seasonsCount == SEASONS_COUNT
+		seriesFull.episodesCount == EPISODES_COUNT
+		seriesFull.featureLengthEpisodesCount == FEATURE_LENGTH_EPISODES_COUNT
+		seriesFull.episodeHeaders.size() == dBSeries.episodes.size()
 	}
 
 }

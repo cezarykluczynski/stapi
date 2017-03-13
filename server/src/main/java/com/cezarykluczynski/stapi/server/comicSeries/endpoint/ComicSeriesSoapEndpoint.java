@@ -20,7 +20,7 @@ public class ComicSeriesSoapEndpoint implements ComicSeriesPortType {
 	@Override
 	public ComicSeriesResponse getComicSeries(@WebParam(partName = "request", name = "ComicSeriesRequest",
 			targetNamespace = "http://stapi.co/api/v1/soap/comicSeries") ComicSeriesRequest request) {
-		return seriesSoapReader.read(request);
+		return seriesSoapReader.readBase(request);
 	}
 
 }

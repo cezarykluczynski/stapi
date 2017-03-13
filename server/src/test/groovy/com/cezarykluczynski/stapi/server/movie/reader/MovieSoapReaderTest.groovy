@@ -41,7 +41,7 @@ class MovieSoapReaderTest extends Specification {
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		MovieResponse movieResponse = movieSoapReader.read(movieRequest)
+		MovieResponse movieResponse = movieSoapReader.readBase(movieRequest)
 
 		then:
 		1 * movieSoapQueryBuilderMock.query(movieRequest) >> dbMoviePage

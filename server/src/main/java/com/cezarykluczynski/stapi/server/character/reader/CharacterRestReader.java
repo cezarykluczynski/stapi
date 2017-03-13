@@ -6,14 +6,14 @@ import com.cezarykluczynski.stapi.server.character.dto.CharacterRestBeanParams;
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterRestMapper;
 import com.cezarykluczynski.stapi.server.character.query.CharacterRestQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
-import com.cezarykluczynski.stapi.server.common.reader.Reader;
+import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 
 @Service
-public class CharacterRestReader implements Reader<CharacterRestBeanParams, CharacterResponse> {
+public class CharacterRestReader implements BaseReader<CharacterRestBeanParams, CharacterResponse> {
 
 	private CharacterRestQuery characterRestQuery;
 
@@ -29,7 +29,7 @@ public class CharacterRestReader implements Reader<CharacterRestBeanParams, Char
 	}
 
 	@Override
-	public CharacterResponse read(CharacterRestBeanParams input) {
+	public CharacterResponse readBase(CharacterRestBeanParams input) {
 		Page<Character> characterPage = characterRestQuery.query(input);
 		CharacterResponse characterResponse = new CharacterResponse();
 		characterResponse.setPage(pageMapper.fromPageToRestResponsePage(characterPage));

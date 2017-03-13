@@ -6,12 +6,12 @@ import com.cezarykluczynski.stapi.model.comicStrip.entity.ComicStrip;
 import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripSoapMapper;
 import com.cezarykluczynski.stapi.server.comicStrip.query.ComicStripSoapQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
-import com.cezarykluczynski.stapi.server.common.reader.Reader;
+import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ComicStripSoapReader implements Reader<ComicStripRequest, ComicStripResponse> {
+public class ComicStripSoapReader implements BaseReader<ComicStripRequest, ComicStripResponse> {
 
 	private ComicStripSoapQuery comicStripSoapQuery;
 
@@ -26,7 +26,7 @@ public class ComicStripSoapReader implements Reader<ComicStripRequest, ComicStri
 	}
 
 	@Override
-	public ComicStripResponse read(ComicStripRequest input) {
+	public ComicStripResponse readBase(ComicStripRequest input) {
 		Page<ComicStrip> comicStripPage = comicStripSoapQuery.query(input);
 		ComicStripResponse comicStripResponse = new ComicStripResponse();
 		comicStripResponse.setPage(pageMapper.fromPageToSoapResponsePage(comicStripPage));

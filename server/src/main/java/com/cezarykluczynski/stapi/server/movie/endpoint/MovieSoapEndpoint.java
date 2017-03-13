@@ -20,7 +20,7 @@ public class MovieSoapEndpoint implements MoviePortType {
 	@Override
 	public MovieResponse getMovies(@WebParam(partName = "request", name = "MovieRequest",
 			targetNamespace = "http://stapi.co/api/v1/soap/movie") MovieRequest request) {
-		return seriesSoapReader.read(request);
+		return seriesSoapReader.readBase(request);
 	}
 
 }

@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.server.movie.reader;
 import com.cezarykluczynski.stapi.client.v1.rest.model.MovieResponse;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
-import com.cezarykluczynski.stapi.server.common.reader.Reader;
+import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.movie.dto.MovieRestBeanParams;
 import com.cezarykluczynski.stapi.server.movie.mapper.MovieRestMapper;
 import com.cezarykluczynski.stapi.server.movie.query.MovieRestQuery;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 
 @Service
-public class MovieRestReader implements Reader<MovieRestBeanParams, MovieResponse> {
+public class MovieRestReader implements BaseReader<MovieRestBeanParams, MovieResponse> {
 
 	private MovieRestQuery movieRestQuery;
 
@@ -29,7 +29,7 @@ public class MovieRestReader implements Reader<MovieRestBeanParams, MovieRespons
 	}
 
 	@Override
-	public MovieResponse read(MovieRestBeanParams input) {
+	public MovieResponse readBase(MovieRestBeanParams input) {
 		Page<Movie> moviePage = movieRestQuery.query(input);
 		MovieResponse movieResponse = new MovieResponse();
 		movieResponse.setPage(pageMapper.fromPageToRestResponsePage(moviePage));

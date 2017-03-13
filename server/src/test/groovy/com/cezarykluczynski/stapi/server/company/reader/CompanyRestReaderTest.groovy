@@ -41,7 +41,7 @@ class CompanyRestReaderTest extends Specification {
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		CompanyResponse companyResponse = companyRestReader.read(seriesRestBeanParams)
+		CompanyResponse companyResponse = companyRestReader.readBase(seriesRestBeanParams)
 
 		then:
 		1 * companyRestQueryBuilderMock.query(seriesRestBeanParams) >> dbCompanyPage

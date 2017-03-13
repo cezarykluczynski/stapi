@@ -32,14 +32,10 @@ public class SeriesRepositoryImpl extends AbstractRepositoryImpl<Series> impleme
 		seriesQueryBuilder.equal(Series_.guid, guid);
 		seriesQueryBuilder.like(Series_.title, criteria.getTitle());
 		seriesQueryBuilder.like(Series_.abbreviation, criteria.getAbbreviation());
-		seriesQueryBuilder.between(Series_.productionStartYear, criteria.getProductionStartYearFrom(),
-				criteria.getProductionStartYearTo());
-		seriesQueryBuilder.between(Series_.productionEndYear, criteria.getProductionEndYearFrom(),
-				criteria.getProductionEndYearTo());
-		seriesQueryBuilder.between(Series_.originalRunStartDate, criteria.getOriginalRunStartDateFrom(),
-				criteria.getOriginalRunStartDateTo());
-		seriesQueryBuilder.between(Series_.originalRunEndDate, criteria.getOriginalRunEndDateFrom(),
-				criteria.getOriginalRunEndDateTo());
+		seriesQueryBuilder.between(Series_.productionStartYear, criteria.getProductionStartYearFrom(), criteria.getProductionStartYearTo());
+		seriesQueryBuilder.between(Series_.productionEndYear, criteria.getProductionEndYearFrom(), criteria.getProductionEndYearTo());
+		seriesQueryBuilder.between(Series_.originalRunStartDate, criteria.getOriginalRunStartDateFrom(), criteria.getOriginalRunStartDateTo());
+		seriesQueryBuilder.between(Series_.originalRunEndDate, criteria.getOriginalRunEndDateFrom(), criteria.getOriginalRunEndDateTo());
 		seriesQueryBuilder.setSort(criteria.getSort());
 		seriesQueryBuilder.fetch(Series_.episodes, doFetch);
 

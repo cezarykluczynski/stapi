@@ -41,7 +41,7 @@ class ComicStripSoapReaderTest extends Specification {
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		ComicStripResponse comicStripResponse = comicStripSoapReader.read(comicStripRequest)
+		ComicStripResponse comicStripResponse = comicStripSoapReader.readBase(comicStripRequest)
 
 		then:
 		1 * comicStripSoapQueryBuilderMock.query(comicStripRequest) >> dbComicStripPage

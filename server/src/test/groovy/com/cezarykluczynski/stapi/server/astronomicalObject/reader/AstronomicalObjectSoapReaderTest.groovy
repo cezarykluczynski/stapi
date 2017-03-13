@@ -42,7 +42,7 @@ class AstronomicalObjectSoapReaderTest extends Specification {
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		AstronomicalObjectResponse astronomicalObjectResponse = astronomicalObjectSoapReader.read(astronomicalObjectRequest)
+		AstronomicalObjectResponse astronomicalObjectResponse = astronomicalObjectSoapReader.readBase(astronomicalObjectRequest)
 
 		then:
 		1 * astronomicalObjectSoapQueryBuilderMock.query(astronomicalObjectRequest) >> dbAstronomicalObjectPage

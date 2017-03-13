@@ -1,0 +1,29 @@
+type: object
+discriminator: guid
+properties:
+  guid:
+    type: string
+  title:
+    type: string
+  abbreviation:
+    type: string
+  productionStartYear:
+    type: integer
+  productionEndYear:
+    type: integer
+  originalRunStartDate:
+    type: string
+    format: date
+  originalRunEndDate:
+    type: string
+    format: date
+  seasonsCount:
+    type: integer
+  episodesCount:
+    type: integer
+  featureLengthEpisodesCount:
+    type: integer
+  episodeHeaders:
+      type: array
+      items:
+        $ref: '#/definitions/EpisodeHeader'
