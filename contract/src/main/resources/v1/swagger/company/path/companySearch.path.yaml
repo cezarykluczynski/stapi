@@ -1,0 +1,97 @@
+get:
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/CompanyBaseResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - Company
+post:
+  consumes:
+    - application/x-www-form-urlencoded
+  producers:
+    - application/json
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+    - name: sort
+      type: string
+      in: query
+    - name: name
+      in: formData
+      type: string
+    - name: broadcaster
+      in: formData
+      type: boolean
+    - name: collectibleCompany
+      in: formData
+      type: boolean
+    - name: conglomerate
+      in: formData
+      type: boolean
+    - name: digitalVisualEffectsCompany
+      in: formData
+      type: boolean
+    - name: distributor
+      in: formData
+      type: boolean
+    - name: gameCompany
+      in: formData
+      type: boolean
+    - name: filmEquipmentCompany
+      in: formData
+      type: boolean
+    - name: makeUpEffectsStudio
+      in: formData
+      type: boolean
+    - name: mattePaintingCompany
+      in: formData
+      type: boolean
+    - name: modelAndMiniatureEffectsCompany
+      in: formData
+      type: boolean
+    - name: postProductionCompany
+      in: formData
+      type: boolean
+    - name: productionCompany
+      in: formData
+      type: boolean
+    - name: propCompany
+      in: formData
+      type: boolean
+    - name: recordLabel
+      in: formData
+      type: boolean
+    - name: specialEffectsCompany
+      in: formData
+      type: boolean
+    - name: tvAndFilmProductionCompany
+      in: formData
+      type: boolean
+    - name: videoGameCompany
+      in: formData
+      type: boolean
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/CompanyBaseResponse'
+  tags:
+    - Company

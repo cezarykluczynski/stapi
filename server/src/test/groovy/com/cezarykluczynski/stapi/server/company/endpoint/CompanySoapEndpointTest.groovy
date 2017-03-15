@@ -1,7 +1,9 @@
 package com.cezarykluczynski.stapi.server.company.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.soap.CompanyRequest
-import com.cezarykluczynski.stapi.client.v1.soap.CompanyResponse
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyFullResponse
 import com.cezarykluczynski.stapi.server.company.reader.CompanySoapReader
 import spock.lang.Specification
 
@@ -16,17 +18,30 @@ class CompanySoapEndpointTest extends Specification {
 		companySoapEndpoint = new CompanySoapEndpoint(companySoapReaderMock)
 	}
 
-	void "passes call to CompanySoapReader"() {
+	void "passes base call to CompanySoapReader"() {
 		given:
-		CompanyRequest companyRequest = Mock(CompanyRequest)
-		CompanyResponse companyResponse = Mock(CompanyResponse)
+		CompanyBaseRequest companyRequest = Mock(CompanyBaseRequest)
+		CompanyBaseResponse companyResponse = Mock(CompanyBaseResponse)
 
 		when:
-		CompanyResponse companyResponseResult = companySoapEndpoint.getCompanies(companyRequest)
+		CompanyBaseResponse companyResponseResult = companySoapEndpoint.getCompaniesBase(companyRequest)
 
 		then:
 		1 * companySoapReaderMock.readBase(companyRequest) >> companyResponse
 		companyResponseResult == companyResponse
+	}
+
+	void "passes full call to CompanySoapReader"() {
+		given:
+		CompanyFullRequest companyFullRequest = Mock(CompanyFullRequest)
+		CompanyFullResponse companyFullResponse = Mock(CompanyFullResponse)
+
+		when:
+		CompanyFullResponse companyResponseResult = companySoapEndpoint.getCompanyFull(companyFullRequest)
+
+		then:
+		1 * companySoapReaderMock.readFull(companyFullRequest) >> companyFullResponse
+		companyResponseResult == companyFullResponse
 	}
 
 }

@@ -41,7 +41,7 @@ class SeriesRestEndpointTest extends AbstractRestEndpointTest {
 		SeriesBaseResponse seriesResponse = Mock(SeriesBaseResponse)
 
 		when:
-		SeriesBaseResponse seriesResponseOutput = seriesRestEndpoint.getSeries(pageAwareBeanParams)
+		SeriesBaseResponse seriesResponseOutput = seriesRestEndpoint.searchSeries(pageAwareBeanParams)
 
 		then:
 		1 * seriesRestReaderMock.readBase(_ as SeriesRestBeanParams) >> { SeriesRestBeanParams seriesRestBeanParams ->

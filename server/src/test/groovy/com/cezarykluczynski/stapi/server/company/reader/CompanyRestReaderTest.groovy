@@ -1,7 +1,9 @@
 package com.cezarykluczynski.stapi.server.company.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.Company as RESTCompany
-import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyBase as RESTCompany
+import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyBaseResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyFull
+import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
@@ -37,18 +39,39 @@ class CompanyRestReaderTest extends Specification {
 		Page<Company> dbCompanyPage = Mock(Page)
 		dbCompanyPage.content >> dbCompanyList
 		List<RESTCompany> soapCompanyList = Lists.newArrayList(new RESTCompany(guid: GUID))
-		CompanyRestBeanParams seriesRestBeanParams = Mock(CompanyRestBeanParams)
+		CompanyRestBeanParams companyRestBeanParams = Mock(CompanyRestBeanParams)
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		CompanyResponse companyResponse = companyRestReader.readBase(seriesRestBeanParams)
+		CompanyBaseResponse companyResponse = companyRestReader.readBase(companyRestBeanParams)
 
 		then:
-		1 * companyRestQueryBuilderMock.query(seriesRestBeanParams) >> dbCompanyPage
+		1 * companyRestQueryBuilderMock.query(companyRestBeanParams) >> dbCompanyPage
 		1 * pageMapperMock.fromPageToRestResponsePage(dbCompanyPage) >> responsePage
-		1 * companyRestMapperMock.map(dbCompanyList) >> soapCompanyList
+		1 * companyRestMapperMock.mapBase(dbCompanyList) >> soapCompanyList
 		companyResponse.companies[0].guid == GUID
 		companyResponse.page == responsePage
+	}
+
+	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
+		given:
+		CompanyFull companyFull = Mock(CompanyFull)
+		Company company = Mock(Company)
+		List<Company> dbCompanyList = Lists.newArrayList(company)
+		Page<Company> dbCompanyPage = Mock(Page)
+
+		when:
+		CompanyFullResponse companyResponseOutput = companyRestReader.readFull(GUID)
+
+		then:
+		1 * companyRestQueryBuilderMock.query(_ as CompanyRestBeanParams) >> { CompanyRestBeanParams companyRestBeanParams ->
+			assert companyRestBeanParams.guid == GUID
+			dbCompanyPage
+		}
+		1 * dbCompanyPage.content >> dbCompanyList
+		1 * companyRestMapperMock.mapFull(company) >> companyFull
+		0 * _
+		companyResponseOutput.company == companyFull
 	}
 
 }

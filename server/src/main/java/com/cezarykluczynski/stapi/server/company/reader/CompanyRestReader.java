@@ -1,19 +1,23 @@
 package com.cezarykluczynski.stapi.server.company.reader;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyResponse;
+import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyBaseResponse;
+import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyFullResponse;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
+import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.company.dto.CompanyRestBeanParams;
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyRestMapper;
 import com.cezarykluczynski.stapi.server.company.query.CompanyRestQuery;
+import com.google.common.base.Preconditions;
+import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 
 @Service
-public class CompanyRestReader implements BaseReader<CompanyRestBeanParams, CompanyResponse> {
+public class CompanyRestReader implements BaseReader<CompanyRestBeanParams, CompanyBaseResponse>, FullReader<String, CompanyFullResponse> {
 
 	private CompanyRestQuery companyRestQuery;
 
@@ -29,12 +33,22 @@ public class CompanyRestReader implements BaseReader<CompanyRestBeanParams, Comp
 	}
 
 	@Override
-	public CompanyResponse readBase(CompanyRestBeanParams input) {
+	public CompanyBaseResponse readBase(CompanyRestBeanParams input) {
 		Page<Company> companyPage = companyRestQuery.query(input);
-		CompanyResponse companyResponse = new CompanyResponse();
+		CompanyBaseResponse companyResponse = new CompanyBaseResponse();
 		companyResponse.setPage(pageMapper.fromPageToRestResponsePage(companyPage));
-		companyResponse.getCompanies().addAll(companyRestMapper.map(companyPage.getContent()));
+		companyResponse.getCompanies().addAll(companyRestMapper.mapBase(companyPage.getContent()));
 		return companyResponse;
 	}
 
+	@Override
+	public CompanyFullResponse readFull(String guid) {
+		Preconditions.checkNotNull(guid, "GUID is required");
+		CompanyRestBeanParams companyRestBeanParams = new CompanyRestBeanParams();
+		companyRestBeanParams.setGuid(guid);
+		Page<com.cezarykluczynski.stapi.model.company.entity.Company> companyPage = companyRestQuery.query(companyRestBeanParams);
+		CompanyFullResponse companyResponse = new CompanyFullResponse();
+		companyResponse.setCompany(companyRestMapper.mapFull(Iterables.getOnlyElement(companyPage.getContent(), null)));
+		return companyResponse;
+	}
 }

@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.company.query;
 
-import com.cezarykluczynski.stapi.client.v1.soap.CompanyRequest;
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyBaseRequest;
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyFullRequest;
 import com.cezarykluczynski.stapi.model.company.dto.CompanyRequestDTO;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.company.repository.CompanyRepository;
@@ -28,10 +29,15 @@ public class CompanySoapQuery {
 		this.companyRepository = companyRepository;
 	}
 
-	public Page<Company> query(CompanyRequest companyRequest) {
-		CompanyRequestDTO companyRequestDTO = companySoapMapper.map(companyRequest);
-		PageRequest pageRequest = pageMapper.fromRequestPageToPageRequest(companyRequest.getPage());
+	public Page<Company> query(CompanyBaseRequest companyBaseRequest) {
+		CompanyRequestDTO companyRequestDTO = companySoapMapper.mapBase(companyBaseRequest);
+		PageRequest pageRequest = pageMapper.fromRequestPageToPageRequest(companyBaseRequest.getPage());
 		return companyRepository.findMatching(companyRequestDTO, pageRequest);
+	}
+
+	public Page<Company> query(CompanyFullRequest companyFullRequest) {
+		CompanyRequestDTO seriesRequestDTO = companySoapMapper.mapFull(companyFullRequest);
+		return companyRepository.findMatching(seriesRequestDTO, pageMapper.getDefaultPageRequest());
 	}
 
 }

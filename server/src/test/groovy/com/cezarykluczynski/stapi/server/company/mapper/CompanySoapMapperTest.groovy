@@ -1,9 +1,11 @@
 package com.cezarykluczynski.stapi.server.company.mapper
 
-import com.cezarykluczynski.stapi.client.v1.soap.Company as SOAPCompany
-import com.cezarykluczynski.stapi.client.v1.soap.CompanyRequest
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyBase
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyFull
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyFullRequest
 import com.cezarykluczynski.stapi.model.company.dto.CompanyRequestDTO
-import com.cezarykluczynski.stapi.model.company.entity.Company as DBCompany
+import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers
 
@@ -15,10 +17,9 @@ class CompanySoapMapperTest extends AbstractCompanyMapperTest {
 		companySoapMapper = Mappers.getMapper(CompanySoapMapper)
 	}
 
-	void "maps SOAP CompanyRequest to CompanyRequestDTO"() {
+	void "maps SOAP CompanyBaseRequest to CompanyRequestDTO"() {
 		given:
-		CompanyRequest companyRequest = new CompanyRequest(
-				guid: GUID,
+		CompanyBaseRequest companyRequest = new CompanyBaseRequest(
 				name: NAME,
 				broadcaster: BROADCASTER,
 				collectibleCompany: COLLECTIBLE_COMPANY,
@@ -39,10 +40,9 @@ class CompanySoapMapperTest extends AbstractCompanyMapperTest {
 				videoGameCompany: VIDEO_GAME_COMPANY)
 
 		when:
-		CompanyRequestDTO companyRequestDTO = companySoapMapper.map companyRequest
+		CompanyRequestDTO companyRequestDTO = companySoapMapper.mapBase companyRequest
 
 		then:
-		companyRequestDTO.guid == GUID
 		companyRequestDTO.name == NAME
 		companyRequestDTO.broadcaster == BROADCASTER
 		companyRequestDTO.collectibleCompany == COLLECTIBLE_COMPANY
@@ -63,33 +63,73 @@ class CompanySoapMapperTest extends AbstractCompanyMapperTest {
 		companyRequestDTO.videoGameCompany == VIDEO_GAME_COMPANY
 	}
 
-	void "maps DB entity to SOAP entity"() {
+	void "maps SOAP CompanyFullRequest to CompanyBaseRequestDTO"() {
 		given:
-		DBCompany dBCompany = createCompany()
+		CompanyFullRequest companyRequest = new CompanyFullRequest(guid: GUID)
 
 		when:
-		SOAPCompany soapCompany = companySoapMapper.map(Lists.newArrayList(dBCompany))[0]
+		CompanyRequestDTO companyRequestDTO = companySoapMapper.mapFull companyRequest
 
 		then:
-		soapCompany.guid == GUID
-		soapCompany.name == NAME
-		soapCompany.broadcaster == BROADCASTER
-		soapCompany.collectibleCompany == COLLECTIBLE_COMPANY
-		soapCompany.conglomerate == CONGLOMERATE
-		soapCompany.digitalVisualEffectsCompany == DIGITAL_VISUAL_EFFECTS_COMPANY
-		soapCompany.distributor == DISTRIBUTOR
-		soapCompany.gameCompany == GAME_COMPANY
-		soapCompany.filmEquipmentCompany == FILM_EQUIPMENT_COMPANY
-		soapCompany.makeUpEffectsStudio == MAKE_UP_EFFECTS_STUDIO
-		soapCompany.mattePaintingCompany == MATTE_PAINTING_COMPANY
-		soapCompany.modelAndMiniatureEffectsCompany == MODEL_AND_MINIATURE_EFFECTS_COMPANY
-		soapCompany.postProductionCompany == POST_PRODUCTION_COMPANY
-		soapCompany.productionCompany == PRODUCTION_COMPANY
-		soapCompany.propCompany == PROP_COMPANY
-		soapCompany.recordLabel == RECORD_LABEL
-		soapCompany.specialEffectsCompany == SPECIAL_EFFECTS_COMPANY
-		soapCompany.tvAndFilmProductionCompany == TV_AND_FILM_PRODUCTION_COMPANY
-		soapCompany.videoGameCompany == VIDEO_GAME_COMPANY
+		companyRequestDTO.guid == GUID
+	}
+
+	void "maps DB entity to base SOAP entity"() {
+		given:
+		Company company = createCompany()
+
+		when:
+		CompanyBase companyBase = companySoapMapper.mapBase(Lists.newArrayList(company))[0]
+
+		then:
+		companyBase.guid == GUID
+		companyBase.name == NAME
+		companyBase.broadcaster == BROADCASTER
+		companyBase.collectibleCompany == COLLECTIBLE_COMPANY
+		companyBase.conglomerate == CONGLOMERATE
+		companyBase.digitalVisualEffectsCompany == DIGITAL_VISUAL_EFFECTS_COMPANY
+		companyBase.distributor == DISTRIBUTOR
+		companyBase.gameCompany == GAME_COMPANY
+		companyBase.filmEquipmentCompany == FILM_EQUIPMENT_COMPANY
+		companyBase.makeUpEffectsStudio == MAKE_UP_EFFECTS_STUDIO
+		companyBase.mattePaintingCompany == MATTE_PAINTING_COMPANY
+		companyBase.modelAndMiniatureEffectsCompany == MODEL_AND_MINIATURE_EFFECTS_COMPANY
+		companyBase.postProductionCompany == POST_PRODUCTION_COMPANY
+		companyBase.productionCompany == PRODUCTION_COMPANY
+		companyBase.propCompany == PROP_COMPANY
+		companyBase.recordLabel == RECORD_LABEL
+		companyBase.specialEffectsCompany == SPECIAL_EFFECTS_COMPANY
+		companyBase.tvAndFilmProductionCompany == TV_AND_FILM_PRODUCTION_COMPANY
+		companyBase.videoGameCompany == VIDEO_GAME_COMPANY
+	}
+
+	void "maps DB entity to full SOAP entity"() {
+		given:
+		Company company = createCompany()
+
+		when:
+		CompanyFull companyFull = companySoapMapper.mapFull(company)
+
+		then:
+		companyFull.guid == GUID
+		companyFull.name == NAME
+		companyFull.broadcaster == BROADCASTER
+		companyFull.collectibleCompany == COLLECTIBLE_COMPANY
+		companyFull.conglomerate == CONGLOMERATE
+		companyFull.digitalVisualEffectsCompany == DIGITAL_VISUAL_EFFECTS_COMPANY
+		companyFull.distributor == DISTRIBUTOR
+		companyFull.gameCompany == GAME_COMPANY
+		companyFull.filmEquipmentCompany == FILM_EQUIPMENT_COMPANY
+		companyFull.makeUpEffectsStudio == MAKE_UP_EFFECTS_STUDIO
+		companyFull.mattePaintingCompany == MATTE_PAINTING_COMPANY
+		companyFull.modelAndMiniatureEffectsCompany == MODEL_AND_MINIATURE_EFFECTS_COMPANY
+		companyFull.postProductionCompany == POST_PRODUCTION_COMPANY
+		companyFull.productionCompany == PRODUCTION_COMPANY
+		companyFull.propCompany == PROP_COMPANY
+		companyFull.recordLabel == RECORD_LABEL
+		companyFull.specialEffectsCompany == SPECIAL_EFFECTS_COMPANY
+		companyFull.tvAndFilmProductionCompany == TV_AND_FILM_PRODUCTION_COMPANY
+		companyFull.videoGameCompany == VIDEO_GAME_COMPANY
 	}
 
 }

@@ -11,25 +11,43 @@
 			<xs:include schemaLocation="company.xsd"/>
 		</xs:schema>
 	</wsdl:types>
-	<wsdl:message name="CompanyRequest">
-		<wsdl:part name="request" element="stapi:CompanyRequest"/>
+	<wsdl:message name="CompanyBaseRequest">
+		<wsdl:part name="request" element="stapi:CompanyBaseRequest"/>
 	</wsdl:message>
-	<wsdl:message name="CompanyResponse">
-		<wsdl:part name="response" element="stapi:CompanyResponse"/>
+	<wsdl:message name="CompanyFullRequest">
+		<wsdl:part name="request" element="stapi:CompanyFullRequest"/>
+	</wsdl:message>
+	<wsdl:message name="CompanyBaseResponse">
+		<wsdl:part name="response" element="stapi:CompanyBaseResponse"/>
+	</wsdl:message>
+	<wsdl:message name="CompanyFullResponse">
+		<wsdl:part name="response" element="stapi:CompanyFullResponse"/>
 	</wsdl:message>
 	<wsdl:portType name="CompanyPortType">
-		<wsdl:operation name="getCompanies">
-			<wsdl:input name="getCompanyRequest" message="stapi:CompanyRequest"/>
-			<wsdl:output name="getCompanyResponse" message="stapi:CompanyResponse"/>
+		<wsdl:operation name="getCompaniesBase">
+			<wsdl:input name="getCompaniesBaseRequest" message="stapi:CompanyBaseRequest"/>
+			<wsdl:output name="getCompaniesBaseResponse" message="stapi:CompanyBaseResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getCompanyFull">
+			<wsdl:input name="getCompanyFullRequest" message="stapi:CompanyFullRequest"/>
+			<wsdl:output name="getCompanyFullResponse" message="stapi:CompanyFullResponse"/>
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="CompanyBinding" type="stapi:CompanyPortType">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-		<wsdl:operation name="getCompanies">
-			<wsdl:input name="getCompanyRequest">
+		<wsdl:operation name="getCompaniesBase">
+			<wsdl:input name="getCompaniesBaseRequest">
 				<soap:body use="literal"/>
 			</wsdl:input>
-			<wsdl:output name="getCompanyResponse">
+			<wsdl:output name="getCompaniesBaseResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getCompanyFull">
+			<wsdl:input name="getCompanyFullRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getCompanyFullResponse">
 				<soap:body use="literal"/>
 			</wsdl:output>
 		</wsdl:operation>

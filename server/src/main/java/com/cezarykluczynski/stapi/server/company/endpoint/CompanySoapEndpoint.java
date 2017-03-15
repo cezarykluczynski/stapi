@@ -1,8 +1,10 @@
 package com.cezarykluczynski.stapi.server.company.endpoint;
 
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyBaseRequest;
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyBaseResponse;
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyFullRequest;
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.CompanyPortType;
-import com.cezarykluczynski.stapi.client.v1.soap.CompanyRequest;
-import com.cezarykluczynski.stapi.client.v1.soap.CompanyResponse;
 import com.cezarykluczynski.stapi.server.company.reader.CompanySoapReader;
 
 import javax.jws.WebParam;
@@ -18,9 +20,15 @@ public class CompanySoapEndpoint implements CompanyPortType {
 	}
 
 	@Override
-	public CompanyResponse getCompanies(@WebParam(partName = "request", name = "CompanyRequest",
-			targetNamespace = "http://stapi.co/api/v1/soap/company") CompanyRequest request) {
+	public CompanyBaseResponse getCompaniesBase(@WebParam(partName = "request", name = "CompanyBaseRequest",
+			targetNamespace = "http://stapi.co/api/v1/soap/company") CompanyBaseRequest request) {
 		return seriesSoapReader.readBase(request);
+	}
+
+	@Override
+	public CompanyFullResponse getCompanyFull(@WebParam(partName = "request", name = "CompanyFullRequest",
+			targetNamespace = "http://stapi.co/api/v1/soap/company") CompanyFullRequest request) {
+		return seriesSoapReader.readFull(request);
 	}
 
 }

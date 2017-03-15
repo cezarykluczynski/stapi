@@ -1,21 +1,52 @@
 package com.cezarykluczynski.stapi.server.company.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.soap.CompanyRequest;
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyBaseRequest;
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyFullRequest;
 import com.cezarykluczynski.stapi.model.company.dto.CompanyRequestDTO;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.server.common.mapper.RequestSortSoapMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 
 import java.util.List;
 
 @Mapper(config = MapstructConfiguration.class, uses = {RequestSortSoapMapper.class})
 public interface CompanySoapMapper {
 
-	CompanyRequestDTO map(CompanyRequest companyRequest);
+	@Mappings({
+			@Mapping(target = "guid", ignore = true)
+	})
+	CompanyRequestDTO mapBase(CompanyBaseRequest companyRequest);
 
-	com.cezarykluczynski.stapi.client.v1.soap.Company map(Company company);
+	com.cezarykluczynski.stapi.client.v1.soap.CompanyBase mapBase(Company company);
 
-	List<com.cezarykluczynski.stapi.client.v1.soap.Company> map(List<Company> companyList);
+	List<com.cezarykluczynski.stapi.client.v1.soap.CompanyBase> mapBase(List<Company> companyList);
+
+	@Mappings({
+			@Mapping(target = "name", ignore = true),
+			@Mapping(target = "broadcaster", ignore = true),
+			@Mapping(target = "collectibleCompany", ignore = true),
+			@Mapping(target = "conglomerate", ignore = true),
+			@Mapping(target = "digitalVisualEffectsCompany", ignore = true),
+			@Mapping(target = "distributor", ignore = true),
+			@Mapping(target = "gameCompany", ignore = true),
+			@Mapping(target = "filmEquipmentCompany", ignore = true),
+			@Mapping(target = "makeUpEffectsStudio", ignore = true),
+			@Mapping(target = "mattePaintingCompany", ignore = true),
+			@Mapping(target = "modelAndMiniatureEffectsCompany", ignore = true),
+			@Mapping(target = "postProductionCompany", ignore = true),
+			@Mapping(target = "productionCompany", ignore = true),
+			@Mapping(target = "propCompany", ignore = true),
+			@Mapping(target = "recordLabel", ignore = true),
+			@Mapping(target = "specialEffectsCompany", ignore = true),
+			@Mapping(target = "tvAndFilmProductionCompany", ignore = true),
+			@Mapping(target = "videoGameCompany", ignore = true),
+			@Mapping(target = "sort", ignore = true)
+	})
+	CompanyRequestDTO mapFull(CompanyFullRequest companyFullRequest);
+
+	com.cezarykluczynski.stapi.client.v1.soap.CompanyFull mapFull(Company company);
 
 }

@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.company.endpoint;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyResponse;
+import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyBaseResponse;
+import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyFullResponse;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 import com.cezarykluczynski.stapi.server.company.dto.CompanyRestBeanParams;
 import com.cezarykluczynski.stapi.server.company.reader.CompanyRestReader;
@@ -12,6 +13,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 @Path("v1/rest/company")
@@ -27,13 +29,21 @@ public class CompanyRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public CompanyResponse getCompanies(@BeanParam PageSortBeanParams pageSortBeanParams) {
+	public CompanyFullResponse getCompany(@QueryParam("guid") String guid) {
+		return companyRestReader.readFull(guid);
+	}
+
+	@GET
+	@Path("search")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public CompanyBaseResponse searchCompanies(@BeanParam PageSortBeanParams pageSortBeanParams) {
 		return companyRestReader.readBase(CompanyRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
 	}
 
 	@POST
+	@Path("search")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public CompanyResponse searchCompanies(@BeanParam CompanyRestBeanParams seriesRestBeanParams) {
+	public CompanyBaseResponse searchCompanies(@BeanParam CompanyRestBeanParams seriesRestBeanParams) {
 		return companyRestReader.readBase(seriesRestBeanParams);
 	}
 

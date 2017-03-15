@@ -70,22 +70,22 @@ class SeriesSoapMapperTest extends AbstractSeriesMapperTest {
 
 	void "maps DB entity to base SOAP entity"() {
 		given:
-		Series dBSeries = createSeries()
+		Series series = createSeries()
 
 		when:
-		SeriesBase soapSeries = seriesSoapMapper.mapBase(Lists.newArrayList(dBSeries))[0]
+		SeriesBase seriesBase = seriesSoapMapper.mapBase(Lists.newArrayList(series))[0]
 
 		then:
-		soapSeries.guid == GUID
-		soapSeries.title == TITLE
-		soapSeries.abbreviation == ABBREVIATION
-		soapSeries.productionStartYear == PRODUCTION_START_YEAR
-		soapSeries.productionEndYear == PRODUCTION_END_YEAR
-		soapSeries.originalRunStartDate == ORIGINAL_RUN_START_DATE_XML
-		soapSeries.originalRunEndDate == ORIGINAL_RUN_END_DATE_XML
-		soapSeries.seasonsCount == SEASONS_COUNT
-		soapSeries.episodesCount == EPISODES_COUNT
-		soapSeries.featureLengthEpisodesCount == FEATURE_LENGTH_EPISODES_COUNT
+		seriesBase.guid == GUID
+		seriesBase.title == TITLE
+		seriesBase.abbreviation == ABBREVIATION
+		seriesBase.productionStartYear == PRODUCTION_START_YEAR
+		seriesBase.productionEndYear == PRODUCTION_END_YEAR
+		seriesBase.originalRunStartDate == ORIGINAL_RUN_START_DATE_XML
+		seriesBase.originalRunEndDate == ORIGINAL_RUN_END_DATE_XML
+		seriesBase.seasonsCount == SEASONS_COUNT
+		seriesBase.episodesCount == EPISODES_COUNT
+		seriesBase.featureLengthEpisodesCount == FEATURE_LENGTH_EPISODES_COUNT
 	}
 
 	void "maps DB entity to full SOAP entity"() {

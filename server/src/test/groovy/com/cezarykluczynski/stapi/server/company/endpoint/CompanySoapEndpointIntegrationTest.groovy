@@ -1,7 +1,9 @@
 package com.cezarykluczynski.stapi.server.company.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.soap.CompanyRequest
-import com.cezarykluczynski.stapi.client.v1.soap.CompanyResponse
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.RequestSort
 import com.cezarykluczynski.stapi.client.v1.soap.RequestSortClause
 import com.cezarykluczynski.stapi.client.v1.soap.RequestSortDirectionEnum
@@ -21,8 +23,8 @@ class CompanySoapEndpointIntegrationTest extends AbstractCompanyEndpointIntegrat
 
 	void "gets companies that done digital visual effects, matte painting, and model and miniatures effects, sorted by name descending"() {
 		when:
-		CompanyResponse astronomicalObjectResponse = stapiSoapClient.companyPortType
-				.getCompanies(new CompanyRequest(
+		CompanyBaseResponse astronomicalObjectResponse = stapiSoapClient.companyPortType
+				.getCompaniesBase(new CompanyBaseRequest(
 				digitalVisualEffectsCompany: true,
 				mattePaintingCompany: true,
 				modelAndMiniatureEffectsCompany: true,
@@ -38,6 +40,15 @@ class CompanySoapEndpointIntegrationTest extends AbstractCompanyEndpointIntegrat
 		astronomicalObjectResponse.companies.size() == 2
 		astronomicalObjectResponse.companies[0].name == 'Industrial Light & Magic'
 		astronomicalObjectResponse.companies[1].name == 'Digital Domain'
+	}
+
+	void "gets company by GUID"() {
+		when:
+		CompanyFullResponse companyFullResponse = stapiSoapClient.companyPortType
+				.getCompanyFull(new CompanyFullRequest(guid: 'COMA0000111666'))
+
+		then:
+		companyFullResponse.company.name == 'PBS'
 	}
 
 }

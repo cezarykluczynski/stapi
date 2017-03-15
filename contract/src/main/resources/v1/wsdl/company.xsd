@@ -6,12 +6,11 @@
 		elementFormDefault="qualified"
 		targetNamespace="http://stapi.co/api/v1/soap/company">
 	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
-	<xs:element name="CompanyRequest">
+	<xs:element name="CompanyBaseRequest">
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Request">
 					<xs:sequence>
-						<xs:element name="guid" type="xs:string" minOccurs="0"/>
 						<xs:element name="name" type="xs:string" minOccurs="0"/>
 						<xs:element name="broadcaster" type="xs:boolean" minOccurs="0"/>
 						<xs:element name="collectibleCompany" type="xs:boolean" minOccurs="0"/>
@@ -35,18 +34,55 @@
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="CompanyResponse">
+	<xs:element name="CompanyFullRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="guid" type="xs:string" minOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="CompanyBaseResponse">
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Response">
 					<xs:sequence>
-						<xs:element name="companies" type="company:Company" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="companies" type="company:CompanyBase" minOccurs="0" maxOccurs="unbounded"/>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
-	<xs:complexType name="Company">
+	<xs:element name="CompanyFullResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="company" type="company:CompanyFull"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="CompanyBase">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="broadcaster" type="xs:boolean"/>
+			<xs:element name="collectibleCompany" type="xs:boolean"/>
+			<xs:element name="conglomerate" type="xs:boolean"/>
+			<xs:element name="digitalVisualEffectsCompany" type="xs:boolean"/>
+			<xs:element name="distributor" type="xs:boolean"/>
+			<xs:element name="gameCompany" type="xs:boolean"/>
+			<xs:element name="filmEquipmentCompany" type="xs:boolean"/>
+			<xs:element name="makeUpEffectsStudio" type="xs:boolean"/>
+			<xs:element name="mattePaintingCompany" type="xs:boolean"/>
+			<xs:element name="modelAndMiniatureEffectsCompany" type="xs:boolean"/>
+			<xs:element name="postProductionCompany" type="xs:boolean"/>
+			<xs:element name="productionCompany" type="xs:boolean"/>
+			<xs:element name="propCompany" type="xs:boolean"/>
+			<xs:element name="recordLabel" type="xs:boolean"/>
+			<xs:element name="specialEffectsCompany" type="xs:boolean"/>
+			<xs:element name="tvAndFilmProductionCompany" type="xs:boolean"/>
+			<xs:element name="videoGameCompany" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CompanyFull">
 		<xs:sequence>
 			<xs:element name="guid" type="xs:string"/>
 			<xs:element name="name" type="xs:string"/>

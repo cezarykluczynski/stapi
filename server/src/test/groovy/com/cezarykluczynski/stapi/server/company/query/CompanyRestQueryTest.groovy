@@ -40,7 +40,7 @@ class CompanyRestQueryTest extends Specification {
 		Page pageOutput = companyRestQuery.query(companyRestBeanParams)
 
 		then:
-		1 * companyRestMapperMock.map(companyRestBeanParams) >> companyRequestDTO
+		1 * companyRestMapperMock.mapBase(companyRestBeanParams) >> companyRequestDTO
 		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(companyRestBeanParams) >> pageRequest
 		1 * companyRepositoryMock.findMatching(companyRequestDTO, pageRequest) >> page
 		pageOutput == page

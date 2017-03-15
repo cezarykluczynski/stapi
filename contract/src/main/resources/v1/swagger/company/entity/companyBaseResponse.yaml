@@ -5,4 +5,4 @@ properties:
   companies:
     type: array
     items:
-      $ref: '#/definitions/Company'
+      $ref: '#/definitions/CompanyBase'

@@ -12,10 +12,12 @@ import java.util.List;
 @Mapper(config = MapstructConfiguration.class, uses = {RequestSortRestMapper.class})
 public interface CompanyRestMapper {
 
-	CompanyRequestDTO map(CompanyRestBeanParams companyRestBeanParams);
+	CompanyRequestDTO mapBase(CompanyRestBeanParams companyRestBeanParams);
 
-	com.cezarykluczynski.stapi.client.v1.rest.model.Company map(Company company);
+	com.cezarykluczynski.stapi.client.v1.rest.model.CompanyBase mapBase(Company company);
 
-	List<com.cezarykluczynski.stapi.client.v1.rest.model.Company> map(List<Company> companyList);
+	List<com.cezarykluczynski.stapi.client.v1.rest.model.CompanyBase> mapBase(List<Company> companyList);
+
+	com.cezarykluczynski.stapi.client.v1.rest.model.CompanyFull mapFull(Company company);
 
 }

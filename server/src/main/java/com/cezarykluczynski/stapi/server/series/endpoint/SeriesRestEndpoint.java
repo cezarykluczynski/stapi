@@ -36,7 +36,7 @@ public class SeriesRestEndpoint {
 	@GET
 	@Path("search")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public SeriesBaseResponse getSeries(@BeanParam PageSortBeanParams pageSortBeanParams) {
+	public SeriesBaseResponse searchSeries(@BeanParam PageSortBeanParams pageSortBeanParams) {
 		return seriesRestReader.readBase(SeriesRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
 	}
 

@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.company.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyBaseResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyFullResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import spock.lang.Requires
@@ -19,8 +20,8 @@ class CompanyRestEndpointIntegrationTest extends AbstractCompanyEndpointIntegrat
 	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "gets CBS-related broadcasters"() {
 		when:
-		CompanyResponse companyResponse = stapiRestClient.companyApi
-				.companyPost(0, 20, null, null, 'CBS', true, false, false, false, false, false, false, false, false, false, false, false, false,
+		CompanyBaseResponse companyResponse = stapiRestClient.companyApi
+				.companySearchPost(0, 20, null, 'CBS', true, false, false, false, false, false, false, false, false, false, false, false, false,
 				false, false, false, false)
 		List<String> companyNameList = companyResponse.companies
 				.stream()
@@ -30,6 +31,14 @@ class CompanyRestEndpointIntegrationTest extends AbstractCompanyEndpointIntegrat
 		then:
 		companyNameList.contains 'CBS Action'
 		companyNameList.contains 'CBS Studios'
+	}
+
+	void "gets company by GUID"() {
+		when:
+		CompanyFullResponse companyFullResponse = stapiRestClient.companyApi.companyGet('COMA0000006521')
+
+		then:
+		companyFullResponse.company.name == 'NBC'
 	}
 
 }

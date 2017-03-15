@@ -22,8 +22,7 @@ public class SeriesRestQuery {
 	private SeriesRepository seriesRepository;
 
 	@Inject
-	public SeriesRestQuery(SeriesRestMapper seriesRestMapper, PageMapper pageMapper,
-			SeriesRepository seriesRepository) {
+	public SeriesRestQuery(SeriesRestMapper seriesRestMapper, PageMapper pageMapper, SeriesRepository seriesRepository) {
 		this.seriesRestMapper = seriesRestMapper;
 		this.pageMapper = pageMapper;
 		this.seriesRepository = seriesRepository;

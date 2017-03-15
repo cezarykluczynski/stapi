@@ -1,10 +1,13 @@
 package com.cezarykluczynski.stapi.server.company.reader
 
-import com.cezarykluczynski.stapi.client.v1.soap.Company as SOAPCompany
-import com.cezarykluczynski.stapi.client.v1.soap.CompanyRequest
-import com.cezarykluczynski.stapi.client.v1.soap.CompanyResponse
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyBase
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyFull
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
-import com.cezarykluczynski.stapi.model.company.entity.Company as DBCompany
+import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.company.mapper.CompanySoapMapper
 import com.cezarykluczynski.stapi.server.company.query.CompanySoapQuery
@@ -31,24 +34,41 @@ class CompanySoapReaderTest extends Specification {
 		companySoapReader = new CompanySoapReader(companySoapQueryBuilderMock, companySoapMapperMock, pageMapperMock)
 	}
 
-	void "gets database entities and puts them into CompanyResponse"() {
+	void "passed base request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		List<DBCompany> dbCompanyList = Lists.newArrayList()
-		Page<DBCompany> dbCompanyPage = Mock(Page)
-		dbCompanyPage.content >> dbCompanyList
-		List<SOAPCompany> soapCompanyList = Lists.newArrayList(new SOAPCompany(guid: GUID))
-		CompanyRequest companyRequest = Mock(CompanyRequest)
+		List<Company> dbCompanyList = Lists.newArrayList()
+		Page<Company> dbCompanyPage = Mock(Page)
+		List<CompanyBase> soapCompanyList = Lists.newArrayList(new CompanyBase(guid: GUID))
+		CompanyBaseRequest companyBaseRequest = Mock(CompanyBaseRequest)
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		CompanyResponse companyResponse = companySoapReader.readBase(companyRequest)
+		CompanyBaseResponse companyResponse = companySoapReader.readBase(companyBaseRequest)
 
 		then:
-		1 * companySoapQueryBuilderMock.query(companyRequest) >> dbCompanyPage
+		1 * companySoapQueryBuilderMock.query(companyBaseRequest) >> dbCompanyPage
+		1 * dbCompanyPage.content >> dbCompanyList
 		1 * pageMapperMock.fromPageToSoapResponsePage(dbCompanyPage) >> responsePage
-		1 * companySoapMapperMock.map(dbCompanyList) >> soapCompanyList
+		1 * companySoapMapperMock.mapBase(dbCompanyList) >> soapCompanyList
 		companyResponse.companies[0].guid == GUID
 		companyResponse.page == responsePage
+	}
+
+	void "passed full request to queryBuilder, then to mapper, and returns result"() {
+		given:
+		CompanyFull companyFull = new CompanyFull(guid: GUID)
+		Company company = Mock(Company)
+		Page<Company> companyPage = Mock(Page)
+		CompanyFullRequest companyFullRequest = Mock(CompanyFullRequest)
+
+		when:
+		CompanyFullResponse companyFullResponse = companySoapReader.readFull(companyFullRequest)
+
+		then:
+		1 * companySoapQueryBuilderMock.query(companyFullRequest) >> companyPage
+		1 * companyPage.content >> Lists.newArrayList(company)
+		1 * companySoapMapperMock.mapFull(company) >> companyFull
+		companyFullResponse.company.guid == GUID
 	}
 
 }

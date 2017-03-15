@@ -30,7 +30,7 @@ public class CompanyRestQuery {
 	}
 
 	public Page<Company> query(CompanyRestBeanParams companyRestBeanParams) {
-		CompanyRequestDTO companyRequestDTO = companyRestMapper.map(companyRestBeanParams);
+		CompanyRequestDTO companyRequestDTO = companyRestMapper.mapBase(companyRestBeanParams);
 		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(companyRestBeanParams);
 		return companyRepository.findMatching(companyRequestDTO, pageRequest);
 	}
