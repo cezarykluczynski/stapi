@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.server.series.mapper
 
+import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.util.AbstractSeriesTest
@@ -19,6 +20,8 @@ abstract class AbstractSeriesMapperTest extends AbstractSeriesTest {
 				seasonsCount: SEASONS_COUNT,
 				episodesCount: EPISODES_COUNT,
 				featureLengthEpisodesCount: FEATURE_LENGTH_EPISODES_COUNT,
+				originalBroadcaster: Mock(Company),
+				productionCompany: Mock(Company),
 				episodes: Lists.newArrayList(Mock(Episode)))
 	}
 

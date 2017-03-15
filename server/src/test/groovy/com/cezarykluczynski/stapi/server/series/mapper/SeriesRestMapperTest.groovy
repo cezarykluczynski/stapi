@@ -65,6 +65,8 @@ class SeriesRestMapperTest extends AbstractSeriesMapperTest {
 		seriesBase.originalRunEndDate == ORIGINAL_RUN_END_DATE
 		seriesBase.seasonsCount == SEASONS_COUNT
 		seriesBase.episodesCount == EPISODES_COUNT
+		seriesBase.originalBroadcaster != null
+		seriesBase.productionCompany != null
 		seriesBase.featureLengthEpisodesCount == FEATURE_LENGTH_EPISODES_COUNT
 	}
 
@@ -86,6 +88,8 @@ class SeriesRestMapperTest extends AbstractSeriesMapperTest {
 		seriesFull.seasonsCount == SEASONS_COUNT
 		seriesFull.episodesCount == EPISODES_COUNT
 		seriesFull.featureLengthEpisodesCount == FEATURE_LENGTH_EPISODES_COUNT
+		seriesFull.originalBroadcaster != null
+		seriesFull.productionCompany != null
 		seriesFull.episodeHeaders.size() == dBSeries.episodes.size()
 	}
 

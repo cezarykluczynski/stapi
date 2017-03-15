@@ -1,7 +1,7 @@
 dependencies {
 	compile project(':contract')
 
-	compile(group: 'io.swagger', name: 'swagger-codegen-cli', version: '2.2.1') {
+	compile(group: 'io.swagger', name: 'swagger-codegen-cli', version: '2.2.0') {
 		exclude(module: 'org.slf4j')
 		exclude(module: 'log4j')
 		exclude(module: 'logback-classic')

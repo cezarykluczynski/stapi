@@ -61,7 +61,7 @@ post:
     - name: placeOfDeath
       in: formData
       type: string
-    - artDepartment:
+    - name: artDepartment
       in: formData
       type: boolean
     - name: artDirector

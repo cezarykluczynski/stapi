@@ -2,11 +2,13 @@
 <xs:schema
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		xmlns:common="http://stapi.co/api/v1/soap/common"
+		xmlns:company="http://stapi.co/api/v1/soap/company"
 		xmlns:episode="http://stapi.co/api/v1/soap/episode"
 		xmlns:series="http://stapi.co/api/v1/soap/series"
 		elementFormDefault="qualified"
 		targetNamespace="http://stapi.co/api/v1/soap/series">
 	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/company" schemaLocation="company.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/episode" schemaLocation="episode.xsd"/>
 	<xs:element name="SeriesBaseRequest">
 		<xs:complexType>
@@ -59,6 +61,8 @@
 		<xs:sequence>
 			<xs:element name="guid" type="xs:string"/>
 			<xs:element name="title" type="xs:string"/>
+			<xs:element name="productionCompany" type="company:CompanyHeader"/>
+			<xs:element name="originalBroadcaster" type="company:CompanyHeader"/>
 			<xs:element name="abbreviation" type="xs:string"/>
 			<xs:element name="productionStartYear" type="xs:int"/>
 			<xs:element name="productionEndYear" type="xs:int"/>
@@ -73,6 +77,8 @@
 		<xs:sequence>
 			<xs:element name="guid" type="xs:string"/>
 			<xs:element name="title" type="xs:string"/>
+			<xs:element name="productionCompany" type="company:CompanyBase"/>
+			<xs:element name="originalBroadcaster" type="company:CompanyBase"/>
 			<xs:element name="abbreviation" type="xs:string"/>
 			<xs:element name="productionStartYear" type="xs:int"/>
 			<xs:element name="productionEndYear" type="xs:int"/>

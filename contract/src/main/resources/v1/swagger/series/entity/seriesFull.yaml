@@ -1,5 +1,4 @@
 type: object
-discriminator: guid
 properties:
   guid:
     type: string
@@ -23,6 +22,10 @@ properties:
     type: integer
   featureLengthEpisodesCount:
     type: integer
+  productionCompany:
+    $ref: '#/definitions/CompanyBase'
+  originalBroadcaster:
+    $ref: '#/definitions/CompanyBase'
   episodeHeaders:
       type: array
       items:
