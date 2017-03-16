@@ -1,10 +1,13 @@
 package com.cezarykluczynski.stapi.server.performer.reader
 
-import com.cezarykluczynski.stapi.client.v1.soap.Performer as SOAPPerformer
-import com.cezarykluczynski.stapi.client.v1.soap.PerformerRequest
-import com.cezarykluczynski.stapi.client.v1.soap.PerformerResponse
+import com.cezarykluczynski.stapi.client.v1.soap.PerformerBase
+import com.cezarykluczynski.stapi.client.v1.soap.PerformerBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.PerformerBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.PerformerFull
+import com.cezarykluczynski.stapi.client.v1.soap.PerformerFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.PerformerFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
-import com.cezarykluczynski.stapi.model.performer.entity.Performer as DBPerformer
+import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerSoapMapper
 import com.cezarykluczynski.stapi.server.performer.query.PerformerSoapQuery
@@ -31,24 +34,41 @@ class PerformerSoapReaderTest extends Specification {
 		performerSoapReader = new PerformerSoapReader(performerSoapQueryBuilderMock, performerSoapMapperMock, pageMapperMock)
 	}
 
-	void "gets database entities and puts them into PerformerResponse"() {
+	void "passed base request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		List<DBPerformer> dbPerformerList = Lists.newArrayList()
-		Page<DBPerformer> dbPerformerPage = Mock(Page)
-		dbPerformerPage.content >> dbPerformerList
-		List<SOAPPerformer> soapPerformerList = Lists.newArrayList(new SOAPPerformer(guid: GUID))
-		PerformerRequest performerRequest = Mock(PerformerRequest)
+		List<Performer> dbPerformerList = Lists.newArrayList()
+		Page<Performer> dbPerformerPage = Mock(Page)
+		List<PerformerBase> soapPerformerList = Lists.newArrayList(new PerformerBase(guid: GUID))
+		PerformerBaseRequest performerBaseRequest = Mock(PerformerBaseRequest)
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		PerformerResponse performerResponse = performerSoapReader.readBase(performerRequest)
+		PerformerBaseResponse performerResponse = performerSoapReader.readBase(performerBaseRequest)
 
 		then:
-		1 * performerSoapQueryBuilderMock.query(performerRequest) >> dbPerformerPage
+		1 * performerSoapQueryBuilderMock.query(performerBaseRequest) >> dbPerformerPage
+		1 * dbPerformerPage.content >> dbPerformerList
 		1 * pageMapperMock.fromPageToSoapResponsePage(dbPerformerPage) >> responsePage
-		1 * performerSoapMapperMock.map(dbPerformerList) >> soapPerformerList
+		1 * performerSoapMapperMock.mapBase(dbPerformerList) >> soapPerformerList
 		performerResponse.performers[0].guid == GUID
 		performerResponse.page == responsePage
+	}
+
+	void "passed full request to queryBuilder, then to mapper, and returns result"() {
+		given:
+		PerformerFull performerFull = new PerformerFull(guid: GUID)
+		Performer performer = Mock(Performer)
+		Page<Performer> performerPage = Mock(Page)
+		PerformerFullRequest performerFullRequest = Mock(PerformerFullRequest)
+
+		when:
+		PerformerFullResponse performerFullResponse = performerSoapReader.readFull(performerFullRequest)
+
+		then:
+		1 * performerSoapQueryBuilderMock.query(performerFullRequest) >> performerPage
+		1 * performerPage.content >> Lists.newArrayList(performer)
+		1 * performerSoapMapperMock.mapFull(performer) >> performerFull
+		performerFullResponse.performer.guid == GUID
 	}
 
 }

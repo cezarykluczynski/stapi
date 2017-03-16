@@ -30,7 +30,7 @@ public class PerformerRestQuery {
 	}
 
 	public Page<Performer> query(PerformerRestBeanParams performerRestBeanParams) {
-		PerformerRequestDTO performerRequestDTO = performerRestMapper.map(performerRestBeanParams);
+		PerformerRequestDTO performerRequestDTO = performerRestMapper.mapBase(performerRestBeanParams);
 		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(performerRestBeanParams);
 		return performerRepository.findMatching(performerRequestDTO, pageRequest);
 	}

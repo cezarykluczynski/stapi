@@ -1,7 +1,9 @@
 package com.cezarykluczynski.stapi.server.performer.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.soap.PerformerRequest
-import com.cezarykluczynski.stapi.client.v1.soap.PerformerResponse
+import com.cezarykluczynski.stapi.client.v1.soap.PerformerBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.PerformerBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.PerformerFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.PerformerFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.RequestPage
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
@@ -22,7 +24,7 @@ class PerformerSoapEndpointIntegrationTest extends AbstractPerformerEndpointInte
 		Integer pageSize = 10
 
 		when:
-		PerformerResponse performerResponse = stapiSoapClient.performerPortType.getPerformers(new PerformerRequest(
+		PerformerBaseResponse performerResponse = stapiSoapClient.performerPortType.getPerformerBase(new PerformerBaseRequest(
 				page: new RequestPage(
 						pageNumber: pageNumber,
 						pageSize: pageSize)))
@@ -35,7 +37,7 @@ class PerformerSoapEndpointIntegrationTest extends AbstractPerformerEndpointInte
 
 	void "gets the only person to star in 6 series"() {
 		when:
-		PerformerResponse performerResponse = stapiSoapClient.performerPortType.getPerformers(new PerformerRequest(
+		PerformerBaseResponse performerResponse = stapiSoapClient.performerPortType.getPerformerBase(new PerformerBaseRequest(
 				ds9Performer: true,
 				entPerformer: true,
 				tasPerformer: true,
@@ -51,13 +53,12 @@ class PerformerSoapEndpointIntegrationTest extends AbstractPerformerEndpointInte
 
 	void "gets performer by guid"() {
 		when:
-		PerformerResponse performerResponse = stapiSoapClient.performerPortType.getPerformers(new PerformerRequest(
+		PerformerFullResponse performerResponse = stapiSoapClient.performerPortType.getPerformerFull(new PerformerFullRequest(
 				guid: GUID
 		))
 
 		then:
-		performerResponse.page.totalElements == 1
-		performerResponse.performers[0].guid == GUID
+		performerResponse.performer.guid == GUID
 	}
 
 }

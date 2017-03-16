@@ -1,7 +1,9 @@
 package com.cezarykluczynski.stapi.server.performer.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.soap.PerformerRequest
-import com.cezarykluczynski.stapi.client.v1.soap.PerformerResponse
+import com.cezarykluczynski.stapi.client.v1.soap.PerformerBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.PerformerBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.PerformerFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.PerformerFullResponse
 import com.cezarykluczynski.stapi.server.performer.reader.PerformerSoapReader
 import spock.lang.Specification
 
@@ -16,17 +18,30 @@ class PerformerSoapEndpointTest extends Specification {
 		performerSoapEndpoint = new PerformerSoapEndpoint(performerSoapReaderMock)
 	}
 
-	void "passes call to PerformerSoapReader"() {
+	void "passes base call to PerformerSoapReader"() {
 		given:
-		PerformerRequest performerRequest = Mock(PerformerRequest)
-		PerformerResponse performerResponse = Mock(PerformerResponse)
+		PerformerBaseRequest performerBaseRequest = Mock(PerformerBaseRequest)
+		PerformerBaseResponse performerBaseResponse = Mock(PerformerBaseResponse)
 
 		when:
-		PerformerResponse performerResponseResult = performerSoapEndpoint.getPerformers(performerRequest)
+		PerformerBaseResponse performerResponseResult = performerSoapEndpoint.getPerformerBase(performerBaseRequest)
 
 		then:
-		1 * performerSoapReaderMock.readBase(performerRequest) >> performerResponse
-		performerResponseResult == performerResponse
+		1 * performerSoapReaderMock.readBase(performerBaseRequest) >> performerBaseResponse
+		performerResponseResult == performerBaseResponse
+	}
+
+	void "passes full call to PerformerSoapReader"() {
+		given:
+		PerformerFullRequest performerFullRequest = Mock(PerformerFullRequest)
+		PerformerFullResponse performerFullResponse = Mock(PerformerFullResponse)
+
+		when:
+		PerformerFullResponse performerResponseResult = performerSoapEndpoint.getPerformerFull(performerFullRequest)
+
+		then:
+		1 * performerSoapReaderMock.readFull(performerFullRequest) >> performerFullResponse
+		performerResponseResult == performerFullResponse
 	}
 
 }

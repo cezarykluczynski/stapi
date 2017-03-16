@@ -1,7 +1,9 @@
 package com.cezarykluczynski.stapi.server.performer.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.Performer as RESTPerformer
-import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerBase
+import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerBaseResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerFull
+import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
@@ -31,24 +33,46 @@ class PerformerRestReaderTest extends Specification {
 		performerRestReader = new PerformerRestReader(performerRestQueryBuilderMock, performerRestMapperMock, pageMapperMock)
 	}
 
-	void "gets database entities and puts them into PerformerResponse"() {
+	void "passed request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		List<Performer> dbPerformerList = Lists.newArrayList()
+		PerformerRestBeanParams performerRestBeanParams = Mock(PerformerRestBeanParams)
+		List<PerformerBase> restPerformerList = Lists.newArrayList(Mock(PerformerBase))
+		List<Performer> dbPerformerList = Lists.newArrayList(Mock(Performer))
 		Page<Performer> dbPerformerPage = Mock(Page)
-		dbPerformerPage.content >> dbPerformerList
-		List<RESTPerformer> soapPerformerList = Lists.newArrayList(new RESTPerformer(guid: GUID))
-		PerformerRestBeanParams seriesRestBeanParams = Mock(PerformerRestBeanParams)
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		PerformerResponse performerResponse = performerRestReader.readBase(seriesRestBeanParams)
+		PerformerBaseResponse performerResponseOutput = performerRestReader.readBase(performerRestBeanParams)
 
 		then:
-		1 * performerRestQueryBuilderMock.query(seriesRestBeanParams) >> dbPerformerPage
+		1 * performerRestQueryBuilderMock.query(performerRestBeanParams) >> dbPerformerPage
 		1 * pageMapperMock.fromPageToRestResponsePage(dbPerformerPage) >> responsePage
-		1 * performerRestMapperMock.map(dbPerformerList) >> soapPerformerList
-		performerResponse.performers[0].guid == GUID
-		performerResponse.page == responsePage
+		1 * dbPerformerPage.content >> dbPerformerList
+		1 * performerRestMapperMock.mapBase(dbPerformerList) >> restPerformerList
+		0 * _
+		performerResponseOutput.performers == restPerformerList
+		performerResponseOutput.page == responsePage
+	}
+
+	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
+		given:
+		PerformerFull performerFull = Mock(PerformerFull)
+		Performer performer = Mock(Performer)
+		List<Performer> dbPerformerList = Lists.newArrayList(performer)
+		Page<Performer> dbPerformerPage = Mock(Page)
+
+		when:
+		PerformerFullResponse performerResponseOutput = performerRestReader.readFull(GUID)
+
+		then:
+		1 * performerRestQueryBuilderMock.query(_ as PerformerRestBeanParams) >> { PerformerRestBeanParams performerRestBeanParams ->
+			assert performerRestBeanParams.guid == GUID
+			dbPerformerPage
+		}
+		1 * dbPerformerPage.content >> dbPerformerList
+		1 * performerRestMapperMock.mapFull(performer) >> performerFull
+		0 * _
+		performerResponseOutput.performer == performerFull
 	}
 
 }

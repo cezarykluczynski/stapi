@@ -20,7 +20,11 @@ import java.util.List;
 		EnumMapper.class, EpisodeHeaderRestMapper.class, MovieHeaderRestMapper.class, RequestSortRestMapper.class})
 public interface PerformerRestMapper {
 
-	PerformerRequestDTO map(PerformerRestBeanParams performerRestBeanParams);
+	PerformerRequestDTO mapBase(PerformerRestBeanParams performerRestBeanParams);
+
+	com.cezarykluczynski.stapi.client.v1.rest.model.PerformerBase mapBase(Performer performer);
+
+	List<com.cezarykluczynski.stapi.client.v1.rest.model.PerformerBase> mapBase(List<Performer> performerList);
 
 	@Mappings({
 			@Mapping(target = "episodesPerformanceHeaders", source = "episodesPerformances"),
@@ -31,8 +35,5 @@ public interface PerformerRestMapper {
 			@Mapping(target = "moviesStandInPerformanceHeaders", source = "moviesStandInPerformances"),
 			@Mapping(target = "characterHeaders", source = "characters")
 	})
-	com.cezarykluczynski.stapi.client.v1.rest.model.Performer map(Performer performer);
-
-	List<com.cezarykluczynski.stapi.client.v1.rest.model.Performer> map(List<Performer> performerList);
-
+	com.cezarykluczynski.stapi.client.v1.rest.model.PerformerFull mapFull(Performer performer);
 }

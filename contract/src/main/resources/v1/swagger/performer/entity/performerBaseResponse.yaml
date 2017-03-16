@@ -5,4 +5,4 @@ properties:
   performers:
     type: array
     items:
-      $ref: '#/definitions/Performer'
+      $ref: '#/definitions/PerformerBase'

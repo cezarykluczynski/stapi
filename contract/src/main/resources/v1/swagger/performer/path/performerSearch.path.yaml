@@ -1,0 +1,105 @@
+get:
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/PerformerBaseResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - Performer
+post:
+  consumes:
+    - application/x-www-form-urlencoded
+  producers:
+    - application/json
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+    - name: sort
+      type: string
+      in: query
+    - name: name
+      in: formData
+      type: string
+    - name: birthName
+      in: formData
+      type: string
+    - name: gender
+      in: formData
+      type: string
+    - name: dateOfBirth
+      in: formData
+      type: string
+      format: date
+    - name: placeOfBirth
+      in: formData
+      type: string
+    - name: dateOfDeath
+      in: formData
+      type: string
+      format: date
+    - name: placeOfDeath
+      in: formData
+      type: string
+    - name: animalPerformer
+      in: formData
+      type: boolean
+    - name: disPerformer
+      in: formData
+      type: boolean
+    - name: ds9Performer
+      in: formData
+      type: boolean
+    - name: entPerformer
+      in: formData
+      type: boolean
+    - name: filmPerformer
+      in: formData
+      type: boolean
+    - name: standInPerformer
+      in: formData
+      type: boolean
+    - name: stuntPerformer
+      in: formData
+      type: boolean
+    - name: tasPerformer
+      in: formData
+      type: boolean
+    - name: tngPerformer
+      in: formData
+      type: boolean
+    - name: tosPerformer
+      in: formData
+      type: boolean
+    - name: videoGamePerformer
+      in: formData
+      type: boolean
+    - name: voicePerformer
+      in: formData
+      type: boolean
+    - name: voyPerformer
+      in: formData
+      type: boolean
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/PerformerBaseResponse'
+  tags:
+    - Performer

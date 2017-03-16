@@ -3,7 +3,8 @@ package com.cezarykluczynski.stapi.server.performer.endpoint
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer
 import com.cezarykluczynski.stapi.client.api.dto.RestSortClause
 import com.cezarykluczynski.stapi.client.api.dto.enums.RestSortDirection
-import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerBaseResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerFullResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.google.common.collect.Lists
@@ -24,7 +25,7 @@ class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointInte
 		Integer pageSize = 10
 
 		when:
-		PerformerResponse performerResponse = stapiRestClient.performerApi.performerGet(pageNumber, pageSize)
+		PerformerBaseResponse performerResponse = stapiRestClient.performerApi.performerSearchGet(pageNumber, pageSize)
 
 		then:
 		performerResponse.page.pageNumber == pageNumber
@@ -34,9 +35,8 @@ class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointInte
 
 	void "gets the only person to star in 6 series"() {
 		when:
-		PerformerResponse performerResponse = stapiRestClient.performerApi.performerPost(null, null, null, null, null,
-				null, null, null, null, null, null, null, null, true, true, null, null, null, true, true, true, null,
-				null, true)
+		PerformerBaseResponse performerResponse = stapiRestClient.performerApi.performerSearchPost(null, null, null, null, null, null, null, null,
+				null, null, null, null, true, true, null, null, null, true, true, true, null, null, true)
 
 		then:
 		performerResponse.page.totalElements == 1
@@ -49,24 +49,20 @@ class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointInte
 	})
 	void "gets performer by guid"() {
 		when:
-		PerformerResponse performerResponse = stapiRestClient.performerApi.performerPost(null, null, null, GUID, null,
-				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-				null, null)
+		PerformerFullResponse performerResponse = stapiRestClient.performerApi.performerGet(GUID)
 
 		then:
-		performerResponse.page.totalElements == 1
-		performerResponse.performers[0].guid == GUID
-		performerResponse.performers[0].episodesPerformanceHeaders.size() == 177
-		performerResponse.performers[0].moviesPerformanceHeaders.size() == 4
+		performerResponse.performer.guid == GUID
+		performerResponse.performer.episodesPerformanceHeaders.size() == 177
+		performerResponse.performer.moviesPerformanceHeaders.size() == 4
 	}
 
 	void "gets performers sorted by name"() {
 		when:
-		PerformerResponse performerResponse = stapiRestClient.performerApi.performerPost(null, null,
+		PerformerBaseResponse performerResponse = stapiRestClient.performerApi.performerSearchPost(null, null,
 				StapiRestSortSerializer.serialize(Lists.newArrayList(
 						new RestSortClause(name: 'name', direction: RestSortDirection.ASC)
-				)), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-				null, null, null, null, null)
+				)), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
 
 		then:
 		performerResponse.performers[0].name.startsWith('A. ')

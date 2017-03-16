@@ -1,8 +1,9 @@
 package com.cezarykluczynski.stapi.server.performer.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.Performer as RESTPerformer
+import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerBase
+import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerFull
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO
-import com.cezarykluczynski.stapi.model.performer.entity.Performer as DBPerformer
+import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.server.performer.dto.PerformerRestBeanParams
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers
@@ -43,7 +44,7 @@ class PerformerRestMapperTest extends AbstractPerformerMapperTest {
 				voyPerformer: VOY_PERFORMER)
 
 		when:
-		PerformerRequestDTO performerRequestDTO = performerRestMapper.map performerRestBeanParams
+		PerformerRequestDTO performerRequestDTO = performerRestMapper.mapBase performerRestBeanParams
 
 		then:
 		performerRequestDTO.guid == GUID
@@ -71,42 +72,73 @@ class PerformerRestMapperTest extends AbstractPerformerMapperTest {
 		performerRequestDTO.voyPerformer == VOY_PERFORMER
 	}
 
-	void "maps DB entity to REST entity"() {
+	void "maps DB entity to base REST entity"() {
 		given:
-		DBPerformer dBPerformer = createPerformer()
+		Performer performer = createPerformer()
 
 		when:
-		RESTPerformer restPerformer = performerRestMapper.map(Lists.newArrayList(dBPerformer))[0]
+		PerformerBase performerBase = performerRestMapper.mapBase(Lists.newArrayList(performer))[0]
 
 		then:
-		restPerformer.name == NAME
-		restPerformer.guid == GUID
-		restPerformer.birthName == BIRTH_NAME
-		restPerformer.gender == GENDER_ENUM_REST
-		restPerformer.dateOfBirth == DATE_OF_BIRTH_FROM_DB
-		restPerformer.dateOfDeath == DATE_OF_DEATH_FROM_DB
-		restPerformer.placeOfBirth == PLACE_OF_BIRTH
-		restPerformer.placeOfDeath == PLACE_OF_DEATH
-		restPerformer.animalPerformer == ANIMAL_PERFORMER
-		restPerformer.disPerformer == DIS_PERFORMER
-		restPerformer.ds9Performer == DS9_PERFORMER
-		restPerformer.entPerformer == ENT_PERFORMER
-		restPerformer.filmPerformer == FILM_PERFORMER
-		restPerformer.standInPerformer == STAND_IN_PERFORMER
-		restPerformer.stuntPerformer == STUNT_PERFORMER
-		restPerformer.tasPerformer == TAS_PERFORMER
-		restPerformer.tngPerformer == TNG_PERFORMER
-		restPerformer.tosPerformer == TOS_PERFORMER
-		restPerformer.videoGamePerformer == VIDEO_GAME_PERFORMER
-		restPerformer.voicePerformer == VOICE_PERFORMER
-		restPerformer.voyPerformer == VOY_PERFORMER
-		restPerformer.episodesPerformanceHeaders.size() == dBPerformer.episodesPerformances.size()
-		restPerformer.episodesStuntPerformanceHeaders.size() == dBPerformer.episodesStuntPerformances.size()
-		restPerformer.episodesStandInPerformanceHeaders.size() == dBPerformer.episodesStandInPerformances.size()
-		restPerformer.moviesPerformanceHeaders.size() == dBPerformer.moviesPerformances.size()
-		restPerformer.moviesStuntPerformanceHeaders.size() == dBPerformer.moviesStuntPerformances.size()
-		restPerformer.moviesStandInPerformanceHeaders.size() == dBPerformer.moviesStandInPerformances.size()
-		restPerformer.characterHeaders.size() == dBPerformer.characters.size()
+		performerBase.name == NAME
+		performerBase.guid == GUID
+		performerBase.birthName == BIRTH_NAME
+		performerBase.gender == GENDER_ENUM_REST
+		performerBase.dateOfBirth == DATE_OF_BIRTH_FROM_DB
+		performerBase.dateOfDeath == DATE_OF_DEATH_FROM_DB
+		performerBase.placeOfBirth == PLACE_OF_BIRTH
+		performerBase.placeOfDeath == PLACE_OF_DEATH
+		performerBase.animalPerformer == ANIMAL_PERFORMER
+		performerBase.disPerformer == DIS_PERFORMER
+		performerBase.ds9Performer == DS9_PERFORMER
+		performerBase.entPerformer == ENT_PERFORMER
+		performerBase.filmPerformer == FILM_PERFORMER
+		performerBase.standInPerformer == STAND_IN_PERFORMER
+		performerBase.stuntPerformer == STUNT_PERFORMER
+		performerBase.tasPerformer == TAS_PERFORMER
+		performerBase.tngPerformer == TNG_PERFORMER
+		performerBase.tosPerformer == TOS_PERFORMER
+		performerBase.videoGamePerformer == VIDEO_GAME_PERFORMER
+		performerBase.voicePerformer == VOICE_PERFORMER
+		performerBase.voyPerformer == VOY_PERFORMER
+	}
+
+	void "maps DB entity to full REST entity"() {
+		given:
+		Performer performer = createPerformer()
+
+		when:
+		PerformerFull performerFull = performerRestMapper.mapFull(performer)
+
+		then:
+		performerFull.name == NAME
+		performerFull.guid == GUID
+		performerFull.birthName == BIRTH_NAME
+		performerFull.gender == GENDER_ENUM_REST
+		performerFull.dateOfBirth == DATE_OF_BIRTH_FROM_DB
+		performerFull.dateOfDeath == DATE_OF_DEATH_FROM_DB
+		performerFull.placeOfBirth == PLACE_OF_BIRTH
+		performerFull.placeOfDeath == PLACE_OF_DEATH
+		performerFull.animalPerformer == ANIMAL_PERFORMER
+		performerFull.disPerformer == DIS_PERFORMER
+		performerFull.ds9Performer == DS9_PERFORMER
+		performerFull.entPerformer == ENT_PERFORMER
+		performerFull.filmPerformer == FILM_PERFORMER
+		performerFull.standInPerformer == STAND_IN_PERFORMER
+		performerFull.stuntPerformer == STUNT_PERFORMER
+		performerFull.tasPerformer == TAS_PERFORMER
+		performerFull.tngPerformer == TNG_PERFORMER
+		performerFull.tosPerformer == TOS_PERFORMER
+		performerFull.videoGamePerformer == VIDEO_GAME_PERFORMER
+		performerFull.voicePerformer == VOICE_PERFORMER
+		performerFull.voyPerformer == VOY_PERFORMER
+		performerFull.episodesPerformanceHeaders.size() == performer.episodesPerformances.size()
+		performerFull.episodesStuntPerformanceHeaders.size() == performer.episodesStuntPerformances.size()
+		performerFull.episodesStandInPerformanceHeaders.size() == performer.episodesStandInPerformances.size()
+		performerFull.moviesPerformanceHeaders.size() == performer.moviesPerformances.size()
+		performerFull.moviesStuntPerformanceHeaders.size() == performer.moviesStuntPerformances.size()
+		performerFull.moviesStandInPerformanceHeaders.size() == performer.moviesStandInPerformances.size()
+		performerFull.characterHeaders.size() == performer.characters.size()
 	}
 
 }

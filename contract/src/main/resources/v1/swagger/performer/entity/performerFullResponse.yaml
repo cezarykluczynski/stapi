@@ -1,0 +1,4 @@
+type: object
+properties:
+  performer:
+    $ref: '#/definitions/PerformerFull'

@@ -12,7 +12,7 @@
 	<xs:import namespace="http://stapi.co/api/v1/soap/character" schemaLocation="character.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/movie" schemaLocation="movie.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/episode" schemaLocation="episode.xsd"/>
-	<xs:element name="PerformerRequest">
+	<xs:element name="PerformerBaseRequest">
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Request">
@@ -43,18 +43,63 @@
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="PerformerResponse">
+	<xs:element name="PerformerFullRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="guid" type="xs:string" minOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="PerformerBaseResponse">
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Response">
 					<xs:sequence>
-						<xs:element name="performers" type="performer:Performer" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="performers" type="performer:PerformerBase" minOccurs="0" maxOccurs="unbounded"/>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
-	<xs:complexType name="Performer">
+	<xs:element name="PerformerFullResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="performer" type="performer:PerformerFull"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="PerformerHeader">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="name" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PerformerBase">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="birthName" type="xs:string" minOccurs="0"/>
+			<xs:element name="gender" type="common:GenderEnum" minOccurs="0"/>
+			<xs:element name="dateOfBirth" type="xs:date" minOccurs="0"/>
+			<xs:element name="dateOfDeath" type="xs:date" minOccurs="0"/>
+			<xs:element name="placeOfBirth" type="xs:string" minOccurs="0"/>
+			<xs:element name="placeOfDeath" type="xs:string" minOccurs="0"/>
+			<xs:element name="animalPerformer" type="xs:boolean"/>
+			<xs:element name="disPerformer" type="xs:boolean"/>
+			<xs:element name="ds9Performer" type="xs:boolean"/>
+			<xs:element name="entPerformer" type="xs:boolean"/>
+			<xs:element name="filmPerformer" type="xs:boolean"/>
+			<xs:element name="standInPerformer" type="xs:boolean"/>
+			<xs:element name="stuntPerformer" type="xs:boolean"/>
+			<xs:element name="tasPerformer" type="xs:boolean"/>
+			<xs:element name="tngPerformer" type="xs:boolean"/>
+			<xs:element name="tosPerformer" type="xs:boolean"/>
+			<xs:element name="videoGamePerformer" type="xs:boolean"/>
+			<xs:element name="voicePerformer" type="xs:boolean"/>
+			<xs:element name="voyPerformer" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PerformerFull">
 		<xs:sequence>
 			<xs:element name="guid" type="xs:string"/>
 			<xs:element name="name" type="xs:string"/>
@@ -98,12 +143,6 @@
 			<xs:sequence>
 				<xs:element name="characterHeaders" type="character:CharacterHeader" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="PerformerHeader">
-		<xs:sequence>
-			<xs:element name="guid" type="xs:string"/>
-			<xs:element name="name" type="xs:string"/>
 		</xs:sequence>
 	</xs:complexType>
 </xs:schema>

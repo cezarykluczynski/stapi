@@ -1,10 +1,10 @@
 package com.cezarykluczynski.stapi.server.performer.endpoint;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerResponse;
+import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerBaseResponse;
+import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerFullResponse;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 import com.cezarykluczynski.stapi.server.performer.dto.PerformerRestBeanParams;
 import com.cezarykluczynski.stapi.server.performer.reader.PerformerRestReader;
-import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import javax.ws.rs.BeanParam;
@@ -13,9 +13,9 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-@Service
 @Path("v1/rest/performer")
 @Produces(MediaType.APPLICATION_JSON)
 public class PerformerRestEndpoint {
@@ -29,14 +29,22 @@ public class PerformerRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public PerformerResponse getPerformers(@BeanParam PageSortBeanParams pageSortBeanParams) {
+	public PerformerFullResponse getPerformer(@QueryParam("guid") String guid) {
+		return performerRestReader.readFull(guid);
+	}
+
+	@GET
+	@Path("search")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public PerformerBaseResponse searchPerformer(@BeanParam PageSortBeanParams pageSortBeanParams) {
 		return performerRestReader.readBase(PerformerRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
 	}
 
 	@POST
+	@Path("search")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public PerformerResponse searchPerformers(@BeanParam PerformerRestBeanParams seriesRestBeanParams) {
-		return performerRestReader.readBase(seriesRestBeanParams);
+	public PerformerBaseResponse searchPerformer(@BeanParam PerformerRestBeanParams performerRestBeanParams) {
+		return performerRestReader.readBase(performerRestBeanParams);
 	}
 
 }
