@@ -1,9 +1,11 @@
 package com.cezarykluczynski.stapi.server.staff.mapper
 
-import com.cezarykluczynski.stapi.client.v1.soap.Staff as SOAPStaff
-import com.cezarykluczynski.stapi.client.v1.soap.StaffRequest
+import com.cezarykluczynski.stapi.client.v1.soap.StaffBase
+import com.cezarykluczynski.stapi.client.v1.soap.StaffBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.StaffFull
+import com.cezarykluczynski.stapi.client.v1.soap.StaffFullRequest
 import com.cezarykluczynski.stapi.model.staff.dto.StaffRequestDTO
-import com.cezarykluczynski.stapi.model.staff.entity.Staff as DBStaff
+import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers
 
@@ -17,7 +19,7 @@ class StaffSoapMapperTest extends AbstractStaffMapperTest {
 
 	void "maps SOAP StaffRequest to StaffRequestDTO"() {
 		given:
-		StaffRequest staffRequest = new StaffRequest(
+		StaffBaseRequest staffBaseRequest = new StaffBaseRequest(
 				guid: GUID,
 				name: NAME,
 				birthName: BIRTH_NAME,
@@ -83,7 +85,7 @@ class StaffSoapMapperTest extends AbstractStaffMapperTest {
 				writer: WRITER)
 
 		when:
-		StaffRequestDTO staffRequestDTO = staffSoapMapper.map staffRequest
+		StaffRequestDTO staffRequestDTO = staffSoapMapper.mapBase staffBaseRequest
 
 		then:
 		staffRequestDTO.guid == GUID
@@ -153,88 +155,172 @@ class StaffSoapMapperTest extends AbstractStaffMapperTest {
 		staffRequestDTO.writer == WRITER
 	}
 
-	void "maps DB entity to SOAP entity"() {
+	void "maps SOAP StaffFullRequest to StaffBaseRequestDTO"() {
 		given:
-		DBStaff dBStaff = createStaff()
+		StaffFullRequest staffRequest = new StaffFullRequest(guid: GUID)
 
 		when:
-		SOAPStaff soapStaff = staffSoapMapper.map(Lists.newArrayList(dBStaff))[0]
+		StaffRequestDTO staffRequestDTO = staffSoapMapper.mapFull staffRequest
 
 		then:
-		soapStaff.name == NAME
-		soapStaff.guid == GUID
-		soapStaff.birthName == BIRTH_NAME
-		soapStaff.gender == GENDER_ENUM_SOAP
-		soapStaff.dateOfBirth == DATE_OF_BIRTH_FROM_SOAP
-		soapStaff.dateOfDeath == DATE_OF_DEATH_FROM_SOAP
-		soapStaff.placeOfBirth == PLACE_OF_BIRTH
-		soapStaff.placeOfDeath == PLACE_OF_DEATH
-		soapStaff.artDepartment == ART_DEPARTMENT
-		soapStaff.artDirector == ART_DIRECTOR
-		soapStaff.productionDesigner == PRODUCTION_DESIGNER
-		soapStaff.cameraAndElectricalDepartment == CAMERA_AND_ELECTRICAL_DEPARTMENT
-		soapStaff.cinematographer == CINEMATOGRAPHER
-		soapStaff.castingDepartment == CASTING_DEPARTMENT
-		soapStaff.costumeDepartment == COSTUME_DEPARTMENT
-		soapStaff.costumeDesigner == COSTUME_DESIGNER
-		soapStaff.director == DIRECTOR
-		soapStaff.assistantAndSecondUnitDirector == ASSISTANT_AND_SECOND_UNIT_DIRECTOR
-		soapStaff.exhibitAndAttractionStaff == EXHIBIT_AND_ATTRACTION_STAFF
-		soapStaff.filmEditor == FILM_EDITOR
-		soapStaff.linguist == LINGUIST
-		soapStaff.locationStaff == LOCATION_STAFF
-		soapStaff.makeupStaff == MAKEUP_STAFF
-		soapStaff.musicDepartment == MUSIC_DEPARTMENT
-		soapStaff.composer == COMPOSER
-		soapStaff.personalAssistant == PERSONAL_ASSISTANT
-		soapStaff.producer == PRODUCER
-		soapStaff.productionAssociate == PRODUCTION_ASSOCIATE
-		soapStaff.productionStaff == PRODUCTION_STAFF
-		soapStaff.publicationStaff == PUBLICATION_STAFF
-		soapStaff.scienceConsultant == SCIENCE_CONSULTANT
-		soapStaff.soundDepartment == SOUND_DEPARTMENT
-		soapStaff.specialAndVisualEffectsStaff == SPECIAL_AND_VISUAL_EFFECTS_STAFF
-		soapStaff.author == AUTHOR
-		soapStaff.audioAuthor == AUDIO_AUTHOR
-		soapStaff.calendarArtist == CALENDAR_ARTIST
-		soapStaff.comicArtist == COMIC_ARTIST
-		soapStaff.comicAuthor == COMIC_AUTHOR
-		soapStaff.comicColorArtist == COMIC_COLOR_ARTIST
-		soapStaff.comicInteriorArtist == COMIC_INTERIOR_ARTIST
-		soapStaff.comicInkArtist == COMIC_INK_ARTIST
-		soapStaff.comicPencilArtist == COMIC_PENCIL_ARTIST
-		soapStaff.comicLetterArtist == COMIC_LETTER_ARTIST
-		soapStaff.comicStripArtist == COMIC_STRIP_ARTIST
-		soapStaff.gameArtist == GAME_ARTIST
-		soapStaff.gameAuthor == GAME_AUTHOR
-		soapStaff.novelArtist == NOVEL_ARTIST
-		soapStaff.novelAuthor == NOVEL_AUTHOR
-		soapStaff.referenceArtist == REFERENCE_ARTIST
-		soapStaff.referenceAuthor == REFERENCE_AUTHOR
-		soapStaff.publicationArtist == PUBLICATION_ARTIST
-		soapStaff.publicationDesigner == PUBLICATION_DESIGNER
-		soapStaff.publicationEditor == PUBLICATION_EDITOR
-		soapStaff.publicityArtist == PUBLICITY_ARTIST
-		soapStaff.cbsDigitalStaff == CBS_DIGITAL_STAFF
-		soapStaff.ilmProductionStaff == ILM_PRODUCTION_STAFF
-		soapStaff.specialFeaturesStaff == SPECIAL_FEATURES_STAFF
-		soapStaff.storyEditor == STORY_EDITOR
-		soapStaff.studioExecutive == STUDIO_EXECUTIVE
-		soapStaff.stuntDepartment == STUNT_DEPARTMENT
-		soapStaff.transportationDepartment == TRANSPORTATION_DEPARTMENT
-		soapStaff.videoGameProductionStaff == VIDEO_GAME_PRODUCTION_STAFF
-		soapStaff.writer == WRITER
-		soapStaff.writtenEpisodeHeaders.size() == dBStaff.writtenEpisodes.size()
-		soapStaff.teleplayAuthoredEpisodeHeaders.size() == dBStaff.teleplayAuthoredEpisodes.size()
-		soapStaff.storyAuthoredEpisodeHeaders.size() == dBStaff.storyAuthoredEpisodes.size()
-		soapStaff.directedEpisodeHeaders.size() == dBStaff.directedEpisodes.size()
-		soapStaff.episodeHeaders.size() == dBStaff.episodes.size()
-		soapStaff.writtenMovieHeaders.size() == dBStaff.writtenMovies.size()
-		soapStaff.screenplayAuthoredMovieHeaders.size() == dBStaff.screenplayAuthoredMovies.size()
-		soapStaff.storyAuthoredMovieHeaders.size() == dBStaff.storyAuthoredMovies.size()
-		soapStaff.directedMovieHeaders.size() == dBStaff.directedMovies.size()
-		soapStaff.producedMovieHeaders.size() == dBStaff.producedMovies.size()
-		soapStaff.movieHeaders.size() == dBStaff.movies.size()
+		staffRequestDTO.guid == GUID
+	}
+
+	void "maps DB entity to base SOAP entity"() {
+		given:
+		Staff staff = createStaff()
+
+		when:
+		StaffBase staffBase = staffSoapMapper.mapBase(Lists.newArrayList(staff))[0]
+
+		then:
+		staffBase.name == NAME
+		staffBase.guid == GUID
+		staffBase.birthName == BIRTH_NAME
+		staffBase.gender == GENDER_ENUM_SOAP
+		staffBase.dateOfBirth == DATE_OF_BIRTH_FROM_SOAP
+		staffBase.dateOfDeath == DATE_OF_DEATH_FROM_SOAP
+		staffBase.placeOfBirth == PLACE_OF_BIRTH
+		staffBase.placeOfDeath == PLACE_OF_DEATH
+		staffBase.artDepartment == ART_DEPARTMENT
+		staffBase.artDirector == ART_DIRECTOR
+		staffBase.productionDesigner == PRODUCTION_DESIGNER
+		staffBase.cameraAndElectricalDepartment == CAMERA_AND_ELECTRICAL_DEPARTMENT
+		staffBase.cinematographer == CINEMATOGRAPHER
+		staffBase.castingDepartment == CASTING_DEPARTMENT
+		staffBase.costumeDepartment == COSTUME_DEPARTMENT
+		staffBase.costumeDesigner == COSTUME_DESIGNER
+		staffBase.director == DIRECTOR
+		staffBase.assistantAndSecondUnitDirector == ASSISTANT_AND_SECOND_UNIT_DIRECTOR
+		staffBase.exhibitAndAttractionStaff == EXHIBIT_AND_ATTRACTION_STAFF
+		staffBase.filmEditor == FILM_EDITOR
+		staffBase.linguist == LINGUIST
+		staffBase.locationStaff == LOCATION_STAFF
+		staffBase.makeupStaff == MAKEUP_STAFF
+		staffBase.musicDepartment == MUSIC_DEPARTMENT
+		staffBase.composer == COMPOSER
+		staffBase.personalAssistant == PERSONAL_ASSISTANT
+		staffBase.producer == PRODUCER
+		staffBase.productionAssociate == PRODUCTION_ASSOCIATE
+		staffBase.productionStaff == PRODUCTION_STAFF
+		staffBase.publicationStaff == PUBLICATION_STAFF
+		staffBase.scienceConsultant == SCIENCE_CONSULTANT
+		staffBase.soundDepartment == SOUND_DEPARTMENT
+		staffBase.specialAndVisualEffectsStaff == SPECIAL_AND_VISUAL_EFFECTS_STAFF
+		staffBase.author == AUTHOR
+		staffBase.audioAuthor == AUDIO_AUTHOR
+		staffBase.calendarArtist == CALENDAR_ARTIST
+		staffBase.comicArtist == COMIC_ARTIST
+		staffBase.comicAuthor == COMIC_AUTHOR
+		staffBase.comicColorArtist == COMIC_COLOR_ARTIST
+		staffBase.comicInteriorArtist == COMIC_INTERIOR_ARTIST
+		staffBase.comicInkArtist == COMIC_INK_ARTIST
+		staffBase.comicPencilArtist == COMIC_PENCIL_ARTIST
+		staffBase.comicLetterArtist == COMIC_LETTER_ARTIST
+		staffBase.comicStripArtist == COMIC_STRIP_ARTIST
+		staffBase.gameArtist == GAME_ARTIST
+		staffBase.gameAuthor == GAME_AUTHOR
+		staffBase.novelArtist == NOVEL_ARTIST
+		staffBase.novelAuthor == NOVEL_AUTHOR
+		staffBase.referenceArtist == REFERENCE_ARTIST
+		staffBase.referenceAuthor == REFERENCE_AUTHOR
+		staffBase.publicationArtist == PUBLICATION_ARTIST
+		staffBase.publicationDesigner == PUBLICATION_DESIGNER
+		staffBase.publicationEditor == PUBLICATION_EDITOR
+		staffBase.publicityArtist == PUBLICITY_ARTIST
+		staffBase.cbsDigitalStaff == CBS_DIGITAL_STAFF
+		staffBase.ilmProductionStaff == ILM_PRODUCTION_STAFF
+		staffBase.specialFeaturesStaff == SPECIAL_FEATURES_STAFF
+		staffBase.storyEditor == STORY_EDITOR
+		staffBase.studioExecutive == STUDIO_EXECUTIVE
+		staffBase.stuntDepartment == STUNT_DEPARTMENT
+		staffBase.transportationDepartment == TRANSPORTATION_DEPARTMENT
+		staffBase.videoGameProductionStaff == VIDEO_GAME_PRODUCTION_STAFF
+		staffBase.writer == WRITER
+	}
+
+	void "maps DB entity to full SOAP entity"() {
+		given:
+		Staff staff = createStaff()
+
+		when:
+		StaffFull staffFull = staffSoapMapper.mapFull(staff)
+
+		then:
+		staffFull.name == NAME
+		staffFull.guid == GUID
+		staffFull.birthName == BIRTH_NAME
+		staffFull.gender == GENDER_ENUM_SOAP
+		staffFull.dateOfBirth == DATE_OF_BIRTH_FROM_SOAP
+		staffFull.dateOfDeath == DATE_OF_DEATH_FROM_SOAP
+		staffFull.placeOfBirth == PLACE_OF_BIRTH
+		staffFull.placeOfDeath == PLACE_OF_DEATH
+		staffFull.artDepartment == ART_DEPARTMENT
+		staffFull.artDirector == ART_DIRECTOR
+		staffFull.productionDesigner == PRODUCTION_DESIGNER
+		staffFull.cameraAndElectricalDepartment == CAMERA_AND_ELECTRICAL_DEPARTMENT
+		staffFull.cinematographer == CINEMATOGRAPHER
+		staffFull.castingDepartment == CASTING_DEPARTMENT
+		staffFull.costumeDepartment == COSTUME_DEPARTMENT
+		staffFull.costumeDesigner == COSTUME_DESIGNER
+		staffFull.director == DIRECTOR
+		staffFull.assistantAndSecondUnitDirector == ASSISTANT_AND_SECOND_UNIT_DIRECTOR
+		staffFull.exhibitAndAttractionStaff == EXHIBIT_AND_ATTRACTION_STAFF
+		staffFull.filmEditor == FILM_EDITOR
+		staffFull.linguist == LINGUIST
+		staffFull.locationStaff == LOCATION_STAFF
+		staffFull.makeupStaff == MAKEUP_STAFF
+		staffFull.musicDepartment == MUSIC_DEPARTMENT
+		staffFull.composer == COMPOSER
+		staffFull.personalAssistant == PERSONAL_ASSISTANT
+		staffFull.producer == PRODUCER
+		staffFull.productionAssociate == PRODUCTION_ASSOCIATE
+		staffFull.productionStaff == PRODUCTION_STAFF
+		staffFull.publicationStaff == PUBLICATION_STAFF
+		staffFull.scienceConsultant == SCIENCE_CONSULTANT
+		staffFull.soundDepartment == SOUND_DEPARTMENT
+		staffFull.specialAndVisualEffectsStaff == SPECIAL_AND_VISUAL_EFFECTS_STAFF
+		staffFull.author == AUTHOR
+		staffFull.audioAuthor == AUDIO_AUTHOR
+		staffFull.calendarArtist == CALENDAR_ARTIST
+		staffFull.comicArtist == COMIC_ARTIST
+		staffFull.comicAuthor == COMIC_AUTHOR
+		staffFull.comicColorArtist == COMIC_COLOR_ARTIST
+		staffFull.comicInteriorArtist == COMIC_INTERIOR_ARTIST
+		staffFull.comicInkArtist == COMIC_INK_ARTIST
+		staffFull.comicPencilArtist == COMIC_PENCIL_ARTIST
+		staffFull.comicLetterArtist == COMIC_LETTER_ARTIST
+		staffFull.comicStripArtist == COMIC_STRIP_ARTIST
+		staffFull.gameArtist == GAME_ARTIST
+		staffFull.gameAuthor == GAME_AUTHOR
+		staffFull.novelArtist == NOVEL_ARTIST
+		staffFull.novelAuthor == NOVEL_AUTHOR
+		staffFull.referenceArtist == REFERENCE_ARTIST
+		staffFull.referenceAuthor == REFERENCE_AUTHOR
+		staffFull.publicationArtist == PUBLICATION_ARTIST
+		staffFull.publicationDesigner == PUBLICATION_DESIGNER
+		staffFull.publicationEditor == PUBLICATION_EDITOR
+		staffFull.publicityArtist == PUBLICITY_ARTIST
+		staffFull.cbsDigitalStaff == CBS_DIGITAL_STAFF
+		staffFull.ilmProductionStaff == ILM_PRODUCTION_STAFF
+		staffFull.specialFeaturesStaff == SPECIAL_FEATURES_STAFF
+		staffFull.storyEditor == STORY_EDITOR
+		staffFull.studioExecutive == STUDIO_EXECUTIVE
+		staffFull.stuntDepartment == STUNT_DEPARTMENT
+		staffFull.transportationDepartment == TRANSPORTATION_DEPARTMENT
+		staffFull.videoGameProductionStaff == VIDEO_GAME_PRODUCTION_STAFF
+		staffFull.writer == WRITER
+		staffFull.writtenEpisodeHeaders.size() == staff.writtenEpisodes.size()
+		staffFull.teleplayAuthoredEpisodeHeaders.size() == staff.teleplayAuthoredEpisodes.size()
+		staffFull.storyAuthoredEpisodeHeaders.size() == staff.storyAuthoredEpisodes.size()
+		staffFull.directedEpisodeHeaders.size() == staff.directedEpisodes.size()
+		staffFull.episodeHeaders.size() == staff.episodes.size()
+		staffFull.writtenMovieHeaders.size() == staff.writtenMovies.size()
+		staffFull.screenplayAuthoredMovieHeaders.size() == staff.screenplayAuthoredMovies.size()
+		staffFull.storyAuthoredMovieHeaders.size() == staff.storyAuthoredMovies.size()
+		staffFull.directedMovieHeaders.size() == staff.directedMovies.size()
+		staffFull.producedMovieHeaders.size() == staff.producedMovies.size()
+		staffFull.movieHeaders.size() == staff.movies.size()
 	}
 
 }

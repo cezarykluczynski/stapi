@@ -41,6 +41,8 @@ paths:
     $ref: ./species/path/species.path.yaml
   /staff:
     $ref: ./staff/path/staff.path.yaml
+  /staff/search:
+    $ref: ./staff/path/staffSearch.path.yaml
 definitions:
   AstronomicalObject:
     $ref: ./astronomicalObject/entity/astronomicalObject.yaml
@@ -134,9 +136,13 @@ definitions:
     $ref: ./species/entity/speciesHeader.yaml
   SpeciesResponse:
     $ref: ./species/entity/speciesResponse.yaml
-  Staff:
-    $ref: ./staff/entity/staff.yaml
   StaffHeader:
     $ref: ./staff/entity/staffHeader.yaml
-  StaffResponse:
-    $ref: ./staff/entity/staffResponse.yaml
+  StaffBase:
+    $ref: ./staff/entity/staffBase.yaml
+  StaffFull:
+    $ref: ./staff/entity/staffFull.yaml
+  StaffBaseResponse:
+    $ref: ./staff/entity/staffBaseResponse.yaml
+  StaffFullResponse:
+    $ref: ./staff/entity/staffFullResponse.yaml

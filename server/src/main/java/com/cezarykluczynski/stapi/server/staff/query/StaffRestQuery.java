@@ -29,7 +29,7 @@ public class StaffRestQuery {
 	}
 
 	public Page<Staff> query(StaffRestBeanParams staffRestBeanParams) {
-		StaffRequestDTO staffRequestDTO = staffRestMapper.map(staffRestBeanParams);
+		StaffRequestDTO staffRequestDTO = staffRestMapper.mapBase(staffRestBeanParams);
 		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(staffRestBeanParams);
 		return staffRepository.findMatching(staffRequestDTO, pageRequest);
 	}

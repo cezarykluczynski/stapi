@@ -11,25 +11,43 @@
 			<xs:include schemaLocation="staff.xsd"/>
 		</xs:schema>
 	</wsdl:types>
-	<wsdl:message name="StaffRequest">
-		<wsdl:part name="request" element="stapi:StaffRequest"/>
+	<wsdl:message name="StaffBaseRequest">
+		<wsdl:part name="request" element="stapi:StaffBaseRequest"/>
 	</wsdl:message>
-	<wsdl:message name="StaffResponse">
-		<wsdl:part name="response" element="stapi:StaffResponse"/>
+	<wsdl:message name="StaffFullRequest">
+		<wsdl:part name="request" element="stapi:StaffFullRequest"/>
+	</wsdl:message>
+	<wsdl:message name="StaffBaseResponse">
+		<wsdl:part name="response" element="stapi:StaffBaseResponse"/>
+	</wsdl:message>
+	<wsdl:message name="StaffFullResponse">
+		<wsdl:part name="response" element="stapi:StaffFullResponse"/>
 	</wsdl:message>
 	<wsdl:portType name="StaffPortType">
-		<wsdl:operation name="getStaff">
-			<wsdl:input name="getStaffRequest" message="stapi:StaffRequest"/>
-			<wsdl:output name="getStaffResponse" message="stapi:StaffResponse"/>
+		<wsdl:operation name="getStaffBase">
+			<wsdl:input name="getStaffBaseRequest" message="stapi:StaffBaseRequest"/>
+			<wsdl:output name="getStaffBaseResponse" message="stapi:StaffBaseResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getStaffFull">
+			<wsdl:input name="getStaffFullRequest" message="stapi:StaffFullRequest"/>
+			<wsdl:output name="getStaffFullResponse" message="stapi:StaffFullResponse"/>
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="StaffBinding" type="stapi:StaffPortType">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-		<wsdl:operation name="getStaff">
-			<wsdl:input name="getStaffRequest">
+		<wsdl:operation name="getStaffBase">
+			<wsdl:input name="getStaffBaseRequest">
 				<soap:body use="literal"/>
 			</wsdl:input>
-			<wsdl:output name="getStaffResponse">
+			<wsdl:output name="getStaffBaseResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getStaffFull">
+			<wsdl:input name="getStaffFullRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getStaffFullResponse">
 				<soap:body use="literal"/>
 			</wsdl:output>
 		</wsdl:operation>

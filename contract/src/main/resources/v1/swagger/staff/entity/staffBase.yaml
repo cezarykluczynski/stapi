@@ -1,0 +1,130 @@
+type: object
+properties:
+  guid:
+    type: string
+  name:
+    type: string
+  birthName:
+    type: string
+  gender:
+    $ref: ./common/entity/enum/gender.yaml
+  dateOfBirth:
+    type: string
+    format: date
+  placeOfBirth:
+    type: string
+  dateOfDeath:
+    type: string
+    format: date
+  placeOfDeath:
+    type: string
+  artDepartment:
+    type: boolean
+  artDirector:
+    type: boolean
+  productionDesigner:
+    type: boolean
+  cameraAndElectricalDepartment:
+    type: boolean
+  cinematographer:
+    type: boolean
+  castingDepartment:
+    type: boolean
+  costumeDepartment:
+    type: boolean
+  costumeDesigner:
+    type: boolean
+  director:
+    type: boolean
+  assistantAndSecondUnitDirector:
+    type: boolean
+  exhibitAndAttractionStaff:
+    type: boolean
+  filmEditor:
+    type: boolean
+  linguist:
+    type: boolean
+  locationStaff:
+    type: boolean
+  makeupStaff:
+    type: boolean
+  musicDepartment:
+    type: boolean
+  composer:
+    type: boolean
+  personalAssistant:
+    type: boolean
+  producer:
+    type: boolean
+  productionAssociate:
+    type: boolean
+  productionStaff:
+    type: boolean
+  publicationStaff:
+    type: boolean
+  scienceConsultant:
+    type: boolean
+  soundDepartment:
+    type: boolean
+  specialAndVisualEffectsStaff:
+    type: boolean
+  author:
+    type: boolean
+  audioAuthor:
+    type: boolean
+  calendarArtist:
+    type: boolean
+  comicArtist:
+    type: boolean
+  comicAuthor:
+    type: boolean
+  comicColorArtist:
+    type: boolean
+  comicInteriorArtist:
+    type: boolean
+  comicInkArtist:
+    type: boolean
+  comicPencilArtist:
+    type: boolean
+  comicLetterArtist:
+    type: boolean
+  comicStripArtist:
+    type: boolean
+  gameArtist:
+    type: boolean
+  gameAuthor:
+    type: boolean
+  novelArtist:
+    type: boolean
+  novelAuthor:
+    type: boolean
+  referenceArtist:
+    type: boolean
+  referenceAuthor:
+    type: boolean
+  publicationArtist:
+    type: boolean
+  publicationDesigner:
+    type: boolean
+  publicationEditor:
+    type: boolean
+  publicityArtist:
+    type: boolean
+  cbsDigitalStaff:
+    type: boolean
+  ilmProductionStaff:
+    type: boolean
+  specialFeaturesStaff:
+    type: boolean
+  storyEditor:
+    type: boolean
+  studioExecutive:
+    type: boolean
+  stuntDepartment:
+    type: boolean
+  transportationDepartment:
+    type: boolean
+  videoGameProductionStaff:
+    type: boolean
+  writer:
+    type: boolean

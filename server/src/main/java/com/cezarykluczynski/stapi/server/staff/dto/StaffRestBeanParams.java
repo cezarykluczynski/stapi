@@ -207,6 +207,10 @@ public class StaffRestBeanParams extends PageSortBeanParams {
 		return guid;
 	}
 
+	public void setGuid(String guid) {
+		this.guid = guid;
+	}
+
 	public String getName() {
 		return name;
 	}

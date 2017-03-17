@@ -46,4 +46,5 @@ public class PerformerSoapReader implements BaseReader<PerformerBaseRequest, Per
 		performerFullResponse.setPerformer(performerSoapMapper.mapFull(Iterables.getOnlyElement(performerPage.getContent(), null)));
 		return performerFullResponse;
 	}
+
 }

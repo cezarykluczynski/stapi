@@ -1,8 +1,10 @@
 package com.cezarykluczynski.stapi.server.staff.endpoint;
 
+import com.cezarykluczynski.stapi.client.v1.soap.StaffBaseRequest;
+import com.cezarykluczynski.stapi.client.v1.soap.StaffBaseResponse;
+import com.cezarykluczynski.stapi.client.v1.soap.StaffFullRequest;
+import com.cezarykluczynski.stapi.client.v1.soap.StaffFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.StaffPortType;
-import com.cezarykluczynski.stapi.client.v1.soap.StaffRequest;
-import com.cezarykluczynski.stapi.client.v1.soap.StaffResponse;
 import com.cezarykluczynski.stapi.server.staff.reader.StaffSoapReader;
 
 import javax.jws.WebParam;
@@ -18,9 +20,15 @@ public class StaffSoapEndpoint implements StaffPortType {
 	}
 
 	@Override
-	public StaffResponse getStaff(@WebParam(partName = "request", name = "StaffRequest",
-			targetNamespace = "http://stapi.co/api/v1/soap/staff") StaffRequest request) {
+	public StaffBaseResponse getStaffBase(@WebParam(partName = "request", name = "StaffBaseRequest",
+			targetNamespace = "http://stapi.co/api/v1/soap/staff") StaffBaseRequest request) {
 		return seriesSoapReader.readBase(request);
+	}
+
+	@Override
+	public StaffFullResponse getStaffFull(@WebParam(partName = "request", name = "StaffFullRequest",
+			targetNamespace = "http://stapi.co/api/v1/soap/staff") StaffFullRequest request) {
+		return seriesSoapReader.readFull(request);
 	}
 
 }

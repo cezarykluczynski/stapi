@@ -1,12 +1,16 @@
 package com.cezarykluczynski.stapi.server.staff.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.StaffResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.StaffBaseResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.StaffFullResponse
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractRestEndpointTest
 import com.cezarykluczynski.stapi.server.staff.dto.StaffRestBeanParams
 import com.cezarykluczynski.stapi.server.staff.reader.StaffRestReader
 
 class StaffRestEndpointTest extends AbstractRestEndpointTest {
+
+	private static final String GUID = 'GUID'
+	private static final String NAME = 'NAME'
 
 	private StaffRestReader staffRestReaderMock
 
@@ -19,13 +23,25 @@ class StaffRestEndpointTest extends AbstractRestEndpointTest {
 
 	void "passes get call to StaffRestReader"() {
 		given:
+		StaffFullResponse staffFullResponse = Mock(StaffFullResponse)
+
+		when:
+		StaffFullResponse staffFullResponseOutput = staffRestEndpoint.getStaff(GUID)
+
+		then:
+		1 * staffRestReaderMock.readFull(GUID) >> staffFullResponse
+		staffFullResponseOutput == staffFullResponse
+	}
+
+	void "passes search get call to StaffRestReader"() {
+		given:
 		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams)
 		pageAwareBeanParams.pageNumber >> PAGE_NUMBER
 		pageAwareBeanParams.pageSize >> PAGE_SIZE
-		StaffResponse staffResponse = Mock(StaffResponse)
+		StaffBaseResponse staffResponse = Mock(StaffBaseResponse)
 
 		when:
-		StaffResponse staffResponseOutput = staffRestEndpoint.getStaffs(pageAwareBeanParams)
+		StaffBaseResponse staffResponseOutput = staffRestEndpoint.searchStaff(pageAwareBeanParams)
 
 		then:
 		1 * staffRestReaderMock.readBase(_ as StaffRestBeanParams) >> { StaffRestBeanParams staffRestBeanParams ->
@@ -36,16 +52,17 @@ class StaffRestEndpointTest extends AbstractRestEndpointTest {
 		staffResponseOutput == staffResponse
 	}
 
-	void "passes post call to StaffRestReader"() {
+	void "passes search post call to StaffRestReader"() {
 		given:
-		StaffRestBeanParams staffRestBeanParams = new StaffRestBeanParams()
-		StaffResponse staffResponse = Mock(StaffResponse)
+		StaffRestBeanParams staffRestBeanParams = new StaffRestBeanParams(name: NAME)
+		StaffBaseResponse staffResponse = Mock(StaffBaseResponse)
 
 		when:
-		StaffResponse staffResponseOutput = staffRestEndpoint.searchStaffs(staffRestBeanParams)
+		StaffBaseResponse staffResponseOutput = staffRestEndpoint.searchStaff(staffRestBeanParams)
 
 		then:
 		1 * staffRestReaderMock.readBase(staffRestBeanParams as StaffRestBeanParams) >> { StaffRestBeanParams params ->
+			assert params.name == NAME
 			staffResponse
 		}
 		staffResponseOutput == staffResponse

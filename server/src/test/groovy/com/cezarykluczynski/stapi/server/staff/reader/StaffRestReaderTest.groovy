@@ -1,9 +1,11 @@
 package com.cezarykluczynski.stapi.server.staff.reader
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
-import com.cezarykluczynski.stapi.client.v1.rest.model.Staff as SOAPStaff
-import com.cezarykluczynski.stapi.client.v1.rest.model.StaffResponse
-import com.cezarykluczynski.stapi.model.staff.entity.Staff as DBStaff
+import com.cezarykluczynski.stapi.client.v1.rest.model.StaffBase
+import com.cezarykluczynski.stapi.client.v1.rest.model.StaffBaseResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.StaffFull
+import com.cezarykluczynski.stapi.client.v1.rest.model.StaffFullResponse
+import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.staff.dto.StaffRestBeanParams
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffRestMapper
@@ -31,24 +33,46 @@ class StaffRestReaderTest extends Specification {
 		staffRestReader = new StaffRestReader(staffRestQueryBuilderMock, staffRestMapperMock, pageMapperMock)
 	}
 
-	void "gets database entities and puts them into StaffResponse"() {
+	void "passed request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		List<DBStaff> dbStaffList = Lists.newArrayList()
-		Page<DBStaff> dbStaffPage = Mock(Page)
-		dbStaffPage.content >> dbStaffList
-		List<SOAPStaff> soapStaffList = Lists.newArrayList(new SOAPStaff(guid: GUID))
-		StaffRestBeanParams seriesRestBeanParams = Mock(StaffRestBeanParams)
+		StaffRestBeanParams staffRestBeanParams = Mock(StaffRestBeanParams)
+		List<StaffBase> restStaffList = Lists.newArrayList(Mock(StaffBase))
+		List<Staff> staffList = Lists.newArrayList(Mock(Staff))
+		Page<Staff> staffPage = Mock(Page)
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		StaffResponse staffResponse = staffRestReader.readBase(seriesRestBeanParams)
+		StaffBaseResponse staffResponseOutput = staffRestReader.readBase(staffRestBeanParams)
 
 		then:
-		1 * staffRestQueryBuilderMock.query(seriesRestBeanParams) >> dbStaffPage
-		1 * pageMapperMock.fromPageToRestResponsePage(dbStaffPage) >> responsePage
-		1 * staffRestMapperMock.map(dbStaffList) >> soapStaffList
-		staffResponse.staff[0].guid == GUID
-		staffResponse.page == responsePage
+		1 * staffRestQueryBuilderMock.query(staffRestBeanParams) >> staffPage
+		1 * pageMapperMock.fromPageToRestResponsePage(staffPage) >> responsePage
+		1 * staffPage.content >> staffList
+		1 * staffRestMapperMock.mapBase(staffList) >> restStaffList
+		0 * _
+		staffResponseOutput.staff == restStaffList
+		staffResponseOutput.page == responsePage
+	}
+
+	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
+		given:
+		StaffFull staffFull = Mock(StaffFull)
+		Staff staff = Mock(Staff)
+		List<Staff> staffList = Lists.newArrayList(staff)
+		Page<Staff> staffPage = Mock(Page)
+
+		when:
+		StaffFullResponse staffResponseOutput = staffRestReader.readFull(GUID)
+
+		then:
+		1 * staffRestQueryBuilderMock.query(_ as StaffRestBeanParams) >> { StaffRestBeanParams staffRestBeanParams ->
+			assert staffRestBeanParams.guid == GUID
+			staffPage
+		}
+		1 * staffPage.content >> staffList
+		1 * staffRestMapperMock.mapFull(staff) >> staffFull
+		0 * _
+		staffResponseOutput.staff == staffFull
 	}
 
 }

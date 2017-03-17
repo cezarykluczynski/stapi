@@ -5,4 +5,4 @@ properties:
   staff:
     type: array
     items:
-      $ref: '#/definitions/Staff'
+      $ref: '#/definitions/StaffBase'

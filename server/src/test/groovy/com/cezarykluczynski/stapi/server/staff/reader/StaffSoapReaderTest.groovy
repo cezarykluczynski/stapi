@@ -1,10 +1,13 @@
 package com.cezarykluczynski.stapi.server.staff.reader
 
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
-import com.cezarykluczynski.stapi.client.v1.soap.Staff as SOAPStaff
-import com.cezarykluczynski.stapi.client.v1.soap.StaffRequest
-import com.cezarykluczynski.stapi.client.v1.soap.StaffResponse
-import com.cezarykluczynski.stapi.model.staff.entity.Staff as DBStaff
+import com.cezarykluczynski.stapi.client.v1.soap.StaffBase
+import com.cezarykluczynski.stapi.client.v1.soap.StaffBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.StaffBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.StaffFull
+import com.cezarykluczynski.stapi.client.v1.soap.StaffFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.StaffFullResponse
+import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffSoapMapper
 import com.cezarykluczynski.stapi.server.staff.query.StaffSoapQuery
@@ -31,24 +34,41 @@ class StaffSoapReaderTest extends Specification {
 		staffSoapReader = new StaffSoapReader(staffSoapQueryBuilderMock, staffSoapMapperMock, pageMapperMock)
 	}
 
-	void "gets database entities and puts them into StaffResponse"() {
+	void "passed base request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		List<DBStaff> dbStaffList = Lists.newArrayList()
-		Page<DBStaff> dbStaffPage = Mock(Page)
-		dbStaffPage.content >> dbStaffList
-		List<SOAPStaff> soapStaffList = Lists.newArrayList(new SOAPStaff(guid: GUID))
-		StaffRequest staffRequest = Mock(StaffRequest)
+		List<Staff> dbStaffList = Lists.newArrayList()
+		Page<Staff> dbStaffPage = Mock(Page)
+		List<StaffBase> soapStaffList = Lists.newArrayList(new StaffBase(guid: GUID))
+		StaffBaseRequest staffBaseRequest = Mock(StaffBaseRequest)
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		StaffResponse staffResponse = staffSoapReader.readBase(staffRequest)
+		StaffBaseResponse staffResponse = staffSoapReader.readBase(staffBaseRequest)
 
 		then:
-		1 * staffSoapQueryBuilderMock.query(staffRequest) >> dbStaffPage
+		1 * staffSoapQueryBuilderMock.query(staffBaseRequest) >> dbStaffPage
+		1 * dbStaffPage.content >> dbStaffList
 		1 * pageMapperMock.fromPageToSoapResponsePage(dbStaffPage) >> responsePage
-		1 * staffSoapMapperMock.map(dbStaffList) >> soapStaffList
+		1 * staffSoapMapperMock.mapBase(dbStaffList) >> soapStaffList
 		staffResponse.staff[0].guid == GUID
 		staffResponse.page == responsePage
+	}
+
+	void "passed full request to queryBuilder, then to mapper, and returns result"() {
+		given:
+		StaffFull staffFull = new StaffFull(guid: GUID)
+		Staff staff = Mock(Staff)
+		Page<Staff> staffPage = Mock(Page)
+		StaffFullRequest staffFullRequest = Mock(StaffFullRequest)
+
+		when:
+		StaffFullResponse staffFullResponse = staffSoapReader.readFull(staffFullRequest)
+
+		then:
+		1 * staffSoapQueryBuilderMock.query(staffFullRequest) >> staffPage
+		1 * staffPage.content >> Lists.newArrayList(staff)
+		1 * staffSoapMapperMock.mapFull(staff) >> staffFull
+		staffFullResponse.staff.guid == GUID
 	}
 
 }

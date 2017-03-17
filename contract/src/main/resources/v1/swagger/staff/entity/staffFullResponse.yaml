@@ -1,0 +1,4 @@
+type: object
+properties:
+  staff:
+    $ref: '#/definitions/StaffFull'

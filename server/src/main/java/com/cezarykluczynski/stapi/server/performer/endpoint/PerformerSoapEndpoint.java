@@ -30,4 +30,5 @@ public class PerformerSoapEndpoint implements PerformerPortType {
 			targetNamespace = "http://stapi.co/api/v1/soap/performer") PerformerFullRequest request) {
 		return seriesSoapReader.readFull(request);
 	}
+
 }
