@@ -1,8 +1,9 @@
 package com.cezarykluczynski.stapi.server.astronomicalObject.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObject as RESTAstronomicalObject
+import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectBase
+import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectFull
 import com.cezarykluczynski.stapi.model.astronomicalObject.dto.AstronomicalObjectRequestDTO
-import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject as DBAstronomicalObject
+import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject
 import com.cezarykluczynski.stapi.server.astronomicalObject.dto.AstronomicalObjectRestBeanParams
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers
@@ -24,7 +25,7 @@ class AstronomicalObjectRestMapperTest extends AbstractAstronomicalObjectMapperT
 				locationGuid: LOCATION_GUID)
 
 		when:
-		AstronomicalObjectRequestDTO astronomicalObjectRequestDTO = astronomicalObjectRestMapper.map astronomicalObjectRestBeanParams
+		AstronomicalObjectRequestDTO astronomicalObjectRequestDTO = astronomicalObjectRestMapper.mapBase astronomicalObjectRestBeanParams
 
 		then:
 		astronomicalObjectRequestDTO.guid == GUID
@@ -33,18 +34,32 @@ class AstronomicalObjectRestMapperTest extends AbstractAstronomicalObjectMapperT
 		astronomicalObjectRequestDTO.locationGuid == LOCATION_GUID
 	}
 
-	void "maps DB entity to REST entity"() {
+	void "maps DB entity to base REST entity"() {
 		given:
-		DBAstronomicalObject dBAstronomicalObject = createAstronomicalObject()
+		AstronomicalObject dBAstronomicalObject = createAstronomicalObject()
 
 		when:
-		RESTAstronomicalObject restAstronomicalObject = astronomicalObjectRestMapper.map(Lists.newArrayList(dBAstronomicalObject))[0]
+		AstronomicalObjectBase restAstronomicalObject = astronomicalObjectRestMapper.mapBase(Lists.newArrayList(dBAstronomicalObject))[0]
 
 		then:
 		restAstronomicalObject.guid == GUID
 		restAstronomicalObject.name == NAME
 		restAstronomicalObject.astronomicalObjectType == REST_ASTRONOMICAL_OBJECT_TYPE
 		restAstronomicalObject.locationHeader != null
+	}
+
+	void "maps DB entity to full REST entity"() {
+		given:
+		AstronomicalObject astronomicalObject = createAstronomicalObject()
+
+		when:
+		AstronomicalObjectFull astronomicalObjectFull = astronomicalObjectRestMapper.mapFull(astronomicalObject)
+
+		then:
+		astronomicalObjectFull.guid == GUID
+		astronomicalObjectFull.name == NAME
+		astronomicalObjectFull.astronomicalObjectType == REST_ASTRONOMICAL_OBJECT_TYPE
+		astronomicalObjectFull.location != null
 	}
 
 }

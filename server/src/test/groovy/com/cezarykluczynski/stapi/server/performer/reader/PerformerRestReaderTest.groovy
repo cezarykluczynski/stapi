@@ -37,18 +37,18 @@ class PerformerRestReaderTest extends Specification {
 		given:
 		PerformerRestBeanParams performerRestBeanParams = Mock(PerformerRestBeanParams)
 		List<PerformerBase> restPerformerList = Lists.newArrayList(Mock(PerformerBase))
-		List<Performer> dbPerformerList = Lists.newArrayList(Mock(Performer))
-		Page<Performer> dbPerformerPage = Mock(Page)
+		List<Performer> performerList = Lists.newArrayList(Mock(Performer))
+		Page<Performer> performerPage = Mock(Page)
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
 		PerformerBaseResponse performerResponseOutput = performerRestReader.readBase(performerRestBeanParams)
 
 		then:
-		1 * performerRestQueryBuilderMock.query(performerRestBeanParams) >> dbPerformerPage
-		1 * pageMapperMock.fromPageToRestResponsePage(dbPerformerPage) >> responsePage
-		1 * dbPerformerPage.content >> dbPerformerList
-		1 * performerRestMapperMock.mapBase(dbPerformerList) >> restPerformerList
+		1 * performerRestQueryBuilderMock.query(performerRestBeanParams) >> performerPage
+		1 * pageMapperMock.fromPageToRestResponsePage(performerPage) >> responsePage
+		1 * performerPage.content >> performerList
+		1 * performerRestMapperMock.mapBase(performerList) >> restPerformerList
 		0 * _
 		performerResponseOutput.performers == restPerformerList
 		performerResponseOutput.page == responsePage
@@ -58,8 +58,8 @@ class PerformerRestReaderTest extends Specification {
 		given:
 		PerformerFull performerFull = Mock(PerformerFull)
 		Performer performer = Mock(Performer)
-		List<Performer> dbPerformerList = Lists.newArrayList(performer)
-		Page<Performer> dbPerformerPage = Mock(Page)
+		List<Performer> performerList = Lists.newArrayList(performer)
+		Page<Performer> performerPage = Mock(Page)
 
 		when:
 		PerformerFullResponse performerResponseOutput = performerRestReader.readFull(GUID)
@@ -67,9 +67,9 @@ class PerformerRestReaderTest extends Specification {
 		then:
 		1 * performerRestQueryBuilderMock.query(_ as PerformerRestBeanParams) >> { PerformerRestBeanParams performerRestBeanParams ->
 			assert performerRestBeanParams.guid == GUID
-			dbPerformerPage
+			performerPage
 		}
-		1 * dbPerformerPage.content >> dbPerformerList
+		1 * performerPage.content >> performerList
 		1 * performerRestMapperMock.mapFull(performer) >> performerFull
 		0 * _
 		performerResponseOutput.performer == performerFull

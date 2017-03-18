@@ -1,7 +1,9 @@
 package com.cezarykluczynski.stapi.server.astronomicalObject.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectRequest
-import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectResponse
+import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectFullResponse
 import com.cezarykluczynski.stapi.server.astronomicalObject.reader.AstronomicalObjectSoapReader
 import spock.lang.Specification
 
@@ -16,17 +18,32 @@ class AstronomicalObjectSoapEndpointTest extends Specification {
 		astronomicalObjectSoapEndpoint = new AstronomicalObjectSoapEndpoint(astronomicalObjectSoapReaderMock)
 	}
 
-	void "passes call to AstronomicalObjectSoapReader"() {
+	void "passes base call to AstronomicalObjectSoapReader"() {
 		given:
-		AstronomicalObjectRequest astronomicalObjectRequest = Mock(AstronomicalObjectRequest)
-		AstronomicalObjectResponse astronomicalObjectResponse = Mock(AstronomicalObjectResponse)
+		AstronomicalObjectBaseRequest astronomicalObjectBaseRequest = Mock(AstronomicalObjectBaseRequest)
+		AstronomicalObjectBaseResponse astronomicalObjectBaseResponse = Mock(AstronomicalObjectBaseResponse)
 
 		when:
-		AstronomicalObjectResponse astronomicalObjectResponseResult = astronomicalObjectSoapEndpoint.getAstronomicalObjects(astronomicalObjectRequest)
+		AstronomicalObjectBaseResponse astronomicalObjectResponseResult = astronomicalObjectSoapEndpoint
+				.getAstronomicalObjectBase(astronomicalObjectBaseRequest)
 
 		then:
-		1 * astronomicalObjectSoapReaderMock.readBase(astronomicalObjectRequest) >> astronomicalObjectResponse
-		astronomicalObjectResponseResult == astronomicalObjectResponse
+		1 * astronomicalObjectSoapReaderMock.readBase(astronomicalObjectBaseRequest) >> astronomicalObjectBaseResponse
+		astronomicalObjectResponseResult == astronomicalObjectBaseResponse
+	}
+
+	void "passes full call to AstronomicalObjectSoapReader"() {
+		given:
+		AstronomicalObjectFullRequest astronomicalObjectFullRequest = Mock(AstronomicalObjectFullRequest)
+		AstronomicalObjectFullResponse astronomicalObjectFullResponse = Mock(AstronomicalObjectFullResponse)
+
+		when:
+		AstronomicalObjectFullResponse astronomicalObjectResponseResult = astronomicalObjectSoapEndpoint
+				.getAstronomicalObjectFull(astronomicalObjectFullRequest)
+
+		then:
+		1 * astronomicalObjectSoapReaderMock.readFull(astronomicalObjectFullRequest) >> astronomicalObjectFullResponse
+		astronomicalObjectResponseResult == astronomicalObjectFullResponse
 	}
 
 }

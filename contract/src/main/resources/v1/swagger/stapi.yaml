@@ -11,6 +11,8 @@ produces:
 paths:
   /astronomicalObject:
     $ref: ./astronomicalObject/path/astronomicalObject.path.yaml
+  /astronomicalObject/search:
+    $ref: ./astronomicalObject/path/astronomicalObjectSearch.path.yaml
   /character:
     $ref: ./character/path/character.path.yaml
   /comics:
@@ -44,12 +46,16 @@ paths:
   /staff/search:
     $ref: ./staff/path/staffSearch.path.yaml
 definitions:
-  AstronomicalObject:
-    $ref: ./astronomicalObject/entity/astronomicalObject.yaml
   AstronomicalObjectHeader:
     $ref: ./astronomicalObject/entity/astronomicalObjectHeader.yaml
-  AstronomicalObjectResponse:
-    $ref: ./astronomicalObject/entity/astronomicalObjectResponse.yaml
+  AstronomicalObjectBase:
+    $ref: ./astronomicalObject/entity/astronomicalObjectBase.yaml
+  AstronomicalObjectFull:
+    $ref: ./astronomicalObject/entity/astronomicalObjectFull.yaml
+  AstronomicalObjectBaseResponse:
+    $ref: ./astronomicalObject/entity/astronomicalObjectBaseResponse.yaml
+  AstronomicalObjectFullResponse:
+    $ref: ./astronomicalObject/entity/astronomicalObjectFullResponse.yaml
   Character:
     $ref: ./character/entity/character.yaml
   CharacterHeader:

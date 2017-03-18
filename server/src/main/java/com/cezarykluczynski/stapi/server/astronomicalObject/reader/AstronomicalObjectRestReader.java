@@ -1,19 +1,24 @@
 package com.cezarykluczynski.stapi.server.astronomicalObject.reader;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectResponse;
+import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectBaseResponse;
+import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectFullResponse;
 import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject;
 import com.cezarykluczynski.stapi.server.astronomicalObject.dto.AstronomicalObjectRestBeanParams;
 import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectRestMapper;
 import com.cezarykluczynski.stapi.server.astronomicalObject.query.AstronomicalObjectRestQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
+import com.cezarykluczynski.stapi.server.common.reader.FullReader;
+import com.google.common.base.Preconditions;
+import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 
 @Service
-public class AstronomicalObjectRestReader implements BaseReader<AstronomicalObjectRestBeanParams, AstronomicalObjectResponse> {
+public class AstronomicalObjectRestReader implements BaseReader<AstronomicalObjectRestBeanParams, AstronomicalObjectBaseResponse>,
+		FullReader<String, AstronomicalObjectFullResponse> {
 
 	private AstronomicalObjectRestQuery astronomicalObjectRestQuery;
 
@@ -30,11 +35,23 @@ public class AstronomicalObjectRestReader implements BaseReader<AstronomicalObje
 	}
 
 	@Override
-	public AstronomicalObjectResponse readBase(AstronomicalObjectRestBeanParams input) {
-		Page<AstronomicalObject> astronomicalObjectPage = astronomicalObjectRestQuery.query(input);
-		AstronomicalObjectResponse astronomicalObjectResponse = new AstronomicalObjectResponse();
+	public AstronomicalObjectBaseResponse readBase(AstronomicalObjectRestBeanParams astronomicalObjectRestBeanParams) {
+		Page<AstronomicalObject> astronomicalObjectPage = astronomicalObjectRestQuery.query(astronomicalObjectRestBeanParams);
+		AstronomicalObjectBaseResponse astronomicalObjectResponse = new AstronomicalObjectBaseResponse();
 		astronomicalObjectResponse.setPage(pageMapper.fromPageToRestResponsePage(astronomicalObjectPage));
-		astronomicalObjectResponse.getAstronomicalObjects().addAll(astronomicalObjectRestMapper.map(astronomicalObjectPage.getContent()));
+		astronomicalObjectResponse.getAstronomicalObjects().addAll(astronomicalObjectRestMapper.mapBase(astronomicalObjectPage.getContent()));
+		return astronomicalObjectResponse;
+	}
+
+	@Override
+	public AstronomicalObjectFullResponse readFull(String guid) {
+		Preconditions.checkNotNull(guid, "GUID is required");
+		AstronomicalObjectRestBeanParams astronomicalObjectRestBeanParams = new AstronomicalObjectRestBeanParams();
+		astronomicalObjectRestBeanParams.setGuid(guid);
+		Page<AstronomicalObject> astronomicalObjectPage = astronomicalObjectRestQuery.query(astronomicalObjectRestBeanParams);
+		AstronomicalObjectFullResponse astronomicalObjectResponse = new AstronomicalObjectFullResponse();
+		astronomicalObjectResponse.setAstronomicalObject(astronomicalObjectRestMapper
+				.mapFull(Iterables.getOnlyElement(astronomicalObjectPage.getContent(), null)));
 		return astronomicalObjectResponse;
 	}
 

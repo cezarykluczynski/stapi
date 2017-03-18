@@ -5,4 +5,4 @@ properties:
   astronomicalObjects:
     type: array
     items:
-      $ref: '#/definitions/AstronomicalObject'
+      $ref: '#/definitions/AstronomicalObjectBase'

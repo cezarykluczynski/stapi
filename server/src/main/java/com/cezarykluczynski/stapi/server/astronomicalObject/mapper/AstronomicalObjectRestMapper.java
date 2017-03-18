@@ -15,13 +15,15 @@ import java.util.List;
 @Mapper(config = MapstructConfiguration.class, uses = {AstronomicalObjectHeaderRestMapper.class, EnumMapper.class, RequestSortRestMapper.class})
 public interface AstronomicalObjectRestMapper {
 
-	AstronomicalObjectRequestDTO map(AstronomicalObjectRestBeanParams astronomicalObjectRestBeanParams);
+	AstronomicalObjectRequestDTO mapBase(AstronomicalObjectRestBeanParams astronomicalObjectRestBeanParams);
 
 	@Mappings({
 			@Mapping(target = "locationHeader", source = "location")
 	})
-	com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObject map(AstronomicalObject astronomicalObject);
+	com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectBase mapBase(AstronomicalObject astronomicalObject);
 
-	List<com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObject> map(List<AstronomicalObject> astronomicalObjectList);
+	List<com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectBase> mapBase(List<AstronomicalObject> astronomicalObjectList);
+
+	com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectFull mapFull(AstronomicalObject astronomicalObject);
 
 }

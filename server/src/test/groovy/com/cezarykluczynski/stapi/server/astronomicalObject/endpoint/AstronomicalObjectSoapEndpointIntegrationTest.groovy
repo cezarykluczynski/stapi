@@ -1,15 +1,16 @@
 package com.cezarykluczynski.stapi.server.astronomicalObject.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectRequest
-import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectResponse
+import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectTypeEnum
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import spock.lang.Requires
 
 @Requires({
-	StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_ASTRONOMICAL_OBJECTS) &&
-			StaticJobCompletenessDecider.isStepCompleted(StepName.LINK_ASTRONOMICAL_OBJECTS)
+	StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_ASTRONOMICAL_OBJECTS)
 })
 class AstronomicalObjectSoapEndpointIntegrationTest extends AbstractAstronomicalObjectEndpointIntegrationTest {
 
@@ -17,15 +18,27 @@ class AstronomicalObjectSoapEndpointIntegrationTest extends AbstractAstronomical
 		createSoapClient()
 	}
 
+	@Requires({
+		StaticJobCompletenessDecider.isStepCompleted(StepName.LINK_ASTRONOMICAL_OBJECTS)
+	})
 	void "gets all planets in Bajoran system"() {
 		when:
-		AstronomicalObjectResponse astronomicalObjectResponse = stapiSoapClient.astronomicalObjectPortType
-				.getAstronomicalObjects(new AstronomicalObjectRequest(
+		AstronomicalObjectBaseResponse astronomicalObjectResponse = stapiSoapClient.astronomicalObjectPortType
+				.getAstronomicalObjectBase(new AstronomicalObjectBaseRequest(
 				locationGuid: 'ASMA0000000708',
 				astronomicalObjectType: AstronomicalObjectTypeEnum.PLANET))
 
 		then:
 		astronomicalObjectResponse.astronomicalObjects.size() == 14
+	}
+
+	void "gets Selay by GUID"() {
+		when:
+		AstronomicalObjectFullResponse astronomicalObjectFullResponse = stapiSoapClient.astronomicalObjectPortType
+				.getAstronomicalObjectFull(new AstronomicalObjectFullRequest(guid: 'ASMA0000000810'))
+
+		then:
+		astronomicalObjectFullResponse.astronomicalObject.name == 'Selay'
 	}
 
 }

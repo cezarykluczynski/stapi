@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.astronomicalObject.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectBaseResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectFullResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import spock.lang.Requires
@@ -16,13 +17,21 @@ class AstronomicalObjectRestEndpointIntegrationTest extends AbstractAstronomical
 	}
 
 	@SuppressWarnings('ClosureAsLastMethodParameter')
-	void "gets Andoria by astronomical object type"() {
+	void "finds Andoria by astronomical object type"() {
 		when:
-		AstronomicalObjectResponse astronomicalObjectResponse = stapiRestClient.astronomicalObjectApi.astronomicalObjectPost(0, 20, null, null, null,
-				'M_CLASS_MOON', null)
+		AstronomicalObjectBaseResponse astronomicalObjectResponse = stapiRestClient.astronomicalObjectApi.astronomicalObjectSearchPost(0, 20, null,
+				null, 'M_CLASS_MOON', null)
 
 		then:
 		astronomicalObjectResponse.astronomicalObjects.stream().anyMatch({ it -> it.name == 'Andoria' })
+	}
+
+	void "gets Omicron Ceti III by GUID"() {
+		when:
+		AstronomicalObjectFullResponse astronomicalObjectFullResponse = stapiRestClient.astronomicalObjectApi.astronomicalObjectGet('ASMA0000011534')
+
+		then:
+		astronomicalObjectFullResponse.astronomicalObject.name == 'Omicron Ceti III'
 	}
 
 }

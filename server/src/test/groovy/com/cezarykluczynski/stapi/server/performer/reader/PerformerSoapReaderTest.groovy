@@ -36,8 +36,8 @@ class PerformerSoapReaderTest extends Specification {
 
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		List<Performer> dbPerformerList = Lists.newArrayList()
-		Page<Performer> dbPerformerPage = Mock(Page)
+		List<Performer> performerList = Lists.newArrayList()
+		Page<Performer> performerPage = Mock(Page)
 		List<PerformerBase> soapPerformerList = Lists.newArrayList(new PerformerBase(guid: GUID))
 		PerformerBaseRequest performerBaseRequest = Mock(PerformerBaseRequest)
 		ResponsePage responsePage = Mock(ResponsePage)
@@ -46,10 +46,10 @@ class PerformerSoapReaderTest extends Specification {
 		PerformerBaseResponse performerResponse = performerSoapReader.readBase(performerBaseRequest)
 
 		then:
-		1 * performerSoapQueryBuilderMock.query(performerBaseRequest) >> dbPerformerPage
-		1 * dbPerformerPage.content >> dbPerformerList
-		1 * pageMapperMock.fromPageToSoapResponsePage(dbPerformerPage) >> responsePage
-		1 * performerSoapMapperMock.mapBase(dbPerformerList) >> soapPerformerList
+		1 * performerSoapQueryBuilderMock.query(performerBaseRequest) >> performerPage
+		1 * performerPage.content >> performerList
+		1 * pageMapperMock.fromPageToSoapResponsePage(performerPage) >> responsePage
+		1 * performerSoapMapperMock.mapBase(performerList) >> soapPerformerList
 		performerResponse.performers[0].guid == GUID
 		performerResponse.page == responsePage
 	}

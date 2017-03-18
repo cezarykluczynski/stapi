@@ -40,7 +40,7 @@ class AstronomicalObjectRestQueryTest extends Specification {
 		Page pageOutput = astronomicalObjectRestQuery.query(astronomicalObjectRestBeanParams)
 
 		then:
-		1 * astronomicalObjectRestMapperMock.map(astronomicalObjectRestBeanParams) >> astronomicalObjectRequestDTO
+		1 * astronomicalObjectRestMapperMock.mapBase(astronomicalObjectRestBeanParams) >> astronomicalObjectRequestDTO
 		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(astronomicalObjectRestBeanParams) >> pageRequest
 		1 * astronomicalObjectRepositoryMock.findMatching(astronomicalObjectRequestDTO, pageRequest) >> page
 		pageOutput == page

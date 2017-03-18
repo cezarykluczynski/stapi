@@ -22,10 +22,8 @@ public class PageToGenderProcessor implements ItemProcessor<Page, Gender> {
 	private PageToGenderNameProcessor pageToGenderNameProcessor;
 
 	@Inject
-	public PageToGenderProcessor(PageToGenderPronounProcessor pageToGenderPronounProcessor,
-			PageToGenderRoleProcessor pageToGenderRoleProcessor,
-			GenderFixedValueProvider genderFixedValueProvider,
-			PageToGenderNameProcessor pageToGenderNameProcessor) {
+	public PageToGenderProcessor(PageToGenderPronounProcessor pageToGenderPronounProcessor, PageToGenderRoleProcessor pageToGenderRoleProcessor,
+			GenderFixedValueProvider genderFixedValueProvider, PageToGenderNameProcessor pageToGenderNameProcessor) {
 		this.pageToGenderPronounProcessor = pageToGenderPronounProcessor;
 		this.pageToGenderRoleProcessor = pageToGenderRoleProcessor;
 		this.genderFixedValueProvider = genderFixedValueProvider;

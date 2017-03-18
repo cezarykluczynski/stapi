@@ -1,13 +1,16 @@
 package com.cezarykluczynski.stapi.server.astronomicalObject.reader
 
-import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObject as SOAPAstronomicalObject
-import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectRequest
-import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectResponse
+import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectBase
+import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectFull
+import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
-import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject as DBAstronomicalObject
-import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject
 import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectSoapMapper
 import com.cezarykluczynski.stapi.server.astronomicalObject.query.AstronomicalObjectSoapQuery
+import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
 import spock.lang.Specification
@@ -32,24 +35,41 @@ class AstronomicalObjectSoapReaderTest extends Specification {
 				pageMapperMock)
 	}
 
-	void "gets database entities and puts them into AstronomicalObjectResponse"() {
+	void "passed base request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		List<DBAstronomicalObject> dbAstronomicalObjectList = Lists.newArrayList()
-		Page<DBAstronomicalObject> dbAstronomicalObjectPage = Mock(Page)
-		dbAstronomicalObjectPage.content >> dbAstronomicalObjectList
-		List<SOAPAstronomicalObject> soapAstronomicalObjectList = Lists.newArrayList(new SOAPAstronomicalObject(guid: GUID))
-		AstronomicalObjectRequest astronomicalObjectRequest = Mock(AstronomicalObjectRequest)
+		List<AstronomicalObject> astronomicalObjectList = Lists.newArrayList()
+		Page<AstronomicalObject> astronomicalObjectPage = Mock(Page)
+		List<AstronomicalObjectBase> soapAstronomicalObjectList = Lists.newArrayList(new AstronomicalObjectBase(guid: GUID))
+		AstronomicalObjectBaseRequest astronomicalObjectBaseRequest = Mock(AstronomicalObjectBaseRequest)
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		AstronomicalObjectResponse astronomicalObjectResponse = astronomicalObjectSoapReader.readBase(astronomicalObjectRequest)
+		AstronomicalObjectBaseResponse astronomicalObjectResponse = astronomicalObjectSoapReader.readBase(astronomicalObjectBaseRequest)
 
 		then:
-		1 * astronomicalObjectSoapQueryBuilderMock.query(astronomicalObjectRequest) >> dbAstronomicalObjectPage
-		1 * pageMapperMock.fromPageToSoapResponsePage(dbAstronomicalObjectPage) >> responsePage
-		1 * astronomicalObjectSoapMapperMock.map(dbAstronomicalObjectList) >> soapAstronomicalObjectList
+		1 * astronomicalObjectSoapQueryBuilderMock.query(astronomicalObjectBaseRequest) >> astronomicalObjectPage
+		1 * astronomicalObjectPage.content >> astronomicalObjectList
+		1 * pageMapperMock.fromPageToSoapResponsePage(astronomicalObjectPage) >> responsePage
+		1 * astronomicalObjectSoapMapperMock.mapBase(astronomicalObjectList) >> soapAstronomicalObjectList
 		astronomicalObjectResponse.astronomicalObjects[0].guid == GUID
 		astronomicalObjectResponse.page == responsePage
+	}
+
+	void "passed full request to queryBuilder, then to mapper, and returns result"() {
+		given:
+		AstronomicalObjectFull astronomicalObjectFull = new AstronomicalObjectFull(guid: GUID)
+		AstronomicalObject astronomicalObject = Mock(AstronomicalObject)
+		Page<AstronomicalObject> astronomicalObjectPage = Mock(Page)
+		AstronomicalObjectFullRequest astronomicalObjectFullRequest = Mock(AstronomicalObjectFullRequest)
+
+		when:
+		AstronomicalObjectFullResponse astronomicalObjectFullResponse = astronomicalObjectSoapReader.readFull(astronomicalObjectFullRequest)
+
+		then:
+		1 * astronomicalObjectSoapQueryBuilderMock.query(astronomicalObjectFullRequest) >> astronomicalObjectPage
+		1 * astronomicalObjectPage.content >> Lists.newArrayList(astronomicalObject)
+		1 * astronomicalObjectSoapMapperMock.mapFull(astronomicalObject) >> astronomicalObjectFull
+		astronomicalObjectFullResponse.astronomicalObject.guid == GUID
 	}
 
 }

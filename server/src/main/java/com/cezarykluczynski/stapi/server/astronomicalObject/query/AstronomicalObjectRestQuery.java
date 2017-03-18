@@ -30,7 +30,7 @@ public class AstronomicalObjectRestQuery {
 	}
 
 	public Page<AstronomicalObject> query(AstronomicalObjectRestBeanParams astronomicalObjectRestBeanParams) {
-		AstronomicalObjectRequestDTO astronomicalObjectRequestDTO = astronomicalObjectRestMapper.map(astronomicalObjectRestBeanParams);
+		AstronomicalObjectRequestDTO astronomicalObjectRequestDTO = astronomicalObjectRestMapper.mapBase(astronomicalObjectRestBeanParams);
 		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(astronomicalObjectRestBeanParams);
 		return astronomicalObjectRepository.findMatching(astronomicalObjectRequestDTO, pageRequest);
 	}

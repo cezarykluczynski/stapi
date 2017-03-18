@@ -11,25 +11,43 @@
 			<xs:include schemaLocation="astronomicalObject.xsd"/>
 		</xs:schema>
 	</wsdl:types>
-	<wsdl:message name="AstronomicalObjectRequest">
-		<wsdl:part name="request" element="stapi:AstronomicalObjectRequest"/>
+	<wsdl:message name="AstronomicalObjectBaseRequest">
+		<wsdl:part name="request" element="stapi:AstronomicalObjectBaseRequest"/>
 	</wsdl:message>
-	<wsdl:message name="AstronomicalObjectResponse">
-		<wsdl:part name="response" element="stapi:AstronomicalObjectResponse"/>
+	<wsdl:message name="AstronomicalObjectFullRequest">
+		<wsdl:part name="request" element="stapi:AstronomicalObjectFullRequest"/>
+	</wsdl:message>
+	<wsdl:message name="AstronomicalObjectBaseResponse">
+		<wsdl:part name="response" element="stapi:AstronomicalObjectBaseResponse"/>
+	</wsdl:message>
+	<wsdl:message name="AstronomicalObjectFullResponse">
+		<wsdl:part name="response" element="stapi:AstronomicalObjectFullResponse"/>
 	</wsdl:message>
 	<wsdl:portType name="AstronomicalObjectPortType">
-		<wsdl:operation name="getAstronomicalObjects">
-			<wsdl:input name="getAstronomicalObjectsRequest" message="stapi:AstronomicalObjectRequest"/>
-			<wsdl:output name="getAstronomicalObjectsResponse" message="stapi:AstronomicalObjectResponse"/>
+		<wsdl:operation name="getAstronomicalObjectBase">
+			<wsdl:input name="getAstronomicalObjectBaseRequest" message="stapi:AstronomicalObjectBaseRequest"/>
+			<wsdl:output name="getAstronomicalObjectBaseResponse" message="stapi:AstronomicalObjectBaseResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getAstronomicalObjectFull">
+			<wsdl:input name="getAstronomicalObjectFullRequest" message="stapi:AstronomicalObjectFullRequest"/>
+			<wsdl:output name="getAstronomicalObjectFullResponse" message="stapi:AstronomicalObjectFullResponse"/>
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="AstronomicalObjectBinding" type="stapi:AstronomicalObjectPortType">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-		<wsdl:operation name="getAstronomicalObjects">
-			<wsdl:input name="getAstronomicalObjectsRequest">
+		<wsdl:operation name="getAstronomicalObjectBase">
+			<wsdl:input name="getAstronomicalObjectBaseRequest">
 				<soap:body use="literal"/>
 			</wsdl:input>
-			<wsdl:output name="getAstronomicalObjectsResponse">
+			<wsdl:output name="getAstronomicalObjectBaseResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getAstronomicalObjectFull">
+			<wsdl:input name="getAstronomicalObjectFullRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getAstronomicalObjectFullResponse">
 				<soap:body use="literal"/>
 			</wsdl:output>
 		</wsdl:operation>

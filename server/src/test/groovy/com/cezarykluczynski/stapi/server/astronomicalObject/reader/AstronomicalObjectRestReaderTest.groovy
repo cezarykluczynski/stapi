@@ -1,13 +1,15 @@
 package com.cezarykluczynski.stapi.server.astronomicalObject.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObject as RESTAstronomicalObject
-import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectBase
+import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectBaseResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectFull
+import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
 import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject
-import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.astronomicalObject.dto.AstronomicalObjectRestBeanParams
 import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectRestMapper
 import com.cezarykluczynski.stapi.server.astronomicalObject.query.AstronomicalObjectRestQuery
+import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
 import spock.lang.Specification
@@ -32,24 +34,47 @@ class AstronomicalObjectRestReaderTest extends Specification {
 				pageMapperMock)
 	}
 
-	void "gets database entities and puts them into AstronomicalObjectResponse"() {
+	void "passed request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		List<AstronomicalObject> dbAstronomicalObjectList = Lists.newArrayList()
-		Page<AstronomicalObject> dbAstronomicalObjectPage = Mock(Page)
-		dbAstronomicalObjectPage.content >> dbAstronomicalObjectList
-		List<RESTAstronomicalObject> soapAstronomicalObjectList = Lists.newArrayList(new RESTAstronomicalObject(guid: GUID))
-		AstronomicalObjectRestBeanParams seriesRestBeanParams = Mock(AstronomicalObjectRestBeanParams)
+		AstronomicalObjectRestBeanParams astronomicalObjectRestBeanParams = Mock(AstronomicalObjectRestBeanParams)
+		List<AstronomicalObjectBase> restAstronomicalObjectList = Lists.newArrayList(Mock(AstronomicalObjectBase))
+		List<AstronomicalObject> astronomicalObjectList = Lists.newArrayList(Mock(AstronomicalObject))
+		Page<AstronomicalObject> astronomicalObjectPage = Mock(Page)
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		AstronomicalObjectResponse astronomicalObjectResponse = astronomicalObjectRestReader.readBase(seriesRestBeanParams)
+		AstronomicalObjectBaseResponse astronomicalObjectResponseOutput = astronomicalObjectRestReader.readBase(astronomicalObjectRestBeanParams)
 
 		then:
-		1 * astronomicalObjectRestQueryBuilderMock.query(seriesRestBeanParams) >> dbAstronomicalObjectPage
-		1 * pageMapperMock.fromPageToRestResponsePage(dbAstronomicalObjectPage) >> responsePage
-		1 * astronomicalObjectRestMapperMock.map(dbAstronomicalObjectList) >> soapAstronomicalObjectList
-		astronomicalObjectResponse.astronomicalObjects[0].guid == GUID
-		astronomicalObjectResponse.page == responsePage
+		1 * astronomicalObjectRestQueryBuilderMock.query(astronomicalObjectRestBeanParams) >> astronomicalObjectPage
+		1 * pageMapperMock.fromPageToRestResponsePage(astronomicalObjectPage) >> responsePage
+		1 * astronomicalObjectPage.content >> astronomicalObjectList
+		1 * astronomicalObjectRestMapperMock.mapBase(astronomicalObjectList) >> restAstronomicalObjectList
+		0 * _
+		astronomicalObjectResponseOutput.astronomicalObjects == restAstronomicalObjectList
+		astronomicalObjectResponseOutput.page == responsePage
+	}
+
+	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
+		given:
+		AstronomicalObjectFull astronomicalObjectFull = Mock(AstronomicalObjectFull)
+		AstronomicalObject astronomicalObject = Mock(AstronomicalObject)
+		List<AstronomicalObject> astronomicalObjectList = Lists.newArrayList(astronomicalObject)
+		Page<AstronomicalObject> astronomicalObjectPage = Mock(Page)
+
+		when:
+		AstronomicalObjectFullResponse astronomicalObjectResponseOutput = astronomicalObjectRestReader.readFull(GUID)
+
+		then:
+		1 * astronomicalObjectRestQueryBuilderMock.query(_ as AstronomicalObjectRestBeanParams) >> {
+				AstronomicalObjectRestBeanParams astronomicalObjectRestBeanParams ->
+			assert astronomicalObjectRestBeanParams.guid == GUID
+			astronomicalObjectPage
+		}
+		1 * astronomicalObjectPage.content >> astronomicalObjectList
+		1 * astronomicalObjectRestMapperMock.mapFull(astronomicalObject) >> astronomicalObjectFull
+		0 * _
+		astronomicalObjectResponseOutput.astronomicalObject == astronomicalObjectFull
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.astronomicalObject.query;
 
-import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectRequest;
+import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectBaseRequest;
+import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectFullRequest;
 import com.cezarykluczynski.stapi.model.astronomicalObject.dto.AstronomicalObjectRequestDTO;
 import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject;
 import com.cezarykluczynski.stapi.model.astronomicalObject.repository.AstronomicalObjectRepository;
@@ -29,10 +30,15 @@ public class AstronomicalObjectSoapQuery {
 		this.astronomicalObjectRepository = astronomicalObjectRepository;
 	}
 
-	public Page<AstronomicalObject> query(AstronomicalObjectRequest astronomicalObjectRequest) {
-		AstronomicalObjectRequestDTO astronomicalObjectRequestDTO = astronomicalObjectSoapMapper.map(astronomicalObjectRequest);
-		PageRequest pageRequest = pageMapper.fromRequestPageToPageRequest(astronomicalObjectRequest.getPage());
+	public Page<AstronomicalObject> query(AstronomicalObjectBaseRequest astronomicalObjectBaseRequest) {
+		AstronomicalObjectRequestDTO astronomicalObjectRequestDTO = astronomicalObjectSoapMapper.mapBase(astronomicalObjectBaseRequest);
+		PageRequest pageRequest = pageMapper.fromRequestPageToPageRequest(astronomicalObjectBaseRequest.getPage());
 		return astronomicalObjectRepository.findMatching(astronomicalObjectRequestDTO, pageRequest);
+	}
+
+	public Page<AstronomicalObject> query(AstronomicalObjectFullRequest astronomicalObjectFullRequest) {
+		AstronomicalObjectRequestDTO astronomicalObjectRequestDTO = astronomicalObjectSoapMapper.mapFull(astronomicalObjectFullRequest);
+		return astronomicalObjectRepository.findMatching(astronomicalObjectRequestDTO, pageMapper.getDefaultPageRequest());
 	}
 
 }
