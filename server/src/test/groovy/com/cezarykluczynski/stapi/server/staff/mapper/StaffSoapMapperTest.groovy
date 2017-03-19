@@ -17,10 +17,9 @@ class StaffSoapMapperTest extends AbstractStaffMapperTest {
 		staffSoapMapper = Mappers.getMapper(StaffSoapMapper)
 	}
 
-	void "maps SOAP StaffRequest to StaffRequestDTO"() {
+	void "maps SOAP StaffBaseRequest to StaffRequestDTO"() {
 		given:
 		StaffBaseRequest staffBaseRequest = new StaffBaseRequest(
-				guid: GUID,
 				name: NAME,
 				birthName: BIRTH_NAME,
 				gender: GENDER_ENUM_SOAP,
@@ -88,7 +87,6 @@ class StaffSoapMapperTest extends AbstractStaffMapperTest {
 		StaffRequestDTO staffRequestDTO = staffSoapMapper.mapBase staffBaseRequest
 
 		then:
-		staffRequestDTO.guid == GUID
 		staffRequestDTO.name == NAME
 		staffRequestDTO.birthName == BIRTH_NAME
 		staffRequestDTO.gender == GENDER

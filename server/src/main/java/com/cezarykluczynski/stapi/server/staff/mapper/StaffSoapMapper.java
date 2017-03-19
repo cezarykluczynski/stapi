@@ -23,6 +23,7 @@ import java.util.List;
 public interface StaffSoapMapper {
 
 	@Mappings({
+			@Mapping(target = "guid", ignore = true),
 			@Mapping(source = "dateOfBirth.from", target = "dateOfBirthFrom"),
 			@Mapping(source = "dateOfBirth.to", target = "dateOfBirthTo"),
 			@Mapping(source = "dateOfDeath.from", target = "dateOfDeathFrom"),

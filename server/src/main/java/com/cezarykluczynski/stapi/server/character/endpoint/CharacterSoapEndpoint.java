@@ -1,8 +1,10 @@
 package com.cezarykluczynski.stapi.server.character.endpoint;
 
+import com.cezarykluczynski.stapi.client.v1.soap.CharacterBaseRequest;
+import com.cezarykluczynski.stapi.client.v1.soap.CharacterBaseResponse;
+import com.cezarykluczynski.stapi.client.v1.soap.CharacterFullRequest;
+import com.cezarykluczynski.stapi.client.v1.soap.CharacterFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.CharacterPortType;
-import com.cezarykluczynski.stapi.client.v1.soap.CharacterRequest;
-import com.cezarykluczynski.stapi.client.v1.soap.CharacterResponse;
 import com.cezarykluczynski.stapi.server.character.reader.CharacterSoapReader;
 
 import javax.jws.WebParam;
@@ -11,16 +13,22 @@ import javax.jws.WebService;
 @WebService
 public class CharacterSoapEndpoint implements CharacterPortType {
 
-	private CharacterSoapReader seriesSoapReader;
+	private CharacterSoapReader characterSoapReader;
 
-	public CharacterSoapEndpoint(CharacterSoapReader seriesSoapReader) {
-		this.seriesSoapReader = seriesSoapReader;
+	public CharacterSoapEndpoint(CharacterSoapReader characterSoapReader) {
+		this.characterSoapReader = characterSoapReader;
 	}
 
 	@Override
-	public CharacterResponse getCharacters(@WebParam(partName = "request", name = "CharacterRequest",
-			targetNamespace = "http://stapi.co/api/v1/soap/character") CharacterRequest request) {
-		return seriesSoapReader.readBase(request);
+	public CharacterBaseResponse getCharacterBase(@WebParam(partName = "request", name = "CharacterBaseRequest",
+			targetNamespace = "http://stapi.co/api/v1/soap/character") CharacterBaseRequest request) {
+		return characterSoapReader.readBase(request);
+	}
+
+	@Override
+	public CharacterFullResponse getCharacterFull(@WebParam(partName = "request", name = "CharacterFullRequest",
+			targetNamespace = "http://stapi.co/api/v1/soap/character") CharacterFullRequest request) {
+		return characterSoapReader.readFull(request);
 	}
 
 }

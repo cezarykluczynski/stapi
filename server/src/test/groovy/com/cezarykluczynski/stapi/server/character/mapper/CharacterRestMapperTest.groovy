@@ -1,11 +1,12 @@
 package com.cezarykluczynski.stapi.server.character.mapper
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.BloodType as RestBloodType
-import com.cezarykluczynski.stapi.client.v1.rest.model.Character as RESTCharacter
+import com.cezarykluczynski.stapi.client.v1.rest.model.CharacterBase
+import com.cezarykluczynski.stapi.client.v1.rest.model.CharacterFull
 import com.cezarykluczynski.stapi.client.v1.rest.model.Gender as RestGender
 import com.cezarykluczynski.stapi.client.v1.rest.model.MaritalStatus as RestMaritalStatus
 import com.cezarykluczynski.stapi.model.character.dto.CharacterRequestDTO
-import com.cezarykluczynski.stapi.model.character.entity.Character as DBCharacter
+import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.server.character.dto.CharacterRestBeanParams
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers
@@ -33,7 +34,7 @@ class CharacterRestMapperTest extends AbstractCharacterMapperTest {
 				alternateReality: ALTERNATE_REALITY)
 
 		when:
-		CharacterRequestDTO characterRequestDTO = characterRestMapper.map characterRestBeanParams
+		CharacterRequestDTO characterRequestDTO = characterRestMapper.mapBase characterRestBeanParams
 
 		then:
 		characterRequestDTO.guid == GUID
@@ -44,12 +45,12 @@ class CharacterRestMapperTest extends AbstractCharacterMapperTest {
 		characterRequestDTO.alternateReality == ALTERNATE_REALITY
 	}
 
-	void "maps DB entity to REST entity"() {
+	void "maps DB entity to base REST entity"() {
 		given:
-		DBCharacter dbCharacter = createCharacter()
+		Character character = createCharacter()
 
 		when:
-		RESTCharacter restCharacter = characterRestMapper.map(Lists.newArrayList(dbCharacter))[0]
+		CharacterBase restCharacter = characterRestMapper.mapBase(Lists.newArrayList(character))[0]
 
 		then:
 		restCharacter.name == NAME
@@ -70,10 +71,38 @@ class CharacterRestMapperTest extends AbstractCharacterMapperTest {
 		restCharacter.serialNumber == SERIAL_NUMBER
 		restCharacter.mirror == MIRROR
 		restCharacter.alternateReality == ALTERNATE_REALITY
-		restCharacter.performerHeaders.size() == dbCharacter.performers.size()
-		restCharacter.episodeHeaders.size() == dbCharacter.episodes.size()
-		restCharacter.movieHeaders.size() == dbCharacter.movies.size()
-		restCharacter.characterSpecies.size() == dbCharacter.characterSpecies.size()
+	}
+
+	void "maps DB entity to full REST entity"() {
+		given:
+		Character character = createCharacter()
+
+		when:
+		CharacterFull restCharacter = characterRestMapper.mapFull(character)
+
+		then:
+		restCharacter.name == NAME
+		restCharacter.gender == REST_GENDER
+		restCharacter.yearOfBirth == YEAR_OF_BIRTH
+		restCharacter.monthOfBirth == MONTH_OF_BIRTH
+		restCharacter.dayOfBirth == DAY_OF_BIRTH
+		restCharacter.placeOfBirth == PLACE_OF_BIRTH
+		restCharacter.yearOfDeath == YEAR_OF_DEATH
+		restCharacter.monthOfDeath == MONTH_OF_DEATH
+		restCharacter.dayOfDeath == DAY_OF_DEATH
+		restCharacter.placeOfDeath == PLACE_OF_DEATH
+		restCharacter.height == HEIGHT
+		restCharacter.weight == WEIGHT
+		restCharacter.deceased == DECEASED
+		restCharacter.bloodType == REST_BLOOD_TYPE
+		restCharacter.maritalStatus == REST_MARITAL_STATUS
+		restCharacter.serialNumber == SERIAL_NUMBER
+		restCharacter.mirror == MIRROR
+		restCharacter.alternateReality == ALTERNATE_REALITY
+		restCharacter.performers.size() == character.performers.size()
+		restCharacter.episodes.size() == character.episodes.size()
+		restCharacter.movies.size() == character.movies.size()
+		restCharacter.characterSpecies.size() == character.characterSpecies.size()
 	}
 
 }

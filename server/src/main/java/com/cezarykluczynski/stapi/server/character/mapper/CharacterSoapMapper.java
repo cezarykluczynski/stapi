@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.character.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.soap.CharacterRequest;
+import com.cezarykluczynski.stapi.client.v1.soap.CharacterBaseRequest;
+import com.cezarykluczynski.stapi.client.v1.soap.CharacterFullRequest;
 import com.cezarykluczynski.stapi.model.character.dto.CharacterRequestDTO;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.server.common.mapper.EnumMapper;
@@ -19,15 +20,25 @@ import java.util.List;
 		MovieHeaderSoapMapper.class, PerformerHeaderSoapMapper.class, RequestSortSoapMapper.class})
 public interface CharacterSoapMapper {
 
-	CharacterRequestDTO map(CharacterRequest characterRequest);
+	@Mappings({
+			@Mapping(target = "guid", ignore = true)
+	})
+	CharacterRequestDTO mapBase(CharacterBaseRequest characterRequest);
+
+	com.cezarykluczynski.stapi.client.v1.soap.CharacterBase mapBase(Character character);
+
+	List<com.cezarykluczynski.stapi.client.v1.soap.CharacterBase> mapBase(List<Character> characterList);
 
 	@Mappings({
-			@Mapping(source = "performers", target = "performerHeaders"),
-			@Mapping(source = "episodes", target = "episodeHeaders"),
-			@Mapping(source = "movies", target = "movieHeaders")
+			@Mapping(target = "name", ignore = true),
+			@Mapping(target = "gender", ignore = true),
+			@Mapping(target = "deceased", ignore = true),
+			@Mapping(target = "mirror", ignore = true),
+			@Mapping(target = "alternateReality", ignore = true),
+			@Mapping(target = "sort", ignore = true)
 	})
-	com.cezarykluczynski.stapi.client.v1.soap.Character map(Character character);
+	CharacterRequestDTO mapFull(CharacterFullRequest characterRequest);
 
-	List<com.cezarykluczynski.stapi.client.v1.soap.Character> map(List<Character> characterList);
+	com.cezarykluczynski.stapi.client.v1.soap.CharacterFull mapFull(Character character);
 
 }

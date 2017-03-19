@@ -1,0 +1,56 @@
+type: object
+properties:
+  guid:
+    type: string
+  name:
+    type: string
+  gender:
+    $ref: ./common/entity/enum/gender.yaml
+  yearOfBirth:
+    type: integer
+  monthOfBirth:
+    type: integer
+  dayOfBirth:
+    type: integer
+  placeOfBirth:
+    type: string
+  yearOfDeath:
+    type: integer
+  monthOfDeath:
+    type: integer
+  dayOfDeath:
+    type: integer
+  placeOfDeath:
+    type: string
+  height:
+    type: integer
+  weight:
+    type: integer
+  deceased:
+    type: boolean
+  bloodType:
+    $ref: ./common/entity/enum/bloodType.yaml
+  maritalStatus:
+    $ref: ./common/entity/enum/maritalStatus.yaml
+  serialNumber:
+    type: string
+  mirror:
+    type: boolean
+  alternateReality:
+    type: boolean
+  performers:
+    type: array
+    items:
+      $ref: '#/definitions/PerformerHeader'
+  episodes:
+    type: array
+    items:
+      $ref: '#/definitions/EpisodeHeader'
+  movies:
+    type: array
+    items:
+      $ref: '#/definitions/MovieHeader'
+  characterSpecies:
+    type: array
+    items:
+      $ref: '#/definitions/CharacterSpecies'

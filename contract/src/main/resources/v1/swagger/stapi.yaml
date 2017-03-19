@@ -15,6 +15,8 @@ paths:
     $ref: ./astronomicalObject/path/astronomicalObjectSearch.path.yaml
   /character:
     $ref: ./character/path/character.path.yaml
+  /character/search:
+    $ref: ./character/path/characterSearch.path.yaml
   /comics:
     $ref: ./comics/path/comics.path.yaml
   /comicCollection:
@@ -56,12 +58,16 @@ definitions:
     $ref: ./astronomicalObject/entity/astronomicalObjectBaseResponse.yaml
   AstronomicalObjectFullResponse:
     $ref: ./astronomicalObject/entity/astronomicalObjectFullResponse.yaml
-  Character:
-    $ref: ./character/entity/character.yaml
   CharacterHeader:
     $ref: ./character/entity/characterHeader.yaml
-  CharacterResponse:
-    $ref: ./character/entity/characterResponse.yaml
+  CharacterBase:
+    $ref: ./character/entity/characterBase.yaml
+  CharacterFull:
+    $ref: ./character/entity/characterFull.yaml
+  CharacterBaseResponse:
+    $ref: ./character/entity/characterBaseResponse.yaml
+  CharacterFullResponse:
+    $ref: ./character/entity/characterFullResponse.yaml
   CharacterSpecies:
     $ref: ./character/entity/characterSpecies.yaml
   Comics:

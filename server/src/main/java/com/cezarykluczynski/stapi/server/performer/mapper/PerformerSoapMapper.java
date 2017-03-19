@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.PerformerFullRequest;
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterHeaderSoapMapper;
+import com.cezarykluczynski.stapi.server.character.mapper.CharacterSoapMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.DateMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.EnumMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.RequestSortSoapMapper;
@@ -17,11 +18,12 @@ import org.mapstruct.Mappings;
 
 import java.util.List;
 
-@Mapper(config = MapstructConfiguration.class, uses = {CharacterHeaderSoapMapper.class, DateMapper.class,
+@Mapper(config = MapstructConfiguration.class, uses = {CharacterHeaderSoapMapper.class, CharacterSoapMapper.class, DateMapper.class,
 		EnumMapper.class, EpisodeHeaderSoapMapper.class, MovieHeaderSoapMapper.class, RequestSortSoapMapper.class})
 public interface PerformerSoapMapper {
 
 	@Mappings({
+			@Mapping(target = "guid", ignore = true),
 			@Mapping(source = "dateOfBirth.from", target = "dateOfBirthFrom"),
 			@Mapping(source = "dateOfBirth.to", target = "dateOfBirthTo"),
 			@Mapping(source = "dateOfDeath.from", target = "dateOfDeathFrom"),
@@ -60,15 +62,6 @@ public interface PerformerSoapMapper {
 	})
 	PerformerRequestDTO mapFull(PerformerFullRequest performerFullRequest);
 
-	@Mappings({
-			@Mapping(target = "episodesPerformanceHeaders", source = "episodesPerformances"),
-			@Mapping(target = "episodesStuntPerformanceHeaders", source = "episodesStuntPerformances"),
-			@Mapping(target = "episodesStandInPerformanceHeaders", source = "episodesStandInPerformances"),
-			@Mapping(target = "moviesPerformanceHeaders", source = "moviesPerformances"),
-			@Mapping(target = "moviesStuntPerformanceHeaders", source = "moviesStuntPerformances"),
-			@Mapping(target = "moviesStandInPerformanceHeaders", source = "moviesStandInPerformances"),
-			@Mapping(target = "characterHeaders", source = "characters")
-	})
 	com.cezarykluczynski.stapi.client.v1.soap.PerformerFull mapFull(Performer performer);
 
 }

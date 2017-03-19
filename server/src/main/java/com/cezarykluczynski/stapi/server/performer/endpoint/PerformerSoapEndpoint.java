@@ -13,22 +13,22 @@ import javax.jws.WebService;
 @WebService
 public class PerformerSoapEndpoint implements PerformerPortType {
 
-	private PerformerSoapReader seriesSoapReader;
+	private PerformerSoapReader performerSoapReader;
 
-	public PerformerSoapEndpoint(PerformerSoapReader seriesSoapReader) {
-		this.seriesSoapReader = seriesSoapReader;
+	public PerformerSoapEndpoint(PerformerSoapReader performerSoapReader) {
+		this.performerSoapReader = performerSoapReader;
 	}
 
 	@Override
 	public PerformerBaseResponse getPerformerBase(@WebParam(partName = "request", name = "PerformerBaseRequest",
 			targetNamespace = "http://stapi.co/api/v1/soap/performer") PerformerBaseRequest request) {
-		return seriesSoapReader.readBase(request);
+		return performerSoapReader.readBase(request);
 	}
 
 	@Override
 	public PerformerFullResponse getPerformerFull(@WebParam(partName = "request", name = "PerformerFullRequest",
 			targetNamespace = "http://stapi.co/api/v1/soap/performer") PerformerFullRequest request) {
-		return seriesSoapReader.readFull(request);
+		return performerSoapReader.readFull(request);
 	}
 
 }

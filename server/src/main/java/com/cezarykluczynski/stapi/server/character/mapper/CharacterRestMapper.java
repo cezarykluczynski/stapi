@@ -10,8 +10,6 @@ import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeHeaderRestMapper;
 import com.cezarykluczynski.stapi.server.movie.mapper.MovieHeaderRestMapper;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerHeaderRestMapper;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 
 import java.util.List;
 
@@ -19,15 +17,12 @@ import java.util.List;
 		MovieHeaderRestMapper.class, PerformerHeaderRestMapper.class, RequestSortRestMapper.class})
 public interface CharacterRestMapper {
 
-	CharacterRequestDTO map(CharacterRestBeanParams characterRestBeanParams);
+	CharacterRequestDTO mapBase(CharacterRestBeanParams characterRestBeanParams);
 
-	@Mappings({
-			@Mapping(source = "performers", target = "performerHeaders"),
-			@Mapping(source = "episodes", target = "episodeHeaders"),
-			@Mapping(source = "movies", target = "movieHeaders")
-	})
-	com.cezarykluczynski.stapi.client.v1.rest.model.Character map(Character series);
+	com.cezarykluczynski.stapi.client.v1.rest.model.CharacterBase mapBase(Character series);
 
-	List<com.cezarykluczynski.stapi.client.v1.rest.model.Character> map(List<Character> series);
+	List<com.cezarykluczynski.stapi.client.v1.rest.model.CharacterBase> mapBase(List<Character> series);
+
+	com.cezarykluczynski.stapi.client.v1.rest.model.CharacterFull mapFull(Character series);
 
 }

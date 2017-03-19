@@ -132,13 +132,13 @@ class PerformerRestMapperTest extends AbstractPerformerMapperTest {
 		performerFull.videoGamePerformer == VIDEO_GAME_PERFORMER
 		performerFull.voicePerformer == VOICE_PERFORMER
 		performerFull.voyPerformer == VOY_PERFORMER
-		performerFull.episodesPerformanceHeaders.size() == performer.episodesPerformances.size()
-		performerFull.episodesStuntPerformanceHeaders.size() == performer.episodesStuntPerformances.size()
-		performerFull.episodesStandInPerformanceHeaders.size() == performer.episodesStandInPerformances.size()
-		performerFull.moviesPerformanceHeaders.size() == performer.moviesPerformances.size()
-		performerFull.moviesStuntPerformanceHeaders.size() == performer.moviesStuntPerformances.size()
-		performerFull.moviesStandInPerformanceHeaders.size() == performer.moviesStandInPerformances.size()
-		performerFull.characterHeaders.size() == performer.characters.size()
+		performerFull.episodesPerformances.size() == performer.episodesPerformances.size()
+		performerFull.episodesStuntPerformances.size() == performer.episodesStuntPerformances.size()
+		performerFull.episodesStandInPerformances.size() == performer.episodesStandInPerformances.size()
+		performerFull.moviesPerformances.size() == performer.moviesPerformances.size()
+		performerFull.moviesStuntPerformances.size() == performer.moviesStuntPerformances.size()
+		performerFull.moviesStandInPerformances.size() == performer.moviesStandInPerformances.size()
+		performerFull.characters.size() == performer.characters.size()
 	}
 
 }

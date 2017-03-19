@@ -17,7 +17,7 @@ class AstronomicalObjectSoapMapperTest extends AbstractAstronomicalObjectMapperT
 		astronomicalObjectSoapMapper = Mappers.getMapper(AstronomicalObjectSoapMapper)
 	}
 
-	void "maps SOAP AstronomicalObjectRequest to AstronomicalObjectRequestDTO"() {
+	void "maps SOAP AstronomicalObjectBaseRequest to AstronomicalObjectRequestDTO"() {
 		given:
 		AstronomicalObjectBaseRequest astronomicalObjectRequest = new AstronomicalObjectBaseRequest(
 				name: NAME,

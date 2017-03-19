@@ -15,7 +15,6 @@
 			<xs:complexContent>
 				<xs:extension base="common:Request">
 					<xs:sequence>
-						<xs:element name="guid" type="xs:string" minOccurs="0"/>
 						<xs:element name="name" type="xs:string" minOccurs="0"/>
 						<xs:element name="birthName" type="xs:string" minOccurs="0"/>
 						<xs:element name="gender" type="common:GenderEnum" minOccurs="0"/>

@@ -12,12 +12,11 @@
 	<xs:import namespace="http://stapi.co/api/v1/soap/episode" schemaLocation="episode.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/movie" schemaLocation="movie.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/performer" schemaLocation="performer.xsd"/>
-	<xs:element name="CharacterRequest">
+	<xs:element name="CharacterBaseRequest">
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Request">
 					<xs:sequence>
-						<xs:element name="guid" type="xs:string" minOccurs="0"/>
 						<xs:element name="name" type="xs:string" minOccurs="0"/>
 						<xs:element name="gender" type="common:GenderEnum" minOccurs="0"/>
 						<xs:element name="deceased" type="xs:boolean" minOccurs="0"/>
@@ -28,18 +27,61 @@
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="CharacterResponse">
+	<xs:element name="CharacterFullRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="guid" type="xs:string" minOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="CharacterBaseResponse">
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Response">
 					<xs:sequence>
-						<xs:element name="characters" type="character:Character" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="characters" type="character:CharacterBase" minOccurs="0" maxOccurs="unbounded"/>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
-	<xs:complexType name="Character">
+	<xs:element name="CharacterFullResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="character" type="character:CharacterFull"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="CharacterHeader">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="name" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CharacterBase">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="gender" type="common:GenderEnum" minOccurs="0"/>
+			<xs:element name="yearOfBirth" type="xs:int" minOccurs="0"/>
+			<xs:element name="monthOfBirth" type="xs:int" minOccurs="0"/>
+			<xs:element name="dayOfBirth" type="xs:int" minOccurs="0"/>
+			<xs:element name="placeOfBirth" type="xs:string" minOccurs="0"/>
+			<xs:element name="yearOfDeath" type="xs:int" minOccurs="0"/>
+			<xs:element name="monthOfDeath" type="xs:int" minOccurs="0"/>
+			<xs:element name="dayOfDeath" type="xs:int" minOccurs="0"/>
+			<xs:element name="placeOfDeath" type="xs:string" minOccurs="0"/>
+			<xs:element name="height" type="xs:int" minOccurs="0"/>
+			<xs:element name="weight" type="xs:int" minOccurs="0"/>
+			<xs:element name="deceased" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="bloodType" type="common:BloodTypeEnum" minOccurs="0"/>
+			<xs:element name="maritalStatus" type="common:MaritalStatusEnum" minOccurs="0"/>
+			<xs:element name="serialNumber" type="xs:string"/>
+			<xs:element name="mirror" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="alternateReality" type="xs:boolean" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CharacterFull">
 		<xs:sequence>
 			<xs:element name="guid" type="xs:string"/>
 			<xs:element name="name" type="xs:string"/>
@@ -61,23 +103,17 @@
 			<xs:element name="mirror" type="xs:boolean" minOccurs="0"/>
 			<xs:element name="alternateReality" type="xs:boolean" minOccurs="0"/>
 			<xs:sequence>
-				<xs:element name="performerHeaders" type="performer:PerformerHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="performers" type="performer:PerformerHeader" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="episodeHeaders" type="episode:EpisodeHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="episodes" type="episode:EpisodeHeader" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="movieHeaders" type="movie:MovieHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="movies" type="movie:MovieHeader" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
 				<xs:element name="characterSpecies" type="character:CharacterSpecies" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="CharacterHeader">
-		<xs:sequence>
-			<xs:element name="guid" type="xs:string"/>
-			<xs:element name="name" type="xs:string"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="CharacterSpecies">

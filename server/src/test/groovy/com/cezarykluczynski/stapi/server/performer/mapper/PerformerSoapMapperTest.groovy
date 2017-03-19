@@ -17,10 +17,9 @@ class PerformerSoapMapperTest extends AbstractPerformerMapperTest {
 		performerSoapMapper = Mappers.getMapper(PerformerSoapMapper)
 	}
 
-	void "maps SOAP PerformerRequest to PerformerRequestDTO"() {
+	void "maps SOAP PerformerBaseRequest to PerformerRequestDTO"() {
 		given:
 		PerformerBaseRequest performerBaseRequest = new PerformerBaseRequest(
-				guid: GUID,
 				name: NAME,
 				birthName: BIRTH_NAME,
 				gender: GENDER_ENUM_SOAP,
@@ -47,7 +46,6 @@ class PerformerSoapMapperTest extends AbstractPerformerMapperTest {
 		PerformerRequestDTO performerRequestDTO = performerSoapMapper.mapBase performerBaseRequest
 
 		then:
-		performerRequestDTO.guid == GUID
 		performerRequestDTO.name == NAME
 		performerRequestDTO.birthName == BIRTH_NAME
 		performerRequestDTO.gender == GENDER
@@ -143,13 +141,13 @@ class PerformerSoapMapperTest extends AbstractPerformerMapperTest {
 		performerFull.videoGamePerformer == VIDEO_GAME_PERFORMER
 		performerFull.voicePerformer == VOICE_PERFORMER
 		performerFull.voyPerformer == VOY_PERFORMER
-		performerFull.episodesPerformanceHeaders.size() == performer.episodesPerformances.size()
-		performerFull.episodesStuntPerformanceHeaders.size() == performer.episodesStuntPerformances.size()
-		performerFull.episodesStandInPerformanceHeaders.size() == performer.episodesStandInPerformances.size()
-		performerFull.moviesPerformanceHeaders.size() == performer.moviesPerformances.size()
-		performerFull.moviesStuntPerformanceHeaders.size() == performer.moviesStuntPerformances.size()
-		performerFull.moviesStandInPerformanceHeaders.size() == performer.moviesStandInPerformances.size()
-		performerFull.characterHeaders.size() == performer.characters.size()
+		performerFull.episodesPerformances.size() == performer.episodesPerformances.size()
+		performerFull.episodesStuntPerformances.size() == performer.episodesStuntPerformances.size()
+		performerFull.episodesStandInPerformances.size() == performer.episodesStandInPerformances.size()
+		performerFull.moviesPerformances.size() == performer.moviesPerformances.size()
+		performerFull.moviesStuntPerformances.size() == performer.moviesStuntPerformances.size()
+		performerFull.moviesStandInPerformances.size() == performer.moviesStandInPerformances.size()
+		performerFull.characters.size() == performer.characters.size()
 	}
 
 }

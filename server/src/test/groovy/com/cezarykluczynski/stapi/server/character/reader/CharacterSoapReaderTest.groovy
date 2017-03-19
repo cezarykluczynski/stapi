@@ -1,10 +1,13 @@
 package com.cezarykluczynski.stapi.server.character.reader
 
-import com.cezarykluczynski.stapi.client.v1.soap.Character as SOAPCharacter
-import com.cezarykluczynski.stapi.client.v1.soap.CharacterRequest
-import com.cezarykluczynski.stapi.client.v1.soap.CharacterResponse
+import com.cezarykluczynski.stapi.client.v1.soap.CharacterBase
+import com.cezarykluczynski.stapi.client.v1.soap.CharacterBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.CharacterBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.CharacterFull
+import com.cezarykluczynski.stapi.client.v1.soap.CharacterFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.CharacterFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
-import com.cezarykluczynski.stapi.model.character.entity.Character as DBCharacter
+import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterSoapMapper
 import com.cezarykluczynski.stapi.server.character.query.CharacterSoapQuery
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
@@ -31,24 +34,41 @@ class CharacterSoapReaderTest extends Specification {
 		characterSoapReader = new CharacterSoapReader(characterSoapQueryBuilderMock, characterSoapMapperMock, pageMapperMock)
 	}
 
-	void "gets database entities and puts them into CharacterResponse"() {
+	void "passed base request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		List<DBCharacter> dbCharacterList = Lists.newArrayList()
-		Page<DBCharacter> dbCharacterPage = Mock(Page)
-		dbCharacterPage.content >> dbCharacterList
-		List<SOAPCharacter> soapCharacterList = Lists.newArrayList(new SOAPCharacter(guid: GUID))
-		CharacterRequest characterRequest = Mock(CharacterRequest)
+		List<Character> characterList = Lists.newArrayList()
+		Page<Character> characterPage = Mock(Page)
+		List<CharacterBase> soapCharacterList = Lists.newArrayList(new CharacterBase(guid: GUID))
+		CharacterBaseRequest characterBaseRequest = Mock(CharacterBaseRequest)
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		CharacterResponse characterResponse = characterSoapReader.readBase(characterRequest)
+		CharacterBaseResponse characterResponse = characterSoapReader.readBase(characterBaseRequest)
 
 		then:
-		1 * characterSoapQueryBuilderMock.query(characterRequest) >> dbCharacterPage
-		1 * pageMapperMock.fromPageToSoapResponsePage(dbCharacterPage) >> responsePage
-		1 * characterSoapMapperMock.map(dbCharacterList) >> soapCharacterList
+		1 * characterSoapQueryBuilderMock.query(characterBaseRequest) >> characterPage
+		1 * characterPage.content >> characterList
+		1 * pageMapperMock.fromPageToSoapResponsePage(characterPage) >> responsePage
+		1 * characterSoapMapperMock.mapBase(characterList) >> soapCharacterList
 		characterResponse.characters[0].guid == GUID
 		characterResponse.page == responsePage
+	}
+
+	void "passed full request to queryBuilder, then to mapper, and returns result"() {
+		given:
+		CharacterFull characterFull = new CharacterFull(guid: GUID)
+		Character character = Mock(Character)
+		Page<Character> characterPage = Mock(Page)
+		CharacterFullRequest characterFullRequest = Mock(CharacterFullRequest)
+
+		when:
+		CharacterFullResponse characterFullResponse = characterSoapReader.readFull(characterFullRequest)
+
+		then:
+		1 * characterSoapQueryBuilderMock.query(characterFullRequest) >> characterPage
+		1 * characterPage.content >> Lists.newArrayList(character)
+		1 * characterSoapMapperMock.mapFull(character) >> characterFull
+		characterFullResponse.character.guid == GUID
 	}
 
 }

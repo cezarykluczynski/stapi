@@ -1,7 +1,9 @@
 package com.cezarykluczynski.stapi.server.character.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.soap.CharacterRequest
-import com.cezarykluczynski.stapi.client.v1.soap.CharacterResponse
+import com.cezarykluczynski.stapi.client.v1.soap.CharacterBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.CharacterBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.CharacterFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.CharacterFullResponse
 import com.cezarykluczynski.stapi.server.character.reader.CharacterSoapReader
 import spock.lang.Specification
 
@@ -16,17 +18,30 @@ class CharacterSoapEndpointTest extends Specification {
 		characterSoapEndpoint = new CharacterSoapEndpoint(characterSoapReaderMock)
 	}
 
-	void "passes call to CharacterSoapReader"() {
+	void "passes base call to CharacterSoapReader"() {
 		given:
-		CharacterRequest characterRequest = Mock(CharacterRequest)
-		CharacterResponse characterResponse = Mock(CharacterResponse)
+		CharacterBaseRequest characterBaseRequest = Mock(CharacterBaseRequest)
+		CharacterBaseResponse characterBaseResponse = Mock(CharacterBaseResponse)
 
 		when:
-		CharacterResponse characterResponseResult = characterSoapEndpoint.getCharacters(characterRequest)
+		CharacterBaseResponse characterResponseResult = characterSoapEndpoint.getCharacterBase(characterBaseRequest)
 
 		then:
-		1 * characterSoapReaderMock.readBase(characterRequest) >> characterResponse
-		characterResponseResult == characterResponse
+		1 * characterSoapReaderMock.readBase(characterBaseRequest) >> characterBaseResponse
+		characterResponseResult == characterBaseResponse
+	}
+
+	void "passes full call to CharacterSoapReader"() {
+		given:
+		CharacterFullRequest characterFullRequest = Mock(CharacterFullRequest)
+		CharacterFullResponse characterFullResponse = Mock(CharacterFullResponse)
+
+		when:
+		CharacterFullResponse characterResponseResult = characterSoapEndpoint.getCharacterFull(characterFullRequest)
+
+		then:
+		1 * characterSoapReaderMock.readFull(characterFullRequest) >> characterFullResponse
+		characterResponseResult == characterFullResponse
 	}
 
 }

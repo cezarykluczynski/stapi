@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.character.query;
 
-import com.cezarykluczynski.stapi.client.v1.soap.CharacterRequest;
+import com.cezarykluczynski.stapi.client.v1.soap.CharacterBaseRequest;
+import com.cezarykluczynski.stapi.client.v1.soap.CharacterFullRequest;
 import com.cezarykluczynski.stapi.model.character.dto.CharacterRequestDTO;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.character.repository.CharacterRepository;
@@ -28,10 +29,15 @@ public class CharacterSoapQuery {
 		this.characterRepository = characterRepository;
 	}
 
-	public Page<Character> query(CharacterRequest characterRequest) {
-		CharacterRequestDTO characterRequestDTO = characterSoapMapper.map(characterRequest);
-		PageRequest pageRequest = pageMapper.fromRequestPageToPageRequest(characterRequest.getPage());
+	public Page<Character> query(CharacterBaseRequest characterBaseRequest) {
+		CharacterRequestDTO characterRequestDTO = characterSoapMapper.mapBase(characterBaseRequest);
+		PageRequest pageRequest = pageMapper.fromRequestPageToPageRequest(characterBaseRequest.getPage());
 		return characterRepository.findMatching(characterRequestDTO, pageRequest);
+	}
+
+	public Page<Character> query(CharacterFullRequest characterFullRequest) {
+		CharacterRequestDTO characterRequestDTO = characterSoapMapper.mapFull(characterFullRequest);
+		return characterRepository.findMatching(characterRequestDTO, pageMapper.getDefaultPageRequest());
 	}
 
 }

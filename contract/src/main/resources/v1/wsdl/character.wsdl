@@ -11,25 +11,43 @@
 			<xs:include schemaLocation="character.xsd"/>
 		</xs:schema>
 	</wsdl:types>
-	<wsdl:message name="CharacterRequest">
-		<wsdl:part name="request" element="stapi:CharacterRequest"/>
+	<wsdl:message name="CharacterBaseRequest">
+		<wsdl:part name="request" element="stapi:CharacterBaseRequest"/>
 	</wsdl:message>
-	<wsdl:message name="CharacterResponse">
-		<wsdl:part name="response" element="stapi:CharacterResponse"/>
+	<wsdl:message name="CharacterFullRequest">
+		<wsdl:part name="request" element="stapi:CharacterFullRequest"/>
+	</wsdl:message>
+	<wsdl:message name="CharacterBaseResponse">
+		<wsdl:part name="response" element="stapi:CharacterBaseResponse"/>
+	</wsdl:message>
+	<wsdl:message name="CharacterFullResponse">
+		<wsdl:part name="response" element="stapi:CharacterFullResponse"/>
 	</wsdl:message>
 	<wsdl:portType name="CharacterPortType">
-		<wsdl:operation name="getCharacters">
-			<wsdl:input name="getCharactersRequest" message="stapi:CharacterRequest"/>
-			<wsdl:output name="getCharactersResponse" message="stapi:CharacterResponse"/>
+		<wsdl:operation name="getCharacterBase">
+			<wsdl:input name="getCharacterBaseRequest" message="stapi:CharacterBaseRequest"/>
+			<wsdl:output name="getCharacterBaseResponse" message="stapi:CharacterBaseResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getCharacterFull">
+			<wsdl:input name="getCharacterFullRequest" message="stapi:CharacterFullRequest"/>
+			<wsdl:output name="getCharacterFullResponse" message="stapi:CharacterFullResponse"/>
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="CharacterBinding" type="stapi:CharacterPortType">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-		<wsdl:operation name="getCharacters">
-			<wsdl:input name="getCharactersRequest">
+		<wsdl:operation name="getCharacterBase">
+			<wsdl:input name="getCharacterBaseRequest">
 				<soap:body use="literal"/>
 			</wsdl:input>
-			<wsdl:output name="getCharactersResponse">
+			<wsdl:output name="getCharacterBaseResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getCharacterFull">
+			<wsdl:input name="getCharacterFullRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getCharacterFullResponse">
 				<soap:body use="literal"/>
 			</wsdl:output>
 		</wsdl:operation>

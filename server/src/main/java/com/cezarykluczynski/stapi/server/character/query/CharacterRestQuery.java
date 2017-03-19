@@ -30,7 +30,7 @@ public class CharacterRestQuery {
 	}
 
 	public Page<Character> query(CharacterRestBeanParams characterRestBeanParams) {
-		CharacterRequestDTO characterRequestDTO = characterRequestMapper.map(characterRestBeanParams);
+		CharacterRequestDTO characterRequestDTO = characterRequestMapper.mapBase(characterRestBeanParams);
 		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(characterRestBeanParams);
 		return characterRepository.findMatching(characterRequestDTO, pageRequest);
 	}

@@ -38,19 +38,3 @@ properties:
     type: boolean
   alternateReality:
     type: boolean
-  performerHeaders:
-    type: array
-    items:
-      $ref: '#/definitions/PerformerHeader'
-  episodeHeaders:
-    type: array
-    items:
-      $ref: '#/definitions/EpisodeHeader'
-  movieHeaders:
-    type: array
-    items:
-      $ref: '#/definitions/MovieHeader'
-  characterSpecies:
-    type: array
-    items:
-      $ref: '#/definitions/CharacterSpecies'
