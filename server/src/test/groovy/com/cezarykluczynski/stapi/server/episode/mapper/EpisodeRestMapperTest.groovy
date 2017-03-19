@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.server.episode.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.Episode as RESTEpisode
-import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesHeader
+import com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeBase
+import com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeFull
 import com.cezarykluczynski.stapi.model.episode.dto.EpisodeRequestDTO
-import com.cezarykluczynski.stapi.model.episode.entity.Episode as DBEpisode
+import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.server.episode.dto.EpisodeRestBeanParams
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers
@@ -33,7 +33,7 @@ class EpisodeRestMapperTest extends AbstractEpisodeMapperTest {
 				finalScriptDateTo: FINAL_SCRIPT_DATE_TO)
 
 		when:
-		EpisodeRequestDTO episodeRequestDTO = episodeRestMapper.map episodeRestBeanParams
+		EpisodeRequestDTO episodeRequestDTO = episodeRestMapper.mapBase episodeRestBeanParams
 
 		then:
 		episodeRequestDTO.guid == GUID
@@ -50,38 +50,64 @@ class EpisodeRestMapperTest extends AbstractEpisodeMapperTest {
 		episodeRequestDTO.finalScriptDateTo == FINAL_SCRIPT_DATE_TO
 	}
 
-	void "maps DB entity to REST entity"() {
+	void "maps DB entity to base REST entity"() {
 		given:
-		DBEpisode dBEpisode = createEpisode()
+		Episode episode = createEpisode()
 
 		when:
-		RESTEpisode restEpisode = episodeRestMapper.map(Lists.newArrayList(dBEpisode))[0]
+		EpisodeBase episodeBase = episodeRestMapper.mapBase(Lists.newArrayList(episode))[0]
 
 		then:
-		restEpisode.guid == GUID
-		restEpisode.series instanceof SeriesHeader
-		restEpisode.title == TITLE
-		restEpisode.titleGerman == TITLE_GERMAN
-		restEpisode.titleItalian == TITLE_ITALIAN
-		restEpisode.titleJapanese == TITLE_JAPANESE
-		restEpisode.seasonNumber == SEASON_NUMBER
-		restEpisode.episodeNumber == EPISODE_NUMBER
-		restEpisode.productionSerialNumber == PRODUCTION_SERIAL_NUMBER
-		restEpisode.featureLength == FEATURE_LENGTH
-		restEpisode.stardateFrom == STARDATE_FROM
-		restEpisode.stardateTo == STARDATE_TO
-		restEpisode.yearFrom == YEAR_FROM
-		restEpisode.yearTo == YEAR_TO
-		restEpisode.usAirDate == US_AIR_DATE
-		restEpisode.finalScriptDate == FINAL_SCRIPT_DATE
-		restEpisode.writerHeaders.size() == dBEpisode.writers.size()
-		restEpisode.teleplayAuthorHeaders.size() == dBEpisode.teleplayAuthors.size()
-		restEpisode.storyAuthorHeaders.size() == dBEpisode.storyAuthors.size()
-		restEpisode.directorHeaders.size() == dBEpisode.directors.size()
-		restEpisode.performerHeaders.size() == dBEpisode.performers.size()
-		restEpisode.stuntPerformerHeaders.size() == dBEpisode.stuntPerformers.size()
-		restEpisode.standInPerformerHeaders.size() == dBEpisode.standInPerformers.size()
-		restEpisode.characterHeaders.size() == dBEpisode.characters.size()
+		episodeBase.guid == GUID
+		episodeBase.series != null
+		episodeBase.title == TITLE
+		episodeBase.titleGerman == TITLE_GERMAN
+		episodeBase.titleItalian == TITLE_ITALIAN
+		episodeBase.titleJapanese == TITLE_JAPANESE
+		episodeBase.seasonNumber == SEASON_NUMBER
+		episodeBase.episodeNumber == EPISODE_NUMBER
+		episodeBase.productionSerialNumber == PRODUCTION_SERIAL_NUMBER
+		episodeBase.featureLength == FEATURE_LENGTH
+		episodeBase.stardateFrom == STARDATE_FROM
+		episodeBase.stardateTo == STARDATE_TO
+		episodeBase.yearFrom == YEAR_FROM
+		episodeBase.yearTo == YEAR_TO
+		episodeBase.usAirDate == US_AIR_DATE
+		episodeBase.finalScriptDate == FINAL_SCRIPT_DATE
+	}
+
+	void "maps DB entity to full REST entity"() {
+		given:
+		Episode episode = createEpisode()
+
+		when:
+		EpisodeFull episodeFull = episodeRestMapper.mapFull(episode)
+
+		then:
+		episodeFull.guid == GUID
+		episodeFull.series != null
+		episodeFull.title == TITLE
+		episodeFull.titleGerman == TITLE_GERMAN
+		episodeFull.titleItalian == TITLE_ITALIAN
+		episodeFull.titleJapanese == TITLE_JAPANESE
+		episodeFull.seasonNumber == SEASON_NUMBER
+		episodeFull.episodeNumber == EPISODE_NUMBER
+		episodeFull.productionSerialNumber == PRODUCTION_SERIAL_NUMBER
+		episodeFull.featureLength == FEATURE_LENGTH
+		episodeFull.stardateFrom == STARDATE_FROM
+		episodeFull.stardateTo == STARDATE_TO
+		episodeFull.yearFrom == YEAR_FROM
+		episodeFull.yearTo == YEAR_TO
+		episodeFull.usAirDate == US_AIR_DATE
+		episodeFull.finalScriptDate == FINAL_SCRIPT_DATE
+		episodeFull.writers.size() == episode.writers.size()
+		episodeFull.teleplayAuthors.size() == episode.teleplayAuthors.size()
+		episodeFull.storyAuthors.size() == episode.storyAuthors.size()
+		episodeFull.directors.size() == episode.directors.size()
+		episodeFull.performers.size() == episode.performers.size()
+		episodeFull.stuntPerformers.size() == episode.stuntPerformers.size()
+		episodeFull.standInPerformers.size() == episode.standInPerformers.size()
+		episodeFull.characters.size() == episode.characters.size()
 	}
 
 }

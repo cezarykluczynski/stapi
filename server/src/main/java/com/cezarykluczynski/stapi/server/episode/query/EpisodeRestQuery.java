@@ -30,7 +30,7 @@ public class EpisodeRestQuery {
 	}
 
 	public Page<Episode> query(EpisodeRestBeanParams episodeRestBeanParams) {
-		EpisodeRequestDTO episodeRequestDTO = episodeRestMapper.map(episodeRestBeanParams);
+		EpisodeRequestDTO episodeRequestDTO = episodeRestMapper.mapBase(episodeRestBeanParams);
 		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(episodeRestBeanParams);
 		return episodeRepository.findMatching(episodeRequestDTO, pageRequest);
 	}

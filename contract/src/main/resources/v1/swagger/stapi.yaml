@@ -31,6 +31,8 @@ paths:
     $ref: ./company/path/companySearch.path.yaml
   /episode:
     $ref: ./episode/path/episode.path.yaml
+  /episode/search:
+    $ref: ./episode/path/episodeSearch.path.yaml
   /movie:
     $ref: ./movie/path/movie.path.yaml
   /performer:
@@ -104,12 +106,16 @@ definitions:
     $ref: ./company/entity/companyBaseResponse.yaml
   CompanyFullResponse:
     $ref: ./company/entity/companyFullResponse.yaml
-  Episode:
-    $ref: ./episode/entity/episode.yaml
   EpisodeHeader:
     $ref: ./episode/entity/episodeHeader.yaml
-  EpisodeResponse:
-    $ref: ./episode/entity/episodeResponse.yaml
+  EpisodeBase:
+    $ref: ./episode/entity/episodeBase.yaml
+  EpisodeFull:
+    $ref: ./episode/entity/episodeFull.yaml
+  EpisodeBaseResponse:
+    $ref: ./episode/entity/episodeBaseResponse.yaml
+  EpisodeFullResponse:
+    $ref: ./episode/entity/episodeFullResponse.yaml
   Error:
     $ref: ./common/entity/error.yaml
   Movie:

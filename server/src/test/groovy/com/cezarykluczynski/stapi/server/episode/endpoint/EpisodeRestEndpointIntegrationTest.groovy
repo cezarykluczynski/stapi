@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.episode.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeBaseResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeFullResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import spock.lang.Requires
@@ -16,25 +17,23 @@ class EpisodeRestEndpointIntegrationTest extends AbstractEpisodeEndpointIntegrat
 
 	void "episode has stardate and year set"() {
 		when:
-		EpisodeResponse episodeResponse = stapiRestClient.episodeApi.episodePost(null, null, null, null, 'Bem', null,
+		EpisodeBaseResponse episodeBaseResponse = stapiRestClient.episodeApi.episodeSearchPost(null, null, null, 'Bem', null,
 				null, null, null, null, null, null, null, null, null, null, null)
 
 		then:
-		episodeResponse.episodes.size() == 1
-		episodeResponse.episodes[0].stardateFrom != null
-		episodeResponse.episodes[0].stardateTo != null
-		episodeResponse.episodes[0].yearFrom != null
-		episodeResponse.episodes[0].yearTo != null
+		episodeBaseResponse.episodes.size() == 1
+		episodeBaseResponse.episodes[0].stardateFrom != null
+		episodeBaseResponse.episodes[0].stardateTo != null
+		episodeBaseResponse.episodes[0].yearFrom != null
+		episodeBaseResponse.episodes[0].yearTo != null
 	}
 
-	void "episodes could be found by guid"() {
+	void "episodes could be found by GUID"() {
 		when:
-		EpisodeResponse episodeResponse = stapiRestClient.episodeApi.episodePost(null, null, null, 'EPMA0000001458',
-				null, null, null, null, null, null, null, null, null, null, null, null, null)
+		EpisodeFullResponse episodeResponse = stapiRestClient.episodeApi.episodeGet('EPMA0000001458')
 
 		then:
-		episodeResponse.episodes.size() == 1
-		episodeResponse.episodes[0].title == 'All Good Things...'
+		episodeResponse.episode.title == 'All Good Things...'
 	}
 
 }

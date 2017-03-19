@@ -1,0 +1,93 @@
+get:
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/EpisodeBaseResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - Episode
+post:
+  consumes:
+    - application/x-www-form-urlencoded
+  producers:
+    - application/json
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+    - name: sort
+      type: string
+      in: query
+    - name: title
+      in: formData
+      type: string
+    - name: seasonNumberFrom
+      in: formData
+      type: integer
+      format: int32
+    - name: seasonNumberTo
+      in: formData
+      type: integer
+      format: int32
+    - name: productionSerialNumber
+      in: formData
+      type: string
+    - name: featureLength
+      in: formData
+      type: boolean
+    - name: stardateFrom
+      in: formData
+      type: number
+      format: float
+    - name: stardateTo
+      in: formData
+      type: number
+      format: float
+    - name: usAirDateFrom
+      in: formData
+      type: string
+      format: date
+    - name: yearFrom
+      in: formData
+      type: integer
+      format: int32
+    - name: yearTo
+      in: formData
+      type: integer
+      format: int32
+    - name: usAirDateTo
+      in: formData
+      type: string
+      format: date
+    - name: finalScriptDateFrom
+      in: formData
+      type: string
+      format: date
+    - name: finalScriptDateTo
+      in: formData
+      type: string
+      format: date
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/EpisodeBaseResponse'
+  tags:
+    - Episode
+

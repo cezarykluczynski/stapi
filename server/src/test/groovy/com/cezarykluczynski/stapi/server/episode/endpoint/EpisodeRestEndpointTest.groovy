@@ -1,12 +1,16 @@
 package com.cezarykluczynski.stapi.server.episode.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeBaseResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeFullResponse
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractRestEndpointTest
 import com.cezarykluczynski.stapi.server.episode.dto.EpisodeRestBeanParams
 import com.cezarykluczynski.stapi.server.episode.reader.EpisodeRestReader
 
 class EpisodeRestEndpointTest extends AbstractRestEndpointTest {
+
+	private static final String GUID = 'GUID'
+	private static final String TITLE = 'TITLE'
 
 	private EpisodeRestReader episodeRestReaderMock
 
@@ -19,13 +23,25 @@ class EpisodeRestEndpointTest extends AbstractRestEndpointTest {
 
 	void "passes get call to EpisodeRestReader"() {
 		given:
+		EpisodeFullResponse episodeFullResponse = Mock(EpisodeFullResponse)
+
+		when:
+		EpisodeFullResponse episodeFullResponseOutput = episodeRestEndpoint.getEpisode(GUID)
+
+		then:
+		1 * episodeRestReaderMock.readFull(GUID) >> episodeFullResponse
+		episodeFullResponseOutput == episodeFullResponse
+	}
+
+	void "passes search get call to EpisodeRestReader"() {
+		given:
 		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams)
 		pageAwareBeanParams.pageNumber >> PAGE_NUMBER
 		pageAwareBeanParams.pageSize >> PAGE_SIZE
-		EpisodeResponse episodeResponse = Mock(EpisodeResponse)
+		EpisodeBaseResponse episodeResponse = Mock(EpisodeBaseResponse)
 
 		when:
-		EpisodeResponse episodeResponseOutput = episodeRestEndpoint.getEpisodes(pageAwareBeanParams)
+		EpisodeBaseResponse episodeResponseOutput = episodeRestEndpoint.searchEpisode(pageAwareBeanParams)
 
 		then:
 		1 * episodeRestReaderMock.readBase(_ as EpisodeRestBeanParams) >> { EpisodeRestBeanParams episodeRestBeanParams ->
@@ -36,16 +52,17 @@ class EpisodeRestEndpointTest extends AbstractRestEndpointTest {
 		episodeResponseOutput == episodeResponse
 	}
 
-	void "passes post call to EpisodeRestReader"() {
+	void "passes search post call to EpisodeRestReader"() {
 		given:
-		EpisodeRestBeanParams episodeRestBeanParams = new EpisodeRestBeanParams()
-		EpisodeResponse episodeResponse = Mock(EpisodeResponse)
+		EpisodeRestBeanParams episodeRestBeanParams = new EpisodeRestBeanParams(title: TITLE)
+		EpisodeBaseResponse episodeResponse = Mock(EpisodeBaseResponse)
 
 		when:
-		EpisodeResponse episodeResponseOutput = episodeRestEndpoint.searchEpisodes(episodeRestBeanParams)
+		EpisodeBaseResponse episodeResponseOutput = episodeRestEndpoint.searchEpisode(episodeRestBeanParams)
 
 		then:
 		1 * episodeRestReaderMock.readBase(episodeRestBeanParams as EpisodeRestBeanParams) >> { EpisodeRestBeanParams params ->
+			assert params.title == TITLE
 			episodeResponse
 		}
 		episodeResponseOutput == episodeResponse

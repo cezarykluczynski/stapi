@@ -1,0 +1,4 @@
+type: object
+properties:
+  episode:
+    $ref: '#/definitions/EpisodeFull'

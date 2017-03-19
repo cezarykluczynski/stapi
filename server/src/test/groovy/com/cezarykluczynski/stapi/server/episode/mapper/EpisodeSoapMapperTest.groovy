@@ -1,13 +1,14 @@
 package com.cezarykluczynski.stapi.server.episode.mapper
 
 import com.cezarykluczynski.stapi.client.v1.soap.DateRange
-import com.cezarykluczynski.stapi.client.v1.soap.Episode as SOAPEpisode
-import com.cezarykluczynski.stapi.client.v1.soap.EpisodeRequest
+import com.cezarykluczynski.stapi.client.v1.soap.EpisodeBase
+import com.cezarykluczynski.stapi.client.v1.soap.EpisodeBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.EpisodeFull
+import com.cezarykluczynski.stapi.client.v1.soap.EpisodeFullRequest
 import com.cezarykluczynski.stapi.client.v1.soap.FloatRange
 import com.cezarykluczynski.stapi.client.v1.soap.IntegerRange
-import com.cezarykluczynski.stapi.client.v1.soap.SeriesHeader
 import com.cezarykluczynski.stapi.model.episode.dto.EpisodeRequestDTO
-import com.cezarykluczynski.stapi.model.episode.entity.Episode as DBEpisode
+import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers
 
@@ -19,10 +20,9 @@ class EpisodeSoapMapperTest extends AbstractEpisodeMapperTest {
 		episodeSoapMapper = Mappers.getMapper(EpisodeSoapMapper)
 	}
 
-	void "maps SOAP EpisodeRequest to EpisodeRequestDTO"() {
+	void "maps SOAP EpisodeBaseRequest to EpisodeRequestDTO"() {
 		given:
-		EpisodeRequest episodeRequest = new EpisodeRequest(
-				guid: GUID,
+		EpisodeBaseRequest episodeRequest = new EpisodeBaseRequest(
 				title: TITLE,
 				seasonNumber: new IntegerRange(
 						from: SEASON_NUMBER_FROM,
@@ -53,10 +53,9 @@ class EpisodeSoapMapperTest extends AbstractEpisodeMapperTest {
 		)
 
 		when:
-		EpisodeRequestDTO episodeRequestDTO = episodeSoapMapper.map episodeRequest
+		EpisodeRequestDTO episodeRequestDTO = episodeSoapMapper.mapBase episodeRequest
 
 		then:
-		episodeRequestDTO.guid == GUID
 		episodeRequestDTO.title == TITLE
 		episodeRequestDTO.seasonNumberFrom == SEASON_NUMBER_FROM
 		episodeRequestDTO.seasonNumberTo == SEASON_NUMBER_TO
@@ -70,38 +69,75 @@ class EpisodeSoapMapperTest extends AbstractEpisodeMapperTest {
 		episodeRequestDTO.finalScriptDateTo == FINAL_SCRIPT_DATE_TO
 	}
 
-	void "maps DB entity to SOAP entity"() {
+	void "maps SOAP EpisodeFullRequest to EpisodeBaseRequestDTO"() {
 		given:
-		DBEpisode dBEpisode = createEpisode()
+		EpisodeFullRequest episodeRequest = new EpisodeFullRequest(guid: GUID)
 
 		when:
-		SOAPEpisode soapEpisode = episodeSoapMapper.map(Lists.newArrayList(dBEpisode))[0]
+		EpisodeRequestDTO episodeRequestDTO = episodeSoapMapper.mapFull episodeRequest
 
 		then:
-		soapEpisode.guid == GUID
-		soapEpisode.series instanceof SeriesHeader
-		soapEpisode.title == TITLE
-		soapEpisode.titleGerman == TITLE_GERMAN
-		soapEpisode.titleItalian == TITLE_ITALIAN
-		soapEpisode.titleJapanese == TITLE_JAPANESE
-		soapEpisode.seasonNumber == SEASON_NUMBER
-		soapEpisode.episodeNumber == EPISODE_NUMBER
-		soapEpisode.productionSerialNumber == PRODUCTION_SERIAL_NUMBER
-		soapEpisode.featureLength == FEATURE_LENGTH
-		soapEpisode.stardateFrom == STARDATE_FROM
-		soapEpisode.stardateTo == STARDATE_TO
-		soapEpisode.yearFrom.toInteger() == YEAR_FROM
-		soapEpisode.yearTo.toInteger() == YEAR_TO
-		soapEpisode.usAirDate == US_AIR_DATE_XML
-		soapEpisode.finalScriptDate == FINAL_SCRIPT_DATE_XML
-		soapEpisode.writerHeaders.size() == dBEpisode.writers.size()
-		soapEpisode.teleplayAuthorHeaders.size() == dBEpisode.teleplayAuthors.size()
-		soapEpisode.storyAuthorHeaders.size() == dBEpisode.storyAuthors.size()
-		soapEpisode.directorHeaders.size() == dBEpisode.directors.size()
-		soapEpisode.performerHeaders.size() == dBEpisode.performers.size()
-		soapEpisode.stuntPerformerHeaders.size() == dBEpisode.stuntPerformers.size()
-		soapEpisode.standInPerformerHeaders.size() == dBEpisode.standInPerformers.size()
-		soapEpisode.characterHeaders.size() == dBEpisode.characters.size()
+		episodeRequestDTO.guid == GUID
+	}
+
+	void "maps DB entity to base SOAP entity"() {
+		given:
+		Episode episode = createEpisode()
+
+		when:
+		EpisodeBase episodeBase = episodeSoapMapper.mapBase(Lists.newArrayList(episode))[0]
+
+		then:
+		episodeBase.guid == GUID
+		episodeBase.series != null
+		episodeBase.title == TITLE
+		episodeBase.titleGerman == TITLE_GERMAN
+		episodeBase.titleItalian == TITLE_ITALIAN
+		episodeBase.titleJapanese == TITLE_JAPANESE
+		episodeBase.seasonNumber == SEASON_NUMBER
+		episodeBase.episodeNumber == EPISODE_NUMBER
+		episodeBase.productionSerialNumber == PRODUCTION_SERIAL_NUMBER
+		episodeBase.featureLength == FEATURE_LENGTH
+		episodeBase.stardateFrom == STARDATE_FROM
+		episodeBase.stardateTo == STARDATE_TO
+		episodeBase.yearFrom.toInteger() == YEAR_FROM
+		episodeBase.yearTo.toInteger() == YEAR_TO
+		episodeBase.usAirDate == US_AIR_DATE_XML
+		episodeBase.finalScriptDate == FINAL_SCRIPT_DATE_XML
+	}
+
+	void "maps DB entity to full SOAP entity"() {
+		given:
+		Episode episode = createEpisode()
+
+		when:
+		EpisodeFull episodeFull = episodeSoapMapper.mapFull(episode)
+
+		then:
+		episodeFull.guid == GUID
+		episodeFull.series != null
+		episodeFull.title == TITLE
+		episodeFull.titleGerman == TITLE_GERMAN
+		episodeFull.titleItalian == TITLE_ITALIAN
+		episodeFull.titleJapanese == TITLE_JAPANESE
+		episodeFull.seasonNumber == SEASON_NUMBER
+		episodeFull.episodeNumber == EPISODE_NUMBER
+		episodeFull.productionSerialNumber == PRODUCTION_SERIAL_NUMBER
+		episodeFull.featureLength == FEATURE_LENGTH
+		episodeFull.stardateFrom == STARDATE_FROM
+		episodeFull.stardateTo == STARDATE_TO
+		episodeFull.yearFrom.toInteger() == YEAR_FROM
+		episodeFull.yearTo.toInteger() == YEAR_TO
+		episodeFull.usAirDate == US_AIR_DATE_XML
+		episodeFull.finalScriptDate == FINAL_SCRIPT_DATE_XML
+		episodeFull.writers.size() == episode.writers.size()
+		episodeFull.teleplayAuthors.size() == episode.teleplayAuthors.size()
+		episodeFull.storyAuthors.size() == episode.storyAuthors.size()
+		episodeFull.directors.size() == episode.directors.size()
+		episodeFull.performers.size() == episode.performers.size()
+		episodeFull.stuntPerformers.size() == episode.stuntPerformers.size()
+		episodeFull.standInPerformers.size() == episode.standInPerformers.size()
+		episodeFull.characters.size() == episode.characters.size()
 	}
 
 }

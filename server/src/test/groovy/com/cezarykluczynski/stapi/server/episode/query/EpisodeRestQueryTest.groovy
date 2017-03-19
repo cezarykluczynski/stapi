@@ -40,7 +40,7 @@ class EpisodeRestQueryTest extends Specification {
 		Page pageOutput = episodeRestQuery.query(episodeRestBeanParams)
 
 		then:
-		1 * episodeRestMapperMock.map(episodeRestBeanParams) >> episodeRequestDTO
+		1 * episodeRestMapperMock.mapBase(episodeRestBeanParams) >> episodeRequestDTO
 		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(episodeRestBeanParams) >> pageRequest
 		1 * episodeRepositoryMock.findMatching(episodeRequestDTO, pageRequest) >> page
 		pageOutput == page

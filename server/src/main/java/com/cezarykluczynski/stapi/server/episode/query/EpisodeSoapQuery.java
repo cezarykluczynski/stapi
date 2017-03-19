@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.episode.query;
 
-import com.cezarykluczynski.stapi.client.v1.soap.EpisodeRequest;
+import com.cezarykluczynski.stapi.client.v1.soap.EpisodeBaseRequest;
+import com.cezarykluczynski.stapi.client.v1.soap.EpisodeFullRequest;
 import com.cezarykluczynski.stapi.model.episode.dto.EpisodeRequestDTO;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.episode.repository.EpisodeRepository;
@@ -28,10 +29,15 @@ public class EpisodeSoapQuery {
 		this.episodeRepository = episodeRepository;
 	}
 
-	public Page<Episode> query(EpisodeRequest episodeRequest) {
-		EpisodeRequestDTO episodeRequestDTO = episodeSoapMapper.map(episodeRequest);
-		PageRequest pageRequest = pageMapper.fromRequestPageToPageRequest(episodeRequest.getPage());
+	public Page<Episode> query(EpisodeBaseRequest episodeBaseRequest) {
+		EpisodeRequestDTO episodeRequestDTO = episodeSoapMapper.mapBase(episodeBaseRequest);
+		PageRequest pageRequest = pageMapper.fromRequestPageToPageRequest(episodeBaseRequest.getPage());
 		return episodeRepository.findMatching(episodeRequestDTO, pageRequest);
+	}
+
+	public Page<Episode> query(EpisodeFullRequest episodeFullRequest) {
+		EpisodeRequestDTO episodeRequestDTO = episodeSoapMapper.mapFull(episodeFullRequest);
+		return episodeRepository.findMatching(episodeRequestDTO, pageMapper.getDefaultPageRequest());
 	}
 
 }

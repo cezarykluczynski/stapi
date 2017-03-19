@@ -5,4 +5,4 @@ properties:
   episodes:
     type: array
     items:
-      $ref: '#/definitions/Episode'
+      $ref: '#/definitions/EpisodeBase'

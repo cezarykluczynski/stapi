@@ -1,9 +1,11 @@
 package com.cezarykluczynski.stapi.server.episode.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.Episode as RESTEpisode
-import com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeBase
+import com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeBaseResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeFull
+import com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
-import com.cezarykluczynski.stapi.model.episode.entity.Episode as DBEpisode
+import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.episode.dto.EpisodeRestBeanParams
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeRestMapper
@@ -31,24 +33,46 @@ class EpisodeRestReaderTest extends Specification {
 		episodeRestReader = new EpisodeRestReader(episodeRestQueryBuilderMock, episodeRestMapperMock, pageMapperMock)
 	}
 
-	void "gets database entities and puts them into EpisodeResponse"() {
+	void "passed request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		List<DBEpisode> dbEpisodeList = Lists.newArrayList()
-		Page<DBEpisode> dbEpisodePage = Mock(Page)
-		dbEpisodePage.content >> dbEpisodeList
-		List<RESTEpisode> soapEpisodeList = Lists.newArrayList(new RESTEpisode(guid: GUID))
-		EpisodeRestBeanParams seriesRestBeanParams = Mock(EpisodeRestBeanParams)
+		EpisodeRestBeanParams episodeRestBeanParams = Mock(EpisodeRestBeanParams)
+		List<EpisodeBase> restEpisodeList = Lists.newArrayList(Mock(EpisodeBase))
+		List<Episode> episodeList = Lists.newArrayList(Mock(Episode))
+		Page<Episode> episodePage = Mock(Page)
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		EpisodeResponse episodeResponse = episodeRestReader.readBase(seriesRestBeanParams)
+		EpisodeBaseResponse episodeResponseOutput = episodeRestReader.readBase(episodeRestBeanParams)
 
 		then:
-		1 * episodeRestQueryBuilderMock.query(seriesRestBeanParams) >> dbEpisodePage
-		1 * pageMapperMock.fromPageToRestResponsePage(dbEpisodePage) >> responsePage
-		1 * episodeRestMapperMock.map(dbEpisodeList) >> soapEpisodeList
-		episodeResponse.episodes[0].guid == GUID
-		episodeResponse.page == responsePage
+		1 * episodeRestQueryBuilderMock.query(episodeRestBeanParams) >> episodePage
+		1 * pageMapperMock.fromPageToRestResponsePage(episodePage) >> responsePage
+		1 * episodePage.content >> episodeList
+		1 * episodeRestMapperMock.mapBase(episodeList) >> restEpisodeList
+		0 * _
+		episodeResponseOutput.episodes == restEpisodeList
+		episodeResponseOutput.page == responsePage
+	}
+
+	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
+		given:
+		EpisodeFull episodeFull = Mock(EpisodeFull)
+		Episode episode = Mock(Episode)
+		List<Episode> episodeList = Lists.newArrayList(episode)
+		Page<Episode> episodePage = Mock(Page)
+
+		when:
+		EpisodeFullResponse episodeResponseOutput = episodeRestReader.readFull(GUID)
+
+		then:
+		1 * episodeRestQueryBuilderMock.query(_ as EpisodeRestBeanParams) >> { EpisodeRestBeanParams episodeRestBeanParams ->
+			assert episodeRestBeanParams.guid == GUID
+			episodePage
+		}
+		1 * episodePage.content >> episodeList
+		1 * episodeRestMapperMock.mapFull(episode) >> episodeFull
+		0 * _
+		episodeResponseOutput.episode == episodeFull
 	}
 
 }

@@ -14,12 +14,11 @@
 	<xs:import namespace="http://stapi.co/api/v1/soap/performer" schemaLocation="performer.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/series" schemaLocation="series.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/staff" schemaLocation="staff.xsd"/>
-	<xs:element name="EpisodeRequest">
+	<xs:element name="EpisodeBaseRequest">
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Request">
 					<xs:sequence>
-						<xs:element name="guid" type="xs:string" minOccurs="0"/>
 						<xs:element name="title" type="xs:string" minOccurs="0"/>
 						<xs:element name="seasonNumber" type="common:IntegerRange" minOccurs="0"/>
 						<xs:element name="episodeNumber" type="common:IntegerRange" minOccurs="0"/>
@@ -34,18 +33,38 @@
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="EpisodeResponse">
+	<xs:element name="EpisodeFullRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="guid" type="xs:string" minOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="EpisodeBaseResponse">
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Response">
 					<xs:sequence>
-						<xs:element name="episodes" type="episode:Episode" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="episodes" type="episode:EpisodeBase" minOccurs="0" maxOccurs="unbounded"/>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
-	<xs:complexType name="Episode">
+	<xs:element name="EpisodeFullResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="episode" type="episode:EpisodeFull"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="EpisodeHeader">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="title" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EpisodeBase">
 		<xs:sequence>
 			<xs:element name="guid" type="xs:string"/>
 			<xs:element name="series" type="series:SeriesHeader"/>
@@ -57,42 +76,56 @@
 			<xs:element name="episodeNumber" type="xs:int"/>
 			<xs:element name="productionSerialNumber" type="xs:string" minOccurs="0"/>
 			<xs:element name="featureLength" type="xs:boolean"/>
-			<xs:element name="stardate_from" type="xs:float" minOccurs="0"/>
-			<xs:element name="stardate_to" type="xs:float" minOccurs="0"/>
-			<xs:element name="year_from" type="xs:integer" minOccurs="0"/>
-			<xs:element name="year_to" type="xs:integer" minOccurs="0"/>
+			<xs:element name="stardateFrom" type="xs:float" minOccurs="0"/>
+			<xs:element name="stardateTo" type="xs:float" minOccurs="0"/>
+			<xs:element name="yearFrom" type="xs:integer" minOccurs="0"/>
+			<xs:element name="yearTo" type="xs:integer" minOccurs="0"/>
+			<xs:element name="usAirDate" type="xs:date" minOccurs="0"/>
+			<xs:element name="finalScriptDate" type="xs:date" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="EpisodeFull">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="series" type="series:SeriesHeader"/>
+			<xs:element name="title" type="xs:string"/>
+			<xs:element name="titleGerman" type="xs:string" minOccurs="0"/>
+			<xs:element name="titleItalian" type="xs:string" minOccurs="0"/>
+			<xs:element name="titleJapanese" type="xs:string" minOccurs="0"/>
+			<xs:element name="seasonNumber" type="xs:int"/>
+			<xs:element name="episodeNumber" type="xs:int"/>
+			<xs:element name="productionSerialNumber" type="xs:string" minOccurs="0"/>
+			<xs:element name="featureLength" type="xs:boolean"/>
+			<xs:element name="stardateFrom" type="xs:float" minOccurs="0"/>
+			<xs:element name="stardateTo" type="xs:float" minOccurs="0"/>
+			<xs:element name="yearFrom" type="xs:integer" minOccurs="0"/>
+			<xs:element name="yearTo" type="xs:integer" minOccurs="0"/>
 			<xs:element name="usAirDate" type="xs:date" minOccurs="0"/>
 			<xs:element name="finalScriptDate" type="xs:date" minOccurs="0"/>
 			<xs:sequence>
-				<xs:element name="writerHeaders" type="staff:StaffHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="writers" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="teleplayAuthorHeaders" type="staff:StaffHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="teleplayAuthors" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="storyAuthorHeaders" type="staff:StaffHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="storyAuthors" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="directorHeaders" type="staff:StaffHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="directors" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="performerHeaders" type="performer:PerformerHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="performers" type="performer:PerformerBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="stuntPerformerHeaders" type="performer:PerformerHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="stuntPerformers" type="performer:PerformerBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="standInPerformerHeaders" type="performer:PerformerHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="standInPerformers" type="performer:PerformerBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="characterHeaders" type="character:CharacterHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="characters" type="character:CharacterBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="EpisodeHeader">
-		<xs:sequence>
-			<xs:element name="guid" type="xs:string"/>
-			<xs:element name="title" type="xs:string"/>
 		</xs:sequence>
 	</xs:complexType>
 </xs:schema>

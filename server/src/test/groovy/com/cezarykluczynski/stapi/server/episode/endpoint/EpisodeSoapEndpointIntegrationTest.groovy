@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.server.episode.endpoint
 
 import com.cezarykluczynski.stapi.client.v1.soap.DateRange
-import com.cezarykluczynski.stapi.client.v1.soap.Episode
-import com.cezarykluczynski.stapi.client.v1.soap.EpisodeRequest
-import com.cezarykluczynski.stapi.client.v1.soap.EpisodeResponse
+import com.cezarykluczynski.stapi.client.v1.soap.EpisodeBase
+import com.cezarykluczynski.stapi.client.v1.soap.EpisodeBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.EpisodeBaseResponse
 import com.cezarykluczynski.stapi.client.v1.soap.RequestPage
 import com.cezarykluczynski.stapi.client.v1.soap.RequestSort
 import com.cezarykluczynski.stapi.client.v1.soap.RequestSortClause
@@ -28,15 +28,15 @@ class EpisodeSoapEndpointIntegrationTest extends AbstractEpisodeEndpointIntegrat
 
 	void "gets episode by title"() {
 		when:
-		EpisodeResponse episodeResponse = stapiSoapClient.episodePortType.getEpisodes(new EpisodeRequest(
+		EpisodeBaseResponse episodeBaseResponse = stapiSoapClient.episodePortType.getEpisodeBase(new EpisodeBaseRequest(
 				title: 'All Good Things...'
 		))
-		List<Episode> episodeList = episodeResponse.episodes
+		List<EpisodeBase> episodeBaseList = episodeBaseResponse.episodes
 
 		then:
-		episodeList.size() == 1
-		episodeList[0].title == 'All Good Things...'
-		episodeList[0].series.title == 'Star Trek: The Next Generation'
+		episodeBaseList.size() == 1
+		episodeBaseList[0].title == 'All Good Things...'
+		episodeBaseList[0].series.title == 'Star Trek: The Next Generation'
 	}
 
 	@SuppressWarnings('ClosureAsLastMethodParameter')
@@ -46,7 +46,7 @@ class EpisodeSoapEndpointIntegrationTest extends AbstractEpisodeEndpointIntegrat
 		Integer pageSize = 100
 
 		when:
-		EpisodeResponse episodeResponse = stapiSoapClient.episodePortType.getEpisodes(new EpisodeRequest(
+		EpisodeBaseResponse episodeResponse = stapiSoapClient.episodePortType.getEpisodeBase(new EpisodeBaseRequest(
 				page: new RequestPage(
 						pageNumber: pageNumber,
 						pageSize: pageSize
@@ -60,14 +60,14 @@ class EpisodeSoapEndpointIntegrationTest extends AbstractEpisodeEndpointIntegrat
 								new RequestSortClause(
 										name: 'usAirDate',
 										direction: RequestSortDirectionEnum.ASC)))))
-		List<Episode> episodeList = episodeResponse.episodes
+		List<EpisodeBase> episodeBaseList = episodeResponse.episodes
 
 		then:
 		episodeResponse.page.pageNumber == pageNumber
 		episodeResponse.page.pageSize == pageSize
-		episodeList.size() == 52
-		episodeList.stream().filter({ episode -> episode.series.title == 'Star Trek: Deep Space Nine' }).collect(Collectors.toList()).size() == 26
-		episodeList.stream().filter({ episode -> episode.series.title == 'Star Trek: Voyager' }).collect(Collectors.toList()).size() == 26
+		episodeBaseList.size() == 52
+		episodeBaseList.stream().filter({ episode -> episode.series.title == 'Star Trek: Deep Space Nine' }).collect(Collectors.toList()).size() == 26
+		episodeBaseList.stream().filter({ episode -> episode.series.title == 'Star Trek: Voyager' }).collect(Collectors.toList()).size() == 26
 	}
 
 }

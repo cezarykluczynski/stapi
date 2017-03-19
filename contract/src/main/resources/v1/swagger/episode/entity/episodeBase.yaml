@@ -1,0 +1,38 @@
+type: object
+properties:
+  guid:
+    type: string
+  title:
+    type: string
+  titleGerman:
+    type: string
+  titleItalian:
+    type: string
+  titleJapanese:
+    type: string
+  series:
+    $ref: ./series/entity/seriesHeader.yaml
+  seasonNumber:
+    type: integer
+  episodeNumber:
+    type: integer
+  productionSerialNumber:
+    type: string
+  featureLength:
+    type: boolean
+  stardateFrom:
+    type: number
+    format: float
+  stardateTo:
+    type: number
+    format: float
+  yearFrom:
+    type: integer
+  yearTo:
+    type: integer
+  usAirDate:
+    type: string
+    format: date
+  finalScriptDate:
+    type: string
+    format: date

@@ -1,10 +1,13 @@
 package com.cezarykluczynski.stapi.server.episode.reader
 
-import com.cezarykluczynski.stapi.client.v1.soap.Episode as SOAPEpisode
-import com.cezarykluczynski.stapi.client.v1.soap.EpisodeRequest
-import com.cezarykluczynski.stapi.client.v1.soap.EpisodeResponse
+import com.cezarykluczynski.stapi.client.v1.soap.EpisodeBase
+import com.cezarykluczynski.stapi.client.v1.soap.EpisodeBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.EpisodeBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.EpisodeFull
+import com.cezarykluczynski.stapi.client.v1.soap.EpisodeFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.EpisodeFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
-import com.cezarykluczynski.stapi.model.episode.entity.Episode as DBEpisode
+import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeSoapMapper
 import com.cezarykluczynski.stapi.server.episode.query.EpisodeSoapQuery
@@ -31,24 +34,41 @@ class EpisodeSoapReaderTest extends Specification {
 		episodeSoapReader = new EpisodeSoapReader(episodeSoapQueryBuilderMock, episodeSoapMapperMock, pageMapperMock)
 	}
 
-	void "gets database entities and puts them into EpisodeResponse"() {
+	void "passed base request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		List<DBEpisode> dbEpisodeList = Lists.newArrayList()
-		Page<DBEpisode> dbEpisodePage = Mock(Page)
-		dbEpisodePage.content >> dbEpisodeList
-		List<SOAPEpisode> soapEpisodeList = Lists.newArrayList(new SOAPEpisode(guid: GUID))
-		EpisodeRequest episodeRequest = Mock(EpisodeRequest)
+		List<Episode> episodeList = Lists.newArrayList()
+		Page<Episode> episodePage = Mock(Page)
+		List<EpisodeBase> soapEpisodeList = Lists.newArrayList(new EpisodeBase(guid: GUID))
+		EpisodeBaseRequest episodeBaseRequest = Mock(EpisodeBaseRequest)
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		EpisodeResponse episodeResponse = episodeSoapReader.readBase(episodeRequest)
+		EpisodeBaseResponse episodeResponse = episodeSoapReader.readBase(episodeBaseRequest)
 
 		then:
-		1 * episodeSoapQueryBuilderMock.query(episodeRequest) >> dbEpisodePage
-		1 * pageMapperMock.fromPageToSoapResponsePage(dbEpisodePage) >> responsePage
-		1 * episodeSoapMapperMock.map(dbEpisodeList) >> soapEpisodeList
+		1 * episodeSoapQueryBuilderMock.query(episodeBaseRequest) >> episodePage
+		1 * episodePage.content >> episodeList
+		1 * pageMapperMock.fromPageToSoapResponsePage(episodePage) >> responsePage
+		1 * episodeSoapMapperMock.mapBase(episodeList) >> soapEpisodeList
 		episodeResponse.episodes[0].guid == GUID
 		episodeResponse.page == responsePage
+	}
+
+	void "passed full request to queryBuilder, then to mapper, and returns result"() {
+		given:
+		EpisodeFull episodeFull = new EpisodeFull(guid: GUID)
+		Episode episode = Mock(Episode)
+		Page<Episode> episodePage = Mock(Page)
+		EpisodeFullRequest episodeFullRequest = Mock(EpisodeFullRequest)
+
+		when:
+		EpisodeFullResponse episodeFullResponse = episodeSoapReader.readFull(episodeFullRequest)
+
+		then:
+		1 * episodeSoapQueryBuilderMock.query(episodeFullRequest) >> episodePage
+		1 * episodePage.content >> Lists.newArrayList(episode)
+		1 * episodeSoapMapperMock.mapFull(episode) >> episodeFull
+		episodeFullResponse.episode.guid == GUID
 	}
 
 }
