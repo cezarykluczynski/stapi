@@ -9,7 +9,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.EpisodeFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
 import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeSoapMapper
+import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeBaseSoapMapper
+import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeFullSoapMapper
 import com.cezarykluczynski.stapi.server.episode.query.EpisodeSoapQuery
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
@@ -21,7 +22,9 @@ class EpisodeSoapReaderTest extends Specification {
 
 	private EpisodeSoapQuery episodeSoapQueryBuilderMock
 
-	private EpisodeSoapMapper episodeSoapMapperMock
+	private EpisodeBaseSoapMapper episodeBaseSoapMapperMock
+
+	private EpisodeFullSoapMapper episodeFullSoapMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -29,9 +32,10 @@ class EpisodeSoapReaderTest extends Specification {
 
 	void setup() {
 		episodeSoapQueryBuilderMock = Mock(EpisodeSoapQuery)
-		episodeSoapMapperMock = Mock(EpisodeSoapMapper)
+		episodeBaseSoapMapperMock = Mock(EpisodeBaseSoapMapper)
+		episodeFullSoapMapperMock = Mock(EpisodeFullSoapMapper)
 		pageMapperMock = Mock(PageMapper)
-		episodeSoapReader = new EpisodeSoapReader(episodeSoapQueryBuilderMock, episodeSoapMapperMock, pageMapperMock)
+		episodeSoapReader = new EpisodeSoapReader(episodeSoapQueryBuilderMock, episodeBaseSoapMapperMock, episodeFullSoapMapperMock, pageMapperMock)
 	}
 
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
@@ -49,7 +53,7 @@ class EpisodeSoapReaderTest extends Specification {
 		1 * episodeSoapQueryBuilderMock.query(episodeBaseRequest) >> episodePage
 		1 * episodePage.content >> episodeList
 		1 * pageMapperMock.fromPageToSoapResponsePage(episodePage) >> responsePage
-		1 * episodeSoapMapperMock.mapBase(episodeList) >> soapEpisodeList
+		1 * episodeBaseSoapMapperMock.mapBase(episodeList) >> soapEpisodeList
 		episodeResponse.episodes[0].guid == GUID
 		episodeResponse.page == responsePage
 	}
@@ -67,7 +71,7 @@ class EpisodeSoapReaderTest extends Specification {
 		then:
 		1 * episodeSoapQueryBuilderMock.query(episodeFullRequest) >> episodePage
 		1 * episodePage.content >> Lists.newArrayList(episode)
-		1 * episodeSoapMapperMock.mapFull(episode) >> episodeFull
+		1 * episodeFullSoapMapperMock.mapFull(episode) >> episodeFull
 		episodeFullResponse.episode.guid == GUID
 	}
 

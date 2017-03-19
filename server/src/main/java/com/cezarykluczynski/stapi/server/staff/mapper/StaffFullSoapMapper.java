@@ -1,39 +1,22 @@
 package com.cezarykluczynski.stapi.server.staff.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.soap.StaffBaseRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.StaffFull;
 import com.cezarykluczynski.stapi.client.v1.soap.StaffFullRequest;
 import com.cezarykluczynski.stapi.model.staff.dto.StaffRequestDTO;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
-import com.cezarykluczynski.stapi.server.character.mapper.CharacterSoapMapper;
+import com.cezarykluczynski.stapi.server.character.mapper.CharacterBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.DateMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.EnumMapper;
-import com.cezarykluczynski.stapi.server.common.mapper.RequestSortSoapMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
-import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeHeaderSoapMapper;
+import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.movie.mapper.MovieHeaderSoapMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-import java.util.List;
-
-@Mapper(config = MapstructConfiguration.class, uses = {CharacterSoapMapper.class, DateMapper.class, EnumMapper.class, EpisodeHeaderSoapMapper.class,
-		MovieHeaderSoapMapper.class, RequestSortSoapMapper.class})
-public interface StaffSoapMapper {
-
-	@Mappings({
-			@Mapping(target = "guid", ignore = true),
-			@Mapping(source = "dateOfBirth.from", target = "dateOfBirthFrom"),
-			@Mapping(source = "dateOfBirth.to", target = "dateOfBirthTo"),
-			@Mapping(source = "dateOfDeath.from", target = "dateOfDeathFrom"),
-			@Mapping(source = "dateOfDeath.to", target = "dateOfDeathTo")
-	})
-	StaffRequestDTO mapBase(StaffBaseRequest staffBaseRequest);
-
-	com.cezarykluczynski.stapi.client.v1.soap.StaffBase mapBase(Staff staff);
-
-	List<com.cezarykluczynski.stapi.client.v1.soap.StaffBase> mapBase(List<Staff> staffList);
+@Mapper(config = MapstructConfiguration.class, uses = {CharacterBaseSoapMapper.class, DateMapper.class, EnumMapper.class, EpisodeBaseSoapMapper.class,
+		MovieHeaderSoapMapper.class})
+public interface StaffFullSoapMapper {
 
 	@Mappings({
 			@Mapping(target = "name", ignore = true),
@@ -104,19 +87,6 @@ public interface StaffSoapMapper {
 	})
 	StaffRequestDTO mapFull(StaffFullRequest staffFullRequest);
 
-	@Mappings({
-			@Mapping(target = "writtenEpisodeHeaders", source = "writtenEpisodes"),
-			@Mapping(target = "teleplayAuthoredEpisodeHeaders", source = "teleplayAuthoredEpisodes"),
-			@Mapping(target = "storyAuthoredEpisodeHeaders", source = "storyAuthoredEpisodes"),
-			@Mapping(target = "directedEpisodeHeaders", source = "directedEpisodes"),
-			@Mapping(target = "episodeHeaders", source = "episodes"),
-			@Mapping(target = "writtenMovieHeaders", source = "writtenMovies"),
-			@Mapping(target = "screenplayAuthoredMovieHeaders", source = "screenplayAuthoredMovies"),
-			@Mapping(target = "storyAuthoredMovieHeaders", source = "storyAuthoredMovies"),
-			@Mapping(target = "directedMovieHeaders", source = "directedMovies"),
-			@Mapping(target = "producedMovieHeaders", source = "producedMovies"),
-			@Mapping(target = "movieHeaders", source = "movies")
-	})
 	StaffFull mapFull(Staff staffList);
 
 }

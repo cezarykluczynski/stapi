@@ -41,11 +41,11 @@ properties:
   performers:
     type: array
     items:
-      $ref: '#/definitions/PerformerHeader'
+      $ref: '#/definitions/PerformerBase'
   episodes:
     type: array
     items:
-      $ref: '#/definitions/EpisodeHeader'
+      $ref: '#/definitions/EpisodeBase'
   movies:
     type: array
     items:

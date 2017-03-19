@@ -7,7 +7,8 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.CharacterFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.server.character.dto.CharacterRestBeanParams
-import com.cezarykluczynski.stapi.server.character.mapper.CharacterRestMapper
+import com.cezarykluczynski.stapi.server.character.mapper.CharacterBaseRestMapper
+import com.cezarykluczynski.stapi.server.character.mapper.CharacterFullRestMapper
 import com.cezarykluczynski.stapi.server.character.query.CharacterRestQuery
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.google.common.collect.Lists
@@ -20,7 +21,9 @@ class CharacterRestReaderTest extends Specification {
 
 	private CharacterRestQuery characterRestQueryBuilderMock
 
-	private CharacterRestMapper characterRestMapperMock
+	private CharacterBaseRestMapper characterBaseRestMapperMock
+
+	private CharacterFullRestMapper characterFullRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -28,9 +31,11 @@ class CharacterRestReaderTest extends Specification {
 
 	void setup() {
 		characterRestQueryBuilderMock = Mock(CharacterRestQuery)
-		characterRestMapperMock = Mock(CharacterRestMapper)
+		characterBaseRestMapperMock = Mock(CharacterBaseRestMapper)
+		characterFullRestMapperMock = Mock(CharacterFullRestMapper)
 		pageMapperMock = Mock(PageMapper)
-		characterRestReader = new CharacterRestReader(characterRestQueryBuilderMock, characterRestMapperMock, pageMapperMock)
+		characterRestReader = new CharacterRestReader(characterRestQueryBuilderMock, characterBaseRestMapperMock, characterFullRestMapperMock,
+				pageMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
@@ -48,7 +53,7 @@ class CharacterRestReaderTest extends Specification {
 		1 * characterRestQueryBuilderMock.query(characterRestBeanParams) >> characterPage
 		1 * pageMapperMock.fromPageToRestResponsePage(characterPage) >> responsePage
 		1 * characterPage.content >> characterList
-		1 * characterRestMapperMock.mapBase(characterList) >> restCharacterList
+		1 * characterBaseRestMapperMock.mapBase(characterList) >> restCharacterList
 		0 * _
 		characterResponseOutput.characters == restCharacterList
 		characterResponseOutput.page == responsePage
@@ -70,7 +75,7 @@ class CharacterRestReaderTest extends Specification {
 			characterPage
 		}
 		1 * characterPage.content >> characterList
-		1 * characterRestMapperMock.mapFull(character) >> characterFull
+		1 * characterFullRestMapperMock.mapFull(character) >> characterFull
 		0 * _
 		characterResponseOutput.character == characterFull
 	}

@@ -8,7 +8,8 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
 import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.episode.dto.EpisodeRestBeanParams
-import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeRestMapper
+import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeBaseRestMapper
+import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeFullRestMapper
 import com.cezarykluczynski.stapi.server.episode.query.EpisodeRestQuery
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
@@ -20,7 +21,9 @@ class EpisodeRestReaderTest extends Specification {
 
 	private EpisodeRestQuery episodeRestQueryBuilderMock
 
-	private EpisodeRestMapper episodeRestMapperMock
+	private EpisodeBaseRestMapper episodeBaseRestMapperMock
+
+	private EpisodeFullRestMapper episodeFullRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -28,9 +31,10 @@ class EpisodeRestReaderTest extends Specification {
 
 	void setup() {
 		episodeRestQueryBuilderMock = Mock(EpisodeRestQuery)
-		episodeRestMapperMock = Mock(EpisodeRestMapper)
+		episodeBaseRestMapperMock = Mock(EpisodeBaseRestMapper)
+		episodeFullRestMapperMock = Mock(EpisodeFullRestMapper)
 		pageMapperMock = Mock(PageMapper)
-		episodeRestReader = new EpisodeRestReader(episodeRestQueryBuilderMock, episodeRestMapperMock, pageMapperMock)
+		episodeRestReader = new EpisodeRestReader(episodeRestQueryBuilderMock, episodeBaseRestMapperMock, episodeFullRestMapperMock, pageMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
@@ -48,7 +52,7 @@ class EpisodeRestReaderTest extends Specification {
 		1 * episodeRestQueryBuilderMock.query(episodeRestBeanParams) >> episodePage
 		1 * pageMapperMock.fromPageToRestResponsePage(episodePage) >> responsePage
 		1 * episodePage.content >> episodeList
-		1 * episodeRestMapperMock.mapBase(episodeList) >> restEpisodeList
+		1 * episodeBaseRestMapperMock.mapBase(episodeList) >> restEpisodeList
 		0 * _
 		episodeResponseOutput.episodes == restEpisodeList
 		episodeResponseOutput.page == responsePage
@@ -70,7 +74,7 @@ class EpisodeRestReaderTest extends Specification {
 			episodePage
 		}
 		1 * episodePage.content >> episodeList
-		1 * episodeRestMapperMock.mapFull(episode) >> episodeFull
+		1 * episodeFullRestMapperMock.mapFull(episode) >> episodeFull
 		0 * _
 		episodeResponseOutput.episode == episodeFull
 	}

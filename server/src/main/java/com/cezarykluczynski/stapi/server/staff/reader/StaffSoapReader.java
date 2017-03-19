@@ -8,7 +8,8 @@ import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
-import com.cezarykluczynski.stapi.server.staff.mapper.StaffSoapMapper;
+import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseSoapMapper;
+import com.cezarykluczynski.stapi.server.staff.mapper.StaffFullSoapMapper;
 import com.cezarykluczynski.stapi.server.staff.query.StaffSoapQuery;
 import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
@@ -19,13 +20,17 @@ public class StaffSoapReader implements BaseReader<StaffBaseRequest, StaffBaseRe
 
 	private StaffSoapQuery staffSoapQuery;
 
-	private StaffSoapMapper staffSoapMapper;
+	private StaffBaseSoapMapper staffBaseSoapMapper;
+
+	private StaffFullSoapMapper staffFullSoapMapper;
 
 	private PageMapper pageMapper;
 
-	public StaffSoapReader(StaffSoapQuery staffSoapQuery, StaffSoapMapper staffSoapMapper, PageMapper pageMapper) {
+	public StaffSoapReader(StaffSoapQuery staffSoapQuery, StaffBaseSoapMapper staffBaseSoapMapper, StaffFullSoapMapper staffFullSoapMapper,
+			PageMapper pageMapper) {
 		this.staffSoapQuery = staffSoapQuery;
-		this.staffSoapMapper = staffSoapMapper;
+		this.staffBaseSoapMapper = staffBaseSoapMapper;
+		this.staffFullSoapMapper = staffFullSoapMapper;
 		this.pageMapper = pageMapper;
 	}
 
@@ -34,7 +39,7 @@ public class StaffSoapReader implements BaseReader<StaffBaseRequest, StaffBaseRe
 		Page<Staff> staffPage = staffSoapQuery.query(input);
 		StaffBaseResponse staffResponse = new StaffBaseResponse();
 		staffResponse.setPage(pageMapper.fromPageToSoapResponsePage(staffPage));
-		staffResponse.getStaff().addAll(staffSoapMapper.mapBase(staffPage.getContent()));
+		staffResponse.getStaff().addAll(staffBaseSoapMapper.mapBase(staffPage.getContent()));
 		return staffResponse;
 	}
 
@@ -42,7 +47,7 @@ public class StaffSoapReader implements BaseReader<StaffBaseRequest, StaffBaseRe
 	public StaffFullResponse readFull(StaffFullRequest input) {
 		Page<Staff> staffPage = staffSoapQuery.query(input);
 		StaffFullResponse staffFullResponse = new StaffFullResponse();
-		staffFullResponse.setStaff(staffSoapMapper.mapFull(Iterables.getOnlyElement(staffPage.getContent(), null)));
+		staffFullResponse.setStaff(staffFullSoapMapper.mapFull(Iterables.getOnlyElement(staffPage.getContent(), null)));
 		return staffFullResponse;
 	}
 

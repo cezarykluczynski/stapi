@@ -2,19 +2,17 @@ package com.cezarykluczynski.stapi.server.performer.mapper
 
 import com.cezarykluczynski.stapi.client.v1.soap.PerformerBase
 import com.cezarykluczynski.stapi.client.v1.soap.PerformerBaseRequest
-import com.cezarykluczynski.stapi.client.v1.soap.PerformerFull
-import com.cezarykluczynski.stapi.client.v1.soap.PerformerFullRequest
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO
 import com.cezarykluczynski.stapi.model.performer.entity.Performer as DBPerformer
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers
 
-class PerformerSoapMapperTest extends AbstractPerformerMapperTest {
+class PerformerBaseSoapMapperTest extends AbstractPerformerMapperTest {
 
-	private PerformerSoapMapper performerSoapMapper
+	private PerformerBaseSoapMapper performerBaseSoapMapper
 
 	void setup() {
-		performerSoapMapper = Mappers.getMapper(PerformerSoapMapper)
+		performerBaseSoapMapper = Mappers.getMapper(PerformerBaseSoapMapper)
 	}
 
 	void "maps SOAP PerformerBaseRequest to PerformerRequestDTO"() {
@@ -43,7 +41,7 @@ class PerformerSoapMapperTest extends AbstractPerformerMapperTest {
 		)
 
 		when:
-		PerformerRequestDTO performerRequestDTO = performerSoapMapper.mapBase performerBaseRequest
+		PerformerRequestDTO performerRequestDTO = performerBaseSoapMapper.mapBase performerBaseRequest
 
 		then:
 		performerRequestDTO.name == NAME
@@ -70,23 +68,12 @@ class PerformerSoapMapperTest extends AbstractPerformerMapperTest {
 		performerRequestDTO.voyPerformer == VOY_PERFORMER
 	}
 
-	void "maps SOAP PerformerFullRequest to PerformerBaseRequestDTO"() {
-		given:
-		PerformerFullRequest performerRequest = new PerformerFullRequest(guid: GUID)
-
-		when:
-		PerformerRequestDTO performerRequestDTO = performerSoapMapper.mapFull performerRequest
-
-		then:
-		performerRequestDTO.guid == GUID
-	}
-
 	void "maps DB entity to base SOAP entity"() {
 		given:
 		DBPerformer performer = createPerformer()
 
 		when:
-		PerformerBase performerBase = performerSoapMapper.mapBase(Lists.newArrayList(performer))[0]
+		PerformerBase performerBase = performerBaseSoapMapper.mapBase(Lists.newArrayList(performer))[0]
 
 		then:
 		performerBase.name == NAME
@@ -110,44 +97,6 @@ class PerformerSoapMapperTest extends AbstractPerformerMapperTest {
 		performerBase.videoGamePerformer == VIDEO_GAME_PERFORMER
 		performerBase.voicePerformer == VOICE_PERFORMER
 		performerBase.voyPerformer == VOY_PERFORMER
-	}
-
-	void "maps DB entity to full SOAP entity"() {
-		given:
-		DBPerformer performer = createPerformer()
-
-		when:
-		PerformerFull performerFull = performerSoapMapper.mapFull(performer)
-
-		then:
-		performerFull.name == NAME
-		performerFull.guid == GUID
-		performerFull.birthName == BIRTH_NAME
-		performerFull.gender == GENDER_ENUM_SOAP
-		performerFull.dateOfBirth == DATE_OF_BIRTH_FROM_SOAP
-		performerFull.dateOfDeath == DATE_OF_DEATH_FROM_SOAP
-		performerFull.placeOfBirth == PLACE_OF_BIRTH
-		performerFull.placeOfDeath == PLACE_OF_DEATH
-		performerFull.animalPerformer == ANIMAL_PERFORMER
-		performerFull.disPerformer == DIS_PERFORMER
-		performerFull.ds9Performer == DS9_PERFORMER
-		performerFull.entPerformer == ENT_PERFORMER
-		performerFull.filmPerformer == FILM_PERFORMER
-		performerFull.standInPerformer == STAND_IN_PERFORMER
-		performerFull.stuntPerformer == STUNT_PERFORMER
-		performerFull.tasPerformer == TAS_PERFORMER
-		performerFull.tngPerformer == TNG_PERFORMER
-		performerFull.tosPerformer == TOS_PERFORMER
-		performerFull.videoGamePerformer == VIDEO_GAME_PERFORMER
-		performerFull.voicePerformer == VOICE_PERFORMER
-		performerFull.voyPerformer == VOY_PERFORMER
-		performerFull.episodesPerformances.size() == performer.episodesPerformances.size()
-		performerFull.episodesStuntPerformances.size() == performer.episodesStuntPerformances.size()
-		performerFull.episodesStandInPerformances.size() == performer.episodesStandInPerformances.size()
-		performerFull.moviesPerformances.size() == performer.moviesPerformances.size()
-		performerFull.moviesStuntPerformances.size() == performer.moviesStuntPerformances.size()
-		performerFull.moviesStandInPerformances.size() == performer.moviesStandInPerformances.size()
-		performerFull.characters.size() == performer.characters.size()
 	}
 
 }

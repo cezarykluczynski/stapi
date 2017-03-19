@@ -4,7 +4,8 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.CharacterBaseResponse;
 import com.cezarykluczynski.stapi.client.v1.rest.model.CharacterFullResponse;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.server.character.dto.CharacterRestBeanParams;
-import com.cezarykluczynski.stapi.server.character.mapper.CharacterRestMapper;
+import com.cezarykluczynski.stapi.server.character.mapper.CharacterBaseRestMapper;
+import com.cezarykluczynski.stapi.server.character.mapper.CharacterFullRestMapper;
 import com.cezarykluczynski.stapi.server.character.query.CharacterRestQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
@@ -21,14 +22,18 @@ public class CharacterRestReader implements BaseReader<CharacterRestBeanParams, 
 
 	private CharacterRestQuery characterRestQuery;
 
-	private CharacterRestMapper characterRestMapper;
+	private CharacterBaseRestMapper characterBaseRestMapper;
+
+	private CharacterFullRestMapper characterFullRestMapper;
 
 	private PageMapper pageMapper;
 
 	@Inject
-	public CharacterRestReader(CharacterRestQuery characterRestQuery, CharacterRestMapper characterRestMapper, PageMapper pageMapper) {
+	public CharacterRestReader(CharacterRestQuery characterRestQuery, CharacterBaseRestMapper characterBaseRestMapper,
+			CharacterFullRestMapper characterFullRestMapper, PageMapper pageMapper) {
 		this.characterRestQuery = characterRestQuery;
-		this.characterRestMapper = characterRestMapper;
+		this.characterBaseRestMapper = characterBaseRestMapper;
+		this.characterFullRestMapper = characterFullRestMapper;
 		this.pageMapper = pageMapper;
 	}
 
@@ -37,7 +42,7 @@ public class CharacterRestReader implements BaseReader<CharacterRestBeanParams, 
 		Page<Character> characterPage = characterRestQuery.query(characterRestBeanParams);
 		CharacterBaseResponse characterResponse = new CharacterBaseResponse();
 		characterResponse.setPage(pageMapper.fromPageToRestResponsePage(characterPage));
-		characterResponse.getCharacters().addAll(characterRestMapper.mapBase(characterPage.getContent()));
+		characterResponse.getCharacters().addAll(characterBaseRestMapper.mapBase(characterPage.getContent()));
 		return characterResponse;
 	}
 
@@ -48,7 +53,7 @@ public class CharacterRestReader implements BaseReader<CharacterRestBeanParams, 
 		characterRestBeanParams.setGuid(guid);
 		Page<Character> characterPage = characterRestQuery.query(characterRestBeanParams);
 		CharacterFullResponse characterResponse = new CharacterFullResponse();
-		characterResponse.setCharacter(characterRestMapper.mapFull(Iterables.getOnlyElement(characterPage.getContent(), null)));
+		characterResponse.setCharacter(characterFullRestMapper.mapFull(Iterables.getOnlyElement(characterPage.getContent(), null)));
 		return characterResponse;
 	}
 

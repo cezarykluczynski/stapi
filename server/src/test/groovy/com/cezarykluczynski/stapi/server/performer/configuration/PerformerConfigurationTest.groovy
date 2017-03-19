@@ -1,10 +1,12 @@
 package com.cezarykluczynski.stapi.server.performer.configuration
 
 import com.cezarykluczynski.stapi.server.performer.endpoint.PerformerRestEndpoint
-import com.cezarykluczynski.stapi.server.performer.reader.PerformerRestReader
 import com.cezarykluczynski.stapi.server.performer.endpoint.PerformerSoapEndpoint
-import com.cezarykluczynski.stapi.server.performer.mapper.PerformerRestMapper
-import com.cezarykluczynski.stapi.server.performer.mapper.PerformerSoapMapper
+import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseRestMapper
+import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseSoapMapper
+import com.cezarykluczynski.stapi.server.performer.mapper.PerformerFullRestMapper
+import com.cezarykluczynski.stapi.server.performer.mapper.PerformerFullSoapMapper
+import com.cezarykluczynski.stapi.server.performer.reader.PerformerRestReader
 import com.cezarykluczynski.stapi.server.performer.reader.PerformerSoapReader
 import org.apache.cxf.bus.spring.SpringBus
 import org.apache.cxf.jaxws.EndpointImpl
@@ -56,20 +58,36 @@ class PerformerConfigurationTest extends Specification {
 		performerRestEndpoint.performerRestReader == performerRestMapper
 	}
 
-	void "PerformerSoapMapper is created"() {
+	void "PerformerBaseSoapMapper is created"() {
 		when:
-		PerformerSoapMapper performerSoapMapper = performerConfiguration.performerSoapMapper()
+		PerformerBaseSoapMapper performerBaseSoapMapper = performerConfiguration.performerBaseSoapMapper()
 
 		then:
-		performerSoapMapper != null
+		performerBaseSoapMapper != null
 	}
 
-	void "PerformerRestMapper is created"() {
+	void "PerformerFullSoapMapper is created"() {
 		when:
-		PerformerRestMapper performerRestMapper = performerConfiguration.performerRestMapper()
+		PerformerFullSoapMapper performerFullSoapMapper = performerConfiguration.performerFullSoapMapper()
 
 		then:
-		performerRestMapper != null
+		performerFullSoapMapper != null
+	}
+
+	void "PerformerBaseRestMapper is created"() {
+		when:
+		PerformerBaseRestMapper performerBaseRestMapper = performerConfiguration.performerBaseRestMapper()
+
+		then:
+		performerBaseRestMapper != null
+	}
+
+	void "PerformerFullRestMapper is created"() {
+		when:
+		PerformerFullRestMapper performerFullRestMapper = performerConfiguration.performerFullRestMapper()
+
+		then:
+		performerFullRestMapper != null
 	}
 
 }

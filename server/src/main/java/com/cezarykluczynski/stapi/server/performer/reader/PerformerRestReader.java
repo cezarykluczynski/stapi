@@ -7,7 +7,8 @@ import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.performer.dto.PerformerRestBeanParams;
-import com.cezarykluczynski.stapi.server.performer.mapper.PerformerRestMapper;
+import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseRestMapper;
+import com.cezarykluczynski.stapi.server.performer.mapper.PerformerFullRestMapper;
 import com.cezarykluczynski.stapi.server.performer.query.PerformerRestQuery;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterables;
@@ -21,14 +22,18 @@ public class PerformerRestReader implements BaseReader<PerformerRestBeanParams, 
 
 	private PerformerRestQuery performerRestQuery;
 
-	private PerformerRestMapper performerRestMapper;
+	private PerformerBaseRestMapper performerBaseRestMapper;
+
+	private PerformerFullRestMapper performerFullRestMapper;
 
 	private PageMapper pageMapper;
 
 	@Inject
-	public PerformerRestReader(PerformerRestQuery performerRestQuery, PerformerRestMapper performerRestMapper, PageMapper pageMapper) {
+	public PerformerRestReader(PerformerRestQuery performerRestQuery, PerformerBaseRestMapper performerBaseRestMapper,
+			PerformerFullRestMapper performerFullRestMapper, PageMapper pageMapper) {
 		this.performerRestQuery = performerRestQuery;
-		this.performerRestMapper = performerRestMapper;
+		this.performerBaseRestMapper = performerBaseRestMapper;
+		this.performerFullRestMapper = performerFullRestMapper;
 		this.pageMapper = pageMapper;
 	}
 
@@ -37,7 +42,7 @@ public class PerformerRestReader implements BaseReader<PerformerRestBeanParams, 
 		Page<Performer> performerPage = performerRestQuery.query(performerRestBeanParams);
 		PerformerBaseResponse performerResponse = new PerformerBaseResponse();
 		performerResponse.setPage(pageMapper.fromPageToRestResponsePage(performerPage));
-		performerResponse.getPerformers().addAll(performerRestMapper.mapBase(performerPage.getContent()));
+		performerResponse.getPerformers().addAll(performerBaseRestMapper.mapBase(performerPage.getContent()));
 		return performerResponse;
 	}
 
@@ -48,7 +53,7 @@ public class PerformerRestReader implements BaseReader<PerformerRestBeanParams, 
 		performerRestBeanParams.setGuid(guid);
 		Page<Performer> performerPage = performerRestQuery.query(performerRestBeanParams);
 		PerformerFullResponse performerResponse = new PerformerFullResponse();
-		performerResponse.setPerformer(performerRestMapper.mapFull(Iterables.getOnlyElement(performerPage.getContent(), null)));
+		performerResponse.setPerformer(performerFullRestMapper.mapFull(Iterables.getOnlyElement(performerPage.getContent(), null)));
 		return performerResponse;
 	}
 

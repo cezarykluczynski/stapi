@@ -103,10 +103,10 @@
 			<xs:element name="mirror" type="xs:boolean" minOccurs="0"/>
 			<xs:element name="alternateReality" type="xs:boolean" minOccurs="0"/>
 			<xs:sequence>
-				<xs:element name="performers" type="performer:PerformerHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="performers" type="performer:PerformerBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="episodes" type="episode:EpisodeHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="episodes" type="episode:EpisodeBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
 				<xs:element name="movies" type="movie:MovieHeader" minOccurs="0" maxOccurs="unbounded"/>

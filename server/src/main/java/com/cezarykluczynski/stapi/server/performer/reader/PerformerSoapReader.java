@@ -8,7 +8,8 @@ import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
-import com.cezarykluczynski.stapi.server.performer.mapper.PerformerSoapMapper;
+import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseSoapMapper;
+import com.cezarykluczynski.stapi.server.performer.mapper.PerformerFullSoapMapper;
 import com.cezarykluczynski.stapi.server.performer.query.PerformerSoapQuery;
 import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
@@ -20,13 +21,17 @@ public class PerformerSoapReader implements BaseReader<PerformerBaseRequest, Per
 
 	private PerformerSoapQuery performerSoapQuery;
 
-	private PerformerSoapMapper performerSoapMapper;
+	private PerformerBaseSoapMapper performerBaseSoapMapper;
+
+	private PerformerFullSoapMapper performerFullSoapMapper;
 
 	private PageMapper pageMapper;
 
-	public PerformerSoapReader(PerformerSoapQuery performerSoapQuery, PerformerSoapMapper performerSoapMapper, PageMapper pageMapper) {
+	public PerformerSoapReader(PerformerSoapQuery performerSoapQuery, PerformerBaseSoapMapper performerBaseSoapMapper,
+			PerformerFullSoapMapper performerFullSoapMapper, PageMapper pageMapper) {
 		this.performerSoapQuery = performerSoapQuery;
-		this.performerSoapMapper = performerSoapMapper;
+		this.performerBaseSoapMapper = performerBaseSoapMapper;
+		this.performerFullSoapMapper = performerFullSoapMapper;
 		this.pageMapper = pageMapper;
 	}
 
@@ -35,7 +40,7 @@ public class PerformerSoapReader implements BaseReader<PerformerBaseRequest, Per
 		Page<Performer> performerPage = performerSoapQuery.query(input);
 		PerformerBaseResponse performerResponse = new PerformerBaseResponse();
 		performerResponse.setPage(pageMapper.fromPageToSoapResponsePage(performerPage));
-		performerResponse.getPerformers().addAll(performerSoapMapper.mapBase(performerPage.getContent()));
+		performerResponse.getPerformers().addAll(performerBaseSoapMapper.mapBase(performerPage.getContent()));
 		return performerResponse;
 	}
 
@@ -43,7 +48,7 @@ public class PerformerSoapReader implements BaseReader<PerformerBaseRequest, Per
 	public PerformerFullResponse readFull(PerformerFullRequest input) {
 		Page<Performer> performerPage = performerSoapQuery.query(input);
 		PerformerFullResponse performerFullResponse = new PerformerFullResponse();
-		performerFullResponse.setPerformer(performerSoapMapper.mapFull(Iterables.getOnlyElement(performerPage.getContent(), null)));
+		performerFullResponse.setPerformer(performerFullSoapMapper.mapFull(Iterables.getOnlyElement(performerPage.getContent(), null)));
 		return performerFullResponse;
 	}
 

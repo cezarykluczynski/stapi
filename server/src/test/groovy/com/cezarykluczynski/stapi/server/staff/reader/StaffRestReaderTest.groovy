@@ -8,7 +8,8 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.StaffFullResponse
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.staff.dto.StaffRestBeanParams
-import com.cezarykluczynski.stapi.server.staff.mapper.StaffRestMapper
+import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseRestMapper
+import com.cezarykluczynski.stapi.server.staff.mapper.StaffFullRestMapper
 import com.cezarykluczynski.stapi.server.staff.query.StaffRestQuery
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
@@ -20,7 +21,9 @@ class StaffRestReaderTest extends Specification {
 
 	private StaffRestQuery staffRestQueryBuilderMock
 
-	private StaffRestMapper staffRestMapperMock
+	private StaffBaseRestMapper staffBaseRestMapperMock
+
+	private StaffFullRestMapper staffFullRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -28,9 +31,10 @@ class StaffRestReaderTest extends Specification {
 
 	void setup() {
 		staffRestQueryBuilderMock = Mock(StaffRestQuery)
-		staffRestMapperMock = Mock(StaffRestMapper)
+		staffBaseRestMapperMock = Mock(StaffBaseRestMapper)
+		staffFullRestMapperMock = Mock(StaffFullRestMapper)
 		pageMapperMock = Mock(PageMapper)
-		staffRestReader = new StaffRestReader(staffRestQueryBuilderMock, staffRestMapperMock, pageMapperMock)
+		staffRestReader = new StaffRestReader(staffRestQueryBuilderMock, staffBaseRestMapperMock, staffFullRestMapperMock, pageMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
@@ -48,7 +52,7 @@ class StaffRestReaderTest extends Specification {
 		1 * staffRestQueryBuilderMock.query(staffRestBeanParams) >> staffPage
 		1 * pageMapperMock.fromPageToRestResponsePage(staffPage) >> responsePage
 		1 * staffPage.content >> staffList
-		1 * staffRestMapperMock.mapBase(staffList) >> restStaffList
+		1 * staffBaseRestMapperMock.mapBase(staffList) >> restStaffList
 		0 * _
 		staffResponseOutput.staff == restStaffList
 		staffResponseOutput.page == responsePage
@@ -70,7 +74,7 @@ class StaffRestReaderTest extends Specification {
 			staffPage
 		}
 		1 * staffPage.content >> staffList
-		1 * staffRestMapperMock.mapFull(staff) >> staffFull
+		1 * staffFullRestMapperMock.mapFull(staff) >> staffFull
 		0 * _
 		staffResponseOutput.staff == staffFull
 	}

@@ -9,7 +9,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.StaffFullRequest
 import com.cezarykluczynski.stapi.client.v1.soap.StaffFullResponse
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.staff.mapper.StaffSoapMapper
+import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseSoapMapper
+import com.cezarykluczynski.stapi.server.staff.mapper.StaffFullSoapMapper
 import com.cezarykluczynski.stapi.server.staff.query.StaffSoapQuery
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
@@ -21,7 +22,9 @@ class StaffSoapReaderTest extends Specification {
 
 	private StaffSoapQuery staffSoapQueryBuilderMock
 
-	private StaffSoapMapper staffSoapMapperMock
+	private StaffBaseSoapMapper staffBaseSoapMapperMock
+
+	private StaffFullSoapMapper staffFullSoapMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -29,9 +32,10 @@ class StaffSoapReaderTest extends Specification {
 
 	void setup() {
 		staffSoapQueryBuilderMock = Mock(StaffSoapQuery)
-		staffSoapMapperMock = Mock(StaffSoapMapper)
+		staffBaseSoapMapperMock = Mock(StaffBaseSoapMapper)
+		staffFullSoapMapperMock = Mock(StaffFullSoapMapper)
 		pageMapperMock = Mock(PageMapper)
-		staffSoapReader = new StaffSoapReader(staffSoapQueryBuilderMock, staffSoapMapperMock, pageMapperMock)
+		staffSoapReader = new StaffSoapReader(staffSoapQueryBuilderMock, staffBaseSoapMapperMock, staffFullSoapMapperMock, pageMapperMock)
 	}
 
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
@@ -49,7 +53,7 @@ class StaffSoapReaderTest extends Specification {
 		1 * staffSoapQueryBuilderMock.query(staffBaseRequest) >> dbStaffPage
 		1 * dbStaffPage.content >> dbStaffList
 		1 * pageMapperMock.fromPageToSoapResponsePage(dbStaffPage) >> responsePage
-		1 * staffSoapMapperMock.mapBase(dbStaffList) >> soapStaffList
+		1 * staffBaseSoapMapperMock.mapBase(dbStaffList) >> soapStaffList
 		staffResponse.staff[0].guid == GUID
 		staffResponse.page == responsePage
 	}
@@ -67,7 +71,7 @@ class StaffSoapReaderTest extends Specification {
 		then:
 		1 * staffSoapQueryBuilderMock.query(staffFullRequest) >> staffPage
 		1 * staffPage.content >> Lists.newArrayList(staff)
-		1 * staffSoapMapperMock.mapFull(staff) >> staffFull
+		1 * staffFullSoapMapperMock.mapFull(staff) >> staffFull
 		staffFullResponse.staff.guid == GUID
 	}
 

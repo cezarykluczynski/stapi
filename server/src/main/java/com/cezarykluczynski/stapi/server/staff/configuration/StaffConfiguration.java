@@ -2,8 +2,10 @@ package com.cezarykluczynski.stapi.server.staff.configuration;
 
 import com.cezarykluczynski.stapi.server.staff.endpoint.StaffRestEndpoint;
 import com.cezarykluczynski.stapi.server.staff.endpoint.StaffSoapEndpoint;
-import com.cezarykluczynski.stapi.server.staff.mapper.StaffRestMapper;
-import com.cezarykluczynski.stapi.server.staff.mapper.StaffSoapMapper;
+import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseRestMapper;
+import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseSoapMapper;
+import com.cezarykluczynski.stapi.server.staff.mapper.StaffFullRestMapper;
+import com.cezarykluczynski.stapi.server.staff.mapper.StaffFullSoapMapper;
 import com.cezarykluczynski.stapi.server.staff.reader.StaffRestReader;
 import com.cezarykluczynski.stapi.server.staff.reader.StaffSoapReader;
 import org.apache.cxf.Bus;
@@ -38,13 +40,23 @@ public class StaffConfiguration {
 	}
 
 	@Bean
-	public StaffSoapMapper staffSoapMapper() {
-		return Mappers.getMapper(StaffSoapMapper.class);
+	public StaffBaseSoapMapper staffBaseSoapMapper() {
+		return Mappers.getMapper(StaffBaseSoapMapper.class);
 	}
 
 	@Bean
-	public StaffRestMapper staffRestMapper() {
-		return Mappers.getMapper(StaffRestMapper.class);
+	public StaffFullSoapMapper staffFullSoapMapper() {
+		return Mappers.getMapper(StaffFullSoapMapper.class);
+	}
+
+	@Bean
+	public StaffBaseRestMapper staffBaseRestMapper() {
+		return Mappers.getMapper(StaffBaseRestMapper.class);
+	}
+
+	@Bean
+	public StaffFullRestMapper staffFullRestMapper() {
+		return Mappers.getMapper(StaffFullRestMapper.class);
 	}
 
 }

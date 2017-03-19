@@ -8,7 +8,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.CharacterFullRequest
 import com.cezarykluczynski.stapi.client.v1.soap.CharacterFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
 import com.cezarykluczynski.stapi.model.character.entity.Character
-import com.cezarykluczynski.stapi.server.character.mapper.CharacterSoapMapper
+import com.cezarykluczynski.stapi.server.character.mapper.CharacterBaseSoapMapper
+import com.cezarykluczynski.stapi.server.character.mapper.CharacterFullSoapMapper
 import com.cezarykluczynski.stapi.server.character.query.CharacterSoapQuery
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.google.common.collect.Lists
@@ -21,7 +22,9 @@ class CharacterSoapReaderTest extends Specification {
 
 	private CharacterSoapQuery characterSoapQueryBuilderMock
 
-	private CharacterSoapMapper characterSoapMapperMock
+	private CharacterBaseSoapMapper characterBaseSoapMapperMock
+
+	private CharacterFullSoapMapper characterFullSoapMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -29,9 +32,11 @@ class CharacterSoapReaderTest extends Specification {
 
 	void setup() {
 		characterSoapQueryBuilderMock = Mock(CharacterSoapQuery)
-		characterSoapMapperMock = Mock(CharacterSoapMapper)
+		characterBaseSoapMapperMock = Mock(CharacterBaseSoapMapper)
+		characterFullSoapMapperMock = Mock(CharacterFullSoapMapper)
 		pageMapperMock = Mock(PageMapper)
-		characterSoapReader = new CharacterSoapReader(characterSoapQueryBuilderMock, characterSoapMapperMock, pageMapperMock)
+		characterSoapReader = new CharacterSoapReader(characterSoapQueryBuilderMock, characterBaseSoapMapperMock, characterFullSoapMapperMock,
+				pageMapperMock)
 	}
 
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
@@ -49,7 +54,7 @@ class CharacterSoapReaderTest extends Specification {
 		1 * characterSoapQueryBuilderMock.query(characterBaseRequest) >> characterPage
 		1 * characterPage.content >> characterList
 		1 * pageMapperMock.fromPageToSoapResponsePage(characterPage) >> responsePage
-		1 * characterSoapMapperMock.mapBase(characterList) >> soapCharacterList
+		1 * characterBaseSoapMapperMock.mapBase(characterList) >> soapCharacterList
 		characterResponse.characters[0].guid == GUID
 		characterResponse.page == responsePage
 	}
@@ -67,7 +72,7 @@ class CharacterSoapReaderTest extends Specification {
 		then:
 		1 * characterSoapQueryBuilderMock.query(characterFullRequest) >> characterPage
 		1 * characterPage.content >> Lists.newArrayList(character)
-		1 * characterSoapMapperMock.mapFull(character) >> characterFull
+		1 * characterFullSoapMapperMock.mapFull(character) >> characterFull
 		characterFullResponse.character.guid == GUID
 	}
 

@@ -47,15 +47,15 @@ properties:
   episodesPerformances:
     type: array
     items:
-      $ref: '#/definitions/EpisodeHeader'
+      $ref: '#/definitions/EpisodeBase'
   episodesStuntPerformances:
     type: array
     items:
-      $ref: '#/definitions/EpisodeHeader'
+      $ref: '#/definitions/EpisodeBase'
   episodesStandInPerformances:
     type: array
     items:
-      $ref: '#/definitions/EpisodeHeader'
+      $ref: '#/definitions/EpisodeBase'
   moviesPerformances:
     type: array
     items:

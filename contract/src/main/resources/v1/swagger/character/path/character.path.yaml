@@ -1,7 +1,7 @@
 get:
   parameters:
     - name: guid
-      in: formData
+      in: query
       type: string
   responses:
     200:

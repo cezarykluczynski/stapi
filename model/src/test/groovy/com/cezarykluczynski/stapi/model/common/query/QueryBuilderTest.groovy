@@ -18,6 +18,7 @@ import javax.persistence.TypedQuery
 import javax.persistence.criteria.CriteriaBuilder
 import javax.persistence.criteria.CriteriaQuery
 import javax.persistence.criteria.Expression
+import javax.persistence.criteria.Fetch
 import javax.persistence.criteria.JoinType
 import javax.persistence.criteria.Order
 import javax.persistence.criteria.Path
@@ -63,7 +64,7 @@ class QueryBuilderTest extends Specification {
 	private final SingularAttribute<?, Integer> validKeyInteger = Mock(SingularAttribute)
 	private final SingularAttribute<?, Float> validKeyFloat = Mock(SingularAttribute)
 	private final SingularAttribute<?, Gender> validKeyGender = Mock(SingularAttribute)
-	private final SingularAttribute<?, ?> keyWithInvalidType = Mock(SingularAttribute)
+	private final SingularAttribute<?, ?> keyWithUnknownType = Mock(SingularAttribute)
 	private final String validKeyPage = 'page'
 	private final String invalidKeyPage = 'notPage'
 	private final Path requestOrderClausePath1 = Mock(Path)
@@ -103,6 +104,8 @@ class QueryBuilderTest extends Specification {
 
 	private Root<Series> baseRoot
 
+	private Fetch<?, ?> fetch
+
 	private Expression<Long> countExpression
 
 	private Metamodel metamodel
@@ -133,6 +136,7 @@ class QueryBuilderTest extends Specification {
 		criteriaBuilder = Mock(CriteriaBuilder)
 		entityManager = Mock(EntityManager)
 		baseRoot = Mock(Root)
+		fetch = Mock(Fetch)
 		countExpression = Mock(Expression)
 		metamodel = Mock(Metamodel)
 		entityType = Mock(EntityType)
@@ -153,7 +157,7 @@ class QueryBuilderTest extends Specification {
 		validKeyGenderAttribute.name >> validKeyGender
 		Attribute validKeyInvalidTypeAttribute = Mock(Attribute)
 		validKeyInvalidTypeAttribute.javaType >> Long
-		validKeyInvalidTypeAttribute.name >> keyWithInvalidType
+		validKeyInvalidTypeAttribute.name >> keyWithUnknownType
 		Attribute validKeyPageAttribute = Mock(Attribute)
 		validKeyPageAttribute.javaType >> com.cezarykluczynski.stapi.model.page.entity.Page
 		validKeyPageAttribute.name >> validKeyPage
@@ -358,6 +362,27 @@ class QueryBuilderTest extends Specification {
 
 		then: 'no fetch methods are called'
 		0 * baseRoot.fetch(*_)
+
+		when: 'two attributes fetch is performed'
+		queryBuilder.fetch(validKeyLocalDate, keyWithUnknownType)
+
+		then: 'right methods are called'
+		1 * baseRoot.fetch(validKeyLocalDate) >> fetch
+		1 * fetch.fetch(keyWithUnknownType, JoinType.LEFT)
+
+		when: 'two attributes fetch is performed with boolean flag set to true'
+		queryBuilder.fetch(validKeyLocalDate, keyWithUnknownType, true)
+
+		then: 'right methods are called'
+		1 * baseRoot.fetch(validKeyLocalDate) >> fetch
+		1 * fetch.fetch(keyWithUnknownType, JoinType.LEFT)
+
+		when: 'two attributes fetch is performed with boolean flag set to false'
+		queryBuilder.fetch(validKeyLocalDate, keyWithUnknownType, false)
+
+		then: 'no fetch methods are called'
+		0 * baseRoot.fetch(*_)
+		0 * fetch.fetch(*_)
 
 		when: 'order is added and search is performer'
 		queryBuilder.setSort(ORDER_REQUEST)

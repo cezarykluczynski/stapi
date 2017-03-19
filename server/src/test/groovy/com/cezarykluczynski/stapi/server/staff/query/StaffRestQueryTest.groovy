@@ -4,14 +4,14 @@ import com.cezarykluczynski.stapi.model.staff.dto.StaffRequestDTO
 import com.cezarykluczynski.stapi.model.staff.repository.StaffRepository
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.staff.dto.StaffRestBeanParams
-import com.cezarykluczynski.stapi.server.staff.mapper.StaffRestMapper
+import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseRestMapper
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import spock.lang.Specification
 
 class StaffRestQueryTest extends Specification {
 
-	private StaffRestMapper staffRestMapperMock
+	private StaffBaseRestMapper staffRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,7 +20,7 @@ class StaffRestQueryTest extends Specification {
 	private StaffRestQuery staffRestQuery
 
 	void setup() {
-		staffRestMapperMock = Mock(StaffRestMapper)
+		staffRestMapperMock = Mock(StaffBaseRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		staffRepositoryMock = Mock(StaffRepository)
 		staffRestQuery = new StaffRestQuery(staffRestMapperMock, pageMapperMock,

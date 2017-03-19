@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.model.episode.dto.EpisodeRequestDTO
 import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.model.episode.entity.Episode_
 import com.cezarykluczynski.stapi.model.episode.query.EpisodeQueryBuilderFactory
+import com.cezarykluczynski.stapi.model.series.entity.Series_
 import com.cezarykluczynski.stapi.util.tool.LogicUtil
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
@@ -110,7 +111,12 @@ class EpisodeRepositoryImplTest extends Specification {
 		1 * episodeRequestDTO.sort >> SORT
 		1 * episodeQueryBuilder.setSort(SORT)
 
+		then: 'fetch is performed'
+		1 * episodeQueryBuilder.fetch(Episode_.series)
+
 		then: 'fetch is performed with true flag'
+		1 * episodeQueryBuilder.fetch(Episode_.series, Series_.productionCompany, true)
+		1 * episodeQueryBuilder.fetch(Episode_.series, Series_.originalBroadcaster, true)
 		1 * episodeQueryBuilder.fetch(Episode_.writers, true)
 		1 * episodeQueryBuilder.fetch(Episode_.teleplayAuthors, true)
 		1 * episodeQueryBuilder.fetch(Episode_.storyAuthors, true)
@@ -140,7 +146,12 @@ class EpisodeRepositoryImplTest extends Specification {
 		then: 'guid criteria is set to null'
 		1 * episodeRequestDTO.guid >> null
 
+		then: 'fetch is performed'
+		1 * episodeQueryBuilder.fetch(Episode_.series)
+
 		then: 'fetch is performed with false flag'
+		1 * episodeQueryBuilder.fetch(Episode_.series, Series_.productionCompany, false)
+		1 * episodeQueryBuilder.fetch(Episode_.series, Series_.originalBroadcaster, false)
 		1 * episodeQueryBuilder.fetch(Episode_.writers, false)
 		1 * episodeQueryBuilder.fetch(Episode_.teleplayAuthors, false)
 		1 * episodeQueryBuilder.fetch(Episode_.storyAuthors, false)

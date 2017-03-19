@@ -3,8 +3,6 @@ package com.cezarykluczynski.stapi.server.episode.mapper
 import com.cezarykluczynski.stapi.client.v1.soap.DateRange
 import com.cezarykluczynski.stapi.client.v1.soap.EpisodeBase
 import com.cezarykluczynski.stapi.client.v1.soap.EpisodeBaseRequest
-import com.cezarykluczynski.stapi.client.v1.soap.EpisodeFull
-import com.cezarykluczynski.stapi.client.v1.soap.EpisodeFullRequest
 import com.cezarykluczynski.stapi.client.v1.soap.FloatRange
 import com.cezarykluczynski.stapi.client.v1.soap.IntegerRange
 import com.cezarykluczynski.stapi.model.episode.dto.EpisodeRequestDTO
@@ -12,12 +10,12 @@ import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers
 
-class EpisodeSoapMapperTest extends AbstractEpisodeMapperTest {
+class EpisodeBaseSoapMapperTest extends AbstractEpisodeMapperTest {
 
-	private EpisodeSoapMapper episodeSoapMapper
+	private EpisodeBaseSoapMapper episodeBaseSoapMapper
 
 	void setup() {
-		episodeSoapMapper = Mappers.getMapper(EpisodeSoapMapper)
+		episodeBaseSoapMapper = Mappers.getMapper(EpisodeBaseSoapMapper)
 	}
 
 	void "maps SOAP EpisodeBaseRequest to EpisodeRequestDTO"() {
@@ -53,7 +51,7 @@ class EpisodeSoapMapperTest extends AbstractEpisodeMapperTest {
 		)
 
 		when:
-		EpisodeRequestDTO episodeRequestDTO = episodeSoapMapper.mapBase episodeRequest
+		EpisodeRequestDTO episodeRequestDTO = episodeBaseSoapMapper.mapBase episodeRequest
 
 		then:
 		episodeRequestDTO.title == TITLE
@@ -69,23 +67,12 @@ class EpisodeSoapMapperTest extends AbstractEpisodeMapperTest {
 		episodeRequestDTO.finalScriptDateTo == FINAL_SCRIPT_DATE_TO
 	}
 
-	void "maps SOAP EpisodeFullRequest to EpisodeBaseRequestDTO"() {
-		given:
-		EpisodeFullRequest episodeRequest = new EpisodeFullRequest(guid: GUID)
-
-		when:
-		EpisodeRequestDTO episodeRequestDTO = episodeSoapMapper.mapFull episodeRequest
-
-		then:
-		episodeRequestDTO.guid == GUID
-	}
-
 	void "maps DB entity to base SOAP entity"() {
 		given:
 		Episode episode = createEpisode()
 
 		when:
-		EpisodeBase episodeBase = episodeSoapMapper.mapBase(Lists.newArrayList(episode))[0]
+		EpisodeBase episodeBase = episodeBaseSoapMapper.mapBase(Lists.newArrayList(episode))[0]
 
 		then:
 		episodeBase.guid == GUID
@@ -104,40 +91,6 @@ class EpisodeSoapMapperTest extends AbstractEpisodeMapperTest {
 		episodeBase.yearTo.toInteger() == YEAR_TO
 		episodeBase.usAirDate == US_AIR_DATE_XML
 		episodeBase.finalScriptDate == FINAL_SCRIPT_DATE_XML
-	}
-
-	void "maps DB entity to full SOAP entity"() {
-		given:
-		Episode episode = createEpisode()
-
-		when:
-		EpisodeFull episodeFull = episodeSoapMapper.mapFull(episode)
-
-		then:
-		episodeFull.guid == GUID
-		episodeFull.series != null
-		episodeFull.title == TITLE
-		episodeFull.titleGerman == TITLE_GERMAN
-		episodeFull.titleItalian == TITLE_ITALIAN
-		episodeFull.titleJapanese == TITLE_JAPANESE
-		episodeFull.seasonNumber == SEASON_NUMBER
-		episodeFull.episodeNumber == EPISODE_NUMBER
-		episodeFull.productionSerialNumber == PRODUCTION_SERIAL_NUMBER
-		episodeFull.featureLength == FEATURE_LENGTH
-		episodeFull.stardateFrom == STARDATE_FROM
-		episodeFull.stardateTo == STARDATE_TO
-		episodeFull.yearFrom.toInteger() == YEAR_FROM
-		episodeFull.yearTo.toInteger() == YEAR_TO
-		episodeFull.usAirDate == US_AIR_DATE_XML
-		episodeFull.finalScriptDate == FINAL_SCRIPT_DATE_XML
-		episodeFull.writers.size() == episode.writers.size()
-		episodeFull.teleplayAuthors.size() == episode.teleplayAuthors.size()
-		episodeFull.storyAuthors.size() == episode.storyAuthors.size()
-		episodeFull.directors.size() == episode.directors.size()
-		episodeFull.performers.size() == episode.performers.size()
-		episodeFull.stuntPerformers.size() == episode.stuntPerformers.size()
-		episodeFull.standInPerformers.size() == episode.standInPerformers.size()
-		episodeFull.characters.size() == episode.characters.size()
 	}
 
 }

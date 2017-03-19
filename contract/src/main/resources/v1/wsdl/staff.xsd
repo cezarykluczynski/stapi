@@ -246,37 +246,37 @@
 			<xs:element name="videoGameProductionStaff" type="xs:boolean"/>
 			<xs:element name="writer" type="xs:boolean"/>
 			<xs:sequence>
-				<xs:element name="writtenEpisodeHeaders" type="episode:EpisodeHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="writtenEpisodes" type="episode:EpisodeBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="teleplayAuthoredEpisodeHeaders" type="episode:EpisodeHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="teleplayAuthoredEpisodes" type="episode:EpisodeBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="storyAuthoredEpisodeHeaders" type="episode:EpisodeHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="storyAuthoredEpisodes" type="episode:EpisodeBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="directedEpisodeHeaders" type="episode:EpisodeHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="directedEpisodes" type="episode:EpisodeBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="episodeHeaders" type="episode:EpisodeHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="episodes" type="episode:EpisodeBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="writtenMovieHeaders" type="movie:MovieHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="writtenMovies" type="movie:MovieHeader" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="screenplayAuthoredMovieHeaders" type="movie:MovieHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="screenplayAuthoredMovies" type="movie:MovieHeader" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="storyAuthoredMovieHeaders" type="movie:MovieHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="storyAuthoredMovies" type="movie:MovieHeader" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="directedMovieHeaders" type="movie:MovieHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="directedMovies" type="movie:MovieHeader" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="producedMovieHeaders" type="movie:MovieHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="producedMovies" type="movie:MovieHeader" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="movieHeaders" type="movie:MovieHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="movies" type="movie:MovieHeader" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:sequence>
 	</xs:complexType>

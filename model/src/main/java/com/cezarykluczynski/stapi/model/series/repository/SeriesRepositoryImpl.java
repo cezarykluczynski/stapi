@@ -37,6 +37,8 @@ public class SeriesRepositoryImpl extends AbstractRepositoryImpl<Series> impleme
 		seriesQueryBuilder.between(Series_.originalRunStartDate, criteria.getOriginalRunStartDateFrom(), criteria.getOriginalRunStartDateTo());
 		seriesQueryBuilder.between(Series_.originalRunEndDate, criteria.getOriginalRunEndDateFrom(), criteria.getOriginalRunEndDateTo());
 		seriesQueryBuilder.setSort(criteria.getSort());
+		seriesQueryBuilder.fetch(Series_.productionCompany);
+		seriesQueryBuilder.fetch(Series_.originalBroadcaster);
 		seriesQueryBuilder.fetch(Series_.episodes, doFetch);
 
 		Page<Series> seriesPage = seriesQueryBuilder.findPage();

@@ -122,13 +122,13 @@
 			<xs:element name="voicePerformer" type="xs:boolean"/>
 			<xs:element name="voyPerformer" type="xs:boolean"/>
 			<xs:sequence>
-				<xs:element name="episodesPerformances" type="episode:EpisodeHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="episodesPerformances" type="episode:EpisodeBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="episodesStuntPerformances" type="episode:EpisodeHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="episodesStuntPerformances" type="episode:EpisodeBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="episodesStandInPerformances" type="episode:EpisodeHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="episodesStandInPerformances" type="episode:EpisodeBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
 				<xs:element name="moviesPerformances" type="movie:MovieHeader" minOccurs="0" maxOccurs="unbounded"/>

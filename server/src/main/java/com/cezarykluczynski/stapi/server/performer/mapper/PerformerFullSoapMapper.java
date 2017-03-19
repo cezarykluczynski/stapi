@@ -1,39 +1,21 @@
 package com.cezarykluczynski.stapi.server.performer.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.soap.PerformerBaseRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.PerformerFullRequest;
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
-import com.cezarykluczynski.stapi.server.character.mapper.CharacterHeaderSoapMapper;
-import com.cezarykluczynski.stapi.server.character.mapper.CharacterSoapMapper;
+import com.cezarykluczynski.stapi.server.character.mapper.CharacterBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.DateMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.EnumMapper;
-import com.cezarykluczynski.stapi.server.common.mapper.RequestSortSoapMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
-import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeHeaderSoapMapper;
+import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.movie.mapper.MovieHeaderSoapMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-import java.util.List;
-
-@Mapper(config = MapstructConfiguration.class, uses = {CharacterHeaderSoapMapper.class, CharacterSoapMapper.class, DateMapper.class,
-		EnumMapper.class, EpisodeHeaderSoapMapper.class, MovieHeaderSoapMapper.class, RequestSortSoapMapper.class})
-public interface PerformerSoapMapper {
-
-	@Mappings({
-			@Mapping(target = "guid", ignore = true),
-			@Mapping(source = "dateOfBirth.from", target = "dateOfBirthFrom"),
-			@Mapping(source = "dateOfBirth.to", target = "dateOfBirthTo"),
-			@Mapping(source = "dateOfDeath.from", target = "dateOfDeathFrom"),
-			@Mapping(source = "dateOfDeath.to", target = "dateOfDeathTo")
-	})
-	PerformerRequestDTO mapBase(PerformerBaseRequest performerBaseRequest);
-
-	com.cezarykluczynski.stapi.client.v1.soap.PerformerBase mapBase(Performer performer);
-
-	List<com.cezarykluczynski.stapi.client.v1.soap.PerformerBase> mapBase(List<Performer> performerList);
+@Mapper(config = MapstructConfiguration.class, uses = {CharacterBaseSoapMapper.class, DateMapper.class, EnumMapper.class, EpisodeBaseSoapMapper.class,
+		MovieHeaderSoapMapper.class})
+public interface PerformerFullSoapMapper {
 
 	@Mappings({
 			@Mapping(target = "name", ignore = true),

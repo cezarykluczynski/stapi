@@ -4,14 +4,14 @@ import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO
 import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.performer.dto.PerformerRestBeanParams
-import com.cezarykluczynski.stapi.server.performer.mapper.PerformerRestMapper
+import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseRestMapper
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import spock.lang.Specification
 
 class PerformerRestQueryTest extends Specification {
 
-	private PerformerRestMapper performerRestMapperMock
+	private PerformerBaseRestMapper performerRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,7 +20,7 @@ class PerformerRestQueryTest extends Specification {
 	private PerformerRestQuery performerRestQuery
 
 	void setup() {
-		performerRestMapperMock = Mock(PerformerRestMapper)
+		performerRestMapperMock = Mock(PerformerBaseRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		performerRepositoryMock = Mock(PerformerRepository)
 		performerRestQuery = new PerformerRestQuery(performerRestMapperMock, pageMapperMock,

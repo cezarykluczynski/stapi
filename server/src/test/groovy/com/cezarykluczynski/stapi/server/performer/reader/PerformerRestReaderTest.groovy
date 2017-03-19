@@ -8,7 +8,8 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.performer.dto.PerformerRestBeanParams
-import com.cezarykluczynski.stapi.server.performer.mapper.PerformerRestMapper
+import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseRestMapper
+import com.cezarykluczynski.stapi.server.performer.mapper.PerformerFullRestMapper
 import com.cezarykluczynski.stapi.server.performer.query.PerformerRestQuery
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
@@ -20,7 +21,9 @@ class PerformerRestReaderTest extends Specification {
 
 	private PerformerRestQuery performerRestQueryBuilderMock
 
-	private PerformerRestMapper performerRestMapperMock
+	private PerformerBaseRestMapper performerBaseRestMapperMock
+
+	private PerformerFullRestMapper performerFullRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -28,9 +31,11 @@ class PerformerRestReaderTest extends Specification {
 
 	void setup() {
 		performerRestQueryBuilderMock = Mock(PerformerRestQuery)
-		performerRestMapperMock = Mock(PerformerRestMapper)
+		performerBaseRestMapperMock = Mock(PerformerBaseRestMapper)
+		performerFullRestMapperMock = Mock(PerformerFullRestMapper)
 		pageMapperMock = Mock(PageMapper)
-		performerRestReader = new PerformerRestReader(performerRestQueryBuilderMock, performerRestMapperMock, pageMapperMock)
+		performerRestReader = new PerformerRestReader(performerRestQueryBuilderMock, performerBaseRestMapperMock, performerFullRestMapperMock,
+				pageMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
@@ -48,7 +53,7 @@ class PerformerRestReaderTest extends Specification {
 		1 * performerRestQueryBuilderMock.query(performerRestBeanParams) >> performerPage
 		1 * pageMapperMock.fromPageToRestResponsePage(performerPage) >> responsePage
 		1 * performerPage.content >> performerList
-		1 * performerRestMapperMock.mapBase(performerList) >> restPerformerList
+		1 * performerBaseRestMapperMock.mapBase(performerList) >> restPerformerList
 		0 * _
 		performerResponseOutput.performers == restPerformerList
 		performerResponseOutput.page == responsePage
@@ -70,7 +75,7 @@ class PerformerRestReaderTest extends Specification {
 			performerPage
 		}
 		1 * performerPage.content >> performerList
-		1 * performerRestMapperMock.mapFull(performer) >> performerFull
+		1 * performerFullRestMapperMock.mapFull(performer) >> performerFull
 		0 * _
 		performerResponseOutput.performer == performerFull
 	}

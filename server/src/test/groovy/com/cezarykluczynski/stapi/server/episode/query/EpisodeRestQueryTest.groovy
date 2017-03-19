@@ -4,14 +4,14 @@ import com.cezarykluczynski.stapi.model.episode.dto.EpisodeRequestDTO
 import com.cezarykluczynski.stapi.model.episode.repository.EpisodeRepository
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.episode.dto.EpisodeRestBeanParams
-import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeRestMapper
+import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeBaseRestMapper
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import spock.lang.Specification
 
 class EpisodeRestQueryTest extends Specification {
 
-	private EpisodeRestMapper episodeRestMapperMock
+	private EpisodeBaseRestMapper episodeRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,7 +20,7 @@ class EpisodeRestQueryTest extends Specification {
 	private EpisodeRestQuery episodeRestQuery
 
 	void setup() {
-		episodeRestMapperMock = Mock(EpisodeRestMapper)
+		episodeRestMapperMock = Mock(EpisodeBaseRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		episodeRepositoryMock = Mock(EpisodeRepository)
 		episodeRestQuery = new EpisodeRestQuery(episodeRestMapperMock, pageMapperMock,

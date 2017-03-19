@@ -1,10 +1,12 @@
 package com.cezarykluczynski.stapi.server.staff.configuration
 
 import com.cezarykluczynski.stapi.server.staff.endpoint.StaffRestEndpoint
-import com.cezarykluczynski.stapi.server.staff.reader.StaffRestReader
 import com.cezarykluczynski.stapi.server.staff.endpoint.StaffSoapEndpoint
-import com.cezarykluczynski.stapi.server.staff.mapper.StaffRestMapper
-import com.cezarykluczynski.stapi.server.staff.mapper.StaffSoapMapper
+import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseRestMapper
+import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseSoapMapper
+import com.cezarykluczynski.stapi.server.staff.mapper.StaffFullRestMapper
+import com.cezarykluczynski.stapi.server.staff.mapper.StaffFullSoapMapper
+import com.cezarykluczynski.stapi.server.staff.reader.StaffRestReader
 import com.cezarykluczynski.stapi.server.staff.reader.StaffSoapReader
 import org.apache.cxf.bus.spring.SpringBus
 import org.apache.cxf.jaxws.EndpointImpl
@@ -56,20 +58,35 @@ class StaffConfigurationTest extends Specification {
 		staffRestEndpoint.staffRestReader == staffRestMapper
 	}
 
-	void "StaffSoapMapper is created"() {
+	void "StaffBaseSoapMapper is created"() {
 		when:
-		StaffSoapMapper staffSoapMapper = staffConfiguration.staffSoapMapper()
+		StaffBaseSoapMapper staffBaseSoapMapper = staffConfiguration.staffBaseSoapMapper()
 
 		then:
-		staffSoapMapper != null
+		staffBaseSoapMapper != null
+	}
+	void "StaffFullSoapMapper is created"() {
+		when:
+		StaffFullSoapMapper staffFullSoapMapper = staffConfiguration.staffFullSoapMapper()
+
+		then:
+		staffFullSoapMapper != null
 	}
 
-	void "StaffRestMapper is created"() {
+	void "StaffBaseRestMapper is created"() {
 		when:
-		StaffRestMapper staffRestMapper = staffConfiguration.staffRestMapper()
+		StaffBaseRestMapper staffBaseRestMapper = staffConfiguration.staffBaseRestMapper()
 
 		then:
-		staffRestMapper != null
+		staffBaseRestMapper != null
+	}
+
+	void "StaffFullRestMapper is created"() {
+		when:
+		StaffFullRestMapper staffFullRestMapper = staffConfiguration.staffFullRestMapper()
+
+		then:
+		staffFullRestMapper != null
 	}
 
 }

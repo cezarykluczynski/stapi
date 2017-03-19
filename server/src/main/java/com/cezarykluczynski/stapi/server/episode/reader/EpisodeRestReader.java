@@ -7,7 +7,8 @@ import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.episode.dto.EpisodeRestBeanParams;
-import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeRestMapper;
+import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeBaseRestMapper;
+import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeFullRestMapper;
 import com.cezarykluczynski.stapi.server.episode.query.EpisodeRestQuery;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterables;
@@ -21,14 +22,18 @@ public class EpisodeRestReader implements BaseReader<EpisodeRestBeanParams, Epis
 
 	private EpisodeRestQuery episodeRestQuery;
 
-	private EpisodeRestMapper episodeRestMapper;
+	private EpisodeBaseRestMapper episodeBaseRestMapper;
+
+	private EpisodeFullRestMapper episodeFullRestMapper;
 
 	private PageMapper pageMapper;
 
 	@Inject
-	public EpisodeRestReader(EpisodeRestQuery episodeRestQuery, EpisodeRestMapper episodeRestMapper, PageMapper pageMapper) {
+	public EpisodeRestReader(EpisodeRestQuery episodeRestQuery, EpisodeBaseRestMapper episodeBaseRestMapper,
+			EpisodeFullRestMapper episodeFullRestMapper, PageMapper pageMapper) {
 		this.episodeRestQuery = episodeRestQuery;
-		this.episodeRestMapper = episodeRestMapper;
+		this.episodeBaseRestMapper = episodeBaseRestMapper;
+		this.episodeFullRestMapper = episodeFullRestMapper;
 		this.pageMapper = pageMapper;
 	}
 
@@ -37,7 +42,7 @@ public class EpisodeRestReader implements BaseReader<EpisodeRestBeanParams, Epis
 		Page<Episode> episodePage = episodeRestQuery.query(episodeRestBeanParams);
 		EpisodeBaseResponse episodeResponse = new EpisodeBaseResponse();
 		episodeResponse.setPage(pageMapper.fromPageToRestResponsePage(episodePage));
-		episodeResponse.getEpisodes().addAll(episodeRestMapper.mapBase(episodePage.getContent()));
+		episodeResponse.getEpisodes().addAll(episodeBaseRestMapper.mapBase(episodePage.getContent()));
 		return episodeResponse;
 	}
 
@@ -48,7 +53,7 @@ public class EpisodeRestReader implements BaseReader<EpisodeRestBeanParams, Epis
 		episodeRestBeanParams.setGuid(guid);
 		Page<Episode> episodePage = episodeRestQuery.query(episodeRestBeanParams);
 		EpisodeFullResponse episodeResponse = new EpisodeFullResponse();
-		episodeResponse.setEpisode(episodeRestMapper.mapFull(Iterables.getOnlyElement(episodePage.getContent(), null)));
+		episodeResponse.setEpisode(episodeFullRestMapper.mapFull(Iterables.getOnlyElement(episodePage.getContent(), null)));
 		return episodeResponse;
 	}
 

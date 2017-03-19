@@ -5,7 +5,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.CharacterBaseResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.CharacterFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.CharacterFullResponse;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
-import com.cezarykluczynski.stapi.server.character.mapper.CharacterSoapMapper;
+import com.cezarykluczynski.stapi.server.character.mapper.CharacterBaseSoapMapper;
+import com.cezarykluczynski.stapi.server.character.mapper.CharacterFullSoapMapper;
 import com.cezarykluczynski.stapi.server.character.query.CharacterSoapQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
@@ -20,13 +21,17 @@ public class CharacterSoapReader implements BaseReader<CharacterBaseRequest, Cha
 
 	private CharacterSoapQuery characterSoapQuery;
 
-	private CharacterSoapMapper characterSoapMapper;
+	private CharacterBaseSoapMapper characterBaseSoapMapper;
+
+	private CharacterFullSoapMapper characterFullSoapMapper;
 
 	private PageMapper pageMapper;
 
-	public CharacterSoapReader(CharacterSoapQuery characterSoapQuery, CharacterSoapMapper characterSoapMapper, PageMapper pageMapper) {
+	public CharacterSoapReader(CharacterSoapQuery characterSoapQuery, CharacterBaseSoapMapper characterBaseSoapMapper,
+			CharacterFullSoapMapper characterFullSoapMapper,PageMapper pageMapper) {
 		this.characterSoapQuery = characterSoapQuery;
-		this.characterSoapMapper = characterSoapMapper;
+		this.characterBaseSoapMapper = characterBaseSoapMapper;
+		this.characterFullSoapMapper = characterFullSoapMapper;
 		this.pageMapper = pageMapper;
 	}
 
@@ -35,7 +40,7 @@ public class CharacterSoapReader implements BaseReader<CharacterBaseRequest, Cha
 		Page<Character> characterPage = characterSoapQuery.query(input);
 		CharacterBaseResponse characterResponse = new CharacterBaseResponse();
 		characterResponse.setPage(pageMapper.fromPageToSoapResponsePage(characterPage));
-		characterResponse.getCharacters().addAll(characterSoapMapper.mapBase(characterPage.getContent()));
+		characterResponse.getCharacters().addAll(characterBaseSoapMapper.mapBase(characterPage.getContent()));
 		return characterResponse;
 	}
 
@@ -43,7 +48,7 @@ public class CharacterSoapReader implements BaseReader<CharacterBaseRequest, Cha
 	public CharacterFullResponse readFull(CharacterFullRequest input) {
 		Page<Character> characterPage = characterSoapQuery.query(input);
 		CharacterFullResponse characterFullResponse = new CharacterFullResponse();
-		characterFullResponse.setCharacter(characterSoapMapper.mapFull(Iterables.getOnlyElement(characterPage.getContent(), null)));
+		characterFullResponse.setCharacter(characterFullSoapMapper.mapFull(Iterables.getOnlyElement(characterPage.getContent(), null)));
 		return characterFullResponse;
 	}
 

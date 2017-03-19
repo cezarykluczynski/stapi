@@ -128,47 +128,47 @@ properties:
     type: boolean
   writer:
     type: boolean
-  writtenEpisodeHeaders:
+  writtenEpisodes:
     type: array
     items:
-      $ref: '#/definitions/EpisodeHeader'
-  teleplayAuthoredEpisodeHeaders:
+      $ref: '#/definitions/EpisodeBase'
+  teleplayAuthoredEpisodes:
     type: array
     items:
-      $ref: '#/definitions/EpisodeHeader'
-  storyAuthoredEpisodeHeaders:
+      $ref: '#/definitions/EpisodeBase'
+  storyAuthoredEpisodes:
     type: array
     items:
-      $ref: '#/definitions/EpisodeHeader'
-  directedEpisodeHeaders:
+      $ref: '#/definitions/EpisodeBase'
+  directedEpisodes:
     type: array
     items:
-      $ref: '#/definitions/EpisodeHeader'
-  episodeHeaders:
+      $ref: '#/definitions/EpisodeBase'
+  episodes:
     type: array
     items:
-      $ref: '#/definitions/EpisodeHeader'
-  writtenMovieHeaders:
-    type: array
-    items:
-      $ref: '#/definitions/MovieHeader'
-  screenplayAuthoredMovieHeaders:
+      $ref: '#/definitions/EpisodeBase'
+  writtenMovies:
     type: array
     items:
       $ref: '#/definitions/MovieHeader'
-  storyAuthoredMovieHeaders:
+  screenplayAuthoredMovies:
     type: array
     items:
       $ref: '#/definitions/MovieHeader'
-  directedMovieHeaders:
+  storyAuthoredMovies:
     type: array
     items:
       $ref: '#/definitions/MovieHeader'
-  producedMovieHeaders:
+  directedMovies:
     type: array
     items:
       $ref: '#/definitions/MovieHeader'
-  movieHeaders:
+  producedMovies:
+    type: array
+    items:
+      $ref: '#/definitions/MovieHeader'
+  movies:
     type: array
     items:
       $ref: '#/definitions/MovieHeader'

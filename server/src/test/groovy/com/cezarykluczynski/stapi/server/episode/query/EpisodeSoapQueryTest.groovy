@@ -6,14 +6,17 @@ import com.cezarykluczynski.stapi.client.v1.soap.RequestPage
 import com.cezarykluczynski.stapi.model.episode.dto.EpisodeRequestDTO
 import com.cezarykluczynski.stapi.model.episode.repository.EpisodeRepository
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeSoapMapper
+import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeBaseSoapMapper
+import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeFullSoapMapper
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import spock.lang.Specification
 
 class EpisodeSoapQueryTest extends Specification {
 
-	private EpisodeSoapMapper episodeSoapMapperMock
+	private EpisodeBaseSoapMapper episodeBaseSoapMapperMock
+
+	private EpisodeFullSoapMapper episodeFullSoapMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -22,10 +25,11 @@ class EpisodeSoapQueryTest extends Specification {
 	private EpisodeSoapQuery episodeSoapQuery
 
 	void setup() {
-		episodeSoapMapperMock = Mock(EpisodeSoapMapper)
+		episodeBaseSoapMapperMock = Mock(EpisodeBaseSoapMapper)
+		episodeFullSoapMapperMock = Mock(EpisodeFullSoapMapper)
 		pageMapperMock = Mock(PageMapper)
 		episodeRepositoryMock = Mock(EpisodeRepository)
-		episodeSoapQuery = new EpisodeSoapQuery(episodeSoapMapperMock, pageMapperMock, episodeRepositoryMock)
+		episodeSoapQuery = new EpisodeSoapQuery(episodeBaseSoapMapperMock, episodeFullSoapMapperMock, pageMapperMock, episodeRepositoryMock)
 	}
 
 	void "maps EpisodeBaseRequest to EpisodeRequestDTO and to PageRequest, then calls repository, then returns result"() {
@@ -41,7 +45,7 @@ class EpisodeSoapQueryTest extends Specification {
 		Page pageOutput = episodeSoapQuery.query(episodeRequest)
 
 		then:
-		1 * episodeSoapMapperMock.mapBase(episodeRequest) >> episodeRequestDTO
+		1 * episodeBaseSoapMapperMock.mapBase(episodeRequest) >> episodeRequestDTO
 		1 * pageMapperMock.fromRequestPageToPageRequest(requestPage) >> pageRequest
 		1 * episodeRepositoryMock.findMatching(episodeRequestDTO, pageRequest) >> page
 		pageOutput == page
@@ -58,7 +62,7 @@ class EpisodeSoapQueryTest extends Specification {
 		Page pageOutput = episodeSoapQuery.query(episodeRequest)
 
 		then:
-		1 * episodeSoapMapperMock.mapFull(episodeRequest) >> episodeRequestDTO
+		1 * episodeFullSoapMapperMock.mapFull(episodeRequest) >> episodeRequestDTO
 		1 * pageMapperMock.defaultPageRequest >> pageRequest
 		1 * episodeRepositoryMock.findMatching(episodeRequestDTO, pageRequest) >> page
 		pageOutput == page

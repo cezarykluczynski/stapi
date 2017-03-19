@@ -53,8 +53,8 @@ class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointInte
 
 		then:
 		performerResponse.performer.guid == GUID
-		performerResponse.performer.episodesPerformanceHeaders.size() == 177
-		performerResponse.performer.moviesPerformanceHeaders.size() == 4
+		performerResponse.performer.episodesPerformances.size() == 177
+		performerResponse.performer.moviesPerformances.size() == 4
 	}
 
 	void "gets performers sorted by name"() {

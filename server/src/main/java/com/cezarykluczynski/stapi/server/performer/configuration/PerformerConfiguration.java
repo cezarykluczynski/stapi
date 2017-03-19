@@ -2,8 +2,10 @@ package com.cezarykluczynski.stapi.server.performer.configuration;
 
 import com.cezarykluczynski.stapi.server.performer.endpoint.PerformerRestEndpoint;
 import com.cezarykluczynski.stapi.server.performer.endpoint.PerformerSoapEndpoint;
-import com.cezarykluczynski.stapi.server.performer.mapper.PerformerRestMapper;
-import com.cezarykluczynski.stapi.server.performer.mapper.PerformerSoapMapper;
+import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseRestMapper;
+import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseSoapMapper;
+import com.cezarykluczynski.stapi.server.performer.mapper.PerformerFullRestMapper;
+import com.cezarykluczynski.stapi.server.performer.mapper.PerformerFullSoapMapper;
 import com.cezarykluczynski.stapi.server.performer.reader.PerformerRestReader;
 import com.cezarykluczynski.stapi.server.performer.reader.PerformerSoapReader;
 import org.apache.cxf.Bus;
@@ -38,13 +40,23 @@ public class PerformerConfiguration {
 	}
 
 	@Bean
-	public PerformerSoapMapper performerSoapMapper() {
-		return Mappers.getMapper(PerformerSoapMapper.class);
+	public PerformerBaseSoapMapper performerBaseSoapMapper() {
+		return Mappers.getMapper(PerformerBaseSoapMapper.class);
 	}
 
 	@Bean
-	public PerformerRestMapper performerRestMapper() {
-		return Mappers.getMapper(PerformerRestMapper.class);
+	public PerformerFullSoapMapper performerFullSoapMapper() {
+		return Mappers.getMapper(PerformerFullSoapMapper.class);
+	}
+
+	@Bean
+	public PerformerBaseRestMapper performerBaseRestMapper() {
+		return Mappers.getMapper(PerformerBaseRestMapper.class);
+	}
+
+	@Bean
+	public PerformerFullRestMapper performerFullRestMapper() {
+		return Mappers.getMapper(PerformerFullRestMapper.class);
 	}
 
 }

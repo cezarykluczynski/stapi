@@ -2,8 +2,10 @@ package com.cezarykluczynski.stapi.server.character.configuration
 
 import com.cezarykluczynski.stapi.server.character.endpoint.CharacterRestEndpoint
 import com.cezarykluczynski.stapi.server.character.endpoint.CharacterSoapEndpoint
-import com.cezarykluczynski.stapi.server.character.mapper.CharacterRestMapper
-import com.cezarykluczynski.stapi.server.character.mapper.CharacterSoapMapper
+import com.cezarykluczynski.stapi.server.character.mapper.CharacterBaseRestMapper
+import com.cezarykluczynski.stapi.server.character.mapper.CharacterBaseSoapMapper
+import com.cezarykluczynski.stapi.server.character.mapper.CharacterFullRestMapper
+import com.cezarykluczynski.stapi.server.character.mapper.CharacterFullSoapMapper
 import com.cezarykluczynski.stapi.server.character.reader.CharacterRestReader
 import com.cezarykluczynski.stapi.server.character.reader.CharacterSoapReader
 import org.apache.cxf.bus.spring.SpringBus
@@ -56,20 +58,36 @@ class CharacterConfigurationTest extends Specification {
 		characterRestEndpoint.characterRestReader == characterRestMapper
 	}
 
-	void "CharacterSoapMapper is created"() {
+	void "CharacterBaseSoapMapper is created"() {
 		when:
-		CharacterSoapMapper characterSoapMapper = characterConfiguration.characterSoapMapper()
+		CharacterBaseSoapMapper characterBaseSoapMapper = characterConfiguration.characterBaseSoapMapper()
 
 		then:
-		characterSoapMapper != null
+		characterBaseSoapMapper != null
 	}
 
-	void "CharacterRestMapper is created"() {
+	void "CharacterFullSoapMapper is created"() {
 		when:
-		CharacterRestMapper characterRestMapper = characterConfiguration.characterRestMapper()
+		CharacterFullSoapMapper characterFullSoapMapper = characterConfiguration.characterFullSoapMapper()
 
 		then:
-		characterRestMapper != null
+		characterFullSoapMapper != null
+	}
+
+	void "CharacterBaseRestMapper is created"() {
+		when:
+		CharacterBaseRestMapper characterBaseRestMapper = characterConfiguration.characterBaseRestMapper()
+
+		then:
+		characterBaseRestMapper != null
+	}
+
+	void "CharacterFullRestMapper is created"() {
+		when:
+		CharacterFullRestMapper characterFullRestMapper = characterConfiguration.characterFullRestMapper()
+
+		then:
+		characterFullRestMapper != null
 	}
 
 }

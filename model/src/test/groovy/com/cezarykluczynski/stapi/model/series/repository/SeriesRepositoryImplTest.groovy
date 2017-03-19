@@ -88,6 +88,10 @@ class SeriesRepositoryImplTest extends Specification {
 		1 * seriesRequestDTO.sort >> SORT
 		1 * seriesQueryBuilder.setSort(SORT)
 
+		then: 'fetch is performed'
+		1 * seriesQueryBuilder.fetch(Series_.productionCompany)
+		1 * seriesQueryBuilder.fetch(Series_.originalBroadcaster)
+
 		then: 'fetch is performed with true flag'
 		1 * seriesQueryBuilder.fetch(Series_.episodes, true)
 
@@ -108,6 +112,10 @@ class SeriesRepositoryImplTest extends Specification {
 
 		then: 'guid criteria is set to null'
 		1 * seriesRequestDTO.guid >> null
+
+		then: 'fetch is performed'
+		1 * seriesQueryBuilder.fetch(Series_.productionCompany)
+		1 * seriesQueryBuilder.fetch(Series_.originalBroadcaster)
 
 		then: 'fetch is performed with false flag'
 		1 * seriesQueryBuilder.fetch(Series_.episodes, false)

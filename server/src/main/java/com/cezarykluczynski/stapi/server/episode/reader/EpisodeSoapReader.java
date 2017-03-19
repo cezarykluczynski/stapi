@@ -8,7 +8,8 @@ import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
-import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeSoapMapper;
+import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeBaseSoapMapper;
+import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeFullSoapMapper;
 import com.cezarykluczynski.stapi.server.episode.query.EpisodeSoapQuery;
 import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
@@ -19,13 +20,17 @@ public class EpisodeSoapReader implements BaseReader<EpisodeBaseRequest, Episode
 
 	private EpisodeSoapQuery episodeSoapQuery;
 
-	private EpisodeSoapMapper episodeSoapMapper;
+	private EpisodeBaseSoapMapper episodeBaseSoapMapper;
+
+	private EpisodeFullSoapMapper episodeFullSoapMapper;
 
 	private PageMapper pageMapper;
 
-	public EpisodeSoapReader(EpisodeSoapQuery episodeSoapQuery, EpisodeSoapMapper episodeSoapMapper, PageMapper pageMapper) {
+	public EpisodeSoapReader(EpisodeSoapQuery episodeSoapQuery, EpisodeBaseSoapMapper episodeBaseSoapMapper,
+			EpisodeFullSoapMapper episodeFullSoapMapper, PageMapper pageMapper) {
 		this.episodeSoapQuery = episodeSoapQuery;
-		this.episodeSoapMapper = episodeSoapMapper;
+		this.episodeBaseSoapMapper = episodeBaseSoapMapper;
+		this.episodeFullSoapMapper = episodeFullSoapMapper;
 		this.pageMapper = pageMapper;
 	}
 
@@ -34,7 +39,7 @@ public class EpisodeSoapReader implements BaseReader<EpisodeBaseRequest, Episode
 		Page<Episode> episodePage = episodeSoapQuery.query(input);
 		EpisodeBaseResponse episodeResponse = new EpisodeBaseResponse();
 		episodeResponse.setPage(pageMapper.fromPageToSoapResponsePage(episodePage));
-		episodeResponse.getEpisodes().addAll(episodeSoapMapper.mapBase(episodePage.getContent()));
+		episodeResponse.getEpisodes().addAll(episodeBaseSoapMapper.mapBase(episodePage.getContent()));
 		return episodeResponse;
 	}
 
@@ -42,7 +47,7 @@ public class EpisodeSoapReader implements BaseReader<EpisodeBaseRequest, Episode
 	public EpisodeFullResponse readFull(EpisodeFullRequest input) {
 		Page<Episode> episodePage = episodeSoapQuery.query(input);
 		EpisodeFullResponse episodeFullResponse = new EpisodeFullResponse();
-		episodeFullResponse.setEpisode(episodeSoapMapper.mapFull(Iterables.getOnlyElement(episodePage.getContent(), null)));
+		episodeFullResponse.setEpisode(episodeFullSoapMapper.mapFull(Iterables.getOnlyElement(episodePage.getContent(), null)));
 		return episodeFullResponse;
 	}
 

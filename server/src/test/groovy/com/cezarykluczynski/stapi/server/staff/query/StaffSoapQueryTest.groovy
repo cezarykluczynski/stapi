@@ -6,14 +6,17 @@ import com.cezarykluczynski.stapi.client.v1.soap.StaffFullRequest
 import com.cezarykluczynski.stapi.model.staff.dto.StaffRequestDTO
 import com.cezarykluczynski.stapi.model.staff.repository.StaffRepository
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.staff.mapper.StaffSoapMapper
+import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseSoapMapper
+import com.cezarykluczynski.stapi.server.staff.mapper.StaffFullSoapMapper
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import spock.lang.Specification
 
 class StaffSoapQueryTest extends Specification {
 
-	private StaffSoapMapper staffSoapMapperMock
+	private StaffBaseSoapMapper staffBaseSoapMapperMock
+
+	private StaffFullSoapMapper staffFullSoapMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -22,10 +25,11 @@ class StaffSoapQueryTest extends Specification {
 	private StaffSoapQuery staffSoapQuery
 
 	void setup() {
-		staffSoapMapperMock = Mock(StaffSoapMapper)
+		staffBaseSoapMapperMock = Mock(StaffBaseSoapMapper)
+		staffFullSoapMapperMock = Mock(StaffFullSoapMapper)
 		pageMapperMock = Mock(PageMapper)
 		staffRepositoryMock = Mock(StaffRepository)
-		staffSoapQuery = new StaffSoapQuery(staffSoapMapperMock, pageMapperMock, staffRepositoryMock)
+		staffSoapQuery = new StaffSoapQuery(staffBaseSoapMapperMock, staffFullSoapMapperMock, pageMapperMock, staffRepositoryMock)
 	}
 
 	void "maps StaffBaseRequest to StaffRequestDTO and to PageRequest, then calls repository, then returns result"() {
@@ -41,7 +45,7 @@ class StaffSoapQueryTest extends Specification {
 		Page pageOutput = staffSoapQuery.query(staffRequest)
 
 		then:
-		1 * staffSoapMapperMock.mapBase(staffRequest) >> staffRequestDTO
+		1 * staffBaseSoapMapperMock.mapBase(staffRequest) >> staffRequestDTO
 		1 * pageMapperMock.fromRequestPageToPageRequest(requestPage) >> pageRequest
 		1 * staffRepositoryMock.findMatching(staffRequestDTO, pageRequest) >> page
 		pageOutput == page
@@ -58,7 +62,7 @@ class StaffSoapQueryTest extends Specification {
 		Page pageOutput = staffSoapQuery.query(staffRequest)
 
 		then:
-		1 * staffSoapMapperMock.mapFull(staffRequest) >> staffRequestDTO
+		1 * staffFullSoapMapperMock.mapFull(staffRequest) >> staffRequestDTO
 		1 * pageMapperMock.defaultPageRequest >> pageRequest
 		1 * staffRepositoryMock.findMatching(staffRequestDTO, pageRequest) >> page
 		pageOutput == page

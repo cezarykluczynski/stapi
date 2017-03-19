@@ -9,7 +9,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.PerformerFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.performer.mapper.PerformerSoapMapper
+import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseSoapMapper
+import com.cezarykluczynski.stapi.server.performer.mapper.PerformerFullSoapMapper
 import com.cezarykluczynski.stapi.server.performer.query.PerformerSoapQuery
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
@@ -21,7 +22,9 @@ class PerformerSoapReaderTest extends Specification {
 
 	private PerformerSoapQuery performerSoapQueryBuilderMock
 
-	private PerformerSoapMapper performerSoapMapperMock
+	private PerformerBaseSoapMapper performerBaseSoapMapperMock
+
+	private PerformerFullSoapMapper performerFullSoapMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -29,9 +32,11 @@ class PerformerSoapReaderTest extends Specification {
 
 	void setup() {
 		performerSoapQueryBuilderMock = Mock(PerformerSoapQuery)
-		performerSoapMapperMock = Mock(PerformerSoapMapper)
+		performerBaseSoapMapperMock = Mock(PerformerBaseSoapMapper)
+		performerFullSoapMapperMock = Mock(PerformerFullSoapMapper)
 		pageMapperMock = Mock(PageMapper)
-		performerSoapReader = new PerformerSoapReader(performerSoapQueryBuilderMock, performerSoapMapperMock, pageMapperMock)
+		performerSoapReader = new PerformerSoapReader(performerSoapQueryBuilderMock, performerBaseSoapMapperMock, performerFullSoapMapperMock,
+				pageMapperMock)
 	}
 
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
@@ -49,7 +54,7 @@ class PerformerSoapReaderTest extends Specification {
 		1 * performerSoapQueryBuilderMock.query(performerBaseRequest) >> performerPage
 		1 * performerPage.content >> performerList
 		1 * pageMapperMock.fromPageToSoapResponsePage(performerPage) >> responsePage
-		1 * performerSoapMapperMock.mapBase(performerList) >> soapPerformerList
+		1 * performerBaseSoapMapperMock.mapBase(performerList) >> soapPerformerList
 		performerResponse.performers[0].guid == GUID
 		performerResponse.page == responsePage
 	}
@@ -67,7 +72,7 @@ class PerformerSoapReaderTest extends Specification {
 		then:
 		1 * performerSoapQueryBuilderMock.query(performerFullRequest) >> performerPage
 		1 * performerPage.content >> Lists.newArrayList(performer)
-		1 * performerSoapMapperMock.mapFull(performer) >> performerFull
+		1 * performerFullSoapMapperMock.mapFull(performer) >> performerFull
 		performerFullResponse.performer.guid == GUID
 	}
 

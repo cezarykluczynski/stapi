@@ -6,14 +6,17 @@ import com.cezarykluczynski.stapi.client.v1.soap.RequestPage
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO
 import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.performer.mapper.PerformerSoapMapper
+import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseSoapMapper
+import com.cezarykluczynski.stapi.server.performer.mapper.PerformerFullSoapMapper
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import spock.lang.Specification
 
 class PerformerSoapQueryTest extends Specification {
 
-	private PerformerSoapMapper performerSoapMapperMock
+	private PerformerBaseSoapMapper performerBaseSoapMapperMock
+
+	private PerformerFullSoapMapper performerFullSoapMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -22,10 +25,11 @@ class PerformerSoapQueryTest extends Specification {
 	private PerformerSoapQuery performerSoapQuery
 
 	void setup() {
-		performerSoapMapperMock = Mock(PerformerSoapMapper)
+		performerBaseSoapMapperMock = Mock(PerformerBaseSoapMapper)
+		performerFullSoapMapperMock = Mock(PerformerFullSoapMapper)
 		pageMapperMock = Mock(PageMapper)
 		performerRepositoryMock = Mock(PerformerRepository)
-		performerSoapQuery = new PerformerSoapQuery(performerSoapMapperMock, pageMapperMock, performerRepositoryMock)
+		performerSoapQuery = new PerformerSoapQuery(performerBaseSoapMapperMock, performerFullSoapMapperMock, pageMapperMock, performerRepositoryMock)
 	}
 
 	void "maps PerformerBaseRequest to PerformerRequestDTO and to PageRequest, then calls repository, then returns result"() {
@@ -41,7 +45,7 @@ class PerformerSoapQueryTest extends Specification {
 		Page pageOutput = performerSoapQuery.query(performerRequest)
 
 		then:
-		1 * performerSoapMapperMock.mapBase(performerRequest) >> performerRequestDTO
+		1 * performerBaseSoapMapperMock.mapBase(performerRequest) >> performerRequestDTO
 		1 * pageMapperMock.fromRequestPageToPageRequest(requestPage) >> pageRequest
 		1 * performerRepositoryMock.findMatching(performerRequestDTO, pageRequest) >> page
 		pageOutput == page
@@ -58,7 +62,7 @@ class PerformerSoapQueryTest extends Specification {
 		Page pageOutput = performerSoapQuery.query(performerRequest)
 
 		then:
-		1 * performerSoapMapperMock.mapFull(performerRequest) >> performerRequestDTO
+		1 * performerFullSoapMapperMock.mapFull(performerRequest) >> performerRequestDTO
 		1 * pageMapperMock.defaultPageRequest >> pageRequest
 		1 * performerRepositoryMock.findMatching(performerRequestDTO, pageRequest) >> page
 		pageOutput == page

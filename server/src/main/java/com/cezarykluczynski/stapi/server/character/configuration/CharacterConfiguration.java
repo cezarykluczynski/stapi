@@ -2,8 +2,10 @@ package com.cezarykluczynski.stapi.server.character.configuration;
 
 import com.cezarykluczynski.stapi.server.character.endpoint.CharacterRestEndpoint;
 import com.cezarykluczynski.stapi.server.character.endpoint.CharacterSoapEndpoint;
-import com.cezarykluczynski.stapi.server.character.mapper.CharacterRestMapper;
-import com.cezarykluczynski.stapi.server.character.mapper.CharacterSoapMapper;
+import com.cezarykluczynski.stapi.server.character.mapper.CharacterBaseRestMapper;
+import com.cezarykluczynski.stapi.server.character.mapper.CharacterBaseSoapMapper;
+import com.cezarykluczynski.stapi.server.character.mapper.CharacterFullRestMapper;
+import com.cezarykluczynski.stapi.server.character.mapper.CharacterFullSoapMapper;
 import com.cezarykluczynski.stapi.server.character.reader.CharacterRestReader;
 import com.cezarykluczynski.stapi.server.character.reader.CharacterSoapReader;
 import org.apache.cxf.Bus;
@@ -38,13 +40,23 @@ public class CharacterConfiguration {
 	}
 
 	@Bean
-	public CharacterSoapMapper characterSoapMapper() {
-		return Mappers.getMapper(CharacterSoapMapper.class);
+	public CharacterBaseSoapMapper characterBaseSoapMapper() {
+		return Mappers.getMapper(CharacterBaseSoapMapper.class);
 	}
 
 	@Bean
-	public CharacterRestMapper characterRestMapper() {
-		return Mappers.getMapper(CharacterRestMapper.class);
+	public CharacterFullSoapMapper characterFullSoapMapper() {
+		return Mappers.getMapper(CharacterFullSoapMapper.class);
+	}
+
+	@Bean
+	public CharacterBaseRestMapper characterBaseRestMapper() {
+		return Mappers.getMapper(CharacterBaseRestMapper.class);
+	}
+
+	@Bean
+	public CharacterFullRestMapper characterFullRestMapper() {
+		return Mappers.getMapper(CharacterFullRestMapper.class);
 	}
 
 }

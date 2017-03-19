@@ -39,9 +39,9 @@ class StaffRestEndpointIntegrationTest extends AbstractStaffEndpointIntegrationT
 
 		then:
 		staffFullResponse.staff.guid == IRA_STEVEN_BEHR_GUID
-		staffFullResponse.staff.writtenEpisodeHeaders.size() == 34
-		staffFullResponse.staff.teleplayAuthoredEpisodeHeaders.size() == 18
-		staffFullResponse.staff.storyAuthoredEpisodeHeaders.size() == 10
+		staffFullResponse.staff.writtenEpisodes.size() == 34
+		staffFullResponse.staff.teleplayAuthoredEpisodes.size() == 18
+		staffFullResponse.staff.storyAuthoredEpisodes.size() == 10
 	}
 
 	void "gets staff with movie experience by guid"() {
@@ -50,9 +50,9 @@ class StaffRestEndpointIntegrationTest extends AbstractStaffEndpointIntegrationT
 
 		then:
 		staffFullResponse.staff.guid == RICK_BERMAN_GUID
-		staffFullResponse.staff.storyAuthoredMovieHeaders.size() == 4
-		staffFullResponse.staff.producedMovieHeaders.size() == 4
-		staffFullResponse.staff.movieHeaders.size() == 4
+		staffFullResponse.staff.storyAuthoredMovies.size() == 4
+		staffFullResponse.staff.producedMovies.size() == 4
+		staffFullResponse.staff.movies.size() == 4
 	}
 
 	void "gets staff sorted by name"() {

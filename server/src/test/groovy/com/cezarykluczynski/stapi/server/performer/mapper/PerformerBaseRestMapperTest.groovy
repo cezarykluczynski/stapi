@@ -1,19 +1,18 @@
 package com.cezarykluczynski.stapi.server.performer.mapper
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerBase
-import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerFull
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.server.performer.dto.PerformerRestBeanParams
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers
 
-class PerformerRestMapperTest extends AbstractPerformerMapperTest {
+class PerformerBaseRestMapperTest extends AbstractPerformerMapperTest {
 
-	private PerformerRestMapper performerRestMapper
+	private PerformerBaseRestMapper performerRestMapper
 
 	void setup() {
-		performerRestMapper = Mappers.getMapper(PerformerRestMapper)
+		performerRestMapper = Mappers.getMapper(PerformerBaseRestMapper)
 	}
 
 	void "maps PerformerRestBeanParams to PerformerRequestDTO"() {
@@ -101,44 +100,6 @@ class PerformerRestMapperTest extends AbstractPerformerMapperTest {
 		performerBase.videoGamePerformer == VIDEO_GAME_PERFORMER
 		performerBase.voicePerformer == VOICE_PERFORMER
 		performerBase.voyPerformer == VOY_PERFORMER
-	}
-
-	void "maps DB entity to full REST entity"() {
-		given:
-		Performer performer = createPerformer()
-
-		when:
-		PerformerFull performerFull = performerRestMapper.mapFull(performer)
-
-		then:
-		performerFull.name == NAME
-		performerFull.guid == GUID
-		performerFull.birthName == BIRTH_NAME
-		performerFull.gender == GENDER_ENUM_REST
-		performerFull.dateOfBirth == DATE_OF_BIRTH_FROM_DB
-		performerFull.dateOfDeath == DATE_OF_DEATH_FROM_DB
-		performerFull.placeOfBirth == PLACE_OF_BIRTH
-		performerFull.placeOfDeath == PLACE_OF_DEATH
-		performerFull.animalPerformer == ANIMAL_PERFORMER
-		performerFull.disPerformer == DIS_PERFORMER
-		performerFull.ds9Performer == DS9_PERFORMER
-		performerFull.entPerformer == ENT_PERFORMER
-		performerFull.filmPerformer == FILM_PERFORMER
-		performerFull.standInPerformer == STAND_IN_PERFORMER
-		performerFull.stuntPerformer == STUNT_PERFORMER
-		performerFull.tasPerformer == TAS_PERFORMER
-		performerFull.tngPerformer == TNG_PERFORMER
-		performerFull.tosPerformer == TOS_PERFORMER
-		performerFull.videoGamePerformer == VIDEO_GAME_PERFORMER
-		performerFull.voicePerformer == VOICE_PERFORMER
-		performerFull.voyPerformer == VOY_PERFORMER
-		performerFull.episodesPerformances.size() == performer.episodesPerformances.size()
-		performerFull.episodesStuntPerformances.size() == performer.episodesStuntPerformances.size()
-		performerFull.episodesStandInPerformances.size() == performer.episodesStandInPerformances.size()
-		performerFull.moviesPerformances.size() == performer.moviesPerformances.size()
-		performerFull.moviesStuntPerformances.size() == performer.moviesStuntPerformances.size()
-		performerFull.moviesStandInPerformances.size() == performer.moviesStandInPerformances.size()
-		performerFull.characters.size() == performer.characters.size()
 	}
 
 }

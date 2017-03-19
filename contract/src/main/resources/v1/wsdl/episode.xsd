@@ -87,7 +87,7 @@
 	<xs:complexType name="EpisodeFull">
 		<xs:sequence>
 			<xs:element name="guid" type="xs:string"/>
-			<xs:element name="series" type="series:SeriesHeader"/>
+			<xs:element name="series" type="series:SeriesBase"/>
 			<xs:element name="title" type="xs:string"/>
 			<xs:element name="titleGerman" type="xs:string" minOccurs="0"/>
 			<xs:element name="titleItalian" type="xs:string" minOccurs="0"/>

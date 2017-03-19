@@ -1,10 +1,12 @@
 package com.cezarykluczynski.stapi.server.episode.configuration
 
 import com.cezarykluczynski.stapi.server.episode.endpoint.EpisodeRestEndpoint
-import com.cezarykluczynski.stapi.server.episode.reader.EpisodeRestReader
 import com.cezarykluczynski.stapi.server.episode.endpoint.EpisodeSoapEndpoint
-import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeRestMapper
-import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeSoapMapper
+import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeBaseRestMapper
+import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeBaseSoapMapper
+import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeFullRestMapper
+import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeFullSoapMapper
+import com.cezarykluczynski.stapi.server.episode.reader.EpisodeRestReader
 import com.cezarykluczynski.stapi.server.episode.reader.EpisodeSoapReader
 import org.apache.cxf.bus.spring.SpringBus
 import org.apache.cxf.jaxws.EndpointImpl
@@ -56,20 +58,36 @@ class EpisodeConfigurationTest extends Specification {
 		episodeRestEndpoint.episodeRestReader == episodeRestMapper
 	}
 
-	void "EpisodeSoapMapper is created"() {
+	void "EpisodeSoapBaseMapper is created"() {
 		when:
-		EpisodeSoapMapper episodeSoapMapper = episodeConfiguration.episodeSoapMapper()
+		EpisodeBaseSoapMapper episodeSoapMapper = episodeConfiguration.episodeBaseSoapMapper()
 
 		then:
 		episodeSoapMapper != null
 	}
 
-	void "EpisodeRestMapper is created"() {
+	void "EpisodeFullSoapMapper is created"() {
 		when:
-		EpisodeRestMapper episodeRestMapper = episodeConfiguration.episodeRestMapper()
+		EpisodeFullSoapMapper episodeFullSoapMapper = episodeConfiguration.episodeFullSoapMapper()
 
 		then:
-		episodeRestMapper != null
+		episodeFullSoapMapper != null
+	}
+
+	void "EpisodeBaseRestMapper is created"() {
+		when:
+		EpisodeBaseRestMapper episodeBaseRestMapper = episodeConfiguration.episodeBaseRestMapper()
+
+		then:
+		episodeBaseRestMapper != null
+	}
+
+	void "EpisodeFullRestMapper is created"() {
+		when:
+		EpisodeFullRestMapper episodeFullRestMapper = episodeConfiguration.episodeFullRestMapper()
+
+		then:
+		episodeFullRestMapper != null
 	}
 
 }
