@@ -1,0 +1,34 @@
+type: object
+properties:
+  guid:
+    type: string
+  title:
+    type: string
+  publishedYearFrom:
+    type: integer
+  publishedMonthFrom:
+    type: integer
+  publishedDayFrom:
+    type: integer
+  publishedYearTo:
+    type: integer
+  publishedMonthTo:
+    type: integer
+  publishedDayTo:
+    type: integer
+  numberOfIssues:
+    type: integer
+  stardateFrom:
+    type: number
+    format: float
+  stardateTo:
+    type: number
+    format: float
+  yearFrom:
+    type: integer
+  yearTo:
+    type: integer
+  miniseries:
+    type: boolean
+  photonovelSeries:
+    type: boolean

@@ -1,10 +1,12 @@
 package com.cezarykluczynski.stapi.server.comicSeries.configuration
 
 import com.cezarykluczynski.stapi.server.comicSeries.endpoint.ComicSeriesRestEndpoint
-import com.cezarykluczynski.stapi.server.comicSeries.reader.ComicSeriesRestReader
 import com.cezarykluczynski.stapi.server.comicSeries.endpoint.ComicSeriesSoapEndpoint
-import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesRestMapper
-import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesSoapMapper
+import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesBaseRestMapper
+import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesBaseSoapMapper
+import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesFullRestMapper
+import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesFullSoapMapper
+import com.cezarykluczynski.stapi.server.comicSeries.reader.ComicSeriesRestReader
 import com.cezarykluczynski.stapi.server.comicSeries.reader.ComicSeriesSoapReader
 import org.apache.cxf.bus.spring.SpringBus
 import org.apache.cxf.jaxws.EndpointImpl
@@ -56,20 +58,36 @@ class ComicSeriesConfigurationTest extends Specification {
 		comicSeriesRestEndpoint.comicSeriesRestReader == comicSeriesRestMapper
 	}
 
-	void "ComicSeriesSoapMapper is created"() {
+	void "ComicSeriesBaseSoapMapper is created"() {
 		when:
-		ComicSeriesSoapMapper comicSeriesSoapMapper = comicSeriesConfiguration.comicSeriesSoapMapper()
+		ComicSeriesBaseSoapMapper comicSeriesBaseSoapMapper = comicSeriesConfiguration.comicSeriesBaseSoapMapper()
 
 		then:
-		comicSeriesSoapMapper != null
+		comicSeriesBaseSoapMapper != null
 	}
 
-	void "ComicSeriesRestMapper is created"() {
+	void "ComicSeriesFullSoapMapper is created"() {
 		when:
-		ComicSeriesRestMapper comicSeriesRestMapper = comicSeriesConfiguration.comicSeriesRestMapper()
+		ComicSeriesFullSoapMapper comicSeriesFullSoapMapper = comicSeriesConfiguration.comicSeriesFullSoapMapper()
 
 		then:
-		comicSeriesRestMapper != null
+		comicSeriesFullSoapMapper != null
+	}
+
+	void "ComicSeriesBaseRestMapper is created"() {
+		when:
+		ComicSeriesBaseRestMapper comicSeriesBaseRestMapper = comicSeriesConfiguration.comicSeriesBaseRestMapper()
+
+		then:
+		comicSeriesBaseRestMapper != null
+	}
+
+	void "ComicSeriesFullRestMapper is created"() {
+		when:
+		ComicSeriesFullRestMapper comicSeriesFullRestMapper = comicSeriesConfiguration.comicSeriesFullRestMapper()
+
+		then:
+		comicSeriesFullRestMapper != null
 	}
 
 }

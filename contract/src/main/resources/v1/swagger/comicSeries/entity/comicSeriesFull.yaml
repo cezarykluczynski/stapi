@@ -32,19 +32,19 @@ properties:
     type: boolean
   photonovelSeries:
     type: boolean
-  parentSeriesHeaders:
+  parentSeries:
     type: array
     items:
-      $ref: '#/definitions/ComicSeriesHeader'
-  childSeriesHeaders:
+      $ref: '#/definitions/ComicSeriesBase'
+  childSeries:
     type: array
     items:
-      $ref: '#/definitions/ComicSeriesHeader'
-  publisherHeaders:
+      $ref: '#/definitions/ComicSeriesBase'
+  publishers:
     type: array
     items:
-      $ref: '#/definitions/CompanyHeader'
-  comicsHeaders:
+      $ref: '#/definitions/CompanyBase'
+  comics:
     type: array
     items:
       $ref: '#/definitions/ComicsHeader'

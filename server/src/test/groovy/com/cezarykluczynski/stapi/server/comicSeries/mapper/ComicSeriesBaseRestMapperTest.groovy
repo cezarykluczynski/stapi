@@ -1,18 +1,18 @@
 package com.cezarykluczynski.stapi.server.comicSeries.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicSeries as RESTComicSeries
+import com.cezarykluczynski.stapi.client.v1.rest.model.ComicSeriesBase as ComicSeriesBase
 import com.cezarykluczynski.stapi.model.comicSeries.dto.ComicSeriesRequestDTO
-import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries as DBComicSeries
+import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries as ComicSeries
 import com.cezarykluczynski.stapi.server.comicSeries.dto.ComicSeriesRestBeanParams
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers
 
-class ComicSeriesRestMapperTest extends AbstractComicSeriesMapperTest {
+class ComicSeriesBaseRestMapperTest extends AbstractComicSeriesMapperTest {
 
-	private ComicSeriesRestMapper comicSeriesRestMapper
+	private ComicSeriesBaseRestMapper comicSeriesBaseRestMapper
 
 	void setup() {
-		comicSeriesRestMapper = Mappers.getMapper(ComicSeriesRestMapper)
+		comicSeriesBaseRestMapper = Mappers.getMapper(ComicSeriesBaseRestMapper)
 	}
 
 	void "maps ComicSeriesRestBeanParams to ComicSeriesRequestDTO"() {
@@ -32,7 +32,7 @@ class ComicSeriesRestMapperTest extends AbstractComicSeriesMapperTest {
 				photonovelSeries: PHOTONOVEL_SERIES)
 
 		when:
-		ComicSeriesRequestDTO comicSeriesRequestDTO = comicSeriesRestMapper.map comicSeriesRestBeanParams
+		ComicSeriesRequestDTO comicSeriesRequestDTO = comicSeriesBaseRestMapper.mapBase comicSeriesRestBeanParams
 
 		then:
 		comicSeriesRequestDTO.guid == GUID
@@ -49,12 +49,12 @@ class ComicSeriesRestMapperTest extends AbstractComicSeriesMapperTest {
 		comicSeriesRequestDTO.photonovelSeries == PHOTONOVEL_SERIES
 	}
 
-	void "maps DB entity to REST entity"() {
+	void "maps DB entity to base REST entity"() {
 		given:
-		DBComicSeries dBComicSeries = createComicSeries()
+		ComicSeries comicSeries = createComicSeries()
 
 		when:
-		RESTComicSeries restComicSeries = comicSeriesRestMapper.map(Lists.newArrayList(dBComicSeries))[0]
+		ComicSeriesBase restComicSeries = comicSeriesBaseRestMapper.mapBase(Lists.newArrayList(comicSeries))[0]
 
 		then:
 		restComicSeries.guid == GUID
@@ -72,10 +72,6 @@ class ComicSeriesRestMapperTest extends AbstractComicSeriesMapperTest {
 		restComicSeries.yearTo == YEAR_TO
 		restComicSeries.miniseries == MINISERIES
 		restComicSeries.photonovelSeries == PHOTONOVEL_SERIES
-		restComicSeries.parentSeriesHeaders.size() == dBComicSeries.parentSeries.size()
-		restComicSeries.childSeriesHeaders.size() == dBComicSeries.childSeries.size()
-		restComicSeries.publisherHeaders.size() == dBComicSeries.publishers.size()
-		restComicSeries.comicsHeaders.size() == dBComicSeries.comics.size()
 	}
 
 }

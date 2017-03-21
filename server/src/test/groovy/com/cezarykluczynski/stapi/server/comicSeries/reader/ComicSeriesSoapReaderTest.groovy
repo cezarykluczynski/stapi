@@ -1,13 +1,17 @@
 package com.cezarykluczynski.stapi.server.comicSeries.reader
 
-import com.cezarykluczynski.stapi.client.v1.soap.ComicSeries as SOAPComicSeries
-import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesRequest
-import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesResponse
+import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesBase
+import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesFull
+import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
-import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries as DBComicSeries
-import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesSoapMapper
+import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries
+import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesBaseSoapMapper
+import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesFullSoapMapper
 import com.cezarykluczynski.stapi.server.comicSeries.query.ComicSeriesSoapQuery
+import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
 import spock.lang.Specification
@@ -18,7 +22,9 @@ class ComicSeriesSoapReaderTest extends Specification {
 
 	private ComicSeriesSoapQuery comicSeriesSoapQueryBuilderMock
 
-	private ComicSeriesSoapMapper comicSeriesSoapMapperMock
+	private ComicSeriesBaseSoapMapper comicSeriesBaseSoapMapperMock
+
+	private ComicSeriesFullSoapMapper comicSeriesFullSoapMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -26,29 +32,48 @@ class ComicSeriesSoapReaderTest extends Specification {
 
 	void setup() {
 		comicSeriesSoapQueryBuilderMock = Mock(ComicSeriesSoapQuery)
-		comicSeriesSoapMapperMock = Mock(ComicSeriesSoapMapper)
+		comicSeriesBaseSoapMapperMock = Mock(ComicSeriesBaseSoapMapper)
+		comicSeriesFullSoapMapperMock = Mock(ComicSeriesFullSoapMapper)
 		pageMapperMock = Mock(PageMapper)
-		comicSeriesSoapReader = new ComicSeriesSoapReader(comicSeriesSoapQueryBuilderMock, comicSeriesSoapMapperMock, pageMapperMock)
+		comicSeriesSoapReader = new ComicSeriesSoapReader(comicSeriesSoapQueryBuilderMock, comicSeriesBaseSoapMapperMock,
+				comicSeriesFullSoapMapperMock, pageMapperMock)
 	}
 
-	void "gets database entities and puts them into ComicSeriesResponse"() {
+	void "passed base request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		List<DBComicSeries> dbComicSeriesList = Lists.newArrayList()
-		Page<DBComicSeries> dbComicSeriesPage = Mock(Page)
-		dbComicSeriesPage.content >> dbComicSeriesList
-		List<SOAPComicSeries> soapComicSeriesList = Lists.newArrayList(new SOAPComicSeries(guid: GUID))
-		ComicSeriesRequest comicSeriesRequest = Mock(ComicSeriesRequest)
+		List<ComicSeries> comicSeriesList = Lists.newArrayList()
+		Page<ComicSeries> comicSeriesPage = Mock(Page)
+		List<ComicSeriesBase> soapComicSeriesList = Lists.newArrayList(new ComicSeriesBase(guid: GUID))
+		ComicSeriesBaseRequest comicSeriesBaseRequest = Mock(ComicSeriesBaseRequest)
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		ComicSeriesResponse comicSeriesResponse = comicSeriesSoapReader.readBase(comicSeriesRequest)
+		ComicSeriesBaseResponse comicSeriesResponse = comicSeriesSoapReader.readBase(comicSeriesBaseRequest)
 
 		then:
-		1 * comicSeriesSoapQueryBuilderMock.query(comicSeriesRequest) >> dbComicSeriesPage
-		1 * pageMapperMock.fromPageToSoapResponsePage(dbComicSeriesPage) >> responsePage
-		1 * comicSeriesSoapMapperMock.map(dbComicSeriesList) >> soapComicSeriesList
+		1 * comicSeriesSoapQueryBuilderMock.query(comicSeriesBaseRequest) >> comicSeriesPage
+		1 * comicSeriesPage.content >> comicSeriesList
+		1 * pageMapperMock.fromPageToSoapResponsePage(comicSeriesPage) >> responsePage
+		1 * comicSeriesBaseSoapMapperMock.mapBase(comicSeriesList) >> soapComicSeriesList
 		comicSeriesResponse.comicSeries[0].guid == GUID
 		comicSeriesResponse.page == responsePage
+	}
+
+	void "passed full request to queryBuilder, then to mapper, and returns result"() {
+		given:
+		ComicSeriesFull comicSeriesFull = new ComicSeriesFull(guid: GUID)
+		ComicSeries comicSeries = Mock(ComicSeries)
+		Page<ComicSeries> comicSeriesPage = Mock(Page)
+		ComicSeriesFullRequest comicSeriesFullRequest = Mock(ComicSeriesFullRequest)
+
+		when:
+		ComicSeriesFullResponse comicSeriesFullResponse = comicSeriesSoapReader.readFull(comicSeriesFullRequest)
+
+		then:
+		1 * comicSeriesSoapQueryBuilderMock.query(comicSeriesFullRequest) >> comicSeriesPage
+		1 * comicSeriesPage.content >> Lists.newArrayList(comicSeries)
+		1 * comicSeriesFullSoapMapperMock.mapFull(comicSeries) >> comicSeriesFull
+		comicSeriesFullResponse.comicSeries.guid == GUID
 	}
 
 }

@@ -1,7 +1,9 @@
 package com.cezarykluczynski.stapi.server.comicSeries.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesRequest
-import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesResponse
+import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesFullResponse
 import com.cezarykluczynski.stapi.server.comicSeries.reader.ComicSeriesSoapReader
 import spock.lang.Specification
 
@@ -16,17 +18,30 @@ class ComicSeriesSoapEndpointTest extends Specification {
 		comicSeriesSoapEndpoint = new ComicSeriesSoapEndpoint(comicSeriesSoapReaderMock)
 	}
 
-	void "passes call to ComicSeriesSoapReader"() {
+	void "passes base call to ComicSeriesSoapReader"() {
 		given:
-		ComicSeriesRequest comicSeriesRequest = Mock(ComicSeriesRequest)
-		ComicSeriesResponse comicSeriesResponse = Mock(ComicSeriesResponse)
+		ComicSeriesBaseRequest comicSeriesBaseRequest = Mock(ComicSeriesBaseRequest)
+		ComicSeriesBaseResponse comicSeriesBaseResponse = Mock(ComicSeriesBaseResponse)
 
 		when:
-		ComicSeriesResponse comicSeriesResponseResult = comicSeriesSoapEndpoint.getComicSeries(comicSeriesRequest)
+		ComicSeriesBaseResponse comicSeriesResponseResult = comicSeriesSoapEndpoint.getComicSeriesBase(comicSeriesBaseRequest)
 
 		then:
-		1 * comicSeriesSoapReaderMock.readBase(comicSeriesRequest) >> comicSeriesResponse
-		comicSeriesResponseResult == comicSeriesResponse
+		1 * comicSeriesSoapReaderMock.readBase(comicSeriesBaseRequest) >> comicSeriesBaseResponse
+		comicSeriesResponseResult == comicSeriesBaseResponse
+	}
+
+	void "passes full call to ComicSeriesSoapReader"() {
+		given:
+		ComicSeriesFullRequest comicSeriesFullRequest = Mock(ComicSeriesFullRequest)
+		ComicSeriesFullResponse comicSeriesFullResponse = Mock(ComicSeriesFullResponse)
+
+		when:
+		ComicSeriesFullResponse comicSeriesResponseResult = comicSeriesSoapEndpoint.getComicSeriesFull(comicSeriesFullRequest)
+
+		then:
+		1 * comicSeriesSoapReaderMock.readFull(comicSeriesFullRequest) >> comicSeriesFullResponse
+		comicSeriesResponseResult == comicSeriesFullResponse
 	}
 
 }

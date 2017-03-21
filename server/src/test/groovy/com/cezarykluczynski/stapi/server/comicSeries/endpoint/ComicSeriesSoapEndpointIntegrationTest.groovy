@@ -1,7 +1,9 @@
 package com.cezarykluczynski.stapi.server.comicSeries.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesRequest
-import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesResponse
+import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.IntegerRange
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
@@ -18,7 +20,7 @@ class ComicSeriesSoapEndpointIntegrationTest extends AbstractComicSeriesEndpoint
 
 	void "gets the only comic series published during the year of original airing of TNG, that also have 'The Next Generation' in it's title"() {
 		when:
-		ComicSeriesResponse comicSeriesResponse = stapiSoapClient.comicSeriesPortType.getComicSeries(new ComicSeriesRequest(
+		ComicSeriesBaseResponse comicSeriesBaseResponse = stapiSoapClient.comicSeriesPortType.getComicSeriesBase(new ComicSeriesBaseRequest(
 				publishedYear: new IntegerRange(
 						from: 1987,
 						to: 1994
@@ -27,8 +29,18 @@ class ComicSeriesSoapEndpointIntegrationTest extends AbstractComicSeriesEndpoint
 		))
 
 		then:
-		comicSeriesResponse.comicSeries.size() == 1
-		comicSeriesResponse.comicSeries[0].title == 'Star Trek: The Next Generation (DC volume 1)'
+		comicSeriesBaseResponse.comicSeries.size() == 1
+		comicSeriesBaseResponse.comicSeries[0].title == 'Star Trek: The Next Generation (DC volume 1)'
+	}
+
+	void "gets comics by GUID"() {
+		when:
+		ComicSeriesFullResponse comicSeriesBaseResponse = stapiSoapClient.comicSeriesPortType.getComicSeriesFull(new ComicSeriesFullRequest(
+				guid: 'CSMA0000125094'
+		))
+
+		then:
+		comicSeriesBaseResponse.comicSeries.title == 'Star Trek: Captain\'s Log'
 	}
 
 }

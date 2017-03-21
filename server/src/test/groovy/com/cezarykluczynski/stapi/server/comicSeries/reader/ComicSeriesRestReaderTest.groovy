@@ -1,12 +1,15 @@
 package com.cezarykluczynski.stapi.server.comicSeries.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicSeries as RESTComicSeries
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicSeriesResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.ComicSeriesBase
+import com.cezarykluczynski.stapi.client.v1.rest.model.ComicSeriesBaseResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.ComicSeriesFull
+import com.cezarykluczynski.stapi.client.v1.rest.model.ComicSeriesFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
 import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.comicSeries.dto.ComicSeriesRestBeanParams
-import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesRestMapper
+import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesBaseRestMapper
+import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesFullRestMapper
 import com.cezarykluczynski.stapi.server.comicSeries.query.ComicSeriesRestQuery
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
@@ -18,7 +21,9 @@ class ComicSeriesRestReaderTest extends Specification {
 
 	private ComicSeriesRestQuery comicSeriesRestQueryBuilderMock
 
-	private ComicSeriesRestMapper comicSeriesRestMapperMock
+	private ComicSeriesBaseRestMapper comicSeriesBaseRestMapperMock
+
+	private ComicSeriesFullRestMapper comicSeriesFullRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -26,29 +31,53 @@ class ComicSeriesRestReaderTest extends Specification {
 
 	void setup() {
 		comicSeriesRestQueryBuilderMock = Mock(ComicSeriesRestQuery)
-		comicSeriesRestMapperMock = Mock(ComicSeriesRestMapper)
+		comicSeriesBaseRestMapperMock = Mock(ComicSeriesBaseRestMapper)
+		comicSeriesFullRestMapperMock = Mock(ComicSeriesFullRestMapper)
 		pageMapperMock = Mock(PageMapper)
-		comicSeriesRestReader = new ComicSeriesRestReader(comicSeriesRestQueryBuilderMock, comicSeriesRestMapperMock, pageMapperMock)
+		comicSeriesRestReader = new ComicSeriesRestReader(comicSeriesRestQueryBuilderMock, comicSeriesBaseRestMapperMock, comicSeriesFullRestMapperMock,
+				pageMapperMock)
 	}
 
-	void "gets database entities and puts them into ComicSeriesResponse"() {
+	void "passed request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		List<ComicSeries> dbComicSeriesList = Lists.newArrayList()
-		Page<ComicSeries> dbComicSeriesPage = Mock(Page)
-		dbComicSeriesPage.content >> dbComicSeriesList
-		List<RESTComicSeries> soapComicSeriesList = Lists.newArrayList(new RESTComicSeries(guid: GUID))
-		ComicSeriesRestBeanParams seriesRestBeanParams = Mock(ComicSeriesRestBeanParams)
+		ComicSeriesRestBeanParams comicSeriesRestBeanParams = Mock(ComicSeriesRestBeanParams)
+		List<ComicSeriesBase> restComicSeriesList = Lists.newArrayList(Mock(ComicSeriesBase))
+		List<ComicSeries> comicSeriesList = Lists.newArrayList(Mock(ComicSeries))
+		Page<ComicSeries> comicSeriesPage = Mock(Page)
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		ComicSeriesResponse comicSeriesResponse = comicSeriesRestReader.readBase(seriesRestBeanParams)
+		ComicSeriesBaseResponse comicSeriesResponseOutput = comicSeriesRestReader.readBase(comicSeriesRestBeanParams)
 
 		then:
-		1 * comicSeriesRestQueryBuilderMock.query(seriesRestBeanParams) >> dbComicSeriesPage
-		1 * pageMapperMock.fromPageToRestResponsePage(dbComicSeriesPage) >> responsePage
-		1 * comicSeriesRestMapperMock.map(dbComicSeriesList) >> soapComicSeriesList
-		comicSeriesResponse.comicSeries[0].guid == GUID
-		comicSeriesResponse.page == responsePage
+		1 * comicSeriesRestQueryBuilderMock.query(comicSeriesRestBeanParams) >> comicSeriesPage
+		1 * pageMapperMock.fromPageToRestResponsePage(comicSeriesPage) >> responsePage
+		1 * comicSeriesPage.content >> comicSeriesList
+		1 * comicSeriesBaseRestMapperMock.mapBase(comicSeriesList) >> restComicSeriesList
+		0 * _
+		comicSeriesResponseOutput.comicSeries == restComicSeriesList
+		comicSeriesResponseOutput.page == responsePage
+	}
+
+	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
+		given:
+		ComicSeriesFull comicSeriesFull = Mock(ComicSeriesFull)
+		ComicSeries comicSeries = Mock(ComicSeries)
+		List<ComicSeries> comicSeriesList = Lists.newArrayList(comicSeries)
+		Page<ComicSeries> comicSeriesPage = Mock(Page)
+
+		when:
+		ComicSeriesFullResponse comicSeriesResponseOutput = comicSeriesRestReader.readFull(GUID)
+
+		then:
+		1 * comicSeriesRestQueryBuilderMock.query(_ as ComicSeriesRestBeanParams) >> { ComicSeriesRestBeanParams comicSeriesRestBeanParams ->
+			assert comicSeriesRestBeanParams.guid == GUID
+			comicSeriesPage
+		}
+		1 * comicSeriesPage.content >> comicSeriesList
+		1 * comicSeriesFullRestMapperMock.mapFull(comicSeries) >> comicSeriesFull
+		0 * _
+		comicSeriesResponseOutput.comicSeries == comicSeriesFull
 	}
 
 }

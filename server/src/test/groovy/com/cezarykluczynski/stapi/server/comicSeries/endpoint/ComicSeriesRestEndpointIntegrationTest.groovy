@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.comicSeries.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicSeriesResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.ComicSeriesBaseResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.ComicSeriesFullResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import spock.lang.Requires
@@ -16,12 +17,20 @@ class ComicSeriesRestEndpointIntegrationTest extends AbstractComicSeriesEndpoint
 
 	void "gets the only photoseries that is also a miniseries"() {
 		when:
-		ComicSeriesResponse comicSeriesResponse = stapiRestClient.comicSeriesApi
-				.comicSeriesPost(0, 20, null, null, null, null, null, null, null, null, null, null, null, true, true)
+		ComicSeriesBaseResponse comicSeriesBaseResponse = stapiRestClient.comicSeriesApi
+				.comicSeriesSearchPost(0, 20, null, null, null, null, null, null, null, null, null, null, true, true)
 
 		then:
-		comicSeriesResponse.comicSeries.size() == 1
-		comicSeriesResponse.comicSeries[0].title == 'Star Trek: New Visions'
+		comicSeriesBaseResponse.comicSeries.size() == 1
+		comicSeriesBaseResponse.comicSeries[0].title == 'Star Trek: New Visions'
+	}
+
+	void "gets comic series by GUID"() {
+		when:
+		ComicSeriesFullResponse comicSeriesFullResponse = stapiRestClient.comicSeriesApi.comicSeriesGet('CSMA0000157262')
+
+		then:
+		comicSeriesFullResponse.comicSeries.title == 'Star Trek Classics'
 	}
 
 }

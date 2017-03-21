@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.comicSeries.mapper;
 
-import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesRequest;
+import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesBase;
+import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesBaseRequest;
 import com.cezarykluczynski.stapi.model.comicSeries.dto.ComicSeriesRequestDTO;
 import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries;
 import com.cezarykluczynski.stapi.server.comics.mapper.ComicsHeaderSoapMapper;
@@ -15,9 +16,10 @@ import java.util.List;
 
 @Mapper(config = MapstructConfiguration.class, uses = {ComicsHeaderSoapMapper.class, ComicSeriesHeaderSoapMapper.class, CompanyHeaderSoapMapper.class,
 		RequestSortSoapMapper.class})
-public interface ComicSeriesSoapMapper {
+public interface ComicSeriesBaseSoapMapper {
 
 	@Mappings({
+			@Mapping(target = "guid", ignore = true),
 			@Mapping(source = "publishedYear.from", target = "publishedYearFrom"),
 			@Mapping(source = "publishedYear.to", target = "publishedYearTo"),
 			@Mapping(source = "numberOfIssues.from", target = "numberOfIssuesFrom"),
@@ -27,16 +29,10 @@ public interface ComicSeriesSoapMapper {
 			@Mapping(source = "year.from", target = "yearFrom"),
 			@Mapping(source = "year.to", target = "yearTo")
 	})
-	ComicSeriesRequestDTO map(ComicSeriesRequest comicSeriesRequest);
+	ComicSeriesRequestDTO mapBase(ComicSeriesBaseRequest comicSeriesBaseRequest);
 
-	@Mappings({
-			@Mapping(source = "parentSeries", target = "parentSeriesHeaders"),
-			@Mapping(source = "childSeries", target = "childSeriesHeaders"),
-			@Mapping(source = "publishers", target = "publisherHeaders"),
-			@Mapping(source = "comics", target = "comicsHeaders")
-	})
-	com.cezarykluczynski.stapi.client.v1.soap.ComicSeries map(ComicSeries comicSeries);
+	ComicSeriesBase mapBase(ComicSeries comicSeries);
 
-	List<com.cezarykluczynski.stapi.client.v1.soap.ComicSeries> map(List<ComicSeries> comicSeriesList);
+	List<ComicSeriesBase> mapBase(List<ComicSeries> comicSeriesList);
 
 }

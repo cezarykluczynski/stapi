@@ -2,8 +2,10 @@ package com.cezarykluczynski.stapi.server.comicSeries.configuration;
 
 import com.cezarykluczynski.stapi.server.comicSeries.endpoint.ComicSeriesRestEndpoint;
 import com.cezarykluczynski.stapi.server.comicSeries.endpoint.ComicSeriesSoapEndpoint;
-import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesRestMapper;
-import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesSoapMapper;
+import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesBaseRestMapper;
+import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesBaseSoapMapper;
+import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesFullRestMapper;
+import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesFullSoapMapper;
 import com.cezarykluczynski.stapi.server.comicSeries.reader.ComicSeriesRestReader;
 import com.cezarykluczynski.stapi.server.comicSeries.reader.ComicSeriesSoapReader;
 import org.apache.cxf.Bus;
@@ -38,13 +40,23 @@ public class ComicSeriesConfiguration {
 	}
 
 	@Bean
-	public ComicSeriesSoapMapper comicSeriesSoapMapper() {
-		return Mappers.getMapper(ComicSeriesSoapMapper.class);
+	public ComicSeriesBaseSoapMapper comicSeriesBaseSoapMapper() {
+		return Mappers.getMapper(ComicSeriesBaseSoapMapper.class);
 	}
 
 	@Bean
-	public ComicSeriesRestMapper comicSeriesRestMapper() {
-		return Mappers.getMapper(ComicSeriesRestMapper.class);
+	public ComicSeriesFullSoapMapper comicSeriesFullSoapMapper() {
+		return Mappers.getMapper(ComicSeriesFullSoapMapper.class);
+	}
+
+	@Bean
+	public ComicSeriesBaseRestMapper comicSeriesBaseRestMapper() {
+		return Mappers.getMapper(ComicSeriesBaseRestMapper.class);
+	}
+
+	@Bean
+	public ComicSeriesFullRestMapper comicSeriesFullRestMapper() {
+		return Mappers.getMapper(ComicSeriesFullRestMapper.class);
 	}
 
 }
