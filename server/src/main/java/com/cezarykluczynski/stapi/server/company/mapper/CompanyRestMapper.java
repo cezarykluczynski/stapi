@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.server.company.mapper;
 
+import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyBase;
+import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyFull;
 import com.cezarykluczynski.stapi.model.company.dto.CompanyRequestDTO;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.server.common.mapper.RequestSortRestMapper;
@@ -14,10 +16,10 @@ public interface CompanyRestMapper {
 
 	CompanyRequestDTO mapBase(CompanyRestBeanParams companyRestBeanParams);
 
-	com.cezarykluczynski.stapi.client.v1.rest.model.CompanyBase mapBase(Company company);
+	CompanyBase mapBase(Company company);
 
-	List<com.cezarykluczynski.stapi.client.v1.rest.model.CompanyBase> mapBase(List<Company> companyList);
+	List<CompanyBase> mapBase(List<Company> companyList);
 
-	com.cezarykluczynski.stapi.client.v1.rest.model.CompanyFull mapFull(Company company);
+	CompanyFull mapFull(Company company);
 
 }

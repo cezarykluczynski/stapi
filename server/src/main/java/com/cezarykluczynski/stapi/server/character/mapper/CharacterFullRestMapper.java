@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.server.character.mapper;
 
+import com.cezarykluczynski.stapi.client.v1.rest.model.CharacterFull;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.server.common.mapper.EnumMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
@@ -12,6 +13,6 @@ import org.mapstruct.Mapper;
 		MovieHeaderRestMapper.class, PerformerBaseRestMapper.class})
 public interface CharacterFullRestMapper {
 
-	com.cezarykluczynski.stapi.client.v1.rest.model.CharacterFull mapFull(Character series);
+	CharacterFull mapFull(Character series);
 
 }

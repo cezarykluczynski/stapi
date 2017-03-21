@@ -2,8 +2,10 @@ package com.cezarykluczynski.stapi.server.movie.configuration;
 
 import com.cezarykluczynski.stapi.server.movie.endpoint.MovieRestEndpoint;
 import com.cezarykluczynski.stapi.server.movie.endpoint.MovieSoapEndpoint;
-import com.cezarykluczynski.stapi.server.movie.mapper.MovieRestMapper;
-import com.cezarykluczynski.stapi.server.movie.mapper.MovieSoapMapper;
+import com.cezarykluczynski.stapi.server.movie.mapper.MovieBaseRestMapper;
+import com.cezarykluczynski.stapi.server.movie.mapper.MovieBaseSoapMapper;
+import com.cezarykluczynski.stapi.server.movie.mapper.MovieFullRestMapper;
+import com.cezarykluczynski.stapi.server.movie.mapper.MovieFullSoapMapper;
 import com.cezarykluczynski.stapi.server.movie.reader.MovieRestReader;
 import com.cezarykluczynski.stapi.server.movie.reader.MovieSoapReader;
 import org.apache.cxf.Bus;
@@ -38,13 +40,23 @@ public class MovieConfiguration {
 	}
 
 	@Bean
-	public MovieSoapMapper movieSoapMapper() {
-		return Mappers.getMapper(MovieSoapMapper.class);
+	public MovieBaseSoapMapper movieBaseSoapMapper() {
+		return Mappers.getMapper(MovieBaseSoapMapper.class);
 	}
 
 	@Bean
-	public MovieRestMapper movieRestMapper() {
-		return Mappers.getMapper(MovieRestMapper.class);
+	public MovieFullSoapMapper movieFullSoapMapper() {
+		return Mappers.getMapper(MovieFullSoapMapper.class);
+	}
+
+	@Bean
+	public MovieBaseRestMapper movieBaseRestMapper() {
+		return Mappers.getMapper(MovieBaseRestMapper.class);
+	}
+
+	@Bean
+	public MovieFullRestMapper movieFullRestMapper() {
+		return Mappers.getMapper(MovieFullRestMapper.class);
 	}
 
 }

@@ -11,7 +11,7 @@ import spock.lang.Specification
 
 class StaffRestQueryTest extends Specification {
 
-	private StaffBaseRestMapper staffRestMapperMock
+	private StaffBaseRestMapper staffBaseRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,11 +20,10 @@ class StaffRestQueryTest extends Specification {
 	private StaffRestQuery staffRestQuery
 
 	void setup() {
-		staffRestMapperMock = Mock(StaffBaseRestMapper)
+		staffBaseRestMapperMock = Mock(StaffBaseRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		staffRepositoryMock = Mock(StaffRepository)
-		staffRestQuery = new StaffRestQuery(staffRestMapperMock, pageMapperMock,
-				staffRepositoryMock)
+		staffRestQuery = new StaffRestQuery(staffBaseRestMapperMock, pageMapperMock, staffRepositoryMock)
 	}
 
 	void "maps StaffRestBeanParams to StaffRequestDTO and to PageRequest, then calls repository, then returns result"() {
@@ -40,7 +39,7 @@ class StaffRestQueryTest extends Specification {
 		Page pageOutput = staffRestQuery.query(staffRestBeanParams)
 
 		then:
-		1 * staffRestMapperMock.mapBase(staffRestBeanParams) >> staffRequestDTO
+		1 * staffBaseRestMapperMock.mapBase(staffRestBeanParams) >> staffRequestDTO
 		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(staffRestBeanParams) >> pageRequest
 		1 * staffRepositoryMock.findMatching(staffRequestDTO, pageRequest) >> page
 		pageOutput == page

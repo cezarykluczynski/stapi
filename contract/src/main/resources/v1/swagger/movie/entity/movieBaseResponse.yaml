@@ -5,4 +5,4 @@ properties:
   movies:
     type: array
     items:
-      $ref: '#/definitions/Movie'
+      $ref: '#/definitions/MovieBase'

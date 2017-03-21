@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.server.performer.mapper;
 
+import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerBase;
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.server.common.mapper.DateMapper;
@@ -11,13 +12,13 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper(config = MapstructConfiguration.class, uses = {DateMapper.class, EnumMapper.class,RequestSortRestMapper.class})
+@Mapper(config = MapstructConfiguration.class, uses = {DateMapper.class, EnumMapper.class, RequestSortRestMapper.class})
 public interface PerformerBaseRestMapper {
 
 	PerformerRequestDTO mapBase(PerformerRestBeanParams performerRestBeanParams);
 
-	com.cezarykluczynski.stapi.client.v1.rest.model.PerformerBase mapBase(Performer performer);
+	PerformerBase mapBase(Performer performer);
 
-	List<com.cezarykluczynski.stapi.client.v1.rest.model.PerformerBase> mapBase(List<Performer> performerList);
+	List<PerformerBase> mapBase(List<Performer> performerList);
 
 }

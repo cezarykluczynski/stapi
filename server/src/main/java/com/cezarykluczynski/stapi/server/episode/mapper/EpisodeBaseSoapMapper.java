@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.server.episode.mapper;
 
+import com.cezarykluczynski.stapi.client.v1.soap.EpisodeBase;
 import com.cezarykluczynski.stapi.client.v1.soap.EpisodeBaseRequest;
 import com.cezarykluczynski.stapi.model.episode.dto.EpisodeRequestDTO;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
@@ -9,8 +10,8 @@ import com.cezarykluczynski.stapi.server.common.mapper.EnumMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.RequestSortSoapMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseSoapMapper;
+import com.cezarykluczynski.stapi.server.series.mapper.SeriesBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesHeaderSoapMapper;
-import com.cezarykluczynski.stapi.server.series.mapper.SeriesSoapMapper;
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseSoapMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -18,8 +19,8 @@ import org.mapstruct.Mappings;
 
 import java.util.List;
 
-@Mapper(config = MapstructConfiguration.class, uses = {CharacterBaseSoapMapper.class, DateMapper.class, EnumMapper.class,
-		RequestSortSoapMapper.class, PerformerBaseSoapMapper.class, SeriesHeaderSoapMapper.class, SeriesSoapMapper.class, StaffBaseSoapMapper.class})
+@Mapper(config = MapstructConfiguration.class, uses = {CharacterBaseSoapMapper.class, DateMapper.class, EnumMapper.class, RequestSortSoapMapper.class,
+		PerformerBaseSoapMapper.class, SeriesHeaderSoapMapper.class, SeriesBaseSoapMapper.class, StaffBaseSoapMapper.class})
 public interface EpisodeBaseSoapMapper {
 
 	@Mappings({
@@ -39,8 +40,8 @@ public interface EpisodeBaseSoapMapper {
 	})
 	EpisodeRequestDTO mapBase(EpisodeBaseRequest episodeBaseRequest);
 
-	com.cezarykluczynski.stapi.client.v1.soap.EpisodeBase mapBase(Episode episode);
+	EpisodeBase mapBase(Episode episode);
 
-	List<com.cezarykluczynski.stapi.client.v1.soap.EpisodeBase> mapBase(List<Episode> episodeList);
+	List<EpisodeBase> mapBase(List<Episode> episodeList);
 
 }

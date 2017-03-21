@@ -6,7 +6,8 @@ import com.cezarykluczynski.stapi.model.series.dto.SeriesRequestDTO;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.model.series.repository.SeriesRepository;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
-import com.cezarykluczynski.stapi.server.series.mapper.SeriesSoapMapper;
+import com.cezarykluczynski.stapi.server.series.mapper.SeriesBaseSoapMapper;
+import com.cezarykluczynski.stapi.server.series.mapper.SeriesFullSoapMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -16,27 +17,31 @@ import javax.inject.Inject;
 @Service
 public class SeriesSoapQuery {
 
-	private SeriesSoapMapper seriesSoapMapper;
+	private SeriesBaseSoapMapper seriesBaseSoapMapper;
+
+	private SeriesFullSoapMapper seriesFullSoapMapper;
 
 	private PageMapper pageMapper;
 
 	private SeriesRepository seriesRepository;
 
 	@Inject
-	public SeriesSoapQuery(SeriesSoapMapper seriesSoapMapper, PageMapper pageMapper, SeriesRepository seriesRepository) {
-		this.seriesSoapMapper = seriesSoapMapper;
+	public SeriesSoapQuery(SeriesBaseSoapMapper seriesBaseSoapMapper, SeriesFullSoapMapper seriesFullSoapMapper, PageMapper pageMapper,
+			SeriesRepository seriesRepository) {
+		this.seriesBaseSoapMapper = seriesBaseSoapMapper;
+		this.seriesFullSoapMapper = seriesFullSoapMapper;
 		this.pageMapper = pageMapper;
 		this.seriesRepository = seriesRepository;
 	}
 
-	public Page<Series> query(SeriesBaseRequest seriesRequest) {
-		SeriesRequestDTO seriesRequestDTO = seriesSoapMapper.mapBase(seriesRequest);
-		PageRequest pageRequest = pageMapper.fromRequestPageToPageRequest(seriesRequest.getPage());
+	public Page<Series> query(SeriesBaseRequest seriesBaseRequest) {
+		SeriesRequestDTO seriesRequestDTO = seriesBaseSoapMapper.mapBase(seriesBaseRequest);
+		PageRequest pageRequest = pageMapper.fromRequestPageToPageRequest(seriesBaseRequest.getPage());
 		return seriesRepository.findMatching(seriesRequestDTO, pageRequest);
 	}
 
 	public Page<Series> query(SeriesFullRequest seriesFullRequest) {
-		SeriesRequestDTO seriesRequestDTO = seriesSoapMapper.mapFull(seriesFullRequest);
+		SeriesRequestDTO seriesRequestDTO = seriesFullSoapMapper.mapFull(seriesFullRequest);
 		return seriesRepository.findMatching(seriesRequestDTO, pageMapper.getDefaultPageRequest());
 	}
 

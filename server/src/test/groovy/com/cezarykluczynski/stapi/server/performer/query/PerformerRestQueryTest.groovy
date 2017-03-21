@@ -11,7 +11,7 @@ import spock.lang.Specification
 
 class PerformerRestQueryTest extends Specification {
 
-	private PerformerBaseRestMapper performerRestMapperMock
+	private PerformerBaseRestMapper performerBaseRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,11 +20,10 @@ class PerformerRestQueryTest extends Specification {
 	private PerformerRestQuery performerRestQuery
 
 	void setup() {
-		performerRestMapperMock = Mock(PerformerBaseRestMapper)
+		performerBaseRestMapperMock = Mock(PerformerBaseRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		performerRepositoryMock = Mock(PerformerRepository)
-		performerRestQuery = new PerformerRestQuery(performerRestMapperMock, pageMapperMock,
-				performerRepositoryMock)
+		performerRestQuery = new PerformerRestQuery(performerBaseRestMapperMock, pageMapperMock, performerRepositoryMock)
 	}
 
 	void "maps PerformerRestBeanParams to PerformerRequestDTO and to PageRequest, then calls repository, then returns result"() {
@@ -40,7 +39,7 @@ class PerformerRestQueryTest extends Specification {
 		Page pageOutput = performerRestQuery.query(performerRestBeanParams)
 
 		then:
-		1 * performerRestMapperMock.mapBase(performerRestBeanParams) >> performerRequestDTO
+		1 * performerBaseRestMapperMock.mapBase(performerRestBeanParams) >> performerRequestDTO
 		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(performerRestBeanParams) >> pageRequest
 		1 * performerRepositoryMock.findMatching(performerRequestDTO, pageRequest) >> page
 		pageOutput == page

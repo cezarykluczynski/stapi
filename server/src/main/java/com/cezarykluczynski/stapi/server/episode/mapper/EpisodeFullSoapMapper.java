@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.server.episode.mapper;
 
+import com.cezarykluczynski.stapi.client.v1.soap.EpisodeFull;
 import com.cezarykluczynski.stapi.client.v1.soap.EpisodeFullRequest;
 import com.cezarykluczynski.stapi.model.episode.dto.EpisodeRequestDTO;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
@@ -9,14 +10,14 @@ import com.cezarykluczynski.stapi.server.common.mapper.EnumMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.RequestSortSoapMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseSoapMapper;
-import com.cezarykluczynski.stapi.server.series.mapper.SeriesSoapMapper;
+import com.cezarykluczynski.stapi.server.series.mapper.SeriesBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseSoapMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
 @Mapper(config = MapstructConfiguration.class, uses = {CharacterBaseSoapMapper.class, DateMapper.class, EnumMapper.class,
-		RequestSortSoapMapper.class, PerformerBaseSoapMapper.class, SeriesSoapMapper.class, StaffBaseSoapMapper.class})
+		RequestSortSoapMapper.class, PerformerBaseSoapMapper.class, SeriesBaseSoapMapper.class, StaffBaseSoapMapper.class})
 public interface EpisodeFullSoapMapper {
 
 	@Mappings({
@@ -39,6 +40,6 @@ public interface EpisodeFullSoapMapper {
 	})
 	EpisodeRequestDTO mapFull(EpisodeFullRequest episodeFullRequest);
 
-	com.cezarykluczynski.stapi.client.v1.soap.EpisodeFull mapFull(Episode episode);
+	EpisodeFull mapFull(Episode episode);
 
 }

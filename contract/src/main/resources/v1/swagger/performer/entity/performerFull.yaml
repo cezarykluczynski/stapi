@@ -59,15 +59,15 @@ properties:
   moviesPerformances:
     type: array
     items:
-      $ref: '#/definitions/MovieHeader'
+      $ref: '#/definitions/MovieBase'
   moviesStuntPerformances:
     type: array
     items:
-      $ref: '#/definitions/MovieHeader'
+      $ref: '#/definitions/MovieBase'
   moviesStandInPerformances:
     type: array
     items:
-      $ref: '#/definitions/MovieHeader'
+      $ref: '#/definitions/MovieBase'
   characters:
     type: array
     items:

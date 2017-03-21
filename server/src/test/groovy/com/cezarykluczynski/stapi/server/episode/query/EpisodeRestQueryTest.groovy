@@ -11,7 +11,7 @@ import spock.lang.Specification
 
 class EpisodeRestQueryTest extends Specification {
 
-	private EpisodeBaseRestMapper episodeRestMapperMock
+	private EpisodeBaseRestMapper episodeBaseRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,11 +20,10 @@ class EpisodeRestQueryTest extends Specification {
 	private EpisodeRestQuery episodeRestQuery
 
 	void setup() {
-		episodeRestMapperMock = Mock(EpisodeBaseRestMapper)
+		episodeBaseRestMapperMock = Mock(EpisodeBaseRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		episodeRepositoryMock = Mock(EpisodeRepository)
-		episodeRestQuery = new EpisodeRestQuery(episodeRestMapperMock, pageMapperMock,
-				episodeRepositoryMock)
+		episodeRestQuery = new EpisodeRestQuery(episodeBaseRestMapperMock, pageMapperMock, episodeRepositoryMock)
 	}
 
 	void "maps EpisodeRestBeanParams to EpisodeRequestDTO and to PageRequest, then calls repository, then returns result"() {
@@ -40,7 +39,7 @@ class EpisodeRestQueryTest extends Specification {
 		Page pageOutput = episodeRestQuery.query(episodeRestBeanParams)
 
 		then:
-		1 * episodeRestMapperMock.mapBase(episodeRestBeanParams) >> episodeRequestDTO
+		1 * episodeBaseRestMapperMock.mapBase(episodeRestBeanParams) >> episodeRequestDTO
 		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(episodeRestBeanParams) >> pageRequest
 		1 * episodeRepositoryMock.findMatching(episodeRequestDTO, pageRequest) >> page
 		pageOutput == page

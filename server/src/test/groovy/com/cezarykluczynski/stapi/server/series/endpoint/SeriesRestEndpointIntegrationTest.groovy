@@ -58,7 +58,7 @@ class SeriesRestEndpointIntegrationTest extends AbstractSeriesEndpointIntegratio
 
 		then:
 		seriesFullResponse.series.abbreviation == TAS
-		seriesFullResponse.series.episodeHeaders.size() == 22
+		seriesFullResponse.series.episodes.size() == 22
 	}
 
 	void "gets series sorted by production end year descending"() {

@@ -3,7 +3,7 @@ properties:
   guid:
     type: string
   mainDirector:
-    $ref: ./staff/entity/staffHeader.yaml
+    $ref: ./staff/entity/staffBase.yaml
   title:
     type: string
   titleBulgarian:
@@ -39,43 +39,43 @@ properties:
   usReleaseDate:
     type: string
     format: date
-  writerHeaders:
+  writers:
     type: array
     items:
-      $ref: '#/definitions/StaffHeader'
-  screenplayAuthorHeaders:
+      $ref: '#/definitions/StaffBase'
+  screenplayAuthors:
     type: array
     items:
-      $ref: '#/definitions/StaffHeader'
-  storyAuthorHeaders:
+      $ref: '#/definitions/StaffBase'
+  storyAuthors:
     type: array
     items:
-      $ref: '#/definitions/StaffHeader'
-  directorHeaders:
+      $ref: '#/definitions/StaffBase'
+  directors:
     type: array
     items:
-      $ref: '#/definitions/StaffHeader'
-  producerHeaders:
+      $ref: '#/definitions/StaffBase'
+  producers:
     type: array
     items:
-      $ref: '#/definitions/StaffHeader'
-  staffHeaders:
+      $ref: '#/definitions/StaffBase'
+  staff:
     type: array
     items:
-      $ref: '#/definitions/StaffHeader'
-  performerHeaders:
+      $ref: '#/definitions/StaffBase'
+  performers:
     type: array
     items:
-      $ref: '#/definitions/PerformerHeader'
-  stuntPerformerHeaders:
+      $ref: '#/definitions/PerformerBase'
+  stuntPerformers:
     type: array
     items:
-      $ref: '#/definitions/PerformerHeader'
-  standInPerformerHeaders:
+      $ref: '#/definitions/PerformerBase'
+  standInPerformers:
     type: array
     items:
-      $ref: '#/definitions/PerformerHeader'
-  characterHeaders:
+      $ref: '#/definitions/PerformerBase'
+  characters:
     type: array
     items:
-      $ref: '#/definitions/CharacterHeader'
+      $ref: '#/definitions/CharacterBase'

@@ -8,7 +8,8 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesFullResponse
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.series.dto.SeriesRestBeanParams
-import com.cezarykluczynski.stapi.server.series.mapper.SeriesRestMapper
+import com.cezarykluczynski.stapi.server.series.mapper.SeriesBaseRestMapper
+import com.cezarykluczynski.stapi.server.series.mapper.SeriesFullRestMapper
 import com.cezarykluczynski.stapi.server.series.query.SeriesRestQuery
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
@@ -20,7 +21,9 @@ class SeriesRestReaderTest extends Specification {
 
 	private SeriesRestQuery seriesRestQueryBuilderMock
 
-	private SeriesRestMapper seriesRestMapperMock
+	private SeriesBaseRestMapper seriesBaseRestMapperMock
+
+	private SeriesFullRestMapper seriesFullRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -28,27 +31,28 @@ class SeriesRestReaderTest extends Specification {
 
 	void setup() {
 		seriesRestQueryBuilderMock = Mock(SeriesRestQuery)
-		seriesRestMapperMock = Mock(SeriesRestMapper)
+		seriesBaseRestMapperMock = Mock(SeriesBaseRestMapper)
+		seriesFullRestMapperMock = Mock(SeriesFullRestMapper)
 		pageMapperMock = Mock(PageMapper)
-		seriesRestReader = new SeriesRestReader(seriesRestQueryBuilderMock, seriesRestMapperMock, pageMapperMock)
+		seriesRestReader = new SeriesRestReader(seriesRestQueryBuilderMock, seriesBaseRestMapperMock, seriesFullRestMapperMock, pageMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		SeriesRestBeanParams seriesRestBeanParams = Mock(SeriesRestBeanParams)
 		List<SeriesBase> restSeriesList = Lists.newArrayList(Mock(SeriesBase))
-		List<Series> dbSeriesList = Lists.newArrayList(Mock(Series))
-		Page<Series> dbSeriesPage = Mock(Page)
+		List<Series> seriesList = Lists.newArrayList(Mock(Series))
+		Page<Series> seriesPage = Mock(Page)
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
 		SeriesBaseResponse seriesResponseOutput = seriesRestReader.readBase(seriesRestBeanParams)
 
 		then:
-		1 * seriesRestQueryBuilderMock.query(seriesRestBeanParams) >> dbSeriesPage
-		1 * pageMapperMock.fromPageToRestResponsePage(dbSeriesPage) >> responsePage
-		1 * dbSeriesPage.content >> dbSeriesList
-		1 * seriesRestMapperMock.mapBase(dbSeriesList) >> restSeriesList
+		1 * seriesRestQueryBuilderMock.query(seriesRestBeanParams) >> seriesPage
+		1 * pageMapperMock.fromPageToRestResponsePage(seriesPage) >> responsePage
+		1 * seriesPage.content >> seriesList
+		1 * seriesBaseRestMapperMock.mapBase(seriesList) >> restSeriesList
 		0 * _
 		seriesResponseOutput.series == restSeriesList
 		seriesResponseOutput.page == responsePage
@@ -58,8 +62,8 @@ class SeriesRestReaderTest extends Specification {
 		given:
 		SeriesFull seriesFull = Mock(SeriesFull)
 		Series series = Mock(Series)
-		List<Series> dbSeriesList = Lists.newArrayList(series)
-		Page<Series> dbSeriesPage = Mock(Page)
+		List<Series> seriesList = Lists.newArrayList(series)
+		Page<Series> seriesPage = Mock(Page)
 
 		when:
 		SeriesFullResponse seriesResponseOutput = seriesRestReader.readFull(GUID)
@@ -67,10 +71,10 @@ class SeriesRestReaderTest extends Specification {
 		then:
 		1 * seriesRestQueryBuilderMock.query(_ as SeriesRestBeanParams) >> { SeriesRestBeanParams seriesRestBeanParams ->
 			assert seriesRestBeanParams.guid == GUID
-			dbSeriesPage
+			seriesPage
 		}
-		1 * dbSeriesPage.content >> dbSeriesList
-		1 * seriesRestMapperMock.mapFull(series) >> seriesFull
+		1 * seriesPage.content >> seriesList
+		1 * seriesFullRestMapperMock.mapFull(series) >> seriesFull
 		0 * _
 		seriesResponseOutput.series == seriesFull
 	}

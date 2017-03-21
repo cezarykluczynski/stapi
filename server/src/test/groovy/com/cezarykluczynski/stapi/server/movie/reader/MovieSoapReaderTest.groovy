@@ -1,12 +1,16 @@
 package com.cezarykluczynski.stapi.server.movie.reader
 
-import com.cezarykluczynski.stapi.client.v1.soap.Movie as SOAPMovie
-import com.cezarykluczynski.stapi.client.v1.soap.MovieRequest
-import com.cezarykluczynski.stapi.client.v1.soap.MovieResponse
+import com.cezarykluczynski.stapi.client.v1.soap.MovieBase
+import com.cezarykluczynski.stapi.client.v1.soap.MovieBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.MovieBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.MovieFull
+import com.cezarykluczynski.stapi.client.v1.soap.MovieFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.MovieFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
-import com.cezarykluczynski.stapi.model.movie.entity.Movie as DBMovie
+import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.movie.mapper.MovieSoapMapper
+import com.cezarykluczynski.stapi.server.movie.mapper.MovieBaseSoapMapper
+import com.cezarykluczynski.stapi.server.movie.mapper.MovieFullSoapMapper
 import com.cezarykluczynski.stapi.server.movie.query.MovieSoapQuery
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
@@ -18,7 +22,9 @@ class MovieSoapReaderTest extends Specification {
 
 	private MovieSoapQuery movieSoapQueryBuilderMock
 
-	private MovieSoapMapper movieSoapMapperMock
+	private MovieBaseSoapMapper movieBaseSoapMapperMock
+
+	private MovieFullSoapMapper movieFullSoapMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -26,29 +32,48 @@ class MovieSoapReaderTest extends Specification {
 
 	void setup() {
 		movieSoapQueryBuilderMock = Mock(MovieSoapQuery)
-		movieSoapMapperMock = Mock(MovieSoapMapper)
+		movieBaseSoapMapperMock = Mock(MovieBaseSoapMapper)
+		movieFullSoapMapperMock = Mock(MovieFullSoapMapper)
 		pageMapperMock = Mock(PageMapper)
-		movieSoapReader = new MovieSoapReader(movieSoapQueryBuilderMock, movieSoapMapperMock, pageMapperMock)
+		movieSoapReader = new MovieSoapReader(movieSoapQueryBuilderMock, movieBaseSoapMapperMock, movieFullSoapMapperMock,
+				pageMapperMock)
 	}
 
-	void "gets database entities and puts them into MovieResponse"() {
+	void "passed base request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		List<DBMovie> dbMovieList = Lists.newArrayList()
-		Page<DBMovie> dbMoviePage = Mock(Page)
-		dbMoviePage.content >> dbMovieList
-		List<SOAPMovie> soapMovieList = Lists.newArrayList(new SOAPMovie(guid: GUID))
-		MovieRequest movieRequest = Mock(MovieRequest)
+		List<Movie> movieList = Lists.newArrayList()
+		Page<Movie> moviePage = Mock(Page)
+		List<MovieBase> soapMovieList = Lists.newArrayList(new MovieBase(guid: GUID))
+		MovieBaseRequest movieBaseRequest = Mock(MovieBaseRequest)
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		MovieResponse movieResponse = movieSoapReader.readBase(movieRequest)
+		MovieBaseResponse movieResponse = movieSoapReader.readBase(movieBaseRequest)
 
 		then:
-		1 * movieSoapQueryBuilderMock.query(movieRequest) >> dbMoviePage
-		1 * pageMapperMock.fromPageToSoapResponsePage(dbMoviePage) >> responsePage
-		1 * movieSoapMapperMock.map(dbMovieList) >> soapMovieList
+		1 * movieSoapQueryBuilderMock.query(movieBaseRequest) >> moviePage
+		1 * moviePage.content >> movieList
+		1 * pageMapperMock.fromPageToSoapResponsePage(moviePage) >> responsePage
+		1 * movieBaseSoapMapperMock.mapBase(movieList) >> soapMovieList
 		movieResponse.movies[0].guid == GUID
 		movieResponse.page == responsePage
+	}
+
+	void "passed full request to queryBuilder, then to mapper, and returns result"() {
+		given:
+		MovieFull movieFull = new MovieFull(guid: GUID)
+		Movie movie = Mock(Movie)
+		Page<Movie> moviePage = Mock(Page)
+		MovieFullRequest movieFullRequest = Mock(MovieFullRequest)
+
+		when:
+		MovieFullResponse movieFullResponse = movieSoapReader.readFull(movieFullRequest)
+
+		then:
+		1 * movieSoapQueryBuilderMock.query(movieFullRequest) >> moviePage
+		1 * moviePage.content >> Lists.newArrayList(movie)
+		1 * movieFullSoapMapperMock.mapFull(movie) >> movieFull
+		movieFullResponse.movie.guid == GUID
 	}
 
 }

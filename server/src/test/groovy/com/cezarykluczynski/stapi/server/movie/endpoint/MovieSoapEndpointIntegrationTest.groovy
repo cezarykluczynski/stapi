@@ -1,8 +1,10 @@
 package com.cezarykluczynski.stapi.server.movie.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.soap.Movie
-import com.cezarykluczynski.stapi.client.v1.soap.MovieRequest
-import com.cezarykluczynski.stapi.client.v1.soap.MovieResponse
+import com.cezarykluczynski.stapi.client.v1.soap.MovieBase
+import com.cezarykluczynski.stapi.client.v1.soap.MovieBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.MovieBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.MovieFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.MovieFullResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import spock.lang.Requires
@@ -18,14 +20,24 @@ class MovieSoapEndpointIntegrationTest extends AbstractMovieEndpointIntegrationT
 
 	void "gets movie by title"() {
 		when:
-		MovieResponse movieResponse = stapiSoapClient.moviePortType.getMovies(new MovieRequest(
+		MovieBaseResponse movieBaseResponse = stapiSoapClient.moviePortType.getMovieBase(new MovieBaseRequest(
 				title: 'Star Trek Into Darkness'
 		))
-		List<Movie> movieList = movieResponse.movies
+		List<MovieBase> movieBaseList = movieBaseResponse.movies
 
 		then:
-		movieList.size() == 1
-		movieList[0].title == 'Star Trek Into Darkness'
+		movieBaseList.size() == 1
+		movieBaseList[0].title == 'Star Trek Into Darkness'
+	}
+
+	void "gets movie by GUID"() {
+		when:
+		MovieFullResponse movieFullResponse = stapiSoapClient.moviePortType.getMovieFull(new MovieFullRequest(
+				guid: 'MOMA0000103536'
+		))
+
+		then:
+		movieFullResponse.movie.title == 'Star Trek Generations'
 	}
 
 }

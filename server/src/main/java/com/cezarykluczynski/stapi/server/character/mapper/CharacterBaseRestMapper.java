@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.server.character.mapper;
 
+import com.cezarykluczynski.stapi.client.v1.rest.model.CharacterBase;
 import com.cezarykluczynski.stapi.model.character.dto.CharacterRequestDTO;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.server.character.dto.CharacterRestBeanParams;
@@ -15,8 +16,8 @@ public interface CharacterBaseRestMapper {
 
 	CharacterRequestDTO mapBase(CharacterRestBeanParams characterRestBeanParams);
 
-	com.cezarykluczynski.stapi.client.v1.rest.model.CharacterBase mapBase(Character series);
+	CharacterBase mapBase(Character series);
 
-	List<com.cezarykluczynski.stapi.client.v1.rest.model.CharacterBase> mapBase(List<Character> series);
+	List<CharacterBase> mapBase(List<Character> series);
 
 }

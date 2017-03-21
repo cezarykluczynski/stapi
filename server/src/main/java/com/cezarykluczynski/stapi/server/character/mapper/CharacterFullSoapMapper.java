@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.server.character.mapper;
 
+import com.cezarykluczynski.stapi.client.v1.soap.CharacterFull;
 import com.cezarykluczynski.stapi.client.v1.soap.CharacterFullRequest;
 import com.cezarykluczynski.stapi.model.character.dto.CharacterRequestDTO;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
@@ -24,8 +25,8 @@ public interface CharacterFullSoapMapper {
 			@Mapping(target = "alternateReality", ignore = true),
 			@Mapping(target = "sort", ignore = true)
 	})
-	CharacterRequestDTO mapFull(CharacterFullRequest characterRequest);
+	CharacterRequestDTO mapFull(CharacterFullRequest characterFullRequest);
 
-	com.cezarykluczynski.stapi.client.v1.soap.CharacterFull mapFull(Character character);
+	CharacterFull mapFull(Character character);
 
 }

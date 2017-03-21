@@ -1,6 +1,8 @@
 package com.cezarykluczynski.stapi.server.company.mapper;
 
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyBase;
 import com.cezarykluczynski.stapi.client.v1.soap.CompanyBaseRequest;
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyFull;
 import com.cezarykluczynski.stapi.client.v1.soap.CompanyFullRequest;
 import com.cezarykluczynski.stapi.model.company.dto.CompanyRequestDTO;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
@@ -18,11 +20,11 @@ public interface CompanySoapMapper {
 	@Mappings({
 			@Mapping(target = "guid", ignore = true)
 	})
-	CompanyRequestDTO mapBase(CompanyBaseRequest companyRequest);
+	CompanyRequestDTO mapBase(CompanyBaseRequest companyBaseRequest);
 
-	com.cezarykluczynski.stapi.client.v1.soap.CompanyBase mapBase(Company company);
+	CompanyBase mapBase(Company company);
 
-	List<com.cezarykluczynski.stapi.client.v1.soap.CompanyBase> mapBase(List<Company> companyList);
+	List<CompanyBase> mapBase(List<Company> companyList);
 
 	@Mappings({
 			@Mapping(target = "name", ignore = true),
@@ -47,6 +49,6 @@ public interface CompanySoapMapper {
 	})
 	CompanyRequestDTO mapFull(CompanyFullRequest companyFullRequest);
 
-	com.cezarykluczynski.stapi.client.v1.soap.CompanyFull mapFull(Company company);
+	CompanyFull mapFull(Company company);
 
 }

@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.server.episode.mapper;
 
+import com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeBase;
 import com.cezarykluczynski.stapi.model.episode.dto.EpisodeRequestDTO;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.server.common.mapper.DateMapper;
@@ -15,10 +16,10 @@ import java.util.List;
 @Mapper(config = MapstructConfiguration.class, uses = {DateMapper.class, EnumMapper.class, RequestSortRestMapper.class, SeriesHeaderRestMapper.class})
 public interface EpisodeBaseRestMapper {
 
-	EpisodeRequestDTO mapBase(EpisodeRestBeanParams performerRestBeanParams);
+	EpisodeRequestDTO mapBase(EpisodeRestBeanParams episodeRestBeanParams);
 
-	com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeBase mapBase(Episode episode);
+	EpisodeBase mapBase(Episode episode);
 
-	List<com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeBase> mapBase(List<Episode> episodeList);
+	List<EpisodeBase> mapBase(List<Episode> episodeList);
 
 }

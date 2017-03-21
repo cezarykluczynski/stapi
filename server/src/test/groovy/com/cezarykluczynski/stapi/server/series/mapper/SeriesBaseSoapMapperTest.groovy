@@ -4,19 +4,17 @@ import com.cezarykluczynski.stapi.client.v1.soap.DateRange
 import com.cezarykluczynski.stapi.client.v1.soap.IntegerRange
 import com.cezarykluczynski.stapi.client.v1.soap.SeriesBase
 import com.cezarykluczynski.stapi.client.v1.soap.SeriesBaseRequest
-import com.cezarykluczynski.stapi.client.v1.soap.SeriesFull
-import com.cezarykluczynski.stapi.client.v1.soap.SeriesFullRequest
 import com.cezarykluczynski.stapi.model.series.dto.SeriesRequestDTO
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers
 
-class SeriesSoapMapperTest extends AbstractSeriesMapperTest {
+class SeriesBaseSoapMapperTest extends AbstractSeriesMapperTest {
 
-	private SeriesSoapMapper seriesSoapMapper
+	private SeriesBaseSoapMapper seriesBaseSoapMapper
 
 	void setup() {
-		seriesSoapMapper = Mappers.getMapper(SeriesSoapMapper)
+		seriesBaseSoapMapper = Mappers.getMapper(SeriesBaseSoapMapper)
 	}
 
 	void "maps SOAP SeriesBaseRequest to SeriesBaseRequestDTO"() {
@@ -42,7 +40,7 @@ class SeriesSoapMapperTest extends AbstractSeriesMapperTest {
 				))
 
 		when:
-		SeriesRequestDTO seriesRequestDTO = seriesSoapMapper.mapBase seriesRequest
+		SeriesRequestDTO seriesRequestDTO = seriesBaseSoapMapper.mapBase seriesRequest
 
 		then:
 		seriesRequestDTO.title == TITLE
@@ -57,27 +55,18 @@ class SeriesSoapMapperTest extends AbstractSeriesMapperTest {
 		seriesRequestDTO.originalRunEndDateTo == ORIGINAL_RUN_END_DATE_TO_DB
 	}
 
-	void "maps SOAP SeriesFullRequest to SeriesBaseRequestDTO"() {
-		given:
-		SeriesFullRequest seriesRequest = new SeriesFullRequest(guid: GUID)
-
-		when:
-		SeriesRequestDTO seriesRequestDTO = seriesSoapMapper.mapFull seriesRequest
-
-		then:
-		seriesRequestDTO.guid == GUID
-	}
-
 	void "maps DB entity to base SOAP entity"() {
 		given:
 		Series series = createSeries()
 
 		when:
-		SeriesBase seriesBase = seriesSoapMapper.mapBase(Lists.newArrayList(series))[0]
+		SeriesBase seriesBase = seriesBaseSoapMapper.mapBase(Lists.newArrayList(series))[0]
 
 		then:
 		seriesBase.guid == GUID
 		seriesBase.title == TITLE
+		seriesBase.originalBroadcaster != null
+		seriesBase.productionCompany != null
 		seriesBase.abbreviation == ABBREVIATION
 		seriesBase.productionStartYear == PRODUCTION_START_YEAR
 		seriesBase.productionEndYear == PRODUCTION_END_YEAR
@@ -85,32 +74,7 @@ class SeriesSoapMapperTest extends AbstractSeriesMapperTest {
 		seriesBase.originalRunEndDate == ORIGINAL_RUN_END_DATE_XML
 		seriesBase.seasonsCount == SEASONS_COUNT
 		seriesBase.episodesCount == EPISODES_COUNT
-		seriesBase.originalBroadcaster != null
-		seriesBase.productionCompany != null
 		seriesBase.featureLengthEpisodesCount == FEATURE_LENGTH_EPISODES_COUNT
-	}
-
-	void "maps DB entity to full SOAP entity"() {
-		given:
-		Series series = createSeries()
-
-		when:
-		SeriesFull seriesFull = seriesSoapMapper.mapFull(series)
-
-		then:
-		seriesFull.guid == GUID
-		seriesFull.title == TITLE
-		seriesFull.abbreviation == ABBREVIATION
-		seriesFull.productionStartYear == PRODUCTION_START_YEAR
-		seriesFull.productionEndYear == PRODUCTION_END_YEAR
-		seriesFull.originalRunStartDate == ORIGINAL_RUN_START_DATE_XML
-		seriesFull.originalRunEndDate == ORIGINAL_RUN_END_DATE_XML
-		seriesFull.seasonsCount == SEASONS_COUNT
-		seriesFull.episodesCount == EPISODES_COUNT
-		seriesFull.featureLengthEpisodesCount == FEATURE_LENGTH_EPISODES_COUNT
-		seriesFull.originalBroadcaster != null
-		seriesFull.productionCompany != null
-		seriesFull.episodeHeaders.size() == series.episodes.size()
 	}
 
 }

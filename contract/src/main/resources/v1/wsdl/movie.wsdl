@@ -11,25 +11,43 @@
 			<xs:include schemaLocation="movie.xsd"/>
 		</xs:schema>
 	</wsdl:types>
-	<wsdl:message name="MovieRequest">
-		<wsdl:part name="request" element="stapi:MovieRequest"/>
+	<wsdl:message name="MovieBaseRequest">
+		<wsdl:part name="request" element="stapi:MovieBaseRequest"/>
 	</wsdl:message>
-	<wsdl:message name="MovieResponse">
-		<wsdl:part name="response" element="stapi:MovieResponse"/>
+	<wsdl:message name="MovieFullRequest">
+		<wsdl:part name="request" element="stapi:MovieFullRequest"/>
+	</wsdl:message>
+	<wsdl:message name="MovieBaseResponse">
+		<wsdl:part name="response" element="stapi:MovieBaseResponse"/>
+	</wsdl:message>
+	<wsdl:message name="MovieFullResponse">
+		<wsdl:part name="response" element="stapi:MovieFullResponse"/>
 	</wsdl:message>
 	<wsdl:portType name="MoviePortType">
-		<wsdl:operation name="getMovies">
-			<wsdl:input name="getMoviesRequest" message="stapi:MovieRequest"/>
-			<wsdl:output name="getMoviesResponse" message="stapi:MovieResponse"/>
+		<wsdl:operation name="getMovieBase">
+			<wsdl:input name="getMovieBaseRequest" message="stapi:MovieBaseRequest"/>
+			<wsdl:output name="getMovieBaseResponse" message="stapi:MovieBaseResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getMovieFull">
+			<wsdl:input name="getMovieFullRequest" message="stapi:MovieFullRequest"/>
+			<wsdl:output name="getMovieFullResponse" message="stapi:MovieFullResponse"/>
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="MovieBinding" type="stapi:MoviePortType">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-		<wsdl:operation name="getMovies">
-			<wsdl:input name="getMoviesRequest">
+		<wsdl:operation name="getMovieBase">
+			<wsdl:input name="getMovieBaseRequest">
 				<soap:body use="literal"/>
 			</wsdl:input>
-			<wsdl:output name="getMoviesResponse">
+			<wsdl:output name="getMovieBaseResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getMovieFull">
+			<wsdl:input name="getMovieFullRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getMovieFullResponse">
 				<soap:body use="literal"/>
 			</wsdl:output>
 		</wsdl:operation>

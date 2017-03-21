@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.server.astronomicalObject.mapper;
 
+import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectBase;
+import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectFull;
 import com.cezarykluczynski.stapi.model.astronomicalObject.dto.AstronomicalObjectRequestDTO;
 import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject;
 import com.cezarykluczynski.stapi.server.astronomicalObject.dto.AstronomicalObjectRestBeanParams;
@@ -20,10 +22,10 @@ public interface AstronomicalObjectRestMapper {
 	@Mappings({
 			@Mapping(target = "locationHeader", source = "location")
 	})
-	com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectBase mapBase(AstronomicalObject astronomicalObject);
+	AstronomicalObjectBase mapBase(AstronomicalObject astronomicalObject);
 
-	List<com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectBase> mapBase(List<AstronomicalObject> astronomicalObjectList);
+	List<AstronomicalObjectBase> mapBase(List<AstronomicalObject> astronomicalObjectList);
 
-	com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectFull mapFull(AstronomicalObject astronomicalObject);
+	AstronomicalObjectFull mapFull(AstronomicalObject astronomicalObject);
 
 }

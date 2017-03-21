@@ -1,12 +1,15 @@
 package com.cezarykluczynski.stapi.server.movie.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.Movie as RESTMovie
-import com.cezarykluczynski.stapi.client.v1.rest.model.MovieResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.MovieBase
+import com.cezarykluczynski.stapi.client.v1.rest.model.MovieBaseResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.MovieFull
+import com.cezarykluczynski.stapi.client.v1.rest.model.MovieFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
 import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.movie.dto.MovieRestBeanParams
-import com.cezarykluczynski.stapi.server.movie.mapper.MovieRestMapper
+import com.cezarykluczynski.stapi.server.movie.mapper.MovieBaseRestMapper
+import com.cezarykluczynski.stapi.server.movie.mapper.MovieFullRestMapper
 import com.cezarykluczynski.stapi.server.movie.query.MovieRestQuery
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
@@ -18,7 +21,9 @@ class MovieRestReaderTest extends Specification {
 
 	private MovieRestQuery movieRestQueryBuilderMock
 
-	private MovieRestMapper movieRestMapperMock
+	private MovieBaseRestMapper movieBaseRestMapperMock
+
+	private MovieFullRestMapper movieFullRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -26,29 +31,53 @@ class MovieRestReaderTest extends Specification {
 
 	void setup() {
 		movieRestQueryBuilderMock = Mock(MovieRestQuery)
-		movieRestMapperMock = Mock(MovieRestMapper)
+		movieBaseRestMapperMock = Mock(MovieBaseRestMapper)
+		movieFullRestMapperMock = Mock(MovieFullRestMapper)
 		pageMapperMock = Mock(PageMapper)
-		movieRestReader = new MovieRestReader(movieRestQueryBuilderMock, movieRestMapperMock, pageMapperMock)
+		movieRestReader = new MovieRestReader(movieRestQueryBuilderMock, movieBaseRestMapperMock, movieFullRestMapperMock,
+				pageMapperMock)
 	}
 
-	void "gets database entities and puts them into MovieResponse"() {
+	void "passed request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		List<Movie> dbMovieList = Lists.newArrayList()
-		Page<Movie> dbMoviePage = Mock(Page)
-		dbMoviePage.content >> dbMovieList
-		List<RESTMovie> soapMovieList = Lists.newArrayList(new RESTMovie(guid: GUID))
-		MovieRestBeanParams seriesRestBeanParams = Mock(MovieRestBeanParams)
+		MovieRestBeanParams movieRestBeanParams = Mock(MovieRestBeanParams)
+		List<MovieBase> restMovieList = Lists.newArrayList(Mock(MovieBase))
+		List<Movie> movieList = Lists.newArrayList(Mock(Movie))
+		Page<Movie> moviePage = Mock(Page)
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		MovieResponse movieResponse = movieRestReader.readBase(seriesRestBeanParams)
+		MovieBaseResponse movieResponseOutput = movieRestReader.readBase(movieRestBeanParams)
 
 		then:
-		1 * movieRestQueryBuilderMock.query(seriesRestBeanParams) >> dbMoviePage
-		1 * pageMapperMock.fromPageToRestResponsePage(dbMoviePage) >> responsePage
-		1 * movieRestMapperMock.map(dbMovieList) >> soapMovieList
-		movieResponse.movies[0].guid == GUID
-		movieResponse.page == responsePage
+		1 * movieRestQueryBuilderMock.query(movieRestBeanParams) >> moviePage
+		1 * pageMapperMock.fromPageToRestResponsePage(moviePage) >> responsePage
+		1 * moviePage.content >> movieList
+		1 * movieBaseRestMapperMock.mapBase(movieList) >> restMovieList
+		0 * _
+		movieResponseOutput.movies == restMovieList
+		movieResponseOutput.page == responsePage
+	}
+
+	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
+		given:
+		MovieFull movieFull = Mock(MovieFull)
+		Movie movie = Mock(Movie)
+		List<Movie> movieList = Lists.newArrayList(movie)
+		Page<Movie> moviePage = Mock(Page)
+
+		when:
+		MovieFullResponse movieResponseOutput = movieRestReader.readFull(GUID)
+
+		then:
+		1 * movieRestQueryBuilderMock.query(_ as MovieRestBeanParams) >> { MovieRestBeanParams movieRestBeanParams ->
+			assert movieRestBeanParams.guid == GUID
+			moviePage
+		}
+		1 * moviePage.content >> movieList
+		1 * movieFullRestMapperMock.mapFull(movie) >> movieFull
+		0 * _
+		movieResponseOutput.movie == movieFull
 	}
 
 }

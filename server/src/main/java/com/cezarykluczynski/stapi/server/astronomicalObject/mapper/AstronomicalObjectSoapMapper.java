@@ -1,6 +1,8 @@
 package com.cezarykluczynski.stapi.server.astronomicalObject.mapper;
 
+import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectBase;
 import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectBaseRequest;
+import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectFull;
 import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectFullRequest;
 import com.cezarykluczynski.stapi.model.astronomicalObject.dto.AstronomicalObjectRequestDTO;
 import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject;
@@ -24,9 +26,9 @@ public interface AstronomicalObjectSoapMapper {
 	@Mappings({
 			@Mapping(target = "locationHeader", source = "location")
 	})
-	com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectBase mapBase(AstronomicalObject astronomicalObject);
+	AstronomicalObjectBase mapBase(AstronomicalObject astronomicalObject);
 
-	List<com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectBase> mapBase(List<AstronomicalObject> astronomicalObjectList);
+	List<AstronomicalObjectBase> mapBase(List<AstronomicalObject> astronomicalObjectList);
 
 	@Mappings({
 			@Mapping(target = "name", ignore = true),
@@ -36,6 +38,6 @@ public interface AstronomicalObjectSoapMapper {
 	})
 	AstronomicalObjectRequestDTO mapFull(AstronomicalObjectFullRequest astronomicalObjectFullRequest);
 
-	com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectFull mapFull(AstronomicalObject astronomicalObject);
+	AstronomicalObjectFull mapFull(AstronomicalObject astronomicalObject);
 
 }

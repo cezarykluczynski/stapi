@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.model.series.repository
 
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
+import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.model.series.dto.SeriesRequestDTO
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.model.series.entity.Series_
@@ -54,6 +55,9 @@ class SeriesRepositoryImplTest extends Specification {
 	}
 
 	void "query is built and performed"() {
+		given:
+		Episode episode = new Episode()
+
 		when:
 		Page pageOutput = seriesRepositoryImpl.findMatching(seriesRequestDTO, pageable)
 
@@ -95,8 +99,15 @@ class SeriesRepositoryImplTest extends Specification {
 		then: 'fetch is performed with true flag'
 		1 * seriesQueryBuilder.fetch(Series_.episodes, true)
 
-		then: 'page is searched for and returned'
+		then: 'page is searched for'
 		1 * seriesQueryBuilder.findPage() >> page
+
+		then: 'series is set to episodes'
+		1 * page.content >> Lists.newArrayList(series)
+		1 * series.episodes >> Lists.newArrayList(episode)
+		episode.series == series
+
+		then: 'page is returned'
 		pageOutput == page
 
 		then: 'no other interactions are expected'

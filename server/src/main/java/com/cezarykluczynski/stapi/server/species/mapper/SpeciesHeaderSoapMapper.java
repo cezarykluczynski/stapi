@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper(config = MapstructConfiguration.class, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface SpeciesHeaderSoapMapper {
 
-	com.cezarykluczynski.stapi.client.v1.soap.SpeciesHeader map(Species species);
+	SpeciesHeader map(Species species);
 
 	List<SpeciesHeader> map(List<Species> species);
 

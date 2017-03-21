@@ -1,12 +1,16 @@
 package com.cezarykluczynski.stapi.server.movie.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.MovieResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.MovieBaseResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.MovieFullResponse
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams
 import com.cezarykluczynski.stapi.server.common.endpoint.AbstractRestEndpointTest
 import com.cezarykluczynski.stapi.server.movie.dto.MovieRestBeanParams
 import com.cezarykluczynski.stapi.server.movie.reader.MovieRestReader
 
 class MovieRestEndpointTest extends AbstractRestEndpointTest {
+
+	private static final String GUID = 'GUID'
+	private static final String TITLE = 'TITLE'
 
 	private MovieRestReader movieRestReaderMock
 
@@ -19,13 +23,25 @@ class MovieRestEndpointTest extends AbstractRestEndpointTest {
 
 	void "passes get call to MovieRestReader"() {
 		given:
+		MovieFullResponse movieFullResponse = Mock(MovieFullResponse)
+
+		when:
+		MovieFullResponse movieFullResponseOutput = movieRestEndpoint.getMovie(GUID)
+
+		then:
+		1 * movieRestReaderMock.readFull(GUID) >> movieFullResponse
+		movieFullResponseOutput == movieFullResponse
+	}
+
+	void "passes search get call to MovieRestReader"() {
+		given:
 		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams)
 		pageAwareBeanParams.pageNumber >> PAGE_NUMBER
 		pageAwareBeanParams.pageSize >> PAGE_SIZE
-		MovieResponse movieResponse = Mock(MovieResponse)
+		MovieBaseResponse movieResponse = Mock(MovieBaseResponse)
 
 		when:
-		MovieResponse movieResponseOutput = movieRestEndpoint.getMovies(pageAwareBeanParams)
+		MovieBaseResponse movieResponseOutput = movieRestEndpoint.searchMovie(pageAwareBeanParams)
 
 		then:
 		1 * movieRestReaderMock.readBase(_ as MovieRestBeanParams) >> { MovieRestBeanParams movieRestBeanParams ->
@@ -36,16 +52,17 @@ class MovieRestEndpointTest extends AbstractRestEndpointTest {
 		movieResponseOutput == movieResponse
 	}
 
-	void "passes post call to MovieRestReader"() {
+	void "passes search post call to MovieRestReader"() {
 		given:
-		MovieRestBeanParams movieRestBeanParams = new MovieRestBeanParams()
-		MovieResponse movieResponse = Mock(MovieResponse)
+		MovieRestBeanParams movieRestBeanParams = new MovieRestBeanParams(title: TITLE)
+		MovieBaseResponse movieResponse = Mock(MovieBaseResponse)
 
 		when:
-		MovieResponse movieResponseOutput = movieRestEndpoint.searchMovies(movieRestBeanParams)
+		MovieBaseResponse movieResponseOutput = movieRestEndpoint.searchMovie(movieRestBeanParams)
 
 		then:
 		1 * movieRestReaderMock.readBase(movieRestBeanParams as MovieRestBeanParams) >> { MovieRestBeanParams params ->
+			assert params.title == TITLE
 			movieResponse
 		}
 		movieResponseOutput == movieResponse

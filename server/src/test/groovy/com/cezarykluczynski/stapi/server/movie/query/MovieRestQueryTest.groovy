@@ -4,14 +4,14 @@ import com.cezarykluczynski.stapi.model.movie.dto.MovieRequestDTO
 import com.cezarykluczynski.stapi.model.movie.repository.MovieRepository
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.movie.dto.MovieRestBeanParams
-import com.cezarykluczynski.stapi.server.movie.mapper.MovieRestMapper
+import com.cezarykluczynski.stapi.server.movie.mapper.MovieBaseRestMapper
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import spock.lang.Specification
 
 class MovieRestQueryTest extends Specification {
 
-	private MovieRestMapper movieRestMapperMock
+	private MovieBaseRestMapper movieBaseRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,11 +20,10 @@ class MovieRestQueryTest extends Specification {
 	private MovieRestQuery movieRestQuery
 
 	void setup() {
-		movieRestMapperMock = Mock(MovieRestMapper)
+		movieBaseRestMapperMock = Mock(MovieBaseRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		movieRepositoryMock = Mock(MovieRepository)
-		movieRestQuery = new MovieRestQuery(movieRestMapperMock, pageMapperMock,
-				movieRepositoryMock)
+		movieRestQuery = new MovieRestQuery(movieBaseRestMapperMock, pageMapperMock, movieRepositoryMock)
 	}
 
 	void "maps MovieRestBeanParams to MovieRequestDTO and to PageRequest, then calls repository, then returns result"() {
@@ -40,7 +39,7 @@ class MovieRestQueryTest extends Specification {
 		Page pageOutput = movieRestQuery.query(movieRestBeanParams)
 
 		then:
-		1 * movieRestMapperMock.map(movieRestBeanParams) >> movieRequestDTO
+		1 * movieBaseRestMapperMock.mapBase(movieRestBeanParams) >> movieRequestDTO
 		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(movieRestBeanParams) >> pageRequest
 		1 * movieRepositoryMock.findMatching(movieRequestDTO, pageRequest) >> page
 		pageOutput == page

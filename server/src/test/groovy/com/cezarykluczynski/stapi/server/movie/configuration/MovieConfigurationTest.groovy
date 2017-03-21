@@ -1,10 +1,12 @@
 package com.cezarykluczynski.stapi.server.movie.configuration
 
 import com.cezarykluczynski.stapi.server.movie.endpoint.MovieRestEndpoint
-import com.cezarykluczynski.stapi.server.movie.reader.MovieRestReader
 import com.cezarykluczynski.stapi.server.movie.endpoint.MovieSoapEndpoint
-import com.cezarykluczynski.stapi.server.movie.mapper.MovieRestMapper
-import com.cezarykluczynski.stapi.server.movie.mapper.MovieSoapMapper
+import com.cezarykluczynski.stapi.server.movie.mapper.MovieBaseRestMapper
+import com.cezarykluczynski.stapi.server.movie.mapper.MovieBaseSoapMapper
+import com.cezarykluczynski.stapi.server.movie.mapper.MovieFullRestMapper
+import com.cezarykluczynski.stapi.server.movie.mapper.MovieFullSoapMapper
+import com.cezarykluczynski.stapi.server.movie.reader.MovieRestReader
 import com.cezarykluczynski.stapi.server.movie.reader.MovieSoapReader
 import org.apache.cxf.bus.spring.SpringBus
 import org.apache.cxf.jaxws.EndpointImpl
@@ -56,20 +58,36 @@ class MovieConfigurationTest extends Specification {
 		movieRestEndpoint.movieRestReader == movieRestMapper
 	}
 
-	void "MovieSoapMapper is created"() {
+	void "MovieBaseSoapMapper is created"() {
 		when:
-		MovieSoapMapper movieSoapMapper = movieConfiguration.movieSoapMapper()
+		MovieBaseSoapMapper movieBaseSoapMapper = movieConfiguration.movieBaseSoapMapper()
 
 		then:
-		movieSoapMapper != null
+		movieBaseSoapMapper != null
 	}
 
-	void "MovieRestMapper is created"() {
+	void "MovieFullSoapMapper is created"() {
 		when:
-		MovieRestMapper movieRestMapper = movieConfiguration.movieRestMapper()
+		MovieFullSoapMapper movieFullSoapMapper = movieConfiguration.movieFullSoapMapper()
+
+		then:
+		movieFullSoapMapper != null
+	}
+
+	void "MovieBaseRestMapper is created"() {
+		when:
+		MovieBaseRestMapper movieRestMapper = movieConfiguration.movieBaseRestMapper()
 
 		then:
 		movieRestMapper != null
+	}
+
+	void "MovieFullRestMapper is created"() {
+		when:
+		MovieFullRestMapper movieFullRestMapper = movieConfiguration.movieFullRestMapper()
+
+		then:
+		movieFullRestMapper != null
 	}
 
 }

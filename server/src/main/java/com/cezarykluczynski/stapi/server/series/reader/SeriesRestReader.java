@@ -7,7 +7,8 @@ import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.series.dto.SeriesRestBeanParams;
-import com.cezarykluczynski.stapi.server.series.mapper.SeriesRestMapper;
+import com.cezarykluczynski.stapi.server.series.mapper.SeriesBaseRestMapper;
+import com.cezarykluczynski.stapi.server.series.mapper.SeriesFullRestMapper;
 import com.cezarykluczynski.stapi.server.series.query.SeriesRestQuery;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterables;
@@ -21,14 +22,18 @@ public class SeriesRestReader implements BaseReader<SeriesRestBeanParams, Series
 
 	private SeriesRestQuery seriesRestQuery;
 
-	private SeriesRestMapper seriesRestMapper;
+	private SeriesBaseRestMapper seriesBaseRestMapper;
+
+	private SeriesFullRestMapper seriesFullRestMapper;
 
 	private PageMapper pageMapper;
 
 	@Inject
-	public SeriesRestReader(SeriesRestQuery seriesRestQuery, SeriesRestMapper seriesRestMapper, PageMapper pageMapper) {
+	public SeriesRestReader(SeriesRestQuery seriesRestQuery, SeriesBaseRestMapper seriesBaseRestMapper, SeriesFullRestMapper seriesFullRestMapper,
+			PageMapper pageMapper) {
 		this.seriesRestQuery = seriesRestQuery;
-		this.seriesRestMapper = seriesRestMapper;
+		this.seriesBaseRestMapper = seriesBaseRestMapper;
+		this.seriesFullRestMapper = seriesFullRestMapper;
 		this.pageMapper = pageMapper;
 	}
 
@@ -37,7 +42,7 @@ public class SeriesRestReader implements BaseReader<SeriesRestBeanParams, Series
 		Page<Series> seriesPage = seriesRestQuery.query(seriesRestBeanParams);
 		SeriesBaseResponse seriesResponse = new SeriesBaseResponse();
 		seriesResponse.setPage(pageMapper.fromPageToRestResponsePage(seriesPage));
-		seriesResponse.getSeries().addAll(seriesRestMapper.mapBase(seriesPage.getContent()));
+		seriesResponse.getSeries().addAll(seriesBaseRestMapper.mapBase(seriesPage.getContent()));
 		return seriesResponse;
 	}
 
@@ -48,7 +53,7 @@ public class SeriesRestReader implements BaseReader<SeriesRestBeanParams, Series
 		seriesRestBeanParams.setGuid(guid);
 		Page<Series> seriesPage = seriesRestQuery.query(seriesRestBeanParams);
 		SeriesFullResponse seriesResponse = new SeriesFullResponse();
-		seriesResponse.setSeries(seriesRestMapper.mapFull(Iterables.getOnlyElement(seriesPage.getContent(), null)));
+		seriesResponse.setSeries(seriesFullRestMapper.mapFull(Iterables.getOnlyElement(seriesPage.getContent(), null)));
 		return seriesResponse;
 	}
 

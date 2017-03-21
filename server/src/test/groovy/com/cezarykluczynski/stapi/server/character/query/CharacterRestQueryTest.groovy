@@ -11,7 +11,7 @@ import spock.lang.Specification
 
 class CharacterRestQueryTest extends Specification {
 
-	private CharacterBaseRestMapper characterRestMapperMock
+	private CharacterBaseRestMapper characterBaseRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,11 +20,10 @@ class CharacterRestQueryTest extends Specification {
 	private CharacterRestQuery characterRestQuery
 
 	void setup() {
-		characterRestMapperMock = Mock(CharacterBaseRestMapper)
+		characterBaseRestMapperMock = Mock(CharacterBaseRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		characterRepositoryMock = Mock(CharacterRepository)
-		characterRestQuery = new CharacterRestQuery(characterRestMapperMock, pageMapperMock,
-				characterRepositoryMock)
+		characterRestQuery = new CharacterRestQuery(characterBaseRestMapperMock, pageMapperMock, characterRepositoryMock)
 	}
 
 	void "maps CharacterRestBeanParams to CharacterRequestDTO and to PageRequest, then calls repository, then returns result"() {
@@ -40,7 +39,7 @@ class CharacterRestQueryTest extends Specification {
 		Page pageOutput = characterRestQuery.query(characterRestBeanParams)
 
 		then:
-		1 * characterRestMapperMock.mapBase(characterRestBeanParams) >> characterRequestDTO
+		1 * characterBaseRestMapperMock.mapBase(characterRestBeanParams) >> characterRequestDTO
 		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(characterRestBeanParams) >> pageRequest
 		1 * characterRepositoryMock.findMatching(characterRequestDTO, pageRequest) >> page
 		pageOutput == page

@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.server.performer.mapper;
 
+import com.cezarykluczynski.stapi.client.v1.soap.PerformerFull;
 import com.cezarykluczynski.stapi.client.v1.soap.PerformerFullRequest;
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
@@ -44,6 +45,6 @@ public interface PerformerFullSoapMapper {
 	})
 	PerformerRequestDTO mapFull(PerformerFullRequest performerFullRequest);
 
-	com.cezarykluczynski.stapi.client.v1.soap.PerformerFull mapFull(Performer performer);
+	PerformerFull mapFull(Performer performer);
 
 }

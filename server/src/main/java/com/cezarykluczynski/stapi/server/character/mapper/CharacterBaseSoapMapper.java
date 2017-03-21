@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.server.character.mapper;
 
+import com.cezarykluczynski.stapi.client.v1.soap.CharacterBase;
 import com.cezarykluczynski.stapi.client.v1.soap.CharacterBaseRequest;
 import com.cezarykluczynski.stapi.model.character.dto.CharacterRequestDTO;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
@@ -24,8 +25,8 @@ public interface CharacterBaseSoapMapper {
 	})
 	CharacterRequestDTO mapBase(CharacterBaseRequest characterRequest);
 
-	com.cezarykluczynski.stapi.client.v1.soap.CharacterBase mapBase(Character character);
+	CharacterBase mapBase(Character character);
 
-	List<com.cezarykluczynski.stapi.client.v1.soap.CharacterBase> mapBase(List<Character> characterList);
+	List<CharacterBase> mapBase(List<Character> characterList);
 
 }

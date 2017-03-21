@@ -26,7 +26,7 @@ properties:
     $ref: '#/definitions/CompanyBase'
   originalBroadcaster:
     $ref: '#/definitions/CompanyBase'
-  episodeHeaders:
+  episodes:
       type: array
       items:
-        $ref: '#/definitions/EpisodeHeader'
+        $ref: '#/definitions/EpisodeBase'

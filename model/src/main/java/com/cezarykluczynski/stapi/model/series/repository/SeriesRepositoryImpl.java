@@ -49,6 +49,10 @@ public class SeriesRepositoryImpl extends AbstractRepositoryImpl<Series> impleme
 	@Override
 	protected void clearProxies(Page<Series> page, boolean doClearProxies) {
 		if (!doClearProxies) {
+			page.getContent().forEach(series -> {
+				series.getEpisodes().forEach(episode -> episode.setSeries(series));
+			});
+
 			return;
 		}
 

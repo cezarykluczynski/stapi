@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.server.performer.mapper;
 
+import com.cezarykluczynski.stapi.client.v1.soap.PerformerBase;
 import com.cezarykluczynski.stapi.client.v1.soap.PerformerBaseRequest;
 import com.cezarykluczynski.stapi.model.performer.dto.PerformerRequestDTO;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
@@ -25,8 +26,8 @@ public interface PerformerBaseSoapMapper {
 	})
 	PerformerRequestDTO mapBase(PerformerBaseRequest performerBaseRequest);
 
-	com.cezarykluczynski.stapi.client.v1.soap.PerformerBase mapBase(Performer performer);
+	PerformerBase mapBase(Performer performer);
 
-	List<com.cezarykluczynski.stapi.client.v1.soap.PerformerBase> mapBase(List<Performer> performerList);
+	List<PerformerBase> mapBase(List<Performer> performerList);
 
 }

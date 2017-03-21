@@ -1,10 +1,12 @@
 package com.cezarykluczynski.stapi.server.series.configuration
 
 import com.cezarykluczynski.stapi.server.series.endpoint.SeriesRestEndpoint
-import com.cezarykluczynski.stapi.server.series.reader.SeriesRestReader
 import com.cezarykluczynski.stapi.server.series.endpoint.SeriesSoapEndpoint
-import com.cezarykluczynski.stapi.server.series.mapper.SeriesRestMapper
-import com.cezarykluczynski.stapi.server.series.mapper.SeriesSoapMapper
+import com.cezarykluczynski.stapi.server.series.mapper.SeriesBaseRestMapper
+import com.cezarykluczynski.stapi.server.series.mapper.SeriesBaseSoapMapper
+import com.cezarykluczynski.stapi.server.series.mapper.SeriesFullRestMapper
+import com.cezarykluczynski.stapi.server.series.mapper.SeriesFullSoapMapper
+import com.cezarykluczynski.stapi.server.series.reader.SeriesRestReader
 import com.cezarykluczynski.stapi.server.series.reader.SeriesSoapReader
 import org.apache.cxf.bus.spring.SpringBus
 import org.apache.cxf.jaxws.EndpointImpl
@@ -56,20 +58,36 @@ class SeriesConfigurationTest extends Specification {
 		seriesRestEndpoint.seriesRestReader == seriesRestMapper
 	}
 
-	void "SeriesSoapMapper is created"() {
+	void "SeriesBaseSoapMapper is created"() {
 		when:
-		SeriesSoapMapper seriesSoapMapper = seriesConfiguration.seriesSoapMapper()
+		SeriesBaseSoapMapper seriesBaseSoapMapper = seriesConfiguration.seriesBaseSoapMapper()
 
 		then:
-		seriesSoapMapper != null
+		seriesBaseSoapMapper != null
 	}
 
-	void "SeriesRestMapper is created"() {
+	void "SeriesFullSoapMapper is created"() {
 		when:
-		SeriesRestMapper seriesRestMapper = seriesConfiguration.seriesRestMapper()
+		SeriesFullSoapMapper seriesFullSoapMapper = seriesConfiguration.seriesFullSoapMapper()
 
 		then:
-		seriesRestMapper != null
+		seriesFullSoapMapper != null
+	}
+
+	void "SeriesBaseRestMapper is created"() {
+		when:
+		SeriesBaseRestMapper seriesBaseRestMapper = seriesConfiguration.seriesBaseRestMapper()
+
+		then:
+		seriesBaseRestMapper != null
+	}
+
+	void "SeriesFullRestMapper is created"() {
+		when:
+		SeriesFullRestMapper seriesFullRestMapper = seriesConfiguration.seriesFullRestMapper()
+
+		then:
+		seriesFullRestMapper != null
 	}
 
 }

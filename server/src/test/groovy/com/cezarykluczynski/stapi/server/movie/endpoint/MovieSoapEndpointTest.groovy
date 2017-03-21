@@ -1,7 +1,9 @@
 package com.cezarykluczynski.stapi.server.movie.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.soap.MovieRequest
-import com.cezarykluczynski.stapi.client.v1.soap.MovieResponse
+import com.cezarykluczynski.stapi.client.v1.soap.MovieBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.MovieBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.MovieFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.MovieFullResponse
 import com.cezarykluczynski.stapi.server.movie.reader.MovieSoapReader
 import spock.lang.Specification
 
@@ -16,17 +18,30 @@ class MovieSoapEndpointTest extends Specification {
 		movieSoapEndpoint = new MovieSoapEndpoint(movieSoapReaderMock)
 	}
 
-	void "passes call to MovieSoapReader"() {
+	void "passes base call to MovieSoapReader"() {
 		given:
-		MovieRequest movieRequest = Mock(MovieRequest)
-		MovieResponse movieResponse = Mock(MovieResponse)
+		MovieBaseRequest movieBaseRequest = Mock(MovieBaseRequest)
+		MovieBaseResponse movieBaseResponse = Mock(MovieBaseResponse)
 
 		when:
-		MovieResponse movieResponseResult = movieSoapEndpoint.getMovies(movieRequest)
+		MovieBaseResponse movieResponseResult = movieSoapEndpoint.getMovieBase(movieBaseRequest)
 
 		then:
-		1 * movieSoapReaderMock.readBase(movieRequest) >> movieResponse
-		movieResponseResult == movieResponse
+		1 * movieSoapReaderMock.readBase(movieBaseRequest) >> movieBaseResponse
+		movieResponseResult == movieBaseResponse
+	}
+
+	void "passes full call to MovieSoapReader"() {
+		given:
+		MovieFullRequest movieFullRequest = Mock(MovieFullRequest)
+		MovieFullResponse movieFullResponse = Mock(MovieFullResponse)
+
+		when:
+		MovieFullResponse movieResponseResult = movieSoapEndpoint.getMovieFull(movieFullRequest)
+
+		then:
+		1 * movieSoapReaderMock.readFull(movieFullRequest) >> movieFullResponse
+		movieResponseResult == movieFullResponse
 	}
 
 }

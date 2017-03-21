@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.server.staff.mapper;
 
+import com.cezarykluczynski.stapi.client.v1.soap.StaffBase;
 import com.cezarykluczynski.stapi.client.v1.soap.StaffBaseRequest;
 import com.cezarykluczynski.stapi.model.staff.dto.StaffRequestDTO;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
@@ -25,8 +26,8 @@ public interface StaffBaseSoapMapper {
 	})
 	StaffRequestDTO mapBase(StaffBaseRequest staffBaseRequest);
 
-	com.cezarykluczynski.stapi.client.v1.soap.StaffBase mapBase(Staff staff);
+	StaffBase mapBase(Staff staff);
 
-	List<com.cezarykluczynski.stapi.client.v1.soap.StaffBase> mapBase(List<Staff> staffList);
+	List<StaffBase> mapBase(List<Staff> staffList);
 
 }

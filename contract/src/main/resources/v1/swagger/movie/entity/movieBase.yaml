@@ -1,0 +1,41 @@
+type: object
+properties:
+  guid:
+    type: string
+  mainDirector:
+    $ref: ./staff/entity/staffHeader.yaml
+  title:
+    type: string
+  titleBulgarian:
+    type: string
+  titleCatalan:
+    type: string
+  titleChineseTraditional:
+    type: string
+  titleGerman:
+    type: string
+  titleItalian:
+    type: string
+  titleJapanese:
+    type: string
+  titlePolish:
+    type: string
+  titleRussian:
+    type: string
+  titleSerbian:
+    type: string
+  titleSpanish:
+    type: string
+  stardateFrom:
+    type: number
+    format: float
+  stardateTo:
+    type: number
+    format: float
+  yearFrom:
+    type: integer
+  yearTo:
+    type: integer
+  usReleaseDate:
+    type: string
+    format: date

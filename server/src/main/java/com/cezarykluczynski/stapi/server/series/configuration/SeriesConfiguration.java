@@ -2,8 +2,10 @@ package com.cezarykluczynski.stapi.server.series.configuration;
 
 import com.cezarykluczynski.stapi.server.series.endpoint.SeriesRestEndpoint;
 import com.cezarykluczynski.stapi.server.series.endpoint.SeriesSoapEndpoint;
-import com.cezarykluczynski.stapi.server.series.mapper.SeriesRestMapper;
-import com.cezarykluczynski.stapi.server.series.mapper.SeriesSoapMapper;
+import com.cezarykluczynski.stapi.server.series.mapper.SeriesBaseRestMapper;
+import com.cezarykluczynski.stapi.server.series.mapper.SeriesBaseSoapMapper;
+import com.cezarykluczynski.stapi.server.series.mapper.SeriesFullRestMapper;
+import com.cezarykluczynski.stapi.server.series.mapper.SeriesFullSoapMapper;
 import com.cezarykluczynski.stapi.server.series.reader.SeriesRestReader;
 import com.cezarykluczynski.stapi.server.series.reader.SeriesSoapReader;
 import org.apache.cxf.Bus;
@@ -38,13 +40,23 @@ public class SeriesConfiguration {
 	}
 
 	@Bean
-	public SeriesSoapMapper seriesSoapMapper() {
-		return Mappers.getMapper(SeriesSoapMapper.class);
+	public SeriesBaseSoapMapper seriesBaseSoapMapper() {
+		return Mappers.getMapper(SeriesBaseSoapMapper.class);
 	}
 
 	@Bean
-	public SeriesRestMapper seriesRestMapper() {
-		return Mappers.getMapper(SeriesRestMapper.class);
+	public SeriesFullSoapMapper seriesFullSoapMapper() {
+		return Mappers.getMapper(SeriesFullSoapMapper.class);
+	}
+
+	@Bean
+	public SeriesBaseRestMapper seriesBaseRestMapper() {
+		return Mappers.getMapper(SeriesBaseRestMapper.class);
+	}
+
+	@Bean
+	public SeriesFullRestMapper seriesFullRestMapper() {
+		return Mappers.getMapper(SeriesFullRestMapper.class);
 	}
 
 }

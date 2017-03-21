@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper(config = MapstructConfiguration.class, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface EpisodeHeaderSoapMapper {
 
-	com.cezarykluczynski.stapi.client.v1.soap.EpisodeHeader map(Episode episode);
+	EpisodeHeader map(Episode episode);
 
 	List<EpisodeHeader> map(List<Episode> episode);
 
