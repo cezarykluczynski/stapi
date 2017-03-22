@@ -7,7 +7,6 @@ import javax.ws.rs.FormParam;
 
 public class CharacterRestBeanParams extends PageSortBeanParams {
 
-	@FormParam("guid")
 	private String guid;
 
 	@FormParam("name")

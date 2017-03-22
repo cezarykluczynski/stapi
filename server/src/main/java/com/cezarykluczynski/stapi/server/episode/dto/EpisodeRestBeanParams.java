@@ -7,7 +7,6 @@ import java.time.LocalDate;
 
 public class EpisodeRestBeanParams extends PageSortBeanParams {
 
-	@FormParam("guid")
 	private String guid;
 
 	@FormParam("title")

@@ -6,7 +6,6 @@ import javax.ws.rs.FormParam;
 
 public class ComicSeriesRestBeanParams extends PageSortBeanParams {
 
-	@FormParam("guid")
 	private String guid;
 
 	@FormParam("title")

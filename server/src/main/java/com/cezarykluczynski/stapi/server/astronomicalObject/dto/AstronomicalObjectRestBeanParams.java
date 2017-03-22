@@ -7,7 +7,6 @@ import javax.ws.rs.FormParam;
 
 public class AstronomicalObjectRestBeanParams extends PageSortBeanParams {
 
-	@FormParam("guid")
 	private String guid;
 
 	@FormParam("name")

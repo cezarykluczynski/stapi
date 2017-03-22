@@ -8,7 +8,6 @@ import java.time.LocalDate;
 
 public class PerformerRestBeanParams extends PageSortBeanParams {
 
-	@FormParam("guid")
 	private String guid;
 
 	@FormParam("name")

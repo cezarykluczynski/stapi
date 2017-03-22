@@ -6,7 +6,6 @@ import javax.ws.rs.FormParam;
 
 public class SpeciesRestBeanParams extends PageSortBeanParams {
 
-	@FormParam("guid")
 	private String guid;
 
 	@FormParam("name")
