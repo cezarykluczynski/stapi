@@ -1,26 +1,25 @@
 package com.cezarykluczynski.stapi.server.comics.mapper
 
-import com.cezarykluczynski.stapi.client.v1.soap.Comics as SOAPComics
-import com.cezarykluczynski.stapi.client.v1.soap.ComicsRequest
+import com.cezarykluczynski.stapi.client.v1.soap.ComicsBase as ComicsBase
+import com.cezarykluczynski.stapi.client.v1.soap.ComicsBaseRequest
 import com.cezarykluczynski.stapi.client.v1.soap.FloatRange
 import com.cezarykluczynski.stapi.client.v1.soap.IntegerRange
 import com.cezarykluczynski.stapi.model.comics.dto.ComicsRequestDTO
-import com.cezarykluczynski.stapi.model.comics.entity.Comics as DBComics
+import com.cezarykluczynski.stapi.model.comics.entity.Comics as Comics
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers
 
-class ComicsSoapMapperTest extends AbstractComicsMapperTest {
+class ComicsBaseSoapMapperTest extends AbstractComicsMapperTest {
 
-	private ComicsSoapMapper comicsSoapMapper
+	private ComicsBaseSoapMapper comicsBaseSoapMapper
 
 	void setup() {
-		comicsSoapMapper = Mappers.getMapper(ComicsSoapMapper)
+		comicsBaseSoapMapper = Mappers.getMapper(ComicsBaseSoapMapper)
 	}
 
 	void "maps SOAP ComicsRequest to ComicsRequestDTO"() {
 		given:
-		ComicsRequest comicsRequest = new ComicsRequest(
-				guid: GUID,
+		ComicsBaseRequest comicsBaseRequest = new ComicsBaseRequest(
 				title: TITLE,
 				publishedYear: new IntegerRange(
 						from: PUBLISHED_YEAR_FROM,
@@ -41,10 +40,9 @@ class ComicsSoapMapperTest extends AbstractComicsMapperTest {
 				photonovel: PHOTONOVEL)
 
 		when:
-		ComicsRequestDTO comicsRequestDTO = comicsSoapMapper.map comicsRequest
+		ComicsRequestDTO comicsRequestDTO = comicsBaseSoapMapper.mapBase comicsBaseRequest
 
 		then:
-		comicsRequestDTO.guid == GUID
 		comicsRequestDTO.title == TITLE
 		comicsRequestDTO.stardateFrom == STARDATE_FROM
 		comicsRequestDTO.stardateTo == STARDATE_TO
@@ -55,12 +53,12 @@ class ComicsSoapMapperTest extends AbstractComicsMapperTest {
 		comicsRequestDTO.photonovel == PHOTONOVEL
 	}
 
-	void "maps DB entity to SOAP entity"() {
+	void "maps DB entity to base SOAP entity"() {
 		given:
-		DBComics dBComics = createComics()
+		Comics comics = createComics()
 
 		when:
-		SOAPComics soapComics = comicsSoapMapper.map(Lists.newArrayList(dBComics))[0]
+		ComicsBase soapComics = comicsBaseSoapMapper.mapBase(Lists.newArrayList(comics))[0]
 
 		then:
 		soapComics.guid == GUID
@@ -77,15 +75,6 @@ class ComicsSoapMapperTest extends AbstractComicsMapperTest {
 		soapComics.yearFrom.toInteger() == YEAR_FROM
 		soapComics.yearTo.toInteger() == YEAR_TO
 		soapComics.photonovel == PHOTONOVEL
-		soapComics.comicSeriesHeaders.size() == dBComics.comicSeries.size()
-		soapComics.writerHeaders.size() == dBComics.writers.size()
-		soapComics.artistHeaders.size() == dBComics.artists.size()
-		soapComics.editorHeaders.size() == dBComics.editors.size()
-		soapComics.staffHeaders.size() == dBComics.staff.size()
-		soapComics.publisherHeaders.size() == dBComics.publishers.size()
-		soapComics.characterHeaders.size() == dBComics.characters.size()
-		soapComics.references.size() == dBComics.references.size()
-		soapComics.comicCollectionHeaders.size() == dBComics.comicCollections.size()
 	}
 
 }

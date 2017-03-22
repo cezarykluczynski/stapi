@@ -16,10 +16,10 @@ class SeriesFullSoapMapperTest extends AbstractSeriesMapperTest {
 
 	void "maps SOAP SeriesFullRequest to SeriesBaseRequestDTO"() {
 		given:
-		SeriesFullRequest seriesRequest = new SeriesFullRequest(guid: GUID)
+		SeriesFullRequest seriesFullRequest = new SeriesFullRequest(guid: GUID)
 
 		when:
-		SeriesRequestDTO seriesRequestDTO = seriesFullSoapMapper.mapFull seriesRequest
+		SeriesRequestDTO seriesRequestDTO = seriesFullSoapMapper.mapFull seriesFullRequest
 
 		then:
 		seriesRequestDTO.guid == GUID

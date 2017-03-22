@@ -1,7 +1,9 @@
 package com.cezarykluczynski.stapi.server.comics.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.soap.ComicsRequest
-import com.cezarykluczynski.stapi.client.v1.soap.ComicsResponse
+import com.cezarykluczynski.stapi.client.v1.soap.ComicsBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.ComicsBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.ComicsFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.ComicsFullResponse
 import com.cezarykluczynski.stapi.server.comics.reader.ComicsSoapReader
 import spock.lang.Specification
 
@@ -16,17 +18,30 @@ class ComicsSoapEndpointTest extends Specification {
 		comicsSoapEndpoint = new ComicsSoapEndpoint(comicsSoapReaderMock)
 	}
 
-	void "passes call to ComicsSoapReader"() {
+	void "passes base call to ComicsSoapReader"() {
 		given:
-		ComicsRequest comicsRequest = Mock(ComicsRequest)
-		ComicsResponse comicsResponse = Mock(ComicsResponse)
+		ComicsBaseRequest comicsBaseRequest = Mock(ComicsBaseRequest)
+		ComicsBaseResponse comicsBaseResponse = Mock(ComicsBaseResponse)
 
 		when:
-		ComicsResponse comicsResponseResult = comicsSoapEndpoint.getComics(comicsRequest)
+		ComicsBaseResponse comicsResponseResult = comicsSoapEndpoint.getComicsBase(comicsBaseRequest)
 
 		then:
-		1 * comicsSoapReaderMock.readBase(comicsRequest) >> comicsResponse
-		comicsResponseResult == comicsResponse
+		1 * comicsSoapReaderMock.readBase(comicsBaseRequest) >> comicsBaseResponse
+		comicsResponseResult == comicsBaseResponse
+	}
+
+	void "passes full call to ComicsSoapReader"() {
+		given:
+		ComicsFullRequest comicsFullRequest = Mock(ComicsFullRequest)
+		ComicsFullResponse comicsFullResponse = Mock(ComicsFullResponse)
+
+		when:
+		ComicsFullResponse comicsResponseResult = comicsSoapEndpoint.getComicsFull(comicsFullRequest)
+
+		then:
+		1 * comicsSoapReaderMock.readFull(comicsFullRequest) >> comicsFullResponse
+		comicsResponseResult == comicsFullResponse
 	}
 
 }

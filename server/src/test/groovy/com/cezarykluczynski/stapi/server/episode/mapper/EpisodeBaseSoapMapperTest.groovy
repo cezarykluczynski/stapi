@@ -20,7 +20,7 @@ class EpisodeBaseSoapMapperTest extends AbstractEpisodeMapperTest {
 
 	void "maps SOAP EpisodeBaseRequest to EpisodeRequestDTO"() {
 		given:
-		EpisodeBaseRequest episodeRequest = new EpisodeBaseRequest(
+		EpisodeBaseRequest episodeBaseRequest = new EpisodeBaseRequest(
 				title: TITLE,
 				seasonNumber: new IntegerRange(
 						from: SEASON_NUMBER_FROM,
@@ -51,7 +51,7 @@ class EpisodeBaseSoapMapperTest extends AbstractEpisodeMapperTest {
 		)
 
 		when:
-		EpisodeRequestDTO episodeRequestDTO = episodeBaseSoapMapper.mapBase episodeRequest
+		EpisodeRequestDTO episodeRequestDTO = episodeBaseSoapMapper.mapBase episodeBaseRequest
 
 		then:
 		episodeRequestDTO.title == TITLE

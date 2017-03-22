@@ -19,7 +19,7 @@ class CompanySoapMapperTest extends AbstractCompanyMapperTest {
 
 	void "maps SOAP CompanyBaseRequest to CompanyRequestDTO"() {
 		given:
-		CompanyBaseRequest companyRequest = new CompanyBaseRequest(
+		CompanyBaseRequest companyBaseRequest = new CompanyBaseRequest(
 				name: NAME,
 				broadcaster: BROADCASTER,
 				collectibleCompany: COLLECTIBLE_COMPANY,
@@ -40,7 +40,7 @@ class CompanySoapMapperTest extends AbstractCompanyMapperTest {
 				videoGameCompany: VIDEO_GAME_COMPANY)
 
 		when:
-		CompanyRequestDTO companyRequestDTO = companySoapMapper.mapBase companyRequest
+		CompanyRequestDTO companyRequestDTO = companySoapMapper.mapBase companyBaseRequest
 
 		then:
 		companyRequestDTO.name == NAME
@@ -65,10 +65,10 @@ class CompanySoapMapperTest extends AbstractCompanyMapperTest {
 
 	void "maps SOAP CompanyFullRequest to CompanyBaseRequestDTO"() {
 		given:
-		CompanyFullRequest companyRequest = new CompanyFullRequest(guid: GUID)
+		CompanyFullRequest companyFullRequest = new CompanyFullRequest(guid: GUID)
 
 		when:
-		CompanyRequestDTO companyRequestDTO = companySoapMapper.mapFull companyRequest
+		CompanyRequestDTO companyRequestDTO = companySoapMapper.mapFull companyFullRequest
 
 		then:
 		companyRequestDTO.guid == GUID

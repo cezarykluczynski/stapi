@@ -19,7 +19,7 @@ class ComicSeriesBaseSoapMapperTest extends AbstractComicSeriesMapperTest {
 
 	void "maps SOAP ComicSeriesRequest to ComicSeriesRequestDTO"() {
 		given:
-		ComicSeriesBaseRequest comicSeriesRequest = new ComicSeriesBaseRequest(
+		ComicSeriesBaseRequest comicSeriesBaseRequest = new ComicSeriesBaseRequest(
 				title: TITLE,
 				publishedYear: new IntegerRange(
 						from: PUBLISHED_YEAR_FROM,
@@ -41,7 +41,7 @@ class ComicSeriesBaseSoapMapperTest extends AbstractComicSeriesMapperTest {
 				photonovelSeries: PHOTONOVEL_SERIES)
 
 		when:
-		ComicSeriesRequestDTO comicSeriesRequestDTO = comicSeriesBaseSoapMapper.mapBase comicSeriesRequest
+		ComicSeriesRequestDTO comicSeriesRequestDTO = comicSeriesBaseSoapMapper.mapBase comicSeriesBaseRequest
 
 		then:
 		comicSeriesRequestDTO.title == TITLE

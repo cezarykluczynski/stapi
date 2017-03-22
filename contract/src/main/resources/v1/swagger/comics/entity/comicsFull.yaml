@@ -30,39 +30,39 @@ properties:
     type: integer
   photonovel:
     type: boolean
-  comicSeriesHeaders:
+  comicSeries:
     type: array
     items:
-      $ref: '#/definitions/ComicSeriesHeader'
-  writerHeaders:
+      $ref: '#/definitions/ComicSeriesBase'
+  writers:
     type: array
     items:
-      $ref: '#/definitions/StaffHeader'
-  editorHeaders:
+      $ref: '#/definitions/StaffBase'
+  editors:
     type: array
     items:
-      $ref: '#/definitions/StaffHeader'
-  artistHeaders:
+      $ref: '#/definitions/StaffBase'
+  artists:
     type: array
     items:
-      $ref: '#/definitions/StaffHeader'
-  staffHeaders:
+      $ref: '#/definitions/StaffBase'
+  staff:
     type: array
     items:
-      $ref: '#/definitions/StaffHeader'
-  publisherHeaders:
+      $ref: '#/definitions/StaffBase'
+  publishers:
     type: array
     items:
-      $ref: '#/definitions/CompanyHeader'
-  characterHeaders:
+      $ref: '#/definitions/CompanyBase'
+  characters:
     type: array
     items:
-      $ref: '#/definitions/CharacterHeader'
+      $ref: '#/definitions/CharacterBase'
   references:
     type: array
     items:
       $ref: '#/definitions/Reference'
-  comicCollectionHeaders:
+  comicCollections:
     type: array
     items:
       $ref: '#/definitions/ComicCollectionHeader'

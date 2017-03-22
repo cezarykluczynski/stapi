@@ -19,7 +19,7 @@ class SeriesBaseSoapMapperTest extends AbstractSeriesMapperTest {
 
 	void "maps SOAP SeriesBaseRequest to SeriesBaseRequestDTO"() {
 		given:
-		SeriesBaseRequest seriesRequest = new SeriesBaseRequest(
+		SeriesBaseRequest seriesBaseRequest = new SeriesBaseRequest(
 				title: TITLE,
 				abbreviation: ABBREVIATION,
 				productionStartYear: new IntegerRange(
@@ -40,7 +40,7 @@ class SeriesBaseSoapMapperTest extends AbstractSeriesMapperTest {
 				))
 
 		when:
-		SeriesRequestDTO seriesRequestDTO = seriesBaseSoapMapper.mapBase seriesRequest
+		SeriesRequestDTO seriesRequestDTO = seriesBaseSoapMapper.mapBase seriesBaseRequest
 
 		then:
 		seriesRequestDTO.title == TITLE

@@ -3,7 +3,8 @@ package com.cezarykluczynski.stapi.server.comics.endpoint
 import com.cezarykluczynski.stapi.client.api.StapiRestSortSerializer
 import com.cezarykluczynski.stapi.client.api.dto.RestSortClause
 import com.cezarykluczynski.stapi.client.api.dto.enums.RestSortDirection
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicsResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.ComicsBaseResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.ComicsFullResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import com.google.common.collect.Lists
@@ -20,18 +21,26 @@ class ComicsRestEndpointIntegrationTest extends AbstractComicsEndpointIntegratio
 
 	void "gets five issues of 'Ghosts'"() {
 		when:
-		ComicsResponse comicsResponse = stapiRestClient.comicsApi
-				.comicsPost(0, 20, StapiRestSortSerializer.serialize(Lists.newArrayList(
+		ComicsBaseResponse comicsBaseResponse = stapiRestClient.comicsApi
+				.comicsSearchPost(0, 20, StapiRestSortSerializer.serialize(Lists.newArrayList(
 				new RestSortClause(name: 'title', direction: RestSortDirection.ASC)
-		)), null, 'Ghosts, Issue', null, null, null, null, null, null, null, null, null)
+		)), 'Ghosts, Issue', null, null, null, null, null, null, null, null, null)
 
 		then:
-		comicsResponse.comics.size() == 5
-		comicsResponse.comics[0].title == 'Ghosts, Issue 1'
-		comicsResponse.comics[1].title == 'Ghosts, Issue 2'
-		comicsResponse.comics[2].title == 'Ghosts, Issue 3'
-		comicsResponse.comics[3].title == 'Ghosts, Issue 4'
-		comicsResponse.comics[4].title == 'Ghosts, Issue 5'
+		comicsBaseResponse.comics.size() == 5
+		comicsBaseResponse.comics[0].title == 'Ghosts, Issue 1'
+		comicsBaseResponse.comics[1].title == 'Ghosts, Issue 2'
+		comicsBaseResponse.comics[2].title == 'Ghosts, Issue 3'
+		comicsBaseResponse.comics[3].title == 'Ghosts, Issue 4'
+		comicsBaseResponse.comics[4].title == 'Ghosts, Issue 5'
+	}
+
+	void "gets comics by GUID"() {
+		when:
+		ComicsFullResponse comicsFullResponse = stapiRestClient.comicsApi.comicsGet('CCMA0000054566')
+
+		then:
+		comicsFullResponse.comics.title == 'Day of the Inquisitors'
 	}
 
 }

@@ -16,10 +16,10 @@ class StaffFullSoapMapperTest extends AbstractStaffMapperTest {
 
 	void "maps SOAP StaffFullRequest to StaffBaseRequestDTO"() {
 		given:
-		StaffFullRequest staffRequest = new StaffFullRequest(guid: GUID)
+		StaffFullRequest staffFullRequest = new StaffFullRequest(guid: GUID)
 
 		when:
-		StaffRequestDTO staffRequestDTO = staffFullSoapMapper.mapFull staffRequest
+		StaffRequestDTO staffRequestDTO = staffFullSoapMapper.mapFull staffFullRequest
 
 		then:
 		staffRequestDTO.guid == GUID

@@ -11,25 +11,43 @@
 			<xs:include schemaLocation="comics.xsd"/>
 		</xs:schema>
 	</wsdl:types>
-	<wsdl:message name="ComicsRequest">
-		<wsdl:part name="request" element="stapi:ComicsRequest"/>
+	<wsdl:message name="ComicsBaseRequest">
+		<wsdl:part name="request" element="stapi:ComicsBaseRequest"/>
 	</wsdl:message>
-	<wsdl:message name="ComicsResponse">
-		<wsdl:part name="response" element="stapi:ComicsResponse"/>
+	<wsdl:message name="ComicsFullRequest">
+		<wsdl:part name="request" element="stapi:ComicsFullRequest"/>
+	</wsdl:message>
+	<wsdl:message name="ComicsBaseResponse">
+		<wsdl:part name="response" element="stapi:ComicsBaseResponse"/>
+	</wsdl:message>
+	<wsdl:message name="ComicsFullResponse">
+		<wsdl:part name="response" element="stapi:ComicsFullResponse"/>
 	</wsdl:message>
 	<wsdl:portType name="ComicsPortType">
-		<wsdl:operation name="getComics">
-			<wsdl:input name="getComicsRequest" message="stapi:ComicsRequest"/>
-			<wsdl:output name="getComicsResponse" message="stapi:ComicsResponse"/>
+		<wsdl:operation name="getComicsBase">
+			<wsdl:input name="getComicsBaseRequest" message="stapi:ComicsBaseRequest"/>
+			<wsdl:output name="getComicsBaseResponse" message="stapi:ComicsBaseResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getComicsFull">
+			<wsdl:input name="getComicsFullRequest" message="stapi:ComicsFullRequest"/>
+			<wsdl:output name="getComicsFullResponse" message="stapi:ComicsFullResponse"/>
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="ComicsBinding" type="stapi:ComicsPortType">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-		<wsdl:operation name="getComics">
-			<wsdl:input name="getComicsRequest">
+		<wsdl:operation name="getComicsBase">
+			<wsdl:input name="getComicsBaseRequest">
 				<soap:body use="literal"/>
 			</wsdl:input>
-			<wsdl:output name="getComicsResponse">
+			<wsdl:output name="getComicsBaseResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getComicsFull">
+			<wsdl:input name="getComicsFullRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getComicsFullResponse">
 				<soap:body use="literal"/>
 			</wsdl:output>
 		</wsdl:operation>

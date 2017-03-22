@@ -5,4 +5,4 @@ properties:
   comics:
     type: array
     items:
-      $ref: '#/definitions/Comics'
+      $ref: '#/definitions/ComicsBase'

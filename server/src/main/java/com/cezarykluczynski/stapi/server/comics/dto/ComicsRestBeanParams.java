@@ -43,6 +43,10 @@ public class ComicsRestBeanParams extends PageSortBeanParams {
 		return guid;
 	}
 
+	public void setGuid(String guid) {
+		this.guid = guid;
+	}
+
 	public String getTitle() {
 		return title;
 	}

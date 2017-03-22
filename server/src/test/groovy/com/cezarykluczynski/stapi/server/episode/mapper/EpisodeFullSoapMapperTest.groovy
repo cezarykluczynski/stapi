@@ -16,10 +16,10 @@ class EpisodeFullSoapMapperTest extends AbstractEpisodeMapperTest {
 
 	void "maps SOAP EpisodeFullRequest to EpisodeBaseRequestDTO"() {
 		given:
-		EpisodeFullRequest episodeRequest = new EpisodeFullRequest(guid: GUID)
+		EpisodeFullRequest episodeFullRequest = new EpisodeFullRequest(guid: GUID)
 
 		when:
-		EpisodeRequestDTO episodeRequestDTO = episodeFullSoapMapper.mapFull episodeRequest
+		EpisodeRequestDTO episodeRequestDTO = episodeFullSoapMapper.mapFull episodeFullRequest
 
 		then:
 		episodeRequestDTO.guid == GUID

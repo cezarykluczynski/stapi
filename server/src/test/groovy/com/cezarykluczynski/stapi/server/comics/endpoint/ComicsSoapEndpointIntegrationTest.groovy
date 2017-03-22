@@ -1,7 +1,9 @@
 package com.cezarykluczynski.stapi.server.comics.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.soap.ComicsRequest
-import com.cezarykluczynski.stapi.client.v1.soap.ComicsResponse
+import com.cezarykluczynski.stapi.client.v1.soap.ComicsBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.ComicsBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.ComicsFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.ComicsFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.RequestSort
 import com.cezarykluczynski.stapi.client.v1.soap.RequestSortClause
 import com.cezarykluczynski.stapi.client.v1.soap.RequestSortDirectionEnum
@@ -24,19 +26,18 @@ class ComicsSoapEndpointIntegrationTest extends AbstractComicsEndpointIntegratio
 	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "gets 'Brothers in Darkness' by GUID"() {
 		when:
-		ComicsResponse comicsResponse = stapiSoapClient.comicsPortType.getComics(new ComicsRequest(
+		ComicsFullResponse comicsFullResponse = stapiSoapClient.comicsPortType.getComicsFull(new ComicsFullRequest(
 				guid: 'CCMA0000085530'
 		))
 
 		then:
-		comicsResponse.comics.size() == 1
-		comicsResponse.comics[0].title == 'Brothers in Darkness'
-		comicsResponse.comics[0].writerHeaders[0].name == 'Michael Jan Friedman'
-		comicsResponse.comics[0].editorHeaders[0].name == 'Margaret Clark'
-		comicsResponse.comics[0].publisherHeaders[0].name == 'DC Comics'
+		comicsFullResponse.comics.title == 'Brothers in Darkness'
+		comicsFullResponse.comics.writers[0].name == 'Michael Jan Friedman'
+		comicsFullResponse.comics.editors[0].name == 'Margaret Clark'
+		comicsFullResponse.comics.publishers[0].name == 'DC Comics'
 
 		when:
-		List<String> characterNameList = comicsResponse.comics[0].characterHeaders
+		List<String> characterNameList = comicsFullResponse.comics.characters
 				.stream()
 				.map({ it -> it.name })
 				.collect(Collectors.toList())
@@ -54,7 +55,7 @@ class ComicsSoapEndpointIntegrationTest extends AbstractComicsEndpointIntegratio
 
 	void "gets six issues of 'Star Trek - Legion of Super-Heroes'"() {
 		when:
-		ComicsResponse comicsResponse = stapiSoapClient.comicsPortType.getComics(new ComicsRequest(
+		ComicsBaseResponse comicsBaseResponse = stapiSoapClient.comicsPortType.getComicsBase(new ComicsBaseRequest(
 				title: 'Star Trek - Legion of Super-Heroes',
 				sort: new RequestSort(
 						clauses: Lists.newArrayList(
@@ -63,13 +64,13 @@ class ComicsSoapEndpointIntegrationTest extends AbstractComicsEndpointIntegratio
 										direction: RequestSortDirectionEnum.ASC)))))
 
 		then:
-		comicsResponse.comics.size() == 6
-		comicsResponse.comics[0].title == 'Star Trek - Legion of Super-Heroes, Issue 1'
-		comicsResponse.comics[1].title == 'Star Trek - Legion of Super-Heroes, Issue 2'
-		comicsResponse.comics[2].title == 'Star Trek - Legion of Super-Heroes, Issue 3'
-		comicsResponse.comics[3].title == 'Star Trek - Legion of Super-Heroes, Issue 4'
-		comicsResponse.comics[4].title == 'Star Trek - Legion of Super-Heroes, Issue 5'
-		comicsResponse.comics[5].title == 'Star Trek - Legion of Super-Heroes, Issue 6'
+		comicsBaseResponse.comics.size() == 6
+		comicsBaseResponse.comics[0].title == 'Star Trek - Legion of Super-Heroes, Issue 1'
+		comicsBaseResponse.comics[1].title == 'Star Trek - Legion of Super-Heroes, Issue 2'
+		comicsBaseResponse.comics[2].title == 'Star Trek - Legion of Super-Heroes, Issue 3'
+		comicsBaseResponse.comics[3].title == 'Star Trek - Legion of Super-Heroes, Issue 4'
+		comicsBaseResponse.comics[4].title == 'Star Trek - Legion of Super-Heroes, Issue 5'
+		comicsBaseResponse.comics[5].title == 'Star Trek - Legion of Super-Heroes, Issue 6'
 	}
 
 }

@@ -18,12 +18,11 @@
 	<xs:import namespace="http://stapi.co/api/v1/soap/company" schemaLocation="company.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/character" schemaLocation="character.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/reference" schemaLocation="reference.xsd"/>
-	<xs:element name="ComicsRequest">
+	<xs:element name="ComicsBaseRequest">
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Request">
 					<xs:sequence>
-						<xs:element name="guid" type="xs:string" minOccurs="0"/>
 						<xs:element name="title" type="xs:string" minOccurs="0"/>
 						<xs:element name="publishedYear" type="common:IntegerRange" minOccurs="0"/>
 						<xs:element name="numberOfPages" type="common:IntegerRange" minOccurs="0"/>
@@ -35,18 +34,56 @@
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="ComicsResponse">
+	<xs:element name="ComicsFullRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="guid" type="xs:string" minOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ComicsBaseResponse">
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Response">
 					<xs:sequence>
-						<xs:element name="comics" type="comics:Comics" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="comics" type="comics:ComicsBase" minOccurs="0" maxOccurs="unbounded"/>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
-	<xs:complexType name="Comics">
+	<xs:element name="ComicsFullResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="comics" type="comics:ComicsFull"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ComicsHeader">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="title" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ComicsBase">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="title" type="xs:string"/>
+			<xs:element name="publishedYear" type="xs:int" minOccurs="0"/>
+			<xs:element name="publishedMonth" type="xs:int" minOccurs="0"/>
+			<xs:element name="publishedDay" type="xs:int" minOccurs="0"/>
+			<xs:element name="coverYear" type="xs:int" minOccurs="0"/>
+			<xs:element name="coverMonth" type="xs:int" minOccurs="0"/>
+			<xs:element name="coverDay" type="xs:int" minOccurs="0"/>
+			<xs:element name="numberOfPages" type="xs:int" minOccurs="0"/>
+			<xs:element name="stardateFrom" type="xs:float" minOccurs="0"/>
+			<xs:element name="stardateTo" type="xs:float" minOccurs="0"/>
+			<xs:element name="yearFrom" type="xs:integer" minOccurs="0"/>
+			<xs:element name="yearTo" type="xs:integer" minOccurs="0"/>
+			<xs:element name="photonovel" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ComicsFull">
 		<xs:sequence>
 			<xs:element name="guid" type="xs:string"/>
 			<xs:element name="title" type="xs:string"/>
@@ -63,38 +100,32 @@
 			<xs:element name="yearTo" type="xs:integer" minOccurs="0"/>
 			<xs:element name="photonovel" type="xs:boolean"/>
 			<xs:sequence>
-				<xs:element name="comicSeriesHeaders" type="comicSeries:ComicSeriesHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="comicSeries" type="comicSeries:ComicSeriesBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="writerHeaders" type="staff:StaffHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="writers" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="artistHeaders" type="staff:StaffHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="artists" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="editorHeaders" type="staff:StaffHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="editors" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="staffHeaders" type="staff:StaffHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="staff" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="publisherHeaders" type="company:CompanyHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="publishers" type="company:CompanyBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="characterHeaders" type="character:CharacterHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="characters" type="character:CharacterBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
 				<xs:element name="references" type="reference:Reference" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="comicCollectionHeaders" type="comicCollection:ComicCollectionHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="comicCollections" type="comicCollection:ComicCollectionHeader" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="ComicsHeader">
-		<xs:sequence>
-			<xs:element name="guid" type="xs:string"/>
-			<xs:element name="title" type="xs:string"/>
 		</xs:sequence>
 	</xs:complexType>
 </xs:schema>

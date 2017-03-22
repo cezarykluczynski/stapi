@@ -19,13 +19,13 @@ class AstronomicalObjectSoapMapperTest extends AbstractAstronomicalObjectMapperT
 
 	void "maps SOAP AstronomicalObjectBaseRequest to AstronomicalObjectRequestDTO"() {
 		given:
-		AstronomicalObjectBaseRequest astronomicalObjectRequest = new AstronomicalObjectBaseRequest(
+		AstronomicalObjectBaseRequest astronomicalObjectBaseRequest = new AstronomicalObjectBaseRequest(
 				name: NAME,
 				astronomicalObjectType: SOAP_ASTRONOMICAL_OBJECT_TYPE,
 				locationGuid: LOCATION_GUID)
 
 		when:
-		AstronomicalObjectRequestDTO astronomicalObjectRequestDTO = astronomicalObjectSoapMapper.mapBase astronomicalObjectRequest
+		AstronomicalObjectRequestDTO astronomicalObjectRequestDTO = astronomicalObjectSoapMapper.mapBase astronomicalObjectBaseRequest
 
 		then:
 		astronomicalObjectRequestDTO.name == NAME
@@ -35,10 +35,10 @@ class AstronomicalObjectSoapMapperTest extends AbstractAstronomicalObjectMapperT
 
 	void "maps SOAP AstronomicalObjectFullRequest to AstronomicalObjectBaseRequestDTO"() {
 		given:
-		AstronomicalObjectFullRequest astronomicalObjectRequest = new AstronomicalObjectFullRequest(guid: GUID)
+		AstronomicalObjectFullRequest astronomicalObjectFullRequest = new AstronomicalObjectFullRequest(guid: GUID)
 
 		when:
-		AstronomicalObjectRequestDTO astronomicalObjectRequestDTO = astronomicalObjectSoapMapper.mapFull astronomicalObjectRequest
+		AstronomicalObjectRequestDTO astronomicalObjectRequestDTO = astronomicalObjectSoapMapper.mapFull astronomicalObjectFullRequest
 
 		then:
 		astronomicalObjectRequestDTO.guid == GUID

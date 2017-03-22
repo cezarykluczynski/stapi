@@ -16,10 +16,10 @@ class PerformerFullSoapMapperTest extends AbstractPerformerMapperTest {
 
 	void "maps SOAP PerformerFullRequest to PerformerBaseRequestDTO"() {
 		given:
-		PerformerFullRequest performerRequest = new PerformerFullRequest(guid: GUID)
+		PerformerFullRequest performerFullRequest = new PerformerFullRequest(guid: GUID)
 
 		when:
-		PerformerRequestDTO performerRequestDTO = performerFullSoapMapper.mapFull performerRequest
+		PerformerRequestDTO performerRequestDTO = performerFullSoapMapper.mapFull performerFullRequest
 
 		then:
 		performerRequestDTO.guid == GUID

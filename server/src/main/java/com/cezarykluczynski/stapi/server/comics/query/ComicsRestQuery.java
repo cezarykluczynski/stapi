@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.model.comics.dto.ComicsRequestDTO;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics;
 import com.cezarykluczynski.stapi.model.comics.repository.ComicsRepository;
 import com.cezarykluczynski.stapi.server.comics.dto.ComicsRestBeanParams;
-import com.cezarykluczynski.stapi.server.comics.mapper.ComicsRestMapper;
+import com.cezarykluczynski.stapi.server.comics.mapper.ComicsBaseRestMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,21 +15,21 @@ import javax.inject.Inject;
 @Service
 public class ComicsRestQuery {
 
-	private ComicsRestMapper comicsRestMapper;
+	private ComicsBaseRestMapper comicsBaseRestMapper;
 
 	private PageMapper pageMapper;
 
 	private ComicsRepository comicsRepository;
 
 	@Inject
-	public ComicsRestQuery(ComicsRestMapper comicsRestMapper, PageMapper pageMapper, ComicsRepository comicsRepository) {
-		this.comicsRestMapper = comicsRestMapper;
+	public ComicsRestQuery(ComicsBaseRestMapper comicsBaseRestMapper, PageMapper pageMapper, ComicsRepository comicsRepository) {
+		this.comicsBaseRestMapper = comicsBaseRestMapper;
 		this.pageMapper = pageMapper;
 		this.comicsRepository = comicsRepository;
 	}
 
 	public Page<Comics> query(ComicsRestBeanParams comicsRestBeanParams) {
-		ComicsRequestDTO comicsRequestDTO = comicsRestMapper.map(comicsRestBeanParams);
+		ComicsRequestDTO comicsRequestDTO = comicsBaseRestMapper.mapBase(comicsRestBeanParams);
 		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(comicsRestBeanParams);
 		return comicsRepository.findMatching(comicsRequestDTO, pageRequest);
 	}
