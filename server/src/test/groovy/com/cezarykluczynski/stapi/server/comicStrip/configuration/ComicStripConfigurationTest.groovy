@@ -1,10 +1,12 @@
 package com.cezarykluczynski.stapi.server.comicStrip.configuration
 
 import com.cezarykluczynski.stapi.server.comicStrip.endpoint.ComicStripRestEndpoint
-import com.cezarykluczynski.stapi.server.comicStrip.reader.ComicStripRestReader
 import com.cezarykluczynski.stapi.server.comicStrip.endpoint.ComicStripSoapEndpoint
-import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripRestMapper
-import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripSoapMapper
+import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripBaseRestMapper
+import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripBaseSoapMapper
+import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripFullRestMapper
+import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripFullSoapMapper
+import com.cezarykluczynski.stapi.server.comicStrip.reader.ComicStripRestReader
 import com.cezarykluczynski.stapi.server.comicStrip.reader.ComicStripSoapReader
 import org.apache.cxf.bus.spring.SpringBus
 import org.apache.cxf.jaxws.EndpointImpl
@@ -56,20 +58,36 @@ class ComicStripConfigurationTest extends Specification {
 		comicStripRestEndpoint.comicStripRestReader == comicStripRestMapper
 	}
 
-	void "ComicStripSoapMapper is created"() {
+	void "ComicStripBaseSoapMapper is created"() {
 		when:
-		ComicStripSoapMapper comicStripSoapMapper = comicStripConfiguration.comicStripSoapMapper()
+		ComicStripBaseSoapMapper comicStripBaseSoapMapper = comicStripConfiguration.comicStripBaseSoapMapper()
 
 		then:
-		comicStripSoapMapper != null
+		comicStripBaseSoapMapper != null
 	}
 
-	void "ComicStripRestMapper is created"() {
+	void "ComicStripFullSoapMapper is created"() {
 		when:
-		ComicStripRestMapper comicStripRestMapper = comicStripConfiguration.comicStripRestMapper()
+		ComicStripFullSoapMapper comicStripFullSoapMapper = comicStripConfiguration.comicStripFullSoapMapper()
 
 		then:
-		comicStripRestMapper != null
+		comicStripFullSoapMapper != null
+	}
+
+	void "ComicStripBaseRestMapper is created"() {
+		when:
+		ComicStripBaseRestMapper comicStripBaseRestMapper = comicStripConfiguration.comicStripBaseRestMapper()
+
+		then:
+		comicStripBaseRestMapper != null
+	}
+
+	void "ComicStripFullRestMapper is created"() {
+		when:
+		ComicStripFullRestMapper comicStripFullRestMapper = comicStripConfiguration.comicStripFullRestMapper()
+
+		then:
+		comicStripFullRestMapper != null
 	}
 
 }

@@ -29,6 +29,8 @@ paths:
     $ref: ./comicSeries/path/comicSeriesSearch.path.yaml
   /comicStrip:
     $ref: ./comicStrip/path/comicStrip.path.yaml
+  /comicStrip/search:
+    $ref: ./comicStrip/path/comicStripSearch.path.yaml
   /company:
     $ref: ./company/path/company.path.yaml
   /company/search:
@@ -104,12 +106,16 @@ definitions:
     $ref: ./comicSeries/entity/comicSeriesBaseResponse.yaml
   ComicSeriesFullResponse:
     $ref: ./comicSeries/entity/comicSeriesFullResponse.yaml
-  ComicStrip:
-    $ref: ./comicStrip/entity/comicStrip.yaml
   ComicStripHeader:
     $ref: ./comicStrip/entity/comicStripHeader.yaml
-  ComicStripResponse:
-    $ref: ./comicStrip/entity/comicStripResponse.yaml
+  ComicStripBase:
+    $ref: ./comicStrip/entity/comicStripBase.yaml
+  ComicStripFull:
+    $ref: ./comicStrip/entity/comicStripFull.yaml
+  ComicStripBaseResponse:
+    $ref: ./comicStrip/entity/comicStripBaseResponse.yaml
+  ComicStripFullResponse:
+    $ref: ./comicStrip/entity/comicStripFullResponse.yaml
   CompanyBase:
     $ref: ./company/entity/companyBase.yaml
   CompanyFull:

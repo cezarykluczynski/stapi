@@ -2,8 +2,10 @@ package com.cezarykluczynski.stapi.server.comicStrip.configuration;
 
 import com.cezarykluczynski.stapi.server.comicStrip.endpoint.ComicStripRestEndpoint;
 import com.cezarykluczynski.stapi.server.comicStrip.endpoint.ComicStripSoapEndpoint;
-import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripRestMapper;
-import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripSoapMapper;
+import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripBaseRestMapper;
+import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripBaseSoapMapper;
+import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripFullRestMapper;
+import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripFullSoapMapper;
 import com.cezarykluczynski.stapi.server.comicStrip.reader.ComicStripRestReader;
 import com.cezarykluczynski.stapi.server.comicStrip.reader.ComicStripSoapReader;
 import org.apache.cxf.Bus;
@@ -38,13 +40,23 @@ public class ComicStripConfiguration {
 	}
 
 	@Bean
-	public ComicStripSoapMapper comicStripSoapMapper() {
-		return Mappers.getMapper(ComicStripSoapMapper.class);
+	public ComicStripBaseSoapMapper comicStripBaseSoapMapper() {
+		return Mappers.getMapper(ComicStripBaseSoapMapper.class);
 	}
 
 	@Bean
-	public ComicStripRestMapper comicStripRestMapper() {
-		return Mappers.getMapper(ComicStripRestMapper.class);
+	public ComicStripFullSoapMapper comicStripFullSoapMapper() {
+		return Mappers.getMapper(ComicStripFullSoapMapper.class);
+	}
+
+	@Bean
+	public ComicStripBaseRestMapper comicStripBaseRestMapper() {
+		return Mappers.getMapper(ComicStripBaseRestMapper.class);
+	}
+
+	@Bean
+	public ComicStripFullRestMapper comicStripFullRestMapper() {
+		return Mappers.getMapper(ComicStripFullRestMapper.class);
 	}
 
 }

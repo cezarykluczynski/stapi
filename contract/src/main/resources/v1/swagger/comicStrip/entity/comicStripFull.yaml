@@ -24,19 +24,19 @@ properties:
     type: integer
   yearTo:
     type: integer
-  comicSeriesHeaders:
+  comicSeries:
     type: array
     items:
-      $ref: '#/definitions/ComicSeriesHeader'
-  writerHeaders:
+      $ref: '#/definitions/ComicSeriesBase'
+  writers:
     type: array
     items:
-      $ref: '#/definitions/StaffHeader'
-  artistHeaders:
+      $ref: '#/definitions/StaffBase'
+  artists:
     type: array
     items:
-      $ref: '#/definitions/StaffHeader'
-  characterHeaders:
+      $ref: '#/definitions/StaffBase'
+  characters:
     type: array
     items:
-      $ref: '#/definitions/CharacterHeader'
+      $ref: '#/definitions/CharacterBase'

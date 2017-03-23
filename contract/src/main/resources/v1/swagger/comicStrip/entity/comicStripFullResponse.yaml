@@ -1,0 +1,4 @@
+type: object
+properties:
+  comicStrip:
+    $ref: '#/definitions/ComicStripFull'

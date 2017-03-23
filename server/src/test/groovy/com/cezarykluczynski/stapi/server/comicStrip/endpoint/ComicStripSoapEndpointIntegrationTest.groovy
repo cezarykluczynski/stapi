@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.comicStrip.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.soap.ComicStripRequest
-import com.cezarykluczynski.stapi.client.v1.soap.ComicStripResponse
+import com.cezarykluczynski.stapi.client.v1.soap.ComicStripBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.ComicStripBaseResponse
 import com.cezarykluczynski.stapi.client.v1.soap.RequestSort
 import com.cezarykluczynski.stapi.client.v1.soap.RequestSortClause
 import com.cezarykluczynski.stapi.client.v1.soap.RequestSortDirectionEnum
@@ -21,7 +21,7 @@ class ComicStripSoapEndpointIntegrationTest extends AbstractComicStripEndpointIn
 
 	void "gets 'UK Story Arc' comic strips sorted by publication date"() {
 		when:
-		ComicStripResponse comicStripResponse = stapiSoapClient.comicStripPortType.getComicStrips(new ComicStripRequest(
+		ComicStripBaseResponse comicStripResponse = stapiSoapClient.comicStripPortType.getComicStripBase(new ComicStripBaseRequest(
 				title: 'UK Story Arc',
 				sort: new RequestSort(
 						clauses: Lists.newArrayList(
@@ -39,9 +39,8 @@ class ComicStripSoapEndpointIntegrationTest extends AbstractComicStripEndpointIn
 								)))))
 
 		then:
-		comicStripResponse.comicStrip.size() == 37
-		comicStripResponse.comicStrip[0].title == 'First UK Story Arc'
-		comicStripResponse.comicStrip[36].title == 'Thirty-Seventh UK Story Arc'
+		comicStripResponse.comicStrips[0].title == 'First UK Story Arc'
+		comicStripResponse.comicStrips[36].title == 'Thirty-Seventh UK Story Arc'
 	}
 
 }

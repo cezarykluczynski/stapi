@@ -13,12 +13,11 @@
 	<xs:import namespace="http://stapi.co/api/v1/soap/staff" schemaLocation="staff.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/character" schemaLocation="character.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/comicSeries" schemaLocation="comicSeries.xsd"/>
-	<xs:element name="ComicStripRequest">
+	<xs:element name="ComicStripBaseRequest">
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Request">
 					<xs:sequence>
-						<xs:element name="guid" type="xs:string" minOccurs="0"/>
 						<xs:element name="title" type="xs:string" minOccurs="0"/>
 						<xs:element name="publishedYear" type="common:IntegerRange" minOccurs="0"/>
 						<xs:element name="numberOfPages" type="common:IntegerRange" minOccurs="0"/>
@@ -28,18 +27,54 @@
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="ComicStripResponse">
+	<xs:element name="ComicStripFullRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="guid" type="xs:string" minOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ComicStripBaseResponse">
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Response">
 					<xs:sequence>
-						<xs:element name="comicStrip" type="comicStrip:ComicStrip" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="comicStrips" type="comicStrip:ComicStripBase" minOccurs="0" maxOccurs="unbounded"/>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
-	<xs:complexType name="ComicStrip">
+	<xs:element name="ComicStripFullResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="comicStrip" type="comicStrip:ComicStripFull"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ComicStripHeader">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="title" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ComicStripBase">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="title" type="xs:string"/>
+			<xs:element name="periodical" type="xs:string"/>
+			<xs:element name="publishedYearFrom" type="xs:int" minOccurs="0"/>
+			<xs:element name="publishedMonthFrom" type="xs:int" minOccurs="0"/>
+			<xs:element name="publishedDayFrom" type="xs:int" minOccurs="0"/>
+			<xs:element name="publishedYearTo" type="xs:int" minOccurs="0"/>
+			<xs:element name="publishedMonthTo" type="xs:int" minOccurs="0"/>
+			<xs:element name="publishedDayTo" type="xs:int" minOccurs="0"/>
+			<xs:element name="numberOfPages" type="xs:int" minOccurs="0"/>
+			<xs:element name="yearFrom" type="xs:integer" minOccurs="0"/>
+			<xs:element name="yearTo" type="xs:integer" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ComicStripFull">
 		<xs:sequence>
 			<xs:element name="guid" type="xs:string"/>
 			<xs:element name="title" type="xs:string"/>
@@ -54,23 +89,17 @@
 			<xs:element name="yearFrom" type="xs:integer" minOccurs="0"/>
 			<xs:element name="yearTo" type="xs:integer" minOccurs="0"/>
 			<xs:sequence>
-				<xs:element name="comicSeriesHeaders" type="comicSeries:ComicSeriesHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="comicSeries" type="comicSeries:ComicSeriesBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="writerHeaders" type="staff:StaffHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="writers" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="artistHeaders" type="staff:StaffHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="artists" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="characterHeaders" type="character:CharacterHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="characters" type="character:CharacterBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="ComicStripHeader">
-		<xs:sequence>
-			<xs:element name="guid" type="xs:string"/>
-			<xs:element name="title" type="xs:string"/>
 		</xs:sequence>
 	</xs:complexType>
 </xs:schema>

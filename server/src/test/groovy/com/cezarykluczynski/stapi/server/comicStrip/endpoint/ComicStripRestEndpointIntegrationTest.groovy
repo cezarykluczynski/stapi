@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.comicStrip.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicStripResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.ComicStripBaseResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.ComicStripFullResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import spock.lang.Requires
@@ -16,12 +17,19 @@ class ComicStripRestEndpointIntegrationTest extends AbstractComicStripEndpointIn
 
 	void "gets comic strip by GUID"() {
 		when:
-		ComicStripResponse comicStripResponse = stapiRestClient.comicStripApi.comicStripPost(null, null, null, 'CTMA0000056047', null, null, null,
-			null, null, null, null)
+		ComicStripFullResponse comicStripFullResponse = stapiRestClient.comicStripApi.comicStripGet('CTMA0000056047')
 
 		then:
-		comicStripResponse.comicStrips.size() == 1
-		comicStripResponse.comicStrips[0].title == 'Called Home'
+		comicStripFullResponse.comicStrip.title == 'Called Home'
+	}
+
+	void "finds comic strips by title"() {
+		when:
+		ComicStripBaseResponse comicStripBaseResponse = stapiRestClient.comicStripApi.comicStripSearchPost(0, 0, null, 'Aberration on Abaris', null,
+				null, null, null, null, null)
+
+		then:
+		comicStripBaseResponse.comicStrips[0].guid == 'CTMA0000056090'
 	}
 
 }

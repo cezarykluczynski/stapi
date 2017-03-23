@@ -4,14 +4,14 @@ import com.cezarykluczynski.stapi.model.comicStrip.dto.ComicStripRequestDTO
 import com.cezarykluczynski.stapi.model.comicStrip.repository.ComicStripRepository
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.comicStrip.dto.ComicStripRestBeanParams
-import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripRestMapper
+import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripBaseRestMapper
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import spock.lang.Specification
 
 class ComicStripRestQueryTest extends Specification {
 
-	private ComicStripRestMapper comicStripRestMapperMock
+	private ComicStripBaseRestMapper comicStripRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,7 +20,7 @@ class ComicStripRestQueryTest extends Specification {
 	private ComicStripRestQuery comicStripRestQuery
 
 	void setup() {
-		comicStripRestMapperMock = Mock(ComicStripRestMapper)
+		comicStripRestMapperMock = Mock(ComicStripBaseRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		comicStripRepositoryMock = Mock(ComicStripRepository)
 		comicStripRestQuery = new ComicStripRestQuery(comicStripRestMapperMock, pageMapperMock, comicStripRepositoryMock)
@@ -39,7 +39,7 @@ class ComicStripRestQueryTest extends Specification {
 		Page pageOutput = comicStripRestQuery.query(comicStripRestBeanParams)
 
 		then:
-		1 * comicStripRestMapperMock.map(comicStripRestBeanParams) >> comicStripRequestDTO
+		1 * comicStripRestMapperMock.mapBase(comicStripRestBeanParams) >> comicStripRequestDTO
 		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(comicStripRestBeanParams) >> pageRequest
 		1 * comicStripRepositoryMock.findMatching(comicStripRequestDTO, pageRequest) >> page
 		pageOutput == page

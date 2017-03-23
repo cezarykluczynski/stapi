@@ -1,13 +1,17 @@
 package com.cezarykluczynski.stapi.server.comicStrip.reader
 
-import com.cezarykluczynski.stapi.client.v1.soap.ComicStrip as SOAPComicStrip
-import com.cezarykluczynski.stapi.client.v1.soap.ComicStripRequest
-import com.cezarykluczynski.stapi.client.v1.soap.ComicStripResponse
+import com.cezarykluczynski.stapi.client.v1.soap.ComicStripBase
+import com.cezarykluczynski.stapi.client.v1.soap.ComicStripBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.ComicStripBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.ComicStripFull
+import com.cezarykluczynski.stapi.client.v1.soap.ComicStripFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.ComicStripFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
-import com.cezarykluczynski.stapi.model.comicStrip.entity.ComicStrip as DBComicStrip
-import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripSoapMapper
+import com.cezarykluczynski.stapi.model.comicStrip.entity.ComicStrip
+import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripBaseSoapMapper
+import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripFullSoapMapper
 import com.cezarykluczynski.stapi.server.comicStrip.query.ComicStripSoapQuery
+import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
 import spock.lang.Specification
@@ -18,7 +22,9 @@ class ComicStripSoapReaderTest extends Specification {
 
 	private ComicStripSoapQuery comicStripSoapQueryBuilderMock
 
-	private ComicStripSoapMapper comicStripSoapMapperMock
+	private ComicStripBaseSoapMapper comicStripBaseSoapMapperMock
+
+	private ComicStripFullSoapMapper comicStripFullSoapMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -26,29 +32,48 @@ class ComicStripSoapReaderTest extends Specification {
 
 	void setup() {
 		comicStripSoapQueryBuilderMock = Mock(ComicStripSoapQuery)
-		comicStripSoapMapperMock = Mock(ComicStripSoapMapper)
+		comicStripBaseSoapMapperMock = Mock(ComicStripBaseSoapMapper)
+		comicStripFullSoapMapperMock = Mock(ComicStripFullSoapMapper)
 		pageMapperMock = Mock(PageMapper)
-		comicStripSoapReader = new ComicStripSoapReader(comicStripSoapQueryBuilderMock, comicStripSoapMapperMock, pageMapperMock)
+		comicStripSoapReader = new ComicStripSoapReader(comicStripSoapQueryBuilderMock, comicStripBaseSoapMapperMock, comicStripFullSoapMapperMock,
+				pageMapperMock)
 	}
 
-	void "gets database entities and puts them into ComicStripResponse"() {
+	void "passed base request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		List<DBComicStrip> dbComicStripList = Lists.newArrayList()
-		Page<DBComicStrip> dbComicStripPage = Mock(Page)
-		dbComicStripPage.content >> dbComicStripList
-		List<SOAPComicStrip> soapComicStripList = Lists.newArrayList(new SOAPComicStrip(guid: GUID))
-		ComicStripRequest comicStripRequest = Mock(ComicStripRequest)
+		List<ComicStrip> comicStripList = Lists.newArrayList()
+		Page<ComicStrip> comicStripPage = Mock(Page)
+		List<ComicStripBase> soapComicStripList = Lists.newArrayList(new ComicStripBase(guid: GUID))
+		ComicStripBaseRequest comicStripBaseRequest = Mock(ComicStripBaseRequest)
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		ComicStripResponse comicStripResponse = comicStripSoapReader.readBase(comicStripRequest)
+		ComicStripBaseResponse comicStripResponse = comicStripSoapReader.readBase(comicStripBaseRequest)
 
 		then:
-		1 * comicStripSoapQueryBuilderMock.query(comicStripRequest) >> dbComicStripPage
-		1 * pageMapperMock.fromPageToSoapResponsePage(dbComicStripPage) >> responsePage
-		1 * comicStripSoapMapperMock.map(dbComicStripList) >> soapComicStripList
-		comicStripResponse.comicStrip[0].guid == GUID
+		1 * comicStripSoapQueryBuilderMock.query(comicStripBaseRequest) >> comicStripPage
+		1 * comicStripPage.content >> comicStripList
+		1 * pageMapperMock.fromPageToSoapResponsePage(comicStripPage) >> responsePage
+		1 * comicStripBaseSoapMapperMock.mapBase(comicStripList) >> soapComicStripList
+		comicStripResponse.comicStrips[0].guid == GUID
 		comicStripResponse.page == responsePage
+	}
+
+	void "passed full request to queryBuilder, then to mapper, and returns result"() {
+		given:
+		ComicStripFull comicStripFull = new ComicStripFull(guid: GUID)
+		ComicStrip comicStrip = Mock(ComicStrip)
+		Page<ComicStrip> comicStripPage = Mock(Page)
+		ComicStripFullRequest comicStripFullRequest = Mock(ComicStripFullRequest)
+
+		when:
+		ComicStripFullResponse comicStripFullResponse = comicStripSoapReader.readFull(comicStripFullRequest)
+
+		then:
+		1 * comicStripSoapQueryBuilderMock.query(comicStripFullRequest) >> comicStripPage
+		1 * comicStripPage.content >> Lists.newArrayList(comicStrip)
+		1 * comicStripFullSoapMapperMock.mapFull(comicStrip) >> comicStripFull
+		comicStripFullResponse.comicStrip.guid == GUID
 	}
 
 }

@@ -1,7 +1,9 @@
 package com.cezarykluczynski.stapi.server.comicStrip.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.soap.ComicStripRequest
-import com.cezarykluczynski.stapi.client.v1.soap.ComicStripResponse
+import com.cezarykluczynski.stapi.client.v1.soap.ComicStripBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.ComicStripBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.ComicStripFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.ComicStripFullResponse
 import com.cezarykluczynski.stapi.server.comicStrip.reader.ComicStripSoapReader
 import spock.lang.Specification
 
@@ -16,17 +18,30 @@ class ComicStripSoapEndpointTest extends Specification {
 		comicStripSoapEndpoint = new ComicStripSoapEndpoint(comicStripSoapReaderMock)
 	}
 
-	void "passes call to ComicStripSoapReader"() {
+	void "passes base call to ComicStripSoapReader"() {
 		given:
-		ComicStripRequest comicStripRequest = Mock(ComicStripRequest)
-		ComicStripResponse comicStripResponse = Mock(ComicStripResponse)
+		ComicStripBaseRequest comicStripBaseRequest = Mock(ComicStripBaseRequest)
+		ComicStripBaseResponse comicStripBaseResponse = Mock(ComicStripBaseResponse)
 
 		when:
-		ComicStripResponse comicStripResponseResult = comicStripSoapEndpoint.getComicStrips(comicStripRequest)
+		ComicStripBaseResponse comicStripResponseResult = comicStripSoapEndpoint.getComicStripBase(comicStripBaseRequest)
 
 		then:
-		1 * comicStripSoapReaderMock.readBase(comicStripRequest) >> comicStripResponse
-		comicStripResponseResult == comicStripResponse
+		1 * comicStripSoapReaderMock.readBase(comicStripBaseRequest) >> comicStripBaseResponse
+		comicStripResponseResult == comicStripBaseResponse
+	}
+
+	void "passes full call to ComicStripSoapReader"() {
+		given:
+		ComicStripFullRequest comicStripFullRequest = Mock(ComicStripFullRequest)
+		ComicStripFullResponse comicStripFullResponse = Mock(ComicStripFullResponse)
+
+		when:
+		ComicStripFullResponse comicStripResponseResult = comicStripSoapEndpoint.getComicStripFull(comicStripFullRequest)
+
+		then:
+		1 * comicStripSoapReaderMock.readFull(comicStripFullRequest) >> comicStripFullResponse
+		comicStripResponseResult == comicStripFullResponse
 	}
 
 }
