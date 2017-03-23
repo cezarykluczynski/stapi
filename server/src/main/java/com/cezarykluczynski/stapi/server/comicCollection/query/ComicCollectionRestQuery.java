@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.model.comicCollection.dto.ComicCollectionReque
 import com.cezarykluczynski.stapi.model.comicCollection.entity.ComicCollection;
 import com.cezarykluczynski.stapi.model.comicCollection.repository.ComicCollectionRepository;
 import com.cezarykluczynski.stapi.server.comicCollection.dto.ComicCollectionRestBeanParams;
-import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionRestMapper;
+import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionBaseRestMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,22 +15,22 @@ import javax.inject.Inject;
 @Service
 public class ComicCollectionRestQuery {
 
-	private ComicCollectionRestMapper comicCollectionRestMapper;
+	private ComicCollectionBaseRestMapper comicCollectionBaseRestMapper;
 
 	private PageMapper pageMapper;
 
 	private ComicCollectionRepository comicCollectionRepository;
 
 	@Inject
-	public ComicCollectionRestQuery(ComicCollectionRestMapper comicCollectionRestMapper, PageMapper pageMapper,
+	public ComicCollectionRestQuery(ComicCollectionBaseRestMapper comicCollectionBaseRestMapper, PageMapper pageMapper,
 			ComicCollectionRepository comicCollectionRepository) {
-		this.comicCollectionRestMapper = comicCollectionRestMapper;
+		this.comicCollectionBaseRestMapper = comicCollectionBaseRestMapper;
 		this.pageMapper = pageMapper;
 		this.comicCollectionRepository = comicCollectionRepository;
 	}
 
 	public Page<ComicCollection> query(ComicCollectionRestBeanParams comicCollectionRestBeanParams) {
-		ComicCollectionRequestDTO comicCollectionRequestDTO = comicCollectionRestMapper.map(comicCollectionRestBeanParams);
+		ComicCollectionRequestDTO comicCollectionRequestDTO = comicCollectionBaseRestMapper.mapBase(comicCollectionRestBeanParams);
 		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(comicCollectionRestBeanParams);
 		return comicCollectionRepository.findMatching(comicCollectionRequestDTO, pageRequest);
 	}

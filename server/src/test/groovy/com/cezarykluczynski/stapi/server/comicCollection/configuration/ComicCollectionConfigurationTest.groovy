@@ -1,10 +1,12 @@
 package com.cezarykluczynski.stapi.server.comicCollection.configuration
 
 import com.cezarykluczynski.stapi.server.comicCollection.endpoint.ComicCollectionRestEndpoint
-import com.cezarykluczynski.stapi.server.comicCollection.reader.ComicCollectionRestReader
 import com.cezarykluczynski.stapi.server.comicCollection.endpoint.ComicCollectionSoapEndpoint
-import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionRestMapper
-import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionSoapMapper
+import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionBaseRestMapper
+import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionBaseSoapMapper
+import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionFullRestMapper
+import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionFullSoapMapper
+import com.cezarykluczynski.stapi.server.comicCollection.reader.ComicCollectionRestReader
 import com.cezarykluczynski.stapi.server.comicCollection.reader.ComicCollectionSoapReader
 import org.apache.cxf.bus.spring.SpringBus
 import org.apache.cxf.jaxws.EndpointImpl
@@ -56,20 +58,36 @@ class ComicCollectionConfigurationTest extends Specification {
 		comicCollectionRestEndpoint.comicCollectionRestReader == comicCollectionRestMapper
 	}
 
-	void "ComicCollectionSoapMapper is created"() {
+	void "ComicCollectionBaseSoapMapper is created"() {
 		when:
-		ComicCollectionSoapMapper comicCollectionSoapMapper = comicCollectionConfiguration.comicCollectionSoapMapper()
+		ComicCollectionBaseSoapMapper comicCollectionBaseSoapMapper = comicCollectionConfiguration.comicCollectionBaseSoapMapper()
 
 		then:
-		comicCollectionSoapMapper != null
+		comicCollectionBaseSoapMapper != null
 	}
 
-	void "ComicCollectionRestMapper is created"() {
+	void "ComicCollectionFullSoapMapper is created"() {
 		when:
-		ComicCollectionRestMapper comicCollectionRestMapper = comicCollectionConfiguration.comicCollectionRestMapper()
+		ComicCollectionFullSoapMapper comicCollectionFullSoapMapper = comicCollectionConfiguration.comicCollectionFullSoapMapper()
 
 		then:
-		comicCollectionRestMapper != null
+		comicCollectionFullSoapMapper != null
+	}
+
+	void "ComicCollectionBaseRestMapper is created"() {
+		when:
+		ComicCollectionBaseRestMapper comicCollectionBaseRestMapper = comicCollectionConfiguration.comicCollectionBaseRestMapper()
+
+		then:
+		comicCollectionBaseRestMapper != null
+	}
+
+	void "ComicCollectionFullRestMapper is created"() {
+		when:
+		ComicCollectionFullRestMapper comicCollectionFullRestMapper = comicCollectionConfiguration.comicCollectionFullRestMapper()
+
+		then:
+		comicCollectionFullRestMapper != null
 	}
 
 }

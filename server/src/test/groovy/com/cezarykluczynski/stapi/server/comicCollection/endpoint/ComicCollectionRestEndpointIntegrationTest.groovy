@@ -1,13 +1,13 @@
 package com.cezarykluczynski.stapi.server.comicCollection.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.ComicCollectionResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.ComicCollectionBaseResponse
+import com.cezarykluczynski.stapi.client.v1.rest.model.ComicCollectionFullResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import spock.lang.Requires
 
 @Requires({
-	StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_COMICS) &&
-			StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_COMIC_COLLECTIONS)
+	StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_COMIC_COLLECTIONS)
 })
 class ComicCollectionRestEndpointIntegrationTest extends AbstractComicCollectionEndpointIntegrationTest {
 
@@ -15,15 +15,28 @@ class ComicCollectionRestEndpointIntegrationTest extends AbstractComicCollection
 		createRestClient()
 	}
 
-	void "gets comic collection by guid"() {
+	@SuppressWarnings('ClosureAsLastMethodParameter')
+	void "'Star Trek Ultimate Edition' is among collections with more than 500 pages"() {
 		when:
-		ComicCollectionResponse collectionResponse = stapiRestClient.comicCollectionApi
-				.comicCollectionPost(null, null, null, 'CLMA0000108975', null, null, null, null, null, null, null, null, null, null)
+		ComicCollectionBaseResponse comicCollectionBaseResponse = stapiRestClient.comicCollectionApi.comicCollectionSearchPost(null, null, null,
+				null, null, null, 500, null, null, null, null, null, null)
 
 		then:
-		collectionResponse.comicCollections.size() == 1
-		collectionResponse.comicCollections[0].title == 'Convergence'
-		collectionResponse.comicCollections[0].comicsHeaders.size() >= 3
+		comicCollectionBaseResponse.comicCollections.stream()
+				.anyMatch({ it -> it.title == 'Star Trek Ultimate Edition' })
+
+	}
+
+	@Requires({
+		StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_COMICS)
+	})
+	void "gets comic collection by GUID"() {
+		when:
+		ComicCollectionFullResponse comicCollectionFullResponse = stapiRestClient.comicCollectionApi.comicCollectionGet('CLMA0000108975')
+
+		then:
+		comicCollectionFullResponse.comicCollection.title == 'Convergence'
+		comicCollectionFullResponse.comicCollection.comics.size() >= 3
 	}
 
 }

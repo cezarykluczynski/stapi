@@ -1,7 +1,9 @@
 package com.cezarykluczynski.stapi.server.comicCollection.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.soap.ComicCollectionRequest
-import com.cezarykluczynski.stapi.client.v1.soap.ComicCollectionResponse
+import com.cezarykluczynski.stapi.client.v1.soap.ComicCollectionBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.ComicCollectionBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.ComicCollectionFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.ComicCollectionFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.IntegerRange
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
@@ -21,16 +23,17 @@ class ComicCollectionSoapEndpointIntegrationTest extends AbstractComicCollection
 	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "'The Battle Within' is among collection with 132 to 160 pages that happened between 2365 and 2370"() {
 		when:
-		ComicCollectionResponse comicCollectionResponse = stapiSoapClient.comicCollectionPortType.getComicCollections(new ComicCollectionRequest(
-				numberOfPages: new IntegerRange(
-						from: 132,
-						to: 160
-				),
-				year: new IntegerRange(
-						from: 2365,
-						to: 2370
-				)
-		))
+		ComicCollectionBaseResponse comicCollectionResponse = stapiSoapClient.comicCollectionPortType
+				.getComicCollectionBase(new ComicCollectionBaseRequest(
+						numberOfPages: new IntegerRange(
+								from: 132,
+								to: 160
+						),
+						year: new IntegerRange(
+								from: 2365,
+								to: 2370
+						)
+				))
 
 		then:
 		comicCollectionResponse.comicCollections.size() < 5
@@ -43,6 +46,15 @@ class ComicCollectionSoapEndpointIntegrationTest extends AbstractComicCollection
 
 		then:
 		titleList.contains 'The Battle Within'
+	}
+
+	void "gets comic collection by GUID"() {
+		when:
+		ComicCollectionFullResponse comicCollectionFullResponse = stapiSoapClient.comicCollectionPortType
+				.getComicCollectionFull(new ComicCollectionFullRequest(guid: 'CLMA0000105753'))
+
+		then:
+		comicCollectionFullResponse.comicCollection.title == 'Best of Gary Seven'
 	}
 
 }

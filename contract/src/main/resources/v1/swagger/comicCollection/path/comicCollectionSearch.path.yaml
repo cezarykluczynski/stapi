@@ -1,0 +1,81 @@
+get:
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/ComicCollectionBaseResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - ComicCollection
+post:
+  consumes:
+    - application/x-www-form-urlencoded
+  producers:
+    - application/json
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+    - name: sort
+      type: string
+      in: query
+    - name: title
+      in: formData
+      type: string
+    - name: publishedYearFrom
+      in: formData
+      type: integer
+      format: int32
+    - name: publishedYearTo
+      in: formData
+      type: integer
+      format: int32
+    - name: numberOfPagesFrom
+      in: formData
+      type: integer
+      format: int32
+    - name: numberOfPagesTo
+      in: formData
+      type: integer
+      format: int32
+    - name: stardateFrom
+      in: formData
+      type: number
+      format: float
+    - name: stardateTo
+      in: formData
+      type: number
+      format: float
+    - name: yearFrom
+      in: formData
+      type: integer
+      format: int32
+    - name: yearTo
+      in: formData
+      type: integer
+      format: int32
+    - name: photonovel
+      in: formData
+      type: boolean
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/ComicCollectionBaseResponse'
+  tags:
+    - ComicCollection
