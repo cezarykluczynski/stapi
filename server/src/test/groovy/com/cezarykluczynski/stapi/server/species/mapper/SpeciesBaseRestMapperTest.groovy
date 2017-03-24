@@ -1,18 +1,18 @@
 package com.cezarykluczynski.stapi.server.species.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.Species as RESTSpecies
+import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesBase as SpeciesBase
 import com.cezarykluczynski.stapi.model.species.dto.SpeciesRequestDTO
-import com.cezarykluczynski.stapi.model.species.entity.Species as DBSpecies
+import com.cezarykluczynski.stapi.model.species.entity.Species as Species
 import com.cezarykluczynski.stapi.server.species.dto.SpeciesRestBeanParams
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers
 
-class SpeciesRestMapperTest extends AbstractSpeciesMapperTest {
+class SpeciesBaseRestMapperTest extends AbstractSpeciesMapperTest {
 
-	private SpeciesRestMapper speciesRestMapper
+	private SpeciesBaseRestMapper speciesBaseRestMapper
 
 	void setup() {
-		speciesRestMapper = Mappers.getMapper(SpeciesRestMapper)
+		speciesBaseRestMapper = Mappers.getMapper(SpeciesBaseRestMapper)
 	}
 
 	void "maps SpeciesRestBeanParams to SpeciesRequestDTO"() {
@@ -34,7 +34,7 @@ class SpeciesRestMapperTest extends AbstractSpeciesMapperTest {
 				alternateReality: ALTERNATE_REALITY)
 
 		when:
-		SpeciesRequestDTO speciesRequestDTO = speciesRestMapper.map speciesRestBeanParams
+		SpeciesRequestDTO speciesRequestDTO = speciesBaseRestMapper.mapBase speciesRestBeanParams
 
 		then:
 		speciesRequestDTO.guid == GUID
@@ -53,31 +53,30 @@ class SpeciesRestMapperTest extends AbstractSpeciesMapperTest {
 		speciesRequestDTO.alternateReality == ALTERNATE_REALITY
 	}
 
-	void "maps DB entity to REST entity"() {
+	void "maps DB entity to base REST entity"() {
 		given:
-		DBSpecies dbSpecies = createSpecies()
+		Species species = createSpecies()
 
 		when:
-		RESTSpecies restSpecies = speciesRestMapper.map(Lists.newArrayList(dbSpecies))[0]
+		SpeciesBase speciesBase = speciesBaseRestMapper.mapBase(Lists.newArrayList(species))[0]
 
 		then:
-		restSpecies.name == NAME
-		restSpecies.guid == GUID
-		restSpecies.homeworld != null
-		restSpecies.quadrant != null
-		restSpecies.extinctSpecies == EXTINCT_SPECIES
-		restSpecies.warpCapableSpecies == WARP_CAPABLE_SPECIES
-		restSpecies.extraGalacticSpecies == EXTRA_GALACTIC_SPECIES
-		restSpecies.humanoidSpecies == HUMANOID_SPECIES
-		restSpecies.reptilianSpecies == REPTILIAN_SPECIES
-		restSpecies.nonCorporealSpecies == NON_CORPOREAL_SPECIES
-		restSpecies.shapeshiftingSpecies == SHAPESHIFTING_SPECIES
-		restSpecies.spaceborneSpecies == SPACEBORNE_SPECIES
-		restSpecies.telepathicSpecies == TELEPATHIC_SPECIES
-		restSpecies.transDimensionalSpecies == TRANS_DIMENSIONAL_SPECIES
-		restSpecies.unnamedSpecies == UNNAMED_SPECIES
-		restSpecies.alternateReality == ALTERNATE_REALITY
-		restSpecies.characterHeaders.size() == dbSpecies.characters.size()
+		speciesBase.name == NAME
+		speciesBase.guid == GUID
+		speciesBase.homeworld != null
+		speciesBase.quadrant != null
+		speciesBase.extinctSpecies == EXTINCT_SPECIES
+		speciesBase.warpCapableSpecies == WARP_CAPABLE_SPECIES
+		speciesBase.extraGalacticSpecies == EXTRA_GALACTIC_SPECIES
+		speciesBase.humanoidSpecies == HUMANOID_SPECIES
+		speciesBase.reptilianSpecies == REPTILIAN_SPECIES
+		speciesBase.nonCorporealSpecies == NON_CORPOREAL_SPECIES
+		speciesBase.shapeshiftingSpecies == SHAPESHIFTING_SPECIES
+		speciesBase.spaceborneSpecies == SPACEBORNE_SPECIES
+		speciesBase.telepathicSpecies == TELEPATHIC_SPECIES
+		speciesBase.transDimensionalSpecies == TRANS_DIMENSIONAL_SPECIES
+		speciesBase.unnamedSpecies == UNNAMED_SPECIES
+		speciesBase.alternateReality == ALTERNATE_REALITY
 	}
 
 }

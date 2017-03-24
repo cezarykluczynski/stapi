@@ -11,25 +11,43 @@
 			<xs:include schemaLocation="species.xsd"/>
 		</xs:schema>
 	</wsdl:types>
-	<wsdl:message name="SpeciesRequest">
-		<wsdl:part name="request" element="stapi:SpeciesRequest"/>
+	<wsdl:message name="SpeciesBaseRequest">
+		<wsdl:part name="request" element="stapi:SpeciesBaseRequest"/>
 	</wsdl:message>
-	<wsdl:message name="SpeciesResponse">
-		<wsdl:part name="response" element="stapi:SpeciesResponse"/>
+	<wsdl:message name="SpeciesFullRequest">
+		<wsdl:part name="request" element="stapi:SpeciesFullRequest"/>
+	</wsdl:message>
+	<wsdl:message name="SpeciesBaseResponse">
+		<wsdl:part name="response" element="stapi:SpeciesBaseResponse"/>
+	</wsdl:message>
+	<wsdl:message name="SpeciesFullResponse">
+		<wsdl:part name="response" element="stapi:SpeciesFullResponse"/>
 	</wsdl:message>
 	<wsdl:portType name="SpeciesPortType">
-		<wsdl:operation name="getSpecies">
-			<wsdl:input name="getSpeciesRequest" message="stapi:SpeciesRequest"/>
-			<wsdl:output name="getSpeciesResponse" message="stapi:SpeciesResponse"/>
+		<wsdl:operation name="getSpeciesBase">
+			<wsdl:input name="getSpeciesBaseRequest" message="stapi:SpeciesBaseRequest"/>
+			<wsdl:output name="getSpeciesBaseResponse" message="stapi:SpeciesBaseResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getSpeciesFull">
+			<wsdl:input name="getSpeciesFullRequest" message="stapi:SpeciesFullRequest"/>
+			<wsdl:output name="getSpeciesFullResponse" message="stapi:SpeciesFullResponse"/>
 		</wsdl:operation>
 	</wsdl:portType>
 	<wsdl:binding name="SpeciesBinding" type="stapi:SpeciesPortType">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-		<wsdl:operation name="getSpecies">
-			<wsdl:input name="getSpeciesRequest">
+		<wsdl:operation name="getSpeciesBase">
+			<wsdl:input name="getSpeciesBaseRequest">
 				<soap:body use="literal"/>
 			</wsdl:input>
-			<wsdl:output name="getSpeciesResponse">
+			<wsdl:output name="getSpeciesBaseResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getSpeciesFull">
+			<wsdl:input name="getSpeciesFullRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getSpeciesFullResponse">
 				<soap:body use="literal"/>
 			</wsdl:output>
 		</wsdl:operation>

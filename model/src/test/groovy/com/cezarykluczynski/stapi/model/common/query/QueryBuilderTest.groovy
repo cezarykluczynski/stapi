@@ -367,14 +367,14 @@ class QueryBuilderTest extends Specification {
 		queryBuilder.fetch(validKeyLocalDate, keyWithUnknownType)
 
 		then: 'right methods are called'
-		1 * baseRoot.fetch(validKeyLocalDate) >> fetch
+		1 * baseRoot.fetch(validKeyLocalDate, JoinType.LEFT) >> fetch
 		1 * fetch.fetch(keyWithUnknownType, JoinType.LEFT)
 
 		when: 'two attributes fetch is performed with boolean flag set to true'
 		queryBuilder.fetch(validKeyLocalDate, keyWithUnknownType, true)
 
 		then: 'right methods are called'
-		1 * baseRoot.fetch(validKeyLocalDate) >> fetch
+		1 * baseRoot.fetch(validKeyLocalDate, JoinType.LEFT) >> fetch
 		1 * fetch.fetch(keyWithUnknownType, JoinType.LEFT)
 
 		when: 'two attributes fetch is performed with boolean flag set to false'

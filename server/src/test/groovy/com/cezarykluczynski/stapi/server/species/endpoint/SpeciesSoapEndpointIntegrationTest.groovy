@@ -1,8 +1,9 @@
 package com.cezarykluczynski.stapi.server.species.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.soap.Species
-import com.cezarykluczynski.stapi.client.v1.soap.SpeciesRequest
-import com.cezarykluczynski.stapi.client.v1.soap.SpeciesResponse
+import com.cezarykluczynski.stapi.client.v1.soap.SpeciesBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.SpeciesBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.SpeciesFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.SpeciesFullResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import spock.lang.Requires
@@ -16,20 +17,25 @@ class SpeciesSoapEndpointIntegrationTest extends AbstractSpeciesEndpointIntegrat
 		createSoapClient()
 	}
 
+	void "gets species by GUID"() {
+		when:
+		SpeciesFullResponse speciesFullResponse = stapiSoapClient.speciesPortType.getSpeciesFull(new SpeciesFullRequest(guid: 'SPMA0000006503'))
+
+		then:
+		speciesFullResponse.species.name == 'Ba\'ku'
+	}
+
 	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "gets species that are both humanoid and reptilian"() {
 		when:
-		SpeciesResponse speciesResponse = stapiSoapClient.speciesPortType.getSpecies(new SpeciesRequest(
+		SpeciesBaseResponse speciesBaseResponse = stapiSoapClient.speciesPortType.getSpeciesBase(new SpeciesBaseRequest(
 				humanoidSpecies: true,
 				reptilianSpecies: true
 		))
-		Optional<Species> vothSpecies = speciesResponse.species.stream()
-				.filter({ it -> it.name == 'Voth' })
-				.findFirst()
 
 		then:
-		vothSpecies.isPresent()
-		vothSpecies.get().homeworld.name == 'Earth'
+		speciesBaseResponse.species.stream()
+				.anyMatch({ it -> it.name == 'Voth' })
 	}
 
 }

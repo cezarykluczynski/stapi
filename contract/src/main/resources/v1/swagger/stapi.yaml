@@ -55,6 +55,8 @@ paths:
     $ref: ./series/path/seriesSearch.path.yaml
   /species:
     $ref: ./species/path/species.path.yaml
+  /species/search:
+    $ref: ./species/path/speciesSearch.path.yaml
   /staff:
     $ref: ./staff/path/staff.path.yaml
   /staff/search:
@@ -178,12 +180,16 @@ definitions:
     $ref: ./series/entity/seriesBaseResponse.yaml
   SeriesFullResponse:
     $ref: ./series/entity/seriesFullResponse.yaml
-  Species:
-    $ref: ./species/entity/species.yaml
   SpeciesHeader:
     $ref: ./species/entity/speciesHeader.yaml
-  SpeciesResponse:
-    $ref: ./species/entity/speciesResponse.yaml
+  SpeciesBase:
+    $ref: ./species/entity/speciesBase.yaml
+  SpeciesFull:
+    $ref: ./species/entity/speciesFull.yaml
+  SpeciesBaseResponse:
+    $ref: ./species/entity/speciesBaseResponse.yaml
+  SpeciesFullResponse:
+    $ref: ./species/entity/speciesFullResponse.yaml
   StaffHeader:
     $ref: ./staff/entity/staffHeader.yaml
   StaffBase:

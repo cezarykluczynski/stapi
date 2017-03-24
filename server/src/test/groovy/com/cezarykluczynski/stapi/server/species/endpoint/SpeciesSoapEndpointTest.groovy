@@ -1,7 +1,9 @@
 package com.cezarykluczynski.stapi.server.species.endpoint
 
-import com.cezarykluczynski.stapi.client.v1.soap.SpeciesRequest
-import com.cezarykluczynski.stapi.client.v1.soap.SpeciesResponse
+import com.cezarykluczynski.stapi.client.v1.soap.SpeciesBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.SpeciesBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.SpeciesFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.SpeciesFullResponse
 import com.cezarykluczynski.stapi.server.species.reader.SpeciesSoapReader
 import spock.lang.Specification
 
@@ -16,17 +18,30 @@ class SpeciesSoapEndpointTest extends Specification {
 		speciesSoapEndpoint = new SpeciesSoapEndpoint(speciesSoapReaderMock)
 	}
 
-	void "passes call to SpeciesSoapReader"() {
+	void "passes base call to SpeciesSoapReader"() {
 		given:
-		SpeciesRequest speciesRequest = Mock(SpeciesRequest)
-		SpeciesResponse speciesResponse = Mock(SpeciesResponse)
+		SpeciesBaseRequest speciesBaseRequest = Mock(SpeciesBaseRequest)
+		SpeciesBaseResponse speciesBaseResponse = Mock(SpeciesBaseResponse)
 
 		when:
-		SpeciesResponse speciesResponseResult = speciesSoapEndpoint.getSpecies(speciesRequest)
+		SpeciesBaseResponse speciesResponseResult = speciesSoapEndpoint.getSpeciesBase(speciesBaseRequest)
 
 		then:
-		1 * speciesSoapReaderMock.readBase(speciesRequest) >> speciesResponse
-		speciesResponseResult == speciesResponse
+		1 * speciesSoapReaderMock.readBase(speciesBaseRequest) >> speciesBaseResponse
+		speciesResponseResult == speciesBaseResponse
+	}
+
+	void "passes full call to SpeciesSoapReader"() {
+		given:
+		SpeciesFullRequest speciesFullRequest = Mock(SpeciesFullRequest)
+		SpeciesFullResponse speciesFullResponse = Mock(SpeciesFullResponse)
+
+		when:
+		SpeciesFullResponse speciesResponseResult = speciesSoapEndpoint.getSpeciesFull(speciesFullRequest)
+
+		then:
+		1 * speciesSoapReaderMock.readFull(speciesFullRequest) >> speciesFullResponse
+		speciesResponseResult == speciesFullResponse
 	}
 
 }

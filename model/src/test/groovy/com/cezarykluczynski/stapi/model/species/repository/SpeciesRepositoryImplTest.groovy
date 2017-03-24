@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.model.species.repository
 
+import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject_
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies
 import com.cezarykluczynski.stapi.model.character.repository.CharacterRepository
@@ -103,6 +104,8 @@ class SpeciesRepositoryImplTest extends AbstractSpeciesTest {
 		then: 'fetch is performed'
 		1 * speciesQueryBuilder.fetch(Species_.homeworld)
 		1 * speciesQueryBuilder.fetch(Species_.quadrant)
+		1 * speciesQueryBuilder.fetch(Species_.homeworld, AstronomicalObject_.location, true)
+		1 * speciesQueryBuilder.fetch(Species_.quadrant, AstronomicalObject_.location, true)
 
 		then: 'page is searched for'
 		1 * speciesQueryBuilder.findPage() >> page
@@ -123,7 +126,7 @@ class SpeciesRepositoryImplTest extends AbstractSpeciesTest {
 		0 * _
 	}
 
-	void "characters are not fetched when GUID is not provided"() {
+	void "characters and location headers are not fetched when GUID is not provided"() {
 		when:
 		Page pageOutput = speciesRepositoryImpl.findMatching(speciesRequestDTO, pageable)
 
@@ -132,6 +135,10 @@ class SpeciesRepositoryImplTest extends AbstractSpeciesTest {
 
 		then: 'guid criteria is set to null'
 		1 * speciesRequestDTO.guid >> null
+
+		then: 'fetch is performed with false flag'
+		1 * speciesQueryBuilder.fetch(Species_.homeworld, AstronomicalObject_.location, false)
+		1 * speciesQueryBuilder.fetch(Species_.quadrant, AstronomicalObject_.location, false)
 
 		then: 'page is searched for and returned'
 		1 * speciesQueryBuilder.findPage() >> page

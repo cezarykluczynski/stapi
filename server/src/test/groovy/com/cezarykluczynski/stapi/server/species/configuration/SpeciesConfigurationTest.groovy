@@ -1,10 +1,12 @@
 package com.cezarykluczynski.stapi.server.species.configuration
 
 import com.cezarykluczynski.stapi.server.species.endpoint.SpeciesRestEndpoint
-import com.cezarykluczynski.stapi.server.species.reader.SpeciesRestReader
 import com.cezarykluczynski.stapi.server.species.endpoint.SpeciesSoapEndpoint
-import com.cezarykluczynski.stapi.server.species.mapper.SpeciesRestMapper
-import com.cezarykluczynski.stapi.server.species.mapper.SpeciesSoapMapper
+import com.cezarykluczynski.stapi.server.species.mapper.SpeciesBaseRestMapper
+import com.cezarykluczynski.stapi.server.species.mapper.SpeciesBaseSoapMapper
+import com.cezarykluczynski.stapi.server.species.mapper.SpeciesFullRestMapper
+import com.cezarykluczynski.stapi.server.species.mapper.SpeciesFullSoapMapper
+import com.cezarykluczynski.stapi.server.species.reader.SpeciesRestReader
 import com.cezarykluczynski.stapi.server.species.reader.SpeciesSoapReader
 import org.apache.cxf.bus.spring.SpringBus
 import org.apache.cxf.jaxws.EndpointImpl
@@ -56,20 +58,36 @@ class SpeciesConfigurationTest extends Specification {
 		speciesRestEndpoint.speciesRestReader == speciesRestMapper
 	}
 
-	void "SpeciesSoapMapper is created"() {
+	void "SpeciesBaseSoapMapper is created"() {
 		when:
-		SpeciesSoapMapper speciesSoapMapper = speciesConfiguration.speciesSoapMapper()
+		SpeciesBaseSoapMapper speciesBaseSoapMapper = speciesConfiguration.speciesBaseSoapMapper()
 
 		then:
-		speciesSoapMapper != null
+		speciesBaseSoapMapper != null
 	}
 
-	void "SpeciesRestMapper is created"() {
+	void "SpeciesFullSoapMapper is created"() {
 		when:
-		SpeciesRestMapper speciesRestMapper = speciesConfiguration.speciesRestMapper()
+		SpeciesFullSoapMapper speciesFullSoapMapper = speciesConfiguration.speciesFullSoapMapper()
 
 		then:
-		speciesRestMapper != null
+		speciesFullSoapMapper != null
+	}
+
+	void "SpeciesBaseRestMapper is created"() {
+		when:
+		SpeciesBaseRestMapper speciesBaseRestMapper = speciesConfiguration.speciesBaseRestMapper()
+
+		then:
+		speciesBaseRestMapper != null
+	}
+
+	void "SpeciesFullRestMapper is created"() {
+		when:
+		SpeciesFullRestMapper speciesFullRestMapper = speciesConfiguration.speciesFullRestMapper()
+
+		then:
+		speciesFullRestMapper != null
 	}
 
 }

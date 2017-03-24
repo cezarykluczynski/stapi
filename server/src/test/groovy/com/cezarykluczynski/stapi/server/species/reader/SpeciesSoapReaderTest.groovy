@@ -1,13 +1,17 @@
 package com.cezarykluczynski.stapi.server.species.reader
 
-import com.cezarykluczynski.stapi.client.v1.soap.Species as SOAPSpecies
-import com.cezarykluczynski.stapi.client.v1.soap.SpeciesRequest
-import com.cezarykluczynski.stapi.client.v1.soap.SpeciesResponse
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
-import com.cezarykluczynski.stapi.model.species.entity.Species as DBSpecies
-import com.cezarykluczynski.stapi.server.species.mapper.SpeciesSoapMapper
-import com.cezarykluczynski.stapi.server.species.query.SpeciesSoapQuery
+import com.cezarykluczynski.stapi.client.v1.soap.SpeciesBase
+import com.cezarykluczynski.stapi.client.v1.soap.SpeciesBaseRequest
+import com.cezarykluczynski.stapi.client.v1.soap.SpeciesBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.SpeciesFull
+import com.cezarykluczynski.stapi.client.v1.soap.SpeciesFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.SpeciesFullResponse
+import com.cezarykluczynski.stapi.model.species.entity.Species
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.species.mapper.SpeciesBaseSoapMapper
+import com.cezarykluczynski.stapi.server.species.mapper.SpeciesFullSoapMapper
+import com.cezarykluczynski.stapi.server.species.query.SpeciesSoapQuery
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
 import spock.lang.Specification
@@ -18,7 +22,9 @@ class SpeciesSoapReaderTest extends Specification {
 
 	private SpeciesSoapQuery speciesSoapQueryBuilderMock
 
-	private SpeciesSoapMapper speciesSoapMapperMock
+	private SpeciesBaseSoapMapper speciesBaseSoapMapperMock
+
+	private SpeciesFullSoapMapper speciesFullSoapMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -26,29 +32,48 @@ class SpeciesSoapReaderTest extends Specification {
 
 	void setup() {
 		speciesSoapQueryBuilderMock = Mock(SpeciesSoapQuery)
-		speciesSoapMapperMock = Mock(SpeciesSoapMapper)
+		speciesBaseSoapMapperMock = Mock(SpeciesBaseSoapMapper)
+		speciesFullSoapMapperMock = Mock(SpeciesFullSoapMapper)
 		pageMapperMock = Mock(PageMapper)
-		speciesSoapReader = new SpeciesSoapReader(speciesSoapQueryBuilderMock, speciesSoapMapperMock, pageMapperMock)
+		speciesSoapReader = new SpeciesSoapReader(speciesSoapQueryBuilderMock, speciesBaseSoapMapperMock, speciesFullSoapMapperMock,
+				pageMapperMock)
 	}
 
-	void "gets database entities and puts them into SpeciesResponse"() {
+	void "passed base request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		List<DBSpecies> dbSpeciesList = Lists.newArrayList()
-		Page<DBSpecies> dbSpeciesPage = Mock(Page)
-		dbSpeciesPage.content >> dbSpeciesList
-		List<SOAPSpecies> soapSpeciesList = Lists.newArrayList(new SOAPSpecies(guid: GUID))
-		SpeciesRequest speciesRequest = Mock(SpeciesRequest)
+		List<Species> speciesList = Lists.newArrayList()
+		Page<Species> speciesPage = Mock(Page)
+		List<SpeciesBase> soapSpeciesList = Lists.newArrayList(new SpeciesBase(guid: GUID))
+		SpeciesBaseRequest speciesBaseRequest = Mock(SpeciesBaseRequest)
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		SpeciesResponse speciesResponse = speciesSoapReader.readBase(speciesRequest)
+		SpeciesBaseResponse speciesResponse = speciesSoapReader.readBase(speciesBaseRequest)
 
 		then:
-		1 * speciesSoapQueryBuilderMock.query(speciesRequest) >> dbSpeciesPage
-		1 * pageMapperMock.fromPageToSoapResponsePage(dbSpeciesPage) >> responsePage
-		1 * speciesSoapMapperMock.map(dbSpeciesList) >> soapSpeciesList
+		1 * speciesSoapQueryBuilderMock.query(speciesBaseRequest) >> speciesPage
+		1 * speciesPage.content >> speciesList
+		1 * pageMapperMock.fromPageToSoapResponsePage(speciesPage) >> responsePage
+		1 * speciesBaseSoapMapperMock.mapBase(speciesList) >> soapSpeciesList
 		speciesResponse.species[0].guid == GUID
 		speciesResponse.page == responsePage
+	}
+
+	void "passed full request to queryBuilder, then to mapper, and returns result"() {
+		given:
+		SpeciesFull speciesFull = new SpeciesFull(guid: GUID)
+		Species species = Mock(Species)
+		Page<Species> speciesPage = Mock(Page)
+		SpeciesFullRequest speciesFullRequest = Mock(SpeciesFullRequest)
+
+		when:
+		SpeciesFullResponse speciesFullResponse = speciesSoapReader.readFull(speciesFullRequest)
+
+		then:
+		1 * speciesSoapQueryBuilderMock.query(speciesFullRequest) >> speciesPage
+		1 * speciesPage.content >> Lists.newArrayList(species)
+		1 * speciesFullSoapMapperMock.mapFull(species) >> speciesFull
+		speciesFullResponse.species.guid == GUID
 	}
 
 }

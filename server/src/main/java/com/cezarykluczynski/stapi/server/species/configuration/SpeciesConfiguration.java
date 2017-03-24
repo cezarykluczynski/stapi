@@ -2,8 +2,10 @@ package com.cezarykluczynski.stapi.server.species.configuration;
 
 import com.cezarykluczynski.stapi.server.species.endpoint.SpeciesRestEndpoint;
 import com.cezarykluczynski.stapi.server.species.endpoint.SpeciesSoapEndpoint;
-import com.cezarykluczynski.stapi.server.species.mapper.SpeciesRestMapper;
-import com.cezarykluczynski.stapi.server.species.mapper.SpeciesSoapMapper;
+import com.cezarykluczynski.stapi.server.species.mapper.SpeciesBaseRestMapper;
+import com.cezarykluczynski.stapi.server.species.mapper.SpeciesBaseSoapMapper;
+import com.cezarykluczynski.stapi.server.species.mapper.SpeciesFullRestMapper;
+import com.cezarykluczynski.stapi.server.species.mapper.SpeciesFullSoapMapper;
 import com.cezarykluczynski.stapi.server.species.reader.SpeciesRestReader;
 import com.cezarykluczynski.stapi.server.species.reader.SpeciesSoapReader;
 import org.apache.cxf.Bus;
@@ -38,13 +40,23 @@ public class SpeciesConfiguration {
 	}
 
 	@Bean
-	public SpeciesSoapMapper speciesSoapMapper() {
-		return Mappers.getMapper(SpeciesSoapMapper.class);
+	public SpeciesBaseSoapMapper speciesBaseSoapMapper() {
+		return Mappers.getMapper(SpeciesBaseSoapMapper.class);
 	}
 
 	@Bean
-	public SpeciesRestMapper speciesRestMapper() {
-		return Mappers.getMapper(SpeciesRestMapper.class);
+	public SpeciesFullSoapMapper speciesFullSoapMapper() {
+		return Mappers.getMapper(SpeciesFullSoapMapper.class);
+	}
+
+	@Bean
+	public SpeciesBaseRestMapper speciesBaseRestMapper() {
+		return Mappers.getMapper(SpeciesBaseRestMapper.class);
+	}
+
+	@Bean
+	public SpeciesFullRestMapper speciesFullRestMapper() {
+		return Mappers.getMapper(SpeciesFullRestMapper.class);
 	}
 
 }

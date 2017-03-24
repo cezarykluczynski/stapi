@@ -1,0 +1,83 @@
+get:
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/SpeciesBaseResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - Species
+post:
+  consumes:
+    - application/x-www-form-urlencoded
+  producers:
+    - application/json
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+    - name: sort
+      type: string
+      in: query
+    - name: name
+      in: formData
+      type: string
+    - name: extinctSpecies
+      in: formData
+      type: boolean
+    - name: warpCapableSpecies
+      in: formData
+      type: boolean
+    - name: extraGalacticSpecies
+      in: formData
+      type: boolean
+    - name: humanoidSpecies
+      in: formData
+      type: boolean
+    - name: reptilianSpecies
+      in: formData
+      type: boolean
+    - name: nonCorporealSpecies
+      in: formData
+      type: boolean
+    - name: shapeshiftingSpecies
+      in: formData
+      type: boolean
+    - name: spaceborneSpecies
+      in: formData
+      type: boolean
+    - name: telepathicSpecies
+      in: formData
+      type: boolean
+    - name: transDimensionalSpecies
+      in: formData
+      type: boolean
+    - name: unnamedSpecies
+      in: formData
+      type: boolean
+    - name: alternateReality
+      in: formData
+      type: boolean
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/SpeciesBaseResponse'
+  tags:
+    - Species
+

@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.model.species.repository;
 
+import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject_;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies;
 import com.cezarykluczynski.stapi.model.character.repository.CharacterRepository;
@@ -37,6 +38,7 @@ public class SpeciesRepositoryImpl implements SpeciesRepositoryCustom {
 	public Page<Species> findMatching(SpeciesRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<Species> speciesQueryBuilder = speciesQueryBuilderFactory.createQueryBuilder(pageable);
 		String guid = criteria.getGuid();
+		boolean doFetch = guid != null;
 
 		speciesQueryBuilder.equal(Species_.guid, guid);
 		speciesQueryBuilder.like(Species_.name, criteria.getName());
@@ -54,9 +56,10 @@ public class SpeciesRepositoryImpl implements SpeciesRepositoryCustom {
 		speciesQueryBuilder.equal(Species_.alternateReality, criteria.getAlternateReality());
 		speciesQueryBuilder.setSort(criteria.getSort());
 		speciesQueryBuilder.fetch(Species_.homeworld);
+		speciesQueryBuilder.fetch(Species_.homeworld, AstronomicalObject_.location, doFetch);
 		speciesQueryBuilder.fetch(Species_.quadrant);
+		speciesQueryBuilder.fetch(Species_.quadrant, AstronomicalObject_.location, doFetch);
 
-		boolean doFetch = guid != null;
 		Page<Species> performerPage = speciesQueryBuilder.findPage();
 		fetchCharacters(performerPage, doFetch);
 		return performerPage;

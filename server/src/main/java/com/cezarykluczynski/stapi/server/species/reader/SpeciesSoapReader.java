@@ -1,37 +1,55 @@
 package com.cezarykluczynski.stapi.server.species.reader;
 
-import com.cezarykluczynski.stapi.client.v1.soap.SpeciesRequest;
-import com.cezarykluczynski.stapi.client.v1.soap.SpeciesResponse;
+import com.cezarykluczynski.stapi.client.v1.soap.SpeciesBaseRequest;
+import com.cezarykluczynski.stapi.client.v1.soap.SpeciesBaseResponse;
+import com.cezarykluczynski.stapi.client.v1.soap.SpeciesFullRequest;
+import com.cezarykluczynski.stapi.client.v1.soap.SpeciesFullResponse;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
-import com.cezarykluczynski.stapi.server.species.mapper.SpeciesSoapMapper;
+import com.cezarykluczynski.stapi.server.common.reader.FullReader;
+import com.cezarykluczynski.stapi.server.species.mapper.SpeciesBaseSoapMapper;
+import com.cezarykluczynski.stapi.server.species.mapper.SpeciesFullSoapMapper;
 import com.cezarykluczynski.stapi.server.species.query.SpeciesSoapQuery;
+import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SpeciesSoapReader implements BaseReader<SpeciesRequest, SpeciesResponse> {
+public class SpeciesSoapReader implements BaseReader<SpeciesBaseRequest, SpeciesBaseResponse>,
+		FullReader<SpeciesFullRequest, SpeciesFullResponse> {
 
 	private SpeciesSoapQuery speciesSoapQuery;
 
-	private SpeciesSoapMapper speciesSoapMapper;
+	private SpeciesBaseSoapMapper speciesBaseSoapMapper;
+
+	private SpeciesFullSoapMapper speciesFullSoapMapper;
 
 	private PageMapper pageMapper;
 
-	public SpeciesSoapReader(SpeciesSoapQuery speciesSoapQuery, SpeciesSoapMapper speciesSoapMapper, PageMapper pageMapper) {
+	public SpeciesSoapReader(SpeciesSoapQuery speciesSoapQuery, SpeciesBaseSoapMapper speciesBaseSoapMapper,
+			SpeciesFullSoapMapper speciesFullSoapMapper, PageMapper pageMapper) {
 		this.speciesSoapQuery = speciesSoapQuery;
-		this.speciesSoapMapper = speciesSoapMapper;
+		this.speciesBaseSoapMapper = speciesBaseSoapMapper;
+		this.speciesFullSoapMapper = speciesFullSoapMapper;
 		this.pageMapper = pageMapper;
 	}
 
 	@Override
-	public SpeciesResponse readBase(SpeciesRequest input) {
+	public SpeciesBaseResponse readBase(SpeciesBaseRequest input) {
 		Page<Species> speciesPage = speciesSoapQuery.query(input);
-		SpeciesResponse speciesResponse = new SpeciesResponse();
+		SpeciesBaseResponse speciesResponse = new SpeciesBaseResponse();
 		speciesResponse.setPage(pageMapper.fromPageToSoapResponsePage(speciesPage));
-		speciesResponse.getSpecies().addAll(speciesSoapMapper.map(speciesPage.getContent()));
+		speciesResponse.getSpecies().addAll(speciesBaseSoapMapper.mapBase(speciesPage.getContent()));
 		return speciesResponse;
+	}
+
+	@Override
+	public SpeciesFullResponse readFull(SpeciesFullRequest input) {
+		Page<Species> speciesPage = speciesSoapQuery.query(input);
+		SpeciesFullResponse speciesFullResponse = new SpeciesFullResponse();
+		speciesFullResponse.setSpecies(speciesFullSoapMapper.mapFull(Iterables.getOnlyElement(speciesPage.getContent(), null)));
+		return speciesFullResponse;
 	}
 
 }

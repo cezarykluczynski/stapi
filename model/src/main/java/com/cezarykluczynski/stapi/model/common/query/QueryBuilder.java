@@ -170,7 +170,7 @@ public class QueryBuilder<T> {
 
 	public QueryBuilder<T> fetch(SingularAttribute<? super T, ?> key, SingularAttribute<?, ?> keyOfKey) {
 		SingularAttribute<? super Object, ?> keyOfKey2 = (SingularAttribute<? super Object, ?>) keyOfKey;
-		baseRoot.fetch(key).fetch(keyOfKey2, JoinType.LEFT);
+		baseRoot.fetch(key, JoinType.LEFT).fetch(keyOfKey2, JoinType.LEFT);
 		return this;
 	}
 

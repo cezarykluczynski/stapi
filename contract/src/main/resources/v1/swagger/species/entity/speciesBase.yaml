@@ -1,0 +1,34 @@
+type: object
+properties:
+  guid:
+    type: string
+  name:
+    type: string
+  homeworld:
+    $ref: ./astronomicalObject/entity/astronomicalObjectHeader.yaml
+  quadrant:
+    $ref: ./astronomicalObject/entity/astronomicalObjectHeader.yaml
+  extinctSpecies:
+    type: boolean
+  warpCapableSpecies:
+    type: boolean
+  extraGalacticSpecies:
+    type: boolean
+  humanoidSpecies:
+    type: boolean
+  reptilianSpecies:
+    type: boolean
+  nonCorporealSpecies:
+    type: boolean
+  shapeshiftingSpecies:
+      type: boolean
+  spaceborneSpecies:
+    type: boolean
+  telepathicSpecies:
+    type: boolean
+  transDimensionalSpecies:
+    type: boolean
+  unnamedSpecies:
+    type: boolean
+  alternateReality:
+    type: boolean

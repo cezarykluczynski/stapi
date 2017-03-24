@@ -1,24 +1,23 @@
 package com.cezarykluczynski.stapi.server.species.mapper
 
-import com.cezarykluczynski.stapi.client.v1.soap.Species as SOAPSpecies
-import com.cezarykluczynski.stapi.client.v1.soap.SpeciesRequest
+import com.cezarykluczynski.stapi.client.v1.soap.SpeciesBase as SpeciesBase
+import com.cezarykluczynski.stapi.client.v1.soap.SpeciesBaseRequest
 import com.cezarykluczynski.stapi.model.species.dto.SpeciesRequestDTO
-import com.cezarykluczynski.stapi.model.species.entity.Species as DBSpecies
+import com.cezarykluczynski.stapi.model.species.entity.Species as Species
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers
 
-class SpeciesSoapMapperTest extends AbstractSpeciesMapperTest {
+class SpeciesBaseSoapMapperTest extends AbstractSpeciesMapperTest {
 
-	private SpeciesSoapMapper speciesSoapMapper
+	private SpeciesBaseSoapMapper speciesBaseSoapMapper
 
 	void setup() {
-		speciesSoapMapper = Mappers.getMapper(SpeciesSoapMapper)
+		speciesBaseSoapMapper = Mappers.getMapper(SpeciesBaseSoapMapper)
 	}
 
 	void "maps SOAP SpeciesRequest to SpeciesRequestDTO"() {
 		given:
-		SpeciesRequest speciesRequest = new SpeciesRequest(
-				guid: GUID,
+		SpeciesBaseRequest speciesBaseRequest = new SpeciesBaseRequest(
 				name: NAME,
 				extinctSpecies: EXTINCT_SPECIES,
 				warpCapableSpecies: WARP_CAPABLE_SPECIES,
@@ -34,10 +33,9 @@ class SpeciesSoapMapperTest extends AbstractSpeciesMapperTest {
 				alternateReality: ALTERNATE_REALITY)
 
 		when:
-		SpeciesRequestDTO speciesRequestDTO = speciesSoapMapper.map speciesRequest
+		SpeciesRequestDTO speciesRequestDTO = speciesBaseSoapMapper.mapBase speciesBaseRequest
 
 		then:
-		speciesRequestDTO.guid == GUID
 		speciesRequestDTO.name == NAME
 		speciesRequestDTO.extinctSpecies == EXTINCT_SPECIES
 		speciesRequestDTO.warpCapableSpecies == WARP_CAPABLE_SPECIES
@@ -53,31 +51,30 @@ class SpeciesSoapMapperTest extends AbstractSpeciesMapperTest {
 		speciesRequestDTO.alternateReality == ALTERNATE_REALITY
 	}
 
-	void "maps DB entity to SOAP entity"() {
+	void "maps DB entity to base SOAP entity"() {
 		given:
-		DBSpecies dbSpecies = createSpecies()
+		Species species = createSpecies()
 
 		when:
-		SOAPSpecies soapSpecies = speciesSoapMapper.map(Lists.newArrayList(dbSpecies))[0]
+		SpeciesBase speciesBase = speciesBaseSoapMapper.mapBase(Lists.newArrayList(species))[0]
 
 		then:
-		soapSpecies.name == NAME
-		soapSpecies.guid == GUID
-		soapSpecies.homeworld != null
-		soapSpecies.quadrant != null
-		soapSpecies.extinctSpecies == EXTINCT_SPECIES
-		soapSpecies.warpCapableSpecies == WARP_CAPABLE_SPECIES
-		soapSpecies.extraGalacticSpecies == EXTRA_GALACTIC_SPECIES
-		soapSpecies.humanoidSpecies == HUMANOID_SPECIES
-		soapSpecies.reptilianSpecies == REPTILIAN_SPECIES
-		soapSpecies.nonCorporealSpecies == NON_CORPOREAL_SPECIES
-		soapSpecies.shapeshiftingSpecies == SHAPESHIFTING_SPECIES
-		soapSpecies.spaceborneSpecies == SPACEBORNE_SPECIES
-		soapSpecies.telepathicSpecies == TELEPATHIC_SPECIES
-		soapSpecies.transDimensionalSpecies == TRANS_DIMENSIONAL_SPECIES
-		soapSpecies.unnamedSpecies == UNNAMED_SPECIES
-		soapSpecies.alternateReality == ALTERNATE_REALITY
-		soapSpecies.characterHeaders.size() == dbSpecies.characters.size()
+		speciesBase.name == NAME
+		speciesBase.guid == GUID
+		speciesBase.homeworld != null
+		speciesBase.quadrant != null
+		speciesBase.extinctSpecies == EXTINCT_SPECIES
+		speciesBase.warpCapableSpecies == WARP_CAPABLE_SPECIES
+		speciesBase.extraGalacticSpecies == EXTRA_GALACTIC_SPECIES
+		speciesBase.humanoidSpecies == HUMANOID_SPECIES
+		speciesBase.reptilianSpecies == REPTILIAN_SPECIES
+		speciesBase.nonCorporealSpecies == NON_CORPOREAL_SPECIES
+		speciesBase.shapeshiftingSpecies == SHAPESHIFTING_SPECIES
+		speciesBase.spaceborneSpecies == SPACEBORNE_SPECIES
+		speciesBase.telepathicSpecies == TELEPATHIC_SPECIES
+		speciesBase.transDimensionalSpecies == TRANS_DIMENSIONAL_SPECIES
+		speciesBase.unnamedSpecies == UNNAMED_SPECIES
+		speciesBase.alternateReality == ALTERNATE_REALITY
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.species.endpoint;
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesResponse;
+import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesBaseResponse;
+import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesFullResponse;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 import com.cezarykluczynski.stapi.server.species.dto.SpeciesRestBeanParams;
 import com.cezarykluczynski.stapi.server.species.reader.SpeciesRestReader;
@@ -12,6 +13,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 @Path("v1/rest/species")
@@ -27,14 +29,22 @@ public class SpeciesRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public SpeciesResponse getSpecies(@BeanParam PageSortBeanParams pageSortBeanParams) {
+	public SpeciesFullResponse getSpecies(@QueryParam("guid") String guid) {
+		return speciesRestReader.readFull(guid);
+	}
+
+	@GET
+	@Path("search")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public SpeciesBaseResponse searchSpecies(@BeanParam PageSortBeanParams pageSortBeanParams) {
 		return speciesRestReader.readBase(SpeciesRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
 	}
 
 	@POST
+	@Path("search")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public SpeciesResponse searchSpecies(@BeanParam SpeciesRestBeanParams seriesRestBeanParams) {
-		return speciesRestReader.readBase(seriesRestBeanParams);
+	public SpeciesBaseResponse searchSpecies(@BeanParam SpeciesRestBeanParams speciesRestBeanParams) {
+		return speciesRestReader.readBase(speciesRestBeanParams);
 	}
 
 }

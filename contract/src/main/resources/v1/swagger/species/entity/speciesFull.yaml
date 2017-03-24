@@ -5,9 +5,9 @@ properties:
   name:
     type: string
   homeworld:
-    $ref: ./astronomicalObject/entity/astronomicalObjectHeader.yaml
+    $ref: ./astronomicalObject/entity/astronomicalObjectBase.yaml
   quadrant:
-    $ref: ./astronomicalObject/entity/astronomicalObjectHeader.yaml
+    $ref: ./astronomicalObject/entity/astronomicalObjectBase.yaml
   extinctSpecies:
     type: boolean
   warpCapableSpecies:
@@ -32,7 +32,7 @@ properties:
     type: boolean
   alternateReality:
     type: boolean
-  characterHeaders:
+  characters:
     type: array
     items:
-      $ref: '#/definitions/CharacterHeader'
+      $ref: '#/definitions/CharacterBase'
