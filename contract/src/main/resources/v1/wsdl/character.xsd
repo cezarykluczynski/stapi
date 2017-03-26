@@ -109,7 +109,7 @@
 				<xs:element name="episodes" type="episode:EpisodeBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="movies" type="movie:MovieHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="movies" type="movie:MovieBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
 				<xs:element name="characterSpecies" type="character:CharacterSpecies" minOccurs="0" maxOccurs="unbounded"/>

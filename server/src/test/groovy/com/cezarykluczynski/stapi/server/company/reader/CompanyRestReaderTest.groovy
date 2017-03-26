@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.company.reader
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyBase as RESTCompany
+import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyBase
 import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyBaseResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyFull
 import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyFullResponse
@@ -8,7 +8,8 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.company.dto.CompanyRestBeanParams
-import com.cezarykluczynski.stapi.server.company.mapper.CompanyRestMapper
+import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseRestMapper
+import com.cezarykluczynski.stapi.server.company.mapper.CompanyFullRestMapper
 import com.cezarykluczynski.stapi.server.company.query.CompanyRestQuery
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
@@ -20,7 +21,9 @@ class CompanyRestReaderTest extends Specification {
 
 	private CompanyRestQuery companyRestQueryBuilderMock
 
-	private CompanyRestMapper companyRestMapperMock
+	private CompanyBaseRestMapper companyBaseRestMapperMock
+
+	private CompanyFullRestMapper companyFullRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -28,37 +31,40 @@ class CompanyRestReaderTest extends Specification {
 
 	void setup() {
 		companyRestQueryBuilderMock = Mock(CompanyRestQuery)
-		companyRestMapperMock = Mock(CompanyRestMapper)
+		companyBaseRestMapperMock = Mock(CompanyBaseRestMapper)
+		companyFullRestMapperMock = Mock(CompanyFullRestMapper)
 		pageMapperMock = Mock(PageMapper)
-		companyRestReader = new CompanyRestReader(companyRestQueryBuilderMock, companyRestMapperMock, pageMapperMock)
+		companyRestReader = new CompanyRestReader(companyRestQueryBuilderMock, companyBaseRestMapperMock, companyFullRestMapperMock,
+				pageMapperMock)
 	}
 
-	void "gets database entities and puts them into CompanyResponse"() {
+	void "passed request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		List<Company> dbCompanyList = Lists.newArrayList()
-		Page<Company> dbCompanyPage = Mock(Page)
-		dbCompanyPage.content >> dbCompanyList
-		List<RESTCompany> soapCompanyList = Lists.newArrayList(new RESTCompany(guid: GUID))
 		CompanyRestBeanParams companyRestBeanParams = Mock(CompanyRestBeanParams)
+		List<CompanyBase> restCompanyList = Lists.newArrayList(Mock(CompanyBase))
+		List<Company> companyList = Lists.newArrayList(Mock(Company))
+		Page<Company> companyPage = Mock(Page)
 		ResponsePage responsePage = Mock(ResponsePage)
 
 		when:
-		CompanyBaseResponse companyResponse = companyRestReader.readBase(companyRestBeanParams)
+		CompanyBaseResponse companyResponseOutput = companyRestReader.readBase(companyRestBeanParams)
 
 		then:
-		1 * companyRestQueryBuilderMock.query(companyRestBeanParams) >> dbCompanyPage
-		1 * pageMapperMock.fromPageToRestResponsePage(dbCompanyPage) >> responsePage
-		1 * companyRestMapperMock.mapBase(dbCompanyList) >> soapCompanyList
-		companyResponse.companies[0].guid == GUID
-		companyResponse.page == responsePage
+		1 * companyRestQueryBuilderMock.query(companyRestBeanParams) >> companyPage
+		1 * pageMapperMock.fromPageToRestResponsePage(companyPage) >> responsePage
+		1 * companyPage.content >> companyList
+		1 * companyBaseRestMapperMock.mapBase(companyList) >> restCompanyList
+		0 * _
+		companyResponseOutput.companies == restCompanyList
+		companyResponseOutput.page == responsePage
 	}
 
 	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
 		given:
 		CompanyFull companyFull = Mock(CompanyFull)
 		Company company = Mock(Company)
-		List<Company> dbCompanyList = Lists.newArrayList(company)
-		Page<Company> dbCompanyPage = Mock(Page)
+		List<Company> companyList = Lists.newArrayList(company)
+		Page<Company> companyPage = Mock(Page)
 
 		when:
 		CompanyFullResponse companyResponseOutput = companyRestReader.readFull(GUID)
@@ -66,10 +72,10 @@ class CompanyRestReaderTest extends Specification {
 		then:
 		1 * companyRestQueryBuilderMock.query(_ as CompanyRestBeanParams) >> { CompanyRestBeanParams companyRestBeanParams ->
 			assert companyRestBeanParams.guid == GUID
-			dbCompanyPage
+			companyPage
 		}
-		1 * dbCompanyPage.content >> dbCompanyList
-		1 * companyRestMapperMock.mapFull(company) >> companyFull
+		1 * companyPage.content >> companyList
+		1 * companyFullRestMapperMock.mapFull(company) >> companyFull
 		0 * _
 		companyResponseOutput.company == companyFull
 	}

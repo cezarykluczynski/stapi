@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.model.staff.repository
 
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.movie.entity.Movie
+import com.cezarykluczynski.stapi.model.movie.entity.Movie_
 import com.cezarykluczynski.stapi.model.staff.dto.StaffRequestDTO
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.model.staff.entity.Staff_
@@ -87,6 +88,7 @@ class StaffRepositoryImplTest extends AbstractRealWorldPersonTest {
 		1 * staffMoviesQueryBuilder.fetch(Staff_.directedMovies)
 		1 * staffMoviesQueryBuilder.fetch(Staff_.producedMovies)
 		1 * staffMoviesQueryBuilder.fetch(Staff_.movies)
+		1 * staffMoviesQueryBuilder.fetch(Staff_.movies, Movie_.mainDirector)
 
 		then: 'staff list is retrieved'
 		1 * staffMoviesQueryBuilder.findAll() >> Lists.newArrayList(moviesStaff)
@@ -143,6 +145,7 @@ class StaffRepositoryImplTest extends AbstractRealWorldPersonTest {
 		1 * staffMoviesQueryBuilder.fetch(Staff_.directedMovies)
 		1 * staffMoviesQueryBuilder.fetch(Staff_.producedMovies)
 		1 * staffMoviesQueryBuilder.fetch(Staff_.movies)
+		1 * staffMoviesQueryBuilder.fetch(Staff_.movies, Movie_.mainDirector)
 
 		then: 'empty staff list is retrieved'
 		1 * staffMoviesQueryBuilder.findAll() >> Lists.newArrayList()

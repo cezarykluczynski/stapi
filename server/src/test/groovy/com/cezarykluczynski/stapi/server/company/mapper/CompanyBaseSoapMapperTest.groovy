@@ -1,25 +1,23 @@
 package com.cezarykluczynski.stapi.server.company.mapper
 
-import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyBase
-import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyFull
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyBase
+import com.cezarykluczynski.stapi.client.v1.soap.CompanyBaseRequest
 import com.cezarykluczynski.stapi.model.company.dto.CompanyRequestDTO
 import com.cezarykluczynski.stapi.model.company.entity.Company
-import com.cezarykluczynski.stapi.server.company.dto.CompanyRestBeanParams
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers
 
-class CompanyRestMapperTest extends AbstractCompanyMapperTest {
+class CompanyBaseSoapMapperTest extends AbstractCompanyMapperTest {
 
-	private CompanyRestMapper companyRestMapper
+	private CompanyBaseSoapMapper companyBaseSoapMapper
 
 	void setup() {
-		companyRestMapper = Mappers.getMapper(CompanyRestMapper)
+		companyBaseSoapMapper = Mappers.getMapper(CompanyBaseSoapMapper)
 	}
 
-	void "maps CompanyRestBeanParams to CompanyRequestDTO"() {
+	void "maps SOAP CompanyBaseRequest to CompanyRequestDTO"() {
 		given:
-		CompanyRestBeanParams companyRestBeanParams = new CompanyRestBeanParams(
-				guid: GUID,
+		CompanyBaseRequest companyBaseRequest = new CompanyBaseRequest(
 				name: NAME,
 				broadcaster: BROADCASTER,
 				collectibleCompany: COLLECTIBLE_COMPANY,
@@ -40,10 +38,9 @@ class CompanyRestMapperTest extends AbstractCompanyMapperTest {
 				videoGameCompany: VIDEO_GAME_COMPANY)
 
 		when:
-		CompanyRequestDTO companyRequestDTO = companyRestMapper.mapBase companyRestBeanParams
+		CompanyRequestDTO companyRequestDTO = companyBaseSoapMapper.mapBase companyBaseRequest
 
 		then:
-		companyRequestDTO.guid == GUID
 		companyRequestDTO.name == NAME
 		companyRequestDTO.broadcaster == BROADCASTER
 		companyRequestDTO.collectibleCompany == COLLECTIBLE_COMPANY
@@ -64,12 +61,12 @@ class CompanyRestMapperTest extends AbstractCompanyMapperTest {
 		companyRequestDTO.videoGameCompany == VIDEO_GAME_COMPANY
 	}
 
-	void "maps DB entity to base REST entity"() {
+	void "maps DB entity to base SOAP entity"() {
 		given:
 		Company company = createCompany()
 
 		when:
-		CompanyBase companyBase = companyRestMapper.mapBase(Lists.newArrayList(company))[0]
+		CompanyBase companyBase = companyBaseSoapMapper.mapBase(Lists.newArrayList(company))[0]
 
 		then:
 		companyBase.guid == GUID
@@ -91,35 +88,6 @@ class CompanyRestMapperTest extends AbstractCompanyMapperTest {
 		companyBase.specialEffectsCompany == SPECIAL_EFFECTS_COMPANY
 		companyBase.tvAndFilmProductionCompany == TV_AND_FILM_PRODUCTION_COMPANY
 		companyBase.videoGameCompany == VIDEO_GAME_COMPANY
-	}
-
-	void "maps DB entity to full REST entity"() {
-		given:
-		Company dBCompany = createCompany()
-
-		when:
-		CompanyFull companyFull = companyRestMapper.mapFull(dBCompany)
-
-		then:
-		companyFull.guid == GUID
-		companyFull.name == NAME
-		companyFull.broadcaster == BROADCASTER
-		companyFull.collectibleCompany == COLLECTIBLE_COMPANY
-		companyFull.conglomerate == CONGLOMERATE
-		companyFull.digitalVisualEffectsCompany == DIGITAL_VISUAL_EFFECTS_COMPANY
-		companyFull.distributor == DISTRIBUTOR
-		companyFull.gameCompany == GAME_COMPANY
-		companyFull.filmEquipmentCompany == FILM_EQUIPMENT_COMPANY
-		companyFull.makeUpEffectsStudio == MAKE_UP_EFFECTS_STUDIO
-		companyFull.mattePaintingCompany == MATTE_PAINTING_COMPANY
-		companyFull.modelAndMiniatureEffectsCompany == MODEL_AND_MINIATURE_EFFECTS_COMPANY
-		companyFull.postProductionCompany == POST_PRODUCTION_COMPANY
-		companyFull.productionCompany == PRODUCTION_COMPANY
-		companyFull.propCompany == PROP_COMPANY
-		companyFull.recordLabel == RECORD_LABEL
-		companyFull.specialEffectsCompany == SPECIAL_EFFECTS_COMPANY
-		companyFull.tvAndFilmProductionCompany == TV_AND_FILM_PRODUCTION_COMPANY
-		companyFull.videoGameCompany == VIDEO_GAME_COMPANY
 	}
 
 }

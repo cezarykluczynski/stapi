@@ -47,4 +47,4 @@ properties:
   comics:
     type: array
     items:
-      $ref: '#/definitions/ComicsHeader'
+      $ref: '#/definitions/ComicsBase'

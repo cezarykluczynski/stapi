@@ -8,7 +8,8 @@ import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
-import com.cezarykluczynski.stapi.server.company.mapper.CompanySoapMapper;
+import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseSoapMapper;
+import com.cezarykluczynski.stapi.server.company.mapper.CompanyFullSoapMapper;
 import com.cezarykluczynski.stapi.server.company.query.CompanySoapQuery;
 import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
@@ -19,13 +20,17 @@ public class CompanySoapReader implements BaseReader<CompanyBaseRequest, Company
 
 	private CompanySoapQuery companySoapQuery;
 
-	private CompanySoapMapper companySoapMapper;
+	private CompanyBaseSoapMapper companyBaseSoapMapper;
+
+	private CompanyFullSoapMapper companyFullSoapMapper;
 
 	private PageMapper pageMapper;
 
-	public CompanySoapReader(CompanySoapQuery companySoapQuery, CompanySoapMapper companySoapMapper, PageMapper pageMapper) {
+	public CompanySoapReader(CompanySoapQuery companySoapQuery, CompanyBaseSoapMapper companyBaseSoapMapper,
+			CompanyFullSoapMapper companyFullSoapMapper, PageMapper pageMapper) {
 		this.companySoapQuery = companySoapQuery;
-		this.companySoapMapper = companySoapMapper;
+		this.companyBaseSoapMapper = companyBaseSoapMapper;
+		this.companyFullSoapMapper = companyFullSoapMapper;
 		this.pageMapper = pageMapper;
 	}
 
@@ -34,7 +39,7 @@ public class CompanySoapReader implements BaseReader<CompanyBaseRequest, Company
 		Page<Company> companyPage = companySoapQuery.query(input);
 		CompanyBaseResponse companyResponse = new CompanyBaseResponse();
 		companyResponse.setPage(pageMapper.fromPageToSoapResponsePage(companyPage));
-		companyResponse.getCompanies().addAll(companySoapMapper.mapBase(companyPage.getContent()));
+		companyResponse.getCompanies().addAll(companyBaseSoapMapper.mapBase(companyPage.getContent()));
 		return companyResponse;
 	}
 
@@ -42,7 +47,8 @@ public class CompanySoapReader implements BaseReader<CompanyBaseRequest, Company
 	public CompanyFullResponse readFull(CompanyFullRequest input) {
 		Page<Company> companyPage = companySoapQuery.query(input);
 		CompanyFullResponse companyFullResponse = new CompanyFullResponse();
-		companyFullResponse.setCompany(companySoapMapper.mapFull(Iterables.getOnlyElement(companyPage.getContent(), null)));
+		companyFullResponse.setCompany(companyFullSoapMapper.mapFull(Iterables.getOnlyElement(companyPage.getContent(), null)));
 		return companyFullResponse;
 	}
+
 }

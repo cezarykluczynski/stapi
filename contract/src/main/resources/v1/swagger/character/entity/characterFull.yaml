@@ -49,7 +49,7 @@ properties:
   movies:
     type: array
     items:
-      $ref: '#/definitions/MovieHeader'
+      $ref: '#/definitions/MovieBase'
   characterSpecies:
     type: array
     items:

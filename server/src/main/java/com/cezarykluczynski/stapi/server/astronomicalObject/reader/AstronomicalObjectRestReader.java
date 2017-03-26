@@ -4,7 +4,8 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectBaseRes
 import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectFullResponse;
 import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject;
 import com.cezarykluczynski.stapi.server.astronomicalObject.dto.AstronomicalObjectRestBeanParams;
-import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectRestMapper;
+import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectBaseRestMapper;
+import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectFullRestMapper;
 import com.cezarykluczynski.stapi.server.astronomicalObject.query.AstronomicalObjectRestQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
@@ -22,15 +23,19 @@ public class AstronomicalObjectRestReader implements BaseReader<AstronomicalObje
 
 	private AstronomicalObjectRestQuery astronomicalObjectRestQuery;
 
-	private AstronomicalObjectRestMapper astronomicalObjectRestMapper;
+	private AstronomicalObjectBaseRestMapper astronomicalObjectBaseRestMapper;
+
+	private AstronomicalObjectFullRestMapper astronomicalObjectFullRestMapper;
 
 	private PageMapper pageMapper;
 
 	@Inject
 	public AstronomicalObjectRestReader(AstronomicalObjectRestQuery astronomicalObjectRestQuery,
-			AstronomicalObjectRestMapper astronomicalObjectRestMapper, PageMapper pageMapper) {
+			AstronomicalObjectBaseRestMapper astronomicalObjectBaseRestMapper, AstronomicalObjectFullRestMapper astronomicalObjectFullRestMapper,
+			PageMapper pageMapper) {
 		this.astronomicalObjectRestQuery = astronomicalObjectRestQuery;
-		this.astronomicalObjectRestMapper = astronomicalObjectRestMapper;
+		this.astronomicalObjectBaseRestMapper = astronomicalObjectBaseRestMapper;
+		this.astronomicalObjectFullRestMapper = astronomicalObjectFullRestMapper;
 		this.pageMapper = pageMapper;
 	}
 
@@ -39,7 +44,7 @@ public class AstronomicalObjectRestReader implements BaseReader<AstronomicalObje
 		Page<AstronomicalObject> astronomicalObjectPage = astronomicalObjectRestQuery.query(astronomicalObjectRestBeanParams);
 		AstronomicalObjectBaseResponse astronomicalObjectResponse = new AstronomicalObjectBaseResponse();
 		astronomicalObjectResponse.setPage(pageMapper.fromPageToRestResponsePage(astronomicalObjectPage));
-		astronomicalObjectResponse.getAstronomicalObjects().addAll(astronomicalObjectRestMapper.mapBase(astronomicalObjectPage.getContent()));
+		astronomicalObjectResponse.getAstronomicalObjects().addAll(astronomicalObjectBaseRestMapper.mapBase(astronomicalObjectPage.getContent()));
 		return astronomicalObjectResponse;
 	}
 
@@ -50,7 +55,7 @@ public class AstronomicalObjectRestReader implements BaseReader<AstronomicalObje
 		astronomicalObjectRestBeanParams.setGuid(guid);
 		Page<AstronomicalObject> astronomicalObjectPage = astronomicalObjectRestQuery.query(astronomicalObjectRestBeanParams);
 		AstronomicalObjectFullResponse astronomicalObjectResponse = new AstronomicalObjectFullResponse();
-		astronomicalObjectResponse.setAstronomicalObject(astronomicalObjectRestMapper
+		astronomicalObjectResponse.setAstronomicalObject(astronomicalObjectFullRestMapper
 				.mapFull(Iterables.getOnlyElement(astronomicalObjectPage.getContent(), null)));
 		return astronomicalObjectResponse;
 	}

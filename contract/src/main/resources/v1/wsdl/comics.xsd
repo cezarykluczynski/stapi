@@ -124,7 +124,7 @@
 				<xs:element name="references" type="reference:Reference" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="comicCollections" type="comicCollection:ComicCollectionHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="comicCollections" type="comicCollection:ComicCollectionBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:sequence>
 	</xs:complexType>

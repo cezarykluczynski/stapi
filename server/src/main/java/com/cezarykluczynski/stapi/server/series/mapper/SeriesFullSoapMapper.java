@@ -6,14 +6,14 @@ import com.cezarykluczynski.stapi.model.series.dto.SeriesRequestDTO;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.server.common.mapper.DateMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.RequestSortSoapMapper;
-import com.cezarykluczynski.stapi.server.company.mapper.CompanySoapMapper;
+import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeBaseSoapMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-@Mapper(config = MapstructConfiguration.class, uses = {CompanySoapMapper.class, CompanySoapMapper.class, DateMapper.class,
+@Mapper(config = MapstructConfiguration.class, uses = {CompanyBaseSoapMapper.class, CompanyBaseSoapMapper.class, DateMapper.class,
 		EpisodeBaseSoapMapper.class, RequestSortSoapMapper.class})
 public interface SeriesFullSoapMapper {
 

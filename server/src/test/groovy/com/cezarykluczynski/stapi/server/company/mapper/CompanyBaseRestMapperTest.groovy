@@ -1,25 +1,24 @@
 package com.cezarykluczynski.stapi.server.company.mapper
 
-import com.cezarykluczynski.stapi.client.v1.soap.CompanyBase
-import com.cezarykluczynski.stapi.client.v1.soap.CompanyBaseRequest
-import com.cezarykluczynski.stapi.client.v1.soap.CompanyFull
-import com.cezarykluczynski.stapi.client.v1.soap.CompanyFullRequest
+import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyBase
 import com.cezarykluczynski.stapi.model.company.dto.CompanyRequestDTO
 import com.cezarykluczynski.stapi.model.company.entity.Company
+import com.cezarykluczynski.stapi.server.company.dto.CompanyRestBeanParams
 import com.google.common.collect.Lists
 import org.mapstruct.factory.Mappers
 
-class CompanySoapMapperTest extends AbstractCompanyMapperTest {
+class CompanyBaseRestMapperTest extends AbstractCompanyMapperTest {
 
-	private CompanySoapMapper companySoapMapper
+	private CompanyBaseRestMapper companyBaseRestMapper
 
 	void setup() {
-		companySoapMapper = Mappers.getMapper(CompanySoapMapper)
+		companyBaseRestMapper = Mappers.getMapper(CompanyBaseRestMapper)
 	}
 
-	void "maps SOAP CompanyBaseRequest to CompanyRequestDTO"() {
+	void "maps CompanyRestBeanParams to CompanyRequestDTO"() {
 		given:
-		CompanyBaseRequest companyBaseRequest = new CompanyBaseRequest(
+		CompanyRestBeanParams companyRestBeanParams = new CompanyRestBeanParams(
+				guid: GUID,
 				name: NAME,
 				broadcaster: BROADCASTER,
 				collectibleCompany: COLLECTIBLE_COMPANY,
@@ -40,9 +39,10 @@ class CompanySoapMapperTest extends AbstractCompanyMapperTest {
 				videoGameCompany: VIDEO_GAME_COMPANY)
 
 		when:
-		CompanyRequestDTO companyRequestDTO = companySoapMapper.mapBase companyBaseRequest
+		CompanyRequestDTO companyRequestDTO = companyBaseRestMapper.mapBase companyRestBeanParams
 
 		then:
+		companyRequestDTO.guid == GUID
 		companyRequestDTO.name == NAME
 		companyRequestDTO.broadcaster == BROADCASTER
 		companyRequestDTO.collectibleCompany == COLLECTIBLE_COMPANY
@@ -63,23 +63,12 @@ class CompanySoapMapperTest extends AbstractCompanyMapperTest {
 		companyRequestDTO.videoGameCompany == VIDEO_GAME_COMPANY
 	}
 
-	void "maps SOAP CompanyFullRequest to CompanyBaseRequestDTO"() {
-		given:
-		CompanyFullRequest companyFullRequest = new CompanyFullRequest(guid: GUID)
-
-		when:
-		CompanyRequestDTO companyRequestDTO = companySoapMapper.mapFull companyFullRequest
-
-		then:
-		companyRequestDTO.guid == GUID
-	}
-
-	void "maps DB entity to base SOAP entity"() {
+	void "maps DB entity to base REST entity"() {
 		given:
 		Company company = createCompany()
 
 		when:
-		CompanyBase companyBase = companySoapMapper.mapBase(Lists.newArrayList(company))[0]
+		CompanyBase companyBase = companyBaseRestMapper.mapBase(Lists.newArrayList(company))[0]
 
 		then:
 		companyBase.guid == GUID
@@ -101,35 +90,6 @@ class CompanySoapMapperTest extends AbstractCompanyMapperTest {
 		companyBase.specialEffectsCompany == SPECIAL_EFFECTS_COMPANY
 		companyBase.tvAndFilmProductionCompany == TV_AND_FILM_PRODUCTION_COMPANY
 		companyBase.videoGameCompany == VIDEO_GAME_COMPANY
-	}
-
-	void "maps DB entity to full SOAP entity"() {
-		given:
-		Company company = createCompany()
-
-		when:
-		CompanyFull companyFull = companySoapMapper.mapFull(company)
-
-		then:
-		companyFull.guid == GUID
-		companyFull.name == NAME
-		companyFull.broadcaster == BROADCASTER
-		companyFull.collectibleCompany == COLLECTIBLE_COMPANY
-		companyFull.conglomerate == CONGLOMERATE
-		companyFull.digitalVisualEffectsCompany == DIGITAL_VISUAL_EFFECTS_COMPANY
-		companyFull.distributor == DISTRIBUTOR
-		companyFull.gameCompany == GAME_COMPANY
-		companyFull.filmEquipmentCompany == FILM_EQUIPMENT_COMPANY
-		companyFull.makeUpEffectsStudio == MAKE_UP_EFFECTS_STUDIO
-		companyFull.mattePaintingCompany == MATTE_PAINTING_COMPANY
-		companyFull.modelAndMiniatureEffectsCompany == MODEL_AND_MINIATURE_EFFECTS_COMPANY
-		companyFull.postProductionCompany == POST_PRODUCTION_COMPANY
-		companyFull.productionCompany == PRODUCTION_COMPANY
-		companyFull.propCompany == PROP_COMPANY
-		companyFull.recordLabel == RECORD_LABEL
-		companyFull.specialEffectsCompany == SPECIAL_EFFECTS_COMPANY
-		companyFull.tvAndFilmProductionCompany == TV_AND_FILM_PRODUCTION_COMPANY
-		companyFull.videoGameCompany == VIDEO_GAME_COMPANY
 	}
 
 }

@@ -6,14 +6,17 @@ import com.cezarykluczynski.stapi.client.v1.soap.RequestPage
 import com.cezarykluczynski.stapi.model.company.dto.CompanyRequestDTO
 import com.cezarykluczynski.stapi.model.company.repository.CompanyRepository
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.company.mapper.CompanySoapMapper
+import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseSoapMapper
+import com.cezarykluczynski.stapi.server.company.mapper.CompanyFullSoapMapper
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import spock.lang.Specification
 
 class CompanySoapQueryTest extends Specification {
 
-	private CompanySoapMapper companySoapMapperMock
+	private CompanyBaseSoapMapper companyBaseSoapMapperMock
+
+	private CompanyFullSoapMapper companyFullSoapMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -22,10 +25,11 @@ class CompanySoapQueryTest extends Specification {
 	private CompanySoapQuery companySoapQuery
 
 	void setup() {
-		companySoapMapperMock = Mock(CompanySoapMapper)
+		companyBaseSoapMapperMock = Mock(CompanyBaseSoapMapper)
+		companyFullSoapMapperMock = Mock(CompanyFullSoapMapper)
 		pageMapperMock = Mock(PageMapper)
 		companyRepositoryMock = Mock(CompanyRepository)
-		companySoapQuery = new CompanySoapQuery(companySoapMapperMock, pageMapperMock, companyRepositoryMock)
+		companySoapQuery = new CompanySoapQuery(companyBaseSoapMapperMock, companyFullSoapMapperMock, pageMapperMock, companyRepositoryMock)
 	}
 
 	void "maps CompanyBaseRequest to CompanyRequestDTO and to PageRequest, then calls repository, then returns result"() {
@@ -41,7 +45,7 @@ class CompanySoapQueryTest extends Specification {
 		Page pageOutput = companySoapQuery.query(companyRequest)
 
 		then:
-		1 * companySoapMapperMock.mapBase(companyRequest) >> companyRequestDTO
+		1 * companyBaseSoapMapperMock.mapBase(companyRequest) >> companyRequestDTO
 		1 * pageMapperMock.fromRequestPageToPageRequest(requestPage) >> pageRequest
 		1 * companyRepositoryMock.findMatching(companyRequestDTO, pageRequest) >> page
 		pageOutput == page
@@ -58,7 +62,7 @@ class CompanySoapQueryTest extends Specification {
 		Page pageOutput = companySoapQuery.query(companyRequest)
 
 		then:
-		1 * companySoapMapperMock.mapFull(companyRequest) >> companyRequestDTO
+		1 * companyFullSoapMapperMock.mapFull(companyRequest) >> companyRequestDTO
 		1 * pageMapperMock.defaultPageRequest >> pageRequest
 		1 * companyRepositoryMock.findMatching(companyRequestDTO, pageRequest) >> page
 		pageOutput == page

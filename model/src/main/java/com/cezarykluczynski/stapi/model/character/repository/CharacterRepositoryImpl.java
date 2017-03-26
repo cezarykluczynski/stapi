@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.model.character.entity.Character_;
 import com.cezarykluczynski.stapi.model.character.query.CharacterQueryBuilderFactory;
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
 import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
+import com.cezarykluczynski.stapi.model.movie.entity.Movie_;
 import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,6 +40,7 @@ public class CharacterRepositoryImpl extends AbstractRepositoryImpl<Character> i
 		characterQueryBuilder.fetch(Character_.performers, doFetch);
 		characterQueryBuilder.fetch(Character_.episodes, doFetch);
 		characterQueryBuilder.fetch(Character_.movies, doFetch);
+		characterQueryBuilder.fetch(Character_.movies, Movie_.mainDirector, doFetch);
 		characterQueryBuilder.fetch(Character_.characterSpecies, doFetch);
 
 		Page<Character> performerPage = characterQueryBuilder.findPage();

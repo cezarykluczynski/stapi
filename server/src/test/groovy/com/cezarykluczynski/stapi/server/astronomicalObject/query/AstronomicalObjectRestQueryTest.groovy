@@ -4,14 +4,14 @@ import com.cezarykluczynski.stapi.model.astronomicalObject.dto.AstronomicalObjec
 import com.cezarykluczynski.stapi.model.astronomicalObject.repository.AstronomicalObjectRepository
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.astronomicalObject.dto.AstronomicalObjectRestBeanParams
-import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectRestMapper
+import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectBaseRestMapper
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import spock.lang.Specification
 
 class AstronomicalObjectRestQueryTest extends Specification {
 
-	private AstronomicalObjectRestMapper astronomicalObjectRestMapperMock
+	private AstronomicalObjectBaseRestMapper astronomicalObjectRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,7 +20,7 @@ class AstronomicalObjectRestQueryTest extends Specification {
 	private AstronomicalObjectRestQuery astronomicalObjectRestQuery
 
 	void setup() {
-		astronomicalObjectRestMapperMock = Mock(AstronomicalObjectRestMapper)
+		astronomicalObjectRestMapperMock = Mock(AstronomicalObjectBaseRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		astronomicalObjectRepositoryMock = Mock(AstronomicalObjectRepository)
 		astronomicalObjectRestQuery = new AstronomicalObjectRestQuery(astronomicalObjectRestMapperMock, pageMapperMock,

@@ -7,7 +7,8 @@ import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.company.dto.CompanyRestBeanParams;
-import com.cezarykluczynski.stapi.server.company.mapper.CompanyRestMapper;
+import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseRestMapper;
+import com.cezarykluczynski.stapi.server.company.mapper.CompanyFullRestMapper;
 import com.cezarykluczynski.stapi.server.company.query.CompanyRestQuery;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterables;
@@ -21,14 +22,18 @@ public class CompanyRestReader implements BaseReader<CompanyRestBeanParams, Comp
 
 	private CompanyRestQuery companyRestQuery;
 
-	private CompanyRestMapper companyRestMapper;
+	private CompanyBaseRestMapper companyBaseRestMapper;
+
+	private CompanyFullRestMapper companyFullRestMapper;
 
 	private PageMapper pageMapper;
 
 	@Inject
-	public CompanyRestReader(CompanyRestQuery companyRestQuery, CompanyRestMapper companyRestMapper, PageMapper pageMapper) {
+	public CompanyRestReader(CompanyRestQuery companyRestQuery, CompanyBaseRestMapper companyBaseRestMapper,
+			CompanyFullRestMapper companyFullRestMapper, PageMapper pageMapper) {
 		this.companyRestQuery = companyRestQuery;
-		this.companyRestMapper = companyRestMapper;
+		this.companyBaseRestMapper = companyBaseRestMapper;
+		this.companyFullRestMapper = companyFullRestMapper;
 		this.pageMapper = pageMapper;
 	}
 
@@ -37,7 +42,7 @@ public class CompanyRestReader implements BaseReader<CompanyRestBeanParams, Comp
 		Page<Company> companyPage = companyRestQuery.query(input);
 		CompanyBaseResponse companyResponse = new CompanyBaseResponse();
 		companyResponse.setPage(pageMapper.fromPageToRestResponsePage(companyPage));
-		companyResponse.getCompanies().addAll(companyRestMapper.mapBase(companyPage.getContent()));
+		companyResponse.getCompanies().addAll(companyBaseRestMapper.mapBase(companyPage.getContent()));
 		return companyResponse;
 	}
 
@@ -48,7 +53,7 @@ public class CompanyRestReader implements BaseReader<CompanyRestBeanParams, Comp
 		companyRestBeanParams.setGuid(guid);
 		Page<com.cezarykluczynski.stapi.model.company.entity.Company> companyPage = companyRestQuery.query(companyRestBeanParams);
 		CompanyFullResponse companyResponse = new CompanyFullResponse();
-		companyResponse.setCompany(companyRestMapper.mapFull(Iterables.getOnlyElement(companyPage.getContent(), null)));
+		companyResponse.setCompany(companyFullRestMapper.mapFull(Iterables.getOnlyElement(companyPage.getContent(), null)));
 		return companyResponse;
 	}
 }

@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.model.character.query.CharacterQueryBuilderFac
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
+import com.cezarykluczynski.stapi.model.movie.entity.Movie_
 import com.cezarykluczynski.stapi.util.tool.LogicUtil
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
@@ -83,6 +84,7 @@ class CharacterRepositoryImplTest extends Specification {
 		1 * characterQueryBuilder.fetch(Character_.performers, true)
 		1 * characterQueryBuilder.fetch(Character_.episodes, true)
 		1 * characterQueryBuilder.fetch(Character_.movies, true)
+		1 * characterQueryBuilder.fetch(Character_.movies, Movie_.mainDirector, true)
 		1 * characterQueryBuilder.fetch(Character_.characterSpecies, true)
 
 		then: 'page is searched for and returned'
@@ -108,6 +110,7 @@ class CharacterRepositoryImplTest extends Specification {
 		1 * characterQueryBuilder.fetch(Character_.performers, false)
 		1 * characterQueryBuilder.fetch(Character_.episodes, false)
 		1 * characterQueryBuilder.fetch(Character_.movies, false)
+		1 * characterQueryBuilder.fetch(Character_.movies, Movie_.mainDirector, false)
 		1 * characterQueryBuilder.fetch(Character_.characterSpecies, false)
 
 		then: 'page is searched for and returned'

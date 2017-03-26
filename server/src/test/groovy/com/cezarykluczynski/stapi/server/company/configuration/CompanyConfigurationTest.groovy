@@ -1,10 +1,12 @@
 package com.cezarykluczynski.stapi.server.company.configuration
 
 import com.cezarykluczynski.stapi.server.company.endpoint.CompanyRestEndpoint
-import com.cezarykluczynski.stapi.server.company.reader.CompanyRestReader
 import com.cezarykluczynski.stapi.server.company.endpoint.CompanySoapEndpoint
-import com.cezarykluczynski.stapi.server.company.mapper.CompanyRestMapper
-import com.cezarykluczynski.stapi.server.company.mapper.CompanySoapMapper
+import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseRestMapper
+import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseSoapMapper
+import com.cezarykluczynski.stapi.server.company.mapper.CompanyFullRestMapper
+import com.cezarykluczynski.stapi.server.company.mapper.CompanyFullSoapMapper
+import com.cezarykluczynski.stapi.server.company.reader.CompanyRestReader
 import com.cezarykluczynski.stapi.server.company.reader.CompanySoapReader
 import org.apache.cxf.bus.spring.SpringBus
 import org.apache.cxf.jaxws.EndpointImpl
@@ -56,20 +58,36 @@ class CompanyConfigurationTest extends Specification {
 		companyRestEndpoint.companyRestReader == companyRestMapper
 	}
 
-	void "CompanySoapMapper is created"() {
+	void "CompanyBaseSoapMapper is created"() {
 		when:
-		CompanySoapMapper companySoapMapper = companyConfiguration.companySoapMapper()
+		CompanyBaseSoapMapper companyBaseSoapMapper = companyConfiguration.companyBaseSoapMapper()
 
 		then:
-		companySoapMapper != null
+		companyBaseSoapMapper != null
 	}
 
-	void "CompanyRestMapper is created"() {
+	void "CompanyFullSoapMapper is created"() {
 		when:
-		CompanyRestMapper companyRestMapper = companyConfiguration.companyRestMapper()
+		CompanyFullSoapMapper companyFullSoapMapper = companyConfiguration.companyFullSoapMapper()
 
 		then:
-		companyRestMapper != null
+		companyFullSoapMapper != null
+	}
+
+	void "CompanyBaseRestMapper is created"() {
+		when:
+		CompanyBaseRestMapper companyBaseRestMapper = companyConfiguration.companyBaseRestMapper()
+
+		then:
+		companyBaseRestMapper != null
+	}
+
+	void "CompanyFullRestMapper is created"() {
+		when:
+		CompanyFullRestMapper companyFullRestMapper = companyConfiguration.companyFullRestMapper()
+
+		then:
+		companyFullRestMapper != null
 	}
 
 }

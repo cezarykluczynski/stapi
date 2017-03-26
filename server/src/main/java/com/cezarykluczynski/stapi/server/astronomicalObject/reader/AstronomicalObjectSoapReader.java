@@ -5,7 +5,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectBaseResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectFullResponse;
 import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject;
-import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectSoapMapper;
+import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectBaseSoapMapper;
+import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectFullSoapMapper;
 import com.cezarykluczynski.stapi.server.astronomicalObject.query.AstronomicalObjectSoapQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
@@ -20,14 +21,18 @@ public class AstronomicalObjectSoapReader implements BaseReader<AstronomicalObje
 
 	private AstronomicalObjectSoapQuery astronomicalObjectSoapQuery;
 
-	private AstronomicalObjectSoapMapper astronomicalObjectSoapMapper;
+	private AstronomicalObjectBaseSoapMapper astronomicalObjectBaseSoapMapper;
+
+	private AstronomicalObjectFullSoapMapper astronomicalObjectFullSoapMapper;
 
 	private PageMapper pageMapper;
 
 	public AstronomicalObjectSoapReader(AstronomicalObjectSoapQuery astronomicalObjectSoapQuery,
-			AstronomicalObjectSoapMapper astronomicalObjectSoapMapper, PageMapper pageMapper) {
+			AstronomicalObjectBaseSoapMapper astronomicalObjectBaseSoapMapper, AstronomicalObjectFullSoapMapper astronomicalObjectFullSoapMapper,
+			PageMapper pageMapper) {
 		this.astronomicalObjectSoapQuery = astronomicalObjectSoapQuery;
-		this.astronomicalObjectSoapMapper = astronomicalObjectSoapMapper;
+		this.astronomicalObjectBaseSoapMapper = astronomicalObjectBaseSoapMapper;
+		this.astronomicalObjectFullSoapMapper = astronomicalObjectFullSoapMapper;
 		this.pageMapper = pageMapper;
 	}
 
@@ -36,7 +41,7 @@ public class AstronomicalObjectSoapReader implements BaseReader<AstronomicalObje
 		Page<AstronomicalObject> astronomicalObjectPage = astronomicalObjectSoapQuery.query(input);
 		AstronomicalObjectBaseResponse astronomicalObjectResponse = new AstronomicalObjectBaseResponse();
 		astronomicalObjectResponse.setPage(pageMapper.fromPageToSoapResponsePage(astronomicalObjectPage));
-		astronomicalObjectResponse.getAstronomicalObjects().addAll(astronomicalObjectSoapMapper.mapBase(astronomicalObjectPage.getContent()));
+		astronomicalObjectResponse.getAstronomicalObjects().addAll(astronomicalObjectBaseSoapMapper.mapBase(astronomicalObjectPage.getContent()));
 		return astronomicalObjectResponse;
 	}
 
@@ -44,7 +49,7 @@ public class AstronomicalObjectSoapReader implements BaseReader<AstronomicalObje
 	public AstronomicalObjectFullResponse readFull(AstronomicalObjectFullRequest input) {
 		Page<AstronomicalObject> astronomicalObjectPage = astronomicalObjectSoapQuery.query(input);
 		AstronomicalObjectFullResponse astronomicalObjectFullResponse = new AstronomicalObjectFullResponse();
-		astronomicalObjectFullResponse.setAstronomicalObject(astronomicalObjectSoapMapper
+		astronomicalObjectFullResponse.setAstronomicalObject(astronomicalObjectFullSoapMapper
 				.mapFull(Iterables.getOnlyElement(astronomicalObjectPage.getContent(), null)));
 		return astronomicalObjectFullResponse;
 	}

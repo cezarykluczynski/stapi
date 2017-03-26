@@ -8,7 +8,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectFullRequest
 import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
 import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject
-import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectSoapMapper
+import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectBaseSoapMapper
+import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectFullSoapMapper
 import com.cezarykluczynski.stapi.server.astronomicalObject.query.AstronomicalObjectSoapQuery
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.google.common.collect.Lists
@@ -21,7 +22,9 @@ class AstronomicalObjectSoapReaderTest extends Specification {
 
 	private AstronomicalObjectSoapQuery astronomicalObjectSoapQueryBuilderMock
 
-	private AstronomicalObjectSoapMapper astronomicalObjectSoapMapperMock
+	private AstronomicalObjectBaseSoapMapper astronomicalObjectBaseSoapMapperMock
+
+	private AstronomicalObjectFullSoapMapper astronomicalObjectFullSoapMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -29,10 +32,11 @@ class AstronomicalObjectSoapReaderTest extends Specification {
 
 	void setup() {
 		astronomicalObjectSoapQueryBuilderMock = Mock(AstronomicalObjectSoapQuery)
-		astronomicalObjectSoapMapperMock = Mock(AstronomicalObjectSoapMapper)
+		astronomicalObjectBaseSoapMapperMock = Mock(AstronomicalObjectBaseSoapMapper)
+		astronomicalObjectFullSoapMapperMock = Mock(AstronomicalObjectFullSoapMapper)
 		pageMapperMock = Mock(PageMapper)
-		astronomicalObjectSoapReader = new AstronomicalObjectSoapReader(astronomicalObjectSoapQueryBuilderMock, astronomicalObjectSoapMapperMock,
-				pageMapperMock)
+		astronomicalObjectSoapReader = new AstronomicalObjectSoapReader(astronomicalObjectSoapQueryBuilderMock, astronomicalObjectBaseSoapMapperMock,
+				astronomicalObjectFullSoapMapperMock, pageMapperMock)
 	}
 
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
@@ -50,7 +54,7 @@ class AstronomicalObjectSoapReaderTest extends Specification {
 		1 * astronomicalObjectSoapQueryBuilderMock.query(astronomicalObjectBaseRequest) >> astronomicalObjectPage
 		1 * astronomicalObjectPage.content >> astronomicalObjectList
 		1 * pageMapperMock.fromPageToSoapResponsePage(astronomicalObjectPage) >> responsePage
-		1 * astronomicalObjectSoapMapperMock.mapBase(astronomicalObjectList) >> soapAstronomicalObjectList
+		1 * astronomicalObjectBaseSoapMapperMock.mapBase(astronomicalObjectList) >> soapAstronomicalObjectList
 		astronomicalObjectResponse.astronomicalObjects[0].guid == GUID
 		astronomicalObjectResponse.page == responsePage
 	}
@@ -68,7 +72,7 @@ class AstronomicalObjectSoapReaderTest extends Specification {
 		then:
 		1 * astronomicalObjectSoapQueryBuilderMock.query(astronomicalObjectFullRequest) >> astronomicalObjectPage
 		1 * astronomicalObjectPage.content >> Lists.newArrayList(astronomicalObject)
-		1 * astronomicalObjectSoapMapperMock.mapFull(astronomicalObject) >> astronomicalObjectFull
+		1 * astronomicalObjectFullSoapMapperMock.mapFull(astronomicalObject) >> astronomicalObjectFull
 		astronomicalObjectFullResponse.astronomicalObject.guid == GUID
 	}
 

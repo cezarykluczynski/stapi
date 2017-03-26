@@ -5,9 +5,9 @@ import com.cezarykluczynski.stapi.client.v1.soap.ComicsFullRequest;
 import com.cezarykluczynski.stapi.model.comics.dto.ComicsRequestDTO;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics;
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterBaseSoapMapper;
-import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionHeaderSoapMapper;
+import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesBaseSoapMapper;
-import com.cezarykluczynski.stapi.server.company.mapper.CompanySoapMapper;
+import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import com.cezarykluczynski.stapi.server.reference.mapper.ReferenceSoapMapper;
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseSoapMapper;
@@ -15,8 +15,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-@Mapper(config = MapstructConfiguration.class, uses = {CharacterBaseSoapMapper.class, ComicCollectionHeaderSoapMapper.class,
-		ComicSeriesBaseSoapMapper.class, CompanySoapMapper.class, ReferenceSoapMapper.class, StaffBaseSoapMapper.class})
+@Mapper(config = MapstructConfiguration.class, uses = {CharacterBaseSoapMapper.class, ComicCollectionBaseSoapMapper.class,
+		ComicSeriesBaseSoapMapper.class, CompanyBaseSoapMapper.class, ReferenceSoapMapper.class, StaffBaseSoapMapper.class})
 public interface ComicsFullSoapMapper {
 
 	@Mappings({

@@ -4,14 +4,14 @@ import com.cezarykluczynski.stapi.model.company.dto.CompanyRequestDTO
 import com.cezarykluczynski.stapi.model.company.repository.CompanyRepository
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.company.dto.CompanyRestBeanParams
-import com.cezarykluczynski.stapi.server.company.mapper.CompanyRestMapper
+import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseRestMapper
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import spock.lang.Specification
 
 class CompanyRestQueryTest extends Specification {
 
-	private CompanyRestMapper companyRestMapperMock
+	private CompanyBaseRestMapper companyRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -20,7 +20,7 @@ class CompanyRestQueryTest extends Specification {
 	private CompanyRestQuery companyRestQuery
 
 	void setup() {
-		companyRestMapperMock = Mock(CompanyRestMapper)
+		companyRestMapperMock = Mock(CompanyBaseRestMapper)
 		pageMapperMock = Mock(PageMapper)
 		companyRepositoryMock = Mock(CompanyRepository)
 		companyRestQuery = new CompanyRestQuery(companyRestMapperMock, pageMapperMock, companyRepositoryMock)

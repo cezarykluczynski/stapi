@@ -6,5 +6,5 @@ properties:
     type: string
   astronomicalObjectType:
     $ref: ./astronomicalObject/entity/enum/astronomicalObjectType.yaml
-  locationHeader:
+  location:
     $ref: ./astronomicalObject/entity/astronomicalObjectHeader.yaml

@@ -8,7 +8,7 @@ import com.cezarykluczynski.stapi.server.character.mapper.CharacterBaseSoapMappe
 import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.comics.mapper.ComicsBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.RequestSortSoapMapper;
-import com.cezarykluczynski.stapi.server.company.mapper.CompanySoapMapper;
+import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import com.cezarykluczynski.stapi.server.reference.mapper.ReferenceSoapMapper;
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseSoapMapper;
@@ -17,7 +17,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
 @Mapper(config = MapstructConfiguration.class, uses = {CharacterBaseSoapMapper.class, ComicsBaseSoapMapper.class,
-		ComicSeriesBaseSoapMapper.class, CompanySoapMapper.class, RequestSortSoapMapper.class, ReferenceSoapMapper.class,
+		ComicSeriesBaseSoapMapper.class, CompanyBaseSoapMapper.class, RequestSortSoapMapper.class, ReferenceSoapMapper.class,
 		StaffBaseSoapMapper.class})
 public interface ComicCollectionFullSoapMapper {
 

@@ -363,22 +363,43 @@ class QueryBuilderTest extends Specification {
 		then: 'no fetch methods are called'
 		0 * baseRoot.fetch(*_)
 
-		when: 'two attributes fetch is performed'
+		when: 'two singular attributes fetch is performed'
 		queryBuilder.fetch(validKeyLocalDate, keyWithUnknownType)
 
 		then: 'right methods are called'
 		1 * baseRoot.fetch(validKeyLocalDate, JoinType.LEFT) >> fetch
 		1 * fetch.fetch(keyWithUnknownType, JoinType.LEFT)
 
-		when: 'two attributes fetch is performed with boolean flag set to true'
+		when: 'two singular attributes fetch is performed with boolean flag set to true'
 		queryBuilder.fetch(validKeyLocalDate, keyWithUnknownType, true)
 
 		then: 'right methods are called'
 		1 * baseRoot.fetch(validKeyLocalDate, JoinType.LEFT) >> fetch
 		1 * fetch.fetch(keyWithUnknownType, JoinType.LEFT)
 
-		when: 'two attributes fetch is performed with boolean flag set to false'
+		when: 'two singular attributes fetch is performed with boolean flag set to false'
 		queryBuilder.fetch(validKeyLocalDate, keyWithUnknownType, false)
+
+		then: 'no fetch methods are called'
+		0 * baseRoot.fetch(*_)
+		0 * fetch.fetch(*_)
+
+		when: 'singular and set attributes fetch is performed'
+		queryBuilder.fetch(fetchSetName, keyWithUnknownType)
+
+		then: 'right methods are called'
+		1 * baseRoot.fetch(fetchSetName, JoinType.LEFT) >> fetch
+		1 * fetch.fetch(keyWithUnknownType, JoinType.LEFT)
+
+		when: 'singular and fetch attributes fetch is performed with boolean flag set to true'
+		queryBuilder.fetch(fetchSetName, keyWithUnknownType, true)
+
+		then: 'right methods are called'
+		1 * baseRoot.fetch(fetchSetName, JoinType.LEFT) >> fetch
+		1 * fetch.fetch(keyWithUnknownType, JoinType.LEFT)
+
+		when: 'singular and fetch attributes fetch is performed with boolean flag set to false'
+		queryBuilder.fetch(fetchSetName, keyWithUnknownType, false)
 
 		then: 'no fetch methods are called'
 		0 * baseRoot.fetch(*_)

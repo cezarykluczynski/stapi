@@ -6,7 +6,8 @@ import com.cezarykluczynski.stapi.model.company.dto.CompanyRequestDTO;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.company.repository.CompanyRepository;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
-import com.cezarykluczynski.stapi.server.company.mapper.CompanySoapMapper;
+import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseSoapMapper;
+import com.cezarykluczynski.stapi.server.company.mapper.CompanyFullSoapMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -16,27 +17,31 @@ import javax.inject.Inject;
 @Service
 public class CompanySoapQuery {
 
-	private CompanySoapMapper companySoapMapper;
+	private CompanyBaseSoapMapper companyBaseSoapMapper;
+
+	private CompanyFullSoapMapper companyFullSoapMapper;
 
 	private PageMapper pageMapper;
 
 	private CompanyRepository companyRepository;
 
 	@Inject
-	public CompanySoapQuery(CompanySoapMapper companySoapMapper, PageMapper pageMapper, CompanyRepository companyRepository) {
-		this.companySoapMapper = companySoapMapper;
+	public CompanySoapQuery(CompanyBaseSoapMapper companyBaseSoapMapper, CompanyFullSoapMapper companyFullSoapMapper, PageMapper pageMapper,
+			CompanyRepository companyRepository) {
+		this.companyBaseSoapMapper = companyBaseSoapMapper;
+		this.companyFullSoapMapper = companyFullSoapMapper;
 		this.pageMapper = pageMapper;
 		this.companyRepository = companyRepository;
 	}
 
 	public Page<Company> query(CompanyBaseRequest companyBaseRequest) {
-		CompanyRequestDTO companyRequestDTO = companySoapMapper.mapBase(companyBaseRequest);
+		CompanyRequestDTO companyRequestDTO = companyBaseSoapMapper.mapBase(companyBaseRequest);
 		PageRequest pageRequest = pageMapper.fromRequestPageToPageRequest(companyBaseRequest.getPage());
 		return companyRepository.findMatching(companyRequestDTO, pageRequest);
 	}
 
 	public Page<Company> query(CompanyFullRequest companyFullRequest) {
-		CompanyRequestDTO seriesRequestDTO = companySoapMapper.mapFull(companyFullRequest);
+		CompanyRequestDTO seriesRequestDTO = companyFullSoapMapper.mapFull(companyFullRequest);
 		return companyRepository.findMatching(seriesRequestDTO, pageMapper.getDefaultPageRequest());
 	}
 

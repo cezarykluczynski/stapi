@@ -2,8 +2,10 @@ package com.cezarykluczynski.stapi.server.company.configuration;
 
 import com.cezarykluczynski.stapi.server.company.endpoint.CompanyRestEndpoint;
 import com.cezarykluczynski.stapi.server.company.endpoint.CompanySoapEndpoint;
-import com.cezarykluczynski.stapi.server.company.mapper.CompanyRestMapper;
-import com.cezarykluczynski.stapi.server.company.mapper.CompanySoapMapper;
+import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseRestMapper;
+import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseSoapMapper;
+import com.cezarykluczynski.stapi.server.company.mapper.CompanyFullRestMapper;
+import com.cezarykluczynski.stapi.server.company.mapper.CompanyFullSoapMapper;
 import com.cezarykluczynski.stapi.server.company.reader.CompanyRestReader;
 import com.cezarykluczynski.stapi.server.company.reader.CompanySoapReader;
 import org.apache.cxf.Bus;
@@ -38,13 +40,23 @@ public class CompanyConfiguration {
 	}
 
 	@Bean
-	public CompanySoapMapper companySoapMapper() {
-		return Mappers.getMapper(CompanySoapMapper.class);
+	public CompanyBaseSoapMapper companyBaseSoapMapper() {
+		return Mappers.getMapper(CompanyBaseSoapMapper.class);
 	}
 
 	@Bean
-	public CompanyRestMapper companyRestMapper() {
-		return Mappers.getMapper(CompanyRestMapper.class);
+	public CompanyFullSoapMapper companyFullSoapMapper() {
+		return Mappers.getMapper(CompanyFullSoapMapper.class);
+	}
+
+	@Bean
+	public CompanyBaseRestMapper companyBaseRestMapper() {
+		return Mappers.getMapper(CompanyBaseRestMapper.class);
+	}
+
+	@Bean
+	public CompanyFullRestMapper companyFullRestMapper() {
+		return Mappers.getMapper(CompanyFullRestMapper.class);
 	}
 
 }

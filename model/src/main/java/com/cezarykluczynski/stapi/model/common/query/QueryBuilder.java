@@ -174,6 +174,12 @@ public class QueryBuilder<T> {
 		return this;
 	}
 
+	public QueryBuilder<T> fetch(SetAttribute<? super T, ?> key, SingularAttribute<?, ?> keyOfKey) {
+		SingularAttribute<? super Object, ?> keyOfKey2 = (SingularAttribute<? super Object, ?>) keyOfKey;
+		baseRoot.fetch(key, JoinType.LEFT).fetch(keyOfKey2, JoinType.LEFT);
+		return this;
+	}
+
 	public QueryBuilder<T> fetch(SetAttribute<T, ?> name, boolean doFetch) {
 		return doFetch ? fetch(name) : this;
 	}
@@ -183,6 +189,10 @@ public class QueryBuilder<T> {
 	}
 
 	public QueryBuilder<T> fetch(SingularAttribute<? super T, ?> key, SingularAttribute<?, ?> keyOfKey, boolean doFetch) {
+		return doFetch ? fetch(key, keyOfKey) : this;
+	}
+
+	public QueryBuilder<T> fetch(SetAttribute<? super T, ?> key, SingularAttribute<?, ?> keyOfKey, boolean doFetch) {
 		return doFetch ? fetch(key, keyOfKey) : this;
 	}
 

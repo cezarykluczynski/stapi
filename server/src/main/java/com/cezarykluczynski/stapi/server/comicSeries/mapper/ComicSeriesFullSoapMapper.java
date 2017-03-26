@@ -4,14 +4,14 @@ import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesFull;
 import com.cezarykluczynski.stapi.client.v1.soap.ComicSeriesFullRequest;
 import com.cezarykluczynski.stapi.model.comicSeries.dto.ComicSeriesRequestDTO;
 import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries;
-import com.cezarykluczynski.stapi.server.comics.mapper.ComicsHeaderSoapMapper;
-import com.cezarykluczynski.stapi.server.company.mapper.CompanySoapMapper;
+import com.cezarykluczynski.stapi.server.comics.mapper.ComicsBaseSoapMapper;
+import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-@Mapper(config = MapstructConfiguration.class, uses = {ComicsHeaderSoapMapper.class, ComicSeriesBaseSoapMapper.class, CompanySoapMapper.class})
+@Mapper(config = MapstructConfiguration.class, uses = {ComicsBaseSoapMapper.class, ComicSeriesBaseSoapMapper.class, CompanyBaseSoapMapper.class})
 public interface ComicSeriesFullSoapMapper {
 
 	@Mappings({

@@ -151,24 +151,24 @@ properties:
   writtenMovies:
     type: array
     items:
-      $ref: '#/definitions/MovieHeader'
+      $ref: '#/definitions/MovieBase'
   screenplayAuthoredMovies:
     type: array
     items:
-      $ref: '#/definitions/MovieHeader'
+      $ref: '#/definitions/MovieBase'
   storyAuthoredMovies:
     type: array
     items:
-      $ref: '#/definitions/MovieHeader'
+      $ref: '#/definitions/MovieBase'
   directedMovies:
     type: array
     items:
-      $ref: '#/definitions/MovieHeader'
+      $ref: '#/definitions/MovieBase'
   producedMovies:
     type: array
     items:
-      $ref: '#/definitions/MovieHeader'
+      $ref: '#/definitions/MovieBase'
   movies:
     type: array
     items:
-      $ref: '#/definitions/MovieHeader'
+      $ref: '#/definitions/MovieBase'

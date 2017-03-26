@@ -104,7 +104,7 @@
 				<xs:element name="publishers" type="company:CompanyBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="comics" type="comics:ComicsHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="comics" type="comics:ComicsBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:sequence>
 	</xs:complexType>

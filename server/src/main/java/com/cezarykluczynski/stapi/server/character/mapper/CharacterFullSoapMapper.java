@@ -7,14 +7,14 @@ import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.server.common.mapper.EnumMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeBaseSoapMapper;
-import com.cezarykluczynski.stapi.server.movie.mapper.MovieHeaderSoapMapper;
+import com.cezarykluczynski.stapi.server.movie.mapper.MovieBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseSoapMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
 @Mapper(config = MapstructConfiguration.class, uses = {CharacterSpeciesSoapMapper.class, EnumMapper.class, EpisodeBaseSoapMapper.class,
-		MovieHeaderSoapMapper.class, PerformerBaseSoapMapper.class})
+		MovieBaseSoapMapper.class, PerformerBaseSoapMapper.class})
 public interface CharacterFullSoapMapper {
 
 	@Mappings({

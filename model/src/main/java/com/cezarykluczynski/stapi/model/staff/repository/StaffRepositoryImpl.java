@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.model.staff.repository;
 
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
 import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
+import com.cezarykluczynski.stapi.model.movie.entity.Movie_;
 import com.cezarykluczynski.stapi.model.staff.dto.StaffRequestDTO;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff_;
@@ -57,6 +58,7 @@ public class StaffRepositoryImpl extends AbstractRepositoryImpl<Staff> implement
 			staffMoviesQueryBuilder.fetch(Staff_.directedMovies);
 			staffMoviesQueryBuilder.fetch(Staff_.producedMovies);
 			staffMoviesQueryBuilder.fetch(Staff_.movies);
+			staffMoviesQueryBuilder.fetch(Staff_.movies, Movie_.mainDirector);
 
 			List<Staff> moviesStaffList = staffMoviesQueryBuilder.findAll();
 

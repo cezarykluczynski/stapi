@@ -2,8 +2,10 @@ package com.cezarykluczynski.stapi.server.astronomicalObject.configuration;
 
 import com.cezarykluczynski.stapi.server.astronomicalObject.endpoint.AstronomicalObjectRestEndpoint;
 import com.cezarykluczynski.stapi.server.astronomicalObject.endpoint.AstronomicalObjectSoapEndpoint;
-import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectRestMapper;
-import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectSoapMapper;
+import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectBaseRestMapper;
+import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectBaseSoapMapper;
+import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectFullRestMapper;
+import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectFullSoapMapper;
 import com.cezarykluczynski.stapi.server.astronomicalObject.reader.AstronomicalObjectRestReader;
 import com.cezarykluczynski.stapi.server.astronomicalObject.reader.AstronomicalObjectSoapReader;
 import org.apache.cxf.Bus;
@@ -38,13 +40,23 @@ public class AstronomicalObjectConfiguration {
 	}
 
 	@Bean
-	public AstronomicalObjectSoapMapper astronomicalObjectSoapMapper() {
-		return Mappers.getMapper(AstronomicalObjectSoapMapper.class);
+	public AstronomicalObjectBaseSoapMapper astronomicalObjectBaseSoapMapper() {
+		return Mappers.getMapper(AstronomicalObjectBaseSoapMapper.class);
 	}
 
 	@Bean
-	public AstronomicalObjectRestMapper astronomicalObjectRestMapper() {
-		return Mappers.getMapper(AstronomicalObjectRestMapper.class);
+	public AstronomicalObjectFullSoapMapper astronomicalObjectFullSoapMapper() {
+		return Mappers.getMapper(AstronomicalObjectFullSoapMapper.class);
+	}
+
+	@Bean
+	public AstronomicalObjectBaseRestMapper astronomicalObjectBaseRestMapper() {
+		return Mappers.getMapper(AstronomicalObjectBaseRestMapper.class);
+	}
+
+	@Bean
+	public AstronomicalObjectFullRestMapper astronomicalObjectFullRestMapper() {
+		return Mappers.getMapper(AstronomicalObjectFullRestMapper.class);
 	}
 
 }

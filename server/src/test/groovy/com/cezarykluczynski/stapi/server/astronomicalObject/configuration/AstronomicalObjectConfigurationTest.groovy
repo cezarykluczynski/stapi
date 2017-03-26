@@ -2,8 +2,10 @@ package com.cezarykluczynski.stapi.server.astronomicalObject.configuration
 
 import com.cezarykluczynski.stapi.server.astronomicalObject.endpoint.AstronomicalObjectRestEndpoint
 import com.cezarykluczynski.stapi.server.astronomicalObject.endpoint.AstronomicalObjectSoapEndpoint
-import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectRestMapper
-import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectSoapMapper
+import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectBaseRestMapper
+import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectBaseSoapMapper
+import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectFullRestMapper
+import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectFullSoapMapper
 import com.cezarykluczynski.stapi.server.astronomicalObject.reader.AstronomicalObjectRestReader
 import com.cezarykluczynski.stapi.server.astronomicalObject.reader.AstronomicalObjectSoapReader
 import org.apache.cxf.bus.spring.SpringBus
@@ -56,20 +58,36 @@ class AstronomicalObjectConfigurationTest extends Specification {
 		astronomicalObjectRestEndpoint.astronomicalObjectRestReader == astronomicalObjectRestMapper
 	}
 
-	void "AstronomicalObjectSoapMapper is created"() {
+	void "AstronomicalObjectBaseSoapMapper is created"() {
 		when:
-		AstronomicalObjectSoapMapper astronomicalObjectSoapMapper = astronomicalObjectConfiguration.astronomicalObjectSoapMapper()
+		AstronomicalObjectBaseSoapMapper astronomicalObjectBaseSoapMapper = astronomicalObjectConfiguration.astronomicalObjectBaseSoapMapper()
 
 		then:
-		astronomicalObjectSoapMapper != null
+		astronomicalObjectBaseSoapMapper != null
 	}
 
-	void "AstronomicalObjectRestMapper is created"() {
+	void "AstronomicalObjectFullSoapMapper is created"() {
 		when:
-		AstronomicalObjectRestMapper astronomicalObjectRestMapper = astronomicalObjectConfiguration.astronomicalObjectRestMapper()
+		AstronomicalObjectFullSoapMapper astronomicalObjectFullSoapMapper = astronomicalObjectConfiguration.astronomicalObjectFullSoapMapper()
 
 		then:
-		astronomicalObjectRestMapper != null
+		astronomicalObjectFullSoapMapper != null
+	}
+
+	void "AstronomicalObjectBaseRestMapper is created"() {
+		when:
+		AstronomicalObjectBaseRestMapper astronomicalObjectBaseRestMapper = astronomicalObjectConfiguration.astronomicalObjectBaseRestMapper()
+
+		then:
+		astronomicalObjectBaseRestMapper != null
+	}
+
+	void "AstronomicalObjectFullRestMapper is created"() {
+		when:
+		AstronomicalObjectFullRestMapper astronomicalObjectFullRestMapper = astronomicalObjectConfiguration.astronomicalObjectFullRestMapper()
+
+		then:
+		astronomicalObjectFullRestMapper != null
 	}
 
 }

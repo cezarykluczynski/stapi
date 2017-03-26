@@ -7,7 +7,8 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectFullRes
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
 import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject
 import com.cezarykluczynski.stapi.server.astronomicalObject.dto.AstronomicalObjectRestBeanParams
-import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectRestMapper
+import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectBaseRestMapper
+import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectFullRestMapper
 import com.cezarykluczynski.stapi.server.astronomicalObject.query.AstronomicalObjectRestQuery
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.google.common.collect.Lists
@@ -20,7 +21,9 @@ class AstronomicalObjectRestReaderTest extends Specification {
 
 	private AstronomicalObjectRestQuery astronomicalObjectRestQueryBuilderMock
 
-	private AstronomicalObjectRestMapper astronomicalObjectRestMapperMock
+	private AstronomicalObjectBaseRestMapper astronomicalObjectBaseRestMapperMock
+
+	private AstronomicalObjectFullRestMapper astronomicalObjectFullRestMapperMock
 
 	private PageMapper pageMapperMock
 
@@ -28,10 +31,11 @@ class AstronomicalObjectRestReaderTest extends Specification {
 
 	void setup() {
 		astronomicalObjectRestQueryBuilderMock = Mock(AstronomicalObjectRestQuery)
-		astronomicalObjectRestMapperMock = Mock(AstronomicalObjectRestMapper)
+		astronomicalObjectBaseRestMapperMock = Mock(AstronomicalObjectBaseRestMapper)
+		astronomicalObjectFullRestMapperMock = Mock(AstronomicalObjectFullRestMapper)
 		pageMapperMock = Mock(PageMapper)
-		astronomicalObjectRestReader = new AstronomicalObjectRestReader(astronomicalObjectRestQueryBuilderMock, astronomicalObjectRestMapperMock,
-				pageMapperMock)
+		astronomicalObjectRestReader = new AstronomicalObjectRestReader(astronomicalObjectRestQueryBuilderMock, astronomicalObjectBaseRestMapperMock,
+				astronomicalObjectFullRestMapperMock, pageMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
@@ -49,7 +53,7 @@ class AstronomicalObjectRestReaderTest extends Specification {
 		1 * astronomicalObjectRestQueryBuilderMock.query(astronomicalObjectRestBeanParams) >> astronomicalObjectPage
 		1 * pageMapperMock.fromPageToRestResponsePage(astronomicalObjectPage) >> responsePage
 		1 * astronomicalObjectPage.content >> astronomicalObjectList
-		1 * astronomicalObjectRestMapperMock.mapBase(astronomicalObjectList) >> restAstronomicalObjectList
+		1 * astronomicalObjectBaseRestMapperMock.mapBase(astronomicalObjectList) >> restAstronomicalObjectList
 		0 * _
 		astronomicalObjectResponseOutput.astronomicalObjects == restAstronomicalObjectList
 		astronomicalObjectResponseOutput.page == responsePage
@@ -72,7 +76,7 @@ class AstronomicalObjectRestReaderTest extends Specification {
 			astronomicalObjectPage
 		}
 		1 * astronomicalObjectPage.content >> astronomicalObjectList
-		1 * astronomicalObjectRestMapperMock.mapFull(astronomicalObject) >> astronomicalObjectFull
+		1 * astronomicalObjectFullRestMapperMock.mapFull(astronomicalObject) >> astronomicalObjectFull
 		0 * _
 		astronomicalObjectResponseOutput.astronomicalObject == astronomicalObjectFull
 	}

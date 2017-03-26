@@ -4,14 +4,14 @@ import com.cezarykluczynski.stapi.client.v1.soap.SpeciesFull;
 import com.cezarykluczynski.stapi.client.v1.soap.SpeciesFullRequest;
 import com.cezarykluczynski.stapi.model.species.dto.SpeciesRequestDTO;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
-import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectSoapMapper;
+import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-@Mapper(config = MapstructConfiguration.class, uses = {AstronomicalObjectSoapMapper.class, CharacterBaseSoapMapper.class})
+@Mapper(config = MapstructConfiguration.class, uses = {AstronomicalObjectBaseSoapMapper.class, CharacterBaseSoapMapper.class})
 public interface SpeciesFullSoapMapper {
 
 	@Mappings({
