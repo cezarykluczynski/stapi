@@ -131,13 +131,13 @@
 				<xs:element name="episodesStandInPerformances" type="episode:EpisodeBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="moviesPerformances" type="movie:MovieHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="moviesPerformances" type="movie:MovieBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="moviesStuntPerformances" type="movie:MovieHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="moviesStuntPerformances" type="movie:MovieBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="moviesStandInPerformances" type="movie:MovieHeader" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="moviesStandInPerformances" type="movie:MovieBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 			<xs:sequence>
 				<xs:element name="characters" type="character:CharacterBase" minOccurs="0" maxOccurs="unbounded"/>

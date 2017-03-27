@@ -8,3 +8,7 @@ properties:
     $ref: ./astronomicalObject/entity/enum/astronomicalObjectType.yaml
   location:
     $ref: ./astronomicalObject/entity/astronomicalObjectBase.yaml
+  astronomicalObjects:
+    type: array
+    items:
+      $ref: '#/definitions/AstronomicalObjectBase'

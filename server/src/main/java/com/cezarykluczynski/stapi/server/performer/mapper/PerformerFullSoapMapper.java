@@ -9,13 +9,13 @@ import com.cezarykluczynski.stapi.server.common.mapper.DateMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.EnumMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeBaseSoapMapper;
-import com.cezarykluczynski.stapi.server.movie.mapper.MovieHeaderSoapMapper;
+import com.cezarykluczynski.stapi.server.movie.mapper.MovieBaseSoapMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
 @Mapper(config = MapstructConfiguration.class, uses = {CharacterBaseSoapMapper.class, DateMapper.class, EnumMapper.class, EpisodeBaseSoapMapper.class,
-		MovieHeaderSoapMapper.class})
+		MovieBaseSoapMapper.class})
 public interface PerformerFullSoapMapper {
 
 	@Mappings({

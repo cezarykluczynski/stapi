@@ -63,7 +63,10 @@
 			<xs:element name="guid" type="xs:string"/>
 			<xs:element name="name" type="xs:string"/>
 			<xs:element name="astronomicalObjectType" type="astronomicalObject:AstronomicalObjectTypeEnum" minOccurs="0"/>
-			<xs:element name="location" type="astronomicalObject:AstronomicalObjectHeader" minOccurs="0"/>
+			<xs:element name="location" type="astronomicalObject:AstronomicalObjectBase" minOccurs="0"/>
+			<xs:sequence>
+				<xs:element name="astronomicalObjects" type="astronomicalObject:AstronomicalObjectBase" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:simpleType name="AstronomicalObjectTypeEnum">

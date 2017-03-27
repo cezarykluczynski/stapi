@@ -8,6 +8,8 @@ import com.cezarykluczynski.stapi.model.astronomicalObject.query.AstronomicalObj
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.util.AbstractAstronomicalObjectTest
+import com.google.common.collect.Lists
+import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
@@ -28,6 +30,8 @@ class AstronomicalObjectRepositoryImplTest extends AbstractAstronomicalObjectTes
 
 	private AstronomicalObject astronomicalObject
 
+	private AstronomicalObject astronomicalObjectChild
+
 	private Page page
 
 	void setup() {
@@ -38,6 +42,7 @@ class AstronomicalObjectRepositoryImplTest extends AbstractAstronomicalObjectTes
 		astronomicalObjectRequestDTO = Mock(AstronomicalObjectRequestDTO)
 		page = Mock(Page)
 		astronomicalObject = Mock(AstronomicalObject)
+		astronomicalObjectChild = Mock(AstronomicalObject)
 	}
 
 	void "query is built and performed"() {
@@ -69,9 +74,21 @@ class AstronomicalObjectRepositoryImplTest extends AbstractAstronomicalObjectTes
 
 		then: 'fetch is performed'
 		1 * astronomicalObjectQueryBuilder.fetch(AstronomicalObject_.location)
+		1 * astronomicalObjectQueryBuilder.fetch(AstronomicalObject_.location, AstronomicalObject_.location, true)
+		1 * astronomicalObjectQueryBuilder.fetch(AstronomicalObject_.astronomicalObjects, AstronomicalObject_.location, true)
 
-		then: 'page is searched for and returned'
+		then: 'page is searched for'
 		1 * astronomicalObjectQueryBuilder.findPage() >> page
+
+		then: 'astronomical object is retrieved'
+		1 * page.totalElements >> 1
+		1 * page.content >> Lists.newArrayList(astronomicalObject)
+
+		then: 'astronomical object is set as a location of child objects'
+		1 * astronomicalObject.astronomicalObjects >> Sets.newHashSet(astronomicalObjectChild)
+		1 * astronomicalObjectChild.setLocation(astronomicalObject)
+
+		then: 'page is returned'
 		0 * page.content
 		pageOutput == page
 

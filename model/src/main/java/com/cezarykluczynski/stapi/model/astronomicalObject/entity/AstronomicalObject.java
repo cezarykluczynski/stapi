@@ -19,8 +19,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import java.util.Set;
 
 @Data
 @Entity
@@ -44,5 +46,8 @@ public class AstronomicalObject extends PageAwareEntity implements PageAware {
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "location_id")
 	private AstronomicalObject location;
+
+	@ManyToMany(mappedBy = "location")
+	private Set<AstronomicalObject> astronomicalObjects;
 
 }

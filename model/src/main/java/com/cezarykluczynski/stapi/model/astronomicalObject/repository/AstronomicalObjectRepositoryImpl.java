@@ -25,15 +25,32 @@ public class AstronomicalObjectRepositoryImpl implements AstronomicalObjectRepos
 	@Override
 	public Page<AstronomicalObject> findMatching(AstronomicalObjectRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<AstronomicalObject> astronomicalObjectQueryBuilder = astronomicalObjectQueryBuilderFactory.createQueryBuilder(pageable);
+		String guid = criteria.getGuid();
+		boolean doFetch = guid != null;
 
-		astronomicalObjectQueryBuilder.equal(AstronomicalObject_.guid, criteria.getGuid());
+		astronomicalObjectQueryBuilder.equal(AstronomicalObject_.guid, guid);
 		astronomicalObjectQueryBuilder.like(AstronomicalObject_.name, criteria.getName());
 		astronomicalObjectQueryBuilder.joinPropertyEqual(AstronomicalObject_.location, "guid", criteria.getLocationGuid());
 		astronomicalObjectQueryBuilder.equal(AstronomicalObject_.astronomicalObjectType, criteria.getAstronomicalObjectType());
 		astronomicalObjectQueryBuilder.setSort(criteria.getSort());
 		astronomicalObjectQueryBuilder.fetch(AstronomicalObject_.location);
+		astronomicalObjectQueryBuilder.fetch(AstronomicalObject_.location, AstronomicalObject_.location, doFetch);
+		astronomicalObjectQueryBuilder.fetch(AstronomicalObject_.astronomicalObjects, AstronomicalObject_.location, doFetch);
 
-		return astronomicalObjectQueryBuilder.findPage();
+		Page<AstronomicalObject> astronomicalObjectPage = astronomicalObjectQueryBuilder.findPage();
+		addLocationToChildren(astronomicalObjectPage, doFetch);
+		return astronomicalObjectPage;
+	}
+
+	private void addLocationToChildren(Page<AstronomicalObject> astronomicalObjectPage, boolean doFetch) {
+		if (astronomicalObjectPage.getTotalElements() != 1 || !doFetch) {
+			return;
+		}
+
+		AstronomicalObject parentAstronomicalObject = astronomicalObjectPage.getContent().get(0);
+
+		parentAstronomicalObject.getAstronomicalObjects()
+				.forEach(childAstronomicalObject -> childAstronomicalObject.setLocation(parentAstronomicalObject));
 	}
 
 }
