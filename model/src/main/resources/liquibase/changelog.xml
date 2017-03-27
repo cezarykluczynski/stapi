@@ -18,4 +18,5 @@
 	<include file="comicCollection/0014_create_comic_collection.xml" relativeToChangelogFile="true"/>
 	<include file="species/0015_create_species.xml" relativeToChangelogFile="true"/>
 	<include file="character/0016_create_character_species.xml" relativeToChangelogFile="true"/>
+	<include file="organization/0017_create_organization.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
