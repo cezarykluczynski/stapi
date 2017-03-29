@@ -16,6 +16,7 @@ public class CategoryTitlesExtractingProcessor implements ItemProcessor<List<Cat
 
 		return categoryHeaderList.stream()
 				.map(CategoryHeader::getTitle)
+				.map(s -> s.replace(" ", "_"))
 				.collect(Collectors.toList());
 	}
 

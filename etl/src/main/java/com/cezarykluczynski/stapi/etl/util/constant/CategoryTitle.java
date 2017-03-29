@@ -95,6 +95,8 @@ public class CategoryTitle {
 	public static final String PERSONNEL_LISTS = "Personnel_lists";
 	public static final String FAMILIES = "Families";
 	public static final String MIRROR_UNIVERSE_INHABITANTS = "Mirror_universe_inhabitants";
+	public static final String MIRROR_UNIVERSE = "Mirror_universe";
+	public static final String ALTERNATE_REALITY = "Alternate_reality";
 
 	public static final String STAR_TREK_FILMS = "Star Trek films";
 
@@ -151,5 +153,34 @@ public class CategoryTitle {
 
 	public static final String BIOLOGY = "Biology";
 
+	public static final String AGENCIES = "Agencies";
+	public static final String BAJORAN_AGENCIES = "Bajoran_agencies";
+	public static final String CARDASSIAN_AGENCIES = "Cardassian_agencies";
+	public static final String EARTH_AGENCIES = "Earth_agencies";
+	public static final String FEDERATION_AGENCIES = "Federation_agencies";
+	public static final String FERENGI_AGENCIES = "Ferengi_agencies";
+	public static final String KLINGON_AGENCIES = "Klingon_agencies";
+	public static final String LAW_ENFORCEMENT_AGENCIES = "Law_enforcement_agencies";
+	public static final String PRISONS_AND_PENAL_COLONIES = "Prisons_and_penal_colonies";
+	public static final String ROMULAN_AGENCIES = "Romulan_agencies";
+	public static final String VULCAN_AGENCIES = "Vulcan_agencies";
+	public static final String MEDICAL_ESTABLISHMENTS = "Medical_establishments";
+	public static final String MEDICAL_ESTABLISHMENTS_RETCONNED = "Medical_establishments_(retconned)";
+	public static final String WARDS = "Wards";
+	public static final String EARTH_ORGANIZATIONS = "Earth_organizations";
+	public static final String EARTH_ESTABLISHMENTS = "Earth_establishments";
+	public static final String EARTH_INTERGOVERNMENTAL_ORGANIZATIONS = "Earth_intergovernmental_organizations";
+	public static final String EARTH_MILITARY_ORGANIZATIONS = "Earth_military_organizations";
+	public static final String ESTABLISHMENTS = "Establishments";
+	public static final String ESTABLISHMENTS_RETCONNED = "Establishments_(retconned)";
+	public static final String DS9_ESTABLISHMENTS = "DS9_establishments";
+	public static final String SCHOOLS = "Schools";
+	public static final String GOVERNMENTS = "Governments";
+	public static final String INTERGOVERNMENTAL_ORGANIZATIONS = "Intergovernmental_organizations";
+	public static final String MEDICAL_ORGANIZATIONS = "Medical_organizations";
+	public static final String MILITARY_ORGANIZATIONS = "Military_organizations";
+	public static final String MILITARY_UNITS = "Military_units";
+	public static final String RESEARCH_ORGANIZATIONS = "Research_organizations";
+	public static final String SPORTS_ORGANIZATIONS = "Sports_organizations";
 
 }

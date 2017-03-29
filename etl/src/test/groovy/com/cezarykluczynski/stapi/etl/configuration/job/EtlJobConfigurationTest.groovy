@@ -34,6 +34,9 @@ import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeWriter
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieProcessor
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieReader
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieWriter
+import com.cezarykluczynski.stapi.etl.organization.creation.processor.OrganizationProcessor
+import com.cezarykluczynski.stapi.etl.organization.creation.processor.OrganizationReader
+import com.cezarykluczynski.stapi.etl.organization.creation.processor.OrganizationWriter
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerProcessor
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerReader
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerWriter
@@ -570,6 +573,39 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(ComicCollectionProcessor) >> itemProcessorMock
 		1 * simpleStepBuilderMock.processor(itemProcessorMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(ComicCollectionWriter) >> itemWriterMock
+		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
+		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
+		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+
+		then: 'step is configured to run only once'
+		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
+		1 * simpleStepBuilderMock.allowStartIfComplete(false) >> simpleStepBuilderMock
+
+		then: 'tasklet step is returned'
+		1 * simpleStepBuilderMock.build() >> taskletStepMock
+
+		then: 'step is being returned'
+		step == taskletStepMock
+	}
+
+	void "CREATE_ORGANIZATIONS step is created"() {
+		when:
+		Step step = etlJobConfiguration.stepCreateOrganizations()
+
+		then: 'StepBuilder is retrieved'
+		1 * stepBuilderFactoryMock.get(StepName.CREATE_ORGANIZATIONS) >> stepBuilderMock
+
+		then: 'commit interval is configured'
+		1 * stepsPropertiesMock.createOrganizations >> stepProperties
+		1 * stepProperties.commitInterval >> STEP_SIZE
+		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+
+		then: 'beans are retrieved from application context, then passed to builder'
+		1 * applicationContextMock.getBean(OrganizationReader) >> itemReaderMock
+		1 * simpleStepBuilderMock.reader(itemReaderMock) >> simpleStepBuilderMock
+		1 * applicationContextMock.getBean(OrganizationProcessor) >> itemProcessorMock
+		1 * simpleStepBuilderMock.processor(itemProcessorMock) >> simpleStepBuilderMock
+		1 * applicationContextMock.getBean(OrganizationWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
 		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock

@@ -21,7 +21,7 @@ import javax.persistence.SequenceGenerator;
 @AllArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class Organization  extends PageAwareEntity implements PageAware {
+public class Organization extends PageAwareEntity implements PageAware {
 
 	@Id
 	@Column(nullable = false)
@@ -53,6 +53,8 @@ public class Organization  extends PageAwareEntity implements PageAware {
 	private Boolean prisonOrPenalColony;
 
 	private Boolean establishment;
+
+	private Boolean school;
 
 	private Boolean mirror;
 

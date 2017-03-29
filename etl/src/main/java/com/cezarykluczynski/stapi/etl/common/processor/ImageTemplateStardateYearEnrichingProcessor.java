@@ -22,8 +22,7 @@ public class ImageTemplateStardateYearEnrichingProcessor
 
 	private StardateYearProcessor stardateYearProcessor;
 
-	public ImageTemplateStardateYearEnrichingProcessor(
-			FixedValueProvider<String, StardateYearDTO> stardateYearDTOFixedValueProvider,
+	public ImageTemplateStardateYearEnrichingProcessor(FixedValueProvider<String, StardateYearDTO> stardateYearDTOFixedValueProvider,
 			StardateYearProcessor stardateYearProcessor) {
 		this.stardateYearDTOFixedValueProvider = stardateYearDTOFixedValueProvider;
 		this.stardateYearProcessor = stardateYearProcessor;
@@ -49,8 +48,7 @@ public class ImageTemplateStardateYearEnrichingProcessor
 			switch (key) {
 				case S_TITLE:
 					title = value;
-					FixedValueHolder<StardateYearDTO> fixedValueHolder
-							= stardateYearDTOFixedValueProvider.getSearchedValue(value);
+					FixedValueHolder<StardateYearDTO> fixedValueHolder = stardateYearDTOFixedValueProvider.getSearchedValue(value);
 					stardateFixedValueFound = fixedValueHolder.isFound();
 					if (stardateFixedValueFound) {
 						stardateYearDTO = fixedValueHolder.getValue();

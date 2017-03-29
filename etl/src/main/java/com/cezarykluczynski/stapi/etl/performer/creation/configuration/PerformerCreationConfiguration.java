@@ -86,5 +86,4 @@ public class PerformerCreationConfiguration {
 				applicationContext.getBean(ActorTemplateListPageProcessor.class));
 	}
 
-
 }

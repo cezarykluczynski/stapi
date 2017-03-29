@@ -17,5 +17,6 @@ public class StepName {
 	public static final String CREATE_COMICS = "CREATE_COMICS";
 	public static final String CREATE_COMIC_STRIPS = "CREATE_COMIC_STRIPS";
 	public static final String CREATE_COMIC_COLLECTIONS = "CREATE_COMIC_COLLECTIONS";
+	public static final String CREATE_ORGANIZATIONS = "CREATE_ORGANIZATIONS";
 
 }

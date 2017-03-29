@@ -66,8 +66,7 @@ public class ActorTemplateToLifeRangeProcessor implements ItemProcessor<Template
 			return null;
 		}
 
-		List<Template> dateTemplateList = templateFilter
-				.filterByTitle(templateList, TemplateTitle.D, TemplateTitle.DATELINK);
+		List<Template> dateTemplateList = templateFilter.filterByTitle(templateList, TemplateTitle.D, TemplateTitle.DATELINK);
 
 		if (dateTemplateList.isEmpty()) {
 			return null;

@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.Map;
 
 @Service
-public class SeriesEpisodeStatisticsFixedValueProvider
-		implements FixedValueProvider<String, SeriesEpisodeStatisticsDTO> {
+public class SeriesEpisodeStatisticsFixedValueProvider implements FixedValueProvider<String, SeriesEpisodeStatisticsDTO> {
 
 	private static final Map<String, SeriesEpisodeStatisticsDTO> ABBREVIATION_TO_STATISTICS_MAP = Maps.newHashMap();
 
@@ -26,7 +25,6 @@ public class SeriesEpisodeStatisticsFixedValueProvider
 
 	@Override
 	public FixedValueHolder<SeriesEpisodeStatisticsDTO> getSearchedValue(String key) {
-		return FixedValueHolder.of(ABBREVIATION_TO_STATISTICS_MAP.containsKey(key),
-				ABBREVIATION_TO_STATISTICS_MAP.get(key));
+		return FixedValueHolder.of(ABBREVIATION_TO_STATISTICS_MAP.containsKey(key), ABBREVIATION_TO_STATISTICS_MAP.get(key));
 	}
 }

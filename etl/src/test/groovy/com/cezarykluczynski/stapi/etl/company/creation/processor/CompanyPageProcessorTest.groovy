@@ -44,8 +44,8 @@ class CompanyPageProcessorTest extends Specification {
 	}
 
 	@SuppressWarnings('LineLength')
-	@Unroll('set #flagName flag when #categoryHeaderList is passed')
-	void "set flagName when categoryHeaderList is passed"() {
+	@Unroll('set #flagName flag when #page is passed; expect #trueBooleans not null fields')
+	void "set flagName when page is passed"() {
 		given:
 		categoryTitlesExtractingProcessorMock.process(_ as List<CategoryHeader>) >> {
 			List<CategoryHeader> categoryHeaderList -> Lists.newArrayList(categoryHeaderList[0].title)
@@ -79,7 +79,7 @@ class CompanyPageProcessorTest extends Specification {
 		new EtlPage(categories: createList(CategoryTitle.VIDEO_GAME_COMPANIES))                  | 'videoGameCompany'                | true  | 1
 	}
 
-	void "returns null when page is a result of redirec"() {
+	void "returns null when page is a result of redirect"() {
 		given:
 		EtlPage etlPage = new EtlPage(redirectPath: Lists.newArrayList(Mock(PageHeader)))
 

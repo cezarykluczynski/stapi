@@ -33,6 +33,9 @@ import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeWriter;
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieProcessor;
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieReader;
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieWriter;
+import com.cezarykluczynski.stapi.etl.organization.creation.processor.OrganizationProcessor;
+import com.cezarykluczynski.stapi.etl.organization.creation.processor.OrganizationReader;
+import com.cezarykluczynski.stapi.etl.organization.creation.processor.OrganizationWriter;
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerProcessor;
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerReader;
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerWriter;
@@ -55,6 +58,7 @@ import com.cezarykluczynski.stapi.model.comics.entity.Comics;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
+import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
@@ -281,6 +285,19 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(ComicCollectionReader.class))
 				.processor(applicationContext.getBean(ComicCollectionProcessor.class))
 				.writer(applicationContext.getBean(ComicCollectionWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_ORGANIZATIONS)
+	public Step stepCreateOrganizations() {
+		return stepBuilderFactory.get(StepName.CREATE_ORGANIZATIONS)
+				.<PageHeader, Organization>chunk(stepsProperties.getCreateOrganizations().getCommitInterval())
+				.reader(applicationContext.getBean(OrganizationReader.class))
+				.processor(applicationContext.getBean(OrganizationProcessor.class))
+				.writer(applicationContext.getBean(OrganizationWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)
