@@ -37,6 +37,8 @@ class OrganizationCreationConfigurationTest extends AbstractCreationConfiguratio
 	private static final String TITLE_WARDS = 'TITLE_WARDS'
 	private static final String TITLE_ESTABLISHMENTS = 'TITLE_ESTABLISHMENTS'
 	private static final String TITLE_SCHOOLS = 'TITLE_SCHOOLS'
+	private static final String TITLE_STARFLEET_SCHOOLS = 'TITLE_STARFLEET_SCHOOLS'
+	private static final String TITLE_EARTH_SCHOOLS = 'TITLE_EARTH_SCHOOLS'
 	private static final String TITLE_ESTABLISHMENTS_RETCONNED = 'TITLE_ESTABLISHMENTS_RETCONNED'
 	private static final String TITLE_DS9_ESTABLISHMENTS = 'TITLE_DS9_ESTABLISHMENTS'
 	private static final String TITLE_MILITARY_ORGANIZATIONS = 'TITLE_MILITARY_ORGANIZATIONS'
@@ -94,6 +96,8 @@ class OrganizationCreationConfigurationTest extends AbstractCreationConfiguratio
 		1 * categoryApiMock.getPages(CategoryTitle.WARDS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_WARDS)
 		1 * categoryApiMock.getPages(CategoryTitle.ESTABLISHMENTS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_ESTABLISHMENTS)
 		1 * categoryApiMock.getPages(CategoryTitle.SCHOOLS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_SCHOOLS)
+		1 * categoryApiMock.getPages(CategoryTitle.STARFLEET_SCHOOLS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_STARFLEET_SCHOOLS)
+		1 * categoryApiMock.getPages(CategoryTitle.EARTH_SCHOOLS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_EARTH_SCHOOLS)
 		1 * categoryApiMock.getPages(CategoryTitle.ESTABLISHMENTS_RETCONNED, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_ESTABLISHMENTS_RETCONNED)
 		1 * categoryApiMock.getPages(CategoryTitle.DS9_ESTABLISHMENTS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_DS9_ESTABLISHMENTS)
 		1 * categoryApiMock.getPages(CategoryTitle.MILITARY_ORGANIZATIONS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_MILITARY_ORGANIZATIONS)
@@ -124,6 +128,8 @@ class OrganizationCreationConfigurationTest extends AbstractCreationConfiguratio
 		categoryHeaderTitleList.contains TITLE_WARDS
 		categoryHeaderTitleList.contains TITLE_ESTABLISHMENTS
 		categoryHeaderTitleList.contains TITLE_SCHOOLS
+		categoryHeaderTitleList.contains TITLE_STARFLEET_SCHOOLS
+		categoryHeaderTitleList.contains TITLE_EARTH_SCHOOLS
 		categoryHeaderTitleList.contains TITLE_ESTABLISHMENTS_RETCONNED
 		categoryHeaderTitleList.contains TITLE_DS9_ESTABLISHMENTS
 		categoryHeaderTitleList.contains TITLE_MILITARY_ORGANIZATIONS

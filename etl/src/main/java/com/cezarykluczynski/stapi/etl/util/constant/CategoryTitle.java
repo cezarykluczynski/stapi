@@ -175,6 +175,8 @@ public class CategoryTitle {
 	public static final String ESTABLISHMENTS_RETCONNED = "Establishments_(retconned)";
 	public static final String DS9_ESTABLISHMENTS = "DS9_establishments";
 	public static final String SCHOOLS = "Schools";
+	public static final String STARFLEET_SCHOOLS = "Starfleet_schools";
+	public static final String EARTH_SCHOOLS = "Earth_schools";
 	public static final String GOVERNMENTS = "Governments";
 	public static final String INTERGOVERNMENTAL_ORGANIZATIONS = "Intergovernmental_organizations";
 	public static final String MEDICAL_ORGANIZATIONS = "Medical_organizations";

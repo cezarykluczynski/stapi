@@ -61,6 +61,8 @@ public class OrganizationCreationConfiguration {
 			organizations.addAll(categoryApi.getPages(CategoryTitle.WARDS, MediaWikiSource.MEMORY_ALPHA_EN));
 			organizations.addAll(categoryApi.getPages(CategoryTitle.ESTABLISHMENTS, MediaWikiSource.MEMORY_ALPHA_EN));
 			organizations.addAll(categoryApi.getPages(CategoryTitle.SCHOOLS, MediaWikiSource.MEMORY_ALPHA_EN));
+			organizations.addAll(categoryApi.getPages(CategoryTitle.STARFLEET_SCHOOLS, MediaWikiSource.MEMORY_ALPHA_EN));
+			organizations.addAll(categoryApi.getPages(CategoryTitle.EARTH_SCHOOLS, MediaWikiSource.MEMORY_ALPHA_EN));
 			organizations.addAll(categoryApi.getPages(CategoryTitle.ESTABLISHMENTS_RETCONNED, MediaWikiSource.MEMORY_ALPHA_EN));
 			organizations.addAll(categoryApi.getPages(CategoryTitle.DS9_ESTABLISHMENTS, MediaWikiSource.MEMORY_ALPHA_EN));
 			organizations.addAll(categoryApi.getPages(CategoryTitle.MILITARY_ORGANIZATIONS, MediaWikiSource.MEMORY_ALPHA_EN));

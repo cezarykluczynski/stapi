@@ -64,7 +64,10 @@ public class OrganizationNameFilter {
 			"Skipworth and Co", "Fiorella's", "Circles of Science", "University of Copernicus", "Federation Bureau of Industrialization",
 			"Cardassian Institute of Art", "Burgerland", "Niners", "Zee Magnees Institute for Theoretical Research", "Klaestron government",
 			"Oak Street station", "Carlton", "Federation Council on Exobiology", "Hekaran government", "University of Betazed", "Bothan government",
-			"Biggs'", "Elasian Council of Nobles", "Confederate States of America", "Banzai Institute for Advanced Studies", "Angosian military");
+			"Biggs'", "Elasian Council of Nobles", "Confederate States of America", "Banzai Institute for Advanced Studies", "Angosian military",
+			"University of Mississippi", "University of Texas", "California Institute of Technology", "University of California, Santa Cruz",
+			"Zefram Cochrane Institute for Advanced Theoretical Physics", "University of California, Berkeley", "University of Manitoba",
+			"University of Hawaii");
 
 	public Boolean isAnOrganization(String organizationName) {
 		if (NOT_AN_ORGANIZATIONS.contains(organizationName)) {
