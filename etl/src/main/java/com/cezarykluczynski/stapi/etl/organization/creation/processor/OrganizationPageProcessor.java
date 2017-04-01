@@ -72,6 +72,7 @@ public class OrganizationPageProcessor implements ItemProcessor<Page, Organizati
 		organization.setEstablishment(organization.getSchool() || anyEndsWithIgnoreCase(categoryTitleList, CategoryTitle.ESTABLISHMENTS)
 				|| categoryTitleList.contains(CategoryTitle.ESTABLISHMENTS_RETCONNED) || categoryTitleList.contains(CategoryTitle.WARDS)
 				|| categoryTitleList.contains(CategoryTitle.MEDICAL_ESTABLISHMENTS_RETCONNED));
+		organization.setDs9Establishment(categoryTitleList.contains(CategoryTitle.DS9_ESTABLISHMENTS));
 		organization.setMirror(categoryTitleList.contains(CategoryTitle.MIRROR_UNIVERSE));
 		organization.setAlternateReality(categoryTitleList.contains(CategoryTitle.ALTERNATE_REALITY));
 

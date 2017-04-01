@@ -27,6 +27,7 @@
 			<column name="law_enforcement_agency" type="boolean"/>
 			<column name="prison_or_penal_colony" type="boolean"/>
 			<column name="establishment" type="boolean"/>
+			<column name="ds9_establishment" type="boolean"/>
 			<column name="school" type="boolean"/>
 			<column name="mirror" type="boolean"/>
 			<column name="alternate_reality" type="boolean"/>

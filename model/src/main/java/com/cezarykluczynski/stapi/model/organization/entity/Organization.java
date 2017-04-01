@@ -54,6 +54,9 @@ public class Organization extends PageAwareEntity implements PageAware {
 
 	private Boolean establishment;
 
+	@Column(name = "ds9_establishment")
+	private Boolean ds9Establishment;
+
 	private Boolean school;
 
 	private Boolean mirror;

@@ -115,6 +115,7 @@ class OrganizationPageProcessorTest extends Specification {
 		organization.guid == GUID
 	}
 
+	@SuppressWarnings('LineLength')
 	@Unroll('set #flagName flag when #page is passed; expect #trueBooleans not null fields')
 	void "set flagName when page is passed"() {
 		given:
@@ -129,7 +130,7 @@ class OrganizationPageProcessorTest extends Specification {
 		trueBooleans == ReflectionTestUtils.getNumberOfTrueBooleanFields(organization)
 
 		where:
-		page                                                                                  | flagName                        | flag  | trueBooleans
+		page                                                                                         | flagName                        | flag  | trueBooleans
 		new SourcesPage(categories: Lists.newArrayList())                                            | 'government'                    | false | 0
 		new SourcesPage(categories: createList(CategoryTitle.GOVERNMENTS))                           | 'government'                    | true  | 1
 		new SourcesPage(categories: createList(CategoryTitle.INTERGOVERNMENTAL_ORGANIZATIONS))       | 'intergovernmentalOrganization' | true  | 1
@@ -162,6 +163,8 @@ class OrganizationPageProcessorTest extends Specification {
 		new SourcesPage(categories: createList(CategoryTitle.SCHOOLS))                               | 'establishment'                 | true  | 2
 		new SourcesPage(categories: createList(CategoryTitle.ESTABLISHMENTS))                        | 'establishment'                 | true  | 1
 		new SourcesPage(categories: createList(CategoryTitle.ESTABLISHMENTS_RETCONNED))              | 'establishment'                 | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.DS9_ESTABLISHMENTS))                    | 'establishment'                 | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.DS9_ESTABLISHMENTS))                    | 'ds9Establishment'              | true  | 2
 		new SourcesPage(categories: createList(CategoryTitle.MIRROR_UNIVERSE))                       | 'mirror'                        | true  | 1
 		new SourcesPage(categories: createList(CategoryTitle.ALTERNATE_REALITY))                     | 'alternateReality'              | true  | 1
 	}
