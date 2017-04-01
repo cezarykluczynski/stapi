@@ -8,13 +8,18 @@ import spock.lang.Specification
 
 class OrganizationPageFilterTest extends Specification {
 
+	private static final String TITLE_BOTH_CASES = 'United Federation of Planets'
+
 	private CategorySortingService categorySortingServiceMock
+
+	private OrganizationNameFilter organizationNameFilterMock
 
 	private OrganizationPageFilter organizationPageFilter
 
 	void setup() {
 		categorySortingServiceMock = Mock(CategorySortingService)
-		organizationPageFilter = new OrganizationPageFilter(categorySortingServiceMock)
+		organizationNameFilterMock = Mock(OrganizationNameFilter)
+		organizationPageFilter = new OrganizationPageFilter(categorySortingServiceMock, organizationNameFilterMock)
 	}
 
 	void "returns true when redirect path is not empty"() {
@@ -38,6 +43,63 @@ class OrganizationPageFilterTest extends Specification {
 
 		then:
 		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> true
+		0 * _
+		shouldBeFilteredOut
+	}
+
+	void "returns false when page title contains more then one word, all words starting with capital letter"() {
+		given:
+		String title = 'Air Defense Command'
+		Page page = new Page(title: title)
+
+		when:
+		boolean shouldBeFilteredOut = organizationPageFilter.shouldBeFilteredOut(page)
+
+		then:
+		1 * organizationNameFilterMock.isAnOrganization(title) >> null
+		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> false
+		0 * _
+		!shouldBeFilteredOut
+	}
+
+	void "returns false when page title contains words starting with small letter and capital letter, and OrganizationNameFilter returns null"() {
+		given:
+		Page page = new Page(title: TITLE_BOTH_CASES)
+
+		when:
+		boolean shouldBeFilteredOut = organizationPageFilter.shouldBeFilteredOut(page)
+
+		then:
+		1 * organizationNameFilterMock.isAnOrganization(TITLE_BOTH_CASES) >> null
+		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> false
+		0 * _
+		!shouldBeFilteredOut
+	}
+
+	void "returns false when page title contains words starting with small letter and capital letter, and OrganizationNameFilter returns true"() {
+		given:
+		Page page = new Page(title: TITLE_BOTH_CASES)
+
+		when:
+		boolean shouldBeFilteredOut = organizationPageFilter.shouldBeFilteredOut(page)
+
+		then:
+		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> false
+		1 * organizationNameFilterMock.isAnOrganization(TITLE_BOTH_CASES) >> true
+		0 * _
+		!shouldBeFilteredOut
+	}
+
+	void "returns true when page title contains words starting with small letter and capital letter, and OrganizationNameFilter returns false"() {
+		given:
+		Page page = new Page(title: TITLE_BOTH_CASES)
+
+		when:
+		boolean shouldBeFilteredOut = organizationPageFilter.shouldBeFilteredOut(page)
+
+		then:
+		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> false
+		1 * organizationNameFilterMock.isAnOrganization(TITLE_BOTH_CASES) >> false
 		0 * _
 		shouldBeFilteredOut
 	}
