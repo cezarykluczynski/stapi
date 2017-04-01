@@ -8,17 +8,14 @@ import com.cezarykluczynski.stapi.server.common.mapper.EnumMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 
 @Mapper(config = MapstructConfiguration.class, uses = {AstronomicalObjectBaseSoapMapper.class, EnumMapper.class})
 public interface AstronomicalObjectFullSoapMapper {
 
-	@Mappings({
-			@Mapping(target = "name", ignore = true),
-			@Mapping(target = "astronomicalObjectType", ignore = true),
-			@Mapping(target = "locationGuid", ignore = true),
-			@Mapping(target = "sort", ignore = true)
-	})
+	@Mapping(target = "name", ignore = true)
+	@Mapping(target = "astronomicalObjectType", ignore = true)
+	@Mapping(target = "locationGuid", ignore = true)
+	@Mapping(target = "sort", ignore = true)
 	AstronomicalObjectRequestDTO mapFull(AstronomicalObjectFullRequest astronomicalObjectFullRequest);
 
 	AstronomicalObjectFull mapFull(AstronomicalObject astronomicalObject);

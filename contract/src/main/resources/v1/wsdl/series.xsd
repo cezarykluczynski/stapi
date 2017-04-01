@@ -88,7 +88,7 @@
 			<xs:element name="episodesCount" type="xs:int"/>
 			<xs:element name="featureLengthEpisodesCount" type="xs:int"/>
 			<xs:sequence>
-				<xs:element name="episodeHeaders" type="episode:EpisodeBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="episodes" type="episode:EpisodeBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:sequence>
 	</xs:complexType>

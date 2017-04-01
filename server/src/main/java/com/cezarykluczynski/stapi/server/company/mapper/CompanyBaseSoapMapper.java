@@ -8,16 +8,13 @@ import com.cezarykluczynski.stapi.server.common.mapper.RequestSortSoapMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 
 import java.util.List;
 
 @Mapper(config = MapstructConfiguration.class, uses = {RequestSortSoapMapper.class})
 public interface CompanyBaseSoapMapper {
 
-	@Mappings({
-			@Mapping(target = "guid", ignore = true)
-	})
+	@Mapping(target = "guid", ignore = true)
 	CompanyRequestDTO mapBase(CompanyBaseRequest companyBaseRequest);
 
 	CompanyBase mapBase(Company company);

@@ -14,30 +14,27 @@ import com.cezarykluczynski.stapi.server.series.mapper.SeriesBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseSoapMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 
 @Mapper(config = MapstructConfiguration.class, uses = {CharacterBaseSoapMapper.class, DateMapper.class, EnumMapper.class,
 		RequestSortSoapMapper.class, PerformerBaseSoapMapper.class, SeriesBaseSoapMapper.class, StaffBaseSoapMapper.class})
 public interface EpisodeFullSoapMapper {
 
-	@Mappings({
-			@Mapping(target = "title", ignore = true),
-			@Mapping(target = "productionSerialNumber", ignore = true),
-			@Mapping(target = "featureLength", ignore = true),
-			@Mapping(target = "seasonNumberFrom", ignore = true),
-			@Mapping(target = "seasonNumberTo", ignore = true),
-			@Mapping(target = "episodeNumberFrom", ignore = true),
-			@Mapping(target = "episodeNumberTo", ignore = true),
-			@Mapping(target = "stardateFrom", ignore = true),
-			@Mapping(target = "stardateTo", ignore = true),
-			@Mapping(target = "yearFrom", ignore = true),
-			@Mapping(target = "yearTo", ignore = true),
-			@Mapping(target = "usAirDateFrom", ignore = true),
-			@Mapping(target = "usAirDateTo", ignore = true),
-			@Mapping(target = "finalScriptDateFrom", ignore = true),
-			@Mapping(target = "finalScriptDateTo", ignore = true),
-			@Mapping(target = "sort", ignore = true)
-	})
+	@Mapping(target = "title", ignore = true)
+	@Mapping(target = "productionSerialNumber", ignore = true)
+	@Mapping(target = "featureLength", ignore = true)
+	@Mapping(target = "seasonNumberFrom", ignore = true)
+	@Mapping(target = "seasonNumberTo", ignore = true)
+	@Mapping(target = "episodeNumberFrom", ignore = true)
+	@Mapping(target = "episodeNumberTo", ignore = true)
+	@Mapping(target = "stardateFrom", ignore = true)
+	@Mapping(target = "stardateTo", ignore = true)
+	@Mapping(target = "yearFrom", ignore = true)
+	@Mapping(target = "yearTo", ignore = true)
+	@Mapping(target = "usAirDateFrom", ignore = true)
+	@Mapping(target = "usAirDateTo", ignore = true)
+	@Mapping(target = "finalScriptDateFrom", ignore = true)
+	@Mapping(target = "finalScriptDateTo", ignore = true)
+	@Mapping(target = "sort", ignore = true)
 	EpisodeRequestDTO mapFull(EpisodeFullRequest episodeFullRequest);
 
 	EpisodeFull mapFull(Episode episode);

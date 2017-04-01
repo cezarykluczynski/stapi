@@ -10,7 +10,6 @@ import com.cezarykluczynski.stapi.server.company.mapper.CompanyHeaderSoapMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 
 import java.util.List;
 
@@ -18,17 +17,15 @@ import java.util.List;
 		RequestSortSoapMapper.class})
 public interface ComicSeriesBaseSoapMapper {
 
-	@Mappings({
-			@Mapping(target = "guid", ignore = true),
-			@Mapping(source = "publishedYear.from", target = "publishedYearFrom"),
-			@Mapping(source = "publishedYear.to", target = "publishedYearTo"),
-			@Mapping(source = "numberOfIssues.from", target = "numberOfIssuesFrom"),
-			@Mapping(source = "numberOfIssues.to", target = "numberOfIssuesTo"),
-			@Mapping(source = "stardate.from", target = "stardateFrom"),
-			@Mapping(source = "stardate.to", target = "stardateTo"),
-			@Mapping(source = "year.from", target = "yearFrom"),
-			@Mapping(source = "year.to", target = "yearTo")
-	})
+	@Mapping(target = "guid", ignore = true)
+	@Mapping(source = "publishedYear.from", target = "publishedYearFrom")
+	@Mapping(source = "publishedYear.to", target = "publishedYearTo")
+	@Mapping(source = "numberOfIssues.from", target = "numberOfIssuesFrom")
+	@Mapping(source = "numberOfIssues.to", target = "numberOfIssuesTo")
+	@Mapping(source = "stardate.from", target = "stardateFrom")
+	@Mapping(source = "stardate.to", target = "stardateTo")
+	@Mapping(source = "year.from", target = "yearFrom")
+	@Mapping(source = "year.to", target = "yearTo")
 	ComicSeriesRequestDTO mapBase(ComicSeriesBaseRequest comicSeriesBaseRequest);
 
 	ComicSeriesBase mapBase(ComicSeries comicSeries);

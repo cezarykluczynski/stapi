@@ -15,7 +15,6 @@ import com.cezarykluczynski.stapi.server.series.mapper.SeriesHeaderSoapMapper;
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseSoapMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 
 import java.util.List;
 
@@ -23,21 +22,19 @@ import java.util.List;
 		PerformerBaseSoapMapper.class, SeriesHeaderSoapMapper.class, SeriesBaseSoapMapper.class, StaffBaseSoapMapper.class})
 public interface EpisodeBaseSoapMapper {
 
-	@Mappings({
-			@Mapping(target = "guid", ignore = true),
-			@Mapping(source = "seasonNumber.from", target = "seasonNumberFrom"),
-			@Mapping(source = "seasonNumber.to", target = "seasonNumberTo"),
-			@Mapping(source = "episodeNumber.from", target = "episodeNumberFrom"),
-			@Mapping(source = "episodeNumber.to", target = "episodeNumberTo"),
-			@Mapping(source = "stardate.from", target = "stardateFrom"),
-			@Mapping(source = "stardate.to", target = "stardateTo"),
-			@Mapping(source = "year.from", target = "yearFrom"),
-			@Mapping(source = "year.to", target = "yearTo"),
-			@Mapping(source = "usAirDate.from", target = "usAirDateFrom"),
-			@Mapping(source = "usAirDate.to", target = "usAirDateTo"),
-			@Mapping(source = "finalScriptDate.from", target = "finalScriptDateFrom"),
-			@Mapping(source = "finalScriptDate.to", target = "finalScriptDateTo")
-	})
+	@Mapping(target = "guid", ignore = true)
+	@Mapping(source = "seasonNumber.from", target = "seasonNumberFrom")
+	@Mapping(source = "seasonNumber.to", target = "seasonNumberTo")
+	@Mapping(source = "episodeNumber.from", target = "episodeNumberFrom")
+	@Mapping(source = "episodeNumber.to", target = "episodeNumberTo")
+	@Mapping(source = "stardate.from", target = "stardateFrom")
+	@Mapping(source = "stardate.to", target = "stardateTo")
+	@Mapping(source = "year.from", target = "yearFrom")
+	@Mapping(source = "year.to", target = "yearTo")
+	@Mapping(source = "usAirDate.from", target = "usAirDateFrom")
+	@Mapping(source = "usAirDate.to", target = "usAirDateTo")
+	@Mapping(source = "finalScriptDate.from", target = "finalScriptDateFrom")
+	@Mapping(source = "finalScriptDate.to", target = "finalScriptDateTo")
 	EpisodeRequestDTO mapBase(EpisodeBaseRequest episodeBaseRequest);
 
 	EpisodeBase mapBase(Episode episode);

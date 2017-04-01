@@ -9,16 +9,13 @@ import com.cezarykluczynski.stapi.server.common.mapper.RequestSortSoapMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 
 import java.util.List;
 
 @Mapper(config = MapstructConfiguration.class, uses = {AstronomicalObjectHeaderSoapMapper.class, EnumMapper.class, RequestSortSoapMapper.class})
 public interface AstronomicalObjectBaseSoapMapper {
 
-	@Mappings({
-			@Mapping(target = "guid", ignore = true)
-	})
+	@Mapping(target = "guid", ignore = true)
 	AstronomicalObjectRequestDTO mapBase(AstronomicalObjectBaseRequest astronomicalObjectBaseRequest);
 
 	AstronomicalObjectBase mapBase(AstronomicalObject astronomicalObject);

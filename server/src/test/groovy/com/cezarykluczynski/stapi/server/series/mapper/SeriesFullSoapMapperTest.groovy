@@ -45,7 +45,7 @@ class SeriesFullSoapMapperTest extends AbstractSeriesMapperTest {
 		seriesFull.seasonsCount == SEASONS_COUNT
 		seriesFull.episodesCount == EPISODES_COUNT
 		seriesFull.featureLengthEpisodesCount == FEATURE_LENGTH_EPISODES_COUNT
-		seriesFull.episodeHeaders.size() == series.episodes.size()
+		seriesFull.episodes.size() == series.episodes.size()
 	}
 
 }

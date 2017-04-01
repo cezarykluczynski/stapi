@@ -12,7 +12,6 @@ import com.cezarykluczynski.stapi.server.movie.mapper.MovieHeaderSoapMapper;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseSoapMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 
 import java.util.List;
 
@@ -20,9 +19,7 @@ import java.util.List;
 		MovieHeaderSoapMapper.class, PerformerBaseSoapMapper.class, RequestSortSoapMapper.class})
 public interface CharacterBaseSoapMapper {
 
-	@Mappings({
-			@Mapping(target = "guid", ignore = true)
-	})
+	@Mapping(target = "guid", ignore = true)
 	CharacterRequestDTO mapBase(CharacterBaseRequest characterRequest);
 
 	CharacterBase mapBase(Character character);

@@ -12,7 +12,6 @@ import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeHeaderSoapMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 
 import java.util.List;
 
@@ -20,17 +19,15 @@ import java.util.List;
 		EpisodeHeaderSoapMapper.class, RequestSortSoapMapper.class})
 public interface SeriesBaseSoapMapper {
 
-	@Mappings({
-			@Mapping(source = "productionStartYear.from", target = "productionStartYearFrom"),
-			@Mapping(source = "productionStartYear.to", target = "productionStartYearTo"),
-			@Mapping(source = "productionEndYear.from", target = "productionEndYearFrom"),
-			@Mapping(source = "productionEndYear.to", target = "productionEndYearTo"),
-			@Mapping(source = "originalRunStartDate.from", target = "originalRunStartDateFrom"),
-			@Mapping(source = "originalRunStartDate.to", target = "originalRunStartDateTo"),
-			@Mapping(source = "originalRunEndDate.from", target = "originalRunEndDateFrom"),
-			@Mapping(source = "originalRunEndDate.to", target = "originalRunEndDateTo"),
-			@Mapping(target = "guid", ignore = true)
-	})
+	@Mapping(source = "productionStartYear.from", target = "productionStartYearFrom")
+	@Mapping(source = "productionStartYear.to", target = "productionStartYearTo")
+	@Mapping(source = "productionEndYear.from", target = "productionEndYearFrom")
+	@Mapping(source = "productionEndYear.to", target = "productionEndYearTo")
+	@Mapping(source = "originalRunStartDate.from", target = "originalRunStartDateFrom")
+	@Mapping(source = "originalRunStartDate.to", target = "originalRunStartDateTo")
+	@Mapping(source = "originalRunEndDate.from", target = "originalRunEndDateFrom")
+	@Mapping(source = "originalRunEndDate.to", target = "originalRunEndDateTo")
+	@Mapping(target = "guid", ignore = true)
 	SeriesRequestDTO mapBase(SeriesBaseRequest seriesBaseRequest);
 
 	SeriesBase mapBase(Series series);

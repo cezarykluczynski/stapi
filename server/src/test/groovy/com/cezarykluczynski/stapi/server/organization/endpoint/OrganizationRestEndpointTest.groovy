@@ -10,7 +10,7 @@ import com.cezarykluczynski.stapi.server.organization.reader.OrganizationRestRea
 class OrganizationRestEndpointTest extends AbstractRestEndpointTest {
 
 	private static final String GUID = 'GUID'
-	private static final String NAME = 'TITLE'
+	private static final String NAME = 'NAME'
 
 	private OrganizationRestReader organizationRestReaderMock
 

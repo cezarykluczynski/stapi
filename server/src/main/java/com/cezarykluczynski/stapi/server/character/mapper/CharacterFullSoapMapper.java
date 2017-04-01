@@ -11,20 +11,17 @@ import com.cezarykluczynski.stapi.server.movie.mapper.MovieBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseSoapMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 
 @Mapper(config = MapstructConfiguration.class, uses = {CharacterSpeciesSoapMapper.class, EnumMapper.class, EpisodeBaseSoapMapper.class,
 		MovieBaseSoapMapper.class, PerformerBaseSoapMapper.class})
 public interface CharacterFullSoapMapper {
 
-	@Mappings({
-			@Mapping(target = "name", ignore = true),
-			@Mapping(target = "gender", ignore = true),
-			@Mapping(target = "deceased", ignore = true),
-			@Mapping(target = "mirror", ignore = true),
-			@Mapping(target = "alternateReality", ignore = true),
-			@Mapping(target = "sort", ignore = true)
-	})
+	@Mapping(target = "name", ignore = true)
+	@Mapping(target = "gender", ignore = true)
+	@Mapping(target = "deceased", ignore = true)
+	@Mapping(target = "mirror", ignore = true)
+	@Mapping(target = "alternateReality", ignore = true)
+	@Mapping(target = "sort", ignore = true)
 	CharacterRequestDTO mapFull(CharacterFullRequest characterFullRequest);
 
 	CharacterFull mapFull(Character character);

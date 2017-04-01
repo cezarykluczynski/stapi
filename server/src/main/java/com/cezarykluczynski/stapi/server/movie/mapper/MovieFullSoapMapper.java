@@ -12,22 +12,19 @@ import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseSoapMappe
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseSoapMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 
 @Mapper(config = MapstructConfiguration.class, uses = {CharacterBaseSoapMapper.class, DateMapper.class, EnumMapper.class,
 		PerformerBaseSoapMapper.class, StaffBaseSoapMapper.class})
 public interface MovieFullSoapMapper {
 
-	@Mappings({
-			@Mapping(target = "title", ignore = true),
-			@Mapping(target = "stardateFrom", ignore = true),
-			@Mapping(target = "stardateTo", ignore = true),
-			@Mapping(target = "yearFrom", ignore = true),
-			@Mapping(target = "yearTo", ignore = true),
-			@Mapping(target = "usReleaseDateFrom", ignore = true),
-			@Mapping(target = "usReleaseDateTo", ignore = true),
-			@Mapping(target = "sort", ignore = true)
-	})
+	@Mapping(target = "title", ignore = true)
+	@Mapping(target = "stardateFrom", ignore = true)
+	@Mapping(target = "stardateTo", ignore = true)
+	@Mapping(target = "yearFrom", ignore = true)
+	@Mapping(target = "yearTo", ignore = true)
+	@Mapping(target = "usReleaseDateFrom", ignore = true)
+	@Mapping(target = "usReleaseDateTo", ignore = true)
+	@Mapping(target = "sort", ignore = true)
 	MovieRequestDTO mapFull(MovieFullRequest movieFullRequest);
 
 	MovieFull mapFull(Movie movie);

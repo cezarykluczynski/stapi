@@ -160,11 +160,10 @@ class EndpointScaffoldingGeneratorTask extends DefaultTask {
 
 		if (fileName.contains("${targetEntityName}RestMapper") || fileName.contains("${targetEntityName}SoapMapper")) {
 			boolean isMapper = false
-			boolean isMappings = false
 
 			content = content.readLines().stream().map({ line ->
 				isMapper = isMapper || line.startsWith("@Mapper(")
-				isMappings = isMappings || line.startsWith("\t@Mappings({")
+				boolean isMappings = line.startsWith("\t@Mapping({")
 
 				if (line.startsWith("import ")) {
 					if (line.contains("server.common.mapper.") || line.contains("mapstruct.Mapping") ||
@@ -176,11 +175,6 @@ class EndpointScaffoldingGeneratorTask extends DefaultTask {
 				if (isMapper && (line.endsWith(".class})") || line.endsWith(".class })"))) {
 					isMapper = false;
 					return '@Mapper(config = MapstructConfiguration.class, uses = {})'
-				}
-
-				if (isMappings && line.endsWith("\t})")) {
-					isMappings = false;
-					return null
 				}
 
 				if (isMapper || isMappings) {

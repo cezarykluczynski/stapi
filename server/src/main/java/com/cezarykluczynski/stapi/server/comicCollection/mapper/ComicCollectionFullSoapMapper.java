@@ -14,26 +14,23 @@ import com.cezarykluczynski.stapi.server.reference.mapper.ReferenceSoapMapper;
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseSoapMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 
 @Mapper(config = MapstructConfiguration.class, uses = {CharacterBaseSoapMapper.class, ComicsBaseSoapMapper.class,
 		ComicSeriesBaseSoapMapper.class, CompanyBaseSoapMapper.class, RequestSortSoapMapper.class, ReferenceSoapMapper.class,
 		StaffBaseSoapMapper.class})
 public interface ComicCollectionFullSoapMapper {
 
-	@Mappings({
-			@Mapping(target = "title", ignore = true),
-			@Mapping(target = "publishedYearFrom", ignore = true),
-			@Mapping(target = "publishedYearTo", ignore = true),
-			@Mapping(target = "numberOfPagesFrom", ignore = true),
-			@Mapping(target = "numberOfPagesTo", ignore = true),
-			@Mapping(target = "stardateFrom", ignore = true),
-			@Mapping(target = "stardateTo", ignore = true),
-			@Mapping(target = "yearFrom", ignore = true),
-			@Mapping(target = "yearTo", ignore = true),
-			@Mapping(target = "photonovel", ignore = true),
-			@Mapping(target = "sort", ignore = true)
-	})
+	@Mapping(target = "title", ignore = true)
+	@Mapping(target = "publishedYearFrom", ignore = true)
+	@Mapping(target = "publishedYearTo", ignore = true)
+	@Mapping(target = "numberOfPagesFrom", ignore = true)
+	@Mapping(target = "numberOfPagesTo", ignore = true)
+	@Mapping(target = "stardateFrom", ignore = true)
+	@Mapping(target = "stardateTo", ignore = true)
+	@Mapping(target = "yearFrom", ignore = true)
+	@Mapping(target = "yearTo", ignore = true)
+	@Mapping(target = "photonovel", ignore = true)
+	@Mapping(target = "sort", ignore = true)
 	ComicCollectionRequestDTO mapFull(ComicCollectionFullRequest comicCollectionFullRequest);
 
 	ComicCollectionFull mapFull(ComicCollection comicCollection);

@@ -10,20 +10,17 @@ import com.cezarykluczynski.stapi.server.common.mapper.RequestSortSoapMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 
 import java.util.List;
 
 @Mapper(config = MapstructConfiguration.class, uses = {DateMapper.class, EnumMapper.class, RequestSortSoapMapper.class})
 public interface PerformerBaseSoapMapper {
 
-	@Mappings({
-			@Mapping(target = "guid", ignore = true),
-			@Mapping(source = "dateOfBirth.from", target = "dateOfBirthFrom"),
-			@Mapping(source = "dateOfBirth.to", target = "dateOfBirthTo"),
-			@Mapping(source = "dateOfDeath.from", target = "dateOfDeathFrom"),
-			@Mapping(source = "dateOfDeath.to", target = "dateOfDeathTo")
-	})
+	@Mapping(target = "guid", ignore = true)
+	@Mapping(source = "dateOfBirth.from", target = "dateOfBirthFrom")
+	@Mapping(source = "dateOfBirth.to", target = "dateOfBirthTo")
+	@Mapping(source = "dateOfDeath.from", target = "dateOfDeathFrom")
+	@Mapping(source = "dateOfDeath.to", target = "dateOfDeathTo")
 	PerformerRequestDTO mapBase(PerformerBaseRequest performerBaseRequest);
 
 	PerformerBase mapBase(Performer performer);

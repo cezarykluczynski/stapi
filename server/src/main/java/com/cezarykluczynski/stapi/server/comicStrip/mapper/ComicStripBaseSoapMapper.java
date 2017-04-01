@@ -8,22 +8,19 @@ import com.cezarykluczynski.stapi.server.common.mapper.RequestSortSoapMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
 
 import java.util.List;
 
 @Mapper(config = MapstructConfiguration.class, uses = {RequestSortSoapMapper.class})
 public interface ComicStripBaseSoapMapper {
 
-	@Mappings({
-			@Mapping(target = "guid", ignore = true),
-			@Mapping(source = "publishedYear.from", target = "publishedYearFrom"),
-			@Mapping(source = "publishedYear.to", target = "publishedYearTo"),
-			@Mapping(source = "numberOfPages.from", target = "numberOfPagesFrom"),
-			@Mapping(source = "numberOfPages.to", target = "numberOfPagesTo"),
-			@Mapping(source = "year.from", target = "yearFrom"),
-			@Mapping(source = "year.to", target = "yearTo")
-	})
+	@Mapping(target = "guid", ignore = true)
+	@Mapping(source = "publishedYear.from", target = "publishedYearFrom")
+	@Mapping(source = "publishedYear.to", target = "publishedYearTo")
+	@Mapping(source = "numberOfPages.from", target = "numberOfPagesFrom")
+	@Mapping(source = "numberOfPages.to", target = "numberOfPagesTo")
+	@Mapping(source = "year.from", target = "yearFrom")
+	@Mapping(source = "year.to", target = "yearTo")
 	ComicStripRequestDTO mapBase(ComicStripBaseRequest comicStripBaseRequest);
 
 	ComicStripBase mapBase(ComicStrip comicStrip);
