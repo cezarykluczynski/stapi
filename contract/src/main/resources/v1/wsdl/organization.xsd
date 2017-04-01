@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:organization="http://stapi.co/api/v1/soap/organization"
+		xmlns:common="http://stapi.co/api/v1/soap/common"
+		elementFormDefault="qualified"
+		targetNamespace="http://stapi.co/api/v1/soap/organization">
+	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
+	<xs:element name="OrganizationBaseRequest">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Request">
+					<xs:sequence>
+						<xs:element name="name" type="xs:string" minOccurs="0"/>
+						<xs:element name="government" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="intergovernmentalOrganization" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="researchOrganization" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="sportOrganization" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="medicalOrganization" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="militaryOrganization" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="militaryUnit" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="governmentAgency" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="lawEnforcementAgency" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="prisonOrPenalColony" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="establishment" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="ds9Establishment" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="school" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="mirror" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="alternateReality" type="xs:boolean" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OrganizationFullRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="guid" type="xs:string" minOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OrganizationBaseResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Response">
+					<xs:sequence>
+						<xs:element name="organizations" type="organization:OrganizationBase" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OrganizationFullResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="organization" type="organization:OrganizationFull"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="OrganizationBase">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="government" type="xs:boolean"/>
+			<xs:element name="intergovernmentalOrganization" type="xs:boolean"/>
+			<xs:element name="researchOrganization" type="xs:boolean"/>
+			<xs:element name="sportOrganization" type="xs:boolean"/>
+			<xs:element name="medicalOrganization" type="xs:boolean"/>
+			<xs:element name="militaryOrganization" type="xs:boolean"/>
+			<xs:element name="militaryUnit" type="xs:boolean"/>
+			<xs:element name="governmentAgency" type="xs:boolean"/>
+			<xs:element name="lawEnforcementAgency" type="xs:boolean"/>
+			<xs:element name="prisonOrPenalColony" type="xs:boolean"/>
+			<xs:element name="establishment" type="xs:boolean"/>
+			<xs:element name="ds9Establishment" type="xs:boolean"/>
+			<xs:element name="school" type="xs:boolean"/>
+			<xs:element name="mirror" type="xs:boolean"/>
+			<xs:element name="alternateReality" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrganizationFull">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="government" type="xs:boolean"/>
+			<xs:element name="intergovernmentalOrganization" type="xs:boolean"/>
+			<xs:element name="researchOrganization" type="xs:boolean"/>
+			<xs:element name="sportOrganization" type="xs:boolean"/>
+			<xs:element name="medicalOrganization" type="xs:boolean"/>
+			<xs:element name="militaryOrganization" type="xs:boolean"/>
+			<xs:element name="militaryUnit" type="xs:boolean"/>
+			<xs:element name="governmentAgency" type="xs:boolean"/>
+			<xs:element name="lawEnforcementAgency" type="xs:boolean"/>
+			<xs:element name="prisonOrPenalColony" type="xs:boolean"/>
+			<xs:element name="establishment" type="xs:boolean"/>
+			<xs:element name="ds9Establishment" type="xs:boolean"/>
+			<xs:element name="school" type="xs:boolean"/>
+			<xs:element name="mirror" type="xs:boolean"/>
+			<xs:element name="alternateReality" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrganizationHeader">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="name" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

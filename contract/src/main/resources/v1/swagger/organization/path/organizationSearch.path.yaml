@@ -1,0 +1,91 @@
+get:
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/OrganizationBaseResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - Organization
+post:
+  consumes:
+    - application/x-www-form-urlencoded
+  producers:
+    - application/json
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+    - name: sort
+      type: string
+      in: query
+    - name: name
+      in: formData
+      type: string
+    - name: government
+      in: formData
+      type: boolean
+    - name: intergovernmentalOrganization
+      in: formData
+      type: boolean
+    - name: researchOrganization
+      in: formData
+      type: boolean
+    - name: sportOrganization
+      in: formData
+      type: boolean
+    - name: medicalOrganization
+      in: formData
+      type: boolean
+    - name: militaryOrganization
+      in: formData
+      type: boolean
+    - name: militaryUnit
+      in: formData
+      type: boolean
+    - name: governmentAgency
+      in: formData
+      type: boolean
+    - name: lawEnforcementAgency
+      in: formData
+      type: boolean
+    - name: prisonOrPenalColony
+      in: formData
+      type: boolean
+    - name: establishment
+      in: formData
+      type: boolean
+    - name: ds9Establishment
+      in: formData
+      type: boolean
+    - name: school
+      in: formData
+      type: boolean
+    - name: mirror
+      in: formData
+      type: boolean
+    - name: alternateReality
+      in: formData
+      type: boolean
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/OrganizationBaseResponse'
+  tags:
+    - Organization

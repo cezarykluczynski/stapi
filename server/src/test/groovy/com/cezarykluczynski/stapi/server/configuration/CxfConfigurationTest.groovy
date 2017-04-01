@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.server.comics.endpoint.ComicsRestEndpoint
 import com.cezarykluczynski.stapi.server.company.endpoint.CompanyRestEndpoint
 import com.cezarykluczynski.stapi.server.episode.endpoint.EpisodeRestEndpoint
 import com.cezarykluczynski.stapi.server.movie.endpoint.MovieRestEndpoint
+import com.cezarykluczynski.stapi.server.organization.endpoint.OrganizationRestEndpoint
 import com.cezarykluczynski.stapi.server.performer.endpoint.PerformerRestEndpoint
 import com.cezarykluczynski.stapi.server.series.endpoint.SeriesRestEndpoint
 import com.cezarykluczynski.stapi.server.species.endpoint.SpeciesRestEndpoint
@@ -67,6 +68,7 @@ class CxfConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(SeriesRestEndpoint) >> Mock(SeriesRestEndpoint)
 		1 * applicationContextMock.getBean(SpeciesRestEndpoint) >> Mock(SpeciesRestEndpoint)
 		1 * applicationContextMock.getBean(StaffRestEndpoint) >> Mock(StaffRestEndpoint)
+		1 * applicationContextMock.getBean(OrganizationRestEndpoint) >> Mock(OrganizationRestEndpoint)
 		0 * _
 		server instanceof ServerImpl
 		server.started

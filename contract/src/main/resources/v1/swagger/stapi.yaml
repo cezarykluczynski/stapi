@@ -45,6 +45,10 @@ paths:
     $ref: ./movie/path/movie.path.yaml
   /movie/search:
     $ref: ./movie/path/movieSearch.path.yaml
+  /organization:
+    $ref: ./organization/path/organization.path.yaml
+  /organization/search:
+    $ref: ./organization/path/organizationSearch.path.yaml
   /performer:
     $ref: ./performer/path/performer.path.yaml
   /performer/search:
@@ -156,6 +160,16 @@ definitions:
     $ref: ./movie/entity/movieBaseResponse.yaml
   MovieFullResponse:
     $ref: ./movie/entity/movieFullResponse.yaml
+  OrganizationHeader:
+    $ref: ./organization/entity/organizationHeader.yaml
+  OrganizationBase:
+    $ref: ./organization/entity/organizationBase.yaml
+  OrganizationFull:
+    $ref: ./organization/entity/organizationFull.yaml
+  OrganizationBaseResponse:
+    $ref: ./organization/entity/organizationBaseResponse.yaml
+  OrganizationFullResponse:
+    $ref: ./organization/entity/organizationFullResponse.yaml
   PerformerHeader:
     $ref: ./performer/entity/performerHeader.yaml
   PerformerBase:

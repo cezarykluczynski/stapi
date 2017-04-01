@@ -18,6 +18,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.EpisodePortType;
 import com.cezarykluczynski.stapi.client.v1.soap.EpisodeService;
 import com.cezarykluczynski.stapi.client.v1.soap.MoviePortType;
 import com.cezarykluczynski.stapi.client.v1.soap.MovieService;
+import com.cezarykluczynski.stapi.client.v1.soap.OrganizationPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.OrganizationService;
 import com.cezarykluczynski.stapi.client.v1.soap.PerformerPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.PerformerService;
 import com.cezarykluczynski.stapi.client.v1.soap.SeriesPortType;
@@ -74,6 +76,9 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 	@Getter
 	private SpeciesPortType speciesPortType;
 
+	@Getter
+	private OrganizationPortType organizationPortType;
+
 	public StapiSoapPortTypesProvider() {
 		seriesPortType = new SeriesService().getSeriesPortType();
 		performerPortType = new PerformerService().getPerformerPortType();
@@ -88,6 +93,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		comicStripPortType = new ComicStripService().getComicStripPortType();
 		comicCollectionPortType = new ComicCollectionService().getComicCollectionPortType();
 		speciesPortType = new SpeciesService().getSpeciesPortType();
+		organizationPortType = new OrganizationService().getOrganizationPortType();
 	}
 
 	public StapiSoapPortTypesProvider(String apiUrl) {
@@ -105,6 +111,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		comicStripPortType = (ComicStripPortType) changeUrl(new ComicStripService().getComicStripPortType());
 		comicCollectionPortType = (ComicCollectionPortType) changeUrl(new ComicCollectionService().getComicCollectionPortType());
 		speciesPortType = (SpeciesPortType) changeUrl(new SpeciesService().getSpeciesPortType());
+		organizationPortType = (OrganizationPortType) changeUrl(new OrganizationService().getOrganizationPortType());
 	}
 
 	private Object changeUrl(Object service) {
