@@ -57,4 +57,32 @@ class StringUtilTest extends Specification {
 		'&frac12; [[Human]]<br />&frac12; [[Ocampa]]n' | '&frac12;' | Lists.newArrayList(0, 24)
 	}
 
+	@Unroll('returns #result if any of #stringList starts with #suffix ignore case')
+	void "tells when any string starts with given suffix"() {
+		expect:
+		result == StringUtil.anyStartsWithIgnoreCase(stringList, suffix)
+
+		where:
+		stringList                              | suffix   | result
+		Lists.newArrayList()                    | ''       | false
+		Lists.newArrayList('Government agency') | 'agency' | false
+		Lists.newArrayList('Government agency') | 'Agency' | false
+		Lists.newArrayList('Government agency') | 'government' | true
+		Lists.newArrayList('Government agency') | 'Government' | true
+	}
+
+	@Unroll('returns #result if any of #stringList ends with #suffix ignore case')
+	void "tells when any string ends with given suffix"() {
+		expect:
+		result == StringUtil.anyEndsWithIgnoreCase(stringList, suffix)
+
+		where:
+		stringList                              | suffix   | result
+		Lists.newArrayList()                    | ''       | false
+		Lists.newArrayList('Government agency') | 'agency' | true
+		Lists.newArrayList('Government agency') | 'Agency' | true
+		Lists.newArrayList('Government agency') | 'government' | false
+		Lists.newArrayList('Government agency') | 'Government' | false
+	}
+
 }

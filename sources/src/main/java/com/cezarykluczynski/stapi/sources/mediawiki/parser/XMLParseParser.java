@@ -101,7 +101,7 @@ public class XMLParseParser extends AbstractXMLParser {
 				pageSection.setByteOffset(Integer.valueOf(attributes.getValue(BYTE_OFFSET)));
 			} catch (NumberFormatException e) {
 				pageSection.setByteOffset(0);
-				log.error("Page {} section {} does not have byte offset specified", page, pageSection.getAnchor());
+				log.error("Page {} section {} does not have byte offset specified", page.getTitle(), pageSection.getAnchor());
 			}
 			pageSection.setLevel(Integer.valueOf(attributes.getValue(LEVEL)));
 			pageSection.setNumber(attributes.getValue(NUMBER));

@@ -27,7 +27,8 @@ public class StepNames {
 				StepName.CREATE_COMICS,
 				StepName.CREATE_COMIC_STRIPS,
 				StepName.CREATE_COMIC_COLLECTIONS,
-				StepName.CREATE_ORGANIZATIONS
+				StepName.CREATE_ORGANIZATIONS,
+				StepName.CREATE_FOODS
 		));
 	}
 

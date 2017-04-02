@@ -52,6 +52,14 @@ public class StringUtil {
 		return positionList;
 	}
 
+	public static boolean anyStartsWithIgnoreCase(List<String> stringList, String prefix) {
+		return stringList.stream().anyMatch(categoryTitle -> StringUtils.startsWithIgnoreCase(categoryTitle, prefix));
+	}
+
+	public static boolean anyEndsWithIgnoreCase(List<String> stringList, String suffix) {
+		return stringList.stream().anyMatch(categoryTitle -> StringUtils.endsWithIgnoreCase(categoryTitle, suffix));
+	}
+
 	private static Stream<String> getLowerCandidatesStream(List<String> candidates) {
 		List<String> candidatesLowerCase = candidates.stream()
 				.filter(StringUtils::isNotBlank)

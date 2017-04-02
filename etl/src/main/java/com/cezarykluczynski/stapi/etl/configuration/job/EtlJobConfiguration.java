@@ -30,6 +30,9 @@ import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepsProperti
 import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeProcessor;
 import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeReader;
 import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeWriter;
+import com.cezarykluczynski.stapi.etl.food.creation.processor.FoodProcessor;
+import com.cezarykluczynski.stapi.etl.food.creation.processor.FoodReader;
+import com.cezarykluczynski.stapi.etl.food.creation.processor.FoodWriter;
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieProcessor;
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieReader;
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieWriter;
@@ -57,6 +60,7 @@ import com.cezarykluczynski.stapi.model.comicStrip.entity.ComicStrip;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
+import com.cezarykluczynski.stapi.model.food.entity.Food;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
@@ -298,6 +302,19 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(OrganizationReader.class))
 				.processor(applicationContext.getBean(OrganizationProcessor.class))
 				.writer(applicationContext.getBean(OrganizationWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_FOODS)
+	public Step stepCreateFoods() {
+		return stepBuilderFactory.get(StepName.CREATE_FOODS)
+				.<PageHeader, Food>chunk(stepsProperties.getCreateOrganizations().getCommitInterval())
+				.reader(applicationContext.getBean(FoodReader.class))
+				.processor(applicationContext.getBean(FoodProcessor.class))
+				.writer(applicationContext.getBean(FoodWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)

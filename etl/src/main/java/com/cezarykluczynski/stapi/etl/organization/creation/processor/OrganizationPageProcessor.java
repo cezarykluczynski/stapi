@@ -8,7 +8,7 @@ import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.model.common.service.GuidGenerator;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
-import org.apache.commons.lang3.StringUtils;
+import com.cezarykluczynski.stapi.util.tool.StringUtil;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
@@ -65,11 +65,11 @@ public class OrganizationPageProcessor implements ItemProcessor<Page, Organizati
 		organization.setMilitaryUnit(categoryTitleList.contains(CategoryTitle.MILITARY_UNITS));
 		organization.setMilitaryOrganization(organization.getMilitaryUnit() || categoryTitleList.contains(CategoryTitle.MILITARY_ORGANIZATIONS)
 				|| categoryTitleList.contains(CategoryTitle.EARTH_MILITARY_ORGANIZATIONS));
-		organization.setGovernmentAgency(anyEndsWithIgnoreCase(categoryTitleList, CategoryTitle.AGENCIES));
+		organization.setGovernmentAgency(StringUtil.anyEndsWithIgnoreCase(categoryTitleList, CategoryTitle.AGENCIES));
 		organization.setLawEnforcementAgency(categoryTitleList.contains(CategoryTitle.LAW_ENFORCEMENT_AGENCIES));
 		organization.setPrisonOrPenalColony(categoryTitleList.contains(CategoryTitle.PRISONS_AND_PENAL_COLONIES));
-		organization.setSchool(anyEndsWithIgnoreCase(categoryTitleList, CategoryTitle.SCHOOLS));
-		organization.setEstablishment(organization.getSchool() || anyEndsWithIgnoreCase(categoryTitleList, CategoryTitle.ESTABLISHMENTS)
+		organization.setSchool(StringUtil.anyEndsWithIgnoreCase(categoryTitleList, CategoryTitle.SCHOOLS));
+		organization.setEstablishment(organization.getSchool() || StringUtil.anyEndsWithIgnoreCase(categoryTitleList, CategoryTitle.ESTABLISHMENTS)
 				|| categoryTitleList.contains(CategoryTitle.ESTABLISHMENTS_RETCONNED) || categoryTitleList.contains(CategoryTitle.WARDS)
 				|| categoryTitleList.contains(CategoryTitle.MEDICAL_ESTABLISHMENTS_RETCONNED));
 		organization.setDs9Establishment(categoryTitleList.contains(CategoryTitle.DS9_ESTABLISHMENTS));
@@ -77,10 +77,6 @@ public class OrganizationPageProcessor implements ItemProcessor<Page, Organizati
 		organization.setAlternateReality(categoryTitleList.contains(CategoryTitle.ALTERNATE_REALITY));
 
 		return organization;
-	}
-
-	private boolean anyEndsWithIgnoreCase(List<String> categoryTitleList, String suffix) {
-		return categoryTitleList.stream().anyMatch(categoryTitle -> StringUtils.endsWithIgnoreCase(categoryTitle, suffix));
 	}
 
 }

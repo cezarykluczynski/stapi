@@ -42,6 +42,7 @@ public class StepToStepPropertiesProvider {
 		stepPropertiesMap.put(StepName.CREATE_COMIC_STRIPS, stepsProperties.getCreateComicStrips());
 		stepPropertiesMap.put(StepName.CREATE_COMIC_COLLECTIONS, stepsProperties.getCreateComicCollections());
 		stepPropertiesMap.put(StepName.CREATE_ORGANIZATIONS, stepsProperties.getCreateOrganizations());
+		stepPropertiesMap.put(StepName.CREATE_FOODS, stepsProperties.getCreateFoods());
 	}
 
 }
