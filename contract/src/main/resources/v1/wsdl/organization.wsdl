@@ -24,9 +24,9 @@
 		<wsdl:part name="response" element="stapi:OrganizationFullResponse"/>
 	</wsdl:message>
 	<wsdl:portType name="OrganizationPortType">
-		<wsdl:operation name="getCompaniesBase">
-			<wsdl:input name="getCompaniesBaseRequest" message="stapi:OrganizationBaseRequest"/>
-			<wsdl:output name="getCompaniesBaseResponse" message="stapi:OrganizationBaseResponse"/>
+		<wsdl:operation name="getOrganizationBase">
+			<wsdl:input name="getOrganizationBaseRequest" message="stapi:OrganizationBaseRequest"/>
+			<wsdl:output name="getOrganizationBaseResponse" message="stapi:OrganizationBaseResponse"/>
 		</wsdl:operation>
 		<wsdl:operation name="getOrganizationFull">
 			<wsdl:input name="getOrganizationFullRequest" message="stapi:OrganizationFullRequest"/>
@@ -35,11 +35,11 @@
 	</wsdl:portType>
 	<wsdl:binding name="OrganizationBinding" type="stapi:OrganizationPortType">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-		<wsdl:operation name="getCompaniesBase">
-			<wsdl:input name="getCompaniesBaseRequest">
+		<wsdl:operation name="getOrganizationBase">
+			<wsdl:input name="getOrganizationBaseRequest">
 				<soap:body use="literal"/>
 			</wsdl:input>
-			<wsdl:output name="getCompaniesBaseResponse">
+			<wsdl:output name="getOrganizationBaseResponse">
 				<soap:body use="literal"/>
 			</wsdl:output>
 		</wsdl:operation>

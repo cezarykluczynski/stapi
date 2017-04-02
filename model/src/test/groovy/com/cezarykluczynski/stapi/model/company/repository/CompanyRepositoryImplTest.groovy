@@ -1,13 +1,11 @@
 package com.cezarykluczynski.stapi.model.company.repository
 
-import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.company.dto.CompanyRequestDTO
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.company.entity.Company_
 import com.cezarykluczynski.stapi.model.company.query.CompanyQueryBuilderFactory
-import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.util.AbstractCompanyTest
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -22,52 +20,22 @@ class CompanyRepositoryImplTest extends AbstractCompanyTest {
 
 	private QueryBuilder<Company> companyQueryBuilder
 
-	private QueryBuilder<Company> companyPerformersQueryBuilder
-
-	private QueryBuilder<Company> companyCharactersQueryBuilder
-
 	private Pageable pageable
 
 	private CompanyRequestDTO companyRequestDTO
 
 	private Company company
 
-	private Company performersCompany
-
-	private Company charactersCompany
-
 	private Page page
-
-	private Page performersPage
-
-	private Page charactersPage
-
-	private Set<Performer> performersSet
-
-	private Set<Performer> stuntPerformersSet
-
-	private Set<Performer> standInPerformersSet
-
-	private Set<Character> charactersSet
 
 	void setup() {
 		companyQueryBuilderFactory = Mock(CompanyQueryBuilderFactory)
 		companyRepositoryImpl = new CompanyRepositoryImpl(companyQueryBuilderFactory)
 		companyQueryBuilder = Mock(QueryBuilder)
-		companyPerformersQueryBuilder = Mock(QueryBuilder)
-		companyCharactersQueryBuilder = Mock(QueryBuilder)
 		pageable = Mock(Pageable)
 		companyRequestDTO = Mock(CompanyRequestDTO)
 		page = Mock(Page)
-		performersPage = Mock(Page)
-		charactersPage = Mock(Page)
 		company = Mock(Company)
-		performersCompany = Mock(Company)
-		charactersCompany = Mock(Company)
-		performersSet = Mock(Set)
-		stuntPerformersSet = Mock(Set)
-		standInPerformersSet = Mock(Set)
-		charactersSet = Mock(Set)
 	}
 
 	void "query is built and performed"() {

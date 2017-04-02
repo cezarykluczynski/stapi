@@ -20,7 +20,7 @@ public class OrganizationSoapEndpoint implements OrganizationPortType {
 	}
 
 	@Override
-	public OrganizationBaseResponse getCompaniesBase(@WebParam(partName = "request", name = "OrganizationBaseRequest",
+	public OrganizationBaseResponse getOrganizationBase(@WebParam(partName = "request", name = "OrganizationBaseRequest",
 			targetNamespace = "http://stapi.co/api/v1/soap/organization") OrganizationBaseRequest request) {
 		return seriesSoapReader.readBase(request);
 	}

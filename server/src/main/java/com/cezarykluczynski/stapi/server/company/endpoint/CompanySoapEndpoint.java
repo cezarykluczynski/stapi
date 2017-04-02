@@ -20,7 +20,7 @@ public class CompanySoapEndpoint implements CompanyPortType {
 	}
 
 	@Override
-	public CompanyBaseResponse getCompaniesBase(@WebParam(partName = "request", name = "CompanyBaseRequest",
+	public CompanyBaseResponse getCompanyBase(@WebParam(partName = "request", name = "CompanyBaseRequest",
 			targetNamespace = "http://stapi.co/api/v1/soap/company") CompanyBaseRequest request) {
 		return seriesSoapReader.readBase(request);
 	}

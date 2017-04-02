@@ -24,7 +24,7 @@ class CompanySoapEndpointIntegrationTest extends AbstractCompanyEndpointIntegrat
 	void "gets companies that done digital visual effects, matte painting, and model and miniatures effects, sorted by name descending"() {
 		when:
 		CompanyBaseResponse astronomicalObjectResponse = stapiSoapClient.companyPortType
-				.getCompaniesBase(new CompanyBaseRequest(
+				.getCompanyBase(new CompanyBaseRequest(
 				digitalVisualEffectsCompany: true,
 				mattePaintingCompany: true,
 				modelAndMiniatureEffectsCompany: true,

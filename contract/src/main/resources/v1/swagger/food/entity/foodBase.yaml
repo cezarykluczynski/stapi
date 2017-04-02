@@ -1,0 +1,26 @@
+type: object
+properties:
+  guid:
+    type: string
+  name:
+    type: string
+  earthlyOrigin:
+    type: boolean
+  dessert:
+    type: boolean
+  fruit:
+    type: boolean
+  herbOrSpice:
+    type: boolean
+  sauce:
+    type: boolean
+  soup:
+    type: boolean
+  beverage:
+    type: boolean
+  alcoholicBeverage:
+    type: boolean
+  juice:
+    type: boolean
+  tea:
+    type: boolean

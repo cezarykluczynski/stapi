@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.server.comics.endpoint.ComicsRestEndpoint;
 import com.cezarykluczynski.stapi.server.common.converter.LocalDateRestParamConverterProvider;
 import com.cezarykluczynski.stapi.server.company.endpoint.CompanyRestEndpoint;
 import com.cezarykluczynski.stapi.server.episode.endpoint.EpisodeRestEndpoint;
+import com.cezarykluczynski.stapi.server.food.endpoint.FoodRestEndpoint;
 import com.cezarykluczynski.stapi.server.movie.endpoint.MovieRestEndpoint;
 import com.cezarykluczynski.stapi.server.organization.endpoint.OrganizationRestEndpoint;
 import com.cezarykluczynski.stapi.server.performer.endpoint.PerformerRestEndpoint;
@@ -70,7 +71,8 @@ public class CxfConfiguration extends SpringBootServletInitializer {
 				applicationContext.getBean(SeriesRestEndpoint.class),
 				applicationContext.getBean(SpeciesRestEndpoint.class),
 				applicationContext.getBean(StaffRestEndpoint.class),
-				applicationContext.getBean(OrganizationRestEndpoint.class)
+				applicationContext.getBean(OrganizationRestEndpoint.class),
+				applicationContext.getBean(FoodRestEndpoint.class)
 		));
 		return factory.create();
 	}

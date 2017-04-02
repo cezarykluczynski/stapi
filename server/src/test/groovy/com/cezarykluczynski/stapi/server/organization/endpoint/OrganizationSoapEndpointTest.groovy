@@ -24,7 +24,7 @@ class OrganizationSoapEndpointTest extends Specification {
 		OrganizationBaseResponse organizationResponse = Mock(OrganizationBaseResponse)
 
 		when:
-		OrganizationBaseResponse organizationResponseResult = organizationSoapEndpoint.getCompaniesBase(organizationRequest)
+		OrganizationBaseResponse organizationResponseResult = organizationSoapEndpoint.getOrganizationBase(organizationRequest)
 
 		then:
 		1 * organizationSoapReaderMock.readBase(organizationRequest) >> organizationResponse

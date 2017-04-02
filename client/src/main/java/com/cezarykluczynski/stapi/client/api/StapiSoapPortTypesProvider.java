@@ -16,6 +16,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.CompanyPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.CompanyService;
 import com.cezarykluczynski.stapi.client.v1.soap.EpisodePortType;
 import com.cezarykluczynski.stapi.client.v1.soap.EpisodeService;
+import com.cezarykluczynski.stapi.client.v1.soap.FoodPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.FoodService;
 import com.cezarykluczynski.stapi.client.v1.soap.MoviePortType;
 import com.cezarykluczynski.stapi.client.v1.soap.MovieService;
 import com.cezarykluczynski.stapi.client.v1.soap.OrganizationPortType;
@@ -79,6 +81,9 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 	@Getter
 	private OrganizationPortType organizationPortType;
 
+	@Getter
+	private FoodPortType foodPortType;
+
 	public StapiSoapPortTypesProvider() {
 		seriesPortType = new SeriesService().getSeriesPortType();
 		performerPortType = new PerformerService().getPerformerPortType();
@@ -94,6 +99,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		comicCollectionPortType = new ComicCollectionService().getComicCollectionPortType();
 		speciesPortType = new SpeciesService().getSpeciesPortType();
 		organizationPortType = new OrganizationService().getOrganizationPortType();
+		foodPortType = new FoodService().getFoodPortType();
 	}
 
 	public StapiSoapPortTypesProvider(String apiUrl) {
@@ -112,6 +118,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		comicCollectionPortType = (ComicCollectionPortType) changeUrl(new ComicCollectionService().getComicCollectionPortType());
 		speciesPortType = (SpeciesPortType) changeUrl(new SpeciesService().getSpeciesPortType());
 		organizationPortType = (OrganizationPortType) changeUrl(new OrganizationService().getOrganizationPortType());
+		foodPortType = (FoodPortType) changeUrl(new FoodService().getFoodPortType());
 	}
 
 	private Object changeUrl(Object service) {

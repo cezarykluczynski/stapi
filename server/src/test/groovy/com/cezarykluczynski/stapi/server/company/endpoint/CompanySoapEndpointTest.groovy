@@ -24,7 +24,7 @@ class CompanySoapEndpointTest extends Specification {
 		CompanyBaseResponse companyResponse = Mock(CompanyBaseResponse)
 
 		when:
-		CompanyBaseResponse companyResponseResult = companySoapEndpoint.getCompaniesBase(companyRequest)
+		CompanyBaseResponse companyResponseResult = companySoapEndpoint.getCompanyBase(companyRequest)
 
 		then:
 		1 * companySoapReaderMock.readBase(companyRequest) >> companyResponse

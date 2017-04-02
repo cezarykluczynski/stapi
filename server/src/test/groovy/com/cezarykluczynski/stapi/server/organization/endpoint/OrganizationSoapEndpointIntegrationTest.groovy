@@ -31,7 +31,7 @@ class OrganizationSoapEndpointIntegrationTest extends AbstractEndpointIntegratio
 	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "gets organizations with 'Ferengi' in name, that are also medical establishments"() {
 		when:
-		OrganizationBaseResponse organizationBaseResponse = stapiSoapClient.organizationPortType.getCompaniesBase(new OrganizationBaseRequest(
+		OrganizationBaseResponse organizationBaseResponse = stapiSoapClient.organizationPortType.getCompanyBase(new OrganizationBaseRequest(
 				name: 'Ferengi',
 				medicalOrganization: true
 		))

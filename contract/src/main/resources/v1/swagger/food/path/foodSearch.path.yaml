@@ -1,0 +1,76 @@
+get:
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/FoodBaseResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - Food
+post:
+  consumes:
+    - application/x-www-form-urlencoded
+  producers:
+    - application/json
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+    - name: sort
+      type: string
+      in: query
+    - name: name
+      in: formData
+      type: string
+    - name: earthlyOrigin
+      in: formData
+      type: boolean
+    - name: dessert
+      in: formData
+      type: boolean
+    - name: fruit
+      in: formData
+      type: boolean
+    - name: herbOrSpice
+      in: formData
+      type: boolean
+    - name: sauce
+      in: formData
+      type: boolean
+    - name: soup
+      in: formData
+      type: boolean
+    - name: beverage
+      in: formData
+      type: boolean
+    - name: alcoholicBeverage
+      in: formData
+      type: boolean
+    - name: juice
+      in: formData
+      type: boolean
+    - name: tea
+      in: formData
+      type: boolean
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/FoodBaseResponse'
+  tags:
+    - Food

@@ -1,13 +1,11 @@
 package com.cezarykluczynski.stapi.model.organization.repository
 
-import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.organization.dto.OrganizationRequestDTO
 import com.cezarykluczynski.stapi.model.organization.entity.Organization
 import com.cezarykluczynski.stapi.model.organization.entity.Organization_
 import com.cezarykluczynski.stapi.model.organization.query.OrganizationQueryBuilderFactory
-import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.util.AbstractOrganizationTest
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -22,52 +20,19 @@ class OrganizationRepositoryImplTest extends AbstractOrganizationTest {
 
 	private QueryBuilder<Organization> organizationQueryBuilder
 
-	private QueryBuilder<Organization> organizationPerformersQueryBuilder
-
-	private QueryBuilder<Organization> organizationCharactersQueryBuilder
-
 	private Pageable pageable
 
 	private OrganizationRequestDTO organizationRequestDTO
 
-	private Organization organization
-
-	private Organization performersOrganization
-
-	private Organization charactersOrganization
-
 	private Page page
-
-	private Page performersPage
-
-	private Page charactersPage
-
-	private Set<Performer> performersSet
-
-	private Set<Performer> stuntPerformersSet
-
-	private Set<Performer> standInPerformersSet
-
-	private Set<Character> charactersSet
 
 	void setup() {
 		organizationQueryBuilderFactory = Mock(OrganizationQueryBuilderFactory)
 		organizationRepositoryImpl = new OrganizationRepositoryImpl(organizationQueryBuilderFactory)
 		organizationQueryBuilder = Mock(QueryBuilder)
-		organizationPerformersQueryBuilder = Mock(QueryBuilder)
-		organizationCharactersQueryBuilder = Mock(QueryBuilder)
 		pageable = Mock(Pageable)
 		organizationRequestDTO = Mock(OrganizationRequestDTO)
 		page = Mock(Page)
-		performersPage = Mock(Page)
-		charactersPage = Mock(Page)
-		organization = Mock(Organization)
-		performersOrganization = Mock(Organization)
-		charactersOrganization = Mock(Organization)
-		performersSet = Mock(Set)
-		stuntPerformersSet = Mock(Set)
-		standInPerformersSet = Mock(Set)
-		charactersSet = Mock(Set)
 	}
 
 	void "query is built and performed"() {

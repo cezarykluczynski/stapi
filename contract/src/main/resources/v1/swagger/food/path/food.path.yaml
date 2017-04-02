@@ -1,0 +1,15 @@
+get:
+  parameters:
+    - name: guid
+      in: query
+      type: string
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/FoodFullResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - Food

@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.util
 import com.cezarykluczynski.stapi.util.tool.LogicUtil
 import spock.lang.Specification
 
-class AbstractCompanyTest extends Specification {
+abstract class AbstractCompanyTest extends Specification {
 
 	protected static final String GUID = 'ABCD0123456789'
 	protected static final String NAME = 'NAME'
