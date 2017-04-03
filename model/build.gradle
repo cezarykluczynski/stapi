@@ -4,6 +4,9 @@ configurations {
 
 dependencies {
 	compile project(':util')
+	compile group: 'net.sf.ehcache', name: 'ehcache', version: '2.10.3'
+	compile group: 'org.hibernate', name: 'hibernate-ehcache', version: hibernateVersion
+	compile group: 'org.hibernate', name: 'hibernate-core', version: hibernateVersion
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: springBootVersion
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: springBootVersion
 	compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '1.10.2.RELEASE'
@@ -12,10 +15,11 @@ dependencies {
 	}
 	compile group: 'org.liquibase', name: 'liquibase-core', version: '3.5.3'
 	compile group: 'com.zaxxer', name: 'HikariCP', version: '2.6.0'
+	compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: springBootVersion
 	compile group: 'com.oracle', name: 'ojdbc6', version: '11.2.0.4.0-atlassian-hosted'
 	compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.0.Final'
 	compile group: 'org.postgresql', name: 'postgresql', version:'9.4.1207'
-	jpamodelgen group: 'org.hibernate', name: 'hibernate-jpamodelgen', version: '5.2.5.Final'
+	jpamodelgen group: 'org.hibernate', name: 'hibernate-jpamodelgen', version: hibernateVersion
 	testCompile project(':util').sourceSets.test.output
 }
 

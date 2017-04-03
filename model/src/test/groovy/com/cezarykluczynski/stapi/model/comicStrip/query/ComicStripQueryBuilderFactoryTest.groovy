@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.model.comicStrip.query
 
+import com.cezarykluczynski.stapi.model.common.query.CachingStrategy
 import org.springframework.data.jpa.repository.JpaContext
 import spock.lang.Specification
 
@@ -7,18 +8,21 @@ class ComicStripQueryBuilderFactoryTest extends Specification {
 
 	private JpaContext jpaContextMock
 
-	private ComicStripQueryBuilderFactory comicStripQueryBuilerFactory
+	private CachingStrategy cachingStrategyMock
+
+	private ComicStripQueryBuilderFactory comicStripQueryBuilderFactory
 
 	void setup() {
 		jpaContextMock = Mock(JpaContext)
+		cachingStrategyMock = Mock(CachingStrategy)
 	}
 
 	void "ComicStripQueryBuilder is created"() {
 		when:
-		comicStripQueryBuilerFactory = new ComicStripQueryBuilderFactory(jpaContextMock)
+		comicStripQueryBuilderFactory = new ComicStripQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 
 		then:
-		comicStripQueryBuilerFactory != null
+		comicStripQueryBuilderFactory != null
 	}
 
 }

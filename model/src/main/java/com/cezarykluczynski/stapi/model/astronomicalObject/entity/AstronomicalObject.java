@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -30,6 +32,7 @@ import java.util.Set;
 @AllArgsConstructor
 @ToString(callSuper = true, exclude = "location")
 @EqualsAndHashCode(callSuper = true, exclude = "location")
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class AstronomicalObject extends PageAwareEntity implements PageAware {
 
 	@Id
@@ -48,6 +51,7 @@ public class AstronomicalObject extends PageAwareEntity implements PageAware {
 	private AstronomicalObject location;
 
 	@ManyToMany(mappedBy = "location")
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<AstronomicalObject> astronomicalObjects;
 
 }

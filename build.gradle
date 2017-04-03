@@ -35,7 +35,6 @@ allprojects {
 
 	dependencies {
 		compile group: 'org.springframework.boot', name: 'spring-boot', version: springBootVersion
-		compile group: 'org.springframework.boot', name: 'spring-boot-autoconfigure', version: springBootVersion
 		compile group: 'javax.inject', name: 'javax.inject', version: '1'
 
 		// Utils
@@ -52,7 +51,6 @@ allprojects {
 		testCompile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.7'
 		testCompile group: 'org.spockframework', name: 'spock-core', version: '1.1-groovy-2.4-rc-1'
 		testCompile group: 'org.spockframework', name: 'spock-spring', version: '1.1-groovy-2.4-rc-1'
-		testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: springBootVersion
 		testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion) {
 			exclude(module: 'logback-classic')
 			exclude(module: 'spring-boot-starter-logging')

@@ -11,9 +11,7 @@ springBoot {
 
 dependencies {
 	compile project(':model'), project(':util'), project(':sources'), project(':etl'), project(':client')
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: springBootVersion
-	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web-services', version: springBootVersion
 	compile group: 'org.liquibase', name: 'liquibase-core', version: '3.5.3'
 	compile group: 'com.oracle', name: 'ojdbc6', version: '11.2.0.4.0-atlassian-hosted'

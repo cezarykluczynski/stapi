@@ -14,6 +14,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -36,6 +38,7 @@ import java.util.Set;
 @AllArgsConstructor
 @ToString(callSuper = true, exclude = {"performers", "episodes", "movies", "characterSpecies"})
 @EqualsAndHashCode(callSuper = true, exclude = {"performers", "episodes", "movies", "characterSpecies"})
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Character extends PageAwareEntity implements PageAware {
 
 	@Id
@@ -85,18 +88,22 @@ public class Character extends PageAwareEntity implements PageAware {
 	private Boolean alternateReality;
 
 	@ManyToMany(mappedBy = "characters", targetEntity = Performer.class)
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Performer> performers = Sets.newHashSet();
 
 	@ManyToMany(mappedBy = "characters", targetEntity = Episode.class)
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Episode> episodes = Sets.newHashSet();
 
 	@ManyToMany(mappedBy = "characters", targetEntity = Movie.class)
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Movie> movies = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "characters_character_species",
 			joinColumns = @JoinColumn(name = "character_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "character_species_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<CharacterSpecies> characterSpecies = Sets.newHashSet();
 
 

@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -151,36 +153,47 @@ public class Staff extends RealWorldPerson implements PageAware {
 	private Boolean writer;
 
 	@ManyToMany(mappedBy = "writers", targetEntity = Episode.class)
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Episode> writtenEpisodes;
 
 	@ManyToMany(mappedBy = "teleplayAuthors", targetEntity = Episode.class)
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Episode> teleplayAuthoredEpisodes;
 
 	@ManyToMany(mappedBy = "storyAuthors", targetEntity = Episode.class)
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Episode> storyAuthoredEpisodes;
 
 	@ManyToMany(mappedBy = "directors", targetEntity = Episode.class)
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Episode> directedEpisodes;
 
 	@ManyToMany(mappedBy = "staff", targetEntity = Episode.class)
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Episode> episodes;
 
 	@ManyToMany(mappedBy = "writers", targetEntity = Movie.class)
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Movie> writtenMovies;
 
 	@ManyToMany(mappedBy = "screenplayAuthors", targetEntity = Movie.class)
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Movie> screenplayAuthoredMovies;
 
 	@ManyToMany(mappedBy = "storyAuthors", targetEntity = Movie.class)
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Movie> storyAuthoredMovies;
 
 	@ManyToMany(mappedBy = "directors", targetEntity = Movie.class)
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Movie> directedMovies;
 
 	@ManyToMany(mappedBy = "producers", targetEntity = Movie.class)
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Movie> producedMovies;
 
 	@ManyToMany(mappedBy = "producers", targetEntity = Movie.class)
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Movie> movies;
 
 }

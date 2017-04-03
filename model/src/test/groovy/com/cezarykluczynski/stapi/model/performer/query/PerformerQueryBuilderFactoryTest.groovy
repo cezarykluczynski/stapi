@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.model.performer.query
 
+import com.cezarykluczynski.stapi.model.common.query.CachingStrategy
 import org.springframework.data.jpa.repository.JpaContext
 import spock.lang.Specification
 
@@ -7,18 +8,21 @@ class PerformerQueryBuilderFactoryTest extends Specification {
 
 	private JpaContext jpaContextMock
 
-	private PerformerQueryBuilderFactory performerQueryBuilerFactory
+	private CachingStrategy cachingStrategyMock
+
+	private PerformerQueryBuilderFactory performerQueryBuilderFactory
 
 	void setup() {
 		jpaContextMock = Mock(JpaContext)
+		cachingStrategyMock = Mock(CachingStrategy)
 	}
 
 	void "PerformerQueryBuilder is created"() {
 		when:
-		performerQueryBuilerFactory = new PerformerQueryBuilderFactory(jpaContextMock)
+		performerQueryBuilderFactory = new PerformerQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 
 		then:
-		performerQueryBuilerFactory != null
+		performerQueryBuilderFactory != null
 	}
 
 }

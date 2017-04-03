@@ -14,6 +14,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -34,6 +36,7 @@ import java.util.Set;
 @AllArgsConstructor
 @ToString(callSuper = true, exclude = {"comicSeries", "writers", "artists", "editors", "staff", "publishers", "characters", "comics"})
 @EqualsAndHashCode(callSuper = true, exclude = {"comicSeries", "writers", "artists", "editors", "staff", "publishers", "characters", "comics"})
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class ComicCollection extends PageAwareEntity implements PageAware {
 
 	@Id
@@ -73,54 +76,63 @@ public class ComicCollection extends PageAwareEntity implements PageAware {
 	@JoinTable(name = "comic_collection_series",
 			joinColumns = @JoinColumn(name = "comic_collection_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "comic_series_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<ComicSeries> comicSeries = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "comic_collection_writers",
 			joinColumns = @JoinColumn(name = "comic_collection_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "staff_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Staff> writers = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "comic_collection_artists",
 			joinColumns = @JoinColumn(name = "comic_collection_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "staff_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Staff> artists = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "comic_collection_editors",
 			joinColumns = @JoinColumn(name = "comic_collection_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "staff_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Staff> editors = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "comic_collection_staff",
 			joinColumns = @JoinColumn(name = "comic_collection_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "staff_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Staff> staff = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "comic_collection_publishers",
 			joinColumns = @JoinColumn(name = "comic_collection_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "company_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Company> publishers = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "comic_collection_characters",
 			joinColumns = @JoinColumn(name = "comic_collection_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "character_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Character> characters = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "comic_collection_references",
 			joinColumns = @JoinColumn(name = "comic_collection_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "reference_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Reference> references = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "comic_collection_comics",
 			joinColumns = @JoinColumn(name = "comic_collection_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "comics_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Comics> comics = Sets.newHashSet();
 
 }

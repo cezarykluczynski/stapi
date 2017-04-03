@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,6 +24,7 @@ import javax.persistence.SequenceGenerator;
 @AllArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Food extends PageAwareEntity implements PageAware {
 
 	@Id

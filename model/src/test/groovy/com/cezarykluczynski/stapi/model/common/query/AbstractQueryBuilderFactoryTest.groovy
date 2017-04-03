@@ -16,8 +16,8 @@ class AbstractQueryBuilderFactoryTest extends Specification {
 
 	private static class ConcreteQueryBuilderFactory extends AbstractQueryBuilderFactory<Series> {
 
-		ConcreteQueryBuilderFactory(JpaContext jpaContext) {
-			super(jpaContext, Series)
+		ConcreteQueryBuilderFactory(JpaContext jpaContext, CachingStrategy cachingStrategy) {
+			super(jpaContext, cachingStrategy, Series)
 		}
 
 	}
@@ -32,11 +32,14 @@ class AbstractQueryBuilderFactoryTest extends Specification {
 
 	private JpaContext jpaContextMock
 
-	private AbstractQueryBuilderFactory abstractQueryBuilerFactory
+	private CachingStrategy cachingStrategyMock
+
+	private AbstractQueryBuilderFactory abstractQueryBuilderFactory
 
 	void setup() {
 		jpaContextMock = Mock(JpaContext)
-		abstractQueryBuilerFactory = new ConcreteQueryBuilderFactory(jpaContextMock)
+		cachingStrategyMock = Mock(CachingStrategy)
+		abstractQueryBuilderFactory = new ConcreteQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 	}
 
 	void "QueryBuilder is created"() {
@@ -57,7 +60,7 @@ class AbstractQueryBuilderFactoryTest extends Specification {
 		Pageable pageable = Mock(Pageable)
 
 		when:
-		QueryBuilder<Series> seriesQueryBuilder = abstractQueryBuilerFactory.createQueryBuilder(pageable)
+		QueryBuilder<Series> seriesQueryBuilder = abstractQueryBuilderFactory.createQueryBuilder(pageable)
 
 		then:
 		1 * jpaContextMock.getEntityManagerByManagedType(Series) >> entityManager
@@ -69,7 +72,7 @@ class AbstractQueryBuilderFactoryTest extends Specification {
 		Pageable pageable = Mock(Pageable)
 
 		when:
-		abstractQueryBuilerFactory.createQueryBuilder(pageable)
+		abstractQueryBuilderFactory.createQueryBuilder(pageable)
 
 		then:
 		thrown(NullPointerException)
@@ -85,7 +88,15 @@ class AbstractQueryBuilderFactoryTest extends Specification {
 
 	void "throws exception when JPA context is not set"() {
 		when:
-		new ConcreteQueryBuilderFactory(null)
+		new ConcreteQueryBuilderFactory(null, cachingStrategyMock)
+
+		then:
+		thrown(NullPointerException)
+	}
+
+	void "throws exception when CachingStrategy is not set"() {
+		when:
+		new ConcreteQueryBuilderFactory(jpaContextMock, null)
 
 		then:
 		thrown(NullPointerException)

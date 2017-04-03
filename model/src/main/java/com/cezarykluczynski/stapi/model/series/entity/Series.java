@@ -10,6 +10,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -30,8 +32,9 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true, exclude = {"episodes"})
-@EqualsAndHashCode(callSuper = true, exclude = {"episodes"})
+@ToString(callSuper = true, exclude = {"productionCompany", "originalBroadcaster", "episodes"})
+@EqualsAndHashCode(callSuper = true, exclude = {"productionCompany", "originalBroadcaster", "episodes"})
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Series extends PageAwareEntity implements PageAware {
 
 	@Id
@@ -67,7 +70,8 @@ public class Series extends PageAwareEntity implements PageAware {
 	@JoinColumn(name = "original_broadcaster_id")
 	private Company originalBroadcaster;
 
-	@OneToMany(mappedBy = "series")
+	@OneToMany(mappedBy = "series", fetch = FetchType.LAZY)
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Episode> episodes;
 
 }

@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.model.common.repository
 
+import com.cezarykluczynski.stapi.model.common.query.CachingStrategy
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import org.springframework.data.jpa.repository.JpaContext
 import spock.lang.Specification
@@ -8,11 +9,14 @@ class PageAwareQueryBuilderSingletonFactoryProducerTest extends Specification {
 
 	private JpaContext jpaContextMock
 
+	private CachingStrategy cachingStrategyMock
+
 	private PageAwareQueryBuilderSingletonFactoryProducer pageAwareQueryBuilderSingletonFactoryProducer
 
 	void setup() {
 		jpaContextMock = Mock(JpaContext)
-		pageAwareQueryBuilderSingletonFactoryProducer = new PageAwareQueryBuilderSingletonFactoryProducer(jpaContextMock)
+		cachingStrategyMock = Mock(CachingStrategy)
+		pageAwareQueryBuilderSingletonFactoryProducer = new PageAwareQueryBuilderSingletonFactoryProducer(jpaContextMock, cachingStrategyMock)
 	}
 
 	void "creates factories only once"() {

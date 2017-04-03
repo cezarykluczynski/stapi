@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.model.astronomicalObject.query
 
+import com.cezarykluczynski.stapi.model.common.query.CachingStrategy
 import org.springframework.data.jpa.repository.JpaContext
 import spock.lang.Specification
 
@@ -7,18 +8,21 @@ class AstronomicalObjectQueryBuilderFactoryTest extends Specification {
 
 	private JpaContext jpaContextMock
 
-	private AstronomicalObjectQueryBuilderFactory astronomicalObjectQueryBuilerFactory
+	private CachingStrategy cachingStrategyMock
+
+	private AstronomicalObjectQueryBuilderFactory astronomicalObjectQueryBuilderFactory
 
 	void setup() {
 		jpaContextMock = Mock(JpaContext)
+		cachingStrategyMock = Mock(CachingStrategy)
 	}
 
 	void "AstronomicalObjectQueryBuilder is created"() {
 		when:
-		astronomicalObjectQueryBuilerFactory = new AstronomicalObjectQueryBuilderFactory(jpaContextMock)
+		astronomicalObjectQueryBuilderFactory = new AstronomicalObjectQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 
 		then:
-		astronomicalObjectQueryBuilerFactory != null
+		astronomicalObjectQueryBuilderFactory != null
 	}
 
 }

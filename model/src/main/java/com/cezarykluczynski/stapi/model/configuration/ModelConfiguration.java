@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.model.configuration;
 
 import com.cezarykluczynski.stapi.util.constant.SpringProfile;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.zaxxer.hikari.HikariDataSource;
 import liquibase.integration.spring.SpringLiquibase;
@@ -13,6 +14,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.support.Repositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -34,6 +36,8 @@ public class ModelConfiguration {
 
 	static final String JPA_BASE_PACKAGES = "com.cezarykluczynski.stapi.model";
 
+	private static final String HIBERNATE_USE_SECOND_LEVEL_CACHE = "hibernate.cache.use_second_level_cache";
+
 	private static final String DATASOURCE_PREFIX = "stapi.datasource.main";
 
 	private static final String TRUE = "true";
@@ -43,6 +47,9 @@ public class ModelConfiguration {
 
 	@Inject
 	private ApplicationContext applicationContext;
+
+	@Inject
+	private Environment environment;
 
 	@Bean
 	@ConfigurationProperties(prefix = DATASOURCE_PREFIX)
@@ -62,6 +69,15 @@ public class ModelConfiguration {
 		Map<String, String> properties = Maps.newHashMap();
 		properties.put("hibernate.implicit_naming_strategy", "org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl");
 		properties.put("hibernate.physical_naming_strategy", "org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy");
+		if (Lists.newArrayList(environment.getActiveProfiles()).contains(SpringProfile.ETL)) {
+			properties.put(HIBERNATE_USE_SECOND_LEVEL_CACHE, "false");
+		} else {
+			properties.put(HIBERNATE_USE_SECOND_LEVEL_CACHE, TRUE);
+			properties.put("hibernate.cache.use_query_cache", TRUE);
+			properties.put("hibernate.generate_statistics", TRUE);
+			properties.put("hibernate.enable_lazy_load_no_trans", TRUE);
+			properties.put("hibernate.cache.region.factory_class", "org.hibernate.cache.ehcache.EhCacheRegionFactory");
+		}
 		properties.put("spring.jpa.properties.hibernate.show_sql", TRUE);
 		properties.put("spring.jpa.properties.hibernate.format_sql", TRUE);
 		properties.put("spring.jpa.hibernate.show_sql", TRUE);

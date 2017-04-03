@@ -55,6 +55,7 @@ class QueryBuilderTest extends Specification {
 	private static final RequestSortDirectionDTO REQUEST_SORT_DIRECTION_3 = RequestSortDirectionDTO.DESC
 	private static final Integer REQUEST_ORDER_CLAUSE_CLAUSE_ORDER_1 = 1
 	private static final Integer REQUEST_ORDER_CLAUSE_CLAUSE_ORDER_2 = 2
+	private static final Boolean CACHEABLE = LogicUtil.nextBoolean()
 	private final SingularAttribute<?, String> validKeyString = Mock(SingularAttribute)
 	private final SingularAttribute<?, Boolean> validKeyBoolean = Mock(SingularAttribute)
 	private final SingularAttribute<?, Long> validKeyLong = Mock(SingularAttribute)
@@ -102,6 +103,8 @@ class QueryBuilderTest extends Specification {
 
 	private EntityManager entityManager
 
+	private CachingStrategy cachingStrategy
+
 	private Root<Series> baseRoot
 
 	private Fetch<?, ?> fetch
@@ -135,6 +138,7 @@ class QueryBuilderTest extends Specification {
 		countCriteriaQuery = Mock(CriteriaQuery)
 		criteriaBuilder = Mock(CriteriaBuilder)
 		entityManager = Mock(EntityManager)
+		cachingStrategy = Mock(CachingStrategy)
 		baseRoot = Mock(Root)
 		fetch = Mock(Fetch)
 		countExpression = Mock(Expression)
@@ -187,7 +191,7 @@ class QueryBuilderTest extends Specification {
 	@SuppressWarnings('ExplicitCallToAndMethod')
 	void "query builder is created, preconditions are added, then search is performed"() {
 		when: 'query builder is create'
-		queryBuilder = new QueryBuilder<>(entityManager, baseClass, pageable)
+		queryBuilder = new QueryBuilder<>(entityManager, cachingStrategy, baseClass, pageable)
 
 		then: 'query builder is configured'
 		1 * entityManager.getCriteriaBuilder() >> criteriaBuilder
@@ -421,6 +425,11 @@ class QueryBuilderTest extends Specification {
 		1 * baseTypedQuery.setFirstResult(FIRST_RESULT)
 		1 * entityManager.createQuery(countCriteriaQuery) >> countTypedQuery
 
+		then: 'cacheable hint is set'
+		1 * cachingStrategy.isCacheable(_) >> CACHEABLE
+		1 * baseTypedQuery.setHint(QueryBuilder.HIBERNATE_CACHEABLE, CACHEABLE)
+		1 * countTypedQuery.setHint(QueryBuilder.HIBERNATE_CACHEABLE, CACHEABLE)
+
 		then: 'queries are executed'
 		1 * baseTypedQuery.resultList >> baseEntityList
 		1 * countTypedQuery.singleResult >> count
@@ -429,14 +438,36 @@ class QueryBuilderTest extends Specification {
 		seriesPage.content == baseEntityList
 		seriesPage.totalElements == count
 		((PageImpl) seriesPage).pageable == pageable
+	}
 
-		when: 'all entities are to be found'
+	void "all results are found"() {
+		when: 'query builder is create'
+		queryBuilder = new QueryBuilder<>(entityManager, cachingStrategy, baseClass, pageable)
+
+		then: 'query builder is configured'
+		1 * entityManager.getCriteriaBuilder() >> criteriaBuilder
+		1 * criteriaBuilder.createQuery(Series) >> baseCriteriaQuery
+		1 * baseCriteriaQuery.from(Series) >> baseRoot
+		1 * baseCriteriaQuery.select(baseRoot)
+		1 * criteriaBuilder.createQuery(Long) >> countCriteriaQuery
+		1 * countCriteriaQuery.from(baseClass)
+		1 * criteriaBuilder.count(baseRoot) >> countExpression
+		1 * countCriteriaQuery.select(countExpression)
+		1 * entityManager.getMetamodel() >> metamodel
+		1 * metamodel.entity(baseClass) >> entityType
+		1 * entityType.attributes >> attributeSet
+
+		then: 'no other interactions are expected'
+		0 * _
+
+		then: 'query builder is returned'
+		queryBuilder != null
+
+		when: 'order is added and search is performed'
+		queryBuilder.setSort(ORDER_REQUEST)
 		List<Series> seriesList = queryBuilder.findAll()
 
 		then: 'queries are build'
-		1 * criteriaBuilder.and(_) >> predicate
-		1 * baseCriteriaQuery.where(predicate)
-		1 * countCriteriaQuery.where(predicate)
 		1 * baseRoot.get(REQUEST_ORDER_CLAUSE_NAME_3) >> requestOrderClausePath3
 		1 * criteriaBuilder.desc(requestOrderClausePath3) >> requestOrderClauseOrder3
 		1 * baseRoot.get(REQUEST_ORDER_CLAUSE_NAME_2) >> requestOrderClausePath2
@@ -455,6 +486,12 @@ class QueryBuilderTest extends Specification {
 		1 * pageable.pageSize >> PAGE_SIZE
 		1 * pageable.pageNumber >> PAGE_NUMBER
 		1 * baseTypedQuery.setFirstResult(FIRST_RESULT)
+
+		then: 'cacheable hint is set'
+		1 * cachingStrategy.isCacheable(_) >> CACHEABLE
+		1 * baseTypedQuery.setHint(QueryBuilder.HIBERNATE_CACHEABLE, CACHEABLE)
+
+		then: 'query is executed'
 		1 * baseTypedQuery.resultList >> baseEntityList
 
 		then: 'all entities are found'

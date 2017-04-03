@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.model.series.query
 
+import com.cezarykluczynski.stapi.model.common.query.CachingStrategy
 import org.springframework.data.jpa.repository.JpaContext
 import spock.lang.Specification
 
@@ -7,18 +8,21 @@ class SeriesQueryBuilderFactoryTest extends Specification {
 
 	private JpaContext jpaContextMock
 
-	private SeriesQueryBuilderFactory seriesQueryBuilerFactory
+	private CachingStrategy cachingStrategyMock
+
+	private SeriesQueryBuilderFactory seriesQueryBuilderFactory
 
 	void setup() {
 		jpaContextMock = Mock(JpaContext)
+		cachingStrategyMock = Mock(CachingStrategy)
 	}
 
-	void "SeriesQueryBuiler is created"() {
+	void "SeriesQueryBuilder is created"() {
 		when:
-		seriesQueryBuilerFactory = new SeriesQueryBuilderFactory(jpaContextMock)
+		seriesQueryBuilderFactory = new SeriesQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 
 		then:
-		seriesQueryBuilerFactory != null
+		seriesQueryBuilderFactory != null
 	}
 
 }

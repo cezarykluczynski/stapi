@@ -5,6 +5,8 @@ import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO;
 import com.cezarykluczynski.stapi.model.common.dto.enums.RequestSortDirectionDTO;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
+import lombok.AccessLevel;
+import lombok.Getter;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -32,8 +34,11 @@ import java.util.stream.Collectors;
 public class QueryBuilder<T> {
 
 	private static final String PERCENT_SIGN = "%";
+	private static final String HIBERNATE_CACHEABLE = "org.hibernate.cacheable";
 
 	private EntityManager entityManager;
+
+	private CachingStrategy cachingStrategy;
 
 	private Class baseClass;
 
@@ -45,6 +50,7 @@ public class QueryBuilder<T> {
 
 	private CriteriaQuery<Long> countCriteriaQuery;
 
+	@Getter(AccessLevel.PACKAGE)
 	private CriteriaQuery<T> baseCriteriaQuery;
 
 	private List<Predicate> predicateList;
@@ -57,12 +63,14 @@ public class QueryBuilder<T> {
 
 	private List<RequestSortClauseDTO> requestSortClauseDTOList = Lists.newArrayList();
 
-	QueryBuilder(EntityManager entityManager, Class baseClass, Pageable pageable) {
+	QueryBuilder(EntityManager entityManager, CachingStrategy cachingStrategy, Class baseClass, Pageable pageable) {
 		Preconditions.checkNotNull(entityManager, "EntityManager has to be set");
+		Preconditions.checkNotNull(cachingStrategy, "CachingStrategy class has to be set");
 		Preconditions.checkNotNull(baseClass, "Base class has to be set");
 		Preconditions.checkNotNull(pageable, "Pageable has to be set");
 
 		this.entityManager = entityManager;
+		this.cachingStrategy = cachingStrategy;
 		this.baseClass = baseClass;
 		this.pageable = pageable;
 		this.prepare();
@@ -206,9 +214,7 @@ public class QueryBuilder<T> {
 	}
 
 	public Page<T> findPage() {
-		prepareQueries();
-
-		countTypedQuery = entityManager.createQuery(countCriteriaQuery);
+		prepareQueries(true);
 
 		List<T> baseEntityList = baseTypedQuery.getResultList();
 		Long count = countTypedQuery.getSingleResult();
@@ -217,7 +223,7 @@ public class QueryBuilder<T> {
 	}
 
 	public List<T> findAll() {
-		prepareQueries();
+		prepareQueries(false);
 
 		return baseTypedQuery.getResultList();
 	}
@@ -248,7 +254,7 @@ public class QueryBuilder<T> {
 		attributeSet = entityType.getAttributes();
 	}
 
-	private void prepareQueries() {
+	private void prepareQueries(boolean createCountTypedQuery) {
 		if (predicateList.size() > 0) {
 			Predicate predicate = criteriaBuilder.and(predicateList.toArray(new Predicate[predicateList.size()]));
 			baseCriteriaQuery.where(predicate);
@@ -259,6 +265,16 @@ public class QueryBuilder<T> {
 		baseTypedQuery = entityManager.createQuery(baseCriteriaQuery);
 		baseTypedQuery.setMaxResults(pageable.getPageSize());
 		baseTypedQuery.setFirstResult(pageable.getPageSize() * pageable.getPageNumber());
+
+		if (createCountTypedQuery) {
+			countTypedQuery = entityManager.createQuery(countCriteriaQuery);
+		}
+
+		boolean cacheable = cachingStrategy.isCacheable(this);
+		baseTypedQuery.setHint(HIBERNATE_CACHEABLE, cacheable);
+		if (countTypedQuery != null) {
+			countTypedQuery.setHint(HIBERNATE_CACHEABLE, cacheable);
+		}
 	}
 
 	private List<javax.persistence.criteria.Order> getOrderByList() {
