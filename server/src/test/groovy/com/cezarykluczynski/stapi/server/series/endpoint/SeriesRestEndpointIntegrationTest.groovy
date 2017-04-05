@@ -39,8 +39,8 @@ class SeriesRestEndpointIntegrationTest extends AbstractSeriesEndpointIntegratio
 		Integer pageSize = 2
 
 		when:
-		SeriesBaseResponse seriesBaseResponse = stapiRestClient.seriesApi.seriesSearchPost(pageNumber, pageSize, null, null, VOYAGER,
-				null, null, null, null, null, null, null, null)
+		SeriesBaseResponse seriesBaseResponse = stapiRestClient.seriesApi.seriesSearchPost(pageNumber, pageSize, null, VOYAGER,
+				null, null, null, null, null, null, null, null, null)
 
 		then:
 		seriesBaseResponse.page.pageNumber == pageNumber

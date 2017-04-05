@@ -6,15 +6,19 @@ import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectPortType;
 import com.cezarykluczynski.stapi.server.astronomicalObject.reader.AstronomicalObjectSoapReader;
+import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import javax.jws.WebParam;
-import javax.jws.WebService;
 
-@WebService
+@Service
 public class AstronomicalObjectSoapEndpoint implements AstronomicalObjectPortType {
+
+	public static final String ADDRESS = "/v1/soap/astronomicalObject";
 
 	private AstronomicalObjectSoapReader seriesSoapReader;
 
+	@Inject
 	public AstronomicalObjectSoapEndpoint(AstronomicalObjectSoapReader seriesSoapReader) {
 		this.seriesSoapReader = seriesSoapReader;
 	}

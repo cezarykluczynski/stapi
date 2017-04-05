@@ -6,15 +6,19 @@ import com.cezarykluczynski.stapi.client.v1.soap.ComicsFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.ComicsFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.ComicsPortType;
 import com.cezarykluczynski.stapi.server.comics.reader.ComicsSoapReader;
+import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import javax.jws.WebParam;
-import javax.jws.WebService;
 
-@WebService
+@Service
 public class ComicsSoapEndpoint implements ComicsPortType {
+
+	public static final String ADDRESS = "/v1/soap/comics";
 
 	private ComicsSoapReader comicsSoapReader;
 
+	@Inject
 	public ComicsSoapEndpoint(ComicsSoapReader comicsSoapReader) {
 		this.comicsSoapReader = comicsSoapReader;
 	}

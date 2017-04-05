@@ -1,61 +1,37 @@
 package com.cezarykluczynski.stapi.server.character.configuration
 
-import com.cezarykluczynski.stapi.server.character.endpoint.CharacterRestEndpoint
 import com.cezarykluczynski.stapi.server.character.endpoint.CharacterSoapEndpoint
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterBaseRestMapper
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterBaseSoapMapper
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterFullRestMapper
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterFullSoapMapper
-import com.cezarykluczynski.stapi.server.character.reader.CharacterRestReader
-import com.cezarykluczynski.stapi.server.character.reader.CharacterSoapReader
-import org.apache.cxf.bus.spring.SpringBus
-import org.apache.cxf.jaxws.EndpointImpl
-import org.springframework.context.ApplicationContext
+import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
 import spock.lang.Specification
 
 import javax.xml.ws.Endpoint
 
 class CharacterConfigurationTest extends Specification {
 
-	private ApplicationContext applicationContextMock
+	private EndpointFactory endpointFactoryMock
 
 	private CharacterConfiguration characterConfiguration
 
 	void setup() {
-		applicationContextMock = Mock(ApplicationContext)
-		characterConfiguration = new CharacterConfiguration(applicationContext: applicationContextMock)
+		endpointFactoryMock = Mock(EndpointFactory)
+		characterConfiguration = new CharacterConfiguration(endpointFactory: endpointFactoryMock)
 	}
 
 	void "Character SOAP endpoint is created"() {
 		given:
-		SpringBus springBus = new SpringBus()
-		CharacterSoapReader characterSoapReaderMock = Mock(CharacterSoapReader)
+		Endpoint endpoint = Mock(Endpoint)
 
 		when:
-		Endpoint characterSoapEndpoint = characterConfiguration.characterSoapEndpoint()
+		Endpoint endpointOutput = characterConfiguration.characterEndpoint()
 
 		then:
-		1 * applicationContextMock.getBean(SpringBus) >> springBus
-		1 * applicationContextMock.getBean(CharacterSoapReader) >> characterSoapReaderMock
+		1 * endpointFactoryMock.createSoapEndpoint(CharacterSoapEndpoint, CharacterSoapEndpoint.ADDRESS) >> endpoint
 		0 * _
-		characterSoapEndpoint != null
-		((EndpointImpl) characterSoapEndpoint).implementor instanceof CharacterSoapEndpoint
-		((EndpointImpl) characterSoapEndpoint).bus == springBus
-		characterSoapEndpoint.published
-	}
-
-	void "CharacterRestEndpoint is created"() {
-		given:
-		CharacterRestReader characterRestMapper = Mock(CharacterRestReader)
-
-		when:
-		CharacterRestEndpoint characterRestEndpoint = characterConfiguration.characterRestEndpoint()
-
-		then:
-		1 * applicationContextMock.getBean(CharacterRestReader) >> characterRestMapper
-		0 * _
-		characterRestEndpoint != null
-		characterRestEndpoint.characterRestReader == characterRestMapper
+		endpointOutput == endpoint
 	}
 
 	void "CharacterBaseSoapMapper is created"() {

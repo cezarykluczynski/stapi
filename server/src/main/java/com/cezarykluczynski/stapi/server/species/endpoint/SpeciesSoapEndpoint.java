@@ -6,15 +6,19 @@ import com.cezarykluczynski.stapi.client.v1.soap.SpeciesFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.SpeciesFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.SpeciesPortType;
 import com.cezarykluczynski.stapi.server.species.reader.SpeciesSoapReader;
+import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import javax.jws.WebParam;
-import javax.jws.WebService;
 
-@WebService
+@Service
 public class SpeciesSoapEndpoint implements SpeciesPortType {
+
+	public static final String ADDRESS = "/v1/soap/species";
 
 	private SpeciesSoapReader speciesSoapReader;
 
+	@Inject
 	public SpeciesSoapEndpoint(SpeciesSoapReader speciesSoapReader) {
 		this.speciesSoapReader = speciesSoapReader;
 	}

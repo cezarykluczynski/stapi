@@ -1,18 +1,12 @@
 package com.cezarykluczynski.stapi.server.episode.configuration;
 
-import com.cezarykluczynski.stapi.server.episode.endpoint.EpisodeRestEndpoint;
+import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
 import com.cezarykluczynski.stapi.server.episode.endpoint.EpisodeSoapEndpoint;
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeBaseRestMapper;
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeFullRestMapper;
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeFullSoapMapper;
-import com.cezarykluczynski.stapi.server.episode.reader.EpisodeRestReader;
-import com.cezarykluczynski.stapi.server.episode.reader.EpisodeSoapReader;
-import org.apache.cxf.Bus;
-import org.apache.cxf.bus.spring.SpringBus;
-import org.apache.cxf.jaxws.EndpointImpl;
 import org.mapstruct.factory.Mappers;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -23,20 +17,11 @@ import javax.xml.ws.Endpoint;
 public class EpisodeConfiguration {
 
 	@Inject
-	private ApplicationContext applicationContext;
+	private EndpointFactory endpointFactory;
 
 	@Bean
-	public Endpoint episodeSoapEndpoint() {
-		Bus bus = applicationContext.getBean(SpringBus.class);
-		Object implementor = new EpisodeSoapEndpoint(applicationContext.getBean(EpisodeSoapReader.class));
-		EndpointImpl endpoint = new EndpointImpl(bus, implementor);
-		endpoint.publish("/v1/soap/episode");
-		return endpoint;
-	}
-
-	@Bean
-	public EpisodeRestEndpoint episodeRestEndpoint() {
-		return new EpisodeRestEndpoint(applicationContext.getBean(EpisodeRestReader.class));
+	public Endpoint episodeEndpoint() {
+		return endpointFactory.createSoapEndpoint(EpisodeSoapEndpoint.class, EpisodeSoapEndpoint.ADDRESS);
 	}
 
 	@Bean

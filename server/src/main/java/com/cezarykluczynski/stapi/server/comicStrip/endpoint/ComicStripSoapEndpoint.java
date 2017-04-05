@@ -6,15 +6,19 @@ import com.cezarykluczynski.stapi.client.v1.soap.ComicStripFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.ComicStripFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.ComicStripPortType;
 import com.cezarykluczynski.stapi.server.comicStrip.reader.ComicStripSoapReader;
+import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import javax.jws.WebParam;
-import javax.jws.WebService;
 
-@WebService
+@Service
 public class ComicStripSoapEndpoint implements ComicStripPortType {
+
+	public static final String ADDRESS = "/v1/soap/comicStrip";
 
 	private ComicStripSoapReader comicStripSoapReader;
 
+	@Inject
 	public ComicStripSoapEndpoint(ComicStripSoapReader comicStripSoapReader) {
 		this.comicStripSoapReader = comicStripSoapReader;
 	}

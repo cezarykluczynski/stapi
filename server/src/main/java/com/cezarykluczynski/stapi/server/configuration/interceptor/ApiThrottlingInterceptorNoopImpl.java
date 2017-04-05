@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Profile(SpringProfile.API_THROTTLE_NOT)
-public class ApiLimitingInterceptorNoopImpl extends AbstractPhaseInterceptor<Message> implements ApiLimitingInterceptor {
+public class ApiThrottlingInterceptorNoopImpl extends AbstractPhaseInterceptor<Message> implements ApiThrottlingInterceptor {
 
-	public ApiLimitingInterceptorNoopImpl() {
+	public ApiThrottlingInterceptorNoopImpl() {
 		super(Phase.RECEIVE);
 	}
 

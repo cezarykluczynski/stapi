@@ -6,15 +6,19 @@ import com.cezarykluczynski.stapi.client.v1.soap.PerformerFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.PerformerFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.PerformerPortType;
 import com.cezarykluczynski.stapi.server.performer.reader.PerformerSoapReader;
+import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import javax.jws.WebParam;
-import javax.jws.WebService;
 
-@WebService
+@Service
 public class PerformerSoapEndpoint implements PerformerPortType {
+
+	public static final String ADDRESS = "/v1/soap/performer";
 
 	private PerformerSoapReader performerSoapReader;
 
+	@Inject
 	public PerformerSoapEndpoint(PerformerSoapReader performerSoapReader) {
 		this.performerSoapReader = performerSoapReader;
 	}

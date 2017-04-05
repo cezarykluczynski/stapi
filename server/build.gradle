@@ -25,8 +25,8 @@ dependencies {
 	// Utils
 	compile group: 'joda-time', name: 'joda-time', version: '2.9.2'
 	compile group: 'com.google.code.gson', name: 'gson', version: '2.5'
-	compile 'org.mapstruct:mapstruct-jdk8:1.1.0.CR1'
-	apt 'org.mapstruct:mapstruct-processor:1.1.0.CR1'
+	compile 'org.mapstruct:mapstruct-jdk8:1.2.0.Beta2'
+	apt 'org.mapstruct:mapstruct-processor:1.2.0.Beta2'
 
 	// Other
 	compile group: 'javax.servlet', name: 'jstl', version: '1.2'

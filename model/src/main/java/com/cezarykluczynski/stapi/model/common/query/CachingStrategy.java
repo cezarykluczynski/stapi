@@ -31,6 +31,10 @@ public class CachingStrategy {
 			return false;
 		}
 
+		if (pathMap == null) {
+			return true;
+		}
+
 		return pathMap.entrySet()
 				.stream()
 				.anyMatch(stringPathEntry -> GUID.equals(stringPathEntry.getKey()));

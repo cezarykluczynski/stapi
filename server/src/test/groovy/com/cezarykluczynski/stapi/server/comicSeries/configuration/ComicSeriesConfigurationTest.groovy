@@ -1,61 +1,37 @@
 package com.cezarykluczynski.stapi.server.comicSeries.configuration
 
-import com.cezarykluczynski.stapi.server.comicSeries.endpoint.ComicSeriesRestEndpoint
 import com.cezarykluczynski.stapi.server.comicSeries.endpoint.ComicSeriesSoapEndpoint
 import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesBaseRestMapper
 import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesBaseSoapMapper
 import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesFullRestMapper
 import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesFullSoapMapper
-import com.cezarykluczynski.stapi.server.comicSeries.reader.ComicSeriesRestReader
-import com.cezarykluczynski.stapi.server.comicSeries.reader.ComicSeriesSoapReader
-import org.apache.cxf.bus.spring.SpringBus
-import org.apache.cxf.jaxws.EndpointImpl
-import org.springframework.context.ApplicationContext
+import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
 import spock.lang.Specification
 
 import javax.xml.ws.Endpoint
 
 class ComicSeriesConfigurationTest extends Specification {
 
-	private ApplicationContext applicationContextMock
+	private EndpointFactory endpointFactoryMock
 
 	private ComicSeriesConfiguration comicSeriesConfiguration
 
 	void setup() {
-		applicationContextMock = Mock(ApplicationContext)
-		comicSeriesConfiguration = new ComicSeriesConfiguration(applicationContext: applicationContextMock)
+		endpointFactoryMock = Mock(EndpointFactory)
+		comicSeriesConfiguration = new ComicSeriesConfiguration(endpointFactory: endpointFactoryMock)
 	}
 
 	void "ComicSeries SOAP endpoint is created"() {
 		given:
-		SpringBus springBus = new SpringBus()
-		ComicSeriesSoapReader comicSeriesSoapReaderMock = Mock(ComicSeriesSoapReader)
+		Endpoint endpoint = Mock(Endpoint)
 
 		when:
-		Endpoint comicSeriesSoapEndpoint = comicSeriesConfiguration.comicSeriesSoapEndpoint()
+		Endpoint endpointOutput = comicSeriesConfiguration.comicSeriesEndpoint()
 
 		then:
-		1 * applicationContextMock.getBean(SpringBus) >> springBus
-		1 * applicationContextMock.getBean(ComicSeriesSoapReader) >> comicSeriesSoapReaderMock
+		1 * endpointFactoryMock.createSoapEndpoint(ComicSeriesSoapEndpoint, ComicSeriesSoapEndpoint.ADDRESS) >> endpoint
 		0 * _
-		comicSeriesSoapEndpoint != null
-		((EndpointImpl) comicSeriesSoapEndpoint).implementor instanceof ComicSeriesSoapEndpoint
-		((EndpointImpl) comicSeriesSoapEndpoint).bus == springBus
-		comicSeriesSoapEndpoint.published
-	}
-
-	void "ComicSeriesRestEndpoint is created"() {
-		given:
-		ComicSeriesRestReader comicSeriesRestMapper = Mock(ComicSeriesRestReader)
-
-		when:
-		ComicSeriesRestEndpoint comicSeriesRestEndpoint = comicSeriesConfiguration.comicSeriesRestEndpoint()
-
-		then:
-		1 * applicationContextMock.getBean(ComicSeriesRestReader) >> comicSeriesRestMapper
-		0 * _
-		comicSeriesRestEndpoint != null
-		comicSeriesRestEndpoint.comicSeriesRestReader == comicSeriesRestMapper
+		endpointOutput == endpoint
 	}
 
 	void "ComicSeriesBaseSoapMapper is created"() {

@@ -6,15 +6,19 @@ import com.cezarykluczynski.stapi.client.v1.soap.EpisodeFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.EpisodeFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.EpisodePortType;
 import com.cezarykluczynski.stapi.server.episode.reader.EpisodeSoapReader;
+import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import javax.jws.WebParam;
-import javax.jws.WebService;
 
-@WebService
+@Service
 public class EpisodeSoapEndpoint implements EpisodePortType {
+
+	public static final String ADDRESS = "/v1/soap/episode";
 
 	private EpisodeSoapReader episodeSoapReader;
 
+	@Inject
 	public EpisodeSoapEndpoint(EpisodeSoapReader episodeSoapReader) {
 		this.episodeSoapReader = episodeSoapReader;
 	}

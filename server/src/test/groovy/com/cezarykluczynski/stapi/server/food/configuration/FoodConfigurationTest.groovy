@@ -1,61 +1,37 @@
 package com.cezarykluczynski.stapi.server.food.configuration
 
-import com.cezarykluczynski.stapi.server.food.endpoint.FoodRestEndpoint
+import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
 import com.cezarykluczynski.stapi.server.food.endpoint.FoodSoapEndpoint
 import com.cezarykluczynski.stapi.server.food.mapper.FoodBaseRestMapper
 import com.cezarykluczynski.stapi.server.food.mapper.FoodBaseSoapMapper
 import com.cezarykluczynski.stapi.server.food.mapper.FoodFullRestMapper
 import com.cezarykluczynski.stapi.server.food.mapper.FoodFullSoapMapper
-import com.cezarykluczynski.stapi.server.food.reader.FoodRestReader
-import com.cezarykluczynski.stapi.server.food.reader.FoodSoapReader
-import org.apache.cxf.bus.spring.SpringBus
-import org.apache.cxf.jaxws.EndpointImpl
-import org.springframework.context.ApplicationContext
 import spock.lang.Specification
 
 import javax.xml.ws.Endpoint
 
 class FoodConfigurationTest extends Specification {
 
-	private ApplicationContext applicationContextMock
+	private EndpointFactory endpointFactoryMock
 
 	private FoodConfiguration foodConfiguration
 
 	void setup() {
-		applicationContextMock = Mock(ApplicationContext)
-		foodConfiguration = new FoodConfiguration(applicationContext: applicationContextMock)
+		endpointFactoryMock = Mock(EndpointFactory)
+		foodConfiguration = new FoodConfiguration(endpointFactory: endpointFactoryMock)
 	}
 
 	void "Food SOAP endpoint is created"() {
 		given:
-		SpringBus springBus = new SpringBus()
-		FoodSoapReader foodSoapReaderMock = Mock(FoodSoapReader)
+		Endpoint endpoint = Mock(Endpoint)
 
 		when:
-		Endpoint foodSoapEndpoint = foodConfiguration.foodSoapEndpoint()
+		Endpoint endpointOutput = foodConfiguration.foodEndpoint()
 
 		then:
-		1 * applicationContextMock.getBean(SpringBus) >> springBus
-		1 * applicationContextMock.getBean(FoodSoapReader) >> foodSoapReaderMock
+		1 * endpointFactoryMock.createSoapEndpoint(FoodSoapEndpoint, FoodSoapEndpoint.ADDRESS) >> endpoint
 		0 * _
-		foodSoapEndpoint != null
-		((EndpointImpl) foodSoapEndpoint).implementor instanceof FoodSoapEndpoint
-		((EndpointImpl) foodSoapEndpoint).bus == springBus
-		foodSoapEndpoint.published
-	}
-
-	void "FoodRestEndpoint is created"() {
-		given:
-		FoodRestReader foodRestMapper = Mock(FoodRestReader)
-
-		when:
-		FoodRestEndpoint foodRestEndpoint = foodConfiguration.foodRestEndpoint()
-
-		then:
-		1 * applicationContextMock.getBean(FoodRestReader) >> foodRestMapper
-		0 * _
-		foodRestEndpoint != null
-		foodRestEndpoint.foodRestReader == foodRestMapper
+		endpointOutput == endpoint
 	}
 
 	void "FoodBaseSoapMapper is created"() {

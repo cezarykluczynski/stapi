@@ -63,6 +63,17 @@ class CachingStrategyTest extends Specification {
 		cacheable
 	}
 
+	void "returns false when attributePathRegistry is null"() {
+		when:
+		boolean cacheable = cachingStrategy.isCacheable(queryBuilder)
+
+		then:
+		1 * queryBuilder.baseCriteriaQuery >> criteriaQuery
+		1 * criteriaQuery.selection >> root
+		0 * _
+		cacheable
+	}
+
 	void "returns false when attributePathRegistry could not be retrieved"() {
 		when:
 		boolean cacheable = cachingStrategy.isCacheable(queryBuilder)

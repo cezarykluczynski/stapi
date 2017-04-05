@@ -3,12 +3,12 @@ package com.cezarykluczynski.stapi.server.configuration.interceptor
 import org.apache.cxf.message.Message
 import spock.lang.Specification
 
-class ApiLimitingInterceptorNoopImplTest extends Specification {
+class ApiThrottlingInterceptorNoopImplTest extends Specification {
 
-	private ApiLimitingInterceptorNoopImpl apiLimitingInterceptorNoopImpl
+	private ApiThrottlingInterceptorNoopImpl apiThrottlingInterceptorNoopImpl
 
 	void setup() {
-		apiLimitingInterceptorNoopImpl = new ApiLimitingInterceptorNoopImpl()
+		apiThrottlingInterceptorNoopImpl = new ApiThrottlingInterceptorNoopImpl()
 	}
 
 	void "does nothing when message is handled"() {
@@ -16,7 +16,7 @@ class ApiLimitingInterceptorNoopImplTest extends Specification {
 		Message message = Mock(Message)
 
 		when:
-		apiLimitingInterceptorNoopImpl.handleMessage(message)
+		apiThrottlingInterceptorNoopImpl.handleMessage(message)
 
 		then:
 		0 * _
@@ -27,7 +27,7 @@ class ApiLimitingInterceptorNoopImplTest extends Specification {
 		Message message = Mock(Message)
 
 		when:
-		apiLimitingInterceptorNoopImpl.handleFault(message)
+		apiThrottlingInterceptorNoopImpl.handleFault(message)
 
 		then:
 		0 * _

@@ -1,61 +1,37 @@
 package com.cezarykluczynski.stapi.server.series.configuration
 
-import com.cezarykluczynski.stapi.server.series.endpoint.SeriesRestEndpoint
+import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
 import com.cezarykluczynski.stapi.server.series.endpoint.SeriesSoapEndpoint
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesBaseRestMapper
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesBaseSoapMapper
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesFullRestMapper
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesFullSoapMapper
-import com.cezarykluczynski.stapi.server.series.reader.SeriesRestReader
-import com.cezarykluczynski.stapi.server.series.reader.SeriesSoapReader
-import org.apache.cxf.bus.spring.SpringBus
-import org.apache.cxf.jaxws.EndpointImpl
-import org.springframework.context.ApplicationContext
 import spock.lang.Specification
 
 import javax.xml.ws.Endpoint
 
 class SeriesConfigurationTest extends Specification {
 
-	private ApplicationContext applicationContextMock
+	private EndpointFactory endpointFactoryMock
 
 	private SeriesConfiguration seriesConfiguration
 
 	void setup() {
-		applicationContextMock = Mock(ApplicationContext)
-		seriesConfiguration = new SeriesConfiguration(applicationContext: applicationContextMock)
+		endpointFactoryMock = Mock(EndpointFactory)
+		seriesConfiguration = new SeriesConfiguration(endpointFactory: endpointFactoryMock)
 	}
 
 	void "Series SOAP endpoint is created"() {
 		given:
-		SpringBus springBus = new SpringBus()
-		SeriesSoapReader seriesSoapReaderMock = Mock(SeriesSoapReader)
+		Endpoint endpoint = Mock(Endpoint)
 
 		when:
-		Endpoint seriesSoapEndpoint = seriesConfiguration.seriesSoapEndpoint()
+		Endpoint endpointOutput = seriesConfiguration.seriesEndpoint()
 
 		then:
-		1 * applicationContextMock.getBean(SpringBus) >> springBus
-		1 * applicationContextMock.getBean(SeriesSoapReader) >> seriesSoapReaderMock
+		1 * endpointFactoryMock.createSoapEndpoint(SeriesSoapEndpoint, SeriesSoapEndpoint.ADDRESS) >> endpoint
 		0 * _
-		seriesSoapEndpoint != null
-		((EndpointImpl) seriesSoapEndpoint).implementor instanceof SeriesSoapEndpoint
-		((EndpointImpl) seriesSoapEndpoint).bus == springBus
-		seriesSoapEndpoint.published
-	}
-
-	void "SeriesRestEndpoint is created"() {
-		given:
-		SeriesRestReader seriesRestMapper = Mock(SeriesRestReader)
-
-		when:
-		SeriesRestEndpoint seriesRestEndpoint = seriesConfiguration.seriesRestEndpoint()
-
-		then:
-		1 * applicationContextMock.getBean(SeriesRestReader) >> seriesRestMapper
-		0 * _
-		seriesRestEndpoint != null
-		seriesRestEndpoint.seriesRestReader == seriesRestMapper
+		endpointOutput == endpoint
 	}
 
 	void "SeriesBaseSoapMapper is created"() {

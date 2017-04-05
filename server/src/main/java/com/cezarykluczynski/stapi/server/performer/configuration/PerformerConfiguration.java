@@ -1,18 +1,12 @@
 package com.cezarykluczynski.stapi.server.performer.configuration;
 
-import com.cezarykluczynski.stapi.server.performer.endpoint.PerformerRestEndpoint;
+import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
 import com.cezarykluczynski.stapi.server.performer.endpoint.PerformerSoapEndpoint;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseRestMapper;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerFullRestMapper;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerFullSoapMapper;
-import com.cezarykluczynski.stapi.server.performer.reader.PerformerRestReader;
-import com.cezarykluczynski.stapi.server.performer.reader.PerformerSoapReader;
-import org.apache.cxf.Bus;
-import org.apache.cxf.bus.spring.SpringBus;
-import org.apache.cxf.jaxws.EndpointImpl;
 import org.mapstruct.factory.Mappers;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -23,20 +17,11 @@ import javax.xml.ws.Endpoint;
 public class PerformerConfiguration {
 
 	@Inject
-	private ApplicationContext applicationContext;
+	private EndpointFactory endpointFactory;
 
 	@Bean
-	public Endpoint performerSoapEndpoint() {
-		Bus bus = applicationContext.getBean(SpringBus.class);
-		Object implementor = new PerformerSoapEndpoint(applicationContext.getBean(PerformerSoapReader.class));
-		EndpointImpl endpoint = new EndpointImpl(bus, implementor);
-		endpoint.publish("/v1/soap/performer");
-		return endpoint;
-	}
-
-	@Bean
-	public PerformerRestEndpoint performerRestEndpoint() {
-		return new PerformerRestEndpoint(applicationContext.getBean(PerformerRestReader.class));
+	public Endpoint performerEndpoint() {
+		return endpointFactory.createSoapEndpoint(PerformerSoapEndpoint.class, PerformerSoapEndpoint.ADDRESS);
 	}
 
 	@Bean

@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.CharacterFullResponse;
 import com.cezarykluczynski.stapi.server.character.dto.CharacterRestBeanParams;
 import com.cezarykluczynski.stapi.server.character.reader.CharacterRestReader;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
+import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import javax.ws.rs.BeanParam;
@@ -16,6 +17,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+@Service
 @Path("v1/rest/character")
 @Produces(MediaType.APPLICATION_JSON)
 public class CharacterRestEndpoint {

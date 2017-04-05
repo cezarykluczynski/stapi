@@ -1,61 +1,37 @@
 package com.cezarykluczynski.stapi.server.comics.configuration
 
-import com.cezarykluczynski.stapi.server.comics.endpoint.ComicsRestEndpoint
 import com.cezarykluczynski.stapi.server.comics.endpoint.ComicsSoapEndpoint
 import com.cezarykluczynski.stapi.server.comics.mapper.ComicsBaseRestMapper
 import com.cezarykluczynski.stapi.server.comics.mapper.ComicsBaseSoapMapper
 import com.cezarykluczynski.stapi.server.comics.mapper.ComicsFullRestMapper
 import com.cezarykluczynski.stapi.server.comics.mapper.ComicsFullSoapMapper
-import com.cezarykluczynski.stapi.server.comics.reader.ComicsRestReader
-import com.cezarykluczynski.stapi.server.comics.reader.ComicsSoapReader
-import org.apache.cxf.bus.spring.SpringBus
-import org.apache.cxf.jaxws.EndpointImpl
-import org.springframework.context.ApplicationContext
+import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
 import spock.lang.Specification
 
 import javax.xml.ws.Endpoint
 
 class ComicsConfigurationTest extends Specification {
 
-	private ApplicationContext applicationContextMock
+	private EndpointFactory endpointFactoryMock
 
 	private ComicsConfiguration comicsConfiguration
 
 	void setup() {
-		applicationContextMock = Mock(ApplicationContext)
-		comicsConfiguration = new ComicsConfiguration(applicationContext: applicationContextMock)
+		endpointFactoryMock = Mock(EndpointFactory)
+		comicsConfiguration = new ComicsConfiguration(endpointFactory: endpointFactoryMock)
 	}
 
 	void "Comics SOAP endpoint is created"() {
 		given:
-		SpringBus springBus = new SpringBus()
-		ComicsSoapReader comicsSoapReaderMock = Mock(ComicsSoapReader)
+		Endpoint endpoint = Mock(Endpoint)
 
 		when:
-		Endpoint comicsSoapEndpoint = comicsConfiguration.comicsSoapEndpoint()
+		Endpoint endpointOutput = comicsConfiguration.comicsEndpoint()
 
 		then:
-		1 * applicationContextMock.getBean(SpringBus) >> springBus
-		1 * applicationContextMock.getBean(ComicsSoapReader) >> comicsSoapReaderMock
+		1 * endpointFactoryMock.createSoapEndpoint(ComicsSoapEndpoint, ComicsSoapEndpoint.ADDRESS) >> endpoint
 		0 * _
-		comicsSoapEndpoint != null
-		((EndpointImpl) comicsSoapEndpoint).implementor instanceof ComicsSoapEndpoint
-		((EndpointImpl) comicsSoapEndpoint).bus == springBus
-		comicsSoapEndpoint.published
-	}
-
-	void "ComicsRestEndpoint is created"() {
-		given:
-		ComicsRestReader comicsRestMapper = Mock(ComicsRestReader)
-
-		when:
-		ComicsRestEndpoint comicsRestEndpoint = comicsConfiguration.comicsRestEndpoint()
-
-		then:
-		1 * applicationContextMock.getBean(ComicsRestReader) >> comicsRestMapper
-		0 * _
-		comicsRestEndpoint != null
-		comicsRestEndpoint.comicsRestReader == comicsRestMapper
+		endpointOutput == endpoint
 	}
 
 	void "ComicsBaseSoapMapper is created"() {

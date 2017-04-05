@@ -1,69 +1,45 @@
 package com.cezarykluczynski.stapi.server.episode.configuration
 
-import com.cezarykluczynski.stapi.server.episode.endpoint.EpisodeRestEndpoint
+import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
 import com.cezarykluczynski.stapi.server.episode.endpoint.EpisodeSoapEndpoint
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeBaseRestMapper
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeBaseSoapMapper
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeFullRestMapper
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeFullSoapMapper
-import com.cezarykluczynski.stapi.server.episode.reader.EpisodeRestReader
-import com.cezarykluczynski.stapi.server.episode.reader.EpisodeSoapReader
-import org.apache.cxf.bus.spring.SpringBus
-import org.apache.cxf.jaxws.EndpointImpl
-import org.springframework.context.ApplicationContext
 import spock.lang.Specification
 
 import javax.xml.ws.Endpoint
 
 class EpisodeConfigurationTest extends Specification {
 
-	private ApplicationContext applicationContextMock
+	private EndpointFactory endpointFactoryMock
 
 	private EpisodeConfiguration episodeConfiguration
 
 	void setup() {
-		applicationContextMock = Mock(ApplicationContext)
-		episodeConfiguration = new EpisodeConfiguration(applicationContext: applicationContextMock)
+		endpointFactoryMock = Mock(EndpointFactory)
+		episodeConfiguration = new EpisodeConfiguration(endpointFactory: endpointFactoryMock)
 	}
 
 	void "Episode SOAP endpoint is created"() {
 		given:
-		SpringBus springBus = new SpringBus()
-		EpisodeSoapReader episodeSoapReaderMock = Mock(EpisodeSoapReader)
+		Endpoint endpoint = Mock(Endpoint)
 
 		when:
-		Endpoint episodeSoapEndpoint = episodeConfiguration.episodeSoapEndpoint()
+		Endpoint endpointOutput = episodeConfiguration.episodeEndpoint()
 
 		then:
-		1 * applicationContextMock.getBean(SpringBus) >> springBus
-		1 * applicationContextMock.getBean(EpisodeSoapReader) >> episodeSoapReaderMock
+		1 * endpointFactoryMock.createSoapEndpoint(EpisodeSoapEndpoint, EpisodeSoapEndpoint.ADDRESS) >> endpoint
 		0 * _
-		episodeSoapEndpoint != null
-		((EndpointImpl) episodeSoapEndpoint).implementor instanceof EpisodeSoapEndpoint
-		((EndpointImpl) episodeSoapEndpoint).bus == springBus
-		episodeSoapEndpoint.published
+		endpointOutput == endpoint
 	}
 
-	void "EpisodeRestEndpoint is created"() {
-		given:
-		EpisodeRestReader episodeRestMapper = Mock(EpisodeRestReader)
-
+	void "EpisodeBaseSoapMapper is created"() {
 		when:
-		EpisodeRestEndpoint episodeRestEndpoint = episodeConfiguration.episodeRestEndpoint()
+		EpisodeBaseSoapMapper episodeBaseSoapMapper = episodeConfiguration.episodeBaseSoapMapper()
 
 		then:
-		1 * applicationContextMock.getBean(EpisodeRestReader) >> episodeRestMapper
-		0 * _
-		episodeRestEndpoint != null
-		episodeRestEndpoint.episodeRestReader == episodeRestMapper
-	}
-
-	void "EpisodeSoapBaseMapper is created"() {
-		when:
-		EpisodeBaseSoapMapper episodeSoapMapper = episodeConfiguration.episodeBaseSoapMapper()
-
-		then:
-		episodeSoapMapper != null
+		episodeBaseSoapMapper != null
 	}
 
 	void "EpisodeFullSoapMapper is created"() {

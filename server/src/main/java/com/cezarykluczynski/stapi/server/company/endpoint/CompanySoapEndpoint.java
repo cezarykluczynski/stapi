@@ -6,15 +6,19 @@ import com.cezarykluczynski.stapi.client.v1.soap.CompanyFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.CompanyFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.CompanyPortType;
 import com.cezarykluczynski.stapi.server.company.reader.CompanySoapReader;
+import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import javax.jws.WebParam;
-import javax.jws.WebService;
 
-@WebService
+@Service
 public class CompanySoapEndpoint implements CompanyPortType {
+
+	public static final String ADDRESS = "/v1/soap/company";
 
 	private CompanySoapReader seriesSoapReader;
 
+	@Inject
 	public CompanySoapEndpoint(CompanySoapReader seriesSoapReader) {
 		this.seriesSoapReader = seriesSoapReader;
 	}

@@ -6,15 +6,19 @@ import com.cezarykluczynski.stapi.client.v1.soap.StaffFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.StaffFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.StaffPortType;
 import com.cezarykluczynski.stapi.server.staff.reader.StaffSoapReader;
+import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import javax.jws.WebParam;
-import javax.jws.WebService;
 
-@WebService
+@Service
 public class StaffSoapEndpoint implements StaffPortType {
+
+	public static final String ADDRESS = "/v1/soap/staff";
 
 	private StaffSoapReader seriesSoapReader;
 
+	@Inject
 	public StaffSoapEndpoint(StaffSoapReader seriesSoapReader) {
 		this.seriesSoapReader = seriesSoapReader;
 	}

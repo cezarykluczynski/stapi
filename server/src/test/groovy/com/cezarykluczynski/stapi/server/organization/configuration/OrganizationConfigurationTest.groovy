@@ -1,61 +1,37 @@
 package com.cezarykluczynski.stapi.server.organization.configuration
 
-import com.cezarykluczynski.stapi.server.organization.endpoint.OrganizationRestEndpoint
+import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
 import com.cezarykluczynski.stapi.server.organization.endpoint.OrganizationSoapEndpoint
 import com.cezarykluczynski.stapi.server.organization.mapper.OrganizationBaseRestMapper
 import com.cezarykluczynski.stapi.server.organization.mapper.OrganizationBaseSoapMapper
 import com.cezarykluczynski.stapi.server.organization.mapper.OrganizationFullRestMapper
 import com.cezarykluczynski.stapi.server.organization.mapper.OrganizationFullSoapMapper
-import com.cezarykluczynski.stapi.server.organization.reader.OrganizationRestReader
-import com.cezarykluczynski.stapi.server.organization.reader.OrganizationSoapReader
-import org.apache.cxf.bus.spring.SpringBus
-import org.apache.cxf.jaxws.EndpointImpl
-import org.springframework.context.ApplicationContext
 import spock.lang.Specification
 
 import javax.xml.ws.Endpoint
 
 class OrganizationConfigurationTest extends Specification {
 
-	private ApplicationContext applicationContextMock
+	private EndpointFactory endpointFactoryMock
 
 	private OrganizationConfiguration organizationConfiguration
 
 	void setup() {
-		applicationContextMock = Mock(ApplicationContext)
-		organizationConfiguration = new OrganizationConfiguration(applicationContext: applicationContextMock)
+		endpointFactoryMock = Mock(EndpointFactory)
+		organizationConfiguration = new OrganizationConfiguration(endpointFactory: endpointFactoryMock)
 	}
 
 	void "Organization SOAP endpoint is created"() {
 		given:
-		SpringBus springBus = new SpringBus()
-		OrganizationSoapReader organizationSoapReaderMock = Mock(OrganizationSoapReader)
+		Endpoint endpoint = Mock(Endpoint)
 
 		when:
-		Endpoint organizationSoapEndpoint = organizationConfiguration.organizationSoapEndpoint()
+		Endpoint endpointOutput = organizationConfiguration.organizationEndpoint()
 
 		then:
-		1 * applicationContextMock.getBean(SpringBus) >> springBus
-		1 * applicationContextMock.getBean(OrganizationSoapReader) >> organizationSoapReaderMock
+		1 * endpointFactoryMock.createSoapEndpoint(OrganizationSoapEndpoint, OrganizationSoapEndpoint.ADDRESS) >> endpoint
 		0 * _
-		organizationSoapEndpoint != null
-		((EndpointImpl) organizationSoapEndpoint).implementor instanceof OrganizationSoapEndpoint
-		((EndpointImpl) organizationSoapEndpoint).bus == springBus
-		organizationSoapEndpoint.published
-	}
-
-	void "OrganizationRestEndpoint is created"() {
-		given:
-		OrganizationRestReader organizationRestMapper = Mock(OrganizationRestReader)
-
-		when:
-		OrganizationRestEndpoint organizationRestEndpoint = organizationConfiguration.organizationRestEndpoint()
-
-		then:
-		1 * applicationContextMock.getBean(OrganizationRestReader) >> organizationRestMapper
-		0 * _
-		organizationRestEndpoint != null
-		organizationRestEndpoint.organizationRestReader == organizationRestMapper
+		endpointOutput == endpoint
 	}
 
 	void "OrganizationBaseSoapMapper is created"() {

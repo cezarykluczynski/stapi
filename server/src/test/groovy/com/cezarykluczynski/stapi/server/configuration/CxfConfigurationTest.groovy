@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.server.comicSeries.endpoint.ComicSeriesRestEnd
 import com.cezarykluczynski.stapi.server.comicStrip.endpoint.ComicStripRestEndpoint
 import com.cezarykluczynski.stapi.server.comics.endpoint.ComicsRestEndpoint
 import com.cezarykluczynski.stapi.server.company.endpoint.CompanyRestEndpoint
-import com.cezarykluczynski.stapi.server.configuration.interceptor.ApiLimitingInterceptor
+import com.cezarykluczynski.stapi.server.configuration.interceptor.ApiThrottlingInterceptor
 import com.cezarykluczynski.stapi.server.episode.endpoint.EpisodeRestEndpoint
 import com.cezarykluczynski.stapi.server.food.endpoint.FoodRestEndpoint
 import com.cezarykluczynski.stapi.server.movie.endpoint.MovieRestEndpoint
@@ -57,7 +57,7 @@ class CxfConfigurationTest extends Specification {
 
 		then:
 		1 * applicationContextMock.getBean(SpringBus) >> new SpringBus()
-		1 * applicationContextMock.getBean(ApiLimitingInterceptor) >> Mock(ApiLimitingInterceptor)
+		1 * applicationContextMock.getBean(ApiThrottlingInterceptor) >> Mock(ApiThrottlingInterceptor)
 		1 * applicationContextMock.getBean(AstronomicalObjectRestEndpoint) >> Mock(AstronomicalObjectRestEndpoint)
 		1 * applicationContextMock.getBean(CharacterRestEndpoint) >> Mock(CharacterRestEndpoint)
 		1 * applicationContextMock.getBean(ComicCollectionRestEndpoint) >> Mock(ComicCollectionRestEndpoint)

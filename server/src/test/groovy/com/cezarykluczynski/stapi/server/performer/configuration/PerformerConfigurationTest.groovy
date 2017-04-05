@@ -1,61 +1,37 @@
 package com.cezarykluczynski.stapi.server.performer.configuration
 
-import com.cezarykluczynski.stapi.server.performer.endpoint.PerformerRestEndpoint
+import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
 import com.cezarykluczynski.stapi.server.performer.endpoint.PerformerSoapEndpoint
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseRestMapper
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseSoapMapper
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerFullRestMapper
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerFullSoapMapper
-import com.cezarykluczynski.stapi.server.performer.reader.PerformerRestReader
-import com.cezarykluczynski.stapi.server.performer.reader.PerformerSoapReader
-import org.apache.cxf.bus.spring.SpringBus
-import org.apache.cxf.jaxws.EndpointImpl
-import org.springframework.context.ApplicationContext
 import spock.lang.Specification
 
 import javax.xml.ws.Endpoint
 
 class PerformerConfigurationTest extends Specification {
 
-	private ApplicationContext applicationContextMock
+	private EndpointFactory endpointFactoryMock
 
 	private PerformerConfiguration performerConfiguration
 
 	void setup() {
-		applicationContextMock = Mock(ApplicationContext)
-		performerConfiguration = new PerformerConfiguration(applicationContext: applicationContextMock)
+		endpointFactoryMock = Mock(EndpointFactory)
+		performerConfiguration = new PerformerConfiguration(endpointFactory: endpointFactoryMock)
 	}
 
 	void "Performer SOAP endpoint is created"() {
 		given:
-		SpringBus springBus = new SpringBus()
-		PerformerSoapReader performerSoapReaderMock = Mock(PerformerSoapReader)
+		Endpoint endpoint = Mock(Endpoint)
 
 		when:
-		Endpoint performerSoapEndpoint = performerConfiguration.performerSoapEndpoint()
+		Endpoint endpointOutput = performerConfiguration.performerEndpoint()
 
 		then:
-		1 * applicationContextMock.getBean(SpringBus) >> springBus
-		1 * applicationContextMock.getBean(PerformerSoapReader) >> performerSoapReaderMock
+		1 * endpointFactoryMock.createSoapEndpoint(PerformerSoapEndpoint, PerformerSoapEndpoint.ADDRESS) >> endpoint
 		0 * _
-		performerSoapEndpoint != null
-		((EndpointImpl) performerSoapEndpoint).implementor instanceof PerformerSoapEndpoint
-		((EndpointImpl) performerSoapEndpoint).bus == springBus
-		performerSoapEndpoint.published
-	}
-
-	void "PerformerRestEndpoint is created"() {
-		given:
-		PerformerRestReader performerRestMapper = Mock(PerformerRestReader)
-
-		when:
-		PerformerRestEndpoint performerRestEndpoint = performerConfiguration.performerRestEndpoint()
-
-		then:
-		1 * applicationContextMock.getBean(PerformerRestReader) >> performerRestMapper
-		0 * _
-		performerRestEndpoint != null
-		performerRestEndpoint.performerRestReader == performerRestMapper
+		endpointOutput == endpoint
 	}
 
 	void "PerformerBaseSoapMapper is created"() {

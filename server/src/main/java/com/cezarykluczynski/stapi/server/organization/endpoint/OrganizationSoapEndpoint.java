@@ -6,15 +6,19 @@ import com.cezarykluczynski.stapi.client.v1.soap.OrganizationFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.OrganizationFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.OrganizationPortType;
 import com.cezarykluczynski.stapi.server.organization.reader.OrganizationSoapReader;
+import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import javax.jws.WebParam;
-import javax.jws.WebService;
 
-@WebService
+@Service
 public class OrganizationSoapEndpoint implements OrganizationPortType {
+
+	public static final String ADDRESS = "/v1/soap/organization";
 
 	private OrganizationSoapReader seriesSoapReader;
 
+	@Inject
 	public OrganizationSoapEndpoint(OrganizationSoapReader seriesSoapReader) {
 		this.seriesSoapReader = seriesSoapReader;
 	}

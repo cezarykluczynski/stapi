@@ -6,12 +6,14 @@ import com.cezarykluczynski.stapi.client.v1.soap.CharacterFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.CharacterFullResponse;
 import com.cezarykluczynski.stapi.client.v1.soap.CharacterPortType;
 import com.cezarykluczynski.stapi.server.character.reader.CharacterSoapReader;
+import org.springframework.stereotype.Service;
 
 import javax.jws.WebParam;
-import javax.jws.WebService;
 
-@WebService
+@Service
 public class CharacterSoapEndpoint implements CharacterPortType {
+
+	public static final String ADDRESS = "/v1/soap/character";
 
 	private CharacterSoapReader characterSoapReader;
 
