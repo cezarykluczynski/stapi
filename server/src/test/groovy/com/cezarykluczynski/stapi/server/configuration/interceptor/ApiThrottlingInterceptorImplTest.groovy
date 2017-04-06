@@ -27,16 +27,4 @@ class ApiThrottlingInterceptorImplTest extends Specification {
 		0 * _
 	}
 
-	void "passes fault validation to ThrottleFacade"() {
-		given:
-		Message message = Mock(Message)
-
-		when:
-		apiThrottlingInterceptorImpl.handleFault(message)
-
-		then:
-		1 * throttleFacadeMock.validate(message)
-		0 * _
-	}
-
 }

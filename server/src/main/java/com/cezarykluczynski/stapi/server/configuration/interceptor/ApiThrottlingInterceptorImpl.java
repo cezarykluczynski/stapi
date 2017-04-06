@@ -28,9 +28,4 @@ public class ApiThrottlingInterceptorImpl extends AbstractPhaseInterceptor<Messa
 		throttleFacade.validate(message);
 	}
 
-	@Override
-	public void handleFault(Message message) {
-		throttleFacade.validate(message);
-	}
-
 }

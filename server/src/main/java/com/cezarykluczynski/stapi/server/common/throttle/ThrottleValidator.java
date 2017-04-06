@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ThrottleValidator {
 
-	public ThrottleResult isValid(Message message) {
+	ThrottleResult validate(Message message) {
 		// TODO
 		ThrottleResult throttleResult = new ThrottleResult();
 		return throttleResult;
