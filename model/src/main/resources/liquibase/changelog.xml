@@ -20,4 +20,5 @@
 	<include file="character/0016_create_character_species.xml" relativeToChangelogFile="true"/>
 	<include file="organization/0017_create_organization.xml" relativeToChangelogFile="true"/>
 	<include file="food/0018_create_food.xml" relativeToChangelogFile="true"/>
+	<include file="throttle/0018_create_throttle.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
