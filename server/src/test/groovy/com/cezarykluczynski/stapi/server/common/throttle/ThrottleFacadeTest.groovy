@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.server.common.throttle
 
+import com.cezarykluczynski.stapi.server.common.throttle.rest.RestException
 import org.apache.cxf.binding.soap.SoapFault
 import org.apache.cxf.message.Message
 import spock.lang.Specification

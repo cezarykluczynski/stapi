@@ -29,7 +29,7 @@ import javax.sql.DataSource;
 import java.util.Map;
 
 @Configuration
-@EnableConfigurationProperties({DataSourceProperties.class, HibernateProperties.class})
+@EnableConfigurationProperties({DataSourceProperties.class, HibernateProperties.class, ThrottleProperties.class})
 @EnableJpaRepositories(basePackages = ModelConfiguration.JPA_BASE_PACKAGES)
 @EnableTransactionManagement
 public class ModelConfiguration {

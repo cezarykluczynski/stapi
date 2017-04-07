@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.server.common.throttle;
+package com.cezarykluczynski.stapi.server.common.throttle.rest;
 
 public class RestError {
 
@@ -6,7 +6,7 @@ public class RestError {
 
 	private String description;
 
-	RestError(String code, String description) {
+	public RestError(String code, String description) {
 		this.code = code;
 		this.description = description;
 	}

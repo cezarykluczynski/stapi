@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.server.comicSeries.endpoint.ComicSeriesRestEnd
 import com.cezarykluczynski.stapi.server.comicStrip.endpoint.ComicStripRestEndpoint;
 import com.cezarykluczynski.stapi.server.comics.endpoint.ComicsRestEndpoint;
 import com.cezarykluczynski.stapi.server.common.converter.LocalDateRestParamConverterProvider;
-import com.cezarykluczynski.stapi.server.common.throttle.RestExceptionMapper;
+import com.cezarykluczynski.stapi.server.common.throttle.rest.RestExceptionMapper;
 import com.cezarykluczynski.stapi.server.company.endpoint.CompanyRestEndpoint;
 import com.cezarykluczynski.stapi.server.configuration.interceptor.ApiThrottlingInterceptor;
 import com.cezarykluczynski.stapi.server.episode.endpoint.EpisodeRestEndpoint;

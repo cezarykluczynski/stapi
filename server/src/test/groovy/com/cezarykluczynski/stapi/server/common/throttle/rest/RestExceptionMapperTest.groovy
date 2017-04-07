@@ -1,5 +1,6 @@
-package com.cezarykluczynski.stapi.server.common.throttle
+package com.cezarykluczynski.stapi.server.common.throttle.rest
 
+import com.cezarykluczynski.stapi.server.common.throttle.ThrottleReason
 import spock.lang.Specification
 
 import javax.ws.rs.core.Response

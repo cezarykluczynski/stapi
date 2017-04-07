@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.server.common.throttle;
+package com.cezarykluczynski.stapi.server.common.throttle.rest;
 
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
