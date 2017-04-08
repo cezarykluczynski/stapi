@@ -25,21 +25,21 @@ class CompanySoapQueryTest extends Specification {
 	private CompanySoapQuery companySoapQuery
 
 	void setup() {
-		companyBaseSoapMapperMock = Mock(CompanyBaseSoapMapper)
-		companyFullSoapMapperMock = Mock(CompanyFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
-		companyRepositoryMock = Mock(CompanyRepository)
+		companyBaseSoapMapperMock = Mock()
+		companyFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
+		companyRepositoryMock = Mock()
 		companySoapQuery = new CompanySoapQuery(companyBaseSoapMapperMock, companyFullSoapMapperMock, pageMapperMock, companyRepositoryMock)
 	}
 
 	void "maps CompanyBaseRequest to CompanyRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
-		RequestPage requestPage = Mock(RequestPage)
-		PageRequest pageRequest = Mock(PageRequest)
-		CompanyBaseRequest companyRequest = Mock(CompanyBaseRequest)
+		RequestPage requestPage = Mock()
+		PageRequest pageRequest = Mock()
+		CompanyBaseRequest companyRequest = Mock()
 		companyRequest.page >> requestPage
-		CompanyRequestDTO companyRequestDTO = Mock(CompanyRequestDTO)
-		Page page = Mock(Page)
+		CompanyRequestDTO companyRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = companySoapQuery.query(companyRequest)
@@ -53,10 +53,10 @@ class CompanySoapQueryTest extends Specification {
 
 	void "maps CompanyFullRequest to CompanyRequestDTO, then calls repository, then returns result"() {
 		given:
-		PageRequest pageRequest = Mock(PageRequest)
-		CompanyFullRequest companyRequest = Mock(CompanyFullRequest)
-		CompanyRequestDTO companyRequestDTO = Mock(CompanyRequestDTO)
-		Page page = Mock(Page)
+		PageRequest pageRequest = Mock()
+		CompanyFullRequest companyRequest = Mock()
+		CompanyRequestDTO companyRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = companySoapQuery.query(companyRequest)

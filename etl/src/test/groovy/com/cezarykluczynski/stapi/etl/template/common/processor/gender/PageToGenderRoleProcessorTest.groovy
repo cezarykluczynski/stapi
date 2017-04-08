@@ -33,10 +33,10 @@ class PageToGenderRoleProcessorTest extends Specification {
 	private PageToGenderRoleProcessor pageToGenderRoleProcessor
 
 	void setup() {
-		pageApiMock = Mock(PageApi)
-		wikitextApiMock = Mock(WikitextApi)
-		templateFinderMock = Mock(TemplateFinder)
-		individualTemplatePartsEnrichingProcessorMock = Mock(IndividualTemplatePartsEnrichingProcessor)
+		pageApiMock = Mock()
+		wikitextApiMock = Mock()
+		templateFinderMock = Mock()
+		individualTemplatePartsEnrichingProcessorMock = Mock()
 		pageToGenderRoleProcessor = new PageToGenderRoleProcessor(pageApiMock, wikitextApiMock, templateFinderMock,
 				individualTemplatePartsEnrichingProcessorMock)
 	}
@@ -51,7 +51,7 @@ class PageToGenderRoleProcessorTest extends Specification {
 
 	void "logs that no roles were found when page is a performer page"() {
 		given:
-		Page page = Mock(Page)
+		Page page = Mock()
 		page.categories >> Lists.newArrayList(new CategoryHeader(title: CategoryTitles.PERFORMER.get(0)))
 
 		when:
@@ -64,7 +64,7 @@ class PageToGenderRoleProcessorTest extends Specification {
 
 	void "does not log that no roles were found when page is not a performer page"() {
 		given:
-		Page page = Mock(Page)
+		Page page = Mock()
 		page.categories >> Lists.newArrayList(new CategoryHeader(title: CategoryTitles.STAFF.get(0)))
 
 		when:
@@ -102,9 +102,9 @@ class PageToGenderRoleProcessorTest extends Specification {
 	void "returns null when individual template does not contain gender"() {
 		given:
 		List<String> titleList = Lists.newArrayList(TITLE)
-		Page page = Mock(Page)
+		Page page = Mock()
 		page.wikitext >> VALID_WIKITEXT
-		Page subpage = Mock(Page)
+		Page subpage = Mock()
 
 		when:
 		Gender gender = pageToGenderRoleProcessor.process(page)
@@ -123,10 +123,10 @@ class PageToGenderRoleProcessorTest extends Specification {
 	void "returns gender when individual template does contain it"() {
 		given:
 		List<String> titleList = Lists.newArrayList(TITLE)
-		Page page = Mock(Page)
+		Page page = Mock()
 		page.wikitext >> VALID_WIKITEXT
-		Page subpage = Mock(Page)
-		Template sidebarIndividualTemplate = Mock(Template)
+		Page subpage = Mock()
+		Template sidebarIndividualTemplate = Mock()
 
 		when:
 		Gender gender = pageToGenderRoleProcessor.process(page)

@@ -30,13 +30,13 @@ class StaffInitialQueryBuilderFactoryTest extends AbstractRealWorldPersonTest {
 	private Page page
 
 	void setup() {
-		staffQueryBuilderMock = Mock(StaffQueryBuilderFactory)
+		staffQueryBuilderMock = Mock()
 		staffInitialQueryBuilderFactory = new StaffInitialQueryBuilderFactory(staffQueryBuilderMock)
-		staffQueryBuilder = Mock(QueryBuilder)
-		pageable = Mock(Pageable)
-		staffRequestDTO = Mock(StaffRequestDTO)
-		staff = Mock(Staff)
-		page = Mock(Page)
+		staffQueryBuilder = Mock()
+		pageable = Mock()
+		staffRequestDTO = Mock()
+		staff = Mock()
+		page = Mock()
 	}
 
 	void "initial query builder is built, then returned"() {

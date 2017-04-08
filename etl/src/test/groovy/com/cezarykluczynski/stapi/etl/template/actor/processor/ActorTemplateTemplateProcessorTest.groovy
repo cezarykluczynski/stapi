@@ -23,7 +23,7 @@ class ActorTemplateTemplateProcessorTest extends Specification {
 	private ActorTemplateTemplateProcessor actorTemplateTemplateProcessor
 
 	void setup() {
-		partToGenderProcessorMock = Mock(PartToGenderProcessor)
+		partToGenderProcessorMock = Mock()
 		actorTemplateTemplateProcessor = new ActorTemplateTemplateProcessor(partToGenderProcessorMock)
 	}
 

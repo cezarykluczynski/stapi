@@ -25,7 +25,7 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 	private final Template sidebarEpisodeTemplate = new Template(
 			title: TemplateTitle.SIDEBAR_EPISODE
 	)
-	private final Series series = Mock(Series)
+	private final Series series = Mock()
 
 	private EpisodeTemplateProcessor episodeTemplateProcessorMock
 
@@ -42,12 +42,12 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 	private ToEpisodeTemplateProcessor toEpisodeTemplateProcessor
 
 	void setup() {
-		episodeTemplateProcessorMock = Mock(EpisodeTemplateProcessor)
-		episodeLinkingWorkerCompositeMock = Mock(EpisodeLinkingWorkerComposite)
-		pageBindingServiceMock = Mock(PageBindingService)
-		seriesToEpisodeBindingServiceMock = Mock(SeriesToEpisodeBindingService)
-		episodeTemplateEnrichingProcessorCompositeMock = Mock(EpisodeTemplateEnrichingProcessorComposite)
-		templateFinderMock = Mock(TemplateFinder)
+		episodeTemplateProcessorMock = Mock()
+		episodeLinkingWorkerCompositeMock = Mock()
+		pageBindingServiceMock = Mock()
+		seriesToEpisodeBindingServiceMock = Mock()
+		episodeTemplateEnrichingProcessorCompositeMock = Mock()
+		templateFinderMock = Mock()
 		toEpisodeTemplateProcessor = new ToEpisodeTemplateProcessor(episodeTemplateProcessorMock, episodeLinkingWorkerCompositeMock,
 				pageBindingServiceMock, seriesToEpisodeBindingServiceMock, episodeTemplateEnrichingProcessorCompositeMock, templateFinderMock)
 	}
@@ -112,8 +112,8 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 				title: PAGE_TITLE,
 				categories: categoryHeaderList,
 				templates: Lists.newArrayList(sidebarEpisodeTemplate))
-		PageEntity pageEntity = Mock(PageEntity)
-		Episode episodeStub = Mock(Episode)
+		PageEntity pageEntity = Mock()
+		Episode episodeStub = Mock()
 		EpisodeTemplate episodeTemplate = new EpisodeTemplate(
 				episodeStub: episodeStub)
 

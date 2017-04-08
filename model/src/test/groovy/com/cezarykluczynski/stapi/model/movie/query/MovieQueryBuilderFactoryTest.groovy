@@ -13,8 +13,8 @@ class MovieQueryBuilderFactoryTest extends Specification {
 	private MovieQueryBuilderFactory movieQueryBuilderFactory
 
 	void setup() {
-		jpaContextMock = Mock(JpaContext)
-		cachingStrategyMock = Mock(CachingStrategy)
+		jpaContextMock = Mock()
+		cachingStrategyMock = Mock()
 	}
 
 	void "MovieQueryBuilder is created"() {

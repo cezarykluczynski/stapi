@@ -30,21 +30,22 @@ class FoodRestReaderTest extends Specification {
 	private FoodRestReader foodRestReader
 
 	void setup() {
-		foodRestQueryBuilderMock = Mock(FoodRestQuery)
-		foodBaseRestMapperMock = Mock(FoodBaseRestMapper)
-		foodFullRestMapperMock = Mock(FoodFullRestMapper)
-		pageMapperMock = Mock(PageMapper)
-		foodRestReader = new FoodRestReader(foodRestQueryBuilderMock, foodBaseRestMapperMock,
-				foodFullRestMapperMock, pageMapperMock)
+		foodRestQueryBuilderMock = Mock()
+		foodBaseRestMapperMock = Mock()
+		foodFullRestMapperMock = Mock()
+		pageMapperMock = Mock()
+		foodRestReader = new FoodRestReader(foodRestQueryBuilderMock, foodBaseRestMapperMock, foodFullRestMapperMock, pageMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		FoodRestBeanParams foodRestBeanParams = Mock(FoodRestBeanParams)
-		List<FoodBase> restFoodList = Lists.newArrayList(Mock(FoodBase))
-		List<Food> foodList = Lists.newArrayList(Mock(Food))
-		Page<Food> foodPage = Mock(Page)
-		ResponsePage responsePage = Mock(ResponsePage)
+		FoodBase foodBase = Mock()
+		Food food = Mock()
+		FoodRestBeanParams foodRestBeanParams = Mock()
+		List<FoodBase> restFoodList = Lists.newArrayList(foodBase)
+		List<Food> foodList = Lists.newArrayList(food)
+		Page<Food> foodPage = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		FoodBaseResponse foodResponseOutput = foodRestReader.readBase(foodRestBeanParams)
@@ -61,10 +62,10 @@ class FoodRestReaderTest extends Specification {
 
 	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
 		given:
-		FoodFull foodFull = Mock(FoodFull)
-		Food food = Mock(Food)
+		FoodFull foodFull = Mock()
+		Food food = Mock()
 		List<Food> foodList = Lists.newArrayList(food)
-		Page<Food> foodPage = Mock(Page)
+		Page<Food> foodPage = Mock()
 
 		when:
 		FoodFullResponse foodResponseOutput = foodRestReader.readFull(GUID)

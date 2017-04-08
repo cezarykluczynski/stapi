@@ -17,13 +17,13 @@ class CompanyConfigurationTest extends Specification {
 	private CompanyConfiguration companyConfiguration
 
 	void setup() {
-		endpointFactoryMock = Mock(EndpointFactory)
+		endpointFactoryMock = Mock()
 		companyConfiguration = new CompanyConfiguration(endpointFactory: endpointFactoryMock)
 	}
 
 	void "Company SOAP endpoint is created"() {
 		given:
-		Endpoint endpoint = Mock(Endpoint)
+		Endpoint endpoint = Mock()
 
 		when:
 		Endpoint endpointOutput = companyConfiguration.companyEndpoint()

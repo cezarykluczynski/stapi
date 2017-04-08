@@ -21,8 +21,8 @@ class IndividualMirrorAlternateUniverseEnrichingProcessorTest extends Specificat
 	private IndividualMirrorAlternateUniverseEnrichingProcessor individualMirrorAlternateUniverseEnrichingProcessor
 
 	void setup() {
-		templateFinderMock = Mock(TemplateFinder)
-		categoryTitlesExtractingProcessorMock = Mock(CategoryTitlesExtractingProcessor)
+		templateFinderMock = Mock()
+		categoryTitlesExtractingProcessorMock = Mock()
 		individualMirrorAlternateUniverseEnrichingProcessor = new IndividualMirrorAlternateUniverseEnrichingProcessor(templateFinderMock,
 				categoryTitlesExtractingProcessorMock)
 	}

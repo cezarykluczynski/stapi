@@ -20,20 +20,18 @@ class StaffRestQueryTest extends Specification {
 	private StaffRestQuery staffRestQuery
 
 	void setup() {
-		staffBaseRestMapperMock = Mock(StaffBaseRestMapper)
-		pageMapperMock = Mock(PageMapper)
-		staffRepositoryMock = Mock(StaffRepository)
+		staffBaseRestMapperMock = Mock()
+		pageMapperMock = Mock()
+		staffRepositoryMock = Mock()
 		staffRestQuery = new StaffRestQuery(staffBaseRestMapperMock, pageMapperMock, staffRepositoryMock)
 	}
 
 	void "maps StaffRestBeanParams to StaffRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
-		PageRequest pageRequest = Mock(PageRequest)
-		StaffRestBeanParams staffRestBeanParams = Mock(StaffRestBeanParams) {
-
-		}
-		StaffRequestDTO staffRequestDTO = Mock(StaffRequestDTO)
-		Page page = Mock(Page)
+		PageRequest pageRequest = Mock()
+		StaffRestBeanParams staffRestBeanParams = Mock()
+		StaffRequestDTO staffRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = staffRestQuery.query(staffRestBeanParams)

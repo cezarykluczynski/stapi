@@ -28,16 +28,16 @@ class ComicStripTemplateCharactersEnrichingProcessorTest extends Specification {
 	private ComicStripTemplateCharactersEnrichingProcessor comicStripTemplateCharactersEnrichingProcessor
 
 	void setup() {
-		pageSectionExtractorMock = Mock(PageSectionExtractor)
-		wikitextApiMock = Mock(WikitextApi)
-		entityLookupByNameServiceMock = Mock(EntityLookupByNameService)
+		pageSectionExtractorMock = Mock()
+		wikitextApiMock = Mock()
+		entityLookupByNameServiceMock = Mock()
 		comicStripTemplateCharactersEnrichingProcessor = new ComicStripTemplateCharactersEnrichingProcessor(pageSectionExtractorMock,
 				wikitextApiMock, entityLookupByNameServiceMock)
 	}
 
 	void "adds found characters to ComicStripTemplate"() {
 		given:
-		Character character = Mock(Character)
+		Character character = Mock()
 		Page page = new Page()
 		ComicStripTemplate comicStripTemplate = new ComicStripTemplate()
 		PageSection pageSection = new PageSection(wikitext: WIKITEXT)

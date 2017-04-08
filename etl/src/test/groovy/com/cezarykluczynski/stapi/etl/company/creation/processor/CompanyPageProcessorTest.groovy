@@ -35,10 +35,10 @@ class CompanyPageProcessorTest extends Specification {
 	private CompanyPageProcessor companyPageProcessor
 
 	void setup() {
-		pageBindingServiceMock = Mock(PageBindingService)
-		guidGeneratorMock = Mock(GuidGenerator)
-		categoryTitlesExtractingProcessorMock = Mock(CategoryTitlesExtractingProcessor)
-		companyNameFixedValueProviderMock = Mock(CompanyNameFixedValueProvider)
+		pageBindingServiceMock = Mock()
+		guidGeneratorMock = Mock()
+		categoryTitlesExtractingProcessorMock = Mock()
+		companyNameFixedValueProviderMock = Mock()
 		companyPageProcessor = new CompanyPageProcessor(pageBindingServiceMock, guidGeneratorMock, categoryTitlesExtractingProcessorMock,
 				companyNameFixedValueProviderMock)
 	}
@@ -81,7 +81,8 @@ class CompanyPageProcessorTest extends Specification {
 
 	void "returns null when page is a result of redirect"() {
 		given:
-		EtlPage etlPage = new EtlPage(redirectPath: Lists.newArrayList(Mock(PageHeader)))
+		PageHeader pageHeader = Mock()
+		EtlPage etlPage = new EtlPage(redirectPath: Lists.newArrayList(pageHeader))
 
 		when:
 		Company company = companyPageProcessor.process(etlPage)

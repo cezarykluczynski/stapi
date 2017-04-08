@@ -22,10 +22,9 @@ class ActorTemplateToLifeRangeProcessorTest extends Specification {
 	private ActorTemplateToLifeRangeProcessor actorTemplateToLifeRangeProcessor
 
 	void setup() {
-		datelinkTemplateToLocalDateProcessorMock = Mock(DatelinkTemplateToLocalDateProcessor)
-		templateFilterMock = Mock(TemplateFilter)
-		actorTemplateToLifeRangeProcessor = new ActorTemplateToLifeRangeProcessor(
-				datelinkTemplateToLocalDateProcessorMock, templateFilterMock)
+		datelinkTemplateToLocalDateProcessorMock = Mock()
+		templateFilterMock = Mock()
+		actorTemplateToLifeRangeProcessor = new ActorTemplateToLifeRangeProcessor(datelinkTemplateToLocalDateProcessorMock, templateFilterMock)
 	}
 
 	void "template of different title produces null LocalDate"() {

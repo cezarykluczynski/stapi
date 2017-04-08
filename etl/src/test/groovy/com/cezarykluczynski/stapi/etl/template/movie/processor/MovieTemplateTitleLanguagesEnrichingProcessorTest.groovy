@@ -20,8 +20,8 @@ class MovieTemplateTitleLanguagesEnrichingProcessorTest extends AbstractMovieTes
 	private MovieTemplateTitleLanguagesEnrichingProcessor movieTemplateTitleLanguagesEnrichingProcessor
 
 	void setup() {
-		wikitextApiMock = Mock(WikitextApi)
-		pageSectionExtractorMock = Mock(PageSectionExtractor)
+		wikitextApiMock = Mock()
+		pageSectionExtractorMock = Mock()
 		movieTemplateTitleLanguagesEnrichingProcessor = new MovieTemplateTitleLanguagesEnrichingProcessor(
 				wikitextApiMock, pageSectionExtractorMock)
 	}

@@ -24,9 +24,9 @@ class CharacterboxIndividualTemplateEnrichingProcessorTest extends Specification
 	private CharacterboxIndividualTemplateEnrichingProcessor characterboxIndividualTemplateEnrichingProcessor
 
 	void setup() {
-		pageApiMock = Mock(PageApi)
-		characterboxTemplateProcessorMock = Mock(CharacterboxTemplateProcessor)
-		individualTemplateWithCharacterboxTemplateEnrichingProcessorMock = Mock(IndividualTemplateWithCharacterboxTemplateEnrichingProcessor)
+		pageApiMock = Mock()
+		characterboxTemplateProcessorMock = Mock()
+		individualTemplateWithCharacterboxTemplateEnrichingProcessorMock = Mock()
 		characterboxIndividualTemplateEnrichingProcessor = new CharacterboxIndividualTemplateEnrichingProcessor(pageApiMock,
 				characterboxTemplateProcessorMock, individualTemplateWithCharacterboxTemplateEnrichingProcessorMock)
 	}

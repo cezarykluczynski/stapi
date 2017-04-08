@@ -15,20 +15,20 @@ class MoviePerformersLinkingWorkerCompositeTest extends Specification {
 	private MoviePerformersLinkingWorkerComposite moviePerformersLinkingWorkerComposite
 
 	void setup() {
-		moviePerformersCharacterLinkingWorkerMock = Mock(MoviePerformersCharactersLinkingWorker)
-		movieStuntPerformersLinkingWorkerMock = Mock(MovieStuntPerformersLinkingWorker)
-		movieStandInPerformersLinkingWorkerMock = Mock(MovieStandInPerformersLinkingWorker)
+		moviePerformersCharacterLinkingWorkerMock = Mock()
+		movieStuntPerformersLinkingWorkerMock = Mock()
+		movieStandInPerformersLinkingWorkerMock = Mock()
 		moviePerformersLinkingWorkerComposite = new MoviePerformersLinkingWorkerComposite(moviePerformersCharacterLinkingWorkerMock,
 				movieStuntPerformersLinkingWorkerMock, movieStandInPerformersLinkingWorkerMock)
 	}
 
 	void "passes the right sets of performers to particular workers"() {
 		given:
-		MovieLinkedTitlesDTO movieLinkedTitlesDTO = Mock(MovieLinkedTitlesDTO)
-		Set<List<String>> performers = Mock(Set)
-		Set<List<String>> stuntPerformers = Mock(Set)
-		Set<List<String>> standInPerformers = Mock(Set)
-		Movie movie = Mock(Movie)
+		MovieLinkedTitlesDTO movieLinkedTitlesDTO = Mock()
+		Set<List<String>> performers = Mock()
+		Set<List<String>> stuntPerformers = Mock()
+		Set<List<String>> standInPerformers = Mock()
+		Movie movie = Mock()
 
 		when:
 		moviePerformersLinkingWorkerComposite.link(movieLinkedTitlesDTO, movie)

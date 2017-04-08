@@ -31,20 +31,20 @@ class EpisodeSoapReaderTest extends Specification {
 	private EpisodeSoapReader episodeSoapReader
 
 	void setup() {
-		episodeSoapQueryBuilderMock = Mock(EpisodeSoapQuery)
-		episodeBaseSoapMapperMock = Mock(EpisodeBaseSoapMapper)
-		episodeFullSoapMapperMock = Mock(EpisodeFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
+		episodeSoapQueryBuilderMock = Mock()
+		episodeBaseSoapMapperMock = Mock()
+		episodeFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
 		episodeSoapReader = new EpisodeSoapReader(episodeSoapQueryBuilderMock, episodeBaseSoapMapperMock, episodeFullSoapMapperMock, pageMapperMock)
 	}
 
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		List<Episode> episodeList = Lists.newArrayList()
-		Page<Episode> episodePage = Mock(Page)
+		Page<Episode> episodePage = Mock()
 		List<EpisodeBase> soapEpisodeList = Lists.newArrayList(new EpisodeBase(guid: GUID))
-		EpisodeBaseRequest episodeBaseRequest = Mock(EpisodeBaseRequest)
-		ResponsePage responsePage = Mock(ResponsePage)
+		EpisodeBaseRequest episodeBaseRequest = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		EpisodeBaseResponse episodeResponse = episodeSoapReader.readBase(episodeBaseRequest)
@@ -61,9 +61,9 @@ class EpisodeSoapReaderTest extends Specification {
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		EpisodeFull episodeFull = new EpisodeFull(guid: GUID)
-		Episode episode = Mock(Episode)
-		Page<Episode> episodePage = Mock(Page)
-		EpisodeFullRequest episodeFullRequest = Mock(EpisodeFullRequest)
+		Episode episode = Mock()
+		Page<Episode> episodePage = Mock()
+		EpisodeFullRequest episodeFullRequest = Mock()
 
 		when:
 		EpisodeFullResponse episodeFullResponse = episodeSoapReader.readFull(episodeFullRequest)

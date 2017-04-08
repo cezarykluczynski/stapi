@@ -19,7 +19,7 @@ class MonthYearCandidateToYearMonthProcessorTest extends Specification {
 	private MonthYearCandidateToYearMonthProcessor monthYearCandidateToYearMonthProcessor
 
 	void setup() {
-		monthNameToMonthProcessorMock = Mock(MonthNameToMonthProcessor)
+		monthNameToMonthProcessorMock = Mock()
 		monthYearCandidateToYearMonthProcessor = new MonthYearCandidateToYearMonthProcessor(monthNameToMonthProcessorMock)
 	}
 

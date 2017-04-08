@@ -25,22 +25,22 @@ class ComicCollectionSoapQueryTest extends Specification {
 	private ComicCollectionSoapQuery comicCollectionSoapQuery
 
 	void setup() {
-		comicCollectionBaseSoapMapperMock = Mock(ComicCollectionBaseSoapMapper)
-		comicCollectionFullSoapMapperMock = Mock(ComicCollectionFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
-		comicCollectionRepositoryMock = Mock(ComicCollectionRepository)
+		comicCollectionBaseSoapMapperMock = Mock()
+		comicCollectionFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
+		comicCollectionRepositoryMock = Mock()
 		comicCollectionSoapQuery = new ComicCollectionSoapQuery(comicCollectionBaseSoapMapperMock, comicCollectionFullSoapMapperMock, pageMapperMock,
 				comicCollectionRepositoryMock)
 	}
 
 	void "maps ComicCollectionBaseRequest to ComicCollectionRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
-		RequestPage requestPage = Mock(RequestPage)
-		PageRequest pageRequest = Mock(PageRequest)
-		ComicCollectionBaseRequest comicCollectionRequest = Mock(ComicCollectionBaseRequest)
+		RequestPage requestPage = Mock()
+		PageRequest pageRequest = Mock()
+		ComicCollectionBaseRequest comicCollectionRequest = Mock()
 		comicCollectionRequest.page >> requestPage
-		ComicCollectionRequestDTO comicCollectionRequestDTO = Mock(ComicCollectionRequestDTO)
-		Page page = Mock(Page)
+		ComicCollectionRequestDTO comicCollectionRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = comicCollectionSoapQuery.query(comicCollectionRequest)
@@ -54,10 +54,10 @@ class ComicCollectionSoapQueryTest extends Specification {
 
 	void "maps ComicCollectionFullRequest to ComicCollectionRequestDTO, then calls repository, then returns result"() {
 		given:
-		PageRequest pageRequest = Mock(PageRequest)
-		ComicCollectionFullRequest comicCollectionRequest = Mock(ComicCollectionFullRequest)
-		ComicCollectionRequestDTO comicCollectionRequestDTO = Mock(ComicCollectionRequestDTO)
-		Page page = Mock(Page)
+		PageRequest pageRequest = Mock()
+		ComicCollectionFullRequest comicCollectionRequest = Mock()
+		ComicCollectionRequestDTO comicCollectionRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = comicCollectionSoapQuery.query(comicCollectionRequest)

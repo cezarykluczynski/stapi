@@ -20,8 +20,8 @@ class PageToGenderNameProcessorTest extends Specification {
 	private PageToGenderNameProcessor pageToGenderNameProcessor
 
 	void setup() {
-		fullNameToFirstNameProcessor = Mock(FullNameToFirstNameProcessor)
-		genderizeClientMock = Mock(GenderizeClient)
+		fullNameToFirstNameProcessor = Mock()
+		genderizeClientMock = Mock()
 		pageToGenderNameProcessor = new PageToGenderNameProcessor(fullNameToFirstNameProcessor, genderizeClientMock)
 	}
 

@@ -32,8 +32,8 @@ class ActorTemplateListPageProcessorTest extends Specification {
 	private ActorTemplateListPageProcessor actorTemplateListPageProcessor
 
 	void setup() {
-		pageBindingServiceMock = Mock(PageBindingService)
-		videoGamePerformerLifeRangeFixedValueProviderMock = Mock(VideoGamePerformerLifeRangeFixedValueProvider)
+		pageBindingServiceMock = Mock()
+		videoGamePerformerLifeRangeFixedValueProviderMock = Mock()
 		actorTemplateListPageProcessor = new ActorTemplateListPageProcessor(pageBindingServiceMock, videoGamePerformerLifeRangeFixedValueProviderMock)
 	}
 
@@ -72,7 +72,7 @@ class ActorTemplateListPageProcessorTest extends Specification {
 						.pageId(PAGE_ID)
 						.mediaWikiSource(SOURCES_MEDIA_WIKI_SOURCE)
 						.build()))
-		PageEntity pageEntity = Mock(PageEntity)
+		PageEntity pageEntity = Mock()
 
 		when:
 		ActorTemplate actorTemplate = actorTemplateListPageProcessor.process(page)
@@ -128,7 +128,7 @@ class ActorTemplateListPageProcessorTest extends Specification {
 						.pageId(PAGE_ID)
 						.mediaWikiSource(SOURCES_MEDIA_WIKI_SOURCE)
 						.build()))
-		PageEntity pageEntity = Mock(PageEntity)
+		PageEntity pageEntity = Mock()
 		LifeRangeDTO lifeRangeDTO = new LifeRangeDTO(
 				dateOfBirth: DATE_OF_BIRTH,
 				placeOfBirth: PLACE_OF_BIRTH,

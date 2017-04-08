@@ -45,9 +45,9 @@ class PerformerCreationConfigurationTest extends AbstractCreationConfigurationTe
 	private PerformerCreationConfiguration performerCreationConfiguration
 
 	void setup() {
-		applicationContextMock = Mock(ApplicationContext)
-		categoryApiMock = Mock(CategoryApi)
-		jobCompletenessDeciderMock = Mock(StepCompletenessDecider)
+		applicationContextMock = Mock()
+		categoryApiMock = Mock()
+		jobCompletenessDeciderMock = Mock()
 		performerCreationConfiguration = new PerformerCreationConfiguration(
 				applicationContext: applicationContextMock,
 				categoryApi: categoryApiMock,
@@ -107,13 +107,12 @@ class PerformerCreationConfigurationTest extends AbstractCreationConfigurationTe
 
 	void "ActorTemplateSinglePageProcessor is created"() {
 		given:
-		PageToGenderProcessor pageToGenderProcessorMock = Mock(PageToGenderProcessor)
-		PageToLifeRangeProcessor pageToLifeRangeProcessorMock = Mock(PageToLifeRangeProcessor)
-		ActorTemplateTemplateProcessor actorTemplateTemplateProcessorMock = Mock(ActorTemplateTemplateProcessor)
-		PerformerCategoriesActorTemplateEnrichingProcessor performerCategoriesActorTemplateEnrichingProcessorMock =
-				Mock(PerformerCategoriesActorTemplateEnrichingProcessor)
-		PageBindingService pageBindingServiceMock = Mock(PageBindingService)
-		TemplateFinder templateFinderMock = Mock(TemplateFinder)
+		PageToGenderProcessor pageToGenderProcessorMock = Mock()
+		PageToLifeRangeProcessor pageToLifeRangeProcessorMock = Mock()
+		ActorTemplateTemplateProcessor actorTemplateTemplateProcessorMock = Mock()
+		PerformerCategoriesActorTemplateEnrichingProcessor performerCategoriesActorTemplateEnrichingProcessorMock = Mock()
+		PageBindingService pageBindingServiceMock = Mock()
+		TemplateFinder templateFinderMock = Mock()
 
 		when:
 		ActorTemplateSinglePageProcessor actorTemplateSinglePageProcessor = performerCreationConfiguration
@@ -139,8 +138,8 @@ class PerformerCreationConfigurationTest extends AbstractCreationConfigurationTe
 
 	void "ActorTemplatePageProcessor is created"() {
 		given:
-		ActorTemplateSinglePageProcessor actorTemplateSinglePageProcessorMock = Mock(ActorTemplateSinglePageProcessor)
-		ActorTemplateListPageProcessor actorTemplateListPageProcessorMock = Mock(ActorTemplateListPageProcessor)
+		ActorTemplateSinglePageProcessor actorTemplateSinglePageProcessorMock = Mock()
+		ActorTemplateListPageProcessor actorTemplateListPageProcessorMock = Mock()
 
 		when:
 		ActorTemplatePageProcessor actorTemplatePageProcessor = performerCreationConfiguration

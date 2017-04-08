@@ -29,13 +29,13 @@ class FoodRepositoryImplTest extends AbstractFoodTest {
 	private Page page
 
 	void setup() {
-		foodQueryBuilderFactory = Mock(FoodQueryBuilderFactory)
+		foodQueryBuilderFactory = Mock()
 		foodRepositoryImpl = new FoodRepositoryImpl(foodQueryBuilderFactory)
-		foodQueryBuilder = Mock(QueryBuilder)
-		pageable = Mock(Pageable)
-		foodRequestDTO = Mock(FoodRequestDTO)
-		page = Mock(Page)
-		food = Mock(Food)
+		foodQueryBuilder = Mock()
+		pageable = Mock()
+		foodRequestDTO = Mock()
+		page = Mock()
+		food = Mock()
 	}
 
 	void "query is built and performed"() {

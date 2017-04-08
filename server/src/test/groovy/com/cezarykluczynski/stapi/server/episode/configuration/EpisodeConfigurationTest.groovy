@@ -17,13 +17,13 @@ class EpisodeConfigurationTest extends Specification {
 	private EpisodeConfiguration episodeConfiguration
 
 	void setup() {
-		endpointFactoryMock = Mock(EndpointFactory)
+		endpointFactoryMock = Mock()
 		episodeConfiguration = new EpisodeConfiguration(endpointFactory: endpointFactoryMock)
 	}
 
 	void "Episode SOAP endpoint is created"() {
 		given:
-		Endpoint endpoint = Mock(Endpoint)
+		Endpoint endpoint = Mock()
 
 		when:
 		Endpoint endpointOutput = episodeConfiguration.episodeEndpoint()

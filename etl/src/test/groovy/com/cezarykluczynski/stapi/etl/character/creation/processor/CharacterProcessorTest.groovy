@@ -19,9 +19,9 @@ class CharacterProcessorTest extends Specification {
 	private CharacterProcessor characterProcessor
 
 	void setup() {
-		pageHeaderProcessorMock = Mock(PageHeaderProcessor)
-		individualTemplatePageProcessorMock = Mock(IndividualTemplatePageProcessor)
-		characterIndividualTemplateProcessorMock = Mock(CharacterIndividualTemplateProcessor)
+		pageHeaderProcessorMock = Mock()
+		individualTemplatePageProcessorMock = Mock()
+		characterIndividualTemplateProcessorMock = Mock()
 		characterProcessor = new CharacterProcessor(pageHeaderProcessorMock, individualTemplatePageProcessorMock,
 				characterIndividualTemplateProcessorMock)
 	}

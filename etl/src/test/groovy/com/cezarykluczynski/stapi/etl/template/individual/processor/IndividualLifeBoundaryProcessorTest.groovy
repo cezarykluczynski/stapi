@@ -28,10 +28,10 @@ class IndividualLifeBoundaryProcessorTest extends Specification {
 	private IndividualLifeBoundaryProcessor individualLifeBoundaryProcessor
 
 	void setup() {
-		pageLinkToYearProcessorMock = Mock(PageLinkToYearProcessor)
-		wikitextApiMock = Mock(WikitextApi)
-		dayMonthPageLinkProcessorMock = Mock(DayMonthPageLinkProcessor)
-		dayInMonthProximityFindingProcessorMock = Mock(DayInMonthProximityFindingProcessor)
+		pageLinkToYearProcessorMock = Mock()
+		wikitextApiMock = Mock()
+		dayMonthPageLinkProcessorMock = Mock()
+		dayInMonthProximityFindingProcessorMock = Mock()
 		individualLifeBoundaryProcessor = new IndividualLifeBoundaryProcessor(wikitextApiMock, pageLinkToYearProcessorMock,
 				dayMonthPageLinkProcessorMock, dayInMonthProximityFindingProcessorMock)
 	}
@@ -48,8 +48,8 @@ class IndividualLifeBoundaryProcessorTest extends Specification {
 
 	void "sets only first value returned by PageLinkToYearProcessor"() {
 		given:
-		PageLink pageLink1 = Mock(PageLink)
-		PageLink pageLink2 = Mock(PageLink)
+		PageLink pageLink1 = Mock()
+		PageLink pageLink2 = Mock()
 
 		when:
 		IndividualLifeBoundaryDTO individualLifeBoundaryDTO = individualLifeBoundaryProcessor.process(StringUtils.EMPTY)
@@ -65,7 +65,7 @@ class IndividualLifeBoundaryProcessorTest extends Specification {
 
 	void "when no year was found, link is passed to DayMonthPageLinkProcessor"() {
 		given:
-		PageLink pageLink = Mock(PageLink)
+		PageLink pageLink = Mock()
 		Integer day = 2
 		Month month = Month.SEPTEMBER
 
@@ -84,7 +84,7 @@ class IndividualLifeBoundaryProcessorTest extends Specification {
 
 	void "when no year was found, and DayMonthPageLinkProcessor returns only month, day is looked up with DayInMonthProximityFindingProcessor"() {
 		given:
-		PageLink pageLink = Mock(PageLink)
+		PageLink pageLink = Mock()
 		Integer day = 2
 		Month month = Month.SEPTEMBER
 

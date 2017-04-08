@@ -30,21 +30,22 @@ class ComicsRestReaderTest extends Specification {
 	private ComicsRestReader comicsRestReader
 
 	void setup() {
-		comicsRestQueryBuilderMock = Mock(ComicsRestQuery)
-		comicsBaseRestMapperMock = Mock(ComicsBaseRestMapper)
-		comicsFullRestMapperMock = Mock(ComicsFullRestMapper)
-		pageMapperMock = Mock(PageMapper)
-		comicsRestReader = new ComicsRestReader(comicsRestQueryBuilderMock, comicsBaseRestMapperMock, comicsFullRestMapperMock,
-				pageMapperMock)
+		comicsRestQueryBuilderMock = Mock()
+		comicsBaseRestMapperMock = Mock()
+		comicsFullRestMapperMock = Mock()
+		pageMapperMock = Mock()
+		comicsRestReader = new ComicsRestReader(comicsRestQueryBuilderMock, comicsBaseRestMapperMock, comicsFullRestMapperMock, pageMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		ComicsRestBeanParams comicsRestBeanParams = Mock(ComicsRestBeanParams)
-		List<ComicsBase> restComicsList = Lists.newArrayList(Mock(ComicsBase))
-		List<Comics> comicsList = Lists.newArrayList(Mock(Comics))
-		Page<Comics> comicsPage = Mock(Page)
-		ResponsePage responsePage = Mock(ResponsePage)
+		ComicsBase comicsBase = Mock()
+		Comics comics = Mock()
+		ComicsRestBeanParams comicsRestBeanParams = Mock()
+		List<ComicsBase> restComicsList = Lists.newArrayList(comicsBase)
+		List<Comics> comicsList = Lists.newArrayList(comics)
+		Page<Comics> comicsPage = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		ComicsBaseResponse comicsResponseOutput = comicsRestReader.readBase(comicsRestBeanParams)
@@ -61,10 +62,10 @@ class ComicsRestReaderTest extends Specification {
 
 	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
 		given:
-		ComicsFull comicsFull = Mock(ComicsFull)
-		Comics comics = Mock(Comics)
+		ComicsFull comicsFull = Mock()
+		Comics comics = Mock()
 		List<Comics> comicsList = Lists.newArrayList(comics)
-		Page<Comics> comicsPage = Mock(Page)
+		Page<Comics> comicsPage = Mock()
 
 		when:
 		ComicsFullResponse comicsResponseOutput = comicsRestReader.readFull(GUID)

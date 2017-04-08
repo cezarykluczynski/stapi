@@ -18,8 +18,8 @@ class ThrottleRepositoryImplTest extends Specification {
 	private ThrottleRepositoryImpl throttleRepositoryImpl
 
 	void setup() {
-		throttlePropertiesMock = Mock(ThrottleProperties)
-		throttleRepositoryMock = Mock(ThrottleRepository)
+		throttlePropertiesMock = Mock()
+		throttleRepositoryMock = Mock()
 		throttleRepositoryImpl = new ThrottleRepositoryImpl(throttlePropertiesMock)
 		throttleRepositoryImpl.throttleRepository = throttleRepositoryMock
 	}

@@ -17,14 +17,15 @@ class OrganizationPageFilterTest extends Specification {
 	private OrganizationPageFilter organizationPageFilter
 
 	void setup() {
-		categorySortingServiceMock = Mock(CategorySortingService)
-		organizationNameFilterMock = Mock(OrganizationNameFilter)
+		categorySortingServiceMock = Mock()
+		organizationNameFilterMock = Mock()
 		organizationPageFilter = new OrganizationPageFilter(categorySortingServiceMock, organizationNameFilterMock)
 	}
 
 	void "returns true when redirect path is not empty"() {
 		given:
-		Page page = new Page(redirectPath: Lists.newArrayList(Mock(PageHeader)))
+		PageHeader pageHeader = Mock()
+		Page page = new Page(redirectPath: Lists.newArrayList(pageHeader))
 
 		when:
 		boolean shouldBeFilteredOut = organizationPageFilter.shouldBeFilteredOut(page)

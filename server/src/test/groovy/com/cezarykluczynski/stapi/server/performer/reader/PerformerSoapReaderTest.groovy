@@ -31,10 +31,10 @@ class PerformerSoapReaderTest extends Specification {
 	private PerformerSoapReader performerSoapReader
 
 	void setup() {
-		performerSoapQueryBuilderMock = Mock(PerformerSoapQuery)
-		performerBaseSoapMapperMock = Mock(PerformerBaseSoapMapper)
-		performerFullSoapMapperMock = Mock(PerformerFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
+		performerSoapQueryBuilderMock = Mock()
+		performerBaseSoapMapperMock = Mock()
+		performerFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
 		performerSoapReader = new PerformerSoapReader(performerSoapQueryBuilderMock, performerBaseSoapMapperMock, performerFullSoapMapperMock,
 				pageMapperMock)
 	}
@@ -42,10 +42,10 @@ class PerformerSoapReaderTest extends Specification {
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		List<Performer> performerList = Lists.newArrayList()
-		Page<Performer> performerPage = Mock(Page)
+		Page<Performer> performerPage = Mock()
 		List<PerformerBase> soapPerformerList = Lists.newArrayList(new PerformerBase(guid: GUID))
-		PerformerBaseRequest performerBaseRequest = Mock(PerformerBaseRequest)
-		ResponsePage responsePage = Mock(ResponsePage)
+		PerformerBaseRequest performerBaseRequest = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		PerformerBaseResponse performerResponse = performerSoapReader.readBase(performerBaseRequest)
@@ -62,9 +62,9 @@ class PerformerSoapReaderTest extends Specification {
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		PerformerFull performerFull = new PerformerFull(guid: GUID)
-		Performer performer = Mock(Performer)
-		Page<Performer> performerPage = Mock(Page)
-		PerformerFullRequest performerFullRequest = Mock(PerformerFullRequest)
+		Performer performer = Mock()
+		Page<Performer> performerPage = Mock()
+		PerformerFullRequest performerFullRequest = Mock()
 
 		when:
 		PerformerFullResponse performerFullResponse = performerSoapReader.readFull(performerFullRequest)

@@ -31,20 +31,20 @@ class StaffSoapReaderTest extends Specification {
 	private StaffSoapReader staffSoapReader
 
 	void setup() {
-		staffSoapQueryBuilderMock = Mock(StaffSoapQuery)
-		staffBaseSoapMapperMock = Mock(StaffBaseSoapMapper)
-		staffFullSoapMapperMock = Mock(StaffFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
+		staffSoapQueryBuilderMock = Mock()
+		staffBaseSoapMapperMock = Mock()
+		staffFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
 		staffSoapReader = new StaffSoapReader(staffSoapQueryBuilderMock, staffBaseSoapMapperMock, staffFullSoapMapperMock, pageMapperMock)
 	}
 
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		List<Staff> dbStaffList = Lists.newArrayList()
-		Page<Staff> dbStaffPage = Mock(Page)
+		Page<Staff> dbStaffPage = Mock()
 		List<StaffBase> soapStaffList = Lists.newArrayList(new StaffBase(guid: GUID))
-		StaffBaseRequest staffBaseRequest = Mock(StaffBaseRequest)
-		ResponsePage responsePage = Mock(ResponsePage)
+		StaffBaseRequest staffBaseRequest = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		StaffBaseResponse staffResponse = staffSoapReader.readBase(staffBaseRequest)
@@ -61,9 +61,9 @@ class StaffSoapReaderTest extends Specification {
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		StaffFull staffFull = new StaffFull(guid: GUID)
-		Staff staff = Mock(Staff)
-		Page<Staff> staffPage = Mock(Page)
-		StaffFullRequest staffFullRequest = Mock(StaffFullRequest)
+		Staff staff = Mock()
+		Page<Staff> staffPage = Mock()
+		StaffFullRequest staffFullRequest = Mock()
 
 		when:
 		StaffFullResponse staffFullResponse = staffSoapReader.readFull(staffFullRequest)

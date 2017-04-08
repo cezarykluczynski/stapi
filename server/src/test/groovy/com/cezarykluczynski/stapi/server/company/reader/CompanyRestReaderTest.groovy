@@ -30,21 +30,23 @@ class CompanyRestReaderTest extends Specification {
 	private CompanyRestReader companyRestReader
 
 	void setup() {
-		companyRestQueryBuilderMock = Mock(CompanyRestQuery)
-		companyBaseRestMapperMock = Mock(CompanyBaseRestMapper)
-		companyFullRestMapperMock = Mock(CompanyFullRestMapper)
-		pageMapperMock = Mock(PageMapper)
+		companyRestQueryBuilderMock = Mock()
+		companyBaseRestMapperMock = Mock()
+		companyFullRestMapperMock = Mock()
+		pageMapperMock = Mock()
 		companyRestReader = new CompanyRestReader(companyRestQueryBuilderMock, companyBaseRestMapperMock, companyFullRestMapperMock,
 				pageMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		CompanyRestBeanParams companyRestBeanParams = Mock(CompanyRestBeanParams)
-		List<CompanyBase> restCompanyList = Lists.newArrayList(Mock(CompanyBase))
-		List<Company> companyList = Lists.newArrayList(Mock(Company))
-		Page<Company> companyPage = Mock(Page)
-		ResponsePage responsePage = Mock(ResponsePage)
+		CompanyBase companyBase = Mock()
+		Company company = Mock()
+		CompanyRestBeanParams companyRestBeanParams = Mock()
+		List<CompanyBase> restCompanyList = Lists.newArrayList(companyBase)
+		List<Company> companyList = Lists.newArrayList(company)
+		Page<Company> companyPage = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		CompanyBaseResponse companyResponseOutput = companyRestReader.readBase(companyRestBeanParams)
@@ -61,10 +63,10 @@ class CompanyRestReaderTest extends Specification {
 
 	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
 		given:
-		CompanyFull companyFull = Mock(CompanyFull)
-		Company company = Mock(Company)
+		CompanyFull companyFull = Mock()
+		Company company = Mock()
 		List<Company> companyList = Lists.newArrayList(company)
-		Page<Company> companyPage = Mock(Page)
+		Page<Company> companyPage = Mock()
 
 		when:
 		CompanyFullResponse companyResponseOutput = companyRestReader.readFull(GUID)

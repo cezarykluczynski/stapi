@@ -31,10 +31,10 @@ class ComicCollectionSoapReaderTest extends Specification {
 	private ComicCollectionSoapReader comicCollectionSoapReader
 
 	void setup() {
-		comicCollectionSoapQueryBuilderMock = Mock(ComicCollectionSoapQuery)
-		comicCollectionBaseSoapMapperMock = Mock(ComicCollectionBaseSoapMapper)
-		comicCollectionFullSoapMapperMock = Mock(ComicCollectionFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
+		comicCollectionSoapQueryBuilderMock = Mock()
+		comicCollectionBaseSoapMapperMock = Mock()
+		comicCollectionFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
 		comicCollectionSoapReader = new ComicCollectionSoapReader(comicCollectionSoapQueryBuilderMock, comicCollectionBaseSoapMapperMock,
 				comicCollectionFullSoapMapperMock, pageMapperMock)
 	}
@@ -42,10 +42,10 @@ class ComicCollectionSoapReaderTest extends Specification {
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		List<ComicCollection> comicCollectionList = Lists.newArrayList()
-		Page<ComicCollection> comicCollectionPage = Mock(Page)
+		Page<ComicCollection> comicCollectionPage = Mock()
 		List<ComicCollectionBase> soapComicCollectionList = Lists.newArrayList(new ComicCollectionBase(guid: GUID))
-		ComicCollectionBaseRequest comicCollectionBaseRequest = Mock(ComicCollectionBaseRequest)
-		ResponsePage responsePage = Mock(ResponsePage)
+		ComicCollectionBaseRequest comicCollectionBaseRequest = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		ComicCollectionBaseResponse comicCollectionResponse = comicCollectionSoapReader.readBase(comicCollectionBaseRequest)
@@ -62,9 +62,9 @@ class ComicCollectionSoapReaderTest extends Specification {
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		ComicCollectionFull comicCollectionFull = new ComicCollectionFull(guid: GUID)
-		ComicCollection comicCollection = Mock(ComicCollection)
-		Page<ComicCollection> comicCollectionPage = Mock(Page)
-		ComicCollectionFullRequest comicCollectionFullRequest = Mock(ComicCollectionFullRequest)
+		ComicCollection comicCollection = Mock()
+		Page<ComicCollection> comicCollectionPage = Mock()
+		ComicCollectionFullRequest comicCollectionFullRequest = Mock()
 
 		when:
 		ComicCollectionFullResponse comicCollectionFullResponse = comicCollectionSoapReader.readFull(comicCollectionFullRequest)

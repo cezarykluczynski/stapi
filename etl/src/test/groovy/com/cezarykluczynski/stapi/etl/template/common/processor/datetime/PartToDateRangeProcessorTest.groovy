@@ -23,8 +23,8 @@ class PartToDateRangeProcessorTest extends Specification {
 	private PartToDateRangeProcessor partToDateRangeProcessor
 
 	void setup() {
-		templateToLocalDateProcessorMock = Mock(DatelinkTemplateToLocalDateProcessor)
-		templateFilterMock = Mock(TemplateFilter)
+		templateToLocalDateProcessorMock = Mock()
+		templateFilterMock = Mock()
 		partToDateRangeProcessor = new PartToDateRangeProcessor(templateToLocalDateProcessorMock, templateFilterMock)
 	}
 

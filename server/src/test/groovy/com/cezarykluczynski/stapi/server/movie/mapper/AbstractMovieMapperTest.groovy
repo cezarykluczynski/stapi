@@ -5,14 +5,13 @@ import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.util.AbstractMovieTest
-import com.google.common.collect.Sets
 
 abstract class AbstractMovieMapperTest extends AbstractMovieTest {
 
 	protected Movie createMovie() {
 		new Movie(
 				guid: GUID,
-				mainDirector: Mock(Staff),
+				mainDirector: new Staff(),
 				title: TITLE,
 				titleBulgarian: TITLE_BULGARIAN,
 				titleCatalan: TITLE_CATALAN,
@@ -29,16 +28,16 @@ abstract class AbstractMovieMapperTest extends AbstractMovieTest {
 				yearFrom: YEAR_FROM,
 				yearTo: YEAR_TO,
 				usReleaseDate: US_RELEASE_DATE,
-				writers: Sets.newHashSet(Mock(Staff)),
-				screenplayAuthors: Sets.newHashSet(Mock(Staff)),
-				storyAuthors: Sets.newHashSet(Mock(Staff)),
-				directors: Sets.newHashSet(Mock(Staff)),
-				producers: Sets.newHashSet(Mock(Staff)),
-				performers: Sets.newHashSet(Mock(Performer)),
-				staff: Sets.newHashSet(Mock(Staff)),
-				stuntPerformers: Sets.newHashSet(Mock(Performer)),
-				standInPerformers: Sets.newHashSet(Mock(Performer)),
-				characters: Sets.newHashSet(Mock(Character)))
+				writers: createSetOfRandomNumberOfMocks(Staff),
+				screenplayAuthors: createSetOfRandomNumberOfMocks(Staff),
+				storyAuthors: createSetOfRandomNumberOfMocks(Staff),
+				directors: createSetOfRandomNumberOfMocks(Staff),
+				producers: createSetOfRandomNumberOfMocks(Staff),
+				performers: createSetOfRandomNumberOfMocks(Performer),
+				staff: createSetOfRandomNumberOfMocks(Staff),
+				stuntPerformers: createSetOfRandomNumberOfMocks(Performer),
+				standInPerformers: createSetOfRandomNumberOfMocks(Performer),
+				characters: createSetOfRandomNumberOfMocks(Character))
 	}
 
 }

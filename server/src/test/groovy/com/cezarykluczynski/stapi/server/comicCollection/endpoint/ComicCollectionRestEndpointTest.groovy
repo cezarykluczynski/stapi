@@ -17,13 +17,13 @@ class ComicCollectionRestEndpointTest extends AbstractRestEndpointTest {
 	private ComicCollectionRestEndpoint comicCollectionRestEndpoint
 
 	void setup() {
-		comicCollectionRestReaderMock = Mock(ComicCollectionRestReader)
+		comicCollectionRestReaderMock = Mock()
 		comicCollectionRestEndpoint = new ComicCollectionRestEndpoint(comicCollectionRestReaderMock)
 	}
 
 	void "passes get call to ComicCollectionRestReader"() {
 		given:
-		ComicCollectionFullResponse comicCollectionFullResponse = Mock(ComicCollectionFullResponse)
+		ComicCollectionFullResponse comicCollectionFullResponse = Mock()
 
 		when:
 		ComicCollectionFullResponse comicCollectionFullResponseOutput = comicCollectionRestEndpoint.getComicCollection(GUID)
@@ -35,10 +35,10 @@ class ComicCollectionRestEndpointTest extends AbstractRestEndpointTest {
 
 	void "passes search get call to ComicCollectionRestReader"() {
 		given:
-		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams)
+		PageSortBeanParams pageAwareBeanParams = Mock()
 		pageAwareBeanParams.pageNumber >> PAGE_NUMBER
 		pageAwareBeanParams.pageSize >> PAGE_SIZE
-		ComicCollectionBaseResponse comicCollectionResponse = Mock(ComicCollectionBaseResponse)
+		ComicCollectionBaseResponse comicCollectionResponse = Mock()
 
 		when:
 		ComicCollectionBaseResponse comicCollectionResponseOutput = comicCollectionRestEndpoint.searchComicCollection(pageAwareBeanParams)
@@ -56,7 +56,7 @@ class ComicCollectionRestEndpointTest extends AbstractRestEndpointTest {
 	void "passes search post call to ComicCollectionRestReader"() {
 		given:
 		ComicCollectionRestBeanParams comicCollectionRestBeanParams = new ComicCollectionRestBeanParams(title: TITLE)
-		ComicCollectionBaseResponse comicCollectionResponse = Mock(ComicCollectionBaseResponse)
+		ComicCollectionBaseResponse comicCollectionResponse = Mock()
 
 		when:
 		ComicCollectionBaseResponse comicCollectionResponseOutput = comicCollectionRestEndpoint.searchComicCollection(comicCollectionRestBeanParams)

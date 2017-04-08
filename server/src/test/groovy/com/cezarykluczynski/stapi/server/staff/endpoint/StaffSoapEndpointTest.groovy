@@ -14,14 +14,14 @@ class StaffSoapEndpointTest extends Specification {
 	private StaffSoapEndpoint staffSoapEndpoint
 
 	void setup() {
-		staffSoapReaderMock = Mock(StaffSoapReader)
+		staffSoapReaderMock = Mock()
 		staffSoapEndpoint = new StaffSoapEndpoint(staffSoapReaderMock)
 	}
 
 	void "passes base call to StaffSoapReader"() {
 		given:
-		StaffBaseRequest staffBaseRequest = Mock(StaffBaseRequest)
-		StaffBaseResponse staffBaseResponse = Mock(StaffBaseResponse)
+		StaffBaseRequest staffBaseRequest = Mock()
+		StaffBaseResponse staffBaseResponse = Mock()
 
 		when:
 		StaffBaseResponse staffResponseResult = staffSoapEndpoint.getStaffBase(staffBaseRequest)
@@ -33,8 +33,8 @@ class StaffSoapEndpointTest extends Specification {
 
 	void "passes full call to StaffSoapReader"() {
 		given:
-		StaffFullRequest staffFullRequest = Mock(StaffFullRequest)
-		StaffFullResponse staffFullResponse = Mock(StaffFullResponse)
+		StaffFullRequest staffFullRequest = Mock()
+		StaffFullResponse staffFullResponse = Mock()
 
 		when:
 		StaffFullResponse staffResponseResult = staffSoapEndpoint.getStaffFull(staffFullRequest)

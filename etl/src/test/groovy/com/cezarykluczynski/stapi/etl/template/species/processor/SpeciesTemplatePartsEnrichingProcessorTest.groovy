@@ -28,9 +28,9 @@ class SpeciesTemplatePartsEnrichingProcessorTest extends Specification {
 	private SpeciesTemplatePartsEnrichingProcessor speciesTemplatePartsEnrichingProcessor
 
 	void setup() {
-		wikitextApiMock = Mock(WikitextApi)
-		entityLookupByNameServiceMock = Mock(EntityLookupByNameService)
-		speciesTemplateTypeWikitextEnrichingProcessorMock = Mock(SpeciesTemplateTypeWikitextEnrichingProcessor)
+		wikitextApiMock = Mock()
+		entityLookupByNameServiceMock = Mock()
+		speciesTemplateTypeWikitextEnrichingProcessorMock = Mock()
 		speciesTemplatePartsEnrichingProcessor = new SpeciesTemplatePartsEnrichingProcessor(wikitextApiMock, entityLookupByNameServiceMock,
 				speciesTemplateTypeWikitextEnrichingProcessorMock)
 	}
@@ -52,7 +52,7 @@ class SpeciesTemplatePartsEnrichingProcessorTest extends Specification {
 		given:
 		Template.Part templatePart = new Template.Part(key: SpeciesTemplateParameter.PLANET, value: WIKITEXT)
 		SpeciesTemplate speciesTemplate = new SpeciesTemplate()
-		AstronomicalObject homeworld = Mock(AstronomicalObject)
+		AstronomicalObject homeworld = Mock()
 
 		when:
 		speciesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), speciesTemplate))
@@ -69,7 +69,7 @@ class SpeciesTemplatePartsEnrichingProcessorTest extends Specification {
 		given:
 		Template.Part templatePart = new Template.Part(key: SpeciesTemplateParameter.QUADRANT, value: WIKITEXT)
 		SpeciesTemplate speciesTemplate = new SpeciesTemplate()
-		AstronomicalObject quadrant = Mock(AstronomicalObject)
+		AstronomicalObject quadrant = Mock()
 
 		when:
 		speciesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), speciesTemplate))
@@ -119,7 +119,7 @@ class SpeciesTemplatePartsEnrichingProcessorTest extends Specification {
 		Template.Part templatePart = new Template.Part(
 				key: SpeciesTemplateParameter.POPULATION,
 				value: '')
-		SpeciesTemplate speciesTemplate = Mock(SpeciesTemplate)
+		SpeciesTemplate speciesTemplate = Mock()
 
 		when:
 		speciesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), speciesTemplate))

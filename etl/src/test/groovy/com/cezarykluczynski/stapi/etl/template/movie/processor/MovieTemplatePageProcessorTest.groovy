@@ -31,11 +31,11 @@ class MovieTemplatePageProcessorTest extends Specification {
 	private MovieTemplatePageProcessor movieTemplatePageProcessor
 
 	void setup() {
-		movieTemplateProcessorMock = Mock(MovieTemplateProcessor)
-		templateFinderMock = Mock(TemplateFinder)
-		pageBindingServiceMock = Mock(PageBindingService)
-		movieTemplateTitleLanguagesEnrichingProcessorMock = Mock(MovieTemplateTitleLanguagesEnrichingProcessor)
-		moviePerformancesLinkingWorkerMock = Mock(MovieRealPeopleLinkingWorkerComposite)
+		movieTemplateProcessorMock = Mock()
+		templateFinderMock = Mock()
+		pageBindingServiceMock = Mock()
+		movieTemplateTitleLanguagesEnrichingProcessorMock = Mock()
+		moviePerformancesLinkingWorkerMock = Mock()
 		movieTemplatePageProcessor = new MovieTemplatePageProcessor(movieTemplateProcessorMock, templateFinderMock,
 				pageBindingServiceMock, movieTemplateTitleLanguagesEnrichingProcessorMock,
 				moviePerformancesLinkingWorkerMock)

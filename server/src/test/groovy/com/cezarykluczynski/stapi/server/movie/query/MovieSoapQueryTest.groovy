@@ -25,21 +25,21 @@ class MovieSoapQueryTest extends Specification {
 	private MovieSoapQuery movieSoapQuery
 
 	void setup() {
-		movieBaseSoapMapperMock = Mock(MovieBaseSoapMapper)
-		movieFullSoapMapperMock = Mock(MovieFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
-		movieRepositoryMock = Mock(MovieRepository)
+		movieBaseSoapMapperMock = Mock()
+		movieFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
+		movieRepositoryMock = Mock()
 		movieSoapQuery = new MovieSoapQuery(movieBaseSoapMapperMock, movieFullSoapMapperMock, pageMapperMock, movieRepositoryMock)
 	}
 
 	void "maps MovieBaseRequest to MovieRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
-		RequestPage requestPage = Mock(RequestPage)
-		PageRequest pageRequest = Mock(PageRequest)
-		MovieBaseRequest movieRequest = Mock(MovieBaseRequest)
+		RequestPage requestPage = Mock()
+		PageRequest pageRequest = Mock()
+		MovieBaseRequest movieRequest = Mock()
 		movieRequest.page >> requestPage
-		MovieRequestDTO movieRequestDTO = Mock(MovieRequestDTO)
-		Page page = Mock(Page)
+		MovieRequestDTO movieRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = movieSoapQuery.query(movieRequest)
@@ -53,10 +53,10 @@ class MovieSoapQueryTest extends Specification {
 
 	void "maps MovieFullRequest to MovieRequestDTO, then calls repository, then returns result"() {
 		given:
-		PageRequest pageRequest = Mock(PageRequest)
-		MovieFullRequest movieRequest = Mock(MovieFullRequest)
-		MovieRequestDTO movieRequestDTO = Mock(MovieRequestDTO)
-		Page page = Mock(Page)
+		PageRequest pageRequest = Mock()
+		MovieFullRequest movieRequest = Mock()
+		MovieRequestDTO movieRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = movieSoapQuery.query(movieRequest)

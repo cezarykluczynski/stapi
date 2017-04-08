@@ -15,8 +15,8 @@ class ComicsWriterTest extends Specification {
 	private ComicsWriter comicsWriterMock
 
 	void setup() {
-		comicsRepositoryMock = Mock(ComicsRepository)
-		duplicateFilteringPreSavePageAwareProcessorMock = Mock(DuplicateFilteringPreSavePageAwareFilter)
+		comicsRepositoryMock = Mock()
+		duplicateFilteringPreSavePageAwareProcessorMock = Mock()
 		comicsWriterMock = new ComicsWriter(comicsRepositoryMock, duplicateFilteringPreSavePageAwareProcessorMock)
 	}
 

@@ -19,8 +19,8 @@ class ParseComplementingServiceTest extends Specification {
 	private ParseComplementingService parseComplementingService
 
 	void setup() {
-		wikiaWikisDetectorMock = Mock(WikiaWikisDetector)
-		parseApiMock = Mock(ParseApi)
+		wikiaWikisDetectorMock = Mock()
+		parseApiMock = Mock()
 		parseComplementingService = new ParseComplementingService(wikiaWikisDetectorMock, parseApiMock)
 	}
 

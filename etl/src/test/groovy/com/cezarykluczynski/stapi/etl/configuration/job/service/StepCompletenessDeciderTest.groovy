@@ -20,10 +20,9 @@ class StepCompletenessDeciderTest extends Specification {
 	private StepCompletenessDecider jobCompletenessDecider
 
 	void setup() {
-		stepToStepPropertiesProviderMock = Mock(StepToStepPropertiesProvider)
-		allStepExecutionsProviderMock = Mock(AllStepExecutionsProvider)
-		jobCompletenessDecider = new StepCompletenessDecider(stepToStepPropertiesProviderMock,
-				allStepExecutionsProviderMock)
+		stepToStepPropertiesProviderMock = Mock()
+		allStepExecutionsProviderMock = Mock()
+		jobCompletenessDecider = new StepCompletenessDecider(stepToStepPropertiesProviderMock, allStepExecutionsProviderMock)
 	}
 
 	void "returns true when step is not enabled"() {
@@ -44,7 +43,7 @@ class StepCompletenessDeciderTest extends Specification {
 
 	void "returns true when step is completed"() {
 		given:
-		StepExecution stepExecution = Mock(StepExecution)
+		StepExecution stepExecution = Mock()
 
 		when:
 		boolean complete = jobCompletenessDecider.isStepComplete(JOB_NAME, STEP_NAME)

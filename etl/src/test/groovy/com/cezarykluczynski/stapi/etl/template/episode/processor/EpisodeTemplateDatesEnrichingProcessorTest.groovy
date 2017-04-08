@@ -26,8 +26,8 @@ class EpisodeTemplateDatesEnrichingProcessorTest extends Specification {
 	private EpisodeTemplateDatesEnrichingProcessor episodeTemplateDatesEnrichingProcessor
 
 	void setup() {
-		rawDatelinkExtractingProcessorMock = Mock(RawDatelinkExtractingProcessor)
-		episodeFinalScriptDateFixedValueProviderMock = Mock(EpisodeFinalScriptDateFixedValueProvider)
+		rawDatelinkExtractingProcessorMock = Mock()
+		episodeFinalScriptDateFixedValueProviderMock = Mock()
 		episodeTemplateDatesEnrichingProcessor = new EpisodeTemplateDatesEnrichingProcessor(
 				rawDatelinkExtractingProcessorMock, episodeFinalScriptDateFixedValueProviderMock)
 	}

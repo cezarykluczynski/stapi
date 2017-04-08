@@ -20,17 +20,17 @@ class DatelinkTemplateToDayMonthYearProcessorTest extends Specification {
 	private DatelinkTemplateToDayMonthYearProcessor datelinkTemplateToDayMonthYearProcessor
 
 	void setup() {
-		datelinkTemplateToDayMonthYearCandiateProcessorMock = Mock(DatelinkTemplateToDayMonthYearCandiateProcessor)
-		dayMonthYearCandidateToLocalDateProcessorMock = Mock(DayMonthYearCandidateToLocalDateProcessor)
+		datelinkTemplateToDayMonthYearCandiateProcessorMock = Mock()
+		dayMonthYearCandidateToLocalDateProcessorMock = Mock()
 		datelinkTemplateToDayMonthYearProcessor = new DatelinkTemplateToDayMonthYearProcessor(datelinkTemplateToDayMonthYearCandiateProcessorMock,
 				dayMonthYearCandidateToLocalDateProcessorMock)
 	}
 
 	void "process template using dependencies, then returns DayMonthYear made of LocalDate"() {
 		given:
-		Template template = Mock(Template)
+		Template template = Mock()
 		LocalDate localDate = LocalDate.of(YEAR, MONTH, DAY)
-		DayMonthYearCandidate dayMonthYearCandidate = Mock(DayMonthYearCandidate)
+		DayMonthYearCandidate dayMonthYearCandidate = Mock()
 
 		when:
 		DayMonthYear dayMonthYear = datelinkTemplateToDayMonthYearProcessor.process(template)

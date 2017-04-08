@@ -17,13 +17,13 @@ class ComicStripConfigurationTest extends Specification {
 	private ComicStripConfiguration comicStripConfiguration
 
 	void setup() {
-		endpointFactoryMock = Mock(EndpointFactory)
+		endpointFactoryMock = Mock()
 		comicStripConfiguration = new ComicStripConfiguration(endpointFactory: endpointFactoryMock)
 	}
 
 	void "ComicStrip SOAP endpoint is created"() {
 		given:
-		Endpoint endpoint = Mock(Endpoint)
+		Endpoint endpoint = Mock()
 
 		when:
 		Endpoint endpointOutput = comicStripConfiguration.comicStripEndpoint()

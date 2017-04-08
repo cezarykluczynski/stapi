@@ -46,20 +46,20 @@ class BlikiConnectorTest extends Specification {
 	private BlikiConnector blikiConnector
 
 	void setup() {
-		blikiUserDecoratorBeanMapProviderMock = Mock(BlikiUserDecoratorBeanMapProvider)
-		wikiaWikisDetector = Mock(WikiaWikisDetector)
-		mediaWikiMinimalIntervalProviderMock = Mock(MediaWikiMinimalIntervalProvider)
+		blikiUserDecoratorBeanMapProviderMock = Mock()
+		wikiaWikisDetector = Mock()
+		mediaWikiMinimalIntervalProviderMock = Mock()
 		mediaWikiSourcesProperties = new MediaWikiSourcesProperties(
 				memoryAlphaEn: new MediaWikiSourceProperties(),
 				memoryBetaEn: new MediaWikiSourceProperties()
 		)
 
-		StatusLine statusLine = Mock(StatusLine)
+		StatusLine statusLine = Mock()
 		statusLine.statusCode >> HttpStatus.SC_OK
-		HeaderElement headerElement = Mock(HeaderElement)
+		HeaderElement headerElement = Mock()
 		headerElement.name >> 'text/xml'
 		headerElement.parameters >> []
-		Header header = Mock(Header)
+		Header header = Mock()
 		header.elements >> [headerElement]
 
 		HttpEntity httpEntity = Mock(HttpEntity)

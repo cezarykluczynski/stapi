@@ -13,8 +13,8 @@ class ComicSeriesQueryBuilderFactoryTest extends Specification {
 	private ComicSeriesQueryBuilderFactory comicSeriesQueryBuilderFactory
 
 	void setup() {
-		jpaContextMock = Mock(JpaContext)
-		cachingStrategyMock = Mock(CachingStrategy)
+		jpaContextMock = Mock()
+		cachingStrategyMock = Mock()
 	}
 
 	void "ComicSeriesQueryBuilder is created"() {

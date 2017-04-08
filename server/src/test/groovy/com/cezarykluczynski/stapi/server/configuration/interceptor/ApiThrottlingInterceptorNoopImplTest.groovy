@@ -13,7 +13,7 @@ class ApiThrottlingInterceptorNoopImplTest extends Specification {
 
 	void "does nothing when message is handled"() {
 		given:
-		Message message = Mock(Message)
+		Message message = Mock()
 
 		when:
 		apiThrottlingInterceptorNoopImpl.handleMessage(message)
@@ -24,7 +24,7 @@ class ApiThrottlingInterceptorNoopImplTest extends Specification {
 
 	void "does nothing when fault is handled"() {
 		given:
-		Message message = Mock(Message)
+		Message message = Mock()
 
 		when:
 		apiThrottlingInterceptorNoopImpl.handleFault(message)

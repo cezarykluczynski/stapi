@@ -18,17 +18,17 @@ class TemplateToDayMonthYearParserTest extends Specification {
 	private TemplateToDayMonthYearParser templateToDayMonthYearParser
 
 	void setup() {
-		datelinkTemplateToDayMonthYearProcessorMock = Mock(DatelinkTemplateToDayMonthYearProcessor)
-		monthlinkTemplateToMonthYearProcessorMock = Mock(MonthlinkTemplateToMonthYearProcessor)
-		yearlinkToYearProcessorMock = Mock(YearlinkToYearProcessor)
+		datelinkTemplateToDayMonthYearProcessorMock = Mock()
+		monthlinkTemplateToMonthYearProcessorMock = Mock()
+		yearlinkToYearProcessorMock = Mock()
 		templateToDayMonthYearParser = new TemplateToDayMonthYearParser(datelinkTemplateToDayMonthYearProcessorMock,
 				monthlinkTemplateToMonthYearProcessorMock, yearlinkToYearProcessorMock)
 	}
 
 	void "passes day month year template candidate to DatelinkTemplateToDayMonthYearProcessor"() {
 		given:
-		DayMonthYear dayMonthYear = Mock(DayMonthYear)
-		Template template = Mock(Template)
+		DayMonthYear dayMonthYear = Mock()
+		Template template = Mock()
 
 		when:
 		DayMonthYear dayMonthYearOutput = templateToDayMonthYearParser.parseDayMonthYearCandidate(template)
@@ -41,8 +41,8 @@ class TemplateToDayMonthYearParserTest extends Specification {
 
 	void "passes month year template candidate to MonthlinkTemplateToMonthYearProcessor"() {
 		given:
-		DayMonthYear dayMonthYear = Mock(DayMonthYear)
-		Template template = Mock(Template)
+		DayMonthYear dayMonthYear = Mock()
+		Template template = Mock()
 
 		when:
 		DayMonthYear dayMonthYearOutput = templateToDayMonthYearParser.parseMonthYearCandidate(template)
@@ -56,7 +56,7 @@ class TemplateToDayMonthYearParserTest extends Specification {
 	void "passes year template candidate to YearlinkToYearProcessor"() {
 		given:
 		Integer year = 1
-		Template template = Mock(Template)
+		Template template = Mock()
 
 		when:
 		DayMonthYear dayMonthYearOutput = templateToDayMonthYearParser.parseYearCandidate(template)

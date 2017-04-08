@@ -21,9 +21,9 @@ class PerformerWriterTest extends Specification {
 	private PerformerWriter performerWriterMock
 
 	void setup() {
-		performerRepositoryMock = Mock(PerformerRepository)
-		duplicateFilteringPreSavePageAwareProcessorMock = Mock(DuplicateFilteringPreSavePageAwareFilter)
-		duplicateReattachingPreSavePageAwareFilterMock = Mock(DuplicateReattachingPreSavePageAwareFilter)
+		performerRepositoryMock = Mock()
+		duplicateFilteringPreSavePageAwareProcessorMock = Mock()
+		duplicateReattachingPreSavePageAwareFilterMock = Mock()
 		performerWriterMock = new PerformerWriter(performerRepositoryMock, duplicateFilteringPreSavePageAwareProcessorMock,
 				duplicateReattachingPreSavePageAwareFilterMock)
 	}

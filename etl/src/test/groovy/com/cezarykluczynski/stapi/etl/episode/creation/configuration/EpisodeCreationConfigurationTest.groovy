@@ -26,8 +26,8 @@ class EpisodeCreationConfigurationTest extends AbstractCreationConfigurationTest
 	private EpisodeCreationConfiguration episodeCreationConfiguration
 
 	void setup() {
-		categoryApiMock = Mock(CategoryApi)
-		jobCompletenessDeciderMock = Mock(StepCompletenessDecider)
+		categoryApiMock = Mock()
+		jobCompletenessDeciderMock = Mock()
 		episodeCreationConfiguration = new EpisodeCreationConfiguration(
 				categoryApi: categoryApiMock,
 				stepCompletenessDecider: jobCompletenessDeciderMock)

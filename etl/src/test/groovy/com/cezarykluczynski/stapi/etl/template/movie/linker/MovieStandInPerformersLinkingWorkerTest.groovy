@@ -13,7 +13,7 @@ class MovieStandInPerformersLinkingWorkerTest extends Specification {
 	private MovieStandInPerformersLinkingWorker movieStandInPerformersLinkingWorker
 
 	void setup() {
-		firstPerformerFindingMovieRealPeopleLinkingWorkerHelperMock = Mock(FirstPerformerFindingMovieRealPeopleLinkingWorkerHelper)
+		firstPerformerFindingMovieRealPeopleLinkingWorkerHelperMock = Mock()
 		movieStandInPerformersLinkingWorker = new MovieStandInPerformersLinkingWorker(
 				firstPerformerFindingMovieRealPeopleLinkingWorkerHelperMock)
 	}

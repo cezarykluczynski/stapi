@@ -33,10 +33,10 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 	private CharacterSpeciesWikitextProcessor characterSpeciesWikitextProcessor
 
 	void setup() {
-		characterSpeciesFixedValueProviderMock = Mock(CharacterSpeciesFixedValueProvider)
-		wikitextApiMock = Mock(WikitextApi)
-		characterSpeciesLiteralFractionWikitextEnrichingProcessorMock = Mock(CharacterSpeciesLiteralFractionWikitextEnrichingProcessor)
-		characterSpeciesWithSpeciesNameEnrichingProcessorMock = Mock(CharacterSpeciesWithSpeciesNameEnrichingProcessor)
+		characterSpeciesFixedValueProviderMock = Mock()
+		wikitextApiMock = Mock()
+		characterSpeciesLiteralFractionWikitextEnrichingProcessorMock = Mock()
+		characterSpeciesWithSpeciesNameEnrichingProcessorMock = Mock()
 		characterSpeciesWikitextProcessor = new CharacterSpeciesWikitextProcessor(characterSpeciesFixedValueProviderMock, wikitextApiMock,
 				characterSpeciesLiteralFractionWikitextEnrichingProcessorMock, characterSpeciesWithSpeciesNameEnrichingProcessorMock)
 	}
@@ -55,8 +55,8 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 
 	void "when fixed value is found, it is used"() {
 		given:
-		CharacterSpecies characterSpeciesFirst = Mock(CharacterSpecies)
-		CharacterSpecies characterSpeciesSecond = Mock(CharacterSpecies)
+		CharacterSpecies characterSpeciesFirst = Mock()
+		CharacterSpecies characterSpeciesSecond = Mock()
 
 		when:
 		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor
@@ -89,7 +89,7 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 	void "when single page link is used, it is passed to CharacterSpeciesWithSpeciesNameEnrichingProcessor"() {
 		given:
 		PageLink pageLink = new PageLink(title: TITLE_1)
-		CharacterSpecies characterSpecies = Mock(CharacterSpecies)
+		CharacterSpecies characterSpecies = Mock()
 
 		when:
 		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor
@@ -113,7 +113,7 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 		given:
 		PageLink pageLink1 = new PageLink(title: TITLE_1)
 		PageLink pageLink2 = new PageLink(title: TITLE_2)
-		CharacterSpecies characterSpecies = Mock(CharacterSpecies)
+		CharacterSpecies characterSpecies = Mock()
 
 		when:
 		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor
@@ -137,7 +137,7 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 		given:
 		PageLink humanPageLink = new PageLink(title: CharacterSpeciesWikitextProcessor.HUMAN)
 		PageLink augmentPageLink = new PageLink(title: CharacterSpeciesWikitextProcessor.AUGMENT)
-		CharacterSpecies characterSpecies = Mock(CharacterSpecies)
+		CharacterSpecies characterSpecies = Mock()
 
 		when:
 		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor
@@ -161,8 +161,8 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 		given:
 		PageLink humanPageLink = new PageLink(title: TITLE_1)
 		PageLink augmentPageLink = new PageLink(title: TITLE_2)
-		CharacterSpecies characterSpeciesOneHalf = Mock(CharacterSpecies)
-		CharacterSpecies characterSpeciesOtherHalf = Mock(CharacterSpecies)
+		CharacterSpecies characterSpeciesOneHalf = Mock()
+		CharacterSpecies characterSpeciesOtherHalf = Mock()
 
 		when:
 		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor
@@ -195,8 +195,8 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 		PageLink pageLink1 = new PageLink(title: TITLE_1)
 		PageLink pageLink2 = new PageLink(title: TITLE_2)
 		PageLink pageLinkHybrid = new PageLink(title: CharacterSpeciesWikitextProcessor.HYBRID)
-		CharacterSpecies characterSpeciesOneHalf = Mock(CharacterSpecies)
-		CharacterSpecies characterSpeciesOtherHalf = Mock(CharacterSpecies)
+		CharacterSpecies characterSpeciesOneHalf = Mock()
+		CharacterSpecies characterSpeciesOtherHalf = Mock()
 
 		when:
 		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor
@@ -228,7 +228,7 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 		given:
 		PageLink argananPageLink = new PageLink(title: CharacterSpeciesWikitextProcessor.ARDANAN)
 		PageLink otherPageLink = new PageLink(title: TITLE_1)
-		CharacterSpecies characterSpecies = Mock(CharacterSpecies)
+		CharacterSpecies characterSpecies = Mock()
 
 		when:
 		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor
@@ -252,7 +252,7 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 		given:
 		PageLink pageLink1 = new PageLink(title: TITLE_1, startPosition: 10)
 		PageLink pageLink2 = new PageLink(title: TITLE_2, startPosition: 50)
-		CharacterSpecies characterSpeciesCurrent = Mock(CharacterSpecies)
+		CharacterSpecies characterSpeciesCurrent = Mock()
 
 		when:
 		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor

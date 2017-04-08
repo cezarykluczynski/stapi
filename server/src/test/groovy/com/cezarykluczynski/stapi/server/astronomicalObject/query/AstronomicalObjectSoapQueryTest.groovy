@@ -25,22 +25,22 @@ class AstronomicalObjectSoapQueryTest extends Specification {
 	private AstronomicalObjectSoapQuery astronomicalObjectSoapQuery
 
 	void setup() {
-		astronomicalObjectBaseSoapMapperMock = Mock(AstronomicalObjectBaseSoapMapper)
-		astronomicalObjectFullSoapMapperMock = Mock(AstronomicalObjectFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
-		astronomicalObjectRepositoryMock = Mock(AstronomicalObjectRepository)
+		astronomicalObjectBaseSoapMapperMock = Mock()
+		astronomicalObjectFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
+		astronomicalObjectRepositoryMock = Mock()
 		astronomicalObjectSoapQuery = new AstronomicalObjectSoapQuery(astronomicalObjectBaseSoapMapperMock, astronomicalObjectFullSoapMapperMock,
 				pageMapperMock, astronomicalObjectRepositoryMock)
 	}
 
 	void "maps AstronomicalObjectBaseRequest to AstronomicalObjectRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
-		RequestPage requestPage = Mock(RequestPage)
-		PageRequest pageRequest = Mock(PageRequest)
-		AstronomicalObjectBaseRequest astronomicalObjectRequest = Mock(AstronomicalObjectBaseRequest)
+		RequestPage requestPage = Mock()
+		PageRequest pageRequest = Mock()
+		AstronomicalObjectBaseRequest astronomicalObjectRequest = Mock()
 		astronomicalObjectRequest.page >> requestPage
-		AstronomicalObjectRequestDTO astronomicalObjectRequestDTO = Mock(AstronomicalObjectRequestDTO)
-		Page page = Mock(Page)
+		AstronomicalObjectRequestDTO astronomicalObjectRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = astronomicalObjectSoapQuery.query(astronomicalObjectRequest)
@@ -54,10 +54,10 @@ class AstronomicalObjectSoapQueryTest extends Specification {
 
 	void "maps AstronomicalObjectFullRequest to AstronomicalObjectRequestDTO, then calls repository, then returns result"() {
 		given:
-		PageRequest pageRequest = Mock(PageRequest)
-		AstronomicalObjectFullRequest astronomicalObjectRequest = Mock(AstronomicalObjectFullRequest)
-		AstronomicalObjectRequestDTO astronomicalObjectRequestDTO = Mock(AstronomicalObjectRequestDTO)
-		Page page = Mock(Page)
+		PageRequest pageRequest = Mock()
+		AstronomicalObjectFullRequest astronomicalObjectRequest = Mock()
+		AstronomicalObjectRequestDTO astronomicalObjectRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = astronomicalObjectSoapQuery.query(astronomicalObjectRequest)

@@ -17,13 +17,13 @@ class MovieConfigurationTest extends Specification {
 	private MovieConfiguration movieConfiguration
 
 	void setup() {
-		endpointFactoryMock = Mock(EndpointFactory)
+		endpointFactoryMock = Mock()
 		movieConfiguration = new MovieConfiguration(endpointFactory: endpointFactoryMock)
 	}
 
 	void "Movie SOAP endpoint is created"() {
 		given:
-		Endpoint endpoint = Mock(Endpoint)
+		Endpoint endpoint = Mock()
 
 		when:
 		Endpoint endpointOutput = movieConfiguration.movieEndpoint()

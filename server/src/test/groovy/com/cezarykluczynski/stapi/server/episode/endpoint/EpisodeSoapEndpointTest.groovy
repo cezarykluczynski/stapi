@@ -14,14 +14,14 @@ class EpisodeSoapEndpointTest extends Specification {
 	private EpisodeSoapEndpoint episodeSoapEndpoint
 
 	void setup() {
-		episodeSoapReaderMock = Mock(EpisodeSoapReader)
+		episodeSoapReaderMock = Mock()
 		episodeSoapEndpoint = new EpisodeSoapEndpoint(episodeSoapReaderMock)
 	}
 
 	void "passes base call to EpisodeSoapReader"() {
 		given:
-		EpisodeBaseRequest episodeBaseRequest = Mock(EpisodeBaseRequest)
-		EpisodeBaseResponse episodeBaseResponse = Mock(EpisodeBaseResponse)
+		EpisodeBaseRequest episodeBaseRequest = Mock()
+		EpisodeBaseResponse episodeBaseResponse = Mock()
 
 		when:
 		EpisodeBaseResponse episodeResponseResult = episodeSoapEndpoint.getEpisodeBase(episodeBaseRequest)
@@ -33,8 +33,8 @@ class EpisodeSoapEndpointTest extends Specification {
 
 	void "passes full call to EpisodeSoapReader"() {
 		given:
-		EpisodeFullRequest episodeFullRequest = Mock(EpisodeFullRequest)
-		EpisodeFullResponse episodeFullResponse = Mock(EpisodeFullResponse)
+		EpisodeFullRequest episodeFullRequest = Mock()
+		EpisodeFullResponse episodeFullResponse = Mock()
 
 		when:
 		EpisodeFullResponse episodeResponseResult = episodeSoapEndpoint.getEpisodeFull(episodeFullRequest)

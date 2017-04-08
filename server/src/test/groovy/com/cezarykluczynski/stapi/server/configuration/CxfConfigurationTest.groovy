@@ -32,7 +32,7 @@ class CxfConfigurationTest extends Specification {
 	private CxfConfiguration cxfConfiguration
 
 	void setup() {
-		applicationContextMock = Mock(ApplicationContext)
+		applicationContextMock = Mock()
 		cxfConfiguration = new CxfConfiguration()
 	}
 
@@ -51,28 +51,44 @@ class CxfConfigurationTest extends Specification {
 		Map<String, Object> serviceBeans = Maps.newHashMap()
 		serviceBeans.put('SeriesRestEndpoint', new SeriesRestEndpoint(null))
 		cxfConfiguration.applicationContext = applicationContextMock
+		ApiThrottlingInterceptor apiThrottlingInterceptor = Mock()
+		AstronomicalObjectRestEndpoint astronomicalObjectRestEndpoint = Mock()
+		CharacterRestEndpoint characterRestEndpoint = Mock()
+		ComicCollectionRestEndpoint comicCollectionRestEndpoint = Mock()
+		ComicsRestEndpoint comicsRestEndpoint = Mock()
+		ComicSeriesRestEndpoint comicSeriesRestEndpoint = Mock()
+		ComicStripRestEndpoint comicStripRestEndpoint = Mock()
+		CompanyRestEndpoint companyRestEndpoint = Mock()
+		EpisodeRestEndpoint episodeRestEndpoint = Mock()
+		MovieRestEndpoint movieRestEndpoint = Mock()
+		PerformerRestEndpoint performerRestEndpoint = Mock()
+		SeriesRestEndpoint seriesRestEndpoint = Mock()
+		SpeciesRestEndpoint speciesRestEndpoint = Mock()
+		StaffRestEndpoint staffRestEndpoint = Mock()
+		OrganizationRestEndpoint organizationRestEndpoint = Mock()
+		FoodRestEndpoint foodRestEndpoint = Mock()
 
 		when:
 		Server server = cxfConfiguration.cxfServer()
 
 		then:
 		1 * applicationContextMock.getBean(SpringBus) >> new SpringBus()
-		1 * applicationContextMock.getBean(ApiThrottlingInterceptor) >> Mock(ApiThrottlingInterceptor)
-		1 * applicationContextMock.getBean(AstronomicalObjectRestEndpoint) >> Mock(AstronomicalObjectRestEndpoint)
-		1 * applicationContextMock.getBean(CharacterRestEndpoint) >> Mock(CharacterRestEndpoint)
-		1 * applicationContextMock.getBean(ComicCollectionRestEndpoint) >> Mock(ComicCollectionRestEndpoint)
-		1 * applicationContextMock.getBean(ComicsRestEndpoint) >> Mock(ComicsRestEndpoint)
-		1 * applicationContextMock.getBean(ComicSeriesRestEndpoint) >> Mock(ComicSeriesRestEndpoint)
-		1 * applicationContextMock.getBean(ComicStripRestEndpoint) >> Mock(ComicStripRestEndpoint)
-		1 * applicationContextMock.getBean(CompanyRestEndpoint) >> Mock(CompanyRestEndpoint)
-		1 * applicationContextMock.getBean(EpisodeRestEndpoint) >> Mock(EpisodeRestEndpoint)
-		1 * applicationContextMock.getBean(MovieRestEndpoint) >> Mock(MovieRestEndpoint)
-		1 * applicationContextMock.getBean(PerformerRestEndpoint) >> Mock(PerformerRestEndpoint)
-		1 * applicationContextMock.getBean(SeriesRestEndpoint) >> Mock(SeriesRestEndpoint)
-		1 * applicationContextMock.getBean(SpeciesRestEndpoint) >> Mock(SpeciesRestEndpoint)
-		1 * applicationContextMock.getBean(StaffRestEndpoint) >> Mock(StaffRestEndpoint)
-		1 * applicationContextMock.getBean(OrganizationRestEndpoint) >> Mock(OrganizationRestEndpoint)
-		1 * applicationContextMock.getBean(FoodRestEndpoint) >> Mock(FoodRestEndpoint)
+		1 * applicationContextMock.getBean(ApiThrottlingInterceptor) >> apiThrottlingInterceptor
+		1 * applicationContextMock.getBean(AstronomicalObjectRestEndpoint) >> astronomicalObjectRestEndpoint
+		1 * applicationContextMock.getBean(CharacterRestEndpoint) >> characterRestEndpoint
+		1 * applicationContextMock.getBean(ComicCollectionRestEndpoint) >> comicCollectionRestEndpoint
+		1 * applicationContextMock.getBean(ComicsRestEndpoint) >> comicsRestEndpoint
+		1 * applicationContextMock.getBean(ComicSeriesRestEndpoint) >> comicSeriesRestEndpoint
+		1 * applicationContextMock.getBean(ComicStripRestEndpoint) >> comicStripRestEndpoint
+		1 * applicationContextMock.getBean(CompanyRestEndpoint) >> companyRestEndpoint
+		1 * applicationContextMock.getBean(EpisodeRestEndpoint) >> episodeRestEndpoint
+		1 * applicationContextMock.getBean(MovieRestEndpoint) >> movieRestEndpoint
+		1 * applicationContextMock.getBean(PerformerRestEndpoint) >> performerRestEndpoint
+		1 * applicationContextMock.getBean(SeriesRestEndpoint) >> seriesRestEndpoint
+		1 * applicationContextMock.getBean(SpeciesRestEndpoint) >> speciesRestEndpoint
+		1 * applicationContextMock.getBean(StaffRestEndpoint) >> staffRestEndpoint
+		1 * applicationContextMock.getBean(OrganizationRestEndpoint) >> organizationRestEndpoint
+		1 * applicationContextMock.getBean(FoodRestEndpoint) >> foodRestEndpoint
 		0 * _
 		server instanceof ServerImpl
 		server.started

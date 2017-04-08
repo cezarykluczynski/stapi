@@ -45,12 +45,12 @@ class CharacterboxTemplateProcessorTest extends Specification {
 	private CharacterboxTemplateProcessor characterboxTemplateProcessor
 
 	void setup() {
-		templateFinderMock = Mock(TemplateFinder)
-		partToGenderProcessorMock = Mock(PartToGenderProcessor)
-		individualHeightProcessorMock = Mock(IndividualHeightProcessor)
-		individualWeightProcessorMock = Mock(IndividualWeightProcessor)
-		individualLifeBoundaryProcessorMock = Mock(IndividualLifeBoundaryProcessor)
-		maritalStatusProcessorMock = Mock(MaritalStatusProcessor)
+		templateFinderMock = Mock()
+		partToGenderProcessorMock = Mock()
+		individualHeightProcessorMock = Mock()
+		individualWeightProcessorMock = Mock()
+		individualLifeBoundaryProcessorMock = Mock()
+		maritalStatusProcessorMock = Mock()
 		characterboxTemplateProcessor = new CharacterboxTemplateProcessor(templateFinderMock, partToGenderProcessorMock,
 				individualHeightProcessorMock, individualWeightProcessorMock, maritalStatusProcessorMock, individualLifeBoundaryProcessorMock)
 	}

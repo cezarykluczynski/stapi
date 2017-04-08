@@ -16,8 +16,8 @@ class DatelinkTemplateToLocalDateProcessorTest extends Specification {
 	private DatelinkTemplateToLocalDateProcessor templateToLocalDateProcessor
 
 	void setup() {
-		datelinkTemplateToDayMonthYearCandiateProcessorMock = Mock(DatelinkTemplateToDayMonthYearCandiateProcessor)
-		dayMonthYearCandidateToLocalDateProcessorMock = Mock(DayMonthYearCandidateToLocalDateProcessor)
+		datelinkTemplateToDayMonthYearCandiateProcessorMock = Mock()
+		dayMonthYearCandidateToLocalDateProcessorMock = Mock()
 		templateToLocalDateProcessor = new DatelinkTemplateToLocalDateProcessor(datelinkTemplateToDayMonthYearCandiateProcessorMock,
 				dayMonthYearCandidateToLocalDateProcessorMock)
 	}
@@ -26,8 +26,8 @@ class DatelinkTemplateToLocalDateProcessorTest extends Specification {
 		given:
 
 		LocalDate localDate = LocalDate.of(2000, Month.APRIL, 3)
-		DayMonthYearCandidate dayMonthYearCandidate = Mock(DayMonthYearCandidate)
-		Template template = Mock(Template)
+		DayMonthYearCandidate dayMonthYearCandidate = Mock()
+		Template template = Mock()
 
 		when:
 		LocalDate localDateOutput = templateToLocalDateProcessor.process(template)

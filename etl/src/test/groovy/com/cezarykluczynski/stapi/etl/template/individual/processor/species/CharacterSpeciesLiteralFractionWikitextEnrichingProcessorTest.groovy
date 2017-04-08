@@ -19,7 +19,7 @@ class CharacterSpeciesLiteralFractionWikitextEnrichingProcessorTest extends Spec
 	private CharacterSpeciesLiteralFractionWikitextEnrichingProcessor characterSpeciesLiteralFractionWikitextEnrichingProcessor
 
 	void setup() {
-		characterSpeciesWithSpeciesNameEnrichingProcessorMock = Mock(CharacterSpeciesWithSpeciesNameEnrichingProcessor)
+		characterSpeciesWithSpeciesNameEnrichingProcessorMock = Mock()
 		characterSpeciesLiteralFractionWikitextEnrichingProcessor = new CharacterSpeciesLiteralFractionWikitextEnrichingProcessor(
 				characterSpeciesWithSpeciesNameEnrichingProcessorMock)
 	}
@@ -32,8 +32,8 @@ class CharacterSpeciesLiteralFractionWikitextEnrichingProcessorTest extends Spec
 				new PageLink(startPosition: 34, title: BETAZOID))
 		Set<CharacterSpecies> characterSpeciesSet = Sets.newHashSet()
 		Pair<String, List<PageLink>> pair = Pair.of(wikitext, pageLinkList)
-		CharacterSpecies humanCharacterSpecies = Mock(CharacterSpecies)
-		CharacterSpecies betazoidCharacterSpecies = Mock(CharacterSpecies)
+		CharacterSpecies humanCharacterSpecies = Mock()
+		CharacterSpecies betazoidCharacterSpecies = Mock()
 
 		when:
 		characterSpeciesLiteralFractionWikitextEnrichingProcessor.enrich(EnrichablePair.of(pair, characterSpeciesSet))

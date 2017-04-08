@@ -19,11 +19,10 @@ class ComicStripProcessorTest extends Specification {
 	private ComicStripProcessor comicStripProcessor
 
 	void setup() {
-		pageHeaderProcessorMock = Mock(PageHeaderProcessor)
-		comicStripTemplatePageProcessorMock = Mock(ComicStripTemplatePageProcessor)
-		comicStripTemplateProcessorMock = Mock(ComicStripTemplateProcessor)
-		comicStripProcessor = new ComicStripProcessor(pageHeaderProcessorMock, comicStripTemplatePageProcessorMock,
-				comicStripTemplateProcessorMock)
+		pageHeaderProcessorMock = Mock()
+		comicStripTemplatePageProcessorMock = Mock()
+		comicStripTemplateProcessorMock = Mock()
+		comicStripProcessor = new ComicStripProcessor(pageHeaderProcessorMock, comicStripTemplatePageProcessorMock, comicStripTemplateProcessorMock)
 	}
 
 	void "converts PageHeader to ComicStrip"() {

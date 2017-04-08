@@ -31,21 +31,20 @@ class MovieSoapReaderTest extends Specification {
 	private MovieSoapReader movieSoapReader
 
 	void setup() {
-		movieSoapQueryBuilderMock = Mock(MovieSoapQuery)
-		movieBaseSoapMapperMock = Mock(MovieBaseSoapMapper)
-		movieFullSoapMapperMock = Mock(MovieFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
-		movieSoapReader = new MovieSoapReader(movieSoapQueryBuilderMock, movieBaseSoapMapperMock, movieFullSoapMapperMock,
-				pageMapperMock)
+		movieSoapQueryBuilderMock = Mock()
+		movieBaseSoapMapperMock = Mock()
+		movieFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
+		movieSoapReader = new MovieSoapReader(movieSoapQueryBuilderMock, movieBaseSoapMapperMock, movieFullSoapMapperMock, pageMapperMock)
 	}
 
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		List<Movie> movieList = Lists.newArrayList()
-		Page<Movie> moviePage = Mock(Page)
+		Page<Movie> moviePage = Mock()
 		List<MovieBase> soapMovieList = Lists.newArrayList(new MovieBase(guid: GUID))
-		MovieBaseRequest movieBaseRequest = Mock(MovieBaseRequest)
-		ResponsePage responsePage = Mock(ResponsePage)
+		MovieBaseRequest movieBaseRequest = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		MovieBaseResponse movieResponse = movieSoapReader.readBase(movieBaseRequest)
@@ -62,9 +61,9 @@ class MovieSoapReaderTest extends Specification {
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		MovieFull movieFull = new MovieFull(guid: GUID)
-		Movie movie = Mock(Movie)
-		Page<Movie> moviePage = Mock(Page)
-		MovieFullRequest movieFullRequest = Mock(MovieFullRequest)
+		Movie movie = Mock()
+		Page<Movie> moviePage = Mock()
+		MovieFullRequest movieFullRequest = Mock()
 
 		when:
 		MovieFullResponse movieFullResponse = movieSoapReader.readFull(movieFullRequest)

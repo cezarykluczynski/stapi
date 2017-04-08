@@ -50,21 +50,21 @@ class ComicSeriesRepositoryImplTest extends AbstractComicSeriesTest {
 	private Set<Character> charactersSet
 
 	void setup() {
-		comicSeriesQueryBuilderFactory = Mock(ComicSeriesQueryBuilderFactory)
+		comicSeriesQueryBuilderFactory = Mock()
 		comicSeriesRepositoryImpl = new ComicSeriesRepositoryImpl(comicSeriesQueryBuilderFactory)
-		comicSeriesQueryBuilder = Mock(QueryBuilder)
-		pageable = Mock(Pageable)
-		comicSeriesRequestDTO = Mock(ComicSeriesRequestDTO)
-		page = Mock(Page)
-		performersPage = Mock(Page)
-		charactersPage = Mock(Page)
-		comicSeries = Mock(ComicSeries)
-		performersComicSeries = Mock(ComicSeries)
-		charactersComicSeries = Mock(ComicSeries)
-		performersSet = Mock(Set)
-		stuntPerformersSet = Mock(Set)
-		standInPerformersSet = Mock(Set)
-		charactersSet = Mock(Set)
+		comicSeriesQueryBuilder = Mock()
+		pageable = Mock()
+		comicSeriesRequestDTO = Mock()
+		page = Mock()
+		performersPage = Mock()
+		charactersPage = Mock()
+		comicSeries = Mock()
+		performersComicSeries = Mock()
+		charactersComicSeries = Mock()
+		performersSet = Mock()
+		stuntPerformersSet = Mock()
+		standInPerformersSet = Mock()
+		charactersSet = Mock()
 	}
 
 	void "query is built and performed"() {

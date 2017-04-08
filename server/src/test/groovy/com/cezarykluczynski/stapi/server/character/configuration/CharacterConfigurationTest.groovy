@@ -17,13 +17,13 @@ class CharacterConfigurationTest extends Specification {
 	private CharacterConfiguration characterConfiguration
 
 	void setup() {
-		endpointFactoryMock = Mock(EndpointFactory)
+		endpointFactoryMock = Mock()
 		characterConfiguration = new CharacterConfiguration(endpointFactory: endpointFactoryMock)
 	}
 
 	void "Character SOAP endpoint is created"() {
 		given:
-		Endpoint endpoint = Mock(Endpoint)
+		Endpoint endpoint = Mock()
 
 		when:
 		Endpoint endpointOutput = characterConfiguration.characterEndpoint()

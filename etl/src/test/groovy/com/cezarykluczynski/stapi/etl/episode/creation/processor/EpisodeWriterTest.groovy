@@ -12,7 +12,7 @@ class EpisodeWriterTest extends Specification {
 	private EpisodeWriter episodeWriter
 
 	void setup() {
-		episodeRepositoryMock = Mock(EpisodeRepository)
+		episodeRepositoryMock = Mock()
 		episodeWriter = new EpisodeWriter(episodeRepositoryMock)
 	}
 

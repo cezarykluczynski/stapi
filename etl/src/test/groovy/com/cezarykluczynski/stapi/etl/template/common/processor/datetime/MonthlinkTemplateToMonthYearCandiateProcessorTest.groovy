@@ -23,7 +23,7 @@ class MonthlinkTemplateToMonthYearCandiateProcessorTest extends Specification {
 	private Template template
 
 	void setup() {
-		monthYearCandidateToYearMonthProcessorMock = Mock(MonthYearCandidateToYearMonthProcessor)
+		monthYearCandidateToYearMonthProcessorMock = Mock()
 		monthlinkTemplateToMonthYearCandiateProcessor = new MonthlinkTemplateToMonthYearCandiateProcessor()
 		template = new Template(
 				title: TemplateTitle.M,

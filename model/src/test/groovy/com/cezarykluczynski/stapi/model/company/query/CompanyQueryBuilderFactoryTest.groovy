@@ -13,8 +13,8 @@ class CompanyQueryBuilderFactoryTest extends Specification {
 	private CompanyQueryBuilderFactory companyQueryBuilderFactory
 
 	void setup() {
-		jpaContextMock = Mock(JpaContext)
-		cachingStrategyMock = Mock(CachingStrategy)
+		jpaContextMock = Mock()
+		cachingStrategyMock = Mock()
 	}
 
 	void "CompanyQueryBuilder is created"() {

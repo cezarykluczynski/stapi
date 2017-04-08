@@ -1,13 +1,12 @@
 package com.cezarykluczynski.stapi.util
 
 import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl
-import spock.lang.Specification
 
 import javax.xml.datatype.DatatypeConstants
 import javax.xml.datatype.XMLGregorianCalendar
 import java.time.LocalDate
 
-abstract class AbstractSeriesTest extends Specification {
+abstract class AbstractSeriesTest extends AbstractTest {
 
 	protected static final String GUID = 'GUID'
 	protected static final String TITLE = 'TITLE'

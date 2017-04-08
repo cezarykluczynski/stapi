@@ -15,8 +15,8 @@ class FoodWriterTest extends Specification {
 	private FoodWriter foodWriterMock
 
 	void setup() {
-		foodRepositoryMock = Mock(FoodRepository)
-		duplicateFilteringPreSavePageAwareProcessorMock = Mock(DuplicateFilteringPreSavePageAwareFilter)
+		foodRepositoryMock = Mock()
+		duplicateFilteringPreSavePageAwareProcessorMock = Mock()
 		foodWriterMock = new FoodWriter(foodRepositoryMock, duplicateFilteringPreSavePageAwareProcessorMock)
 	}
 

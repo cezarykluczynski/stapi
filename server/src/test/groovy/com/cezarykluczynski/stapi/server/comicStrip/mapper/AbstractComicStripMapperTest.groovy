@@ -5,7 +5,6 @@ import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries
 import com.cezarykluczynski.stapi.model.comicStrip.entity.ComicStrip
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.util.AbstractComicStripTest
-import com.google.common.collect.Sets
 
 abstract class AbstractComicStripMapperTest extends AbstractComicStripTest {
 
@@ -23,10 +22,10 @@ abstract class AbstractComicStripMapperTest extends AbstractComicStripTest {
 				numberOfPages: NUMBER_OF_PAGES,
 				yearFrom: YEAR_FROM,
 				yearTo: YEAR_TO,
-				comicSeries: Sets.newHashSet(Mock(ComicSeries)),
-				writers: Sets.newHashSet(Mock(Staff)),
-				artists: Sets.newHashSet(Mock(Staff)),
-				characters: Sets.newHashSet(Mock(Character)))
+				comicSeries: createSetOfRandomNumberOfMocks(ComicSeries),
+				writers: createSetOfRandomNumberOfMocks(Staff),
+				artists: createSetOfRandomNumberOfMocks(Staff),
+				characters: createSetOfRandomNumberOfMocks(Character))
 	}
 
 }

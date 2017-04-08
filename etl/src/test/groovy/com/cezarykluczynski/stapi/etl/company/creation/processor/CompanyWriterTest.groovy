@@ -15,8 +15,8 @@ class CompanyWriterTest extends Specification {
 	private CompanyWriter companyWriterMock
 
 	void setup() {
-		companyRepositoryMock = Mock(CompanyRepository)
-		duplicateFilteringPreSavePageAwareProcessorMock = Mock(DuplicateFilteringPreSavePageAwareFilter)
+		companyRepositoryMock = Mock()
+		duplicateFilteringPreSavePageAwareProcessorMock = Mock()
 		companyWriterMock = new CompanyWriter(companyRepositoryMock, duplicateFilteringPreSavePageAwareProcessorMock)
 	}
 

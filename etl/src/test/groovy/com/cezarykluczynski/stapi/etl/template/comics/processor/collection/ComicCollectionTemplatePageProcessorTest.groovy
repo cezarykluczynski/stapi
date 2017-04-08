@@ -19,9 +19,9 @@ class ComicCollectionTemplatePageProcessorTest extends Specification {
 	private ComicCollectionTemplatePageProcessor comicCollectionTemplatePageProcessor
 
 	void setup() {
-		comicsTemplatePageProcessorMock = Mock(ComicsTemplatePageProcessor)
-		comicsTemplateToComicCollectionTemplateProcessorMock = Mock(ComicsTemplateToComicCollectionTemplateProcessor)
-		comicCollectionTemplateWikitextComicsProcessorMock = Mock(ComicCollectionTemplateWikitextComicsProcessor)
+		comicsTemplatePageProcessorMock = Mock()
+		comicsTemplateToComicCollectionTemplateProcessorMock = Mock()
+		comicCollectionTemplateWikitextComicsProcessorMock = Mock()
 		comicCollectionTemplatePageProcessor = new ComicCollectionTemplatePageProcessor(comicsTemplatePageProcessorMock,
 				comicsTemplateToComicCollectionTemplateProcessorMock, comicCollectionTemplateWikitextComicsProcessorMock)
 	}
@@ -44,8 +44,8 @@ class ComicCollectionTemplatePageProcessorTest extends Specification {
 		Page page = new Page()
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
 		ComicCollectionTemplate comicCollectionTemplate = new ComicCollectionTemplate()
-		Comics comics1 = Mock(Comics)
-		Comics comics2 = Mock(Comics)
+		Comics comics1 = Mock()
+		Comics comics2 = Mock()
 
 		when:
 		ComicCollectionTemplate comicCollectionTemplateOutput = comicCollectionTemplatePageProcessor.process(page)

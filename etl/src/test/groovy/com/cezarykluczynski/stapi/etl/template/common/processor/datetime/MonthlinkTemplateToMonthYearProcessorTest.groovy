@@ -19,17 +19,17 @@ class MonthlinkTemplateToMonthYearProcessorTest extends Specification {
 	private MonthlinkTemplateToMonthYearProcessor monthlinkTemplateToDayMonthYearProcessor
 
 	void setup() {
-		monthlinkTemplateToDayMonthYearCandiateProcessorMock = Mock(MonthlinkTemplateToMonthYearCandiateProcessor)
-		monthYearCandidateToYearMonthProcessorMock = Mock(MonthYearCandidateToYearMonthProcessor)
+		monthlinkTemplateToDayMonthYearCandiateProcessorMock = Mock()
+		monthYearCandidateToYearMonthProcessorMock = Mock()
 		monthlinkTemplateToDayMonthYearProcessor = new MonthlinkTemplateToMonthYearProcessor(monthlinkTemplateToDayMonthYearCandiateProcessorMock,
 				monthYearCandidateToYearMonthProcessorMock)
 	}
 
 	void "process template using dependencies, then returns DayMonthYear made of LocalDate"() {
 		given:
-		Template template = Mock(Template)
+		Template template = Mock()
 		YearMonth yearMonth = YearMonth.of(YEAR, MONTH)
-		MonthYearCandidate monthYearCandidate = Mock(MonthYearCandidate)
+		MonthYearCandidate monthYearCandidate = Mock()
 
 		when:
 		DayMonthYear dayMonthYear = monthlinkTemplateToDayMonthYearProcessor.process(template)

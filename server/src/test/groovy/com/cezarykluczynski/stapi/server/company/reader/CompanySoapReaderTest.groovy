@@ -31,21 +31,20 @@ class CompanySoapReaderTest extends Specification {
 	private CompanySoapReader companySoapReader
 
 	void setup() {
-		companySoapQueryBuilderMock = Mock(CompanySoapQuery)
-		companyBaseSoapMapperMock = Mock(CompanyBaseSoapMapper)
-		companyFullSoapMapperMock = Mock(CompanyFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
-		companySoapReader = new CompanySoapReader(companySoapQueryBuilderMock, companyBaseSoapMapperMock, companyFullSoapMapperMock,
-				pageMapperMock)
+		companySoapQueryBuilderMock = Mock()
+		companyBaseSoapMapperMock = Mock()
+		companyFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
+		companySoapReader = new CompanySoapReader(companySoapQueryBuilderMock, companyBaseSoapMapperMock, companyFullSoapMapperMock, pageMapperMock)
 	}
 
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		List<Company> companyList = Lists.newArrayList()
-		Page<Company> companyPage = Mock(Page)
+		Page<Company> companyPage = Mock()
 		List<CompanyBase> soapCompanyList = Lists.newArrayList(new CompanyBase(guid: GUID))
-		CompanyBaseRequest companyBaseRequest = Mock(CompanyBaseRequest)
-		ResponsePage responsePage = Mock(ResponsePage)
+		CompanyBaseRequest companyBaseRequest = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		CompanyBaseResponse companyResponse = companySoapReader.readBase(companyBaseRequest)
@@ -62,9 +61,9 @@ class CompanySoapReaderTest extends Specification {
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		CompanyFull companyFull = new CompanyFull(guid: GUID)
-		Company company = Mock(Company)
-		Page<Company> companyPage = Mock(Page)
-		CompanyFullRequest companyFullRequest = Mock(CompanyFullRequest)
+		Company company = Mock()
+		Page<Company> companyPage = Mock()
+		CompanyFullRequest companyFullRequest = Mock()
 
 		when:
 		CompanyFullResponse companyFullResponse = companySoapReader.readFull(companyFullRequest)

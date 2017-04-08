@@ -13,7 +13,7 @@ class RequestCredentialProviderTest extends Specification {
 	private RequestCredentialProvider requestCredentialProvider
 
 	void setup() {
-		httpServletRequestMock = Mock(HttpServletRequest)
+		httpServletRequestMock = Mock()
 		requestCredentialProvider = new RequestCredentialProvider(httpServletRequestMock)
 	}
 

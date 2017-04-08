@@ -18,7 +18,7 @@ class AllStaffFindingMovieRealPeopleLinkingWorkerHelperTest extends Specificatio
 	private AllStaffFindingMovieRealPeopleLinkingWorkerHelper allStaffFindingMovieRealPeopleLinkingWorkerHelper
 
 	void setup() {
-		entityLookupByNameServiceMock = Mock(EntityLookupByNameService)
+		entityLookupByNameServiceMock = Mock()
 		allStaffFindingMovieRealPeopleLinkingWorkerHelper = new AllStaffFindingMovieRealPeopleLinkingWorkerHelper(entityLookupByNameServiceMock)
 	}
 

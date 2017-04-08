@@ -17,13 +17,13 @@ class ComicCollectionConfigurationTest extends Specification {
 	private ComicCollectionConfiguration comicCollectionConfiguration
 
 	void setup() {
-		endpointFactoryMock = Mock(EndpointFactory)
+		endpointFactoryMock = Mock()
 		comicCollectionConfiguration = new ComicCollectionConfiguration(endpointFactory: endpointFactoryMock)
 	}
 
 	void "ComicCollection SOAP endpoint is created"() {
 		given:
-		Endpoint endpoint = Mock(Endpoint)
+		Endpoint endpoint = Mock()
 
 		when:
 		Endpoint endpointOutput = comicCollectionConfiguration.comicCollectionEndpoint()

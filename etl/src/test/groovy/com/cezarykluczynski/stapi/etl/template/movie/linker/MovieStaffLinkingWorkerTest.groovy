@@ -18,7 +18,7 @@ class MovieStaffLinkingWorkerTest extends Specification {
 	private MovieStaffLinkingWorker movieStaffLinkingWorkerMock
 
 	void setup() {
-		entityLookupByNameServiceMock = Mock(EntityLookupByNameService)
+		entityLookupByNameServiceMock = Mock()
 		movieStaffLinkingWorkerMock = new MovieStaffLinkingWorker(entityLookupByNameServiceMock)
 	}
 

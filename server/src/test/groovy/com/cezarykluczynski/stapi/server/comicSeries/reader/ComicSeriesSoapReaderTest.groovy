@@ -31,10 +31,10 @@ class ComicSeriesSoapReaderTest extends Specification {
 	private ComicSeriesSoapReader comicSeriesSoapReader
 
 	void setup() {
-		comicSeriesSoapQueryBuilderMock = Mock(ComicSeriesSoapQuery)
-		comicSeriesBaseSoapMapperMock = Mock(ComicSeriesBaseSoapMapper)
-		comicSeriesFullSoapMapperMock = Mock(ComicSeriesFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
+		comicSeriesSoapQueryBuilderMock = Mock()
+		comicSeriesBaseSoapMapperMock = Mock()
+		comicSeriesFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
 		comicSeriesSoapReader = new ComicSeriesSoapReader(comicSeriesSoapQueryBuilderMock, comicSeriesBaseSoapMapperMock,
 				comicSeriesFullSoapMapperMock, pageMapperMock)
 	}
@@ -42,10 +42,10 @@ class ComicSeriesSoapReaderTest extends Specification {
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		List<ComicSeries> comicSeriesList = Lists.newArrayList()
-		Page<ComicSeries> comicSeriesPage = Mock(Page)
+		Page<ComicSeries> comicSeriesPage = Mock()
 		List<ComicSeriesBase> soapComicSeriesList = Lists.newArrayList(new ComicSeriesBase(guid: GUID))
-		ComicSeriesBaseRequest comicSeriesBaseRequest = Mock(ComicSeriesBaseRequest)
-		ResponsePage responsePage = Mock(ResponsePage)
+		ComicSeriesBaseRequest comicSeriesBaseRequest = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		ComicSeriesBaseResponse comicSeriesResponse = comicSeriesSoapReader.readBase(comicSeriesBaseRequest)
@@ -62,9 +62,9 @@ class ComicSeriesSoapReaderTest extends Specification {
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		ComicSeriesFull comicSeriesFull = new ComicSeriesFull(guid: GUID)
-		ComicSeries comicSeries = Mock(ComicSeries)
-		Page<ComicSeries> comicSeriesPage = Mock(Page)
-		ComicSeriesFullRequest comicSeriesFullRequest = Mock(ComicSeriesFullRequest)
+		ComicSeries comicSeries = Mock()
+		Page<ComicSeries> comicSeriesPage = Mock()
+		ComicSeriesFullRequest comicSeriesFullRequest = Mock()
 
 		when:
 		ComicSeriesFullResponse comicSeriesFullResponse = comicSeriesSoapReader.readFull(comicSeriesFullRequest)

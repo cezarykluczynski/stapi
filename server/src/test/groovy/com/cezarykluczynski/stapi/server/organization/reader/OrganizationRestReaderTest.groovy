@@ -30,21 +30,23 @@ class OrganizationRestReaderTest extends Specification {
 	private OrganizationRestReader organizationRestReader
 
 	void setup() {
-		organizationRestQueryBuilderMock = Mock(OrganizationRestQuery)
-		organizationBaseRestMapperMock = Mock(OrganizationBaseRestMapper)
-		organizationFullRestMapperMock = Mock(OrganizationFullRestMapper)
-		pageMapperMock = Mock(PageMapper)
+		organizationRestQueryBuilderMock = Mock()
+		organizationBaseRestMapperMock = Mock()
+		organizationFullRestMapperMock = Mock()
+		pageMapperMock = Mock()
 		organizationRestReader = new OrganizationRestReader(organizationRestQueryBuilderMock, organizationBaseRestMapperMock,
 				organizationFullRestMapperMock, pageMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		OrganizationRestBeanParams organizationRestBeanParams = Mock(OrganizationRestBeanParams)
-		List<OrganizationBase> restOrganizationList = Lists.newArrayList(Mock(OrganizationBase))
-		List<Organization> organizationList = Lists.newArrayList(Mock(Organization))
-		Page<Organization> organizationPage = Mock(Page)
-		ResponsePage responsePage = Mock(ResponsePage)
+		OrganizationBase organizationBase = Mock()
+		Organization organization = Mock()
+		OrganizationRestBeanParams organizationRestBeanParams = Mock()
+		List<OrganizationBase> restOrganizationList = Lists.newArrayList(organizationBase)
+		List<Organization> organizationList = Lists.newArrayList(organization)
+		Page<Organization> organizationPage = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		OrganizationBaseResponse organizationResponseOutput = organizationRestReader.readBase(organizationRestBeanParams)
@@ -61,10 +63,10 @@ class OrganizationRestReaderTest extends Specification {
 
 	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
 		given:
-		OrganizationFull organizationFull = Mock(OrganizationFull)
-		Organization organization = Mock(Organization)
+		OrganizationFull organizationFull = Mock()
+		Organization organization = Mock()
 		List<Organization> organizationList = Lists.newArrayList(organization)
-		Page<Organization> organizationPage = Mock(Page)
+		Page<Organization> organizationPage = Mock()
 
 		when:
 		OrganizationFullResponse organizationResponseOutput = organizationRestReader.readFull(GUID)

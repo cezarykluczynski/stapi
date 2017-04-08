@@ -13,8 +13,8 @@ class FoodQueryBuilderFactoryTest extends Specification {
 	private FoodQueryBuilderFactory foodQueryBuilderFactory
 
 	void setup() {
-		jpaContextMock = Mock(JpaContext)
-		cachingStrategyMock = Mock(CachingStrategy)
+		jpaContextMock = Mock()
+		cachingStrategyMock = Mock()
 	}
 
 	void "FoodQueryBuilder is created"() {

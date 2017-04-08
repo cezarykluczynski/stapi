@@ -23,10 +23,9 @@ class PageBoundToEntityFilteringFinderTest extends Specification {
 	private PageBoundToEntityFilteringFinder pageBoundToEntityFilteringFinder
 
 	void setup() {
-		pageRepositoryMock = Mock(PageRepository)
-		inPageAwareRepositoryPageFinderMock = Mock(InPageAwareRepositoryPageFinder)
-		pageBoundToEntityFilteringFinder = new PageBoundToEntityFilteringFinder(pageRepositoryMock,
-				inPageAwareRepositoryPageFinderMock)
+		pageRepositoryMock = Mock()
+		inPageAwareRepositoryPageFinderMock = Mock()
+		pageBoundToEntityFilteringFinder = new PageBoundToEntityFilteringFinder(pageRepositoryMock, inPageAwareRepositoryPageFinderMock)
 	}
 
 	void "returns only pages found by PageRepository that are not found by InPageAwareRepositoryPageFinder"() {
@@ -56,7 +55,7 @@ class PageBoundToEntityFilteringFinderTest extends Specification {
 	}
 
 	private Page createPage(Long pageId) {
-		Page page = Mock(Page)
+		Page page = Mock()
 		page.id >> pageId
 		page
 	}

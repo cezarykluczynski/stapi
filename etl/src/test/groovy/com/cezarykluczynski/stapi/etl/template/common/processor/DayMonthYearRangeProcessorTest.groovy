@@ -24,17 +24,17 @@ class DayMonthYearRangeProcessorTest extends Specification {
 
 	private DayMonthYearRangeProcessor dayMonthYearRangeProcessor
 
-	private final Template datelinkTemplateFrom = Mock(Template)
+	private final Template datelinkTemplateFrom = Mock()
 
-	private final Template datelinkTemplateTo = Mock(Template)
+	private final Template datelinkTemplateTo = Mock()
 
-	private final Template monthlinkTemplateFrom = Mock(Template)
+	private final Template monthlinkTemplateFrom = Mock()
 
-	private final Template monthlinkTemplateTo = Mock(Template)
+	private final Template monthlinkTemplateTo = Mock()
 
-	private final Template yearlinkTemplateFrom = Mock(Template)
+	private final Template yearlinkTemplateFrom = Mock()
 
-	private final Template yearlinkTemplateTo = Mock(Template)
+	private final Template yearlinkTemplateTo = Mock()
 
 	private final DayMonthYear datelinkDayMonthYearFrom = DayMonthYear.of(DAY_FROM, MONTH_FROM, YEAR_FROM)
 
@@ -49,8 +49,8 @@ class DayMonthYearRangeProcessorTest extends Specification {
 	private final DayMonthYear yearlinkDayMonthYearTo = DayMonthYear.of(null, null, YEAR_TO)
 
 	void setup() {
-		templateFilterMock = Mock(TemplateFilter)
-		templateToDayMonthYearParserMock = Mock(TemplateToDayMonthYearParser)
+		templateFilterMock = Mock()
+		templateToDayMonthYearParserMock = Mock()
 		dayMonthYearRangeProcessor = new DayMonthYearRangeProcessor(templateFilterMock,
 				templateToDayMonthYearParserMock)
 	}

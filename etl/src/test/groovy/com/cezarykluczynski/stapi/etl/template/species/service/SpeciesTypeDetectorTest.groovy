@@ -60,12 +60,12 @@ class SpeciesTypeDetectorTest extends Specification {
 	private SpeciesTypeDetector speciesTypeDetector
 
 	void setup() {
-		pageApiMock = Mock(PageApi)
-		wikitextApiMock = Mock(WikitextApi)
-		stepCompletenessDeciderMock = Mock(StepCompletenessDecider)
-		categoryTitlesExtractingProcessorMock = Mock(CategoryTitlesExtractingProcessor)
-		paragraphExtractorMock = Mock(ParagraphExtractor)
-		speciesTypeFixedValueProvider = Mock(SpeciesTypeFixedValueProvider)
+		pageApiMock = Mock()
+		wikitextApiMock = Mock()
+		stepCompletenessDeciderMock = Mock()
+		categoryTitlesExtractingProcessorMock = Mock()
+		paragraphExtractorMock = Mock()
+		speciesTypeFixedValueProvider = Mock()
 		speciesTypeDetector = new SpeciesTypeDetector(pageApiMock, wikitextApiMock, stepCompletenessDeciderMock,
 				categoryTitlesExtractingProcessorMock, paragraphExtractorMock, speciesTypeFixedValueProvider)
 	}
@@ -453,7 +453,7 @@ class SpeciesTypeDetectorTest extends Specification {
 
 	void "unnamed species pages are recognized"() {
 		given:
-		List<CategoryHeader> categoryHeaderList = Mock(List)
+		List<CategoryHeader> categoryHeaderList = Mock()
 		Page page = new Page(categories: categoryHeaderList)
 		speciesTypeDetector.afterPropertiesSet()
 

@@ -51,13 +51,13 @@ class EpisodeRepositoryImplTest extends Specification {
 	private Page page
 
 	void setup() {
-		episodeQueryBuilderMock = Mock(EpisodeQueryBuilderFactory)
+		episodeQueryBuilderMock = Mock()
 		episodeRepositoryImpl = new EpisodeRepositoryImpl(episodeQueryBuilderMock)
-		episodeQueryBuilder = Mock(QueryBuilder)
-		pageable = Mock(Pageable)
-		episodeRequestDTO = Mock(EpisodeRequestDTO)
-		page = Mock(Page)
-		episode = Mock(Episode)
+		episodeQueryBuilder = Mock()
+		pageable = Mock()
+		episodeRequestDTO = Mock()
+		page = Mock()
+		episode = Mock()
 	}
 
 	void "query is built and performed"() {

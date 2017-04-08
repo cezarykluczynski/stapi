@@ -30,21 +30,23 @@ class AstronomicalObjectRestReaderTest extends Specification {
 	private AstronomicalObjectRestReader astronomicalObjectRestReader
 
 	void setup() {
-		astronomicalObjectRestQueryBuilderMock = Mock(AstronomicalObjectRestQuery)
-		astronomicalObjectBaseRestMapperMock = Mock(AstronomicalObjectBaseRestMapper)
-		astronomicalObjectFullRestMapperMock = Mock(AstronomicalObjectFullRestMapper)
-		pageMapperMock = Mock(PageMapper)
+		astronomicalObjectRestQueryBuilderMock = Mock()
+		astronomicalObjectBaseRestMapperMock = Mock()
+		astronomicalObjectFullRestMapperMock = Mock()
+		pageMapperMock = Mock()
 		astronomicalObjectRestReader = new AstronomicalObjectRestReader(astronomicalObjectRestQueryBuilderMock, astronomicalObjectBaseRestMapperMock,
 				astronomicalObjectFullRestMapperMock, pageMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		AstronomicalObjectRestBeanParams astronomicalObjectRestBeanParams = Mock(AstronomicalObjectRestBeanParams)
-		List<AstronomicalObjectBase> restAstronomicalObjectList = Lists.newArrayList(Mock(AstronomicalObjectBase))
-		List<AstronomicalObject> astronomicalObjectList = Lists.newArrayList(Mock(AstronomicalObject))
-		Page<AstronomicalObject> astronomicalObjectPage = Mock(Page)
-		ResponsePage responsePage = Mock(ResponsePage)
+		AstronomicalObjectBase astronomicalObjectBase = Mock()
+		AstronomicalObject astronomicalObject = Mock()
+		AstronomicalObjectRestBeanParams astronomicalObjectRestBeanParams = Mock()
+		List<AstronomicalObjectBase> restAstronomicalObjectList = Lists.newArrayList(astronomicalObjectBase)
+		List<AstronomicalObject> astronomicalObjectList = Lists.newArrayList(astronomicalObject)
+		Page<AstronomicalObject> astronomicalObjectPage = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		AstronomicalObjectBaseResponse astronomicalObjectResponseOutput = astronomicalObjectRestReader.readBase(astronomicalObjectRestBeanParams)
@@ -61,10 +63,10 @@ class AstronomicalObjectRestReaderTest extends Specification {
 
 	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
 		given:
-		AstronomicalObjectFull astronomicalObjectFull = Mock(AstronomicalObjectFull)
-		AstronomicalObject astronomicalObject = Mock(AstronomicalObject)
+		AstronomicalObjectFull astronomicalObjectFull = Mock()
+		AstronomicalObject astronomicalObject = Mock()
 		List<AstronomicalObject> astronomicalObjectList = Lists.newArrayList(astronomicalObject)
-		Page<AstronomicalObject> astronomicalObjectPage = Mock(Page)
+		Page<AstronomicalObject> astronomicalObjectPage = Mock()
 
 		when:
 		AstronomicalObjectFullResponse astronomicalObjectResponseOutput = astronomicalObjectRestReader.readFull(GUID)

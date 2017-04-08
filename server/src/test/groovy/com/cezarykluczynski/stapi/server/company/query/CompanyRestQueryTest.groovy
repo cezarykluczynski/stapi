@@ -20,20 +20,18 @@ class CompanyRestQueryTest extends Specification {
 	private CompanyRestQuery companyRestQuery
 
 	void setup() {
-		companyRestMapperMock = Mock(CompanyBaseRestMapper)
-		pageMapperMock = Mock(PageMapper)
-		companyRepositoryMock = Mock(CompanyRepository)
+		companyRestMapperMock = Mock()
+		pageMapperMock = Mock()
+		companyRepositoryMock = Mock()
 		companyRestQuery = new CompanyRestQuery(companyRestMapperMock, pageMapperMock, companyRepositoryMock)
 	}
 
 	void "maps CompanyRestBeanParams to CompanyRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
-		PageRequest pageRequest = Mock(PageRequest)
-		CompanyRestBeanParams companyRestBeanParams = Mock(CompanyRestBeanParams) {
-
-		}
-		CompanyRequestDTO companyRequestDTO = Mock(CompanyRequestDTO)
-		Page page = Mock(Page)
+		PageRequest pageRequest = Mock()
+		CompanyRestBeanParams companyRestBeanParams = Mock()
+		CompanyRequestDTO companyRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = companyRestQuery.query(companyRestBeanParams)

@@ -21,14 +21,14 @@ class WikitextToComicSeriesProcessorTest extends Specification {
 	private WikitextToComicSeriesProcessor wikitextToComicSeriesProcessor
 
 	void setup() {
-		wikitextApiMock = Mock(WikitextApi)
-		comicSeriesRepositoryMock = Mock(ComicSeriesRepository)
+		wikitextApiMock = Mock()
+		comicSeriesRepositoryMock = Mock()
 		wikitextToComicSeriesProcessor = new WikitextToComicSeriesProcessor(wikitextApiMock, comicSeriesRepositoryMock)
 	}
 
 	void "given wikitext, gets links from it, then returns comic series that have associated pages with matching titles"() {
 		given:
-		ComicSeries comicSeries = Mock(ComicSeries)
+		ComicSeries comicSeries = Mock()
 
 		when:
 		Set<ComicSeries> comicSeriesSet = wikitextToComicSeriesProcessor.process(WIKITEXT)

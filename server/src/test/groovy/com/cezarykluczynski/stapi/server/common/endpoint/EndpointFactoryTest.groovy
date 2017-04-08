@@ -19,7 +19,7 @@ class EndpointFactoryTest extends Specification {
 	private EndpointFactory endpointFactory
 
 	void setup() {
-		applicationContextMock = Mock(ApplicationContext)
+		applicationContextMock = Mock()
 		endpointFactory = new EndpointFactory(applicationContext: applicationContextMock)
 	}
 
@@ -27,8 +27,8 @@ class EndpointFactoryTest extends Specification {
 		given:
 		Bus bus = new SpringBus()
 		Class<SeriesSoapEndpoint> seriesSoapEndpointClass = SeriesSoapEndpoint
-		SeriesSoapEndpoint seriesSoapEndpoint = Mock(SeriesSoapEndpoint)
-		ApiThrottlingInterceptor apiThrottlingInterceptor = Mock(ApiThrottlingInterceptor)
+		SeriesSoapEndpoint seriesSoapEndpoint = Mock()
+		ApiThrottlingInterceptor apiThrottlingInterceptor = Mock()
 
 		when:
 		Endpoint seriesSoapEndpointOutput = endpointFactory.createSoapEndpoint(seriesSoapEndpointClass, ADDRESS)

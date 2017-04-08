@@ -19,9 +19,9 @@ class EpisodeProcessorTest extends Specification {
 	private EpisodeProcessor episodeProcessor
 
 	void setup() {
-		pageHeaderProcessorMock = Mock(PageHeaderProcessor)
-		toEpisodeTemplateProcessorMock = Mock(ToEpisodeTemplateProcessor)
-		toEpisodeEntityProcessorMock = Mock(ToEpisodeEntityProcessor)
+		pageHeaderProcessorMock = Mock()
+		toEpisodeTemplateProcessorMock = Mock()
+		toEpisodeEntityProcessorMock = Mock()
 		episodeProcessor = new EpisodeProcessor(pageHeaderProcessorMock, toEpisodeTemplateProcessorMock,
 				toEpisodeEntityProcessorMock)
 	}

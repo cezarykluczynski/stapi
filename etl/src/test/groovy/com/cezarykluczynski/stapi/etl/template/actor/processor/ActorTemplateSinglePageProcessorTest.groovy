@@ -52,15 +52,14 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 	private Page pageWithTemplate
 
 	void setup() {
-		pageToGenderProcessorMock = Mock(PageToGenderProcessor)
-		pageToLifeRangeProcessorMock = Mock(PageToLifeRangeProcessor)
-		actorTemplateTemplateProcessorMock = Mock(ActorTemplateTemplateProcessor)
-		categoriesActorTemplateEnrichingProcessorMock = Mock(CategoriesActorTemplateEnrichingProcessor)
-		pageBindingServiceMock = Mock(PageBindingService)
-		templateFinderMock = Mock(TemplateFinder)
-		actorTemplateSinglePageProcessor = new ActorTemplateSinglePageProcessor(pageToGenderProcessorMock,
-				pageToLifeRangeProcessorMock, actorTemplateTemplateProcessorMock,
-				categoriesActorTemplateEnrichingProcessorMock, pageBindingServiceMock, templateFinderMock)
+		pageToGenderProcessorMock = Mock()
+		pageToLifeRangeProcessorMock = Mock()
+		actorTemplateTemplateProcessorMock = Mock()
+		categoriesActorTemplateEnrichingProcessorMock = Mock()
+		pageBindingServiceMock = Mock()
+		templateFinderMock = Mock()
+		actorTemplateSinglePageProcessor = new ActorTemplateSinglePageProcessor(pageToGenderProcessorMock, pageToLifeRangeProcessorMock,
+				actorTemplateTemplateProcessorMock, categoriesActorTemplateEnrichingProcessorMock, pageBindingServiceMock, templateFinderMock)
 
 		template = new Template(title: TemplateTitle.SIDEBAR_ACTOR)
 		pageWithTemplate = new Page(templates: Lists.newArrayList(

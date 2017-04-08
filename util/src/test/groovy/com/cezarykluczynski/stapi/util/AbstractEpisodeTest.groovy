@@ -2,13 +2,12 @@ package com.cezarykluczynski.stapi.util
 
 import com.cezarykluczynski.stapi.util.tool.LogicUtil
 import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl
-import spock.lang.Specification
 
 import javax.xml.datatype.DatatypeConstants
 import javax.xml.datatype.XMLGregorianCalendar
 import java.time.LocalDate
 
-abstract class AbstractEpisodeTest extends Specification {
+abstract class AbstractEpisodeTest extends AbstractTest {
 
 	protected static final String GUID = 'GUID'
 	protected static final String TITLE = 'TITLE'

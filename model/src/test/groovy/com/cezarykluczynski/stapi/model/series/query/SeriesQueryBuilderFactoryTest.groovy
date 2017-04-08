@@ -13,8 +13,8 @@ class SeriesQueryBuilderFactoryTest extends Specification {
 	private SeriesQueryBuilderFactory seriesQueryBuilderFactory
 
 	void setup() {
-		jpaContextMock = Mock(JpaContext)
-		cachingStrategyMock = Mock(CachingStrategy)
+		jpaContextMock = Mock()
+		cachingStrategyMock = Mock()
 	}
 
 	void "SeriesQueryBuilder is created"() {

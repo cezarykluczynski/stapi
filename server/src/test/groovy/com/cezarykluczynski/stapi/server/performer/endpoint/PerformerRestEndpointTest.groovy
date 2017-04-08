@@ -17,13 +17,13 @@ class PerformerRestEndpointTest extends AbstractRestEndpointTest {
 	private PerformerRestEndpoint performerRestEndpoint
 
 	void setup() {
-		performerRestReaderMock = Mock(PerformerRestReader)
+		performerRestReaderMock = Mock()
 		performerRestEndpoint = new PerformerRestEndpoint(performerRestReaderMock)
 	}
 
 	void "passes get call to PerformerRestReader"() {
 		given:
-		PerformerFullResponse performerFullResponse = Mock(PerformerFullResponse)
+		PerformerFullResponse performerFullResponse = Mock()
 
 		when:
 		PerformerFullResponse performerFullResponseOutput = performerRestEndpoint.getPerformer(GUID)
@@ -35,10 +35,10 @@ class PerformerRestEndpointTest extends AbstractRestEndpointTest {
 
 	void "passes search get call to PerformerRestReader"() {
 		given:
-		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams)
+		PageSortBeanParams pageAwareBeanParams = Mock()
 		pageAwareBeanParams.pageNumber >> PAGE_NUMBER
 		pageAwareBeanParams.pageSize >> PAGE_SIZE
-		PerformerBaseResponse performerResponse = Mock(PerformerBaseResponse)
+		PerformerBaseResponse performerResponse = Mock()
 
 		when:
 		PerformerBaseResponse performerResponseOutput = performerRestEndpoint.searchPerformer(pageAwareBeanParams)
@@ -55,7 +55,7 @@ class PerformerRestEndpointTest extends AbstractRestEndpointTest {
 	void "passes search post call to PerformerRestReader"() {
 		given:
 		PerformerRestBeanParams performerRestBeanParams = new PerformerRestBeanParams(name: NAME)
-		PerformerBaseResponse performerResponse = Mock(PerformerBaseResponse)
+		PerformerBaseResponse performerResponse = Mock()
 
 		when:
 		PerformerBaseResponse performerResponseOutput = performerRestEndpoint.searchPerformer(performerRestBeanParams)

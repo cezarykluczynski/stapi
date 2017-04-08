@@ -19,11 +19,10 @@ class ComicsProcessorTest extends Specification {
 	private ComicsProcessor comicsProcessor
 
 	void setup() {
-		pageHeaderProcessorMock = Mock(PageHeaderProcessor)
-		comicsTemplatePageProcessorMock = Mock(ComicsTemplatePageProcessor)
-		comicsTemplateProcessorMock = Mock(ComicsTemplateProcessor)
-		comicsProcessor = new ComicsProcessor(pageHeaderProcessorMock, comicsTemplatePageProcessorMock,
-				comicsTemplateProcessorMock)
+		pageHeaderProcessorMock = Mock()
+		comicsTemplatePageProcessorMock = Mock()
+		comicsTemplateProcessorMock = Mock()
+		comicsProcessor = new ComicsProcessor(pageHeaderProcessorMock, comicsTemplatePageProcessorMock, comicsTemplateProcessorMock)
 	}
 
 	void "converts PageHeader to Comics"() {

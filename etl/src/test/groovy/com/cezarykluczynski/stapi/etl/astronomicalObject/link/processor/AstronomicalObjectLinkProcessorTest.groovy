@@ -42,16 +42,16 @@ class AstronomicalObjectLinkProcessorTest extends Specification {
 	private AstronomicalObject astronomicalObjectFromTemplate
 
 	void setup() {
-		pageApiMock = Mock(PageApi)
-		mediaWikiSourceMapperMock = Mock(MediaWikiSourceMapper)
-		templateFinderMock = Mock(TemplateFinder)
-		paragraphExtractorMock = Mock(ParagraphExtractor)
-		astronomicalObjectLinkWikitextProcessorMock = Mock(AstronomicalObjectLinkWikitextProcessor)
-		astronomicalObjectLinkEnrichingProcessorMock = Mock(AstronomicalObjectLinkEnrichingProcessor)
+		pageApiMock = Mock()
+		mediaWikiSourceMapperMock = Mock()
+		templateFinderMock = Mock()
+		paragraphExtractorMock = Mock()
+		astronomicalObjectLinkWikitextProcessorMock = Mock()
+		astronomicalObjectLinkEnrichingProcessorMock = Mock()
 		astronomicalObjectLinkProcessor = new AstronomicalObjectLinkProcessor(pageApiMock, mediaWikiSourceMapperMock, templateFinderMock,
 				paragraphExtractorMock, astronomicalObjectLinkWikitextProcessorMock, astronomicalObjectLinkEnrichingProcessorMock)
-		astronomicalObjectFromWikitext = Mock(AstronomicalObject)
-		astronomicalObjectFromTemplate = Mock(AstronomicalObject)
+		astronomicalObjectFromWikitext = Mock()
+		astronomicalObjectFromTemplate = Mock()
 	}
 
 	void "does not interact with the remaining dependencies if page is not found"() {

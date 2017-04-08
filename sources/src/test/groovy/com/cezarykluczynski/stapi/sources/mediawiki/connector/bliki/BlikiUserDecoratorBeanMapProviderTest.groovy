@@ -10,9 +10,9 @@ class BlikiUserDecoratorBeanMapProviderTest extends Specification {
 
 	void "map is set"() {
 		given:
-		UserDecorator memoryAlphaEnUserDecorator = Mock(UserDecorator)
-		UserDecorator memoryBetaEnUserDecorator = Mock(UserDecorator)
-		UserDecorator technicalHelperUserDecorator = Mock(UserDecorator)
+		UserDecorator memoryAlphaEnUserDecorator = Mock()
+		UserDecorator memoryBetaEnUserDecorator = Mock()
+		UserDecorator technicalHelperUserDecorator = Mock()
 		Map<String, UserDecorator> stringUserDecoratorMap = Maps.newHashMap()
 		stringUserDecoratorMap.put(BlikiConnectorConfiguration.MEMORY_ALPHA_EN_USER_DECORATOR, memoryAlphaEnUserDecorator)
 		stringUserDecoratorMap.put(BlikiConnectorConfiguration.MEMORY_BETA_EN_USER_DECORATOR, memoryBetaEnUserDecorator)

@@ -25,22 +25,22 @@ class ComicSeriesSoapQueryTest extends Specification {
 	private ComicSeriesSoapQuery comicSeriesSoapQuery
 
 	void setup() {
-		comicSeriesBaseSoapMapperMock = Mock(ComicSeriesBaseSoapMapper)
-		comicSeriesFullSoapMapperMock = Mock(ComicSeriesFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
-		comicSeriesRepositoryMock = Mock(ComicSeriesRepository)
+		comicSeriesBaseSoapMapperMock = Mock()
+		comicSeriesFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
+		comicSeriesRepositoryMock = Mock()
 		comicSeriesSoapQuery = new ComicSeriesSoapQuery(comicSeriesBaseSoapMapperMock, comicSeriesFullSoapMapperMock, pageMapperMock,
 				comicSeriesRepositoryMock)
 	}
 
 	void "maps ComicSeriesBaseRequest to ComicSeriesRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
-		RequestPage requestPage = Mock(RequestPage)
-		PageRequest pageRequest = Mock(PageRequest)
-		ComicSeriesBaseRequest comicSeriesRequest = Mock(ComicSeriesBaseRequest)
+		RequestPage requestPage = Mock()
+		PageRequest pageRequest = Mock()
+		ComicSeriesBaseRequest comicSeriesRequest = Mock()
 		comicSeriesRequest.page >> requestPage
-		ComicSeriesRequestDTO comicSeriesRequestDTO = Mock(ComicSeriesRequestDTO)
-		Page page = Mock(Page)
+		ComicSeriesRequestDTO comicSeriesRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = comicSeriesSoapQuery.query(comicSeriesRequest)
@@ -54,10 +54,10 @@ class ComicSeriesSoapQueryTest extends Specification {
 
 	void "maps ComicSeriesFullRequest to ComicSeriesRequestDTO, then calls repository, then returns result"() {
 		given:
-		PageRequest pageRequest = Mock(PageRequest)
-		ComicSeriesFullRequest comicSeriesRequest = Mock(ComicSeriesFullRequest)
-		ComicSeriesRequestDTO comicSeriesRequestDTO = Mock(ComicSeriesRequestDTO)
-		Page page = Mock(Page)
+		PageRequest pageRequest = Mock()
+		ComicSeriesFullRequest comicSeriesRequest = Mock()
+		ComicSeriesRequestDTO comicSeriesRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = comicSeriesSoapQuery.query(comicSeriesRequest)

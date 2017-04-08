@@ -35,14 +35,13 @@ class IndividualTemplatePageProcessorTest extends Specification {
 	private IndividualTemplatePageProcessor individualTemplatePageProcessor
 
 	void setup() {
-		individualTemplateFilterMock = Mock(IndividualTemplateFilter)
-		pageBindingServiceMock = Mock(PageBindingService)
-		templateFinderMock = Mock(TemplateFinder)
-		invidiualTemplateCompositeEnrichingProcessorMock = Mock(IndividualTemplateCompositeEnrichingProcessor)
-		characterboxIndividualTemplateEnrichingProcessorMock = Mock(CharacterboxIndividualTemplateEnrichingProcessor)
-		individualTemplatePageProcessor = new IndividualTemplatePageProcessor(individualTemplateFilterMock,
-				pageBindingServiceMock, templateFinderMock, invidiualTemplateCompositeEnrichingProcessorMock,
-				characterboxIndividualTemplateEnrichingProcessorMock)
+		individualTemplateFilterMock = Mock()
+		pageBindingServiceMock = Mock()
+		templateFinderMock = Mock()
+		invidiualTemplateCompositeEnrichingProcessorMock = Mock()
+		characterboxIndividualTemplateEnrichingProcessorMock = Mock()
+		individualTemplatePageProcessor = new IndividualTemplatePageProcessor(individualTemplateFilterMock, pageBindingServiceMock,
+				templateFinderMock, invidiualTemplateCompositeEnrichingProcessorMock, characterboxIndividualTemplateEnrichingProcessorMock)
 	}
 
 	void "returns null when IndividualTemplateFilter returns true"() {
@@ -100,9 +99,10 @@ class IndividualTemplatePageProcessorTest extends Specification {
 
 	void "sets productOfRedirect flag to true"() {
 		given:
+		PageHeader pageHeader = Mock()
 		Page page = new Page(
 				title: TITLE,
-				redirectPath: Lists.newArrayList(Mock(PageHeader))
+				redirectPath: Lists.newArrayList(pageHeader)
 		)
 
 		when:
@@ -131,7 +131,8 @@ class IndividualTemplatePageProcessorTest extends Specification {
 
 	void "when sidebar individual is found, enriching processors are called, but not the characterbox processor, when there is no mbeta template"() {
 		given:
-		List<Template.Part> templatePartList = Lists.newArrayList(Mock(Template.Part))
+		Template.Part templatePart = Mock()
+		List<Template.Part> templatePartList = Lists.newArrayList(templatePart)
 		Page page = new Page(
 				title: TITLE
 		)
@@ -154,12 +155,13 @@ class IndividualTemplatePageProcessorTest extends Specification {
 
 	void "when sidebar individual is found, enriching processors are called, including characterbox processor, when mbeta template is found"() {
 		given:
-		List<Template.Part> templatePartList = Lists.newArrayList(Mock(Template.Part))
+		Template.Part templatePart = Mock()
+		List<Template.Part> templatePartList = Lists.newArrayList(templatePart)
 		Page page = new Page(
 				title: TITLE
 		)
 		Template sidebarIndividualTemplate = new Template(parts: templatePartList)
-		Template mbetaTemplate = Mock(Template)
+		Template mbetaTemplate = Mock()
 
 		when:
 		individualTemplatePageProcessor.process(page)

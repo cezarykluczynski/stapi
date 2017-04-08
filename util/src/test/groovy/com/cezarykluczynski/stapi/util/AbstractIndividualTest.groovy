@@ -1,9 +1,8 @@
 package com.cezarykluczynski.stapi.util
 
 import com.cezarykluczynski.stapi.util.tool.LogicUtil
-import spock.lang.Specification
 
-abstract class AbstractIndividualTest extends Specification {
+abstract class AbstractIndividualTest extends AbstractTest {
 
 	protected static final String NAME = 'NAME'
 	protected static final String GUID = 'GUID'

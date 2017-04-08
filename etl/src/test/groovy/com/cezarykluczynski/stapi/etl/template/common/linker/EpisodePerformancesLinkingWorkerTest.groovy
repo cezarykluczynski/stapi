@@ -28,21 +28,21 @@ class EpisodePerformancesLinkingWorkerTest extends Specification {
 	private EpisodePerformancesLinkingWorker episodePerformancesLinkingProcessor
 
 	void setup() {
-		characterRepositoryMock = Mock(CharacterRepository)
-		performerRepositoryMock = Mock(PerformerRepository)
-		episodePerformancesExtractorMock = Mock(EpisodePerformancesExtractingProcessor)
-		episodePerformancesToEntityMapperMock = Mock(EpisodePerformancesToEntityMapper)
-		episodePerformancesLinkingProcessor = new EpisodePerformancesLinkingWorker(characterRepositoryMock,
-				performerRepositoryMock, episodePerformancesExtractorMock, episodePerformancesToEntityMapperMock)
+		characterRepositoryMock = Mock()
+		performerRepositoryMock = Mock()
+		episodePerformancesExtractorMock = Mock()
+		episodePerformancesToEntityMapperMock = Mock()
+		episodePerformancesLinkingProcessor = new EpisodePerformancesLinkingWorker(characterRepositoryMock, performerRepositoryMock,
+				episodePerformancesExtractorMock, episodePerformancesToEntityMapperMock)
 	}
 
 	void "when page has category episode, EpisodePerformancesExtractor is called"() {
 		given:
-		List<EpisodePerformanceDTO> episodePerformanceDTOList = Mock(List)
-		Set<Character> charactersSet = Mock(Set)
-		Set<Performer> performersSet = Mock(Set)
-		EpisodePerformancesEntitiesDTO episodePerformancesEntitiesDTO = Mock(EpisodePerformancesEntitiesDTO)
-		Episode episode = Mock(Episode)
+		List<EpisodePerformanceDTO> episodePerformanceDTOList = Mock()
+		Set<Character> charactersSet = Mock()
+		Set<Performer> performersSet = Mock()
+		EpisodePerformancesEntitiesDTO episodePerformancesEntitiesDTO = Mock()
+		Episode episode = Mock()
 		Page page = new Page(
 				categories: Lists.newArrayList(
 						new CategoryHeader(title: CategoryTitle.TOS_EPISODES)

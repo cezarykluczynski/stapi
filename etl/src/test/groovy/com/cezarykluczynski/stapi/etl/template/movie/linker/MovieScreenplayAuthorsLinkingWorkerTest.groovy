@@ -13,7 +13,7 @@ class MovieScreenplayAuthorsLinkingWorkerTest extends Specification {
 	private MovieScreenplayAuthorsLinkingWorker movieScreenplayAuthorsLinkingWorker
 
 	void setup() {
-		allStaffFindingMovieRealPeopleLinkingWorkerHelper = Mock(AllStaffFindingMovieRealPeopleLinkingWorkerHelper)
+		allStaffFindingMovieRealPeopleLinkingWorkerHelper = Mock()
 		movieScreenplayAuthorsLinkingWorker = new MovieScreenplayAuthorsLinkingWorker(allStaffFindingMovieRealPeopleLinkingWorkerHelper)
 	}
 

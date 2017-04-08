@@ -14,14 +14,14 @@ class OrganizationSoapEndpointTest extends Specification {
 	private OrganizationSoapEndpoint organizationSoapEndpoint
 
 	void setup() {
-		organizationSoapReaderMock = Mock(OrganizationSoapReader)
+		organizationSoapReaderMock = Mock()
 		organizationSoapEndpoint = new OrganizationSoapEndpoint(organizationSoapReaderMock)
 	}
 
 	void "passes base call to OrganizationSoapReader"() {
 		given:
-		OrganizationBaseRequest organizationRequest = Mock(OrganizationBaseRequest)
-		OrganizationBaseResponse organizationResponse = Mock(OrganizationBaseResponse)
+		OrganizationBaseRequest organizationRequest = Mock()
+		OrganizationBaseResponse organizationResponse = Mock()
 
 		when:
 		OrganizationBaseResponse organizationResponseResult = organizationSoapEndpoint.getOrganizationBase(organizationRequest)
@@ -33,8 +33,8 @@ class OrganizationSoapEndpointTest extends Specification {
 
 	void "passes full call to OrganizationSoapReader"() {
 		given:
-		OrganizationFullRequest organizationFullRequest = Mock(OrganizationFullRequest)
-		OrganizationFullResponse organizationFullResponse = Mock(OrganizationFullResponse)
+		OrganizationFullRequest organizationFullRequest = Mock()
+		OrganizationFullResponse organizationFullResponse = Mock()
 
 		when:
 		OrganizationFullResponse organizationResponseResult = organizationSoapEndpoint.getOrganizationFull(organizationFullRequest)

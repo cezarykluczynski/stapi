@@ -14,14 +14,14 @@ class SeriesSoapEndpointTest extends Specification {
 	private SeriesSoapEndpoint seriesSoapEndpoint
 
 	void setup() {
-		seriesSoapReaderMock = Mock(SeriesSoapReader)
+		seriesSoapReaderMock = Mock()
 		seriesSoapEndpoint = new SeriesSoapEndpoint(seriesSoapReaderMock)
 	}
 
 	void "passes base call to SeriesSoapReader"() {
 		given:
-		SeriesBaseRequest seriesBaseRequest = Mock(SeriesBaseRequest)
-		SeriesBaseResponse seriesBaseResponse = Mock(SeriesBaseResponse)
+		SeriesBaseRequest seriesBaseRequest = Mock()
+		SeriesBaseResponse seriesBaseResponse = Mock()
 
 		when:
 		SeriesBaseResponse seriesResponseResult = seriesSoapEndpoint.getSeriesBase(seriesBaseRequest)
@@ -33,8 +33,8 @@ class SeriesSoapEndpointTest extends Specification {
 
 	void "passes full call to SeriesSoapReader"() {
 		given:
-		SeriesFullRequest seriesFullRequest = Mock(SeriesFullRequest)
-		SeriesFullResponse seriesFullResponse = Mock(SeriesFullResponse)
+		SeriesFullRequest seriesFullRequest = Mock()
+		SeriesFullResponse seriesFullResponse = Mock()
 
 		when:
 		SeriesFullResponse seriesResponseResult = seriesSoapEndpoint.getSeriesFull(seriesFullRequest)

@@ -17,13 +17,13 @@ class PerformerConfigurationTest extends Specification {
 	private PerformerConfiguration performerConfiguration
 
 	void setup() {
-		endpointFactoryMock = Mock(EndpointFactory)
+		endpointFactoryMock = Mock()
 		performerConfiguration = new PerformerConfiguration(endpointFactory: endpointFactoryMock)
 	}
 
 	void "Performer SOAP endpoint is created"() {
 		given:
-		Endpoint endpoint = Mock(Endpoint)
+		Endpoint endpoint = Mock()
 
 		when:
 		Endpoint endpointOutput = performerConfiguration.performerEndpoint()

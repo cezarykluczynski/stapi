@@ -25,7 +25,7 @@ class DatelinkTemplateToDayMonthYearCandiateProcessorTest extends Specification 
 	private Template template
 
 	void setup() {
-		dayMonthYearCandidateToLocalDateProcessorMock = Mock(DayMonthYearCandidateToLocalDateProcessor)
+		dayMonthYearCandidateToLocalDateProcessorMock = Mock()
 		datelinkTemplateToDayMonthYearCandiateProcessor = new DatelinkTemplateToDayMonthYearCandiateProcessor()
 		template = new Template(
 				title: TemplateTitle.D,

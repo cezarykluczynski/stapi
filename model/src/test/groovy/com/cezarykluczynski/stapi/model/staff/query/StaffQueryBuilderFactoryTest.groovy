@@ -13,8 +13,8 @@ class StaffQueryBuilderFactoryTest extends Specification {
 	private StaffQueryBuilderFactory staffQueryBuilderFactory
 
 	void setup() {
-		jpaContextMock = Mock(JpaContext)
-		cachingStrategyMock = Mock(CachingStrategy)
+		jpaContextMock = Mock()
+		cachingStrategyMock = Mock()
 	}
 
 	void "StaffQueryBuilder is created"() {

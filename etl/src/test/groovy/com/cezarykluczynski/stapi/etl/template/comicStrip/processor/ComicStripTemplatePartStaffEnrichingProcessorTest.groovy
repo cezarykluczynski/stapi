@@ -25,8 +25,8 @@ class ComicStripTemplatePartStaffEnrichingProcessorTest extends Specification {
 	private ComicStripTemplatePartStaffEnrichingProcessor comicStripTemplatePartStaffEnrichingProcessor
 
 	void setup() {
-		wikitextApiMock = Mock(WikitextApi)
-		entityLookupByNameServiceMock = Mock(EntityLookupByNameService)
+		wikitextApiMock = Mock()
+		entityLookupByNameServiceMock = Mock()
 		comicStripTemplatePartStaffEnrichingProcessor = new ComicStripTemplatePartStaffEnrichingProcessor(wikitextApiMock, entityLookupByNameServiceMock)
 	}
 
@@ -34,8 +34,8 @@ class ComicStripTemplatePartStaffEnrichingProcessorTest extends Specification {
 		given:
 		Template.Part templatePart = new Template.Part(key: ComicStripTemplateParameter.WRITER, value: WIKITEXT)
 		ComicStripTemplate comicStripTemplate = new ComicStripTemplate()
-		Staff staff1 = Mock(Staff)
-		Staff staff2 = Mock(Staff)
+		Staff staff1 = Mock()
+		Staff staff2 = Mock()
 
 		when:
 		comicStripTemplatePartStaffEnrichingProcessor.enrich(EnrichablePair.of(templatePart, comicStripTemplate))
@@ -55,8 +55,8 @@ class ComicStripTemplatePartStaffEnrichingProcessorTest extends Specification {
 		given:
 		Template.Part templatePart = new Template.Part(key: ComicStripTemplateParameter.ARTIST, value: WIKITEXT)
 		ComicStripTemplate comicStripTemplate = new ComicStripTemplate()
-		Staff staff1 = Mock(Staff)
-		Staff staff2 = Mock(Staff)
+		Staff staff1 = Mock()
+		Staff staff2 = Mock()
 
 		when:
 		comicStripTemplatePartStaffEnrichingProcessor.enrich(EnrichablePair.of(templatePart, comicStripTemplate))
@@ -76,7 +76,7 @@ class ComicStripTemplatePartStaffEnrichingProcessorTest extends Specification {
 		given:
 		Template.Part templatePart = new Template.Part(key: '', value: WIKITEXT)
 		ComicStripTemplate comicStripTemplate = new ComicStripTemplate()
-		Staff staff1 = Mock(Staff)
+		Staff staff1 = Mock()
 
 		when:
 		comicStripTemplatePartStaffEnrichingProcessor.enrich(EnrichablePair.of(templatePart, comicStripTemplate))

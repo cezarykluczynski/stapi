@@ -25,21 +25,21 @@ class FoodSoapQueryTest extends Specification {
 	private FoodSoapQuery foodSoapQuery
 
 	void setup() {
-		foodBaseSoapMapperMock = Mock(FoodBaseSoapMapper)
-		foodFullSoapMapperMock = Mock(FoodFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
-		foodRepositoryMock = Mock(FoodRepository)
+		foodBaseSoapMapperMock = Mock()
+		foodFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
+		foodRepositoryMock = Mock()
 		foodSoapQuery = new FoodSoapQuery(foodBaseSoapMapperMock, foodFullSoapMapperMock, pageMapperMock, foodRepositoryMock)
 	}
 
 	void "maps FoodBaseRequest to FoodRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
-		RequestPage requestPage = Mock(RequestPage)
-		PageRequest pageRequest = Mock(PageRequest)
-		FoodBaseRequest foodRequest = Mock(FoodBaseRequest)
+		RequestPage requestPage = Mock()
+		PageRequest pageRequest = Mock()
+		FoodBaseRequest foodRequest = Mock()
 		foodRequest.page >> requestPage
-		FoodRequestDTO foodRequestDTO = Mock(FoodRequestDTO)
-		Page page = Mock(Page)
+		FoodRequestDTO foodRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = foodSoapQuery.query(foodRequest)
@@ -53,10 +53,10 @@ class FoodSoapQueryTest extends Specification {
 
 	void "maps FoodFullRequest to FoodRequestDTO, then calls repository, then returns result"() {
 		given:
-		PageRequest pageRequest = Mock(PageRequest)
-		FoodFullRequest foodRequest = Mock(FoodFullRequest)
-		FoodRequestDTO foodRequestDTO = Mock(FoodRequestDTO)
-		Page page = Mock(Page)
+		PageRequest pageRequest = Mock()
+		FoodFullRequest foodRequest = Mock()
+		FoodRequestDTO foodRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = foodSoapQuery.query(foodRequest)

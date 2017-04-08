@@ -27,10 +27,10 @@ class ComicStripTemplatePageProcessorTest extends Specification {
 	private ComicStripTemplatePageProcessor comicStripTemplatePageProcessor
 
 	void setup() {
-		templateFinderMock = Mock(TemplateFinder)
-		pageBindingServiceMock = Mock(PageBindingService)
-		comicStripTemplatePartsEnrichingProcessorMock = Mock(ComicStripTemplatePartsEnrichingProcessor)
-		comicStripTemplateCharactersEnrichingProcessorMock = Mock(ComicStripTemplateCharactersEnrichingProcessor)
+		templateFinderMock = Mock()
+		pageBindingServiceMock = Mock()
+		comicStripTemplatePartsEnrichingProcessorMock = Mock()
+		comicStripTemplateCharactersEnrichingProcessorMock = Mock()
 		comicStripTemplatePageProcessor = new ComicStripTemplatePageProcessor(templateFinderMock, pageBindingServiceMock,
 				comicStripTemplatePartsEnrichingProcessorMock, comicStripTemplateCharactersEnrichingProcessorMock)
 	}
@@ -51,7 +51,7 @@ class ComicStripTemplatePageProcessorTest extends Specification {
 	void "clears title when it contains '(comic strip)'"() {
 		given:
 		Page page = new Page(title: TITLE_COMIC_STRIP)
-		Template.Part templatePart = Mock(Template.Part)
+		Template.Part templatePart = Mock()
 		Template template = new Template(parts: Lists.newArrayList(templatePart))
 		ModelPage modelPage = new ModelPage()
 
@@ -70,7 +70,7 @@ class ComicStripTemplatePageProcessorTest extends Specification {
 	void "interacts with dependencies when sidebar comic strip template is found"() {
 		given:
 		Page page = new Page(title: TITLE)
-		Template.Part templatePart = Mock(Template.Part)
+		Template.Part templatePart = Mock()
 		Template template = new Template(parts: Lists.newArrayList(templatePart))
 		ModelPage modelPage = new ModelPage()
 

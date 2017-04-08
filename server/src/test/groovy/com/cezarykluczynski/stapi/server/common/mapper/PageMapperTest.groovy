@@ -28,7 +28,7 @@ class PageMapperTest extends Specification {
 
 	void "maps Page to SOAP ResponsePage"() {
 		given:
-		Page page = Mock(Page)
+		Page page = Mock()
 		page.number >> PAGE_NUMBER
 		page.size >> PAGE_SIZE
 		page.totalElements >> TOTAL_ELEMENTS
@@ -52,7 +52,7 @@ class PageMapperTest extends Specification {
 
 	void "maps Page to REST ResponsePage"() {
 		given:
-		Page page = Mock(Page)
+		Page page = Mock()
 		page.number >> PAGE_NUMBER
 		page.size >> PAGE_SIZE
 		page.totalElements >> TOTAL_ELEMENTS
@@ -125,7 +125,7 @@ class PageMapperTest extends Specification {
 
 	void "maps PageAwareBeanParams to PageRequest"() {
 		given:
-		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams)
+		PageSortBeanParams pageAwareBeanParams = Mock()
 		pageAwareBeanParams.pageNumber >> PAGE_NUMBER
 		pageAwareBeanParams.pageSize >> PAGE_SIZE
 
@@ -139,11 +139,11 @@ class PageMapperTest extends Specification {
 
 	void "ensures that ranges are respected when mapping from PageSortBeanParams"() {
 		given:
-		PageSortBeanParams pageSortBeanParams1 = Mock(PageSortBeanParams)
+		PageSortBeanParams pageSortBeanParams1 = Mock()
 		pageSortBeanParams1.pageNumber >> -1
-		PageSortBeanParams pageSortBeanParams2 = Mock(PageSortBeanParams)
+		PageSortBeanParams pageSortBeanParams2 = Mock()
 		pageSortBeanParams2.pageSize >> -1
-		PageSortBeanParams pageSortBeanParams3 = Mock(PageSortBeanParams)
+		PageSortBeanParams pageSortBeanParams3 = Mock()
 		pageSortBeanParams3.pageSize >> 10000
 
 		when:
@@ -166,8 +166,11 @@ class PageMapperTest extends Specification {
 	}
 
 	void "maps PageAwareBeanParams with null values to PageRequest with default values"() {
+		given:
+		PageSortBeanParams pageSortBeanParams = Mock()
+
 		when:
-		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest Mock(PageSortBeanParams)
+		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest pageSortBeanParams
 
 		then:
 		pageRequest.pageNumber == PageDefault.PAGE_NUMBER

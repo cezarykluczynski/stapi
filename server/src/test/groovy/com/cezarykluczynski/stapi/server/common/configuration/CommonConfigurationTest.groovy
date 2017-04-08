@@ -11,7 +11,7 @@ class CommonConfigurationTest extends Specification {
 	private CommonConfiguration commonConfiguration
 
 	void setup() {
-		applicationContextMock = Mock(ApplicationContext)
+		applicationContextMock = Mock()
 		commonConfiguration = new CommonConfiguration(applicationContext: applicationContextMock)
 	}
 

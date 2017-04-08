@@ -19,9 +19,9 @@ class AstronomicalObjectProcessorTest extends Specification {
 	private AstronomicalObjectProcessor astronomicalObjectProcessor
 
 	void setup() {
-		pageHeaderProcessorMock = Mock(PageHeaderProcessor)
-		planetTemplatePageProcessorMock = Mock(PlanetTemplatePageProcessor)
-		planetTemplateProcessorMock = Mock(PlanetTemplateProcessor)
+		pageHeaderProcessorMock = Mock()
+		planetTemplatePageProcessorMock = Mock()
+		planetTemplateProcessorMock = Mock()
 		astronomicalObjectProcessor = new AstronomicalObjectProcessor(pageHeaderProcessorMock, planetTemplatePageProcessorMock,
 				planetTemplateProcessorMock)
 	}

@@ -13,17 +13,17 @@ class SpeciesTemplateProcessorTest extends AbstractSpeciesTest {
 
 	private SpeciesTemplateProcessor speciesTemplateProcessor
 
-	private final Page page = Mock(Page)
+	private final Page page = Mock()
 
 	void setup() {
-		guidGeneratorMock = Mock(GuidGenerator)
+		guidGeneratorMock = Mock()
 		speciesTemplateProcessor = new SpeciesTemplateProcessor(guidGeneratorMock)
 	}
 
 	void "converts SpeciesTemplate to Species"() {
 		given:
-		AstronomicalObject homeworld = Mock(AstronomicalObject)
-		AstronomicalObject quadrant = Mock(AstronomicalObject)
+		AstronomicalObject homeworld = Mock()
+		AstronomicalObject quadrant = Mock()
 
 		SpeciesTemplate speciesTemplate = new SpeciesTemplate(
 				name: NAME,

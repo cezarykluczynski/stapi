@@ -30,20 +30,22 @@ class StaffRestReaderTest extends Specification {
 	private StaffRestReader staffRestReader
 
 	void setup() {
-		staffRestQueryBuilderMock = Mock(StaffRestQuery)
-		staffBaseRestMapperMock = Mock(StaffBaseRestMapper)
-		staffFullRestMapperMock = Mock(StaffFullRestMapper)
-		pageMapperMock = Mock(PageMapper)
+		staffRestQueryBuilderMock = Mock()
+		staffBaseRestMapperMock = Mock()
+		staffFullRestMapperMock = Mock()
+		pageMapperMock = Mock()
 		staffRestReader = new StaffRestReader(staffRestQueryBuilderMock, staffBaseRestMapperMock, staffFullRestMapperMock, pageMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		StaffRestBeanParams staffRestBeanParams = Mock(StaffRestBeanParams)
-		List<StaffBase> restStaffList = Lists.newArrayList(Mock(StaffBase))
-		List<Staff> staffList = Lists.newArrayList(Mock(Staff))
-		Page<Staff> staffPage = Mock(Page)
-		ResponsePage responsePage = Mock(ResponsePage)
+		StaffBase staffBase = Mock()
+		Staff staff = Mock()
+		StaffRestBeanParams staffRestBeanParams = Mock()
+		List<StaffBase> restStaffList = Lists.newArrayList(staffBase)
+		List<Staff> staffList = Lists.newArrayList(staff)
+		Page<Staff> staffPage = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		StaffBaseResponse staffResponseOutput = staffRestReader.readBase(staffRestBeanParams)
@@ -60,10 +62,10 @@ class StaffRestReaderTest extends Specification {
 
 	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
 		given:
-		StaffFull staffFull = Mock(StaffFull)
-		Staff staff = Mock(Staff)
+		StaffFull staffFull = Mock()
+		Staff staff = Mock()
 		List<Staff> staffList = Lists.newArrayList(staff)
-		Page<Staff> staffPage = Mock(Page)
+		Page<Staff> staffPage = Mock()
 
 		when:
 		StaffFullResponse staffResponseOutput = staffRestReader.readFull(GUID)

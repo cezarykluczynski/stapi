@@ -30,21 +30,23 @@ class ComicStripRestReaderTest extends Specification {
 	private ComicStripRestReader comicStripRestReader
 
 	void setup() {
-		comicStripRestQueryBuilderMock = Mock(ComicStripRestQuery)
-		comicStripBaseRestMapperMock = Mock(ComicStripBaseRestMapper)
-		comicStripFullRestMapperMock = Mock(ComicStripFullRestMapper)
-		pageMapperMock = Mock(PageMapper)
+		comicStripRestQueryBuilderMock = Mock()
+		comicStripBaseRestMapperMock = Mock()
+		comicStripFullRestMapperMock = Mock()
+		pageMapperMock = Mock()
 		comicStripRestReader = new ComicStripRestReader(comicStripRestQueryBuilderMock, comicStripBaseRestMapperMock, comicStripFullRestMapperMock,
 				pageMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		ComicStripRestBeanParams comicStripRestBeanParams = Mock(ComicStripRestBeanParams)
-		List<ComicStripBase> restComicStripList = Lists.newArrayList(Mock(ComicStripBase))
-		List<ComicStrip> comicStripList = Lists.newArrayList(Mock(ComicStrip))
-		Page<ComicStrip> comicStripPage = Mock(Page)
-		ResponsePage responsePage = Mock(ResponsePage)
+		ComicStripBase comicStripBase = Mock()
+		ComicStrip comicStrip = Mock()
+		ComicStripRestBeanParams comicStripRestBeanParams = Mock()
+		List<ComicStripBase> restComicStripList = Lists.newArrayList(comicStripBase)
+		List<ComicStrip> comicStripList = Lists.newArrayList(comicStrip)
+		Page<ComicStrip> comicStripPage = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		ComicStripBaseResponse comicStripResponseOutput = comicStripRestReader.readBase(comicStripRestBeanParams)
@@ -61,10 +63,10 @@ class ComicStripRestReaderTest extends Specification {
 
 	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
 		given:
-		ComicStripFull comicStripFull = Mock(ComicStripFull)
-		ComicStrip comicStrip = Mock(ComicStrip)
+		ComicStripFull comicStripFull = Mock()
+		ComicStrip comicStrip = Mock()
 		List<ComicStrip> comicStripList = Lists.newArrayList(comicStrip)
-		Page<ComicStrip> comicStripPage = Mock(Page)
+		Page<ComicStrip> comicStripPage = Mock()
 
 		when:
 		ComicStripFullResponse comicStripResponseOutput = comicStripRestReader.readFull(GUID)

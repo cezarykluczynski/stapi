@@ -27,12 +27,12 @@ class OrganizationRepositoryImplTest extends AbstractOrganizationTest {
 	private Page page
 
 	void setup() {
-		organizationQueryBuilderFactory = Mock(OrganizationQueryBuilderFactory)
+		organizationQueryBuilderFactory = Mock()
 		organizationRepositoryImpl = new OrganizationRepositoryImpl(organizationQueryBuilderFactory)
-		organizationQueryBuilder = Mock(QueryBuilder)
-		pageable = Mock(Pageable)
-		organizationRequestDTO = Mock(OrganizationRequestDTO)
-		page = Mock(Page)
+		organizationQueryBuilder = Mock()
+		pageable = Mock()
+		organizationRequestDTO = Mock()
+		page = Mock()
 	}
 
 	void "query is built and performed"() {

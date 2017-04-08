@@ -23,9 +23,9 @@ class CompanyCreationConfigurationTest extends AbstractCreationConfigurationTest
 	private CompanyCreationConfiguration companyCreationConfiguration
 
 	void setup() {
-		applicationContextMock = Mock(ApplicationContext)
-		categoryApiMock = Mock(CategoryApi)
-		jobCompletenessDeciderMock = Mock(StepCompletenessDecider)
+		applicationContextMock = Mock()
+		categoryApiMock = Mock()
+		jobCompletenessDeciderMock = Mock()
 		companyCreationConfiguration = new CompanyCreationConfiguration(
 				applicationContext: applicationContextMock,
 				categoryApi: categoryApiMock,

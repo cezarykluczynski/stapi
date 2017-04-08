@@ -31,10 +31,10 @@ class ComicStripSoapReaderTest extends Specification {
 	private ComicStripSoapReader comicStripSoapReader
 
 	void setup() {
-		comicStripSoapQueryBuilderMock = Mock(ComicStripSoapQuery)
-		comicStripBaseSoapMapperMock = Mock(ComicStripBaseSoapMapper)
-		comicStripFullSoapMapperMock = Mock(ComicStripFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
+		comicStripSoapQueryBuilderMock = Mock()
+		comicStripBaseSoapMapperMock = Mock()
+		comicStripFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
 		comicStripSoapReader = new ComicStripSoapReader(comicStripSoapQueryBuilderMock, comicStripBaseSoapMapperMock, comicStripFullSoapMapperMock,
 				pageMapperMock)
 	}
@@ -42,10 +42,10 @@ class ComicStripSoapReaderTest extends Specification {
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		List<ComicStrip> comicStripList = Lists.newArrayList()
-		Page<ComicStrip> comicStripPage = Mock(Page)
+		Page<ComicStrip> comicStripPage = Mock()
 		List<ComicStripBase> soapComicStripList = Lists.newArrayList(new ComicStripBase(guid: GUID))
-		ComicStripBaseRequest comicStripBaseRequest = Mock(ComicStripBaseRequest)
-		ResponsePage responsePage = Mock(ResponsePage)
+		ComicStripBaseRequest comicStripBaseRequest = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		ComicStripBaseResponse comicStripResponse = comicStripSoapReader.readBase(comicStripBaseRequest)
@@ -62,9 +62,9 @@ class ComicStripSoapReaderTest extends Specification {
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		ComicStripFull comicStripFull = new ComicStripFull(guid: GUID)
-		ComicStrip comicStrip = Mock(ComicStrip)
-		Page<ComicStrip> comicStripPage = Mock(Page)
-		ComicStripFullRequest comicStripFullRequest = Mock(ComicStripFullRequest)
+		ComicStrip comicStrip = Mock()
+		Page<ComicStrip> comicStripPage = Mock()
+		ComicStripFullRequest comicStripFullRequest = Mock()
 
 		when:
 		ComicStripFullResponse comicStripFullResponse = comicStripSoapReader.readFull(comicStripFullRequest)

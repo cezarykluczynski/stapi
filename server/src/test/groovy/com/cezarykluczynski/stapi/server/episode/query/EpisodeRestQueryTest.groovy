@@ -20,20 +20,18 @@ class EpisodeRestQueryTest extends Specification {
 	private EpisodeRestQuery episodeRestQuery
 
 	void setup() {
-		episodeBaseRestMapperMock = Mock(EpisodeBaseRestMapper)
-		pageMapperMock = Mock(PageMapper)
-		episodeRepositoryMock = Mock(EpisodeRepository)
+		episodeBaseRestMapperMock = Mock()
+		pageMapperMock = Mock()
+		episodeRepositoryMock = Mock()
 		episodeRestQuery = new EpisodeRestQuery(episodeBaseRestMapperMock, pageMapperMock, episodeRepositoryMock)
 	}
 
 	void "maps EpisodeRestBeanParams to EpisodeRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
-		PageRequest pageRequest = Mock(PageRequest)
-		EpisodeRestBeanParams episodeRestBeanParams = Mock(EpisodeRestBeanParams) {
-
-		}
-		EpisodeRequestDTO episodeRequestDTO = Mock(EpisodeRequestDTO)
-		Page page = Mock(Page)
+		PageRequest pageRequest = Mock()
+		EpisodeRestBeanParams episodeRestBeanParams = Mock()
+		EpisodeRequestDTO episodeRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = episodeRestQuery.query(episodeRestBeanParams)

@@ -23,8 +23,8 @@ class PageBindingServiceTest extends Specification {
 	private PageBindingService pageBindingService
 
 	void setup() {
-		pageRepositoryMock = Mock(PageRepository)
-		mediaWikiSourceMapperMock = Mock(MediaWikiSourceMapper)
+		pageRepositoryMock = Mock()
+		mediaWikiSourceMapperMock = Mock()
 		pageBindingService = new PageBindingService(pageRepositoryMock, mediaWikiSourceMapperMock)
 	}
 

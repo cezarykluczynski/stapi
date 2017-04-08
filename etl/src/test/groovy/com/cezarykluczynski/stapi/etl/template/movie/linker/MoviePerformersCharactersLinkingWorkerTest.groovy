@@ -19,7 +19,7 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 	private MoviePerformersCharactersLinkingWorker moviePerformersCharactersLinkingWorker
 
 	void setup() {
-		entityLookupByNameServiceMock = Mock(EntityLookupByNameService)
+		entityLookupByNameServiceMock = Mock()
 		moviePerformersCharactersLinkingWorker = new MoviePerformersCharactersLinkingWorker(entityLookupByNameServiceMock)
 		moviePerformersCharactersLinkingWorker.log
 	}
@@ -88,8 +88,8 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 		Set<List<String>> source = Sets.newHashSet()
 		source.add Lists.newArrayList(CHARACTER_NAME, PERFORMER_NAME)
 		Movie baseEntity = new Movie()
-		Performer performer = Mock(Performer)
-		Character character = Mock(Character)
+		Performer performer = Mock()
+		Character character = Mock()
 
 		when:
 		moviePerformersCharactersLinkingWorker.link(source, baseEntity)
@@ -125,7 +125,7 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 		Set<List<String>> source = Sets.newHashSet()
 		source.add Lists.newArrayList(CHARACTER_NAME, PERFORMER_NAME)
 		Movie baseEntity = new Movie()
-		Performer performer = Mock(Performer)
+		Performer performer = Mock()
 
 		when:
 		moviePerformersCharactersLinkingWorker.link(source, baseEntity)
@@ -144,7 +144,7 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 		Set<List<String>> source = Sets.newHashSet()
 		source.add Lists.newArrayList(CHARACTER_NAME, PERFORMER_NAME)
 		Movie baseEntity = new Movie()
-		Character character = Mock(Character)
+		Character character = Mock()
 
 		when:
 		moviePerformersCharactersLinkingWorker.link(source, baseEntity)
@@ -163,8 +163,8 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 		Set<List<String>> source = Sets.newHashSet()
 		source.add Lists.newArrayList(CHARACTER_NAME, PERFORMER_NAME, 'ANOTHER PAGE TITLE')
 		Movie baseEntity = new Movie()
-		Performer performer = Mock(Performer)
-		Character character = Mock(Character)
+		Performer performer = Mock()
+		Character character = Mock()
 
 		when:
 		moviePerformersCharactersLinkingWorker.link(source, baseEntity)

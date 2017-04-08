@@ -23,13 +23,13 @@ class PageToGenderProcessorTest extends Specification {
 	private Page page
 
 	void setup() {
-		pageToGenderPronounProcessorMock = Mock(PageToGenderPronounProcessor)
-		pageToGenderRoleProcessorMock = Mock(PageToGenderRoleProcessor)
-		genderFixedValueProvider = Mock(GenderFixedValueProvider)
-		pageToGenderNameProcessorMock = Mock(PageToGenderNameProcessor)
-		pageToGenderProcessor = new PageToGenderProcessor(pageToGenderPronounProcessorMock,
-				pageToGenderRoleProcessorMock, genderFixedValueProvider, pageToGenderNameProcessorMock)
-		page = Mock(Page)
+		pageToGenderPronounProcessorMock = Mock()
+		pageToGenderRoleProcessorMock = Mock()
+		genderFixedValueProvider = Mock()
+		pageToGenderNameProcessorMock = Mock()
+		pageToGenderProcessor = new PageToGenderProcessor(pageToGenderPronounProcessorMock, pageToGenderRoleProcessorMock, genderFixedValueProvider,
+				pageToGenderNameProcessorMock)
+		page = Mock()
 		page.title >> TITLE
 	}
 

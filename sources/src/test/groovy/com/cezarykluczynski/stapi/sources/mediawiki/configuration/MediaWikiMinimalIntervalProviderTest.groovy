@@ -18,14 +18,14 @@ class MediaWikiMinimalIntervalProviderTest extends Specification {
 	private MediaWikiMinimalIntervalProvider mediaWikiMinimalIntervalProvider
 
 	void setup() {
-		mediaWikiSourcesPropertiesMock = Mock(MediaWikiSourcesProperties)
-		mediaWikiMiminalIntervalConfigurationStrategy = Mock(MediaWikiMinimalIntervalConfigurationStrategy)
+		mediaWikiSourcesPropertiesMock = Mock()
+		mediaWikiMiminalIntervalConfigurationStrategy = Mock()
 	}
 
 	void "uses dependencies to do configuration"() {
 		given:
-		MediaWikiSourceProperties memoryAlphaEn = Mock(MediaWikiSourceProperties)
-		MediaWikiSourceProperties memoryBetaEn = Mock(MediaWikiSourceProperties)
+		MediaWikiSourceProperties memoryAlphaEn = Mock()
+		MediaWikiSourceProperties memoryBetaEn = Mock()
 
 		when:
 		mediaWikiMinimalIntervalProvider = new MediaWikiMinimalIntervalProvider(mediaWikiSourcesPropertiesMock,

@@ -17,13 +17,13 @@ class OrganizationRestEndpointTest extends AbstractRestEndpointTest {
 	private OrganizationRestEndpoint organizationRestEndpoint
 
 	void setup() {
-		organizationRestReaderMock = Mock(OrganizationRestReader)
+		organizationRestReaderMock = Mock()
 		organizationRestEndpoint = new OrganizationRestEndpoint(organizationRestReaderMock)
 	}
 
 	void "passes get call to OrganizationRestReader"() {
 		given:
-		OrganizationFullResponse organizationFullResponse = Mock(OrganizationFullResponse)
+		OrganizationFullResponse organizationFullResponse = Mock()
 
 		when:
 		OrganizationFullResponse organizationFullResponseOutput = organizationRestEndpoint.getOrganization(GUID)
@@ -35,10 +35,10 @@ class OrganizationRestEndpointTest extends AbstractRestEndpointTest {
 
 	void "passes search get call to OrganizationRestReader"() {
 		given:
-		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams)
+		PageSortBeanParams pageAwareBeanParams = Mock()
 		pageAwareBeanParams.pageNumber >> PAGE_NUMBER
 		pageAwareBeanParams.pageSize >> PAGE_SIZE
-		OrganizationBaseResponse organizationResponse = Mock(OrganizationBaseResponse)
+		OrganizationBaseResponse organizationResponse = Mock()
 
 		when:
 		OrganizationBaseResponse organizationResponseOutput = organizationRestEndpoint.searchCompanies(pageAwareBeanParams)
@@ -55,7 +55,7 @@ class OrganizationRestEndpointTest extends AbstractRestEndpointTest {
 	void "passes search post call to OrganizationRestReader"() {
 		given:
 		OrganizationRestBeanParams organizationRestBeanParams = new OrganizationRestBeanParams(name: NAME)
-		OrganizationBaseResponse organizationResponse = Mock(OrganizationBaseResponse)
+		OrganizationBaseResponse organizationResponse = Mock()
 
 		when:
 		OrganizationBaseResponse organizationResponseOutput = organizationRestEndpoint.searchCompanies(organizationRestBeanParams)

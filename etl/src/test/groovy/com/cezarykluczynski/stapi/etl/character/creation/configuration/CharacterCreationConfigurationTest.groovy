@@ -23,9 +23,9 @@ class CharacterCreationConfigurationTest extends AbstractCreationConfigurationTe
 	private CharacterCreationConfiguration characterCreationConfiguration
 
 	void setup() {
-		applicationContextMock = Mock(ApplicationContext)
-		categoryApiMock = Mock(CategoryApi)
-		jobCompletenessDeciderMock = Mock(StepCompletenessDecider)
+		applicationContextMock = Mock()
+		categoryApiMock = Mock()
+		jobCompletenessDeciderMock = Mock()
 		characterCreationConfiguration = new CharacterCreationConfiguration(
 				applicationContext: applicationContextMock,
 				categoryApi: categoryApiMock,

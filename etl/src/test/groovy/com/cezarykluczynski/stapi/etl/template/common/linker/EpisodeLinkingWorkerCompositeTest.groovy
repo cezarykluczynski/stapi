@@ -13,15 +13,15 @@ class EpisodeLinkingWorkerCompositeTest extends Specification {
 	private EpisodeLinkingWorkerComposite episodeLinkingWorkerComposite
 
 	void setup() {
-		episodePerformancesLinkingWorkerMock = Mock(EpisodePerformancesLinkingWorker)
-		episodeStaffLinkingWorkerMock = Mock(EpisodeStaffLinkingWorker)
+		episodePerformancesLinkingWorkerMock = Mock()
+		episodeStaffLinkingWorkerMock = Mock()
 		episodeLinkingWorkerComposite = new EpisodeLinkingWorkerComposite(episodePerformancesLinkingWorkerMock, episodeStaffLinkingWorkerMock)
 	}
 
 	void "passes arguments to dependencies"() {
 		given:
-		Page page = Mock(Page)
-		Episode episode = Mock(Episode)
+		Page page = Mock()
+		Episode episode = Mock()
 
 		when:
 		episodeLinkingWorkerComposite.link(page, episode)

@@ -48,7 +48,7 @@ class MovieLinkedTitlesProcessorTest extends Specification {
 	private MovieLinkedTitlesProcessor movieLinkedTitlesProcessor
 
 	void setup() {
-		wikitextApiMock = Mock(WikitextApi)
+		wikitextApiMock = Mock()
 		movieLinkedTitlesProcessor = new MovieLinkedTitlesProcessor(wikitextApiMock)
 	}
 

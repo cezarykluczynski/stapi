@@ -23,9 +23,9 @@ class WikitextToYearRangeProcessorTest extends Specification {
 	private WikitextToYearRangeProcessor wikitextToYearRangeProcessor
 
 	void setup() {
-		partToYearRangeProcessorMock = Mock(PartToYearRangeProcessor)
-		wikitextApiMock = Mock(WikitextApi)
-		pageLinkToYearProcessorMock = Mock(PageLinkToYearProcessor)
+		partToYearRangeProcessorMock = Mock()
+		wikitextApiMock = Mock()
+		pageLinkToYearProcessorMock = Mock()
 		wikitextToYearRangeProcessor = new WikitextToYearRangeProcessor(partToYearRangeProcessorMock, wikitextApiMock, pageLinkToYearProcessorMock)
 	}
 
@@ -59,7 +59,7 @@ class WikitextToYearRangeProcessorTest extends Specification {
 
 	void "when WikitextApi returns one link, it is used as a year from and year to"() {
 		given:
-		PageLink pageLink = Mock(PageLink)
+		PageLink pageLink = Mock()
 
 		when:
 		YearRange yearRange = wikitextToYearRangeProcessor.process(WIKITEXT)
@@ -75,8 +75,8 @@ class WikitextToYearRangeProcessorTest extends Specification {
 
 	void "when WikitextApi returns two links, one is used as a year from, and the second is used as a year to"() {
 		given:
-		PageLink pageLinkFrom = Mock(PageLink)
-		PageLink pageLinkTo = Mock(PageLink)
+		PageLink pageLinkFrom = Mock()
+		PageLink pageLinkTo = Mock()
 
 		when:
 		YearRange yearRange = wikitextToYearRangeProcessor.process(WIKITEXT)

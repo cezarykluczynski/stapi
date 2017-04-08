@@ -34,9 +34,9 @@ class EpisodeTemplateProcessorTest extends AbstractTemplateProcessorTest {
 	private EpisodeTemplateProcessor episodeTemplateProcessor
 
 	void setup() {
-		dayMonthYearCandidateToLocalDateProcessorMock = Mock(DayMonthYearCandidateToLocalDateProcessor)
-		imageTemplateStardateYearEnrichingProcessorMock = Mock(ImageTemplateStardateYearEnrichingProcessor)
-		productionSerialNumberProcessor = Mock(ProductionSerialNumberProcessor)
+		dayMonthYearCandidateToLocalDateProcessorMock = Mock()
+		imageTemplateStardateYearEnrichingProcessorMock = Mock()
+		productionSerialNumberProcessor = Mock()
 		episodeTemplateProcessor = new EpisodeTemplateProcessor(dayMonthYearCandidateToLocalDateProcessorMock,
 				imageTemplateStardateYearEnrichingProcessorMock, productionSerialNumberProcessor)
 	}

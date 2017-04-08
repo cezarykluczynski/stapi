@@ -21,8 +21,8 @@ class PartToYearRangeProcessorTest extends Specification {
 	private PartToYearRangeProcessor partToYearRangeProcessor
 
 	void setup() {
-		templateToYearProcessorMock = Mock(YearlinkToYearProcessor)
-		templateFilterMock = Mock(TemplateFilter)
+		templateToYearProcessorMock = Mock()
+		templateFilterMock = Mock()
 		partToYearRangeProcessor = new PartToYearRangeProcessor(templateToYearProcessorMock, templateFilterMock)
 	}
 

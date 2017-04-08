@@ -2,13 +2,12 @@ package com.cezarykluczynski.stapi.util
 
 import com.cezarykluczynski.stapi.util.tool.LogicUtil
 import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl
-import spock.lang.Specification
 
 import javax.xml.datatype.DatatypeConstants
 import javax.xml.datatype.XMLGregorianCalendar
 import java.time.LocalDate
 
-abstract class AbstractRealWorldPersonTest extends Specification {
+abstract class AbstractRealWorldPersonTest extends AbstractTest {
 
 	protected static final String GUID = 'ABCD0123456789'
 	protected static final String NAME = 'NAME'

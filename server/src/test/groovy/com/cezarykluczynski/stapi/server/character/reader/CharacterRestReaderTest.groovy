@@ -30,21 +30,23 @@ class CharacterRestReaderTest extends Specification {
 	private CharacterRestReader characterRestReader
 
 	void setup() {
-		characterRestQueryBuilderMock = Mock(CharacterRestQuery)
-		characterBaseRestMapperMock = Mock(CharacterBaseRestMapper)
-		characterFullRestMapperMock = Mock(CharacterFullRestMapper)
-		pageMapperMock = Mock(PageMapper)
+		characterRestQueryBuilderMock = Mock()
+		characterBaseRestMapperMock = Mock()
+		characterFullRestMapperMock = Mock()
+		pageMapperMock = Mock()
 		characterRestReader = new CharacterRestReader(characterRestQueryBuilderMock, characterBaseRestMapperMock, characterFullRestMapperMock,
 				pageMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		CharacterRestBeanParams characterRestBeanParams = Mock(CharacterRestBeanParams)
-		List<CharacterBase> restCharacterList = Lists.newArrayList(Mock(CharacterBase))
-		List<Character> characterList = Lists.newArrayList(Mock(Character))
-		Page<Character> characterPage = Mock(Page)
-		ResponsePage responsePage = Mock(ResponsePage)
+		CharacterBase characterBase = Mock()
+		Character character = Mock()
+		CharacterRestBeanParams characterRestBeanParams = Mock()
+		List<CharacterBase> restCharacterList = Lists.newArrayList(characterBase)
+		List<Character> characterList = Lists.newArrayList(character)
+		Page<Character> characterPage = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		CharacterBaseResponse characterResponseOutput = characterRestReader.readBase(characterRestBeanParams)
@@ -61,10 +63,10 @@ class CharacterRestReaderTest extends Specification {
 
 	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
 		given:
-		CharacterFull characterFull = Mock(CharacterFull)
-		Character character = Mock(Character)
+		CharacterFull characterFull = Mock()
+		Character character = Mock()
 		List<Character> characterList = Lists.newArrayList(character)
-		Page<Character> characterPage = Mock(Page)
+		Page<Character> characterPage = Mock()
 
 		when:
 		CharacterFullResponse characterResponseOutput = characterRestReader.readFull(GUID)

@@ -14,15 +14,14 @@ class CommonTemplateConfigurationTest extends Specification {
 	private CommonTemplateConfiguration commonTemplateConfiguration
 
 	void setup() {
-		applicationContextMock = Mock(ApplicationContext)
+		applicationContextMock = Mock()
 		commonTemplateConfiguration = new CommonTemplateConfiguration(applicationContext: applicationContextMock)
 	}
 
 	void "creates EPISODE_TEMPALTE_STARDATE_YEAR_ENRICHING_PROCESSOR"() {
 		given:
-		EpisodeTemplateStardateYearFixedValueProvider episodeTemplateStardateYearFixedValueProvider =
-				Mock(EpisodeTemplateStardateYearFixedValueProvider)
-		StardateYearProcessor stardateYearProcessor = Mock(StardateYearProcessor)
+		EpisodeTemplateStardateYearFixedValueProvider episodeTemplateStardateYearFixedValueProvider = Mock()
+		StardateYearProcessor stardateYearProcessor = Mock()
 
 		when:
 		ImageTemplateStardateYearEnrichingProcessor episodeTemplateStardateYearEnrichingProcessor =
@@ -37,9 +36,8 @@ class CommonTemplateConfigurationTest extends Specification {
 
 	void "creates MOVIE_TEMPALTE_STARDATE_YEAR_ENRICHING_PROCESSOR"() {
 		given:
-		MovieTemplateStardateYearFixedValueProvider movieTemplateStardateYearFixedValueProvider =
-				Mock(MovieTemplateStardateYearFixedValueProvider)
-		StardateYearProcessor stardateYearProcessor = Mock(StardateYearProcessor)
+		MovieTemplateStardateYearFixedValueProvider movieTemplateStardateYearFixedValueProvider = Mock()
+		StardateYearProcessor stardateYearProcessor = Mock()
 
 		when:
 		ImageTemplateStardateYearEnrichingProcessor episodeTemplateStardateYearEnrichingProcessor =

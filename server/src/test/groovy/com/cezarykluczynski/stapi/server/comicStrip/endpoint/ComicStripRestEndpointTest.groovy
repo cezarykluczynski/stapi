@@ -17,13 +17,13 @@ class ComicStripRestEndpointTest extends AbstractRestEndpointTest {
 	private ComicStripRestEndpoint comicStripRestEndpoint
 
 	void setup() {
-		comicStripRestReaderMock = Mock(ComicStripRestReader)
+		comicStripRestReaderMock = Mock()
 		comicStripRestEndpoint = new ComicStripRestEndpoint(comicStripRestReaderMock)
 	}
 
 	void "passes get call to ComicStripRestReader"() {
 		given:
-		ComicStripFullResponse comicStripFullResponse = Mock(ComicStripFullResponse)
+		ComicStripFullResponse comicStripFullResponse = Mock()
 
 		when:
 		ComicStripFullResponse comicStripFullResponseOutput = comicStripRestEndpoint.getComicStrip(GUID)
@@ -35,10 +35,10 @@ class ComicStripRestEndpointTest extends AbstractRestEndpointTest {
 
 	void "passes search get call to ComicStripRestReader"() {
 		given:
-		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams)
+		PageSortBeanParams pageAwareBeanParams = Mock()
 		pageAwareBeanParams.pageNumber >> PAGE_NUMBER
 		pageAwareBeanParams.pageSize >> PAGE_SIZE
-		ComicStripBaseResponse comicStripResponse = Mock(ComicStripBaseResponse)
+		ComicStripBaseResponse comicStripResponse = Mock()
 
 		when:
 		ComicStripBaseResponse comicStripResponseOutput = comicStripRestEndpoint.searchComicStrip(pageAwareBeanParams)
@@ -55,7 +55,7 @@ class ComicStripRestEndpointTest extends AbstractRestEndpointTest {
 	void "passes search post call to ComicStripRestReader"() {
 		given:
 		ComicStripRestBeanParams comicStripRestBeanParams = new ComicStripRestBeanParams(title: TITLE)
-		ComicStripBaseResponse comicStripResponse = Mock(ComicStripBaseResponse)
+		ComicStripBaseResponse comicStripResponse = Mock()
 
 		when:
 		ComicStripBaseResponse comicStripResponseOutput = comicStripRestEndpoint.searchComicStrip(comicStripRestBeanParams)

@@ -30,11 +30,11 @@ class IndividualTemplateCompositeEnrichingProcessorTest extends Specification {
 	private IndividualTemplatePlacesFixedValueProvider individualTemplatePlacesFixedValueProviderMock
 
 	void setup() {
-		templateFinderMock = Mock(TemplateFinder)
-		individualDateOfDeathEnrichingProcessorMock = Mock(IndividualTemplateDateOfDeathEnrichingProcessor)
-		individualTemplatePartsEnrichingProcessorMock = Mock(IndividualTemplatePartsEnrichingProcessor)
-		individualMirrorAlternateUniverseEnrichingProcessorMock = Mock(IndividualMirrorAlternateUniverseEnrichingProcessor)
-		individualTemplatePlacesFixedValueProviderMock = Mock(IndividualTemplatePlacesFixedValueProvider)
+		templateFinderMock = Mock()
+		individualDateOfDeathEnrichingProcessorMock = Mock()
+		individualTemplatePartsEnrichingProcessorMock = Mock()
+		individualMirrorAlternateUniverseEnrichingProcessorMock = Mock()
+		individualTemplatePlacesFixedValueProviderMock = Mock()
 		individualTemplateCompositeEnrichingProcessor = new IndividualTemplateCompositeEnrichingProcessor(templateFinderMock,
 				individualDateOfDeathEnrichingProcessorMock, individualTemplatePartsEnrichingProcessorMock,
 				individualMirrorAlternateUniverseEnrichingProcessorMock, individualTemplatePlacesFixedValueProviderMock)
@@ -75,7 +75,8 @@ class IndividualTemplateCompositeEnrichingProcessorTest extends Specification {
 		given:
 		Page page = new Page()
 		IndividualTemplate individualTemplate = new IndividualTemplate()
-		List<Template.Part> templatePartList = Lists.newArrayList(Mock(Template.Part))
+		Template.Part templatePart = Mock()
+		List<Template.Part> templatePartList = Lists.newArrayList(templatePart)
 		Template template = new Template(parts: templatePartList)
 
 		when:

@@ -17,13 +17,13 @@ class SpeciesConfigurationTest extends Specification {
 	private SpeciesConfiguration speciesConfiguration
 
 	void setup() {
-		endpointFactoryMock = Mock(EndpointFactory)
+		endpointFactoryMock = Mock()
 		speciesConfiguration = new SpeciesConfiguration(endpointFactory: endpointFactoryMock)
 	}
 
 	void "Species SOAP endpoint is created"() {
 		given:
-		Endpoint endpoint = Mock(Endpoint)
+		Endpoint endpoint = Mock()
 
 		when:
 		Endpoint endpointOutput = speciesConfiguration.speciesEndpoint()

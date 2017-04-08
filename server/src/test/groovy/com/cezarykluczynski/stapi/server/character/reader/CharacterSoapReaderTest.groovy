@@ -31,10 +31,10 @@ class CharacterSoapReaderTest extends Specification {
 	private CharacterSoapReader characterSoapReader
 
 	void setup() {
-		characterSoapQueryBuilderMock = Mock(CharacterSoapQuery)
-		characterBaseSoapMapperMock = Mock(CharacterBaseSoapMapper)
-		characterFullSoapMapperMock = Mock(CharacterFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
+		characterSoapQueryBuilderMock = Mock()
+		characterBaseSoapMapperMock = Mock()
+		characterFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
 		characterSoapReader = new CharacterSoapReader(characterSoapQueryBuilderMock, characterBaseSoapMapperMock, characterFullSoapMapperMock,
 				pageMapperMock)
 	}
@@ -42,10 +42,10 @@ class CharacterSoapReaderTest extends Specification {
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		List<Character> characterList = Lists.newArrayList()
-		Page<Character> characterPage = Mock(Page)
+		Page<Character> characterPage = Mock()
 		List<CharacterBase> soapCharacterList = Lists.newArrayList(new CharacterBase(guid: GUID))
-		CharacterBaseRequest characterBaseRequest = Mock(CharacterBaseRequest)
-		ResponsePage responsePage = Mock(ResponsePage)
+		CharacterBaseRequest characterBaseRequest = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		CharacterBaseResponse characterResponse = characterSoapReader.readBase(characterBaseRequest)
@@ -62,9 +62,9 @@ class CharacterSoapReaderTest extends Specification {
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		CharacterFull characterFull = new CharacterFull(guid: GUID)
-		Character character = Mock(Character)
-		Page<Character> characterPage = Mock(Page)
-		CharacterFullRequest characterFullRequest = Mock(CharacterFullRequest)
+		Character character = Mock()
+		Page<Character> characterPage = Mock()
+		CharacterFullRequest characterFullRequest = Mock()
 
 		when:
 		CharacterFullResponse characterFullResponse = characterSoapReader.readFull(characterFullRequest)

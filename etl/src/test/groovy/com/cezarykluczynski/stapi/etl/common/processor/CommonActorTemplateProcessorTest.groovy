@@ -12,7 +12,7 @@ class CommonActorTemplateProcessorTest extends AbstractRealWorldActorTemplatePro
 	private CommonActorTemplateProcessor commonActorTemplateProcessor
 
 	void setup() {
-		genderMapperMock = Mock(GenderMapper)
+		genderMapperMock = Mock()
 		commonActorTemplateProcessor = new CommonActorTemplateProcessor(genderMapperMock)
 	}
 

@@ -25,21 +25,21 @@ class StaffSoapQueryTest extends Specification {
 	private StaffSoapQuery staffSoapQuery
 
 	void setup() {
-		staffBaseSoapMapperMock = Mock(StaffBaseSoapMapper)
-		staffFullSoapMapperMock = Mock(StaffFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
-		staffRepositoryMock = Mock(StaffRepository)
+		staffBaseSoapMapperMock = Mock()
+		staffFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
+		staffRepositoryMock = Mock()
 		staffSoapQuery = new StaffSoapQuery(staffBaseSoapMapperMock, staffFullSoapMapperMock, pageMapperMock, staffRepositoryMock)
 	}
 
 	void "maps StaffBaseRequest to StaffRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
-		RequestPage requestPage = Mock(RequestPage)
-		PageRequest pageRequest = Mock(PageRequest)
-		StaffBaseRequest staffRequest = Mock(StaffBaseRequest)
+		RequestPage requestPage = Mock()
+		PageRequest pageRequest = Mock()
+		StaffBaseRequest staffRequest = Mock()
 		staffRequest.page >> requestPage
-		StaffRequestDTO staffRequestDTO = Mock(StaffRequestDTO)
-		Page page = Mock(Page)
+		StaffRequestDTO staffRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = staffSoapQuery.query(staffRequest)
@@ -53,10 +53,10 @@ class StaffSoapQueryTest extends Specification {
 
 	void "maps StaffFullRequest to StaffRequestDTO, then calls repository, then returns result"() {
 		given:
-		PageRequest pageRequest = Mock(PageRequest)
-		StaffFullRequest staffRequest = Mock(StaffFullRequest)
-		StaffRequestDTO staffRequestDTO = Mock(StaffRequestDTO)
-		Page page = Mock(Page)
+		PageRequest pageRequest = Mock()
+		StaffFullRequest staffRequest = Mock()
+		StaffRequestDTO staffRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = staffSoapQuery.query(staffRequest)

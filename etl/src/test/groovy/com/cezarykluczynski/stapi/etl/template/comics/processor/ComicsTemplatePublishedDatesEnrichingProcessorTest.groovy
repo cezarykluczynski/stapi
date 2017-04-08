@@ -18,14 +18,14 @@ class ComicsTemplatePublishedDatesEnrichingProcessorTest extends Specification {
 	private ComicsTemplatePublishedDatesEnrichingProcessor comicsTemplatePublishedDatesEnrichingProcessor
 
 	void setup () {
-		comicsTemplatePartToDayMonthRangeProcessorMock = Mock(ComicsTemplatePartToDayMonthRangeProcessor)
+		comicsTemplatePartToDayMonthRangeProcessorMock = Mock()
 		comicsTemplatePublishedDatesEnrichingProcessor = new ComicsTemplatePublishedDatesEnrichingProcessor(
 				comicsTemplatePartToDayMonthRangeProcessorMock)
 	}
 
 	void "when DayMonthYear is null, ComicsTemplate is not interacted with"() {
 		given:
-		ComicsTemplate comicsTemplate = Mock(ComicsTemplate)
+		ComicsTemplate comicsTemplate = Mock()
 		Template.Part templatePart = new Template.Part()
 
 		when:
@@ -79,7 +79,7 @@ class ComicsTemplatePublishedDatesEnrichingProcessorTest extends Specification {
 	void "when DayMonthYear is found, and template part key contains unrecognized key, ComicsTemplate is not interacted with"() {
 		given:
 		DayMonthYear dayMonthYear = DayMonthYear.of(DAY, MONTH, YEAR)
-		ComicsTemplate comicsTemplate = Mock(ComicsTemplate)
+		ComicsTemplate comicsTemplate = Mock()
 		Template.Part templatePart = new Template.Part(key: 'UNKNOWN')
 
 		when:

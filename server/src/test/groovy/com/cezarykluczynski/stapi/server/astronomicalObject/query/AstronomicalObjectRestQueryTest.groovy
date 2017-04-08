@@ -20,21 +20,19 @@ class AstronomicalObjectRestQueryTest extends Specification {
 	private AstronomicalObjectRestQuery astronomicalObjectRestQuery
 
 	void setup() {
-		astronomicalObjectRestMapperMock = Mock(AstronomicalObjectBaseRestMapper)
-		pageMapperMock = Mock(PageMapper)
-		astronomicalObjectRepositoryMock = Mock(AstronomicalObjectRepository)
+		astronomicalObjectRestMapperMock = Mock()
+		pageMapperMock = Mock()
+		astronomicalObjectRepositoryMock = Mock()
 		astronomicalObjectRestQuery = new AstronomicalObjectRestQuery(astronomicalObjectRestMapperMock, pageMapperMock,
 				astronomicalObjectRepositoryMock)
 	}
 
 	void "maps AstronomicalObjectRestBeanParams to AstronomicalObjectRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
-		PageRequest pageRequest = Mock(PageRequest)
-		AstronomicalObjectRestBeanParams astronomicalObjectRestBeanParams = Mock(AstronomicalObjectRestBeanParams) {
-
-		}
-		AstronomicalObjectRequestDTO astronomicalObjectRequestDTO = Mock(AstronomicalObjectRequestDTO)
-		Page page = Mock(Page)
+		PageRequest pageRequest = Mock()
+		AstronomicalObjectRestBeanParams astronomicalObjectRestBeanParams = Mock()
+		AstronomicalObjectRequestDTO astronomicalObjectRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = astronomicalObjectRestQuery.query(astronomicalObjectRestBeanParams)

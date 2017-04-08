@@ -23,10 +23,10 @@ class AstronomicalObjectLinkConfigurationTest extends Specification {
 	private AstronomicalObjectLinkConfiguration astronomicalObjectLinkConfiguration
 
 	void setup() {
-		applicationContextMock = Mock(ApplicationContext)
-		stepCompletenessDeciderMock = Mock(StepCompletenessDecider)
-		astronomicalObjectRepositoryMock = Mock(AstronomicalObjectRepository)
-		stepsPropertiesMock = Mock(StepsProperties)
+		applicationContextMock = Mock()
+		stepCompletenessDeciderMock = Mock()
+		astronomicalObjectRepositoryMock = Mock()
+		stepsPropertiesMock = Mock()
 		astronomicalObjectLinkConfiguration = new AstronomicalObjectLinkConfiguration(
 				applicationContext: applicationContextMock,
 				stepCompletenessDecider: stepCompletenessDeciderMock,
@@ -36,7 +36,7 @@ class AstronomicalObjectLinkConfigurationTest extends Specification {
 
 	void "AstronomicalObjectLinkReader is created"() {
 		given:
-		StepProperties linkAstronomicalObjectsStepProperties = Mock(StepProperties)
+		StepProperties linkAstronomicalObjectsStepProperties = Mock()
 
 		when:
 		AstronomicalObjectLinkReader astronomicalObjectLinkReader = astronomicalObjectLinkConfiguration.astronomicalObjectLinkReader()

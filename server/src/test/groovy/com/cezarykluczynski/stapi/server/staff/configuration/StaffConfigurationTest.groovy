@@ -17,13 +17,13 @@ class StaffConfigurationTest extends Specification {
 	private StaffConfiguration staffConfiguration
 
 	void setup() {
-		endpointFactoryMock = Mock(EndpointFactory)
+		endpointFactoryMock = Mock()
 		staffConfiguration = new StaffConfiguration(endpointFactory: endpointFactoryMock)
 	}
 
 	void "Staff SOAP endpoint is created"() {
 		given:
-		Endpoint endpoint = Mock(Endpoint)
+		Endpoint endpoint = Mock()
 
 		when:
 		Endpoint endpointOutput = staffConfiguration.staffEndpoint()

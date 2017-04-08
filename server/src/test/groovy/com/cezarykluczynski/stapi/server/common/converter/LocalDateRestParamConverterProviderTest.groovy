@@ -17,16 +17,22 @@ class LocalDateRestParamConverterProviderTest extends Specification {
 	}
 
 	void "provides LocalDateRestParamConverter"() {
+		given:
+		Type type = Mock()
+
 		when:
-		ParamConverter converter = localDateRestParamConverterProvider.getConverter(LocalDate, Mock(Type), new Annotation[0])
+		ParamConverter converter = localDateRestParamConverterProvider.getConverter(LocalDate, type, new Annotation[0])
 
 		then:
 		converter instanceof LocalDateRestParamConverter
 	}
 
 	void "provides null for other type"() {
+		given:
+		Type type = Mock()
+
 		when:
-		ParamConverter converter = localDateRestParamConverterProvider.getConverter(LocalDateTime, Mock(Type), new Annotation[0])
+		ParamConverter converter = localDateRestParamConverterProvider.getConverter(LocalDateTime, type, new Annotation[0])
 
 		then:
 		converter == null

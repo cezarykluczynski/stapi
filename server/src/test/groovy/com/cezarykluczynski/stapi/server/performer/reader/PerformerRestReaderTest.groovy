@@ -30,21 +30,23 @@ class PerformerRestReaderTest extends Specification {
 	private PerformerRestReader performerRestReader
 
 	void setup() {
-		performerRestQueryBuilderMock = Mock(PerformerRestQuery)
-		performerBaseRestMapperMock = Mock(PerformerBaseRestMapper)
-		performerFullRestMapperMock = Mock(PerformerFullRestMapper)
-		pageMapperMock = Mock(PageMapper)
+		performerRestQueryBuilderMock = Mock()
+		performerBaseRestMapperMock = Mock()
+		performerFullRestMapperMock = Mock()
+		pageMapperMock = Mock()
 		performerRestReader = new PerformerRestReader(performerRestQueryBuilderMock, performerBaseRestMapperMock, performerFullRestMapperMock,
 				pageMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		PerformerRestBeanParams performerRestBeanParams = Mock(PerformerRestBeanParams)
-		List<PerformerBase> restPerformerList = Lists.newArrayList(Mock(PerformerBase))
-		List<Performer> performerList = Lists.newArrayList(Mock(Performer))
-		Page<Performer> performerPage = Mock(Page)
-		ResponsePage responsePage = Mock(ResponsePage)
+		PerformerBase performerBase = Mock()
+		Performer performer = Mock()
+		PerformerRestBeanParams performerRestBeanParams = Mock()
+		List<PerformerBase> restPerformerList = Lists.newArrayList(performerBase)
+		List<Performer> performerList = Lists.newArrayList(performer)
+		Page<Performer> performerPage = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		PerformerBaseResponse performerResponseOutput = performerRestReader.readBase(performerRestBeanParams)
@@ -61,10 +63,10 @@ class PerformerRestReaderTest extends Specification {
 
 	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
 		given:
-		PerformerFull performerFull = Mock(PerformerFull)
-		Performer performer = Mock(Performer)
+		PerformerFull performerFull = Mock()
+		Performer performer = Mock()
 		List<Performer> performerList = Lists.newArrayList(performer)
-		Page<Performer> performerPage = Mock(Page)
+		Page<Performer> performerPage = Mock()
 
 		when:
 		PerformerFullResponse performerResponseOutput = performerRestReader.readFull(GUID)

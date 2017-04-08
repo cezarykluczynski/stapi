@@ -56,24 +56,24 @@ class QueryBuilderTest extends Specification {
 	private static final Integer REQUEST_ORDER_CLAUSE_CLAUSE_ORDER_1 = 1
 	private static final Integer REQUEST_ORDER_CLAUSE_CLAUSE_ORDER_2 = 2
 	private static final Boolean CACHEABLE = LogicUtil.nextBoolean()
-	private final SingularAttribute<?, String> validKeyString = Mock(SingularAttribute)
-	private final SingularAttribute<?, Boolean> validKeyBoolean = Mock(SingularAttribute)
-	private final SingularAttribute<?, Long> validKeyLong = Mock(SingularAttribute)
-	private final SetAttribute<?, ?> fetchSetName = Mock(SetAttribute)
-	private final SetAttribute<?, ?> fetchSingularName = Mock(SetAttribute)
-	private final SingularAttribute<?, LocalDate> validKeyLocalDate = Mock(SingularAttribute)
-	private final SingularAttribute<?, Integer> validKeyInteger = Mock(SingularAttribute)
-	private final SingularAttribute<?, Float> validKeyFloat = Mock(SingularAttribute)
-	private final SingularAttribute<?, Gender> validKeyGender = Mock(SingularAttribute)
-	private final SingularAttribute<?, ?> keyWithUnknownType = Mock(SingularAttribute)
+	private final SingularAttribute<?, String> validKeyString = Mock()
+	private final SingularAttribute<?, Boolean> validKeyBoolean = Mock()
+	private final SingularAttribute<?, Long> validKeyLong = Mock()
+	private final SetAttribute<?, ?> fetchSetName = Mock()
+	private final SetAttribute<?, ?> fetchSingularName = Mock()
+	private final SingularAttribute<?, LocalDate> validKeyLocalDate = Mock()
+	private final SingularAttribute<?, Integer> validKeyInteger = Mock()
+	private final SingularAttribute<?, Float> validKeyFloat = Mock()
+	private final SingularAttribute<?, Gender> validKeyGender = Mock()
+	private final SingularAttribute<?, ?> keyWithUnknownType = Mock()
 	private final String validKeyPage = 'page'
 	private final String invalidKeyPage = 'notPage'
-	private final Path requestOrderClausePath1 = Mock(Path)
-	private final Path requestOrderClausePath2 = Mock(Path)
-	private final Path requestOrderClausePath3 = Mock(Path)
-	private final Order requestOrderClauseOrder3 = Mock(Order)
-	private final Order requestOrderClauseOrder2 = Mock(Order)
-	private final Order requestOrderClauseOrder1 = Mock(Order)
+	private final Path requestOrderClausePath1 = Mock()
+	private final Path requestOrderClausePath2 = Mock()
+	private final Path requestOrderClausePath3 = Mock()
+	private final Order requestOrderClauseOrder3 = Mock()
+	private final Order requestOrderClauseOrder2 = Mock()
+	private final Order requestOrderClauseOrder1 = Mock()
 
 	private static final RequestSortDTO ORDER_REQUEST = new RequestSortDTO(
 			clauses: Lists.newArrayList(
@@ -134,38 +134,38 @@ class QueryBuilderTest extends Specification {
 	private Long count
 
 	void setup() {
-		baseCriteriaQuery = Mock(CriteriaQuery)
-		countCriteriaQuery = Mock(CriteriaQuery)
-		criteriaBuilder = Mock(CriteriaBuilder)
-		entityManager = Mock(EntityManager)
-		cachingStrategy = Mock(CachingStrategy)
-		baseRoot = Mock(Root)
-		fetch = Mock(Fetch)
-		countExpression = Mock(Expression)
-		metamodel = Mock(Metamodel)
-		entityType = Mock(EntityType)
-		Attribute validKeyStringAttribute = Mock(Attribute)
+		baseCriteriaQuery = Mock()
+		countCriteriaQuery = Mock()
+		criteriaBuilder = Mock()
+		entityManager = Mock()
+		cachingStrategy = Mock()
+		baseRoot = Mock()
+		fetch = Mock()
+		countExpression = Mock()
+		metamodel = Mock()
+		entityType = Mock()
+		Attribute validKeyStringAttribute = Mock()
 		validKeyStringAttribute.javaType >> String
 		validKeyStringAttribute.name >> validKeyString
-		Attribute validKeyBooleanAttribute = Mock(Attribute)
+		Attribute validKeyBooleanAttribute = Mock()
 		validKeyBooleanAttribute.javaType >> Boolean
 		validKeyBooleanAttribute.name >> validKeyBoolean
-		Attribute validKeyLongAttribute = Mock(Attribute)
+		Attribute validKeyLongAttribute = Mock()
 		validKeyLongAttribute.javaType >> Long
 		validKeyLongAttribute.name >> validKeyLong
-		Attribute validKeyLocalDateAttribute = Mock(Attribute)
+		Attribute validKeyLocalDateAttribute = Mock()
 		validKeyLocalDateAttribute.javaType >> LocalDate
 		validKeyLocalDateAttribute.name >> validKeyLocalDate
-		Attribute validKeyGenderAttribute = Mock(Attribute)
+		Attribute validKeyGenderAttribute = Mock()
 		validKeyGenderAttribute.javaType >> Gender
 		validKeyGenderAttribute.name >> validKeyGender
-		Attribute validKeyInvalidTypeAttribute = Mock(Attribute)
+		Attribute validKeyInvalidTypeAttribute = Mock()
 		validKeyInvalidTypeAttribute.javaType >> Long
 		validKeyInvalidTypeAttribute.name >> keyWithUnknownType
-		Attribute validKeyPageAttribute = Mock(Attribute)
+		Attribute validKeyPageAttribute = Mock()
 		validKeyPageAttribute.javaType >> com.cezarykluczynski.stapi.model.page.entity.Page
 		validKeyPageAttribute.name >> validKeyPage
-		Attribute validKeyIntegerAttribute = Mock(Attribute)
+		Attribute validKeyIntegerAttribute = Mock()
 		validKeyIntegerAttribute.javaType >> Integer
 		validKeyIntegerAttribute.name >> validKeyInteger
 		attributeSet = Sets.newHashSet(
@@ -179,12 +179,12 @@ class QueryBuilderTest extends Specification {
 				validKeyIntegerAttribute
 		)
 		baseClass = Series
-		pageable = Mock(Pageable)
-		predicate = Mock(Predicate)
-		baseTypedQuery = Mock(TypedQuery)
-		countTypedQuery = Mock(TypedQuery)
+		pageable = Mock()
+		predicate = Mock()
+		baseTypedQuery = Mock()
+		countTypedQuery = Mock()
 		baseEntityList = Lists.newArrayList()
-		path = Mock(Path)
+		path = Mock()
 		count = 7L
 	}
 

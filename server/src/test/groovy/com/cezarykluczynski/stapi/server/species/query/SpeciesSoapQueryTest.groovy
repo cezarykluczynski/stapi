@@ -25,21 +25,21 @@ class SpeciesSoapQueryTest extends Specification {
 	private SpeciesSoapQuery speciesSoapQuery
 
 	void setup() {
-		speciesBaseSoapMapperMock = Mock(SpeciesBaseSoapMapper)
-		speciesFullSoapMapperMock = Mock(SpeciesFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
-		speciesRepositoryMock = Mock(SpeciesRepository)
+		speciesBaseSoapMapperMock = Mock()
+		speciesFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
+		speciesRepositoryMock = Mock()
 		speciesSoapQuery = new SpeciesSoapQuery(speciesBaseSoapMapperMock, speciesFullSoapMapperMock, pageMapperMock, speciesRepositoryMock)
 	}
 
 	void "maps SpeciesBaseRequest to SpeciesRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
-		RequestPage requestPage = Mock(RequestPage)
-		PageRequest pageRequest = Mock(PageRequest)
-		SpeciesBaseRequest speciesRequest = Mock(SpeciesBaseRequest)
+		RequestPage requestPage = Mock()
+		PageRequest pageRequest = Mock()
+		SpeciesBaseRequest speciesRequest = Mock()
 		speciesRequest.page >> requestPage
-		SpeciesRequestDTO speciesRequestDTO = Mock(SpeciesRequestDTO)
-		Page page = Mock(Page)
+		SpeciesRequestDTO speciesRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = speciesSoapQuery.query(speciesRequest)
@@ -53,10 +53,10 @@ class SpeciesSoapQueryTest extends Specification {
 
 	void "maps SpeciesFullRequest to SpeciesRequestDTO, then calls repository, then returns result"() {
 		given:
-		PageRequest pageRequest = Mock(PageRequest)
-		SpeciesFullRequest speciesRequest = Mock(SpeciesFullRequest)
-		SpeciesRequestDTO speciesRequestDTO = Mock(SpeciesRequestDTO)
-		Page page = Mock(Page)
+		PageRequest pageRequest = Mock()
+		SpeciesFullRequest speciesRequest = Mock()
+		SpeciesRequestDTO speciesRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = speciesSoapQuery.query(speciesRequest)

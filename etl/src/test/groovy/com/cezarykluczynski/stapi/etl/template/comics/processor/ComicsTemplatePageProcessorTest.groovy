@@ -38,12 +38,12 @@ class ComicsTemplatePageProcessorTest extends Specification {
 	private ComicsTemplatePageProcessor comicsTemplatePageProcessor
 
 	void setup() {
-		categoryTitlesExtractingProcessorMock = Mock(CategoryTitlesExtractingProcessor)
-		comicStripCandidatePageGatheringService = Mock(ComicStripCandidatePageGatheringService)
-		pageBindingServiceMock = Mock(PageBindingService)
-		templateFinderMock = Mock(TemplateFinder)
-		comicsTemplateCompositeEnrichingProcessorMock = Mock(ComicsTemplateCompositeEnrichingProcessor)
-		comicsTemplatePartsEnrichingProcessorMock = Mock(ComicsTemplatePartsEnrichingProcessor)
+		categoryTitlesExtractingProcessorMock = Mock()
+		comicStripCandidatePageGatheringService = Mock()
+		pageBindingServiceMock = Mock()
+		templateFinderMock = Mock()
+		comicsTemplateCompositeEnrichingProcessorMock = Mock()
+		comicsTemplatePartsEnrichingProcessorMock = Mock()
 		comicsTemplatePageProcessor = new ComicsTemplatePageProcessor(categoryTitlesExtractingProcessorMock, comicStripCandidatePageGatheringService,
 				pageBindingServiceMock, templateFinderMock, comicsTemplateCompositeEnrichingProcessorMock,
 				comicsTemplatePartsEnrichingProcessorMock)
@@ -63,7 +63,7 @@ class ComicsTemplatePageProcessorTest extends Specification {
 
 	void "returns null when 'Star_Trek_series_magazines' is among page categories"() {
 		given:
-		List<CategoryHeader> categoryHeaderList = Mock(List)
+		List<CategoryHeader> categoryHeaderList = Mock()
 		Page page = new Page(
 				title: TITLE,
 				categories: categoryHeaderList)
@@ -79,7 +79,7 @@ class ComicsTemplatePageProcessorTest extends Specification {
 
 	void "sets photonovel flag when photonovels category is found"() {
 		given:
-		List<CategoryHeader> categoryHeaderList = Mock(List)
+		List<CategoryHeader> categoryHeaderList = Mock()
 		Page page = new Page(
 				title: TITLE,
 				categories: categoryHeaderList)
@@ -101,7 +101,7 @@ class ComicsTemplatePageProcessorTest extends Specification {
 
 	void "sets photonovel flag when photonovels collection category is found"() {
 		given:
-		List<CategoryHeader> categoryHeaderList = Mock(List)
+		List<CategoryHeader> categoryHeaderList = Mock()
 		Page page = new Page(
 				title: TITLE,
 				categories: categoryHeaderList)
@@ -123,7 +123,7 @@ class ComicsTemplatePageProcessorTest extends Specification {
 
 	void "clears title when it contains '(comic)'"() {
 		given:
-		List<CategoryHeader> categoryHeaderList = Mock(List)
+		List<CategoryHeader> categoryHeaderList = Mock()
 		Page page = new Page(
 				title: TITLE_COMICS,
 				categories: categoryHeaderList)
@@ -145,7 +145,7 @@ class ComicsTemplatePageProcessorTest extends Specification {
 
 	void "clears title when it contains '(fotonovel)'"() {
 		given:
-		List<CategoryHeader> categoryHeaderList = Mock(List)
+		List<CategoryHeader> categoryHeaderList = Mock()
 		Page page = new Page(
 				title: TITLE_FOTONOVEL,
 				categories: categoryHeaderList)
@@ -168,7 +168,7 @@ class ComicsTemplatePageProcessorTest extends Specification {
 
 	void "clears title when it contains '(omnibus)'"() {
 		given:
-		List<CategoryHeader> categoryHeaderList = Mock(List)
+		List<CategoryHeader> categoryHeaderList = Mock()
 		Page page = new Page(
 				title: TITLE_OMNIBUS,
 				categories: categoryHeaderList)
@@ -192,7 +192,7 @@ class ComicsTemplatePageProcessorTest extends Specification {
 	void "returns null when sidebar comic strip template is found, and adds page to ComicStripCandidatePageGatheringService"() {
 		given:
 		Page page = new Page(title: TITLE)
-		Template comisStripTemplate = Mock(Template)
+		Template comisStripTemplate = Mock()
 
 		when:
 		ComicsTemplate comicsTemplate = comicsTemplatePageProcessor.process(page)
@@ -232,11 +232,12 @@ class ComicsTemplatePageProcessorTest extends Specification {
 
 	void "parses page with sidebar comics template"() {
 		given:
+		PageHeader pageHeader = Mock()
 		Page page = new Page(
 				title: TITLE,
-				redirectPath: Lists.newArrayList(Mock(PageHeader)))
+				redirectPath: Lists.newArrayList(pageHeader))
 		ModelPage modelPage = new ModelPage()
-		Template.Part templatePart = Mock(Template.Part)
+		Template.Part templatePart = Mock()
 		Template template = new Template(parts: Lists.newArrayList(templatePart))
 
 		when:

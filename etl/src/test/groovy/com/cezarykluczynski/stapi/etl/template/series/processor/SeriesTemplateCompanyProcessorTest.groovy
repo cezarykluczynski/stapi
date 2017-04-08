@@ -22,8 +22,8 @@ class SeriesTemplateCompanyProcessorTest extends Specification {
 	private SeriesTemplateCompanyProcessor seriesTemplateCompanyProcessor
 
 	void setup() {
-		wikitextApiMock = Mock(WikitextApi)
-		companyRepositoryMock = Mock(CompanyRepository)
+		wikitextApiMock = Mock()
+		companyRepositoryMock = Mock()
 		seriesTemplateCompanyProcessor = new SeriesTemplateCompanyProcessor(wikitextApiMock, companyRepositoryMock)
 	}
 
@@ -40,7 +40,7 @@ class SeriesTemplateCompanyProcessorTest extends Specification {
 	void "gets company from wikitext link"() {
 		given:
 		Template.Part templatePart = new Template.Part(value: WIKITEXT)
-		Company company = Mock(Company)
+		Company company = Mock()
 
 		when:
 		Company companyOutput = seriesTemplateCompanyProcessor.process(templatePart)
@@ -72,7 +72,7 @@ class SeriesTemplateCompanyProcessorTest extends Specification {
 		Template.Part templatePart = new Template.Part(
 				value: WIKITEXT,
 				templates: Lists.newArrayList(template))
-		Company company = Mock(Company)
+		Company company = Mock()
 
 		when:
 		Company companyOutput = seriesTemplateCompanyProcessor.process(templatePart)

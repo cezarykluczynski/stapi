@@ -39,12 +39,12 @@ class PlanetTemplatePageProcessorTest extends Specification {
 	private PlanetTemplatePageProcessor planetTemplatePageProcessor
 
 	void setup() {
-		templateFinderMock = Mock(TemplateFinder)
-		pageBindingServiceMock = Mock(PageBindingService)
-		astronomicalObjectTypeProcessorMock = Mock(AstronomicalObjectTypeProcessor)
-		astronomicalObjectTypeEnrichingProcessorMock = Mock(AstronomicalObjectTypeEnrichingProcessor)
-		astronomicalObjectWikitextProcessorMock = Mock(AstronomicalObjectWikitextProcessor)
-		astronomicalObjectCompositeEnrichingProcessorMock = Mock(AstronomicalObjectCompositeEnrichingProcessor)
+		templateFinderMock = Mock()
+		pageBindingServiceMock = Mock()
+		astronomicalObjectTypeProcessorMock = Mock()
+		astronomicalObjectTypeEnrichingProcessorMock = Mock()
+		astronomicalObjectWikitextProcessorMock = Mock()
+		astronomicalObjectCompositeEnrichingProcessorMock = Mock()
 		planetTemplatePageProcessor = new PlanetTemplatePageProcessor(templateFinderMock, pageBindingServiceMock, astronomicalObjectTypeProcessorMock,
 				astronomicalObjectTypeEnrichingProcessorMock, astronomicalObjectWikitextProcessorMock,
 				astronomicalObjectCompositeEnrichingProcessorMock)
@@ -74,7 +74,7 @@ class PlanetTemplatePageProcessorTest extends Specification {
 	void "calls PageBindingService and AstronomicalObjectTypeEnrichingProcessor, then returns when sidebar planet template is not found"() {
 		given:
 		EtlPage page = new EtlPage(title: TITLE)
-		ModelPage modelPage = Mock(ModelPage)
+		ModelPage modelPage = Mock()
 
 		when:
 		PlanetTemplate planetTemplate = planetTemplatePageProcessor.process(page)
@@ -98,11 +98,12 @@ class PlanetTemplatePageProcessorTest extends Specification {
 		Template template = new Template(
 				parts: Lists.newArrayList(classTemplatePart)
 		)
+		PageHeader pageHeader = Mock()
 		EtlPage page = new EtlPage(
 				title: TITLE,
 				templates: Lists.newArrayList(template),
-				redirectPath: Lists.newArrayList(Mock(PageHeader)))
-		ModelPage modelPage = Mock(ModelPage)
+				redirectPath: Lists.newArrayList(pageHeader))
+		ModelPage modelPage = Mock()
 
 		when:
 		PlanetTemplate planetTemplate = planetTemplatePageProcessor.process(page)

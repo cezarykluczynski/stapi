@@ -26,13 +26,13 @@ class LifeRangeProcessorTest extends Specification {
 	private Page page
 
 	void setup() {
-		pageToLifeRangeProcessorMock = Mock(PageToLifeRangeProcessor)
-		actorTemplateToLifeRangeProcessorMock = Mock(ActorTemplateToLifeRangeProcessor)
-		templateFinderMock = Mock(TemplateFinder)
+		pageToLifeRangeProcessorMock = Mock()
+		actorTemplateToLifeRangeProcessorMock = Mock()
+		templateFinderMock = Mock()
 		lifeRangeProcessor = new LifeRangeProcessor(pageToLifeRangeProcessorMock, actorTemplateToLifeRangeProcessorMock,
 				templateFinderMock)
 		template = new Template(title: TemplateTitle.SIDEBAR_ACTOR)
-		page = Mock(Page)
+		page = Mock()
 		page.templates >> Lists.newArrayList(template)
 	}
 

@@ -17,13 +17,13 @@ class EpisodeRestEndpointTest extends AbstractRestEndpointTest {
 	private EpisodeRestEndpoint episodeRestEndpoint
 
 	void setup() {
-		episodeRestReaderMock = Mock(EpisodeRestReader)
+		episodeRestReaderMock = Mock()
 		episodeRestEndpoint = new EpisodeRestEndpoint(episodeRestReaderMock)
 	}
 
 	void "passes get call to EpisodeRestReader"() {
 		given:
-		EpisodeFullResponse episodeFullResponse = Mock(EpisodeFullResponse)
+		EpisodeFullResponse episodeFullResponse = Mock()
 
 		when:
 		EpisodeFullResponse episodeFullResponseOutput = episodeRestEndpoint.getEpisode(GUID)
@@ -35,10 +35,10 @@ class EpisodeRestEndpointTest extends AbstractRestEndpointTest {
 
 	void "passes search get call to EpisodeRestReader"() {
 		given:
-		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams)
+		PageSortBeanParams pageAwareBeanParams = Mock()
 		pageAwareBeanParams.pageNumber >> PAGE_NUMBER
 		pageAwareBeanParams.pageSize >> PAGE_SIZE
-		EpisodeBaseResponse episodeResponse = Mock(EpisodeBaseResponse)
+		EpisodeBaseResponse episodeResponse = Mock()
 
 		when:
 		EpisodeBaseResponse episodeResponseOutput = episodeRestEndpoint.searchEpisode(pageAwareBeanParams)
@@ -55,7 +55,7 @@ class EpisodeRestEndpointTest extends AbstractRestEndpointTest {
 	void "passes search post call to EpisodeRestReader"() {
 		given:
 		EpisodeRestBeanParams episodeRestBeanParams = new EpisodeRestBeanParams(title: TITLE)
-		EpisodeBaseResponse episodeResponse = Mock(EpisodeBaseResponse)
+		EpisodeBaseResponse episodeResponse = Mock()
 
 		when:
 		EpisodeBaseResponse episodeResponseOutput = episodeRestEndpoint.searchEpisode(episodeRestBeanParams)

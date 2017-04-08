@@ -18,8 +18,8 @@ class ThrottleValidatorTest extends Specification {
 	private ThrottleValidator throttleValidator
 
 	void setup() {
-		throttleRepositoryMock = Mock(ThrottleRepository)
-		requestCredentialProviderMock = Mock(RequestCredentialProvider)
+		throttleRepositoryMock = Mock()
+		requestCredentialProviderMock = Mock()
 		throttleValidator = new ThrottleValidator(throttleRepositoryMock, requestCredentialProviderMock)
 	}
 
@@ -28,9 +28,10 @@ class ThrottleValidatorTest extends Specification {
 		RequestCredential requestCredential = new RequestCredential(
 				requestCredentialType: RequestCredentialType.IP_ADDRESS,
 				ipAddress: IP_ADDRESS)
+		Message message = Mock()
 
 		when:
-		ThrottleResult throttleResult = throttleValidator.validate(Mock(Message))
+		ThrottleResult throttleResult = throttleValidator.validate(message)
 
 		then:
 		1 * requestCredentialProviderMock.provideRequestCredential() >> requestCredential
@@ -45,9 +46,10 @@ class ThrottleValidatorTest extends Specification {
 		RequestCredential requestCredential = new RequestCredential(
 				requestCredentialType: RequestCredentialType.IP_ADDRESS,
 				ipAddress: IP_ADDRESS)
+		Message message = Mock()
 
 		when:
-		ThrottleResult throttleResult = throttleValidator.validate(Mock(Message))
+		ThrottleResult throttleResult = throttleValidator.validate(message)
 
 		then:
 		1 * requestCredentialProviderMock.provideRequestCredential() >> requestCredential

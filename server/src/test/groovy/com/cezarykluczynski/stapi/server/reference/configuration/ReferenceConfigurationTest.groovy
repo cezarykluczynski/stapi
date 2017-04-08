@@ -12,7 +12,7 @@ class ReferenceConfigurationTest extends Specification {
 	private ReferenceConfiguration referenceConfiguration
 
 	void setup() {
-		applicationContextMock = Mock(ApplicationContext)
+		applicationContextMock = Mock()
 		referenceConfiguration = new ReferenceConfiguration()
 	}
 

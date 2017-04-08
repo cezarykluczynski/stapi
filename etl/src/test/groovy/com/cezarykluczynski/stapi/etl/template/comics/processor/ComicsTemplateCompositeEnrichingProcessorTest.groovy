@@ -23,17 +23,17 @@ class ComicsTemplateCompositeEnrichingProcessorTest extends Specification {
 	private ComicsTemplateCompositeEnrichingProcessor comicsTemplateCompositeEnrichingProcessor
 
 	void setup() {
-		pageSectionExtractorMock = Mock(PageSectionExtractor)
-		comicsTemplateWikitextStaffEnrichingProcessorMock = Mock(ComicsTemplateWikitextStaffEnrichingProcessor)
-		comicsTemplateWikitextCharactersEnrichingProcessorMock = Mock(ComicsTemplateWikitextCharactersEnrichingProcessor)
+		pageSectionExtractorMock = Mock()
+		comicsTemplateWikitextStaffEnrichingProcessorMock = Mock()
+		comicsTemplateWikitextCharactersEnrichingProcessorMock = Mock()
 		comicsTemplateCompositeEnrichingProcessor = new ComicsTemplateCompositeEnrichingProcessor(pageSectionExtractorMock,
 				comicsTemplateWikitextStaffEnrichingProcessorMock, comicsTemplateWikitextCharactersEnrichingProcessorMock)
 	}
 
 	void "when creators sections is found, first section's wikitext is passed to ComicsTemplateWikitextStaffEnrichingProcessor"() {
 		given:
-		Page page = Mock(Page)
-		ComicsTemplate comicsTemplate = Mock(ComicsTemplate)
+		Page page = Mock()
+		ComicsTemplate comicsTemplate = Mock()
 		PageSection pageSection1 = new PageSection(wikitext: WIKITEXT)
 		PageSection pageSection2 = new PageSection()
 
@@ -56,8 +56,8 @@ class ComicsTemplateCompositeEnrichingProcessorTest extends Specification {
 	void """when characters sections is found, first section's wikitext alongs with subsection is passed
 			to ComicsTemplateWikitextStaffEnrichingProcessor"""() {
 		given:
-		Page page = Mock(Page)
-		ComicsTemplate comicsTemplate = Mock(ComicsTemplate)
+		Page page = Mock()
+		ComicsTemplate comicsTemplate = Mock()
 		PageSection pageSection1 = new PageSection(wikitext: WIKITEXT)
 		PageSection pageSection2 = new PageSection(wikitext: SUBSECTION_1_WIKITEXT)
 		PageSection pageSection3 = new PageSection(wikitext: SUBSECTION_2_WIKITEXT)

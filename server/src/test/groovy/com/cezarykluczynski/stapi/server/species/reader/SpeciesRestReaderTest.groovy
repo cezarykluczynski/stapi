@@ -30,21 +30,23 @@ class SpeciesRestReaderTest extends Specification {
 	private SpeciesRestReader speciesRestReader
 
 	void setup() {
-		speciesRestQueryBuilderMock = Mock(SpeciesRestQuery)
-		speciesBaseRestMapperMock = Mock(SpeciesBaseRestMapper)
-		speciesFullRestMapperMock = Mock(SpeciesFullRestMapper)
-		pageMapperMock = Mock(PageMapper)
+		speciesRestQueryBuilderMock = Mock()
+		speciesBaseRestMapperMock = Mock()
+		speciesFullRestMapperMock = Mock()
+		pageMapperMock = Mock()
 		speciesRestReader = new SpeciesRestReader(speciesRestQueryBuilderMock, speciesBaseRestMapperMock, speciesFullRestMapperMock,
 				pageMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		SpeciesRestBeanParams speciesRestBeanParams = Mock(SpeciesRestBeanParams)
-		List<SpeciesBase> restSpeciesList = Lists.newArrayList(Mock(SpeciesBase))
-		List<Species> speciesList = Lists.newArrayList(Mock(Species))
-		Page<Species> speciesPage = Mock(Page)
-		ResponsePage responsePage = Mock(ResponsePage)
+		SpeciesBase speciesBase = Mock()
+		Species species = Mock()
+		SpeciesRestBeanParams speciesRestBeanParams = Mock()
+		List<SpeciesBase> restSpeciesList = Lists.newArrayList(speciesBase)
+		List<Species> speciesList = Lists.newArrayList(species)
+		Page<Species> speciesPage = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		SpeciesBaseResponse speciesResponseOutput = speciesRestReader.readBase(speciesRestBeanParams)
@@ -61,10 +63,10 @@ class SpeciesRestReaderTest extends Specification {
 
 	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
 		given:
-		SpeciesFull speciesFull = Mock(SpeciesFull)
-		Species species = Mock(Species)
+		SpeciesFull speciesFull = Mock()
+		Species species = Mock()
 		List<Species> speciesList = Lists.newArrayList(species)
-		Page<Species> speciesPage = Mock(Page)
+		Page<Species> speciesPage = Mock()
 
 		when:
 		SpeciesFullResponse speciesResponseOutput = speciesRestReader.readFull(GUID)

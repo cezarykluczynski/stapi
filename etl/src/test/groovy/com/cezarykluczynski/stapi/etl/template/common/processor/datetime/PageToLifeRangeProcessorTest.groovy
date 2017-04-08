@@ -36,7 +36,7 @@ class PageToLifeRangeProcessorTest extends Specification {
 	private Template templateInvalid
 
 	void setup() {
-		dayMonthYearCandidateToLocalDateProcessorMock = Mock(DayMonthYearCandidateToLocalDateProcessor)
+		dayMonthYearCandidateToLocalDateProcessorMock = Mock()
 		pageToLifeRangeProcessor = new PageToLifeRangeProcessor(dayMonthYearCandidateToLocalDateProcessorMock)
 
 		templateValid = new Template(
@@ -111,7 +111,7 @@ class PageToLifeRangeProcessorTest extends Specification {
 
 	void "returns null when more than one 'born' template is found"() {
 		given:
-		Page page = Mock(Page)
+		Page page = Mock()
 
 		when:
 		DateRange dateRange = pageToLifeRangeProcessor.process(page)

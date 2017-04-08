@@ -24,7 +24,7 @@ class EntityLookupByNameServiceTest extends Specification {
 	private EntityLookupByNameService entityLookupByNameService
 
 	void setup() {
-		genericEntityLookupByNameService = Mock(GenericEntityLookupByNameService)
+		genericEntityLookupByNameService = Mock()
 		entityLookupByNameService = new EntityLookupByNameService(genericEntityLookupByNameService)
 	}
 
@@ -43,7 +43,7 @@ class EntityLookupByNameServiceTest extends Specification {
 
 	void "gets character from generic service"() {
 		given:
-		Character character = Mock(Character)
+		Character character = Mock()
 
 		when:
 		Optional<Character> characterOptional = entityLookupByNameService.findCharacterByName(CHARACTER_NAME, SOURCES_MEDIA_WIKI_SOURCE)
@@ -69,7 +69,7 @@ class EntityLookupByNameServiceTest extends Specification {
 
 	void "gets comics from generic service"() {
 		given:
-		Comics comics = Mock(Comics)
+		Comics comics = Mock()
 
 		when:
 		Optional<Comics> comicsOptional = entityLookupByNameService.findComicsByName(COMICS_NAME, SOURCES_MEDIA_WIKI_SOURCE)
@@ -97,7 +97,7 @@ class EntityLookupByNameServiceTest extends Specification {
 
 	void "gets species object from generic service"() {
 		given:
-		Species species = Mock(Species)
+		Species species = Mock()
 
 		when:
 		Optional<Species> speciesOptional = entityLookupByNameService.findSpeciesByName(SPECIES_NAME, SOURCES_MEDIA_WIKI_SOURCE)

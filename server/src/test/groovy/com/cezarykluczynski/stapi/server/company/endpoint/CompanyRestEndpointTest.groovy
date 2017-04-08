@@ -17,13 +17,13 @@ class CompanyRestEndpointTest extends AbstractRestEndpointTest {
 	private CompanyRestEndpoint companyRestEndpoint
 
 	void setup() {
-		companyRestReaderMock = Mock(CompanyRestReader)
+		companyRestReaderMock = Mock()
 		companyRestEndpoint = new CompanyRestEndpoint(companyRestReaderMock)
 	}
 
 	void "passes get call to CompanyRestReader"() {
 		given:
-		CompanyFullResponse companyFullResponse = Mock(CompanyFullResponse)
+		CompanyFullResponse companyFullResponse = Mock()
 
 		when:
 		CompanyFullResponse companyFullResponseOutput = companyRestEndpoint.getCompany(GUID)
@@ -35,10 +35,10 @@ class CompanyRestEndpointTest extends AbstractRestEndpointTest {
 
 	void "passes search get call to CompanyRestReader"() {
 		given:
-		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams)
+		PageSortBeanParams pageAwareBeanParams = Mock()
 		pageAwareBeanParams.pageNumber >> PAGE_NUMBER
 		pageAwareBeanParams.pageSize >> PAGE_SIZE
-		CompanyBaseResponse companyResponse = Mock(CompanyBaseResponse)
+		CompanyBaseResponse companyResponse = Mock()
 
 		when:
 		CompanyBaseResponse companyResponseOutput = companyRestEndpoint.searchCompanies(pageAwareBeanParams)
@@ -55,7 +55,7 @@ class CompanyRestEndpointTest extends AbstractRestEndpointTest {
 	void "passes search post call to CompanyRestReader"() {
 		given:
 		CompanyRestBeanParams companyRestBeanParams = new CompanyRestBeanParams(name: NAME)
-		CompanyBaseResponse companyResponse = Mock(CompanyBaseResponse)
+		CompanyBaseResponse companyResponse = Mock()
 
 		when:
 		CompanyBaseResponse companyResponseOutput = companyRestEndpoint.searchCompanies(companyRestBeanParams)

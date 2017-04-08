@@ -14,14 +14,14 @@ class SpeciesSoapEndpointTest extends Specification {
 	private SpeciesSoapEndpoint speciesSoapEndpoint
 
 	void setup() {
-		speciesSoapReaderMock = Mock(SpeciesSoapReader)
+		speciesSoapReaderMock = Mock()
 		speciesSoapEndpoint = new SpeciesSoapEndpoint(speciesSoapReaderMock)
 	}
 
 	void "passes base call to SpeciesSoapReader"() {
 		given:
-		SpeciesBaseRequest speciesBaseRequest = Mock(SpeciesBaseRequest)
-		SpeciesBaseResponse speciesBaseResponse = Mock(SpeciesBaseResponse)
+		SpeciesBaseRequest speciesBaseRequest = Mock()
+		SpeciesBaseResponse speciesBaseResponse = Mock()
 
 		when:
 		SpeciesBaseResponse speciesResponseResult = speciesSoapEndpoint.getSpeciesBase(speciesBaseRequest)
@@ -33,8 +33,8 @@ class SpeciesSoapEndpointTest extends Specification {
 
 	void "passes full call to SpeciesSoapReader"() {
 		given:
-		SpeciesFullRequest speciesFullRequest = Mock(SpeciesFullRequest)
-		SpeciesFullResponse speciesFullResponse = Mock(SpeciesFullResponse)
+		SpeciesFullRequest speciesFullRequest = Mock()
+		SpeciesFullResponse speciesFullResponse = Mock()
 
 		when:
 		SpeciesFullResponse speciesResponseResult = speciesSoapEndpoint.getSpeciesFull(speciesFullRequest)

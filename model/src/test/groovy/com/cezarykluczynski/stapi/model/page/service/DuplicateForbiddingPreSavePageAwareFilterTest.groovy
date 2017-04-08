@@ -15,7 +15,7 @@ class DuplicateForbiddingPreSavePageAwareFilterTest extends Specification {
 	private DuplicateForbiddingPreSavePageAwareFilter strictPreSavePageAwareProcessor
 
 	void setup() {
-		pageBoundToEntityFilteringFinderMock = Mock(PageBoundToEntityFilteringFinder)
+		pageBoundToEntityFilteringFinderMock = Mock()
 		strictPreSavePageAwareProcessor = new DuplicateForbiddingPreSavePageAwareFilter(pageBoundToEntityFilteringFinderMock)
 	}
 

@@ -16,7 +16,7 @@ class PlanetTemplateProcessorTest extends Specification {
 	private static final EtlAstronomicalObjectType ETL_ASTRONOMICAL_OBJECT_TYPE = EtlAstronomicalObjectType.GALAXY
 	private static final ModelAstronomicalObjectType MODEL_ASTRONOMICAL_OBJECT_TYPE = ModelAstronomicalObjectType.GALAXY
 
-	private final Page page = Mock(Page)
+	private final Page page = Mock()
 
 	private GuidGenerator guidGeneratorMock
 
@@ -25,8 +25,8 @@ class PlanetTemplateProcessorTest extends Specification {
 	private PlanetTemplateProcessor planetTemplateProcessor
 
 	void setup() {
-		guidGeneratorMock = Mock(GuidGenerator)
-		astronomicalObjectTypeMapperMock = Mock(AstronomicalObjectTypeMapper)
+		guidGeneratorMock = Mock()
+		astronomicalObjectTypeMapperMock = Mock()
 		planetTemplateProcessor = new PlanetTemplateProcessor(guidGeneratorMock, astronomicalObjectTypeMapperMock)
 	}
 

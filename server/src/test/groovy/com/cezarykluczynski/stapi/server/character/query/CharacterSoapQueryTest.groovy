@@ -25,21 +25,21 @@ class CharacterSoapQueryTest extends Specification {
 	private CharacterSoapQuery characterSoapQuery
 
 	void setup() {
-		characterBaseSoapMapperMock = Mock(CharacterBaseSoapMapper)
-		characterFullSoapMapperMock = Mock(CharacterFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
-		characterRepositoryMock = Mock(CharacterRepository)
+		characterBaseSoapMapperMock = Mock()
+		characterFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
+		characterRepositoryMock = Mock()
 		characterSoapQuery = new CharacterSoapQuery(characterBaseSoapMapperMock, characterFullSoapMapperMock, pageMapperMock, characterRepositoryMock)
 	}
 
 	void "maps CharacterBaseRequest to CharacterRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
-		RequestPage requestPage = Mock(RequestPage)
-		PageRequest pageRequest = Mock(PageRequest)
-		CharacterBaseRequest characterRequest = Mock(CharacterBaseRequest)
+		RequestPage requestPage = Mock()
+		PageRequest pageRequest = Mock()
+		CharacterBaseRequest characterRequest = Mock()
 		characterRequest.page >> requestPage
-		CharacterRequestDTO characterRequestDTO = Mock(CharacterRequestDTO)
-		Page page = Mock(Page)
+		CharacterRequestDTO characterRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = characterSoapQuery.query(characterRequest)
@@ -53,10 +53,10 @@ class CharacterSoapQueryTest extends Specification {
 
 	void "maps CharacterFullRequest to CharacterRequestDTO, then calls repository, then returns result"() {
 		given:
-		PageRequest pageRequest = Mock(PageRequest)
-		CharacterFullRequest characterRequest = Mock(CharacterFullRequest)
-		CharacterRequestDTO characterRequestDTO = Mock(CharacterRequestDTO)
-		Page page = Mock(Page)
+		PageRequest pageRequest = Mock()
+		CharacterFullRequest characterRequest = Mock()
+		CharacterRequestDTO characterRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = characterSoapQuery.query(characterRequest)

@@ -29,8 +29,8 @@ class CharacterIndividualTemplateProcessorTest extends AbstractIndividualTest {
 	private CharacterIndividualTemplateProcessor characterIndividualTemplateProcessor
 
 	void setup() {
-		guidGeneratorMock = Mock(GuidGenerator)
-		genderMapperMock = Mock(GenderMapper)
+		guidGeneratorMock = Mock()
+		genderMapperMock = Mock()
 		characterIndividualTemplateProcessor = new CharacterIndividualTemplateProcessor(guidGeneratorMock, genderMapperMock)
 	}
 

@@ -14,14 +14,14 @@ class FoodSoapEndpointTest extends Specification {
 	private FoodSoapEndpoint foodSoapEndpoint
 
 	void setup() {
-		foodSoapReaderMock = Mock(FoodSoapReader)
+		foodSoapReaderMock = Mock()
 		foodSoapEndpoint = new FoodSoapEndpoint(foodSoapReaderMock)
 	}
 
 	void "passes base call to FoodSoapReader"() {
 		given:
-		FoodBaseRequest foodRequest = Mock(FoodBaseRequest)
-		FoodBaseResponse foodResponse = Mock(FoodBaseResponse)
+		FoodBaseRequest foodRequest = Mock()
+		FoodBaseResponse foodResponse = Mock()
 
 		when:
 		FoodBaseResponse foodResponseResult = foodSoapEndpoint.getFoodBase(foodRequest)
@@ -33,8 +33,8 @@ class FoodSoapEndpointTest extends Specification {
 
 	void "passes full call to FoodSoapReader"() {
 		given:
-		FoodFullRequest foodFullRequest = Mock(FoodFullRequest)
-		FoodFullResponse foodFullResponse = Mock(FoodFullResponse)
+		FoodFullRequest foodFullRequest = Mock()
+		FoodFullResponse foodFullResponse = Mock()
 
 		when:
 		FoodFullResponse foodResponseResult = foodSoapEndpoint.getFoodFull(foodFullRequest)

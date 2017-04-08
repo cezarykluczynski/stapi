@@ -88,7 +88,7 @@ class EpisodePerformancesExtractingProcessorTest extends Specification {
 
 	void "logs error and returns when page section list does not contain 'Links and references'"() {
 		given:
-		Page page = Mock(Page)
+		Page page = Mock()
 
 		when:
 		List<EpisodePerformanceDTO> episodePerformances = episodePerformancesExtractor.process(page)
@@ -102,10 +102,10 @@ class EpisodePerformancesExtractingProcessorTest extends Specification {
 
 	void "logs error when there are sections other than specified"() {
 		given:
-		Page page = Mock(Page)
-		PageSection linksAndReferencesPageSection = Mock(PageSection)
-		PageSection starringPageSection = Mock(PageSection)
-		PageSection unkownPageSection = Mock(PageSection)
+		Page page = Mock()
+		PageSection linksAndReferencesPageSection = Mock()
+		PageSection starringPageSection = Mock()
+		PageSection unknownPageSection = Mock()
 
 		when:
 		episodePerformancesExtractor.process(page)
@@ -114,13 +114,13 @@ class EpisodePerformancesExtractingProcessorTest extends Specification {
 		page.sections >> Lists.newArrayList(
 				linksAndReferencesPageSection,
 				starringPageSection,
-				unkownPageSection
+				unknownPageSection
 		)
 		3 * linksAndReferencesPageSection.text >> EpisodePerformancesExtractingProcessor.LINKS_AND_REFERENCES
 		2 * linksAndReferencesPageSection.number >> '4'
 		2 * starringPageSection.text >> EpisodePerformancesExtractingProcessor.STARRING
-		1 * unkownPageSection.number >> '4.1'
-		2 * unkownPageSection.text >> UNKNOWN_PAGE_SECTION
+		1 * unknownPageSection.number >> '4.1'
+		2 * unknownPageSection.text >> UNKNOWN_PAGE_SECTION
 	}
 
 	void "extracts the right links from the right sections"() {

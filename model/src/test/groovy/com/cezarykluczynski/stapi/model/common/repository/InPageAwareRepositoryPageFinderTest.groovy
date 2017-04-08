@@ -26,9 +26,9 @@ class InPageAwareRepositoryPageFinderTest extends Specification {
 	private Set<Long> pageIds
 
 	void setup() {
-		pageAwareQueryBuilderSingletonFactoryProducerMock = Mock(PageAwareQueryBuilderSingletonFactoryProducer)
-		pageAwareQueryBuilderFactoryMock = Mock(PageAwareQueryBuilderFactory)
-		pageAwareQueryBuilderMock = Mock(QueryBuilder)
+		pageAwareQueryBuilderSingletonFactoryProducerMock = Mock()
+		pageAwareQueryBuilderFactoryMock = Mock()
+		pageAwareQueryBuilderMock = Mock()
 		inPageAwareRepositoryPageFinder = new InPageAwareRepositoryPageFinder(pageAwareQueryBuilderSingletonFactoryProducerMock)
 	}
 
@@ -54,13 +54,13 @@ class InPageAwareRepositoryPageFinderTest extends Specification {
 
 	void "finds entities by page ids"() {
 		given:
-		Page page1 = Mock(Page)
+		Page page1 = Mock()
 		page1.pageId >> PAGE_ID_1
-		Page page2 = Mock(Page)
+		Page page2 = Mock()
 		page2.pageId >> PAGE_ID_2
-		PageAware pageAware1 = Mock(PageAware)
+		PageAware pageAware1 = Mock()
 		pageAware1.page >> page1
-		PageAware pageAware2 = Mock(PageAware)
+		PageAware pageAware2 = Mock()
 		pageAware2.page >> page2
 
 		List<PageAware> pageAwareList = Lists.newArrayList(pageAware1, pageAware2)

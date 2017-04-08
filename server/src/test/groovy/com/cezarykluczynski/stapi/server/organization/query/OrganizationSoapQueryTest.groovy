@@ -25,22 +25,22 @@ class OrganizationSoapQueryTest extends Specification {
 	private OrganizationSoapQuery organizationSoapQuery
 
 	void setup() {
-		organizationBaseSoapMapperMock = Mock(OrganizationBaseSoapMapper)
-		organizationFullSoapMapperMock = Mock(OrganizationFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
-		organizationRepositoryMock = Mock(OrganizationRepository)
+		organizationBaseSoapMapperMock = Mock()
+		organizationFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
+		organizationRepositoryMock = Mock()
 		organizationSoapQuery = new OrganizationSoapQuery(organizationBaseSoapMapperMock, organizationFullSoapMapperMock, pageMapperMock,
 				organizationRepositoryMock)
 	}
 
 	void "maps OrganizationBaseRequest to OrganizationRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
-		RequestPage requestPage = Mock(RequestPage)
-		PageRequest pageRequest = Mock(PageRequest)
-		OrganizationBaseRequest organizationRequest = Mock(OrganizationBaseRequest)
+		RequestPage requestPage = Mock()
+		PageRequest pageRequest = Mock()
+		OrganizationBaseRequest organizationRequest = Mock()
 		organizationRequest.page >> requestPage
-		OrganizationRequestDTO organizationRequestDTO = Mock(OrganizationRequestDTO)
-		Page page = Mock(Page)
+		OrganizationRequestDTO organizationRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = organizationSoapQuery.query(organizationRequest)
@@ -54,10 +54,10 @@ class OrganizationSoapQueryTest extends Specification {
 
 	void "maps OrganizationFullRequest to OrganizationRequestDTO, then calls repository, then returns result"() {
 		given:
-		PageRequest pageRequest = Mock(PageRequest)
-		OrganizationFullRequest organizationRequest = Mock(OrganizationFullRequest)
-		OrganizationRequestDTO organizationRequestDTO = Mock(OrganizationRequestDTO)
-		Page page = Mock(Page)
+		PageRequest pageRequest = Mock()
+		OrganizationFullRequest organizationRequest = Mock()
+		OrganizationRequestDTO organizationRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = organizationSoapQuery.query(organizationRequest)

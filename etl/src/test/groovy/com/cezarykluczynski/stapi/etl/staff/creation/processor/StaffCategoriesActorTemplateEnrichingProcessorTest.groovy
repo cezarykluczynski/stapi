@@ -18,7 +18,7 @@ class StaffCategoriesActorTemplateEnrichingProcessorTest extends Specification {
 	private StaffCategoriesActorTemplateEnrichingProcessor staffCategoriesActorTemplateEnrichingProcessor
 
 	void setup() {
-		categoryTitlesExtractingProcessorMock = Mock(CategoryTitlesExtractingProcessor)
+		categoryTitlesExtractingProcessorMock = Mock()
 		staffCategoriesActorTemplateEnrichingProcessor = new StaffCategoriesActorTemplateEnrichingProcessor(categoryTitlesExtractingProcessorMock)
 	}
 

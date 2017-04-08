@@ -35,14 +35,14 @@ class AstronomicalObjectRepositoryImplTest extends AbstractAstronomicalObjectTes
 	private Page page
 
 	void setup() {
-		astronomicalObjectQueryBuilderMock = Mock(AstronomicalObjectQueryBuilderFactory)
+		astronomicalObjectQueryBuilderMock = Mock()
 		astronomicalObjectRepositoryImpl = new AstronomicalObjectRepositoryImpl(astronomicalObjectQueryBuilderMock)
-		astronomicalObjectQueryBuilder = Mock(QueryBuilder)
-		pageable = Mock(Pageable)
-		astronomicalObjectRequestDTO = Mock(AstronomicalObjectRequestDTO)
-		page = Mock(Page)
-		astronomicalObject = Mock(AstronomicalObject)
-		astronomicalObjectChild = Mock(AstronomicalObject)
+		astronomicalObjectQueryBuilder = Mock()
+		pageable = Mock()
+		astronomicalObjectRequestDTO = Mock()
+		page = Mock()
+		astronomicalObject = Mock()
+		astronomicalObjectChild = Mock()
 	}
 
 	void "query is built and performed"() {

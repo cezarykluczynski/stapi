@@ -20,20 +20,18 @@ class SeriesRestQueryTest extends Specification {
 	private SeriesRestQuery seriesRestQuery
 
 	void setup() {
-		seriesBaseRestMapperMock = Mock(SeriesBaseRestMapper)
-		pageMapperMock = Mock(PageMapper)
-		seriesRepositoryMock = Mock(SeriesRepository)
+		seriesBaseRestMapperMock = Mock()
+		pageMapperMock = Mock()
+		seriesRepositoryMock = Mock()
 		seriesRestQuery = new SeriesRestQuery(seriesBaseRestMapperMock, pageMapperMock, seriesRepositoryMock)
 	}
 
 	void "maps SeriesRestBeanParams to SeriesRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
-		PageRequest pageRequest = Mock(PageRequest)
-		SeriesRestBeanParams seriesRestBeanParams = Mock(SeriesRestBeanParams) {
-
-		}
-		SeriesRequestDTO seriesRequestDTO = Mock(SeriesRequestDTO)
-		Page page = Mock(Page)
+		PageRequest pageRequest = Mock()
+		SeriesRestBeanParams seriesRestBeanParams = Mock()
+		SeriesRequestDTO seriesRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = seriesRestQuery.query(seriesRestBeanParams)

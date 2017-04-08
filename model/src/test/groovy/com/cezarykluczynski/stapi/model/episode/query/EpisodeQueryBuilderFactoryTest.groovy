@@ -13,8 +13,8 @@ class EpisodeQueryBuilderFactoryTest extends Specification {
 	private EpisodeQueryBuilderFactory episodeQueryBuilderFactory
 
 	void setup() {
-		jpaContextMock = Mock(JpaContext)
-		cachingStrategyMock = Mock(CachingStrategy)
+		jpaContextMock = Mock()
+		cachingStrategyMock = Mock()
 	}
 
 	void "EpisodeQueryBuilder is created"() {

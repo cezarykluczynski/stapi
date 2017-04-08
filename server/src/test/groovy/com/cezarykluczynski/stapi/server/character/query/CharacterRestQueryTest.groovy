@@ -20,20 +20,18 @@ class CharacterRestQueryTest extends Specification {
 	private CharacterRestQuery characterRestQuery
 
 	void setup() {
-		characterBaseRestMapperMock = Mock(CharacterBaseRestMapper)
-		pageMapperMock = Mock(PageMapper)
-		characterRepositoryMock = Mock(CharacterRepository)
+		characterBaseRestMapperMock = Mock()
+		pageMapperMock = Mock()
+		characterRepositoryMock = Mock()
 		characterRestQuery = new CharacterRestQuery(characterBaseRestMapperMock, pageMapperMock, characterRepositoryMock)
 	}
 
 	void "maps CharacterRestBeanParams to CharacterRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
-		PageRequest pageRequest = Mock(PageRequest)
-		CharacterRestBeanParams characterRestBeanParams = Mock(CharacterRestBeanParams) {
-
-		}
-		CharacterRequestDTO characterRequestDTO = Mock(CharacterRequestDTO)
-		Page page = Mock(Page)
+		PageRequest pageRequest = Mock()
+		CharacterRestBeanParams characterRestBeanParams = Mock()
+		CharacterRequestDTO characterRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = characterRestQuery.query(characterRestBeanParams)

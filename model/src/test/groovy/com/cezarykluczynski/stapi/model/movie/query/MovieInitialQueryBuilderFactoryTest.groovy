@@ -38,13 +38,13 @@ class MovieInitialQueryBuilderFactoryTest extends Specification {
 	private Page page
 
 	void setup() {
-		movieQueryBuilderMock = Mock(MovieQueryBuilderFactory)
+		movieQueryBuilderMock = Mock()
 		movieInitialQueryBuilderFactory = new MovieInitialQueryBuilderFactory(movieQueryBuilderMock)
-		movieQueryBuilder = Mock(QueryBuilder)
-		pageable = Mock(Pageable)
-		movieRequestDTO = Mock(MovieRequestDTO)
-		page = Mock(Page)
-		movie = Mock(Movie)
+		movieQueryBuilder = Mock()
+		pageable = Mock()
+		movieRequestDTO = Mock()
+		page = Mock()
+		movie = Mock()
 	}
 
 	void "initial query builder is built, then returned"() {

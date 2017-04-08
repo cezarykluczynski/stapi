@@ -14,14 +14,14 @@ class MovieSoapEndpointTest extends Specification {
 	private MovieSoapEndpoint movieSoapEndpoint
 
 	void setup() {
-		movieSoapReaderMock = Mock(MovieSoapReader)
+		movieSoapReaderMock = Mock()
 		movieSoapEndpoint = new MovieSoapEndpoint(movieSoapReaderMock)
 	}
 
 	void "passes base call to MovieSoapReader"() {
 		given:
-		MovieBaseRequest movieBaseRequest = Mock(MovieBaseRequest)
-		MovieBaseResponse movieBaseResponse = Mock(MovieBaseResponse)
+		MovieBaseRequest movieBaseRequest = Mock()
+		MovieBaseResponse movieBaseResponse = Mock()
 
 		when:
 		MovieBaseResponse movieResponseResult = movieSoapEndpoint.getMovieBase(movieBaseRequest)
@@ -33,8 +33,8 @@ class MovieSoapEndpointTest extends Specification {
 
 	void "passes full call to MovieSoapReader"() {
 		given:
-		MovieFullRequest movieFullRequest = Mock(MovieFullRequest)
-		MovieFullResponse movieFullResponse = Mock(MovieFullResponse)
+		MovieFullRequest movieFullRequest = Mock()
+		MovieFullResponse movieFullResponse = Mock()
 
 		when:
 		MovieFullResponse movieResponseResult = movieSoapEndpoint.getMovieFull(movieFullRequest)

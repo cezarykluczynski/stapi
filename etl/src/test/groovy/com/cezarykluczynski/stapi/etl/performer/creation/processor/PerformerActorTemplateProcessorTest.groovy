@@ -16,8 +16,8 @@ class PerformerActorTemplateProcessorTest extends AbstractRealWorldActorTemplate
 	private PerformerActorTemplateProcessor performerActorTemplateProcessor
 
 	void setup() {
-		guidGeneratorMock = Mock(GuidGenerator)
-		commonActorTemplateProcessorMock = Mock(CommonActorTemplateProcessor)
+		guidGeneratorMock = Mock()
+		commonActorTemplateProcessorMock = Mock()
 		performerActorTemplateProcessor = new PerformerActorTemplateProcessor(guidGeneratorMock, commonActorTemplateProcessorMock)
 	}
 

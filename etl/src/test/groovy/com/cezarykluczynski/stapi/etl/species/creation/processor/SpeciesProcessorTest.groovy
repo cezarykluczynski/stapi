@@ -19,9 +19,9 @@ class SpeciesProcessorTest extends Specification {
 	private SpeciesProcessor speciesProcessor
 
 	void setup() {
-		pageHeaderProcessorMock = Mock(PageHeaderProcessor)
-		pageProcessorMock = Mock(SpeciesTemplatePageProcessor)
-		speciesTemplateProcessorMock = Mock(SpeciesTemplateProcessor)
+		pageHeaderProcessorMock = Mock()
+		pageProcessorMock = Mock()
+		speciesTemplateProcessorMock = Mock()
 		speciesProcessor = new SpeciesProcessor(pageHeaderProcessorMock, pageProcessorMock, speciesTemplateProcessorMock)
 	}
 

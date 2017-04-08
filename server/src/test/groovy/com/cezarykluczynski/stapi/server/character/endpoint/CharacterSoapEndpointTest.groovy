@@ -14,14 +14,14 @@ class CharacterSoapEndpointTest extends Specification {
 	private CharacterSoapEndpoint characterSoapEndpoint
 
 	void setup() {
-		characterSoapReaderMock = Mock(CharacterSoapReader)
+		characterSoapReaderMock = Mock()
 		characterSoapEndpoint = new CharacterSoapEndpoint(characterSoapReaderMock)
 	}
 
 	void "passes base call to CharacterSoapReader"() {
 		given:
-		CharacterBaseRequest characterBaseRequest = Mock(CharacterBaseRequest)
-		CharacterBaseResponse characterBaseResponse = Mock(CharacterBaseResponse)
+		CharacterBaseRequest characterBaseRequest = Mock()
+		CharacterBaseResponse characterBaseResponse = Mock()
 
 		when:
 		CharacterBaseResponse characterResponseResult = characterSoapEndpoint.getCharacterBase(characterBaseRequest)
@@ -33,8 +33,8 @@ class CharacterSoapEndpointTest extends Specification {
 
 	void "passes full call to CharacterSoapReader"() {
 		given:
-		CharacterFullRequest characterFullRequest = Mock(CharacterFullRequest)
-		CharacterFullResponse characterFullResponse = Mock(CharacterFullResponse)
+		CharacterFullRequest characterFullRequest = Mock()
+		CharacterFullResponse characterFullResponse = Mock()
 
 		when:
 		CharacterFullResponse characterResponseResult = characterSoapEndpoint.getCharacterFull(characterFullRequest)

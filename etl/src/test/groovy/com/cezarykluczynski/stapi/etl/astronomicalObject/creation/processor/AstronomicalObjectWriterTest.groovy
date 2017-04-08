@@ -15,8 +15,8 @@ class AstronomicalObjectWriterTest extends Specification {
 	private AstronomicalObjectWriter planetWriterMock
 
 	void setup() {
-		planetRepositoryMock = Mock(AstronomicalObjectRepository)
-		duplicateFilteringPreSavePageAwareProcessorMock = Mock(DuplicateFilteringPreSavePageAwareFilter)
+		planetRepositoryMock = Mock()
+		duplicateFilteringPreSavePageAwareProcessorMock = Mock()
 		planetWriterMock = new AstronomicalObjectWriter(planetRepositoryMock, duplicateFilteringPreSavePageAwareProcessorMock)
 	}
 

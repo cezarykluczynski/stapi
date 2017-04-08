@@ -41,7 +41,7 @@ class StardateYearProcessorTest extends Specification {
 	private StardateYearProcessor stardateYearProcessor
 
 	void setup() {
-		wikitextApiMock = Mock(WikitextApi)
+		wikitextApiMock = Mock()
 		stardateYearProcessor = new StardateYearProcessor(wikitextApiMock)
 	}
 

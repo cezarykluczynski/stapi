@@ -15,8 +15,8 @@ class SpeciesWriterTest extends Specification {
 	private SpeciesWriter speciesWriterMock
 
 	void setup() {
-		speciesRepositoryMock = Mock(SpeciesRepository)
-		duplicateFilteringPreSavePageAwareProcessorMock = Mock(DuplicateFilteringPreSavePageAwareFilter)
+		speciesRepositoryMock = Mock()
+		duplicateFilteringPreSavePageAwareProcessorMock = Mock()
 		speciesWriterMock = new SpeciesWriter(speciesRepositoryMock, duplicateFilteringPreSavePageAwareProcessorMock)
 	}
 

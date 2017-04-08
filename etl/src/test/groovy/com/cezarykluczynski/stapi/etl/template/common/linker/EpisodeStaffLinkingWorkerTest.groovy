@@ -33,11 +33,10 @@ class EpisodeStaffLinkingWorkerTest extends Specification {
 	private EpisodeStaffLinkingWorker episodeStaffLinkingWorker
 
 	void setup() {
-		wikitextApiMock = Mock(WikitextApi)
-		entityLookupByNameServiceMock = Mock(EntityLookupByNameService)
-		templateFinderMock = Mock(TemplateFinder)
-		episodeStaffLinkingWorker = new EpisodeStaffLinkingWorker(wikitextApiMock, entityLookupByNameServiceMock,
-				templateFinderMock)
+		wikitextApiMock = Mock()
+		entityLookupByNameServiceMock = Mock()
+		templateFinderMock = Mock()
+		episodeStaffLinkingWorker = new EpisodeStaffLinkingWorker(wikitextApiMock, entityLookupByNameServiceMock, templateFinderMock)
 	}
 
 	void "does not interact with dependencies other than template finder if sidebar episode template could not be found"() {
@@ -77,10 +76,10 @@ class EpisodeStaffLinkingWorkerTest extends Specification {
 		)
 		Episode episode = new Episode()
 		Page page = new Page(templates: Lists.newArrayList(sidebarEpisodeTemplate))
-		Staff writer = Mock(Staff)
-		Staff teleplayAuthor = Mock(Staff)
-		Staff storyAuthor = Mock(Staff)
-		Staff director = Mock(Staff)
+		Staff writer = Mock()
+		Staff teleplayAuthor = Mock()
+		Staff storyAuthor = Mock()
+		Staff director = Mock()
 
 		when:
 		episodeStaffLinkingWorker.link(page, episode)

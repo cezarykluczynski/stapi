@@ -20,20 +20,18 @@ class MovieRestQueryTest extends Specification {
 	private MovieRestQuery movieRestQuery
 
 	void setup() {
-		movieBaseRestMapperMock = Mock(MovieBaseRestMapper)
-		pageMapperMock = Mock(PageMapper)
-		movieRepositoryMock = Mock(MovieRepository)
+		movieBaseRestMapperMock = Mock()
+		pageMapperMock = Mock()
+		movieRepositoryMock = Mock()
 		movieRestQuery = new MovieRestQuery(movieBaseRestMapperMock, pageMapperMock, movieRepositoryMock)
 	}
 
 	void "maps MovieRestBeanParams to MovieRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
-		PageRequest pageRequest = Mock(PageRequest)
-		MovieRestBeanParams movieRestBeanParams = Mock(MovieRestBeanParams) {
-
-		}
-		MovieRequestDTO movieRequestDTO = Mock(MovieRequestDTO)
-		Page page = Mock(Page)
+		PageRequest pageRequest = Mock()
+		MovieRestBeanParams movieRestBeanParams = Mock()
+		MovieRequestDTO movieRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = movieRestQuery.query(movieRestBeanParams)

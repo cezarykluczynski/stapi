@@ -41,11 +41,11 @@ class ComicStripTemplatePartsEnrichingProcessorTest extends Specification {
 	private ComicStripTemplatePartsEnrichingProcessor comicStripTemplatePartsEnrichingProcessor
 
 	void setup() {
-		comicStripTemplatePartStaffEnrichingProcessorMock = Mock(ComicStripTemplatePartStaffEnrichingProcessor)
-		wikitextToComicSeriesProcessorMock = Mock(WikitextToComicSeriesProcessor)
-		dayMonthYearRangeProcessorMock = Mock(DayMonthYearRangeProcessor)
-		comicStripTemplateDayMonthYearRangeEnrichingProcessorMock = Mock(ComicStripTemplateDayMonthYearRangeEnrichingProcessor)
-		wikitextToYearRangeProcessorMock = Mock(WikitextToYearRangeProcessor)
+		comicStripTemplatePartStaffEnrichingProcessorMock = Mock()
+		wikitextToComicSeriesProcessorMock = Mock()
+		dayMonthYearRangeProcessorMock = Mock()
+		comicStripTemplateDayMonthYearRangeEnrichingProcessorMock = Mock()
+		wikitextToYearRangeProcessorMock = Mock()
 		comicStripTemplatePartsEnrichingProcessor = new ComicStripTemplatePartsEnrichingProcessor(comicStripTemplatePartStaffEnrichingProcessorMock,
 				wikitextToComicSeriesProcessorMock, dayMonthYearRangeProcessorMock, comicStripTemplateDayMonthYearRangeEnrichingProcessorMock,
 				wikitextToYearRangeProcessorMock)
@@ -92,8 +92,8 @@ class ComicStripTemplatePartsEnrichingProcessorTest extends Specification {
 	void "gets all comic series from WikitextToComicSeriesProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: ComicStripTemplateParameter.SERIES, value: SERIES)
-		ComicSeries comicSeries1 = Mock(ComicSeries)
-		ComicSeries comicSeries2 = Mock(ComicSeries)
+		ComicSeries comicSeries1 = Mock()
+		ComicSeries comicSeries2 = Mock()
 		ComicStripTemplate comicStripTemplate = new ComicStripTemplate()
 
 		when:
@@ -122,9 +122,11 @@ class ComicStripTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "passes DayMonthYear range to enricher if it is not empty"() {
 		given:
+		DayMonthYear dayMonthYearFrom = Mock()
+		DayMonthYear dayMonthYearTo = Mock()
 		Template.Part templatePart = new Template.Part(key: ComicStripTemplateParameter.PUBLISHED, value: PUBLISHED)
 		ComicStripTemplate comicStripTemplate = new ComicStripTemplate()
-		Range range = Range.of(Mock(DayMonthYear), Mock(DayMonthYear))
+		Range range = Range.of(dayMonthYearFrom, dayMonthYearTo)
 
 		when:
 		comicStripTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicStripTemplate))

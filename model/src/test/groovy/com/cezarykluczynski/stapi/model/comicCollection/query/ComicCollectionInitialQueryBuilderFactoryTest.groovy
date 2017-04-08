@@ -28,13 +28,13 @@ class ComicCollectionInitialQueryBuilderFactoryTest extends AbstractComicCollect
 	private Page page
 
 	void setup() {
-		comicCollectionQueryBuilderMock = Mock(ComicCollectionQueryBuilderFactory)
+		comicCollectionQueryBuilderMock = Mock()
 		comicCollectionInitialQueryBuilderFactory = new ComicCollectionInitialQueryBuilderFactory(comicCollectionQueryBuilderMock)
-		comicCollectionQueryBuilder = Mock(QueryBuilder)
-		pageable = Mock(Pageable)
-		comicCollectionRequestDTO = Mock(ComicCollectionRequestDTO)
-		page = Mock(Page)
-		comicCollection = Mock(ComicCollection)
+		comicCollectionQueryBuilder = Mock()
+		pageable = Mock()
+		comicCollectionRequestDTO = Mock()
+		page = Mock()
+		comicCollection = Mock()
 	}
 
 	void "initial query builder is built, then returned"() {

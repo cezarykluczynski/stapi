@@ -14,13 +14,13 @@ class ThrottleFacadeTest extends Specification {
 	private ThrottleFacade throttleFacade
 
 	void setup() {
-		throttleValidatorMock = Mock(ThrottleValidator)
+		throttleValidatorMock = Mock()
 		throttleFacade = new ThrottleFacade(throttleValidatorMock)
 	}
 
 	void "does not throw exception when no throttle should be performed"() {
 		given:
-		Message message = Mock(Message)
+		Message message = Mock()
 
 		when:
 		throttleFacade.validate(message)
@@ -33,7 +33,7 @@ class ThrottleFacadeTest extends Specification {
 
 	void "throws SoapFault for SOAP endpoint"() {
 		given:
-		Message message = Mock(Message)
+		Message message = Mock()
 
 		when:
 		throttleFacade.validate(message)
@@ -48,7 +48,7 @@ class ThrottleFacadeTest extends Specification {
 
 	void "throws RestException for SOAP endpoint"() {
 		given:
-		Message message = Mock(Message)
+		Message message = Mock()
 
 		when:
 		throttleFacade.validate(message)

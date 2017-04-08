@@ -20,20 +20,18 @@ class FoodRestQueryTest extends Specification {
 	private FoodRestQuery foodRestQuery
 
 	void setup() {
-		foodRestMapperMock = Mock(FoodBaseRestMapper)
-		pageMapperMock = Mock(PageMapper)
-		foodRepositoryMock = Mock(FoodRepository)
+		foodRestMapperMock = Mock()
+		pageMapperMock = Mock()
+		foodRepositoryMock = Mock()
 		foodRestQuery = new FoodRestQuery(foodRestMapperMock, pageMapperMock, foodRepositoryMock)
 	}
 
 	void "maps FoodRestBeanParams to FoodRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
-		PageRequest pageRequest = Mock(PageRequest)
-		FoodRestBeanParams foodRestBeanParams = Mock(FoodRestBeanParams) {
-
-		}
-		FoodRequestDTO foodRequestDTO = Mock(FoodRequestDTO)
-		Page page = Mock(Page)
+		PageRequest pageRequest = Mock()
+		FoodRestBeanParams foodRestBeanParams = Mock()
+		FoodRequestDTO foodRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = foodRestQuery.query(foodRestBeanParams)

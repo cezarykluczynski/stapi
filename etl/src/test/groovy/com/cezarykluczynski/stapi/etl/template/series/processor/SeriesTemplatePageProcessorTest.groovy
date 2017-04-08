@@ -37,11 +37,11 @@ class SeriesTemplatePageProcessorTest extends Specification {
 	private SeriesTemplatePageProcessor seriesTemplatePageProcessor
 
 	void setup() {
-		partToYearRangeProcessorMock = Mock(PartToYearRangeProcessor)
-		partToDateRangeProcessorMock = Mock(PartToDateRangeProcessor)
-		pageBindingServiceMock = Mock(PageBindingService)
-		templateFinderMock = Mock(TemplateFinder)
-		seriesTemplateCompanyProcessorMock = Mock(SeriesTemplateCompanyProcessor)
+		partToYearRangeProcessorMock = Mock()
+		partToDateRangeProcessorMock = Mock()
+		pageBindingServiceMock = Mock()
+		templateFinderMock = Mock()
+		seriesTemplateCompanyProcessorMock = Mock()
 		seriesTemplatePageProcessor = new SeriesTemplatePageProcessor(partToYearRangeProcessorMock, partToDateRangeProcessorMock,
 				pageBindingServiceMock, templateFinderMock, seriesTemplateCompanyProcessorMock)
 	}
@@ -62,12 +62,12 @@ class SeriesTemplatePageProcessorTest extends Specification {
 		given:
 		Template.Part yearRangePart = new Template.Part(key: SeriesTemplateParameter.DATES)
 		Template.Part dateRangePart = new Template.Part(key: SeriesTemplateParameter.RUN)
-		Company productionCompany = Mock(Company)
-		Company originalBroadcaster = Mock(Company)
+		Company productionCompany = Mock()
+		Company originalBroadcaster = Mock()
 		Template.Part productionCompanyPart = new Template.Part(key: SeriesTemplateParameter.STUDIO)
 		Template.Part originalBroadcasterPart = new Template.Part(key: SeriesTemplateParameter.NETWORK)
-		YearRange yearRange = Mock(YearRange)
-		DateRange dateRange = Mock(DateRange)
+		YearRange yearRange = Mock()
+		DateRange dateRange = Mock()
 
 		Template template = new Template(title: TemplateTitle.SIDEBAR_SERIES, parts: Lists.newArrayList(
 				new Template.Part(key: SeriesTemplateParameter.ABBR, value: ABBREVIATION),

@@ -19,11 +19,10 @@ class StaffProcessorTest extends Specification {
 	private StaffProcessor staffProcessor
 
 	void setup() {
-		pageHeaderProcessorMock = Mock(PageHeaderProcessor)
-		actorTemplatePageProcessorMock = Mock(ActorTemplatePageProcessor)
-		staffActorTemplateProcessorMock = Mock(StaffActorTemplateProcessor)
-		staffProcessor = new StaffProcessor(pageHeaderProcessorMock, actorTemplatePageProcessorMock,
-				staffActorTemplateProcessorMock)
+		pageHeaderProcessorMock = Mock()
+		actorTemplatePageProcessorMock = Mock()
+		staffActorTemplateProcessorMock = Mock()
+		staffProcessor = new StaffProcessor(pageHeaderProcessorMock, actorTemplatePageProcessorMock, staffActorTemplateProcessorMock)
 	}
 
 	void "converts PageHeader to Staff"() {

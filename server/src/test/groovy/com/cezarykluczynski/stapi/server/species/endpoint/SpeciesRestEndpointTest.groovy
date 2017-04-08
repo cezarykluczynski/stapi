@@ -17,13 +17,13 @@ class SpeciesRestEndpointTest extends AbstractRestEndpointTest {
 	private SpeciesRestEndpoint speciesRestEndpoint
 
 	void setup() {
-		speciesRestReaderMock = Mock(SpeciesRestReader)
+		speciesRestReaderMock = Mock()
 		speciesRestEndpoint = new SpeciesRestEndpoint(speciesRestReaderMock)
 	}
 
 	void "passes get call to SpeciesRestReader"() {
 		given:
-		SpeciesFullResponse speciesFullResponse = Mock(SpeciesFullResponse)
+		SpeciesFullResponse speciesFullResponse = Mock()
 
 		when:
 		SpeciesFullResponse speciesFullResponseOutput = speciesRestEndpoint.getSpecies(GUID)
@@ -35,10 +35,10 @@ class SpeciesRestEndpointTest extends AbstractRestEndpointTest {
 
 	void "passes search get call to SpeciesRestReader"() {
 		given:
-		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams)
+		PageSortBeanParams pageAwareBeanParams = Mock()
 		pageAwareBeanParams.pageNumber >> PAGE_NUMBER
 		pageAwareBeanParams.pageSize >> PAGE_SIZE
-		SpeciesBaseResponse speciesResponse = Mock(SpeciesBaseResponse)
+		SpeciesBaseResponse speciesResponse = Mock()
 
 		when:
 		SpeciesBaseResponse speciesResponseOutput = speciesRestEndpoint.searchSpecies(pageAwareBeanParams)
@@ -55,7 +55,7 @@ class SpeciesRestEndpointTest extends AbstractRestEndpointTest {
 	void "passes search post call to SpeciesRestReader"() {
 		given:
 		SpeciesRestBeanParams speciesRestBeanParams = new SpeciesRestBeanParams(name: NAME)
-		SpeciesBaseResponse speciesResponse = Mock(SpeciesBaseResponse)
+		SpeciesBaseResponse speciesResponse = Mock()
 
 		when:
 		SpeciesBaseResponse speciesResponseOutput = speciesRestEndpoint.searchSpecies(speciesRestBeanParams)

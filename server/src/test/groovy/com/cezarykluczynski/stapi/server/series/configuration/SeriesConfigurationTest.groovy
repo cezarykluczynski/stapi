@@ -17,13 +17,13 @@ class SeriesConfigurationTest extends Specification {
 	private SeriesConfiguration seriesConfiguration
 
 	void setup() {
-		endpointFactoryMock = Mock(EndpointFactory)
+		endpointFactoryMock = Mock()
 		seriesConfiguration = new SeriesConfiguration(endpointFactory: endpointFactoryMock)
 	}
 
 	void "Series SOAP endpoint is created"() {
 		given:
-		Endpoint endpoint = Mock(Endpoint)
+		Endpoint endpoint = Mock()
 
 		when:
 		Endpoint endpointOutput = seriesConfiguration.seriesEndpoint()

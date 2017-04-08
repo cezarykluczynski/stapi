@@ -29,9 +29,9 @@ class AstronomicalObjectLinkWikitextProcessorTest extends Specification {
 	private AstronomicalObjectLinkWikitextProcessor astronomicalObjectLinkWikitextProcessor
 
 	void setup() {
-		paragraphExtractorMock = Mock(ParagraphExtractor)
-		wikitextApiMock = Mock(WikitextApi)
-		astronomicalObjectRepositoryMock = Mock(AstronomicalObjectRepository)
+		paragraphExtractorMock = Mock()
+		wikitextApiMock = Mock()
+		astronomicalObjectRepositoryMock = Mock()
 		astronomicalObjectLinkWikitextProcessor = new AstronomicalObjectLinkWikitextProcessor(paragraphExtractorMock, wikitextApiMock,
 				astronomicalObjectRepositoryMock)
 	}

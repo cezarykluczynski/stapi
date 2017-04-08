@@ -17,13 +17,13 @@ class AstronomicalObjectConfigurationTest extends Specification {
 	private AstronomicalObjectConfiguration astronomicalObjectConfiguration
 
 	void setup() {
-		endpointFactoryMock = Mock(EndpointFactory)
+		endpointFactoryMock = Mock()
 		astronomicalObjectConfiguration = new AstronomicalObjectConfiguration(endpointFactory: endpointFactoryMock)
 	}
 
 	void "AstronomicalObject SOAP endpoint is created"() {
 		given:
-		Endpoint endpoint = Mock(Endpoint)
+		Endpoint endpoint = Mock()
 
 		when:
 		Endpoint endpointOutput = astronomicalObjectConfiguration.astronomicalObjectEndpoint()

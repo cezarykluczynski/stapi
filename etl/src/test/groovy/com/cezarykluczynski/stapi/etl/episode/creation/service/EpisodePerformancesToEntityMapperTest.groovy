@@ -28,7 +28,7 @@ class EpisodePerformancesToEntityMapperTest extends Specification {
 	private EpisodePerformancesToEntityMapper episodePerformancesToEntityMapper
 
 	void setup() {
-		entityLookupByNameServiceMock = Mock(EntityLookupByNameService)
+		entityLookupByNameServiceMock = Mock()
 		episodePerformancesToEntityMapper = new EpisodePerformancesToEntityMapper(entityLookupByNameServiceMock)
 	}
 

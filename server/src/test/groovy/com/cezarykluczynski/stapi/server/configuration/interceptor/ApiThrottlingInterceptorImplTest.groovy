@@ -11,13 +11,13 @@ class ApiThrottlingInterceptorImplTest extends Specification {
 	private ApiThrottlingInterceptorImpl apiThrottlingInterceptorImpl
 
 	void setup() {
-		throttleFacadeMock = Mock(ThrottleFacade)
+		throttleFacadeMock = Mock()
 		apiThrottlingInterceptorImpl = new ApiThrottlingInterceptorImpl(throttleFacadeMock)
 	}
 
 	void "passes message validation to ThrottleFacade"() {
 		given:
-		Message message = Mock(Message)
+		Message message = Mock()
 
 		when:
 		apiThrottlingInterceptorImpl.handleMessage(message)

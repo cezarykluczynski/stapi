@@ -16,7 +16,7 @@ class AstronomicalObjectWikitextProcessorTest extends Specification {
 	private AstronomicalObjectWikitextProcessor astronomicalObjectWikitextProcessor
 
 	void setup() {
-		wikitextApiMock = Mock(WikitextApi)
+		wikitextApiMock = Mock()
 		astronomicalObjectWikitextProcessor = new AstronomicalObjectWikitextProcessor(wikitextApiMock)
 	}
 

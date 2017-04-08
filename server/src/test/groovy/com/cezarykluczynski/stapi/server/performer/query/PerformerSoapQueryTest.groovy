@@ -25,21 +25,21 @@ class PerformerSoapQueryTest extends Specification {
 	private PerformerSoapQuery performerSoapQuery
 
 	void setup() {
-		performerBaseSoapMapperMock = Mock(PerformerBaseSoapMapper)
-		performerFullSoapMapperMock = Mock(PerformerFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
-		performerRepositoryMock = Mock(PerformerRepository)
+		performerBaseSoapMapperMock = Mock()
+		performerFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
+		performerRepositoryMock = Mock()
 		performerSoapQuery = new PerformerSoapQuery(performerBaseSoapMapperMock, performerFullSoapMapperMock, pageMapperMock, performerRepositoryMock)
 	}
 
 	void "maps PerformerBaseRequest to PerformerRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
-		RequestPage requestPage = Mock(RequestPage)
-		PageRequest pageRequest = Mock(PageRequest)
-		PerformerBaseRequest performerRequest = Mock(PerformerBaseRequest)
+		RequestPage requestPage = Mock()
+		PageRequest pageRequest = Mock()
+		PerformerBaseRequest performerRequest = Mock()
 		performerRequest.page >> requestPage
-		PerformerRequestDTO performerRequestDTO = Mock(PerformerRequestDTO)
-		Page page = Mock(Page)
+		PerformerRequestDTO performerRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = performerSoapQuery.query(performerRequest)
@@ -53,10 +53,10 @@ class PerformerSoapQueryTest extends Specification {
 
 	void "maps PerformerFullRequest to PerformerRequestDTO, then calls repository, then returns result"() {
 		given:
-		PageRequest pageRequest = Mock(PageRequest)
-		PerformerFullRequest performerRequest = Mock(PerformerFullRequest)
-		PerformerRequestDTO performerRequestDTO = Mock(PerformerRequestDTO)
-		Page page = Mock(Page)
+		PageRequest pageRequest = Mock()
+		PerformerFullRequest performerRequest = Mock()
+		PerformerRequestDTO performerRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = performerSoapQuery.query(performerRequest)

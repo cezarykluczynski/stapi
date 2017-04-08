@@ -12,7 +12,6 @@ import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.util.AbstractIndividualTest
-import com.google.common.collect.Sets
 
 abstract class AbstractCharacterMapperTest extends AbstractIndividualTest {
 
@@ -46,10 +45,10 @@ abstract class AbstractCharacterMapperTest extends AbstractIndividualTest {
 				serialNumber: SERIAL_NUMBER,
 				mirror: MIRROR,
 				alternateReality: ALTERNATE_REALITY,
-				performers: Sets.newHashSet(Mock(Performer)),
-				episodes: Sets.newHashSet(Mock(Episode)),
-				movies: Sets.newHashSet(Mock(Movie)),
-				characterSpecies: Sets.newHashSet(Mock(CharacterSpecies)))
+				performers: createSetOfRandomNumberOfMocks(Performer),
+				episodes: createSetOfRandomNumberOfMocks(Episode),
+				movies: createSetOfRandomNumberOfMocks(Movie),
+				characterSpecies: createSetOfRandomNumberOfMocks(CharacterSpecies))
 	}
 
 }

@@ -30,21 +30,23 @@ class ComicSeriesRestReaderTest extends Specification {
 	private ComicSeriesRestReader comicSeriesRestReader
 
 	void setup() {
-		comicSeriesRestQueryBuilderMock = Mock(ComicSeriesRestQuery)
-		comicSeriesBaseRestMapperMock = Mock(ComicSeriesBaseRestMapper)
-		comicSeriesFullRestMapperMock = Mock(ComicSeriesFullRestMapper)
-		pageMapperMock = Mock(PageMapper)
-		comicSeriesRestReader = new ComicSeriesRestReader(comicSeriesRestQueryBuilderMock, comicSeriesBaseRestMapperMock, comicSeriesFullRestMapperMock,
-				pageMapperMock)
+		comicSeriesRestQueryBuilderMock = Mock()
+		comicSeriesBaseRestMapperMock = Mock()
+		comicSeriesFullRestMapperMock = Mock()
+		pageMapperMock = Mock()
+		comicSeriesRestReader = new ComicSeriesRestReader(comicSeriesRestQueryBuilderMock, comicSeriesBaseRestMapperMock,
+				comicSeriesFullRestMapperMock, pageMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		ComicSeriesRestBeanParams comicSeriesRestBeanParams = Mock(ComicSeriesRestBeanParams)
-		List<ComicSeriesBase> restComicSeriesList = Lists.newArrayList(Mock(ComicSeriesBase))
-		List<ComicSeries> comicSeriesList = Lists.newArrayList(Mock(ComicSeries))
-		Page<ComicSeries> comicSeriesPage = Mock(Page)
-		ResponsePage responsePage = Mock(ResponsePage)
+		ComicSeriesBase comicSeriesBase = Mock()
+		ComicSeries comicSeries = Mock()
+		ComicSeriesRestBeanParams comicSeriesRestBeanParams = Mock()
+		List<ComicSeriesBase> restComicSeriesList = Lists.newArrayList(comicSeriesBase)
+		List<ComicSeries> comicSeriesList = Lists.newArrayList(comicSeries)
+		Page<ComicSeries> comicSeriesPage = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		ComicSeriesBaseResponse comicSeriesResponseOutput = comicSeriesRestReader.readBase(comicSeriesRestBeanParams)
@@ -61,10 +63,10 @@ class ComicSeriesRestReaderTest extends Specification {
 
 	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
 		given:
-		ComicSeriesFull comicSeriesFull = Mock(ComicSeriesFull)
-		ComicSeries comicSeries = Mock(ComicSeries)
+		ComicSeriesFull comicSeriesFull = Mock()
+		ComicSeries comicSeries = Mock()
 		List<ComicSeries> comicSeriesList = Lists.newArrayList(comicSeries)
-		Page<ComicSeries> comicSeriesPage = Mock(Page)
+		Page<ComicSeries> comicSeriesPage = Mock()
 
 		when:
 		ComicSeriesFullResponse comicSeriesResponseOutput = comicSeriesRestReader.readFull(GUID)

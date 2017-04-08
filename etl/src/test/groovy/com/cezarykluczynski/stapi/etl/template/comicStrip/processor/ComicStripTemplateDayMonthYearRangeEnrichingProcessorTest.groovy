@@ -25,14 +25,16 @@ class ComicStripTemplateDayMonthYearRangeEnrichingProcessorTest extends Specific
 
 	void "when either value is null, no exception is thrown"() {
 		when:
-		comicStripTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(null, Mock(ComicStripTemplate)))
+		ComicStripTemplate comicStripTemplate = Mock()
+		comicStripTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(null, comicStripTemplate))
 
 		then:
 		0 * _
 		notThrown(Exception)
 
 		when:
-		comicStripTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(Mock(Range), null))
+		Range range = Mock()
+		comicStripTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(range, null))
 
 		then:
 		0 * _
@@ -41,7 +43,7 @@ class ComicStripTemplateDayMonthYearRangeEnrichingProcessorTest extends Specific
 
 	void "when both range values are null, nothing is set to template"() {
 		given:
-		ComicStripTemplate comicStripTemplate = Mock(ComicStripTemplate)
+		ComicStripTemplate comicStripTemplate = Mock()
 
 		when:
 		comicStripTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(Range.of(null, null), comicStripTemplate))

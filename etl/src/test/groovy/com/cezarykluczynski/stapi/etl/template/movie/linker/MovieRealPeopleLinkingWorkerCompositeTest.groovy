@@ -22,20 +22,20 @@ class MovieRealPeopleLinkingWorkerCompositeTest extends Specification {
 	private MovieRealPeopleLinkingWorkerComposite movieRealPeopleLinkingWorkerComposite
 
 	void setup() {
-		movieClosingCreditsProcessorMock = Mock(MovieClosingCreditsProcessor)
-		movieLinkedTitlesProcessorMock = Mock(MovieLinkedTitlesProcessor)
-		movieStaffLinkingWorkerCompositeMock = Mock(MovieStaffLinkingWorkerComposite)
-		moviePerformersLinkingWorkerCompositeMock = Mock(MoviePerformersLinkingWorkerComposite)
+		movieClosingCreditsProcessorMock = Mock()
+		movieLinkedTitlesProcessorMock = Mock()
+		movieStaffLinkingWorkerCompositeMock = Mock()
+		moviePerformersLinkingWorkerCompositeMock = Mock()
 		movieRealPeopleLinkingWorkerComposite = new MovieRealPeopleLinkingWorkerComposite(movieClosingCreditsProcessorMock,
 				movieLinkedTitlesProcessorMock, movieStaffLinkingWorkerCompositeMock, moviePerformersLinkingWorkerCompositeMock)
 	}
 
 	void "gets closing credits, then gets titles in sections, then passes results to movie linkers"() {
 		given:
-		MovieLinkedTitlesDTO movieLinkedTitlesDTO = Mock(MovieLinkedTitlesDTO)
+		MovieLinkedTitlesDTO movieLinkedTitlesDTO = Mock()
 		List<PageSection> pageSectionList = Lists.newArrayList()
-		Page page = Mock(Page)
-		Movie movie = Mock(Movie)
+		Page page = Mock()
+		Movie movie = Mock()
 
 		when:
 		movieRealPeopleLinkingWorkerComposite.link(page, movie)

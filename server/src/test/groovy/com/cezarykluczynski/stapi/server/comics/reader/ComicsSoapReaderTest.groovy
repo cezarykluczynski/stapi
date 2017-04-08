@@ -31,21 +31,20 @@ class ComicsSoapReaderTest extends Specification {
 	private ComicsSoapReader comicsSoapReader
 
 	void setup() {
-		comicsSoapQueryBuilderMock = Mock(ComicsSoapQuery)
-		comicsBaseSoapMapperMock = Mock(ComicsBaseSoapMapper)
-		comicsFullSoapMapperMock = Mock(ComicsFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
-		comicsSoapReader = new ComicsSoapReader(comicsSoapQueryBuilderMock, comicsBaseSoapMapperMock, comicsFullSoapMapperMock,
-				pageMapperMock)
+		comicsSoapQueryBuilderMock = Mock()
+		comicsBaseSoapMapperMock = Mock()
+		comicsFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
+		comicsSoapReader = new ComicsSoapReader(comicsSoapQueryBuilderMock, comicsBaseSoapMapperMock, comicsFullSoapMapperMock, pageMapperMock)
 	}
 
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		List<Comics> comicsList = Lists.newArrayList()
-		Page<Comics> comicsPage = Mock(Page)
+		Page<Comics> comicsPage = Mock()
 		List<ComicsBase> soapComicsList = Lists.newArrayList(new ComicsBase(guid: GUID))
-		ComicsBaseRequest comicsBaseRequest = Mock(ComicsBaseRequest)
-		ResponsePage responsePage = Mock(ResponsePage)
+		ComicsBaseRequest comicsBaseRequest = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		ComicsBaseResponse comicsResponse = comicsSoapReader.readBase(comicsBaseRequest)
@@ -62,9 +61,9 @@ class ComicsSoapReaderTest extends Specification {
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		ComicsFull comicsFull = new ComicsFull(guid: GUID)
-		Comics comics = Mock(Comics)
-		Page<Comics> comicsPage = Mock(Page)
-		ComicsFullRequest comicsFullRequest = Mock(ComicsFullRequest)
+		Comics comics = Mock()
+		Page<Comics> comicsPage = Mock()
+		ComicsFullRequest comicsFullRequest = Mock()
 
 		when:
 		ComicsFullResponse comicsFullResponse = comicsSoapReader.readFull(comicsFullRequest)

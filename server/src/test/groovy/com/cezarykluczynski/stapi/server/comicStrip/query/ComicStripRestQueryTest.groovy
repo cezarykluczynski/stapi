@@ -20,20 +20,18 @@ class ComicStripRestQueryTest extends Specification {
 	private ComicStripRestQuery comicStripRestQuery
 
 	void setup() {
-		comicStripRestMapperMock = Mock(ComicStripBaseRestMapper)
-		pageMapperMock = Mock(PageMapper)
-		comicStripRepositoryMock = Mock(ComicStripRepository)
+		comicStripRestMapperMock = Mock()
+		pageMapperMock = Mock()
+		comicStripRepositoryMock = Mock()
 		comicStripRestQuery = new ComicStripRestQuery(comicStripRestMapperMock, pageMapperMock, comicStripRepositoryMock)
 	}
 
 	void "maps ComicStripRestBeanParams to ComicStripRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
-		PageRequest pageRequest = Mock(PageRequest)
-		ComicStripRestBeanParams comicStripRestBeanParams = Mock(ComicStripRestBeanParams) {
-
-		}
-		ComicStripRequestDTO comicStripRequestDTO = Mock(ComicStripRequestDTO)
-		Page page = Mock(Page)
+		PageRequest pageRequest = Mock()
+		ComicStripRestBeanParams comicStripRestBeanParams = Mock()
+		ComicStripRequestDTO comicStripRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = comicStripRestQuery.query(comicStripRestBeanParams)

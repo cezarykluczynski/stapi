@@ -38,11 +38,11 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 	private ComicSeriesTemplatePageProcessor comicSeriesTemplatePageProcessor
 
 	void setup() {
-		pageBindingServiceMock = Mock(PageBindingService)
-		templateFinderMock = Mock(TemplateFinder)
-		comicSeriesTemplatePartsEnrichingProcessorMock = Mock(ComicSeriesTemplatePartsEnrichingProcessor)
-		comicSeriesTemplateFixedValuesEnrichingProcessorMock = Mock(ComicSeriesTemplateFixedValuesEnrichingProcessor)
-		comicSeriesTemplatePhotonovelSeriesProcessorMock = Mock(ComicSeriesTemplatePhotonovelSeriesProcessor)
+		pageBindingServiceMock = Mock()
+		templateFinderMock = Mock()
+		comicSeriesTemplatePartsEnrichingProcessorMock = Mock()
+		comicSeriesTemplateFixedValuesEnrichingProcessorMock = Mock()
+		comicSeriesTemplatePhotonovelSeriesProcessorMock = Mock()
 		comicSeriesTemplatePageProcessor = new ComicSeriesTemplatePageProcessor(pageBindingServiceMock, templateFinderMock,
 				comicSeriesTemplatePartsEnrichingProcessorMock, comicSeriesTemplateFixedValuesEnrichingProcessorMock,
 				comicSeriesTemplatePhotonovelSeriesProcessorMock)
@@ -111,9 +111,10 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 
 	void "sets productOfRedirect flag to true"() {
 		given:
+		PageHeader pageHeader = Mock()
 		Page page = new Page(
 				title: TITLE,
-				redirectPath: Lists.newArrayList(Mock(PageHeader)))
+				redirectPath: Lists.newArrayList(pageHeader))
 		ModelPage modelPage = new ModelPage()
 
 		when:
@@ -151,7 +152,8 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 
 	void "when sidebar comic series is found, enriching processor is called"() {
 		given:
-		List<Template.Part> templatePartList = Lists.newArrayList(Mock(Template.Part))
+		Template.Part templatePart = Mock()
+		List<Template.Part> templatePartList = Lists.newArrayList(templatePart)
 		Page page = new Page(title: TITLE)
 		Template sidebarComicSeriesTemplate = new Template(parts: templatePartList)
 

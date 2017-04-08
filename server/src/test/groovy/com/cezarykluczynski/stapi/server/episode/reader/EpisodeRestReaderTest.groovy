@@ -30,20 +30,22 @@ class EpisodeRestReaderTest extends Specification {
 	private EpisodeRestReader episodeRestReader
 
 	void setup() {
-		episodeRestQueryBuilderMock = Mock(EpisodeRestQuery)
-		episodeBaseRestMapperMock = Mock(EpisodeBaseRestMapper)
-		episodeFullRestMapperMock = Mock(EpisodeFullRestMapper)
-		pageMapperMock = Mock(PageMapper)
+		episodeRestQueryBuilderMock = Mock()
+		episodeBaseRestMapperMock = Mock()
+		episodeFullRestMapperMock = Mock()
+		pageMapperMock = Mock()
 		episodeRestReader = new EpisodeRestReader(episodeRestQueryBuilderMock, episodeBaseRestMapperMock, episodeFullRestMapperMock, pageMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		EpisodeRestBeanParams episodeRestBeanParams = Mock(EpisodeRestBeanParams)
-		List<EpisodeBase> restEpisodeList = Lists.newArrayList(Mock(EpisodeBase))
-		List<Episode> episodeList = Lists.newArrayList(Mock(Episode))
-		Page<Episode> episodePage = Mock(Page)
-		ResponsePage responsePage = Mock(ResponsePage)
+		EpisodeBase episodeBase = Mock()
+		Episode episode = Mock()
+		EpisodeRestBeanParams episodeRestBeanParams = Mock()
+		List<EpisodeBase> restEpisodeList = Lists.newArrayList(episodeBase)
+		List<Episode> episodeList = Lists.newArrayList(episode)
+		Page<Episode> episodePage = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		EpisodeBaseResponse episodeResponseOutput = episodeRestReader.readBase(episodeRestBeanParams)
@@ -60,10 +62,10 @@ class EpisodeRestReaderTest extends Specification {
 
 	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
 		given:
-		EpisodeFull episodeFull = Mock(EpisodeFull)
-		Episode episode = Mock(Episode)
+		EpisodeFull episodeFull = Mock()
+		Episode episode = Mock()
 		List<Episode> episodeList = Lists.newArrayList(episode)
-		Page<Episode> episodePage = Mock(Page)
+		Page<Episode> episodePage = Mock()
 
 		when:
 		EpisodeFullResponse episodeResponseOutput = episodeRestReader.readFull(GUID)

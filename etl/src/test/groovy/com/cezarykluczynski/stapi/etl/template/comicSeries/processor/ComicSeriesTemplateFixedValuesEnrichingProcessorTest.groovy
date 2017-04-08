@@ -28,10 +28,10 @@ class ComicSeriesTemplateFixedValuesEnrichingProcessorTest extends Specification
 	private ComicSeriesTemplateFixedValuesEnrichingProcessor comicSeriesTemplateFixedValuesEnrichingProcessor
 
 	void setup() {
-		comicSeriesPublishedDateFixedValueProviderMock = Mock(ComicSeriesPublishedDateFixedValueProvider)
-		comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock = Mock(ComicSeriesTemplateDayMonthYearRangeEnrichingProcessor)
-		comicSeriesTemplateNumberOfIssuesFixedValueProviderMock = Mock(ComicSeriesTemplateNumberOfIssuesFixedValueProvider)
-		comicSeriesStardateYearFixedValueProviderMock = Mock(ComicSeriesStardateYearFixedValueProvider)
+		comicSeriesPublishedDateFixedValueProviderMock = Mock()
+		comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock = Mock()
+		comicSeriesTemplateNumberOfIssuesFixedValueProviderMock = Mock()
+		comicSeriesStardateYearFixedValueProviderMock = Mock()
 		comicSeriesTemplateFixedValuesEnrichingProcessor = new ComicSeriesTemplateFixedValuesEnrichingProcessor(
 				comicSeriesPublishedDateFixedValueProviderMock, comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock,
 				comicSeriesTemplateNumberOfIssuesFixedValueProviderMock, comicSeriesStardateYearFixedValueProviderMock)
@@ -40,7 +40,7 @@ class ComicSeriesTemplateFixedValuesEnrichingProcessorTest extends Specification
 	void "when fixed value for published dates is found, it is passed to enriching processor"() {
 		given:
 		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate(title: TITLE)
-		Range<DayMonthYear> dayMonthYearRange = Mock(Range)
+		Range<DayMonthYear> dayMonthYearRange = Mock()
 
 		when:
 		comicSeriesTemplateFixedValuesEnrichingProcessor.enrich(EnrichablePair.of(comicSeriesTemplate, comicSeriesTemplate))

@@ -14,7 +14,7 @@ class ComicSeriesTemplatePhotonovelSeriesProcessorTest extends Specification {
 	private ComicSeriesTemplatePhotonovelSeriesProcessor comicSeriesTemplatePhotonovelSeriesProcessor
 
 	void setup() {
-		categoryTitlesExtractingProcessorMock = Mock(CategoryTitlesExtractingProcessor)
+		categoryTitlesExtractingProcessorMock = Mock()
 		comicSeriesTemplatePhotonovelSeriesProcessor = new ComicSeriesTemplatePhotonovelSeriesProcessor(categoryTitlesExtractingProcessorMock)
 	}
 

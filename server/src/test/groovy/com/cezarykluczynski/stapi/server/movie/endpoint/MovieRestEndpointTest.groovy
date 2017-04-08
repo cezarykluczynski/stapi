@@ -17,13 +17,13 @@ class MovieRestEndpointTest extends AbstractRestEndpointTest {
 	private MovieRestEndpoint movieRestEndpoint
 
 	void setup() {
-		movieRestReaderMock = Mock(MovieRestReader)
+		movieRestReaderMock = Mock()
 		movieRestEndpoint = new MovieRestEndpoint(movieRestReaderMock)
 	}
 
 	void "passes get call to MovieRestReader"() {
 		given:
-		MovieFullResponse movieFullResponse = Mock(MovieFullResponse)
+		MovieFullResponse movieFullResponse = Mock()
 
 		when:
 		MovieFullResponse movieFullResponseOutput = movieRestEndpoint.getMovie(GUID)
@@ -35,10 +35,10 @@ class MovieRestEndpointTest extends AbstractRestEndpointTest {
 
 	void "passes search get call to MovieRestReader"() {
 		given:
-		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams)
+		PageSortBeanParams pageAwareBeanParams = Mock()
 		pageAwareBeanParams.pageNumber >> PAGE_NUMBER
 		pageAwareBeanParams.pageSize >> PAGE_SIZE
-		MovieBaseResponse movieResponse = Mock(MovieBaseResponse)
+		MovieBaseResponse movieResponse = Mock()
 
 		when:
 		MovieBaseResponse movieResponseOutput = movieRestEndpoint.searchMovie(pageAwareBeanParams)
@@ -55,7 +55,7 @@ class MovieRestEndpointTest extends AbstractRestEndpointTest {
 	void "passes search post call to MovieRestReader"() {
 		given:
 		MovieRestBeanParams movieRestBeanParams = new MovieRestBeanParams(title: TITLE)
-		MovieBaseResponse movieResponse = Mock(MovieBaseResponse)
+		MovieBaseResponse movieResponse = Mock()
 
 		when:
 		MovieBaseResponse movieResponseOutput = movieRestEndpoint.searchMovie(movieRestBeanParams)

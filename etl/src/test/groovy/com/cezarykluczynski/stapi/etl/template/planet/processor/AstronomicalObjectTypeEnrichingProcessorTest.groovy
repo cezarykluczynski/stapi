@@ -18,7 +18,7 @@ class AstronomicalObjectTypeEnrichingProcessorTest extends Specification {
 	private AstronomicalObjectTypeEnrichingProcessor astronomicalObjectTypeEnrichingProcessor
 
 	void setup() {
-		categoryTitlesExtractingProcessorMock = Mock(CategoryTitlesExtractingProcessor)
+		categoryTitlesExtractingProcessorMock = Mock()
 		astronomicalObjectTypeEnrichingProcessor = new AstronomicalObjectTypeEnrichingProcessor(categoryTitlesExtractingProcessorMock)
 	}
 

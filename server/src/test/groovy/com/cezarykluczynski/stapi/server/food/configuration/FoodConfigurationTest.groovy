@@ -17,13 +17,13 @@ class FoodConfigurationTest extends Specification {
 	private FoodConfiguration foodConfiguration
 
 	void setup() {
-		endpointFactoryMock = Mock(EndpointFactory)
+		endpointFactoryMock = Mock()
 		foodConfiguration = new FoodConfiguration(endpointFactory: endpointFactoryMock)
 	}
 
 	void "Food SOAP endpoint is created"() {
 		given:
-		Endpoint endpoint = Mock(Endpoint)
+		Endpoint endpoint = Mock()
 
 		when:
 		Endpoint endpointOutput = foodConfiguration.foodEndpoint()

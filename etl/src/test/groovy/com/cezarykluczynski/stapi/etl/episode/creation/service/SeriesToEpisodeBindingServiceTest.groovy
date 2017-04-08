@@ -17,7 +17,7 @@ class SeriesToEpisodeBindingServiceTest extends Specification {
 	private SeriesToEpisodeBindingService seriesToEpisodeBindingService
 
 	void setup() {
-		seriesRepositoryMock = Mock(SeriesRepository)
+		seriesRepositoryMock = Mock()
 		seriesToEpisodeBindingService = new SeriesToEpisodeBindingService(seriesRepositoryMock)
 	}
 

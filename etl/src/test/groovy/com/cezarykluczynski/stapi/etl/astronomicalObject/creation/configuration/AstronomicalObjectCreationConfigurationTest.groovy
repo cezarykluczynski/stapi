@@ -34,8 +34,8 @@ class AstronomicalObjectCreationConfigurationTest extends AbstractCreationConfig
 	private AstronomicalObjectCreationConfiguration astronomicalObjectCreationConfiguration
 
 	void setup() {
-		categoryApiMock = Mock(CategoryApi)
-		jobCompletenessDeciderMock = Mock(StepCompletenessDecider)
+		categoryApiMock = Mock()
+		jobCompletenessDeciderMock = Mock()
 		astronomicalObjectCreationConfiguration = new AstronomicalObjectCreationConfiguration(
 				categoryApi: categoryApiMock,
 				stepCompletenessDecider: jobCompletenessDeciderMock)

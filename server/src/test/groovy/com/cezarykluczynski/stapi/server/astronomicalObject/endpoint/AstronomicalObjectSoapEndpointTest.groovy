@@ -14,14 +14,14 @@ class AstronomicalObjectSoapEndpointTest extends Specification {
 	private AstronomicalObjectSoapEndpoint astronomicalObjectSoapEndpoint
 
 	void setup() {
-		astronomicalObjectSoapReaderMock = Mock(AstronomicalObjectSoapReader)
+		astronomicalObjectSoapReaderMock = Mock()
 		astronomicalObjectSoapEndpoint = new AstronomicalObjectSoapEndpoint(astronomicalObjectSoapReaderMock)
 	}
 
 	void "passes base call to AstronomicalObjectSoapReader"() {
 		given:
-		AstronomicalObjectBaseRequest astronomicalObjectBaseRequest = Mock(AstronomicalObjectBaseRequest)
-		AstronomicalObjectBaseResponse astronomicalObjectBaseResponse = Mock(AstronomicalObjectBaseResponse)
+		AstronomicalObjectBaseRequest astronomicalObjectBaseRequest = Mock()
+		AstronomicalObjectBaseResponse astronomicalObjectBaseResponse = Mock()
 
 		when:
 		AstronomicalObjectBaseResponse astronomicalObjectResponseResult = astronomicalObjectSoapEndpoint
@@ -34,8 +34,8 @@ class AstronomicalObjectSoapEndpointTest extends Specification {
 
 	void "passes full call to AstronomicalObjectSoapReader"() {
 		given:
-		AstronomicalObjectFullRequest astronomicalObjectFullRequest = Mock(AstronomicalObjectFullRequest)
-		AstronomicalObjectFullResponse astronomicalObjectFullResponse = Mock(AstronomicalObjectFullResponse)
+		AstronomicalObjectFullRequest astronomicalObjectFullRequest = Mock()
+		AstronomicalObjectFullResponse astronomicalObjectFullResponse = Mock()
 
 		when:
 		AstronomicalObjectFullResponse astronomicalObjectResponseResult = astronomicalObjectSoapEndpoint

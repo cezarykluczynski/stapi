@@ -23,12 +23,11 @@ class SpringBatchDaoConfigurationTest extends Specification {
 	private SpringBatchDaoConfiguration springBatchDaoConfiguration
 
 	void setup() {
-		jobInstanceDaoMock = Mock(JobInstanceDao)
-		jobExecutionDaoMock = Mock(JobExecutionDao)
-		stepExecutionDaoMock = Mock(StepExecutionDao)
-		executionContextDaoMock = Mock(ExecutionContextDao)
-		jobRepository = new SimpleJobRepository(jobInstanceDaoMock, jobExecutionDaoMock, stepExecutionDaoMock,
-				executionContextDaoMock)
+		jobInstanceDaoMock = Mock()
+		jobExecutionDaoMock = Mock()
+		stepExecutionDaoMock = Mock()
+		executionContextDaoMock = Mock()
+		jobRepository = new SimpleJobRepository(jobInstanceDaoMock, jobExecutionDaoMock, stepExecutionDaoMock, executionContextDaoMock)
 		springBatchDaoConfiguration = new SpringBatchDaoConfiguration(jobRepository: jobRepository)
 	}
 

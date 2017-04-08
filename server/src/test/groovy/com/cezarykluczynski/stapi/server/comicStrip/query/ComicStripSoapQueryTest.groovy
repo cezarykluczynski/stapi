@@ -25,22 +25,22 @@ class ComicStripSoapQueryTest extends Specification {
 	private ComicStripSoapQuery comicStripSoapQuery
 
 	void setup() {
-		comicStripBaseSoapMapperMock = Mock(ComicStripBaseSoapMapper)
-		comicStripFullSoapMapperMock = Mock(ComicStripFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
-		comicStripRepositoryMock = Mock(ComicStripRepository)
+		comicStripBaseSoapMapperMock = Mock()
+		comicStripFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
+		comicStripRepositoryMock = Mock()
 		comicStripSoapQuery = new ComicStripSoapQuery(comicStripBaseSoapMapperMock, comicStripFullSoapMapperMock, pageMapperMock,
 				comicStripRepositoryMock)
 	}
 
 	void "maps ComicStripBaseRequest to ComicStripRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
-		RequestPage requestPage = Mock(RequestPage)
-		PageRequest pageRequest = Mock(PageRequest)
-		ComicStripBaseRequest comicStripRequest = Mock(ComicStripBaseRequest)
+		RequestPage requestPage = Mock()
+		PageRequest pageRequest = Mock()
+		ComicStripBaseRequest comicStripRequest = Mock()
 		comicStripRequest.page >> requestPage
-		ComicStripRequestDTO comicStripRequestDTO = Mock(ComicStripRequestDTO)
-		Page page = Mock(Page)
+		ComicStripRequestDTO comicStripRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = comicStripSoapQuery.query(comicStripRequest)
@@ -54,10 +54,10 @@ class ComicStripSoapQueryTest extends Specification {
 
 	void "maps ComicStripFullRequest to ComicStripRequestDTO, then calls repository, then returns result"() {
 		given:
-		PageRequest pageRequest = Mock(PageRequest)
-		ComicStripFullRequest comicStripRequest = Mock(ComicStripFullRequest)
-		ComicStripRequestDTO comicStripRequestDTO = Mock(ComicStripRequestDTO)
-		Page page = Mock(Page)
+		PageRequest pageRequest = Mock()
+		ComicStripFullRequest comicStripRequest = Mock()
+		ComicStripRequestDTO comicStripRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = comicStripSoapQuery.query(comicStripRequest)

@@ -14,14 +14,14 @@ class CompanySoapEndpointTest extends Specification {
 	private CompanySoapEndpoint companySoapEndpoint
 
 	void setup() {
-		companySoapReaderMock = Mock(CompanySoapReader)
+		companySoapReaderMock = Mock()
 		companySoapEndpoint = new CompanySoapEndpoint(companySoapReaderMock)
 	}
 
 	void "passes base call to CompanySoapReader"() {
 		given:
-		CompanyBaseRequest companyRequest = Mock(CompanyBaseRequest)
-		CompanyBaseResponse companyResponse = Mock(CompanyBaseResponse)
+		CompanyBaseRequest companyRequest = Mock()
+		CompanyBaseResponse companyResponse = Mock()
 
 		when:
 		CompanyBaseResponse companyResponseResult = companySoapEndpoint.getCompanyBase(companyRequest)
@@ -33,8 +33,8 @@ class CompanySoapEndpointTest extends Specification {
 
 	void "passes full call to CompanySoapReader"() {
 		given:
-		CompanyFullRequest companyFullRequest = Mock(CompanyFullRequest)
-		CompanyFullResponse companyFullResponse = Mock(CompanyFullResponse)
+		CompanyFullRequest companyFullRequest = Mock()
+		CompanyFullResponse companyFullResponse = Mock()
 
 		when:
 		CompanyFullResponse companyResponseResult = companySoapEndpoint.getCompanyFull(companyFullRequest)

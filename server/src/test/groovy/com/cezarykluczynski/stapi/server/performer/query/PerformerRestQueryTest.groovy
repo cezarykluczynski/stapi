@@ -20,20 +20,18 @@ class PerformerRestQueryTest extends Specification {
 	private PerformerRestQuery performerRestQuery
 
 	void setup() {
-		performerBaseRestMapperMock = Mock(PerformerBaseRestMapper)
-		pageMapperMock = Mock(PageMapper)
-		performerRepositoryMock = Mock(PerformerRepository)
+		performerBaseRestMapperMock = Mock()
+		pageMapperMock = Mock()
+		performerRepositoryMock = Mock()
 		performerRestQuery = new PerformerRestQuery(performerBaseRestMapperMock, pageMapperMock, performerRepositoryMock)
 	}
 
 	void "maps PerformerRestBeanParams to PerformerRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
-		PageRequest pageRequest = Mock(PageRequest)
-		PerformerRestBeanParams performerRestBeanParams = Mock(PerformerRestBeanParams) {
-
-		}
-		PerformerRequestDTO performerRequestDTO = Mock(PerformerRequestDTO)
-		Page page = Mock(Page)
+		PageRequest pageRequest = Mock()
+		PerformerRestBeanParams performerRestBeanParams = Mock()
+		PerformerRequestDTO performerRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = performerRestQuery.query(performerRestBeanParams)

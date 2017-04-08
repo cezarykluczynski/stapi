@@ -19,9 +19,9 @@ class PerformerProcessorTest extends Specification {
 	private PerformerProcessor performerProcessor
 
 	void setup() {
-		pageHeaderProcessorMock = Mock(PageHeaderProcessor)
-		actorTemplatePageProcessorMock = Mock(ActorTemplatePageProcessor)
-		actorTemplateProcessorMock = Mock(PerformerActorTemplateProcessor)
+		pageHeaderProcessorMock = Mock()
+		actorTemplatePageProcessorMock = Mock()
+		actorTemplateProcessorMock = Mock()
 		performerProcessor = new PerformerProcessor(pageHeaderProcessorMock, actorTemplatePageProcessorMock,
 				actorTemplateProcessorMock)
 	}

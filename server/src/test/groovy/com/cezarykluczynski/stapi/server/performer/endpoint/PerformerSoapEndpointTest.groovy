@@ -14,14 +14,14 @@ class PerformerSoapEndpointTest extends Specification {
 	private PerformerSoapEndpoint performerSoapEndpoint
 
 	void setup() {
-		performerSoapReaderMock = Mock(PerformerSoapReader)
+		performerSoapReaderMock = Mock()
 		performerSoapEndpoint = new PerformerSoapEndpoint(performerSoapReaderMock)
 	}
 
 	void "passes base call to PerformerSoapReader"() {
 		given:
-		PerformerBaseRequest performerBaseRequest = Mock(PerformerBaseRequest)
-		PerformerBaseResponse performerBaseResponse = Mock(PerformerBaseResponse)
+		PerformerBaseRequest performerBaseRequest = Mock()
+		PerformerBaseResponse performerBaseResponse = Mock()
 
 		when:
 		PerformerBaseResponse performerResponseResult = performerSoapEndpoint.getPerformerBase(performerBaseRequest)
@@ -33,8 +33,8 @@ class PerformerSoapEndpointTest extends Specification {
 
 	void "passes full call to PerformerSoapReader"() {
 		given:
-		PerformerFullRequest performerFullRequest = Mock(PerformerFullRequest)
-		PerformerFullResponse performerFullResponse = Mock(PerformerFullResponse)
+		PerformerFullRequest performerFullRequest = Mock()
+		PerformerFullResponse performerFullResponse = Mock()
 
 		when:
 		PerformerFullResponse performerResponseResult = performerSoapEndpoint.getPerformerFull(performerFullRequest)

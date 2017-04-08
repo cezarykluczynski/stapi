@@ -25,21 +25,21 @@ class EpisodeSoapQueryTest extends Specification {
 	private EpisodeSoapQuery episodeSoapQuery
 
 	void setup() {
-		episodeBaseSoapMapperMock = Mock(EpisodeBaseSoapMapper)
-		episodeFullSoapMapperMock = Mock(EpisodeFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
-		episodeRepositoryMock = Mock(EpisodeRepository)
+		episodeBaseSoapMapperMock = Mock()
+		episodeFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
+		episodeRepositoryMock = Mock()
 		episodeSoapQuery = new EpisodeSoapQuery(episodeBaseSoapMapperMock, episodeFullSoapMapperMock, pageMapperMock, episodeRepositoryMock)
 	}
 
 	void "maps EpisodeBaseRequest to EpisodeRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
-		RequestPage requestPage = Mock(RequestPage)
-		PageRequest pageRequest = Mock(PageRequest)
-		EpisodeBaseRequest episodeRequest = Mock(EpisodeBaseRequest)
+		RequestPage requestPage = Mock()
+		PageRequest pageRequest = Mock()
+		EpisodeBaseRequest episodeRequest = Mock()
 		episodeRequest.page >> requestPage
-		EpisodeRequestDTO episodeRequestDTO = Mock(EpisodeRequestDTO)
-		Page page = Mock(Page)
+		EpisodeRequestDTO episodeRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = episodeSoapQuery.query(episodeRequest)
@@ -53,10 +53,10 @@ class EpisodeSoapQueryTest extends Specification {
 
 	void "maps EpisodeFullRequest to EpisodeRequestDTO, then calls repository, then returns result"() {
 		given:
-		PageRequest pageRequest = Mock(PageRequest)
-		EpisodeFullRequest episodeRequest = Mock(EpisodeFullRequest)
-		EpisodeRequestDTO episodeRequestDTO = Mock(EpisodeRequestDTO)
-		Page page = Mock(Page)
+		PageRequest pageRequest = Mock()
+		EpisodeFullRequest episodeRequest = Mock()
+		EpisodeRequestDTO episodeRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = episodeSoapQuery.query(episodeRequest)

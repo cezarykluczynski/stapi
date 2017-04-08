@@ -49,21 +49,21 @@ class ComicStripRepositoryImplTest extends AbstractComicStripTest {
 	private Set<Character> charactersSet
 
 	void setup() {
-		comicStripQueryBuilderFactory = Mock(ComicStripQueryBuilderFactory)
+		comicStripQueryBuilderFactory = Mock()
 		comicStripRepositoryImpl = new ComicStripRepositoryImpl(comicStripQueryBuilderFactory)
-		comicStripQueryBuilder = Mock(QueryBuilder)
-		pageable = Mock(Pageable)
-		comicStripRequestDTO = Mock(ComicStripRequestDTO)
-		page = Mock(Page)
-		performersPage = Mock(Page)
-		charactersPage = Mock(Page)
-		comicStrip = Mock(ComicStrip)
-		performersComicStrip = Mock(ComicStrip)
-		charactersComicStrip = Mock(ComicStrip)
-		performersSet = Mock(Set)
-		stuntPerformersSet = Mock(Set)
-		standInPerformersSet = Mock(Set)
-		charactersSet = Mock(Set)
+		comicStripQueryBuilder = Mock()
+		pageable = Mock()
+		comicStripRequestDTO = Mock()
+		page = Mock()
+		performersPage = Mock()
+		charactersPage = Mock()
+		comicStrip = Mock()
+		performersComicStrip = Mock()
+		charactersComicStrip = Mock()
+		performersSet = Mock()
+		stuntPerformersSet = Mock()
+		standInPerformersSet = Mock()
+		charactersSet = Mock()
 	}
 
 	void "query is built and performed"() {

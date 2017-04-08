@@ -10,7 +10,7 @@ class RawDatelinkExtractingProcessorTest extends Specification {
 	private RawDatelinkExtractingProcessor rawDatelinkExtractingProcessor
 
 	void setup() {
-		dayMonthYearCandidateToLocalDateProcessorMock = Mock(DayMonthYearCandidateToLocalDateProcessor)
+		dayMonthYearCandidateToLocalDateProcessorMock = Mock()
 		rawDatelinkExtractingProcessor = new RawDatelinkExtractingProcessor(dayMonthYearCandidateToLocalDateProcessorMock)
 	}
 

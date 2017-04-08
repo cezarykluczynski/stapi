@@ -31,10 +31,10 @@ class OrganizationSoapReaderTest extends Specification {
 	private OrganizationSoapReader organizationSoapReader
 
 	void setup() {
-		organizationSoapQueryBuilderMock = Mock(OrganizationSoapQuery)
-		organizationBaseSoapMapperMock = Mock(OrganizationBaseSoapMapper)
-		organizationFullSoapMapperMock = Mock(OrganizationFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
+		organizationSoapQueryBuilderMock = Mock()
+		organizationBaseSoapMapperMock = Mock()
+		organizationFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
 		organizationSoapReader = new OrganizationSoapReader(organizationSoapQueryBuilderMock, organizationBaseSoapMapperMock,
 				organizationFullSoapMapperMock, pageMapperMock)
 	}
@@ -42,10 +42,10 @@ class OrganizationSoapReaderTest extends Specification {
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		List<Organization> organizationList = Lists.newArrayList()
-		Page<Organization> organizationPage = Mock(Page)
+		Page<Organization> organizationPage = Mock()
 		List<OrganizationBase> soapOrganizationList = Lists.newArrayList(new OrganizationBase(guid: GUID))
-		OrganizationBaseRequest organizationBaseRequest = Mock(OrganizationBaseRequest)
-		ResponsePage responsePage = Mock(ResponsePage)
+		OrganizationBaseRequest organizationBaseRequest = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		OrganizationBaseResponse organizationResponse = organizationSoapReader.readBase(organizationBaseRequest)
@@ -62,9 +62,9 @@ class OrganizationSoapReaderTest extends Specification {
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		OrganizationFull organizationFull = new OrganizationFull(guid: GUID)
-		Organization organization = Mock(Organization)
-		Page<Organization> organizationPage = Mock(Page)
-		OrganizationFullRequest organizationFullRequest = Mock(OrganizationFullRequest)
+		Organization organization = Mock()
+		Page<Organization> organizationPage = Mock()
+		OrganizationFullRequest organizationFullRequest = Mock()
 
 		when:
 		OrganizationFullResponse organizationFullResponse = organizationSoapReader.readFull(organizationFullRequest)

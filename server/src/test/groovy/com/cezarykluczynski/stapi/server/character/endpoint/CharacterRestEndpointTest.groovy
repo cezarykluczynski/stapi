@@ -17,13 +17,13 @@ class CharacterRestEndpointTest extends AbstractRestEndpointTest {
 	private CharacterRestEndpoint characterRestEndpoint
 
 	void setup() {
-		characterRestReaderMock = Mock(CharacterRestReader)
+		characterRestReaderMock = Mock()
 		characterRestEndpoint = new CharacterRestEndpoint(characterRestReaderMock)
 	}
 
 	void "passes get call to CharacterRestReader"() {
 		given:
-		CharacterFullResponse characterFullResponse = Mock(CharacterFullResponse)
+		CharacterFullResponse characterFullResponse = Mock()
 
 		when:
 		CharacterFullResponse characterFullResponseOutput = characterRestEndpoint.getCharacter(GUID)
@@ -35,10 +35,10 @@ class CharacterRestEndpointTest extends AbstractRestEndpointTest {
 
 	void "passes search get call to CharacterRestReader"() {
 		given:
-		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams)
+		PageSortBeanParams pageAwareBeanParams = Mock()
 		pageAwareBeanParams.pageNumber >> PAGE_NUMBER
 		pageAwareBeanParams.pageSize >> PAGE_SIZE
-		CharacterBaseResponse characterResponse = Mock(CharacterBaseResponse)
+		CharacterBaseResponse characterResponse = Mock()
 
 		when:
 		CharacterBaseResponse characterResponseOutput = characterRestEndpoint.searchCharacter(pageAwareBeanParams)
@@ -55,7 +55,7 @@ class CharacterRestEndpointTest extends AbstractRestEndpointTest {
 	void "passes search post call to CharacterRestReader"() {
 		given:
 		CharacterRestBeanParams characterRestBeanParams = new CharacterRestBeanParams(name: NAME)
-		CharacterBaseResponse characterResponse = Mock(CharacterBaseResponse)
+		CharacterBaseResponse characterResponse = Mock()
 
 		when:
 		CharacterBaseResponse characterResponseOutput = characterRestEndpoint.searchCharacter(characterRestBeanParams)

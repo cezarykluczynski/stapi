@@ -31,8 +31,8 @@ class IndividualTemplateActorLinkingProcessorTest extends Specification {
 	private IndividualTemplateActorLinkingProcessor individualTemplateActorLinkingProcessor
 
 	void setup() {
-		wikitextApiMock = Mock(WikitextApi)
-		performerRepositoryMock = Mock(PerformerRepository)
+		wikitextApiMock = Mock()
+		performerRepositoryMock = Mock()
 		individualTemplateActorLinkingProcessor = new IndividualTemplateActorLinkingProcessor(wikitextApiMock, performerRepositoryMock)
 	}
 
@@ -56,10 +56,10 @@ class IndividualTemplateActorLinkingProcessorTest extends Specification {
 				value: VALUE
 		)
 		Set<Performer> performerList = Sets.newHashSet()
-		IndividualTemplate individualTemplate = Mock(IndividualTemplate)
+		IndividualTemplate individualTemplate = Mock()
 		PageLink pageLink1 = new PageLink(title: TITLE_1)
 		PageLink pageLink2 = new PageLink(title: TITLE_2)
-		PageLink pageLink3 = Mock(PageLink)
+		PageLink pageLink3 = Mock()
 		PageLink pageLink4 = new PageLink(title: TITLE_4)
 		PageLink pageLink5 = new PageLink(title: TITLE_UNKNOWN)
 

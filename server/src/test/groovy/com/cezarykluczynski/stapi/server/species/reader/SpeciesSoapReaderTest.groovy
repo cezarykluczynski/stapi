@@ -31,10 +31,10 @@ class SpeciesSoapReaderTest extends Specification {
 	private SpeciesSoapReader speciesSoapReader
 
 	void setup() {
-		speciesSoapQueryBuilderMock = Mock(SpeciesSoapQuery)
-		speciesBaseSoapMapperMock = Mock(SpeciesBaseSoapMapper)
-		speciesFullSoapMapperMock = Mock(SpeciesFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
+		speciesSoapQueryBuilderMock = Mock()
+		speciesBaseSoapMapperMock = Mock()
+		speciesFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
 		speciesSoapReader = new SpeciesSoapReader(speciesSoapQueryBuilderMock, speciesBaseSoapMapperMock, speciesFullSoapMapperMock,
 				pageMapperMock)
 	}
@@ -42,10 +42,10 @@ class SpeciesSoapReaderTest extends Specification {
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		List<Species> speciesList = Lists.newArrayList()
-		Page<Species> speciesPage = Mock(Page)
+		Page<Species> speciesPage = Mock()
 		List<SpeciesBase> soapSpeciesList = Lists.newArrayList(new SpeciesBase(guid: GUID))
-		SpeciesBaseRequest speciesBaseRequest = Mock(SpeciesBaseRequest)
-		ResponsePage responsePage = Mock(ResponsePage)
+		SpeciesBaseRequest speciesBaseRequest = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		SpeciesBaseResponse speciesResponse = speciesSoapReader.readBase(speciesBaseRequest)
@@ -62,9 +62,9 @@ class SpeciesSoapReaderTest extends Specification {
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		SpeciesFull speciesFull = new SpeciesFull(guid: GUID)
-		Species species = Mock(Species)
-		Page<Species> speciesPage = Mock(Page)
-		SpeciesFullRequest speciesFullRequest = Mock(SpeciesFullRequest)
+		Species species = Mock()
+		Page<Species> speciesPage = Mock()
+		SpeciesFullRequest speciesFullRequest = Mock()
 
 		when:
 		SpeciesFullResponse speciesFullResponse = speciesSoapReader.readFull(speciesFullRequest)

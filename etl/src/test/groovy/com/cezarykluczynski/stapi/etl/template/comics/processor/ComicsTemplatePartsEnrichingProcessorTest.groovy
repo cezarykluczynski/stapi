@@ -54,13 +54,13 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 	private ComicsTemplatePartsEnrichingProcessor comicsTemplatePartsEnrichingProcessor
 
 	void setup() {
-		comicsTemplatePartStaffEnrichingProcessorMock = Mock(ComicsTemplatePartStaffEnrichingProcessor)
-		wikitextToCompaniesProcessorMock = Mock(WikitextToCompaniesProcessor)
-		wikitextToComicSeriesProcessorMock = Mock(WikitextToComicSeriesProcessor)
-		wikitextToYearRangeProcessorMock = Mock(WikitextToYearRangeProcessor)
-		wikitextToStardateRangeProcessorMock = Mock(WikitextToStardateRangeProcessor)
-		comicsTemplatePublishedDatesEnrichingProcessorMock = Mock(ComicsTemplatePublishedDatesEnrichingProcessor)
-		referencesFromTemplatePartProcessorMock = Mock(ReferencesFromTemplatePartProcessor)
+		comicsTemplatePartStaffEnrichingProcessorMock = Mock()
+		wikitextToCompaniesProcessorMock = Mock()
+		wikitextToComicSeriesProcessorMock = Mock()
+		wikitextToYearRangeProcessorMock = Mock()
+		wikitextToStardateRangeProcessorMock = Mock()
+		comicsTemplatePublishedDatesEnrichingProcessorMock = Mock()
+		referencesFromTemplatePartProcessorMock = Mock()
 		comicsTemplatePartsEnrichingProcessor = new ComicsTemplatePartsEnrichingProcessor(comicsTemplatePartStaffEnrichingProcessorMock,
 				wikitextToCompaniesProcessorMock, wikitextToComicSeriesProcessorMock, wikitextToYearRangeProcessorMock,
 				wikitextToStardateRangeProcessorMock, comicsTemplatePublishedDatesEnrichingProcessorMock,
@@ -119,8 +119,8 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 		given:
 		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.PUBLISHER, value: PUBLISHER)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
-		Company company1 = Mock(Company)
-		Company company2 = Mock(Company)
+		Company company1 = Mock()
+		Company company2 = Mock()
 
 		when:
 		comicsTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicsTemplate))
@@ -137,8 +137,8 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 		given:
 		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.SERIES, value: SERIES)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
-		ComicSeries comicSeries1 = Mock(ComicSeries)
-		ComicSeries comicSeries2 = Mock(ComicSeries)
+		ComicSeries comicSeries1 = Mock()
+		ComicSeries comicSeries2 = Mock()
 
 		when:
 		comicsTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicsTemplate))
@@ -260,8 +260,8 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 		given:
 		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.REFERENCE, value: REFERENCE)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
-		Reference reference1 = Mock(Reference)
-		Reference reference2 = Mock(Reference)
+		Reference reference1 = Mock()
+		Reference reference2 = Mock()
 
 		when:
 		comicsTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicsTemplate))

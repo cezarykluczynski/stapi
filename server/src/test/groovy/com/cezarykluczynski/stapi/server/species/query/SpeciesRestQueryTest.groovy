@@ -20,20 +20,18 @@ class SpeciesRestQueryTest extends Specification {
 	private SpeciesRestQuery speciesRestQuery
 
 	void setup() {
-		speciesRestMapperMock = Mock(SpeciesBaseRestMapper)
-		pageMapperMock = Mock(PageMapper)
-		speciesRepositoryMock = Mock(SpeciesRepository)
+		speciesRestMapperMock = Mock()
+		pageMapperMock = Mock()
+		speciesRepositoryMock = Mock()
 		speciesRestQuery = new SpeciesRestQuery(speciesRestMapperMock, pageMapperMock, speciesRepositoryMock)
 	}
 
 	void "maps SpeciesRestBeanParams to SpeciesRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
-		PageRequest pageRequest = Mock(PageRequest)
-		SpeciesRestBeanParams speciesRestBeanParams = Mock(SpeciesRestBeanParams) {
-
-		}
-		SpeciesRequestDTO speciesRequestDTO = Mock(SpeciesRequestDTO)
-		Page page = Mock(Page)
+		PageRequest pageRequest = Mock()
+		SpeciesRestBeanParams speciesRestBeanParams = Mock()
+		SpeciesRequestDTO speciesRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = speciesRestQuery.query(speciesRestBeanParams)

@@ -25,21 +25,21 @@ class ComicsSoapQueryTest extends Specification {
 	private ComicsSoapQuery comicsSoapQuery
 
 	void setup() {
-		comicsBaseSoapMapperMock = Mock(ComicsBaseSoapMapper)
-		comicsFullSoapMapperMock = Mock(ComicsFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
-		comicsRepositoryMock = Mock(ComicsRepository)
+		comicsBaseSoapMapperMock = Mock()
+		comicsFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
+		comicsRepositoryMock = Mock()
 		comicsSoapQuery = new ComicsSoapQuery(comicsBaseSoapMapperMock, comicsFullSoapMapperMock, pageMapperMock, comicsRepositoryMock)
 	}
 
 	void "maps ComicsBaseRequest to ComicsRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
-		RequestPage requestPage = Mock(RequestPage)
-		PageRequest pageRequest = Mock(PageRequest)
-		ComicsBaseRequest comicsRequest = Mock(ComicsBaseRequest)
+		RequestPage requestPage = Mock()
+		PageRequest pageRequest = Mock()
+		ComicsBaseRequest comicsRequest = Mock()
 		comicsRequest.page >> requestPage
-		ComicsRequestDTO comicsRequestDTO = Mock(ComicsRequestDTO)
-		Page page = Mock(Page)
+		ComicsRequestDTO comicsRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = comicsSoapQuery.query(comicsRequest)
@@ -53,10 +53,10 @@ class ComicsSoapQueryTest extends Specification {
 
 	void "maps ComicsFullRequest to ComicsRequestDTO, then calls repository, then returns result"() {
 		given:
-		PageRequest pageRequest = Mock(PageRequest)
-		ComicsFullRequest comicsRequest = Mock(ComicsFullRequest)
-		ComicsRequestDTO comicsRequestDTO = Mock(ComicsRequestDTO)
-		Page page = Mock(Page)
+		PageRequest pageRequest = Mock()
+		ComicsFullRequest comicsRequest = Mock()
+		ComicsRequestDTO comicsRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = comicsSoapQuery.query(comicsRequest)

@@ -87,9 +87,9 @@ class StaffCreationConfigurationTest extends AbstractCreationConfigurationTest {
 	private StaffCreationConfiguration staffCreationConfiguration
 
 	void setup() {
-		applicationContextMock = Mock(ApplicationContext)
-		categoryApiMock = Mock(CategoryApi)
-		jobCompletenessDeciderMock = Mock(StepCompletenessDecider)
+		applicationContextMock = Mock()
+		categoryApiMock = Mock()
+		jobCompletenessDeciderMock = Mock()
 		staffCreationConfiguration = new StaffCreationConfiguration(
 				applicationContext: applicationContextMock,
 				categoryApi: categoryApiMock,
@@ -278,13 +278,12 @@ class StaffCreationConfigurationTest extends AbstractCreationConfigurationTest {
 
 	void "ActorTemplateSinglePageProcessor is created"() {
 		given:
-		PageToGenderProcessor pageToGenderProcessorMock = Mock(PageToGenderProcessor)
-		PageToLifeRangeProcessor pageToLifeRangeProcessorMock = Mock(PageToLifeRangeProcessor)
-		ActorTemplateTemplateProcessor actorTemplateTemplateProcessorMock = Mock(ActorTemplateTemplateProcessor)
-		PerformerCategoriesActorTemplateEnrichingProcessor performerCategoriesActorTemplateEnrichingProcessorMock =
-				Mock(PerformerCategoriesActorTemplateEnrichingProcessor)
-		PageBindingService pageBindingServiceMock = Mock(PageBindingService)
-		TemplateFinder templateFinderMock = Mock(TemplateFinder)
+		PageToGenderProcessor pageToGenderProcessorMock = Mock()
+		PageToLifeRangeProcessor pageToLifeRangeProcessorMock = Mock()
+		ActorTemplateTemplateProcessor actorTemplateTemplateProcessorMock = Mock()
+		PerformerCategoriesActorTemplateEnrichingProcessor performerCategoriesActorTemplateEnrichingProcessorMock = Mock()
+		PageBindingService pageBindingServiceMock = Mock()
+		TemplateFinder templateFinderMock = Mock()
 
 		when:
 		ActorTemplateSinglePageProcessor actorTemplateSinglePageProcessor = staffCreationConfiguration

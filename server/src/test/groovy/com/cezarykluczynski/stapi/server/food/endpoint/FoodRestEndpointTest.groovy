@@ -17,13 +17,13 @@ class FoodRestEndpointTest extends AbstractRestEndpointTest {
 	private FoodRestEndpoint foodRestEndpoint
 
 	void setup() {
-		foodRestReaderMock = Mock(FoodRestReader)
+		foodRestReaderMock = Mock()
 		foodRestEndpoint = new FoodRestEndpoint(foodRestReaderMock)
 	}
 
 	void "passes get call to FoodRestReader"() {
 		given:
-		FoodFullResponse foodFullResponse = Mock(FoodFullResponse)
+		FoodFullResponse foodFullResponse = Mock()
 
 		when:
 		FoodFullResponse foodFullResponseOutput = foodRestEndpoint.getFood(GUID)
@@ -35,10 +35,10 @@ class FoodRestEndpointTest extends AbstractRestEndpointTest {
 
 	void "passes search get call to FoodRestReader"() {
 		given:
-		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams)
+		PageSortBeanParams pageAwareBeanParams = Mock()
 		pageAwareBeanParams.pageNumber >> PAGE_NUMBER
 		pageAwareBeanParams.pageSize >> PAGE_SIZE
-		FoodBaseResponse foodResponse = Mock(FoodBaseResponse)
+		FoodBaseResponse foodResponse = Mock()
 
 		when:
 		FoodBaseResponse foodResponseOutput = foodRestEndpoint.searchCompanies(pageAwareBeanParams)
@@ -55,7 +55,7 @@ class FoodRestEndpointTest extends AbstractRestEndpointTest {
 	void "passes search post call to FoodRestReader"() {
 		given:
 		FoodRestBeanParams foodRestBeanParams = new FoodRestBeanParams(name: NAME)
-		FoodBaseResponse foodResponse = Mock(FoodBaseResponse)
+		FoodBaseResponse foodResponse = Mock()
 
 		when:
 		FoodBaseResponse foodResponseOutput = foodRestEndpoint.searchCompanies(foodRestBeanParams)

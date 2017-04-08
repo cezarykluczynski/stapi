@@ -4,7 +4,6 @@ import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries
 import com.cezarykluczynski.stapi.model.comics.entity.Comics
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.util.AbstractComicSeriesTest
-import com.google.common.collect.Sets
 
 abstract class AbstractComicSeriesMapperTest extends AbstractComicSeriesTest {
 
@@ -25,10 +24,10 @@ abstract class AbstractComicSeriesMapperTest extends AbstractComicSeriesTest {
 				yearTo: YEAR_TO,
 				miniseries: MINISERIES,
 				photonovelSeries: PHOTONOVEL_SERIES,
-				parentSeries: Sets.newHashSet(Mock(ComicSeries)),
-				childSeries: Sets.newHashSet(Mock(ComicSeries)),
-				publishers: Sets.newHashSet(Mock(Company)),
-				comics: Sets.newHashSet(Mock(Comics)))
+				parentSeries: createSetOfRandomNumberOfMocks(ComicSeries),
+				childSeries: createSetOfRandomNumberOfMocks(ComicSeries),
+				publishers: createSetOfRandomNumberOfMocks(Company),
+				comics: createSetOfRandomNumberOfMocks(Comics))
 	}
 
 }

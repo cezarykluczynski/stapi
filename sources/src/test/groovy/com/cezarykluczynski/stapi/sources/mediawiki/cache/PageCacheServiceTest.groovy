@@ -17,7 +17,7 @@ class PageCacheServiceTest extends Specification {
 	private PageCacheService pageCacheService
 
 	void setup() {
-		frequentHitCachingHelperMock = Mock(FrequentHitCachingHelper)
+		frequentHitCachingHelperMock = Mock()
 		pageCacheService = new PageCacheService(frequentHitCachingHelperMock)
 	}
 

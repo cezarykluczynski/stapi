@@ -1,8 +1,6 @@
 package com.cezarykluczynski.stapi.util
 
-import spock.lang.Specification
-
-abstract class AbstractComicStripTest extends Specification {
+abstract class AbstractComicStripTest extends AbstractTest {
 
 	protected static final String GUID = 'ABCD0987654321'
 	protected static final String TITLE = 'TITLE'

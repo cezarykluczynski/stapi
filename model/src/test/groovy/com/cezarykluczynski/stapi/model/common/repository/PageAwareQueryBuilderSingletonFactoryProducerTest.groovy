@@ -14,8 +14,8 @@ class PageAwareQueryBuilderSingletonFactoryProducerTest extends Specification {
 	private PageAwareQueryBuilderSingletonFactoryProducer pageAwareQueryBuilderSingletonFactoryProducer
 
 	void setup() {
-		jpaContextMock = Mock(JpaContext)
-		cachingStrategyMock = Mock(CachingStrategy)
+		jpaContextMock = Mock()
+		cachingStrategyMock = Mock()
 		pageAwareQueryBuilderSingletonFactoryProducer = new PageAwareQueryBuilderSingletonFactoryProducer(jpaContextMock, cachingStrategyMock)
 	}
 

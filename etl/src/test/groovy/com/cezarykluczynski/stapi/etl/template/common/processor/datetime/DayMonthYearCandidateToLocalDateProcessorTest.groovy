@@ -20,7 +20,7 @@ class DayMonthYearCandidateToLocalDateProcessorTest extends Specification {
 	private DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor
 
 	void setup() {
-		monthNameToMonthProcessorMock = Mock(MonthNameToMonthProcessor)
+		monthNameToMonthProcessorMock = Mock()
 		dayMonthYearCandidateToLocalDateProcessor = new DayMonthYearCandidateToLocalDateProcessor(monthNameToMonthProcessorMock)
 	}
 

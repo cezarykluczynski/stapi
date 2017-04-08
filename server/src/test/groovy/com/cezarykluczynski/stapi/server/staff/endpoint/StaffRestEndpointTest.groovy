@@ -17,13 +17,13 @@ class StaffRestEndpointTest extends AbstractRestEndpointTest {
 	private StaffRestEndpoint staffRestEndpoint
 
 	void setup() {
-		staffRestReaderMock = Mock(StaffRestReader)
+		staffRestReaderMock = Mock()
 		staffRestEndpoint = new StaffRestEndpoint(staffRestReaderMock)
 	}
 
 	void "passes get call to StaffRestReader"() {
 		given:
-		StaffFullResponse staffFullResponse = Mock(StaffFullResponse)
+		StaffFullResponse staffFullResponse = Mock()
 
 		when:
 		StaffFullResponse staffFullResponseOutput = staffRestEndpoint.getStaff(GUID)
@@ -35,10 +35,10 @@ class StaffRestEndpointTest extends AbstractRestEndpointTest {
 
 	void "passes search get call to StaffRestReader"() {
 		given:
-		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams)
+		PageSortBeanParams pageAwareBeanParams = Mock()
 		pageAwareBeanParams.pageNumber >> PAGE_NUMBER
 		pageAwareBeanParams.pageSize >> PAGE_SIZE
-		StaffBaseResponse staffResponse = Mock(StaffBaseResponse)
+		StaffBaseResponse staffResponse = Mock()
 
 		when:
 		StaffBaseResponse staffResponseOutput = staffRestEndpoint.searchStaff(pageAwareBeanParams)
@@ -55,7 +55,7 @@ class StaffRestEndpointTest extends AbstractRestEndpointTest {
 	void "passes search post call to StaffRestReader"() {
 		given:
 		StaffRestBeanParams staffRestBeanParams = new StaffRestBeanParams(name: NAME)
-		StaffBaseResponse staffResponse = Mock(StaffBaseResponse)
+		StaffBaseResponse staffResponse = Mock()
 
 		when:
 		StaffBaseResponse staffResponseOutput = staffRestEndpoint.searchStaff(staffRestBeanParams)

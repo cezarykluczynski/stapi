@@ -21,12 +21,12 @@ class MovieStaffLinkingWorkerCompositeTest extends Specification {
 	private MovieStaffLinkingWorkerComposite movieStaffLinkingWorkerComposite
 
 	void setup() {
-		movieWritersLinkingWorkerMock = Mock(MovieWritersLinkingWorker)
-		movieScreenplayAuthorsLinkingWorkerMock = Mock(MovieScreenplayAuthorsLinkingWorker)
-		movieStoryAuthorsLinkingWorkerMock = Mock(MovieStoryAuthorsLinkingWorker)
-		movieDirectorsLinkingWorkerMock = Mock(MovieDirectorsLinkingWorker)
-		movieProducersLinkingWorkerMock = Mock(MovieProducersLinkingWorker)
-		movieStaffLinkingWorkerMock = Mock(MovieStaffLinkingWorker)
+		movieWritersLinkingWorkerMock = Mock()
+		movieScreenplayAuthorsLinkingWorkerMock = Mock()
+		movieStoryAuthorsLinkingWorkerMock = Mock()
+		movieDirectorsLinkingWorkerMock = Mock()
+		movieProducersLinkingWorkerMock = Mock()
+		movieStaffLinkingWorkerMock = Mock()
 		movieStaffLinkingWorkerComposite = new MovieStaffLinkingWorkerComposite(movieWritersLinkingWorkerMock,
 				movieScreenplayAuthorsLinkingWorkerMock, movieStoryAuthorsLinkingWorkerMock, movieDirectorsLinkingWorkerMock,
 				movieProducersLinkingWorkerMock, movieStaffLinkingWorkerMock)
@@ -34,14 +34,14 @@ class MovieStaffLinkingWorkerCompositeTest extends Specification {
 
 	void "passes the right sets of staff to particular workers"() {
 		given:
-		MovieLinkedTitlesDTO movieLinkedTitlesDTO = Mock(MovieLinkedTitlesDTO)
-		Set<List<String>> writers = Mock(Set)
-		Set<List<String>> screenplayAuthors = Mock(Set)
-		Set<List<String>> storyAuthors = Mock(Set)
-		Set<List<String>> directors = Mock(Set)
-		Set<List<String>> producers = Mock(Set)
-		Set<List<String>> staff = Mock(Set)
-		Movie movie = Mock(Movie)
+		MovieLinkedTitlesDTO movieLinkedTitlesDTO = Mock()
+		Set<List<String>> writers = Mock()
+		Set<List<String>> screenplayAuthors = Mock()
+		Set<List<String>> storyAuthors = Mock()
+		Set<List<String>> directors = Mock()
+		Set<List<String>> producers = Mock()
+		Set<List<String>> staff = Mock()
+		Movie movie = Mock()
 
 		when:
 		movieStaffLinkingWorkerComposite.link(movieLinkedTitlesDTO, movie)

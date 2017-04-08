@@ -18,7 +18,7 @@ class PerformerCategoriesActorTemplateEnrichingProcessorTest extends Specificati
 	private PerformerCategoriesActorTemplateEnrichingProcessor performerCategoriesActorTemplateEnrichingProcessor
 
 	void setup() {
-		categoryTitlesExtractingProcessorMock = Mock(CategoryTitlesExtractingProcessor)
+		categoryTitlesExtractingProcessorMock = Mock()
 		performerCategoriesActorTemplateEnrichingProcessor = new PerformerCategoriesActorTemplateEnrichingProcessor(categoryTitlesExtractingProcessorMock)
 	}
 

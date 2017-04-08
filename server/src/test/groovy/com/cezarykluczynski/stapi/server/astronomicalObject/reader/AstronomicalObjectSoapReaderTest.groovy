@@ -31,10 +31,10 @@ class AstronomicalObjectSoapReaderTest extends Specification {
 	private AstronomicalObjectSoapReader astronomicalObjectSoapReader
 
 	void setup() {
-		astronomicalObjectSoapQueryBuilderMock = Mock(AstronomicalObjectSoapQuery)
-		astronomicalObjectBaseSoapMapperMock = Mock(AstronomicalObjectBaseSoapMapper)
-		astronomicalObjectFullSoapMapperMock = Mock(AstronomicalObjectFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
+		astronomicalObjectSoapQueryBuilderMock = Mock()
+		astronomicalObjectBaseSoapMapperMock = Mock()
+		astronomicalObjectFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
 		astronomicalObjectSoapReader = new AstronomicalObjectSoapReader(astronomicalObjectSoapQueryBuilderMock, astronomicalObjectBaseSoapMapperMock,
 				astronomicalObjectFullSoapMapperMock, pageMapperMock)
 	}
@@ -42,10 +42,10 @@ class AstronomicalObjectSoapReaderTest extends Specification {
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		List<AstronomicalObject> astronomicalObjectList = Lists.newArrayList()
-		Page<AstronomicalObject> astronomicalObjectPage = Mock(Page)
+		Page<AstronomicalObject> astronomicalObjectPage = Mock()
 		List<AstronomicalObjectBase> soapAstronomicalObjectList = Lists.newArrayList(new AstronomicalObjectBase(guid: GUID))
-		AstronomicalObjectBaseRequest astronomicalObjectBaseRequest = Mock(AstronomicalObjectBaseRequest)
-		ResponsePage responsePage = Mock(ResponsePage)
+		AstronomicalObjectBaseRequest astronomicalObjectBaseRequest = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		AstronomicalObjectBaseResponse astronomicalObjectResponse = astronomicalObjectSoapReader.readBase(astronomicalObjectBaseRequest)
@@ -62,9 +62,9 @@ class AstronomicalObjectSoapReaderTest extends Specification {
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		AstronomicalObjectFull astronomicalObjectFull = new AstronomicalObjectFull(guid: GUID)
-		AstronomicalObject astronomicalObject = Mock(AstronomicalObject)
-		Page<AstronomicalObject> astronomicalObjectPage = Mock(Page)
-		AstronomicalObjectFullRequest astronomicalObjectFullRequest = Mock(AstronomicalObjectFullRequest)
+		AstronomicalObject astronomicalObject = Mock()
+		Page<AstronomicalObject> astronomicalObjectPage = Mock()
+		AstronomicalObjectFullRequest astronomicalObjectFullRequest = Mock()
 
 		when:
 		AstronomicalObjectFullResponse astronomicalObjectFullResponse = astronomicalObjectSoapReader.readFull(astronomicalObjectFullRequest)

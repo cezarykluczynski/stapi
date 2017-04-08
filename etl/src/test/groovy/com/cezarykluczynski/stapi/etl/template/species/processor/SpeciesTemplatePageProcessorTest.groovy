@@ -30,11 +30,11 @@ class SpeciesTemplatePageProcessorTest extends Specification {
 	private SpeciesTemplatePageProcessor speciesTemplatePageProcessor
 
 	void setup() {
-		speciesTemplateFilterMock = Mock(SpeciesTemplateFilter)
-		pageBindingServiceMock = Mock(PageBindingService)
-		templateFinderMock = Mock(TemplateFinder)
-		speciesTemplatePartsEnrichingProcessorMock = Mock(SpeciesTemplatePartsEnrichingProcessor)
-		speciesTemplateTypeEnrichingProcessorMock = Mock(SpeciesTemplateTypeEnrichingProcessor)
+		speciesTemplateFilterMock = Mock()
+		pageBindingServiceMock = Mock()
+		templateFinderMock = Mock()
+		speciesTemplatePartsEnrichingProcessorMock = Mock()
+		speciesTemplateTypeEnrichingProcessorMock = Mock()
 		speciesTemplatePageProcessor = new SpeciesTemplatePageProcessor(speciesTemplateFilterMock, pageBindingServiceMock, templateFinderMock,
 				speciesTemplatePartsEnrichingProcessorMock, speciesTemplateTypeEnrichingProcessorMock)
 	}
@@ -92,7 +92,7 @@ class SpeciesTemplatePageProcessorTest extends Specification {
 		given:
 		SourcesPage page = new SourcesPage(title: TITLE)
 		ModelPage modelPage = new ModelPage()
-		Template.Part templatePart = Mock(Template.Part)
+		Template.Part templatePart = Mock()
 		Template template = new Template(parts: Lists.newArrayList(templatePart))
 
 		when:

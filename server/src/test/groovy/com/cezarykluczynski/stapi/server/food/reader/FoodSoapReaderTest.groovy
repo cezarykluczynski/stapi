@@ -31,20 +31,20 @@ class FoodSoapReaderTest extends Specification {
 	private FoodSoapReader foodSoapReader
 
 	void setup() {
-		foodSoapQueryBuilderMock = Mock(FoodSoapQuery)
-		foodBaseSoapMapperMock = Mock(FoodBaseSoapMapper)
-		foodFullSoapMapperMock = Mock(FoodFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
+		foodSoapQueryBuilderMock = Mock()
+		foodBaseSoapMapperMock = Mock()
+		foodFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
 		foodSoapReader = new FoodSoapReader(foodSoapQueryBuilderMock, foodBaseSoapMapperMock, foodFullSoapMapperMock, pageMapperMock)
 	}
 
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		List<Food> foodList = Lists.newArrayList()
-		Page<Food> foodPage = Mock(Page)
+		Page<Food> foodPage = Mock()
 		List<FoodBase> soapFoodList = Lists.newArrayList(new FoodBase(guid: GUID))
-		FoodBaseRequest foodBaseRequest = Mock(FoodBaseRequest)
-		ResponsePage responsePage = Mock(ResponsePage)
+		FoodBaseRequest foodBaseRequest = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		FoodBaseResponse foodResponse = foodSoapReader.readBase(foodBaseRequest)
@@ -61,9 +61,9 @@ class FoodSoapReaderTest extends Specification {
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		FoodFull foodFull = new FoodFull(guid: GUID)
-		Food food = Mock(Food)
-		Page<Food> foodPage = Mock(Page)
-		FoodFullRequest foodFullRequest = Mock(FoodFullRequest)
+		Food food = Mock()
+		Page<Food> foodPage = Mock()
+		FoodFullRequest foodFullRequest = Mock()
 
 		when:
 		FoodFullResponse foodFullResponse = foodSoapReader.readFull(foodFullRequest)

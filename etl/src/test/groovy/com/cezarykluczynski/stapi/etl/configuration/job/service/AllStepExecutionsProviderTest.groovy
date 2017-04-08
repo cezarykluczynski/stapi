@@ -26,10 +26,10 @@ class AllStepExecutionsProviderTest extends Specification {
 	private AllStepExecutionsProvider allStepExecutionsProvider
 
 	void setup() {
-		jobInstanceDaoMock = Mock(JobInstanceDao)
-		jobExecutionDaoMock = Mock(JobExecutionDao)
-		stepExecutionDaoMock = Mock(StepExecutionDao)
-		executionContextDaoMock = Mock(ExecutionContextDao)
+		jobInstanceDaoMock = Mock()
+		jobExecutionDaoMock = Mock()
+		stepExecutionDaoMock = Mock()
+		executionContextDaoMock = Mock()
 		allStepExecutionsProvider = new AllStepExecutionsProvider(jobInstanceDaoMock, jobExecutionDaoMock,
 				stepExecutionDaoMock, executionContextDaoMock)
 	}
@@ -60,15 +60,15 @@ class AllStepExecutionsProviderTest extends Specification {
 
 	void "returns step executions from all job executions"() {
 		given:
-		JobExecution jobExecution1 = Mock(JobExecution)
-		JobExecution jobExecution2 = Mock(JobExecution)
-		ExecutionContext executionContext1 = Mock(ExecutionContext)
-		ExecutionContext executionContext2 = Mock(ExecutionContext)
-		StepExecution job1stepExecution1 = Mock(StepExecution)
-		StepExecution job1stepExecution2 = Mock(StepExecution)
-		StepExecution job2stepExecution1 = Mock(StepExecution)
-		StepExecution job2stepExecution2 = Mock(StepExecution)
-		JobInstance jobInstance = Mock(JobInstance)
+		JobExecution jobExecution1 = Mock()
+		JobExecution jobExecution2 = Mock()
+		ExecutionContext executionContext1 = Mock()
+		ExecutionContext executionContext2 = Mock()
+		StepExecution job1stepExecution1 = Mock()
+		StepExecution job1stepExecution2 = Mock()
+		StepExecution job2stepExecution1 = Mock()
+		StepExecution job2stepExecution2 = Mock()
+		JobInstance jobInstance = Mock()
 
 		when:
 		List<StepExecution> stepExecutionList = allStepExecutionsProvider.provide(JobName.JOB_CREATE)

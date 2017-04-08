@@ -45,13 +45,13 @@ class SeriesRepositoryImplTest extends Specification {
 	private Page page
 
 	void setup() {
-		seriesQueryBuilderMock = Mock(SeriesQueryBuilderFactory)
+		seriesQueryBuilderMock = Mock()
 		seriesRepositoryImpl = new SeriesRepositoryImpl(seriesQueryBuilderMock)
-		seriesQueryBuilder = Mock(QueryBuilder)
-		pageable = Mock(Pageable)
-		seriesRequestDTO = Mock(SeriesRequestDTO)
-		series = Mock(Series)
-		page = Mock(Page)
+		seriesQueryBuilder = Mock()
+		pageable = Mock()
+		seriesRequestDTO = Mock()
+		series = Mock()
+		page = Mock()
 	}
 
 	void "query is built and performed"() {

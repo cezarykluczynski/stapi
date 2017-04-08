@@ -13,7 +13,7 @@ class AstronomicalObjectTypeProcessorTest extends Specification {
 	private AstronomicalObjectTypeProcessor astronomicalObjectTypeProcessor
 
 	void setup() {
-		astronomicalObjectWikitextProcessorMock = Mock(AstronomicalObjectWikitextProcessor)
+		astronomicalObjectWikitextProcessorMock = Mock()
 		astronomicalObjectTypeProcessor = new AstronomicalObjectTypeProcessor(astronomicalObjectWikitextProcessorMock)
 	}
 

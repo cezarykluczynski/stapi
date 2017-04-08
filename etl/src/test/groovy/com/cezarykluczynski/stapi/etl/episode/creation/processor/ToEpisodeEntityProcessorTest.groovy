@@ -12,9 +12,9 @@ class ToEpisodeEntityProcessorTest extends AbstractEpisodeTest {
 
 	private static final Long SERIES_ID = 1L
 
-	private final Page page = Mock(Page)
-	private final Series seriesDetached = Mock(Series)
-	private final Series seriesNew = Mock(Series)
+	private final Page page = Mock()
+	private final Series seriesDetached = Mock()
+	private final Series seriesNew = Mock()
 
 	private GuidGenerator guidGeneratorMock
 
@@ -23,8 +23,8 @@ class ToEpisodeEntityProcessorTest extends AbstractEpisodeTest {
 	private ToEpisodeEntityProcessor toEpisodeEntityProcessor
 
 	void setup() {
-		guidGeneratorMock = Mock(GuidGenerator)
-		seriesRepositoryMock = Mock(SeriesRepository)
+		guidGeneratorMock = Mock()
+		seriesRepositoryMock = Mock()
 		toEpisodeEntityProcessor = new ToEpisodeEntityProcessor(guidGeneratorMock, seriesRepositoryMock)
 	}
 

@@ -19,9 +19,9 @@ class SeriesProcessorTest extends Specification {
 	private SeriesProcessor seriesProcessor
 
 	void setup() {
-		pageHeaderProcessorMock = Mock(PageHeaderProcessor)
-		pageProcessorMock = Mock(SeriesTemplatePageProcessor)
-		seriesTemplateProcessorMock = Mock(SeriesTemplateProcessor)
+		pageHeaderProcessorMock = Mock()
+		pageProcessorMock = Mock()
+		seriesTemplateProcessorMock = Mock()
 		seriesProcessor = new SeriesProcessor(pageHeaderProcessorMock, pageProcessorMock, seriesTemplateProcessorMock)
 	}
 

@@ -17,13 +17,13 @@ class SeriesRestEndpointTest extends AbstractRestEndpointTest {
 	private SeriesRestEndpoint seriesRestEndpoint
 
 	void setup() {
-		seriesRestReaderMock = Mock(SeriesRestReader)
+		seriesRestReaderMock = Mock()
 		seriesRestEndpoint = new SeriesRestEndpoint(seriesRestReaderMock)
 	}
 
 	void "passes get call to SeriesRestReader"() {
 		given:
-		SeriesFullResponse seriesFullResponse = Mock(SeriesFullResponse)
+		SeriesFullResponse seriesFullResponse = Mock()
 
 		when:
 		SeriesFullResponse seriesFullResponseOutput = seriesRestEndpoint.getSeries(GUID)
@@ -35,10 +35,10 @@ class SeriesRestEndpointTest extends AbstractRestEndpointTest {
 
 	void "passes search get call to SeriesRestReader"() {
 		given:
-		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams)
+		PageSortBeanParams pageAwareBeanParams = Mock()
 		pageAwareBeanParams.pageNumber >> PAGE_NUMBER
 		pageAwareBeanParams.pageSize >> PAGE_SIZE
-		SeriesBaseResponse seriesResponse = Mock(SeriesBaseResponse)
+		SeriesBaseResponse seriesResponse = Mock()
 
 		when:
 		SeriesBaseResponse seriesResponseOutput = seriesRestEndpoint.searchSeries(pageAwareBeanParams)
@@ -55,7 +55,7 @@ class SeriesRestEndpointTest extends AbstractRestEndpointTest {
 	void "passes search post call to SeriesRestReader"() {
 		given:
 		SeriesRestBeanParams seriesRestBeanParams = new SeriesRestBeanParams(title: TITLE)
-		SeriesBaseResponse seriesResponse = Mock(SeriesBaseResponse)
+		SeriesBaseResponse seriesResponse = Mock()
 
 		when:
 		SeriesBaseResponse seriesResponseOutput = seriesRestEndpoint.searchSeries(seriesRestBeanParams)

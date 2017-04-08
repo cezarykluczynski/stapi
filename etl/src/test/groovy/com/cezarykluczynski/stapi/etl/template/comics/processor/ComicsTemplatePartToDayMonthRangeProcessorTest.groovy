@@ -17,17 +17,17 @@ class ComicsTemplatePartToDayMonthRangeProcessorTest extends Specification {
 	private ComicsTemplatePartToDayMonthRangeProcessor comicsTemplatePartToDayMonthRangeProcessor
 
 	void setup() {
-		templateFilterMock = Mock(TemplateFilter)
-		templateToDayMonthYearParserMock = Mock(TemplateToDayMonthYearParser)
+		templateFilterMock = Mock()
+		templateToDayMonthYearParserMock = Mock()
 		comicsTemplatePartToDayMonthRangeProcessor = new ComicsTemplatePartToDayMonthRangeProcessor(templateFilterMock,
 				templateToDayMonthYearParserMock)
 	}
 
 	void "when one datelink template is found in template part, it is used to to parse day month year"() {
 		given:
-		DayMonthYear dayMonthYear = Mock(DayMonthYear)
-		Template datelinkTemplate = Mock(Template)
-		List<Template> templateList = Mock(List)
+		DayMonthYear dayMonthYear = Mock()
+		Template datelinkTemplate = Mock()
+		List<Template> templateList = Mock()
 		Template.Part templatePart = new Template.Part(templates: templateList)
 
 		when:
@@ -44,10 +44,10 @@ class ComicsTemplatePartToDayMonthRangeProcessorTest extends Specification {
 
 	void "when more than one datelink template is found in template part, the first one is used"() {
 		given:
-		DayMonthYear dayMonthYear = Mock(DayMonthYear)
-		Template datelinkTemplate1 = Mock(Template)
-		Template datelinkTemplate2 = Mock(Template)
-		List<Template> templateList = Mock(List)
+		DayMonthYear dayMonthYear = Mock()
+		Template datelinkTemplate1 = Mock()
+		Template datelinkTemplate2 = Mock()
+		List<Template> templateList = Mock()
 		Template.Part templatePart = new Template.Part(templates: templateList)
 
 		when:
@@ -65,9 +65,9 @@ class ComicsTemplatePartToDayMonthRangeProcessorTest extends Specification {
 
 	void "when one monthlink template is found in template part, it is used to to parse month year"() {
 		given:
-		DayMonthYear dayMonthYear = Mock(DayMonthYear)
-		Template monthlinkTemplate = Mock(Template)
-		List<Template> templateList = Mock(List)
+		DayMonthYear dayMonthYear = Mock()
+		Template monthlinkTemplate = Mock()
+		List<Template> templateList = Mock()
 		Template.Part templatePart = new Template.Part(templates: templateList)
 
 		when:
@@ -84,10 +84,10 @@ class ComicsTemplatePartToDayMonthRangeProcessorTest extends Specification {
 
 	void "when more than one monthlink template is found in template part, the first one is used"() {
 		given:
-		DayMonthYear dayMonthYear = Mock(DayMonthYear)
-		Template monthlinkTemplate1 = Mock(Template)
-		Template monthlinkTemplate2 = Mock(Template)
-		List<Template> templateList = Mock(List)
+		DayMonthYear dayMonthYear = Mock()
+		Template monthlinkTemplate1 = Mock()
+		Template monthlinkTemplate2 = Mock()
+		List<Template> templateList = Mock()
 		Template.Part templatePart = new Template.Part(templates: templateList)
 
 		when:
@@ -105,9 +105,9 @@ class ComicsTemplatePartToDayMonthRangeProcessorTest extends Specification {
 
 	void "when one yearlink template is found in template part, it is used to to parse year"() {
 		given:
-		DayMonthYear dayMonthYear = Mock(DayMonthYear)
-		Template yearlinkTemplate = Mock(Template)
-		List<Template> templateList = Mock(List)
+		DayMonthYear dayMonthYear = Mock()
+		Template yearlinkTemplate = Mock()
+		List<Template> templateList = Mock()
 		Template.Part templatePart = new Template.Part(templates: templateList)
 
 		when:
@@ -124,10 +124,10 @@ class ComicsTemplatePartToDayMonthRangeProcessorTest extends Specification {
 
 	void "when more than one yearlink template is found in template part, the first one is used"() {
 		given:
-		DayMonthYear dayMonthYear = Mock(DayMonthYear)
-		Template yearlinkTemplate1 = Mock(Template)
-		Template yearlinkTemplate2 = Mock(Template)
-		List<Template> templateList = Mock(List)
+		DayMonthYear dayMonthYear = Mock()
+		Template yearlinkTemplate1 = Mock()
+		Template yearlinkTemplate2 = Mock()
+		List<Template> templateList = Mock()
 		Template.Part templatePart = new Template.Part(templates: templateList)
 
 		when:

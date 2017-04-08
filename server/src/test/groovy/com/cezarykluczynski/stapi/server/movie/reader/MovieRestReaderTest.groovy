@@ -30,21 +30,22 @@ class MovieRestReaderTest extends Specification {
 	private MovieRestReader movieRestReader
 
 	void setup() {
-		movieRestQueryBuilderMock = Mock(MovieRestQuery)
-		movieBaseRestMapperMock = Mock(MovieBaseRestMapper)
-		movieFullRestMapperMock = Mock(MovieFullRestMapper)
-		pageMapperMock = Mock(PageMapper)
-		movieRestReader = new MovieRestReader(movieRestQueryBuilderMock, movieBaseRestMapperMock, movieFullRestMapperMock,
-				pageMapperMock)
+		movieRestQueryBuilderMock = Mock()
+		movieBaseRestMapperMock = Mock()
+		movieFullRestMapperMock = Mock()
+		pageMapperMock = Mock()
+		movieRestReader = new MovieRestReader(movieRestQueryBuilderMock, movieBaseRestMapperMock, movieFullRestMapperMock, pageMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		MovieRestBeanParams movieRestBeanParams = Mock(MovieRestBeanParams)
-		List<MovieBase> restMovieList = Lists.newArrayList(Mock(MovieBase))
-		List<Movie> movieList = Lists.newArrayList(Mock(Movie))
-		Page<Movie> moviePage = Mock(Page)
-		ResponsePage responsePage = Mock(ResponsePage)
+		MovieBase movieBase = Mock()
+		Movie movie = Mock()
+		MovieRestBeanParams movieRestBeanParams = Mock()
+		List<MovieBase> restMovieList = Lists.newArrayList(movieBase)
+		List<Movie> movieList = Lists.newArrayList(movie)
+		Page<Movie> moviePage = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		MovieBaseResponse movieResponseOutput = movieRestReader.readBase(movieRestBeanParams)
@@ -61,10 +62,10 @@ class MovieRestReaderTest extends Specification {
 
 	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
 		given:
-		MovieFull movieFull = Mock(MovieFull)
-		Movie movie = Mock(Movie)
+		MovieFull movieFull = Mock()
+		Movie movie = Mock()
 		List<Movie> movieList = Lists.newArrayList(movie)
-		Page<Movie> moviePage = Mock(Page)
+		Page<Movie> moviePage = Mock()
 
 		when:
 		MovieFullResponse movieResponseOutput = movieRestReader.readFull(GUID)

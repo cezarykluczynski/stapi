@@ -15,8 +15,8 @@ class CompanyProcessorTest extends Specification {
 	private CompanyProcessor companyProcessor
 
 	void setup() {
-		pageHeaderProcessorMock = Mock(PageHeaderProcessor)
-		companyPageProcessorMock = Mock(CompanyPageProcessor)
+		pageHeaderProcessorMock = Mock()
+		companyPageProcessorMock = Mock()
 		companyProcessor = new CompanyProcessor(pageHeaderProcessorMock, companyPageProcessorMock)
 	}
 

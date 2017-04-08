@@ -22,9 +22,9 @@ class ComicStripReaderTest extends Specification {
 	private ComicStripReader comicStripReader
 
 	void setup() {
-		comicStripCandidatePageGatheringServiceMock = Mock(ComicStripCandidatePageGatheringService)
-		categoryApiMock = Mock(CategoryApi)
-		stepCompletenessDeciderMock = Mock(StepCompletenessDecider)
+		comicStripCandidatePageGatheringServiceMock = Mock()
+		categoryApiMock = Mock()
+		stepCompletenessDeciderMock = Mock()
 		comicStripReader = new ComicStripReader(comicStripCandidatePageGatheringServiceMock, categoryApiMock, stepCompletenessDeciderMock)
 	}
 
@@ -42,7 +42,7 @@ class ComicStripReaderTest extends Specification {
 	void """when first read is made, and CREATE_COMIC_STRIPS step is not completed, and ComicStripCandidatePageGatheringService is not empty,
 			first read is performed from it"""() {
 		given:
-		PageHeader pageHeaderFromService = Mock(PageHeader)
+		PageHeader pageHeaderFromService = Mock()
 
 		when:
 		PageHeader pageHeader = comicStripReader.read()
@@ -65,7 +65,7 @@ class ComicStripReaderTest extends Specification {
 	void """when first read is made, and CREATE_COMIC_STRIPS step is not completed, and ComicStripCandidatePageGatheringService is empty,
 			first read is performed CategoryApi"""() {
 		given:
-		PageHeader pageHeaderFromApi = Mock(PageHeader)
+		PageHeader pageHeaderFromApi = Mock()
 
 		when:
 		PageHeader pageHeader = comicStripReader.read()

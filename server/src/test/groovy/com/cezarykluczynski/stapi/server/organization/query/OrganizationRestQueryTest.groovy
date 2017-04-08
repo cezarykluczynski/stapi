@@ -20,20 +20,18 @@ class OrganizationRestQueryTest extends Specification {
 	private OrganizationRestQuery organizationRestQuery
 
 	void setup() {
-		organizationRestMapperMock = Mock(OrganizationBaseRestMapper)
-		pageMapperMock = Mock(PageMapper)
-		organizationRepositoryMock = Mock(OrganizationRepository)
+		organizationRestMapperMock = Mock()
+		pageMapperMock = Mock()
+		organizationRepositoryMock = Mock()
 		organizationRestQuery = new OrganizationRestQuery(organizationRestMapperMock, pageMapperMock, organizationRepositoryMock)
 	}
 
 	void "maps OrganizationRestBeanParams to OrganizationRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
-		PageRequest pageRequest = Mock(PageRequest)
-		OrganizationRestBeanParams organizationRestBeanParams = Mock(OrganizationRestBeanParams) {
-
-		}
-		OrganizationRequestDTO organizationRequestDTO = Mock(OrganizationRequestDTO)
-		Page page = Mock(Page)
+		PageRequest pageRequest = Mock()
+		OrganizationRestBeanParams organizationRestBeanParams = Mock()
+		OrganizationRequestDTO organizationRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = organizationRestQuery.query(organizationRestBeanParams)

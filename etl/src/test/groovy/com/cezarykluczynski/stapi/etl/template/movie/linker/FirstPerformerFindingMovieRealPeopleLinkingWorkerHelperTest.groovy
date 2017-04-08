@@ -19,7 +19,7 @@ class FirstPerformerFindingMovieRealPeopleLinkingWorkerHelperTest extends Specif
 	private FirstPerformerFindingMovieRealPeopleLinkingWorkerHelper firstPerformerFindingMovieRealPeopleLinkingWorkerHelper
 
 	void setup() {
-		entityLookupByNameServiceMock = Mock(EntityLookupByNameService)
+		entityLookupByNameServiceMock = Mock()
 		firstPerformerFindingMovieRealPeopleLinkingWorkerHelper = new FirstPerformerFindingMovieRealPeopleLinkingWorkerHelper(
 				entityLookupByNameServiceMock)
 	}

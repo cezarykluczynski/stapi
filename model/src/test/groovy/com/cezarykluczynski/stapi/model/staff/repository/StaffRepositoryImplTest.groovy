@@ -46,15 +46,15 @@ class StaffRepositoryImplTest extends AbstractRealWorldPersonTest {
 	private Set<Movie> moviesSet
 
 	void setup() {
-		staffInitialQueryBuilderFactory = Mock(StaffInitialQueryBuilderFactory)
+		staffInitialQueryBuilderFactory = Mock()
 		staffRepositoryImpl = new StaffRepositoryImpl(staffInitialQueryBuilderFactory)
-		staffQueryBuilder = Mock(QueryBuilder)
-		staffMoviesQueryBuilder = Mock(QueryBuilder)
-		pageable = Mock(Pageable)
-		staffRequestDTO = Mock(StaffRequestDTO)
-		staff = Mock(Staff)
-		moviesStaff = Mock(Staff)
-		page = Mock(Page)
+		staffQueryBuilder = Mock()
+		staffMoviesQueryBuilder = Mock()
+		pageable = Mock()
+		staffRequestDTO = Mock()
+		staff = Mock()
+		moviesStaff = Mock()
+		page = Mock()
 	}
 
 	void "query is built and performed"() {

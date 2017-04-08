@@ -17,16 +17,16 @@ class ComicSeriesPublishedDatesEnrichingProcessorTest extends Specification {
 	private ComicSeriesPublishedDatesEnrichingProcessor comicSeriesPublishedDatesEnrichingProcessor
 
 	void setup() {
-		dayMonthYearRangeProcessorMock = Mock(DayMonthYearRangeProcessor)
-		comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock = Mock(ComicSeriesTemplateDayMonthYearRangeEnrichingProcessor)
+		dayMonthYearRangeProcessorMock = Mock()
+		comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock = Mock()
 		comicSeriesPublishedDatesEnrichingProcessor = new ComicSeriesPublishedDatesEnrichingProcessor(dayMonthYearRangeProcessorMock,
 				comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock)
 	}
 
 	void "when DayMonthYear range is not empty, it is not passed to enricher"() {
 		given:
-		Template.Part templatePart = Mock(Template.Part)
-		ComicSeriesTemplate comicSeriesTemplate = Mock(ComicSeriesTemplate)
+		Template.Part templatePart = Mock()
+		ComicSeriesTemplate comicSeriesTemplate = Mock()
 		DayMonthYear dayMonthYearFrom = Mock()
 		DayMonthYear dayMonthYearTo = Mock()
 
@@ -46,7 +46,7 @@ class ComicSeriesPublishedDatesEnrichingProcessorTest extends Specification {
 
 	void "when DayMonthYear range is empty, it is not passed to enricher"() {
 		given:
-		Template.Part templatePart = Mock(Template.Part)
+		Template.Part templatePart = Mock()
 		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate()
 
 		when:

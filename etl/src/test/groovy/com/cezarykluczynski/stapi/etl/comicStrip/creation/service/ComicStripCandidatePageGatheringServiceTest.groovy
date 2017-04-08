@@ -12,17 +12,17 @@ class ComicStripCandidatePageGatheringServiceTest extends Specification {
 	private ComicStripCandidatePageGatheringService comicStripCandidatePageGatheringService
 
 	void setup() {
-		pageHeaderConverterMock = Mock(PageHeaderConverter)
+		pageHeaderConverterMock = Mock()
 		comicStripCandidatePageGatheringService = new ComicStripCandidatePageGatheringService(pageHeaderConverterMock)
 	}
 
 	void "adds pages, then clears collection when page headers are requested"() {
 		given:
-		Page page1 = Mock(Page)
-		Page page2 = Mock(Page)
+		Page page1 = Mock()
+		Page page2 = Mock()
 		comicStripCandidatePageGatheringService.addCandidate page1
 		comicStripCandidatePageGatheringService.addCandidate page2
-		List<PageHeader> pageHeaderList = Mock(List)
+		List<PageHeader> pageHeaderList = Mock()
 
 		when:
 		List<PageHeader> pageHeaderListOutput = comicStripCandidatePageGatheringService.allPageHeadersThenClean

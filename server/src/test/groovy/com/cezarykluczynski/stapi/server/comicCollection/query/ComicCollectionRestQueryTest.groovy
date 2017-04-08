@@ -20,20 +20,18 @@ class ComicCollectionRestQueryTest extends Specification {
 	private ComicCollectionRestQuery comicCollectionRestQuery
 
 	void setup() {
-		comicCollectionRestMapperMock = Mock(ComicCollectionBaseRestMapper)
-		pageMapperMock = Mock(PageMapper)
-		comicCollectionRepositoryMock = Mock(ComicCollectionRepository)
+		comicCollectionRestMapperMock = Mock()
+		pageMapperMock = Mock()
+		comicCollectionRepositoryMock = Mock()
 		comicCollectionRestQuery = new ComicCollectionRestQuery(comicCollectionRestMapperMock, pageMapperMock, comicCollectionRepositoryMock)
 	}
 
 	void "maps ComicCollectionRestBeanParams to ComicCollectionRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
-		PageRequest pageRequest = Mock(PageRequest)
-		ComicCollectionRestBeanParams comicCollectionRestBeanParams = Mock(ComicCollectionRestBeanParams) {
-
-		}
-		ComicCollectionRequestDTO comicCollectionRequestDTO = Mock(ComicCollectionRequestDTO)
-		Page page = Mock(Page)
+		PageRequest pageRequest = Mock()
+		ComicCollectionRestBeanParams comicCollectionRestBeanParams = Mock()
+		ComicCollectionRequestDTO comicCollectionRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = comicCollectionRestQuery.query(comicCollectionRestBeanParams)

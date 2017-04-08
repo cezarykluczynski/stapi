@@ -16,7 +16,7 @@ class DuplicateFilteringPreSavePageAwareFilterTest extends Specification {
 	private DuplicateFilteringPreSavePageAwareFilter filteringPreSavePageAwareProcessor
 
 	void setup() {
-		inPageAwareRepositoryPageFinderMock = Mock(InPageAwareRepositoryPageFinder)
+		inPageAwareRepositoryPageFinderMock = Mock()
 		filteringPreSavePageAwareProcessor = new DuplicateFilteringPreSavePageAwareFilter(inPageAwareRepositoryPageFinderMock)
 	}
 
@@ -25,9 +25,9 @@ class DuplicateFilteringPreSavePageAwareFilterTest extends Specification {
 
 		Page originalPage = new Page(pageId: PAGE_ID_1)
 		Page duplicatePage = new Page(pageId: PAGE_ID_1)
-		PageAware originalPageAware = Mock(PageAware)
+		PageAware originalPageAware = Mock()
 		originalPageAware.page >> originalPage
-		PageAware duplicatePageAware = Mock(PageAware)
+		PageAware duplicatePageAware = Mock()
 		duplicatePageAware.page >> duplicatePage
 		List<PageAware> pageAwareList = Lists.newArrayList(originalPageAware, duplicatePageAware)
 
@@ -45,11 +45,11 @@ class DuplicateFilteringPreSavePageAwareFilterTest extends Specification {
 
 	void "filters duplicated entities when they are already persisted"() {
 		given:
-		PageAware pageAware1 = Mock(PageAware)
+		PageAware pageAware1 = Mock()
 		pageAware1.page >> new Page(pageId: PAGE_ID_1)
-		PageAware pageAware2 = Mock(PageAware)
+		PageAware pageAware2 = Mock()
 		pageAware2.page >> new Page(pageId: PAGE_ID_2)
-		PageAware pageAware3 = Mock(PageAware)
+		PageAware pageAware3 = Mock()
 		pageAware3.page >> new Page(pageId: PAGE_ID_1)
 		List<PageAware> pageAwareList = Lists.newArrayList(pageAware1, pageAware2, pageAware3)
 

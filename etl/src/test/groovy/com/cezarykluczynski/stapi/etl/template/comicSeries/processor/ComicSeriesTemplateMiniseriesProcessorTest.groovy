@@ -13,7 +13,7 @@ class ComicSeriesTemplateMiniseriesProcessorTest extends Specification {
 	private ComicSeriesTemplateMiniseriesProcessor comicSeriesTemplateMiniseriesProcessor
 
 	void setup() {
-		wikitextApiMock = Mock(WikitextApi)
+		wikitextApiMock = Mock()
 		comicSeriesTemplateMiniseriesProcessor = new ComicSeriesTemplateMiniseriesProcessor(wikitextApiMock)
 	}
 

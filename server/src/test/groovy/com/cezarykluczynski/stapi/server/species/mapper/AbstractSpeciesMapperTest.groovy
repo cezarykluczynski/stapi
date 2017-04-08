@@ -4,12 +4,11 @@ import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalOb
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.species.entity.Species
 import com.cezarykluczynski.stapi.util.AbstractSpeciesTest
-import com.google.common.collect.Sets
 
 abstract class AbstractSpeciesMapperTest extends AbstractSpeciesTest {
 
-	protected final AstronomicalObject homeworld = Mock(AstronomicalObject)
-	protected final AstronomicalObject quadrant = Mock(AstronomicalObject)
+	protected final AstronomicalObject homeworld = Mock()
+	protected final AstronomicalObject quadrant = Mock()
 
 	protected Species createSpecies() {
 		new Species(
@@ -29,7 +28,7 @@ abstract class AbstractSpeciesMapperTest extends AbstractSpeciesTest {
 				transDimensionalSpecies: TRANS_DIMENSIONAL_SPECIES,
 				unnamedSpecies: UNNAMED_SPECIES,
 				alternateReality: ALTERNATE_REALITY,
-				characters: Sets.newHashSet(Mock(Character)))
+				characters: createSetOfRandomNumberOfMocks(Character))
 	}
 
 }

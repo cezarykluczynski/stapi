@@ -24,9 +24,9 @@ class ComicsCreationConfigurationTest extends AbstractCreationConfigurationTest 
 	private ComicsCreationConfiguration comicsCreationConfiguration
 
 	void setup() {
-		applicationContextMock = Mock(ApplicationContext)
-		categoryApiMock = Mock(CategoryApi)
-		jobCompletenessDeciderMock = Mock(StepCompletenessDecider)
+		applicationContextMock = Mock()
+		categoryApiMock = Mock()
+		jobCompletenessDeciderMock = Mock()
 		comicsCreationConfiguration = new ComicsCreationConfiguration(
 				applicationContext: applicationContextMock,
 				categoryApi: categoryApiMock,

@@ -21,14 +21,14 @@ class WikitextToCompaniesProcessorTest extends Specification {
 	private WikitextToCompaniesProcessor wikitextToCompaniesProcessor
 
 	void setup() {
-		wikitextApiMock = Mock(WikitextApi)
-		companyRepositoryMock = Mock(CompanyRepository)
+		wikitextApiMock = Mock()
+		companyRepositoryMock = Mock()
 		wikitextToCompaniesProcessor = new WikitextToCompaniesProcessor(wikitextApiMock, companyRepositoryMock)
 	}
 
 	void "given wikitext, gets links from it, then returns companies that have associated pages with matching titles"() {
 		given:
-		Company company = Mock(Company)
+		Company company = Mock()
 
 		when:
 		Set<Company> companySet = wikitextToCompaniesProcessor.process(WIKITEXT)

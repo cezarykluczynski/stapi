@@ -17,13 +17,13 @@ class OrganizationConfigurationTest extends Specification {
 	private OrganizationConfiguration organizationConfiguration
 
 	void setup() {
-		endpointFactoryMock = Mock(EndpointFactory)
+		endpointFactoryMock = Mock()
 		organizationConfiguration = new OrganizationConfiguration(endpointFactory: endpointFactoryMock)
 	}
 
 	void "Organization SOAP endpoint is created"() {
 		given:
-		Endpoint endpoint = Mock(Endpoint)
+		Endpoint endpoint = Mock()
 
 		when:
 		Endpoint endpointOutput = organizationConfiguration.organizationEndpoint()

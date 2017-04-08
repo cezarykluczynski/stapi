@@ -23,8 +23,8 @@ class CharacterSpeciesWithSpeciesNameEnrichingProcessorTest extends Specificatio
 	private CharacterSpeciesWithSpeciesNameEnrichingProcessor characterSpeciesWithSpeciesNameEnrichingProcessor
 
 	void setup() {
-		characterSpeciesRepositoryMock = Mock(CharacterSpeciesRepository)
-		entityLookupByNameServiceMock = Mock(EntityLookupByNameService)
+		characterSpeciesRepositoryMock = Mock()
+		entityLookupByNameServiceMock = Mock()
 		characterSpeciesWithSpeciesNameEnrichingProcessor = new CharacterSpeciesWithSpeciesNameEnrichingProcessor(
 				characterSpeciesRepositoryMock, entityLookupByNameServiceMock)
 	}

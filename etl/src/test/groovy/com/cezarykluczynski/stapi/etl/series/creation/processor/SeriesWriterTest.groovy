@@ -12,7 +12,7 @@ class SeriesWriterTest extends Specification {
 	private SeriesWriter seriesWriter
 
 	void setup() {
-		seriesRepositoryMock = Mock(SeriesRepository)
+		seriesRepositoryMock = Mock()
 		seriesWriter = new SeriesWriter(seriesRepositoryMock)
 	}
 

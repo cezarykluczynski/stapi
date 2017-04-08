@@ -14,14 +14,14 @@ class ComicSeriesSoapEndpointTest extends Specification {
 	private ComicSeriesSoapEndpoint comicSeriesSoapEndpoint
 
 	void setup() {
-		comicSeriesSoapReaderMock = Mock(ComicSeriesSoapReader)
+		comicSeriesSoapReaderMock = Mock()
 		comicSeriesSoapEndpoint = new ComicSeriesSoapEndpoint(comicSeriesSoapReaderMock)
 	}
 
 	void "passes base call to ComicSeriesSoapReader"() {
 		given:
-		ComicSeriesBaseRequest comicSeriesBaseRequest = Mock(ComicSeriesBaseRequest)
-		ComicSeriesBaseResponse comicSeriesBaseResponse = Mock(ComicSeriesBaseResponse)
+		ComicSeriesBaseRequest comicSeriesBaseRequest = Mock()
+		ComicSeriesBaseResponse comicSeriesBaseResponse = Mock()
 
 		when:
 		ComicSeriesBaseResponse comicSeriesResponseResult = comicSeriesSoapEndpoint.getComicSeriesBase(comicSeriesBaseRequest)
@@ -33,8 +33,8 @@ class ComicSeriesSoapEndpointTest extends Specification {
 
 	void "passes full call to ComicSeriesSoapReader"() {
 		given:
-		ComicSeriesFullRequest comicSeriesFullRequest = Mock(ComicSeriesFullRequest)
-		ComicSeriesFullResponse comicSeriesFullResponse = Mock(ComicSeriesFullResponse)
+		ComicSeriesFullRequest comicSeriesFullRequest = Mock()
+		ComicSeriesFullResponse comicSeriesFullResponse = Mock()
 
 		when:
 		ComicSeriesFullResponse comicSeriesResponseResult = comicSeriesSoapEndpoint.getComicSeriesFull(comicSeriesFullRequest)

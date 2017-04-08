@@ -25,21 +25,21 @@ class SeriesSoapQueryTest extends Specification {
 	private SeriesSoapQuery seriesSoapQuery
 
 	void setup() {
-		seriesBaseSoapMapperMock = Mock(SeriesBaseSoapMapper)
-		seriesFullSoapMapperMock = Mock(SeriesFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
-		seriesRepositoryMock = Mock(SeriesRepository)
+		seriesBaseSoapMapperMock = Mock()
+		seriesFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
+		seriesRepositoryMock = Mock()
 		seriesSoapQuery = new SeriesSoapQuery(seriesBaseSoapMapperMock, seriesFullSoapMapperMock, pageMapperMock, seriesRepositoryMock)
 	}
 
 	void "maps SeriesBaseRequest to SeriesRequestDTO and to PageRequest, then calls repository, then returns result"() {
 		given:
-		RequestPage requestPage = Mock(RequestPage)
-		PageRequest pageRequest = Mock(PageRequest)
-		SeriesBaseRequest seriesRequest = Mock(SeriesBaseRequest)
+		RequestPage requestPage = Mock()
+		PageRequest pageRequest = Mock()
+		SeriesBaseRequest seriesRequest = Mock()
 		seriesRequest.page >> requestPage
-		SeriesRequestDTO seriesRequestDTO = Mock(SeriesRequestDTO)
-		Page page = Mock(Page)
+		SeriesRequestDTO seriesRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = seriesSoapQuery.query(seriesRequest)
@@ -53,10 +53,10 @@ class SeriesSoapQueryTest extends Specification {
 
 	void "maps SeriesFullRequest to SeriesRequestDTO, then calls repository, then returns result"() {
 		given:
-		PageRequest pageRequest = Mock(PageRequest)
-		SeriesFullRequest seriesRequest = Mock(SeriesFullRequest)
-		SeriesRequestDTO seriesRequestDTO = Mock(SeriesRequestDTO)
-		Page page = Mock(Page)
+		PageRequest pageRequest = Mock()
+		SeriesFullRequest seriesRequest = Mock()
+		SeriesRequestDTO seriesRequestDTO = Mock()
+		Page page = Mock()
 
 		when:
 		Page pageOutput = seriesSoapQuery.query(seriesRequest)

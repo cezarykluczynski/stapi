@@ -4,7 +4,6 @@ import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.util.AbstractSeriesTest
-import com.google.common.collect.Lists
 
 abstract class AbstractSeriesMapperTest extends AbstractSeriesTest {
 
@@ -20,9 +19,9 @@ abstract class AbstractSeriesMapperTest extends AbstractSeriesTest {
 				seasonsCount: SEASONS_COUNT,
 				episodesCount: EPISODES_COUNT,
 				featureLengthEpisodesCount: FEATURE_LENGTH_EPISODES_COUNT,
-				originalBroadcaster: Mock(Company),
-				productionCompany: Mock(Company),
-				episodes: Lists.newArrayList(Mock(Episode)))
+				originalBroadcaster: new Company(id: 1L),
+				productionCompany: new Company(id: 2L),
+				episodes: createSetOfRandomNumberOfMocks(Episode))
 	}
 
 }

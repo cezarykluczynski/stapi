@@ -5,7 +5,6 @@ import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.server.common.mapper.AbstractRealWorldPersonMapperTest
-import com.google.common.collect.Lists
 
 abstract class AbstractPerformerMapperTest extends AbstractRealWorldPersonMapperTest {
 
@@ -32,13 +31,13 @@ abstract class AbstractPerformerMapperTest extends AbstractRealWorldPersonMapper
 				videoGamePerformer: VIDEO_GAME_PERFORMER,
 				voicePerformer: VOICE_PERFORMER,
 				voyPerformer: VOY_PERFORMER,
-				episodesPerformances: Lists.newArrayList(Mock(Episode)),
-				episodesStuntPerformances: Lists.newArrayList(Mock(Episode)),
-				episodesStandInPerformances: Lists.newArrayList(Mock(Episode)),
-				moviesPerformances:  Lists.newArrayList(Mock(Movie)),
-				moviesStuntPerformances:  Lists.newArrayList(Mock(Movie)),
-				moviesStandInPerformances:  Lists.newArrayList(Mock(Movie)),
-				characters: Lists.newArrayList(Mock(Character)))
+				episodesPerformances: createSetOfRandomNumberOfMocks(Episode),
+				episodesStuntPerformances: createSetOfRandomNumberOfMocks(Episode),
+				episodesStandInPerformances: createSetOfRandomNumberOfMocks(Episode),
+				moviesPerformances: createSetOfRandomNumberOfMocks(Movie),
+				moviesStuntPerformances: createSetOfRandomNumberOfMocks(Movie),
+				moviesStandInPerformances: createSetOfRandomNumberOfMocks(Movie),
+				characters: createSetOfRandomNumberOfMocks(Character))
 	}
 
 }

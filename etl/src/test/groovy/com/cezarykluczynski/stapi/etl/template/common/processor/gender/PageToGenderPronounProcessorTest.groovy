@@ -16,7 +16,7 @@ class PageToGenderPronounProcessorTest extends Specification {
 	private PageToGenderPronounProcessor pageToGenderPronounProcessor
 
 	void setup() {
-		paragraphExtractorMock = Mock(ParagraphExtractor)
+		paragraphExtractorMock = Mock()
 		pageToGenderPronounProcessor = new PageToGenderPronounProcessor(paragraphExtractorMock)
 	}
 
@@ -32,7 +32,7 @@ class PageToGenderPronounProcessorTest extends Specification {
 
 	void "returns F is there is more female than male pronouns, but logs the fact that difference was not too big"() {
 		given:
-		Page page = Mock(Page)
+		Page page = Mock()
 		page.wikitext >> 'Is she a real she or is she a he - and how about him then?'
 
 		when:
@@ -58,7 +58,7 @@ class PageToGenderPronounProcessorTest extends Specification {
 
 	void "returns M is there is more male than female pronouns, but logs the fact that difference was not too big"() {
 		given:
-		Page page = Mock(Page)
+		Page page = Mock()
 		page.wikitext >> 'Is he a real he or is he a she - and how about her then?'
 
 		when:
@@ -74,7 +74,7 @@ class PageToGenderPronounProcessorTest extends Specification {
 
 	void "returns null when there was equal number of findings"() {
 		given:
-		Page page = Mock(Page)
+		Page page = Mock()
 		page.wikitext >> 'Is her problem his problem?'
 
 		when:

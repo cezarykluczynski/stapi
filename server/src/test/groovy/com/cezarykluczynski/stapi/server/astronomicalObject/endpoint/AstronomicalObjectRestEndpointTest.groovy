@@ -17,13 +17,13 @@ class AstronomicalObjectRestEndpointTest extends AbstractRestEndpointTest {
 	private AstronomicalObjectRestEndpoint astronomicalObjectRestEndpoint
 
 	void setup() {
-		astronomicalObjectRestReaderMock = Mock(AstronomicalObjectRestReader)
+		astronomicalObjectRestReaderMock = Mock()
 		astronomicalObjectRestEndpoint = new AstronomicalObjectRestEndpoint(astronomicalObjectRestReaderMock)
 	}
 
 	void "passes get call to AstronomicalObjectRestReader"() {
 		given:
-		AstronomicalObjectFullResponse astronomicalObjectFullResponse = Mock(AstronomicalObjectFullResponse)
+		AstronomicalObjectFullResponse astronomicalObjectFullResponse = Mock()
 
 		when:
 		AstronomicalObjectFullResponse astronomicalObjectFullResponseOutput = astronomicalObjectRestEndpoint.getAstronomicalObject(GUID)
@@ -35,10 +35,10 @@ class AstronomicalObjectRestEndpointTest extends AbstractRestEndpointTest {
 
 	void "passes search get call to AstronomicalObjectRestReader"() {
 		given:
-		PageSortBeanParams pageAwareBeanParams = Mock(PageSortBeanParams)
+		PageSortBeanParams pageAwareBeanParams = Mock()
 		pageAwareBeanParams.pageNumber >> PAGE_NUMBER
 		pageAwareBeanParams.pageSize >> PAGE_SIZE
-		AstronomicalObjectBaseResponse astronomicalObjectResponse = Mock(AstronomicalObjectBaseResponse)
+		AstronomicalObjectBaseResponse astronomicalObjectResponse = Mock()
 
 		when:
 		AstronomicalObjectBaseResponse astronomicalObjectResponseOutput = astronomicalObjectRestEndpoint
@@ -57,7 +57,7 @@ class AstronomicalObjectRestEndpointTest extends AbstractRestEndpointTest {
 	void "passes search post call to AstronomicalObjectRestReader"() {
 		given:
 		AstronomicalObjectRestBeanParams astronomicalObjectRestBeanParams = new AstronomicalObjectRestBeanParams(name: NAME)
-		AstronomicalObjectBaseResponse astronomicalObjectResponse = Mock(AstronomicalObjectBaseResponse)
+		AstronomicalObjectBaseResponse astronomicalObjectResponse = Mock()
 
 		when:
 		AstronomicalObjectBaseResponse astronomicalObjectResponseOutput = astronomicalObjectRestEndpoint

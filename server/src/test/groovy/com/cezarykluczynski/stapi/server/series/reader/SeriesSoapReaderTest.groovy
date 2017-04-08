@@ -31,21 +31,20 @@ class SeriesSoapReaderTest extends Specification {
 	private SeriesSoapReader seriesSoapReader
 
 	void setup() {
-		seriesSoapQueryBuilderMock = Mock(SeriesSoapQuery)
-		seriesBaseSoapMapperMock = Mock(SeriesBaseSoapMapper)
-		seriesFullSoapMapperMock = Mock(SeriesFullSoapMapper)
-		pageMapperMock = Mock(PageMapper)
-		seriesSoapReader = new SeriesSoapReader(seriesSoapQueryBuilderMock, seriesBaseSoapMapperMock, seriesFullSoapMapperMock,
-				pageMapperMock)
+		seriesSoapQueryBuilderMock = Mock()
+		seriesBaseSoapMapperMock = Mock()
+		seriesFullSoapMapperMock = Mock()
+		pageMapperMock = Mock()
+		seriesSoapReader = new SeriesSoapReader(seriesSoapQueryBuilderMock, seriesBaseSoapMapperMock, seriesFullSoapMapperMock, pageMapperMock)
 	}
 
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		List<Series> seriesList = Lists.newArrayList()
-		Page<Series> seriesPage = Mock(Page)
+		Page<Series> seriesPage = Mock()
 		List<SeriesBase> soapSeriesList = Lists.newArrayList(new SeriesBase(guid: GUID))
-		SeriesBaseRequest seriesBaseRequest = Mock(SeriesBaseRequest)
-		ResponsePage responsePage = Mock(ResponsePage)
+		SeriesBaseRequest seriesBaseRequest = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		SeriesBaseResponse seriesResponse = seriesSoapReader.readBase(seriesBaseRequest)
@@ -62,9 +61,9 @@ class SeriesSoapReaderTest extends Specification {
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {
 		given:
 		SeriesFull seriesFull = new SeriesFull(guid: GUID)
-		Series series = Mock(Series)
-		Page<Series> seriesPage = Mock(Page)
-		SeriesFullRequest seriesFullRequest = Mock(SeriesFullRequest)
+		Series series = Mock()
+		Page<Series> seriesPage = Mock()
+		SeriesFullRequest seriesFullRequest = Mock()
 
 		when:
 		SeriesFullResponse seriesFullResponse = seriesSoapReader.readFull(seriesFullRequest)

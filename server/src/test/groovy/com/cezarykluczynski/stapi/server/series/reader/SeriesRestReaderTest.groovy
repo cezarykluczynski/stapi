@@ -30,20 +30,22 @@ class SeriesRestReaderTest extends Specification {
 	private SeriesRestReader seriesRestReader
 
 	void setup() {
-		seriesRestQueryBuilderMock = Mock(SeriesRestQuery)
-		seriesBaseRestMapperMock = Mock(SeriesBaseRestMapper)
-		seriesFullRestMapperMock = Mock(SeriesFullRestMapper)
-		pageMapperMock = Mock(PageMapper)
+		seriesRestQueryBuilderMock = Mock()
+		seriesBaseRestMapperMock = Mock()
+		seriesFullRestMapperMock = Mock()
+		pageMapperMock = Mock()
 		seriesRestReader = new SeriesRestReader(seriesRestQueryBuilderMock, seriesBaseRestMapperMock, seriesFullRestMapperMock, pageMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		SeriesRestBeanParams seriesRestBeanParams = Mock(SeriesRestBeanParams)
-		List<SeriesBase> restSeriesList = Lists.newArrayList(Mock(SeriesBase))
-		List<Series> seriesList = Lists.newArrayList(Mock(Series))
-		Page<Series> seriesPage = Mock(Page)
-		ResponsePage responsePage = Mock(ResponsePage)
+		SeriesBase seriesBase = Mock()
+		Series series = Mock()
+		SeriesRestBeanParams seriesRestBeanParams = Mock()
+		List<SeriesBase> restSeriesList = Lists.newArrayList(seriesBase)
+		List<Series> seriesList = Lists.newArrayList(series)
+		Page<Series> seriesPage = Mock()
+		ResponsePage responsePage = Mock()
 
 		when:
 		SeriesBaseResponse seriesResponseOutput = seriesRestReader.readBase(seriesRestBeanParams)
@@ -60,10 +62,10 @@ class SeriesRestReaderTest extends Specification {
 
 	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
 		given:
-		SeriesFull seriesFull = Mock(SeriesFull)
-		Series series = Mock(Series)
+		SeriesFull seriesFull = Mock()
+		Series series = Mock()
 		List<Series> seriesList = Lists.newArrayList(series)
-		Page<Series> seriesPage = Mock(Page)
+		Page<Series> seriesPage = Mock()
 
 		when:
 		SeriesFullResponse seriesResponseOutput = seriesRestReader.readFull(GUID)

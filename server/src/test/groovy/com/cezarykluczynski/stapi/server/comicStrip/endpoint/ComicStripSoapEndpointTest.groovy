@@ -14,14 +14,14 @@ class ComicStripSoapEndpointTest extends Specification {
 	private ComicStripSoapEndpoint comicStripSoapEndpoint
 
 	void setup() {
-		comicStripSoapReaderMock = Mock(ComicStripSoapReader)
+		comicStripSoapReaderMock = Mock()
 		comicStripSoapEndpoint = new ComicStripSoapEndpoint(comicStripSoapReaderMock)
 	}
 
 	void "passes base call to ComicStripSoapReader"() {
 		given:
-		ComicStripBaseRequest comicStripBaseRequest = Mock(ComicStripBaseRequest)
-		ComicStripBaseResponse comicStripBaseResponse = Mock(ComicStripBaseResponse)
+		ComicStripBaseRequest comicStripBaseRequest = Mock()
+		ComicStripBaseResponse comicStripBaseResponse = Mock()
 
 		when:
 		ComicStripBaseResponse comicStripResponseResult = comicStripSoapEndpoint.getComicStripBase(comicStripBaseRequest)
@@ -33,8 +33,8 @@ class ComicStripSoapEndpointTest extends Specification {
 
 	void "passes full call to ComicStripSoapReader"() {
 		given:
-		ComicStripFullRequest comicStripFullRequest = Mock(ComicStripFullRequest)
-		ComicStripFullResponse comicStripFullResponse = Mock(ComicStripFullResponse)
+		ComicStripFullRequest comicStripFullRequest = Mock()
+		ComicStripFullResponse comicStripFullResponse = Mock()
 
 		when:
 		ComicStripFullResponse comicStripResponseResult = comicStripSoapEndpoint.getComicStripFull(comicStripFullRequest)

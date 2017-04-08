@@ -29,13 +29,13 @@ class CompanyRepositoryImplTest extends AbstractCompanyTest {
 	private Page page
 
 	void setup() {
-		companyQueryBuilderFactory = Mock(CompanyQueryBuilderFactory)
+		companyQueryBuilderFactory = Mock()
 		companyRepositoryImpl = new CompanyRepositoryImpl(companyQueryBuilderFactory)
-		companyQueryBuilder = Mock(QueryBuilder)
-		pageable = Mock(Pageable)
-		companyRequestDTO = Mock(CompanyRequestDTO)
-		page = Mock(Page)
-		company = Mock(Company)
+		companyQueryBuilder = Mock()
+		pageable = Mock()
+		companyRequestDTO = Mock()
+		page = Mock()
+		company = Mock()
 	}
 
 	void "query is built and performed"() {
