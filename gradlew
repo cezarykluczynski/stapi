@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+DEFAULT_JVM_OPTS="-Xmx256m"
+GRADLE_OPTS="-Xmx1024m -Xms256m -XX:MaxPermSize=512m -XX:+CMSClassUnloadingEnabled -XX:+HeapDumpOnOutOfMemoryError"
+mkdir -p ~/.gradle && echo "org.gradle.daemon=false" >> ~/.gradle/gradle.properties
+
 ##############################################################################
 ##
 ##  Gradle start up script for UN*X
