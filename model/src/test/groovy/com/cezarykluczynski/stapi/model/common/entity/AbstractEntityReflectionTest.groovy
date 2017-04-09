@@ -13,7 +13,7 @@ import java.lang.reflect.Field
 import java.util.stream.Collectors
 
 @SuppressWarnings('ClosureAsLastMethodParameter')
-abstract class AbstractEntityTest extends Specification {
+abstract class AbstractEntityReflectionTest extends Specification {
 
 	protected static Set<String> extractExcludes(NodeList<MemberValuePair> memberValuePairs) {
 		Set<String> excludeSet = Sets.newHashSet()

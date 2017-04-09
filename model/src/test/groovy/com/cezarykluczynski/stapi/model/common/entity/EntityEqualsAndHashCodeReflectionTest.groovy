@@ -21,7 +21,7 @@ import java.lang.reflect.Field
 import java.util.stream.Collectors
 
 @SuppressWarnings(['ThrowRuntimeException', 'ClosureAsLastMethodParameter'])
-class EntityEqualsAndHashCodeReflectionTest extends AbstractEntityTest {
+class EntityEqualsAndHashCodeReflectionTest extends AbstractEntityReflectionTest {
 
 	void "all entities should have only simple fields in their equals and hashCode implementations"() {
 		given:
@@ -71,7 +71,6 @@ class EntityEqualsAndHashCodeReflectionTest extends AbstractEntityTest {
 				throw new RuntimeException("There are relations in ${entityName} not excluded from @EqualsAndHashCode annotation: " +
 						"${equalsAndHashCodeDifference}")
 			}
-
 		})
 
 		then:
