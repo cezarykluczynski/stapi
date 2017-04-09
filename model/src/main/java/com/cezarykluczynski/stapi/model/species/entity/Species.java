@@ -30,8 +30,8 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true, exclude = {"homeworld", "quadrant"})
-@EqualsAndHashCode(callSuper = true, exclude = {"homeworld", "quadrant"})
+@ToString(callSuper = true, exclude = {"homeworld", "quadrant", "characters"})
+@EqualsAndHashCode(callSuper = true, exclude = {"homeworld", "quadrant", "characters"})
 public class Species extends PageAwareEntity implements PageAware {
 
 	@Id

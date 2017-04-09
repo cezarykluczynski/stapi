@@ -31,8 +31,8 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true, exclude = {"comicSeries", "writers", "artists", "characters"})
+@EqualsAndHashCode(callSuper = true, exclude = {"comicSeries", "writers", "artists", "characters"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class ComicStrip extends PageAwareEntity implements PageAware {
 

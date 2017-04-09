@@ -35,10 +35,10 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {"writers", "screenplayAuthors", "storyAuthors", "directors", "producers", "staff", "performers",
+@ToString(exclude = {"mainDirector", "writers", "screenplayAuthors", "storyAuthors", "directors", "producers", "staff", "performers",
 		"stuntPerformers", "standInPerformers", "characters"})
-@EqualsAndHashCode(callSuper = true, exclude = {"writers", "screenplayAuthors", "storyAuthors", "directors",
-		"producers", "staff", "performers", "stuntPerformers", "standInPerformers", "characters"})
+@EqualsAndHashCode(callSuper = true, exclude = {"mainDirector", "writers", "screenplayAuthors", "storyAuthors", "directors", "producers", "staff",
+		"performers", "stuntPerformers", "standInPerformers", "characters"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Movie extends PageAwareEntity implements PageAware {
 

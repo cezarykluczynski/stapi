@@ -30,8 +30,8 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true, exclude = "location")
-@EqualsAndHashCode(callSuper = true, exclude = "location")
+@ToString(callSuper = true, exclude = {"location", "astronomicalObjects"})
+@EqualsAndHashCode(callSuper = true, exclude = {"location", "astronomicalObjects"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class AstronomicalObject extends PageAwareEntity implements PageAware {
 
