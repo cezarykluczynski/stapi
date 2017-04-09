@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.model.common.query
 
+import com.cezarykluczynski.stapi.model.common.cache.CachingStrategy
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortClauseDTO
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.dto.enums.RequestSortDirectionDTO

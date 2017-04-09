@@ -1,22 +1,17 @@
-package com.cezarykluczynski.stapi.model.common.query;
+package com.cezarykluczynski.stapi.model.common.cache;
 
+import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.jpa.criteria.path.RootImpl;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.Path;
 import java.lang.reflect.Field;
 import java.util.Map;
 
-@Service
 @Slf4j
-public class CachingStrategy {
+public class FullEntityCachingStrategy implements CachingStrategy {
 
 	private static final String GUID = "guid";
-
-	public boolean isCacheable() {
-		return true;
-	}
 
 	public boolean isCacheable(QueryBuilder queryBuilder) {
 		RootImpl root = (RootImpl) queryBuilder.getBaseCriteriaQuery().getSelection();

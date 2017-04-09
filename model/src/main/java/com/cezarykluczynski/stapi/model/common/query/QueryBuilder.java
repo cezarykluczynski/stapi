@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.model.common.query;
 
+import com.cezarykluczynski.stapi.model.common.cache.CachingStrategy;
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortClauseDTO;
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO;
 import com.cezarykluczynski.stapi.model.common.dto.enums.RequestSortDirectionDTO;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
-import lombok.AccessLevel;
 import lombok.Getter;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.data.domain.Page;
@@ -50,7 +50,7 @@ public class QueryBuilder<T> {
 
 	private CriteriaQuery<Long> countCriteriaQuery;
 
-	@Getter(AccessLevel.PACKAGE)
+	@Getter
 	private CriteriaQuery<T> baseCriteriaQuery;
 
 	private List<Predicate> predicateList;

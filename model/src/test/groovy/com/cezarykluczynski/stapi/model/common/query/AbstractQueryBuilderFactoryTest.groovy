@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.model.common.query
 
+import com.cezarykluczynski.stapi.model.common.cache.CachingStrategy
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.google.common.collect.Sets
 import org.springframework.data.domain.Pageable
@@ -25,7 +26,7 @@ class AbstractQueryBuilderFactoryTest extends Specification {
 	private static class ConcreteWithoutBaseClassQueryBuilderFactory extends AbstractQueryBuilderFactory<Series> {
 
 		ConcreteWithoutBaseClassQueryBuilderFactory(JpaContext jpaContext) {
-			super(jpaContext, null)
+			super(jpaContext, null, null)
 		}
 
 	}

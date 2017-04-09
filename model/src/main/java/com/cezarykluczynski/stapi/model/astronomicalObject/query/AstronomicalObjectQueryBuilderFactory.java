@@ -1,9 +1,8 @@
 package com.cezarykluczynski.stapi.model.astronomicalObject.query;
 
-
 import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject;
+import com.cezarykluczynski.stapi.model.common.cache.CachingStrategy;
 import com.cezarykluczynski.stapi.model.common.query.AbstractQueryBuilderFactory;
-import com.cezarykluczynski.stapi.model.common.query.CachingStrategy;
 import org.springframework.data.jpa.repository.JpaContext;
 import org.springframework.stereotype.Service;
 

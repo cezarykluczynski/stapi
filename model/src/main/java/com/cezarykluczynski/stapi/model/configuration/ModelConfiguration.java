@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.model.configuration;
 
+import com.cezarykluczynski.stapi.model.common.cache.CacheProperties;
 import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -29,7 +30,7 @@ import javax.sql.DataSource;
 import java.util.Map;
 
 @Configuration
-@EnableConfigurationProperties({DataSourceProperties.class, HibernateProperties.class, ThrottleProperties.class})
+@EnableConfigurationProperties({DataSourceProperties.class, HibernateProperties.class, ThrottleProperties.class, CacheProperties.class})
 @EnableJpaRepositories(basePackages = ModelConfiguration.JPA_BASE_PACKAGES)
 @EnableTransactionManagement
 public class ModelConfiguration {

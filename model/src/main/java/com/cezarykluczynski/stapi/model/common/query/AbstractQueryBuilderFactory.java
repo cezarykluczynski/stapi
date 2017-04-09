@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.model.common.query;
 
+import com.cezarykluczynski.stapi.model.common.cache.CachingStrategy;
 import com.google.common.base.Preconditions;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaContext;
@@ -13,10 +14,6 @@ public abstract class AbstractQueryBuilderFactory<T> {
 	private Class baseClass;
 
 	protected AbstractQueryBuilderFactory() {}
-
-	protected AbstractQueryBuilderFactory(JpaContext jpaContext, Class baseClass) {
-		this(jpaContext, null, baseClass);
-	}
 
 	protected AbstractQueryBuilderFactory(JpaContext jpaContext, CachingStrategy cachingStrategy, Class baseClass) {
 		Preconditions.checkNotNull(jpaContext, "JpaContext has to be set");

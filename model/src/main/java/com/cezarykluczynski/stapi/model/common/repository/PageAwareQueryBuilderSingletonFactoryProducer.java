@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.model.common.repository;
 
-import com.cezarykluczynski.stapi.model.common.query.CachingStrategy;
+import com.cezarykluczynski.stapi.model.common.cache.CachingStrategy;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.google.common.collect.Maps;
 import org.springframework.data.jpa.repository.JpaContext;

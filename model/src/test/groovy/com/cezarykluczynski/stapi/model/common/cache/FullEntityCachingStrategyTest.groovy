@@ -1,5 +1,6 @@
-package com.cezarykluczynski.stapi.model.common.query
+package com.cezarykluczynski.stapi.model.common.cache
 
+import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import org.hibernate.jpa.criteria.CriteriaBuilderImpl
 import org.hibernate.jpa.criteria.path.RootImpl
@@ -9,7 +10,7 @@ import javax.persistence.criteria.CriteriaQuery
 import javax.persistence.criteria.Path
 import javax.persistence.metamodel.EntityType
 
-class CachingStrategyTest extends Specification {
+class FullEntityCachingStrategyTest extends Specification {
 
 	QueryBuilder<Series> queryBuilder
 
@@ -23,7 +24,7 @@ class CachingStrategyTest extends Specification {
 
 	Path path
 
-	private CachingStrategy cachingStrategy
+	private FullEntityCachingStrategy fullEntityCachingStrategy
 
 	void setup() {
 		queryBuilder = Mock(QueryBuilder)
@@ -32,7 +33,7 @@ class CachingStrategyTest extends Specification {
 		entityType = Mock(EntityType)
 		path = Mock(Path)
 		root = new RootImpl(criteriaBuilder, entityType)
-		cachingStrategy = new CachingStrategy()
+		fullEntityCachingStrategy = new FullEntityCachingStrategy()
 	}
 
 	void "return true when guid is query"() {
@@ -40,7 +41,7 @@ class CachingStrategyTest extends Specification {
 		root.registerAttributePath('name', path)
 
 		when:
-		boolean cacheable = cachingStrategy.isCacheable(queryBuilder)
+		boolean cacheable = fullEntityCachingStrategy.isCacheable(queryBuilder)
 
 		then:
 		1 * queryBuilder.baseCriteriaQuery >> criteriaQuery
@@ -54,7 +55,7 @@ class CachingStrategyTest extends Specification {
 		root.registerAttributePath('guid', path)
 
 		when:
-		boolean cacheable = cachingStrategy.isCacheable(queryBuilder)
+		boolean cacheable = fullEntityCachingStrategy.isCacheable(queryBuilder)
 
 		then:
 		1 * queryBuilder.baseCriteriaQuery >> criteriaQuery
@@ -65,7 +66,7 @@ class CachingStrategyTest extends Specification {
 
 	void "returns false when attributePathRegistry is null"() {
 		when:
-		boolean cacheable = cachingStrategy.isCacheable(queryBuilder)
+		boolean cacheable = fullEntityCachingStrategy.isCacheable(queryBuilder)
 
 		then:
 		1 * queryBuilder.baseCriteriaQuery >> criteriaQuery
@@ -76,7 +77,7 @@ class CachingStrategyTest extends Specification {
 
 	void "returns false when attributePathRegistry could not be retrieved"() {
 		when:
-		boolean cacheable = cachingStrategy.isCacheable(queryBuilder)
+		boolean cacheable = fullEntityCachingStrategy.isCacheable(queryBuilder)
 
 		then:
 		1 * queryBuilder.baseCriteriaQuery >> criteriaQuery
