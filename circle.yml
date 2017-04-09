@@ -2,6 +2,8 @@ machine:
   java:
     version:
       oraclejdk8
+  environment:
+    GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx1536m -XX:+HeapDumpOnOutOfMemoryError"'
 dependencies:
   pre:
     - psql -c 'create database stapi;' -U postgres
