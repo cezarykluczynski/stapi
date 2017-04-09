@@ -65,6 +65,10 @@ allprojects {
 		testCompile group: 'com.github.javaparser', name: 'javaparser-core', version: '3.2.0'
 	}
 
+	test {
+		exclude '**/*IntegrationTest*'
+	}
+
 	checkstyle {
 		configFile = "$rootDir/checkstyle.xml" as File
 		toolVersion = '7.4'
