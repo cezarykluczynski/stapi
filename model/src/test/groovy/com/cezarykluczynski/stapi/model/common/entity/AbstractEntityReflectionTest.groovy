@@ -42,6 +42,7 @@ abstract class AbstractEntityReflectionTest extends Specification {
 	protected Optional<File> getEntityFileOptional(String name) {
 		String fileName = name + '.java'
 		List<File> files = Lists.newArrayList()
+		fillFileList('./model/src/main/java/com/cezarykluczynski/stapi/model', files)
 		fillFileList('./src/main/java/com/cezarykluczynski/stapi/model', files)
 		files.stream()
 				.filter({

@@ -36,6 +36,10 @@ class EntityEqualsAndHashCodeReflectionTest extends AbstractEntityReflectionTest
 
 		when:
 		entitiesClasses.forEach({ entityClass ->
+			if (entityClass.name.endsWith('SimpleStep')) {
+				return
+			}
+
 			Set<Field> thisFieldsOneToOne = getFieldsByClass(fieldsOneToOne, entityClass)
 			Set<Field> thisFieldsOneToMany = getFieldsByClass(fieldsOneToMany, entityClass)
 			Set<Field> thisFieldsManyToMany = getFieldsByClass(fieldsManyToMany, entityClass)
