@@ -6,11 +6,11 @@ import com.cezarykluczynski.stapi.model.food.entity.Food;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
+import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
 import com.cezarykluczynski.stapi.server.food.dto.FoodRestBeanParams;
 import com.cezarykluczynski.stapi.server.food.mapper.FoodBaseRestMapper;
 import com.cezarykluczynski.stapi.server.food.mapper.FoodFullRestMapper;
 import com.cezarykluczynski.stapi.server.food.query.FoodRestQuery;
-import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -49,7 +49,7 @@ public class FoodRestReader implements BaseReader<FoodRestBeanParams, FoodBaseRe
 
 	@Override
 	public FoodFullResponse readFull(String guid) {
-		Preconditions.checkNotNull(guid, "GUID is required");
+		StaticValidator.requireGuid(guid);
 		FoodRestBeanParams foodRestBeanParams = new FoodRestBeanParams();
 		foodRestBeanParams.setGuid(guid);
 		Page<com.cezarykluczynski.stapi.model.food.entity.Food> foodPage = foodRestQuery

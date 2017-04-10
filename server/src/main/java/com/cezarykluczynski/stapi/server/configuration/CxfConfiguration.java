@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.server.comicStrip.endpoint.ComicStripRestEndpo
 import com.cezarykluczynski.stapi.server.comics.endpoint.ComicsRestEndpoint;
 import com.cezarykluczynski.stapi.server.common.converter.LocalDateRestParamConverterProvider;
 import com.cezarykluczynski.stapi.server.common.throttle.rest.RestExceptionMapper;
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDExceptionMapper;
 import com.cezarykluczynski.stapi.server.company.endpoint.CompanyRestEndpoint;
 import com.cezarykluczynski.stapi.server.configuration.interceptor.ApiThrottlingInterceptor;
 import com.cezarykluczynski.stapi.server.episode.endpoint.EpisodeRestEndpoint;
@@ -59,7 +60,8 @@ public class CxfConfiguration extends SpringBootServletInitializer {
 				new JacksonJsonProvider(getObjectMapper()),
 				new CxfRestPrettyPrintContainerResponseFilter(),
 				new LocalDateRestParamConverterProvider(),
-				new RestExceptionMapper()));
+				new RestExceptionMapper(),
+				new MissingGUIDExceptionMapper()));
 		factory.setInInterceptors(Lists.newArrayList(applicationContext.getBean(ApiThrottlingInterceptor.class)));
 		factory.setServiceBeans(Lists.newArrayList(
 				applicationContext.getBean(AstronomicalObjectRestEndpoint.class),

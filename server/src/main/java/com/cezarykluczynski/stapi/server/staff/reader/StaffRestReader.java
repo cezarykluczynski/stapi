@@ -6,11 +6,11 @@ import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
+import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
 import com.cezarykluczynski.stapi.server.staff.dto.StaffRestBeanParams;
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseRestMapper;
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffFullRestMapper;
 import com.cezarykluczynski.stapi.server.staff.query.StaffRestQuery;
-import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -48,7 +48,7 @@ public class StaffRestReader implements BaseReader<StaffRestBeanParams, StaffBas
 
 	@Override
 	public StaffFullResponse readFull(String guid) {
-		Preconditions.checkNotNull(guid, "GUID is required");
+		StaticValidator.requireGuid(guid);
 		StaffRestBeanParams staffRestBeanParams = new StaffRestBeanParams();
 		staffRestBeanParams.setGuid(guid);
 		Page<Staff> staffPage = staffRestQuery.query(staffRestBeanParams);

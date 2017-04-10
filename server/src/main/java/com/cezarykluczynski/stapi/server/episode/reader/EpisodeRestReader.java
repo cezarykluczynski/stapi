@@ -6,11 +6,11 @@ import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
+import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
 import com.cezarykluczynski.stapi.server.episode.dto.EpisodeRestBeanParams;
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeBaseRestMapper;
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeFullRestMapper;
 import com.cezarykluczynski.stapi.server.episode.query.EpisodeRestQuery;
-import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -48,7 +48,7 @@ public class EpisodeRestReader implements BaseReader<EpisodeRestBeanParams, Epis
 
 	@Override
 	public EpisodeFullResponse readFull(String guid) {
-		Preconditions.checkNotNull(guid, "GUID is required");
+		StaticValidator.requireGuid(guid);
 		EpisodeRestBeanParams episodeRestBeanParams = new EpisodeRestBeanParams();
 		episodeRestBeanParams.setGuid(guid);
 		Page<Episode> episodePage = episodeRestQuery.query(episodeRestBeanParams);

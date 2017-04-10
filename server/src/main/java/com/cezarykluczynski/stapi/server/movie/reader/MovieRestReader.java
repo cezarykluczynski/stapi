@@ -6,11 +6,11 @@ import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
+import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
 import com.cezarykluczynski.stapi.server.movie.dto.MovieRestBeanParams;
 import com.cezarykluczynski.stapi.server.movie.mapper.MovieBaseRestMapper;
 import com.cezarykluczynski.stapi.server.movie.mapper.MovieFullRestMapper;
 import com.cezarykluczynski.stapi.server.movie.query.MovieRestQuery;
-import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -48,7 +48,7 @@ public class MovieRestReader implements BaseReader<MovieRestBeanParams, MovieBas
 
 	@Override
 	public MovieFullResponse readFull(String guid) {
-		Preconditions.checkNotNull(guid, "GUID is required");
+		StaticValidator.requireGuid(guid);
 		MovieRestBeanParams movieRestBeanParams = new MovieRestBeanParams();
 		movieRestBeanParams.setGuid(guid);
 		Page<Movie> moviePage = movieRestQuery.query(movieRestBeanParams);

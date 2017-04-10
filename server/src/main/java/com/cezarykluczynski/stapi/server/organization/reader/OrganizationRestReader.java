@@ -6,11 +6,11 @@ import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
+import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
 import com.cezarykluczynski.stapi.server.organization.dto.OrganizationRestBeanParams;
 import com.cezarykluczynski.stapi.server.organization.mapper.OrganizationBaseRestMapper;
 import com.cezarykluczynski.stapi.server.organization.mapper.OrganizationFullRestMapper;
 import com.cezarykluczynski.stapi.server.organization.query.OrganizationRestQuery;
-import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -49,7 +49,7 @@ public class OrganizationRestReader implements BaseReader<OrganizationRestBeanPa
 
 	@Override
 	public OrganizationFullResponse readFull(String guid) {
-		Preconditions.checkNotNull(guid, "GUID is required");
+		StaticValidator.requireGuid(guid);
 		OrganizationRestBeanParams organizationRestBeanParams = new OrganizationRestBeanParams();
 		organizationRestBeanParams.setGuid(guid);
 		Page<com.cezarykluczynski.stapi.model.organization.entity.Organization> organizationPage = organizationRestQuery

@@ -6,11 +6,11 @@ import com.cezarykluczynski.stapi.model.species.entity.Species;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
+import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
 import com.cezarykluczynski.stapi.server.species.dto.SpeciesRestBeanParams;
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesBaseRestMapper;
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesFullRestMapper;
 import com.cezarykluczynski.stapi.server.species.query.SpeciesRestQuery;
-import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -48,7 +48,7 @@ public class SpeciesRestReader implements BaseReader<SpeciesRestBeanParams, Spec
 
 	@Override
 	public SpeciesFullResponse readFull(String guid) {
-		Preconditions.checkNotNull(guid, "GUID is required");
+		StaticValidator.requireGuid(guid);
 		SpeciesRestBeanParams speciesRestBeanParams = new SpeciesRestBeanParams();
 		speciesRestBeanParams.setGuid(guid);
 		Page<Species> speciesPage = speciesRestQuery.query(speciesRestBeanParams);

@@ -10,7 +10,7 @@ import com.cezarykluczynski.stapi.server.comics.query.ComicsRestQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
-import com.google.common.base.Preconditions;
+import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
 import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -48,7 +48,7 @@ public class ComicsRestReader implements BaseReader<ComicsRestBeanParams, Comics
 
 	@Override
 	public ComicsFullResponse readFull(String guid) {
-		Preconditions.checkNotNull(guid, "GUID is required");
+		StaticValidator.requireGuid(guid);
 		ComicsRestBeanParams comicsRestBeanParams = new ComicsRestBeanParams();
 		comicsRestBeanParams.setGuid(guid);
 		Page<Comics> comicsPage = comicsRestQuery.query(comicsRestBeanParams);

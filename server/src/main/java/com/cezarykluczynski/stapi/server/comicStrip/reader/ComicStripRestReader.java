@@ -10,7 +10,7 @@ import com.cezarykluczynski.stapi.server.comicStrip.query.ComicStripRestQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
-import com.google.common.base.Preconditions;
+import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
 import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -49,7 +49,7 @@ public class ComicStripRestReader implements BaseReader<ComicStripRestBeanParams
 
 	@Override
 	public ComicStripFullResponse readFull(String guid) {
-		Preconditions.checkNotNull(guid, "GUID is required");
+		StaticValidator.requireGuid(guid);
 		ComicStripRestBeanParams comicStripRestBeanParams = new ComicStripRestBeanParams();
 		comicStripRestBeanParams.setGuid(guid);
 		Page<ComicStrip> comicStripPage = comicStripRestQuery.query(comicStripRestBeanParams);

@@ -6,11 +6,11 @@ import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
+import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
 import com.cezarykluczynski.stapi.server.company.dto.CompanyRestBeanParams;
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseRestMapper;
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyFullRestMapper;
 import com.cezarykluczynski.stapi.server.company.query.CompanyRestQuery;
-import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -48,7 +48,7 @@ public class CompanyRestReader implements BaseReader<CompanyRestBeanParams, Comp
 
 	@Override
 	public CompanyFullResponse readFull(String guid) {
-		Preconditions.checkNotNull(guid, "GUID is required");
+		StaticValidator.requireGuid(guid);
 		CompanyRestBeanParams companyRestBeanParams = new CompanyRestBeanParams();
 		companyRestBeanParams.setGuid(guid);
 		Page<com.cezarykluczynski.stapi.model.company.entity.Company> companyPage = companyRestQuery.query(companyRestBeanParams);

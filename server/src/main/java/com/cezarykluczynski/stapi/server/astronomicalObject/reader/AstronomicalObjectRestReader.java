@@ -10,7 +10,7 @@ import com.cezarykluczynski.stapi.server.astronomicalObject.query.AstronomicalOb
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
-import com.google.common.base.Preconditions;
+import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
 import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -50,7 +50,7 @@ public class AstronomicalObjectRestReader implements BaseReader<AstronomicalObje
 
 	@Override
 	public AstronomicalObjectFullResponse readFull(String guid) {
-		Preconditions.checkNotNull(guid, "GUID is required");
+		StaticValidator.requireGuid(guid);
 		AstronomicalObjectRestBeanParams astronomicalObjectRestBeanParams = new AstronomicalObjectRestBeanParams();
 		astronomicalObjectRestBeanParams.setGuid(guid);
 		Page<AstronomicalObject> astronomicalObjectPage = astronomicalObjectRestQuery.query(astronomicalObjectRestBeanParams);

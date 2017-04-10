@@ -6,11 +6,11 @@ import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
+import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
 import com.cezarykluczynski.stapi.server.performer.dto.PerformerRestBeanParams;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseRestMapper;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerFullRestMapper;
 import com.cezarykluczynski.stapi.server.performer.query.PerformerRestQuery;
-import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -48,7 +48,7 @@ public class PerformerRestReader implements BaseReader<PerformerRestBeanParams, 
 
 	@Override
 	public PerformerFullResponse readFull(String guid) {
-		Preconditions.checkNotNull(guid, "GUID is required");
+		StaticValidator.requireGuid(guid);
 		PerformerRestBeanParams performerRestBeanParams = new PerformerRestBeanParams();
 		performerRestBeanParams.setGuid(guid);
 		Page<Performer> performerPage = performerRestQuery.query(performerRestBeanParams);
