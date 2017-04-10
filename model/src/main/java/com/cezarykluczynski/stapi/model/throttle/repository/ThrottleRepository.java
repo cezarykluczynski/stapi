@@ -17,7 +17,18 @@ public interface ThrottleRepository extends JpaRepository<Throttle, Long>, Throt
 	@Query("update Throttle t set t.remainingHits = t.remainingHits - 1, t.lastHitTime = :lastHitTime where t.ipAddress = :ipAddress")
 	void decrementByIp(@Param("ipAddress") String ipAddress, @Param("lastHitTime") LocalDateTime lastHitTime);
 
-	Optional<Throttle> findByIpAddress(String ipAddress);
+	@Modifying
+	@Transactional
+	@Query("update Throttle t set t.remainingHits = :remainingHits "
+			+ "where t.throttleType = com.cezarykluczynski.stapi.model.throttle.entity.enums.ThrottleType.IP_ADDRESS")
+	void regenerateIPAddressesWithRemainingHits(@Param("remainingHits") Integer remainingHits);
 
+	@Modifying
+	@Transactional
+	@Query("delete from Throttle t where t.throttleType = com.cezarykluczynski.stapi.model.throttle.entity.enums.ThrottleType.IP_ADDRESS"
+			+ " and t.lastHitTime <= :lastHitTime")
+	void deleteIPAddressesOlderThan(@Param("lastHitTime") LocalDateTime lastHitTime);
+
+	Optional<Throttle> findByIpAddress(String ipAddress);
 
 }

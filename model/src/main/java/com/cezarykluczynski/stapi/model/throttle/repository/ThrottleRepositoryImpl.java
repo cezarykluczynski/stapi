@@ -54,4 +54,16 @@ public class ThrottleRepositoryImpl implements ThrottleRepositoryCustom {
 		}
 	}
 
+	@Override
+	public void regenerateIPAddressesRemainingHits() {
+		throttleRepository.regenerateIPAddressesWithRemainingHits(throttleProperties.getIpAddressHourlyLimit());
+	}
+
+	@Override
+	public void deleteExpiredIPLimits() {
+		LocalDateTime localDateTime = LocalDateTime.now();
+		LocalDateTime thresholdDate = localDateTime.minusDays(throttleProperties.getDaysToDeleteExpiredIpAddresses());
+		throttleRepository.deleteIPAddressesOlderThan(thresholdDate);
+	}
+
 }

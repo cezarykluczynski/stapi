@@ -6,10 +6,14 @@ import com.cezarykluczynski.stapi.model.throttle.entity.enums.ThrottleType
 import org.springframework.dao.DataIntegrityViolationException
 import spock.lang.Specification
 
+import java.time.LocalDateTime
+import java.time.ZoneId
+
 class ThrottleRepositoryImplTest extends Specification {
 
 	private static final String IP_ADDRESS = 'IP_ADDRESS'
 	private static final Integer IP_ADDRESS_HOURLY_LIMIT = 100
+	private static final Integer DAYS_TO_DELETE_EXPIRED_IP_ADDRESSES = 1
 
 	private ThrottleProperties throttlePropertiesMock
 
@@ -95,6 +99,39 @@ class ThrottleRepositoryImplTest extends Specification {
 		1 * throttleRepositoryMock.findByIpAddress(IP_ADDRESS) >> Optional.of(throttle)
 		0 * _
 		!result
+	}
+
+	void "regenerates IP addresses remaining hits limit"() {
+		when:
+		throttleRepositoryImpl.regenerateIPAddressesRemainingHits()
+
+		then:
+		1 * throttlePropertiesMock.ipAddressHourlyLimit >> IP_ADDRESS_HOURLY_LIMIT
+		1 * throttleRepositoryMock.regenerateIPAddressesWithRemainingHits(IP_ADDRESS_HOURLY_LIMIT)
+		0 * _
+	}
+
+	void "deletes expired IP limits"() {
+		given:
+		long beforeTestTime = toEpochSeconds(LocalDateTime.now())
+
+		when:
+		throttleRepositoryImpl.deleteExpiredIPLimits()
+
+		then:
+		1 * throttlePropertiesMock.daysToDeleteExpiredIpAddresses >> DAYS_TO_DELETE_EXPIRED_IP_ADDRESSES
+		1 * throttleRepositoryMock.deleteIPAddressesOlderThan(_ as LocalDateTime) >> { LocalDateTime localDateTime ->
+			long insideTestTime = toEpochSeconds(localDateTime.plusDays(DAYS_TO_DELETE_EXPIRED_IP_ADDRESSES))
+			long afterTestTime = toEpochSeconds(LocalDateTime.now())
+			assert beforeTestTime <= insideTestTime
+			assert afterTestTime >= insideTestTime
+		}
+		0 * _
+	}
+
+	private static long toEpochSeconds(LocalDateTime localDateTime) {
+		ZoneId zoneId = ZoneId.systemDefault()
+		localDateTime.atZone(zoneId).toEpochSecond()
 	}
 
 }

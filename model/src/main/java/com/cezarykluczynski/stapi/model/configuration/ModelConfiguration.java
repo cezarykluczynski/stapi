@@ -21,6 +21,8 @@ import org.springframework.data.repository.support.Repositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -33,6 +35,8 @@ import java.util.Map;
 @EnableConfigurationProperties({DataSourceProperties.class, HibernateProperties.class, ThrottleProperties.class, CacheProperties.class})
 @EnableJpaRepositories(basePackages = ModelConfiguration.JPA_BASE_PACKAGES)
 @EnableTransactionManagement
+@EnableAsync
+@EnableScheduling
 public class ModelConfiguration {
 
 	static final String JPA_BASE_PACKAGES = "com.cezarykluczynski.stapi.model";
