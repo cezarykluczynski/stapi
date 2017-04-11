@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.MovieFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
 import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
 import com.cezarykluczynski.stapi.server.movie.mapper.MovieBaseSoapMapper
 import com.cezarykluczynski.stapi.server.movie.mapper.MovieFullSoapMapper
 import com.cezarykluczynski.stapi.server.movie.query.MovieSoapQuery
@@ -63,7 +64,7 @@ class MovieSoapReaderTest extends Specification {
 		MovieFull movieFull = new MovieFull(guid: GUID)
 		Movie movie = Mock()
 		Page<Movie> moviePage = Mock()
-		MovieFullRequest movieFullRequest = Mock()
+		MovieFullRequest movieFullRequest = new MovieFullRequest(guid: GUID)
 
 		when:
 		MovieFullResponse movieFullResponse = movieSoapReader.readFull(movieFullRequest)
@@ -73,6 +74,17 @@ class MovieSoapReaderTest extends Specification {
 		1 * moviePage.content >> Lists.newArrayList(movie)
 		1 * movieFullSoapMapperMock.mapFull(movie) >> movieFull
 		movieFullResponse.movie.guid == GUID
+	}
+
+	void "requires GUID in full request"() {
+		given:
+		MovieFullRequest movieFullRequest = Mock()
+
+		when:
+		movieSoapReader.readFull(movieFullRequest)
+
+		then:
+		thrown(MissingGUIDException)
 	}
 
 }

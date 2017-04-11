@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
+import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyFullSoapMapper;
 import com.cezarykluczynski.stapi.server.company.query.CompanySoapQuery;
@@ -45,6 +46,7 @@ public class CompanySoapReader implements BaseReader<CompanyBaseRequest, Company
 
 	@Override
 	public CompanyFullResponse readFull(CompanyFullRequest input) {
+		StaticValidator.requireGuid(input.getGuid());
 		Page<Company> companyPage = companySoapQuery.query(input);
 		CompanyFullResponse companyFullResponse = new CompanyFullResponse();
 		companyFullResponse.setCompany(companyFullSoapMapper.mapFull(Iterables.getOnlyElement(companyPage.getContent(), null)));

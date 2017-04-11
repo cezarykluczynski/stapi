@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
+import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeFullSoapMapper;
 import com.cezarykluczynski.stapi.server.episode.query.EpisodeSoapQuery;
@@ -45,6 +46,7 @@ public class EpisodeSoapReader implements BaseReader<EpisodeBaseRequest, Episode
 
 	@Override
 	public EpisodeFullResponse readFull(EpisodeFullRequest input) {
+		StaticValidator.requireGuid(input.getGuid());
 		Page<Episode> episodePage = episodeSoapQuery.query(input);
 		EpisodeFullResponse episodeFullResponse = new EpisodeFullResponse();
 		episodeFullResponse.setEpisode(episodeFullSoapMapper.mapFull(Iterables.getOnlyElement(episodePage.getContent(), null)));

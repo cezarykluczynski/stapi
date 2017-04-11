@@ -11,6 +11,7 @@ import com.cezarykluczynski.stapi.server.comicStrip.query.ComicStripSoapQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
+import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
 import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -46,6 +47,7 @@ public class ComicStripSoapReader implements BaseReader<ComicStripBaseRequest, C
 
 	@Override
 	public ComicStripFullResponse readFull(ComicStripFullRequest input) {
+		StaticValidator.requireGuid(input.getGuid());
 		Page<ComicStrip> comicStripPage = comicStripSoapQuery.query(input);
 		ComicStripFullResponse comicStripFullResponse = new ComicStripFullResponse();
 		comicStripFullResponse.setComicStrip(comicStripFullSoapMapper.mapFull(Iterables.getOnlyElement(comicStripPage.getContent(), null)));

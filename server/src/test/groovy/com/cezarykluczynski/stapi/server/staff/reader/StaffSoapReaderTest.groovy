@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.StaffFullRequest
 import com.cezarykluczynski.stapi.client.v1.soap.StaffFullResponse
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseSoapMapper
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffFullSoapMapper
 import com.cezarykluczynski.stapi.server.staff.query.StaffSoapQuery
@@ -63,7 +64,7 @@ class StaffSoapReaderTest extends Specification {
 		StaffFull staffFull = new StaffFull(guid: GUID)
 		Staff staff = Mock()
 		Page<Staff> staffPage = Mock()
-		StaffFullRequest staffFullRequest = Mock()
+		StaffFullRequest staffFullRequest = new StaffFullRequest(guid: GUID)
 
 		when:
 		StaffFullResponse staffFullResponse = staffSoapReader.readFull(staffFullRequest)
@@ -73,6 +74,17 @@ class StaffSoapReaderTest extends Specification {
 		1 * staffPage.content >> Lists.newArrayList(staff)
 		1 * staffFullSoapMapperMock.mapFull(staff) >> staffFull
 		staffFullResponse.staff.guid == GUID
+	}
+
+	void "requires GUID in full request"() {
+		given:
+		StaffFullRequest staffFullRequest = Mock()
+
+		when:
+		staffSoapReader.readFull(staffFullRequest)
+
+		then:
+		thrown(MissingGUIDException)
 	}
 
 }

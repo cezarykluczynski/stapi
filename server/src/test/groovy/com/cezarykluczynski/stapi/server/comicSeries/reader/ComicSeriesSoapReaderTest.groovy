@@ -12,6 +12,7 @@ import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesBaseSoapM
 import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesFullSoapMapper
 import com.cezarykluczynski.stapi.server.comicSeries.query.ComicSeriesSoapQuery
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
 import spock.lang.Specification
@@ -64,7 +65,7 @@ class ComicSeriesSoapReaderTest extends Specification {
 		ComicSeriesFull comicSeriesFull = new ComicSeriesFull(guid: GUID)
 		ComicSeries comicSeries = Mock()
 		Page<ComicSeries> comicSeriesPage = Mock()
-		ComicSeriesFullRequest comicSeriesFullRequest = Mock()
+		ComicSeriesFullRequest comicSeriesFullRequest = new ComicSeriesFullRequest(guid: GUID)
 
 		when:
 		ComicSeriesFullResponse comicSeriesFullResponse = comicSeriesSoapReader.readFull(comicSeriesFullRequest)
@@ -74,6 +75,17 @@ class ComicSeriesSoapReaderTest extends Specification {
 		1 * comicSeriesPage.content >> Lists.newArrayList(comicSeries)
 		1 * comicSeriesFullSoapMapperMock.mapFull(comicSeries) >> comicSeriesFull
 		comicSeriesFullResponse.comicSeries.guid == GUID
+	}
+
+	void "requires GUID in full request"() {
+		given:
+		ComicSeriesFullRequest comicSeriesFullRequest = Mock()
+
+		when:
+		comicSeriesSoapReader.readFull(comicSeriesFullRequest)
+
+		then:
+		thrown(MissingGUIDException)
 	}
 
 }

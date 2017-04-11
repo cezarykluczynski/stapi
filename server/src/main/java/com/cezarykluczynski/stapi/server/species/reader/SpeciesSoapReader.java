@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.model.species.entity.Species;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
+import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesFullSoapMapper;
 import com.cezarykluczynski.stapi.server.species.query.SpeciesSoapQuery;
@@ -46,6 +47,7 @@ public class SpeciesSoapReader implements BaseReader<SpeciesBaseRequest, Species
 
 	@Override
 	public SpeciesFullResponse readFull(SpeciesFullRequest input) {
+		StaticValidator.requireGuid(input.getGuid());
 		Page<Species> speciesPage = speciesSoapQuery.query(input);
 		SpeciesFullResponse speciesFullResponse = new SpeciesFullResponse();
 		speciesFullResponse.setSpecies(speciesFullSoapMapper.mapFull(Iterables.getOnlyElement(speciesPage.getContent(), null)));

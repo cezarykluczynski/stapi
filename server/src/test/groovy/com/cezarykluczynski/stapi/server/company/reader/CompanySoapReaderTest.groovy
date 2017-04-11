@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.CompanyFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseSoapMapper
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyFullSoapMapper
 import com.cezarykluczynski.stapi.server.company.query.CompanySoapQuery
@@ -63,7 +64,7 @@ class CompanySoapReaderTest extends Specification {
 		CompanyFull companyFull = new CompanyFull(guid: GUID)
 		Company company = Mock()
 		Page<Company> companyPage = Mock()
-		CompanyFullRequest companyFullRequest = Mock()
+		CompanyFullRequest companyFullRequest = new CompanyFullRequest(guid: GUID)
 
 		when:
 		CompanyFullResponse companyFullResponse = companySoapReader.readFull(companyFullRequest)
@@ -73,6 +74,17 @@ class CompanySoapReaderTest extends Specification {
 		1 * companyPage.content >> Lists.newArrayList(company)
 		1 * companyFullSoapMapperMock.mapFull(company) >> companyFull
 		companyFullResponse.company.guid == GUID
+	}
+
+	void "requires GUID in full request"() {
+		given:
+		CompanyFullRequest companyFullRequest = Mock()
+
+		when:
+		companySoapReader.readFull(companyFullRequest)
+
+		then:
+		thrown(MissingGUIDException)
 	}
 
 }

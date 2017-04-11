@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.OrganizationFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
 import com.cezarykluczynski.stapi.model.organization.entity.Organization
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
 import com.cezarykluczynski.stapi.server.organization.mapper.OrganizationBaseSoapMapper
 import com.cezarykluczynski.stapi.server.organization.mapper.OrganizationFullSoapMapper
 import com.cezarykluczynski.stapi.server.organization.query.OrganizationSoapQuery
@@ -64,7 +65,7 @@ class OrganizationSoapReaderTest extends Specification {
 		OrganizationFull organizationFull = new OrganizationFull(guid: GUID)
 		Organization organization = Mock()
 		Page<Organization> organizationPage = Mock()
-		OrganizationFullRequest organizationFullRequest = Mock()
+		OrganizationFullRequest organizationFullRequest = new OrganizationFullRequest(guid: GUID)
 
 		when:
 		OrganizationFullResponse organizationFullResponse = organizationSoapReader.readFull(organizationFullRequest)
@@ -74,6 +75,17 @@ class OrganizationSoapReaderTest extends Specification {
 		1 * organizationPage.content >> Lists.newArrayList(organization)
 		1 * organizationFullSoapMapperMock.mapFull(organization) >> organizationFull
 		organizationFullResponse.organization.guid == GUID
+	}
+
+	void "requires GUID in full request"() {
+		given:
+		OrganizationFullRequest organizationFullRequest = Mock()
+
+		when:
+		organizationSoapReader.readFull(organizationFullRequest)
+
+		then:
+		thrown(MissingGUIDException)
 	}
 
 }

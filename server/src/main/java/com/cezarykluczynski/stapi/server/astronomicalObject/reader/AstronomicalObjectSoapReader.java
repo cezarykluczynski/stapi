@@ -11,6 +11,7 @@ import com.cezarykluczynski.stapi.server.astronomicalObject.query.AstronomicalOb
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
+import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
 import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -47,6 +48,7 @@ public class AstronomicalObjectSoapReader implements BaseReader<AstronomicalObje
 
 	@Override
 	public AstronomicalObjectFullResponse readFull(AstronomicalObjectFullRequest input) {
+		StaticValidator.requireGuid(input.getGuid());
 		Page<AstronomicalObject> astronomicalObjectPage = astronomicalObjectSoapQuery.query(input);
 		AstronomicalObjectFullResponse astronomicalObjectFullResponse = new AstronomicalObjectFullResponse();
 		astronomicalObjectFullResponse.setAstronomicalObject(astronomicalObjectFullSoapMapper

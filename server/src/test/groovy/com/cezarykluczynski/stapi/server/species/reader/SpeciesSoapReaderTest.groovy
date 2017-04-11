@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.SpeciesFullRequest
 import com.cezarykluczynski.stapi.client.v1.soap.SpeciesFullResponse
 import com.cezarykluczynski.stapi.model.species.entity.Species
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesBaseSoapMapper
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesFullSoapMapper
 import com.cezarykluczynski.stapi.server.species.query.SpeciesSoapQuery
@@ -64,7 +65,7 @@ class SpeciesSoapReaderTest extends Specification {
 		SpeciesFull speciesFull = new SpeciesFull(guid: GUID)
 		Species species = Mock()
 		Page<Species> speciesPage = Mock()
-		SpeciesFullRequest speciesFullRequest = Mock()
+		SpeciesFullRequest speciesFullRequest = new SpeciesFullRequest(guid: GUID)
 
 		when:
 		SpeciesFullResponse speciesFullResponse = speciesSoapReader.readFull(speciesFullRequest)
@@ -74,6 +75,17 @@ class SpeciesSoapReaderTest extends Specification {
 		1 * speciesPage.content >> Lists.newArrayList(species)
 		1 * speciesFullSoapMapperMock.mapFull(species) >> speciesFull
 		speciesFullResponse.species.guid == GUID
+	}
+
+	void "requires GUID in full request"() {
+		given:
+		SpeciesFullRequest speciesFullRequest = Mock()
+
+		when:
+		speciesSoapReader.readFull(speciesFullRequest)
+
+		then:
+		thrown(MissingGUIDException)
 	}
 
 }

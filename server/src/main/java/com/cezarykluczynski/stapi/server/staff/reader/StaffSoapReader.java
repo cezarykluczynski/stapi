@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
+import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffFullSoapMapper;
 import com.cezarykluczynski.stapi.server.staff.query.StaffSoapQuery;
@@ -45,6 +46,7 @@ public class StaffSoapReader implements BaseReader<StaffBaseRequest, StaffBaseRe
 
 	@Override
 	public StaffFullResponse readFull(StaffFullRequest input) {
+		StaticValidator.requireGuid(input.getGuid());
 		Page<Staff> staffPage = staffSoapQuery.query(input);
 		StaffFullResponse staffFullResponse = new StaffFullResponse();
 		staffFullResponse.setStaff(staffFullSoapMapper.mapFull(Iterables.getOnlyElement(staffPage.getContent(), null)));

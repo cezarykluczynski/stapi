@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.PerformerFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseSoapMapper
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerFullSoapMapper
 import com.cezarykluczynski.stapi.server.performer.query.PerformerSoapQuery
@@ -64,7 +65,7 @@ class PerformerSoapReaderTest extends Specification {
 		PerformerFull performerFull = new PerformerFull(guid: GUID)
 		Performer performer = Mock()
 		Page<Performer> performerPage = Mock()
-		PerformerFullRequest performerFullRequest = Mock()
+		PerformerFullRequest performerFullRequest = new PerformerFullRequest(guid: GUID)
 
 		when:
 		PerformerFullResponse performerFullResponse = performerSoapReader.readFull(performerFullRequest)
@@ -74,6 +75,17 @@ class PerformerSoapReaderTest extends Specification {
 		1 * performerPage.content >> Lists.newArrayList(performer)
 		1 * performerFullSoapMapperMock.mapFull(performer) >> performerFull
 		performerFullResponse.performer.guid == GUID
+	}
+
+	void "requires GUID in full request"() {
+		given:
+		PerformerFullRequest performerFullRequest = Mock()
+
+		when:
+		performerSoapReader.readFull(performerFullRequest)
+
+		then:
+		thrown(MissingGUIDException)
 	}
 
 }

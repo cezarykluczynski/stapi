@@ -11,6 +11,7 @@ import com.cezarykluczynski.stapi.server.comicCollection.query.ComicCollectionSo
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
+import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
 import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -46,6 +47,7 @@ public class ComicCollectionSoapReader implements BaseReader<ComicCollectionBase
 
 	@Override
 	public ComicCollectionFullResponse readFull(ComicCollectionFullRequest input) {
+		StaticValidator.requireGuid(input.getGuid());
 		Page<ComicCollection> comicCollectionPage = comicCollectionSoapQuery.query(input);
 		ComicCollectionFullResponse comicCollectionFullResponse = new ComicCollectionFullResponse();
 		comicCollectionFullResponse.setComicCollection(comicCollectionFullSoapMapper

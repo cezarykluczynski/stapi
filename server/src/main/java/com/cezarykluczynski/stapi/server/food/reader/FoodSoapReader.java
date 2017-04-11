@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.model.food.entity.Food;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
+import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
 import com.cezarykluczynski.stapi.server.food.mapper.FoodBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.food.mapper.FoodFullSoapMapper;
 import com.cezarykluczynski.stapi.server.food.query.FoodSoapQuery;
@@ -46,6 +47,7 @@ public class FoodSoapReader implements BaseReader<FoodBaseRequest, FoodBaseRespo
 
 	@Override
 	public FoodFullResponse readFull(FoodFullRequest input) {
+		StaticValidator.requireGuid(input.getGuid());
 		Page<Food> foodPage = foodSoapQuery.query(input);
 		FoodFullResponse foodFullResponse = new FoodFullResponse();
 		foodFullResponse.setFood(foodFullSoapMapper

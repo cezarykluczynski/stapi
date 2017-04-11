@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
+import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
 import com.cezarykluczynski.stapi.server.organization.mapper.OrganizationBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.organization.mapper.OrganizationFullSoapMapper;
 import com.cezarykluczynski.stapi.server.organization.query.OrganizationSoapQuery;
@@ -46,6 +47,7 @@ public class OrganizationSoapReader implements BaseReader<OrganizationBaseReques
 
 	@Override
 	public OrganizationFullResponse readFull(OrganizationFullRequest input) {
+		StaticValidator.requireGuid(input.getGuid());
 		Page<Organization> organizationPage = organizationSoapQuery.query(input);
 		OrganizationFullResponse organizationFullResponse = new OrganizationFullResponse();
 		organizationFullResponse.setOrganization(organizationFullSoapMapper

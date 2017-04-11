@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.SeriesFullRequest
 import com.cezarykluczynski.stapi.client.v1.soap.SeriesFullResponse
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesBaseSoapMapper
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesFullSoapMapper
 import com.cezarykluczynski.stapi.server.series.query.SeriesSoapQuery
@@ -63,7 +64,7 @@ class SeriesSoapReaderTest extends Specification {
 		SeriesFull seriesFull = new SeriesFull(guid: GUID)
 		Series series = Mock()
 		Page<Series> seriesPage = Mock()
-		SeriesFullRequest seriesFullRequest = Mock()
+		SeriesFullRequest seriesFullRequest = new SeriesFullRequest(guid: GUID)
 
 		when:
 		SeriesFullResponse seriesFullResponse = seriesSoapReader.readFull(seriesFullRequest)
@@ -73,6 +74,17 @@ class SeriesSoapReaderTest extends Specification {
 		1 * seriesPage.content >> Lists.newArrayList(series)
 		1 * seriesFullSoapMapperMock.mapFull(series) >> seriesFull
 		seriesFullResponse.series.guid == GUID
+	}
+
+	void "requires GUID in full request"() {
+		given:
+		SeriesFullRequest seriesFullRequest = Mock()
+
+		when:
+		seriesSoapReader.readFull(seriesFullRequest)
+
+		then:
+		thrown(MissingGUIDException)
 	}
 
 }

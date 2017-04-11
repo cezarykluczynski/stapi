@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
+import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerFullSoapMapper;
 import com.cezarykluczynski.stapi.server.performer.query.PerformerSoapQuery;
@@ -46,6 +47,7 @@ public class PerformerSoapReader implements BaseReader<PerformerBaseRequest, Per
 
 	@Override
 	public PerformerFullResponse readFull(PerformerFullRequest input) {
+		StaticValidator.requireGuid(input.getGuid());
 		Page<Performer> performerPage = performerSoapQuery.query(input);
 		PerformerFullResponse performerFullResponse = new PerformerFullResponse();
 		performerFullResponse.setPerformer(performerFullSoapMapper.mapFull(Iterables.getOnlyElement(performerPage.getContent(), null)));

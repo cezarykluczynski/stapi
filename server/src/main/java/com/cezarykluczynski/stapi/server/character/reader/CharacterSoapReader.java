@@ -11,6 +11,7 @@ import com.cezarykluczynski.stapi.server.character.query.CharacterSoapQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
+import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
 import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -46,6 +47,7 @@ public class CharacterSoapReader implements BaseReader<CharacterBaseRequest, Cha
 
 	@Override
 	public CharacterFullResponse readFull(CharacterFullRequest input) {
+		StaticValidator.requireGuid(input.getGuid());
 		Page<Character> characterPage = characterSoapQuery.query(input);
 		CharacterFullResponse characterFullResponse = new CharacterFullResponse();
 		characterFullResponse.setCharacter(characterFullSoapMapper.mapFull(Iterables.getOnlyElement(characterPage.getContent(), null)));

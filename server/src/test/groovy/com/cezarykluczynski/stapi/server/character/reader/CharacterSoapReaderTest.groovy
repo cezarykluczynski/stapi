@@ -12,6 +12,7 @@ import com.cezarykluczynski.stapi.server.character.mapper.CharacterBaseSoapMappe
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterFullSoapMapper
 import com.cezarykluczynski.stapi.server.character.query.CharacterSoapQuery
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
 import spock.lang.Specification
@@ -64,7 +65,7 @@ class CharacterSoapReaderTest extends Specification {
 		CharacterFull characterFull = new CharacterFull(guid: GUID)
 		Character character = Mock()
 		Page<Character> characterPage = Mock()
-		CharacterFullRequest characterFullRequest = Mock()
+		CharacterFullRequest characterFullRequest = new CharacterFullRequest(guid: GUID)
 
 		when:
 		CharacterFullResponse characterFullResponse = characterSoapReader.readFull(characterFullRequest)
@@ -74,6 +75,17 @@ class CharacterSoapReaderTest extends Specification {
 		1 * characterPage.content >> Lists.newArrayList(character)
 		1 * characterFullSoapMapperMock.mapFull(character) >> characterFull
 		characterFullResponse.character.guid == GUID
+	}
+
+	void "requires GUID in full request"() {
+		given:
+		CharacterFullRequest characterFullRequest = Mock()
+
+		when:
+		characterSoapReader.readFull(characterFullRequest)
+
+		then:
+		thrown(MissingGUIDException)
 	}
 
 }

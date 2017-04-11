@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.FoodFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
 import com.cezarykluczynski.stapi.model.food.entity.Food
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
 import com.cezarykluczynski.stapi.server.food.mapper.FoodBaseSoapMapper
 import com.cezarykluczynski.stapi.server.food.mapper.FoodFullSoapMapper
 import com.cezarykluczynski.stapi.server.food.query.FoodSoapQuery
@@ -63,7 +64,7 @@ class FoodSoapReaderTest extends Specification {
 		FoodFull foodFull = new FoodFull(guid: GUID)
 		Food food = Mock()
 		Page<Food> foodPage = Mock()
-		FoodFullRequest foodFullRequest = Mock()
+		FoodFullRequest foodFullRequest = new FoodFullRequest(guid: GUID)
 
 		when:
 		FoodFullResponse foodFullResponse = foodSoapReader.readFull(foodFullRequest)
@@ -73,6 +74,17 @@ class FoodSoapReaderTest extends Specification {
 		1 * foodPage.content >> Lists.newArrayList(food)
 		1 * foodFullSoapMapperMock.mapFull(food) >> foodFull
 		foodFullResponse.food.guid == GUID
+	}
+
+	void "requires GUID in full request"() {
+		given:
+		FoodFullRequest foodFullRequest = Mock()
+
+		when:
+		foodSoapReader.readFull(foodFullRequest)
+
+		then:
+		thrown(MissingGUIDException)
 	}
 
 }

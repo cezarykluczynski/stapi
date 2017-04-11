@@ -12,6 +12,7 @@ import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalO
 import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectFullSoapMapper
 import com.cezarykluczynski.stapi.server.astronomicalObject.query.AstronomicalObjectSoapQuery
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
 import spock.lang.Specification
@@ -64,7 +65,7 @@ class AstronomicalObjectSoapReaderTest extends Specification {
 		AstronomicalObjectFull astronomicalObjectFull = new AstronomicalObjectFull(guid: GUID)
 		AstronomicalObject astronomicalObject = Mock()
 		Page<AstronomicalObject> astronomicalObjectPage = Mock()
-		AstronomicalObjectFullRequest astronomicalObjectFullRequest = Mock()
+		AstronomicalObjectFullRequest astronomicalObjectFullRequest = new AstronomicalObjectFullRequest(guid: GUID)
 
 		when:
 		AstronomicalObjectFullResponse astronomicalObjectFullResponse = astronomicalObjectSoapReader.readFull(astronomicalObjectFullRequest)
@@ -74,6 +75,17 @@ class AstronomicalObjectSoapReaderTest extends Specification {
 		1 * astronomicalObjectPage.content >> Lists.newArrayList(astronomicalObject)
 		1 * astronomicalObjectFullSoapMapperMock.mapFull(astronomicalObject) >> astronomicalObjectFull
 		astronomicalObjectFullResponse.astronomicalObject.guid == GUID
+	}
+
+	void "requires GUID in full request"() {
+		given:
+		AstronomicalObjectFullRequest astronomicalObjectFullRequest = Mock()
+
+		when:
+		astronomicalObjectSoapReader.readFull(astronomicalObjectFullRequest)
+
+		then:
+		thrown(MissingGUIDException)
 	}
 
 }

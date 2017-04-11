@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
+import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
 import com.cezarykluczynski.stapi.server.movie.mapper.MovieBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.movie.mapper.MovieFullSoapMapper;
 import com.cezarykluczynski.stapi.server.movie.query.MovieSoapQuery;
@@ -45,6 +46,7 @@ public class MovieSoapReader implements BaseReader<MovieBaseRequest, MovieBaseRe
 
 	@Override
 	public MovieFullResponse readFull(MovieFullRequest input) {
+		StaticValidator.requireGuid(input.getGuid());
 		Page<Movie> moviePage = movieSoapQuery.query(input);
 		MovieFullResponse movieFullResponse = new MovieFullResponse();
 		movieFullResponse.setMovie(movieFullSoapMapper.mapFull(Iterables.getOnlyElement(moviePage.getContent(), null)));
