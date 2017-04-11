@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesFull
 import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesFullResponse
 import com.cezarykluczynski.stapi.model.species.entity.Species
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
 import com.cezarykluczynski.stapi.server.species.dto.SpeciesRestBeanParams
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesBaseRestMapper
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesFullRestMapper
@@ -80,6 +81,14 @@ class SpeciesRestReaderTest extends Specification {
 		1 * speciesFullRestMapperMock.mapFull(species) >> speciesFull
 		0 * _
 		speciesResponseOutput.species == speciesFull
+	}
+
+	void "requires GUID in full request"() {
+		when:
+		speciesRestReader.readFull(null)
+
+		then:
+		thrown(MissingGUIDException)
 	}
 
 }

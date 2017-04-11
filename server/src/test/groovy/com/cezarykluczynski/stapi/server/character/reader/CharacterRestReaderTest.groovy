@@ -11,6 +11,7 @@ import com.cezarykluczynski.stapi.server.character.mapper.CharacterBaseRestMappe
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterFullRestMapper
 import com.cezarykluczynski.stapi.server.character.query.CharacterRestQuery
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
 import spock.lang.Specification
@@ -80,6 +81,14 @@ class CharacterRestReaderTest extends Specification {
 		1 * characterFullRestMapperMock.mapFull(character) >> characterFull
 		0 * _
 		characterResponseOutput.character == characterFull
+	}
+
+	void "requires GUID in full request"() {
+		when:
+		characterRestReader.readFull(null)
+
+		then:
+		thrown(MissingGUIDException)
 	}
 
 }

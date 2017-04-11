@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.MovieFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
 import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
 import com.cezarykluczynski.stapi.server.movie.dto.MovieRestBeanParams
 import com.cezarykluczynski.stapi.server.movie.mapper.MovieBaseRestMapper
 import com.cezarykluczynski.stapi.server.movie.mapper.MovieFullRestMapper
@@ -79,6 +80,14 @@ class MovieRestReaderTest extends Specification {
 		1 * movieFullRestMapperMock.mapFull(movie) >> movieFull
 		0 * _
 		movieResponseOutput.movie == movieFull
+	}
+
+	void "requires GUID in full request"() {
+		when:
+		movieRestReader.readFull(null)
+
+		then:
+		thrown(MissingGUIDException)
 	}
 
 }

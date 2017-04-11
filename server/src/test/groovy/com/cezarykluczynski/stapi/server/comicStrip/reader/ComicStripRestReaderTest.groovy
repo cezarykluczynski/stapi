@@ -11,6 +11,7 @@ import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripBaseRestMap
 import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripFullRestMapper
 import com.cezarykluczynski.stapi.server.comicStrip.query.ComicStripRestQuery
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
 import spock.lang.Specification
@@ -80,6 +81,14 @@ class ComicStripRestReaderTest extends Specification {
 		1 * comicStripFullRestMapperMock.mapFull(comicStrip) >> comicStripFull
 		0 * _
 		comicStripResponseOutput.comicStrip == comicStripFull
+	}
+
+	void "requires GUID in full request"() {
+		when:
+		comicStripRestReader.readFull(null)
+
+		then:
+		thrown(MissingGUIDException)
 	}
 
 }

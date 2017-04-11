@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
 import com.cezarykluczynski.stapi.server.company.dto.CompanyRestBeanParams
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseRestMapper
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyFullRestMapper
@@ -80,6 +81,14 @@ class CompanyRestReaderTest extends Specification {
 		1 * companyFullRestMapperMock.mapFull(company) >> companyFull
 		0 * _
 		companyResponseOutput.company == companyFull
+	}
+
+	void "requires GUID in full request"() {
+		when:
+		companyRestReader.readFull(null)
+
+		then:
+		thrown(MissingGUIDException)
 	}
 
 }

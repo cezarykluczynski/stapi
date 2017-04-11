@@ -11,6 +11,7 @@ import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalO
 import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectFullRestMapper
 import com.cezarykluczynski.stapi.server.astronomicalObject.query.AstronomicalObjectRestQuery
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
 import spock.lang.Specification
@@ -81,6 +82,14 @@ class AstronomicalObjectRestReaderTest extends Specification {
 		1 * astronomicalObjectFullRestMapperMock.mapFull(astronomicalObject) >> astronomicalObjectFull
 		0 * _
 		astronomicalObjectResponseOutput.astronomicalObject == astronomicalObjectFull
+	}
+
+	void "requires GUID in full request"() {
+		when:
+		astronomicalObjectRestReader.readFull(null)
+
+		then:
+		thrown(MissingGUIDException)
 	}
 
 }

@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.OrganizationFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
 import com.cezarykluczynski.stapi.model.organization.entity.Organization
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
 import com.cezarykluczynski.stapi.server.organization.dto.OrganizationRestBeanParams
 import com.cezarykluczynski.stapi.server.organization.mapper.OrganizationBaseRestMapper
 import com.cezarykluczynski.stapi.server.organization.mapper.OrganizationFullRestMapper
@@ -80,6 +81,14 @@ class OrganizationRestReaderTest extends Specification {
 		1 * organizationFullRestMapperMock.mapFull(organization) >> organizationFull
 		0 * _
 		organizationResponseOutput.organization == organizationFull
+	}
+
+	void "requires GUID in full request"() {
+		when:
+		organizationRestReader.readFull(null)
+
+		then:
+		thrown(MissingGUIDException)
 	}
 
 }

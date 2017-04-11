@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesFull
 import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesFullResponse
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
 import com.cezarykluczynski.stapi.server.series.dto.SeriesRestBeanParams
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesBaseRestMapper
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesFullRestMapper
@@ -79,6 +80,14 @@ class SeriesRestReaderTest extends Specification {
 		1 * seriesFullRestMapperMock.mapFull(series) >> seriesFull
 		0 * _
 		seriesResponseOutput.series == seriesFull
+	}
+
+	void "requires GUID in full request"() {
+		when:
+		seriesRestReader.readFull(null)
+
+		then:
+		thrown(MissingGUIDException)
 	}
 
 }

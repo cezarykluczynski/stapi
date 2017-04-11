@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.FoodFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
 import com.cezarykluczynski.stapi.model.food.entity.Food
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
 import com.cezarykluczynski.stapi.server.food.dto.FoodRestBeanParams
 import com.cezarykluczynski.stapi.server.food.mapper.FoodBaseRestMapper
 import com.cezarykluczynski.stapi.server.food.mapper.FoodFullRestMapper
@@ -79,6 +80,14 @@ class FoodRestReaderTest extends Specification {
 		1 * foodFullRestMapperMock.mapFull(food) >> foodFull
 		0 * _
 		foodResponseOutput.food == foodFull
+	}
+
+	void "requires GUID in full request"() {
+		when:
+		foodRestReader.readFull(null)
+
+		then:
+		thrown(MissingGUIDException)
 	}
 
 }

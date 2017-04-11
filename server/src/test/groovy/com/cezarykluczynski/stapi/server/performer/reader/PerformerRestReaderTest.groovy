@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
 import com.cezarykluczynski.stapi.server.performer.dto.PerformerRestBeanParams
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseRestMapper
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerFullRestMapper
@@ -80,6 +81,14 @@ class PerformerRestReaderTest extends Specification {
 		1 * performerFullRestMapperMock.mapFull(performer) >> performerFull
 		0 * _
 		performerResponseOutput.performer == performerFull
+	}
+
+	void "requires GUID in full request"() {
+		when:
+		performerRestReader.readFull(null)
+
+		then:
+		thrown(MissingGUIDException)
 	}
 
 }

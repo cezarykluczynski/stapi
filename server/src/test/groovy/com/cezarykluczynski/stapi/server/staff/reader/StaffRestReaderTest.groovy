@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.StaffFull
 import com.cezarykluczynski.stapi.client.v1.rest.model.StaffFullResponse
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
 import com.cezarykluczynski.stapi.server.staff.dto.StaffRestBeanParams
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseRestMapper
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffFullRestMapper
@@ -79,6 +80,14 @@ class StaffRestReaderTest extends Specification {
 		1 * staffFullRestMapperMock.mapFull(staff) >> staffFull
 		0 * _
 		staffResponseOutput.staff == staffFull
+	}
+
+	void "requires GUID in full request"() {
+		when:
+		staffRestReader.readFull(null)
+
+		then:
+		thrown(MissingGUIDException)
 	}
 
 }
