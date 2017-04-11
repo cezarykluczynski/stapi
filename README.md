@@ -1,4 +1,3 @@
-[![CircleCI](https://circleci.com/gh/cezarykluczynski/stapi.svg?style=svg)](https://circleci.com/gh/cezarykluczynski/stapi)
 [![Build Status](https://semaphoreci.com/api/v1/cezarykluczynski/stapi/branches/master/badge.svg)](https://semaphoreci.com/cezarykluczynski/stapi)
 [![codecov](https://codecov.io/gh/cezarykluczynski/stapi/branch/master/graph/badge.svg)](https://codecov.io/gh/cezarykluczynski/stapi)
 
