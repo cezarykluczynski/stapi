@@ -13,8 +13,7 @@ public class NumberUtil {
 		Preconditions.checkNotNull(min, MIN_CANNOT_BE_NULL);
 		Preconditions.checkNotNull(max, MAX_CANNOT_BE_NULL);
 		if (min > max) {
-			throw new IllegalArgumentException(
-					String.format("Min value %s cannot is larger than max value %s", min, max));
+			throw new IllegalArgumentException(String.format("Min value %s cannot is larger than max value %s", min, max));
 		}
 
 		if (subject < min) {
