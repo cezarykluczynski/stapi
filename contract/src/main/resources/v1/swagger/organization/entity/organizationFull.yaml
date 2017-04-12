@@ -24,12 +24,6 @@ properties:
     type: boolean
   prisonOrPenalColony:
     type: boolean
-  establishment:
-    type: boolean
-  ds9Establishment:
-    type: boolean
-  school:
-    type: boolean
   mirror:
     type: boolean
   alternateReality:

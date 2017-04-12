@@ -32,12 +32,6 @@ public class OrganizationRequestDTO {
 
 	private Boolean prisonOrPenalColony;
 
-	private Boolean establishment;
-
-	private Boolean ds9Establishment;
-
-	private Boolean school;
-
 	private Boolean mirror;
 
 	private Boolean alternateReality;

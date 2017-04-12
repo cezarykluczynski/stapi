@@ -32,9 +32,6 @@ class OrganizationFullRestMapperTest extends AbstractOrganizationMapperTest {
 		organizationFull.governmentAgency == GOVERNMENT_AGENCY
 		organizationFull.lawEnforcementAgency == LAW_ENFORCEMENT_AGENCY
 		organizationFull.prisonOrPenalColony == PRISON_OR_PENAL_COLONY
-		organizationFull.establishment == ESTABLISHMENT
-		organizationFull.ds9Establishment == DS9_ESTABLISHMENT
-		organizationFull.school == SCHOOL
 		organizationFull.mirror == MIRROR
 		organizationFull.alternateReality == ALTERNATE_REALITY
 	}

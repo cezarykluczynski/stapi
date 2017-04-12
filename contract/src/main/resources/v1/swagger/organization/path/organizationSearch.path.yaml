@@ -71,9 +71,6 @@ post:
     - name: establishment
       in: formData
       type: boolean
-    - name: ds9Establishment
-      in: formData
-      type: boolean
     - name: school
       in: formData
       type: boolean

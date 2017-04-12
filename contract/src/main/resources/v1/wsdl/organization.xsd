@@ -22,9 +22,6 @@
 						<xs:element name="governmentAgency" type="xs:boolean" minOccurs="0"/>
 						<xs:element name="lawEnforcementAgency" type="xs:boolean" minOccurs="0"/>
 						<xs:element name="prisonOrPenalColony" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="establishment" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="ds9Establishment" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="school" type="xs:boolean" minOccurs="0"/>
 						<xs:element name="mirror" type="xs:boolean" minOccurs="0"/>
 						<xs:element name="alternateReality" type="xs:boolean" minOccurs="0"/>
 					</xs:sequence>
@@ -71,9 +68,6 @@
 			<xs:element name="governmentAgency" type="xs:boolean"/>
 			<xs:element name="lawEnforcementAgency" type="xs:boolean"/>
 			<xs:element name="prisonOrPenalColony" type="xs:boolean"/>
-			<xs:element name="establishment" type="xs:boolean"/>
-			<xs:element name="ds9Establishment" type="xs:boolean"/>
-			<xs:element name="school" type="xs:boolean"/>
 			<xs:element name="mirror" type="xs:boolean"/>
 			<xs:element name="alternateReality" type="xs:boolean"/>
 		</xs:sequence>
@@ -92,9 +86,6 @@
 			<xs:element name="governmentAgency" type="xs:boolean"/>
 			<xs:element name="lawEnforcementAgency" type="xs:boolean"/>
 			<xs:element name="prisonOrPenalColony" type="xs:boolean"/>
-			<xs:element name="establishment" type="xs:boolean"/>
-			<xs:element name="ds9Establishment" type="xs:boolean"/>
-			<xs:element name="school" type="xs:boolean"/>
 			<xs:element name="mirror" type="xs:boolean"/>
 			<xs:element name="alternateReality" type="xs:boolean"/>
 		</xs:sequence>

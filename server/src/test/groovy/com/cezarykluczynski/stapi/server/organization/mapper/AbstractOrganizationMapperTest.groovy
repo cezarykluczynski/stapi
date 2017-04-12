@@ -19,9 +19,6 @@ abstract class AbstractOrganizationMapperTest extends AbstractOrganizationTest {
 				governmentAgency: GOVERNMENT_AGENCY,
 				lawEnforcementAgency: LAW_ENFORCEMENT_AGENCY,
 				prisonOrPenalColony: PRISON_OR_PENAL_COLONY,
-				establishment: ESTABLISHMENT,
-				ds9Establishment: DS9_ESTABLISHMENT,
-				school: SCHOOL,
 				mirror: MIRROR,
 				alternateReality: ALTERNATE_REALITY)
 	}

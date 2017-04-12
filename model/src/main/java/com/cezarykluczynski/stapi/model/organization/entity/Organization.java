@@ -55,16 +55,6 @@ public class Organization extends PageAwareEntity implements PageAware {
 
 	private Boolean prisonOrPenalColony;
 
-	@Deprecated
-	private Boolean establishment;
-
-	@Deprecated
-	@Column(name = "ds9_establishment")
-	private Boolean ds9Establishment;
-
-	@Deprecated
-	private Boolean school;
-
 	private Boolean mirror;
 
 	private Boolean alternateReality;

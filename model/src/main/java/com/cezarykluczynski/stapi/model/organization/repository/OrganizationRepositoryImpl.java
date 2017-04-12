@@ -37,9 +37,6 @@ public class OrganizationRepositoryImpl implements OrganizationRepositoryCustom 
 		organizationQueryBuilder.equal(Organization_.governmentAgency, criteria.getGovernmentAgency());
 		organizationQueryBuilder.equal(Organization_.lawEnforcementAgency, criteria.getLawEnforcementAgency());
 		organizationQueryBuilder.equal(Organization_.prisonOrPenalColony, criteria.getPrisonOrPenalColony());
-		organizationQueryBuilder.equal(Organization_.establishment, criteria.getEstablishment());
-		organizationQueryBuilder.equal(Organization_.ds9Establishment, criteria.getDs9Establishment());
-		organizationQueryBuilder.equal(Organization_.school, criteria.getSchool());
 		organizationQueryBuilder.equal(Organization_.mirror, criteria.getMirror());
 		organizationQueryBuilder.equal(Organization_.alternateReality, criteria.getAlternateReality());
 		organizationQueryBuilder.setSort(criteria.getSort());

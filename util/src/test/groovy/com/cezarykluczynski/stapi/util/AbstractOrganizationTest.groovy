@@ -17,9 +17,6 @@ abstract class AbstractOrganizationTest extends Specification {
 	protected static final boolean GOVERNMENT_AGENCY = LogicUtil.nextBoolean()
 	protected static final boolean LAW_ENFORCEMENT_AGENCY = LogicUtil.nextBoolean()
 	protected static final boolean PRISON_OR_PENAL_COLONY = LogicUtil.nextBoolean()
-	protected static final boolean ESTABLISHMENT = LogicUtil.nextBoolean()
-	protected static final boolean DS9_ESTABLISHMENT = LogicUtil.nextBoolean()
-	protected static final boolean SCHOOL = LogicUtil.nextBoolean()
 	protected static final boolean MIRROR = LogicUtil.nextBoolean()
 	protected static final boolean ALTERNATE_REALITY = LogicUtil.nextBoolean()
 

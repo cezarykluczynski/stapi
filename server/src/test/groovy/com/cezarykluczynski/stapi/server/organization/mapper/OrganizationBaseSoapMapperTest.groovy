@@ -29,9 +29,6 @@ class OrganizationBaseSoapMapperTest extends AbstractOrganizationMapperTest {
 				governmentAgency: GOVERNMENT_AGENCY,
 				lawEnforcementAgency: LAW_ENFORCEMENT_AGENCY,
 				prisonOrPenalColony: PRISON_OR_PENAL_COLONY,
-				establishment: ESTABLISHMENT,
-				ds9Establishment: DS9_ESTABLISHMENT,
-				school: SCHOOL,
 				mirror: MIRROR,
 				alternateReality: ALTERNATE_REALITY)
 
@@ -50,9 +47,6 @@ class OrganizationBaseSoapMapperTest extends AbstractOrganizationMapperTest {
 		organizationRequestDTO.governmentAgency == GOVERNMENT_AGENCY
 		organizationRequestDTO.lawEnforcementAgency == LAW_ENFORCEMENT_AGENCY
 		organizationRequestDTO.prisonOrPenalColony == PRISON_OR_PENAL_COLONY
-		organizationRequestDTO.establishment == ESTABLISHMENT
-		organizationRequestDTO.ds9Establishment == DS9_ESTABLISHMENT
-		organizationRequestDTO.school == SCHOOL
 		organizationRequestDTO.mirror == MIRROR
 		organizationRequestDTO.alternateReality == ALTERNATE_REALITY
 	}
@@ -77,9 +71,6 @@ class OrganizationBaseSoapMapperTest extends AbstractOrganizationMapperTest {
 		organizationBase.governmentAgency == GOVERNMENT_AGENCY
 		organizationBase.lawEnforcementAgency == LAW_ENFORCEMENT_AGENCY
 		organizationBase.prisonOrPenalColony == PRISON_OR_PENAL_COLONY
-		organizationBase.establishment == ESTABLISHMENT
-		organizationBase.ds9Establishment == DS9_ESTABLISHMENT
-		organizationBase.school == SCHOOL
 		organizationBase.mirror == MIRROR
 		organizationBase.alternateReality == ALTERNATE_REALITY
 	}

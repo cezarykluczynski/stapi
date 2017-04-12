@@ -71,12 +71,6 @@ class OrganizationRepositoryImplTest extends AbstractOrganizationTest {
 		1 * organizationQueryBuilder.equal(Organization_.lawEnforcementAgency, LAW_ENFORCEMENT_AGENCY)
 		1 * organizationRequestDTO.prisonOrPenalColony >> PRISON_OR_PENAL_COLONY
 		1 * organizationQueryBuilder.equal(Organization_.prisonOrPenalColony, PRISON_OR_PENAL_COLONY)
-		1 * organizationRequestDTO.establishment >> ESTABLISHMENT
-		1 * organizationQueryBuilder.equal(Organization_.establishment, ESTABLISHMENT)
-		1 * organizationRequestDTO.ds9Establishment >> DS9_ESTABLISHMENT
-		1 * organizationQueryBuilder.equal(Organization_.ds9Establishment, DS9_ESTABLISHMENT)
-		1 * organizationRequestDTO.school >> SCHOOL
-		1 * organizationQueryBuilder.equal(Organization_.school, SCHOOL)
 		1 * organizationRequestDTO.mirror >> MIRROR
 		1 * organizationQueryBuilder.equal(Organization_.mirror, MIRROR)
 		1 * organizationRequestDTO.alternateReality >> ALTERNATE_REALITY

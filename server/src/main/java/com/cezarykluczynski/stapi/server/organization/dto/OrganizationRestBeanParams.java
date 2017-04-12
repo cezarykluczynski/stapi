@@ -41,15 +41,6 @@ public class OrganizationRestBeanParams extends PageSortBeanParams {
 	@FormParam("prisonOrPenalColony")
 	private Boolean prisonOrPenalColony;
 
-	@FormParam("establishment")
-	private Boolean establishment;
-
-	@FormParam("ds9Establishment")
-	private Boolean ds9Establishment;
-
-	@FormParam("school")
-	private Boolean school;
-
 	@FormParam("mirror")
 	private Boolean mirror;
 
@@ -106,18 +97,6 @@ public class OrganizationRestBeanParams extends PageSortBeanParams {
 
 	public Boolean getPrisonOrPenalColony() {
 		return prisonOrPenalColony;
-	}
-
-	public Boolean getEstablishment() {
-		return establishment;
-	}
-
-	public Boolean getDs9Establishment() {
-		return ds9Establishment;
-	}
-
-	public Boolean getSchool() {
-		return school;
 	}
 
 	public Boolean getMirror() {
