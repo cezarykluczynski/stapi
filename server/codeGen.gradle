@@ -2,7 +2,7 @@ import groovy.io.FileType
 
 import java.util.stream.Collectors
 
-task endpointGen(type: EndpointScaffoldingGeneratorTask) << {
+task codeGen(type: EndpointScaffoldingGeneratorTask) << {
 
 }
 
@@ -25,7 +25,14 @@ class EndpointScaffoldingGeneratorTask extends DefaultTask {
 			"MovieRestQuery.java",
 			"MovieSoapQuery.java",
 			"MovieRestReader.java",
-			"MovieSoapReader.java"
+			"MovieSoapReader.java",
+			"MovieCreationConfiguration.java",
+			"MovieProcessor.java",
+			"MovieReader.java",
+			"MovieWriter.java",
+			"MovieTemplateProcessor.java",
+			"MovieTemplatePageProcessor.java",
+			"MoviePageProcessor.java",
 	]
 
 	List<String> serverTestFilesToCopy = [
@@ -45,6 +52,13 @@ class EndpointScaffoldingGeneratorTask extends DefaultTask {
 			"MovieSoapQueryTest.groovy",
 			"MovieRestReaderTest.groovy",
 			"MovieSoapReaderTest.groovy",
+			"MovieCreationConfigurationTest.groovy",
+			"MovieProcessorTest.groovy",
+			"MovieReaderTest.groovy",
+			"MovieWriterTest.groovy",
+			"MovieTemplateProcessorTest.groovy",
+			"MovieTemplatePageProcessorTest.groovy",
+			"MoviePageProcessorTest.groovy",
 	]
 
 	List<String> modelFilesToCopy = [
@@ -70,6 +84,8 @@ class EndpointScaffoldingGeneratorTask extends DefaultTask {
 
 	String sourcePackageName
 
+	String scaffoldType
+
 	int total = 0
 
 	int copied = 0
@@ -88,6 +104,11 @@ class EndpointScaffoldingGeneratorTask extends DefaultTask {
 			System.exit(-1)
 		}
 
+		scaffoldType = project.property('scaffoldType')
+		if (scaffoldType == "") {
+			scaffoldType = 'endpoint'
+		}
+
 		sourcePackageName = sourceEntityName[0].toLowerCase() + sourceEntityName.substring(1)
 		sourceEntityName = sourcePackageName.capitalize()
 
@@ -96,10 +117,15 @@ class EndpointScaffoldingGeneratorTask extends DefaultTask {
 
 		println "Generating scaffolding for endpoint ${targetEntityName}..."
 
-		copyInDirectory("server/src/main/java/com/cezarykluczynski/stapi/server/" + sourcePackageName, toSourceEntity(serverFilesToCopy))
-		copyInDirectory("server/src/test/groovy/com/cezarykluczynski/stapi/server/" + sourcePackageName, toSourceEntity(serverTestFilesToCopy))
-		copyInDirectory("model/src/main/java/com/cezarykluczynski/stapi/model/" + sourcePackageName, toSourceEntity(modelFilesToCopy))
-		copyInDirectory("model/src/test/groovy/com/cezarykluczynski/stapi/model/" + sourcePackageName, toSourceEntity(modelTestFilesToCopy))
+		if (scaffoldType == 'endpoint') {
+			copyInDirectory("server/src/main/java/com/cezarykluczynski/stapi/server/" + sourcePackageName, toSourceEntity(serverFilesToCopy))
+			copyInDirectory("server/src/test/groovy/com/cezarykluczynski/stapi/server/" + sourcePackageName, toSourceEntity(serverTestFilesToCopy))
+			copyInDirectory("model/src/main/java/com/cezarykluczynski/stapi/model/" + sourcePackageName, toSourceEntity(modelFilesToCopy))
+			copyInDirectory("model/src/test/groovy/com/cezarykluczynski/stapi/model/" + sourcePackageName, toSourceEntity(modelTestFilesToCopy))
+		} else if (scaffoldType == 'etl') {
+			copyInDirectory("etl/src/main/java/com/cezarykluczynski/stapi/etl/" + sourcePackageName, toSourceEntity(serverFilesToCopy))
+			copyInDirectory("etl/src/test/groovy/com/cezarykluczynski/stapi/etl/" + sourcePackageName, toSourceEntity(serverTestFilesToCopy))
+		}
 
 		println "Files copies: ${copied}, files skipped: ${total - copied}."
 	}
@@ -143,7 +169,7 @@ class EndpointScaffoldingGeneratorTask extends DefaultTask {
 	def toSourceEntity(List<String> fileNames) {
 		fileNames
 				.stream()
-				.map({ it -> it.replace('Movie', sourceEntityName) })
+				.map({ it -> it.replace(MOVIE_ENTITY_NAME, sourceEntityName) })
 				.collect(Collectors.toList())
 	}
 
@@ -173,7 +199,7 @@ class EndpointScaffoldingGeneratorTask extends DefaultTask {
 				}
 
 				if (isMapper && (line.endsWith(".class})") || line.endsWith(".class })"))) {
-					isMapper = false;
+					isMapper = false
 					return '@Mapper(config = MapstructConfiguration.class, uses = {})'
 				}
 

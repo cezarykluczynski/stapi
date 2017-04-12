@@ -38,7 +38,7 @@ dependencies {
 	testCompile project(':util').sourceSets.test.output
 }
 
-apply from: 'endpointGen.gradle'
+apply from: 'codeGen.gradle'
 
 configurations.compile.exclude group: 'io.swagger'
 
