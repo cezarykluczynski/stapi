@@ -21,4 +21,5 @@
 	<include file="organization/0017_create_organization.xml" relativeToChangelogFile="true"/>
 	<include file="food/0018_create_food.xml" relativeToChangelogFile="true"/>
 	<include file="throttle/0018_create_throttle.xml" relativeToChangelogFile="true"/>
+	<include file="place/0019_create_location.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

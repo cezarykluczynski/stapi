@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.model.organization.entity;
+package com.cezarykluczynski.stapi.model.location.entity;
 
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
@@ -24,45 +24,58 @@ import javax.persistence.SequenceGenerator;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-public class Organization extends PageAwareEntity implements PageAware {
+public class Location extends PageAwareEntity implements PageAware {
 
 	@Id
 	@Column(nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "organization_sequence_generator")
-	@SequenceGenerator(name = "organization_sequence_generator", sequenceName = "organization_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "location_sequence_generator")
+	@SequenceGenerator(name = "location_sequence_generator", sequenceName = "location_sequence", allocationSize = 1)
 	private Long id;
 
 	@Column(nullable = false)
 	private String name;
 
-	private Boolean government;
+	private Boolean earthlyLocation;
 
-	private Boolean intergovernmentalOrganization;
+	private Boolean fictionalLocation;
 
-	private Boolean researchOrganization;
+	private Boolean religiousLocation;
 
-	private Boolean sportOrganization;
+	private Boolean geographicalLocation;
 
-	private Boolean medicalOrganization;
+	private Boolean bodyOfWater;
 
-	private Boolean militaryOrganization;
+	private Boolean country;
 
-	private Boolean militaryUnit;
+	private Boolean subnationalEntity;
 
-	private Boolean governmentAgency;
+	private Boolean settlement;
 
-	private Boolean lawEnforcementAgency;
+	private Boolean usSettlement;
 
-	private Boolean prisonOrPenalColony;
+	private Boolean bajoranSettlement;
 
-	@Deprecated
+	private Boolean colony;
+
+	private Boolean landform;
+
+	private Boolean landmark;
+
+	private Boolean road;
+
+	private Boolean structure;
+
+	private Boolean shipyard;
+
+	private Boolean buildingInterior;
+
 	private Boolean establishment;
 
-	@Deprecated
+	private Boolean medicalEstablishment;
+
 	@Column(name = "ds9_establishment")
 	private Boolean ds9Establishment;
 
-	@Deprecated
 	private Boolean school;
 
 	private Boolean mirror;
