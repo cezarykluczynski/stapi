@@ -29,8 +29,8 @@ public class OrganizationPageProcessor implements ItemProcessor<Page, Organizati
 	private OrganizationNameFixedValueProvider organizationNameFixedValueProvider;
 
 	@Inject
-	public OrganizationPageProcessor(OrganizationPageFilter organizationPageFilter,
-			PageBindingService pageBindingService, GuidGenerator guidGenerator, CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor,
+	public OrganizationPageProcessor(OrganizationPageFilter organizationPageFilter, PageBindingService pageBindingService,
+			GuidGenerator guidGenerator, CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor,
 			OrganizationNameFixedValueProvider organizationNameFixedValueProvider) {
 		this.organizationPageFilter = organizationPageFilter;
 		this.pageBindingService = pageBindingService;
@@ -68,11 +68,6 @@ public class OrganizationPageProcessor implements ItemProcessor<Page, Organizati
 		organization.setGovernmentAgency(StringUtil.anyEndsWithIgnoreCase(categoryTitleList, CategoryTitle.AGENCIES));
 		organization.setLawEnforcementAgency(categoryTitleList.contains(CategoryTitle.LAW_ENFORCEMENT_AGENCIES));
 		organization.setPrisonOrPenalColony(categoryTitleList.contains(CategoryTitle.PRISONS_AND_PENAL_COLONIES));
-		organization.setSchool(StringUtil.anyEndsWithIgnoreCase(categoryTitleList, CategoryTitle.SCHOOLS));
-		organization.setEstablishment(organization.getSchool() || StringUtil.anyEndsWithIgnoreCase(categoryTitleList, CategoryTitle.ESTABLISHMENTS)
-				|| categoryTitleList.contains(CategoryTitle.ESTABLISHMENTS_RETCONNED) || categoryTitleList.contains(CategoryTitle.WARDS)
-				|| categoryTitleList.contains(CategoryTitle.MEDICAL_ESTABLISHMENTS_RETCONNED));
-		organization.setDs9Establishment(categoryTitleList.contains(CategoryTitle.DS9_ESTABLISHMENTS));
 		organization.setMirror(categoryTitleList.contains(CategoryTitle.MIRROR_UNIVERSE));
 		organization.setAlternateReality(categoryTitleList.contains(CategoryTitle.ALTERNATE_REALITY));
 

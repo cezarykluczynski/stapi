@@ -8,17 +8,10 @@ import java.util.List;
 @Service
 public class OrganizationNameFilter {
 
-	private static final List<String> NOT_AN_ORGANIZATIONS = Lists.newArrayList(
-			"Intelligence agency", "Coma ward", "Isolation ward", "Intensive care area", "Bookstore", "Library", "Cannery", "Platoon", "Task force",
-			"Museum", "Garden", "Democrat", "Dungeon", "Zoo", "Baldwin", "Ward three", "Flotilla", "Pawn shop", "Cafe", "League", "Power company",
-			"Resort", "Courtroom", "Cargo port", "Ship's store", "Assault team", "Subway", "Golf course", "Medical complex", "Flea market",
-			"Blood bank", "Bar", "Junkyard", "Black market", "Tavern", "Maternity ward", "Car dealership", "Menagerie", "Column", "Medical supplier",
-			"Squad", "Coffee shop", "Assault fleet", "Squadron", "Research facilities", "Medical school", "Flight school", "Medical ward", "Fleet",
-			"Restaurant", "Spaceport", "Amusement park", "Bank", "Park", "Graveyard", "Coin operated laundry", "Kennel", "Grand jury", "Legion",
-			"Vineyard", "Bistro", "Replimat", "Regiment", "Headquarters", "Planetarium", "Fleet organization", "Slaughterhouse", "Inn",
-			"Security ward", "Hotel", "Garrison", "Tracking station", "Boarding house", "Vulcan ward", "Division", "Dynasty", "Armada", "Opera house",
-			"Null-G ward", "Nightclub", "Movie theater", "Battalion", "Ward", "Attack wing", "Court", "Brigade", "Civic center", "Day care", "Casino",
-			"Militia", "Concert hall", "Battery (unit)", "Canteen (establishment)");
+	private static final List<String> NOT_AN_ORGANIZATIONS = Lists.newArrayList("Intelligence agency", "Platoon", "Task force", "Dungeon", "Baldwin",
+			"Flotilla", "League", "Assault team", "Medical complex", "Column", "Squad", "Assault fleet", "Squadron", "Research facilities", "Fleet",
+			"Grand jury", "Legion", "Regiment","Fleet organization", "Garrison", "Division", "Dynasty", "Armada", "Battalion", "Attack wing",
+			"Brigade", "Militia", "Battery (unit)");
 
 	private static final List<String> ORGANIZATIONS = Lists.newArrayList(
 			"Bolian restaurant", "Lazon II labor camp", "Vulcan Institute for Defensive Arts", "Singha refugee camp", "Lincoln", "Datsun",

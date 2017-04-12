@@ -17,7 +17,7 @@ class OrganizationNameFilterTest extends Specification {
 
 	void "returns false for entity that is not an organization"() {
 		expect:
-		organizationNameFilter.isAnOrganization('Bank') == Boolean.FALSE
+		organizationNameFilter.isAnOrganization('Garrison') == Boolean.FALSE
 	}
 
 	void "returns false for entity that is not listed"() {

@@ -15,7 +15,6 @@ public class OrganizationNameFixedValueProvider implements FixedValueProvider<St
 	static {
 		TITLE_TO_TITLE_MAP.put("Canon (company)", "Canon");
 		TITLE_TO_TITLE_MAP.put("Crown (manufacturer)", "Crown");
-		TITLE_TO_TITLE_MAP.put("Fusion (night club)", "Fusion");
 		TITLE_TO_TITLE_MAP.put("Martini (brand)", "Martini");
 		TITLE_TO_TITLE_MAP.put("McCoy (surfboard)", "McCoy");
 		TITLE_TO_TITLE_MAP.put("Military Assault Command Operations (mirror)", "Military Assault Command Operations");

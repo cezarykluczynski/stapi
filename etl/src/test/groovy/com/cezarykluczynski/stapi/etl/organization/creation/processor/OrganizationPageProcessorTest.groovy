@@ -138,12 +138,6 @@ class OrganizationPageProcessorTest extends Specification {
 		new SourcesPage(categories: createList(CategoryTitle.RESEARCH_ORGANIZATIONS))                | 'researchOrganization'          | true  | 1
 		new SourcesPage(categories: createList(CategoryTitle.SPORTS_ORGANIZATIONS))                  | 'sportOrganization'             | true  | 1
 		new SourcesPage(categories: createList(CategoryTitle.MEDICAL_ORGANIZATIONS))                 | 'medicalOrganization'           | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.MEDICAL_ESTABLISHMENTS))                | 'medicalOrganization'           | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.MEDICAL_ESTABLISHMENTS))                | 'establishment'                 | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.WARDS))                                 | 'medicalOrganization'           | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.WARDS))                                 | 'establishment'                 | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.MEDICAL_ESTABLISHMENTS_RETCONNED))      | 'medicalOrganization'           | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.MEDICAL_ESTABLISHMENTS_RETCONNED))      | 'establishment'                 | true  | 2
 		new SourcesPage(categories: createList(CategoryTitle.MILITARY_UNITS))                        | 'militaryUnit'                  | true  | 2
 		new SourcesPage(categories: createList(CategoryTitle.MILITARY_ORGANIZATIONS))                | 'militaryOrganization'          | true  | 1
 		new SourcesPage(categories: createList(CategoryTitle.EARTH_MILITARY_ORGANIZATIONS))          | 'militaryOrganization'          | true  | 1
@@ -159,12 +153,6 @@ class OrganizationPageProcessorTest extends Specification {
 		new SourcesPage(categories: createList(CategoryTitle.PRISONS_AND_PENAL_COLONIES))            | 'prisonOrPenalColony'           | true  | 1
 		new SourcesPage(categories: createList(CategoryTitle.ROMULAN_AGENCIES))                      | 'governmentAgency'              | true  | 1
 		new SourcesPage(categories: createList(CategoryTitle.VULCAN_AGENCIES))                       | 'governmentAgency'              | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.SCHOOLS))                               | 'school'                        | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.SCHOOLS))                               | 'establishment'                 | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.ESTABLISHMENTS))                        | 'establishment'                 | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.ESTABLISHMENTS_RETCONNED))              | 'establishment'                 | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.DS9_ESTABLISHMENTS))                    | 'establishment'                 | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.DS9_ESTABLISHMENTS))                    | 'ds9Establishment'              | true  | 2
 		new SourcesPage(categories: createList(CategoryTitle.MIRROR_UNIVERSE))                       | 'mirror'                        | true  | 1
 		new SourcesPage(categories: createList(CategoryTitle.ALTERNATE_REALITY))                     | 'alternateReality'              | true  | 1
 	}
