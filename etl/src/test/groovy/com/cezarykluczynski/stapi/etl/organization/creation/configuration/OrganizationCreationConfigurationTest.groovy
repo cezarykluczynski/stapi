@@ -60,7 +60,6 @@ class OrganizationCreationConfigurationTest extends AbstractCreationConfiguratio
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_ORGANIZATIONS) >> false
-
 		1 * categoryApiMock.getPages(CategoryTitle.AGENCIES, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_AGENCIES)
 		1 * categoryApiMock.getPages(CategoryTitle.BAJORAN_AGENCIES, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_BAJORAN_AGENCIES)
 		1 * categoryApiMock.getPages(CategoryTitle.CARDASSIAN_AGENCIES, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_CARDASSIAN_AGENCIES)
