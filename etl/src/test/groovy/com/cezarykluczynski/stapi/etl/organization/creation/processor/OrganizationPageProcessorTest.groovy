@@ -126,8 +126,8 @@ class OrganizationPageProcessorTest extends Specification {
 
 		expect:
 		Organization organization = organizationPageProcessor.process(page)
-		flag == organization[flagName]
-		trueBooleans == ReflectionTestUtils.getNumberOfTrueBooleanFields(organization)
+		organization[flagName] == flag
+		ReflectionTestUtils.getNumberOfTrueBooleanFields(organization) == trueBooleans
 
 		where:
 		page                                                                                         | flagName                        | flag  | trueBooleans

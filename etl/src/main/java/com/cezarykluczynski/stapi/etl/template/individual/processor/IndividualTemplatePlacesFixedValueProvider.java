@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.individual.processor;
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
 import com.cezarykluczynski.stapi.etl.common.interfaces.FixedValueProvider;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualLifeBoundaryPlacesDTO;
+import com.cezarykluczynski.stapi.util.constant.PageTitle;
 import com.google.common.collect.Maps;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ import java.util.Map;
 @Service
 public class IndividualTemplatePlacesFixedValueProvider implements FixedValueProvider<String, IndividualLifeBoundaryPlacesDTO> {
 
-	private static final String EARTH = "Earth";
+	private static final String EARTH = PageTitle.EARTH;
 	private static final String DELTA_VEGA = "Delta Vega";
 	private static final String MOJAVE = "Mojave, California, United States of America, Earth";
 	private static final String SCOTLAND = "Scotland, Earth";

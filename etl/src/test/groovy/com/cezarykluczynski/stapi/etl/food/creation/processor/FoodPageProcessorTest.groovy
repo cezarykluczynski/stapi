@@ -104,8 +104,8 @@ class FoodPageProcessorTest extends Specification {
 
 		expect:
 		Food food = foodPageProcessor.process(page)
-		flag == food[flagName]
-		trueBooleans == ReflectionTestUtils.getNumberOfTrueBooleanFields(food)
+		food[flagName] == flag
+		ReflectionTestUtils.getNumberOfTrueBooleanFields(food) == trueBooleans
 
 		where:
 		page                                                                       | flagName            | flag  | trueBooleans

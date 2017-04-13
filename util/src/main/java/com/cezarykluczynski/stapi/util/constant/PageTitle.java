@@ -40,5 +40,6 @@ public class PageTitle {
 	public static final String WARP_CAPABLE = "Warp-capable";
 	public static final String WARP_DRIVE = "Warp drive";
 	public static final String REPTILE = "Reptile";
+	public static final String EARTH = "Earth";
 
 }

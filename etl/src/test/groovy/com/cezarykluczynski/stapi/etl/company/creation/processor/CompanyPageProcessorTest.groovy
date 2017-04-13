@@ -54,8 +54,8 @@ class CompanyPageProcessorTest extends Specification {
 
 		expect:
 		Company company = companyPageProcessor.process(page)
-		flag == company[flagName]
-		trueBooleans == ReflectionTestUtils.getNumberOfTrueBooleanFields(company)
+		company[flagName] == flag
+		ReflectionTestUtils.getNumberOfTrueBooleanFields(company) == trueBooleans
 
 		where:
 		page                                                                                     | flagName                          | flag  | trueBooleans

@@ -31,8 +31,8 @@ class StaffCategoriesActorTemplateEnrichingProcessorTest extends Specification {
 
 		expect:
 		staffCategoriesActorTemplateEnrichingProcessor.enrich(EnrichablePair.of(categoryHeaderList, actorTemplate))
-		flag == actorTemplate[flagName]
-		trueBooleans == ReflectionTestUtils.getNumberOfTrueBooleanFields(actorTemplate)
+		actorTemplate[flagName] == flag
+		ReflectionTestUtils.getNumberOfTrueBooleanFields(actorTemplate) == trueBooleans
 
 		where:
 		categoryHeaderList                                            | actorTemplate       | flagName                         | flag  | trueBooleans

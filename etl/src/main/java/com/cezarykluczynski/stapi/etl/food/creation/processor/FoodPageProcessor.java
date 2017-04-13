@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.model.common.service.GuidGenerator;
 import com.cezarykluczynski.stapi.model.food.entity.Food;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
+import com.cezarykluczynski.stapi.util.constant.PageTitle;
 import com.cezarykluczynski.stapi.util.tool.StringUtil;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
@@ -47,7 +48,7 @@ public class FoodPageProcessor implements ItemProcessor<Page, Food> {
 
 		List<String> categoryTitleList = categoryTitlesExtractingProcessor.process(item.getCategories());
 
-		food.setEarthlyOrigin(StringUtil.anyStartsWithIgnoreCase(categoryTitleList, "Earth"));
+		food.setEarthlyOrigin(StringUtil.anyStartsWithIgnoreCase(categoryTitleList, PageTitle.EARTH));
 		food.setDessert(categoryTitleList.contains(CategoryTitle.DESSERTS));
 		food.setFruit(categoryTitleList.contains(CategoryTitle.FRUITS));
 		food.setHerbOrSpice(StringUtil.anyEndsWithIgnoreCase(categoryTitleList, CategoryTitle.HERBS_AND_SPICES));
