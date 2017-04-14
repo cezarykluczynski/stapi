@@ -77,7 +77,7 @@ class LocationCreationConfigurationTest extends AbstractCreationConfigurationTes
 		List<String> categoryHeaderTitleList = readerToList(locationReader)
 
 		then:
-		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_ORGANIZATIONS) >> false
+		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_LOCATIONS) >> false
 		1 * categoryApiMock.getPages(CategoryTitle.LOCATIONS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_LOCATIONS)
 		1 * categoryApiMock.getPages(CategoryTitle.LOCATIONS_ALTERNATE_REALITY, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_LOCATIONS_ALTERNATE_REALITY)
 		1 * categoryApiMock.getPages(CategoryTitle.EARTH_LOCATIONS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_EARTH_LOCATIONS)
@@ -165,7 +165,7 @@ class LocationCreationConfigurationTest extends AbstractCreationConfigurationTes
 		List<String> categoryHeaderTitleList = readerToList(locationReader)
 
 		then:
-		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_ORGANIZATIONS) >> true
+		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_LOCATIONS) >> true
 		0 * _
 		categoryHeaderTitleList.empty
 	}

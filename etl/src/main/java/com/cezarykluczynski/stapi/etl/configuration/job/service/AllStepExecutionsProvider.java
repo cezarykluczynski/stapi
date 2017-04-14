@@ -48,7 +48,7 @@ public class AllStepExecutionsProvider {
 		jobExecutionList.forEach(jobExecution -> {
 			jobExecution.setExecutionContext(executionContextDao.getExecutionContext(jobExecution));
 			stepExecutionDao.addStepExecutions(jobExecution);
-			jobExecution.getStepExecutions().forEach(stepExecutionList::add);
+			stepExecutionList.addAll(jobExecution.getStepExecutions());
 		});
 
 		return stepExecutionList;

@@ -43,4 +43,6 @@ public class StepsProperties {
 
 	private StepProperties createFoods;
 
+	private StepProperties createLocations;
+
 }

@@ -35,7 +35,7 @@ public class LocationCreationConfiguration {
 	public LocationReader locationReader() {
 		List<PageHeader> locations = Lists.newArrayList();
 
-		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_ORGANIZATIONS)) {
+		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_LOCATIONS)) {
 			locations.addAll(categoryApi.getPages(CategoryTitle.LOCATIONS, MediaWikiSource.MEMORY_ALPHA_EN));
 			locations.addAll(categoryApi.getPages(CategoryTitle.LOCATIONS_ALTERNATE_REALITY, MediaWikiSource.MEMORY_ALPHA_EN));
 			locations.addAll(categoryApi.getPages(CategoryTitle.EARTH_LOCATIONS, MediaWikiSource.MEMORY_ALPHA_EN));

@@ -34,6 +34,9 @@ import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeWriter
 import com.cezarykluczynski.stapi.etl.food.creation.processor.FoodProcessor
 import com.cezarykluczynski.stapi.etl.food.creation.processor.FoodReader
 import com.cezarykluczynski.stapi.etl.food.creation.processor.FoodWriter
+import com.cezarykluczynski.stapi.etl.location.creation.processor.LocationProcessor
+import com.cezarykluczynski.stapi.etl.location.creation.processor.LocationReader
+import com.cezarykluczynski.stapi.etl.location.creation.processor.LocationWriter
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieProcessor
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieReader
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieWriter
@@ -632,7 +635,7 @@ class EtlJobConfigurationTest extends Specification {
 		1 * stepBuilderFactoryMock.get(StepName.CREATE_FOODS) >> stepBuilderMock
 
 		then: 'commit interval is configured'
-		1 * stepsPropertiesMock.createOrganizations >> stepProperties
+		1 * stepsPropertiesMock.createFoods >> stepProperties
 		1 * stepProperties.commitInterval >> STEP_SIZE
 		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
 
@@ -642,6 +645,39 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(FoodProcessor) >> itemProcessorMock
 		1 * simpleStepBuilderMock.processor(itemProcessorMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(FoodWriter) >> itemWriterMock
+		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
+		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
+		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+
+		then: 'step is configured to run only once'
+		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
+		1 * simpleStepBuilderMock.allowStartIfComplete(false) >> simpleStepBuilderMock
+
+		then: 'tasklet step is returned'
+		1 * simpleStepBuilderMock.build() >> taskletStepMock
+
+		then: 'step is being returned'
+		step == taskletStepMock
+	}
+
+	void "CREATE_LOCATIONS step is created"() {
+		when:
+		Step step = etlJobConfiguration.stepCreateLocations()
+
+		then: 'StepBuilder is retrieved'
+		1 * stepBuilderFactoryMock.get(StepName.CREATE_LOCATIONS) >> stepBuilderMock
+
+		then: 'commit interval is configured'
+		1 * stepsPropertiesMock.createLocations >> stepProperties
+		1 * stepProperties.commitInterval >> STEP_SIZE
+		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+
+		then: 'beans are retrieved from application context, then passed to builder'
+		1 * applicationContextMock.getBean(LocationReader) >> itemReaderMock
+		1 * simpleStepBuilderMock.reader(itemReaderMock) >> simpleStepBuilderMock
+		1 * applicationContextMock.getBean(LocationProcessor) >> itemProcessorMock
+		1 * simpleStepBuilderMock.processor(itemProcessorMock) >> simpleStepBuilderMock
+		1 * applicationContextMock.getBean(LocationWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
 		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock

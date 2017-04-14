@@ -33,6 +33,9 @@ import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeWriter;
 import com.cezarykluczynski.stapi.etl.food.creation.processor.FoodProcessor;
 import com.cezarykluczynski.stapi.etl.food.creation.processor.FoodReader;
 import com.cezarykluczynski.stapi.etl.food.creation.processor.FoodWriter;
+import com.cezarykluczynski.stapi.etl.location.creation.processor.LocationProcessor;
+import com.cezarykluczynski.stapi.etl.location.creation.processor.LocationReader;
+import com.cezarykluczynski.stapi.etl.location.creation.processor.LocationWriter;
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieProcessor;
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieReader;
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieWriter;
@@ -61,6 +64,7 @@ import com.cezarykluczynski.stapi.model.comics.entity.Comics;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.food.entity.Food;
+import com.cezarykluczynski.stapi.model.location.entity.Location;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
@@ -311,10 +315,23 @@ public class EtlJobConfiguration {
 	@Bean(name = StepName.CREATE_FOODS)
 	public Step stepCreateFoods() {
 		return stepBuilderFactory.get(StepName.CREATE_FOODS)
-				.<PageHeader, Food>chunk(stepsProperties.getCreateOrganizations().getCommitInterval())
+				.<PageHeader, Food>chunk(stepsProperties.getCreateFoods().getCommitInterval())
 				.reader(applicationContext.getBean(FoodReader.class))
 				.processor(applicationContext.getBean(FoodProcessor.class))
 				.writer(applicationContext.getBean(FoodWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_LOCATIONS)
+	public Step stepCreateLocations() {
+		return stepBuilderFactory.get(StepName.CREATE_LOCATIONS)
+				.<PageHeader, Location>chunk(stepsProperties.getCreateLocations().getCommitInterval())
+				.reader(applicationContext.getBean(LocationReader.class))
+				.processor(applicationContext.getBean(LocationProcessor.class))
+				.writer(applicationContext.getBean(LocationWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)

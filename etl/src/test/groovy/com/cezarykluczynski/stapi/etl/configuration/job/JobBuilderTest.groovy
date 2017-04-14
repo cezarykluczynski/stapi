@@ -68,6 +68,8 @@ class JobBuilderTest extends Specification {
 
 	private Step createFoodsStep
 
+	private Step createLocationsStep
+
 	private JobRepository jobRepository
 
 	private SpringBatchJobBuilder springBatchJobBuilder
@@ -97,11 +99,12 @@ class JobBuilderTest extends Specification {
 		createComicCollectionsStep = Mock(Step)
 		createOrganizationsStep = Mock(Step)
 		createFoodsStep = Mock(Step)
+		createLocationsStep = Mock(Step)
 		jobRepository = Mock(JobRepository)
 		springBatchJobBuilder = new SpringBatchJobBuilder(JobName.JOB_CREATE)
 		springBatchJobBuilder.repository(jobRepository)
-		jobBuilder = new JobBuilder(applicationContextMock, jobBuilderFactoryMock, stepConfigurationValidatorMock,
-				jobCompletenessDeciderMock, stepToStepPropertiesProviderMock)
+		jobBuilder = new JobBuilder(applicationContextMock, jobBuilderFactoryMock, stepConfigurationValidatorMock, jobCompletenessDeciderMock,
+				stepToStepPropertiesProviderMock)
 	}
 
 	void "Job is built"() {
@@ -225,6 +228,12 @@ class JobBuilderTest extends Specification {
 		1 * applicationContextMock.getBean(StepName.CREATE_FOODS, Step) >> createFoodsStep
 		1 * createFoodsStep.name >> StepName.CREATE_FOODS
 
+		then: 'CREATE_LOCATIONS step is retrieved from application context'
+		1 * stepPropertiesMap.get(StepName.CREATE_LOCATIONS) >> stepProperties
+		1 * stepProperties.isEnabled() >> true
+		1 * applicationContextMock.getBean(StepName.CREATE_LOCATIONS, Step) >> createLocationsStep
+		1 * createLocationsStep.name >> StepName.CREATE_LOCATIONS
+
 		then: 'Task executor is retrieved from application context'
 		1 * applicationContextMock.getBean(TaskExecutor) >> taskExecutor
 
@@ -272,8 +281,8 @@ class JobBuilderTest extends Specification {
 		1 * stepToStepPropertiesProviderMock.provide() >> stepPropertiesMap
 
 		then: 'all steps are disabled'
-		17 * stepPropertiesMap.get(_) >> stepProperties
-		17 * stepProperties.isEnabled() >> false
+		18 * stepPropertiesMap.get(_) >> stepProperties
+		18 * stepProperties.isEnabled() >> false
 
 		then: 'no other interactions are expected'
 		0 * _
@@ -315,8 +324,8 @@ class JobBuilderTest extends Specification {
 		1 * createSeriesStep.name >> StepName.CREATE_SERIES
 
 		then: 'other steps are skipped'
-		15 * stepPropertiesMap.get(_) >> stepProperties
-		15 * stepProperties.isEnabled() >> false
+		16 * stepPropertiesMap.get(_) >> stepProperties
+		16 * stepProperties.isEnabled() >> false
 
 		then: 'Task executor is retrieved from application context'
 		1 * applicationContextMock.getBean(TaskExecutor) >> taskExecutor
