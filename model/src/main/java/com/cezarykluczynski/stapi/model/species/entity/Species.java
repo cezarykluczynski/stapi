@@ -11,6 +11,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -32,6 +34,7 @@ import java.util.Set;
 @AllArgsConstructor
 @ToString(callSuper = true, exclude = {"homeworld", "quadrant", "characters"})
 @EqualsAndHashCode(callSuper = true, exclude = {"homeworld", "quadrant", "characters"})
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Species extends PageAwareEntity implements PageAware {
 
 	@Id

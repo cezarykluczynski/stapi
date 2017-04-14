@@ -25,12 +25,11 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true, exclude = {"writtenEpisodes", "teleplayAuthoredEpisodes", "storyAuthoredEpisodes",
-		"directedEpisodes", "episodes", "writtenMovies", "screenplayAuthoredMovies", "storyAuthoredMovies",
-		"directedMovies", "producedMovies", "movies"})
-@EqualsAndHashCode(callSuper = true, exclude = {"writtenEpisodes", "teleplayAuthoredEpisodes", "storyAuthoredEpisodes",
-		"directedEpisodes", "episodes", "writtenMovies", "screenplayAuthoredMovies", "storyAuthoredMovies",
-		"directedMovies", "producedMovies", "movies"})
+@ToString(callSuper = true, exclude = {"writtenEpisodes", "teleplayAuthoredEpisodes", "storyAuthoredEpisodes", "directedEpisodes", "episodes",
+		"writtenMovies", "screenplayAuthoredMovies", "storyAuthoredMovies", "directedMovies", "producedMovies", "movies"})
+@EqualsAndHashCode(callSuper = true, exclude = {"writtenEpisodes", "teleplayAuthoredEpisodes", "storyAuthoredEpisodes", "directedEpisodes",
+		"episodes", "writtenMovies", "screenplayAuthoredMovies", "storyAuthoredMovies", "directedMovies", "producedMovies", "movies"})
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Staff extends RealWorldPerson implements PageAware {
 
 	@Id
