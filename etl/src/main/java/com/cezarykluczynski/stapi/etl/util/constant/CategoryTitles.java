@@ -6,7 +6,7 @@ import java.util.List;
 
 public class CategoryTitles {
 
-	public static final List<String> PERFORMER = Lists.newArrayList(
+	public static final List<String> PERFORMERS = Lists.newArrayList(
 			CategoryTitle.PERFORMERS,
 			CategoryTitle.ANIMAL_PERFORMERS,
 			CategoryTitle.DIS_PERFORMERS,
@@ -90,6 +90,72 @@ public class CategoryTitles {
 			CategoryTitle.VOY_EPISODES,
 			CategoryTitle.ENT_EPISODES,
 			CategoryTitle.DIS_EPISODES
+	);
+
+	public static final List<String> ORGANIZATIONS = Lists.newArrayList(
+			CategoryTitle.AGENCIES,
+			CategoryTitle.BAJORAN_AGENCIES,
+			CategoryTitle.CARDASSIAN_AGENCIES,
+			CategoryTitle.EARTH_AGENCIES,
+			CategoryTitle.FEDERATION_AGENCIES,
+			CategoryTitle.FERENGI_AGENCIES,
+			CategoryTitle.KLINGON_AGENCIES,
+			CategoryTitle.LAW_ENFORCEMENT_AGENCIES,
+			CategoryTitle.PRISONS_AND_PENAL_COLONIES,
+			CategoryTitle.ROMULAN_AGENCIES,
+			CategoryTitle.VULCAN_AGENCIES,
+			CategoryTitle.EARTH_ORGANIZATIONS,
+			CategoryTitle.EARTH_INTERGOVERNMENTAL_ORGANIZATIONS,
+			CategoryTitle.EARTH_MILITARY_ORGANIZATIONS,
+			CategoryTitle.GOVERNMENTS,
+			CategoryTitle.INTERGOVERNMENTAL_ORGANIZATIONS,
+			CategoryTitle.RESEARCH_ORGANIZATIONS,
+			CategoryTitle.SPORTS_ORGANIZATIONS,
+			CategoryTitle.MEDICAL_ORGANIZATIONS,
+			CategoryTitle.MILITARY_ORGANIZATIONS,
+			CategoryTitle.MILITARY_UNITS
+	);
+
+	public static final List<String> LOCATIONS = Lists.newArrayList(
+			CategoryTitle.LOCATIONS,
+			CategoryTitle.LOCATIONS_ALTERNATE_REALITY,
+			CategoryTitle.EARTH_LOCATIONS,
+			CategoryTitle.EARTH_LANDMARKS,
+			CategoryTitle.EARTH_ROADS,
+			CategoryTitle.EARTH_ESTABLISHMENTS,
+			CategoryTitle.MEDICAL_ESTABLISHMENTS,
+			CategoryTitle.MEDICAL_ESTABLISHMENTS_RETCONNED,
+			CategoryTitle.WARDS,
+			CategoryTitle.ESTABLISHMENTS,
+			CategoryTitle.SCHOOLS,
+			CategoryTitle.STARFLEET_SCHOOLS,
+			CategoryTitle.EARTH_SCHOOLS,
+			CategoryTitle.ESTABLISHMENTS_RETCONNED,
+			CategoryTitle.DS9_ESTABLISHMENTS,
+			CategoryTitle.GEOGRAPHY,
+			CategoryTitle.FICTIONAL_LOCATIONS,
+			CategoryTitle.BODIES_OF_WATER,
+			CategoryTitle.EARTH_BODIES_OF_WATER,
+			CategoryTitle.COUNTRIES,
+			CategoryTitle.EARTH_COUNTRIES,
+			CategoryTitle.SUBNATIONAL_ENTITIES,
+			CategoryTitle.SUBNATIONAL_ENTITIES_RETCONNED,
+			CategoryTitle.EARTH_SUBNATIONAL_ENTITIES,
+			CategoryTitle.SETTLEMENTS,
+			CategoryTitle.BAJORAN_SETTLEMENTS,
+			CategoryTitle.COLONIES,
+			CategoryTitle.SETTLEMENTS_RETCONNED,
+			CategoryTitle.EARTH_SETTLEMENTS,
+			CategoryTitle.US_SETTLEMENTS,
+			CategoryTitle.US_SETTLEMENTS_RETCONNED,
+			CategoryTitle.EARTH_GEOGRAPHY,
+			CategoryTitle.LANDFORMS,
+			CategoryTitle.RELIGIOUS_LOCATIONS,
+			CategoryTitle.STRUCTURES,
+			CategoryTitle.BUILDING_INTERIORS,
+			CategoryTitle.LANDMARKS,
+			CategoryTitle.ROADS,
+			CategoryTitle.SHIPYARDS
 	);
 
 	public static final List<String> LISTS = Lists.newArrayList(

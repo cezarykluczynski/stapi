@@ -114,7 +114,7 @@ public class PageToGenderRoleProcessor implements ItemProcessor<Page, Gender> {
 				.map(CategoryHeader::getTitle)
 				.collect(Collectors.toList());
 
-		return !Collections.disjoint(categories, CategoryTitles.PERFORMER);
+		return !Collections.disjoint(categories, CategoryTitles.PERFORMERS);
 
 	}
 

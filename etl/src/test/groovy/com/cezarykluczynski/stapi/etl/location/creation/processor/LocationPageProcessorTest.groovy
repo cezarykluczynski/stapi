@@ -204,6 +204,7 @@ class LocationPageProcessorTest extends Specification {
 		new SourcesPage(categories: createList(CategoryTitle.SHIPYARDS))                        | 'shipyard'             | true  | 1
 		new SourcesPage(categories: createList(CategoryTitle.MIRROR_UNIVERSE))                  | 'mirror'               | true  | 1
 		new SourcesPage(categories: createList(CategoryTitle.ALTERNATE_REALITY))                | 'alternateReality'     | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.LOCATIONS_ALTERNATE_REALITY))      | 'alternateReality'     | true  | 1
 	}
 
 	private static List<CategoryHeader> createList(String title) {

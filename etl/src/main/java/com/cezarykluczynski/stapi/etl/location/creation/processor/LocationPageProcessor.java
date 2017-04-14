@@ -81,7 +81,8 @@ public class LocationPageProcessor implements ItemProcessor<Page, Location> {
 		location.setRoad(categoryTitleList.contains(CategoryTitle.ROADS) || categoryTitleList.contains(CategoryTitle.EARTH_ROADS));
 		location.setShipyard(categoryTitleList.contains(CategoryTitle.SHIPYARDS));
 		location.setMirror(categoryTitleList.contains(CategoryTitle.MIRROR_UNIVERSE));
-		location.setAlternateReality(categoryTitleList.contains(CategoryTitle.ALTERNATE_REALITY));
+		location.setAlternateReality(categoryTitleList.contains(CategoryTitle.ALTERNATE_REALITY)
+				|| categoryTitleList.contains(CategoryTitle.LOCATIONS_ALTERNATE_REALITY));
 
 		return location;
 	}

@@ -52,7 +52,7 @@ class PageToGenderRoleProcessorTest extends Specification {
 	void "logs that no roles were found when page is a performer page"() {
 		given:
 		Page page = Mock()
-		page.categories >> Lists.newArrayList(new CategoryHeader(title: CategoryTitles.PERFORMER.get(0)))
+		page.categories >> Lists.newArrayList(new CategoryHeader(title: CategoryTitles.PERFORMERS.get(0)))
 
 		when:
 		Gender gender = pageToGenderRoleProcessor.process(page)
