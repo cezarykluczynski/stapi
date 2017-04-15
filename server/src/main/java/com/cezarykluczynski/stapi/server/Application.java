@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server;
 
 import com.cezarykluczynski.stapi.etl.configuration.EtlConfiguration;
+import com.cezarykluczynski.stapi.util.constant.Package;
 import org.apache.cxf.spring.boot.autoconfigure.CxfAutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,8 +18,8 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @SpringBootApplication
 @ComponentScan({
-		"com.cezarykluczynski.stapi.server",
-		"com.cezarykluczynski.stapi.model"
+		Package.SERVER,
+		Package.MODEL
 })
 @Import(EtlConfiguration.class)
 @EnableAutoConfiguration(exclude = {CxfAutoConfiguration.class, DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class,

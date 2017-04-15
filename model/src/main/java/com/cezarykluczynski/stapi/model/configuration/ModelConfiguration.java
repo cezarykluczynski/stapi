@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.model.configuration;
 
 import com.cezarykluczynski.stapi.model.common.cache.CacheProperties;
+import com.cezarykluczynski.stapi.util.constant.Package;
 import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -39,7 +40,7 @@ import java.util.Map;
 @EnableScheduling
 public class ModelConfiguration {
 
-	static final String JPA_BASE_PACKAGES = "com.cezarykluczynski.stapi.model";
+	static final String JPA_BASE_PACKAGES = Package.MODEL;
 
 	private static final String HIBERNATE_USE_SECOND_LEVEL_CACHE = "hibernate.cache.use_second_level_cache";
 
