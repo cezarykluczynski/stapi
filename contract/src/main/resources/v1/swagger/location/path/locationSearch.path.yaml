@@ -1,0 +1,115 @@
+get:
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/LocationBaseResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - Location
+post:
+  consumes:
+    - application/x-www-form-urlencoded
+  producers:
+    - application/json
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+    - name: sort
+      type: string
+      in: query
+    - name: name
+      in: formData
+      type: string
+    - name: earthlyLocation
+      in: formData
+      type: boolean
+    - name: fictionalLocation
+      in: formData
+      type: boolean
+    - name: religiousLocation
+      in: formData
+      type: boolean
+    - name: geographicalLocation
+      in: formData
+      type: boolean
+    - name: bodyOfWater
+      in: formData
+      type: boolean
+    - name: country
+      in: formData
+      type: boolean
+    - name: subnationalEntity
+      in: formData
+      type: boolean
+    - name: settlement
+      in: formData
+      type: boolean
+    - name: usSettlement
+      in: formData
+      type: boolean
+    - name: bajoranSettlement
+      in: formData
+      type: boolean
+    - name: colony
+      in: formData
+      type: boolean
+    - name: landform
+      in: formData
+      type: boolean
+    - name: landmark
+      in: formData
+      type: boolean
+    - name: road
+      in: formData
+      type: boolean
+    - name: structure
+      in: formData
+      type: boolean
+    - name: shipyard
+      in: formData
+      type: boolean
+    - name: buildingInterior
+      in: formData
+      type: boolean
+    - name: establishment
+      in: formData
+      type: boolean
+    - name: medicalEstablishment
+      in: formData
+      type: boolean
+    - name: ds9Establishment
+      in: formData
+      type: boolean
+    - name: school
+      in: formData
+      type: boolean
+    - name: mirror
+      in: formData
+      type: boolean
+    - name: alternateReality
+      in: formData
+      type: boolean
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/LocationBaseResponse'
+  tags:
+    - Location

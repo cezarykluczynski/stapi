@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+		name="Location"
+		targetNamespace="http://stapi.co/api/v1/soap/location"
+		xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+		xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+		xmlns:stapi="http://stapi.co/api/v1/soap/location"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<xs:schema targetNamespace="http://stapi.co/api/v1/soap/location">
+			<xs:include schemaLocation="location.xsd"/>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="LocationBaseRequest">
+		<wsdl:part name="request" element="stapi:LocationBaseRequest"/>
+	</wsdl:message>
+	<wsdl:message name="LocationFullRequest">
+		<wsdl:part name="request" element="stapi:LocationFullRequest"/>
+	</wsdl:message>
+	<wsdl:message name="LocationBaseResponse">
+		<wsdl:part name="response" element="stapi:LocationBaseResponse"/>
+	</wsdl:message>
+	<wsdl:message name="LocationFullResponse">
+		<wsdl:part name="response" element="stapi:LocationFullResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="LocationPortType">
+		<wsdl:operation name="getLocationBase">
+			<wsdl:input name="getLocationBaseRequest" message="stapi:LocationBaseRequest"/>
+			<wsdl:output name="getLocationBaseResponse" message="stapi:LocationBaseResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getLocationFull">
+			<wsdl:input name="getLocationFullRequest" message="stapi:LocationFullRequest"/>
+			<wsdl:output name="getLocationFullResponse" message="stapi:LocationFullResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="LocationBinding" type="stapi:LocationPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getLocationBase">
+			<wsdl:input name="getLocationBaseRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getLocationBaseResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getLocationFull">
+			<wsdl:input name="getLocationFullRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getLocationFullResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="LocationService">
+		<wsdl:port name="LocationPortType" binding="stapi:LocationBinding">
+			<soap:address location="http://stapi.co/api/v1/soap/location"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

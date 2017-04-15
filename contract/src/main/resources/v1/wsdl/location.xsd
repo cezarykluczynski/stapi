@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:location="http://stapi.co/api/v1/soap/location"
+		xmlns:common="http://stapi.co/api/v1/soap/common"
+		elementFormDefault="qualified"
+		targetNamespace="http://stapi.co/api/v1/soap/location">
+	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
+	<xs:element name="LocationBaseRequest">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Request">
+					<xs:sequence>
+						<xs:element name="name" type="xs:string" minOccurs="0"/>
+						<xs:element name="earthlyLocation" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="fictionalLocation" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="religiousLocation" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="geographicalLocation" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="bodyOfWater" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="country" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="subnationalEntity" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="settlement" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="usSettlement" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="bajoranSettlement" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="colony" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="landform" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="landmark" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="road" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="structure" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="shipyard" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="buildingInterior" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="establishment" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="medicalEstablishment" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="ds9Establishment" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="school" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="mirror" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="alternateReality" type="xs:boolean" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="LocationFullRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="guid" type="xs:string" minOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="LocationBaseResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Response">
+					<xs:sequence>
+						<xs:element name="locations" type="location:LocationBase" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="LocationFullResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="location" type="location:LocationFull"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="LocationBase">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="earthlyLocation" type="xs:boolean"/>
+			<xs:element name="fictionalLocation" type="xs:boolean"/>
+			<xs:element name="religiousLocation" type="xs:boolean"/>
+			<xs:element name="geographicalLocation" type="xs:boolean"/>
+			<xs:element name="bodyOfWater" type="xs:boolean"/>
+			<xs:element name="country" type="xs:boolean"/>
+			<xs:element name="subnationalEntity" type="xs:boolean"/>
+			<xs:element name="settlement" type="xs:boolean"/>
+			<xs:element name="usSettlement" type="xs:boolean"/>
+			<xs:element name="bajoranSettlement" type="xs:boolean"/>
+			<xs:element name="colony" type="xs:boolean"/>
+			<xs:element name="landform" type="xs:boolean"/>
+			<xs:element name="landmark" type="xs:boolean"/>
+			<xs:element name="road" type="xs:boolean"/>
+			<xs:element name="structure" type="xs:boolean"/>
+			<xs:element name="shipyard" type="xs:boolean"/>
+			<xs:element name="buildingInterior" type="xs:boolean"/>
+			<xs:element name="establishment" type="xs:boolean"/>
+			<xs:element name="medicalEstablishment" type="xs:boolean"/>
+			<xs:element name="ds9Establishment" type="xs:boolean"/>
+			<xs:element name="school" type="xs:boolean"/>
+			<xs:element name="mirror" type="xs:boolean"/>
+			<xs:element name="alternateReality" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LocationFull">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="name" type="xs:string"/>
+			<xs:element name="earthlyLocation" type="xs:boolean"/>
+			<xs:element name="fictionalLocation" type="xs:boolean"/>
+			<xs:element name="religiousLocation" type="xs:boolean"/>
+			<xs:element name="geographicalLocation" type="xs:boolean"/>
+			<xs:element name="bodyOfWater" type="xs:boolean"/>
+			<xs:element name="country" type="xs:boolean"/>
+			<xs:element name="subnationalEntity" type="xs:boolean"/>
+			<xs:element name="settlement" type="xs:boolean"/>
+			<xs:element name="usSettlement" type="xs:boolean"/>
+			<xs:element name="bajoranSettlement" type="xs:boolean"/>
+			<xs:element name="colony" type="xs:boolean"/>
+			<xs:element name="landform" type="xs:boolean"/>
+			<xs:element name="landmark" type="xs:boolean"/>
+			<xs:element name="road" type="xs:boolean"/>
+			<xs:element name="structure" type="xs:boolean"/>
+			<xs:element name="shipyard" type="xs:boolean"/>
+			<xs:element name="buildingInterior" type="xs:boolean"/>
+			<xs:element name="establishment" type="xs:boolean"/>
+			<xs:element name="medicalEstablishment" type="xs:boolean"/>
+			<xs:element name="ds9Establishment" type="xs:boolean"/>
+			<xs:element name="school" type="xs:boolean"/>
+			<xs:element name="mirror" type="xs:boolean"/>
+			<xs:element name="alternateReality" type="xs:boolean"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LocationHeader">
+		<xs:sequence>
+			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="name" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

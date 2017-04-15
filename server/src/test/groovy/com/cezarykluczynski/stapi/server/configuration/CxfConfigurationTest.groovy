@@ -10,6 +10,7 @@ import com.cezarykluczynski.stapi.server.company.endpoint.CompanyRestEndpoint
 import com.cezarykluczynski.stapi.server.configuration.interceptor.ApiThrottlingInterceptor
 import com.cezarykluczynski.stapi.server.episode.endpoint.EpisodeRestEndpoint
 import com.cezarykluczynski.stapi.server.food.endpoint.FoodRestEndpoint
+import com.cezarykluczynski.stapi.server.location.endpoint.LocationRestEndpoint
 import com.cezarykluczynski.stapi.server.movie.endpoint.MovieRestEndpoint
 import com.cezarykluczynski.stapi.server.organization.endpoint.OrganizationRestEndpoint
 import com.cezarykluczynski.stapi.server.performer.endpoint.PerformerRestEndpoint
@@ -67,6 +68,7 @@ class CxfConfigurationTest extends Specification {
 		StaffRestEndpoint staffRestEndpoint = Mock()
 		OrganizationRestEndpoint organizationRestEndpoint = Mock()
 		FoodRestEndpoint foodRestEndpoint = Mock()
+		LocationRestEndpoint locationRestEndpoint = Mock()
 
 		when:
 		Server server = cxfConfiguration.cxfServer()
@@ -89,6 +91,7 @@ class CxfConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(StaffRestEndpoint) >> staffRestEndpoint
 		1 * applicationContextMock.getBean(OrganizationRestEndpoint) >> organizationRestEndpoint
 		1 * applicationContextMock.getBean(FoodRestEndpoint) >> foodRestEndpoint
+		1 * applicationContextMock.getBean(LocationRestEndpoint) >> locationRestEndpoint
 		0 * _
 		server instanceof ServerImpl
 		server.started

@@ -1,0 +1,4 @@
+type: object
+properties:
+  location:
+    $ref: '#/definitions/LocationFull'

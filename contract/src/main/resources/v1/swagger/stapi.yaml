@@ -45,6 +45,10 @@ paths:
     $ref: ./food/path/food.path.yaml
   /food/search:
     $ref: ./food/path/foodSearch.path.yaml
+  /location:
+    $ref: ./location/path/location.path.yaml
+  /location/search:
+    $ref: ./location/path/locationSearch.path.yaml
   /movie:
     $ref: ./movie/path/movie.path.yaml
   /movie/search:
@@ -152,6 +156,8 @@ definitions:
     $ref: ./episode/entity/episodeBaseResponse.yaml
   EpisodeFullResponse:
     $ref: ./episode/entity/episodeFullResponse.yaml
+  Error:
+    $ref: ./common/entity/error.yaml
   FoodHeader:
     $ref: ./food/entity/foodHeader.yaml
   FoodBase:
@@ -162,8 +168,16 @@ definitions:
     $ref: ./food/entity/foodBaseResponse.yaml
   FoodFullResponse:
     $ref: ./food/entity/foodFullResponse.yaml
-  Error:
-    $ref: ./common/entity/error.yaml
+  LocationHeader:
+    $ref: ./location/entity/locationHeader.yaml
+  LocationBase:
+    $ref: ./location/entity/locationBase.yaml
+  LocationFull:
+    $ref: ./location/entity/locationFull.yaml
+  LocationBaseResponse:
+    $ref: ./location/entity/locationBaseResponse.yaml
+  LocationFullResponse:
+    $ref: ./location/entity/locationFullResponse.yaml
   MovieHeader:
     $ref: ./movie/entity/movieHeader.yaml
   MovieBase:

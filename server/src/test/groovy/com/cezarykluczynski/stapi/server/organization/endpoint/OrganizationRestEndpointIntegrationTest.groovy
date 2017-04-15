@@ -27,7 +27,7 @@ class OrganizationRestEndpointIntegrationTest extends AbstractOrganizationEndpoi
 	void "Orion Union is among governments from alternate reality"() {
 		when:
 		OrganizationBaseResponse organizationBaseResponse = stapiRestClient.organizationApi.organizationSearchPost(null, null, null, null, true,
-				null, null, null, null, null, null, null, null, null, null, null, null, null, true)
+				null, null, null, null, null, null, null, null, null, null, null, null, true)
 
 		then:
 		organizationBaseResponse.organizations

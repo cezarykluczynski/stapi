@@ -23,6 +23,7 @@ class StapiSoapPortTypesProviderTest extends AbstractStapiClientTest {
 		((String) toBindingProvider(stapiSoapPortTypesProvider.speciesPortType).requestContext.get(URL_KEY)).contains(StapiClient.CANONICAL_API_URL)
 		((String) toBindingProvider(stapiSoapPortTypesProvider.organizationPortType).requestContext.get(URL_KEY)).contains(StapiClient.CANONICAL_API_URL)
 		((String) toBindingProvider(stapiSoapPortTypesProvider.foodPortType).requestContext.get(URL_KEY)).contains(StapiClient.CANONICAL_API_URL)
+		((String) toBindingProvider(stapiSoapPortTypesProvider.locationPortType).requestContext.get(URL_KEY)).contains(StapiClient.CANONICAL_API_URL)
 	}
 
 	void "provider can be instantiated with custom url"() {
@@ -45,6 +46,7 @@ class StapiSoapPortTypesProviderTest extends AbstractStapiClientTest {
 		((String) toBindingProvider(stapiSoapPortTypesProvider.speciesPortType).requestContext.get(URL_KEY)).contains(CUSTOM_URL)
 		((String) toBindingProvider(stapiSoapPortTypesProvider.organizationPortType).requestContext.get(URL_KEY)).contains(CUSTOM_URL)
 		((String) toBindingProvider(stapiSoapPortTypesProvider.foodPortType).requestContext.get(URL_KEY)).contains(CUSTOM_URL)
+		((String) toBindingProvider(stapiSoapPortTypesProvider.locationPortType).requestContext.get(URL_KEY)).contains(CUSTOM_URL)
 	}
 
 }

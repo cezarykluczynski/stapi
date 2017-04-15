@@ -18,6 +18,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.EpisodePortType;
 import com.cezarykluczynski.stapi.client.v1.soap.EpisodeService;
 import com.cezarykluczynski.stapi.client.v1.soap.FoodPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.FoodService;
+import com.cezarykluczynski.stapi.client.v1.soap.LocationPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.LocationService;
 import com.cezarykluczynski.stapi.client.v1.soap.MoviePortType;
 import com.cezarykluczynski.stapi.client.v1.soap.MovieService;
 import com.cezarykluczynski.stapi.client.v1.soap.OrganizationPortType;
@@ -84,6 +86,9 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 	@Getter
 	private FoodPortType foodPortType;
 
+	@Getter
+	private LocationPortType locationPortType;
+
 	public StapiSoapPortTypesProvider() {
 		seriesPortType = new SeriesService().getSeriesPortType();
 		performerPortType = new PerformerService().getPerformerPortType();
@@ -100,6 +105,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		speciesPortType = new SpeciesService().getSpeciesPortType();
 		organizationPortType = new OrganizationService().getOrganizationPortType();
 		foodPortType = new FoodService().getFoodPortType();
+		locationPortType = new LocationService().getLocationPortType();
 	}
 
 	public StapiSoapPortTypesProvider(String apiUrl) {
@@ -119,6 +125,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		speciesPortType = (SpeciesPortType) changeUrl(new SpeciesService().getSpeciesPortType());
 		organizationPortType = (OrganizationPortType) changeUrl(new OrganizationService().getOrganizationPortType());
 		foodPortType = (FoodPortType) changeUrl(new FoodService().getFoodPortType());
+		locationPortType = (LocationPortType) changeUrl(new LocationService().getLocationPortType());
 	}
 
 	private Object changeUrl(Object service) {
