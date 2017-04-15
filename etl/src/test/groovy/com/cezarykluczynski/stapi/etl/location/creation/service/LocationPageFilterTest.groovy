@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.location.creation.service
 
 import com.cezarykluczynski.stapi.etl.common.service.CategoryFinder
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
@@ -49,6 +50,20 @@ class LocationPageFilterTest extends Specification {
 		shouldBeFilteredOut
 	}
 
+	void "returns true when page contains Lists category"() {
+		given:
+		Page page = new Page()
+
+		when:
+		boolean shouldBeFilteredOut = locationPageFilter.shouldBeFilteredOut(page)
+
+		then:
+		1 * categoryFinderMock.hasAnyCategory(page, CategoryTitles.ORGANIZATIONS) >> false
+		1 * categoryFinderMock.hasAnyCategory(page, Lists.newArrayList(CategoryTitle.LISTS)) >> true
+		0 * _
+		shouldBeFilteredOut
+	}
+
 	void "returns true when LocationNameFilter returns false"() {
 		given:
 		Page page = new Page(title: TITLE)
@@ -58,6 +73,7 @@ class LocationPageFilterTest extends Specification {
 
 		then:
 		1 * categoryFinderMock.hasAnyCategory(page, CategoryTitles.ORGANIZATIONS) >> false
+		1 * categoryFinderMock.hasAnyCategory(page, Lists.newArrayList(CategoryTitle.LISTS)) >> false
 		1 * locationNameFilterMock.isLocation(TITLE) >> false
 		0 * _
 		shouldBeFilteredOut
@@ -72,6 +88,7 @@ class LocationPageFilterTest extends Specification {
 
 		then:
 		1 * categoryFinderMock.hasAnyCategory(page, CategoryTitles.ORGANIZATIONS) >> false
+		1 * categoryFinderMock.hasAnyCategory(page, Lists.newArrayList(CategoryTitle.LISTS)) >> false
 		1 * locationNameFilterMock.isLocation(TITLE) >> null
 		0 * _
 		!shouldBeFilteredOut

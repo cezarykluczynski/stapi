@@ -11,7 +11,7 @@ public class OrganizationNameFilter {
 	private static final List<String> NOT_AN_ORGANIZATIONS = Lists.newArrayList("Intelligence agency", "Platoon", "Task force", "Dungeon", "Baldwin",
 			"Flotilla", "League", "Assault team", "Medical complex", "Column", "Squad", "Assault fleet", "Squadron", "Research facilities", "Fleet",
 			"Grand jury", "Legion", "Regiment","Fleet organization", "Garrison", "Division", "Dynasty", "Armada", "Battalion", "Attack wing",
-			"Brigade", "Militia", "Battery (unit)");
+			"Brigade", "Militia", "Battery (unit)", "Democrat");
 
 	private static final List<String> ORGANIZATIONS = Lists.newArrayList(
 			"Bolian restaurant", "Lazon II labor camp", "Vulcan Institute for Defensive Arts", "Singha refugee camp", "Lincoln", "Datsun",

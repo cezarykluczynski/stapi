@@ -13,17 +13,10 @@ public class OrganizationNameFixedValueProvider implements FixedValueProvider<St
 	private static final Map<String, String> TITLE_TO_TITLE_MAP = Maps.newHashMap();
 
 	static {
-		TITLE_TO_TITLE_MAP.put("Canon (company)", "Canon");
-		TITLE_TO_TITLE_MAP.put("Crown (manufacturer)", "Crown");
-		TITLE_TO_TITLE_MAP.put("Martini (brand)", "Martini");
-		TITLE_TO_TITLE_MAP.put("McCoy (surfboard)", "McCoy");
 		TITLE_TO_TITLE_MAP.put("Military Assault Command Operations (mirror)", "Military Assault Command Operations");
 		TITLE_TO_TITLE_MAP.put("Mountain (mirror)", "Mountain");
-		TITLE_TO_TITLE_MAP.put("Quark's (mirror)", "Quark's");
-		TITLE_TO_TITLE_MAP.put("Sony (mirror)", "Sony");
 		TITLE_TO_TITLE_MAP.put("Starfleet Command (mirror)", "Starfleet Command");
 		TITLE_TO_TITLE_MAP.put("Starfleet (mirror)", "Starfleet");
-		TITLE_TO_TITLE_MAP.put("Universal Studios (studio)", "Universal Studios");
 	}
 
 	@Override

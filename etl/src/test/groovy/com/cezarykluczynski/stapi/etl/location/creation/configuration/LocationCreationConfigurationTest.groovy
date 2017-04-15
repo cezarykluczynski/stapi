@@ -13,7 +13,6 @@ import org.springframework.context.ApplicationContext
 class LocationCreationConfigurationTest extends AbstractCreationConfigurationTest {
 
 	private static final String TITLE_LOCATIONS = 'TITLE_LOCATIONS'
-	private static final String TITLE_LOCATIONS_ALTERNATE_REALITY = 'TITLE_LOCATIONS_ALTERNATE_REALITY'
 	private static final String TITLE_EARTH_LOCATIONS = 'TITLE_EARTH_LOCATIONS'
 	private static final String TITLE_EARTH_LANDMARKS = 'TITLE_EARTH_LANDMARKS'
 	private static final String TITLE_EARTH_ROADS = 'TITLE_EARTH_ROADS'
@@ -79,7 +78,6 @@ class LocationCreationConfigurationTest extends AbstractCreationConfigurationTes
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_LOCATIONS) >> false
 		1 * categoryApiMock.getPages(CategoryTitle.LOCATIONS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_LOCATIONS)
-		1 * categoryApiMock.getPages(CategoryTitle.LOCATIONS_ALTERNATE_REALITY, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_LOCATIONS_ALTERNATE_REALITY)
 		1 * categoryApiMock.getPages(CategoryTitle.EARTH_LOCATIONS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_EARTH_LOCATIONS)
 		1 * categoryApiMock.getPages(CategoryTitle.EARTH_LANDMARKS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_EARTH_LANDMARKS)
 		1 * categoryApiMock.getPages(CategoryTitle.EARTH_ROADS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_EARTH_ROADS)
@@ -119,7 +117,6 @@ class LocationCreationConfigurationTest extends AbstractCreationConfigurationTes
 		1 * categoryApiMock.getPages(CategoryTitle.SHIPYARDS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_SHIPYARDS)
 		0 * _
 		categoryHeaderTitleList.contains TITLE_LOCATIONS
-		categoryHeaderTitleList.contains TITLE_LOCATIONS_ALTERNATE_REALITY
 		categoryHeaderTitleList.contains TITLE_EARTH_LOCATIONS
 		categoryHeaderTitleList.contains TITLE_EARTH_LANDMARKS
 		categoryHeaderTitleList.contains TITLE_EARTH_ROADS

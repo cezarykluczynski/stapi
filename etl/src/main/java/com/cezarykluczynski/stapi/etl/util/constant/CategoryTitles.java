@@ -118,7 +118,6 @@ public class CategoryTitles {
 
 	public static final List<String> LOCATIONS = Lists.newArrayList(
 			CategoryTitle.LOCATIONS,
-			CategoryTitle.LOCATIONS_ALTERNATE_REALITY,
 			CategoryTitle.EARTH_LOCATIONS,
 			CategoryTitle.EARTH_LANDMARKS,
 			CategoryTitle.EARTH_ROADS,

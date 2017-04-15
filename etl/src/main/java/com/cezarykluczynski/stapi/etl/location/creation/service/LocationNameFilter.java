@@ -8,7 +8,7 @@ import java.util.List;
 @Service
 public class LocationNameFilter {
 
-	private static final List<String> NOT_AN_LOCATIONS = Lists.newArrayList("Democrat", "Baldwin");
+	private static final List<String> NOT_AN_LOCATIONS = Lists.newArrayList("Baldwin", "Door", "Geography", "San Francisco locations", "Flood");
 
 	public Boolean isLocation(String organizationName) {
 		return NOT_AN_LOCATIONS.contains(organizationName) ? false : null;

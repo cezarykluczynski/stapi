@@ -10,11 +10,19 @@ import java.util.Map;
 @Service
 public class LocationNameFixedValueProvider implements FixedValueProvider<String, String> {
 
+	private static final String SONY = "Sony";
+
 	private static final Map<String, String> TITLE_TO_TITLE_MAP = Maps.newHashMap();
 
 	static {
-		TITLE_TO_TITLE_MAP.put("Fusion (night club)", "Fusion");
+		TITLE_TO_TITLE_MAP.put("Canon (company)", "Canon");
+		TITLE_TO_TITLE_MAP.put("Crown (manufacturer)", "Crown");
+		TITLE_TO_TITLE_MAP.put("Martini (brand)", "Martini");
+		TITLE_TO_TITLE_MAP.put("McCoy (surfboard)", "McCoy");
 		TITLE_TO_TITLE_MAP.put("Quark's (mirror)", "Quark's");
+		TITLE_TO_TITLE_MAP.put("Sony (mirror)", SONY);
+		TITLE_TO_TITLE_MAP.put("Universal Studios (studio)", "Universal Studios");
+		TITLE_TO_TITLE_MAP.put("Fusion (night club)", "Fusion");
 		TITLE_TO_TITLE_MAP.put("Alliance (nation)", "Alliance");
 		TITLE_TO_TITLE_MAP.put("Kes (government)", "Kes");
 		TITLE_TO_TITLE_MAP.put("Vulcan (island)", "Vulcan");
@@ -28,6 +36,16 @@ public class LocationNameFixedValueProvider implements FixedValueProvider<String
 		TITLE_TO_TITLE_MAP.put("T'Paal (city)", "T'Paal");
 		TITLE_TO_TITLE_MAP.put("Tanis (city)", "Tanis");
 		TITLE_TO_TITLE_MAP.put("Rixx (location)", "Rixx");
+		TITLE_TO_TITLE_MAP.put("Sony (manufacturer)", SONY);
+		TITLE_TO_TITLE_MAP.put("Canteen (establishment)", "Canteen");
+		TITLE_TO_TITLE_MAP.put("Crenshaw (city)", "Crenshaw");
+		TITLE_TO_TITLE_MAP.put("Bluff (geography)", "Bluff");
+		TITLE_TO_TITLE_MAP.put("Sha Ka Ree (mythology)", "Sha Ka Ree");
+		TITLE_TO_TITLE_MAP.put("Workshop (location)", "Workshop");
+		TITLE_TO_TITLE_MAP.put("Delaware (state)", "Delaware");
+		TITLE_TO_TITLE_MAP.put("Starfleet Academy (Earth)", "Starfleet Academy");
+		TITLE_TO_TITLE_MAP.put("Meridian (planet)", "Meridian");
+		TITLE_TO_TITLE_MAP.put("Pound (location)", "Pound");
 	}
 
 	@Override
