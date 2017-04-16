@@ -36,7 +36,7 @@ public class LocationCreationConfiguration {
 		List<PageHeader> locations = Lists.newArrayList();
 
 		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_LOCATIONS)) {
-			CategoryTitles.LOCATIONS.forEach(episode -> locations.addAll(categoryApi.getPages(episode, MediaWikiSource.MEMORY_ALPHA_EN)));
+			locations.addAll(categoryApi.getPages(CategoryTitles.LOCATIONS, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 
 		return new LocationReader(Lists.newArrayList(Sets.newHashSet(locations)));

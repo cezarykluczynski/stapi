@@ -48,7 +48,7 @@ public class PerformerCreationConfiguration {
 		List<PageHeader> performers = Lists.newArrayList();
 
 		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_PERFORMERS)) {
-			CategoryTitles.PERFORMERS.forEach(episode -> performers.addAll(categoryApi.getPages(episode, MediaWikiSource.MEMORY_ALPHA_EN)));
+			performers.addAll(categoryApi.getPages(CategoryTitles.PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 
 		return new PerformerReader(Lists.newArrayList(Sets.newHashSet(performers)));

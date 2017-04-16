@@ -72,7 +72,8 @@ class CategoryApiImplTest extends Specification {
 
 	void "gets pages in category by category title"() {
 		given:
-		List<PageHeader> pageHeaderListInput = Lists.newArrayList()
+		PageHeader pageHeader = Mock()
+		List<PageHeader> pageHeaderListInput = Lists.newArrayList(pageHeader)
 
 		when:
 		List<PageHeader> pageHeaderListOutput = categoryApiImpl.getPages(TITLE_1, MEDIA_WIKI_SOURCE)
@@ -85,7 +86,36 @@ class CategoryApiImplTest extends Specification {
 			VALID_XML
 		}
 		1 * pageHeaderConverterMock.fromPageInfoList(_, MEDIA_WIKI_SOURCE) >> pageHeaderListInput
-		pageHeaderListOutput == pageHeaderListInput
+		pageHeaderListOutput.contains pageHeader
+	}
+
+	void "gets pages in categories by categories title"() {
+		given:
+		PageHeader pageHeader1 = Mock()
+		PageHeader pageHeader2 = Mock()
+		List<PageHeader> pageHeaderListInput1 = Lists.newArrayList(pageHeader1)
+		List<PageHeader> pageHeaderListInput2 = Lists.newArrayList(pageHeader2)
+
+		when:
+		List<PageHeader> pageHeaderListOutput = categoryApiImpl.getPages(Lists.newArrayList(TITLE_1, TITLE_2), MEDIA_WIKI_SOURCE)
+
+		then:
+		1 * blikiConnectorMock.readXML(_ as Map, _ as MediaWikiSource) >> { Map map, MediaWikiSource mediaWikiSource ->
+			assert map.get(ApiParams.KEY_LIST) == ApiParams.KEY_LIST_VALUE_CATEGORYMEMBERS
+			assert map.get(ApiParams.KEY_CATEGORY_TITLE) == ApiParams.KEY_CATEGORY_TITLE_VALUE_PREFIX + TITLE_1
+			assert map.get(ApiParams.KEY_CATEGORY_LIMIT) == ApiParams.KEY_CATEGORY_LIMIT_VALUE
+			VALID_XML
+		}
+		1 * blikiConnectorMock.readXML(_ as Map, _ as MediaWikiSource) >> { Map map, MediaWikiSource mediaWikiSource ->
+			assert map.get(ApiParams.KEY_LIST) == ApiParams.KEY_LIST_VALUE_CATEGORYMEMBERS
+			assert map.get(ApiParams.KEY_CATEGORY_TITLE) == ApiParams.KEY_CATEGORY_TITLE_VALUE_PREFIX + TITLE_2
+			assert map.get(ApiParams.KEY_CATEGORY_LIMIT) == ApiParams.KEY_CATEGORY_LIMIT_VALUE
+			VALID_XML_WITH_PAGES_AND_CATEGORIES
+		}
+		1 * pageHeaderConverterMock.fromPageInfoList(_, MEDIA_WIKI_SOURCE) >> pageHeaderListInput1
+		1 * pageHeaderConverterMock.fromPageInfoList(_, MEDIA_WIKI_SOURCE) >> pageHeaderListInput2
+		pageHeaderListOutput.contains pageHeader1
+		pageHeaderListOutput.contains pageHeader2
 	}
 
 	void "follows cmcontinue attribute if continue tag is present"() {

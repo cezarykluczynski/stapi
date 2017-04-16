@@ -31,7 +31,7 @@ public class EpisodeCreationConfiguration {
 		List<PageHeader> episodes = Lists.newArrayList();
 
 		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_EPISODES)) {
-			CategoryTitles.EPISODES.forEach(episode -> episodes.addAll(categoryApi.getPages(episode, MediaWikiSource.MEMORY_ALPHA_EN)));
+			episodes.addAll(categoryApi.getPages(CategoryTitles.EPISODES, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 
 		return new EpisodeReader(episodes);

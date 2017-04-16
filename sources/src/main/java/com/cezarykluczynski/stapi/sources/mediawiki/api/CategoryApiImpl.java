@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Service
 public class CategoryApiImpl implements CategoryApi {
@@ -35,6 +36,13 @@ public class CategoryApiImpl implements CategoryApi {
 	public List<PageHeader> getPages(String title, MediaWikiSource mediaWikiSource) {
 		List<PageInfo> pageInfoList = getPageInfoList(title, mediaWikiSource);
 		return pageHeaderConverter.fromPageInfoList(pageInfoList, mediaWikiSource);
+	}
+
+	@Override
+	public List<PageHeader> getPages(List<String> titleList, MediaWikiSource mediaWikiSource) {
+		Set<PageHeader> pageHeaderSet = Sets.newHashSet();
+		titleList.forEach(title -> pageHeaderSet.addAll(getPages(title, mediaWikiSource)));
+		return Lists.newArrayList(pageHeaderSet);
 	}
 
 	@Override

@@ -36,7 +36,7 @@ public class OrganizationCreationConfiguration {
 		List<PageHeader> organizations = Lists.newArrayList();
 
 		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_ORGANIZATIONS)) {
-			CategoryTitles.ORGANIZATIONS.forEach(episode -> organizations.addAll(categoryApi.getPages(episode, MediaWikiSource.MEMORY_ALPHA_EN)));
+			organizations.addAll(categoryApi.getPages(CategoryTitles.ORGANIZATIONS, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 
 		return new OrganizationReader(Lists.newArrayList(Sets.newHashSet(organizations)));
