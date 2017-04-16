@@ -2,6 +2,8 @@ package com.cezarykluczynski.stapi.server.common.throttle.credential;
 
 public class RequestCredential {
 
+	static final String API_KEY = "apiKey";
+
 	private RequestCredentialType requestCredentialType;
 
 	private String ipAddress;

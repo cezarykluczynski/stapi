@@ -27,7 +27,7 @@ class MovieRestEndpointIntegrationTest extends AbstractMovieEndpointIntegrationT
 				StapiRestSortSerializer.serialize(Lists.newArrayList(new RestSortClause(
 						name: 'usReleaseDate',
 						direction: RestSortDirection.ASC))
-				), null, null, null, null, null, LocalDate.of(1991, 1, 1), LocalDate.of(2000, 12, 30))
+				), null, null, null, null, null, null, LocalDate.of(1991, 1, 1), LocalDate.of(2000, 12, 30))
 
 		then:
 		movieBaseResponse.movies.size() == 4
@@ -35,8 +35,8 @@ class MovieRestEndpointIntegrationTest extends AbstractMovieEndpointIntegrationT
 
 	void "movie has stardate and year set"() {
 		when:
-		MovieBaseResponse movieBaseResponse = stapiRestClient.movieApi.movieSearchPost(null, null, null, 'Star Trek Into Darkness', null, null, null,
-				null, null, null)
+		MovieBaseResponse movieBaseResponse = stapiRestClient.movieApi.movieSearchPost(null, null, null, null, 'Star Trek Into Darkness', null, null,
+				null, null, null, null)
 
 		then:
 		movieBaseResponse.movies.size() == 1
@@ -49,9 +49,9 @@ class MovieRestEndpointIntegrationTest extends AbstractMovieEndpointIntegrationT
 	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "confirms that Kathryn Janeway appeared in Nemesis"() {
 		when:
-		MovieBaseResponse movieBaseResponse = stapiRestClient.movieApi.movieSearchPost(null, null, null, 'Star Trek Nemesis', null, null, null, null,
-				null, null)
-		MovieFullResponse movieFullResponse = stapiRestClient.movieApi.movieGet(movieBaseResponse.movies[0].guid)
+		MovieBaseResponse movieBaseResponse = stapiRestClient.movieApi.movieSearchPost(null, null, null, null, 'Star Trek Nemesis', null, null, null,
+				null, null, null)
+		MovieFullResponse movieFullResponse = stapiRestClient.movieApi.movieGet(movieBaseResponse.movies[0].guid, null)
 
 		then:
 		movieFullResponse.movie.characters.stream().anyMatch({

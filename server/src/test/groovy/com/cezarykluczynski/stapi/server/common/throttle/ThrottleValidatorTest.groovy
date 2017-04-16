@@ -34,7 +34,7 @@ class ThrottleValidatorTest extends Specification {
 		ThrottleResult throttleResult = throttleValidator.validate(message)
 
 		then:
-		1 * requestCredentialProviderMock.provideRequestCredential() >> requestCredential
+		1 * requestCredentialProviderMock.provideRequestCredential(message) >> requestCredential
 		1 * throttleRepositoryMock.decrementByIpAndGetResult(IP_ADDRESS) >> false
 		0 * _
 		throttleResult.throttle
@@ -52,7 +52,7 @@ class ThrottleValidatorTest extends Specification {
 		ThrottleResult throttleResult = throttleValidator.validate(message)
 
 		then:
-		1 * requestCredentialProviderMock.provideRequestCredential() >> requestCredential
+		1 * requestCredentialProviderMock.provideRequestCredential(message) >> requestCredential
 		1 * throttleRepositoryMock.decrementByIpAndGetResult(IP_ADDRESS) >> true
 		0 * _
 		!throttleResult.throttle

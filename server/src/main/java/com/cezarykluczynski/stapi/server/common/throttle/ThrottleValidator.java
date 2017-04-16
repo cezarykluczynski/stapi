@@ -22,7 +22,7 @@ public class ThrottleValidator {
 	}
 
 	ThrottleResult validate(Message message) {
-		RequestCredential requestCredential = requestCredentialProvider.provideRequestCredential();
+		RequestCredential requestCredential = requestCredentialProvider.provideRequestCredential(message);
 		return validateByIp(requestCredential);
 	}
 

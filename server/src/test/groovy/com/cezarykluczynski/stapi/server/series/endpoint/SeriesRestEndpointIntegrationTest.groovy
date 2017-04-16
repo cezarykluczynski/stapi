@@ -25,7 +25,7 @@ class SeriesRestEndpointIntegrationTest extends AbstractSeriesEndpointIntegratio
 		Integer pageSize = 10
 
 		when:
-		SeriesBaseResponse seriesBaseResponse = stapiRestClient.seriesApi.seriesSearchGet(pageNumber, pageSize)
+		SeriesBaseResponse seriesBaseResponse = stapiRestClient.seriesApi.seriesSearchGet(pageNumber, pageSize, null)
 
 		then:
 		seriesBaseResponse.page.pageNumber == pageNumber
@@ -39,7 +39,7 @@ class SeriesRestEndpointIntegrationTest extends AbstractSeriesEndpointIntegratio
 		Integer pageSize = 2
 
 		when:
-		SeriesBaseResponse seriesBaseResponse = stapiRestClient.seriesApi.seriesSearchPost(pageNumber, pageSize, null, VOYAGER,
+		SeriesBaseResponse seriesBaseResponse = stapiRestClient.seriesApi.seriesSearchPost(pageNumber, pageSize, null, null, VOYAGER,
 				null, null, null, null, null, null, null, null, null)
 
 		then:
@@ -66,7 +66,7 @@ class SeriesRestEndpointIntegrationTest extends AbstractSeriesEndpointIntegratio
 		SeriesBaseResponse seriesBaseResponse = stapiRestClient.seriesApi.seriesSearchPost(null, null,
 				StapiRestSortSerializer.serialize(Lists.newArrayList(
 						new RestSortClause(name: 'productionEndYear', direction: RestSortDirection.DESC)
-				)), null, null, null, null, null, null, null, null, null, null)
+				)), null, null, null, null, null, null, null, null, null, null, null)
 
 		then:
 		seriesBaseResponse.series.size() == 6

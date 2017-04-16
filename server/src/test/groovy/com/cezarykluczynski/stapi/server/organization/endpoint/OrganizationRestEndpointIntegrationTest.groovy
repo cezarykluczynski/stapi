@@ -17,7 +17,7 @@ class OrganizationRestEndpointIntegrationTest extends AbstractOrganizationEndpoi
 
 	void "gets organization by GUID"() {
 		when:
-		OrganizationFullResponse organizationFullResponse = stapiRestClient.organizationApi.organizationGet('ORMA0000004225')
+		OrganizationFullResponse organizationFullResponse = stapiRestClient.organizationApi.organizationGet('ORMA0000004225', null)
 
 		then:
 		organizationFullResponse.organization.name == 'Vulcan High Command'
@@ -26,8 +26,8 @@ class OrganizationRestEndpointIntegrationTest extends AbstractOrganizationEndpoi
 	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "Orion Union is among governments from alternate reality"() {
 		when:
-		OrganizationBaseResponse organizationBaseResponse = stapiRestClient.organizationApi.organizationSearchPost(null, null, null, null, true,
-				null, null, null, null, null, null, null, null, null, null, null, null, true)
+		OrganizationBaseResponse organizationBaseResponse = stapiRestClient.organizationApi.organizationSearchPost(null, null, null, null,  null,
+				true, null, null, null, null, null, null, null, null, null, null, null, null, true)
 
 		then:
 		organizationBaseResponse.organizations

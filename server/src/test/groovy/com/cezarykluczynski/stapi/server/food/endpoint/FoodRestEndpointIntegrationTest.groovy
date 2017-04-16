@@ -17,7 +17,7 @@ class FoodRestEndpointIntegrationTest extends AbstractFoodEndpointIntegrationTes
 
 	void "gets food by GUID"() {
 		when:
-		FoodFullResponse foodFullResponse = stapiRestClient.foodApi.foodGet('FOMA0000025922')
+		FoodFullResponse foodFullResponse = stapiRestClient.foodApi.foodGet('FOMA0000025922', null)
 
 		then:
 		foodFullResponse.food.name == 'Cake'
@@ -26,8 +26,8 @@ class FoodRestEndpointIntegrationTest extends AbstractFoodEndpointIntegrationTes
 	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "confirm that garlic soup is a soup of earthly origin"() {
 		when:
-		FoodBaseResponse foodBaseResponse = stapiRestClient.foodApi.foodSearchPost(null, null, null, null, true, null, null, null, null, true, null,
-				null, null, null)
+		FoodBaseResponse foodBaseResponse = stapiRestClient.foodApi.foodSearchPost(null, null, null, null, null, true, null, null, null, null, true,
+				null, null, null, null)
 
 		then:
 		foodBaseResponse.foods

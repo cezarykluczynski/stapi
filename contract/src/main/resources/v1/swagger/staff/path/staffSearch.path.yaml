@@ -8,6 +8,9 @@ get:
       in: query
       type: integer
       format: int32
+    - name: apiKey
+      in: query
+      type: string
   responses:
     200:
       schema:
@@ -35,6 +38,9 @@ post:
     - name: sort
       type: string
       in: query
+    - name: apiKey
+      in: query
+      type: string
     - name: name
       in: formData
       type: string

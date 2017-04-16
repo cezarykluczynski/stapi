@@ -36,9 +36,13 @@
 	</xs:element>
 	<xs:element name="CompanyFullRequest">
 		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="guid" type="xs:string" minOccurs="1"/>
-			</xs:sequence>
+			<xs:complexContent>
+				<xs:extension base="common:ApiRequest">
+					<xs:sequence>
+						<xs:element name="guid" type="xs:string" minOccurs="1"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="CompanyBaseResponse">

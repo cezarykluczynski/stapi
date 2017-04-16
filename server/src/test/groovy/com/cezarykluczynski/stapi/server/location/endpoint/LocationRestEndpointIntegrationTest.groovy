@@ -17,7 +17,7 @@ class LocationRestEndpointIntegrationTest extends AbstractLocationEndpointIntegr
 
 	void "gets location by GUID"() {
 		when:
-		LocationFullResponse locationFullResponse = stapiRestClient.locationApi.locationGet('LOMA0000005162')
+		LocationFullResponse locationFullResponse = stapiRestClient.locationApi.locationGet('LOMA0000005162', null)
 
 		then:
 		locationFullResponse.location.name == 'Canada'
@@ -26,7 +26,7 @@ class LocationRestEndpointIntegrationTest extends AbstractLocationEndpointIntegr
 	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "Tilonus Institute for Mental Disorders is among fictional medical establishments"() {
 		when:
-		LocationBaseResponse locationBaseResponse = stapiRestClient.locationApi.locationSearchPost(null, null, null, null, null, true, null,
+		LocationBaseResponse locationBaseResponse = stapiRestClient.locationApi.locationSearchPost(null, null, null, null, null, null, true, null,
 				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, true, null, null, null, null)
 
 		then:

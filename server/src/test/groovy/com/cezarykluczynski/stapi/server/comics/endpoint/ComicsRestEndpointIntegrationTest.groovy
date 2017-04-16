@@ -24,7 +24,7 @@ class ComicsRestEndpointIntegrationTest extends AbstractComicsEndpointIntegratio
 		ComicsBaseResponse comicsBaseResponse = stapiRestClient.comicsApi
 				.comicsSearchPost(0, 20, StapiRestSortSerializer.serialize(Lists.newArrayList(
 				new RestSortClause(name: 'title', direction: RestSortDirection.ASC)
-		)), 'Ghosts, Issue', null, null, null, null, null, null, null, null, null)
+		)), null, 'Ghosts, Issue', null, null, null, null, null, null, null, null, null)
 
 		then:
 		comicsBaseResponse.comics.size() == 5

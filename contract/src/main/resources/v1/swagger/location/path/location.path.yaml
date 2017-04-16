@@ -3,6 +3,9 @@ get:
     - name: guid
       in: query
       type: string
+    - name: apiKey
+      in: query
+      type: string
   responses:
     200:
       schema:

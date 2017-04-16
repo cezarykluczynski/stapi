@@ -18,7 +18,7 @@ class ComicSeriesRestEndpointIntegrationTest extends AbstractComicSeriesEndpoint
 	void "gets the only photoseries that is also a miniseries"() {
 		when:
 		ComicSeriesBaseResponse comicSeriesBaseResponse = stapiRestClient.comicSeriesApi
-				.comicSeriesSearchPost(0, 20, null, null, null, null, null, null, null, null, null, null, true, true)
+				.comicSeriesSearchPost(0, 20, null, null, null, null, null, null, null, null, null, null, null, true, true)
 
 		then:
 		comicSeriesBaseResponse.comicSeries.size() == 1
@@ -27,7 +27,7 @@ class ComicSeriesRestEndpointIntegrationTest extends AbstractComicSeriesEndpoint
 
 	void "gets comic series by GUID"() {
 		when:
-		ComicSeriesFullResponse comicSeriesFullResponse = stapiRestClient.comicSeriesApi.comicSeriesGet('CSMA0000157262')
+		ComicSeriesFullResponse comicSeriesFullResponse = stapiRestClient.comicSeriesApi.comicSeriesGet('CSMA0000157262', null)
 
 		then:
 		comicSeriesFullResponse.comicSeries.title == 'Star Trek Classics'

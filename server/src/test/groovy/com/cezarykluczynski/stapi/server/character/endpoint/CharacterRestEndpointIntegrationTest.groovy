@@ -21,7 +21,7 @@ class CharacterRestEndpointIntegrationTest extends AbstractCharacterEndpointInte
 
 	void "gets character by guid"() {
 		when:
-		CharacterFullResponse characterFullResponse = stapiRestClient.characterApi.characterGet(DEANNA_TROI_GUID)
+		CharacterFullResponse characterFullResponse = stapiRestClient.characterApi.characterGet(DEANNA_TROI_GUID, null)
 
 		then:
 		characterFullResponse.character.guid == DEANNA_TROI_GUID
@@ -34,7 +34,7 @@ class CharacterRestEndpointIntegrationTest extends AbstractCharacterEndpointInte
 		CharacterBaseResponse characterBaseResponse = stapiRestClient.characterApi.characterSearchPost(null, null,
 				StapiRestSortSerializer.serialize(Lists.newArrayList(
 						new RestSortClause(name: 'yearOfBirth', direction: RestSortDirection.ASC)
-				)), null, null, null, null, null)
+				)), null, null, null, null, null, null)
 
 		then:
 		characterBaseResponse.characters[0].yearOfBirth == 1647

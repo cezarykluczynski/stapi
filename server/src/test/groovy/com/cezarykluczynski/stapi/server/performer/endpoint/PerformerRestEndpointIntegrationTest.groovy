@@ -25,7 +25,7 @@ class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointInte
 		Integer pageSize = 10
 
 		when:
-		PerformerBaseResponse performerResponse = stapiRestClient.performerApi.performerSearchGet(pageNumber, pageSize)
+		PerformerBaseResponse performerResponse = stapiRestClient.performerApi.performerSearchGet(pageNumber, pageSize, null)
 
 		then:
 		performerResponse.page.pageNumber == pageNumber
@@ -36,7 +36,7 @@ class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointInte
 	void "gets the only person to star in 6 series"() {
 		when:
 		PerformerBaseResponse performerResponse = stapiRestClient.performerApi.performerSearchPost(null, null, null, null, null, null, null, null,
-				null, null, null, null, true, true, null, null, null, true, true, true, null, null, true)
+				null, null, null, null, null, true, true, null, null, null, true, true, true, null, null, true)
 
 		then:
 		performerResponse.page.totalElements == 1
@@ -49,7 +49,7 @@ class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointInte
 	})
 	void "gets performer by guid"() {
 		when:
-		PerformerFullResponse performerResponse = stapiRestClient.performerApi.performerGet(GUID)
+		PerformerFullResponse performerResponse = stapiRestClient.performerApi.performerGet(GUID, null)
 
 		then:
 		performerResponse.performer.guid == GUID
@@ -62,7 +62,7 @@ class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointInte
 		PerformerBaseResponse performerResponse = stapiRestClient.performerApi.performerSearchPost(null, null,
 				StapiRestSortSerializer.serialize(Lists.newArrayList(
 						new RestSortClause(name: 'name', direction: RestSortDirection.ASC)
-				)), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
+				)), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
 
 		then:
 		performerResponse.performers[0].name.startsWith('A. ')

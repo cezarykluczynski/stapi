@@ -4,11 +4,20 @@
 		xmlns:common="http://stapi.co/api/v1/soap/common"
 		elementFormDefault="unqualified"
 		targetNamespace="http://stapi.co/api/v1/soap/common">
-	<xs:complexType name="Request">
+	<xs:complexType name="ApiRequest">
 		<xs:sequence>
-			<xs:element name="page" type="common:RequestPage" minOccurs="0"/>
-			<xs:element name="sort" type="common:RequestSort" minOccurs="0"/>
+			<xs:element name="apiKey" type="xs:string" minOccurs="0"/>
 		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Request">
+		<xs:complexContent>
+			<xs:extension base="common:ApiRequest">
+				<xs:sequence>
+					<xs:element name="page" type="common:RequestPage" minOccurs="0"/>
+					<xs:element name="sort" type="common:RequestSort" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="Response">
 		<xs:sequence>

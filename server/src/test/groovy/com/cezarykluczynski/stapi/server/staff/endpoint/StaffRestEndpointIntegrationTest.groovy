@@ -25,7 +25,7 @@ class StaffRestEndpointIntegrationTest extends AbstractStaffEndpointIntegrationT
 		Integer pageSize = 10
 
 		when:
-		StaffBaseResponse staffResponse = stapiRestClient.staffApi.staffSearchGet(pageNumber, pageSize)
+		StaffBaseResponse staffResponse = stapiRestClient.staffApi.staffSearchGet(pageNumber, pageSize, null)
 
 		then:
 		staffResponse.page.pageNumber == pageNumber
@@ -35,7 +35,7 @@ class StaffRestEndpointIntegrationTest extends AbstractStaffEndpointIntegrationT
 
 	void "gets staff with series experience by GUID"() {
 		when:
-		StaffFullResponse staffFullResponse = stapiRestClient.staffApi.staffGet(IRA_STEVEN_BEHR_GUID)
+		StaffFullResponse staffFullResponse = stapiRestClient.staffApi.staffGet(IRA_STEVEN_BEHR_GUID, null)
 
 		then:
 		staffFullResponse.staff.guid == IRA_STEVEN_BEHR_GUID
@@ -46,7 +46,7 @@ class StaffRestEndpointIntegrationTest extends AbstractStaffEndpointIntegrationT
 
 	void "gets staff with movie experience by GUID"() {
 		when:
-		StaffFullResponse staffFullResponse = stapiRestClient.staffApi.staffGet(RICK_BERMAN_GUID)
+		StaffFullResponse staffFullResponse = stapiRestClient.staffApi.staffGet(RICK_BERMAN_GUID, null)
 
 		then:
 		staffFullResponse.staff.guid == RICK_BERMAN_GUID
@@ -62,7 +62,7 @@ class StaffRestEndpointIntegrationTest extends AbstractStaffEndpointIntegrationT
 						new RestSortClause(name: 'name', direction: RestSortDirection.ASC)
 				)), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
 				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
+				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
 
 		then:
 		staffResponse.staff[0].name.startsWith('Aaron ')

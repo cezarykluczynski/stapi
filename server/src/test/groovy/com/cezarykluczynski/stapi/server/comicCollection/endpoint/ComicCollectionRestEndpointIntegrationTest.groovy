@@ -18,7 +18,7 @@ class ComicCollectionRestEndpointIntegrationTest extends AbstractComicCollection
 	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "'Star Trek Ultimate Edition' is among collections with more than 500 pages"() {
 		when:
-		ComicCollectionBaseResponse comicCollectionBaseResponse = stapiRestClient.comicCollectionApi.comicCollectionSearchPost(null, null, null,
+		ComicCollectionBaseResponse comicCollectionBaseResponse = stapiRestClient.comicCollectionApi.comicCollectionSearchPost(null, null, null, null,
 				null, null, null, 500, null, null, null, null, null, null)
 
 		then:
@@ -32,7 +32,7 @@ class ComicCollectionRestEndpointIntegrationTest extends AbstractComicCollection
 	})
 	void "gets comic collection by GUID"() {
 		when:
-		ComicCollectionFullResponse comicCollectionFullResponse = stapiRestClient.comicCollectionApi.comicCollectionGet('CLMA0000108975')
+		ComicCollectionFullResponse comicCollectionFullResponse = stapiRestClient.comicCollectionApi.comicCollectionGet('CLMA0000108975', null)
 
 		then:
 		comicCollectionFullResponse.comicCollection.title == 'Convergence'

@@ -17,7 +17,7 @@ class SpeciesRestEndpointIntegrationTest extends AbstractSpeciesEndpointIntegrat
 
 	void "gets species by GUID"() {
 		when:
-		SpeciesFullResponse speciesFullResponse = stapiRestClient.speciesApi.speciesGet('SPMA0000039802')
+		SpeciesFullResponse speciesFullResponse = stapiRestClient.speciesApi.speciesGet('SPMA0000039802', null)
 
 		then:
 		speciesFullResponse.species.name == 'Q'
@@ -26,8 +26,8 @@ class SpeciesRestEndpointIntegrationTest extends AbstractSpeciesEndpointIntegrat
 	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "finds Species 8472 by it's properties"() {
 		when:
-		SpeciesBaseResponse speciesBaseResponse = stapiRestClient.speciesApi.speciesSearchPost(null, null, null, null, null, null, true, null, null,
-				null, true, null, true, true, null, null)
+		SpeciesBaseResponse speciesBaseResponse = stapiRestClient.speciesApi.speciesSearchPost(null, null, null, null,  null, null, null, true, null,
+				null, null, true, null, true, true, null, null)
 
 		then:
 		speciesBaseResponse.species.stream()

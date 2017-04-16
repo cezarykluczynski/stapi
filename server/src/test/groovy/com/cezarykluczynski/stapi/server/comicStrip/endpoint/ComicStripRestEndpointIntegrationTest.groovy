@@ -17,7 +17,7 @@ class ComicStripRestEndpointIntegrationTest extends AbstractComicStripEndpointIn
 
 	void "gets comic strip by GUID"() {
 		when:
-		ComicStripFullResponse comicStripFullResponse = stapiRestClient.comicStripApi.comicStripGet('CTMA0000056047')
+		ComicStripFullResponse comicStripFullResponse = stapiRestClient.comicStripApi.comicStripGet('CTMA0000056047', null)
 
 		then:
 		comicStripFullResponse.comicStrip.title == 'Called Home'
@@ -25,8 +25,8 @@ class ComicStripRestEndpointIntegrationTest extends AbstractComicStripEndpointIn
 
 	void "finds comic strips by title"() {
 		when:
-		ComicStripBaseResponse comicStripBaseResponse = stapiRestClient.comicStripApi.comicStripSearchPost(0, 0, null, 'Aberration on Abaris', null,
-				null, null, null, null, null)
+		ComicStripBaseResponse comicStripBaseResponse = stapiRestClient.comicStripApi.comicStripSearchPost(0, 0, null, null,  'Aberration on Abaris',
+				null, null, null, null, null, null)
 
 		then:
 		comicStripBaseResponse.comicStrips[0].guid == 'CTMA0000056090'

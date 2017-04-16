@@ -20,9 +20,8 @@ class CompanyRestEndpointIntegrationTest extends AbstractCompanyEndpointIntegrat
 	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "gets CBS-related broadcasters"() {
 		when:
-		CompanyBaseResponse companyResponse = stapiRestClient.companyApi
-				.companySearchPost(0, 20, null, 'CBS', true, false, false, false, false, false, false, false, false, false, false, false, false,
-				false, false, false, false)
+		CompanyBaseResponse companyResponse = stapiRestClient.companyApi.companySearchPost(0, 20, null, null, 'CBS', true, false, false, false, false,
+				false, false, false, false, false, false, false, false, false, false, false, false)
 		List<String> companyNameList = companyResponse.companies
 				.stream()
 				.map({ company -> company.name })
@@ -35,7 +34,7 @@ class CompanyRestEndpointIntegrationTest extends AbstractCompanyEndpointIntegrat
 
 	void "gets company by GUID"() {
 		when:
-		CompanyFullResponse companyFullResponse = stapiRestClient.companyApi.companyGet('COMA0000006521')
+		CompanyFullResponse companyFullResponse = stapiRestClient.companyApi.companyGet('COMA0000006521', null)
 
 		then:
 		companyFullResponse.company.name == 'NBC'
