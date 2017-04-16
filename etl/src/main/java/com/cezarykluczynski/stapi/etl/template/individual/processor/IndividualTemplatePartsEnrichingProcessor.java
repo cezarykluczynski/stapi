@@ -36,6 +36,7 @@ public class IndividualTemplatePartsEnrichingProcessor implements ItemEnrichingP
 	private CharacterSpeciesWikitextProcessor characterSpeciesWikitextProcessor;
 
 	@Inject
+	@SuppressWarnings("ParameterNumber")
 	public IndividualTemplatePartsEnrichingProcessor(PartToGenderProcessor partToGenderProcessor,
 			IndividualLifeBoundaryProcessor individualLifeBoundaryProcessor,
 			IndividualTemplateActorLinkingProcessor individualTemplateActorLinkingProcessor, IndividualHeightProcessor individualHeightProcessor,

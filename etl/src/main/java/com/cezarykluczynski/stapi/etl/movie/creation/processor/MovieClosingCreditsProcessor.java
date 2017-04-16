@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
 
 @Service
 @Slf4j
+@SuppressWarnings("MultipleStringLiterals")
 public class MovieClosingCreditsProcessor implements ItemProcessor<Page, List<PageSection>> {
 
 	private static final List<String> SKIPPABLE_PAGE_SECTION_LINE_LIST = Lists.newArrayList(

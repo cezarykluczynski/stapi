@@ -10,6 +10,7 @@ import javax.ws.rs.ext.Provider;
 
 @Provider
 @Produces(MediaType.APPLICATION_JSON)
+@SuppressWarnings("AbbreviationAsWordInName")
 public class MissingGUIDExceptionMapper implements ExceptionMapper<MissingGUIDException> {
 
 	@Override

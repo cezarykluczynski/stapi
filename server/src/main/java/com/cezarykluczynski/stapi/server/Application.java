@@ -26,6 +26,7 @@ import org.springframework.context.annotation.Import;
 		JmxAutoConfiguration.class, LiquibaseAutoConfiguration.class})
 public class Application extends SpringBootServletInitializer {
 
+	@SuppressWarnings("UncommentedMain")
 	public static void main(String[] args) {
 		produceSpringApplicationBuilder().run(args);
 	}

@@ -16,6 +16,7 @@ import java.util.Set;
 
 @Service
 @Slf4j
+@SuppressWarnings("MultipleStringLiterals")
 public class MovieLinkedTitlesProcessor implements ItemProcessor<List<PageSection>, MovieLinkedTitlesDTO> {
 
 	private static final List<String> IGNORABLE_SECTION_EXACT_TITLE_LIST = Lists.newArrayList("Score Recorded and Mixed at",

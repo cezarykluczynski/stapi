@@ -7,12 +7,7 @@
 <suppressions>
 	<suppress files="[\\/]generated[\\/]|_" checks="."/>
 	<suppress files=".+RestBeanParams\.java" checks="FileLength|MethodCount"/>
-	<suppress files=".+MovieClosingCreditsProcessor\.java" checks="MultipleStringLiterals"/>
-	<suppress files=".+MovieLinkedTitlesProcessor\.java" checks="MultipleStringLiterals"/>
-	<suppress files=".+IndividualTemplatePartsEnrichingProcessor\.java" checks="ParameterNumber"/>
 	<suppress files=".+query[\\/]QueryBuilder\.java" checks="FileLength"/>
 	<suppress files=".+EtlJobConfiguration\.java" checks="FileLength"/>
-	<suppress files="[\\/]Application\.java" checks="UncommentedMain"/>
 	<suppress files="com[\\/]cezarykluczynski[\\/]stapi[\\/]client[\\/]" checks="ClassFanOutComplexity"/>
-	<suppress files="[\\/]MissingGUIDException" checks="AbbreviationAsWordInName"/>
 </suppressions>
