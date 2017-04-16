@@ -36,7 +36,7 @@
 			<column name="audiobook_published_year" type="int"/>
 			<column name="audiobook_published_month" type="int"/>
 			<column name="audiobook_published_day" type="int"/>
-
+			<column name="production_number" type="varchar(32)"/>
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="book_sequence"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"

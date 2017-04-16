@@ -89,6 +89,8 @@ public class Book extends PageAwareEntity implements PageAware {
 
 	private Integer audiobookPublishedDay;
 
+	private String productionNumber;
+
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "books_authors",
 			joinColumns = @JoinColumn(name = "book_id", nullable = false, updatable = false),

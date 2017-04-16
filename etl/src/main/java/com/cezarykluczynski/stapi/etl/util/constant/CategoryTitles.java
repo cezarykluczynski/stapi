@@ -163,4 +163,14 @@ public class CategoryTitles {
 			CategoryTitle.PERSONNEL_LISTS
 	);
 
+	public static final List<String> BOOKS = Lists.newArrayList(
+			CategoryTitle.NOVELS,
+			CategoryTitle.E_BOOKS,
+			CategoryTitle.AUDIOBOOKS,
+			CategoryTitle.NOVELIZATIONS,
+			CategoryTitle.ANTHOLOGIES,
+			CategoryTitle.REFERENCE_BOOKS,
+			CategoryTitle.BIOGRAPHY_BOOKS
+	);
+
 }

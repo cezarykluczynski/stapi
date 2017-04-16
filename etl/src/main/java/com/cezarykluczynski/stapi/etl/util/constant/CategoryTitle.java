@@ -225,4 +225,11 @@ public class CategoryTitle {
 	public static final String JUICES = "Juices";
 	public static final String TEA = "Tea";
 
+	public static final String NOVELS = "Novels";
+	public static final String E_BOOKS = "EBooks";
+	public static final String AUDIOBOOKS = "Audiobooks";
+	public static final String NOVELIZATIONS = "Novelizations";
+	public static final String ANTHOLOGIES = "Anthologies";
+	public static final String REFERENCE_BOOKS = "Reference_books";
+	public static final String BIOGRAPHY_BOOKS = "Biography_books";
 }
