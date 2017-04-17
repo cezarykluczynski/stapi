@@ -45,4 +45,6 @@ public class StepsProperties {
 
 	private StepProperties createLocations;
 
+	private StepProperties createBooks;
+
 }

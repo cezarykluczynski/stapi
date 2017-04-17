@@ -35,7 +35,7 @@ public class BookCreationConfiguration {
 	public BookReader bookReader() {
 		List<PageHeader> bookList = Lists.newArrayList();
 
-		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_COMICS)) {
+		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_BOOKS)) {
 			bookList.addAll(categoryApi.getPages(CategoryTitles.BOOKS, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 

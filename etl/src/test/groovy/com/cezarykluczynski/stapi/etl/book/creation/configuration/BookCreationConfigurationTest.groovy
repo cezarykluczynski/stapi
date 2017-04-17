@@ -38,7 +38,7 @@ class BookCreationConfigurationTest extends AbstractCreationConfigurationTest {
 		List<String> categoryHeaderTitleList = readerToList(bookReader)
 
 		then:
-		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_COMICS) >> false
+		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_BOOKS) >> false
 		1 * categoryApiMock.getPages(CategoryTitles.BOOKS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_BOOKS)
 		0 * _
 		categoryHeaderTitleList.contains TITLE_BOOKS
@@ -50,7 +50,7 @@ class BookCreationConfigurationTest extends AbstractCreationConfigurationTest {
 		List<String> categoryHeaderTitleList = readerToList(bookReader)
 
 		then:
-		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_COMICS) >> true
+		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_BOOKS) >> true
 		0 * _
 		categoryHeaderTitleList.empty
 	}

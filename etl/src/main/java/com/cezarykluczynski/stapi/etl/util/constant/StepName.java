@@ -20,5 +20,6 @@ public class StepName {
 	public static final String CREATE_ORGANIZATIONS = "CREATE_ORGANIZATIONS";
 	public static final String CREATE_FOODS = "CREATE_FOODS";
 	public static final String CREATE_LOCATIONS = "CREATE_LOCATIONS";
+	public static final String CREATE_BOOKS = "CREATE_BOOKS";
 
 }
