@@ -19,5 +19,6 @@ public class BookTemplateParameter {
 	public static final String AUDIOBOOK_PUBLISHER = "abpublisher";
 	public static final String AUDIOBOOK_PUBLISHED = "abpublished";
 	public static final String AUDIOBOOK_ISBN = "abisbn";
+	public static final String PRODUCTION = "production";
 
 }
