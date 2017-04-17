@@ -68,9 +68,9 @@ public class Book extends PageAwareEntity implements PageAware {
 
 	private Boolean referenceBook;
 
-	private Boolean rolePlayingBook;
-
 	private Boolean biographyBook;
+
+	private Boolean rolePlayingBook;
 
 	@SuppressWarnings("MemberName")
 	private Boolean eBook;

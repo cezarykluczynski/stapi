@@ -23,7 +23,7 @@ class PerformerCategoriesActorTemplateEnrichingProcessorTest extends Specificati
 	}
 
 	@Unroll('set #flagName flag when #categoryHeaderList is passed')
-	void "set flagName when categoryHeaderList is passed"() {
+	void "sets flagName when categoryHeaderList is passed"() {
 		given:
 		categoryTitlesExtractingProcessorMock.process(_ as List<CategoryHeader>) >> {
 			List<CategoryHeader> categoryHeaderList -> Lists.newArrayList(categoryHeaderList[0].title)

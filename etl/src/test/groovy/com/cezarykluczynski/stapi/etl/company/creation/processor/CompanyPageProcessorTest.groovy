@@ -45,7 +45,7 @@ class CompanyPageProcessorTest extends Specification {
 
 	@SuppressWarnings('LineLength')
 	@Unroll('set #flagName flag when #page is passed; expect #trueBooleans not null fields')
-	void "set flagName when page is passed"() {
+	void "sets flagName when page is passed"() {
 		given:
 		categoryTitlesExtractingProcessorMock.process(_ as List<CategoryHeader>) >> {
 			List<CategoryHeader> categoryHeaderList -> Lists.newArrayList(categoryHeaderList[0].title)

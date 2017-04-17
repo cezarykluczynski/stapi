@@ -26,8 +26,8 @@
 			<column name="year_to" type="int"/>
 			<column name="novel" type="boolean"/>
 			<column name="reference_book" type="boolean"/>
-			<column name="role_playing_book" type="boolean"/>
 			<column name="biography_book" type="boolean"/>
+			<column name="role_playing_book" type="boolean"/>
 			<column name="e_book" type="boolean"/>
 			<column name="anthology" type="boolean"/>
 			<column name="novelization" type="boolean"/>

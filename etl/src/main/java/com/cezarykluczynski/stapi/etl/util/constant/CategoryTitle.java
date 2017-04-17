@@ -232,4 +232,5 @@ public class CategoryTitle {
 	public static final String ANTHOLOGIES = "Anthologies";
 	public static final String REFERENCE_BOOKS = "Reference_books";
 	public static final String BIOGRAPHY_BOOKS = "Biography_books";
+	public static final String ROLE_PLAYING_GAMES = "Role-playing_games";
 }

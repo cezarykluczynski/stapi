@@ -27,8 +27,8 @@ abstract class AbstractBookTest extends Specification {
 	protected static final Integer YEAR_TO = 2351
 	protected static final boolean NOVEL = LogicUtil.nextBoolean()
 	protected static final boolean REFERENCE_BOOK = LogicUtil.nextBoolean()
-	protected static final boolean ROLE_PLAYING_BOOK = LogicUtil.nextBoolean()
 	protected static final boolean BIOGRAPHY_BOOK = LogicUtil.nextBoolean()
+	protected static final boolean ROLE_PLAYING_BOOK = LogicUtil.nextBoolean()
 	protected static final boolean E_BOOK = LogicUtil.nextBoolean()
 	protected static final boolean ANTHOLOGY = LogicUtil.nextBoolean()
 	protected static final boolean NOVELIZATION = LogicUtil.nextBoolean()

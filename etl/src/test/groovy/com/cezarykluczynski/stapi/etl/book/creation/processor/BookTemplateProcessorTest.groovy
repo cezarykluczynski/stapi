@@ -58,8 +58,8 @@ class BookTemplateProcessorTest extends AbstractBookTest {
 				yearTo: YEAR_TO,
 				novel: NOVEL,
 				referenceBook: REFERENCE_BOOK,
-				rolePlayingBook: ROLE_PLAYING_BOOK,
 				biographyBook: BIOGRAPHY_BOOK,
+				rolePlayingBook: ROLE_PLAYING_BOOK,
 				eBook: E_BOOK,
 				anthology: ANTHOLOGY,
 				novelization: NOVELIZATION,
@@ -98,8 +98,8 @@ class BookTemplateProcessorTest extends AbstractBookTest {
 		book.yearTo == YEAR_TO
 		book.novel == NOVEL
 		book.referenceBook == REFERENCE_BOOK
-		book.rolePlayingBook == ROLE_PLAYING_BOOK
 		book.biographyBook == BIOGRAPHY_BOOK
+		book.rolePlayingBook == ROLE_PLAYING_BOOK
 		book.EBook == E_BOOK
 		book.anthology == ANTHOLOGY
 		book.novelization == NOVELIZATION

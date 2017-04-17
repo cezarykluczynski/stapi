@@ -170,7 +170,8 @@ public class CategoryTitles {
 			CategoryTitle.NOVELIZATIONS,
 			CategoryTitle.ANTHOLOGIES,
 			CategoryTitle.REFERENCE_BOOKS,
-			CategoryTitle.BIOGRAPHY_BOOKS
+			CategoryTitle.BIOGRAPHY_BOOKS,
+			CategoryTitle.ROLE_PLAYING_GAMES
 	);
 
 }
