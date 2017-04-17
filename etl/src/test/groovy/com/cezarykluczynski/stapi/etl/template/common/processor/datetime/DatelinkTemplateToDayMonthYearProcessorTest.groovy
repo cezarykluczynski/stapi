@@ -44,4 +44,19 @@ class DatelinkTemplateToDayMonthYearProcessorTest extends Specification {
 		dayMonthYear.day == DAY
 	}
 
+	void "returns null when DayMonthYearCandidateToLocalDateProcessor returns null"() {
+		given:
+		Template template = Mock()
+		DayMonthYearCandidate dayMonthYearCandidate = Mock()
+
+		when:
+		DayMonthYear dayMonthYear = datelinkTemplateToDayMonthYearProcessor.process(template)
+
+		then:
+		1 * datelinkTemplateToDayMonthYearCandiateProcessorMock.process(template) >> dayMonthYearCandidate
+		1 * dayMonthYearCandidateToLocalDateProcessorMock.process(dayMonthYearCandidate) >> null
+		0 * _
+		dayMonthYear == null
+	}
+
 }

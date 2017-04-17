@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.comics.processor
+package com.cezarykluczynski.stapi.etl.template.common.processor.datetime
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear
 import com.cezarykluczynski.stapi.etl.template.common.service.TemplateToDayMonthYearParser
@@ -8,19 +8,18 @@ import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
-class ComicsTemplatePartToDayMonthRangeProcessorTest extends Specification {
+class DatePartToDayMonthYearProcessorTest extends Specification {
 
 	private TemplateFilter templateFilterMock
 
 	private TemplateToDayMonthYearParser templateToDayMonthYearParserMock
 
-	private ComicsTemplatePartToDayMonthRangeProcessor comicsTemplatePartToDayMonthRangeProcessor
+	private DatePartToDayMonthYearProcessor datePartToDayMonthYearProcessorMock
 
 	void setup() {
 		templateFilterMock = Mock()
 		templateToDayMonthYearParserMock = Mock()
-		comicsTemplatePartToDayMonthRangeProcessor = new ComicsTemplatePartToDayMonthRangeProcessor(templateFilterMock,
-				templateToDayMonthYearParserMock)
+		datePartToDayMonthYearProcessorMock = new DatePartToDayMonthYearProcessor(templateFilterMock, templateToDayMonthYearParserMock)
 	}
 
 	void "when one datelink template is found in template part, it is used to to parse day month year"() {
@@ -31,7 +30,7 @@ class ComicsTemplatePartToDayMonthRangeProcessorTest extends Specification {
 		Template.Part templatePart = new Template.Part(templates: templateList)
 
 		when:
-		DayMonthYear dayMonthYearOutput = comicsTemplatePartToDayMonthRangeProcessor.process(templatePart)
+		DayMonthYear dayMonthYearOutput = datePartToDayMonthYearProcessorMock.process(templatePart)
 
 		then:
 		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.D, TemplateTitle.DATELINK) >> Lists.newArrayList(datelinkTemplate)
@@ -51,7 +50,7 @@ class ComicsTemplatePartToDayMonthRangeProcessorTest extends Specification {
 		Template.Part templatePart = new Template.Part(templates: templateList)
 
 		when:
-		DayMonthYear dayMonthYearOutput = comicsTemplatePartToDayMonthRangeProcessor.process(templatePart)
+		DayMonthYear dayMonthYearOutput = datePartToDayMonthYearProcessorMock.process(templatePart)
 
 		then:
 		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.D, TemplateTitle.DATELINK) >> Lists
@@ -71,7 +70,7 @@ class ComicsTemplatePartToDayMonthRangeProcessorTest extends Specification {
 		Template.Part templatePart = new Template.Part(templates: templateList)
 
 		when:
-		DayMonthYear dayMonthYearOutput = comicsTemplatePartToDayMonthRangeProcessor.process(templatePart)
+		DayMonthYear dayMonthYearOutput = datePartToDayMonthYearProcessorMock.process(templatePart)
 
 		then:
 		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.D, TemplateTitle.DATELINK) >> Lists.newArrayList()
@@ -91,7 +90,7 @@ class ComicsTemplatePartToDayMonthRangeProcessorTest extends Specification {
 		Template.Part templatePart = new Template.Part(templates: templateList)
 
 		when:
-		DayMonthYear dayMonthYearOutput = comicsTemplatePartToDayMonthRangeProcessor.process(templatePart)
+		DayMonthYear dayMonthYearOutput = datePartToDayMonthYearProcessorMock.process(templatePart)
 
 		then:
 		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.D, TemplateTitle.DATELINK) >> Lists.newArrayList()
@@ -111,7 +110,7 @@ class ComicsTemplatePartToDayMonthRangeProcessorTest extends Specification {
 		Template.Part templatePart = new Template.Part(templates: templateList)
 
 		when:
-		DayMonthYear dayMonthYearOutput = comicsTemplatePartToDayMonthRangeProcessor.process(templatePart)
+		DayMonthYear dayMonthYearOutput = datePartToDayMonthYearProcessorMock.process(templatePart)
 
 		then:
 		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.D, TemplateTitle.DATELINK) >> Lists.newArrayList()
@@ -131,7 +130,7 @@ class ComicsTemplatePartToDayMonthRangeProcessorTest extends Specification {
 		Template.Part templatePart = new Template.Part(templates: templateList)
 
 		when:
-		DayMonthYear dayMonthYearOutput = comicsTemplatePartToDayMonthRangeProcessor.process(templatePart)
+		DayMonthYear dayMonthYearOutput = datePartToDayMonthYearProcessorMock.process(templatePart)
 
 		then:
 		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.D, TemplateTitle.DATELINK) >> Lists.newArrayList()

@@ -60,32 +60,32 @@
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable tableName="book_artists">
+		<createTable tableName="books_artists">
 			<column name="book_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="book_id"
-				baseTableName="book_artists"
+				baseTableName="books_artists"
 				constraintName="bar_book_fkey"
 				referencedColumnNames="id"
 				referencedTableName="book"/>
 		<addForeignKeyConstraint baseColumnNames="staff_id"
-				baseTableName="book_artists"
+				baseTableName="books_artists"
 				constraintName="bar_artist_fkey"
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable tableName="book_editors">
+		<createTable tableName="books_editors">
 			<column name="book_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="book_id"
-				baseTableName="book_editors"
+				baseTableName="books_editors"
 				constraintName="be_book_fkey"
 				referencedColumnNames="id"
 				referencedTableName="book"/>
 		<addForeignKeyConstraint baseColumnNames="staff_id"
-				baseTableName="book_editors"
+				baseTableName="books_editors"
 				constraintName="be_editor_fkey"
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
@@ -105,77 +105,77 @@
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable tableName="book_publishers">
+		<createTable tableName="books_publishers">
 			<column name="book_id" type="bigint"/>
 			<column name="company_id" type="bigint"/>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="book_id"
-				baseTableName="book_publishers"
+				baseTableName="books_publishers"
 				constraintName="bp_book_fkey"
 				referencedColumnNames="id"
 				referencedTableName="book"/>
 		<addForeignKeyConstraint baseColumnNames="company_id"
-				baseTableName="book_publishers"
+				baseTableName="books_publishers"
 				constraintName="bp_publisher_fkey"
 				referencedColumnNames="id"
 				referencedTableName="company"/>
 
-		<createTable tableName="audiobook_publishers">
+		<createTable tableName="audiobooks_publishers">
 			<column name="book_id" type="bigint"/>
 			<column name="company_id" type="bigint"/>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="book_id"
-				baseTableName="audiobook_publishers"
+				baseTableName="audiobooks_publishers"
 				constraintName="abp_book_fkey"
 				referencedColumnNames="id"
 				referencedTableName="book"/>
 		<addForeignKeyConstraint baseColumnNames="company_id"
-				baseTableName="audiobook_publishers"
+				baseTableName="audiobooks_publishers"
 				constraintName="abp_publisher_fkey"
 				referencedColumnNames="id"
 				referencedTableName="company"/>
 
-		<createTable tableName="book_characters">
+		<createTable tableName="books_characters">
 			<column name="book_id" type="bigint"/>
 			<column name="character_id" type="bigint"/>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="book_id"
-				baseTableName="book_characters"
+				baseTableName="books_characters"
 				constraintName="bc_book_fkey"
 				referencedColumnNames="id"
 				referencedTableName="book"/>
 		<addForeignKeyConstraint baseColumnNames="character_id"
-				baseTableName="book_characters"
+				baseTableName="books_characters"
 				constraintName="bc_character_fkey"
 				referencedColumnNames="id"
 				referencedTableName="character"/>
 
-		<createTable tableName="book_references">
+		<createTable tableName="books_references">
 			<column name="book_id" type="bigint"/>
 			<column name="reference_id" type="bigint"/>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="book_id"
-				baseTableName="book_references"
+				baseTableName="books_references"
 				constraintName="br_book_fkey"
 				referencedColumnNames="id"
 				referencedTableName="book"/>
 		<addForeignKeyConstraint baseColumnNames="reference_id"
-				baseTableName="book_references"
+				baseTableName="books_references"
 				constraintName="br_reference_fkey"
 				referencedColumnNames="id"
 				referencedTableName="reference"/>
 
-		<createTable tableName="audiobook_references">
+		<createTable tableName="audiobooks_references">
 			<column name="book_id" type="bigint"/>
 			<column name="reference_id" type="bigint"/>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="book_id"
-				baseTableName="audiobook_references"
+				baseTableName="audiobooks_references"
 				constraintName="abr_book_fkey"
 				referencedColumnNames="id"
 				referencedTableName="book"/>
 		<addForeignKeyConstraint baseColumnNames="reference_id"
-				baseTableName="audiobook_references"
+				baseTableName="audiobooks_references"
 				constraintName="abr_reference_fkey"
 				referencedColumnNames="id"
 				referencedTableName="reference"/>

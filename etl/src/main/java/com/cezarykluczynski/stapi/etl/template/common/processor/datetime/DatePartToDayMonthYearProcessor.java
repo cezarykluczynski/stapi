@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.comics.processor;
+package com.cezarykluczynski.stapi.etl.template.common.processor.datetime;
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear;
 import com.cezarykluczynski.stapi.etl.template.common.service.TemplateToDayMonthYearParser;
@@ -14,14 +14,14 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class ComicsTemplatePartToDayMonthRangeProcessor implements ItemProcessor<Template.Part, DayMonthYear> {
+public class DatePartToDayMonthYearProcessor implements ItemProcessor<Template.Part, DayMonthYear> {
 
 	private TemplateFilter templateFilter;
 
 	private TemplateToDayMonthYearParser templateToDayMonthYearParser;
 
 	@Inject
-	public ComicsTemplatePartToDayMonthRangeProcessor(TemplateFilter templateFilter, TemplateToDayMonthYearParser templateToDayMonthYearParser) {
+	public DatePartToDayMonthYearProcessor(TemplateFilter templateFilter, TemplateToDayMonthYearParser templateToDayMonthYearParser) {
 		this.templateFilter = templateFilter;
 		this.templateToDayMonthYearParser = templateToDayMonthYearParser;
 	}

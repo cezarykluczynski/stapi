@@ -25,7 +25,7 @@ class BookTemplatePageProcessorTest extends Specification {
 
 	private CategoriesBookTemplateEnrichingProcessor categoriesBookTemplateEnrichingProcessorMock
 
-	private BookTemplateCompositeEnrichingProcessor bookTemplateCompositeEnrichingProcessorMock
+	private BookTemplatePartsEnrichingProcessor bookTemplatePartsEnrichingProcessorMock
 
 	private BookTemplatePageProcessor bookTemplatePageProcessor
 
@@ -34,9 +34,9 @@ class BookTemplatePageProcessorTest extends Specification {
 		pageBindingServiceMock = Mock()
 		templateFinderMock = Mock()
 		categoriesBookTemplateEnrichingProcessorMock = Mock()
-		bookTemplateCompositeEnrichingProcessorMock = Mock()
+		bookTemplatePartsEnrichingProcessorMock = Mock()
 		bookTemplatePageProcessor = new BookTemplatePageProcessor(bookPageFilterMock, pageBindingServiceMock, templateFinderMock,
-				categoriesBookTemplateEnrichingProcessorMock, bookTemplateCompositeEnrichingProcessorMock)
+				categoriesBookTemplateEnrichingProcessorMock, bookTemplatePartsEnrichingProcessorMock)
 	}
 
 	void "returns null when BookPageFilter returns true"() {
@@ -87,7 +87,9 @@ class BookTemplatePageProcessorTest extends Specification {
 				title: TITLE,
 				categories: categoryHeaderList)
 		ModelPage modelPage = new ModelPage()
-		Template sidebarBookTemplate = Mock()
+		Template.Part templatePart = Mock()
+		List<Template.Part> templatePartList = Lists.newArrayList(templatePart)
+		Template sidebarBookTemplate = new Template(parts: templatePartList)
 
 		when:
 		BookTemplate bookTemplate = bookTemplatePageProcessor.process(page)
@@ -102,8 +104,8 @@ class BookTemplatePageProcessorTest extends Specification {
 		}
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_NOVEL, TemplateTitle.SIDEBAR_REFERENCE_BOOK, TemplateTitle.SIDEBAR_RPG_BOOK,
 				TemplateTitle.SIDEBAR_BIOGRAPHY_BOOK) >> Optional.of(sidebarBookTemplate)
-		1 * bookTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair<Template, BookTemplate> enrichablePair ->
-			assert enrichablePair.input == sidebarBookTemplate
+		1 * bookTemplatePartsEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair<Template, BookTemplate> enrichablePair ->
+			assert enrichablePair.input == templatePartList
 			assert enrichablePair.output != null
 		}
 		0 * _

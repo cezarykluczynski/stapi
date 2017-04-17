@@ -120,7 +120,7 @@ public class Book extends PageAwareEntity implements PageAware {
 	private Set<Staff> audiobookNarrators = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "book_publishers",
+	@JoinTable(name = "books_publishers",
 			joinColumns = @JoinColumn(name = "book_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "company_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

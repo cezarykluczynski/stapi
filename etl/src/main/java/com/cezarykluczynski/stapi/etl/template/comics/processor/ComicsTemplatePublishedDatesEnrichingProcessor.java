@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate;
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear;
+import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DatePartToDayMonthYearProcessor;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +14,11 @@ import javax.inject.Inject;
 @Service
 public class ComicsTemplatePublishedDatesEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template.Part, ComicsTemplate>> {
 
-	private ComicsTemplatePartToDayMonthRangeProcessor comicsTemplatePartToDayMonthRangeProcessor;
+	private DatePartToDayMonthYearProcessor datePartToDayMonthYearProcessor;
 
 	@Inject
-	public ComicsTemplatePublishedDatesEnrichingProcessor(ComicsTemplatePartToDayMonthRangeProcessor comicsTemplatePartToDayMonthRangeProcessor) {
-		this.comicsTemplatePartToDayMonthRangeProcessor = comicsTemplatePartToDayMonthRangeProcessor;
+	public ComicsTemplatePublishedDatesEnrichingProcessor(DatePartToDayMonthYearProcessor datePartToDayMonthYearProcessor) {
+		this.datePartToDayMonthYearProcessor = datePartToDayMonthYearProcessor;
 	}
 
 	@Override
@@ -26,7 +27,7 @@ public class ComicsTemplatePublishedDatesEnrichingProcessor implements ItemEnric
 		ComicsTemplate comicsTemplate = enrichablePair.getOutput();
 		String templatePartKey = templatePart.getKey();
 
-		DayMonthYear dayMonthYear = comicsTemplatePartToDayMonthRangeProcessor.process(templatePart);
+		DayMonthYear dayMonthYear = datePartToDayMonthYearProcessor.process(templatePart);
 
 		if (dayMonthYear == null) {
 			return;

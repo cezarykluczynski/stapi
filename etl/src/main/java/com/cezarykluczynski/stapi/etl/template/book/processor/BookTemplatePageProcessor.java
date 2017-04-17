@@ -25,17 +25,17 @@ public class BookTemplatePageProcessor implements ItemProcessor<Page, BookTempla
 
 	private final CategoriesBookTemplateEnrichingProcessor categoriesBookTemplateEnrichingProcessor;
 
-	private final BookTemplateCompositeEnrichingProcessor bookTemplateCompositeEnrichingProcessor;
+	private final BookTemplatePartsEnrichingProcessor bookTemplatePartsEnrichingProcessor;
 
 	@Inject
 	public BookTemplatePageProcessor(BookPageFilter bookPageFilter, PageBindingService pageBindingService, TemplateFinder templateFinder,
 			CategoriesBookTemplateEnrichingProcessor categoriesBookTemplateEnrichingProcessor,
-			BookTemplateCompositeEnrichingProcessor bookTemplateCompositeEnrichingProcessor) {
+			BookTemplatePartsEnrichingProcessor bookTemplatePartsEnrichingProcessor) {
 		this.bookPageFilter = bookPageFilter;
 		this.pageBindingService = pageBindingService;
 		this.templateFinder = templateFinder;
 		this.categoriesBookTemplateEnrichingProcessor = categoriesBookTemplateEnrichingProcessor;
-		this.bookTemplateCompositeEnrichingProcessor = bookTemplateCompositeEnrichingProcessor;
+		this.bookTemplatePartsEnrichingProcessor = bookTemplatePartsEnrichingProcessor;
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class BookTemplatePageProcessor implements ItemProcessor<Page, BookTempla
 				TemplateTitle.SIDEBAR_REFERENCE_BOOK, TemplateTitle.SIDEBAR_RPG_BOOK, TemplateTitle.SIDEBAR_BIOGRAPHY_BOOK);
 
 		if (sidebarBookTemplateOptional.isPresent()) {
-			bookTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(sidebarBookTemplateOptional.get(), bookTemplate));
+			bookTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(sidebarBookTemplateOptional.get().getParts(), bookTemplate));
 		}
 
 		return bookTemplate;

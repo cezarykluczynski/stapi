@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear
+import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DatePartToDayMonthYearProcessor
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import spock.lang.Specification
 
@@ -13,14 +14,14 @@ class ComicsTemplatePublishedDatesEnrichingProcessorTest extends Specification {
 	private static final Integer MONTH = 10
 	private static final Integer DAY = 19
 
-	private ComicsTemplatePartToDayMonthRangeProcessor comicsTemplatePartToDayMonthRangeProcessorMock
+	private DatePartToDayMonthYearProcessor datePartToDayMonthYearProcessorMock
 
 	private ComicsTemplatePublishedDatesEnrichingProcessor comicsTemplatePublishedDatesEnrichingProcessor
 
 	void setup () {
-		comicsTemplatePartToDayMonthRangeProcessorMock = Mock()
+		datePartToDayMonthYearProcessorMock = Mock()
 		comicsTemplatePublishedDatesEnrichingProcessor = new ComicsTemplatePublishedDatesEnrichingProcessor(
-				comicsTemplatePartToDayMonthRangeProcessorMock)
+				datePartToDayMonthYearProcessorMock)
 	}
 
 	void "when DayMonthYear is null, ComicsTemplate is not interacted with"() {
@@ -32,7 +33,7 @@ class ComicsTemplatePublishedDatesEnrichingProcessorTest extends Specification {
 		comicsTemplatePublishedDatesEnrichingProcessor.enrich(EnrichablePair.of(templatePart, comicsTemplate))
 
 		then:
-		1 * comicsTemplatePartToDayMonthRangeProcessorMock.process(templatePart)
+		1 * datePartToDayMonthYearProcessorMock.process(templatePart)
 		0 * _
 	}
 
@@ -46,7 +47,7 @@ class ComicsTemplatePublishedDatesEnrichingProcessorTest extends Specification {
 		comicsTemplatePublishedDatesEnrichingProcessor.enrich(EnrichablePair.of(templatePart, comicsTemplate))
 
 		then:
-		1 * comicsTemplatePartToDayMonthRangeProcessorMock.process(templatePart) >> dayMonthYear
+		1 * datePartToDayMonthYearProcessorMock.process(templatePart) >> dayMonthYear
 		0 * _
 		comicsTemplate.publishedYear == YEAR
 		comicsTemplate.publishedMonth == MONTH
@@ -66,7 +67,7 @@ class ComicsTemplatePublishedDatesEnrichingProcessorTest extends Specification {
 		comicsTemplatePublishedDatesEnrichingProcessor.enrich(EnrichablePair.of(templatePart, comicsTemplate))
 
 		then:
-		1 * comicsTemplatePartToDayMonthRangeProcessorMock.process(templatePart) >> dayMonthYear
+		1 * datePartToDayMonthYearProcessorMock.process(templatePart) >> dayMonthYear
 		0 * _
 		comicsTemplate.coverYear == YEAR
 		comicsTemplate.coverMonth == MONTH
@@ -86,7 +87,7 @@ class ComicsTemplatePublishedDatesEnrichingProcessorTest extends Specification {
 		comicsTemplatePublishedDatesEnrichingProcessor.enrich(EnrichablePair.of(templatePart, comicsTemplate))
 
 		then:
-		1 * comicsTemplatePartToDayMonthRangeProcessorMock.process(templatePart) >> dayMonthYear
+		1 * datePartToDayMonthYearProcessorMock.process(templatePart) >> dayMonthYear
 		0 * _
 	}
 

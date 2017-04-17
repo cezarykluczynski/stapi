@@ -2,44 +2,32 @@ package com.cezarykluczynski.stapi.etl.template.comics.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
-import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService;
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextStaffProcessor;
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate;
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplateParameter;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.google.common.collect.Sets;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.List;
 import java.util.Set;
 
 @Service
 public class ComicsTemplatePartStaffEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template.Part, ComicsTemplate>> {
 
-	private WikitextApi wikitextApi;
-
-	private EntityLookupByNameService entityLookupByNameService;
+	private final WikitextStaffProcessor wikitextStaffProcessor;
 
 	@Inject
-	public ComicsTemplatePartStaffEnrichingProcessor(WikitextApi wikitextApi, EntityLookupByNameService entityLookupByNameService) {
-		this.wikitextApi = wikitextApi;
-		this.entityLookupByNameService = entityLookupByNameService;
+	public ComicsTemplatePartStaffEnrichingProcessor(WikitextStaffProcessor wikitextStaffProcessor) {
+		this.wikitextStaffProcessor = wikitextStaffProcessor;
 	}
 
 	@Override
 	public void enrich(EnrichablePair<Template.Part, ComicsTemplate> enrichablePair) throws Exception {
 		Template.Part templatePart = enrichablePair.getInput();
 		ComicsTemplate comicsTemplate = enrichablePair.getOutput();
-		List<String> pageTitleList = wikitextApi.getPageTitlesFromWikitext(templatePart.getValue());
-		Set<Staff> staffSet = Sets.newHashSet();
+		Set<Staff> staffSet = wikitextStaffProcessor.process(templatePart.getValue());
 		String templatePartKey = templatePart.getKey();
-
-		pageTitleList.forEach(pageLink -> entityLookupByNameService
-				.findStaffByName(pageLink, MediaWikiSource.MEMORY_ALPHA_EN)
-				.ifPresent(staffSet::add));
 
 		if (ComicsTemplateParameter.WRITER.equals(templatePartKey)) {
 			comicsTemplate.getWriters().addAll(staffSet);

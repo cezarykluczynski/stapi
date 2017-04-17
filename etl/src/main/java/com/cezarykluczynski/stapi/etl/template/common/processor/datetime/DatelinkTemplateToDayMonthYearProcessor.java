@@ -28,6 +28,10 @@ public class DatelinkTemplateToDayMonthYearProcessor implements ItemProcessor<Te
 		DayMonthYearCandidate dayMonthYearCandidate = datelinkTemplateToDayMonthYearCandiateProcessor.process(item);
 		LocalDate localDate = dayMonthYearCandidateToLocalDateProcessor.process(dayMonthYearCandidate);
 
+		if (localDate == null) {
+			return null;
+		}
+
 		DayMonthYear dayMonthYear = new DayMonthYear();
 		dayMonthYear.setDay(localDate.getDayOfMonth());
 		dayMonthYear.setMonth(localDate.getMonthValue());
