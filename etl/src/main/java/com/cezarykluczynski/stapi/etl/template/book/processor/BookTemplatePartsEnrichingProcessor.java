@@ -3,9 +3,16 @@ package com.cezarykluczynski.stapi.etl.template.book.processor;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor;
+import com.cezarykluczynski.stapi.etl.reference.processor.ReferencesFromTemplatePartProcessor;
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplate;
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplateParameter;
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange;
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange;
+import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToStardateRangeProcessor;
+import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToYearRangeProcessor;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
+import com.google.common.primitives.Ints;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -14,22 +21,36 @@ import java.util.List;
 @Service
 public class BookTemplatePartsEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<List<Template.Part>, BookTemplate>> {
 
+	private static final String YES = "yes";
+
 	private final BookTemplatePartStaffEnrichingProcessor bookTemplatePartStaffEnrichingProcessor;
 
 	private final WikitextToCompaniesProcessor wikitextToCompaniesProcessor;
 
 	private final BookTemplatePublishedDatesEnrichingProcessor bookTemplatePublishedDatesEnrichingProcessor;
 
+	private final WikitextToYearRangeProcessor wikitextToYearRangeProcessor;
+
+	private final WikitextToStardateRangeProcessor wikitextToStardateRangeProcessor;
+
+	private final ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor;
+
 	@Inject
 	public BookTemplatePartsEnrichingProcessor(BookTemplatePartStaffEnrichingProcessor bookTemplatePartStaffEnrichingProcessor,
 			WikitextToCompaniesProcessor wikitextToCompaniesProcessor,
-			BookTemplatePublishedDatesEnrichingProcessor bookTemplatePublishedDatesEnrichingProcessor) {
+			BookTemplatePublishedDatesEnrichingProcessor bookTemplatePublishedDatesEnrichingProcessor,
+			WikitextToYearRangeProcessor wikitextToYearRangeProcessor, WikitextToStardateRangeProcessor wikitextToStardateRangeProcessor,
+			ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor) {
 		this.bookTemplatePartStaffEnrichingProcessor = bookTemplatePartStaffEnrichingProcessor;
 		this.wikitextToCompaniesProcessor = wikitextToCompaniesProcessor;
 		this.bookTemplatePublishedDatesEnrichingProcessor = bookTemplatePublishedDatesEnrichingProcessor;
+		this.wikitextToYearRangeProcessor = wikitextToYearRangeProcessor;
+		this.wikitextToStardateRangeProcessor = wikitextToStardateRangeProcessor;
+		this.referencesFromTemplatePartProcessor = referencesFromTemplatePartProcessor;
 	}
 
 	@Override
+	@SuppressWarnings("CyclomaticComplexity")
 	public void enrich(EnrichablePair<List<Template.Part>, BookTemplate> enrichablePair) throws Exception {
 		BookTemplate bookTemplate = enrichablePair.getOutput();
 
@@ -54,17 +75,43 @@ public class BookTemplatePartsEnrichingProcessor implements ItemEnrichingProcess
 				case BookTemplateParameter.AUDIOBOOK_PUBLISHED:
 					bookTemplatePublishedDatesEnrichingProcessor.enrich(EnrichablePair.of(part, bookTemplate));
 					break;
-				case BookTemplateParameter.SERIES:
 				case BookTemplateParameter.PAGES:
+					bookTemplate.setNumberOfPages(Ints.tryParse(value));
+					break;
 				case BookTemplateParameter.YEAR:
+					YearRange yearRange = wikitextToYearRangeProcessor.process(value);
+					if (yearRange != null) {
+						bookTemplate.setYearFrom(yearRange.getYearFrom());
+						bookTemplate.setYearTo(yearRange.getYearTo());
+					}
+					break;
 				case BookTemplateParameter.STARDATE:
-				case BookTemplateParameter.ISBN:
-				case BookTemplateParameter.AUDIOBOOK:
-				case BookTemplateParameter.AUDIOBOOK_ABRIDGED:
-				case BookTemplateParameter.AUDIOBOOK_RUN_TIME:
-				case BookTemplateParameter.AUDIOBOOK_ISBN:
-				case BookTemplateParameter.PRODUCTION:
+					StardateRange stardateRange = wikitextToStardateRangeProcessor.process(value);
+					if (stardateRange != null) {
+						bookTemplate.setStardateFrom(stardateRange.getStardateFrom());
+						bookTemplate.setStardateTo(stardateRange.getStardateTo());
+					}
+					break;
+				case BookTemplateParameter.SERIES:
 					// TODO
+					break;
+				case BookTemplateParameter.ISBN:
+					bookTemplate.getReferences().addAll(referencesFromTemplatePartProcessor.process(part));
+					break;
+				case BookTemplateParameter.AUDIOBOOK_ISBN:
+					bookTemplate.getAudiobookReferences().addAll(referencesFromTemplatePartProcessor.process(part));
+					break;
+				case BookTemplateParameter.AUDIOBOOK_RUN_TIME:
+					// TODO
+					break;
+				case BookTemplateParameter.AUDIOBOOK:
+					bookTemplate.setAudiobook(Boolean.TRUE.equals(bookTemplate.getAudiobook()) || StringUtils.equalsIgnoreCase(YES, value));
+					break;
+				case BookTemplateParameter.AUDIOBOOK_ABRIDGED:
+					bookTemplate.setAudiobookAbridged(StringUtils.equalsIgnoreCase(YES, value));
+					break;
+				case BookTemplateParameter.PRODUCTION:
+					bookTemplate.setProductionNumber(value);
 					break;
 				default:
 					break;

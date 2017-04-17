@@ -36,6 +36,7 @@ public class CategoriesBookTemplateEnrichingProcessor implements ItemEnrichingPr
 		bookTemplate.setAnthology(categoryTitleList.contains(CategoryTitle.ANTHOLOGIES));
 		bookTemplate.setNovelization(categoryTitleList.contains(CategoryTitle.NOVELIZATIONS));
 		bookTemplate.setAudiobook(categoryTitleList.contains(CategoryTitle.AUDIOBOOKS));
+		bookTemplate.setAudiobookAbridged(false);
 	}
 
 }

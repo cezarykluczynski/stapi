@@ -2,10 +2,16 @@ package com.cezarykluczynski.stapi.etl.template.book.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor
+import com.cezarykluczynski.stapi.etl.reference.processor.ReferencesFromTemplatePartProcessor
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplate
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplate
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange
+import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToStardateRangeProcessor
+import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToYearRangeProcessor
 import com.cezarykluczynski.stapi.model.company.entity.Company
+import com.cezarykluczynski.stapi.model.reference.entity.Reference
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
@@ -21,6 +27,18 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 	private static final String AUDIOBOOK_PUBLISHER = 'AUDIOBOOK_PUBLISHER'
 	private static final String PUBLISHED = 'PUBLISHED'
 	private static final String AUDIOBOOK_PUBLISHED = 'AUDIOBOOK_PUBLISHED'
+	private static final String YEARS = '1995-1997'
+	private static final Integer YEAR_FROM = 1995
+	private static final Integer YEAR_TO = 1997
+	private static final String PAGES_STRING = '32'
+	private static final Integer PAGES_INTEGER = 32
+	private static final String STARDATES = '1995-1997'
+	private static final Float STARDATE_FROM = 123.4F
+	private static final Float STARDATE_TO = 456.7F
+	private static final String REFERENCE = 'REFERENCE'
+	private static final String AUDIOBOOK_REFERENCE = 'AUDIOBOOK_REFERENCE'
+	private static final String YES = 'YES'
+	private static final String PRODUCTION_NUMBER = 'PRODUCTION_NUMBER'
 
 	private BookTemplatePartStaffEnrichingProcessor bookTemplatePartStaffEnrichingProcessorMock
 
@@ -28,14 +46,24 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 
 	private BookTemplatePublishedDatesEnrichingProcessor bookTemplatePublishedDatesEnrichingProcessorMock
 
+	private WikitextToYearRangeProcessor wikitextToYearRangeProcessorMock
+
+	private WikitextToStardateRangeProcessor wikitextToStardateRangeProcessorMock
+
+	private ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessorMock
+
 	private BookTemplatePartsEnrichingProcessor bookTemplatePartsEnrichingProcessor
 
 	void setup() {
 		bookTemplatePartStaffEnrichingProcessorMock = Mock()
 		wikitextToCompaniesProcessorMock = Mock()
 		bookTemplatePublishedDatesEnrichingProcessorMock = Mock()
+		wikitextToYearRangeProcessorMock = Mock()
+		wikitextToStardateRangeProcessorMock = Mock()
+		referencesFromTemplatePartProcessorMock = Mock()
 		bookTemplatePartsEnrichingProcessor = new BookTemplatePartsEnrichingProcessor(bookTemplatePartStaffEnrichingProcessorMock,
-				wikitextToCompaniesProcessorMock, bookTemplatePublishedDatesEnrichingProcessorMock)
+				wikitextToCompaniesProcessorMock, bookTemplatePublishedDatesEnrichingProcessorMock, wikitextToYearRangeProcessorMock,
+				wikitextToStardateRangeProcessorMock, referencesFromTemplatePartProcessorMock)
 	}
 
 	void "passes BookTemplate to BookTemplatePartStaffEnrichingProcessor when author part is found"() {
@@ -170,6 +198,126 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 				assert enrichablePair.output != null
 		}
 		0 * _
+	}
+
+	void "sets number of pages"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: BookTemplateParameter.PAGES, value: PAGES_STRING)
+		BookTemplate bookTemplate = new BookTemplate()
+
+		when:
+		bookTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), bookTemplate))
+
+		then:
+		0 * _
+		bookTemplate.numberOfPages == PAGES_INTEGER
+	}
+
+	void "sets year from and year to from WikitextToYearRangeProcessor"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: BookTemplateParameter.YEAR, value: YEARS)
+		BookTemplate bookTemplate = new BookTemplate()
+		YearRange yearRange = new YearRange(yearFrom: YEAR_FROM, yearTo: YEAR_TO)
+
+		when:
+		bookTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), bookTemplate))
+
+		then:
+		1 * wikitextToYearRangeProcessorMock.process(YEARS) >> yearRange
+		0 * _
+		bookTemplate.yearFrom == YEAR_FROM
+		bookTemplate.yearTo == YEAR_TO
+	}
+
+	void "sets stardate from and stardate to from WikitextToStardateRangeProcessor"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: BookTemplateParameter.STARDATE, value: STARDATES)
+		BookTemplate bookTemplate = new BookTemplate()
+		StardateRange stardateRange = new StardateRange(stardateFrom: STARDATE_FROM, stardateTo: STARDATE_TO)
+
+		when:
+		bookTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), bookTemplate))
+
+		then:
+		1 * wikitextToStardateRangeProcessorMock.process(STARDATES) >> stardateRange
+		0 * _
+		bookTemplate.stardateFrom == STARDATE_FROM
+		bookTemplate.stardateTo == STARDATE_TO
+	}
+
+	void "sets references from ReferencesFromTemplatePartProcessor"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: BookTemplateParameter.ISBN, value: REFERENCE)
+		BookTemplate bookTemplate = new BookTemplate()
+		Reference reference1 = Mock()
+		Reference reference2 = Mock()
+
+		when:
+		bookTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), bookTemplate))
+
+		then:
+		1 * referencesFromTemplatePartProcessorMock.process(templatePart) >> Sets.newHashSet(reference1, reference2)
+		0 * _
+		bookTemplate.references.size() == 2
+		bookTemplate.references.contains reference1
+		bookTemplate.references.contains reference2
+	}
+
+	void "sets audiobook references from ReferencesFromTemplatePartProcessor"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: BookTemplateParameter.AUDIOBOOK_ISBN, value: AUDIOBOOK_REFERENCE)
+		BookTemplate bookTemplate = new BookTemplate()
+		Reference reference1 = Mock()
+		Reference reference2 = Mock()
+
+		when:
+		bookTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), bookTemplate))
+
+		then:
+		1 * referencesFromTemplatePartProcessorMock.process(templatePart) >> Sets.newHashSet(reference1, reference2)
+		0 * _
+		bookTemplate.audiobookReferences.size() == 2
+		bookTemplate.audiobookReferences.contains reference1
+		bookTemplate.audiobookReferences.contains reference2
+	}
+
+	void "sets audiobook flag"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: BookTemplateParameter.AUDIOBOOK, value: YES)
+		BookTemplate bookTemplate = new BookTemplate()
+
+		when:
+		bookTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), bookTemplate))
+
+		then:
+		0 * _
+		bookTemplate.audiobook
+	}
+
+	void "sets audiobook abridged flag"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: BookTemplateParameter.AUDIOBOOK_ABRIDGED, value: YES)
+		BookTemplate bookTemplate = new BookTemplate()
+
+		when:
+		bookTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), bookTemplate))
+
+		then:
+		0 * _
+		bookTemplate.audiobookAbridged
+	}
+
+	void "sets production number"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: BookTemplateParameter.PRODUCTION, value: PRODUCTION_NUMBER)
+		BookTemplate bookTemplate = new BookTemplate()
+
+		when:
+		bookTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), bookTemplate))
+
+		then:
+		0 * _
+		bookTemplate.productionNumber == PRODUCTION_NUMBER
 	}
 
 }

@@ -48,6 +48,18 @@ class CategoriesBookTemplateEnrichingProcessorTest extends Specification {
 		createList(CategoryTitle.AUDIOBOOKS)         | 'audiobook'       | true  | 1
 	}
 
+	void "sets audiobook abridged flag to false"() {
+		given:
+		BookTemplate bookTemplate = Mock()
+
+		when:
+		categoriesBookTemplateEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(), bookTemplate))
+
+		then:
+		1 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
+		1 * bookTemplate.setAudiobookAbridged(false)
+	}
+
 	private static List<CategoryHeader> createList(String title) {
 		Lists.newArrayList(EtlTestUtils.createCategoryHeaderList(title))
 	}
