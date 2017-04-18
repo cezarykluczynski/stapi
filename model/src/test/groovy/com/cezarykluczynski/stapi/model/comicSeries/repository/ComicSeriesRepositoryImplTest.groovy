@@ -1,13 +1,11 @@
 package com.cezarykluczynski.stapi.model.comicSeries.repository
 
-import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.comicSeries.dto.ComicSeriesRequestDTO
 import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries
 import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries_
 import com.cezarykluczynski.stapi.model.comicSeries.query.ComicSeriesQueryBuilderFactory
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
-import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.util.AbstractComicSeriesTest
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
@@ -31,23 +29,11 @@ class ComicSeriesRepositoryImplTest extends AbstractComicSeriesTest {
 
 	private ComicSeries comicSeries
 
-	private ComicSeries performersComicSeries
-
-	private ComicSeries charactersComicSeries
-
 	private Page page
 
 	private Page performersPage
 
 	private Page charactersPage
-
-	private Set<Performer> performersSet
-
-	private Set<Performer> stuntPerformersSet
-
-	private Set<Performer> standInPerformersSet
-
-	private Set<Character> charactersSet
 
 	void setup() {
 		comicSeriesQueryBuilderFactory = Mock()
@@ -59,12 +45,6 @@ class ComicSeriesRepositoryImplTest extends AbstractComicSeriesTest {
 		performersPage = Mock()
 		charactersPage = Mock()
 		comicSeries = Mock()
-		performersComicSeries = Mock()
-		charactersComicSeries = Mock()
-		performersSet = Mock()
-		stuntPerformersSet = Mock()
-		standInPerformersSet = Mock()
-		charactersSet = Mock()
 	}
 
 	void "query is built and performed"() {

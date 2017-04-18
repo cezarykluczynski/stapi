@@ -22,5 +22,6 @@
 	<include file="food/0018_create_food.xml" relativeToChangelogFile="true"/>
 	<include file="throttle/0018_create_throttle.xml" relativeToChangelogFile="true"/>
 	<include file="place/0019_create_location.xml" relativeToChangelogFile="true"/>
-	<include file="book/0020_create_book.xml" relativeToChangelogFile="true"/>
+	<include file="bookSeries/0020_create_book_series.xml" relativeToChangelogFile="true"/>
+	<include file="book/0021_create_book.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.model.book.entity;
 
+import com.cezarykluczynski.stapi.model.bookSeries.entity.BookSeries;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
@@ -32,10 +33,10 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true, exclude = {"authors", "artists", "editors", "audiobookNarrators", "publishers", "audiobookPublishers", "characters",
-		"references", "audiobookReferences"})
-@EqualsAndHashCode(callSuper = true, exclude = {"authors", "artists", "editors", "audiobookNarrators", "publishers", "audiobookPublishers",
+@ToString(callSuper = true, exclude = {"bookSeries", "authors", "artists", "editors", "audiobookNarrators", "publishers", "audiobookPublishers",
 		"characters", "references", "audiobookReferences"})
+@EqualsAndHashCode(callSuper = true, exclude = {"bookSeries", "authors", "artists", "editors", "audiobookNarrators", "publishers",
+		"audiobookPublishers", "characters", "references", "audiobookReferences"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Book extends PageAwareEntity implements PageAware {
 
@@ -92,6 +93,13 @@ public class Book extends PageAwareEntity implements PageAware {
 	private Integer audiobookRunTime;
 
 	private String productionNumber;
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "books_book_series",
+			joinColumns = @JoinColumn(name = "book_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "book_series_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<BookSeries> bookSeries = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "books_authors",
