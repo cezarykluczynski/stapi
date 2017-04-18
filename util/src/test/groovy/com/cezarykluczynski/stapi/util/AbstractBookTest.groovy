@@ -18,6 +18,7 @@ abstract class AbstractBookTest extends Specification {
 	protected static final Integer AUDIOBOOK_PUBLISHED_YEAR_TO = 1981
 	protected static final Integer AUDIOBOOK_PUBLISHED_MONTH = 11
 	protected static final Integer AUDIOBOOK_PUBLISHED_DAY = 30
+	protected static final Integer AUDIOBOOK_RUN_TIME = 90
 	protected static final Integer NUMBER_OF_PAGES = 32
 	protected static final Integer NUMBER_OF_PAGES_FROM = 16
 	protected static final Integer NUMBER_OF_PAGES_TO = 48

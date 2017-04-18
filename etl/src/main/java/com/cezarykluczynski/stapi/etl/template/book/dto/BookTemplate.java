@@ -58,6 +58,8 @@ public class BookTemplate {
 
 	private Integer audiobookPublishedDay;
 
+	private Integer audiobookRunTime;
+
 	private String productionNumber;
 
 	private Set<Staff> authors = Sets.newHashSet();

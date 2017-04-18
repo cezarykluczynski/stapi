@@ -89,6 +89,8 @@ public class Book extends PageAwareEntity implements PageAware {
 
 	private Integer audiobookPublishedDay;
 
+	private Integer audiobookRunTime;
+
 	private String productionNumber;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

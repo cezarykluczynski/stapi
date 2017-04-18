@@ -35,18 +35,21 @@ public class BookTemplatePartsEnrichingProcessor implements ItemEnrichingProcess
 
 	private final ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor;
 
+	private final RunTimeProcessor runTimeProcessor;
+
 	@Inject
 	public BookTemplatePartsEnrichingProcessor(BookTemplatePartStaffEnrichingProcessor bookTemplatePartStaffEnrichingProcessor,
 			WikitextToCompaniesProcessor wikitextToCompaniesProcessor,
 			BookTemplatePublishedDatesEnrichingProcessor bookTemplatePublishedDatesEnrichingProcessor,
 			WikitextToYearRangeProcessor wikitextToYearRangeProcessor, WikitextToStardateRangeProcessor wikitextToStardateRangeProcessor,
-			ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor) {
+			ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor, RunTimeProcessor runTimeProcessor) {
 		this.bookTemplatePartStaffEnrichingProcessor = bookTemplatePartStaffEnrichingProcessor;
 		this.wikitextToCompaniesProcessor = wikitextToCompaniesProcessor;
 		this.bookTemplatePublishedDatesEnrichingProcessor = bookTemplatePublishedDatesEnrichingProcessor;
 		this.wikitextToYearRangeProcessor = wikitextToYearRangeProcessor;
 		this.wikitextToStardateRangeProcessor = wikitextToStardateRangeProcessor;
 		this.referencesFromTemplatePartProcessor = referencesFromTemplatePartProcessor;
+		this.runTimeProcessor = runTimeProcessor;
 	}
 
 	@Override
@@ -102,7 +105,7 @@ public class BookTemplatePartsEnrichingProcessor implements ItemEnrichingProcess
 					bookTemplate.getAudiobookReferences().addAll(referencesFromTemplatePartProcessor.process(part));
 					break;
 				case BookTemplateParameter.AUDIOBOOK_RUN_TIME:
-					// TODO
+					bookTemplate.setAudiobookRunTime(runTimeProcessor.process(value));
 					break;
 				case BookTemplateParameter.AUDIOBOOK:
 					bookTemplate.setAudiobook(Boolean.TRUE.equals(bookTemplate.getAudiobook()) || StringUtils.equalsIgnoreCase(YES, value));

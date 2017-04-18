@@ -39,6 +39,8 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 	private static final String AUDIOBOOK_REFERENCE = 'AUDIOBOOK_REFERENCE'
 	private static final String YES = 'YES'
 	private static final String PRODUCTION_NUMBER = 'PRODUCTION_NUMBER'
+	private static final String AUDIOBOOK_RUN_TIME_STRING = 'AUDIOBOOK_RUN_TIME_STRING'
+	private static final Integer AUDIOBOOK_RUN_TIME_INTEGER = 78
 
 	private BookTemplatePartStaffEnrichingProcessor bookTemplatePartStaffEnrichingProcessorMock
 
@@ -52,6 +54,8 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 
 	private ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessorMock
 
+	private RunTimeProcessor runTimeProcessorMock
+
 	private BookTemplatePartsEnrichingProcessor bookTemplatePartsEnrichingProcessor
 
 	void setup() {
@@ -61,9 +65,10 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 		wikitextToYearRangeProcessorMock = Mock()
 		wikitextToStardateRangeProcessorMock = Mock()
 		referencesFromTemplatePartProcessorMock = Mock()
+		runTimeProcessorMock = Mock()
 		bookTemplatePartsEnrichingProcessor = new BookTemplatePartsEnrichingProcessor(bookTemplatePartStaffEnrichingProcessorMock,
 				wikitextToCompaniesProcessorMock, bookTemplatePublishedDatesEnrichingProcessorMock, wikitextToYearRangeProcessorMock,
-				wikitextToStardateRangeProcessorMock, referencesFromTemplatePartProcessorMock)
+				wikitextToStardateRangeProcessorMock, referencesFromTemplatePartProcessorMock, runTimeProcessorMock)
 	}
 
 	void "passes BookTemplate to BookTemplatePartStaffEnrichingProcessor when author part is found"() {
@@ -305,6 +310,20 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 		then:
 		0 * _
 		bookTemplate.audiobookAbridged
+	}
+
+	void "sets audiobook run time from RunTimeProcessor"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: BookTemplateParameter.AUDIOBOOK_RUN_TIME, value: AUDIOBOOK_RUN_TIME_STRING)
+		BookTemplate bookTemplate = new BookTemplate()
+
+		when:
+		bookTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), bookTemplate))
+
+		then:
+		1 * runTimeProcessorMock.process(AUDIOBOOK_RUN_TIME_STRING) >> AUDIOBOOK_RUN_TIME_INTEGER
+		0 * _
+		bookTemplate.audiobookRunTime == AUDIOBOOK_RUN_TIME_INTEGER
 	}
 
 	void "sets production number"() {

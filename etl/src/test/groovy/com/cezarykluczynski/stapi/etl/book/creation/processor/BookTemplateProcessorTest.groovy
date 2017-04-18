@@ -68,6 +68,7 @@ class BookTemplateProcessorTest extends AbstractBookTest {
 				audiobookPublishedYear: AUDIOBOOK_PUBLISHED_YEAR,
 				audiobookPublishedMonth: AUDIOBOOK_PUBLISHED_MONTH,
 				audiobookPublishedDay: AUDIOBOOK_PUBLISHED_DAY,
+				audiobookRunTime: AUDIOBOOK_RUN_TIME,
 				productionNumber: PRODUCTION_NUMBER,
 				authors: Sets.newHashSet(author1, author2),
 				artists: Sets.newHashSet(artist1, artist2),
@@ -107,6 +108,7 @@ class BookTemplateProcessorTest extends AbstractBookTest {
 		book.audiobookPublishedYear == AUDIOBOOK_PUBLISHED_YEAR
 		book.audiobookPublishedMonth == AUDIOBOOK_PUBLISHED_MONTH
 		book.audiobookPublishedDay == AUDIOBOOK_PUBLISHED_DAY
+		book.audiobookRunTime == AUDIOBOOK_RUN_TIME
 		book.productionNumber == PRODUCTION_NUMBER
 		book.authors.contains author1
 		book.authors.contains author2
