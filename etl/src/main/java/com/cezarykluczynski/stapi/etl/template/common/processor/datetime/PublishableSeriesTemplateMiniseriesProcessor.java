@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.comicSeries.processor;
+package com.cezarykluczynski.stapi.etl.template.common.processor.datetime;
 
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import org.springframework.batch.item.ItemProcessor;
@@ -8,12 +8,12 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Service
-public class ComicSeriesTemplateMiniseriesProcessor implements ItemProcessor<String, Boolean> {
+public class PublishableSeriesTemplateMiniseriesProcessor implements ItemProcessor<String, Boolean> {
 
 	private WikitextApi wikitextApi;
 
 	@Inject
-	public ComicSeriesTemplateMiniseriesProcessor(WikitextApi wikitextApi) {
+	public PublishableSeriesTemplateMiniseriesProcessor(WikitextApi wikitextApi) {
 		this.wikitextApi = wikitextApi;
 	}
 

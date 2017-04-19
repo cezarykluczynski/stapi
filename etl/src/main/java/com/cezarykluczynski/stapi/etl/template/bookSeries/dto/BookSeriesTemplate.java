@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.comicSeries.dto;
+package com.cezarykluczynski.stapi.etl.template.bookSeries.dto;
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.PublishableSeriesTemplate;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
@@ -11,13 +11,13 @@ import java.util.Set;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class ComicSeriesTemplate extends PublishableSeriesTemplate {
+public class BookSeriesTemplate extends PublishableSeriesTemplate {
 
 	private Page page;
 
 	private String title;
 
-	private Integer numberOfIssues;
+	private Integer numberOfBooks;
 
 	private Float stardateFrom;
 
@@ -29,10 +29,6 @@ public class ComicSeriesTemplate extends PublishableSeriesTemplate {
 
 	private Boolean miniseries;
 
-	private Boolean photonovelSeries;
-
 	private Set<Company> publishers = Sets.newHashSet();
-
-	private boolean productOfRedirect;
 
 }

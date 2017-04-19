@@ -61,12 +61,13 @@ public class ComicSeriesTemplatePageProcessor implements ItemProcessor<Page, Com
 
 		comicSeriesTemplateFixedValuesEnrichingProcessor.enrich(EnrichablePair.of(comicSeriesTemplate, comicSeriesTemplate));
 
-		Optional<Template> sidebarIndividualTemplateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_COMIC_SERIES);
-		if (!sidebarIndividualTemplateOptional.isPresent()) {
+		Optional<Template> sidebarComicSeriesTemplateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_COMIC_SERIES);
+		if (!sidebarComicSeriesTemplateOptional.isPresent()) {
 			return comicSeriesTemplate;
 		}
 
-		comicSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(sidebarIndividualTemplateOptional.get().getParts(), comicSeriesTemplate));
+		comicSeriesTemplatePartsEnrichingProcessor
+				.enrich(EnrichablePair.of(sidebarComicSeriesTemplateOptional.get().getParts(), comicSeriesTemplate));
 
 		return comicSeriesTemplate;
 	}

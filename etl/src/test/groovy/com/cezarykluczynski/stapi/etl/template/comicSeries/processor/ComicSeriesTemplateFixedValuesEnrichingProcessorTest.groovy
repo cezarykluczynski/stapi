@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.Range
 import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplate
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateYearDTO
+import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessor
 import spock.lang.Specification
 
 class ComicSeriesTemplateFixedValuesEnrichingProcessorTest extends Specification {
@@ -19,7 +20,7 @@ class ComicSeriesTemplateFixedValuesEnrichingProcessorTest extends Specification
 
 	private ComicSeriesPublishedDateFixedValueProvider comicSeriesPublishedDateFixedValueProviderMock
 
-	private ComicSeriesTemplateDayMonthYearRangeEnrichingProcessor comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock
+	private PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessor publishableSeriesTemplateDayMonthYearRangeEnrichingProcessorMock
 
 	private ComicSeriesTemplateNumberOfIssuesFixedValueProvider comicSeriesTemplateNumberOfIssuesFixedValueProviderMock
 
@@ -29,11 +30,11 @@ class ComicSeriesTemplateFixedValuesEnrichingProcessorTest extends Specification
 
 	void setup() {
 		comicSeriesPublishedDateFixedValueProviderMock = Mock()
-		comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock = Mock()
+		publishableSeriesTemplateDayMonthYearRangeEnrichingProcessorMock = Mock()
 		comicSeriesTemplateNumberOfIssuesFixedValueProviderMock = Mock()
 		comicSeriesStardateYearFixedValueProviderMock = Mock()
 		comicSeriesTemplateFixedValuesEnrichingProcessor = new ComicSeriesTemplateFixedValuesEnrichingProcessor(
-				comicSeriesPublishedDateFixedValueProviderMock, comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock,
+				comicSeriesPublishedDateFixedValueProviderMock, publishableSeriesTemplateDayMonthYearRangeEnrichingProcessorMock,
 				comicSeriesTemplateNumberOfIssuesFixedValueProviderMock, comicSeriesStardateYearFixedValueProviderMock)
 	}
 
@@ -47,7 +48,7 @@ class ComicSeriesTemplateFixedValuesEnrichingProcessorTest extends Specification
 
 		then:
 		1 * comicSeriesPublishedDateFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.found(dayMonthYearRange)
-		1 * comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+		1 * publishableSeriesTemplateDayMonthYearRangeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 			EnrichablePair<Range<DayMonthYear>, ComicSeriesTemplate> enrichablePair ->
 				assert enrichablePair.input == dayMonthYearRange
 				assert enrichablePair.output != null

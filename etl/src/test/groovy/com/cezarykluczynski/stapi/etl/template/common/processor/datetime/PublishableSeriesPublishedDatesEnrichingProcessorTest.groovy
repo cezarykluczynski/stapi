@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.comicSeries.processor
+package com.cezarykluczynski.stapi.etl.template.common.processor.datetime
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.dto.Range
@@ -8,19 +8,19 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.DayMonthYearRang
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import spock.lang.Specification
 
-class ComicSeriesPublishedDatesEnrichingProcessorTest extends Specification {
+class PublishableSeriesPublishedDatesEnrichingProcessorTest extends Specification {
 
 	private DayMonthYearRangeProcessor dayMonthYearRangeProcessorMock
 
-	private ComicSeriesTemplateDayMonthYearRangeEnrichingProcessor comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock
+	private PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessor publishableSeriesTemplateDayMonthYearRangeEnrichingProcessorMock
 
-	private ComicSeriesPublishedDatesEnrichingProcessor comicSeriesPublishedDatesEnrichingProcessor
+	private PublishableSeriesPublishedDatesEnrichingProcessor publishableSeriesPublishedDatesEnrichingProcessor
 
 	void setup() {
 		dayMonthYearRangeProcessorMock = Mock()
-		comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock = Mock()
-		comicSeriesPublishedDatesEnrichingProcessor = new ComicSeriesPublishedDatesEnrichingProcessor(dayMonthYearRangeProcessorMock,
-				comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock)
+		publishableSeriesTemplateDayMonthYearRangeEnrichingProcessorMock = Mock()
+		publishableSeriesPublishedDatesEnrichingProcessor = new PublishableSeriesPublishedDatesEnrichingProcessor(dayMonthYearRangeProcessorMock,
+				publishableSeriesTemplateDayMonthYearRangeEnrichingProcessorMock)
 	}
 
 	void "when DayMonthYear range is not empty, it is not passed to enricher"() {
@@ -31,11 +31,11 @@ class ComicSeriesPublishedDatesEnrichingProcessorTest extends Specification {
 		DayMonthYear dayMonthYearTo = Mock()
 
 		when:
-		comicSeriesPublishedDatesEnrichingProcessor.enrich(EnrichablePair.of(templatePart, comicSeriesTemplate))
+		publishableSeriesPublishedDatesEnrichingProcessor.enrich(EnrichablePair.of(templatePart, comicSeriesTemplate))
 
 		then:
 		1 * dayMonthYearRangeProcessorMock.process(templatePart) >> Range.of(dayMonthYearFrom, dayMonthYearTo)
-		1 * comicSeriesTemplateDayMonthYearRangeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+		1 * publishableSeriesTemplateDayMonthYearRangeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 				EnrichablePair<Range<DayMonthYear>, ComicSeriesTemplate> enrichablePair ->
 			assert enrichablePair.input.from == dayMonthYearFrom
 			assert enrichablePair.input.to == dayMonthYearTo
@@ -50,7 +50,7 @@ class ComicSeriesPublishedDatesEnrichingProcessorTest extends Specification {
 		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate()
 
 		when:
-		comicSeriesPublishedDatesEnrichingProcessor.enrich(EnrichablePair.of(templatePart, comicSeriesTemplate))
+		publishableSeriesPublishedDatesEnrichingProcessor.enrich(EnrichablePair.of(templatePart, comicSeriesTemplate))
 
 		then:
 		1 * dayMonthYearRangeProcessorMock.process(templatePart) >> Range.of(null, null)

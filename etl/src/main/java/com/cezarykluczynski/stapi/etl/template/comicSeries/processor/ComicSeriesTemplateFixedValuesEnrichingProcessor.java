@@ -7,7 +7,10 @@ import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplate;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateYearDTO;
+import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessor;
 import org.springframework.stereotype.Service;
+
+import javax.inject.Inject;
 
 @Service
 public class ComicSeriesTemplateFixedValuesEnrichingProcessor
@@ -15,18 +18,19 @@ public class ComicSeriesTemplateFixedValuesEnrichingProcessor
 
 	private ComicSeriesPublishedDateFixedValueProvider comicSeriesPublishedDateFixedValueProvider;
 
-	private ComicSeriesTemplateDayMonthYearRangeEnrichingProcessor comicSeriesTemplateDayMonthYearRangeEnrichingProcessor;
+	private PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessor publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor;
 
 	private ComicSeriesTemplateNumberOfIssuesFixedValueProvider comicSeriesTemplateNumberOfIssuesFixedValueProvider;
 
 	private ComicSeriesStardateYearFixedValueProvider comicSeriesStardateYearFixedValueProvider;
 
+	@Inject
 	public ComicSeriesTemplateFixedValuesEnrichingProcessor(ComicSeriesPublishedDateFixedValueProvider comicSeriesPublishedDateFixedValueProvider,
-			ComicSeriesTemplateDayMonthYearRangeEnrichingProcessor comicSeriesTemplateDayMonthYearRangeEnrichingProcessor,
+			PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessor publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor,
 			ComicSeriesTemplateNumberOfIssuesFixedValueProvider comicSeriesTemplateNumberOfIssuesFixedValueProvider,
 			ComicSeriesStardateYearFixedValueProvider comicSeriesStardateYearFixedValueProvider) {
 		this.comicSeriesPublishedDateFixedValueProvider = comicSeriesPublishedDateFixedValueProvider;
-		this.comicSeriesTemplateDayMonthYearRangeEnrichingProcessor = comicSeriesTemplateDayMonthYearRangeEnrichingProcessor;
+		this.publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor = publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor;
 		this.comicSeriesTemplateNumberOfIssuesFixedValueProvider = comicSeriesTemplateNumberOfIssuesFixedValueProvider;
 		this.comicSeriesStardateYearFixedValueProvider = comicSeriesStardateYearFixedValueProvider;
 	}
@@ -40,7 +44,7 @@ public class ComicSeriesTemplateFixedValuesEnrichingProcessor
 
 		if (dayMonthYearRangeFixedValueHolder.isFound()) {
 			Range<DayMonthYear> dayMonthYearRange = dayMonthYearRangeFixedValueHolder.getValue();
-			comicSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(dayMonthYearRange, comicSeriesTemplate));
+			publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(dayMonthYearRange, comicSeriesTemplate));
 		}
 
 		FixedValueHolder<Integer> numberOfIssuesFixedValueHolder = comicSeriesTemplateNumberOfIssuesFixedValueProvider.getSearchedValue(title);

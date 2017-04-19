@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.comicSeries.processor
+package com.cezarykluczynski.stapi.etl.template.common.processor.datetime
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.dto.Range
@@ -6,7 +6,7 @@ import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTempla
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear
 import spock.lang.Specification
 
-class ComicSeriesTemplateDayMonthYearRangeEnrichingProcessorTest extends Specification {
+class PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessorTest extends Specification {
 
 	private static final Integer DAY_FROM = 4
 	private static final Integer MONTH_FROM = 6
@@ -17,22 +17,22 @@ class ComicSeriesTemplateDayMonthYearRangeEnrichingProcessorTest extends Specifi
 	private static final DayMonthYear DAY_MONTH_YEAR_FROM = DayMonthYear.of(DAY_FROM, MONTH_FROM, YEAR_FROM)
 	private static final DayMonthYear DAY_MONTH_YEAR_TO = DayMonthYear.of(DAY_TO, MONTH_TO, YEAR_TO)
 
-	private ComicSeriesTemplateDayMonthYearRangeEnrichingProcessor comicSeriesTemplateDayMonthYearRangeEnrichingProcessor
+	private PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessor publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor
 
 	void setup() {
-		comicSeriesTemplateDayMonthYearRangeEnrichingProcessor = new ComicSeriesTemplateDayMonthYearRangeEnrichingProcessor()
+		publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor = new PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessor()
 	}
 
 	void "when either value is null, no exception is thrown"() {
 		when:
-		comicSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(null, Mock(ComicSeriesTemplate)))
+		publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(null, Mock(ComicSeriesTemplate)))
 
 		then:
 		0 * _
 		notThrown(Exception)
 
 		when:
-		comicSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(Mock(Range), null))
+		publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(Mock(Range), null))
 
 		then:
 		0 * _
@@ -44,7 +44,7 @@ class ComicSeriesTemplateDayMonthYearRangeEnrichingProcessorTest extends Specifi
 		ComicSeriesTemplate comicSeriesTemplate = Mock(ComicSeriesTemplate)
 
 		when:
-		comicSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(Range.of(null, null), comicSeriesTemplate))
+		publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(Range.of(null, null), comicSeriesTemplate))
 
 		then:
 		0 * _
@@ -55,7 +55,7 @@ class ComicSeriesTemplateDayMonthYearRangeEnrichingProcessorTest extends Specifi
 		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate()
 
 		when:
-		comicSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(Range.of(DAY_MONTH_YEAR_FROM, null), comicSeriesTemplate))
+		publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(Range.of(DAY_MONTH_YEAR_FROM, null), comicSeriesTemplate))
 
 		then:
 		comicSeriesTemplate.publishedYearFrom == YEAR_FROM
@@ -71,7 +71,7 @@ class ComicSeriesTemplateDayMonthYearRangeEnrichingProcessorTest extends Specifi
 		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate()
 
 		when:
-		comicSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(Range.of(DAY_MONTH_YEAR_FROM, DAY_MONTH_YEAR_TO),
+		publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(Range.of(DAY_MONTH_YEAR_FROM, DAY_MONTH_YEAR_TO),
 				comicSeriesTemplate))
 
 		then:

@@ -174,4 +174,9 @@ public class CategoryTitles {
 			CategoryTitle.ROLE_PLAYING_GAMES
 	);
 
+	public static final List<String> BOOK_SERIES = Lists.newArrayList(
+			CategoryTitle.NOVEL_SERIES,
+			CategoryTitle.E_BOOK_SERIES
+	);
+
 }

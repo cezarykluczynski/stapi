@@ -1,25 +1,25 @@
-package com.cezarykluczynski.stapi.etl.template.comicSeries.processor
+package com.cezarykluczynski.stapi.etl.template.common.processor.datetime
 
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
-class ComicSeriesTemplateMiniseriesProcessorTest extends Specification {
+class PublishableSeriesTemplateMiniseriesProcessorTest extends Specification {
 
 	private static final String SERIES = 'SERIES'
 
 	private WikitextApi wikitextApiMock
 
-	private ComicSeriesTemplateMiniseriesProcessor comicSeriesTemplateMiniseriesProcessor
+	private PublishableSeriesTemplateMiniseriesProcessor publishableSeriesTemplateMiniseriesProcessor
 
 	void setup() {
 		wikitextApiMock = Mock()
-		comicSeriesTemplateMiniseriesProcessor = new ComicSeriesTemplateMiniseriesProcessor(wikitextApiMock)
+		publishableSeriesTemplateMiniseriesProcessor = new PublishableSeriesTemplateMiniseriesProcessor(wikitextApiMock)
 	}
 
 	void "returns true when WikitextApi finds links in text"() {
 		when:
-		Boolean miniseries = comicSeriesTemplateMiniseriesProcessor.process(SERIES)
+		Boolean miniseries = publishableSeriesTemplateMiniseriesProcessor.process(SERIES)
 
 		then:
 		1 * wikitextApiMock.getPageTitlesFromWikitext(SERIES) >> Lists.newArrayList('Link')
@@ -29,7 +29,7 @@ class ComicSeriesTemplateMiniseriesProcessorTest extends Specification {
 
 	void "returns false when WikitextApi does not find links in text"() {
 		when:
-		Boolean miniseries = comicSeriesTemplateMiniseriesProcessor.process(SERIES)
+		Boolean miniseries = publishableSeriesTemplateMiniseriesProcessor.process(SERIES)
 
 		then:
 		1 * wikitextApiMock.getPageTitlesFromWikitext(SERIES) >> Lists.newArrayList()

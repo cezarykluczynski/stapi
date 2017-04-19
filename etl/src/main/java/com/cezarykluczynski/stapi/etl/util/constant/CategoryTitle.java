@@ -233,4 +233,7 @@ public class CategoryTitle {
 	public static final String REFERENCE_BOOKS = "Reference_books";
 	public static final String BIOGRAPHY_BOOKS = "Biography_books";
 	public static final String ROLE_PLAYING_GAMES = "Role-playing_games";
+
+	public static final String NOVEL_SERIES = "Novel_series";
+	public static final String E_BOOK_SERIES = "EBook_series";
 }
