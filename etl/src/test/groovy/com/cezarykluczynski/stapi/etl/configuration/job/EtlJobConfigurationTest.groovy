@@ -8,6 +8,9 @@ import com.cezarykluczynski.stapi.etl.astronomicalObject.link.processor.Astronom
 import com.cezarykluczynski.stapi.etl.book.creation.processor.BookProcessor
 import com.cezarykluczynski.stapi.etl.book.creation.processor.BookReader
 import com.cezarykluczynski.stapi.etl.book.creation.processor.BookWriter
+import com.cezarykluczynski.stapi.etl.bookSeries.creation.processor.BookSeriesProcessor
+import com.cezarykluczynski.stapi.etl.bookSeries.creation.processor.BookSeriesReader
+import com.cezarykluczynski.stapi.etl.bookSeries.creation.processor.BookSeriesWriter
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterProcessor
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterReader
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterWriter
@@ -681,6 +684,39 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(LocationProcessor) >> itemProcessorMock
 		1 * simpleStepBuilderMock.processor(itemProcessorMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(LocationWriter) >> itemWriterMock
+		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
+		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
+		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+
+		then: 'step is configured to run only once'
+		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
+		1 * simpleStepBuilderMock.allowStartIfComplete(false) >> simpleStepBuilderMock
+
+		then: 'tasklet step is returned'
+		1 * simpleStepBuilderMock.build() >> taskletStepMock
+
+		then: 'step is being returned'
+		step == taskletStepMock
+	}
+
+	void "CREATE_BOOK_SERIES step is created"() {
+		when:
+		Step step = etlJobConfiguration.stepCreateBookSeries()
+
+		then: 'StepBuilder is retrieved'
+		1 * stepBuilderFactoryMock.get(StepName.CREATE_BOOK_SERIES) >> stepBuilderMock
+
+		then: 'commit interval is configured'
+		1 * stepsPropertiesMock.createBookSeries >> stepProperties
+		1 * stepProperties.commitInterval >> STEP_SIZE
+		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+
+		then: 'beans are retrieved from application context, then passed to builder'
+		1 * applicationContextMock.getBean(BookSeriesReader) >> itemReaderMock
+		1 * simpleStepBuilderMock.reader(itemReaderMock) >> simpleStepBuilderMock
+		1 * applicationContextMock.getBean(BookSeriesProcessor) >> itemProcessorMock
+		1 * simpleStepBuilderMock.processor(itemProcessorMock) >> simpleStepBuilderMock
+		1 * applicationContextMock.getBean(BookSeriesWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
 		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock

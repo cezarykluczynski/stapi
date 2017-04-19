@@ -44,6 +44,7 @@ public class StepToStepPropertiesProvider {
 		stepPropertiesMap.put(StepName.CREATE_ORGANIZATIONS, stepsProperties.getCreateOrganizations());
 		stepPropertiesMap.put(StepName.CREATE_FOODS, stepsProperties.getCreateFoods());
 		stepPropertiesMap.put(StepName.CREATE_LOCATIONS, stepsProperties.getCreateLocations());
+		stepPropertiesMap.put(StepName.CREATE_BOOK_SERIES, stepsProperties.getCreateBookSeries());
 		stepPropertiesMap.put(StepName.CREATE_BOOKS, stepsProperties.getCreateBooks());
 	}
 

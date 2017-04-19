@@ -8,6 +8,9 @@ import com.cezarykluczynski.stapi.etl.astronomicalObject.link.processor.Astronom
 import com.cezarykluczynski.stapi.etl.book.creation.processor.BookProcessor;
 import com.cezarykluczynski.stapi.etl.book.creation.processor.BookReader;
 import com.cezarykluczynski.stapi.etl.book.creation.processor.BookWriter;
+import com.cezarykluczynski.stapi.etl.bookSeries.creation.processor.BookSeriesProcessor;
+import com.cezarykluczynski.stapi.etl.bookSeries.creation.processor.BookSeriesReader;
+import com.cezarykluczynski.stapi.etl.bookSeries.creation.processor.BookSeriesWriter;
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterProcessor;
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterReader;
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterWriter;
@@ -60,6 +63,7 @@ import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffWriter;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject;
 import com.cezarykluczynski.stapi.model.book.entity.Book;
+import com.cezarykluczynski.stapi.model.bookSeries.entity.BookSeries;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.comicCollection.entity.ComicCollection;
 import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries;
@@ -336,6 +340,19 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(LocationReader.class))
 				.processor(applicationContext.getBean(LocationProcessor.class))
 				.writer(applicationContext.getBean(LocationWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_BOOK_SERIES)
+	public Step stepCreateBookSeries() {
+		return stepBuilderFactory.get(StepName.CREATE_BOOK_SERIES)
+				.<PageHeader, BookSeries>chunk(stepsProperties.getCreateBookSeries().getCommitInterval())
+				.reader(applicationContext.getBean(BookSeriesReader.class))
+				.processor(applicationContext.getBean(BookSeriesProcessor.class))
+				.writer(applicationContext.getBean(BookSeriesWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)
