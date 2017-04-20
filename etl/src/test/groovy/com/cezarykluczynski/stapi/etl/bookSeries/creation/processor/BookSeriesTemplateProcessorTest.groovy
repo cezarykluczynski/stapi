@@ -54,13 +54,9 @@ class BookSeriesTemplateProcessorTest extends AbstractBookSeriesTest {
 		bookSeries.title == TITLE
 		bookSeries.publishedYearFrom == PUBLISHED_YEAR_FROM
 		bookSeries.publishedMonthFrom == PUBLISHED_MONTH_FROM
-		bookSeries.publishedDayFrom == PUBLISHED_DAY_FROM
 		bookSeries.publishedYearTo == PUBLISHED_YEAR_TO
 		bookSeries.publishedMonthTo == PUBLISHED_MONTH_TO
-		bookSeries.publishedDayTo == PUBLISHED_DAY_TO
 		bookSeries.numberOfBooks == NUMBER_OF_BOOKS
-		bookSeries.stardateFrom == STARDATE_FROM
-		bookSeries.stardateTo == STARDATE_TO
 		bookSeries.yearFrom == YEAR_FROM
 		bookSeries.yearTo == YEAR_TO
 		bookSeries.miniseries == MINISERIES

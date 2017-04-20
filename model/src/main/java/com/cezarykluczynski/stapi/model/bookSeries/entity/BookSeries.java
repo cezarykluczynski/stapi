@@ -49,19 +49,11 @@ public class BookSeries extends PageAwareEntity implements PageAware {
 
 	private Integer publishedMonthFrom;
 
-	private Integer publishedDayFrom;
-
 	private Integer publishedYearTo;
 
 	private Integer publishedMonthTo;
 
-	private Integer publishedDayTo;
-
 	private Integer numberOfBooks;
-
-	private Float stardateFrom;
-
-	private Float stardateTo;
 
 	private Integer yearFrom;
 

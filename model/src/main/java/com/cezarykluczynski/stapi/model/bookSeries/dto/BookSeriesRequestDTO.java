@@ -30,6 +30,9 @@ public class BookSeriesRequestDTO {
 
 	private Boolean miniseries;
 
+	@SuppressWarnings("MemberName")
+	private Boolean eBookSeries;
+
 	private RequestSortDTO sort;
 
 }

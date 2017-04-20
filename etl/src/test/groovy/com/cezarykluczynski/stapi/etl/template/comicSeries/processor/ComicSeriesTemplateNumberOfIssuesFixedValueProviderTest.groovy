@@ -13,13 +13,13 @@ class ComicSeriesTemplateNumberOfIssuesFixedValueProviderTest extends Specificat
 		comicSeriesTemplateNumberOfIssuesFixedValueProvider = new ComicSeriesTemplateNumberOfIssuesFixedValueProvider()
 	}
 
-	void "provides correct range"() {
+	void "provides correct number of issues"() {
 		expect:
 		comicSeriesTemplateNumberOfIssuesFixedValueProvider.getSearchedValue(EXISTING_TITLE).found
 		comicSeriesTemplateNumberOfIssuesFixedValueProvider.getSearchedValue(EXISTING_TITLE).value == 1
 	}
 
-	void "provides missing range"() {
+	void "provides missing number of issues"() {
 		expect:
 		!comicSeriesTemplateNumberOfIssuesFixedValueProvider.getSearchedValue(NONEXISTING_TITLE).found
 		comicSeriesTemplateNumberOfIssuesFixedValueProvider.getSearchedValue(NONEXISTING_TITLE).value == null

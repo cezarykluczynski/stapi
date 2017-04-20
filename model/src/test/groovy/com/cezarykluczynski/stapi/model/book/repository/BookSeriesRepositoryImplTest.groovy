@@ -72,15 +72,11 @@ class BookSeriesRepositoryImplTest extends AbstractBookSeriesTest {
 		1 * bookSeriesRequestDTO.yearTo >> YEAR_TO
 		1 * bookSeriesQueryBuilder.between(BookSeries_.yearTo, null, YEAR_TO)
 
-		then: 'float criteria are set'
-		1 * bookSeriesRequestDTO.stardateFrom >> STARDATE_FROM
-		1 * bookSeriesQueryBuilder.between(BookSeries_.stardateFrom, STARDATE_FROM, null)
-		1 * bookSeriesRequestDTO.stardateTo >> STARDATE_TO
-		1 * bookSeriesQueryBuilder.between(BookSeries_.stardateTo, null, STARDATE_TO)
-
 		then: 'boolean criteria are set'
 		1 * bookSeriesRequestDTO.miniseries >> MINISERIES
 		1 * bookSeriesQueryBuilder.equal(BookSeries_.miniseries, MINISERIES)
+		1 * bookSeriesRequestDTO.EBookSeries >> E_BOOK_SERIES
+		1 * bookSeriesQueryBuilder.equal(BookSeries_.eBookSeries, E_BOOK_SERIES)
 
 		then: 'sort is set'
 		1 * bookSeriesRequestDTO.sort >> SORT

@@ -37,4 +37,5 @@ public class ComicSeriesTemplateNumberOfIssuesFixedValueProvider implements Fixe
 	public FixedValueHolder<Integer> getSearchedValue(String key) {
 		return FixedValueHolder.of(TITLES_TO_NUMBER_OF_ISSUES.containsKey(key), TITLES_TO_NUMBER_OF_ISSUES.get(key));
 	}
+
 }

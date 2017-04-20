@@ -27,13 +27,9 @@ public class BookSeriesTemplateProcessor implements ItemProcessor<BookSeriesTemp
 		bookSeries.setTitle(item.getTitle());
 		bookSeries.setPublishedYearFrom(item.getPublishedYearFrom());
 		bookSeries.setPublishedMonthFrom(item.getPublishedMonthFrom());
-		bookSeries.setPublishedDayFrom(item.getPublishedDayFrom());
 		bookSeries.setPublishedYearTo(item.getPublishedYearTo());
 		bookSeries.setPublishedMonthTo(item.getPublishedMonthTo());
-		bookSeries.setPublishedDayTo(item.getPublishedDayTo());
 		bookSeries.setNumberOfBooks(item.getNumberOfBooks());
-		bookSeries.setStardateFrom(item.getStardateFrom());
-		bookSeries.setStardateTo(item.getStardateTo());
 		bookSeries.setYearFrom(item.getYearFrom());
 		bookSeries.setYearTo(item.getYearTo());
 		bookSeries.setMiniseries(Boolean.TRUE.equals(item.getMiniseries()));

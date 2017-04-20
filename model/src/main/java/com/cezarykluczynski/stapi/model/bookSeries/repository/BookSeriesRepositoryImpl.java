@@ -36,9 +36,8 @@ public class BookSeriesRepositoryImpl extends AbstractRepositoryImpl<BookSeries>
 		bookSeriesQueryBuilder.between(BookSeries_.numberOfBooks, criteria.getNumberOfBooksFrom(), criteria.getNumberOfBooksTo());
 		bookSeriesQueryBuilder.between(BookSeries_.yearFrom, criteria.getYearFrom(), null);
 		bookSeriesQueryBuilder.between(BookSeries_.yearTo, null, criteria.getYearTo());
-		bookSeriesQueryBuilder.between(BookSeries_.stardateFrom, criteria.getStardateFrom(), null);
-		bookSeriesQueryBuilder.between(BookSeries_.stardateTo, null, criteria.getStardateTo());
 		bookSeriesQueryBuilder.equal(BookSeries_.miniseries, criteria.getMiniseries());
+		bookSeriesQueryBuilder.equal(BookSeries_.eBookSeries, criteria.getEBookSeries());
 		bookSeriesQueryBuilder.setSort(criteria.getSort());
 		bookSeriesQueryBuilder.fetch(BookSeries_.parentSeries, doFetch);
 		bookSeriesQueryBuilder.fetch(BookSeries_.childSeries, doFetch);
