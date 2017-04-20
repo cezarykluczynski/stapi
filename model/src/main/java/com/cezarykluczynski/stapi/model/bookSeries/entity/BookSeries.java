@@ -69,6 +69,9 @@ public class BookSeries extends PageAwareEntity implements PageAware {
 
 	private Boolean miniseries;
 
+	@SuppressWarnings("MemberName")
+	private Boolean eBookSeries;
+
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "book_series_book_series",
 			joinColumns = @JoinColumn(name = "book_series_id", nullable = false, updatable = false),

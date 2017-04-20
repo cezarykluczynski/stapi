@@ -40,6 +40,7 @@ class BookSeriesTemplateProcessorTest extends AbstractBookSeriesTest {
 				yearFrom: YEAR_FROM,
 				yearTo: YEAR_TO,
 				miniseries: MINISERIES,
+				eBookSeries: E_BOOK_SERIES,
 				publishers: Sets.newHashSet(publisher1, publisher2))
 
 		when:
@@ -63,6 +64,7 @@ class BookSeriesTemplateProcessorTest extends AbstractBookSeriesTest {
 		bookSeries.yearFrom == YEAR_FROM
 		bookSeries.yearTo == YEAR_TO
 		bookSeries.miniseries == MINISERIES
+		bookSeries.EBookSeries == E_BOOK_SERIES
 		bookSeries.publishers.size() == 2
 		bookSeries.publishers.contains publisher1
 		bookSeries.publishers.contains publisher2

@@ -83,7 +83,7 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 		comicSeriesTemplate.title == TITLE
 	}
 
-	void "missing template results ComicSeriesTemplate with only the title and page"() {
+	void "missing template results ComicSeriesTemplate with only the title, page, and photonovelSeries flag"() {
 		given:
 		Page page = new Page(
 				title: TITLE,

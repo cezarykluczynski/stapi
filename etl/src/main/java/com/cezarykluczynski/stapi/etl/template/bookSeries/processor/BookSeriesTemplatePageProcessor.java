@@ -24,14 +24,18 @@ public class BookSeriesTemplatePageProcessor implements ItemProcessor<Page, Book
 
 	private BookSeriesTemplateFixedValuesEnrichingProcessor bookSeriesTemplateFixedValuesEnrichingProcessor;
 
+	private BookSeriesTemplateEBookSeriesProcessor bookSeriesTemplateEBookSeriesProcessor;
+
 	@Inject
 	public BookSeriesTemplatePageProcessor(PageBindingService pageBindingService, TemplateFinder templateFinder,
 			BookSeriesTemplatePartsEnrichingProcessor bookSeriesTemplatePartsEnrichingProcessor,
-			BookSeriesTemplateFixedValuesEnrichingProcessor bookSeriesTemplateFixedValuesEnrichingProcessor) {
+			BookSeriesTemplateFixedValuesEnrichingProcessor bookSeriesTemplateFixedValuesEnrichingProcessor,
+			BookSeriesTemplateEBookSeriesProcessor bookSeriesTemplateEBookSeriesProcessor) {
 		this.pageBindingService = pageBindingService;
 		this.templateFinder = templateFinder;
 		this.bookSeriesTemplatePartsEnrichingProcessor = bookSeriesTemplatePartsEnrichingProcessor;
 		this.bookSeriesTemplateFixedValuesEnrichingProcessor = bookSeriesTemplateFixedValuesEnrichingProcessor;
+		this.bookSeriesTemplateEBookSeriesProcessor = bookSeriesTemplateEBookSeriesProcessor;
 	}
 
 	@Override
@@ -43,6 +47,7 @@ public class BookSeriesTemplatePageProcessor implements ItemProcessor<Page, Book
 		BookSeriesTemplate bookSeriesTemplate = new BookSeriesTemplate();
 		bookSeriesTemplate.setTitle(item.getTitle());
 		bookSeriesTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
+		bookSeriesTemplate.setEBookSeries(bookSeriesTemplateEBookSeriesProcessor.process(item));
 
 		bookSeriesTemplateFixedValuesEnrichingProcessor.enrich(EnrichablePair.of(bookSeriesTemplate, bookSeriesTemplate));
 

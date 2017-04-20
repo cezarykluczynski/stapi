@@ -10,4 +10,7 @@ public class BookSeriesTemplate extends PublishableSeriesTemplate {
 
 	private Integer numberOfBooks;
 
+	@SuppressWarnings("MemberName")
+	private Boolean eBookSeries;
+
 }

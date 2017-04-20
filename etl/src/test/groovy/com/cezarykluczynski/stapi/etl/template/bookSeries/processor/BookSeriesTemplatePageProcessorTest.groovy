@@ -11,6 +11,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.ReflectionTestUtils
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
+import com.cezarykluczynski.stapi.util.tool.LogicUtil
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -18,6 +19,7 @@ class BookSeriesTemplatePageProcessorTest extends Specification {
 
 	private static final String TITLE = 'TITLE'
 	private static final Long PAGE_ID = 11L
+	private static final Boolean E_BOOK_SERIES = LogicUtil.nextBoolean()
 	private static final MediaWikiSource SOURCES_MEDIA_WIKI_SOURCE = MediaWikiSource.MEMORY_ALPHA_EN
 
 	private PageBindingService pageBindingServiceMock
@@ -28,6 +30,8 @@ class BookSeriesTemplatePageProcessorTest extends Specification {
 
 	private BookSeriesTemplateFixedValuesEnrichingProcessor bookSeriesTemplateFixedValuesEnrichingProcessorMock
 
+	private BookSeriesTemplateEBookSeriesProcessor bookSeriesTemplateEBookSeriesProcessorMock
+
 	private BookSeriesTemplatePageProcessor bookSeriesTemplatePageProcessor
 
 	void setup() {
@@ -35,11 +39,13 @@ class BookSeriesTemplatePageProcessorTest extends Specification {
 		templateFinderMock = Mock()
 		bookSeriesTemplatePartsEnrichingProcessorMock = Mock()
 		bookSeriesTemplateFixedValuesEnrichingProcessorMock = Mock()
+		bookSeriesTemplateEBookSeriesProcessorMock = Mock()
 		bookSeriesTemplatePageProcessor = new BookSeriesTemplatePageProcessor(pageBindingServiceMock, templateFinderMock,
-				bookSeriesTemplatePartsEnrichingProcessorMock, bookSeriesTemplateFixedValuesEnrichingProcessorMock)
+				bookSeriesTemplatePartsEnrichingProcessorMock, bookSeriesTemplateFixedValuesEnrichingProcessorMock,
+				bookSeriesTemplateEBookSeriesProcessorMock)
 	}
 
-	void "missing template results BookSeriesTemplate with only the title and source"() {
+	void "missing template results BookSeriesTemplate with only the title, source, and eBookSeries flag"() {
 		given:
 		Page page = new Page(
 				title: TITLE,
@@ -52,6 +58,7 @@ class BookSeriesTemplatePageProcessorTest extends Specification {
 
 		then:
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
+		1 * bookSeriesTemplateEBookSeriesProcessorMock.process(page) >> E_BOOK_SERIES
 		1 * bookSeriesTemplateFixedValuesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 			EnrichablePair<BookSeriesTemplate, BookSeriesTemplate> enrichablePair ->
 				assert enrichablePair.input == enrichablePair.output
@@ -60,7 +67,8 @@ class BookSeriesTemplatePageProcessorTest extends Specification {
 		0 * _
 		bookSeriesTemplate.title == TITLE
 		bookSeriesTemplate.page == modelPage
-		ReflectionTestUtils.getNumberOfNotNullFields(bookSeriesTemplate) == 3
+		bookSeriesTemplate.EBookSeries == E_BOOK_SERIES
+		ReflectionTestUtils.getNumberOfNotNullFields(bookSeriesTemplate) == 4
 	}
 
 	void "returns null when page is an effect of redirect"() {
@@ -87,6 +95,7 @@ class BookSeriesTemplatePageProcessorTest extends Specification {
 
 		then:
 		1 * pageBindingServiceMock.fromPageToPageEntity(page)
+		1 * bookSeriesTemplateEBookSeriesProcessorMock.process(page)
 		1 * bookSeriesTemplateFixedValuesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 			EnrichablePair<BookSeriesTemplate, BookSeriesTemplate> enrichablePair ->
 				assert enrichablePair.input == enrichablePair.output

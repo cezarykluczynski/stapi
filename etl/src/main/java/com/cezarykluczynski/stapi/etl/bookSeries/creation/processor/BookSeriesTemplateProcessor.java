@@ -36,7 +36,8 @@ public class BookSeriesTemplateProcessor implements ItemProcessor<BookSeriesTemp
 		bookSeries.setStardateTo(item.getStardateTo());
 		bookSeries.setYearFrom(item.getYearFrom());
 		bookSeries.setYearTo(item.getYearTo());
-		bookSeries.setMiniseries(item.getMiniseries() != null && item.getMiniseries());
+		bookSeries.setMiniseries(Boolean.TRUE.equals(item.getMiniseries()));
+		bookSeries.setEBookSeries(Boolean.TRUE.equals(item.getEBookSeries()));
 		bookSeries.getPublishers().addAll(item.getPublishers());
 
 		return bookSeries;

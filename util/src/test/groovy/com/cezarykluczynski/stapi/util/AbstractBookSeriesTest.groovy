@@ -21,5 +21,6 @@ class AbstractBookSeriesTest extends Specification {
 	protected static final Integer YEAR_FROM = 2350
 	protected static final Integer YEAR_TO = 2351
 	protected static final Boolean MINISERIES = LogicUtil.nextBoolean()
+	protected static final Boolean E_BOOK_SERIES = LogicUtil.nextBoolean()
 
 }

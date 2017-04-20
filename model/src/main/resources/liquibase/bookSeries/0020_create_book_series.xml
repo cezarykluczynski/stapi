@@ -28,6 +28,7 @@
 			<column name="year_from" type="int"/>
 			<column name="year_to" type="int"/>
 			<column name="miniseries" type="boolean"/>
+			<column name="e_book_series" type="boolean"/>
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="book_series_sequence"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
