@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.common.processor.datetime;
+package com.cezarykluczynski.stapi.etl.template.publishableSeries.processor;
 
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import org.springframework.batch.item.ItemProcessor;

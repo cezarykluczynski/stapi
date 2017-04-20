@@ -46,7 +46,7 @@ public class BookSeriesTemplatePageProcessor implements ItemProcessor<Page, Book
 
 		bookSeriesTemplateFixedValuesEnrichingProcessor.enrich(EnrichablePair.of(bookSeriesTemplate, bookSeriesTemplate));
 
-		Optional<Template> sidebarBookSeriesTemplateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_COMIC_SERIES);
+		Optional<Template> sidebarBookSeriesTemplateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_NOVEL_SERIES);
 		if (!sidebarBookSeriesTemplateOptional.isPresent()) {
 			return bookSeriesTemplate;
 		}

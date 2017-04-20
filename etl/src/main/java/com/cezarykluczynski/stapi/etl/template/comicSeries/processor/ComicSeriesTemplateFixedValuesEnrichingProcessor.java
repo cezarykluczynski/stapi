@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplate;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateYearDTO;
-import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.template.publishableSeries.processor.PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessor;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;

@@ -1,11 +1,11 @@
-package com.cezarykluczynski.stapi.etl.template.common.processor.datetime;
+package com.cezarykluczynski.stapi.etl.template.publishableSeries.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.dto.Range;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
-import com.cezarykluczynski.stapi.etl.template.common.dto.PublishableSeriesTemplate;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear;
 import com.cezarykluczynski.stapi.etl.template.common.processor.DayMonthYearRangeProcessor;
+import com.cezarykluczynski.stapi.etl.template.publishableSeries.dto.PublishableSeriesTemplate;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

@@ -6,7 +6,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.Range
 import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplate
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateYearDTO
-import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessor
+import com.cezarykluczynski.stapi.etl.template.publishableSeries.processor.PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessor
 import spock.lang.Specification
 
 class ComicSeriesTemplateFixedValuesEnrichingProcessorTest extends Specification {

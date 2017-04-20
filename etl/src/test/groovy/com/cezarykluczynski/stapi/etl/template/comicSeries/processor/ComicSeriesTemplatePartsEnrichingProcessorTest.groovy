@@ -1,116 +1,45 @@
 package com.cezarykluczynski.stapi.etl.template.comicSeries.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
-import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor
 import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplate
 import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplateParameter
-import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplateParameter
-import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange
-import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange
-import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PublishableSeriesPublishedDatesEnrichingProcessor
-import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PublishableSeriesTemplateMiniseriesProcessor
-import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToStardateRangeProcessor
-import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToYearRangeProcessor
-import com.cezarykluczynski.stapi.model.company.entity.Company
+import com.cezarykluczynski.stapi.etl.template.publishableSeries.dto.PublishableSeriesTemplate
+import com.cezarykluczynski.stapi.etl.template.publishableSeries.processor.PublishableSeriesTemplatePartsEnrichingProcessor
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
-import com.cezarykluczynski.stapi.util.tool.LogicUtil
 import com.google.common.collect.Lists
-import com.google.common.collect.Sets
 import spock.lang.Specification
 
 class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 
-	private static final String PUBLISHER = 'PUBLISHER'
-	private static final String PUBLISHED = 'PUBLISHED'
-	private static final String YEARS = '1995-1997'
-	private static final Integer YEAR = 1995
-	private static final Integer YEAR_FROM = 1995
-	private static final Integer YEAR_TO = 1997
-	private static final String STARDATES = '1995-1997'
-	private static final Float STARDATE_FROM = 123.4F
-	private static final Float STARDATE_TO = 456.7F
 	private static final String ISSUES_STRING = '12'
 	private static final Integer ISSUES_INTEGER = 12
 	private static final Integer ISSUES_INTEGER_2 = 22
-	private static final String SERIES = 'SERIES'
-	private static final Boolean MINISERIES = LogicUtil.nextBoolean()
 
-	private WikitextToCompaniesProcessor wikitextToCompaniesProcessorMock
-
-	private PublishableSeriesPublishedDatesEnrichingProcessor comicSeriesPublishedDatesEnrichingProcessorMock
-
-	private WikitextToYearRangeProcessor wikitextToYearRangeProcessorMock
-
-	private WikitextToStardateRangeProcessor wikitextToStardateRangeProcessorMock
-
-	private PublishableSeriesTemplateMiniseriesProcessor comicSeriesTemplateMiniseriesProcessorMock
+	private PublishableSeriesTemplatePartsEnrichingProcessor publishableSeriesTemplatePartsEnrichingProcessorMock
 
 	private ComicSeriesTemplatePartsEnrichingProcessor comicSeriesTemplatePartsEnrichingProcessor
 
 	void setup() {
-		wikitextToCompaniesProcessorMock = Mock()
-		comicSeriesPublishedDatesEnrichingProcessorMock = Mock()
-		wikitextToYearRangeProcessorMock = Mock()
-		wikitextToStardateRangeProcessorMock = Mock()
-		comicSeriesTemplateMiniseriesProcessorMock = Mock()
-		comicSeriesTemplatePartsEnrichingProcessor = new ComicSeriesTemplatePartsEnrichingProcessor(wikitextToCompaniesProcessorMock,
-				comicSeriesPublishedDatesEnrichingProcessorMock, wikitextToYearRangeProcessorMock, wikitextToStardateRangeProcessorMock,
-				comicSeriesTemplateMiniseriesProcessorMock)
+		publishableSeriesTemplatePartsEnrichingProcessorMock = Mock()
+		comicSeriesTemplatePartsEnrichingProcessor = new ComicSeriesTemplatePartsEnrichingProcessor(
+				publishableSeriesTemplatePartsEnrichingProcessorMock)
 	}
 
-	void "sets publishers from ComicSeriesTemplatePublishersProcessor"() {
+	void "passes enrichable pair to PublishableSeriesTemplatePartsEnrichingProcessor"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplateParameter.PUBLISHER, value: PUBLISHER)
-		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate()
-		Company publisher1 = Mock(Company)
-		Company publisher2 = Mock(Company)
-
-		when:
-		comicSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicSeriesTemplate))
-
-		then:
-		1 * wikitextToCompaniesProcessorMock.process(PUBLISHER) >> Sets.newHashSet(publisher1, publisher2)
-		0 * _
-		comicSeriesTemplate.publishers.size() == 2
-		comicSeriesTemplate.publishers.contains publisher1
-		comicSeriesTemplate.publishers.contains publisher2
-	}
-
-	void "passes ComicSeriesTemplate to ComicSeriesPublishedDatesEnrichingProcessor"() {
-		given:
-		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplateParameter.PUBLISHED, value: PUBLISHED)
+		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplateParameter.PUBLISHER)
+		List<Template.Part> templatePartList = Lists.newArrayList(templatePart)
 		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate()
 
 		when:
-		comicSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicSeriesTemplate))
+		comicSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(templatePartList, comicSeriesTemplate))
 
 		then:
-		1 * comicSeriesPublishedDatesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
-				EnrichablePair<Template.Part, ComicSeriesTemplate> enrichablePair ->
-			assert enrichablePair.input == templatePart
-			assert enrichablePair.output != null
+		1 * publishableSeriesTemplatePartsEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+			EnrichablePair<List<Template.Part>, PublishableSeriesTemplate> enrichablePair ->
+				assert enrichablePair.input == templatePartList
+				assert enrichablePair.output == comicSeriesTemplate
 		}
-		0 * _
-	}
-
-	void "does not pass ComicSeriesTemplate to ComicSeriesPublishedDatesEnrichingProcessor when is already have published years"() {
-		given:
-		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplateParameter.PUBLISHED, value: PUBLISHED)
-		ComicSeriesTemplate comicSeriesTemplateWithPublishedYearFrom = new ComicSeriesTemplate(publishedYearFrom: YEAR)
-		ComicSeriesTemplate comicSeriesTemplateWithPublishedYearTo = new ComicSeriesTemplate(publishedYearTo: YEAR)
-
-		when:
-		comicSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart),
-				comicSeriesTemplateWithPublishedYearFrom))
-
-		then:
-		0 * _
-
-		when:
-		comicSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart),
-				comicSeriesTemplateWithPublishedYearTo))
-
-		then:
 		0 * _
 	}
 
@@ -123,6 +52,7 @@ class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 		comicSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicSeriesTemplate))
 
 		then:
+		1 * publishableSeriesTemplatePartsEnrichingProcessorMock.enrich(_)
 		0 * _
 		comicSeriesTemplate.numberOfIssues == ISSUES_INTEGER
 	}
@@ -136,108 +66,9 @@ class ComicSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 		comicSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicSeriesTemplate))
 
 		then:
+		1 * publishableSeriesTemplatePartsEnrichingProcessorMock.enrich(_)
 		0 * _
 		comicSeriesTemplate.numberOfIssues == ISSUES_INTEGER_2
-	}
-
-	void "sets year from and year to from WikitextToYearRangeProcessor"() {
-		given:
-		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplateParameter.YEAR, value: YEARS)
-		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate()
-		YearRange yearRange = new YearRange(yearFrom: YEAR_FROM, yearTo: YEAR_TO)
-
-		when:
-		comicSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicSeriesTemplate))
-
-		then:
-		1 * wikitextToYearRangeProcessorMock.process(YEARS) >> yearRange
-		0 * _
-		comicSeriesTemplate.yearFrom == YEAR_FROM
-		comicSeriesTemplate.yearTo == YEAR_TO
-	}
-
-	void "does not set year from and year to from WikitextToYearRangeProcessor, when value is already present"() {
-		given:
-		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplateParameter.YEAR, value: YEARS)
-		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate(yearFrom: YEAR_FROM)
-
-		when:
-		comicSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicSeriesTemplate))
-
-		then:
-		0 * _
-		comicSeriesTemplate.yearFrom == YEAR_FROM
-	}
-
-	void "sets stardate from and stardate to from WikitextToStardateRangeProcessor"() {
-		given:
-		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplateParameter.STARDATE, value: STARDATES)
-		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate()
-		StardateRange stardateRange = new StardateRange(stardateFrom: STARDATE_FROM, stardateTo: STARDATE_TO)
-
-		when:
-		comicSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicSeriesTemplate))
-
-		then:
-		1 * wikitextToStardateRangeProcessorMock.process(STARDATES) >> stardateRange
-		0 * _
-		comicSeriesTemplate.stardateFrom == STARDATE_FROM
-		comicSeriesTemplate.stardateTo == STARDATE_TO
-	}
-
-	void "does not set set year from and year to from WikitextToYearRangeProcessor when YearRange is null"() {
-		given:
-		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.YEAR, value: YEARS)
-		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate()
-
-		when:
-		comicSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicSeriesTemplate))
-
-		then:
-		1 * wikitextToYearRangeProcessorMock.process(YEARS) >> null
-		0 * _
-		comicSeriesTemplate.yearFrom == null
-		comicSeriesTemplate.yearTo == null
-	}
-
-	void "does not set year from and year to from WikitextToStardateRangeProcessor, when value is already present"() {
-		given:
-		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplateParameter.STARDATE, value: STARDATES)
-		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate(stardateFrom: STARDATE_FROM)
-
-		when:
-		comicSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicSeriesTemplate))
-
-		then:
-		0 * _
-		comicSeriesTemplate.stardateFrom == STARDATE_FROM
-	}
-
-	void "sets miniseries flag from ComicSeriesTemplateMiniseriesProcessor"() {
-		given:
-		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplateParameter.SERIES, value: SERIES)
-		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate()
-
-		when:
-		comicSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicSeriesTemplate))
-
-		then:
-		1 * comicSeriesTemplateMiniseriesProcessorMock.process(SERIES) >> MINISERIES
-		0 * _
-		comicSeriesTemplate.miniseries == MINISERIES
-	}
-
-	void "does not set miniseries flag from ComicSeriesTemplateMiniseriesProcessor, when value is already present"() {
-		given:
-		Template.Part templatePart = new Template.Part(key: ComicSeriesTemplateParameter.SERIES, value: SERIES)
-		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate(miniseries: MINISERIES)
-
-		when:
-		comicSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicSeriesTemplate))
-
-		then:
-		0 * _
-		comicSeriesTemplate.miniseries == MINISERIES
 	}
 
 }
