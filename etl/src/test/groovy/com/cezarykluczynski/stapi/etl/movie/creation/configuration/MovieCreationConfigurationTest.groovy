@@ -20,8 +20,8 @@ class MovieCreationConfigurationTest extends AbstractCreationConfigurationTest {
 	private MovieCreationConfiguration movieCreationConfiguration
 
 	void setup() {
-		categoryApiMock = Mock(CategoryApi)
-		jobCompletenessDeciderMock = Mock(StepCompletenessDecider)
+		categoryApiMock = Mock()
+		jobCompletenessDeciderMock = Mock()
 		movieCreationConfiguration = new MovieCreationConfiguration(
 				categoryApi: categoryApiMock,
 				stepCompletenessDecider: jobCompletenessDeciderMock)

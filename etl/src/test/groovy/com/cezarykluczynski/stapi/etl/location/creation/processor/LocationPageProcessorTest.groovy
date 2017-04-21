@@ -46,7 +46,7 @@ class LocationPageProcessorTest extends Specification {
 
 	void "should return null when page should be filtered out"() {
 		given:
-		SourcesPage page = Mock(SourcesPage)
+		SourcesPage page = Mock()
 
 		when:
 		Location location = locationPageProcessor.process(page)
@@ -121,7 +121,7 @@ class LocationPageProcessorTest extends Specification {
 		categoryTitlesExtractingProcessorMock.process(_ as List<CategoryHeader>) >> {
 			List<CategoryHeader> categoryHeaderList -> Lists.newArrayList(categoryHeaderList[0].title)
 		}
-		locationNameFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
+		1 * locationNameFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
 
 		expect:
 		Location location = locationPageProcessor.process(page)

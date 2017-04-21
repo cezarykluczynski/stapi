@@ -20,7 +20,7 @@ class BookTemplateProcessorTest extends AbstractBookTest {
 	private final Page page = Mock()
 
 	void setup() {
-		guidGeneratorMock = Mock(GuidGenerator)
+		guidGeneratorMock = Mock()
 		bookTemplateProcessor = new BookTemplateProcessor(guidGeneratorMock)
 	}
 

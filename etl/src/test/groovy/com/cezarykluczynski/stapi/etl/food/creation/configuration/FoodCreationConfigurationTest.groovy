@@ -24,9 +24,9 @@ class FoodCreationConfigurationTest extends AbstractCreationConfigurationTest {
 	private FoodCreationConfiguration foodCreationConfiguration
 
 	void setup() {
-		applicationContextMock = Mock(ApplicationContext)
-		categoryApiMock = Mock(CategoryApi)
-		jobCompletenessDeciderMock = Mock(StepCompletenessDecider)
+		applicationContextMock = Mock()
+		categoryApiMock = Mock()
+		jobCompletenessDeciderMock = Mock()
 		foodCreationConfiguration = new FoodCreationConfiguration(
 				applicationContext: applicationContextMock,
 				categoryApi: categoryApiMock,

@@ -7,7 +7,7 @@ class JobFactoryBeanTest extends Specification {
 
 	void "should create factory with non-null Job"() {
 		given:
-		Job job = Mock(Job)
+		Job job = Mock()
 
 		when:
 		JobFactoryBean jobFactoryBean = new JobFactoryBean(job)

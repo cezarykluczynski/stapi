@@ -31,9 +31,9 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 	private ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor
 
 	void setup() {
-		referenceRepositoryMock = Mock(ReferenceRepository)
-		guidGeneratorMock = Mock(GuidGenerator)
-		referenceFactoryMock = Mock(ReferenceFactory)
+		referenceRepositoryMock = Mock()
+		guidGeneratorMock = Mock()
+		referenceFactoryMock = Mock()
 		referencesFromTemplatePartProcessor = new ReferencesFromTemplatePartProcessor(referenceRepositoryMock, guidGeneratorMock,
 				referenceFactoryMock)
 	}
@@ -53,7 +53,7 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 	void "ISBN containing template is parsed to Reference, when reference is already present"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: TemplateTitle.REFERENCE, value: ISBN_FULL)
-		Reference reference = Mock(Reference)
+		Reference reference = Mock()
 
 		when:
 		Set<Reference> referenceSet = referencesFromTemplatePartProcessor.process(templatePart)
@@ -73,8 +73,8 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 	void "ISBNs containing template is parsed to References, when references is already present"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: TemplateTitle.REFERENCE, value: TWO_FULL_ISBNS)
-		Reference reference1 = Mock(Reference)
-		Reference reference2 = Mock(Reference)
+		Reference reference1 = Mock()
+		Reference reference2 = Mock()
 
 		when:
 		Set<Reference> referenceSet = referencesFromTemplatePartProcessor.process(templatePart)
@@ -101,7 +101,7 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 	void "ISBN containing template is parsed to Reference, when reference is not already present"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: TemplateTitle.REFERENCE, value: ISBN_FULL)
-		Reference reference = Mock(Reference)
+		Reference reference = Mock()
 
 		when:
 		Set<Reference> referenceSet = referencesFromTemplatePartProcessor.process(templatePart)
@@ -142,7 +142,7 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 								parts: Lists.newArrayList(
 										new Template.Part(value: ASIN)
 								))))
-		Reference reference = Mock(Reference)
+		Reference reference = Mock()
 
 		when:
 		Set<Reference> referenceSet = referencesFromTemplatePartProcessor.process(templatePart)

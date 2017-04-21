@@ -65,8 +65,8 @@ class CategoryApiImplTest extends Specification {
 	private CategoryApiImpl categoryApiImpl
 
 	void setup() {
-		blikiConnectorMock = Mock(BlikiConnector)
-		pageHeaderConverterMock = Mock(PageHeaderConverter)
+		blikiConnectorMock = Mock()
+		pageHeaderConverterMock = Mock()
 		categoryApiImpl = new CategoryApiImpl(blikiConnectorMock, pageHeaderConverterMock)
 	}
 

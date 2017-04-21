@@ -13,8 +13,8 @@ class SpeciesQueryBuilderFactoryTest extends Specification {
 	private SpeciesQueryBuilderFactory speciesQueryBuilderFactory
 
 	void setup() {
-		jpaContextMock = Mock(JpaContext)
-		cachingStrategyMock = Mock(CachingStrategy)
+		jpaContextMock = Mock()
+		cachingStrategyMock = Mock()
 	}
 
 	void "SpeciesQueryBuilder is created"() {

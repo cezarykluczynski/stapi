@@ -18,9 +18,9 @@ class CommonStepExecutionListenerTest extends Specification {
 	private CommonStepExecutionListener commonStepExecutionListener
 
 	void setup() {
-		frequentHitCachingHelperMock = Mock(FrequentHitCachingHelper)
-		frequentHitCachingHelperDumpFormatterMock = Mock(FrequentHitCachingHelperDumpFormatter)
-		stepExecutionMock = Mock(StepExecution)
+		frequentHitCachingHelperMock = Mock()
+		frequentHitCachingHelperDumpFormatterMock = Mock()
+		stepExecutionMock = Mock()
 		commonStepExecutionListener = new CommonStepExecutionListener(frequentHitCachingHelperMock,
 				frequentHitCachingHelperDumpFormatterMock)
 	}
@@ -39,8 +39,8 @@ class CommonStepExecutionListenerTest extends Specification {
 
 	void "logs after step"() {
 		given:
-		ExitStatus exitStatusMock = Mock(ExitStatus)
-		Map<MediaWikiSource, Map<String, Integer>> cacheMap = Mock(Map)
+		ExitStatus exitStatusMock = Mock()
+		Map<MediaWikiSource, Map<String, Integer>> cacheMap = Mock()
 
 		when: 'after step callback is called'
 		commonStepExecutionListener.afterStep(stepExecutionMock)

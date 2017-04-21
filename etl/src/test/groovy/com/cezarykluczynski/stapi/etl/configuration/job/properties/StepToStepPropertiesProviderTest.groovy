@@ -10,7 +10,7 @@ class StepToStepPropertiesProviderTest extends Specification {
 	private StepToStepPropertiesProvider stepToStepPropertiesProvider
 
 	void setup() {
-		stepsPropertiesMock = Mock(StepsProperties)
+		stepsPropertiesMock = Mock()
 		stepToStepPropertiesProvider = new StepToStepPropertiesProvider(stepsPropertiesMock)
 	}
 

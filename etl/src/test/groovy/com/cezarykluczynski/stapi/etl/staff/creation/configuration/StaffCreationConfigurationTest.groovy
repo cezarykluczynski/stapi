@@ -98,8 +98,8 @@ class StaffCreationConfigurationTest extends AbstractCreationConfigurationTest {
 
 	void "ActorTemplatePageProcessor is created"() {
 		given:
-		ActorTemplateSinglePageProcessor actorTemplateSinglePageProcessorMock = Mock(ActorTemplateSinglePageProcessor)
-		ActorTemplateListPageProcessor actorTemplateListPageProcessorMock = Mock(ActorTemplateListPageProcessor)
+		ActorTemplateSinglePageProcessor actorTemplateSinglePageProcessorMock = Mock()
+		ActorTemplateListPageProcessor actorTemplateListPageProcessorMock = Mock()
 
 		when:
 		ActorTemplatePageProcessor actorTemplatePageProcessor = staffCreationConfiguration

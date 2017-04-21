@@ -23,9 +23,9 @@ class OrganizationCreationConfigurationTest extends AbstractCreationConfiguratio
 	private OrganizationCreationConfiguration organizationCreationConfiguration
 
 	void setup() {
-		applicationContextMock = Mock(ApplicationContext)
-		categoryApiMock = Mock(CategoryApi)
-		jobCompletenessDeciderMock = Mock(StepCompletenessDecider)
+		applicationContextMock = Mock()
+		categoryApiMock = Mock()
+		jobCompletenessDeciderMock = Mock()
 		organizationCreationConfiguration = new OrganizationCreationConfiguration(
 				applicationContext: applicationContextMock,
 				categoryApi: categoryApiMock,

@@ -30,7 +30,7 @@ class EntityLookupByNameServiceTest extends Specification {
 
 	void "gets performer from generic service"() {
 		given:
-		Performer performer = Mock(Performer)
+		Performer performer = Mock()
 
 		when:
 		Optional<Performer> performerOptional = entityLookupByNameService.findPerformerByName(PERFORMER_NAME, SOURCES_MEDIA_WIKI_SOURCE)
@@ -56,7 +56,7 @@ class EntityLookupByNameServiceTest extends Specification {
 
 	void "gets staff from generic service"() {
 		given:
-		Staff staff = Mock(Staff)
+		Staff staff = Mock()
 
 		when:
 		Optional<Staff> staffOptional = entityLookupByNameService.findStaffByName(STAFF_NAME, SOURCES_MEDIA_WIKI_SOURCE)
@@ -82,7 +82,7 @@ class EntityLookupByNameServiceTest extends Specification {
 
 	void "gets astronomical object from generic service"() {
 		given:
-		AstronomicalObject astronomicalObject = Mock(AstronomicalObject)
+		AstronomicalObject astronomicalObject = Mock()
 
 		when:
 		Optional<AstronomicalObject> comicsOptional = entityLookupByNameService

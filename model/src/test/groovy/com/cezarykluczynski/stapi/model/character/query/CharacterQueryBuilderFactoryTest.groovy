@@ -13,8 +13,8 @@ class CharacterQueryBuilderFactoryTest extends Specification {
 	private CharacterQueryBuilderFactory characterQueryBuilderFactory
 
 	void setup() {
-		jpaContextMock = Mock(JpaContext)
-		cachingStrategyMock = Mock(CachingStrategy)
+		jpaContextMock = Mock()
+		cachingStrategyMock = Mock()
 	}
 
 	void "CharacterQueryBuilder is created"() {

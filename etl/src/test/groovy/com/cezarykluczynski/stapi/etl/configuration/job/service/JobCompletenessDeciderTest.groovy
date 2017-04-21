@@ -18,7 +18,7 @@ class JobCompletenessDeciderTest extends Specification {
 	private JobCompletenessDecider jobCompletenessDecider
 
 	void setup() {
-		allStepExecutionsProviderMock = Mock(AllStepExecutionsProvider)
+		allStepExecutionsProviderMock = Mock()
 		jobCompletenessDecider = new JobCompletenessDecider(allStepExecutionsProviderMock)
 	}
 
@@ -48,7 +48,7 @@ class JobCompletenessDeciderTest extends Specification {
 
 	void "returns false when number of executions equals number of steps, but not all step executions are completed"() {
 		given:
-		StepExecution stepExecution = Mock(StepExecution)
+		StepExecution stepExecution = Mock()
 		List<StepExecution> stepExecutionList = createStepExecutionList(INVALID_NUMBER_OF_STEPS)
 		stepExecutionList.add(stepExecution)
 
@@ -68,7 +68,7 @@ class JobCompletenessDeciderTest extends Specification {
 		while (numberOfMocks > i) {
 			i++
 
-			StepExecution stepExecution = Mock(StepExecution)
+			StepExecution stepExecution = Mock()
 			stepExecution.status >> BatchStatus.COMPLETED
 			stepExecutionList.add(stepExecution)
 		}

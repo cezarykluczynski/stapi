@@ -23,15 +23,15 @@ class WikitextStaffProcessorTest extends Specification {
 	private WikitextStaffProcessor wikitextStaffProcessor
 
 	void setup() {
-		wikitextApiMock = Mock(WikitextApi)
-		entityLookupByNameServiceMock = Mock(EntityLookupByNameService)
+		wikitextApiMock = Mock()
+		entityLookupByNameServiceMock = Mock()
 		wikitextStaffProcessor = new WikitextStaffProcessor(wikitextApiMock, entityLookupByNameServiceMock)
 	}
 
 	void "gets staff from wikitext"() {
 		given:
-		Staff staff1 = Mock(Staff)
-		Staff staff2 = Mock(Staff)
+		Staff staff1 = Mock()
+		Staff staff2 = Mock()
 
 		when:
 		Set<Staff> staffSet = wikitextStaffProcessor.process(WIKITEXT)

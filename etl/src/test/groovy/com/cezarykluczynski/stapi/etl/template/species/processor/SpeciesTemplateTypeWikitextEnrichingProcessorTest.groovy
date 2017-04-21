@@ -17,7 +17,7 @@ class SpeciesTemplateTypeWikitextEnrichingProcessorTest extends Specification {
 	private SpeciesTemplateTypeWikitextEnrichingProcessor speciesTemplateTypeWikitextEnrichingProcessor
 
 	void setup() {
-		wikitextApiMock = Mock(WikitextApi)
+		wikitextApiMock = Mock()
 		speciesTemplateTypeWikitextEnrichingProcessor = new SpeciesTemplateTypeWikitextEnrichingProcessor(wikitextApiMock)
 	}
 

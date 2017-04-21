@@ -15,8 +15,8 @@ class CharacterWriterTest extends Specification {
 	private CharacterWriter characterWriterMock
 
 	void setup() {
-		characterRepositoryMock = Mock(CharacterRepository)
-		duplicateFilteringPreSavePageAwareProcessorMock = Mock(DuplicateFilteringPreSavePageAwareFilter)
+		characterRepositoryMock = Mock()
+		duplicateFilteringPreSavePageAwareProcessorMock = Mock()
 		characterWriterMock = new CharacterWriter(characterRepositoryMock, duplicateFilteringPreSavePageAwareProcessorMock)
 	}
 

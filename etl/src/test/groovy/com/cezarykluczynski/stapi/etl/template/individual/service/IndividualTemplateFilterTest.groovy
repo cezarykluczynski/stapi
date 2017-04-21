@@ -22,8 +22,8 @@ class IndividualTemplateFilterTest extends Specification {
 	private IndividualTemplateFilter individualTemplateFilter
 
 	void setup() {
-		categoryTitlesExtractingProcessorMock = Mock(CategoryTitlesExtractingProcessor)
-		categorySortingServiceMock = Mock(CategorySortingService)
+		categoryTitlesExtractingProcessorMock = Mock()
+		categorySortingServiceMock = Mock()
 		individualTemplateFilter = new IndividualTemplateFilter(categoryTitlesExtractingProcessorMock, categorySortingServiceMock)
 	}
 

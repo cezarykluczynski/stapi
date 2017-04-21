@@ -23,10 +23,10 @@ class ComicSeriesLinkConfigurationTest extends Specification {
 	private ComicSeriesLinkConfiguration comicSeriesLinkConfiguration
 
 	void setup() {
-		applicationContextMock = Mock(ApplicationContext)
-		stepCompletenessDeciderMock = Mock(StepCompletenessDecider)
-		comicSeriesRepositoryMock = Mock(ComicSeriesRepository)
-		stepsPropertiesMock = Mock(StepsProperties)
+		applicationContextMock = Mock()
+		stepCompletenessDeciderMock = Mock()
+		comicSeriesRepositoryMock = Mock()
+		stepsPropertiesMock = Mock()
 		comicSeriesLinkConfiguration = new ComicSeriesLinkConfiguration(
 				applicationContext: applicationContextMock,
 				stepCompletenessDecider: stepCompletenessDeciderMock,
@@ -36,7 +36,7 @@ class ComicSeriesLinkConfigurationTest extends Specification {
 
 	void "ComicSeriesLinkReader is created"() {
 		given:
-		StepProperties linkComicSeriesStepProperties = Mock(StepProperties)
+		StepProperties linkComicSeriesStepProperties = Mock()
 
 		when:
 		ComicSeriesLinkReader comicSeriesLinkReader = comicSeriesLinkConfiguration.comicSeriesLinkReader()

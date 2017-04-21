@@ -21,8 +21,8 @@ class IndividualDateStatusValueToYearProcessorTest extends Specification {
 	private IndividualDateStatusValueToYearProcessor individualDateStatusValueToYearProcessor
 
 	void setup() {
-		wikitextApiMock = Mock(WikitextApi)
-		pageLinkToYearProcessorMock = Mock(PageLinkToYearProcessor)
+		wikitextApiMock = Mock()
+		pageLinkToYearProcessorMock = Mock()
 		individualDateStatusValueToYearProcessor = new IndividualDateStatusValueToYearProcessor(wikitextApiMock,
 				pageLinkToYearProcessorMock)
 	}
@@ -71,7 +71,7 @@ class IndividualDateStatusValueToYearProcessorTest extends Specification {
 
 	void "returns integer when one link to year is found"() {
 		given:
-		PageLink pageLink = Mock(PageLink)
+		PageLink pageLink = Mock()
 
 		when:
 		Integer year = individualDateStatusValueToYearProcessor.process(YEAR_STRING)
@@ -84,8 +84,8 @@ class IndividualDateStatusValueToYearProcessorTest extends Specification {
 
 	void "returns null when more than one link to year is found"() {
 		given:
-		PageLink pageLink = Mock(PageLink)
-		PageLink pageLink2 = Mock(PageLink)
+		PageLink pageLink = Mock()
+		PageLink pageLink2 = Mock()
 
 		when:
 		Integer year = individualDateStatusValueToYearProcessor.process(INVALID_YEAR_STRING)

@@ -57,8 +57,8 @@ class PublishableSeriesTemplatePartsEnrichingProcessorTest extends Specification
 		given:
 		Template.Part templatePart = new Template.Part(key: PublishableSeriesTemplateParameter.PUBLISHER, value: PUBLISHER)
 		PublishableSeriesTemplate publishableSeriesTemplate = new PublishableSeriesTemplate()
-		Company publisher1 = Mock(Company)
-		Company publisher2 = Mock(Company)
+		Company publisher1 = Mock()
+		Company publisher2 = Mock()
 
 		when:
 		publishableSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), publishableSeriesTemplate))

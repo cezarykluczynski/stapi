@@ -20,8 +20,8 @@ class BookSeriesCreationConfigurationTest extends AbstractCreationConfigurationT
 	private BookSeriesCreationConfiguration bookSeriesCreationConfiguration
 
 	void setup() {
-		categoryApiMock = Mock(CategoryApi)
-		jobCompletenessDeciderMock = Mock(StepCompletenessDecider)
+		categoryApiMock = Mock()
+		jobCompletenessDeciderMock = Mock()
 		bookSeriesCreationConfiguration = new BookSeriesCreationConfiguration(
 				categoryApi: categoryApiMock,
 				stepCompletenessDecider: jobCompletenessDeciderMock)

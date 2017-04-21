@@ -13,8 +13,8 @@ class CharacterSpeciesQueryBuilderFactoryTest extends Specification {
 	private CharacterSpeciesQueryBuilderFactory characterSpeciesQueryBuilderFactory
 
 	void setup() {
-		jpaContextMock = Mock(JpaContext)
-		cachingStrategyMock = Mock(CachingStrategy)
+		jpaContextMock = Mock()
+		cachingStrategyMock = Mock()
 	}
 
 	void "CharacterSpeciesQueryBuilder is created"() {

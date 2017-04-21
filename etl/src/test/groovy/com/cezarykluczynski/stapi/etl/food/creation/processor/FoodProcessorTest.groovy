@@ -15,8 +15,8 @@ class FoodProcessorTest extends Specification {
 	private FoodProcessor foodProcessor
 
 	void setup() {
-		pageHeaderProcessorMock = Mock(PageHeaderProcessor)
-		foodPageProcessorMock = Mock(FoodPageProcessor)
+		pageHeaderProcessorMock = Mock()
+		foodPageProcessorMock = Mock()
 		foodProcessor = new FoodProcessor(pageHeaderProcessorMock, foodPageProcessorMock)
 	}
 

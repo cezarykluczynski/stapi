@@ -33,13 +33,13 @@ class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 	private Page page
 
 	void setup() {
-		performerQueryBuilderMock = Mock(PerformerQueryBuilderFactory)
+		performerQueryBuilderMock = Mock()
 		performerRepositoryImpl = new PerformerRepositoryImpl(performerQueryBuilderMock)
-		performerQueryBuilder = Mock(QueryBuilder)
-		pageable = Mock(Pageable)
-		performerRequestDTO = Mock(PerformerRequestDTO)
-		performer = Mock(Performer)
-		page = Mock(Page)
+		performerQueryBuilder = Mock()
+		pageable = Mock()
+		performerRequestDTO = Mock()
+		performer = Mock()
+		page = Mock()
 	}
 
 	void "query is built and performed"() {

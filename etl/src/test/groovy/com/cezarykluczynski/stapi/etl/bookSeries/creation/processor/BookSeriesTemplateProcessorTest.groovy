@@ -10,21 +10,21 @@ import com.google.common.collect.Sets
 
 class BookSeriesTemplateProcessorTest extends AbstractBookSeriesTest {
 
-	private final Page page = Mock(Page)
+	private final Page page = Mock()
 
 	private GuidGenerator guidGeneratorMock
 
 	private BookSeriesTemplateProcessor bookSeriesTemplateProcessor
 
 	void setup() {
-		guidGeneratorMock = Mock(GuidGenerator)
+		guidGeneratorMock = Mock()
 		bookSeriesTemplateProcessor = new BookSeriesTemplateProcessor(guidGeneratorMock)
 	}
 
 	void "converts BookSeriesTemplate to BookSeries"() {
 		given:
-		Company publisher1 = Mock(Company)
-		Company publisher2 = Mock(Company)
+		Company publisher1 = Mock()
+		Company publisher2 = Mock()
 		BookSeriesTemplate bookSeriesTemplate = new BookSeriesTemplate(
 				page: page,
 				title: TITLE,

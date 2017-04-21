@@ -18,7 +18,7 @@ class MediaWikiMinimalIntervalConfigurationStrategyTest extends Specification {
 	private MediaWikiMinimalIntervalConfigurationStrategy mediaWikiMinimalIntervalConfigurationStrategy
 
 	void setup() {
-		wikiaUrlDetectorMock = Mock(WikiaUrlDetector)
+		wikiaUrlDetectorMock = Mock()
 		mediaWikiMinimalIntervalConfigurationStrategy = new MediaWikiMinimalIntervalConfigurationStrategy(wikiaUrlDetectorMock)
 	}
 

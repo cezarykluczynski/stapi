@@ -27,9 +27,9 @@ class ComicsTemplateWikitextStaffEnrichingProcessorTest extends Specification {
 	private ComicsTemplateWikitextStaffEnrichingProcessor comicsTemplateWikitextStaffEnrichingProcessor
 
 	void setup() {
-		wikitextListsExtractorMock = Mock(WikitextListsExtractor)
-		wikitextApiMock = Mock(WikitextApi)
-		entityLookupByNameServiceMock = Mock(EntityLookupByNameService)
+		wikitextListsExtractorMock = Mock()
+		wikitextApiMock = Mock()
+		entityLookupByNameServiceMock = Mock()
 		comicsTemplateWikitextStaffEnrichingProcessor = new ComicsTemplateWikitextStaffEnrichingProcessor(wikitextListsExtractorMock,
 				wikitextApiMock, entityLookupByNameServiceMock)
 	}
@@ -42,7 +42,7 @@ class ComicsTemplateWikitextStaffEnrichingProcessorTest extends Specification {
 				children: Lists.newArrayList(
 						new WikitextList(text: CHILD_WIKITEXT)
 				))
-		Staff writer = Mock(Staff)
+		Staff writer = Mock()
 
 		when:
 		comicsTemplateWikitextStaffEnrichingProcessor.enrich(EnrichablePair.of(WIKITEXT, comicsTemplate))
@@ -68,7 +68,7 @@ class ComicsTemplateWikitextStaffEnrichingProcessorTest extends Specification {
 				children: Lists.newArrayList(
 						new WikitextList(text: CHILD_WIKITEXT)
 				))
-		Staff artist = Mock(Staff)
+		Staff artist = Mock()
 
 		when:
 		comicsTemplateWikitextStaffEnrichingProcessor.enrich(EnrichablePair.of(WIKITEXT, comicsTemplate))
@@ -94,7 +94,7 @@ class ComicsTemplateWikitextStaffEnrichingProcessorTest extends Specification {
 				children: Lists.newArrayList(
 						new WikitextList(text: CHILD_WIKITEXT)
 				))
-		Staff editor = Mock(Staff)
+		Staff editor = Mock()
 
 		when:
 		comicsTemplateWikitextStaffEnrichingProcessor.enrich(EnrichablePair.of(WIKITEXT, comicsTemplate))
@@ -120,7 +120,7 @@ class ComicsTemplateWikitextStaffEnrichingProcessorTest extends Specification {
 				children: Lists.newArrayList(
 						new WikitextList(text: CHILD_WIKITEXT)
 				))
-		Staff staff = Mock(Staff)
+		Staff staff = Mock()
 
 		when:
 		comicsTemplateWikitextStaffEnrichingProcessor.enrich(EnrichablePair.of(WIKITEXT, comicsTemplate))
@@ -157,7 +157,7 @@ class ComicsTemplateWikitextStaffEnrichingProcessorTest extends Specification {
 
 	void "logs title of unrecognized section"() {
 		given:
-		ComicsTemplate comicsTemplate = Mock(ComicsTemplate)
+		ComicsTemplate comicsTemplate = Mock()
 		WikitextList wikitextList = new WikitextList(text: 'Unrecognized')
 
 		when:

@@ -30,9 +30,9 @@ class ComicsTemplateWikitextCharactersEnrichingProcessorTest extends Specificati
 	private ComicsTemplateWikitextCharactersEnrichingProcessor comicsTemplateWikitextCharactersEnrichingProcessor
 
 	void setup() {
-		wikitextListsExtractorMock = Mock(WikitextListsExtractor)
-		wikitextApiMock = Mock(WikitextApi)
-		entityLookupByNameServiceMock = Mock(EntityLookupByNameService)
+		wikitextListsExtractorMock = Mock()
+		wikitextApiMock = Mock()
+		entityLookupByNameServiceMock = Mock()
 		comicsTemplateWikitextCharactersEnrichingProcessor = new ComicsTemplateWikitextCharactersEnrichingProcessor(wikitextListsExtractorMock,
 				wikitextApiMock, entityLookupByNameServiceMock)
 	}
@@ -42,7 +42,7 @@ class ComicsTemplateWikitextCharactersEnrichingProcessorTest extends Specificati
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
 		WikitextList wikitextList1 = new WikitextList(text: WIKITEXT_LIST_1)
 		WikitextList wikitextList2 = new WikitextList(text: WIKITEXT_LIST_2)
-		Character character = Mock(Character)
+		Character character = Mock()
 
 		when:
 		comicsTemplateWikitextCharactersEnrichingProcessor.enrich(EnrichablePair.of(WIKITEXT, comicsTemplate))
@@ -59,7 +59,7 @@ class ComicsTemplateWikitextCharactersEnrichingProcessorTest extends Specificati
 
 	void "logs title when no characters were found, but at least one WikitextList was found"() {
 		given:
-		ComicsTemplate comicsTemplate = Mock(ComicsTemplate)
+		ComicsTemplate comicsTemplate = Mock()
 		WikitextList wikitextList1 = new WikitextList(text: WIKITEXT_LIST_1)
 
 		when:

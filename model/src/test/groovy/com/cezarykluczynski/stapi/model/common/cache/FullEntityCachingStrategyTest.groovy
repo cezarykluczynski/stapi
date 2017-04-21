@@ -27,11 +27,11 @@ class FullEntityCachingStrategyTest extends Specification {
 	private FullEntityCachingStrategy fullEntityCachingStrategy
 
 	void setup() {
-		queryBuilder = Mock(QueryBuilder)
-		criteriaQuery = Mock(CriteriaQuery)
-		criteriaBuilder = Mock(CriteriaBuilderImpl)
-		entityType = Mock(EntityType)
-		path = Mock(Path)
+		queryBuilder = Mock()
+		criteriaQuery = Mock()
+		criteriaBuilder = Mock()
+		entityType = Mock()
+		path = Mock()
 		root = new RootImpl(criteriaBuilder, entityType)
 		fullEntityCachingStrategy = new FullEntityCachingStrategy()
 	}
@@ -76,12 +76,15 @@ class FullEntityCachingStrategyTest extends Specification {
 	}
 
 	void "returns false when attributePathRegistry could not be retrieved"() {
+		given:
+		RootImpl rootImpl = Mock()
+
 		when:
 		boolean cacheable = fullEntityCachingStrategy.isCacheable(queryBuilder)
 
 		then:
 		1 * queryBuilder.baseCriteriaQuery >> criteriaQuery
-		1 * criteriaQuery.selection >> Mock(RootImpl)
+		1 * criteriaQuery.selection >> rootImpl
 		0 * _
 		!cacheable
 	}

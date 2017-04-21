@@ -40,22 +40,22 @@ class SpeciesRepositoryImplTest extends AbstractSpeciesTest {
 	private Page page
 
 	void setup() {
-		speciesQueryBuilderMock = Mock(SpeciesQueryBuilderFactory)
-		characterSpeciesRepositoryMock = Mock(CharacterSpeciesRepository)
-		characterRepositoryMock = Mock(CharacterRepository)
+		speciesQueryBuilderMock = Mock()
+		characterSpeciesRepositoryMock = Mock()
+		characterRepositoryMock = Mock()
 		speciesRepositoryImpl = new SpeciesRepositoryImpl(speciesQueryBuilderMock, characterSpeciesRepositoryMock, characterRepositoryMock)
-		speciesQueryBuilder = Mock(QueryBuilder)
-		pageable = Mock(Pageable)
-		speciesRequestDTO = Mock(SpeciesRequestDTO)
-		page = Mock(Page)
+		speciesQueryBuilder = Mock()
+		pageable = Mock()
+		speciesRequestDTO = Mock()
+		page = Mock()
 		species = new Species()
 	}
 
 	void "query is built and performed"() {
 		given:
-		Set<CharacterSpecies> characterSpeciesSet  = Mock(Set)
-		Character character1 = Mock(Character)
-		Character character2 = Mock(Character)
+		Set<CharacterSpecies> characterSpeciesSet  = Mock()
+		Character character1 = Mock()
+		Character character2 = Mock()
 
 		when:
 		Page pageOutput = speciesRepositoryImpl.findMatching(speciesRequestDTO, pageable)

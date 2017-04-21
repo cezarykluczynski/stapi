@@ -15,8 +15,8 @@ class OrganizationWriterTest extends Specification {
 	private OrganizationWriter organizationWriterMock
 
 	void setup() {
-		organizationRepositoryMock = Mock(OrganizationRepository)
-		duplicateFilteringPreSavePageAwareProcessorMock = Mock(DuplicateFilteringPreSavePageAwareFilter)
+		organizationRepositoryMock = Mock()
+		duplicateFilteringPreSavePageAwareProcessorMock = Mock()
 		organizationWriterMock = new OrganizationWriter(organizationRepositoryMock, duplicateFilteringPreSavePageAwareProcessorMock)
 	}
 

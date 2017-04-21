@@ -17,8 +17,8 @@ class StaffActorTemplateProcessorTest extends AbstractRealWorldActorTemplateProc
 	private StaffActorTemplateProcessor staffActorTemplateProcessor
 
 	void setup() {
-		guidGeneratorMock = Mock(GuidGenerator)
-		commonActorTemplateProcessorMock = Mock(CommonActorTemplateProcessor)
+		guidGeneratorMock = Mock()
+		commonActorTemplateProcessorMock = Mock()
 		staffActorTemplateProcessor = new StaffActorTemplateProcessor(guidGeneratorMock, commonActorTemplateProcessorMock)
 	}
 

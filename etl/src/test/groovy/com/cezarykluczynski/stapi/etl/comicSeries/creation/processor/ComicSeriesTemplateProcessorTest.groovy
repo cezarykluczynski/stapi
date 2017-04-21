@@ -10,21 +10,21 @@ import com.google.common.collect.Sets
 
 class ComicSeriesTemplateProcessorTest extends AbstractComicSeriesTest {
 
-	private final Page page = Mock(Page)
+	private final Page page = Mock()
 
 	private GuidGenerator guidGeneratorMock
 
 	private ComicSeriesTemplateProcessor comicSeriesTemplateProcessor
 
 	void setup() {
-		guidGeneratorMock = Mock(GuidGenerator)
+		guidGeneratorMock = Mock()
 		comicSeriesTemplateProcessor = new ComicSeriesTemplateProcessor(guidGeneratorMock)
 	}
 
 	void "converts ComicSeriesTemplate to ComicSeries"() {
 		given:
-		Company publisher1 = Mock(Company)
-		Company publisher2 = Mock(Company)
+		Company publisher1 = Mock()
+		Company publisher2 = Mock()
 		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate(
 				page: page,
 				title: TITLE,

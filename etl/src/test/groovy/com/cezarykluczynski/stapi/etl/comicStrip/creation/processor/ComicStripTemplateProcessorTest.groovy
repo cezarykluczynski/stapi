@@ -12,27 +12,27 @@ import com.google.common.collect.Sets
 
 class ComicStripTemplateProcessorTest extends AbstractComicStripTest {
 
-	private final Page page = Mock(Page)
+	private final Page page = Mock()
 
 	private GuidGenerator guidGeneratorMock
 
 	private ComicStripTemplateProcessor comicStripTemplateProcessor
 
 	void setup() {
-		guidGeneratorMock = Mock(GuidGenerator)
+		guidGeneratorMock = Mock()
 		comicStripTemplateProcessor = new ComicStripTemplateProcessor(guidGeneratorMock)
 	}
 
 	void "converts ComicStripTemplate to ComicStrip"() {
 		given:
-		ComicSeries comicSeries1 = Mock(ComicSeries)
-		ComicSeries comicSeries2 = Mock(ComicSeries)
-		Staff writer1 = Mock(Staff)
-		Staff writer2 = Mock(Staff)
-		Staff artist1 = Mock(Staff)
-		Staff artist2 = Mock(Staff)
-		Character character1 = Mock(Character)
-		Character character2 = Mock(Character)
+		ComicSeries comicSeries1 = Mock()
+		ComicSeries comicSeries2 = Mock()
+		Staff writer1 = Mock()
+		Staff writer2 = Mock()
+		Staff artist1 = Mock()
+		Staff artist2 = Mock()
+		Character character1 = Mock()
+		Character character2 = Mock()
 
 		ComicStripTemplate comicStripTemplate = new ComicStripTemplate(
 				page: page,

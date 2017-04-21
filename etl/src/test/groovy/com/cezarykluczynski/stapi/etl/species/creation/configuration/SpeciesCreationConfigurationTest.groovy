@@ -22,8 +22,8 @@ class SpeciesCreationConfigurationTest extends AbstractCreationConfigurationTest
 	private SpeciesCreationConfiguration speciesCreationConfiguration
 
 	void setup() {
-		categoryApiMock = Mock(CategoryApi)
-		jobCompletenessDeciderMock = Mock(StepCompletenessDecider)
+		categoryApiMock = Mock()
+		jobCompletenessDeciderMock = Mock()
 		speciesCreationConfiguration = new SpeciesCreationConfiguration(
 				categoryApi: categoryApiMock,
 				stepCompletenessDecider: jobCompletenessDeciderMock)

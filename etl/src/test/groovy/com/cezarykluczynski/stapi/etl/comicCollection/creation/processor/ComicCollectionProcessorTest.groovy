@@ -19,9 +19,9 @@ class ComicCollectionProcessorTest extends Specification {
 	private ComicCollectionProcessor comicCollectionProcessor
 
 	void setup() {
-		pageHeaderProcessorMock = Mock(PageHeaderProcessor)
-		comicCollectionTemplatePageProcessorMock = Mock(ComicCollectionTemplatePageProcessor)
-		comicCollectionTemplateProcessorMock = Mock(ComicCollectionTemplateProcessor)
+		pageHeaderProcessorMock = Mock()
+		comicCollectionTemplatePageProcessorMock = Mock()
+		comicCollectionTemplateProcessorMock = Mock()
 		comicCollectionProcessor = new ComicCollectionProcessor(pageHeaderProcessorMock, comicCollectionTemplatePageProcessorMock,
 				comicCollectionTemplateProcessorMock)
 	}

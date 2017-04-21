@@ -21,7 +21,7 @@ class BookSeriesTemplateEBookSeriesProcessorTest extends Specification {
 
 	void "returns true when Page has 'EBook series' category"() {
 		given:
-		CategoryHeader categoryHeader = Mock(CategoryHeader)
+		CategoryHeader categoryHeader = Mock()
 		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(categoryHeader)
 		Page page = new Page(categories: categoryHeaderList)
 

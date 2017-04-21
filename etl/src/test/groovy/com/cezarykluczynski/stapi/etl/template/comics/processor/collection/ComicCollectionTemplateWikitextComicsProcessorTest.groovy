@@ -36,10 +36,10 @@ class ComicCollectionTemplateWikitextComicsProcessorTest extends Specification {
 	private ComicCollectionTemplateWikitextComicsProcessor comicCollectionTemplateWikitextComicsProcessor
 
 	void setup() {
-		pageSectionExtractorMock = Mock(PageSectionExtractor)
-		wikitextApiMock = Mock(WikitextApi)
-		wikitextListsExtractorMock = Mock(WikitextListsExtractor)
-		entityLookupByNameServiceMock = Mock(EntityLookupByNameService)
+		pageSectionExtractorMock = Mock()
+		wikitextApiMock = Mock()
+		wikitextListsExtractorMock = Mock()
+		entityLookupByNameServiceMock = Mock()
 		comicCollectionTemplateWikitextComicsProcessor = new ComicCollectionTemplateWikitextComicsProcessor(pageSectionExtractorMock,
 				wikitextApiMock, wikitextListsExtractorMock, entityLookupByNameServiceMock)
 	}
@@ -63,7 +63,7 @@ class ComicCollectionTemplateWikitextComicsProcessorTest extends Specification {
 		PageSection pageSection = new PageSection(wikitext: WIKITEXT)
 		WikitextList wikitextList1 = new WikitextList(text: WIKITEXT_1)
 		WikitextList wikitextList2 = new WikitextList(text: WIKITEXT_2)
-		Comics comics = Mock(Comics)
+		Comics comics = Mock()
 
 		when:
 		Set<Comics> comicsSet = comicCollectionTemplateWikitextComicsProcessor.process(page)
@@ -88,7 +88,7 @@ class ComicCollectionTemplateWikitextComicsProcessorTest extends Specification {
 		PageSection pageSectionBackgroundInformation = new PageSection(wikitext: WIKITEXT)
 		WikitextList wikitextList1 = new WikitextList(text: WIKITEXT_1)
 		WikitextList wikitextList2 = new WikitextList(text: WIKITEXT_2)
-		Comics comics = Mock(Comics)
+		Comics comics = Mock()
 
 		when:
 		Set<Comics> comicsSet = comicCollectionTemplateWikitextComicsProcessor.process(page)

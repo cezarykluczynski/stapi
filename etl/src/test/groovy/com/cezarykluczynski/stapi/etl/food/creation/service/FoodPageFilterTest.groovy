@@ -15,7 +15,8 @@ class FoodPageFilterTest extends Specification {
 
 	void "returns true when redirect path is not empty"() {
 		given:
-		Page page = new Page(redirectPath: Lists.newArrayList(Mock(PageHeader)))
+		PageHeader pageHeaderRedirect = Mock()
+		Page page = new Page(redirectPath: Lists.newArrayList(pageHeaderRedirect))
 
 		when:
 		boolean shouldBeFilteredOut = foodPageFilter.shouldBeFilteredOut(page)

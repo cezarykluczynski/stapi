@@ -26,8 +26,8 @@ class ComicsTemplatePartStaffEnrichingProcessorTest extends Specification {
 		given:
 		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.WRITER, value: WIKITEXT)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
-		Staff staff1 = Mock(Staff)
-		Staff staff2 = Mock(Staff)
+		Staff staff1 = Mock()
+		Staff staff2 = Mock()
 
 		when:
 		comicsTemplatePartStaffEnrichingProcessor.enrich(EnrichablePair.of(templatePart, comicsTemplate))
@@ -47,8 +47,8 @@ class ComicsTemplatePartStaffEnrichingProcessorTest extends Specification {
 		given:
 		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.ARTIST, value: WIKITEXT)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
-		Staff staff1 = Mock(Staff)
-		Staff staff2 = Mock(Staff)
+		Staff staff1 = Mock()
+		Staff staff2 = Mock()
 
 		when:
 		comicsTemplatePartStaffEnrichingProcessor.enrich(EnrichablePair.of(templatePart, comicsTemplate))
@@ -68,8 +68,8 @@ class ComicsTemplatePartStaffEnrichingProcessorTest extends Specification {
 		given:
 		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.EDITOR, value: WIKITEXT)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
-		Staff staff1 = Mock(Staff)
-		Staff staff2 = Mock(Staff)
+		Staff staff1 = Mock()
+		Staff staff2 = Mock()
 
 		when:
 		comicsTemplatePartStaffEnrichingProcessor.enrich(EnrichablePair.of(templatePart, comicsTemplate))
@@ -89,7 +89,7 @@ class ComicsTemplatePartStaffEnrichingProcessorTest extends Specification {
 		given:
 		Template.Part templatePart = new Template.Part(key: '', value: WIKITEXT)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
-		Staff staff1 = Mock(Staff)
+		Staff staff1 = Mock()
 
 		when:
 		comicsTemplatePartStaffEnrichingProcessor.enrich(EnrichablePair.of(templatePart, comicsTemplate))

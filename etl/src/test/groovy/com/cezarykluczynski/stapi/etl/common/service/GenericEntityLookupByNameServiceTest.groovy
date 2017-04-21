@@ -30,16 +30,16 @@ class GenericEntityLookupByNameServiceTest extends Specification {
 	private GenericEntityLookupByNameService genericEntityLookupByNameService
 
 	void setup() {
-		pageApiMock = Mock(PageApi)
-		characterRepositoryMock = Mock(CharacterRepository)
-		mediaWikiSourceMapper = Mock(MediaWikiSourceMapper)
-		repositoriesMock = Mock(Repositories)
+		pageApiMock = Mock()
+		characterRepositoryMock = Mock()
+		mediaWikiSourceMapper = Mock()
+		repositoriesMock = Mock()
 		genericEntityLookupByNameService = new GenericEntityLookupByNameService(pageApiMock, mediaWikiSourceMapper, repositoriesMock)
 	}
 
 	void "gets character by name from repository"() {
 		given:
-		Character character = Mock(Character)
+		Character character = Mock()
 
 		when:
 		Optional<Character> characterOptional = genericEntityLookupByNameService.findEntityByName(CHARACTER_NAME, SOURCES_MEDIA_WIKI_SOURCE, Character)
@@ -54,8 +54,8 @@ class GenericEntityLookupByNameServiceTest extends Specification {
 
 	void "gets character by name from page api, then from repository"() {
 		given:
-		Character character = Mock(Character)
-		Page page = Mock(Page)
+		Character character = Mock()
+		Page page = Mock()
 
 		when:
 		Optional<Character> characterOptional = genericEntityLookupByNameService.findEntityByName(CHARACTER_NAME, SOURCES_MEDIA_WIKI_SOURCE, Character)
@@ -74,8 +74,8 @@ class GenericEntityLookupByNameServiceTest extends Specification {
 
 	void "gets character by name from page api, then from repository, when NonUniqueResultException was thrown"() {
 		given:
-		Character character = Mock(Character)
-		Page page = Mock(Page)
+		Character character = Mock()
+		Page page = Mock()
 
 		when:
 		Optional<Character> characterOptional = genericEntityLookupByNameService.findEntityByName(CHARACTER_NAME, SOURCES_MEDIA_WIKI_SOURCE, Character)
@@ -109,7 +109,7 @@ class GenericEntityLookupByNameServiceTest extends Specification {
 
 	void "does not get character when page api returns page, but character repository returns empty optional"() {
 		given:
-		Page page = Mock(Page)
+		Page page = Mock()
 
 		when:
 		Optional<Character> characterOptional = genericEntityLookupByNameService.findEntityByName(CHARACTER_NAME, SOURCES_MEDIA_WIKI_SOURCE, Character)

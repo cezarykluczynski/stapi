@@ -40,13 +40,13 @@ class CharacterRepositoryImplTest extends Specification {
 	private Page page
 
 	void setup() {
-		characterQueryBuilderMock = Mock(CharacterQueryBuilderFactory)
+		characterQueryBuilderMock = Mock()
 		characterRepositoryImpl = new CharacterRepositoryImpl(characterQueryBuilderMock)
-		characterQueryBuilder = Mock(QueryBuilder)
-		pageable = Mock(Pageable)
-		characterRequestDTO = Mock(CharacterRequestDTO)
-		page = Mock(Page)
-		character = Mock(Character)
+		characterQueryBuilder = Mock()
+		pageable = Mock()
+		characterRequestDTO = Mock()
+		page = Mock()
+		character = Mock()
 	}
 
 	void "query is built and performed"() {

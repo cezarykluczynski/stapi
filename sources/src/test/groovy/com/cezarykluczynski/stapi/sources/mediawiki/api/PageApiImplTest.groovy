@@ -56,9 +56,9 @@ class PageApiImplTest extends Specification {
 	private PageApiImpl pageApiImpl
 
 	void setup() {
-		blikiConnectorMock = Mock(BlikiConnector)
-		wikitextApiMock = Mock(WikitextApi)
-		parseComplementingServiceMock = Mock(ParseComplementingService)
+		blikiConnectorMock = Mock()
+		wikitextApiMock = Mock()
+		parseComplementingServiceMock = Mock()
 		pageApiImpl = new PageApiImpl(blikiConnectorMock, wikitextApiMock, parseComplementingServiceMock)
 	}
 

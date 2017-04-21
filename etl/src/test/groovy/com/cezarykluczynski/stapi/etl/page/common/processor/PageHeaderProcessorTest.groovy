@@ -23,7 +23,7 @@ class PageHeaderProcessorTest extends Specification {
 	private PageHeaderProcessor pageHeaderProcessor
 
 	void setup() {
-		pageApiMock = Mock(PageApi)
+		pageApiMock = Mock()
 		pageHeaderProcessor = new PageHeaderProcessor(pageApiMock)
 	}
 
@@ -134,9 +134,10 @@ class PageHeaderProcessorTest extends Specification {
 				.title(TITLE)
 				.mediaWikiSource(MEDIA_WIKI_SOURCE)
 				.build()
+		PageHeader pageHeaderRedirect = Mock()
 		Page page = new Page(
 				title: TITLE_AFTER_REDIRECT,
-				redirectPath: Lists.newArrayList(Mock(PageHeader)))
+				redirectPath: Lists.newArrayList(pageHeaderRedirect))
 
 		when:
 		pageHeaderProcessor.process(pageHeader)

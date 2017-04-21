@@ -19,15 +19,14 @@ class WikiaWikisDetectorTest extends Specification {
 	private WikiaWikisDetector wikiaWikisDetector
 
 	void setup() {
-		mediaWikiSourcesPropertiesMock = Mock(MediaWikiSourcesProperties)
-		wikiaUrlDetectorMock = Mock(WikiaUrlDetector) {
-			isWikiaWikiUrl(MEMORY_ALPHA_EN_API_URL) >> true
-			isWikiaWikiUrl(MEMORY_BETA_EN_API_URL) >> false
-		}
-		MediaWikiSourceProperties memoryAlphaEnMediaWikiSourceProperties = Mock(MediaWikiSourceProperties)
+		mediaWikiSourcesPropertiesMock = Mock()
+		wikiaUrlDetectorMock = Mock()
+		wikiaUrlDetectorMock.isWikiaWikiUrl(MEMORY_ALPHA_EN_API_URL) >> true
+		wikiaUrlDetectorMock.isWikiaWikiUrl(MEMORY_BETA_EN_API_URL) >> false
+		MediaWikiSourceProperties memoryAlphaEnMediaWikiSourceProperties = Mock()
 		memoryAlphaEnMediaWikiSourceProperties.apiUrl >> MEMORY_ALPHA_EN_API_URL
 		mediaWikiSourcesPropertiesMock.memoryAlphaEn >> memoryAlphaEnMediaWikiSourceProperties
-		MediaWikiSourceProperties memoryBetaEnMediaWikiSourceProperties = Mock(MediaWikiSourceProperties)
+		MediaWikiSourceProperties memoryBetaEnMediaWikiSourceProperties = Mock()
 		memoryBetaEnMediaWikiSourceProperties.apiUrl >> MEMORY_BETA_EN_API_URL
 		mediaWikiSourcesPropertiesMock.memoryBetaEn >> memoryBetaEnMediaWikiSourceProperties
 		wikiaWikisDetector = new WikiaWikisDetector(mediaWikiSourcesPropertiesMock, wikiaUrlDetectorMock)

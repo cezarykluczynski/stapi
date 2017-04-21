@@ -27,7 +27,7 @@ class StepCompletenessDeciderTest extends Specification {
 
 	void "returns true when step is not enabled"() {
 		given:
-		StepProperties stepProperties = Mock(StepProperties)
+		StepProperties stepProperties = Mock()
 		Map<String, StepProperties> stepPropertiesMap = Maps.newHashMap()
 		stepPropertiesMap.put(STEP_NAME, stepProperties)
 
@@ -59,7 +59,7 @@ class StepCompletenessDeciderTest extends Specification {
 
 	void "returns false when step is not completed"() {
 		given:
-		StepExecution stepExecution = Mock(StepExecution)
+		StepExecution stepExecution = Mock()
 
 		when:
 		boolean complete = jobCompletenessDecider.isStepComplete(JOB_NAME, STEP_NAME)

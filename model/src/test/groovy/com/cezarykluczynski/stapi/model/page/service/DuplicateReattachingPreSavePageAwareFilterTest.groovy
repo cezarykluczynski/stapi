@@ -24,7 +24,7 @@ class DuplicateReattachingPreSavePageAwareFilterTest extends Specification {
 		Page nonPersistedPage = new Page(pageId: PAGE_ID)
 		Page persistedPage = new Page(pageId: PAGE_ID)
 
-		PageAware pageAware = Mock(PageAware)
+		PageAware pageAware = Mock()
 		pageAware.page >> nonPersistedPage
 		List<PageAware> pageAwareList = Lists.newArrayList(pageAware)
 

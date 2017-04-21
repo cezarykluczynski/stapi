@@ -19,9 +19,10 @@ class BookSeriesProcessorTest extends Specification {
 	private BookSeriesProcessor bookSeriesProcessor
 
 	void setup() {
-		pageHeaderProcessorMock = Mock(PageHeaderProcessor)
-		bookSeriesTemplatePageProcessorMock = Mock(BookSeriesTemplatePageProcessor)
-		bookSeriesTemplateProcessorMock = Mock(BookSeriesTemplateProcessor)
+		pageHeaderProcessorMock =
+				Mock()
+		bookSeriesTemplatePageProcessorMock = Mock()
+		bookSeriesTemplateProcessorMock = Mock()
 		bookSeriesProcessor = new BookSeriesProcessor(pageHeaderProcessorMock, bookSeriesTemplatePageProcessorMock, bookSeriesTemplateProcessorMock)
 	}
 

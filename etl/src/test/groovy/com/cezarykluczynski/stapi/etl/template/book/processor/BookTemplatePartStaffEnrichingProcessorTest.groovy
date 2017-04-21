@@ -26,8 +26,8 @@ class BookTemplatePartStaffEnrichingProcessorTest extends Specification {
 		given:
 		Template.Part templatePart = new Template.Part(key: BookTemplateParameter.AUTHOR, value: WIKITEXT)
 		BookTemplate bookTemplate = new BookTemplate()
-		Staff staff1 = Mock(Staff)
-		Staff staff2 = Mock(Staff)
+		Staff staff1 = Mock()
+		Staff staff2 = Mock()
 
 		when:
 		bookTemplatePartStaffEnrichingProcessor.enrich(EnrichablePair.of(templatePart, bookTemplate))
@@ -47,8 +47,8 @@ class BookTemplatePartStaffEnrichingProcessorTest extends Specification {
 		given:
 		Template.Part templatePart = new Template.Part(key: BookTemplateParameter.ARTIST, value: WIKITEXT)
 		BookTemplate bookTemplate = new BookTemplate()
-		Staff staff1 = Mock(Staff)
-		Staff staff2 = Mock(Staff)
+		Staff staff1 = Mock()
+		Staff staff2 = Mock()
 
 		when:
 		bookTemplatePartStaffEnrichingProcessor.enrich(EnrichablePair.of(templatePart, bookTemplate))
@@ -68,8 +68,8 @@ class BookTemplatePartStaffEnrichingProcessorTest extends Specification {
 		given:
 		Template.Part templatePart = new Template.Part(key: BookTemplateParameter.EDITOR, value: WIKITEXT)
 		BookTemplate bookTemplate = new BookTemplate()
-		Staff staff1 = Mock(Staff)
-		Staff staff2 = Mock(Staff)
+		Staff staff1 = Mock()
+		Staff staff2 = Mock()
 
 		when:
 		bookTemplatePartStaffEnrichingProcessor.enrich(EnrichablePair.of(templatePart, bookTemplate))
@@ -89,8 +89,8 @@ class BookTemplatePartStaffEnrichingProcessorTest extends Specification {
 		given:
 		Template.Part templatePart = new Template.Part(key: BookTemplateParameter.AUDIOBOOK_READ_BY, value: WIKITEXT)
 		BookTemplate bookTemplate = new BookTemplate()
-		Staff staff1 = Mock(Staff)
-		Staff staff2 = Mock(Staff)
+		Staff staff1 = Mock()
+		Staff staff2 = Mock()
 
 		when:
 		bookTemplatePartStaffEnrichingProcessor.enrich(EnrichablePair.of(templatePart, bookTemplate))
@@ -110,7 +110,7 @@ class BookTemplatePartStaffEnrichingProcessorTest extends Specification {
 		given:
 		Template.Part templatePart = new Template.Part(key: '', value: WIKITEXT)
 		BookTemplate bookTemplate = new BookTemplate()
-		Staff staff1 = Mock(Staff)
+		Staff staff1 = Mock()
 
 		when:
 		bookTemplatePartStaffEnrichingProcessor.enrich(EnrichablePair.of(templatePart, bookTemplate))

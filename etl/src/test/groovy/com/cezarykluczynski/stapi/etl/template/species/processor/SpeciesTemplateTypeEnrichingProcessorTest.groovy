@@ -18,8 +18,8 @@ class SpeciesTemplateTypeEnrichingProcessorTest extends AbstractSpeciesTest {
 	private SpeciesTemplateTypeEnrichingProcessor speciesTemplateTypeEnrichingProcessor
 
 	void setup() {
-		speciesTypeDetectorMock = Mock(SpeciesTypeDetector)
-		entityLookupByNameServiceMock = Mock(EntityLookupByNameService)
+		speciesTypeDetectorMock = Mock()
+		entityLookupByNameServiceMock = Mock()
 		speciesTemplateTypeEnrichingProcessor = new SpeciesTemplateTypeEnrichingProcessor(speciesTypeDetectorMock, entityLookupByNameServiceMock)
 	}
 
@@ -27,7 +27,7 @@ class SpeciesTemplateTypeEnrichingProcessorTest extends AbstractSpeciesTest {
 		given:
 		Page page = new Page()
 		SpeciesTemplate speciesTemplate = new SpeciesTemplate()
-		AstronomicalObject quadrant = Mock(AstronomicalObject)
+		AstronomicalObject quadrant = Mock()
 
 		when:
 		speciesTemplateTypeEnrichingProcessor.enrich(EnrichablePair.of(page, speciesTemplate))
@@ -59,7 +59,7 @@ class SpeciesTemplateTypeEnrichingProcessorTest extends AbstractSpeciesTest {
 		given:
 		Page page = new Page()
 		SpeciesTemplate speciesTemplate = new SpeciesTemplate()
-		AstronomicalObject quadrant = Mock(AstronomicalObject)
+		AstronomicalObject quadrant = Mock()
 
 		when:
 		speciesTemplateTypeEnrichingProcessor.enrich(EnrichablePair.of(page, speciesTemplate))

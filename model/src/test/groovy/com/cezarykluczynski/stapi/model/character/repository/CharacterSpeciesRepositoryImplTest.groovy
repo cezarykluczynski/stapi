@@ -32,9 +32,9 @@ class CharacterSpeciesRepositoryImplTest extends Specification {
 	private CharacterSpeciesRepositoryImpl characterSpeciesRepositoryImpl
 
 	void setup() {
-		characterSpeciesQueryBuilderFactoryMock = Mock(CharacterSpeciesQueryBuilderFactory)
-		characterSpeciesQueryBuilder = Mock(QueryBuilder)
-		jpaContextMock = Mock(JpaContext)
+		characterSpeciesQueryBuilderFactoryMock = Mock()
+		characterSpeciesQueryBuilder = Mock()
+		jpaContextMock = Mock()
 		characterSpeciesRepositoryImpl = new CharacterSpeciesRepositoryImpl(characterSpeciesQueryBuilderFactoryMock, jpaContextMock)
 	}
 
@@ -67,8 +67,8 @@ class CharacterSpeciesRepositoryImplTest extends Specification {
 		Fraction fraction = Fraction.getFraction(1, 2)
 		Species species = new Species(id: SPECIES_ID)
 		CharacterSpecies characterSpecies = new CharacterSpecies()
-		EntityManager entityManager = Mock(EntityManager)
-		Session session = Mock(Session)
+		EntityManager entityManager = Mock()
+		Session session = Mock()
 
 		when:
 		CharacterSpecies characterSpeciesOutput = characterSpeciesRepositoryImpl.findOrCreate(species, fraction)

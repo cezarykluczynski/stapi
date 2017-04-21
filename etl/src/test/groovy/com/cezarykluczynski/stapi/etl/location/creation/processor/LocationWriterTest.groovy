@@ -15,8 +15,8 @@ class LocationWriterTest extends Specification {
 	private LocationWriter locationWriterMock
 
 	void setup() {
-		locationRepositoryMock = Mock(LocationRepository)
-		duplicateFilteringPreSavePageAwareProcessorMock = Mock(DuplicateFilteringPreSavePageAwareFilter)
+		locationRepositoryMock = Mock()
+		duplicateFilteringPreSavePageAwareProcessorMock = Mock()
 		locationWriterMock = new LocationWriter(locationRepositoryMock, duplicateFilteringPreSavePageAwareProcessorMock)
 	}
 

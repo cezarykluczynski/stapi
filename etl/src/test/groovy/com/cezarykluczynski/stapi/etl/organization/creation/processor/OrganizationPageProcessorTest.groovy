@@ -35,18 +35,18 @@ class OrganizationPageProcessorTest extends Specification {
 	private OrganizationPageProcessor organizationPageProcessor
 
 	void setup() {
-		organizationPageFilterMock = Mock(OrganizationPageFilter)
-		pageBindingServiceMock = Mock(PageBindingService)
-		guidGeneratorMock = Mock(GuidGenerator)
-		categoryTitlesExtractingProcessorMock = Mock(CategoryTitlesExtractingProcessor)
-		organizationNameFixedValueProviderMock = Mock(OrganizationNameFixedValueProvider)
+		organizationPageFilterMock = Mock()
+		pageBindingServiceMock = Mock()
+		guidGeneratorMock = Mock()
+		categoryTitlesExtractingProcessorMock = Mock()
+		organizationNameFixedValueProviderMock = Mock()
 		organizationPageProcessor = new OrganizationPageProcessor(organizationPageFilterMock, pageBindingServiceMock, guidGeneratorMock,
 				categoryTitlesExtractingProcessorMock, organizationNameFixedValueProviderMock)
 	}
 
 	void "should return null when page should be filtered out"() {
 		given:
-		SourcesPage page = Mock(SourcesPage)
+		SourcesPage page = Mock()
 
 		when:
 		Organization organization = organizationPageProcessor.process(page)

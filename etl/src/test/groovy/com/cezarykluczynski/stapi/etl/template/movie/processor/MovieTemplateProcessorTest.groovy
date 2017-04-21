@@ -29,9 +29,9 @@ class MovieTemplateProcessorTest extends AbstractTemplateProcessorTest {
 	private MovieTemplateProcessor movieTemplateProcessor
 
 	void setup() {
-		dayMonthYearCandidateToLocalDateProcessorMock = Mock(DayMonthYearCandidateToLocalDateProcessor)
-		imageTemplateStardateYearEnrichingProcessorMock = Mock(ImageTemplateStardateYearEnrichingProcessor)
-		movieTemplateStaffEnrichingProcessorMock = Mock(MovieTemplateStaffEnrichingProcessor)
+		dayMonthYearCandidateToLocalDateProcessorMock = Mock()
+		imageTemplateStardateYearEnrichingProcessorMock = Mock()
+		movieTemplateStaffEnrichingProcessorMock = Mock()
 		movieTemplateProcessor = new MovieTemplateProcessor(dayMonthYearCandidateToLocalDateProcessorMock,
 				imageTemplateStardateYearEnrichingProcessorMock, movieTemplateStaffEnrichingProcessorMock)
 	}

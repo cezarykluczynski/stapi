@@ -12,7 +12,7 @@ class MovieWriterTest extends Specification {
 	private MovieWriter movieWriter
 
 	void setup() {
-		movieRepositoryMock = Mock(MovieRepository)
+		movieRepositoryMock = Mock()
 		movieWriter = new MovieWriter(movieRepositoryMock)
 	}
 

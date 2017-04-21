@@ -21,7 +21,7 @@ class ComicsTemplateProcessorTest extends AbstractComicsTest {
 	private final Page page = Mock()
 
 	void setup() {
-		guidGeneratorMock = Mock(GuidGenerator)
+		guidGeneratorMock = Mock()
 		comicsTemplateProcessor = new ComicsTemplateProcessor(guidGeneratorMock)
 	}
 

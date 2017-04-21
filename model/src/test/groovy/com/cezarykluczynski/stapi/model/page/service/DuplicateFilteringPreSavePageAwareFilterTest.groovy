@@ -67,7 +67,7 @@ class DuplicateFilteringPreSavePageAwareFilterTest extends Specification {
 
 	void "returns original collection when there is no duplicates"() {
 		given:
-		PageAware pageAware = Mock(PageAware)
+		PageAware pageAware = Mock()
 		pageAware.page >> new Page(pageId: PAGE_ID_1)
 		List<PageAware> pageAwareList = Lists.newArrayList(pageAware)
 

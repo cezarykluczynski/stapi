@@ -15,8 +15,8 @@ class BookSeriesWriterTest extends Specification {
 	private BookSeriesWriter bookSeriesWriterMock
 
 	void setup() {
-		bookSeriesRepositoryMock = Mock(BookSeriesRepository)
-		duplicateFilteringPreSavePageAwareProcessorMock = Mock(DuplicateFilteringPreSavePageAwareFilter)
+		bookSeriesRepositoryMock = Mock()
+		duplicateFilteringPreSavePageAwareProcessorMock = Mock()
 		bookSeriesWriterMock = new BookSeriesWriter(bookSeriesRepositoryMock, duplicateFilteringPreSavePageAwareProcessorMock)
 	}
 

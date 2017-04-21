@@ -21,7 +21,7 @@ class DuplicateForbiddingPreSavePageAwareFilterTest extends Specification {
 
 	void "throws exception when chunk contains entities with equal pageIds"() {
 		given:
-		PageAware pageAware = Mock(PageAware)
+		PageAware pageAware = Mock()
 		pageAware.page >> new Page(pageId: PAGE_ID)
 		List<PageAware> pageAwareList = Lists.newArrayList(pageAware, pageAware)
 
@@ -35,7 +35,7 @@ class DuplicateForbiddingPreSavePageAwareFilterTest extends Specification {
 
 	void "throws exception when pages with given pageId already exists in database"() {
 		given:
-		PageAware pageAware = Mock(PageAware)
+		PageAware pageAware = Mock()
 		pageAware.page >> new Page(pageId: PAGE_ID)
 		List<PageAware> pageAwareList = Lists.newArrayList(pageAware)
 
@@ -54,7 +54,7 @@ class DuplicateForbiddingPreSavePageAwareFilterTest extends Specification {
 
 	void "returns original collection when there is no duplicates"() {
 		given:
-		PageAware pageAware = Mock(PageAware)
+		PageAware pageAware = Mock()
 		pageAware.page >> new Page(pageId: PAGE_ID)
 		List<PageAware> pageAwareList = Lists.newArrayList(pageAware)
 

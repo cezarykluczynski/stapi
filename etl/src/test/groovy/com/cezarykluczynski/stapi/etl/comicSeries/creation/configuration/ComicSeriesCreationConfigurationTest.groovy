@@ -20,8 +20,8 @@ class ComicSeriesCreationConfigurationTest extends AbstractCreationConfiguration
 	private ComicSeriesCreationConfiguration comicSeriesCreationConfiguration
 
 	void setup() {
-		categoryApiMock = Mock(CategoryApi)
-		jobCompletenessDeciderMock = Mock(StepCompletenessDecider)
+		categoryApiMock = Mock()
+		jobCompletenessDeciderMock = Mock()
 		comicSeriesCreationConfiguration = new ComicSeriesCreationConfiguration(
 				categoryApi: categoryApiMock,
 				stepCompletenessDecider: jobCompletenessDeciderMock)

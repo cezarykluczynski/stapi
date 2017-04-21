@@ -20,8 +20,8 @@ class MovieClosingCreditsProcessorTest extends Specification {
 	private MovieClosingCreditsProcessor movieClosingCreditsProcessor
 
 	void setup() {
-		pageApiMock = Mock(PageApi)
-		pageSectionExtractorMock = Mock(PageSectionExtractor)
+		pageApiMock = Mock()
+		pageSectionExtractorMock = Mock()
 		movieClosingCreditsProcessor = new MovieClosingCreditsProcessor(pageApiMock, pageSectionExtractorMock)
 	}
 
@@ -37,8 +37,8 @@ class MovieClosingCreditsProcessorTest extends Specification {
 
 	void "returns empty list when no sections are found"() {
 		given:
-		Page basePage = Mock(Page)
-		Page creditsPage = Mock(Page)
+		Page basePage = Mock()
+		Page creditsPage = Mock()
 
 		when:
 		List<PageSection> pageSectionList = movieClosingCreditsProcessor.process(basePage)
@@ -54,8 +54,8 @@ class MovieClosingCreditsProcessorTest extends Specification {
 
 	void "parses page to list of PageSection"() {
 		given:
-		Page basePage = Mock(Page)
-		Page creditsPage = Mock(Page)
+		Page basePage = Mock()
+		Page creditsPage = Mock()
 		List<PageSection> pageSectionList = Lists.newArrayList(
 				new PageSection(
 						text: 'Crew',
@@ -89,8 +89,8 @@ class MovieClosingCreditsProcessorTest extends Specification {
 
 	void "parses multiline cast, but without stunt coordinator"() {
 		given:
-		Page basePage = Mock(Page)
-		Page creditsPage = Mock(Page)
+		Page basePage = Mock()
+		Page creditsPage = Mock()
 		List<PageSection> pageSectionList = Lists.newArrayList(
 				new PageSection(
 						text: 'Cast',

@@ -13,8 +13,8 @@ class PerformerQueryBuilderFactoryTest extends Specification {
 	private PerformerQueryBuilderFactory performerQueryBuilderFactory
 
 	void setup() {
-		jpaContextMock = Mock(JpaContext)
-		cachingStrategyMock = Mock(CachingStrategy)
+		jpaContextMock = Mock()
+		cachingStrategyMock = Mock()
 	}
 
 	void "PerformerQueryBuilder is created"() {

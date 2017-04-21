@@ -14,15 +14,17 @@ class EpisodeTemplateEnrichingProcessorCompositeTest extends Specification {
 	private EpisodeTemplateEnrichingProcessorComposite episodeTemplateEnrichingProcessorComposite
 
 	void setup() {
-		episodeTemplateDatesEnrichingProcessorMock = Mock(EpisodeTemplateDatesEnrichingProcessor)
-		episodeTemplateTitleLanguagesEnrichingProcessorMock = Mock(EpisodeTemplateTitleLanguagesEnrichingProcessor)
+		episodeTemplateDatesEnrichingProcessorMock = Mock()
+		episodeTemplateTitleLanguagesEnrichingProcessorMock = Mock()
 		episodeTemplateEnrichingProcessorComposite = new EpisodeTemplateEnrichingProcessorComposite(episodeTemplateDatesEnrichingProcessorMock,
 				episodeTemplateTitleLanguagesEnrichingProcessorMock)
 	}
 
 	void "passes argument to dependencies"() {
 		given:
-		EnrichablePair<Page, EpisodeTemplate> enrichablePair = EnrichablePair.of(Mock(Page), Mock(EpisodeTemplate))
+		Page page = Mock()
+		EpisodeTemplate episodeTemplate = Mock()
+		EnrichablePair<Page, EpisodeTemplate> enrichablePair = EnrichablePair.of(page, episodeTemplate)
 
 		when:
 		episodeTemplateEnrichingProcessorComposite.enrich(enrichablePair)

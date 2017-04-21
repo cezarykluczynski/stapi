@@ -33,17 +33,17 @@ class FoodPageProcessorTest extends Specification {
 	private FoodPageProcessor foodPageProcessor
 
 	void setup() {
-		foodPageFilterMock = Mock(FoodPageFilter)
-		pageBindingServiceMock = Mock(PageBindingService)
-		guidGeneratorMock = Mock(GuidGenerator)
-		categoryTitlesExtractingProcessorMock = Mock(CategoryTitlesExtractingProcessor)
+		foodPageFilterMock = Mock()
+		pageBindingServiceMock = Mock()
+		guidGeneratorMock = Mock()
+		categoryTitlesExtractingProcessorMock = Mock()
 		foodPageProcessor = new FoodPageProcessor(foodPageFilterMock, pageBindingServiceMock, guidGeneratorMock,
 				categoryTitlesExtractingProcessorMock)
 	}
 
 	void "should return null when page should be filtered out"() {
 		given:
-		SourcesPage page = Mock(SourcesPage)
+		SourcesPage page = Mock()
 
 		when:
 		Food food = foodPageProcessor.process(page)

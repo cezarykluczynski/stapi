@@ -37,11 +37,11 @@ class ComicSeriesLinkProcessorTest extends Specification {
 	private ComicSeriesLinkProcessor comicSeriesLinkProcessor
 
 	void setup() {
-		mediaWikiSourceMapperMock = Mock(MediaWikiSourceMapper)
-		pageApiMock = Mock(PageApi)
-		templateFinderMock = Mock(TemplateFinder)
-		wikitextApiMock = Mock(WikitextApi)
-		comicSeriesRepositoryMock = Mock(ComicSeriesRepository)
+		mediaWikiSourceMapperMock = Mock()
+		pageApiMock = Mock()
+		templateFinderMock = Mock()
+		wikitextApiMock = Mock()
+		comicSeriesRepositoryMock = Mock()
 		comicSeriesLinkProcessor = new ComicSeriesLinkProcessor(mediaWikiSourceMapperMock, pageApiMock, templateFinderMock, wikitextApiMock,
 				comicSeriesRepositoryMock)
 	}
@@ -91,7 +91,7 @@ class ComicSeriesLinkProcessorTest extends Specification {
 						key: ComicSeriesLinkProcessor.SERIES,
 						value: PARENT_SERIES_WIKITEXT)
 		))
-		ComicSeries parentComicSeries = Mock(ComicSeries)
+		ComicSeries parentComicSeries = Mock()
 
 		when:
 		comicSeriesLinkProcessor.process(comicSeries)
@@ -120,7 +120,7 @@ class ComicSeriesLinkProcessorTest extends Specification {
 						value: PARENT_SERIES_WIKITEXT)
 		))
 		SourcesPage parentSourcesPage = new SourcesPage(title: PARENT_SERIES_TITLE_AFTER_REDIRECT)
-		ComicSeries parentComicSeries = Mock(ComicSeries)
+		ComicSeries parentComicSeries = Mock()
 
 		when:
 		comicSeriesLinkProcessor.process(comicSeries)

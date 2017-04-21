@@ -15,8 +15,8 @@ class ComicStripWriterTest extends Specification {
 	private ComicStripWriter comicStripWriterMock
 
 	void setup() {
-		comicStripRepositoryMock = Mock(ComicStripRepository)
-		duplicateFilteringPreSavePageAwareProcessorMock = Mock(DuplicateFilteringPreSavePageAwareFilter)
+		comicStripRepositoryMock = Mock()
+		duplicateFilteringPreSavePageAwareProcessorMock = Mock()
 		comicStripWriterMock = new ComicStripWriter(comicStripRepositoryMock, duplicateFilteringPreSavePageAwareProcessorMock)
 	}
 

@@ -21,9 +21,9 @@ class StaffWriterTest extends Specification {
 	private StaffWriter staffWriterMock
 
 	void setup() {
-		staffRepositoryMock = Mock(StaffRepository)
-		duplicateFilteringPreSavePageAwareProcessorMock = Mock(DuplicateFilteringPreSavePageAwareFilter)
-		duplicateReattachingPreSavePageAwareFilterMock = Mock(DuplicateReattachingPreSavePageAwareFilter)
+		staffRepositoryMock = Mock()
+		duplicateFilteringPreSavePageAwareProcessorMock = Mock()
+		duplicateReattachingPreSavePageAwareFilterMock = Mock()
 		staffWriterMock = new StaffWriter(staffRepositoryMock, duplicateFilteringPreSavePageAwareProcessorMock,
 				duplicateReattachingPreSavePageAwareFilterMock)
 	}

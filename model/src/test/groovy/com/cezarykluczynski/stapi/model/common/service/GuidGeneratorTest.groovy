@@ -51,23 +51,23 @@ class GuidGeneratorTest extends Specification {
 	void setup() {
 		classMetadataMap = Maps.newHashMap()
 
-		ClassMetadata characterClassMetadata = Mock(ClassMetadata)
+		ClassMetadata characterClassMetadata = Mock()
 		characterClassMetadata.mappedClass >> Character
 		classMetadataMap.put('com.cezarykluczynski.stapi.model.character.entity.Character', characterClassMetadata)
-		ClassMetadata seriesClassMetadata = Mock(ClassMetadata)
+		ClassMetadata seriesClassMetadata = Mock()
 		seriesClassMetadata.mappedClass >> Series
 		classMetadataMap.put('com.cezarykluczynski.stapi.model.series.entity.Series', seriesClassMetadata)
-		ClassMetadata comicSeriesClassMetadata = Mock(ClassMetadata)
+		ClassMetadata comicSeriesClassMetadata = Mock()
 		comicSeriesClassMetadata.mappedClass >> ComicSeries
 		classMetadataMap.put('com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries', comicSeriesClassMetadata)
 
-		SessionFactory sessionFactory = Mock(SessionFactory)
+		SessionFactory sessionFactory = Mock()
 		sessionFactory.allClassMetadata >> classMetadataMap
 
 		Session session = Mock()
 		session.sessionFactory >> sessionFactory
 
-		entityManagerMock = Mock(EntityManager)
+		entityManagerMock = Mock()
 		entityManagerMock.delegate >> session
 
 		guidGenerator = new GuidGenerator(entityManagerMock)
@@ -123,7 +123,7 @@ class GuidGeneratorTest extends Specification {
 
 	void "throws exception when entities can no longer be mapped to unique symbols"() {
 		given:
-		ClassMetadata classMetadata = Mock(ClassMetadata)
+		ClassMetadata classMetadata = Mock()
 		classMetadata.mappedClass >> CharSequence
 		classMetadataMap.put('java.lang.CharSequence', classMetadata)
 

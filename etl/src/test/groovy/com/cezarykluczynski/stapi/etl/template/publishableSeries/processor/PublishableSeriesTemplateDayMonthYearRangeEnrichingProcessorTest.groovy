@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.dto.Range
 import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplate
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear
+import com.cezarykluczynski.stapi.etl.template.publishableSeries.dto.PublishableSeriesTemplate
 import spock.lang.Specification
 
 class PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessorTest extends Specification {
@@ -24,15 +25,19 @@ class PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessorTest extends S
 	}
 
 	void "when either value is null, no exception is thrown"() {
+		given:
+		PublishableSeriesTemplate publishableSeriesTemplate = Mock()
+		Range range = Mock()
+
 		when:
-		publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(null, Mock(ComicSeriesTemplate)))
+		publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(null, publishableSeriesTemplate))
 
 		then:
 		0 * _
 		notThrown(Exception)
 
 		when:
-		publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(Mock(Range), null))
+		publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(range, null))
 
 		then:
 		0 * _
@@ -41,7 +46,7 @@ class PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessorTest extends S
 
 	void "when both range values are null, nothing is set to template"() {
 		given:
-		ComicSeriesTemplate comicSeriesTemplate = Mock(ComicSeriesTemplate)
+		ComicSeriesTemplate comicSeriesTemplate = Mock()
 
 		when:
 		publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(Range.of(null, null), comicSeriesTemplate))

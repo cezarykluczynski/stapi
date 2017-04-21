@@ -29,8 +29,8 @@ class ImageTemplateStardateYearEnrichingProcessorTest extends AbstractTemplatePr
 	private ImageTemplateStardateYearEnrichingProcessor imageTemplateStardateYearEnrichingProcessor
 
 	void setup() {
-		episodeTemplateStardateYearFixedValueProviderMock = Mock(EpisodeTemplateStardateYearFixedValueProvider)
-		stardateYearProcessorMock = Mock(StardateYearProcessor)
+		episodeTemplateStardateYearFixedValueProviderMock = Mock()
+		stardateYearProcessorMock = Mock()
 		imageTemplateStardateYearEnrichingProcessor = new ImageTemplateStardateYearEnrichingProcessor(
 				episodeTemplateStardateYearFixedValueProviderMock, stardateYearProcessorMock)
 	}

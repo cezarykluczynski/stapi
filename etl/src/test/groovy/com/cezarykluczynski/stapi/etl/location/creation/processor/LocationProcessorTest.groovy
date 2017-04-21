@@ -15,8 +15,8 @@ class LocationProcessorTest extends Specification {
 	private LocationProcessor locationProcessor
 
 	void setup() {
-		pageHeaderProcessorMock = Mock(PageHeaderProcessor)
-		locationPageProcessorMock = Mock(LocationPageProcessor)
+		pageHeaderProcessorMock = Mock()
+		locationPageProcessorMock = Mock()
 		locationProcessor = new LocationProcessor(pageHeaderProcessorMock, locationPageProcessorMock)
 	}
 

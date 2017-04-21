@@ -19,9 +19,9 @@ class MovieProcessorTest extends Specification {
 	private MovieProcessor episodeProcessor
 
 	void setup() {
-		pageHeaderProcessorMock = Mock(PageHeaderProcessor)
-		movieTemplatePageProcessorMock = Mock(MovieTemplatePageProcessor)
-		toMovieEntityProcessorMock = Mock(MovieTemplateToMovieProcessor)
+		pageHeaderProcessorMock = Mock()
+		movieTemplatePageProcessorMock = Mock()
+		toMovieEntityProcessorMock = Mock()
 		episodeProcessor = new MovieProcessor(pageHeaderProcessorMock, movieTemplatePageProcessorMock, toMovieEntityProcessorMock)
 	}
 

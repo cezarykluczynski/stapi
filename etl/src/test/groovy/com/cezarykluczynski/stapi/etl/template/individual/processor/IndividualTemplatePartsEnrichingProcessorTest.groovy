@@ -49,14 +49,14 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 	private IndividualTemplatePartsEnrichingProcessor individualTemplatePartsEnrichingProcessor
 
 	void setup() {
-		partToGenderProcessorMock = Mock(PartToGenderProcessor)
-		individualLifeBoundaryProcessorMock = Mock(IndividualLifeBoundaryProcessor)
-		individualActorLinkingProcessorMock = Mock(IndividualTemplateActorLinkingProcessor)
-		individualHeightProcessorMock = Mock(IndividualHeightProcessor)
-		individualWeightProcessorMock = Mock(IndividualWeightProcessor)
-		individualBloodTypeProcessorMock = Mock(IndividualBloodTypeProcessor)
-		maritalStatusProcessorMock = Mock(MaritalStatusProcessor)
-		characterSpeciesWikitextProcessorMock = Mock(CharacterSpeciesWikitextProcessor)
+		partToGenderProcessorMock = Mock()
+		individualLifeBoundaryProcessorMock = Mock()
+		individualActorLinkingProcessorMock = Mock()
+		individualHeightProcessorMock = Mock()
+		individualWeightProcessorMock = Mock()
+		individualBloodTypeProcessorMock = Mock()
+		maritalStatusProcessorMock = Mock()
+		characterSpeciesWikitextProcessorMock = Mock()
 		individualTemplatePartsEnrichingProcessor = new IndividualTemplatePartsEnrichingProcessor(partToGenderProcessorMock,
 				individualLifeBoundaryProcessorMock, individualActorLinkingProcessorMock, individualHeightProcessorMock,
 				individualWeightProcessorMock, individualBloodTypeProcessorMock, maritalStatusProcessorMock,
@@ -248,8 +248,8 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		given:
 		Template.Part templatePart = new Template.Part(key: IndividualTemplateParameter.SPECIES, value: VALUE)
 		IndividualTemplate individualTemplate = new IndividualTemplate()
-		CharacterSpecies characterSpecies1 = Mock(CharacterSpecies)
-		CharacterSpecies characterSpecies2 = Mock(CharacterSpecies)
+		CharacterSpecies characterSpecies1 = Mock()
+		CharacterSpecies characterSpecies2 = Mock()
 
 		when:
 		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), individualTemplate))

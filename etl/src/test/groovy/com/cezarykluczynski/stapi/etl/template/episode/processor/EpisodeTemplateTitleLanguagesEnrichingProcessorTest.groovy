@@ -24,8 +24,8 @@ class EpisodeTemplateTitleLanguagesEnrichingProcessorTest extends Specification 
 	private EpisodeTemplateTitleLanguagesEnrichingProcessor episodeTemplateTitleLanguagesEnrichingProcessor
 
 	void setup() {
-		wikitextApiMock = Mock(WikitextApi)
-		pageSectionExtractorMock = Mock(PageSectionExtractor)
+		wikitextApiMock = Mock()
+		pageSectionExtractorMock = Mock()
 		episodeTemplateTitleLanguagesEnrichingProcessor = new EpisodeTemplateTitleLanguagesEnrichingProcessor(
 				wikitextApiMock, pageSectionExtractorMock)
 	}

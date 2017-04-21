@@ -79,34 +79,34 @@ class JobBuilderTest extends Specification {
 	private SpringBatchJobBuilder springBatchJobBuilder
 
 	void setup() {
-		applicationContextMock = Mock(ApplicationContext)
-		jobBuilderFactoryMock = Mock(JobBuilderFactory)
-		stepConfigurationValidatorMock = Mock(StepConfigurationValidator)
-		jobCompletenessDeciderMock = Mock(JobCompletenessDecider)
-		stepToStepPropertiesProviderMock = Mock(StepToStepPropertiesProvider)
-		stepPropertiesMap = Mock(Map)
-		stepProperties = Mock(StepProperties)
-		createCompaniesStep = Mock(Step)
-		createSeriesStep = Mock(Step)
-		createPerformersStep = Mock(Step)
-		createStaffStep = Mock(Step)
-		createAstronomicalObjectsStep = Mock(Step)
-		createSpeciesStep = Mock(Step)
-		createCharactersStep = Mock(Step)
-		createEpisodesStep = Mock(Step)
-		createMoviesStep = Mock(Step)
-		linkAstronomicalObjectsStep = Mock(Step)
-		createComicSeriesStep = Mock(Step)
-		linkComicSeriesStep = Mock(Step)
-		createComicsStep = Mock(Step)
-		createComicStripsStep = Mock(Step)
-		createComicCollectionsStep = Mock(Step)
-		createOrganizationsStep = Mock(Step)
-		createFoodsStep = Mock(Step)
-		createLocationsStep = Mock(Step)
-		createBookSeriesStep = Mock(Step)
-		createBooksStep = Mock(Step)
-		jobRepository = Mock(JobRepository)
+		applicationContextMock = Mock()
+		jobBuilderFactoryMock = Mock()
+		stepConfigurationValidatorMock = Mock()
+		jobCompletenessDeciderMock = Mock()
+		stepToStepPropertiesProviderMock = Mock()
+		stepPropertiesMap = Mock()
+		stepProperties = Mock()
+		createCompaniesStep = Mock()
+		createSeriesStep = Mock()
+		createPerformersStep = Mock()
+		createStaffStep = Mock()
+		createAstronomicalObjectsStep = Mock()
+		createSpeciesStep = Mock()
+		createCharactersStep = Mock()
+		createEpisodesStep = Mock()
+		createMoviesStep = Mock()
+		linkAstronomicalObjectsStep = Mock()
+		createComicSeriesStep = Mock()
+		linkComicSeriesStep = Mock()
+		createComicsStep = Mock()
+		createComicStripsStep = Mock()
+		createComicCollectionsStep = Mock()
+		createOrganizationsStep = Mock()
+		createFoodsStep = Mock()
+		createLocationsStep = Mock()
+		createBookSeriesStep = Mock()
+		createBooksStep = Mock()
+		jobRepository = Mock()
 		springBatchJobBuilder = new SpringBatchJobBuilder(JobName.JOB_CREATE)
 		springBatchJobBuilder.repository(jobRepository)
 		jobBuilder = new JobBuilder(applicationContextMock, jobBuilderFactoryMock, stepConfigurationValidatorMock, jobCompletenessDeciderMock,
@@ -115,7 +115,7 @@ class JobBuilderTest extends Specification {
 
 	void "Job is built"() {
 		given:
-		TaskExecutor taskExecutor = Mock(TaskExecutor)
+		TaskExecutor taskExecutor = Mock()
 
 		when:
 		FlowJob job = (FlowJob) jobBuilder.build()
@@ -312,7 +312,7 @@ class JobBuilderTest extends Specification {
 
 	void "job is built with only two steps"() {
 		given:
-		TaskExecutor taskExecutor = Mock(TaskExecutor)
+		TaskExecutor taskExecutor = Mock()
 
 		when:
 		FlowJob job = (FlowJob) jobBuilder.build()

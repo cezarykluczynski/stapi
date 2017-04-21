@@ -13,8 +13,8 @@ class AstronomicalObjectQueryBuilderFactoryTest extends Specification {
 	private AstronomicalObjectQueryBuilderFactory astronomicalObjectQueryBuilderFactory
 
 	void setup() {
-		jpaContextMock = Mock(JpaContext)
-		cachingStrategyMock = Mock(CachingStrategy)
+		jpaContextMock = Mock()
+		cachingStrategyMock = Mock()
 	}
 
 	void "AstronomicalObjectQueryBuilder is created"() {

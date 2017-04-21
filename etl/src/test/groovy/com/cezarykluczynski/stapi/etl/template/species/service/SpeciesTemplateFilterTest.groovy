@@ -20,14 +20,15 @@ class SpeciesTemplateFilterTest extends Specification {
 	private SpeciesTemplateFilter speciesTemplateFilter
 
 	void setup() {
-		categoryTitlesExtractingProcessorMock = Mock(CategoryTitlesExtractingProcessor)
-		categorySortingServiceMock = Mock(CategorySortingService)
+		categoryTitlesExtractingProcessorMock = Mock()
+		categorySortingServiceMock = Mock()
 		speciesTemplateFilter = new SpeciesTemplateFilter(categoryTitlesExtractingProcessorMock, categorySortingServiceMock)
 	}
 
 	void "return true when page is a product of redirect"() {
 		given:
-		Page page = new Page(redirectPath: Lists.newArrayList(Mock(PageHeader)))
+		PageHeader pageHeaderRedirect = Mock()
+		Page page = new Page(redirectPath: Lists.newArrayList(pageHeaderRedirect))
 
 		when:
 		boolean result = speciesTemplateFilter.shouldBeFilteredOut(page)
@@ -51,7 +52,7 @@ class SpeciesTemplateFilterTest extends Specification {
 
 	void "returns true when any of the categories starts with 'Unnamed'"() {
 		given:
-		CategoryHeader categoryHeader = Mock(CategoryHeader)
+		CategoryHeader categoryHeader = Mock()
 		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(categoryHeader)
 		Page page = new Page(categories: categoryHeaderList)
 
@@ -66,7 +67,7 @@ class SpeciesTemplateFilterTest extends Specification {
 
 	void "returns true when 'Lists' category is present"() {
 		given:
-		CategoryHeader categoryHeader = Mock(CategoryHeader)
+		CategoryHeader categoryHeader = Mock()
 		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(categoryHeader)
 		Page page = new Page(categories: categoryHeaderList)
 
@@ -81,7 +82,7 @@ class SpeciesTemplateFilterTest extends Specification {
 
 	void "returns true when 'Biology' category is present"() {
 		given:
-		CategoryHeader categoryHeader = Mock(CategoryHeader)
+		CategoryHeader categoryHeader = Mock()
 		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(categoryHeader)
 		Page page = new Page(categories: categoryHeaderList)
 

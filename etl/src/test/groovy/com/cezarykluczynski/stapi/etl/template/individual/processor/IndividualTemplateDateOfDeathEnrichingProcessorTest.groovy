@@ -28,8 +28,8 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 	private IndividualTemplateDateOfDeathEnrichingProcessor individualTemplateDateOfDeathEnrichingProcessor
 
 	void setup() {
-		individualDateStatusValueToYearProcessorMock = Mock(IndividualDateStatusValueToYearProcessor)
-		wikitextApiMock = Mock(WikitextApi)
+		individualDateStatusValueToYearProcessorMock = Mock()
+		wikitextApiMock = Mock()
 		individualTemplateDateOfDeathEnrichingProcessor = new IndividualTemplateDateOfDeathEnrichingProcessor(wikitextApiMock,
 				individualDateStatusValueToYearProcessorMock)
 	}
@@ -37,8 +37,8 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 	void "does nothing to individual template when there is no parts"() {
 		given:
 		Template.Part templatePart = Mock(Template.Part)
-		Template template = Mock(Template)
-		IndividualTemplate individualTemplate = Mock(IndividualTemplate)
+		Template template = Mock()
+		IndividualTemplate individualTemplate = Mock()
 
 		when:
 		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
@@ -52,8 +52,8 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 	void "does nothing to individual template when there is only status part"() {
 		given:
 		Template.Part templatePart = Mock(Template.Part)
-		Template template = Mock(Template)
-		IndividualTemplate individualTemplate = Mock(IndividualTemplate)
+		Template template = Mock()
+		IndividualTemplate individualTemplate = Mock()
 
 		when:
 		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
@@ -67,8 +67,8 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 	void "does nothing to individual template when there is only date status part"() {
 		given:
 		Template.Part templatePart = Mock(Template.Part)
-		Template template = Mock(Template)
-		IndividualTemplate individualTemplate = Mock(IndividualTemplate)
+		Template template = Mock()
+		IndividualTemplate individualTemplate = Mock()
 
 		when:
 		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
@@ -83,8 +83,8 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 		given:
 		Template.Part dateTemplatePart = Mock(Template.Part)
 		Template.Part dateStatusTemplatePart = Mock(Template.Part)
-		Template template = Mock(Template)
-		IndividualTemplate individualTemplate = Mock(IndividualTemplate)
+		Template template = Mock()
+		IndividualTemplate individualTemplate = Mock()
 
 		when:
 		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
@@ -101,8 +101,8 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 		given:
 		Template.Part dateTemplatePart = Mock(Template.Part)
 		Template.Part dateStatusTemplatePart = Mock(Template.Part)
-		Template template = Mock(Template)
-		IndividualTemplate individualTemplate = Mock(IndividualTemplate)
+		Template template = Mock()
+		IndividualTemplate individualTemplate = Mock()
 
 		when:
 		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
@@ -129,8 +129,8 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 		given:
 		Template.Part dateTemplatePart = Mock(Template.Part)
 		Template.Part dateStatusTemplatePart = Mock(Template.Part)
-		Template template = Mock(Template)
-		IndividualTemplate individualTemplate = Mock(IndividualTemplate)
+		Template template = Mock()
+		IndividualTemplate individualTemplate = Mock()
 
 		when:
 		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
@@ -152,8 +152,8 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 		given:
 		Template.Part dateTemplatePart = Mock(Template.Part)
 		Template.Part dateStatusTemplatePart = Mock(Template.Part)
-		Template template = Mock(Template)
-		IndividualTemplate individualTemplate = Mock(IndividualTemplate)
+		Template template = Mock()
+		IndividualTemplate individualTemplate = Mock()
 
 		when:
 		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
@@ -171,8 +171,8 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 		given:
 		Template.Part dateTemplatePart = Mock(Template.Part)
 		Template.Part dateStatusTemplatePart = Mock(Template.Part)
-		Template template = Mock(Template)
-		IndividualTemplate individualTemplate = Mock(IndividualTemplate)
+		Template template = Mock()
+		IndividualTemplate individualTemplate = Mock()
 
 		when:
 		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
@@ -191,8 +191,8 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 		given:
 		Template.Part dateTemplatePart = Mock(Template.Part)
 		Template.Part dateStatusTemplatePart = Mock(Template.Part)
-		Template template = Mock(Template)
-		IndividualTemplate individualTemplate = Mock(IndividualTemplate)
+		Template template = Mock()
+		IndividualTemplate individualTemplate = Mock()
 
 		when:
 		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))

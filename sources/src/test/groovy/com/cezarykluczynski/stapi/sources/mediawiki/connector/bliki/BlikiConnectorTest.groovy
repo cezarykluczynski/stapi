@@ -62,24 +62,22 @@ class BlikiConnectorTest extends Specification {
 		Header header = Mock()
 		header.elements >> [headerElement]
 
-		HttpEntity httpEntity = Mock(HttpEntity)
+		HttpEntity httpEntity = Mock()
 		httpEntity.contentType >> header
 		httpEntity.content >>> [IOUtils.toInputStream(XML), IOUtils.toInputStream(XML)]
 		httpEntity.contentLength >>> [XML.length(), XML.length()]
 
-		closeableHttpResponse = Mock(CloseableHttpResponse)
+		closeableHttpResponse = Mock()
 		closeableHttpResponse.entity >> httpEntity
 
 		closeableHttpResponse.statusLine >> statusLine
 		closeableHttpResponse.entity >> httpEntity
 
-		closeableHttpClient = Mock(CloseableHttpClient) {
-			execute(*_) >> closeableHttpResponse
-		}
+		closeableHttpClient = Mock()
+		closeableHttpClient.execute(*_) >> closeableHttpResponse
 
-		httpClientBuilderMock = Mock(HttpClientBuilder) {
-			build() >> closeableHttpClient
-		}
+		httpClientBuilderMock = Mock()
+		httpClientBuilderMock.build() >> closeableHttpClient
 
 		blikiConnector = new BlikiConnector(blikiUserDecoratorBeanMapProviderMock, wikiaWikisDetector, mediaWikiMinimalIntervalProviderMock,
 				mediaWikiSourcesProperties)
@@ -89,7 +87,7 @@ class BlikiConnectorTest extends Specification {
 		given:
 		long startInMilliseconds = System.currentTimeMillis()
 		Connector connector = new Connector(httpClientBuilderMock)
-		UserDecorator userDecorator = Mock(UserDecorator)
+		UserDecorator userDecorator = Mock()
 		Map<MediaWikiSource, UserDecorator> mediaWikiSourceUserDecoratorMap = Maps.newHashMap()
 		mediaWikiSourceUserDecoratorMap.put(MediaWikiSource.MEMORY_ALPHA_EN, userDecorator)
 
@@ -122,7 +120,7 @@ class BlikiConnectorTest extends Specification {
 		given:
 		long startInMilliseconds = System.currentTimeMillis()
 		Connector connector = new Connector(httpClientBuilderMock)
-		UserDecorator userDecorator = Mock(UserDecorator)
+		UserDecorator userDecorator = Mock()
 		Map<MediaWikiSource, UserDecorator> mediaWikiSourceUserDecoratorMap = Maps.newHashMap()
 		mediaWikiSourceUserDecoratorMap.put(MediaWikiSource.MEMORY_ALPHA_EN, userDecorator)
 
@@ -153,7 +151,7 @@ class BlikiConnectorTest extends Specification {
 		given:
 		long startInMilliseconds = System.currentTimeMillis()
 		Connector connector = new Connector(httpClientBuilderMock)
-		UserDecorator userDecorator = Mock(UserDecorator)
+		UserDecorator userDecorator = Mock()
 		Map<MediaWikiSource, UserDecorator> mediaWikiSourceUserDecoratorMap = Maps.newHashMap()
 		mediaWikiSourceUserDecoratorMap.put(MediaWikiSource.MEMORY_BETA_EN, userDecorator)
 
@@ -186,7 +184,7 @@ class BlikiConnectorTest extends Specification {
 		given:
 		long startInMilliseconds = System.currentTimeMillis()
 		Connector connector = new Connector(httpClientBuilderMock)
-		UserDecorator userDecorator = Mock(UserDecorator)
+		UserDecorator userDecorator = Mock()
 		Map<MediaWikiSource, UserDecorator> mediaWikiSourceUserDecoratorMap = Maps.newHashMap()
 		mediaWikiSourceUserDecoratorMap.put(MediaWikiSource.MEMORY_BETA_EN, userDecorator)
 
@@ -216,16 +214,15 @@ class BlikiConnectorTest extends Specification {
 
 	void "do pass parsetree in props when url is not Wikia's"() {
 		given:
-		closeableHttpClient = Mock(CloseableHttpClient)
-		httpClientBuilderMock = Mock(HttpClientBuilder) {
-			build() >> closeableHttpClient
-		}
+		closeableHttpClient = Mock()
+		httpClientBuilderMock = Mock()
+		httpClientBuilderMock.build() >> closeableHttpClient
 
 		blikiConnector = new BlikiConnector(blikiUserDecoratorBeanMapProviderMock, wikiaWikisDetector, mediaWikiMinimalIntervalProviderMock,
 				mediaWikiSourcesProperties)
 
 		Connector connector = new Connector(httpClientBuilderMock)
-		UserDecorator userDecorator = Mock(UserDecorator)
+		UserDecorator userDecorator = Mock()
 		Map<MediaWikiSource, UserDecorator> mediaWikiSourceUserDecoratorMap = Maps.newHashMap()
 		mediaWikiSourceUserDecoratorMap.put(MediaWikiSource.MEMORY_ALPHA_EN, userDecorator)
 
@@ -262,7 +259,7 @@ class BlikiConnectorTest extends Specification {
 		given:
 		Map<MediaWikiSource, UserDecorator> mediaWikiSourceUserDecoratorMap = Maps.newHashMap()
 		Connector connector = new Connector(httpClientBuilderMock)
-		UserDecorator userDecorator = Mock(UserDecorator)
+		UserDecorator userDecorator = Mock()
 		mediaWikiSourceUserDecoratorMap.put(MediaWikiSource.MEMORY_ALPHA_EN, userDecorator)
 
 		when: 'page info is requested'
@@ -278,8 +275,9 @@ class BlikiConnectorTest extends Specification {
 
 	void "throws RuntimeError on any error"() {
 		given: 'connector without sendXML method is injected'
-		UserDecorator userDecorator = Mock(UserDecorator)
-		userDecorator.connector >> Mock(Connector)
+		Connector connector = Mock()
+		UserDecorator userDecorator = Mock()
+		userDecorator.connector >> connector
 		Map<MediaWikiSource, UserDecorator> mediaWikiSourceUserDecoratorMap = Maps.newHashMap()
 		mediaWikiSourceUserDecoratorMap.put(MediaWikiSource.MEMORY_ALPHA_EN, userDecorator)
 

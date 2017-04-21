@@ -17,7 +17,7 @@ class CategorySortingServiceTest extends Specification {
 	private CategorySortingService categorySortingService
 
 	void setup() {
-		wikitextApiMock = Mock(WikitextApi)
+		wikitextApiMock = Mock()
 		categorySortingService = new CategorySortingService(wikitextApiMock)
 	}
 

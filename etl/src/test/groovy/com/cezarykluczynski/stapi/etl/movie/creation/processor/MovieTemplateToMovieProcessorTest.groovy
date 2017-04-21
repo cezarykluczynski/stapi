@@ -8,14 +8,14 @@ import com.cezarykluczynski.stapi.util.AbstractMovieTest
 
 class MovieTemplateToMovieProcessorTest extends AbstractMovieTest {
 
-	private final Page page = Mock(Page)
+	private final Page page = Mock()
 
 	private GuidGenerator guidGeneratorMock
 
 	private MovieTemplateToMovieProcessor movieTemplateToMovieProcessor
 
 	void setup() {
-		guidGeneratorMock = Mock(GuidGenerator)
+		guidGeneratorMock = Mock()
 		movieTemplateToMovieProcessor = new MovieTemplateToMovieProcessor(guidGeneratorMock)
 	}
 

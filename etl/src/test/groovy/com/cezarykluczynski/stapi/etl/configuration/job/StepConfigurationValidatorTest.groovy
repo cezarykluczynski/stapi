@@ -30,64 +30,64 @@ class StepConfigurationValidatorTest extends Specification {
 
 	void "throws exception when two steps has the same order"() {
 		given:
-		StepProperties createCompaniesStepProperties = Mock(StepProperties)
+		StepProperties createCompaniesStepProperties = Mock()
 		createCompaniesStepProperties.order >> 1
 		stepsPropertiesMock.createCompanies >> createCompaniesStepProperties
-		StepProperties createSeriesStepProperties = Mock(StepProperties)
+		StepProperties createSeriesStepProperties = Mock()
 		createSeriesStepProperties.order >> 2
 		stepsPropertiesMock.createSeries >> createSeriesStepProperties
-		StepProperties performersStepProperties = Mock(StepProperties)
+		StepProperties performersStepProperties = Mock()
 		performersStepProperties.order >> 3
 		stepsPropertiesMock.createPerformers >> performersStepProperties
-		StepProperties createStaffStepProperties = Mock(StepProperties)
+		StepProperties createStaffStepProperties = Mock()
 		createStaffStepProperties.order >> 4
 		stepsPropertiesMock.createStaff >> createStaffStepProperties
-		StepProperties createAstronomicalObjectsStepProperties = Mock(StepProperties)
+		StepProperties createAstronomicalObjectsStepProperties = Mock()
 		createAstronomicalObjectsStepProperties.order >> 5
 		stepsPropertiesMock.createAstronomicalObjects >> createAstronomicalObjectsStepProperties
-		StepProperties createSpeciesStepProperties = Mock(StepProperties)
+		StepProperties createSpeciesStepProperties = Mock()
 		createSpeciesStepProperties.order >> 6
 		stepsPropertiesMock.createSpecies >> createSpeciesStepProperties
-		StepProperties createCharactersStepProperties = Mock(StepProperties)
+		StepProperties createCharactersStepProperties = Mock()
 		createCharactersStepProperties.order >> 7
 		stepsPropertiesMock.createCharacters >> createCharactersStepProperties
-		StepProperties createEpisodesStepProperties = Mock(StepProperties)
+		StepProperties createEpisodesStepProperties = Mock()
 		createEpisodesStepProperties.order >> 1
 		stepsPropertiesMock.createEpisodes >> createEpisodesStepProperties
-		StepProperties createMoviesStepProperties = Mock(StepProperties)
+		StepProperties createMoviesStepProperties = Mock()
 		createMoviesStepProperties.order >> 9
 		stepsPropertiesMock.createMovies >> createMoviesStepProperties
-		StepProperties linkAstronomicalObjectsStepProperties = Mock(StepProperties)
+		StepProperties linkAstronomicalObjectsStepProperties = Mock()
 		linkAstronomicalObjectsStepProperties.order >> 10
 		stepsPropertiesMock.linkAstronomicalObjects >> linkAstronomicalObjectsStepProperties
-		StepProperties createComicSeriesStepProperties = Mock(StepProperties)
+		StepProperties createComicSeriesStepProperties = Mock()
 		createComicSeriesStepProperties.order >> 11
 		stepsPropertiesMock.createComicSeries >> createComicSeriesStepProperties
-		StepProperties linkComicSeriesStepProperties = Mock(StepProperties)
+		StepProperties linkComicSeriesStepProperties = Mock()
 		linkComicSeriesStepProperties.order >> 12
 		stepsPropertiesMock.linkComicSeries >> linkComicSeriesStepProperties
-		StepProperties createComicsStepProperties = Mock(StepProperties)
+		StepProperties createComicsStepProperties = Mock()
 		createComicsStepProperties.order >> 13
 		stepsPropertiesMock.createComics >> createComicsStepProperties
-		StepProperties createComicStripsStepProperties = Mock(StepProperties)
+		StepProperties createComicStripsStepProperties = Mock()
 		createComicStripsStepProperties.order >> 14
 		stepsPropertiesMock.createComicStrips >> createComicStripsStepProperties
-		StepProperties createComicCollectionsStepProperties = Mock(StepProperties)
+		StepProperties createComicCollectionsStepProperties = Mock()
 		createComicCollectionsStepProperties.order >> 15
 		stepsPropertiesMock.createComicCollections >> createComicCollectionsStepProperties
-		StepProperties createOrganizationsStepProperties = Mock(StepProperties)
+		StepProperties createOrganizationsStepProperties = Mock()
 		createOrganizationsStepProperties.order >> 16
 		stepsPropertiesMock.createOrganizations >> createOrganizationsStepProperties
-		StepProperties createFoodsStepProperties = Mock(StepProperties)
+		StepProperties createFoodsStepProperties = Mock()
 		createFoodsStepProperties.order >> 17
 		stepsPropertiesMock.createFoods >> createFoodsStepProperties
-		StepProperties createLocationsStepProperties = Mock(StepProperties)
+		StepProperties createLocationsStepProperties = Mock()
 		createLocationsStepProperties.order >> 18
 		stepsPropertiesMock.createLocations >> createLocationsStepProperties
-		StepProperties createBookSeriesStepProperties = Mock(StepProperties)
+		StepProperties createBookSeriesStepProperties = Mock()
 		createBookSeriesStepProperties.order >> 19
 		stepsPropertiesMock.createBookSeries >> createBookSeriesStepProperties
-		StepProperties createBooksStepProperties = Mock(StepProperties)
+		StepProperties createBooksStepProperties = Mock()
 		createBooksStepProperties.order >> 20
 		stepsPropertiesMock.createBooks >> createBooksStepProperties
 
@@ -102,64 +102,64 @@ class StepConfigurationValidatorTest extends Specification {
 
 	void "correctly configured steps passed validation"() {
 		given:
-		StepProperties createCompaniesStepProperties = Mock(StepProperties)
+		StepProperties createCompaniesStepProperties = Mock()
 		createCompaniesStepProperties.order >> 1
 		stepsPropertiesMock.createCompanies >> createCompaniesStepProperties
-		StepProperties createSeriesStepProperties = Mock(StepProperties)
+		StepProperties createSeriesStepProperties = Mock()
 		createSeriesStepProperties.order >> 2
 		stepsPropertiesMock.createSeries >> createSeriesStepProperties
-		StepProperties performersStepProperties = Mock(StepProperties)
+		StepProperties performersStepProperties = Mock()
 		performersStepProperties.order >> 3
 		stepsPropertiesMock.createPerformers >> performersStepProperties
-		StepProperties createStaffStepProperties = Mock(StepProperties)
+		StepProperties createStaffStepProperties = Mock()
 		createStaffStepProperties.order >> 4
 		stepsPropertiesMock.createStaff >> createStaffStepProperties
-		StepProperties createAstronomicalObjectsStepProperties = Mock(StepProperties)
+		StepProperties createAstronomicalObjectsStepProperties = Mock()
 		createAstronomicalObjectsStepProperties.order >> 5
 		stepsPropertiesMock.createAstronomicalObjects >> createAstronomicalObjectsStepProperties
-		StepProperties createSpeciesStepProperties = Mock(StepProperties)
+		StepProperties createSpeciesStepProperties = Mock()
 		createSpeciesStepProperties.order >> 6
 		stepsPropertiesMock.createSpecies >> createSpeciesStepProperties
-		StepProperties createCharactersStepProperties = Mock(StepProperties)
+		StepProperties createCharactersStepProperties = Mock()
 		createCharactersStepProperties.order >> 7
 		stepsPropertiesMock.createCharacters >> createCharactersStepProperties
-		StepProperties createEpisodesStepProperties = Mock(StepProperties)
+		StepProperties createEpisodesStepProperties = Mock()
 		createEpisodesStepProperties.order >> 8
 		stepsPropertiesMock.createEpisodes >> createEpisodesStepProperties
-		StepProperties createMoviesStepProperties = Mock(StepProperties)
+		StepProperties createMoviesStepProperties = Mock()
 		createMoviesStepProperties.order >> 9
 		stepsPropertiesMock.createMovies >> createMoviesStepProperties
-		StepProperties linkAstronomicalObjectsStepProperties = Mock(StepProperties)
+		StepProperties linkAstronomicalObjectsStepProperties = Mock()
 		linkAstronomicalObjectsStepProperties.order >> 10
 		stepsPropertiesMock.linkAstronomicalObjects >> linkAstronomicalObjectsStepProperties
-		StepProperties createComicSeriesStepProperties = Mock(StepProperties)
+		StepProperties createComicSeriesStepProperties = Mock()
 		createComicSeriesStepProperties.order >> 11
 		stepsPropertiesMock.createComicSeries >> createComicSeriesStepProperties
-		StepProperties linkComicSeriesStepProperties = Mock(StepProperties)
+		StepProperties linkComicSeriesStepProperties = Mock()
 		linkComicSeriesStepProperties.order >> 12
 		stepsPropertiesMock.linkComicSeries >> linkComicSeriesStepProperties
-		StepProperties createComicsStepProperties = Mock(StepProperties)
+		StepProperties createComicsStepProperties = Mock()
 		createComicsStepProperties.order >> 13
 		stepsPropertiesMock.createComics >> createComicsStepProperties
-		StepProperties createComicStripsStepProperties = Mock(StepProperties)
+		StepProperties createComicStripsStepProperties = Mock()
 		createComicStripsStepProperties.order >> 14
 		stepsPropertiesMock.createComicStrips >> createComicStripsStepProperties
-		StepProperties createComicCollectionsStepProperties = Mock(StepProperties)
+		StepProperties createComicCollectionsStepProperties = Mock()
 		createComicCollectionsStepProperties.order >> 15
 		stepsPropertiesMock.createComicCollections >> createComicCollectionsStepProperties
-		StepProperties createOrganizationsStepProperties = Mock(StepProperties)
+		StepProperties createOrganizationsStepProperties = Mock()
 		createOrganizationsStepProperties.order >> 16
 		stepsPropertiesMock.createOrganizations >> createOrganizationsStepProperties
-		StepProperties createFoodsStepProperties = Mock(StepProperties)
+		StepProperties createFoodsStepProperties = Mock()
 		createFoodsStepProperties.order >> 17
 		stepsPropertiesMock.createFoods >> createFoodsStepProperties
-		StepProperties createLocationsStepProperties = Mock(StepProperties)
+		StepProperties createLocationsStepProperties = Mock()
 		createLocationsStepProperties.order >> 18
 		stepsPropertiesMock.createLocations >> createLocationsStepProperties
-		StepProperties createBookSeriesStepProperties = Mock(StepProperties)
+		StepProperties createBookSeriesStepProperties = Mock()
 		createBookSeriesStepProperties.order >> 19
 		stepsPropertiesMock.createBookSeries >> createBookSeriesStepProperties
-		StepProperties createBooksStepProperties = Mock(StepProperties)
+		StepProperties createBooksStepProperties = Mock()
 		createBooksStepProperties.order >> 20
 		stepsPropertiesMock.createBooks >> createBooksStepProperties
 

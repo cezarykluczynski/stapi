@@ -44,8 +44,8 @@ class MovieTemplateStaffEnrichingProcessorTest extends AbstractTemplateProcessor
 	private MovieTemplateStaffEnrichingProcessor movieTemplateStaffEnrichingProcessor
 
 	void setup() {
-		wikitextApiMock = Mock(WikitextApi)
-		entityLookupByNameServiceMock = Mock(EntityLookupByNameService)
+		wikitextApiMock = Mock()
+		entityLookupByNameServiceMock = Mock()
 		movieTemplateStaffEnrichingProcessor = new MovieTemplateStaffEnrichingProcessor(wikitextApiMock,
 				entityLookupByNameServiceMock)
 	}

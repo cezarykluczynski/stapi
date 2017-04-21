@@ -46,7 +46,7 @@ class AllStepExecutionsProviderTest extends Specification {
 
 	void "returns empty list when no JobExecution can be found"() {
 		given:
-		JobInstance jobInstance = Mock(JobInstance)
+		JobInstance jobInstance = Mock()
 
 		when:
 		List<StepExecution> stepExecutionList = allStepExecutionsProvider.provide(JobName.JOB_CREATE)

@@ -38,27 +38,26 @@ class AbstractQueryBuilderFactoryTest extends Specification {
 	private AbstractQueryBuilderFactory abstractQueryBuilderFactory
 
 	void setup() {
-		jpaContextMock = Mock(JpaContext)
-		cachingStrategyMock = Mock(CachingStrategy)
+		jpaContextMock = Mock()
+		cachingStrategyMock = Mock()
 		abstractQueryBuilderFactory = new ConcreteQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 	}
 
 	void "QueryBuilder is created"() {
 		given:
-		CriteriaQuery<Series> criteriaQuery = Mock(CriteriaQuery)
-		CriteriaQuery<Long> countCriteriaQuery = Mock(CriteriaQuery)
-		CriteriaBuilder criteriaBuilder = Mock(CriteriaBuilder) {
-			createQuery(Series) >> criteriaQuery
-			createQuery(Long) >> countCriteriaQuery
-		}
-		EntityManager entityManager = Mock(EntityManager)
-		EntityType entityType = Mock(EntityType)
+		CriteriaQuery<Series> criteriaQuery = Mock()
+		CriteriaQuery<Long> countCriteriaQuery = Mock()
+		CriteriaBuilder criteriaBuilder = Mock()
+		criteriaBuilder.createQuery(Series) >> criteriaQuery
+		criteriaBuilder.createQuery(Long) >> countCriteriaQuery
+		EntityManager entityManager = Mock()
+		EntityType entityType = Mock()
 		entityType.declaredAttributes >> Sets.newHashSet()
-		Metamodel metamodel = Mock(Metamodel)
+		Metamodel metamodel = Mock()
 		metamodel.entity(Series) >> entityType
 		entityManager.criteriaBuilder >> criteriaBuilder
 		entityManager.metamodel >> metamodel
-		Pageable pageable = Mock(Pageable)
+		Pageable pageable = Mock()
 
 		when:
 		QueryBuilder<Series> seriesQueryBuilder = abstractQueryBuilderFactory.createQueryBuilder(pageable)
@@ -70,7 +69,7 @@ class AbstractQueryBuilderFactoryTest extends Specification {
 
 	void "throws exception then entity manager is not set"() {
 		given:
-		Pageable pageable = Mock(Pageable)
+		Pageable pageable = Mock()
 
 		when:
 		abstractQueryBuilderFactory.createQueryBuilder(pageable)

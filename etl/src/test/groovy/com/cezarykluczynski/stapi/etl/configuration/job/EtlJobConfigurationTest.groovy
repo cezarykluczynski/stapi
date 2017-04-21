@@ -105,29 +105,29 @@ class EtlJobConfigurationTest extends Specification {
 	private StepProperties stepProperties
 
 	void setup() {
-		jobBuilderMock = Mock(JobBuilder)
-		applicationContextMock = Mock(ApplicationContext)
-		stepBuilderFactoryMock = Mock(StepBuilderFactory)
-		stepsPropertiesMock = Mock(StepsProperties)
+		jobBuilderMock = Mock()
+		applicationContextMock = Mock()
+		stepBuilderFactoryMock = Mock()
+		stepsPropertiesMock = Mock()
 		etlJobConfiguration = new EtlJobConfiguration(
 				jobBuilder: jobBuilderMock,
 				applicationContext: applicationContextMock,
 				stepBuilderFactory: stepBuilderFactoryMock,
 				stepsProperties: stepsPropertiesMock)
 
-		stepBuilderMock = Mock(StepBuilder)
-		simpleStepBuilderMock = Mock(SimpleStepBuilder)
-		itemReaderMock = Mock(ItemReader)
-		itemProcessorMock = Mock(ItemProcessor)
-		itemWriterMock = Mock(ItemWriter)
-		stepExecutionListenerMock = Mock(StepExecutionListener)
-		taskletStepMock = Mock(TaskletStep)
-		stepProperties = Mock(StepProperties)
+		stepBuilderMock = Mock()
+		simpleStepBuilderMock = Mock()
+		itemReaderMock = Mock()
+		itemProcessorMock = Mock()
+		itemWriterMock = Mock()
+		stepExecutionListenerMock = Mock()
+		taskletStepMock = Mock()
+		stepProperties = Mock()
 	}
 
 	void "passed JOB_CREATE bean creation to JobBuilder, and returns FactoryBean"() {
 		given:
-		Job job = Mock(Job)
+		Job job = Mock()
 
 		when:
 		FactoryBean<Job> factoryBean = etlJobConfiguration.jobCreate()

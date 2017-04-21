@@ -19,33 +19,33 @@ class ComicCollectionTemplateProcessorTest extends AbstractComicCollectionTest {
 
 	private ComicCollectionTemplateProcessor comicCollectionTemplateProcessor
 
-	private final Page page = Mock(Page)
+	private final Page page = Mock()
 
 	void setup() {
-		guidGeneratorMock = Mock(GuidGenerator)
+		guidGeneratorMock = Mock()
 		comicCollectionTemplateProcessor = new ComicCollectionTemplateProcessor(guidGeneratorMock)
 	}
 
 	void "converts ComicCollectionTemplate to ComicCollection"() {
 		given:
-		ComicSeries comicSeries1 = Mock(ComicSeries)
-		ComicSeries comicSeries2 = Mock(ComicSeries)
-		Staff writer1 = Mock(Staff)
-		Staff writer2 = Mock(Staff)
-		Staff artist1 = Mock(Staff)
-		Staff artist2 = Mock(Staff)
-		Staff editor1 = Mock(Staff)
-		Staff editor2 = Mock(Staff)
-		Staff staff1 = Mock(Staff)
-		Staff staff2 = Mock(Staff)
-		Company publisher1 = Mock(Company)
-		Company publisher2 = Mock(Company)
-		Character character1 = Mock(Character)
-		Character character2 = Mock(Character)
-		Reference reference1 = Mock(Reference)
-		Reference reference2 = Mock(Reference)
-		Comics comics1 = Mock(Comics)
-		Comics comics2 = Mock(Comics)
+		ComicSeries comicSeries1 = Mock()
+		ComicSeries comicSeries2 = Mock()
+		Staff writer1 = Mock()
+		Staff writer2 = Mock()
+		Staff artist1 = Mock()
+		Staff artist2 = Mock()
+		Staff editor1 = Mock()
+		Staff editor2 = Mock()
+		Staff staff1 = Mock()
+		Staff staff2 = Mock()
+		Company publisher1 = Mock()
+		Company publisher2 = Mock()
+		Character character1 = Mock()
+		Character character2 = Mock()
+		Reference reference1 = Mock()
+		Reference reference2 = Mock()
+		Comics comics1 = Mock()
+		Comics comics2 = Mock()
 
 		ComicCollectionTemplate comicCollectionTemplate = new ComicCollectionTemplate(
 				page: page,

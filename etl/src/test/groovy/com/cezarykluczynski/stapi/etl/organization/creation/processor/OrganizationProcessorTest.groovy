@@ -15,8 +15,8 @@ class OrganizationProcessorTest extends Specification {
 	private OrganizationProcessor organizationProcessor
 
 	void setup() {
-		pageHeaderProcessorMock = Mock(PageHeaderProcessor)
-		organizationPageProcessorMock = Mock(OrganizationPageProcessor)
+		pageHeaderProcessorMock = Mock()
+		organizationPageProcessorMock = Mock()
 		organizationProcessor = new OrganizationProcessor(pageHeaderProcessorMock, organizationPageProcessorMock)
 	}
 
