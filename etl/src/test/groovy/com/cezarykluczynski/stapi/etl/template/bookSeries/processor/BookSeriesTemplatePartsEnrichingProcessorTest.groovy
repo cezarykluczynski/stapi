@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.bookSeries.processor
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.template.bookSeries.dto.BookSeriesTemplate
 import com.cezarykluczynski.stapi.etl.template.bookSeries.dto.BookSeriesTemplateParameter
+import com.cezarykluczynski.stapi.etl.template.common.processor.NumberOfPartsProcessor
 import com.cezarykluczynski.stapi.etl.template.publishableSeries.dto.PublishableSeriesTemplate
 import com.cezarykluczynski.stapi.etl.template.publishableSeries.processor.PublishableSeriesTemplatePartsEnrichingProcessor
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
@@ -17,12 +18,15 @@ class BookSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 
 	private PublishableSeriesTemplatePartsEnrichingProcessor publishableSeriesTemplatePartsEnrichingProcessorMock
 
+	private NumberOfPartsProcessor numberOfPartsProcessorMock
+
 	private BookSeriesTemplatePartsEnrichingProcessor bookSeriesTemplatePartsEnrichingProcessor
 
 	void setup() {
 		publishableSeriesTemplatePartsEnrichingProcessorMock = Mock()
+		numberOfPartsProcessorMock = Mock()
 		bookSeriesTemplatePartsEnrichingProcessor = new BookSeriesTemplatePartsEnrichingProcessor(
-				publishableSeriesTemplatePartsEnrichingProcessorMock)
+				publishableSeriesTemplatePartsEnrichingProcessorMock, numberOfPartsProcessorMock)
 	}
 
 	void "passes enrichable pair to PublishableSeriesTemplatePartsEnrichingProcessor"() {
@@ -53,6 +57,7 @@ class BookSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 
 		then:
 		1 * publishableSeriesTemplatePartsEnrichingProcessorMock.enrich(_)
+		1 * numberOfPartsProcessorMock.process(NOVELS_STRING) >> NOVELS_INTEGER
 		0 * _
 		bookSeriesTemplate.numberOfBooks == NOVELS_INTEGER
 	}

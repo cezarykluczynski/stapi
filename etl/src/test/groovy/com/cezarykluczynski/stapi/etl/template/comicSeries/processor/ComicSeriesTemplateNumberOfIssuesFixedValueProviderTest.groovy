@@ -4,7 +4,7 @@ import spock.lang.Specification
 
 class ComicSeriesTemplateNumberOfIssuesFixedValueProviderTest extends Specification {
 
-	private static final String EXISTING_TITLE = 'Star Trek: Deep Space Nine (IDW)'
+	private static final String EXISTING_TITLE = 'McDonald\'s'
 	private static final String NONEXISTING_TITLE = 'NONEXISTING_TITLE'
 
 	private ComicSeriesTemplateNumberOfIssuesFixedValueProvider comicSeriesTemplateNumberOfIssuesFixedValueProvider
@@ -16,7 +16,7 @@ class ComicSeriesTemplateNumberOfIssuesFixedValueProviderTest extends Specificat
 	void "provides correct number of issues"() {
 		expect:
 		comicSeriesTemplateNumberOfIssuesFixedValueProvider.getSearchedValue(EXISTING_TITLE).found
-		comicSeriesTemplateNumberOfIssuesFixedValueProvider.getSearchedValue(EXISTING_TITLE).value == 1
+		comicSeriesTemplateNumberOfIssuesFixedValueProvider.getSearchedValue(EXISTING_TITLE).value == 5
 	}
 
 	void "provides missing number of issues"() {
