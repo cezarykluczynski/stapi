@@ -32,6 +32,8 @@ class RunTimeProcessorTest extends Specification {
 		'4 hours (abridged)<br />8 hours, 30 minutes (unabridged)' | 510
 		'90 minutes<br />(on 1 Cassette)'                          | 90
 		'10 hours, 30 minutes<br>3 hours, 44 minutes (abridged)'   | 630
+		'Approx. 16 Minutes'                                       | 16
+		'Approximately 20 Minutes'                                 | 20
 	}
 
 }

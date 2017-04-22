@@ -5,9 +5,11 @@ import com.cezarykluczynski.stapi.etl.common.dto.Range;
 import com.cezarykluczynski.stapi.etl.common.interfaces.FixedValueProvider;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear;
 import com.google.common.collect.Maps;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
+@Service
 public class BookSeriesPublishedDateFixedValueProvider implements FixedValueProvider<String, Range<DayMonthYear>> {
 
 	private static final Map<String, Range<DayMonthYear>> TITLES_TO_PUBLISHED_RANGE = Maps.newHashMap();

@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.book.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
+import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplate
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear
@@ -16,22 +17,44 @@ class BookTemplatePublishedDatesEnrichingProcessorTest extends Specification {
 
 	private DatePartToDayMonthYearProcessor bookTemplatePartToDayMonthRangeProcessorMock
 
+	private BookPublishedDateFixedValueProvider bookPublishedDateFixedValueProviderMock
+
 	private BookTemplatePublishedDatesEnrichingProcessor bookTemplatePublishedDatesEnrichingProcessor
 
 	void setup () {
 		bookTemplatePartToDayMonthRangeProcessorMock = Mock()
-		bookTemplatePublishedDatesEnrichingProcessor = new BookTemplatePublishedDatesEnrichingProcessor(bookTemplatePartToDayMonthRangeProcessorMock)
+		bookPublishedDateFixedValueProviderMock = Mock()
+		bookTemplatePublishedDatesEnrichingProcessor = new BookTemplatePublishedDatesEnrichingProcessor(bookTemplatePartToDayMonthRangeProcessorMock,
+				bookPublishedDateFixedValueProviderMock)
 	}
 
-	void "when DayMonthYear is null, BookTemplate is not interacted with"() {
+	void "when BookPublishedDateFixedValueProvider finds value, it is used and no other interactions are performed"() {
 		given:
-		BookTemplate bookTemplate = Mock()
+		DayMonthYear dayMonthYear = new DayMonthYear(DAY, MONTH, YEAR)
+		BookTemplate bookTemplate = new BookTemplate()
 		Template.Part templatePart = new Template.Part()
 
 		when:
 		bookTemplatePublishedDatesEnrichingProcessor.enrich(EnrichablePair.of(templatePart, bookTemplate))
 
 		then:
+		1 * bookPublishedDateFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.found(dayMonthYear)
+		0 * _
+		bookTemplate.publishedDay == DAY
+		bookTemplate.publishedMonth == MONTH
+		bookTemplate.publishedYear == YEAR
+	}
+
+	void "when DayMonthYear is null, BookTemplate is not interacted with"() {
+		given:
+		BookTemplate bookTemplate = new BookTemplate()
+		Template.Part templatePart = new Template.Part()
+
+		when:
+		bookTemplatePublishedDatesEnrichingProcessor.enrich(EnrichablePair.of(templatePart, bookTemplate))
+
+		then:
+		1 * bookPublishedDateFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
 		1 * bookTemplatePartToDayMonthRangeProcessorMock.process(templatePart)
 		0 * _
 	}
@@ -46,6 +69,7 @@ class BookTemplatePublishedDatesEnrichingProcessorTest extends Specification {
 		bookTemplatePublishedDatesEnrichingProcessor.enrich(EnrichablePair.of(templatePart, bookTemplate))
 
 		then:
+		1 * bookPublishedDateFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
 		1 * bookTemplatePartToDayMonthRangeProcessorMock.process(templatePart) >> dayMonthYear
 		0 * _
 		bookTemplate.publishedYear == YEAR
@@ -66,6 +90,7 @@ class BookTemplatePublishedDatesEnrichingProcessorTest extends Specification {
 		bookTemplatePublishedDatesEnrichingProcessor.enrich(EnrichablePair.of(templatePart, bookTemplate))
 
 		then:
+		1 * bookPublishedDateFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
 		1 * bookTemplatePartToDayMonthRangeProcessorMock.process(templatePart) >> dayMonthYear
 		0 * _
 		bookTemplate.audiobookPublishedYear == YEAR
@@ -79,13 +104,14 @@ class BookTemplatePublishedDatesEnrichingProcessorTest extends Specification {
 	void "when DayMonthYear is found, and template part key contains unrecognized key, BookTemplate is not interacted with"() {
 		given:
 		DayMonthYear dayMonthYear = DayMonthYear.of(DAY, MONTH, YEAR)
-		BookTemplate bookTemplate = Mock()
+		BookTemplate bookTemplate = new BookTemplate()
 		Template.Part templatePart = new Template.Part(key: 'UNKNOWN')
 
 		when:
 		bookTemplatePublishedDatesEnrichingProcessor.enrich(EnrichablePair.of(templatePart, bookTemplate))
 
 		then:
+		1 * bookPublishedDateFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
 		1 * bookTemplatePartToDayMonthRangeProcessorMock.process(templatePart) >> dayMonthYear
 		0 * _
 	}

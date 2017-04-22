@@ -51,7 +51,8 @@ public class BookTemplatePageProcessor implements ItemProcessor<Page, BookTempla
 		categoriesBookTemplateEnrichingProcessor.enrich(EnrichablePair.of(item.getCategories(), bookTemplate));
 
 		Optional<Template> sidebarBookTemplateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_NOVEL,
-				TemplateTitle.SIDEBAR_REFERENCE_BOOK, TemplateTitle.SIDEBAR_RPG_BOOK, TemplateTitle.SIDEBAR_BIOGRAPHY_BOOK);
+				TemplateTitle.SIDEBAR_REFERENCE_BOOK, TemplateTitle.SIDEBAR_RPG_BOOK, TemplateTitle.SIDEBAR_BIOGRAPHY_BOOK,
+				TemplateTitle.SIDEBAR_AUDIO);
 
 		if (sidebarBookTemplateOptional.isPresent()) {
 			bookTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(sidebarBookTemplateOptional.get().getParts(), bookTemplate));

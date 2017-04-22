@@ -3,9 +3,11 @@ package com.cezarykluczynski.stapi.etl.template.bookSeries.processor;
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
 import com.cezarykluczynski.stapi.etl.common.interfaces.FixedValueProvider;
 import com.google.common.collect.Maps;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
+@Service
 public class BookSeriesTemplateNumberOfBooksFixedValueProvider implements FixedValueProvider<String, Integer> {
 
 	private static final Map<String, Integer> TITLES_TO_NUMBER_OF_ISSUES = Maps.newHashMap();

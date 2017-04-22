@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.book.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
+import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplate;
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplateParameter;
@@ -14,11 +15,15 @@ import javax.inject.Inject;
 @Service
 public class BookTemplatePublishedDatesEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template.Part, BookTemplate>> {
 
-	private DatePartToDayMonthYearProcessor datePartToDayMonthYearProcessor;
+	private final DatePartToDayMonthYearProcessor datePartToDayMonthYearProcessor;
+
+	private final BookPublishedDateFixedValueProvider bookPublishedDateFixedValueProvider;
 
 	@Inject
-	public BookTemplatePublishedDatesEnrichingProcessor(DatePartToDayMonthYearProcessor datePartToDayMonthYearProcessor) {
+	public BookTemplatePublishedDatesEnrichingProcessor(DatePartToDayMonthYearProcessor datePartToDayMonthYearProcessor,
+			BookPublishedDateFixedValueProvider bookPublishedDateFixedValueProvider) {
 		this.datePartToDayMonthYearProcessor = datePartToDayMonthYearProcessor;
+		this.bookPublishedDateFixedValueProvider = bookPublishedDateFixedValueProvider;
 	}
 
 	@Override
@@ -26,6 +31,16 @@ public class BookTemplatePublishedDatesEnrichingProcessor implements ItemEnrichi
 		Template.Part templatePart = enrichablePair.getInput();
 		BookTemplate bookTemplate = enrichablePair.getOutput();
 		String templatePartKey = templatePart.getKey();
+
+		FixedValueHolder<DayMonthYear> publishedDateFixedValueHolder = bookPublishedDateFixedValueProvider.getSearchedValue(bookTemplate.getTitle());
+
+		if (publishedDateFixedValueHolder.isFound()) {
+			DayMonthYear publishedDate = publishedDateFixedValueHolder.getValue();
+			bookTemplate.setPublishedDay(publishedDate.getDay());
+			bookTemplate.setPublishedMonth(publishedDate.getMonth());
+			bookTemplate.setPublishedYear(publishedDate.getYear());
+			return;
+		}
 
 		DayMonthYear dayMonthYear = datePartToDayMonthYearProcessor.process(templatePart);
 

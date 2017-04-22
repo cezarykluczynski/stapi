@@ -73,7 +73,7 @@ class BookTemplatePageProcessorTest extends Specification {
 			assert enrichablePair.output != null
 		}
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_NOVEL, TemplateTitle.SIDEBAR_REFERENCE_BOOK, TemplateTitle.SIDEBAR_RPG_BOOK,
-				TemplateTitle.SIDEBAR_BIOGRAPHY_BOOK) >> Optional.empty()
+				TemplateTitle.SIDEBAR_BIOGRAPHY_BOOK, TemplateTitle.SIDEBAR_AUDIO) >> Optional.empty()
 		0 * _
 		bookTemplate.title == TITLE
 		bookTemplate.page == modelPage
@@ -103,7 +103,7 @@ class BookTemplatePageProcessorTest extends Specification {
 			assert enrichablePair.output != null
 		}
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_NOVEL, TemplateTitle.SIDEBAR_REFERENCE_BOOK, TemplateTitle.SIDEBAR_RPG_BOOK,
-				TemplateTitle.SIDEBAR_BIOGRAPHY_BOOK) >> Optional.of(sidebarBookTemplate)
+				TemplateTitle.SIDEBAR_BIOGRAPHY_BOOK, TemplateTitle.SIDEBAR_AUDIO) >> Optional.of(sidebarBookTemplate)
 		1 * bookTemplatePartsEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair<Template, BookTemplate> enrichablePair ->
 			assert enrichablePair.input == templatePartList
 			assert enrichablePair.output != null

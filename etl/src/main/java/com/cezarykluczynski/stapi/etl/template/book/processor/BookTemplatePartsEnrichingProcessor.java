@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor;
 import com.cezarykluczynski.stapi.etl.reference.processor.ReferencesFromTemplatePartProcessor;
+import com.cezarykluczynski.stapi.etl.template.audio.dto.AudioTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplate;
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange;
@@ -105,6 +106,7 @@ public class BookTemplatePartsEnrichingProcessor implements ItemEnrichingProcess
 					bookTemplate.getAudiobookReferences().addAll(referencesFromTemplatePartProcessor.process(part));
 					break;
 				case BookTemplateParameter.AUDIOBOOK_RUN_TIME:
+				case AudioTemplateParameter.TIME:
 					bookTemplate.setAudiobookRunTime(runTimeProcessor.process(value));
 					break;
 				case BookTemplateParameter.AUDIOBOOK:
