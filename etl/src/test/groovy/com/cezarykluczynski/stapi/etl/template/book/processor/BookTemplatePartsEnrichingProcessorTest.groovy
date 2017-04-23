@@ -5,11 +5,13 @@ import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompani
 import com.cezarykluczynski.stapi.etl.reference.processor.ReferencesFromTemplatePartProcessor
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplate
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplateParameter
-import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplate
+import com.cezarykluczynski.stapi.etl.template.bookSeries.dto.BookSeriesTemplate
+import com.cezarykluczynski.stapi.etl.template.bookSeries.processor.WikitextToBookSeriesProcessor
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToStardateRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToYearRangeProcessor
+import com.cezarykluczynski.stapi.model.bookSeries.entity.BookSeries
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.reference.entity.Reference
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
@@ -35,6 +37,7 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 	private static final String STARDATES = '1995-1997'
 	private static final Float STARDATE_FROM = 123.4F
 	private static final Float STARDATE_TO = 456.7F
+	private static final String SERIES = 'SERIES'
 	private static final String REFERENCE = 'REFERENCE'
 	private static final String AUDIOBOOK_REFERENCE = 'AUDIOBOOK_REFERENCE'
 	private static final String YES = 'YES'
@@ -56,6 +59,8 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 
 	private RunTimeProcessor runTimeProcessorMock
 
+	private WikitextToBookSeriesProcessor wikitextToBookSeriesProcessorMock
+
 	private BookTemplatePartsEnrichingProcessor bookTemplatePartsEnrichingProcessor
 
 	void setup() {
@@ -66,9 +71,11 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 		wikitextToStardateRangeProcessorMock = Mock()
 		referencesFromTemplatePartProcessorMock = Mock()
 		runTimeProcessorMock = Mock()
+		wikitextToBookSeriesProcessorMock = Mock()
 		bookTemplatePartsEnrichingProcessor = new BookTemplatePartsEnrichingProcessor(bookTemplatePartStaffEnrichingProcessorMock,
 				wikitextToCompaniesProcessorMock, bookTemplatePublishedDatesEnrichingProcessorMock, wikitextToYearRangeProcessorMock,
-				wikitextToStardateRangeProcessorMock, referencesFromTemplatePartProcessorMock, runTimeProcessorMock)
+				wikitextToStardateRangeProcessorMock, referencesFromTemplatePartProcessorMock, runTimeProcessorMock,
+				wikitextToBookSeriesProcessorMock)
 	}
 
 	void "passes BookTemplate to BookTemplatePartStaffEnrichingProcessor when author part is found"() {
@@ -153,6 +160,24 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 		bookTemplate.publishers.contains company2
 	}
 
+	void "sets book series from WikitextToBookSeriesProcessor"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: BookTemplateParameter.SERIES, value: SERIES)
+		BookTemplate bookTemplate = new BookTemplate()
+		BookSeries bookSeries1 = Mock()
+		BookSeries bookSeries2 = Mock()
+
+		when:
+		bookTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), bookTemplate))
+
+		then:
+		1 * wikitextToBookSeriesProcessorMock.process(SERIES) >> Sets.newHashSet(bookSeries1, bookSeries2)
+		0 * _
+		bookTemplate.bookSeries.size() == 2
+		bookTemplate.bookSeries.contains bookSeries1
+		bookTemplate.bookSeries.contains bookSeries2
+	}
+
 	void "sets audiobook publishers from WikitextToCompaniesProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: BookTemplateParameter.AUDIOBOOK_PUBLISHER, value: AUDIOBOOK_PUBLISHER)
@@ -181,7 +206,7 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 
 		then:
 		1 * bookTemplatePublishedDatesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
-			EnrichablePair<Template.Part, ComicSeriesTemplate> enrichablePair ->
+			EnrichablePair<Template.Part, BookSeriesTemplate> enrichablePair ->
 				assert enrichablePair.input == templatePart
 				assert enrichablePair.output != null
 		}
@@ -198,7 +223,7 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 
 		then:
 		1 * bookTemplatePublishedDatesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
-			EnrichablePair<Template.Part, ComicSeriesTemplate> enrichablePair ->
+			EnrichablePair<Template.Part, BookSeriesTemplate> enrichablePair ->
 				assert enrichablePair.input == templatePart
 				assert enrichablePair.output != null
 		}

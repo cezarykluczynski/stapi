@@ -18,6 +18,7 @@ import spock.lang.Specification
 class BookSeriesTemplatePageProcessorTest extends Specification {
 
 	private static final String TITLE = 'TITLE'
+	private static final String TITLE_WITH_BRACKETS = 'TITLE (with brackets)'
 	private static final Long PAGE_ID = 11L
 	private static final Boolean E_BOOK_SERIES = LogicUtil.nextBoolean()
 	private static final MediaWikiSource SOURCES_MEDIA_WIKI_SOURCE = MediaWikiSource.MEMORY_ALPHA_EN
@@ -69,6 +70,18 @@ class BookSeriesTemplatePageProcessorTest extends Specification {
 		bookSeriesTemplate.page == modelPage
 		bookSeriesTemplate.EBookSeries == E_BOOK_SERIES
 		ReflectionTestUtils.getNumberOfNotNullFields(bookSeriesTemplate) == 4
+	}
+
+	void "clears title when it contains brackets"() {
+		given:
+		Page page = new Page(title: TITLE_WITH_BRACKETS)
+
+		when:
+		BookSeriesTemplate bookSeriesTemplate = bookSeriesTemplatePageProcessor.process(page)
+
+		then:
+		1 * templateFinderMock.findTemplate(*_) >> Optional.empty()
+		bookSeriesTemplate.title == TITLE
 	}
 
 	void "returns null when page is an effect of redirect"() {

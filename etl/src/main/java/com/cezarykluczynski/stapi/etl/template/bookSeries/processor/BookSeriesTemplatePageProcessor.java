@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.template.bookSeries.dto.BookSeriesTemplate;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
+import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
@@ -45,7 +46,7 @@ public class BookSeriesTemplatePageProcessor implements ItemProcessor<Page, Book
 		}
 
 		BookSeriesTemplate bookSeriesTemplate = new BookSeriesTemplate();
-		bookSeriesTemplate.setTitle(item.getTitle());
+		bookSeriesTemplate.setTitle(TitleUtil.getNameFromTitle(item.getTitle()));
 		bookSeriesTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 		bookSeriesTemplate.setEBookSeries(bookSeriesTemplateEBookSeriesProcessor.process(item));
 

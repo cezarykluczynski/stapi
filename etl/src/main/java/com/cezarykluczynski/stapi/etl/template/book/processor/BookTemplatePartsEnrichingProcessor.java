@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.etl.reference.processor.ReferencesFromTemplate
 import com.cezarykluczynski.stapi.etl.template.audio.dto.AudioTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplate;
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplateParameter;
+import com.cezarykluczynski.stapi.etl.template.bookSeries.processor.WikitextToBookSeriesProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToStardateRangeProcessor;
@@ -38,12 +39,16 @@ public class BookTemplatePartsEnrichingProcessor implements ItemEnrichingProcess
 
 	private final RunTimeProcessor runTimeProcessor;
 
+	private final WikitextToBookSeriesProcessor wikitextToBookSeriesProcessor;
+
+	@SuppressWarnings("ParameterNumber")
 	@Inject
 	public BookTemplatePartsEnrichingProcessor(BookTemplatePartStaffEnrichingProcessor bookTemplatePartStaffEnrichingProcessor,
 			WikitextToCompaniesProcessor wikitextToCompaniesProcessor,
 			BookTemplatePublishedDatesEnrichingProcessor bookTemplatePublishedDatesEnrichingProcessor,
 			WikitextToYearRangeProcessor wikitextToYearRangeProcessor, WikitextToStardateRangeProcessor wikitextToStardateRangeProcessor,
-			ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor, RunTimeProcessor runTimeProcessor) {
+			ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor, RunTimeProcessor runTimeProcessor,
+			WikitextToBookSeriesProcessor wikitextToBookSeriesProcessor) {
 		this.bookTemplatePartStaffEnrichingProcessor = bookTemplatePartStaffEnrichingProcessor;
 		this.wikitextToCompaniesProcessor = wikitextToCompaniesProcessor;
 		this.bookTemplatePublishedDatesEnrichingProcessor = bookTemplatePublishedDatesEnrichingProcessor;
@@ -51,6 +56,7 @@ public class BookTemplatePartsEnrichingProcessor implements ItemEnrichingProcess
 		this.wikitextToStardateRangeProcessor = wikitextToStardateRangeProcessor;
 		this.referencesFromTemplatePartProcessor = referencesFromTemplatePartProcessor;
 		this.runTimeProcessor = runTimeProcessor;
+		this.wikitextToBookSeriesProcessor = wikitextToBookSeriesProcessor;
 	}
 
 	@Override
@@ -97,7 +103,7 @@ public class BookTemplatePartsEnrichingProcessor implements ItemEnrichingProcess
 					}
 					break;
 				case BookTemplateParameter.SERIES:
-					// TODO
+					bookTemplate.getBookSeries().addAll(wikitextToBookSeriesProcessor.process(value));
 					break;
 				case BookTemplateParameter.ISBN:
 					bookTemplate.getReferences().addAll(referencesFromTemplatePartProcessor.process(part));

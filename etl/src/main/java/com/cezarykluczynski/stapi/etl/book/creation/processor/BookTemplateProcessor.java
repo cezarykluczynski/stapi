@@ -47,6 +47,7 @@ public class BookTemplateProcessor implements ItemProcessor<BookTemplate, Book> 
 		book.setAudiobookPublishedDay(item.getAudiobookPublishedDay());
 		book.setAudiobookRunTime(item.getAudiobookRunTime());
 		book.setProductionNumber(item.getProductionNumber());
+		book.getBookSeries().addAll(item.getBookSeries());
 		book.getAuthors().addAll(item.getAuthors());
 		book.getArtists().addAll(item.getArtists());
 		book.getEditors().addAll(item.getEditors());

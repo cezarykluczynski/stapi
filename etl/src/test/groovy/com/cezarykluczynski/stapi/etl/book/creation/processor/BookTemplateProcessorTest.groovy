@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.book.creation.processor
 
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplate
 import com.cezarykluczynski.stapi.model.book.entity.Book
+import com.cezarykluczynski.stapi.model.bookSeries.entity.BookSeries
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
 import com.cezarykluczynski.stapi.model.company.entity.Company
@@ -26,6 +27,8 @@ class BookTemplateProcessorTest extends AbstractBookTest {
 
 	void "converts BookTemplate to Book"() {
 		given:
+		BookSeries bookSeries1 = Mock()
+		BookSeries bookSeries2 = Mock()
 		Staff author1 = Mock()
 		Staff author2 = Mock()
 		Staff artist1 = Mock()
@@ -70,6 +73,7 @@ class BookTemplateProcessorTest extends AbstractBookTest {
 				audiobookPublishedDay: AUDIOBOOK_PUBLISHED_DAY,
 				audiobookRunTime: AUDIOBOOK_RUN_TIME,
 				productionNumber: PRODUCTION_NUMBER,
+				bookSeries: Sets.newHashSet(bookSeries1, bookSeries2),
 				authors: Sets.newHashSet(author1, author2),
 				artists: Sets.newHashSet(artist1, artist2),
 				editors: Sets.newHashSet(editor1, editor2),
@@ -110,6 +114,8 @@ class BookTemplateProcessorTest extends AbstractBookTest {
 		book.audiobookPublishedDay == AUDIOBOOK_PUBLISHED_DAY
 		book.audiobookRunTime == AUDIOBOOK_RUN_TIME
 		book.productionNumber == PRODUCTION_NUMBER
+		book.bookSeries.contains bookSeries1
+		book.bookSeries.contains bookSeries2
 		book.authors.contains author1
 		book.authors.contains author2
 		book.artists.contains artist1

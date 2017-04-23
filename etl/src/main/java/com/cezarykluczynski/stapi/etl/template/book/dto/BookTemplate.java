@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.book.dto;
 
+import com.cezarykluczynski.stapi.model.bookSeries.entity.BookSeries;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.page.entity.Page;
@@ -73,6 +74,8 @@ public class BookTemplate {
 	private Set<Company> publishers = Sets.newHashSet();
 
 	private Set<Company> audiobookPublishers = Sets.newHashSet();
+
+	private Set<BookSeries> bookSeries = Sets.newHashSet();
 
 	private Set<Character> characters = Sets.newHashSet();
 
