@@ -10,6 +10,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
+import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import org.assertj.core.util.Lists
 import spock.lang.Specification
 
@@ -50,6 +51,19 @@ class BookTemplatePageProcessorTest extends Specification {
 		1 * bookPageFilterMock.shouldBeFilteredOut(page) >> true
 		0 * _
 		bookTemplate == null
+	}
+
+	void "clean title when it contains blacklisted suffix"() {
+		given:
+		Page page = new Page(title: TITLE + ' ' + RandomUtil.randomItem(BookTemplatePageProcessor.TITLE_PART_LIST_TO_CLEAR))
+
+		when:
+		BookTemplate bookTemplate = bookTemplatePageProcessor.process(page)
+
+		then:
+		1 * templateFinderMock.findTemplate(*_) >> Optional.empty()
+		bookTemplate.title == TITLE
+
 	}
 
 	void "parses page that does not have any book sidebar template"() {

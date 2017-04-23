@@ -5,17 +5,26 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplate;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
+import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
+import com.cezarykluczynski.stapi.util.tool.StringUtil;
+import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class BookTemplatePageProcessor implements ItemProcessor<Page, BookTemplate> {
+
+	private static final List<String> TITLE_PART_LIST_TO_CLEAR = Lists.newArrayList("(songbook)", "(novel)", "(New Frontier novel)", "(game)",
+			"(VOY novel)", "(program)", "(eBook)", "(TNG novel)", "(book)", "(young adult novelization)", "(reference book)", "(TOS novel)",
+			"(Decipher)", "(Last Unicorn)", "(FASA)", "Harlan Ellison Collection)");
 
 	private final BookPageFilter bookPageFilter;
 
@@ -45,7 +54,7 @@ public class BookTemplatePageProcessor implements ItemProcessor<Page, BookTempla
 		}
 
 		BookTemplate bookTemplate = new BookTemplate();
-		bookTemplate.setTitle(item.getTitle());
+		bookTemplate.setTitle(maybeClearTitle(item.getTitle()));
 		bookTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 
 		categoriesBookTemplateEnrichingProcessor.enrich(EnrichablePair.of(item.getCategories(), bookTemplate));
@@ -59,6 +68,10 @@ public class BookTemplatePageProcessor implements ItemProcessor<Page, BookTempla
 		}
 
 		return bookTemplate;
+	}
+
+	private String maybeClearTitle(String title) {
+		return StringUtils.trim(StringUtil.containsAnyIgnoreCase(title, TITLE_PART_LIST_TO_CLEAR) ? TitleUtil.getNameFromTitle(title) : title);
 	}
 
 }

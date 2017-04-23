@@ -48,7 +48,7 @@ allprojects {
 
 		// Testing
 		testCompile group: 'commons-io', name: 'commons-io', version: '2.5'
-		testCompile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.7'
+		testCompile group: 'org.codehaus.groovy', name: 'groovy-all', version: '2.4.10'
 		testCompile group: 'org.spockframework', name: 'spock-core', version: '1.1-groovy-2.4-rc-2'
 		testCompile group: 'org.spockframework', name: 'spock-spring', version: '1.1-groovy-2.4-rc-2'
 		testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: springBootVersion) {
