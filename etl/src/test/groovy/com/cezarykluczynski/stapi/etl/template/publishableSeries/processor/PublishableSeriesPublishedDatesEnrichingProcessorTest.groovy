@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTempla
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear
 import com.cezarykluczynski.stapi.etl.template.common.processor.DayMonthYearRangeProcessor
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import org.apache.commons.lang3.tuple.Pair
 import spock.lang.Specification
 
 class PublishableSeriesPublishedDatesEnrichingProcessorTest extends Specification {
@@ -36,10 +37,11 @@ class PublishableSeriesPublishedDatesEnrichingProcessorTest extends Specificatio
 		then:
 		1 * dayMonthYearRangeProcessorMock.process(templatePart) >> Range.of(dayMonthYearFrom, dayMonthYearTo)
 		1 * publishableSeriesTemplateDayMonthYearRangeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
-				EnrichablePair<Range<DayMonthYear>, ComicSeriesTemplate> enrichablePair ->
-			assert enrichablePair.input.from == dayMonthYearFrom
-			assert enrichablePair.input.to == dayMonthYearTo
-			assert enrichablePair.output == comicSeriesTemplate
+			EnrichablePair<Pair<Template.Part, Range<DayMonthYear>>, ComicSeriesTemplate> enrichablePair ->
+				assert enrichablePair.input.key == templatePart
+				assert enrichablePair.input.value.from == dayMonthYearFrom
+				assert enrichablePair.input.value.to == dayMonthYearTo
+				assert enrichablePair.output == comicSeriesTemplate
 		}
 		0 * _
 	}

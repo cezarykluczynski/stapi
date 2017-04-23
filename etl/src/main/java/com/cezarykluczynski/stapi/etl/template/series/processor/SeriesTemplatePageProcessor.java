@@ -29,9 +29,8 @@ public class SeriesTemplatePageProcessor implements ItemProcessor<Page, SeriesTe
 	private SeriesTemplateCompanyProcessor seriesTemplateCompanyProcessor;
 
 	@Inject
-	public SeriesTemplatePageProcessor(PartToYearRangeProcessor partToYearRangeProcessor,
-			PartToDateRangeProcessor partToDateRangeProcessor, PageBindingService pageBindingService,
-			TemplateFinder templateFinder, SeriesTemplateCompanyProcessor seriesTemplateCompanyProcessor) {
+	public SeriesTemplatePageProcessor(PartToYearRangeProcessor partToYearRangeProcessor, PartToDateRangeProcessor partToDateRangeProcessor,
+			PageBindingService pageBindingService, TemplateFinder templateFinder, SeriesTemplateCompanyProcessor seriesTemplateCompanyProcessor) {
 		this.partToYearRangeProcessor = partToYearRangeProcessor;
 		this.partToDateRangeProcessor = partToDateRangeProcessor;
 		this.pageBindingService = pageBindingService;

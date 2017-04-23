@@ -22,6 +22,8 @@ public class Template {
 
 		private String value;
 
+		private String content;
+
 		private List<Template> templates = Lists.newArrayList();
 
 	}

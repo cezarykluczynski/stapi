@@ -3,10 +3,13 @@ package com.cezarykluczynski.stapi.etl.template.comicSeries.processor
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder
 import com.cezarykluczynski.stapi.etl.common.dto.Range
+import com.cezarykluczynski.stapi.etl.template.bookSeries.dto.BookSeriesTemplate
 import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplate
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateYearDTO
 import com.cezarykluczynski.stapi.etl.template.publishableSeries.processor.PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessor
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import org.apache.commons.lang3.tuple.Pair
 import spock.lang.Specification
 
 class ComicSeriesTemplateFixedValuesEnrichingProcessorTest extends Specification {
@@ -49,8 +52,9 @@ class ComicSeriesTemplateFixedValuesEnrichingProcessorTest extends Specification
 		then:
 		1 * comicSeriesPublishedDateFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.found(dayMonthYearRange)
 		1 * publishableSeriesTemplateDayMonthYearRangeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
-			EnrichablePair<Range<DayMonthYear>, ComicSeriesTemplate> enrichablePair ->
-				assert enrichablePair.input == dayMonthYearRange
+			EnrichablePair<Pair<Template.Part, Range<DayMonthYear>>, BookSeriesTemplate> enrichablePair ->
+				assert enrichablePair.input.key == null
+				assert enrichablePair.input.value == dayMonthYearRange
 				assert enrichablePair.output != null
 		}
 		1 * comicSeriesTemplateNumberOfIssuesFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.empty()

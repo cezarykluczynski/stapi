@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.DayMonthYearRang
 import com.cezarykluczynski.stapi.etl.template.publishableSeries.dto.PublishableSeriesTemplate;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -39,7 +40,8 @@ public class PublishableSeriesPublishedDatesEnrichingProcessor
 			return;
 		}
 
-		publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(dayMonthYearRange, publishableSeriesTemplate));
+		publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor
+				.enrich(EnrichablePair.of(Pair.of(templatePart, dayMonthYearRange), publishableSeriesTemplate));
 	}
 
 }

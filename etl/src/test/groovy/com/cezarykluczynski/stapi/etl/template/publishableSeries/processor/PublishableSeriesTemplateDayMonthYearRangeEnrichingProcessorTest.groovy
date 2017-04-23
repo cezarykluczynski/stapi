@@ -5,6 +5,9 @@ import com.cezarykluczynski.stapi.etl.common.dto.Range
 import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplate
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear
 import com.cezarykluczynski.stapi.etl.template.publishableSeries.dto.PublishableSeriesTemplate
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import org.apache.commons.lang3.tuple.Pair
+import org.assertj.core.util.Lists
 import spock.lang.Specification
 
 class PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessorTest extends Specification {
@@ -30,14 +33,14 @@ class PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessorTest extends S
 		Range range = Mock()
 
 		when:
-		publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(null, publishableSeriesTemplate))
+		publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(Pair.of(null, null), publishableSeriesTemplate))
 
 		then:
 		0 * _
 		notThrown(Exception)
 
 		when:
-		publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(range, null))
+		publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(Pair.of(null, range), null))
 
 		then:
 		0 * _
@@ -46,10 +49,12 @@ class PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessorTest extends S
 
 	void "when both range values are null, nothing is set to template"() {
 		given:
+		Template.Part templatePart = new Template.Part()
+		Range range = Range.of(null, null)
 		ComicSeriesTemplate comicSeriesTemplate = Mock()
 
 		when:
-		publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(Range.of(null, null), comicSeriesTemplate))
+		publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(Pair.of(templatePart, range), comicSeriesTemplate))
 
 		then:
 		0 * _
@@ -60,7 +65,8 @@ class PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessorTest extends S
 		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate()
 
 		when:
-		publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(Range.of(DAY_MONTH_YEAR_FROM, null), comicSeriesTemplate))
+		publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor
+				.enrich(EnrichablePair.of(Pair.of(null, Range.of(DAY_MONTH_YEAR_FROM, null)), comicSeriesTemplate))
 
 		then:
 		comicSeriesTemplate.publishedYearFrom == YEAR_FROM
@@ -73,11 +79,12 @@ class PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessorTest extends S
 
 	void "when from and to dates are present, they are used to populate template accordingly"() {
 		given:
+		Template.Part templatePart = new Template.Part()
 		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate()
 
 		when:
-		publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(Range.of(DAY_MONTH_YEAR_FROM, DAY_MONTH_YEAR_TO),
-				comicSeriesTemplate))
+		publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor
+				.enrich(EnrichablePair.of(Pair.of(templatePart, Range.of(DAY_MONTH_YEAR_FROM, DAY_MONTH_YEAR_TO)), comicSeriesTemplate))
 
 		then:
 		comicSeriesTemplate.publishedYearFrom == YEAR_FROM
@@ -86,6 +93,27 @@ class PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessorTest extends S
 		comicSeriesTemplate.publishedYearTo == YEAR_TO
 		comicSeriesTemplate.publishedMonthTo == MONTH_TO
 		comicSeriesTemplate.publishedDayTo == DAY_TO
+	}
+
+	void "when any dash is in template part content, and there is one template in part, published date to is not set"() {
+		given:
+		Template template = new Template()
+		Template.Part templatePart = new Template.Part(
+				content: PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessor.DASHES[0],
+				templates: Lists.newArrayList(template))
+		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate()
+
+		when:
+		publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor
+				.enrich(EnrichablePair.of(Pair.of(templatePart, Range.of(DAY_MONTH_YEAR_FROM, null)), comicSeriesTemplate))
+
+		then:
+		comicSeriesTemplate.publishedYearFrom == YEAR_FROM
+		comicSeriesTemplate.publishedMonthFrom == MONTH_FROM
+		comicSeriesTemplate.publishedDayFrom == DAY_FROM
+		comicSeriesTemplate.publishedYearTo == null
+		comicSeriesTemplate.publishedMonthTo == null
+		comicSeriesTemplate.publishedDayTo == null
 	}
 
 }

@@ -9,6 +9,8 @@ import com.cezarykluczynski.stapi.etl.template.bookSeries.processor.BookSeriesTe
 import com.cezarykluczynski.stapi.etl.template.bookSeries.processor.BookSeriesTemplateNumberOfBooksFixedValueProvider
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear
 import com.cezarykluczynski.stapi.etl.template.publishableSeries.processor.PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessor
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import org.apache.commons.lang3.tuple.Pair
 import spock.lang.Specification
 
 class BookSeriesTemplateFixedValuesEnrichingProcessorTest extends Specification {
@@ -44,8 +46,9 @@ class BookSeriesTemplateFixedValuesEnrichingProcessorTest extends Specification 
 		then:
 		1 * bookSeriesPublishedDateFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.found(dayMonthYearRange)
 		1 * publishableSeriesTemplateDayMonthYearRangeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
-			EnrichablePair<Range<DayMonthYear>, BookSeriesTemplate> enrichablePair ->
-				assert enrichablePair.input == dayMonthYearRange
+			EnrichablePair<Pair<Template.Part, Range<DayMonthYear>>, BookSeriesTemplate> enrichablePair ->
+				assert enrichablePair.input.key == null
+				assert enrichablePair.input.value == dayMonthYearRange
 				assert enrichablePair.output != null
 		}
 		1 * bookSeriesTemplateNumberOfBooksFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.empty()

@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.bookSeries.dto.BookSeriesTemplate;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear;
 import com.cezarykluczynski.stapi.etl.template.publishableSeries.processor.PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessor;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -39,7 +40,8 @@ public class BookSeriesTemplateFixedValuesEnrichingProcessor
 
 		if (dayMonthYearRangeFixedValueHolder.isFound()) {
 			Range<DayMonthYear> dayMonthYearRange = dayMonthYearRangeFixedValueHolder.getValue();
-			publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(dayMonthYearRange, bookSeriesTemplate));
+			publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor
+					.enrich(EnrichablePair.of(Pair.of(null, dayMonthYearRange), bookSeriesTemplate));
 		}
 
 		FixedValueHolder<Integer> numberOfIssuesFixedValueHolder = bookSeriesTemplateNumberOfIssuesFixedValueProvider.getSearchedValue(title);

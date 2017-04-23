@@ -42,10 +42,34 @@ public class PageApiImpl implements PageApi {
 
 	@Override
 	public Page getPage(String title, MediaWikiSource mediaWikiSource) {
-		return getPage(title, 0, mediaWikiSource);
+		return getPageRedirectAware(title, 0, mediaWikiSource);
 	}
 
-	private Page getPage(String title, int redirectCount, MediaWikiSource mediaWikiSource) {
+	@Override
+	public List<Page> getPages(List<String> titleList, MediaWikiSource mediaWikiSource) {
+		List<Page> pageList = Lists.newArrayList();
+
+		for (String title : titleList) {
+			Page page = getPage(title, mediaWikiSource);
+
+			if (page == null) {
+				log.warn("Could not get page with title {}", title);
+				continue;
+			}
+
+			pageList.add(page);
+		}
+
+		return pageList;
+	}
+
+	@Override
+	public PageInfo getPageInfo(String title, MediaWikiSource mediaWikiSource) {
+		String pageBody = blikiConnector.getPageInfo(title, mediaWikiSource);
+		return parsePageInfo(pageBody);
+	}
+
+	private Page getPageRedirectAware(String title, int redirectCount, MediaWikiSource mediaWikiSource) {
 		String pageBody = blikiConnector.getPage(title, mediaWikiSource);
 
 		Page page;
@@ -91,7 +115,7 @@ public class PageApiImpl implements PageApi {
 		} else {
 			String redirectTarget = redirects.get(0);
 			log.debug("Following redirect from {} to {}", title, redirectTarget);
-			Page redirectPage = getPage(redirectTarget, redirectCount + 1, mediaWikiSource);
+			Page redirectPage = getPageRedirectAware(redirectTarget, redirectCount + 1, mediaWikiSource);
 
 			if (redirectPage == null) {
 				log.warn("Redirect {} leaded to unexisting page", redirectTarget);
@@ -134,30 +158,6 @@ public class PageApiImpl implements PageApi {
 
 			sortedPageSectionList.get(i).setWikitext(StringUtils.trim(sectionWikitext));
 		}
-	}
-
-	@Override
-	public List<Page> getPages(List<String> titleList, MediaWikiSource mediaWikiSource) {
-		List<Page> pageList = Lists.newArrayList();
-
-		for (String title : titleList) {
-			Page page = getPage(title, mediaWikiSource);
-
-			if (page == null) {
-				log.warn("Could not get page with title {}", title);
-				continue;
-			}
-
-			pageList.add(page);
-		}
-
-		return pageList;
-	}
-
-	@Override
-	public PageInfo getPageInfo(String title, MediaWikiSource mediaWikiSource) {
-		String pageBody = blikiConnector.getPageInfo(title, mediaWikiSource);
-		return parsePageInfo(pageBody);
 	}
 
 	private PageInfo parsePageInfo(String xml) {

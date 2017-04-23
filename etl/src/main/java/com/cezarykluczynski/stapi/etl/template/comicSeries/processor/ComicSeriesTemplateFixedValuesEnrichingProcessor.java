@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTempla
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateYearDTO;
 import com.cezarykluczynski.stapi.etl.template.publishableSeries.processor.PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessor;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -44,7 +45,8 @@ public class ComicSeriesTemplateFixedValuesEnrichingProcessor
 
 		if (dayMonthYearRangeFixedValueHolder.isFound()) {
 			Range<DayMonthYear> dayMonthYearRange = dayMonthYearRangeFixedValueHolder.getValue();
-			publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor.enrich(EnrichablePair.of(dayMonthYearRange, comicSeriesTemplate));
+			publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor
+					.enrich(EnrichablePair.of(Pair.of(null, dayMonthYearRange), comicSeriesTemplate));
 		}
 
 		FixedValueHolder<Integer> numberOfIssuesFixedValueHolder = comicSeriesTemplateNumberOfIssuesFixedValueProvider.getSearchedValue(title);

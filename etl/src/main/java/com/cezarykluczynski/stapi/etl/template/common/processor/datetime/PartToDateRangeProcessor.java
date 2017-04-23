@@ -37,8 +37,7 @@ public class PartToDateRangeProcessor implements ItemProcessor<Template.Part, Da
 	private DateRange fromTemplate(List<Template> templateList, Template.Part part) throws Exception {
 		DateRange dateRange = new DateRange();
 
-		List<Template> dateTemplateList = templateFilter
-				.filterByTitle(templateList, TemplateTitle.D, TemplateTitle.DATELINK);
+		List<Template> dateTemplateList = templateFilter.filterByTitle(templateList, TemplateTitle.D, TemplateTitle.DATELINK);
 
 		Integer size = dateTemplateList.size();
 
