@@ -1,10 +1,11 @@
-package com.cezarykluczynski.stapi.etl.comicSeries.link.processor;
+package com.cezarykluczynski.stapi.etl.bookSeries.link.processor;
+
 
 import com.cezarykluczynski.stapi.etl.common.mapper.MediaWikiSourceMapper;
-import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplateParameter;
+import com.cezarykluczynski.stapi.etl.template.bookSeries.dto.BookSeriesTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
-import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries;
-import com.cezarykluczynski.stapi.model.comicSeries.repository.ComicSeriesRepository;
+import com.cezarykluczynski.stapi.model.bookSeries.entity.BookSeries;
+import com.cezarykluczynski.stapi.model.bookSeries.repository.BookSeriesRepository;
 import com.cezarykluczynski.stapi.model.page.entity.Page;
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi;
@@ -20,7 +21,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class ComicSeriesLinkProcessor implements ItemProcessor<ComicSeries, ComicSeries> {
+public class BookSeriesLinkProcessor implements ItemProcessor<BookSeries, BookSeries> {
 
 	private MediaWikiSourceMapper mediaWikiSourceMapper;
 
@@ -30,32 +31,32 @@ public class ComicSeriesLinkProcessor implements ItemProcessor<ComicSeries, Comi
 
 	private WikitextApi wikitextApi;
 
-	private ComicSeriesRepository comicSeriesRepository;
+	private BookSeriesRepository bookSeriesRepository;
 
 	@Inject
-	public ComicSeriesLinkProcessor(MediaWikiSourceMapper mediaWikiSourceMapper, PageApi pageApi, TemplateFinder templateFinder,
-			WikitextApi wikitextApi, ComicSeriesRepository comicSeriesRepository) {
+	public BookSeriesLinkProcessor(MediaWikiSourceMapper mediaWikiSourceMapper, PageApi pageApi, TemplateFinder templateFinder,
+			WikitextApi wikitextApi, BookSeriesRepository bookSeriesRepository) {
 		this.mediaWikiSourceMapper = mediaWikiSourceMapper;
 		this.pageApi = pageApi;
 		this.templateFinder = templateFinder;
 		this.wikitextApi = wikitextApi;
-		this.comicSeriesRepository = comicSeriesRepository;
+		this.bookSeriesRepository = bookSeriesRepository;
 	}
 
 	@Override
-	public ComicSeries process(ComicSeries item) throws Exception {
+	public BookSeries process(BookSeries item) throws Exception {
 		doProcess(item);
 		return item;
 	}
 
-	private void doProcess(ComicSeries item) throws Exception {
-		com.cezarykluczynski.stapi.sources.mediawiki.dto.Page page = pageFromComicSeries(item);
+	private void doProcess(BookSeries item) throws Exception {
+		com.cezarykluczynski.stapi.sources.mediawiki.dto.Page page = pageFromBookSeries(item);
 
 		if (page == null) {
 			return;
 		}
 
-		Optional<Template> templateOptional = templateFinder.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_SERIES);
+		Optional<Template> templateOptional = templateFinder.findTemplate(page, TemplateTitle.SIDEBAR_NOVEL_SERIES);
 
 		if (!templateOptional.isPresent()) {
 			return;
@@ -64,7 +65,7 @@ public class ComicSeriesLinkProcessor implements ItemProcessor<ComicSeries, Comi
 		tryAddSeriesFromTemplate(item, templateOptional.get());
 	}
 
-	private com.cezarykluczynski.stapi.sources.mediawiki.dto.Page pageFromComicSeries(ComicSeries item) {
+	private com.cezarykluczynski.stapi.sources.mediawiki.dto.Page pageFromBookSeries(BookSeries item) {
 		Page modelPage = item.getPage();
 		String pageTitle = modelPage.getTitle();
 		MediaWikiSource mediaWikiSource = modelPage.getMediaWikiSource();
@@ -72,7 +73,7 @@ public class ComicSeriesLinkProcessor implements ItemProcessor<ComicSeries, Comi
 		return findPageByTitleAndMediaWikiSource(pageTitle, mediaWikiSource);
 	}
 
-	private void tryAddSeriesFromTemplate(ComicSeries item, Template template) {
+	private void tryAddSeriesFromTemplate(BookSeries item, Template template) {
 		template.getParts()
 				.stream()
 				.filter(this::isSeries)
@@ -81,26 +82,26 @@ public class ComicSeriesLinkProcessor implements ItemProcessor<ComicSeries, Comi
 	}
 
 	private boolean isSeries(Template.Part part) {
-		return ComicSeriesTemplateParameter.SERIES.equals(part.getKey());
+		return BookSeriesTemplateParameter.SERIES.equals(part.getKey());
 	}
 
-	private void enrichWithParentSeriesFromWikitext(ComicSeries item, String wikitext) {
+	private void enrichWithParentSeriesFromWikitext(BookSeries item, String wikitext) {
 		List<String> pageTitleList = wikitextApi.getPageTitlesFromWikitext(wikitext);
-		Set<ComicSeries> parentSeriesSet = item.getParentSeries();
+		Set<BookSeries> parentSeriesSet = item.getParentSeries();
 
 		pageTitleList.forEach(pageTitle -> {
 			MediaWikiSource mediaWikiSource = item.getPage().getMediaWikiSource();
-			Optional<ComicSeries> parentComicSeriesOptional = findComicSeriesByPageTitleAndPageMediaWikiSource(pageTitle, mediaWikiSource);
+			Optional<BookSeries> parentBookSeriesOptional = findBookSeriesByPageTitleAndPageMediaWikiSource(pageTitle, mediaWikiSource);
 
-			if (!parentComicSeriesOptional.isPresent()) {
+			if (!parentBookSeriesOptional.isPresent()) {
 				com.cezarykluczynski.stapi.sources.mediawiki.dto.Page page = findPageByTitleAndMediaWikiSource(pageTitle, mediaWikiSource);
 
 				if (page != null) {
-					parentComicSeriesOptional = findComicSeriesByPageTitleAndPageMediaWikiSource(page.getTitle(), mediaWikiSource);
+					parentBookSeriesOptional = findBookSeriesByPageTitleAndPageMediaWikiSource(page.getTitle(), mediaWikiSource);
 				}
 			}
 
-			parentComicSeriesOptional.ifPresent(parentSeriesSet::add);
+			parentBookSeriesOptional.ifPresent(parentSeriesSet::add);
 		});
 	}
 
@@ -109,8 +110,8 @@ public class ComicSeriesLinkProcessor implements ItemProcessor<ComicSeries, Comi
 		return pageApi.getPage(pageTitle, mediaWikiSourceMapper.fromEntityToSources(mediaWikiSource));
 	}
 
-	private Optional<ComicSeries> findComicSeriesByPageTitleAndPageMediaWikiSource(String pageTitle, MediaWikiSource mediaWikiSource) {
-		return comicSeriesRepository.findByPageTitleAndPageMediaWikiSource(pageTitle, mediaWikiSource);
+	private Optional<BookSeries> findBookSeriesByPageTitleAndPageMediaWikiSource(String pageTitle, MediaWikiSource mediaWikiSource) {
+		return bookSeriesRepository.findByPageTitleAndPageMediaWikiSource(pageTitle, mediaWikiSource);
 	}
 
 }

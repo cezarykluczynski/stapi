@@ -11,6 +11,8 @@ import com.cezarykluczynski.stapi.etl.book.creation.processor.BookWriter;
 import com.cezarykluczynski.stapi.etl.bookSeries.creation.processor.BookSeriesProcessor;
 import com.cezarykluczynski.stapi.etl.bookSeries.creation.processor.BookSeriesReader;
 import com.cezarykluczynski.stapi.etl.bookSeries.creation.processor.BookSeriesWriter;
+import com.cezarykluczynski.stapi.etl.bookSeries.link.processor.BookSeriesLinkProcessor;
+import com.cezarykluczynski.stapi.etl.bookSeries.link.processor.BookSeriesLinkReader;
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterProcessor;
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterReader;
 import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterWriter;
@@ -352,6 +354,19 @@ public class EtlJobConfiguration {
 				.<PageHeader, BookSeries>chunk(stepsProperties.getCreateBookSeries().getCommitInterval())
 				.reader(applicationContext.getBean(BookSeriesReader.class))
 				.processor(applicationContext.getBean(BookSeriesProcessor.class))
+				.writer(applicationContext.getBean(BookSeriesWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.LINK_BOOK_SERIES)
+	public Step stepLinkBookSeries() {
+		return stepBuilderFactory.get(StepName.LINK_BOOK_SERIES)
+				.<BookSeries, BookSeries>chunk(stepsProperties.getLinkBookSeries().getCommitInterval())
+				.reader(applicationContext.getBean(BookSeriesLinkReader.class))
+				.processor(applicationContext.getBean(BookSeriesLinkProcessor.class))
 				.writer(applicationContext.getBean(BookSeriesWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)

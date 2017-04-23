@@ -25,7 +25,7 @@ class StepConfigurationValidatorTest extends Specification {
 
 		then:
 		JobBuilderException jobBuilderException = thrown(JobBuilderException)
-		jobBuilderException.message == 'java.lang.RuntimeException: Number of configured steps is 20, but 0 steps found'
+		jobBuilderException.message == 'java.lang.RuntimeException: Number of configured steps is 21, but 0 steps found'
 	}
 
 	void "throws exception when two steps has the same order"() {
@@ -87,8 +87,11 @@ class StepConfigurationValidatorTest extends Specification {
 		StepProperties createBookSeriesStepProperties = Mock()
 		createBookSeriesStepProperties.order >> 19
 		stepsPropertiesMock.createBookSeries >> createBookSeriesStepProperties
+		StepProperties linkBookSeriesStepProperties = Mock()
+		linkBookSeriesStepProperties.order >> 20
+		stepsPropertiesMock.linkBookSeries >> linkBookSeriesStepProperties
 		StepProperties createBooksStepProperties = Mock()
-		createBooksStepProperties.order >> 20
+		createBooksStepProperties.order >> 21
 		stepsPropertiesMock.createBooks >> createBooksStepProperties
 
 		when:
@@ -159,8 +162,11 @@ class StepConfigurationValidatorTest extends Specification {
 		StepProperties createBookSeriesStepProperties = Mock()
 		createBookSeriesStepProperties.order >> 19
 		stepsPropertiesMock.createBookSeries >> createBookSeriesStepProperties
+		StepProperties linkBookSeriesStepProperties = Mock()
+		linkBookSeriesStepProperties.order >> 20
+		stepsPropertiesMock.linkBookSeries >> linkBookSeriesStepProperties
 		StepProperties createBooksStepProperties = Mock()
-		createBooksStepProperties.order >> 20
+		createBooksStepProperties.order >> 21
 		stepsPropertiesMock.createBooks >> createBooksStepProperties
 
 		when:

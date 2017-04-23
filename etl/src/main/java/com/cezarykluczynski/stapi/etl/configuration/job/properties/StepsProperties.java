@@ -47,6 +47,8 @@ public class StepsProperties {
 
 	private StepProperties createBookSeries;
 
+	private StepProperties linkBookSeries;
+
 	private StepProperties createBooks;
 
 }

@@ -31,6 +31,7 @@ public class StepNames {
 				StepName.CREATE_FOODS,
 				StepName.CREATE_LOCATIONS,
 				StepName.CREATE_BOOK_SERIES,
+				StepName.LINK_BOOK_SERIES,
 				StepName.CREATE_BOOKS
 		));
 	}
