@@ -40,4 +40,5 @@ public class ComicCollectionTemplatePageProcessor implements ItemProcessor<Page,
 
 		return comicCollectionTemplate;
 	}
+
 }

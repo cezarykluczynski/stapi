@@ -17,6 +17,8 @@ public class NumberOfPartsProcessor implements ItemProcessor<String, Integer> {
 		}
 
 		String valueToParse = item.endsWith(PLUS_SIGN) ? StringUtils.chop(item) : item;
+		valueToParse = StringUtils.remove(valueToParse, ",");
+
 		return Ints.tryParse(valueToParse);
 	}
 
