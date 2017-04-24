@@ -236,4 +236,6 @@ public class CategoryTitle {
 
 	public static final String NOVEL_SERIES = "Novel_series";
 	public static final String E_BOOK_SERIES = "EBook_series";
+
+	public static final String NOVEL_COLLECTIONS = "Novel_collections";
 }

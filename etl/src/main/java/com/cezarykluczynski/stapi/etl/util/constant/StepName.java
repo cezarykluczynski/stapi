@@ -23,5 +23,6 @@ public class StepName {
 	public static final String CREATE_BOOK_SERIES = "CREATE_BOOK_SERIES";
 	public static final String LINK_BOOK_SERIES = "LINK_BOOK_SERIES";
 	public static final String CREATE_BOOKS = "CREATE_BOOKS";
+	public static final String CREATE_BOOK_COLLECTIONS = "CREATE_BOOK_COLLECTIONS";
 
 }
