@@ -47,6 +47,7 @@ public class StepToStepPropertiesProvider {
 		stepPropertiesMap.put(StepName.CREATE_BOOK_SERIES, stepsProperties.getCreateBookSeries());
 		stepPropertiesMap.put(StepName.LINK_BOOK_SERIES, stepsProperties.getLinkBookSeries());
 		stepPropertiesMap.put(StepName.CREATE_BOOKS, stepsProperties.getCreateBooks());
+		stepPropertiesMap.put(StepName.CREATE_BOOK_COLLECTIONS, stepsProperties.getCreateBookCollections());
 	}
 
 }
