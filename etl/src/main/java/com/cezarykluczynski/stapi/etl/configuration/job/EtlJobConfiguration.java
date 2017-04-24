@@ -8,6 +8,9 @@ import com.cezarykluczynski.stapi.etl.astronomicalObject.link.processor.Astronom
 import com.cezarykluczynski.stapi.etl.book.creation.processor.BookProcessor;
 import com.cezarykluczynski.stapi.etl.book.creation.processor.BookReader;
 import com.cezarykluczynski.stapi.etl.book.creation.processor.BookWriter;
+import com.cezarykluczynski.stapi.etl.bookCollection.creation.processor.BookCollectionProcessor;
+import com.cezarykluczynski.stapi.etl.bookCollection.creation.processor.BookCollectionReader;
+import com.cezarykluczynski.stapi.etl.bookCollection.creation.processor.BookCollectionWriter;
 import com.cezarykluczynski.stapi.etl.bookSeries.creation.processor.BookSeriesProcessor;
 import com.cezarykluczynski.stapi.etl.bookSeries.creation.processor.BookSeriesReader;
 import com.cezarykluczynski.stapi.etl.bookSeries.creation.processor.BookSeriesWriter;
@@ -65,6 +68,7 @@ import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffWriter;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject;
 import com.cezarykluczynski.stapi.model.book.entity.Book;
+import com.cezarykluczynski.stapi.model.bookCollection.entity.BookCollection;
 import com.cezarykluczynski.stapi.model.bookSeries.entity.BookSeries;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.comicCollection.entity.ComicCollection;
@@ -381,6 +385,19 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(BookReader.class))
 				.processor(applicationContext.getBean(BookProcessor.class))
 				.writer(applicationContext.getBean(BookWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_BOOK_COLLECTIONS)
+	public Step stepCreateBookCollections() {
+		return stepBuilderFactory.get(StepName.CREATE_BOOK_COLLECTIONS)
+				.<PageHeader, BookCollection>chunk(stepsProperties.getCreateBookCollections().getCommitInterval())
+				.reader(applicationContext.getBean(BookCollectionReader.class))
+				.processor(applicationContext.getBean(BookCollectionProcessor.class))
+				.writer(applicationContext.getBean(BookCollectionWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)
