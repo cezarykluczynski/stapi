@@ -18,7 +18,7 @@ class SpeciesBaseRestMapperTest extends AbstractSpeciesMapperTest {
 	void "maps SpeciesRestBeanParams to SpeciesRequestDTO"() {
 		given:
 		SpeciesRestBeanParams speciesRestBeanParams = new SpeciesRestBeanParams(
-				guid: GUID,
+				uid: UID,
 				name: NAME,
 				extinctSpecies: EXTINCT_SPECIES,
 				warpCapableSpecies: WARP_CAPABLE_SPECIES,
@@ -37,7 +37,7 @@ class SpeciesBaseRestMapperTest extends AbstractSpeciesMapperTest {
 		SpeciesRequestDTO speciesRequestDTO = speciesBaseRestMapper.mapBase speciesRestBeanParams
 
 		then:
-		speciesRequestDTO.guid == GUID
+		speciesRequestDTO.uid == UID
 		speciesRequestDTO.name == NAME
 		speciesRequestDTO.extinctSpecies == EXTINCT_SPECIES
 		speciesRequestDTO.warpCapableSpecies == WARP_CAPABLE_SPECIES
@@ -62,7 +62,7 @@ class SpeciesBaseRestMapperTest extends AbstractSpeciesMapperTest {
 
 		then:
 		speciesBase.name == NAME
-		speciesBase.guid == GUID
+		speciesBase.uid == UID
 		speciesBase.homeworld != null
 		speciesBase.quadrant != null
 		speciesBase.extinctSpecies == EXTINCT_SPECIES

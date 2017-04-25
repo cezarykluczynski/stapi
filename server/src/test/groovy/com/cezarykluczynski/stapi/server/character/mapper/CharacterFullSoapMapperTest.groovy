@@ -16,13 +16,13 @@ class CharacterFullSoapMapperTest extends AbstractCharacterMapperTest {
 
 	void "maps SOAP CharacterFullRequest to CharacterBaseRequestDTO"() {
 		given:
-		CharacterFullRequest characterFullRequest = new CharacterFullRequest(guid: GUID)
+		CharacterFullRequest characterFullRequest = new CharacterFullRequest(uid: UID)
 
 		when:
 		CharacterRequestDTO characterRequestDTO = characterFullSoapMapper.mapFull characterFullRequest
 
 		then:
-		characterRequestDTO.guid == GUID
+		characterRequestDTO.uid == UID
 	}
 
 	void "maps DB entity to full SOAP entity"() {
@@ -34,7 +34,7 @@ class CharacterFullSoapMapperTest extends AbstractCharacterMapperTest {
 
 		then:
 		characterFull.name == NAME
-		characterFull.guid == GUID
+		characterFull.uid == UID
 		characterFull.gender == SOAP_GENDER
 		characterFull.yearOfBirth == YEAR_OF_BIRTH
 		characterFull.monthOfBirth == MONTH_OF_BIRTH

@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesFull
 import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesFullResponse
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.series.dto.SeriesRestBeanParams
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesBaseRestMapper
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesFullRestMapper
@@ -18,7 +18,7 @@ import spock.lang.Specification
 
 class SeriesRestReaderTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private SeriesRestQuery seriesRestQueryBuilderMock
 
@@ -61,7 +61,7 @@ class SeriesRestReaderTest extends Specification {
 		seriesResponseOutput.page == responsePage
 	}
 
-	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
+	void "passed UID to queryBuilder, then to mapper, and returns result"() {
 		given:
 		SeriesFull seriesFull = Mock()
 		Series series = Mock()
@@ -69,11 +69,11 @@ class SeriesRestReaderTest extends Specification {
 		Page<Series> seriesPage = Mock()
 
 		when:
-		SeriesFullResponse seriesResponseOutput = seriesRestReader.readFull(GUID)
+		SeriesFullResponse seriesResponseOutput = seriesRestReader.readFull(UID)
 
 		then:
 		1 * seriesRestQueryBuilderMock.query(_ as SeriesRestBeanParams) >> { SeriesRestBeanParams seriesRestBeanParams ->
-			assert seriesRestBeanParams.guid == GUID
+			assert seriesRestBeanParams.uid == UID
 			seriesPage
 		}
 		1 * seriesPage.content >> seriesList
@@ -82,12 +82,12 @@ class SeriesRestReaderTest extends Specification {
 		seriesResponseOutput.series == seriesFull
 	}
 
-	void "requires GUID in full request"() {
+	void "requires UID in full request"() {
 		when:
 		seriesRestReader.readFull(null)
 
 		then:
-		thrown(MissingGUIDException)
+		thrown(MissingUIDException)
 	}
 
 }

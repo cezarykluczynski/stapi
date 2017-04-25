@@ -15,7 +15,7 @@ import java.util.List;
 @Mapper(config = MapstructConfiguration.class, uses = {AstronomicalObjectHeaderSoapMapper.class, EnumMapper.class, RequestSortSoapMapper.class})
 public interface AstronomicalObjectBaseSoapMapper {
 
-	@Mapping(target = "guid", ignore = true)
+	@Mapping(target = "uid", ignore = true)
 	AstronomicalObjectRequestDTO mapBase(AstronomicalObjectBaseRequest astronomicalObjectBaseRequest);
 
 	AstronomicalObjectBase mapBase(AstronomicalObject astronomicalObject);

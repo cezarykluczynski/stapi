@@ -9,13 +9,13 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 public class AstronomicalObjectRequestDTO {
 
-	private String guid;
+	private String uid;
 
 	private String name;
 
 	private AstronomicalObjectType astronomicalObjectType;
 
-	private String locationGuid;
+	private String locationUid;
 
 	private RequestSortDTO sort;
 

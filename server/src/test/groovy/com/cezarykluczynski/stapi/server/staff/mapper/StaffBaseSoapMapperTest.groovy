@@ -160,7 +160,7 @@ class StaffBaseSoapMapperTest extends AbstractStaffMapperTest {
 
 		then:
 		staffBase.name == NAME
-		staffBase.guid == GUID
+		staffBase.uid == UID
 		staffBase.birthName == BIRTH_NAME
 		staffBase.gender == GENDER_ENUM_SOAP
 		staffBase.dateOfBirth == DATE_OF_BIRTH_FROM_SOAP

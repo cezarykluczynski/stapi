@@ -16,14 +16,14 @@ class ComicsHeaderSoapMapperTest extends AbstractComicsMapperTest {
 	void "maps DB entity to SOAP header"() {
 		given:
 		Comics comics = new Comics(
-				guid: GUID,
+				uid: UID,
 				title: TITLE)
 
 		when:
 		ComicsHeader comicsHeader = comicsHeaderSoapMapper.map(Lists.newArrayList(comics))[0]
 
 		then:
-		comicsHeader.guid == GUID
+		comicsHeader.uid == UID
 		comicsHeader.title == TITLE
 	}
 

@@ -33,7 +33,7 @@ public class Reference {
 	@SequenceGenerator(name = "reference_sequence_generator", sequenceName = "reference_sequence", allocationSize = 1)
 	private Long id;
 
-	private String guid;
+	private String uid;
 
 	@Enumerated(EnumType.STRING)
 	private ReferenceType referenceType;

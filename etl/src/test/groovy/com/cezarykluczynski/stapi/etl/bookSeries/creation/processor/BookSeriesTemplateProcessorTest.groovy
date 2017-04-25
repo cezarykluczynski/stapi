@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.bookSeries.creation.processor
 
 import com.cezarykluczynski.stapi.etl.template.bookSeries.dto.BookSeriesTemplate
 import com.cezarykluczynski.stapi.model.bookSeries.entity.BookSeries
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.util.AbstractBookSeriesTest
@@ -12,13 +12,13 @@ class BookSeriesTemplateProcessorTest extends AbstractBookSeriesTest {
 
 	private final Page page = Mock()
 
-	private GuidGenerator guidGeneratorMock
+	private UidGenerator uidGeneratorMock
 
 	private BookSeriesTemplateProcessor bookSeriesTemplateProcessor
 
 	void setup() {
-		guidGeneratorMock = Mock()
-		bookSeriesTemplateProcessor = new BookSeriesTemplateProcessor(guidGeneratorMock)
+		uidGeneratorMock = Mock()
+		bookSeriesTemplateProcessor = new BookSeriesTemplateProcessor(uidGeneratorMock)
 	}
 
 	void "converts BookSeriesTemplate to BookSeries"() {
@@ -47,9 +47,9 @@ class BookSeriesTemplateProcessorTest extends AbstractBookSeriesTest {
 		BookSeries bookSeries = bookSeriesTemplateProcessor.process(bookSeriesTemplate)
 
 		then:
-		1 * guidGeneratorMock.generateFromPage(page, BookSeries) >> GUID
+		1 * uidGeneratorMock.generateFromPage(page, BookSeries) >> UID
 		0 * _
-		bookSeries.guid == GUID
+		bookSeries.uid == UID
 		bookSeries.page == page
 		bookSeries.title == TITLE
 		bookSeries.publishedYearFrom == PUBLISHED_YEAR_FROM

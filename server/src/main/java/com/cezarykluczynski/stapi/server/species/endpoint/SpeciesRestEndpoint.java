@@ -31,8 +31,8 @@ public class SpeciesRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public SpeciesFullResponse getSpecies(@QueryParam("guid") String guid) {
-		return speciesRestReader.readFull(guid);
+	public SpeciesFullResponse getSpecies(@QueryParam("uid") String uid) {
+		return speciesRestReader.readFull(uid);
 	}
 
 	@GET

@@ -47,10 +47,10 @@ public class ComicsRestReader implements BaseReader<ComicsRestBeanParams, Comics
 	}
 
 	@Override
-	public ComicsFullResponse readFull(String guid) {
-		StaticValidator.requireGuid(guid);
+	public ComicsFullResponse readFull(String uid) {
+		StaticValidator.requireUid(uid);
 		ComicsRestBeanParams comicsRestBeanParams = new ComicsRestBeanParams();
-		comicsRestBeanParams.setGuid(guid);
+		comicsRestBeanParams.setUid(uid);
 		Page<Comics> comicsPage = comicsRestQuery.query(comicsRestBeanParams);
 		ComicsFullResponse comicsResponse = new ComicsFullResponse();
 		comicsResponse.setComics(comicsFullRestMapper.mapFull(Iterables.getOnlyElement(comicsPage.getContent(), null)));

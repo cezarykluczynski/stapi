@@ -26,7 +26,7 @@ class AstronomicalObjectRestEndpointIntegrationTest extends AbstractAstronomical
 		astronomicalObjectResponse.astronomicalObjects.stream().anyMatch({ it -> it.name == 'Andoria' })
 	}
 
-	void "gets Omicron Ceti III by GUID"() {
+	void "gets Omicron Ceti III by UID"() {
 		when:
 		AstronomicalObjectFullResponse astronomicalObjectFullResponse = stapiRestClient.astronomicalObjectApi
 				.astronomicalObjectGet('ASMA0000011534', null)

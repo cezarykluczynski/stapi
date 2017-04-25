@@ -19,7 +19,7 @@ import spock.lang.Specification
 
 class ComicCollectionRepositoryImplTest extends Specification {
 
-	private static final String GUID = 'ABCD0123456789'
+	private static final String UID = 'ABCD0123456789'
 
 	private ComicCollectionInitialQueryBuilderFactory comicCollectionInitialQueryBuilderFactory
 
@@ -104,8 +104,8 @@ class ComicCollectionRepositoryImplTest extends Specification {
 		1 * comicCollectionInitialQueryBuilderFactory.createInitialQueryBuilder(comicCollectionRequestDTO, pageable) >>
 				comicCollectionQueryBuilder
 
-		then: 'guid is retrieved, and it is not null'
-		1 * comicCollectionRequestDTO.guid >> GUID
+		then: 'uid is retrieved, and it is not null'
+		1 * comicCollectionRequestDTO.uid >> UID
 
 		then: 'staff fetch is performed'
 		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.comicSeries)
@@ -197,8 +197,8 @@ class ComicCollectionRepositoryImplTest extends Specification {
 		1 * comicCollectionInitialQueryBuilderFactory.createInitialQueryBuilder(comicCollectionRequestDTO, pageable) >>
 				comicCollectionQueryBuilder
 
-		then: 'guid is retrieved, and it is not null'
-		1 * comicCollectionRequestDTO.guid >> GUID
+		then: 'uid is retrieved, and it is not null'
+		1 * comicCollectionRequestDTO.uid >> UID
 
 		then: 'staff fetch is performed'
 		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.comicSeries)
@@ -266,8 +266,8 @@ class ComicCollectionRepositoryImplTest extends Specification {
 		1 * comicCollectionInitialQueryBuilderFactory.createInitialQueryBuilder(comicCollectionRequestDTO, pageable) >>
 				comicCollectionQueryBuilder
 
-		then: 'guid is retrieved, and it is not null'
-		1 * comicCollectionRequestDTO.guid >> GUID
+		then: 'uid is retrieved, and it is not null'
+		1 * comicCollectionRequestDTO.uid >> UID
 
 		then: 'staff fetch is performed'
 		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.comicSeries)
@@ -298,8 +298,8 @@ class ComicCollectionRepositoryImplTest extends Specification {
 		then: 'criteria builder is retrieved'
 		1 * comicCollectionInitialQueryBuilderFactory.createInitialQueryBuilder(comicCollectionRequestDTO, pageable) >> comicCollectionQueryBuilder
 
-		then: 'guid criteria is set to null'
-		1 * comicCollectionRequestDTO.guid >> null
+		then: 'uid criteria is set to null'
+		1 * comicCollectionRequestDTO.uid >> null
 
 		then: 'page is searched for and returned'
 		1 * comicCollectionQueryBuilder.findPage() >> page

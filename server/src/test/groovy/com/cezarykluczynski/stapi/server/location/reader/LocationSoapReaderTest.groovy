@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.LocationFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
 import com.cezarykluczynski.stapi.model.location.entity.Location
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.location.mapper.LocationBaseSoapMapper
 import com.cezarykluczynski.stapi.server.location.mapper.LocationFullSoapMapper
 import com.cezarykluczynski.stapi.server.location.query.LocationSoapQuery
@@ -19,7 +19,7 @@ import spock.lang.Specification
 
 class LocationSoapReaderTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private LocationSoapQuery locationSoapQueryBuilderMock
 
@@ -44,7 +44,7 @@ class LocationSoapReaderTest extends Specification {
 		given:
 		List<Location> locationList = Lists.newArrayList()
 		Page<Location> locationPage = Mock()
-		List<LocationBase> soapLocationList = Lists.newArrayList(new LocationBase(guid: GUID))
+		List<LocationBase> soapLocationList = Lists.newArrayList(new LocationBase(uid: UID))
 		LocationBaseRequest locationBaseRequest = Mock()
 		ResponsePage responsePage = Mock()
 
@@ -56,16 +56,16 @@ class LocationSoapReaderTest extends Specification {
 		1 * locationPage.content >> locationList
 		1 * pageMapperMock.fromPageToSoapResponsePage(locationPage) >> responsePage
 		1 * locationBaseSoapMapperMock.mapBase(locationList) >> soapLocationList
-		locationResponse.locations[0].guid == GUID
+		locationResponse.locations[0].uid == UID
 		locationResponse.page == responsePage
 	}
 
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		LocationFull locationFull = new LocationFull(guid: GUID)
+		LocationFull locationFull = new LocationFull(uid: UID)
 		Location location = Mock()
 		Page<Location> locationPage = Mock()
-		LocationFullRequest locationFullRequest = new LocationFullRequest(guid: GUID)
+		LocationFullRequest locationFullRequest = new LocationFullRequest(uid: UID)
 
 		when:
 		LocationFullResponse locationFullResponse = locationSoapReader.readFull(locationFullRequest)
@@ -74,10 +74,10 @@ class LocationSoapReaderTest extends Specification {
 		1 * locationSoapQueryBuilderMock.query(locationFullRequest) >> locationPage
 		1 * locationPage.content >> Lists.newArrayList(location)
 		1 * locationFullSoapMapperMock.mapFull(location) >> locationFull
-		locationFullResponse.location.guid == GUID
+		locationFullResponse.location.uid == UID
 	}
 
-	void "requires GUID in full request"() {
+	void "requires UID in full request"() {
 		given:
 		LocationFullRequest locationFullRequest = Mock()
 
@@ -85,7 +85,7 @@ class LocationSoapReaderTest extends Specification {
 		locationSoapReader.readFull(locationFullRequest)
 
 		then:
-		thrown(MissingGUIDException)
+		thrown(MissingUIDException)
 	}
 
 }

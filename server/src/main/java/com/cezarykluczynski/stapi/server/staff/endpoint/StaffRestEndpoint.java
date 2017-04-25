@@ -31,8 +31,8 @@ public class StaffRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public StaffFullResponse getStaff(@QueryParam("guid") String guid) {
-		return staffRestReader.readFull(guid);
+	public StaffFullResponse getStaff(@QueryParam("uid") String uid) {
+		return staffRestReader.readFull(uid);
 	}
 
 	@GET

@@ -60,7 +60,7 @@ class SpeciesBaseSoapMapperTest extends AbstractSpeciesMapperTest {
 
 		then:
 		speciesBase.name == NAME
-		speciesBase.guid == GUID
+		speciesBase.uid == UID
 		speciesBase.homeworld != null
 		speciesBase.quadrant != null
 		speciesBase.extinctSpecies == EXTINCT_SPECIES

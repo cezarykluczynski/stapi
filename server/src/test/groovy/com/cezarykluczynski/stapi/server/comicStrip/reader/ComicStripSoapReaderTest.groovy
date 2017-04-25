@@ -12,14 +12,14 @@ import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripBaseSoapMap
 import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripFullSoapMapper
 import com.cezarykluczynski.stapi.server.comicStrip.query.ComicStripSoapQuery
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
 import spock.lang.Specification
 
 class ComicStripSoapReaderTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private ComicStripSoapQuery comicStripSoapQueryBuilderMock
 
@@ -44,7 +44,7 @@ class ComicStripSoapReaderTest extends Specification {
 		given:
 		List<ComicStrip> comicStripList = Lists.newArrayList()
 		Page<ComicStrip> comicStripPage = Mock()
-		List<ComicStripBase> soapComicStripList = Lists.newArrayList(new ComicStripBase(guid: GUID))
+		List<ComicStripBase> soapComicStripList = Lists.newArrayList(new ComicStripBase(uid: UID))
 		ComicStripBaseRequest comicStripBaseRequest = Mock()
 		ResponsePage responsePage = Mock()
 
@@ -56,16 +56,16 @@ class ComicStripSoapReaderTest extends Specification {
 		1 * comicStripPage.content >> comicStripList
 		1 * pageMapperMock.fromPageToSoapResponsePage(comicStripPage) >> responsePage
 		1 * comicStripBaseSoapMapperMock.mapBase(comicStripList) >> soapComicStripList
-		comicStripResponse.comicStrips[0].guid == GUID
+		comicStripResponse.comicStrips[0].uid == UID
 		comicStripResponse.page == responsePage
 	}
 
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		ComicStripFull comicStripFull = new ComicStripFull(guid: GUID)
+		ComicStripFull comicStripFull = new ComicStripFull(uid: UID)
 		ComicStrip comicStrip = Mock()
 		Page<ComicStrip> comicStripPage = Mock()
-		ComicStripFullRequest comicStripFullRequest = new ComicStripFullRequest(guid: GUID)
+		ComicStripFullRequest comicStripFullRequest = new ComicStripFullRequest(uid: UID)
 
 		when:
 		ComicStripFullResponse comicStripFullResponse = comicStripSoapReader.readFull(comicStripFullRequest)
@@ -74,10 +74,10 @@ class ComicStripSoapReaderTest extends Specification {
 		1 * comicStripSoapQueryBuilderMock.query(comicStripFullRequest) >> comicStripPage
 		1 * comicStripPage.content >> Lists.newArrayList(comicStrip)
 		1 * comicStripFullSoapMapperMock.mapFull(comicStrip) >> comicStripFull
-		comicStripFullResponse.comicStrip.guid == GUID
+		comicStripFullResponse.comicStrip.uid == UID
 	}
 
-	void "requires GUID in full request"() {
+	void "requires UID in full request"() {
 		given:
 		ComicStripFullRequest comicStripFullRequest = Mock()
 
@@ -85,7 +85,7 @@ class ComicStripSoapReaderTest extends Specification {
 		comicStripSoapReader.readFull(comicStripFullRequest)
 
 		then:
-		thrown(MissingGUIDException)
+		thrown(MissingUIDException)
 	}
 
 }

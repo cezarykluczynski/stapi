@@ -5,7 +5,7 @@ import spock.lang.Specification
 
 abstract class AbstractBookTest extends Specification {
 
-	protected static final String GUID = 'ABCD0987654321'
+	protected static final String UID = 'ABCD0987654321'
 	protected static final String TITLE = 'TITLE'
 	protected static final String PRODUCTION_NUMBER = 'PRODUCTION_NUMBER'
 	protected static final Integer PUBLISHED_YEAR = 1990

@@ -11,7 +11,7 @@ abstract class AbstractPerformerMapperTest extends AbstractRealWorldPersonMapper
 	protected Performer createPerformer() {
 		new Performer(
 				name: NAME,
-				guid: GUID,
+				uid: UID,
 				birthName: BIRTH_NAME,
 				gender: GENDER,
 				dateOfBirth: DATE_OF_BIRTH_FROM_DB,

@@ -6,7 +6,7 @@ import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingP
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.organization.creation.service.OrganizationPageFilter
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.organization.entity.Organization
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
@@ -20,13 +20,13 @@ class OrganizationPageProcessorTest extends Specification {
 
 	private static final String NAME = 'NAME'
 	private static final String NAME_CORRECTED = 'NAME_CORRECTED'
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private OrganizationPageFilter organizationPageFilterMock
 
 	private PageBindingService pageBindingServiceMock
 
-	private GuidGenerator guidGeneratorMock
+	private UidGenerator uidGeneratorMock
 
 	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessorMock
 
@@ -37,10 +37,10 @@ class OrganizationPageProcessorTest extends Specification {
 	void setup() {
 		organizationPageFilterMock = Mock()
 		pageBindingServiceMock = Mock()
-		guidGeneratorMock = Mock()
+		uidGeneratorMock = Mock()
 		categoryTitlesExtractingProcessorMock = Mock()
 		organizationNameFixedValueProviderMock = Mock()
-		organizationPageProcessor = new OrganizationPageProcessor(organizationPageFilterMock, pageBindingServiceMock, guidGeneratorMock,
+		organizationPageProcessor = new OrganizationPageProcessor(organizationPageFilterMock, pageBindingServiceMock, uidGeneratorMock,
 				categoryTitlesExtractingProcessorMock, organizationNameFixedValueProviderMock)
 	}
 
@@ -99,7 +99,7 @@ class OrganizationPageProcessorTest extends Specification {
 		organization.page == modelPage
 	}
 
-	void "GUID is generated"() {
+	void "UID is generated"() {
 		given:
 		SourcesPage page = new SourcesPage(title: NAME)
 		ModelPage modelPage = new ModelPage()
@@ -111,8 +111,8 @@ class OrganizationPageProcessorTest extends Specification {
 		1 * organizationNameFixedValueProviderMock.getSearchedValue(NAME) >> FixedValueHolder.empty()
 		1 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
-		1 * guidGeneratorMock.generateFromPage(modelPage, Organization) >> GUID
-		organization.guid == GUID
+		1 * uidGeneratorMock.generateFromPage(modelPage, Organization) >> UID
+		organization.uid == UID
 	}
 
 	@SuppressWarnings('LineLength')

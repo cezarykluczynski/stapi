@@ -30,7 +30,7 @@ class ComicCollectionRestEndpointIntegrationTest extends AbstractComicCollection
 	@Requires({
 		StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_COMICS)
 	})
-	void "gets comic collection by GUID"() {
+	void "gets comic collection by UID"() {
 		when:
 		ComicCollectionFullResponse comicCollectionFullResponse = stapiRestClient.comicCollectionApi.comicCollectionGet('CLMA0000108975', null)
 

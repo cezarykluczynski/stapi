@@ -52,7 +52,7 @@ class ComicStripBaseSoapMapperTest extends AbstractComicStripMapperTest {
 		ComicStripBase comicStripBase = comicStripBaseSoapMapper.mapBase(Lists.newArrayList(comicStrip))[0]
 
 		then:
-		comicStripBase.guid == GUID
+		comicStripBase.uid == UID
 		comicStripBase.title == TITLE
 		comicStripBase.periodical == PERIODICAL
 		comicStripBase.publishedYearFrom == PUBLISHED_YEAR_FROM

@@ -51,7 +51,7 @@ class MovieRestEndpointIntegrationTest extends AbstractMovieEndpointIntegrationT
 		when:
 		MovieBaseResponse movieBaseResponse = stapiRestClient.movieApi.movieSearchPost(null, null, null, null, 'Star Trek Nemesis', null, null, null,
 				null, null, null)
-		MovieFullResponse movieFullResponse = stapiRestClient.movieApi.movieGet(movieBaseResponse.movies[0].guid, null)
+		MovieFullResponse movieFullResponse = stapiRestClient.movieApi.movieGet(movieBaseResponse.movies[0].uid, null)
 
 		then:
 		movieFullResponse.movie.characters.stream().anyMatch({

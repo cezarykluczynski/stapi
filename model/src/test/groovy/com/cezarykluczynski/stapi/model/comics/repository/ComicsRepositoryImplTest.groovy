@@ -18,7 +18,7 @@ import spock.lang.Specification
 
 class ComicsRepositoryImplTest extends Specification {
 
-	private static final String GUID = 'ABCD0123456789'
+	private static final String UID = 'ABCD0123456789'
 
 	private ComicsInitialQueryBuilderFactory comicsInitialQueryBuilderFactory
 
@@ -84,8 +84,8 @@ class ComicsRepositoryImplTest extends Specification {
 		then: 'criteria builder is retrieved'
 		1 * comicsInitialQueryBuilderFactory.createInitialQueryBuilder(comicsRequestDTO, pageable) >> comicsQueryBuilder
 
-		then: 'guid is retrieved, and it is not null'
-		1 * comicsRequestDTO.guid >> GUID
+		then: 'uid is retrieved, and it is not null'
+		1 * comicsRequestDTO.uid >> UID
 
 		then: 'staff fetch is performed'
 		1 * comicsQueryBuilder.fetch(Comics_.writers)
@@ -148,8 +148,8 @@ class ComicsRepositoryImplTest extends Specification {
 		then: 'criteria builder is retrieved'
 		1 * comicsInitialQueryBuilderFactory.createInitialQueryBuilder(comicsRequestDTO, pageable) >> comicsQueryBuilder
 
-		then: 'guid is retrieved, and it is not null'
-		1 * comicsRequestDTO.guid >> GUID
+		then: 'uid is retrieved, and it is not null'
+		1 * comicsRequestDTO.uid >> UID
 
 		then: 'staff fetch is performed'
 		1 * comicsQueryBuilder.fetch(Comics_.writers)
@@ -197,8 +197,8 @@ class ComicsRepositoryImplTest extends Specification {
 		then: 'criteria builder is retrieved'
 		1 * comicsInitialQueryBuilderFactory.createInitialQueryBuilder(comicsRequestDTO, pageable) >> comicsQueryBuilder
 
-		then: 'guid is retrieved, and it is not null'
-		1 * comicsRequestDTO.guid >> GUID
+		then: 'uid is retrieved, and it is not null'
+		1 * comicsRequestDTO.uid >> UID
 
 		then: 'staff fetch is performed'
 		1 * comicsQueryBuilder.fetch(Comics_.writers)
@@ -224,8 +224,8 @@ class ComicsRepositoryImplTest extends Specification {
 		then: 'criteria builder is retrieved'
 		1 * comicsInitialQueryBuilderFactory.createInitialQueryBuilder(comicsRequestDTO, pageable) >> comicsQueryBuilder
 
-		then: 'guid criteria is set to null'
-		1 * comicsRequestDTO.guid >> null
+		then: 'uid criteria is set to null'
+		1 * comicsRequestDTO.uid >> null
 
 		then: 'page is searched for and returned'
 		1 * comicsQueryBuilder.findPage() >> page

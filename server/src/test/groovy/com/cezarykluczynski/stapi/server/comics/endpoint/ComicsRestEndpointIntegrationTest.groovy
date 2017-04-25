@@ -35,7 +35,7 @@ class ComicsRestEndpointIntegrationTest extends AbstractComicsEndpointIntegratio
 		comicsBaseResponse.comics[4].title == 'Ghosts, Issue 5'
 	}
 
-	void "gets comics by GUID"() {
+	void "gets comics by UID"() {
 		when:
 		ComicsFullResponse comicsFullResponse = stapiRestClient.comicsApi.comicsGet('CCMA0000054566')
 

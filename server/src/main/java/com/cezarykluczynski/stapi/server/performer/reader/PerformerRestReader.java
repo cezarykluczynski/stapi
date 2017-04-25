@@ -47,10 +47,10 @@ public class PerformerRestReader implements BaseReader<PerformerRestBeanParams, 
 	}
 
 	@Override
-	public PerformerFullResponse readFull(String guid) {
-		StaticValidator.requireGuid(guid);
+	public PerformerFullResponse readFull(String uid) {
+		StaticValidator.requireUid(uid);
 		PerformerRestBeanParams performerRestBeanParams = new PerformerRestBeanParams();
-		performerRestBeanParams.setGuid(guid);
+		performerRestBeanParams.setUid(uid);
 		Page<Performer> performerPage = performerRestQuery.query(performerRestBeanParams);
 		PerformerFullResponse performerResponse = new PerformerFullResponse();
 		performerResponse.setPerformer(performerFullRestMapper.mapFull(Iterables.getOnlyElement(performerPage.getContent(), null)));

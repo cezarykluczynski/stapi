@@ -10,7 +10,7 @@ abstract class AbstractStaffMapperTest extends AbstractRealWorldPersonMapperTest
 	protected Staff createStaff() {
 		new Staff(
 				name: NAME,
-				guid: GUID,
+				uid: UID,
 				birthName: BIRTH_NAME,
 				gender: GENDER,
 				dateOfBirth: DATE_OF_BIRTH_FROM_DB,

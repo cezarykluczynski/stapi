@@ -31,8 +31,8 @@ public class CharacterRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public CharacterFullResponse getCharacter(@QueryParam("guid") String guid) {
-		return characterRestReader.readFull(guid);
+	public CharacterFullResponse getCharacter(@QueryParam("uid") String uid) {
+		return characterRestReader.readFull(uid);
 	}
 
 	@GET

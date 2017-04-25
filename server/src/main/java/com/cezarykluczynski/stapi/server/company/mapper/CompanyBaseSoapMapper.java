@@ -14,7 +14,7 @@ import java.util.List;
 @Mapper(config = MapstructConfiguration.class, uses = {RequestSortSoapMapper.class})
 public interface CompanyBaseSoapMapper {
 
-	@Mapping(target = "guid", ignore = true)
+	@Mapping(target = "uid", ignore = true)
 	CompanyRequestDTO mapBase(CompanyBaseRequest companyBaseRequest);
 
 	CompanyBase mapBase(Company company);

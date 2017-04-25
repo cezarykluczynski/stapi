@@ -9,7 +9,7 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(config = MapstructConfiguration.class, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CharacterSpeciesRestMapper {
 
-	@Mapping(target = "guid", source = "species.guid")
+	@Mapping(target = "uid", source = "species.uid")
 	@Mapping(target = "name", source = "species.name")
 	com.cezarykluczynski.stapi.client.v1.rest.model.CharacterSpecies map(CharacterSpecies characterSpecies);
 

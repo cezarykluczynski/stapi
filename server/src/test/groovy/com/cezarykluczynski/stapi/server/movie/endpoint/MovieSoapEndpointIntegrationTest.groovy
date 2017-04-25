@@ -30,10 +30,10 @@ class MovieSoapEndpointIntegrationTest extends AbstractMovieEndpointIntegrationT
 		movieBaseList[0].title == 'Star Trek Into Darkness'
 	}
 
-	void "gets movie by GUID"() {
+	void "gets movie by UID"() {
 		when:
 		MovieFullResponse movieFullResponse = stapiSoapClient.moviePortType.getMovieFull(new MovieFullRequest(
-				guid: 'MOMA0000103536'
+				uid: 'MOMA0000103536'
 		))
 
 		then:

@@ -46,9 +46,9 @@ class StaffInitialQueryBuilderFactoryTest extends AbstractRealWorldPersonTest {
 		then:
 		1 * staffQueryBuilderMock.createQueryBuilder(pageable) >> staffQueryBuilder
 
-		then: 'guid criteria is set'
-		1 * staffRequestDTO.guid >> GUID
-		1 * staffQueryBuilder.equal(Staff_.guid, GUID)
+		then: 'uid criteria is set'
+		1 * staffRequestDTO.uid >> UID
+		1 * staffQueryBuilder.equal(Staff_.uid, UID)
 
 		then: 'string criteria are set'
 		1 * staffRequestDTO.name >> NAME

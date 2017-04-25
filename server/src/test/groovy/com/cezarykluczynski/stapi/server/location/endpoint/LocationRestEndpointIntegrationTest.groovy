@@ -15,7 +15,7 @@ class LocationRestEndpointIntegrationTest extends AbstractLocationEndpointIntegr
 		createRestClient()
 	}
 
-	void "gets location by GUID"() {
+	void "gets location by UID"() {
 		when:
 		LocationFullResponse locationFullResponse = stapiRestClient.locationApi.locationGet('LOMA0000005162', null)
 

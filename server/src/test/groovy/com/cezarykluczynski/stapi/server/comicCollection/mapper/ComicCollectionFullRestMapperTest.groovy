@@ -20,7 +20,7 @@ class ComicCollectionFullRestMapperTest extends AbstractComicCollectionMapperTes
 		ComicCollectionFull restComicCollection = comicCollectionFullRestMapper.mapFull(comicCollection)
 
 		then:
-		restComicCollection.guid == GUID
+		restComicCollection.uid == UID
 		restComicCollection.title == TITLE
 		restComicCollection.publishedYear == PUBLISHED_YEAR
 		restComicCollection.publishedMonth == PUBLISHED_MONTH

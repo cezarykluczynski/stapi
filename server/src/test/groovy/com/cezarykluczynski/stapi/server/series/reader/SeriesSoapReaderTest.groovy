@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.SeriesFullRequest
 import com.cezarykluczynski.stapi.client.v1.soap.SeriesFullResponse
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesBaseSoapMapper
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesFullSoapMapper
 import com.cezarykluczynski.stapi.server.series.query.SeriesSoapQuery
@@ -19,7 +19,7 @@ import spock.lang.Specification
 
 class SeriesSoapReaderTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private SeriesSoapQuery seriesSoapQueryBuilderMock
 
@@ -43,7 +43,7 @@ class SeriesSoapReaderTest extends Specification {
 		given:
 		List<Series> seriesList = Lists.newArrayList()
 		Page<Series> seriesPage = Mock()
-		List<SeriesBase> soapSeriesList = Lists.newArrayList(new SeriesBase(guid: GUID))
+		List<SeriesBase> soapSeriesList = Lists.newArrayList(new SeriesBase(uid: UID))
 		SeriesBaseRequest seriesBaseRequest = Mock()
 		ResponsePage responsePage = Mock()
 
@@ -55,16 +55,16 @@ class SeriesSoapReaderTest extends Specification {
 		1 * seriesPage.content >> seriesList
 		1 * pageMapperMock.fromPageToSoapResponsePage(seriesPage) >> responsePage
 		1 * seriesBaseSoapMapperMock.mapBase(seriesList) >> soapSeriesList
-		seriesResponse.series[0].guid == GUID
+		seriesResponse.series[0].uid == UID
 		seriesResponse.page == responsePage
 	}
 
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		SeriesFull seriesFull = new SeriesFull(guid: GUID)
+		SeriesFull seriesFull = new SeriesFull(uid: UID)
 		Series series = Mock()
 		Page<Series> seriesPage = Mock()
-		SeriesFullRequest seriesFullRequest = new SeriesFullRequest(guid: GUID)
+		SeriesFullRequest seriesFullRequest = new SeriesFullRequest(uid: UID)
 
 		when:
 		SeriesFullResponse seriesFullResponse = seriesSoapReader.readFull(seriesFullRequest)
@@ -73,10 +73,10 @@ class SeriesSoapReaderTest extends Specification {
 		1 * seriesSoapQueryBuilderMock.query(seriesFullRequest) >> seriesPage
 		1 * seriesPage.content >> Lists.newArrayList(series)
 		1 * seriesFullSoapMapperMock.mapFull(series) >> seriesFull
-		seriesFullResponse.series.guid == GUID
+		seriesFullResponse.series.uid == UID
 	}
 
-	void "requires GUID in full request"() {
+	void "requires UID in full request"() {
 		given:
 		SeriesFullRequest seriesFullRequest = Mock()
 
@@ -84,7 +84,7 @@ class SeriesSoapReaderTest extends Specification {
 		seriesSoapReader.readFull(seriesFullRequest)
 
 		then:
-		thrown(MissingGUIDException)
+		thrown(MissingUIDException)
 	}
 
 }

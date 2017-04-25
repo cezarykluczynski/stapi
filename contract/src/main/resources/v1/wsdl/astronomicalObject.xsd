@@ -11,7 +11,7 @@
 			<xs:complexContent>
 				<xs:extension base="common:Request">
 					<xs:sequence>
-						<xs:element name="locationGuid" type="xs:string" minOccurs="0"/>
+						<xs:element name="locationUid" type="xs:string" minOccurs="0"/>
 						<xs:element name="name" type="xs:string" minOccurs="0"/>
 						<xs:element name="astronomicalObjectType" type="astronomicalObject:AstronomicalObjectTypeEnum" minOccurs="0"/>
 					</xs:sequence>
@@ -24,7 +24,7 @@
 			<xs:complexContent>
 				<xs:extension base="common:ApiRequest">
 					<xs:sequence>
-						<xs:element name="guid" type="xs:string" minOccurs="1"/>
+						<xs:element name="uid" type="xs:string" minOccurs="1"/>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
@@ -50,13 +50,13 @@
 	</xs:element>
 	<xs:complexType name="AstronomicalObjectHeader">
 		<xs:sequence>
-			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="uid" type="xs:string"/>
 			<xs:element name="name" type="xs:string"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="AstronomicalObjectBase">
 		<xs:sequence>
-			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="uid" type="xs:string"/>
 			<xs:element name="name" type="xs:string"/>
 			<xs:element name="astronomicalObjectType" type="astronomicalObject:AstronomicalObjectTypeEnum" minOccurs="0"/>
 			<xs:element name="location" type="astronomicalObject:AstronomicalObjectHeader" minOccurs="0"/>
@@ -64,7 +64,7 @@
 	</xs:complexType>
 	<xs:complexType name="AstronomicalObjectFull">
 		<xs:sequence>
-			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="uid" type="xs:string"/>
 			<xs:element name="name" type="xs:string"/>
 			<xs:element name="astronomicalObjectType" type="astronomicalObject:AstronomicalObjectTypeEnum" minOccurs="0"/>
 			<xs:element name="location" type="astronomicalObject:AstronomicalObjectBase" minOccurs="0"/>

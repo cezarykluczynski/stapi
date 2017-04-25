@@ -2,22 +2,22 @@ package com.cezarykluczynski.stapi.etl.species.creation.processor
 
 import com.cezarykluczynski.stapi.etl.template.species.dto.SpeciesTemplate
 import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.species.entity.Species
 import com.cezarykluczynski.stapi.util.AbstractSpeciesTest
 
 class SpeciesTemplateProcessorTest extends AbstractSpeciesTest {
 
-	private GuidGenerator guidGeneratorMock
+	private UidGenerator uidGeneratorMock
 
 	private SpeciesTemplateProcessor speciesTemplateProcessor
 
 	private final Page page = Mock()
 
 	void setup() {
-		guidGeneratorMock = Mock()
-		speciesTemplateProcessor = new SpeciesTemplateProcessor(guidGeneratorMock)
+		uidGeneratorMock = Mock()
+		speciesTemplateProcessor = new SpeciesTemplateProcessor(uidGeneratorMock)
 	}
 
 	void "converts SpeciesTemplate to Species"() {
@@ -47,10 +47,10 @@ class SpeciesTemplateProcessorTest extends AbstractSpeciesTest {
 		Species species = speciesTemplateProcessor.process(speciesTemplate)
 
 		then:
-		1 * guidGeneratorMock.generateFromPage(page, Species) >> GUID
+		1 * uidGeneratorMock.generateFromPage(page, Species) >> UID
 		0 * _
 		species.name == NAME
-		species.guid == GUID
+		species.uid == UID
 		species.page == page
 		species.homeworld == homeworld
 		species.quadrant == quadrant

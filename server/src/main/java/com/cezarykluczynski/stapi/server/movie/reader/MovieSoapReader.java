@@ -46,7 +46,7 @@ public class MovieSoapReader implements BaseReader<MovieBaseRequest, MovieBaseRe
 
 	@Override
 	public MovieFullResponse readFull(MovieFullRequest input) {
-		StaticValidator.requireGuid(input.getGuid());
+		StaticValidator.requireUid(input.getUid());
 		Page<Movie> moviePage = movieSoapQuery.query(input);
 		MovieFullResponse movieFullResponse = new MovieFullResponse();
 		movieFullResponse.setMovie(movieFullSoapMapper.mapFull(Iterables.getOnlyElement(moviePage.getContent(), null)));

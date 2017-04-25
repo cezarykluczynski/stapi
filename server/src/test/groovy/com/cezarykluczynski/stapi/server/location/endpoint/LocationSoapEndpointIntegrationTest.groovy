@@ -17,10 +17,10 @@ class LocationSoapEndpointIntegrationTest extends AbstractLocationEndpointIntegr
 		createSoapClient()
 	}
 
-	void "gets location by GUID"() {
+	void "gets location by UID"() {
 		when:
 		LocationFullResponse locationFullResponse = stapiSoapClient.locationPortType.getLocationFull(new LocationFullRequest(
-				guid: 'LOMA0000054131'
+				uid: 'LOMA0000054131'
 		))
 
 		then:

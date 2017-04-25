@@ -46,7 +46,7 @@ public class CompanySoapReader implements BaseReader<CompanyBaseRequest, Company
 
 	@Override
 	public CompanyFullResponse readFull(CompanyFullRequest input) {
-		StaticValidator.requireGuid(input.getGuid());
+		StaticValidator.requireUid(input.getUid());
 		Page<Company> companyPage = companySoapQuery.query(input);
 		CompanyFullResponse companyFullResponse = new CompanyFullResponse();
 		companyFullResponse.setCompany(companyFullSoapMapper.mapFull(Iterables.getOnlyElement(companyPage.getContent(), null)));

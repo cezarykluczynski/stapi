@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
 import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.episode.dto.EpisodeRestBeanParams
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeBaseRestMapper
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeFullRestMapper
@@ -18,7 +18,7 @@ import spock.lang.Specification
 
 class EpisodeRestReaderTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private EpisodeRestQuery episodeRestQueryBuilderMock
 
@@ -61,7 +61,7 @@ class EpisodeRestReaderTest extends Specification {
 		episodeResponseOutput.page == responsePage
 	}
 
-	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
+	void "passed UID to queryBuilder, then to mapper, and returns result"() {
 		given:
 		EpisodeFull episodeFull = Mock()
 		Episode episode = Mock()
@@ -69,11 +69,11 @@ class EpisodeRestReaderTest extends Specification {
 		Page<Episode> episodePage = Mock()
 
 		when:
-		EpisodeFullResponse episodeResponseOutput = episodeRestReader.readFull(GUID)
+		EpisodeFullResponse episodeResponseOutput = episodeRestReader.readFull(UID)
 
 		then:
 		1 * episodeRestQueryBuilderMock.query(_ as EpisodeRestBeanParams) >> { EpisodeRestBeanParams episodeRestBeanParams ->
-			assert episodeRestBeanParams.guid == GUID
+			assert episodeRestBeanParams.uid == UID
 			episodePage
 		}
 		1 * episodePage.content >> episodeList
@@ -82,12 +82,12 @@ class EpisodeRestReaderTest extends Specification {
 		episodeResponseOutput.episode == episodeFull
 	}
 
-	void "requires GUID in full request"() {
+	void "requires UID in full request"() {
 		when:
 		episodeRestReader.readFull(null)
 
 		then:
-		thrown(MissingGUIDException)
+		thrown(MissingUIDException)
 	}
 
 }

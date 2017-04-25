@@ -16,7 +16,7 @@ import java.util.List;
 @Mapper(config = MapstructConfiguration.class, uses = {DateMapper.class, EnumMapper.class, RequestSortSoapMapper.class})
 public interface StaffBaseSoapMapper {
 
-	@Mapping(target = "guid", ignore = true)
+	@Mapping(target = "uid", ignore = true)
 	@Mapping(source = "dateOfBirth.from", target = "dateOfBirthFrom")
 	@Mapping(source = "dateOfBirth.to", target = "dateOfBirthTo")
 	@Mapping(source = "dateOfDeath.from", target = "dateOfDeathFrom")

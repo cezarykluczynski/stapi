@@ -20,7 +20,7 @@ class MovieFullRestMapperTest extends AbstractMovieMapperTest {
 		MovieFull movieFull = movieFullRestMapper.mapFull(movie)
 
 		then:
-		movieFull.guid == GUID
+		movieFull.uid == UID
 		movieFull.mainDirector != null
 		movieFull.title == TITLE
 		movieFull.titleBulgarian == TITLE_BULGARIAN

@@ -12,7 +12,7 @@ abstract class AbstractEpisodeMapperTest extends AbstractEpisodeTest {
 
 	protected Episode createEpisode() {
 		new Episode(
-				guid: GUID,
+				uid: UID,
 				title: TITLE,
 				titleGerman: TITLE_GERMAN,
 				titleItalian: TITLE_ITALIAN,

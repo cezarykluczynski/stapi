@@ -37,10 +37,10 @@ public class SpeciesRepositoryImpl implements SpeciesRepositoryCustom {
 	@Override
 	public Page<Species> findMatching(SpeciesRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<Species> speciesQueryBuilder = speciesQueryBuilderFactory.createQueryBuilder(pageable);
-		String guid = criteria.getGuid();
-		boolean doFetch = guid != null;
+		String uid = criteria.getUid();
+		boolean doFetch = uid != null;
 
-		speciesQueryBuilder.equal(Species_.guid, guid);
+		speciesQueryBuilder.equal(Species_.uid, uid);
 		speciesQueryBuilder.like(Species_.name, criteria.getName());
 		speciesQueryBuilder.equal(Species_.extinctSpecies, criteria.getExtinctSpecies());
 		speciesQueryBuilder.equal(Species_.warpCapableSpecies, criteria.getWarpCapableSpecies());

@@ -31,8 +31,8 @@ public class PerformerRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public PerformerFullResponse getPerformer(@QueryParam("guid") String guid) {
-		return performerRestReader.readFull(guid);
+	public PerformerFullResponse getPerformer(@QueryParam("uid") String uid) {
+		return performerRestReader.readFull(uid);
 	}
 
 	@GET

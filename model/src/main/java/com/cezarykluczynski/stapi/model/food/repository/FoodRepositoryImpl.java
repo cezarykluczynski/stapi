@@ -25,7 +25,7 @@ public class FoodRepositoryImpl implements FoodRepositoryCustom {
 	public Page<Food> findMatching(FoodRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<Food> foodQueryBuilder = foodQueryBuilderFactory.createQueryBuilder(pageable);
 
-		foodQueryBuilder.equal(Food_.guid, criteria.getGuid());
+		foodQueryBuilder.equal(Food_.uid, criteria.getUid());
 		foodQueryBuilder.like(Food_.name, criteria.getName());
 		foodQueryBuilder.equal(Food_.earthlyOrigin, criteria.getEarthlyOrigin());
 		foodQueryBuilder.equal(Food_.dessert, criteria.getDessert());

@@ -16,14 +16,14 @@ class ComicCollectionHeaderRestMapperTest extends AbstractComicCollectionMapperT
 	void "maps DB entity to REST header"() {
 		given:
 		ComicCollection comicCollection = new ComicCollection(
-				guid: GUID,
+				uid: UID,
 				title: TITLE)
 
 		when:
 		ComicCollectionHeader comicCollectionHeader = comicCollectionHeaderRestMapper.map(Lists.newArrayList(comicCollection))[0]
 
 		then:
-		comicCollectionHeader.guid == GUID
+		comicCollectionHeader.uid == UID
 		comicCollectionHeader.title == TITLE
 	}
 

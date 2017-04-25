@@ -31,8 +31,8 @@ public class ComicsRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ComicsFullResponse getComics(@QueryParam("guid") String guid) {
-		return comicsRestReader.readFull(guid);
+	public ComicsFullResponse getComics(@QueryParam("uid") String uid) {
+		return comicsRestReader.readFull(uid);
 	}
 
 	@GET

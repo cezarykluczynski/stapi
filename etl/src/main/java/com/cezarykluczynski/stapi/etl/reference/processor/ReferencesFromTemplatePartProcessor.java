@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.reference.processor;
 
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator;
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import com.cezarykluczynski.stapi.model.reference.entity.Reference;
 import com.cezarykluczynski.stapi.model.reference.entity.enums.ReferenceType;
 import com.cezarykluczynski.stapi.model.reference.factory.ReferenceFactory;
@@ -32,15 +32,15 @@ public class ReferencesFromTemplatePartProcessor implements ItemProcessor<Templa
 
 	private ReferenceRepository referenceRepository;
 
-	private GuidGenerator guidGenerator;
+	private UidGenerator uidGenerator;
 
 	private ReferenceFactory referenceFactory;
 
 	@Inject
-	public ReferencesFromTemplatePartProcessor(ReferenceRepository referenceRepository, GuidGenerator guidGenerator,
+	public ReferencesFromTemplatePartProcessor(ReferenceRepository referenceRepository, UidGenerator uidGenerator,
 			ReferenceFactory referenceFactory) {
 		this.referenceRepository = referenceRepository;
-		this.guidGenerator = guidGenerator;
+		this.uidGenerator = uidGenerator;
 		this.referenceFactory = referenceFactory;
 	}
 
@@ -98,20 +98,20 @@ public class ReferencesFromTemplatePartProcessor implements ItemProcessor<Templa
 
 	private Set<Reference> pairsToReferenceSet(Set<Pair<ReferenceType, String>> pairs) {
 		return pairs.stream()
-				.map(guidGenerator::generateFromReference)
+				.map(uidGenerator::generateFromReference)
 				.filter(Objects::nonNull)
-				.map(this::guidToReference)
+				.map(this::uidToReference)
 				.collect(Collectors.toSet());
 	}
 
-	private synchronized Reference guidToReference(String guid) {
-		Optional<Reference> referenceOptional = referenceRepository.findByGuid(guid);
+	private synchronized Reference uidToReference(String uid) {
+		Optional<Reference> referenceOptional = referenceRepository.findByUid(uid);
 
 		if (referenceOptional.isPresent()) {
 			return referenceOptional.get();
 		}
 
-		Reference reference = referenceFactory.createFromGuid(guid);
+		Reference reference = referenceFactory.createFromUid(uid);
 		return referenceRepository.save(reference);
 	}
 

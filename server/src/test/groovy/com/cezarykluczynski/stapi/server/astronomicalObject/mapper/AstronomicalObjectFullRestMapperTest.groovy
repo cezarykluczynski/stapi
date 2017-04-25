@@ -20,7 +20,7 @@ class AstronomicalObjectFullRestMapperTest extends AbstractAstronomicalObjectMap
 		AstronomicalObjectFull astronomicalObjectFull = astronomicalObjectFullRestMapper.mapFull(astronomicalObject)
 
 		then:
-		astronomicalObjectFull.guid == GUID
+		astronomicalObjectFull.uid == UID
 		astronomicalObjectFull.name == NAME
 		astronomicalObjectFull.astronomicalObjectType == REST_ASTRONOMICAL_OBJECT_TYPE
 		astronomicalObjectFull.location != null

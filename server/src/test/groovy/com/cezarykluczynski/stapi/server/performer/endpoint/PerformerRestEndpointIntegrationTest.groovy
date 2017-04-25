@@ -47,12 +47,12 @@ class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointInte
 		StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_EPISODES) &&
 				StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_MOVIES)
 	})
-	void "gets performer by guid"() {
+	void "gets performer by uid"() {
 		when:
-		PerformerFullResponse performerResponse = stapiRestClient.performerApi.performerGet(GUID, null)
+		PerformerFullResponse performerResponse = stapiRestClient.performerApi.performerGet(UID, null)
 
 		then:
-		performerResponse.performer.guid == GUID
+		performerResponse.performer.uid == UID
 		performerResponse.performer.episodesPerformances.size() == 177
 		performerResponse.performer.moviesPerformances.size() == 4
 	}

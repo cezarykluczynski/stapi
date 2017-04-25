@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode
 public class MovieRequestDTO {
 
-	private String guid;
+	private String uid;
 
 	private String title;
 

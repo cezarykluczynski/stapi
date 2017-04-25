@@ -64,8 +64,8 @@ class StaffRepositoryImplTest extends AbstractRealWorldPersonTest {
 		then: 'criteria builder is retrieved'
 		1 * staffInitialQueryBuilderFactory.createInitialQueryBuilder(staffRequestDTO, pageable) >> staffQueryBuilder
 
-		then: 'guid is retrieved, and it is not null'
-		1 * staffRequestDTO.guid >> GUID
+		then: 'uid is retrieved, and it is not null'
+		1 * staffRequestDTO.uid >> UID
 
 		then: 'episodes fetch is performed'
 		1 * staffQueryBuilder.fetch(Staff_.writtenEpisodes)
@@ -121,8 +121,8 @@ class StaffRepositoryImplTest extends AbstractRealWorldPersonTest {
 		then: 'criteria builder is retrieved'
 		1 * staffInitialQueryBuilderFactory.createInitialQueryBuilder(staffRequestDTO, pageable) >> staffQueryBuilder
 
-		then: 'guid is retrieved, and it is not null'
-		1 * staffRequestDTO.guid >> GUID
+		then: 'uid is retrieved, and it is not null'
+		1 * staffRequestDTO.uid >> UID
 
 		then: 'episodes fetch is performed'
 		1 * staffQueryBuilder.fetch(Staff_.writtenEpisodes)
@@ -164,8 +164,8 @@ class StaffRepositoryImplTest extends AbstractRealWorldPersonTest {
 		then: 'criteria builder is retrieved'
 		1 * staffInitialQueryBuilderFactory.createInitialQueryBuilder(staffRequestDTO, pageable) >> staffQueryBuilder
 
-		then: 'guid is retrieved, and it is not null'
-		1 * staffRequestDTO.guid >> GUID
+		then: 'uid is retrieved, and it is not null'
+		1 * staffRequestDTO.uid >> UID
 
 		then: 'episodes fetch is performed'
 		1 * staffQueryBuilder.fetch(Staff_.writtenEpisodes)
@@ -189,8 +189,8 @@ class StaffRepositoryImplTest extends AbstractRealWorldPersonTest {
 		then: 'criteria builder is retrieved'
 		1 * staffInitialQueryBuilderFactory.createInitialQueryBuilder(staffRequestDTO, pageable) >> staffQueryBuilder
 
-		then: 'guid criteria is set to null'
-		1 * staffRequestDTO.guid >> null
+		then: 'uid criteria is set to null'
+		1 * staffRequestDTO.uid >> null
 
 		then: 'page is searched for and returned'
 		1 * staffQueryBuilder.findPage() >> page

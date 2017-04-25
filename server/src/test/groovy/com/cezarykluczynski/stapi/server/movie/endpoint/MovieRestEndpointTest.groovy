@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.server.movie.reader.MovieRestReader
 
 class MovieRestEndpointTest extends AbstractRestEndpointTest {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 	private static final String TITLE = 'TITLE'
 
 	private MovieRestReader movieRestReaderMock
@@ -26,10 +26,10 @@ class MovieRestEndpointTest extends AbstractRestEndpointTest {
 		MovieFullResponse movieFullResponse = Mock()
 
 		when:
-		MovieFullResponse movieFullResponseOutput = movieRestEndpoint.getMovie(GUID)
+		MovieFullResponse movieFullResponseOutput = movieRestEndpoint.getMovie(UID)
 
 		then:
-		1 * movieRestReaderMock.readFull(GUID) >> movieFullResponse
+		1 * movieRestReaderMock.readFull(UID) >> movieFullResponse
 		movieFullResponseOutput == movieFullResponse
 	}
 

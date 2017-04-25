@@ -16,13 +16,13 @@ class CompanyFullSoapMapperTest extends AbstractCompanyMapperTest {
 
 	void "maps SOAP CompanyFullRequest to CompanyBaseRequestDTO"() {
 		given:
-		CompanyFullRequest companyFullRequest = new CompanyFullRequest(guid: GUID)
+		CompanyFullRequest companyFullRequest = new CompanyFullRequest(uid: UID)
 
 		when:
 		CompanyRequestDTO companyRequestDTO = companyFullSoapMapper.mapFull companyFullRequest
 
 		then:
-		companyRequestDTO.guid == GUID
+		companyRequestDTO.uid == UID
 	}
 
 	void "maps DB entity to full SOAP entity"() {
@@ -33,7 +33,7 @@ class CompanyFullSoapMapperTest extends AbstractCompanyMapperTest {
 		CompanyFull companyFull = companyFullSoapMapper.mapFull(company)
 
 		then:
-		companyFull.guid == GUID
+		companyFull.uid == UID
 		companyFull.name == NAME
 		companyFull.broadcaster == BROADCASTER
 		companyFull.collectibleCompany == COLLECTIBLE_COMPANY

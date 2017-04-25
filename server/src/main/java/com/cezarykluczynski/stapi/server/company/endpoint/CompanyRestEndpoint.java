@@ -31,8 +31,8 @@ public class CompanyRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public CompanyFullResponse getCompany(@QueryParam("guid") String guid) {
-		return companyRestReader.readFull(guid);
+	public CompanyFullResponse getCompany(@QueryParam("uid") String uid) {
+		return companyRestReader.readFull(uid);
 	}
 
 	@GET

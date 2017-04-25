@@ -6,7 +6,7 @@ import javax.ws.rs.FormParam;
 
 public class ComicStripRestBeanParams extends PageSortBeanParams {
 
-	private String guid;
+	private String uid;
 
 	@FormParam("title")
 	private String title;
@@ -29,12 +29,12 @@ public class ComicStripRestBeanParams extends PageSortBeanParams {
 	@FormParam("yearTo")
 	private Integer yearTo;
 
-	public String getGuid() {
-		return guid;
+	public String getUid() {
+		return uid;
 	}
 
-	public void setGuid(String guid) {
-		this.guid = guid;
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 
 	public String getTitle() {

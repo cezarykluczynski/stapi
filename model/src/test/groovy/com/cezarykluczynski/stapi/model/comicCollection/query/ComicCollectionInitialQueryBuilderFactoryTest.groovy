@@ -45,9 +45,9 @@ class ComicCollectionInitialQueryBuilderFactoryTest extends AbstractComicCollect
 		then:
 		1 * comicCollectionQueryBuilderMock.createQueryBuilder(pageable) >> comicCollectionQueryBuilder
 
-		then: 'guid criteria is set'
-		1 * comicCollectionRequestDTO.guid >> GUID
-		1 * comicCollectionQueryBuilder.equal(ComicCollection_.guid, GUID)
+		then: 'uid criteria is set'
+		1 * comicCollectionRequestDTO.uid >> UID
+		1 * comicCollectionQueryBuilder.equal(ComicCollection_.uid, UID)
 
 		then: 'string criteria are set'
 		1 * comicCollectionRequestDTO.title >> TITLE

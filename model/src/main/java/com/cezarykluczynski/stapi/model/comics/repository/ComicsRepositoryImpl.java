@@ -27,8 +27,8 @@ public class ComicsRepositoryImpl extends AbstractRepositoryImpl<Comics> impleme
 	@Override
 	public Page<Comics> findMatching(ComicsRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<Comics> comicsQueryBuilder = createInitialComicsQueryBuilder(criteria, pageable);
-		String guid = criteria.getGuid();
-		boolean doFetch = guid != null;
+		String uid = criteria.getUid();
+		boolean doFetch = uid != null;
 
 		Page<Comics> comicsPage;
 

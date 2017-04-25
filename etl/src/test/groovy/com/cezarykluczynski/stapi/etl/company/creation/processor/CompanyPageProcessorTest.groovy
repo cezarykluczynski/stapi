@@ -6,7 +6,7 @@ import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingP
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.company.creation.provider.CompanyNameFixedValueProvider
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
@@ -22,11 +22,11 @@ class CompanyPageProcessorTest extends Specification {
 
 	private static final String NAME = 'NAME'
 	private static final String NAME_FROM_FIXED_VALUE_HOLDER = 'NAME_FROM_FIXED_VALUE_HOLDER'
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private PageBindingService pageBindingServiceMock
 
-	private GuidGenerator guidGeneratorMock
+	private UidGenerator uidGeneratorMock
 
 	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessorMock
 
@@ -36,10 +36,10 @@ class CompanyPageProcessorTest extends Specification {
 
 	void setup() {
 		pageBindingServiceMock = Mock()
-		guidGeneratorMock = Mock()
+		uidGeneratorMock = Mock()
 		categoryTitlesExtractingProcessorMock = Mock()
 		companyNameFixedValueProviderMock = Mock()
-		companyPageProcessor = new CompanyPageProcessor(pageBindingServiceMock, guidGeneratorMock, categoryTitlesExtractingProcessorMock,
+		companyPageProcessor = new CompanyPageProcessor(pageBindingServiceMock, uidGeneratorMock, categoryTitlesExtractingProcessorMock,
 				companyNameFixedValueProviderMock)
 	}
 
@@ -113,11 +113,11 @@ class CompanyPageProcessorTest extends Specification {
 		then:
 		1 * companyNameFixedValueProviderMock.getSearchedValue(NAME) >> FixedValueHolder.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(etlPage) >> modelPage
-		1 * guidGeneratorMock.generateFromPage(modelPage, Company) >> GUID
+		1 * uidGeneratorMock.generateFromPage(modelPage, Company) >> UID
 		1 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
 		0 * _
 		company.name == NAME
-		company.guid == GUID
+		company.uid == UID
 		company.page == modelPage
 	}
 

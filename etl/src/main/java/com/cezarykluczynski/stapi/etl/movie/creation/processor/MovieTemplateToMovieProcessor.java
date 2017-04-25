@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.movie.creation.processor;
 
 import com.cezarykluczynski.stapi.etl.template.movie.dto.MovieTemplate;
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator;
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
@@ -11,11 +11,11 @@ import javax.inject.Inject;
 @Service
 public class MovieTemplateToMovieProcessor implements ItemProcessor<MovieTemplate, Movie> {
 
-	private GuidGenerator guidGenerator;
+	private UidGenerator uidGenerator;
 
 	@Inject
-	public MovieTemplateToMovieProcessor(GuidGenerator guidGenerator) {
-		this.guidGenerator = guidGenerator;
+	public MovieTemplateToMovieProcessor(UidGenerator uidGenerator) {
+		this.uidGenerator = uidGenerator;
 	}
 
 	@Override
@@ -24,7 +24,7 @@ public class MovieTemplateToMovieProcessor implements ItemProcessor<MovieTemplat
 
 		movie.setPage(item.getPage());
 		movie.setTitle(item.getTitle());
-		movie.setGuid(guidGenerator.generateFromPage(item.getPage(), Movie.class));
+		movie.setUid(uidGenerator.generateFromPage(item.getPage(), Movie.class));
 		movie.setTitle(item.getTitle());
 		movie.setTitleBulgarian(item.getTitleBulgarian());
 		movie.setTitleCatalan(item.getTitleCatalan());

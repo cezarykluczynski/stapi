@@ -51,14 +51,14 @@ class PerformerSoapEndpointIntegrationTest extends AbstractPerformerEndpointInte
 		performerResponse.performers[0].name == 'Majel Barrett-Roddenberry'
 	}
 
-	void "gets performer by guid"() {
+	void "gets performer by uid"() {
 		when:
 		PerformerFullResponse performerResponse = stapiSoapClient.performerPortType.getPerformerFull(new PerformerFullRequest(
-				guid: GUID
+				uid: UID
 		))
 
 		then:
-		performerResponse.performer.guid == GUID
+		performerResponse.performer.uid == UID
 	}
 
 }

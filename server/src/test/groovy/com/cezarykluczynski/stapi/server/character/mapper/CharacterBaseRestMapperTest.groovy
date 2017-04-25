@@ -25,7 +25,7 @@ class CharacterBaseRestMapperTest extends AbstractCharacterMapperTest {
 	void "maps CharacterRestBeanParams to CharacterRequestDTO"() {
 		given:
 		CharacterRestBeanParams characterRestBeanParams = new CharacterRestBeanParams(
-				guid: GUID,
+				uid: UID,
 				name: NAME,
 				gender: MODEL_GENDER,
 				deceased: DECEASED,
@@ -36,7 +36,7 @@ class CharacterBaseRestMapperTest extends AbstractCharacterMapperTest {
 		CharacterRequestDTO characterRequestDTO = characterRestMapper.mapBase characterRestBeanParams
 
 		then:
-		characterRequestDTO.guid == GUID
+		characterRequestDTO.uid == UID
 		characterRequestDTO.name == NAME
 		characterRequestDTO.gender == MODEL_GENDER
 		characterRequestDTO.deceased == DECEASED

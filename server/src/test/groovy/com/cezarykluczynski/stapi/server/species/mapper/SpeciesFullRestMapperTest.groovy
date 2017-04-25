@@ -21,7 +21,7 @@ class SpeciesFullRestMapperTest extends AbstractSpeciesMapperTest {
 
 		then:
 		speciesFull.name == NAME
-		speciesFull.guid == GUID
+		speciesFull.uid == UID
 		speciesFull.homeworld != null
 		speciesFull.quadrant != null
 		speciesFull.extinctSpecies == EXTINCT_SPECIES

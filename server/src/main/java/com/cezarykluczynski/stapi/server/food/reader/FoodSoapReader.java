@@ -47,7 +47,7 @@ public class FoodSoapReader implements BaseReader<FoodBaseRequest, FoodBaseRespo
 
 	@Override
 	public FoodFullResponse readFull(FoodFullRequest input) {
-		StaticValidator.requireGuid(input.getGuid());
+		StaticValidator.requireUid(input.getUid());
 		Page<Food> foodPage = foodSoapQuery.query(input);
 		FoodFullResponse foodFullResponse = new FoodFullResponse();
 		foodFullResponse.setFood(foodFullSoapMapper

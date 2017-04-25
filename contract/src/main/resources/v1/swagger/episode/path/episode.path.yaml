@@ -1,6 +1,6 @@
 get:
   parameters:
-    - name: guid
+    - name: uid
       in: query
       type: string
     - name: apiKey

@@ -63,7 +63,7 @@ class SeriesBaseSoapMapperTest extends AbstractSeriesMapperTest {
 		SeriesBase seriesBase = seriesBaseSoapMapper.mapBase(Lists.newArrayList(series))[0]
 
 		then:
-		seriesBase.guid == GUID
+		seriesBase.uid == UID
 		seriesBase.title == TITLE
 		seriesBase.originalBroadcaster != null
 		seriesBase.productionCompany != null

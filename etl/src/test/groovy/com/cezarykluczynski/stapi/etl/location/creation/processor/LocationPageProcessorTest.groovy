@@ -6,7 +6,7 @@ import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingP
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.location.creation.service.LocationPageFilter
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.location.entity.Location
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
@@ -20,13 +20,13 @@ class LocationPageProcessorTest extends Specification {
 
 	private static final String NAME = 'NAME'
 	private static final String NAME_CORRECTED = 'NAME_CORRECTED'
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private LocationPageFilter locationPageFilterMock
 
 	private PageBindingService pageBindingServiceMock
 
-	private GuidGenerator guidGeneratorMock
+	private UidGenerator uidGeneratorMock
 
 	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessorMock
 
@@ -37,10 +37,10 @@ class LocationPageProcessorTest extends Specification {
 	void setup() {
 		locationPageFilterMock = Mock()
 		pageBindingServiceMock = Mock()
-		guidGeneratorMock = Mock()
+		uidGeneratorMock = Mock()
 		categoryTitlesExtractingProcessorMock = Mock()
 		locationNameFixedValueProviderMock = Mock()
-		locationPageProcessor = new LocationPageProcessor(locationPageFilterMock, pageBindingServiceMock, guidGeneratorMock,
+		locationPageProcessor = new LocationPageProcessor(locationPageFilterMock, pageBindingServiceMock, uidGeneratorMock,
 				categoryTitlesExtractingProcessorMock, locationNameFixedValueProviderMock)
 	}
 
@@ -99,7 +99,7 @@ class LocationPageProcessorTest extends Specification {
 		location.page == modelPage
 	}
 
-	void "GUID is generated"() {
+	void "UID is generated"() {
 		given:
 		SourcesPage page = new SourcesPage(title: NAME)
 		ModelPage modelPage = new ModelPage()
@@ -111,8 +111,8 @@ class LocationPageProcessorTest extends Specification {
 		1 * locationNameFixedValueProviderMock.getSearchedValue(NAME) >> FixedValueHolder.empty()
 		1 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
-		1 * guidGeneratorMock.generateFromPage(modelPage, Location) >> GUID
-		location.guid == GUID
+		1 * uidGeneratorMock.generateFromPage(modelPage, Location) >> UID
+		location.uid == UID
 	}
 
 	@Unroll('set #flagName flag when #page is passed; expect #trueBooleans not null fields')

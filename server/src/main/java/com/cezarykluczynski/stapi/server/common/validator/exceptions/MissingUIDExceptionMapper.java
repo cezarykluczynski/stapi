@@ -11,14 +11,14 @@ import javax.ws.rs.ext.Provider;
 @Provider
 @Produces(MediaType.APPLICATION_JSON)
 @SuppressWarnings("AbbreviationAsWordInName")
-public class MissingGUIDExceptionMapper implements ExceptionMapper<MissingGUIDException> {
+public class MissingUIDExceptionMapper implements ExceptionMapper<MissingUIDException> {
 
 	@Override
-	public Response toResponse(MissingGUIDException exception) {
+	public Response toResponse(MissingUIDException exception) {
 		return Response
 				.status(Response.Status.BAD_REQUEST)
 				.type(MediaType.APPLICATION_JSON)
-				.entity(new RestError("MISSING_GUID", exception.getMessage()))
+				.entity(new RestError("MISSING_UID", exception.getMessage()))
 				.build();
 	}
 

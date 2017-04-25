@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.FoodFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
 import com.cezarykluczynski.stapi.model.food.entity.Food
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.food.dto.FoodRestBeanParams
 import com.cezarykluczynski.stapi.server.food.mapper.FoodBaseRestMapper
 import com.cezarykluczynski.stapi.server.food.mapper.FoodFullRestMapper
@@ -18,7 +18,7 @@ import spock.lang.Specification
 
 class FoodRestReaderTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private FoodRestQuery foodRestQueryBuilderMock
 
@@ -61,7 +61,7 @@ class FoodRestReaderTest extends Specification {
 		foodResponseOutput.page == responsePage
 	}
 
-	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
+	void "passed UID to queryBuilder, then to mapper, and returns result"() {
 		given:
 		FoodFull foodFull = Mock()
 		Food food = Mock()
@@ -69,11 +69,11 @@ class FoodRestReaderTest extends Specification {
 		Page<Food> foodPage = Mock()
 
 		when:
-		FoodFullResponse foodResponseOutput = foodRestReader.readFull(GUID)
+		FoodFullResponse foodResponseOutput = foodRestReader.readFull(UID)
 
 		then:
 		1 * foodRestQueryBuilderMock.query(_ as FoodRestBeanParams) >> { FoodRestBeanParams foodRestBeanParams ->
-			assert foodRestBeanParams.guid == GUID
+			assert foodRestBeanParams.uid == UID
 			foodPage
 		}
 		1 * foodPage.content >> foodList
@@ -82,12 +82,12 @@ class FoodRestReaderTest extends Specification {
 		foodResponseOutput.food == foodFull
 	}
 
-	void "requires GUID in full request"() {
+	void "requires UID in full request"() {
 		when:
 		foodRestReader.readFull(null)
 
 		then:
-		thrown(MissingGUIDException)
+		thrown(MissingUIDException)
 	}
 
 }

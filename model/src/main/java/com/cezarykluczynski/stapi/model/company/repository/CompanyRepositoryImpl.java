@@ -25,7 +25,7 @@ public class CompanyRepositoryImpl implements CompanyRepositoryCustom {
 	public Page<Company> findMatching(CompanyRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<Company> companyQueryBuilder = companyQueryBuilderFactory.createQueryBuilder(pageable);
 
-		companyQueryBuilder.equal(Company_.guid, criteria.getGuid());
+		companyQueryBuilder.equal(Company_.uid, criteria.getUid());
 		companyQueryBuilder.like(Company_.name, criteria.getName());
 		companyQueryBuilder.equal(Company_.broadcaster, criteria.getBroadcaster());
 		companyQueryBuilder.equal(Company_.collectibleCompany, criteria.getCollectibleCompany());

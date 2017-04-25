@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.util
 
 abstract class AbstractComicStripTest extends AbstractTest {
 
-	protected static final String GUID = 'ABCD0987654321'
+	protected static final String UID = 'ABCD0987654321'
 	protected static final String TITLE = 'TITLE'
 	protected static final String PERIODICAL = 'PERIODICAL'
 	protected static final Integer PUBLISHED_YEAR_FROM = 1990

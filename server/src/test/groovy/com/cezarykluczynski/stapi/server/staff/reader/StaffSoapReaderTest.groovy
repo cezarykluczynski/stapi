@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.StaffFullRequest
 import com.cezarykluczynski.stapi.client.v1.soap.StaffFullResponse
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseSoapMapper
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffFullSoapMapper
 import com.cezarykluczynski.stapi.server.staff.query.StaffSoapQuery
@@ -19,7 +19,7 @@ import spock.lang.Specification
 
 class StaffSoapReaderTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private StaffSoapQuery staffSoapQueryBuilderMock
 
@@ -43,7 +43,7 @@ class StaffSoapReaderTest extends Specification {
 		given:
 		List<Staff> dbStaffList = Lists.newArrayList()
 		Page<Staff> dbStaffPage = Mock()
-		List<StaffBase> soapStaffList = Lists.newArrayList(new StaffBase(guid: GUID))
+		List<StaffBase> soapStaffList = Lists.newArrayList(new StaffBase(uid: UID))
 		StaffBaseRequest staffBaseRequest = Mock()
 		ResponsePage responsePage = Mock()
 
@@ -55,16 +55,16 @@ class StaffSoapReaderTest extends Specification {
 		1 * dbStaffPage.content >> dbStaffList
 		1 * pageMapperMock.fromPageToSoapResponsePage(dbStaffPage) >> responsePage
 		1 * staffBaseSoapMapperMock.mapBase(dbStaffList) >> soapStaffList
-		staffResponse.staff[0].guid == GUID
+		staffResponse.staff[0].uid == UID
 		staffResponse.page == responsePage
 	}
 
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		StaffFull staffFull = new StaffFull(guid: GUID)
+		StaffFull staffFull = new StaffFull(uid: UID)
 		Staff staff = Mock()
 		Page<Staff> staffPage = Mock()
-		StaffFullRequest staffFullRequest = new StaffFullRequest(guid: GUID)
+		StaffFullRequest staffFullRequest = new StaffFullRequest(uid: UID)
 
 		when:
 		StaffFullResponse staffFullResponse = staffSoapReader.readFull(staffFullRequest)
@@ -73,10 +73,10 @@ class StaffSoapReaderTest extends Specification {
 		1 * staffSoapQueryBuilderMock.query(staffFullRequest) >> staffPage
 		1 * staffPage.content >> Lists.newArrayList(staff)
 		1 * staffFullSoapMapperMock.mapFull(staff) >> staffFull
-		staffFullResponse.staff.guid == GUID
+		staffFullResponse.staff.uid == UID
 	}
 
-	void "requires GUID in full request"() {
+	void "requires UID in full request"() {
 		given:
 		StaffFullRequest staffFullRequest = Mock()
 
@@ -84,7 +84,7 @@ class StaffSoapReaderTest extends Specification {
 		staffSoapReader.readFull(staffFullRequest)
 
 		then:
-		thrown(MissingGUIDException)
+		thrown(MissingUIDException)
 	}
 
 }

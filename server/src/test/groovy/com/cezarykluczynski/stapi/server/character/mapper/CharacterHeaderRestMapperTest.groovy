@@ -18,14 +18,14 @@ class CharacterHeaderRestMapperTest extends AbstractRealWorldPersonMapperTest {
 		given:
 		Character character = new Character(
 				name: NAME,
-				guid: GUID)
+				uid: UID)
 
 		when:
 		CharacterHeader characterHeader = characterHeaderRestMapper.map(Lists.newArrayList(character))[0]
 
 		then:
 		characterHeader.name == NAME
-		characterHeader.guid == GUID
+		characterHeader.uid == UID
 	}
 
 }

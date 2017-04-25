@@ -18,14 +18,14 @@ class StaffHeaderSoapMapperTest extends AbstractRealWorldPersonMapperTest {
 		given:
 		Staff staff = new Staff(
 				name: NAME,
-				guid: GUID)
+				uid: UID)
 
 		when:
 		StaffHeader staffHeader = staffHeaderSoapMapper.map(Lists.newArrayList(staff))[0]
 
 		then:
 		staffHeader.name == NAME
-		staffHeader.guid == GUID
+		staffHeader.uid == UID
 	}
 
 }

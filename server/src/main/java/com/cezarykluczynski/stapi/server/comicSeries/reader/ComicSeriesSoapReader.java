@@ -47,7 +47,7 @@ public class ComicSeriesSoapReader implements BaseReader<ComicSeriesBaseRequest,
 
 	@Override
 	public ComicSeriesFullResponse readFull(ComicSeriesFullRequest input) {
-		StaticValidator.requireGuid(input.getGuid());
+		StaticValidator.requireUid(input.getUid());
 		Page<ComicSeries> comicSeriesPage = comicSeriesSoapQuery.query(input);
 		ComicSeriesFullResponse comicSeriesFullResponse = new ComicSeriesFullResponse();
 		comicSeriesFullResponse.setComicSeries(comicSeriesFullSoapMapper.mapFull(Iterables.getOnlyElement(comicSeriesPage.getContent(), null)));

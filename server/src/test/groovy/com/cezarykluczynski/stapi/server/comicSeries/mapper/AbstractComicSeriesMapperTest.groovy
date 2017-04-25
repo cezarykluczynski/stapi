@@ -9,7 +9,7 @@ abstract class AbstractComicSeriesMapperTest extends AbstractComicSeriesTest {
 
 	protected ComicSeries createComicSeries() {
 		new ComicSeries(
-				guid: GUID,
+				uid: UID,
 				title: TITLE,
 				publishedYearFrom: PUBLISHED_YEAR_FROM,
 				publishedMonthFrom: PUBLISHED_MONTH_FROM,

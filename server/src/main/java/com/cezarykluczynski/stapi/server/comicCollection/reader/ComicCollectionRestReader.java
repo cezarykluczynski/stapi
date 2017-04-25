@@ -48,10 +48,10 @@ public class ComicCollectionRestReader implements BaseReader<ComicCollectionRest
 	}
 
 	@Override
-	public ComicCollectionFullResponse readFull(String guid) {
-		StaticValidator.requireGuid(guid);
+	public ComicCollectionFullResponse readFull(String uid) {
+		StaticValidator.requireUid(uid);
 		ComicCollectionRestBeanParams comicCollectionRestBeanParams = new ComicCollectionRestBeanParams();
-		comicCollectionRestBeanParams.setGuid(guid);
+		comicCollectionRestBeanParams.setUid(uid);
 		Page<ComicCollection> comicCollectionPage = comicCollectionRestQuery.query(comicCollectionRestBeanParams);
 		ComicCollectionFullResponse comicCollectionResponse = new ComicCollectionFullResponse();
 		comicCollectionResponse.setComicCollection(comicCollectionFullRestMapper

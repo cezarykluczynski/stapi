@@ -36,7 +36,7 @@ class FullEntityCachingStrategyTest extends Specification {
 		fullEntityCachingStrategy = new FullEntityCachingStrategy()
 	}
 
-	void "return true when guid is query"() {
+	void "return true when uid is query"() {
 		given:
 		root.registerAttributePath('name', path)
 
@@ -50,9 +50,9 @@ class FullEntityCachingStrategyTest extends Specification {
 		!cacheable
 	}
 
-	void "returns false when guid is not in query"() {
+	void "returns false when uid is not in query"() {
 		given:
-		root.registerAttributePath('guid', path)
+		root.registerAttributePath('uid', path)
 
 		when:
 		boolean cacheable = fullEntityCachingStrategy.isCacheable(queryBuilder)

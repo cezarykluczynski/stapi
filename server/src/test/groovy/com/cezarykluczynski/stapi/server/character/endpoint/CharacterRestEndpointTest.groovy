@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.server.common.endpoint.AbstractRestEndpointTes
 
 class CharacterRestEndpointTest extends AbstractRestEndpointTest {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 	private static final String NAME = 'NAME'
 
 	private CharacterRestReader characterRestReaderMock
@@ -26,10 +26,10 @@ class CharacterRestEndpointTest extends AbstractRestEndpointTest {
 		CharacterFullResponse characterFullResponse = Mock()
 
 		when:
-		CharacterFullResponse characterFullResponseOutput = characterRestEndpoint.getCharacter(GUID)
+		CharacterFullResponse characterFullResponseOutput = characterRestEndpoint.getCharacter(UID)
 
 		then:
-		1 * characterRestReaderMock.readFull(GUID) >> characterFullResponse
+		1 * characterRestReaderMock.readFull(UID) >> characterFullResponse
 		characterFullResponseOutput == characterFullResponse
 	}
 

@@ -20,7 +20,7 @@ class ComicStripFullRestMapperTest extends AbstractComicStripMapperTest {
 		ComicStripFull comicStripFull = comicStripFullRestMapper.mapFull(comicStrip)
 
 		then:
-		comicStripFull.guid == GUID
+		comicStripFull.uid == UID
 		comicStripFull.title == TITLE
 		comicStripFull.periodical == PERIODICAL
 		comicStripFull.publishedYearFrom == PUBLISHED_YEAR_FROM

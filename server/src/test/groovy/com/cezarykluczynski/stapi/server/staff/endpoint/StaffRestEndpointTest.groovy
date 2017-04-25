@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.server.staff.reader.StaffRestReader
 
 class StaffRestEndpointTest extends AbstractRestEndpointTest {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 	private static final String NAME = 'NAME'
 
 	private StaffRestReader staffRestReaderMock
@@ -26,10 +26,10 @@ class StaffRestEndpointTest extends AbstractRestEndpointTest {
 		StaffFullResponse staffFullResponse = Mock()
 
 		when:
-		StaffFullResponse staffFullResponseOutput = staffRestEndpoint.getStaff(GUID)
+		StaffFullResponse staffFullResponseOutput = staffRestEndpoint.getStaff(UID)
 
 		then:
-		1 * staffRestReaderMock.readFull(GUID) >> staffFullResponse
+		1 * staffRestReaderMock.readFull(UID) >> staffFullResponse
 		staffFullResponseOutput == staffFullResponse
 	}
 

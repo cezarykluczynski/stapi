@@ -45,9 +45,9 @@ class FoodRepositoryImplTest extends AbstractFoodTest {
 		then: 'criteria builder is retrieved'
 		1 * foodQueryBuilderFactory.createQueryBuilder(pageable) >> foodQueryBuilder
 
-		then: 'guid criteria is set'
-		1 * foodRequestDTO.guid >> GUID
-		1 * foodQueryBuilder.equal(Food_.guid, GUID)
+		then: 'uid criteria is set'
+		1 * foodRequestDTO.uid >> UID
+		1 * foodQueryBuilder.equal(Food_.uid, UID)
 
 		then: 'string criteria are set'
 		1 * foodRequestDTO.name >> NAME

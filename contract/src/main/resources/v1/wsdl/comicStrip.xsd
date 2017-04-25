@@ -32,7 +32,7 @@
 			<xs:complexContent>
 				<xs:extension base="common:ApiRequest">
 					<xs:sequence>
-						<xs:element name="guid" type="xs:string" minOccurs="1"/>
+						<xs:element name="uid" type="xs:string" minOccurs="1"/>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
@@ -58,13 +58,13 @@
 	</xs:element>
 	<xs:complexType name="ComicStripHeader">
 		<xs:sequence>
-			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="uid" type="xs:string"/>
 			<xs:element name="title" type="xs:string"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="ComicStripBase">
 		<xs:sequence>
-			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="uid" type="xs:string"/>
 			<xs:element name="title" type="xs:string"/>
 			<xs:element name="periodical" type="xs:string"/>
 			<xs:element name="publishedYearFrom" type="xs:int" minOccurs="0"/>
@@ -80,7 +80,7 @@
 	</xs:complexType>
 	<xs:complexType name="ComicStripFull">
 		<xs:sequence>
-			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="uid" type="xs:string"/>
 			<xs:element name="title" type="xs:string"/>
 			<xs:element name="periodical" type="xs:string"/>
 			<xs:element name="publishedYearFrom" type="xs:int" minOccurs="0"/>

@@ -49,9 +49,9 @@ class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 		then:
 		1 * performerQueryBuilderMock.createQueryBuilder(pageable) >> performerQueryBuilder
 
-		then: 'guid criteria is set'
-		1 * performerRequestDTO.guid >> GUID
-		1 * performerQueryBuilder.equal(Performer_.guid, GUID)
+		then: 'uid criteria is set'
+		1 * performerRequestDTO.uid >> UID
+		1 * performerQueryBuilder.equal(Performer_.uid, UID)
 
 		then: 'string criteria are set'
 		1 * performerRequestDTO.name >> NAME
@@ -132,8 +132,8 @@ class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 		then:
 		1 * performerQueryBuilderMock.createQueryBuilder(pageable) >> performerQueryBuilder
 
-		then: 'guid criteria is set to null'
-		1 * performerRequestDTO.guid >> null
+		then: 'uid criteria is set to null'
+		1 * performerRequestDTO.uid >> null
 
 		then: 'fetch is performed with false flag'
 		1 * performerQueryBuilder.fetch(Performer_.episodesPerformances, false)

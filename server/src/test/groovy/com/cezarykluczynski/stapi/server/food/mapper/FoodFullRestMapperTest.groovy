@@ -20,7 +20,7 @@ class FoodFullRestMapperTest extends AbstractFoodMapperTest {
 		FoodFull foodFull = foodFullRestMapper.mapFull(dBFood)
 
 		then:
-		foodFull.guid == GUID
+		foodFull.uid == UID
 		foodFull.name == NAME
 		foodFull.earthlyOrigin == EARTHLY_ORIGIN
 		foodFull.dessert == DESSERT

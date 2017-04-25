@@ -16,13 +16,13 @@ class EpisodeFullSoapMapperTest extends AbstractEpisodeMapperTest {
 
 	void "maps SOAP EpisodeFullRequest to EpisodeBaseRequestDTO"() {
 		given:
-		EpisodeFullRequest episodeFullRequest = new EpisodeFullRequest(guid: GUID)
+		EpisodeFullRequest episodeFullRequest = new EpisodeFullRequest(uid: UID)
 
 		when:
 		EpisodeRequestDTO episodeRequestDTO = episodeFullSoapMapper.mapFull episodeFullRequest
 
 		then:
-		episodeRequestDTO.guid == GUID
+		episodeRequestDTO.uid == UID
 	}
 
 	void "maps DB entity to full SOAP entity"() {
@@ -33,7 +33,7 @@ class EpisodeFullSoapMapperTest extends AbstractEpisodeMapperTest {
 		EpisodeFull episodeFull = episodeFullSoapMapper.mapFull(episode)
 
 		then:
-		episodeFull.guid == GUID
+		episodeFull.uid == UID
 		episodeFull.series != null
 		episodeFull.title == TITLE
 		episodeFull.titleGerman == TITLE_GERMAN

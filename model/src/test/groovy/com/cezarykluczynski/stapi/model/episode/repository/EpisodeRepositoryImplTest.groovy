@@ -18,7 +18,7 @@ import java.time.LocalDate
 
 class EpisodeRepositoryImplTest extends Specification {
 
-	private static final String GUID = 'ABCD0123456789'
+	private static final String UID = 'ABCD0123456789'
 	private static final String TITLE = 'TITLE'
 	private static final String PRODUCTION_SERIAL_NUMBER = 'PRODUCTION_SERIAL_NUMBER'
 	private static final Integer SEASON_NUMBER_FROM = 1
@@ -67,9 +67,9 @@ class EpisodeRepositoryImplTest extends Specification {
 		then:
 		1 * episodeQueryBuilderMock.createQueryBuilder(pageable) >> episodeQueryBuilder
 
-		then: 'guid criteria is set'
-		1 * episodeRequestDTO.guid >> GUID
-		1 * episodeQueryBuilder.equal(Episode_.guid, GUID)
+		then: 'uid criteria is set'
+		1 * episodeRequestDTO.uid >> UID
+		1 * episodeQueryBuilder.equal(Episode_.uid, UID)
 
 		then: 'string criteria are set'
 		1 * episodeRequestDTO.title >> TITLE
@@ -143,8 +143,8 @@ class EpisodeRepositoryImplTest extends Specification {
 		then:
 		1 * episodeQueryBuilderMock.createQueryBuilder(pageable) >> episodeQueryBuilder
 
-		then: 'guid criteria is set to null'
-		1 * episodeRequestDTO.guid >> null
+		then: 'uid criteria is set to null'
+		1 * episodeRequestDTO.uid >> null
 
 		then: 'fetch is performed'
 		1 * episodeQueryBuilder.fetch(Episode_.series)

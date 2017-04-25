@@ -4,6 +4,6 @@ import com.cezarykluczynski.stapi.server.series.common.AbstractEndpointIntegrati
 
 abstract class AbstractCharacterEndpointIntegrationTest extends AbstractEndpointIntegrationTest {
 
-	protected static final String DEANNA_TROI_GUID = 'CHMA0000123101'
+	protected static final String DEANNA_TROI_UID = 'CHMA0000123101'
 
 }

@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface ReferenceRepository extends JpaRepository<Reference, Long> {
 
-	Optional<Reference> findByGuid(String guid);
+	Optional<Reference> findByUid(String uid);
 
 }

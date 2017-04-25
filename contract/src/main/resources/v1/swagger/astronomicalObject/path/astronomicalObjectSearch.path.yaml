@@ -47,7 +47,7 @@ post:
     - name: astronomicalObjectType
       in: formData
       type: string
-    - name: locationGuid
+    - name: locationUid
       in: formData
       type: string
   responses:

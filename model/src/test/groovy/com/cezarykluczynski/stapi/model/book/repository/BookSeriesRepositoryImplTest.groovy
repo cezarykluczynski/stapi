@@ -15,7 +15,7 @@ import org.springframework.data.domain.Pageable
 
 class BookSeriesRepositoryImplTest extends AbstractBookSeriesTest {
 
-	private static final String GUID = 'ABCD0123456789'
+	private static final String UID = 'ABCD0123456789'
 	private static final RequestSortDTO SORT = new RequestSortDTO()
 
 	private BookSeriesQueryBuilderFactory bookSeriesQueryBuilderFactory
@@ -49,9 +49,9 @@ class BookSeriesRepositoryImplTest extends AbstractBookSeriesTest {
 		then: 'criteria builder is retrieved'
 		1 * bookSeriesQueryBuilderFactory.createQueryBuilder(pageable) >> bookSeriesQueryBuilder
 
-		then: 'guid is retrieved, and it is not null'
-		1 * bookSeriesRequestDTO.guid >> GUID
-		1 * bookSeriesQueryBuilder.equal(BookSeries_.guid, GUID)
+		then: 'uid is retrieved, and it is not null'
+		1 * bookSeriesRequestDTO.uid >> UID
+		1 * bookSeriesQueryBuilder.equal(BookSeries_.uid, UID)
 
 		then: 'string criteria are set'
 		1 * bookSeriesRequestDTO.title >> TITLE
@@ -105,8 +105,8 @@ class BookSeriesRepositoryImplTest extends AbstractBookSeriesTest {
 		then: 'criteria builder is retrieved'
 		1 * bookSeriesQueryBuilderFactory.createQueryBuilder(pageable) >> bookSeriesQueryBuilder
 
-		then: 'guid criteria is set to null'
-		1 * bookSeriesRequestDTO.guid >> null
+		then: 'uid criteria is set to null'
+		1 * bookSeriesRequestDTO.uid >> null
 
 		then: 'page is searched for and returned'
 		1 * bookSeriesQueryBuilder.findPage() >> page

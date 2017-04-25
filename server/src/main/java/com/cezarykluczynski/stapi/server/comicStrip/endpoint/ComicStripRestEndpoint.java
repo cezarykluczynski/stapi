@@ -31,8 +31,8 @@ public class ComicStripRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ComicStripFullResponse getComicStrip(@QueryParam("guid") String guid) {
-		return comicStripRestReader.readFull(guid);
+	public ComicStripFullResponse getComicStrip(@QueryParam("uid") String uid) {
+		return comicStripRestReader.readFull(uid);
 	}
 
 	@GET

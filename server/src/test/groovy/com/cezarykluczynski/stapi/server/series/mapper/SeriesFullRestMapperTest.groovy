@@ -20,7 +20,7 @@ class SeriesFullRestMapperTest extends AbstractSeriesMapperTest {
 		SeriesFull seriesFull = seriesFullRestMapper.mapFull(series)
 
 		then:
-		seriesFull.guid == GUID
+		seriesFull.uid == UID
 		seriesFull.title == TITLE
 		seriesFull.abbreviation == ABBREVIATION
 		seriesFull.productionStartYear == PRODUCTION_START_YEAR

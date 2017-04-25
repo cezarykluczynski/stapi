@@ -42,9 +42,9 @@ class LocationRepositoryImplTest extends AbstractLocationTest {
 		then: 'criteria builder is retrieved'
 		1 * locationQueryBuilderFactory.createQueryBuilder(pageable) >> locationQueryBuilder
 
-		then: 'guid criteria is set'
-		1 * locationRequestDTO.guid >> GUID
-		1 * locationQueryBuilder.equal(Location_.guid, GUID)
+		then: 'uid criteria is set'
+		1 * locationRequestDTO.uid >> UID
+		1 * locationQueryBuilder.equal(Location_.uid, UID)
 
 		then: 'string criteria are set'
 		1 * locationRequestDTO.name >> NAME

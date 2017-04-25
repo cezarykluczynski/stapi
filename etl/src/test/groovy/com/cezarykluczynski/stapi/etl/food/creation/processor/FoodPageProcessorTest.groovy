@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingP
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.food.creation.service.FoodPageFilter
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.food.entity.Food
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
@@ -20,13 +20,13 @@ class FoodPageProcessorTest extends Specification {
 	private static final String TITLE = 'TITLE'
 	private static final String TITLE_WITH_BRACKETS = 'TITLE (beverage)'
 	private static final String NAME = 'NAME'
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private FoodPageFilter foodPageFilterMock
 
 	private PageBindingService pageBindingServiceMock
 
-	private GuidGenerator guidGeneratorMock
+	private UidGenerator uidGeneratorMock
 
 	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessorMock
 
@@ -35,9 +35,9 @@ class FoodPageProcessorTest extends Specification {
 	void setup() {
 		foodPageFilterMock = Mock()
 		pageBindingServiceMock = Mock()
-		guidGeneratorMock = Mock()
+		uidGeneratorMock = Mock()
 		categoryTitlesExtractingProcessorMock = Mock()
-		foodPageProcessor = new FoodPageProcessor(foodPageFilterMock, pageBindingServiceMock, guidGeneratorMock,
+		foodPageProcessor = new FoodPageProcessor(foodPageFilterMock, pageBindingServiceMock, uidGeneratorMock,
 				categoryTitlesExtractingProcessorMock)
 	}
 
@@ -80,7 +80,7 @@ class FoodPageProcessorTest extends Specification {
 		food.page == modelPage
 	}
 
-	void "GUID is generated"() {
+	void "UID is generated"() {
 		given:
 		SourcesPage page = new SourcesPage(title: NAME)
 		ModelPage modelPage = new ModelPage()
@@ -91,8 +91,8 @@ class FoodPageProcessorTest extends Specification {
 		then:
 		1 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
-		1 * guidGeneratorMock.generateFromPage(modelPage, Food) >> GUID
-		food.guid == GUID
+		1 * uidGeneratorMock.generateFromPage(modelPage, Food) >> UID
+		food.uid == UID
 	}
 
 	@Unroll('set #flagName flag when #page is passed; expect #trueBooleans not null fields')

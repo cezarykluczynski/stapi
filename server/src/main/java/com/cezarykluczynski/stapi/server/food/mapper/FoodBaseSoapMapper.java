@@ -14,7 +14,7 @@ import java.util.List;
 @Mapper(config = MapstructConfiguration.class, uses = {RequestSortSoapMapper.class})
 public interface FoodBaseSoapMapper {
 
-	@Mapping(target = "guid", ignore = true)
+	@Mapping(target = "uid", ignore = true)
 	FoodRequestDTO mapBase(FoodBaseRequest foodBaseRequest);
 
 	FoodBase mapBase(Food food);

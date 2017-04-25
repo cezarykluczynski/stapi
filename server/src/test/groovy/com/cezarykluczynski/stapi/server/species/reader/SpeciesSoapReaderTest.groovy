@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.SpeciesFullRequest
 import com.cezarykluczynski.stapi.client.v1.soap.SpeciesFullResponse
 import com.cezarykluczynski.stapi.model.species.entity.Species
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesBaseSoapMapper
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesFullSoapMapper
 import com.cezarykluczynski.stapi.server.species.query.SpeciesSoapQuery
@@ -19,7 +19,7 @@ import spock.lang.Specification
 
 class SpeciesSoapReaderTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private SpeciesSoapQuery speciesSoapQueryBuilderMock
 
@@ -44,7 +44,7 @@ class SpeciesSoapReaderTest extends Specification {
 		given:
 		List<Species> speciesList = Lists.newArrayList()
 		Page<Species> speciesPage = Mock()
-		List<SpeciesBase> soapSpeciesList = Lists.newArrayList(new SpeciesBase(guid: GUID))
+		List<SpeciesBase> soapSpeciesList = Lists.newArrayList(new SpeciesBase(uid: UID))
 		SpeciesBaseRequest speciesBaseRequest = Mock()
 		ResponsePage responsePage = Mock()
 
@@ -56,16 +56,16 @@ class SpeciesSoapReaderTest extends Specification {
 		1 * speciesPage.content >> speciesList
 		1 * pageMapperMock.fromPageToSoapResponsePage(speciesPage) >> responsePage
 		1 * speciesBaseSoapMapperMock.mapBase(speciesList) >> soapSpeciesList
-		speciesResponse.species[0].guid == GUID
+		speciesResponse.species[0].uid == UID
 		speciesResponse.page == responsePage
 	}
 
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		SpeciesFull speciesFull = new SpeciesFull(guid: GUID)
+		SpeciesFull speciesFull = new SpeciesFull(uid: UID)
 		Species species = Mock()
 		Page<Species> speciesPage = Mock()
-		SpeciesFullRequest speciesFullRequest = new SpeciesFullRequest(guid: GUID)
+		SpeciesFullRequest speciesFullRequest = new SpeciesFullRequest(uid: UID)
 
 		when:
 		SpeciesFullResponse speciesFullResponse = speciesSoapReader.readFull(speciesFullRequest)
@@ -74,10 +74,10 @@ class SpeciesSoapReaderTest extends Specification {
 		1 * speciesSoapQueryBuilderMock.query(speciesFullRequest) >> speciesPage
 		1 * speciesPage.content >> Lists.newArrayList(species)
 		1 * speciesFullSoapMapperMock.mapFull(species) >> speciesFull
-		speciesFullResponse.species.guid == GUID
+		speciesFullResponse.species.uid == UID
 	}
 
-	void "requires GUID in full request"() {
+	void "requires UID in full request"() {
 		given:
 		SpeciesFullRequest speciesFullRequest = Mock()
 
@@ -85,7 +85,7 @@ class SpeciesSoapReaderTest extends Specification {
 		speciesSoapReader.readFull(speciesFullRequest)
 
 		then:
-		thrown(MissingGUIDException)
+		thrown(MissingUIDException)
 	}
 
 }

@@ -47,7 +47,7 @@ public class PerformerSoapReader implements BaseReader<PerformerBaseRequest, Per
 
 	@Override
 	public PerformerFullResponse readFull(PerformerFullRequest input) {
-		StaticValidator.requireGuid(input.getGuid());
+		StaticValidator.requireUid(input.getUid());
 		Page<Performer> performerPage = performerSoapQuery.query(input);
 		PerformerFullResponse performerFullResponse = new PerformerFullResponse();
 		performerFullResponse.setPerformer(performerFullSoapMapper.mapFull(Iterables.getOnlyElement(performerPage.getContent(), null)));

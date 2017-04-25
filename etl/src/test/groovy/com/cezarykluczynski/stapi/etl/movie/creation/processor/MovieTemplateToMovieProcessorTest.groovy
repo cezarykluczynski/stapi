@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.movie.creation.processor
 
 import com.cezarykluczynski.stapi.etl.template.movie.dto.MovieTemplate
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.util.AbstractMovieTest
@@ -10,13 +10,13 @@ class MovieTemplateToMovieProcessorTest extends AbstractMovieTest {
 
 	private final Page page = Mock()
 
-	private GuidGenerator guidGeneratorMock
+	private UidGenerator uidGeneratorMock
 
 	private MovieTemplateToMovieProcessor movieTemplateToMovieProcessor
 
 	void setup() {
-		guidGeneratorMock = Mock()
-		movieTemplateToMovieProcessor = new MovieTemplateToMovieProcessor(guidGeneratorMock)
+		uidGeneratorMock = Mock()
+		movieTemplateToMovieProcessor = new MovieTemplateToMovieProcessor(uidGeneratorMock)
 	}
 
 	void "converts EpisodeTemplate to Episode"() {
@@ -46,9 +46,9 @@ class MovieTemplateToMovieProcessorTest extends AbstractMovieTest {
 		Movie movieOutput = movieTemplateToMovieProcessor.process(movieTemplate)
 
 		then:
-		1 * guidGeneratorMock.generateFromPage(page, Movie) >> GUID
+		1 * uidGeneratorMock.generateFromPage(page, Movie) >> UID
 		movieOutput == movie
-		movieOutput.guid == GUID
+		movieOutput.uid == UID
 		movieOutput.page == page
 		movieOutput.title == TITLE
 		movieOutput.titleBulgarian == TITLE_BULGARIAN

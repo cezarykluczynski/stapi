@@ -31,8 +31,8 @@ public class OrganizationRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public OrganizationFullResponse getOrganization(@QueryParam("guid") String guid) {
-		return organizationRestReader.readFull(guid);
+	public OrganizationFullResponse getOrganization(@QueryParam("uid") String uid) {
+		return organizationRestReader.readFull(uid);
 	}
 
 	@GET

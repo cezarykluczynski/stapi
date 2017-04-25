@@ -22,7 +22,7 @@ import java.util.List;
 		PerformerBaseSoapMapper.class, SeriesHeaderSoapMapper.class, SeriesBaseSoapMapper.class, StaffBaseSoapMapper.class})
 public interface EpisodeBaseSoapMapper {
 
-	@Mapping(target = "guid", ignore = true)
+	@Mapping(target = "uid", ignore = true)
 	@Mapping(source = "seasonNumber.from", target = "seasonNumberFrom")
 	@Mapping(source = "seasonNumber.to", target = "seasonNumberTo")
 	@Mapping(source = "episodeNumber.from", target = "episodeNumberFrom")

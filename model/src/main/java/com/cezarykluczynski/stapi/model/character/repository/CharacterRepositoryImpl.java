@@ -27,10 +27,10 @@ public class CharacterRepositoryImpl extends AbstractRepositoryImpl<Character> i
 	@Override
 	public Page<Character> findMatching(CharacterRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<Character> characterQueryBuilder = characterQueryBuilderFactory.createQueryBuilder(pageable);
-		String guid = criteria.getGuid();
-		boolean doFetch = guid != null;
+		String uid = criteria.getUid();
+		boolean doFetch = uid != null;
 
-		characterQueryBuilder.equal(Character_.guid, guid);
+		characterQueryBuilder.equal(Character_.uid, uid);
 		characterQueryBuilder.like(Character_.name, criteria.getName());
 		characterQueryBuilder.equal(Character_.gender, criteria.getGender());
 		characterQueryBuilder.equal(Character_.deceased, criteria.getDeceased());

@@ -18,7 +18,7 @@ class CharacterSpeciesRestMapperTest extends AbstractCharacterMapperTest {
 		ModelCharacterSpecies modelCharacterSpecies = new ModelCharacterSpecies(
 				species: new Species(
 						name: NAME,
-						guid: GUID,
+						uid: UID,
 				),
 				numerator: NUMERATOR,
 				denominator: DENOMINATOR)
@@ -28,7 +28,7 @@ class CharacterSpeciesRestMapperTest extends AbstractCharacterMapperTest {
 
 		then:
 		restCharacterSpecies.name == NAME
-		restCharacterSpecies.guid == GUID
+		restCharacterSpecies.uid == UID
 		restCharacterSpecies.numerator == NUMERATOR
 		restCharacterSpecies.denominator == DENOMINATOR
 	}

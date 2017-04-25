@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.server.series.reader.SeriesRestReader
 
 class SeriesRestEndpointTest extends AbstractRestEndpointTest {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 	private static final String TITLE = 'TITLE'
 
 	private SeriesRestReader seriesRestReaderMock
@@ -26,10 +26,10 @@ class SeriesRestEndpointTest extends AbstractRestEndpointTest {
 		SeriesFullResponse seriesFullResponse = Mock()
 
 		when:
-		SeriesFullResponse seriesFullResponseOutput = seriesRestEndpoint.getSeries(GUID)
+		SeriesFullResponse seriesFullResponseOutput = seriesRestEndpoint.getSeries(UID)
 
 		then:
-		1 * seriesRestReaderMock.readFull(GUID) >> seriesFullResponse
+		1 * seriesRestReaderMock.readFull(UID) >> seriesFullResponse
 		seriesFullResponseOutput == seriesFullResponse
 	}
 

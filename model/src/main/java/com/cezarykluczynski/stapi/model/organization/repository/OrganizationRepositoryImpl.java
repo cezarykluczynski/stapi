@@ -25,7 +25,7 @@ public class OrganizationRepositoryImpl implements OrganizationRepositoryCustom 
 	public Page<Organization> findMatching(OrganizationRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<Organization> organizationQueryBuilder = organizationQueryBuilderFactory.createQueryBuilder(pageable);
 
-		organizationQueryBuilder.equal(Organization_.guid, criteria.getGuid());
+		organizationQueryBuilder.equal(Organization_.uid, criteria.getUid());
 		organizationQueryBuilder.like(Organization_.name, criteria.getName());
 		organizationQueryBuilder.equal(Organization_.government, criteria.getGovernment());
 		organizationQueryBuilder.equal(Organization_.intergovernmentalOrganization, criteria.getIntergovernmentalOrganization());

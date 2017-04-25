@@ -5,7 +5,7 @@ import spock.lang.Specification
 
 abstract class AbstractLocationTest extends Specification {
 
-	protected static final String GUID = 'ABCD0123456789'
+	protected static final String UID = 'ABCD0123456789'
 	protected static final String NAME = 'NAME'
 	protected static final boolean EARTHLY_LOCATION = LogicUtil.nextBoolean()
 	protected static final boolean FICTIONAL_LOCATION = LogicUtil.nextBoolean()

@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.bookCollection.creation.processor;
 
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookCollectionTemplate;
 import com.cezarykluczynski.stapi.model.bookCollection.entity.BookCollection;
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator;
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +11,11 @@ import javax.inject.Inject;
 @Service
 public class BookCollectionTemplateProcessor implements ItemProcessor<BookCollectionTemplate, BookCollection> {
 
-	private final GuidGenerator guidGenerator;
+	private final UidGenerator uidGenerator;
 
 	@Inject
-	public BookCollectionTemplateProcessor(GuidGenerator guidGenerator) {
-		this.guidGenerator = guidGenerator;
+	public BookCollectionTemplateProcessor(UidGenerator uidGenerator) {
+		this.uidGenerator = uidGenerator;
 	}
 
 	@Override
@@ -24,7 +24,7 @@ public class BookCollectionTemplateProcessor implements ItemProcessor<BookCollec
 
 		bookCollection.setTitle(item.getTitle());
 		bookCollection.setPage(item.getPage());
-		bookCollection.setGuid(guidGenerator.generateFromPage(item.getPage(), BookCollection.class));
+		bookCollection.setUid(uidGenerator.generateFromPage(item.getPage(), BookCollection.class));
 		bookCollection.setPublishedYear(item.getPublishedYear());
 		bookCollection.setPublishedMonth(item.getPublishedMonth());
 		bookCollection.setPublishedDay(item.getPublishedDay());

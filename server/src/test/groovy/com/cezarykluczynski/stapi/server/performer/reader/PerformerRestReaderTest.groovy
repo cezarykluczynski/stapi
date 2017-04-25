@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.performer.dto.PerformerRestBeanParams
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseRestMapper
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerFullRestMapper
@@ -18,7 +18,7 @@ import spock.lang.Specification
 
 class PerformerRestReaderTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private PerformerRestQuery performerRestQueryBuilderMock
 
@@ -62,7 +62,7 @@ class PerformerRestReaderTest extends Specification {
 		performerResponseOutput.page == responsePage
 	}
 
-	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
+	void "passed UID to queryBuilder, then to mapper, and returns result"() {
 		given:
 		PerformerFull performerFull = Mock()
 		Performer performer = Mock()
@@ -70,11 +70,11 @@ class PerformerRestReaderTest extends Specification {
 		Page<Performer> performerPage = Mock()
 
 		when:
-		PerformerFullResponse performerResponseOutput = performerRestReader.readFull(GUID)
+		PerformerFullResponse performerResponseOutput = performerRestReader.readFull(UID)
 
 		then:
 		1 * performerRestQueryBuilderMock.query(_ as PerformerRestBeanParams) >> { PerformerRestBeanParams performerRestBeanParams ->
-			assert performerRestBeanParams.guid == GUID
+			assert performerRestBeanParams.uid == UID
 			performerPage
 		}
 		1 * performerPage.content >> performerList
@@ -83,12 +83,12 @@ class PerformerRestReaderTest extends Specification {
 		performerResponseOutput.performer == performerFull
 	}
 
-	void "requires GUID in full request"() {
+	void "requires UID in full request"() {
 		when:
 		performerRestReader.readFull(null)
 
 		then:
-		thrown(MissingGUIDException)
+		thrown(MissingUIDException)
 	}
 
 }

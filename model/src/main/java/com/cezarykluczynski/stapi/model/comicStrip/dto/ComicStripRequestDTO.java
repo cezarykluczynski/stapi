@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 public class ComicStripRequestDTO {
 
-	private String guid;
+	private String uid;
 
 	private String title;
 

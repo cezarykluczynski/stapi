@@ -11,14 +11,14 @@ import com.cezarykluczynski.stapi.server.comicSeries.dto.ComicSeriesRestBeanPara
 import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesBaseRestMapper
 import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesFullRestMapper
 import com.cezarykluczynski.stapi.server.comicSeries.query.ComicSeriesRestQuery
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
 import spock.lang.Specification
 
 class ComicSeriesRestReaderTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private ComicSeriesRestQuery comicSeriesRestQueryBuilderMock
 
@@ -62,7 +62,7 @@ class ComicSeriesRestReaderTest extends Specification {
 		comicSeriesResponseOutput.page == responsePage
 	}
 
-	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
+	void "passed UID to queryBuilder, then to mapper, and returns result"() {
 		given:
 		ComicSeriesFull comicSeriesFull = Mock()
 		ComicSeries comicSeries = Mock()
@@ -70,11 +70,11 @@ class ComicSeriesRestReaderTest extends Specification {
 		Page<ComicSeries> comicSeriesPage = Mock()
 
 		when:
-		ComicSeriesFullResponse comicSeriesResponseOutput = comicSeriesRestReader.readFull(GUID)
+		ComicSeriesFullResponse comicSeriesResponseOutput = comicSeriesRestReader.readFull(UID)
 
 		then:
 		1 * comicSeriesRestQueryBuilderMock.query(_ as ComicSeriesRestBeanParams) >> { ComicSeriesRestBeanParams comicSeriesRestBeanParams ->
-			assert comicSeriesRestBeanParams.guid == GUID
+			assert comicSeriesRestBeanParams.uid == UID
 			comicSeriesPage
 		}
 		1 * comicSeriesPage.content >> comicSeriesList
@@ -83,12 +83,12 @@ class ComicSeriesRestReaderTest extends Specification {
 		comicSeriesResponseOutput.comicSeries == comicSeriesFull
 	}
 
-	void "requires GUID in full request"() {
+	void "requires UID in full request"() {
 		when:
 		comicSeriesRestReader.readFull(null)
 
 		then:
-		thrown(MissingGUIDException)
+		thrown(MissingUIDException)
 	}
 
 }

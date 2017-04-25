@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.episode.creation.processor;
 
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate;
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator;
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.series.repository.SeriesRepository;
 import org.springframework.batch.item.ItemProcessor;
@@ -12,13 +12,13 @@ import javax.inject.Inject;
 @Service
 public class ToEpisodeEntityProcessor implements ItemProcessor<EpisodeTemplate, Episode> {
 
-	private GuidGenerator guidGenerator;
+	private UidGenerator uidGenerator;
 
 	private SeriesRepository seriesRepository;
 
 	@Inject
-	public ToEpisodeEntityProcessor(GuidGenerator guidGenerator, SeriesRepository seriesRepository) {
-		this.guidGenerator = guidGenerator;
+	public ToEpisodeEntityProcessor(UidGenerator uidGenerator, SeriesRepository seriesRepository) {
+		this.uidGenerator = uidGenerator;
 		this.seriesRepository = seriesRepository;
 	}
 
@@ -32,7 +32,7 @@ public class ToEpisodeEntityProcessor implements ItemProcessor<EpisodeTemplate, 
 		episode.setTitleJapanese(item.getTitleJapanese());
 		episode.setPage(item.getPage());
 		episode.setSeries(seriesRepository.findOne(item.getSeries().getId()));
-		episode.setGuid(guidGenerator.generateFromPage(item.getPage(), Episode.class));
+		episode.setUid(uidGenerator.generateFromPage(item.getPage(), Episode.class));
 		episode.setSeasonNumber(item.getSeasonNumber());
 		episode.setEpisodeNumber(item.getEpisodeNumber());
 		episode.setProductionSerialNumber(item.getProductionSerialNumber());

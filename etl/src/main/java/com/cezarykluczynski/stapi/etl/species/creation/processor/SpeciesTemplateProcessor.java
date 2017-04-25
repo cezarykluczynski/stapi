@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.species.creation.processor;
 
 import com.cezarykluczynski.stapi.etl.template.species.dto.SpeciesTemplate;
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator;
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
@@ -11,11 +11,11 @@ import javax.inject.Inject;
 @Service
 public class SpeciesTemplateProcessor implements ItemProcessor<SpeciesTemplate, Species> {
 
-	private GuidGenerator guidGenerator;
+	private UidGenerator uidGenerator;
 
 	@Inject
-	public SpeciesTemplateProcessor(GuidGenerator guidGenerator) {
-		this.guidGenerator = guidGenerator;
+	public SpeciesTemplateProcessor(UidGenerator uidGenerator) {
+		this.uidGenerator = uidGenerator;
 	}
 
 	@Override
@@ -24,7 +24,7 @@ public class SpeciesTemplateProcessor implements ItemProcessor<SpeciesTemplate, 
 
 		species.setName(item.getName());
 		species.setPage(item.getPage());
-		species.setGuid(guidGenerator.generateFromPage(item.getPage(), Species.class));
+		species.setUid(uidGenerator.generateFromPage(item.getPage(), Species.class));
 		species.setHomeworld(item.getHomeworld());
 		species.setQuadrant(item.getQuadrant());
 		species.setExtinctSpecies(item.isExtinctSpecies());

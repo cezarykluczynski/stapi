@@ -31,8 +31,8 @@ public class LocationRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public LocationFullResponse getLocation(@QueryParam("guid") String guid) {
-		return locationRestReader.readFull(guid);
+	public LocationFullResponse getLocation(@QueryParam("uid") String uid) {
+		return locationRestReader.readFull(uid);
 	}
 
 	@GET

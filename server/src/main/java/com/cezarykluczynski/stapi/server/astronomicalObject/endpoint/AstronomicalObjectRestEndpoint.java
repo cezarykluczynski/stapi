@@ -31,8 +31,8 @@ public class AstronomicalObjectRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public AstronomicalObjectFullResponse getAstronomicalObject(@QueryParam("guid") String guid) {
-		return astronomicalObjectRestReader.readFull(guid);
+	public AstronomicalObjectFullResponse getAstronomicalObject(@QueryParam("uid") String uid) {
+		return astronomicalObjectRestReader.readFull(uid);
 	}
 
 	@GET

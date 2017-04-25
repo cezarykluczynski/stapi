@@ -31,8 +31,8 @@ public class SeriesRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public SeriesFullResponse getSeries(@QueryParam("guid") String guid) {
-		return seriesRestReader.readFull(guid);
+	public SeriesFullResponse getSeries(@QueryParam("uid") String uid) {
+		return seriesRestReader.readFull(uid);
 	}
 
 	@GET

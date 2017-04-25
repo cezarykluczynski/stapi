@@ -80,7 +80,7 @@ class LocationBaseSoapMapperTest extends AbstractLocationMapperTest {
 		LocationBase locationBase = locationBaseSoapMapper.mapBase(Lists.newArrayList(location))[0]
 
 		then:
-		locationBase.guid == GUID
+		locationBase.uid == UID
 		locationBase.name == NAME
 		locationBase.earthlyLocation == EARTHLY_LOCATION
 		locationBase.fictionalLocation == FICTIONAL_LOCATION

@@ -27,7 +27,7 @@ public interface SeriesBaseSoapMapper {
 	@Mapping(source = "originalRunStartDate.to", target = "originalRunStartDateTo")
 	@Mapping(source = "originalRunEndDate.from", target = "originalRunEndDateFrom")
 	@Mapping(source = "originalRunEndDate.to", target = "originalRunEndDateTo")
-	@Mapping(target = "guid", ignore = true)
+	@Mapping(target = "uid", ignore = true)
 	SeriesRequestDTO mapBase(SeriesBaseRequest seriesBaseRequest);
 
 	SeriesBase mapBase(Series series);

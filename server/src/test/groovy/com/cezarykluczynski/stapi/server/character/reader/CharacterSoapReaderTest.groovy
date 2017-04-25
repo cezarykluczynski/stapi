@@ -12,14 +12,14 @@ import com.cezarykluczynski.stapi.server.character.mapper.CharacterBaseSoapMappe
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterFullSoapMapper
 import com.cezarykluczynski.stapi.server.character.query.CharacterSoapQuery
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
 import spock.lang.Specification
 
 class CharacterSoapReaderTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private CharacterSoapQuery characterSoapQueryBuilderMock
 
@@ -44,7 +44,7 @@ class CharacterSoapReaderTest extends Specification {
 		given:
 		List<Character> characterList = Lists.newArrayList()
 		Page<Character> characterPage = Mock()
-		List<CharacterBase> soapCharacterList = Lists.newArrayList(new CharacterBase(guid: GUID))
+		List<CharacterBase> soapCharacterList = Lists.newArrayList(new CharacterBase(uid: UID))
 		CharacterBaseRequest characterBaseRequest = Mock()
 		ResponsePage responsePage = Mock()
 
@@ -56,16 +56,16 @@ class CharacterSoapReaderTest extends Specification {
 		1 * characterPage.content >> characterList
 		1 * pageMapperMock.fromPageToSoapResponsePage(characterPage) >> responsePage
 		1 * characterBaseSoapMapperMock.mapBase(characterList) >> soapCharacterList
-		characterResponse.characters[0].guid == GUID
+		characterResponse.characters[0].uid == UID
 		characterResponse.page == responsePage
 	}
 
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		CharacterFull characterFull = new CharacterFull(guid: GUID)
+		CharacterFull characterFull = new CharacterFull(uid: UID)
 		Character character = Mock()
 		Page<Character> characterPage = Mock()
-		CharacterFullRequest characterFullRequest = new CharacterFullRequest(guid: GUID)
+		CharacterFullRequest characterFullRequest = new CharacterFullRequest(uid: UID)
 
 		when:
 		CharacterFullResponse characterFullResponse = characterSoapReader.readFull(characterFullRequest)
@@ -74,10 +74,10 @@ class CharacterSoapReaderTest extends Specification {
 		1 * characterSoapQueryBuilderMock.query(characterFullRequest) >> characterPage
 		1 * characterPage.content >> Lists.newArrayList(character)
 		1 * characterFullSoapMapperMock.mapFull(character) >> characterFull
-		characterFullResponse.character.guid == GUID
+		characterFullResponse.character.uid == UID
 	}
 
-	void "requires GUID in full request"() {
+	void "requires UID in full request"() {
 		given:
 		CharacterFullRequest characterFullRequest = Mock()
 
@@ -85,7 +85,7 @@ class CharacterSoapReaderTest extends Specification {
 		characterSoapReader.readFull(characterFullRequest)
 
 		then:
-		thrown(MissingGUIDException)
+		thrown(MissingUIDException)
 	}
 
 }

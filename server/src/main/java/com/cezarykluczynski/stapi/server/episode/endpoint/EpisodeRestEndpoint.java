@@ -32,8 +32,8 @@ public class EpisodeRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public EpisodeFullResponse getEpisode(@QueryParam("guid") String guid) {
-		return episodeRestReader.readFull(guid);
+	public EpisodeFullResponse getEpisode(@QueryParam("uid") String uid) {
+		return episodeRestReader.readFull(uid);
 	}
 
 	@GET

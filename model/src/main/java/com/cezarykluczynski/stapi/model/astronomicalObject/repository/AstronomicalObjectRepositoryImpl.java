@@ -25,12 +25,12 @@ public class AstronomicalObjectRepositoryImpl implements AstronomicalObjectRepos
 	@Override
 	public Page<AstronomicalObject> findMatching(AstronomicalObjectRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<AstronomicalObject> astronomicalObjectQueryBuilder = astronomicalObjectQueryBuilderFactory.createQueryBuilder(pageable);
-		String guid = criteria.getGuid();
-		boolean doFetch = guid != null;
+		String uid = criteria.getUid();
+		boolean doFetch = uid != null;
 
-		astronomicalObjectQueryBuilder.equal(AstronomicalObject_.guid, guid);
+		astronomicalObjectQueryBuilder.equal(AstronomicalObject_.uid, uid);
 		astronomicalObjectQueryBuilder.like(AstronomicalObject_.name, criteria.getName());
-		astronomicalObjectQueryBuilder.joinPropertyEqual(AstronomicalObject_.location, "guid", criteria.getLocationGuid());
+		astronomicalObjectQueryBuilder.joinPropertyEqual(AstronomicalObject_.location, "uid", criteria.getLocationUid());
 		astronomicalObjectQueryBuilder.equal(AstronomicalObject_.astronomicalObjectType, criteria.getAstronomicalObjectType());
 		astronomicalObjectQueryBuilder.setSort(criteria.getSort());
 		astronomicalObjectQueryBuilder.fetch(AstronomicalObject_.location);

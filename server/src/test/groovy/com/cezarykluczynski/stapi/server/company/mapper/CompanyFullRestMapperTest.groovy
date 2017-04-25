@@ -20,7 +20,7 @@ class CompanyFullRestMapperTest extends AbstractCompanyMapperTest {
 		CompanyFull companyFull = companyFullRestMapper.mapFull(dBCompany)
 
 		then:
-		companyFull.guid == GUID
+		companyFull.uid == UID
 		companyFull.name == NAME
 		companyFull.broadcaster == BROADCASTER
 		companyFull.collectibleCompany == COLLECTIBLE_COMPANY

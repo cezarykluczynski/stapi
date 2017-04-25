@@ -14,7 +14,7 @@ import java.util.List;
 @Mapper(config = MapstructConfiguration.class, uses = {RequestSortSoapMapper.class})
 public interface ComicStripBaseSoapMapper {
 
-	@Mapping(target = "guid", ignore = true)
+	@Mapping(target = "uid", ignore = true)
 	@Mapping(source = "publishedYear.from", target = "publishedYearFrom")
 	@Mapping(source = "publishedYear.to", target = "publishedYearTo")
 	@Mapping(source = "numberOfPages.from", target = "numberOfPagesFrom")

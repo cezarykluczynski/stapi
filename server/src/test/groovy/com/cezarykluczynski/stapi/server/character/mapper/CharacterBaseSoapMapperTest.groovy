@@ -44,7 +44,7 @@ class CharacterBaseSoapMapperTest extends AbstractCharacterMapperTest {
 
 		then:
 		characterBase.name == NAME
-		characterBase.guid == GUID
+		characterBase.uid == UID
 		characterBase.gender == SOAP_GENDER
 		characterBase.yearOfBirth == YEAR_OF_BIRTH
 		characterBase.monthOfBirth == MONTH_OF_BIRTH

@@ -31,8 +31,8 @@ public class FoodRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public FoodFullResponse getFood(@QueryParam("guid") String guid) {
-		return foodRestReader.readFull(guid);
+	public FoodFullResponse getFood(@QueryParam("uid") String uid) {
+		return foodRestReader.readFull(uid);
 	}
 
 	@GET

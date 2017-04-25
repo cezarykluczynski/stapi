@@ -17,7 +17,7 @@ import spock.lang.Specification
 
 class CharacterRepositoryImplTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 	private static final String NAME = 'NAME'
 	private static final Gender GENDER = Gender.F
 	private static final Boolean DECEASED = LogicUtil.nextBoolean()
@@ -56,9 +56,9 @@ class CharacterRepositoryImplTest extends Specification {
 		then:
 		1 * characterQueryBuilderMock.createQueryBuilder(pageable) >> characterQueryBuilder
 
-		then: 'guid criteria is set'
-		1 * characterRequestDTO.guid >> GUID
-		1 * characterQueryBuilder.equal(Character_.guid, GUID)
+		then: 'uid criteria is set'
+		1 * characterRequestDTO.uid >> UID
+		1 * characterQueryBuilder.equal(Character_.uid, UID)
 
 		then: 'string criteria are set'
 		1 * characterRequestDTO.name >> NAME
@@ -103,8 +103,8 @@ class CharacterRepositoryImplTest extends Specification {
 		then:
 		1 * characterQueryBuilderMock.createQueryBuilder(pageable) >> characterQueryBuilder
 
-		then: 'guid criteria is set to null'
-		1 * characterRequestDTO.guid >> null
+		then: 'uid criteria is set to null'
+		1 * characterRequestDTO.uid >> null
 
 		then: 'fetch is performed with false flag'
 		1 * characterQueryBuilder.fetch(Character_.performers, false)

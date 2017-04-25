@@ -6,7 +6,7 @@ import spock.lang.Specification
 abstract class AbstractFoodTest extends Specification {
 
 	protected static final String NAME = 'NAME'
-	protected static final String GUID = 'GUID'
+	protected static final String UID = 'UID'
 	protected static final boolean EARTHLY_ORIGIN = LogicUtil.nextBoolean()
 	protected static final boolean DESSERT = LogicUtil.nextBoolean()
 	protected static final boolean FRUIT = LogicUtil.nextBoolean()

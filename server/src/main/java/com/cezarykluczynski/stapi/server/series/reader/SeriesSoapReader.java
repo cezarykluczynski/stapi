@@ -46,7 +46,7 @@ public class SeriesSoapReader implements BaseReader<SeriesBaseRequest, SeriesBas
 
 	@Override
 	public SeriesFullResponse readFull(SeriesFullRequest input) {
-		StaticValidator.requireGuid(input.getGuid());
+		StaticValidator.requireUid(input.getUid());
 		Page<Series> seriesPage = seriesSoapQuery.query(input);
 		SeriesFullResponse seriesFullResponse = new SeriesFullResponse();
 		seriesFullResponse.setSeries(seriesFullSoapMapper.mapFull(Iterables.getOnlyElement(seriesPage.getContent(), null)));

@@ -55,7 +55,7 @@ class FoodBaseSoapMapperTest extends AbstractFoodMapperTest {
 		FoodBase foodBase = foodBaseSoapMapper.mapBase(Lists.newArrayList(food))[0]
 
 		then:
-		foodBase.guid == GUID
+		foodBase.uid == UID
 		foodBase.name == NAME
 		foodBase.earthlyOrigin == EARTHLY_ORIGIN
 		foodBase.dessert == DESSERT

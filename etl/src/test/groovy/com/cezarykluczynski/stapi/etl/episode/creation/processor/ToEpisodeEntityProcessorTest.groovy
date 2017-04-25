@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.episode.creation.processor
 
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.series.entity.Series
@@ -16,16 +16,16 @@ class ToEpisodeEntityProcessorTest extends AbstractEpisodeTest {
 	private final Series seriesDetached = Mock()
 	private final Series seriesNew = Mock()
 
-	private GuidGenerator guidGeneratorMock
+	private UidGenerator uidGeneratorMock
 
 	private SeriesRepository seriesRepositoryMock
 
 	private ToEpisodeEntityProcessor toEpisodeEntityProcessor
 
 	void setup() {
-		guidGeneratorMock = Mock()
+		uidGeneratorMock = Mock()
 		seriesRepositoryMock = Mock()
-		toEpisodeEntityProcessor = new ToEpisodeEntityProcessor(guidGeneratorMock, seriesRepositoryMock)
+		toEpisodeEntityProcessor = new ToEpisodeEntityProcessor(uidGeneratorMock, seriesRepositoryMock)
 	}
 
 	void "converts EpisodeTemplate to Episode"() {
@@ -58,14 +58,14 @@ class ToEpisodeEntityProcessorTest extends AbstractEpisodeTest {
 		episode == episodeStub
 		1 * seriesDetached.id >> SERIES_ID
 		1 * seriesRepositoryMock.findOne(SERIES_ID) >> seriesNew
-		1 * guidGeneratorMock.generateFromPage(page, Episode) >> GUID
+		1 * uidGeneratorMock.generateFromPage(page, Episode) >> UID
 		episode.title == TITLE
 		episode.titleGerman == TITLE_GERMAN
 		episode.titleItalian == TITLE_ITALIAN
 		episode.titleJapanese == TITLE_JAPANESE
 		episode.page == page
 		episode.series == seriesNew
-		episode.guid == GUID
+		episode.uid == UID
 		episode.seasonNumber == SEASON_NUMBER
 		episode.episodeNumber == EPISODE_NUMBER
 		episode.productionSerialNumber == PRODUCTION_SERIAL_NUMBER

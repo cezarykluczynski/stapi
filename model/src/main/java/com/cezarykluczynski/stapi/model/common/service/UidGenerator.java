@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 
 @Service
 @Slf4j
-public class GuidGenerator {
+public class UidGenerator {
 
 	private static final Long MAX_PAGE_ID = 9999999999L;
 
@@ -52,7 +52,7 @@ public class GuidGenerator {
 
 	private Map<MediaWikiSource, String> mediaWikiSourceToSymbolMap = Maps.newHashMap();
 
-	public GuidGenerator(EntityManager entityManager) {
+	public UidGenerator(EntityManager entityManager) {
 		this.entityManager = entityManager;
 		buildMediaWikiSourceToSymbolMap();
 		buildClassSymbolMap();
@@ -73,7 +73,7 @@ public class GuidGenerator {
 		}
 
 		if (page.getPageId() > MAX_PAGE_ID) {
-			throw new RuntimeException(String.format("Page ID %s is greater than allowed, cannot guarantee GUID uniqueness.", page.getPageId()));
+			throw new RuntimeException(String.format("Page ID %s is greater than allowed, cannot guarantee UID uniqueness.", page.getPageId()));
 		}
 
 		Class mappedClass = classMetadata.getMappedClass();
@@ -89,7 +89,7 @@ public class GuidGenerator {
 		String referenceNumber = referenceTypeReferenceNumberPair.getValue();
 
 		if (referenceType == null || referenceNumber == null) {
-			log.warn("Pair {} passed for reference GUID generation was not complete", referenceTypeReferenceNumberPair);
+			log.warn("Pair {} passed for reference UID generation was not complete", referenceTypeReferenceNumberPair);
 			return null;
 		}
 

@@ -16,14 +16,14 @@ class OrganizationHeaderSoapMapperTest extends AbstractOrganizationMapperTest {
 	void "maps DB entity to SOAP header"() {
 		given:
 		Organization organization = new Organization(
-				guid: GUID,
+				uid: UID,
 				name: NAME)
 
 		when:
 		OrganizationHeader organizationHeader = organizationHeaderSoapMapper.map(Lists.newArrayList(organization))[0]
 
 		then:
-		organizationHeader.guid == GUID
+		organizationHeader.uid == UID
 		organizationHeader.name == NAME
 	}
 

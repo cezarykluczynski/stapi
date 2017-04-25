@@ -20,7 +20,7 @@ class AstronomicalObjectBaseSoapMapperTest extends AbstractAstronomicalObjectMap
 		AstronomicalObjectBaseRequest astronomicalObjectBaseRequest = new AstronomicalObjectBaseRequest(
 				name: NAME,
 				astronomicalObjectType: SOAP_ASTRONOMICAL_OBJECT_TYPE,
-				locationGuid: LOCATION_GUID)
+				locationUid: LOCATION_UID)
 
 		when:
 		AstronomicalObjectRequestDTO astronomicalObjectRequestDTO = astronomicalObjectBaseSoapMapper.mapBase astronomicalObjectBaseRequest
@@ -28,7 +28,7 @@ class AstronomicalObjectBaseSoapMapperTest extends AbstractAstronomicalObjectMap
 		then:
 		astronomicalObjectRequestDTO.name == NAME
 		astronomicalObjectRequestDTO.astronomicalObjectType == ASTRONOMICAL_OBJECT_TYPE
-		astronomicalObjectRequestDTO.locationGuid == LOCATION_GUID
+		astronomicalObjectRequestDTO.locationUid == LOCATION_UID
 	}
 
 	void "maps DB entity to base SOAP entity"() {
@@ -39,7 +39,7 @@ class AstronomicalObjectBaseSoapMapperTest extends AbstractAstronomicalObjectMap
 		AstronomicalObjectBase astronomicalObjectBase = astronomicalObjectBaseSoapMapper.mapBase(Lists.newArrayList(astronomicalObject))[0]
 
 		then:
-		astronomicalObjectBase.guid == GUID
+		astronomicalObjectBase.uid == UID
 		astronomicalObjectBase.name == NAME
 		astronomicalObjectBase.astronomicalObjectType == SOAP_ASTRONOMICAL_OBJECT_TYPE
 		astronomicalObjectBase.location != null

@@ -16,13 +16,13 @@ class AstronomicalObjectFullSoapMapperTest extends AbstractAstronomicalObjectMap
 
 	void "maps SOAP AstronomicalObjectFullRequest to AstronomicalObjectBaseRequestDTO"() {
 		given:
-		AstronomicalObjectFullRequest astronomicalObjectFullRequest = new AstronomicalObjectFullRequest(guid: GUID)
+		AstronomicalObjectFullRequest astronomicalObjectFullRequest = new AstronomicalObjectFullRequest(uid: UID)
 
 		when:
 		AstronomicalObjectRequestDTO astronomicalObjectRequestDTO = astronomicalObjectFullSoapMapper.mapFull astronomicalObjectFullRequest
 
 		then:
-		astronomicalObjectRequestDTO.guid == GUID
+		astronomicalObjectRequestDTO.uid == UID
 	}
 
 	void "maps DB entity to full SOAP entity"() {
@@ -33,7 +33,7 @@ class AstronomicalObjectFullSoapMapperTest extends AbstractAstronomicalObjectMap
 		AstronomicalObjectFull astronomicalObjectFull = astronomicalObjectFullSoapMapper.mapFull(dBAstronomicalObject)
 
 		then:
-		astronomicalObjectFull.guid == GUID
+		astronomicalObjectFull.uid == UID
 		astronomicalObjectFull.name == NAME
 		astronomicalObjectFull.astronomicalObjectType == SOAP_ASTRONOMICAL_OBJECT_TYPE
 		astronomicalObjectFull.location != null

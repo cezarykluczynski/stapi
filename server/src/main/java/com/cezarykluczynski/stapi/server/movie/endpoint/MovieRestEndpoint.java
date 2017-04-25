@@ -31,8 +31,8 @@ public class MovieRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public MovieFullResponse getMovie(@QueryParam("guid") String guid) {
-		return movieRestReader.readFull(guid);
+	public MovieFullResponse getMovie(@QueryParam("uid") String uid) {
+		return movieRestReader.readFull(uid);
 	}
 
 	@GET

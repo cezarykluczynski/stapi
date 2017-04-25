@@ -8,7 +8,7 @@ import java.time.LocalDate
 
 abstract class AbstractMovieTest extends AbstractTest {
 
-	protected static final String GUID = 'GUID'
+	protected static final String UID = 'UID'
 	protected static final String TITLE = 'TITLE'
 	protected static final String TITLE_BULGARIAN = 'TITLE_BULGARIAN'
 	protected static final String TITLE_CATALAN = 'TITLE_CATALAN'

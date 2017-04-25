@@ -28,7 +28,7 @@ class EpisodeRestEndpointIntegrationTest extends AbstractEpisodeEndpointIntegrat
 		episodeBaseResponse.episodes[0].yearTo != null
 	}
 
-	void "episodes could be found by GUID"() {
+	void "episodes could be found by UID"() {
 		when:
 		EpisodeFullResponse episodeResponse = stapiRestClient.episodeApi.episodeGet('EPMA0000001458', null)
 

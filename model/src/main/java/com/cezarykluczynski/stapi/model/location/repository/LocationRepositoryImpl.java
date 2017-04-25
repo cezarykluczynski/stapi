@@ -25,7 +25,7 @@ public class LocationRepositoryImpl implements LocationRepositoryCustom {
 	public Page<Location> findMatching(LocationRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<Location> locationQueryBuilder = locationQueryBuilderFactory.createQueryBuilder(pageable);
 
-		locationQueryBuilder.equal(Location_.guid, criteria.getGuid());
+		locationQueryBuilder.equal(Location_.uid, criteria.getUid());
 		locationQueryBuilder.like(Location_.name, criteria.getName());
 		locationQueryBuilder.equal(Location_.earthlyLocation, criteria.getEarthlyLocation());
 		locationQueryBuilder.equal(Location_.fictionalLocation, criteria.getFictionalLocation());

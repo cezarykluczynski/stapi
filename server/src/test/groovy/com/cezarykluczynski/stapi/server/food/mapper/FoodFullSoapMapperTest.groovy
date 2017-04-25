@@ -16,13 +16,13 @@ class FoodFullSoapMapperTest extends AbstractFoodMapperTest {
 
 	void "maps SOAP FoodFullRequest to FoodBaseRequestDTO"() {
 		given:
-		FoodFullRequest foodFullRequest = new FoodFullRequest(guid: GUID)
+		FoodFullRequest foodFullRequest = new FoodFullRequest(uid: UID)
 
 		when:
 		FoodRequestDTO foodRequestDTO = foodFullSoapMapper.mapFull foodFullRequest
 
 		then:
-		foodRequestDTO.guid == GUID
+		foodRequestDTO.uid == UID
 	}
 
 	void "maps DB entity to full SOAP entity"() {
@@ -33,7 +33,7 @@ class FoodFullSoapMapperTest extends AbstractFoodMapperTest {
 		FoodFull foodFull = foodFullSoapMapper.mapFull(food)
 
 		then:
-		foodFull.guid == GUID
+		foodFull.uid == UID
 		foodFull.name == NAME
 		foodFull.earthlyOrigin == EARTHLY_ORIGIN
 		foodFull.dessert == DESSERT

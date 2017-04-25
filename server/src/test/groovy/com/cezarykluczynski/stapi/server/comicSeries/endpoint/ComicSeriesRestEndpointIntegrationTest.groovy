@@ -25,7 +25,7 @@ class ComicSeriesRestEndpointIntegrationTest extends AbstractComicSeriesEndpoint
 		comicSeriesBaseResponse.comicSeries[0].title == 'Star Trek: New Visions'
 	}
 
-	void "gets comic series by GUID"() {
+	void "gets comic series by UID"() {
 		when:
 		ComicSeriesFullResponse comicSeriesFullResponse = stapiRestClient.comicSeriesApi.comicSeriesGet('CSMA0000157262', null)
 

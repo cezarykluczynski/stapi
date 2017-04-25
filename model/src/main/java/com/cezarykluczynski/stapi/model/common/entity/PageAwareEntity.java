@@ -23,6 +23,6 @@ public class PageAwareEntity {
 	private Page page;
 
 	@Column(length = 14)
-	private String guid;
+	private String uid;
 
 }

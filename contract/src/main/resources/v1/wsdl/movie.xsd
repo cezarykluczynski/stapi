@@ -31,7 +31,7 @@
 			<xs:complexContent>
 				<xs:extension base="common:ApiRequest">
 					<xs:sequence>
-						<xs:element name="guid" type="xs:string" minOccurs="1"/>
+						<xs:element name="uid" type="xs:string" minOccurs="1"/>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
@@ -57,13 +57,13 @@
 	</xs:element>
 	<xs:complexType name="MovieHeader">
 		<xs:sequence>
-			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="uid" type="xs:string"/>
 			<xs:element name="title" type="xs:string"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="MovieBase">
 		<xs:sequence>
-			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="uid" type="xs:string"/>
 			<xs:element name="mainDirector" type="staff:StaffHeader"/>
 			<xs:element name="title" type="xs:string"/>
 			<xs:element name="titleBulgarian" type="xs:string" minOccurs="0"/>
@@ -85,7 +85,7 @@
 	</xs:complexType>
 	<xs:complexType name="MovieFull">
 		<xs:sequence>
-			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="uid" type="xs:string"/>
 			<xs:element name="mainDirector" type="staff:StaffBase"/>
 			<xs:element name="title" type="xs:string"/>
 			<xs:element name="titleBulgarian" type="xs:string" minOccurs="0"/>

@@ -16,13 +16,13 @@ class SpeciesFullSoapMapperTest extends AbstractSpeciesMapperTest {
 
 	void "maps SOAP SpeciesFullRequest to SpeciesBaseRequestDTO"() {
 		given:
-		SpeciesFullRequest speciesFullRequest = new SpeciesFullRequest(guid: GUID)
+		SpeciesFullRequest speciesFullRequest = new SpeciesFullRequest(uid: UID)
 
 		when:
 		SpeciesRequestDTO speciesRequestDTO = speciesFullSoapMapper.mapFull speciesFullRequest
 
 		then:
-		speciesRequestDTO.guid == GUID
+		speciesRequestDTO.uid == UID
 	}
 
 	void "maps DB entity to full SOAP entity"() {
@@ -34,7 +34,7 @@ class SpeciesFullSoapMapperTest extends AbstractSpeciesMapperTest {
 
 		then:
 		speciesFull.name == NAME
-		speciesFull.guid == GUID
+		speciesFull.uid == UID
 		speciesFull.homeworld != null
 		speciesFull.quadrant != null
 		speciesFull.extinctSpecies == EXTINCT_SPECIES

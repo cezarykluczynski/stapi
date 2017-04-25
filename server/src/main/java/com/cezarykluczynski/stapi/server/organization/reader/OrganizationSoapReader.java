@@ -47,7 +47,7 @@ public class OrganizationSoapReader implements BaseReader<OrganizationBaseReques
 
 	@Override
 	public OrganizationFullResponse readFull(OrganizationFullRequest input) {
-		StaticValidator.requireGuid(input.getGuid());
+		StaticValidator.requireUid(input.getUid());
 		Page<Organization> organizationPage = organizationSoapQuery.query(input);
 		OrganizationFullResponse organizationFullResponse = new OrganizationFullResponse();
 		organizationFullResponse.setOrganization(organizationFullSoapMapper

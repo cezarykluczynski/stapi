@@ -20,7 +20,7 @@ class LocationFullRestMapperTest extends AbstractLocationMapperTest {
 		LocationFull locationFull = locationFullRestMapper.mapFull(dBLocation)
 
 		then:
-		locationFull.guid == GUID
+		locationFull.uid == UID
 		locationFull.name == NAME
 		locationFull.earthlyLocation == EARTHLY_LOCATION
 		locationFull.fictionalLocation == FICTIONAL_LOCATION

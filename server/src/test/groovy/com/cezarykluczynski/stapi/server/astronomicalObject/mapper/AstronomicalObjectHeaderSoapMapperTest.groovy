@@ -16,14 +16,14 @@ class AstronomicalObjectHeaderSoapMapperTest extends AbstractAstronomicalObjectM
 	void "maps DB entity to SOAP header"() {
 		given:
 		AstronomicalObject astronomicalObject = new AstronomicalObject(
-				guid: GUID,
+				uid: UID,
 				name: NAME)
 
 		when:
 		AstronomicalObjectHeader astronomicalObjectHeader = astronomicalObjectHeaderSoapMapper.map(Lists.newArrayList(astronomicalObject))[0]
 
 		then:
-		astronomicalObjectHeader.guid == GUID
+		astronomicalObjectHeader.uid == UID
 		astronomicalObjectHeader.name == NAME
 	}
 

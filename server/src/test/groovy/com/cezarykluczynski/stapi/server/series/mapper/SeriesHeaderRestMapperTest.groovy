@@ -17,14 +17,14 @@ class SeriesHeaderRestMapperTest extends AbstractSeriesMapperTest {
 		given:
 		Series series = new Series(
 				title: TITLE,
-				guid: GUID)
+				uid: UID)
 
 		when:
 		SeriesHeader seriesHeader = seriesHeaderRestMapper.map(Lists.newArrayList(series))[0]
 
 		then:
 		seriesHeader.title == TITLE
-		seriesHeader.guid == GUID
+		seriesHeader.uid == UID
 	}
 
 }

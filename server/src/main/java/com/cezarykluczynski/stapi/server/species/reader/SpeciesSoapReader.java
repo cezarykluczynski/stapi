@@ -47,7 +47,7 @@ public class SpeciesSoapReader implements BaseReader<SpeciesBaseRequest, Species
 
 	@Override
 	public SpeciesFullResponse readFull(SpeciesFullRequest input) {
-		StaticValidator.requireGuid(input.getGuid());
+		StaticValidator.requireUid(input.getUid());
 		Page<Species> speciesPage = speciesSoapQuery.query(input);
 		SpeciesFullResponse speciesFullResponse = new SpeciesFullResponse();
 		speciesFullResponse.setSpecies(speciesFullSoapMapper.mapFull(Iterables.getOnlyElement(speciesPage.getContent(), null)));

@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.comicCollection.entity.ComicCollection
 import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries
 import com.cezarykluczynski.stapi.model.comics.entity.Comics
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.reference.entity.Reference
@@ -15,15 +15,15 @@ import com.google.common.collect.Sets
 
 class ComicCollectionTemplateProcessorTest extends AbstractComicCollectionTest {
 
-	private GuidGenerator guidGeneratorMock
+	private UidGenerator uidGeneratorMock
 
 	private ComicCollectionTemplateProcessor comicCollectionTemplateProcessor
 
 	private final Page page = Mock()
 
 	void setup() {
-		guidGeneratorMock = Mock()
-		comicCollectionTemplateProcessor = new ComicCollectionTemplateProcessor(guidGeneratorMock)
+		uidGeneratorMock = Mock()
+		comicCollectionTemplateProcessor = new ComicCollectionTemplateProcessor(uidGeneratorMock)
 	}
 
 	void "converts ComicCollectionTemplate to ComicCollection"() {
@@ -76,9 +76,9 @@ class ComicCollectionTemplateProcessorTest extends AbstractComicCollectionTest {
 		ComicCollection comicCollection = comicCollectionTemplateProcessor.process(comicCollectionTemplate)
 
 		then:
-		1 * guidGeneratorMock.generateFromPage(page, ComicCollection) >> GUID
+		1 * uidGeneratorMock.generateFromPage(page, ComicCollection) >> UID
 		0 * _
-		comicCollection.guid == GUID
+		comicCollection.uid == UID
 		comicCollection.page == page
 		comicCollection.title == TITLE
 		comicCollection.publishedYear == PUBLISHED_YEAR

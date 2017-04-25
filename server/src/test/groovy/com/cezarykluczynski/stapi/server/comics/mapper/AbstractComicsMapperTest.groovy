@@ -13,7 +13,7 @@ abstract class AbstractComicsMapperTest extends AbstractComicsTest {
 
 	protected Comics createComics() {
 		new Comics(
-				guid: GUID,
+				uid: UID,
 				title: TITLE,
 				publishedYear: PUBLISHED_YEAR,
 				publishedMonth: PUBLISHED_MONTH,

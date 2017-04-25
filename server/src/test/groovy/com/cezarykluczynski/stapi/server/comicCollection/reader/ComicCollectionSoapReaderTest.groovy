@@ -12,14 +12,14 @@ import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionB
 import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionFullSoapMapper
 import com.cezarykluczynski.stapi.server.comicCollection.query.ComicCollectionSoapQuery
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
 import spock.lang.Specification
 
 class ComicCollectionSoapReaderTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private ComicCollectionSoapQuery comicCollectionSoapQueryBuilderMock
 
@@ -44,7 +44,7 @@ class ComicCollectionSoapReaderTest extends Specification {
 		given:
 		List<ComicCollection> comicCollectionList = Lists.newArrayList()
 		Page<ComicCollection> comicCollectionPage = Mock()
-		List<ComicCollectionBase> soapComicCollectionList = Lists.newArrayList(new ComicCollectionBase(guid: GUID))
+		List<ComicCollectionBase> soapComicCollectionList = Lists.newArrayList(new ComicCollectionBase(uid: UID))
 		ComicCollectionBaseRequest comicCollectionBaseRequest = Mock()
 		ResponsePage responsePage = Mock()
 
@@ -56,16 +56,16 @@ class ComicCollectionSoapReaderTest extends Specification {
 		1 * comicCollectionPage.content >> comicCollectionList
 		1 * pageMapperMock.fromPageToSoapResponsePage(comicCollectionPage) >> responsePage
 		1 * comicCollectionBaseSoapMapperMock.mapBase(comicCollectionList) >> soapComicCollectionList
-		comicCollectionResponse.comicCollections[0].guid == GUID
+		comicCollectionResponse.comicCollections[0].uid == UID
 		comicCollectionResponse.page == responsePage
 	}
 
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		ComicCollectionFull comicCollectionFull = new ComicCollectionFull(guid: GUID)
+		ComicCollectionFull comicCollectionFull = new ComicCollectionFull(uid: UID)
 		ComicCollection comicCollection = Mock()
 		Page<ComicCollection> comicCollectionPage = Mock()
-		ComicCollectionFullRequest comicCollectionFullRequest = new ComicCollectionFullRequest(guid: GUID)
+		ComicCollectionFullRequest comicCollectionFullRequest = new ComicCollectionFullRequest(uid: UID)
 
 		when:
 		ComicCollectionFullResponse comicCollectionFullResponse = comicCollectionSoapReader.readFull(comicCollectionFullRequest)
@@ -74,10 +74,10 @@ class ComicCollectionSoapReaderTest extends Specification {
 		1 * comicCollectionSoapQueryBuilderMock.query(comicCollectionFullRequest) >> comicCollectionPage
 		1 * comicCollectionPage.content >> Lists.newArrayList(comicCollection)
 		1 * comicCollectionFullSoapMapperMock.mapFull(comicCollection) >> comicCollectionFull
-		comicCollectionFullResponse.comicCollection.guid == GUID
+		comicCollectionFullResponse.comicCollection.uid == UID
 	}
 
-	void "requires GUID in full request"() {
+	void "requires UID in full request"() {
 		given:
 		ComicCollectionFullRequest comicCollectionFullRequest = Mock()
 
@@ -85,7 +85,7 @@ class ComicCollectionSoapReaderTest extends Specification {
 		comicCollectionSoapReader.readFull(comicCollectionFullRequest)
 
 		then:
-		thrown(MissingGUIDException)
+		thrown(MissingUIDException)
 	}
 
 }

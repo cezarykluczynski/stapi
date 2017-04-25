@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesFull
 import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesFullResponse
 import com.cezarykluczynski.stapi.model.species.entity.Species
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.species.dto.SpeciesRestBeanParams
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesBaseRestMapper
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesFullRestMapper
@@ -18,7 +18,7 @@ import spock.lang.Specification
 
 class SpeciesRestReaderTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private SpeciesRestQuery speciesRestQueryBuilderMock
 
@@ -62,7 +62,7 @@ class SpeciesRestReaderTest extends Specification {
 		speciesResponseOutput.page == responsePage
 	}
 
-	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
+	void "passed UID to queryBuilder, then to mapper, and returns result"() {
 		given:
 		SpeciesFull speciesFull = Mock()
 		Species species = Mock()
@@ -70,11 +70,11 @@ class SpeciesRestReaderTest extends Specification {
 		Page<Species> speciesPage = Mock()
 
 		when:
-		SpeciesFullResponse speciesResponseOutput = speciesRestReader.readFull(GUID)
+		SpeciesFullResponse speciesResponseOutput = speciesRestReader.readFull(UID)
 
 		then:
 		1 * speciesRestQueryBuilderMock.query(_ as SpeciesRestBeanParams) >> { SpeciesRestBeanParams speciesRestBeanParams ->
-			assert speciesRestBeanParams.guid == GUID
+			assert speciesRestBeanParams.uid == UID
 			speciesPage
 		}
 		1 * speciesPage.content >> speciesList
@@ -83,12 +83,12 @@ class SpeciesRestReaderTest extends Specification {
 		speciesResponseOutput.species == speciesFull
 	}
 
-	void "requires GUID in full request"() {
+	void "requires UID in full request"() {
 		when:
 		speciesRestReader.readFull(null)
 
 		then:
-		thrown(MissingGUIDException)
+		thrown(MissingUIDException)
 	}
 
 }

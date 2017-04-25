@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingP
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.organization.creation.service.OrganizationPageFilter;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator;
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.util.tool.StringUtil;
@@ -22,7 +22,7 @@ public class OrganizationPageProcessor implements ItemProcessor<Page, Organizati
 
 	private PageBindingService pageBindingService;
 
-	private GuidGenerator guidGenerator;
+	private UidGenerator uidGenerator;
 
 	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
@@ -30,11 +30,11 @@ public class OrganizationPageProcessor implements ItemProcessor<Page, Organizati
 
 	@Inject
 	public OrganizationPageProcessor(OrganizationPageFilter organizationPageFilter, PageBindingService pageBindingService,
-			GuidGenerator guidGenerator, CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor,
+			UidGenerator uidGenerator, CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor,
 			OrganizationNameFixedValueProvider organizationNameFixedValueProvider) {
 		this.organizationPageFilter = organizationPageFilter;
 		this.pageBindingService = pageBindingService;
-		this.guidGenerator = guidGenerator;
+		this.uidGenerator = uidGenerator;
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
 		this.organizationNameFixedValueProvider = organizationNameFixedValueProvider;
 	}
@@ -50,7 +50,7 @@ public class OrganizationPageProcessor implements ItemProcessor<Page, Organizati
 		organization.setName(titleFixedValueHolder.isFound() ? titleFixedValueHolder.getValue() : item.getTitle());
 
 		organization.setPage(pageBindingService.fromPageToPageEntity(item));
-		organization.setGuid(guidGenerator.generateFromPage(organization.getPage(), Organization.class));
+		organization.setUid(uidGenerator.generateFromPage(organization.getPage(), Organization.class));
 
 		List<String> categoryTitleList = categoryTitlesExtractingProcessor.process(item.getCategories());
 

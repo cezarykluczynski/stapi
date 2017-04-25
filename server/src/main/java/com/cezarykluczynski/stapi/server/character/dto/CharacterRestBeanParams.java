@@ -7,7 +7,7 @@ import javax.ws.rs.FormParam;
 
 public class CharacterRestBeanParams extends PageSortBeanParams {
 
-	private String guid;
+	private String uid;
 
 	@FormParam("name")
 	private String name;
@@ -24,12 +24,12 @@ public class CharacterRestBeanParams extends PageSortBeanParams {
 	@FormParam("alternateReality")
 	private Boolean alternateReality;
 
-	public String getGuid() {
-		return guid;
+	public String getUid() {
+		return uid;
 	}
 
-	public void setGuid(String guid) {
-		this.guid = guid;
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 
 	public String getName() {

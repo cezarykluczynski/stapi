@@ -4,22 +4,22 @@ import com.cezarykluczynski.stapi.etl.common.processor.AbstractRealWorldActorTem
 import com.cezarykluczynski.stapi.etl.common.processor.CommonActorTemplateProcessor
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate
 import com.cezarykluczynski.stapi.model.common.entity.RealWorldPerson
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.util.ReflectionTestUtils
 
 class StaffActorTemplateProcessorTest extends AbstractRealWorldActorTemplateProcessorTest {
 
-	private GuidGenerator guidGeneratorMock
+	private UidGenerator uidGeneratorMock
 
 	private CommonActorTemplateProcessor commonActorTemplateProcessorMock
 
 	private StaffActorTemplateProcessor staffActorTemplateProcessor
 
 	void setup() {
-		guidGeneratorMock = Mock()
+		uidGeneratorMock = Mock()
 		commonActorTemplateProcessorMock = Mock()
-		staffActorTemplateProcessor = new StaffActorTemplateProcessor(guidGeneratorMock, commonActorTemplateProcessorMock)
+		staffActorTemplateProcessor = new StaffActorTemplateProcessor(uidGeneratorMock, commonActorTemplateProcessorMock)
 	}
 
 	void "converts ActorTemplate to Staff"() {
@@ -88,7 +88,7 @@ class StaffActorTemplateProcessorTest extends AbstractRealWorldActorTemplateProc
 
 		then:
 		1 * commonActorTemplateProcessorMock.processCommonFields(_ as RealWorldPerson, actorTemplate)
-		1 * guidGeneratorMock.generateFromPage(PAGE, Staff) >> GUID
+		1 * uidGeneratorMock.generateFromPage(PAGE, Staff) >> UID
 		staff.artDepartment == ART_DEPARTMENT
 		staff.artDirector == ART_DIRECTOR
 		staff.productionDesigner == PRODUCTION_DESIGNER
@@ -155,7 +155,7 @@ class StaffActorTemplateProcessorTest extends AbstractRealWorldActorTemplateProc
 
 		then:
 		1 * commonActorTemplateProcessorMock.processCommonFields(_ as RealWorldPerson, actorTemplate)
-		1 * guidGeneratorMock.generateFromPage(null, Staff) >> null
+		1 * uidGeneratorMock.generateFromPage(null, Staff) >> null
 		ReflectionTestUtils.getNumberOfTrueBooleanFields(staff) == 0
 	}
 

@@ -1,10 +1,10 @@
 package com.cezarykluczynski.stapi.server.common.validator.exceptions;
 
 @SuppressWarnings("AbbreviationAsWordInName")
-public class MissingGUIDException extends RuntimeException {
+public class MissingUIDException extends RuntimeException {
 
-	public MissingGUIDException() {
-		super("GUID is required");
+	public MissingUIDException() {
+		super("UID is required");
 	}
 
 }

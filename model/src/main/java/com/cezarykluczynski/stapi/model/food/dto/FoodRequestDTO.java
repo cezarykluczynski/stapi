@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 public class FoodRequestDTO {
 
-	private String guid;
+	private String uid;
 
 	private String name;
 

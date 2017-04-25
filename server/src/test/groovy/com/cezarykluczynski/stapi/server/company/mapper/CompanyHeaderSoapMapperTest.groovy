@@ -16,14 +16,14 @@ class CompanyHeaderSoapMapperTest extends AbstractCompanyMapperTest {
 	void "maps DB entity to SOAP header"() {
 		given:
 		Company company = new Company(
-				guid: GUID,
+				uid: UID,
 				name: NAME)
 
 		when:
 		CompanyHeader companyHeader = companyHeaderSoapMapper.map(Lists.newArrayList(company))[0]
 
 		then:
-		companyHeader.guid == GUID
+		companyHeader.uid == UID
 		companyHeader.name == NAME
 	}
 

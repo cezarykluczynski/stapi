@@ -14,7 +14,7 @@ import org.springframework.data.domain.Pageable
 
 class ComicSeriesRepositoryImplTest extends AbstractComicSeriesTest {
 
-	private static final String GUID = 'ABCD0123456789'
+	private static final String UID = 'ABCD0123456789'
 	private static final RequestSortDTO SORT = new RequestSortDTO()
 
 	private ComicSeriesQueryBuilderFactory comicSeriesQueryBuilderFactory
@@ -54,9 +54,9 @@ class ComicSeriesRepositoryImplTest extends AbstractComicSeriesTest {
 		then: 'criteria builder is retrieved'
 		1 * comicSeriesQueryBuilderFactory.createQueryBuilder(pageable) >> comicSeriesQueryBuilder
 
-		then: 'guid is retrieved, and it is not null'
-		1 * comicSeriesRequestDTO.guid >> GUID
-		1 * comicSeriesQueryBuilder.equal(ComicSeries_.guid, GUID)
+		then: 'uid is retrieved, and it is not null'
+		1 * comicSeriesRequestDTO.uid >> UID
+		1 * comicSeriesQueryBuilder.equal(ComicSeries_.uid, UID)
 
 		then: 'string criteria are set'
 		1 * comicSeriesRequestDTO.title >> TITLE
@@ -116,8 +116,8 @@ class ComicSeriesRepositoryImplTest extends AbstractComicSeriesTest {
 		then: 'criteria builder is retrieved'
 		1 * comicSeriesQueryBuilderFactory.createQueryBuilder(pageable) >> comicSeriesQueryBuilder
 
-		then: 'guid criteria is set to null'
-		1 * comicSeriesRequestDTO.guid >> null
+		then: 'uid criteria is set to null'
+		1 * comicSeriesRequestDTO.uid >> null
 
 		then: 'page is searched for and returned'
 		1 * comicSeriesQueryBuilder.findPage() >> page

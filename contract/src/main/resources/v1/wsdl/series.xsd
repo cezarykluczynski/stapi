@@ -31,7 +31,7 @@
 			<xs:complexContent>
 				<xs:extension base="common:ApiRequest">
 					<xs:sequence>
-						<xs:element name="guid" type="xs:string" minOccurs="1"/>
+						<xs:element name="uid" type="xs:string" minOccurs="1"/>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
@@ -57,13 +57,13 @@
 	</xs:element>
 	<xs:complexType name="SeriesHeader">
 		<xs:sequence>
-			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="uid" type="xs:string"/>
 			<xs:element name="title" type="xs:string"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="SeriesBase">
 		<xs:sequence>
-			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="uid" type="xs:string"/>
 			<xs:element name="title" type="xs:string"/>
 			<xs:element name="productionCompany" type="company:CompanyHeader"/>
 			<xs:element name="originalBroadcaster" type="company:CompanyHeader"/>
@@ -79,7 +79,7 @@
 	</xs:complexType>
 	<xs:complexType name="SeriesFull">
 		<xs:sequence>
-			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="uid" type="xs:string"/>
 			<xs:element name="title" type="xs:string"/>
 			<xs:element name="productionCompany" type="company:CompanyBase"/>
 			<xs:element name="originalBroadcaster" type="company:CompanyBase"/>

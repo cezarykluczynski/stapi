@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingP
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.location.creation.service.LocationPageFilter;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator;
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import com.cezarykluczynski.stapi.model.location.entity.Location;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.util.constant.PageTitle;
@@ -23,18 +23,18 @@ public class LocationPageProcessor implements ItemProcessor<Page, Location> {
 
 	private PageBindingService pageBindingService;
 
-	private GuidGenerator guidGenerator;
+	private UidGenerator uidGenerator;
 
 	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
 	private LocationNameFixedValueProvider locationNameFixedValueProvider;
 
 	@Inject
-	public LocationPageProcessor(LocationPageFilter locationPageFilter, PageBindingService pageBindingService, GuidGenerator guidGenerator,
+	public LocationPageProcessor(LocationPageFilter locationPageFilter, PageBindingService pageBindingService, UidGenerator uidGenerator,
 			CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor, LocationNameFixedValueProvider locationNameFixedValueProvider) {
 		this.locationPageFilter = locationPageFilter;
 		this.pageBindingService = pageBindingService;
-		this.guidGenerator = guidGenerator;
+		this.uidGenerator = uidGenerator;
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
 		this.locationNameFixedValueProvider = locationNameFixedValueProvider;
 	}
@@ -50,7 +50,7 @@ public class LocationPageProcessor implements ItemProcessor<Page, Location> {
 		location.setName(titleFixedValueHolder.isFound() ? titleFixedValueHolder.getValue() : item.getTitle());
 
 		location.setPage(pageBindingService.fromPageToPageEntity(item));
-		location.setGuid(guidGenerator.generateFromPage(location.getPage(), Location.class));
+		location.setUid(uidGenerator.generateFromPage(location.getPage(), Location.class));
 
 		List<String> categoryTitleList = categoryTitlesExtractingProcessor.process(item.getCategories());
 

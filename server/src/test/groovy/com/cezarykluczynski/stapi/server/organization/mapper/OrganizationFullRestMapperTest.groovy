@@ -20,7 +20,7 @@ class OrganizationFullRestMapperTest extends AbstractOrganizationMapperTest {
 		OrganizationFull organizationFull = organizationFullRestMapper.mapFull(dBOrganization)
 
 		then:
-		organizationFull.guid == GUID
+		organizationFull.uid == UID
 		organizationFull.name == NAME
 		organizationFull.government == GOVERNMENT
 		organizationFull.intergovernmentalOrganization == INTERGOVERNMENTAL_ORGANIZATION

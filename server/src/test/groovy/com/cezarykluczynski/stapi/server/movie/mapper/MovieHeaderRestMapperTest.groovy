@@ -16,14 +16,14 @@ class MovieHeaderRestMapperTest extends AbstractMovieMapperTest {
 	void "maps DB entity to REST header"() {
 		given:
 		Movie movie = new Movie(
-				guid: GUID,
+				uid: UID,
 				title: TITLE)
 
 		when:
 		MovieHeader movieHeader = movieHeaderRestMapper.map(Lists.newArrayList(movie))[0]
 
 		then:
-		movieHeader.guid == GUID
+		movieHeader.uid == UID
 		movieHeader.title == TITLE
 	}
 

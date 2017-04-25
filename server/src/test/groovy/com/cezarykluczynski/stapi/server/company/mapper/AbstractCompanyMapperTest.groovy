@@ -7,7 +7,7 @@ abstract class AbstractCompanyMapperTest extends AbstractCompanyTest {
 
 	protected Company createCompany() {
 		new Company(
-				guid: GUID,
+				uid: UID,
 				name: NAME,
 				broadcaster: BROADCASTER,
 				collectibleCompany: COLLECTIBLE_COMPANY,

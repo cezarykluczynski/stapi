@@ -24,7 +24,7 @@ public class StaffInitialQueryBuilderFactory implements InitialQueryBuilderFacto
 	public QueryBuilder<Staff> createInitialQueryBuilder(StaffRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<Staff> staffQueryBuilder = staffQueryBuilderFactory.createQueryBuilder(pageable);
 
-		staffQueryBuilder.equal(Staff_.guid, criteria.getGuid());
+		staffQueryBuilder.equal(Staff_.uid, criteria.getUid());
 		staffQueryBuilder.like(Staff_.name, criteria.getName());
 		staffQueryBuilder.like(Staff_.birthName, criteria.getBirthName());
 		staffQueryBuilder.like(Staff_.placeOfBirth, criteria.getPlaceOfBirth());

@@ -1,6 +1,6 @@
 type: object
 properties:
-  guid:
+  uid:
     type: string
   mainDirector:
     $ref: ./staff/entity/staffBase.yaml

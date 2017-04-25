@@ -18,7 +18,7 @@ class SeriesBaseRestMapperTest extends AbstractSeriesMapperTest {
 	void "maps SeriesRestBeanParams to SeriesRequestDTO"() {
 		given:
 		SeriesRestBeanParams seriesRestBeanParams = new SeriesRestBeanParams(
-				guid: GUID,
+				uid: UID,
 				title: TITLE,
 				abbreviation: ABBREVIATION,
 				productionStartYearFrom: PRODUCTION_START_YEAR_FROM,
@@ -34,7 +34,7 @@ class SeriesBaseRestMapperTest extends AbstractSeriesMapperTest {
 		SeriesRequestDTO seriesRequestDTO = seriesBaseRestMapper.mapBase seriesRestBeanParams
 
 		then:
-		seriesRequestDTO.guid == GUID
+		seriesRequestDTO.uid == UID
 		seriesRequestDTO.title == TITLE
 		seriesRequestDTO.abbreviation == ABBREVIATION
 		seriesRequestDTO.productionStartYearFrom == PRODUCTION_START_YEAR_FROM
@@ -55,7 +55,7 @@ class SeriesBaseRestMapperTest extends AbstractSeriesMapperTest {
 		SeriesBase seriesBase = seriesBaseRestMapper.mapBase(Lists.newArrayList(series))[0]
 
 		then:
-		seriesBase.guid == GUID
+		seriesBase.uid == UID
 		seriesBase.title == TITLE
 		seriesBase.abbreviation == ABBREVIATION
 		seriesBase.productionStartYear == PRODUCTION_START_YEAR

@@ -18,14 +18,14 @@ class PerformerHeaderRestMapperTest extends AbstractRealWorldPersonMapperTest {
 		given:
 		Performer performer = new Performer(
 				name: NAME,
-				guid: GUID)
+				uid: UID)
 
 		when:
 		PerformerHeader performerHeader = performerHeaderRestMapper.map(Lists.newArrayList(performer))[0]
 
 		then:
 		performerHeader.name == NAME
-		performerHeader.guid == GUID
+		performerHeader.uid == UID
 	}
 
 }

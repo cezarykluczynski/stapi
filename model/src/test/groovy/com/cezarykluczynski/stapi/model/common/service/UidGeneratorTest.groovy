@@ -17,7 +17,7 @@ import spock.lang.Unroll
 
 import javax.persistence.EntityManager
 
-class GuidGeneratorTest extends Specification {
+class UidGeneratorTest extends Specification {
 
 	@SuppressWarnings('GetterMethodCouldBeProperty')
 	static class NotTrackedPageAware implements PageAware {
@@ -32,19 +32,19 @@ class GuidGeneratorTest extends Specification {
 		}
 
 		@Override
-		String getGuid() {
+		String getUid() {
 			null
 		}
 
 		@Override
-		void setGuid(String guid) {
+		void setUid(String uid) {
 		}
 
 	}
 
 	private EntityManager entityManagerMock
 
-	private GuidGenerator guidGenerator
+	private UidGenerator uidGenerator
 
 	private Map<String, ClassMetadata> classMetadataMap
 
@@ -70,16 +70,16 @@ class GuidGeneratorTest extends Specification {
 		entityManagerMock = Mock()
 		entityManagerMock.delegate >> session
 
-		guidGenerator = new GuidGenerator(entityManagerMock)
+		uidGenerator = new UidGenerator(entityManagerMock)
 	}
 
-	@Unroll('when #page and #clazz is passed, #guid is generated')
-	void "when Page entity and it's base class is passed, valid GUID is generated"() {
+	@Unroll('when #page and #clazz is passed, #uid is generated')
+	void "when Page entity and it's base class is passed, valid UID is generated"() {
 		expect:
-		guid == guidGenerator.generateFromPage(page, clazz)
+		uid == uidGenerator.generateFromPage(page, clazz)
 
 		where:
-		guid             | page                                                                        | clazz
+		uid             | page                                                                        | clazz
 		'CHMA0000000012' | new Page(pageId: 12L, mediaWikiSource: MediaWikiSource.MEMORY_ALPHA_EN)     | Character
 		'SEMA0000023421' | new Page(pageId: 23421L, mediaWikiSource: MediaWikiSource.MEMORY_ALPHA_EN)  | Series
 		'CHMB0000000876' | new Page(pageId: 876L, mediaWikiSource: MediaWikiSource.MEMORY_BETA_EN)     | Character
@@ -89,16 +89,16 @@ class GuidGeneratorTest extends Specification {
 
 	void "throws exception when there is no mappings available for given class"() {
 		when:
-		guidGenerator.generateFromPage(new Page(pageId: 1L), NotTrackedPageAware)
+		uidGenerator.generateFromPage(new Page(pageId: 1L), NotTrackedPageAware)
 
 		then:
 		RuntimeException runtimeException = thrown(RuntimeException)
-		runtimeException.message == 'No class metadata for entity com.cezarykluczynski.stapi.model.common.service.GuidGeneratorTest.NotTrackedPageAware.'
+		runtimeException.message == 'No class metadata for entity com.cezarykluczynski.stapi.model.common.service.UidGeneratorTest.NotTrackedPageAware.'
 	}
 
 	void "throws exception when page is null"() {
 		when:
-		guidGenerator.generateFromPage(null, Character)
+		uidGenerator.generateFromPage(null, Character)
 
 		then:
 		thrown(NullPointerException)
@@ -106,7 +106,7 @@ class GuidGeneratorTest extends Specification {
 
 	void "throws exception when page ID is null"() {
 		when:
-		guidGenerator.generateFromPage(new Page(), Character)
+		uidGenerator.generateFromPage(new Page(), Character)
 
 		then:
 		thrown(NullPointerException)
@@ -114,11 +114,11 @@ class GuidGeneratorTest extends Specification {
 
 	void "throws exception when page ID is too large"() {
 		when:
-		guidGenerator.generateFromPage(new Page(pageId: GuidGenerator.MAX_PAGE_ID + 1), Character)
+		uidGenerator.generateFromPage(new Page(pageId: UidGenerator.MAX_PAGE_ID + 1), Character)
 
 		then:
 		RuntimeException runtimeException = thrown(RuntimeException)
-		runtimeException.message == "Page ID ${GuidGenerator.MAX_PAGE_ID + 1} is greater than allowed, cannot guarantee GUID uniqueness.".toString()
+		runtimeException.message == "Page ID ${UidGenerator.MAX_PAGE_ID + 1} is greater than allowed, cannot guarantee UID uniqueness.".toString()
 	}
 
 	void "throws exception when entities can no longer be mapped to unique symbols"() {
@@ -128,7 +128,7 @@ class GuidGeneratorTest extends Specification {
 		classMetadataMap.put('java.lang.CharSequence', classMetadata)
 
 		when:
-		guidGenerator = new GuidGenerator(entityManagerMock)
+		uidGenerator = new UidGenerator(entityManagerMock)
 
 		then:
 		RuntimeException runtimeException = thrown(RuntimeException)
@@ -136,9 +136,9 @@ class GuidGeneratorTest extends Specification {
 	}
 
 	@Unroll('when pair of #referenceType and #referenceNumber if passed, #result is returned')
-	void "when pair of ReferenceType and reference number is passed, it is converted to guid"() {
+	void "when pair of ReferenceType and reference number is passed, it is converted to uid"() {
 		expect:
-		result == guidGenerator.generateFromReference(Pair.of(referenceType, referenceNumber))
+		result == uidGenerator.generateFromReference(Pair.of(referenceType, referenceNumber))
 
 		where:
 		referenceType      | referenceNumber     | result

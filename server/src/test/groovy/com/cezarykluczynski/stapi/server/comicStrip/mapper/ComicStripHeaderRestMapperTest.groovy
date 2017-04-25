@@ -16,14 +16,14 @@ class ComicStripHeaderRestMapperTest extends AbstractComicStripMapperTest {
 	void "maps DB entity to REST header"() {
 		given:
 		ComicStrip comicStrip = new ComicStrip(
-				guid: GUID,
+				uid: UID,
 				title: TITLE)
 
 		when:
 		ComicStripHeader comicStripHeader = comicStripHeaderRestMapper.map(Lists.newArrayList(comicStrip))[0]
 
 		then:
-		comicStripHeader.guid == GUID
+		comicStripHeader.uid == UID
 		comicStripHeader.title == TITLE
 	}
 

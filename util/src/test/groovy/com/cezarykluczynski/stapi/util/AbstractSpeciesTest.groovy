@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.util.tool.LogicUtil
 abstract class AbstractSpeciesTest extends AbstractTest {
 
 	protected static final String NAME = 'NAME'
-	protected static final String GUID = 'GUID'
+	protected static final String UID = 'UID'
 	protected static final Boolean EXTINCT_SPECIES = LogicUtil.nextBoolean()
 	protected static final Boolean WARP_CAPABLE_SPECIES = LogicUtil.nextBoolean()
 	protected static final Boolean EXTRA_GALACTIC_SPECIES = LogicUtil.nextBoolean()

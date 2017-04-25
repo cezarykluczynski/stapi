@@ -59,7 +59,7 @@ class OrganizationBaseSoapMapperTest extends AbstractOrganizationMapperTest {
 		OrganizationBase organizationBase = organizationBaseSoapMapper.mapBase(Lists.newArrayList(organization))[0]
 
 		then:
-		organizationBase.guid == GUID
+		organizationBase.uid == UID
 		organizationBase.name == NAME
 		organizationBase.government == GOVERNMENT
 		organizationBase.intergovernmentalOrganization == INTERGOVERNMENTAL_ORGANIZATION

@@ -47,10 +47,10 @@ public class SpeciesRestReader implements BaseReader<SpeciesRestBeanParams, Spec
 	}
 
 	@Override
-	public SpeciesFullResponse readFull(String guid) {
-		StaticValidator.requireGuid(guid);
+	public SpeciesFullResponse readFull(String uid) {
+		StaticValidator.requireUid(uid);
 		SpeciesRestBeanParams speciesRestBeanParams = new SpeciesRestBeanParams();
-		speciesRestBeanParams.setGuid(guid);
+		speciesRestBeanParams.setUid(uid);
 		Page<Species> speciesPage = speciesRestQuery.query(speciesRestBeanParams);
 		SpeciesFullResponse speciesResponse = new SpeciesFullResponse();
 		speciesResponse.setSpecies(speciesFullRestMapper.mapFull(Iterables.getOnlyElement(speciesPage.getContent(), null)));

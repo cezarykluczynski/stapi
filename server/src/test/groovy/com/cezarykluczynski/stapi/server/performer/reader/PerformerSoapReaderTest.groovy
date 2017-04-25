@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.PerformerFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseSoapMapper
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerFullSoapMapper
 import com.cezarykluczynski.stapi.server.performer.query.PerformerSoapQuery
@@ -19,7 +19,7 @@ import spock.lang.Specification
 
 class PerformerSoapReaderTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private PerformerSoapQuery performerSoapQueryBuilderMock
 
@@ -44,7 +44,7 @@ class PerformerSoapReaderTest extends Specification {
 		given:
 		List<Performer> performerList = Lists.newArrayList()
 		Page<Performer> performerPage = Mock()
-		List<PerformerBase> soapPerformerList = Lists.newArrayList(new PerformerBase(guid: GUID))
+		List<PerformerBase> soapPerformerList = Lists.newArrayList(new PerformerBase(uid: UID))
 		PerformerBaseRequest performerBaseRequest = Mock()
 		ResponsePage responsePage = Mock()
 
@@ -56,16 +56,16 @@ class PerformerSoapReaderTest extends Specification {
 		1 * performerPage.content >> performerList
 		1 * pageMapperMock.fromPageToSoapResponsePage(performerPage) >> responsePage
 		1 * performerBaseSoapMapperMock.mapBase(performerList) >> soapPerformerList
-		performerResponse.performers[0].guid == GUID
+		performerResponse.performers[0].uid == UID
 		performerResponse.page == responsePage
 	}
 
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		PerformerFull performerFull = new PerformerFull(guid: GUID)
+		PerformerFull performerFull = new PerformerFull(uid: UID)
 		Performer performer = Mock()
 		Page<Performer> performerPage = Mock()
-		PerformerFullRequest performerFullRequest = new PerformerFullRequest(guid: GUID)
+		PerformerFullRequest performerFullRequest = new PerformerFullRequest(uid: UID)
 
 		when:
 		PerformerFullResponse performerFullResponse = performerSoapReader.readFull(performerFullRequest)
@@ -74,10 +74,10 @@ class PerformerSoapReaderTest extends Specification {
 		1 * performerSoapQueryBuilderMock.query(performerFullRequest) >> performerPage
 		1 * performerPage.content >> Lists.newArrayList(performer)
 		1 * performerFullSoapMapperMock.mapFull(performer) >> performerFull
-		performerFullResponse.performer.guid == GUID
+		performerFullResponse.performer.uid == UID
 	}
 
-	void "requires GUID in full request"() {
+	void "requires UID in full request"() {
 		given:
 		PerformerFullRequest performerFullRequest = Mock()
 
@@ -85,7 +85,7 @@ class PerformerSoapReaderTest extends Specification {
 		performerSoapReader.readFull(performerFullRequest)
 
 		then:
-		thrown(MissingGUIDException)
+		thrown(MissingUIDException)
 	}
 
 }

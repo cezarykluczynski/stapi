@@ -11,14 +11,14 @@ import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionB
 import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionFullRestMapper
 import com.cezarykluczynski.stapi.server.comicCollection.query.ComicCollectionRestQuery
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
 import spock.lang.Specification
 
 class ComicCollectionRestReaderTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private ComicCollectionRestQuery comicCollectionRestQueryBuilderMock
 
@@ -62,7 +62,7 @@ class ComicCollectionRestReaderTest extends Specification {
 		comicCollectionResponseOutput.page == responsePage
 	}
 
-	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
+	void "passed UID to queryBuilder, then to mapper, and returns result"() {
 		given:
 		ComicCollectionFull comicCollectionFull = Mock()
 		ComicCollection comicCollection = Mock()
@@ -70,12 +70,12 @@ class ComicCollectionRestReaderTest extends Specification {
 		Page<ComicCollection> comicCollectionPage = Mock()
 
 		when:
-		ComicCollectionFullResponse comicCollectionResponseOutput = comicCollectionRestReader.readFull(GUID)
+		ComicCollectionFullResponse comicCollectionResponseOutput = comicCollectionRestReader.readFull(UID)
 
 		then:
 		1 * comicCollectionRestQueryBuilderMock.query(_ as ComicCollectionRestBeanParams) >> {
 				ComicCollectionRestBeanParams comicCollectionRestBeanParams ->
-			assert comicCollectionRestBeanParams.guid == GUID
+			assert comicCollectionRestBeanParams.uid == UID
 			comicCollectionPage
 		}
 		1 * comicCollectionPage.content >> comicCollectionList
@@ -84,12 +84,12 @@ class ComicCollectionRestReaderTest extends Specification {
 		comicCollectionResponseOutput.comicCollection == comicCollectionFull
 	}
 
-	void "requires GUID in full request"() {
+	void "requires UID in full request"() {
 		when:
 		comicCollectionRestReader.readFull(null)
 
 		then:
-		thrown(MissingGUIDException)
+		thrown(MissingUIDException)
 	}
 
 }

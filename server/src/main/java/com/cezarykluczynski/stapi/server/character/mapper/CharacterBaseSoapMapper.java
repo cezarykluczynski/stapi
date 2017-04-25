@@ -19,7 +19,7 @@ import java.util.List;
 		MovieHeaderSoapMapper.class, PerformerBaseSoapMapper.class, RequestSortSoapMapper.class})
 public interface CharacterBaseSoapMapper {
 
-	@Mapping(target = "guid", ignore = true)
+	@Mapping(target = "uid", ignore = true)
 	CharacterRequestDTO mapBase(CharacterBaseRequest characterRequest);
 
 	CharacterBase mapBase(Character character);

@@ -20,7 +20,7 @@ class EpisodeFullRestMapperTest extends AbstractEpisodeMapperTest {
 		EpisodeFull episodeFull = episodeFullRestMapper.mapFull(episode)
 
 		then:
-		episodeFull.guid == GUID
+		episodeFull.uid == UID
 		episodeFull.series != null
 		episodeFull.title == TITLE
 		episodeFull.titleGerman == TITLE_GERMAN

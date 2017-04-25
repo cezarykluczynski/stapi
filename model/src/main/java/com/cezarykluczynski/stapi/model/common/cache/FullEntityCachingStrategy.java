@@ -11,7 +11,7 @@ import java.util.Map;
 @Slf4j
 public class FullEntityCachingStrategy implements CachingStrategy {
 
-	private static final String GUID = "guid";
+	private static final String UID = "uid";
 
 	public boolean isCacheable(QueryBuilder queryBuilder) {
 		RootImpl root = (RootImpl) queryBuilder.getBaseCriteriaQuery().getSelection();
@@ -32,7 +32,7 @@ public class FullEntityCachingStrategy implements CachingStrategy {
 
 		return pathMap.entrySet()
 				.stream()
-				.anyMatch(stringPathEntry -> GUID.equals(stringPathEntry.getKey()));
+				.anyMatch(stringPathEntry -> UID.equals(stringPathEntry.getKey()));
 	}
 
 }

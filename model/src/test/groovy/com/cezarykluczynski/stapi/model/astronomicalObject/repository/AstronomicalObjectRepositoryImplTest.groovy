@@ -52,17 +52,17 @@ class AstronomicalObjectRepositoryImplTest extends AbstractAstronomicalObjectTes
 		then:
 		1 * astronomicalObjectQueryBuilderMock.createQueryBuilder(pageable) >> astronomicalObjectQueryBuilder
 
-		then: 'guid criteria is set'
-		1 * astronomicalObjectRequestDTO.guid >> GUID
-		1 * astronomicalObjectQueryBuilder.equal(AstronomicalObject_.guid, GUID)
+		then: 'uid criteria is set'
+		1 * astronomicalObjectRequestDTO.uid >> UID
+		1 * astronomicalObjectQueryBuilder.equal(AstronomicalObject_.uid, UID)
 
 		then: 'string criteria are set'
 		1 * astronomicalObjectRequestDTO.name >> NAME
 		1 * astronomicalObjectQueryBuilder.like(AstronomicalObject_.name, NAME)
 
 		then: 'property join criteria are set'
-		1 * astronomicalObjectRequestDTO.locationGuid >> LOCATION_GUID
-		1 * astronomicalObjectQueryBuilder.joinPropertyEqual(AstronomicalObject_.location, 'guid', LOCATION_GUID)
+		1 * astronomicalObjectRequestDTO.locationUid >> LOCATION_UID
+		1 * astronomicalObjectQueryBuilder.joinPropertyEqual(AstronomicalObject_.location, 'uid', LOCATION_UID)
 
 		then: 'enum criteria is set'
 		1 * astronomicalObjectRequestDTO.astronomicalObjectType >> ASTRONOMICAL_OBJECT_TYPE

@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.comicStrip.creation.processor;
 
 import com.cezarykluczynski.stapi.etl.template.comicStrip.dto.ComicStripTemplate;
 import com.cezarykluczynski.stapi.model.comicStrip.entity.ComicStrip;
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator;
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
@@ -11,18 +11,18 @@ import javax.inject.Inject;
 @Service
 public class ComicStripTemplateProcessor implements ItemProcessor<ComicStripTemplate, ComicStrip> {
 
-	private GuidGenerator guidGenerator;
+	private UidGenerator uidGenerator;
 
 	@Inject
-	public ComicStripTemplateProcessor(GuidGenerator guidGenerator) {
-		this.guidGenerator = guidGenerator;
+	public ComicStripTemplateProcessor(UidGenerator uidGenerator) {
+		this.uidGenerator = uidGenerator;
 	}
 
 	@Override
 	public ComicStrip process(ComicStripTemplate item) throws Exception {
 		ComicStrip comicStrip = new ComicStrip();
 
-		comicStrip.setGuid(guidGenerator.generateFromPage(item.getPage(), ComicStrip.class));
+		comicStrip.setUid(uidGenerator.generateFromPage(item.getPage(), ComicStrip.class));
 		comicStrip.setPage(item.getPage());
 		comicStrip.setTitle(item.getTitle());
 		comicStrip.setPeriodical(item.getPeriodical());

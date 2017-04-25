@@ -18,10 +18,10 @@ class OrganizationSoapEndpointIntegrationTest extends AbstractEndpointIntegratio
 		createSoapClient()
 	}
 
-	void "gets organization by GUID"() {
+	void "gets organization by UID"() {
 		when:
 		OrganizationFullResponse organizationFullResponse = stapiSoapClient.organizationPortType.getOrganizationFull(new OrganizationFullRequest(
-				guid: 'ORMA0000102839'
+				uid: 'ORMA0000102839'
 		))
 
 		then:

@@ -9,7 +9,7 @@ import java.time.LocalDate
 
 abstract class AbstractRealWorldPersonTest extends AbstractTest {
 
-	protected static final String GUID = 'ABCD0123456789'
+	protected static final String UID = 'ABCD0123456789'
 	protected static final String NAME = 'NAME'
 	protected static final String BIRTH_NAME = 'BIRTH_NAME'
 	protected static final String PLACE_OF_BIRTH = 'PLACE_OF_BIRTH'

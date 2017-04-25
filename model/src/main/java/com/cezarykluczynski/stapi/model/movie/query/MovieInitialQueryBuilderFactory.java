@@ -24,7 +24,7 @@ public class MovieInitialQueryBuilderFactory implements InitialQueryBuilderFacto
 	public QueryBuilder<Movie> createInitialQueryBuilder(MovieRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<Movie> movieQueryBuilder = movieQueryBuilderFactory.createQueryBuilder(pageable);
 
-		movieQueryBuilder.equal(Movie_.guid, criteria.getGuid());
+		movieQueryBuilder.equal(Movie_.uid, criteria.getUid());
 		movieQueryBuilder.like(Movie_.title, criteria.getTitle());
 		movieQueryBuilder.between(Movie_.yearFrom, criteria.getYearFrom(), null);
 		movieQueryBuilder.between(Movie_.yearTo, null, criteria.getYearTo());

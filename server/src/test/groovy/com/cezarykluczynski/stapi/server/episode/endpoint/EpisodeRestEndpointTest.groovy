@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.server.episode.reader.EpisodeRestReader
 
 class EpisodeRestEndpointTest extends AbstractRestEndpointTest {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 	private static final String TITLE = 'TITLE'
 
 	private EpisodeRestReader episodeRestReaderMock
@@ -26,10 +26,10 @@ class EpisodeRestEndpointTest extends AbstractRestEndpointTest {
 		EpisodeFullResponse episodeFullResponse = Mock()
 
 		when:
-		EpisodeFullResponse episodeFullResponseOutput = episodeRestEndpoint.getEpisode(GUID)
+		EpisodeFullResponse episodeFullResponseOutput = episodeRestEndpoint.getEpisode(UID)
 
 		then:
-		1 * episodeRestReaderMock.readFull(GUID) >> episodeFullResponse
+		1 * episodeRestReaderMock.readFull(UID) >> episodeFullResponse
 		episodeFullResponseOutput == episodeFullResponse
 	}
 
