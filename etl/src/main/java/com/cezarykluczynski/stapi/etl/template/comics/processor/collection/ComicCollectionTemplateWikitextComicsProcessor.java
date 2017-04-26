@@ -86,7 +86,7 @@ public class ComicCollectionTemplateWikitextComicsProcessor implements ItemProce
 	private Set<Comics> extractComics(List<WikitextList> wikitextListList) {
 		Set<Comics> comicsSet = Sets.newHashSet();
 
-		flattenWikitextListList(wikitextListList).forEach(wikitextList -> {
+		wikitextListsExtractor.flattenWikitextListList(wikitextListList).forEach(wikitextList -> {
 			List<String> lines = extractLines(wikitextList.getText());
 
 			lines.forEach(line -> {
@@ -103,17 +103,6 @@ public class ComicCollectionTemplateWikitextComicsProcessor implements ItemProce
 		});
 
 		return comicsSet;
-	}
-
-	private List<WikitextList> flattenWikitextListList(List<WikitextList> wikitextListList) {
-		List<WikitextList> flattenWikitextListList = Lists.newArrayList();
-
-		wikitextListList.forEach(wikitextList -> {
-			flattenWikitextListList.add(wikitextList);
-			flattenWikitextListList.addAll(flattenWikitextListList(wikitextList.getChildren()));
-		});
-
-		return flattenWikitextListList;
 	}
 
 	private List<String> extractLines(String wikitext) {

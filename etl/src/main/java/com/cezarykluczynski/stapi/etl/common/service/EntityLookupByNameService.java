@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.common.service;
 
 import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject;
+import com.cezarykluczynski.stapi.model.book.entity.Book;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
@@ -46,6 +47,10 @@ public class EntityLookupByNameService {
 
 	public Optional<Species> findSpeciesByName(String speciesName, MediaWikiSource mediaWikiSource) {
 		return genericEntityLookupByNameService.findEntityByName(speciesName, mediaWikiSource, Species.class);
+	}
+
+	public Optional<Book> findBookByName(String speciesName, MediaWikiSource mediaWikiSource) {
+		return genericEntityLookupByNameService.findEntityByName(speciesName, mediaWikiSource, Book.class);
 	}
 
 }

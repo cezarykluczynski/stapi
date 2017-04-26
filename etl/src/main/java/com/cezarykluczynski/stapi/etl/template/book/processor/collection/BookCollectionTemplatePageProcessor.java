@@ -16,15 +16,15 @@ public class BookCollectionTemplatePageProcessor implements ItemProcessor<Page, 
 
 	private final BookTemplateToBookCollectionTemplateProcessor bookTemplateToComicCollectionTemplateProcessor;
 
-	private final BookCollectionTemplateWikitextBookProcessor bookCollectionTemplateWikitextBookProcessor;
+	private final BookCollectionTemplateWikitextBooksProcessor bookCollectionTemplateWikitextBooksProcessor;
 
 	@Inject
 	public BookCollectionTemplatePageProcessor(BookTemplatePageProcessor bookTemplatePageProcessor,
 			BookTemplateToBookCollectionTemplateProcessor bookTemplateToComicCollectionTemplateProcessor,
-			BookCollectionTemplateWikitextBookProcessor bookCollectionTemplateWikitextBookProcessor) {
+			BookCollectionTemplateWikitextBooksProcessor bookCollectionTemplateWikitextBooksProcessor) {
 		this.bookTemplatePageProcessor = bookTemplatePageProcessor;
 		this.bookTemplateToComicCollectionTemplateProcessor = bookTemplateToComicCollectionTemplateProcessor;
-		this.bookCollectionTemplateWikitextBookProcessor = bookCollectionTemplateWikitextBookProcessor;
+		this.bookCollectionTemplateWikitextBooksProcessor = bookCollectionTemplateWikitextBooksProcessor;
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class BookCollectionTemplatePageProcessor implements ItemProcessor<Page, 
 		}
 
 		BookCollectionTemplate bookCollectionTemplate = bookTemplateToComicCollectionTemplateProcessor.process(bookTemplate);
-		bookCollectionTemplate.getBooks().addAll(bookCollectionTemplateWikitextBookProcessor.process(item));
+		bookCollectionTemplate.getBooks().addAll(bookCollectionTemplateWikitextBooksProcessor.process(item));
 
 		return bookCollectionTemplate;
 	}

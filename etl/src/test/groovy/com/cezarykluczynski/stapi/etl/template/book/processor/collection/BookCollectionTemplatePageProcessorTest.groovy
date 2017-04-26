@@ -14,16 +14,16 @@ class BookCollectionTemplatePageProcessorTest extends Specification {
 
 	private BookTemplateToBookCollectionTemplateProcessor bookTemplateToBookCollectionTemplateProcessorMock
 
-	private BookCollectionTemplateWikitextBookProcessor bookCollectionTemplateWikitextBookProcessorMock
+	private BookCollectionTemplateWikitextBooksProcessor bookCollectionTemplateWikitextBooksProcessorMock
 
 	private BookCollectionTemplatePageProcessor bookCollectionTemplatePageProcessor
 
 	void setup() {
 		bookTemplatePageProcessorMock = Mock()
 		bookTemplateToBookCollectionTemplateProcessorMock = Mock()
-		bookCollectionTemplateWikitextBookProcessorMock = Mock()
+		bookCollectionTemplateWikitextBooksProcessorMock = Mock()
 		bookCollectionTemplatePageProcessor = new BookCollectionTemplatePageProcessor(bookTemplatePageProcessorMock,
-				bookTemplateToBookCollectionTemplateProcessorMock, bookCollectionTemplateWikitextBookProcessorMock)
+				bookTemplateToBookCollectionTemplateProcessorMock, bookCollectionTemplateWikitextBooksProcessorMock)
 	}
 
 	void "returns null when BookTemplatePageProcessor returns null"() {
@@ -53,7 +53,7 @@ class BookCollectionTemplatePageProcessorTest extends Specification {
 		then:
 		1 * bookTemplatePageProcessorMock.process(page) >> bookTemplate
 		1 * bookTemplateToBookCollectionTemplateProcessorMock.process(bookTemplate) >> bookCollectionTemplate
-		1 * bookCollectionTemplateWikitextBookProcessorMock.process(page) >> Sets.newHashSet(book1, book2)
+		1 * bookCollectionTemplateWikitextBooksProcessorMock.process(page) >> Sets.newHashSet(book1, book2)
 		0 * _
 		bookCollectionTemplateOutput == bookCollectionTemplate
 		bookCollectionTemplateOutput.books.size() == 2

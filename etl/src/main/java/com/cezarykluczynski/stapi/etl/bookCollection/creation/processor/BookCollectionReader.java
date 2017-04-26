@@ -11,7 +11,7 @@ public class BookCollectionReader extends ListItemReader<PageHeader> {
 
 	public BookCollectionReader(List<PageHeader> list) {
 		super(list);
-		log.info("Initial size of comic collection list: {}", list.size());
+		log.info("Initial size of book collection list: {}", list.size());
 	}
 
 }

@@ -1,10 +1,17 @@
 package com.cezarykluczynski.stapi.etl.common.service
 
 import com.cezarykluczynski.stapi.etl.common.dto.WikitextList
+import com.google.common.collect.Lists
 import spock.lang.Specification
 
 class WikitextListsExtractorTest extends Specification {
 
+	private static final String WIKITEXT_1 = 'WIKITEXT_1'
+	private static final String WIKITEXT_2 = 'WIKITEXT_2'
+	private static final String WIKITEXT_3 = 'WIKITEXT_3'
+	private static final String WIKITEXT_4 = 'WIKITEXT_4'
+	private static final String WIKITEXT_5 = 'WIKITEXT_5'
+	private static final String WIKITEXT_6 = 'WIKITEXT_6'
 	private static final String LIST_WIKITEXT = '''
 * Writers:
 ** [[Mike Johnson]]
@@ -109,6 +116,26 @@ class WikitextListsExtractorTest extends Specification {
 
 		then:
 		wikitextListList.empty
+	}
+
+	void "flattens page section lists"() {
+		WikitextList wikitextListChild2 = new WikitextList(text: WIKITEXT_3)
+		WikitextList wikitextListChild1 = new WikitextList(text: WIKITEXT_2, children: Lists.newArrayList(wikitextListChild2))
+		WikitextList wikitextList = new WikitextList(text: WIKITEXT_1, children: Lists.newArrayList(wikitextListChild1))
+		WikitextList wikitextList2Child2 = new WikitextList(text: WIKITEXT_6)
+		WikitextList wikitextList2Child1 = new WikitextList(text: WIKITEXT_5, children: Lists.newArrayList(wikitextList2Child2))
+		WikitextList wikitextList2 = new WikitextList(text: WIKITEXT_4, children: Lists.newArrayList(wikitextList2Child1))
+
+		when:
+		List<WikitextList> wikitextListList = wikitextListsExtractor.flattenWikitextListList(Lists.newArrayList(wikitextList, wikitextList2))
+
+		then:
+		wikitextListList[0] == wikitextList
+		wikitextListList[1] == wikitextListChild1
+		wikitextListList[2] == wikitextListChild2
+		wikitextListList[3] == wikitextList2
+		wikitextListList[4] == wikitextList2Child1
+		wikitextListList[5] == wikitextList2Child2
 	}
 
 }
