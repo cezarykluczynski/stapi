@@ -22,7 +22,7 @@ public class PageAwareEntity {
 	@JoinColumn(name = "page_id")
 	private Page page;
 
-	@Column(length = 14)
+	@Column(length = 14, name = "u_id")
 	private String uid;
 
 }

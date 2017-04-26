@@ -2,7 +2,7 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
-	<changeSet id="0018_create_throttle" author="cezarykluczynski">
+	<changeSet id="0019_create_throttle" author="cezarykluczynski">
 		<createTable tableName="throttle">
 			<column name="id" type="bigint">
 				<constraints unique="true" nullable="false"/>

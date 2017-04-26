@@ -65,7 +65,7 @@ public class BookCollection extends PageAwareEntity implements PageAware {
 	private Integer yearTo;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "book_collection_series",
+	@JoinTable(name = "book_collections_series",
 			joinColumns = @JoinColumn(name = "book_collection_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "book_series_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
