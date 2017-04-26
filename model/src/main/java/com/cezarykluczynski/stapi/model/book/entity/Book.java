@@ -145,7 +145,7 @@ public class Book extends PageAwareEntity implements PageAware {
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "books_characters",
-			joinColumns = @JoinColumn(name = "comics_id", nullable = false, updatable = false),
+			joinColumns = @JoinColumn(name = "book_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "character_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Character> characters = Sets.newHashSet();

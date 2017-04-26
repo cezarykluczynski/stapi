@@ -37,6 +37,7 @@ public class BookCollectionTemplatePageProcessor implements ItemProcessor<Page, 
 
 		BookCollectionTemplate bookCollectionTemplate = bookTemplateToComicCollectionTemplateProcessor.process(bookTemplate);
 		bookCollectionTemplate.getBooks().addAll(bookCollectionTemplateWikitextBooksProcessor.process(item));
+		bookCollectionTemplate.getBooks().forEach(book -> bookCollectionTemplate.getCharacters().addAll(book.getCharacters()));
 
 		return bookCollectionTemplate;
 	}
