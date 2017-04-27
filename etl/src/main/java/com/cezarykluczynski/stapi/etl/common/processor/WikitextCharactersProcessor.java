@@ -1,15 +1,14 @@
-package com.cezarykluczynski.stapi.etl.template.comicStrip.processor;
+package com.cezarykluczynski.stapi.etl.common.processor;
 
-import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService;
 import com.cezarykluczynski.stapi.etl.common.service.PageSectionExtractor;
-import com.cezarykluczynski.stapi.etl.template.comicStrip.dto.ComicStripTemplate;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
+import com.google.common.collect.Sets;
+import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -17,7 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class ComicStripTemplateCharactersEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Page, ComicStripTemplate>> {
+public class WikitextCharactersProcessor implements ItemProcessor<Page, Set<Character>> {
 
 	private static final String CHARACTERS = "Characters";
 	private static final String REGULAR_CAST = "Regular Cast";
@@ -29,7 +28,7 @@ public class ComicStripTemplateCharactersEnrichingProcessor implements ItemEnric
 	private EntityLookupByNameService entityLookupByNameService;
 
 	@Inject
-	public ComicStripTemplateCharactersEnrichingProcessor(PageSectionExtractor pageSectionExtractor, WikitextApi wikitextApi,
+	public WikitextCharactersProcessor(PageSectionExtractor pageSectionExtractor, WikitextApi wikitextApi,
 			EntityLookupByNameService entityLookupByNameService) {
 		this.pageSectionExtractor = pageSectionExtractor;
 		this.wikitextApi = wikitextApi;
@@ -37,10 +36,8 @@ public class ComicStripTemplateCharactersEnrichingProcessor implements ItemEnric
 	}
 
 	@Override
-	public void enrich(EnrichablePair<Page, ComicStripTemplate> enrichablePair) throws Exception {
-		Page page = enrichablePair.getInput();
-		ComicStripTemplate comicStripTemplate = enrichablePair.getOutput();
-		Set<Character> characters = comicStripTemplate.getCharacters();
+	public Set<Character> process(Page page) throws Exception {
+		Set<Character> characters = Sets.newHashSet();
 
 		List<PageSection> charactersPageSectionList = pageSectionExtractor.findByTitlesIncludingSubsections(page, CHARACTERS, REGULAR_CAST);
 
@@ -48,9 +45,11 @@ public class ComicStripTemplateCharactersEnrichingProcessor implements ItemEnric
 			List<String> pageTitleList = wikitextApi.getPageTitlesFromWikitext(wikitextList.getWikitext());
 
 			pageTitleList.forEach(pageTitle -> entityLookupByNameService
-						.findCharacterByName(pageTitle, MediaWikiSource.MEMORY_ALPHA_EN)
-						.ifPresent(characters::add));
+					.findCharacterByName(pageTitle, MediaWikiSource.MEMORY_ALPHA_EN)
+					.ifPresent(characters::add));
 		});
+
+		return characters;
 	}
 
 }

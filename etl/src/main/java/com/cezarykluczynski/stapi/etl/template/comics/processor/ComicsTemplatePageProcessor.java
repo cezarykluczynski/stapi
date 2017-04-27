@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.comics.processor;
 import com.cezarykluczynski.stapi.etl.comicStrip.creation.service.ComicStripCandidatePageGatheringService;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextCharactersProcessor;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
@@ -42,17 +43,20 @@ public class ComicsTemplatePageProcessor implements ItemProcessor<Page, ComicsTe
 
 	private ComicsTemplatePartsEnrichingProcessor comicsTemplatePartsEnrichingProcessor;
 
+	private WikitextCharactersProcessor wikitextCharactersProcessor;
+
 	@Inject
 	public ComicsTemplatePageProcessor(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor,
 			ComicStripCandidatePageGatheringService comicStripCandidatePageGatheringService, PageBindingService pageBindingService,
 			TemplateFinder templateFinder, ComicsTemplateCompositeEnrichingProcessor comicsTemplateCompositeEnrichingProcessor,
-			ComicsTemplatePartsEnrichingProcessor comicsTemplatePartsEnrichingProcessor) {
+			ComicsTemplatePartsEnrichingProcessor comicsTemplatePartsEnrichingProcessor, WikitextCharactersProcessor wikitextCharactersProcessor) {
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
 		this.comicStripCandidatePageGatheringService = comicStripCandidatePageGatheringService;
 		this.pageBindingService = pageBindingService;
 		this.templateFinder = templateFinder;
 		this.comicsTemplateCompositeEnrichingProcessor = comicsTemplateCompositeEnrichingProcessor;
 		this.comicsTemplatePartsEnrichingProcessor = comicsTemplatePartsEnrichingProcessor;
+		this.wikitextCharactersProcessor = wikitextCharactersProcessor;
 	}
 
 	@Override
@@ -76,6 +80,7 @@ public class ComicsTemplatePageProcessor implements ItemProcessor<Page, ComicsTe
 		comicsTemplate.setPhotonovel(isPhotonovel(item));
 
 		comicsTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(item, comicsTemplate));
+		comicsTemplate.getCharacters().addAll(wikitextCharactersProcessor.process(item));
 
 		Optional<Template> sidebarComicsTemplateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_COMIC, TemplateTitle.SIDEBAR_NOVEL,
 				TemplateTitle.SIDEBAR_AUDIO);
