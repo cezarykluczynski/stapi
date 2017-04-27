@@ -7,7 +7,7 @@
 			<column name="id" type="bigint">
 				<constraints unique="true" nullable="false"/>
 			</column>
-			<column name="uid" type="varchar(14)">
+			<column name="u_id" type="varchar(14)">
 				<constraints nullable="false"/>
 			</column>
 			<column name="reference_type" type="varchar(4)">

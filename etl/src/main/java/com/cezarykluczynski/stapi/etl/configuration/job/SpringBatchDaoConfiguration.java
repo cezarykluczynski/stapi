@@ -11,11 +11,13 @@ import org.springframework.batch.core.repository.support.SimpleJobRepository;
 import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
 import javax.inject.Inject;
 import java.lang.reflect.Field;
 
 @Configuration
+@DependsOn("batchDatabaseInitializer")
 public class SpringBatchDaoConfiguration {
 
 	@Inject

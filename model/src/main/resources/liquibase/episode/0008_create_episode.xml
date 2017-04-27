@@ -13,7 +13,7 @@
 			<column name="series_id" type="bigint">
 				<constraints nullable="false"/>
 			</column>
-			<column name="uid" type="varchar(14)">
+			<column name="u_id" type="varchar(14)">
 				<constraints nullable="false"/>
 			</column>
 			<column name="title" type="varchar(128)">
