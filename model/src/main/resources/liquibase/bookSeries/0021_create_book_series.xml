@@ -18,10 +18,8 @@
 			</column>
 			<column name="published_year_from" type="int"/>
 			<column name="published_month_from" type="int"/>
-			<column name="published_day_from" type="int"/>
 			<column name="published_year_to" type="int"/>
 			<column name="published_month_to" type="int"/>
-			<column name="published_day_to" type="int"/>
 			<column name="number_of_books" type="int"/>
 			<column name="stardate_from" type="float"/>
 			<column name="stardate_to" type="float"/>

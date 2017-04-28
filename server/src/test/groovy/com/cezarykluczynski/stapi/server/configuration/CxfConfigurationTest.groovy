@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.configuration
 
 import com.cezarykluczynski.stapi.server.astronomicalObject.endpoint.AstronomicalObjectRestEndpoint
+import com.cezarykluczynski.stapi.server.bookSeries.endpoint.BookSeriesRestEndpoint
 import com.cezarykluczynski.stapi.server.character.endpoint.CharacterRestEndpoint
 import com.cezarykluczynski.stapi.server.comicCollection.endpoint.ComicCollectionRestEndpoint
 import com.cezarykluczynski.stapi.server.comicSeries.endpoint.ComicSeriesRestEndpoint
@@ -69,6 +70,7 @@ class CxfConfigurationTest extends Specification {
 		OrganizationRestEndpoint organizationRestEndpoint = Mock()
 		FoodRestEndpoint foodRestEndpoint = Mock()
 		LocationRestEndpoint locationRestEndpoint = Mock()
+		BookSeriesRestEndpoint bookSeriesRestEndpoint = Mock()
 
 		when:
 		Server server = cxfConfiguration.cxfServer()
@@ -92,6 +94,7 @@ class CxfConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(OrganizationRestEndpoint) >> organizationRestEndpoint
 		1 * applicationContextMock.getBean(FoodRestEndpoint) >> foodRestEndpoint
 		1 * applicationContextMock.getBean(LocationRestEndpoint) >> locationRestEndpoint
+		1 * applicationContextMock.getBean(BookSeriesRestEndpoint) >> bookSeriesRestEndpoint
 		0 * _
 		server instanceof ServerImpl
 		server.started

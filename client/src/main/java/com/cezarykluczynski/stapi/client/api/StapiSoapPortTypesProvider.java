@@ -2,6 +2,8 @@ package com.cezarykluczynski.stapi.client.api;
 
 import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectService;
+import com.cezarykluczynski.stapi.client.v1.soap.BookSeriesPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.BookSeriesService;
 import com.cezarykluczynski.stapi.client.v1.soap.CharacterPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.CharacterService;
 import com.cezarykluczynski.stapi.client.v1.soap.ComicCollectionPortType;
@@ -89,6 +91,9 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 	@Getter
 	private LocationPortType locationPortType;
 
+	@Getter
+	private BookSeriesPortType bookSeriesPortType;
+
 	public StapiSoapPortTypesProvider() {
 		seriesPortType = new SeriesService().getSeriesPortType();
 		performerPortType = new PerformerService().getPerformerPortType();
@@ -106,29 +111,31 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		organizationPortType = new OrganizationService().getOrganizationPortType();
 		foodPortType = new FoodService().getFoodPortType();
 		locationPortType = new LocationService().getLocationPortType();
+		bookSeriesPortType = new BookSeriesService().getBookSeriesPortType();
 	}
 
 	public StapiSoapPortTypesProvider(String apiUrl) {
 		this.apiUrl = apiUrl;
-		seriesPortType = (SeriesPortType) changeUrl(new SeriesService().getSeriesPortType());
-		performerPortType = (PerformerPortType) changeUrl(new PerformerService().getPerformerPortType());
-		staffPortType = (StaffPortType) changeUrl(new StaffService().getStaffPortType());
-		characterPortType = (CharacterPortType) changeUrl(new CharacterService().getCharacterPortType());
-		episodePortType = (EpisodePortType) changeUrl(new EpisodeService().getEpisodePortType());
-		moviePortType = (MoviePortType) changeUrl(new MovieService().getMoviePortType());
-		astronomicalObjectPortType = (AstronomicalObjectPortType) changeUrl(new AstronomicalObjectService().getAstronomicalObjectPortType());
-		companyPortType = (CompanyPortType) changeUrl(new CompanyService().getCompanyPortType());
-		comicSeriesPortType = (ComicSeriesPortType) changeUrl(new ComicSeriesService().getComicSeriesPortType());
-		comicsPortType = (ComicsPortType) changeUrl(new ComicsService().getComicsPortType());
-		comicStripPortType = (ComicStripPortType) changeUrl(new ComicStripService().getComicStripPortType());
-		comicCollectionPortType = (ComicCollectionPortType) changeUrl(new ComicCollectionService().getComicCollectionPortType());
-		speciesPortType = (SpeciesPortType) changeUrl(new SpeciesService().getSpeciesPortType());
-		organizationPortType = (OrganizationPortType) changeUrl(new OrganizationService().getOrganizationPortType());
-		foodPortType = (FoodPortType) changeUrl(new FoodService().getFoodPortType());
-		locationPortType = (LocationPortType) changeUrl(new LocationService().getLocationPortType());
+		seriesPortType = changeUrl(new SeriesService().getSeriesPortType());
+		performerPortType = changeUrl(new PerformerService().getPerformerPortType());
+		staffPortType = changeUrl(new StaffService().getStaffPortType());
+		characterPortType = changeUrl(new CharacterService().getCharacterPortType());
+		episodePortType = changeUrl(new EpisodeService().getEpisodePortType());
+		moviePortType = changeUrl(new MovieService().getMoviePortType());
+		astronomicalObjectPortType = changeUrl(new AstronomicalObjectService().getAstronomicalObjectPortType());
+		companyPortType = changeUrl(new CompanyService().getCompanyPortType());
+		comicSeriesPortType = changeUrl(new ComicSeriesService().getComicSeriesPortType());
+		comicsPortType = changeUrl(new ComicsService().getComicsPortType());
+		comicStripPortType = changeUrl(new ComicStripService().getComicStripPortType());
+		comicCollectionPortType = changeUrl(new ComicCollectionService().getComicCollectionPortType());
+		speciesPortType = changeUrl(new SpeciesService().getSpeciesPortType());
+		organizationPortType = changeUrl(new OrganizationService().getOrganizationPortType());
+		foodPortType = changeUrl(new FoodService().getFoodPortType());
+		locationPortType = changeUrl(new LocationService().getLocationPortType());
+		bookSeriesPortType = changeUrl(new BookSeriesService().getBookSeriesPortType());
 	}
 
-	private Object changeUrl(Object service) {
+	private <T> T changeUrl(T service) {
 		BindingProvider bindingProvider = (BindingProvider) service;
 		Map<String, Object> requestContext = bindingProvider.getRequestContext();
 		String newServiceUrl = changeBaseUrl(apiUrl, (String) requestContext.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY));

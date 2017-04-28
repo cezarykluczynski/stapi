@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.configuration;
 
 import com.cezarykluczynski.stapi.server.astronomicalObject.endpoint.AstronomicalObjectRestEndpoint;
+import com.cezarykluczynski.stapi.server.bookSeries.endpoint.BookSeriesRestEndpoint;
 import com.cezarykluczynski.stapi.server.character.endpoint.CharacterRestEndpoint;
 import com.cezarykluczynski.stapi.server.comicCollection.endpoint.ComicCollectionRestEndpoint;
 import com.cezarykluczynski.stapi.server.comicSeries.endpoint.ComicSeriesRestEndpoint;
@@ -80,7 +81,8 @@ public class CxfConfiguration extends SpringBootServletInitializer {
 				applicationContext.getBean(StaffRestEndpoint.class),
 				applicationContext.getBean(OrganizationRestEndpoint.class),
 				applicationContext.getBean(FoodRestEndpoint.class),
-				applicationContext.getBean(LocationRestEndpoint.class)
+				applicationContext.getBean(LocationRestEndpoint.class),
+				applicationContext.getBean(BookSeriesRestEndpoint.class)
 		));
 		return factory.create();
 	}

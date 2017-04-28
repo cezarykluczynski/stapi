@@ -13,6 +13,10 @@ paths:
     $ref: ./astronomicalObject/path/astronomicalObject.path.yaml
   /astronomicalObject/search:
     $ref: ./astronomicalObject/path/astronomicalObjectSearch.path.yaml
+  /bookSeries:
+    $ref: ./bookSeries/path/bookSeries.path.yaml
+  /bookSeries/search:
+    $ref: ./bookSeries/path/bookSeriesSearch.path.yaml
   /character:
     $ref: ./character/path/character.path.yaml
   /character/search:
@@ -84,6 +88,16 @@ definitions:
     $ref: ./astronomicalObject/entity/astronomicalObjectBaseResponse.yaml
   AstronomicalObjectFullResponse:
     $ref: ./astronomicalObject/entity/astronomicalObjectFullResponse.yaml
+  BookSeriesHeader:
+    $ref: ./bookSeries/entity/bookSeriesHeader.yaml
+  BookSeriesBase:
+    $ref: ./bookSeries/entity/bookSeriesBase.yaml
+  BookSeriesFull:
+    $ref: ./bookSeries/entity/bookSeriesFull.yaml
+  BookSeriesBaseResponse:
+    $ref: ./bookSeries/entity/bookSeriesBaseResponse.yaml
+  BookSeriesFullResponse:
+    $ref: ./bookSeries/entity/bookSeriesFullResponse.yaml
   CharacterHeader:
     $ref: ./character/entity/characterHeader.yaml
   CharacterBase:

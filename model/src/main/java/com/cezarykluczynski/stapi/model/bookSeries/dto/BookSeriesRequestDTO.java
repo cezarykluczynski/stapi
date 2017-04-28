@@ -20,10 +20,6 @@ public class BookSeriesRequestDTO {
 
 	private Integer numberOfBooksTo;
 
-	private Float stardateFrom;
-
-	private Float stardateTo;
-
 	private Integer yearFrom;
 
 	private Integer yearTo;

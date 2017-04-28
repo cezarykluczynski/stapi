@@ -1,0 +1,4 @@
+type: object
+properties:
+  bookSeries:
+    $ref: '#/definitions/BookSeriesFull'

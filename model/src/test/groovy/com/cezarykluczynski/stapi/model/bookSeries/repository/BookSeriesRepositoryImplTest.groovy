@@ -1,10 +1,9 @@
-package com.cezarykluczynski.stapi.model.book.repository
+package com.cezarykluczynski.stapi.model.bookSeries.repository
 
 import com.cezarykluczynski.stapi.model.bookSeries.dto.BookSeriesRequestDTO
 import com.cezarykluczynski.stapi.model.bookSeries.entity.BookSeries
 import com.cezarykluczynski.stapi.model.bookSeries.entity.BookSeries_
 import com.cezarykluczynski.stapi.model.bookSeries.query.BookSeriesQueryBuilderFactory
-import com.cezarykluczynski.stapi.model.bookSeries.repository.BookSeriesRepositoryImpl
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.util.AbstractBookSeriesTest
