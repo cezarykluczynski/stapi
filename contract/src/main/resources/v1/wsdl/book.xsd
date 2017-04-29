@@ -3,6 +3,7 @@
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		xmlns:common="http://stapi.co/api/v1/soap/common"
 		xmlns:book="http://stapi.co/api/v1/soap/book"
+		xmlns:bookCollection="http://stapi.co/api/v1/soap/bookCollection"
 		xmlns:bookSeries="http://stapi.co/api/v1/soap/bookSeries"
 		xmlns:staff="http://stapi.co/api/v1/soap/staff"
 		xmlns:company="http://stapi.co/api/v1/soap/company"
@@ -10,10 +11,11 @@
 		xmlns:reference="http://stapi.co/api/v1/soap/reference"
 		elementFormDefault="qualified"
 		targetNamespace="http://stapi.co/api/v1/soap/book">
-	<xs:import namespace="http://stapi.co/api/v1/soap/bookSeries" schemaLocation="bookSeries.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/comicCollection" schemaLocation="comicCollection.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/comicSeries" schemaLocation="comicSeries.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/bookCollection" schemaLocation="bookCollection.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/bookSeries" schemaLocation="bookSeries.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/staff" schemaLocation="staff.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/company" schemaLocation="company.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/character" schemaLocation="character.xsd"/>
@@ -162,6 +164,9 @@
 			</xs:sequence>
 			<xs:sequence>
 				<xs:element name="audiobookReferences" type="reference:Reference" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="bookCollections" type="bookCollection:BookCollectionBase" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:sequence>
 	</xs:complexType>

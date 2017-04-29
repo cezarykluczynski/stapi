@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.book.dto.BookRequestDTO
 import com.cezarykluczynski.stapi.model.book.entity.Book
 import com.cezarykluczynski.stapi.model.book.entity.Book_
 import com.cezarykluczynski.stapi.model.book.query.BookInitialQueryBuilderFactory
+import com.cezarykluczynski.stapi.model.bookCollection.entity.BookCollection
 import com.cezarykluczynski.stapi.model.bookSeries.entity.BookSeries
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
@@ -25,7 +26,7 @@ class BookRepositoryImplTest extends Specification {
 
 	private QueryBuilder<Book> bookQueryBuilder
 
-	private QueryBuilder<Book> bookBookSeriesPublishersQueryBuilder
+	private QueryBuilder<Book> bookBookSeriesBookCollectionsPublishersQueryBuilder
 
 	private QueryBuilder<Book> bookCharactersReferencesQueryBuilder
 
@@ -53,13 +54,17 @@ class BookRepositoryImplTest extends Specification {
 
 	private Set<Reference> referencesSet
 
+	private Set<Reference> audiobookReferencesSet
+
 	private Set<Company> audiobookPublishersSet
+
+	private Set<BookCollection> bookCollectionsSet
 
 	void setup() {
 		bookInitialQueryBuilderFactory = Mock()
 		bookRepositoryImpl = new BookRepositoryImpl(bookInitialQueryBuilderFactory)
 		bookQueryBuilder = Mock()
-		bookBookSeriesPublishersQueryBuilder = Mock()
+		bookBookSeriesBookCollectionsPublishersQueryBuilder = Mock()
 		bookCharactersReferencesQueryBuilder = Mock()
 		pageable = Mock()
 		bookRequestDTO = Mock()
@@ -73,7 +78,9 @@ class BookRepositoryImplTest extends Specification {
 		publishersSet = Mock()
 		charactersSet = Mock()
 		referencesSet = Mock()
+		audiobookReferencesSet = Mock()
 		audiobookPublishersSet = Mock()
+		bookCollectionsSet = Mock()
 	}
 
 	void "query is built and performed"() {
@@ -98,15 +105,16 @@ class BookRepositoryImplTest extends Specification {
 
 		then: 'another criteria builder is retrieved for book series and publishers'
 		1 * bookInitialQueryBuilderFactory.createInitialQueryBuilder(bookRequestDTO, pageable) >>
-				bookBookSeriesPublishersQueryBuilder
+				bookBookSeriesBookCollectionsPublishersQueryBuilder
 
 		then: 'book series, and publishers fetch is performed'
-		1 * bookBookSeriesPublishersQueryBuilder.fetch(Book_.bookSeries)
-		1 * bookBookSeriesPublishersQueryBuilder.fetch(Book_.publishers)
-		1 * bookBookSeriesPublishersQueryBuilder.fetch(Book_.audiobookPublishers)
+		1 * bookBookSeriesBookCollectionsPublishersQueryBuilder.fetch(Book_.bookSeries)
+		1 * bookBookSeriesBookCollectionsPublishersQueryBuilder.fetch(Book_.publishers)
+		1 * bookBookSeriesBookCollectionsPublishersQueryBuilder.fetch(Book_.audiobookPublishers)
+		1 * bookBookSeriesBookCollectionsPublishersQueryBuilder.fetch(Book_.bookCollections)
 
 		then: 'book series and publishers list is retrieved'
-		1 * bookBookSeriesPublishersQueryBuilder.findAll() >> Lists.newArrayList(bookBookSeriesPublishersBook)
+		1 * bookBookSeriesBookCollectionsPublishersQueryBuilder.findAll() >> Lists.newArrayList(bookBookSeriesPublishersBook)
 
 		then: 'book series and publishers are set to book'
 		1 * bookBookSeriesPublishersBook.bookSeries >> bookSeriesSet
@@ -115,6 +123,8 @@ class BookRepositoryImplTest extends Specification {
 		1 * book.setPublishers(publishersSet)
 		1 * bookBookSeriesPublishersBook.audiobookPublishers >> audiobookPublishersSet
 		1 * book.setAudiobookPublishers(audiobookPublishersSet)
+		1 * bookBookSeriesPublishersBook.bookCollections >> bookCollectionsSet
+		1 * book.setBookCollections(bookCollectionsSet)
 
 		then: 'another criteria builder is retrieved for characters and references'
 		1 * bookInitialQueryBuilderFactory.createInitialQueryBuilder(bookRequestDTO, pageable) >> bookCharactersReferencesQueryBuilder
@@ -132,6 +142,8 @@ class BookRepositoryImplTest extends Specification {
 		1 * book.setCharacters(charactersSet)
 		1 * charactersReferencesBook.references >> referencesSet
 		1 * book.setReferences(referencesSet)
+		1 * charactersReferencesBook.audiobookReferences >> audiobookReferencesSet
+		1 * book.setAudiobookReferences(audiobookReferencesSet)
 
 		then: 'page is returned'
 		pageOutput == page
@@ -162,15 +174,16 @@ class BookRepositoryImplTest extends Specification {
 
 		then: 'another criteria builder is retrieved for book series and publishers'
 		1 * bookInitialQueryBuilderFactory.createInitialQueryBuilder(bookRequestDTO, pageable) >>
-				bookBookSeriesPublishersQueryBuilder
+				bookBookSeriesBookCollectionsPublishersQueryBuilder
 
 		then: 'book series and publishers fetch is performed'
-		1 * bookBookSeriesPublishersQueryBuilder.fetch(Book_.bookSeries)
-		1 * bookBookSeriesPublishersQueryBuilder.fetch(Book_.publishers)
-		1 * bookBookSeriesPublishersQueryBuilder.fetch(Book_.audiobookPublishers)
+		1 * bookBookSeriesBookCollectionsPublishersQueryBuilder.fetch(Book_.bookSeries)
+		1 * bookBookSeriesBookCollectionsPublishersQueryBuilder.fetch(Book_.publishers)
+		1 * bookBookSeriesBookCollectionsPublishersQueryBuilder.fetch(Book_.audiobookPublishers)
+		1 * bookBookSeriesBookCollectionsPublishersQueryBuilder.fetch(Book_.bookCollections)
 
 		then: 'empty book series and publishers list is retrieved'
-		1 * bookBookSeriesPublishersQueryBuilder.findAll() >> Lists.newArrayList()
+		1 * bookBookSeriesBookCollectionsPublishersQueryBuilder.findAll() >> Lists.newArrayList()
 
 		then: 'another criteria builder is retrieved for characters and references'
 		1 * bookInitialQueryBuilderFactory.createInitialQueryBuilder(bookRequestDTO, pageable) >> bookCharactersReferencesQueryBuilder
@@ -242,6 +255,7 @@ class BookRepositoryImplTest extends Specification {
 		1 * book.setCharacters(Sets.newHashSet())
 		1 * book.setReferences(Sets.newHashSet())
 		1 * book.setAudiobookReferences(Sets.newHashSet())
+		1 * book.setBookCollections(Sets.newHashSet())
 		pageOutput == page
 	}
 

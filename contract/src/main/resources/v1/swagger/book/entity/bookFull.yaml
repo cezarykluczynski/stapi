@@ -90,3 +90,7 @@ properties:
     type: array
     items:
       $ref: '#/definitions/Reference'
+  bookCollections:
+    type: array
+    items:
+      $ref: '#/definitions/BookCollectionBase'

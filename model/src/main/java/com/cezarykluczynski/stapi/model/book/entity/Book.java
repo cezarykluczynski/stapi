@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.model.book.entity;
 
+import com.cezarykluczynski.stapi.model.bookCollection.entity.BookCollection;
 import com.cezarykluczynski.stapi.model.bookSeries.entity.BookSeries;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
@@ -34,9 +35,9 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(callSuper = true, exclude = {"bookSeries", "authors", "artists", "editors", "audiobookNarrators", "publishers", "audiobookPublishers",
-		"characters", "references", "audiobookReferences"})
+		"characters", "references", "audiobookReferences", "bookCollections"})
 @EqualsAndHashCode(callSuper = true, exclude = {"bookSeries", "authors", "artists", "editors", "audiobookNarrators", "publishers",
-		"audiobookPublishers", "characters", "references", "audiobookReferences"})
+		"audiobookPublishers", "characters", "references", "audiobookReferences", "bookCollections"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 public class Book extends PageAwareEntity implements PageAware {
 
@@ -163,5 +164,9 @@ public class Book extends PageAwareEntity implements PageAware {
 			inverseJoinColumns = @JoinColumn(name = "reference_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Reference> audiobookReferences = Sets.newHashSet();
+
+	@ManyToMany(mappedBy = "books")
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<BookCollection> bookCollections = Sets.newHashSet();
 
 }

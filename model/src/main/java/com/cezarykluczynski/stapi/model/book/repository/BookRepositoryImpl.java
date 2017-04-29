@@ -47,19 +47,21 @@ public class BookRepositoryImpl extends AbstractRepositoryImpl<Book> implements 
 
 			Book book = bookList.get(0);
 
-			QueryBuilder<Book> bookBookSeriesPublishersQueryBuilder = createInitialBookQueryBuilder(criteria, pageable);
+			QueryBuilder<Book> bookBookSeriesBookCollectionsPublishersQueryBuilder = createInitialBookQueryBuilder(criteria, pageable);
 
-			bookBookSeriesPublishersQueryBuilder.fetch(Book_.bookSeries);
-			bookBookSeriesPublishersQueryBuilder.fetch(Book_.publishers);
-			bookBookSeriesPublishersQueryBuilder.fetch(Book_.audiobookPublishers);
+			bookBookSeriesBookCollectionsPublishersQueryBuilder.fetch(Book_.bookSeries);
+			bookBookSeriesBookCollectionsPublishersQueryBuilder.fetch(Book_.publishers);
+			bookBookSeriesBookCollectionsPublishersQueryBuilder.fetch(Book_.audiobookPublishers);
+			bookBookSeriesBookCollectionsPublishersQueryBuilder.fetch(Book_.bookCollections);
 
-			List<Book> bookSeriesPublishersBookList = bookBookSeriesPublishersQueryBuilder.findAll();
+			List<Book> bookSeriesPublishersBookList = bookBookSeriesBookCollectionsPublishersQueryBuilder.findAll();
 
 			if (bookSeriesPublishersBookList.size() == 1) {
 				Book comicSeriesPublishersComicCollectionsBook = bookSeriesPublishersBookList.get(0);
 				book.setBookSeries(comicSeriesPublishersComicCollectionsBook.getBookSeries());
 				book.setPublishers(comicSeriesPublishersComicCollectionsBook.getPublishers());
 				book.setAudiobookPublishers(comicSeriesPublishersComicCollectionsBook.getAudiobookPublishers());
+				book.setBookCollections(comicSeriesPublishersComicCollectionsBook.getBookCollections());
 			}
 
 			QueryBuilder<Book> bookCharactersReferencesQueryBuilder = createInitialBookQueryBuilder(criteria, pageable);
@@ -73,6 +75,7 @@ public class BookRepositoryImpl extends AbstractRepositoryImpl<Book> implements 
 				Book charactersReferencesBook = charactersReferencesBookList.get(0);
 				book.setCharacters(charactersReferencesBook.getCharacters());
 				book.setReferences(charactersReferencesBook.getReferences());
+				book.setAudiobookReferences(charactersReferencesBook.getAudiobookReferences());
 			}
 		} else {
 			bookPage = bookQueryBuilder.findPage();
@@ -99,6 +102,7 @@ public class BookRepositoryImpl extends AbstractRepositoryImpl<Book> implements 
 			episode.setCharacters(Sets.newHashSet());
 			episode.setReferences(Sets.newHashSet());
 			episode.setAudiobookReferences(Sets.newHashSet());
+			episode.setBookCollections(Sets.newHashSet());
 		});
 	}
 

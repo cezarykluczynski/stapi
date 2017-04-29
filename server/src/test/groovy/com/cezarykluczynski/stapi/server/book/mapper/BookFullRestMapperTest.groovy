@@ -54,6 +54,7 @@ class BookFullRestMapperTest extends AbstractBookMapperTest {
 		bookFull.characters.size() == book.characters.size()
 		bookFull.references.size() == book.references.size()
 		bookFull.audiobookReferences.size() == book.audiobookReferences.size()
+		bookFull.bookCollections.size() == book.bookCollections.size()
 	}
 
 }
