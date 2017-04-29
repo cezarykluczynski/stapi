@@ -2,8 +2,10 @@ package com.cezarykluczynski.stapi.client.api;
 
 import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectService;
+import com.cezarykluczynski.stapi.client.v1.soap.BookPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.BookSeriesPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.BookSeriesService;
+import com.cezarykluczynski.stapi.client.v1.soap.BookService;
 import com.cezarykluczynski.stapi.client.v1.soap.CharacterPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.CharacterService;
 import com.cezarykluczynski.stapi.client.v1.soap.ComicCollectionPortType;
@@ -94,6 +96,9 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 	@Getter
 	private BookSeriesPortType bookSeriesPortType;
 
+	@Getter
+	private BookPortType bookPortType;
+
 	public StapiSoapPortTypesProvider() {
 		seriesPortType = new SeriesService().getSeriesPortType();
 		performerPortType = new PerformerService().getPerformerPortType();
@@ -112,6 +117,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		foodPortType = new FoodService().getFoodPortType();
 		locationPortType = new LocationService().getLocationPortType();
 		bookSeriesPortType = new BookSeriesService().getBookSeriesPortType();
+		bookPortType = new BookService().getBookPortType();
 	}
 
 	public StapiSoapPortTypesProvider(String apiUrl) {
@@ -133,6 +139,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		foodPortType = changeUrl(new FoodService().getFoodPortType());
 		locationPortType = changeUrl(new LocationService().getLocationPortType());
 		bookSeriesPortType = changeUrl(new BookSeriesService().getBookSeriesPortType());
+		bookPortType = changeUrl(new BookService().getBookPortType());
 	}
 
 	private <T> T changeUrl(T service) {

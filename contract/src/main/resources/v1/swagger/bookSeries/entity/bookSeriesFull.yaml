@@ -34,8 +34,7 @@ properties:
     type: array
     items:
       $ref: '#/definitions/CompanyBase'
-# TODO
-#  books:
-#    type: array
-#    items:
-#      $ref: '#/definitions/BookBase'
+  books:
+    type: array
+    items:
+      $ref: '#/definitions/BookBase'

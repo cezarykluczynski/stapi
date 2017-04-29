@@ -1,9 +1,8 @@
 package com.cezarykluczynski.stapi.util
 
 import com.cezarykluczynski.stapi.util.tool.LogicUtil
-import spock.lang.Specification
 
-abstract class AbstractBookTest extends Specification {
+abstract class AbstractBookTest extends AbstractTest {
 
 	protected static final String UID = 'ABCD0987654321'
 	protected static final String TITLE = 'TITLE'
@@ -19,6 +18,8 @@ abstract class AbstractBookTest extends Specification {
 	protected static final Integer AUDIOBOOK_PUBLISHED_MONTH = 11
 	protected static final Integer AUDIOBOOK_PUBLISHED_DAY = 30
 	protected static final Integer AUDIOBOOK_RUN_TIME = 90
+	protected static final Integer AUDIOBOOK_RUN_TIME_FROM = 70
+	protected static final Integer AUDIOBOOK_RUN_TIME_TO = 110
 	protected static final Integer NUMBER_OF_PAGES = 32
 	protected static final Integer NUMBER_OF_PAGES_FROM = 16
 	protected static final Integer NUMBER_OF_PAGES_TO = 48

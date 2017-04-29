@@ -38,11 +38,11 @@ properties:
     type: array
     items:
       $ref: '#/definitions/StaffBase'
-  editors:
+  artists:
     type: array
     items:
       $ref: '#/definitions/StaffBase'
-  artists:
+  editors:
     type: array
     items:
       $ref: '#/definitions/StaffBase'

@@ -47,8 +47,7 @@ class BookSeriesFullSoapMapperTest extends AbstractBookSeriesMapperTest {
 		bookSeriesFull.parentSeries.size() == bookSeries.parentSeries.size()
 		bookSeriesFull.childSeries.size() == bookSeries.childSeries.size()
 		bookSeriesFull.publishers.size() == bookSeries.publishers.size()
-		// TODO
-		// bookSeriesFull.books.size() == bookSeries.books.size()
+		bookSeriesFull.books.size() == bookSeries.books.size()
 	}
 
 }
