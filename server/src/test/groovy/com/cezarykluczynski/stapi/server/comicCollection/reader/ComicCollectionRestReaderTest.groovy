@@ -44,7 +44,7 @@ class ComicCollectionRestReaderTest extends Specification {
 		ComicCollectionBase comicCollectionBase = Mock()
 		ComicCollection comicCollection = Mock()
 		ComicCollectionRestBeanParams comicCollectionRestBeanParams = Mock()
-		List<ComicCollectionBase> restComicCollectionList = Lists.newArrayList(comicCollectionBase)
+		List<ComicCollectionBase> comicCollectionBaseList = Lists.newArrayList(comicCollectionBase)
 		List<ComicCollection> comicCollectionList = Lists.newArrayList(comicCollection)
 		Page<ComicCollection> comicCollectionPage = Mock()
 		ResponsePage responsePage = Mock()
@@ -56,9 +56,9 @@ class ComicCollectionRestReaderTest extends Specification {
 		1 * comicCollectionRestQueryBuilderMock.query(comicCollectionRestBeanParams) >> comicCollectionPage
 		1 * pageMapperMock.fromPageToRestResponsePage(comicCollectionPage) >> responsePage
 		1 * comicCollectionPage.content >> comicCollectionList
-		1 * comicCollectionBaseRestMapperMock.mapBase(comicCollectionList) >> restComicCollectionList
+		1 * comicCollectionBaseRestMapperMock.mapBase(comicCollectionList) >> comicCollectionBaseList
 		0 * _
-		comicCollectionResponseOutput.comicCollections == restComicCollectionList
+		comicCollectionResponseOutput.comicCollections == comicCollectionBaseList
 		comicCollectionResponseOutput.page == responsePage
 	}
 

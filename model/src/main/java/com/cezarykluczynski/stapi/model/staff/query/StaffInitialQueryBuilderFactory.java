@@ -29,10 +29,8 @@ public class StaffInitialQueryBuilderFactory implements InitialQueryBuilderFacto
 		staffQueryBuilder.like(Staff_.birthName, criteria.getBirthName());
 		staffQueryBuilder.like(Staff_.placeOfBirth, criteria.getPlaceOfBirth());
 		staffQueryBuilder.like(Staff_.placeOfDeath, criteria.getPlaceOfDeath());
-		staffQueryBuilder.between(Staff_.dateOfBirth, criteria.getDateOfBirthFrom(),
-				criteria.getDateOfBirthTo());
-		staffQueryBuilder.between(Staff_.dateOfDeath, criteria.getDateOfDeathFrom(),
-				criteria.getDateOfDeathTo());
+		staffQueryBuilder.between(Staff_.dateOfBirth, criteria.getDateOfBirthFrom(), criteria.getDateOfBirthTo());
+		staffQueryBuilder.between(Staff_.dateOfDeath, criteria.getDateOfDeathFrom(), criteria.getDateOfDeathTo());
 		staffQueryBuilder.equal(Staff_.gender, criteria.getGender());
 		staffQueryBuilder.equal(Staff_.artDepartment, criteria.getArtDepartment());
 		staffQueryBuilder.equal(Staff_.artDirector, criteria.getArtDirector());

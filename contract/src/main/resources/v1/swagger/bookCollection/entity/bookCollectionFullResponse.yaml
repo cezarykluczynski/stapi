@@ -1,0 +1,4 @@
+type: object
+properties:
+  bookCollection:
+    $ref: '#/definitions/BookCollectionFull'

@@ -17,6 +17,10 @@ paths:
     $ref: ./book/path/book.path.yaml
   /book/search:
     $ref: ./book/path/bookSearch.path.yaml
+  /bookCollection:
+    $ref: ./bookCollection/path/bookCollection.path.yaml
+  /bookCollection/search:
+    $ref: ./bookCollection/path/bookCollectionSearch.path.yaml
   /bookSeries:
     $ref: ./bookSeries/path/bookSeries.path.yaml
   /bookSeries/search:
@@ -102,6 +106,16 @@ definitions:
     $ref: ./book/entity/bookBaseResponse.yaml
   BookFullResponse:
     $ref: ./book/entity/bookFullResponse.yaml
+  BookCollectionHeader:
+    $ref: ./bookCollection/entity/bookCollectionHeader.yaml
+  BookCollectionBase:
+    $ref: ./bookCollection/entity/bookCollectionBase.yaml
+  BookCollectionFull:
+    $ref: ./bookCollection/entity/bookCollectionFull.yaml
+  BookCollectionBaseResponse:
+    $ref: ./bookCollection/entity/bookCollectionBaseResponse.yaml
+  BookCollectionFullResponse:
+    $ref: ./bookCollection/entity/bookCollectionFullResponse.yaml
   BookSeriesHeader:
     $ref: ./bookSeries/entity/bookSeriesHeader.yaml
   BookSeriesBase:

@@ -31,8 +31,6 @@ class ComicCollectionRepositoryImplTest extends Specification {
 
 	private QueryBuilder<ComicCollection> comicCollectionCharactersReferencesQueryBuilder
 
-	private QueryBuilder<ComicCollection> comicCollectionStaffQueryBuilder
-
 	private Pageable pageable
 
 	private ComicCollectionRequestDTO comicCollectionRequestDTO
@@ -67,15 +65,12 @@ class ComicCollectionRepositoryImplTest extends Specification {
 
 	private Set<Staff> editorsSet
 
-	private Set<Staff> staffSet
-
 	void setup() {
 		comicCollectionInitialQueryBuilderFactory = Mock()
 		comicCollectionRepositoryImpl = new ComicCollectionRepositoryImpl(comicCollectionInitialQueryBuilderFactory)
 		comicCollectionQueryBuilder = Mock()
 		comicCollectionComicSeriesPublishersComicsQueryBuilder = Mock()
 		comicCollectionCharactersReferencesQueryBuilder = Mock()
-		comicCollectionStaffQueryBuilder = Mock()
 		pageable = Mock()
 		comicCollectionRequestDTO = Mock()
 		page = Mock()
@@ -93,7 +88,6 @@ class ComicCollectionRepositoryImplTest extends Specification {
 		writersSet = Mock()
 		artistsSet = Mock()
 		editorsSet = Mock()
-		staffSet = Mock()
 	}
 
 	void "query is built and performed"() {
@@ -108,15 +102,10 @@ class ComicCollectionRepositoryImplTest extends Specification {
 		1 * comicCollectionRequestDTO.uid >> UID
 
 		then: 'staff fetch is performed'
-		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.comicSeries)
 		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.writers)
 		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.artists)
 		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.editors)
 		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.staff)
-		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.publishers)
-		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.characters)
-		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.references)
-		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.comics)
 
 		then: 'page is retrieved'
 		1 * comicCollectionQueryBuilder.findPage() >> page
@@ -159,29 +148,6 @@ class ComicCollectionRepositoryImplTest extends Specification {
 		1 * charactersReferencesComicCollection.references >> referencesSet
 		1 * comicCollection.setReferences(referencesSet)
 
-		then: 'another criteria builder is retrieved for staff'
-		1 * comicCollectionInitialQueryBuilderFactory.createInitialQueryBuilder(comicCollectionRequestDTO, pageable) >>
-				comicCollectionStaffQueryBuilder
-
-		then: 'staff fetch is performed'
-		1 * comicCollectionStaffQueryBuilder.fetch(ComicCollection_.writers)
-		1 * comicCollectionStaffQueryBuilder.fetch(ComicCollection_.artists)
-		1 * comicCollectionStaffQueryBuilder.fetch(ComicCollection_.editors)
-		1 * comicCollectionStaffQueryBuilder.fetch(ComicCollection_.staff)
-
-		then: 'staff list is retrieved'
-		1 * comicCollectionStaffQueryBuilder.findAll() >> Lists.newArrayList(staffComicCollection)
-
-		then: 'staff is set to comicCollection'
-		1 * staffComicCollection.writers >> writersSet
-		1 * comicCollection.setWriters(writersSet)
-		1 * staffComicCollection.artists >> artistsSet
-		1 * comicCollection.setArtists(artistsSet)
-		1 * staffComicCollection.editors >> editorsSet
-		1 * comicCollection.setEditors(editorsSet)
-		1 * staffComicCollection.staff >> staffSet
-		1 * comicCollection.setStaff(staffSet)
-
 		then: 'page is returned'
 		pageOutput == page
 
@@ -201,15 +167,10 @@ class ComicCollectionRepositoryImplTest extends Specification {
 		1 * comicCollectionRequestDTO.uid >> UID
 
 		then: 'staff fetch is performed'
-		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.comicSeries)
 		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.writers)
 		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.artists)
 		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.editors)
 		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.staff)
-		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.publishers)
-		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.characters)
-		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.references)
-		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.comics)
 
 		then: 'page is retrieved'
 		1 * comicCollectionQueryBuilder.findPage() >> page
@@ -238,19 +199,6 @@ class ComicCollectionRepositoryImplTest extends Specification {
 		then: 'empty characters and references list is retrieved'
 		1 * comicCollectionCharactersReferencesQueryBuilder.findAll() >> Lists.newArrayList()
 
-		then: 'another criteria builder is retrieved for staff'
-		1 * comicCollectionInitialQueryBuilderFactory.createInitialQueryBuilder(comicCollectionRequestDTO, pageable) >>
-				comicCollectionStaffQueryBuilder
-
-		then: 'staff fetch is performed'
-		1 * comicCollectionStaffQueryBuilder.fetch(ComicCollection_.writers)
-		1 * comicCollectionStaffQueryBuilder.fetch(ComicCollection_.artists)
-		1 * comicCollectionStaffQueryBuilder.fetch(ComicCollection_.editors)
-		1 * comicCollectionStaffQueryBuilder.fetch(ComicCollection_.staff)
-
-		then: 'empty staff list is retrieved'
-		1 * comicCollectionStaffQueryBuilder.findAll() >> Lists.newArrayList()
-
 		then: 'page is returned'
 		pageOutput == page
 
@@ -270,15 +218,10 @@ class ComicCollectionRepositoryImplTest extends Specification {
 		1 * comicCollectionRequestDTO.uid >> UID
 
 		then: 'staff fetch is performed'
-		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.comicSeries)
 		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.writers)
 		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.artists)
 		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.editors)
 		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.staff)
-		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.publishers)
-		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.characters)
-		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.references)
-		1 * comicCollectionQueryBuilder.fetch(ComicCollection_.comics)
 
 		then: 'page is retrieved'
 		1 * comicCollectionQueryBuilder.findPage() >> page

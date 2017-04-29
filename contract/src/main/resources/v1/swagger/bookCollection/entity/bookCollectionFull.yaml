@@ -1,0 +1,56 @@
+type: object
+properties:
+  uid:
+    type: string
+  title:
+    type: string
+  publishedYear:
+    type: integer
+  publishedMonth:
+    type: integer
+  publishedDay:
+    type: integer
+  numberOfPages:
+    type: integer
+  stardateFrom:
+    type: number
+    format: float
+  stardateTo:
+    type: number
+    format: float
+  yearFrom:
+    type: integer
+  yearTo:
+    type: integer
+  bookSeries:
+    type: array
+    items:
+      $ref: '#/definitions/BookSeriesBase'
+  authors:
+    type: array
+    items:
+      $ref: '#/definitions/StaffBase'
+  editors:
+    type: array
+    items:
+      $ref: '#/definitions/StaffBase'
+  artists:
+    type: array
+    items:
+      $ref: '#/definitions/StaffBase'
+  publishers:
+    type: array
+    items:
+      $ref: '#/definitions/CompanyBase'
+  characters:
+    type: array
+    items:
+      $ref: '#/definitions/CharacterBase'
+  references:
+    type: array
+    items:
+      $ref: '#/definitions/Reference'
+  books:
+    type: array
+    items:
+      $ref: '#/definitions/BookBase'
