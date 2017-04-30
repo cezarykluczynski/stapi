@@ -3,15 +3,15 @@ package com.cezarykluczynski.stapi.etl.template.publishableSeries.processor
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplateParameter
-import com.cezarykluczynski.stapi.etl.template.publishableSeries.dto.PublishableSeriesTemplate
-import com.cezarykluczynski.stapi.etl.template.publishableSeries.dto.PublishableSeriesTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToStardateRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToYearRangeProcessor
+import com.cezarykluczynski.stapi.etl.template.publishableSeries.dto.PublishableSeriesTemplate
+import com.cezarykluczynski.stapi.etl.template.publishableSeries.dto.PublishableSeriesTemplateParameter
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
-import com.cezarykluczynski.stapi.util.tool.LogicUtil
+import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import spock.lang.Specification
@@ -28,7 +28,7 @@ class PublishableSeriesTemplatePartsEnrichingProcessorTest extends Specification
 	private static final Float STARDATE_FROM = 123.4F
 	private static final Float STARDATE_TO = 456.7F
 	private static final String SERIES = 'SERIES'
-	private static final Boolean MINISERIES = LogicUtil.nextBoolean()
+	private static final Boolean MINISERIES = RandomUtil.nextBoolean()
 
 	private WikitextToCompaniesProcessor wikitextToCompaniesProcessorMock
 

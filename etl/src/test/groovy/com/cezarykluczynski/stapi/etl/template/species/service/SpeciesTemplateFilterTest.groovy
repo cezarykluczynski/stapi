@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.util.constant.PageTitle
-import com.cezarykluczynski.stapi.util.tool.LogicUtil
+import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -97,7 +97,7 @@ class SpeciesTemplateFilterTest extends Specification {
 
 	void "returns result of CategorySortingService when filtering could not be based on categories"() {
 		given:
-		boolean sortedOnTop = LogicUtil.nextBoolean()
+		boolean sortedOnTop = RandomUtil.nextBoolean()
 		Page page = new Page(categories: Lists.newArrayList())
 
 		when:

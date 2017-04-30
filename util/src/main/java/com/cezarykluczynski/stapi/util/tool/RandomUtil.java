@@ -1,10 +1,16 @@
 package com.cezarykluczynski.stapi.util.tool;
 
+import org.apache.commons.lang3.RandomUtils;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Random;
 
 public class RandomUtil {
+
+	public static boolean nextBoolean() {
+		return RandomUtils.nextInt(0, 2) == 0;
+	}
 
 	public static <T> T randomItem(Collection<T> collection) {
 		if (collection.isEmpty()) {

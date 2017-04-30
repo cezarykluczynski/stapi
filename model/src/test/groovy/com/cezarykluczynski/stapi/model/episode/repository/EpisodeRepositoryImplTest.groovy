@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.model.episode.entity.Episode_
 import com.cezarykluczynski.stapi.model.episode.query.EpisodeQueryBuilderFactory
 import com.cezarykluczynski.stapi.model.series.entity.Series_
-import com.cezarykluczynski.stapi.util.tool.LogicUtil
+import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
@@ -31,7 +31,7 @@ class EpisodeRepositoryImplTest extends Specification {
 	private static final LocalDate US_AIR_DATE_TO = LocalDate.of(1968, 5, 6)
 	private static final LocalDate FINAL_SCRIPT_DATE_FROM = LocalDate.of(1967, 10, 11)
 	private static final LocalDate FINAL_SCRIPT_DATE_TO = LocalDate.of(1967, 11, 12)
-	private static final Boolean FEATURE_LENGTH = LogicUtil.nextBoolean()
+	private static final Boolean FEATURE_LENGTH = RandomUtil.nextBoolean()
 	private static final Integer YEAR_FROM = 2250
 	private static final Integer YEAR_TO = 2370
 	private static final RequestSortDTO SORT = new RequestSortDTO()

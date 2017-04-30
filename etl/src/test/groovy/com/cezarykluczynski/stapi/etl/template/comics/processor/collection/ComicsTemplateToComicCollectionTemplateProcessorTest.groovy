@@ -9,12 +9,12 @@ import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.reference.entity.Reference
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.util.AbstractComicCollectionTest
-import com.cezarykluczynski.stapi.util.tool.LogicUtil
+import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Sets
 
 class ComicsTemplateToComicCollectionTemplateProcessorTest extends AbstractComicCollectionTest {
 
-	private static final Boolean PRODUCT_OF_REDIRECT = LogicUtil.nextBoolean()
+	private static final Boolean PRODUCT_OF_REDIRECT = RandomUtil.nextBoolean()
 	private final Page page = Mock()
 
 	private ComicsTemplateToComicCollectionTemplateProcessor collectionTemplateProcessor

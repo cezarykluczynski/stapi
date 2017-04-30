@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.util
 
-import com.cezarykluczynski.stapi.util.tool.LogicUtil
+import com.cezarykluczynski.stapi.util.tool.RandomUtil
 
 abstract class AbstractBookTest extends AbstractTest {
 
@@ -27,14 +27,14 @@ abstract class AbstractBookTest extends AbstractTest {
 	protected static final Float STARDATE_TO = 12321.4F
 	protected static final Integer YEAR_FROM = 2350
 	protected static final Integer YEAR_TO = 2351
-	protected static final boolean NOVEL = LogicUtil.nextBoolean()
-	protected static final boolean REFERENCE_BOOK = LogicUtil.nextBoolean()
-	protected static final boolean BIOGRAPHY_BOOK = LogicUtil.nextBoolean()
-	protected static final boolean ROLE_PLAYING_BOOK = LogicUtil.nextBoolean()
-	protected static final boolean E_BOOK = LogicUtil.nextBoolean()
-	protected static final boolean ANTHOLOGY = LogicUtil.nextBoolean()
-	protected static final boolean NOVELIZATION = LogicUtil.nextBoolean()
-	protected static final boolean AUDIOBOOK = LogicUtil.nextBoolean()
-	protected static final boolean AUDIOBOOK_ABRIDGED = LogicUtil.nextBoolean()
+	protected static final boolean NOVEL = RandomUtil.nextBoolean()
+	protected static final boolean REFERENCE_BOOK = RandomUtil.nextBoolean()
+	protected static final boolean BIOGRAPHY_BOOK = RandomUtil.nextBoolean()
+	protected static final boolean ROLE_PLAYING_BOOK = RandomUtil.nextBoolean()
+	protected static final boolean E_BOOK = RandomUtil.nextBoolean()
+	protected static final boolean ANTHOLOGY = RandomUtil.nextBoolean()
+	protected static final boolean NOVELIZATION = RandomUtil.nextBoolean()
+	protected static final boolean AUDIOBOOK = RandomUtil.nextBoolean()
+	protected static final boolean AUDIOBOOK_ABRIDGED = RandomUtil.nextBoolean()
 
 }

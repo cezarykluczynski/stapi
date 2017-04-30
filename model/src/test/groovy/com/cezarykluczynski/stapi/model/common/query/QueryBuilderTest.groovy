@@ -6,7 +6,7 @@ import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.dto.enums.RequestSortDirectionDTO
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender
 import com.cezarykluczynski.stapi.model.series.entity.Series
-import com.cezarykluczynski.stapi.util.tool.LogicUtil
+import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
@@ -35,7 +35,7 @@ import java.time.LocalDate
 class QueryBuilderTest extends Specification {
 
 	private static final String VALID_VALUE_STRING = 'VALID_VALUE_STRING'
-	private static final Boolean VALID_VALUE_BOOLEAN = LogicUtil.nextBoolean()
+	private static final Boolean VALID_VALUE_BOOLEAN = RandomUtil.nextBoolean()
 	private static final LocalDate VALID_VALUE_LOCAL_DATE_FROM = LocalDate.of(2000, 1, 2)
 	private static final LocalDate VALID_VALUE_LOCAL_DATE_TO = LocalDate.of(2010, 3, 4)
 	private static final Integer VALID_VALUE_INTEGER_FROM = 1970
@@ -56,7 +56,7 @@ class QueryBuilderTest extends Specification {
 	private static final RequestSortDirectionDTO REQUEST_SORT_DIRECTION_3 = RequestSortDirectionDTO.DESC
 	private static final Integer REQUEST_ORDER_CLAUSE_CLAUSE_ORDER_1 = 1
 	private static final Integer REQUEST_ORDER_CLAUSE_CLAUSE_ORDER_2 = 2
-	private static final Boolean CACHEABLE = LogicUtil.nextBoolean()
+	private static final Boolean CACHEABLE = RandomUtil.nextBoolean()
 	private final SingularAttribute<?, String> validKeyString = Mock()
 	private final SingularAttribute<?, Boolean> validKeyBoolean = Mock()
 	private final SingularAttribute<?, Long> validKeyLong = Mock()

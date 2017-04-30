@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.util
 
-import com.cezarykluczynski.stapi.util.tool.LogicUtil
+import com.cezarykluczynski.stapi.util.tool.RandomUtil
 
 class AbstractBookSeriesTest extends AbstractTest {
 
@@ -15,7 +15,7 @@ class AbstractBookSeriesTest extends AbstractTest {
 	protected static final Integer NUMBER_OF_BOOKS_TO = 15
 	protected static final Integer YEAR_FROM = 2350
 	protected static final Integer YEAR_TO = 2351
-	protected static final Boolean MINISERIES = LogicUtil.nextBoolean()
-	protected static final Boolean E_BOOK_SERIES = LogicUtil.nextBoolean()
+	protected static final Boolean MINISERIES = RandomUtil.nextBoolean()
+	protected static final Boolean E_BOOK_SERIES = RandomUtil.nextBoolean()
 
 }

@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.util
 
-import com.cezarykluczynski.stapi.util.tool.LogicUtil
+import com.cezarykluczynski.stapi.util.tool.RandomUtil
 
 abstract class AbstractComicsTest extends AbstractTest {
 
@@ -21,6 +21,6 @@ abstract class AbstractComicsTest extends AbstractTest {
 	protected static final Float STARDATE_TO = 12321.4F
 	protected static final Integer YEAR_FROM = 2350
 	protected static final Integer YEAR_TO = 2351
-	protected static final boolean PHOTONOVEL = LogicUtil.nextBoolean()
+	protected static final boolean PHOTONOVEL = RandomUtil.nextBoolean()
 
 }
