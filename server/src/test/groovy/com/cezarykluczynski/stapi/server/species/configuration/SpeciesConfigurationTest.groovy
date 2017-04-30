@@ -1,11 +1,13 @@
 package com.cezarykluczynski.stapi.server.species.configuration
 
+import com.cezarykluczynski.stapi.server.species.endpoint.SpeciesRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
 import com.cezarykluczynski.stapi.server.species.endpoint.SpeciesSoapEndpoint
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesBaseRestMapper
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesBaseSoapMapper
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesFullRestMapper
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesFullSoapMapper
+import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
 
 import javax.xml.ws.Endpoint
@@ -32,6 +34,19 @@ class SpeciesConfigurationTest extends Specification {
 		1 * endpointFactoryMock.createSoapEndpoint(SpeciesSoapEndpoint, SpeciesSoapEndpoint.ADDRESS) >> endpoint
 		0 * _
 		endpointOutput == endpoint
+	}
+
+	void "Species REST endpoint is created"() {
+		given:
+		Server server = Mock()
+
+		when:
+		Server serverOutput = speciesConfiguration.speciesServer()
+
+		then:
+		1 * endpointFactoryMock.createRestEndpoint(SpeciesRestEndpoint, SpeciesRestEndpoint.ADDRESS) >> server
+		0 * _
+		serverOutput == server
 	}
 
 	void "SpeciesBaseSoapMapper is created"() {

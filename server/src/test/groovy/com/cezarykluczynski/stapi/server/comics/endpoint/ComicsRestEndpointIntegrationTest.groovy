@@ -37,7 +37,7 @@ class ComicsRestEndpointIntegrationTest extends AbstractComicsEndpointIntegratio
 
 	void "gets comics by UID"() {
 		when:
-		ComicsFullResponse comicsFullResponse = stapiRestClient.comicsApi.comicsGet('CCMA0000054566')
+		ComicsFullResponse comicsFullResponse = stapiRestClient.comicsApi.comicsGet('CCMA0000054566', null)
 
 		then:
 		comicsFullResponse.comics.title == 'Day of the Inquisitors'

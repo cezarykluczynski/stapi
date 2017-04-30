@@ -1,11 +1,13 @@
 package com.cezarykluczynski.stapi.server.comicStrip.configuration;
 
+import com.cezarykluczynski.stapi.server.comicStrip.endpoint.ComicStripRestEndpoint;
 import com.cezarykluczynski.stapi.server.comicStrip.endpoint.ComicStripSoapEndpoint;
 import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripBaseRestMapper;
 import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripFullRestMapper;
 import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripFullSoapMapper;
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
+import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +24,11 @@ public class ComicStripConfiguration {
 	@Bean
 	public Endpoint comicStripEndpoint() {
 		return endpointFactory.createSoapEndpoint(ComicStripSoapEndpoint.class, ComicStripSoapEndpoint.ADDRESS);
+	}
+
+	@Bean
+	public Server comicStripServer() {
+		return endpointFactory.createRestEndpoint(ComicStripRestEndpoint.class, ComicStripRestEndpoint.ADDRESS);
 	}
 
 	@Bean

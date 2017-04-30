@@ -18,9 +18,10 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 @Service
-@Path("v1/rest/performer")
 @Produces(MediaType.APPLICATION_JSON)
 public class PerformerRestEndpoint {
+
+	public static final String ADDRESS = "/v1/rest/performer";
 
 	private PerformerRestReader performerRestReader;
 

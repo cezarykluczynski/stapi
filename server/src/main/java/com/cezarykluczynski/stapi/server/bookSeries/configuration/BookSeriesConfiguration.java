@@ -1,11 +1,13 @@
 package com.cezarykluczynski.stapi.server.bookSeries.configuration;
 
+import com.cezarykluczynski.stapi.server.bookSeries.endpoint.BookSeriesRestEndpoint;
 import com.cezarykluczynski.stapi.server.bookSeries.endpoint.BookSeriesSoapEndpoint;
 import com.cezarykluczynski.stapi.server.bookSeries.mapper.BookSeriesBaseRestMapper;
 import com.cezarykluczynski.stapi.server.bookSeries.mapper.BookSeriesBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.bookSeries.mapper.BookSeriesFullRestMapper;
 import com.cezarykluczynski.stapi.server.bookSeries.mapper.BookSeriesFullSoapMapper;
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
+import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +24,11 @@ public class BookSeriesConfiguration {
 	@Bean
 	public Endpoint bookSeriesEndpoint() {
 		return endpointFactory.createSoapEndpoint(BookSeriesSoapEndpoint.class, BookSeriesSoapEndpoint.ADDRESS);
+	}
+
+	@Bean
+	public Server bookSeriesServer() {
+		return endpointFactory.createRestEndpoint(BookSeriesRestEndpoint.class, BookSeriesRestEndpoint.ADDRESS);
 	}
 
 	@Bean

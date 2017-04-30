@@ -1,11 +1,13 @@
 package com.cezarykluczynski.stapi.server.series.configuration
 
+import com.cezarykluczynski.stapi.server.series.endpoint.SeriesRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
 import com.cezarykluczynski.stapi.server.series.endpoint.SeriesSoapEndpoint
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesBaseRestMapper
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesBaseSoapMapper
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesFullRestMapper
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesFullSoapMapper
+import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
 
 import javax.xml.ws.Endpoint
@@ -32,6 +34,19 @@ class SeriesConfigurationTest extends Specification {
 		1 * endpointFactoryMock.createSoapEndpoint(SeriesSoapEndpoint, SeriesSoapEndpoint.ADDRESS) >> endpoint
 		0 * _
 		endpointOutput == endpoint
+	}
+
+	void "Series REST endpoint is created"() {
+		given:
+		Server server = Mock()
+
+		when:
+		Server serverOutput = seriesConfiguration.seriesServer()
+
+		then:
+		1 * endpointFactoryMock.createRestEndpoint(SeriesRestEndpoint, SeriesRestEndpoint.ADDRESS) >> server
+		0 * _
+		serverOutput == server
 	}
 
 	void "SeriesBaseSoapMapper is created"() {

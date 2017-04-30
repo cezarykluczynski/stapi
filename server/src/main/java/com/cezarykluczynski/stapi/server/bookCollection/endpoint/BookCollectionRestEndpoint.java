@@ -18,9 +18,10 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 @Service
-@Path("v1/rest/bookCollection")
 @Produces(MediaType.APPLICATION_JSON)
 public class BookCollectionRestEndpoint {
+
+	public static final String ADDRESS = "/v1/rest/bookCollection";
 
 	private BookCollectionRestReader bookCollectionRestReader;
 

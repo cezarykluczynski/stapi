@@ -54,7 +54,7 @@ class SeriesRestEndpointIntegrationTest extends AbstractSeriesEndpointIntegratio
 	})
 	void "gets series by uid"() {
 		when:
-		SeriesFullResponse seriesFullResponse = stapiRestClient.seriesApi.seriesGet(UID)
+		SeriesFullResponse seriesFullResponse = stapiRestClient.seriesApi.seriesGet(UID, null)
 
 		then:
 		seriesFullResponse.series.abbreviation == TAS

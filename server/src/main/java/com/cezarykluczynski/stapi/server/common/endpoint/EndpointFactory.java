@@ -1,10 +1,18 @@
 package com.cezarykluczynski.stapi.server.common.endpoint;
 
+import com.cezarykluczynski.stapi.server.common.converter.LocalDateRestParamConverterProvider;
+import com.cezarykluczynski.stapi.server.common.throttle.rest.RestExceptionMapper;
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDExceptionMapper;
+import com.cezarykluczynski.stapi.server.configuration.CxfRestPrettyPrintContainerResponseFilter;
 import com.cezarykluczynski.stapi.server.configuration.interceptor.ApiThrottlingInterceptor;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.google.common.collect.Lists;
 import org.apache.cxf.Bus;
 import org.apache.cxf.bus.spring.SpringBus;
+import org.apache.cxf.endpoint.Server;
 import org.apache.cxf.interceptor.Interceptor;
+import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 import org.apache.cxf.jaxws.EndpointImpl;
 import org.apache.cxf.message.Message;
 import org.springframework.context.ApplicationContext;
@@ -28,6 +36,22 @@ public class EndpointFactory {
 		endpoint.setInInterceptors(interceptorList);
 		endpoint.publish(address);
 		return endpoint;
+	}
+
+	public <T> Server createRestEndpoint(Class<T> implementorClass, String address) {
+		JAXRSServerFactoryBean factory = new JAXRSServerFactoryBean();
+		T implementor = applicationContext.getBean(implementorClass);
+		factory.setBus(applicationContext.getBean(SpringBus.class));
+		factory.setAddress(address);
+		factory.setProviders(Lists.newArrayList(
+				new JacksonJsonProvider(applicationContext.getBean(ObjectMapper.class)),
+				applicationContext.getBean(CxfRestPrettyPrintContainerResponseFilter.class),
+				applicationContext.getBean(LocalDateRestParamConverterProvider.class),
+				applicationContext.getBean(RestExceptionMapper.class),
+				applicationContext.getBean(MissingUIDExceptionMapper.class)));
+		factory.setInInterceptors(Lists.newArrayList(applicationContext.getBean(ApiThrottlingInterceptor.class)));
+		factory.setServiceBeans(Lists.newArrayList(implementor));
+		return factory.create();
 	}
 
 }

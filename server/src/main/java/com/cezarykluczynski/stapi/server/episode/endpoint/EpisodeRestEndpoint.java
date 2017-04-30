@@ -19,9 +19,10 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 @Service
-@Path("v1/rest/episode")
 @Produces(MediaType.APPLICATION_JSON)
 public class EpisodeRestEndpoint {
+
+	public static final String ADDRESS = "/v1/rest/episode";
 
 	private EpisodeRestReader episodeRestReader;
 

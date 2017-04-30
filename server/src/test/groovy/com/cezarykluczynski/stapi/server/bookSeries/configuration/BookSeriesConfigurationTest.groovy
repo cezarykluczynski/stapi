@@ -1,11 +1,13 @@
 package com.cezarykluczynski.stapi.server.bookSeries.configuration
 
+import com.cezarykluczynski.stapi.server.bookSeries.endpoint.BookSeriesRestEndpoint
 import com.cezarykluczynski.stapi.server.bookSeries.endpoint.BookSeriesSoapEndpoint
 import com.cezarykluczynski.stapi.server.bookSeries.mapper.BookSeriesBaseRestMapper
 import com.cezarykluczynski.stapi.server.bookSeries.mapper.BookSeriesBaseSoapMapper
 import com.cezarykluczynski.stapi.server.bookSeries.mapper.BookSeriesFullRestMapper
 import com.cezarykluczynski.stapi.server.bookSeries.mapper.BookSeriesFullSoapMapper
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
+import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
 
 import javax.xml.ws.Endpoint
@@ -32,6 +34,19 @@ class BookSeriesConfigurationTest extends Specification {
 		1 * endpointFactoryMock.createSoapEndpoint(BookSeriesSoapEndpoint, BookSeriesSoapEndpoint.ADDRESS) >> endpoint
 		0 * _
 		endpointOutput == endpoint
+	}
+
+	void "BookSeries REST endpoint is created"() {
+		given:
+		Server server = Mock()
+
+		when:
+		Server serverOutput = bookSeriesConfiguration.bookSeriesServer()
+
+		then:
+		1 * endpointFactoryMock.createRestEndpoint(BookSeriesRestEndpoint, BookSeriesRestEndpoint.ADDRESS) >> server
+		0 * _
+		serverOutput == server
 	}
 
 	void "BookSeriesBaseSoapMapper is created"() {
