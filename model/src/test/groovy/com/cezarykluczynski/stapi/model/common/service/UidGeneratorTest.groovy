@@ -9,13 +9,9 @@ import com.cezarykluczynski.stapi.model.reference.entity.enums.ReferenceType
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.google.common.collect.Maps
 import org.apache.commons.lang3.tuple.Pair
-import org.hibernate.Session
-import org.hibernate.SessionFactory
 import org.hibernate.metadata.ClassMetadata
 import spock.lang.Specification
 import spock.lang.Unroll
-
-import javax.persistence.EntityManager
 
 class UidGeneratorTest extends Specification {
 
@@ -42,11 +38,13 @@ class UidGeneratorTest extends Specification {
 
 	}
 
-	private EntityManager entityManagerMock
+	private EntityMatadataProvider entityMatadataProvider
 
 	private UidGenerator uidGenerator
 
 	private Map<String, ClassMetadata> classMetadataMap
+
+	private Map<String, String> classNameToSymbolMap = Maps.newHashMap()
 
 	void setup() {
 		classMetadataMap = Maps.newHashMap()
@@ -61,16 +59,16 @@ class UidGeneratorTest extends Specification {
 		comicSeriesClassMetadata.mappedClass >> ComicSeries
 		classMetadataMap.put('com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries', comicSeriesClassMetadata)
 
-		SessionFactory sessionFactory = Mock()
-		sessionFactory.allClassMetadata >> classMetadataMap
+		classNameToSymbolMap = Maps.newHashMap()
+		classNameToSymbolMap.put('com.cezarykluczynski.stapi.model.character.entity.Character', 'CH')
+		classNameToSymbolMap.put('com.cezarykluczynski.stapi.model.series.entity.Series', 'SE')
+		classNameToSymbolMap.put('com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries', 'CS')
 
-		Session session = Mock()
-		session.sessionFactory >> sessionFactory
+		entityMatadataProvider = Mock()
+		entityMatadataProvider.provideClassNameToMetadataMap() >> classMetadataMap
+		entityMatadataProvider.provideClassNameToSymbolMap() >> classNameToSymbolMap
 
-		entityManagerMock = Mock()
-		entityManagerMock.delegate >> session
-
-		uidGenerator = new UidGenerator(entityManagerMock)
+		uidGenerator = new UidGenerator(entityMatadataProvider)
 	}
 
 	@Unroll('when #page and #clazz is passed, #uid is generated')
@@ -79,7 +77,7 @@ class UidGeneratorTest extends Specification {
 		uid == uidGenerator.generateFromPage(page, clazz)
 
 		where:
-		uid             | page                                                                        | clazz
+		uid              | page                                                                        | clazz
 		'CHMA0000000012' | new Page(pageId: 12L, mediaWikiSource: MediaWikiSource.MEMORY_ALPHA_EN)     | Character
 		'SEMA0000023421' | new Page(pageId: 23421L, mediaWikiSource: MediaWikiSource.MEMORY_ALPHA_EN)  | Series
 		'CHMB0000000876' | new Page(pageId: 876L, mediaWikiSource: MediaWikiSource.MEMORY_BETA_EN)     | Character
@@ -119,20 +117,6 @@ class UidGeneratorTest extends Specification {
 		then:
 		RuntimeException runtimeException = thrown(RuntimeException)
 		runtimeException.message == "Page ID ${UidGenerator.MAX_PAGE_ID + 1} is greater than allowed, cannot guarantee UID uniqueness.".toString()
-	}
-
-	void "throws exception when entities can no longer be mapped to unique symbols"() {
-		given:
-		ClassMetadata classMetadata = Mock()
-		classMetadata.mappedClass >> CharSequence
-		classMetadataMap.put('java.lang.CharSequence', classMetadata)
-
-		when:
-		uidGenerator = new UidGenerator(entityManagerMock)
-
-		then:
-		RuntimeException runtimeException = thrown(RuntimeException)
-		runtimeException.message == 'Entity class collection no longer suitable for symbol generation. Trying to put symbol CH, but symbol already present.'
 	}
 
 	@Unroll('when pair of #referenceType and #referenceNumber if passed, #result is returned')

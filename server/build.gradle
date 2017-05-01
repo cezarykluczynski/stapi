@@ -21,7 +21,6 @@ dependencies {
 	compile group: 'org.apache.cxf', name: 'cxf-spring-boot-starter-jaxrs', version: '3.1.7'
 	compile group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-json-provider', version: '2.8.3'
 	compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.8.3'
-	compile group: 'org.thymeleaf', name: 'thymeleaf-spring4', version: '3.0.5.RELEASE'
 
 	// Utils
 	compile group: 'joda-time', name: 'joda-time', version: '2.9.2'
