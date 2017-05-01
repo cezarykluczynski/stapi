@@ -1,4 +1,4 @@
 /node_modules
-/src/*.css
+src/components/**/*.css
 /coverage
 npm-debug.log*
