@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import org.apache.cxf.transport.servlet.CXFServlet
 import org.springframework.boot.web.servlet.ServletRegistrationBean
 import org.springframework.context.ApplicationContext
+import org.springframework.web.servlet.view.JstlView
+import org.springframework.web.servlet.view.UrlBasedViewResolver
 import spock.lang.Specification
 
 class CxfConfigurationTest extends Specification {
@@ -68,6 +70,17 @@ class CxfConfigurationTest extends Specification {
 
 		then:
 		missingUIDExceptionMapper != null
+	}
+
+	void "UrlBasedViewResolver is created"() {
+		when:
+		UrlBasedViewResolver urlBasedViewResolver = cxfConfiguration.urlBasedViewResolver()
+
+		then:
+		urlBasedViewResolver != null
+		urlBasedViewResolver.viewClass == JstlView
+		urlBasedViewResolver.prefix == '/'
+		urlBasedViewResolver.suffix == '.html'
 	}
 
 }

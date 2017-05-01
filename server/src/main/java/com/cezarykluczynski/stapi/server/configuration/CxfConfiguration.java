@@ -13,6 +13,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.web.servlet.view.JstlView;
+import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import javax.inject.Inject;
 
@@ -57,6 +59,17 @@ public class CxfConfiguration extends SpringBootServletInitializer {
 	@Bean
 	public MissingUIDExceptionMapper missingUIDExceptionMapper() {
 		return new MissingUIDExceptionMapper();
+	}
+
+	@Bean
+	public UrlBasedViewResolver urlBasedViewResolver() {
+		UrlBasedViewResolver urlBasedViewResolver = new UrlBasedViewResolver();
+
+		urlBasedViewResolver.setViewClass(JstlView.class);
+		urlBasedViewResolver.setPrefix("/");
+		urlBasedViewResolver.setSuffix(".html");
+
+		return urlBasedViewResolver;
 	}
 
 }
