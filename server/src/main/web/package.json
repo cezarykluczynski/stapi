@@ -3,8 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "another-rest-client": "^0.3.2",
+    "ramda": "^0.23.0",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1"
   },
   "devDependencies": {
     "grunt": "^1.0.1",
@@ -12,8 +16,6 @@
     "grunt-contrib-copy": "^1.0.0",
     "node-sass": "^4.5.2",
     "npm-run-all": "^4.0.2",
-    "react-router": "^4.1.1",
-    "react-router-dom": "^4.1.1",
     "react-scripts": "0.9.5"
   },
   "scripts": {

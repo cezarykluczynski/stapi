@@ -5,8 +5,15 @@ import { Home } from './components/home/Home.js';
 import { ApiBrowser } from './components/apiBrowser/ApiBrowser.js';
 import { Documentation } from './components/documentation/Documentation.js';
 import { Statistics } from './components/statistics/Statistics.js';
+import { InitializationService } from './service/InitializationService.js';
 
 export default class App extends Component {
+
+    constructor() {
+        super()
+        new InitializationService();
+    }
+
 	render() {
 		return (
 			<div className='App'>
