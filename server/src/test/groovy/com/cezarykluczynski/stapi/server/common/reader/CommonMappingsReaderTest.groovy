@@ -28,7 +28,6 @@ class CommonMappingsReaderTest extends Specification {
 		then:
 		1 * entityMatadataProviderMock.provideClassNameToSymbolMap() >> classNameToSymbolMap
 		0 * _
-		restEndpointMappingsDTO.prefix == '/api/v1/'
 		restEndpointMappingsDTO.urls.size() == 1
 		restEndpointMappingsDTO.urls[0].name == 'Series'
 		restEndpointMappingsDTO.urls[0].suffix == 'series'

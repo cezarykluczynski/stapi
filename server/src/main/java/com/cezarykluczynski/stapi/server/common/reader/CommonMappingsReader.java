@@ -3,16 +3,21 @@ package com.cezarykluczynski.stapi.server.common.reader;
 import com.cezarykluczynski.stapi.model.common.service.EntityMatadataProvider;
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointMappingDTO;
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointMappingsDTO;
+import com.cezarykluczynski.stapi.util.tool.StringUtil;
+import com.google.common.collect.Lists;
 import liquibase.util.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 class CommonMappingsReader {
+
+	private static final List<String> EXCLUDED_ENTITIES = Lists.newArrayList("Throttle", "Page", "Reference", "CharacterSpecies");
 
 	private final EntityMatadataProvider entityMatadataProvider;
 
@@ -23,10 +28,7 @@ class CommonMappingsReader {
 
 	public RestEndpointMappingsDTO mappings() {
 		RestEndpointMappingsDTO restEndpointMappingsDTO = new RestEndpointMappingsDTO();
-
-		restEndpointMappingsDTO.setPrefix("/api/v1/");
 		restEndpointMappingsDTO.getUrls().addAll(getAll());
-
 		return restEndpointMappingsDTO;
 	}
 
@@ -50,8 +52,7 @@ class CommonMappingsReader {
 	}
 
 	private boolean isApiEntity(Map.Entry<String, String> entry) {
-		String key = entry.getKey();
-		return !key.endsWith("Throttle") && !key.endsWith("Page");
+		return !StringUtil.endsWithAny(entry.getKey(), EXCLUDED_ENTITIES);
 	}
 
 }

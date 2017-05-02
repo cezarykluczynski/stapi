@@ -63,10 +63,10 @@ class StringUtilTest extends Specification {
 		result == StringUtil.anyStartsWithIgnoreCase(stringList, suffix)
 
 		where:
-		stringList                              | suffix   | result
-		Lists.newArrayList()                    | ''       | false
-		Lists.newArrayList('Government agency') | 'agency' | false
-		Lists.newArrayList('Government agency') | 'Agency' | false
+		stringList                              | suffix       | result
+		Lists.newArrayList()                    | ''           | false
+		Lists.newArrayList('Government agency') | 'agency'     | false
+		Lists.newArrayList('Government agency') | 'Agency'     | false
 		Lists.newArrayList('Government agency') | 'government' | true
 		Lists.newArrayList('Government agency') | 'Government' | true
 	}
@@ -77,12 +77,26 @@ class StringUtilTest extends Specification {
 		result == StringUtil.anyEndsWithIgnoreCase(stringList, suffix)
 
 		where:
-		stringList                              | suffix   | result
-		Lists.newArrayList()                    | ''       | false
-		Lists.newArrayList('Government agency') | 'agency' | true
-		Lists.newArrayList('Government agency') | 'Agency' | true
+		stringList                              | suffix       | result
+		Lists.newArrayList()                    | ''           | false
+		Lists.newArrayList('Government agency') | 'agency'     | true
+		Lists.newArrayList('Government agency') | 'Agency'     | true
 		Lists.newArrayList('Government agency') | 'government' | false
 		Lists.newArrayList('Government agency') | 'Government' | false
+	}
+
+	@Unroll('#returns $result when #subject ends with any of #suffixList')
+	void "tells when a string any with any of a given string from the list"() {
+		expect:
+		result == StringUtil.endsWithAny(subject, suffixList)
+
+		where:
+		subject   | suffixList                           | result
+		'test'    | Lists.newArrayList('est')            | true
+		'last'    | Lists.newArrayList('rd', 'nd', 'st') | true
+		'TEST'    | Lists.newArrayList('test')           | false
+		'nope'    | Lists.newArrayList('yes', 'yep')     | false
+		'subject' | Lists.newArrayList('')               | false
 	}
 
 }

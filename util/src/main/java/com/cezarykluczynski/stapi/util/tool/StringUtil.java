@@ -60,6 +60,10 @@ public class StringUtil {
 		return stringList.stream().anyMatch(categoryTitle -> StringUtils.endsWithIgnoreCase(categoryTitle, suffix));
 	}
 
+	public static boolean endsWithAny(String subject, List<String> suffixList) {
+		return suffixList.stream().anyMatch(suffix -> StringUtils.isNotEmpty(suffix) && subject.endsWith(suffix));
+	}
+
 	private static Stream<String> getLowerCandidatesStream(List<String> candidates) {
 		List<String> candidatesLowerCase = candidates.stream()
 				.filter(StringUtils::isNotBlank)
