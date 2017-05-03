@@ -5,22 +5,27 @@ import { Home } from './components/home/Home.js';
 import { ApiBrowser } from './components/apiBrowser/ApiBrowser.js';
 import { Documentation } from './components/documentation/Documentation.js';
 import { Statistics } from './components/statistics/Statistics.js';
-import { InitializationService } from './service/InitializationService.js';
+import { RestApi } from './service/rest/RestApi.js';
 import R from 'ramda';
+import { SearchStateService } from './service/SearchStateService.js';
 
 class App extends Component {
 
 	constructor() {
 		super();
-		this.initializationService = new InitializationService();
-		this.restApi = this.initializationService.getRestApi();
+		this.restApi = RestApi.getInstance();
+		this.state = {};
 		var self = this;
 		this.restApi.whenReady(() => {
+			const urls = self.restApi.getUrls();
 			self.setState({
-				urls: self.restApi.getUrls()
+				urls: urls,
+				selectedSymbol: urls[0].symbol
 			});
 		})
 		this.search = this.search.bind(this);
+		this.changeSelection = this.changeSelection.bind(this);
+		this.handlePhraseChange = this.handlePhraseChange.bind(this);
 	}
 
 	render() {
@@ -39,8 +44,9 @@ class App extends Component {
 										</ul>
 										<form className="navbar-form navbar-left" role="search" onSubmit={this.search}>
 											<div className="form-group">
-												<input type="text" className="form-control" placeholder="Search the API" />
-												<select  className="form-control navigation__search__entity">
+												<input type="text" className="form-control" placeholder="Search the API"
+													onChange={this.handlePhraseChange} />
+												<select className="form-control navigation__search__entity" onChange={this.changeSelection}>
 													{this.createOptions()}
 												</select>
 											</div>
@@ -71,7 +77,7 @@ class App extends Component {
 
 	createOptions() {
 		let items = [];
-		if (!this.state || !this.state.urls) {
+		if (!this.state.urls) {
 			return items;
 		}
 		for (let i = 0; i < this.state.urls.length; i++) {
@@ -81,13 +87,29 @@ class App extends Component {
 		return items;
 	}
 
+	changeSelection(event) {
+		this.setState({
+			selectedSymbol: event.target.value
+		});
+	}
+
+	handlePhraseChange(event) {
+		this.setState({
+			searchPhrase: event.target.value
+		});
+	}
+
 	search(event) {
 		event.preventDefault();
 		if (!R.test(/api-browser/, location.href)) {
 			history.pushState({}, '', '/api-browser');
 		}
+		SearchStateService.push({
+			type: 'SEARCH',
+			phrase: this.state.searchPhrase,
+			symbol: this.state.selectedSymbol
+		});
 	}
-
 }
 
 export default App;

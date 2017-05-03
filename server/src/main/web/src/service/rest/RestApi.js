@@ -1,16 +1,29 @@
 import RestClient from 'another-rest-client';
 import R from 'ramda';
 
+let instance;
+
 export class RestApi {
 
+	static getInstance() {
+		if (!instance) {
+			instance = new RestApi();
+		}
+		return instance;
+	}
+
 	constructor() {
-		this.api = new RestClient((location.href.includes('localhost:3000') ? 'http://localhost:8686' : '') + '/api/v1/rest');
+		const prefix = location.href.includes('localhost:3000') ? 'http://localhost:8686' : '';
+		this.api = new RestClient(prefix + '/api/v1/rest');
 		this.api.res({
 			common: [
 				'mappings'
 			]
 		});
 		this.api.common.mappings.get().then((response) => {
+			response.urls.sort((left, right) => {
+				return left.symbol > right.symbol;
+			});
 			this.urls = response.urls;
 			this.urls.forEach((url) => {
 				var res = {};
@@ -21,17 +34,33 @@ export class RestApi {
 		});
 	}
 
-	search(symbol, phrase) {
+	search(symbol, phrase, single) {
 		const serviceName = this.findBySymbol(symbol).suffix;
 		const searchApi = this.api[serviceName].search;
-		var promise = phrase ? searchApi.post({title: phrase, name: phrase}, 'application/x-www-form-urlencoded') : searchApi.get();
-		return promise.then((response) => {
-			var contentKey = R.filter(key => key !== 'page', Object.keys(response))[0];
+		var promise = phrase ? searchApi.post({
+			title: phrase, name: phrase
+		}, 'application/x-www-form-urlencoded') : searchApi.get();
+		return promise.then(response => {
 			return {
 				page: response.page,
-				content: response[contentKey]
+				content: response[this.getContentKey(response)]
 			}
 		});
+	}
+
+	get(symbol, uid) {
+		const serviceName = this.findBySymbol(symbol).suffix;
+		const api = this.api[serviceName];
+		return api.get({uid: uid}).then(response => {
+			return {
+				page: null,
+				content: response[this.getContentKey(response)]
+			}
+		});
+	}
+
+	getContentKey(response) {
+		return R.filter(key => key !== 'page', Object.keys(response))[0];
 	}
 
 	getUrls() {
