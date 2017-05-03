@@ -4,7 +4,7 @@ import R from 'ramda';
 export class RestApi {
 
 	constructor() {
-		this.api = new RestClient('http://localhost:8686/api/v1/rest');
+		this.api = new RestClient((location.href.includes('localhost:3000') ? 'http://localhost:8686' : '') + '/api/v1/rest');
 		this.api.res({
 			common: [
 				'mappings'
@@ -17,6 +17,7 @@ export class RestApi {
 				res[url.suffix] = ['search'];
 				this.api.res(res);
 			});
+			this.callback();
 		});
 	}
 
@@ -33,6 +34,10 @@ export class RestApi {
 		});
 	}
 
+	getUrls() {
+		return this.urls;
+	}
+
 	findBySymbol(symbol) {
 		for (let i = 0; i < this.urls.length; i++) {
 			const url = this.urls[i];
@@ -40,6 +45,10 @@ export class RestApi {
 				return url;
 			}
 		}
+	}
+
+	whenReady(callback) {
+		this.callback = callback;
 	}
 
 }

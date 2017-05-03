@@ -3,7 +3,11 @@ import { RestApi } from './rest/RestApi.js';
 export class InitializationService {
 
 	constructor() {
-		new RestApi();
+		this.restApi = new RestApi();
+	}
+
+	getRestApi() {
+		return this.restApi;
 	}
 
 }
