@@ -22,8 +22,9 @@ export class RestApi {
 		});
 		this.api.common.mappings.get().then((response) => {
 			response.urls.sort((left, right) => {
-				return left.symbol > right.symbol;
+				return left.symbol > right.symbol ? 1 : -1;
 			});
+
 			this.urls = response.urls;
 			this.urls.forEach((url) => {
 				var res = {};

@@ -80,6 +80,7 @@ class App extends Component {
 		if (!this.state.urls) {
 			return items;
 		}
+
 		for (let i = 0; i < this.state.urls.length; i++) {
 			let url = this.state.urls[i];
 			items.push(<option key={url.symbol} value={url.symbol}>{url.name}</option>);
