@@ -13,8 +13,8 @@ export class ApiBrowserResponse extends Component {
 		};
 		var self = this;
 		this.restApi = RestApi.getInstance();
-		SearchStateService.subscribe((state) => {
-			self.updateFromSearch(state);
+		SearchStateService.subscribe((state, error) => {
+			error ? self.handleInitialError(state) : self.updateFromSearch(state);
 		});
 	}
 
@@ -67,6 +67,13 @@ export class ApiBrowserResponse extends Component {
 		});
 	}
 
+	handleInitialError(error) {
+		this.setState({
+			lastUpdateWasError: true,
+			response: error
+		});
+	}
+
 	renderMetadata() {
 		if (!this.state.response) {
 			return '';
@@ -75,7 +82,7 @@ export class ApiBrowserResponse extends Component {
 		var page = this.state.response.page;
 
 		if (this.state.lastUpdateType === 'search') {
-			return <div className="api-browser__response_data col-md-12 alert alert-info"><span>
+			return <div className={"api-browser__response_data col-md-12 alert " + (page.totalElements === 0 ? "alert-warning" : "alert-info")}><span>
 				{this.state.phrase ? <span>Searched for phrase <span className="api-browser__phrase-result">{SearchStateService.getState().phrase}</span>.</span> : ''}
 				There were {page.totalElements} result.
 				{page.totalElements > page.numberOfElements && <span> First 50 are shown.</span>}
@@ -85,7 +92,7 @@ export class ApiBrowserResponse extends Component {
 
 	renderError() {
 		return <div className="api-browser__response_data col-md-12 alert alert-danger"><span>
-			There was an error <span className="api-browser__phrase-result">{SearchStateService.getState().phrase}</span>. Details bellow.
+			There was an error. Details bellow.
 		</span></div>;
 	}
 

@@ -4,13 +4,12 @@ export class SearchStateService {
 		return this.states && this.states.length ? this.states[this.states.length -1] : null;
 	}
 
-	static push(state) {
-		this.error = false;
+	static push(state, error) {
 		this.states = this.states || [];
 		this.handlers = this.handlers || [];
 		this.states.push(state);
 		for (let i = 0; i < this.handlers.length; i++) {
-			this.handlers[i](state);
+			this.handlers[i](state, error);
 		}
 	}
 
@@ -19,13 +18,13 @@ export class SearchStateService {
 		this.handlers.push(handler);
 		const state = this.getState();
 		if (state) {
-			handler(state);
+			handler(state, this.error);
 		}
 	}
 
 	static markInvalid(error) {
 		this.invalid = true;
-		this.error = error;
+		this.push(JSON.parse(error.response), true);
 	}
 
 	static getError() {
