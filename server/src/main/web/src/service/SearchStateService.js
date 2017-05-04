@@ -5,6 +5,7 @@ export class SearchStateService {
 	}
 
 	static push(state) {
+		this.error = false;
 		this.states = this.states || [];
 		this.handlers = this.handlers || [];
 		this.states.push(state);
@@ -20,6 +21,23 @@ export class SearchStateService {
 		if (state) {
 			handler(state);
 		}
+	}
+
+	static markInvalid(error) {
+		this.invalid = true;
+		this.error = error;
+	}
+
+	static getError() {
+		return this.error;
+	}
+
+	static markValid() {
+		this.invalid = false;
+	}
+
+	static isInvalid() {
+		return typeof this.invalid === 'undefined' || this.invalid;
 	}
 
 }

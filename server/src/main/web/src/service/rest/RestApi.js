@@ -20,7 +20,7 @@ export class RestApi {
 				'mappings'
 			]
 		});
-		this.api.common.mappings.get().then((response) => {
+		this.api.common.mappings.get().then(response => {
 			response.urls.sort((left, right) => {
 				return left.symbol > right.symbol ? 1 : -1;
 			});
@@ -32,6 +32,8 @@ export class RestApi {
 				this.api.res(res);
 			});
 			this.callback();
+		}).catch(error => {
+			this.errorCallback(error);
 		});
 	}
 
@@ -79,6 +81,10 @@ export class RestApi {
 
 	whenReady(callback) {
 		this.callback = callback;
+	}
+
+	onError(errorCallback) {
+		this.errorCallback = errorCallback;
 	}
 
 }

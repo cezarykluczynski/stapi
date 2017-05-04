@@ -2,115 +2,98 @@ import React, { Component } from 'react';
 import './ApiBrowser.css';
 import { SearchStateService } from '../../service/SearchStateService.js';
 import { RestApi } from '../../service/rest/RestApi.js';
+import { ApiBrowserResponse } from './ApiBrowserResponse.js';
 
 export class ApiBrowser extends Component {
 
 	constructor() {
 		super();
-		this.restApi = RestApi.getInstance();
+		this.state = {};
 		var self = this;
-		SearchStateService.subscribe((state) => {
-			self.updateFromSearch(state);
+		this.restApi = RestApi.getInstance();
+		this.restApi.whenReady(() => {
+			const urls = self.restApi.getUrls();
+			self.setState({
+				urls: urls,
+				symbol: urls[0].symbol
+			});
+			SearchStateService.markValid();
+			self.forceUpdate();
 		});
+		this.restApi.onError(error => {
+			SearchStateService.markInvalid(error);
+		});
+		this.search = this.search.bind(this);
+		this.changeSelection = this.changeSelection.bind(this);
+		this.updatePhrase = this.updatePhrase.bind(this);
 	}
 
 	render() {
 		return (
 			<div className='api-browser'>
-				<div className="api-browser__response">
-					{this.renderContent()}
+				<div className="row">
+					<form role="search" className="form-horizontal" onSubmit={this.search}>
+						<div className="col-md-5">
+							<input type="text" className="form-control" placeholder="Search the API"
+								onChange={this.updatePhrase} disabled={this.isDisabled()} />
+						</div>
+						<div className="col-md-5">
+							<select className="form-control" onChange={this.changeSelection} disabled={this.isDisabled()}>
+								{this.createOptions()}
+							</select>
+						</div>
+						<div className="col-md-2">
+							<button type="submit" className="btn btn-default" disabled={this.isDisabled()}>Submit</button>
+						</div>
+					</form>
+				</div>
+				<div className="row">
+					<ApiBrowserResponse />
 				</div>
 			</div>
 		);
 	}
 
-	updateFromSearch(state) {
-		this.restApi.search(state.symbol, state.phrase).then(response => {
-			this.response = response;
-			this.forceUpdate();
-		});
-	}
-
-	updateFromEntityPick(uid) {
-		this.restApi.get(this.extractSymbol(uid), uid).then(response => {
-			this.response = response;
-			this.forceUpdate();
-		});
-	}
-
-	renderContent() {
-		var items = [];
-
-		if (!this.response) {
-			return items;
-		}
-
-		var content = this.response.content;
-		var keys = Object.keys(content);
-
-		if (!keys.length) {
-			return items;
-		}
-
-		var level = 0;
-
-		if (Array.isArray(content)) {
-			for (let i = 0; i < content.length; i++) {
-				items.push(this.doRender(content[i], level));
-
-				if (i + 1 < content.length && content.length > 1) {
-					items.push(<li key={i} className='api-browser__separator'></li>);
-				}
-			}
-		} else {
-			items.push(this.doRender(content, level));
-		}
-
-		return items;
-	}
-
-	doRender(content, level) {
+	createOptions() {
 		let items = [];
-		for (let i in content) {
-			if (Array.isArray(content[i])) {
-				var childItems = this.doRender(content[i], level + 1);
-				for (let j = 0; j < childItems.length; j++) {
-					items.push(childItems[j]);
-				}
-				continue;
-			}
-
-			if (typeof content[i] === 'object') {
-				if (content[i] === null) {
-					continue;
-				}
-
-				var childItems = this.doRender(content[i], level + 1);
-				items.push(<li><span key={i} className="api-browser__label">{i}:</span><ul>{childItems}</ul></li>);
-			}
-
-			let value = this.renderValue(content[i], i);
-
-			if (value === undefined) {
-				continue;
-			}
-
-			items.push(<li><span key={i} className="api-browser__label">{i}:</span> {value}</li>);
+		if (!this.state.urls) {
+			return items;
 		}
 
+		for (let i = 0; i < this.state.urls.length; i++) {
+			let url = this.state.urls[i];
+			items.push(<option key={url.symbol} value={url.symbol}>{url.name}</option>);
+		}
 		return items;
 	}
 
-	renderValue(value, key) {
-		if (Array.isArray(value) && !value.length || value === null || key === 'uid' || typeof value === 'object') {
-			return;
-		}
+	changeSelection(event) {
+		this.setState({
+			symbol: event.target.value
+		});
 
-		if (typeof value === 'boolean') {
-			return value ? 'yes' : undefined;
+		if (this.state.phrase) {
+			this.search();
 		}
+	}
 
-		return value;
+	updatePhrase(event) {
+		this.setState({
+			phrase: event.target.value
+		});
+	}
+
+	search(event) {
+		event && event.preventDefault();
+
+		SearchStateService.push({
+			phrase: this.state.phrase,
+			symbol: this.state.symbol
+		});
+	}
+
+	isDisabled() {
+		return SearchStateService.isInvalid();
 	}
 
 }

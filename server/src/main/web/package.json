@@ -20,7 +20,7 @@
   },
   "scripts": {
     "build-css": "node-sass src/sass/ -o src/components/",
-    "watch-css": "npm run build-css && node-sass src/sass/ -src/components/ --watch --recursive",
+    "watch-css": "npm run build-css && node-sass src/sass/ -o src/components/ --watch --recursive",
     "start-js": "react-scripts start",
     "start": "npm-run-all -p watch-css start-js",
     "build": "grunt clean && npm run build-css && react-scripts build && grunt copy",
