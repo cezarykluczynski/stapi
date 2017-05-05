@@ -20,6 +20,17 @@ export class RestApi {
 				'mappings'
 			]
 		});
+		this.api.on('response', (xhr) => {
+			try {
+				const limits = {
+					total: xhr.getResponseHeader('X-Throttle-Limit-Total'),
+					remaining: xhr.getResponseHeader('X-Throttle-Limit-Remaining')
+				};
+				if (this.onLimitUpdateCallback) {
+					this.onLimitUpdateCallback(limits);
+				}
+			} catch(e) {}
+		});
 		this.api.common.mappings.get().then(response => {
 			response.urls.sort((left, right) => {
 				return left.symbol > right.symbol ? 1 : -1;
@@ -47,7 +58,7 @@ export class RestApi {
 			return {
 				page: response.page,
 				content: response[this.getContentKey(response)]
-			}
+			};
 		});
 	}
 
@@ -58,7 +69,7 @@ export class RestApi {
 			return {
 				page: null,
 				content: response[this.getContentKey(response)]
-			}
+			};
 		});
 	}
 
@@ -85,6 +96,10 @@ export class RestApi {
 
 	onError(errorCallback) {
 		this.errorCallback = errorCallback;
+	}
+
+	onLimitUpdate(onLimitUpdateCallback) {
+		this.onLimitUpdateCallback = onLimitUpdateCallback;
 	}
 
 }

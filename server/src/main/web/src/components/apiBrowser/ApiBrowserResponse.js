@@ -16,6 +16,11 @@ export class ApiBrowserResponse extends Component {
 		SearchStateService.subscribe((state, error) => {
 			error ? self.handleInitialError(state) : self.updateFromSearch(state);
 		});
+		this.restApi.onLimitUpdate(limits => {
+			self.setState({
+				limits: limits
+			});
+		})
 	}
 
 	render() {
@@ -54,6 +59,10 @@ export class ApiBrowserResponse extends Component {
 		return !!this.state.response;
 	}
 
+	hasLimits() {
+		return this.state.limits && this.state.limits.total;
+	}
+
 	handleRequest(promise) {
 		promise.then(response => {
 			this.setState({
@@ -82,7 +91,8 @@ export class ApiBrowserResponse extends Component {
 		var page = this.state.response.page;
 
 		if (this.state.lastUpdateType === 'search') {
-			return <div className={"api-browser__response_data col-md-12 alert " + (page.totalElements === 0 ? "alert-warning" : "alert-info")}><span>
+			return <div className={"api-browser__response-data col-md-12 alert " + (page.totalElements === 0 ? "alert-warning" : "alert-info")}><span>
+				{this.hasLimits() ? <span className="api-browser__limits"><span className="api-browser__remaining">{this.state.limits.remaining}</span> requests of {this.state.limits.total} left</span> : ''}
 				{this.state.phrase ? <span>Searched for phrase <span className="api-browser__phrase-result">{SearchStateService.getState().phrase}</span>.</span> : ''}
 				There were {page.totalElements} result.
 				{page.totalElements > page.numberOfElements && <span> First 50 are shown.</span>}

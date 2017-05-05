@@ -14,6 +14,11 @@ module.exports = function(grunt) {
 						src: ['build/**'],
 						dest: '../resources/'
 					},
+					{
+						expand: true,
+						src: ['build/**'],
+						dest: '../../../build/resources/main/'
+					}
 				],
 			},
 		}
