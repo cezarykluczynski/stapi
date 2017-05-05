@@ -17,9 +17,9 @@ public class ThrottleFacade {
 	private static final Map<ThrottleReason, String> ERROR_MESSAGES = Maps.newHashMap();
 
 	static {
-		ERROR_MESSAGES.put(ThrottleReason.HOURLY_API_KEY_LIMIT_EXCEEDED, "Hourly API limit exceeded");
-		ERROR_MESSAGES.put(ThrottleReason.HOURLY_IP_LIMIT_EXCEEDED, "Hourly IP limit exceeded");
-		ERROR_MESSAGES.put(ThrottleReason.TOO_SHORT_INTERVAL_BETWEEN_REQUESTS, "Too short interval between requests");
+		ERROR_MESSAGES.put(ThrottleReason.HOURLY_API_KEY_LIMIT_EXCEEDED, "Hourly API limit exceeded.");
+		ERROR_MESSAGES.put(ThrottleReason.HOURLY_IP_LIMIT_EXCEEDED, "Hourly IP limit exceeded.");
+		ERROR_MESSAGES.put(ThrottleReason.TOO_SHORT_INTERVAL_BETWEEN_REQUESTS, "Too short interval between requests.");
 	}
 
 	private final ThrottleValidator throttleValidator;

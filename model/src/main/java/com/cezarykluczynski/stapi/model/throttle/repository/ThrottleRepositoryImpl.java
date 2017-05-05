@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.model.throttle.repository;
 
 import com.cezarykluczynski.stapi.model.configuration.ThrottleProperties;
+import com.cezarykluczynski.stapi.model.throttle.dto.ThrottleStatistics;
 import com.cezarykluczynski.stapi.model.throttle.entity.Throttle;
 import com.cezarykluczynski.stapi.model.throttle.entity.enums.ThrottleType;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -24,23 +25,30 @@ public class ThrottleRepositoryImpl implements ThrottleRepositoryCustom {
 	}
 
 	@Override
-	public boolean decrementByIpAndGetResult(String ipAddress) {
+	public ThrottleStatistics decrementByIpAndGetStatistics(String ipAddress) {
+		ThrottleStatistics throttleStatistics = new ThrottleStatistics();
+		Integer ipAddressHourlyLimit = throttleProperties.getIpAddressHourlyLimit();
+		throttleStatistics.setTotal(ipAddressHourlyLimit);
+
 		Optional<Throttle> throttleOptional = throttleRepository.findByIpAddress(ipAddress);
 
 		if (throttleOptional.isPresent()) {
 			Throttle throttle = throttleOptional.get();
+			int remainingHits = throttle.getRemainingHits();
 
-			if (throttle.getRemainingHits() <= 0) {
-				return false;
+			if (remainingHits <= 0) {
+				throttleStatistics.setRemaining(0);
+				return throttleStatistics;
 			}
 
 			throttleRepository.decrementByIp(ipAddress, LocalDateTime.now());
-			return true;
+			throttleStatistics.setRemaining(remainingHits - 1);
+			throttleStatistics.setDecremented(true);
+			return throttleStatistics;
 		} else {
 			Throttle throttle = new Throttle();
 			throttle.setThrottleType(ThrottleType.IP_ADDRESS);
 			throttle.setIpAddress(ipAddress);
-			Integer ipAddressHourlyLimit = throttleProperties.getIpAddressHourlyLimit();
 			throttle.setHitsLimit(ipAddressHourlyLimit);
 			throttle.setRemainingHits(ipAddressHourlyLimit - 1);
 			throttle.setLastHitTime(LocalDateTime.now());
@@ -50,7 +58,10 @@ public class ThrottleRepositoryImpl implements ThrottleRepositoryCustom {
 				throttleRepository.decrementByIp(ipAddress, LocalDateTime.now());
 			}
 
-			return true;
+			throttleStatistics.setRemaining(ipAddressHourlyLimit - 1);
+			throttleStatistics.setDecremented(true);
+
+			return throttleStatistics;
 		}
 	}
 

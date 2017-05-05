@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.server.common.converter.LocalDateRestParamConv
 import com.cezarykluczynski.stapi.server.common.throttle.rest.RestExceptionMapper
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDExceptionMapper
 import com.cezarykluczynski.stapi.server.configuration.CxfRestPrettyPrintContainerResponseFilter
+import com.cezarykluczynski.stapi.server.configuration.interceptor.ApiThrottleLimitHeadersBindingInterceptor
 import com.cezarykluczynski.stapi.server.configuration.interceptor.ApiThrottlingInterceptor
 import com.cezarykluczynski.stapi.server.series.endpoint.SeriesRestEndpoint
 import com.cezarykluczynski.stapi.server.series.endpoint.SeriesSoapEndpoint
@@ -35,6 +36,7 @@ class EndpointFactoryTest extends Specification {
 		Class<SeriesSoapEndpoint> seriesSoapEndpointClass = SeriesSoapEndpoint
 		SeriesSoapEndpoint seriesSoapEndpoint = Mock()
 		ApiThrottlingInterceptor apiThrottlingInterceptor = Mock()
+		ApiThrottleLimitHeadersBindingInterceptor apiThrottleLimitHeadersBindingInterceptor = Mock()
 
 		when:
 		Endpoint seriesSoapEndpointOutput = endpointFactory.createSoapEndpoint(seriesSoapEndpointClass, SeriesSoapEndpoint.ADDRESS)
@@ -43,6 +45,8 @@ class EndpointFactoryTest extends Specification {
 		1 * applicationContextMock.getBean(SpringBus) >> bus
 		1 * applicationContextMock.getBean(seriesSoapEndpointClass) >> seriesSoapEndpoint
 		1 * applicationContextMock.getBean(ApiThrottlingInterceptor) >> apiThrottlingInterceptor
+		1 * applicationContextMock.getBean(ApiThrottleLimitHeadersBindingInterceptor) >> apiThrottleLimitHeadersBindingInterceptor
+		0 * _
 		seriesSoapEndpointOutput != null
 		((EndpointImpl) seriesSoapEndpointOutput).implementor == seriesSoapEndpoint
 		((EndpointImpl) seriesSoapEndpointOutput).bus == bus
@@ -61,6 +65,7 @@ class EndpointFactoryTest extends Specification {
 		RestExceptionMapper  restExceptionMapper = Mock()
 		MissingUIDExceptionMapper missingUIDExceptionMapper = Mock()
 		ApiThrottlingInterceptor apiThrottlingInterceptor = Mock()
+		ApiThrottleLimitHeadersBindingInterceptor apiThrottleLimitHeadersBindingInterceptor = Mock()
 
 		when:
 		Server server = endpointFactory.createRestEndpoint(seriesRestEndpointClass, SeriesRestEndpoint.ADDRESS)
@@ -74,6 +79,7 @@ class EndpointFactoryTest extends Specification {
 		1 * applicationContextMock.getBean(RestExceptionMapper) >> restExceptionMapper
 		1 * applicationContextMock.getBean(MissingUIDExceptionMapper) >> missingUIDExceptionMapper
 		1 * applicationContextMock.getBean(ApiThrottlingInterceptor) >> apiThrottlingInterceptor
+		1 * applicationContextMock.getBean(ApiThrottleLimitHeadersBindingInterceptor) >> apiThrottleLimitHeadersBindingInterceptor
 		0 * _
 		server != null
 		((ServerImpl) server).bus == bus

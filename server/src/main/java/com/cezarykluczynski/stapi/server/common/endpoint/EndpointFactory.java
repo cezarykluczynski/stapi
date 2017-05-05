@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.server.common.converter.LocalDateRestParamConv
 import com.cezarykluczynski.stapi.server.common.throttle.rest.RestExceptionMapper;
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDExceptionMapper;
 import com.cezarykluczynski.stapi.server.configuration.CxfRestPrettyPrintContainerResponseFilter;
+import com.cezarykluczynski.stapi.server.configuration.interceptor.ApiThrottleLimitHeadersBindingInterceptor;
 import com.cezarykluczynski.stapi.server.configuration.interceptor.ApiThrottlingInterceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
@@ -11,16 +12,13 @@ import com.google.common.collect.Lists;
 import org.apache.cxf.Bus;
 import org.apache.cxf.bus.spring.SpringBus;
 import org.apache.cxf.endpoint.Server;
-import org.apache.cxf.interceptor.Interceptor;
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 import org.apache.cxf.jaxws.EndpointImpl;
-import org.apache.cxf.message.Message;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import javax.xml.ws.Endpoint;
-import java.util.List;
 
 @Service
 public class EndpointFactory {
@@ -32,8 +30,8 @@ public class EndpointFactory {
 		Bus bus = applicationContext.getBean(SpringBus.class);
 		Object implementor = applicationContext.getBean(implementorClass);
 		EndpointImpl endpoint = new EndpointImpl(bus, implementor);
-		List<Interceptor<? extends Message>> interceptorList = Lists.newArrayList(applicationContext.getBean(ApiThrottlingInterceptor.class));
-		endpoint.setInInterceptors(interceptorList);
+		endpoint.setInInterceptors(Lists.newArrayList(applicationContext.getBean(ApiThrottlingInterceptor.class)));
+		endpoint.setOutInterceptors(Lists.newArrayList(applicationContext.getBean(ApiThrottleLimitHeadersBindingInterceptor.class)));
 		endpoint.publish(address);
 		return endpoint;
 	}
@@ -50,6 +48,7 @@ public class EndpointFactory {
 				applicationContext.getBean(RestExceptionMapper.class),
 				applicationContext.getBean(MissingUIDExceptionMapper.class)));
 		factory.setInInterceptors(Lists.newArrayList(applicationContext.getBean(ApiThrottlingInterceptor.class)));
+		factory.setOutInterceptors(Lists.newArrayList(applicationContext.getBean(ApiThrottleLimitHeadersBindingInterceptor.class)));
 		factory.setServiceBeans(Lists.newArrayList(implementor));
 		return factory.create();
 	}
