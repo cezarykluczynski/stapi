@@ -23,11 +23,7 @@ class App extends Component {
 											<li><Link to='/statistics'>Statistics</Link></li>
 										</ul>
 										<ul className='nav navbar-nav navbar-right'>
-											<li className='navigation__github-star'>
-												<a className='github-button' href='https://github.com/cezarykluczynski/stapi' data-icon='octicon-star'
-													data-style='mega' data-show-count='true'
-													aria-label='Star cezarykluczynski/stapi on GitHub'>Star</a>
-											</li>
+											<li className='navigation__github-star' dangerouslySetInnerHTML={{__html: this.getGitHubButton()}}></li>
 											<li><a href='https://github.com/cezarykluczynski/stapi'>STAPI on GitHub</a></li>
 										</ul>
 								</div>
@@ -44,6 +40,12 @@ class App extends Component {
 			</div>
 		);
 	}
+
+	getGitHubButton() {
+		return '<a class="github-button" href="https://github.com/cezarykluczynski/stapi" data-size="large" data-show-count="true" '
+			+ 'aria-label="Star cezarykluczynski/stapi on GitHub">Star</a>';
+	}
+
 }
 
 export default App;
