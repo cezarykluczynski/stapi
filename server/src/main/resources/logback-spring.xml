@@ -56,6 +56,13 @@
 		<appender-ref ref="CONSOLE"/>
 	</logger>
 
+	<logger name="org.springframework.boot.web.servlet.FilterRegistrationBean" additivity="FALSE" level="WARNING"/>
+	<logger name="org.springframework.web.web.servlet.handler.SimpleUrlHandlerMapping" additivity="FALSE" level="WARNING"/>
+	<logger name="org.springframework.web.web.servlet.handler.AbstractUrlHandlerMapping" additivity="FALSE" level="WARNING"/>
+	<logger name="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" additivity="FALSE" level="WARNING"/>
+	<logger name="org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping" additivity="FALSE" level="WARNING"/>
+	<logger name="org.springframework.boot.actuate.endpoint.jmx.EndpointMBeanExporter" additivity="FALSE" level="WARNING"/>
+
 	<logger name="liquibase" additivity="FALSE" level="INFO">
 		<appender-ref ref="CONSOLE"/>
 	</logger>
