@@ -1,6 +1,9 @@
 package com.cezarykluczynski.stapi.model.location.entity;
 
+import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
+import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
+import com.cezarykluczynski.stapi.model.location.repository.LocationRepository;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +27,7 @@ import javax.persistence.SequenceGenerator;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = LocationRepository.class, singularName = "location", pluralName = "locations")
 public class Location extends PageAwareEntity implements PageAware {
 
 	@Id

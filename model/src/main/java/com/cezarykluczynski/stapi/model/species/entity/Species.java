@@ -2,8 +2,11 @@ package com.cezarykluczynski.stapi.model.species.entity;
 
 import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
+import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
+import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
+import com.cezarykluczynski.stapi.model.species.repository.SpeciesRepository;
 import com.google.common.collect.Sets;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,6 +38,7 @@ import java.util.Set;
 @ToString(callSuper = true, exclude = {"homeworld", "quadrant", "characters"})
 @EqualsAndHashCode(callSuper = true, exclude = {"homeworld", "quadrant", "characters"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = SpeciesRepository.class, singularName = "species", pluralName = "species")
 public class Species extends PageAwareEntity implements PageAware {
 
 	@Id

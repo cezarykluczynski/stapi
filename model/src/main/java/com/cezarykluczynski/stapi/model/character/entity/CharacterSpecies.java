@@ -1,5 +1,8 @@
 package com.cezarykluczynski.stapi.model.character.entity;
 
+import com.cezarykluczynski.stapi.model.character.repository.CharacterSpeciesRepository;
+import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
+import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,6 +31,8 @@ import java.io.Serializable;
 @ToString(exclude = {"species"})
 @EqualsAndHashCode(exclude = {"species"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@TrackedEntity(type = TrackedEntityType.FICTIONAL_HELPER, repository = CharacterSpeciesRepository.class, apiEntity = false,
+		singularName = "character species", pluralName = "characters species")
 public class CharacterSpecies implements Serializable {
 
 	@Id

@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.server.common.reader
 
+import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailsDTO
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointMappingsDTO
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO
 import spock.lang.Specification
@@ -10,12 +11,15 @@ class CommonDataReaderTest extends Specification {
 
 	private CommonEntitiesStatisticsReader commonEntitiesStatisticsReaderMock
 
+	private CommonEntitiesDetailsReader commonEntitiesDetailsReaderMock
+
 	private CommonDataReader commonDataReader
 
 	void setup() {
 		commonMappingsReaderMock = Mock()
 		commonEntitiesStatisticsReaderMock = Mock()
-		commonDataReader = new CommonDataReader(commonMappingsReaderMock, commonEntitiesStatisticsReaderMock)
+		commonEntitiesDetailsReaderMock = Mock()
+		commonDataReader = new CommonDataReader(commonMappingsReaderMock, commonEntitiesStatisticsReaderMock, commonEntitiesDetailsReaderMock)
 	}
 
 	void "gets mappings from CommonMappingsReader"() {
@@ -42,6 +46,19 @@ class CommonDataReaderTest extends Specification {
 		1 * commonEntitiesStatisticsReaderMock.entitiesStatistics() >> restEndpointStatisticsDTO
 		0 * _
 		restEndpointStatisticsDTOOutput == restEndpointStatisticsDTO
+	}
+
+	void "gets details from CommonEntitiesDetailsReader"() {
+		given:
+		RestEndpointDetailsDTO restEndpointDetailsDTO = Mock()
+
+		when:
+		RestEndpointDetailsDTO restEndpointDetailsDTOOutput = commonDataReader.details()
+
+		then:
+		1 * commonEntitiesDetailsReaderMock.details() >> restEndpointDetailsDTO
+		0 * _
+		restEndpointDetailsDTOOutput == restEndpointDetailsDTO
 	}
 
 }

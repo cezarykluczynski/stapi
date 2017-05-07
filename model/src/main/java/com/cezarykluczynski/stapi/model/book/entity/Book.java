@@ -1,8 +1,11 @@
 package com.cezarykluczynski.stapi.model.book.entity;
 
+import com.cezarykluczynski.stapi.model.book.repository.BookRepository;
 import com.cezarykluczynski.stapi.model.bookCollection.entity.BookCollection;
 import com.cezarykluczynski.stapi.model.bookSeries.entity.BookSeries;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
+import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
+import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
@@ -39,6 +42,7 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true, exclude = {"bookSeries", "authors", "artists", "editors", "audiobookNarrators", "publishers",
 		"audiobookPublishers", "characters", "references", "audiobookReferences", "bookCollections"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = BookRepository.class, singularName = "book", pluralName = "books")
 public class Book extends PageAwareEntity implements PageAware {
 
 	@Id

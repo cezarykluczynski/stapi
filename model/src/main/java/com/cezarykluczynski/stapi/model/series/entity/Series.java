@@ -1,9 +1,12 @@
 package com.cezarykluczynski.stapi.model.series.entity;
 
+import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
+import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
+import com.cezarykluczynski.stapi.model.series.repository.SeriesRepository;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -35,6 +38,7 @@ import java.util.Set;
 @ToString(callSuper = true, exclude = {"productionCompany", "originalBroadcaster", "episodes"})
 @EqualsAndHashCode(callSuper = true, exclude = {"productionCompany", "originalBroadcaster", "episodes"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = SeriesRepository.class, singularName = "series", pluralName = "series")
 public class Series extends PageAwareEntity implements PageAware {
 
 	@Id

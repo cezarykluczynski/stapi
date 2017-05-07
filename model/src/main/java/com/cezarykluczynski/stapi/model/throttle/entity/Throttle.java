@@ -1,6 +1,9 @@
 package com.cezarykluczynski.stapi.model.throttle.entity;
 
+import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
+import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.throttle.entity.enums.ThrottleType;
+import com.cezarykluczynski.stapi.model.throttle.repository.ThrottleRepository;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +26,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@TrackedEntity(type = TrackedEntityType.TECHNICAL, repository = ThrottleRepository.class, apiEntity = false, singularName = "throttle",
+		pluralName = "throttles")
 public class Throttle {
 
 	@Id

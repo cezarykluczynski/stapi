@@ -1,6 +1,9 @@
 package com.cezarykluczynski.stapi.model.astronomicalObject.entity;
 
 import com.cezarykluczynski.stapi.model.astronomicalObject.entity.enums.AstronomicalObjectType;
+import com.cezarykluczynski.stapi.model.astronomicalObject.repository.AstronomicalObjectRepository;
+import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
+import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import lombok.AllArgsConstructor;
@@ -33,6 +36,8 @@ import java.util.Set;
 @ToString(callSuper = true, exclude = {"location", "astronomicalObjects"})
 @EqualsAndHashCode(callSuper = true, exclude = {"location", "astronomicalObjects"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = AstronomicalObjectRepository.class, singularName = "astronomical object",
+		pluralName = "astronomical objects")
 public class AstronomicalObject extends PageAwareEntity implements PageAware {
 
 	@Id

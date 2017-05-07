@@ -1,7 +1,10 @@
 package com.cezarykluczynski.stapi.model.food.entity;
 
 
+import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
+import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
+import com.cezarykluczynski.stapi.model.food.repository.FoodRepository;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +28,7 @@ import javax.persistence.SequenceGenerator;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = FoodRepository.class, singularName = "food", pluralName = "foods")
 public class Food extends PageAwareEntity implements PageAware {
 
 	@Id
