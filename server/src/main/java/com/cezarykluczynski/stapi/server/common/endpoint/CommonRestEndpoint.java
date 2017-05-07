@@ -2,7 +2,6 @@ package com.cezarykluczynski.stapi.server.common.endpoint;
 
 
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailsDTO;
-import com.cezarykluczynski.stapi.server.common.dto.RestEndpointMappingsDTO;
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO;
 import com.cezarykluczynski.stapi.server.common.reader.CommonDataReader;
 import org.springframework.stereotype.Service;
@@ -24,12 +23,6 @@ public class CommonRestEndpoint {
 	@Inject
 	public CommonRestEndpoint(CommonDataReader commonDataReader) {
 		this.commonDataReader = commonDataReader;
-	}
-
-	@GET
-	@Path("mappings")
-	public RestEndpointMappingsDTO mappings() {
-		return commonDataReader.mappings();
 	}
 
 	@GET

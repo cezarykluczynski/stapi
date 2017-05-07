@@ -17,7 +17,7 @@ export class RestApi {
 		this.api = new RestClient(prefix + '/api/v1/rest');
 		this.api.res({
 			common: [
-				'mappings'
+				'details'
 			]
 		});
 		this.api.on('response', (xhr) => {
@@ -31,15 +31,15 @@ export class RestApi {
 				}
 			} catch(e) {}
 		});
-		this.api.common.mappings.get().then(response => {
-			response.urls.sort((left, right) => {
+		this.api.common.details.get().then(response => {
+			response.details.sort((left, right) => {
 				return left.symbol > right.symbol ? 1 : -1;
 			});
 
-			this.urls = response.urls;
-			this.urls.forEach((url) => {
+			this.details = response.details;
+			this.details.forEach((url) => {
 				var res = {};
-				res[url.suffix] = ['search'];
+				res[url.apiEndpointSuffix] = ['search'];
 				this.api.res(res);
 			});
 			this.callback();
@@ -49,7 +49,7 @@ export class RestApi {
 	}
 
 	search(symbol, phrase, single) {
-		const serviceName = this.findBySymbol(symbol).suffix;
+		const serviceName = this.findBySymbol(symbol).apiEndpointSuffix;
 		const searchApi = this.api[serviceName].search;
 		var promise = phrase ? searchApi.post({
 			title: phrase, name: phrase
@@ -63,7 +63,7 @@ export class RestApi {
 	}
 
 	get(symbol, uid) {
-		const serviceName = this.findBySymbol(symbol).suffix;
+		const serviceName = this.findBySymbol(symbol).apiEndpointSuffix;
 		const api = this.api[serviceName];
 		return api.get({uid: uid}).then(response => {
 			return {
@@ -77,13 +77,13 @@ export class RestApi {
 		return R.filter(key => key !== 'page', Object.keys(response))[0];
 	}
 
-	getUrls() {
-		return this.urls;
+	getDetails() {
+		return this.details;
 	}
 
 	findBySymbol(symbol) {
-		for (let i = 0; i < this.urls.length; i++) {
-			const url = this.urls[i];
+		for (let i = 0; i < this.details.length; i++) {
+			const url = this.details[i];
 			if (url.symbol === symbol) {
 				return url;
 			}

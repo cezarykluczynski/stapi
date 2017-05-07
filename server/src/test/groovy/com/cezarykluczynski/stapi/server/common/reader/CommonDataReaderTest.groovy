@@ -1,13 +1,10 @@
 package com.cezarykluczynski.stapi.server.common.reader
 
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailsDTO
-import com.cezarykluczynski.stapi.server.common.dto.RestEndpointMappingsDTO
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO
 import spock.lang.Specification
 
 class CommonDataReaderTest extends Specification {
-
-	private CommonMappingsReader commonMappingsReaderMock
 
 	private CommonEntitiesStatisticsReader commonEntitiesStatisticsReaderMock
 
@@ -16,23 +13,9 @@ class CommonDataReaderTest extends Specification {
 	private CommonDataReader commonDataReader
 
 	void setup() {
-		commonMappingsReaderMock = Mock()
 		commonEntitiesStatisticsReaderMock = Mock()
 		commonEntitiesDetailsReaderMock = Mock()
-		commonDataReader = new CommonDataReader(commonMappingsReaderMock, commonEntitiesStatisticsReaderMock, commonEntitiesDetailsReaderMock)
-	}
-
-	void "gets mappings from CommonMappingsReader"() {
-		given:
-		RestEndpointMappingsDTO restEndpointMappingsDTO = Mock()
-
-		when:
-		RestEndpointMappingsDTO restEndpointMappingsDTOOutput = commonDataReader.mappings()
-
-		then:
-		1 * commonMappingsReaderMock.mappings() >> restEndpointMappingsDTO
-		0 * _
-		restEndpointMappingsDTOOutput == restEndpointMappingsDTO
+		commonDataReader = new CommonDataReader(commonEntitiesStatisticsReaderMock, commonEntitiesDetailsReaderMock)
 	}
 
 	void "gets entities statistics from CommonEntitiesStatisticsReader"() {

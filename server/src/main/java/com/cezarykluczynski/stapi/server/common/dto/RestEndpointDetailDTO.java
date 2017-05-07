@@ -8,6 +8,10 @@ public class RestEndpointDetailDTO {
 
 	private TrackedEntityType type;
 
+	private String apiEndpointSuffix;
+
+	private String symbol;
+
 	private String singularName;
 
 	private String pluralName;
@@ -26,6 +30,22 @@ public class RestEndpointDetailDTO {
 
 	public void setType(TrackedEntityType type) {
 		this.type = type;
+	}
+
+	public String getApiEndpointSuffix() {
+		return apiEndpointSuffix;
+	}
+
+	public void setApiEndpointSuffix(String apiEndpointSuffix) {
+		this.apiEndpointSuffix = apiEndpointSuffix;
+	}
+
+	public String getSymbol() {
+		return symbol;
+	}
+
+	public void setSymbol(String symbol) {
+		this.symbol = symbol;
 	}
 
 	public String getSingularName() {

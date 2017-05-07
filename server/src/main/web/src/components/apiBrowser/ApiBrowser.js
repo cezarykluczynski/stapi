@@ -12,10 +12,10 @@ export class ApiBrowser extends Component {
 		var self = this;
 		this.restApi = RestApi.getInstance();
 		this.restApi.whenReady(() => {
-			const urls = self.restApi.getUrls();
+			const details = self.restApi.getDetails();
 			self.setState({
-				urls: urls,
-				symbol: urls[0].symbol
+				details: details,
+				symbol: details[0].symbol
 			});
 			SearchStateService.markValid();
 			self.forceUpdate();
@@ -56,12 +56,12 @@ export class ApiBrowser extends Component {
 
 	createOptions() {
 		let items = [];
-		if (!this.state.urls) {
+		if (!this.state.details) {
 			return items;
 		}
 
-		for (let i = 0; i < this.state.urls.length; i++) {
-			let url = this.state.urls[i];
+		for (let i = 0; i < this.state.details.length; i++) {
+			let url = this.state.details[i];
 			items.push(<option key={url.symbol} value={url.symbol}>{url.name}</option>);
 		}
 		return items;
