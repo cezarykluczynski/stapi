@@ -32,13 +32,10 @@ class RepositoryProviderTest extends Specification {
 		SpeciesRepository speciesRepository = Mock()
 		Map<String, ClassMetadata> classNameToMetadataMap = Maps.newHashMap()
 		ClassMetadata pageClassMetadata = Mock()
-		pageClassMetadata.mappedClass >> Page
 		classNameToMetadataMap.put('com.cezarykluczynski.stapi.model.page.entity.Page', pageClassMetadata)
 		ClassMetadata seriesClassMetadata = Mock()
-		seriesClassMetadata.mappedClass >> Series
 		classNameToMetadataMap.put('com.cezarykluczynski.stapi.model.series.entity.Series', seriesClassMetadata)
 		ClassMetadata speciesClassMetadata = Mock()
-		speciesClassMetadata.mappedClass >> Species
 		classNameToMetadataMap.put('com.cezarykluczynski.stapi.model.species.entity.Species', speciesClassMetadata)
 
 		when:
@@ -46,11 +43,23 @@ class RepositoryProviderTest extends Specification {
 
 		then:
 		1 * entityMatadataProviderMock.provideClassNameToMetadataMap() >> classNameToMetadataMap
+		1 * pageClassMetadata.mappedClass >> Page
+		1 * seriesClassMetadata.mappedClass >> Series
+		1 * speciesClassMetadata.mappedClass >> Species
 		1 * repositoriesMock.getRepositoryFor(Series) >> seriesRepository
 		1 * repositoriesMock.getRepositoryFor(Species) >> speciesRepository
+		0 * _
 		map.size() == 2
 		map.get(Series) == seriesRepository
 		map.get(Species) == speciesRepository
+
+		when: 'another request is made'
+		Map<Class<? extends PageAwareEntity>, CrudRepository> anotherMap = repositoryProvider.provide()
+
+		then: 'cached version is returned'
+		0 * _
+		anotherMap == map
+
 	}
 
 }

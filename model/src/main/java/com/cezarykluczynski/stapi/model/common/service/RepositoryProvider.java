@@ -18,6 +18,8 @@ public class RepositoryProvider {
 
 	private final Repositories repositories;
 
+	private Map<Class<? extends PageAwareEntity>, CrudRepository> map;
+
 	@Inject
 	public RepositoryProvider(EntityMatadataProvider entityMatadataProvider, Repositories repositories) {
 		this.entityMatadataProvider = entityMatadataProvider;
@@ -25,6 +27,18 @@ public class RepositoryProvider {
 	}
 
 	public Map<Class<? extends PageAwareEntity>, CrudRepository> provide() {
+		if (map == null) {
+			synchronized (this) {
+				if (map == null) {
+					map = doProvide();
+				}
+			}
+		}
+
+		return map;
+	}
+
+	private Map<Class<? extends PageAwareEntity>, CrudRepository> doProvide() {
 		return entityMatadataProvider.provideClassNameToMetadataMap().entrySet()
 				.stream()
 				.map(Map.Entry::getValue)
