@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.server.common.endpoint;
 
 
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointMappingsDTO;
+import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO;
 import com.cezarykluczynski.stapi.server.common.reader.CommonDataReader;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,12 @@ public class CommonRestEndpoint {
 	@Path("mappings")
 	public RestEndpointMappingsDTO mappings() {
 		return commonDataReader.mappings();
+	}
+
+	@GET
+	@Path("statistics/entities")
+	public RestEndpointStatisticsDTO entitiesStatistics() {
+		return commonDataReader.entitiesStatistics();
 	}
 
 }
