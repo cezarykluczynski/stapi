@@ -27,7 +27,7 @@ import javax.persistence.SequenceGenerator;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-@TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = CompanyRepository.class, singularName = "company", pluralName = "companies")
+@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = CompanyRepository.class, singularName = "company", pluralName = "companies")
 public class Company extends PageAwareEntity implements PageAware {
 
 	@Id

@@ -15,11 +15,8 @@ export class RestApi {
 	constructor() {
 		const prefix = location.href.includes('localhost:3000') ? 'http://localhost:8686' : '';
 		this.api = new RestClient(prefix + '/api/v1/rest');
-		this.api.res({
-			common: [
-				'details'
-			]
-		});
+		this.api.res('common').res('details');
+		this.api.res('common').res('statistics').res('entities');
 		this.api.on('response', (xhr) => {
 			try {
 				const limits = {
@@ -35,16 +32,20 @@ export class RestApi {
 			response.details.sort((left, right) => {
 				return left.symbol > right.symbol ? 1 : -1;
 			});
-
 			this.details = response.details;
 			this.details.forEach((url) => {
 				var res = {};
 				res[url.apiEndpointSuffix] = ['search'];
 				this.api.res(res);
 			});
-			this.callback();
+			if (this.callback) {
+				this.callback();
+			}
+			this.loadStatistics();
 		}).catch(error => {
-			this.errorCallback(error);
+			if (this.errorCallback) {
+				this.errorCallback(error);
+			}
 		});
 	}
 
@@ -71,6 +72,22 @@ export class RestApi {
 				content: response[this.getContentKey(response)]
 			};
 		});
+	}
+
+	loadStatistics() {
+		this.api.common.statistics.entities.get().then(response => {
+			response.statistics.sort((left, right) => {
+				return left > right ? 1 : left === right ? 0 : -1;
+			});
+			this.statistics = response.statistics;
+			if (this.onStatisticsReadyCallback) {
+				this.onStatisticsReadyCallback();
+			}
+		});
+	}
+
+	getStatistics() {
+		return this.statistics;
 	}
 
 	getContentKey(response) {
@@ -100,6 +117,10 @@ export class RestApi {
 
 	onLimitUpdate(onLimitUpdateCallback) {
 		this.onLimitUpdateCallback = onLimitUpdateCallback;
+	}
+
+	onStatisticsReady(onStatisticsReadyCallback) {
+		this.onStatisticsReadyCallback = onStatisticsReadyCallback;
 	}
 
 }

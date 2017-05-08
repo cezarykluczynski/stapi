@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './components/App.css';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Home } from './components/home/Home.js';
+import { About } from './components/about/About.js';
 import { ApiBrowser } from './components/apiBrowser/ApiBrowser.js';
 import { Documentation } from './components/documentation/Documentation.js';
 import { Statistics } from './components/statistics/Statistics.js';
@@ -18,6 +19,7 @@ class App extends Component {
 								<div className='collapse navbar-collapse'>
 										<ul className='nav navbar-nav'>
 											<li><Link to='/'>Home</Link></li>
+											<li><Link to='/about'>About</Link></li>
 											<li><Link to='/api-browser'>API Browser</Link></li>
 											<li><Link to='/documentation'>Documentation</Link></li>
 											<li><Link to='/statistics'>Statistics</Link></li>
@@ -32,6 +34,7 @@ class App extends Component {
 						</div>
 						<div className='container content'>
 							<Route exact path='/' component={Home}/>
+							<Route exact path='/about' component={About}/>
 							<Route exact path='/api-browser' component={ApiBrowser}/>
 							<Route exact path='/documentation' component={Documentation}/>
 							<Route exact path='/statistics' component={Statistics}/>
