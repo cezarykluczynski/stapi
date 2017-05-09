@@ -19,6 +19,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Builder
 @Data
@@ -28,6 +29,7 @@ import javax.persistence.SequenceGenerator;
 @ToString
 @TrackedEntity(type = TrackedEntityType.TECHNICAL, repository = EndpointHitRepository.class, apiEntity = false, metricsEntity = true,
 		singularName = "endpoint hit", pluralName = "endpoint hits")
+@Table(name = "endpoint_hit", schema = "stapi_metrics")
 public class EndpointHit {
 
 	@Id
@@ -37,6 +39,8 @@ public class EndpointHit {
 	private Long id;
 
 	private String endpointName;
+
+	private String methodName;
 
 	@Enumerated(EnumType.STRING)
 	private EndpointType endpointType;

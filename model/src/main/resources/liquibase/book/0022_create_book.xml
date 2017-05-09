@@ -3,7 +3,7 @@
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 	<changeSet id="0022_create_book" author="cezarykluczynski">
-		<createTable tableName="book">
+		<createTable schemaName="stapi" tableName="book">
 			<column name="id" type="bigint">
 				<constraints unique="true" nullable="false"/>
 			</column>
@@ -46,7 +46,7 @@
 				referencedColumnNames="id"
 				referencedTableName="page"/>
 
-		<createTable tableName="books_book_series">
+		<createTable schemaName="stapi" tableName="books_book_series">
 			<column name="book_id" type="bigint"/>
 			<column name="book_series_id" type="bigint"/>
 		</createTable>
@@ -61,7 +61,7 @@
 				referencedColumnNames="id"
 				referencedTableName="book_series"/>
 
-		<createTable tableName="books_authors">
+		<createTable schemaName="stapi" tableName="books_authors">
 			<column name="book_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
@@ -76,7 +76,7 @@
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable tableName="books_artists">
+		<createTable schemaName="stapi" tableName="books_artists">
 			<column name="book_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
@@ -91,7 +91,7 @@
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable tableName="books_editors">
+		<createTable schemaName="stapi" tableName="books_editors">
 			<column name="book_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
@@ -106,7 +106,7 @@
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable tableName="audiobooks_narrators">
+		<createTable schemaName="stapi" tableName="audiobooks_narrators">
 			<column name="book_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
@@ -121,7 +121,7 @@
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable tableName="books_publishers">
+		<createTable schemaName="stapi" tableName="books_publishers">
 			<column name="book_id" type="bigint"/>
 			<column name="company_id" type="bigint"/>
 		</createTable>
@@ -136,7 +136,7 @@
 				referencedColumnNames="id"
 				referencedTableName="company"/>
 
-		<createTable tableName="audiobooks_publishers">
+		<createTable schemaName="stapi" tableName="audiobooks_publishers">
 			<column name="book_id" type="bigint"/>
 			<column name="company_id" type="bigint"/>
 		</createTable>
@@ -151,7 +151,7 @@
 				referencedColumnNames="id"
 				referencedTableName="company"/>
 
-		<createTable tableName="books_characters">
+		<createTable schemaName="stapi" tableName="books_characters">
 			<column name="book_id" type="bigint"/>
 			<column name="character_id" type="bigint"/>
 		</createTable>
@@ -166,7 +166,7 @@
 				referencedColumnNames="id"
 				referencedTableName="character"/>
 
-		<createTable tableName="books_references">
+		<createTable schemaName="stapi" tableName="books_references">
 			<column name="book_id" type="bigint"/>
 			<column name="reference_id" type="bigint"/>
 		</createTable>
@@ -181,7 +181,7 @@
 				referencedColumnNames="id"
 				referencedTableName="reference"/>
 
-		<createTable tableName="audiobooks_references">
+		<createTable schemaName="stapi" tableName="audiobooks_references">
 			<column name="book_id" type="bigint"/>
 			<column name="reference_id" type="bigint"/>
 		</createTable>

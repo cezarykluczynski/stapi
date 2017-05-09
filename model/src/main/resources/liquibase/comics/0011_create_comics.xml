@@ -3,7 +3,7 @@
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 	<changeSet id="0011_create_comics" author="cezarykluczynski">
-		<createTable tableName="comics">
+		<createTable schemaName="stapi" tableName="comics">
 			<column name="id" type="bigint">
 				<constraints unique="true" nullable="false"/>
 			</column>
@@ -36,7 +36,7 @@
 				referencedColumnNames="id"
 				referencedTableName="page"/>
 
-		<createTable tableName="comics_comics_series">
+		<createTable schemaName="stapi" tableName="comics_comics_series">
 			<column name="comics_id" type="bigint"/>
 			<column name="comic_series_id" type="bigint"/>
 		</createTable>
@@ -51,7 +51,7 @@
 				referencedColumnNames="id"
 				referencedTableName="comic_series"/>
 
-		<createTable tableName="comics_writers">
+		<createTable schemaName="stapi" tableName="comics_writers">
 			<column name="comics_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
@@ -66,7 +66,7 @@
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable tableName="comics_artists">
+		<createTable schemaName="stapi" tableName="comics_artists">
 			<column name="comics_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
@@ -81,7 +81,7 @@
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable tableName="comics_editors">
+		<createTable schemaName="stapi" tableName="comics_editors">
 			<column name="comics_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
@@ -96,7 +96,7 @@
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable tableName="comics_staff">
+		<createTable schemaName="stapi" tableName="comics_staff">
 			<column name="comics_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
@@ -111,7 +111,7 @@
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable tableName="comics_publishers">
+		<createTable schemaName="stapi" tableName="comics_publishers">
 			<column name="comics_id" type="bigint"/>
 			<column name="company_id" type="bigint"/>
 		</createTable>
@@ -126,7 +126,7 @@
 				referencedColumnNames="id"
 				referencedTableName="company"/>
 
-		<createTable tableName="comics_characters">
+		<createTable schemaName="stapi" tableName="comics_characters">
 			<column name="comics_id" type="bigint"/>
 			<column name="character_id" type="bigint"/>
 		</createTable>

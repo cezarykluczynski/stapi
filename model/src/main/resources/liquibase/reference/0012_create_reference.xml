@@ -3,7 +3,7 @@
 				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 	<changeSet id="0012_create_reference" author="cezarykluczynski">
-		<createTable tableName="reference">
+		<createTable schemaName="stapi" tableName="reference">
 			<column name="id" type="bigint">
 				<constraints unique="true" nullable="false"/>
 			</column>
@@ -19,7 +19,7 @@
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="reference_sequence"/>
 
-		<createTable tableName="comics_references">
+		<createTable schemaName="stapi" tableName="comics_references">
 			<column name="comics_id" type="bigint"/>
 			<column name="reference_id" type="bigint"/>
 		</createTable>

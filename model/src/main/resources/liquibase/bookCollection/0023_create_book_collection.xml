@@ -3,7 +3,7 @@
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 	<changeSet id="0023_create_book_collection" author="cezarykluczynski">
-		<createTable tableName="book_collection">
+		<createTable schemaName="stapi" tableName="book_collection">
 			<column name="id" type="bigint">
 				<constraints unique="true" nullable="false"/>
 			</column>
@@ -32,7 +32,7 @@
 				referencedColumnNames="id"
 				referencedTableName="page"/>
 
-		<createTable tableName="book_collections_series">
+		<createTable schemaName="stapi" tableName="book_collections_series">
 			<column name="book_collection_id" type="bigint"/>
 			<column name="book_series_id" type="bigint"/>
 		</createTable>
@@ -47,7 +47,7 @@
 				referencedColumnNames="id"
 				referencedTableName="book_series"/>
 
-		<createTable tableName="book_collections_writers">
+		<createTable schemaName="stapi" tableName="book_collections_writers">
 			<column name="book_collection_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
@@ -62,7 +62,7 @@
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable tableName="book_collections_artists">
+		<createTable schemaName="stapi" tableName="book_collections_artists">
 			<column name="book_collection_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
@@ -77,7 +77,7 @@
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable tableName="book_collections_editors">
+		<createTable schemaName="stapi" tableName="book_collections_editors">
 			<column name="book_collection_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
@@ -92,7 +92,7 @@
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable tableName="book_collections_publishers">
+		<createTable schemaName="stapi" tableName="book_collections_publishers">
 			<column name="book_collection_id" type="bigint"/>
 			<column name="company_id" type="bigint"/>
 		</createTable>
@@ -107,7 +107,7 @@
 				referencedColumnNames="id"
 				referencedTableName="company"/>
 
-		<createTable tableName="book_collections_characters">
+		<createTable schemaName="stapi" tableName="book_collections_characters">
 			<column name="book_collection_id" type="bigint"/>
 			<column name="character_id" type="bigint"/>
 		</createTable>
@@ -122,7 +122,7 @@
 				referencedColumnNames="id"
 				referencedTableName="character"/>
 
-		<createTable tableName="book_collections_references">
+		<createTable schemaName="stapi" tableName="book_collections_references">
 			<column name="book_collection_id" type="bigint"/>
 			<column name="reference_id" type="bigint"/>
 		</createTable>
@@ -137,7 +137,7 @@
 				referencedColumnNames="id"
 				referencedTableName="reference"/>
 
-		<createTable tableName="book_collections_books">
+		<createTable schemaName="stapi" tableName="book_collections_books">
 			<column name="book_collection_id" type="bigint"/>
 			<column name="book_id" type="bigint"/>
 		</createTable>

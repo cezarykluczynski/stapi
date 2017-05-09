@@ -3,7 +3,7 @@
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 	<changeSet id="0021_create_book_series" author="cezarykluczynski">
-		<createTable tableName="book_series">
+		<createTable schemaName="stapi" tableName="book_series">
 			<column name="id" type="bigint">
 				<constraints unique="true" nullable="false"/>
 			</column>
@@ -35,7 +35,7 @@
 				referencedColumnNames="id"
 				referencedTableName="page"/>
 
-		<createTable tableName="book_series_book_series">
+		<createTable schemaName="stapi" tableName="book_series_book_series">
 			<column name="book_series_id" type="bigint"/>
 			<column name="book_series_parent_id" type="bigint"/>
 		</createTable>
@@ -50,7 +50,7 @@
 				referencedColumnNames="id"
 				referencedTableName="book_series"/>
 
-		<createTable tableName="book_series_publishers">
+		<createTable schemaName="stapi" tableName="book_series_publishers">
 			<column name="book_series_id" type="bigint"/>
 			<column name="company_id" type="bigint"/>
 		</createTable>

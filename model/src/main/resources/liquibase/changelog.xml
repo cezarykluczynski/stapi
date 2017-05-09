@@ -25,6 +25,5 @@
 	<include file="bookSeries/0021_create_book_series.xml" relativeToChangelogFile="true"/>
 	<include file="book/0022_create_book.xml" relativeToChangelogFile="true"/>
 	<include file="bookCollection/0023_create_book_collection.xml" relativeToChangelogFile="true"/>
-
-	<include file="hit/5001_create_endpoint_hit.xml" relativeToChangelogFile="true"/>
+	<include file="hit/0024_create_endpoint_hit.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
