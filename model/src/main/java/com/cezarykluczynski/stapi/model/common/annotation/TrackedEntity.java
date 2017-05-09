@@ -16,6 +16,8 @@ public @interface TrackedEntity {
 
 	boolean apiEntity() default true;
 
+	boolean metricsEntity() default false;
+
 	Class<? extends CrudRepository> repository();
 
 	String singularName();
