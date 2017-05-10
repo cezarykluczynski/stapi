@@ -18,7 +18,7 @@ import java.lang.reflect.Field
 @SuppressWarnings(['ThrowRuntimeException', 'ClosureAsLastMethodParameter'])
 class EntityCacheableReflectionTest extends AbstractEntityReflectionTest {
 
-	void "all @OneToMany and @ManyToMany relations should have @Cacheable annotation"() {
+	void "all @OneToMany and @ManyToMany relations should have @Cache annotation"() {
 		given:
 		Reflections reflections = new Reflections(new ConfigurationBuilder()
 				.setUrls(ClasspathHelper.forPackage('com.cezarykluczynski.stapi.model'))

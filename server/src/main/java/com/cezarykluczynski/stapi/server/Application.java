@@ -13,6 +13,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 
 @Configuration
@@ -24,6 +25,7 @@ import org.springframework.context.annotation.Import;
 @Import(EtlConfiguration.class)
 @EnableAutoConfiguration(exclude = {CxfAutoConfiguration.class, DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class,
 		JmxAutoConfiguration.class, LiquibaseAutoConfiguration.class})
+@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class Application extends SpringBootServletInitializer {
 
 	@SuppressWarnings("UncommentedMain")
