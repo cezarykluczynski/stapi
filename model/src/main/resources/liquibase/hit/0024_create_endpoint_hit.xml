@@ -18,7 +18,7 @@
 			<column name="method_name" type="varchar(64)">
 				<constraints nullable="false"/>
 			</column>
-			<column name="enpoint_type" type="varchar(4)">
+			<column name="endpoint_type" type="varchar(4)">
 				<constraints nullable="false"/>
 			</column>
 			<column name="number_of_hits" type="bigint">
@@ -26,5 +26,11 @@
 			</column>
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="endpoint_hit_sequence" schemaName="stapi_metrics"/>
+
+		<addUniqueConstraint
+				columnNames="endpoint_name, method_name"
+				constraintName="eh_unique_endpoint_method"
+				schemaName="stapi_metrics"
+				tableName="endpoint_hit"/>
 	</changeSet>
 </databaseChangeLog>

@@ -35,7 +35,7 @@ public class EndpointHit {
 	@Id
 	@Column(nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "endpoint_hit_sequence_generator")
-	@SequenceGenerator(name = "endpoint_hit_sequence_generator", sequenceName = "endpoint_hit_sequence", allocationSize = 1)
+	@SequenceGenerator(name = "endpoint_hit_sequence_generator", sequenceName = "endpoint_hit_sequence", schema = "stapi_metrics", allocationSize = 1)
 	private Long id;
 
 	private String endpointName;
