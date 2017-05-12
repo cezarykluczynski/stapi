@@ -34,6 +34,7 @@ class CommonEntitiesStatisticsReaderTest extends Specification {
 		then:
 		1 * entitySizeStatisticsProviderMock.provide() >> map
 		0 * _
+		restEndpointStatisticsDTO.totalCount == SERIES_COUNT + SPECIES_COUNT
 		restEndpointStatisticsDTO.statistics.size() == 2
 		restEndpointStatisticsDTO.statistics[0].name == 'Series'
 		restEndpointStatisticsDTO.statistics[0].count == SERIES_COUNT

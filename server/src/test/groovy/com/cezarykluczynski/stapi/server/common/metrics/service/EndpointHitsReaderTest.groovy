@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.model.common.service.EntityMatadataProvider
 import com.cezarykluczynski.stapi.model.endpointHit.entity.EndpointHit
 import com.cezarykluczynski.stapi.model.endpointHit.repository.EndpointHitRepository
 import com.cezarykluczynski.stapi.model.page.entity.PageAware
+import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Maps
 import org.assertj.core.util.Lists
 import spock.lang.Specification
@@ -32,6 +33,7 @@ class EndpointHitsReaderTest extends Specification {
 		given:
 		EndpointHit restEndpointHit = new EndpointHit(endpointName: 'AstronomicalObjectRestEndpoint', numberOfHits: REST_ENDPOINT_NUMBER_OF_HITS)
 		EndpointHit soapEndpointHit = new EndpointHit(endpointName: 'BookSoapEndpoint', numberOfHits: SOAP_ENDPOINT_NUMBER_OF_HITS)
+		EndpointHit ignoredEndpointHit = new EndpointHit(endpointName: RandomUtil.randomItem(EndpointHitsReader.ENDPOINT_NAMES_EXCLUDES))
 		Map<String, Class> classSimpleNameToClassMap = Maps.newHashMap()
 		classSimpleNameToClassMap.put('AstronomicalObject', AstronomicalObject)
 		classSimpleNameToClassMap.put('Book', Book)
@@ -47,7 +49,7 @@ class EndpointHitsReaderTest extends Specification {
 		endpointHitsReader.refresh()
 
 		then: 'dependencies are interacted with'
-		1 * endpointHitRepositoryMock.findAll() >> Lists.newArrayList(restEndpointHit, soapEndpointHit)
+		1 * endpointHitRepositoryMock.findAll() >> Lists.newArrayList(restEndpointHit, soapEndpointHit, ignoredEndpointHit)
 		1 * entityMatadataProviderMock.provideClassSimpleNameToClassMap() >> classSimpleNameToClassMap
 
 		then: 'correct total hit count is provided'

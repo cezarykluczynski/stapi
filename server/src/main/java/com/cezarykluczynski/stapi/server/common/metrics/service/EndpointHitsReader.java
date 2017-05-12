@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.endpointHit.entity.EndpointHit;
 import com.cezarykluczynski.stapi.model.endpointHit.repository.EndpointHitRepository;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +13,13 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.LongAdder;
 
 @Service
 public class EndpointHitsReader {
+
+	private static final Set<String> ENDPOINT_NAMES_EXCLUDES = Sets.newHashSet("CommonRestEndpoint");
 
 	private Map<Class<? extends PageAware>, Long> entityToHitCountMap = Maps.newHashMap();
 
@@ -47,6 +51,10 @@ public class EndpointHitsReader {
 		Map<Class<? extends PageAware>, Long> temporaryEntityToHitCountMap = Maps.newHashMap();
 		LongAdder temporaryAllHitsCount = new LongAdder();
 		endpointHitList.forEach(endpointHit -> {
+			if (ENDPOINT_NAMES_EXCLUDES.contains(endpointHit.getEndpointName())) {
+				return;
+			}
+
 			Class<? extends PageAware> entityClass = endpointNameToClass(endpointHit.getEndpointName(), classNameToMetadataMap);
 			Long numberOfHits = endpointHit.getNumberOfHits();
 			temporaryAllHitsCount.add(numberOfHits);

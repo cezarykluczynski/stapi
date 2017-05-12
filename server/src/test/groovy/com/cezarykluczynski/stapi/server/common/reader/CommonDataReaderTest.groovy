@@ -10,12 +10,15 @@ class CommonDataReaderTest extends Specification {
 
 	private CommonEntitiesDetailsReader commonEntitiesDetailsReaderMock
 
+	private CommonHitsStatisticsReader commonHitsStatisticsReaderMock
+
 	private CommonDataReader commonDataReader
 
 	void setup() {
 		commonEntitiesStatisticsReaderMock = Mock()
 		commonEntitiesDetailsReaderMock = Mock()
-		commonDataReader = new CommonDataReader(commonEntitiesStatisticsReaderMock, commonEntitiesDetailsReaderMock)
+		commonHitsStatisticsReaderMock = Mock()
+		commonDataReader = new CommonDataReader(commonEntitiesStatisticsReaderMock, commonEntitiesDetailsReaderMock, commonHitsStatisticsReaderMock)
 	}
 
 	void "gets entities statistics from CommonEntitiesStatisticsReader"() {
@@ -27,6 +30,19 @@ class CommonDataReaderTest extends Specification {
 
 		then:
 		1 * commonEntitiesStatisticsReaderMock.entitiesStatistics() >> restEndpointStatisticsDTO
+		0 * _
+		restEndpointStatisticsDTOOutput == restEndpointStatisticsDTO
+	}
+
+	void "gets hits statistics from CommonHitsStatisticsReader"() {
+		given:
+		RestEndpointStatisticsDTO restEndpointStatisticsDTO = Mock()
+
+		when:
+		RestEndpointStatisticsDTO restEndpointStatisticsDTOOutput = commonDataReader.hitsStatistics()
+
+		then:
+		1 * commonHitsStatisticsReaderMock.hitsStatistics() >> restEndpointStatisticsDTO
 		0 * _
 		restEndpointStatisticsDTOOutput == restEndpointStatisticsDTO
 	}

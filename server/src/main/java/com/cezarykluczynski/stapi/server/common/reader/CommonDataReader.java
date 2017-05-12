@@ -13,14 +13,22 @@ public class CommonDataReader {
 
 	private final CommonEntitiesDetailsReader commonEntitiesDetailsReader;
 
+	private final CommonHitsStatisticsReader commonHitsStatisticsReader;
+
 	@Inject
-	public CommonDataReader(CommonEntitiesStatisticsReader commonEntitiesStatisticsReader, CommonEntitiesDetailsReader commonEntitiesDetailsReader) {
+	public CommonDataReader(CommonEntitiesStatisticsReader commonEntitiesStatisticsReader, CommonEntitiesDetailsReader commonEntitiesDetailsReader,
+			CommonHitsStatisticsReader commonHitsStatisticsReader) {
 		this.commonEntitiesStatisticsReader = commonEntitiesStatisticsReader;
 		this.commonEntitiesDetailsReader = commonEntitiesDetailsReader;
+		this.commonHitsStatisticsReader = commonHitsStatisticsReader;
 	}
 
 	public RestEndpointStatisticsDTO entitiesStatistics() {
 		return commonEntitiesStatisticsReader.entitiesStatistics();
+	}
+
+	public RestEndpointStatisticsDTO hitsStatistics() {
+		return commonHitsStatisticsReader.hitsStatistics();
 	}
 
 	public RestEndpointDetailsDTO details() {

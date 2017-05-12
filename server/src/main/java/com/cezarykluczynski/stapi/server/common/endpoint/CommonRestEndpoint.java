@@ -32,6 +32,12 @@ public class CommonRestEndpoint {
 	}
 
 	@GET
+	@Path("statistics/hits")
+	public RestEndpointStatisticsDTO hitsStatistics() {
+		return commonDataReader.hitsStatistics();
+	}
+
+	@GET
 	@Path("details")
 	public RestEndpointDetailsDTO details() {
 		return commonDataReader.details();
