@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.model.comicCollection.entity.ComicCollection;
 import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries;
 import com.cezarykluczynski.stapi.model.comicStrip.entity.ComicStrip;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -14,7 +15,9 @@ import org.hibernate.metadata.ClassMetadata;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class EntityMatadataProvider {
@@ -35,12 +38,15 @@ public class EntityMatadataProvider {
 
 	private Map<String, ClassMetadata> classNameToMetadataMap;
 
+	private Map<String, Class> classSimpleNameToClassMap;
+
 	private EntityManager entityManager;
 
 	public EntityMatadataProvider(EntityManager entityManager) {
 		this.entityManager = entityManager;
 		buildClassNameToSymbolMap();
 		buildClassNameToMetadataMap();
+		buildClassSimpleNameToClassMap();
 	}
 
 	public Map<String, String> provideClassNameToSymbolMap() {
@@ -49,6 +55,10 @@ public class EntityMatadataProvider {
 
 	public Map<String, ClassMetadata> provideClassNameToMetadataMap() {
 		return classNameToMetadataMap;
+	}
+
+	public Map<String, Class> provideClassSimpleNameToClassMap() {
+		return classSimpleNameToClassMap;
 	}
 
 	private void buildClassNameToMetadataMap() {
@@ -74,6 +84,17 @@ public class EntityMatadataProvider {
 
 			classNameToSymbolMap.put(mappedClassCanonicalName, symbol);
 		});
+	}
+
+	private void buildClassSimpleNameToClassMap() {
+		Map<String, ClassMetadata> classMetadataMap = getClassMetadata();
+		classSimpleNameToClassMap = classMetadataMap.entrySet().stream()
+				.collect(Collectors.toMap(this::toSimpleName, entry -> entry.getValue().getMappedClass()));
+	}
+
+	private String toSimpleName(Map.Entry<String, ClassMetadata> entry) {
+		List<String> classNameParts = Lists.newArrayList(entry.getKey().split("\\."));
+		return classNameParts.get(classNameParts.size() - 1);
 	}
 
 	private Map<String, ClassMetadata> getClassMetadata() {

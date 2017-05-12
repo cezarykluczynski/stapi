@@ -1,0 +1,73 @@
+package com.cezarykluczynski.stapi.server.common.metrics.service;
+
+import com.cezarykluczynski.stapi.model.common.service.EntityMatadataProvider;
+import com.cezarykluczynski.stapi.model.endpointHit.entity.EndpointHit;
+import com.cezarykluczynski.stapi.model.endpointHit.repository.EndpointHitRepository;
+import com.cezarykluczynski.stapi.model.page.entity.PageAware;
+import com.google.common.collect.Maps;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.LongAdder;
+
+@Service
+public class EndpointHitsReader {
+
+	private Map<Class<? extends PageAware>, Long> entityToHitCountMap = Maps.newHashMap();
+
+	private long allHitsCount;
+
+	private final EndpointHitRepository endpointHitRepository;
+
+	private final EntityMatadataProvider entityMatadataProvider;
+
+	@Inject
+	public EndpointHitsReader(EndpointHitRepository endpointHitRepository, EntityMatadataProvider entityMatadataProvider) {
+		this.endpointHitRepository = endpointHitRepository;
+		this.entityMatadataProvider = entityMatadataProvider;
+	}
+
+	public Long readAllHitsCount() {
+		return allHitsCount;
+	}
+
+	public Map<Class<? extends PageAware>, Long> readEndpointHits() {
+		return entityToHitCountMap;
+	}
+
+	@Scheduled(cron = "${statistics.read.endpointHit}")
+	@PostConstruct
+	public void refresh() {
+		List<EndpointHit> endpointHitList = endpointHitRepository.findAll();
+		Map<String, Class> classNameToMetadataMap = entityMatadataProvider.provideClassSimpleNameToClassMap();
+		Map<Class<? extends PageAware>, Long> temporaryEntityToHitCountMap = Maps.newHashMap();
+		LongAdder temporaryAllHitsCount = new LongAdder();
+		endpointHitList.forEach(endpointHit -> {
+			Class<? extends PageAware> entityClass = endpointNameToClass(endpointHit.getEndpointName(), classNameToMetadataMap);
+			Long numberOfHits = endpointHit.getNumberOfHits();
+			temporaryAllHitsCount.add(numberOfHits);
+			temporaryEntityToHitCountMap.putIfAbsent(entityClass, 0L);
+			temporaryEntityToHitCountMap.put(entityClass, temporaryEntityToHitCountMap.get(entityClass) + numberOfHits);
+		});
+
+		synchronized (this) {
+			allHitsCount = temporaryAllHitsCount.longValue();
+			entityToHitCountMap = temporaryEntityToHitCountMap;
+		}
+	}
+
+	private Class<? extends PageAware> endpointNameToClass(String endpointName, Map<String, Class> classNameToMetadataMap) {
+		String entityName = endpointName.replace("SoapEndpoint", "").replace("RestEndpoint", "");
+
+		if (classNameToMetadataMap.containsKey(entityName)) {
+			return (Class<? extends PageAware>) classNameToMetadataMap.get(entityName);
+		}
+
+		throw new RuntimeException(String.format("Cannot map endpoint with name \"%s\" to entity class", endpointName));
+	}
+
+}

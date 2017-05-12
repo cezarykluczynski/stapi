@@ -77,4 +77,15 @@ class EntityMatadataProviderTest extends Specification {
 		classNameToMetadataMapOutput == classNameToMetadataMap
 	}
 
+	void "provides class simple name to class map"() {
+		when:
+		entityMatadataProvider = new EntityMatadataProvider(entityManagerMock)
+		Map<String, Class> classSimpleNameToClassMap = entityMatadataProvider.provideClassSimpleNameToClassMap()
+
+		then:
+		classSimpleNameToClassMap['Series'] == Series
+		classSimpleNameToClassMap['Character'] == Character
+		classSimpleNameToClassMap['ComicSeries'] == ComicSeries
+	}
+
 }
