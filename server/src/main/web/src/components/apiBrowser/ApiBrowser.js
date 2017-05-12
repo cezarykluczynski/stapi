@@ -12,12 +12,7 @@ export class ApiBrowser extends Component {
 		var self = this;
 		this.restApi = RestApi.getInstance();
 		this.restApi.whenReady(() => {
-			const details = self.restApi.getDetails();
-			self.setState({
-				details: details,
-				symbol: details[0].symbol
-			});
-			SearchStateService.markValid();
+			self.refreshDetailsFromRestApi();
 			self.forceUpdate();
 		});
 		this.restApi.onError(error => {
@@ -26,6 +21,21 @@ export class ApiBrowser extends Component {
 		this.search = this.search.bind(this);
 		this.changeSelection = this.changeSelection.bind(this);
 		this.updatePhrase = this.updatePhrase.bind(this);
+	}
+
+	componentDidMount() {
+		if (this.restApi.hasDetails()) {
+			this.refreshDetailsFromRestApi();
+		}
+	}
+
+	refreshDetailsFromRestApi() {
+		const details = this.restApi.getDetails();
+		this.setState({
+			details: details,
+			symbol: details[0].symbol
+		});
+		SearchStateService.markValid();
 	}
 
 	render() {

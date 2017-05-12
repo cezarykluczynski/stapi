@@ -9,10 +9,20 @@ export class EntityCloudStatistics extends Component {
 		super();
 		this.restApi = RestApi.getInstance();
 		this.restApi.onStatisticsReady(() => {
-			this.setState({
-				statistics: this.restApi.getStatistics(),
-				details: this.restApi.getDetails()
-			});
+			this.updateStatisticsFromRestApi();
+		});
+	}
+
+	componentDidMount() {
+		if (this.restApi.hasStatistics()) {
+			this.updateStatisticsFromRestApi();
+		}
+	}
+
+	updateStatisticsFromRestApi() {
+		this.setState({
+			statistics: this.restApi.getStatistics(),
+			details: this.restApi.getDetails()
 		});
 	}
 
@@ -27,7 +37,7 @@ export class EntityCloudStatistics extends Component {
 	renderStatistics() {
 		return (
 			<div >
-				<h4>Currently serving...</h4>
+				<h4>Currently serving <strong>{this.state.statistics.entitiesStatistics.totalCount}</strong> entities!</h4>
 				<hr/>
 				<TagCloud minSize={18} maxSize={35} tags={this.getStatisticsForFictionalEntities()}
 					shuffle={false} disableRandomColor={true} />
@@ -55,7 +65,7 @@ export class EntityCloudStatistics extends Component {
 			.filter(entity => entity.type === type)
 			.map(entity => entity.name);
 
-		let entities = Array.from(this.state.statistics).filter((item) => {
+		let entities = Array.from(this.state.statistics.entitiesStatistics.statistics).filter((item) => {
 			return entitiesNames.includes(item.name);
 		});
 		let names = {};

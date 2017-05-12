@@ -17,6 +17,7 @@ export class RestApi {
 		this.api = new RestClient(prefix + '/api/v1/rest');
 		this.api.res('common').res('details');
 		this.api.res('common').res('statistics').res('entities');
+		this.api.res('common').res('statistics').res('hits');
 		this.api.on('response', (xhr) => {
 			try {
 				const limits = {
@@ -75,11 +76,22 @@ export class RestApi {
 	}
 
 	loadStatistics() {
-		this.api.common.statistics.entities.get().then(response => {
+		const entitiesStatisticsPromise = this.api.common.statistics.entities.get().then(response => {
 			response.statistics.sort((left, right) => {
 				return left > right ? 1 : left === right ? 0 : -1;
 			});
-			this.statistics = response.statistics;
+			this.statistics = this.statistics || {};
+			this.statistics.entitiesStatistics = response;
+		});
+		const hitsStatisticsPromise = this.api.common.statistics.hits.get().then(response => {
+			response.statistics.sort((left, right) => {
+				return left > right ? 1 : left === right ? 0 : -1;
+			});
+			this.statistics = this.statistics || {};
+			this.statistics.hitsStatistics = response;
+		});
+		Promise.all([entitiesStatisticsPromise, hitsStatisticsPromise]).then(() => {
+			this.statistics.loaded = true;
 			if (this.onStatisticsReadyCallback) {
 				this.onStatisticsReadyCallback();
 			}
@@ -90,12 +102,20 @@ export class RestApi {
 		return this.statistics;
 	}
 
+	hasStatistics() {
+		return this.statistics && this.statistics.loaded;
+	}
+
 	getContentKey(response) {
 		return R.filter(key => key !== 'page', Object.keys(response))[0];
 	}
 
 	getDetails() {
 		return this.details;
+	}
+
+	hasDetails() {
+		return !!this.details;
 	}
 
 	findBySymbol(symbol) {
