@@ -4,8 +4,9 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Home } from './components/home/Home.js';
 import { About } from './components/about/About.js';
 import { ApiBrowser } from './components/apiBrowser/ApiBrowser.js';
-import { Documentation } from './components/documentation/Documentation.js';
+import { ApiDocumentation } from './components/apiDocumentation/ApiDocumentation.js';
 import { Statistics } from './components/statistics/Statistics.js';
+import { Licensing } from './components/licensing/Licensing.js';
 
 class App extends Component {
 
@@ -21,7 +22,8 @@ class App extends Component {
 											<li><Link to='/'>Home</Link></li>
 											<li><Link to='/about'>About</Link></li>
 											<li><Link to='/api-browser'>API Browser</Link></li>
-											<li><Link to='/documentation'>Documentation</Link></li>
+											<li><Link to='/api-documentation'>API documentation</Link></li>
+											<li><Link to='/licensing'>Licensing</Link></li>
 											<li><Link to='/statistics'>Statistics</Link></li>
 										</ul>
 										<ul className='nav navbar-nav navbar-right'>
@@ -36,7 +38,8 @@ class App extends Component {
 							<Route exact path='/' component={Home}/>
 							<Route exact path='/about' component={About}/>
 							<Route exact path='/api-browser' component={ApiBrowser}/>
-							<Route exact path='/documentation' component={Documentation}/>
+							<Route exact path='/api-documentation' component={ApiDocumentation}/>
+							<Route exact path='/licensing' component={Licensing}/>
 							<Route exact path='/statistics' component={Statistics}/>
 						</div>
 					</div>
