@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Home.css';
 import { Link } from 'react-router-dom';
-import { EntityCloudStatistics } from '../statistics/EntityCloudStatistics.js';
+import { EntityStatisticsCloud } from '../statistics/EntityStatisticsCloud.js';
 
 export class Home extends Component {
 
@@ -38,7 +38,7 @@ export class Home extends Component {
 						</ul>
 					</div>
 					<div className='col-md-6'>
-						<EntityCloudStatistics />
+						<EntityStatisticsCloud />
 					</div>
 				</div>
 			</div>

@@ -92,8 +92,10 @@ export class RestApi {
 		});
 		Promise.all([entitiesStatisticsPromise, hitsStatisticsPromise]).then(() => {
 			this.statistics.loaded = true;
-			if (this.onStatisticsReadyCallback) {
-				this.onStatisticsReadyCallback();
+			if (this.onStatisticsReadyCallbackList && this.onStatisticsReadyCallbackList.length) {
+				this.onStatisticsReadyCallbackList.forEach(onStatisticsReadyCallback => {
+					onStatisticsReadyCallback();
+				});
 			}
 		});
 	}
@@ -140,7 +142,8 @@ export class RestApi {
 	}
 
 	onStatisticsReady(onStatisticsReadyCallback) {
-		this.onStatisticsReadyCallback = onStatisticsReadyCallback;
+		this.onStatisticsReadyCallbackList = this.onStatisticsReadyCallbackList || [];
+		this.onStatisticsReadyCallbackList.push(onStatisticsReadyCallback);
 	}
 
 }

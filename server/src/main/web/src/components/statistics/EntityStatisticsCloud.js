@@ -1,34 +1,17 @@
-import React, { Component } from 'react';
-import './EntityCloudStatistics.css';
-import { RestApi } from '../../service/rest/RestApi.js';
+import React from 'react';
+import './EntityStatisticsCloud.css';
 import { TagCloud } from "react-tagcloud";
+import { StatisticsComponent } from './StatisticsComponent.js';
 
-export class EntityCloudStatistics extends Component {
+export class EntityStatisticsCloud extends StatisticsComponent {
 
 	constructor() {
 		super();
-		this.restApi = RestApi.getInstance();
-		this.restApi.onStatisticsReady(() => {
-			this.updateStatisticsFromRestApi();
-		});
-	}
-
-	componentDidMount() {
-		if (this.restApi.hasStatistics()) {
-			this.updateStatisticsFromRestApi();
-		}
-	}
-
-	updateStatisticsFromRestApi() {
-		this.setState({
-			statistics: this.restApi.getStatistics(),
-			details: this.restApi.getDetails()
-		});
 	}
 
 	render() {
 		return (
-			<div className='entity-cloud-statistics'>
+			<div className='entity-statistics-cloud'>
 				{this.hasStatistics() ? this.renderStatistics() : ''}
 			</div>
 		);
@@ -36,7 +19,7 @@ export class EntityCloudStatistics extends Component {
 
 	renderStatistics() {
 		return (
-			<div >
+			<div>
 				<h4>Currently serving <strong>{this.state.statistics.entitiesStatistics.totalCount}</strong> entities!</h4>
 				<hr/>
 				<TagCloud minSize={18} maxSize={35} tags={this.getStatisticsForFictionalEntities()}
@@ -46,10 +29,6 @@ export class EntityCloudStatistics extends Component {
 					shuffle={false} disableRandomColor={true} />
 			</div>
 		);
-	}
-
-	hasStatistics() {
-		return this.state && this.state.statistics;
 	}
 
 	getStatisticsForFictionalEntities() {
@@ -68,11 +47,7 @@ export class EntityCloudStatistics extends Component {
 		let entities = Array.from(this.state.statistics.entitiesStatistics.statistics).filter((item) => {
 			return entitiesNames.includes(item.name);
 		});
-		let names = {};
-
-		this.state.details.forEach((detail) => {
-			names[detail.name] = detail.pluralName;
-		});
+		let names = this.getEntityNameToPluralNameMap();
 
 		entities.sort((left, right) => {
 			return left.count < right.count ? 1 : (left.count === right.count ? 0 : -1);

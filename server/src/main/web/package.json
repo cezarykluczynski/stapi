@@ -6,6 +6,7 @@
     "another-rest-client": "^0.3.2",
     "ramda": "^0.23.0",
     "react": "^15.5.4",
+    "react-data-grid": "^2.0.41",
     "react-dom": "^15.5.4",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
