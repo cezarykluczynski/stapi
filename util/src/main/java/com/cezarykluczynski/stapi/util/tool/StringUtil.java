@@ -64,6 +64,16 @@ public class StringUtil {
 		return suffixList.stream().anyMatch(suffix -> StringUtils.isNotEmpty(suffix) && subject.endsWith(suffix));
 	}
 
+	public static String substringBeforeAny(String subject, List<String> suffixList) {
+		String result = subject;
+
+		for (String suffix : suffixList) {
+			result = StringUtils.substringBefore(result, suffix);
+		}
+
+		return result;
+	}
+
 	private static Stream<String> getLowerCandidatesStream(List<String> candidates) {
 		List<String> candidatesLowerCase = candidates.stream()
 				.filter(StringUtils::isNotBlank)

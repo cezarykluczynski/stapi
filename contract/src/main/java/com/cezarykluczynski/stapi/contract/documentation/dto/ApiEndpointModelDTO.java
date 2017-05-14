@@ -5,10 +5,10 @@ import lombok.Data;
 import java.util.Set;
 
 @Data
-public class ApiRequestModelDTO {
+public class ApiEndpointModelDTO {
 
-	private Set<Class> restRequests;
+	private Set<Class> restEndpoints;
 
-	private Set<Class> soapRequests;
+	private Set<Class> soapEndpoints;
 
 }

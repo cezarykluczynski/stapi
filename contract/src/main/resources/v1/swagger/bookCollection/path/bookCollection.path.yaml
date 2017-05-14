@@ -15,4 +15,4 @@ get:
       schema:
         $ref: '#/definitions/Error'
   tags:
-  - BookcCollection
+  - BookCollection

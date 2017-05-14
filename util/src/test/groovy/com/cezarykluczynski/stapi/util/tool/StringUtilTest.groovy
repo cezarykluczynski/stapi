@@ -99,4 +99,16 @@ class StringUtilTest extends Specification {
 		'subject' | Lists.newArrayList('')               | false
 	}
 
+	@Unroll('returns #result when #subject is passed with #suffixed')
+	void "returns string cut before any of the given suffixes"() {
+		expect:
+		result == StringUtil.substringBeforeAny(subject, suffixList)
+
+		where:
+		subject                          | suffixList                                         | result
+		'AstronomicalObjectBaseResponse' | Lists.newArrayList('BaseResponse', 'FullResponse') | 'AstronomicalObject'
+		'BookBase'                       | Lists.newArrayList('Full', 'Base')                 | 'Book'
+		'ComicsFullRequest'              | Lists.newArrayList('FullRequest', 'BaseRequest')   | 'Comics'
+	}
+
 }

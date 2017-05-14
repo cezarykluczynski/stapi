@@ -7,9 +7,13 @@ import java.util.Set;
 @Data
 public class ApiResponseModelDTO {
 
+	private Set<Class> restRequests;
+
 	private Set<Class> restModels;
 
 	private Set<Class> restResponses;
+
+	private Set<Class> soapRequests;
 
 	private Set<Class> soapModels;
 

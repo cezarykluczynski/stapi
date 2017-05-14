@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.common.documentation.service;
 
-import com.cezarykluczynski.stapi.contract.documentation.dto.ApiRequestModelDTO;
+import com.cezarykluczynski.stapi.contract.documentation.dto.ApiEndpointModelDTO;
 import com.cezarykluczynski.stapi.contract.documentation.dto.ApiRequestResponseModelDTO;
 import com.cezarykluczynski.stapi.contract.documentation.dto.ApiResponseModelDTO;
 import org.springframework.stereotype.Service;
@@ -22,16 +22,19 @@ public class ApiRequestResponseModelProvider {
 
 	ApiRequestResponseModelDTO provide() {
 		ApiResponseModelDTO apiResponseModelDTO = apiResponseModelProvider.provide();
-		ApiRequestModelDTO apiRequestModelDTO = apiRequestModelProvider.provide();
+		ApiEndpointModelDTO apiEndpointModelDTO = apiRequestModelProvider.provide();
 
 		ApiRequestResponseModelDTO apiRequestResponseModelDTO = new ApiRequestResponseModelDTO();
 
-		apiRequestResponseModelDTO.setRestRequests(apiRequestModelDTO.getRestRequests());
+		apiRequestResponseModelDTO.setRestRequests(apiResponseModelDTO.getRestRequests());
 		apiRequestResponseModelDTO.setRestModels(apiResponseModelDTO.getRestModels());
 		apiRequestResponseModelDTO.setRestResponses(apiResponseModelDTO.getRestResponses());
-		apiRequestResponseModelDTO.setSoapRequests(apiRequestModelDTO.getSoapRequests());
+		apiRequestResponseModelDTO.setRestEndpoints(apiEndpointModelDTO.getRestEndpoints());
+
+		apiRequestResponseModelDTO.setSoapRequests(apiResponseModelDTO.getSoapRequests());
 		apiRequestResponseModelDTO.setSoapModels(apiResponseModelDTO.getSoapModels());
 		apiRequestResponseModelDTO.setSoapResponses(apiResponseModelDTO.getSoapResponses());
+		apiRequestResponseModelDTO.setSoapEndpoints(apiEndpointModelDTO.getSoapEndpoints());
 
 		return apiRequestResponseModelDTO;
 	}

@@ -13,10 +13,14 @@ public class ApiRequestResponseModelDTO {
 
 	private Set<Class> restResponses;
 
+	private Set<Class> restEndpoints;
+
 	private Set<Class> soapRequests;
 
 	private Set<Class> soapModels;
 
 	private Set<Class> soapResponses;
+
+	private Set<Class> soapEndpoints;
 
 }

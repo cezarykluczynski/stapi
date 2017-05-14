@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.common.documentation.service;
 
-import com.cezarykluczynski.stapi.contract.documentation.dto.ApiRequestModelDTO;
+import com.cezarykluczynski.stapi.contract.documentation.dto.ApiEndpointModelDTO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
@@ -21,15 +21,15 @@ public class ApiRequestModelProvider {
 		this.applicationContext = applicationContext;
 	}
 
-	public ApiRequestModelDTO provide() {
+	public ApiEndpointModelDTO provide() {
 		Map<String, Object> restEndpoints = applicationContext.getBeansWithAnnotation(Produces.class);
 		Map<String, Object> soapEndpoints = applicationContext.getBeansWithAnnotation(WebService.class);
 
-		ApiRequestModelDTO apiRequestModelDTO = new ApiRequestModelDTO();
-		apiRequestModelDTO.setRestRequests(getClasses(restEndpoints));
-		apiRequestModelDTO.setSoapRequests(getClasses(soapEndpoints));
+		ApiEndpointModelDTO apiEndpointModelDTO = new ApiEndpointModelDTO();
+		apiEndpointModelDTO.setRestEndpoints(getClasses(restEndpoints));
+		apiEndpointModelDTO.setSoapEndpoints(getClasses(soapEndpoints));
 
-		return apiRequestModelDTO;
+		return apiEndpointModelDTO;
 	}
 
 	private Set<Class> getClasses(Map<String, Object> endpoints) {

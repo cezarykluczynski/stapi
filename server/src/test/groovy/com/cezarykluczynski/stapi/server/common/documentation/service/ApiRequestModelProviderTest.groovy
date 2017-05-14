@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.common.documentation.service
 
-import com.cezarykluczynski.stapi.contract.documentation.dto.ApiRequestModelDTO
+import com.cezarykluczynski.stapi.contract.documentation.dto.ApiEndpointModelDTO
 import com.cezarykluczynski.stapi.server.astronomicalObject.endpoint.AstronomicalObjectRestEndpoint
 import com.cezarykluczynski.stapi.server.book.endpoint.BookSoapEndpoint
 import com.cezarykluczynski.stapi.server.comics.endpoint.ComicsSoapEndpoint
@@ -40,16 +40,16 @@ class ApiRequestModelProviderTest extends Specification {
 		soapEndpoints.put('ComicsSoapEndpoint$$EnhancerBySpringCGLIB$$1135c91a', comicsSoapEndpoint)
 
 		when:
-		ApiRequestModelDTO apiRequestModelDTO = apiRequestModelProvider.provide()
+		ApiEndpointModelDTO apiRequestModelDTO = apiRequestModelProvider.provide()
 
 		then:
 		1 * applicationContextMock.getBeansWithAnnotation(Produces) >> restEndpoints
 		1 * applicationContextMock.getBeansWithAnnotation(WebService) >> soapEndpoints
-		apiRequestModelDTO.restRequests.size() == 1
-		apiRequestModelDTO.restRequests.contains(AstronomicalObjectRestEndpoint)
-		apiRequestModelDTO.soapRequests.size() == 2
-		apiRequestModelDTO.soapRequests.contains(BookSoapEndpoint)
-		apiRequestModelDTO.soapRequests.contains(ComicsSoapEndpoint)
+		apiRequestModelDTO.restEndpoints.size() == 1
+		apiRequestModelDTO.restEndpoints.contains(AstronomicalObjectRestEndpoint)
+		apiRequestModelDTO.soapEndpoints.size() == 2
+		apiRequestModelDTO.soapEndpoints.contains(BookSoapEndpoint)
+		apiRequestModelDTO.soapEndpoints.contains(ComicsSoapEndpoint)
 	}
 
 }
