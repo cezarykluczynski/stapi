@@ -13,11 +13,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class ApiRequestModelProvider {
+class ApiRequestModelProvider {
 
 	private final ApplicationContext applicationContext;
 
-	public ApiRequestModelProvider(ApplicationContext applicationContext) {
+	ApiRequestModelProvider(ApplicationContext applicationContext) {
 		this.applicationContext = applicationContext;
 	}
 

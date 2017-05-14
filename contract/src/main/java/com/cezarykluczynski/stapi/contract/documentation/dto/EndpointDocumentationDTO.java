@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.contract.documentation.dto;
 
+import com.google.common.collect.Lists;
 import lombok.Data;
 
 import java.util.List;
@@ -7,6 +8,6 @@ import java.util.List;
 @Data
 public class EndpointDocumentationDTO {
 
-	List<EndpointMethodDTO> endpointMethods;
+	private List<EndpointMethodDTO> endpointMethods = Lists.newArrayList();
 
 }

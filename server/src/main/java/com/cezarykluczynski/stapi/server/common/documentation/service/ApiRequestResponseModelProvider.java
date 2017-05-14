@@ -8,14 +8,14 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 
 @Service
-public class ApiRequestResponseModelProvider {
+class ApiRequestResponseModelProvider {
 
 	private final ApiResponseModelProvider apiResponseModelProvider;
 
 	private final ApiRequestModelProvider apiRequestModelProvider;
 
 	@Inject
-	public ApiRequestResponseModelProvider(ApiResponseModelProvider apiResponseModelProvider, ApiRequestModelProvider apiRequestModelProvider) {
+	ApiRequestResponseModelProvider(ApiResponseModelProvider apiResponseModelProvider, ApiRequestModelProvider apiRequestModelProvider) {
 		this.apiResponseModelProvider = apiResponseModelProvider;
 		this.apiRequestModelProvider = apiRequestModelProvider;
 	}

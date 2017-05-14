@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class ApiResponseModelProvider {
+class ApiResponseModelProvider {
 
 	private static final String REST_GENERATED_MODEL = "com.cezarykluczynski.stapi.client.v1.rest.model";
 	private static final String REST_GENERATED_API = "com.cezarykluczynski.stapi.client.v1.rest.api";
@@ -22,7 +22,7 @@ public class ApiResponseModelProvider {
 	private final ClassNameFilter classNameFilter;
 
 	@Inject
-	public ApiResponseModelProvider(ReflectionReader reflectionReader, ClassNameFilter classNameFilter) {
+	ApiResponseModelProvider(ReflectionReader reflectionReader, ClassNameFilter classNameFilter) {
 		this.reflectionReader = reflectionReader;
 		this.classNameFilter = classNameFilter;
 	}

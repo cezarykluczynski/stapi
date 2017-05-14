@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.contract.documentation.dto;
 
+import com.google.common.collect.Lists;
 import lombok.Data;
 
 import java.util.List;
@@ -9,7 +10,9 @@ public class EntityDTO {
 
 	private String name;
 
-	private List<EntityDTO> fields;
+	private String description;
+
+	private List<EntityDTO> fields = Lists.newArrayList();
 
 	private boolean scalarType;
 
