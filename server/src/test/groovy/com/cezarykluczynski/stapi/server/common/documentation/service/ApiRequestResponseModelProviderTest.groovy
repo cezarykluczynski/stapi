@@ -1,0 +1,54 @@
+package com.cezarykluczynski.stapi.server.common.documentation.service
+
+import com.cezarykluczynski.stapi.contract.documentation.dto.ApiRequestModelDTO
+import com.cezarykluczynski.stapi.contract.documentation.dto.ApiRequestResponseModelDTO
+import com.cezarykluczynski.stapi.contract.documentation.dto.ApiResponseModelDTO
+import spock.lang.Specification
+
+class ApiRequestResponseModelProviderTest extends Specification {
+
+	private ApiResponseModelProvider apiResponseModelProviderMock
+
+	private ApiRequestModelProvider apiRequestModelProviderMock
+
+	private ApiRequestResponseModelProvider apiRequestResponseModelProvider
+
+	void setup() {
+		apiResponseModelProviderMock = Mock()
+		apiRequestModelProviderMock = Mock()
+		apiRequestResponseModelProvider = new ApiRequestResponseModelProvider(apiResponseModelProviderMock, apiRequestModelProviderMock)
+	}
+
+	void "provides ApiRequestResponseModelDTO"() {
+		given:
+		Set<Class> restRequests = Mock()
+		Set<Class> restModels = Mock()
+		Set<Class> restResponses = Mock()
+		Set<Class> soapRequests = Mock()
+		Set<Class> soapModels = Mock()
+		Set<Class> soapResponses = Mock()
+		ApiResponseModelDTO apiResponseModelDTO = new ApiResponseModelDTO(
+				restResponses: restResponses,
+				restModels: restModels,
+				soapResponses: soapResponses,
+				soapModels: soapModels)
+		ApiRequestModelDTO apiRequestModelDTO = new ApiRequestModelDTO(
+				restRequests: restRequests,
+				soapRequests: soapRequests)
+
+		when:
+		ApiRequestResponseModelDTO apiRequestResponseModelDTO = apiRequestResponseModelProvider.provide()
+
+		then:
+		1 * apiResponseModelProviderMock.provide() >> apiResponseModelDTO
+		1 * apiRequestModelProviderMock.provide() >> apiRequestModelDTO
+		0 * _
+		apiRequestResponseModelDTO.restRequests == restRequests
+		apiRequestResponseModelDTO.restModels == restModels
+		apiRequestResponseModelDTO.restResponses == restResponses
+		apiRequestResponseModelDTO.soapRequests == soapRequests
+		apiRequestResponseModelDTO.soapModels == soapModels
+		apiRequestResponseModelDTO.soapResponses == soapResponses
+	}
+
+}

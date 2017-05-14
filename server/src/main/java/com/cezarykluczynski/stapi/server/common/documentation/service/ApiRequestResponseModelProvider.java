@@ -1,0 +1,39 @@
+package com.cezarykluczynski.stapi.server.common.documentation.service;
+
+import com.cezarykluczynski.stapi.contract.documentation.dto.ApiRequestModelDTO;
+import com.cezarykluczynski.stapi.contract.documentation.dto.ApiRequestResponseModelDTO;
+import com.cezarykluczynski.stapi.contract.documentation.dto.ApiResponseModelDTO;
+import org.springframework.stereotype.Service;
+
+import javax.inject.Inject;
+
+@Service
+public class ApiRequestResponseModelProvider {
+
+	private final ApiResponseModelProvider apiResponseModelProvider;
+
+	private final ApiRequestModelProvider apiRequestModelProvider;
+
+	@Inject
+	public ApiRequestResponseModelProvider(ApiResponseModelProvider apiResponseModelProvider, ApiRequestModelProvider apiRequestModelProvider) {
+		this.apiResponseModelProvider = apiResponseModelProvider;
+		this.apiRequestModelProvider = apiRequestModelProvider;
+	}
+
+	ApiRequestResponseModelDTO provide() {
+		ApiResponseModelDTO apiResponseModelDTO = apiResponseModelProvider.provide();
+		ApiRequestModelDTO apiRequestModelDTO = apiRequestModelProvider.provide();
+
+		ApiRequestResponseModelDTO apiRequestResponseModelDTO = new ApiRequestResponseModelDTO();
+
+		apiRequestResponseModelDTO.setRestRequests(apiRequestModelDTO.getRestRequests());
+		apiRequestResponseModelDTO.setRestModels(apiResponseModelDTO.getRestModels());
+		apiRequestResponseModelDTO.setRestResponses(apiResponseModelDTO.getRestResponses());
+		apiRequestResponseModelDTO.setSoapRequests(apiRequestModelDTO.getSoapRequests());
+		apiRequestResponseModelDTO.setSoapModels(apiResponseModelDTO.getSoapModels());
+		apiRequestResponseModelDTO.setSoapResponses(apiResponseModelDTO.getSoapResponses());
+
+		return apiRequestResponseModelDTO;
+	}
+
+}
