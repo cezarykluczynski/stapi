@@ -32,5 +32,4 @@ public class DocumentationProvider {
 		return documentationFactory.create(apiTypeEntitiesMap);
 	}
 
-
 }
