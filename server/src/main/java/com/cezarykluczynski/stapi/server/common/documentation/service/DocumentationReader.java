@@ -30,18 +30,29 @@ public class DocumentationReader {
 			Path rootBasePath = basePath == null ? currentPath : basePath;
 			Stream<Path> paths = Files.walk(currentPath);
 			paths.forEach(filePath -> {
+				try {
+					if (Files.isSameFile(currentPath, filePath)) {
+						return;
+					}
+				} catch (Exception e) {
+					// do nothing
+				}
 				if (Files.isRegularFile(filePath)) {
 					DocumentDTO documentDTO = new DocumentDTO();
 					documentDTO.setType(filePath.toString().endsWith(".yaml") ? DocumentType.YAML : DocumentType.XML);
-					documentDTO.setPath(rootBasePath.relativize(filePath).toString());
 					try {
 						documentDTO.setContent(StringUtils.join(Files.readAllLines(filePath, Charset.forName("UTF-8")), "\n\r"));
 					} catch (Exception e) {
 						LOG.error("Could not get content for file {}, exception was: {}", filePath.toString(), e);
 					}
+					try {
+						documentDTO.setPath(rootBasePath.relativize(filePath).toString());
+					} catch (IllegalArgumentException e) {
+						return;
+					}
 					documentDTOList.add(documentDTO);
 				} else if (Files.isDirectory(filePath)) {
-					privateReadDocument(filePath.getFileName().toAbsolutePath().toString(), documentDTOList, rootBasePath);
+					privateReadDocument(filePath.toAbsolutePath().toString(), documentDTOList, rootBasePath);
 				}
 			});
 		} catch (Exception e) {

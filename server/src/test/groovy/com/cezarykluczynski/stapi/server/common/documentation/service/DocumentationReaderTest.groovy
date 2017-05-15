@@ -13,8 +13,13 @@ class DocumentationReaderTest extends Specification {
 	}
 
 	void "reads directory into list of DocumentDTO, recursively"() {
+		given:
+		String rootDirectory = '../contract/src/main/resources/v1/swagger/book'
+		String contractDirectory = './contract/src/main/resources/v1/swagger/book'
+		String directory = new File(rootDirectory).isDirectory() ? rootDirectory : contractDirectory
+
 		when:
-		List<DocumentDTO> documentDTOList = documentationReader.readDirectory('../contract/src/main/resources/v1/swagger/book')
+		List<DocumentDTO> documentDTOList = documentationReader.readDirectory(directory)
 
 		then:
 		documentDTOList.size() == 7

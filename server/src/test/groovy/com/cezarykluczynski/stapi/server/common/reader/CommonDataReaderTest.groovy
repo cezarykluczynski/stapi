@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.server.common.reader
 
+import com.cezarykluczynski.stapi.contract.documentation.dto.DocumentationDTO
+import com.cezarykluczynski.stapi.server.common.documentation.service.DocumentationProvider
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailsDTO
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO
 import spock.lang.Specification
@@ -12,13 +14,17 @@ class CommonDataReaderTest extends Specification {
 
 	private CommonHitsStatisticsReader commonHitsStatisticsReaderMock
 
+	private DocumentationProvider documentationProvider
+
 	private CommonDataReader commonDataReader
 
 	void setup() {
 		commonEntitiesStatisticsReaderMock = Mock()
 		commonEntitiesDetailsReaderMock = Mock()
 		commonHitsStatisticsReaderMock = Mock()
-		commonDataReader = new CommonDataReader(commonEntitiesStatisticsReaderMock, commonEntitiesDetailsReaderMock, commonHitsStatisticsReaderMock)
+		documentationProvider = Mock()
+		commonDataReader = new CommonDataReader(commonEntitiesStatisticsReaderMock, commonEntitiesDetailsReaderMock, commonHitsStatisticsReaderMock,
+				documentationProvider)
 	}
 
 	void "gets entities statistics from CommonEntitiesStatisticsReader"() {
@@ -58,6 +64,19 @@ class CommonDataReaderTest extends Specification {
 		1 * commonEntitiesDetailsReaderMock.details() >> restEndpointDetailsDTO
 		0 * _
 		restEndpointDetailsDTOOutput == restEndpointDetailsDTO
+	}
+
+	void "gets documentation from DocumentationProvider"() {
+		given:
+		DocumentationDTO documentationDTO = Mock()
+
+		when:
+		DocumentationDTO documentationDTOOutput = commonDataReader.documentation()
+
+		then:
+		1 * documentationProvider.provide() >> documentationDTO
+		0 * _
+		documentationDTOOutput == documentationDTO
 	}
 
 }

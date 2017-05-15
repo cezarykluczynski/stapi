@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.server.common.endpoint
 
+import com.cezarykluczynski.stapi.contract.documentation.dto.DocumentationDTO
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailsDTO
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO
 import com.cezarykluczynski.stapi.server.common.reader.CommonDataReader
@@ -53,6 +54,19 @@ class CommonRestEndpointTest extends Specification {
 		1 * commonDataReaderMock.details() >> restEndpointDetailsDTO
 		0 * _
 		restEndpointDetailsDTOOutput == restEndpointDetailsDTO
+	}
+
+	void "gets documentation from CommonDataReader"() {
+		given:
+		DocumentationDTO documentationDTO = Mock()
+
+		when:
+		DocumentationDTO documentationDTOOutput = commonRestEndpoint.documentation()
+
+		then:
+		1 * commonDataReaderMock.documentation() >> documentationDTO
+		0 * _
+		documentationDTOOutput == documentationDTO
 	}
 
 }

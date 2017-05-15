@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.server.common.endpoint;
 
+import com.cezarykluczynski.stapi.contract.documentation.dto.DocumentationDTO;
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailsDTO;
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO;
 import com.cezarykluczynski.stapi.server.common.reader.CommonDataReader;
@@ -40,6 +41,12 @@ public class CommonRestEndpoint {
 	@Path("details")
 	public RestEndpointDetailsDTO details() {
 		return commonDataReader.details();
+	}
+
+	@GET
+	@Path("documentation")
+	public DocumentationDTO documentation() {
+		return commonDataReader.documentation();
 	}
 
 }

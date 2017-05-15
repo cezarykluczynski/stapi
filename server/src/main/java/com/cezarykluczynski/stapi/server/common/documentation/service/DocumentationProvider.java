@@ -8,10 +8,12 @@ import javax.inject.Inject;
 @Service
 public class DocumentationProvider {
 
-	private static final String SWAGGER_DIRECTORY = "./contract/src/main/resources/v1/swagger/";
-	private static final String WSDL_DIRECTORY = "./contract/src/main/resources/v1/wsdl/";
+	private static final String SWAGGER_DIRECTORY = "./contract/src/main/resources/v1/swagger";
+	private static final String WSDL_DIRECTORY = "./contract/src/main/resources/v1/wsdl";
 
 	private final DocumentationReader documentationReader;
+
+	private DocumentationDTO documentationDTO;
 
 	@Inject
 	public DocumentationProvider(DocumentationReader documentationReader) {
@@ -19,9 +21,16 @@ public class DocumentationProvider {
 	}
 
 	public DocumentationDTO provide() {
-		DocumentationDTO documentationDTO = new DocumentationDTO();
-		documentationDTO.setRestDocuments(documentationReader.readDirectory(SWAGGER_DIRECTORY));
-		documentationDTO.setSoapDocuments(documentationReader.readDirectory(WSDL_DIRECTORY));
+		if (documentationDTO == null) {
+			synchronized (this) {
+				if (documentationDTO == null) {
+					documentationDTO = new DocumentationDTO();
+					documentationDTO.setRestDocuments(documentationReader.readDirectory(SWAGGER_DIRECTORY));
+					documentationDTO.setSoapDocuments(documentationReader.readDirectory(WSDL_DIRECTORY));
+				}
+			}
+		}
+
 		return documentationDTO;
 	}
 
