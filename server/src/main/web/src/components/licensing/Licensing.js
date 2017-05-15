@@ -6,7 +6,7 @@ export class Licensing extends Component {
 		return (
 			<div className='licensing'>
 				<div className="row">
-					<div className="col-md-6">
+					<div className="col-md-offset-3 col-md-6">
 						<h3>Names and trademarks</h3>
 						<p>
 							<i>Star Trek</i>, <i>Star Trek: The Animated Series</i>, <i>Star Trek: The Next Generation</i>,
