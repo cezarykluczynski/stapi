@@ -5,10 +5,6 @@ import { StatisticsComponent } from './StatisticsComponent.js';
 
 export class EntityStatisticsCloud extends StatisticsComponent {
 
-	constructor() {
-		super();
-	}
-
 	render() {
 		return (
 			<div className='entity-statistics-cloud'>

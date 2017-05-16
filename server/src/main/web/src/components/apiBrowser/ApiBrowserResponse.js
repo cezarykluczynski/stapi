@@ -70,9 +70,10 @@ export class ApiBrowserResponse extends Component {
 				response: response
 			});
 		}).catch(error => {
-			this.state.lastUpdateWasError = true;
-			this.state.response = JSON.parse(error.response);
-			this.forceUpdate();
+			this.setState({
+				lastUpdateWasError: true,
+				response: JSON.parse(error.response)
+			});
 		});
 	}
 
@@ -184,7 +185,7 @@ export class ApiBrowserResponse extends Component {
 	}
 
 	renderValue(value, key) {
-		if (Array.isArray(value) && !value.length || value === null || key === 'uid' || typeof value === 'object') {
+		if ((Array.isArray(value) && !value.length) || value === null || key === 'uid' || typeof value === 'object') {
 			return;
 		}
 

@@ -10,9 +10,7 @@ export class ApiDocumentation extends Component {
 		this.restApi = RestApi.getInstance();
 		this.restApi.loadDocumentation().then(response => {
 			this.documentation = response;
-			this.setState({
-				selectedDocumentationType: 'SOAP'
-			});
+			this.selectRest();
 			return this.documentation;
 		});
 		this.selectRest = this.selectRest.bind(this);
@@ -28,9 +26,14 @@ export class ApiDocumentation extends Component {
 						<a className={"btn btn-default " + (this.getSoapClass())} onClick={this.selectSoap}>SOAP documentation</a>
 					</div>
 				</div>
-				<div className='row'>
-					<div className='col-md-3'>
-						{this.renderFileList()}
+				<div className='row api-documentation__files-contents'>
+					<div className={this.getFilesListClass()}>
+						<div className='list-group table-of-contents'>
+							{this.renderFileList()}
+						</div>
+					</div>
+					<div className={this.getFileContentClass()}>
+						{this.renderSelectedFileContents()}
 					</div>
 				</div>
 			</div>
@@ -38,27 +41,73 @@ export class ApiDocumentation extends Component {
 	}
 
 	renderFileList() {
-		return '';
+		if (!this.state) {
+			return '';
+		}
+
+		var files = this.state.selectedDocumentationType === 'REST' ? this.documentation.restDocuments : this.documentation.soapDocuments;
+		var nodes = [];
+		for (let i = 0; i < files.length; i++) {
+			nodes.push(<a className='list-group-item api-documentation__listed-file' onClick={() => this.selectFile(i)}>{files[i].path}</a>);
+		}
+		return nodes;
+	}
+
+	getFilesListClass() {
+		return this.isSoapDocumentation() ? 'col-md-3' : 'col-md-5';
+	}
+
+	getFileContentClass() {
+		return this.isSoapDocumentation() ? 'col-md-9' : 'col-md-7';
+	}
+
+	renderSelectedFileContents() {
+		return <pre><code dangerouslySetInnerHTML={{__html: this.getSelectedFileContents()}}></code></pre>;
 	}
 
 	selectRest() {
 		this.setState({
-			selectedDocumentationType: 'REST'
+			selectedDocumentationType: 'REST',
+			selectedFilesIndex: 0
+		});
+	}
+
+	selectFile(index) {
+		this.setState({
+			selectedFilesIndex: index
 		});
 	}
 
 	selectSoap() {
 		this.setState({
-			selectedDocumentationType: 'SOAP'
+			selectedDocumentationType: 'SOAP',
+			selectedFilesIndex: 0
 		});
 	}
 
 	getRestClass() {
-		return this.state && this.state.selectedDocumentationType === 'REST' ? 'btn-primary' : '';
+		return this.isRestDocumentation() ? 'btn-primary' : '';
 	}
 
 	getSoapClass() {
-		return this.state && this.state.selectedDocumentationType === 'SOAP' ? 'btn-primary' : '';
+		return this.isSoapDocumentation() ? 'btn-primary' : '';
+	}
+
+	isRestDocumentation() {
+		return this.state && this.state.selectedDocumentationType === 'REST';
+	}
+
+	isSoapDocumentation() {
+		return this.state && this.state.selectedDocumentationType === 'SOAP'
+	}
+
+	getSelectedFileContents() {
+		if (!this.state) {
+			return '';
+		}
+
+		var documents = this.state.selectedDocumentationType === 'REST' ? this.documentation.restDocuments : this.documentation.soapDocuments;
+		return documents[this.state.selectedFilesIndex].content;
 	}
 
 }

@@ -7,8 +7,8 @@ import java.util.List;
 @Data
 public class DocumentationDTO {
 
-	List<DocumentDTO> restDocuments;
+	private List<DocumentDTO> restDocuments;
 
-	List<DocumentDTO> soapDocuments;
+	private List<DocumentDTO> soapDocuments;
 
 }
