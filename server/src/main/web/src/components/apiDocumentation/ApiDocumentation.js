@@ -17,6 +17,13 @@ export class ApiDocumentation extends Component {
 		this.selectSoap = this.selectSoap.bind(this);
 	}
 
+	componentDidUpdate() {
+		/* eslint no-undef:0 */
+		jQuery('pre code').each(function(i, block) {
+			hljs.highlightBlock(block);
+		});
+	}
+
 	render() {
 		return (
 			<div className='api-documentation'>
@@ -62,7 +69,11 @@ export class ApiDocumentation extends Component {
 	}
 
 	renderSelectedFileContents() {
-		return <pre><code dangerouslySetInnerHTML={{__html: this.getSelectedFileContents()}}></code></pre>;
+		if (this.isRestDocumentation()) {
+			return <pre><code className='yaml' dangerouslySetInnerHTML={{__html: this.getSelectedFileContents()}}></code></pre>;
+		} else if (this.isSoapDocumentation()) {
+			return <pre><code className='xml' dangerouslySetInnerHTML={{__html: this.getSelectedFileContents()}}></code></pre>;
+		}
 	}
 
 	selectRest() {
