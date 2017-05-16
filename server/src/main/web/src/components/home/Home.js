@@ -7,7 +7,7 @@ export class Home extends Component {
 
 	render() {
 		return (
-			<div className='home'>
+			<div className='container content home'>
 				<div className='row'>
 					<div className='col-md-6'>
 						<h2>Welcome to STAPI!</h2>

@@ -34,7 +34,7 @@ class App extends Component {
 								</div>
 							</div>
 						</div>
-						<div className={this.getMainContainerClass()}>
+						<div>
 							<Route exact path='/' component={Home}/>
 							<Route exact path='/about' component={About}/>
 							<Route exact path='/api-browser' component={ApiBrowser}/>
@@ -51,10 +51,6 @@ class App extends Component {
 	getGitHubButton() {
 		return '<a class="github-button" href="https://github.com/cezarykluczynski/stapi" data-size="large" data-show-count="true" '
 			+ 'aria-label="Star cezarykluczynski/stapi on GitHub">Star</a>';
-	}
-
-	getMainContainerClass() {
-		return location.pathname === '/api-documentation' ? 'container-full content' : 'container content';
 	}
 
 }

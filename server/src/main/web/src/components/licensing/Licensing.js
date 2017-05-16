@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import './Licensing.css';
 
 export class Licensing extends Component {
+
 	render() {
 		return (
-			<div className='licensing'>
+			<div className='container content licensing'>
 				<div className="row">
-					<div className="col-md-offset-3 col-md-6">
+					<div className="col-md-offset-2 col-md-8">
 						<h3>Names and trademarks</h3>
 						<p>
 							<i>Star Trek</i>, <i>Star Trek: The Animated Series</i>, <i>Star Trek: The Next Generation</i>,
@@ -21,13 +22,13 @@ export class Licensing extends Component {
 							STAPI uses content derived from <a href="http://memory-alpha.wikia.com/">Memory Alpha</a>, therefore
 							it is safe to assume that most of STAPI'a content is licensed under <a
 								href="https://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC 4.0</a>.
-							For details on Memory Alpha licensing, see <a
+							For details on Memory Alpha licensing see <a
 									href="http://memory-alpha.wikia.com/wiki/Memory_Alpha:Copyrights">this link</a>.
 						</p>
 						<p>
 							STAPI also uses content from <a href="http://memory-beta.wikia.com/">Memory Beta</a>, therefore some parts of the
 							data is licensed under <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>.
-							For details on Memory Beta licensing, see <a
+							For details on Memory Beta licensing see <a
 								href="http://memory-beta.wikia.com/wiki/Memory_Beta:Copyrights">this link</a>.
 						</p>
 						<p>
@@ -55,4 +56,5 @@ export class Licensing extends Component {
 			</div>
 		);
 	}
+
 }

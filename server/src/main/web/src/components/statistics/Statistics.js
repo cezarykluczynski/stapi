@@ -7,7 +7,7 @@ export class Statistics extends Component {
 
 	render() {
 		return (
-			<div className='statistics'>
+			<div className='statistics container content'>
 				<div className="row">
 					<div className="col-md-6">
 						<EntityStatisticsCloud />
@@ -15,7 +15,6 @@ export class Statistics extends Component {
 					<div className="col-md-6">
 						<EntityHitsGrid />
 					</div>
-
 				</div>
 			</div>
 		);

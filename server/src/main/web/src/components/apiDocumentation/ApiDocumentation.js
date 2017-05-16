@@ -26,7 +26,7 @@ export class ApiDocumentation extends Component {
 
 	render() {
 		return (
-			<div className='api-documentation'>
+			<div className='api-documentation content'>
 				<div className='row'>
 					<div className="btn-group btn-group-justified">
 						<a className={"btn btn-default " + (this.getRestClass())} onClick={this.selectRest}>REST documentation</a>

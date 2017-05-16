@@ -40,7 +40,7 @@ export class ApiBrowser extends Component {
 
 	render() {
 		return (
-			<div className='api-browser'>
+			<div className='api-browser container content'>
 				<div className="row">
 					<form role="search" className="form-horizontal" onSubmit={this.search}>
 						<div className="col-md-5">

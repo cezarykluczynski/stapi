@@ -57,5 +57,4 @@ export class EntityStatisticsCloud extends StatisticsComponent {
 		});
 	}
 
-
 }
