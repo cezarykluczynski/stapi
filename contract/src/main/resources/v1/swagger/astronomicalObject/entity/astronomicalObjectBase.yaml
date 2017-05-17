@@ -1,10 +1,15 @@
 type: object
+description: Base astronomical object, returned in search results
 properties:
   uid:
     type: string
+    description: Astronomical object unique ID
   name:
     type: string
+    description: Astronomical object name
   astronomicalObjectType:
     $ref: ./astronomicalObject/entity/enum/astronomicalObjectType.yaml
+    description: Type of astronomical object
   location:
     $ref: ./astronomicalObject/entity/astronomicalObjectHeader.yaml
+    description: Location of astronomical object (optional)

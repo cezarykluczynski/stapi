@@ -25,7 +25,7 @@ $border-color: #888
 .api-browser__response > li > ul
 	margin-bottom: -22px
 	display: inline-block
-	margin-left: -200px
+	padding-left: 5px
 
 .api-browser__response_data
 	font-size: 17px
@@ -42,12 +42,20 @@ $border-color: #888
 .api-browser__separator
 	border-top: 1px solid $border-color
 	margin: 10px auto
+	height: 1px
 
 .api-browser__label
 	display: inline-block
 	text-align: right
 	width: 300px
 	color: #777
+
+.api-browser__level-wrapper
+	display: block
+
+.api-browser__level-1
+	.api-browser__label
+		display: inline
 
 .api-browser__limits
 	float: right

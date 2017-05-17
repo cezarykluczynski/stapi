@@ -169,7 +169,7 @@ export class ApiBrowserResponse extends Component {
 				}
 
 				var objectChildItems = this.doRender(content[i], level + 1);
-				items.push(<li><span key={i} className="api-browser__label">{i}:</span><ul>{objectChildItems}</ul></li>);
+				items.push(<li className={'api-browser__level-' + level}><span key={i} className="api-browser__label">{i}:</span><ul>{objectChildItems}</ul></li>);
 			}
 
 			let value = this.renderValue(content[i], i);
@@ -178,7 +178,11 @@ export class ApiBrowserResponse extends Component {
 				continue;
 			}
 
-			items.push(<li key={i}><span className="api-browser__label">{i}:</span> {value}</li>);
+			items.push(<li className={'api-browser__level-' + level} key={i}><span className="api-browser__label">{i}:</span> {value}</li>);
+		}
+
+		if (level > 0) {
+			return <div className="api-browser__level-wrapper">{items}</div>;
 		}
 
 		return items;

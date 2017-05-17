@@ -1,4 +1,5 @@
 type: string
+description: Astronomical object type
 enum:
   - PLANET
   - D_CLASS_PLANET
