@@ -33,4 +33,5 @@ public class RequestCredential {
 	public void setApiKey(String apiKey) {
 		this.apiKey = apiKey;
 	}
+
 }

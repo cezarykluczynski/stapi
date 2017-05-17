@@ -12,6 +12,8 @@ class ThrottleValidatorTest extends Specification {
 
 	private static final String IP_ADDRESS = 'IP_ADDRESS'
 
+	private ThrottleQualifyingService throttleQualifyingServiceMock
+
 	private ThrottleRepository throttleRepositoryMock
 
 	private RequestCredentialProvider requestCredentialProviderMock
@@ -21,13 +23,29 @@ class ThrottleValidatorTest extends Specification {
 	private ThrottleValidator throttleValidator
 
 	void setup() {
+		throttleQualifyingServiceMock = Mock()
 		throttleRepositoryMock = Mock()
 		requestCredentialProviderMock = Mock()
 		requestSpecificThrottleStatisticsMock = Mock()
-		throttleValidator = new ThrottleValidator(throttleRepositoryMock, requestCredentialProviderMock, requestSpecificThrottleStatisticsMock)
+		throttleValidator = new ThrottleValidator(throttleQualifyingServiceMock, throttleRepositoryMock, requestCredentialProviderMock,
+				requestSpecificThrottleStatisticsMock)
 	}
 
-	void "return throttled result when decrement by IP is not successful"() {
+	void "when requests is not qualified for throttle, returns not throttled result"() {
+		given:
+		Message message = Mock()
+
+		when:
+		ThrottleResult throttleResult = throttleValidator.validate(message)
+
+		then:
+		1 * throttleQualifyingServiceMock.isQualifiedForThrottle() >> false
+		0 * _
+		!throttleResult.throttle
+		throttleResult.throttleReason == null
+	}
+
+	void "when requests is qualified for throttle, returns throttled result when decrement by IP is not successful"() {
 		given:
 		RequestCredential requestCredential = new RequestCredential(
 				requestCredentialType: RequestCredentialType.IP_ADDRESS,
@@ -39,6 +57,7 @@ class ThrottleValidatorTest extends Specification {
 		ThrottleResult throttleResult = throttleValidator.validate(message)
 
 		then:
+		1 * throttleQualifyingServiceMock.isQualifiedForThrottle() >> true
 		1 * requestCredentialProviderMock.provideRequestCredential(message) >> requestCredential
 		1 * throttleRepositoryMock.decrementByIpAndGetStatistics(IP_ADDRESS) >> throttleStatistics
 		1 * requestSpecificThrottleStatisticsMock.setThrottleStatistics(throttleStatistics)
@@ -48,7 +67,7 @@ class ThrottleValidatorTest extends Specification {
 		throttleResult.throttleReason == ThrottleReason.HOURLY_IP_LIMIT_EXCEEDED
 	}
 
-	void "return not throttled result when decrement by IP is successful"() {
+	void "when requests is qualified for throttle, returns not throttled result when decrement by IP is successful"() {
 		given:
 		RequestCredential requestCredential = new RequestCredential(
 				requestCredentialType: RequestCredentialType.IP_ADDRESS,
@@ -60,6 +79,7 @@ class ThrottleValidatorTest extends Specification {
 		ThrottleResult throttleResult = throttleValidator.validate(message)
 
 		then:
+		1 * throttleQualifyingServiceMock.isQualifiedForThrottle() >> true
 		1 * requestCredentialProviderMock.provideRequestCredential(message) >> requestCredential
 		1 * throttleRepositoryMock.decrementByIpAndGetStatistics(IP_ADDRESS) >> throttleStatistics
 		1 * requestSpecificThrottleStatisticsMock.setThrottleStatistics(throttleStatistics)

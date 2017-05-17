@@ -12,6 +12,8 @@ import javax.inject.Inject;
 @Service
 public class ThrottleValidator {
 
+	private final ThrottleQualifyingService throttleQualifyingService;
+
 	private final ThrottleRepository throttleRepository;
 
 	private final RequestCredentialProvider requestCredentialProvider;
@@ -19,16 +21,21 @@ public class ThrottleValidator {
 	private final RequestSpecificThrottleStatistics requestSpecificThrottleStatistics;
 
 	@Inject
-	public ThrottleValidator(ThrottleRepository throttleRepository, RequestCredentialProvider requestCredentialProvider,
-			RequestSpecificThrottleStatistics requestSpecificThrottleStatistics) {
+	public ThrottleValidator(ThrottleQualifyingService throttleQualifyingService, ThrottleRepository throttleRepository,
+			RequestCredentialProvider requestCredentialProvider, RequestSpecificThrottleStatistics requestSpecificThrottleStatistics) {
+		this.throttleQualifyingService = throttleQualifyingService;
 		this.throttleRepository = throttleRepository;
 		this.requestCredentialProvider = requestCredentialProvider;
 		this.requestSpecificThrottleStatistics = requestSpecificThrottleStatistics;
 	}
 
 	ThrottleResult validate(Message message) {
-		RequestCredential requestCredential = requestCredentialProvider.provideRequestCredential(message);
-		return validateByIp(requestCredential);
+		if (throttleQualifyingService.isQualifiedForThrottle()) {
+			RequestCredential requestCredential = requestCredentialProvider.provideRequestCredential(message);
+			return validateByIp(requestCredential);
+		} else {
+			return ThrottleResult.NOT_THROTTLED;
+		}
 	}
 
 	private ThrottleResult validateByIp(RequestCredential requestCredential) {
