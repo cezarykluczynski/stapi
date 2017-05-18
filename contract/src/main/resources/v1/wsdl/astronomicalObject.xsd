@@ -11,69 +11,158 @@
 			<xs:complexContent>
 				<xs:extension base="common:Request">
 					<xs:sequence>
-						<xs:element name="locationUid" type="xs:string" minOccurs="0"/>
-						<xs:element name="name" type="xs:string" minOccurs="0"/>
-						<xs:element name="astronomicalObjectType" type="astronomicalObject:AstronomicalObjectTypeEnum" minOccurs="0"/>
+						<xs:element name="locationUid" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Unique ID of astronomical object containing objects being searched</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="name" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Astronomical object name</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="astronomicalObjectType" type="astronomicalObject:AstronomicalObjectTypeEnum" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Type of astronomical object</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="AstronomicalObjectFullRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for single astronomical object query</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:ApiRequest">
 					<xs:sequence>
-						<xs:element name="uid" type="xs:string" minOccurs="1"/>
+						<xs:element name="uid" type="xs:string" minOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Astronomical object unique ID</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="AstronomicalObjectBaseResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for astronomical objects search</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Response">
 					<xs:sequence>
-						<xs:element name="astronomicalObjects" type="astronomicalObject:AstronomicalObjectBase" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="astronomicalObjects" type="astronomicalObject:AstronomicalObjectBase" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>List of astronomical objects matching given criteria</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="AstronomicalObjectFullResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for single astronomical object query</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="astronomicalObject" type="astronomicalObject:AstronomicalObjectFull"/>
+				<xs:element name="astronomicalObject" type="astronomicalObject:AstronomicalObjectFull">
+					<xs:annotation>
+						<xs:documentation>Astronomical object, if found</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 	<xs:complexType name="AstronomicalObjectHeader">
+		<xs:annotation>
+			<xs:documentation>Header astronomical object, embedded in other objects</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="uid" type="xs:string"/>
-			<xs:element name="name" type="xs:string"/>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Astronomical object unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Astronomical object name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="AstronomicalObjectBase">
+		<xs:annotation>
+			<xs:documentation>Base astronomical object, returned in search results</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="uid" type="xs:string"/>
-			<xs:element name="name" type="xs:string"/>
-			<xs:element name="astronomicalObjectType" type="astronomicalObject:AstronomicalObjectTypeEnum" minOccurs="0"/>
-			<xs:element name="location" type="astronomicalObject:AstronomicalObjectHeader" minOccurs="0"/>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Astronomical object unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Astronomical object name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="astronomicalObjectType" type="astronomicalObject:AstronomicalObjectTypeEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Type of astronomical object</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="location" type="astronomicalObject:AstronomicalObjectHeader" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Location of astronomical object</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="AstronomicalObjectFull">
+		<xs:annotation>
+			<xs:documentation>Full astronomical object, returned when queries using UID</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="uid" type="xs:string"/>
-			<xs:element name="name" type="xs:string"/>
-			<xs:element name="astronomicalObjectType" type="astronomicalObject:AstronomicalObjectTypeEnum" minOccurs="0"/>
-			<xs:element name="location" type="astronomicalObject:AstronomicalObjectBase" minOccurs="0"/>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Astronomical object unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Astronomical object name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="astronomicalObjectType" type="astronomicalObject:AstronomicalObjectTypeEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Type of astronomical object</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="location" type="astronomicalObject:AstronomicalObjectBase" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Location of astronomical object</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 			<xs:sequence>
-				<xs:element name="astronomicalObjects" type="astronomicalObject:AstronomicalObjectBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="astronomicalObjects" type="astronomicalObject:AstronomicalObjectBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Astronomical objects located in this astronomical object, like planets in a star system</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:simpleType name="AstronomicalObjectTypeEnum">
+		<xs:annotation>
+			<xs:documentation>Astronomical object type</xs:documentation>
+		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="PLANET"/>
 			<xs:enumeration value="D_CLASS_PLANET"/>

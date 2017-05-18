@@ -17,4 +17,4 @@ properties:
     type: array
     items:
       $ref: '#/definitions/AstronomicalObjectBase'
-    description: Astronomical objects located in this astronomical object (optional), like planets in a star system
+    description: Astronomical objects located in this astronomical object, like planets in a star system

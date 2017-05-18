@@ -61,7 +61,7 @@ post:
     - name: locationUid
       in: formData
       type: string
-      description: Unique ID of astronomical objected containing objects being searched
+      description: Unique ID of astronomical object containing objects being searched
   responses:
     200:
       schema:
