@@ -23,7 +23,6 @@ class BookSeriesRestEndpointIntegrationTest extends AbstractBookSeriesEndpointIn
 		bookSeriesFullResponse.bookSeries.title == 'Star Trek: Destiny'
 	}
 
-	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "Which Way Books is among book series with 2 to 5 books, published between 1980 and 1990"() {
 		when:
 		BookSeriesBaseResponse bookSeriesBaseResponse = stapiRestClient.bookSeriesApi.bookSeriesSearchPost(null, null, null, null, null,
@@ -31,7 +30,7 @@ class BookSeriesRestEndpointIntegrationTest extends AbstractBookSeriesEndpointIn
 
 		then:
 		bookSeriesBaseResponse.bookSeries.stream()
-				.anyMatch({ it.title == 'Which Way Books' })
+				.anyMatch { it.title == 'Which Way Books' }
 	}
 
 }

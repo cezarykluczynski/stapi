@@ -27,7 +27,6 @@ class LocationSoapEndpointIntegrationTest extends AbstractLocationEndpointIntegr
 		locationFullResponse.location.name == 'Alabama'
 	}
 
-	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "Sacred Marketplace is among religious landmarks"() {
 		when:
 		LocationBaseResponse locationBaseResponse = stapiSoapClient.locationPortType.getLocationBase(new LocationBaseRequest(
@@ -38,7 +37,7 @@ class LocationSoapEndpointIntegrationTest extends AbstractLocationEndpointIntegr
 		then:
 		locationBaseResponse.locations
 				.stream()
-				.anyMatch({ it -> it.name == 'Sacred Marketplace' })
+				.anyMatch { it -> it.name == 'Sacred Marketplace' }
 	}
 
 }

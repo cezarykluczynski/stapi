@@ -28,7 +28,6 @@ class OrganizationSoapEndpointIntegrationTest extends AbstractEndpointIntegratio
 		organizationFullResponse.organization.name == 'United Federation of Planets'
 	}
 
-	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "gets organizations with 'Ferengi' in name, that are also medical establishments"() {
 		when:
 		OrganizationBaseResponse organizationBaseResponse = stapiSoapClient.organizationPortType.getOrganizationBase(new OrganizationBaseRequest(
@@ -39,7 +38,7 @@ class OrganizationSoapEndpointIntegrationTest extends AbstractEndpointIntegratio
 		then:
 		organizationBaseResponse.organizations
 				.stream()
-				.anyMatch({ it -> it.name == 'Ferengi Health Commission' })
+				.anyMatch { it -> it.name == 'Ferengi Health Commission' }
 	}
 
 }

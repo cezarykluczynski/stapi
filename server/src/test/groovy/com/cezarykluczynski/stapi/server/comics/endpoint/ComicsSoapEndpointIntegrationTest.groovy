@@ -23,7 +23,6 @@ class ComicsSoapEndpointIntegrationTest extends AbstractComicsEndpointIntegratio
 		createSoapClient()
 	}
 
-	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "gets 'Brothers in Darkness' by UID"() {
 		when:
 		ComicsFullResponse comicsFullResponse = stapiSoapClient.comicsPortType.getComicsFull(new ComicsFullRequest(
@@ -39,7 +38,7 @@ class ComicsSoapEndpointIntegrationTest extends AbstractComicsEndpointIntegratio
 		when:
 		List<String> characterNameList = comicsFullResponse.comics.characters
 				.stream()
-				.map({ it -> it.name })
+				.map { it -> it.name }
 				.collect(Collectors.toList())
 
 		then:

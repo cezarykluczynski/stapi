@@ -23,7 +23,6 @@ class FoodRestEndpointIntegrationTest extends AbstractFoodEndpointIntegrationTes
 		foodFullResponse.food.name == 'Cake'
 	}
 
-	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "confirm that garlic soup is a soup of earthly origin"() {
 		when:
 		FoodBaseResponse foodBaseResponse = stapiRestClient.foodApi.foodSearchPost(null, null, null, null, null, true, null, null, null, null, true,
@@ -32,7 +31,7 @@ class FoodRestEndpointIntegrationTest extends AbstractFoodEndpointIntegrationTes
 		then:
 		foodBaseResponse.foods
 				.stream()
-				.anyMatch({ it.name == 'Garlic soup' })
+				.anyMatch { it.name == 'Garlic soup' }
 	}
 
 }

@@ -84,13 +84,10 @@ class StaticJobCompletenessDecider {
 
 	}
 
-	@SuppressWarnings('ClosureAsLastMethodParameter')
 	static boolean isStepCompleted(String stepName) {
 		initializeMockJobCompletenessDecider()
 
-		simpleStepList.stream().anyMatch({
-			step -> step.stepName == stepName && BatchStatus.COMPLETED == step.status
-		})
+		simpleStepList.stream().anyMatch { step -> step.stepName == stepName && BatchStatus.COMPLETED == step.status }
 	}
 
 	private static void initializeMockJobCompletenessDecider() {

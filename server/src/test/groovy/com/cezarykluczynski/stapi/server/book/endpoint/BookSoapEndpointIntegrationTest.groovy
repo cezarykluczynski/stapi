@@ -27,7 +27,6 @@ class BookSoapEndpointIntegrationTest extends AbstractBookEndpointIntegrationTes
 		bookFullResponse.book.title == 'Graduation Exercise'
 	}
 
-	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void 'Klingon Ship Recognition Manual is among role playing books with \'Klingon\' in title'() {
 		when:
 		BookBaseResponse bookBaseResponse = stapiSoapClient.bookPortType.getBookBase(new BookBaseRequest(
@@ -36,7 +35,7 @@ class BookSoapEndpointIntegrationTest extends AbstractBookEndpointIntegrationTes
 
 		then:
 		bookBaseResponse.book.stream()
-				.anyMatch({ it.title == 'Klingon Ship Recognition Manual' })
+				.anyMatch { it.title == 'Klingon Ship Recognition Manual' }
 	}
 
 }

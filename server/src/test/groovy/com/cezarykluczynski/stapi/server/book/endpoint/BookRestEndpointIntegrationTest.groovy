@@ -23,7 +23,6 @@ class BookRestEndpointIntegrationTest extends AbstractBookEndpointIntegrationTes
 		bookFullResponse.book.title == 'The Four Years War'
 	}
 
-	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "Fatal Error is among eBooks published in or before 2000"() {
 		when:
 		BookBaseResponse bookBaseResponse = stapiRestClient.bookApi.bookSearchPost(null, null, null, null, null, null, 2000, null, null, null, null,
@@ -31,7 +30,7 @@ class BookRestEndpointIntegrationTest extends AbstractBookEndpointIntegrationTes
 
 		then:
 		bookBaseResponse.books.stream()
-				.anyMatch({ it.title == 'Fatal Error' })
+				.anyMatch { it.title == 'Fatal Error' }
 	}
 
 }

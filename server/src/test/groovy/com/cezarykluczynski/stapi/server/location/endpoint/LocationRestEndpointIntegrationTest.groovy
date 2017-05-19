@@ -23,7 +23,6 @@ class LocationRestEndpointIntegrationTest extends AbstractLocationEndpointIntegr
 		locationFullResponse.location.name == 'Canada'
 	}
 
-	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "Tilonus Institute for Mental Disorders is among fictional medical establishments"() {
 		when:
 		LocationBaseResponse locationBaseResponse = stapiRestClient.locationApi.locationSearchPost(null, null, null, null, null, null, true, null,
@@ -32,7 +31,7 @@ class LocationRestEndpointIntegrationTest extends AbstractLocationEndpointIntegr
 		then:
 		locationBaseResponse.locations
 				.stream()
-				.anyMatch({ it -> it.name == 'Tilonus Institute for Mental Disorders' })
+				.anyMatch { it -> it.name == 'Tilonus Institute for Mental Disorders' }
 	}
 
 }

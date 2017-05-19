@@ -15,7 +15,6 @@ class ComicCollectionRestEndpointIntegrationTest extends AbstractComicCollection
 		createRestClient()
 	}
 
-	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "'Star Trek Ultimate Edition' is among collections with more than 500 pages"() {
 		when:
 		ComicCollectionBaseResponse comicCollectionBaseResponse = stapiRestClient.comicCollectionApi.comicCollectionSearchPost(null, null, null, null,
@@ -23,7 +22,7 @@ class ComicCollectionRestEndpointIntegrationTest extends AbstractComicCollection
 
 		then:
 		comicCollectionBaseResponse.comicCollections.stream()
-				.anyMatch({ it -> it.title == 'Star Trek Ultimate Edition' })
+				.anyMatch { it -> it.title == 'Star Trek Ultimate Edition' }
 
 	}
 

@@ -12,7 +12,6 @@ class DocumentationReaderTest extends Specification {
 		documentationReader = new DocumentationReader()
 	}
 
-	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "reads directory into list of DocumentDTO, recursively"() {
 		given:
 		String rootDirectory = '../contract/src/main/resources/v1/swagger/book'
@@ -22,7 +21,7 @@ class DocumentationReaderTest extends Specification {
 		when:
 		List<DocumentDTO> documentDTOList = documentationReader.readDirectory(directory)
 		DocumentDTO documentDTO = documentationReader.readDirectory(directory).stream()
-					.filter({ it.path.endsWith('bookBase.yaml') })
+					.filter { it.path.endsWith('bookBase.yaml') }
 					.findFirst().get()
 		then:
 		documentDTOList.size() == 7

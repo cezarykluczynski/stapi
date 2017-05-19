@@ -25,7 +25,6 @@ class FoodSoapEndpointIntegrationTest extends AbstractFoodEndpointIntegrationTes
 		foodFullResponse.food.name == 'Tennessee whiskey'
 	}
 
-	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "Vulcan mint is among Vulcan spices"() {
 		when:
 		FoodBaseResponse foodFullResponse = stapiSoapClient.foodPortType.getFoodBase(new FoodBaseRequest(
@@ -36,7 +35,7 @@ class FoodSoapEndpointIntegrationTest extends AbstractFoodEndpointIntegrationTes
 		then:
 		foodFullResponse.foods
 				.stream()
-				.anyMatch({ it.name == 'Vulcan mint' })
+				.anyMatch { it.name == 'Vulcan mint' }
 	}
 
 }

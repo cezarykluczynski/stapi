@@ -20,7 +20,6 @@ class ComicCollectionSoapEndpointIntegrationTest extends AbstractComicCollection
 		createSoapClient()
 	}
 
-	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "'The Battle Within' is among collection with 132 to 160 pages that happened between 2365 and 2370"() {
 		when:
 		ComicCollectionBaseResponse comicCollectionResponse = stapiSoapClient.comicCollectionPortType
@@ -41,7 +40,7 @@ class ComicCollectionSoapEndpointIntegrationTest extends AbstractComicCollection
 		when:
 		List<String> titleList = comicCollectionResponse.comicCollections
 				.stream()
-				.map({ it -> it.title })
+				.map { it -> it.title }
 				.collect(Collectors.toList())
 
 		then:

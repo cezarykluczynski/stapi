@@ -30,7 +30,6 @@ class CharacterSoapEndpointIntegrationTest extends AbstractCharacterEndpointInte
 		characterFullResponse.character.movies.size() == 4
 	}
 
-	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "find deceased mirror females"() {
 		when:
 		CharacterBaseResponse characterBaseResponse = stapiSoapClient.characterPortType.getCharacterBase(new CharacterBaseRequest(
@@ -40,8 +39,8 @@ class CharacterSoapEndpointIntegrationTest extends AbstractCharacterEndpointInte
 		))
 
 		then:
-		characterBaseResponse.characters.stream().anyMatch({ it -> it.name == 'Jennifer Sisko' })
-		characterBaseResponse.characters.stream().anyMatch({ it -> it.name == 'Jadzia Dax' })
+		characterBaseResponse.characters.stream().anyMatch { it -> it.name == 'Jennifer Sisko' }
+		characterBaseResponse.characters.stream().anyMatch { it -> it.name == 'Jadzia Dax' }
 	}
 
 }

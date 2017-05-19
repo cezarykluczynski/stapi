@@ -11,7 +11,7 @@ import spock.lang.Specification
 
 import javax.persistence.Entity
 
-@SuppressWarnings(['ThrowRuntimeException', 'ClosureAsLastMethodParameter'])
+@SuppressWarnings('ThrowRuntimeException')
 class TrackedEntityReflectionTest extends Specification {
 
 	void "all @Entity classes, are also annotated with @TrackedEntity"() {
@@ -24,11 +24,11 @@ class TrackedEntityReflectionTest extends Specification {
 		Set<Class<?>> cacheClasses = reflections.getTypesAnnotatedWith(TrackedEntity)
 
 		when:
-		entitiesClasses.forEach({ it ->
+		entitiesClasses.forEach { it ->
 			if (!cacheClasses.contains(it)) {
 				throw new RuntimeException("Class $it.name is annotated with @Entity, but not with @TrackedEntity")
 			}
-		})
+		}
 
 		then:
 		notThrown(Exception)

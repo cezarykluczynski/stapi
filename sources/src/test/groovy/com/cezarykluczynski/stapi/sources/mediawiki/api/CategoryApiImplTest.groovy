@@ -157,7 +157,6 @@ class CategoryApiImplTest extends Specification {
 		thrown(RuntimeException)
 	}
 
-	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "gets pages in category, including subcategories"() {
 		given:
 		List<PageHeader> pageHeaderList = Lists.newArrayList()
@@ -172,7 +171,7 @@ class CategoryApiImplTest extends Specification {
 				MediaWikiSource mediaWikiSource ->
 			assert pageInfoList.size() == 2
 			List<String> titles = pageInfoList.stream()
-					.map({ pageHeader -> pageHeader.title })
+					.map { pageHeader -> pageHeader.title }
 					.collect(Collectors.toList())
 			assert titles.contains(TITLE_2)
 			assert titles.contains(TITLE_3)

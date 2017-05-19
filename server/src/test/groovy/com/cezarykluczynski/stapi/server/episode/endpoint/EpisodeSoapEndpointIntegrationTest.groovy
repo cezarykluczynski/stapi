@@ -39,7 +39,6 @@ class EpisodeSoapEndpointIntegrationTest extends AbstractEpisodeEndpointIntegrat
 		episodeBaseList[0].series.title == 'Star Trek: The Next Generation'
 	}
 
-	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "gets all episodes aired in 1996"() {
 		given:
 		Integer pageNumber = 0
@@ -66,8 +65,8 @@ class EpisodeSoapEndpointIntegrationTest extends AbstractEpisodeEndpointIntegrat
 		episodeResponse.page.pageNumber == pageNumber
 		episodeResponse.page.pageSize == pageSize
 		episodeBaseList.size() == 52
-		episodeBaseList.stream().filter({ episode -> episode.series.title == 'Star Trek: Deep Space Nine' }).collect(Collectors.toList()).size() == 26
-		episodeBaseList.stream().filter({ episode -> episode.series.title == 'Star Trek: Voyager' }).collect(Collectors.toList()).size() == 26
+		episodeBaseList.stream().filter { episode -> episode.series.title == 'Star Trek: Deep Space Nine' }.collect(Collectors.toList()).size() == 26
+		episodeBaseList.stream().filter { episode -> episode.series.title == 'Star Trek: Voyager' }.collect(Collectors.toList()).size() == 26
 	}
 
 }

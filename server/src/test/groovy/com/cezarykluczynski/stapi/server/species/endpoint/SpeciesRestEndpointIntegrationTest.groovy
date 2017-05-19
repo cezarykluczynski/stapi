@@ -23,7 +23,6 @@ class SpeciesRestEndpointIntegrationTest extends AbstractSpeciesEndpointIntegrat
 		speciesFullResponse.species.name == 'Q'
 	}
 
-	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "finds Species 8472 by it's properties"() {
 		when:
 		SpeciesBaseResponse speciesBaseResponse = stapiRestClient.speciesApi.speciesSearchPost(null, null, null, null,  null, null, null, true, null,
@@ -31,7 +30,7 @@ class SpeciesRestEndpointIntegrationTest extends AbstractSpeciesEndpointIntegrat
 
 		then:
 		speciesBaseResponse.species.stream()
-				.anyMatch({ it -> it.name == 'Species 8472' })
+				.anyMatch { it -> it.name == 'Species 8472' }
 	}
 
 }

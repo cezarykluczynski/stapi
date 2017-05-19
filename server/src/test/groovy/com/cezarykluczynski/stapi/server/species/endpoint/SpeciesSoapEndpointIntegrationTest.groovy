@@ -25,7 +25,6 @@ class SpeciesSoapEndpointIntegrationTest extends AbstractSpeciesEndpointIntegrat
 		speciesFullResponse.species.name == 'Ba\'ku'
 	}
 
-	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "gets species that are both humanoid and reptilian"() {
 		when:
 		SpeciesBaseResponse speciesBaseResponse = stapiSoapClient.speciesPortType.getSpeciesBase(new SpeciesBaseRequest(
@@ -35,7 +34,7 @@ class SpeciesSoapEndpointIntegrationTest extends AbstractSpeciesEndpointIntegrat
 
 		then:
 		speciesBaseResponse.species.stream()
-				.anyMatch({ it -> it.name == 'Voth' })
+				.anyMatch { it -> it.name == 'Voth' }
 	}
 
 }

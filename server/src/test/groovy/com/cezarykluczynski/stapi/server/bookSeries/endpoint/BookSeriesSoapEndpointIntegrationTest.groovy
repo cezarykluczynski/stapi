@@ -28,7 +28,6 @@ class BookSeriesSoapEndpointIntegrationTest extends AbstractBookSeriesEndpointIn
 		bookSeriesFullResponse.bookSeries.title == 'The Yesterday Saga'
 	}
 
-	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void 'Star Trek: The Next Generation - Starfleet Academy is among miniseries with more than 10 books'() {
 		when:
 		BookSeriesBaseResponse bookSeriesBaseResponse = stapiSoapClient.bookSeriesPortType.getBookSeriesBase(new BookSeriesBaseRequest(
@@ -39,7 +38,7 @@ class BookSeriesSoapEndpointIntegrationTest extends AbstractBookSeriesEndpointIn
 
 		then:
 		bookSeriesBaseResponse.bookSeries.stream()
-				.anyMatch({ it.title == 'Star Trek: The Next Generation - Starfleet Academy' })
+				.anyMatch { it.title == 'Star Trek: The Next Generation - Starfleet Academy' }
 	}
 
 }

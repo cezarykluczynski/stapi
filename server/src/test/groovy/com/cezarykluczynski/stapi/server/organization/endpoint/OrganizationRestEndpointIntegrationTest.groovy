@@ -23,7 +23,6 @@ class OrganizationRestEndpointIntegrationTest extends AbstractOrganizationEndpoi
 		organizationFullResponse.organization.name == 'Vulcan High Command'
 	}
 
-	@SuppressWarnings('ClosureAsLastMethodParameter')
 	void "Orion Union is among governments from alternate reality"() {
 		when:
 		OrganizationBaseResponse organizationBaseResponse = stapiRestClient.organizationApi.organizationSearchPost(null, null, null, null,  null,
@@ -32,7 +31,7 @@ class OrganizationRestEndpointIntegrationTest extends AbstractOrganizationEndpoi
 		then:
 		organizationBaseResponse.organizations
 				.stream()
-				.anyMatch({ it -> it.name == 'Orion Union' })
+				.anyMatch { it -> it.name == 'Orion Union' }
 	}
 
 }

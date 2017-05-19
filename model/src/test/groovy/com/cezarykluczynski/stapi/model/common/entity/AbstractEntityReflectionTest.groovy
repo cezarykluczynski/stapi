@@ -20,22 +20,22 @@ abstract class AbstractEntityReflectionTest extends Specification {
 
 		memberValuePairs.stream()
 				.filter({ it.name.toString() == 'exclude' })
-				.forEach({
+				.forEach {
 					if (it.value instanceof ArrayInitializerExpr) {
-						((ArrayInitializerExpr) it.value).values.forEach({
+						((ArrayInitializerExpr) it.value).values.forEach {
 							excludeSet.add(((StringLiteralExpr) it).value)
-						})
+						}
 					} else if (it.value instanceof StringLiteralExpr) {
 						excludeSet.add(((StringLiteralExpr) it.value).value)
 					}
-				})
+				}
 
 		excludeSet
 	}
 
 	protected static Set<Field> getFieldsByClass(Set<Field> fieldSet, Class<?> clazz) {
 		fieldSet.stream()
-				.filter({ field -> field.clazz.name == clazz.name })
+				.filter { field -> field.clazz.name == clazz.name }
 				.collect(Collectors.toSet())
 	}
 
@@ -45,21 +45,21 @@ abstract class AbstractEntityReflectionTest extends Specification {
 		fillFileList('./model/src/main/java/com/cezarykluczynski/stapi/model', files)
 		fillFileList('./src/main/java/com/cezarykluczynski/stapi/model', files)
 		files.stream()
-				.filter({
+				.filter {
 					it.path.endsWith("entity${File.separator}${fileName}")
-				})
+				}
 				.findFirst()
 	}
 
 	protected static NormalAnnotationExpr getAnnotation(NodeList annotationExprNodeList, String name) {
 		annotationExprNodeList.stream()
-				.filter({ it ->
+				.filter { it ->
 					if (it instanceof NormalAnnotationExpr) {
 						return ((NormalAnnotationExpr) it).name.toString() == name
 					}
 
 					false
-				})
+				}
 				.findFirst().orElse(null)
 	}
 

@@ -20,7 +20,7 @@ import javax.persistence.OneToOne
 import java.lang.reflect.Field
 import java.util.stream.Collectors
 
-@SuppressWarnings(['ThrowRuntimeException', 'ClosureAsLastMethodParameter'])
+@SuppressWarnings('ThrowRuntimeException')
 class EntityEqualsAndHashCodeReflectionTest extends AbstractEntityReflectionTest {
 
 	void "all entities should have only simple fields in their equals and hashCode implementations"() {
@@ -35,7 +35,7 @@ class EntityEqualsAndHashCodeReflectionTest extends AbstractEntityReflectionTest
 		Set<Field> fieldsManyToMany = reflections.getFieldsAnnotatedWith(ManyToMany)
 
 		when:
-		entitiesClasses.forEach({ entityClass ->
+		entitiesClasses.forEach { entityClass ->
 			if (entityClass.name.endsWith('SimpleStep')) {
 				return
 			}
@@ -48,7 +48,7 @@ class EntityEqualsAndHashCodeReflectionTest extends AbstractEntityReflectionTest
 			allRelationFields.addAll(thisFieldsOneToMany)
 			allRelationFields.addAll(thisFieldsManyToMany)
 			Set<String> allFieldNames = allRelationFields.stream()
-					.map({ it.name })
+					.map { it.name }
 					.collect(Collectors.toSet())
 			String entityName = StringUtils.split(entityClass.name, '.').last()
 			Optional<File> entityFileOptional = getEntityFileOptional(entityName)
@@ -75,7 +75,7 @@ class EntityEqualsAndHashCodeReflectionTest extends AbstractEntityReflectionTest
 				throw new RuntimeException("There are relations in ${entityName} not excluded from @EqualsAndHashCode annotation: " +
 						"${equalsAndHashCodeDifference}")
 			}
-		})
+		}
 
 		then:
 		notThrown(Exception)
