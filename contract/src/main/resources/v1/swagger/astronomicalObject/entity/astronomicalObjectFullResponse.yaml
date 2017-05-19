@@ -3,4 +3,4 @@ description: Response object for single astronomical object query
 properties:
   astronomicalObject:
     $ref: '#/definitions/AstronomicalObjectFull'
-    description: Astronomical object, if found
+    description: Astronomical object

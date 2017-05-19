@@ -1,4 +1,6 @@
 type: object
+description: Response object for single book query
 properties:
   book:
     $ref: '#/definitions/BookFull'
+    description: Book

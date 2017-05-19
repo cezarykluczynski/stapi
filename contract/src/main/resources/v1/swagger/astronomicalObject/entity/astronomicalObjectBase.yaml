@@ -3,7 +3,7 @@ description: Base astronomical object, returned in search results
 properties:
   uid:
     type: string
-    description: Astronomical object unique ID
+    description: Astronomical object's unique ID
   name:
     type: string
     description: Astronomical object name

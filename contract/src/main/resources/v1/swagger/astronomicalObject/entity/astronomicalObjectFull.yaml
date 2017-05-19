@@ -1,9 +1,9 @@
 type: object
-description: Full astronomical object, returned when queries using UID
+description: Full astronomical object, returned when queried using UID
 properties:
   uid:
     type: string
-    description: Astronomical object unique ID
+    description: Astronomical object's unique ID
   name:
     type: string
     description: Astronomical object name

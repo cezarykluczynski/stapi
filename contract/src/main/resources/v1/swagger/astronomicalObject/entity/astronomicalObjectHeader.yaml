@@ -3,7 +3,7 @@ description: Header astronomical object, embedded in other objects
 properties:
   uid:
     type: string
-    description: Astronomical object unique ID
+    description: Astronomical object's unique ID
   name:
     type: string
     description: Astronomical object name

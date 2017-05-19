@@ -1,5 +1,5 @@
 get:
-  description: Retrival of single astronomical object
+  description: Pagination over astronomical objects
   parameters:
     - name: pageNumber
       in: query
