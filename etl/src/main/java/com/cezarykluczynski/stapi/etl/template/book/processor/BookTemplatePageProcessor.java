@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.book.processor;
 
 import com.cezarykluczynski.stapi.etl.book.creation.service.BookPageFilter;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextCharactersProcessor;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplate;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
@@ -24,7 +25,7 @@ public class BookTemplatePageProcessor implements ItemProcessor<Page, BookTempla
 
 	private static final List<String> TITLE_PART_LIST_TO_CLEAR = Lists.newArrayList("(songbook)", "(novel)", "(New Frontier novel)", "(game)",
 			"(VOY novel)", "(program)", "(eBook)", "(TNG novel)", "(book)", "(young adult novelization)", "(reference book)", "(TOS novel)",
-			"(Decipher)", "(Last Unicorn)", "(FASA)", "Harlan Ellison Collection)");
+			"(Decipher)", "(Last Unicorn)", "(FASA)", "(Harlan Ellison Collection)", "(omnibus)");
 
 	private final BookPageFilter bookPageFilter;
 
@@ -36,15 +37,18 @@ public class BookTemplatePageProcessor implements ItemProcessor<Page, BookTempla
 
 	private final BookTemplatePartsEnrichingProcessor bookTemplatePartsEnrichingProcessor;
 
+	private final WikitextCharactersProcessor wikitextCharactersProcessor;
+
 	@Inject
 	public BookTemplatePageProcessor(BookPageFilter bookPageFilter, PageBindingService pageBindingService, TemplateFinder templateFinder,
 			CategoriesBookTemplateEnrichingProcessor categoriesBookTemplateEnrichingProcessor,
-			BookTemplatePartsEnrichingProcessor bookTemplatePartsEnrichingProcessor) {
+			BookTemplatePartsEnrichingProcessor bookTemplatePartsEnrichingProcessor, WikitextCharactersProcessor wikitextCharactersProcessor) {
 		this.bookPageFilter = bookPageFilter;
 		this.pageBindingService = pageBindingService;
 		this.templateFinder = templateFinder;
 		this.categoriesBookTemplateEnrichingProcessor = categoriesBookTemplateEnrichingProcessor;
 		this.bookTemplatePartsEnrichingProcessor = bookTemplatePartsEnrichingProcessor;
+		this.wikitextCharactersProcessor = wikitextCharactersProcessor;
 	}
 
 	@Override
@@ -58,6 +62,7 @@ public class BookTemplatePageProcessor implements ItemProcessor<Page, BookTempla
 		bookTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 
 		categoriesBookTemplateEnrichingProcessor.enrich(EnrichablePair.of(item.getCategories(), bookTemplate));
+		bookTemplate.getCharacters().addAll(wikitextCharactersProcessor.process(item));
 
 		Optional<Template> sidebarBookTemplateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_NOVEL,
 				TemplateTitle.SIDEBAR_REFERENCE_BOOK, TemplateTitle.SIDEBAR_RPG_BOOK, TemplateTitle.SIDEBAR_BIOGRAPHY_BOOK,

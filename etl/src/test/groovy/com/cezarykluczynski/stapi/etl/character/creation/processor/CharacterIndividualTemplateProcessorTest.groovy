@@ -8,7 +8,7 @@ import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender as ModelGender
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.util.AbstractIndividualTest
@@ -22,16 +22,16 @@ class CharacterIndividualTemplateProcessorTest extends AbstractIndividualTest {
 	private static final BloodType BLOOD_TYPE = BloodType.B_NEGATIVE
 	private static final MaritalStatus MARITAL_STATUS = MaritalStatus.MARRIED
 
-	private GuidGenerator guidGeneratorMock
+	private UidGenerator uidGeneratorMock
 
 	private GenderMapper genderMapperMock
 
 	private CharacterIndividualTemplateProcessor characterIndividualTemplateProcessor
 
 	void setup() {
-		guidGeneratorMock = Mock()
+		uidGeneratorMock = Mock()
 		genderMapperMock = Mock()
-		characterIndividualTemplateProcessor = new CharacterIndividualTemplateProcessor(guidGeneratorMock, genderMapperMock)
+		characterIndividualTemplateProcessor = new CharacterIndividualTemplateProcessor(uidGeneratorMock, genderMapperMock)
 	}
 
 	void "should return null when template is product of redirect"() {
@@ -81,10 +81,10 @@ class CharacterIndividualTemplateProcessorTest extends AbstractIndividualTest {
 		Character character = characterIndividualTemplateProcessor.process(individualTemplate)
 
 		then:
-		1 * guidGeneratorMock.generateFromPage(PAGE, Character) >> GUID
+		1 * uidGeneratorMock.generateFromPage(PAGE, Character) >> UID
 		1 * genderMapperMock.fromEtlToModel(ETL_GENDER) >> MODEL_GENDER
 		character.page == PAGE
-		character.guid == GUID
+		character.uid == UID
 		character.name == NAME
 		character.gender == MODEL_GENDER
 		character.yearOfBirth == YEAR_OF_BIRTH
@@ -120,7 +120,7 @@ class CharacterIndividualTemplateProcessorTest extends AbstractIndividualTest {
 		Character character = characterIndividualTemplateProcessor.process(individualTemplate)
 
 		then:
-		1 * guidGeneratorMock.generateFromPage(null, Character) >> null
+		1 * uidGeneratorMock.generateFromPage(null, Character) >> null
 		1 * genderMapperMock.fromEtlToModel(null) >> null
 		!character.mirror
 		!character.alternateReality

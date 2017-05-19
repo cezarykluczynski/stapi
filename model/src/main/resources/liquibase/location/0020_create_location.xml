@@ -1,0 +1,50 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet id="0020_create_location" author="cezarykluczynski">
+		<createTable schemaName="stapi" tableName="location">
+			<column name="id" type="bigint">
+				<constraints unique="true" nullable="false"/>
+			</column>
+			<column name="page_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="u_id" type="varchar(14)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="name" type="varchar(128)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="earthly_location" type="boolean"/>
+			<column name="fictional_location" type="boolean"/>
+			<column name="religious_location" type="boolean"/>
+			<column name="geographical_location" type="boolean"/>
+			<column name="body_of_water" type="boolean"/>
+			<column name="country" type="boolean"/>
+			<column name="subnational_entity" type="boolean"/>
+			<column name="settlement" type="boolean"/>
+			<column name="us_settlement" type="boolean"/>
+			<column name="bajoran_settlement" type="boolean"/>
+			<column name="colony" type="boolean"/>
+			<column name="landform" type="boolean"/>
+			<column name="landmark" type="boolean"/>
+			<column name="road" type="boolean"/>
+			<column name="structure" type="boolean"/>
+			<column name="shipyard" type="boolean"/>
+			<column name="building_interior" type="boolean"/>
+			<column name="establishment" type="boolean"/>
+			<column name="medical_establishment" type="boolean"/>
+			<column name="ds9_establishment" type="boolean"/>
+			<column name="school" type="boolean"/>
+			<column name="mirror" type="boolean"/>
+			<column name="alternate_reality" type="boolean"/>
+		</createTable>
+		<createSequence incrementBy="1" sequenceName="location_sequence"/>
+		<addForeignKeyConstraint baseColumnNames="page_id"
+				baseTableName="location"
+				constraintName="location_page_fkey"
+				referencedColumnNames="id"
+				referencedTableName="page"/>
+	</changeSet>
+</databaseChangeLog>

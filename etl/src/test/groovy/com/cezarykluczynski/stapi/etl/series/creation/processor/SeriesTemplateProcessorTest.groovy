@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.etl.series.creation.dto.SeriesEpisodeStatistic
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DateRange
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange
 import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplate
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.series.entity.Series
@@ -18,7 +18,7 @@ class SeriesTemplateProcessorTest extends Specification {
 	private static final String TITLE = 'TITLE'
 	private static final String ABBREVIATION = 'ABBREVIATION'
 	private static final Page PAGE = new Page(id: 1L)
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 	private static final Integer START_YEAR = 1995
 	private static final Integer END_YEAR = 2000
 	private static final LocalDate START_DATE = LocalDate.of(1996, 1, 1)
@@ -27,16 +27,16 @@ class SeriesTemplateProcessorTest extends Specification {
 	private static final EPISODES_COUNT = 2
 	private static final FEATURE_LENGTH_EPISODES_COUNT = 3
 
-	private GuidGenerator guidGeneratorMock
+	private UidGenerator uidGeneratorMock
 
 	private SeriesEpisodeStatisticsFixedValueProvider seriesEpisodeStatisticsFixedValueProviderMock
 
 	private SeriesTemplateProcessor seriesTemplateProcessor
 
 	void setup() {
-		guidGeneratorMock = Mock()
+		uidGeneratorMock = Mock()
 		seriesEpisodeStatisticsFixedValueProviderMock = Mock()
-		seriesTemplateProcessor = new SeriesTemplateProcessor(guidGeneratorMock, seriesEpisodeStatisticsFixedValueProviderMock)
+		seriesTemplateProcessor = new SeriesTemplateProcessor(uidGeneratorMock, seriesEpisodeStatisticsFixedValueProviderMock)
 	}
 
 	void "converts SeriesTemplate to Series"() {
@@ -60,9 +60,9 @@ class SeriesTemplateProcessorTest extends Specification {
 		Series series = seriesTemplateProcessor.process(seriesTemplate)
 
 		then:
-		1 * guidGeneratorMock.generateFromPage(PAGE, Series) >> GUID
+		1 * uidGeneratorMock.generateFromPage(PAGE, Series) >> UID
 		1 * seriesEpisodeStatisticsFixedValueProviderMock.getSearchedValue(ABBREVIATION) >> seriesEpisodeStatisticsDTOFixedValueHolder
-		series.guid == GUID
+		series.uid == UID
 		series.title == TITLE
 		series.page == PAGE
 		series.abbreviation == ABBREVIATION
@@ -90,9 +90,9 @@ class SeriesTemplateProcessorTest extends Specification {
 		Series series = seriesTemplateProcessor.process(seriesTemplate)
 
 		then:
-		1 * guidGeneratorMock.generateFromPage(PAGE, Series) >> null
+		1 * uidGeneratorMock.generateFromPage(PAGE, Series) >> null
 		1 * seriesEpisodeStatisticsFixedValueProviderMock.getSearchedValue(null) >> seriesEpisodeStatisticsDTOFixedValueHolder
-		series.guid == null
+		series.uid == null
 		series.title == null
 		series.page == PAGE
 		series.abbreviation == null

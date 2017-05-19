@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.OrganizationFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
 import com.cezarykluczynski.stapi.model.organization.entity.Organization
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.organization.dto.OrganizationRestBeanParams
 import com.cezarykluczynski.stapi.server.organization.mapper.OrganizationBaseRestMapper
 import com.cezarykluczynski.stapi.server.organization.mapper.OrganizationFullRestMapper
@@ -18,7 +18,7 @@ import spock.lang.Specification
 
 class OrganizationRestReaderTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private OrganizationRestQuery organizationRestQueryBuilderMock
 
@@ -62,7 +62,7 @@ class OrganizationRestReaderTest extends Specification {
 		organizationResponseOutput.page == responsePage
 	}
 
-	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
+	void "passed UID to queryBuilder, then to mapper, and returns result"() {
 		given:
 		OrganizationFull organizationFull = Mock()
 		Organization organization = Mock()
@@ -70,11 +70,11 @@ class OrganizationRestReaderTest extends Specification {
 		Page<Organization> organizationPage = Mock()
 
 		when:
-		OrganizationFullResponse organizationResponseOutput = organizationRestReader.readFull(GUID)
+		OrganizationFullResponse organizationResponseOutput = organizationRestReader.readFull(UID)
 
 		then:
 		1 * organizationRestQueryBuilderMock.query(_ as OrganizationRestBeanParams) >> { OrganizationRestBeanParams organizationRestBeanParams ->
-			assert organizationRestBeanParams.guid == GUID
+			assert organizationRestBeanParams.uid == UID
 			organizationPage
 		}
 		1 * organizationPage.content >> organizationList
@@ -83,12 +83,12 @@ class OrganizationRestReaderTest extends Specification {
 		organizationResponseOutput.organization == organizationFull
 	}
 
-	void "requires GUID in full request"() {
+	void "requires UID in full request"() {
 		when:
 		organizationRestReader.readFull(null)
 
 		then:
-		thrown(MissingGUIDException)
+		thrown(MissingUIDException)
 	}
 
 }

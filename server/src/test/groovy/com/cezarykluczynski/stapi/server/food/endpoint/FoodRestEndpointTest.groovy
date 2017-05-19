@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.server.food.reader.FoodRestReader
 
 class FoodRestEndpointTest extends AbstractRestEndpointTest {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 	private static final String NAME = 'NAME'
 
 	private FoodRestReader foodRestReaderMock
@@ -26,10 +26,10 @@ class FoodRestEndpointTest extends AbstractRestEndpointTest {
 		FoodFullResponse foodFullResponse = Mock()
 
 		when:
-		FoodFullResponse foodFullResponseOutput = foodRestEndpoint.getFood(GUID)
+		FoodFullResponse foodFullResponseOutput = foodRestEndpoint.getFood(UID)
 
 		then:
-		1 * foodRestReaderMock.readFull(GUID) >> foodFullResponse
+		1 * foodRestReaderMock.readFull(UID) >> foodFullResponse
 		foodFullResponseOutput == foodFullResponse
 	}
 

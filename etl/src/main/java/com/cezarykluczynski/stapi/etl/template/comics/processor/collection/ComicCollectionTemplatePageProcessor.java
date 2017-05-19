@@ -37,7 +37,9 @@ public class ComicCollectionTemplatePageProcessor implements ItemProcessor<Page,
 
 		ComicCollectionTemplate comicCollectionTemplate = comicsTemplateToComicCollectionTemplateProcessor.process(comicsTemplate);
 		comicCollectionTemplate.getComics().addAll(comicCollectionTemplateWikitextComicsProcessor.process(item));
+		comicCollectionTemplate.getComics().forEach(comics -> comicCollectionTemplate.getCharacters().addAll(comics.getCharacters()));
 
 		return comicCollectionTemplate;
 	}
+
 }

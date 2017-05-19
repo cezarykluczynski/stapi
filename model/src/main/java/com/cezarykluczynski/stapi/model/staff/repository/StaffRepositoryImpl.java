@@ -30,7 +30,7 @@ public class StaffRepositoryImpl extends AbstractRepositoryImpl<Staff> implement
 	@Transactional(readOnly = true)
 	public Page<Staff> findMatching(StaffRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<Staff> staffQueryBuilder = createInitialStaffQueryBuilder(criteria, pageable);
-		boolean doFetch = criteria.getGuid() != null;
+		boolean doFetch = criteria.getUid() != null;
 
 		Page<Staff> staffPage;
 

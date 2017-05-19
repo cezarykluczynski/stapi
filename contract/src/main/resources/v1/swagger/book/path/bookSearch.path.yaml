@@ -1,0 +1,127 @@
+get:
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+    - name: apiKey
+      in: query
+      type: string
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/BookBaseResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - Book
+post:
+  consumes:
+    - application/x-www-form-urlencoded
+  producers:
+    - application/json
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+    - name: sort
+      type: string
+      in: query
+    - name: apiKey
+      in: query
+      type: string
+    - name: title
+      in: formData
+      type: string
+    - name: publishedYearFrom
+      in: formData
+      type: integer
+      format: int32
+    - name: publishedYearTo
+      in: formData
+      type: integer
+      format: int32
+    - name: numberOfPagesFrom
+      in: formData
+      type: integer
+      format: int32
+    - name: numberOfPagesTo
+      in: formData
+      type: integer
+      format: int32
+    - name: stardateFrom
+      in: formData
+      type: number
+      format: float
+    - name: stardateTo
+      in: formData
+      type: number
+      format: float
+    - name: yearFrom
+      in: formData
+      type: integer
+      format: int32
+    - name: yearTo
+      in: formData
+      type: integer
+      format: int32
+    - name: novel
+      in: formData
+      type: boolean
+    - name: referenceBook
+      in: formData
+      type: boolean
+    - name: biographyBook
+      in: formData
+      type: boolean
+    - name: rolePlayingBook
+      in: formData
+      type: boolean
+    - name: eBook
+      in: formData
+      type: boolean
+    - name: anthology
+      in: formData
+      type: boolean
+    - name: novelization
+      in: formData
+      type: boolean
+    - name: audiobook
+      in: formData
+      type: boolean
+    - name: audiobookAbridged
+      in: formData
+      type: boolean
+    - name: audiobookPublishedYearFrom
+      in: formData
+      type: integer
+      format: int32
+    - name: audiobookPublishedYearTo
+      in: formData
+      type: integer
+      format: int32
+    - name: audiobookRunTimeFrom
+      in: formData
+      type: integer
+      format: int32
+    - name: audiobookRunTimeTo
+      in: formData
+      type: integer
+      format: int32
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/BookBaseResponse'
+  tags:
+    - Book

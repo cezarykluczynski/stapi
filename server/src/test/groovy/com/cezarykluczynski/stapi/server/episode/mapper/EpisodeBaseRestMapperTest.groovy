@@ -18,7 +18,7 @@ class EpisodeBaseRestMapperTest extends AbstractEpisodeMapperTest {
 	void "maps EpisodeRestBeanParams to EpisodeRequestDTO"() {
 		given:
 		EpisodeRestBeanParams episodeRestBeanParams = new EpisodeRestBeanParams(
-				guid: GUID,
+				uid: UID,
 				title: TITLE,
 				seasonNumberFrom: SEASON_NUMBER_FROM,
 				seasonNumberTo: SEASON_NUMBER_TO,
@@ -35,7 +35,7 @@ class EpisodeBaseRestMapperTest extends AbstractEpisodeMapperTest {
 		EpisodeRequestDTO episodeRequestDTO = episodeBaseRestMapper.mapBase episodeRestBeanParams
 
 		then:
-		episodeRequestDTO.guid == GUID
+		episodeRequestDTO.uid == UID
 		episodeRequestDTO.title == TITLE
 		episodeRequestDTO.seasonNumberFrom == SEASON_NUMBER_FROM
 		episodeRequestDTO.seasonNumberTo == SEASON_NUMBER_TO
@@ -57,7 +57,7 @@ class EpisodeBaseRestMapperTest extends AbstractEpisodeMapperTest {
 		EpisodeBase episodeBase = episodeBaseRestMapper.mapBase(Lists.newArrayList(episode))[0]
 
 		then:
-		episodeBase.guid == GUID
+		episodeBase.uid == UID
 		episodeBase.series != null
 		episodeBase.title == TITLE
 		episodeBase.titleGerman == TITLE_GERMAN

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:common="http://stapi.co/api/v1/soap/common"
+		xmlns:book="http://stapi.co/api/v1/soap/book"
+		xmlns:bookCollection="http://stapi.co/api/v1/soap/bookCollection"
+		xmlns:bookSeries="http://stapi.co/api/v1/soap/bookSeries"
+		xmlns:staff="http://stapi.co/api/v1/soap/staff"
+		xmlns:company="http://stapi.co/api/v1/soap/company"
+		xmlns:character="http://stapi.co/api/v1/soap/character"
+		xmlns:reference="http://stapi.co/api/v1/soap/reference"
+		elementFormDefault="qualified"
+		targetNamespace="http://stapi.co/api/v1/soap/book">
+	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/comicCollection" schemaLocation="comicCollection.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/comicSeries" schemaLocation="comicSeries.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/bookCollection" schemaLocation="bookCollection.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/bookSeries" schemaLocation="bookSeries.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/staff" schemaLocation="staff.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/company" schemaLocation="company.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/character" schemaLocation="character.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/reference" schemaLocation="reference.xsd"/>
+	<xs:element name="BookBaseRequest">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Request">
+					<xs:sequence>
+						<xs:element name="title" type="xs:string" minOccurs="0"/>
+						<xs:element name="publishedYear" type="common:IntegerRange" minOccurs="0"/>
+						<xs:element name="numberOfPages" type="common:IntegerRange" minOccurs="0"/>
+						<xs:element name="stardate" type="common:FloatRange" minOccurs="0"/>
+						<xs:element name="year" type="common:IntegerRange" minOccurs="0"/>
+						<xs:element name="novel" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="referenceBook" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="biographyBook" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="rolePlayingBook" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="eBook" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="anthology" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="novelization" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="audiobook" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="audiobookAbridged" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="audiobookPublishedYear" type="common:IntegerRange" minOccurs="0"/>
+						<xs:element name="audiobookRunTime" type="common:IntegerRange" minOccurs="0"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="BookFullRequest">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:ApiRequest">
+					<xs:sequence>
+						<xs:element name="uid" type="xs:string" minOccurs="1"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="BookBaseResponse">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Response">
+					<xs:sequence>
+						<xs:element name="book" type="book:BookBase" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="BookFullResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="book" type="book:BookFull"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="BookHeader">
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string"/>
+			<xs:element name="title" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BookBase">
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string"/>
+			<xs:element name="title" type="xs:string"/>
+			<xs:element name="publishedYear" type="xs:int" minOccurs="0"/>
+			<xs:element name="publishedMonth" type="xs:int" minOccurs="0"/>
+			<xs:element name="publishedDay" type="xs:int" minOccurs="0"/>
+			<xs:element name="numberOfPages" type="xs:int" minOccurs="0"/>
+			<xs:element name="stardateFrom" type="xs:float" minOccurs="0"/>
+			<xs:element name="stardateTo" type="xs:float" minOccurs="0"/>
+			<xs:element name="yearFrom" type="xs:integer" minOccurs="0"/>
+			<xs:element name="yearTo" type="xs:integer" minOccurs="0"/>
+			<xs:element name="novel" type="xs:boolean"/>
+			<xs:element name="referenceBook" type="xs:boolean"/>
+			<xs:element name="biographyBook" type="xs:boolean"/>
+			<xs:element name="rolePlayingBook" type="xs:boolean"/>
+			<xs:element name="eBook" type="xs:boolean"/>
+			<xs:element name="anthology" type="xs:boolean"/>
+			<xs:element name="novelization" type="xs:boolean"/>
+			<xs:element name="audiobook" type="xs:boolean"/>
+			<xs:element name="audiobookAbridged" type="xs:boolean"/>
+			<xs:element name="audiobookPublishedYear" type="xs:int" minOccurs="0"/>
+			<xs:element name="audiobookPublishedMonth" type="xs:int" minOccurs="0"/>
+			<xs:element name="audiobookPublishedDay" type="xs:int" minOccurs="0"/>
+			<xs:element name="audiobookRunTime" type="xs:int" minOccurs="0"/>
+			<xs:element name="productionNumber" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BookFull">
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string"/>
+			<xs:element name="title" type="xs:string"/>
+			<xs:element name="publishedYear" type="xs:int" minOccurs="0"/>
+			<xs:element name="publishedMonth" type="xs:int" minOccurs="0"/>
+			<xs:element name="publishedDay" type="xs:int" minOccurs="0"/>
+			<xs:element name="numberOfPages" type="xs:int" minOccurs="0"/>
+			<xs:element name="stardateFrom" type="xs:float" minOccurs="0"/>
+			<xs:element name="stardateTo" type="xs:float" minOccurs="0"/>
+			<xs:element name="yearFrom" type="xs:integer" minOccurs="0"/>
+			<xs:element name="yearTo" type="xs:integer" minOccurs="0"/>
+			<xs:element name="novel" type="xs:boolean"/>
+			<xs:element name="referenceBook" type="xs:boolean"/>
+			<xs:element name="biographyBook" type="xs:boolean"/>
+			<xs:element name="rolePlayingBook" type="xs:boolean"/>
+			<xs:element name="eBook" type="xs:boolean"/>
+			<xs:element name="anthology" type="xs:boolean"/>
+			<xs:element name="novelization" type="xs:boolean"/>
+			<xs:element name="audiobook" type="xs:boolean"/>
+			<xs:element name="audiobookAbridged" type="xs:boolean"/>
+			<xs:element name="audiobookPublishedYear" type="xs:int" minOccurs="0"/>
+			<xs:element name="audiobookPublishedMonth" type="xs:int" minOccurs="0"/>
+			<xs:element name="audiobookPublishedDay" type="xs:int" minOccurs="0"/>
+			<xs:element name="audiobookRunTime" type="xs:int" minOccurs="0"/>
+			<xs:element name="productionNumber" type="xs:string" minOccurs="0"/>
+			<xs:sequence>
+				<xs:element name="bookSeries" type="bookSeries:BookSeriesBase" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="authors" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="artists" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="editors" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="audiobookNarrators" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="publishers" type="company:CompanyBase" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="audiobookPublishers" type="company:CompanyBase" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="characters" type="character:CharacterBase" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="references" type="reference:Reference" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="audiobookReferences" type="reference:Reference" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="bookCollections" type="bookCollection:BookCollectionBase" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

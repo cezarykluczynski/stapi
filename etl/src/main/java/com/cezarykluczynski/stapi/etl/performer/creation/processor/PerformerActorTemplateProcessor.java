@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.performer.creation.processor;
 
 import com.cezarykluczynski.stapi.etl.common.processor.CommonActorTemplateProcessor;
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate;
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator;
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
@@ -12,13 +12,13 @@ import javax.inject.Inject;
 @Service
 public class PerformerActorTemplateProcessor implements ItemProcessor<ActorTemplate, Performer> {
 
-	private GuidGenerator guidGenerator;
+	private UidGenerator uidGenerator;
 
 	private CommonActorTemplateProcessor commonActorTemplateProcessor;
 
 	@Inject
-	public PerformerActorTemplateProcessor(GuidGenerator guidGenerator, CommonActorTemplateProcessor commonActorTemplateProcessor) {
-		this.guidGenerator = guidGenerator;
+	public PerformerActorTemplateProcessor(UidGenerator uidGenerator, CommonActorTemplateProcessor commonActorTemplateProcessor) {
+		this.uidGenerator = uidGenerator;
 		this.commonActorTemplateProcessor = commonActorTemplateProcessor;
 	}
 
@@ -27,7 +27,7 @@ public class PerformerActorTemplateProcessor implements ItemProcessor<ActorTempl
 		Performer performer = new Performer();
 
 		commonActorTemplateProcessor.processCommonFields(performer, item);
-		performer.setGuid(guidGenerator.generateFromPage(item.getPage(), Performer.class));
+		performer.setUid(uidGenerator.generateFromPage(item.getPage(), Performer.class));
 		performer.setAnimalPerformer(item.isAnimalPerformer());
 		performer.setDisPerformer(item.isDisPerformer());
 		performer.setDs9Performer(item.isDs9Performer());

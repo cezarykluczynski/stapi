@@ -17,9 +17,9 @@ class SpeciesSoapEndpointIntegrationTest extends AbstractSpeciesEndpointIntegrat
 		createSoapClient()
 	}
 
-	void "gets species by GUID"() {
+	void "gets species by UID"() {
 		when:
-		SpeciesFullResponse speciesFullResponse = stapiSoapClient.speciesPortType.getSpeciesFull(new SpeciesFullRequest(guid: 'SPMA0000006503'))
+		SpeciesFullResponse speciesFullResponse = stapiSoapClient.speciesPortType.getSpeciesFull(new SpeciesFullRequest(uid: 'SPMA0000006503'))
 
 		then:
 		speciesFullResponse.species.name == 'Ba\'ku'

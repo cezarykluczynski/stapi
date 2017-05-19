@@ -10,7 +10,7 @@
 		elementFormDefault="qualified"
 		targetNamespace="http://stapi.co/api/v1/soap/episode">
 	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
-	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/character" schemaLocation="character.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/performer" schemaLocation="performer.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/series" schemaLocation="series.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/staff" schemaLocation="staff.xsd"/>
@@ -38,7 +38,7 @@
 			<xs:complexContent>
 				<xs:extension base="common:ApiRequest">
 					<xs:sequence>
-						<xs:element name="guid" type="xs:string" minOccurs="1"/>
+						<xs:element name="uid" type="xs:string" minOccurs="1"/>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
@@ -64,13 +64,13 @@
 	</xs:element>
 	<xs:complexType name="EpisodeHeader">
 		<xs:sequence>
-			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="uid" type="xs:string"/>
 			<xs:element name="title" type="xs:string"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="EpisodeBase">
 		<xs:sequence>
-			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="uid" type="xs:string"/>
 			<xs:element name="series" type="series:SeriesHeader"/>
 			<xs:element name="title" type="xs:string"/>
 			<xs:element name="titleGerman" type="xs:string" minOccurs="0"/>
@@ -90,7 +90,7 @@
 	</xs:complexType>
 	<xs:complexType name="EpisodeFull">
 		<xs:sequence>
-			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="uid" type="xs:string"/>
 			<xs:element name="series" type="series:SeriesBase"/>
 			<xs:element name="title" type="xs:string"/>
 			<xs:element name="titleGerman" type="xs:string" minOccurs="0"/>

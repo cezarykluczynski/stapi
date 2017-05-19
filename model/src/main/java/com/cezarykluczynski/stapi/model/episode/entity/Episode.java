@@ -1,7 +1,10 @@
 package com.cezarykluczynski.stapi.model.episode.entity;
 
 import com.cezarykluczynski.stapi.model.character.entity.Character;
+import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
+import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
+import com.cezarykluczynski.stapi.model.episode.repository.EpisodeRepository;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
@@ -41,6 +44,7 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true, exclude = {"series", "writers", "teleplayAuthors", "storyAuthors", "directors", "staff", "performers",
 		"stuntPerformers", "standInPerformers", "characters"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = EpisodeRepository.class, singularName = "episode", pluralName = "episodes")
 public class Episode extends PageAwareEntity implements PageAware {
 
 	@Id

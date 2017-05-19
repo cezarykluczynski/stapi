@@ -48,7 +48,7 @@ public class AstronomicalObjectSoapReader implements BaseReader<AstronomicalObje
 
 	@Override
 	public AstronomicalObjectFullResponse readFull(AstronomicalObjectFullRequest input) {
-		StaticValidator.requireGuid(input.getGuid());
+		StaticValidator.requireUid(input.getUid());
 		Page<AstronomicalObject> astronomicalObjectPage = astronomicalObjectSoapQuery.query(input);
 		AstronomicalObjectFullResponse astronomicalObjectFullResponse = new AstronomicalObjectFullResponse();
 		astronomicalObjectFullResponse.setAstronomicalObject(astronomicalObjectFullSoapMapper

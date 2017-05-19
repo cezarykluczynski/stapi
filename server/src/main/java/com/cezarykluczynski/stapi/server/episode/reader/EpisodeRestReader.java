@@ -47,10 +47,10 @@ public class EpisodeRestReader implements BaseReader<EpisodeRestBeanParams, Epis
 	}
 
 	@Override
-	public EpisodeFullResponse readFull(String guid) {
-		StaticValidator.requireGuid(guid);
+	public EpisodeFullResponse readFull(String uid) {
+		StaticValidator.requireUid(uid);
 		EpisodeRestBeanParams episodeRestBeanParams = new EpisodeRestBeanParams();
-		episodeRestBeanParams.setGuid(guid);
+		episodeRestBeanParams.setUid(uid);
 		Page<Episode> episodePage = episodeRestQuery.query(episodeRestBeanParams);
 		EpisodeFullResponse episodeResponse = new EpisodeFullResponse();
 		episodeResponse.setEpisode(episodeFullRestMapper.mapFull(Iterables.getOnlyElement(episodePage.getContent(), null)));

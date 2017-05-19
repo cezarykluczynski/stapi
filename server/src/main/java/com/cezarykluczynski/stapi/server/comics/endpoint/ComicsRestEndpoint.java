@@ -18,9 +18,10 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 @Service
-@Path("v1/rest/comics")
 @Produces(MediaType.APPLICATION_JSON)
 public class ComicsRestEndpoint {
+
+	public static final String ADDRESS = "/v1/rest/comics";
 
 	private ComicsRestReader comicsRestReader;
 
@@ -31,8 +32,8 @@ public class ComicsRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ComicsFullResponse getComics(@QueryParam("guid") String guid) {
-		return comicsRestReader.readFull(guid);
+	public ComicsFullResponse getComics(@QueryParam("uid") String uid) {
+		return comicsRestReader.readFull(uid);
 	}
 
 	@GET

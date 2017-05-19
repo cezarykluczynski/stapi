@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class SpeciesRequestDTO {
 
-	private String guid;
+	private String uid;
 
 	private String name;
 

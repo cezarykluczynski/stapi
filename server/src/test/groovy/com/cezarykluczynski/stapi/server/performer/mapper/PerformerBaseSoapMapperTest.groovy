@@ -77,7 +77,7 @@ class PerformerBaseSoapMapperTest extends AbstractPerformerMapperTest {
 
 		then:
 		performerBase.name == NAME
-		performerBase.guid == GUID
+		performerBase.uid == UID
 		performerBase.birthName == BIRTH_NAME
 		performerBase.gender == GENDER_ENUM_SOAP
 		performerBase.dateOfBirth == DATE_OF_BIRTH_FROM_SOAP

@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class CharacterRequestDTO {
 
-	private String guid;
+	private String uid;
 
 	private String name;
 

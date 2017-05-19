@@ -19,12 +19,12 @@ class CharacterRestEndpointIntegrationTest extends AbstractCharacterEndpointInte
 		createRestClient()
 	}
 
-	void "gets character by guid"() {
+	void "gets character by uid"() {
 		when:
-		CharacterFullResponse characterFullResponse = stapiRestClient.characterApi.characterGet(DEANNA_TROI_GUID, null)
+		CharacterFullResponse characterFullResponse = stapiRestClient.characterApi.characterGet(DEANNA_TROI_UID, null)
 
 		then:
-		characterFullResponse.character.guid == DEANNA_TROI_GUID
+		characterFullResponse.character.uid == DEANNA_TROI_UID
 		characterFullResponse.character.episodes.size() == 166
 		characterFullResponse.character.movies.size() == 4
 	}

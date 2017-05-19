@@ -8,7 +8,7 @@ import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.movie.entity.Movie_
-import com.cezarykluczynski.stapi.util.tool.LogicUtil
+import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
@@ -17,12 +17,12 @@ import spock.lang.Specification
 
 class CharacterRepositoryImplTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 	private static final String NAME = 'NAME'
 	private static final Gender GENDER = Gender.F
-	private static final Boolean DECEASED = LogicUtil.nextBoolean()
-	private static final Boolean MIRROR = LogicUtil.nextBoolean()
-	private static final Boolean ALTERNATE_REALITY = LogicUtil.nextBoolean()
+	private static final Boolean DECEASED = RandomUtil.nextBoolean()
+	private static final Boolean MIRROR = RandomUtil.nextBoolean()
+	private static final Boolean ALTERNATE_REALITY = RandomUtil.nextBoolean()
 	private static final RequestSortDTO SORT = new RequestSortDTO()
 
 	private CharacterQueryBuilderFactory characterQueryBuilderMock
@@ -56,9 +56,9 @@ class CharacterRepositoryImplTest extends Specification {
 		then:
 		1 * characterQueryBuilderMock.createQueryBuilder(pageable) >> characterQueryBuilder
 
-		then: 'guid criteria is set'
-		1 * characterRequestDTO.guid >> GUID
-		1 * characterQueryBuilder.equal(Character_.guid, GUID)
+		then: 'uid criteria is set'
+		1 * characterRequestDTO.uid >> UID
+		1 * characterQueryBuilder.equal(Character_.uid, UID)
 
 		then: 'string criteria are set'
 		1 * characterRequestDTO.name >> NAME
@@ -103,8 +103,8 @@ class CharacterRepositoryImplTest extends Specification {
 		then:
 		1 * characterQueryBuilderMock.createQueryBuilder(pageable) >> characterQueryBuilder
 
-		then: 'guid criteria is set to null'
-		1 * characterRequestDTO.guid >> null
+		then: 'uid criteria is set to null'
+		1 * characterRequestDTO.uid >> null
 
 		then: 'fetch is performed with false flag'
 		1 * characterQueryBuilder.fetch(Character_.performers, false)

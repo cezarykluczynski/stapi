@@ -73,9 +73,9 @@ class ComicStripRepositoryImplTest extends AbstractComicStripTest {
 		then: 'criteria builder is retrieved'
 		1 * comicStripQueryBuilderFactory.createQueryBuilder(pageable) >> comicStripQueryBuilder
 
-		then: 'guid is retrieved, and it is not null'
-		1 * comicStripRequestDTO.guid >> GUID
-		1 * comicStripQueryBuilder.equal(ComicStrip_.guid, GUID)
+		then: 'uid is retrieved, and it is not null'
+		1 * comicStripRequestDTO.uid >> UID
+		1 * comicStripQueryBuilder.equal(ComicStrip_.uid, UID)
 
 		then: 'string criteria are set'
 		1 * comicStripRequestDTO.title >> TITLE
@@ -123,8 +123,8 @@ class ComicStripRepositoryImplTest extends AbstractComicStripTest {
 		then: 'criteria builder is retrieved'
 		1 * comicStripQueryBuilderFactory.createQueryBuilder(pageable) >> comicStripQueryBuilder
 
-		then: 'guid criteria is set to null'
-		1 * comicStripRequestDTO.guid >> null
+		then: 'uid criteria is set to null'
+		1 * comicStripRequestDTO.uid >> null
 
 		then: 'page is searched for and returned'
 		1 * comicStripQueryBuilder.findPage() >> page

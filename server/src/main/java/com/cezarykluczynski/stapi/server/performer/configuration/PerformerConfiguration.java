@@ -1,11 +1,13 @@
 package com.cezarykluczynski.stapi.server.performer.configuration;
 
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
+import com.cezarykluczynski.stapi.server.performer.endpoint.PerformerRestEndpoint;
 import com.cezarykluczynski.stapi.server.performer.endpoint.PerformerSoapEndpoint;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseRestMapper;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerFullRestMapper;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerFullSoapMapper;
+import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +24,11 @@ public class PerformerConfiguration {
 	@Bean
 	public Endpoint performerEndpoint() {
 		return endpointFactory.createSoapEndpoint(PerformerSoapEndpoint.class, PerformerSoapEndpoint.ADDRESS);
+	}
+
+	@Bean
+	public Server performerServer() {
+		return endpointFactory.createRestEndpoint(PerformerRestEndpoint.class, PerformerRestEndpoint.ADDRESS);
 	}
 
 	@Bean

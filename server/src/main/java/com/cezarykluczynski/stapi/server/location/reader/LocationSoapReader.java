@@ -47,7 +47,7 @@ public class LocationSoapReader implements BaseReader<LocationBaseRequest, Locat
 
 	@Override
 	public LocationFullResponse readFull(LocationFullRequest input) {
-		StaticValidator.requireGuid(input.getGuid());
+		StaticValidator.requireUid(input.getUid());
 		Page<Location> locationPage = locationSoapQuery.query(input);
 		LocationFullResponse locationFullResponse = new LocationFullResponse();
 		locationFullResponse.setLocation(locationFullSoapMapper.mapFull(Iterables.getOnlyElement(locationPage.getContent(), null)));

@@ -58,23 +58,23 @@ class ComicsBaseSoapMapperTest extends AbstractComicsMapperTest {
 		Comics comics = createComics()
 
 		when:
-		ComicsBase soapComics = comicsBaseSoapMapper.mapBase(Lists.newArrayList(comics))[0]
+		ComicsBase comicsBase = comicsBaseSoapMapper.mapBase(Lists.newArrayList(comics))[0]
 
 		then:
-		soapComics.guid == GUID
-		soapComics.title == TITLE
-		soapComics.publishedYear == PUBLISHED_YEAR
-		soapComics.publishedMonth == PUBLISHED_MONTH
-		soapComics.publishedDay == PUBLISHED_DAY
-		soapComics.coverYear == COVER_YEAR
-		soapComics.coverMonth == COVER_MONTH
-		soapComics.coverDay == COVER_DAY
-		soapComics.numberOfPages == NUMBER_OF_PAGES
-		soapComics.stardateFrom == STARDATE_FROM
-		soapComics.stardateTo == STARDATE_TO
-		soapComics.yearFrom.toInteger() == YEAR_FROM
-		soapComics.yearTo.toInteger() == YEAR_TO
-		soapComics.photonovel == PHOTONOVEL
+		comicsBase.uid == UID
+		comicsBase.title == TITLE
+		comicsBase.publishedYear == PUBLISHED_YEAR
+		comicsBase.publishedMonth == PUBLISHED_MONTH
+		comicsBase.publishedDay == PUBLISHED_DAY
+		comicsBase.coverYear == COVER_YEAR
+		comicsBase.coverMonth == COVER_MONTH
+		comicsBase.coverDay == COVER_DAY
+		comicsBase.numberOfPages == NUMBER_OF_PAGES
+		comicsBase.stardateFrom == STARDATE_FROM
+		comicsBase.stardateTo == STARDATE_TO
+		comicsBase.yearFrom.toInteger() == YEAR_FROM
+		comicsBase.yearTo.toInteger() == YEAR_TO
+		comicsBase.photonovel == PHOTONOVEL
 	}
 
 }

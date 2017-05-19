@@ -17,14 +17,14 @@ class EpisodeHeaderSoapMapperTest extends AbstractEpisodeMapperTest {
 		given:
 		Episode episode = new Episode(
 				title: TITLE,
-				guid: GUID)
+				uid: UID)
 
 		when:
 		EpisodeHeader episodeHeader = episodeHeaderSoapMapper.map(Lists.newArrayList(episode))[0]
 
 		then:
 		episodeHeader.title == TITLE
-		episodeHeader.guid == GUID
+		episodeHeader.uid == UID
 	}
 
 }

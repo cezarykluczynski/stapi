@@ -27,21 +27,16 @@ public class ComicCollectionRepositoryImpl extends AbstractRepositoryImpl<ComicC
 	@Override
 	public Page<ComicCollection> findMatching(ComicCollectionRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<ComicCollection> comicCollectionQueryBuilder = createInitialComicCollectionQueryBuilder(criteria, pageable);
-		String guid = criteria.getGuid();
-		boolean doFetch = guid != null;
+		String uid = criteria.getUid();
+		boolean doFetch = uid != null;
 
 		Page<ComicCollection> comicCollectionCollectionPage;
 
 		if (doFetch) {
-			comicCollectionQueryBuilder.fetch(ComicCollection_.comicSeries);
 			comicCollectionQueryBuilder.fetch(ComicCollection_.writers);
 			comicCollectionQueryBuilder.fetch(ComicCollection_.artists);
 			comicCollectionQueryBuilder.fetch(ComicCollection_.editors);
 			comicCollectionQueryBuilder.fetch(ComicCollection_.staff);
-			comicCollectionQueryBuilder.fetch(ComicCollection_.publishers);
-			comicCollectionQueryBuilder.fetch(ComicCollection_.characters);
-			comicCollectionQueryBuilder.fetch(ComicCollection_.references);
-			comicCollectionQueryBuilder.fetch(ComicCollection_.comics);
 			comicCollectionCollectionPage = comicCollectionQueryBuilder.findPage();
 
 			List<ComicCollection> comicCollectionList = comicCollectionCollectionPage.getContent();
@@ -78,22 +73,6 @@ public class ComicCollectionRepositoryImpl extends AbstractRepositoryImpl<ComicC
 				ComicCollection charactersReferencesComicCollection = charactersReferencesComicCollectionList.get(0);
 				comicCollection.setCharacters(charactersReferencesComicCollection.getCharacters());
 				comicCollection.setReferences(charactersReferencesComicCollection.getReferences());
-			}
-
-			QueryBuilder<ComicCollection> comicsStaffQueryBuilder = createInitialComicCollectionQueryBuilder(criteria, pageable);
-			comicsStaffQueryBuilder.fetch(ComicCollection_.writers);
-			comicsStaffQueryBuilder.fetch(ComicCollection_.artists);
-			comicsStaffQueryBuilder.fetch(ComicCollection_.editors);
-			comicsStaffQueryBuilder.fetch(ComicCollection_.staff);
-
-			List<ComicCollection> staffComicCollectionList = comicsStaffQueryBuilder.findAll();
-
-			if (staffComicCollectionList.size() == 1) {
-				ComicCollection staffComicCollection = staffComicCollectionList.get(0);
-				comicCollection.setWriters(staffComicCollection.getWriters());
-				comicCollection.setArtists(staffComicCollection.getArtists());
-				comicCollection.setEditors(staffComicCollection.getEditors());
-				comicCollection.setStaff(staffComicCollection.getStaff());
 			}
 		} else {
 			comicCollectionCollectionPage = comicCollectionQueryBuilder.findPage();

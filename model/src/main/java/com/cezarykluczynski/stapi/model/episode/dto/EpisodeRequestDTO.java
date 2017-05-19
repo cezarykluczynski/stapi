@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode
 public class EpisodeRequestDTO {
 
-	private String guid;
+	private String uid;
 
 	private String title;
 

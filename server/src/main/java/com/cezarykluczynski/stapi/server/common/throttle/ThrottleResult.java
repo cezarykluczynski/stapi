@@ -2,7 +2,9 @@ package com.cezarykluczynski.stapi.server.common.throttle;
 
 public class ThrottleResult {
 
-	private Boolean throttle;
+	static final ThrottleResult NOT_THROTTLED = new ThrottleResult();
+
+	private boolean throttle;
 
 	private ThrottleReason throttleReason;
 

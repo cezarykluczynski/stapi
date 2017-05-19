@@ -16,14 +16,14 @@ class OrganizationHeaderRestMapperTest extends AbstractOrganizationMapperTest {
 	void "maps DB entity to REST header"() {
 		given:
 		Organization organization = new Organization(
-				guid: GUID,
+				uid: UID,
 				name: NAME)
 
 		when:
 		OrganizationHeader organizationHeader = organizationHeaderRestMapper.map(Lists.newArrayList(organization))[0]
 
 		then:
-		organizationHeader.guid == GUID
+		organizationHeader.uid == UID
 		organizationHeader.name == NAME
 	}
 

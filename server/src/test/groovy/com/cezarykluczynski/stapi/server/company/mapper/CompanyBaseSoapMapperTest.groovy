@@ -69,7 +69,7 @@ class CompanyBaseSoapMapperTest extends AbstractCompanyMapperTest {
 		CompanyBase companyBase = companyBaseSoapMapper.mapBase(Lists.newArrayList(company))[0]
 
 		then:
-		companyBase.guid == GUID
+		companyBase.uid == UID
 		companyBase.name == NAME
 		companyBase.broadcaster == BROADCASTER
 		companyBase.collectibleCompany == COLLECTIBLE_COMPANY

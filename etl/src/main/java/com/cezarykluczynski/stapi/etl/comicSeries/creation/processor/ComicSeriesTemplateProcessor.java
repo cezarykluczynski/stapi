@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.comicSeries.creation.processor;
 
 import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplate;
 import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries;
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator;
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
@@ -11,18 +11,18 @@ import javax.inject.Inject;
 @Service
 public class ComicSeriesTemplateProcessor implements ItemProcessor<ComicSeriesTemplate, ComicSeries> {
 
-	private GuidGenerator guidGenerator;
+	private UidGenerator uidGenerator;
 
 	@Inject
-	public ComicSeriesTemplateProcessor(GuidGenerator guidGenerator) {
-		this.guidGenerator = guidGenerator;
+	public ComicSeriesTemplateProcessor(UidGenerator uidGenerator) {
+		this.uidGenerator = uidGenerator;
 	}
 
 	@Override
 	public ComicSeries process(ComicSeriesTemplate item) throws Exception {
 		ComicSeries comicSeries = new ComicSeries();
 
-		comicSeries.setGuid(guidGenerator.generateFromPage(item.getPage(), ComicSeries.class));
+		comicSeries.setUid(uidGenerator.generateFromPage(item.getPage(), ComicSeries.class));
 		comicSeries.setPage(item.getPage());
 		comicSeries.setTitle(item.getTitle());
 		comicSeries.setPublishedYearFrom(item.getPublishedYearFrom());

@@ -2,16 +2,19 @@ package com.cezarykluczynski.stapi.etl.template.book.processor
 
 import com.cezarykluczynski.stapi.etl.book.creation.service.BookPageFilter
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextCharactersProcessor
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplate
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
+import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.cezarykluczynski.stapi.util.tool.RandomUtil
-import org.assertj.core.util.Lists
+import com.google.common.collect.Lists
+import com.google.common.collect.Sets
 import spock.lang.Specification
 
 class BookTemplatePageProcessorTest extends Specification {
@@ -28,6 +31,8 @@ class BookTemplatePageProcessorTest extends Specification {
 
 	private BookTemplatePartsEnrichingProcessor bookTemplatePartsEnrichingProcessorMock
 
+	private WikitextCharactersProcessor wikitextCharactersProcessorMock
+
 	private BookTemplatePageProcessor bookTemplatePageProcessor
 
 	void setup() {
@@ -36,8 +41,9 @@ class BookTemplatePageProcessorTest extends Specification {
 		templateFinderMock = Mock()
 		categoriesBookTemplateEnrichingProcessorMock = Mock()
 		bookTemplatePartsEnrichingProcessorMock = Mock()
+		wikitextCharactersProcessorMock = Mock()
 		bookTemplatePageProcessor = new BookTemplatePageProcessor(bookPageFilterMock, pageBindingServiceMock, templateFinderMock,
-				categoriesBookTemplateEnrichingProcessorMock, bookTemplatePartsEnrichingProcessorMock)
+				categoriesBookTemplateEnrichingProcessorMock, bookTemplatePartsEnrichingProcessorMock, wikitextCharactersProcessorMock)
 	}
 
 	void "returns null when BookPageFilter returns true"() {
@@ -61,6 +67,7 @@ class BookTemplatePageProcessorTest extends Specification {
 		BookTemplate bookTemplate = bookTemplatePageProcessor.process(page)
 
 		then:
+		1 * wikitextCharactersProcessorMock.process(page) >> Sets.newHashSet()
 		1 * templateFinderMock.findTemplate(*_) >> Optional.empty()
 		bookTemplate.title == TITLE
 
@@ -74,6 +81,7 @@ class BookTemplatePageProcessorTest extends Specification {
 				title: TITLE,
 				categories: categoryHeaderList)
 		ModelPage modelPage = new ModelPage()
+		Character character = Mock()
 
 		when:
 		BookTemplate bookTemplate = bookTemplatePageProcessor.process(page)
@@ -86,11 +94,13 @@ class BookTemplatePageProcessorTest extends Specification {
 			assert enrichablePair.input == categoryHeaderList
 			assert enrichablePair.output != null
 		}
+		1 * wikitextCharactersProcessorMock.process(page) >> Sets.newHashSet(character)
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_NOVEL, TemplateTitle.SIDEBAR_REFERENCE_BOOK, TemplateTitle.SIDEBAR_RPG_BOOK,
 				TemplateTitle.SIDEBAR_BIOGRAPHY_BOOK, TemplateTitle.SIDEBAR_AUDIO) >> Optional.empty()
 		0 * _
 		bookTemplate.title == TITLE
 		bookTemplate.page == modelPage
+		bookTemplate.characters.contains character
 	}
 
 	void "parses page that do have a book sidebar template"() {
@@ -116,6 +126,7 @@ class BookTemplatePageProcessorTest extends Specification {
 			assert enrichablePair.input == categoryHeaderList
 			assert enrichablePair.output != null
 		}
+		1 * wikitextCharactersProcessorMock.process(page) >> Sets.newHashSet()
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_NOVEL, TemplateTitle.SIDEBAR_REFERENCE_BOOK, TemplateTitle.SIDEBAR_RPG_BOOK,
 				TemplateTitle.SIDEBAR_BIOGRAPHY_BOOK, TemplateTitle.SIDEBAR_AUDIO) >> Optional.of(sidebarBookTemplate)
 		1 * bookTemplatePartsEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair<Template, BookTemplate> enrichablePair ->

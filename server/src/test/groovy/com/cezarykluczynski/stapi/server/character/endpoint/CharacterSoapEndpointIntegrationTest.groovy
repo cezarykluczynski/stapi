@@ -18,14 +18,14 @@ class CharacterSoapEndpointIntegrationTest extends AbstractCharacterEndpointInte
 		createSoapClient()
 	}
 
-	void "gets character by guid"() {
+	void "gets character by uid"() {
 		when:
 		CharacterFullResponse characterFullResponse = stapiSoapClient.characterPortType.getCharacterFull(new CharacterFullRequest(
-				guid: DEANNA_TROI_GUID
+				uid: DEANNA_TROI_UID
 		))
 
 		then:
-		characterFullResponse.character.guid == DEANNA_TROI_GUID
+		characterFullResponse.character.uid == DEANNA_TROI_UID
 		characterFullResponse.character.episodes.size() == 166
 		characterFullResponse.character.movies.size() == 4
 	}

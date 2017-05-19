@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.server.location.reader.LocationRestReader
 
 class LocationRestEndpointTest extends AbstractRestEndpointTest {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 	private static final String NAME = 'NAME'
 
 	private LocationRestReader locationRestReaderMock
@@ -26,10 +26,10 @@ class LocationRestEndpointTest extends AbstractRestEndpointTest {
 		LocationFullResponse locationFullResponse = Mock()
 
 		when:
-		LocationFullResponse locationFullResponseOutput = locationRestEndpoint.getLocation(GUID)
+		LocationFullResponse locationFullResponseOutput = locationRestEndpoint.getLocation(UID)
 
 		then:
-		1 * locationRestReaderMock.readFull(GUID) >> locationFullResponse
+		1 * locationRestReaderMock.readFull(UID) >> locationFullResponse
 		locationFullResponseOutput == locationFullResponse
 	}
 

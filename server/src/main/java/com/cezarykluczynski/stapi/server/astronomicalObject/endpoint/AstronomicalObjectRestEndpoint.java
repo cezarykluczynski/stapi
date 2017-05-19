@@ -18,9 +18,10 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 @Service
-@Path("v1/rest/astronomicalObject")
 @Produces(MediaType.APPLICATION_JSON)
 public class AstronomicalObjectRestEndpoint {
+
+	public static final String ADDRESS = "/v1/rest/astronomicalObject";
 
 	private AstronomicalObjectRestReader astronomicalObjectRestReader;
 
@@ -31,8 +32,8 @@ public class AstronomicalObjectRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public AstronomicalObjectFullResponse getAstronomicalObject(@QueryParam("guid") String guid) {
-		return astronomicalObjectRestReader.readFull(guid);
+	public AstronomicalObjectFullResponse getAstronomicalObject(@QueryParam("uid") String uid) {
+		return astronomicalObjectRestReader.readFull(uid);
 	}
 
 	@GET

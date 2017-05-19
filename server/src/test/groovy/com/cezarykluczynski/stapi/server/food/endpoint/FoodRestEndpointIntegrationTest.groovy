@@ -15,7 +15,7 @@ class FoodRestEndpointIntegrationTest extends AbstractFoodEndpointIntegrationTes
 		createRestClient()
 	}
 
-	void "gets food by GUID"() {
+	void "gets food by UID"() {
 		when:
 		FoodFullResponse foodFullResponse = stapiRestClient.foodApi.foodGet('FOMA0000025922', null)
 

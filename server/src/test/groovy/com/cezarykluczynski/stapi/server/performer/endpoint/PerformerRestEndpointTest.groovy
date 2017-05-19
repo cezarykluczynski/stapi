@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.server.performer.reader.PerformerRestReader
 
 class PerformerRestEndpointTest extends AbstractRestEndpointTest {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 	private static final String NAME = 'NAME'
 
 	private PerformerRestReader performerRestReaderMock
@@ -26,10 +26,10 @@ class PerformerRestEndpointTest extends AbstractRestEndpointTest {
 		PerformerFullResponse performerFullResponse = Mock()
 
 		when:
-		PerformerFullResponse performerFullResponseOutput = performerRestEndpoint.getPerformer(GUID)
+		PerformerFullResponse performerFullResponseOutput = performerRestEndpoint.getPerformer(UID)
 
 		then:
-		1 * performerRestReaderMock.readFull(GUID) >> performerFullResponse
+		1 * performerRestReaderMock.readFull(UID) >> performerFullResponse
 		performerFullResponseOutput == performerFullResponse
 	}
 

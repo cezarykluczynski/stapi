@@ -10,7 +10,7 @@ abstract class AbstractComicStripMapperTest extends AbstractComicStripTest {
 
 	protected ComicStrip createComicStrip() {
 		new ComicStrip(
-				guid: GUID,
+				uid: UID,
 				title: TITLE,
 				periodical: PERIODICAL,
 				publishedYearFrom: PUBLISHED_YEAR_FROM,

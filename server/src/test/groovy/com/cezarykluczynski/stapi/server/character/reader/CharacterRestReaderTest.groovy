@@ -11,14 +11,14 @@ import com.cezarykluczynski.stapi.server.character.mapper.CharacterBaseRestMappe
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterFullRestMapper
 import com.cezarykluczynski.stapi.server.character.query.CharacterRestQuery
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
 import spock.lang.Specification
 
 class CharacterRestReaderTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private CharacterRestQuery characterRestQueryBuilderMock
 
@@ -62,7 +62,7 @@ class CharacterRestReaderTest extends Specification {
 		characterResponseOutput.page == responsePage
 	}
 
-	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
+	void "passed UID to queryBuilder, then to mapper, and returns result"() {
 		given:
 		CharacterFull characterFull = Mock()
 		Character character = Mock()
@@ -70,11 +70,11 @@ class CharacterRestReaderTest extends Specification {
 		Page<Character> characterPage = Mock()
 
 		when:
-		CharacterFullResponse characterResponseOutput = characterRestReader.readFull(GUID)
+		CharacterFullResponse characterResponseOutput = characterRestReader.readFull(UID)
 
 		then:
 		1 * characterRestQueryBuilderMock.query(_ as CharacterRestBeanParams) >> { CharacterRestBeanParams characterRestBeanParams ->
-			assert characterRestBeanParams.guid == GUID
+			assert characterRestBeanParams.uid == UID
 			characterPage
 		}
 		1 * characterPage.content >> characterList
@@ -83,12 +83,12 @@ class CharacterRestReaderTest extends Specification {
 		characterResponseOutput.character == characterFull
 	}
 
-	void "requires GUID in full request"() {
+	void "requires UID in full request"() {
 		when:
 		characterRestReader.readFull(null)
 
 		then:
-		thrown(MissingGUIDException)
+		thrown(MissingUIDException)
 	}
 
 }

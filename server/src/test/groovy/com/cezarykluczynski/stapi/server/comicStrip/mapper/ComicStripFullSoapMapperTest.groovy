@@ -16,13 +16,13 @@ class ComicStripFullSoapMapperTest extends AbstractComicStripMapperTest {
 
 	void "maps SOAP ComicStripFullRequest to ComicStripBaseRequestDTO"() {
 		given:
-		ComicStripFullRequest comicStripFullRequest = new ComicStripFullRequest(guid: GUID)
+		ComicStripFullRequest comicStripFullRequest = new ComicStripFullRequest(uid: UID)
 
 		when:
 		ComicStripRequestDTO comicStripRequestDTO = comicStripFullSoapMapper.mapFull comicStripFullRequest
 
 		then:
-		comicStripRequestDTO.guid == GUID
+		comicStripRequestDTO.uid == UID
 	}
 
 	void "maps DB entity to full SOAP entity"() {
@@ -33,7 +33,7 @@ class ComicStripFullSoapMapperTest extends AbstractComicStripMapperTest {
 		ComicStripFull comicStripFull = comicStripFullSoapMapper.mapFull(comicStrip)
 
 		then:
-		comicStripFull.guid == GUID
+		comicStripFull.uid == UID
 		comicStripFull.title == TITLE
 		comicStripFull.periodical == PERIODICAL
 		comicStripFull.publishedYearFrom == PUBLISHED_YEAR_FROM

@@ -1,0 +1,24 @@
+type: object
+properties:
+  uid:
+    type: string
+  title:
+    type: string
+  publishedYear:
+    type: integer
+  publishedMonth:
+    type: integer
+  publishedDay:
+    type: integer
+  numberOfPages:
+    type: integer
+  stardateFrom:
+    type: number
+    format: float
+  stardateTo:
+    type: number
+    format: float
+  yearFrom:
+    type: integer
+  yearTo:
+    type: integer

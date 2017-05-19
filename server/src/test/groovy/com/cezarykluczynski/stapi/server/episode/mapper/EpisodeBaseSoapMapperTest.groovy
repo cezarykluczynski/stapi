@@ -75,7 +75,7 @@ class EpisodeBaseSoapMapperTest extends AbstractEpisodeMapperTest {
 		EpisodeBase episodeBase = episodeBaseSoapMapper.mapBase(Lists.newArrayList(episode))[0]
 
 		then:
-		episodeBase.guid == GUID
+		episodeBase.uid == UID
 		episodeBase.series != null
 		episodeBase.title == TITLE
 		episodeBase.titleGerman == TITLE_GERMAN

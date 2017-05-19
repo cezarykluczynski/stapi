@@ -11,14 +11,14 @@ import com.cezarykluczynski.stapi.server.comics.mapper.ComicsBaseRestMapper
 import com.cezarykluczynski.stapi.server.comics.mapper.ComicsFullRestMapper
 import com.cezarykluczynski.stapi.server.comics.query.ComicsRestQuery
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
 import spock.lang.Specification
 
 class ComicsRestReaderTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private ComicsRestQuery comicsRestQueryBuilderMock
 
@@ -61,7 +61,7 @@ class ComicsRestReaderTest extends Specification {
 		comicsResponseOutput.page == responsePage
 	}
 
-	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
+	void "passed UID to queryBuilder, then to mapper, and returns result"() {
 		given:
 		ComicsFull comicsFull = Mock()
 		Comics comics = Mock()
@@ -69,11 +69,11 @@ class ComicsRestReaderTest extends Specification {
 		Page<Comics> comicsPage = Mock()
 
 		when:
-		ComicsFullResponse comicsResponseOutput = comicsRestReader.readFull(GUID)
+		ComicsFullResponse comicsResponseOutput = comicsRestReader.readFull(UID)
 
 		then:
 		1 * comicsRestQueryBuilderMock.query(_ as ComicsRestBeanParams) >> { ComicsRestBeanParams comicsRestBeanParams ->
-			assert comicsRestBeanParams.guid == GUID
+			assert comicsRestBeanParams.uid == UID
 			comicsPage
 		}
 		1 * comicsPage.content >> comicsList
@@ -82,12 +82,12 @@ class ComicsRestReaderTest extends Specification {
 		comicsResponseOutput.comics == comicsFull
 	}
 
-	void "requires GUID in full request"() {
+	void "requires UID in full request"() {
 		when:
 		comicsRestReader.readFull(null)
 
 		then:
-		thrown(MissingGUIDException)
+		thrown(MissingUIDException)
 	}
 
 }

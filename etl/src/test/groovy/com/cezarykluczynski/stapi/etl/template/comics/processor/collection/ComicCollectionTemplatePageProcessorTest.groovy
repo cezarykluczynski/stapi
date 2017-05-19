@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.comics.processor.collection
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicCollectionTemplate
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate
 import com.cezarykluczynski.stapi.etl.template.comics.processor.ComicsTemplatePageProcessor
+import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.comics.entity.Comics
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.google.common.collect.Sets
@@ -46,6 +47,8 @@ class ComicCollectionTemplatePageProcessorTest extends Specification {
 		ComicCollectionTemplate comicCollectionTemplate = new ComicCollectionTemplate()
 		Comics comics1 = Mock()
 		Comics comics2 = Mock()
+		Character character1 = Mock()
+		Character character2 = Mock()
 
 		when:
 		ComicCollectionTemplate comicCollectionTemplateOutput = comicCollectionTemplatePageProcessor.process(page)
@@ -54,11 +57,16 @@ class ComicCollectionTemplatePageProcessorTest extends Specification {
 		1 * comicsTemplatePageProcessorMock.process(page) >> comicsTemplate
 		1 * comicsTemplateToComicCollectionTemplateProcessorMock.process(comicsTemplate) >> comicCollectionTemplate
 		1 * comicCollectionTemplateWikitextComicsProcessorMock.process(page) >> Sets.newHashSet(comics1, comics2)
+		1 * comics1.characters >> Sets.newHashSet(character1)
+		1 * comics2.characters >> Sets.newHashSet(character2)
 		0 * _
 		comicCollectionTemplateOutput == comicCollectionTemplate
 		comicCollectionTemplateOutput.comics.size() == 2
 		comicCollectionTemplateOutput.comics.contains comics1
 		comicCollectionTemplateOutput.comics.contains comics2
+		comicCollectionTemplateOutput.characters.size() == 2
+		comicCollectionTemplateOutput.characters.contains character1
+		comicCollectionTemplateOutput.characters.contains character2
 	}
 
 }

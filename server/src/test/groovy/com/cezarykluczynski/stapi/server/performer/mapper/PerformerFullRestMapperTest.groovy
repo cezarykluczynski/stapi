@@ -21,7 +21,7 @@ class PerformerFullRestMapperTest extends AbstractPerformerMapperTest {
 
 		then:
 		performerFull.name == NAME
-		performerFull.guid == GUID
+		performerFull.uid == UID
 		performerFull.birthName == BIRTH_NAME
 		performerFull.gender == GENDER_ENUM_REST
 		performerFull.dateOfBirth == DATE_OF_BIRTH_FROM_DB

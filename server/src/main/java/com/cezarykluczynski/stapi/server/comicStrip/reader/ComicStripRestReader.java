@@ -48,10 +48,10 @@ public class ComicStripRestReader implements BaseReader<ComicStripRestBeanParams
 	}
 
 	@Override
-	public ComicStripFullResponse readFull(String guid) {
-		StaticValidator.requireGuid(guid);
+	public ComicStripFullResponse readFull(String uid) {
+		StaticValidator.requireUid(uid);
 		ComicStripRestBeanParams comicStripRestBeanParams = new ComicStripRestBeanParams();
-		comicStripRestBeanParams.setGuid(guid);
+		comicStripRestBeanParams.setUid(uid);
 		Page<ComicStrip> comicStripPage = comicStripRestQuery.query(comicStripRestBeanParams);
 		ComicStripFullResponse comicStripResponse = new ComicStripFullResponse();
 		comicStripResponse.setComicStrip(comicStripFullRestMapper.mapFull(Iterables.getOnlyElement(comicStripPage.getContent(), null)));

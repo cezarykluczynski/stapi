@@ -1,11 +1,13 @@
 package com.cezarykluczynski.stapi.server.staff.configuration;
 
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
+import com.cezarykluczynski.stapi.server.staff.endpoint.StaffRestEndpoint;
 import com.cezarykluczynski.stapi.server.staff.endpoint.StaffSoapEndpoint;
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseRestMapper;
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffFullRestMapper;
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffFullSoapMapper;
+import org.apache.cxf.endpoint.Server;
 import org.mapstruct.factory.Mappers;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +24,11 @@ public class StaffConfiguration {
 	@Bean
 	public Endpoint staffEndpoint() {
 		return endpointFactory.createSoapEndpoint(StaffSoapEndpoint.class, StaffSoapEndpoint.ADDRESS);
+	}
+
+	@Bean
+	public Server staffServer() {
+		return endpointFactory.createRestEndpoint(StaffRestEndpoint.class, StaffRestEndpoint.ADDRESS);
 	}
 
 	@Bean

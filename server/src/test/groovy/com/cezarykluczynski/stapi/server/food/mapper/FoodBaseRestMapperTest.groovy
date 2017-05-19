@@ -18,7 +18,7 @@ class FoodBaseRestMapperTest extends AbstractFoodMapperTest {
 	void "maps FoodRestBeanParams to FoodRequestDTO"() {
 		given:
 		FoodRestBeanParams foodRestBeanParams = new FoodRestBeanParams(
-				guid: GUID,
+				uid: UID,
 				name: NAME,
 				earthlyOrigin: EARTHLY_ORIGIN,
 				dessert: DESSERT,
@@ -35,7 +35,7 @@ class FoodBaseRestMapperTest extends AbstractFoodMapperTest {
 		FoodRequestDTO foodRequestDTO = foodBaseRestMapper.mapBase foodRestBeanParams
 
 		then:
-		foodRequestDTO.guid == GUID
+		foodRequestDTO.uid == UID
 		foodRequestDTO.name == NAME
 		foodRequestDTO.earthlyOrigin == EARTHLY_ORIGIN
 		foodRequestDTO.dessert == DESSERT
@@ -57,7 +57,7 @@ class FoodBaseRestMapperTest extends AbstractFoodMapperTest {
 		FoodBase foodBase = foodBaseRestMapper.mapBase(Lists.newArrayList(food))[0]
 
 		then:
-		foodBase.guid == GUID
+		foodBase.uid == UID
 		foodBase.name == NAME
 		foodBase.earthlyOrigin == EARTHLY_ORIGIN
 		foodBase.dessert == DESSERT

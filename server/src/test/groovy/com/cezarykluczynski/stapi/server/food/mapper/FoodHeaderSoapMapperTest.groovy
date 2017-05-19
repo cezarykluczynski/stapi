@@ -16,14 +16,14 @@ class FoodHeaderSoapMapperTest extends AbstractFoodMapperTest {
 	void "maps DB entity to SOAP header"() {
 		given:
 		Food food = new Food(
-				guid: GUID,
+				uid: UID,
 				name: NAME)
 
 		when:
 		FoodHeader foodHeader = foodHeaderSoapMapper.map(Lists.newArrayList(food))[0]
 
 		then:
-		foodHeader.guid == GUID
+		foodHeader.uid == UID
 		foodHeader.name == NAME
 	}
 

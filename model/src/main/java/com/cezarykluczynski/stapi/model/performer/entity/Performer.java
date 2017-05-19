@@ -1,10 +1,13 @@
 package com.cezarykluczynski.stapi.model.performer.entity;
 
 import com.cezarykluczynski.stapi.model.character.entity.Character;
+import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
+import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.common.entity.RealWorldPerson;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
+import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository;
 import com.google.common.collect.Sets;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,6 +39,8 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true, exclude = {"episodesPerformances", "episodesStuntPerformances", "episodesStandInPerformances",
 		"moviesPerformances", "moviesStuntPerformances", "moviesStandInPerformances", "characters"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = PerformerRepository.class, singularName = "performer",
+		pluralName = "performers")
 public class Performer extends RealWorldPerson implements PageAware {
 
 	@Id

@@ -48,10 +48,10 @@ public class LocationRestReader implements BaseReader<LocationRestBeanParams, Lo
 	}
 
 	@Override
-	public LocationFullResponse readFull(String guid) {
-		StaticValidator.requireGuid(guid);
+	public LocationFullResponse readFull(String uid) {
+		StaticValidator.requireUid(uid);
 		LocationRestBeanParams locationRestBeanParams = new LocationRestBeanParams();
-		locationRestBeanParams.setGuid(guid);
+		locationRestBeanParams.setUid(uid);
 		Page<com.cezarykluczynski.stapi.model.location.entity.Location> locationPage = locationRestQuery.query(locationRestBeanParams);
 		LocationFullResponse locationResponse = new LocationFullResponse();
 		locationResponse.setLocation(locationFullRestMapper.mapFull(Iterables.getOnlyElement(locationPage.getContent(), null)));

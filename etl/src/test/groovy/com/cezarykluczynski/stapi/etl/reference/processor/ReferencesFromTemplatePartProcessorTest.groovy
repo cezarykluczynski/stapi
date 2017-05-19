@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.reference.processor
 
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.reference.entity.Reference
 import com.cezarykluczynski.stapi.model.reference.entity.enums.ReferenceType
 import com.cezarykluczynski.stapi.model.reference.factory.ReferenceFactory
@@ -18,13 +18,13 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 	private static final String FULL_ISBN_1 = '1563898500'
 	private static final String FULL_ISBN_2 = '1563899183'
 	private static final String ISBN_BARE = '0671008927'
-	private static final String GUID_1 = 'ISBN1563898500'
-	private static final String GUID_2 = 'ISBN1563899183'
+	private static final String UID_1 = 'ISBN1563898500'
+	private static final String UID_2 = 'ISBN1563899183'
 	private static final String ASIN = 'ASINB223213FCF'
 
 	private ReferenceRepository referenceRepositoryMock
 
-	private GuidGenerator guidGeneratorMock
+	private UidGenerator uidGeneratorMock
 
 	private ReferenceFactory referenceFactoryMock
 
@@ -32,9 +32,9 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 
 	void setup() {
 		referenceRepositoryMock = Mock()
-		guidGeneratorMock = Mock()
+		uidGeneratorMock = Mock()
 		referenceFactoryMock = Mock()
-		referencesFromTemplatePartProcessor = new ReferencesFromTemplatePartProcessor(referenceRepositoryMock, guidGeneratorMock,
+		referencesFromTemplatePartProcessor = new ReferencesFromTemplatePartProcessor(referenceRepositoryMock, uidGeneratorMock,
 				referenceFactoryMock)
 	}
 
@@ -59,12 +59,12 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 		Set<Reference> referenceSet = referencesFromTemplatePartProcessor.process(templatePart)
 
 		then:
-		1 * guidGeneratorMock.generateFromReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
+		1 * uidGeneratorMock.generateFromReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
 			assert pair.key == ReferenceType.ISBN
 			assert pair.value == ISBN_BARE
-			GUID_1
+			UID_1
 		}
-		1 * referenceRepositoryMock.findByGuid(GUID_1) >> Optional.of(reference)
+		1 * referenceRepositoryMock.findByUid(UID_1) >> Optional.of(reference)
 		0 * _
 		referenceSet.size() == 1
 		referenceSet.contains reference
@@ -80,18 +80,18 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 		Set<Reference> referenceSet = referencesFromTemplatePartProcessor.process(templatePart)
 
 		then:
-		1 * guidGeneratorMock.generateFromReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
+		1 * uidGeneratorMock.generateFromReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
 			assert pair.key == ReferenceType.ISBN
 			assert pair.value == FULL_ISBN_1
-			GUID_1
+			UID_1
 		}
-		1 * guidGeneratorMock.generateFromReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
+		1 * uidGeneratorMock.generateFromReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
 			assert pair.key == ReferenceType.ISBN
 			assert pair.value == FULL_ISBN_2
-			GUID_2
+			UID_2
 		}
-		1 * referenceRepositoryMock.findByGuid(GUID_1) >> Optional.of(reference1)
-		1 * referenceRepositoryMock.findByGuid(GUID_2) >> Optional.of(reference2)
+		1 * referenceRepositoryMock.findByUid(UID_1) >> Optional.of(reference1)
+		1 * referenceRepositoryMock.findByUid(UID_2) >> Optional.of(reference2)
 		0 * _
 		referenceSet.size() == 2
 		referenceSet.contains reference1
@@ -107,13 +107,13 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 		Set<Reference> referenceSet = referencesFromTemplatePartProcessor.process(templatePart)
 
 		then:
-		1 * guidGeneratorMock.generateFromReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
+		1 * uidGeneratorMock.generateFromReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
 			assert pair.key == ReferenceType.ISBN
 			assert pair.value == ISBN_BARE
-			GUID_1
+			UID_1
 		}
-		1 * referenceRepositoryMock.findByGuid(GUID_1) >> Optional.empty()
-		1 * referenceFactoryMock.createFromGuid(GUID_1) >> reference
+		1 * referenceRepositoryMock.findByUid(UID_1) >> Optional.empty()
+		1 * referenceFactoryMock.createFromUid(UID_1) >> reference
 		1 * referenceRepositoryMock.save(_ as Reference) >> { Reference it -> it }
 		0 * _
 		referenceSet.size() == 1
@@ -148,12 +148,12 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 		Set<Reference> referenceSet = referencesFromTemplatePartProcessor.process(templatePart)
 
 		then:
-		1 * guidGeneratorMock.generateFromReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
+		1 * uidGeneratorMock.generateFromReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
 			assert pair.key == ReferenceType.ASIN
 			assert pair.value == ASIN
-			GUID_1
+			UID_1
 		}
-		1 * referenceRepositoryMock.findByGuid(GUID_1) >> Optional.of(reference)
+		1 * referenceRepositoryMock.findByUid(UID_1) >> Optional.of(reference)
 		0 * _
 		referenceSet.size() == 1
 		referenceSet.contains reference

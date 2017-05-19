@@ -1,24 +1,24 @@
 package com.cezarykluczynski.stapi.server.common.validator
 
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import spock.lang.Specification
 
 class StaticValidatorTest extends Specification {
 
-	void "throws exception when GUID is missing"() {
+	void "throws exception when UID is missing"() {
 		when:
-		StaticValidator.requireGuid(null)
+		StaticValidator.requireUid(null)
 
 		then:
-		thrown(MissingGUIDException)
+		thrown(MissingUIDException)
 	}
 
-	void "does not throw exception when GUID is not null"() {
+	void "does not throw exception when UID is not null"() {
 		when:
-		StaticValidator.requireGuid('not null')
+		StaticValidator.requireUid('not null')
 
 		then:
-		notThrown(MissingGUIDException)
+		notThrown(MissingUIDException)
 	}
 
 }

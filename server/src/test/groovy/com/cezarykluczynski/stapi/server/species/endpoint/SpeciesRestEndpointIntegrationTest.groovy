@@ -15,7 +15,7 @@ class SpeciesRestEndpointIntegrationTest extends AbstractSpeciesEndpointIntegrat
 		createRestClient()
 	}
 
-	void "gets species by GUID"() {
+	void "gets species by UID"() {
 		when:
 		SpeciesFullResponse speciesFullResponse = stapiRestClient.speciesApi.speciesGet('SPMA0000039802', null)
 

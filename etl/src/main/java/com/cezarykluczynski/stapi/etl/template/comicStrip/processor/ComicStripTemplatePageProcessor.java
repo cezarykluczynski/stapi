@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.comicStrip.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextCharactersProcessor;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.template.comicStrip.dto.ComicStripTemplate;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
@@ -26,16 +27,16 @@ public class ComicStripTemplatePageProcessor implements ItemProcessor<Page, Comi
 
 	private ComicStripTemplatePartsEnrichingProcessor comicStripTemplatePartsEnrichingProcessor;
 
-	private ComicStripTemplateCharactersEnrichingProcessor comicStripTemplateCharactersEnrichingProcessor;
+	private WikitextCharactersProcessor wikitextCharactersProcessor;
 
 	@Inject
 	public ComicStripTemplatePageProcessor(TemplateFinder templateFinder, PageBindingService pageBindingService,
 			ComicStripTemplatePartsEnrichingProcessor comicStripTemplatePartsEnrichingProcessor,
-			ComicStripTemplateCharactersEnrichingProcessor comicStripTemplateCharactersEnrichingProcessor) {
+			WikitextCharactersProcessor wikitextCharactersProcessor) {
 		this.templateFinder = templateFinder;
 		this.pageBindingService = pageBindingService;
 		this.comicStripTemplatePartsEnrichingProcessor = comicStripTemplatePartsEnrichingProcessor;
-		this.comicStripTemplateCharactersEnrichingProcessor = comicStripTemplateCharactersEnrichingProcessor;
+		this.wikitextCharactersProcessor = wikitextCharactersProcessor;
 	}
 
 	@Override
@@ -54,7 +55,7 @@ public class ComicStripTemplatePageProcessor implements ItemProcessor<Page, Comi
 		comicStripTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 
 		comicStripTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(template.getParts(), comicStripTemplate));
-		comicStripTemplateCharactersEnrichingProcessor.enrich(EnrichablePair.of(item, comicStripTemplate));
+		comicStripTemplate.getCharacters().addAll(wikitextCharactersProcessor.process(item));
 
 		return comicStripTemplate;
 	}

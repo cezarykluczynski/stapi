@@ -3,10 +3,12 @@ package com.cezarykluczynski.stapi.etl.template.comics.processor
 import com.cezarykluczynski.stapi.etl.comicStrip.creation.service.ComicStripCandidatePageGatheringService
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextCharactersProcessor
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
+import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
@@ -14,6 +16,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
+import com.google.common.collect.Sets
 import spock.lang.Specification
 
 class ComicsTemplatePageProcessorTest extends Specification {
@@ -35,6 +38,8 @@ class ComicsTemplatePageProcessorTest extends Specification {
 
 	private ComicsTemplatePartsEnrichingProcessor comicsTemplatePartsEnrichingProcessorMock
 
+	private WikitextCharactersProcessor wikitextCharactersProcessorMock
+
 	private ComicsTemplatePageProcessor comicsTemplatePageProcessor
 
 	void setup() {
@@ -44,9 +49,10 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		templateFinderMock = Mock()
 		comicsTemplateCompositeEnrichingProcessorMock = Mock()
 		comicsTemplatePartsEnrichingProcessorMock = Mock()
+		wikitextCharactersProcessorMock = Mock()
 		comicsTemplatePageProcessor = new ComicsTemplatePageProcessor(categoryTitlesExtractingProcessorMock, comicStripCandidatePageGatheringService,
 				pageBindingServiceMock, templateFinderMock, comicsTemplateCompositeEnrichingProcessorMock,
-				comicsTemplatePartsEnrichingProcessorMock)
+				comicsTemplatePartsEnrichingProcessorMock, wikitextCharactersProcessorMock)
 	}
 
 	void "returns null when page title is among invalid page titles"() {
@@ -92,6 +98,7 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		2 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.PHOTONOVELS)
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
+		1 * wikitextCharactersProcessorMock.process(page) >> Sets.newHashSet()
 		1 * comicsTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair)
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC, TemplateTitle.SIDEBAR_NOVEL, TemplateTitle.SIDEBAR_AUDIO) >>
 				Optional.empty()
@@ -114,6 +121,7 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		2 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.PHOTONOVELS_COLLECTIONS)
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
+		1 * wikitextCharactersProcessorMock.process(page) >> Sets.newHashSet()
 		1 * comicsTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair)
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC, TemplateTitle.SIDEBAR_NOVEL, TemplateTitle.SIDEBAR_AUDIO) >>
 				Optional.empty()
@@ -136,6 +144,7 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		2 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.PHOTONOVELS)
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
+		1 * wikitextCharactersProcessorMock.process(page) >> Sets.newHashSet()
 		1 * comicsTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair)
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC, TemplateTitle.SIDEBAR_NOVEL, TemplateTitle.SIDEBAR_AUDIO) >>
 				Optional.empty()
@@ -159,6 +168,7 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >>
 				Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
+		1 * wikitextCharactersProcessorMock.process(page) >> Sets.newHashSet()
 		1 * comicsTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair)
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC, TemplateTitle.SIDEBAR_NOVEL, TemplateTitle.SIDEBAR_AUDIO) >>
 				Optional.empty()
@@ -182,6 +192,7 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >>
 				Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
+		1 * wikitextCharactersProcessorMock.process(page) >> Sets.newHashSet()
 		1 * comicsTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair)
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC, TemplateTitle.SIDEBAR_NOVEL, TemplateTitle.SIDEBAR_AUDIO) >>
 				Optional.empty()
@@ -209,6 +220,7 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		given:
 		Page page = new Page(title: TITLE)
 		ModelPage modelPage = new ModelPage()
+		Character character = Mock()
 
 		when:
 		ComicsTemplate comicsTemplate = comicsTemplatePageProcessor.process(page)
@@ -218,6 +230,7 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >>
 				Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
+		1 * wikitextCharactersProcessorMock.process(page) >> Sets.newHashSet(character)
 		1 * comicsTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair enrichablePair ->
 			assert enrichablePair.input == page
 			assert enrichablePair.output != null
@@ -227,6 +240,7 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		0 * _
 		comicsTemplate.title == TITLE
 		comicsTemplate.page == modelPage
+		comicsTemplate.characters.contains character
 		!comicsTemplate.productOfRedirect
 	}
 
@@ -247,6 +261,7 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		2 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
+		1 * wikitextCharactersProcessorMock.process(page) >> Sets.newHashSet()
 		1 * comicsTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair enrichablePair ->
 			assert enrichablePair.input == page
 			assert enrichablePair.output != null

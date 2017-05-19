@@ -11,7 +11,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.ReflectionTestUtils
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
-import com.cezarykluczynski.stapi.util.tool.LogicUtil
+import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -20,7 +20,7 @@ class BookSeriesTemplatePageProcessorTest extends Specification {
 	private static final String TITLE = 'TITLE'
 	private static final String TITLE_WITH_BRACKETS = 'TITLE (with brackets)'
 	private static final Long PAGE_ID = 11L
-	private static final Boolean E_BOOK_SERIES = LogicUtil.nextBoolean()
+	private static final Boolean E_BOOK_SERIES = RandomUtil.nextBoolean()
 	private static final MediaWikiSource SOURCES_MEDIA_WIKI_SOURCE = MediaWikiSource.MEMORY_ALPHA_EN
 
 	private PageBindingService pageBindingServiceMock

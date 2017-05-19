@@ -18,7 +18,7 @@ class PerformerBaseRestMapperTest extends AbstractPerformerMapperTest {
 	void "maps PerformerRestBeanParams to PerformerRequestDTO"() {
 		given:
 		PerformerRestBeanParams performerRestBeanParams = new PerformerRestBeanParams(
-				guid: GUID,
+				uid: UID,
 				name: NAME,
 				birthName: BIRTH_NAME,
 				gender: GENDER,
@@ -46,7 +46,7 @@ class PerformerBaseRestMapperTest extends AbstractPerformerMapperTest {
 		PerformerRequestDTO performerRequestDTO = performerRestMapper.mapBase performerRestBeanParams
 
 		then:
-		performerRequestDTO.guid == GUID
+		performerRequestDTO.uid == UID
 		performerRequestDTO.name == NAME
 		performerRequestDTO.birthName == BIRTH_NAME
 		performerRequestDTO.gender == GENDER
@@ -80,7 +80,7 @@ class PerformerBaseRestMapperTest extends AbstractPerformerMapperTest {
 
 		then:
 		performerBase.name == NAME
-		performerBase.guid == GUID
+		performerBase.uid == UID
 		performerBase.birthName == BIRTH_NAME
 		performerBase.gender == GENDER_ENUM_REST
 		performerBase.dateOfBirth == DATE_OF_BIRTH_FROM_DB

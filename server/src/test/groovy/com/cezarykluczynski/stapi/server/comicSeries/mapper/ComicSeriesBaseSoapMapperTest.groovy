@@ -65,7 +65,7 @@ class ComicSeriesBaseSoapMapperTest extends AbstractComicSeriesMapperTest {
 		ComicSeriesBase comicSeriesBase = comicSeriesBaseSoapMapper.mapBase(Lists.newArrayList(comicSeries))[0]
 
 		then:
-		comicSeriesBase.guid == GUID
+		comicSeriesBase.uid == UID
 		comicSeriesBase.title == TITLE
 		comicSeriesBase.publishedYearFrom == PUBLISHED_YEAR_FROM
 		comicSeriesBase.publishedMonthFrom == PUBLISHED_MONTH_FROM

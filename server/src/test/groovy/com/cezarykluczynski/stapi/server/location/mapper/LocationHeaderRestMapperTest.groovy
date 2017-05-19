@@ -16,14 +16,14 @@ class LocationHeaderRestMapperTest extends AbstractLocationMapperTest {
 	void "maps DB entity to REST header"() {
 		given:
 		Location location = new Location(
-				guid: GUID,
+				uid: UID,
 				name: NAME)
 
 		when:
 		LocationHeader locationHeader = locationHeaderRestMapper.map(Lists.newArrayList(location))[0]
 
 		then:
-		locationHeader.guid == GUID
+		locationHeader.uid == UID
 		locationHeader.name == NAME
 	}
 

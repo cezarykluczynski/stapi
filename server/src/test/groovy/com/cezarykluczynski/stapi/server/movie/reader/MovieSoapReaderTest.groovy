@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.MovieFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
 import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.movie.mapper.MovieBaseSoapMapper
 import com.cezarykluczynski.stapi.server.movie.mapper.MovieFullSoapMapper
 import com.cezarykluczynski.stapi.server.movie.query.MovieSoapQuery
@@ -19,7 +19,7 @@ import spock.lang.Specification
 
 class MovieSoapReaderTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private MovieSoapQuery movieSoapQueryBuilderMock
 
@@ -43,7 +43,7 @@ class MovieSoapReaderTest extends Specification {
 		given:
 		List<Movie> movieList = Lists.newArrayList()
 		Page<Movie> moviePage = Mock()
-		List<MovieBase> soapMovieList = Lists.newArrayList(new MovieBase(guid: GUID))
+		List<MovieBase> soapMovieList = Lists.newArrayList(new MovieBase(uid: UID))
 		MovieBaseRequest movieBaseRequest = Mock()
 		ResponsePage responsePage = Mock()
 
@@ -55,16 +55,16 @@ class MovieSoapReaderTest extends Specification {
 		1 * moviePage.content >> movieList
 		1 * pageMapperMock.fromPageToSoapResponsePage(moviePage) >> responsePage
 		1 * movieBaseSoapMapperMock.mapBase(movieList) >> soapMovieList
-		movieResponse.movies[0].guid == GUID
+		movieResponse.movies[0].uid == UID
 		movieResponse.page == responsePage
 	}
 
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		MovieFull movieFull = new MovieFull(guid: GUID)
+		MovieFull movieFull = new MovieFull(uid: UID)
 		Movie movie = Mock()
 		Page<Movie> moviePage = Mock()
-		MovieFullRequest movieFullRequest = new MovieFullRequest(guid: GUID)
+		MovieFullRequest movieFullRequest = new MovieFullRequest(uid: UID)
 
 		when:
 		MovieFullResponse movieFullResponse = movieSoapReader.readFull(movieFullRequest)
@@ -73,10 +73,10 @@ class MovieSoapReaderTest extends Specification {
 		1 * movieSoapQueryBuilderMock.query(movieFullRequest) >> moviePage
 		1 * moviePage.content >> Lists.newArrayList(movie)
 		1 * movieFullSoapMapperMock.mapFull(movie) >> movieFull
-		movieFullResponse.movie.guid == GUID
+		movieFullResponse.movie.uid == UID
 	}
 
-	void "requires GUID in full request"() {
+	void "requires UID in full request"() {
 		given:
 		MovieFullRequest movieFullRequest = Mock()
 
@@ -84,7 +84,7 @@ class MovieSoapReaderTest extends Specification {
 		movieSoapReader.readFull(movieFullRequest)
 
 		then:
-		thrown(MissingGUIDException)
+		thrown(MissingUIDException)
 	}
 
 }

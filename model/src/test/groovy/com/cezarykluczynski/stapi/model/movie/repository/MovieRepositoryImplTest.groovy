@@ -15,7 +15,7 @@ import spock.lang.Specification
 
 class MovieRepositoryImplTest extends Specification {
 
-	private static final String GUID = 'ABCD0123456789'
+	private static final String UID = 'ABCD0123456789'
 
 	private MovieInitialQueryBuilderFactory movieInitialQueryBuilderFactory
 
@@ -78,8 +78,8 @@ class MovieRepositoryImplTest extends Specification {
 		then: 'criteria builder is retrieved'
 		1 * movieInitialQueryBuilderFactory.createInitialQueryBuilder(movieRequestDTO, pageable) >> movieQueryBuilder
 
-		then: 'guid is retrieved, and it is not null'
-		1 * movieRequestDTO.guid >> GUID
+		then: 'uid is retrieved, and it is not null'
+		1 * movieRequestDTO.uid >> UID
 
 		then: 'main director is fetched'
 		1 * movieQueryBuilder.fetch(Movie_.mainDirector)
@@ -142,8 +142,8 @@ class MovieRepositoryImplTest extends Specification {
 		then: 'criteria builder is retrieved'
 		1 * movieInitialQueryBuilderFactory.createInitialQueryBuilder(movieRequestDTO, pageable) >> movieQueryBuilder
 
-		then: 'guid is retrieved, and it is not null'
-		1 * movieRequestDTO.guid >> GUID
+		then: 'uid is retrieved, and it is not null'
+		1 * movieRequestDTO.uid >> UID
 
 		then: 'main director is fetched'
 		1 * movieQueryBuilder.fetch(Movie_.mainDirector)
@@ -194,8 +194,8 @@ class MovieRepositoryImplTest extends Specification {
 		then: 'criteria builder is retrieved'
 		1 * movieInitialQueryBuilderFactory.createInitialQueryBuilder(movieRequestDTO, pageable) >> movieQueryBuilder
 
-		then: 'guid is retrieved, and it is not null'
-		1 * movieRequestDTO.guid >> GUID
+		then: 'uid is retrieved, and it is not null'
+		1 * movieRequestDTO.uid >> UID
 
 		then: 'main director is fetched'
 		1 * movieQueryBuilder.fetch(Movie_.mainDirector)
@@ -226,8 +226,8 @@ class MovieRepositoryImplTest extends Specification {
 		then: 'criteria builder is retrieved'
 		1 * movieInitialQueryBuilderFactory.createInitialQueryBuilder(movieRequestDTO, pageable) >> movieQueryBuilder
 
-		then: 'guid criteria is set to null'
-		1 * movieRequestDTO.guid >> null
+		then: 'uid criteria is set to null'
+		1 * movieRequestDTO.uid >> null
 
 		then: 'page is searched for and returned'
 		1 * movieQueryBuilder.findPage() >> page

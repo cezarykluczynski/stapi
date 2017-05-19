@@ -47,7 +47,7 @@ public class CharacterSoapReader implements BaseReader<CharacterBaseRequest, Cha
 
 	@Override
 	public CharacterFullResponse readFull(CharacterFullRequest input) {
-		StaticValidator.requireGuid(input.getGuid());
+		StaticValidator.requireUid(input.getUid());
 		Page<Character> characterPage = characterSoapQuery.query(input);
 		CharacterFullResponse characterFullResponse = new CharacterFullResponse();
 		characterFullResponse.setCharacter(characterFullSoapMapper.mapFull(Iterables.getOnlyElement(characterPage.getContent(), null)));

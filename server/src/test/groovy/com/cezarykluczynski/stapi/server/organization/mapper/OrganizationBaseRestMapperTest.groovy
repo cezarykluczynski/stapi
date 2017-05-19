@@ -18,7 +18,7 @@ class OrganizationBaseRestMapperTest extends AbstractOrganizationMapperTest {
 	void "maps OrganizationRestBeanParams to OrganizationRequestDTO"() {
 		given:
 		OrganizationRestBeanParams organizationRestBeanParams = new OrganizationRestBeanParams(
-				guid: GUID,
+				uid: UID,
 				name: NAME,
 				government: GOVERNMENT,
 				intergovernmentalOrganization: INTERGOVERNMENTAL_ORGANIZATION,
@@ -37,7 +37,7 @@ class OrganizationBaseRestMapperTest extends AbstractOrganizationMapperTest {
 		OrganizationRequestDTO organizationRequestDTO = organizationBaseRestMapper.mapBase organizationRestBeanParams
 
 		then:
-		organizationRequestDTO.guid == GUID
+		organizationRequestDTO.uid == UID
 		organizationRequestDTO.name == NAME
 		organizationRequestDTO.government == GOVERNMENT
 		organizationRequestDTO.intergovernmentalOrganization == INTERGOVERNMENTAL_ORGANIZATION
@@ -61,7 +61,7 @@ class OrganizationBaseRestMapperTest extends AbstractOrganizationMapperTest {
 		OrganizationBase organizationBase = organizationBaseRestMapper.mapBase(Lists.newArrayList(organization))[0]
 
 		then:
-		organizationBase.guid == GUID
+		organizationBase.uid == UID
 		organizationBase.name == NAME
 		organizationBase.government == GOVERNMENT
 		organizationBase.intergovernmentalOrganization == INTERGOVERNMENTAL_ORGANIZATION

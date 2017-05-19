@@ -47,7 +47,7 @@ public class ComicCollectionSoapReader implements BaseReader<ComicCollectionBase
 
 	@Override
 	public ComicCollectionFullResponse readFull(ComicCollectionFullRequest input) {
-		StaticValidator.requireGuid(input.getGuid());
+		StaticValidator.requireUid(input.getUid());
 		Page<ComicCollection> comicCollectionPage = comicCollectionSoapQuery.query(input);
 		ComicCollectionFullResponse comicCollectionFullResponse = new ComicCollectionFullResponse();
 		comicCollectionFullResponse.setComicCollection(comicCollectionFullSoapMapper

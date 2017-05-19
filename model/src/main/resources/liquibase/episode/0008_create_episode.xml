@@ -3,7 +3,7 @@
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 	<changeSet id="0008_create_episode" author="cezarykluczynski">
-		<createTable tableName="episode">
+		<createTable schemaName="stapi" tableName="episode">
 			<column name="id" type="bigint">
 				<constraints unique="true" nullable="false"/>
 			</column>
@@ -13,7 +13,7 @@
 			<column name="series_id" type="bigint">
 				<constraints nullable="false"/>
 			</column>
-			<column name="guid" type="varchar(14)">
+			<column name="u_id" type="varchar(14)">
 				<constraints nullable="false"/>
 			</column>
 			<column name="title" type="varchar(128)">
@@ -45,7 +45,7 @@
 				referencedColumnNames="id"
 				referencedTableName="series"/>
 
-		<createTable tableName="episodes_writers">
+		<createTable schemaName="stapi" tableName="episodes_writers">
 			<column name="episode_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
@@ -60,7 +60,7 @@
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable tableName="episodes_teleplay_authors">
+		<createTable schemaName="stapi" tableName="episodes_teleplay_authors">
 			<column name="episode_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
@@ -75,7 +75,7 @@
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable tableName="episodes_story_authors">
+		<createTable schemaName="stapi" tableName="episodes_story_authors">
 			<column name="episode_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
@@ -90,7 +90,7 @@
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable tableName="episodes_directors">
+		<createTable schemaName="stapi" tableName="episodes_directors">
 			<column name="episode_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
@@ -105,7 +105,7 @@
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable tableName="episodes_staff">
+		<createTable schemaName="stapi" tableName="episodes_staff">
 			<column name="episode_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
@@ -120,7 +120,7 @@
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable tableName="episodes_performers">
+		<createTable schemaName="stapi" tableName="episodes_performers">
 			<column name="episode_id" type="bigint"/>
 			<column name="performer_id" type="bigint"/>
 		</createTable>
@@ -135,7 +135,7 @@
 				referencedColumnNames="id"
 				referencedTableName="performer"/>
 
-		<createTable tableName="episodes_stunt_performers">
+		<createTable schemaName="stapi" tableName="episodes_stunt_performers">
 			<column name="episode_id" type="bigint"/>
 			<column name="performer_id" type="bigint"/>
 		</createTable>
@@ -150,7 +150,7 @@
 				referencedColumnNames="id"
 				referencedTableName="performer"/>
 
-		<createTable tableName="episodes_stand_in_performers">
+		<createTable schemaName="stapi" tableName="episodes_stand_in_performers">
 			<column name="episode_id" type="bigint"/>
 			<column name="performer_id" type="bigint"/>
 		</createTable>
@@ -165,7 +165,7 @@
 				referencedColumnNames="id"
 				referencedTableName="performer"/>
 
-		<createTable tableName="episodes_characters">
+		<createTable schemaName="stapi" tableName="episodes_characters">
 			<column name="episode_id" type="bigint"/>
 			<column name="character_id" type="bigint"/>
 		</createTable>

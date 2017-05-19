@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.CompanyFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseSoapMapper
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyFullSoapMapper
 import com.cezarykluczynski.stapi.server.company.query.CompanySoapQuery
@@ -19,7 +19,7 @@ import spock.lang.Specification
 
 class CompanySoapReaderTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private CompanySoapQuery companySoapQueryBuilderMock
 
@@ -43,7 +43,7 @@ class CompanySoapReaderTest extends Specification {
 		given:
 		List<Company> companyList = Lists.newArrayList()
 		Page<Company> companyPage = Mock()
-		List<CompanyBase> soapCompanyList = Lists.newArrayList(new CompanyBase(guid: GUID))
+		List<CompanyBase> soapCompanyList = Lists.newArrayList(new CompanyBase(uid: UID))
 		CompanyBaseRequest companyBaseRequest = Mock()
 		ResponsePage responsePage = Mock()
 
@@ -55,16 +55,16 @@ class CompanySoapReaderTest extends Specification {
 		1 * companyPage.content >> companyList
 		1 * pageMapperMock.fromPageToSoapResponsePage(companyPage) >> responsePage
 		1 * companyBaseSoapMapperMock.mapBase(companyList) >> soapCompanyList
-		companyResponse.companies[0].guid == GUID
+		companyResponse.companies[0].uid == UID
 		companyResponse.page == responsePage
 	}
 
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		CompanyFull companyFull = new CompanyFull(guid: GUID)
+		CompanyFull companyFull = new CompanyFull(uid: UID)
 		Company company = Mock()
 		Page<Company> companyPage = Mock()
-		CompanyFullRequest companyFullRequest = new CompanyFullRequest(guid: GUID)
+		CompanyFullRequest companyFullRequest = new CompanyFullRequest(uid: UID)
 
 		when:
 		CompanyFullResponse companyFullResponse = companySoapReader.readFull(companyFullRequest)
@@ -73,10 +73,10 @@ class CompanySoapReaderTest extends Specification {
 		1 * companySoapQueryBuilderMock.query(companyFullRequest) >> companyPage
 		1 * companyPage.content >> Lists.newArrayList(company)
 		1 * companyFullSoapMapperMock.mapFull(company) >> companyFull
-		companyFullResponse.company.guid == GUID
+		companyFullResponse.company.uid == UID
 	}
 
-	void "requires GUID in full request"() {
+	void "requires UID in full request"() {
 		given:
 		CompanyFullRequest companyFullRequest = Mock()
 
@@ -84,7 +84,7 @@ class CompanySoapReaderTest extends Specification {
 		companySoapReader.readFull(companyFullRequest)
 
 		then:
-		thrown(MissingGUIDException)
+		thrown(MissingUIDException)
 	}
 
 }

@@ -52,9 +52,9 @@ class SeriesRestEndpointIntegrationTest extends AbstractSeriesEndpointIntegratio
 	@Requires({
 		StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_EPISODES)
 	})
-	void "gets series by guid"() {
+	void "gets series by uid"() {
 		when:
-		SeriesFullResponse seriesFullResponse = stapiRestClient.seriesApi.seriesGet(GUID)
+		SeriesFullResponse seriesFullResponse = stapiRestClient.seriesApi.seriesGet(UID, null)
 
 		then:
 		seriesFullResponse.series.abbreviation == TAS

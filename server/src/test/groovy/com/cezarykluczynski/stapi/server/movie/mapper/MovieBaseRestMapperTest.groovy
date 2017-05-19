@@ -18,7 +18,7 @@ class MovieBaseRestMapperTest extends AbstractMovieMapperTest {
 	void "maps MovieRestBeanParams to MovieRequestDTO"() {
 		given:
 		MovieRestBeanParams movieRestBeanParams = new MovieRestBeanParams(
-				guid: GUID,
+				uid: UID,
 				title: TITLE,
 				stardateFrom: STARDATE_FROM,
 				stardateTo: STARDATE_TO,
@@ -31,7 +31,7 @@ class MovieBaseRestMapperTest extends AbstractMovieMapperTest {
 		MovieRequestDTO movieRequestDTO = movieBaseRestMapper.mapBase movieRestBeanParams
 
 		then:
-		movieRequestDTO.guid == GUID
+		movieRequestDTO.uid == UID
 		movieRequestDTO.title == TITLE
 		movieRequestDTO.stardateFrom == STARDATE_FROM
 		movieRequestDTO.stardateTo == STARDATE_TO
@@ -49,7 +49,7 @@ class MovieBaseRestMapperTest extends AbstractMovieMapperTest {
 		MovieBase movieBase = movieBaseRestMapper.mapBase(Lists.newArrayList(movie))[0]
 
 		then:
-		movieBase.guid == GUID
+		movieBase.uid == UID
 		movieBase.mainDirector != null
 		movieBase.title == TITLE
 		movieBase.titleBulgarian == TITLE_BULGARIAN

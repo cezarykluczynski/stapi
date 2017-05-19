@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.company.dto.CompanyRestBeanParams
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseRestMapper
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyFullRestMapper
@@ -18,7 +18,7 @@ import spock.lang.Specification
 
 class CompanyRestReaderTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private CompanyRestQuery companyRestQueryBuilderMock
 
@@ -62,7 +62,7 @@ class CompanyRestReaderTest extends Specification {
 		companyResponseOutput.page == responsePage
 	}
 
-	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
+	void "passed UID to queryBuilder, then to mapper, and returns result"() {
 		given:
 		CompanyFull companyFull = Mock()
 		Company company = Mock()
@@ -70,11 +70,11 @@ class CompanyRestReaderTest extends Specification {
 		Page<Company> companyPage = Mock()
 
 		when:
-		CompanyFullResponse companyResponseOutput = companyRestReader.readFull(GUID)
+		CompanyFullResponse companyResponseOutput = companyRestReader.readFull(UID)
 
 		then:
 		1 * companyRestQueryBuilderMock.query(_ as CompanyRestBeanParams) >> { CompanyRestBeanParams companyRestBeanParams ->
-			assert companyRestBeanParams.guid == GUID
+			assert companyRestBeanParams.uid == UID
 			companyPage
 		}
 		1 * companyPage.content >> companyList
@@ -83,12 +83,12 @@ class CompanyRestReaderTest extends Specification {
 		companyResponseOutput.company == companyFull
 	}
 
-	void "requires GUID in full request"() {
+	void "requires UID in full request"() {
 		when:
 		companyRestReader.readFull(null)
 
 		then:
-		thrown(MissingGUIDException)
+		thrown(MissingUIDException)
 	}
 
 }

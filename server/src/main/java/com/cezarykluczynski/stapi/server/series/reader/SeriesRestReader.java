@@ -47,10 +47,10 @@ public class SeriesRestReader implements BaseReader<SeriesRestBeanParams, Series
 	}
 
 	@Override
-	public SeriesFullResponse readFull(String guid) {
-		StaticValidator.requireGuid(guid);
+	public SeriesFullResponse readFull(String uid) {
+		StaticValidator.requireUid(uid);
 		SeriesRestBeanParams seriesRestBeanParams = new SeriesRestBeanParams();
-		seriesRestBeanParams.setGuid(guid);
+		seriesRestBeanParams.setUid(uid);
 		Page<Series> seriesPage = seriesRestQuery.query(seriesRestBeanParams);
 		SeriesFullResponse seriesResponse = new SeriesFullResponse();
 		seriesResponse.setSeries(seriesFullRestMapper.mapFull(Iterables.getOnlyElement(seriesPage.getContent(), null)));

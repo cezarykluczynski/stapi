@@ -1,6 +1,9 @@
 package com.cezarykluczynski.stapi.model.page.entity;
 
+import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
+import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource;
+import com.cezarykluczynski.stapi.model.page.repository.PageRepository;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +25,7 @@ import javax.persistence.SequenceGenerator;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@TrackedEntity(type = TrackedEntityType.TECHNICAL, repository = PageRepository.class, apiEntity = false, singularName = "page", pluralName = "pages")
 public class Page {
 
 	@Id

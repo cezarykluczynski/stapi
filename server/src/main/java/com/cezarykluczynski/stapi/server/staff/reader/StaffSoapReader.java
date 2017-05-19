@@ -46,7 +46,7 @@ public class StaffSoapReader implements BaseReader<StaffBaseRequest, StaffBaseRe
 
 	@Override
 	public StaffFullResponse readFull(StaffFullRequest input) {
-		StaticValidator.requireGuid(input.getGuid());
+		StaticValidator.requireUid(input.getUid());
 		Page<Staff> staffPage = staffSoapQuery.query(input);
 		StaffFullResponse staffFullResponse = new StaffFullResponse();
 		staffFullResponse.setStaff(staffFullSoapMapper.mapFull(Iterables.getOnlyElement(staffPage.getContent(), null)));

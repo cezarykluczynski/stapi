@@ -42,10 +42,10 @@ class CompanySoapEndpointIntegrationTest extends AbstractCompanyEndpointIntegrat
 		astronomicalObjectResponse.companies[1].name == 'Digital Domain'
 	}
 
-	void "gets company by GUID"() {
+	void "gets company by UID"() {
 		when:
 		CompanyFullResponse companyFullResponse = stapiSoapClient.companyPortType
-				.getCompanyFull(new CompanyFullRequest(guid: 'COMA0000111666'))
+				.getCompanyFull(new CompanyFullRequest(uid: 'COMA0000111666'))
 
 		then:
 		companyFullResponse.company.name == 'PBS'

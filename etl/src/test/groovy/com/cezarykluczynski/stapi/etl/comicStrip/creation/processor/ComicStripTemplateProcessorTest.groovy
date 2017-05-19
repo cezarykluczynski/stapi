@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.etl.template.comicStrip.dto.ComicStripTemplate
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries
 import com.cezarykluczynski.stapi.model.comicStrip.entity.ComicStrip
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.util.AbstractComicStripTest
@@ -14,13 +14,13 @@ class ComicStripTemplateProcessorTest extends AbstractComicStripTest {
 
 	private final Page page = Mock()
 
-	private GuidGenerator guidGeneratorMock
+	private UidGenerator uidGeneratorMock
 
 	private ComicStripTemplateProcessor comicStripTemplateProcessor
 
 	void setup() {
-		guidGeneratorMock = Mock()
-		comicStripTemplateProcessor = new ComicStripTemplateProcessor(guidGeneratorMock)
+		uidGeneratorMock = Mock()
+		comicStripTemplateProcessor = new ComicStripTemplateProcessor(uidGeneratorMock)
 	}
 
 	void "converts ComicStripTemplate to ComicStrip"() {
@@ -56,8 +56,8 @@ class ComicStripTemplateProcessorTest extends AbstractComicStripTest {
 		ComicStrip comicStrip = comicStripTemplateProcessor.process(comicStripTemplate)
 
 		then:
-		1 * guidGeneratorMock.generateFromPage(page, ComicStrip) >> GUID
-		comicStrip.guid == GUID
+		1 * uidGeneratorMock.generateFromPage(page, ComicStrip) >> UID
+		comicStrip.uid == UID
 		comicStrip.page == page
 		comicStrip.title == TITLE
 		comicStrip.periodical == PERIODICAL

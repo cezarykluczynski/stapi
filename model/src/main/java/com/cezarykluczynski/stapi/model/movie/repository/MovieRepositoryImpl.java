@@ -27,7 +27,7 @@ public class MovieRepositoryImpl extends AbstractRepositoryImpl<Movie> implement
 	@Override
 	public Page<Movie> findMatching(MovieRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<Movie> movieQueryBuilder = createInitialMovieQueryBuilder(criteria, pageable);
-		boolean doFetch = criteria.getGuid() != null;
+		boolean doFetch = criteria.getUid() != null;
 
 		Page<Movie> moviePage;
 

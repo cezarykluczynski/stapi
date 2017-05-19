@@ -6,7 +6,7 @@ import javax.ws.rs.FormParam;
 
 public class FoodRestBeanParams extends PageSortBeanParams {
 
-	private String guid;
+	private String uid;
 
 	@FormParam("name")
 	private String name;
@@ -41,12 +41,12 @@ public class FoodRestBeanParams extends PageSortBeanParams {
 	@FormParam("tea")
 	private Boolean tea;
 
-	public String getGuid() {
-		return guid;
+	public String getUid() {
+		return uid;
 	}
 
-	public void setGuid(String guid) {
-		this.guid = guid;
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 
 	public String getName() {

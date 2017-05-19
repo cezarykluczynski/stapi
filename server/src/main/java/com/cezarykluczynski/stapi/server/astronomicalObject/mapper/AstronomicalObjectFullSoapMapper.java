@@ -14,7 +14,7 @@ public interface AstronomicalObjectFullSoapMapper {
 
 	@Mapping(target = "name", ignore = true)
 	@Mapping(target = "astronomicalObjectType", ignore = true)
-	@Mapping(target = "locationGuid", ignore = true)
+	@Mapping(target = "locationUid", ignore = true)
 	@Mapping(target = "sort", ignore = true)
 	AstronomicalObjectRequestDTO mapFull(AstronomicalObjectFullRequest astronomicalObjectFullRequest);
 

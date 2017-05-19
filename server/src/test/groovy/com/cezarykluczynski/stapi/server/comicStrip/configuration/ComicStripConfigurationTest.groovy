@@ -1,11 +1,13 @@
 package com.cezarykluczynski.stapi.server.comicStrip.configuration
 
+import com.cezarykluczynski.stapi.server.comicStrip.endpoint.ComicStripRestEndpoint
 import com.cezarykluczynski.stapi.server.comicStrip.endpoint.ComicStripSoapEndpoint
 import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripBaseRestMapper
 import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripBaseSoapMapper
 import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripFullRestMapper
 import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripFullSoapMapper
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
+import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
 
 import javax.xml.ws.Endpoint
@@ -32,6 +34,19 @@ class ComicStripConfigurationTest extends Specification {
 		1 * endpointFactoryMock.createSoapEndpoint(ComicStripSoapEndpoint, ComicStripSoapEndpoint.ADDRESS) >> endpoint
 		0 * _
 		endpointOutput == endpoint
+	}
+
+	void "ComicStrip REST endpoint is created"() {
+		given:
+		Server server = Mock()
+
+		when:
+		Server serverOutput = comicStripConfiguration.comicStripServer()
+
+		then:
+		1 * endpointFactoryMock.createRestEndpoint(ComicStripRestEndpoint, ComicStripRestEndpoint.ADDRESS) >> server
+		0 * _
+		serverOutput == server
 	}
 
 	void "ComicStripBaseSoapMapper is created"() {

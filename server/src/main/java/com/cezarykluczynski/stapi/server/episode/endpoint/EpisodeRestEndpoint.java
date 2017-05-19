@@ -19,9 +19,10 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 @Service
-@Path("v1/rest/episode")
 @Produces(MediaType.APPLICATION_JSON)
 public class EpisodeRestEndpoint {
+
+	public static final String ADDRESS = "/v1/rest/episode";
 
 	private EpisodeRestReader episodeRestReader;
 
@@ -32,8 +33,8 @@ public class EpisodeRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public EpisodeFullResponse getEpisode(@QueryParam("guid") String guid) {
-		return episodeRestReader.readFull(guid);
+	public EpisodeFullResponse getEpisode(@QueryParam("uid") String uid) {
+		return episodeRestReader.readFull(uid);
 	}
 
 	@GET

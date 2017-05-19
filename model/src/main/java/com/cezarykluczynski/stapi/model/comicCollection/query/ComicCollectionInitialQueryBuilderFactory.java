@@ -24,7 +24,7 @@ public class ComicCollectionInitialQueryBuilderFactory implements InitialQueryBu
 	public QueryBuilder<ComicCollection> createInitialQueryBuilder(ComicCollectionRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<ComicCollection> comicsQueryBuilder = comicCollectionQueryBuilderFactory.createQueryBuilder(pageable);
 
-		comicsQueryBuilder.equal(ComicCollection_.guid, criteria.getGuid());
+		comicsQueryBuilder.equal(ComicCollection_.uid, criteria.getUid());
 		comicsQueryBuilder.like(ComicCollection_.title, criteria.getTitle());
 		comicsQueryBuilder.between(ComicCollection_.publishedYear, criteria.getPublishedYearFrom(), criteria.getPublishedYearTo());
 		comicsQueryBuilder.between(ComicCollection_.numberOfPages, criteria.getNumberOfPagesFrom(), criteria.getNumberOfPagesTo());

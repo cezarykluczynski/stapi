@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.OrganizationFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
 import com.cezarykluczynski.stapi.model.organization.entity.Organization
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.organization.mapper.OrganizationBaseSoapMapper
 import com.cezarykluczynski.stapi.server.organization.mapper.OrganizationFullSoapMapper
 import com.cezarykluczynski.stapi.server.organization.query.OrganizationSoapQuery
@@ -19,7 +19,7 @@ import spock.lang.Specification
 
 class OrganizationSoapReaderTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private OrganizationSoapQuery organizationSoapQueryBuilderMock
 
@@ -44,7 +44,7 @@ class OrganizationSoapReaderTest extends Specification {
 		given:
 		List<Organization> organizationList = Lists.newArrayList()
 		Page<Organization> organizationPage = Mock()
-		List<OrganizationBase> soapOrganizationList = Lists.newArrayList(new OrganizationBase(guid: GUID))
+		List<OrganizationBase> soapOrganizationList = Lists.newArrayList(new OrganizationBase(uid: UID))
 		OrganizationBaseRequest organizationBaseRequest = Mock()
 		ResponsePage responsePage = Mock()
 
@@ -56,16 +56,16 @@ class OrganizationSoapReaderTest extends Specification {
 		1 * organizationPage.content >> organizationList
 		1 * pageMapperMock.fromPageToSoapResponsePage(organizationPage) >> responsePage
 		1 * organizationBaseSoapMapperMock.mapBase(organizationList) >> soapOrganizationList
-		organizationResponse.organizations[0].guid == GUID
+		organizationResponse.organizations[0].uid == UID
 		organizationResponse.page == responsePage
 	}
 
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		OrganizationFull organizationFull = new OrganizationFull(guid: GUID)
+		OrganizationFull organizationFull = new OrganizationFull(uid: UID)
 		Organization organization = Mock()
 		Page<Organization> organizationPage = Mock()
-		OrganizationFullRequest organizationFullRequest = new OrganizationFullRequest(guid: GUID)
+		OrganizationFullRequest organizationFullRequest = new OrganizationFullRequest(uid: UID)
 
 		when:
 		OrganizationFullResponse organizationFullResponse = organizationSoapReader.readFull(organizationFullRequest)
@@ -74,10 +74,10 @@ class OrganizationSoapReaderTest extends Specification {
 		1 * organizationSoapQueryBuilderMock.query(organizationFullRequest) >> organizationPage
 		1 * organizationPage.content >> Lists.newArrayList(organization)
 		1 * organizationFullSoapMapperMock.mapFull(organization) >> organizationFull
-		organizationFullResponse.organization.guid == GUID
+		organizationFullResponse.organization.uid == UID
 	}
 
-	void "requires GUID in full request"() {
+	void "requires UID in full request"() {
 		given:
 		OrganizationFullRequest organizationFullRequest = Mock()
 
@@ -85,7 +85,7 @@ class OrganizationSoapReaderTest extends Specification {
 		organizationSoapReader.readFull(organizationFullRequest)
 
 		then:
-		thrown(MissingGUIDException)
+		thrown(MissingUIDException)
 	}
 
 }

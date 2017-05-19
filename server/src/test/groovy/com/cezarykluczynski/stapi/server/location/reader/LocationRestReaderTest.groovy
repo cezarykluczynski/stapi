@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.LocationFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
 import com.cezarykluczynski.stapi.model.location.entity.Location
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.location.dto.LocationRestBeanParams
 import com.cezarykluczynski.stapi.server.location.mapper.LocationBaseRestMapper
 import com.cezarykluczynski.stapi.server.location.mapper.LocationFullRestMapper
@@ -18,7 +18,7 @@ import spock.lang.Specification
 
 class LocationRestReaderTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private LocationRestQuery locationRestQueryBuilderMock
 
@@ -62,7 +62,7 @@ class LocationRestReaderTest extends Specification {
 		locationResponseOutput.page == responsePage
 	}
 
-	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
+	void "passed UID to queryBuilder, then to mapper, and returns result"() {
 		given:
 		LocationFull locationFull = Mock()
 		Location location = Mock()
@@ -70,11 +70,11 @@ class LocationRestReaderTest extends Specification {
 		Page<Location> locationPage = Mock()
 
 		when:
-		LocationFullResponse locationResponseOutput = locationRestReader.readFull(GUID)
+		LocationFullResponse locationResponseOutput = locationRestReader.readFull(UID)
 
 		then:
 		1 * locationRestQueryBuilderMock.query(_ as LocationRestBeanParams) >> { LocationRestBeanParams locationRestBeanParams ->
-			assert locationRestBeanParams.guid == GUID
+			assert locationRestBeanParams.uid == UID
 			locationPage
 		}
 		1 * locationPage.content >> locationList
@@ -83,12 +83,12 @@ class LocationRestReaderTest extends Specification {
 		locationResponseOutput.location == locationFull
 	}
 
-	void "requires GUID in full request"() {
+	void "requires UID in full request"() {
 		when:
 		locationRestReader.readFull(null)
 
 		then:
-		thrown(MissingGUIDException)
+		thrown(MissingUIDException)
 	}
 
 }

@@ -24,10 +24,10 @@ class ComicsSoapEndpointIntegrationTest extends AbstractComicsEndpointIntegratio
 	}
 
 	@SuppressWarnings('ClosureAsLastMethodParameter')
-	void "gets 'Brothers in Darkness' by GUID"() {
+	void "gets 'Brothers in Darkness' by UID"() {
 		when:
 		ComicsFullResponse comicsFullResponse = stapiSoapClient.comicsPortType.getComicsFull(new ComicsFullRequest(
-				guid: 'CCMA0000085530'
+				uid: 'CCMA0000085530'
 		))
 
 		then:

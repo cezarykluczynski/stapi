@@ -10,7 +10,7 @@ abstract class AbstractMovieMapperTest extends AbstractMovieTest {
 
 	protected Movie createMovie() {
 		new Movie(
-				guid: GUID,
+				uid: UID,
 				mainDirector: new Staff(),
 				title: TITLE,
 				titleBulgarian: TITLE_BULGARIAN,

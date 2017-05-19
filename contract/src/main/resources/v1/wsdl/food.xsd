@@ -32,7 +32,7 @@
 			<xs:complexContent>
 				<xs:extension base="common:ApiRequest">
 					<xs:sequence>
-						<xs:element name="guid" type="xs:string" minOccurs="1"/>
+						<xs:element name="uid" type="xs:string" minOccurs="1"/>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
@@ -58,7 +58,7 @@
 	</xs:element>
 	<xs:complexType name="FoodBase">
 		<xs:sequence>
-			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="uid" type="xs:string"/>
 			<xs:element name="name" type="xs:string"/>
 			<xs:element name="earthlyOrigin" type="xs:boolean"/>
 			<xs:element name="dessert" type="xs:boolean"/>
@@ -74,7 +74,7 @@
 	</xs:complexType>
 	<xs:complexType name="FoodFull">
 		<xs:sequence>
-			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="uid" type="xs:string"/>
 			<xs:element name="name" type="xs:string"/>
 			<xs:element name="earthlyOrigin" type="xs:boolean"/>
 			<xs:element name="dessert" type="xs:boolean"/>
@@ -90,7 +90,7 @@
 	</xs:complexType>
 	<xs:complexType name="FoodHeader">
 		<xs:sequence>
-			<xs:element name="guid" type="xs:string"/>
+			<xs:element name="uid" type="xs:string"/>
 			<xs:element name="name" type="xs:string"/>
 		</xs:sequence>
 	</xs:complexType>

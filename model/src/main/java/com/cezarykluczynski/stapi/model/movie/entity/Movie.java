@@ -1,7 +1,10 @@
 package com.cezarykluczynski.stapi.model.movie.entity;
 
 import com.cezarykluczynski.stapi.model.character.entity.Character;
+import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
+import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
+import com.cezarykluczynski.stapi.model.movie.repository.MovieRepository;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
@@ -40,6 +43,7 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true, exclude = {"mainDirector", "writers", "screenplayAuthors", "storyAuthors", "directors", "producers", "staff",
 		"performers", "stuntPerformers", "standInPerformers", "characters"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = MovieRepository.class, singularName = "movie", pluralName = "movies")
 public class Movie extends PageAwareEntity implements PageAware {
 
 	@Id

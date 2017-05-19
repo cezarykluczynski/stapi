@@ -29,10 +29,10 @@ public class EpisodeRepositoryImpl extends AbstractRepositoryImpl<Episode> imple
 	@Transactional(readOnly = true)
 	public Page<Episode> findMatching(EpisodeRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<Episode> episodeQueryBuilder = episodeQueryBuilderFactory.createQueryBuilder(pageable);
-		String guid = criteria.getGuid();
-		boolean doFetch = guid != null;
+		String uid = criteria.getUid();
+		boolean doFetch = uid != null;
 
-		episodeQueryBuilder.equal(Episode_.guid, guid);
+		episodeQueryBuilder.equal(Episode_.uid, uid);
 		episodeQueryBuilder.like(Episode_.title, criteria.getTitle());
 		episodeQueryBuilder.like(Episode_.productionSerialNumber, criteria.getProductionSerialNumber());
 		episodeQueryBuilder.between(Episode_.seasonNumber, criteria.getSeasonNumberFrom(), criteria.getSeasonNumberTo());

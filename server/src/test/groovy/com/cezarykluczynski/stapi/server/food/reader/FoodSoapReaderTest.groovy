@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.FoodFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
 import com.cezarykluczynski.stapi.model.food.entity.Food
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.food.mapper.FoodBaseSoapMapper
 import com.cezarykluczynski.stapi.server.food.mapper.FoodFullSoapMapper
 import com.cezarykluczynski.stapi.server.food.query.FoodSoapQuery
@@ -19,7 +19,7 @@ import spock.lang.Specification
 
 class FoodSoapReaderTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private FoodSoapQuery foodSoapQueryBuilderMock
 
@@ -43,7 +43,7 @@ class FoodSoapReaderTest extends Specification {
 		given:
 		List<Food> foodList = Lists.newArrayList()
 		Page<Food> foodPage = Mock()
-		List<FoodBase> soapFoodList = Lists.newArrayList(new FoodBase(guid: GUID))
+		List<FoodBase> soapFoodList = Lists.newArrayList(new FoodBase(uid: UID))
 		FoodBaseRequest foodBaseRequest = Mock()
 		ResponsePage responsePage = Mock()
 
@@ -55,16 +55,16 @@ class FoodSoapReaderTest extends Specification {
 		1 * foodPage.content >> foodList
 		1 * pageMapperMock.fromPageToSoapResponsePage(foodPage) >> responsePage
 		1 * foodBaseSoapMapperMock.mapBase(foodList) >> soapFoodList
-		foodResponse.foods[0].guid == GUID
+		foodResponse.foods[0].uid == UID
 		foodResponse.page == responsePage
 	}
 
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {
 		given:
-		FoodFull foodFull = new FoodFull(guid: GUID)
+		FoodFull foodFull = new FoodFull(uid: UID)
 		Food food = Mock()
 		Page<Food> foodPage = Mock()
-		FoodFullRequest foodFullRequest = new FoodFullRequest(guid: GUID)
+		FoodFullRequest foodFullRequest = new FoodFullRequest(uid: UID)
 
 		when:
 		FoodFullResponse foodFullResponse = foodSoapReader.readFull(foodFullRequest)
@@ -73,10 +73,10 @@ class FoodSoapReaderTest extends Specification {
 		1 * foodSoapQueryBuilderMock.query(foodFullRequest) >> foodPage
 		1 * foodPage.content >> Lists.newArrayList(food)
 		1 * foodFullSoapMapperMock.mapFull(food) >> foodFull
-		foodFullResponse.food.guid == GUID
+		foodFullResponse.food.uid == UID
 	}
 
-	void "requires GUID in full request"() {
+	void "requires UID in full request"() {
 		given:
 		FoodFullRequest foodFullRequest = Mock()
 
@@ -84,7 +84,7 @@ class FoodSoapReaderTest extends Specification {
 		foodSoapReader.readFull(foodFullRequest)
 
 		then:
-		thrown(MissingGUIDException)
+		thrown(MissingUIDException)
 	}
 
 }

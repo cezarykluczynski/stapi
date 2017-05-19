@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.bookSeries.creation.processor;
 
 import com.cezarykluczynski.stapi.etl.template.bookSeries.dto.BookSeriesTemplate;
 import com.cezarykluczynski.stapi.model.bookSeries.entity.BookSeries;
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator;
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
@@ -11,18 +11,18 @@ import javax.inject.Inject;
 @Service
 public class BookSeriesTemplateProcessor implements ItemProcessor<BookSeriesTemplate, BookSeries> {
 
-	private GuidGenerator guidGenerator;
+	private UidGenerator uidGenerator;
 
 	@Inject
-	public BookSeriesTemplateProcessor(GuidGenerator guidGenerator) {
-		this.guidGenerator = guidGenerator;
+	public BookSeriesTemplateProcessor(UidGenerator uidGenerator) {
+		this.uidGenerator = uidGenerator;
 	}
 
 	@Override
 	public BookSeries process(BookSeriesTemplate item) throws Exception {
 		BookSeries bookSeries = new BookSeries();
 
-		bookSeries.setGuid(guidGenerator.generateFromPage(item.getPage(), BookSeries.class));
+		bookSeries.setUid(uidGenerator.generateFromPage(item.getPage(), BookSeries.class));
 		bookSeries.setPage(item.getPage());
 		bookSeries.setTitle(item.getTitle());
 		bookSeries.setPublishedYearFrom(item.getPublishedYearFrom());

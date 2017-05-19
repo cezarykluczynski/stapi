@@ -18,7 +18,7 @@ class StaffBaseRestMapperTest extends AbstractStaffMapperTest {
 	void "maps StaffRestBeanParams to StaffRequestDTO"() {
 		given:
 		StaffRestBeanParams staffRestBeanParams = new StaffRestBeanParams(
-				guid: GUID,
+				uid: UID,
 				name: NAME,
 				birthName: BIRTH_NAME,
 				gender: GENDER,
@@ -88,7 +88,7 @@ class StaffBaseRestMapperTest extends AbstractStaffMapperTest {
 		StaffRequestDTO staffRequestDTO = staffBaseRestMapper.mapBase staffRestBeanParams
 
 		then:
-		staffRequestDTO.guid == GUID
+		staffRequestDTO.uid == UID
 		staffRequestDTO.name == NAME
 		staffRequestDTO.birthName == BIRTH_NAME
 		staffRequestDTO.gender == GENDER
@@ -164,7 +164,7 @@ class StaffBaseRestMapperTest extends AbstractStaffMapperTest {
 
 		then:
 		staffBase.name == NAME
-		staffBase.guid == GUID
+		staffBase.uid == UID
 		staffBase.birthName == BIRTH_NAME
 		staffBase.gender == GENDER_ENUM_REST
 		staffBase.dateOfBirth == DATE_OF_BIRTH_FROM_DB

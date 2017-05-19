@@ -1,0 +1,82 @@
+get:
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+    - name: apiKey
+      in: query
+      type: string
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/BookSeriesBaseResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - BookSeries
+post:
+  consumes:
+    - application/x-www-form-urlencoded
+  producers:
+    - application/json
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+    - name: sort
+      type: string
+      in: query
+    - name: apiKey
+      in: query
+      type: string
+    - name: title
+      in: formData
+      type: string
+    - name: publishedYearFrom
+      in: formData
+      type: integer
+      format: int32
+    - name: publishedYearTo
+      in: formData
+      type: integer
+      format: int32
+    - name: numberOfBooksFrom
+      in: formData
+      type: integer
+      format: int32
+    - name: numberOfBooksTo
+      in: formData
+      type: integer
+      format: int32
+    - name: yearFrom
+      in: formData
+      type: integer
+      format: int32
+    - name: yearTo
+      in: formData
+      type: integer
+      format: int32
+    - name: miniseries
+      in: formData
+      type: boolean
+    - name: eBookSeries
+      in: formData
+      type: boolean
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/BookSeriesBaseResponse'
+  tags:
+    - BookSeries

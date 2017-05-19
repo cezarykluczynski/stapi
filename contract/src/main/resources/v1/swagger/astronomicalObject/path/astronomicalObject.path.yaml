@@ -1,11 +1,15 @@
 get:
+  description: Paginating over astronomical objects
   parameters:
-    - name: guid
+    - name: uid
       in: query
       type: string
+      required: true
+      description: Astronomical object unique ID
     - name: apiKey
       in: query
       type: string
+      description: API key
   responses:
     200:
       schema:

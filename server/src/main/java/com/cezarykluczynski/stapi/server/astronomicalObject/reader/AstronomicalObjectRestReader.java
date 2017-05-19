@@ -49,10 +49,10 @@ public class AstronomicalObjectRestReader implements BaseReader<AstronomicalObje
 	}
 
 	@Override
-	public AstronomicalObjectFullResponse readFull(String guid) {
-		StaticValidator.requireGuid(guid);
+	public AstronomicalObjectFullResponse readFull(String uid) {
+		StaticValidator.requireUid(uid);
 		AstronomicalObjectRestBeanParams astronomicalObjectRestBeanParams = new AstronomicalObjectRestBeanParams();
-		astronomicalObjectRestBeanParams.setGuid(guid);
+		astronomicalObjectRestBeanParams.setUid(uid);
 		Page<AstronomicalObject> astronomicalObjectPage = astronomicalObjectRestQuery.query(astronomicalObjectRestBeanParams);
 		AstronomicalObjectFullResponse astronomicalObjectResponse = new AstronomicalObjectFullResponse();
 		astronomicalObjectResponse.setAstronomicalObject(astronomicalObjectFullRestMapper

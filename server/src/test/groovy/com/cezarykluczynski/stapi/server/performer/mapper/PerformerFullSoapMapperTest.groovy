@@ -16,13 +16,13 @@ class PerformerFullSoapMapperTest extends AbstractPerformerMapperTest {
 
 	void "maps SOAP PerformerFullRequest to PerformerBaseRequestDTO"() {
 		given:
-		PerformerFullRequest performerFullRequest = new PerformerFullRequest(guid: GUID)
+		PerformerFullRequest performerFullRequest = new PerformerFullRequest(uid: UID)
 
 		when:
 		PerformerRequestDTO performerRequestDTO = performerFullSoapMapper.mapFull performerFullRequest
 
 		then:
-		performerRequestDTO.guid == GUID
+		performerRequestDTO.uid == UID
 	}
 
 	void "maps DB entity to full SOAP entity"() {
@@ -34,7 +34,7 @@ class PerformerFullSoapMapperTest extends AbstractPerformerMapperTest {
 
 		then:
 		performerFull.name == NAME
-		performerFull.guid == GUID
+		performerFull.uid == UID
 		performerFull.birthName == BIRTH_NAME
 		performerFull.gender == GENDER_ENUM_SOAP
 		performerFull.dateOfBirth == DATE_OF_BIRTH_FROM_SOAP

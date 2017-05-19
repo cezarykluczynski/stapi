@@ -11,14 +11,14 @@ import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalO
 import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectFullRestMapper
 import com.cezarykluczynski.stapi.server.astronomicalObject.query.AstronomicalObjectRestQuery
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
 import spock.lang.Specification
 
 class AstronomicalObjectRestReaderTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private AstronomicalObjectRestQuery astronomicalObjectRestQueryBuilderMock
 
@@ -62,7 +62,7 @@ class AstronomicalObjectRestReaderTest extends Specification {
 		astronomicalObjectResponseOutput.page == responsePage
 	}
 
-	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
+	void "passed UID to queryBuilder, then to mapper, and returns result"() {
 		given:
 		AstronomicalObjectFull astronomicalObjectFull = Mock()
 		AstronomicalObject astronomicalObject = Mock()
@@ -70,12 +70,12 @@ class AstronomicalObjectRestReaderTest extends Specification {
 		Page<AstronomicalObject> astronomicalObjectPage = Mock()
 
 		when:
-		AstronomicalObjectFullResponse astronomicalObjectResponseOutput = astronomicalObjectRestReader.readFull(GUID)
+		AstronomicalObjectFullResponse astronomicalObjectResponseOutput = astronomicalObjectRestReader.readFull(UID)
 
 		then:
 		1 * astronomicalObjectRestQueryBuilderMock.query(_ as AstronomicalObjectRestBeanParams) >> {
 				AstronomicalObjectRestBeanParams astronomicalObjectRestBeanParams ->
-			assert astronomicalObjectRestBeanParams.guid == GUID
+			assert astronomicalObjectRestBeanParams.uid == UID
 			astronomicalObjectPage
 		}
 		1 * astronomicalObjectPage.content >> astronomicalObjectList
@@ -84,12 +84,12 @@ class AstronomicalObjectRestReaderTest extends Specification {
 		astronomicalObjectResponseOutput.astronomicalObject == astronomicalObjectFull
 	}
 
-	void "requires GUID in full request"() {
+	void "requires UID in full request"() {
 		when:
 		astronomicalObjectRestReader.readFull(null)
 
 		then:
-		thrown(MissingGUIDException)
+		thrown(MissingUIDException)
 	}
 
 }

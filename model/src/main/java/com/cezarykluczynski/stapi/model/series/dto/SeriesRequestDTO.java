@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Data
 public class SeriesRequestDTO {
 
-	private String guid;
+	private String uid;
 
 	private String title;
 

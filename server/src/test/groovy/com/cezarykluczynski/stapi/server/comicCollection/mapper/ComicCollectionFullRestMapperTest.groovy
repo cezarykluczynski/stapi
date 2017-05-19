@@ -17,32 +17,32 @@ class ComicCollectionFullRestMapperTest extends AbstractComicCollectionMapperTes
 		ComicCollection comicCollection = createComicCollection()
 
 		when:
-		ComicCollectionFull restComicCollection = comicCollectionFullRestMapper.mapFull(comicCollection)
+		ComicCollectionFull comicCollectionFull = comicCollectionFullRestMapper.mapFull(comicCollection)
 
 		then:
-		restComicCollection.guid == GUID
-		restComicCollection.title == TITLE
-		restComicCollection.publishedYear == PUBLISHED_YEAR
-		restComicCollection.publishedMonth == PUBLISHED_MONTH
-		restComicCollection.publishedDay == PUBLISHED_DAY
-		restComicCollection.coverYear == COVER_YEAR
-		restComicCollection.coverMonth == COVER_MONTH
-		restComicCollection.coverDay == COVER_DAY
-		restComicCollection.numberOfPages == NUMBER_OF_PAGES
-		restComicCollection.stardateFrom == STARDATE_FROM
-		restComicCollection.stardateTo == STARDATE_TO
-		restComicCollection.yearFrom == YEAR_FROM
-		restComicCollection.yearTo == YEAR_TO
-		restComicCollection.photonovel == PHOTONOVEL
-		restComicCollection.comicSeries.size() == comicCollection.comicSeries.size()
-		restComicCollection.writers.size() == comicCollection.writers.size()
-		restComicCollection.artists.size() == comicCollection.artists.size()
-		restComicCollection.editors.size() == comicCollection.editors.size()
-		restComicCollection.staff.size() == comicCollection.staff.size()
-		restComicCollection.publishers.size() == comicCollection.publishers.size()
-		restComicCollection.characters.size() == comicCollection.characters.size()
-		restComicCollection.references.size() == comicCollection.references.size()
-		restComicCollection.comics.size() == comicCollection.comics.size()
+		comicCollectionFull.uid == UID
+		comicCollectionFull.title == TITLE
+		comicCollectionFull.publishedYear == PUBLISHED_YEAR
+		comicCollectionFull.publishedMonth == PUBLISHED_MONTH
+		comicCollectionFull.publishedDay == PUBLISHED_DAY
+		comicCollectionFull.coverYear == COVER_YEAR
+		comicCollectionFull.coverMonth == COVER_MONTH
+		comicCollectionFull.coverDay == COVER_DAY
+		comicCollectionFull.numberOfPages == NUMBER_OF_PAGES
+		comicCollectionFull.stardateFrom == STARDATE_FROM
+		comicCollectionFull.stardateTo == STARDATE_TO
+		comicCollectionFull.yearFrom == YEAR_FROM
+		comicCollectionFull.yearTo == YEAR_TO
+		comicCollectionFull.photonovel == PHOTONOVEL
+		comicCollectionFull.comicSeries.size() == comicCollection.comicSeries.size()
+		comicCollectionFull.writers.size() == comicCollection.writers.size()
+		comicCollectionFull.artists.size() == comicCollection.artists.size()
+		comicCollectionFull.editors.size() == comicCollection.editors.size()
+		comicCollectionFull.staff.size() == comicCollection.staff.size()
+		comicCollectionFull.publishers.size() == comicCollection.publishers.size()
+		comicCollectionFull.characters.size() == comicCollection.characters.size()
+		comicCollectionFull.references.size() == comicCollection.references.size()
+		comicCollectionFull.comics.size() == comicCollection.comics.size()
 	}
 
 }

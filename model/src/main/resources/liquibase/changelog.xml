@@ -20,9 +20,10 @@
 	<include file="character/0016_create_character_species.xml" relativeToChangelogFile="true"/>
 	<include file="organization/0017_create_organization.xml" relativeToChangelogFile="true"/>
 	<include file="food/0018_create_food.xml" relativeToChangelogFile="true"/>
-	<include file="throttle/0018_create_throttle.xml" relativeToChangelogFile="true"/>
-	<include file="place/0019_create_location.xml" relativeToChangelogFile="true"/>
-	<include file="bookSeries/0020_create_book_series.xml" relativeToChangelogFile="true"/>
-	<include file="book/0021_create_book.xml" relativeToChangelogFile="true"/>
-	<include file="bookCollection/0022_create_book_collection.xml" relativeToChangelogFile="true"/>
+	<include file="throttle/0019_create_throttle.xml" relativeToChangelogFile="true"/>
+	<include file="location/0020_create_location.xml" relativeToChangelogFile="true"/>
+	<include file="bookSeries/0021_create_book_series.xml" relativeToChangelogFile="true"/>
+	<include file="book/0022_create_book.xml" relativeToChangelogFile="true"/>
+	<include file="bookCollection/0023_create_book_collection.xml" relativeToChangelogFile="true"/>
+	<include file="hit/0024_create_endpoint_hit.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

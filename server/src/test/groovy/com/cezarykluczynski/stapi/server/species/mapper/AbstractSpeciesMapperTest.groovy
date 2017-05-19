@@ -13,7 +13,7 @@ abstract class AbstractSpeciesMapperTest extends AbstractSpeciesTest {
 	protected Species createSpecies() {
 		new Species(
 				name: NAME,
-				guid: GUID,
+				uid: UID,
 				homeworld: homeworld,
 				quadrant: quadrant,
 				extinctSpecies: EXTINCT_SPECIES,

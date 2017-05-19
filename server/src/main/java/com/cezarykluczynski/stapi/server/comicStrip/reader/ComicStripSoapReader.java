@@ -47,7 +47,7 @@ public class ComicStripSoapReader implements BaseReader<ComicStripBaseRequest, C
 
 	@Override
 	public ComicStripFullResponse readFull(ComicStripFullRequest input) {
-		StaticValidator.requireGuid(input.getGuid());
+		StaticValidator.requireUid(input.getUid());
 		Page<ComicStrip> comicStripPage = comicStripSoapQuery.query(input);
 		ComicStripFullResponse comicStripFullResponse = new ComicStripFullResponse();
 		comicStripFullResponse.setComicStrip(comicStripFullSoapMapper.mapFull(Iterables.getOnlyElement(comicStripPage.getContent(), null)));

@@ -1,6 +1,9 @@
 type: object
+description: Header astronomical object, embedded in other objects
 properties:
-  guid:
+  uid:
     type: string
+    description: Astronomical object unique ID
   name:
     type: string
+    description: Astronomical object name

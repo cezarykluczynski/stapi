@@ -1,8 +1,11 @@
 package com.cezarykluczynski.stapi.model.bookCollection.entity;
 
 import com.cezarykluczynski.stapi.model.book.entity.Book;
+import com.cezarykluczynski.stapi.model.bookCollection.repository.BookCollectionRepository;
 import com.cezarykluczynski.stapi.model.bookSeries.entity.BookSeries;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
+import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
+import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
@@ -37,6 +40,8 @@ import java.util.Set;
 @ToString(callSuper = true, exclude = {"bookSeries", "authors", "artists", "editors", "publishers", "characters", "references", "books"})
 @EqualsAndHashCode(callSuper = true, exclude = {"bookSeries", "authors", "artists", "editors", "publishers", "characters", "references", "books"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = BookCollectionRepository.class, singularName = "book collection",
+		pluralName = "book collections")
 public class BookCollection extends PageAwareEntity implements PageAware {
 
 	@Id
@@ -65,7 +70,7 @@ public class BookCollection extends PageAwareEntity implements PageAware {
 	private Integer yearTo;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "book_collection_series",
+	@JoinTable(name = "book_collections_series",
 			joinColumns = @JoinColumn(name = "book_collection_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "book_series_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

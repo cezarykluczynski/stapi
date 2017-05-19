@@ -26,10 +26,10 @@ public class ComicStripRepositoryImpl extends AbstractRepositoryImpl<ComicStrip>
 	@Override
 	public Page<ComicStrip> findMatching(ComicStripRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<ComicStrip> comicStripQueryBuilder = comicStripQueryBuilderFactory.createQueryBuilder(pageable);
-		String guid = criteria.getGuid();
-		boolean doFetch = guid != null;
+		String uid = criteria.getUid();
+		boolean doFetch = uid != null;
 
-		comicStripQueryBuilder.equal(ComicStrip_.guid, guid);
+		comicStripQueryBuilder.equal(ComicStrip_.uid, uid);
 		comicStripQueryBuilder.like(ComicStrip_.title, criteria.getTitle());
 		comicStripQueryBuilder.between(ComicStrip_.publishedYearFrom, criteria.getPublishedYearFrom(), null);
 		comicStripQueryBuilder.between(ComicStrip_.publishedYearTo, null, criteria.getPublishedYearTo());

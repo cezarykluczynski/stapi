@@ -18,14 +18,14 @@ class SpeciesHeaderSoapMapperTest extends AbstractRealWorldPersonMapperTest {
 		given:
 		Species species = new Species(
 				name: NAME,
-				guid: GUID)
+				uid: UID)
 
 		when:
 		SpeciesHeader speciesHeader = speciesHeaderSoapMapper.map(Lists.newArrayList(species))[0]
 
 		then:
 		speciesHeader.name == NAME
-		speciesHeader.guid == GUID
+		speciesHeader.uid == UID
 	}
 
 }

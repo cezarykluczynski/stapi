@@ -16,13 +16,13 @@ class MovieFullSoapMapperTest extends AbstractMovieMapperTest {
 
 	void "maps SOAP MovieFullRequest to MovieBaseRequestDTO"() {
 		given:
-		MovieFullRequest movieFullRequest = new MovieFullRequest(guid: GUID)
+		MovieFullRequest movieFullRequest = new MovieFullRequest(uid: UID)
 
 		when:
 		MovieRequestDTO movieRequestDTO = movieFullSoapMapper.mapFull movieFullRequest
 
 		then:
-		movieRequestDTO.guid == GUID
+		movieRequestDTO.uid == UID
 	}
 
 	void "maps DB entity to full SOAP entity"() {
@@ -33,7 +33,7 @@ class MovieFullSoapMapperTest extends AbstractMovieMapperTest {
 		MovieFull movieFull = movieFullSoapMapper.mapFull(movie)
 
 		then:
-		movieFull.guid == GUID
+		movieFull.uid == UID
 		movieFull.mainDirector != null
 		movieFull.title == TITLE
 		movieFull.titleBulgarian == TITLE_BULGARIAN

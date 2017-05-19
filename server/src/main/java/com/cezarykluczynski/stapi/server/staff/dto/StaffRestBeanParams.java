@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 public class StaffRestBeanParams extends PageSortBeanParams {
 
-	private String guid;
+	private String uid;
 
 	@FormParam("name")
 	private String name;
@@ -202,12 +202,12 @@ public class StaffRestBeanParams extends PageSortBeanParams {
 	@FormParam("writer")
 	private Boolean writer;
 
-	public String getGuid() {
-		return guid;
+	public String getUid() {
+		return uid;
 	}
 
-	public void setGuid(String guid) {
-		this.guid = guid;
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 
 	public String getName() {

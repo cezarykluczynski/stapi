@@ -1,0 +1,40 @@
+type: object
+properties:
+  uid:
+    type: string
+  title:
+    type: string
+  publishedYearFrom:
+    type: integer
+  publishedMonthFrom:
+    type: integer
+  publishedYearTo:
+    type: integer
+  publishedMonthTo:
+    type: integer
+  numberOfBooks:
+    type: integer
+  yearFrom:
+    type: integer
+  yearTo:
+    type: integer
+  miniseries:
+    type: boolean
+  eBookSeries:
+    type: boolean
+  parentSeries:
+    type: array
+    items:
+      $ref: '#/definitions/BookSeriesBase'
+  childSeries:
+    type: array
+    items:
+      $ref: '#/definitions/BookSeriesBase'
+  publishers:
+    type: array
+    items:
+      $ref: '#/definitions/CompanyBase'
+  books:
+    type: array
+    items:
+      $ref: '#/definitions/BookBase'

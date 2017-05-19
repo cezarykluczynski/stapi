@@ -27,7 +27,7 @@ abstract class AbstractCharacterMapperTest extends AbstractIndividualTest {
 	protected Character createCharacter() {
 		new Character(
 				name: NAME,
-				guid: GUID,
+				uid: UID,
 				gender: MODEL_GENDER,
 				yearOfBirth: YEAR_OF_BIRTH,
 				monthOfBirth: MONTH_OF_BIRTH,

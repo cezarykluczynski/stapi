@@ -17,9 +17,9 @@ class FoodSoapEndpointIntegrationTest extends AbstractFoodEndpointIntegrationTes
 		createSoapClient()
 	}
 
-	void "gets food by GUID"() {
+	void "gets food by UID"() {
 		when:
-		FoodFullResponse foodFullResponse = stapiSoapClient.foodPortType.getFoodFull(new FoodFullRequest(guid: 'FOMA0000033877'))
+		FoodFullResponse foodFullResponse = stapiSoapClient.foodPortType.getFoodFull(new FoodFullRequest(uid: 'FOMA0000033877'))
 
 		then:
 		foodFullResponse.food.name == 'Tennessee whiskey'

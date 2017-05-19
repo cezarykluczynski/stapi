@@ -9,7 +9,7 @@ abstract class AbstractSeriesMapperTest extends AbstractSeriesTest {
 
 	protected Series createSeries() {
 		new Series(
-				guid: GUID,
+				uid: UID,
 				title: TITLE,
 				abbreviation: ABBREVIATION,
 				productionStartYear: PRODUCTION_START_YEAR,

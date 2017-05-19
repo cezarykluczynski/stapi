@@ -46,7 +46,7 @@ public class EpisodeSoapReader implements BaseReader<EpisodeBaseRequest, Episode
 
 	@Override
 	public EpisodeFullResponse readFull(EpisodeFullRequest input) {
-		StaticValidator.requireGuid(input.getGuid());
+		StaticValidator.requireUid(input.getUid());
 		Page<Episode> episodePage = episodeSoapQuery.query(input);
 		EpisodeFullResponse episodeFullResponse = new EpisodeFullResponse();
 		episodeFullResponse.setEpisode(episodeFullSoapMapper.mapFull(Iterables.getOnlyElement(episodePage.getContent(), null)));

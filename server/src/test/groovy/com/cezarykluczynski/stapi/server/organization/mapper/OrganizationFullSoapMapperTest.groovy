@@ -16,13 +16,13 @@ class OrganizationFullSoapMapperTest extends AbstractOrganizationMapperTest {
 
 	void "maps SOAP OrganizationFullRequest to OrganizationBaseRequestDTO"() {
 		given:
-		OrganizationFullRequest organizationFullRequest = new OrganizationFullRequest(guid: GUID)
+		OrganizationFullRequest organizationFullRequest = new OrganizationFullRequest(uid: UID)
 
 		when:
 		OrganizationRequestDTO organizationRequestDTO = organizationFullSoapMapper.mapFull organizationFullRequest
 
 		then:
-		organizationRequestDTO.guid == GUID
+		organizationRequestDTO.uid == UID
 	}
 
 	void "maps DB entity to full SOAP entity"() {
@@ -33,7 +33,7 @@ class OrganizationFullSoapMapperTest extends AbstractOrganizationMapperTest {
 		OrganizationFull organizationFull = organizationFullSoapMapper.mapFull(organization)
 
 		then:
-		organizationFull.guid == GUID
+		organizationFull.uid == UID
 		organizationFull.name == NAME
 		organizationFull.government == GOVERNMENT
 		organizationFull.intergovernmentalOrganization == INTERGOVERNMENTAL_ORGANIZATION

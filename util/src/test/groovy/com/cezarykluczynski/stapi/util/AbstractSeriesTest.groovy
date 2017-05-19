@@ -8,7 +8,7 @@ import java.time.LocalDate
 
 abstract class AbstractSeriesTest extends AbstractTest {
 
-	protected static final String GUID = 'GUID'
+	protected static final String UID = 'UID'
 	protected static final String TITLE = 'TITLE'
 	protected static final String ABBREVIATION = 'ABBREVIATION'
 	protected static final Integer PRODUCTION_START_YEAR = 1998

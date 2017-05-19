@@ -15,7 +15,7 @@ class ComicStripRestEndpointIntegrationTest extends AbstractComicStripEndpointIn
 		createRestClient()
 	}
 
-	void "gets comic strip by GUID"() {
+	void "gets comic strip by UID"() {
 		when:
 		ComicStripFullResponse comicStripFullResponse = stapiRestClient.comicStripApi.comicStripGet('CTMA0000056047', null)
 
@@ -29,7 +29,7 @@ class ComicStripRestEndpointIntegrationTest extends AbstractComicStripEndpointIn
 				null, null, null, null, null, null)
 
 		then:
-		comicStripBaseResponse.comicStrips[0].guid == 'CTMA0000056090'
+		comicStripBaseResponse.comicStrips[0].uid == 'CTMA0000056090'
 	}
 
 }

@@ -18,7 +18,7 @@ class CompanyBaseRestMapperTest extends AbstractCompanyMapperTest {
 	void "maps CompanyRestBeanParams to CompanyRequestDTO"() {
 		given:
 		CompanyRestBeanParams companyRestBeanParams = new CompanyRestBeanParams(
-				guid: GUID,
+				uid: UID,
 				name: NAME,
 				broadcaster: BROADCASTER,
 				collectibleCompany: COLLECTIBLE_COMPANY,
@@ -42,7 +42,7 @@ class CompanyBaseRestMapperTest extends AbstractCompanyMapperTest {
 		CompanyRequestDTO companyRequestDTO = companyBaseRestMapper.mapBase companyRestBeanParams
 
 		then:
-		companyRequestDTO.guid == GUID
+		companyRequestDTO.uid == UID
 		companyRequestDTO.name == NAME
 		companyRequestDTO.broadcaster == BROADCASTER
 		companyRequestDTO.collectibleCompany == COLLECTIBLE_COMPANY
@@ -71,7 +71,7 @@ class CompanyBaseRestMapperTest extends AbstractCompanyMapperTest {
 		CompanyBase companyBase = companyBaseRestMapper.mapBase(Lists.newArrayList(company))[0]
 
 		then:
-		companyBase.guid == GUID
+		companyBase.uid == UID
 		companyBase.name == NAME
 		companyBase.broadcaster == BROADCASTER
 		companyBase.collectibleCompany == COLLECTIBLE_COMPANY

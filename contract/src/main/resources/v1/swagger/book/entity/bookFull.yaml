@@ -1,0 +1,96 @@
+type: object
+properties:
+  uid:
+    type: string
+  title:
+    type: string
+  publishedYear:
+    type: integer
+  publishedMonth:
+    type: integer
+  publishedDay:
+    type: integer
+  numberOfPages:
+    type: integer
+  stardateFrom:
+    type: number
+    format: float
+  stardateTo:
+    type: number
+    format: float
+  yearFrom:
+    type: integer
+  yearTo:
+    type: integer
+  novel:
+    type: boolean
+  referenceBook:
+    type: boolean
+  biographyBook:
+    type: boolean
+  rolePlayingBook:
+    type: boolean
+  eBook:
+    type: boolean
+  anthology:
+    type: boolean
+  novelization:
+    type: boolean
+  audiobook:
+    type: boolean
+  audiobookAbridged:
+    type: boolean
+  audiobookPublishedYear:
+    type: integer
+  audiobookPublishedMonth:
+    type: integer
+  audiobookPublishedDay:
+    type: integer
+  audiobookRunTime:
+    type: integer
+  productionNumber:
+    type: string
+  bookSeries:
+    type: array
+    items:
+      $ref: '#/definitions/BookSeriesBase'
+  authors:
+    type: array
+    items:
+      $ref: '#/definitions/StaffBase'
+  artists:
+    type: array
+    items:
+      $ref: '#/definitions/StaffBase'
+  editors:
+    type: array
+    items:
+      $ref: '#/definitions/StaffBase'
+  audiobookNarrators:
+    type: array
+    items:
+      $ref: '#/definitions/StaffBase'
+  publishers:
+    type: array
+    items:
+      $ref: '#/definitions/CompanyBase'
+  audiobookPublishers:
+    type: array
+    items:
+      $ref: '#/definitions/CompanyBase'
+  characters:
+    type: array
+    items:
+      $ref: '#/definitions/CharacterBase'
+  references:
+    type: array
+    items:
+      $ref: '#/definitions/Reference'
+  audiobookReferences:
+    type: array
+    items:
+      $ref: '#/definitions/Reference'
+  bookCollections:
+    type: array
+    items:
+      $ref: '#/definitions/BookCollectionBase'

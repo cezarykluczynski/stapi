@@ -18,19 +18,19 @@ class AstronomicalObjectBaseRestMapperTest extends AbstractAstronomicalObjectMap
 	void "maps AstronomicalObjectRestBeanParams to AstronomicalObjectRequestDTO"() {
 		given:
 		AstronomicalObjectRestBeanParams astronomicalObjectRestBeanParams = new AstronomicalObjectRestBeanParams(
-				guid: GUID,
+				uid: UID,
 				name: NAME,
 				astronomicalObjectType: ASTRONOMICAL_OBJECT_TYPE,
-				locationGuid: LOCATION_GUID)
+				locationUid: LOCATION_UID)
 
 		when:
 		AstronomicalObjectRequestDTO astronomicalObjectRequestDTO = astronomicalObjectBaseRestMapper.mapBase astronomicalObjectRestBeanParams
 
 		then:
-		astronomicalObjectRequestDTO.guid == GUID
+		astronomicalObjectRequestDTO.uid == UID
 		astronomicalObjectRequestDTO.name == NAME
 		astronomicalObjectRequestDTO.astronomicalObjectType == ASTRONOMICAL_OBJECT_TYPE
-		astronomicalObjectRequestDTO.locationGuid == LOCATION_GUID
+		astronomicalObjectRequestDTO.locationUid == LOCATION_UID
 	}
 
 	void "maps DB entity to base REST entity"() {
@@ -41,7 +41,7 @@ class AstronomicalObjectBaseRestMapperTest extends AbstractAstronomicalObjectMap
 		AstronomicalObjectBase restAstronomicalObject = astronomicalObjectBaseRestMapper.mapBase(Lists.newArrayList(dBAstronomicalObject))[0]
 
 		then:
-		restAstronomicalObject.guid == GUID
+		restAstronomicalObject.uid == UID
 		restAstronomicalObject.name == NAME
 		restAstronomicalObject.astronomicalObjectType == REST_ASTRONOMICAL_OBJECT_TYPE
 		restAstronomicalObject.location != null

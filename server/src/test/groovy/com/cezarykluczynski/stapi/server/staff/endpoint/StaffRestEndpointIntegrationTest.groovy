@@ -33,23 +33,23 @@ class StaffRestEndpointIntegrationTest extends AbstractStaffEndpointIntegrationT
 		staffResponse.staff.size() == pageSize
 	}
 
-	void "gets staff with series experience by GUID"() {
+	void "gets staff with series experience by UID"() {
 		when:
-		StaffFullResponse staffFullResponse = stapiRestClient.staffApi.staffGet(IRA_STEVEN_BEHR_GUID, null)
+		StaffFullResponse staffFullResponse = stapiRestClient.staffApi.staffGet(IRA_STEVEN_BEHR_UID, null)
 
 		then:
-		staffFullResponse.staff.guid == IRA_STEVEN_BEHR_GUID
+		staffFullResponse.staff.uid == IRA_STEVEN_BEHR_UID
 		staffFullResponse.staff.writtenEpisodes.size() == 34
 		staffFullResponse.staff.teleplayAuthoredEpisodes.size() == 18
 		staffFullResponse.staff.storyAuthoredEpisodes.size() == 10
 	}
 
-	void "gets staff with movie experience by GUID"() {
+	void "gets staff with movie experience by UID"() {
 		when:
-		StaffFullResponse staffFullResponse = stapiRestClient.staffApi.staffGet(RICK_BERMAN_GUID, null)
+		StaffFullResponse staffFullResponse = stapiRestClient.staffApi.staffGet(RICK_BERMAN_UID, null)
 
 		then:
-		staffFullResponse.staff.guid == RICK_BERMAN_GUID
+		staffFullResponse.staff.uid == RICK_BERMAN_UID
 		staffFullResponse.staff.storyAuthoredMovies.size() == 4
 		staffFullResponse.staff.producedMovies.size() == 4
 		staffFullResponse.staff.movies.size() == 4

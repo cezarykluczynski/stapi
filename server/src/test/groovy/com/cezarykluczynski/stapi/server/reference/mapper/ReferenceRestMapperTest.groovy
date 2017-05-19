@@ -15,7 +15,7 @@ class ReferenceRestMapperTest extends AbstractReferenceMapperTest {
 	void "maps db entity to REST entity"() {
 		given:
 		ModelReference modelReference = new ModelReference(
-				guid: GUID,
+				uid: UID,
 				referenceType: REFERENCE_TYPE,
 				referenceNumber: REFERENCE_NUMBER,
 		)
@@ -24,7 +24,7 @@ class ReferenceRestMapperTest extends AbstractReferenceMapperTest {
 		RestReference restReference = referenceRestMapper.map(modelReference)
 
 		then:
-		restReference.guid == GUID
+		restReference.uid == UID
 		restReference.referenceType == REST_REFERENCE_TYPE
 		restReference.referenceNumber == REFERENCE_NUMBER
 	}

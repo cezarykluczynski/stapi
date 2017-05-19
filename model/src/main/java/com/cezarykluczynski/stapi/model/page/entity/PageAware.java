@@ -6,8 +6,8 @@ public interface PageAware {
 
 	void setPage(Page page);
 
-	String getGuid();
+	String getUid();
 
-	void setGuid(String guid);
+	void setUid(String uid);
 
 }

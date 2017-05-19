@@ -15,7 +15,7 @@ class OrganizationRestEndpointIntegrationTest extends AbstractOrganizationEndpoi
 		createRestClient()
 	}
 
-	void "gets organization by GUID"() {
+	void "gets organization by UID"() {
 		when:
 		OrganizationFullResponse organizationFullResponse = stapiRestClient.organizationApi.organizationGet('ORMA0000004225', null)
 

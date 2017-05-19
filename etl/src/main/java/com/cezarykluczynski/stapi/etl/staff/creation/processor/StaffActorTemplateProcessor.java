@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.staff.creation.processor;
 
 import com.cezarykluczynski.stapi.etl.common.processor.CommonActorTemplateProcessor;
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate;
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator;
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
@@ -12,13 +12,13 @@ import javax.inject.Inject;
 @Service
 public class StaffActorTemplateProcessor implements ItemProcessor<ActorTemplate, Staff> {
 
-	private GuidGenerator guidGenerator;
+	private UidGenerator uidGenerator;
 
 	private CommonActorTemplateProcessor commonActorTemplateProcessor;
 
 	@Inject
-	public StaffActorTemplateProcessor(GuidGenerator guidGenerator, CommonActorTemplateProcessor commonActorTemplateProcessor) {
-		this.guidGenerator = guidGenerator;
+	public StaffActorTemplateProcessor(UidGenerator uidGenerator, CommonActorTemplateProcessor commonActorTemplateProcessor) {
+		this.uidGenerator = uidGenerator;
 		this.commonActorTemplateProcessor = commonActorTemplateProcessor;
 	}
 
@@ -27,7 +27,7 @@ public class StaffActorTemplateProcessor implements ItemProcessor<ActorTemplate,
 		Staff staff = new Staff();
 
 		commonActorTemplateProcessor.processCommonFields(staff, item);
-		staff.setGuid(guidGenerator.generateFromPage(item.getPage(), Staff.class));
+		staff.setUid(uidGenerator.generateFromPage(item.getPage(), Staff.class));
 		staff.setArtDepartment(item.isArtDepartment());
 		staff.setArtDirector(item.isArtDirector());
 		staff.setProductionDesigner(item.isProductionDesigner());

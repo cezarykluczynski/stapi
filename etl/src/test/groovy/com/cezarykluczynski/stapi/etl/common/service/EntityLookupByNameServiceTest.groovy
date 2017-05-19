@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.common.service
 
 import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject
+import com.cezarykluczynski.stapi.model.book.entity.Book
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.comics.entity.Comics
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
@@ -18,6 +19,7 @@ class EntityLookupByNameServiceTest extends Specification {
 	private static final String COMICS_NAME = 'COMICS_NAME'
 	private static final String ASTRONOMICAL_OBJECT_NAME = 'ASTRONOMICAL_OBJECT_NAME'
 	private static final String SPECIES_NAME = 'SPECIES_NAME'
+	private static final String BOOK_TITLE = 'BOOK_TITLE'
 
 	private GenericEntityLookupByNameService genericEntityLookupByNameService
 
@@ -106,6 +108,19 @@ class EntityLookupByNameServiceTest extends Specification {
 		1 * genericEntityLookupByNameService.findEntityByName(SPECIES_NAME, SOURCES_MEDIA_WIKI_SOURCE, Species) >> Optional.of(species)
 		0 * _
 		speciesOptional.get() == species
+	}
+
+	void "gets book object from generic service"() {
+		given:
+		Book book = Mock()
+
+		when:
+		Optional<Book> bookOptional = entityLookupByNameService.findBookByName(BOOK_TITLE, SOURCES_MEDIA_WIKI_SOURCE)
+
+		then:
+		1 * genericEntityLookupByNameService.findEntityByName(BOOK_TITLE, SOURCES_MEDIA_WIKI_SOURCE, Book) >> Optional.of(book)
+		0 * _
+		bookOptional.get() == book
 	}
 
 }

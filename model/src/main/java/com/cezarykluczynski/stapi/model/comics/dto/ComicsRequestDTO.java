@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 public class ComicsRequestDTO {
 
-	private String guid;
+	private String uid;
 
 	private String title;
 

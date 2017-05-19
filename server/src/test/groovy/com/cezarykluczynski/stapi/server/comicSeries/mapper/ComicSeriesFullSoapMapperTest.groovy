@@ -16,13 +16,13 @@ class ComicSeriesFullSoapMapperTest extends AbstractComicSeriesMapperTest {
 
 	void "maps SOAP ComicSeriesFullRequest to ComicSeriesBaseRequestDTO"() {
 		given:
-		ComicSeriesFullRequest comicSeriesFullRequest = new ComicSeriesFullRequest(guid: GUID)
+		ComicSeriesFullRequest comicSeriesFullRequest = new ComicSeriesFullRequest(uid: UID)
 
 		when:
 		ComicSeriesRequestDTO comicSeriesRequestDTO = comicSeriesFullSoapMapper.mapFull comicSeriesFullRequest
 
 		then:
-		comicSeriesRequestDTO.guid == GUID
+		comicSeriesRequestDTO.uid == UID
 	}
 
 	void "maps DB entity to base SOAP entity"() {
@@ -33,7 +33,7 @@ class ComicSeriesFullSoapMapperTest extends AbstractComicSeriesMapperTest {
 		ComicSeriesFull comicSeriesFull = comicSeriesFullSoapMapper.mapFull(comicSeries)
 
 		then:
-		comicSeriesFull.guid == GUID
+		comicSeriesFull.uid == UID
 		comicSeriesFull.title == TITLE
 		comicSeriesFull.publishedYearFrom == PUBLISHED_YEAR_FROM
 		comicSeriesFull.publishedMonthFrom == PUBLISHED_MONTH_FROM

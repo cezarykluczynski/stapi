@@ -1,11 +1,13 @@
 package com.cezarykluczynski.stapi.server.comicCollection.configuration
 
+import com.cezarykluczynski.stapi.server.comicCollection.endpoint.ComicCollectionRestEndpoint
 import com.cezarykluczynski.stapi.server.comicCollection.endpoint.ComicCollectionSoapEndpoint
 import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionBaseRestMapper
 import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionBaseSoapMapper
 import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionFullRestMapper
 import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionFullSoapMapper
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
+import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
 
 import javax.xml.ws.Endpoint
@@ -32,6 +34,19 @@ class ComicCollectionConfigurationTest extends Specification {
 		1 * endpointFactoryMock.createSoapEndpoint(ComicCollectionSoapEndpoint, ComicCollectionSoapEndpoint.ADDRESS) >> endpoint
 		0 * _
 		endpointOutput == endpoint
+	}
+
+	void "ComicCollection REST endpoint is created"() {
+		given:
+		Server server = Mock()
+
+		when:
+		Server serverOutput = comicCollectionConfiguration.comicCollectionServer()
+
+		then:
+		1 * endpointFactoryMock.createRestEndpoint(ComicCollectionRestEndpoint, ComicCollectionRestEndpoint.ADDRESS) >> server
+		0 * _
+		serverOutput == server
 	}
 
 	void "ComicCollectionBaseSoapMapper is created"() {

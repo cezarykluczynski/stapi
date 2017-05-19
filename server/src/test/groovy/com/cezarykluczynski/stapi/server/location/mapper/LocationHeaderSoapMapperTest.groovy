@@ -16,14 +16,14 @@ class LocationHeaderSoapMapperTest extends AbstractLocationMapperTest {
 	void "maps DB entity to SOAP header"() {
 		given:
 		Location location = new Location(
-				guid: GUID,
+				uid: UID,
 				name: NAME)
 
 		when:
 		LocationHeader locationHeader = locationHeaderSoapMapper.map(Lists.newArrayList(location))[0]
 
 		then:
-		locationHeader.guid == GUID
+		locationHeader.uid == UID
 		locationHeader.name == NAME
 	}
 

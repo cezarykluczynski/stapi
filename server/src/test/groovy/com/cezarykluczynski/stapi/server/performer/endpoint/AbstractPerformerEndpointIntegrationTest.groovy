@@ -4,6 +4,6 @@ import com.cezarykluczynski.stapi.server.series.common.AbstractEndpointIntegrati
 
 abstract class AbstractPerformerEndpointIntegrationTest extends AbstractEndpointIntegrationTest {
 
-	protected static final String GUID = 'PEMA0000004852'
+	protected static final String UID = 'PEMA0000004852'
 
 }

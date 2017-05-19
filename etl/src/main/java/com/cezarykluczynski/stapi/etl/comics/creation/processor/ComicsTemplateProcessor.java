@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.comics.creation.processor;
 
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics;
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator;
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +11,11 @@ import javax.inject.Inject;
 @Service
 public class ComicsTemplateProcessor implements ItemProcessor<ComicsTemplate, Comics> {
 
-	private GuidGenerator guidGenerator;
+	private UidGenerator uidGenerator;
 
 	@Inject
-	public ComicsTemplateProcessor(GuidGenerator guidGenerator) {
-		this.guidGenerator = guidGenerator;
+	public ComicsTemplateProcessor(UidGenerator uidGenerator) {
+		this.uidGenerator = uidGenerator;
 	}
 
 	@Override
@@ -24,7 +24,7 @@ public class ComicsTemplateProcessor implements ItemProcessor<ComicsTemplate, Co
 
 		comics.setTitle(item.getTitle());
 		comics.setPage(item.getPage());
-		comics.setGuid(guidGenerator.generateFromPage(item.getPage(), Comics.class));
+		comics.setUid(uidGenerator.generateFromPage(item.getPage(), Comics.class));
 		comics.setPublishedYear(item.getPublishedYear());
 		comics.setPublishedMonth(item.getPublishedMonth());
 		comics.setPublishedDay(item.getPublishedDay());

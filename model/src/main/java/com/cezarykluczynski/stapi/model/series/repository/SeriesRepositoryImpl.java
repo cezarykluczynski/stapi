@@ -26,10 +26,10 @@ public class SeriesRepositoryImpl extends AbstractRepositoryImpl<Series> impleme
 	@Override
 	public Page<Series> findMatching(SeriesRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<Series> seriesQueryBuilder = seriesQueryBuilderFactory.createQueryBuilder(pageable);
-		String guid = criteria.getGuid();
-		boolean doFetch = guid != null;
+		String uid = criteria.getUid();
+		boolean doFetch = uid != null;
 
-		seriesQueryBuilder.equal(Series_.guid, guid);
+		seriesQueryBuilder.equal(Series_.uid, uid);
 		seriesQueryBuilder.like(Series_.title, criteria.getTitle());
 		seriesQueryBuilder.like(Series_.abbreviation, criteria.getAbbreviation());
 		seriesQueryBuilder.between(Series_.productionStartYear, criteria.getProductionStartYearFrom(), criteria.getProductionStartYearTo());

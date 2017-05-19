@@ -4,21 +4,21 @@ import com.cezarykluczynski.stapi.etl.common.processor.AbstractRealWorldActorTem
 import com.cezarykluczynski.stapi.etl.common.processor.CommonActorTemplateProcessor
 import com.cezarykluczynski.stapi.etl.template.actor.dto.ActorTemplate
 import com.cezarykluczynski.stapi.model.common.entity.RealWorldPerson
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 
 class PerformerActorTemplateProcessorTest extends AbstractRealWorldActorTemplateProcessorTest {
 
-	private GuidGenerator guidGeneratorMock
+	private UidGenerator uidGeneratorMock
 
 	private CommonActorTemplateProcessor commonActorTemplateProcessorMock
 
 	private PerformerActorTemplateProcessor performerActorTemplateProcessor
 
 	void setup() {
-		guidGeneratorMock = Mock()
+		uidGeneratorMock = Mock()
 		commonActorTemplateProcessorMock = Mock()
-		performerActorTemplateProcessor = new PerformerActorTemplateProcessor(guidGeneratorMock, commonActorTemplateProcessorMock)
+		performerActorTemplateProcessor = new PerformerActorTemplateProcessor(uidGeneratorMock, commonActorTemplateProcessorMock)
 	}
 
 	void "converts ActorTemplate to Performer"() {
@@ -45,7 +45,7 @@ class PerformerActorTemplateProcessorTest extends AbstractRealWorldActorTemplate
 
 		then:
 		1 * commonActorTemplateProcessorMock.processCommonFields(_ as RealWorldPerson, actorTemplate)
-		1 * guidGeneratorMock.generateFromPage(PAGE, Performer) >> GUID
+		1 * uidGeneratorMock.generateFromPage(PAGE, Performer) >> UID
 		performer.animalPerformer == ANIMAL_PERFORMER
 		performer.disPerformer == DIS_PERFORMER
 		performer.ds9Performer == DS9_PERFORMER

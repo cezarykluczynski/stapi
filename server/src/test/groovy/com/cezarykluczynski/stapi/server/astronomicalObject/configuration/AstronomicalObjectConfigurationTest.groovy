@@ -5,7 +5,9 @@ import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalO
 import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectBaseSoapMapper
 import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectFullRestMapper
 import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectFullSoapMapper
+import com.cezarykluczynski.stapi.server.astronomicalObject.endpoint.AstronomicalObjectRestEndpoint
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory
+import org.apache.cxf.endpoint.Server
 import spock.lang.Specification
 
 import javax.xml.ws.Endpoint
@@ -32,6 +34,19 @@ class AstronomicalObjectConfigurationTest extends Specification {
 		1 * endpointFactoryMock.createSoapEndpoint(AstronomicalObjectSoapEndpoint, AstronomicalObjectSoapEndpoint.ADDRESS) >> endpoint
 		0 * _
 		endpointOutput == endpoint
+	}
+
+	void "AstronomicalObject REST endpoint is created"() {
+		given:
+		Server server = Mock()
+
+		when:
+		Server serverOutput = astronomicalObjectConfiguration.astronomicalObjectServer()
+
+		then:
+		1 * endpointFactoryMock.createRestEndpoint(AstronomicalObjectRestEndpoint, AstronomicalObjectRestEndpoint.ADDRESS) >> server
+		0 * _
+		serverOutput == server
 	}
 
 	void "AstronomicalObjectBaseSoapMapper is created"() {

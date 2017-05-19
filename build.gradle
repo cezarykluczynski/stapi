@@ -45,6 +45,7 @@ allprojects {
 		compile group: 'commons-validator', name: 'commons-validator', version: '1.5.1'
 		compile group: 'commons-logging', name: 'commons-logging', version: '1.2'
 		compile group: 'commons-validator', name: 'commons-validator', version: '1.5.1'
+		compile group: 'org.reflections', name: 'reflections', version: '0.9.11'
 
 		// Testing
 		testCompile group: 'commons-io', name: 'commons-io', version: '2.5'
@@ -61,7 +62,6 @@ allprojects {
 			exclude(module: 'spring-boot-starter-logging')
 		}
 		testCompile group: 'cglib', name: 'cglib-nodep', version: '3.2.4'
-		testCompile group: 'org.reflections', name: 'reflections', version: '0.9.11'
 		testCompile group: 'com.github.javaparser', name: 'javaparser-core', version: '3.2.0'
 	}
 

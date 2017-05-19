@@ -16,13 +16,13 @@ class StaffFullSoapMapperTest extends AbstractStaffMapperTest {
 
 	void "maps SOAP StaffFullRequest to StaffBaseRequestDTO"() {
 		given:
-		StaffFullRequest staffFullRequest = new StaffFullRequest(guid: GUID)
+		StaffFullRequest staffFullRequest = new StaffFullRequest(uid: UID)
 
 		when:
 		StaffRequestDTO staffRequestDTO = staffFullSoapMapper.mapFull staffFullRequest
 
 		then:
-		staffRequestDTO.guid == GUID
+		staffRequestDTO.uid == UID
 	}
 
 	void "maps DB entity to full SOAP entity"() {
@@ -34,7 +34,7 @@ class StaffFullSoapMapperTest extends AbstractStaffMapperTest {
 
 		then:
 		staffFull.name == NAME
-		staffFull.guid == GUID
+		staffFull.uid == UID
 		staffFull.birthName == BIRTH_NAME
 		staffFull.gender == GENDER_ENUM_SOAP
 		staffFull.dateOfBirth == DATE_OF_BIRTH_FROM_SOAP

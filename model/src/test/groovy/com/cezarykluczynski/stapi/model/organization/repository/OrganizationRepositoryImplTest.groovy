@@ -42,9 +42,9 @@ class OrganizationRepositoryImplTest extends AbstractOrganizationTest {
 		then: 'criteria builder is retrieved'
 		1 * organizationQueryBuilderFactory.createQueryBuilder(pageable) >> organizationQueryBuilder
 
-		then: 'guid criteria is set'
-		1 * organizationRequestDTO.guid >> GUID
-		1 * organizationQueryBuilder.equal(Organization_.guid, GUID)
+		then: 'uid criteria is set'
+		1 * organizationRequestDTO.uid >> UID
+		1 * organizationQueryBuilder.equal(Organization_.uid, UID)
 
 		then: 'string criteria are set'
 		1 * organizationRequestDTO.name >> NAME

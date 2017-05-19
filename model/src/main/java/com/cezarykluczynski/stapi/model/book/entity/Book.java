@@ -1,7 +1,11 @@
 package com.cezarykluczynski.stapi.model.book.entity;
 
+import com.cezarykluczynski.stapi.model.book.repository.BookRepository;
+import com.cezarykluczynski.stapi.model.bookCollection.entity.BookCollection;
 import com.cezarykluczynski.stapi.model.bookSeries.entity.BookSeries;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
+import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
+import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
@@ -34,10 +38,11 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(callSuper = true, exclude = {"bookSeries", "authors", "artists", "editors", "audiobookNarrators", "publishers", "audiobookPublishers",
-		"characters", "references", "audiobookReferences"})
+		"characters", "references", "audiobookReferences", "bookCollections"})
 @EqualsAndHashCode(callSuper = true, exclude = {"bookSeries", "authors", "artists", "editors", "audiobookNarrators", "publishers",
-		"audiobookPublishers", "characters", "references", "audiobookReferences"})
+		"audiobookPublishers", "characters", "references", "audiobookReferences", "bookCollections"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = BookRepository.class, singularName = "book", pluralName = "books")
 public class Book extends PageAwareEntity implements PageAware {
 
 	@Id
@@ -145,7 +150,7 @@ public class Book extends PageAwareEntity implements PageAware {
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "books_characters",
-			joinColumns = @JoinColumn(name = "comics_id", nullable = false, updatable = false),
+			joinColumns = @JoinColumn(name = "book_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "character_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Character> characters = Sets.newHashSet();
@@ -163,5 +168,9 @@ public class Book extends PageAwareEntity implements PageAware {
 			inverseJoinColumns = @JoinColumn(name = "reference_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Reference> audiobookReferences = Sets.newHashSet();
+
+	@ManyToMany(mappedBy = "books")
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<BookCollection> bookCollections = Sets.newHashSet();
 
 }

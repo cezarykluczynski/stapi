@@ -45,9 +45,9 @@ class CompanyRepositoryImplTest extends AbstractCompanyTest {
 		then: 'criteria builder is retrieved'
 		1 * companyQueryBuilderFactory.createQueryBuilder(pageable) >> companyQueryBuilder
 
-		then: 'guid criteria is set'
-		1 * companyRequestDTO.guid >> GUID
-		1 * companyQueryBuilder.equal(Company_.guid, GUID)
+		then: 'uid criteria is set'
+		1 * companyRequestDTO.uid >> UID
+		1 * companyQueryBuilder.equal(Company_.uid, UID)
 
 		then: 'string criteria are set'
 		1 * companyRequestDTO.name >> NAME

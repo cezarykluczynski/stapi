@@ -18,7 +18,7 @@ class CharacterSpeciesSoapMapperTest extends AbstractCharacterMapperTest {
 		ModelCharacterSpecies modelCharacterSpecies = new ModelCharacterSpecies(
 				species: new Species(
 						name: NAME,
-						guid: GUID,
+						uid: UID,
 				),
 				numerator: NUMERATOR,
 				denominator: DENOMINATOR)
@@ -28,7 +28,7 @@ class CharacterSpeciesSoapMapperTest extends AbstractCharacterMapperTest {
 
 		then:
 		soapCharacterSpecies.name == NAME
-		soapCharacterSpecies.guid == GUID
+		soapCharacterSpecies.uid == UID
 		soapCharacterSpecies.numerator == NUMERATOR
 		soapCharacterSpecies.denominator == DENOMINATOR
 	}

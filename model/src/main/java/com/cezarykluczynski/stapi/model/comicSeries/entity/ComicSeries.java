@@ -1,6 +1,9 @@
 package com.cezarykluczynski.stapi.model.comicSeries.entity;
 
+import com.cezarykluczynski.stapi.model.comicSeries.repository.ComicSeriesRepository;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics;
+import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
+import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
@@ -33,6 +36,8 @@ import java.util.Set;
 @ToString(callSuper = true, exclude = {"parentSeries", "childSeries", "publishers", "comics"})
 @EqualsAndHashCode(callSuper = true, exclude = {"parentSeries", "childSeries", "publishers", "comics"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = ComicSeriesRepository.class, singularName = "comic series",
+		pluralName = "comic series")
 public class ComicSeries extends PageAwareEntity implements PageAware {
 
 	@Id

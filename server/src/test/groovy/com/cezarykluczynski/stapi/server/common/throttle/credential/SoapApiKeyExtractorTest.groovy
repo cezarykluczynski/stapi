@@ -47,7 +47,7 @@ class SoapApiKeyExtractorTest extends Specification {
 				'	<soapenv:Body>\n' +
 				'		<per:PerformerFullRequest>\n' +
 				'			' + apiKeyNodeContent +
-				'			<per:guid>PEMA0000026721</per:guid>\n' +
+				'			<per:uid>PEMA0000026721</per:uid>\n' +
 				'		</per:PerformerFullRequest>\n' +
 				'	</soapenv:Body>\n' +
 				'</soapenv:Envelope>'

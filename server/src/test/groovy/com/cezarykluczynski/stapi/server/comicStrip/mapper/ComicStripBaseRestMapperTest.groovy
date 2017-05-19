@@ -18,7 +18,7 @@ class ComicStripBaseRestMapperTest extends AbstractComicStripMapperTest {
 	void "maps ComicStripRestBeanParams to ComicStripRequestDTO"() {
 		given:
 		ComicStripRestBeanParams comicStripRestBeanParams = new ComicStripRestBeanParams(
-				guid: GUID,
+				uid: UID,
 				title: TITLE,
 				publishedYearFrom: PUBLISHED_YEAR_FROM,
 				publishedYearTo: PUBLISHED_YEAR_TO,
@@ -31,7 +31,7 @@ class ComicStripBaseRestMapperTest extends AbstractComicStripMapperTest {
 		ComicStripRequestDTO comicStripRequestDTO = comicStripRestMapper.mapBase comicStripRestBeanParams
 
 		then:
-		comicStripRequestDTO.guid == GUID
+		comicStripRequestDTO.uid == UID
 		comicStripRequestDTO.title == TITLE
 		comicStripRequestDTO.numberOfPagesFrom == NUMBER_OF_PAGES_FROM
 		comicStripRequestDTO.numberOfPagesTo == NUMBER_OF_PAGES_TO
@@ -47,7 +47,7 @@ class ComicStripBaseRestMapperTest extends AbstractComicStripMapperTest {
 		ComicStripBase comicStripBase = comicStripRestMapper.mapBase(Lists.newArrayList(comicStrip))[0]
 
 		then:
-		comicStripBase.guid == GUID
+		comicStripBase.uid == UID
 		comicStripBase.title == TITLE
 		comicStripBase.periodical == PERIODICAL
 		comicStripBase.publishedYearFrom == PUBLISHED_YEAR_FROM

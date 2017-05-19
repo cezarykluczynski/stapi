@@ -12,7 +12,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.ReflectionTestUtils
 import com.cezarykluczynski.stapi.util.constant.PageTitle
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
-import com.cezarykluczynski.stapi.util.tool.LogicUtil
+import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -23,7 +23,7 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 	private static final String TITLE_PHOTONOVEL = 'TITLE (photonovel)'
 	private static final Long PAGE_ID = 11L
 	private static final MediaWikiSource SOURCES_MEDIA_WIKI_SOURCE = MediaWikiSource.MEMORY_ALPHA_EN
-	private static final Boolean PHOTONOVEL_SERIES = LogicUtil.nextBoolean()
+	private static final Boolean PHOTONOVEL_SERIES = RandomUtil.nextBoolean()
 
 	private PageBindingService pageBindingServiceMock
 

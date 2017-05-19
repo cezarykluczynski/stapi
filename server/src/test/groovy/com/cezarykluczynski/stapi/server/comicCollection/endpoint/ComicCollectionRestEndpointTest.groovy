@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.server.common.endpoint.AbstractRestEndpointTes
 
 class ComicCollectionRestEndpointTest extends AbstractRestEndpointTest {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 	private static final String TITLE = 'TITLE'
 
 	private ComicCollectionRestReader comicCollectionRestReaderMock
@@ -26,10 +26,10 @@ class ComicCollectionRestEndpointTest extends AbstractRestEndpointTest {
 		ComicCollectionFullResponse comicCollectionFullResponse = Mock()
 
 		when:
-		ComicCollectionFullResponse comicCollectionFullResponseOutput = comicCollectionRestEndpoint.getComicCollection(GUID)
+		ComicCollectionFullResponse comicCollectionFullResponseOutput = comicCollectionRestEndpoint.getComicCollection(UID)
 
 		then:
-		1 * comicCollectionRestReaderMock.readFull(GUID) >> comicCollectionFullResponse
+		1 * comicCollectionRestReaderMock.readFull(UID) >> comicCollectionFullResponse
 		comicCollectionFullResponseOutput == comicCollectionFullResponse
 	}
 

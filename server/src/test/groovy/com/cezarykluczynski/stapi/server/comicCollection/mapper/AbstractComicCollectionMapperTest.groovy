@@ -13,7 +13,7 @@ abstract class AbstractComicCollectionMapperTest extends AbstractComicCollection
 
 	protected ComicCollection createComicCollection() {
 		new ComicCollection(
-				guid: GUID,
+				uid: UID,
 				title: TITLE,
 				publishedYear: PUBLISHED_YEAR,
 				publishedMonth: PUBLISHED_MONTH,

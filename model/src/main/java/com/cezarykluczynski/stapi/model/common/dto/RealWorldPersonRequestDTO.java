@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Data
 public class RealWorldPersonRequestDTO {
 
-	private String guid;
+	private String uid;
 
 	private String name;
 

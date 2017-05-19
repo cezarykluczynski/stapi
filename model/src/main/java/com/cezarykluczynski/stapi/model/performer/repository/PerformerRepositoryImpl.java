@@ -28,10 +28,10 @@ public class PerformerRepositoryImpl extends AbstractRepositoryImpl<Performer> i
 	@Transactional(readOnly = true)
 	public Page<Performer> findMatching(PerformerRequestDTO criteria, Pageable pageable) {
 		QueryBuilder<Performer> performerQueryBuilder = performerQueryBuilderFactory.createQueryBuilder(pageable);
-		String guid = criteria.getGuid();
-		boolean doFetch = guid != null;
+		String uid = criteria.getUid();
+		boolean doFetch = uid != null;
 
-		performerQueryBuilder.equal(Performer_.guid, guid);
+		performerQueryBuilder.equal(Performer_.uid, uid);
 		performerQueryBuilder.like(Performer_.name, criteria.getName());
 		performerQueryBuilder.like(Performer_.birthName, criteria.getBirthName());
 		performerQueryBuilder.like(Performer_.placeOfBirth, criteria.getPlaceOfBirth());

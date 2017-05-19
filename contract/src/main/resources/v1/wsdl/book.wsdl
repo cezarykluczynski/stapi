@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+		name="Book"
+		targetNamespace="http://stapi.co/api/v1/soap/book"
+		xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+		xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+		xmlns:stapi="http://stapi.co/api/v1/soap/book"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<xs:schema targetNamespace="http://stapi.co/api/v1/soap/book">
+			<xs:include schemaLocation="book.xsd"/>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="BookBaseRequest">
+		<wsdl:part name="request" element="stapi:BookBaseRequest"/>
+	</wsdl:message>
+	<wsdl:message name="BookFullRequest">
+		<wsdl:part name="request" element="stapi:BookFullRequest"/>
+	</wsdl:message>
+	<wsdl:message name="BookBaseResponse">
+		<wsdl:part name="response" element="stapi:BookBaseResponse"/>
+	</wsdl:message>
+	<wsdl:message name="BookFullResponse">
+		<wsdl:part name="response" element="stapi:BookFullResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="BookPortType">
+		<wsdl:operation name="getBookBase">
+			<wsdl:input name="getBookBaseRequest" message="stapi:BookBaseRequest"/>
+			<wsdl:output name="getBookBaseResponse" message="stapi:BookBaseResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getBookFull">
+			<wsdl:input name="getBookFullRequest" message="stapi:BookFullRequest"/>
+			<wsdl:output name="getBookFullResponse" message="stapi:BookFullResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="BookBinding" type="stapi:BookPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getBookBase">
+			<wsdl:input name="getBookBaseRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getBookBaseResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getBookFull">
+			<wsdl:input name="getBookFullRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getBookFullResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="BookService">
+		<wsdl:port name="BookPortType" binding="stapi:BookBinding">
+			<soap:address location="http://stapi.co/api/v1/soap/book"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

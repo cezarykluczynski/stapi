@@ -16,14 +16,14 @@ class CompanyHeaderRestMapperTest extends AbstractCompanyMapperTest {
 	void "maps DB entity to REST header"() {
 		given:
 		Company company = new Company(
-				guid: GUID,
+				uid: UID,
 				name: NAME)
 
 		when:
 		CompanyHeader companyHeader = companyHeaderRestMapper.map(Lists.newArrayList(company))[0]
 
 		then:
-		companyHeader.guid == GUID
+		companyHeader.uid == UID
 		companyHeader.name == NAME
 	}
 

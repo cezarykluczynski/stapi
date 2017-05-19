@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingP
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.company.creation.provider.CompanyNameFixedValueProvider;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator;
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.util.constant.PageTitle;
@@ -20,17 +20,17 @@ public class CompanyPageProcessor implements ItemProcessor<Page, Company> {
 
 	private PageBindingService pageBindingService;
 
-	private GuidGenerator guidGenerator;
+	private UidGenerator uidGenerator;
 
 	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
 	private CompanyNameFixedValueProvider companyNameFixedValueProvider;
 
 	@Inject
-	public CompanyPageProcessor(PageBindingService pageBindingService, GuidGenerator guidGenerator,
+	public CompanyPageProcessor(PageBindingService pageBindingService, UidGenerator uidGenerator,
 			CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor, CompanyNameFixedValueProvider companyNameFixedValueProvider) {
 		this.pageBindingService = pageBindingService;
-		this.guidGenerator = guidGenerator;
+		this.uidGenerator = uidGenerator;
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
 		this.companyNameFixedValueProvider = companyNameFixedValueProvider;
 	}
@@ -46,7 +46,7 @@ public class CompanyPageProcessor implements ItemProcessor<Page, Company> {
 		company.setName(titleFixedValueHolder.isFound() ? titleFixedValueHolder.getValue() : item.getTitle());
 
 		company.setPage(pageBindingService.fromPageToPageEntity(item));
-		company.setGuid(guidGenerator.generateFromPage(company.getPage(), Company.class));
+		company.setUid(uidGenerator.generateFromPage(company.getPage(), Company.class));
 
 		List<String> categoryTitleList = categoryTitlesExtractingProcessor.process(item.getCategories());
 

@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.util
 
-import com.cezarykluczynski.stapi.util.tool.LogicUtil
+import com.cezarykluczynski.stapi.util.tool.RandomUtil
 
 abstract class AbstractIndividualTest extends AbstractTest {
 
 	protected static final String NAME = 'NAME'
-	protected static final String GUID = 'GUID'
+	protected static final String UID = 'UID'
 	protected static final Integer YEAR_OF_BIRTH = 1965
 	protected static final Integer MONTH_OF_BIRTH = 2
 	protected static final Integer DAY_OF_BIRTH = 17
@@ -16,9 +16,9 @@ abstract class AbstractIndividualTest extends AbstractTest {
 	protected static final String PLACE_OF_DEATH = 'PLACE_OF_DEATH'
 	protected static final Integer HEIGHT = 175
 	protected static final Integer WEIGHT = 80
-	protected static final Boolean DECEASED = LogicUtil.nextBoolean()
-	protected static final Boolean MIRROR = LogicUtil.nextBoolean()
-	protected static final Boolean ALTERNATE_REALITY = LogicUtil.nextBoolean()
+	protected static final Boolean DECEASED = RandomUtil.nextBoolean()
+	protected static final Boolean MIRROR = RandomUtil.nextBoolean()
+	protected static final Boolean ALTERNATE_REALITY = RandomUtil.nextBoolean()
 	protected static final String SERIAL_NUMBER = 'SERIAL_NUMBER'
 
 }

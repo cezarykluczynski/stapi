@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.server.species.reader.SpeciesRestReader
 
 class SpeciesRestEndpointTest extends AbstractRestEndpointTest {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 	private static final String NAME = 'NAME'
 
 	private SpeciesRestReader speciesRestReaderMock
@@ -26,10 +26,10 @@ class SpeciesRestEndpointTest extends AbstractRestEndpointTest {
 		SpeciesFullResponse speciesFullResponse = Mock()
 
 		when:
-		SpeciesFullResponse speciesFullResponseOutput = speciesRestEndpoint.getSpecies(GUID)
+		SpeciesFullResponse speciesFullResponseOutput = speciesRestEndpoint.getSpecies(UID)
 
 		then:
-		1 * speciesRestReaderMock.readFull(GUID) >> speciesFullResponse
+		1 * speciesRestReaderMock.readFull(UID) >> speciesFullResponse
 		speciesFullResponseOutput == speciesFullResponse
 	}
 

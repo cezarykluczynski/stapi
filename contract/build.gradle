@@ -1,0 +1,4 @@
+dependencies {
+	compile project(':util')
+	testCompile project(':util').sourceSets.test.output
+}

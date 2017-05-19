@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.server.organization.reader.OrganizationRestRea
 
 class OrganizationRestEndpointTest extends AbstractRestEndpointTest {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 	private static final String NAME = 'NAME'
 
 	private OrganizationRestReader organizationRestReaderMock
@@ -26,10 +26,10 @@ class OrganizationRestEndpointTest extends AbstractRestEndpointTest {
 		OrganizationFullResponse organizationFullResponse = Mock()
 
 		when:
-		OrganizationFullResponse organizationFullResponseOutput = organizationRestEndpoint.getOrganization(GUID)
+		OrganizationFullResponse organizationFullResponseOutput = organizationRestEndpoint.getOrganization(UID)
 
 		then:
-		1 * organizationRestReaderMock.readFull(GUID) >> organizationFullResponse
+		1 * organizationRestReaderMock.readFull(UID) >> organizationFullResponse
 		organizationFullResponseOutput == organizationFullResponse
 	}
 

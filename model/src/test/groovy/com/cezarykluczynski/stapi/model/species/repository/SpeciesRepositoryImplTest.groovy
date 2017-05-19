@@ -63,9 +63,9 @@ class SpeciesRepositoryImplTest extends AbstractSpeciesTest {
 		then:
 		1 * speciesQueryBuilderMock.createQueryBuilder(pageable) >> speciesQueryBuilder
 
-		then: 'guid criteria is set'
-		1 * speciesRequestDTO.guid >> GUID
-		1 * speciesQueryBuilder.equal(Species_.guid, GUID)
+		then: 'uid criteria is set'
+		1 * speciesRequestDTO.uid >> UID
+		1 * speciesQueryBuilder.equal(Species_.uid, UID)
 
 		then: 'string criteria are set'
 		1 * speciesRequestDTO.name >> NAME
@@ -126,15 +126,15 @@ class SpeciesRepositoryImplTest extends AbstractSpeciesTest {
 		0 * _
 	}
 
-	void "characters and location headers are not fetched when GUID is not provided"() {
+	void "characters and location headers are not fetched when UID is not provided"() {
 		when:
 		Page pageOutput = speciesRepositoryImpl.findMatching(speciesRequestDTO, pageable)
 
 		then:
 		1 * speciesQueryBuilderMock.createQueryBuilder(pageable) >> speciesQueryBuilder
 
-		then: 'guid criteria is set to null'
-		1 * speciesRequestDTO.guid >> null
+		then: 'uid criteria is set to null'
+		1 * speciesRequestDTO.uid >> null
 
 		then: 'fetch is performed with false flag'
 		1 * speciesQueryBuilder.fetch(Species_.homeworld, AstronomicalObject_.location, false)

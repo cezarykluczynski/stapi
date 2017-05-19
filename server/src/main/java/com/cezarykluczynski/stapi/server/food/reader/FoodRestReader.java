@@ -48,10 +48,10 @@ public class FoodRestReader implements BaseReader<FoodRestBeanParams, FoodBaseRe
 	}
 
 	@Override
-	public FoodFullResponse readFull(String guid) {
-		StaticValidator.requireGuid(guid);
+	public FoodFullResponse readFull(String uid) {
+		StaticValidator.requireUid(uid);
 		FoodRestBeanParams foodRestBeanParams = new FoodRestBeanParams();
-		foodRestBeanParams.setGuid(guid);
+		foodRestBeanParams.setUid(uid);
 		Page<com.cezarykluczynski.stapi.model.food.entity.Food> foodPage = foodRestQuery
 				.query(foodRestBeanParams);
 		FoodFullResponse foodResponse = new FoodFullResponse();

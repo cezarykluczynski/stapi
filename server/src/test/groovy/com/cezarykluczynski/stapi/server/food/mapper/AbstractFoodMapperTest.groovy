@@ -7,7 +7,7 @@ abstract class AbstractFoodMapperTest extends AbstractFoodTest {
 
 	protected static Food createFood() {
 		new Food(
-				guid: GUID,
+				uid: UID,
 				name: NAME,
 				earthlyOrigin: EARTHLY_ORIGIN,
 				dessert: DESSERT,

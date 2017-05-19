@@ -1,0 +1,9 @@
+type: object
+properties:
+  page:
+    $ref: ./common/entity/responsePage.yaml
+    description: Results page details
+  bookSeries:
+    type: array
+    items:
+      $ref: '#/definitions/BookSeriesBase'

@@ -18,9 +18,10 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 @Service
-@Path("v1/rest/comicStrip")
 @Produces(MediaType.APPLICATION_JSON)
 public class ComicStripRestEndpoint {
+
+	public static final String ADDRESS = "/v1/rest/comicStrip";
 
 	private ComicStripRestReader comicStripRestReader;
 
@@ -31,8 +32,8 @@ public class ComicStripRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public ComicStripFullResponse getComicStrip(@QueryParam("guid") String guid) {
-		return comicStripRestReader.readFull(guid);
+	public ComicStripFullResponse getComicStrip(@QueryParam("uid") String uid) {
+		return comicStripRestReader.readFull(uid);
 	}
 
 	@GET

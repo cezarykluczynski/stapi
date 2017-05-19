@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.server.company.reader.CompanyRestReader
 
 class CompanyRestEndpointTest extends AbstractRestEndpointTest {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 	private static final String NAME = 'TITLE'
 
 	private CompanyRestReader companyRestReaderMock
@@ -26,10 +26,10 @@ class CompanyRestEndpointTest extends AbstractRestEndpointTest {
 		CompanyFullResponse companyFullResponse = Mock()
 
 		when:
-		CompanyFullResponse companyFullResponseOutput = companyRestEndpoint.getCompany(GUID)
+		CompanyFullResponse companyFullResponseOutput = companyRestEndpoint.getCompany(UID)
 
 		then:
-		1 * companyRestReaderMock.readFull(GUID) >> companyFullResponse
+		1 * companyRestReaderMock.readFull(UID) >> companyFullResponse
 		companyFullResponseOutput == companyFullResponse
 	}
 

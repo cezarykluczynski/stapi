@@ -33,10 +33,10 @@ class ComicSeriesSoapEndpointIntegrationTest extends AbstractComicSeriesEndpoint
 		comicSeriesBaseResponse.comicSeries[0].title == 'Star Trek: The Next Generation (DC volume 1)'
 	}
 
-	void "gets comics by GUID"() {
+	void "gets comics by UID"() {
 		when:
 		ComicSeriesFullResponse comicSeriesBaseResponse = stapiSoapClient.comicSeriesPortType.getComicSeriesFull(new ComicSeriesFullRequest(
-				guid: 'CSMA0000125094'
+				uid: 'CSMA0000125094'
 		))
 
 		then:

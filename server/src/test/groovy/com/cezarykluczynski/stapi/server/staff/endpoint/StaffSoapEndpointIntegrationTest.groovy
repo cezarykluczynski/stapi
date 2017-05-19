@@ -35,14 +35,14 @@ class StaffSoapEndpointIntegrationTest extends AbstractStaffEndpointIntegrationT
 		staffResponse.staff.size() == pageSize
 	}
 
-	void "gets staff by guid"() {
+	void "gets staff by uid"() {
 		when:
 		StaffFullResponse staffResponse = stapiSoapClient.staffPortType.getStaffFull(new StaffFullRequest(
-				guid: IRA_STEVEN_BEHR_GUID
+				uid: IRA_STEVEN_BEHR_UID
 		))
 
 		then:
-		staffResponse.staff.guid == IRA_STEVEN_BEHR_GUID
+		staffResponse.staff.uid == IRA_STEVEN_BEHR_UID
 	}
 
 }

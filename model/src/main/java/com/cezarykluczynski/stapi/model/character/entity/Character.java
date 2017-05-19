@@ -1,5 +1,8 @@
 package com.cezarykluczynski.stapi.model.character.entity;
 
+import com.cezarykluczynski.stapi.model.character.repository.CharacterRepository;
+import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
+import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType;
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender;
@@ -39,6 +42,8 @@ import java.util.Set;
 @ToString(callSuper = true, exclude = {"performers", "episodes", "movies", "characterSpecies"})
 @EqualsAndHashCode(callSuper = true, exclude = {"performers", "episodes", "movies", "characterSpecies"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = CharacterRepository.class, singularName = "character",
+		pluralName = "characters")
 public class Character extends PageAwareEntity implements PageAware {
 
 	@Id

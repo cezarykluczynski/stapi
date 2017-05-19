@@ -8,6 +8,6 @@ abstract class AbstractSeriesEndpointIntegrationTest extends AbstractEndpointInt
 	protected static final String TOS = 'TOS'
 	protected static final String ENT = 'ENT'
 	protected static final String VOYAGER = 'Voyager'
-	protected static final String GUID = 'SEMA0000034504'
+	protected static final String UID = 'SEMA0000034504'
 
 }

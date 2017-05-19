@@ -26,6 +26,7 @@ class NumberOfPartsProcessorTest extends Specification {
 		'1'      | 1
 		'200'    | 200
 		'75+'    | 75
+		'1,000'  | 1000
 		'75++'   | null
 		'75-'    | null
 	}

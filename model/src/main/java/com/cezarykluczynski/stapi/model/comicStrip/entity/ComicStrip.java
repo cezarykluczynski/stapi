@@ -2,6 +2,9 @@ package com.cezarykluczynski.stapi.model.comicStrip.entity;
 
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries;
+import com.cezarykluczynski.stapi.model.comicStrip.repository.ComicStripRepository;
+import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
+import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
@@ -34,6 +37,8 @@ import java.util.Set;
 @ToString(callSuper = true, exclude = {"comicSeries", "writers", "artists", "characters"})
 @EqualsAndHashCode(callSuper = true, exclude = {"comicSeries", "writers", "artists", "characters"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = ComicStripRepository.class, singularName = "comic strip",
+		pluralName = "comic strips")
 public class ComicStrip extends PageAwareEntity implements PageAware {
 
 	@Id

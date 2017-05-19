@@ -56,7 +56,7 @@ class MovieBaseSoapMapperTest extends AbstractMovieMapperTest {
 		MovieBase movieBase = movieBaseSoapMapper.mapBase(Lists.newArrayList(movie))[0]
 
 		then:
-		movieBase.guid == GUID
+		movieBase.uid == UID
 		movieBase.mainDirector != null
 		movieBase.title == TITLE
 		movieBase.titleBulgarian == TITLE_BULGARIAN

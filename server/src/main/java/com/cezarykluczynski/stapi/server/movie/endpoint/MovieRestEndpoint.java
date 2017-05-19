@@ -18,9 +18,10 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 @Service
-@Path("v1/rest/movie")
 @Produces(MediaType.APPLICATION_JSON)
 public class MovieRestEndpoint {
+
+	public static final String ADDRESS = "/v1/rest/movie";
 
 	private MovieRestReader movieRestReader;
 
@@ -31,8 +32,8 @@ public class MovieRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public MovieFullResponse getMovie(@QueryParam("guid") String guid) {
-		return movieRestReader.readFull(guid);
+	public MovieFullResponse getMovie(@QueryParam("uid") String uid) {
+		return movieRestReader.readFull(uid);
 	}
 
 	@GET

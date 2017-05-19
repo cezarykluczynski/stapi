@@ -1,12 +1,12 @@
 package com.cezarykluczynski.stapi.server.common.validator;
 
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException;
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException;
 
 public class StaticValidator {
 
-	public static void requireGuid(String guid) {
-		if (guid == null) {
-			throw new MissingGUIDException();
+	public static void requireUid(String uid) {
+		if (uid == null) {
+			throw new MissingUIDException();
 		}
 	}
 

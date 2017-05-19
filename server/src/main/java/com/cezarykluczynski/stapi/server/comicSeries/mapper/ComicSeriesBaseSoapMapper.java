@@ -17,7 +17,7 @@ import java.util.List;
 		RequestSortSoapMapper.class})
 public interface ComicSeriesBaseSoapMapper {
 
-	@Mapping(target = "guid", ignore = true)
+	@Mapping(target = "uid", ignore = true)
 	@Mapping(source = "publishedYear.from", target = "publishedYearFrom")
 	@Mapping(source = "publishedYear.to", target = "publishedYearTo")
 	@Mapping(source = "numberOfIssues.from", target = "numberOfIssuesFrom")

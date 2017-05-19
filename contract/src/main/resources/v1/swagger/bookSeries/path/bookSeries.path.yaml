@@ -1,0 +1,18 @@
+get:
+  parameters:
+    - name: uid
+      in: query
+      type: string
+    - name: apiKey
+      in: query
+      type: string
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/BookSeriesFullResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - BookSeries

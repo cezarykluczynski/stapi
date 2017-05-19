@@ -1,14 +1,17 @@
 package com.cezarykluczynski.stapi.etl.template.comicStrip.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextCharactersProcessor
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.template.comicStrip.dto.ComicStripTemplate
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
+import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
+import com.google.common.collect.Sets
 import spock.lang.Specification
 
 class ComicStripTemplatePageProcessorTest extends Specification {
@@ -22,7 +25,7 @@ class ComicStripTemplatePageProcessorTest extends Specification {
 
 	private ComicStripTemplatePartsEnrichingProcessor comicStripTemplatePartsEnrichingProcessorMock
 
-	private ComicStripTemplateCharactersEnrichingProcessor comicStripTemplateCharactersEnrichingProcessorMock
+	private WikitextCharactersProcessor comicStripTemplateCharactersEnrichingProcessorMock
 
 	private ComicStripTemplatePageProcessor comicStripTemplatePageProcessor
 
@@ -62,7 +65,7 @@ class ComicStripTemplatePageProcessorTest extends Specification {
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >> Optional.of(template)
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * comicStripTemplatePartsEnrichingProcessorMock.enrich(_ as EnrichablePair)
-		1 * comicStripTemplateCharactersEnrichingProcessorMock.enrich(_ as EnrichablePair)
+		1 * comicStripTemplateCharactersEnrichingProcessorMock.process(page) >> Sets.newHashSet()
 		0 * _
 		comicStripTemplate.title == TITLE
 	}
@@ -73,6 +76,7 @@ class ComicStripTemplatePageProcessorTest extends Specification {
 		Template.Part templatePart = Mock()
 		Template template = new Template(parts: Lists.newArrayList(templatePart))
 		ModelPage modelPage = new ModelPage()
+		Character character = Mock()
 
 		when:
 		ComicStripTemplate comicStripTemplate = comicStripTemplatePageProcessor.process(page)
@@ -85,14 +89,11 @@ class ComicStripTemplatePageProcessorTest extends Specification {
 			assert enrichablePair.input[0] == templatePart
 			assert enrichablePair.output != null
 		}
-		1 * comicStripTemplateCharactersEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
-				EnrichablePair<Page, ComicStripTemplate> enrichablePair ->
-			assert enrichablePair.input == page
-			assert enrichablePair.output != null
-		}
+		1 * comicStripTemplateCharactersEnrichingProcessorMock.process(page) >> Sets.newHashSet(character)
 		0 * _
 		comicStripTemplate.title == TITLE
 		comicStripTemplate.page == modelPage
+		comicStripTemplate.characters.contains character
 	}
 
 }

@@ -48,10 +48,10 @@ public class OrganizationRestReader implements BaseReader<OrganizationRestBeanPa
 	}
 
 	@Override
-	public OrganizationFullResponse readFull(String guid) {
-		StaticValidator.requireGuid(guid);
+	public OrganizationFullResponse readFull(String uid) {
+		StaticValidator.requireUid(uid);
 		OrganizationRestBeanParams organizationRestBeanParams = new OrganizationRestBeanParams();
-		organizationRestBeanParams.setGuid(guid);
+		organizationRestBeanParams.setUid(uid);
 		Page<com.cezarykluczynski.stapi.model.organization.entity.Organization> organizationPage = organizationRestQuery
 				.query(organizationRestBeanParams);
 		OrganizationFullResponse organizationResponse = new OrganizationFullResponse();

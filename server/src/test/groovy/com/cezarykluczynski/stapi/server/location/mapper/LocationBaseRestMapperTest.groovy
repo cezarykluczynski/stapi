@@ -18,7 +18,7 @@ class LocationBaseRestMapperTest extends AbstractLocationMapperTest {
 	void "maps LocationRestBeanParams to LocationRequestDTO"() {
 		given:
 		LocationRestBeanParams locationRestBeanParams = new LocationRestBeanParams(
-				guid: GUID,
+				uid: UID,
 				name: NAME,
 				earthlyLocation: EARTHLY_LOCATION,
 				fictionalLocation: FICTIONAL_LOCATION,
@@ -48,7 +48,7 @@ class LocationBaseRestMapperTest extends AbstractLocationMapperTest {
 		LocationRequestDTO locationRequestDTO = locationBaseRestMapper.mapBase locationRestBeanParams
 
 		then:
-		locationRequestDTO.guid == GUID
+		locationRequestDTO.uid == UID
 		locationRequestDTO.name == NAME
 		locationRequestDTO.earthlyLocation == EARTHLY_LOCATION
 		locationRequestDTO.fictionalLocation == FICTIONAL_LOCATION
@@ -83,7 +83,7 @@ class LocationBaseRestMapperTest extends AbstractLocationMapperTest {
 		LocationBase locationBase = locationBaseRestMapper.mapBase(Lists.newArrayList(location))[0]
 
 		then:
-		locationBase.guid == GUID
+		locationBase.uid == UID
 		locationBase.name == NAME
 		locationBase.earthlyLocation == EARTHLY_LOCATION
 		locationBase.fictionalLocation == FICTIONAL_LOCATION

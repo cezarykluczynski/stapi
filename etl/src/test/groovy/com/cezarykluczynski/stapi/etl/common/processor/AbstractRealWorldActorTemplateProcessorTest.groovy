@@ -9,7 +9,7 @@ abstract class AbstractRealWorldActorTemplateProcessorTest extends AbstractRealW
 
 	protected static final ModelGender MODEL_GENDER = ModelGender.F
 	protected static final EtlGender ETL_GENDER = EtlGender.F
-	protected static final String GUID = 'GUID'
+	protected static final String UID = 'UID'
 	protected static final Page PAGE = new Page(id: 1L)
 
 }

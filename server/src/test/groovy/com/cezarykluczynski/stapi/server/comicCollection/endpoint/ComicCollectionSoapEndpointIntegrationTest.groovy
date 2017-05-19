@@ -48,10 +48,10 @@ class ComicCollectionSoapEndpointIntegrationTest extends AbstractComicCollection
 		titleList.contains 'The Battle Within'
 	}
 
-	void "gets comic collection by GUID"() {
+	void "gets comic collection by UID"() {
 		when:
 		ComicCollectionFullResponse comicCollectionFullResponse = stapiSoapClient.comicCollectionPortType
-				.getComicCollectionFull(new ComicCollectionFullRequest(guid: 'CLMA0000105753'))
+				.getComicCollectionFull(new ComicCollectionFullRequest(uid: 'CLMA0000105753'))
 
 		then:
 		comicCollectionFullResponse.comicCollection.title == 'Best of Gary Seven'

@@ -15,7 +15,7 @@ class ReferenceSoapMapperTest extends AbstractReferenceMapperTest {
 	void "maps db entity to SOAP entity"() {
 		given:
 		ModelReference modelReference = new ModelReference(
-				guid: GUID,
+				uid: UID,
 				referenceType: REFERENCE_TYPE,
 				referenceNumber: REFERENCE_NUMBER,
 		)
@@ -24,7 +24,7 @@ class ReferenceSoapMapperTest extends AbstractReferenceMapperTest {
 		SoapReference soapReference = referenceSoapMapper.map(modelReference)
 
 		then:
-		soapReference.guid == GUID
+		soapReference.uid == UID
 		soapReference.referenceType == SOAP_REFERENCE_TYPE
 		soapReference.referenceNumber == REFERENCE_NUMBER
 	}

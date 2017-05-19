@@ -3,14 +3,14 @@
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 	<changeSet id="0013_create_comic_strip" author="cezarykluczynski">
-		<createTable tableName="comic_strip">
+		<createTable schemaName="stapi" tableName="comic_strip">
 			<column name="id" type="bigint">
 				<constraints unique="true" nullable="false"/>
 			</column>
 			<column name="page_id" type="bigint">
 				<constraints nullable="false"/>
 			</column>
-			<column name="guid" type="varchar(14)">
+			<column name="u_id" type="varchar(14)">
 				<constraints nullable="false"/>
 			</column>
 			<column name="title" type="varchar(128)">
@@ -34,7 +34,7 @@
 				referencedColumnNames="id"
 				referencedTableName="page"/>
 
-		<createTable tableName="comic_strips_comics_series">
+		<createTable schemaName="stapi" tableName="comic_strips_comics_series">
 			<column name="comic_strip_id" type="bigint"/>
 			<column name="comic_series_id" type="bigint"/>
 		</createTable>
@@ -49,7 +49,7 @@
 				referencedColumnNames="id"
 				referencedTableName="comic_series"/>
 
-		<createTable tableName="comic_strips_writers">
+		<createTable schemaName="stapi" tableName="comic_strips_writers">
 			<column name="comic_strip_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
@@ -64,7 +64,7 @@
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable tableName="comic_strips_artists">
+		<createTable schemaName="stapi" tableName="comic_strips_artists">
 			<column name="comic_strip_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
@@ -79,7 +79,7 @@
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable tableName="comic_strips_characters">
+		<createTable schemaName="stapi" tableName="comic_strips_characters">
 			<column name="comic_strip_id" type="bigint"/>
 			<column name="character_id" type="bigint"/>
 		</createTable>

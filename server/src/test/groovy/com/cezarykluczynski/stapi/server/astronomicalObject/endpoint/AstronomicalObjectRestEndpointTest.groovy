@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.server.common.endpoint.AbstractRestEndpointTes
 
 class AstronomicalObjectRestEndpointTest extends AbstractRestEndpointTest {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 	private static final String NAME = 'NAME'
 
 	private AstronomicalObjectRestReader astronomicalObjectRestReaderMock
@@ -26,10 +26,10 @@ class AstronomicalObjectRestEndpointTest extends AbstractRestEndpointTest {
 		AstronomicalObjectFullResponse astronomicalObjectFullResponse = Mock()
 
 		when:
-		AstronomicalObjectFullResponse astronomicalObjectFullResponseOutput = astronomicalObjectRestEndpoint.getAstronomicalObject(GUID)
+		AstronomicalObjectFullResponse astronomicalObjectFullResponseOutput = astronomicalObjectRestEndpoint.getAstronomicalObject(UID)
 
 		then:
-		1 * astronomicalObjectRestReaderMock.readFull(GUID) >> astronomicalObjectFullResponse
+		1 * astronomicalObjectRestReaderMock.readFull(UID) >> astronomicalObjectFullResponse
 		astronomicalObjectFullResponseOutput == astronomicalObjectFullResponse
 	}
 

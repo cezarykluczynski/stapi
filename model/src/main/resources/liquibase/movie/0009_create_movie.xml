@@ -3,7 +3,7 @@
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 	<changeSet id="0009_create_movie" author="cezarykluczynski">
-		<createTable tableName="movie">
+		<createTable schemaName="stapi" tableName="movie">
 			<column name="id" type="bigint">
 				<constraints unique="true" nullable="false"/>
 			</column>
@@ -13,7 +13,7 @@
 			<column name="main_director_id" type="bigint">
 				<constraints nullable="false"/>
 			</column>
-			<column name="guid" type="varchar(14)">
+			<column name="u_id" type="varchar(14)">
 				<constraints nullable="false"/>
 			</column>
 			<column name="title" type="varchar(128)">
@@ -47,7 +47,7 @@
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable tableName="movies_writers">
+		<createTable schemaName="stapi" tableName="movies_writers">
 			<column name="movie_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
@@ -62,7 +62,7 @@
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable tableName="movies_screenplay_authors">
+		<createTable schemaName="stapi" tableName="movies_screenplay_authors">
 			<column name="movie_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
@@ -77,7 +77,7 @@
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable tableName="movies_story_authors">
+		<createTable schemaName="stapi" tableName="movies_story_authors">
 			<column name="movie_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
@@ -92,7 +92,7 @@
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable tableName="movies_directors">
+		<createTable schemaName="stapi" tableName="movies_directors">
 			<column name="movie_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
@@ -107,7 +107,7 @@
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable tableName="movies_producers">
+		<createTable schemaName="stapi" tableName="movies_producers">
 			<column name="movie_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
@@ -122,7 +122,7 @@
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable tableName="movies_staff">
+		<createTable schemaName="stapi" tableName="movies_staff">
 			<column name="movie_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
@@ -137,7 +137,7 @@
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable tableName="movies_performers">
+		<createTable schemaName="stapi" tableName="movies_performers">
 			<column name="movie_id" type="bigint"/>
 			<column name="performer_id" type="bigint"/>
 		</createTable>
@@ -152,7 +152,7 @@
 				referencedColumnNames="id"
 				referencedTableName="performer"/>
 
-		<createTable tableName="movies_stunt_performers">
+		<createTable schemaName="stapi" tableName="movies_stunt_performers">
 			<column name="movie_id" type="bigint"/>
 			<column name="performer_id" type="bigint"/>
 		</createTable>
@@ -167,7 +167,7 @@
 				referencedColumnNames="id"
 				referencedTableName="performer"/>
 
-		<createTable tableName="movies_stand_in_performers">
+		<createTable schemaName="stapi" tableName="movies_stand_in_performers">
 			<column name="movie_id" type="bigint"/>
 			<column name="performer_id" type="bigint"/>
 		</createTable>
@@ -182,7 +182,7 @@
 				referencedColumnNames="id"
 				referencedTableName="performer"/>
 
-		<createTable tableName="movies_characters">
+		<createTable schemaName="stapi" tableName="movies_characters">
 			<column name="movie_id" type="bigint"/>
 			<column name="character_id" type="bigint"/>
 		</createTable>

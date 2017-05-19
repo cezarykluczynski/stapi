@@ -47,10 +47,10 @@ public class MovieRestReader implements BaseReader<MovieRestBeanParams, MovieBas
 	}
 
 	@Override
-	public MovieFullResponse readFull(String guid) {
-		StaticValidator.requireGuid(guid);
+	public MovieFullResponse readFull(String uid) {
+		StaticValidator.requireUid(uid);
 		MovieRestBeanParams movieRestBeanParams = new MovieRestBeanParams();
-		movieRestBeanParams.setGuid(guid);
+		movieRestBeanParams.setUid(uid);
 		Page<Movie> moviePage = movieRestQuery.query(movieRestBeanParams);
 		MovieFullResponse movieResponse = new MovieFullResponse();
 		movieResponse.setMovie(movieFullRestMapper.mapFull(Iterables.getOnlyElement(moviePage.getContent(), null)));

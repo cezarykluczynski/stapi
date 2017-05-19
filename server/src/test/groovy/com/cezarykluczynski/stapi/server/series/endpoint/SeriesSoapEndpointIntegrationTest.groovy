@@ -62,14 +62,14 @@ class SeriesSoapEndpointIntegrationTest extends AbstractSeriesEndpointIntegratio
 	@Requires({
 		StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_EPISODES)
 	})
-	void "gets series by guid"() {
+	void "gets series by uid"() {
 		when:
 		SeriesFullResponse seriesFullResponse = stapiSoapClient.seriesPortType.getSeriesFull(new SeriesFullRequest(
-				guid: GUID
+				uid: UID
 		))
 
 		then:
-		seriesFullResponse.series.guid == GUID
+		seriesFullResponse.series.uid == UID
 		seriesFullResponse.series.abbreviation == TAS
 	}
 

@@ -21,7 +21,7 @@ class StaffFullRestMapperTest extends AbstractStaffMapperTest {
 
 		then:
 		staffFull.name == NAME
-		staffFull.guid == GUID
+		staffFull.uid == UID
 		staffFull.birthName == BIRTH_NAME
 		staffFull.gender == GENDER_ENUM_REST
 		staffFull.dateOfBirth == DATE_OF_BIRTH_FROM_DB

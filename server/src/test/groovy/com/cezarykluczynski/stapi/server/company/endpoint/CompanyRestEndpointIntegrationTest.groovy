@@ -32,7 +32,7 @@ class CompanyRestEndpointIntegrationTest extends AbstractCompanyEndpointIntegrat
 		companyNameList.contains 'CBS Studios'
 	}
 
-	void "gets company by GUID"() {
+	void "gets company by UID"() {
 		when:
 		CompanyFullResponse companyFullResponse = stapiRestClient.companyApi.companyGet('COMA0000006521', null)
 

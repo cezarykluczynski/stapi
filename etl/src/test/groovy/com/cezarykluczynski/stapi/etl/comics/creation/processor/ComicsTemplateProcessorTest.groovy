@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries
 import com.cezarykluczynski.stapi.model.comics.entity.Comics
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.reference.entity.Reference
@@ -14,15 +14,15 @@ import com.google.common.collect.Sets
 
 class ComicsTemplateProcessorTest extends AbstractComicsTest {
 
-	private GuidGenerator guidGeneratorMock
+	private UidGenerator uidGeneratorMock
 
 	private ComicsTemplateProcessor comicsTemplateProcessor
 
 	private final Page page = Mock()
 
 	void setup() {
-		guidGeneratorMock = Mock()
-		comicsTemplateProcessor = new ComicsTemplateProcessor(guidGeneratorMock)
+		uidGeneratorMock = Mock()
+		comicsTemplateProcessor = new ComicsTemplateProcessor(uidGeneratorMock)
 	}
 
 	void "converts ComicsTemplate to Comics"() {
@@ -72,9 +72,9 @@ class ComicsTemplateProcessorTest extends AbstractComicsTest {
 		Comics comics = comicsTemplateProcessor.process(comicsTemplate)
 
 		then:
-		1 * guidGeneratorMock.generateFromPage(page, Comics) >> GUID
+		1 * uidGeneratorMock.generateFromPage(page, Comics) >> UID
 		0 * _
-		comics.guid == GUID
+		comics.uid == UID
 		comics.page == page
 		comics.title == TITLE
 		comics.publishedYear == PUBLISHED_YEAR

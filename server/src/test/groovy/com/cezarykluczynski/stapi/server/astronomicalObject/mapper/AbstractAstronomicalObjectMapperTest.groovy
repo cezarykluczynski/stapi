@@ -15,7 +15,7 @@ abstract class AbstractAstronomicalObjectMapperTest extends AbstractAstronomical
 
 	protected AstronomicalObject createAstronomicalObject() {
 		new AstronomicalObject(
-				guid: GUID,
+				uid: UID,
 				name: NAME,
 				astronomicalObjectType: ASTRONOMICAL_OBJECT_TYPE,
 				location: location)

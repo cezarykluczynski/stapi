@@ -18,7 +18,7 @@ import java.lang.reflect.Field
 @SuppressWarnings(['ThrowRuntimeException', 'ClosureAsLastMethodParameter'])
 class EntityCacheableReflectionTest extends AbstractEntityReflectionTest {
 
-	void "all @OneToMany and @ManyToMany relations should have @Cacheable annotation"() {
+	void "all @OneToMany and @ManyToMany relations should have @Cache annotation"() {
 		given:
 		Reflections reflections = new Reflections(new ConfigurationBuilder()
 				.setUrls(ClasspathHelper.forPackage('com.cezarykluczynski.stapi.model'))
@@ -51,8 +51,9 @@ class EntityCacheableReflectionTest extends AbstractEntityReflectionTest {
 		notThrown(Exception)
 	}
 
-	void "all @Entity classes, except Page and Throttle, are also annotated with @Cache"() {
+	void "all @Entity classes, except Page, Throttle, and EndpointHit are also annotated with @Cache"() {
 		given:
+		List<String> excludes = Lists.newArrayList('Page', 'Throttle', 'EndpointHit', 'SimpleStep')
 		Reflections reflections = new Reflections(new ConfigurationBuilder()
 				.setUrls(ClasspathHelper.forPackage('com.cezarykluczynski.stapi.model'))
 				.setScanners(new SubTypesScanner(), new TypeAnnotationsScanner(), new FieldAnnotationsScanner()))
@@ -62,7 +63,7 @@ class EntityCacheableReflectionTest extends AbstractEntityReflectionTest {
 
 		when:
 		entitiesClasses.forEach({ it ->
-			if (it.simpleName == 'Page' || it.simpleName == 'Throttle' || it.simpleName == 'SimpleStep') {
+			if (excludes.contains(it.simpleName)) {
 				return
 			}
 

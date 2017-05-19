@@ -47,10 +47,10 @@ public class StaffRestReader implements BaseReader<StaffRestBeanParams, StaffBas
 	}
 
 	@Override
-	public StaffFullResponse readFull(String guid) {
-		StaticValidator.requireGuid(guid);
+	public StaffFullResponse readFull(String uid) {
+		StaticValidator.requireUid(uid);
 		StaffRestBeanParams staffRestBeanParams = new StaffRestBeanParams();
-		staffRestBeanParams.setGuid(guid);
+		staffRestBeanParams.setUid(uid);
 		Page<Staff> staffPage = staffRestQuery.query(staffRestBeanParams);
 		StaffFullResponse staffResponse = new StaffFullResponse();
 		staffResponse.setStaff(staffFullRestMapper.mapFull(Iterables.getOnlyElement(staffPage.getContent(), null)));

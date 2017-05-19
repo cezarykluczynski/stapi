@@ -1,14 +1,20 @@
 type: object
+description: Full astronomical object, returned when queries using UID
 properties:
-  guid:
+  uid:
     type: string
+    description: Astronomical object unique ID
   name:
     type: string
+    description: Astronomical object name
   astronomicalObjectType:
     $ref: ./astronomicalObject/entity/enum/astronomicalObjectType.yaml
+    description: Type of astronomical object
   location:
     $ref: ./astronomicalObject/entity/astronomicalObjectBase.yaml
+    description: Location of astronomical object (optional)
   astronomicalObjects:
     type: array
     items:
       $ref: '#/definitions/AstronomicalObjectBase'
+    description: Astronomical objects located in this astronomical object, like planets in a star system

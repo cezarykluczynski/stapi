@@ -7,7 +7,7 @@ abstract class AbstractOrganizationMapperTest extends AbstractOrganizationTest {
 
 	protected static Organization createOrganization() {
 		new Organization(
-				guid: GUID,
+				uid: UID,
 				name: NAME,
 				government: GOVERNMENT,
 				intergovernmentalOrganization: INTERGOVERNMENTAL_ORGANIZATION,

@@ -13,7 +13,7 @@ import java.time.LocalDate
 
 class MovieInitialQueryBuilderFactoryTest extends Specification {
 
-	private static final String GUID = 'ABCD0123456789'
+	private static final String UID = 'ABCD0123456789'
 	private static final String TITLE = 'TITLE'
 	private static final Float STARDATE_FROM = (Float) 3.3
 	private static final Float STARDATE_TO = (Float) 4.6
@@ -55,9 +55,9 @@ class MovieInitialQueryBuilderFactoryTest extends Specification {
 		then:
 		1 * movieQueryBuilderMock.createQueryBuilder(pageable) >> movieQueryBuilder
 
-		then: 'guid criteria is set'
-		1 * movieRequestDTO.guid >> GUID
-		1 * movieQueryBuilder.equal(Movie_.guid, GUID)
+		then: 'uid criteria is set'
+		1 * movieRequestDTO.uid >> UID
+		1 * movieQueryBuilder.equal(Movie_.uid, UID)
 
 		then: 'string criteria are set'
 		1 * movieRequestDTO.title >> TITLE

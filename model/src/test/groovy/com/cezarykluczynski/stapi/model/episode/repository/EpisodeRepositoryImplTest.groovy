@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.model.episode.entity.Episode_
 import com.cezarykluczynski.stapi.model.episode.query.EpisodeQueryBuilderFactory
 import com.cezarykluczynski.stapi.model.series.entity.Series_
-import com.cezarykluczynski.stapi.util.tool.LogicUtil
+import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
@@ -18,7 +18,7 @@ import java.time.LocalDate
 
 class EpisodeRepositoryImplTest extends Specification {
 
-	private static final String GUID = 'ABCD0123456789'
+	private static final String UID = 'ABCD0123456789'
 	private static final String TITLE = 'TITLE'
 	private static final String PRODUCTION_SERIAL_NUMBER = 'PRODUCTION_SERIAL_NUMBER'
 	private static final Integer SEASON_NUMBER_FROM = 1
@@ -31,7 +31,7 @@ class EpisodeRepositoryImplTest extends Specification {
 	private static final LocalDate US_AIR_DATE_TO = LocalDate.of(1968, 5, 6)
 	private static final LocalDate FINAL_SCRIPT_DATE_FROM = LocalDate.of(1967, 10, 11)
 	private static final LocalDate FINAL_SCRIPT_DATE_TO = LocalDate.of(1967, 11, 12)
-	private static final Boolean FEATURE_LENGTH = LogicUtil.nextBoolean()
+	private static final Boolean FEATURE_LENGTH = RandomUtil.nextBoolean()
 	private static final Integer YEAR_FROM = 2250
 	private static final Integer YEAR_TO = 2370
 	private static final RequestSortDTO SORT = new RequestSortDTO()
@@ -67,9 +67,9 @@ class EpisodeRepositoryImplTest extends Specification {
 		then:
 		1 * episodeQueryBuilderMock.createQueryBuilder(pageable) >> episodeQueryBuilder
 
-		then: 'guid criteria is set'
-		1 * episodeRequestDTO.guid >> GUID
-		1 * episodeQueryBuilder.equal(Episode_.guid, GUID)
+		then: 'uid criteria is set'
+		1 * episodeRequestDTO.uid >> UID
+		1 * episodeQueryBuilder.equal(Episode_.uid, UID)
 
 		then: 'string criteria are set'
 		1 * episodeRequestDTO.title >> TITLE
@@ -143,8 +143,8 @@ class EpisodeRepositoryImplTest extends Specification {
 		then:
 		1 * episodeQueryBuilderMock.createQueryBuilder(pageable) >> episodeQueryBuilder
 
-		then: 'guid criteria is set to null'
-		1 * episodeRequestDTO.guid >> null
+		then: 'uid criteria is set to null'
+		1 * episodeRequestDTO.uid >> null
 
 		then: 'fetch is performed'
 		1 * episodeQueryBuilder.fetch(Episode_.series)

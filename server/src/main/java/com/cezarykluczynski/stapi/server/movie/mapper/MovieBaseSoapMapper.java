@@ -17,7 +17,7 @@ import java.util.List;
 @Mapper(config = MapstructConfiguration.class, uses = {DateMapper.class, EnumMapper.class, RequestSortSoapMapper.class, StaffHeaderSoapMapper.class})
 public interface MovieBaseSoapMapper {
 
-	@Mapping(target = "guid", ignore = true)
+	@Mapping(target = "uid", ignore = true)
 	@Mapping(source = "stardate.from", target = "stardateFrom")
 	@Mapping(source = "stardate.to", target = "stardateTo")
 	@Mapping(source = "year.from", target = "yearFrom")

@@ -16,13 +16,13 @@ class LocationFullSoapMapperTest extends AbstractLocationMapperTest {
 
 	void "maps SOAP LocationFullRequest to LocationBaseRequestDTO"() {
 		given:
-		LocationFullRequest locationFullRequest = new LocationFullRequest(guid: GUID)
+		LocationFullRequest locationFullRequest = new LocationFullRequest(uid: UID)
 
 		when:
 		LocationRequestDTO locationRequestDTO = locationFullSoapMapper.mapFull locationFullRequest
 
 		then:
-		locationRequestDTO.guid == GUID
+		locationRequestDTO.uid == UID
 	}
 
 	void "maps DB entity to full SOAP entity"() {
@@ -33,7 +33,7 @@ class LocationFullSoapMapperTest extends AbstractLocationMapperTest {
 		LocationFull locationFull = locationFullSoapMapper.mapFull(location)
 
 		then:
-		locationFull.guid == GUID
+		locationFull.uid == UID
 		locationFull.name == NAME
 		locationFull.earthlyLocation == EARTHLY_LOCATION
 		locationFull.fictionalLocation == FICTIONAL_LOCATION

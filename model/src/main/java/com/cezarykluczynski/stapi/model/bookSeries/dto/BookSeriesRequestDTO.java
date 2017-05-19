@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 public class BookSeriesRequestDTO {
 
-	private String guid;
+	private String uid;
 
 	private String title;
 
@@ -19,10 +19,6 @@ public class BookSeriesRequestDTO {
 	private Integer numberOfBooksFrom;
 
 	private Integer numberOfBooksTo;
-
-	private Float stardateFrom;
-
-	private Float stardateTo;
 
 	private Integer yearFrom;
 

@@ -1,0 +1,24 @@
+type: object
+properties:
+  uid:
+    type: string
+  title:
+    type: string
+  publishedYearFrom:
+    type: integer
+  publishedMonthFrom:
+    type: integer
+  publishedYearTo:
+    type: integer
+  publishedMonthTo:
+    type: integer
+  numberOfBooks:
+    type: integer
+  yearFrom:
+    type: integer
+  yearTo:
+    type: integer
+  miniseries:
+    type: boolean
+  eBookSeries:
+    type: boolean

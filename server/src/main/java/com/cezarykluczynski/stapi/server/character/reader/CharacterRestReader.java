@@ -47,10 +47,10 @@ public class CharacterRestReader implements BaseReader<CharacterRestBeanParams, 
 	}
 
 	@Override
-	public CharacterFullResponse readFull(String guid) {
-		StaticValidator.requireGuid(guid);
+	public CharacterFullResponse readFull(String uid) {
+		StaticValidator.requireUid(uid);
 		CharacterRestBeanParams characterRestBeanParams = new CharacterRestBeanParams();
-		characterRestBeanParams.setGuid(guid);
+		characterRestBeanParams.setUid(uid);
 		Page<Character> characterPage = characterRestQuery.query(characterRestBeanParams);
 		CharacterFullResponse characterResponse = new CharacterFullResponse();
 		characterResponse.setCharacter(characterFullRestMapper.mapFull(Iterables.getOnlyElement(characterPage.getContent(), null)));

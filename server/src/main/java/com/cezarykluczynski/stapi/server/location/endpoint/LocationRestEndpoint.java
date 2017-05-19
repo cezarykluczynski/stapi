@@ -18,9 +18,10 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 @Service
-@Path("v1/rest/location")
 @Produces(MediaType.APPLICATION_JSON)
 public class LocationRestEndpoint {
+
+	public static final String ADDRESS = "/v1/rest/location";
 
 	private LocationRestReader locationRestReader;
 
@@ -31,8 +32,8 @@ public class LocationRestEndpoint {
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public LocationFullResponse getLocation(@QueryParam("guid") String guid) {
-		return locationRestReader.readFull(guid);
+	public LocationFullResponse getLocation(@QueryParam("uid") String uid) {
+		return locationRestReader.readFull(uid);
 	}
 
 	@GET

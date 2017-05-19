@@ -11,14 +11,14 @@ import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripBaseRestMap
 import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripFullRestMapper
 import com.cezarykluczynski.stapi.server.comicStrip.query.ComicStripRestQuery
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
 import spock.lang.Specification
 
 class ComicStripRestReaderTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private ComicStripRestQuery comicStripRestQueryBuilderMock
 
@@ -62,7 +62,7 @@ class ComicStripRestReaderTest extends Specification {
 		comicStripResponseOutput.page == responsePage
 	}
 
-	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
+	void "passed UID to queryBuilder, then to mapper, and returns result"() {
 		given:
 		ComicStripFull comicStripFull = Mock()
 		ComicStrip comicStrip = Mock()
@@ -70,11 +70,11 @@ class ComicStripRestReaderTest extends Specification {
 		Page<ComicStrip> comicStripPage = Mock()
 
 		when:
-		ComicStripFullResponse comicStripResponseOutput = comicStripRestReader.readFull(GUID)
+		ComicStripFullResponse comicStripResponseOutput = comicStripRestReader.readFull(UID)
 
 		then:
 		1 * comicStripRestQueryBuilderMock.query(_ as ComicStripRestBeanParams) >> { ComicStripRestBeanParams comicStripRestBeanParams ->
-			assert comicStripRestBeanParams.guid == GUID
+			assert comicStripRestBeanParams.uid == UID
 			comicStripPage
 		}
 		1 * comicStripPage.content >> comicStripList
@@ -83,12 +83,12 @@ class ComicStripRestReaderTest extends Specification {
 		comicStripResponseOutput.comicStrip == comicStripFull
 	}
 
-	void "requires GUID in full request"() {
+	void "requires UID in full request"() {
 		when:
 		comicStripRestReader.readFull(null)
 
 		then:
-		thrown(MissingGUIDException)
+		thrown(MissingUIDException)
 	}
 
 }

@@ -1,0 +1,4 @@
+/node_modules
+src/components/**/*.css
+/coverage
+npm-debug.log*

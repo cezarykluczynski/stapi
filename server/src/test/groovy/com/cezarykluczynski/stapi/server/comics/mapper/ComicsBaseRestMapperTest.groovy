@@ -18,7 +18,7 @@ class ComicsBaseRestMapperTest extends AbstractComicsMapperTest {
 	void "maps ComicsRestBeanParams to ComicsRequestDTO"() {
 		given:
 		ComicsRestBeanParams comicsRestBeanParams = new ComicsRestBeanParams(
-				guid: GUID,
+				uid: UID,
 				title: TITLE,
 				publishedYearFrom: PUBLISHED_YEAR_FROM,
 				publishedYearTo: PUBLISHED_YEAR_TO,
@@ -34,7 +34,7 @@ class ComicsBaseRestMapperTest extends AbstractComicsMapperTest {
 		ComicsRequestDTO comicsRequestDTO = comicsBaseRestMapper.mapBase comicsRestBeanParams
 
 		then:
-		comicsRequestDTO.guid == GUID
+		comicsRequestDTO.uid == UID
 		comicsRequestDTO.title == TITLE
 		comicsRequestDTO.stardateFrom == STARDATE_FROM
 		comicsRequestDTO.stardateTo == STARDATE_TO
@@ -53,7 +53,7 @@ class ComicsBaseRestMapperTest extends AbstractComicsMapperTest {
 		ComicsBase comicsBase = comicsBaseRestMapper.mapBase(Lists.newArrayList(comics))[0]
 
 		then:
-		comicsBase.guid == GUID
+		comicsBase.uid == UID
 		comicsBase.title == TITLE
 		comicsBase.publishedYear == PUBLISHED_YEAR
 		comicsBase.publishedMonth == PUBLISHED_MONTH

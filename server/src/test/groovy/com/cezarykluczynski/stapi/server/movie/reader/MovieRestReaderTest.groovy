@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.MovieFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
 import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
-import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingGUIDException
+import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.movie.dto.MovieRestBeanParams
 import com.cezarykluczynski.stapi.server.movie.mapper.MovieBaseRestMapper
 import com.cezarykluczynski.stapi.server.movie.mapper.MovieFullRestMapper
@@ -18,7 +18,7 @@ import spock.lang.Specification
 
 class MovieRestReaderTest extends Specification {
 
-	private static final String GUID = 'GUID'
+	private static final String UID = 'UID'
 
 	private MovieRestQuery movieRestQueryBuilderMock
 
@@ -61,7 +61,7 @@ class MovieRestReaderTest extends Specification {
 		movieResponseOutput.page == responsePage
 	}
 
-	void "passed GUID to queryBuilder, then to mapper, and returns result"() {
+	void "passed UID to queryBuilder, then to mapper, and returns result"() {
 		given:
 		MovieFull movieFull = Mock()
 		Movie movie = Mock()
@@ -69,11 +69,11 @@ class MovieRestReaderTest extends Specification {
 		Page<Movie> moviePage = Mock()
 
 		when:
-		MovieFullResponse movieResponseOutput = movieRestReader.readFull(GUID)
+		MovieFullResponse movieResponseOutput = movieRestReader.readFull(UID)
 
 		then:
 		1 * movieRestQueryBuilderMock.query(_ as MovieRestBeanParams) >> { MovieRestBeanParams movieRestBeanParams ->
-			assert movieRestBeanParams.guid == GUID
+			assert movieRestBeanParams.uid == UID
 			moviePage
 		}
 		1 * moviePage.content >> movieList
@@ -82,12 +82,12 @@ class MovieRestReaderTest extends Specification {
 		movieResponseOutput.movie == movieFull
 	}
 
-	void "requires GUID in full request"() {
+	void "requires UID in full request"() {
 		when:
 		movieRestReader.readFull(null)
 
 		then:
-		thrown(MissingGUIDException)
+		thrown(MissingUIDException)
 	}
 
 }

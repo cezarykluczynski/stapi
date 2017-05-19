@@ -34,6 +34,17 @@ public class WikitextListsExtractor {
 		return extractListLikeFromWikitext(wikitext, SEMICOLON, COLON);
 	}
 
+	public List<WikitextList> flattenWikitextListList(List<WikitextList> wikitextListList) {
+		List<WikitextList> flattenWikitextListList = Lists.newArrayList();
+
+		wikitextListList.forEach(wikitextList -> {
+			flattenWikitextListList.add(wikitextList);
+			flattenWikitextListList.addAll(flattenWikitextListList(wikitextList.getChildren()));
+		});
+
+		return flattenWikitextListList;
+	}
+
 	private List<WikitextList> extractListLikeFromWikitext(String wikitext, String firstLevelMarker, String nextLevelMarker) {
 		List<WikitextList> wikitextListList = Lists.newArrayList();
 

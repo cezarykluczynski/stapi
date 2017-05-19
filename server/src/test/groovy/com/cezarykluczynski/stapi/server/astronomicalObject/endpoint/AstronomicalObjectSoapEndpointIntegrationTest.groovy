@@ -25,17 +25,17 @@ class AstronomicalObjectSoapEndpointIntegrationTest extends AbstractAstronomical
 		when:
 		AstronomicalObjectBaseResponse astronomicalObjectResponse = stapiSoapClient.astronomicalObjectPortType
 				.getAstronomicalObjectBase(new AstronomicalObjectBaseRequest(
-				locationGuid: 'ASMA0000000708',
+				locationUid: 'ASMA0000000708',
 				astronomicalObjectType: AstronomicalObjectTypeEnum.PLANET))
 
 		then:
 		astronomicalObjectResponse.astronomicalObjects.size() == 14
 	}
 
-	void "gets Selay by GUID"() {
+	void "gets Selay by UID"() {
 		when:
 		AstronomicalObjectFullResponse astronomicalObjectFullResponse = stapiSoapClient.astronomicalObjectPortType
-				.getAstronomicalObjectFull(new AstronomicalObjectFullRequest(guid: 'ASMA0000000810'))
+				.getAstronomicalObjectFull(new AstronomicalObjectFullRequest(uid: 'ASMA0000000810'))
 
 		then:
 		astronomicalObjectFullResponse.astronomicalObject.name == 'Selay'

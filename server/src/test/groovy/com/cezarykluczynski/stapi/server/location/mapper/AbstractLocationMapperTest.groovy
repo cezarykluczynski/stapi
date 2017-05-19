@@ -7,7 +7,7 @@ abstract class AbstractLocationMapperTest extends AbstractLocationTest {
 
 	protected static Location createLocation() {
 		new Location(
-				guid: GUID,
+				uid: UID,
 				name: NAME,
 				earthlyLocation: EARTHLY_LOCATION,
 				fictionalLocation: FICTIONAL_LOCATION,

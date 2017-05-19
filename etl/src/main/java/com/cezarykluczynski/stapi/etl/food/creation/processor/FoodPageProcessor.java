@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.food.creation.service.FoodPageFilter;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
-import com.cezarykluczynski.stapi.model.common.service.GuidGenerator;
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import com.cezarykluczynski.stapi.model.food.entity.Food;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.util.constant.PageTitle;
@@ -22,15 +22,15 @@ public class FoodPageProcessor implements ItemProcessor<Page, Food> {
 
 	private final PageBindingService pageBindingService;
 
-	private final GuidGenerator guidGenerator;
+	private final UidGenerator uidGenerator;
 
 	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
-	public FoodPageProcessor(FoodPageFilter foodPageFilter, PageBindingService pageBindingService, GuidGenerator guidGenerator,
+	public FoodPageProcessor(FoodPageFilter foodPageFilter, PageBindingService pageBindingService, UidGenerator uidGenerator,
 			CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {
 		this.foodPageFilter = foodPageFilter;
 		this.pageBindingService = pageBindingService;
-		this.guidGenerator = guidGenerator;
+		this.uidGenerator = uidGenerator;
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
 	}
 
@@ -44,7 +44,7 @@ public class FoodPageProcessor implements ItemProcessor<Page, Food> {
 		food.setName(TitleUtil.getNameFromTitle(item.getTitle()));
 
 		food.setPage(pageBindingService.fromPageToPageEntity(item));
-		food.setGuid(guidGenerator.generateFromPage(food.getPage(), Food.class));
+		food.setUid(uidGenerator.generateFromPage(food.getPage(), Food.class));
 
 		List<String> categoryTitleList = categoryTitlesExtractingProcessor.process(item.getCategories());
 
