@@ -1,5 +1,5 @@
 get:
-  description: Pagination over astronomical objects
+  description: Pagination over books
   parameters:
     - name: pageNumber
       in: query

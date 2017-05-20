@@ -3,7 +3,7 @@ description: Header book, embedded in other objects
 properties:
   uid:
     type: string
-    description: Book's unique ID
+    description: Book unique ID
   title:
     type: string
     description: Book title

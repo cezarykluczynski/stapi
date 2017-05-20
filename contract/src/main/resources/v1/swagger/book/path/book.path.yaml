@@ -1,11 +1,11 @@
 get:
-  description: Retrival of single astronomical object
+  description: Retrival of single book
   parameters:
     - name: uid
       in: query
       type: string
       required: true
-      description: Book's unique ID
+      description: Book unique ID
     - name: apiKey
       in: query
       type: string
