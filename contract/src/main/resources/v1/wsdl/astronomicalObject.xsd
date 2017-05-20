@@ -7,6 +7,9 @@
 		targetNamespace="http://stapi.co/api/v1/soap/astronomicalObject">
 	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
 	<xs:element name="AstronomicalObjectBaseRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for astronomical object search</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Request">

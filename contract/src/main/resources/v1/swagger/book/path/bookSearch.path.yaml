@@ -78,12 +78,12 @@ post:
       in: formData
       type: number
       format: float
-      description: Starting stardate of book stroy
+      description: Starting stardate of book story
     - name: stardateTo
       in: formData
       type: number
       format: float
-      description: Ending stardate of book stroy
+      description: Ending stardate of book story
     - name: yearFrom
       in: formData
       type: integer
@@ -113,7 +113,7 @@ post:
     - name: eBook
       in: formData
       type: boolean
-      description: Whether it should be an eBook
+      description: Whether it should be an e-book
     - name: anthology
       in: formData
       type: boolean

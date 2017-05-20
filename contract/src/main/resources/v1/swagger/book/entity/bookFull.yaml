@@ -53,7 +53,7 @@ properties:
   eBook:
     type: boolean
     required: true
-    description: Whether it's an eBook
+    description: Whether it's an e-book
   anthology:
     type: boolean
     required: true
@@ -84,7 +84,7 @@ properties:
     description: Audiobook run time, in minutes
   productionNumber:
     type: string
-    description: Book's production number
+    description: Book production number
   bookSeries:
     type: array
     items:
@@ -114,12 +114,12 @@ properties:
     type: array
     items:
       $ref: '#/definitions/CompanyBase'
-    description: Book's publishers
+    description: Book publishers
   audiobookPublishers:
     type: array
     items:
       $ref: '#/definitions/CompanyBase'
-    description: Audiobook's publishers
+    description: Audiobook publishers
   characters:
     type: array
     items:

@@ -21,43 +21,120 @@
 	<xs:import namespace="http://stapi.co/api/v1/soap/character" schemaLocation="character.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/reference" schemaLocation="reference.xsd"/>
 	<xs:element name="BookBaseRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for book search</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Request">
 					<xs:sequence>
-						<xs:element name="title" type="xs:string" minOccurs="0"/>
-						<xs:element name="publishedYear" type="common:IntegerRange" minOccurs="0"/>
-						<xs:element name="numberOfPages" type="common:IntegerRange" minOccurs="0"/>
-						<xs:element name="stardate" type="common:FloatRange" minOccurs="0"/>
-						<xs:element name="year" type="common:IntegerRange" minOccurs="0"/>
-						<xs:element name="novel" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="referenceBook" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="biographyBook" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="rolePlayingBook" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="eBook" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="anthology" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="novelization" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="audiobook" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="audiobookAbridged" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="audiobookPublishedYear" type="common:IntegerRange" minOccurs="0"/>
-						<xs:element name="audiobookRunTime" type="common:IntegerRange" minOccurs="0"/>
+						<xs:element name="title" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Book title</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="publishedYear" type="common:IntegerRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Starting and ending year the book was published</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="numberOfPages" type="common:IntegerRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Minimal and maximal number of pages</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="stardate" type="common:FloatRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Starting stardate of book storyd</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="year" type="common:IntegerRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Starting and ending year of book story</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="novel" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a novel</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="referenceBook" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a reference book</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="biographyBook" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a biography book</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="rolePlayingBook" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a role playing book</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="eBook" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be an e-book</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="anthology" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be an anthology</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="novelization" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be novelization</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="audiobook" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be an audiobook</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="audiobookAbridged" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be an audiobook, abridged</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="audiobookPublishedYear" type="common:IntegerRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Starting and ending year the audiobook was published</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="audiobookRunTime" type="common:IntegerRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Minimal and maximal audiobook run time, in minutes</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="BookFullRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for single book query</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:ApiRequest">
 					<xs:sequence>
-						<xs:element name="uid" type="xs:string" minOccurs="1"/>
+						<xs:element name="uid" type="xs:string" minOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Book unique ID</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="BookBaseResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for book search</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Response">
@@ -69,104 +146,358 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="BookFullResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for single book query</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="book" type="book:BookFull"/>
+				<xs:element name="book" type="book:BookFull">
+					<xs:annotation>
+						<xs:documentation>Book, if found</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 	<xs:complexType name="BookHeader">
+		<xs:annotation>
+			<xs:documentation>Header book, embedded in other objects</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="uid" type="xs:string"/>
-			<xs:element name="title" type="xs:string"/>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Book unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="title" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Book title</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="BookBase">
 		<xs:sequence>
-			<xs:element name="uid" type="xs:string"/>
-			<xs:element name="title" type="xs:string"/>
-			<xs:element name="publishedYear" type="xs:int" minOccurs="0"/>
-			<xs:element name="publishedMonth" type="xs:int" minOccurs="0"/>
-			<xs:element name="publishedDay" type="xs:int" minOccurs="0"/>
-			<xs:element name="numberOfPages" type="xs:int" minOccurs="0"/>
-			<xs:element name="stardateFrom" type="xs:float" minOccurs="0"/>
-			<xs:element name="stardateTo" type="xs:float" minOccurs="0"/>
-			<xs:element name="yearFrom" type="xs:integer" minOccurs="0"/>
-			<xs:element name="yearTo" type="xs:integer" minOccurs="0"/>
-			<xs:element name="novel" type="xs:boolean"/>
-			<xs:element name="referenceBook" type="xs:boolean"/>
-			<xs:element name="biographyBook" type="xs:boolean"/>
-			<xs:element name="rolePlayingBook" type="xs:boolean"/>
-			<xs:element name="eBook" type="xs:boolean"/>
-			<xs:element name="anthology" type="xs:boolean"/>
-			<xs:element name="novelization" type="xs:boolean"/>
-			<xs:element name="audiobook" type="xs:boolean"/>
-			<xs:element name="audiobookAbridged" type="xs:boolean"/>
-			<xs:element name="audiobookPublishedYear" type="xs:int" minOccurs="0"/>
-			<xs:element name="audiobookPublishedMonth" type="xs:int" minOccurs="0"/>
-			<xs:element name="audiobookPublishedDay" type="xs:int" minOccurs="0"/>
-			<xs:element name="audiobookRunTime" type="xs:int" minOccurs="0"/>
-			<xs:element name="productionNumber" type="xs:string" minOccurs="0"/>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Book unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="title" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Book title</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publishedYear" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Year the book was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publishedMonth" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Month the book was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publishedDay" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Day the book was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="numberOfPages" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Number of pages</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="stardateFrom" type="xs:float" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Starting stardate of book story</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="stardateTo" type="xs:float" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ending date stardate of book story</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="yearFrom" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Starting year of book story</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="yearTo" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ending year of book story</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="novel" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a novel</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="referenceBook" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a reference book</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="biographyBook" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a biography book</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rolePlayingBook" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a role playing book</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="eBook" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's an e-book</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="anthology" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's an anthology</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="novelization" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a novelization</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="audiobook" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's an audiobook, or has been release as an audiobook in addition to other form</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="audiobookAbridged" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>If it's an audiobook, whether it's been abridged</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="audiobookPublishedYear" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Year the audiobook was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="audiobookPublishedMonth" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Month the audiobook was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="audiobookPublishedDay" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Day the audiobook was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="audiobookRunTime" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Audiobook run time, in minutes</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="productionNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Book production number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="BookFull">
 		<xs:sequence>
-			<xs:element name="uid" type="xs:string"/>
-			<xs:element name="title" type="xs:string"/>
-			<xs:element name="publishedYear" type="xs:int" minOccurs="0"/>
-			<xs:element name="publishedMonth" type="xs:int" minOccurs="0"/>
-			<xs:element name="publishedDay" type="xs:int" minOccurs="0"/>
-			<xs:element name="numberOfPages" type="xs:int" minOccurs="0"/>
-			<xs:element name="stardateFrom" type="xs:float" minOccurs="0"/>
-			<xs:element name="stardateTo" type="xs:float" minOccurs="0"/>
-			<xs:element name="yearFrom" type="xs:integer" minOccurs="0"/>
-			<xs:element name="yearTo" type="xs:integer" minOccurs="0"/>
-			<xs:element name="novel" type="xs:boolean"/>
-			<xs:element name="referenceBook" type="xs:boolean"/>
-			<xs:element name="biographyBook" type="xs:boolean"/>
-			<xs:element name="rolePlayingBook" type="xs:boolean"/>
-			<xs:element name="eBook" type="xs:boolean"/>
-			<xs:element name="anthology" type="xs:boolean"/>
-			<xs:element name="novelization" type="xs:boolean"/>
-			<xs:element name="audiobook" type="xs:boolean"/>
-			<xs:element name="audiobookAbridged" type="xs:boolean"/>
-			<xs:element name="audiobookPublishedYear" type="xs:int" minOccurs="0"/>
-			<xs:element name="audiobookPublishedMonth" type="xs:int" minOccurs="0"/>
-			<xs:element name="audiobookPublishedDay" type="xs:int" minOccurs="0"/>
-			<xs:element name="audiobookRunTime" type="xs:int" minOccurs="0"/>
-			<xs:element name="productionNumber" type="xs:string" minOccurs="0"/>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Book unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="title" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Book title</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publishedYear" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Year the book was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publishedMonth" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Month the book was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publishedDay" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Day the book was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="numberOfPages" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Number of pages</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="stardateFrom" type="xs:float" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Starting stardate of book story</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="stardateTo" type="xs:float" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ending date stardate of book story</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="yearFrom" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Starting year of book story</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="yearTo" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ending year of book story</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="novel" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a novel</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="referenceBook" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a reference book</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="biographyBook" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a biography book</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rolePlayingBook" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a role playing book</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="eBook" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's an e-book</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="anthology" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's an anthology</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="novelization" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a novelization</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="audiobook" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's an audiobook, or has been release as an audiobook in addition to other form</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="audiobookAbridged" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>If it's an audiobook, whether it's been abridged</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="audiobookPublishedYear" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Year the audiobook was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="audiobookPublishedMonth" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Month the audiobook was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="audiobookPublishedDay" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Day the audiobook was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="audiobookRunTime" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Audiobook run time, in minutes</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="productionNumber" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Book production number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 			<xs:sequence>
-				<xs:element name="bookSeries" type="bookSeries:BookSeriesBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="bookSeries" type="bookSeries:BookSeriesBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Book series this book is included in</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="authors" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="authors" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Authors of the book</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="artists" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="artists" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Artists involved in the book</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="editors" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="editors" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Editors involved in the book</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="audiobookNarrators" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="audiobookNarrators" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Audiobook narrators</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="publishers" type="company:CompanyBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="publishers" type="company:CompanyBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Book publishers</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="audiobookPublishers" type="company:CompanyBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="audiobookPublishers" type="company:CompanyBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Audiobook publishers</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="characters" type="character:CharacterBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="characters" type="character:CharacterBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Characters appearing the book</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="references" type="reference:Reference" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="references" type="reference:Reference" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>References</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="audiobookReferences" type="reference:Reference" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="audiobookReferences" type="reference:Reference" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Audiobook references</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="bookCollections" type="bookCollection:BookCollectionBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="bookCollections" type="bookCollection:BookCollectionBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Book collections this book is included in</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 		</xs:sequence>
 	</xs:complexType>
