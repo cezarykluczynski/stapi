@@ -1,4 +1,6 @@
 type: object
+description: Response object for single book series query
 properties:
   bookSeries:
     $ref: '#/definitions/BookSeriesFull'
+    description: Book series

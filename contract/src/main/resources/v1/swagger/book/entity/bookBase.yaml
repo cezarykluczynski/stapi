@@ -4,6 +4,7 @@ properties:
   uid:
     type: string
     description: Book unique ID
+    required: true
   title:
     type: string
     description: Book title
