@@ -19,104 +19,271 @@
 	<xs:import namespace="http://stapi.co/api/v1/soap/character" schemaLocation="character.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/reference" schemaLocation="reference.xsd"/>
 	<xs:element name="BookCollectionBaseRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for book collection search</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Request">
 					<xs:sequence>
-						<xs:element name="title" type="xs:string" minOccurs="0"/>
-						<xs:element name="publishedYear" type="common:IntegerRange" minOccurs="0"/>
-						<xs:element name="numberOfPages" type="common:IntegerRange" minOccurs="0"/>
-						<xs:element name="stardate" type="common:FloatRange" minOccurs="0"/>
-						<xs:element name="year" type="common:IntegerRange" minOccurs="0"/>
+						<xs:element name="title" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Book collection title</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="publishedYear" type="common:IntegerRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Starting and ending year the book collection was published</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="numberOfPages" type="common:IntegerRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Minimal and maximal number of pages</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="stardate" type="common:FloatRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Starting stardate of book collection stories</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="year" type="common:IntegerRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Starting and ending year of book collection stories</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="BookCollectionFullRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for single book collection query</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:ApiRequest">
 					<xs:sequence>
-						<xs:element name="uid" type="xs:string" minOccurs="1"/>
+						<xs:element name="uid" type="xs:string" minOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Book collection unique ID</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="BookCollectionBaseResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for book collection search</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Response">
 					<xs:sequence>
-						<xs:element name="bookCollections" type="bookCollection:BookCollectionBase" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="bookCollections" type="bookCollection:BookCollectionBase" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>List of book collections matching given criteria</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="BookCollectionFullResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for single book collection query</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="bookCollection" type="bookCollection:BookCollectionFull"/>
+				<xs:element name="bookCollection" type="bookCollection:BookCollectionFull">
+					<xs:annotation>
+						<xs:documentation>Book collection, if found</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 	<xs:complexType name="BookCollectionHeader">
+		<xs:annotation>
+			<xs:documentation>Header book collection, embedded in other objects</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="uid" type="xs:string"/>
-			<xs:element name="title" type="xs:string"/>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Book collection unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="title" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Book collection title</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="BookCollectionBase">
 		<xs:sequence>
-			<xs:element name="uid" type="xs:string"/>
-			<xs:element name="title" type="xs:string"/>
-			<xs:element name="publishedYear" type="xs:int" minOccurs="0"/>
-			<xs:element name="publishedMonth" type="xs:int" minOccurs="0"/>
-			<xs:element name="publishedDay" type="xs:int" minOccurs="0"/>
-			<xs:element name="numberOfPages" type="xs:int" minOccurs="0"/>
-			<xs:element name="stardateFrom" type="xs:float" minOccurs="0"/>
-			<xs:element name="stardateTo" type="xs:float" minOccurs="0"/>
-			<xs:element name="yearFrom" type="xs:integer" minOccurs="0"/>
-			<xs:element name="yearTo" type="xs:integer" minOccurs="0"/>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Book collection unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="title" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Book collection title</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publishedYear" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Year the book collection was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publishedMonth" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Month the book collection was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publishedDay" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Day the book collection was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="numberOfPages" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Number of pages</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="stardateFrom" type="xs:float" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Starting stardate of book collection stories</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="stardateTo" type="xs:float" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ending date stardate of book collection stories</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="yearFrom" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Starting year of book collection stories</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="yearTo" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ending year of book collection stories</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="BookCollectionFull">
 		<xs:sequence>
-			<xs:element name="uid" type="xs:string"/>
-			<xs:element name="title" type="xs:string"/>
-			<xs:element name="publishedYear" type="xs:int" minOccurs="0"/>
-			<xs:element name="publishedMonth" type="xs:int" minOccurs="0"/>
-			<xs:element name="publishedDay" type="xs:int" minOccurs="0"/>
-			<xs:element name="numberOfPages" type="xs:int" minOccurs="0"/>
-			<xs:element name="stardateFrom" type="xs:float" minOccurs="0"/>
-			<xs:element name="stardateTo" type="xs:float" minOccurs="0"/>
-			<xs:element name="yearFrom" type="xs:integer" minOccurs="0"/>
-			<xs:element name="yearTo" type="xs:integer" minOccurs="0"/>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Book collection unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="title" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Book collection title</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publishedYear" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Year the book collection was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publishedMonth" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Month the book collection was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publishedDay" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Day the book collection was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="numberOfPages" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Number of pages</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="stardateFrom" type="xs:float" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Starting stardate of book collection stories</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="stardateTo" type="xs:float" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ending stardate of book collection stories</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="yearFrom" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Starting year of book collection stories</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="yearTo" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ending year of book collection stories</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 			<xs:sequence>
-				<xs:element name="bookSeries" type="bookSeries:BookSeriesBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="bookSeries" type="bookSeries:BookSeriesBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Book series this book collection is included in</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="authors" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="authors" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Authors of the book collections</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="artists" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="artists" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Artists involved in the book collection</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="editors" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="editors" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Editors involved in the book collection</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="publishers" type="company:CompanyBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="publishers" type="company:CompanyBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Book collection publishers</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="characters" type="character:CharacterBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="characters" type="character:CharacterBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Characters appearing the book collection</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="references" type="reference:Reference" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="references" type="reference:Reference" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>References</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="books" type="book:BookBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="books" type="book:BookBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Books included in this book collection</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 		</xs:sequence>
 	</xs:complexType>

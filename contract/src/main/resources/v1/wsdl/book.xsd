@@ -45,7 +45,7 @@
 						</xs:element>
 						<xs:element name="stardate" type="common:FloatRange" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Starting stardate of book storyd</xs:documentation>
+								<xs:documentation>Starting stardate of book story</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="year" type="common:IntegerRange" minOccurs="0">
@@ -139,7 +139,11 @@
 			<xs:complexContent>
 				<xs:extension base="common:Response">
 					<xs:sequence>
-						<xs:element name="book" type="book:BookBase" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="book" type="book:BookBase" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>List of books matching given criteria</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
@@ -215,7 +219,7 @@
 			</xs:element>
 			<xs:element name="stardateTo" type="xs:float" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Ending date stardate of book story</xs:documentation>
+					<xs:documentation>Ending stardate of book story</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="yearFrom" type="xs:integer" minOccurs="0">
