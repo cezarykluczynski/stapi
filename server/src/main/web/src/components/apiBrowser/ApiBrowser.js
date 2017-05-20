@@ -3,6 +3,7 @@ import './ApiBrowser.css';
 import { SearchStateService } from '../../service/SearchStateService.js';
 import { RestApi } from '../../service/rest/RestApi.js';
 import { ApiBrowserResponse } from './ApiBrowserResponse.js';
+import { Info } from '../info/Info.js';
 
 export class ApiBrowser extends Component {
 
@@ -41,6 +42,7 @@ export class ApiBrowser extends Component {
 	render() {
 		return (
 			<div className='api-browser container content'>
+				<Info message={this.getInfo()}/>
 				<div className="row">
 					<form role="search" className="form-horizontal" onSubmit={this.search}>
 						<div className="col-md-5">
@@ -100,6 +102,11 @@ export class ApiBrowser extends Component {
 			phrase: this.state.phrase,
 			symbol: this.state.symbol
 		});
+	}
+
+	getInfo() {
+		return 'This is API Browser. Existing API entities can be queried here by name or title. <br>' +
+				'Pick resource to search in, type in full name or title, or part of name or title, then press enter.';
 	}
 
 	isDisabled() {

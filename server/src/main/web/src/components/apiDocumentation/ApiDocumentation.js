@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './ApiDocumentation.css';
 import { RestApi } from '../../service/rest/RestApi.js';
+import { Info } from '../info/Info.js';
 
 export class ApiDocumentation extends Component {
 
@@ -27,6 +28,7 @@ export class ApiDocumentation extends Component {
 	render() {
 		return (
 			<div className='api-documentation content'>
+				<Info message={this.getInfo()}/>
 				<div className='row'>
 					<div className="btn-group btn-group-justified">
 						<a className={"btn btn-default " + (this.getRestClass())} onClick={this.selectRest}>REST documentation</a>
@@ -94,6 +96,12 @@ export class ApiDocumentation extends Component {
 			selectedDocumentationType: 'SOAP',
 			selectedFilesIndex: 0
 		});
+	}
+
+	getInfo() {
+		return 'This is API documentation, both REST and SOAP. Please be advised that as long as STAPI stays in alpha version, ' +
+				'SOAP contracts and Swagger specifications can and will change. New versions of STAPI will be deployed without warning, ' +
+				'breaking backward compatibility.'
 	}
 
 	getRestClass() {
