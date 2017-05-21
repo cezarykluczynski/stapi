@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import javax.ws.rs.core.Response;
 
 @Service
 public class CommonDataReader {
@@ -41,7 +42,15 @@ public class CommonDataReader {
 	}
 
 	public DocumentationDTO documentation() {
-		return documentationProvider.provide();
+		return documentationProvider.provideDocumentation();
+	}
+
+	public Response soapContractsZip() {
+		return documentationProvider.provideSoapContractsZip();
+	}
+
+	public Response restSpecsZip() {
+		return documentationProvider.provideRestSpecsZip();
 	}
 
 }

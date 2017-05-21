@@ -6,6 +6,8 @@ import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO
 import com.cezarykluczynski.stapi.server.common.reader.CommonDataReader
 import spock.lang.Specification
 
+import javax.ws.rs.core.Response
+
 class CommonRestEndpointTest extends Specification {
 
 	private CommonDataReader commonDataReaderMock
@@ -67,6 +69,32 @@ class CommonRestEndpointTest extends Specification {
 		1 * commonDataReaderMock.documentation() >> documentationDTO
 		0 * _
 		documentationDTOOutput == documentationDTO
+	}
+
+	void "gets zipped REST documentation"() {
+		given:
+		Response response = Mock()
+
+		when:
+		Response responseOutput = commonRestEndpoint.restSpecsZip()
+
+		then:
+		1 * commonDataReaderMock.restSpecsZip() >> response
+		0 * _
+		responseOutput == response
+	}
+
+	void "gets zipped SOAP documentation"() {
+		given:
+		Response response = Mock()
+
+		when:
+		Response responseOutput = commonRestEndpoint.soapContractsZip()
+
+		then:
+		1 * commonDataReaderMock.soapContractsZip() >> response
+		0 * _
+		responseOutput == response
 	}
 
 }
