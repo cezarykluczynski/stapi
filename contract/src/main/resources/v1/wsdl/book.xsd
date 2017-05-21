@@ -181,6 +181,9 @@
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="BookBase">
+		<xs:annotation>
+			<xs:documentation>Base book, returned in search results</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="uid" type="xs:string">
 				<xs:annotation>
@@ -305,6 +308,9 @@
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="BookFull">
+		<xs:annotation>
+			<xs:documentation>Full book, returned when queries using UID</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="uid" type="xs:string">
 				<xs:annotation>

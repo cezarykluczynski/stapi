@@ -23,7 +23,7 @@ properties:
     description: Month to which the book series was published
   numberOfBooks:
     type: integer
-    description: Number of pages
+    description: Number of books in book series
   yearFrom:
     type: integer
     description: Starting year of book series stories
@@ -40,12 +40,12 @@ properties:
     type: array
     items:
       $ref: '#/definitions/BookSeriesBase'
-    description: Book series this book series is contained in
+    description: Book series this book series is included in
   childSeries:
     type: array
     items:
       $ref: '#/definitions/BookSeriesBase'
-    description: Child book series contained in this book series
+    description: Child book series included in this book series
   publishers:
     type: array
     items:
