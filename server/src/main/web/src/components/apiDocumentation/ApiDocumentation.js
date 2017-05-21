@@ -31,8 +31,10 @@ export class ApiDocumentation extends Component {
 				<div className='alert alert-dismissible alert-success'>{this.getInfo()}</div>
 				<div className='row'>
 					<div className="btn-group btn-group-justified">
-						<a className={"btn btn-default " + (this.getRestClass())} onClick={this.selectRest}>REST documentation</a>
-						<a className={"btn btn-default " + (this.getSoapClass())} onClick={this.selectSoap}>SOAP documentation</a>
+						<div className={"btn btn-default " + (this.getRestClass())} onClick={this.selectRest}>
+							REST documentation (<a href={this.getRestSpecsZipLink()}>as ZIP</a>)</div>
+						<div className={"btn btn-default " + (this.getSoapClass())} onClick={this.selectSoap}>
+							SOAP documentation (<a href={this.getSoapContractsZipLink()}>as ZIP</a>)</div>
 					</div>
 				</div>
 				<div className='row api-documentation__files-contents'>
