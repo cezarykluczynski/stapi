@@ -13,7 +13,7 @@ import java.io.File;
 @Slf4j
 public class DocumentationProvider {
 
-	private static final String ZIP_TARGET_DIRECTORY = "./build/tmp/";
+	private static final String ZIP_TARGET_DIRECTORY = "./build/";
 	private static final String SWAGGER_DIRECTORY = "./contract/src/main/resources/v1/swagger";
 	private static final String SWAGGER_ATTACHMENT_NAME = "stapi_swagger_specs.zip";
 	private static final String SWAGGER_ZIP_TARGET_FILE = ZIP_TARGET_DIRECTORY + SWAGGER_ATTACHMENT_NAME;

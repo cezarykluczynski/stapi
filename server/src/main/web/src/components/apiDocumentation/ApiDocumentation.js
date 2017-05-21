@@ -28,7 +28,7 @@ export class ApiDocumentation extends Component {
 	render() {
 		return (
 			<div className='api-documentation content'>
-				<Info message={this.getInfo()}/>
+				<div className='alert alert-dismissible alert-success'>{this.getInfo()}</div>
 				<div className='row'>
 					<div className="btn-group btn-group-justified">
 						<a className={"btn btn-default " + (this.getRestClass())} onClick={this.selectRest}>REST documentation</a>
@@ -99,9 +99,22 @@ export class ApiDocumentation extends Component {
 	}
 
 	getInfo() {
-		return 'This is API documentation, both REST and SOAP. Please be advised that as long as STAPI stays in alpha version, ' +
-				'SOAP contracts and Swagger specifications can and will change. New versions of STAPI will be deployed without warning, ' +
-				'breaking backward compatibility.'
+		return <span>This is API documentation, both REST and SOAP. Please be advised that as long as STAPI stays in alpha version,
+				SOAP contracts and Swagger specifications can and will change. New versions of STAPI will be deployed without warning,
+				breaking backward compatibility.<br />You can also <strong>download documentation</strong>: <a
+					href={this.getRestSpecsZipLink()}>REST</a> and <a href={this.getSoapContractsZipLink()}>SOAP</a>.</span>
+	}
+
+	getRestSpecsZipLink() {
+		return this.getLinkPrefix() + '/api/v1/rest/common/download/zip/rest';
+	}
+
+	getSoapContractsZipLink() {
+		return this.getLinkPrefix() + '/api/v1/rest/common/download/zip/soap';
+	}
+
+	getLinkPrefix() {
+		return location.href.includes('localhost:3000') ? 'http://localhost:8686' : '';
 	}
 
 	getRestClass() {

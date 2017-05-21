@@ -15,7 +15,7 @@ class DocumentationZipper {
 			try {
 				zip.createNewFile();
 			} catch (Exception e) {
-				LOG.error("Error creating file {}", zip);
+				LOG.error("Error creating file {}, error was: {}", zip, e);
 				return;
 			}
 			ZipUtil.pack(new File(directory), zip);
