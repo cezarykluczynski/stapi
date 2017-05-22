@@ -43,16 +43,16 @@ properties:
     items:
       $ref: '#/definitions/StaffBase'
     description: Authors of the book collection
-  editors:
-    type: array
-    items:
-      $ref: '#/definitions/StaffBase'
-    description: Editors involved in the book collection
   artists:
     type: array
     items:
       $ref: '#/definitions/StaffBase'
     description: Artists involved in the book collection
+  editors:
+    type: array
+    items:
+      $ref: '#/definitions/StaffBase'
+    description: Editors involved in the book collection
   publishers:
     type: array
     items:

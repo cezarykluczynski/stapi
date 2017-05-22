@@ -19,116 +19,326 @@
 	<xs:import namespace="http://stapi.co/api/v1/soap/character" schemaLocation="character.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/reference" schemaLocation="reference.xsd"/>
 	<xs:element name="ComicCollectionBaseRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for comic collection search</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Request">
 					<xs:sequence>
-						<xs:element name="title" type="xs:string" minOccurs="0"/>
-						<xs:element name="publishedYear" type="common:IntegerRange" minOccurs="0"/>
-						<xs:element name="numberOfPages" type="common:IntegerRange" minOccurs="0"/>
-						<xs:element name="stardate" type="common:FloatRange" minOccurs="0"/>
-						<xs:element name="year" type="common:IntegerRange" minOccurs="0"/>
-						<xs:element name="photonovel" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="title" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Comic collection title</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="publishedYear" type="common:IntegerRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Starting and ending year the comic collection was published</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="numberOfPages" type="common:IntegerRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Minimal and maximal number of pages</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="stardate" type="common:FloatRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Starting stardate of comic collection stories</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="year" type="common:IntegerRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Starting and ending year of comic collection stories</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="photonovel" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be an photonovel collection</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="ComicCollectionFullRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for single comic collection query</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:ApiRequest">
 					<xs:sequence>
-						<xs:element name="uid" type="xs:string" minOccurs="1"/>
+						<xs:element name="uid" type="xs:string" minOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Comic collection unique ID</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="ComicCollectionBaseResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for comic collection search</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Response">
 					<xs:sequence>
-						<xs:element name="comicCollections" type="comicCollection:ComicCollectionBase" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="comicCollections" type="comicCollection:ComicCollectionBase" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>List of comic collections matching given criteria</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="ComicCollectionFullResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for single comic collection query</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="comicCollection" type="comicCollection:ComicCollectionFull"/>
+				<xs:element name="comicCollection" type="comicCollection:ComicCollectionFull">
+					<xs:annotation>
+						<xs:documentation>Comic collection, if found</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 	<xs:complexType name="ComicCollectionHeader">
+		<xs:annotation>
+			<xs:documentation>Header comic collection, embedded in other objects</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="uid" type="xs:string"/>
-			<xs:element name="title" type="xs:string"/>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Comic collection unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="title" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Comic collection title</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="ComicCollectionBase">
+		<xs:annotation>
+			<xs:documentation>Base comic collection, returned in search results</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="uid" type="xs:string"/>
-			<xs:element name="title" type="xs:string"/>
-			<xs:element name="publishedYear" type="xs:int" minOccurs="0"/>
-			<xs:element name="publishedMonth" type="xs:int" minOccurs="0"/>
-			<xs:element name="publishedDay" type="xs:int" minOccurs="0"/>
-			<xs:element name="coverYear" type="xs:int" minOccurs="0"/>
-			<xs:element name="coverMonth" type="xs:int" minOccurs="0"/>
-			<xs:element name="coverDay" type="xs:int" minOccurs="0"/>
-			<xs:element name="numberOfPages" type="xs:int" minOccurs="0"/>
-			<xs:element name="stardateFrom" type="xs:float" minOccurs="0"/>
-			<xs:element name="stardateTo" type="xs:float" minOccurs="0"/>
-			<xs:element name="yearFrom" type="xs:integer" minOccurs="0"/>
-			<xs:element name="yearTo" type="xs:integer" minOccurs="0"/>
-			<xs:element name="photonovel" type="xs:boolean"/>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Comic collection unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="title" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Comic collection title</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publishedYear" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Year the comic collection was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publishedMonth" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Month the comic collection was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publishedDay" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Day the comic collection was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="coverYear" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Cover publication year</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="coverMonth" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Cover publication month</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="coverDay" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Cover publication day</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="numberOfPages" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Number of pages</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="stardateFrom" type="xs:float" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Starting stardate of comic collection stories</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="stardateTo" type="xs:float" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ending date stardate of comic collection stories</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="yearFrom" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Starting year of comic collection stories</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="yearTo" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ending year of comic collection stories</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="photonovel" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a photonovel collection</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="ComicCollectionFull">
 		<xs:sequence>
-			<xs:element name="uid" type="xs:string"/>
-			<xs:element name="title" type="xs:string"/>
-			<xs:element name="publishedYear" type="xs:int" minOccurs="0"/>
-			<xs:element name="publishedMonth" type="xs:int" minOccurs="0"/>
-			<xs:element name="publishedDay" type="xs:int" minOccurs="0"/>
-			<xs:element name="coverYear" type="xs:int" minOccurs="0"/>
-			<xs:element name="coverMonth" type="xs:int" minOccurs="0"/>
-			<xs:element name="coverDay" type="xs:int" minOccurs="0"/>
-			<xs:element name="numberOfPages" type="xs:int" minOccurs="0"/>
-			<xs:element name="stardateFrom" type="xs:float" minOccurs="0"/>
-			<xs:element name="stardateTo" type="xs:float" minOccurs="0"/>
-			<xs:element name="yearFrom" type="xs:integer" minOccurs="0"/>
-			<xs:element name="yearTo" type="xs:integer" minOccurs="0"/>
-			<xs:element name="photonovel" type="xs:boolean"/>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Comic collection unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="title" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Comic collection title</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publishedYear" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Year the comic collection was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publishedMonth" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Month the comic collection was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publishedDay" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Day the comic collection was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="coverYear" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Cover publication year</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="coverMonth" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Cover publication month</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="coverDay" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Cover publication day</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="numberOfPages" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Number of pages</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="stardateFrom" type="xs:float" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Starting stardate of comic collection stories</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="stardateTo" type="xs:float" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ending date stardate of comic collection stories</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="yearFrom" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Starting year of comic collection stories</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="yearTo" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ending year of comic collection stories</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="photonovel" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a photonovel collection</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 			<xs:sequence>
-				<xs:element name="comicSeries" type="comicSeries:ComicSeriesBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="comicSeries" type="comicSeries:ComicSeriesBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+					<xs:documentation>Comic series this comic collection is included in</xs:documentation>
+				</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="writers" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="writers" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+					<xs:documentation>Writers involved in the comic collection</xs:documentation>
+				</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="artists" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="artists" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+					<xs:documentation>Artists involved in the comic collection</xs:documentation>
+				</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="editors" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="editors" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+					<xs:documentation>Editors involved in the comic collection</xs:documentation>
+				</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="staff" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="staff" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+					<xs:documentation>Other staff involved in the comic collection</xs:documentation>
+				</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="publishers" type="company:CompanyBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="publishers" type="company:CompanyBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+					<xs:documentation>Comic collection publishers</xs:documentation>
+				</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="characters" type="character:CharacterBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="characters" type="character:CharacterBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+					<xs:documentation>Characters appearing in this comic collection</xs:documentation>
+				</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="references" type="reference:Reference" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="references" type="reference:Reference" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+					<xs:documentation>References</xs:documentation>
+				</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="comics" type="comics:ComicsBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="comics" type="comics:ComicsBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+					<xs:documentation>Comics included in this comic collection</xs:documentation>
+				</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 		</xs:sequence>
 	</xs:complexType>

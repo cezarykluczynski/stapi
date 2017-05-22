@@ -57,16 +57,16 @@ properties:
     items:
       $ref: '#/definitions/StaffBase'
     description: Writers involved in the comic collection
-  editors:
-    type: array
-    items:
-      $ref: '#/definitions/StaffBase'
-    description: Editors involved in the comic collection
   artists:
     type: array
     items:
       $ref: '#/definitions/StaffBase'
     description: Artists involved in the comic collection
+  editors:
+    type: array
+    items:
+      $ref: '#/definitions/StaffBase'
+    description: Editors involved in the comic collection
   staff:
     type: array
     items:
