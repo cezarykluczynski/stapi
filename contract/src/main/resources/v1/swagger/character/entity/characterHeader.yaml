@@ -1,6 +1,11 @@
 type: object
+description: Header character, embedded in other objects
 properties:
   uid:
     type: string
+    description: Character unique ID
+    required: true
   name:
     type: string
+    description: Character name
+    required: true

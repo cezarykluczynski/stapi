@@ -1,40 +1,62 @@
 type: object
+description: Base character, returned in search results
 properties:
   uid:
     type: string
+    description: Character unique ID
+    required: true
   name:
     type: string
+    description: Character name
+    required: true
   gender:
     $ref: ./common/entity/enum/gender.yaml
+    description: Character gender
   yearOfBirth:
     type: integer
+    description: Year the character was born
   monthOfBirth:
     type: integer
+    description: Month the character was born
   dayOfBirth:
     type: integer
+    description: Day the character was born
   placeOfBirth:
     type: string
+    description: Place of birth
   yearOfDeath:
     type: integer
+    description: Year the character died
   monthOfDeath:
     type: integer
+    description: Month the character died
   dayOfDeath:
     type: integer
+    description: Day the character died
   placeOfDeath:
     type: string
+    description: Place of death
   height:
     type: integer
+    description: Height in centimeters
   weight:
     type: integer
+    description: Weight in kilograms
   deceased:
     type: boolean
+    description: Whether this character is deceased
   bloodType:
     $ref: ./common/entity/enum/bloodType.yaml
+    description: Blood type
   maritalStatus:
     $ref: ./common/entity/enum/maritalStatus.yaml
+    description: Marital status
   serialNumber:
     type: string
+    description: Serial number
   mirror:
     type: boolean
+    description: Whether this character is from mirror universe
   alternateReality:
     type: boolean
+    description: Whether this character is from alternate reality

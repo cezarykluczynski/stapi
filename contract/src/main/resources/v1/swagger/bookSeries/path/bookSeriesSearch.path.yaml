@@ -1,16 +1,20 @@
 get:
+  description: Pagination over characters
   parameters:
     - name: pageNumber
       in: query
       type: integer
       format: int32
+      description: Page number
     - name: pageSize
       in: query
       type: integer
       format: int32
+      description: Page size
     - name: apiKey
       in: query
       type: string
+      description: API key
   responses:
     200:
       schema:
@@ -22,6 +26,7 @@ get:
   tags:
   - BookSeries
 post:
+  description: Searching characters
   consumes:
     - application/x-www-form-urlencoded
   producers:
@@ -31,49 +36,62 @@ post:
       in: query
       type: integer
       format: int32
+      description: Page number
     - name: pageSize
       in: query
       type: integer
       format: int32
+      description: Page size
     - name: sort
       type: string
       in: query
+      description: "Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC"
     - name: apiKey
       in: query
       type: string
+      description: API key
     - name: title
       in: formData
       type: string
+      description: Book series title
     - name: publishedYearFrom
       in: formData
       type: integer
       format: int32
+      description: Starting year the book series was published
     - name: publishedYearTo
       in: formData
       type: integer
       format: int32
+      description: Ending year the book was published
     - name: numberOfBooksFrom
       in: formData
       type: integer
       format: int32
+      description: Minimal number of books
     - name: numberOfBooksTo
       in: formData
       type: integer
       format: int32
+      description: Maximal number of books
     - name: yearFrom
       in: formData
       type: integer
       format: int32
+      description: Starting year of book series stories
     - name: yearTo
       in: formData
       type: integer
       format: int32
+      description: Ending year of book series stories
     - name: miniseries
       in: formData
       type: boolean
+      description: Whether it should be a miniseries
     - name: eBookSeries
       in: formData
       type: boolean
+      description: Whether it should be an e-book series
   responses:
     200:
       schema:

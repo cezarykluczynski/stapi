@@ -1,5 +1,5 @@
 get:
-  description: Retrival of single astronomical object
+  description: Retrival of a single astronomical object
   parameters:
     - name: uid
       in: query

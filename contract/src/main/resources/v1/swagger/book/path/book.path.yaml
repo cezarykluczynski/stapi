@@ -1,5 +1,5 @@
 get:
-  description: Retrival of single book
+  description: Retrival of a single book
   parameters:
     - name: uid
       in: query
