@@ -13,119 +13,367 @@
 	<xs:import namespace="http://stapi.co/api/v1/soap/movie" schemaLocation="movie.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/performer" schemaLocation="performer.xsd"/>
 	<xs:element name="CharacterBaseRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for character search</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Request">
 					<xs:sequence>
-						<xs:element name="name" type="xs:string" minOccurs="0"/>
-						<xs:element name="gender" type="common:GenderEnum" minOccurs="0"/>
-						<xs:element name="deceased" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="mirror" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="alternateReality" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="name" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Character name</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="gender" type="common:GenderEnum" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Character gender</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="deceased" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a deceased character</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="mirror" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a mirror universe character</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="alternateReality" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a alternate reality character</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="CharacterFullRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for single character query</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:ApiRequest">
 					<xs:sequence>
-						<xs:element name="uid" type="xs:string" minOccurs="1"/>
+						<xs:element name="uid" type="xs:string" minOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Character unique ID</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="CharacterBaseResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for character search</xs:documentation>
+</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Response">
 					<xs:sequence>
-						<xs:element name="characters" type="character:CharacterBase" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="characters" type="character:CharacterBase" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>List of characters matching given criteria</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="CharacterFullResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for single character query</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="character" type="character:CharacterFull"/>
+				<xs:element name="character" type="character:CharacterFull">
+					<xs:annotation>
+						<xs:documentation>Character, if found</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 	<xs:complexType name="CharacterHeader">
+		<xs:annotation>
+			<xs:documentation>Header character, embedded in other objects</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="uid" type="xs:string"/>
-			<xs:element name="name" type="xs:string"/>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Character unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Character name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="CharacterBase">
+		<xs:annotation>
+			<xs:documentation>Base character, returned in search results</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="uid" type="xs:string"/>
-			<xs:element name="name" type="xs:string"/>
-			<xs:element name="gender" type="common:GenderEnum" minOccurs="0"/>
-			<xs:element name="yearOfBirth" type="xs:int" minOccurs="0"/>
-			<xs:element name="monthOfBirth" type="xs:int" minOccurs="0"/>
-			<xs:element name="dayOfBirth" type="xs:int" minOccurs="0"/>
-			<xs:element name="placeOfBirth" type="xs:string" minOccurs="0"/>
-			<xs:element name="yearOfDeath" type="xs:int" minOccurs="0"/>
-			<xs:element name="monthOfDeath" type="xs:int" minOccurs="0"/>
-			<xs:element name="dayOfDeath" type="xs:int" minOccurs="0"/>
-			<xs:element name="placeOfDeath" type="xs:string" minOccurs="0"/>
-			<xs:element name="height" type="xs:int" minOccurs="0"/>
-			<xs:element name="weight" type="xs:int" minOccurs="0"/>
-			<xs:element name="deceased" type="xs:boolean" minOccurs="0"/>
-			<xs:element name="bloodType" type="common:BloodTypeEnum" minOccurs="0"/>
-			<xs:element name="maritalStatus" type="common:MaritalStatusEnum" minOccurs="0"/>
-			<xs:element name="serialNumber" type="xs:string"/>
-			<xs:element name="mirror" type="xs:boolean" minOccurs="0"/>
-			<xs:element name="alternateReality" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Character unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Character name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="gender" type="common:GenderEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Character gender</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="yearOfBirth" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Year the character was born</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="monthOfBirth" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Month the character was born</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dayOfBirth" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Day the character was born</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="placeOfBirth" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Place of birth</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="yearOfDeath" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Year the character died</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="monthOfDeath" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Month the character died</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dayOfDeath" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Day the character died</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="placeOfDeath" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Place of death</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="height" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Height in centimeters</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="weight" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Weight in kilograms</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="deceased" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Whether this character is deceased</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bloodType" type="common:BloodTypeEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Blood type</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="maritalStatus" type="common:MaritalStatusEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Marital status</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serialNumber" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Serial number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mirror" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Whether this character is from mirror universe</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="alternateReality" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Whether this character is from alternate reality</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="CharacterFull">
+		<xs:annotation>
+			<xs:documentation>Full character, returned when queries using UID</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="uid" type="xs:string"/>
-			<xs:element name="name" type="xs:string"/>
-			<xs:element name="gender" type="common:GenderEnum" minOccurs="0"/>
-			<xs:element name="yearOfBirth" type="xs:int" minOccurs="0"/>
-			<xs:element name="monthOfBirth" type="xs:int" minOccurs="0"/>
-			<xs:element name="dayOfBirth" type="xs:int" minOccurs="0"/>
-			<xs:element name="placeOfBirth" type="xs:string" minOccurs="0"/>
-			<xs:element name="yearOfDeath" type="xs:int" minOccurs="0"/>
-			<xs:element name="monthOfDeath" type="xs:int" minOccurs="0"/>
-			<xs:element name="dayOfDeath" type="xs:int" minOccurs="0"/>
-			<xs:element name="placeOfDeath" type="xs:string" minOccurs="0"/>
-			<xs:element name="height" type="xs:int" minOccurs="0"/>
-			<xs:element name="weight" type="xs:int" minOccurs="0"/>
-			<xs:element name="deceased" type="xs:boolean" minOccurs="0"/>
-			<xs:element name="bloodType" type="common:BloodTypeEnum" minOccurs="0"/>
-			<xs:element name="maritalStatus" type="common:MaritalStatusEnum" minOccurs="0"/>
-			<xs:element name="serialNumber" type="xs:string"/>
-			<xs:element name="mirror" type="xs:boolean" minOccurs="0"/>
-			<xs:element name="alternateReality" type="xs:boolean" minOccurs="0"/>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Character unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Character name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="gender" type="common:GenderEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Character gender</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="yearOfBirth" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Year the character was born</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="monthOfBirth" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Month the character was born</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dayOfBirth" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Day the character was born</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="placeOfBirth" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Place of birth</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="yearOfDeath" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Year the character died</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="monthOfDeath" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Month the character died</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dayOfDeath" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Day the character died</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="placeOfDeath" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Place of death</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="height" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Height in centimeters</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="weight" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Weight in kilograms</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="deceased" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Whether this character is deceased</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bloodType" type="common:BloodTypeEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Blood type</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="maritalStatus" type="common:MaritalStatusEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Marital status</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="serialNumber" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Serial number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mirror" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Whether this character is from mirror universe</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="alternateReality" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Whether this character is from alternate reality</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 			<xs:sequence>
-				<xs:element name="performers" type="performer:PerformerBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="performers" type="performer:PerformerBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Performers who played this character</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="episodes" type="episode:EpisodeBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="episodes" type="episode:EpisodeBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Episodes in which this character appeared</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="movies" type="movie:MovieBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="movies" type="movie:MovieBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Movies in which this character appeared</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="characterSpecies" type="character:CharacterSpecies" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="characterSpecies" type="character:CharacterSpecies" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Species this character belongs to</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="CharacterSpecies">
+		<xs:annotation>
+			<xs:documentation>Species a character belongs to</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="uid" type="xs:string"/>
-			<xs:element name="name" type="xs:string"/>
-			<xs:element name="numerator" type="xs:int"/>
-			<xs:element name="denominator" type="xs:int"/>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Entity unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Species name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="numerator" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>Numerator</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="denominator" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>Denominator</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 </xs:schema>
