@@ -1,6 +1,9 @@
 type: object
+description: Header comic collection, embedded in other objects
 properties:
   uid:
     type: string
+    description: Comic collection unique ID
   title:
     type: string
+    description: Comic collection title

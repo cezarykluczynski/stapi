@@ -5,7 +5,7 @@ get:
       in: query
       type: string
       required: true
-      description: Book unique ID
+      description: Book collection unique ID
     - name: apiKey
       in: query
       type: string
