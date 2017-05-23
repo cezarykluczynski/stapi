@@ -1,4 +1,6 @@
 type: object
+description: Response object for single comics query
 properties:
   comics:
     $ref: '#/definitions/ComicsFull'
+  description: Comics, if found

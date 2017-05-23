@@ -53,7 +53,7 @@ post:
     - name: title
       in: formData
       type: string
-      description: Book collection title
+      description: Comic collection title
     - name: publishedYearFrom
       in: formData
       type: integer

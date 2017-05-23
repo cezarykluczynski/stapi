@@ -3,12 +3,12 @@ description: Full comic collection, returned when queried using UID
 properties:
   uid:
     type: string
-    description: Comic collection unique ID
     required: true
+    description: Comic collection unique ID
   title:
     type: string
-    description: Comic collection title
     required: true
+    description: Comic collection title
   publishedYear:
     type: integer
     description: Year the comic collection was published
