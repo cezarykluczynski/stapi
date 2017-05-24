@@ -28,7 +28,7 @@ export class ApiDocumentation extends Component {
 	render() {
 		return (
 			<div className='api-documentation content'>
-				<div className='alert alert-dismissible alert-success'>{this.getInfo()}</div>
+				<div className='alert alert-success'>{this.getInfo()}</div>
 				<div className='row'>
 					<div className="btn-group btn-group-justified">
 						<div className={"btn btn-default " + (this.getRestClass())} onClick={this.selectRest}>
@@ -101,10 +101,35 @@ export class ApiDocumentation extends Component {
 	}
 
 	getInfo() {
-		return <span>This is API documentation, both REST and SOAP. Please be advised that as long as STAPI stays in alpha version,
-				SOAP contracts and Swagger specifications can and will change. New versions of STAPI will be deployed without warning,
-				breaking backward compatibility.<br />You can also <strong>download documentation</strong>: <a
-					href={this.getRestSpecsZipLink()}>REST</a> and <a href={this.getSoapContractsZipLink()}>SOAP</a>.</span>
+		return <span>
+					<ul>
+						<li>This is API documentation, both REST and SOAP.</li>
+						<li>
+							Please be advised that as long as STAPI stays in alpha version, SOAP contracts and Swagger specifications can and will change.
+							New versions of STAPI will be deployed without warning, breaking backward compatibility.
+						</li>
+						<li>
+							You can also <strong>download documentation</strong>: <a href={this.getRestSpecsZipLink()}>REST</a> and <a
+								href={this.getSoapContractsZipLink()}>SOAP</a>.
+						</li>
+						<li>
+							It is possible to generate clients from both ZIP packages.
+						</li>
+						<li><a href="https://github.com/swagger-api/swagger-codegen">Swagger Code Generator</a> will generate clients for REST Swagger specs.
+						</li>
+						<li>
+							Generating clients from SOAP depends on the target language. Google around for your tool.
+						</li>
+						<li>
+							In case of any	problems with Swagger specs of SOAP contracts, please <a
+								href="https://github.com/cezarykluczynski/stapi/issues">report a bug</a>.
+						</li>
+						<li>If you plan on mantaing STAPI client in language other than Java, please <a
+							href="https://github.com/cezarykluczynski/stapi/issues">open an issue</a> and let others now.
+							Client will be listed on STAPI website in the future.
+						</li>
+					</ul>
+				</span>
 	}
 
 	getRestSpecsZipLink() {

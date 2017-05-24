@@ -29,6 +29,7 @@ class App extends Component {
 										<ul className='nav navbar-nav navbar-right'>
 											<li className='navigation__github-star' dangerouslySetInnerHTML={{__html: this.getGitHubButton()}}></li>
 											<li><a href='https://github.com/cezarykluczynski/stapi'>STAPI on GitHub</a></li>
+											<li><a href='https://github.com/cezarykluczynski/stapi/issues'>Report an issue</a></li>
 											<li><a href="https://github.com/cezarykluczynski/stapi/wiki">Wiki</a></li>
 										</ul>
 								</div>
