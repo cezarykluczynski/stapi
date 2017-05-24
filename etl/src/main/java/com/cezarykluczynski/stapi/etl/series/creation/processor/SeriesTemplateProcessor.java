@@ -13,14 +13,17 @@ import javax.inject.Inject;
 @Service
 public class SeriesTemplateProcessor implements ItemProcessor<SeriesTemplate, Series> {
 
-	private UidGenerator uidGenerator;
+	private final UidGenerator uidGenerator;
 
-	private SeriesEpisodeStatisticsFixedValueProvider seriesEpisodeStatisticsFixedValueProvider;
+	private final SeriesAbbreviationFixedValueProvider seriesAbbreviationFixedValueProvider;
+
+	private final SeriesEpisodeStatisticsFixedValueProvider seriesEpisodeStatisticsFixedValueProvider;
 
 	@Inject
-	public SeriesTemplateProcessor(UidGenerator uidGenerator,
+	public SeriesTemplateProcessor(UidGenerator uidGenerator, SeriesAbbreviationFixedValueProvider seriesAbbreviationFixedValueProvider,
 			SeriesEpisodeStatisticsFixedValueProvider seriesEpisodeStatisticsFixedValueProvider) {
 		this.uidGenerator = uidGenerator;
+		this.seriesAbbreviationFixedValueProvider = seriesAbbreviationFixedValueProvider;
 		this.seriesEpisodeStatisticsFixedValueProvider = seriesEpisodeStatisticsFixedValueProvider;
 	}
 
@@ -38,6 +41,14 @@ public class SeriesTemplateProcessor implements ItemProcessor<SeriesTemplate, Se
 		series.setOriginalRunEndDate(item.getOriginalRunDateRange().getEndDate());
 		series.setProductionCompany(item.getProductionCompany());
 		series.setOriginalBroadcaster(item.getOriginalBroadcaster());
+
+		if (series.getAbbreviation() == null) {
+			FixedValueHolder<String> abbreviationFixedValueHolder = seriesAbbreviationFixedValueProvider.getSearchedValue(item.getTitle());
+
+			if (abbreviationFixedValueHolder.isFound()) {
+				series.setAbbreviation(abbreviationFixedValueHolder.getValue());
+			}
+		}
 
 		FixedValueHolder<SeriesEpisodeStatisticsDTO> seriesEpisodeStatisticsDTOFixedValueHolder
 				= seriesEpisodeStatisticsFixedValueProvider.getSearchedValue(series.getAbbreviation());

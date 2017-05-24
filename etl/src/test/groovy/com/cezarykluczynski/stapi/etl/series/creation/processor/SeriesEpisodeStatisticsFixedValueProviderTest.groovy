@@ -24,7 +24,7 @@ class SeriesEpisodeStatisticsFixedValueProviderTest extends Specification {
 		seriesEpisodeStatisticsDTOFixedValueHolder.value.featureLengthEpisodesCount == 2
 	}
 
-	void "gets fixed value holder when episode is not found"() {
+	void "gets fixed value holder when series is not found"() {
 		when:
 		FixedValueHolder<SeriesEpisodeStatisticsDTO> seriesEpisodeStatisticsDTOFixedValueHolder =
 				seriesEpisodeStatisticsFixedValueProvider.getSearchedValue('NOT_AN_ABBREVIATION')

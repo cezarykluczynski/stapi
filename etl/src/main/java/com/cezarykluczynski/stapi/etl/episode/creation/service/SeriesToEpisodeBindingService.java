@@ -66,6 +66,10 @@ public class SeriesToEpisodeBindingService {
 			}
 		}
 
+		if (series == null) {
+			log.error("Could not determine series from categories {}", categoryHeaderList);
+		}
+
 		return series;
 	}
 
