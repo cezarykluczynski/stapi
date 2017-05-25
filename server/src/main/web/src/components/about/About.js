@@ -35,7 +35,7 @@ export class About extends Component {
 						<h3>Alpha version</h3>
 						<p>
 							In the end of may 2017 an alpha version of STAPI has been put online. It contained 19 models,
-							like locations, books, and astronomical objects. There was over 17000 entities initially available,
+							like locations, books, and astronomical objects. There was over 23000 entities initially available,
 							including almost 6000 characters and more than 5000 performers.
 						</p>
 
