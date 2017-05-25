@@ -26,7 +26,7 @@ properties:
     description: Starting stardate of book story
   stardateTo:
     type: number
-    description: Ending date stardate of book story
+    description: Ending stardate of book story
     format: float
   yearFrom:
     type: integer

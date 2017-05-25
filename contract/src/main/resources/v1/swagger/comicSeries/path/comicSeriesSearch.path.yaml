@@ -1,16 +1,20 @@
 get:
+  description: Pagination over comic series
   parameters:
     - name: pageNumber
       in: query
       type: integer
       format: int32
+      description: Page number
     - name: pageSize
       in: query
       type: integer
       format: int32
+      description: Page size
     - name: apiKey
       in: query
       type: string
+      description: API key
   responses:
     200:
       schema:
@@ -22,6 +26,7 @@ get:
   tags:
   - ComicSeries
 post:
+  description: Searching comic series
   consumes:
     - application/x-www-form-urlencoded
   producers:
@@ -31,57 +36,72 @@ post:
       in: query
       type: integer
       format: int32
+      description: Page number
     - name: pageSize
       in: query
       type: integer
       format: int32
+      description: Page size
     - name: sort
       type: string
       in: query
+      description: "Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC"
     - name: apiKey
       in: query
       type: string
+      description: API key
     - name: title
       in: formData
       type: string
+      description: Comic series title
     - name: publishedYearFrom
       in: formData
       type: integer
       format: int32
+      description: Starting year the comic series was published
     - name: publishedYearTo
       in: formData
       type: integer
       format: int32
+      description: Ending year the comic series was published
     - name: numberOfIssuesFrom
       in: formData
       type: integer
       format: int32
+      description: Minimal number of issues
     - name: numberOfIssuesTo
       in: formData
       type: integer
       format: int32
+      description: Maximal number of issues
     - name: stardateFrom
       in: formData
       type: number
       format: float
+      description: Starting stardate of comic series stories
     - name: stardateTo
       in: formData
       type: number
       format: float
+      description: Starting stardate of comic series stories
     - name: yearFrom
       in: formData
       type: integer
       format: int32
+      description: Starting year of comic series stories
     - name: yearTo
       in: formData
       type: integer
       format: int32
+      description: Ending year of comic series stories
     - name: miniseries
       in: formData
       type: boolean
+      description: Whether it should be a miniseries
     - name: photonovelSeries
       in: formData
       type: boolean
+      description: Whether it should be photonovel series
   responses:
     200:
       schema:

@@ -37,7 +37,7 @@ properties:
   stardateTo:
     type: number
     format: float
-    description: Ending date stardate of comic collection stories
+    description: Ending stardate of comic collection stories
   yearFrom:
     type: integer
     description: Starting year of comic collection stories

@@ -1,5 +1,5 @@
 get:
-  description: Pagination over characters
+  description: Pagination over book series
   parameters:
     - name: pageNumber
       in: query
@@ -26,7 +26,7 @@ get:
   tags:
   - BookSeries
 post:
-  description: Searching characters
+  description: Searching book series
   consumes:
     - application/x-www-form-urlencoded
   producers:
@@ -63,7 +63,7 @@ post:
       in: formData
       type: integer
       format: int32
-      description: Ending year the book was published
+      description: Ending year the book series was published
     - name: numberOfBooksFrom
       in: formData
       type: integer
