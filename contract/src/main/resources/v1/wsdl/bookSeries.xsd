@@ -41,12 +41,12 @@
 						</xs:element>
 						<xs:element name="miniseries" type="xs:boolean" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Whether it's a miniseries</xs:documentation>
+								<xs:documentation>Whether it should be a miniseries</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="eBookSeries" type="xs:boolean" minOccurs="0">
 							<xs:annotation>
-								<xs:documentation>Whether it's an e-book series</xs:documentation>
+								<xs:documentation>Whether it should be an e-book series</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 					</xs:sequence>
@@ -235,12 +235,12 @@
 			</xs:element>
 			<xs:element name="miniseries" type="xs:boolean">
 				<xs:annotation>
-					<xs:documentation>Whether it's a miniseries</xs:documentation>
+					<xs:documentation>Whether it should be a miniseries</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="eBookSeries" type="xs:boolean">
 				<xs:annotation>
-					<xs:documentation>Whether it's a e-book series</xs:documentation>
+					<xs:documentation>Whether it should be an e-book series</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:sequence>
