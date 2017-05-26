@@ -1,42 +1,59 @@
 type: object
+description: Full comic strip, returned when queried using UID
 properties:
   uid:
     type: string
+    description: Comic strip unique ID
   title:
     type: string
+    description: Comic strip title
   periodical:
     type: string
+    description: Title of the periodical the comic strip was published in
   publishedYearFrom:
     type: integer
+    description: Year from which the comic strip was published
   publishedMonthFrom:
     type: integer
+    description: Month from which the comic strip was published
   publishedDayFrom:
     type: integer
+    description: Day from which the comic strip was published
   publishedYearTo:
     type: integer
+    description: Year to which the comic strip was published
   publishedMonthTo:
     type: integer
+    description: Month to which the comic strip was published
   publishedDayTo:
     type: integer
+    description: Day to which the comic strip was published
   numberOfPages:
     type: integer
+    description: Number of pages
   yearFrom:
     type: integer
+    description: Starting year of comic strip story
   yearTo:
     type: integer
+    description: Ending year of comic strip story
   comicSeries:
     type: array
     items:
       $ref: '#/definitions/ComicSeriesBase'
+    description: Comic series this comic strip is included in
   writers:
     type: array
     items:
       $ref: '#/definitions/StaffBase'
+    description: Writers involved in the comic strip
   artists:
     type: array
     items:
       $ref: '#/definitions/StaffBase'
+    description: Artists involved in the comic strip
   characters:
     type: array
     items:
       $ref: '#/definitions/CharacterBase'
+    description: Characters appearing in this comic strip

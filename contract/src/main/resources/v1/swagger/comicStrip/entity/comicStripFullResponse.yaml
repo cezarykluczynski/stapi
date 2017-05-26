@@ -1,4 +1,6 @@
 type: object
+description: Response object for single comic strip query
 properties:
   comicStrip:
     $ref: '#/definitions/ComicStripFull'
+  description: Comic strip, if found

@@ -39,7 +39,7 @@ properties:
     description: Ending stardate of comic story
   yearFrom:
     type: integer
-    description: Starting year of comic  story
+    description: Starting year of comic story
   yearTo:
     type: integer
     description: Ending year of comic story
