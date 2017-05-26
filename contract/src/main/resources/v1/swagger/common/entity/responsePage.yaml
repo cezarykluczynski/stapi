@@ -1,21 +1,29 @@
 type: object
+description: Object describing response page
 properties:
   pageNumber:
     type: integer
     format: int32
+    description: Page number
   pageSize:
     type: integer
     format: int32
+    description: Page size
   numberOfElements:
     type: integer
     format: int32
+    description: Number of elements in page
   totalElements:
     type: integer
     format: int32
+    description: Total elements found
   totalPages:
     type: integer
     format: int32
+    description: Total pages found
   firstPage:
     type: boolean
+    description: Whether it is the first page
   lastPage:
     type: boolean
+    description: Whether it is the last page
