@@ -3,12 +3,12 @@ description: Base book, returned in search results
 properties:
   uid:
     type: string
-    description: Book unique ID
     required: true
+    description: Book unique ID
   title:
     type: string
-    description: Book title
     required: true
+    description: Book title
   publishedYear:
     type: integer
     description: Year the book was published

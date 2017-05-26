@@ -1,6 +1,9 @@
 type: object
+description: Header company, embedded in other objects
 properties:
   uid:
     type: string
+    description: Company unique ID
   name:
     type: string
+    description: Company title

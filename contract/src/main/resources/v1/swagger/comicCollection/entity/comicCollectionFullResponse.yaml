@@ -3,4 +3,4 @@ description: Response object for single comic collection query
 properties:
   comicCollection:
     $ref: '#/definitions/ComicCollectionFull'
-  description: Comic collection, if found
+    description: Comic collection, if found
