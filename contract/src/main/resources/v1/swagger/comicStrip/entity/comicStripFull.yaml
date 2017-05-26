@@ -33,10 +33,10 @@ properties:
     description: Number of pages
   yearFrom:
     type: integer
-    description: Starting year of comic strip story
+    description: Starting year of comic strip stories
   yearTo:
     type: integer
-    description: Ending year of comic strip story
+    description: Ending year of comic strip stories
   comicSeries:
     type: array
     items:
