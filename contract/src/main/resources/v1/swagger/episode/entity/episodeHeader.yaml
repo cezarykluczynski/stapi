@@ -1,6 +1,9 @@
 type: object
+description: Header episode, embedded in other objects
 properties:
   uid:
     type: string
+    description: Episode unique ID
   title:
     type: string
+    description: Episode title

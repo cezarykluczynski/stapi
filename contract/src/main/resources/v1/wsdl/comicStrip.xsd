@@ -262,7 +262,7 @@
 			<xs:sequence>
 				<xs:element name="characters" type="character:CharacterBase" minOccurs="0" maxOccurs="unbounded">
 					<xs:annotation>
-						<xs:documentation>Characters appearing in this comic strip</xs:documentation>
+						<xs:documentation>Characters appearing in the comic strip</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 			</xs:sequence>

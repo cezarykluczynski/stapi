@@ -1,4 +1,6 @@
 type: object
+description: Response object for single episode query
 properties:
   episode:
     $ref: '#/definitions/EpisodeFull'
+    description: Episode, if found

@@ -1,70 +1,97 @@
 type: object
+description: Full episode, returned when queried using UID
 properties:
   uid:
     type: string
+    required: true
+    description: Episode unique ID
   title:
     type: string
+    required: true
+    description: Episode title
   titleGerman:
     type: string
+    description: Episode title in German
   titleItalian:
     type: string
+    description: Episode title in Italian
   titleJapanese:
     type: string
+    description: Episode title in Japanese
   series:
     $ref: ./series/entity/seriesBase.yaml
+    description: Series this episode belongs to
   seasonNumber:
     type: integer
+    description: Season number
   episodeNumber:
     type: integer
+    description: Episode number in season
   productionSerialNumber:
     type: string
+    description: Production serial number
   featureLength:
     type: boolean
+    description: Whether it's a feature length episode
   stardateFrom:
     type: number
     format: float
+    description: Starting stardate of episode story
   stardateTo:
     type: number
     format: float
+    description: Ending stardate of episode story
   yearFrom:
     type: integer
+    description: Starting year of episode story
   yearTo:
     type: integer
+    description: Ending year of episode story
   usAirDate:
     type: string
     format: date
+    description: Date the episode was first aired in United States
   finalScriptDate:
     type: string
     format: date
+    description: Date the episode script was completed
   writers:
     type: array
     items:
       $ref: '#/definitions/StaffBase'
+    description: Writers involved in the episode
   teleplayAuthors:
     type: array
     items:
       $ref: '#/definitions/StaffBase'
+    description: Teleplay authors involved in the episode
   storyAuthors:
     type: array
     items:
       $ref: '#/definitions/StaffBase'
+    description: Story authors involved in the episode
   directors:
     type: array
     items:
       $ref: '#/definitions/StaffBase'
+    description: Directors authors involved in the episode
   performers:
     type: array
     items:
       $ref: '#/definitions/PerformerBase'
+    description: Performers appearing in the episode
   stuntPerformers:
     type: array
     items:
       $ref: '#/definitions/PerformerBase'
+    description: Stunt performers appearing in the episode
   standInPerformers:
     type: array
     items:
       $ref: '#/definitions/PerformerBase'
+    description: Stand-in performers appearing in the episode
   characters:
     type: array
     items:
       $ref: '#/definitions/CharacterBase'
+    description: Characters appearing in the episode

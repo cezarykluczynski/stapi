@@ -81,7 +81,7 @@ properties:
     type: array
     items:
       $ref: '#/definitions/CharacterBase'
-    description: Characters appearing in this comic collection
+    description: Characters appearing in the comic collection
   references:
     type: array
     items:

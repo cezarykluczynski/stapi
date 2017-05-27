@@ -62,7 +62,7 @@ properties:
     type: array
     items:
       $ref: '#/definitions/CharacterBase'
-    description: Characters appearing in this book collection
+    description: Characters appearing in the book collection
   references:
     type: array
     items:
