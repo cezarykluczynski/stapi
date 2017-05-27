@@ -5,7 +5,7 @@ get:
       in: query
       type: integer
       format: int32
-      description: Page number
+      description: Zero-based page number
     - name: pageSize
       in: query
       type: integer
@@ -36,7 +36,7 @@ post:
       in: query
       type: integer
       format: int32
-      description: Page number
+      description: Zero-based page number
     - name: pageSize
       in: query
       type: integer

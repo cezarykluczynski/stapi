@@ -5,57 +5,114 @@
 		elementFormDefault="unqualified"
 		targetNamespace="http://stapi.co/api/v1/soap/common">
 	<xs:complexType name="ApiRequest">
+		<xs:annotation>
+			<xs:documentation>Request with API key</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="apiKey" type="xs:string" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="Request">
+		<xs:annotation>
+			<xs:documentation>Request with page and sort</xs:documentation>
+		</xs:annotation>
 		<xs:complexContent>
 			<xs:extension base="common:ApiRequest">
 				<xs:sequence>
-					<xs:element name="page" type="common:RequestPage" minOccurs="0"/>
-					<xs:element name="sort" type="common:RequestSort" minOccurs="0"/>
+					<xs:element name="page" type="common:RequestPage" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Request page</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="sort" type="common:RequestSort" minOccurs="0">
+						<xs:annotation>
+							<xs:documentation>Sort</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 				</xs:sequence>
 			</xs:extension>
 		</xs:complexContent>
 	</xs:complexType>
 	<xs:complexType name="Response">
+		<xs:annotation>
+			<xs:documentation>Response with page</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="page" type="common:ResponsePage"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="RequestPage">
+		<xs:annotation>
+			<xs:documentation>Request page</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="pageNumber" type="xs:int">
 				<xs:annotation>
-					<xs:documentation>Zero-based page number.</xs:documentation>
+					<xs:documentation>Zero-based page number</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="pageSize" type="xs:int"/>
+			<xs:element name="pageSize" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>Page size</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="ResponsePage">
+		<xs:annotation>
+			<xs:documentation>Response page</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="pageNumber" type="xs:int">
 				<xs:annotation>
-					<xs:documentation>Zero-based page number.</xs:documentation>
+					<xs:documentation>Zero-based page number</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="pageSize" type="xs:int"/>
-			<xs:element name="numberOfElements" type="xs:int"/>
-			<xs:element name="totalElements" type="xs:int"/>
-			<xs:element name="totalPages" type="xs:int"/>
-			<xs:element name="firstPage" type="xs:boolean"/>
-			<xs:element name="lastPage" type="xs:boolean"/>
+			<xs:element name="pageSize" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>Page size</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="numberOfElements" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>Number of elements in page</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="totalElements" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>Total elements found</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="totalPages" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>Total pages found</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="firstPage" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it is the first page</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lastPage" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it is the last page</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:simpleType name="GenderEnum">
+		<xs:annotation>
+			<xs:documentation>Gender</xs:documentation>
+		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="M"/>
 			<xs:enumeration value="F"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="BloodTypeEnum">
+		<xs:annotation>
+			<xs:documentation>Blood type</xs:documentation>
+		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="B_NEGATIVE"/>
 			<xs:enumeration value="O_NEGATIVE"/>
@@ -63,6 +120,9 @@
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="MaritalStatusEnum">
+		<xs:annotation>
+			<xs:documentation>Marital status</xs:documentation>
+		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="SINGLE"/>
 			<xs:enumeration value="ENGAGED"/>
@@ -75,36 +135,70 @@
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:complexType name="DateRange">
+		<xs:annotation>
+			<xs:documentation>Date range</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="from" type="xs:date" minOccurs="0"/>
 			<xs:element name="to" type="xs:date" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="IntegerRange">
+		<xs:annotation>
+			<xs:documentation>Integer-based values range</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="from" type="xs:int" minOccurs="0"/>
 			<xs:element name="to" type="xs:int" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="FloatRange">
+		<xs:annotation>
+			<xs:documentation>Float-based values range</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="from" type="xs:float" minOccurs="0"/>
 			<xs:element name="to" type="xs:float" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="RequestSort">
+		<xs:annotation>
+			<xs:documentation>Request sort</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="clauses" type="common:RequestSortClause" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="clauses" type="common:RequestSortClause" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>List of request sort rules</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="RequestSortClause">
+		<xs:annotation>
+			<xs:documentation>Single request sort clause</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="name" type="xs:string"/>
-			<xs:element name="direction" type="common:RequestSortDirectionEnum" minOccurs="0"/>
-			<xs:element name="clauseOrder" type="xs:int" minOccurs="0"/>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Field name to sort by</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="direction" type="common:RequestSortDirectionEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Sort direction, default to ASC</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="clauseOrder" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Order in which this clause should be applied</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:simpleType name="RequestSortDirectionEnum">
+		<xs:annotation>
+			<xs:documentation>Sort direction</xs:documentation>
+		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="ASC"/>
 			<xs:enumeration value="DESC"/>

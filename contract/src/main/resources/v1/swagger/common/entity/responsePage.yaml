@@ -4,7 +4,7 @@ properties:
   pageNumber:
     type: integer
     format: int32
-    description: Page number
+    description: Zero-based page number
   pageSize:
     type: integer
     format: int32
