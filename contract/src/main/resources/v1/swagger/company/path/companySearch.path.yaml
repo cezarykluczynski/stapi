@@ -109,7 +109,7 @@ post:
     - name: recordLabel
       in: formData
       type: boolean
-      description: Whether it should be record label
+      description: Whether it should be a record label
     - name: specialEffectsCompany
       in: formData
       type: boolean

@@ -15,7 +15,7 @@
 	<xs:import namespace="http://stapi.co/api/v1/soap/comicSeries" schemaLocation="comicSeries.xsd"/>
 	<xs:element name="ComicStripBaseRequest">
 		<xs:annotation>
-			<xs:documentation>Request object for comic strip search</xs:documentation>
+			<xs:documentation>Request object for comic strips search</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>

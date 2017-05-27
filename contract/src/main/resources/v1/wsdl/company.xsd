@@ -7,112 +7,377 @@
 		targetNamespace="http://stapi.co/api/v1/soap/company">
 	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
 	<xs:element name="CompanyBaseRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for companies search</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Request">
 					<xs:sequence>
-						<xs:element name="name" type="xs:string" minOccurs="0"/>
-						<xs:element name="broadcaster" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="collectibleCompany" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="conglomerate" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="digitalVisualEffectsCompany" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="distributor" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="gameCompany" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="filmEquipmentCompany" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="makeUpEffectsStudio" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="mattePaintingCompany" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="modelAndMiniatureEffectsCompany" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="postProductionCompany" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="productionCompany" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="propCompany" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="recordLabel" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="specialEffectsCompany" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="tvAndFilmProductionCompany" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="videoGameCompany" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="name" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Company name</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="broadcaster" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a broadcaster</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="collectibleCompany" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a collectible company</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="conglomerate" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a conglomerate</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="digitalVisualEffectsCompany" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a digital visual effects company</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="distributor" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a distributor</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="gameCompany" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a game company</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="filmEquipmentCompany" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a film equipment company</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="makeUpEffectsStudio" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a make-up effects studio</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="mattePaintingCompany" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a matte painting company</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="modelAndMiniatureEffectsCompany" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a model and miniature effects company</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="postProductionCompany" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a post-production company</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="productionCompany" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a production company</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="propCompany" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a prop company</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="recordLabel" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a record label</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="specialEffectsCompany" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a special effects company</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="tvAndFilmProductionCompany" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a TV and film production company</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="videoGameCompany" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a video game company</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="CompanyFullRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for single company query</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:ApiRequest">
 					<xs:sequence>
-						<xs:element name="uid" type="xs:string" minOccurs="1"/>
+						<xs:element name="uid" type="xs:string" minOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Company unique ID</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="CompanyBaseResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for company search</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Response">
 					<xs:sequence>
-						<xs:element name="companies" type="company:CompanyBase" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="companies" type="company:CompanyBase" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>List of companies matching given criteria</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="CompanyFullResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for single company query</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="company" type="company:CompanyFull"/>
+				<xs:element name="company" type="company:CompanyFull">
+					<xs:annotation>
+						<xs:documentation>Company, if found</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:complexType name="CompanyBase">
+	<xs:complexType name="CompanyHeader">
+		<xs:annotation>
+			<xs:documentation>Header company, embedded in other objects</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="uid" type="xs:string"/>
-			<xs:element name="name" type="xs:string"/>
-			<xs:element name="broadcaster" type="xs:boolean"/>
-			<xs:element name="collectibleCompany" type="xs:boolean"/>
-			<xs:element name="conglomerate" type="xs:boolean"/>
-			<xs:element name="digitalVisualEffectsCompany" type="xs:boolean"/>
-			<xs:element name="distributor" type="xs:boolean"/>
-			<xs:element name="gameCompany" type="xs:boolean"/>
-			<xs:element name="filmEquipmentCompany" type="xs:boolean"/>
-			<xs:element name="makeUpEffectsStudio" type="xs:boolean"/>
-			<xs:element name="mattePaintingCompany" type="xs:boolean"/>
-			<xs:element name="modelAndMiniatureEffectsCompany" type="xs:boolean"/>
-			<xs:element name="postProductionCompany" type="xs:boolean"/>
-			<xs:element name="productionCompany" type="xs:boolean"/>
-			<xs:element name="propCompany" type="xs:boolean"/>
-			<xs:element name="recordLabel" type="xs:boolean"/>
-			<xs:element name="specialEffectsCompany" type="xs:boolean"/>
-			<xs:element name="tvAndFilmProductionCompany" type="xs:boolean"/>
-			<xs:element name="videoGameCompany" type="xs:boolean"/>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Company name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Company unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CompanyBase">
+		<xs:annotation>
+			<xs:documentation>Base company, returned in search results</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Company unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Company name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="broadcaster" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a broadcaster</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="collectibleCompany" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a collectible company</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="conglomerate" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a conglomerate</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="digitalVisualEffectsCompany" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a digital visual effects company</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="distributor" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a distributor</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="gameCompany" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a game company</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="filmEquipmentCompany" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a film equipment company</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="makeUpEffectsStudio" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a make-up effects studio</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mattePaintingCompany" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a matte painting company</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modelAndMiniatureEffectsCompany" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a model and miniature effects company</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="postProductionCompany" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a post-production company</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="productionCompany" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a production company</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="propCompany" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a prop company</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="recordLabel" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a record label</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="specialEffectsCompany" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a special effects company</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tvAndFilmProductionCompany" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a TV and film production company</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="videoGameCompany" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a video game company</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="CompanyFull">
+		<xs:annotation>
+			<xs:documentation>Full company, returned when queries using UID</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="uid" type="xs:string"/>
-			<xs:element name="name" type="xs:string"/>
-			<xs:element name="broadcaster" type="xs:boolean"/>
-			<xs:element name="collectibleCompany" type="xs:boolean"/>
-			<xs:element name="conglomerate" type="xs:boolean"/>
-			<xs:element name="digitalVisualEffectsCompany" type="xs:boolean"/>
-			<xs:element name="distributor" type="xs:boolean"/>
-			<xs:element name="gameCompany" type="xs:boolean"/>
-			<xs:element name="filmEquipmentCompany" type="xs:boolean"/>
-			<xs:element name="makeUpEffectsStudio" type="xs:boolean"/>
-			<xs:element name="mattePaintingCompany" type="xs:boolean"/>
-			<xs:element name="modelAndMiniatureEffectsCompany" type="xs:boolean"/>
-			<xs:element name="postProductionCompany" type="xs:boolean"/>
-			<xs:element name="productionCompany" type="xs:boolean"/>
-			<xs:element name="propCompany" type="xs:boolean"/>
-			<xs:element name="recordLabel" type="xs:boolean"/>
-			<xs:element name="specialEffectsCompany" type="xs:boolean"/>
-			<xs:element name="tvAndFilmProductionCompany" type="xs:boolean"/>
-			<xs:element name="videoGameCompany" type="xs:boolean"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="CompanyHeader">
-		<xs:sequence>
-			<xs:element name="uid" type="xs:string"/>
-			<xs:element name="name" type="xs:string"/>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Company unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Company name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="broadcaster" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a broadcaster</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="collectibleCompany" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a collectible company</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="conglomerate" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a conglomerate</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="digitalVisualEffectsCompany" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a digital visual effects company</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="distributor" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a distributor</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="gameCompany" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a game company</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="filmEquipmentCompany" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a film equipment company</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="makeUpEffectsStudio" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a make-up effects studio</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mattePaintingCompany" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a matte painting company</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="modelAndMiniatureEffectsCompany" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a model and miniature effects company</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="postProductionCompany" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a post-production company</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="productionCompany" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a production company</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="propCompany" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a prop company</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="recordLabel" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a record label</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="specialEffectsCompany" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a special effects company</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tvAndFilmProductionCompany" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a TV and film production company</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="videoGameCompany" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a video game company</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 </xs:schema>

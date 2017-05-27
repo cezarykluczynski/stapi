@@ -20,7 +20,7 @@
 	<xs:import namespace="http://stapi.co/api/v1/soap/reference" schemaLocation="reference.xsd"/>
 	<xs:element name="ComicCollectionBaseRequest">
 		<xs:annotation>
-			<xs:documentation>Request object for comic collection search</xs:documentation>
+			<xs:documentation>Request object for comic collections search</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>

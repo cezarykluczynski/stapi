@@ -206,6 +206,9 @@
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="ComicsFull">
+		<xs:annotation>
+			<xs:documentation>Full comics, returned when queries using UID</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="uid" type="xs:string">
 				<xs:annotation>
