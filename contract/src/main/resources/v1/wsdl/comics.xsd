@@ -56,6 +56,11 @@
 								<xs:documentation>Whether it should be a photonovel</xs:documentation>
 							</xs:annotation>
 						</xs:element>
+						<xs:element name="adaptation" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be an adaptation of an episode or a movie</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
@@ -203,6 +208,11 @@
 					<xs:documentation>Whether it's a photonovel</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="adaptation" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's an adaptation of an episode or a movie</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="ComicsFull">
@@ -278,6 +288,11 @@
 			<xs:element name="photonovel" type="xs:boolean">
 				<xs:annotation>
 					<xs:documentation>Whether it's a photonovel</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="adaptation" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's an adaptation of an episode or a movie</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:sequence>

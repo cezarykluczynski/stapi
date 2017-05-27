@@ -140,6 +140,7 @@ public class CategoryTitle {
 	public static final String PHOTONOVEL_SERIES = "Photonovel_series";
 
 	public static final String COMICS = "Comics";
+	public static final String COMIC_ADAPTATIONS = "Comic_adaptations";
 	public static final String PHOTONOVELS = "Photonovels";
 
 	public static final String COMIC_COLLECTIONS = "Comic_collections";

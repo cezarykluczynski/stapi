@@ -78,6 +78,7 @@ public class ComicsTemplatePageProcessor implements ItemProcessor<Page, ComicsTe
 		comicsTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 		comicsTemplate.setProductOfRedirect(!item.getRedirectPath().isEmpty());
 		comicsTemplate.setPhotonovel(isPhotonovel(item));
+		comicsTemplate.setAdaptation(isAdaptation(item));
 
 		comicsTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(item, comicsTemplate));
 		comicsTemplate.getCharacters().addAll(wikitextCharactersProcessor.process(item));
@@ -102,6 +103,10 @@ public class ComicsTemplatePageProcessor implements ItemProcessor<Page, ComicsTe
 
 	private boolean isPhotonovel(Page item) {
 		return categoryTitlesExtractingProcessor.process(item.getCategories()).stream().anyMatch(PHOTONOVEL_CATEGORIES::contains);
+	}
+
+	private boolean isAdaptation(Page item) {
+		return categoryTitlesExtractingProcessor.process(item.getCategories()).stream().anyMatch(CategoryTitle.COMIC_ADAPTATIONS::equals);
 	}
 
 }

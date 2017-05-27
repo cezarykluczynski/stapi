@@ -98,6 +98,10 @@ post:
       in: formData
       type: boolean
       description: Whether it should be a photonovel
+    - name: adaptation
+      in: formData
+      type: boolean
+      description: Whether it should be an adaptation of an episode or a movie
   responses:
     200:
       schema:

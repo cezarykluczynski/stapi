@@ -42,6 +42,8 @@ public class ComicsTemplate {
 
 	private boolean photonovel;
 
+	private boolean adaptation;
+
 	private boolean productOfRedirect;
 
 	private Set<ComicSeries> comicSeries = Sets.newHashSet();

@@ -37,7 +37,8 @@ class ComicsBaseSoapMapperTest extends AbstractComicsMapperTest {
 						from: YEAR_FROM,
 						to: YEAR_TO,
 				),
-				photonovel: PHOTONOVEL)
+				photonovel: PHOTONOVEL,
+				adaptation: ADAPTATION)
 
 		when:
 		ComicsRequestDTO comicsRequestDTO = comicsBaseSoapMapper.mapBase comicsBaseRequest
@@ -75,6 +76,7 @@ class ComicsBaseSoapMapperTest extends AbstractComicsMapperTest {
 		comicsBase.yearFrom.toInteger() == YEAR_FROM
 		comicsBase.yearTo.toInteger() == YEAR_TO
 		comicsBase.photonovel == PHOTONOVEL
+		comicsBase.adaptation == ADAPTATION
 	}
 
 }

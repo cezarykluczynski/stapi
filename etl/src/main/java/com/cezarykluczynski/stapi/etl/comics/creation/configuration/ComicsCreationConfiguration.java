@@ -37,6 +37,7 @@ public class ComicsCreationConfiguration {
 
 		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_COMICS)) {
 			comicsList.addAll(categoryApi.getPages(CategoryTitle.COMICS, MediaWikiSource.MEMORY_ALPHA_EN));
+			comicsList.addAll(categoryApi.getPages(CategoryTitle.COMIC_ADAPTATIONS, MediaWikiSource.MEMORY_ALPHA_EN));
 			comicsList.addAll(categoryApi.getPages(CategoryTitle.PHOTONOVELS, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 

@@ -37,6 +37,7 @@ public class ComicsTemplateProcessor implements ItemProcessor<ComicsTemplate, Co
 		comics.setYearFrom(item.getYearFrom());
 		comics.setYearTo(item.getYearTo());
 		comics.setPhotonovel(item.isPhotonovel());
+		comics.setAdaptation(item.isAdaptation());
 		comics.getComicSeries().addAll(item.getComicSeries());
 		comics.getWriters().addAll(item.getWriters());
 		comics.getArtists().addAll(item.getArtists());

@@ -59,6 +59,7 @@ class ComicsTemplateProcessorTest extends AbstractComicsTest {
 				yearFrom: YEAR_FROM,
 				yearTo: YEAR_TO,
 				photonovel: PHOTONOVEL,
+				adaptation: ADAPTATION,
 				comicSeries: Sets.newHashSet(comicSeries1, comicSeries2),
 				writers: Sets.newHashSet(writer1, writer2),
 				artists: Sets.newHashSet(artist1, artist2),
@@ -89,6 +90,7 @@ class ComicsTemplateProcessorTest extends AbstractComicsTest {
 		comics.yearFrom == YEAR_FROM
 		comics.yearTo == YEAR_TO
 		comics.photonovel == PHOTONOVEL
+		comics.adaptation == ADAPTATION
 		comics.comicSeries.contains comicSeries1
 		comics.comicSeries.contains comicSeries2
 		comics.writers.contains writer1

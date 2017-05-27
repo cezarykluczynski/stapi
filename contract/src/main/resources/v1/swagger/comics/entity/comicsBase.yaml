@@ -47,3 +47,6 @@ properties:
   photonovel:
     type: boolean
     description: Whether it's a photonovel
+  adaptation:
+    type: boolean
+    description: Whether it's an adaptation of an episode or a movie

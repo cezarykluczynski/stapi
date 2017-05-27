@@ -38,6 +38,9 @@ public class ComicsRestBeanParams extends PageSortBeanParams {
 	@FormParam("photonovel")
 	private Boolean photonovel;
 
+	@FormParam("adaptation")
+	private Boolean adaptation;
+
 	public String getUid() {
 		return uid;
 	}
@@ -84,6 +87,10 @@ public class ComicsRestBeanParams extends PageSortBeanParams {
 
 	public Boolean getPhotonovel() {
 		return photonovel;
+	}
+
+	public Boolean getAdaptation() {
+		return adaptation;
 	}
 
 	public static ComicsRestBeanParams fromPageSortBeanParams(PageSortBeanParams pageSortBeanParams) {

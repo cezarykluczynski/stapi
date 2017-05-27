@@ -22,5 +22,6 @@ abstract class AbstractComicsTest extends AbstractTest {
 	protected static final Integer YEAR_FROM = 2350
 	protected static final Integer YEAR_TO = 2351
 	protected static final boolean PHOTONOVEL = RandomUtil.nextBoolean()
+	protected static final boolean ADAPTATION = RandomUtil.nextBoolean()
 
 }

@@ -30,6 +30,8 @@ public class ComicsRequestDTO {
 
 	private Boolean photonovel;
 
+	private Boolean adaptation;
+
 	private RequestSortDTO sort;
 
 }

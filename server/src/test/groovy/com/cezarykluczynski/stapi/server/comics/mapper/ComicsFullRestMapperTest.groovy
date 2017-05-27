@@ -34,6 +34,7 @@ class ComicsFullRestMapperTest extends AbstractComicsMapperTest {
 		comicsFull.yearFrom == YEAR_FROM
 		comicsFull.yearTo == YEAR_TO
 		comicsFull.photonovel == PHOTONOVEL
+		comicsFull.adaptation == ADAPTATION
 		comicsFull.comicSeries.size() == comics.comicSeries.size()
 		comicsFull.writers.size() == comics.writers.size()
 		comicsFull.artists.size() == comics.artists.size()

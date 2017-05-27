@@ -28,6 +28,7 @@ public interface ComicsFullSoapMapper {
 	@Mapping(target = "yearFrom", ignore = true)
 	@Mapping(target = "yearTo", ignore = true)
 	@Mapping(target = "photonovel", ignore = true)
+	@Mapping(target = "adaptation", ignore = true)
 	@Mapping(target = "sort", ignore = true)
 	ComicsRequestDTO mapFull(ComicsFullRequest comicsFullRequest);
 

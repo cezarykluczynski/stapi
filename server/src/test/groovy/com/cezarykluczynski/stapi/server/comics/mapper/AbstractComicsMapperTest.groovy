@@ -27,6 +27,7 @@ abstract class AbstractComicsMapperTest extends AbstractComicsTest {
 				yearFrom: YEAR_FROM,
 				yearTo: YEAR_TO,
 				photonovel: PHOTONOVEL,
+				adaptation: ADAPTATION,
 				comicSeries: createSetOfRandomNumberOfMocks(ComicSeries),
 				writers: createSetOfRandomNumberOfMocks(Staff),
 				artists: createSetOfRandomNumberOfMocks(Staff),

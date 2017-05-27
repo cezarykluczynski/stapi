@@ -78,6 +78,8 @@ public class Comics extends PageAwareEntity implements PageAware {
 
 	private Boolean photonovel;
 
+	private Boolean adaptation;
+
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "comics_comics_series",
 			joinColumns = @JoinColumn(name = "comics_id", nullable = false, updatable = false),

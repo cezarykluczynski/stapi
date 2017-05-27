@@ -28,7 +28,8 @@ class ComicsBaseRestMapperTest extends AbstractComicsMapperTest {
 				stardateTo: STARDATE_TO,
 				yearFrom: YEAR_FROM,
 				yearTo: YEAR_TO,
-				photonovel: PHOTONOVEL)
+				photonovel: PHOTONOVEL,
+				adaptation: ADAPTATION)
 
 		when:
 		ComicsRequestDTO comicsRequestDTO = comicsBaseRestMapper.mapBase comicsRestBeanParams
@@ -43,6 +44,7 @@ class ComicsBaseRestMapperTest extends AbstractComicsMapperTest {
 		comicsRequestDTO.yearFrom == YEAR_FROM
 		comicsRequestDTO.yearTo == YEAR_TO
 		comicsRequestDTO.photonovel == PHOTONOVEL
+		comicsRequestDTO.adaptation == ADAPTATION
 	}
 
 	void "maps DB entity to base REST entity"() {
@@ -67,6 +69,7 @@ class ComicsBaseRestMapperTest extends AbstractComicsMapperTest {
 		comicsBase.yearFrom == YEAR_FROM
 		comicsBase.yearTo == YEAR_TO
 		comicsBase.photonovel == PHOTONOVEL
+		comicsBase.adaptation == ADAPTATION
 	}
 
 }

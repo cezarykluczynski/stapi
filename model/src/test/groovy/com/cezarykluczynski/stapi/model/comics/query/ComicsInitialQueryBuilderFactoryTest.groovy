@@ -74,6 +74,8 @@ class ComicsInitialQueryBuilderFactoryTest extends AbstractComicsTest {
 		then: 'boolean criteria are set'
 		1 * comicsRequestDTO.photonovel >> PHOTONOVEL
 		1 * comicsQueryBuilder.equal(Comics_.photonovel, PHOTONOVEL)
+		1 * comicsRequestDTO.adaptation >> ADAPTATION
+		1 * comicsQueryBuilder.equal(Comics_.adaptation, ADAPTATION)
 
 		then: 'sort is set'
 		1 * comicsRequestDTO.sort >> SORT

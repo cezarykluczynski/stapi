@@ -47,6 +47,7 @@ class ComicsFullSoapMapperTest extends AbstractComicsMapperTest {
 		comicsFull.yearFrom.toInteger() == YEAR_FROM
 		comicsFull.yearTo.toInteger() == YEAR_TO
 		comicsFull.photonovel == PHOTONOVEL
+		comicsFull.adaptation == ADAPTATION
 		comicsFull.comicSeries.size() == comics.comicSeries.size()
 		comicsFull.writers.size() == comics.writers.size()
 		comicsFull.artists.size() == comics.artists.size()

@@ -33,6 +33,7 @@ public class ComicsInitialQueryBuilderFactory implements InitialQueryBuilderFact
 		comicsQueryBuilder.between(Comics_.stardateFrom, criteria.getStardateFrom(), null);
 		comicsQueryBuilder.between(Comics_.stardateTo, null, criteria.getStardateTo());
 		comicsQueryBuilder.equal(Comics_.photonovel, criteria.getPhotonovel());
+		comicsQueryBuilder.equal(Comics_.adaptation, criteria.getAdaptation());
 
 		comicsQueryBuilder.setSort(criteria.getSort());
 
