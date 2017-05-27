@@ -142,6 +142,9 @@
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="FoodBase">
+		<xs:annotation>
+			<xs:documentation>Base food, returned in search results</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="uid" type="xs:string">
 				<xs:annotation>
@@ -206,6 +209,9 @@
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="FoodFull">
+		<xs:annotation>
+			<xs:documentation>Full food, returned when queries using UID</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="uid" type="xs:string">
 				<xs:annotation>

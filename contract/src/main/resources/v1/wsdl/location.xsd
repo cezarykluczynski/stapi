@@ -7,130 +7,464 @@
 		targetNamespace="http://stapi.co/api/v1/soap/location">
 	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
 	<xs:element name="LocationBaseRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for locations search</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Request">
 					<xs:sequence>
-						<xs:element name="name" type="xs:string" minOccurs="0"/>
-						<xs:element name="earthlyLocation" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="fictionalLocation" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="religiousLocation" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="geographicalLocation" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="bodyOfWater" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="country" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="subnationalEntity" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="settlement" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="usSettlement" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="bajoranSettlement" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="colony" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="landform" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="landmark" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="road" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="structure" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="shipyard" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="buildingInterior" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="establishment" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="medicalEstablishment" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="ds9Establishment" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="school" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="mirror" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="alternateReality" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="name" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Location name</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="earthlyLocation" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be an earthly location</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="fictionalLocation" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a fictional location</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="religiousLocation" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a religious location</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="geographicalLocation" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a geographical location</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="bodyOfWater" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a body of water</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="country" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a country</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="subnationalEntity" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a subnational entity</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="settlement" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a settlement</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="usSettlement" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a US settlement</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="bajoranSettlement" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a Bajoran settlement</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="colony" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a colony</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="landform" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a landform</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="landmark" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a landmark</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="road" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a road</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="structure" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a structure</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="shipyard" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a shipyard</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="buildingInterior" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a building interior</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="establishment" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a establishment</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="medicalEstablishment" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a medical establishment</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="ds9Establishment" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a DS9 establishment</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="school" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a school</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="mirror" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether this location should be from mirror universe</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="alternateReality" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether this location should be from alternate reality</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="LocationFullRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for single location query</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:ApiRequest">
 					<xs:sequence>
-						<xs:element name="uid" type="xs:string" minOccurs="1"/>
+						<xs:element name="uid" type="xs:string" minOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Location unique ID</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="LocationBaseResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for locations search</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Response">
 					<xs:sequence>
-						<xs:element name="locations" type="location:LocationBase" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="locations" type="location:LocationBase" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>List of locations matching given criteria</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="LocationFullResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for single location query</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="location" type="location:LocationFull"/>
+				<xs:element name="location" type="location:LocationFull">
+					<xs:annotation>
+						<xs:documentation>Location, if found</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:complexType name="LocationBase">
+	<xs:complexType name="LocationHeader">
+		<xs:annotation>
+			<xs:documentation>Header location, embedded in other objects</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="uid" type="xs:string"/>
-			<xs:element name="name" type="xs:string"/>
-			<xs:element name="earthlyLocation" type="xs:boolean"/>
-			<xs:element name="fictionalLocation" type="xs:boolean"/>
-			<xs:element name="religiousLocation" type="xs:boolean"/>
-			<xs:element name="geographicalLocation" type="xs:boolean"/>
-			<xs:element name="bodyOfWater" type="xs:boolean"/>
-			<xs:element name="country" type="xs:boolean"/>
-			<xs:element name="subnationalEntity" type="xs:boolean"/>
-			<xs:element name="settlement" type="xs:boolean"/>
-			<xs:element name="usSettlement" type="xs:boolean"/>
-			<xs:element name="bajoranSettlement" type="xs:boolean"/>
-			<xs:element name="colony" type="xs:boolean"/>
-			<xs:element name="landform" type="xs:boolean"/>
-			<xs:element name="landmark" type="xs:boolean"/>
-			<xs:element name="road" type="xs:boolean"/>
-			<xs:element name="structure" type="xs:boolean"/>
-			<xs:element name="shipyard" type="xs:boolean"/>
-			<xs:element name="buildingInterior" type="xs:boolean"/>
-			<xs:element name="establishment" type="xs:boolean"/>
-			<xs:element name="medicalEstablishment" type="xs:boolean"/>
-			<xs:element name="ds9Establishment" type="xs:boolean"/>
-			<xs:element name="school" type="xs:boolean"/>
-			<xs:element name="mirror" type="xs:boolean"/>
-			<xs:element name="alternateReality" type="xs:boolean"/>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Location unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Location name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LocationBase">
+		<xs:annotation>
+			<xs:documentation>Base location, returned in search results</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Location unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Location name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="earthlyLocation" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's an earthly location</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fictionalLocation" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a fictional location</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="religiousLocation" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a religious location</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="geographicalLocation" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a geographical location</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bodyOfWater" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a body of water</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="country" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a country</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subnationalEntity" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a subnational entity</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="settlement" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a settlement</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="usSettlement" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a US settlement</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bajoranSettlement" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a Bajoran settlement</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="colony" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a colony</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="landform" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a landform</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="landmark" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a landmark</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="road" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a road</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="structure" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a structure</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="shipyard" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a shipyard</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="buildingInterior" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a building interior</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="establishment" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a establishment</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="medicalEstablishment" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a medical establishment</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ds9Establishment" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a DS9 establishment</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="school" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a school</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mirror" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this location is from mirror universe</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="alternateReality" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this location is from alternate reality</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="LocationFull">
 		<xs:sequence>
-			<xs:element name="uid" type="xs:string"/>
-			<xs:element name="name" type="xs:string"/>
-			<xs:element name="earthlyLocation" type="xs:boolean"/>
-			<xs:element name="fictionalLocation" type="xs:boolean"/>
-			<xs:element name="religiousLocation" type="xs:boolean"/>
-			<xs:element name="geographicalLocation" type="xs:boolean"/>
-			<xs:element name="bodyOfWater" type="xs:boolean"/>
-			<xs:element name="country" type="xs:boolean"/>
-			<xs:element name="subnationalEntity" type="xs:boolean"/>
-			<xs:element name="settlement" type="xs:boolean"/>
-			<xs:element name="usSettlement" type="xs:boolean"/>
-			<xs:element name="bajoranSettlement" type="xs:boolean"/>
-			<xs:element name="colony" type="xs:boolean"/>
-			<xs:element name="landform" type="xs:boolean"/>
-			<xs:element name="landmark" type="xs:boolean"/>
-			<xs:element name="road" type="xs:boolean"/>
-			<xs:element name="structure" type="xs:boolean"/>
-			<xs:element name="shipyard" type="xs:boolean"/>
-			<xs:element name="buildingInterior" type="xs:boolean"/>
-			<xs:element name="establishment" type="xs:boolean"/>
-			<xs:element name="medicalEstablishment" type="xs:boolean"/>
-			<xs:element name="ds9Establishment" type="xs:boolean"/>
-			<xs:element name="school" type="xs:boolean"/>
-			<xs:element name="mirror" type="xs:boolean"/>
-			<xs:element name="alternateReality" type="xs:boolean"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="LocationHeader">
-		<xs:sequence>
-			<xs:element name="uid" type="xs:string"/>
-			<xs:element name="name" type="xs:string"/>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Location unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Location name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="earthlyLocation" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's an earthly location</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fictionalLocation" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a fictional location</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="religiousLocation" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a religious location</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="geographicalLocation" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a geographical location</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bodyOfWater" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a body of water</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="country" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a country</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subnationalEntity" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a subnational entity</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="settlement" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a settlement</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="usSettlement" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a US settlement</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="bajoranSettlement" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a Bajoran settlement</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="colony" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a colony</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="landform" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a landform</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="landmark" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a landmark</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="road" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a road</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="structure" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a structure</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="shipyard" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a shipyard</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="buildingInterior" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a building interior</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="establishment" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a establishment</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="medicalEstablishment" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a medical establishment</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ds9Establishment" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a DS9 establishment</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="school" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a school</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mirror" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this location is from mirror universe</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="alternateReality" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this location is from alternate reality</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 </xs:schema>

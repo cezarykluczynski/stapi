@@ -53,7 +53,7 @@ post:
     - name: name
       in: formData
       type: string
-      description: Food name
+      description: Location name
     - name: earthlyLocation
       in: formData
       type: boolean
