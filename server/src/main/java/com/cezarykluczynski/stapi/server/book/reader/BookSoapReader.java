@@ -40,7 +40,7 @@ public class BookSoapReader implements BaseReader<BookBaseRequest, BookBaseRespo
 		Page<Book> bookPage = bookSoapQuery.query(input);
 		BookBaseResponse bookResponse = new BookBaseResponse();
 		bookResponse.setPage(pageMapper.fromPageToSoapResponsePage(bookPage));
-		bookResponse.getBook().addAll(bookBaseSoapMapper.mapBase(bookPage.getContent()));
+		bookResponse.getBooks().addAll(bookBaseSoapMapper.mapBase(bookPage.getContent()));
 		return bookResponse;
 	}
 

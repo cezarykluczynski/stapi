@@ -139,7 +139,7 @@
 			<xs:complexContent>
 				<xs:extension base="common:Response">
 					<xs:sequence>
-						<xs:element name="book" type="book:BookBase" minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="books" type="book:BookBase" minOccurs="0" maxOccurs="unbounded">
 							<xs:annotation>
 								<xs:documentation>List of books matching given criteria</xs:documentation>
 							</xs:annotation>
