@@ -17,8 +17,8 @@ class EpisodeRestEndpointIntegrationTest extends AbstractEpisodeEndpointIntegrat
 
 	void "episode has stardate and year set"() {
 		when:
-		EpisodeBaseResponse episodeBaseResponse = stapiRestClient.episodeApi.episodeSearchPost(null, null, null, null, 'Bem', null,
-				null, null, null, null, null, null, null, null, null, null, null)
+		EpisodeBaseResponse episodeBaseResponse = stapiRestClient.episodeApi.episodeSearchPost(null, null, null, null, 'Bem', null, null, null, null,
+				null, null, null, null, null, null, null, null, null, null)
 
 		then:
 		episodeBaseResponse.episodes.size() == 1

@@ -34,7 +34,7 @@ class BookSoapEndpointIntegrationTest extends AbstractBookEndpointIntegrationTes
 				rolePlayingBook: true))
 
 		then:
-		bookBaseResponse.book.stream()
+		bookBaseResponse.books.stream()
 				.anyMatch { it.title == 'Klingon Ship Recognition Manual' }
 	}
 

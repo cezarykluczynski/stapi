@@ -23,8 +23,6 @@ import javax.transaction.Transactional
 
 class StaticJobCompletenessDecider {
 
-	private static ConfigurableApplicationContext applicationContext
-
 	private static List<SimpleStep> simpleStepList
 
 	@Service
@@ -92,7 +90,7 @@ class StaticJobCompletenessDecider {
 
 	private static void initializeMockJobCompletenessDecider() {
 		if (simpleStepList == null) {
-			ConfigurableApplicationContext applicationContext = getApplicationContext()
+			ConfigurableApplicationContext applicationContext = createApplicationContext()
 			try {
 				simpleStepList = applicationContext.getBean(MockJobCompletenessDecider).steps
 			} catch (BeansException e) {
@@ -103,7 +101,7 @@ class StaticJobCompletenessDecider {
 	}
 
 	@SuppressWarnings(['InconsistentPropertySynchronization', 'SynchronizedMethod'])
-	private static synchronized ConfigurableApplicationContext getApplicationContext() {
+	private static synchronized ConfigurableApplicationContext createApplicationContext() {
 		Application.produceSpringApplicationBuilder()
 				.sources(EtlMockConfiguration)
 				.run(

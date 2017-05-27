@@ -23,11 +23,11 @@ abstract class AbstractEndpointIntegrationTest extends Specification {
 	protected StapiSoapClient stapiSoapClient
 
 	protected StapiRestClient createRestClient() {
-		stapiRestClient = new StapiRestClient("http://localhost:${localServerPost}/stapi/")
+		stapiRestClient = new StapiRestClient("http://localhost:${localServerPost}/")
 	}
 
 	protected StapiSoapClient createSoapClient() {
-		stapiSoapClient = new StapiSoapClient("http://localhost:${localServerPost}/stapi/")
+		stapiSoapClient = new StapiSoapClient("http://localhost:${localServerPost}/")
 	}
 
 }

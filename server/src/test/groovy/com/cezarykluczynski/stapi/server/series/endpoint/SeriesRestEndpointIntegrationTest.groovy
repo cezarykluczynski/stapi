@@ -30,7 +30,7 @@ class SeriesRestEndpointIntegrationTest extends AbstractSeriesEndpointIntegratio
 		then:
 		seriesBaseResponse.page.pageNumber == pageNumber
 		seriesBaseResponse.page.pageSize == pageSize
-		seriesBaseResponse.series.size() == 6
+		seriesBaseResponse.series.size() == 7
 	}
 
 	void "gets series by title"() {
@@ -69,9 +69,9 @@ class SeriesRestEndpointIntegrationTest extends AbstractSeriesEndpointIntegratio
 				)), null, null, null, null, null, null, null, null, null, null, null)
 
 		then:
-		seriesBaseResponse.series.size() == 6
-		seriesBaseResponse.series[0].abbreviation == ENT
-		seriesBaseResponse.series[5].abbreviation == TOS
+		seriesBaseResponse.series.size() == 7
+		seriesBaseResponse.series.first().abbreviation == DIS
+		seriesBaseResponse.series.last().abbreviation == TOS
 	}
 
 }

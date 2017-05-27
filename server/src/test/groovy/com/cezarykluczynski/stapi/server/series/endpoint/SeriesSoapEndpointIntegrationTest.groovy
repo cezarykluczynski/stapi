@@ -34,7 +34,7 @@ class SeriesSoapEndpointIntegrationTest extends AbstractSeriesEndpointIntegratio
 		then:
 		seriesResponse.page.pageNumber == pageNumber
 		seriesResponse.page.pageSize == pageSize
-		seriesResponse.series.size() == 6
+		seriesResponse.series.size() == 7
 
 	}
 

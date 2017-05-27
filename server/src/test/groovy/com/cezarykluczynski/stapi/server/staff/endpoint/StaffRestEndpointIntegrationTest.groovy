@@ -40,7 +40,7 @@ class StaffRestEndpointIntegrationTest extends AbstractStaffEndpointIntegrationT
 		then:
 		staffFullResponse.staff.uid == IRA_STEVEN_BEHR_UID
 		staffFullResponse.staff.writtenEpisodes.size() == 34
-		staffFullResponse.staff.teleplayAuthoredEpisodes.size() == 18
+		staffFullResponse.staff.teleplayAuthoredEpisodes.size() == 17
 		staffFullResponse.staff.storyAuthoredEpisodes.size() == 10
 	}
 
