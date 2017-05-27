@@ -3,7 +3,9 @@ description: Header episode, embedded in other objects
 properties:
   uid:
     type: string
+    required: true
     description: Episode unique ID
   title:
     type: string
+    required: true
     description: Episode title

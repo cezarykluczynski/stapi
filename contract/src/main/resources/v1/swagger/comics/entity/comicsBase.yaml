@@ -3,10 +3,11 @@ description: Base comics, returned in search results
 properties:
   uid:
     type: string
-    description: Comics unique ID
     required: true
+    description: Comics unique ID
   title:
     type: string
+    required: true
     description: Comics title
   publishedYear:
     type: integer

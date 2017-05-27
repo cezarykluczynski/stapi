@@ -3,7 +3,9 @@ description: Header company, embedded in other objects
 properties:
   uid:
     type: string
+    required: true
     description: Company unique ID
   name:
     type: string
+    required: true
     description: Company title

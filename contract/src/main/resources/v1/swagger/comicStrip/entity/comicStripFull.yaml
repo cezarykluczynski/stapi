@@ -3,9 +3,11 @@ description: Full comic strip, returned when queried using UID
 properties:
   uid:
     type: string
+    required: true
     description: Comic strip unique ID
   title:
     type: string
+    required: true
     description: Comic strip title
   periodical:
     type: string

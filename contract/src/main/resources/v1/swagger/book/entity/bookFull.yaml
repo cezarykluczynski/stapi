@@ -3,9 +3,11 @@ description: Full book, returned when queried using UID
 properties:
   uid:
     type: string
+    required: true
     description: Book unique ID
   title:
     type: string
+    required: true
     description: Book title
     required: true
   publishedYear:

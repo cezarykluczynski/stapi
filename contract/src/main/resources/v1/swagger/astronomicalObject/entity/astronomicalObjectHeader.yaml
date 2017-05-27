@@ -3,7 +3,9 @@ description: Header astronomical object, embedded in other objects
 properties:
   uid:
     type: string
+    required: true
     description: Astronomical object's unique ID
   name:
     type: string
+    required: true
     description: Astronomical object name

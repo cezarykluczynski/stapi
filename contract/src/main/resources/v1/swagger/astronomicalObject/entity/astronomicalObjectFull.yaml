@@ -3,9 +3,11 @@ description: Full astronomical object, returned when queried using UID
 properties:
   uid:
     type: string
+    required: true
     description: Astronomical object's unique ID
   name:
     type: string
+    required: true
     description: Astronomical object name
   astronomicalObjectType:
     $ref: ./astronomicalObject/entity/enum/astronomicalObjectType.yaml

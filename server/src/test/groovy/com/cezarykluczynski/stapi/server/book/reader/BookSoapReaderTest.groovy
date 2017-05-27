@@ -55,7 +55,7 @@ class BookSoapReaderTest extends Specification {
 		1 * bookPage.content >> bookList
 		1 * pageMapperMock.fromPageToSoapResponsePage(bookPage) >> responsePage
 		1 * bookBaseSoapMapperMock.mapBase(bookList) >> soapBookList
-		bookResponse.book[0].uid == UID
+		bookResponse.books[0].uid == UID
 		bookResponse.page == responsePage
 	}
 
