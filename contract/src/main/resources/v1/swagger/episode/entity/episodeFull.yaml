@@ -50,7 +50,7 @@ properties:
   usAirDate:
     type: string
     format: date
-    description: Date the episode was first aired in United States
+    description: Date the episode was first aired in the United States
   finalScriptDate:
     type: string
     format: date

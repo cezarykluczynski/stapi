@@ -133,7 +133,7 @@
 	</xs:element>
 	<xs:element name="BookBaseResponse">
 		<xs:annotation>
-			<xs:documentation>Response object for book search</xs:documentation>
+			<xs:documentation>Response object for books search</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>

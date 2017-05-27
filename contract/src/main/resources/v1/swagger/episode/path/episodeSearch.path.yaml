@@ -64,6 +64,16 @@ post:
       type: integer
       format: int32
       description: Maximal season number
+    - name: episodeNumberFrom
+      in: formData
+      type: integer
+      format: int32
+      description: Minimal episode number in season
+    - name: episodeNumberTo
+      in: formData
+      type: integer
+      format: int32
+      description: Maximal episode number in season
     - name: productionSerialNumber
       in: formData
       type: string
@@ -96,12 +106,12 @@ post:
       in: formData
       type: string
       format: date
-      description: Minimal date the episode was first aired in United States
+      description: Minimal date the episode was first aired in the United States
     - name: usAirDateTo
       in: formData
       type: string
       format: date
-      description: Maximal date the episode was first aired in United States
+      description: Maximal date the episode was first aired in the United States
     - name: finalScriptDateFrom
       in: formData
       type: string
