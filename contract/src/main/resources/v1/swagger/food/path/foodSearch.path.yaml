@@ -1,16 +1,20 @@
 get:
+  description: Pagination over foods
   parameters:
     - name: pageNumber
       in: query
       type: integer
       format: int32
+      description: Zero-based page number
     - name: pageSize
       in: query
       type: integer
       format: int32
+      description: Page size
     - name: apiKey
       in: query
       type: string
+      description: API key
   responses:
     200:
       schema:
@@ -22,6 +26,7 @@ get:
   tags:
   - Food
 post:
+  description: Searching foods
   consumes:
     - application/x-www-form-urlencoded
   producers:
@@ -31,49 +36,64 @@ post:
       in: query
       type: integer
       format: int32
+      description: Zero-based page number
     - name: pageSize
       in: query
       type: integer
       format: int32
+      description: Page size
     - name: sort
       type: string
       in: query
+      description: "Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC"
     - name: apiKey
       in: query
       type: string
+      description: API key
     - name: name
       in: formData
       type: string
+      description: Food name
     - name: earthlyOrigin
       in: formData
       type: boolean
+      description: Whether it should be of earthly origin
     - name: dessert
       in: formData
       type: boolean
+      description: Whether it should be a dessert
     - name: fruit
       in: formData
       type: boolean
+      description: Whether it should be a fruit
     - name: herbOrSpice
       in: formData
       type: boolean
+      description: Whether it's an herb or a spice
     - name: sauce
       in: formData
       type: boolean
+      description: Whether it should be a sauce
     - name: soup
       in: formData
       type: boolean
+      description: Whether it should be a soup
     - name: beverage
       in: formData
       type: boolean
+      description: Whether it should be a beverage
     - name: alcoholicBeverage
       in: formData
       type: boolean
+      description: Whether it's should be an alcoholic beverage
     - name: juice
       in: formData
       type: boolean
+      description: Whether it should be a juice
     - name: tea
       in: formData
       type: boolean
+      description: Whether it should be a tea
   responses:
     200:
       schema:

@@ -1,6 +1,11 @@
 type: object
+description: Header food, embedded in other objects
 properties:
   uid:
     type: string
+    required: true
+    description: Food unique ID
   name:
     type: string
+    required: true
+    description: Food name
