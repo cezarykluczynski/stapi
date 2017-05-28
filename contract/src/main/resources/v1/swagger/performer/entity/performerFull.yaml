@@ -72,32 +72,32 @@ properties:
     type: array
     items:
       $ref: '#/definitions/EpisodeBase'
-    description: Episodes in which this person appeared as performer
+    description: Episodes in which this person appeared as a performer
   episodesStuntPerformances:
     type: array
     items:
       $ref: '#/definitions/EpisodeBase'
-    description: Episodes in which this person appeared as stunt performer
+    description: Episodes in which this person appeared as a stunt performer
   episodesStandInPerformances:
     type: array
     items:
       $ref: '#/definitions/EpisodeBase'
-    description: Episodes in which this person appeared as stand-in performer
+    description: Episodes in which this person appeared as a stand-in performer
   moviesPerformances:
     type: array
     items:
       $ref: '#/definitions/MovieBase'
-    description: Movies in which this person appeared as performer
+    description: Movies in which this person appeared as a performer
   moviesStuntPerformances:
     type: array
     items:
       $ref: '#/definitions/MovieBase'
-    description: Movies in which this person appeared as stunt performer
+    description: Movies in which this person appeared as a stunt performer
   moviesStandInPerformances:
     type: array
     items:
       $ref: '#/definitions/MovieBase'
-    description: Movies in which this person appeared as stand-in performer
+    description: Movies in which this person appeared as a stand-in performer
   characters:
     type: array
     items:

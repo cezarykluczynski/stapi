@@ -13,138 +13,452 @@
 	<xs:import namespace="http://stapi.co/api/v1/soap/movie" schemaLocation="movie.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/episode" schemaLocation="episode.xsd"/>
 	<xs:element name="PerformerBaseRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for performers search</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Request">
 					<xs:sequence>
-						<xs:element name="name" type="xs:string" minOccurs="0"/>
-						<xs:element name="birthName" type="xs:string" minOccurs="0"/>
-						<xs:element name="gender" type="common:GenderEnum" minOccurs="0"/>
-						<xs:element name="dateOfBirth" type="common:DateRange" minOccurs="0"/>
-						<xs:element name="dateOfDeath" type="common:DateRange" minOccurs="0"/>
-						<xs:element name="placeOfBirth" type="xs:string" minOccurs="0"/>
-						<xs:element name="placeOfDeath" type="xs:string" minOccurs="0"/>
-						<xs:element name="animalPerformer" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="disPerformer" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="ds9Performer" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="entPerformer" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="filmPerformer" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="standInPerformer" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="stuntPerformer" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="tasPerformer" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="tngPerformer" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="tosPerformer" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="videoGamePerformer" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="voicePerformer" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="voyPerformer" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="name" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Performer name</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="birthName" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Performer birth name</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="gender" type="common:GenderEnum" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Performer gender</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="dateOfBirth" type="common:DateRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Minimal and maximal date the performer was born</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="placeOfBirth" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Place the performer was born</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="dateOfDeath" type="common:DateRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Minimal and maximal date the performer died</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="placeOfDeath" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Place the performer died</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="animalPerformer" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be an animal performer</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="disPerformer" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a performer that appeared in Star Trek: Discovery</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="ds9Performer" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a performer that appeared in Star Trek: Deep Space Nine</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="entPerformer" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a performer that appeared in Star Trek: Enterprise</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="filmPerformer" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a performer that appeared in a Star Trek movie</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="standInPerformer" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a stand-in performer</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="stuntPerformer" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a stunt performer</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="tasPerformer" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a performer that appeared in Star Trek: The Animated Series</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="tngPerformer" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a performer that appeared in Star Trek: The Next Generation</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="tosPerformer" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a performer that appeared in Star Trek: The Original Series</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="videoGamePerformer" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a video game performer</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="voicePerformer" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a voice performer</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="voyPerformer" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a performer that appeared in Star Trek: Voyager</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="PerformerFullRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for single performer query</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:ApiRequest">
 					<xs:sequence>
-						<xs:element name="uid" type="xs:string" minOccurs="1"/>
+						<xs:element name="uid" type="xs:string" minOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Performer unique ID</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="PerformerBaseResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for performers search</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Response">
 					<xs:sequence>
-						<xs:element name="performers" type="performer:PerformerBase" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="performers" type="performer:PerformerBase" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>List of performers matching given criteria</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="PerformerFullResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for single performer query</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="performer" type="performer:PerformerFull"/>
+				<xs:element name="performer" type="performer:PerformerFull">
+					<xs:annotation>
+						<xs:documentation>Performer, if found</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 	<xs:complexType name="PerformerHeader">
+		<xs:annotation>
+			<xs:documentation>Header performer, embedded in other objects</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="uid" type="xs:string"/>
-			<xs:element name="name" type="xs:string"/>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Performer unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Performer name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="PerformerBase">
+		<xs:annotation>
+			<xs:documentation>Base performer, returned in search results</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="uid" type="xs:string"/>
-			<xs:element name="name" type="xs:string"/>
-			<xs:element name="birthName" type="xs:string" minOccurs="0"/>
-			<xs:element name="gender" type="common:GenderEnum" minOccurs="0"/>
-			<xs:element name="dateOfBirth" type="xs:date" minOccurs="0"/>
-			<xs:element name="dateOfDeath" type="xs:date" minOccurs="0"/>
-			<xs:element name="placeOfBirth" type="xs:string" minOccurs="0"/>
-			<xs:element name="placeOfDeath" type="xs:string" minOccurs="0"/>
-			<xs:element name="animalPerformer" type="xs:boolean"/>
-			<xs:element name="disPerformer" type="xs:boolean"/>
-			<xs:element name="ds9Performer" type="xs:boolean"/>
-			<xs:element name="entPerformer" type="xs:boolean"/>
-			<xs:element name="filmPerformer" type="xs:boolean"/>
-			<xs:element name="standInPerformer" type="xs:boolean"/>
-			<xs:element name="stuntPerformer" type="xs:boolean"/>
-			<xs:element name="tasPerformer" type="xs:boolean"/>
-			<xs:element name="tngPerformer" type="xs:boolean"/>
-			<xs:element name="tosPerformer" type="xs:boolean"/>
-			<xs:element name="videoGamePerformer" type="xs:boolean"/>
-			<xs:element name="voicePerformer" type="xs:boolean"/>
-			<xs:element name="voyPerformer" type="xs:boolean"/>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Performer unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Performer name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="birthName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Performer birth name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="gender" type="common:GenderEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Performer gender</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dateOfBirth" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Date the performer was born</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="placeOfBirth" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Place the performer was born</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dateOfDeath" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Date the performer died</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="placeOfDeath" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Place the performer died</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="animalPerformer" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's an animal performer</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="disPerformer" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a performer that appeared in Star Trek: Discovery</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ds9Performer" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a performer that appeared in Star Trek: Deep Space Nine</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="entPerformer" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a performer that appeared in Star Trek: Enterprise</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="filmPerformer" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a performer that appeared in a Star Trek movie</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="standInPerformer" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a stand-in performer</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="stuntPerformer" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a stunt performer</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tasPerformer" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a performer that appeared in Star Trek: The Animated Series</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tngPerformer" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a performer that appeared in Star Trek: The Next Generation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tosPerformer" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a performer that appeared in Star Trek: The Original Series</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="videoGamePerformer" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a video game performer</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="voicePerformer" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a voice performer</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="voyPerformer" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a performer that appeared in Star Trek: Voyager</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="PerformerFull">
 		<xs:sequence>
-			<xs:element name="uid" type="xs:string"/>
-			<xs:element name="name" type="xs:string"/>
-			<xs:element name="birthName" type="xs:string" minOccurs="0"/>
-			<xs:element name="gender" type="common:GenderEnum" minOccurs="0"/>
-			<xs:element name="dateOfBirth" type="xs:date" minOccurs="0"/>
-			<xs:element name="dateOfDeath" type="xs:date" minOccurs="0"/>
-			<xs:element name="placeOfBirth" type="xs:string" minOccurs="0"/>
-			<xs:element name="placeOfDeath" type="xs:string" minOccurs="0"/>
-			<xs:element name="animalPerformer" type="xs:boolean"/>
-			<xs:element name="disPerformer" type="xs:boolean"/>
-			<xs:element name="ds9Performer" type="xs:boolean"/>
-			<xs:element name="entPerformer" type="xs:boolean"/>
-			<xs:element name="filmPerformer" type="xs:boolean"/>
-			<xs:element name="standInPerformer" type="xs:boolean"/>
-			<xs:element name="stuntPerformer" type="xs:boolean"/>
-			<xs:element name="tasPerformer" type="xs:boolean"/>
-			<xs:element name="tngPerformer" type="xs:boolean"/>
-			<xs:element name="tosPerformer" type="xs:boolean"/>
-			<xs:element name="videoGamePerformer" type="xs:boolean"/>
-			<xs:element name="voicePerformer" type="xs:boolean"/>
-			<xs:element name="voyPerformer" type="xs:boolean"/>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Performer unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Performer name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="birthName" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Performer birth name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="gender" type="common:GenderEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Performer gender</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dateOfBirth" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Date the performer was born</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="placeOfBirth" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Place the performer was born</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dateOfDeath" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Date the performer died</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="placeOfDeath" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Place the performer died</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="animalPerformer" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's an animal performer</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="disPerformer" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a performer that appeared in Star Trek: Discovery</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ds9Performer" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a performer that appeared in Star Trek: Deep Space Nine</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="entPerformer" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a performer that appeared in Star Trek: Enterprise</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="filmPerformer" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a performer that appeared in a Star Trek movie</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="standInPerformer" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a stand-in performer</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="stuntPerformer" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a stunt performer</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tasPerformer" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a performer that appeared in Star Trek: The Animated Series</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tngPerformer" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a performer that appeared in Star Trek: The Next Generation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tosPerformer" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a performer that appeared in Star Trek: The Original Series</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="videoGamePerformer" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a video game performer</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="voicePerformer" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a voice performer</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="voyPerformer" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a performer that appeared in Star Trek: Voyager</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 			<xs:sequence>
-				<xs:element name="episodesPerformances" type="episode:EpisodeBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="episodesPerformances" type="episode:EpisodeBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Episodes in which this person appeared as a performer</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="episodesStuntPerformances" type="episode:EpisodeBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="episodesStuntPerformances" type="episode:EpisodeBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Episodes in which this person appeared as a stunt performer</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="episodesStandInPerformances" type="episode:EpisodeBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="episodesStandInPerformances" type="episode:EpisodeBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Episodes in which this person appeared as a stand-in performer</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="moviesPerformances" type="movie:MovieBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="moviesPerformances" type="movie:MovieBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Movies in which this person appeared as a performer</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="moviesStuntPerformances" type="movie:MovieBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="moviesStuntPerformances" type="movie:MovieBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Movies in which this person appeared as a stunt performer</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="moviesStandInPerformances" type="movie:MovieBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="moviesStandInPerformances" type="movie:MovieBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Movies in which this person appeared as a stand-in performer</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 			<xs:sequence>
-				<xs:element name="characters" type="character:CharacterBase" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="characters" type="character:CharacterBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Characters played by this performer</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 		</xs:sequence>
 	</xs:complexType>

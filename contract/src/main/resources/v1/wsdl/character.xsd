@@ -70,8 +70,8 @@
 	</xs:element>
 	<xs:element name="CharacterBaseResponse">
 		<xs:annotation>
-			<xs:documentation>Response object for character search</xs:documentation>
-</xs:annotation>
+			<xs:documentation>Response object for characters search</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Response">
