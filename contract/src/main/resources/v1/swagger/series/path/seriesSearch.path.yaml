@@ -1,16 +1,20 @@
 get:
+  description: Pagination over series
   parameters:
     - name: pageNumber
       in: query
       type: integer
       format: int32
+      description: Zero-based page number
     - name: pageSize
       in: query
       type: integer
       format: int32
+      description: Page size
     - name: apiKey
       in: query
       type: string
+      description: API key
   responses:
     200:
       schema:
@@ -22,6 +26,7 @@ get:
   tags:
   - Series
 post:
+  description: Searching series
   consumes:
     - application/x-www-form-urlencoded
   producers:
@@ -31,54 +36,68 @@ post:
       in: query
       type: integer
       format: int32
+      description: Zero-based page number
     - name: pageSize
       in: query
       type: integer
       format: int32
+      description: Page size
     - name: sort
       type: string
       in: query
+      description: "Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC"
     - name: apiKey
       in: query
       type: string
+      description: API key
     - name: title
       in: formData
       type: string
+      description: Series title
     - name: abbreviation
       in: formData
       type: string
+      description: Series abbreviation
     - name: productionStartYearFrom
       in: formData
       type: integer
       format: int32
+      description: Minimal year the series production started
     - name: productionStartYearTo
       in: formData
       type: integer
       format: int32
+      description: Maximal year the series production started
     - name: productionStartEndFrom
       in: formData
       type: integer
       format: int32
+      description: Minimal year the series production ended
     - name: productionStartEndTo
       in: formData
       type: integer
       format: int32
+      description: Maximal year the series production ended
     - name: originalRunStartDateFrom
       in: formData
       type: string
       format: date
+      description: Minimal date the series orginally ran from
     - name: originalRunStartDateTo
       in: formData
       type: string
       format: date
+      description: Maximal date the series orginally ran from
     - name: originalRunEndDateFrom
       in: formData
       type: string
       format: date
+      description: Minimal date the series orginally ran to
     - name: originalRunEndDateTo
       in: formData
       type: string
       format: date
+      description: Maximal date the series orginally ran to
   responses:
     200:
       schema:
