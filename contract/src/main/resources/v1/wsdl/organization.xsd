@@ -7,97 +7,302 @@
 		targetNamespace="http://stapi.co/api/v1/soap/organization">
 	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
 	<xs:element name="OrganizationBaseRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for organizations search</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Request">
 					<xs:sequence>
-						<xs:element name="name" type="xs:string" minOccurs="0"/>
-						<xs:element name="government" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="intergovernmentalOrganization" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="researchOrganization" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="sportOrganization" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="medicalOrganization" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="militaryOrganization" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="militaryUnit" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="governmentAgency" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="lawEnforcementAgency" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="prisonOrPenalColony" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="mirror" type="xs:boolean" minOccurs="0"/>
-						<xs:element name="alternateReality" type="xs:boolean" minOccurs="0"/>
+						<xs:element name="name" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Organization name</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="government" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a government</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="intergovernmentalOrganization" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be an intergovernmental organization</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="researchOrganization" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a research organization</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="sportOrganization" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a sport organization</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="medicalOrganization" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a medical organization</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="militaryOrganization" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a military organization</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="militaryUnit" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a military unit</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="governmentAgency" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a government agency</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="lawEnforcementAgency" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a law enforcement agency</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="prisonOrPenalColony" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a prison or penal colony</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="mirror" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether this organization should be from mirror universe</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="alternateReality" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether this organization should be from alternate reality</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="OrganizationFullRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for single organization query</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:ApiRequest">
 					<xs:sequence>
-						<xs:element name="uid" type="xs:string" minOccurs="1"/>
+						<xs:element name="uid" type="xs:string" minOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Organization unique ID</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="OrganizationBaseResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for organizations search</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:extension base="common:Response">
 					<xs:sequence>
-						<xs:element name="organizations" type="organization:OrganizationBase" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="organizations" type="organization:OrganizationBase" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>List of organizations matching given criteria</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:extension>
 			</xs:complexContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="OrganizationFullResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for single organization query</xs:documentation>
+		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="organization" type="organization:OrganizationFull"/>
+				<xs:element name="organization" type="organization:OrganizationFull">
+					<xs:annotation>
+						<xs:documentation>Organization, if found</xs:documentation>
+					</xs:annotation>
+				</xs:element>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:complexType name="OrganizationBase">
+	<xs:complexType name="OrganizationHeader">
+		<xs:annotation>
+			<xs:documentation>Header organization, embedded in other objects</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="uid" type="xs:string"/>
-			<xs:element name="name" type="xs:string"/>
-			<xs:element name="government" type="xs:boolean"/>
-			<xs:element name="intergovernmentalOrganization" type="xs:boolean"/>
-			<xs:element name="researchOrganization" type="xs:boolean"/>
-			<xs:element name="sportOrganization" type="xs:boolean"/>
-			<xs:element name="medicalOrganization" type="xs:boolean"/>
-			<xs:element name="militaryOrganization" type="xs:boolean"/>
-			<xs:element name="militaryUnit" type="xs:boolean"/>
-			<xs:element name="governmentAgency" type="xs:boolean"/>
-			<xs:element name="lawEnforcementAgency" type="xs:boolean"/>
-			<xs:element name="prisonOrPenalColony" type="xs:boolean"/>
-			<xs:element name="mirror" type="xs:boolean"/>
-			<xs:element name="alternateReality" type="xs:boolean"/>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Organization unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Organization name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OrganizationBase">
+		<xs:annotation>
+			<xs:documentation>Base organization, returned in search results</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Organization unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Organization name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="government" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a government</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="intergovernmentalOrganization" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's an intergovernmental organization</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="researchOrganization" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a research organization</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sportOrganization" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a sport organization</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="medicalOrganization" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a medical organization</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="militaryOrganization" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a military organization</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="militaryUnit" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a military unit</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="governmentAgency" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a government agency</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lawEnforcementAgency" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a law enforcement agency</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="prisonOrPenalColony" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a prison or penal colony</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mirror" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this organization is from mirror universe</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="alternateReality" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this organization is from alternate reality</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="OrganizationFull">
+		<xs:annotation>
+			<xs:documentation>Full organization, returned when queried using UID</xs:documentation>
+		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="uid" type="xs:string"/>
-			<xs:element name="name" type="xs:string"/>
-			<xs:element name="government" type="xs:boolean"/>
-			<xs:element name="intergovernmentalOrganization" type="xs:boolean"/>
-			<xs:element name="researchOrganization" type="xs:boolean"/>
-			<xs:element name="sportOrganization" type="xs:boolean"/>
-			<xs:element name="medicalOrganization" type="xs:boolean"/>
-			<xs:element name="militaryOrganization" type="xs:boolean"/>
-			<xs:element name="militaryUnit" type="xs:boolean"/>
-			<xs:element name="governmentAgency" type="xs:boolean"/>
-			<xs:element name="lawEnforcementAgency" type="xs:boolean"/>
-			<xs:element name="prisonOrPenalColony" type="xs:boolean"/>
-			<xs:element name="mirror" type="xs:boolean"/>
-			<xs:element name="alternateReality" type="xs:boolean"/>
-		</xs:sequence>
-	</xs:complexType>
-	<xs:complexType name="OrganizationHeader">
-		<xs:sequence>
-			<xs:element name="uid" type="xs:string"/>
-			<xs:element name="name" type="xs:string"/>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Organization unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Organization name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="government" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a government</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="intergovernmentalOrganization" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's an intergovernmental organization</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="researchOrganization" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a research organization</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sportOrganization" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a sport organization</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="medicalOrganization" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a medical organization</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="militaryOrganization" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a military organization</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="militaryUnit" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a military unit</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="governmentAgency" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a government agency</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lawEnforcementAgency" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a law enforcement agency</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="prisonOrPenalColony" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a prison or penal colony</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mirror" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this organization is from mirror universe</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="alternateReality" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this organization is from alternate reality</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 </xs:schema>

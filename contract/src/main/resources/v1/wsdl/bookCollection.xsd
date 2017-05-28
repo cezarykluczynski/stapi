@@ -182,7 +182,7 @@
 	</xs:complexType>
 	<xs:complexType name="BookCollectionFull">
 		<xs:annotation>
-			<xs:documentation>Full book collection, returned when queries using UID</xs:documentation>
+			<xs:documentation>Full book collection, returned when queried using UID</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="uid" type="xs:string">

@@ -130,7 +130,7 @@
 	</xs:complexType>
 	<xs:complexType name="AstronomicalObjectFull">
 		<xs:annotation>
-			<xs:documentation>Full astronomical object, returned when queries using UID</xs:documentation>
+			<xs:documentation>Full astronomical object, returned when queried using UID</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="uid" type="xs:string">

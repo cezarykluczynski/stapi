@@ -228,7 +228,7 @@
 	</xs:complexType>
 	<xs:complexType name="EpisodeFull">
 		<xs:annotation>
-			<xs:documentation>Full episode, returned when queries using UID</xs:documentation>
+			<xs:documentation>Full episode, returned when queried using UID</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="uid" type="xs:string">

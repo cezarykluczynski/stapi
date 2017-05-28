@@ -210,7 +210,7 @@
 	</xs:complexType>
 	<xs:complexType name="FoodFull">
 		<xs:annotation>
-			<xs:documentation>Full food, returned when queries using UID</xs:documentation>
+			<xs:documentation>Full food, returned when queried using UID</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="uid" type="xs:string">

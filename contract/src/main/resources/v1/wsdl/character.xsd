@@ -221,7 +221,7 @@
 	</xs:complexType>
 	<xs:complexType name="CharacterFull">
 		<xs:annotation>
-			<xs:documentation>Full character, returned when queries using UID</xs:documentation>
+			<xs:documentation>Full character, returned when queried using UID</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="uid" type="xs:string">
