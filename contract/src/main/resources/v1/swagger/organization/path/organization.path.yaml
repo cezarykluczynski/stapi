@@ -1,11 +1,15 @@
 get:
+  description: Retrival of a single organization
   parameters:
     - name: uid
       in: query
       type: string
+      required: true
+      description: Organization unique ID
     - name: apiKey
       in: query
       type: string
+      description: API key
   responses:
     200:
       schema:

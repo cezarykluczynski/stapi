@@ -1,16 +1,20 @@
 get:
+  description: Pagination over organizations
   parameters:
     - name: pageNumber
       in: query
       type: integer
       format: int32
+      description: Zero-based page number
     - name: pageSize
       in: query
       type: integer
       format: int32
+      description: Page size
     - name: apiKey
       in: query
       type: string
+      description: API key
   responses:
     200:
       schema:
@@ -22,6 +26,7 @@ get:
   tags:
   - Organization
 post:
+  description: Searching organizations
   consumes:
     - application/x-www-form-urlencoded
   producers:
@@ -31,61 +36,74 @@ post:
       in: query
       type: integer
       format: int32
+      description: Zero-based page number
     - name: pageSize
       in: query
       type: integer
       format: int32
+      description: Page size
     - name: sort
       type: string
       in: query
+      description: "Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC"
     - name: apiKey
+      in: query
+      type: string
+      description: API key
       in: query
       type: string
     - name: name
       in: formData
       type: string
+      description: Organization name
     - name: government
       in: formData
       type: boolean
+      description: Whether it should be a government
     - name: intergovernmentalOrganization
       in: formData
       type: boolean
+      description: Whether it should be an intergovernmental organization
     - name: researchOrganization
       in: formData
       type: boolean
+      description: Whether it should be a research organization
     - name: sportOrganization
       in: formData
       type: boolean
+      description: Whether it should be a sport organization
     - name: medicalOrganization
       in: formData
       type: boolean
+      description: Whether it should be a medical organization
     - name: militaryOrganization
       in: formData
       type: boolean
+      description: Whether it should be a military organization
     - name: militaryUnit
       in: formData
       type: boolean
+      description: Whether it should be a military unit
     - name: governmentAgency
       in: formData
       type: boolean
+      description: Whether it should be a government agency
     - name: lawEnforcementAgency
       in: formData
       type: boolean
+      description: Whether it should be a law enforcement agency
     - name: prisonOrPenalColony
       in: formData
       type: boolean
-    - name: establishment
-      in: formData
-      type: boolean
-    - name: school
-      in: formData
-      type: boolean
+      description: Whether it should be a prison or penal colony
     - name: mirror
       in: formData
       type: boolean
+      description: Whether this organization should be from mirror universe
     - name: alternateReality
       in: formData
       type: boolean
+      description: Whether this organization should be from alternate reality
   responses:
     200:
       schema:
