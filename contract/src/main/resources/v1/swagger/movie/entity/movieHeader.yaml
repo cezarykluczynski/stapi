@@ -1,6 +1,11 @@
 type: object
+description: Header movie, embedded in other objects
 properties:
   uid:
     type: string
+    required: true
+    description: Movie unique ID
   title:
     type: string
+    required: true
+    description: Movie title

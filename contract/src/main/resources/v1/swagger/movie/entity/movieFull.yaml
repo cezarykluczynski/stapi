@@ -1,81 +1,112 @@
 type: object
+description: Full movie, returned when queried using UID
 properties:
   uid:
     type: string
-  mainDirector:
-    $ref: ./staff/entity/staffBase.yaml
+    required: true
+    description: Movie unique ID
   title:
     type: string
+    required: true
+    description: Movie title
+  mainDirector:
+    $ref: ./staff/entity/staffBase.yaml
+    description: Director of the movie
   titleBulgarian:
     type: string
+    description: Movie title in Bulgarian
   titleCatalan:
     type: string
+    description: Movie title in Catalan
   titleChineseTraditional:
     type: string
+    description: Movie title in Chinese traditional
   titleGerman:
     type: string
+    description: Movie title in German
   titleItalian:
     type: string
+    description: Movie title in Italian
   titleJapanese:
     type: string
+    description: Movie title in Japanese
   titlePolish:
     type: string
+    description: Movie title in Polish
   titleRussian:
     type: string
+    description: Movie title in Russian
   titleSerbian:
     type: string
+    description: Movie title in Serbian
   titleSpanish:
     type: string
+    description: Movie title in Spanish
   stardateFrom:
     type: number
     format: float
+    description: Starting stardate of movie story
   stardateTo:
     type: number
     format: float
+    description: Ending stardate of movie story
   yearFrom:
     type: integer
+    description: Starting year of movie story
   yearTo:
     type: integer
+    description: Ending year of movie story
   usReleaseDate:
     type: string
     format: date
+    description: Date the movie was first released in the United States
   writers:
     type: array
     items:
       $ref: '#/definitions/StaffBase'
+    description: Writers involved in the movie
   screenplayAuthors:
     type: array
     items:
       $ref: '#/definitions/StaffBase'
+    description: Screenplay authors involved in the movie
   storyAuthors:
     type: array
     items:
       $ref: '#/definitions/StaffBase'
+    description: Story authors authors involved in the movie
   directors:
     type: array
     items:
       $ref: '#/definitions/StaffBase'
+    description: Directors authors involved in the movie
   producers:
     type: array
     items:
       $ref: '#/definitions/StaffBase'
+    description: Producers authors involved in the movie
   staff:
     type: array
     items:
       $ref: '#/definitions/StaffBase'
+    description: Other staff involved in the movie
   performers:
     type: array
     items:
       $ref: '#/definitions/PerformerBase'
+    description: Performers appearing in the movie
   stuntPerformers:
     type: array
     items:
       $ref: '#/definitions/PerformerBase'
+    description: Stunt performers appearing in the movie
   standInPerformers:
     type: array
     items:
       $ref: '#/definitions/PerformerBase'
+    description: Stand-in performers appearing in the movie
   characters:
     type: array
     items:
       $ref: '#/definitions/CharacterBase'
+    description: Characters appearing in the movie
