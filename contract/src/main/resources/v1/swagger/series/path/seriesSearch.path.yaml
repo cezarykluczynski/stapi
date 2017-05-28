@@ -82,22 +82,22 @@ post:
       in: formData
       type: string
       format: date
-      description: Minimal date the series orginally ran from
+      description: Minimal date the series originally ran from
     - name: originalRunStartDateTo
       in: formData
       type: string
       format: date
-      description: Maximal date the series orginally ran from
+      description: Maximal date the series originally ran from
     - name: originalRunEndDateFrom
       in: formData
       type: string
       format: date
-      description: Minimal date the series orginally ran to
+      description: Minimal date the series originally ran to
     - name: originalRunEndDateTo
       in: formData
       type: string
       format: date
-      description: Maximal date the series orginally ran to
+      description: Maximal date the series originally ran to
   responses:
     200:
       schema:

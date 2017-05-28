@@ -22,11 +22,11 @@ properties:
   originalRunStartDate:
     type: string
     format: date
-    description: Date the series orginally ran from
+    description: Date the series originally ran from
   originalRunEndDate:
     type: string
     format: date
-    description: Date the series orginally ran to
+    description: Date the series originally ran to
   seasonsCount:
     type: integer
     description: Number of seasons

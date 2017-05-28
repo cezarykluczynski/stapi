@@ -12,7 +12,7 @@ properties:
   abbreviation:
     type: string
     required: true
-    description: Series title
+    description: Series abbreviation
   productionStartYear:
     type: integer
     description: Year the series production started
@@ -22,11 +22,11 @@ properties:
   originalRunStartDate:
     type: string
     format: date
-    description: Date the series orginally ran from
+    description: Date the series originally ran from
   originalRunEndDate:
     type: string
     format: date
-    description: Date the series orginally ran to
+    description: Date the series originally ran to
   seasonsCount:
     type: integer
     description: Number of seasons
@@ -46,4 +46,4 @@ properties:
       type: array
       items:
         $ref: '#/definitions/EpisodeBase'
-      description: Episodes in this series
+      description: Episodes in the series
