@@ -1,6 +1,11 @@
 type: object
+description: Header performer, embedded in other objects
 properties:
   uid:
     type: string
+    required: true
+    description: Performer unique ID
   name:
     type: string
+    required: true
+    description: Performer name

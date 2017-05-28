@@ -1,4 +1,6 @@
 type: object
+description: Response object for single performer query
 properties:
   performer:
     $ref: '#/definitions/PerformerFull'
+    description: Performer, if found

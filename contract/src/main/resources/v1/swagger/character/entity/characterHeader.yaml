@@ -3,9 +3,9 @@ description: Header character, embedded in other objects
 properties:
   uid:
     type: string
-    description: Character unique ID
     required: true
+    description: Character unique ID
   name:
     type: string
-    description: Character name
     required: true
+    description: Character name
