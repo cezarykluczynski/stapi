@@ -1,8 +1,12 @@
 type: object
+description: Reference of book, comics, etc.
 properties:
   uid:
     type: string
+  description: Reference unique ID
   referenceType:
     $ref: ./reference/entity/enum/referenceType.yaml
+  description: Reference type
   referenceNumber:
     type: string
+  description: Reference number

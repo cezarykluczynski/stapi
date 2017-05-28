@@ -1,4 +1,5 @@
 type: string
+description: Reference type
 enum:
   - ASIN
   - ISBN
