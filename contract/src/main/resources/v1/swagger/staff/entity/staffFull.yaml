@@ -43,7 +43,7 @@ properties:
     description: Whether this person is from camera and electrical department
   cinematographer:
     type: boolean
-    description: Whether this person is cinematographer
+    description: Whether this person is a cinematographer
   castingDepartment:
     type: boolean
     description: Whether this person is from casting department
@@ -166,7 +166,7 @@ properties:
     description: Whether this person is a publication editor
   publicityArtist:
     type: boolean
-    description: Whether this person is a publication artist
+    description: Whether this person is a publicity artist
   cbsDigitalStaff:
     type: boolean
     description: Whether this person is a part of CBS digital staff

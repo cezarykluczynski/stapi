@@ -109,7 +109,7 @@ post:
     - name: cinematographer
       in: formData
       type: boolean
-      description: Whether this person is cinematographer
+      description: Whether this person should be a cinematographer
     - name: castingDepartment
       in: formData
       type: boolean
@@ -273,7 +273,7 @@ post:
     - name: publicityArtist
       in: formData
       type: boolean
-      description: Whether this person should be a publication artist
+      description: Whether this person should be a publicity artist
     - name: cbsDigitalStaff
       in: formData
       type: boolean
