@@ -1,11 +1,15 @@
 get:
+  description: Retrival of a single species
   parameters:
     - name: uid
       in: query
       type: string
+      required: true
+      description: Species unique ID
     - name: apiKey
       in: query
       type: string
+      description: API key
   responses:
     200:
       schema:
