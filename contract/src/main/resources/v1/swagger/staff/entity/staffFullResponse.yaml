@@ -1,4 +1,6 @@
 type: object
+description: Response object for single staff query
 properties:
   staff:
     $ref: '#/definitions/StaffFull'
+    description: Staff, if found
