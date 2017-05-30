@@ -6,4 +6,6 @@ public interface DocumentationDirectoryProvider {
 
 	String getWsdlDirectory();
 
+	String getTemporaryDirectory();
+
 }

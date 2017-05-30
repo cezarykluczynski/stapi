@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.common.documentation.service;
 import com.cezarykluczynski.stapi.contract.documentation.dto.DocumentDTO;
 import com.cezarykluczynski.stapi.contract.documentation.dto.enums.DocumentType;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,10 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
@@ -21,7 +25,23 @@ public class DocumentationReader {
 	List<DocumentDTO> readDirectory(String path) {
 		List<DocumentDTO> documentDTOList = Lists.newArrayList();
 		privateReadDocument(path, documentDTOList, null);
+		documentDTOList = filterAndSort(documentDTOList);
 		return documentDTOList;
+	}
+
+	private List<DocumentDTO> filterAndSort(List<DocumentDTO> documentDTOList) {
+		Set<String> paths = Sets.newHashSet();
+		return documentDTOList.stream()
+				.filter(documentDTO -> {
+					if (paths.contains(documentDTO.getPath())) {
+						return false;
+					}
+
+					paths.add(documentDTO.getPath());
+					return true;
+				})
+				.sorted(Comparator.comparing(DocumentDTO::getPath))
+				.collect(Collectors.toList());
 	}
 
 	private void privateReadDocument(String path, List<DocumentDTO> documentDTOList, Path basePath) {

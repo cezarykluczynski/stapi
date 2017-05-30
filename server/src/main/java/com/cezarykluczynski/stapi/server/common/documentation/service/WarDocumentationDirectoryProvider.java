@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.common.documentation.service;
 
 import com.cezarykluczynski.stapi.util.constant.SpringProfile;
+import org.apache.cxf.helpers.FileUtils;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +13,7 @@ public class WarDocumentationDirectoryProvider implements DocumentationDirectory
 
 	private static final String SWAGGER_CLASSPATH_DIRECTORY = "/contract/src/main/resources/v1/swagger";
 	private static final String WSDL_CLASSPATH_DIRECTORY = "/contract/src/main/resources/v1/wsdl";
-
-	private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(WarDocumentationDirectoryProvider.class);
+	private static final String TMP_DIRECTORY = "/tmp/" + System.currentTimeMillis() + "/";
 
 	@Override
 	public String getSwaggerDirectory() {
@@ -31,6 +31,12 @@ public class WarDocumentationDirectoryProvider implements DocumentationDirectory
 		} catch (Exception e) {
 			return null;
 		}
+	}
+
+	@Override
+	public String getTemporaryDirectory() {
+		FileUtils.mkDir(new File(TMP_DIRECTORY));
+		return TMP_DIRECTORY;
 	}
 
 }

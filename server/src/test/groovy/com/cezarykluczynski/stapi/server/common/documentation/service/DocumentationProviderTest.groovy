@@ -2,7 +2,6 @@ package com.cezarykluczynski.stapi.server.common.documentation.service
 
 import com.cezarykluczynski.stapi.contract.documentation.dto.DocumentDTO
 import com.cezarykluczynski.stapi.contract.documentation.dto.DocumentationDTO
-import org.apache.commons.io.FileUtils
 import spock.lang.Specification
 
 import javax.ws.rs.core.Response
@@ -11,6 +10,7 @@ class DocumentationProviderTest extends Specification {
 
 	private static final String SWAGGER_DIRECTORY = 'SWAGGER_DIRECTORY'
 	private static final String WSDL_DIRECTORY = 'WSDL_DIRECTORY'
+	private static final String TEMPORARY_DIRECTORY = 'TEMPORARY_DIRECTORY'
 
 	private DocumentationReader documentationReaderMock
 
@@ -53,13 +53,11 @@ class DocumentationProviderTest extends Specification {
 	}
 
 	void "provides zipped REST specs"() {
-		given:
-		FileUtils.deleteQuietly(new File(DocumentationProvider.SWAGGER_ZIP_TARGET_FILE))
-
 		when:
 		Response response = documentationProvider.provideRestSpecsZip()
 
 		then:
+		1 * documentationDirectoryProviderMock.temporaryDirectory >> TEMPORARY_DIRECTORY
 		1 * documentationDirectoryProviderMock.swaggerDirectory >> SWAGGER_DIRECTORY
 		1 * documentationZipperMock.zipDirectoryToFile(SWAGGER_DIRECTORY, _ as File)
 		0 * _
@@ -69,13 +67,11 @@ class DocumentationProviderTest extends Specification {
 	}
 
 	void "provides zipped SOAP contracts"() {
-		given:
-		FileUtils.deleteQuietly(new File(DocumentationProvider.WSDL_ZIP_TARGET_FILE))
-
 		when:
 		Response response = documentationProvider.provideSoapContractsZip()
 
 		then:
+		1 * documentationDirectoryProviderMock.temporaryDirectory >> TEMPORARY_DIRECTORY
 		1 * documentationDirectoryProviderMock.wsdlDirectory >> WSDL_DIRECTORY
 		1 * documentationZipperMock.zipDirectoryToFile(WSDL_DIRECTORY, _ as File)
 		0 * _

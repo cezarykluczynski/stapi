@@ -10,6 +10,7 @@ public class LocalDocumentationDirectoryProvider implements DocumentationDirecto
 
 	private static final String SWAGGER_DIRECTORY = "./contract/src/main/resources/v1/swagger";
 	private static final String WSDL_DIRECTORY = "./contract/src/main/resources/v1/wsdl";
+	private static final String BUILD_DIRECTORY = "./build/";
 
 	@Override
 	public String getSwaggerDirectory() {
@@ -19,6 +20,11 @@ public class LocalDocumentationDirectoryProvider implements DocumentationDirecto
 	@Override
 	public String getWsdlDirectory() {
 		return WSDL_DIRECTORY;
+	}
+
+	@Override
+	public String getTemporaryDirectory() {
+		return BUILD_DIRECTORY;
 	}
 
 }

@@ -21,4 +21,9 @@ class WarDocumentationDirectoryProviderTest extends Specification {
 		warDocumentationDirectoryProvider.wsdlDirectory.replaceAll('\\\\', '/').contains(WarDocumentationDirectoryProvider.WSDL_CLASSPATH_DIRECTORY)
 	}
 
+	void "provides temporary directory"() {
+		expect:
+		warDocumentationDirectoryProvider.temporaryDirectory.replaceAll('\\\\', '/').contains(WarDocumentationDirectoryProvider.TMP_DIRECTORY)
+	}
+
 }

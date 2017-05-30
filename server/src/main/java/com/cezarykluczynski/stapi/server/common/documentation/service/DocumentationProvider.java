@@ -13,11 +13,8 @@ import java.io.File;
 @Slf4j
 public class DocumentationProvider {
 
-	private static final String ZIP_TARGET_DIRECTORY = "./build/";
 	private static final String SWAGGER_ATTACHMENT_NAME = "stapi_swagger_specs.zip";
-	private static final String SWAGGER_ZIP_TARGET_FILE = ZIP_TARGET_DIRECTORY + SWAGGER_ATTACHMENT_NAME;
 	private static final String WSDL_ATTACHMENT_NAME = "stapi_wsdl_contracts.zip";
-	private static final String WSDL_ZIP_TARGET_FILE = ZIP_TARGET_DIRECTORY + WSDL_ATTACHMENT_NAME;
 
 	private final DocumentationReader documentationReader;
 
@@ -50,12 +47,12 @@ public class DocumentationProvider {
 	}
 
 	public Response provideRestSpecsZip() {
-		File soapContractsZip = new File(SWAGGER_ZIP_TARGET_FILE);
+		File soapContractsZip = new File(documentationDirectoryProvider.getTemporaryDirectory() + SWAGGER_ATTACHMENT_NAME);
 		return createFromDirectoryOrRead(soapContractsZip, documentationDirectoryProvider.getSwaggerDirectory(), SWAGGER_ATTACHMENT_NAME);
 	}
 
 	public Response provideSoapContractsZip() {
-		File soapContractsZip = new File(WSDL_ZIP_TARGET_FILE);
+		File soapContractsZip = new File(documentationDirectoryProvider.getTemporaryDirectory() + WSDL_ATTACHMENT_NAME);
 		return createFromDirectoryOrRead(soapContractsZip, documentationDirectoryProvider.getWsdlDirectory(), WSDL_ATTACHMENT_NAME);
 	}
 

@@ -20,4 +20,9 @@ class LocalDocumentationDirectoryProviderTest extends Specification {
 		localDocumentationDirectoryProvider.wsdlDirectory == LocalDocumentationDirectoryProvider.WSDL_DIRECTORY
 	}
 
+	void "provides temporary directory"() {
+		expect:
+		localDocumentationDirectoryProvider.temporaryDirectory == LocalDocumentationDirectoryProvider.BUILD_DIRECTORY
+	}
+
 }
