@@ -10,7 +10,7 @@ export class Home extends Component {
 			<div className='container content home'>
 				<div className='row'>
 					<div className='col-md-6'>
-						<h2>Welcome to STAPI!</h2>
+						<h2>Welcome to STAPI, a Star Trek API!</h2>
 						<h3>But what is it, really?</h3>
 						<ul>
 							<li>It's the first public Star Trek API, accessible via REST and SOAP.</li>
@@ -29,7 +29,7 @@ export class Home extends Component {
 								to get it's data.</li>
 							<li>Data is cleaned, standarized and put into relational model.</li>
 							<li>API can be browsed by anyone, even right now, using <Link to="/api-browser">API Browser</Link>.</li>
-							<li>SOAP contracts and Swagger specifications can be downloaded.</li>
+							<li>SOAP contracts and Swagger specifications can be <Link to="/api-download">downloaded</Link>.</li>
 							<li>STAPI is written in Java and Groovy.</li>
 						</ul>
 
