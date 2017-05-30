@@ -62,7 +62,7 @@ class StaffRestEndpointIntegrationTest extends AbstractStaffEndpointIntegrationT
 						new RestSortClause(name: 'name', direction: RestSortDirection.ASC)
 				)), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
 				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
+				null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
 
 		then:
 		staffResponse.staff[0].name.startsWith('Aaron ')

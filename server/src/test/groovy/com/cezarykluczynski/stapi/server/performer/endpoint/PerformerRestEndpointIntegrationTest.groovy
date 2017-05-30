@@ -36,7 +36,7 @@ class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointInte
 	void "gets the only person to star in 6 series"() {
 		when:
 		PerformerBaseResponse performerResponse = stapiRestClient.performerApi.performerSearchPost(null, null, null, null, null, null, null, null,
-				null, null, null, null, null, true, true, null, null, null, true, true, true, null, null, true)
+				null, null, null, null, null, null, null, true, true, null, null, null, true, true, true, null, null, true)
 
 		then:
 		performerResponse.page.totalElements == 1
@@ -62,7 +62,8 @@ class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointInte
 		PerformerBaseResponse performerResponse = stapiRestClient.performerApi.performerSearchPost(null, null,
 				StapiRestSortSerializer.serialize(Lists.newArrayList(
 						new RestSortClause(name: 'name', direction: RestSortDirection.ASC)
-				)), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null)
+				)), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+				null, null)
 
 		then:
 		performerResponse.performers[0].name.startsWith('A. ')
