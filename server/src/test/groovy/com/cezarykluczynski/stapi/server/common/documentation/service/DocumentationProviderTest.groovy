@@ -9,16 +9,22 @@ import javax.ws.rs.core.Response
 
 class DocumentationProviderTest extends Specification {
 
+	private static final String SWAGGER_DIRECTORY = 'SWAGGER_DIRECTORY'
+	private static final String WSDL_DIRECTORY = 'WSDL_DIRECTORY'
+
 	private DocumentationReader documentationReaderMock
 
 	private DocumentationZipper documentationZipperMock
+
+	private DocumentationDirectoryProvider documentationDirectoryProviderMock
 
 	private DocumentationProvider documentationProvider
 
 	void setup() {
 		documentationReaderMock = Mock()
 		documentationZipperMock = Mock()
-		documentationProvider = new DocumentationProvider(documentationReaderMock, documentationZipperMock)
+		documentationDirectoryProviderMock = Mock()
+		documentationProvider = new DocumentationProvider(documentationReaderMock, documentationZipperMock, documentationDirectoryProviderMock)
 	}
 
 	void "provides DocumentationDTO"() {
@@ -30,8 +36,10 @@ class DocumentationProviderTest extends Specification {
 		DocumentationDTO documentationDTO = documentationProvider.provideDocumentation()
 
 		then: 'documentation is returned using DocumentationReader'
-		1 * documentationReaderMock.readDirectory(DocumentationProvider.SWAGGER_DIRECTORY) >> restDocuments
-		1 * documentationReaderMock.readDirectory(DocumentationProvider.WSDL_DIRECTORY) >> soapDocuments
+		1 * documentationDirectoryProviderMock.swaggerDirectory >> SWAGGER_DIRECTORY
+		1 * documentationDirectoryProviderMock.wsdlDirectory >> WSDL_DIRECTORY
+		1 * documentationReaderMock.readDirectory(SWAGGER_DIRECTORY) >> restDocuments
+		1 * documentationReaderMock.readDirectory(WSDL_DIRECTORY) >> soapDocuments
 		0 * _
 		documentationDTO.restDocuments == restDocuments
 		documentationDTO.soapDocuments == soapDocuments
@@ -52,7 +60,8 @@ class DocumentationProviderTest extends Specification {
 		Response response = documentationProvider.provideRestSpecsZip()
 
 		then:
-		1 * documentationZipperMock.zipDirectoryToFile(DocumentationProvider.SWAGGER_DIRECTORY, _ as File)
+		1 * documentationDirectoryProviderMock.swaggerDirectory >> SWAGGER_DIRECTORY
+		1 * documentationZipperMock.zipDirectoryToFile(SWAGGER_DIRECTORY, _ as File)
 		0 * _
 		response.status == Response.Status.OK.statusCode
 		response.mediaType.type == 'application'
@@ -67,7 +76,8 @@ class DocumentationProviderTest extends Specification {
 		Response response = documentationProvider.provideSoapContractsZip()
 
 		then:
-		1 * documentationZipperMock.zipDirectoryToFile(DocumentationProvider.WSDL_DIRECTORY, _ as File)
+		1 * documentationDirectoryProviderMock.wsdlDirectory >> WSDL_DIRECTORY
+		1 * documentationZipperMock.zipDirectoryToFile(WSDL_DIRECTORY, _ as File)
 		0 * _
 		response.status == Response.Status.OK.statusCode
 		response.mediaType.type == 'application'

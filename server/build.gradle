@@ -1,3 +1,5 @@
+import groovy.io.FileType
+
 plugins {
 	id 'net.ltgt.apt' version '0.8'
 }
@@ -43,6 +45,23 @@ apply from: 'codeGen.gradle'
 
 configurations.compile.exclude group: 'io.swagger'
 
+task copyDocs(type: CopyDocs) << {}
+
+class CopyDocs extends DefaultTask {
+
+	@TaskAction
+	def copy() {
+		def dir = new File('./contract/src/main/resources/v1/')
+		dir.eachFileRecurse (FileType.FILES) { file ->
+			File destination = new File('./server/build/resources/main/' + file.getPath())
+			destination.parentFile.mkdirs()
+			destination.createNewFile()
+			destination.write(file.text)
+		}
+	}
+}
+
 war {
 	archiveName = 'stapi.war'
+	dependsOn copyDocs
 }
