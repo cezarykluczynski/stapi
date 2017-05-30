@@ -15,12 +15,22 @@ class ThrottleQualifyingServiceTest extends Specification {
 		throttleQualifyingService = new ThrottleQualifyingService(httpServletRequestMock)
 	}
 
+	void "returns true when it is request shorter than common"() {
+		when:
+		boolean qualifiedForThrottle = throttleQualifyingService.qualifiedForThrottle
+
+		then:
+		1 * httpServletRequestMock.requestURI >> '/api/v1/rest/short'
+		0 * _
+		qualifiedForThrottle
+	}
+
 	void "returns true when it is not request to common REST endpoint"() {
 		when:
 		boolean qualifiedForThrottle = throttleQualifyingService.qualifiedForThrottle
 
 		then:
-		1 * httpServletRequestMock.requestURI >> '/api/v1/rest/astronomicalObject/search'
+		2 * httpServletRequestMock.requestURI >> '/api/v1/rest/astronomicalObject/search'
 		0 * _
 		qualifiedForThrottle
 	}
@@ -30,7 +40,7 @@ class ThrottleQualifyingServiceTest extends Specification {
 		boolean qualifiedForThrottle = throttleQualifyingService.qualifiedForThrottle
 
 		then:
-		1 * httpServletRequestMock.requestURI >> '/api/v1/rest/common/mappings'
+		2 * httpServletRequestMock.requestURI >> '/api/v1/rest/common/mappings'
 		0 * _
 		!qualifiedForThrottle
 	}

@@ -18,7 +18,7 @@ class ThrottleQualifyingService {
 	}
 
 	public boolean isQualifiedForThrottle() {
-		return !COMMON_URI_PART.equals(httpServletRequest.getRequestURI().substring(8, 19));
+		return httpServletRequest.getRequestURI().length() < 19 || !COMMON_URI_PART.equals(httpServletRequest.getRequestURI().substring(8, 19));
 	}
 
 }
