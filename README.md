@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/171b4810a7334c5fa331881212837d34)](https://www.codacy.com/app/cezarykluczynski/stapi?utm_source=github.com&utm_medium=referral&utm_content=cezarykluczynski/stapi&utm_campaign=badger)
 [![Build Status](https://semaphoreci.com/api/v1/cezarykluczynski/stapi/branches/master/badge.svg)](https://semaphoreci.com/cezarykluczynski/stapi)
 [![codecov](https://codecov.io/gh/cezarykluczynski/stapi/branch/master/graph/badge.svg)](https://codecov.io/gh/cezarykluczynski/stapi)
 
