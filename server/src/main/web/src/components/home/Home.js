@@ -42,6 +42,14 @@ export class Home extends Component {
 					</div>
 					<div className='col-md-6'>
 						<EntityStatisticsCloud />
+
+						<h3>Project status</h3>
+						<p className='project-status'>
+							<a href="https://semaphoreci.com/cezarykluczynski/stapi"><img src="https://semaphoreci.com/api/v1/cezarykluczynski/stapi/branches/master/badge.svg" alt="Build Status"/></a>
+							<a href="https://codecov.io/gh/cezarykluczynski/stapi"><img src="https://codecov.io/gh/cezarykluczynski/stapi/branch/master/graph/badge.svg" alt="codecov"/></a>
+							<a href="https://www.codacy.com/app/cezarykluczynski/stapi"><img src="https://api.codacy.com/project/badge/Grade/171b4810a7334c5fa331881212837d34" alt="Codacy Badge"/></a>
+							<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License: MIT"/></a>
+						</p>
 					</div>
 				</div>
 			</div>
