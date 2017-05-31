@@ -4,10 +4,12 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 ## About
-STAPI is an attempt to create public Star Trek API, similar to what
-[Star Wars API](https://github.com/phalt/swapi) and [PokeAPI](https://github.com/PokeAPI/pokeapi) have accomplished.
+STAPI is a public [Star Trek API](http://stapi.co), currently in it's alpha stage.
 
-See [work progress here](https://github.com/cezarykluczynski/stapi/wiki/Work-progress).
+It was inspired by [Star Wars API](https://github.com/phalt/swapi) and [Pokéapi](https://github.com/PokeAPI/pokeapi).
+
+See work progress [here](https://github.com/cezarykluczynski/stapi/wiki/Work-progress).
 
 ## Documentation
-Documentation can be found on [wiki home](https://github.com/cezarykluczynski/stapi/wiki).
+* API documentation can be found on the [website](http://stapi.co/api-documentation).
+* Project documentation can be found on [wiki home](https://github.com/cezarykluczynski/stapi/wiki).

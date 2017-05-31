@@ -29,14 +29,14 @@ export class Home extends Component {
 								to get it's data.</li>
 							<li>Data is cleaned, standarized and put into relational model.</li>
 							<li>API can be browsed by anyone, even right now, using <Link to="/api-browser">API Browser</Link>.</li>
-							<li>SOAP contracts and Swagger specifications can be <Link to="/api-download">downloaded</Link>.</li>
+							<li>SOAP contracts and Swagger specifications can be <Link to="/api-documentation">downloaded</Link>.</li>
 							<li>STAPI is written in Java and Groovy.</li>
 						</ul>
 
 						<h3>Learn more!</h3>
 						<ul>
 							<li>Read the <Link to="/about">about</Link> page.</li>
-							<li>Browse the <Link to="/documentation">API documentation</Link>.</li>
+							<li>Browse the <Link to="/api-documentation">API documentation</Link>.</li>
 							<li>Browse the <a href="https://github.com/cezarykluczynski/stapi/wiki">project documentation</a>.</li>
 						</ul>
 					</div>
