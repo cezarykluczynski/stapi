@@ -32,13 +32,13 @@ export class ApiDocumentation extends Component {
 				<div className='row'>
 					<div className="btn-group btn-group-justified">
 						<div className={"btn btn-default " + (this.getRestClass())} onClick={this.selectRest}>
-							REST documentation (<a href={this.getRestSpecsZipLink()}>as ZIP</a>)</div>
+							REST documentation (<a href={this.getRestSpecsZipLink()} onClick={(e) => this.preventDefault(e)}>as ZIP</a>)</div>
 						<div className={"btn btn-default " + (this.getSoapClass())} onClick={this.selectSoap}>
-							SOAP documentation (<a href={this.getSoapContractsZipLink()}>as ZIP</a>)</div>
+							SOAP documentation (<a href={this.getSoapContractsZipLink()} onClick={(e) => this.preventDefault(e)}>as ZIP</a>)</div>
 					</div>
 				</div>
 				<div className='row api-documentation__files-contents'>
-					<div className={this.getFilesListClass()}>
+					<div className={this.getFilesListClass()} id="api-documentation__code-preview">
 						<div className='list-group table-of-contents'>
 							{this.renderFileList()}
 						</div>
@@ -88,6 +88,11 @@ export class ApiDocumentation extends Component {
 	}
 
 	selectFile(index) {
+		const codePrevieScrollTop = $('#api-documentation__code-preview').offset().top;
+		const navbarHeight = $('.navbar').outerHeight();
+		if (window.scrollY > codePrevieScrollTop - navbarHeight) {
+			window.scrollTo(window.scrollX, codePrevieScrollTop - navbarHeight);
+		}
 		this.setState({
 			selectedFilesIndex: index
 		});
@@ -138,6 +143,11 @@ export class ApiDocumentation extends Component {
 
 	getSoapContractsZipLink() {
 		return this.getLinkPrefix() + '/api/v1/rest/common/download/zip/soap';
+	}
+
+	preventDefault(event) {
+		event.stopPropagation();
+		event.nativeEvent.stopImmediatePropagation();
 	}
 
 	getLinkPrefix() {
