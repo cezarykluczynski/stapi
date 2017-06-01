@@ -78,7 +78,7 @@ public class QueryBuilder<T> {
 
 	public QueryBuilder<T> like(SingularAttribute<? super T, String> key, String value) {
 		if (value != null) {
-			predicateList.add(criteriaBuilder.like(baseRoot.get(key), wildcardLike(value)));
+			predicateList.add(criteriaBuilder.like(criteriaBuilder.upper(baseRoot.get(key)), wildcardLike(value).toUpperCase()));
 		}
 		return this;
 	}

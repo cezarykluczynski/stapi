@@ -34,7 +34,8 @@ import java.time.LocalDate
 
 class QueryBuilderTest extends Specification {
 
-	private static final String VALID_VALUE_STRING = 'VALID_VALUE_STRING'
+	private static final String VALID_VALUE_STRING = 'valid_value_string'
+	private static final String VALID_VALUE_STRING_UPPER_CASE = 'VALID_VALUE_STRING'
 	private static final Boolean VALID_VALUE_BOOLEAN = RandomUtil.nextBoolean()
 	private static final LocalDate VALID_VALUE_LOCAL_DATE_FROM = LocalDate.of(2000, 1, 2)
 	private static final LocalDate VALID_VALUE_LOCAL_DATE_TO = LocalDate.of(2010, 3, 4)
@@ -217,8 +218,10 @@ class QueryBuilderTest extends Specification {
 		queryBuilder.like(validKeyString, VALID_VALUE_STRING)
 
 		then: 'right methods are called'
+		1 *
 		1 * baseRoot.get(validKeyString) >> path
-		1 * criteriaBuilder.like(path, "%${VALID_VALUE_STRING}%")
+		1 * criteriaBuilder.upper(path) >> path
+		1 * criteriaBuilder.like(path, "%${VALID_VALUE_STRING_UPPER_CASE}%")
 
 		when: 'valid string key is added to equal comparison'
 		queryBuilder.equal(validKeyString, VALID_VALUE_STRING)
