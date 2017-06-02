@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.common.endpoint
 
 import com.cezarykluczynski.stapi.contract.documentation.dto.DocumentationDTO
+import com.cezarykluczynski.stapi.server.common.dto.PongDTO
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailsDTO
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO
 import com.cezarykluczynski.stapi.server.common.reader.CommonDataReader
@@ -69,6 +70,14 @@ class CommonRestEndpointTest extends Specification {
 		1 * commonDataReaderMock.documentation() >> documentationDTO
 		0 * _
 		documentationDTOOutput == documentationDTO
+	}
+
+	void "responds to ping"() {
+		when:
+		PongDTO pongDTO = commonRestEndpoint.ping()
+
+		then:
+		pongDTO.pong == 'pong'
 	}
 
 	void "gets zipped REST documentation"() {

@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.common.endpoint;
 
 import com.cezarykluczynski.stapi.contract.documentation.dto.DocumentationDTO;
+import com.cezarykluczynski.stapi.server.common.dto.PongDTO;
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailsDTO;
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO;
 import com.cezarykluczynski.stapi.server.common.reader.CommonDataReader;
@@ -49,6 +50,12 @@ public class CommonRestEndpoint {
 	@Path("documentation")
 	public DocumentationDTO documentation() {
 		return commonDataReader.documentation();
+	}
+
+	@GET
+	@Path("ping")
+	public PongDTO ping() {
+		return new PongDTO();
 	}
 
 	@GET
