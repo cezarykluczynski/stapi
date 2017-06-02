@@ -47,6 +47,24 @@ configurations.compile.exclude group: 'io.swagger'
 
 task copyDocs(type: CopyDocs) << {}
 
+
+task npmBuild(type:Exec) {
+	workingDir 'src/main/web'
+	if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+		commandLine 'cmd', '/c', 'npm', 'run', 'build'
+	} else {
+		commandLine 'npm', 'run', 'build'
+	}
+	standardOutput = new ByteArrayOutputStream()
+	ext.output = {
+		return standardOutput.toString()
+	}
+	// see: https://github.com/gradle/gradle/issues/882#issuecomment-269849435
+	doLast {
+		println()
+	}
+}
+
 class CopyDocs extends DefaultTask {
 
 	@TaskAction
@@ -63,5 +81,5 @@ class CopyDocs extends DefaultTask {
 
 war {
 	archiveName = 'stapi.war'
-	dependsOn copyDocs
+	dependsOn(copyDocs, npmBuild)
 }
