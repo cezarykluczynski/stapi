@@ -11,6 +11,7 @@ properties:
     description: Astronomical object name
   astronomicalObjectType:
     $ref: ./astronomicalObject/entity/enum/astronomicalObjectType.yaml
+    required: true
     description: Type of astronomical object
   location:
     $ref: ./astronomicalObject/entity/astronomicalObjectHeader.yaml
