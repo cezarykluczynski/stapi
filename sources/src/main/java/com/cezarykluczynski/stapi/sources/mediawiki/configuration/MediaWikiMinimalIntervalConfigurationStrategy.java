@@ -14,7 +14,7 @@ public class MediaWikiMinimalIntervalConfigurationStrategy {
 
 	private static final Long WIKIA_INTERVAL = 1000L;
 
-	private WikiaUrlDetector wikiaUrlDetector;
+	private final WikiaUrlDetector wikiaUrlDetector;
 
 	@Inject
 	public MediaWikiMinimalIntervalConfigurationStrategy(WikiaUrlDetector wikiaUrlDetector) {

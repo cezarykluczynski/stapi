@@ -25,13 +25,14 @@ import java.util.stream.Collectors;
 public class PageApiImpl implements PageApi {
 
 	private static final String REDIRECT_PREFIX = "#redirect";
+
 	private static final Pattern SECTION_HEADER = Pattern.compile("(={1,6})(?!=.+?)(={1,6})");
 
-	private BlikiConnector blikiConnector;
+	private final BlikiConnector blikiConnector;
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
-	private ParseComplementingService parseComplementingService;
+	private final ParseComplementingService parseComplementingService;
 
 	@Inject
 	public PageApiImpl(BlikiConnector blikiConnector, WikitextApi wikitextApi, ParseComplementingService parseComplementingService) {

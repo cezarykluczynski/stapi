@@ -31,13 +31,13 @@ public class BlikiConnector {
 
 	private Map<MediaWikiSource, IntervalCalculationStrategy> intervalCalculationStrategies = Maps.newHashMap();
 
-	private BlikiUserDecoratorBeanMapProvider blikiUserDecoratorBeanMapProvider;
+	private final BlikiUserDecoratorBeanMapProvider blikiUserDecoratorBeanMapProvider;
 
-	private WikiaWikisDetector wikiaWikisDetector;
+	private final WikiaWikisDetector wikiaWikisDetector;
 
-	private MediaWikiMinimalIntervalProvider mediaWikiMinimalIntervalProvider;
+	private final MediaWikiMinimalIntervalProvider mediaWikiMinimalIntervalProvider;
 
-	private MediaWikiSourcesProperties mediaWikiSourcesProperties;
+	private final MediaWikiSourcesProperties mediaWikiSourcesProperties;
 
 	@Inject
 	public BlikiConnector(BlikiUserDecoratorBeanMapProvider blikiUserDecoratorBeanMapProvider, WikiaWikisDetector wikiaWikisDetector,

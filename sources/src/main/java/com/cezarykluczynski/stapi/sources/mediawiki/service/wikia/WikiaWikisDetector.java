@@ -13,9 +13,9 @@ public class WikiaWikisDetector {
 
 	private Map<MediaWikiSource, Boolean> areWikiaWikis = Maps.newHashMap();
 
-	private MediaWikiSourcesProperties mediaWikiSourcesProperties;
+	private final MediaWikiSourcesProperties mediaWikiSourcesProperties;
 
-	private WikiaUrlDetector wikiaUrlDetector;
+	private final WikiaUrlDetector wikiaUrlDetector;
 
 	@Inject
 	public WikiaWikisDetector(MediaWikiSourcesProperties mediaWikiSourcesProperties, WikiaUrlDetector wikiaUrlDetector) {

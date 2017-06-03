@@ -12,7 +12,7 @@ import javax.inject.Inject;
 @Slf4j
 public class PageCacheService {
 
-	private FrequentHitCachingHelper frequentHitCachingHelper;
+	private final FrequentHitCachingHelper frequentHitCachingHelper;
 
 	@Inject
 	public PageCacheService(FrequentHitCachingHelper frequentHitCachingHelper) {

@@ -11,11 +11,11 @@ import javax.inject.Inject;
 @Service
 public class ParseComplementingService {
 
-	private WikiaWikisDetector wikiaWikisDetector;
+	private final WikiaWikisDetector wikiaWikisDetector;
 
-	private ParseApi parseApi;
+	private final ParseApi parseApi;
 
-	private JsonTemplateParser jsonTemplateParser = new JsonTemplateParser();
+	private final JsonTemplateParser jsonTemplateParser = new JsonTemplateParser();
 
 	@Inject
 	ParseComplementingService(WikiaWikisDetector wikiaWikisDetector, ParseApi parseApi) {

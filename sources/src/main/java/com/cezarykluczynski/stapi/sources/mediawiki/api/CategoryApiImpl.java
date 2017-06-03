@@ -22,9 +22,9 @@ import java.util.Set;
 @Service
 public class CategoryApiImpl implements CategoryApi {
 
-	private BlikiConnector blikiConnector;
+	private final BlikiConnector blikiConnector;
 
-	private PageHeaderConverter pageHeaderConverter;
+	private final PageHeaderConverter pageHeaderConverter;
 
 	@Inject
 	public CategoryApiImpl(BlikiConnector blikiConnector, PageHeaderConverter pageHeaderConverter) {

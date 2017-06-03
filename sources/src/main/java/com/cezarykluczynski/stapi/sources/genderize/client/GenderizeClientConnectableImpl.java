@@ -27,7 +27,7 @@ public class GenderizeClientConnectableImpl implements GenderizeClient {
 
 	private Map<String, NameGenderDTO> nameGenderCache = Maps.newHashMap();
 
-	private String apiUrl;
+	private final String apiUrl;
 
 	private int callsCount;
 

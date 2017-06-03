@@ -29,7 +29,7 @@ public class ParseApiImpl implements ParseApi {
 
 	private static final String API_TRUE = "1";
 
-	private String expandTemplatesUrl;
+	private final String expandTemplatesUrl;
 
 	public ParseApiImpl(MediaWikiSourcesProperties mediaWikiSourcesProperties) {
 		String apiUrl = mediaWikiSourcesProperties.getTechnicalHelper().getApiUrl();
