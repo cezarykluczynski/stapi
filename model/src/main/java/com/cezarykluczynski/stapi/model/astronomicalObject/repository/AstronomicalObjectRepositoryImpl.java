@@ -15,7 +15,7 @@ import javax.inject.Inject;
 @Repository
 public class AstronomicalObjectRepositoryImpl implements AstronomicalObjectRepositoryCustom {
 
-	private AstronomicalObjectQueryBuilderFactory astronomicalObjectQueryBuilderFactory;
+	private final AstronomicalObjectQueryBuilderFactory astronomicalObjectQueryBuilderFactory;
 
 	@Inject
 	public AstronomicalObjectRepositoryImpl(AstronomicalObjectQueryBuilderFactory astronomicalObjectQueryBuilderFactory) {

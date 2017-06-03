@@ -14,7 +14,7 @@ import javax.inject.Inject;
 @Repository
 public class OrganizationRepositoryImpl implements OrganizationRepositoryCustom {
 
-	private OrganizationQueryBuilderFactory organizationQueryBuilderFactory;
+	private final OrganizationQueryBuilderFactory organizationQueryBuilderFactory;
 
 	@Inject
 	public OrganizationRepositoryImpl(OrganizationQueryBuilderFactory organizationQueryBuilderFactory) {

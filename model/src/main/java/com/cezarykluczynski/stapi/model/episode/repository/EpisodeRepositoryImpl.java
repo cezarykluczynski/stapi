@@ -18,7 +18,7 @@ import javax.inject.Inject;
 @Repository
 public class EpisodeRepositoryImpl extends AbstractRepositoryImpl<Episode> implements EpisodeRepositoryCustom {
 
-	private EpisodeQueryBuilderFactory episodeQueryBuilderFactory;
+	private final EpisodeQueryBuilderFactory episodeQueryBuilderFactory;
 
 	@Inject
 	public EpisodeRepositoryImpl(EpisodeQueryBuilderFactory episodeQueryBuilderFactory) {

@@ -17,7 +17,7 @@ import java.util.List;
 @Repository
 public class BookRepositoryImpl extends AbstractRepositoryImpl<Book> implements BookRepositoryCustom {
 
-	private BookInitialQueryBuilderFactory bookInitialQueryBuilderFactory;
+	private final BookInitialQueryBuilderFactory bookInitialQueryBuilderFactory;
 
 	@Inject
 	public BookRepositoryImpl(BookInitialQueryBuilderFactory bookInitialQueryBuilderFactory) {

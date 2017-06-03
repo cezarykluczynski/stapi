@@ -14,7 +14,7 @@ import javax.inject.Inject;
 @Repository
 public class FoodRepositoryImpl implements FoodRepositoryCustom {
 
-	private FoodQueryBuilderFactory foodQueryBuilderFactory;
+	private final FoodQueryBuilderFactory foodQueryBuilderFactory;
 
 	@Inject
 	public FoodRepositoryImpl(FoodQueryBuilderFactory foodQueryBuilderFactory) {

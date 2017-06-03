@@ -20,11 +20,11 @@ import java.util.Set;
 @Repository
 public class SpeciesRepositoryImpl implements SpeciesRepositoryCustom {
 
-	private SpeciesQueryBuilderFactory speciesQueryBuilderFactory;
+	private final SpeciesQueryBuilderFactory speciesQueryBuilderFactory;
 
-	private CharacterSpeciesRepository characterSpeciesRepository;
+	private final CharacterSpeciesRepository characterSpeciesRepository;
 
-	private CharacterRepository characterRepository;
+	private final CharacterRepository characterRepository;
 
 	@Inject
 	public SpeciesRepositoryImpl(SpeciesQueryBuilderFactory speciesQueryBuilderFactory, CharacterSpeciesRepository characterSpeciesRepository,

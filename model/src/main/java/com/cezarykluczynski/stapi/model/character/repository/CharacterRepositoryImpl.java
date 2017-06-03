@@ -17,7 +17,7 @@ import javax.inject.Inject;
 @Repository
 public class CharacterRepositoryImpl extends AbstractRepositoryImpl<Character> implements CharacterRepositoryCustom {
 
-	private CharacterQueryBuilderFactory characterQueryBuilderFactory;
+	private final CharacterQueryBuilderFactory characterQueryBuilderFactory;
 
 	@Inject
 	public CharacterRepositoryImpl(CharacterQueryBuilderFactory characterQueryBuilderFactory) {

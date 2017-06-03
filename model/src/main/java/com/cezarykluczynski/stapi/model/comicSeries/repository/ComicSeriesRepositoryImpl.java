@@ -16,7 +16,7 @@ import javax.inject.Inject;
 @Repository
 public class ComicSeriesRepositoryImpl extends AbstractRepositoryImpl<ComicSeries> implements ComicSeriesRepositoryCustom {
 
-	private ComicSeriesQueryBuilderFactory comicSeriesQueryBuilderFactory;
+	private final ComicSeriesQueryBuilderFactory comicSeriesQueryBuilderFactory;
 
 	@Inject
 	public ComicSeriesRepositoryImpl(ComicSeriesQueryBuilderFactory comicSeriesQueryBuilderFactory) {

@@ -34,13 +34,13 @@ public class EntityMatadataProvider {
 		CUSTOM_SYMBOL_MAP.put(BookCollection.class, "BC");
 	}
 
+	private final EntityManager entityManager;
+
 	private Map<String, String> classNameToSymbolMap;
 
 	private Map<String, ClassMetadata> classNameToMetadataMap;
 
 	private Map<String, Class> classSimpleNameToClassMap;
-
-	private EntityManager entityManager;
 
 	public EntityMatadataProvider(EntityManager entityManager) {
 		this.entityManager = entityManager;

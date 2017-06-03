@@ -17,7 +17,7 @@ import java.util.List;
 @Repository
 public class ComicsRepositoryImpl extends AbstractRepositoryImpl<Comics> implements ComicsRepositoryCustom {
 
-	private ComicsInitialQueryBuilderFactory comicsInitialQueryBuilderFactory;
+	private final ComicsInitialQueryBuilderFactory comicsInitialQueryBuilderFactory;
 
 	@Inject
 	public ComicsRepositoryImpl(ComicsInitialQueryBuilderFactory comicsInitialQueryBuilderFactory) {

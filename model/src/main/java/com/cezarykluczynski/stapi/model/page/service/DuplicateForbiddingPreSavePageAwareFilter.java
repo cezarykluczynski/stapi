@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Service
 public class DuplicateForbiddingPreSavePageAwareFilter extends AbstractPreSavePageAwareFilter implements PreSavePageAwareFilter {
 
-	private PageBoundToEntityFilteringFinder pageBoundToEntityFilteringFinder;
+	private final PageBoundToEntityFilteringFinder pageBoundToEntityFilteringFinder;
 
 	@Inject
 	public DuplicateForbiddingPreSavePageAwareFilter(PageBoundToEntityFilteringFinder pageBoundToEntityFilteringFinder) {

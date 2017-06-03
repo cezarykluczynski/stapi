@@ -18,9 +18,9 @@ import java.util.List;
 @Repository
 public class CharacterSpeciesRepositoryImpl implements CharacterSpeciesRepositoryCustom {
 
-	private CharacterSpeciesQueryBuilderFactory characterSpeciesQueryBuilderFactory;
+	private final CharacterSpeciesQueryBuilderFactory characterSpeciesQueryBuilderFactory;
 
-	private JpaContext jpaContext;
+	private final JpaContext jpaContext;
 
 	@Inject
 	public CharacterSpeciesRepositoryImpl(CharacterSpeciesQueryBuilderFactory characterSpeciesQueryBuilderFactory, JpaContext jpaContext) {

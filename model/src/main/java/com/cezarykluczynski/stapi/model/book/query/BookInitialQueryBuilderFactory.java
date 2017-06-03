@@ -13,7 +13,7 @@ import javax.inject.Inject;
 @Service
 public class BookInitialQueryBuilderFactory implements InitialQueryBuilderFactory<BookRequestDTO, Book> {
 
-	private BookQueryBuilderFactory bookQueryBuilderFactory;
+	private final BookQueryBuilderFactory bookQueryBuilderFactory;
 
 	@Inject
 	public BookInitialQueryBuilderFactory(BookQueryBuilderFactory bookQueryBuilderFactory) {

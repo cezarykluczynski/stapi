@@ -14,9 +14,9 @@ import java.util.stream.Collectors;
 @Service
 public class PageBoundToEntityFilteringFinder {
 
-	private PageRepository pageRepository;
+	private final PageRepository pageRepository;
 
-	private InPageAwareRepositoryPageFinder inPageAwareRepositoryPageFinder;
+	private final InPageAwareRepositoryPageFinder inPageAwareRepositoryPageFinder;
 
 	@Inject
 	public PageBoundToEntityFilteringFinder(PageRepository pageRepository,

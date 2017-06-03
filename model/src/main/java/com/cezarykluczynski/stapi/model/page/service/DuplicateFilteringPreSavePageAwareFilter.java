@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class DuplicateFilteringPreSavePageAwareFilter extends AbstractPreSavePageAwareFilter implements PreSavePageAwareFilter {
 
-	private InPageAwareRepositoryPageFinder inPageAwareRepositoryPageFinder;
+	private final InPageAwareRepositoryPageFinder inPageAwareRepositoryPageFinder;
 
 	@Inject
 	public DuplicateFilteringPreSavePageAwareFilter(InPageAwareRepositoryPageFinder inPageAwareRepositoryPageFinder) {

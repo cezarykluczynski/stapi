@@ -15,7 +15,7 @@ import java.util.Map;
 @Slf4j
 public class DuplicateReattachingPreSavePageAwareFilter extends AbstractPreSavePageAwareFilter implements PreSavePageAwareFilter {
 
-	private PageRepository pageRepository;
+	private final PageRepository pageRepository;
 
 	@Inject
 	public DuplicateReattachingPreSavePageAwareFilter(PageRepository pageRepository) {

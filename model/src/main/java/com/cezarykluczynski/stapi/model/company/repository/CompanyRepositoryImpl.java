@@ -14,7 +14,7 @@ import javax.inject.Inject;
 @Repository
 public class CompanyRepositoryImpl implements CompanyRepositoryCustom {
 
-	private CompanyQueryBuilderFactory companyQueryBuilderFactory;
+	private final CompanyQueryBuilderFactory companyQueryBuilderFactory;
 
 	@Inject
 	public CompanyRepositoryImpl(CompanyQueryBuilderFactory companyQueryBuilderFactory) {

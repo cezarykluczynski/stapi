@@ -17,7 +17,7 @@ import javax.inject.Inject;
 @Repository
 public class PerformerRepositoryImpl extends AbstractRepositoryImpl<Performer> implements PerformerRepositoryCustom {
 
-	private PerformerQueryBuilderFactory performerQueryBuilderFactory;
+	private final PerformerQueryBuilderFactory performerQueryBuilderFactory;
 
 	@Inject
 	public PerformerRepositoryImpl(PerformerQueryBuilderFactory performerQueryBuilderFactory) {

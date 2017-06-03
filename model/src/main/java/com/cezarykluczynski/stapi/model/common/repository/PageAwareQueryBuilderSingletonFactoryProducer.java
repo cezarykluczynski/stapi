@@ -12,9 +12,9 @@ import java.util.Map;
 @Service
 public class PageAwareQueryBuilderSingletonFactoryProducer {
 
-	private JpaContext jpaContext;
+	private final JpaContext jpaContext;
 
-	private CachingStrategy cachingStrategy;
+	private final CachingStrategy cachingStrategy;
 
 	private final Map<Class<? extends PageAware>, PageAwareQueryBuilderFactory> factoryCache = Maps.newHashMap();
 

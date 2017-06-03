@@ -14,7 +14,7 @@ import javax.inject.Inject;
 @Repository
 public class LocationRepositoryImpl implements LocationRepositoryCustom {
 
-	private LocationQueryBuilderFactory locationQueryBuilderFactory;
+	private final LocationQueryBuilderFactory locationQueryBuilderFactory;
 
 	@Inject
 	public LocationRepositoryImpl(LocationQueryBuilderFactory locationQueryBuilderFactory) {

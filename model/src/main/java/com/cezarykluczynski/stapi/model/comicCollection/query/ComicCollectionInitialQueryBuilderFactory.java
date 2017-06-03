@@ -13,7 +13,7 @@ import javax.inject.Inject;
 @Service
 public class ComicCollectionInitialQueryBuilderFactory implements InitialQueryBuilderFactory<ComicCollectionRequestDTO, ComicCollection> {
 
-	private ComicCollectionQueryBuilderFactory comicCollectionQueryBuilderFactory;
+	private final ComicCollectionQueryBuilderFactory comicCollectionQueryBuilderFactory;
 
 	@Inject
 	public ComicCollectionInitialQueryBuilderFactory(ComicCollectionQueryBuilderFactory comicCollectionQueryBuilderFactory) {

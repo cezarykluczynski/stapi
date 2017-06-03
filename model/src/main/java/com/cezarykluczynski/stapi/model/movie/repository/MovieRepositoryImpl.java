@@ -17,7 +17,7 @@ import java.util.List;
 @Repository
 public class MovieRepositoryImpl extends AbstractRepositoryImpl<Movie> implements MovieRepositoryCustom {
 
-	private MovieInitialQueryBuilderFactory movieInitialQueryBuilderFactory;
+	private final MovieInitialQueryBuilderFactory movieInitialQueryBuilderFactory;
 
 	@Inject
 	public MovieRepositoryImpl(MovieInitialQueryBuilderFactory movieInitialQueryBuilderFactory) {

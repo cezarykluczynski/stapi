@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Service
 public class InPageAwareRepositoryPageFinder {
 
-	private PageAwareQueryBuilderSingletonFactoryProducer pageAwareQueryBuilderSingletonFactoryProducer;
+	private final PageAwareQueryBuilderSingletonFactoryProducer pageAwareQueryBuilderSingletonFactoryProducer;
 
 	@Inject
 	public InPageAwareRepositoryPageFinder(PageAwareQueryBuilderSingletonFactoryProducer pageAwareQueryBuilderSingletonFactoryProducer) {

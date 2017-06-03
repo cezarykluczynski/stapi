@@ -19,7 +19,7 @@ import java.util.List;
 @Repository
 public class StaffRepositoryImpl extends AbstractRepositoryImpl<Staff> implements StaffRepositoryCustom {
 
-	private StaffInitialQueryBuilderFactory staffInitialQueryBuilderFactory;
+	private final StaffInitialQueryBuilderFactory staffInitialQueryBuilderFactory;
 
 	@Inject
 	public StaffRepositoryImpl(StaffInitialQueryBuilderFactory staffInitialQueryBuilderFactory) {

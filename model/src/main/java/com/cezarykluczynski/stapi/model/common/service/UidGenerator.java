@@ -23,9 +23,9 @@ public class UidGenerator {
 	private static final Pattern ASIN = Pattern.compile("^[B]{1}[0-9]{2}[A-Z0-9]{7}|[0-9]{9}(X|[0-9])$");
 	private static final Pattern ISBN = Pattern.compile("^[0-9\\-\\s]{9,17}[0-9X]?$");
 
-	private EntityMatadataProvider entityMatadataProvider;
+	private final Map<MediaWikiSource, String> mediaWikiSourceToSymbolMap = Maps.newHashMap();
 
-	private Map<MediaWikiSource, String> mediaWikiSourceToSymbolMap = Maps.newHashMap();
+	private final EntityMatadataProvider entityMatadataProvider;
 
 	public UidGenerator(EntityMatadataProvider entityMatadataProvider) {
 		this.entityMatadataProvider = entityMatadataProvider;

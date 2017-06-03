@@ -13,7 +13,7 @@ import javax.inject.Inject;
 @Service
 public class MovieInitialQueryBuilderFactory implements InitialQueryBuilderFactory<MovieRequestDTO, Movie> {
 
-	private MovieQueryBuilderFactory movieQueryBuilderFactory;
+	private final MovieQueryBuilderFactory movieQueryBuilderFactory;
 
 	@Inject
 	public MovieInitialQueryBuilderFactory(MovieQueryBuilderFactory movieQueryBuilderFactory) {

@@ -36,13 +36,13 @@ public class QueryBuilder<T> {
 	private static final String PERCENT_SIGN = "%";
 	private static final String HIBERNATE_CACHEABLE = "org.hibernate.cacheable";
 
-	private EntityManager entityManager;
+	private final EntityManager entityManager;
 
-	private CachingStrategy cachingStrategy;
+	private final CachingStrategy cachingStrategy;
 
-	private Class baseClass;
+	private final Class baseClass;
 
-	private Pageable pageable;
+	private final Pageable pageable;
 
 	private CriteriaBuilder criteriaBuilder;
 

@@ -13,7 +13,7 @@ import javax.inject.Inject;
 @Service
 public class StaffInitialQueryBuilderFactory implements InitialQueryBuilderFactory<StaffRequestDTO, Staff> {
 
-	private StaffQueryBuilderFactory staffQueryBuilderFactory;
+	private final StaffQueryBuilderFactory staffQueryBuilderFactory;
 
 	@Inject
 	public StaffInitialQueryBuilderFactory(StaffQueryBuilderFactory staffQueryBuilderFactory) {
