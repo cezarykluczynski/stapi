@@ -22,9 +22,9 @@ import java.util.Set;
 @Slf4j
 public class IndividualTemplateActorLinkingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template.Part, IndividualTemplate>> {
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
-	private PerformerRepository performerRepository;
+	private final PerformerRepository performerRepository;
 
 	@Inject
 	public IndividualTemplateActorLinkingProcessor(WikitextApi wikitextApi, PerformerRepository performerRepository) {

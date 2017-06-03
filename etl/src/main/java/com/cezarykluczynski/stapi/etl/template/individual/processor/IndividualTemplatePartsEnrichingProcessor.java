@@ -19,21 +19,21 @@ import java.util.List;
 @Service
 public class IndividualTemplatePartsEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<List<Template.Part>, IndividualTemplate>> {
 
-	private PartToGenderProcessor partToGenderProcessor;
+	private final PartToGenderProcessor partToGenderProcessor;
 
-	private IndividualLifeBoundaryProcessor individualLifeBoundaryProcessor;
+	private final IndividualLifeBoundaryProcessor individualLifeBoundaryProcessor;
 
-	private IndividualTemplateActorLinkingProcessor individualTemplateActorLinkingProcessor;
+	private final IndividualTemplateActorLinkingProcessor individualTemplateActorLinkingProcessor;
 
-	private IndividualHeightProcessor individualHeightProcessor;
+	private final IndividualHeightProcessor individualHeightProcessor;
 
-	private IndividualWeightProcessor individualWeightProcessor;
+	private final IndividualWeightProcessor individualWeightProcessor;
 
-	private IndividualBloodTypeProcessor individualBloodTypeProcessor;
+	private final IndividualBloodTypeProcessor individualBloodTypeProcessor;
 
-	private MaritalStatusProcessor maritalStatusProcessor;
+	private final MaritalStatusProcessor maritalStatusProcessor;
 
-	private CharacterSpeciesWikitextProcessor characterSpeciesWikitextProcessor;
+	private final CharacterSpeciesWikitextProcessor characterSpeciesWikitextProcessor;
 
 	@Inject
 	@SuppressWarnings("ParameterNumber")

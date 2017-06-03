@@ -18,9 +18,9 @@ public class ImageTemplateStardateYearEnrichingProcessor
 	private static final String S_TITLE = "stitle";
 	private static final String WS_DATE = "wsdate";
 
-	private FixedValueProvider<String, StardateYearDTO> stardateYearDTOFixedValueProvider;
+	private final FixedValueProvider<String, StardateYearDTO> stardateYearDTOFixedValueProvider;
 
-	private StardateYearProcessor stardateYearProcessor;
+	private final StardateYearProcessor stardateYearProcessor;
 
 	public ImageTemplateStardateYearEnrichingProcessor(FixedValueProvider<String, StardateYearDTO> stardateYearDTOFixedValueProvider,
 			StardateYearProcessor stardateYearProcessor) {

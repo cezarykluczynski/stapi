@@ -15,7 +15,7 @@ import java.time.Month;
 @Slf4j
 public class DayMonthYearCandidateToLocalDateProcessor implements ItemProcessor<DayMonthYearCandidate, LocalDate> {
 
-	private MonthNameToMonthProcessor monthNameToMonthProcessor;
+	private final MonthNameToMonthProcessor monthNameToMonthProcessor;
 
 	@Inject
 	public DayMonthYearCandidateToLocalDateProcessor(MonthNameToMonthProcessor monthNameToMonthProcessor) {

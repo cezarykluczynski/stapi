@@ -30,11 +30,11 @@ public class ReferencesFromTemplatePartProcessor implements ItemProcessor<Templa
 
 	private static final Pattern ISBN_PATTERN = Pattern.compile("(ISBN )([0-9\\-\\s]{9,17}[0-9X]?)");
 
-	private ReferenceRepository referenceRepository;
+	private final ReferenceRepository referenceRepository;
 
-	private UidGenerator uidGenerator;
+	private final UidGenerator uidGenerator;
 
-	private ReferenceFactory referenceFactory;
+	private final ReferenceFactory referenceFactory;
 
 	@Inject
 	public ReferencesFromTemplatePartProcessor(ReferenceRepository referenceRepository, UidGenerator uidGenerator,

@@ -19,9 +19,9 @@ import java.util.Set;
 public class CharacterSpeciesWithSpeciesNameEnrichingProcessor implements
 		ItemEnrichingProcessor<EnrichablePair<Pair<String, Fraction>, Set<CharacterSpecies>>> {
 
-	private CharacterSpeciesRepository characterSpeciesRepository;
+	private final CharacterSpeciesRepository characterSpeciesRepository;
 
-	private EntityLookupByNameService entityLookupByNameService;
+	private final EntityLookupByNameService entityLookupByNameService;
 
 	@Inject
 	public CharacterSpeciesWithSpeciesNameEnrichingProcessor(CharacterSpeciesRepository characterSpeciesRepository,

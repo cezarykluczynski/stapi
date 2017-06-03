@@ -18,15 +18,15 @@ import java.util.Optional;
 @Service
 public class SpeciesTemplatePageProcessor implements ItemProcessor<Page, SpeciesTemplate> {
 
-	private SpeciesTemplateFilter speciesTemplateFilter;
+	private final SpeciesTemplateFilter speciesTemplateFilter;
 
-	private PageBindingService pageBindingService;
+	private final PageBindingService pageBindingService;
 
-	private TemplateFinder templateFinder;
+	private final TemplateFinder templateFinder;
 
-	private SpeciesTemplatePartsEnrichingProcessor speciesTemplatePartsEnrichingProcessor;
+	private final SpeciesTemplatePartsEnrichingProcessor speciesTemplatePartsEnrichingProcessor;
 
-	private SpeciesTemplateTypeEnrichingProcessor speciesTemplateTypeEnrichingProcessor;
+	private final SpeciesTemplateTypeEnrichingProcessor speciesTemplateTypeEnrichingProcessor;
 
 	@Inject
 	public SpeciesTemplatePageProcessor(SpeciesTemplateFilter speciesTemplateFilter, PageBindingService pageBindingService,

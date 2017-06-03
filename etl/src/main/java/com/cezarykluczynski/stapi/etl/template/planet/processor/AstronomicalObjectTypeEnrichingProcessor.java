@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 public class AstronomicalObjectTypeEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Page, PlanetTemplate>> {
 
-	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
+	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
 	@Inject
 	public AstronomicalObjectTypeEnrichingProcessor(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {

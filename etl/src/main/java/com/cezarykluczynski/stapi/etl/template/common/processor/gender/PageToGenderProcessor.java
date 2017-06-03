@@ -13,13 +13,13 @@ import javax.inject.Inject;
 @Slf4j
 public class PageToGenderProcessor implements ItemProcessor<Page, Gender> {
 
-	private PageToGenderPronounProcessor pageToGenderPronounProcessor;
+	private final PageToGenderPronounProcessor pageToGenderPronounProcessor;
 
-	private PageToGenderRoleProcessor pageToGenderRoleProcessor;
+	private final PageToGenderRoleProcessor pageToGenderRoleProcessor;
 
-	private GenderFixedValueProvider genderFixedValueProvider;
+	private final GenderFixedValueProvider genderFixedValueProvider;
 
-	private PageToGenderNameProcessor pageToGenderNameProcessor;
+	private final PageToGenderNameProcessor pageToGenderNameProcessor;
 
 	@Inject
 	public PageToGenderProcessor(PageToGenderPronounProcessor pageToGenderPronounProcessor, PageToGenderRoleProcessor pageToGenderRoleProcessor,

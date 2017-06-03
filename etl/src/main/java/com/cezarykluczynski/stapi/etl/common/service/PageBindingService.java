@@ -13,9 +13,9 @@ import java.util.Optional;
 @Service
 public class PageBindingService {
 
-	private PageRepository pageRepository;
+	private final PageRepository pageRepository;
 
-	private MediaWikiSourceMapper mediaWikiSourceMapper;
+	private final MediaWikiSourceMapper mediaWikiSourceMapper;
 
 	@Inject
 	public PageBindingService(PageRepository pageRepository, MediaWikiSourceMapper mediaWikiSourceMapper) {

@@ -9,8 +9,8 @@ import java.time.Month;
 @AllArgsConstructor(staticName = "of")
 public class DayMonthDTO {
 
-	private Integer day;
+	private final Integer day;
 
-	private Month month;
+	private final Month month;
 
 }

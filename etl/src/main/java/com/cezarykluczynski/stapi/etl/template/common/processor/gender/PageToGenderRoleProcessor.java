@@ -28,13 +28,13 @@ import java.util.stream.Collectors;
 @Slf4j
 public class PageToGenderRoleProcessor implements ItemProcessor<Page, Gender> {
 
-	private PageApi pageApi;
+	private final PageApi pageApi;
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
-	private TemplateFinder templateFinder;
+	private final TemplateFinder templateFinder;
 
-	private IndividualTemplatePartsEnrichingProcessor individualTemplatePartsEnrichingProcessor;
+	private final IndividualTemplatePartsEnrichingProcessor individualTemplatePartsEnrichingProcessor;
 
 	@Inject
 	public PageToGenderRoleProcessor(PageApi pageApi, WikitextApi wikitextApi, TemplateFinder templateFinder,

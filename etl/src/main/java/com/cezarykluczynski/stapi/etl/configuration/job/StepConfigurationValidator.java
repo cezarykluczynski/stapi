@@ -21,7 +21,7 @@ public class StepConfigurationValidator {
 
 	private static final long NUMBER_OF_STEPS = 22;
 
-	private StepsProperties stepsProperties;
+	private final StepsProperties stepsProperties;
 
 	private List<StepProperties> stepPropertiesList;
 

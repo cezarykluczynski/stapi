@@ -21,15 +21,15 @@ import java.util.Optional;
 @Slf4j
 public class IndividualTemplatePageProcessor implements ItemProcessor<Page, IndividualTemplate> {
 
-	private IndividualTemplateFilter individualTemplateFilter;
+	private final IndividualTemplateFilter individualTemplateFilter;
 
-	private PageBindingService pageBindingService;
+	private final PageBindingService pageBindingService;
 
-	private TemplateFinder templateFinder;
+	private final TemplateFinder templateFinder;
 
-	private IndividualTemplateCompositeEnrichingProcessor individualTemplateCompositeEnrichingProcessor;
+	private final IndividualTemplateCompositeEnrichingProcessor individualTemplateCompositeEnrichingProcessor;
 
-	private CharacterboxIndividualTemplateEnrichingProcessor characterboxIndividualTemplateEnrichingProcessor;
+	private final CharacterboxIndividualTemplateEnrichingProcessor characterboxIndividualTemplateEnrichingProcessor;
 
 	@Inject
 	public IndividualTemplatePageProcessor(IndividualTemplateFilter individualTemplateFilter, PageBindingService pageBindingService,

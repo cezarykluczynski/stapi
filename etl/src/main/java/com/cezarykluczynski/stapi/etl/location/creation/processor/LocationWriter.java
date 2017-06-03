@@ -17,9 +17,9 @@ import java.util.stream.Collectors;
 @Slf4j
 public class LocationWriter implements ItemWriter<Location> {
 
-	private LocationRepository locationRepository;
+	private final LocationRepository locationRepository;
 
-	private DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
+	private final DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
 
 	@Inject
 	public LocationWriter(LocationRepository locationRepository,

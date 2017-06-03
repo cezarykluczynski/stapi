@@ -17,13 +17,13 @@ import java.util.List;
 @Slf4j
 public class MovieRealPeopleLinkingWorkerComposite implements LinkingWorker<Page, Movie> {
 
-	private MovieClosingCreditsProcessor movieClosingCreditsProcessor;
+	private final MovieClosingCreditsProcessor movieClosingCreditsProcessor;
 
-	private MovieLinkedTitlesProcessor movieLinkedTitlesProcessor;
+	private final MovieLinkedTitlesProcessor movieLinkedTitlesProcessor;
 
-	private MovieStaffLinkingWorkerComposite movieStaffLinkingWorkerComposite;
+	private final MovieStaffLinkingWorkerComposite movieStaffLinkingWorkerComposite;
 
-	private MoviePerformersLinkingWorkerComposite moviePerformersLinkingWorkerComposite;
+	private final MoviePerformersLinkingWorkerComposite moviePerformersLinkingWorkerComposite;
 
 	@Inject
 	public MovieRealPeopleLinkingWorkerComposite(MovieClosingCreditsProcessor movieClosingCreditsProcessor,

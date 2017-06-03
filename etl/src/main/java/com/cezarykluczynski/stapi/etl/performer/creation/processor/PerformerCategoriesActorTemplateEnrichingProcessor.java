@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class PerformerCategoriesActorTemplateEnrichingProcessor implements CategoriesActorTemplateEnrichingProcessor {
 
-	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
+	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
 	@Inject
 	public PerformerCategoriesActorTemplateEnrichingProcessor(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {

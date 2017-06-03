@@ -14,9 +14,9 @@ import java.util.stream.Collectors;
 @Service
 public class AstronomicalObjectWriter implements ItemWriter<AstronomicalObject> {
 
-	private AstronomicalObjectRepository astronomicalObjectRepository;
+	private final AstronomicalObjectRepository astronomicalObjectRepository;
 
-	private DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
+	private final DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
 
 	@Inject
 	public AstronomicalObjectWriter(AstronomicalObjectRepository astronomicalObjectRepository,

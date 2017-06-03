@@ -19,15 +19,15 @@ import java.util.List;
 public class PublishableSeriesTemplatePartsEnrichingProcessor
 		implements ItemEnrichingProcessor<EnrichablePair<List<Template.Part>, PublishableSeriesTemplate>> {
 
-	private WikitextToCompaniesProcessor wikitextToCompaniesProcessor;
+	private final WikitextToCompaniesProcessor wikitextToCompaniesProcessor;
 
-	private PublishableSeriesPublishedDatesEnrichingProcessor publishableSeriesPublishedDatesEnrichingProcessor;
+	private final PublishableSeriesPublishedDatesEnrichingProcessor publishableSeriesPublishedDatesEnrichingProcessor;
 
-	private WikitextToYearRangeProcessor wikitextToYearRangeProcessor;
+	private final WikitextToYearRangeProcessor wikitextToYearRangeProcessor;
 
-	private WikitextToStardateRangeProcessor wikitextToStardateRangeProcessor;
+	private final WikitextToStardateRangeProcessor wikitextToStardateRangeProcessor;
 
-	private PublishableSeriesTemplateMiniseriesProcessor publishableSeriesTemplateMiniseriesProcessor;
+	private final PublishableSeriesTemplateMiniseriesProcessor publishableSeriesTemplateMiniseriesProcessor;
 
 	@Inject
 	public PublishableSeriesTemplatePartsEnrichingProcessor(WikitextToCompaniesProcessor wikitextToCompaniesProcessor,

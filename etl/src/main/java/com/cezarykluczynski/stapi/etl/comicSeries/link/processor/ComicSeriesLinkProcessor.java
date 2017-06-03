@@ -22,15 +22,15 @@ import java.util.Set;
 @Service
 public class ComicSeriesLinkProcessor implements ItemProcessor<ComicSeries, ComicSeries> {
 
-	private MediaWikiSourceMapper mediaWikiSourceMapper;
+	private final MediaWikiSourceMapper mediaWikiSourceMapper;
 
-	private PageApi pageApi;
+	private final PageApi pageApi;
 
-	private TemplateFinder templateFinder;
+	private final TemplateFinder templateFinder;
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
-	private ComicSeriesRepository comicSeriesRepository;
+	private final ComicSeriesRepository comicSeriesRepository;
 
 	@Inject
 	public ComicSeriesLinkProcessor(MediaWikiSourceMapper mediaWikiSourceMapper, PageApi pageApi, TemplateFinder templateFinder,

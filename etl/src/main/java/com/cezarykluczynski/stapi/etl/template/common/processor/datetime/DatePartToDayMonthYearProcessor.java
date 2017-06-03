@@ -16,9 +16,9 @@ import java.util.List;
 @Slf4j
 public class DatePartToDayMonthYearProcessor implements ItemProcessor<Template.Part, DayMonthYear> {
 
-	private TemplateFilter templateFilter;
+	private final TemplateFilter templateFilter;
 
-	private TemplateToDayMonthYearParser templateToDayMonthYearParser;
+	private final TemplateToDayMonthYearParser templateToDayMonthYearParser;
 
 	@Inject
 	public DatePartToDayMonthYearProcessor(TemplateFilter templateFilter, TemplateToDayMonthYearParser templateToDayMonthYearParser) {

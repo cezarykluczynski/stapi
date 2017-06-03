@@ -5,7 +5,7 @@ import org.springframework.beans.factory.FactoryBean;
 
 public class JobFactoryBean implements FactoryBean<Job> {
 
-	private Job job;
+	private final Job job;
 
 	JobFactoryBean(Job job) {
 		this.job = job;

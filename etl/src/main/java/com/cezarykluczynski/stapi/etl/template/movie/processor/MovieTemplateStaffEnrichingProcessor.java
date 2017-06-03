@@ -31,9 +31,9 @@ public class MovieTemplateStaffEnrichingProcessor implements ItemEnrichingProces
 
 	private static final MediaWikiSource SOURCE = MediaWikiSource.MEMORY_ALPHA_EN;
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
-	private EntityLookupByNameService entityLookupByNameService;
+	private final EntityLookupByNameService entityLookupByNameService;
 
 	@Inject
 	public MovieTemplateStaffEnrichingProcessor(WikitextApi wikitextApi,

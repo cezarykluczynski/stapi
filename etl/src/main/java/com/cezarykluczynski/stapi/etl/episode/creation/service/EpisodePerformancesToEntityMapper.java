@@ -21,7 +21,7 @@ public class EpisodePerformancesToEntityMapper {
 
 	private static final MediaWikiSource SOURCE = MediaWikiSource.MEMORY_ALPHA_EN;
 
-	private EntityLookupByNameService entityLookupByNameService;
+	private final EntityLookupByNameService entityLookupByNameService;
 
 	@Inject
 	public EpisodePerformancesToEntityMapper(EntityLookupByNameService entityLookupByNameService) {

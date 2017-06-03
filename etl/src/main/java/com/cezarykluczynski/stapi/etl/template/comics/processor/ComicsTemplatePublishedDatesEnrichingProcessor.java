@@ -14,7 +14,7 @@ import javax.inject.Inject;
 @Service
 public class ComicsTemplatePublishedDatesEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template.Part, ComicsTemplate>> {
 
-	private DatePartToDayMonthYearProcessor datePartToDayMonthYearProcessor;
+	private final DatePartToDayMonthYearProcessor datePartToDayMonthYearProcessor;
 
 	@Inject
 	public ComicsTemplatePublishedDatesEnrichingProcessor(DatePartToDayMonthYearProcessor datePartToDayMonthYearProcessor) {

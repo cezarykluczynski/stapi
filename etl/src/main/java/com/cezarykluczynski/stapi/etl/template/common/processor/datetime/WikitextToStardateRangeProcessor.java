@@ -19,7 +19,6 @@ public class WikitextToStardateRangeProcessor implements ItemProcessor<String, S
 	private static final String BEGINS_ON = "begins on ";
 	private static final String ENDS_ON = "ends on ";
 
-
 	@Override
 	public StardateRange process(String item) throws Exception {
 		if (StringUtils.isEmpty(item)) {

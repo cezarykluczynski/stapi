@@ -13,9 +13,9 @@ import java.util.Map;
 @Service
 public class StepCompletenessDecider {
 
-	private StepToStepPropertiesProvider stepToStepPropertiesProvider;
+	private final StepToStepPropertiesProvider stepToStepPropertiesProvider;
 
-	private AllStepExecutionsProvider allStepExecutionsProvider;
+	private final AllStepExecutionsProvider allStepExecutionsProvider;
 
 	@Inject
 	public StepCompletenessDecider(StepToStepPropertiesProvider stepToStepPropertiesProvider,

@@ -13,7 +13,6 @@ import java.util.Map;
 @Slf4j
 public class EpisodeTemplateStardateYearFixedValueProvider implements FixedValueProvider<String, StardateYearDTO> {
 
-
 	private static final Map<String, StardateYearDTO> TITLE_TO_STARDATE_YEAR_MAP = Maps.newHashMap();
 
 	static {

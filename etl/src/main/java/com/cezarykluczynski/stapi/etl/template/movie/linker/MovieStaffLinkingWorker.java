@@ -16,7 +16,7 @@ import java.util.Set;
 @Slf4j
 public class MovieStaffLinkingWorker implements MovieRealPeopleLinkingWorker {
 
-	private EntityLookupByNameService entityLookupByNameService;
+	private final EntityLookupByNameService entityLookupByNameService;
 
 	@Inject
 	public MovieStaffLinkingWorker(EntityLookupByNameService entityLookupByNameService) {

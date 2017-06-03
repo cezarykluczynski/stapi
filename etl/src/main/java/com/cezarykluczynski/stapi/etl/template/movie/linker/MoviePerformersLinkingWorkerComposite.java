@@ -12,11 +12,11 @@ import javax.inject.Inject;
 @Slf4j
 public class MoviePerformersLinkingWorkerComposite implements LinkingWorker<MovieLinkedTitlesDTO, Movie> {
 
-	private MoviePerformersCharactersLinkingWorker moviePerformersCharactersLinkingWorker;
+	private final MoviePerformersCharactersLinkingWorker moviePerformersCharactersLinkingWorker;
 
-	private MovieStuntPerformersLinkingWorker movieStuntPerformersLinkingWorker;
+	private final MovieStuntPerformersLinkingWorker movieStuntPerformersLinkingWorker;
 
-	private MovieStandInPerformersLinkingWorker movieStandInPerformersLinkingWorker;
+	private final MovieStandInPerformersLinkingWorker movieStandInPerformersLinkingWorker;
 
 	@Inject
 	public MoviePerformersLinkingWorkerComposite(MoviePerformersCharactersLinkingWorker moviePerformersCharactersLinkingWorker,

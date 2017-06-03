@@ -29,7 +29,7 @@ public class CharacterSpeciesLiteralFractionWikitextEnrichingProcessor
 		FRACTIONS.put("&frac34;", Fraction.getFraction(3, 4));
 	}
 
-	private CharacterSpeciesWithSpeciesNameEnrichingProcessor characterSpeciesWithSpeciesNameEnrichingProcessor;
+	private final CharacterSpeciesWithSpeciesNameEnrichingProcessor characterSpeciesWithSpeciesNameEnrichingProcessor;
 
 	@Inject
 	public CharacterSpeciesLiteralFractionWikitextEnrichingProcessor(

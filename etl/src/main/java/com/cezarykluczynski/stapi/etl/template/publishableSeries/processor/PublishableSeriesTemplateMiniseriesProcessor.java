@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class PublishableSeriesTemplateMiniseriesProcessor implements ItemProcessor<String, Boolean> {
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
 	@Inject
 	public PublishableSeriesTemplateMiniseriesProcessor(WikitextApi wikitextApi) {

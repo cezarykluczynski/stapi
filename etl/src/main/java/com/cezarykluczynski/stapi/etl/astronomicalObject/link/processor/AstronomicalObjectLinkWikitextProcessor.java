@@ -20,11 +20,11 @@ import java.util.Optional;
 @Slf4j
 public class AstronomicalObjectLinkWikitextProcessor implements ItemProcessor<String, AstronomicalObject> {
 
-	private ParagraphExtractor paragraphExtractor;
+	private final ParagraphExtractor paragraphExtractor;
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
-	private AstronomicalObjectRepository astronomicalObjectRepository;
+	private final AstronomicalObjectRepository astronomicalObjectRepository;
 
 	@Inject
 	public AstronomicalObjectLinkWikitextProcessor(ParagraphExtractor paragraphExtractor, WikitextApi wikitextApi,

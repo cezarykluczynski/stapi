@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class StaffCategoriesActorTemplateEnrichingProcessor implements CategoriesActorTemplateEnrichingProcessor {
 
-	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
+	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
 	@Inject
 	public StaffCategoriesActorTemplateEnrichingProcessor(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {

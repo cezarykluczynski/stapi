@@ -20,9 +20,9 @@ public class SpeciesTemplateFilter implements PageFilter {
 	private static final List<String> SPECIES_CATEGORIES = Lists.newArrayList(CategoryTitle.SPECIES, CategoryTitle.UNNAMED_SPECIES,
 			CategoryTitle.NON_CORPOREALS);
 
-	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
+	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
-	private CategorySortingService categorySortingService;
+	private final CategorySortingService categorySortingService;
 
 	@Inject
 	public SpeciesTemplateFilter(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor, CategorySortingService categorySortingService) {

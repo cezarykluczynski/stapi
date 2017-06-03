@@ -27,7 +27,7 @@ public class DayMonthPageLinkProcessor implements ItemProcessor<PageLink, DayMon
 
 	private static final Integer RIGHT_GROUP = 4;
 
-	private MonthNameToMonthProcessor monthNameToMonthProcessor;
+	private final MonthNameToMonthProcessor monthNameToMonthProcessor;
 
 	@Inject
 	public DayMonthPageLinkProcessor(MonthNameToMonthProcessor monthNameToMonthProcessor) {

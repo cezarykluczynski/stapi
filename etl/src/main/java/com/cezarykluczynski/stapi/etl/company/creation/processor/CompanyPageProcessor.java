@@ -18,13 +18,13 @@ import java.util.List;
 @Service
 public class CompanyPageProcessor implements ItemProcessor<Page, Company> {
 
-	private PageBindingService pageBindingService;
+	private final PageBindingService pageBindingService;
 
-	private UidGenerator uidGenerator;
+	private final UidGenerator uidGenerator;
 
-	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
+	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
-	private CompanyNameFixedValueProvider companyNameFixedValueProvider;
+	private final CompanyNameFixedValueProvider companyNameFixedValueProvider;
 
 	@Inject
 	public CompanyPageProcessor(PageBindingService pageBindingService, UidGenerator uidGenerator,

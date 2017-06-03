@@ -18,13 +18,13 @@ import java.util.List;
 @Slf4j
 public class IndividualLifeBoundaryProcessor implements ItemProcessor<String, IndividualLifeBoundaryDTO> {
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
-	private PageLinkToYearProcessor pageLinkToYearProcessor;
+	private final PageLinkToYearProcessor pageLinkToYearProcessor;
 
-	private DayMonthPageLinkProcessor dayMonthPageLinkProcessor;
+	private final DayMonthPageLinkProcessor dayMonthPageLinkProcessor;
 
-	private DayInMonthProximityFindingProcessor dayInMonthProximityFindingProcessor;
+	private final DayInMonthProximityFindingProcessor dayInMonthProximityFindingProcessor;
 
 	@Inject
 	public IndividualLifeBoundaryProcessor(WikitextApi wikitextApi, PageLinkToYearProcessor pageLinkToYearProcessor,

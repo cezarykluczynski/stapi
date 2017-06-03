@@ -12,11 +12,11 @@ import javax.inject.Inject;
 @Service
 public class ComicCollectionTemplatePageProcessor implements ItemProcessor<Page, ComicCollectionTemplate> {
 
-	private ComicsTemplatePageProcessor comicsTemplatePageProcessor;
+	private final ComicsTemplatePageProcessor comicsTemplatePageProcessor;
 
-	private ComicsTemplateToComicCollectionTemplateProcessor comicsTemplateToComicCollectionTemplateProcessor;
+	private final ComicsTemplateToComicCollectionTemplateProcessor comicsTemplateToComicCollectionTemplateProcessor;
 
-	private ComicCollectionTemplateWikitextComicsProcessor comicCollectionTemplateWikitextComicsProcessor;
+	private final ComicCollectionTemplateWikitextComicsProcessor comicCollectionTemplateWikitextComicsProcessor;
 
 	@Inject
 	public ComicCollectionTemplatePageProcessor(ComicsTemplatePageProcessor comicsTemplatePageProcessor,

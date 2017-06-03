@@ -23,9 +23,9 @@ public class DayMonthYearRangeProcessor implements ItemProcessor<Template.Part, 
 	private static final Integer INDEX_FIRST = 0;
 	private static final Integer INDEX_SECOND = 1;
 
-	private TemplateFilter templateFilter;
+	private final TemplateFilter templateFilter;
 
-	private TemplateToDayMonthYearParser templateToDayMonthYearParser;
+	private final TemplateToDayMonthYearParser templateToDayMonthYearParser;
 
 	@Inject
 	public DayMonthYearRangeProcessor(TemplateFilter templateFilter, TemplateToDayMonthYearParser templateToDayMonthYearParser) {

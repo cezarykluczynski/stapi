@@ -20,11 +20,11 @@ public class SpeciesTemplatePartsEnrichingProcessor implements ItemEnrichingProc
 
 	private static final String EXTINCT = "extinct";
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
-	private EntityLookupByNameService entityLookupByNameService;
+	private final EntityLookupByNameService entityLookupByNameService;
 
-	private SpeciesTemplateTypeWikitextEnrichingProcessor speciesTemplateTypeWikitextEnrichingProcessor;
+	private final SpeciesTemplateTypeWikitextEnrichingProcessor speciesTemplateTypeWikitextEnrichingProcessor;
 
 	@Inject
 	public SpeciesTemplatePartsEnrichingProcessor(WikitextApi wikitextApi, EntityLookupByNameService entityLookupByNameService,

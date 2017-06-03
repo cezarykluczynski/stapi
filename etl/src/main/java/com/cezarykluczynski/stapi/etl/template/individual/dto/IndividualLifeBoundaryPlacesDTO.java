@@ -7,8 +7,8 @@ import lombok.Data;
 @Data
 public class IndividualLifeBoundaryPlacesDTO {
 
-	private String placeOfBirth;
+	private final String placeOfBirth;
 
-	private String placeOfDeath;
+	private final String placeOfDeath;
 
 }

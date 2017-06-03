@@ -8,10 +8,10 @@ import lombok.Data;
 @AllArgsConstructor(staticName = "of")
 public class StardateYearCandidateDTO {
 
-	private String value;
+	private final String value;
 
-	private StardateYearSource source; // TODO: should be last field in the class
+	private final StardateYearSource source; // TODO: should be last field in the class
 
-	private String title;
+	private final String title;
 
 }

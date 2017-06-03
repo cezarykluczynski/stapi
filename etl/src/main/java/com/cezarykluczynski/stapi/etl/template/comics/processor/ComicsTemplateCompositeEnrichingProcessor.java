@@ -19,9 +19,9 @@ public class ComicsTemplateCompositeEnrichingProcessor implements ItemEnrichingP
 	private static final String CREATORS = "Creators";
 	private static final String CREDITS = "Credits";
 
-	private PageSectionExtractor pageSectionExtractor;
+	private final PageSectionExtractor pageSectionExtractor;
 
-	private ComicsTemplateWikitextStaffEnrichingProcessor comicsTemplateWikitextStaffEnrichingProcessor;
+	private final ComicsTemplateWikitextStaffEnrichingProcessor comicsTemplateWikitextStaffEnrichingProcessor;
 
 	@Inject
 	public ComicsTemplateCompositeEnrichingProcessor(PageSectionExtractor pageSectionExtractor,

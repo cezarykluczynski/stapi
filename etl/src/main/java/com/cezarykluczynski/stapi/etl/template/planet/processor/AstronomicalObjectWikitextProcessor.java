@@ -27,7 +27,7 @@ public class AstronomicalObjectWikitextProcessor implements ItemProcessor<String
 	private static final String NON = "non-";
 	private static final String FORMERLY = "formerly";
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
 	@Inject
 	public AstronomicalObjectWikitextProcessor(WikitextApi wikitextApi) {

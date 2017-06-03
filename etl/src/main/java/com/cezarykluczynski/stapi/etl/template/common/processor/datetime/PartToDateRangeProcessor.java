@@ -16,9 +16,9 @@ import java.util.List;
 @Slf4j
 public class PartToDateRangeProcessor implements ItemProcessor<Template.Part, DateRange> {
 
-	private DatelinkTemplateToLocalDateProcessor datelinkTemplateToLocalDateProcessor;
+	private final DatelinkTemplateToLocalDateProcessor datelinkTemplateToLocalDateProcessor;
 
-	private TemplateFilter templateFilter;
+	private final TemplateFilter templateFilter;
 
 	@Inject
 	public PartToDateRangeProcessor(DatelinkTemplateToLocalDateProcessor datelinkTemplateToLocalDateProcessor,

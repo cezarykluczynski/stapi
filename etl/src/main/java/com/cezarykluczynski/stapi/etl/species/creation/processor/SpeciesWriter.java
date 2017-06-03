@@ -14,9 +14,9 @@ import java.util.stream.Collectors;
 @Service
 public class SpeciesWriter implements ItemWriter<Species> {
 
-	private SpeciesRepository speciesRepository;
+	private final SpeciesRepository speciesRepository;
 
-	private DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
+	private final DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
 
 	@Inject
 	public SpeciesWriter(SpeciesRepository speciesRepository, DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor) {

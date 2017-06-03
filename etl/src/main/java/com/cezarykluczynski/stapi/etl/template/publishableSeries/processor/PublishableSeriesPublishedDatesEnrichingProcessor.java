@@ -18,9 +18,9 @@ import javax.inject.Inject;
 public class PublishableSeriesPublishedDatesEnrichingProcessor
 		implements ItemEnrichingProcessor<EnrichablePair<Template.Part, PublishableSeriesTemplate>> {
 
-	private DayMonthYearRangeProcessor dayMonthYearRangeProcessor;
+	private final DayMonthYearRangeProcessor dayMonthYearRangeProcessor;
 
-	private PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessor publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor;
+	private final PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessor publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor;
 
 	@Inject
 	public PublishableSeriesPublishedDatesEnrichingProcessor(DayMonthYearRangeProcessor dayMonthYearRangeProcessor,

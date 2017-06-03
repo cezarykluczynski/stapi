@@ -18,15 +18,15 @@ import java.util.List;
 @Service
 public class OrganizationPageProcessor implements ItemProcessor<Page, Organization> {
 
-	private OrganizationPageFilter organizationPageFilter;
+	private final OrganizationPageFilter organizationPageFilter;
 
-	private PageBindingService pageBindingService;
+	private final PageBindingService pageBindingService;
 
-	private UidGenerator uidGenerator;
+	private final UidGenerator uidGenerator;
 
-	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
+	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
-	private OrganizationNameFixedValueProvider organizationNameFixedValueProvider;
+	private final OrganizationNameFixedValueProvider organizationNameFixedValueProvider;
 
 	@Inject
 	public OrganizationPageProcessor(OrganizationPageFilter organizationPageFilter, PageBindingService pageBindingService,

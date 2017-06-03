@@ -22,11 +22,11 @@ import java.util.List;
 @Slf4j
 public class ComicStripReader implements ItemReader<PageHeader> {
 
-	private ComicStripCandidatePageGatheringService comicStripCandidatePageGatheringService;
+	private final ComicStripCandidatePageGatheringService comicStripCandidatePageGatheringService;
 
-	private CategoryApi categoryApi;
+	private final CategoryApi categoryApi;
 
-	private StepCompletenessDecider stepCompletenessDecider;
+	private final StepCompletenessDecider stepCompletenessDecider;
 
 	private List<PageHeader> pageHeaderList;
 

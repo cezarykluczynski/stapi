@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 @Service
 public class SeriesWriter implements ItemWriter<Series> {
 
-	private SeriesRepository seriesRepository;
+	private final SeriesRepository seriesRepository;
 
 	@Inject
 	public SeriesWriter(SeriesRepository seriesRepository) {

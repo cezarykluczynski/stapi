@@ -12,9 +12,9 @@ import javax.inject.Inject;
 @Service
 public class StaffActorTemplateProcessor implements ItemProcessor<ActorTemplate, Staff> {
 
-	private UidGenerator uidGenerator;
+	private final UidGenerator uidGenerator;
 
-	private CommonActorTemplateProcessor commonActorTemplateProcessor;
+	private final CommonActorTemplateProcessor commonActorTemplateProcessor;
 
 	@Inject
 	public StaffActorTemplateProcessor(UidGenerator uidGenerator, CommonActorTemplateProcessor commonActorTemplateProcessor) {

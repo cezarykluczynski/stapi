@@ -24,7 +24,7 @@ public class SpeciesTemplateTypeWikitextEnrichingProcessor implements ItemEnrich
 	private static final String REPTILE = "Reptile";
 	private static final String NON_HUMANOID = "Non-humanoid";
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
 	@Inject
 	public SpeciesTemplateTypeWikitextEnrichingProcessor(WikitextApi wikitextApi) {

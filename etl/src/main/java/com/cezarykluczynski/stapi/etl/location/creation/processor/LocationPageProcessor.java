@@ -19,15 +19,15 @@ import java.util.List;
 @Service
 public class LocationPageProcessor implements ItemProcessor<Page, Location> {
 
-	private LocationPageFilter locationPageFilter;
+	private final LocationPageFilter locationPageFilter;
 
-	private PageBindingService pageBindingService;
+	private final PageBindingService pageBindingService;
 
-	private UidGenerator uidGenerator;
+	private final UidGenerator uidGenerator;
 
-	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
+	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
-	private LocationNameFixedValueProvider locationNameFixedValueProvider;
+	private final LocationNameFixedValueProvider locationNameFixedValueProvider;
 
 	@Inject
 	public LocationPageProcessor(LocationPageFilter locationPageFilter, PageBindingService pageBindingService, UidGenerator uidGenerator,

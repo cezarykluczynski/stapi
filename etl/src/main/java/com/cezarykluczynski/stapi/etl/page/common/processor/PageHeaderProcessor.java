@@ -15,7 +15,7 @@ import java.util.List;
 @Slf4j
 public class PageHeaderProcessor implements ItemProcessor<PageHeader, Page> {
 
-	private PageApi pageApi;
+	private final PageApi pageApi;
 
 	@Inject
 	public PageHeaderProcessor(PageApi pageApi) {

@@ -15,11 +15,11 @@ import java.util.Optional;
 @Service
 class GenericEntityLookupByNameService {
 
-	private PageApi pageApi;
+	private final PageApi pageApi;
 
-	private MediaWikiSourceMapper mediaWikiSourceMapper;
+	private final MediaWikiSourceMapper mediaWikiSourceMapper;
 
-	private Repositories repositories;
+	private final Repositories repositories;
 
 	@Inject
 	GenericEntityLookupByNameService(PageApi pageApi, MediaWikiSourceMapper mediaWikiSourceMapper, Repositories repositories) {

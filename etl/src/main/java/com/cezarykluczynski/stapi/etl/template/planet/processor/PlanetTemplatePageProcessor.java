@@ -30,17 +30,17 @@ public class PlanetTemplatePageProcessor implements ItemProcessor<Page, PlanetTe
 	private static final String PLANETARY_CLASSIFICATION = "Planetary classification";
 	private static final String UNNAMED_PREFIX = "Unnamed";
 
-	private TemplateFinder templateFinder;
+	private final TemplateFinder templateFinder;
 
-	private PageBindingService pageBindingService;
+	private final PageBindingService pageBindingService;
 
-	private AstronomicalObjectTypeProcessor astronomicalObjectTypeProcessor;
+	private final AstronomicalObjectTypeProcessor astronomicalObjectTypeProcessor;
 
-	private AstronomicalObjectTypeEnrichingProcessor astronomicalObjectTypeEnrichingProcessor;
+	private final AstronomicalObjectTypeEnrichingProcessor astronomicalObjectTypeEnrichingProcessor;
 
-	private AstronomicalObjectWikitextProcessor astronomicalObjectWikitextProcessor;
+	private final AstronomicalObjectWikitextProcessor astronomicalObjectWikitextProcessor;
 
-	private AstronomicalObjectCompositeEnrichingProcessor astronomicalObjectCompositeEnrichingProcessor;
+	private final AstronomicalObjectCompositeEnrichingProcessor astronomicalObjectCompositeEnrichingProcessor;
 
 	@Inject
 	public PlanetTemplatePageProcessor(TemplateFinder templateFinder, PageBindingService pageBindingService,

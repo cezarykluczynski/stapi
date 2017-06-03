@@ -12,17 +12,17 @@ import javax.inject.Inject;
 @Slf4j
 public class MovieStaffLinkingWorkerComposite implements LinkingWorker<MovieLinkedTitlesDTO, Movie> {
 
-	private MovieWritersLinkingWorker movieWritersLinkingWorker;
+	private final MovieWritersLinkingWorker movieWritersLinkingWorker;
 
-	private MovieScreenplayAuthorsLinkingWorker movieScreenplayAuthorsLinkingWorker;
+	private final MovieScreenplayAuthorsLinkingWorker movieScreenplayAuthorsLinkingWorker;
 
-	private MovieStoryAuthorsLinkingWorker movieStoryAuthorsLinkingWorker;
+	private final MovieStoryAuthorsLinkingWorker movieStoryAuthorsLinkingWorker;
 
-	private MovieDirectorsLinkingWorker movieDirectorsLinkingWorker;
+	private final MovieDirectorsLinkingWorker movieDirectorsLinkingWorker;
 
-	private MovieProducersLinkingWorker movieProducersLinkingWorker;
+	private final MovieProducersLinkingWorker movieProducersLinkingWorker;
 
-	private MovieStaffLinkingWorker movieStaffLinkingWorker;
+	private final MovieStaffLinkingWorker movieStaffLinkingWorker;
 
 	@Inject
 	public MovieStaffLinkingWorkerComposite(MovieWritersLinkingWorker movieWritersLinkingWorker,

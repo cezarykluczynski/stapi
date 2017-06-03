@@ -119,7 +119,7 @@ public class MovieLinkedTitlesProcessor implements ItemProcessor<List<PageSectio
 	private static final List<String> STAND_IN_PERFORMERS_SECTION_EXACT_TITLE_LIST = Lists.newArrayList("[[Stand-in|Stand-In]]s");
 	private static final List<String> STAND_IN_PERFORMERS_SECTION_MATCHES_TITLE_LIST = Lists.newArrayList("climbing double");
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
 	@Inject
 	public MovieLinkedTitlesProcessor(WikitextApi wikitextApi) {

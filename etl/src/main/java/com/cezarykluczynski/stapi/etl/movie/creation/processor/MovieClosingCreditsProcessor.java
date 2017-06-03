@@ -31,9 +31,9 @@ public class MovieClosingCreditsProcessor implements ItemProcessor<Page, List<Pa
 
 	private static final Pattern INTERWIKI = Pattern.compile("\\[\\[[a-z\\-]{2,5}:.*");
 
-	private PageApi pageApi;
+	private final PageApi pageApi;
 
-	private PageSectionExtractor pageSectionExtractor;
+	private final PageSectionExtractor pageSectionExtractor;
 
 	@Inject
 	public MovieClosingCreditsProcessor(PageApi pageApi, PageSectionExtractor pageSectionExtractor) {

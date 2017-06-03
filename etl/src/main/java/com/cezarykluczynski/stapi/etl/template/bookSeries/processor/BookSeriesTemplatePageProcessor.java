@@ -17,15 +17,15 @@ import java.util.Optional;
 @Service
 public class BookSeriesTemplatePageProcessor implements ItemProcessor<Page, BookSeriesTemplate> {
 
-	private PageBindingService pageBindingService;
+	private final PageBindingService pageBindingService;
 
-	private TemplateFinder templateFinder;
+	private final TemplateFinder templateFinder;
 
-	private BookSeriesTemplatePartsEnrichingProcessor bookSeriesTemplatePartsEnrichingProcessor;
+	private final BookSeriesTemplatePartsEnrichingProcessor bookSeriesTemplatePartsEnrichingProcessor;
 
-	private BookSeriesTemplateFixedValuesEnrichingProcessor bookSeriesTemplateFixedValuesEnrichingProcessor;
+	private final BookSeriesTemplateFixedValuesEnrichingProcessor bookSeriesTemplateFixedValuesEnrichingProcessor;
 
-	private BookSeriesTemplateEBookSeriesProcessor bookSeriesTemplateEBookSeriesProcessor;
+	private final BookSeriesTemplateEBookSeriesProcessor bookSeriesTemplateEBookSeriesProcessor;
 
 	@Inject
 	public BookSeriesTemplatePageProcessor(PageBindingService pageBindingService, TemplateFinder templateFinder,

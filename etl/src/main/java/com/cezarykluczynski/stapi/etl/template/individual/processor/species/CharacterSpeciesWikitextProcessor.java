@@ -35,13 +35,13 @@ public class CharacterSpeciesWikitextProcessor implements ItemProcessor<Pair<Str
 	private static final List<String> FRACTION_NAMES = Lists.newArrayList(CharacterSpeciesLiteralFractionWikitextEnrichingProcessor
 			.FRACTIONS.keySet());
 
-	private CharacterSpeciesFixedValueProvider characterSpeciesFixedValueProvider;
+	private final CharacterSpeciesFixedValueProvider characterSpeciesFixedValueProvider;
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
-	private CharacterSpeciesLiteralFractionWikitextEnrichingProcessor characterSpeciesLiteralFractionWikitextEnrichingProcessor;
+	private final CharacterSpeciesLiteralFractionWikitextEnrichingProcessor characterSpeciesLiteralFractionWikitextEnrichingProcessor;
 
-	private CharacterSpeciesWithSpeciesNameEnrichingProcessor characterSpeciesWithSpeciesNameEnrichingProcessor;
+	private final CharacterSpeciesWithSpeciesNameEnrichingProcessor characterSpeciesWithSpeciesNameEnrichingProcessor;
 
 	@Inject
 	public CharacterSpeciesWikitextProcessor(CharacterSpeciesFixedValueProvider characterSpeciesFixedValueProvider, WikitextApi wikitextApi,

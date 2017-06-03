@@ -11,7 +11,7 @@ import javax.inject.Inject;
 @Service
 public class BookTemplateProcessor implements ItemProcessor<BookTemplate, Book> {
 
-	private UidGenerator uidGenerator;
+	private final UidGenerator uidGenerator;
 
 	@Inject
 	public BookTemplateProcessor(UidGenerator uidGenerator) {

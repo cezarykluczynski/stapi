@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
 @Service
 public class WikitextToCompaniesProcessor implements ItemProcessor<String, Set<Company>> {
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
-	private CompanyRepository companyRepository;
+	private final CompanyRepository companyRepository;
 
 	@Inject
 	public WikitextToCompaniesProcessor(WikitextApi wikitextApi, CompanyRepository companyRepository) {

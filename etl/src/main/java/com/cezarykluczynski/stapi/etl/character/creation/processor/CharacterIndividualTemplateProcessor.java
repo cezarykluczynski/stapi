@@ -12,9 +12,9 @@ import javax.inject.Inject;
 @Service
 public class CharacterIndividualTemplateProcessor implements ItemProcessor<IndividualTemplate, Character> {
 
-	private UidGenerator uidGenerator;
+	private final UidGenerator uidGenerator;
 
-	private GenderMapper genderMapper;
+	private final GenderMapper genderMapper;
 
 	@Inject
 	public CharacterIndividualTemplateProcessor(UidGenerator uidGenerator, GenderMapper genderMapper) {

@@ -20,9 +20,9 @@ public class IndividualMirrorAlternateUniverseEnrichingProcessor implements Item
 
 	private static final String ALTERNATE_REALITY = "(alternate reality)";
 
-	private TemplateFinder templateFinder;
+	private final TemplateFinder templateFinder;
 
-	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
+	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
 	@Inject
 	public IndividualMirrorAlternateUniverseEnrichingProcessor(TemplateFinder templateFinder,

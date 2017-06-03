@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class PageToLifeRangeProcessor implements ItemProcessor<Page, DateRange> {
 
-	private DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor;
+	private final DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor;
 
 	@Inject
 	public PageToLifeRangeProcessor(DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor) {

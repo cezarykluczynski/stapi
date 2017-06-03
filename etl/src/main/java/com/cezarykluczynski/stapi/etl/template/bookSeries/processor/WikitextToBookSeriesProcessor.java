@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
 @Service
 public class WikitextToBookSeriesProcessor implements ItemProcessor<String, Set<BookSeries>> {
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
-	private BookSeriesRepository bookSeriesRepository;
+	private final BookSeriesRepository bookSeriesRepository;
 
 	@Inject
 	public WikitextToBookSeriesProcessor(WikitextApi wikitextApi, BookSeriesRepository bookSeriesRepository) {

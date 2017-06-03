@@ -13,7 +13,7 @@ import java.time.YearMonth;
 @Slf4j
 public class MonthYearCandidateToYearMonthProcessor implements ItemProcessor<MonthYearCandidate, YearMonth> {
 
-	private MonthNameToMonthProcessor monthNameToMonthProcessor;
+	private final MonthNameToMonthProcessor monthNameToMonthProcessor;
 
 	@Inject
 	public MonthYearCandidateToYearMonthProcessor(MonthNameToMonthProcessor monthNameToMonthProcessor) {

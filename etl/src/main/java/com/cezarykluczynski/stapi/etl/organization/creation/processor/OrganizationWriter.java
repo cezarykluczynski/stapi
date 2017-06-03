@@ -17,9 +17,9 @@ import java.util.stream.Collectors;
 @Slf4j
 public class OrganizationWriter implements ItemWriter<Organization> {
 
-	private OrganizationRepository organizationRepository;
+	private final OrganizationRepository organizationRepository;
 
-	private DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
+	private final DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
 
 	@Inject
 	public OrganizationWriter(OrganizationRepository organizationRepository,

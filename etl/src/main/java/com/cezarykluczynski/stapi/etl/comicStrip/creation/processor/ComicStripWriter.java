@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 @Service
 public class ComicStripWriter implements ItemWriter<ComicStrip> {
 
-	private ComicStripRepository comicStripRepository;
+	private final ComicStripRepository comicStripRepository;
 
-	private DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
+	private final DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
 
 	@Inject
 	public ComicStripWriter(ComicStripRepository comicStripRepository,

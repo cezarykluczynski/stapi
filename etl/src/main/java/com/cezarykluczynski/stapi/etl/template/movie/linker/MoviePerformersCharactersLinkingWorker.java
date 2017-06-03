@@ -23,7 +23,7 @@ public class MoviePerformersCharactersLinkingWorker implements MovieRealPeopleLi
 	private static final String[] IGNORABLE_PAGE_PREFIXES = {"USS ", "Unnamed ", "Human ", "Klingon ", "Mercy Hospital",
 		"HMS Bounty personnel", "Computer voice", "Vulcan ", "Humanoid ", "Romulan ", "US military personnel"};
 
-	private EntityLookupByNameService entityLookupByNameService;
+	private final EntityLookupByNameService entityLookupByNameService;
 
 	@Inject
 	public MoviePerformersCharactersLinkingWorker(EntityLookupByNameService entityLookupByNameService) {

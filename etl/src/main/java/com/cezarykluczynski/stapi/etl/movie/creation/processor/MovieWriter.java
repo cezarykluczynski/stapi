@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class MovieWriter implements ItemWriter<Movie> {
 
-	private MovieRepository movieRepository;
+	private final MovieRepository movieRepository;
 
 	@Inject
 	public MovieWriter(MovieRepository movieRepository) {

@@ -31,13 +31,13 @@ public class ComicCollectionTemplateWikitextComicsProcessor implements ItemProce
 	private static final String CHAPTERS = "Chapters";
 	private static final String BACKGROUND_INFORMATION = "Background information";
 
-	private PageSectionExtractor pageSectionExtractor;
+	private final PageSectionExtractor pageSectionExtractor;
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
-	private WikitextListsExtractor wikitextListsExtractor;
+	private final WikitextListsExtractor wikitextListsExtractor;
 
-	private EntityLookupByNameService entityLookupByNameService;
+	private final EntityLookupByNameService entityLookupByNameService;
 
 	@Inject
 	public ComicCollectionTemplateWikitextComicsProcessor(PageSectionExtractor pageSectionExtractor, WikitextApi wikitextApi,

@@ -31,19 +31,19 @@ public class ComicsTemplatePageProcessor implements ItemProcessor<Page, ComicsTe
 	private static final String FOTONOVEL = "(fotonovel";
 	private static final String OMNIBUS = "(omnibus";
 
-	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
+	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
-	private ComicStripCandidatePageGatheringService comicStripCandidatePageGatheringService;
+	private final ComicStripCandidatePageGatheringService comicStripCandidatePageGatheringService;
 
-	private PageBindingService pageBindingService;
+	private final PageBindingService pageBindingService;
 
-	private TemplateFinder templateFinder;
+	private final TemplateFinder templateFinder;
 
-	private ComicsTemplateCompositeEnrichingProcessor comicsTemplateCompositeEnrichingProcessor;
+	private final ComicsTemplateCompositeEnrichingProcessor comicsTemplateCompositeEnrichingProcessor;
 
-	private ComicsTemplatePartsEnrichingProcessor comicsTemplatePartsEnrichingProcessor;
+	private final ComicsTemplatePartsEnrichingProcessor comicsTemplatePartsEnrichingProcessor;
 
-	private WikitextCharactersProcessor wikitextCharactersProcessor;
+	private final WikitextCharactersProcessor wikitextCharactersProcessor;
 
 	@Inject
 	public ComicsTemplatePageProcessor(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor,

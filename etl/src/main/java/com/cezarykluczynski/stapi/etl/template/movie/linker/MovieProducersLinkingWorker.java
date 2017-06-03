@@ -10,7 +10,7 @@ import java.util.Set;
 @Service
 public class MovieProducersLinkingWorker implements MovieRealPeopleLinkingWorker {
 
-	private AllStaffFindingMovieRealPeopleLinkingWorkerHelper allStaffFindingMovieRealPeopleLinkingWorkerHelper;
+	private final AllStaffFindingMovieRealPeopleLinkingWorkerHelper allStaffFindingMovieRealPeopleLinkingWorkerHelper;
 
 	@Inject
 	public MovieProducersLinkingWorker(AllStaffFindingMovieRealPeopleLinkingWorkerHelper allStaffFindingMovieRealPeopleLinkingWorkerHelper) {

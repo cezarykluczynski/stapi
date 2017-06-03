@@ -14,9 +14,9 @@ import java.util.stream.Collectors;
 @Service
 public class EpisodeWriter implements ItemWriter<Episode> {
 
-	private EpisodeRepository episodeRepository;
+	private final EpisodeRepository episodeRepository;
 
-	private DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
+	private final DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
 
 	@Inject
 	public EpisodeWriter(EpisodeRepository episodeRepository, DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor) {

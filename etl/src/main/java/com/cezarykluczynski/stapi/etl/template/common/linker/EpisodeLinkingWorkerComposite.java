@@ -10,9 +10,9 @@ import javax.inject.Inject;
 @Service
 public class EpisodeLinkingWorkerComposite implements LinkingWorker<Page, Episode> {
 
-	private EpisodePerformancesLinkingWorker episodePerformancesLinkingWorker;
+	private final EpisodePerformancesLinkingWorker episodePerformancesLinkingWorker;
 
-	private EpisodeStaffLinkingWorker episodeStaffLinkingWorker;
+	private final EpisodeStaffLinkingWorker episodeStaffLinkingWorker;
 
 	@Inject
 	public EpisodeLinkingWorkerComposite(EpisodePerformancesLinkingWorker episodePerformancesLinkingWorker,

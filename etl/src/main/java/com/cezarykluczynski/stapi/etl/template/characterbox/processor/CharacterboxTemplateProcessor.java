@@ -20,17 +20,17 @@ import java.util.Optional;
 @Service
 public class CharacterboxTemplateProcessor implements ItemProcessor<Page, CharacterboxTemplate> {
 
-	private TemplateFinder templateFinder;
+	private final TemplateFinder templateFinder;
 
-	private PartToGenderProcessor partToGenderProcessor;
+	private final PartToGenderProcessor partToGenderProcessor;
 
-	private IndividualHeightProcessor individualHeightProcessor;
+	private final IndividualHeightProcessor individualHeightProcessor;
 
-	private IndividualWeightProcessor individualWeightProcessor;
+	private final IndividualWeightProcessor individualWeightProcessor;
 
-	private IndividualLifeBoundaryProcessor individualLifeBoundaryProcessor;
+	private final IndividualLifeBoundaryProcessor individualLifeBoundaryProcessor;
 
-	private MaritalStatusProcessor maritalStatusProcessor;
+	private final MaritalStatusProcessor maritalStatusProcessor;
 
 	public CharacterboxTemplateProcessor(TemplateFinder templateFinder, PartToGenderProcessor partToGenderProcessor,
 			IndividualHeightProcessor individualHeightProcessor, IndividualWeightProcessor individualWeightProcessor,

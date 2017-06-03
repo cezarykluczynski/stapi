@@ -12,9 +12,9 @@ import java.time.YearMonth;
 @Service
 public class MonthlinkTemplateToMonthYearProcessor implements ItemProcessor<Template, DayMonthYear> {
 
-	private MonthlinkTemplateToMonthYearCandiateProcessor monthlinkTemplateToMonthYearCandiateProcessor;
+	private final MonthlinkTemplateToMonthYearCandiateProcessor monthlinkTemplateToMonthYearCandiateProcessor;
 
-	private MonthYearCandidateToYearMonthProcessor monthYearCandidateToYearMonthProcessor;
+	private final MonthYearCandidateToYearMonthProcessor monthYearCandidateToYearMonthProcessor;
 
 	@Inject
 	public MonthlinkTemplateToMonthYearProcessor(MonthlinkTemplateToMonthYearCandiateProcessor monthlinkTemplateToMonthYearCandiateProcessor,

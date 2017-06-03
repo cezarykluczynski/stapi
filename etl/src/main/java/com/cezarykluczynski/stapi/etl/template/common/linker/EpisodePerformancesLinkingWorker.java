@@ -19,13 +19,13 @@ import java.util.List;
 @Slf4j
 public class EpisodePerformancesLinkingWorker implements LinkingWorker<Page, Episode> {
 
-	private CharacterRepository characterRepository;
+	private final CharacterRepository characterRepository;
 
-	private PerformerRepository performerRepository;
+	private final PerformerRepository performerRepository;
 
-	private EpisodePerformancesExtractingProcessor episodePerformancesExtractingProcessor;
+	private final EpisodePerformancesExtractingProcessor episodePerformancesExtractingProcessor;
 
-	private EpisodePerformancesToEntityMapper episodePerformancesToEntityMapper;
+	private final EpisodePerformancesToEntityMapper episodePerformancesToEntityMapper;
 
 	@Inject
 	public EpisodePerformancesLinkingWorker(CharacterRepository characterRepository,

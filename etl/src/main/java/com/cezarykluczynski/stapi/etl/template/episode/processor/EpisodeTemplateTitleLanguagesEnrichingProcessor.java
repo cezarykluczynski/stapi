@@ -21,9 +21,9 @@ public class EpisodeTemplateTitleLanguagesEnrichingProcessor implements ItemEnri
 
 	private static final String[] JAPANESE_SERIES_PREFIXES = {"ENT:", "TNG:", "DS9:", "VOY:", "TAS:", "TOS:"};
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
-	private PageSectionExtractor pageSectionExtractor;
+	private final PageSectionExtractor pageSectionExtractor;
 
 	@Inject
 	public EpisodeTemplateTitleLanguagesEnrichingProcessor(WikitextApi wikitextApi,

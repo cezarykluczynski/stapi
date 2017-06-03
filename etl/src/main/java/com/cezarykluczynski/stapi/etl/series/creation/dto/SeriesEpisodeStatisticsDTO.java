@@ -7,10 +7,10 @@ import lombok.Getter;
 @Getter
 public class SeriesEpisodeStatisticsDTO {
 
-	private Integer seasonsCount;
+	private final Integer seasonsCount;
 
-	private Integer episodesCount;
+	private final Integer episodesCount;
 
-	private Integer featureLengthEpisodesCount;
+	private final Integer featureLengthEpisodesCount;
 
 }

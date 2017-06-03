@@ -18,13 +18,12 @@ public class IndividualDateStatusValueToYearProcessor implements ItemProcessor<S
 
 	private static final String CENTURY = "century";
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
-	private PageLinkToYearProcessor pageLinkToYearProcessor;
+	private final PageLinkToYearProcessor pageLinkToYearProcessor;
 
 	@Inject
-	public IndividualDateStatusValueToYearProcessor(WikitextApi wikitextApi,
-			PageLinkToYearProcessor pageLinkToYearProcessor) {
+	public IndividualDateStatusValueToYearProcessor(WikitextApi wikitextApi, PageLinkToYearProcessor pageLinkToYearProcessor) {
 		this.wikitextApi = wikitextApi;
 		this.pageLinkToYearProcessor = pageLinkToYearProcessor;
 	}

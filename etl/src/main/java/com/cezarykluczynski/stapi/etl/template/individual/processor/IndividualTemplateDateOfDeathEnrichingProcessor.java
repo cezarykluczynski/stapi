@@ -69,9 +69,9 @@ public class IndividualTemplateDateOfDeathEnrichingProcessor implements ItemEnri
 			"separated from the collective"
 	);
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
-	private IndividualDateStatusValueToYearProcessor individualDateStatusValueToYearProcessor;
+	private final IndividualDateStatusValueToYearProcessor individualDateStatusValueToYearProcessor;
 
 	@Inject
 	public IndividualTemplateDateOfDeathEnrichingProcessor(WikitextApi wikitextApi,

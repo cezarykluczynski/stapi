@@ -24,15 +24,15 @@ public class MovieTemplatePageProcessor implements ItemProcessor<Page, MovieTemp
 	private static final List<String> IGNORABLE_TITLES = Lists.newArrayList(PageTitle.STAR_TREK_FILMS,
 			PageTitle.STAR_TREK_XIV);
 
-	private MovieTemplateProcessor movieTemplateProcessor;
+	private final MovieTemplateProcessor movieTemplateProcessor;
 
-	private TemplateFinder templateFinder;
+	private final TemplateFinder templateFinder;
 
-	private PageBindingService pageBindingService;
+	private final PageBindingService pageBindingService;
 
-	private MovieTemplateTitleLanguagesEnrichingProcessor movieTemplateTitleLanguagesEnrichingProcessor;
+	private final MovieTemplateTitleLanguagesEnrichingProcessor movieTemplateTitleLanguagesEnrichingProcessor;
 
-	private MovieRealPeopleLinkingWorkerComposite movieRealPeopleLinkingWorkerComposite;
+	private final MovieRealPeopleLinkingWorkerComposite movieRealPeopleLinkingWorkerComposite;
 
 	@Inject
 	public MovieTemplatePageProcessor(MovieTemplateProcessor movieTemplateProcessor, TemplateFinder templateFinder,

@@ -15,7 +15,7 @@ public class AstronomicalObjectTypeProcessor implements ItemProcessor<String, As
 	private static final String ASTEROID = "Asteroid";
 	private static final String M = "M";
 
-	private AstronomicalObjectWikitextProcessor astronomicalObjectWikitextProcessor;
+	private final AstronomicalObjectWikitextProcessor astronomicalObjectWikitextProcessor;
 
 	@Inject
 	public AstronomicalObjectTypeProcessor(AstronomicalObjectWikitextProcessor astronomicalObjectWikitextProcessor) {

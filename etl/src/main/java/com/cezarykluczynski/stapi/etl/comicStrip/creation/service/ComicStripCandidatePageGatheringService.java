@@ -12,9 +12,9 @@ import java.util.List;
 @Service
 public class ComicStripCandidatePageGatheringService {
 
-	private final List<Page> pageList = Lists.newArrayList();
+	private final PageHeaderConverter pageHeaderConverter;
 
-	private PageHeaderConverter pageHeaderConverter;
+	private final List<Page> pageList = Lists.newArrayList();
 
 	@Inject
 	public ComicStripCandidatePageGatheringService(PageHeaderConverter pageHeaderConverter) {

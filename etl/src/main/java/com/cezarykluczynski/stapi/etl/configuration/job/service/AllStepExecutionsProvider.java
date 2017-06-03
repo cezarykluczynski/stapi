@@ -17,13 +17,13 @@ import java.util.List;
 @Service
 public class AllStepExecutionsProvider {
 
-	private JobInstanceDao jobInstanceDao;
+	private final JobInstanceDao jobInstanceDao;
 
-	private JobExecutionDao jobExecutionDao;
+	private final JobExecutionDao jobExecutionDao;
 
-	private StepExecutionDao stepExecutionDao;
+	private final StepExecutionDao stepExecutionDao;
 
-	private ExecutionContextDao executionContextDao;
+	private final ExecutionContextDao executionContextDao;
 
 	@Inject
 	public AllStepExecutionsProvider(JobInstanceDao jobInstanceDao, JobExecutionDao jobExecutionDao,

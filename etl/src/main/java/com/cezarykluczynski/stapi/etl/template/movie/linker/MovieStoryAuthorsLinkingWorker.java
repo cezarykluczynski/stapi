@@ -13,7 +13,7 @@ import java.util.Set;
 @Slf4j
 public class MovieStoryAuthorsLinkingWorker implements MovieRealPeopleLinkingWorker {
 
-	private AllStaffFindingMovieRealPeopleLinkingWorkerHelper allStaffFindingMovieRealPeopleLinkingWorkerHelper;
+	private final AllStaffFindingMovieRealPeopleLinkingWorkerHelper allStaffFindingMovieRealPeopleLinkingWorkerHelper;
 
 	@Inject
 	public MovieStoryAuthorsLinkingWorker(AllStaffFindingMovieRealPeopleLinkingWorkerHelper allStaffFindingMovieRealPeopleLinkingWorkerHelper) {

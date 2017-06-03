@@ -12,9 +12,9 @@ import java.time.LocalDate;
 @Service
 public class DatelinkTemplateToDayMonthYearProcessor implements ItemProcessor<Template, DayMonthYear> {
 
-	private DatelinkTemplateToDayMonthYearCandiateProcessor datelinkTemplateToDayMonthYearCandiateProcessor;
+	private final DatelinkTemplateToDayMonthYearCandiateProcessor datelinkTemplateToDayMonthYearCandiateProcessor;
 
-	private DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor;
+	private final DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor;
 
 	@Inject
 	public DatelinkTemplateToDayMonthYearProcessor(DatelinkTemplateToDayMonthYearCandiateProcessor datelinkTemplateToDayMonthYearCandiateProcessor,

@@ -24,17 +24,17 @@ public class AstronomicalObjectLinkProcessor implements ItemProcessor<Astronomic
 
 	private static final String LOCATION = "location";
 
-	private PageApi pageApi;
+	private final PageApi pageApi;
 
-	private MediaWikiSourceMapper mediaWikiSourceMapper;
+	private final MediaWikiSourceMapper mediaWikiSourceMapper;
 
-	private TemplateFinder templateFinder;
+	private final TemplateFinder templateFinder;
 
-	private ParagraphExtractor paragraphExtractor;
+	private final ParagraphExtractor paragraphExtractor;
 
-	private AstronomicalObjectLinkWikitextProcessor astronomicalObjectLinkWikitextProcessor;
+	private final AstronomicalObjectLinkWikitextProcessor astronomicalObjectLinkWikitextProcessor;
 
-	private AstronomicalObjectLinkEnrichingProcessor astronomicalObjectLinkEnrichingProcessor;
+	private final AstronomicalObjectLinkEnrichingProcessor astronomicalObjectLinkEnrichingProcessor;
 
 	public AstronomicalObjectLinkProcessor(PageApi pageApi, MediaWikiSourceMapper mediaWikiSourceMapper, TemplateFinder templateFinder,
 			ParagraphExtractor paragraphExtractor, AstronomicalObjectLinkWikitextProcessor astronomicalObjectLinkWikitextProcessor,

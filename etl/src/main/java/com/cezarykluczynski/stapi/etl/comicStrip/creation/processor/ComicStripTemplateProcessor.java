@@ -11,7 +11,7 @@ import javax.inject.Inject;
 @Service
 public class ComicStripTemplateProcessor implements ItemProcessor<ComicStripTemplate, ComicStrip> {
 
-	private UidGenerator uidGenerator;
+	private final UidGenerator uidGenerator;
 
 	@Inject
 	public ComicStripTemplateProcessor(UidGenerator uidGenerator) {

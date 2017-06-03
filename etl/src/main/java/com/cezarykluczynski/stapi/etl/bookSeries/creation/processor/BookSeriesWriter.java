@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 @Service
 public class BookSeriesWriter implements ItemWriter<BookSeries> {
 
-	private BookSeriesRepository bookSeriesRepository;
+	private final BookSeriesRepository bookSeriesRepository;
 
-	private DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
+	private final DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
 
 	@Inject
 	public BookSeriesWriter(BookSeriesRepository bookSeriesRepository,

@@ -15,9 +15,9 @@ import java.util.stream.Collectors;
 @Service
 public class CompanyWriter implements ItemWriter<Company> {
 
-	private CompanyRepository companyRepository;
+	private final CompanyRepository companyRepository;
 
-	private DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
+	private final DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
 
 	@Inject
 	public CompanyWriter(CompanyRepository companyRepository, DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor) {

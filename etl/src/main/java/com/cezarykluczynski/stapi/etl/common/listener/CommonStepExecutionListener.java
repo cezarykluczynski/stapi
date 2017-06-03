@@ -15,9 +15,9 @@ import javax.inject.Inject;
 @Slf4j
 public class CommonStepExecutionListener implements StepExecutionListener, StepListener {
 
-	private FrequentHitCachingHelper frequentHitCachingHelper;
+	private final FrequentHitCachingHelper frequentHitCachingHelper;
 
-	private FrequentHitCachingHelperDumpFormatter frequentHitCachingHelperDumpFormatter;
+	private final FrequentHitCachingHelperDumpFormatter frequentHitCachingHelperDumpFormatter;
 
 	@Inject
 	public CommonStepExecutionListener(FrequentHitCachingHelper frequentHitCachingHelper,

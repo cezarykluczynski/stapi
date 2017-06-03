@@ -17,7 +17,7 @@ import java.util.List;
 @Slf4j
 public class StardateYearProcessor implements ItemProcessor<StardateYearCandidateDTO, StardateYearDTO> {
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
 	@Inject
 	public StardateYearProcessor(WikitextApi wikitextApi) {

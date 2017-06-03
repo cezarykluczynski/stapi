@@ -19,9 +19,9 @@ import java.util.Objects;
 @Slf4j
 public class SeriesTemplateCompanyProcessor implements ItemProcessor<Template.Part, Company> {
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
-	private CompanyRepository companyRepository;
+	private final CompanyRepository companyRepository;
 
 	@Inject
 	public SeriesTemplateCompanyProcessor(WikitextApi wikitextApi, CompanyRepository companyRepository) {

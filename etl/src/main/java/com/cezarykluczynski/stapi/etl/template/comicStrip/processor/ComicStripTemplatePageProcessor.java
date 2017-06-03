@@ -21,13 +21,13 @@ public class ComicStripTemplatePageProcessor implements ItemProcessor<Page, Comi
 
 	private static final String COMIC_STRIP = "(comic strip";
 
-	private TemplateFinder templateFinder;
+	private final TemplateFinder templateFinder;
 
-	private PageBindingService pageBindingService;
+	private final PageBindingService pageBindingService;
 
-	private ComicStripTemplatePartsEnrichingProcessor comicStripTemplatePartsEnrichingProcessor;
+	private final ComicStripTemplatePartsEnrichingProcessor comicStripTemplatePartsEnrichingProcessor;
 
-	private WikitextCharactersProcessor wikitextCharactersProcessor;
+	private final WikitextCharactersProcessor wikitextCharactersProcessor;
 
 	@Inject
 	public ComicStripTemplatePageProcessor(TemplateFinder templateFinder, PageBindingService pageBindingService,

@@ -24,15 +24,15 @@ import java.util.Map;
 @Slf4j
 public class JobBuilder {
 
-	private ApplicationContext applicationContext;
+	private final ApplicationContext applicationContext;
 
-	private JobBuilderFactory jobBuilderFactory;
+	private final JobBuilderFactory jobBuilderFactory;
 
-	private StepConfigurationValidator stepConfigurationValidator;
+	private final StepConfigurationValidator stepConfigurationValidator;
 
-	private JobCompletenessDecider jobCompletenessDecider;
+	private final JobCompletenessDecider jobCompletenessDecider;
 
-	private StepToStepPropertiesProvider stepToStepPropertiesProvider;
+	private final StepToStepPropertiesProvider stepToStepPropertiesProvider;
 
 	@Inject
 	public JobBuilder(ApplicationContext applicationContext, JobBuilderFactory jobBuilderFactory,

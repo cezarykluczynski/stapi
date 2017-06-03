@@ -21,11 +21,11 @@ public class CharacterboxIndividualTemplateEnrichingProcessor implements ItemEnr
 
 	private static final MediaWikiSource SOURCE = MediaWikiSource.MEMORY_BETA_EN;
 
-	private PageApi pageApi;
+	private final PageApi pageApi;
 
-	private CharacterboxTemplateProcessor characterboxTemplateProcessor;
+	private final CharacterboxTemplateProcessor characterboxTemplateProcessor;
 
-	private IndividualTemplateWithCharacterboxTemplateEnrichingProcessor individualTemplateWithCharacterboxTemplateEnrichingProcessor;
+	private final IndividualTemplateWithCharacterboxTemplateEnrichingProcessor individualTemplateWithCharacterboxTemplateEnrichingProcessor;
 
 	@Inject
 	public CharacterboxIndividualTemplateEnrichingProcessor(PageApi pageApi, CharacterboxTemplateProcessor characterboxTemplateProcessor,

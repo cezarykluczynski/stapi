@@ -15,7 +15,7 @@ public class CategorySortingService {
 
 	private static final String CATEGORY_PREFIX = "category:";
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
 	@Inject
 	public CategorySortingService(WikitextApi wikitextApi) {

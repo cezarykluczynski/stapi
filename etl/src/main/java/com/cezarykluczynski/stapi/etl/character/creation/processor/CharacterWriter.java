@@ -14,9 +14,9 @@ import java.util.stream.Collectors;
 @Service
 public class CharacterWriter implements ItemWriter<Character> {
 
-	private CharacterRepository characterRepository;
+	private final CharacterRepository characterRepository;
 
-	private DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
+	private final DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
 
 	@Inject
 	public CharacterWriter(CharacterRepository characterRepository,

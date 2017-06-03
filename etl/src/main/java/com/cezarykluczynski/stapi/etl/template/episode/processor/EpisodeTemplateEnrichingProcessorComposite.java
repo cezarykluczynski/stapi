@@ -11,9 +11,9 @@ import javax.inject.Inject;
 @Service
 public class EpisodeTemplateEnrichingProcessorComposite implements ItemEnrichingProcessor<EnrichablePair<Page, EpisodeTemplate>> {
 
-	private EpisodeTemplateDatesEnrichingProcessor episodeTemplateDatesEnrichingProcessor;
+	private final EpisodeTemplateDatesEnrichingProcessor episodeTemplateDatesEnrichingProcessor;
 
-	private EpisodeTemplateTitleLanguagesEnrichingProcessor episodeTemplateTitleLanguagesEnrichingProcessor;
+	private final EpisodeTemplateTitleLanguagesEnrichingProcessor episodeTemplateTitleLanguagesEnrichingProcessor;
 
 	@Inject
 	public EpisodeTemplateEnrichingProcessorComposite(EpisodeTemplateDatesEnrichingProcessor episodeTemplateDatesEnrichingProcessor,

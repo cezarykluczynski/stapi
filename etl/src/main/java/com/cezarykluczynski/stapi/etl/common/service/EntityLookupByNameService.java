@@ -18,7 +18,7 @@ import java.util.Optional;
 @Slf4j
 public class EntityLookupByNameService {
 
-	private GenericEntityLookupByNameService genericEntityLookupByNameService;
+	private final GenericEntityLookupByNameService genericEntityLookupByNameService;
 
 	@Inject
 	public EntityLookupByNameService(GenericEntityLookupByNameService genericEntityLookupByNameService) {

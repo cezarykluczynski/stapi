@@ -12,9 +12,9 @@ import javax.inject.Inject;
 @Service
 public class PlanetTemplateProcessor implements ItemProcessor<PlanetTemplate, AstronomicalObject> {
 
-	private UidGenerator uidGenerator;
+	private final UidGenerator uidGenerator;
 
-	private AstronomicalObjectTypeMapper astronomicalObjectTypeMapper;
+	private final AstronomicalObjectTypeMapper astronomicalObjectTypeMapper;
 
 	@Inject
 	public PlanetTemplateProcessor(UidGenerator uidGenerator, AstronomicalObjectTypeMapper astronomicalObjectTypeMapper) {

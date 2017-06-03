@@ -7,8 +7,8 @@ import lombok.Getter;
 @Getter
 public class Range<T> {
 
-	private T from;
+	private final T from;
 
-	private T to;
+	private final T to;
 
 }

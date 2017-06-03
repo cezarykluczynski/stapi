@@ -18,9 +18,9 @@ public class RawDatelinkExtractingProcessor implements ItemProcessor<String, Lis
 	private static final Pattern RAW_DATELINK = Pattern.compile("\\{\\{(d|datelink)\\|(\\d{1,2})\\|"
 			+ PatternDictionary.MONTH_GROUP + "\\|(\\d{4})}}");
 
-	@Inject
-	private DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor;
+	private final DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor;
 
+	@Inject
 	public RawDatelinkExtractingProcessor(DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor) {
 		this.dayMonthYearCandidateToLocalDateProcessor = dayMonthYearCandidateToLocalDateProcessor;
 	}

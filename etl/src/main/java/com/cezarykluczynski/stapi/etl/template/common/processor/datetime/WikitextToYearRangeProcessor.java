@@ -18,11 +18,11 @@ import java.util.List;
 @Slf4j
 public class WikitextToYearRangeProcessor implements ItemProcessor<String, YearRange> {
 
-	private PartToYearRangeProcessor partToYearRangeProcessor;
+	private final PartToYearRangeProcessor partToYearRangeProcessor;
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
-	private PageLinkToYearProcessor pageLinkToYearProcessor;
+	private final PageLinkToYearProcessor pageLinkToYearProcessor;
 
 	@Inject
 	public WikitextToYearRangeProcessor(PartToYearRangeProcessor partToYearRangeProcessor, WikitextApi wikitextApi,

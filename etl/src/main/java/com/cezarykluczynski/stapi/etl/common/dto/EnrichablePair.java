@@ -5,9 +5,9 @@ import lombok.Getter;
 @Getter
 public final class EnrichablePair<INPUT, OUTPUT> {
 
-	private INPUT input;
+	private final INPUT input;
 
-	private OUTPUT output;
+	private final OUTPUT output;
 
 	private EnrichablePair(INPUT input, OUTPUT output) {
 		this.input = input;

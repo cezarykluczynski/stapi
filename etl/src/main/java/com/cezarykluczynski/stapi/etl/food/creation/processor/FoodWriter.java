@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
 @Slf4j
 public class FoodWriter implements ItemWriter<Food> {
 
-	private FoodRepository foodRepository;
+	private final FoodRepository foodRepository;
 
-	private DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
+	private final DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
 
 	@Inject
 	public FoodWriter(FoodRepository foodRepository, DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor) {

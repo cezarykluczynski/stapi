@@ -1,7 +1,11 @@
 package com.cezarykluczynski.stapi.server.common.documentation.service
 
+import spock.lang.Requires
 import spock.lang.Specification
 
+@Requires({
+	new File(WarDocumentationDirectoryProvider.SWAGGER_CLASSPATH_DIRECTORY).exists()
+})
 class WarDocumentationDirectoryProviderTest extends Specification {
 
 	private WarDocumentationDirectoryProvider warDocumentationDirectoryProvider

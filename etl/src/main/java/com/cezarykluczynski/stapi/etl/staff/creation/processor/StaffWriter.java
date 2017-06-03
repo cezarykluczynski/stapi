@@ -15,11 +15,11 @@ import java.util.stream.Collectors;
 @Service
 public class StaffWriter implements ItemWriter<Staff> {
 
-	private StaffRepository staffRepository;
+	private final StaffRepository staffRepository;
 
-	private DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
+	private final DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
 
-	private DuplicateReattachingPreSavePageAwareFilter duplicateReattachingPreSavePageAwareFilter;
+	private final DuplicateReattachingPreSavePageAwareFilter duplicateReattachingPreSavePageAwareFilter;
 
 	@Inject
 	public StaffWriter(StaffRepository staffRepository,

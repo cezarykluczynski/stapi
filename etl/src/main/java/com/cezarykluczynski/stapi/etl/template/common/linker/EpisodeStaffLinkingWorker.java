@@ -27,11 +27,11 @@ public class EpisodeStaffLinkingWorker implements LinkingWorker<Page, Episode> {
 	private static final String WS_STORY_BY = "wsstoryby";
 	private static final String WS_DIRECTED_BY = "wsdirectedby";
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
-	private EntityLookupByNameService entityLookupByNameService;
+	private final EntityLookupByNameService entityLookupByNameService;
 
-	private TemplateFinder templateFinder;
+	private final TemplateFinder templateFinder;
 
 	@Inject
 	public EpisodeStaffLinkingWorker(WikitextApi wikitextApi, EntityLookupByNameService entityLookupByNameService,

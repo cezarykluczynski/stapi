@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class BookSeriesTemplateEBookSeriesProcessor implements ItemProcessor<Page, Boolean> {
 
-	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
+	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
 	@Inject
 	public BookSeriesTemplateEBookSeriesProcessor(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {

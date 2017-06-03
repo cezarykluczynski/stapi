@@ -28,9 +28,9 @@ public class IndividualTemplateFilter implements PageFilter {
 		NOT_CHARACTERS_CATEGORY_TITLES.add(CategoryTitle.FAMILIES);
 	}
 
-	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
+	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
-	private CategorySortingService categorySortingService;
+	private final CategorySortingService categorySortingService;
 
 	public IndividualTemplateFilter(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor,
 			CategorySortingService categorySortingService) {

@@ -20,9 +20,9 @@ import java.util.stream.Collectors;
 @Slf4j
 public class PartToYearRangeProcessor implements ItemProcessor<Template.Part, YearRange> {
 
-	private YearlinkToYearProcessor yearlinkToYearProcessor;
+	private final YearlinkToYearProcessor yearlinkToYearProcessor;
 
-	private TemplateFilter templateFilter;
+	private final TemplateFilter templateFilter;
 
 	@Inject
 	public PartToYearRangeProcessor(YearlinkToYearProcessor yearlinkToYearProcessor, TemplateFilter templateFilter) {

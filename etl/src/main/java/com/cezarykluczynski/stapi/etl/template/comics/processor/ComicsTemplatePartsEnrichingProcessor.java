@@ -21,19 +21,19 @@ import java.util.List;
 @Service
 public class ComicsTemplatePartsEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<List<Template.Part>, ComicsTemplate>> {
 
-	private ComicsTemplatePartStaffEnrichingProcessor comicsTemplatePartStaffEnrichingProcessor;
+	private final ComicsTemplatePartStaffEnrichingProcessor comicsTemplatePartStaffEnrichingProcessor;
 
-	private WikitextToCompaniesProcessor wikitextToCompaniesProcessor;
+	private final WikitextToCompaniesProcessor wikitextToCompaniesProcessor;
 
-	private WikitextToComicSeriesProcessor wikitextToComicSeriesProcessor;
+	private final WikitextToComicSeriesProcessor wikitextToComicSeriesProcessor;
 
-	private WikitextToYearRangeProcessor wikitextToYearRangeProcessor;
+	private final WikitextToYearRangeProcessor wikitextToYearRangeProcessor;
 
-	private WikitextToStardateRangeProcessor wikitextToStardateRangeProcessor;
+	private final WikitextToStardateRangeProcessor wikitextToStardateRangeProcessor;
 
-	private ComicsTemplatePublishedDatesEnrichingProcessor comicsTemplatePublishedDatesEnrichingProcessor;
+	private final ComicsTemplatePublishedDatesEnrichingProcessor comicsTemplatePublishedDatesEnrichingProcessor;
 
-	private ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor;
+	private final ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor;
 
 	@Inject
 	public ComicsTemplatePartsEnrichingProcessor(ComicsTemplatePartStaffEnrichingProcessor comicsTemplatePartStaffEnrichingProcessor,

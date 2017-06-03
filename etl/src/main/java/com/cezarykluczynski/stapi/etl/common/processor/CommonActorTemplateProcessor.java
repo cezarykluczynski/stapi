@@ -12,7 +12,7 @@ import javax.inject.Inject;
 @Service
 public class CommonActorTemplateProcessor {
 
-	private GenderMapper genderMapper;
+	private final GenderMapper genderMapper;
 
 	@Inject
 	public CommonActorTemplateProcessor(GenderMapper genderMapper) {

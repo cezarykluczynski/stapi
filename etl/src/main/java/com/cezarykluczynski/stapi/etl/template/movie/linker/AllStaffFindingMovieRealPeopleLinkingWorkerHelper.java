@@ -16,7 +16,7 @@ import java.util.Set;
 @Slf4j
 public class AllStaffFindingMovieRealPeopleLinkingWorkerHelper {
 
-	private EntityLookupByNameService entityLookupByNameService;
+	private final EntityLookupByNameService entityLookupByNameService;
 
 	@Inject
 	public AllStaffFindingMovieRealPeopleLinkingWorkerHelper(EntityLookupByNameService entityLookupByNameService) {

@@ -12,11 +12,11 @@ import javax.inject.Inject;
 @Service
 public class TemplateToDayMonthYearParser {
 
-	private DatelinkTemplateToDayMonthYearProcessor datelinkTemplateToDayMonthYearProcessor;
+	private final DatelinkTemplateToDayMonthYearProcessor datelinkTemplateToDayMonthYearProcessor;
 
-	private MonthlinkTemplateToMonthYearProcessor monthlinkTemplateToMonthYearProcessor;
+	private final MonthlinkTemplateToMonthYearProcessor monthlinkTemplateToMonthYearProcessor;
 
-	private YearlinkToYearProcessor yearlinkToYearProcessor;
+	private final YearlinkToYearProcessor yearlinkToYearProcessor;
 
 	@Inject
 	public TemplateToDayMonthYearParser(DatelinkTemplateToDayMonthYearProcessor datelinkTemplateToDayMonthYearProcessor,

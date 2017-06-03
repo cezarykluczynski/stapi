@@ -18,15 +18,15 @@ import java.util.Optional;
 @Service
 public class SeriesTemplatePageProcessor implements ItemProcessor<Page, SeriesTemplate> {
 
-	private PartToYearRangeProcessor partToYearRangeProcessor;
+	private final PartToYearRangeProcessor partToYearRangeProcessor;
 
-	private PartToDateRangeProcessor partToDateRangeProcessor;
+	private final PartToDateRangeProcessor partToDateRangeProcessor;
 
-	private PageBindingService pageBindingService;
+	private final PageBindingService pageBindingService;
 
-	private TemplateFinder templateFinder;
+	private final TemplateFinder templateFinder;
 
-	private SeriesTemplateCompanyProcessor seriesTemplateCompanyProcessor;
+	private final SeriesTemplateCompanyProcessor seriesTemplateCompanyProcessor;
 
 	@Inject
 	public SeriesTemplatePageProcessor(PartToYearRangeProcessor partToYearRangeProcessor, PartToDateRangeProcessor partToDateRangeProcessor,

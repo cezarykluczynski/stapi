@@ -12,9 +12,9 @@ import javax.inject.Inject;
 @Service
 public class ToEpisodeEntityProcessor implements ItemProcessor<EpisodeTemplate, Episode> {
 
-	private UidGenerator uidGenerator;
+	private final UidGenerator uidGenerator;
 
-	private SeriesRepository seriesRepository;
+	private final SeriesRepository seriesRepository;
 
 	@Inject
 	public ToEpisodeEntityProcessor(UidGenerator uidGenerator, SeriesRepository seriesRepository) {

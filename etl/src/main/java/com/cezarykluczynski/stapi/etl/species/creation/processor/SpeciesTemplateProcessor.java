@@ -11,7 +11,7 @@ import javax.inject.Inject;
 @Service
 public class SpeciesTemplateProcessor implements ItemProcessor<SpeciesTemplate, Species> {
 
-	private UidGenerator uidGenerator;
+	private final UidGenerator uidGenerator;
 
 	@Inject
 	public SpeciesTemplateProcessor(UidGenerator uidGenerator) {

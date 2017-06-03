@@ -21,11 +21,11 @@ public class WikitextCharactersProcessor implements ItemProcessor<Page, Set<Char
 	private static final String CHARACTERS = "Characters";
 	private static final String REGULAR_CAST = "Regular Cast";
 
-	private PageSectionExtractor pageSectionExtractor;
+	private final PageSectionExtractor pageSectionExtractor;
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
-	private EntityLookupByNameService entityLookupByNameService;
+	private final EntityLookupByNameService entityLookupByNameService;
 
 	@Inject
 	public WikitextCharactersProcessor(PageSectionExtractor pageSectionExtractor, WikitextApi wikitextApi,

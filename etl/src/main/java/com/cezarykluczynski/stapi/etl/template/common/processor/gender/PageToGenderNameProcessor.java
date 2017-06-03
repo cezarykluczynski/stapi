@@ -17,9 +17,9 @@ public class PageToGenderNameProcessor implements ItemProcessor<Page, Gender> {
 
 	private static final float MINIMAL_PROBABILITY = (float) 0.95;
 
-	private FullNameToFirstNameProcessor fullNameToFirstNameProcessor;
+	private final FullNameToFirstNameProcessor fullNameToFirstNameProcessor;
 
-	private GenderizeClient genderizeClient;
+	private final GenderizeClient genderizeClient;
 
 	@Inject
 	public PageToGenderNameProcessor(FullNameToFirstNameProcessor fullNameToFirstNameProcessor,

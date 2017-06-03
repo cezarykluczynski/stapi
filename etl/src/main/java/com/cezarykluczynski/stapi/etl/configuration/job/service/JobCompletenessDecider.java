@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class JobCompletenessDecider {
 
-	private AllStepExecutionsProvider allStepExecutionsProvider;
+	private final AllStepExecutionsProvider allStepExecutionsProvider;
 
 	public JobCompletenessDecider(AllStepExecutionsProvider allStepExecutionsProvider) {
 		this.allStepExecutionsProvider = allStepExecutionsProvider;

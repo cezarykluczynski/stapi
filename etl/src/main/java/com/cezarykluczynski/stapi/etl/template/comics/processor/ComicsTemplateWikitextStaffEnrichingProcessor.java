@@ -40,11 +40,11 @@ public class ComicsTemplateWikitextStaffEnrichingProcessor implements ItemEnrich
 			"Klingon Language", "Thanks to", "Production by", "Production Designer", "Introduction by", "Book design by", "Design:", "Designed by",
 			"Collection");
 
-	private WikitextListsExtractor wikitextListsExtractor;
+	private final WikitextListsExtractor wikitextListsExtractor;
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
-	private EntityLookupByNameService entityLookupByNameService;
+	private final EntityLookupByNameService entityLookupByNameService;
 
 	@Inject
 	public ComicsTemplateWikitextStaffEnrichingProcessor(WikitextListsExtractor wikitextListsExtractor, WikitextApi wikitextApi,

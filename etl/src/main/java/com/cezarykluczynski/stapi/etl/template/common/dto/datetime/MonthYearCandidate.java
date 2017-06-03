@@ -7,8 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor(staticName = "of")
 public class MonthYearCandidate {
 
-	private String month;
+	private final String month;
 
-	private String year;
+	private final String year;
 
 }

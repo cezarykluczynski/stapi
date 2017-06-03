@@ -12,9 +12,9 @@ import java.time.LocalDate;
 @Slf4j
 public class DatelinkTemplateToLocalDateProcessor implements ItemProcessor<Template, LocalDate> {
 
-	private DatelinkTemplateToDayMonthYearCandiateProcessor datelinkTemplateToDayMonthYearCandiateProcessor;
+	private final DatelinkTemplateToDayMonthYearCandiateProcessor datelinkTemplateToDayMonthYearCandiateProcessor;
 
-	private DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor;
+	private final DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor;
 
 	@Inject
 	public DatelinkTemplateToLocalDateProcessor(DatelinkTemplateToDayMonthYearCandiateProcessor datelinkTemplateToDayMonthYearCandiateProcessor,

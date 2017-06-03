@@ -23,15 +23,15 @@ import java.util.Set;
 @Service
 public class BookSeriesLinkProcessor implements ItemProcessor<BookSeries, BookSeries> {
 
-	private MediaWikiSourceMapper mediaWikiSourceMapper;
+	private final MediaWikiSourceMapper mediaWikiSourceMapper;
 
-	private PageApi pageApi;
+	private final PageApi pageApi;
 
-	private TemplateFinder templateFinder;
+	private final TemplateFinder templateFinder;
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
-	private BookSeriesRepository bookSeriesRepository;
+	private final BookSeriesRepository bookSeriesRepository;
 
 	@Inject
 	public BookSeriesLinkProcessor(MediaWikiSourceMapper mediaWikiSourceMapper, PageApi pageApi, TemplateFinder templateFinder,

@@ -32,17 +32,17 @@ public class SpeciesTypeDetector implements InitializingBean {
 
 	private final Map<String, List<String>> speciesTypesToPageTitles = Maps.newHashMap();
 
-	private PageApi pageApi;
+	private final PageApi pageApi;
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
-	private StepCompletenessDecider stepCompletenessDecider;
+	private final StepCompletenessDecider stepCompletenessDecider;
 
-	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
+	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
-	private ParagraphExtractor paragraphExtractor;
+	private final ParagraphExtractor paragraphExtractor;
 
-	private SpeciesTypeFixedValueProvider speciesTypeFixedValueProvider;
+	private final SpeciesTypeFixedValueProvider speciesTypeFixedValueProvider;
 
 	@Inject
 	public SpeciesTypeDetector(PageApi pageApi, WikitextApi wikitextApi, StepCompletenessDecider stepCompletenessDecider,

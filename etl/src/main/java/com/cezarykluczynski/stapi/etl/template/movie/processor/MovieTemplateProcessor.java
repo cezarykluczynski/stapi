@@ -21,11 +21,11 @@ import javax.inject.Inject;
 
 public class MovieTemplateProcessor implements ItemProcessor<Template, MovieTemplate> {
 
-	private DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor;
+	private final DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor;
 
-	private ImageTemplateStardateYearEnrichingProcessor imageTemplateStardateYearEnrichingProcessor;
+	private final ImageTemplateStardateYearEnrichingProcessor imageTemplateStardateYearEnrichingProcessor;
 
-	private MovieTemplateStaffEnrichingProcessor movieTemplateStaffEnrichingProcessor;
+	private final MovieTemplateStaffEnrichingProcessor movieTemplateStaffEnrichingProcessor;
 
 	@Inject
 	public MovieTemplateProcessor(DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor,

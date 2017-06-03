@@ -9,10 +9,10 @@ import lombok.Getter;
 @EqualsAndHashCode
 public class DayMonthYearCandidate {
 
-	private String day;
+	private final String day;
 
-	private String month;
+	private final String month;
 
-	private String year;
+	private final String year;
 
 }

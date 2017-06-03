@@ -23,11 +23,11 @@ import java.util.List;
 @Slf4j
 public class EpisodeTemplateProcessor implements ItemProcessor<Template, EpisodeTemplate> {
 
-	private DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor;
+	private final DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor;
 
-	private ImageTemplateStardateYearEnrichingProcessor imageTemplateStardateYearEnrichingProcessor;
+	private final ImageTemplateStardateYearEnrichingProcessor imageTemplateStardateYearEnrichingProcessor;
 
-	private ProductionSerialNumberProcessor productionSerialNumberProcessor;
+	private final ProductionSerialNumberProcessor productionSerialNumberProcessor;
 
 	@Inject
 	public EpisodeTemplateProcessor(DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor,

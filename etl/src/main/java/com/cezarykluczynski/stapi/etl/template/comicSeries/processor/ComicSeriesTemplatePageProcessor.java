@@ -25,15 +25,15 @@ public class ComicSeriesTemplatePageProcessor implements ItemProcessor<Page, Com
 
 	private static final Set<String> TITLE_PARTS_REQUIRING_CLEANING = Sets.newHashSet("(comic)", "(photonovel)");
 
-	private PageBindingService pageBindingService;
+	private final PageBindingService pageBindingService;
 
-	private TemplateFinder templateFinder;
+	private final TemplateFinder templateFinder;
 
-	private ComicSeriesTemplatePartsEnrichingProcessor comicSeriesTemplatePartsEnrichingProcessor;
+	private final ComicSeriesTemplatePartsEnrichingProcessor comicSeriesTemplatePartsEnrichingProcessor;
 
-	private ComicSeriesTemplateFixedValuesEnrichingProcessor comicSeriesTemplateFixedValuesEnrichingProcessor;
+	private final ComicSeriesTemplateFixedValuesEnrichingProcessor comicSeriesTemplateFixedValuesEnrichingProcessor;
 
-	private ComicSeriesTemplatePhotonovelSeriesProcessor comicSeriesTemplatePhotonovelSeriesProcessor;
+	private final ComicSeriesTemplatePhotonovelSeriesProcessor comicSeriesTemplatePhotonovelSeriesProcessor;
 
 	@Inject
 	public ComicSeriesTemplatePageProcessor(PageBindingService pageBindingService, TemplateFinder templateFinder,

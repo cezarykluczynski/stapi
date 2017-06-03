@@ -17,9 +17,9 @@ public class SpeciesTemplateTypeEnrichingProcessor implements ItemEnrichingProce
 
 	private static final MediaWikiSource SOURCE = MediaWikiSource.MEMORY_ALPHA_EN;
 
-	private SpeciesTypeDetector speciesTypeDetector;
+	private final SpeciesTypeDetector speciesTypeDetector;
 
-	private EntityLookupByNameService entityLookupByNameService;
+	private final EntityLookupByNameService entityLookupByNameService;
 
 	@Inject
 	public SpeciesTemplateTypeEnrichingProcessor(SpeciesTypeDetector speciesTypeDetector, EntityLookupByNameService entityLookupByNameService) {

@@ -26,17 +26,17 @@ import java.util.Optional;
 @Slf4j
 public class ToEpisodeTemplateProcessor implements ItemProcessor<Page, EpisodeTemplate> {
 
-	private EpisodeTemplateProcessor episodeTemplateProcessor;
+	private final EpisodeTemplateProcessor episodeTemplateProcessor;
 
-	private EpisodeLinkingWorkerComposite episodeLinkingWorkerComposite;
+	private final EpisodeLinkingWorkerComposite episodeLinkingWorkerComposite;
 
-	private PageBindingService pageBindingService;
+	private final PageBindingService pageBindingService;
 
-	private SeriesToEpisodeBindingService seriesToEpisodeBindingService;
+	private final SeriesToEpisodeBindingService seriesToEpisodeBindingService;
 
-	private EpisodeTemplateEnrichingProcessorComposite episodeTemplateEnrichingProcessorComposite;
+	private final EpisodeTemplateEnrichingProcessorComposite episodeTemplateEnrichingProcessorComposite;
 
-	private TemplateFinder templateFinder;
+	private final TemplateFinder templateFinder;
 
 	@Inject
 	public ToEpisodeTemplateProcessor(EpisodeTemplateProcessor episodeTemplateProcessor, EpisodeLinkingWorkerComposite episodeLinkingWorkerComposite,

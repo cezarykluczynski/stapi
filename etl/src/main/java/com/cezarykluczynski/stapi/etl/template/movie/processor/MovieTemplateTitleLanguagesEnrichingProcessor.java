@@ -17,9 +17,9 @@ import java.util.List;
 @Service
 public class MovieTemplateTitleLanguagesEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Page, MovieTemplate>> {
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
-	private PageSectionExtractor pageSectionExtractor;
+	private final PageSectionExtractor pageSectionExtractor;
 
 	@Inject
 	public MovieTemplateTitleLanguagesEnrichingProcessor(WikitextApi wikitextApi,

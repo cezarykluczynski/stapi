@@ -15,11 +15,11 @@ import java.util.stream.Collectors;
 @Service
 public class PerformerWriter implements ItemWriter<Performer> {
 
-	private PerformerRepository performerRepository;
+	private final PerformerRepository performerRepository;
 
-	private DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
+	private final DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
 
-	private DuplicateReattachingPreSavePageAwareFilter duplicateReattachingPreSavePageAwareFilter;
+	private final DuplicateReattachingPreSavePageAwareFilter duplicateReattachingPreSavePageAwareFilter;
 
 	@Inject
 	public PerformerWriter(PerformerRepository performerRepository,

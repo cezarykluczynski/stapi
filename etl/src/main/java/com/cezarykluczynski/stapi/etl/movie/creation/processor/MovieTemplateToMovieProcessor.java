@@ -11,7 +11,7 @@ import javax.inject.Inject;
 @Service
 public class MovieTemplateToMovieProcessor implements ItemProcessor<MovieTemplate, Movie> {
 
-	private UidGenerator uidGenerator;
+	private final UidGenerator uidGenerator;
 
 	@Inject
 	public MovieTemplateToMovieProcessor(UidGenerator uidGenerator) {

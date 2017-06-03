@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
 @Service
 public class WikitextToComicSeriesProcessor implements ItemProcessor<String, Set<ComicSeries>> {
 
-	private WikitextApi wikitextApi;
+	private final WikitextApi wikitextApi;
 
-	private ComicSeriesRepository comicSeriesRepository;
+	private final ComicSeriesRepository comicSeriesRepository;
 
 	@Inject
 	public WikitextToComicSeriesProcessor(WikitextApi wikitextApi, ComicSeriesRepository comicSeriesRepository) {

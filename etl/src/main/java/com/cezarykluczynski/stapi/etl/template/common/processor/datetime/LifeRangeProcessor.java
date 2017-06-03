@@ -20,11 +20,11 @@ import java.util.Optional;
 @Slf4j
 public class LifeRangeProcessor implements ItemProcessor<Page, DateRange> {
 
-	private PageToLifeRangeProcessor pageToLifeRangeProcessor;
+	private final PageToLifeRangeProcessor pageToLifeRangeProcessor;
 
-	private ActorTemplateToLifeRangeProcessor actorTemplateToLifeRangeProcessor;
+	private final ActorTemplateToLifeRangeProcessor actorTemplateToLifeRangeProcessor;
 
-	private TemplateFinder templateFinder;
+	private final TemplateFinder templateFinder;
 
 	@Inject
 	public LifeRangeProcessor(PageToLifeRangeProcessor pageToLifeRangeProcessor,
