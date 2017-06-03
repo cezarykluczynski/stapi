@@ -16,7 +16,7 @@ public class AstronomicalObjectSoapEndpoint implements AstronomicalObjectPortTyp
 
 	public static final String ADDRESS = "/v1/soap/astronomicalObject";
 
-	private AstronomicalObjectSoapReader seriesSoapReader;
+	private final AstronomicalObjectSoapReader seriesSoapReader;
 
 	@Inject
 	public AstronomicalObjectSoapEndpoint(AstronomicalObjectSoapReader seriesSoapReader) {

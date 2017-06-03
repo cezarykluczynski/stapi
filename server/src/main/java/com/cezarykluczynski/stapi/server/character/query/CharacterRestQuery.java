@@ -15,11 +15,11 @@ import javax.inject.Inject;
 @Service
 public class CharacterRestQuery {
 
-	private CharacterBaseRestMapper characterRequestMapper;
+	private final CharacterBaseRestMapper characterRequestMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
-	private CharacterRepository characterRepository;
+	private final CharacterRepository characterRepository;
 
 	@Inject
 	public CharacterRestQuery(CharacterBaseRestMapper characterBaseRestMapper, PageMapper pageMapper, CharacterRepository characterRepository) {

@@ -23,7 +23,7 @@ public class PerformerRestEndpoint {
 
 	public static final String ADDRESS = "/v1/rest/performer";
 
-	private PerformerRestReader performerRestReader;
+	private final PerformerRestReader performerRestReader;
 
 	@Inject
 	public PerformerRestEndpoint(PerformerRestReader performerRestReader) {

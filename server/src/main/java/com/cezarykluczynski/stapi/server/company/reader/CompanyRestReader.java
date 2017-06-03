@@ -20,13 +20,13 @@ import javax.inject.Inject;
 @Service
 public class CompanyRestReader implements BaseReader<CompanyRestBeanParams, CompanyBaseResponse>, FullReader<String, CompanyFullResponse> {
 
-	private CompanyRestQuery companyRestQuery;
+	private final CompanyRestQuery companyRestQuery;
 
-	private CompanyBaseRestMapper companyBaseRestMapper;
+	private final CompanyBaseRestMapper companyBaseRestMapper;
 
-	private CompanyFullRestMapper companyFullRestMapper;
+	private final CompanyFullRestMapper companyFullRestMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
 	@Inject
 	public CompanyRestReader(CompanyRestQuery companyRestQuery, CompanyBaseRestMapper companyBaseRestMapper,

@@ -15,11 +15,11 @@ import javax.inject.Inject;
 @Service
 public class LocationRestQuery {
 
-	private LocationBaseRestMapper locationBaseRestMapper;
+	private final LocationBaseRestMapper locationBaseRestMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
-	private LocationRepository locationRepository;
+	private final LocationRepository locationRepository;
 
 	@Inject
 	public LocationRestQuery(LocationBaseRestMapper locationBaseRestMapper, PageMapper pageMapper, LocationRepository locationRepository) {

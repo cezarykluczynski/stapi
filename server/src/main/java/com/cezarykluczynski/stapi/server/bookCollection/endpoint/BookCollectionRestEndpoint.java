@@ -23,7 +23,7 @@ public class BookCollectionRestEndpoint {
 
 	public static final String ADDRESS = "/v1/rest/bookCollection";
 
-	private BookCollectionRestReader bookCollectionRestReader;
+	private final BookCollectionRestReader bookCollectionRestReader;
 
 	@Inject
 	public BookCollectionRestEndpoint(BookCollectionRestReader bookCollectionRestReader) {

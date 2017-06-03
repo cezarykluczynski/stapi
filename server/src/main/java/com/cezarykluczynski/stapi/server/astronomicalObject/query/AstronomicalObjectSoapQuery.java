@@ -17,13 +17,13 @@ import javax.inject.Inject;
 @Service
 public class AstronomicalObjectSoapQuery {
 
-	private AstronomicalObjectBaseSoapMapper astronomicalObjectBaseSoapMapper;
+	private final AstronomicalObjectBaseSoapMapper astronomicalObjectBaseSoapMapper;
 
-	private AstronomicalObjectFullSoapMapper astronomicalObjectFullSoapMapper;
+	private final AstronomicalObjectFullSoapMapper astronomicalObjectFullSoapMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
-	private AstronomicalObjectRepository astronomicalObjectRepository;
+	private final AstronomicalObjectRepository astronomicalObjectRepository;
 
 	@Inject
 	public AstronomicalObjectSoapQuery(AstronomicalObjectBaseSoapMapper astronomicalObjectBaseSoapMapper,

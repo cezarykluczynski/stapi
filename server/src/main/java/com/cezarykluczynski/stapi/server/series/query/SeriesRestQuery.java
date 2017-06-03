@@ -15,11 +15,11 @@ import javax.inject.Inject;
 @Service
 public class SeriesRestQuery {
 
-	private SeriesBaseRestMapper seriesBaseRestMapper;
+	private final SeriesBaseRestMapper seriesBaseRestMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
-	private SeriesRepository seriesRepository;
+	private final SeriesRepository seriesRepository;
 
 	@Inject
 	public SeriesRestQuery(SeriesBaseRestMapper seriesBaseRestMapper, PageMapper pageMapper, SeriesRepository seriesRepository) {

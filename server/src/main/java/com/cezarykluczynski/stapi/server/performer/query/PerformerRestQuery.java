@@ -15,11 +15,11 @@ import javax.inject.Inject;
 @Service
 public class PerformerRestQuery {
 
-	private PerformerBaseRestMapper performerBaseRestMapper;
+	private final PerformerBaseRestMapper performerBaseRestMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
-	private PerformerRepository performerRepository;
+	private final PerformerRepository performerRepository;
 
 	@Inject
 	public PerformerRestQuery(PerformerBaseRestMapper performerBaseRestMapper, PageMapper pageMapper, PerformerRepository performerRepository) {

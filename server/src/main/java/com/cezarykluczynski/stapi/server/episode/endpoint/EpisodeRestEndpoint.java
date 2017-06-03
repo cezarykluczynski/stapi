@@ -24,7 +24,7 @@ public class EpisodeRestEndpoint {
 
 	public static final String ADDRESS = "/v1/rest/episode";
 
-	private EpisodeRestReader episodeRestReader;
+	private final EpisodeRestReader episodeRestReader;
 
 	@Inject
 	public EpisodeRestEndpoint(EpisodeRestReader episodeRestReader) {

@@ -20,13 +20,13 @@ import org.springframework.stereotype.Service;
 public class SpeciesSoapReader implements BaseReader<SpeciesBaseRequest, SpeciesBaseResponse>,
 		FullReader<SpeciesFullRequest, SpeciesFullResponse> {
 
-	private SpeciesSoapQuery speciesSoapQuery;
+	private final SpeciesSoapQuery speciesSoapQuery;
 
-	private SpeciesBaseSoapMapper speciesBaseSoapMapper;
+	private final SpeciesBaseSoapMapper speciesBaseSoapMapper;
 
-	private SpeciesFullSoapMapper speciesFullSoapMapper;
+	private final SpeciesFullSoapMapper speciesFullSoapMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
 	public SpeciesSoapReader(SpeciesSoapQuery speciesSoapQuery, SpeciesBaseSoapMapper speciesBaseSoapMapper,
 			SpeciesFullSoapMapper speciesFullSoapMapper, PageMapper pageMapper) {

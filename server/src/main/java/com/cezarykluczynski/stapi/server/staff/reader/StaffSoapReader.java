@@ -19,13 +19,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class StaffSoapReader implements BaseReader<StaffBaseRequest, StaffBaseResponse>, FullReader<StaffFullRequest, StaffFullResponse> {
 
-	private StaffSoapQuery staffSoapQuery;
+	private final StaffSoapQuery staffSoapQuery;
 
-	private StaffBaseSoapMapper staffBaseSoapMapper;
+	private final StaffBaseSoapMapper staffBaseSoapMapper;
 
-	private StaffFullSoapMapper staffFullSoapMapper;
+	private final StaffFullSoapMapper staffFullSoapMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
 	public StaffSoapReader(StaffSoapQuery staffSoapQuery, StaffBaseSoapMapper staffBaseSoapMapper, StaffFullSoapMapper staffFullSoapMapper,
 			PageMapper pageMapper) {

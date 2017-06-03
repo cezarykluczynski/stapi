@@ -20,13 +20,13 @@ import javax.inject.Inject;
 @Service
 public class PerformerRestReader implements BaseReader<PerformerRestBeanParams, PerformerBaseResponse>, FullReader<String, PerformerFullResponse> {
 
-	private PerformerRestQuery performerRestQuery;
+	private final PerformerRestQuery performerRestQuery;
 
-	private PerformerBaseRestMapper performerBaseRestMapper;
+	private final PerformerBaseRestMapper performerBaseRestMapper;
 
-	private PerformerFullRestMapper performerFullRestMapper;
+	private final PerformerFullRestMapper performerFullRestMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
 	@Inject
 	public PerformerRestReader(PerformerRestQuery performerRestQuery, PerformerBaseRestMapper performerBaseRestMapper,

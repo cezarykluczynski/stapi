@@ -17,13 +17,13 @@ import javax.inject.Inject;
 @Service
 public class LocationSoapQuery {
 
-	private LocationBaseSoapMapper locationBaseSoapMapper;
+	private final LocationBaseSoapMapper locationBaseSoapMapper;
 
-	private LocationFullSoapMapper locationFullSoapMapper;
+	private final LocationFullSoapMapper locationFullSoapMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
-	private LocationRepository locationRepository;
+	private final LocationRepository locationRepository;
 
 	@Inject
 	public LocationSoapQuery(LocationBaseSoapMapper locationBaseSoapMapper, LocationFullSoapMapper locationFullSoapMapper, PageMapper pageMapper,

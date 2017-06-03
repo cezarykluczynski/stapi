@@ -16,7 +16,7 @@ public class ComicsSoapEndpoint implements ComicsPortType {
 
 	public static final String ADDRESS = "/v1/soap/comics";
 
-	private ComicsSoapReader comicsSoapReader;
+	private final ComicsSoapReader comicsSoapReader;
 
 	@Inject
 	public ComicsSoapEndpoint(ComicsSoapReader comicsSoapReader) {

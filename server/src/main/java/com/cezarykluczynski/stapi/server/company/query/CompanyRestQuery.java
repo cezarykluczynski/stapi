@@ -15,11 +15,11 @@ import javax.inject.Inject;
 @Service
 public class CompanyRestQuery {
 
-	private CompanyBaseRestMapper companyBaseRestMapper;
+	private final CompanyBaseRestMapper companyBaseRestMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
-	private CompanyRepository companyRepository;
+	private final CompanyRepository companyRepository;
 
 	@Inject
 	public CompanyRestQuery(CompanyBaseRestMapper companyBaseRestMapper, PageMapper pageMapper, CompanyRepository companyRepository) {

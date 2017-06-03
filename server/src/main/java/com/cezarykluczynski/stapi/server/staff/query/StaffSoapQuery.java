@@ -17,13 +17,13 @@ import javax.inject.Inject;
 @Service
 public class StaffSoapQuery {
 
-	private StaffBaseSoapMapper staffBaseSoapMapper;
+	private final StaffBaseSoapMapper staffBaseSoapMapper;
 
-	private StaffFullSoapMapper staffFullSoapMapper;
+	private final StaffFullSoapMapper staffFullSoapMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
-	private StaffRepository staffRepository;
+	private final StaffRepository staffRepository;
 
 	@Inject
 	public StaffSoapQuery(StaffBaseSoapMapper staffBaseSoapMapper, StaffFullSoapMapper staffFullSoapMapper, PageMapper pageMapper,

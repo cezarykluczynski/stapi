@@ -20,13 +20,13 @@ import org.springframework.stereotype.Service;
 public class BookCollectionSoapReader implements BaseReader<BookCollectionBaseRequest, BookCollectionBaseResponse>,
 		FullReader<BookCollectionFullRequest, BookCollectionFullResponse> {
 
-	private BookCollectionSoapQuery bookCollectionSoapQuery;
+	private final BookCollectionSoapQuery bookCollectionSoapQuery;
 
-	private BookCollectionBaseSoapMapper bookCollectionBaseSoapMapper;
+	private final BookCollectionBaseSoapMapper bookCollectionBaseSoapMapper;
 
-	private BookCollectionFullSoapMapper bookCollectionFullSoapMapper;
+	private final BookCollectionFullSoapMapper bookCollectionFullSoapMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
 	public BookCollectionSoapReader(BookCollectionSoapQuery bookCollectionSoapQuery, BookCollectionBaseSoapMapper bookCollectionBaseSoapMapper,
 			BookCollectionFullSoapMapper bookCollectionFullSoapMapper, PageMapper pageMapper) {

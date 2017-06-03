@@ -23,7 +23,7 @@ public class ComicCollectionRestEndpoint {
 
 	public static final String ADDRESS = "/v1/rest/comicCollection";
 
-	private ComicCollectionRestReader comicCollectionRestReader;
+	private final ComicCollectionRestReader comicCollectionRestReader;
 
 	@Inject
 	public ComicCollectionRestEndpoint(ComicCollectionRestReader comicCollectionRestReader) {

@@ -23,7 +23,7 @@ public class CharacterRestEndpoint {
 
 	public static final String ADDRESS = "/v1/rest/character";
 
-	private CharacterRestReader characterRestReader;
+	private final CharacterRestReader characterRestReader;
 
 	@Inject
 	public CharacterRestEndpoint(CharacterRestReader characterRestReader) {

@@ -17,13 +17,13 @@ import javax.inject.Inject;
 @Service
 public class FoodSoapQuery {
 
-	private FoodBaseSoapMapper foodBaseSoapMapper;
+	private final FoodBaseSoapMapper foodBaseSoapMapper;
 
-	private FoodFullSoapMapper foodFullSoapMapper;
+	private final FoodFullSoapMapper foodFullSoapMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
-	private FoodRepository foodRepository;
+	private final FoodRepository foodRepository;
 
 	@Inject
 	public FoodSoapQuery(FoodBaseSoapMapper foodBaseSoapMapper, FoodFullSoapMapper foodFullSoapMapper, PageMapper pageMapper,

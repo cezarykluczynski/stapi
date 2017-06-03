@@ -17,16 +17,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FoodSoapReader implements BaseReader<FoodBaseRequest, FoodBaseResponse>,
-		FullReader<FoodFullRequest, FoodFullResponse> {
+public class FoodSoapReader implements BaseReader<FoodBaseRequest, FoodBaseResponse>, FullReader<FoodFullRequest, FoodFullResponse> {
 
-	private FoodSoapQuery foodSoapQuery;
+	private final FoodSoapQuery foodSoapQuery;
 
-	private FoodBaseSoapMapper foodBaseSoapMapper;
+	private final FoodBaseSoapMapper foodBaseSoapMapper;
 
-	private FoodFullSoapMapper foodFullSoapMapper;
+	private final FoodFullSoapMapper foodFullSoapMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
 	public FoodSoapReader(FoodSoapQuery foodSoapQuery, FoodBaseSoapMapper foodBaseSoapMapper, FoodFullSoapMapper foodFullSoapMapper,
 			PageMapper pageMapper) {

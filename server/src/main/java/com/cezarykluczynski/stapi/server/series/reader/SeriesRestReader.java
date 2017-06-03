@@ -20,13 +20,13 @@ import javax.inject.Inject;
 @Service
 public class SeriesRestReader implements BaseReader<SeriesRestBeanParams, SeriesBaseResponse>, FullReader<String, SeriesFullResponse> {
 
-	private SeriesRestQuery seriesRestQuery;
+	private final SeriesRestQuery seriesRestQuery;
 
-	private SeriesBaseRestMapper seriesBaseRestMapper;
+	private final SeriesBaseRestMapper seriesBaseRestMapper;
 
-	private SeriesFullRestMapper seriesFullRestMapper;
+	private final SeriesFullRestMapper seriesFullRestMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
 	@Inject
 	public SeriesRestReader(SeriesRestQuery seriesRestQuery, SeriesBaseRestMapper seriesBaseRestMapper, SeriesFullRestMapper seriesFullRestMapper,

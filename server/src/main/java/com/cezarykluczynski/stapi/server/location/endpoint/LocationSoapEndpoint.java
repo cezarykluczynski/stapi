@@ -16,7 +16,7 @@ public class LocationSoapEndpoint implements LocationPortType {
 
 	public static final String ADDRESS = "/v1/soap/location";
 
-	private LocationSoapReader seriesSoapReader;
+	private final LocationSoapReader seriesSoapReader;
 
 	@Inject
 	public LocationSoapEndpoint(LocationSoapReader seriesSoapReader) {

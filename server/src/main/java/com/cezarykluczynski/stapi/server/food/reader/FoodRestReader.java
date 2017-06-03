@@ -18,8 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 
 @Service
-public class FoodRestReader implements BaseReader<FoodRestBeanParams, FoodBaseResponse>,
-		FullReader<String, FoodFullResponse> {
+public class FoodRestReader implements BaseReader<FoodRestBeanParams, FoodBaseResponse>, FullReader<String, FoodFullResponse> {
 
 	private FoodRestQuery foodRestQuery;
 

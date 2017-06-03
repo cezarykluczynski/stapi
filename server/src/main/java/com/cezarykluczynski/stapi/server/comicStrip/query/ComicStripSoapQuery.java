@@ -17,13 +17,13 @@ import javax.inject.Inject;
 @Service
 public class ComicStripSoapQuery {
 
-	private ComicStripBaseSoapMapper comicStripBaseSoapMapper;
+	private final ComicStripBaseSoapMapper comicStripBaseSoapMapper;
 
-	private ComicStripFullSoapMapper comicStripFullSoapMapper;
+	private final ComicStripFullSoapMapper comicStripFullSoapMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
-	private ComicStripRepository comicStripRepository;
+	private final ComicStripRepository comicStripRepository;
 
 	@Inject
 	public ComicStripSoapQuery(ComicStripBaseSoapMapper comicStripBaseSoapMapper, ComicStripFullSoapMapper comicStripFullSoapMapper,

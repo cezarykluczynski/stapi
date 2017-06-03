@@ -15,11 +15,11 @@ import javax.inject.Inject;
 @Service
 public class ComicStripRestQuery {
 
-	private ComicStripBaseRestMapper comicStripBaseRestMapper;
+	private final ComicStripBaseRestMapper comicStripBaseRestMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
-	private ComicStripRepository comicStripRepository;
+	private final ComicStripRepository comicStripRepository;
 
 	@Inject
 	public ComicStripRestQuery(ComicStripBaseRestMapper comicStripBaseRestMapper, PageMapper pageMapper, ComicStripRepository comicStripRepository) {

@@ -12,7 +12,9 @@ import java.io.File;
 public class WarDocumentationDirectoryProvider implements DocumentationDirectoryProvider {
 
 	private static final String SWAGGER_CLASSPATH_DIRECTORY = "/contract/src/main/resources/v1/swagger";
+
 	private static final String WSDL_CLASSPATH_DIRECTORY = "/contract/src/main/resources/v1/wsdl";
+
 	private static final String TMP_DIRECTORY = "/tmp/" + System.currentTimeMillis() + "/";
 
 	@Override

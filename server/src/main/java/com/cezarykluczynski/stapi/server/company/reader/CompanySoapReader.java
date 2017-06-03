@@ -19,13 +19,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class CompanySoapReader implements BaseReader<CompanyBaseRequest, CompanyBaseResponse>, FullReader<CompanyFullRequest, CompanyFullResponse> {
 
-	private CompanySoapQuery companySoapQuery;
+	private final CompanySoapQuery companySoapQuery;
 
-	private CompanyBaseSoapMapper companyBaseSoapMapper;
+	private final CompanyBaseSoapMapper companyBaseSoapMapper;
 
-	private CompanyFullSoapMapper companyFullSoapMapper;
+	private final CompanyFullSoapMapper companyFullSoapMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
 	public CompanySoapReader(CompanySoapQuery companySoapQuery, CompanyBaseSoapMapper companyBaseSoapMapper,
 			CompanyFullSoapMapper companyFullSoapMapper, PageMapper pageMapper) {

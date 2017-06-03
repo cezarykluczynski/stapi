@@ -16,7 +16,7 @@ public class OrganizationSoapEndpoint implements OrganizationPortType {
 
 	public static final String ADDRESS = "/v1/soap/organization";
 
-	private OrganizationSoapReader seriesSoapReader;
+	private final OrganizationSoapReader seriesSoapReader;
 
 	@Inject
 	public OrganizationSoapEndpoint(OrganizationSoapReader seriesSoapReader) {

@@ -20,13 +20,13 @@ import org.springframework.stereotype.Service;
 public class ComicStripSoapReader implements BaseReader<ComicStripBaseRequest, ComicStripBaseResponse>,
 		FullReader<ComicStripFullRequest, ComicStripFullResponse> {
 
-	private ComicStripSoapQuery comicStripSoapQuery;
+	private final ComicStripSoapQuery comicStripSoapQuery;
 
-	private ComicStripBaseSoapMapper comicStripBaseSoapMapper;
+	private final ComicStripBaseSoapMapper comicStripBaseSoapMapper;
 
-	private ComicStripFullSoapMapper comicStripFullSoapMapper;
+	private final ComicStripFullSoapMapper comicStripFullSoapMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
 	public ComicStripSoapReader(ComicStripSoapQuery comicStripSoapQuery, ComicStripBaseSoapMapper comicStripBaseSoapMapper,
 			ComicStripFullSoapMapper comicStripFullSoapMapper, PageMapper pageMapper) {

@@ -16,7 +16,7 @@ public class EpisodeSoapEndpoint implements EpisodePortType {
 
 	public static final String ADDRESS = "/v1/soap/episode";
 
-	private EpisodeSoapReader episodeSoapReader;
+	private final EpisodeSoapReader episodeSoapReader;
 
 	@Inject
 	public EpisodeSoapEndpoint(EpisodeSoapReader episodeSoapReader) {

@@ -20,13 +20,13 @@ import org.springframework.stereotype.Service;
 public class PerformerSoapReader implements BaseReader<PerformerBaseRequest, PerformerBaseResponse>,
 		FullReader<PerformerFullRequest, PerformerFullResponse> {
 
-	private PerformerSoapQuery performerSoapQuery;
+	private final PerformerSoapQuery performerSoapQuery;
 
-	private PerformerBaseSoapMapper performerBaseSoapMapper;
+	private final PerformerBaseSoapMapper performerBaseSoapMapper;
 
-	private PerformerFullSoapMapper performerFullSoapMapper;
+	private final PerformerFullSoapMapper performerFullSoapMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
 	public PerformerSoapReader(PerformerSoapQuery performerSoapQuery, PerformerBaseSoapMapper performerBaseSoapMapper,
 			PerformerFullSoapMapper performerFullSoapMapper, PageMapper pageMapper) {

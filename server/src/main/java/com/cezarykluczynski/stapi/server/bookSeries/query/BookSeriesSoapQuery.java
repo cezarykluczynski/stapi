@@ -17,13 +17,13 @@ import javax.inject.Inject;
 @Service
 public class BookSeriesSoapQuery {
 
-	private BookSeriesBaseSoapMapper bookSeriesBaseSoapMapper;
+	private final BookSeriesBaseSoapMapper bookSeriesBaseSoapMapper;
 
-	private BookSeriesFullSoapMapper bookSeriesFullSoapMapper;
+	private final BookSeriesFullSoapMapper bookSeriesFullSoapMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
-	private BookSeriesRepository bookSeriesRepository;
+	private final BookSeriesRepository bookSeriesRepository;
 
 	@Inject
 	public BookSeriesSoapQuery(BookSeriesBaseSoapMapper bookSeriesBaseSoapMapper, BookSeriesFullSoapMapper bookSeriesFullSoapMapper,

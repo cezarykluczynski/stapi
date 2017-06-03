@@ -20,13 +20,13 @@ import javax.inject.Inject;
 @Service
 public class MovieRestReader implements BaseReader<MovieRestBeanParams, MovieBaseResponse>, FullReader<String, MovieFullResponse> {
 
-	private MovieRestQuery movieRestQuery;
+	private final MovieRestQuery movieRestQuery;
 
-	private MovieBaseRestMapper movieBaseRestMapper;
+	private final MovieBaseRestMapper movieBaseRestMapper;
 
-	private MovieFullRestMapper movieFullRestMapper;
+	private final MovieFullRestMapper movieFullRestMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
 	@Inject
 	public MovieRestReader(MovieRestQuery movieRestQuery, MovieBaseRestMapper movieBaseRestMapper, MovieFullRestMapper movieFullRestMapper,

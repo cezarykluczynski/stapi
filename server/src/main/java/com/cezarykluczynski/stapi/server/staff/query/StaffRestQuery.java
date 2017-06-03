@@ -15,11 +15,11 @@ import javax.inject.Inject;
 @Service
 public class StaffRestQuery {
 
-	private StaffBaseRestMapper staffBaseRestMapper;
+	private final StaffBaseRestMapper staffBaseRestMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
-	private StaffRepository staffRepository;
+	private final StaffRepository staffRepository;
 
 	@Inject
 	public StaffRestQuery(StaffBaseRestMapper staffBaseRestMapper, PageMapper pageMapper, StaffRepository staffRepository) {

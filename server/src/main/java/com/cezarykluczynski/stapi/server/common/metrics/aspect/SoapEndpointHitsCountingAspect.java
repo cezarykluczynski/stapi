@@ -22,7 +22,6 @@ public class SoapEndpointHitsCountingAspect {
 		this.endpointHitsCountingService = endpointHitsCountingService;
 	}
 
-
 	@Before("execution(* com.cezarykluczynski.stapi.server..endpoint.*SoapEndpoint.*(..))")
 	public void soapEndpointAdvice(JoinPoint joinPoint) {
 		Signature signature = joinPoint.getSignature();

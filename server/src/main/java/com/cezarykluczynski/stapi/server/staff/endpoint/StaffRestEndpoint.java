@@ -23,7 +23,7 @@ public class StaffRestEndpoint {
 
 	public static final String ADDRESS = "/v1/rest/staff";
 
-	private StaffRestReader staffRestReader;
+	private final StaffRestReader staffRestReader;
 
 	@Inject
 	public StaffRestEndpoint(StaffRestReader staffRestReader) {

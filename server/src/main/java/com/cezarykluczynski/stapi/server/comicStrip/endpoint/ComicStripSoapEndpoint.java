@@ -16,7 +16,7 @@ public class ComicStripSoapEndpoint implements ComicStripPortType {
 
 	public static final String ADDRESS = "/v1/soap/comicStrip";
 
-	private ComicStripSoapReader comicStripSoapReader;
+	private final ComicStripSoapReader comicStripSoapReader;
 
 	@Inject
 	public ComicStripSoapEndpoint(ComicStripSoapReader comicStripSoapReader) {

@@ -17,13 +17,13 @@ import javax.inject.Inject;
 @Service
 public class ComicsSoapQuery {
 
-	private ComicsBaseSoapMapper comicsBaseSoapMapper;
+	private final ComicsBaseSoapMapper comicsBaseSoapMapper;
 
-	private ComicsFullSoapMapper comicsFullSoapMapper;
+	private final ComicsFullSoapMapper comicsFullSoapMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
-	private ComicsRepository comicsRepository;
+	private final ComicsRepository comicsRepository;
 
 	@Inject
 	public ComicsSoapQuery(ComicsBaseSoapMapper comicsBaseSoapMapper, ComicsFullSoapMapper comicsFullSoapMapper, PageMapper pageMapper,

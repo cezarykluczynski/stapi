@@ -20,13 +20,13 @@ import javax.inject.Inject;
 @Service
 public class CharacterRestReader implements BaseReader<CharacterRestBeanParams, CharacterBaseResponse>, FullReader<String, CharacterFullResponse> {
 
-	private CharacterRestQuery characterRestQuery;
+	private final CharacterRestQuery characterRestQuery;
 
-	private CharacterBaseRestMapper characterBaseRestMapper;
+	private final CharacterBaseRestMapper characterBaseRestMapper;
 
-	private CharacterFullRestMapper characterFullRestMapper;
+	private final CharacterFullRestMapper characterFullRestMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
 	@Inject
 	public CharacterRestReader(CharacterRestQuery characterRestQuery, CharacterBaseRestMapper characterBaseRestMapper,

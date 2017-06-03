@@ -15,11 +15,11 @@ import javax.inject.Inject;
 @Service
 public class SpeciesRestQuery {
 
-	private SpeciesBaseRestMapper speciesRequestMapper;
+	private final SpeciesBaseRestMapper speciesRequestMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
-	private SpeciesRepository speciesRepository;
+	private final SpeciesRepository speciesRepository;
 
 	@Inject
 	public SpeciesRestQuery(SpeciesBaseRestMapper speciesBaseRestMapper, PageMapper pageMapper, SpeciesRepository speciesRepository) {

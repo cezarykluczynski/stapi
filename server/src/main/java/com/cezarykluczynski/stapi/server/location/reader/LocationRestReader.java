@@ -18,16 +18,15 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 
 @Service
-public class LocationRestReader implements BaseReader<LocationRestBeanParams, LocationBaseResponse>,
-		FullReader<String, LocationFullResponse> {
+public class LocationRestReader implements BaseReader<LocationRestBeanParams, LocationBaseResponse>, FullReader<String, LocationFullResponse> {
 
-	private LocationRestQuery locationRestQuery;
+	private final LocationRestQuery locationRestQuery;
 
-	private LocationBaseRestMapper locationBaseRestMapper;
+	private final LocationBaseRestMapper locationBaseRestMapper;
 
-	private LocationFullRestMapper locationFullRestMapper;
+	private final LocationFullRestMapper locationFullRestMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
 	@Inject
 	public LocationRestReader(LocationRestQuery locationRestQuery, LocationBaseRestMapper locationBaseRestMapper,

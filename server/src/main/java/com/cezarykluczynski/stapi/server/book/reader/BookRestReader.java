@@ -20,13 +20,13 @@ import javax.inject.Inject;
 @Service
 public class BookRestReader implements BaseReader<BookRestBeanParams, BookBaseResponse>, FullReader<String, BookFullResponse> {
 
-	private BookRestQuery bookRestQuery;
+	private final BookRestQuery bookRestQuery;
 
-	private BookBaseRestMapper bookBaseRestMapper;
+	private final BookBaseRestMapper bookBaseRestMapper;
 
-	private BookFullRestMapper bookFullRestMapper;
+	private final BookFullRestMapper bookFullRestMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
 	@Inject
 	public BookRestReader(BookRestQuery bookRestQuery, BookBaseRestMapper bookBaseRestMapper, BookFullRestMapper bookFullRestMapper,

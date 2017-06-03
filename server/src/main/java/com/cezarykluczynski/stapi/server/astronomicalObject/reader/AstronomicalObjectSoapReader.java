@@ -20,13 +20,13 @@ import org.springframework.stereotype.Service;
 public class AstronomicalObjectSoapReader implements BaseReader<AstronomicalObjectBaseRequest, AstronomicalObjectBaseResponse>,
 		FullReader<AstronomicalObjectFullRequest, AstronomicalObjectFullResponse> {
 
-	private AstronomicalObjectSoapQuery astronomicalObjectSoapQuery;
+	private final AstronomicalObjectSoapQuery astronomicalObjectSoapQuery;
 
-	private AstronomicalObjectBaseSoapMapper astronomicalObjectBaseSoapMapper;
+	private final AstronomicalObjectBaseSoapMapper astronomicalObjectBaseSoapMapper;
 
-	private AstronomicalObjectFullSoapMapper astronomicalObjectFullSoapMapper;
+	private final AstronomicalObjectFullSoapMapper astronomicalObjectFullSoapMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
 	public AstronomicalObjectSoapReader(AstronomicalObjectSoapQuery astronomicalObjectSoapQuery,
 			AstronomicalObjectBaseSoapMapper astronomicalObjectBaseSoapMapper, AstronomicalObjectFullSoapMapper astronomicalObjectFullSoapMapper,

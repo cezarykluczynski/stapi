@@ -16,7 +16,7 @@ public class PerformerSoapEndpoint implements PerformerPortType {
 
 	public static final String ADDRESS = "/v1/soap/performer";
 
-	private PerformerSoapReader performerSoapReader;
+	private final PerformerSoapReader performerSoapReader;
 
 	@Inject
 	public PerformerSoapEndpoint(PerformerSoapReader performerSoapReader) {

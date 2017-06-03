@@ -17,13 +17,13 @@ import javax.inject.Inject;
 @Service
 public class MovieSoapQuery {
 
-	private MovieBaseSoapMapper movieBaseSoapMapper;
+	private final MovieBaseSoapMapper movieBaseSoapMapper;
 
-	private MovieFullSoapMapper movieFullSoapMapper;
+	private final MovieFullSoapMapper movieFullSoapMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
-	private MovieRepository movieRepository;
+	private final MovieRepository movieRepository;
 
 	@Inject
 	public MovieSoapQuery(MovieBaseSoapMapper movieBaseSoapMapper, MovieFullSoapMapper movieFullSoapMapper, PageMapper pageMapper,

@@ -20,13 +20,13 @@ import javax.inject.Inject;
 @Service
 public class SpeciesRestReader implements BaseReader<SpeciesRestBeanParams, SpeciesBaseResponse>, FullReader<String, SpeciesFullResponse> {
 
-	private SpeciesRestQuery speciesRestQuery;
+	private final SpeciesRestQuery speciesRestQuery;
 
-	private SpeciesBaseRestMapper speciesBaseRestMapper;
+	private final SpeciesBaseRestMapper speciesBaseRestMapper;
 
-	private SpeciesFullRestMapper speciesFullRestMapper;
+	private final SpeciesFullRestMapper speciesFullRestMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
 	@Inject
 	public SpeciesRestReader(SpeciesRestQuery speciesRestQuery, SpeciesBaseRestMapper speciesBaseRestMapper,

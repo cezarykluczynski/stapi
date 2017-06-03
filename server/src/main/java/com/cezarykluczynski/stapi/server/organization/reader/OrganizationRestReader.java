@@ -21,13 +21,13 @@ import javax.inject.Inject;
 public class OrganizationRestReader implements BaseReader<OrganizationRestBeanParams, OrganizationBaseResponse>,
 		FullReader<String, OrganizationFullResponse> {
 
-	private OrganizationRestQuery organizationRestQuery;
+	private final OrganizationRestQuery organizationRestQuery;
 
-	private OrganizationBaseRestMapper organizationBaseRestMapper;
+	private final OrganizationBaseRestMapper organizationBaseRestMapper;
 
-	private OrganizationFullRestMapper organizationFullRestMapper;
+	private final OrganizationFullRestMapper organizationFullRestMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
 	@Inject
 	public OrganizationRestReader(OrganizationRestQuery organizationRestQuery, OrganizationBaseRestMapper organizationBaseRestMapper,

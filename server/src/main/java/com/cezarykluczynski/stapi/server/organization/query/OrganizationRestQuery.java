@@ -15,11 +15,11 @@ import javax.inject.Inject;
 @Service
 public class OrganizationRestQuery {
 
-	private OrganizationBaseRestMapper organizationBaseRestMapper;
+	private final OrganizationBaseRestMapper organizationBaseRestMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
-	private OrganizationRepository organizationRepository;
+	private final OrganizationRepository organizationRepository;
 
 	@Inject
 	public OrganizationRestQuery(OrganizationBaseRestMapper organizationBaseRestMapper, PageMapper pageMapper,

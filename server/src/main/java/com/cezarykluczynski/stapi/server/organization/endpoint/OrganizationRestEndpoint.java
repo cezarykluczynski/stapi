@@ -23,7 +23,7 @@ public class OrganizationRestEndpoint {
 
 	public static final String ADDRESS = "/v1/rest/organization";
 
-	private OrganizationRestReader organizationRestReader;
+	private final OrganizationRestReader organizationRestReader;
 
 	@Inject
 	public OrganizationRestEndpoint(OrganizationRestReader organizationRestReader) {

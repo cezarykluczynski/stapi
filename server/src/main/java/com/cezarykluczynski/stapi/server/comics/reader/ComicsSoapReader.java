@@ -19,13 +19,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class ComicsSoapReader implements BaseReader<ComicsBaseRequest, ComicsBaseResponse>, FullReader<ComicsFullRequest, ComicsFullResponse> {
 
-	private ComicsSoapQuery comicsSoapQuery;
+	private final ComicsSoapQuery comicsSoapQuery;
 
-	private ComicsBaseSoapMapper comicsBaseSoapMapper;
+	private final ComicsBaseSoapMapper comicsBaseSoapMapper;
 
-	private ComicsFullSoapMapper comicsFullSoapMapper;
+	private final ComicsFullSoapMapper comicsFullSoapMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
 	public ComicsSoapReader(ComicsSoapQuery comicsSoapQuery, ComicsBaseSoapMapper comicsBaseSoapMapper, ComicsFullSoapMapper comicsFullSoapMapper,
 			PageMapper pageMapper) {

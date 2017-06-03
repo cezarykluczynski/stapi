@@ -21,13 +21,13 @@ import javax.inject.Inject;
 public class ComicStripRestReader implements BaseReader<ComicStripRestBeanParams, ComicStripBaseResponse>,
 		FullReader<String, ComicStripFullResponse> {
 
-	private ComicStripRestQuery comicStripRestQuery;
+	private final ComicStripRestQuery comicStripRestQuery;
 
-	private ComicStripBaseRestMapper comicStripBaseRestMapper;
+	private final ComicStripBaseRestMapper comicStripBaseRestMapper;
 
-	private ComicStripFullRestMapper comicStripFullRestMapper;
+	private final ComicStripFullRestMapper comicStripFullRestMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
 	@Inject
 	public ComicStripRestReader(ComicStripRestQuery comicStripRestQuery, ComicStripBaseRestMapper comicStripBaseRestMapper,

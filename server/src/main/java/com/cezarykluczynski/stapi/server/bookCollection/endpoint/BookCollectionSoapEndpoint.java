@@ -16,7 +16,7 @@ public class BookCollectionSoapEndpoint implements BookCollectionPortType {
 
 	public static final String ADDRESS = "/v1/soap/bookCollection";
 
-	private BookCollectionSoapReader bookCollectionSoapReader;
+	private final BookCollectionSoapReader bookCollectionSoapReader;
 
 	@Inject
 	public BookCollectionSoapEndpoint(BookCollectionSoapReader bookCollectionSoapReader) {

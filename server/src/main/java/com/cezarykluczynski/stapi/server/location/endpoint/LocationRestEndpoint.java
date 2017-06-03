@@ -23,7 +23,7 @@ public class LocationRestEndpoint {
 
 	public static final String ADDRESS = "/v1/rest/location";
 
-	private LocationRestReader locationRestReader;
+	private final LocationRestReader locationRestReader;
 
 	@Inject
 	public LocationRestEndpoint(LocationRestReader locationRestReader) {

@@ -15,11 +15,11 @@ import javax.inject.Inject;
 @Service
 public class AstronomicalObjectRestQuery {
 
-	private AstronomicalObjectBaseRestMapper astronomicalObjectBaseRestMapper;
+	private final AstronomicalObjectBaseRestMapper astronomicalObjectBaseRestMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
-	private AstronomicalObjectRepository astronomicalObjectRepository;
+	private final AstronomicalObjectRepository astronomicalObjectRepository;
 
 	@Inject
 	public AstronomicalObjectRestQuery(AstronomicalObjectBaseRestMapper astronomicalObjectBaseRestMapper, PageMapper pageMapper,

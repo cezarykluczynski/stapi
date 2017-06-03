@@ -19,13 +19,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class SeriesSoapReader implements BaseReader<SeriesBaseRequest, SeriesBaseResponse>, FullReader<SeriesFullRequest, SeriesFullResponse> {
 
-	private SeriesSoapQuery seriesSoapQuery;
+	private final SeriesSoapQuery seriesSoapQuery;
 
-	private SeriesBaseSoapMapper seriesBaseSoapMapper;
+	private final SeriesBaseSoapMapper seriesBaseSoapMapper;
 
-	private SeriesFullSoapMapper seriesFullSoapMapper;
+	private final SeriesFullSoapMapper seriesFullSoapMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
 	public SeriesSoapReader(SeriesSoapQuery seriesSoapQuery, SeriesBaseSoapMapper seriesBaseSoapMapper, SeriesFullSoapMapper seriesFullSoapMapper,
 			PageMapper pageMapper) {

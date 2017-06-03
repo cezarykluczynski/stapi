@@ -19,13 +19,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class MovieSoapReader implements BaseReader<MovieBaseRequest, MovieBaseResponse>, FullReader<MovieFullRequest, MovieFullResponse> {
 
-	private MovieSoapQuery movieSoapQuery;
+	private final MovieSoapQuery movieSoapQuery;
 
-	private MovieBaseSoapMapper movieBaseSoapMapper;
+	private final MovieBaseSoapMapper movieBaseSoapMapper;
 
-	private MovieFullSoapMapper movieFullSoapMapper;
+	private final MovieFullSoapMapper movieFullSoapMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
 	public MovieSoapReader(MovieSoapQuery movieSoapQuery, MovieBaseSoapMapper movieBaseSoapMapper, MovieFullSoapMapper movieFullSoapMapper,
 			PageMapper pageMapper) {

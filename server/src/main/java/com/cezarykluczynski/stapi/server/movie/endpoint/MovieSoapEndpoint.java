@@ -16,7 +16,7 @@ public class MovieSoapEndpoint implements MoviePortType {
 
 	public static final String ADDRESS = "/v1/soap/movie";
 
-	private MovieSoapReader movieSoapReader;
+	private final MovieSoapReader movieSoapReader;
 
 	@Inject
 	public MovieSoapEndpoint(MovieSoapReader movieSoapReader) {

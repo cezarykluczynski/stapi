@@ -16,7 +16,7 @@ public class FoodSoapEndpoint implements FoodPortType {
 
 	public static final String ADDRESS = "/v1/soap/food";
 
-	private FoodSoapReader seriesSoapReader;
+	private final FoodSoapReader seriesSoapReader;
 
 	@Inject
 	public FoodSoapEndpoint(FoodSoapReader seriesSoapReader) {

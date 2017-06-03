@@ -9,13 +9,13 @@ import javax.servlet.http.HttpServletRequest;
 @Service
 public class RequestCredentialProvider {
 
-	private HttpServletRequest httpServletRequest;
+	private final HttpServletRequest httpServletRequest;
 
-	private MessageContentExtractor messageContentExtractor;
+	private final MessageContentExtractor messageContentExtractor;
 
-	private SoapApiKeyExtractor soapApiKeyExtractor;
+	private final SoapApiKeyExtractor soapApiKeyExtractor;
 
-	private RestApiKeyExtractor restApiKeyExtractor;
+	private final RestApiKeyExtractor restApiKeyExtractor;
 
 	@Inject
 	public RequestCredentialProvider(HttpServletRequest httpServletRequest, MessageContentExtractor messageContentExtractor,

@@ -15,7 +15,7 @@ public class CharacterSoapEndpoint implements CharacterPortType {
 
 	public static final String ADDRESS = "/v1/soap/character";
 
-	private CharacterSoapReader characterSoapReader;
+	private final CharacterSoapReader characterSoapReader;
 
 	public CharacterSoapEndpoint(CharacterSoapReader characterSoapReader) {
 		this.characterSoapReader = characterSoapReader;

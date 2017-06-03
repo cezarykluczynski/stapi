@@ -17,13 +17,13 @@ import javax.inject.Inject;
 @Service
 public class PerformerSoapQuery {
 
-	private PerformerBaseSoapMapper performerBaseSoapMapper;
+	private final PerformerBaseSoapMapper performerBaseSoapMapper;
 
-	private PerformerFullSoapMapper performerFullSoapMapper;
+	private final PerformerFullSoapMapper performerFullSoapMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
-	private PerformerRepository performerRepository;
+	private final PerformerRepository performerRepository;
 
 	@Inject
 	public PerformerSoapQuery(PerformerBaseSoapMapper performerBaseSoapMapper, PerformerFullSoapMapper performerFullSoapMapper, PageMapper pageMapper,

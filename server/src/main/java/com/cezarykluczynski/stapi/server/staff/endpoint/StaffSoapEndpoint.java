@@ -16,7 +16,7 @@ public class StaffSoapEndpoint implements StaffPortType {
 
 	public static final String ADDRESS = "/v1/soap/staff";
 
-	private StaffSoapReader seriesSoapReader;
+	private final StaffSoapReader seriesSoapReader;
 
 	@Inject
 	public StaffSoapEndpoint(StaffSoapReader seriesSoapReader) {

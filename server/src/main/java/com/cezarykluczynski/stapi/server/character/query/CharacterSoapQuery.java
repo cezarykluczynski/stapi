@@ -17,13 +17,13 @@ import javax.inject.Inject;
 @Service
 public class CharacterSoapQuery {
 
-	private CharacterBaseSoapMapper characterBaseSoapMapper;
+	private final CharacterBaseSoapMapper characterBaseSoapMapper;
 
-	private CharacterFullSoapMapper characterFullSoapMapper;
+	private final CharacterFullSoapMapper characterFullSoapMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
-	private CharacterRepository characterRepository;
+	private final CharacterRepository characterRepository;
 
 	@Inject
 	public CharacterSoapQuery(CharacterBaseSoapMapper characterBaseSoapMapper, CharacterFullSoapMapper characterFullSoapMapper, PageMapper pageMapper,

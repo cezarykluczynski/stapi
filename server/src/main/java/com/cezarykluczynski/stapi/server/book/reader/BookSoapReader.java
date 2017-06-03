@@ -19,13 +19,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class BookSoapReader implements BaseReader<BookBaseRequest, BookBaseResponse>, FullReader<BookFullRequest, BookFullResponse> {
 
-	private BookSoapQuery bookSoapQuery;
+	private final BookSoapQuery bookSoapQuery;
 
-	private BookBaseSoapMapper bookBaseSoapMapper;
+	private final BookBaseSoapMapper bookBaseSoapMapper;
 
-	private BookFullSoapMapper bookFullSoapMapper;
+	private final BookFullSoapMapper bookFullSoapMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
 	public BookSoapReader(BookSoapQuery bookSoapQuery, BookBaseSoapMapper bookBaseSoapMapper, BookFullSoapMapper bookFullSoapMapper,
 			PageMapper pageMapper) {

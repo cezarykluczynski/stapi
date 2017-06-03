@@ -20,13 +20,13 @@ import javax.inject.Inject;
 @Service
 public class StaffRestReader implements BaseReader<StaffRestBeanParams, StaffBaseResponse>, FullReader<String, StaffFullResponse> {
 
-	private StaffRestQuery staffRestQuery;
+	private final StaffRestQuery staffRestQuery;
 
-	private StaffBaseRestMapper staffBaseRestMapper;
+	private final StaffBaseRestMapper staffBaseRestMapper;
 
-	private StaffFullRestMapper staffFullRestMapper;
+	private final StaffFullRestMapper staffFullRestMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
 	@Inject
 	public StaffRestReader(StaffRestQuery staffRestQuery, StaffBaseRestMapper staffBaseRestMapper, StaffFullRestMapper staffFullRestMapper,

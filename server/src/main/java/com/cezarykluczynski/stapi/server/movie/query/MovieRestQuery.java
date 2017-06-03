@@ -15,11 +15,11 @@ import javax.inject.Inject;
 @Service
 public class MovieRestQuery {
 
-	private MovieBaseRestMapper movieBaseRestMapper;
+	private final MovieBaseRestMapper movieBaseRestMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
-	private MovieRepository movieRepository;
+	private final MovieRepository movieRepository;
 
 	@Inject
 	public MovieRestQuery(MovieBaseRestMapper movieBaseRestMapper, PageMapper pageMapper, MovieRepository movieRepository) {

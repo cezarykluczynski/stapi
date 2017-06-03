@@ -23,7 +23,7 @@ public class MovieRestEndpoint {
 
 	public static final String ADDRESS = "/v1/rest/movie";
 
-	private MovieRestReader movieRestReader;
+	private final MovieRestReader movieRestReader;
 
 	@Inject
 	public MovieRestEndpoint(MovieRestReader movieRestReader) {

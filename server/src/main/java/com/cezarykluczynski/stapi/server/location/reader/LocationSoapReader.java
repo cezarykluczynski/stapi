@@ -20,13 +20,13 @@ import org.springframework.stereotype.Service;
 public class LocationSoapReader implements BaseReader<LocationBaseRequest, LocationBaseResponse>,
 		FullReader<LocationFullRequest, LocationFullResponse> {
 
-	private LocationSoapQuery locationSoapQuery;
+	private final LocationSoapQuery locationSoapQuery;
 
-	private LocationBaseSoapMapper locationBaseSoapMapper;
+	private final LocationBaseSoapMapper locationBaseSoapMapper;
 
-	private LocationFullSoapMapper locationFullSoapMapper;
+	private final LocationFullSoapMapper locationFullSoapMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
 	public LocationSoapReader(LocationSoapQuery locationSoapQuery, LocationBaseSoapMapper locationBaseSoapMapper,
 			LocationFullSoapMapper locationFullSoapMapper, PageMapper pageMapper) {

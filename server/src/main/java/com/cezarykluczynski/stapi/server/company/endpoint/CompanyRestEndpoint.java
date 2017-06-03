@@ -23,7 +23,7 @@ public class CompanyRestEndpoint {
 
 	public static final String ADDRESS = "/v1/rest/company";
 
-	private CompanyRestReader companyRestReader;
+	private final CompanyRestReader companyRestReader;
 
 	@Inject
 	public CompanyRestEndpoint(CompanyRestReader companyRestReader) {

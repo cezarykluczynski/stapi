@@ -16,7 +16,7 @@ public class SpeciesSoapEndpoint implements SpeciesPortType {
 
 	public static final String ADDRESS = "/v1/soap/species";
 
-	private SpeciesSoapReader speciesSoapReader;
+	private final SpeciesSoapReader speciesSoapReader;
 
 	@Inject
 	public SpeciesSoapEndpoint(SpeciesSoapReader speciesSoapReader) {

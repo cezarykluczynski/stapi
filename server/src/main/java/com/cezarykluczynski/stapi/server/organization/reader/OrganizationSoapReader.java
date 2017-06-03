@@ -20,13 +20,13 @@ import org.springframework.stereotype.Service;
 public class OrganizationSoapReader implements BaseReader<OrganizationBaseRequest, OrganizationBaseResponse>,
 		FullReader<OrganizationFullRequest, OrganizationFullResponse> {
 
-	private OrganizationSoapQuery organizationSoapQuery;
+	private final OrganizationSoapQuery organizationSoapQuery;
 
-	private OrganizationBaseSoapMapper organizationBaseSoapMapper;
+	private final OrganizationBaseSoapMapper organizationBaseSoapMapper;
 
-	private OrganizationFullSoapMapper organizationFullSoapMapper;
+	private final OrganizationFullSoapMapper organizationFullSoapMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
 	public OrganizationSoapReader(OrganizationSoapQuery organizationSoapQuery, OrganizationBaseSoapMapper organizationBaseSoapMapper,
 			OrganizationFullSoapMapper organizationFullSoapMapper, PageMapper pageMapper) {

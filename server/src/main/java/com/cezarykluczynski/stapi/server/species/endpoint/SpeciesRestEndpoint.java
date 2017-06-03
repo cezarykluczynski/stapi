@@ -23,7 +23,7 @@ public class SpeciesRestEndpoint {
 
 	public static final String ADDRESS = "/v1/rest/species";
 
-	private SpeciesRestReader speciesRestReader;
+	private final SpeciesRestReader speciesRestReader;
 
 	@Inject
 	public SpeciesRestEndpoint(SpeciesRestReader speciesRestReader) {

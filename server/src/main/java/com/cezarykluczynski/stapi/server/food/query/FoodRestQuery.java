@@ -15,11 +15,11 @@ import javax.inject.Inject;
 @Service
 public class FoodRestQuery {
 
-	private FoodBaseRestMapper foodBaseRestMapper;
+	private final FoodBaseRestMapper foodBaseRestMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
-	private FoodRepository foodRepository;
+	private final FoodRepository foodRepository;
 
 	@Inject
 	public FoodRestQuery(FoodBaseRestMapper foodBaseRestMapper, PageMapper pageMapper,

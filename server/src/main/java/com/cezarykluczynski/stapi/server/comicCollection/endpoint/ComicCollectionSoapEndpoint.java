@@ -16,7 +16,7 @@ public class ComicCollectionSoapEndpoint implements ComicCollectionPortType {
 
 	public static final String ADDRESS = "/v1/soap/comicCollection";
 
-	private ComicCollectionSoapReader comicCollectionSoapReader;
+	private final ComicCollectionSoapReader comicCollectionSoapReader;
 
 	@Inject
 	public ComicCollectionSoapEndpoint(ComicCollectionSoapReader comicCollectionSoapReader) {

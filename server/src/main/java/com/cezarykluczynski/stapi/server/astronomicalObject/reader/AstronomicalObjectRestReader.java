@@ -21,13 +21,13 @@ import javax.inject.Inject;
 public class AstronomicalObjectRestReader implements BaseReader<AstronomicalObjectRestBeanParams, AstronomicalObjectBaseResponse>,
 		FullReader<String, AstronomicalObjectFullResponse> {
 
-	private AstronomicalObjectRestQuery astronomicalObjectRestQuery;
+	private final AstronomicalObjectRestQuery astronomicalObjectRestQuery;
 
-	private AstronomicalObjectBaseRestMapper astronomicalObjectBaseRestMapper;
+	private final AstronomicalObjectBaseRestMapper astronomicalObjectBaseRestMapper;
 
-	private AstronomicalObjectFullRestMapper astronomicalObjectFullRestMapper;
+	private final AstronomicalObjectFullRestMapper astronomicalObjectFullRestMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
 	@Inject
 	public AstronomicalObjectRestReader(AstronomicalObjectRestQuery astronomicalObjectRestQuery,

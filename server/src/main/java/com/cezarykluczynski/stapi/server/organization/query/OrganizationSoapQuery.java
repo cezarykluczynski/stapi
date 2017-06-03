@@ -17,13 +17,13 @@ import javax.inject.Inject;
 @Service
 public class OrganizationSoapQuery {
 
-	private OrganizationBaseSoapMapper organizationBaseSoapMapper;
+	private final OrganizationBaseSoapMapper organizationBaseSoapMapper;
 
-	private OrganizationFullSoapMapper organizationFullSoapMapper;
+	private final OrganizationFullSoapMapper organizationFullSoapMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
-	private OrganizationRepository organizationRepository;
+	private final OrganizationRepository organizationRepository;
 
 	@Inject
 	public OrganizationSoapQuery(OrganizationBaseSoapMapper organizationBaseSoapMapper, OrganizationFullSoapMapper organizationFullSoapMapper,

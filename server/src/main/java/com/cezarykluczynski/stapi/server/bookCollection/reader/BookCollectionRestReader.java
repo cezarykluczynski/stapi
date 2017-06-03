@@ -21,13 +21,13 @@ import javax.inject.Inject;
 public class BookCollectionRestReader implements BaseReader<BookCollectionRestBeanParams, BookCollectionBaseResponse>,
 		FullReader<String, BookCollectionFullResponse> {
 
-	private BookCollectionRestQuery bookCollectionRestQuery;
+	private final BookCollectionRestQuery bookCollectionRestQuery;
 
-	private BookCollectionBaseRestMapper bookCollectionBaseRestMapper;
+	private final BookCollectionBaseRestMapper bookCollectionBaseRestMapper;
 
-	private BookCollectionFullRestMapper bookCollectionFullRestMapper;
+	private final BookCollectionFullRestMapper bookCollectionFullRestMapper;
 
-	private PageMapper pageMapper;
+	private final PageMapper pageMapper;
 
 	@Inject
 	public BookCollectionRestReader(BookCollectionRestQuery bookCollectionRestQuery, BookCollectionBaseRestMapper bookCollectionBaseRestMapper,

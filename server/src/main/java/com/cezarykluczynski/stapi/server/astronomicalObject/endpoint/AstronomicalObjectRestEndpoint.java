@@ -23,7 +23,7 @@ public class AstronomicalObjectRestEndpoint {
 
 	public static final String ADDRESS = "/v1/rest/astronomicalObject";
 
-	private AstronomicalObjectRestReader astronomicalObjectRestReader;
+	private final AstronomicalObjectRestReader astronomicalObjectRestReader;
 
 	@Inject
 	public AstronomicalObjectRestEndpoint(AstronomicalObjectRestReader astronomicalObjectRestReader) {

@@ -16,7 +16,7 @@ public class CompanySoapEndpoint implements CompanyPortType {
 
 	public static final String ADDRESS = "/v1/soap/company";
 
-	private CompanySoapReader seriesSoapReader;
+	private final CompanySoapReader seriesSoapReader;
 
 	@Inject
 	public CompanySoapEndpoint(CompanySoapReader seriesSoapReader) {

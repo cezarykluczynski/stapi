@@ -23,7 +23,7 @@ public class FoodRestEndpoint {
 
 	public static final String ADDRESS = "/v1/rest/food";
 
-	private FoodRestReader foodRestReader;
+	private final FoodRestReader foodRestReader;
 
 	@Inject
 	public FoodRestEndpoint(FoodRestReader foodRestReader) {
