@@ -39,6 +39,7 @@
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="page" type="common:ResponsePage"/>
+			<xs:element name="sort" type="common:ResponseSort"/>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="RequestPage">
@@ -196,6 +197,49 @@
 		</xs:sequence>
 	</xs:complexType>
 	<xs:simpleType name="RequestSortDirectionEnum">
+		<xs:annotation>
+			<xs:documentation>Sort direction</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ASC"/>
+			<xs:enumeration value="DESC"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ResponseSort">
+		<xs:annotation>
+			<xs:documentation>Response sort</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="clauses" type="common:ResponseSortClause" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>List of response sort rules</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ResponseSortClause">
+		<xs:annotation>
+			<xs:documentation>Single response sort clause</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Field name results are sorted by</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="direction" type="common:ResponseSortDirectionEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Sort direction</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="clauseOrder" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Order in which this clause were applied</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="ResponseSortDirectionEnum">
 		<xs:annotation>
 			<xs:documentation>Sort direction</xs:documentation>
 		</xs:annotation>

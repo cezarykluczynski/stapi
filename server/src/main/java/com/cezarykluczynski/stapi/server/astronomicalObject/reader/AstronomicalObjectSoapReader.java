@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalO
 import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectFullSoapMapper;
 import com.cezarykluczynski.stapi.server.astronomicalObject.query.AstronomicalObjectSoapQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -28,13 +29,16 @@ public class AstronomicalObjectSoapReader implements BaseReader<AstronomicalObje
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	public AstronomicalObjectSoapReader(AstronomicalObjectSoapQuery astronomicalObjectSoapQuery,
 			AstronomicalObjectBaseSoapMapper astronomicalObjectBaseSoapMapper, AstronomicalObjectFullSoapMapper astronomicalObjectFullSoapMapper,
-			PageMapper pageMapper) {
+			PageMapper pageMapper, SortMapper sortMapper) {
 		this.astronomicalObjectSoapQuery = astronomicalObjectSoapQuery;
 		this.astronomicalObjectBaseSoapMapper = astronomicalObjectBaseSoapMapper;
 		this.astronomicalObjectFullSoapMapper = astronomicalObjectFullSoapMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
@@ -42,6 +46,7 @@ public class AstronomicalObjectSoapReader implements BaseReader<AstronomicalObje
 		Page<AstronomicalObject> astronomicalObjectPage = astronomicalObjectSoapQuery.query(input);
 		AstronomicalObjectBaseResponse astronomicalObjectResponse = new AstronomicalObjectBaseResponse();
 		astronomicalObjectResponse.setPage(pageMapper.fromPageToSoapResponsePage(astronomicalObjectPage));
+		astronomicalObjectResponse.setSort(sortMapper.map(input.getSort()));
 		astronomicalObjectResponse.getAstronomicalObjects().addAll(astronomicalObjectBaseSoapMapper.mapBase(astronomicalObjectPage.getContent()));
 		return astronomicalObjectResponse;
 	}
