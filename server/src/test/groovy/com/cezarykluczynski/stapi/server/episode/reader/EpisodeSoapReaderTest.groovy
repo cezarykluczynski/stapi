@@ -69,6 +69,7 @@ class EpisodeSoapReaderTest extends Specification {
 		0 * _
 		episodeResponse.episodes[0].uid == UID
 		episodeResponse.page == responsePage
+		episodeResponse.sort == responseSort
 	}
 
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {

@@ -1,12 +1,14 @@
 package com.cezarykluczynski.stapi.server.staff.reader
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
 import com.cezarykluczynski.stapi.client.v1.rest.model.StaffBase
 import com.cezarykluczynski.stapi.client.v1.rest.model.StaffBaseResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.StaffFull
 import com.cezarykluczynski.stapi.client.v1.rest.model.StaffFullResponse
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.staff.dto.StaffRestBeanParams
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseRestMapper
@@ -19,6 +21,7 @@ import spock.lang.Specification
 class StaffRestReaderTest extends Specification {
 
 	private static final String UID = 'UID'
+	private static final String SORT = 'SORT'
 
 	private StaffRestQuery staffRestQueryBuilderMock
 
@@ -28,6 +31,8 @@ class StaffRestReaderTest extends Specification {
 
 	private PageMapper pageMapperMock
 
+	private SortMapper sortMapperMock
+
 	private StaffRestReader staffRestReader
 
 	void setup() {
@@ -35,7 +40,9 @@ class StaffRestReaderTest extends Specification {
 		staffBaseRestMapperMock = Mock()
 		staffFullRestMapperMock = Mock()
 		pageMapperMock = Mock()
-		staffRestReader = new StaffRestReader(staffRestQueryBuilderMock, staffBaseRestMapperMock, staffFullRestMapperMock, pageMapperMock)
+		sortMapperMock = Mock()
+		staffRestReader = new StaffRestReader(staffRestQueryBuilderMock, staffBaseRestMapperMock, staffFullRestMapperMock, pageMapperMock,
+				sortMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
@@ -47,6 +54,7 @@ class StaffRestReaderTest extends Specification {
 		List<Staff> staffList = Lists.newArrayList(staff)
 		Page<Staff> staffPage = Mock()
 		ResponsePage responsePage = Mock()
+		ResponseSort responseSort = Mock()
 
 		when:
 		StaffBaseResponse staffResponseOutput = staffRestReader.readBase(staffRestBeanParams)
@@ -54,11 +62,14 @@ class StaffRestReaderTest extends Specification {
 		then:
 		1 * staffRestQueryBuilderMock.query(staffRestBeanParams) >> staffPage
 		1 * pageMapperMock.fromPageToRestResponsePage(staffPage) >> responsePage
+		1 * staffRestBeanParams.sort >> SORT
+		1 * sortMapperMock.map(SORT) >> responseSort
 		1 * staffPage.content >> staffList
 		1 * staffBaseRestMapperMock.mapBase(staffList) >> restStaffList
 		0 * _
 		staffResponseOutput.staff == restStaffList
 		staffResponseOutput.page == responsePage
+		staffResponseOutput.sort == responseSort
 	}
 
 	void "passed UID to queryBuilder, then to mapper, and returns result"() {

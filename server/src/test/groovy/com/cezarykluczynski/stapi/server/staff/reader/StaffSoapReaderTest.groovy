@@ -69,6 +69,7 @@ class StaffSoapReaderTest extends Specification {
 		0 * _
 		staffResponse.staff[0].uid == UID
 		staffResponse.page == responsePage
+		staffResponse.sort == responseSort
 	}
 
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {

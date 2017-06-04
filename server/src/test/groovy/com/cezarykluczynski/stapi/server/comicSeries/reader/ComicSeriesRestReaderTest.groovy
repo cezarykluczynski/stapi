@@ -5,12 +5,14 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.ComicSeriesBaseResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ComicSeriesFull
 import com.cezarykluczynski.stapi.client.v1.rest.model.ComicSeriesFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
 import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
 import com.cezarykluczynski.stapi.server.comicSeries.dto.ComicSeriesRestBeanParams
 import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesBaseRestMapper
 import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesFullRestMapper
 import com.cezarykluczynski.stapi.server.comicSeries.query.ComicSeriesRestQuery
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
@@ -19,6 +21,7 @@ import spock.lang.Specification
 class ComicSeriesRestReaderTest extends Specification {
 
 	private static final String UID = 'UID'
+	private static final String SORT = 'SORT'
 
 	private ComicSeriesRestQuery comicSeriesRestQueryBuilderMock
 
@@ -28,6 +31,8 @@ class ComicSeriesRestReaderTest extends Specification {
 
 	private PageMapper pageMapperMock
 
+	private SortMapper sortMapperMock
+
 	private ComicSeriesRestReader comicSeriesRestReader
 
 	void setup() {
@@ -35,8 +40,9 @@ class ComicSeriesRestReaderTest extends Specification {
 		comicSeriesBaseRestMapperMock = Mock()
 		comicSeriesFullRestMapperMock = Mock()
 		pageMapperMock = Mock()
+		sortMapperMock = Mock()
 		comicSeriesRestReader = new ComicSeriesRestReader(comicSeriesRestQueryBuilderMock, comicSeriesBaseRestMapperMock,
-				comicSeriesFullRestMapperMock, pageMapperMock)
+				comicSeriesFullRestMapperMock, pageMapperMock, sortMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
@@ -48,6 +54,7 @@ class ComicSeriesRestReaderTest extends Specification {
 		List<ComicSeries> comicSeriesList = Lists.newArrayList(comicSeries)
 		Page<ComicSeries> comicSeriesPage = Mock()
 		ResponsePage responsePage = Mock()
+		ResponseSort responseSort = Mock()
 
 		when:
 		ComicSeriesBaseResponse comicSeriesResponseOutput = comicSeriesRestReader.readBase(comicSeriesRestBeanParams)
@@ -55,11 +62,14 @@ class ComicSeriesRestReaderTest extends Specification {
 		then:
 		1 * comicSeriesRestQueryBuilderMock.query(comicSeriesRestBeanParams) >> comicSeriesPage
 		1 * pageMapperMock.fromPageToRestResponsePage(comicSeriesPage) >> responsePage
+		1 * comicSeriesRestBeanParams.sort >> SORT
+		1 * sortMapperMock.map(SORT) >> responseSort
 		1 * comicSeriesPage.content >> comicSeriesList
 		1 * comicSeriesBaseRestMapperMock.mapBase(comicSeriesList) >> restComicSeriesList
 		0 * _
 		comicSeriesResponseOutput.comicSeries == restComicSeriesList
 		comicSeriesResponseOutput.page == responsePage
+		comicSeriesResponseOutput.sort == responseSort
 	}
 
 	void "passed UID to queryBuilder, then to mapper, and returns result"() {

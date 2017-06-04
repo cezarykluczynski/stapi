@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesBaseResponse;
 import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesFullResponse;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -28,20 +29,24 @@ public class SpeciesRestReader implements BaseReader<SpeciesRestBeanParams, Spec
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	@Inject
 	public SpeciesRestReader(SpeciesRestQuery speciesRestQuery, SpeciesBaseRestMapper speciesBaseRestMapper,
-			SpeciesFullRestMapper speciesFullRestMapper, PageMapper pageMapper) {
+			SpeciesFullRestMapper speciesFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.speciesRestQuery = speciesRestQuery;
 		this.speciesBaseRestMapper = speciesBaseRestMapper;
 		this.speciesFullRestMapper = speciesFullRestMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
-	public SpeciesBaseResponse readBase(SpeciesRestBeanParams speciesRestBeanParams) {
-		Page<Species> speciesPage = speciesRestQuery.query(speciesRestBeanParams);
+	public SpeciesBaseResponse readBase(SpeciesRestBeanParams input) {
+		Page<Species> speciesPage = speciesRestQuery.query(input);
 		SpeciesBaseResponse speciesResponse = new SpeciesBaseResponse();
 		speciesResponse.setPage(pageMapper.fromPageToRestResponsePage(speciesPage));
+		speciesResponse.setSort(sortMapper.map(input.getSort()));
 		speciesResponse.getSpecies().addAll(speciesBaseRestMapper.mapBase(speciesPage.getContent()));
 		return speciesResponse;
 	}

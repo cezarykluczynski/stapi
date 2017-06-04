@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.server.bookSeries.mapper.BookSeriesBaseRestMap
 import com.cezarykluczynski.stapi.server.bookSeries.mapper.BookSeriesFullRestMapper;
 import com.cezarykluczynski.stapi.server.bookSeries.query.BookSeriesRestQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -29,20 +30,24 @@ public class BookSeriesRestReader implements BaseReader<BookSeriesRestBeanParams
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	@Inject
 	public BookSeriesRestReader(BookSeriesRestQuery bookSeriesRestQuery, BookSeriesBaseRestMapper bookSeriesBaseRestMapper,
-			BookSeriesFullRestMapper bookSeriesFullRestMapper, PageMapper pageMapper) {
+			BookSeriesFullRestMapper bookSeriesFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.bookSeriesRestQuery = bookSeriesRestQuery;
 		this.bookSeriesBaseRestMapper = bookSeriesBaseRestMapper;
 		this.bookSeriesFullRestMapper = bookSeriesFullRestMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
-	public BookSeriesBaseResponse readBase(BookSeriesRestBeanParams bookSeriesRestBeanParams) {
-		Page<BookSeries> bookSeriesPage = bookSeriesRestQuery.query(bookSeriesRestBeanParams);
+	public BookSeriesBaseResponse readBase(BookSeriesRestBeanParams input) {
+		Page<BookSeries> bookSeriesPage = bookSeriesRestQuery.query(input);
 		BookSeriesBaseResponse bookSeriesResponse = new BookSeriesBaseResponse();
 		bookSeriesResponse.setPage(pageMapper.fromPageToRestResponsePage(bookSeriesPage));
+		bookSeriesResponse.setSort(sortMapper.map(input.getSort()));
 		bookSeriesResponse.getBookSeries().addAll(bookSeriesBaseRestMapper.mapBase(bookSeriesPage.getContent()));
 		return bookSeriesResponse;
 	}

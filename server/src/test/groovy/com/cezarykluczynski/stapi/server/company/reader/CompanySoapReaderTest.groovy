@@ -69,6 +69,7 @@ class CompanySoapReaderTest extends Specification {
 		0 * _
 		companyResponse.companies[0].uid == UID
 		companyResponse.page == responsePage
+		companyResponse.sort == responseSort
 	}
 
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {

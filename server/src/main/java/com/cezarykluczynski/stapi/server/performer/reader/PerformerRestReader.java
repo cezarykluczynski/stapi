@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerBaseResponse;
 import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerFullResponse;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -28,20 +29,24 @@ public class PerformerRestReader implements BaseReader<PerformerRestBeanParams, 
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	@Inject
 	public PerformerRestReader(PerformerRestQuery performerRestQuery, PerformerBaseRestMapper performerBaseRestMapper,
-			PerformerFullRestMapper performerFullRestMapper, PageMapper pageMapper) {
+			PerformerFullRestMapper performerFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.performerRestQuery = performerRestQuery;
 		this.performerBaseRestMapper = performerBaseRestMapper;
 		this.performerFullRestMapper = performerFullRestMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
-	public PerformerBaseResponse readBase(PerformerRestBeanParams performerRestBeanParams) {
-		Page<Performer> performerPage = performerRestQuery.query(performerRestBeanParams);
+	public PerformerBaseResponse readBase(PerformerRestBeanParams input) {
+		Page<Performer> performerPage = performerRestQuery.query(input);
 		PerformerBaseResponse performerResponse = new PerformerBaseResponse();
 		performerResponse.setPage(pageMapper.fromPageToRestResponsePage(performerPage));
+		performerResponse.setSort(sortMapper.map(input.getSort()));
 		performerResponse.getPerformers().addAll(performerBaseRestMapper.mapBase(performerPage.getContent()));
 		return performerResponse;
 	}

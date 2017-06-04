@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeBaseResponse;
 import com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeFullResponse;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -28,20 +29,24 @@ public class EpisodeRestReader implements BaseReader<EpisodeRestBeanParams, Epis
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	@Inject
 	public EpisodeRestReader(EpisodeRestQuery episodeRestQuery, EpisodeBaseRestMapper episodeBaseRestMapper,
-			EpisodeFullRestMapper episodeFullRestMapper, PageMapper pageMapper) {
+			EpisodeFullRestMapper episodeFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.episodeRestQuery = episodeRestQuery;
 		this.episodeBaseRestMapper = episodeBaseRestMapper;
 		this.episodeFullRestMapper = episodeFullRestMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
-	public EpisodeBaseResponse readBase(EpisodeRestBeanParams episodeRestBeanParams) {
-		Page<Episode> episodePage = episodeRestQuery.query(episodeRestBeanParams);
+	public EpisodeBaseResponse readBase(EpisodeRestBeanParams input) {
+		Page<Episode> episodePage = episodeRestQuery.query(input);
 		EpisodeBaseResponse episodeResponse = new EpisodeBaseResponse();
 		episodeResponse.setPage(pageMapper.fromPageToRestResponsePage(episodePage));
+		episodeResponse.setSort(sortMapper.map(input.getSort()));
 		episodeResponse.getEpisodes().addAll(episodeBaseRestMapper.mapBase(episodePage.getContent()));
 		return episodeResponse;
 	}

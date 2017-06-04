@@ -69,6 +69,7 @@ class ComicSeriesSoapReaderTest extends Specification {
 		0 * _
 		comicSeriesResponse.comicSeries[0].uid == UID
 		comicSeriesResponse.page == responsePage
+		comicSeriesResponse.sort == responseSort
 	}
 
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {

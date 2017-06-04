@@ -5,12 +5,14 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectBaseRes
 import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectFull
 import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
 import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject
 import com.cezarykluczynski.stapi.server.astronomicalObject.dto.AstronomicalObjectRestBeanParams
 import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectBaseRestMapper
 import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectFullRestMapper
 import com.cezarykluczynski.stapi.server.astronomicalObject.query.AstronomicalObjectRestQuery
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
@@ -19,6 +21,7 @@ import spock.lang.Specification
 class AstronomicalObjectRestReaderTest extends Specification {
 
 	private static final String UID = 'UID'
+	private static final String SORT = 'SORT'
 
 	private AstronomicalObjectRestQuery astronomicalObjectRestQueryBuilderMock
 
@@ -28,6 +31,8 @@ class AstronomicalObjectRestReaderTest extends Specification {
 
 	private PageMapper pageMapperMock
 
+	private SortMapper sortMapperMock
+
 	private AstronomicalObjectRestReader astronomicalObjectRestReader
 
 	void setup() {
@@ -35,8 +40,9 @@ class AstronomicalObjectRestReaderTest extends Specification {
 		astronomicalObjectBaseRestMapperMock = Mock()
 		astronomicalObjectFullRestMapperMock = Mock()
 		pageMapperMock = Mock()
+		sortMapperMock = Mock()
 		astronomicalObjectRestReader = new AstronomicalObjectRestReader(astronomicalObjectRestQueryBuilderMock, astronomicalObjectBaseRestMapperMock,
-				astronomicalObjectFullRestMapperMock, pageMapperMock)
+				astronomicalObjectFullRestMapperMock, pageMapperMock, sortMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
@@ -48,6 +54,7 @@ class AstronomicalObjectRestReaderTest extends Specification {
 		List<AstronomicalObject> astronomicalObjectList = Lists.newArrayList(astronomicalObject)
 		Page<AstronomicalObject> astronomicalObjectPage = Mock()
 		ResponsePage responsePage = Mock()
+		ResponseSort responseSort = Mock()
 
 		when:
 		AstronomicalObjectBaseResponse astronomicalObjectResponseOutput = astronomicalObjectRestReader.readBase(astronomicalObjectRestBeanParams)
@@ -55,11 +62,14 @@ class AstronomicalObjectRestReaderTest extends Specification {
 		then:
 		1 * astronomicalObjectRestQueryBuilderMock.query(astronomicalObjectRestBeanParams) >> astronomicalObjectPage
 		1 * pageMapperMock.fromPageToRestResponsePage(astronomicalObjectPage) >> responsePage
+		1 * astronomicalObjectRestBeanParams.sort >> SORT
+		1 * sortMapperMock.map(SORT) >> responseSort
 		1 * astronomicalObjectPage.content >> astronomicalObjectList
 		1 * astronomicalObjectBaseRestMapperMock.mapBase(astronomicalObjectList) >> restAstronomicalObjectList
 		0 * _
 		astronomicalObjectResponseOutput.astronomicalObjects == restAstronomicalObjectList
 		astronomicalObjectResponseOutput.page == responsePage
+		astronomicalObjectResponseOutput.sort == responseSort
 	}
 
 	void "passed UID to queryBuilder, then to mapper, and returns result"() {

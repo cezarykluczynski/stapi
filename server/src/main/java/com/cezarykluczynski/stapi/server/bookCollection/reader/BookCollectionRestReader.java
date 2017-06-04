@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.server.bookCollection.mapper.BookCollectionBas
 import com.cezarykluczynski.stapi.server.bookCollection.mapper.BookCollectionFullRestMapper;
 import com.cezarykluczynski.stapi.server.bookCollection.query.BookCollectionRestQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -29,20 +30,24 @@ public class BookCollectionRestReader implements BaseReader<BookCollectionRestBe
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	@Inject
 	public BookCollectionRestReader(BookCollectionRestQuery bookCollectionRestQuery, BookCollectionBaseRestMapper bookCollectionBaseRestMapper,
-			BookCollectionFullRestMapper bookCollectionFullRestMapper, PageMapper pageMapper) {
+			BookCollectionFullRestMapper bookCollectionFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.bookCollectionRestQuery = bookCollectionRestQuery;
 		this.bookCollectionBaseRestMapper = bookCollectionBaseRestMapper;
 		this.bookCollectionFullRestMapper = bookCollectionFullRestMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
-	public BookCollectionBaseResponse readBase(BookCollectionRestBeanParams bookCollectionRestBeanParams) {
-		Page<BookCollection> bookCollectionPage = bookCollectionRestQuery.query(bookCollectionRestBeanParams);
+	public BookCollectionBaseResponse readBase(BookCollectionRestBeanParams input) {
+		Page<BookCollection> bookCollectionPage = bookCollectionRestQuery.query(input);
 		BookCollectionBaseResponse bookCollectionResponse = new BookCollectionBaseResponse();
 		bookCollectionResponse.setPage(pageMapper.fromPageToRestResponsePage(bookCollectionPage));
+		bookCollectionResponse.setSort(sortMapper.map(input.getSort()));
 		bookCollectionResponse.getBookCollections().addAll(bookCollectionBaseRestMapper.mapBase(bookCollectionPage.getContent()));
 		return bookCollectionResponse;
 	}

@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.StaffBaseResponse;
 import com.cezarykluczynski.stapi.client.v1.rest.model.StaffFullResponse;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -28,20 +29,24 @@ public class StaffRestReader implements BaseReader<StaffRestBeanParams, StaffBas
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	@Inject
 	public StaffRestReader(StaffRestQuery staffRestQuery, StaffBaseRestMapper staffBaseRestMapper, StaffFullRestMapper staffFullRestMapper,
-			PageMapper pageMapper) {
+			PageMapper pageMapper, SortMapper sortMapper) {
 		this.staffRestQuery = staffRestQuery;
 		this.staffBaseRestMapper = staffBaseRestMapper;
 		this.staffFullRestMapper = staffFullRestMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
-	public StaffBaseResponse readBase(StaffRestBeanParams staffRestBeanParams) {
-		Page<Staff> staffPage = staffRestQuery.query(staffRestBeanParams);
+	public StaffBaseResponse readBase(StaffRestBeanParams input) {
+		Page<Staff> staffPage = staffRestQuery.query(input);
 		StaffBaseResponse staffResponse = new StaffBaseResponse();
 		staffResponse.setPage(pageMapper.fromPageToRestResponsePage(staffPage));
+		staffResponse.setSort(sortMapper.map(input.getSort()));
 		staffResponse.getStaff().addAll(staffBaseRestMapper.mapBase(staffPage.getContent()));
 		return staffResponse;
 	}

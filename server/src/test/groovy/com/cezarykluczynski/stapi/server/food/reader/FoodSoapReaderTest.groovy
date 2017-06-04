@@ -68,6 +68,7 @@ class FoodSoapReaderTest extends Specification {
 		0 * _
 		foodResponse.foods[0].uid == UID
 		foodResponse.page == responsePage
+		foodResponse.sort == responseSort
 	}
 
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {

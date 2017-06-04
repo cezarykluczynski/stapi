@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripBaseRestMap
 import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripFullRestMapper;
 import com.cezarykluczynski.stapi.server.comicStrip.query.ComicStripRestQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -29,20 +30,24 @@ public class ComicStripRestReader implements BaseReader<ComicStripRestBeanParams
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	@Inject
 	public ComicStripRestReader(ComicStripRestQuery comicStripRestQuery, ComicStripBaseRestMapper comicStripBaseRestMapper,
-			ComicStripFullRestMapper comicStripFullRestMapper, PageMapper pageMapper) {
+			ComicStripFullRestMapper comicStripFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.comicStripRestQuery = comicStripRestQuery;
 		this.comicStripBaseRestMapper = comicStripBaseRestMapper;
 		this.comicStripFullRestMapper = comicStripFullRestMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
-	public ComicStripBaseResponse readBase(ComicStripRestBeanParams comicStripRestBeanParams) {
-		Page<ComicStrip> comicStripPage = comicStripRestQuery.query(comicStripRestBeanParams);
+	public ComicStripBaseResponse readBase(ComicStripRestBeanParams input) {
+		Page<ComicStrip> comicStripPage = comicStripRestQuery.query(input);
 		ComicStripBaseResponse comicStripResponse = new ComicStripBaseResponse();
 		comicStripResponse.setPage(pageMapper.fromPageToRestResponsePage(comicStripPage));
+		comicStripResponse.setSort(sortMapper.map(input.getSort()));
 		comicStripResponse.getComicStrips().addAll(comicStripBaseRestMapper.mapBase(comicStripPage.getContent()));
 		return comicStripResponse;
 	}

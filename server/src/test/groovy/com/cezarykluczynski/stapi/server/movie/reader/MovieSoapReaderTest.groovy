@@ -69,6 +69,7 @@ class MovieSoapReaderTest extends Specification {
 		0 * _
 		movieResponse.movies[0].uid == UID
 		movieResponse.page == responsePage
+		movieResponse.sort == responseSort
 	}
 
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {

@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.server.character.mapper.CharacterBaseRestMappe
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterFullRestMapper;
 import com.cezarykluczynski.stapi.server.character.query.CharacterRestQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -28,20 +29,24 @@ public class CharacterRestReader implements BaseReader<CharacterRestBeanParams, 
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	@Inject
 	public CharacterRestReader(CharacterRestQuery characterRestQuery, CharacterBaseRestMapper characterBaseRestMapper,
-			CharacterFullRestMapper characterFullRestMapper, PageMapper pageMapper) {
+			CharacterFullRestMapper characterFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.characterRestQuery = characterRestQuery;
 		this.characterBaseRestMapper = characterBaseRestMapper;
 		this.characterFullRestMapper = characterFullRestMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
-	public CharacterBaseResponse readBase(CharacterRestBeanParams characterRestBeanParams) {
-		Page<Character> characterPage = characterRestQuery.query(characterRestBeanParams);
+	public CharacterBaseResponse readBase(CharacterRestBeanParams input) {
+		Page<Character> characterPage = characterRestQuery.query(input);
 		CharacterBaseResponse characterResponse = new CharacterBaseResponse();
 		characterResponse.setPage(pageMapper.fromPageToRestResponsePage(characterPage));
+		characterResponse.setSort(sortMapper.map(input.getSort()));
 		characterResponse.getCharacters().addAll(characterBaseRestMapper.mapBase(characterPage.getContent()));
 		return characterResponse;
 	}

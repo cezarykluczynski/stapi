@@ -5,8 +5,10 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.LocationBaseResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.LocationFull
 import com.cezarykluczynski.stapi.client.v1.rest.model.LocationFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
 import com.cezarykluczynski.stapi.model.location.entity.Location
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.location.dto.LocationRestBeanParams
 import com.cezarykluczynski.stapi.server.location.mapper.LocationBaseRestMapper
@@ -19,6 +21,7 @@ import spock.lang.Specification
 class LocationRestReaderTest extends Specification {
 
 	private static final String UID = 'UID'
+	private static final String SORT = 'SORT'
 
 	private LocationRestQuery locationRestQueryBuilderMock
 
@@ -28,6 +31,8 @@ class LocationRestReaderTest extends Specification {
 
 	private PageMapper pageMapperMock
 
+	private SortMapper sortMapperMock
+
 	private LocationRestReader locationRestReader
 
 	void setup() {
@@ -35,8 +40,9 @@ class LocationRestReaderTest extends Specification {
 		locationBaseRestMapperMock = Mock()
 		locationFullRestMapperMock = Mock()
 		pageMapperMock = Mock()
+		sortMapperMock = Mock()
 		locationRestReader = new LocationRestReader(locationRestQueryBuilderMock, locationBaseRestMapperMock, locationFullRestMapperMock,
-				pageMapperMock)
+				pageMapperMock, sortMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
@@ -48,6 +54,7 @@ class LocationRestReaderTest extends Specification {
 		List<Location> locationList = Lists.newArrayList(location)
 		Page<Location> locationPage = Mock()
 		ResponsePage responsePage = Mock()
+		ResponseSort responseSort = Mock()
 
 		when:
 		LocationBaseResponse locationResponseOutput = locationRestReader.readBase(locationRestBeanParams)
@@ -55,11 +62,14 @@ class LocationRestReaderTest extends Specification {
 		then:
 		1 * locationRestQueryBuilderMock.query(locationRestBeanParams) >> locationPage
 		1 * pageMapperMock.fromPageToRestResponsePage(locationPage) >> responsePage
+		1 * locationRestBeanParams.sort >> SORT
+		1 * sortMapperMock.map(SORT) >> responseSort
 		1 * locationPage.content >> locationList
 		1 * locationBaseRestMapperMock.mapBase(locationList) >> restLocationList
 		0 * _
 		locationResponseOutput.locations == restLocationList
 		locationResponseOutput.page == responsePage
+		locationResponseOutput.sort == responseSort
 	}
 
 	void "passed UID to queryBuilder, then to mapper, and returns result"() {

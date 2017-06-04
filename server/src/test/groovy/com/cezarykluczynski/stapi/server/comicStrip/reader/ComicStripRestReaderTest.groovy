@@ -5,12 +5,14 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.ComicStripBaseResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ComicStripFull
 import com.cezarykluczynski.stapi.client.v1.rest.model.ComicStripFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
 import com.cezarykluczynski.stapi.model.comicStrip.entity.ComicStrip
 import com.cezarykluczynski.stapi.server.comicStrip.dto.ComicStripRestBeanParams
 import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripBaseRestMapper
 import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripFullRestMapper
 import com.cezarykluczynski.stapi.server.comicStrip.query.ComicStripRestQuery
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
@@ -19,6 +21,7 @@ import spock.lang.Specification
 class ComicStripRestReaderTest extends Specification {
 
 	private static final String UID = 'UID'
+	private static final String SORT = 'SORT'
 
 	private ComicStripRestQuery comicStripRestQueryBuilderMock
 
@@ -28,6 +31,8 @@ class ComicStripRestReaderTest extends Specification {
 
 	private PageMapper pageMapperMock
 
+	private SortMapper sortMapperMock
+
 	private ComicStripRestReader comicStripRestReader
 
 	void setup() {
@@ -35,8 +40,9 @@ class ComicStripRestReaderTest extends Specification {
 		comicStripBaseRestMapperMock = Mock()
 		comicStripFullRestMapperMock = Mock()
 		pageMapperMock = Mock()
+		sortMapperMock = Mock()
 		comicStripRestReader = new ComicStripRestReader(comicStripRestQueryBuilderMock, comicStripBaseRestMapperMock, comicStripFullRestMapperMock,
-				pageMapperMock)
+				pageMapperMock, sortMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
@@ -48,6 +54,7 @@ class ComicStripRestReaderTest extends Specification {
 		List<ComicStrip> comicStripList = Lists.newArrayList(comicStrip)
 		Page<ComicStrip> comicStripPage = Mock()
 		ResponsePage responsePage = Mock()
+		ResponseSort responseSort = Mock()
 
 		when:
 		ComicStripBaseResponse comicStripResponseOutput = comicStripRestReader.readBase(comicStripRestBeanParams)
@@ -55,11 +62,14 @@ class ComicStripRestReaderTest extends Specification {
 		then:
 		1 * comicStripRestQueryBuilderMock.query(comicStripRestBeanParams) >> comicStripPage
 		1 * pageMapperMock.fromPageToRestResponsePage(comicStripPage) >> responsePage
+		1 * comicStripRestBeanParams.sort >> SORT
+		1 * sortMapperMock.map(SORT) >> responseSort
 		1 * comicStripPage.content >> comicStripList
 		1 * comicStripBaseRestMapperMock.mapBase(comicStripList) >> restComicStripList
 		0 * _
 		comicStripResponseOutput.comicStrips == restComicStripList
 		comicStripResponseOutput.page == responsePage
+		comicStripResponseOutput.sort == responseSort
 	}
 
 	void "passed UID to queryBuilder, then to mapper, and returns result"() {

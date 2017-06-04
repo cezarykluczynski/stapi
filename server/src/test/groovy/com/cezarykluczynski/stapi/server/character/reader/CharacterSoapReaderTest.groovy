@@ -69,6 +69,7 @@ class CharacterSoapReaderTest extends Specification {
 		0 * _
 		characterResponse.characters[0].uid == UID
 		characterResponse.page == responsePage
+		characterResponse.sort == responseSort
 	}
 
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {

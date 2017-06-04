@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalO
 import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectFullRestMapper;
 import com.cezarykluczynski.stapi.server.astronomicalObject.query.AstronomicalObjectRestQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -29,21 +30,25 @@ public class AstronomicalObjectRestReader implements BaseReader<AstronomicalObje
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	@Inject
 	public AstronomicalObjectRestReader(AstronomicalObjectRestQuery astronomicalObjectRestQuery,
 			AstronomicalObjectBaseRestMapper astronomicalObjectBaseRestMapper, AstronomicalObjectFullRestMapper astronomicalObjectFullRestMapper,
-			PageMapper pageMapper) {
+			PageMapper pageMapper, SortMapper sortMapper) {
 		this.astronomicalObjectRestQuery = astronomicalObjectRestQuery;
 		this.astronomicalObjectBaseRestMapper = astronomicalObjectBaseRestMapper;
 		this.astronomicalObjectFullRestMapper = astronomicalObjectFullRestMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
-	public AstronomicalObjectBaseResponse readBase(AstronomicalObjectRestBeanParams astronomicalObjectRestBeanParams) {
-		Page<AstronomicalObject> astronomicalObjectPage = astronomicalObjectRestQuery.query(astronomicalObjectRestBeanParams);
+	public AstronomicalObjectBaseResponse readBase(AstronomicalObjectRestBeanParams input) {
+		Page<AstronomicalObject> astronomicalObjectPage = astronomicalObjectRestQuery.query(input);
 		AstronomicalObjectBaseResponse astronomicalObjectResponse = new AstronomicalObjectBaseResponse();
 		astronomicalObjectResponse.setPage(pageMapper.fromPageToRestResponsePage(astronomicalObjectPage));
+		astronomicalObjectResponse.setSort(sortMapper.map(input.getSort()));
 		astronomicalObjectResponse.getAstronomicalObjects().addAll(astronomicalObjectBaseRestMapper.mapBase(astronomicalObjectPage.getContent()));
 		return astronomicalObjectResponse;
 	}

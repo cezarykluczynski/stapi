@@ -69,6 +69,7 @@ class BookCollectionSoapReaderTest extends Specification {
 		0 * _
 		bookCollectionResponse.bookCollections[0].uid == UID
 		bookCollectionResponse.page == responsePage
+		bookCollectionResponse.sort == responseSort
 	}
 
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {

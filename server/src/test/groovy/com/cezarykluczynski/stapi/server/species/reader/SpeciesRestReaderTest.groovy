@@ -1,12 +1,14 @@
 package com.cezarykluczynski.stapi.server.species.reader
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
 import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesBase
 import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesBaseResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesFull
 import com.cezarykluczynski.stapi.client.v1.rest.model.SpeciesFullResponse
 import com.cezarykluczynski.stapi.model.species.entity.Species
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.species.dto.SpeciesRestBeanParams
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesBaseRestMapper
@@ -19,6 +21,7 @@ import spock.lang.Specification
 class SpeciesRestReaderTest extends Specification {
 
 	private static final String UID = 'UID'
+	private static final String SORT = 'SORT'
 
 	private SpeciesRestQuery speciesRestQueryBuilderMock
 
@@ -28,6 +31,8 @@ class SpeciesRestReaderTest extends Specification {
 
 	private PageMapper pageMapperMock
 
+	private SortMapper sortMapperMock
+
 	private SpeciesRestReader speciesRestReader
 
 	void setup() {
@@ -35,8 +40,9 @@ class SpeciesRestReaderTest extends Specification {
 		speciesBaseRestMapperMock = Mock()
 		speciesFullRestMapperMock = Mock()
 		pageMapperMock = Mock()
+		sortMapperMock = Mock()
 		speciesRestReader = new SpeciesRestReader(speciesRestQueryBuilderMock, speciesBaseRestMapperMock, speciesFullRestMapperMock,
-				pageMapperMock)
+				pageMapperMock, sortMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
@@ -48,6 +54,7 @@ class SpeciesRestReaderTest extends Specification {
 		List<Species> speciesList = Lists.newArrayList(species)
 		Page<Species> speciesPage = Mock()
 		ResponsePage responsePage = Mock()
+		ResponseSort responseSort = Mock()
 
 		when:
 		SpeciesBaseResponse speciesResponseOutput = speciesRestReader.readBase(speciesRestBeanParams)
@@ -55,11 +62,14 @@ class SpeciesRestReaderTest extends Specification {
 		then:
 		1 * speciesRestQueryBuilderMock.query(speciesRestBeanParams) >> speciesPage
 		1 * pageMapperMock.fromPageToRestResponsePage(speciesPage) >> responsePage
+		1 * speciesRestBeanParams.sort >> SORT
+		1 * sortMapperMock.map(SORT) >> responseSort
 		1 * speciesPage.content >> speciesList
 		1 * speciesBaseRestMapperMock.mapBase(speciesList) >> restSpeciesList
 		0 * _
 		speciesResponseOutput.species == restSpeciesList
 		speciesResponseOutput.page == responsePage
+		speciesResponseOutput.sort == responseSort
 	}
 
 	void "passed UID to queryBuilder, then to mapper, and returns result"() {

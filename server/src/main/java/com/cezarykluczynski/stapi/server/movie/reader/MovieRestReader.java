@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.MovieBaseResponse;
 import com.cezarykluczynski.stapi.client.v1.rest.model.MovieFullResponse;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -28,20 +29,24 @@ public class MovieRestReader implements BaseReader<MovieRestBeanParams, MovieBas
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	@Inject
 	public MovieRestReader(MovieRestQuery movieRestQuery, MovieBaseRestMapper movieBaseRestMapper, MovieFullRestMapper movieFullRestMapper,
-			PageMapper pageMapper) {
+			PageMapper pageMapper, SortMapper sortMapper) {
 		this.movieRestQuery = movieRestQuery;
 		this.movieBaseRestMapper = movieBaseRestMapper;
 		this.movieFullRestMapper = movieFullRestMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
-	public MovieBaseResponse readBase(MovieRestBeanParams movieRestBeanParams) {
-		Page<Movie> moviePage = movieRestQuery.query(movieRestBeanParams);
+	public MovieBaseResponse readBase(MovieRestBeanParams input) {
+		Page<Movie> moviePage = movieRestQuery.query(input);
 		MovieBaseResponse movieResponse = new MovieBaseResponse();
 		movieResponse.setPage(pageMapper.fromPageToRestResponsePage(moviePage));
+		movieResponse.setSort(sortMapper.map(input.getSort()));
 		movieResponse.getMovies().addAll(movieBaseRestMapper.mapBase(moviePage.getContent()));
 		return movieResponse;
 	}

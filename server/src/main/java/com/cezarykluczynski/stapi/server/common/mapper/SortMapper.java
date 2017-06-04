@@ -28,6 +28,11 @@ public class SortMapper {
 		return responseSort;
 	}
 
+	public com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort map(String sort) {
+		// TODO
+		return null;
+	}
+
 	private List<ResponseSortClause> mapClauses(List<RequestSortClause> requestSortClauseList) {
 		return Optional.ofNullable(requestSortClauseList).orElse(Lists.newArrayList()).stream()
 				.map(this::mapClause)

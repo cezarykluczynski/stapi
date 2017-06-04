@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.LocationBaseResponse;
 import com.cezarykluczynski.stapi.client.v1.rest.model.LocationFullResponse;
 import com.cezarykluczynski.stapi.model.location.entity.Location;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -28,13 +29,16 @@ public class LocationRestReader implements BaseReader<LocationRestBeanParams, Lo
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	@Inject
 	public LocationRestReader(LocationRestQuery locationRestQuery, LocationBaseRestMapper locationBaseRestMapper,
-			LocationFullRestMapper locationFullRestMapper, PageMapper pageMapper) {
+			LocationFullRestMapper locationFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.locationRestQuery = locationRestQuery;
 		this.locationBaseRestMapper = locationBaseRestMapper;
 		this.locationFullRestMapper = locationFullRestMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
@@ -42,6 +46,7 @@ public class LocationRestReader implements BaseReader<LocationRestBeanParams, Lo
 		Page<Location> locationPage = locationRestQuery.query(input);
 		LocationBaseResponse locationResponse = new LocationBaseResponse();
 		locationResponse.setPage(pageMapper.fromPageToRestResponsePage(locationPage));
+		locationResponse.setSort(sortMapper.map(input.getSort()));
 		locationResponse.getLocations().addAll(locationBaseRestMapper.mapBase(locationPage.getContent()));
 		return locationResponse;
 	}

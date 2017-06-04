@@ -5,8 +5,10 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.OrganizationBaseResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.OrganizationFull
 import com.cezarykluczynski.stapi.client.v1.rest.model.OrganizationFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
 import com.cezarykluczynski.stapi.model.organization.entity.Organization
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.organization.dto.OrganizationRestBeanParams
 import com.cezarykluczynski.stapi.server.organization.mapper.OrganizationBaseRestMapper
@@ -19,6 +21,7 @@ import spock.lang.Specification
 class OrganizationRestReaderTest extends Specification {
 
 	private static final String UID = 'UID'
+	private static final String SORT = 'SORT'
 
 	private OrganizationRestQuery organizationRestQueryBuilderMock
 
@@ -28,6 +31,8 @@ class OrganizationRestReaderTest extends Specification {
 
 	private PageMapper pageMapperMock
 
+	private SortMapper sortMapperMock
+
 	private OrganizationRestReader organizationRestReader
 
 	void setup() {
@@ -35,8 +40,9 @@ class OrganizationRestReaderTest extends Specification {
 		organizationBaseRestMapperMock = Mock()
 		organizationFullRestMapperMock = Mock()
 		pageMapperMock = Mock()
+		sortMapperMock = Mock()
 		organizationRestReader = new OrganizationRestReader(organizationRestQueryBuilderMock, organizationBaseRestMapperMock,
-				organizationFullRestMapperMock, pageMapperMock)
+				organizationFullRestMapperMock, pageMapperMock, sortMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
@@ -48,6 +54,7 @@ class OrganizationRestReaderTest extends Specification {
 		List<Organization> organizationList = Lists.newArrayList(organization)
 		Page<Organization> organizationPage = Mock()
 		ResponsePage responsePage = Mock()
+		ResponseSort responseSort = Mock()
 
 		when:
 		OrganizationBaseResponse organizationResponseOutput = organizationRestReader.readBase(organizationRestBeanParams)
@@ -55,11 +62,14 @@ class OrganizationRestReaderTest extends Specification {
 		then:
 		1 * organizationRestQueryBuilderMock.query(organizationRestBeanParams) >> organizationPage
 		1 * pageMapperMock.fromPageToRestResponsePage(organizationPage) >> responsePage
+		1 * organizationRestBeanParams.sort >> SORT
+		1 * sortMapperMock.map(SORT) >> responseSort
 		1 * organizationPage.content >> organizationList
 		1 * organizationBaseRestMapperMock.mapBase(organizationList) >> restOrganizationList
 		0 * _
 		organizationResponseOutput.organizations == restOrganizationList
 		organizationResponseOutput.page == responsePage
+		organizationResponseOutput.sort == responseSort
 	}
 
 	void "passed UID to queryBuilder, then to mapper, and returns result"() {

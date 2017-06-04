@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesBaseRestM
 import com.cezarykluczynski.stapi.server.comicSeries.mapper.ComicSeriesFullRestMapper;
 import com.cezarykluczynski.stapi.server.comicSeries.query.ComicSeriesRestQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -29,20 +30,24 @@ public class ComicSeriesRestReader implements BaseReader<ComicSeriesRestBeanPara
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	@Inject
 	public ComicSeriesRestReader(ComicSeriesRestQuery comicSeriesRestQuery, ComicSeriesBaseRestMapper comicSeriesBaseRestMapper,
-			ComicSeriesFullRestMapper comicSeriesFullRestMapper, PageMapper pageMapper) {
+			ComicSeriesFullRestMapper comicSeriesFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.comicSeriesRestQuery = comicSeriesRestQuery;
 		this.comicSeriesBaseRestMapper = comicSeriesBaseRestMapper;
 		this.comicSeriesFullRestMapper = comicSeriesFullRestMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
-	public ComicSeriesBaseResponse readBase(ComicSeriesRestBeanParams comicSeriesRestBeanParams) {
-		Page<ComicSeries> comicSeriesPage = comicSeriesRestQuery.query(comicSeriesRestBeanParams);
+	public ComicSeriesBaseResponse readBase(ComicSeriesRestBeanParams input) {
+		Page<ComicSeries> comicSeriesPage = comicSeriesRestQuery.query(input);
 		ComicSeriesBaseResponse comicSeriesResponse = new ComicSeriesBaseResponse();
 		comicSeriesResponse.setPage(pageMapper.fromPageToRestResponsePage(comicSeriesPage));
+		comicSeriesResponse.setSort(sortMapper.map(input.getSort()));
 		comicSeriesResponse.getComicSeries().addAll(comicSeriesBaseRestMapper.mapBase(comicSeriesPage.getContent()));
 		return comicSeriesResponse;
 	}

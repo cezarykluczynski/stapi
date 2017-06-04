@@ -5,8 +5,10 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerBaseResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerFull
 import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.performer.dto.PerformerRestBeanParams
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseRestMapper
@@ -19,6 +21,7 @@ import spock.lang.Specification
 class PerformerRestReaderTest extends Specification {
 
 	private static final String UID = 'UID'
+	private static final String SORT = 'SORT'
 
 	private PerformerRestQuery performerRestQueryBuilderMock
 
@@ -28,6 +31,8 @@ class PerformerRestReaderTest extends Specification {
 
 	private PageMapper pageMapperMock
 
+	private SortMapper sortMapperMock
+
 	private PerformerRestReader performerRestReader
 
 	void setup() {
@@ -35,8 +40,9 @@ class PerformerRestReaderTest extends Specification {
 		performerBaseRestMapperMock = Mock()
 		performerFullRestMapperMock = Mock()
 		pageMapperMock = Mock()
+		sortMapperMock = Mock()
 		performerRestReader = new PerformerRestReader(performerRestQueryBuilderMock, performerBaseRestMapperMock, performerFullRestMapperMock,
-				pageMapperMock)
+				pageMapperMock, sortMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
@@ -48,6 +54,7 @@ class PerformerRestReaderTest extends Specification {
 		List<Performer> performerList = Lists.newArrayList(performer)
 		Page<Performer> performerPage = Mock()
 		ResponsePage responsePage = Mock()
+		ResponseSort responseSort = Mock()
 
 		when:
 		PerformerBaseResponse performerResponseOutput = performerRestReader.readBase(performerRestBeanParams)
@@ -55,11 +62,14 @@ class PerformerRestReaderTest extends Specification {
 		then:
 		1 * performerRestQueryBuilderMock.query(performerRestBeanParams) >> performerPage
 		1 * pageMapperMock.fromPageToRestResponsePage(performerPage) >> responsePage
+		1 * performerRestBeanParams.sort >> SORT
+		1 * sortMapperMock.map(SORT) >> responseSort
 		1 * performerPage.content >> performerList
 		1 * performerBaseRestMapperMock.mapBase(performerList) >> restPerformerList
 		0 * _
 		performerResponseOutput.performers == restPerformerList
 		performerResponseOutput.page == responsePage
+		performerResponseOutput.sort == responseSort
 	}
 
 	void "passed UID to queryBuilder, then to mapper, and returns result"() {

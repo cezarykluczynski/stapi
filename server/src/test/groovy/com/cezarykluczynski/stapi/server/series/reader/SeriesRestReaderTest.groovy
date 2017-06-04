@@ -1,12 +1,14 @@
 package com.cezarykluczynski.stapi.server.series.reader
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
 import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesBase
 import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesBaseResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesFull
 import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesFullResponse
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.series.dto.SeriesRestBeanParams
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesBaseRestMapper
@@ -19,6 +21,7 @@ import spock.lang.Specification
 class SeriesRestReaderTest extends Specification {
 
 	private static final String UID = 'UID'
+	private static final String SORT = 'SORT'
 
 	private SeriesRestQuery seriesRestQueryBuilderMock
 
@@ -28,6 +31,8 @@ class SeriesRestReaderTest extends Specification {
 
 	private PageMapper pageMapperMock
 
+	private SortMapper sortMapperMock
+
 	private SeriesRestReader seriesRestReader
 
 	void setup() {
@@ -35,7 +40,9 @@ class SeriesRestReaderTest extends Specification {
 		seriesBaseRestMapperMock = Mock()
 		seriesFullRestMapperMock = Mock()
 		pageMapperMock = Mock()
-		seriesRestReader = new SeriesRestReader(seriesRestQueryBuilderMock, seriesBaseRestMapperMock, seriesFullRestMapperMock, pageMapperMock)
+		sortMapperMock = Mock()
+		seriesRestReader = new SeriesRestReader(seriesRestQueryBuilderMock, seriesBaseRestMapperMock, seriesFullRestMapperMock, pageMapperMock,
+				sortMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
@@ -47,6 +54,7 @@ class SeriesRestReaderTest extends Specification {
 		List<Series> seriesList = Lists.newArrayList(series)
 		Page<Series> seriesPage = Mock()
 		ResponsePage responsePage = Mock()
+		ResponseSort responseSort = Mock()
 
 		when:
 		SeriesBaseResponse seriesResponseOutput = seriesRestReader.readBase(seriesRestBeanParams)
@@ -54,11 +62,14 @@ class SeriesRestReaderTest extends Specification {
 		then:
 		1 * seriesRestQueryBuilderMock.query(seriesRestBeanParams) >> seriesPage
 		1 * pageMapperMock.fromPageToRestResponsePage(seriesPage) >> responsePage
+		1 * seriesRestBeanParams.sort >> SORT
+		1 * sortMapperMock.map(SORT) >> responseSort
 		1 * seriesPage.content >> seriesList
 		1 * seriesBaseRestMapperMock.mapBase(seriesList) >> restSeriesList
 		0 * _
 		seriesResponseOutput.series == restSeriesList
 		seriesResponseOutput.page == responsePage
+		seriesResponseOutput.sort == responseSort
 	}
 
 	void "passed UID to queryBuilder, then to mapper, and returns result"() {

@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesBaseResponse;
 import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesFullResponse;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -28,20 +29,24 @@ public class SeriesRestReader implements BaseReader<SeriesRestBeanParams, Series
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	@Inject
 	public SeriesRestReader(SeriesRestQuery seriesRestQuery, SeriesBaseRestMapper seriesBaseRestMapper, SeriesFullRestMapper seriesFullRestMapper,
-			PageMapper pageMapper) {
+			PageMapper pageMapper, SortMapper sortMapper) {
 		this.seriesRestQuery = seriesRestQuery;
 		this.seriesBaseRestMapper = seriesBaseRestMapper;
 		this.seriesFullRestMapper = seriesFullRestMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
-	public SeriesBaseResponse readBase(SeriesRestBeanParams seriesRestBeanParams) {
-		Page<Series> seriesPage = seriesRestQuery.query(seriesRestBeanParams);
+	public SeriesBaseResponse readBase(SeriesRestBeanParams input) {
+		Page<Series> seriesPage = seriesRestQuery.query(input);
 		SeriesBaseResponse seriesResponse = new SeriesBaseResponse();
 		seriesResponse.setPage(pageMapper.fromPageToRestResponsePage(seriesPage));
+		seriesResponse.setSort(sortMapper.map(input.getSort()));
 		seriesResponse.getSeries().addAll(seriesBaseRestMapper.mapBase(seriesPage.getContent()));
 		return seriesResponse;
 	}

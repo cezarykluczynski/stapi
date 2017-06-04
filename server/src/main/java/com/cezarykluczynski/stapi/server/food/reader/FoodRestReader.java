@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.FoodBaseResponse;
 import com.cezarykluczynski.stapi.client.v1.rest.model.FoodFullResponse;
 import com.cezarykluczynski.stapi.model.food.entity.Food;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -28,13 +29,16 @@ public class FoodRestReader implements BaseReader<FoodRestBeanParams, FoodBaseRe
 
 	private PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	@Inject
-	public FoodRestReader(FoodRestQuery foodRestQuery, FoodBaseRestMapper foodBaseRestMapper,
-			FoodFullRestMapper foodFullRestMapper, PageMapper pageMapper) {
+	public FoodRestReader(FoodRestQuery foodRestQuery, FoodBaseRestMapper foodBaseRestMapper, FoodFullRestMapper foodFullRestMapper,
+			PageMapper pageMapper, SortMapper sortMapper) {
 		this.foodRestQuery = foodRestQuery;
 		this.foodBaseRestMapper = foodBaseRestMapper;
 		this.foodFullRestMapper = foodFullRestMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
@@ -42,6 +46,7 @@ public class FoodRestReader implements BaseReader<FoodRestBeanParams, FoodBaseRe
 		Page<Food> foodPage = foodRestQuery.query(input);
 		FoodBaseResponse foodResponse = new FoodBaseResponse();
 		foodResponse.setPage(pageMapper.fromPageToRestResponsePage(foodPage));
+		foodResponse.setSort(sortMapper.map(input.getSort()));
 		foodResponse.getFoods().addAll(foodBaseRestMapper.mapBase(foodPage.getContent()));
 		return foodResponse;
 	}

@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionB
 import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionFullRestMapper;
 import com.cezarykluczynski.stapi.server.comicCollection.query.ComicCollectionRestQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -29,20 +30,24 @@ public class ComicCollectionRestReader implements BaseReader<ComicCollectionRest
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	@Inject
 	public ComicCollectionRestReader(ComicCollectionRestQuery comicCollectionRestQuery, ComicCollectionBaseRestMapper comicCollectionBaseRestMapper,
-			ComicCollectionFullRestMapper comicCollectionFullRestMapper, PageMapper pageMapper) {
+			ComicCollectionFullRestMapper comicCollectionFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.comicCollectionRestQuery = comicCollectionRestQuery;
 		this.comicCollectionBaseRestMapper = comicCollectionBaseRestMapper;
 		this.comicCollectionFullRestMapper = comicCollectionFullRestMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
-	public ComicCollectionBaseResponse readBase(ComicCollectionRestBeanParams comicCollectionRestBeanParams) {
-		Page<ComicCollection> comicCollectionPage = comicCollectionRestQuery.query(comicCollectionRestBeanParams);
+	public ComicCollectionBaseResponse readBase(ComicCollectionRestBeanParams input) {
+		Page<ComicCollection> comicCollectionPage = comicCollectionRestQuery.query(input);
 		ComicCollectionBaseResponse comicCollectionResponse = new ComicCollectionBaseResponse();
 		comicCollectionResponse.setPage(pageMapper.fromPageToRestResponsePage(comicCollectionPage));
+		comicCollectionResponse.setSort(sortMapper.map(input.getSort()));
 		comicCollectionResponse.getComicCollections().addAll(comicCollectionBaseRestMapper.mapBase(comicCollectionPage.getContent()));
 		return comicCollectionResponse;
 	}

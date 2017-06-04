@@ -69,6 +69,7 @@ class LocationSoapReaderTest extends Specification {
 		0 * _
 		locationResponse.locations[0].uid == UID
 		locationResponse.page == responsePage
+		locationResponse.sort == responseSort
 	}
 
 	void "passed full request to queryBuilder, then to mapper, and returns result"() {

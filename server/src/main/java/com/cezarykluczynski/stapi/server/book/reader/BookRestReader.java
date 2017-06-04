@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.server.book.mapper.BookBaseRestMapper;
 import com.cezarykluczynski.stapi.server.book.mapper.BookFullRestMapper;
 import com.cezarykluczynski.stapi.server.book.query.BookRestQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -28,20 +29,24 @@ public class BookRestReader implements BaseReader<BookRestBeanParams, BookBaseRe
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	@Inject
 	public BookRestReader(BookRestQuery bookRestQuery, BookBaseRestMapper bookBaseRestMapper, BookFullRestMapper bookFullRestMapper,
-			PageMapper pageMapper) {
+			PageMapper pageMapper, SortMapper sortMapper) {
 		this.bookRestQuery = bookRestQuery;
 		this.bookBaseRestMapper = bookBaseRestMapper;
 		this.bookFullRestMapper = bookFullRestMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
-	public BookBaseResponse readBase(BookRestBeanParams bookRestBeanParams) {
-		Page<Book> bookPage = bookRestQuery.query(bookRestBeanParams);
+	public BookBaseResponse readBase(BookRestBeanParams input) {
+		Page<Book> bookPage = bookRestQuery.query(input);
 		BookBaseResponse bookResponse = new BookBaseResponse();
 		bookResponse.setPage(pageMapper.fromPageToRestResponsePage(bookPage));
+		bookResponse.setSort(sortMapper.map(input.getSort()));
 		bookResponse.getBooks().addAll(bookBaseRestMapper.mapBase(bookPage.getContent()));
 		return bookResponse;
 	}

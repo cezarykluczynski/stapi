@@ -5,8 +5,10 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyBaseResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyFull
 import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.company.dto.CompanyRestBeanParams
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseRestMapper
@@ -19,6 +21,7 @@ import spock.lang.Specification
 class CompanyRestReaderTest extends Specification {
 
 	private static final String UID = 'UID'
+	private static final String SORT = 'SORT'
 
 	private CompanyRestQuery companyRestQueryBuilderMock
 
@@ -28,6 +31,8 @@ class CompanyRestReaderTest extends Specification {
 
 	private PageMapper pageMapperMock
 
+	private SortMapper sortMapperMock
+
 	private CompanyRestReader companyRestReader
 
 	void setup() {
@@ -35,8 +40,9 @@ class CompanyRestReaderTest extends Specification {
 		companyBaseRestMapperMock = Mock()
 		companyFullRestMapperMock = Mock()
 		pageMapperMock = Mock()
+		sortMapperMock = Mock()
 		companyRestReader = new CompanyRestReader(companyRestQueryBuilderMock, companyBaseRestMapperMock, companyFullRestMapperMock,
-				pageMapperMock)
+				pageMapperMock, sortMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
@@ -48,6 +54,7 @@ class CompanyRestReaderTest extends Specification {
 		List<Company> companyList = Lists.newArrayList(company)
 		Page<Company> companyPage = Mock()
 		ResponsePage responsePage = Mock()
+		ResponseSort responseSort = Mock()
 
 		when:
 		CompanyBaseResponse companyResponseOutput = companyRestReader.readBase(companyRestBeanParams)
@@ -55,11 +62,14 @@ class CompanyRestReaderTest extends Specification {
 		then:
 		1 * companyRestQueryBuilderMock.query(companyRestBeanParams) >> companyPage
 		1 * pageMapperMock.fromPageToRestResponsePage(companyPage) >> responsePage
+		1 * companyRestBeanParams.sort >> SORT
+		1 * sortMapperMock.map(SORT) >> responseSort
 		1 * companyPage.content >> companyList
 		1 * companyBaseRestMapperMock.mapBase(companyList) >> restCompanyList
 		0 * _
 		companyResponseOutput.companies == restCompanyList
 		companyResponseOutput.page == responsePage
+		companyResponseOutput.sort == responseSort
 	}
 
 	void "passed UID to queryBuilder, then to mapper, and returns result"() {

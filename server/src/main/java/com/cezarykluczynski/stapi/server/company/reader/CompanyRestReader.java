@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyBaseResponse;
 import com.cezarykluczynski.stapi.client.v1.rest.model.CompanyFullResponse;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -28,13 +29,16 @@ public class CompanyRestReader implements BaseReader<CompanyRestBeanParams, Comp
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	@Inject
 	public CompanyRestReader(CompanyRestQuery companyRestQuery, CompanyBaseRestMapper companyBaseRestMapper,
-			CompanyFullRestMapper companyFullRestMapper, PageMapper pageMapper) {
+			CompanyFullRestMapper companyFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.companyRestQuery = companyRestQuery;
 		this.companyBaseRestMapper = companyBaseRestMapper;
 		this.companyFullRestMapper = companyFullRestMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
@@ -42,6 +46,7 @@ public class CompanyRestReader implements BaseReader<CompanyRestBeanParams, Comp
 		Page<Company> companyPage = companyRestQuery.query(input);
 		CompanyBaseResponse companyResponse = new CompanyBaseResponse();
 		companyResponse.setPage(pageMapper.fromPageToRestResponsePage(companyPage));
+		companyResponse.setSort(sortMapper.map(input.getSort()));
 		companyResponse.getCompanies().addAll(companyBaseRestMapper.mapBase(companyPage.getContent()));
 		return companyResponse;
 	}

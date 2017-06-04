@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.OrganizationBaseResponse;
 import com.cezarykluczynski.stapi.client.v1.rest.model.OrganizationFullResponse;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -29,13 +30,16 @@ public class OrganizationRestReader implements BaseReader<OrganizationRestBeanPa
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	@Inject
 	public OrganizationRestReader(OrganizationRestQuery organizationRestQuery, OrganizationBaseRestMapper organizationBaseRestMapper,
-			OrganizationFullRestMapper organizationFullRestMapper, PageMapper pageMapper) {
+			OrganizationFullRestMapper organizationFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.organizationRestQuery = organizationRestQuery;
 		this.organizationBaseRestMapper = organizationBaseRestMapper;
 		this.organizationFullRestMapper = organizationFullRestMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
@@ -43,6 +47,7 @@ public class OrganizationRestReader implements BaseReader<OrganizationRestBeanPa
 		Page<Organization> organizationPage = organizationRestQuery.query(input);
 		OrganizationBaseResponse organizationResponse = new OrganizationBaseResponse();
 		organizationResponse.setPage(pageMapper.fromPageToRestResponsePage(organizationPage));
+		organizationResponse.setSort(sortMapper.map(input.getSort()));
 		organizationResponse.getOrganizations().addAll(organizationBaseRestMapper.mapBase(organizationPage.getContent()));
 		return organizationResponse;
 	}

@@ -5,8 +5,10 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeBaseResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeFull
 import com.cezarykluczynski.stapi.client.v1.rest.model.EpisodeFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
 import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.episode.dto.EpisodeRestBeanParams
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeBaseRestMapper
@@ -19,6 +21,7 @@ import spock.lang.Specification
 class EpisodeRestReaderTest extends Specification {
 
 	private static final String UID = 'UID'
+	private static final String SORT = 'SORT'
 
 	private EpisodeRestQuery episodeRestQueryBuilderMock
 
@@ -28,6 +31,8 @@ class EpisodeRestReaderTest extends Specification {
 
 	private PageMapper pageMapperMock
 
+	private SortMapper sortMapperMock
+
 	private EpisodeRestReader episodeRestReader
 
 	void setup() {
@@ -35,7 +40,9 @@ class EpisodeRestReaderTest extends Specification {
 		episodeBaseRestMapperMock = Mock()
 		episodeFullRestMapperMock = Mock()
 		pageMapperMock = Mock()
-		episodeRestReader = new EpisodeRestReader(episodeRestQueryBuilderMock, episodeBaseRestMapperMock, episodeFullRestMapperMock, pageMapperMock)
+		sortMapperMock = Mock()
+		episodeRestReader = new EpisodeRestReader(episodeRestQueryBuilderMock, episodeBaseRestMapperMock, episodeFullRestMapperMock, pageMapperMock,
+				sortMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
@@ -47,6 +54,7 @@ class EpisodeRestReaderTest extends Specification {
 		List<Episode> episodeList = Lists.newArrayList(episode)
 		Page<Episode> episodePage = Mock()
 		ResponsePage responsePage = Mock()
+		ResponseSort responseSort = Mock()
 
 		when:
 		EpisodeBaseResponse episodeResponseOutput = episodeRestReader.readBase(episodeRestBeanParams)
@@ -54,11 +62,14 @@ class EpisodeRestReaderTest extends Specification {
 		then:
 		1 * episodeRestQueryBuilderMock.query(episodeRestBeanParams) >> episodePage
 		1 * pageMapperMock.fromPageToRestResponsePage(episodePage) >> responsePage
+		1 * episodeRestBeanParams.sort >> SORT
+		1 * sortMapperMock.map(SORT) >> responseSort
 		1 * episodePage.content >> episodeList
 		1 * episodeBaseRestMapperMock.mapBase(episodeList) >> restEpisodeList
 		0 * _
 		episodeResponseOutput.episodes == restEpisodeList
 		episodeResponseOutput.page == responsePage
+		episodeResponseOutput.sort == responseSort
 	}
 
 	void "passed UID to queryBuilder, then to mapper, and returns result"() {

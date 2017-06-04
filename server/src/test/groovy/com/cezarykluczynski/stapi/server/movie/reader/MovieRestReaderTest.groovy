@@ -5,8 +5,10 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.MovieBaseResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.MovieFull
 import com.cezarykluczynski.stapi.client.v1.rest.model.MovieFullResponse
 import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage
+import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort
 import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.movie.dto.MovieRestBeanParams
 import com.cezarykluczynski.stapi.server.movie.mapper.MovieBaseRestMapper
@@ -19,6 +21,7 @@ import spock.lang.Specification
 class MovieRestReaderTest extends Specification {
 
 	private static final String UID = 'UID'
+	private static final String SORT = 'SORT'
 
 	private MovieRestQuery movieRestQueryBuilderMock
 
@@ -28,6 +31,8 @@ class MovieRestReaderTest extends Specification {
 
 	private PageMapper pageMapperMock
 
+	private SortMapper sortMapperMock
+
 	private MovieRestReader movieRestReader
 
 	void setup() {
@@ -35,7 +40,9 @@ class MovieRestReaderTest extends Specification {
 		movieBaseRestMapperMock = Mock()
 		movieFullRestMapperMock = Mock()
 		pageMapperMock = Mock()
-		movieRestReader = new MovieRestReader(movieRestQueryBuilderMock, movieBaseRestMapperMock, movieFullRestMapperMock, pageMapperMock)
+		sortMapperMock = Mock()
+		movieRestReader = new MovieRestReader(movieRestQueryBuilderMock, movieBaseRestMapperMock, movieFullRestMapperMock, pageMapperMock,
+				sortMapperMock)
 	}
 
 	void "passed request to queryBuilder, then to mapper, and returns result"() {
@@ -47,6 +54,7 @@ class MovieRestReaderTest extends Specification {
 		List<Movie> movieList = Lists.newArrayList(movie)
 		Page<Movie> moviePage = Mock()
 		ResponsePage responsePage = Mock()
+		ResponseSort responseSort = Mock()
 
 		when:
 		MovieBaseResponse movieResponseOutput = movieRestReader.readBase(movieRestBeanParams)
@@ -54,11 +62,14 @@ class MovieRestReaderTest extends Specification {
 		then:
 		1 * movieRestQueryBuilderMock.query(movieRestBeanParams) >> moviePage
 		1 * pageMapperMock.fromPageToRestResponsePage(moviePage) >> responsePage
+		1 * movieRestBeanParams.sort >> SORT
+		1 * sortMapperMock.map(SORT) >> responseSort
 		1 * moviePage.content >> movieList
 		1 * movieBaseRestMapperMock.mapBase(movieList) >> restMovieList
 		0 * _
 		movieResponseOutput.movies == restMovieList
 		movieResponseOutput.page == responsePage
+		movieResponseOutput.sort == responseSort
 	}
 
 	void "passed UID to queryBuilder, then to mapper, and returns result"() {
