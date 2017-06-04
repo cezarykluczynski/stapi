@@ -51,7 +51,6 @@ public class IndividualTemplatePageProcessor implements ItemProcessor<Page, Indi
 		IndividualTemplate individualTemplate = new IndividualTemplate();
 		individualTemplate.setName(TitleUtil.getNameFromTitle(item.getTitle()));
 		individualTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
-		individualTemplate.setProductOfRedirect(!item.getRedirectPath().isEmpty());
 
 		Optional<Template> sidebarIndividualTemplateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_INDIVIDUAL);
 

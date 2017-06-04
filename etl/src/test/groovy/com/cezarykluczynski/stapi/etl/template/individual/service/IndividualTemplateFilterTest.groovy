@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.util.constant.PageTitle
 import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
@@ -166,6 +167,21 @@ class IndividualTemplateFilterTest extends Specification {
 
 		then:
 		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(categoryTitle)
+		shouldBeFilteredOut
+	}
+
+	void "returns true whe page is a product of redirect"() {
+		given:
+		PageHeader pageHeader = Mock()
+		Page page = new Page(
+				title: TITLE,
+				redirectPath: Lists.newArrayList(pageHeader))
+
+		when:
+		boolean shouldBeFilteredOut = individualTemplateFilter.shouldBeFilteredOut(page)
+
+		then:
+		1 * categoryTitlesExtractingProcessorMock.process(Lists.newArrayList()) >> Lists.newArrayList()
 		shouldBeFilteredOut
 	}
 

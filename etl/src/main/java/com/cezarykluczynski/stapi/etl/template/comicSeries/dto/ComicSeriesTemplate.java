@@ -12,6 +12,4 @@ public class ComicSeriesTemplate extends PublishableSeriesTemplate {
 
 	private Boolean photonovelSeries;
 
-	private boolean productOfRedirect;
-
 }

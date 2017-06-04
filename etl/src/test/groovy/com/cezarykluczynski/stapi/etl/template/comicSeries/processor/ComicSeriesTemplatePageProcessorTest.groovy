@@ -59,6 +59,18 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 		comicSeriesTemplate == null
 	}
 
+	void "returns null when page is a product of redirect"() {
+		given:
+		PageHeader pageHeader = Mock()
+		Page page = new Page(redirectPath: Lists.newArrayList(pageHeader))
+
+		when:
+		ComicSeriesTemplate comicSeriesTemplate = comicSeriesTemplatePageProcessor.process(page)
+
+		then:
+		comicSeriesTemplate == null
+	}
+
 	void "cleans title with (comic)"() {
 		given:
 		Page page = new Page(title: TITLE_COMIC)
@@ -106,48 +118,7 @@ class ComicSeriesTemplatePageProcessorTest extends Specification {
 		comicSeriesTemplate.title == TITLE
 		comicSeriesTemplate.page == modelPage
 		comicSeriesTemplate.photonovelSeries == PHOTONOVEL_SERIES
-		ReflectionTestUtils.getNumberOfNotNullFields(comicSeriesTemplate) == 5
-	}
-
-	void "sets productOfRedirect flag to true"() {
-		given:
-		PageHeader pageHeader = Mock()
-		Page page = new Page(
-				title: TITLE,
-				redirectPath: Lists.newArrayList(pageHeader))
-		ModelPage modelPage = new ModelPage()
-
-		when:
-		ComicSeriesTemplate comicSeriesTemplate = comicSeriesTemplatePageProcessor.process(page)
-
-		then:
-		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
-		1 * comicSeriesTemplatePhotonovelSeriesProcessorMock.process(page)
-		1 * comicSeriesTemplateFixedValuesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
-				EnrichablePair<ComicSeriesTemplate, ComicSeriesTemplate> enrichablePair ->
-			assert enrichablePair.input == enrichablePair.output
-		}
-		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_SERIES) >> Optional.empty()
-		comicSeriesTemplate.productOfRedirect
-	}
-
-	void "sets productOfRedirect flag to false"() {
-		given:
-		Page page = new Page(title: TITLE)
-		ModelPage modelPage = new ModelPage()
-
-		when:
-		ComicSeriesTemplate comicSeriesTemplate = comicSeriesTemplatePageProcessor.process(page)
-
-		then:
-		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
-		1 * comicSeriesTemplatePhotonovelSeriesProcessorMock.process(page)
-		1 * comicSeriesTemplateFixedValuesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
-				EnrichablePair<ComicSeriesTemplate, ComicSeriesTemplate> enrichablePair ->
-			assert enrichablePair.input == enrichablePair.output
-		}
-		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_SERIES) >> Optional.empty()
-		!comicSeriesTemplate.productOfRedirect
+		ReflectionTestUtils.getNumberOfNotNullFields(comicSeriesTemplate) == 4
 	}
 
 	void "when sidebar comic series is found, enriching processor is called"() {

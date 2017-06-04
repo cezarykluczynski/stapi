@@ -50,6 +50,19 @@ class PlanetTemplatePageProcessorTest extends Specification {
 				astronomicalObjectCompositeEnrichingProcessorMock)
 	}
 
+	void "returns null when page is a product of redirect"() {
+		given:
+		PageHeader pageHeader = Mock()
+		EtlPage page = new EtlPage(redirectPath: Lists.newArrayList(pageHeader))
+
+		when:
+		PlanetTemplate planetTemplate = planetTemplatePageProcessor.process(page)
+
+		then:
+		0 * _
+		planetTemplate == null
+	}
+
 	void "filters out unnamed planets"() {
 		when:
 		PlanetTemplate planetTemplate = planetTemplatePageProcessor.process(new EtlPage(title: 'Unnamed planets'))
@@ -89,7 +102,6 @@ class PlanetTemplatePageProcessorTest extends Specification {
 		1 * astronomicalObjectWikitextProcessorMock.process(_) >> null
 		0 * _
 		planetTemplate.page == modelPage
-		!planetTemplate.productOfRedirect
 	}
 
 	void "calls all dependencies when page with planet template is passed"() {
@@ -98,11 +110,9 @@ class PlanetTemplatePageProcessorTest extends Specification {
 		Template template = new Template(
 				parts: Lists.newArrayList(classTemplatePart)
 		)
-		PageHeader pageHeader = Mock()
 		EtlPage page = new EtlPage(
 				title: TITLE,
-				templates: Lists.newArrayList(template),
-				redirectPath: Lists.newArrayList(pageHeader))
+				templates: Lists.newArrayList(template))
 		ModelPage modelPage = Mock()
 
 		when:
@@ -126,7 +136,6 @@ class PlanetTemplatePageProcessorTest extends Specification {
 		0 * _
 		planetTemplate.page == modelPage
 		planetTemplate.astronomicalObjectType == NEBULA
-		planetTemplate.productOfRedirect
 	}
 
 }

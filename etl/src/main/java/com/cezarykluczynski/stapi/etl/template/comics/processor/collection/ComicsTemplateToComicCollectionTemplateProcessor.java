@@ -26,7 +26,6 @@ public class ComicsTemplateToComicCollectionTemplateProcessor implements ItemPro
 		comicCollectionTemplate.setYearFrom(item.getYearFrom());
 		comicCollectionTemplate.setYearTo(item.getYearTo());
 		comicCollectionTemplate.setPhotonovel(item.isPhotonovel());
-		comicCollectionTemplate.setProductOfRedirect(item.isProductOfRedirect());
 		comicCollectionTemplate.getComicSeries().addAll(item.getComicSeries());
 		comicCollectionTemplate.getWriters().addAll(item.getWriters());
 		comicCollectionTemplate.getArtists().addAll(item.getArtists());

@@ -56,7 +56,6 @@ public class ComicSeriesTemplatePageProcessor implements ItemProcessor<Page, Com
 		ComicSeriesTemplate comicSeriesTemplate = new ComicSeriesTemplate();
 		comicSeriesTemplate.setTitle(getTitle(item.getTitle()));
 		comicSeriesTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
-		comicSeriesTemplate.setProductOfRedirect(!item.getRedirectPath().isEmpty());
 		comicSeriesTemplate.setPhotonovelSeries(comicSeriesTemplatePhotonovelSeriesProcessor.process(item));
 
 		comicSeriesTemplateFixedValuesEnrichingProcessor.enrich(EnrichablePair.of(comicSeriesTemplate, comicSeriesTemplate));
@@ -77,6 +76,7 @@ public class ComicSeriesTemplatePageProcessor implements ItemProcessor<Page, Com
 	}
 
 	private boolean shouldBeFilteredOut(Page item) {
-		return INVALID_TITLES.contains(item.getTitle());
+		return INVALID_TITLES.contains(item.getTitle()) || !item.getRedirectPath().isEmpty();
 	}
+
 }

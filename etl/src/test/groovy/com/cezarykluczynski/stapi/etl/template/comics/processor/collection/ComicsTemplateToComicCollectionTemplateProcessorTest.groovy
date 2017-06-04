@@ -9,12 +9,10 @@ import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.reference.entity.Reference
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.util.AbstractComicCollectionTest
-import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Sets
 
 class ComicsTemplateToComicCollectionTemplateProcessorTest extends AbstractComicCollectionTest {
 
-	private static final Boolean PRODUCT_OF_REDIRECT = RandomUtil.nextBoolean()
 	private final Page page = Mock()
 
 	private ComicsTemplateToComicCollectionTemplateProcessor collectionTemplateProcessor
@@ -57,7 +55,6 @@ class ComicsTemplateToComicCollectionTemplateProcessorTest extends AbstractComic
 				yearFrom: YEAR_FROM,
 				yearTo: YEAR_TO,
 				photonovel: PHOTONOVEL,
-				productOfRedirect: PRODUCT_OF_REDIRECT,
 				comicSeries: Sets.newHashSet(comicSeries1, comicSeries2),
 				writers: Sets.newHashSet(writer1, writer2),
 				artists: Sets.newHashSet(artist1, artist2),
@@ -85,7 +82,6 @@ class ComicsTemplateToComicCollectionTemplateProcessorTest extends AbstractComic
 		comicCollectionTemplate.yearFrom == YEAR_FROM
 		comicCollectionTemplate.yearTo == YEAR_TO
 		comicCollectionTemplate.photonovel == PHOTONOVEL
-		comicCollectionTemplate.productOfRedirect == PRODUCT_OF_REDIRECT
 		comicCollectionTemplate.comicSeries.contains comicSeries1
 		comicCollectionTemplate.comicSeries.contains comicSeries2
 		comicCollectionTemplate.writers.contains writer1

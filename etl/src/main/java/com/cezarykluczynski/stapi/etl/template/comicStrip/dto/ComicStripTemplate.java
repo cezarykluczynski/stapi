@@ -44,6 +44,4 @@ public class ComicStripTemplate {
 
 	private Set<Character> characters = Sets.newHashSet();
 
-	private boolean productOfRedirect;
-
 }

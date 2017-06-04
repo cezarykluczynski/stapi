@@ -54,8 +54,6 @@ public class IndividualTemplate {
 
 	private Boolean alternateReality;
 
-	private boolean productOfRedirect;
-
 	private Set<Performer> performers = Sets.newHashSet();
 
 	private Set<CharacterSpecies> characterSpecies = Sets.newHashSet();

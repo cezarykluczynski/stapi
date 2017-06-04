@@ -44,8 +44,6 @@ public class ComicsTemplate {
 
 	private boolean adaptation;
 
-	private boolean productOfRedirect;
-
 	private Set<ComicSeries> comicSeries = Sets.newHashSet();
 
 	private Set<Staff> writers = Sets.newHashSet();

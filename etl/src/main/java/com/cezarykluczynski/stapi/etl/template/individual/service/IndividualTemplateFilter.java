@@ -55,6 +55,10 @@ public class IndividualTemplateFilter implements PageFilter {
 			return true;
 		}
 
+		if (!page.getRedirectPath().isEmpty()) {
+			return true;
+		}
+
 		return categorySortingService.isSortedOnTopOfAnyCategory(page);
 	}
 

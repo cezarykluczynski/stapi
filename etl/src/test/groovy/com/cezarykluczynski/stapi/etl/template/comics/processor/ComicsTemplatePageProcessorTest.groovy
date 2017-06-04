@@ -83,6 +83,20 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		comicsTemplate == null
 	}
 
+	void "returns null when page is a product of redirect"() {
+		given:
+		PageHeader pageHeader = Mock()
+		Page page = new Page(redirectPath: Lists.newArrayList(pageHeader))
+
+		when:
+		ComicsTemplate comicsTemplate = comicsTemplatePageProcessor.process(page)
+
+		then:
+		1 * categoryTitlesExtractingProcessorMock.process(Lists.newArrayList()) >> Lists.newArrayList()
+		0 * _
+		comicsTemplate == null
+	}
+
 	void "sets photonovel flag when photonovels category is found"() {
 		given:
 		List<CategoryHeader> categoryHeaderList = Mock()
@@ -264,15 +278,11 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		comicsTemplate.title == TITLE
 		comicsTemplate.page == modelPage
 		comicsTemplate.characters.contains character
-		!comicsTemplate.productOfRedirect
 	}
 
 	void "parses page with sidebar comics template"() {
 		given:
-		PageHeader pageHeader = Mock()
-		Page page = new Page(
-				title: TITLE,
-				redirectPath: Lists.newArrayList(pageHeader))
+		Page page = new Page(title: TITLE)
 		ModelPage modelPage = new ModelPage()
 		Template.Part templatePart = Mock()
 		Template template = new Template(parts: Lists.newArrayList(templatePart))
@@ -299,7 +309,6 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		0 * _
 		comicsTemplate.title == TITLE
 		comicsTemplate.page == modelPage
-		comicsTemplate.productOfRedirect
 	}
 
 }

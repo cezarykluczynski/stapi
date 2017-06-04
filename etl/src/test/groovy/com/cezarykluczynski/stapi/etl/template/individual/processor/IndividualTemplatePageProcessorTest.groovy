@@ -9,7 +9,6 @@ import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.model.page.entity.Page as PageEntity
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource as SourcesMediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.ReflectionTestUtils
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
@@ -76,7 +75,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		0 * _
 		individualTemplate.name == TITLE
 		individualTemplate.page == pageEntity
-		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 5
+		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 4
 	}
 
 	void "sets name from page title, and cuts brackets when they are present"() {
@@ -94,39 +93,7 @@ class IndividualTemplatePageProcessorTest extends Specification {
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_INDIVIDUAL) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> new PageEntity()
 		individualTemplate.name == TITLE
-		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 5
-	}
-
-	void "sets productOfRedirect flag to true"() {
-		given:
-		PageHeader pageHeader = Mock()
-		Page page = new Page(
-				title: TITLE,
-				redirectPath: Lists.newArrayList(pageHeader)
-		)
-
-		when:
-		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
-
-		then:
-		1 * individualTemplateFilterMock.shouldBeFilteredOut(page) >> false
-		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_INDIVIDUAL) >> Optional.empty()
-		individualTemplate.productOfRedirect
-	}
-
-	void "sets productOfRedirect flag to false"() {
-		given:
-		Page page = new Page(
-				title: TITLE
-		)
-
-		when:
-		IndividualTemplate individualTemplate = individualTemplatePageProcessor.process(page)
-
-		then:
-		1 * individualTemplateFilterMock.shouldBeFilteredOut(page) >> false
-		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_INDIVIDUAL) >> Optional.empty()
-		!individualTemplate.productOfRedirect
+		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 4
 	}
 
 	void "when sidebar individual is found, enriching processors are called, but not the characterbox processor, when there is no mbeta template"() {

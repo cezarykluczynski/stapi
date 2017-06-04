@@ -65,7 +65,6 @@ public class PlanetTemplatePageProcessor implements ItemProcessor<Page, PlanetTe
 		PlanetTemplate planetTemplate = new PlanetTemplate();
 		planetTemplate.setName(TitleUtil.getNameFromTitle(item.getTitle()));
 		planetTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
-		planetTemplate.setProductOfRedirect(!item.getRedirectPath().isEmpty());
 
 		astronomicalObjectTypeEnrichingProcessor.enrich(EnrichablePair.of(item, planetTemplate));
 
@@ -109,6 +108,10 @@ public class PlanetTemplatePageProcessor implements ItemProcessor<Page, PlanetTe
 	}
 
 	private boolean shouldBeFilteredOut(Page item) {
+		if (!item.getRedirectPath().isEmpty()) {
+			return true;
+		}
+
 		String title = item.getTitle();
 		if (title.startsWith(UNNAMED_PREFIX) || PLANETARY_CLASSIFICATION.equals(title)) {
 			return true;

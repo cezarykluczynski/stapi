@@ -76,7 +76,6 @@ public class ComicsTemplatePageProcessor implements ItemProcessor<Page, ComicsTe
 		ComicsTemplate comicsTemplate = new ComicsTemplate();
 		comicsTemplate.setTitle(StringUtils.containsAny(title, COMIC, FOTONOVEL, OMNIBUS) ? TitleUtil.getNameFromTitle(title) : title);
 		comicsTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
-		comicsTemplate.setProductOfRedirect(!item.getRedirectPath().isEmpty());
 		comicsTemplate.setPhotonovel(isPhotonovel(item));
 		comicsTemplate.setAdaptation(isAdaptation(item));
 
@@ -98,7 +97,7 @@ public class ComicsTemplatePageProcessor implements ItemProcessor<Page, ComicsTe
 
 	private boolean shouldBeFilteredOut(Page item) {
 		return INVALID_TITLES.contains(item.getTitle()) || categoryTitlesExtractingProcessor.process(item.getCategories())
-				.contains(CategoryTitle.STAR_TREK_SERIES_MAGAZINES);
+				.contains(CategoryTitle.STAR_TREK_SERIES_MAGAZINES) || !item.getRedirectPath().isEmpty();
 	}
 
 	private boolean isPhotonovel(Page item) {

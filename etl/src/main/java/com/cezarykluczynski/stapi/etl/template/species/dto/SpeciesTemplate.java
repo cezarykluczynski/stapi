@@ -39,6 +39,4 @@ public class SpeciesTemplate {
 
 	private boolean alternateReality;
 
-	private boolean productOfRedirect;
-
 }

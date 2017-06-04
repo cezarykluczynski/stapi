@@ -13,6 +13,4 @@ public class PlanetTemplate {
 
 	private AstronomicalObjectType astronomicalObjectType;
 
-	private boolean productOfRedirect;
-
 }
