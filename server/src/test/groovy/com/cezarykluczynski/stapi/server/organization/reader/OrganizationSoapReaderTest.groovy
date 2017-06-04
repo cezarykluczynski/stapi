@@ -6,9 +6,12 @@ import com.cezarykluczynski.stapi.client.v1.soap.OrganizationBaseResponse
 import com.cezarykluczynski.stapi.client.v1.soap.OrganizationFull
 import com.cezarykluczynski.stapi.client.v1.soap.OrganizationFullRequest
 import com.cezarykluczynski.stapi.client.v1.soap.OrganizationFullResponse
+import com.cezarykluczynski.stapi.client.v1.soap.RequestSort
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
+import com.cezarykluczynski.stapi.client.v1.soap.ResponseSort
 import com.cezarykluczynski.stapi.model.organization.entity.Organization
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.organization.mapper.OrganizationBaseSoapMapper
 import com.cezarykluczynski.stapi.server.organization.mapper.OrganizationFullSoapMapper
@@ -29,6 +32,8 @@ class OrganizationSoapReaderTest extends Specification {
 
 	private PageMapper pageMapperMock
 
+	private SortMapper sortMapperMock
+
 	private OrganizationSoapReader organizationSoapReader
 
 	void setup() {
@@ -36,8 +41,9 @@ class OrganizationSoapReaderTest extends Specification {
 		organizationBaseSoapMapperMock = Mock()
 		organizationFullSoapMapperMock = Mock()
 		pageMapperMock = Mock()
+		sortMapperMock = Mock()
 		organizationSoapReader = new OrganizationSoapReader(organizationSoapQueryBuilderMock, organizationBaseSoapMapperMock,
-				organizationFullSoapMapperMock, pageMapperMock)
+				organizationFullSoapMapperMock, pageMapperMock, sortMapperMock)
 	}
 
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
@@ -47,6 +53,8 @@ class OrganizationSoapReaderTest extends Specification {
 		List<OrganizationBase> soapOrganizationList = Lists.newArrayList(new OrganizationBase(uid: UID))
 		OrganizationBaseRequest organizationBaseRequest = Mock()
 		ResponsePage responsePage = Mock()
+		RequestSort requestSort = Mock()
+		ResponseSort responseSort = Mock()
 
 		when:
 		OrganizationBaseResponse organizationResponse = organizationSoapReader.readBase(organizationBaseRequest)
@@ -55,7 +63,10 @@ class OrganizationSoapReaderTest extends Specification {
 		1 * organizationSoapQueryBuilderMock.query(organizationBaseRequest) >> organizationPage
 		1 * organizationPage.content >> organizationList
 		1 * pageMapperMock.fromPageToSoapResponsePage(organizationPage) >> responsePage
+		1 * organizationBaseRequest.sort >> requestSort
+		1 * sortMapperMock.map(requestSort) >> responseSort
 		1 * organizationBaseSoapMapperMock.mapBase(organizationList) >> soapOrganizationList
+		0 * _
 		organizationResponse.organizations[0].uid == UID
 		organizationResponse.page == responsePage
 	}
@@ -74,6 +85,7 @@ class OrganizationSoapReaderTest extends Specification {
 		1 * organizationSoapQueryBuilderMock.query(organizationFullRequest) >> organizationPage
 		1 * organizationPage.content >> Lists.newArrayList(organization)
 		1 * organizationFullSoapMapperMock.mapFull(organization) >> organizationFull
+		0 * _
 		organizationFullResponse.organization.uid == UID
 	}
 

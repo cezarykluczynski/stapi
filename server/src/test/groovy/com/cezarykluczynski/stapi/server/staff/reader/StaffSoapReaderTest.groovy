@@ -1,6 +1,8 @@
 package com.cezarykluczynski.stapi.server.staff.reader
 
+import com.cezarykluczynski.stapi.client.v1.soap.RequestSort
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
+import com.cezarykluczynski.stapi.client.v1.soap.ResponseSort
 import com.cezarykluczynski.stapi.client.v1.soap.StaffBase
 import com.cezarykluczynski.stapi.client.v1.soap.StaffBaseRequest
 import com.cezarykluczynski.stapi.client.v1.soap.StaffBaseResponse
@@ -9,6 +11,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.StaffFullRequest
 import com.cezarykluczynski.stapi.client.v1.soap.StaffFullResponse
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseSoapMapper
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffFullSoapMapper
@@ -29,6 +32,8 @@ class StaffSoapReaderTest extends Specification {
 
 	private PageMapper pageMapperMock
 
+	private SortMapper sortMapperMock
+
 	private StaffSoapReader staffSoapReader
 
 	void setup() {
@@ -36,7 +41,9 @@ class StaffSoapReaderTest extends Specification {
 		staffBaseSoapMapperMock = Mock()
 		staffFullSoapMapperMock = Mock()
 		pageMapperMock = Mock()
-		staffSoapReader = new StaffSoapReader(staffSoapQueryBuilderMock, staffBaseSoapMapperMock, staffFullSoapMapperMock, pageMapperMock)
+		sortMapperMock = Mock()
+		staffSoapReader = new StaffSoapReader(staffSoapQueryBuilderMock, staffBaseSoapMapperMock, staffFullSoapMapperMock, pageMapperMock,
+				sortMapperMock)
 	}
 
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
@@ -46,6 +53,8 @@ class StaffSoapReaderTest extends Specification {
 		List<StaffBase> soapStaffList = Lists.newArrayList(new StaffBase(uid: UID))
 		StaffBaseRequest staffBaseRequest = Mock()
 		ResponsePage responsePage = Mock()
+		RequestSort requestSort = Mock()
+		ResponseSort responseSort = Mock()
 
 		when:
 		StaffBaseResponse staffResponse = staffSoapReader.readBase(staffBaseRequest)
@@ -54,7 +63,10 @@ class StaffSoapReaderTest extends Specification {
 		1 * staffSoapQueryBuilderMock.query(staffBaseRequest) >> dbStaffPage
 		1 * dbStaffPage.content >> dbStaffList
 		1 * pageMapperMock.fromPageToSoapResponsePage(dbStaffPage) >> responsePage
+		1 * staffBaseRequest.sort >> requestSort
+		1 * sortMapperMock.map(requestSort) >> responseSort
 		1 * staffBaseSoapMapperMock.mapBase(dbStaffList) >> soapStaffList
+		0 * _
 		staffResponse.staff[0].uid == UID
 		staffResponse.page == responsePage
 	}
@@ -73,6 +85,7 @@ class StaffSoapReaderTest extends Specification {
 		1 * staffSoapQueryBuilderMock.query(staffFullRequest) >> staffPage
 		1 * staffPage.content >> Lists.newArrayList(staff)
 		1 * staffFullSoapMapperMock.mapFull(staff) >> staffFull
+		0 * _
 		staffFullResponse.staff.uid == UID
 	}
 

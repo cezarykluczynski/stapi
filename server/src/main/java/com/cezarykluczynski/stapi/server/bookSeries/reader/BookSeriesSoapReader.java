@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.server.bookSeries.mapper.BookSeriesBaseSoapMap
 import com.cezarykluczynski.stapi.server.bookSeries.mapper.BookSeriesFullSoapMapper;
 import com.cezarykluczynski.stapi.server.bookSeries.query.BookSeriesSoapQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -28,12 +29,15 @@ public class BookSeriesSoapReader implements BaseReader<BookSeriesBaseRequest, B
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	public BookSeriesSoapReader(BookSeriesSoapQuery bookSeriesSoapQuery, BookSeriesBaseSoapMapper bookSeriesBaseSoapMapper,
-			BookSeriesFullSoapMapper bookSeriesFullSoapMapper, PageMapper pageMapper) {
+			BookSeriesFullSoapMapper bookSeriesFullSoapMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.bookSeriesSoapQuery = bookSeriesSoapQuery;
 		this.bookSeriesBaseSoapMapper = bookSeriesBaseSoapMapper;
 		this.bookSeriesFullSoapMapper = bookSeriesFullSoapMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
@@ -41,6 +45,7 @@ public class BookSeriesSoapReader implements BaseReader<BookSeriesBaseRequest, B
 		Page<BookSeries> bookSeriesPage = bookSeriesSoapQuery.query(input);
 		BookSeriesBaseResponse bookSeriesResponse = new BookSeriesBaseResponse();
 		bookSeriesResponse.setPage(pageMapper.fromPageToSoapResponsePage(bookSeriesPage));
+		bookSeriesResponse.setSort(sortMapper.map(input.getSort()));
 		bookSeriesResponse.getBookSeries().addAll(bookSeriesBaseSoapMapper.mapBase(bookSeriesPage.getContent()));
 		return bookSeriesResponse;
 	}

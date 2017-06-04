@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.CompanyFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.CompanyFullResponse;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -27,12 +28,15 @@ public class CompanySoapReader implements BaseReader<CompanyBaseRequest, Company
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	public CompanySoapReader(CompanySoapQuery companySoapQuery, CompanyBaseSoapMapper companyBaseSoapMapper,
-			CompanyFullSoapMapper companyFullSoapMapper, PageMapper pageMapper) {
+			CompanyFullSoapMapper companyFullSoapMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.companySoapQuery = companySoapQuery;
 		this.companyBaseSoapMapper = companyBaseSoapMapper;
 		this.companyFullSoapMapper = companyFullSoapMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
@@ -40,6 +44,7 @@ public class CompanySoapReader implements BaseReader<CompanyBaseRequest, Company
 		Page<Company> companyPage = companySoapQuery.query(input);
 		CompanyBaseResponse companyResponse = new CompanyBaseResponse();
 		companyResponse.setPage(pageMapper.fromPageToSoapResponsePage(companyPage));
+		companyResponse.setSort(sortMapper.map(input.getSort()));
 		companyResponse.getCompanies().addAll(companyBaseSoapMapper.mapBase(companyPage.getContent()));
 		return companyResponse;
 	}

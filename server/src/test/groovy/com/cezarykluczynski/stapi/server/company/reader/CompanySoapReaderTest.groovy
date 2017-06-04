@@ -6,9 +6,12 @@ import com.cezarykluczynski.stapi.client.v1.soap.CompanyBaseResponse
 import com.cezarykluczynski.stapi.client.v1.soap.CompanyFull
 import com.cezarykluczynski.stapi.client.v1.soap.CompanyFullRequest
 import com.cezarykluczynski.stapi.client.v1.soap.CompanyFullResponse
+import com.cezarykluczynski.stapi.client.v1.soap.RequestSort
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
+import com.cezarykluczynski.stapi.client.v1.soap.ResponseSort
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseSoapMapper
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyFullSoapMapper
@@ -29,6 +32,8 @@ class CompanySoapReaderTest extends Specification {
 
 	private PageMapper pageMapperMock
 
+	private SortMapper sortMapperMock
+
 	private CompanySoapReader companySoapReader
 
 	void setup() {
@@ -36,7 +41,9 @@ class CompanySoapReaderTest extends Specification {
 		companyBaseSoapMapperMock = Mock()
 		companyFullSoapMapperMock = Mock()
 		pageMapperMock = Mock()
-		companySoapReader = new CompanySoapReader(companySoapQueryBuilderMock, companyBaseSoapMapperMock, companyFullSoapMapperMock, pageMapperMock)
+		sortMapperMock = Mock()
+		companySoapReader = new CompanySoapReader(companySoapQueryBuilderMock, companyBaseSoapMapperMock, companyFullSoapMapperMock, pageMapperMock,
+				sortMapperMock)
 	}
 
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
@@ -46,6 +53,8 @@ class CompanySoapReaderTest extends Specification {
 		List<CompanyBase> soapCompanyList = Lists.newArrayList(new CompanyBase(uid: UID))
 		CompanyBaseRequest companyBaseRequest = Mock()
 		ResponsePage responsePage = Mock()
+		RequestSort requestSort = Mock()
+		ResponseSort responseSort = Mock()
 
 		when:
 		CompanyBaseResponse companyResponse = companySoapReader.readBase(companyBaseRequest)
@@ -54,7 +63,10 @@ class CompanySoapReaderTest extends Specification {
 		1 * companySoapQueryBuilderMock.query(companyBaseRequest) >> companyPage
 		1 * companyPage.content >> companyList
 		1 * pageMapperMock.fromPageToSoapResponsePage(companyPage) >> responsePage
+		1 * companyBaseRequest.sort >> requestSort
+		1 * sortMapperMock.map(requestSort) >> responseSort
 		1 * companyBaseSoapMapperMock.mapBase(companyList) >> soapCompanyList
+		0 * _
 		companyResponse.companies[0].uid == UID
 		companyResponse.page == responsePage
 	}
@@ -73,6 +85,7 @@ class CompanySoapReaderTest extends Specification {
 		1 * companySoapQueryBuilderMock.query(companyFullRequest) >> companyPage
 		1 * companyPage.content >> Lists.newArrayList(company)
 		1 * companyFullSoapMapperMock.mapFull(company) >> companyFull
+		0 * _
 		companyFullResponse.company.uid == UID
 	}
 

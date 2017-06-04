@@ -1,6 +1,8 @@
 package com.cezarykluczynski.stapi.server.species.reader
 
+import com.cezarykluczynski.stapi.client.v1.soap.RequestSort
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
+import com.cezarykluczynski.stapi.client.v1.soap.ResponseSort
 import com.cezarykluczynski.stapi.client.v1.soap.SpeciesBase
 import com.cezarykluczynski.stapi.client.v1.soap.SpeciesBaseRequest
 import com.cezarykluczynski.stapi.client.v1.soap.SpeciesBaseResponse
@@ -9,6 +11,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.SpeciesFullRequest
 import com.cezarykluczynski.stapi.client.v1.soap.SpeciesFullResponse
 import com.cezarykluczynski.stapi.model.species.entity.Species
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesBaseSoapMapper
 import com.cezarykluczynski.stapi.server.species.mapper.SpeciesFullSoapMapper
@@ -29,6 +32,8 @@ class SpeciesSoapReaderTest extends Specification {
 
 	private PageMapper pageMapperMock
 
+	private SortMapper sortMapperMock
+
 	private SpeciesSoapReader speciesSoapReader
 
 	void setup() {
@@ -36,8 +41,9 @@ class SpeciesSoapReaderTest extends Specification {
 		speciesBaseSoapMapperMock = Mock()
 		speciesFullSoapMapperMock = Mock()
 		pageMapperMock = Mock()
+		sortMapperMock = Mock()
 		speciesSoapReader = new SpeciesSoapReader(speciesSoapQueryBuilderMock, speciesBaseSoapMapperMock, speciesFullSoapMapperMock,
-				pageMapperMock)
+				pageMapperMock, sortMapperMock)
 	}
 
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
@@ -47,6 +53,8 @@ class SpeciesSoapReaderTest extends Specification {
 		List<SpeciesBase> soapSpeciesList = Lists.newArrayList(new SpeciesBase(uid: UID))
 		SpeciesBaseRequest speciesBaseRequest = Mock()
 		ResponsePage responsePage = Mock()
+		RequestSort requestSort = Mock()
+		ResponseSort responseSort = Mock()
 
 		when:
 		SpeciesBaseResponse speciesResponse = speciesSoapReader.readBase(speciesBaseRequest)
@@ -55,7 +63,10 @@ class SpeciesSoapReaderTest extends Specification {
 		1 * speciesSoapQueryBuilderMock.query(speciesBaseRequest) >> speciesPage
 		1 * speciesPage.content >> speciesList
 		1 * pageMapperMock.fromPageToSoapResponsePage(speciesPage) >> responsePage
+		1 * speciesBaseRequest.sort >> requestSort
+		1 * sortMapperMock.map(requestSort) >> responseSort
 		1 * speciesBaseSoapMapperMock.mapBase(speciesList) >> soapSpeciesList
+		0 * _
 		speciesResponse.species[0].uid == UID
 		speciesResponse.page == responsePage
 	}
@@ -74,6 +85,7 @@ class SpeciesSoapReaderTest extends Specification {
 		1 * speciesSoapQueryBuilderMock.query(speciesFullRequest) >> speciesPage
 		1 * speciesPage.content >> Lists.newArrayList(species)
 		1 * speciesFullSoapMapperMock.mapFull(species) >> speciesFull
+		0 * _
 		speciesFullResponse.species.uid == UID
 	}
 

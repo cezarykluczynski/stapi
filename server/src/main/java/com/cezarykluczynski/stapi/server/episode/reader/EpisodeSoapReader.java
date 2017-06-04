@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.EpisodeFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.EpisodeFullResponse;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -27,12 +28,15 @@ public class EpisodeSoapReader implements BaseReader<EpisodeBaseRequest, Episode
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	public EpisodeSoapReader(EpisodeSoapQuery episodeSoapQuery, EpisodeBaseSoapMapper episodeBaseSoapMapper,
-			EpisodeFullSoapMapper episodeFullSoapMapper, PageMapper pageMapper) {
+			EpisodeFullSoapMapper episodeFullSoapMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.episodeSoapQuery = episodeSoapQuery;
 		this.episodeBaseSoapMapper = episodeBaseSoapMapper;
 		this.episodeFullSoapMapper = episodeFullSoapMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
@@ -40,6 +44,7 @@ public class EpisodeSoapReader implements BaseReader<EpisodeBaseRequest, Episode
 		Page<Episode> episodePage = episodeSoapQuery.query(input);
 		EpisodeBaseResponse episodeResponse = new EpisodeBaseResponse();
 		episodeResponse.setPage(pageMapper.fromPageToSoapResponsePage(episodePage));
+		episodeResponse.setSort(sortMapper.map(input.getSort()));
 		episodeResponse.getEpisodes().addAll(episodeBaseSoapMapper.mapBase(episodePage.getContent()));
 		return episodeResponse;
 	}

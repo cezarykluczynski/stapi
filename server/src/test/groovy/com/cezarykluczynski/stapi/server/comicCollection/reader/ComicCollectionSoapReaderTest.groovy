@@ -6,12 +6,15 @@ import com.cezarykluczynski.stapi.client.v1.soap.ComicCollectionBaseResponse
 import com.cezarykluczynski.stapi.client.v1.soap.ComicCollectionFull
 import com.cezarykluczynski.stapi.client.v1.soap.ComicCollectionFullRequest
 import com.cezarykluczynski.stapi.client.v1.soap.ComicCollectionFullResponse
+import com.cezarykluczynski.stapi.client.v1.soap.RequestSort
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
+import com.cezarykluczynski.stapi.client.v1.soap.ResponseSort
 import com.cezarykluczynski.stapi.model.comicCollection.entity.ComicCollection
 import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionBaseSoapMapper
 import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionFullSoapMapper
 import com.cezarykluczynski.stapi.server.comicCollection.query.ComicCollectionSoapQuery
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
@@ -29,6 +32,8 @@ class ComicCollectionSoapReaderTest extends Specification {
 
 	private PageMapper pageMapperMock
 
+	private SortMapper sortMapperMock
+
 	private ComicCollectionSoapReader comicCollectionSoapReader
 
 	void setup() {
@@ -36,8 +41,9 @@ class ComicCollectionSoapReaderTest extends Specification {
 		comicCollectionBaseSoapMapperMock = Mock()
 		comicCollectionFullSoapMapperMock = Mock()
 		pageMapperMock = Mock()
+		sortMapperMock = Mock()
 		comicCollectionSoapReader = new ComicCollectionSoapReader(comicCollectionSoapQueryBuilderMock, comicCollectionBaseSoapMapperMock,
-				comicCollectionFullSoapMapperMock, pageMapperMock)
+				comicCollectionFullSoapMapperMock, pageMapperMock, sortMapperMock)
 	}
 
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
@@ -47,6 +53,8 @@ class ComicCollectionSoapReaderTest extends Specification {
 		List<ComicCollectionBase> soapComicCollectionList = Lists.newArrayList(new ComicCollectionBase(uid: UID))
 		ComicCollectionBaseRequest comicCollectionBaseRequest = Mock()
 		ResponsePage responsePage = Mock()
+		RequestSort requestSort = Mock()
+		ResponseSort responseSort = Mock()
 
 		when:
 		ComicCollectionBaseResponse comicCollectionResponse = comicCollectionSoapReader.readBase(comicCollectionBaseRequest)
@@ -55,7 +63,10 @@ class ComicCollectionSoapReaderTest extends Specification {
 		1 * comicCollectionSoapQueryBuilderMock.query(comicCollectionBaseRequest) >> comicCollectionPage
 		1 * comicCollectionPage.content >> comicCollectionList
 		1 * pageMapperMock.fromPageToSoapResponsePage(comicCollectionPage) >> responsePage
+		1 * comicCollectionBaseRequest.sort >> requestSort
+		1 * sortMapperMock.map(requestSort) >> responseSort
 		1 * comicCollectionBaseSoapMapperMock.mapBase(comicCollectionList) >> soapComicCollectionList
+		0 * _
 		comicCollectionResponse.comicCollections[0].uid == UID
 		comicCollectionResponse.page == responsePage
 	}
@@ -74,6 +85,7 @@ class ComicCollectionSoapReaderTest extends Specification {
 		1 * comicCollectionSoapQueryBuilderMock.query(comicCollectionFullRequest) >> comicCollectionPage
 		1 * comicCollectionPage.content >> Lists.newArrayList(comicCollection)
 		1 * comicCollectionFullSoapMapperMock.mapFull(comicCollection) >> comicCollectionFull
+		0 * _
 		comicCollectionFullResponse.comicCollection.uid == UID
 	}
 

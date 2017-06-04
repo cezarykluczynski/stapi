@@ -66,6 +66,7 @@ class AstronomicalObjectSoapReaderTest extends Specification {
 		1 * astronomicalObjectBaseRequest.sort >> requestSort
 		1 * sortMapperMock.map(requestSort) >> responseSort
 		1 * astronomicalObjectBaseSoapMapperMock.mapBase(astronomicalObjectList) >> soapAstronomicalObjectList
+		0 * _
 		astronomicalObjectResponse.astronomicalObjects[0].uid == UID
 		astronomicalObjectResponse.page == responsePage
 		astronomicalObjectResponse.sort == responseSort
@@ -85,6 +86,7 @@ class AstronomicalObjectSoapReaderTest extends Specification {
 		1 * astronomicalObjectSoapQueryBuilderMock.query(astronomicalObjectFullRequest) >> astronomicalObjectPage
 		1 * astronomicalObjectPage.content >> Lists.newArrayList(astronomicalObject)
 		1 * astronomicalObjectFullSoapMapperMock.mapFull(astronomicalObject) >> astronomicalObjectFull
+		0 * _
 		astronomicalObjectFullResponse.astronomicalObject.uid == UID
 	}
 

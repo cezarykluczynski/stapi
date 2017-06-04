@@ -6,9 +6,12 @@ import com.cezarykluczynski.stapi.client.v1.soap.MovieBaseResponse
 import com.cezarykluczynski.stapi.client.v1.soap.MovieFull
 import com.cezarykluczynski.stapi.client.v1.soap.MovieFullRequest
 import com.cezarykluczynski.stapi.client.v1.soap.MovieFullResponse
+import com.cezarykluczynski.stapi.client.v1.soap.RequestSort
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
+import com.cezarykluczynski.stapi.client.v1.soap.ResponseSort
 import com.cezarykluczynski.stapi.model.movie.entity.Movie
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.movie.mapper.MovieBaseSoapMapper
 import com.cezarykluczynski.stapi.server.movie.mapper.MovieFullSoapMapper
@@ -29,6 +32,8 @@ class MovieSoapReaderTest extends Specification {
 
 	private PageMapper pageMapperMock
 
+	private SortMapper sortMapperMock
+
 	private MovieSoapReader movieSoapReader
 
 	void setup() {
@@ -36,7 +41,9 @@ class MovieSoapReaderTest extends Specification {
 		movieBaseSoapMapperMock = Mock()
 		movieFullSoapMapperMock = Mock()
 		pageMapperMock = Mock()
-		movieSoapReader = new MovieSoapReader(movieSoapQueryBuilderMock, movieBaseSoapMapperMock, movieFullSoapMapperMock, pageMapperMock)
+		sortMapperMock = Mock()
+		movieSoapReader = new MovieSoapReader(movieSoapQueryBuilderMock, movieBaseSoapMapperMock, movieFullSoapMapperMock, pageMapperMock,
+				sortMapperMock)
 	}
 
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
@@ -46,6 +53,8 @@ class MovieSoapReaderTest extends Specification {
 		List<MovieBase> soapMovieList = Lists.newArrayList(new MovieBase(uid: UID))
 		MovieBaseRequest movieBaseRequest = Mock()
 		ResponsePage responsePage = Mock()
+		RequestSort requestSort = Mock()
+		ResponseSort responseSort = Mock()
 
 		when:
 		MovieBaseResponse movieResponse = movieSoapReader.readBase(movieBaseRequest)
@@ -54,7 +63,10 @@ class MovieSoapReaderTest extends Specification {
 		1 * movieSoapQueryBuilderMock.query(movieBaseRequest) >> moviePage
 		1 * moviePage.content >> movieList
 		1 * pageMapperMock.fromPageToSoapResponsePage(moviePage) >> responsePage
+		1 * movieBaseRequest.sort >> requestSort
+		1 * sortMapperMock.map(requestSort) >> responseSort
 		1 * movieBaseSoapMapperMock.mapBase(movieList) >> soapMovieList
+		0 * _
 		movieResponse.movies[0].uid == UID
 		movieResponse.page == responsePage
 	}
@@ -73,6 +85,7 @@ class MovieSoapReaderTest extends Specification {
 		1 * movieSoapQueryBuilderMock.query(movieFullRequest) >> moviePage
 		1 * moviePage.content >> Lists.newArrayList(movie)
 		1 * movieFullSoapMapperMock.mapFull(movie) >> movieFull
+		0 * _
 		movieFullResponse.movie.uid == UID
 	}
 

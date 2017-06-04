@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.FoodFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.FoodFullResponse;
 import com.cezarykluczynski.stapi.model.food.entity.Food;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -27,12 +28,15 @@ public class FoodSoapReader implements BaseReader<FoodBaseRequest, FoodBaseRespo
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	public FoodSoapReader(FoodSoapQuery foodSoapQuery, FoodBaseSoapMapper foodBaseSoapMapper, FoodFullSoapMapper foodFullSoapMapper,
-			PageMapper pageMapper) {
+			PageMapper pageMapper, SortMapper sortMapper) {
 		this.foodSoapQuery = foodSoapQuery;
 		this.foodBaseSoapMapper = foodBaseSoapMapper;
 		this.foodFullSoapMapper = foodFullSoapMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
@@ -40,6 +44,7 @@ public class FoodSoapReader implements BaseReader<FoodBaseRequest, FoodBaseRespo
 		Page<Food> foodPage = foodSoapQuery.query(input);
 		FoodBaseResponse foodResponse = new FoodBaseResponse();
 		foodResponse.setPage(pageMapper.fromPageToSoapResponsePage(foodPage));
+		foodResponse.setSort(sortMapper.map(input.getSort()));
 		foodResponse.getFoods().addAll(foodBaseSoapMapper.mapBase(foodPage.getContent()));
 		return foodResponse;
 	}

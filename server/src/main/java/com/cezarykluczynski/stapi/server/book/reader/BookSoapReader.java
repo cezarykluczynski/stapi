@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.server.book.mapper.BookBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.book.mapper.BookFullSoapMapper;
 import com.cezarykluczynski.stapi.server.book.query.BookSoapQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -27,12 +28,15 @@ public class BookSoapReader implements BaseReader<BookBaseRequest, BookBaseRespo
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	public BookSoapReader(BookSoapQuery bookSoapQuery, BookBaseSoapMapper bookBaseSoapMapper, BookFullSoapMapper bookFullSoapMapper,
-			PageMapper pageMapper) {
+			PageMapper pageMapper, SortMapper sortMapper) {
 		this.bookSoapQuery = bookSoapQuery;
 		this.bookBaseSoapMapper = bookBaseSoapMapper;
 		this.bookFullSoapMapper = bookFullSoapMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
@@ -40,6 +44,7 @@ public class BookSoapReader implements BaseReader<BookBaseRequest, BookBaseRespo
 		Page<Book> bookPage = bookSoapQuery.query(input);
 		BookBaseResponse bookResponse = new BookBaseResponse();
 		bookResponse.setPage(pageMapper.fromPageToSoapResponsePage(bookPage));
+		bookResponse.setSort(sortMapper.map(input.getSort()));
 		bookResponse.getBooks().addAll(bookBaseSoapMapper.mapBase(bookPage.getContent()));
 		return bookResponse;
 	}

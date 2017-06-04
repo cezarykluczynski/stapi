@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.PerformerFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.PerformerFullResponse;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -28,12 +29,15 @@ public class PerformerSoapReader implements BaseReader<PerformerBaseRequest, Per
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	public PerformerSoapReader(PerformerSoapQuery performerSoapQuery, PerformerBaseSoapMapper performerBaseSoapMapper,
-			PerformerFullSoapMapper performerFullSoapMapper, PageMapper pageMapper) {
+			PerformerFullSoapMapper performerFullSoapMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.performerSoapQuery = performerSoapQuery;
 		this.performerBaseSoapMapper = performerBaseSoapMapper;
 		this.performerFullSoapMapper = performerFullSoapMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
@@ -41,6 +45,7 @@ public class PerformerSoapReader implements BaseReader<PerformerBaseRequest, Per
 		Page<Performer> performerPage = performerSoapQuery.query(input);
 		PerformerBaseResponse performerResponse = new PerformerBaseResponse();
 		performerResponse.setPage(pageMapper.fromPageToSoapResponsePage(performerPage));
+		performerResponse.setSort(sortMapper.map(input.getSort()));
 		performerResponse.getPerformers().addAll(performerBaseSoapMapper.mapBase(performerPage.getContent()));
 		return performerResponse;
 	}

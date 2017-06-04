@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.SpeciesFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.SpeciesFullResponse;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -28,12 +29,15 @@ public class SpeciesSoapReader implements BaseReader<SpeciesBaseRequest, Species
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	public SpeciesSoapReader(SpeciesSoapQuery speciesSoapQuery, SpeciesBaseSoapMapper speciesBaseSoapMapper,
-			SpeciesFullSoapMapper speciesFullSoapMapper, PageMapper pageMapper) {
+			SpeciesFullSoapMapper speciesFullSoapMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.speciesSoapQuery = speciesSoapQuery;
 		this.speciesBaseSoapMapper = speciesBaseSoapMapper;
 		this.speciesFullSoapMapper = speciesFullSoapMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
@@ -41,6 +45,7 @@ public class SpeciesSoapReader implements BaseReader<SpeciesBaseRequest, Species
 		Page<Species> speciesPage = speciesSoapQuery.query(input);
 		SpeciesBaseResponse speciesResponse = new SpeciesBaseResponse();
 		speciesResponse.setPage(pageMapper.fromPageToSoapResponsePage(speciesPage));
+		speciesResponse.setSort(sortMapper.map(input.getSort()));
 		speciesResponse.getSpecies().addAll(speciesBaseSoapMapper.mapBase(speciesPage.getContent()));
 		return speciesResponse;
 	}

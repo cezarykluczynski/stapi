@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.LocationFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.LocationFullResponse;
 import com.cezarykluczynski.stapi.model.location.entity.Location;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -28,12 +29,15 @@ public class LocationSoapReader implements BaseReader<LocationBaseRequest, Locat
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	public LocationSoapReader(LocationSoapQuery locationSoapQuery, LocationBaseSoapMapper locationBaseSoapMapper,
-			LocationFullSoapMapper locationFullSoapMapper, PageMapper pageMapper) {
+			LocationFullSoapMapper locationFullSoapMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.locationSoapQuery = locationSoapQuery;
 		this.locationBaseSoapMapper = locationBaseSoapMapper;
 		this.locationFullSoapMapper = locationFullSoapMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
@@ -41,6 +45,7 @@ public class LocationSoapReader implements BaseReader<LocationBaseRequest, Locat
 		Page<Location> locationPage = locationSoapQuery.query(input);
 		LocationBaseResponse locationResponse = new LocationBaseResponse();
 		locationResponse.setPage(pageMapper.fromPageToSoapResponsePage(locationPage));
+		locationResponse.setSort(sortMapper.map(input.getSort()));
 		locationResponse.getLocations().addAll(locationBaseSoapMapper.mapBase(locationPage.getContent()));
 		return locationResponse;
 	}

@@ -6,9 +6,12 @@ import com.cezarykluczynski.stapi.client.v1.soap.LocationBaseResponse
 import com.cezarykluczynski.stapi.client.v1.soap.LocationFull
 import com.cezarykluczynski.stapi.client.v1.soap.LocationFullRequest
 import com.cezarykluczynski.stapi.client.v1.soap.LocationFullResponse
+import com.cezarykluczynski.stapi.client.v1.soap.RequestSort
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
+import com.cezarykluczynski.stapi.client.v1.soap.ResponseSort
 import com.cezarykluczynski.stapi.model.location.entity.Location
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.location.mapper.LocationBaseSoapMapper
 import com.cezarykluczynski.stapi.server.location.mapper.LocationFullSoapMapper
@@ -29,6 +32,8 @@ class LocationSoapReaderTest extends Specification {
 
 	private PageMapper pageMapperMock
 
+	private SortMapper sortMapperMock
+
 	private LocationSoapReader locationSoapReader
 
 	void setup() {
@@ -36,8 +41,9 @@ class LocationSoapReaderTest extends Specification {
 		locationBaseSoapMapperMock = Mock()
 		locationFullSoapMapperMock = Mock()
 		pageMapperMock = Mock()
+		sortMapperMock = Mock()
 		locationSoapReader = new LocationSoapReader(locationSoapQueryBuilderMock, locationBaseSoapMapperMock, locationFullSoapMapperMock,
-				pageMapperMock)
+				pageMapperMock, sortMapperMock)
 	}
 
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
@@ -47,6 +53,8 @@ class LocationSoapReaderTest extends Specification {
 		List<LocationBase> soapLocationList = Lists.newArrayList(new LocationBase(uid: UID))
 		LocationBaseRequest locationBaseRequest = Mock()
 		ResponsePage responsePage = Mock()
+		RequestSort requestSort = Mock()
+		ResponseSort responseSort = Mock()
 
 		when:
 		LocationBaseResponse locationResponse = locationSoapReader.readBase(locationBaseRequest)
@@ -55,7 +63,10 @@ class LocationSoapReaderTest extends Specification {
 		1 * locationSoapQueryBuilderMock.query(locationBaseRequest) >> locationPage
 		1 * locationPage.content >> locationList
 		1 * pageMapperMock.fromPageToSoapResponsePage(locationPage) >> responsePage
+		1 * locationBaseRequest.sort >> requestSort
+		1 * sortMapperMock.map(requestSort) >> responseSort
 		1 * locationBaseSoapMapperMock.mapBase(locationList) >> soapLocationList
+		0 * _
 		locationResponse.locations[0].uid == UID
 		locationResponse.page == responsePage
 	}
@@ -74,6 +85,7 @@ class LocationSoapReaderTest extends Specification {
 		1 * locationSoapQueryBuilderMock.query(locationFullRequest) >> locationPage
 		1 * locationPage.content >> Lists.newArrayList(location)
 		1 * locationFullSoapMapperMock.mapFull(location) >> locationFull
+		0 * _
 		locationFullResponse.location.uid == UID
 	}
 

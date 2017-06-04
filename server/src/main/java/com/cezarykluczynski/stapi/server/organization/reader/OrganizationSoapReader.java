@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.OrganizationFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.OrganizationFullResponse;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -28,12 +29,15 @@ public class OrganizationSoapReader implements BaseReader<OrganizationBaseReques
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	public OrganizationSoapReader(OrganizationSoapQuery organizationSoapQuery, OrganizationBaseSoapMapper organizationBaseSoapMapper,
-			OrganizationFullSoapMapper organizationFullSoapMapper, PageMapper pageMapper) {
+			OrganizationFullSoapMapper organizationFullSoapMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.organizationSoapQuery = organizationSoapQuery;
 		this.organizationBaseSoapMapper = organizationBaseSoapMapper;
 		this.organizationFullSoapMapper = organizationFullSoapMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
@@ -41,6 +45,7 @@ public class OrganizationSoapReader implements BaseReader<OrganizationBaseReques
 		Page<Organization> organizationPage = organizationSoapQuery.query(input);
 		OrganizationBaseResponse organizationResponse = new OrganizationBaseResponse();
 		organizationResponse.setPage(pageMapper.fromPageToSoapResponsePage(organizationPage));
+		organizationResponse.setSort(sortMapper.map(input.getSort()));
 		organizationResponse.getOrganizations().addAll(organizationBaseSoapMapper.mapBase(organizationPage.getContent()));
 		return organizationResponse;
 	}

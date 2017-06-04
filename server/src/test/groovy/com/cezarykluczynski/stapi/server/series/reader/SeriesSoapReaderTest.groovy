@@ -1,6 +1,8 @@
 package com.cezarykluczynski.stapi.server.series.reader
 
+import com.cezarykluczynski.stapi.client.v1.soap.RequestSort
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
+import com.cezarykluczynski.stapi.client.v1.soap.ResponseSort
 import com.cezarykluczynski.stapi.client.v1.soap.SeriesBase
 import com.cezarykluczynski.stapi.client.v1.soap.SeriesBaseRequest
 import com.cezarykluczynski.stapi.client.v1.soap.SeriesBaseResponse
@@ -9,6 +11,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.SeriesFullRequest
 import com.cezarykluczynski.stapi.client.v1.soap.SeriesFullResponse
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesBaseSoapMapper
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesFullSoapMapper
@@ -29,6 +32,8 @@ class SeriesSoapReaderTest extends Specification {
 
 	private PageMapper pageMapperMock
 
+	private SortMapper sortMapperMock
+
 	private SeriesSoapReader seriesSoapReader
 
 	void setup() {
@@ -36,7 +41,9 @@ class SeriesSoapReaderTest extends Specification {
 		seriesBaseSoapMapperMock = Mock()
 		seriesFullSoapMapperMock = Mock()
 		pageMapperMock = Mock()
-		seriesSoapReader = new SeriesSoapReader(seriesSoapQueryBuilderMock, seriesBaseSoapMapperMock, seriesFullSoapMapperMock, pageMapperMock)
+		sortMapperMock = Mock()
+		seriesSoapReader = new SeriesSoapReader(seriesSoapQueryBuilderMock, seriesBaseSoapMapperMock, seriesFullSoapMapperMock, pageMapperMock,
+				sortMapperMock)
 	}
 
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
@@ -46,6 +53,8 @@ class SeriesSoapReaderTest extends Specification {
 		List<SeriesBase> soapSeriesList = Lists.newArrayList(new SeriesBase(uid: UID))
 		SeriesBaseRequest seriesBaseRequest = Mock()
 		ResponsePage responsePage = Mock()
+		RequestSort requestSort = Mock()
+		ResponseSort responseSort = Mock()
 
 		when:
 		SeriesBaseResponse seriesResponse = seriesSoapReader.readBase(seriesBaseRequest)
@@ -54,7 +63,10 @@ class SeriesSoapReaderTest extends Specification {
 		1 * seriesSoapQueryBuilderMock.query(seriesBaseRequest) >> seriesPage
 		1 * seriesPage.content >> seriesList
 		1 * pageMapperMock.fromPageToSoapResponsePage(seriesPage) >> responsePage
+		1 * seriesBaseRequest.sort >> requestSort
+		1 * sortMapperMock.map(requestSort) >> responseSort
 		1 * seriesBaseSoapMapperMock.mapBase(seriesList) >> soapSeriesList
+		0 * _
 		seriesResponse.series[0].uid == UID
 		seriesResponse.page == responsePage
 	}
@@ -73,6 +85,7 @@ class SeriesSoapReaderTest extends Specification {
 		1 * seriesSoapQueryBuilderMock.query(seriesFullRequest) >> seriesPage
 		1 * seriesPage.content >> Lists.newArrayList(series)
 		1 * seriesFullSoapMapperMock.mapFull(series) >> seriesFull
+		0 * _
 		seriesFullResponse.series.uid == UID
 	}
 

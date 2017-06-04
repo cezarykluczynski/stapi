@@ -6,12 +6,15 @@ import com.cezarykluczynski.stapi.client.v1.soap.BookCollectionBaseResponse
 import com.cezarykluczynski.stapi.client.v1.soap.BookCollectionFull
 import com.cezarykluczynski.stapi.client.v1.soap.BookCollectionFullRequest
 import com.cezarykluczynski.stapi.client.v1.soap.BookCollectionFullResponse
+import com.cezarykluczynski.stapi.client.v1.soap.RequestSort
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage
+import com.cezarykluczynski.stapi.client.v1.soap.ResponseSort
 import com.cezarykluczynski.stapi.model.bookCollection.entity.BookCollection
 import com.cezarykluczynski.stapi.server.bookCollection.mapper.BookCollectionBaseSoapMapper
 import com.cezarykluczynski.stapi.server.bookCollection.mapper.BookCollectionFullSoapMapper
 import com.cezarykluczynski.stapi.server.bookCollection.query.BookCollectionSoapQuery
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper
 import com.cezarykluczynski.stapi.server.common.validator.exceptions.MissingUIDException
 import com.google.common.collect.Lists
 import org.springframework.data.domain.Page
@@ -29,6 +32,8 @@ class BookCollectionSoapReaderTest extends Specification {
 
 	private PageMapper pageMapperMock
 
+	private SortMapper sortMapperMock
+
 	private BookCollectionSoapReader bookCollectionSoapReader
 
 	void setup() {
@@ -36,8 +41,9 @@ class BookCollectionSoapReaderTest extends Specification {
 		bookCollectionBaseSoapMapperMock = Mock()
 		bookCollectionFullSoapMapperMock = Mock()
 		pageMapperMock = Mock()
+		sortMapperMock = Mock()
 		bookCollectionSoapReader = new BookCollectionSoapReader(bookCollectionSoapQueryBuilderMock, bookCollectionBaseSoapMapperMock,
-				bookCollectionFullSoapMapperMock, pageMapperMock)
+				bookCollectionFullSoapMapperMock, pageMapperMock, sortMapperMock)
 	}
 
 	void "passed base request to queryBuilder, then to mapper, and returns result"() {
@@ -47,6 +53,8 @@ class BookCollectionSoapReaderTest extends Specification {
 		List<BookCollectionBase> soapBookCollectionList = Lists.newArrayList(new BookCollectionBase(uid: UID))
 		BookCollectionBaseRequest bookCollectionBaseRequest = Mock()
 		ResponsePage responsePage = Mock()
+		RequestSort requestSort = Mock()
+		ResponseSort responseSort = Mock()
 
 		when:
 		BookCollectionBaseResponse bookCollectionResponse = bookCollectionSoapReader.readBase(bookCollectionBaseRequest)
@@ -55,7 +63,10 @@ class BookCollectionSoapReaderTest extends Specification {
 		1 * bookCollectionSoapQueryBuilderMock.query(bookCollectionBaseRequest) >> bookCollectionPage
 		1 * bookCollectionPage.content >> bookCollectionList
 		1 * pageMapperMock.fromPageToSoapResponsePage(bookCollectionPage) >> responsePage
+		1 * bookCollectionBaseRequest.sort >> requestSort
+		1 * sortMapperMock.map(requestSort) >> responseSort
 		1 * bookCollectionBaseSoapMapperMock.mapBase(bookCollectionList) >> soapBookCollectionList
+		0 * _
 		bookCollectionResponse.bookCollections[0].uid == UID
 		bookCollectionResponse.page == responsePage
 	}
@@ -74,6 +85,7 @@ class BookCollectionSoapReaderTest extends Specification {
 		1 * bookCollectionSoapQueryBuilderMock.query(bookCollectionFullRequest) >> bookCollectionPage
 		1 * bookCollectionPage.content >> Lists.newArrayList(bookCollection)
 		1 * bookCollectionFullSoapMapperMock.mapFull(bookCollection) >> bookCollectionFull
+		0 * _
 		bookCollectionFullResponse.bookCollection.uid == UID
 	}
 

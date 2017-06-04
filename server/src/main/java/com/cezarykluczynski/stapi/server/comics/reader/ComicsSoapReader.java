@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.server.comics.mapper.ComicsBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.comics.mapper.ComicsFullSoapMapper;
 import com.cezarykluczynski.stapi.server.comics.query.ComicsSoapQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -27,12 +28,15 @@ public class ComicsSoapReader implements BaseReader<ComicsBaseRequest, ComicsBas
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	public ComicsSoapReader(ComicsSoapQuery comicsSoapQuery, ComicsBaseSoapMapper comicsBaseSoapMapper, ComicsFullSoapMapper comicsFullSoapMapper,
-			PageMapper pageMapper) {
+			PageMapper pageMapper, SortMapper sortMapper) {
 		this.comicsSoapQuery = comicsSoapQuery;
 		this.comicsBaseSoapMapper = comicsBaseSoapMapper;
 		this.comicsFullSoapMapper = comicsFullSoapMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
@@ -40,6 +44,7 @@ public class ComicsSoapReader implements BaseReader<ComicsBaseRequest, ComicsBas
 		Page<Comics> comicsPage = comicsSoapQuery.query(input);
 		ComicsBaseResponse comicsResponse = new ComicsBaseResponse();
 		comicsResponse.setPage(pageMapper.fromPageToSoapResponsePage(comicsPage));
+		comicsResponse.setSort(sortMapper.map(input.getSort()));
 		comicsResponse.getComics().addAll(comicsBaseSoapMapper.mapBase(comicsPage.getContent()));
 		return comicsResponse;
 	}

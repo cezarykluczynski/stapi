@@ -20,7 +20,11 @@ public class SortMapper {
 
 	public ResponseSort map(RequestSort sort) {
 		ResponseSort responseSort = new ResponseSort();
-		responseSort.getClauses().addAll(mapClauses(sort.getClauses()));
+		if (sort != null) {
+			responseSort.getClauses().addAll(mapClauses(sort.getClauses()));
+		} else {
+			responseSort.getClauses();
+		}
 		return responseSort;
 	}
 

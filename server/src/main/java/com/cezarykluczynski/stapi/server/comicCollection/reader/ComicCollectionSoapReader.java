@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionB
 import com.cezarykluczynski.stapi.server.comicCollection.mapper.ComicCollectionFullSoapMapper;
 import com.cezarykluczynski.stapi.server.comicCollection.query.ComicCollectionSoapQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -28,12 +29,15 @@ public class ComicCollectionSoapReader implements BaseReader<ComicCollectionBase
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	public ComicCollectionSoapReader(ComicCollectionSoapQuery comicCollectionSoapQuery, ComicCollectionBaseSoapMapper comicCollectionBaseSoapMapper,
-			ComicCollectionFullSoapMapper comicCollectionFullSoapMapper, PageMapper pageMapper) {
+			ComicCollectionFullSoapMapper comicCollectionFullSoapMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.comicCollectionSoapQuery = comicCollectionSoapQuery;
 		this.comicCollectionBaseSoapMapper = comicCollectionBaseSoapMapper;
 		this.comicCollectionFullSoapMapper = comicCollectionFullSoapMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
@@ -41,6 +45,7 @@ public class ComicCollectionSoapReader implements BaseReader<ComicCollectionBase
 		Page<ComicCollection> comicCollectionPage = comicCollectionSoapQuery.query(input);
 		ComicCollectionBaseResponse comicCollectionResponse = new ComicCollectionBaseResponse();
 		comicCollectionResponse.setPage(pageMapper.fromPageToSoapResponsePage(comicCollectionPage));
+		comicCollectionResponse.setSort(sortMapper.map(input.getSort()));
 		comicCollectionResponse.getComicCollections().addAll(comicCollectionBaseSoapMapper.mapBase(comicCollectionPage.getContent()));
 		return comicCollectionResponse;
 	}

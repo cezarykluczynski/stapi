@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.StaffFullRequest;
 import com.cezarykluczynski.stapi.client.v1.soap.StaffFullResponse;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -27,12 +28,15 @@ public class StaffSoapReader implements BaseReader<StaffBaseRequest, StaffBaseRe
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	public StaffSoapReader(StaffSoapQuery staffSoapQuery, StaffBaseSoapMapper staffBaseSoapMapper, StaffFullSoapMapper staffFullSoapMapper,
-			PageMapper pageMapper) {
+			PageMapper pageMapper, SortMapper sortMapper) {
 		this.staffSoapQuery = staffSoapQuery;
 		this.staffBaseSoapMapper = staffBaseSoapMapper;
 		this.staffFullSoapMapper = staffFullSoapMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
@@ -40,6 +44,7 @@ public class StaffSoapReader implements BaseReader<StaffBaseRequest, StaffBaseRe
 		Page<Staff> staffPage = staffSoapQuery.query(input);
 		StaffBaseResponse staffResponse = new StaffBaseResponse();
 		staffResponse.setPage(pageMapper.fromPageToSoapResponsePage(staffPage));
+		staffResponse.setSort(sortMapper.map(input.getSort()));
 		staffResponse.getStaff().addAll(staffBaseSoapMapper.mapBase(staffPage.getContent()));
 		return staffResponse;
 	}

@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.server.character.mapper.CharacterBaseSoapMappe
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterFullSoapMapper;
 import com.cezarykluczynski.stapi.server.character.query.CharacterSoapQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -28,12 +29,15 @@ public class CharacterSoapReader implements BaseReader<CharacterBaseRequest, Cha
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	public CharacterSoapReader(CharacterSoapQuery characterSoapQuery, CharacterBaseSoapMapper characterBaseSoapMapper,
-			CharacterFullSoapMapper characterFullSoapMapper,PageMapper pageMapper) {
+			CharacterFullSoapMapper characterFullSoapMapper,PageMapper pageMapper, SortMapper sortMapper) {
 		this.characterSoapQuery = characterSoapQuery;
 		this.characterBaseSoapMapper = characterBaseSoapMapper;
 		this.characterFullSoapMapper = characterFullSoapMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
@@ -41,6 +45,7 @@ public class CharacterSoapReader implements BaseReader<CharacterBaseRequest, Cha
 		Page<Character> characterPage = characterSoapQuery.query(input);
 		CharacterBaseResponse characterResponse = new CharacterBaseResponse();
 		characterResponse.setPage(pageMapper.fromPageToSoapResponsePage(characterPage));
+		characterResponse.setSort(sortMapper.map(input.getSort()));
 		characterResponse.getCharacters().addAll(characterBaseSoapMapper.mapBase(characterPage.getContent()));
 		return characterResponse;
 	}

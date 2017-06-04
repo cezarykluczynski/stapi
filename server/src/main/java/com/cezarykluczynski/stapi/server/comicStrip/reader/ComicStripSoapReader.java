@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripBaseSoapMap
 import com.cezarykluczynski.stapi.server.comicStrip.mapper.ComicStripFullSoapMapper;
 import com.cezarykluczynski.stapi.server.comicStrip.query.ComicStripSoapQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
+import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
@@ -28,12 +29,15 @@ public class ComicStripSoapReader implements BaseReader<ComicStripBaseRequest, C
 
 	private final PageMapper pageMapper;
 
+	private final SortMapper sortMapper;
+
 	public ComicStripSoapReader(ComicStripSoapQuery comicStripSoapQuery, ComicStripBaseSoapMapper comicStripBaseSoapMapper,
-			ComicStripFullSoapMapper comicStripFullSoapMapper, PageMapper pageMapper) {
+			ComicStripFullSoapMapper comicStripFullSoapMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.comicStripSoapQuery = comicStripSoapQuery;
 		this.comicStripBaseSoapMapper = comicStripBaseSoapMapper;
 		this.comicStripFullSoapMapper = comicStripFullSoapMapper;
 		this.pageMapper = pageMapper;
+		this.sortMapper = sortMapper;
 	}
 
 	@Override
@@ -41,6 +45,7 @@ public class ComicStripSoapReader implements BaseReader<ComicStripBaseRequest, C
 		Page<ComicStrip> comicStripPage = comicStripSoapQuery.query(input);
 		ComicStripBaseResponse comicStripResponse = new ComicStripBaseResponse();
 		comicStripResponse.setPage(pageMapper.fromPageToSoapResponsePage(comicStripPage));
+		comicStripResponse.setSort(sortMapper.map(input.getSort()));
 		comicStripResponse.getComicStrips().addAll(comicStripBaseSoapMapper.mapBase(comicStripPage.getContent()));
 		return comicStripResponse;
 	}

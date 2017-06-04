@@ -57,4 +57,12 @@ class SortMapperTest extends Specification {
 		responseSort.clauses[2].clauseOrder == 2
 	}
 
+	void "maps null to ResponseSort with empty clause list"() {
+		when:
+		ResponseSort responseSort = sortMapper.map(null)
+
+		then:
+		responseSort.clauses.empty
+	}
+
 }
