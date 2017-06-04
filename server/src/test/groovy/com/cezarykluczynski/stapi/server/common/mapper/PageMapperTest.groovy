@@ -1,11 +1,10 @@
 package com.cezarykluczynski.stapi.server.common.mapper
 
+import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage as RESTResponsePage
 import com.cezarykluczynski.stapi.client.v1.soap.RequestPage
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage as SOAPResponsePage
-import com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage as RESTResponsePage
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams
 import com.cezarykluczynski.stapi.server.util.PageDefault
-import org.mapstruct.factory.Mappers
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import spock.lang.Specification
@@ -23,7 +22,7 @@ class PageMapperTest extends Specification {
 	private PageMapper pageMapper
 
 	void setup() {
-		pageMapper = Mappers.getMapper(PageMapper)
+		pageMapper = new PageMapper()
 	}
 
 	void "maps Page to SOAP ResponsePage"() {

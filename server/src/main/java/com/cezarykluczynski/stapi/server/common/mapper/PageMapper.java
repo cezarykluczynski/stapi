@@ -3,18 +3,17 @@ package com.cezarykluczynski.stapi.server.common.mapper;
 import com.cezarykluczynski.stapi.client.v1.soap.RequestPage;
 import com.cezarykluczynski.stapi.client.v1.soap.ResponsePage;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
-import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import com.cezarykluczynski.stapi.server.util.PageDefault;
 import com.cezarykluczynski.stapi.util.tool.NumberUtil;
 import org.apache.commons.lang3.ObjectUtils;
-import org.mapstruct.Mapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
-@Mapper(config = MapstructConfiguration.class)
-public interface PageMapper {
+@Service
+public class PageMapper {
 
-	default ResponsePage fromPageToSoapResponsePage(Page pageRequest) {
+	public ResponsePage fromPageToSoapResponsePage(Page pageRequest) {
 		ResponsePage responsePage = new ResponsePage();
 		responsePage.setPageNumber(pageRequest.getNumber());
 		responsePage.setPageSize(pageRequest.getSize());
@@ -26,7 +25,7 @@ public interface PageMapper {
 		return responsePage;
 	}
 
-	default com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage fromPageToRestResponsePage(Page pageRequest) {
+	public com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage fromPageToRestResponsePage(Page pageRequest) {
 		com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage responsePage
 				= new com.cezarykluczynski.stapi.client.v1.rest.model.ResponsePage();
 		responsePage.setPageNumber(pageRequest.getNumber());
@@ -39,31 +38,31 @@ public interface PageMapper {
 		return responsePage;
 	}
 
-	default PageRequest fromRequestPageToPageRequest(RequestPage requestPage) {
+	public PageRequest fromRequestPageToPageRequest(RequestPage requestPage) {
 		if (requestPage == null) {
 			return PageDefault.PAGE_REQUEST;
 		}
 		return fromPageNumberAndPageSize(requestPage.getPageNumber(), requestPage.getPageSize());
 	}
 
-	default PageRequest fromPageSortBeanParamsToPageRequest(PageSortBeanParams pageSortBeanParams) {
+	public PageRequest fromPageSortBeanParamsToPageRequest(PageSortBeanParams pageSortBeanParams) {
 		if (pageSortBeanParams == null) {
 			return PageDefault.PAGE_REQUEST;
 		}
 		return fromPageNumberAndPageSize(pageSortBeanParams.getPageNumber(), pageSortBeanParams.getPageSize());
 	}
 
-	static PageRequest fromPageNumberAndPageSize(Integer pageNumber, Integer pageSize) {
+	public PageRequest getDefaultPageRequest() {
+		return PageDefault.PAGE_REQUEST;
+	}
+
+	private static PageRequest fromPageNumberAndPageSize(Integer pageNumber, Integer pageSize) {
 		Integer actualPageNumber = ObjectUtils.defaultIfNull(pageNumber, PageDefault.PAGE_NUMBER);
 		actualPageNumber = actualPageNumber < 0 ? PageDefault.PAGE_NUMBER : actualPageNumber;
 		Integer actualPageSize = ObjectUtils.defaultIfNull(pageSize, PageDefault.PAGE_SIZE);
 		actualPageSize = actualPageSize <= 0 ? PageDefault.PAGE_SIZE : actualPageSize;
 		actualPageSize = NumberUtil.ensureWithinRangeInclusive(actualPageSize, PageDefault.PAGE_SIZE_MIN, PageDefault.PAGE_SIZE_MAX);
 		return new PageRequest(actualPageNumber, actualPageSize);
-	}
-
-	default PageRequest getDefaultPageRequest() {
-		return PageDefault.PAGE_REQUEST;
 	}
 
 }
