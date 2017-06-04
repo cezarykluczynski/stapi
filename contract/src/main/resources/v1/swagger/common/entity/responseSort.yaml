@@ -1,0 +1,8 @@
+type: object
+description: Response sort
+properties:
+  clauses:
+    type: array
+    items:
+      $ref: '#/definitions/ResponseSortClause'
+    description: List of response sort rules

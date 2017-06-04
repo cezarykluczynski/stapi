@@ -254,6 +254,12 @@ definitions:
     $ref: ./reference/entity/reference.yaml
   ResponsePage:
     $ref: ./common/entity/responsePage.yaml
+  ResponseSort:
+    $ref: ./common/entity/responseSort.yaml
+  ResponseSortClause:
+    $ref: ./common/entity/responseSortClause.yaml
+  ResponseSortDirection:
+    $ref: ./common/entity/enum/responseSortDirection.yaml
   SeriesHeader:
     $ref: ./series/entity/seriesHeader.yaml
   SeriesBase:

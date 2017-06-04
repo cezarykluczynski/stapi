@@ -26,7 +26,7 @@
 					</xs:element>
 					<xs:element name="sort" type="common:RequestSort" minOccurs="0">
 						<xs:annotation>
-							<xs:documentation>Sort</xs:documentation>
+							<xs:documentation>Request sort</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 				</xs:sequence>
@@ -38,8 +38,16 @@
 			<xs:documentation>Response with page</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="page" type="common:ResponsePage"/>
-			<xs:element name="sort" type="common:ResponseSort"/>
+			<xs:element name="page" type="common:ResponsePage">
+				<xs:annotation>
+					<xs:documentation>Response page</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sort" type="common:ResponseSort">
+				<xs:annotation>
+					<xs:documentation>Response sort</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="RequestPage">

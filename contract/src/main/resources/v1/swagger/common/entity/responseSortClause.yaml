@@ -1,0 +1,14 @@
+type: object
+description: Single response sort clause
+properties:
+  uid:
+    type: name
+    required: true
+    description: Field name results are sorted by
+  name:
+    $ref: ./common/entity/enum/responseSortDirection.yaml
+    required: true
+    description: Sort direction
+  clauseOrder:
+    type: integer
+    required: true

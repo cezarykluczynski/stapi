@@ -1,0 +1,5 @@
+type: string
+description: Sort direction
+enum:
+  - ASC
+  - DESC
