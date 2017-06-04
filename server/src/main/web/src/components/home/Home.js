@@ -43,6 +43,7 @@ export class Home extends Component {
 					<div className='col-md-6'>
 						<EntityStatisticsCloud />
 
+						<hr />
 						<h3>Project status</h3>
 						<p className='project-status'>
 							<a href="https://semaphoreci.com/cezarykluczynski/stapi"><img src="https://semaphoreci.com/api/v1/cezarykluczynski/stapi/branches/master/badge.svg" alt="Build Status"/></a>
