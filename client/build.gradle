@@ -114,6 +114,14 @@ wsdl2java {
 	wsdlDir = file("$projectDir/src/main/resources")
 }
 
+sourceSets {
+	main {
+		resources {
+			srcDirs = ['../contract/src/main/resources/']
+		}
+	}
+}
+
 task swaggerGenerate(type: Exec) {
 	File file = project.configurations.compile.find {
 		it.name.startsWith("swagger-codegen-cli-")
