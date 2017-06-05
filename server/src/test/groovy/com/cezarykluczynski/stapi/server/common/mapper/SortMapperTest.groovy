@@ -1,9 +1,11 @@
 package com.cezarykluczynski.stapi.server.common.mapper
 
+import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSort as RestResponseSort
+import com.cezarykluczynski.stapi.client.v1.rest.model.ResponseSortDirection
 import com.cezarykluczynski.stapi.client.v1.soap.RequestSort
 import com.cezarykluczynski.stapi.client.v1.soap.RequestSortClause
 import com.cezarykluczynski.stapi.client.v1.soap.RequestSortDirectionEnum
-import com.cezarykluczynski.stapi.client.v1.soap.ResponseSort
+import com.cezarykluczynski.stapi.client.v1.soap.ResponseSort as SoapResponseSort
 import com.cezarykluczynski.stapi.client.v1.soap.ResponseSortDirectionEnum
 import org.assertj.core.util.Lists
 import spock.lang.Specification
@@ -24,7 +26,7 @@ class SortMapperTest extends Specification {
 		sortMapper = new SortMapper()
 	}
 
-	void "maps RequestSort to ResponseSort"() {
+	void "maps RequestSort to SOAP ResponseSort"() {
 		given:
 		RequestSort requestSort = new RequestSort(clauses: Lists.newArrayList(
 				new RequestSortClause(
@@ -43,7 +45,7 @@ class SortMapperTest extends Specification {
 		))
 
 		when:
-		ResponseSort responseSort = sortMapper.map(requestSort)
+		SoapResponseSort responseSort = sortMapper.map(requestSort)
 
 		then:
 		responseSort.clauses[0].name == FIELD_1
@@ -57,9 +59,33 @@ class SortMapperTest extends Specification {
 		responseSort.clauses[2].clauseOrder == 2
 	}
 
-	void "maps null to ResponseSort with empty clause list"() {
+	void "maps null to SOAP ResponseSort with empty clause list"() {
 		when:
-		ResponseSort responseSort = sortMapper.map((RequestSort) null)
+		SoapResponseSort responseSort = sortMapper.map((RequestSort) null)
+
+		then:
+		responseSort.clauses.empty
+	}
+
+	void "maps String to REST ResponseSort"() {
+		when:
+		RestResponseSort responseSort = sortMapper.map('fieldName1,ASC;fieldName2,DESC;fieldName3,ASC')
+
+		then:
+		responseSort.clauses[0].name == 'fieldName1'
+		responseSort.clauses[0].direction == ResponseSortDirection.ASC
+		responseSort.clauses[0].clauseOrder == 0
+		responseSort.clauses[1].name == 'fieldName2'
+		responseSort.clauses[1].direction == ResponseSortDirection.DESC
+		responseSort.clauses[1].clauseOrder == 1
+		responseSort.clauses[2].name == 'fieldName3'
+		responseSort.clauses[2].direction == ResponseSortDirection.ASC
+		responseSort.clauses[2].clauseOrder == 2
+	}
+
+	void "maps null to REST ResponseSort with empty clause list"() {
+		when:
+		RestResponseSort responseSort = sortMapper.map((String) null)
 
 		then:
 		responseSort.clauses.empty

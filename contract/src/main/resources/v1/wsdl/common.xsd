@@ -242,7 +242,7 @@
 			</xs:element>
 			<xs:element name="clauseOrder" type="xs:int" minOccurs="0">
 				<xs:annotation>
-					<xs:documentation>Order in which this clause were applied</xs:documentation>
+					<xs:documentation>Order in which this clause was applied</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>
