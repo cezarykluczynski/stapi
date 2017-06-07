@@ -28,6 +28,7 @@
 			<column name="year_from" type="int"/>
 			<column name="year_to" type="int"/>
 			<column name="photonovel" type="boolean"/>
+			<column name="adaptation" type="boolean"/>
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="comics_sequence"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"

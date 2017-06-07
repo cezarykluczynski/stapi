@@ -89,7 +89,7 @@ public class StaffCategoriesActorTemplateEnrichingProcessor implements Categorie
 
 	private void setDirectorsFlags(ActorTemplate actorTemplate, List<String> categoryTitlesList) {
 		actorTemplate.setDirector(categoryTitlesList.contains(CategoryTitle.DIRECTORS));
-		actorTemplate.setAssistantAndSecondUnitDirector(categoryTitlesList.contains(CategoryTitle.ASSISTANT_AND_SECOND_UNIT_DIRECTORS)
+		actorTemplate.setAssistantOrSecondUnitDirector(categoryTitlesList.contains(CategoryTitle.ASSISTANT_AND_SECOND_UNIT_DIRECTORS)
 				|| actorTemplate.isDirector());
 	}
 

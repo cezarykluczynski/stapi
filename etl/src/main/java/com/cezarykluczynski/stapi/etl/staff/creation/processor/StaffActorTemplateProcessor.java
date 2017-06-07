@@ -37,7 +37,7 @@ public class StaffActorTemplateProcessor implements ItemProcessor<ActorTemplate,
 		staff.setCostumeDepartment(item.isCostumeDepartment());
 		staff.setCostumeDesigner(item.isCostumeDesigner());
 		staff.setDirector(item.isDirector());
-		staff.setAssistantAndSecondUnitDirector(item.isAssistantAndSecondUnitDirector());
+		staff.setAssistantOrSecondUnitDirector(item.isAssistantOrSecondUnitDirector());
 		staff.setExhibitAndAttractionStaff(item.isExhibitAndAttractionStaff());
 		staff.setFilmEditor(item.isFilmEditor());
 		staff.setLinguist(item.isLinguist());

@@ -66,7 +66,7 @@ public class ActorTemplate {
 
 	private boolean director;
 
-	private boolean assistantAndSecondUnitDirector;
+	private boolean assistantOrSecondUnitDirector;
 
 	private boolean exhibitAndAttractionStaff;
 

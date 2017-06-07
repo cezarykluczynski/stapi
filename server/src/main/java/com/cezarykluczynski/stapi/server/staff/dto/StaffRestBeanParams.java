@@ -64,8 +64,8 @@ public class StaffRestBeanParams extends PageSortBeanParams {
 	@FormParam("director")
 	private Boolean director;
 
-	@FormParam("assistantAndSecondUnitDirector")
-	private Boolean assistantAndSecondUnitDirector;
+	@FormParam("assistantOrSecondUnitDirector")
+	private Boolean assistantOrSecondUnitDirector;
 
 	@FormParam("exhibitAndAttractionStaff")
 	private Boolean exhibitAndAttractionStaff;
@@ -282,8 +282,8 @@ public class StaffRestBeanParams extends PageSortBeanParams {
 		return director;
 	}
 
-	public Boolean getAssistantAndSecondUnitDirector() {
-		return assistantAndSecondUnitDirector;
+	public Boolean getAssistantOrSecondUnitDirector() {
+		return assistantOrSecondUnitDirector;
 	}
 
 	public Boolean getExhibitAndAttractionStaff() {

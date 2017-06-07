@@ -82,8 +82,8 @@ class StaffCategoriesActorTemplateEnrichingProcessorTest extends Specification {
 		createList(CategoryTitle.COSTUME_DESIGNERS)                   | new ActorTemplate() | 'costumeDesigner'                | true  | 2
 		createList(CategoryTitle.COSTUME_DESIGNERS)                   | new ActorTemplate() | 'costumeDepartment'              | true  | 2
 		createList(CategoryTitle.COSTUME_DEPARTMENT)                  | new ActorTemplate() | 'costumeDepartment'              | true  | 1
-		createList(CategoryTitle.ASSISTANT_AND_SECOND_UNIT_DIRECTORS) | new ActorTemplate() | 'assistantAndSecondUnitDirector' | true  | 1
-		createList(CategoryTitle.DIRECTORS)                           | new ActorTemplate() | 'assistantAndSecondUnitDirector' | true  | 2
+		createList(CategoryTitle.ASSISTANT_AND_SECOND_UNIT_DIRECTORS) | new ActorTemplate() | 'assistantOrSecondUnitDirector' | true  | 1
+		createList(CategoryTitle.DIRECTORS)                           | new ActorTemplate() | 'assistantOrSecondUnitDirector' | true  | 2
 		createList(CategoryTitle.DIRECTORS)                           | new ActorTemplate() | 'director'                       | true  | 2
 		createList(CategoryTitle.COMPOSERS)                           | new ActorTemplate() | 'composer'                       | true  | 2
 		createList(CategoryTitle.COMPOSERS)                           | new ActorTemplate() | 'musicDepartment'                | true  | 2

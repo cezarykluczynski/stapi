@@ -50,7 +50,7 @@ class StaffFullSoapMapperTest extends AbstractStaffMapperTest {
 		staffFull.costumeDepartment == COSTUME_DEPARTMENT
 		staffFull.costumeDesigner == COSTUME_DESIGNER
 		staffFull.director == DIRECTOR
-		staffFull.assistantAndSecondUnitDirector == ASSISTANT_AND_SECOND_UNIT_DIRECTOR
+		staffFull.assistantOrSecondUnitDirector == ASSISTANT_AND_SECOND_UNIT_DIRECTOR
 		staffFull.exhibitAndAttractionStaff == EXHIBIT_AND_ATTRACTION_STAFF
 		staffFull.filmEditor == FILM_EDITOR
 		staffFull.linguist == LINGUIST

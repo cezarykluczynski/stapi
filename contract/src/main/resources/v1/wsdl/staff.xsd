@@ -98,7 +98,7 @@
 								<xs:documentation>Whether this person should be a director</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="assistantAndSecondUnitDirector" type="xs:boolean" minOccurs="0">
+						<xs:element name="assistantOrSecondUnitDirector" type="xs:boolean" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Whether this person should be an assistant or secound unit director director</xs:documentation>
 							</xs:annotation>
@@ -490,7 +490,7 @@
 					<xs:documentation>Whether this person is a director</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="assistantAndSecondUnitDirector" type="xs:boolean">
+			<xs:element name="assistantOrSecondUnitDirector" type="xs:boolean">
 				<xs:annotation>
 					<xs:documentation>Whether this person is an assistant or secound unit director director</xs:documentation>
 				</xs:annotation>
@@ -812,7 +812,7 @@
 					<xs:documentation>Whether this person is a director</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="assistantAndSecondUnitDirector" type="xs:boolean">
+			<xs:element name="assistantOrSecondUnitDirector" type="xs:boolean">
 				<xs:annotation>
 					<xs:documentation>Whether this person is an assistant or secound unit director director</xs:documentation>
 				</xs:annotation>

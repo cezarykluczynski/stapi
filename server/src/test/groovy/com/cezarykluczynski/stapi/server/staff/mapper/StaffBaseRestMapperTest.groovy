@@ -37,7 +37,7 @@ class StaffBaseRestMapperTest extends AbstractStaffMapperTest {
 				costumeDepartment: COSTUME_DEPARTMENT,
 				costumeDesigner: COSTUME_DESIGNER,
 				director: DIRECTOR,
-				assistantAndSecondUnitDirector: ASSISTANT_AND_SECOND_UNIT_DIRECTOR,
+				assistantOrSecondUnitDirector: ASSISTANT_AND_SECOND_UNIT_DIRECTOR,
 				exhibitAndAttractionStaff: EXHIBIT_AND_ATTRACTION_STAFF,
 				filmEditor: FILM_EDITOR,
 				linguist: LINGUIST,
@@ -107,7 +107,7 @@ class StaffBaseRestMapperTest extends AbstractStaffMapperTest {
 		staffRequestDTO.costumeDepartment == COSTUME_DEPARTMENT
 		staffRequestDTO.costumeDesigner == COSTUME_DESIGNER
 		staffRequestDTO.director == DIRECTOR
-		staffRequestDTO.assistantAndSecondUnitDirector == ASSISTANT_AND_SECOND_UNIT_DIRECTOR
+		staffRequestDTO.assistantOrSecondUnitDirector == ASSISTANT_AND_SECOND_UNIT_DIRECTOR
 		staffRequestDTO.exhibitAndAttractionStaff == EXHIBIT_AND_ATTRACTION_STAFF
 		staffRequestDTO.filmEditor == FILM_EDITOR
 		staffRequestDTO.linguist == LINGUIST
@@ -180,7 +180,7 @@ class StaffBaseRestMapperTest extends AbstractStaffMapperTest {
 		staffBase.costumeDepartment == COSTUME_DEPARTMENT
 		staffBase.costumeDesigner == COSTUME_DESIGNER
 		staffBase.director == DIRECTOR
-		staffBase.assistantAndSecondUnitDirector == ASSISTANT_AND_SECOND_UNIT_DIRECTOR
+		staffBase.assistantOrSecondUnitDirector == ASSISTANT_AND_SECOND_UNIT_DIRECTOR
 		staffBase.exhibitAndAttractionStaff == EXHIBIT_AND_ATTRACTION_STAFF
 		staffBase.filmEditor == FILM_EDITOR
 		staffBase.linguist == LINGUIST

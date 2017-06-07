@@ -56,7 +56,7 @@ properties:
   director:
     type: boolean
     description: Whether this person is a director
-  assistantAndSecondUnitDirector:
+  assistantOrSecondUnitDirector:
     type: boolean
     description: Whether this person is an assistant or secound unit director director
   exhibitAndAttractionStaff:

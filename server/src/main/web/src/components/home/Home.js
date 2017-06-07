@@ -18,7 +18,7 @@ export class Home extends Component {
 								href="https://github.com/cezarykluczynski/stapi/wiki/Contributing">contribute to</a>.</li>
 							<li>STAPI it's still an alpha version. There is lot of work of work behind, but a lot of <a
 								href="https://github.com/cezarykluczynski/stapi/wiki/Work-progress">work ahead</a>, too.
-								No API stability, both in terms of contracts layout, as well as API availability,
+								No API stability, in terms of contracts layout, database layout, as well as API availability,
 								is guaranteed at this point.</li>
 							<li>ETA for beta version is Q1 2018.</li>
 						</ul>

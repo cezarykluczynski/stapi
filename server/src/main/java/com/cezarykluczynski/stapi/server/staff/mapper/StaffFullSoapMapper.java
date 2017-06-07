@@ -36,7 +36,7 @@ public interface StaffFullSoapMapper {
 	@Mapping(target = "costumeDepartment", ignore = true)
 	@Mapping(target = "costumeDesigner", ignore = true)
 	@Mapping(target = "director", ignore = true)
-	@Mapping(target = "assistantAndSecondUnitDirector", ignore = true)
+	@Mapping(target = "assistantOrSecondUnitDirector", ignore = true)
 	@Mapping(target = "exhibitAndAttractionStaff", ignore = true)
 	@Mapping(target = "filmEditor", ignore = true)
 	@Mapping(target = "linguist", ignore = true)

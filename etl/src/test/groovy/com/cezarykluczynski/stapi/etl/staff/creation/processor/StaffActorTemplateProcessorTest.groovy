@@ -35,7 +35,7 @@ class StaffActorTemplateProcessorTest extends AbstractRealWorldActorTemplateProc
 				costumeDepartment: COSTUME_DEPARTMENT,
 				costumeDesigner: COSTUME_DESIGNER,
 				director: DIRECTOR,
-				assistantAndSecondUnitDirector: ASSISTANT_AND_SECOND_UNIT_DIRECTOR,
+				assistantOrSecondUnitDirector: ASSISTANT_AND_SECOND_UNIT_DIRECTOR,
 				exhibitAndAttractionStaff: EXHIBIT_AND_ATTRACTION_STAFF,
 				filmEditor: FILM_EDITOR,
 				linguist: LINGUIST,
@@ -98,7 +98,7 @@ class StaffActorTemplateProcessorTest extends AbstractRealWorldActorTemplateProc
 		staff.costumeDepartment == COSTUME_DEPARTMENT
 		staff.costumeDesigner == COSTUME_DESIGNER
 		staff.director == DIRECTOR
-		staff.assistantAndSecondUnitDirector == ASSISTANT_AND_SECOND_UNIT_DIRECTOR
+		staff.assistantOrSecondUnitDirector == ASSISTANT_AND_SECOND_UNIT_DIRECTOR
 		staff.exhibitAndAttractionStaff == EXHIBIT_AND_ATTRACTION_STAFF
 		staff.filmEditor == FILM_EDITOR
 		staff.linguist == LINGUIST

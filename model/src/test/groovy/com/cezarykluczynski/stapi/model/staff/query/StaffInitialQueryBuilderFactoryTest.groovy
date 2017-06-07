@@ -91,8 +91,8 @@ class StaffInitialQueryBuilderFactoryTest extends AbstractRealWorldPersonTest {
 		1 * staffQueryBuilder.equal(Staff_.costumeDesigner, COSTUME_DESIGNER)
 		1 * staffRequestDTO.director >> DIRECTOR
 		1 * staffQueryBuilder.equal(Staff_.director, DIRECTOR)
-		1 * staffRequestDTO.assistantAndSecondUnitDirector >> ASSISTANT_AND_SECOND_UNIT_DIRECTOR
-		1 * staffQueryBuilder.equal(Staff_.assistantAndSecondUnitDirector, ASSISTANT_AND_SECOND_UNIT_DIRECTOR)
+		1 * staffRequestDTO.assistantOrSecondUnitDirector >> ASSISTANT_AND_SECOND_UNIT_DIRECTOR
+		1 * staffQueryBuilder.equal(Staff_.assistantOrSecondUnitDirector, ASSISTANT_AND_SECOND_UNIT_DIRECTOR)
 		1 * staffRequestDTO.exhibitAndAttractionStaff >> EXHIBIT_AND_ATTRACTION_STAFF
 		1 * staffQueryBuilder.equal(Staff_.exhibitAndAttractionStaff, EXHIBIT_AND_ATTRACTION_STAFF)
 		1 * staffRequestDTO.filmEditor >> FILM_EDITOR

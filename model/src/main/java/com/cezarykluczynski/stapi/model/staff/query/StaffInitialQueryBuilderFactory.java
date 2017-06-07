@@ -41,7 +41,7 @@ public class StaffInitialQueryBuilderFactory implements InitialQueryBuilderFacto
 		staffQueryBuilder.equal(Staff_.costumeDepartment, criteria.getCostumeDepartment());
 		staffQueryBuilder.equal(Staff_.costumeDesigner, criteria.getCostumeDesigner());
 		staffQueryBuilder.equal(Staff_.director, criteria.getDirector());
-		staffQueryBuilder.equal(Staff_.assistantAndSecondUnitDirector, criteria.getAssistantAndSecondUnitDirector());
+		staffQueryBuilder.equal(Staff_.assistantOrSecondUnitDirector, criteria.getAssistantOrSecondUnitDirector());
 		staffQueryBuilder.equal(Staff_.exhibitAndAttractionStaff, criteria.getExhibitAndAttractionStaff());
 		staffQueryBuilder.equal(Staff_.filmEditor, criteria.getFilmEditor());
 		staffQueryBuilder.equal(Staff_.linguist, criteria.getLinguist());

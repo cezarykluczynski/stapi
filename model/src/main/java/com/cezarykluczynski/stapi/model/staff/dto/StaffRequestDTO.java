@@ -26,7 +26,7 @@ public class StaffRequestDTO extends RealWorldPersonRequestDTO {
 
 	private Boolean director;
 
-	private Boolean assistantAndSecondUnitDirector;
+	private Boolean assistantOrSecondUnitDirector;
 
 	private Boolean exhibitAndAttractionStaff;
 

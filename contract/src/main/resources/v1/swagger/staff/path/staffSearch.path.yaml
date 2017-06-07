@@ -126,7 +126,7 @@ post:
       in: formData
       type: boolean
       description: Whether this person should be a director
-    - name: assistantAndSecondUnitDirector
+    - name: assistantOrSecondUnitDirector
       in: formData
       type: boolean
       description: Whether this person should be an assistant or secound unit director director

@@ -26,7 +26,7 @@ abstract class AbstractStaffMapperTest extends AbstractRealWorldPersonMapperTest
 				costumeDepartment: COSTUME_DEPARTMENT,
 				costumeDesigner: COSTUME_DESIGNER,
 				director: DIRECTOR,
-				assistantAndSecondUnitDirector: ASSISTANT_AND_SECOND_UNIT_DIRECTOR,
+				assistantOrSecondUnitDirector: ASSISTANT_AND_SECOND_UNIT_DIRECTOR,
 				exhibitAndAttractionStaff: EXHIBIT_AND_ATTRACTION_STAFF,
 				filmEditor: FILM_EDITOR,
 				linguist: LINGUIST,
