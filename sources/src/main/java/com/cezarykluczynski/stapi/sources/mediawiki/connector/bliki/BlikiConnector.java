@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiMinim
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourcesProperties;
 import com.cezarykluczynski.stapi.sources.mediawiki.service.wikia.WikiaWikisDetector;
 import com.cezarykluczynski.stapi.sources.mediawiki.util.constant.ApiParams;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import info.bliki.api.Connector;
 import info.bliki.api.User;
@@ -17,11 +18,14 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 
 @Service
 @Slf4j
 public class BlikiConnector {
+
+	private static final List<Long> NETWORK_TROUBLE_POSTPONES_TIMES = Lists.newArrayList(10000L, 30000L, 60000L, 300000L);
 
 	private Map<MediaWikiSource, Long> lastCallTimes = Maps.newHashMap();
 
@@ -31,6 +35,8 @@ public class BlikiConnector {
 
 	private Map<MediaWikiSource, IntervalCalculationStrategy> intervalCalculationStrategies = Maps.newHashMap();
 
+	private Integer lastNetworkTroublePostponeIndex = 0;
+
 	private final BlikiUserDecoratorBeanMapProvider blikiUserDecoratorBeanMapProvider;
 
 	private final WikiaWikisDetector wikiaWikisDetector;
@@ -38,6 +44,7 @@ public class BlikiConnector {
 	private final MediaWikiMinimalIntervalProvider mediaWikiMinimalIntervalProvider;
 
 	private final MediaWikiSourcesProperties mediaWikiSourcesProperties;
+
 
 	@Inject
 	public BlikiConnector(BlikiUserDecoratorBeanMapProvider blikiUserDecoratorBeanMapProvider, WikiaWikisDetector wikiaWikisDetector,
@@ -54,10 +61,8 @@ public class BlikiConnector {
 		lastCallTimes.put(MediaWikiSource.MEMORY_BETA_EN, 0L);
 		names.put(MediaWikiSource.MEMORY_ALPHA_EN, "Memory Alpha (EN)");
 		names.put(MediaWikiSource.MEMORY_BETA_EN, "Memory Beta (EN)");
-		logPostpones.put(MediaWikiSource.MEMORY_ALPHA_EN, mediaWikiSourcesProperties
-				.getMemoryAlphaEn().getLogPostpones());
-		logPostpones.put(MediaWikiSource.MEMORY_BETA_EN, mediaWikiSourcesProperties
-				.getMemoryBetaEn().getLogPostpones());
+		logPostpones.put(MediaWikiSource.MEMORY_ALPHA_EN, mediaWikiSourcesProperties.getMemoryAlphaEn().getLogPostpones());
+		logPostpones.put(MediaWikiSource.MEMORY_BETA_EN, mediaWikiSourcesProperties.getMemoryBetaEn().getLogPostpones());
 		intervalCalculationStrategies.put(MediaWikiSource.MEMORY_ALPHA_EN, mediaWikiSourcesProperties
 				.getMemoryAlphaEn().getIntervalCalculationStrategy());
 		intervalCalculationStrategies.put(MediaWikiSource.MEMORY_BETA_EN, mediaWikiSourcesProperties
@@ -95,13 +100,11 @@ public class BlikiConnector {
 	}
 
 	private synchronized String doQueryMemoryAlpha(RequestBuilder requestBuilder) {
-		return synchronizedDoQuery(requestBuilder, MediaWikiSource.MEMORY_ALPHA_EN,
-				mediaWikiMinimalIntervalProvider.getMemoryAlphaEnInterval());
+		return synchronizedDoQuery(requestBuilder, MediaWikiSource.MEMORY_ALPHA_EN, mediaWikiMinimalIntervalProvider.getMemoryAlphaEnInterval());
 	}
 
 	private synchronized String doQueryMemoryBeta(RequestBuilder requestBuilder) {
-		return synchronizedDoQuery(requestBuilder, MediaWikiSource.MEMORY_BETA_EN,
-				mediaWikiMinimalIntervalProvider.getMemoryBetaEnInterval());
+		return synchronizedDoQuery(requestBuilder, MediaWikiSource.MEMORY_BETA_EN, mediaWikiMinimalIntervalProvider.getMemoryBetaEnInterval());
 	}
 
 	private String synchronizedDoQuery(RequestBuilder requestBuilder, MediaWikiSource mediaWikiSource, Long interval) {
@@ -126,6 +129,25 @@ public class BlikiConnector {
 		long lastCallTime = IntervalCalculationStrategy.FROM_AFTER_RECEIVED
 				.equals(intervalCalculationStrategies.get(mediaWikiSource)) ? System.currentTimeMillis() : startTime;
 		lastCallTimes.put(mediaWikiSource, lastCallTime);
+
+		synchronized (this) {
+			if (xml == null) {
+				long postpone = getNetworkTroublePostpone();
+				log.info("Network troubles. Postponing next call for {} seconds", postpone / 1000);
+				try {
+					Thread.sleep(postpone);
+				} catch (InterruptedException e) {
+					Thread.currentThread().interrupt();
+				}
+				return synchronizedDoQuery(requestBuilder, mediaWikiSource, interval);
+			} else {
+				if (lastNetworkTroublePostponeIndex > 0) {
+					log.info("Network is back to normal");
+				}
+				lastNetworkTroublePostponeIndex = 0;
+			}
+		}
+
 		return xml;
 	}
 
@@ -145,6 +167,12 @@ public class BlikiConnector {
 
 	private String resolveProperties(MediaWikiSource mediaWikiSource) {
 		return wikiaWikisDetector.isWikiaWiki(mediaWikiSource) ? ApiParams.KEY_PROP_VALUE : ApiParams.KEY_PROP_VALUE_MW_1_26_UP;
+	}
+
+	private long getNetworkTroublePostpone() {
+		long networkTroublePostpone = NETWORK_TROUBLE_POSTPONES_TIMES.get(lastNetworkTroublePostponeIndex);
+		lastNetworkTroublePostponeIndex = Math.min(lastNetworkTroublePostponeIndex + 1, NETWORK_TROUBLE_POSTPONES_TIMES.size() - 1);
+		return networkTroublePostpone;
 	}
 
 }
