@@ -73,7 +73,7 @@ public class ThrottleRepositoryImpl implements ThrottleRepositoryCustom {
 	@Override
 	public void deleteExpiredIPLimits() {
 		LocalDateTime localDateTime = LocalDateTime.now();
-		LocalDateTime thresholdDate = localDateTime.minusDays(throttleProperties.getDaysToDeleteExpiredIpAddresses());
+		LocalDateTime thresholdDate = localDateTime.minusMinutes(throttleProperties.getMinutesToDeleteExpiredIpAddresses());
 		throttleRepository.deleteIPAddressesOlderThan(thresholdDate);
 	}
 

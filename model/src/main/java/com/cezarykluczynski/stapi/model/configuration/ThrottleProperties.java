@@ -11,6 +11,6 @@ public class ThrottleProperties {
 
 	private Integer ipAddressHourlyLimit;
 
-	private Integer daysToDeleteExpiredIpAddresses;
+	private Integer minutesToDeleteExpiredIpAddresses;
 
 }

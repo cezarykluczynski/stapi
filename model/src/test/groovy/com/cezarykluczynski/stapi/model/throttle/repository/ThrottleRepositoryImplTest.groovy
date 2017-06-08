@@ -17,7 +17,7 @@ class ThrottleRepositoryImplTest extends Specification {
 	private static final Integer IP_ADDRESS_HOURLY_LIMIT_DECREMENTED = 99
 	private static final Integer REMAINING_HITS = 10
 	private static final Integer REMAINING_HITS_DECREMENTED = 9
-	private static final Integer DAYS_TO_DELETE_EXPIRED_IP_ADDRESSES = 1
+	private static final Integer MINUTES_TO_DELETE_EXPIRED_IP_ADDRESSES = 1440
 
 	private ThrottleProperties throttlePropertiesMock
 
@@ -136,9 +136,9 @@ class ThrottleRepositoryImplTest extends Specification {
 		throttleRepositoryImpl.deleteExpiredIPLimits()
 
 		then:
-		1 * throttlePropertiesMock.daysToDeleteExpiredIpAddresses >> DAYS_TO_DELETE_EXPIRED_IP_ADDRESSES
+		1 * throttlePropertiesMock.minutesToDeleteExpiredIpAddresses >> MINUTES_TO_DELETE_EXPIRED_IP_ADDRESSES
 		1 * throttleRepositoryMock.deleteIPAddressesOlderThan(_ as LocalDateTime) >> { LocalDateTime localDateTime ->
-			long insideTestTime = toEpochSeconds(localDateTime.plusDays(DAYS_TO_DELETE_EXPIRED_IP_ADDRESSES))
+			long insideTestTime = toEpochSeconds(localDateTime.plusMinutes(MINUTES_TO_DELETE_EXPIRED_IP_ADDRESSES))
 			long afterTestTime = toEpochSeconds(LocalDateTime.now())
 			assert beforeTestTime <= insideTestTime
 			assert afterTestTime >= insideTestTime
