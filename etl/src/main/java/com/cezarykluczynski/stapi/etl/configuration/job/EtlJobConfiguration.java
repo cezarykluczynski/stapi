@@ -47,6 +47,12 @@ import com.cezarykluczynski.stapi.etl.food.creation.processor.FoodWriter;
 import com.cezarykluczynski.stapi.etl.location.creation.processor.LocationProcessor;
 import com.cezarykluczynski.stapi.etl.location.creation.processor.LocationReader;
 import com.cezarykluczynski.stapi.etl.location.creation.processor.LocationWriter;
+import com.cezarykluczynski.stapi.etl.magazine.creation.processor.MagazineProcessor;
+import com.cezarykluczynski.stapi.etl.magazine.creation.processor.MagazineReader;
+import com.cezarykluczynski.stapi.etl.magazine.creation.processor.MagazineWriter;
+import com.cezarykluczynski.stapi.etl.magazineSeries.creation.processor.MagazineSeriesProcessor;
+import com.cezarykluczynski.stapi.etl.magazineSeries.creation.processor.MagazineSeriesReader;
+import com.cezarykluczynski.stapi.etl.magazineSeries.creation.processor.MagazineSeriesWriter;
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieProcessor;
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieReader;
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieWriter;
@@ -79,6 +85,8 @@ import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.food.entity.Food;
 import com.cezarykluczynski.stapi.model.location.entity.Location;
+import com.cezarykluczynski.stapi.model.magazine.entity.Magazine;
+import com.cezarykluczynski.stapi.model.magazineSeries.entity.MagazineSeries;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
@@ -398,6 +406,32 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(BookCollectionReader.class))
 				.processor(applicationContext.getBean(BookCollectionProcessor.class))
 				.writer(applicationContext.getBean(BookCollectionWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_MAGAZINES)
+	public Step stepCreateMagazines() {
+		return stepBuilderFactory.get(StepName.CREATE_MAGAZINES)
+				.<PageHeader, Magazine>chunk(stepsProperties.getCreateMagazines().getCommitInterval())
+				.reader(applicationContext.getBean(MagazineReader.class))
+				.processor(applicationContext.getBean(MagazineProcessor.class))
+				.writer(applicationContext.getBean(MagazineWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_MAGAZINE_SERIES)
+	public Step stepCreateMagazineSeries() {
+		return stepBuilderFactory.get(StepName.CREATE_MAGAZINE_SERIES)
+				.<PageHeader, MagazineSeries>chunk(stepsProperties.getCreateMagazineSeries().getCommitInterval())
+				.reader(applicationContext.getBean(MagazineSeriesReader.class))
+				.processor(applicationContext.getBean(MagazineSeriesProcessor.class))
+				.writer(applicationContext.getBean(MagazineSeriesWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)

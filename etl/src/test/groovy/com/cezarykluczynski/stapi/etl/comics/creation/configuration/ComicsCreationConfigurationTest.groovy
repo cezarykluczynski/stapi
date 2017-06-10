@@ -13,6 +13,7 @@ import org.springframework.context.ApplicationContext
 class ComicsCreationConfigurationTest extends AbstractCreationConfigurationTest {
 
 	private static final String TITLE_COMICS = 'TITLE_COMICS'
+	private static final String TITLE_COMIC_ADAPTATIONS = 'TITLE_COMIC_ADAPTATIONS'
 	private static final String TITLE_PHOTONOVEL = 'TITLE_PHOTONOVEL'
 
 	private ApplicationContext applicationContextMock
@@ -41,10 +42,12 @@ class ComicsCreationConfigurationTest extends AbstractCreationConfigurationTest 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_COMICS) >> false
 		1 * categoryApiMock.getPages(CategoryTitle.COMICS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_COMICS)
-		1 * categoryApiMock.getPages(CategoryTitle.COMIC_ADAPTATIONS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_PHOTONOVEL)
+		1 * categoryApiMock.getPages(CategoryTitle.COMIC_ADAPTATIONS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+				createListWithPageHeaderTitle(TITLE_COMIC_ADAPTATIONS)
 		1 * categoryApiMock.getPages(CategoryTitle.PHOTONOVELS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_PHOTONOVEL)
 		0 * _
 		categoryHeaderTitleList.contains TITLE_COMICS
+		categoryHeaderTitleList.contains TITLE_COMIC_ADAPTATIONS
 		categoryHeaderTitleList.contains TITLE_PHOTONOVEL
 	}
 

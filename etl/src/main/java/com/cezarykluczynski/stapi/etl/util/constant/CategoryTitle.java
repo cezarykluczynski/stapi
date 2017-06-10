@@ -239,4 +239,7 @@ public class CategoryTitle {
 	public static final String E_BOOK_SERIES = "EBook_series";
 
 	public static final String NOVEL_COLLECTIONS = "Novel_collections";
+
+	public static final String MAGAZINES = "Magazines";
+
 }

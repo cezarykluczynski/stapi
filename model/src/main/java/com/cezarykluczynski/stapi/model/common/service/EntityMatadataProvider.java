@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.model.comicCollection.entity.ComicCollection;
 import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries;
 import com.cezarykluczynski.stapi.model.comicStrip.entity.ComicStrip;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics;
+import com.cezarykluczynski.stapi.model.magazineSeries.entity.MagazineSeries;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.hibernate.Session;
@@ -32,6 +33,7 @@ public class EntityMatadataProvider {
 		CUSTOM_SYMBOL_MAP.put(CharacterSpecies.class, "CP");
 		CUSTOM_SYMBOL_MAP.put(BookSeries.class, "BS");
 		CUSTOM_SYMBOL_MAP.put(BookCollection.class, "BC");
+		CUSTOM_SYMBOL_MAP.put(MagazineSeries.class, "MS");
 	}
 
 	private final EntityManager entityManager;

@@ -33,7 +33,9 @@ public class StepNames {
 				StepName.CREATE_BOOK_SERIES,
 				StepName.LINK_BOOK_SERIES,
 				StepName.CREATE_BOOKS,
-				StepName.CREATE_BOOK_COLLECTIONS
+				StepName.CREATE_BOOK_COLLECTIONS,
+				StepName.CREATE_MAGAZINES,
+				StepName.CREATE_MAGAZINE_SERIES
 		));
 	}
 
