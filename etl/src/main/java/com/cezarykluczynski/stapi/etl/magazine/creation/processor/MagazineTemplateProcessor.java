@@ -20,8 +20,23 @@ public class MagazineTemplateProcessor implements ItemProcessor<MagazineTemplate
 
 	@Override
 	public Magazine process(MagazineTemplate item) throws Exception {
-		//TODO
-		return null;
+		Magazine magazine = new Magazine();
+
+		magazine.setTitle(item.getTitle());
+		magazine.setPage(item.getPage());
+		magazine.setUid(uidGenerator.generateFromPage(item.getPage(), Magazine.class));
+		magazine.setPublishedYear(item.getPublishedYear());
+		magazine.setPublishedMonth(item.getPublishedMonth());
+		magazine.setPublishedDay(item.getPublishedDay());
+		magazine.setCoverYear(item.getCoverYear());
+		magazine.setCoverMonth(item.getCoverMonth());
+		magazine.setCoverDay(item.getCoverDay());
+		magazine.setNumberOfPages(item.getNumberOfPages());
+		magazine.getMagazineSeries().addAll(item.getMagazineSeries());
+		magazine.getEditors().addAll(item.getEditors());
+		magazine.getPublishers().addAll(item.getPublishers());
+
+		return magazine;
 	}
 
 }

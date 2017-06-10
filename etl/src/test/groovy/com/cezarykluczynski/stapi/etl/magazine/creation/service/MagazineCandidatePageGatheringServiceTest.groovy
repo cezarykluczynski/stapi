@@ -1,19 +1,19 @@
-package com.cezarykluczynski.stapi.etl.magazineSeries.creation.service
+package com.cezarykluczynski.stapi.etl.magazine.creation.service
 
 import com.cezarykluczynski.stapi.sources.mediawiki.converter.PageHeaderConverter
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import spock.lang.Specification
 
-class MagazineSeriesCandidatePageGatheringServiceTest extends Specification {
+class MagazineCandidatePageGatheringServiceTest extends Specification {
 
 	private PageHeaderConverter pageHeaderConverterMock
 
-	private MagazineSeriesCandidatePageGatheringService magazineSeriesCandidatePageGatheringService
+	private MagazineCandidatePageGatheringService magazineSeriesCandidatePageGatheringService
 
 	void setup() {
 		pageHeaderConverterMock = Mock()
-		magazineSeriesCandidatePageGatheringService = new MagazineSeriesCandidatePageGatheringService(pageHeaderConverterMock)
+		magazineSeriesCandidatePageGatheringService = new MagazineCandidatePageGatheringService(pageHeaderConverterMock)
 	}
 
 	void "adds pages, then clears collection when page headers are requested"() {

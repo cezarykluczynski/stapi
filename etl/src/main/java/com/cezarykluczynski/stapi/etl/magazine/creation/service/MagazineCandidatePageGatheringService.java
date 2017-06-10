@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.magazineSeries.creation.service;
+package com.cezarykluczynski.stapi.etl.magazine.creation.service;
 
 import com.cezarykluczynski.stapi.sources.mediawiki.converter.PageHeaderConverter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
@@ -10,14 +10,14 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Service
-public class MagazineSeriesCandidatePageGatheringService {
+public class MagazineCandidatePageGatheringService {
 
 	private final PageHeaderConverter pageHeaderConverter;
 
 	private final List<Page> pageList = Lists.newArrayList();
 
 	@Inject
-	public MagazineSeriesCandidatePageGatheringService(PageHeaderConverter pageHeaderConverter) {
+	public MagazineCandidatePageGatheringService(PageHeaderConverter pageHeaderConverter) {
 		this.pageHeaderConverter = pageHeaderConverter;
 	}
 

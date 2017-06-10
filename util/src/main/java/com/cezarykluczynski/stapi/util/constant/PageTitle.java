@@ -42,4 +42,7 @@ public class PageTitle {
 	public static final String REPTILE = "Reptile";
 	public static final String EARTH = "Earth";
 
+	public static final String MAGAZINES = "Magazines";
+	public static final String PARTWORK = "Partwork";
+
 }

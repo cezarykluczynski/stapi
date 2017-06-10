@@ -85,5 +85,4 @@ public class Magazine extends PageAwareEntity implements PageAware {
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Company> publishers = Sets.newHashSet();
 
-
 }

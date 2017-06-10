@@ -8,9 +8,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class MagazineSeriesTemplatePageProcessor implements ItemProcessor<Page, MagazineSeriesTemplate> {
 
-	public MagazineSeriesTemplatePageProcessor() {
-	}
-
 	@Override
 	public MagazineSeriesTemplate process(Page item) throws Exception {
 		// TODO

@@ -50,9 +50,9 @@ import com.cezarykluczynski.stapi.etl.location.creation.processor.LocationReader
 import com.cezarykluczynski.stapi.etl.location.creation.processor.LocationWriter
 import com.cezarykluczynski.stapi.etl.magazine.creation.processor.MagazineProcessor
 import com.cezarykluczynski.stapi.etl.magazine.creation.processor.MagazineReader
+import com.cezarykluczynski.stapi.etl.magazineSeries.creation.processor.MagazineSeriesReader
 import com.cezarykluczynski.stapi.etl.magazine.creation.processor.MagazineWriter
 import com.cezarykluczynski.stapi.etl.magazineSeries.creation.processor.MagazineSeriesProcessor
-import com.cezarykluczynski.stapi.etl.magazineSeries.creation.processor.MagazineSeriesReader
 import com.cezarykluczynski.stapi.etl.magazineSeries.creation.processor.MagazineSeriesWriter
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieProcessor
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieReader

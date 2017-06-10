@@ -1,83 +1,17 @@
 package com.cezarykluczynski.stapi.etl.magazineSeries.creation.processor;
 
-import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
-import com.cezarykluczynski.stapi.etl.magazineSeries.creation.service.MagazineSeriesCandidatePageGatheringService;
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
-import com.cezarykluczynski.stapi.etl.util.constant.JobName;
-import com.cezarykluczynski.stapi.etl.util.constant.StepName;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.batch.item.ItemReader;
-import org.springframework.stereotype.Service;
+import org.springframework.batch.item.support.ListItemReader;
 
-import javax.inject.Inject;
-import java.util.Iterator;
 import java.util.List;
 
-@Service
 @Slf4j
-public class MagazineSeriesReader implements ItemReader<PageHeader> {
+public class MagazineSeriesReader extends ListItemReader<PageHeader> {
 
-	private final MagazineSeriesCandidatePageGatheringService magazineSeriesCandidatePageGatheringService;
-
-	private final CategoryApi categoryApi;
-
-	private final StepCompletenessDecider stepCompletenessDecider;
-
-	private List<PageHeader> pageHeaderList;
-
-	private Iterator<PageHeader> pageHeaderIterator;
-
-	private boolean initialized;
-
-	@Inject
-	public MagazineSeriesReader(MagazineSeriesCandidatePageGatheringService magazineSeriesCandidatePageGatheringService, CategoryApi categoryApi,
-			StepCompletenessDecider stepCompletenessDecider) {
-		this.magazineSeriesCandidatePageGatheringService = magazineSeriesCandidatePageGatheringService;
-		this.categoryApi = categoryApi;
-		this.stepCompletenessDecider = stepCompletenessDecider;
-	}
-
-	@Override
-	public synchronized PageHeader read() throws Exception {
-		if (!initialized) {
-			initializeSourceList();
-			log.info("Initial size of magazine series list: {}", pageHeaderList.size());
-			createIterator();
-			initialized = true;
-		}
-
-		return doRead();
-	}
-
-	private PageHeader doRead() {
-		return pageHeaderIterator.hasNext() ? pageHeaderIterator.next() : null;
-	}
-
-	private void createIterator() {
-		pageHeaderIterator = pageHeaderList.iterator();
-	}
-
-	private void initializeSourceList() {
-		if (stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_MAGAZINE_SERIES)) {
-			pageHeaderList = Lists.newArrayList();
-		} else if (!magazineSeriesCandidatePageGatheringService.isEmpty()) {
-			pageHeaderList = magazineSeriesCandidatePageGatheringService.getAllPageHeadersThenClean();
-		} else {
-			initializeFromApi();
-		}
-	}
-
-	private void initializeFromApi() {
-		List<PageHeader> comicStripsList = Lists.newArrayList();
-
-		comicStripsList.addAll(categoryApi.getPagesIncludingSubcategories(CategoryTitle.MAGAZINES, MediaWikiSource.MEMORY_ALPHA_EN));
-
-		pageHeaderList = Lists.newArrayList(Sets.newHashSet(comicStripsList));
+	public MagazineSeriesReader(List<PageHeader> list) {
+		super(list);
+		log.info("Initial size of magazine series list: {}", list.size());
 	}
 
 }

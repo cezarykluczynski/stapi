@@ -1,7 +1,7 @@
-package com.cezarykluczynski.stapi.etl.magazine.creation.configuration;
+package com.cezarykluczynski.stapi.etl.magazineSeries.creation.configuration;
 
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
-import com.cezarykluczynski.stapi.etl.magazine.creation.processor.MagazineReader;
+import com.cezarykluczynski.stapi.etl.magazineSeries.creation.processor.MagazineSeriesReader;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
@@ -19,7 +19,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Configuration
-public class MagazineCreationConfiguration {
+public class MagazineSeriesCreationConfiguration {
 
 	@Inject
 	private ApplicationContext applicationContext;
@@ -32,14 +32,14 @@ public class MagazineCreationConfiguration {
 
 	@Bean
 	@DependsOn("batchDatabaseInitializer")
-	public MagazineReader magazineReader() {
+	public MagazineSeriesReader magazineSeriesReader() {
 		List<PageHeader> comicsList = Lists.newArrayList();
 
-		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_MAGAZINES)) {
+		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_MAGAZINE_SERIES)) {
 			comicsList.addAll(categoryApi.getPagesIncludingSubcategories(CategoryTitle.MAGAZINES, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 
-		return new MagazineReader(Lists.newArrayList(Sets.newHashSet(comicsList)));
+		return new MagazineSeriesReader(Lists.newArrayList(Sets.newHashSet(comicsList)));
 	}
 
 }

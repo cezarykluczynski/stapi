@@ -412,19 +412,6 @@ public class EtlJobConfiguration {
 				.build();
 	}
 
-	@Bean(name = StepName.CREATE_MAGAZINES)
-	public Step stepCreateMagazines() {
-		return stepBuilderFactory.get(StepName.CREATE_MAGAZINES)
-				.<PageHeader, Magazine>chunk(stepsProperties.getCreateMagazines().getCommitInterval())
-				.reader(applicationContext.getBean(MagazineReader.class))
-				.processor(applicationContext.getBean(MagazineProcessor.class))
-				.writer(applicationContext.getBean(MagazineWriter.class))
-				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
-				.startLimit(1)
-				.allowStartIfComplete(false)
-				.build();
-	}
-
 	@Bean(name = StepName.CREATE_MAGAZINE_SERIES)
 	public Step stepCreateMagazineSeries() {
 		return stepBuilderFactory.get(StepName.CREATE_MAGAZINE_SERIES)
@@ -432,6 +419,19 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(MagazineSeriesReader.class))
 				.processor(applicationContext.getBean(MagazineSeriesProcessor.class))
 				.writer(applicationContext.getBean(MagazineSeriesWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_MAGAZINES)
+	public Step stepCreateMagazines() {
+		return stepBuilderFactory.get(StepName.CREATE_MAGAZINES)
+				.<PageHeader, Magazine>chunk(stepsProperties.getCreateMagazines().getCommitInterval())
+				.reader(applicationContext.getBean(MagazineReader.class))
+				.processor(applicationContext.getBean(MagazineProcessor.class))
+				.writer(applicationContext.getBean(MagazineWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)
