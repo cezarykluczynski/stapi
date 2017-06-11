@@ -20,8 +20,20 @@ public class MagazineSeriesTemplateProcessor implements ItemProcessor<MagazineSe
 
 	@Override
 	public MagazineSeries process(MagazineSeriesTemplate item) throws Exception {
-		//TODO
-		return null;
+		MagazineSeries magazineSeries = new MagazineSeries();
+
+		magazineSeries.setUid(uidGenerator.generateFromPage(item.getPage(), MagazineSeries.class));
+		magazineSeries.setPage(item.getPage());
+		magazineSeries.setTitle(item.getTitle());
+		magazineSeries.setPublishedYearFrom(item.getPublishedYearFrom());
+		magazineSeries.setPublishedMonthFrom(item.getPublishedMonthFrom());
+		magazineSeries.setPublishedYearTo(item.getPublishedYearTo());
+		magazineSeries.setPublishedMonthTo(item.getPublishedMonthTo());
+		magazineSeries.setNumberOfIssues(item.getNumberOfIssues());
+		magazineSeries.getPublishers().addAll(item.getPublishers());
+		magazineSeries.getEditors().addAll(item.getEditors());
+
+		return magazineSeries;
 	}
 
 

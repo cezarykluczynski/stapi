@@ -12,6 +12,8 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 public class MagazineSeriesTemplate extends PublishableSeriesTemplate {
 
+	private Integer numberOfIssues;
+
 	private Set<Staff> editors = Sets.newHashSet();
 
 }
