@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.api
 
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
+import com.cezarykluczynski.stapi.sources.mediawiki.cache.PageCacheStorage
 import com.cezarykluczynski.stapi.sources.mediawiki.connector.bliki.BlikiConnector
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.service.complement.ParseComplementingService
@@ -53,13 +54,16 @@ class PageApiImplTest extends Specification {
 
 	private ParseComplementingService parseComplementingServiceMock
 
+	PageCacheStorage pageCacheStorageMock
+
 	private PageApiImpl pageApiImpl
 
 	void setup() {
 		blikiConnectorMock = Mock()
 		wikitextApiMock = Mock()
 		parseComplementingServiceMock = Mock()
-		pageApiImpl = new PageApiImpl(blikiConnectorMock, wikitextApiMock, parseComplementingServiceMock)
+		pageCacheStorageMock = Mock()
+		pageApiImpl = new PageApiImpl(blikiConnectorMock, wikitextApiMock, parseComplementingServiceMock, pageCacheStorageMock)
 	}
 
 	void "gets page from title"() {
@@ -85,6 +89,19 @@ class PageApiImplTest extends Specification {
 		page.sections[1].level == 2
 		page.sections[1].text == '<i>Star Trek</i>'
 		page.sections[1].wikitext == 'Star Trek content.'
+	}
+
+	void "gets page from PageCacheStorage when it was found there"() {
+		given:
+		Page page = Mock()
+
+		when:
+		Page pageOutput = pageApiImpl.getPage(TITLE_1, MEDIA_WIKI_SOURCE)
+
+		then:
+		1 * pageCacheStorageMock.get(TITLE_1, MEDIA_WIKI_SOURCE) >> page
+		0 * _
+		pageOutput == page
 	}
 
 	void "returns page when there is no wikitext"() {

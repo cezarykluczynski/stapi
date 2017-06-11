@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.sources.mediawiki.api;
 
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
+import com.cezarykluczynski.stapi.sources.mediawiki.cache.PageCacheStorage;
 import com.cezarykluczynski.stapi.sources.mediawiki.connector.bliki.BlikiConnector;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
@@ -34,11 +35,15 @@ public class PageApiImpl implements PageApi {
 
 	private final ParseComplementingService parseComplementingService;
 
+	private final PageCacheStorage pageCacheStorage;
+
 	@Inject
-	public PageApiImpl(BlikiConnector blikiConnector, WikitextApi wikitextApi, ParseComplementingService parseComplementingService) {
+	public PageApiImpl(BlikiConnector blikiConnector, WikitextApi wikitextApi, ParseComplementingService parseComplementingService,
+			PageCacheStorage pageCacheStorage) {
 		this.blikiConnector = blikiConnector;
 		this.wikitextApi = wikitextApi;
 		this.parseComplementingService = parseComplementingService;
+		this.pageCacheStorage = pageCacheStorage;
 	}
 
 	@Override
@@ -71,20 +76,18 @@ public class PageApiImpl implements PageApi {
 	}
 
 	private Page getPageRedirectAware(String title, int redirectCount, MediaWikiSource mediaWikiSource) {
+		if (redirectCount == 0) {
+			Page cachedPage = pageCacheStorage.get(title, mediaWikiSource);
+			if (cachedPage != null) {
+				return cachedPage;
+			}
+		}
+
 		String pageBody = blikiConnector.getPage(title, mediaWikiSource);
 
-		Page page;
-		if (pageBody == null) {
-			log.warn("Null returned instead of page {} body", title);
-			page = null;
-		} else {
-			page = parseInfo(pageBody, mediaWikiSource);
-		}
-
-		if (page != null) {
-			supplementSectionsWikitext(page);
-			page.setMediaWikiSource(mediaWikiSource);
-		}
+		Page page = fromPageBody(pageBody, title, mediaWikiSource);
+		supplementSectionsWikitext(page);
+		supplementMediaWikiSource(page, mediaWikiSource);
 
 		if (redirectCount == 2) {
 			return page;
@@ -95,14 +98,17 @@ public class PageApiImpl implements PageApi {
 			return null;
 		}
 
-		String wikitext = page.getWikitext();
+		return pageOrRedirect(page, title, redirectCount, mediaWikiSource);
+	}
 
-		if (wikitext == null) {
-			return page;
-		}
+	private Page fromPageBody(String pageBody, String title, MediaWikiSource mediaWikiSource) {
+		Page page;
 
-		if (wikitext.substring(0, Math.min(200, wikitext.length())).contains(REDIRECT_PREFIX)) {
-			return redirectFromWikitextOrPage(wikitext, page, title, redirectCount, mediaWikiSource);
+		if (pageBody == null) {
+			log.warn("Null returned instead of page {} body", title);
+			page = null;
+		} else {
+			page = parseInfo(pageBody, mediaWikiSource);
 		}
 
 		return page;
@@ -133,6 +139,10 @@ public class PageApiImpl implements PageApi {
 	}
 
 	private void supplementSectionsWikitext(Page page) {
+		if (page == null) {
+			return;
+		}
+
 		List<PageSection> sortedPageSectionList = page.getSections()
 				.stream()
 				.sorted((left, right) -> left.getByteOffset().compareTo(right.getByteOffset()))
@@ -159,6 +169,26 @@ public class PageApiImpl implements PageApi {
 
 			sortedPageSectionList.get(i).setWikitext(StringUtils.trim(sectionWikitext));
 		}
+	}
+
+	private void supplementMediaWikiSource(Page page, MediaWikiSource mediaWikiSource) {
+		if (page != null) {
+			page.setMediaWikiSource(mediaWikiSource);
+		}
+	}
+
+	private Page pageOrRedirect(Page page, String title, int redirectCount, MediaWikiSource mediaWikiSource) {
+		String wikitext = page.getWikitext();
+
+		if (wikitext == null) {
+			return page;
+		}
+
+		if (wikitext.substring(0, Math.min(200, wikitext.length())).contains(REDIRECT_PREFIX)) {
+			return redirectFromWikitextOrPage(wikitext, page, title, redirectCount, mediaWikiSource);
+		}
+
+		return page;
 	}
 
 	private PageInfo parsePageInfo(String xml) {
