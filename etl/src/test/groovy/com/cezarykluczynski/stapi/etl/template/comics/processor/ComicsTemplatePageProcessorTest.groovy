@@ -10,11 +10,13 @@ import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
+import com.cezarykluczynski.stapi.sources.mediawiki.cache.PageCacheStorage
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
+import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import spock.lang.Specification
@@ -28,7 +30,7 @@ class ComicsTemplatePageProcessorTest extends Specification {
 
 	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessorMock
 
-	private ComicStripCandidatePageGatheringService comicStripCandidatePageGatheringService
+	private ComicStripCandidatePageGatheringService comicStripCandidatePageGatheringServiceMock
 
 	private PageBindingService pageBindingServiceMock
 
@@ -40,24 +42,27 @@ class ComicsTemplatePageProcessorTest extends Specification {
 
 	private WikitextCharactersProcessor wikitextCharactersProcessorMock
 
+	private PageCacheStorage pageCacheStorageMock
+
 	private ComicsTemplatePageProcessor comicsTemplatePageProcessor
 
 	void setup() {
 		categoryTitlesExtractingProcessorMock = Mock()
-		comicStripCandidatePageGatheringService = Mock()
+		comicStripCandidatePageGatheringServiceMock = Mock()
 		pageBindingServiceMock = Mock()
 		templateFinderMock = Mock()
 		comicsTemplateCompositeEnrichingProcessorMock = Mock()
 		comicsTemplatePartsEnrichingProcessorMock = Mock()
 		wikitextCharactersProcessorMock = Mock()
-		comicsTemplatePageProcessor = new ComicsTemplatePageProcessor(categoryTitlesExtractingProcessorMock, comicStripCandidatePageGatheringService,
+		pageCacheStorageMock = Mock()
+		comicsTemplatePageProcessor = new ComicsTemplatePageProcessor(categoryTitlesExtractingProcessorMock, comicStripCandidatePageGatheringServiceMock,
 				pageBindingServiceMock, templateFinderMock, comicsTemplateCompositeEnrichingProcessorMock,
-				comicsTemplatePartsEnrichingProcessorMock, wikitextCharactersProcessorMock)
+				comicsTemplatePartsEnrichingProcessorMock, wikitextCharactersProcessorMock, pageCacheStorageMock)
 	}
 
 	void "returns null when page title is among invalid page titles"() {
 		given:
-		Page page = new Page(title: ComicsTemplatePageProcessor.INVALID_TITLES[0])
+		Page page = new Page(title: RandomUtil.randomItem(ComicsTemplatePageProcessor.INVALID_TITLES))
 
 		when:
 		ComicsTemplate comicsTemplate = comicsTemplatePageProcessor.process(page)
@@ -237,7 +242,9 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		comicsTemplate.title == TITLE
 	}
 
-	void "returns null when sidebar comic strip template is found, and adds page to ComicStripCandidatePageGatheringService"() {
+	@SuppressWarnings('BracesForMethod')
+	void """returns null when sidebar comic strip template is found, and adds page to ComicStripCandidatePageGatheringService,
+			and to PageCacheStorage"""() {
 		given:
 		Page page = new Page(title: TITLE)
 		Template comisStripTemplate = Mock()
@@ -248,7 +255,8 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		then:
 		1 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >> Optional.of(comisStripTemplate)
-		1 * comicStripCandidatePageGatheringService.addCandidate(page)
+		1 * comicStripCandidatePageGatheringServiceMock.addCandidate(page)
+		1 * pageCacheStorageMock.put(page)
 		0 * _
 		comicsTemplate == null
 	}

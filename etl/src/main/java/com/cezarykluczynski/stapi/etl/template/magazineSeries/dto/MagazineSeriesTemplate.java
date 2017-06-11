@@ -1,8 +1,17 @@
 package com.cezarykluczynski.stapi.etl.template.magazineSeries.dto;
 
+import com.cezarykluczynski.stapi.etl.template.publishableSeries.dto.PublishableSeriesTemplate;
+import com.cezarykluczynski.stapi.model.staff.entity.Staff;
+import com.google.common.collect.Sets;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-// TODO
+import java.util.Set;
+
 @Data
-public class MagazineSeriesTemplate {
+@EqualsAndHashCode(callSuper = true)
+public class MagazineSeriesTemplate extends PublishableSeriesTemplate {
+
+	private Set<Staff> editors = Sets.newHashSet();
+
 }

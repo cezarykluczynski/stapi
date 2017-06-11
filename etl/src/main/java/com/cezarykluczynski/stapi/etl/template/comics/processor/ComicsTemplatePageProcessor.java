@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
+import com.cezarykluczynski.stapi.sources.mediawiki.cache.PageCacheStorage;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.PageTitle;
@@ -45,11 +46,15 @@ public class ComicsTemplatePageProcessor implements ItemProcessor<Page, ComicsTe
 
 	private final WikitextCharactersProcessor wikitextCharactersProcessor;
 
+	private final PageCacheStorage pageCacheStorage;
+
 	@Inject
+	@SuppressWarnings("ParameterNumber")
 	public ComicsTemplatePageProcessor(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor,
 			ComicStripCandidatePageGatheringService comicStripCandidatePageGatheringService, PageBindingService pageBindingService,
 			TemplateFinder templateFinder, ComicsTemplateCompositeEnrichingProcessor comicsTemplateCompositeEnrichingProcessor,
-			ComicsTemplatePartsEnrichingProcessor comicsTemplatePartsEnrichingProcessor, WikitextCharactersProcessor wikitextCharactersProcessor) {
+			ComicsTemplatePartsEnrichingProcessor comicsTemplatePartsEnrichingProcessor, WikitextCharactersProcessor wikitextCharactersProcessor,
+			PageCacheStorage pageCacheStorage) {
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
 		this.comicStripCandidatePageGatheringService = comicStripCandidatePageGatheringService;
 		this.pageBindingService = pageBindingService;
@@ -57,6 +62,7 @@ public class ComicsTemplatePageProcessor implements ItemProcessor<Page, ComicsTe
 		this.comicsTemplateCompositeEnrichingProcessor = comicsTemplateCompositeEnrichingProcessor;
 		this.comicsTemplatePartsEnrichingProcessor = comicsTemplatePartsEnrichingProcessor;
 		this.wikitextCharactersProcessor = wikitextCharactersProcessor;
+		this.pageCacheStorage = pageCacheStorage;
 	}
 
 	@Override
@@ -69,6 +75,7 @@ public class ComicsTemplatePageProcessor implements ItemProcessor<Page, ComicsTe
 
 		if (sidebarComicStripTemplateOptional.isPresent()) {
 			comicStripCandidatePageGatheringService.addCandidate(item);
+			pageCacheStorage.put(item);
 			return null;
 		}
 
