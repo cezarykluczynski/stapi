@@ -1,8 +1,11 @@
 package com.cezarykluczynski.stapi.etl.template.magazineSeries.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
+import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.WikitextStaffProcessor;
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.MonthYear;
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.MonthYearRange;
 import com.cezarykluczynski.stapi.etl.template.common.processor.NumberOfPartsProcessor;
 import com.cezarykluczynski.stapi.etl.template.magazineSeries.dto.MagazineSeriesTemplate;
 import com.cezarykluczynski.stapi.etl.template.magazineSeries.dto.MagazineSeriesTemplateParameter;
@@ -23,13 +26,21 @@ public class MagazineSeriesTemplatePartsEnrichingProcessor
 
 	private final WikitextStaffProcessor wikitextStaffProcessor;
 
+	private final MagazineSeriesPublicationDatesFixedValueProvider magazineSeriesPublicationDatesFixedValueProvider;
+
+	private final MagazineSeriesNumberOfIssuesFixedValueProvider magazineSeriesNumberOfIssuesFixedValueProvider;
+
 	@Inject
 	public MagazineSeriesTemplatePartsEnrichingProcessor(PublishableSeriesTemplatePartsEnrichingProcessor
 			publishableSeriesTemplatePartsEnrichingProcessor, NumberOfPartsProcessor numberOfPartsProcessor,
-			WikitextStaffProcessor wikitextStaffProcessor) {
+			WikitextStaffProcessor wikitextStaffProcessor,
+			MagazineSeriesPublicationDatesFixedValueProvider magazineSeriesPublicationDatesFixedValueProvider,
+			MagazineSeriesNumberOfIssuesFixedValueProvider magazineSeriesNumberOfIssuesFixedValueProvider) {
 		this.publishableSeriesTemplatePartsEnrichingProcessor = publishableSeriesTemplatePartsEnrichingProcessor;
 		this.numberOfPartsProcessor = numberOfPartsProcessor;
 		this.wikitextStaffProcessor = wikitextStaffProcessor;
+		this.magazineSeriesPublicationDatesFixedValueProvider = magazineSeriesPublicationDatesFixedValueProvider;
+		this.magazineSeriesNumberOfIssuesFixedValueProvider = magazineSeriesNumberOfIssuesFixedValueProvider;
 	}
 
 	@Override
@@ -54,6 +65,32 @@ public class MagazineSeriesTemplatePartsEnrichingProcessor
 				default:
 					break;
 			}
+		}
+
+		maybeAddPublicationDate(magazineSeriesTemplate);
+		maybeAddNumberOfIssues(magazineSeriesTemplate);
+	}
+
+	private void maybeAddPublicationDate(MagazineSeriesTemplate magazineSeriesTemplate) {
+		FixedValueHolder<MonthYearRange> publicationDatesFixedValueHolder = magazineSeriesPublicationDatesFixedValueProvider
+				.getSearchedValue(magazineSeriesTemplate.getTitle());
+		if (publicationDatesFixedValueHolder.isFound()) {
+			MonthYearRange publicationDates = publicationDatesFixedValueHolder.getValue();
+			MonthYear publicationDateFrom = publicationDates.getFrom();
+			MonthYear publicationDateTo = publicationDates.getTo();
+			magazineSeriesTemplate.setPublishedMonthFrom(publicationDateFrom.getMonth());
+			magazineSeriesTemplate.setPublishedYearFrom(publicationDateFrom.getYear());
+			magazineSeriesTemplate.setPublishedMonthTo(publicationDateTo.getMonth());
+			magazineSeriesTemplate.setPublishedYearTo(publicationDateTo.getYear());
+		}
+	}
+
+	private void maybeAddNumberOfIssues(MagazineSeriesTemplate magazineSeriesTemplate) {
+		FixedValueHolder<Integer> numberOfIssuesFixedValueHolder = magazineSeriesNumberOfIssuesFixedValueProvider
+				.getSearchedValue(magazineSeriesTemplate.getTitle());
+
+		if (numberOfIssuesFixedValueHolder.isFound()) {
+			magazineSeriesTemplate.setNumberOfIssues(numberOfIssuesFixedValueHolder.getValue());
 		}
 	}
 

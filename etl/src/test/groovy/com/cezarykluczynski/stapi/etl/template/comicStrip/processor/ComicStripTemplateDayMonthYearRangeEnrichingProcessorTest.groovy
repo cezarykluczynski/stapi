@@ -12,7 +12,7 @@ class ComicStripTemplateDayMonthYearRangeEnrichingProcessorTest extends Specific
 	private static final Integer MONTH_FROM = 6
 	private static final Integer YEAR_FROM = 1979
 	private static final Integer DAY_TO = 8
-	private static final Integer MONTH_TO = 17
+	private static final Integer MONTH_TO = 11
 	private static final Integer YEAR_TO = 1981
 	private static final DayMonthYear DAY_MONTH_YEAR_FROM = DayMonthYear.of(DAY_FROM, MONTH_FROM, YEAR_FROM)
 	private static final DayMonthYear DAY_MONTH_YEAR_TO = DayMonthYear.of(DAY_TO, MONTH_TO, YEAR_TO)

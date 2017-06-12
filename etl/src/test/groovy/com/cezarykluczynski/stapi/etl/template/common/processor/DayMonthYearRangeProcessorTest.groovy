@@ -15,7 +15,7 @@ class DayMonthYearRangeProcessorTest extends Specification {
 	private static final Integer MONTH_FROM = 6
 	private static final Integer YEAR_FROM = 1979
 	private static final Integer DAY_TO = 8
-	private static final Integer MONTH_TO = 17
+	private static final Integer MONTH_TO = 11
 	private static final Integer YEAR_TO = 1981
 
 	private TemplateFilter templateFilterMock
