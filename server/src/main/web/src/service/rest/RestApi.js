@@ -124,7 +124,7 @@ export class RestApi {
 	}
 
 	getContentKey(response) {
-		return R.filter(key => key !== 'page', Object.keys(response))[0];
+		return R.filter(key => key !== 'page' && key !== 'sort', Object.keys(response))[0];
 	}
 
 	getDetails() {
