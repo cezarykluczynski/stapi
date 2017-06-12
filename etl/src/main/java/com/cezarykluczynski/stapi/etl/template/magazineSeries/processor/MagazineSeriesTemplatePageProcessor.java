@@ -55,9 +55,8 @@ public class MagazineSeriesTemplatePageProcessor implements ItemProcessor<Page, 
 			return null;
 		}
 
-		Optional<Template> sidebarMagazineTemplateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_MAGAZINE);
-
-		if (sidebarMagazineTemplateOptional.isPresent()) {
+		Optional<Template> sidebarMagazineSeriesTemplateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_MAGAZINE_SERIES);
+		if (!sidebarMagazineSeriesTemplateOptional.isPresent()) {
 			pageCacheStorage.put(item);
 			magazineCandidatePageGatheringService.addCandidate(item);
 			return null;
@@ -67,11 +66,6 @@ public class MagazineSeriesTemplatePageProcessor implements ItemProcessor<Page, 
 		MagazineSeriesTemplate magazineSeriesTemplate = new MagazineSeriesTemplate();
 		magazineSeriesTemplate.setTitle(StringUtils.containsAny(title, MAGAZINE, COMIC_MAGAZINE) ? TitleUtil.getNameFromTitle(title) : title);
 		magazineSeriesTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
-
-		Optional<Template> sidebarMagazineSeriesTemplateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_MAGAZINE_SERIES);
-		if (!sidebarMagazineSeriesTemplateOptional.isPresent()) {
-			return null;
-		}
 
 		magazineSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(sidebarMagazineSeriesTemplateOptional.get().getParts(),
 				magazineSeriesTemplate));

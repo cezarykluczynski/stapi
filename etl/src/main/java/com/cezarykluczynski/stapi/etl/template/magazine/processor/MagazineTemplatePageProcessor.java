@@ -6,15 +6,20 @@ import com.cezarykluczynski.stapi.etl.template.magazine.dto.MagazineTemplate;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
+import com.cezarykluczynski.stapi.util.constant.PageTitle;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
+import com.google.common.collect.Sets;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class MagazineTemplatePageProcessor implements ItemProcessor<Page, MagazineTemplate> {
+
+	private static final Set<String> INVALID_TITLES = Sets.newHashSet(PageTitle.MAGAZINES, PageTitle.PARTWORK);
 
 	private final TemplateFinder templateFinder;
 
@@ -57,7 +62,7 @@ public class MagazineTemplatePageProcessor implements ItemProcessor<Page, Magazi
 	}
 
 	private boolean shouldBeFilteredOut(Page item) {
-		return !item.getRedirectPath().isEmpty();
+		return INVALID_TITLES.contains(item.getTitle()) || !item.getRedirectPath().isEmpty();
 	}
 
 

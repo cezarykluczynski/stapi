@@ -68,32 +68,17 @@ class MagazineSeriesTemplatePageProcessorTest extends Specification {
 		magazineSeriesTemplate == null
 	}
 
-	void "returns null when sidebar magazine series template is not found"() {
+	@SuppressWarnings('BracesForMethod')
+	void """returns null when sidebar magazine series template not is found, and adds page to MagazineCandidatePageGatheringService,
+			and to PageCacheStorage"""() {
 		given:
 		Page page = new Page(title: TITLE)
-		ModelPage modelPage = new ModelPage()
 
 		when:
 		MagazineSeriesTemplate magazineSeriesTemplate = magazineSeriesTemplatePageProcessor.process(page)
 
 		then:
-		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_MAGAZINE) >> Optional.empty()
-		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_MAGAZINE_SERIES) >> Optional.empty()
-		0 * _
-		magazineSeriesTemplate == null
-	}
-
-	void "returns null when sidebar magazine template is found, and adds page to MagazineCandidatePageGatheringService, and to PageCacheStorage"() {
-		given:
-		Page page = new Page(title: TITLE)
-		Template magazineTemplate = Mock()
-
-		when:
-		MagazineSeriesTemplate magazineSeriesTemplate = magazineSeriesTemplatePageProcessor.process(page)
-
-		then:
-		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_MAGAZINE) >> Optional.of(magazineTemplate)
 		1 * magazineCandidatePageGatheringServiceMock.addCandidate(page)
 		1 * pageCacheStorageMock.put(page)
 		0 * _
@@ -111,9 +96,8 @@ class MagazineSeriesTemplatePageProcessorTest extends Specification {
 		MagazineSeriesTemplate magazineSeriesTemplate = magazineSeriesTemplatePageProcessor.process(page)
 
 		then:
-		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_MAGAZINE) >> Optional.empty()
-		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_MAGAZINE_SERIES) >> Optional.of(sidebarMagazineTemplate)
+		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * sidebarMagazineTemplate.parts >> templatePartList
 		1 * magazineSeriesTemplatePartsEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair enrichablePair ->
 			assert enrichablePair.input == templatePartList
@@ -134,9 +118,8 @@ class MagazineSeriesTemplatePageProcessorTest extends Specification {
 		MagazineSeriesTemplate magazineSeriesTemplate = magazineSeriesTemplatePageProcessor.process(page)
 
 		then:
-		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_MAGAZINE) >> Optional.empty()
-		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_MAGAZINE_SERIES) >> Optional.of(sidebarMagazineTemplate)
+		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * sidebarMagazineTemplate.parts >> templatePartList
 		1 * magazineSeriesTemplatePartsEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair enrichablePair ->
 			assert enrichablePair.input == templatePartList

@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
+import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -30,6 +31,18 @@ class MagazineTemplatePageProcessorTest extends Specification {
 		magazineTemplatePartsEnrichingProcessorMock = Mock()
 		magazineTemplatePageProcessor = new MagazineTemplatePageProcessor(templateFinderMock, pageBindingServiceMock,
 				magazineTemplatePartsEnrichingProcessorMock)
+	}
+
+	void "returns null when page title is among invalid page titles"() {
+		given:
+		Page page = new Page(title: RandomUtil.randomItem(MagazineTemplatePageProcessor.INVALID_TITLES))
+
+		when:
+		MagazineTemplate magazineTemplate = magazineTemplatePageProcessor.process(page)
+
+		then:
+		0 * _
+		magazineTemplate == null
 	}
 
 	void "returns null when page is a product of redirect"() {
