@@ -42,6 +42,7 @@ class MagazineTemplateProcessorTest extends AbstractMagazineTest {
 				coverMonth: COVER_MONTH,
 				coverDay: COVER_DAY,
 				numberOfPages: NUMBER_OF_PAGES,
+				issueNumber: ISSUE_NUMBER,
 				magazineSeries: Sets.newHashSet(magazineSeries1, magazineSeries2),
 				editors: Sets.newHashSet(editor1, editor2),
 				publishers: Sets.newHashSet(publisher1, publisher2))
@@ -62,6 +63,7 @@ class MagazineTemplateProcessorTest extends AbstractMagazineTest {
 		magazine.coverMonth == COVER_MONTH
 		magazine.coverDay == COVER_DAY
 		magazine.numberOfPages == NUMBER_OF_PAGES
+		magazine.issueNumber == ISSUE_NUMBER
 		magazine.magazineSeries.contains magazineSeries1
 		magazine.magazineSeries.contains magazineSeries2
 		magazine.editors.contains editor1

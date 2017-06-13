@@ -23,6 +23,7 @@
 			<column name="cover_month" type="int"/>
 			<column name="cover_day" type="int"/>
 			<column name="number_of_pages" type="int"/>
+			<column name="issue_number" type="int"/>
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="magazine_sequence"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"

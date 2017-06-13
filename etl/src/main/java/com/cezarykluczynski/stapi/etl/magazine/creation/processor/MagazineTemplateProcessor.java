@@ -32,6 +32,7 @@ public class MagazineTemplateProcessor implements ItemProcessor<MagazineTemplate
 		magazine.setCoverMonth(item.getCoverMonth());
 		magazine.setCoverDay(item.getCoverDay());
 		magazine.setNumberOfPages(item.getNumberOfPages());
+		magazine.setIssueNumber(item.getIssueNumber());
 		magazine.getMagazineSeries().addAll(item.getMagazineSeries());
 		magazine.getEditors().addAll(item.getEditors());
 		magazine.getPublishers().addAll(item.getPublishers());

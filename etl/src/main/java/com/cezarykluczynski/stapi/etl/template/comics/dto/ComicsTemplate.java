@@ -1,34 +1,22 @@
 package com.cezarykluczynski.stapi.etl.template.comics.dto;
 
+import com.cezarykluczynski.stapi.etl.template.publishable.dto.PublishableTemplate;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
-import com.cezarykluczynski.stapi.model.page.entity.Page;
 import com.cezarykluczynski.stapi.model.reference.entity.Reference;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.google.common.collect.Sets;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.util.Set;
 
 @Data
-public class ComicsTemplate {
-
-	private String title;
-
-	private Page page;
-
-	private Integer publishedYear;
-
-	private Integer publishedMonth;
-
-	private Integer publishedDay;
-
-	private Integer coverYear;
-
-	private Integer coverMonth;
-
-	private Integer coverDay;
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+public class ComicsTemplate extends PublishableTemplate {
 
 	private Integer numberOfPages;
 

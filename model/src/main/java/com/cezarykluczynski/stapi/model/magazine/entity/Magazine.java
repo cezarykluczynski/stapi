@@ -64,6 +64,8 @@ public class Magazine extends PageAwareEntity implements PageAware {
 
 	private Integer numberOfPages;
 
+	private Integer issueNumber;
+
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "magazines_magazine_series",
 			joinColumns = @JoinColumn(name = "comics_id", nullable = false, updatable = false),

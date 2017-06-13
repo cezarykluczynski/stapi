@@ -11,6 +11,7 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToStardateRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToYearRangeProcessor
+import com.cezarykluczynski.stapi.etl.template.publishable.processor.PublishableTemplatePublishedDatesEnrichingProcessor
 import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.reference.entity.Reference
@@ -47,7 +48,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 
 	private WikitextToStardateRangeProcessor wikitextToStardateRangeProcessorMock
 
-	private ComicsTemplatePublishedDatesEnrichingProcessor comicsTemplatePublishedDatesEnrichingProcessorMock
+	private PublishableTemplatePublishedDatesEnrichingProcessor publishableTemplatePublishedDatesEnrichingProcessorMock
 
 	private ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessorMock
 
@@ -59,11 +60,11 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 		wikitextToComicSeriesProcessorMock = Mock()
 		wikitextToYearRangeProcessorMock = Mock()
 		wikitextToStardateRangeProcessorMock = Mock()
-		comicsTemplatePublishedDatesEnrichingProcessorMock = Mock()
+		publishableTemplatePublishedDatesEnrichingProcessorMock = Mock()
 		referencesFromTemplatePartProcessorMock = Mock()
 		comicsTemplatePartsEnrichingProcessor = new ComicsTemplatePartsEnrichingProcessor(comicsTemplatePartStaffEnrichingProcessorMock,
 				wikitextToCompaniesProcessorMock, wikitextToComicSeriesProcessorMock, wikitextToYearRangeProcessorMock,
-				wikitextToStardateRangeProcessorMock, comicsTemplatePublishedDatesEnrichingProcessorMock,
+				wikitextToStardateRangeProcessorMock, publishableTemplatePublishedDatesEnrichingProcessorMock,
 				referencesFromTemplatePartProcessorMock)
 	}
 
@@ -151,7 +152,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 		comicsTemplate.comicSeries.contains comicSeries2
 	}
 
-	void "passes ComicsTemplate to ComicsTemplatePublishedDatesEnrichingProcessor, when published part is found"() {
+	void "passes ComicsTemplate to PublishableTemplatePublishedDatesEnrichingProcessor, when published part is found"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.PUBLISHED, value: PUBLISHED)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
@@ -160,7 +161,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 		comicsTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicsTemplate))
 
 		then:
-		1 * comicsTemplatePublishedDatesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+		1 * publishableTemplatePublishedDatesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 			EnrichablePair<Template.Part, ComicSeriesTemplate> enrichablePair ->
 				assert enrichablePair.input == templatePart
 				assert enrichablePair.output != null
@@ -168,7 +169,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 		0 * _
 	}
 
-	void "passes ComicsTemplate to ComicsTemplatePublishedDatesEnrichingProcessor, when cover date part is found"() {
+	void "passes ComicsTemplate to PublishableTemplatePublishedDatesEnrichingProcessor, when cover date part is found"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.COVER_DATE, value: PUBLISHED)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
@@ -177,7 +178,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 		comicsTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicsTemplate))
 
 		then:
-		1 * comicsTemplatePublishedDatesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+		1 * publishableTemplatePublishedDatesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 			EnrichablePair<Template.Part, ComicSeriesTemplate> enrichablePair ->
 				assert enrichablePair.input == templatePart
 				assert enrichablePair.output != null

@@ -17,5 +17,8 @@ class AbstractMagazineTest extends Specification {
 	protected static final Integer NUMBER_OF_PAGES = 32
 	protected static final Integer NUMBER_OF_PAGES_FROM = 16
 	protected static final Integer NUMBER_OF_PAGES_TO = 48
+	protected static final Integer ISSUE_NUMBER = 5
+	protected static final Integer ISSUE_NUMBER_FROM = 3
+	protected static final Integer ISSUE_NUMBER_TO = 7
 
 }
