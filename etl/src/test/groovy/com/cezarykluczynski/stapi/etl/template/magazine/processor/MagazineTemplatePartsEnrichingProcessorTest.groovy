@@ -22,6 +22,7 @@ class MagazineTemplatePartsEnrichingProcessorTest extends Specification {
 	private static final String PAGES_STRING = '32'
 	private static final Integer PAGES_INTEGER = 32
 	private static final String EDITOR = 'EDITOR'
+	private static final String ISSUE = 'ISSUE'
 
 	private NumberOfPartsProcessor numberOfPartsProcessorMock
 
@@ -40,6 +41,19 @@ class MagazineTemplatePartsEnrichingProcessorTest extends Specification {
 		publishableTemplatePublishedDatesEnrichingProcessorMock = Mock()
 		magazineTemplatePartsEnrichingProcessor = new MagazineTemplatePartsEnrichingProcessor(numberOfPartsProcessorMock,
 				wikitextToCompaniesProcessorMock, wikitextStaffProcessorMock, publishableTemplatePublishedDatesEnrichingProcessorMock)
+	}
+
+	void "sets issue number"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: MagazineTemplateParameter.ISSUE, value: ISSUE)
+		MagazineTemplate magazineTemplate = new MagazineTemplate()
+
+		when:
+		magazineTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), magazineTemplate))
+
+		then:
+		0 * _
+		magazineTemplate.issueNumber == ISSUE
 	}
 
 	void "sets publishers from WikitextToCompaniesProcessor"() {

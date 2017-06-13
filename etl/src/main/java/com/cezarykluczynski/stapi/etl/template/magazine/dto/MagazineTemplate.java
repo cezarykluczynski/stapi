@@ -18,7 +18,7 @@ public class MagazineTemplate extends PublishableTemplate {
 
 	private Integer numberOfPages;
 
-	private Integer issueNumber;
+	private String issueNumber;
 
 	private Set<MagazineSeries> magazineSeries = Sets.newHashSet();
 

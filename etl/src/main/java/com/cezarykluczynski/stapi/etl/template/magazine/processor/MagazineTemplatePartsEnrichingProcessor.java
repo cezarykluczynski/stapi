@@ -47,10 +47,7 @@ public class MagazineTemplatePartsEnrichingProcessor implements ItemEnrichingPro
 
 			switch (key) {
 				case MagazineTemplateParameter.ISSUE:
-					magazineTemplate.setIssueNumber(numberOfPartsProcessor.process(value));
-					if (magazineTemplate.getIssueNumber() == null) {
-						log.warn("Issue number {} could not be mapped to integer", value);
-					}
+					magazineTemplate.setIssueNumber(value);
 					break;
 				case MagazineTemplateParameter.PUBLISHER:
 					magazineTemplate.getPublishers().addAll(wikitextToCompaniesProcessor.process(value));
