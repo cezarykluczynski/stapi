@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.model.common.service
 
 import com.cezarykluczynski.stapi.model.character.entity.Character
-import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries
+import com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.google.common.collect.Maps
 import org.hibernate.Session
@@ -30,7 +30,7 @@ class EntityMatadataProviderTest extends Specification {
 		classNameToMetadataMap.put('com.cezarykluczynski.stapi.model.series.entity.Series', seriesClassMetadata)
 		ClassMetadata comicSeriesClassMetadata = Mock()
 		comicSeriesClassMetadata.mappedClass >> ComicSeries
-		classNameToMetadataMap.put('com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries', comicSeriesClassMetadata)
+		classNameToMetadataMap.put('com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries', comicSeriesClassMetadata)
 
 		SessionFactory sessionFactory = Mock()
 		sessionFactory.allClassMetadata >> classNameToMetadataMap
@@ -65,7 +65,7 @@ class EntityMatadataProviderTest extends Specification {
 		then:
 		classNameToSymbolMap['com.cezarykluczynski.stapi.model.series.entity.Series'] == 'SE'
 		classNameToSymbolMap['com.cezarykluczynski.stapi.model.character.entity.Character'] == 'CH'
-		classNameToSymbolMap['com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries'] == 'CS'
+		classNameToSymbolMap['com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries'] == 'CS'
 	}
 
 	void "provides class name to metadata map"() {

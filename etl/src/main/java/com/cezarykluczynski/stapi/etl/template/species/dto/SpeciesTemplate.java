@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.species.dto;
 
-import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject;
+import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject;
 import com.cezarykluczynski.stapi.model.page.entity.Page;
 import lombok.Data;
 

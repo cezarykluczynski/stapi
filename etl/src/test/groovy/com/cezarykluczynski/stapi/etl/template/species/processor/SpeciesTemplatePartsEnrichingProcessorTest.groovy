@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService
 import com.cezarykluczynski.stapi.etl.template.species.dto.SpeciesTemplate
 import com.cezarykluczynski.stapi.etl.template.species.dto.SpeciesTemplateParameter
-import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject
+import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template

@@ -1,6 +1,0 @@
-package com.cezarykluczynski.stapi.server.bookCollection.endpoint
-
-import com.cezarykluczynski.stapi.server.series.common.AbstractEndpointIntegrationTest
-
-abstract class AbstractBookCollectionEndpointIntegrationTest extends AbstractEndpointIntegrationTest {
-}

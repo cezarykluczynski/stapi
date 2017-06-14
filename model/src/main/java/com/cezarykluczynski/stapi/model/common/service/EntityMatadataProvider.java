@@ -1,13 +1,13 @@
 package com.cezarykluczynski.stapi.model.common.service;
 
-import com.cezarykluczynski.stapi.model.bookCollection.entity.BookCollection;
-import com.cezarykluczynski.stapi.model.bookSeries.entity.BookSeries;
+import com.cezarykluczynski.stapi.model.book_collection.entity.BookCollection;
+import com.cezarykluczynski.stapi.model.book_series.entity.BookSeries;
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies;
-import com.cezarykluczynski.stapi.model.comicCollection.entity.ComicCollection;
-import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries;
-import com.cezarykluczynski.stapi.model.comicStrip.entity.ComicStrip;
+import com.cezarykluczynski.stapi.model.comic_collection.entity.ComicCollection;
+import com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries;
+import com.cezarykluczynski.stapi.model.comic_strip.entity.ComicStrip;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics;
-import com.cezarykluczynski.stapi.model.magazineSeries.entity.MagazineSeries;
+import com.cezarykluczynski.stapi.model.magazine_series.entity.MagazineSeries;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.hibernate.Session;

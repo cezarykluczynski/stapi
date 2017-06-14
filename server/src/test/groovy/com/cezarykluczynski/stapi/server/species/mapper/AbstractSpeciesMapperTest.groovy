@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.species.mapper
 
-import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject
+import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.species.entity.Species
 import com.cezarykluczynski.stapi.util.AbstractSpeciesTest

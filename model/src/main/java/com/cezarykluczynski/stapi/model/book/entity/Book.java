@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.model.book.entity;
 
 import com.cezarykluczynski.stapi.model.book.repository.BookRepository;
-import com.cezarykluczynski.stapi.model.bookCollection.entity.BookCollection;
-import com.cezarykluczynski.stapi.model.bookSeries.entity.BookSeries;
+import com.cezarykluczynski.stapi.model.book_collection.entity.BookCollection;
+import com.cezarykluczynski.stapi.model.book_series.entity.BookSeries;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;

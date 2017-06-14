@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.model.comics.repository
 
 import com.cezarykluczynski.stapi.model.character.entity.Character
-import com.cezarykluczynski.stapi.model.comicCollection.entity.ComicCollection
-import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries
+import com.cezarykluczynski.stapi.model.comic_collection.entity.ComicCollection
+import com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries
 import com.cezarykluczynski.stapi.model.comics.dto.ComicsRequestDTO
 import com.cezarykluczynski.stapi.model.comics.entity.Comics
 import com.cezarykluczynski.stapi.model.comics.entity.Comics_

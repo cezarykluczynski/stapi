@@ -1,10 +1,10 @@
 package com.cezarykluczynski.stapi.etl.template.comics.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
-import com.cezarykluczynski.stapi.etl.common.processor.comicSeries.WikitextToComicSeriesProcessor
+import com.cezarykluczynski.stapi.etl.common.processor.comic_series.WikitextToComicSeriesProcessor
 import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor
 import com.cezarykluczynski.stapi.etl.reference.processor.ReferencesFromTemplatePartProcessor
-import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplate
+import com.cezarykluczynski.stapi.etl.template.comic_series.dto.ComicSeriesTemplate
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange
@@ -12,7 +12,7 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToStardateRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToYearRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.publishable.processor.PublishableTemplatePublishedDatesEnrichingProcessor
-import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries
+import com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.reference.entity.Reference
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template

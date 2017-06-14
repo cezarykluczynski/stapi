@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.book.creation.processor
 
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplate
 import com.cezarykluczynski.stapi.model.book.entity.Book
-import com.cezarykluczynski.stapi.model.bookSeries.entity.BookSeries
+import com.cezarykluczynski.stapi.model.book_series.entity.BookSeries
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.company.entity.Company

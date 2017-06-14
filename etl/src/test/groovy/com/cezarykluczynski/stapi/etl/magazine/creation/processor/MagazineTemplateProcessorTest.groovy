@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.etl.template.magazine.dto.MagazineTemplate
 import com.cezarykluczynski.stapi.model.magazine.entity.Magazine
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.company.entity.Company
-import com.cezarykluczynski.stapi.model.magazineSeries.entity.MagazineSeries
+import com.cezarykluczynski.stapi.model.magazine_series.entity.MagazineSeries
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.util.AbstractMagazineTest

@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.server.common.metrics.factory
 
-import com.cezarykluczynski.stapi.model.endpointHit.dto.MetricsEndpointKeyDTO
-import com.cezarykluczynski.stapi.model.endpointHit.entity.EndpointHit
-import com.cezarykluczynski.stapi.model.endpointHit.entity.enums.EndpointType
-import com.cezarykluczynski.stapi.model.endpointHit.repository.EndpointHitRepository
+import com.cezarykluczynski.stapi.model.endpoint_hit.dto.MetricsEndpointKeyDTO
+import com.cezarykluczynski.stapi.model.endpoint_hit.entity.EndpointHit
+import com.cezarykluczynski.stapi.model.endpoint_hit.entity.enums.EndpointType
+import com.cezarykluczynski.stapi.model.endpoint_hit.repository.EndpointHitRepository
 import org.springframework.dao.DataIntegrityViolationException
 import spock.lang.Specification
 

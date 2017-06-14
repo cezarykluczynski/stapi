@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.planet.mapper
 
 import com.cezarykluczynski.stapi.etl.template.planet.dto.enums.AstronomicalObjectType as EtlAstronomicalObjectType
-import com.cezarykluczynski.stapi.model.astronomicalObject.entity.enums.AstronomicalObjectType as ModelAstronomicalObjectType
+import com.cezarykluczynski.stapi.model.astronomical_object.entity.enums.AstronomicalObjectType as ModelAstronomicalObjectType
 import spock.lang.Specification
 
 class AstronomicalObjectTypeMapperTest extends Specification {

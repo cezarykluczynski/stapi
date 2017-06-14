@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.SpeciesFull;
 import com.cezarykluczynski.stapi.client.v1.soap.SpeciesFullRequest;
 import com.cezarykluczynski.stapi.model.species.dto.SpeciesRequestDTO;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
-import com.cezarykluczynski.stapi.server.astronomicalObject.mapper.AstronomicalObjectBaseSoapMapper;
+import com.cezarykluczynski.stapi.server.astronomical_object.mapper.AstronomicalObjectBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import org.mapstruct.Mapper;

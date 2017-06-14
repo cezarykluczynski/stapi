@@ -4,8 +4,8 @@ import com.cezarykluczynski.stapi.model.book.dto.BookRequestDTO
 import com.cezarykluczynski.stapi.model.book.entity.Book
 import com.cezarykluczynski.stapi.model.book.entity.Book_
 import com.cezarykluczynski.stapi.model.book.query.BookInitialQueryBuilderFactory
-import com.cezarykluczynski.stapi.model.bookCollection.entity.BookCollection
-import com.cezarykluczynski.stapi.model.bookSeries.entity.BookSeries
+import com.cezarykluczynski.stapi.model.book_collection.entity.BookCollection
+import com.cezarykluczynski.stapi.model.book_series.entity.BookSeries
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.company.entity.Company

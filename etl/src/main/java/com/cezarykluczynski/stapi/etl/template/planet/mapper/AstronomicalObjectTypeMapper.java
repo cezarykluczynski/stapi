@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.planet.mapper;
 
-import com.cezarykluczynski.stapi.model.astronomicalObject.entity.enums.AstronomicalObjectType;
+import com.cezarykluczynski.stapi.model.astronomical_object.entity.enums.AstronomicalObjectType;
 import org.springframework.stereotype.Service;
 
 @Service

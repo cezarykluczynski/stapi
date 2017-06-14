@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.comics.processor.collection
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicCollectionTemplate
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate
 import com.cezarykluczynski.stapi.model.character.entity.Character
-import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries
+import com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.reference.entity.Reference

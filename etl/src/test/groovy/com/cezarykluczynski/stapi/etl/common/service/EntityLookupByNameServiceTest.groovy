@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.common.service
 
-import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject
+import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject
 import com.cezarykluczynski.stapi.model.book.entity.Book
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.comics.entity.Comics

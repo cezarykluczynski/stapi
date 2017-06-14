@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.model.species.entity;
 
-import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject;
+import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;

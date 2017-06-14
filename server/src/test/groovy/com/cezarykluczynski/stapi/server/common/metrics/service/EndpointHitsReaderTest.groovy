@@ -1,10 +1,10 @@
 package com.cezarykluczynski.stapi.server.common.metrics.service
 
-import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject
+import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject
 import com.cezarykluczynski.stapi.model.book.entity.Book
 import com.cezarykluczynski.stapi.model.common.service.EntityMatadataProvider
-import com.cezarykluczynski.stapi.model.endpointHit.entity.EndpointHit
-import com.cezarykluczynski.stapi.model.endpointHit.repository.EndpointHitRepository
+import com.cezarykluczynski.stapi.model.endpoint_hit.entity.EndpointHit
+import com.cezarykluczynski.stapi.model.endpoint_hit.repository.EndpointHitRepository
 import com.cezarykluczynski.stapi.model.page.entity.PageAware
 import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Maps

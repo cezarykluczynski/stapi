@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.species.creation.processor
 
 import com.cezarykluczynski.stapi.etl.template.species.dto.SpeciesTemplate
-import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject
+import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.species.entity.Species

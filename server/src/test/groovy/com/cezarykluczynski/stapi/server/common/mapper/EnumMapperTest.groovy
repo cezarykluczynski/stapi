@@ -10,7 +10,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.BloodTypeEnum as SoapBloodTypeE
 import com.cezarykluczynski.stapi.client.v1.soap.GenderEnum as SoapGenderEnum
 import com.cezarykluczynski.stapi.client.v1.soap.MaritalStatusEnum as SoapMaritalStatusEnum
 import com.cezarykluczynski.stapi.client.v1.soap.ReferenceTypeEnum as SoapReferenceType
-import com.cezarykluczynski.stapi.model.astronomicalObject.entity.enums.AstronomicalObjectType as AstronomicalObjectTypeEntity
+import com.cezarykluczynski.stapi.model.astronomical_object.entity.enums.AstronomicalObjectType as AstronomicalObjectTypeEntity
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType as BloodTypeEntity
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender as GenderEntity
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus as MaritalStatusEntity

@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.magazine.dto;
 
 import com.cezarykluczynski.stapi.etl.template.publishable.dto.PublishableTemplate;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
-import com.cezarykluczynski.stapi.model.magazineSeries.entity.MagazineSeries;
+import com.cezarykluczynski.stapi.model.magazine_series.entity.MagazineSeries;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.google.common.collect.Sets;
 import lombok.Data;

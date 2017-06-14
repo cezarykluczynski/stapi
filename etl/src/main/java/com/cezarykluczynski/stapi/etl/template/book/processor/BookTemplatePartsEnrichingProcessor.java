@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.etl.reference.processor.ReferencesFromTemplate
 import com.cezarykluczynski.stapi.etl.template.audio.dto.AudioTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplate;
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplateParameter;
-import com.cezarykluczynski.stapi.etl.template.bookSeries.processor.WikitextToBookSeriesProcessor;
+import com.cezarykluczynski.stapi.etl.template.book_series.processor.WikitextToBookSeriesProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToStardateRangeProcessor;

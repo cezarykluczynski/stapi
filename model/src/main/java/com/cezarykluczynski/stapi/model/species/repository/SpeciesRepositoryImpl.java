@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.model.species.repository;
 
-import com.cezarykluczynski.stapi.model.astronomicalObject.entity.AstronomicalObject_;
+import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject_;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies;
 import com.cezarykluczynski.stapi.model.character.repository.CharacterRepository;

@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.comics.mapper
 
 import com.cezarykluczynski.stapi.model.character.entity.Character
-import com.cezarykluczynski.stapi.model.comicCollection.entity.ComicCollection
-import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries
+import com.cezarykluczynski.stapi.model.comic_collection.entity.ComicCollection
+import com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries
 import com.cezarykluczynski.stapi.model.comics.entity.Comics
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.reference.entity.Reference

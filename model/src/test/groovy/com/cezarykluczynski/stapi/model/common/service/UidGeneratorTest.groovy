@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.model.common.service
 
 import com.cezarykluczynski.stapi.model.character.entity.Character
-import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries
+import com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.page.entity.PageAware
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource
@@ -57,12 +57,12 @@ class UidGeneratorTest extends Specification {
 		classMetadataMap.put('com.cezarykluczynski.stapi.model.series.entity.Series', seriesClassMetadata)
 		ClassMetadata comicSeriesClassMetadata = Mock()
 		comicSeriesClassMetadata.mappedClass >> ComicSeries
-		classMetadataMap.put('com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries', comicSeriesClassMetadata)
+		classMetadataMap.put('com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries', comicSeriesClassMetadata)
 
 		classNameToSymbolMap = Maps.newHashMap()
 		classNameToSymbolMap.put('com.cezarykluczynski.stapi.model.character.entity.Character', 'CH')
 		classNameToSymbolMap.put('com.cezarykluczynski.stapi.model.series.entity.Series', 'SE')
-		classNameToSymbolMap.put('com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries', 'CS')
+		classNameToSymbolMap.put('com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries', 'CS')
 
 		entityMatadataProvider = Mock()
 		entityMatadataProvider.provideClassNameToMetadataMap() >> classMetadataMap

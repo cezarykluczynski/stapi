@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.common.metrics.service;
 
 import com.cezarykluczynski.stapi.model.common.service.EntityMatadataProvider;
-import com.cezarykluczynski.stapi.model.endpointHit.entity.EndpointHit;
-import com.cezarykluczynski.stapi.model.endpointHit.repository.EndpointHitRepository;
+import com.cezarykluczynski.stapi.model.endpoint_hit.entity.EndpointHit;
+import com.cezarykluczynski.stapi.model.endpoint_hit.repository.EndpointHitRepository;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;

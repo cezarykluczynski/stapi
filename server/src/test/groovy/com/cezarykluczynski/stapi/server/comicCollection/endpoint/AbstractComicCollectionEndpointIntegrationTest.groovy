@@ -1,6 +1,0 @@
-package com.cezarykluczynski.stapi.server.comicCollection.endpoint
-
-import com.cezarykluczynski.stapi.server.series.common.AbstractEndpointIntegrationTest
-
-abstract class AbstractComicCollectionEndpointIntegrationTest extends AbstractEndpointIntegrationTest {
-}

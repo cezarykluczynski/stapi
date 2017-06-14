@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.magazine.processor
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.processor.WikitextStaffProcessor
 import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor
-import com.cezarykluczynski.stapi.etl.template.comicSeries.dto.ComicSeriesTemplate
+import com.cezarykluczynski.stapi.etl.template.comic_series.dto.ComicSeriesTemplate
 import com.cezarykluczynski.stapi.etl.template.common.processor.NumberOfPartsProcessor
 import com.cezarykluczynski.stapi.etl.template.magazine.dto.MagazineTemplate
 import com.cezarykluczynski.stapi.etl.template.magazine.dto.MagazineTemplateParameter

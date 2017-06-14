@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.book.mapper
 
 import com.cezarykluczynski.stapi.model.book.entity.Book
-import com.cezarykluczynski.stapi.model.bookSeries.entity.BookSeries
+import com.cezarykluczynski.stapi.model.book_series.entity.BookSeries
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.reference.entity.Reference

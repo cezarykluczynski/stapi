@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.comics.dto;
 
 import com.cezarykluczynski.stapi.etl.template.publishable.dto.PublishableTemplate;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
-import com.cezarykluczynski.stapi.model.comicSeries.entity.ComicSeries;
+import com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.reference.entity.Reference;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;

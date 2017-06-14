@@ -5,13 +5,13 @@ import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompani
 import com.cezarykluczynski.stapi.etl.reference.processor.ReferencesFromTemplatePartProcessor
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplate
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplateParameter
-import com.cezarykluczynski.stapi.etl.template.bookSeries.dto.BookSeriesTemplate
-import com.cezarykluczynski.stapi.etl.template.bookSeries.processor.WikitextToBookSeriesProcessor
+import com.cezarykluczynski.stapi.etl.template.book_series.dto.BookSeriesTemplate
+import com.cezarykluczynski.stapi.etl.template.book_series.processor.WikitextToBookSeriesProcessor
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToStardateRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToYearRangeProcessor
-import com.cezarykluczynski.stapi.model.bookSeries.entity.BookSeries
+import com.cezarykluczynski.stapi.model.book_series.entity.BookSeries
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.reference.entity.Reference
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template

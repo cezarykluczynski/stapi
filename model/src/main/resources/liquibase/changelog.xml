@@ -7,25 +7,25 @@
 	<include file="series/0003_create_series.xml" relativeToChangelogFile="true"/>
 	<include file="performer/0004_create_performer.xml" relativeToChangelogFile="true"/>
 	<include file="staff/0005_create_staff.xml" relativeToChangelogFile="true"/>
-	<include file="astronomicalObject/0006_create_astronomical_object.xml" relativeToChangelogFile="true"/>
+	<include file="astronomical_object/0006_create_astronomical_object.xml" relativeToChangelogFile="true"/>
 	<include file="character/0007_create_character.xml" relativeToChangelogFile="true"/>
 	<include file="episode/0008_create_episode.xml" relativeToChangelogFile="true"/>
 	<include file="movie/0009_create_movie.xml" relativeToChangelogFile="true"/>
-	<include file="comicSeries/0010_create_comic_series.xml" relativeToChangelogFile="true"/>
+	<include file="comic_series/0010_create_comic_series.xml" relativeToChangelogFile="true"/>
 	<include file="comics/0011_create_comics.xml" relativeToChangelogFile="true"/>
 	<include file="reference/0012_create_reference.xml" relativeToChangelogFile="true"/>
-	<include file="comicStrip/0013_create_comic_strip.xml" relativeToChangelogFile="true"/>
-	<include file="comicCollection/0014_create_comic_collection.xml" relativeToChangelogFile="true"/>
+	<include file="comic_strip/0013_create_comic_strip.xml" relativeToChangelogFile="true"/>
+	<include file="comic_collection/0014_create_comic_collection.xml" relativeToChangelogFile="true"/>
 	<include file="species/0015_create_species.xml" relativeToChangelogFile="true"/>
 	<include file="character/0016_create_character_species.xml" relativeToChangelogFile="true"/>
 	<include file="organization/0017_create_organization.xml" relativeToChangelogFile="true"/>
 	<include file="food/0018_create_food.xml" relativeToChangelogFile="true"/>
 	<include file="throttle/0019_create_throttle.xml" relativeToChangelogFile="true"/>
 	<include file="location/0020_create_location.xml" relativeToChangelogFile="true"/>
-	<include file="bookSeries/0021_create_book_series.xml" relativeToChangelogFile="true"/>
+	<include file="book_series/0021_create_book_series.xml" relativeToChangelogFile="true"/>
 	<include file="book/0022_create_book.xml" relativeToChangelogFile="true"/>
-	<include file="bookCollection/0023_create_book_collection.xml" relativeToChangelogFile="true"/>
+	<include file="book_collection/0023_create_book_collection.xml" relativeToChangelogFile="true"/>
 	<include file="hit/0024_create_endpoint_hit.xml" relativeToChangelogFile="true"/>
-	<include file="magazineSeries/0025_create_magazine_series.xml" relativeToChangelogFile="true"/>
+	<include file="magazine_series/0025_create_magazine_series.xml" relativeToChangelogFile="true"/>
 	<include file="magazine/0026_create_magazine.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

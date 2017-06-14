@@ -1,12 +1,11 @@
 package com.cezarykluczynski.stapi.model.magazine.entity;
 
-
 import com.cezarykluczynski.stapi.model.comics.repository.ComicsRepository;
 import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
-import com.cezarykluczynski.stapi.model.magazineSeries.entity.MagazineSeries;
+import com.cezarykluczynski.stapi.model.magazine_series.entity.MagazineSeries;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.google.common.collect.Sets;

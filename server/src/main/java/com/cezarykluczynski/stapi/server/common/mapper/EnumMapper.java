@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.BloodTypeEnum;
 import com.cezarykluczynski.stapi.client.v1.soap.GenderEnum;
 import com.cezarykluczynski.stapi.client.v1.soap.MaritalStatusEnum;
 import com.cezarykluczynski.stapi.client.v1.soap.ReferenceTypeEnum;
-import com.cezarykluczynski.stapi.model.astronomicalObject.entity.enums.AstronomicalObjectType;
+import com.cezarykluczynski.stapi.model.astronomical_object.entity.enums.AstronomicalObjectType;
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType;
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender;
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus;

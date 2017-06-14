@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.common.metrics.aspect
 
-import com.cezarykluczynski.stapi.server.astronomicalObject.endpoint.AstronomicalObjectRestEndpoint
+import com.cezarykluczynski.stapi.server.astronomical_object.endpoint.AstronomicalObjectRestEndpoint
 import com.cezarykluczynski.stapi.server.common.metrics.service.EndpointHitsCountingService
 import org.aspectj.lang.JoinPoint
 import org.aspectj.lang.Signature
