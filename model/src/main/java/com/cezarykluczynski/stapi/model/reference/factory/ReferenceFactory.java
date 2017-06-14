@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.model.reference.factory;
 
 import com.cezarykluczynski.stapi.model.reference.entity.Reference;
 import com.cezarykluczynski.stapi.model.reference.entity.enums.ReferenceType;
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.base.Preconditions;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class ReferenceFactory {
 		} else if (uid.startsWith("I")) {
 			return Pair.of(ReferenceType.ISBN, uid.substring(1));
 		} else {
-			throw new RuntimeException(String.format("Could not create Reference from UID %s", uid));
+			throw new StapiRuntimeException(String.format("Could not create Reference from UID %s", uid));
 		}
 	}
 

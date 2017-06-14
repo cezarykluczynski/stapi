@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.parser;
 
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -51,7 +52,7 @@ public class JsonTemplateParser {
 					.filter(Objects::nonNull)
 					.collect(Collectors.toList());
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new StapiRuntimeException(e);
 		}
 
 		return templates;
@@ -127,10 +128,10 @@ public class JsonTemplateParser {
 					try {
 						return String.valueOf(jsonObjectToConvert.getLong(KEY_NAME));
 					} catch (Exception e4) {
-						throw new RuntimeException(e4);
+						throw new StapiRuntimeException(e4);
 					}
 				} catch (Throwable e3) {
-					throw new RuntimeException(e3);
+					throw new StapiRuntimeException(e3);
 				}
 				name = jsonObjectName.get(KEY_INDEX).toString();
 			} catch (JSONException e3) {
@@ -195,7 +196,7 @@ public class JsonTemplateParser {
 				JSONObject template = (JSONObject) jsonObjectToConvert.get(key);
 				jsonArray = new JSONArray(Lists.newArrayList(template));
 			} catch (Exception e2) {
-				throw new RuntimeException(e2);
+				throw new StapiRuntimeException(e2);
 			}
 		}
 

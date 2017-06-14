@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.sources.mediawiki.parser
 
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -74,7 +75,7 @@ class XMLParseParserTest extends Specification {
 		new XMLParseParser('').page
 
 		then:
-		thrown(RuntimeException)
+		thrown(StapiRuntimeException)
 	}
 
 }

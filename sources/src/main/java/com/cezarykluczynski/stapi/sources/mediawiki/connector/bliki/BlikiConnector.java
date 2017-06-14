@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiMinim
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourcesProperties;
 import com.cezarykluczynski.stapi.sources.mediawiki.service.wikia.WikiaWikisDetector;
 import com.cezarykluczynski.stapi.sources.mediawiki.util.constant.ApiParams;
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import info.bliki.api.Connector;
@@ -161,7 +162,7 @@ public class BlikiConnector {
 			method.setAccessible(true);
 			return (String) method.invoke(connector, userDecorator, requestBuilder);
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new StapiRuntimeException(e);
 		}
 	}
 

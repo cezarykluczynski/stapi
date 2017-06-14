@@ -32,13 +32,8 @@ public class XMLCategoryMembersParser extends AbstractXMLParser {
 	@Override
 	public void endElement(String uri, String name, String qualifiedName) {
 		try {
-			if (CM_TAG.equals(qualifiedName)) { // ||
-				// CATEGORY_ID.equals(qualifiedName))
-				// {
-				if (pageInfo != null) {
-					pagesList.add(pageInfo);
-				}
-				// System.out.println(getString());
+			if (CM_TAG.equals(qualifiedName) && pageInfo != null) {
+				pagesList.add(pageInfo);
 			}
 
 			fData = null;

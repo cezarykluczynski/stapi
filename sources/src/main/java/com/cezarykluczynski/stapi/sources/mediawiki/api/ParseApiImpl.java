@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.api;
 
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourcesProperties;
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 import com.google.common.io.CharStreams;
@@ -35,7 +36,7 @@ public class ParseApiImpl implements ParseApi {
 		String apiUrl = mediaWikiSourcesProperties.getTechnicalHelper().getApiUrl();
 
 		if (apiUrl == null) {
-			throw new RuntimeException("Technical helper API url cannot be null");
+			throw new StapiRuntimeException("Technical helper API url cannot be null");
 		}
 
 		boolean isWikipedia = apiUrl.contains("wikipedia.org");
@@ -43,7 +44,7 @@ public class ParseApiImpl implements ParseApi {
 		String to = isWikipedia ? "wiki/Special:ExpandTemplates" : "index.php/Special:ExpandTemplates";
 		expandTemplatesUrl = apiUrl.replace(from, to);
 		if (StringUtils.equals(apiUrl, expandTemplatesUrl)) {
-			throw new RuntimeException("Technical helper API url is malformed, does not seems like a MediaWiki API");
+			throw new StapiRuntimeException("Technical helper API url is malformed, does not seems like a MediaWiki API");
 		}
 	}
 

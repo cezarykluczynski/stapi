@@ -7,6 +7,6 @@ import java.util.List;
 @Data
 public class RequestSortDTO {
 
-	List<RequestSortClauseDTO> clauses;
+	private List<RequestSortClauseDTO> clauses;
 
 }

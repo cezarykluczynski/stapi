@@ -25,7 +25,8 @@ class StepConfigurationValidatorTest extends Specification {
 
 		then:
 		JobBuilderException jobBuilderException = thrown(JobBuilderException)
-		jobBuilderException.message == 'java.lang.RuntimeException: Number of configured steps is 24, but 0 steps found'
+		jobBuilderException.message == 'com.cezarykluczynski.stapi.util.exception.StapiRuntimeException: ' +
+				'Number of configured steps is 24, but 0 steps found'
 	}
 
 	void "throws exception when two steps has the same order"() {
@@ -108,7 +109,7 @@ class StepConfigurationValidatorTest extends Specification {
 
 		then:
 		JobBuilderException jobBuilderException = thrown(JobBuilderException)
-		jobBuilderException.message == 'java.lang.RuntimeException: Step CREATE_EPISODES has order 1, ' +
+		jobBuilderException.message == 'com.cezarykluczynski.stapi.util.exception.StapiRuntimeException: Step CREATE_EPISODES has order 1, ' +
 				'but this order was already given to step CREATE_COMPANIES'
 	}
 

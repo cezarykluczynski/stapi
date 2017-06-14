@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.model.reference.factory
 
 import com.cezarykluczynski.stapi.model.reference.entity.Reference
 import com.cezarykluczynski.stapi.model.reference.entity.enums.ReferenceType
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -45,7 +46,7 @@ class ReferenceFactoryTest extends Specification {
 		referenceFactory.createFromUid('AAAA1234567890')
 
 		then:
-		thrown(RuntimeException)
+		thrown(StapiRuntimeException)
 	}
 
 }

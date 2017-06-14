@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.common.mapper;
 
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,7 +20,7 @@ public class MediaWikiSourceMapper {
 			case MEMORY_BETA_EN:
 				return MediaWikiSource.MEMORY_BETA_EN;
 			default:
-				throw new RuntimeException(String.format(NO_MAPPINGS, entity));
+				throw new StapiRuntimeException(String.format(NO_MAPPINGS, entity));
 		}
 	}
 
@@ -34,7 +35,7 @@ public class MediaWikiSourceMapper {
 			case MEMORY_BETA_EN:
 				return com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource.MEMORY_BETA_EN;
 			default:
-				throw new RuntimeException(String.format(NO_MAPPINGS, source));
+				throw new StapiRuntimeException(String.format(NO_MAPPINGS, source));
 		}
 	}
 

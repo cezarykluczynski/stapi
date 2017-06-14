@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.model.page.service;
 
 import com.cezarykluczynski.stapi.model.page.entity.Page;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class DuplicateForbiddingPreSavePageAwareFilter extends AbstractPreSavePa
 		Map<Long, List<Pair<Page, PageAware>>> flattenPages = flattenPages(pageAwareList);
 		flattenPages.entrySet().forEach(longListEntry -> {
 			if (longListEntry.getValue().size() > 1) {
-				throw new RuntimeException(String.format("Duplicated page entries in chunk, pageId: %s, entities: %s ",
+				throw new StapiRuntimeException(String.format("Duplicated page entries in chunk, pageId: %s, entities: %s ",
 						longListEntry.getKey(), Lists.newArrayList(longListEntry.getValue().stream()
 						.map(Pair::getRight)
 						.collect(Collectors.toList()))));
@@ -39,7 +40,7 @@ public class DuplicateForbiddingPreSavePageAwareFilter extends AbstractPreSavePa
 		List<Page> pageList = pageBoundToEntityFilteringFinder.find(pagePageIds, baseClass);
 
 		if (!pageList.isEmpty()) {
-			throw new RuntimeException(String.format("Pages already persisted, pageIds are %s",
+			throw new StapiRuntimeException(String.format("Pages already persisted, pageIds are %s",
 					pageList.stream().map(Page::getPageId).collect(Collectors.toList())));
 		}
 

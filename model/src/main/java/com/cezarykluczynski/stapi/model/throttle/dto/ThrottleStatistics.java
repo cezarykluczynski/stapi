@@ -5,10 +5,10 @@ import lombok.Data;
 @Data
 public class ThrottleStatistics {
 
-	boolean decremented;
+	private boolean decremented;
 
-	Integer total;
+	private Integer total;
 
-	Integer remaining;
+	private Integer remaining;
 
 }

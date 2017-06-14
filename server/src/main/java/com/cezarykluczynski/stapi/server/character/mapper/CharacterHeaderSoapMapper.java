@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper(config = MapstructConfiguration.class, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CharacterHeaderSoapMapper {
 
-	com.cezarykluczynski.stapi.client.v1.soap.CharacterHeader map(Character character);
+	CharacterHeader map(Character character);
 
 	List<CharacterHeader> map(List<Character> character);
 

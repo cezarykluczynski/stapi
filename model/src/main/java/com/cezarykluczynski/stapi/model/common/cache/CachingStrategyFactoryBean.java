@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.model.common.cache;
 
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,7 @@ public class CachingStrategyFactoryBean implements FactoryBean<CachingStrategy> 
 			case CACHE_ALL:
 				return new CacheAllCachingStrategy();
 			default:
-				throw new RuntimeException(String.format("Cannot map %s to CachingStrategy", cachingStrategyType));
+				throw new StapiRuntimeException(String.format("Cannot map %s to CachingStrategy", cachingStrategyType));
 		}
 	}
 

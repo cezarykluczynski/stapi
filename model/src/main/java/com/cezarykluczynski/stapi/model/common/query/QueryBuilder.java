@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.common.cache.CachingStrategy;
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortClauseDTO;
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO;
 import com.cezarykluczynski.stapi.model.common.dto.enums.RequestSortDirectionDTO;
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import lombok.Getter;
@@ -25,6 +26,7 @@ import javax.persistence.metamodel.EntityType;
 import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -290,7 +292,7 @@ public class QueryBuilder<T> {
 					try {
 						path = baseRoot.get(name);
 					} catch (IllegalArgumentException e) {
-						throw new RuntimeException(String.format("Could not find field \"%s\" in resource \"%s\".",
+						throw new StapiRuntimeException(String.format("Could not find field \"%s\" in resource \"%s\".",
 								name, baseClass.getSimpleName()));
 					}
 
@@ -319,7 +321,7 @@ public class QueryBuilder<T> {
 
 		return requestSortClauseDTOList
 				.stream()
-				.sorted((a, b) -> a.getClauseOrder().compareTo(b.getClauseOrder()))
+				.sorted(Comparator.comparing(RequestSortClauseDTO::getClauseOrder))
 				.collect(Collectors.toList());
 	}
 
@@ -328,7 +330,7 @@ public class QueryBuilder<T> {
 				.filter(tAttribute -> key.equals(tAttribute.getName()))
 				.filter(tAttribute -> type.equals(Boolean.class) ? type.getName().equals("java.lang.Boolean") : type.equals(tAttribute.getJavaType()))
 				.findFirst()
-				.orElseThrow(() -> new RuntimeException(String.format("No attribute named %s of type %s for entity %s found",
+				.orElseThrow(() -> new StapiRuntimeException(String.format("No attribute named %s of type %s for entity %s found",
 						key, type, baseClass.getName())));
 	}
 

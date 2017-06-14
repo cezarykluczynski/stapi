@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.cache.PageCacheStorage
 import com.cezarykluczynski.stapi.sources.mediawiki.connector.bliki.BlikiConnector
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.service.complement.ParseComplementingService
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import com.google.common.collect.Lists
 import info.bliki.api.PageInfo
 import spock.lang.Specification
@@ -193,14 +194,14 @@ class PageApiImplTest extends Specification {
 		page == null
 	}
 
-	void "converts exception thrown during parsing to RuntimeException"() {
+	void "converts exception thrown during parsing to StapiRuntimeException"() {
 		when: 'not found page is called'
 		pageApiImpl.getPage(TITLE_NOT_FOUND, MEDIA_WIKI_SOURCE)
 
 		then:
 		1 * blikiConnectorMock.getPage(TITLE_NOT_FOUND, MEDIA_WIKI_SOURCE) >> INVALID_XML
 		0 * parseComplementingServiceMock.complement(_)
-		thrown(RuntimeException)
+		thrown(StapiRuntimeException)
 	}
 
 	void "gets pages from found titles"() {

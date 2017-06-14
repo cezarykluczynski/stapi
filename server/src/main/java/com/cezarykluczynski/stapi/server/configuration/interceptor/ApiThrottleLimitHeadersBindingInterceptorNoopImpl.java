@@ -19,10 +19,12 @@ public class ApiThrottleLimitHeadersBindingInterceptorNoopImpl extends AbstractP
 
 	@Override
 	public void handleMessage(Message message) throws Fault {
+		// do nothing
 	}
 
 	@Override
 	public void handleFault(Message message) {
+		// do nothing
 	}
 
 }

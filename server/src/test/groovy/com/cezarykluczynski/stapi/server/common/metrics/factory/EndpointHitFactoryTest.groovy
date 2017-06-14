@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.endpoint_hit.dto.MetricsEndpointKeyDTO
 import com.cezarykluczynski.stapi.model.endpoint_hit.entity.EndpointHit
 import com.cezarykluczynski.stapi.model.endpoint_hit.entity.enums.EndpointType
 import com.cezarykluczynski.stapi.model.endpoint_hit.repository.EndpointHitRepository
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import org.springframework.dao.DataIntegrityViolationException
 import spock.lang.Specification
 
@@ -66,8 +67,8 @@ class EndpointHitFactoryTest extends Specification {
 
 		then:
 		0 * _
-		RuntimeException runtimeException = thrown(RuntimeException)
-		runtimeException.message == "Could not determine endpoint type for endpoint named \"${ENDPOINT_NAME_UNKNOWN}\""
+		StapiRuntimeException stapiRuntimeException = thrown(StapiRuntimeException)
+		stapiRuntimeException.message == "Could not determine endpoint type for endpoint named \"${ENDPOINT_NAME_UNKNOWN}\""
 	}
 
 	void "tolerates DataIntegrityViolationException when saving"() {

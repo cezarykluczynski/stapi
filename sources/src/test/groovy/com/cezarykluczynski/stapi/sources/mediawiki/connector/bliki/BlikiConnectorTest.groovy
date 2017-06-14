@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiMinim
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourceProperties
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourcesProperties
 import com.cezarykluczynski.stapi.sources.mediawiki.service.wikia.WikiaWikisDetector
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import com.google.common.collect.Maps
 import info.bliki.api.Connector
 import org.apache.commons.io.IOUtils
@@ -273,7 +274,7 @@ class BlikiConnectorTest extends Specification {
 		xml == XML
 	}
 
-	void "throws RuntimeError on any error"() {
+	void "throws StapiRuntimeError on any error"() {
 		given: 'connector without sendXML method is injected'
 		Connector connector = Mock()
 		UserDecorator userDecorator = Mock()
@@ -285,7 +286,8 @@ class BlikiConnectorTest extends Specification {
 		blikiConnector.readXML(Maps.newHashMap(), MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN)
 
 		then:
-		thrown(RuntimeException)
+		1 * mediaWikiMinimalIntervalProviderMock.memoryAlphaEnInterval >> INTERVAL
+		thrown(StapiRuntimeException)
 	}
 
 }

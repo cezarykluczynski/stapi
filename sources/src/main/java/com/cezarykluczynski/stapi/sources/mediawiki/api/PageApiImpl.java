@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.parser.XMLParseParser;
 import com.cezarykluczynski.stapi.sources.mediawiki.parser.XMLQueryParser;
 import com.cezarykluczynski.stapi.sources.mediawiki.service.complement.ParseComplementingService;
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.collect.Lists;
 import info.bliki.api.PageInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -196,7 +197,7 @@ public class PageApiImpl implements PageApi {
 			XMLQueryParser xmlQueryParser = new XMLQueryParser(xml);
 			return xmlQueryParser.getPageInfo();
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new StapiRuntimeException(e);
 		}
 	}
 
@@ -211,7 +212,7 @@ public class PageApiImpl implements PageApi {
 			}
 			return page;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new StapiRuntimeException(e);
 		}
 	}
 

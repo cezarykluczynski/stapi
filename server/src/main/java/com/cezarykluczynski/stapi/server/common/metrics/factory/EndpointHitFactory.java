@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.endpoint_hit.dto.MetricsEndpointKeyDTO;
 import com.cezarykluczynski.stapi.model.endpoint_hit.entity.EndpointHit;
 import com.cezarykluczynski.stapi.model.endpoint_hit.entity.enums.EndpointType;
 import com.cezarykluczynski.stapi.model.endpoint_hit.repository.EndpointHitRepository;
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +44,7 @@ public class EndpointHitFactory {
 			return EndpointType.SOAP;
 		}
 
-		throw new RuntimeException(String.format("Could not determine endpoint type for endpoint named \"%s\"", endpointName));
+		throw new StapiRuntimeException(String.format("Could not determine endpoint type for endpoint named \"%s\"", endpointName));
 	}
 
 }

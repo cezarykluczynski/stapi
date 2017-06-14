@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.model.page.entity.PageAware
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.model.reference.entity.enums.ReferenceType
 import com.cezarykluczynski.stapi.model.series.entity.Series
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import com.google.common.collect.Maps
 import org.apache.commons.lang3.tuple.Pair
 import org.hibernate.metadata.ClassMetadata
@@ -90,8 +91,9 @@ class UidGeneratorTest extends Specification {
 		uidGenerator.generateFromPage(new Page(pageId: 1L), NotTrackedPageAware)
 
 		then:
-		RuntimeException runtimeException = thrown(RuntimeException)
-		runtimeException.message == 'No class metadata for entity com.cezarykluczynski.stapi.model.common.service.UidGeneratorTest.NotTrackedPageAware.'
+		StapiRuntimeException stapiRuntimeException = thrown(StapiRuntimeException)
+		stapiRuntimeException.message == 'No class metadata for entity com.cezarykluczynski.stapi.model.common.service' +
+				'.UidGeneratorTest.NotTrackedPageAware.'
 	}
 
 	void "throws exception when page is null"() {
@@ -115,8 +117,9 @@ class UidGeneratorTest extends Specification {
 		uidGenerator.generateFromPage(new Page(pageId: UidGenerator.MAX_PAGE_ID + 1), Character)
 
 		then:
-		RuntimeException runtimeException = thrown(RuntimeException)
-		runtimeException.message == "Page ID ${UidGenerator.MAX_PAGE_ID + 1} is greater than allowed, cannot guarantee UID uniqueness.".toString()
+		StapiRuntimeException stapiRuntimeException = thrown(StapiRuntimeException)
+		stapiRuntimeException.message == "Page ID ${UidGenerator.MAX_PAGE_ID + 1} is greater than allowed, cannot guarantee UID uniqueness."
+				.toString()
 	}
 
 	@Unroll('when pair of #referenceType and #referenceNumber if passed, #result is returned')

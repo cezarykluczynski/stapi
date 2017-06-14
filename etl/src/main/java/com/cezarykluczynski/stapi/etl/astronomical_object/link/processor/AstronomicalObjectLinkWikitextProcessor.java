@@ -70,12 +70,7 @@ public class AstronomicalObjectLinkWikitextProcessor implements ItemProcessor<St
 
 	private boolean isFalsePositive(String item, PageLink pageLink) {
 		String wikitextBefore = item.substring(0, pageLink.getStartPosition());
-
-		if (wikitextBefore.contains("light year") || wikitextBefore.contains("visible from")) {
-			return true;
-		}
-
-		return false;
+		return wikitextBefore.contains("light year") || wikitextBefore.contains("visible from");
 	}
 
 }

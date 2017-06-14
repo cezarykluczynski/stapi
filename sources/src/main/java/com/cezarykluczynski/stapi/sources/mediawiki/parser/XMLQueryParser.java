@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.parser;
 
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import info.bliki.api.AbstractXMLParser;
 import info.bliki.api.PageInfo;
 import lombok.Getter;
@@ -28,7 +29,7 @@ public class XMLQueryParser extends AbstractXMLParser {
 		try {
 			parse();
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new StapiRuntimeException(e);
 		}
 	}
 

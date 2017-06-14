@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.parser.XMLCategoryMembersParser;
 import com.cezarykluczynski.stapi.sources.mediawiki.util.constant.ApiParams;
 import com.cezarykluczynski.stapi.sources.mediawiki.util.constant.MemoryAlpha;
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -62,11 +63,9 @@ public class CategoryApiImpl implements CategoryApi {
 			String categoryTitle = toQueryableCategoryName(pageInfo.getTitle());
 			if (MemoryAlpha.CONTENT_NAMESPACE.equals(namespace)) {
 				pages.add(pageInfo);
-			} else if (MemoryAlpha.CATEGORY_NAMESPACE.equals(namespace)) {
-				if (!visitedCategoriesNames.contains(categoryTitle)) {
-					visitedCategoriesNames.add(categoryTitle);
-					pages.addAll(getPagesIncludingSubcategories(categoryTitle, mediaWikiSource, visitedCategoriesNames));
-				}
+			} else if (MemoryAlpha.CATEGORY_NAMESPACE.equals(namespace) && !visitedCategoriesNames.contains(categoryTitle)) {
+				visitedCategoriesNames.add(categoryTitle);
+				pages.addAll(getPagesIncludingSubcategories(categoryTitle, mediaWikiSource, visitedCategoriesNames));
 			}
 		}
 
@@ -110,7 +109,7 @@ public class CategoryApiImpl implements CategoryApi {
 			xmlCategoryMembersParser.parse();
 			return xmlCategoryMembersParser;
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new StapiRuntimeException(e);
 		}
 	}
 

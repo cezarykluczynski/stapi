@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.server.common.documentation.service;
 
 import com.cezarykluczynski.stapi.contract.documentation.dto.DocumentDTO;
 import com.cezarykluczynski.stapi.contract.documentation.dto.enums.DocumentType;
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.apache.commons.lang3.StringUtils;
@@ -58,22 +59,14 @@ public class DocumentationReader {
 					// do nothing
 				}
 				if (Files.isRegularFile(filePath)) {
-					DocumentDTO documentDTO = new DocumentDTO();
-					documentDTO.setType(filePath.toString().endsWith(".yaml") ? DocumentType.YAML : DocumentType.XML);
+					DocumentDTO documentDTO;
+
 					try {
-						String content = StringUtils.join(Files.readAllLines(filePath, Charset.forName("UTF-8")), "\n");
-						if (DocumentType.XML.equals(documentDTO.getType())) {
-							content = StringUtils.replace(content, "<", "&lt;");
-						}
-						documentDTO.setContent(content);
-					} catch (Exception e) {
-						LOG.error("Could not get content for file {}, exception was: {}", filePath.toString(), e);
-					}
-					try {
-						documentDTO.setPath(rootBasePath.relativize(filePath).toString());
-					} catch (IllegalArgumentException e) {
+						documentDTO = fromFile(filePath, rootBasePath);
+					} catch (StapiRuntimeException e) {
 						return;
 					}
+
 					documentDTOList.add(documentDTO);
 				} else if (Files.isDirectory(filePath)) {
 					privateReadDocument(filePath.toAbsolutePath().toString(), documentDTOList, rootBasePath);
@@ -82,6 +75,27 @@ public class DocumentationReader {
 		} catch (Exception e) {
 			LOG.error("Exception while reading directory {}, exception was:", path, e);
 		}
+	}
+
+	private DocumentDTO fromFile(Path filePath, Path rootBasePath) {
+		DocumentDTO documentDTO = new DocumentDTO();
+		documentDTO.setType(filePath.toString().endsWith(".yaml") ? DocumentType.YAML : DocumentType.XML);
+		try {
+			String content = StringUtils.join(Files.readAllLines(filePath, Charset.forName("UTF-8")), "\n");
+			if (DocumentType.XML.equals(documentDTO.getType())) {
+				content = StringUtils.replace(content, "<", "&lt;");
+			}
+			documentDTO.setContent(content);
+		} catch (Exception e) {
+			LOG.error("Could not get content for file {}, exception was: {}", filePath.toString(), e);
+		}
+		try {
+			documentDTO.setPath(rootBasePath.relativize(filePath).toString());
+		} catch (IllegalArgumentException e) {
+			throw new StapiRuntimeException(e);
+		}
+
+		return documentDTO;
 	}
 
 }

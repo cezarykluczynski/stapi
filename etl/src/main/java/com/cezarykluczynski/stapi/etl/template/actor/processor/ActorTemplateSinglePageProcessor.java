@@ -43,8 +43,7 @@ public class ActorTemplateSinglePageProcessor implements ItemProcessor<Page, Act
 
 	private TemplateFinder templateFinder;
 
-	public ActorTemplateSinglePageProcessor(PageToGenderProcessor pageToGenderProcessor,
-			PageToLifeRangeProcessor pageToLifeRangeProcessor,
+	public ActorTemplateSinglePageProcessor(PageToGenderProcessor pageToGenderProcessor, PageToLifeRangeProcessor pageToLifeRangeProcessor,
 			ActorTemplateTemplateProcessor actorTemplateTemplateProcessor,
 			CategoriesActorTemplateEnrichingProcessor categoriesActorTemplateEnrichingProcessor,
 			PageBindingService pageBindingService, TemplateFinder templateFinder) {
@@ -106,7 +105,7 @@ public class ActorTemplateSinglePageProcessor implements ItemProcessor<Page, Act
 		Gender originalGender = actorTemplate.getGender();
 		Gender supplementedGender = actorTemplateFromTemplate.getGender();
 
-		if (originalGender != null && supplementedGender != null && originalGender != supplementedGender) {
+		if (originalGender != null && supplementedGender != null && !originalGender.equals(supplementedGender)) {
 			log.error("Gender {} found by ActorTemplatePageProcessor differs from gender {} found by "
 					+ "ActorTemplateTemplateProcessor for {} - setting gender to null", originalGender, supplementedGender, actorTemplate.getName());
 
@@ -132,9 +131,7 @@ public class ActorTemplateSinglePageProcessor implements ItemProcessor<Page, Act
 		String name = actorTemplate.getName();
 		String birthName = actorTemplate.getBirthName();
 
-		if (LogicUtil.xorNull(name, birthName)) {
-			return;
-		} else if (Objects.equals(name, birthName)) {
+		if (!LogicUtil.xorNull(name, birthName) && Objects.equals(name, birthName)) {
 			actorTemplate.setBirthName(null);
 		}
 	}

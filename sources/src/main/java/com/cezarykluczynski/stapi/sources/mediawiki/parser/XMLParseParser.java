@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.sources.mediawiki.parser;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import info.bliki.api.AbstractXMLParser;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -63,7 +64,7 @@ public class XMLParseParser extends AbstractXMLParser {
 		try {
 			parse();
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new StapiRuntimeException(e);
 		}
 	}
 

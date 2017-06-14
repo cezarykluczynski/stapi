@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.sources.mediawiki.api
 
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourceProperties
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourcesProperties
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import org.mockserver.client.server.MockServerClient
 import org.mockserver.integration.ClientAndServer
 import org.mockserver.model.HttpRequest
@@ -70,7 +71,7 @@ class ParseApiImplTest extends Specification {
 		new ParseApiImpl(mediaWikiSourcesProperties)
 
 		then:
-		thrown(RuntimeException)
+		thrown(StapiRuntimeException)
 	}
 
 	void "throws exception when api url is malformed"() {
@@ -82,7 +83,7 @@ class ParseApiImplTest extends Specification {
 		new ParseApiImpl(mediaWikiSourcesProperties)
 
 		then:
-		thrown(RuntimeException)
+		thrown(StapiRuntimeException)
 	}
 
 	void "gets parse tree"() {

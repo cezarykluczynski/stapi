@@ -3,18 +3,18 @@ package com.cezarykluczynski.stapi.etl.common.dto;
 import lombok.Getter;
 
 @Getter
-public final class EnrichablePair<INPUT, OUTPUT> {
+public final class EnrichablePair<I, O> {
 
-	private final INPUT input;
+	private final I input;
 
-	private final OUTPUT output;
+	private final O output;
 
-	private EnrichablePair(INPUT input, OUTPUT output) {
+	private EnrichablePair(I input, O output) {
 		this.input = input;
 		this.output = output;
 	}
 
-	public static <INPUT, OUTPUT> EnrichablePair<INPUT, OUTPUT> of(INPUT input, OUTPUT output) {
+	public static <I, O> EnrichablePair<I, O> of(I input, O output) {
 		return new EnrichablePair<>(input, output);
 	}
 

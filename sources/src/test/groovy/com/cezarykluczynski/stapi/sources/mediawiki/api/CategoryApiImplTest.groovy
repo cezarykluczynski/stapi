@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.connector.bliki.BlikiConnect
 import com.cezarykluczynski.stapi.sources.mediawiki.converter.PageHeaderConverter
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.util.constant.ApiParams
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import com.google.common.collect.Lists
 import info.bliki.api.PageInfo
 import spock.lang.Specification
@@ -154,7 +155,7 @@ class CategoryApiImplTest extends Specification {
 		categoryApiImpl.getPages(TITLE_1, MEDIA_WIKI_SOURCE)
 
 		then:
-		thrown(RuntimeException)
+		thrown(StapiRuntimeException)
 	}
 
 	void "gets pages in category, including subcategories"() {

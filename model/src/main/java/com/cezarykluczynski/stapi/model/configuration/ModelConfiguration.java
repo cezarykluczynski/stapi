@@ -59,7 +59,7 @@ public class ModelConfiguration {
 
 	@Bean
 	@ConfigurationProperties(prefix = DATASOURCE_PREFIX)
-	DataSource dataSource() {
+	public DataSource dataSource() {
 		return DataSourceBuilder.create()
 				.type(HikariDataSource.class)
 				.build();

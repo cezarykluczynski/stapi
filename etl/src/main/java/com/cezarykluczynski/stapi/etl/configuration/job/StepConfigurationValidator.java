@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.configuration.job;
 import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepProperties;
 import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepsProperties;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.tuple.Pair;
@@ -131,7 +132,7 @@ public class StepConfigurationValidator {
 	}
 
 	private void doThrow(String message) {
-		throw new JobBuilderException(new RuntimeException(message));
+		throw new JobBuilderException(new StapiRuntimeException(message));
 	}
 
 

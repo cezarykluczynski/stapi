@@ -57,8 +57,7 @@ public class OrganizationRestReader implements BaseReader<OrganizationRestBeanPa
 		StaticValidator.requireUid(uid);
 		OrganizationRestBeanParams organizationRestBeanParams = new OrganizationRestBeanParams();
 		organizationRestBeanParams.setUid(uid);
-		Page<com.cezarykluczynski.stapi.model.organization.entity.Organization> organizationPage = organizationRestQuery
-				.query(organizationRestBeanParams);
+		Page<Organization> organizationPage = organizationRestQuery.query(organizationRestBeanParams);
 		OrganizationFullResponse organizationResponse = new OrganizationFullResponse();
 		organizationResponse.setOrganization(organizationFullRestMapper
 				.mapFull(Iterables.getOnlyElement(organizationPage.getContent(), null)));

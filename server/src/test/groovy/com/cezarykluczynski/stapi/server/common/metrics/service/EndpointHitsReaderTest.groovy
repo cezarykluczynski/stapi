@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.model.common.service.EntityMatadataProvider
 import com.cezarykluczynski.stapi.model.endpoint_hit.entity.EndpointHit
 import com.cezarykluczynski.stapi.model.endpoint_hit.repository.EndpointHitRepository
 import com.cezarykluczynski.stapi.model.page.entity.PageAware
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Maps
 import org.assertj.core.util.Lists
@@ -76,8 +77,8 @@ class EndpointHitsReaderTest extends Specification {
 		1 * entityMatadataProviderMock.provideClassSimpleNameToClassMap() >> Maps.newHashMap()
 
 		then: 'exception is thrown'
-		RuntimeException runtimeException = thrown(RuntimeException)
-		runtimeException.message == "Cannot map endpoint with name \"${UNKNOWN_ENDPOINT_NAME}\" to entity class"
+		StapiRuntimeException stapiRuntimeException = thrown(StapiRuntimeException)
+		stapiRuntimeException.message == "Cannot map endpoint with name \"${UNKNOWN_ENDPOINT_NAME}\" to entity class"
 
 		then: 'correct hit counter for endpoints is provided'
 		endpointHitsReader.readAllHitsCount() == 0

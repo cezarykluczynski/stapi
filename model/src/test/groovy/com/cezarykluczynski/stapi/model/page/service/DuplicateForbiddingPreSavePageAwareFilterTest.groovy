@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.model.page.service
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.page.entity.PageAware
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -29,8 +30,8 @@ class DuplicateForbiddingPreSavePageAwareFilterTest extends Specification {
 		strictPreSavePageAwareProcessor.process(pageAwareList, null)
 
 		then:
-		RuntimeException ex = thrown(RuntimeException)
-		ex.message.contains('Duplicated page entries in chunk')
+		StapiRuntimeException stapiRuntimeException = thrown(StapiRuntimeException)
+		stapiRuntimeException.message.contains('Duplicated page entries in chunk')
 	}
 
 	void "throws exception when pages with given pageId already exists in database"() {
@@ -48,8 +49,8 @@ class DuplicateForbiddingPreSavePageAwareFilterTest extends Specification {
 			assert args[1] == Performer
 			Lists.newArrayList(new Page(pageId: PAGE_ID))
 		}
-		RuntimeException ex = thrown(RuntimeException)
-		ex.message.contains('Pages already persisted')
+		StapiRuntimeException stapiRuntimeException = thrown(StapiRuntimeException)
+		stapiRuntimeException.message.contains('Pages already persisted')
 	}
 
 	void "returns original collection when there is no duplicates"() {

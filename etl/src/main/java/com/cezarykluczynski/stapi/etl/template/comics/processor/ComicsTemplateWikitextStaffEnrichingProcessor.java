@@ -64,7 +64,7 @@ public class ComicsTemplateWikitextStaffEnrichingProcessor implements ItemEnrich
 			String wikitextListText = wikitextList.getText();
 
 			if (shouldBeIngored(wikitextListText)) {
-				// do nothing
+				return;
 			} else if (isWritersList(wikitextListText)) {
 				comicsTemplate.getWriters().addAll(staffFromWikitextList(wikitextList));
 			} else if (isArtistsList(wikitextListText)) {

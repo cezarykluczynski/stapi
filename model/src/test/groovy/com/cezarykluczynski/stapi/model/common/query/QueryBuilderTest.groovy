@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.dto.enums.RequestSortDirectionDTO
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender
 import com.cezarykluczynski.stapi.model.series.entity.Series
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
@@ -333,7 +334,7 @@ class QueryBuilderTest extends Specification {
 		queryBuilder.joinEquals(invalidKeyPage, VALID_VALUE_STRING, VALID_VALUE_GENDER, com.cezarykluczynski.stapi.model.page.entity.Page)
 
 		then: 'exception is thrown'
-		thrown(RuntimeException)
+		thrown(StapiRuntimeException)
 
 		when: 'fetch is performed'
 		queryBuilder.fetch(fetchSetName)

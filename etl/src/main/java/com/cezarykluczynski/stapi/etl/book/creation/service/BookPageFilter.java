@@ -26,12 +26,8 @@ public class BookPageFilter implements PageFilter {
 
 	@Override
 	public boolean shouldBeFilteredOut(Page page) {
-		if (!page.getRedirectPath().isEmpty() || categorySortingService.isSortedOnTopOfAnyCategory(page)
-				|| INVALID_TITLES.contains(page.getTitle())) {
-			return true;
-		}
-
-		return false;
+		return !page.getRedirectPath().isEmpty() || categorySortingService.isSortedOnTopOfAnyCategory(page)
+				|| INVALID_TITLES.contains(page.getTitle());
 	}
 
 }

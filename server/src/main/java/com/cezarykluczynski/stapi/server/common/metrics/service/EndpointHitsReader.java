@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.common.service.EntityMatadataProvider;
 import com.cezarykluczynski.stapi.model.endpoint_hit.entity.EndpointHit;
 import com.cezarykluczynski.stapi.model.endpoint_hit.repository.EndpointHitRepository;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -75,7 +76,7 @@ public class EndpointHitsReader {
 			return (Class<? extends PageAware>) classNameToMetadataMap.get(entityName);
 		}
 
-		throw new RuntimeException(String.format("Cannot map endpoint with name \"%s\" to entity class", endpointName));
+		throw new StapiRuntimeException(String.format("Cannot map endpoint with name \"%s\" to entity class", endpointName));
 	}
 
 }

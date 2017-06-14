@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import com.google.common.collect.Lists
 import info.bliki.api.PageInfo
 import spock.lang.Specification
@@ -145,7 +146,7 @@ class PageHeaderProcessorTest extends Specification {
 		then:
 		1 * pageApiMock.getPage(TITLE, MEDIA_WIKI_SOURCE) >> page
 		1 * pageApiMock.getPageInfo(TITLE, MEDIA_WIKI_SOURCE) >> null
-		thrown(RuntimeException)
+		thrown(StapiRuntimeException)
 	}
 
 	void "throws exception when PageInfo for item from redirect list is null"() {
@@ -170,7 +171,7 @@ class PageHeaderProcessorTest extends Specification {
 		1 * pageApiMock.getPage(TITLE, MEDIA_WIKI_SOURCE) >> page
 		1 * pageApiMock.getPageInfo(TITLE, MEDIA_WIKI_SOURCE) >> pageInfo
 		1 * pageApiMock.getPageInfo(TITLE_AFTER_REDIRECT, MEDIA_WIKI_SOURCE) >> null
-		thrown(RuntimeException)
+		thrown(StapiRuntimeException)
 	}
 
 }

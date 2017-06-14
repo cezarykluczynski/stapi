@@ -56,8 +56,7 @@ public class FoodRestReader implements BaseReader<FoodRestBeanParams, FoodBaseRe
 		StaticValidator.requireUid(uid);
 		FoodRestBeanParams foodRestBeanParams = new FoodRestBeanParams();
 		foodRestBeanParams.setUid(uid);
-		Page<com.cezarykluczynski.stapi.model.food.entity.Food> foodPage = foodRestQuery
-				.query(foodRestBeanParams);
+		Page<Food> foodPage = foodRestQuery.query(foodRestBeanParams);
 		FoodFullResponse foodResponse = new FoodFullResponse();
 		foodResponse.setFood(foodFullRestMapper
 				.mapFull(Iterables.getOnlyElement(foodPage.getContent(), null)));

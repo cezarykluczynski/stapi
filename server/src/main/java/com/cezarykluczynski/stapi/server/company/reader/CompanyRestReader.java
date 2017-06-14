@@ -56,7 +56,7 @@ public class CompanyRestReader implements BaseReader<CompanyRestBeanParams, Comp
 		StaticValidator.requireUid(uid);
 		CompanyRestBeanParams companyRestBeanParams = new CompanyRestBeanParams();
 		companyRestBeanParams.setUid(uid);
-		Page<com.cezarykluczynski.stapi.model.company.entity.Company> companyPage = companyRestQuery.query(companyRestBeanParams);
+		Page<Company> companyPage = companyRestQuery.query(companyRestBeanParams);
 		CompanyFullResponse companyResponse = new CompanyFullResponse();
 		companyResponse.setCompany(companyFullRestMapper.mapFull(Iterables.getOnlyElement(companyPage.getContent(), null)));
 		return companyResponse;

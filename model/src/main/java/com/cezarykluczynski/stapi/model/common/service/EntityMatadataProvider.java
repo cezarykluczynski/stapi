@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries;
 import com.cezarykluczynski.stapi.model.comic_strip.entity.ComicStrip;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics;
 import com.cezarykluczynski.stapi.model.magazine_series.entity.MagazineSeries;
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.hibernate.Session;
@@ -80,8 +81,8 @@ public class EntityMatadataProvider {
 			String symbol = buildClassSymbol(mappedClass);
 
 			if (classNameToSymbolMap.values().contains(symbol)) {
-				throw new RuntimeException(String.format("Entity class collection no longer suitable for symbol generation. Trying to put symbol "
-						+ "%s, but symbol already present.", symbol));
+				throw new StapiRuntimeException(String.format("Entity class collection no longer suitable for symbol generation. "
+						+ "Trying to put symbol %s, but symbol already present.", symbol));
 			}
 
 			classNameToSymbolMap.put(mappedClassCanonicalName, symbol);

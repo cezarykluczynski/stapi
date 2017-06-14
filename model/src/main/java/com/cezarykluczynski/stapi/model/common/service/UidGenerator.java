@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.page.entity.Page;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.model.reference.entity.enums.ReferenceType;
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
@@ -43,11 +44,11 @@ public class UidGenerator {
 		Map<String, ClassMetadata> classMetadataMap = entityMatadataProvider.provideClassNameToMetadataMap();
 		ClassMetadata classMetadata = classMetadataMap.get(clazz.getCanonicalName());
 		if (classMetadata == null) {
-			throw new RuntimeException(String.format("No class metadata for entity %s.", clazz.getCanonicalName()));
+			throw new StapiRuntimeException(String.format("No class metadata for entity %s.", clazz.getCanonicalName()));
 		}
 
 		if (page.getPageId() > MAX_PAGE_ID) {
-			throw new RuntimeException(String.format("Page ID %s is greater than allowed, cannot guarantee UID uniqueness.", page.getPageId()));
+			throw new StapiRuntimeException(String.format("Page ID %s is greater than allowed, cannot guarantee UID uniqueness.", page.getPageId()));
 		}
 
 		Class mappedClass = classMetadata.getMappedClass();

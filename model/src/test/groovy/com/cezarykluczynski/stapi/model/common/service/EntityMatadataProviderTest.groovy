@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.model.common.service
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries
 import com.cezarykluczynski.stapi.model.series.entity.Series
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import com.google.common.collect.Maps
 import org.hibernate.Session
 import org.hibernate.SessionFactory
@@ -53,8 +54,8 @@ class EntityMatadataProviderTest extends Specification {
 		entityMatadataProvider = new EntityMatadataProvider(entityManagerMock)
 
 		then:
-		RuntimeException runtimeException = thrown(RuntimeException)
-		runtimeException.message == 'Entity class collection no longer suitable for symbol generation. Trying to put symbol CH, but symbol already present.'
+		StapiRuntimeException stapiRuntimeException = thrown(StapiRuntimeException)
+		stapiRuntimeException.message == 'Entity class collection no longer suitable for symbol generation. Trying to put symbol CH, but symbol already present.'
 	}
 
 	void "provides class name to symbol map"() {
