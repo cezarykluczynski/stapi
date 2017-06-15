@@ -8,15 +8,12 @@ import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
-import org.springframework.context.ApplicationContext
 
 class ComicsCreationConfigurationTest extends AbstractCreationConfigurationTest {
 
 	private static final String TITLE_COMICS = 'TITLE_COMICS'
 	private static final String TITLE_COMIC_ADAPTATIONS = 'TITLE_COMIC_ADAPTATIONS'
 	private static final String TITLE_PHOTONOVEL = 'TITLE_PHOTONOVEL'
-
-	private ApplicationContext applicationContextMock
 
 	private CategoryApi categoryApiMock
 
@@ -25,11 +22,9 @@ class ComicsCreationConfigurationTest extends AbstractCreationConfigurationTest 
 	private ComicsCreationConfiguration comicsCreationConfiguration
 
 	void setup() {
-		applicationContextMock = Mock()
 		categoryApiMock = Mock()
 		jobCompletenessDeciderMock = Mock()
 		comicsCreationConfiguration = new ComicsCreationConfiguration(
-				applicationContext: applicationContextMock,
 				categoryApi: categoryApiMock,
 				stepCompletenessDecider: jobCompletenessDeciderMock)
 	}

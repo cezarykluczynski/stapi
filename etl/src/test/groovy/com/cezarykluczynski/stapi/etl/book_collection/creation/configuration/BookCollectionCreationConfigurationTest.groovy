@@ -8,13 +8,10 @@ import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
-import org.springframework.context.ApplicationContext
 
 class BookCollectionCreationConfigurationTest extends AbstractCreationConfigurationTest {
 
 	private static final String TITLE_NOVEL_COLLECTION = 'TITLE_NOVEL_COLLECTION'
-
-	private ApplicationContext applicationContextMock
 
 	private CategoryApi categoryApiMock
 
@@ -23,11 +20,9 @@ class BookCollectionCreationConfigurationTest extends AbstractCreationConfigurat
 	private BookCollectionCreationConfiguration bookCollectionCreationConfiguration
 
 	void setup() {
-		applicationContextMock = Mock()
 		categoryApiMock = Mock()
 		jobCompletenessDeciderMock = Mock()
 		bookCollectionCreationConfiguration = new BookCollectionCreationConfiguration(
-				applicationContext: applicationContextMock,
 				categoryApi: categoryApiMock,
 				stepCompletenessDecider: jobCompletenessDeciderMock)
 	}

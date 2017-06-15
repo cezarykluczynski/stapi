@@ -8,13 +8,10 @@ import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
-import org.springframework.context.ApplicationContext
 
 class MagazineSeriesCreationConfigurationTest extends AbstractCreationConfigurationTest {
 
 	private static final String TITLE_MAGAZINE_SERIES = 'TITLE_MAGAZINE_SERIES'
-
-	private ApplicationContext applicationContextMock
 
 	private CategoryApi categoryApiMock
 
@@ -23,11 +20,9 @@ class MagazineSeriesCreationConfigurationTest extends AbstractCreationConfigurat
 	private MagazineSeriesCreationConfiguration magazineCreationConfiguration
 
 	void setup() {
-		applicationContextMock = Mock()
 		categoryApiMock = Mock()
 		jobCompletenessDeciderMock = Mock()
 		magazineCreationConfiguration = new MagazineSeriesCreationConfiguration(
-				applicationContext: applicationContextMock,
 				categoryApi: categoryApiMock,
 				stepCompletenessDecider: jobCompletenessDeciderMock)
 	}

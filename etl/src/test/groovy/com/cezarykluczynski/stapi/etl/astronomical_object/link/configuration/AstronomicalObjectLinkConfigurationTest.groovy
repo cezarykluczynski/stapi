@@ -3,18 +3,12 @@ package com.cezarykluczynski.stapi.etl.astronomical_object.link.configuration
 import com.cezarykluczynski.stapi.etl.astronomical_object.link.processor.AstronomicalObjectLinkReader
 import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepProperties
 import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepsProperties
-import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider
 import com.cezarykluczynski.stapi.model.astronomical_object.repository.AstronomicalObjectRepository
-import org.springframework.context.ApplicationContext
 import spock.lang.Specification
 
 class AstronomicalObjectLinkConfigurationTest extends Specification {
 
 	private static final Integer COMMIT_INTERVAL = 1
-
-	private ApplicationContext applicationContextMock
-
-	private StepCompletenessDecider stepCompletenessDeciderMock
 
 	private AstronomicalObjectRepository astronomicalObjectRepositoryMock
 
@@ -23,13 +17,9 @@ class AstronomicalObjectLinkConfigurationTest extends Specification {
 	private AstronomicalObjectLinkConfiguration astronomicalObjectLinkConfiguration
 
 	void setup() {
-		applicationContextMock = Mock()
-		stepCompletenessDeciderMock = Mock()
 		astronomicalObjectRepositoryMock = Mock()
 		stepsPropertiesMock = Mock()
 		astronomicalObjectLinkConfiguration = new AstronomicalObjectLinkConfiguration(
-				applicationContext: applicationContextMock,
-				stepCompletenessDecider: stepCompletenessDeciderMock,
 				astronomicalObjectRepository: astronomicalObjectRepositoryMock,
 				stepsProperties: stepsPropertiesMock)
 	}

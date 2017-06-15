@@ -8,13 +8,10 @@ import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
-import org.springframework.context.ApplicationContext
 
 class CharacterCreationConfigurationTest extends AbstractCreationConfigurationTest {
 
 	private static final String TITLE_INDIVIDUALS = 'TITLE_INDIVIDUALS'
-
-	private ApplicationContext applicationContextMock
 
 	private CategoryApi categoryApiMock
 
@@ -23,11 +20,9 @@ class CharacterCreationConfigurationTest extends AbstractCreationConfigurationTe
 	private CharacterCreationConfiguration characterCreationConfiguration
 
 	void setup() {
-		applicationContextMock = Mock()
 		categoryApiMock = Mock()
 		jobCompletenessDeciderMock = Mock()
 		characterCreationConfiguration = new CharacterCreationConfiguration(
-				applicationContext: applicationContextMock,
 				categoryApi: categoryApiMock,
 				stepCompletenessDecider: jobCompletenessDeciderMock)
 	}

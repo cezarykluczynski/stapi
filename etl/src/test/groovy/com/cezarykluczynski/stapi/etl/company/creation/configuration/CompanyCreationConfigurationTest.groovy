@@ -8,13 +8,10 @@ import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
-import org.springframework.context.ApplicationContext
 
 class CompanyCreationConfigurationTest extends AbstractCreationConfigurationTest {
 
 	private static final String TITLE_COMPANY = 'TITLE_COMPANY'
-
-	private ApplicationContext applicationContextMock
 
 	private CategoryApi categoryApiMock
 
@@ -23,11 +20,9 @@ class CompanyCreationConfigurationTest extends AbstractCreationConfigurationTest
 	private CompanyCreationConfiguration companyCreationConfiguration
 
 	void setup() {
-		applicationContextMock = Mock()
 		categoryApiMock = Mock()
 		jobCompletenessDeciderMock = Mock()
 		companyCreationConfiguration = new CompanyCreationConfiguration(
-				applicationContext: applicationContextMock,
 				categoryApi: categoryApiMock,
 				stepCompletenessDecider: jobCompletenessDeciderMock)
 	}

@@ -8,14 +8,11 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.apache.cxf.transport.servlet.CXFServlet;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
-
-import javax.inject.Inject;
 
 @Configuration
 @ImportResource({
@@ -23,9 +20,6 @@ import javax.inject.Inject;
 		"classpath:META-INF/cxf/cxf-servlet.xml"
 })
 public class CxfConfiguration {
-
-	@Inject
-	private ApplicationContext applicationContext;
 
 	@Bean
 	public ServletRegistrationBean cxfServletRegistrationBean() {

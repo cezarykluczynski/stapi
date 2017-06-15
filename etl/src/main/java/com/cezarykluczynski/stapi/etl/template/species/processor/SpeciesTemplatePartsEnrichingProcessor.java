@@ -54,7 +54,7 @@ public class SpeciesTemplatePartsEnrichingProcessor implements ItemEnrichingProc
 					speciesTemplateTypeWikitextEnrichingProcessor.enrich(EnrichablePair.of(part, speciesTemplate));
 					break;
 				case SpeciesTemplateParameter.POPULATION:
-					if (value.toLowerCase().equals(EXTINCT)) {
+					if (value.equalsIgnoreCase(EXTINCT)) {
 						speciesTemplate.setExtinctSpecies(true);
 					} else {
 						log.info("Skipped population value \"{}\" for species {}", value, speciesTemplate.getName());

@@ -25,7 +25,7 @@ public class AstronomicalObjectCompositeEnrichingProcessor
 			AstronomicalObjectType currentAstronomicalObjectType, AstronomicalObjectType astronomicalObjectTypeFromProcessor) {
 		if (astronomicalObjectTypeFromProcessor != null && currentAstronomicalObjectType != null
 				&& currentAstronomicalObjectType != AstronomicalObjectType.PLANET
-				&& astronomicalObjectTypeFromProcessor != currentAstronomicalObjectType) {
+				&& !astronomicalObjectTypeFromProcessor.equals(currentAstronomicalObjectType)) {
 			if (AstronomicalObjectType.MOON.equals(currentAstronomicalObjectType)
 					&& AstronomicalObjectType.M_CLASS_PLANET.equals(astronomicalObjectTypeFromProcessor)) {
 				return AstronomicalObjectType.M_CLASS_MOON;

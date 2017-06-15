@@ -8,14 +8,11 @@ import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
-import org.springframework.context.ApplicationContext
 
 class FoodCreationConfigurationTest extends AbstractCreationConfigurationTest {
 
 	private static final String TITLE_FOODS = 'TITLE_FOODS'
 	private static final String TITLE_BEVERAGES = 'TITLE_BEVERAGES'
-
-	private ApplicationContext applicationContextMock
 
 	private CategoryApi categoryApiMock
 
@@ -24,11 +21,9 @@ class FoodCreationConfigurationTest extends AbstractCreationConfigurationTest {
 	private FoodCreationConfiguration foodCreationConfiguration
 
 	void setup() {
-		applicationContextMock = Mock()
 		categoryApiMock = Mock()
 		jobCompletenessDeciderMock = Mock()
 		foodCreationConfiguration = new FoodCreationConfiguration(
-				applicationContext: applicationContextMock,
 				categoryApi: categoryApiMock,
 				stepCompletenessDecider: jobCompletenessDeciderMock)
 	}

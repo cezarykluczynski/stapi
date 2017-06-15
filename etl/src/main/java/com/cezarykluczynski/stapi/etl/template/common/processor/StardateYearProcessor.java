@@ -65,12 +65,11 @@ public class StardateYearProcessor implements ItemProcessor<StardateYearCandidat
 				stardateYearDTO.setYearTo(stardateYearDTO.getYearFrom());
 			}
 
-			if (stardateYearDTO.getYearFrom() != null && stardateYearDTO.getYearTo() != null) {
-				if (stardateYearDTO.getYearFrom() > stardateYearDTO.getYearTo()) {
-					int laterDate = stardateYearDTO.getYearFrom();
-					stardateYearDTO.setYearFrom(stardateYearDTO.getYearTo());
-					stardateYearDTO.setYearTo(laterDate);
-				}
+			if (stardateYearDTO.getYearFrom() != null && stardateYearDTO.getYearTo() != null
+					&& stardateYearDTO.getYearFrom() > stardateYearDTO.getYearTo()) {
+				int laterDate = stardateYearDTO.getYearFrom();
+				stardateYearDTO.setYearFrom(stardateYearDTO.getYearTo());
+				stardateYearDTO.setYearTo(laterDate);
 			}
 
 		} else {
