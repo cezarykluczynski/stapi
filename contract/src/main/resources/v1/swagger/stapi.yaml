@@ -61,6 +61,10 @@ paths:
     $ref: ./location/path/location.path.yaml
   /location/search:
     $ref: ./location/path/locationSearch.path.yaml
+  /magazine:
+    $ref: ./magazine/path/magazine.path.yaml
+  /magazine/search:
+    $ref: ./magazine/path/magazineSearch.path.yaml
   /movie:
     $ref: ./movie/path/movie.path.yaml
   /movie/search:
@@ -220,6 +224,16 @@ definitions:
     $ref: ./location/entity/locationBaseResponse.yaml
   LocationFullResponse:
     $ref: ./location/entity/locationFullResponse.yaml
+  MagazineHeader:
+    $ref: ./magazine/entity/magazineHeader.yaml
+  MagazineBase:
+    $ref: ./magazine/entity/magazineBase.yaml
+  MagazineFull:
+    $ref: ./magazine/entity/magazineFull.yaml
+  MagazineBaseResponse:
+    $ref: ./magazine/entity/magazineBaseResponse.yaml
+  MagazineFullResponse:
+    $ref: ./magazine/entity/magazineFullResponse.yaml
   MovieHeader:
     $ref: ./movie/entity/movieHeader.yaml
   MovieBase:

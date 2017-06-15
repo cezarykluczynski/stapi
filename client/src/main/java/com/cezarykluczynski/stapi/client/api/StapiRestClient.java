@@ -12,6 +12,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.api.CompanyApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.EpisodeApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.FoodApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.LocationApi;
+import com.cezarykluczynski.stapi.client.v1.rest.api.MagazineApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.MovieApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.OrganizationApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.PerformerApi;
@@ -81,6 +82,9 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 	@Getter
 	private BookApi bookApi;
 
+	@Getter
+	private MagazineApi magazineApi;
+
 	public StapiRestClient() {
 		seriesApi = new SeriesApi();
 		performerApi = new PerformerApi();
@@ -100,6 +104,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 		locationApi = new LocationApi();
 		bookSeriesApi = new BookSeriesApi();
 		bookApi = new BookApi();
+		magazineApi = new MagazineApi();
 	}
 
 	public StapiRestClient(String apiUrl) {
@@ -123,6 +128,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 		locationApi = new LocationApi(apiClient);
 		bookSeriesApi = new BookSeriesApi(apiClient);
 		bookApi = new BookApi(apiClient);
+		magazineApi = new MagazineApi(apiClient);
 	}
 
 	private void createApiClient() {

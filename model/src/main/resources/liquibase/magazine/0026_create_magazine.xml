@@ -32,32 +32,32 @@
 				referencedColumnNames="id"
 				referencedTableName="page"/>
 
-		<createTable schemaName="stapi" tableName="magazine_publishers">
+		<createTable schemaName="stapi" tableName="magazines_publishers">
 			<column name="magazine_id" type="bigint"/>
 			<column name="company_id" type="bigint"/>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="magazine_id"
-				baseTableName="magazine_publishers"
+				baseTableName="magazines_publishers"
 				constraintName="mp_publisher_fkey"
 				referencedColumnNames="id"
 				referencedTableName="magazine"/>
 		<addForeignKeyConstraint baseColumnNames="company_id"
-				baseTableName="magazine_publishers"
+				baseTableName="magazines_publishers"
 				constraintName="mp_company_fkey"
 				referencedColumnNames="id"
 				referencedTableName="company"/>
 
-		<createTable schemaName="stapi" tableName="magazine_editors">
+		<createTable schemaName="stapi" tableName="magazines_editors">
 			<column name="magazine_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="magazine_id"
-				baseTableName="magazine_editors"
+				baseTableName="magazines_editors"
 				constraintName="me_book_fkey"
 				referencedColumnNames="id"
 				referencedTableName="book"/>
 		<addForeignKeyConstraint baseColumnNames="staff_id"
-				baseTableName="magazine_editors"
+				baseTableName="magazines_editors"
 				constraintName="me_editor_fkey"
 				referencedColumnNames="id"
 				referencedTableName="staff"/>

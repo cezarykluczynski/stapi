@@ -36,7 +36,7 @@ class EpisodeRepositoryImplTest extends Specification {
 	private static final Integer YEAR_TO = 2370
 	private static final RequestSortDTO SORT = new RequestSortDTO()
 
-	private EpisodeQueryBuilderFactory episodeQueryBuilderMock
+	private EpisodeQueryBuilderFactory episodeQueryBuilderFactoryMock
 
 	private EpisodeRepositoryImpl episodeRepositoryImpl
 
@@ -51,8 +51,8 @@ class EpisodeRepositoryImplTest extends Specification {
 	private Page page
 
 	void setup() {
-		episodeQueryBuilderMock = Mock()
-		episodeRepositoryImpl = new EpisodeRepositoryImpl(episodeQueryBuilderMock)
+		episodeQueryBuilderFactoryMock = Mock()
+		episodeRepositoryImpl = new EpisodeRepositoryImpl(episodeQueryBuilderFactoryMock)
 		episodeQueryBuilder = Mock()
 		pageable = Mock()
 		episodeRequestDTO = Mock()
@@ -65,7 +65,7 @@ class EpisodeRepositoryImplTest extends Specification {
 		Page pageOutput = episodeRepositoryImpl.findMatching(episodeRequestDTO, pageable)
 
 		then:
-		1 * episodeQueryBuilderMock.createQueryBuilder(pageable) >> episodeQueryBuilder
+		1 * episodeQueryBuilderFactoryMock.createQueryBuilder(pageable) >> episodeQueryBuilder
 
 		then: 'uid criteria is set'
 		1 * episodeRequestDTO.uid >> UID
@@ -141,7 +141,7 @@ class EpisodeRepositoryImplTest extends Specification {
 		Page pageOutput = episodeRepositoryImpl.findMatching(episodeRequestDTO, pageable)
 
 		then:
-		1 * episodeQueryBuilderMock.createQueryBuilder(pageable) >> episodeQueryBuilder
+		1 * episodeQueryBuilderFactoryMock.createQueryBuilder(pageable) >> episodeQueryBuilder
 
 		then: 'uid criteria is set to null'
 		1 * episodeRequestDTO.uid >> null

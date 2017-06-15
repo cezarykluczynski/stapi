@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.server.comics.mapper;
 
+import com.cezarykluczynski.stapi.client.v1.rest.model.ComicsBase;
 import com.cezarykluczynski.stapi.model.comics.dto.ComicsRequestDTO;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics;
 import com.cezarykluczynski.stapi.server.comics.dto.ComicsRestBeanParams;
@@ -14,8 +15,8 @@ public interface ComicsBaseRestMapper {
 
 	ComicsRequestDTO mapBase(ComicsRestBeanParams comicsRestBeanParams);
 
-	com.cezarykluczynski.stapi.client.v1.rest.model.ComicsBase mapBase(Comics comics);
+	ComicsBase mapBase(Comics comics);
 
-	List<com.cezarykluczynski.stapi.client.v1.rest.model.ComicsBase> mapBase(List<Comics> comicsList);
+	List<ComicsBase> mapBase(List<Comics> comicsList);
 
 }

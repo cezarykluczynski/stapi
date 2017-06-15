@@ -1,0 +1,51 @@
+type: object
+description: Full magazine, returned when queried using UID
+properties:
+  uid:
+    type: string
+    required: true
+    description: Magazine unique ID
+  title:
+    type: string
+    required: true
+    description: Magazine title
+  publishedYear:
+    type: integer
+    description: Year the magazine was published
+  publishedMonth:
+    type: integer
+    description: Month the magazine was published
+  publishedDay:
+    type: integer
+    description: Day the magazine was published
+  coverYear:
+    type: integer
+    description: Cover publication year
+  coverMonth:
+    type: integer
+    description: Cover publication month
+  coverDay:
+    type: integer
+    description: Cover publication day
+  numberOfPages:
+    type: integer
+    description: Number of pages
+  issueNumber:
+    type: string
+    description: Magazine issue number
+# TODO
+#  magazineSeries:
+#    type: array
+#    items:
+#      $ref: '#/definitions/MagazineSeriesBase'
+#    description: Magazine series this magazine is included in
+  editors:
+    type: array
+    items:
+      $ref: '#/definitions/StaffBase'
+    description: Editors involved in the magazine
+  publishers:
+    type: array
+    items:
+      $ref: '#/definitions/CompanyBase'
+    description: Magazine publishers

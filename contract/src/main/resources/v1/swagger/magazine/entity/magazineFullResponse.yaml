@@ -1,0 +1,6 @@
+type: object
+description: Response object for single magazine query
+properties:
+  magazine:
+    $ref: '#/definitions/MagazineFull'
+    description: Magazine, if found
