@@ -19,7 +19,8 @@ import java.util.Set;
 @Service
 public class MagazineTemplatePageProcessor implements ItemProcessor<Page, MagazineTemplate> {
 
-	private static final Set<String> INVALID_TITLES = Sets.newHashSet(PageTitle.MAGAZINES, PageTitle.PARTWORK);
+	private static final Set<String> INVALID_TITLES = Sets.newHashSet(PageTitle.MAGAZINES, PageTitle.PARTWORK, "The Case of Jonathan Doe Starship",
+			"Star Trek Magazine - The Archives", "Star Trek: The Motion Picture (comic magazine)", "Starfleet Technical Database");
 
 	private final TemplateFinder templateFinder;
 
@@ -51,7 +52,8 @@ public class MagazineTemplatePageProcessor implements ItemProcessor<Page, Magazi
 		magazineTemplate.setTitle(title);
 		magazineTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 
-		Optional<Template> sidebarMagazineTemplateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_MAGAZINE);
+		Optional<Template> sidebarMagazineTemplateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_MAGAZINE,
+				TemplateTitle.SIDEBAR_REFERENCE_BOOK);
 		if (!sidebarMagazineTemplateOptional.isPresent()) {
 			return magazineTemplate;
 		}

@@ -73,11 +73,11 @@ public class MagazineReader implements ItemReader<PageHeader> {
 	}
 
 	private void initializeFromApi() {
-		List<PageHeader> comicStripsList = Lists.newArrayList();
+		List<PageHeader> magazineList = Lists.newArrayList();
 
-		comicStripsList.addAll(categoryApi.getPagesIncludingSubcategories(CategoryTitle.MAGAZINES, MediaWikiSource.MEMORY_ALPHA_EN));
+		magazineList.addAll(categoryApi.getPagesIncludingSubcategories(CategoryTitle.MAGAZINES, MediaWikiSource.MEMORY_ALPHA_EN));
 
-		pageHeaderList = Lists.newArrayList(Sets.newHashSet(comicStripsList));
+		pageHeaderList = Lists.newArrayList(Sets.newHashSet(magazineList));
 	}
 
 }

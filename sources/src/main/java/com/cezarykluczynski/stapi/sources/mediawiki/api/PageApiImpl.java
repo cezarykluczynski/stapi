@@ -185,7 +185,7 @@ public class PageApiImpl implements PageApi {
 			return page;
 		}
 
-		if (wikitext.substring(0, Math.min(200, wikitext.length())).contains(REDIRECT_PREFIX)) {
+		if (StringUtils.containsIgnoreCase(wikitext.substring(0, Math.min(200, wikitext.length())), REDIRECT_PREFIX)) {
 			return redirectFromWikitextOrPage(wikitext, page, title, redirectCount, mediaWikiSource);
 		}
 

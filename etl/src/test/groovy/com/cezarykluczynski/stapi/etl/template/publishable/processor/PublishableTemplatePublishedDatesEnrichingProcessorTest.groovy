@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.publishable.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
+import com.cezarykluczynski.stapi.etl.template.book.dto.ReferenceBookTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear
@@ -44,6 +45,26 @@ class PublishableTemplatePublishedDatesEnrichingProcessorTest extends Specificat
 		DayMonthYear dayMonthYear = DayMonthYear.of(DAY, MONTH, YEAR)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
 		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.PUBLISHED)
+
+		when:
+		publishableTemplatePublishedDatesEnrichingProcessor.enrich(EnrichablePair.of(templatePart, comicsTemplate))
+
+		then:
+		1 * datePartToDayMonthYearProcessorMock.process(templatePart) >> dayMonthYear
+		0 * _
+		comicsTemplate.publishedYear == YEAR
+		comicsTemplate.publishedMonth == MONTH
+		comicsTemplate.publishedDay == DAY
+		comicsTemplate.coverYear == null
+		comicsTemplate.coverMonth == null
+		comicsTemplate.coverDay == null
+	}
+
+	void "when DayMonthYear is found, and template part key contains reference book published date, it is set to PublishableTemplate"() {
+		given:
+		DayMonthYear dayMonthYear = DayMonthYear.of(DAY, MONTH, YEAR)
+		ComicsTemplate comicsTemplate = new ComicsTemplate()
+		Template.Part templatePart = new Template.Part(key: ReferenceBookTemplateParameter.PUBLISHED)
 
 		when:
 		publishableTemplatePublishedDatesEnrichingProcessor.enrich(EnrichablePair.of(templatePart, comicsTemplate))

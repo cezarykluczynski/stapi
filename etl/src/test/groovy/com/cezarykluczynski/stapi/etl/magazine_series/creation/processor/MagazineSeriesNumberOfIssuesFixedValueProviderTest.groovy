@@ -14,13 +14,13 @@ class MagazineSeriesNumberOfIssuesFixedValueProviderTest extends Specification {
 		magazineSeriesNumberOfIssuesFixedValueProvider = new MagazineSeriesNumberOfIssuesFixedValueProvider()
 	}
 
-	void "provides correct range"() {
+	void "provides correct number of issues"() {
 		expect:
 		magazineSeriesNumberOfIssuesFixedValueProvider.getSearchedValue(EXISTING_TITLE).found
 		magazineSeriesNumberOfIssuesFixedValueProvider.getSearchedValue(EXISTING_TITLE).value == 855
 	}
 
-	void "provides missing range"() {
+	void "provides missing number of issues"() {
 		expect:
 		!magazineSeriesNumberOfIssuesFixedValueProvider.getSearchedValue(NONEXISTING_TITLE).found
 		magazineSeriesNumberOfIssuesFixedValueProvider.getSearchedValue(NONEXISTING_TITLE).value == null

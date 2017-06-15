@@ -1,9 +1,15 @@
 package com.cezarykluczynski.stapi.etl.template.magazine.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
+import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.WikitextStaffProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor;
+import com.cezarykluczynski.stapi.etl.magazine.creation.processor.MagazineTemplateNumberOfPagesFixedValueProvider;
+import com.cezarykluczynski.stapi.etl.magazine.creation.processor.MagazineTemplatePublicationDatesFixedValueProvider;
+import com.cezarykluczynski.stapi.etl.template.book.dto.ReferenceBookTemplateParameter;
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear;
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.PublicationDates;
 import com.cezarykluczynski.stapi.etl.template.common.processor.NumberOfPartsProcessor;
 import com.cezarykluczynski.stapi.etl.template.magazine.dto.MagazineTemplate;
 import com.cezarykluczynski.stapi.etl.template.magazine.dto.MagazineTemplateParameter;
@@ -27,14 +33,22 @@ public class MagazineTemplatePartsEnrichingProcessor implements ItemEnrichingPro
 
 	private final PublishableTemplatePublishedDatesEnrichingProcessor publishableTemplatePublishedDatesEnrichingProcessor;
 
+	private final MagazineTemplatePublicationDatesFixedValueProvider magazineTemplatePublicationDatesFixedValueProvider;
+
+	private final MagazineTemplateNumberOfPagesFixedValueProvider magazineTemplateNumberOfPagesFixedValueProvider;
+
 	@Inject
 	public MagazineTemplatePartsEnrichingProcessor(NumberOfPartsProcessor numberOfPartsProcessor,
 			WikitextToCompaniesProcessor wikitextToCompaniesProcessor, WikitextStaffProcessor wikitextStaffProcessor,
-			PublishableTemplatePublishedDatesEnrichingProcessor publishableTemplatePublishedDatesEnrichingProcessor) {
+			PublishableTemplatePublishedDatesEnrichingProcessor publishableTemplatePublishedDatesEnrichingProcessor,
+			MagazineTemplatePublicationDatesFixedValueProvider magazineTemplatePublicationDatesFixedValueProvider,
+			MagazineTemplateNumberOfPagesFixedValueProvider magazineTemplateNumberOfPagesFixedValueProvider) {
 		this.numberOfPartsProcessor = numberOfPartsProcessor;
 		this.wikitextToCompaniesProcessor = wikitextToCompaniesProcessor;
 		this.wikitextStaffProcessor = wikitextStaffProcessor;
 		this.publishableTemplatePublishedDatesEnrichingProcessor = publishableTemplatePublishedDatesEnrichingProcessor;
+		this.magazineTemplatePublicationDatesFixedValueProvider = magazineTemplatePublicationDatesFixedValueProvider;
+		this.magazineTemplateNumberOfPagesFixedValueProvider = magazineTemplateNumberOfPagesFixedValueProvider;
 	}
 
 	@Override
@@ -57,6 +71,7 @@ public class MagazineTemplatePartsEnrichingProcessor implements ItemEnrichingPro
 					break;
 				case MagazineTemplateParameter.RELEASED:
 				case MagazineTemplateParameter.COVER_DATE:
+				case ReferenceBookTemplateParameter.PUBLISHED:
 					publishableTemplatePublishedDatesEnrichingProcessor.enrich(EnrichablePair.of(part, magazineTemplate));
 					break;
 				case MagazineTemplateParameter.PAGES:
@@ -65,6 +80,34 @@ public class MagazineTemplatePartsEnrichingProcessor implements ItemEnrichingPro
 				default:
 					break;
 			}
+		}
+
+		maybeAddPublicationDate(magazineTemplate);
+		maybeAddNumberOfPages(magazineTemplate);
+	}
+
+	private void maybeAddPublicationDate(MagazineTemplate magazineTemplate) {
+		FixedValueHolder<PublicationDates> publicationDatesFixedValueHolder = magazineTemplatePublicationDatesFixedValueProvider
+				.getSearchedValue(magazineTemplate.getTitle());
+		if (publicationDatesFixedValueHolder.isFound()) {
+			PublicationDates publicationDates = publicationDatesFixedValueHolder.getValue();
+			DayMonthYear publicationDate = publicationDates.getPublicationDate();
+			DayMonthYear coverDate = publicationDates.getCoverDate();
+			magazineTemplate.setPublishedYear(publicationDate.getYear());
+			magazineTemplate.setPublishedMonth(publicationDate.getMonth());
+			magazineTemplate.setPublishedDay(publicationDate.getDay());
+			magazineTemplate.setCoverYear(coverDate.getYear());
+			magazineTemplate.setCoverMonth(coverDate.getMonth());
+			magazineTemplate.setCoverDay(coverDate.getDay());
+		}
+	}
+
+	private void maybeAddNumberOfPages(MagazineTemplate magazineTemplate) {
+		FixedValueHolder<Integer> numberOfIssuesFixedValueHolder = magazineTemplateNumberOfPagesFixedValueProvider
+				.getSearchedValue(magazineTemplate.getTitle());
+
+		if (numberOfIssuesFixedValueHolder.isFound()) {
+			magazineTemplate.setNumberOfPages(numberOfIssuesFixedValueHolder.getValue());
 		}
 	}
 

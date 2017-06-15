@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.publishable.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.template.book.dto.ReferenceBookTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DatePartToDayMonthYearProcessor;
@@ -35,7 +36,8 @@ public class PublishableTemplatePublishedDatesEnrichingProcessor
 			return;
 		}
 
-		if (ComicsTemplateParameter.PUBLISHED.equals(templatePartKey) || MagazineTemplateParameter.RELEASED.equals(templatePartKey)) {
+		if (ComicsTemplateParameter.PUBLISHED.equals(templatePartKey) || ReferenceBookTemplateParameter.PUBLISHED.equals(templatePartKey)
+				|| MagazineTemplateParameter.RELEASED.equals(templatePartKey)) {
 			publishableTemplate.setPublishedYear(dayMonthYear.getYear());
 			publishableTemplate.setPublishedMonth(dayMonthYear.getMonth());
 			publishableTemplate.setPublishedDay(dayMonthYear.getDay());

@@ -83,7 +83,7 @@ class MagazineTemplatePageProcessorTest extends Specification {
 		then:
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_MAGAZINE_SERIES) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
-		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_MAGAZINE) >> Optional.empty()
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_MAGAZINE, TemplateTitle.SIDEBAR_REFERENCE_BOOK) >> Optional.empty()
 		0 * _
 		comicsTemplate.title == TITLE
 		comicsTemplate.page == modelPage
@@ -102,7 +102,8 @@ class MagazineTemplatePageProcessorTest extends Specification {
 		then:
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_MAGAZINE_SERIES) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
-		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_MAGAZINE) >> Optional.of(sidebarMagazineTemplate)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_MAGAZINE, TemplateTitle.SIDEBAR_REFERENCE_BOOK) >>
+				Optional.of(sidebarMagazineTemplate)
 		1 * magazineTemplatePartsEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 			EnrichablePair<List<Template.Part>, MagazineTemplate> enrichablePair ->
 				assert enrichablePair.input[0] == templatePart
