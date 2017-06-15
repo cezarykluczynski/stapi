@@ -15,6 +15,8 @@ public class MagazineTemplateNumberOfPagesFixedValueProvider implements FixedVal
 	static {
 		TITLES_TO_NUMBER_OF_PAGES.put("Star Trek 30 Years", 168);
 		TITLES_TO_NUMBER_OF_PAGES.put("Star Trek: The Lost Photographs", 100);
+		TITLES_TO_NUMBER_OF_PAGES.put("Star Trek Monthly issue 100", 100);
+		TITLES_TO_NUMBER_OF_PAGES.put("Star Trek 25th Anniversary Magazine", 97);
 	}
 
 	@Override

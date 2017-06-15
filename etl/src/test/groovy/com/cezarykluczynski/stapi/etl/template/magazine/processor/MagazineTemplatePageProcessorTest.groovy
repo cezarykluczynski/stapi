@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.magazine.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
+import com.cezarykluczynski.stapi.etl.magazine_series.creation.service.MagazineSeriesDetector
 import com.cezarykluczynski.stapi.etl.template.magazine.dto.MagazineTemplate
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
@@ -19,6 +20,8 @@ class MagazineTemplatePageProcessorTest extends Specification {
 
 	private TemplateFinder templateFinderMock
 
+	private MagazineSeriesDetector magazineSeriesDetectorMock
+
 	private PageBindingService pageBindingServiceMock
 
 	private MagazineTemplatePartsEnrichingProcessor magazineTemplatePartsEnrichingProcessorMock
@@ -27,9 +30,10 @@ class MagazineTemplatePageProcessorTest extends Specification {
 
 	void setup() {
 		templateFinderMock = Mock()
+		magazineSeriesDetectorMock = Mock()
 		pageBindingServiceMock = Mock()
 		magazineTemplatePartsEnrichingProcessorMock = Mock()
-		magazineTemplatePageProcessor = new MagazineTemplatePageProcessor(templateFinderMock, pageBindingServiceMock,
+		magazineTemplatePageProcessor = new MagazineTemplatePageProcessor(templateFinderMock, magazineSeriesDetectorMock, pageBindingServiceMock,
 				magazineTemplatePartsEnrichingProcessorMock)
 	}
 
@@ -58,7 +62,20 @@ class MagazineTemplatePageProcessorTest extends Specification {
 		magazineTemplate == null
 	}
 
-	void "returns null when sidebar magazine series template is not found"() {
+	void "returns null when MagazineSeriesDetector detect magazine series"() {
+		given:
+		Page page = new Page()
+
+		when:
+		MagazineTemplate magazineTemplate = magazineTemplatePageProcessor.process(page)
+
+		then:
+		1 * magazineSeriesDetectorMock.isMagazineSeries(page) >> true
+		0 * _
+		magazineTemplate == null
+	}
+
+	void "returns null when sidebar magazine series template is found"() {
 		given:
 		Page page = new Page(title: TITLE)
 		Template sidebarMagazineSeriesTemplate = Mock()
@@ -67,6 +84,7 @@ class MagazineTemplatePageProcessorTest extends Specification {
 		MagazineTemplate comicsTemplate = magazineTemplatePageProcessor.process(page)
 
 		then:
+		1 * magazineSeriesDetectorMock.isMagazineSeries(page) >> false
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_MAGAZINE_SERIES) >> Optional.of(sidebarMagazineSeriesTemplate)
 		0 * _
 		comicsTemplate == null
@@ -81,6 +99,7 @@ class MagazineTemplatePageProcessorTest extends Specification {
 		MagazineTemplate comicsTemplate = magazineTemplatePageProcessor.process(page)
 
 		then:
+		1 * magazineSeriesDetectorMock.isMagazineSeries(page) >> false
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_MAGAZINE_SERIES) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_MAGAZINE, TemplateTitle.SIDEBAR_REFERENCE_BOOK) >> Optional.empty()
@@ -100,6 +119,7 @@ class MagazineTemplatePageProcessorTest extends Specification {
 		MagazineTemplate comicsTemplate = magazineTemplatePageProcessor.process(page)
 
 		then:
+		1 * magazineSeriesDetectorMock.isMagazineSeries(page) >> false
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_MAGAZINE_SERIES) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_MAGAZINE, TemplateTitle.SIDEBAR_REFERENCE_BOOK) >>

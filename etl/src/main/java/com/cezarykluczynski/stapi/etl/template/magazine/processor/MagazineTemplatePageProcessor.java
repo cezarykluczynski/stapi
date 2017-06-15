@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.magazine.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
+import com.cezarykluczynski.stapi.etl.magazine_series.creation.service.MagazineSeriesDetector;
 import com.cezarykluczynski.stapi.etl.template.magazine.dto.MagazineTemplate;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
@@ -24,14 +25,17 @@ public class MagazineTemplatePageProcessor implements ItemProcessor<Page, Magazi
 
 	private final TemplateFinder templateFinder;
 
+	private final MagazineSeriesDetector magazineSeriesDetector;
+
 	private final PageBindingService pageBindingService;
 
 	private final MagazineTemplatePartsEnrichingProcessor magazineTemplatePartsEnrichingProcessor;
 
 	@Inject
-	public MagazineTemplatePageProcessor(TemplateFinder templateFinder, PageBindingService pageBindingService,
-			MagazineTemplatePartsEnrichingProcessor magazineTemplatePartsEnrichingProcessor) {
+	public MagazineTemplatePageProcessor(TemplateFinder templateFinder, MagazineSeriesDetector magazineSeriesDetector,
+			PageBindingService pageBindingService, MagazineTemplatePartsEnrichingProcessor magazineTemplatePartsEnrichingProcessor) {
 		this.templateFinder = templateFinder;
+		this.magazineSeriesDetector = magazineSeriesDetector;
 		this.pageBindingService = pageBindingService;
 		this.magazineTemplatePartsEnrichingProcessor = magazineTemplatePartsEnrichingProcessor;
 	}
@@ -64,7 +68,7 @@ public class MagazineTemplatePageProcessor implements ItemProcessor<Page, Magazi
 	}
 
 	private boolean shouldBeFilteredOut(Page item) {
-		return INVALID_TITLES.contains(item.getTitle()) || !item.getRedirectPath().isEmpty();
+		return INVALID_TITLES.contains(item.getTitle()) || !item.getRedirectPath().isEmpty() || magazineSeriesDetector.isMagazineSeries(item);
 	}
 
 

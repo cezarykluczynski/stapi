@@ -21,6 +21,14 @@ public class MagazineSeriesPublicationDatesFixedValueProvider implements FixedVa
 		TITLES_TO_PUBLICATION_DATES.put("Inside Star Trek", MonthYearRange.of(MonthYear.of(null, 1968), MonthYear.of(null, 1979)));
 		TITLES_TO_PUBLICATION_DATES.put("Cinefex", MonthYearRange.of(MonthYear.of(3, 1980), MonthYear.of(null, null)));
 		TITLES_TO_PUBLICATION_DATES.put("Cinefantastique", MonthYearRange.of(MonthYear.of(null, 1970), MonthYear.of(null, 2006)));
+		TITLES_TO_PUBLICATION_DATES.put("Fantastic Films", MonthYearRange.of(MonthYear.of(4, 1978), MonthYear.of(10, 1985)));
+		TITLES_TO_PUBLICATION_DATES.put("T-Negative", MonthYearRange.of(MonthYear.of(null, 1969), MonthYear.of(null, 1979)));
+		TITLES_TO_PUBLICATION_DATES.put("Star Trek: The Next Generation - The Official Poster Magazine", MonthYearRange.of(MonthYear.of(5, 1991),
+				MonthYear.of(12, 1995)));
+		TITLES_TO_PUBLICATION_DATES.put("The Electric Company Magazine", MonthYearRange.of(MonthYear.of(null, 1972), MonthYear.of(null, 1987)));
+		TITLES_TO_PUBLICATION_DATES.put("Stardate", MonthYearRange.of(MonthYear.of(11, 1984), MonthYear.of(2, 1988)));
+		TITLES_TO_PUBLICATION_DATES.put("The Official Star Trek The Next Generation: Build the USS Enterprise NCC-1701-D",
+				MonthYearRange.of(MonthYear.of(6, 2011), MonthYear.of(8, 2011)));
 	}
 
 	@Override

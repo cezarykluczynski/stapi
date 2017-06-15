@@ -21,6 +21,11 @@ public class MagazineSeriesNumberOfIssuesFixedValueProvider implements FixedValu
 		TITLES_TO_NUMBER_OF_ISSUES.put("Inside Star Trek", 30);
 		TITLES_TO_NUMBER_OF_ISSUES.put("Star Trek: The Magazine", 52);
 		TITLES_TO_NUMBER_OF_ISSUES.put("Cinefantastique", 198);
+		TITLES_TO_NUMBER_OF_ISSUES.put("Fantastic Films", 46);
+		TITLES_TO_NUMBER_OF_ISSUES.put("T-Negative", 35);
+		TITLES_TO_NUMBER_OF_ISSUES.put("Star Trek: The Next Generation - The Official Poster Magazine", 96);
+		TITLES_TO_NUMBER_OF_ISSUES.put("Stardate", 16);
+		TITLES_TO_NUMBER_OF_ISSUES.put("The Official Star Trek The Next Generation: Build the USS Enterprise NCC-1701-D", 7);
 	}
 
 	@Override

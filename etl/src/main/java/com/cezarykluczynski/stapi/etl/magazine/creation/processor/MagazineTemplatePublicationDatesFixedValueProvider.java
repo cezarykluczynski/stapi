@@ -23,6 +23,8 @@ public class MagazineTemplatePublicationDatesFixedValueProvider implements Fixed
 				DayMonthYear.of(null, 4, 1989)));
 		TITLES_TO_PUBLICATION_DATES.put("Star Trek: The Official Fan Club Magazine issue 69", PublicationDates.of(DayMonthYear.of(null, null, null),
 				DayMonthYear.of(null, 8, 1989)));
+		TITLES_TO_PUBLICATION_DATES.put("The Star Trek Files: The Animated Voyages End", PublicationDates.of(DayMonthYear.of(null, null, 1985),
+				DayMonthYear.of(null, null, null)));
 	}
 
 	@Override
