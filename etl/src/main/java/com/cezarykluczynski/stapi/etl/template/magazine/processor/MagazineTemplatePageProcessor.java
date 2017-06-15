@@ -71,5 +71,4 @@ public class MagazineTemplatePageProcessor implements ItemProcessor<Page, Magazi
 		return INVALID_TITLES.contains(item.getTitle()) || !item.getRedirectPath().isEmpty() || magazineSeriesDetector.isMagazineSeries(item);
 	}
 
-
 }

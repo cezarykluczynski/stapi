@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.WikitextStaffProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.magazine_series.WikitextToMagazineSeriesProcessor;
 import com.cezarykluczynski.stapi.etl.magazine.creation.processor.MagazineTemplateNumberOfPagesFixedValueProvider;
 import com.cezarykluczynski.stapi.etl.magazine.creation.processor.MagazineTemplatePublicationDatesFixedValueProvider;
 import com.cezarykluczynski.stapi.etl.template.book.dto.ReferenceBookTemplateParameter;
@@ -25,6 +26,8 @@ import java.util.List;
 @Slf4j
 public class MagazineTemplatePartsEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<List<Template.Part>, MagazineTemplate>> {
 
+	private final WikitextToMagazineSeriesProcessor wikitextToMagazineSeriesProcessor;
+
 	private final NumberOfPartsProcessor numberOfPartsProcessor;
 
 	private final WikitextToCompaniesProcessor wikitextToCompaniesProcessor;
@@ -38,11 +41,13 @@ public class MagazineTemplatePartsEnrichingProcessor implements ItemEnrichingPro
 	private final MagazineTemplateNumberOfPagesFixedValueProvider magazineTemplateNumberOfPagesFixedValueProvider;
 
 	@Inject
-	public MagazineTemplatePartsEnrichingProcessor(NumberOfPartsProcessor numberOfPartsProcessor,
-			WikitextToCompaniesProcessor wikitextToCompaniesProcessor, WikitextStaffProcessor wikitextStaffProcessor,
+	public MagazineTemplatePartsEnrichingProcessor(WikitextToMagazineSeriesProcessor wikitextToMagazineSeriesProcessor,
+			NumberOfPartsProcessor numberOfPartsProcessor, WikitextToCompaniesProcessor wikitextToCompaniesProcessor,
+			WikitextStaffProcessor wikitextStaffProcessor,
 			PublishableTemplatePublishedDatesEnrichingProcessor publishableTemplatePublishedDatesEnrichingProcessor,
 			MagazineTemplatePublicationDatesFixedValueProvider magazineTemplatePublicationDatesFixedValueProvider,
 			MagazineTemplateNumberOfPagesFixedValueProvider magazineTemplateNumberOfPagesFixedValueProvider) {
+		this.wikitextToMagazineSeriesProcessor = wikitextToMagazineSeriesProcessor;
 		this.numberOfPartsProcessor = numberOfPartsProcessor;
 		this.wikitextToCompaniesProcessor = wikitextToCompaniesProcessor;
 		this.wikitextStaffProcessor = wikitextStaffProcessor;
@@ -60,6 +65,9 @@ public class MagazineTemplatePartsEnrichingProcessor implements ItemEnrichingPro
 			String value = part.getValue();
 
 			switch (key) {
+				case MagazineTemplateParameter.PUBLICATION:
+					magazineTemplate.getMagazineSeries().addAll(wikitextToMagazineSeriesProcessor.process(value));
+					break;
 				case MagazineTemplateParameter.ISSUE:
 					magazineTemplate.setIssueNumber(value);
 					break;

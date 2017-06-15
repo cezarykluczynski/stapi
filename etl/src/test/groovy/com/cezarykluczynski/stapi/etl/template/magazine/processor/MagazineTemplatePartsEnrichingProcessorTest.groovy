@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder
 import com.cezarykluczynski.stapi.etl.common.processor.WikitextStaffProcessor
 import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor
+import com.cezarykluczynski.stapi.etl.common.processor.magazine_series.WikitextToMagazineSeriesProcessor
 import com.cezarykluczynski.stapi.etl.magazine.creation.processor.MagazineTemplateNumberOfPagesFixedValueProvider
 import com.cezarykluczynski.stapi.etl.magazine.creation.processor.MagazineTemplatePublicationDatesFixedValueProvider
 import com.cezarykluczynski.stapi.etl.template.book.dto.ReferenceBookTemplateParameter
@@ -15,6 +16,7 @@ import com.cezarykluczynski.stapi.etl.template.magazine.dto.MagazineTemplate
 import com.cezarykluczynski.stapi.etl.template.magazine.dto.MagazineTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.publishable.processor.PublishableTemplatePublishedDatesEnrichingProcessor
 import com.cezarykluczynski.stapi.model.company.entity.Company
+import com.cezarykluczynski.stapi.model.magazine_series.entity.MagazineSeries
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
@@ -23,6 +25,7 @@ import spock.lang.Specification
 
 class MagazineTemplatePartsEnrichingProcessorTest extends Specification {
 
+	private static final String PUBLICATION = 'PUBLICATION'
 	private static final String PUBLISHER = 'PUBLISHER'
 	private static final String RELEASED = 'PUBLISHED'
 	private static final String PAGES_STRING = '32'
@@ -36,6 +39,8 @@ class MagazineTemplatePartsEnrichingProcessorTest extends Specification {
 	protected static final Integer COVER_YEAR = 1991
 	protected static final Integer COVER_MONTH = 1
 	protected static final Integer COVER_DAY = 2
+
+	private WikitextToMagazineSeriesProcessor wikitextToMagazineSeriesProcessorMock
 
 	private NumberOfPartsProcessor numberOfPartsProcessorMock
 
@@ -52,15 +57,37 @@ class MagazineTemplatePartsEnrichingProcessorTest extends Specification {
 	private MagazineTemplatePartsEnrichingProcessor magazineTemplatePartsEnrichingProcessor
 
 	void setup() {
+		wikitextToMagazineSeriesProcessorMock = Mock()
 		numberOfPartsProcessorMock = Mock()
 		wikitextToCompaniesProcessorMock = Mock()
 		wikitextStaffProcessorMock = Mock()
 		publishableTemplatePublishedDatesEnrichingProcessorMock = Mock()
 		magazineTemplatePublicationDatesFixedValueProviderMock = Mock()
 		magazineTemplateNumberOfPagesFixedValueProviderMock = Mock()
-		magazineTemplatePartsEnrichingProcessor = new MagazineTemplatePartsEnrichingProcessor(numberOfPartsProcessorMock,
-				wikitextToCompaniesProcessorMock, wikitextStaffProcessorMock, publishableTemplatePublishedDatesEnrichingProcessorMock,
-				magazineTemplatePublicationDatesFixedValueProviderMock, magazineTemplateNumberOfPagesFixedValueProviderMock)
+		magazineTemplatePartsEnrichingProcessor = new MagazineTemplatePartsEnrichingProcessor(wikitextToMagazineSeriesProcessorMock,
+				numberOfPartsProcessorMock, wikitextToCompaniesProcessorMock, wikitextStaffProcessorMock,
+				publishableTemplatePublishedDatesEnrichingProcessorMock, magazineTemplatePublicationDatesFixedValueProviderMock,
+				magazineTemplateNumberOfPagesFixedValueProviderMock)
+	}
+
+	void "sets magazine series from WikitextToMagazineSeriesProcessor"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: MagazineTemplateParameter.PUBLICATION, value: PUBLICATION)
+		MagazineTemplate magazineTemplate = new MagazineTemplate()
+		MagazineSeries magazineSeries1 = Mock()
+		MagazineSeries magazineSeries2 = Mock()
+
+		when:
+		magazineTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), magazineTemplate))
+
+		then:
+		1 * wikitextToMagazineSeriesProcessorMock.process(PUBLICATION) >> Sets.newHashSet(magazineSeries1, magazineSeries2)
+		1 * magazineTemplatePublicationDatesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
+		1 * magazineTemplateNumberOfPagesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
+		0 * _
+		magazineTemplate.magazineSeries.size() == 2
+		magazineTemplate.magazineSeries.contains magazineSeries1
+		magazineTemplate.magazineSeries.contains magazineSeries2
 	}
 
 	void "sets issue number"() {

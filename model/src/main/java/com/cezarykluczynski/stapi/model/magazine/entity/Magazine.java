@@ -67,7 +67,7 @@ public class Magazine extends PageAwareEntity implements PageAware {
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "magazines_magazine_series",
-			joinColumns = @JoinColumn(name = "comics_id", nullable = false, updatable = false),
+			joinColumns = @JoinColumn(name = "magazine_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "magazine_series_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<MagazineSeries> magazineSeries = Sets.newHashSet();
