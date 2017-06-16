@@ -43,9 +43,9 @@ class MagazineFullSoapMapperTest extends AbstractMagazineMapperTest {
 		magazineFull.coverDay == COVER_DAY
 		magazineFull.numberOfPages == NUMBER_OF_PAGES
 		magazineFull.issueNumber == ISSUE_NUMBER
+		magazineFull.magazineSeries.size() == magazine.magazineSeries.size()
 		magazineFull.editors.size() == magazine.editors.size()
 		magazineFull.publishers.size() == magazine.publishers.size()
-		// TODO magazine series
 	}
 
 }

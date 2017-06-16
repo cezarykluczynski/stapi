@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+		name="MagazineSeries"
+		targetNamespace="http://stapi.co/api/v1/soap/magazineSeries"
+		xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+		xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+		xmlns:stapi="http://stapi.co/api/v1/soap/magazineSeries"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<xs:schema targetNamespace="http://stapi.co/api/v1/soap/magazineSeries">
+			<xs:include schemaLocation="magazineSeries.xsd"/>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="MagazineSeriesBaseRequest">
+		<wsdl:part name="request" element="stapi:MagazineSeriesBaseRequest"/>
+	</wsdl:message>
+	<wsdl:message name="MagazineSeriesFullRequest">
+		<wsdl:part name="request" element="stapi:MagazineSeriesFullRequest"/>
+	</wsdl:message>
+	<wsdl:message name="MagazineSeriesBaseResponse">
+		<wsdl:part name="response" element="stapi:MagazineSeriesBaseResponse"/>
+	</wsdl:message>
+	<wsdl:message name="MagazineSeriesFullResponse">
+		<wsdl:part name="response" element="stapi:MagazineSeriesFullResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="MagazineSeriesPortType">
+		<wsdl:operation name="getMagazineSeriesBase">
+			<wsdl:input name="getMagazineSeriesBaseRequest" message="stapi:MagazineSeriesBaseRequest"/>
+			<wsdl:output name="getMagazineSeriesBaseResponse" message="stapi:MagazineSeriesBaseResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getMagazineSeriesFull">
+			<wsdl:input name="getMagazineSeriesFullRequest" message="stapi:MagazineSeriesFullRequest"/>
+			<wsdl:output name="getMagazineSeriesFullResponse" message="stapi:MagazineSeriesFullResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="MagazineSeriesBinding" type="stapi:MagazineSeriesPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getMagazineSeriesBase">
+			<wsdl:input name="getMagazineSeriesBaseRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getMagazineSeriesBaseResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getMagazineSeriesFull">
+			<wsdl:input name="getMagazineSeriesFullRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getMagazineSeriesFullResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="MagazineSeriesService">
+		<wsdl:port name="MagazineSeriesPortType" binding="stapi:MagazineSeriesBinding">
+			<soap:address location="http://stapi.co/api/v1/soap/magazineSeries"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

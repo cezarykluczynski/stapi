@@ -65,6 +65,10 @@ paths:
     $ref: ./magazine/path/magazine.path.yaml
   /magazine/search:
     $ref: ./magazine/path/magazineSearch.path.yaml
+  /magazineSeries:
+    $ref: ./magazine_series/path/magazineSeries.path.yaml
+  /magazineSeries/search:
+    $ref: ./magazine_series/path/magazineSeriesSearch.path.yaml
   /movie:
     $ref: ./movie/path/movie.path.yaml
   /movie/search:
@@ -234,6 +238,16 @@ definitions:
     $ref: ./magazine/entity/magazineBaseResponse.yaml
   MagazineFullResponse:
     $ref: ./magazine/entity/magazineFullResponse.yaml
+  MagazineSeriesHeader:
+    $ref: ./magazine_series/entity/magazineSeriesHeader.yaml
+  MagazineSeriesBase:
+    $ref: ./magazine_series/entity/magazineSeriesBase.yaml
+  MagazineSeriesFull:
+    $ref: ./magazine_series/entity/magazineSeriesFull.yaml
+  MagazineSeriesBaseResponse:
+    $ref: ./magazine_series/entity/magazineSeriesBaseResponse.yaml
+  MagazineSeriesFullResponse:
+    $ref: ./magazine_series/entity/magazineSeriesFullResponse.yaml
   MovieHeader:
     $ref: ./movie/entity/movieHeader.yaml
   MovieBase:

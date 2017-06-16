@@ -33,12 +33,11 @@ properties:
   issueNumber:
     type: string
     description: Magazine issue number
-# TODO
-#  magazineSeries:
-#    type: array
-#    items:
-#      $ref: '#/definitions/MagazineSeriesBase'
-#    description: Magazine series this magazine is included in
+  magazineSeries:
+    type: array
+    items:
+      $ref: '#/definitions/MagazineSeriesBase'
+    description: Magazine series this magazine is included in
   editors:
     type: array
     items:

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:common="http://stapi.co/api/v1/soap/common"
+		xmlns:magazine="http://stapi.co/api/v1/soap/magazine"
+		xmlns:magazineSeries="http://stapi.co/api/v1/soap/magazineSeries"
+		xmlns:company="http://stapi.co/api/v1/soap/company"
+		xmlns:staff="http://stapi.co/api/v1/soap/staff"
+		elementFormDefault="qualified"
+		targetNamespace="http://stapi.co/api/v1/soap/magazineSeries">
+	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/magazine" schemaLocation="magazine.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/company" schemaLocation="company.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/staff" schemaLocation="staff.xsd"/>
+	<xs:element name="MagazineSeriesBaseRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for magazine series search</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Request">
+					<xs:sequence>
+						<xs:element name="title" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Magazine series title</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="publishedYear" type="common:IntegerRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Starting and ending year the magazine series was published</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="numberOfIssues" type="common:IntegerRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Minimal and maximal number of issues</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="MagazineSeriesFullRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for single magazine series query</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:ApiRequest">
+					<xs:sequence>
+						<xs:element name="uid" type="xs:string" minOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Magazine series unique ID</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="MagazineSeriesBaseResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for magazine series search</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Response">
+					<xs:sequence>
+						<xs:element name="magazineSeries" type="magazineSeries:MagazineSeriesBase" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>List of magazine series matching given criteria</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="MagazineSeriesFullResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for single magazine series query</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="magazineSeries" type="magazineSeries:MagazineSeriesFull">
+					<xs:annotation>
+						<xs:documentation>Magazine series, if found</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="MagazineSeriesHeader">
+		<xs:annotation>
+			<xs:documentation>Header magazine series, embedded in other objects</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Magazine series unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="title" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Magazine series title</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MagazineSeriesBase">
+		<xs:annotation>
+			<xs:documentation>Base magazine series, returned in search results</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Magazine series unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="title" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Magazine series title</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publishedYearFrom" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Year from which the magazine series was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publishedMonthFrom" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Month from which the magazine series was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publishedYearTo" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Year to which the magazine series was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publishedMonthTo" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Month to which the magazine series was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="numberOfIssues" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Number of issues in magazine series</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MagazineSeriesFull">
+		<xs:annotation>
+			<xs:documentation>Full magazine series, returned when queried using UID</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Magazine series unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="title" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Magazine series title</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publishedYearFrom" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Year from which the magazine series was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publishedMonthFrom" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Month from which the magazine series was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publishedYearTo" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Year to which the magazine series was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publishedMonthTo" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Month to which the magazine series was published</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="numberOfIssues" type="xs:int" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Number of issues in magazine series</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence>
+				<xs:element name="publishers" type="company:CompanyBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Companies that published this magazine series</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="editors" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Editors involved in the magazine series</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="magazines" type="magazine:MagazineBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Magazine included in this magazine series</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

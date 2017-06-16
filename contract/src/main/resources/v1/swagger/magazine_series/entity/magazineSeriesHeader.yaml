@@ -1,0 +1,11 @@
+type: object
+description: Header book series, embedded in other objects
+properties:
+  uid:
+    type: string
+    required: true
+    description: Magazine series unique ID
+  title:
+    type: string
+    required: true
+    description: Magazine series title

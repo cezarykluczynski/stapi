@@ -1,0 +1,41 @@
+type: object
+description: Full magazine series, returned when queried using UID
+properties:
+  uid:
+    type: string
+    required: true
+    description: Magazine series unique ID
+  title:
+    type: string
+    required: true
+    description: Magazine series title
+  publishedYearFrom:
+    type: integer
+    description: Year from which the magazine series was published
+  publishedMonthFrom:
+    type: integer
+    description: Month from which the magazine series was published
+  publishedYearTo:
+    type: integer
+    description: Year to which the magazine series was published
+  publishedMonthTo:
+    type: integer
+    description: Month to which the magazine series was published
+  numberOfIssues:
+    type: integer
+    description: Number of issues
+  publishers:
+    type: array
+    items:
+      $ref: '#/definitions/CompanyBase'
+    description: Companies that published this magazine series
+  editors:
+    type: array
+    items:
+      $ref: '#/definitions/StaffBase'
+    description: Editors involved in the magazine series
+  magazines:
+    type: array
+    items:
+      $ref: '#/definitions/MagazineBase'
+    description: Magazines included in this magazine series

@@ -25,6 +25,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.FoodService;
 import com.cezarykluczynski.stapi.client.v1.soap.LocationPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.LocationService;
 import com.cezarykluczynski.stapi.client.v1.soap.MagazinePortType;
+import com.cezarykluczynski.stapi.client.v1.soap.MagazineSeriesPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.MagazineSeriesService;
 import com.cezarykluczynski.stapi.client.v1.soap.MagazineService;
 import com.cezarykluczynski.stapi.client.v1.soap.MoviePortType;
 import com.cezarykluczynski.stapi.client.v1.soap.MovieService;
@@ -104,6 +106,9 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 	@Getter
 	private MagazinePortType magazinePortType;
 
+	@Getter
+	private MagazineSeriesPortType magazineSeriesPortType;
+
 	public StapiSoapPortTypesProvider() {
 		seriesPortType = new SeriesService().getSeriesPortType();
 		performerPortType = new PerformerService().getPerformerPortType();
@@ -124,6 +129,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		bookSeriesPortType = new BookSeriesService().getBookSeriesPortType();
 		bookPortType = new BookService().getBookPortType();
 		magazinePortType = new MagazineService().getMagazinePortType();
+		magazineSeriesPortType = new MagazineSeriesService().getMagazineSeriesPortType();
 	}
 
 	public StapiSoapPortTypesProvider(String apiUrl) {
@@ -147,6 +153,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		bookSeriesPortType = changeUrl(new BookSeriesService().getBookSeriesPortType());
 		bookPortType = changeUrl(new BookService().getBookPortType());
 		magazinePortType = changeUrl(new MagazineService().getMagazinePortType());
+		magazineSeriesPortType = changeUrl(new MagazineSeriesService().getMagazineSeriesPortType());
 	}
 
 	private <T> T changeUrl(T service) {

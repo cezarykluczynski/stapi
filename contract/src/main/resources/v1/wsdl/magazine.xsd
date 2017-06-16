@@ -3,6 +3,7 @@
 		xmlns:xs="http://www.w3.org/2001/XMLSchema"
 		xmlns:common="http://stapi.co/api/v1/soap/common"
 		xmlns:magazine="http://stapi.co/api/v1/soap/magazine"
+		xmlns:magazineSeries="http://stapi.co/api/v1/soap/magazineSeries"
 		xmlns:staff="http://stapi.co/api/v1/soap/staff"
 		xmlns:company="http://stapi.co/api/v1/soap/company"
 		elementFormDefault="qualified"
@@ -10,6 +11,7 @@
 	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/staff" schemaLocation="staff.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/company" schemaLocation="company.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/magazineSeries" schemaLocation="magazineSeries.xsd"/>
 	<xs:element name="MagazineBaseRequest">
 		<xs:annotation>
 			<xs:documentation>Request object for magazine search</xs:documentation>
@@ -217,14 +219,13 @@
 					<xs:documentation>Magazine issue number</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<!--TODO-->
-			<!--<xs:sequence>-->
-				<!--<xs:element name="magazineSeries" type="magazineSeries:MagazineSeriesBase" minOccurs="0" maxOccurs="unbounded">-->
-					<!--<xs:annotation>-->
-						<!--<xs:documentation>Magazine series this magazine is included in</xs:documentation>-->
-					<!--</xs:annotation>-->
-				<!--</xs:element>-->
-			<!--</xs:sequence>-->
+			<xs:sequence>
+				<xs:element name="magazineSeries" type="magazineSeries:MagazineSeriesBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Magazine series this magazine is included in</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
 			<xs:sequence>
 				<xs:element name="editors" type="staff:StaffBase" minOccurs="0" maxOccurs="unbounded">
 					<xs:annotation>

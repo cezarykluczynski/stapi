@@ -1,0 +1,22 @@
+get:
+  description: Retrival of a single magazine series
+  parameters:
+    - name: uid
+      in: query
+      type: string
+      required: true
+      description: Magazine series unique ID
+    - name: apiKey
+      in: query
+      type: string
+      description: API key
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/MagazineSeriesFullResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - MagazineSeries

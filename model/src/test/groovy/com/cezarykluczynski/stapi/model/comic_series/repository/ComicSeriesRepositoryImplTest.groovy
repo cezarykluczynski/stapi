@@ -31,10 +31,6 @@ class ComicSeriesRepositoryImplTest extends AbstractComicSeriesTest {
 
 	private Page page
 
-	private Page performersPage
-
-	private Page charactersPage
-
 	void setup() {
 		comicSeriesQueryBuilderFactory = Mock()
 		comicSeriesRepositoryImpl = new ComicSeriesRepositoryImpl(comicSeriesQueryBuilderFactory)
@@ -42,8 +38,6 @@ class ComicSeriesRepositoryImplTest extends AbstractComicSeriesTest {
 		pageable = Mock()
 		comicSeriesRequestDTO = Mock()
 		page = Mock()
-		performersPage = Mock()
-		charactersPage = Mock()
 		comicSeries = Mock()
 	}
 

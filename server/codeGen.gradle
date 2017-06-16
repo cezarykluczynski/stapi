@@ -80,9 +80,13 @@ class EndpointScaffoldingGeneratorTask extends DefaultTask {
 
 	String targetEntityName
 
+	String targetEntityNameLc
+
 	String targetPackageName
 
 	String sourceEntityName
+
+	String sourceEntityNameLc
 
 	String sourcePackageName
 
@@ -111,11 +115,15 @@ class EndpointScaffoldingGeneratorTask extends DefaultTask {
 			scaffoldType = 'endpoint'
 		}
 
-		sourcePackageName = sourceEntityName[0].toLowerCase() + sourceEntityName.substring(1)
-		sourceEntityName = sourcePackageName.capitalize()
+		sourcePackageName = underscoreSeparated(sourceEntityName)
+		println "sourcePackageName: " + sourcePackageName
+		sourceEntityName = sourceEntityName.capitalize()
+		sourceEntityNameLc = sourceEntityName[0].toLowerCase() + sourceEntityName.substring(1)
 
-		targetPackageName = targetEntityName[0].toLowerCase() + targetEntityName.substring(1)
-		targetEntityName = targetPackageName.capitalize()
+		targetPackageName = underscoreSeparated(targetEntityName)
+		println "targetPackageName: " + targetPackageName
+		targetEntityName = targetEntityName.capitalize()
+		targetEntityNameLc = targetEntityName[0].toLowerCase() + targetEntityName.substring(1)
 
 		println "Generating scaffolding for endpoint ${targetEntityName}..."
 
@@ -137,7 +145,7 @@ class EndpointScaffoldingGeneratorTask extends DefaultTask {
 		dir.eachFileRecurse (FileType.FILES) { file ->
 			total++
 			def baseFileAbsolutePath = file.absolutePath.toString()
-			if (!filesToCopy.stream().anyMatch({ fileToCopy -> baseFileAbsolutePath.endsWith(fileToCopy)})) {
+			if (!filesToCopy.stream().anyMatch({ fileToCopy -> baseFileAbsolutePath.endsWith(fileToCopy) })) {
 				println "Skipping ${baseFileAbsolutePath} - not on list of files to copy."
 				return
 			}
@@ -165,6 +173,7 @@ class EndpointScaffoldingGeneratorTask extends DefaultTask {
 	def transformToNewEntity(String content) {
 		content
 				.replace(sourceEntityName, targetEntityName)
+				.replace(sourceEntityNameLc, targetEntityNameLc)
 				.replace(sourcePackageName, targetPackageName)
 	}
 
@@ -228,6 +237,10 @@ class EndpointScaffoldingGeneratorTask extends DefaultTask {
 		}
 
 		return content
+	}
+
+	String underscoreSeparated(String s) {
+		return s.replaceAll(/\B[A-Z]/) { '_' + it }.toLowerCase()
 	}
 
 }

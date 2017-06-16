@@ -33,10 +33,8 @@ class MagazineSeriesTemplateProcessorTest extends AbstractMagazineSeriesTest {
 				title: TITLE,
 				publishedYearFrom: PUBLISHED_YEAR_FROM,
 				publishedMonthFrom: PUBLISHED_MONTH_FROM,
-				publishedDayFrom: PUBLISHED_DAY_FROM,
 				publishedYearTo: PUBLISHED_YEAR_TO,
 				publishedMonthTo: PUBLISHED_MONTH_TO,
-				publishedDayTo: PUBLISHED_DAY_TO,
 				numberOfIssues: NUMBER_OF_ISSUES,
 				publishers: Sets.newHashSet(publisher1, publisher2),
 				editors: Sets.newHashSet(editor1, editor2))
