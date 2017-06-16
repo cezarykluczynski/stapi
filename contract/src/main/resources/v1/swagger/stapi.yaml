@@ -10,21 +10,21 @@ produces:
   - application/json
 paths:
   /astronomicalObject:
-    $ref: ./astronomicalObject/path/astronomicalObject.path.yaml
+    $ref: ./astronomical_object/path/astronomicalObject.path.yaml
   /astronomicalObject/search:
-    $ref: ./astronomicalObject/path/astronomicalObjectSearch.path.yaml
+    $ref: ./astronomical_object/path/astronomicalObjectSearch.path.yaml
   /book:
     $ref: ./book/path/book.path.yaml
   /book/search:
     $ref: ./book/path/bookSearch.path.yaml
   /bookCollection:
-    $ref: ./bookCollection/path/bookCollection.path.yaml
+    $ref: ./book_collection/path/bookCollection.path.yaml
   /bookCollection/search:
-    $ref: ./bookCollection/path/bookCollectionSearch.path.yaml
+    $ref: ./book_collection/path/bookCollectionSearch.path.yaml
   /bookSeries:
-    $ref: ./bookSeries/path/bookSeries.path.yaml
+    $ref: ./book_series/path/bookSeries.path.yaml
   /bookSeries/search:
-    $ref: ./bookSeries/path/bookSeriesSearch.path.yaml
+    $ref: ./book_series/path/bookSeriesSearch.path.yaml
   /character:
     $ref: ./character/path/character.path.yaml
   /character/search:
@@ -34,17 +34,17 @@ paths:
   /comics/search:
     $ref: ./comics/path/comicsSearch.path.yaml
   /comicCollection:
-    $ref: ./comicCollection/path/comicCollection.path.yaml
+    $ref: ./comic_collection/path/comicCollection.path.yaml
   /comicCollection/search:
-    $ref: ./comicCollection/path/comicCollectionSearch.path.yaml
+    $ref: ./comic_collection/path/comicCollectionSearch.path.yaml
   /comicSeries:
-    $ref: ./comicSeries/path/comicSeries.path.yaml
+    $ref: ./comic_series/path/comicSeries.path.yaml
   /comicSeries/search:
-    $ref: ./comicSeries/path/comicSeriesSearch.path.yaml
+    $ref: ./comic_series/path/comicSeriesSearch.path.yaml
   /comicStrip:
-    $ref: ./comicStrip/path/comicStrip.path.yaml
+    $ref: ./comic_strip/path/comicStrip.path.yaml
   /comicStrip/search:
-    $ref: ./comicStrip/path/comicStripSearch.path.yaml
+    $ref: ./comic_strip/path/comicStripSearch.path.yaml
   /company:
     $ref: ./company/path/company.path.yaml
   /company/search:
@@ -91,15 +91,15 @@ paths:
     $ref: ./staff/path/staffSearch.path.yaml
 definitions:
   AstronomicalObjectHeader:
-    $ref: ./astronomicalObject/entity/astronomicalObjectHeader.yaml
+    $ref: ./astronomical_object/entity/astronomicalObjectHeader.yaml
   AstronomicalObjectBase:
-    $ref: ./astronomicalObject/entity/astronomicalObjectBase.yaml
+    $ref: ./astronomical_object/entity/astronomicalObjectBase.yaml
   AstronomicalObjectFull:
-    $ref: ./astronomicalObject/entity/astronomicalObjectFull.yaml
+    $ref: ./astronomical_object/entity/astronomicalObjectFull.yaml
   AstronomicalObjectBaseResponse:
-    $ref: ./astronomicalObject/entity/astronomicalObjectBaseResponse.yaml
+    $ref: ./astronomical_object/entity/astronomicalObjectBaseResponse.yaml
   AstronomicalObjectFullResponse:
-    $ref: ./astronomicalObject/entity/astronomicalObjectFullResponse.yaml
+    $ref: ./astronomical_object/entity/astronomicalObjectFullResponse.yaml
   BookHeader:
     $ref: ./book/entity/bookHeader.yaml
   BookBase:
@@ -111,25 +111,25 @@ definitions:
   BookFullResponse:
     $ref: ./book/entity/bookFullResponse.yaml
   BookCollectionHeader:
-    $ref: ./bookCollection/entity/bookCollectionHeader.yaml
+    $ref: ./book_collection/entity/bookCollectionHeader.yaml
   BookCollectionBase:
-    $ref: ./bookCollection/entity/bookCollectionBase.yaml
+    $ref: ./book_collection/entity/bookCollectionBase.yaml
   BookCollectionFull:
-    $ref: ./bookCollection/entity/bookCollectionFull.yaml
+    $ref: ./book_collection/entity/bookCollectionFull.yaml
   BookCollectionBaseResponse:
-    $ref: ./bookCollection/entity/bookCollectionBaseResponse.yaml
+    $ref: ./book_collection/entity/bookCollectionBaseResponse.yaml
   BookCollectionFullResponse:
-    $ref: ./bookCollection/entity/bookCollectionFullResponse.yaml
+    $ref: ./book_collection/entity/bookCollectionFullResponse.yaml
   BookSeriesHeader:
-    $ref: ./bookSeries/entity/bookSeriesHeader.yaml
+    $ref: ./book_series/entity/bookSeriesHeader.yaml
   BookSeriesBase:
-    $ref: ./bookSeries/entity/bookSeriesBase.yaml
+    $ref: ./book_series/entity/bookSeriesBase.yaml
   BookSeriesFull:
-    $ref: ./bookSeries/entity/bookSeriesFull.yaml
+    $ref: ./book_series/entity/bookSeriesFull.yaml
   BookSeriesBaseResponse:
-    $ref: ./bookSeries/entity/bookSeriesBaseResponse.yaml
+    $ref: ./book_series/entity/bookSeriesBaseResponse.yaml
   BookSeriesFullResponse:
-    $ref: ./bookSeries/entity/bookSeriesFullResponse.yaml
+    $ref: ./book_series/entity/bookSeriesFullResponse.yaml
   CharacterHeader:
     $ref: ./character/entity/characterHeader.yaml
   CharacterBase:
@@ -153,35 +153,35 @@ definitions:
   ComicsFullResponse:
     $ref: ./comics/entity/comicsFullResponse.yaml
   ComicCollectionHeader:
-    $ref: ./comicCollection/entity/comicCollectionHeader.yaml
+    $ref: ./comic_collection/entity/comicCollectionHeader.yaml
   ComicCollectionBase:
-    $ref: ./comicCollection/entity/comicCollectionBase.yaml
+    $ref: ./comic_collection/entity/comicCollectionBase.yaml
   ComicCollectionFull:
-    $ref: ./comicCollection/entity/comicCollectionFull.yaml
+    $ref: ./comic_collection/entity/comicCollectionFull.yaml
   ComicCollectionBaseResponse:
-    $ref: ./comicCollection/entity/comicCollectionBaseResponse.yaml
+    $ref: ./comic_collection/entity/comicCollectionBaseResponse.yaml
   ComicCollectionFullResponse:
-    $ref: ./comicCollection/entity/comicCollectionFullResponse.yaml
+    $ref: ./comic_collection/entity/comicCollectionFullResponse.yaml
   ComicSeriesHeader:
-    $ref: ./comicSeries/entity/comicSeriesHeader.yaml
+    $ref: ./comic_series/entity/comicSeriesHeader.yaml
   ComicSeriesBase:
-    $ref: ./comicSeries/entity/comicSeriesBase.yaml
+    $ref: ./comic_series/entity/comicSeriesBase.yaml
   ComicSeriesFull:
-    $ref: ./comicSeries/entity/comicSeriesFull.yaml
+    $ref: ./comic_series/entity/comicSeriesFull.yaml
   ComicSeriesBaseResponse:
-    $ref: ./comicSeries/entity/comicSeriesBaseResponse.yaml
+    $ref: ./comic_series/entity/comicSeriesBaseResponse.yaml
   ComicSeriesFullResponse:
-    $ref: ./comicSeries/entity/comicSeriesFullResponse.yaml
+    $ref: ./comic_series/entity/comicSeriesFullResponse.yaml
   ComicStripHeader:
-    $ref: ./comicStrip/entity/comicStripHeader.yaml
+    $ref: ./comic_strip/entity/comicStripHeader.yaml
   ComicStripBase:
-    $ref: ./comicStrip/entity/comicStripBase.yaml
+    $ref: ./comic_strip/entity/comicStripBase.yaml
   ComicStripFull:
-    $ref: ./comicStrip/entity/comicStripFull.yaml
+    $ref: ./comic_strip/entity/comicStripFull.yaml
   ComicStripBaseResponse:
-    $ref: ./comicStrip/entity/comicStripBaseResponse.yaml
+    $ref: ./comic_strip/entity/comicStripBaseResponse.yaml
   ComicStripFullResponse:
-    $ref: ./comicStrip/entity/comicStripFullResponse.yaml
+    $ref: ./comic_strip/entity/comicStripFullResponse.yaml
   CompanyBase:
     $ref: ./company/entity/companyBase.yaml
   CompanyFull:

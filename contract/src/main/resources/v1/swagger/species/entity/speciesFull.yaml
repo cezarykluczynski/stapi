@@ -10,10 +10,10 @@ properties:
     required: true
     description: Species name
   homeworld:
-    $ref: ./astronomicalObject/entity/astronomicalObjectHeader.yaml
+    $ref: ./astronomical_object/entity/astronomicalObjectHeader.yaml
     description: Homeworld of the species
   quadrant:
-    $ref: ./astronomicalObject/entity/astronomicalObjectHeader.yaml
+    $ref: ./astronomical_object/entity/astronomicalObjectHeader.yaml
     description: Quadrant the species originates from
   extinctSpecies:
     type: boolean

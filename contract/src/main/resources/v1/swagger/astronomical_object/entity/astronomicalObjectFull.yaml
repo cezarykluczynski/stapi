@@ -10,11 +10,11 @@ properties:
     required: true
     description: Astronomical object name
   astronomicalObjectType:
-    $ref: ./astronomicalObject/entity/enum/astronomicalObjectType.yaml
+    $ref: ./astronomical_object/entity/enum/astronomicalObjectType.yaml
     required: true
     description: Type of astronomical object
   location:
-    $ref: ./astronomicalObject/entity/astronomicalObjectBase.yaml
+    $ref: ./astronomical_object/entity/astronomicalObjectBase.yaml
     description: Location of astronomical object (optional)
   astronomicalObjects:
     type: array
