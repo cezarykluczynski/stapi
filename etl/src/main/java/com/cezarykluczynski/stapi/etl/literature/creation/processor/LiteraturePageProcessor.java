@@ -58,8 +58,8 @@ public class LiteraturePageProcessor implements ItemProcessor<Page, Literature> 
 
 		List<String> categoryTitleList = categoryTitlesExtractingProcessor.process(item.getCategories());
 
-		literature.setEarthlyOrigin(categoryTitleList.contains(CategoryTitle.EARTH_LITERATURE));
 		literature.setShakespeareanWork(categoryTitleList.contains(CategoryTitle.SHAKESPEAREAN_WORKS));
+		literature.setEarthlyOrigin(literature.getShakespeareanWork() || categoryTitleList.contains(CategoryTitle.EARTH_LITERATURE));
 		literature.setReport(categoryTitleList.contains(CategoryTitle.REPORTS));
 		literature.setScientificLiterature(categoryTitleList.contains(CategoryTitle.SCIENTIFIC_LITERATURE)
 				|| categoryTitleList.contains(CategoryTitle.SCIENTIFIC_LITERATURE_RETCONNED));

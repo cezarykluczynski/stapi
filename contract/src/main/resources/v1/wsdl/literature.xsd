@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:literature="http://stapi.co/api/v1/soap/literature"
+		xmlns:common="http://stapi.co/api/v1/soap/common"
+		elementFormDefault="qualified"
+		targetNamespace="http://stapi.co/api/v1/soap/literature">
+	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
+	<xs:element name="LiteratureBaseRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for literature search</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Request">
+					<xs:sequence>
+						<xs:element name="title" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Literature title</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="earthlyOrigin" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be of earthly origin</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="shakespeareanWork" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a Shakespearean work</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="report" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a report</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="scientificLiterature" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a scientific literature</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="technicalManual" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a technical manual</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="religiousLiterature" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a religious literature</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="LiteratureFullRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for single literature query</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:ApiRequest">
+					<xs:sequence>
+						<xs:element name="uid" type="xs:string" minOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Literature unique ID</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="LiteratureBaseResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for literature search</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Response">
+					<xs:sequence>
+						<xs:element name="literature" type="literature:LiteratureBase" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>List of literature matching given criteria</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="LiteratureFullResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for single literature query</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="literature" type="literature:LiteratureFull">
+					<xs:annotation>
+						<xs:documentation>Literature, if found</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="LiteratureHeader">
+		<xs:annotation>
+			<xs:documentation>Header literature, embedded in other objects</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Literature unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="title" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Literature title</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LiteratureBase">
+		<xs:annotation>
+			<xs:documentation>Base literature, returned in search results</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Literature unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="title" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Literature title</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="earthlyOrigin" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's of earthly origin</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="shakespeareanWork" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a Shakespearean work</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="report" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a report</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="scientificLiterature" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a scientific literature</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="technicalManual" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a technical manual</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="religiousLiterature" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a religious literature</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="LiteratureFull">
+		<xs:annotation>
+			<xs:documentation>Full literature, returned when queried using UID</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Literature unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="title" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Literature title</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="earthlyOrigin" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's of earthly origin</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="shakespeareanWork" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a Shakespearean work</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="report" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a report</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="scientificLiterature" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a scientific literature</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="technicalManual" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a technical manual</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="religiousLiterature" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a religious literature</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

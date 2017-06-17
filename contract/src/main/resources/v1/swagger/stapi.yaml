@@ -57,6 +57,10 @@ paths:
     $ref: ./food/path/food.path.yaml
   /food/search:
     $ref: ./food/path/foodSearch.path.yaml
+  /literature:
+    $ref: ./literature/path/literature.path.yaml
+  /literature/search:
+    $ref: ./literature/path/literatureSearch.path.yaml
   /location:
     $ref: ./location/path/location.path.yaml
   /location/search:
@@ -218,6 +222,16 @@ definitions:
     $ref: ./food/entity/foodBaseResponse.yaml
   FoodFullResponse:
     $ref: ./food/entity/foodFullResponse.yaml
+  LiteratureHeader:
+    $ref: ./literature/entity/literatureHeader.yaml
+  LiteratureBase:
+    $ref: ./literature/entity/literatureBase.yaml
+  LiteratureFull:
+    $ref: ./literature/entity/literatureFull.yaml
+  LiteratureBaseResponse:
+    $ref: ./literature/entity/literatureBaseResponse.yaml
+  LiteratureFullResponse:
+    $ref: ./literature/entity/literatureFullResponse.yaml
   LocationHeader:
     $ref: ./location/entity/locationHeader.yaml
   LocationBase:

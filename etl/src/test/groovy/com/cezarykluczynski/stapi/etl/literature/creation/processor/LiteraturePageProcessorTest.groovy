@@ -148,7 +148,8 @@ class LiteraturePageProcessorTest extends Specification {
 		page                                                                                   | flagName               | flag  | trueBooleans
 		new SourcesPage(categories: Lists.newArrayList())                                      | 'earthlyOrigin'        | false | 0
 		new SourcesPage(categories: createList(CategoryTitle.EARTH_LITERATURE))                | 'earthlyOrigin'        | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.SHAKESPEAREAN_WORKS))             | 'shakespeareanWork'    | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.SHAKESPEAREAN_WORKS))             | 'earthlyOrigin'        | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.SHAKESPEAREAN_WORKS))             | 'shakespeareanWork'    | true  | 2
 		new SourcesPage(categories: createList(CategoryTitle.REPORTS))                         | 'report'               | true  | 1
 		new SourcesPage(categories: createList(CategoryTitle.SCIENTIFIC_LITERATURE))           | 'scientificLiterature' | true  | 1
 		new SourcesPage(categories: createList(CategoryTitle.SCIENTIFIC_LITERATURE_RETCONNED)) | 'scientificLiterature' | true  | 1

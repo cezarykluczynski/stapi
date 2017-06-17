@@ -1,0 +1,11 @@
+type: object
+description: Header literature, embedded in other objects
+properties:
+  uid:
+    type: string
+    required: true
+    description: Literature unique ID
+  title:
+    type: string
+    required: true
+    description: Literature title

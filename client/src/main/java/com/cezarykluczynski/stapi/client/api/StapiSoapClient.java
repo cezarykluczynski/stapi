@@ -11,6 +11,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.ComicsPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.CompanyPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.EpisodePortType;
 import com.cezarykluczynski.stapi.client.v1.soap.FoodPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.LiteraturePortType;
 import com.cezarykluczynski.stapi.client.v1.soap.LocationPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.MagazinePortType;
 import com.cezarykluczynski.stapi.client.v1.soap.MagazineSeriesPortType;
@@ -86,6 +87,9 @@ public class StapiSoapClient {
 	@Getter
 	private MagazineSeriesPortType magazineSeriesPortType;
 
+	@Getter
+	private LiteraturePortType literaturePortType;
+
 	public StapiSoapClient() {
 		stapiSoapPortTypesProvider = new StapiSoapPortTypesProvider();
 		bindPortTypes();
@@ -117,6 +121,7 @@ public class StapiSoapClient {
 		bookPortType = stapiSoapPortTypesProvider.getBookPortType();
 		magazinePortType = stapiSoapPortTypesProvider.getMagazinePortType();
 		magazineSeriesPortType = stapiSoapPortTypesProvider.getMagazineSeriesPortType();
+		literaturePortType = stapiSoapPortTypesProvider.getLiteraturePortType();
 	}
 
 }

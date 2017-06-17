@@ -1,0 +1,6 @@
+type: object
+description: Response object for single literature query
+properties:
+  literature:
+    $ref: '#/definitions/LiteratureFull'
+    description: Literature, if found
