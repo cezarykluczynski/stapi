@@ -31,7 +31,7 @@
 			<column name="costume_department" type="boolean"/>
 			<column name="costume_designer" type="boolean"/>
 			<column name="director" type="boolean"/>
-			<column name="assistant_and_second_unit" type="boolean"/>
+			<column name="assistant_or_second_unit" type="boolean"/>
 			<column name="exhibit_and_attraction_staff" type="boolean"/>
 			<column name="film_editor" type="boolean"/>
 			<column name="linguist" type="boolean"/>

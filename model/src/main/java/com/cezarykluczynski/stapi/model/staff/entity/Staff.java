@@ -61,7 +61,7 @@ public class Staff extends RealWorldPerson implements PageAware {
 
 	private Boolean director;
 
-	@Column(name = "assistant_and_second_unit")
+	@Column(name = "assistant_or_second_unit")
 	private Boolean assistantOrSecondUnitDirector;
 
 	private Boolean exhibitAndAttractionStaff;
