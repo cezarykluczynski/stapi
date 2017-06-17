@@ -44,6 +44,9 @@ import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeWriter;
 import com.cezarykluczynski.stapi.etl.food.creation.processor.FoodProcessor;
 import com.cezarykluczynski.stapi.etl.food.creation.processor.FoodReader;
 import com.cezarykluczynski.stapi.etl.food.creation.processor.FoodWriter;
+import com.cezarykluczynski.stapi.etl.literature.creation.processor.LiteratureProcessor;
+import com.cezarykluczynski.stapi.etl.literature.creation.processor.LiteratureReader;
+import com.cezarykluczynski.stapi.etl.literature.creation.processor.LiteratureWriter;
 import com.cezarykluczynski.stapi.etl.location.creation.processor.LocationProcessor;
 import com.cezarykluczynski.stapi.etl.location.creation.processor.LocationReader;
 import com.cezarykluczynski.stapi.etl.location.creation.processor.LocationWriter;
@@ -84,6 +87,7 @@ import com.cezarykluczynski.stapi.model.comics.entity.Comics;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.food.entity.Food;
+import com.cezarykluczynski.stapi.model.literature.entity.Literature;
 import com.cezarykluczynski.stapi.model.location.entity.Location;
 import com.cezarykluczynski.stapi.model.magazine.entity.Magazine;
 import com.cezarykluczynski.stapi.model.magazine_series.entity.MagazineSeries;
@@ -107,6 +111,7 @@ import javax.inject.Inject;
 
 @Configuration
 @EnableConfigurationProperties(StepsProperties.class)
+@SuppressWarnings("MethodCount")
 public class EtlJobConfiguration {
 
 	@Inject
@@ -432,6 +437,19 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(MagazineReader.class))
 				.processor(applicationContext.getBean(MagazineProcessor.class))
 				.writer(applicationContext.getBean(MagazineWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_LITERATURE)
+	public Step stepCreateLiterature() {
+		return stepBuilderFactory.get(StepName.CREATE_LITERATURE)
+				.<PageHeader, Literature>chunk(stepsProperties.getCreateLiterature().getCommitInterval())
+				.reader(applicationContext.getBean(LiteratureReader.class))
+				.processor(applicationContext.getBean(LiteratureProcessor.class))
+				.writer(applicationContext.getBean(LiteratureWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)

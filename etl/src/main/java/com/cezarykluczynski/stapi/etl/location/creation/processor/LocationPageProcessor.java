@@ -46,8 +46,8 @@ public class LocationPageProcessor implements ItemProcessor<Page, Location> {
 		}
 
 		Location location = new Location();
-		FixedValueHolder<String> titleFixedValueHolder = locationNameFixedValueProvider.getSearchedValue(item.getTitle());
-		location.setName(titleFixedValueHolder.isFound() ? titleFixedValueHolder.getValue() : item.getTitle());
+		FixedValueHolder<String> nameFixedValueHolder = locationNameFixedValueProvider.getSearchedValue(item.getTitle());
+		location.setName(nameFixedValueHolder.isFound() ? nameFixedValueHolder.getValue() : item.getTitle());
 
 		location.setPage(pageBindingService.fromPageToPageEntity(item));
 		location.setUid(uidGenerator.generateFromPage(location.getPage(), Location.class));

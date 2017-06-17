@@ -57,4 +57,6 @@ public class StepsProperties {
 
 	private StepProperties createMagazineSeries;
 
+	private StepProperties createLiterature;
+
 }

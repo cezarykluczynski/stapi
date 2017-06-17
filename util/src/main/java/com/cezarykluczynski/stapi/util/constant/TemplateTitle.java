@@ -41,6 +41,8 @@ public class TemplateTitle {
 	public static final String ASIN = "asin";
 	public static final String REFERENCE = "reference";
 
+	public static final String RELIGIOUS_TEXTS = "religioustexts";
+
 	// Memory Beta
 	public static final String CHARACTER_BOX = "characterbox";
 }

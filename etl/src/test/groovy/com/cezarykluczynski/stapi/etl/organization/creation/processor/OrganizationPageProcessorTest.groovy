@@ -57,7 +57,7 @@ class OrganizationPageProcessorTest extends Specification {
 		organization == null
 	}
 
-	void "sets title from OrganizationNameFixedValueProvider when it is found"() {
+	void "sets name from OrganizationNameFixedValueProvider when it is found"() {
 		given:
 		SourcesPage page = new SourcesPage(title: NAME)
 
@@ -71,7 +71,7 @@ class OrganizationPageProcessorTest extends Specification {
 		organization.name == NAME_CORRECTED
 	}
 
-	void "keeps original title when OrganizationNameFixedValueProvider found nothing"() {
+	void "keeps original name when OrganizationNameFixedValueProvider found nothing"() {
 		given:
 		SourcesPage page = new SourcesPage(title: NAME)
 

@@ -45,14 +45,17 @@ import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeWriter
 import com.cezarykluczynski.stapi.etl.food.creation.processor.FoodProcessor
 import com.cezarykluczynski.stapi.etl.food.creation.processor.FoodReader
 import com.cezarykluczynski.stapi.etl.food.creation.processor.FoodWriter
+import com.cezarykluczynski.stapi.etl.literature.creation.processor.LiteratureProcessor
+import com.cezarykluczynski.stapi.etl.literature.creation.processor.LiteratureReader
+import com.cezarykluczynski.stapi.etl.literature.creation.processor.LiteratureWriter
 import com.cezarykluczynski.stapi.etl.location.creation.processor.LocationProcessor
 import com.cezarykluczynski.stapi.etl.location.creation.processor.LocationReader
 import com.cezarykluczynski.stapi.etl.location.creation.processor.LocationWriter
 import com.cezarykluczynski.stapi.etl.magazine.creation.processor.MagazineProcessor
 import com.cezarykluczynski.stapi.etl.magazine.creation.processor.MagazineReader
-import com.cezarykluczynski.stapi.etl.magazine_series.creation.processor.MagazineSeriesReader
 import com.cezarykluczynski.stapi.etl.magazine.creation.processor.MagazineWriter
 import com.cezarykluczynski.stapi.etl.magazine_series.creation.processor.MagazineSeriesProcessor
+import com.cezarykluczynski.stapi.etl.magazine_series.creation.processor.MagazineSeriesReader
 import com.cezarykluczynski.stapi.etl.magazine_series.creation.processor.MagazineSeriesWriter
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieProcessor
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieReader
@@ -893,6 +896,39 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(MagazineSeriesProcessor) >> itemProcessorMock
 		1 * simpleStepBuilderMock.processor(itemProcessorMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(MagazineSeriesWriter) >> itemWriterMock
+		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
+		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
+		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+
+		then: 'step is configured to run only once'
+		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
+		1 * simpleStepBuilderMock.allowStartIfComplete(false) >> simpleStepBuilderMock
+
+		then: 'tasklet step is returned'
+		1 * simpleStepBuilderMock.build() >> taskletStepMock
+
+		then: 'step is being returned'
+		step == taskletStepMock
+	}
+
+	void "CREATE_LITERATURE step is created"() {
+		when:
+		Step step = etlJobConfiguration.stepCreateLiterature()
+
+		then: 'StepBuilder is retrieved'
+		1 * stepBuilderFactoryMock.get(StepName.CREATE_LITERATURE) >> stepBuilderMock
+
+		then: 'commit interval is configured'
+		1 * stepsPropertiesMock.createLiterature >> stepProperties
+		1 * stepProperties.commitInterval >> STEP_SIZE
+		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+
+		then: 'beans are retrieved from application context, then passed to builder'
+		1 * applicationContextMock.getBean(LiteratureReader) >> itemReaderMock
+		1 * simpleStepBuilderMock.reader(itemReaderMock) >> simpleStepBuilderMock
+		1 * applicationContextMock.getBean(LiteratureProcessor) >> itemProcessorMock
+		1 * simpleStepBuilderMock.processor(itemProcessorMock) >> simpleStepBuilderMock
+		1 * applicationContextMock.getBean(LiteratureWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
 		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
