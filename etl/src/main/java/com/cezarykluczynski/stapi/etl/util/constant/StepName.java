@@ -27,5 +27,6 @@ public class StepName {
 	public static final String CREATE_MAGAZINES = "CREATE_MAGAZINES";
 	public static final String CREATE_MAGAZINE_SERIES = "CREATE_MAGAZINE_SERIES";
 	public static final String CREATE_LITERATURE = "CREATE_LITERATURE";
+	public static final String CREATE_VIDEO_RELEASES = "CREATE_VIDEO_RELEASES";
 
 }

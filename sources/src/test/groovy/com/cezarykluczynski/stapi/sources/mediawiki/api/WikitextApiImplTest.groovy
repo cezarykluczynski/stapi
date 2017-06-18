@@ -9,7 +9,7 @@ import spock.lang.Unroll
 
 class WikitextApiImplTest extends Specification {
 
-	private static final String WIKITEXT = 'blah blah [[Some page|description]] and [[another page]] blah blah [[blah'
+	private static final String WIKITEXT = 'blah blah [[Some page| description]] and [[another page]] blah blah [[blah'
 	private static final String WIKITEXT_WITH_TEMPLATES = '{{realworld}}{{sidebar planet\nName=Mantiles}}blah blah{{ds9|Some page}} blah'
 	private static final String WIKITEXT_WITH_DIS = '* [[Malibu DS9]]:\n** #1: "{{dis|Stowaway|comic}}"\n** #2: "[[Stowaway, Part II]]"\n' +
 			'** #3: "{{dis|Old Wounds|comic|the comic}}"\n** #4: "[[Emancipation, Part I]]"'
@@ -42,13 +42,14 @@ class WikitextApiImplTest extends Specification {
 		then:
 		pageLinkList.size() == 2
 		pageLinkList[0].title == 'Some page'
+		pageLinkList[0].untrimmedDescription == ' description'
 		pageLinkList[0].description == 'description'
 		pageLinkList[0].startPosition == 10
-		pageLinkList[0].endPosition == 35
+		pageLinkList[0].endPosition == 36
 		pageLinkList[1].title == 'another page'
 		pageLinkList[1].description == null
-		pageLinkList[1].startPosition == 40
-		pageLinkList[1].endPosition == 56
+		pageLinkList[1].startPosition == 41
+		pageLinkList[1].endPosition == 57
 	}
 
 	void "gets page links from wikitext, including those from 'dis' template"() {

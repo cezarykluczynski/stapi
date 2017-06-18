@@ -59,4 +59,6 @@ public class StepsProperties {
 
 	private StepProperties createLiterature;
 
+	private StepProperties createVideoReleases;
+
 }

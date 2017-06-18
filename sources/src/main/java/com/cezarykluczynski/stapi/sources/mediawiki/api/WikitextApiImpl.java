@@ -114,7 +114,8 @@ public class WikitextApiImpl implements WikitextApi {
 			String group = linkMatcher.group(LINK_CONTENTS_GROUP);
 			PageLink pageLink = new PageLink();
 			pageLink.setTitle(StringUtils.trim(StringUtils.substringBefore(group, PIPE)));
-			pageLink.setDescription(group.contains(PIPE) ? StringUtils.trim(StringUtils.substringAfter(group, PIPE)) : null);
+			pageLink.setUntrimmedDescription(group.contains(PIPE) ? StringUtils.substringAfter(group, PIPE) : null);
+			pageLink.setDescription(StringUtils.trim(pageLink.getUntrimmedDescription()));
 			pageLink.setStartPosition(linkMatcher.start(LINK_CONTENTS_GROUP) - PADDING);
 			pageLink.setEndPosition(linkMatcher.end(LINK_CONTENTS_GROUP) + PADDING);
 			linkMatches.add(pageLink);

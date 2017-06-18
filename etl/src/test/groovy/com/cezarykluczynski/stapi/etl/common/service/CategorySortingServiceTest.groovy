@@ -21,10 +21,29 @@ class CategorySortingServiceTest extends Specification {
 		categorySortingService = new CategorySortingService(wikitextApiMock)
 	}
 
-	void "returns true when category is on top of any category"() {
+	void "returns true when category is on top of any category, sorted with empty page link description"() {
 		given:
 		Page page = new Page(wikitext: WIKITEXT)
-		PageLink pageLink = new PageLink(title: 'Category:Name', description: '')
+		PageLink pageLink = new PageLink(
+				title: 'Category:Name',
+				description: '')
+
+		when:
+		boolean result = categorySortingService.isSortedOnTopOfAnyCategory(page)
+
+		then:
+		1 *  wikitextApiMock.getPageLinksFromWikitext(WIKITEXT) >> Lists.newArrayList(pageLink)
+		0 * _
+		result
+	}
+
+	void "returns true when category is on top of any category, sorted with starting space"() {
+		given:
+		Page page = new Page(wikitext: WIKITEXT)
+		PageLink pageLink = new PageLink(
+				title: 'Category:Name',
+				description: '03',
+				untrimmedDescription: ' 03')
 
 		when:
 		boolean result = categorySortingService.isSortedOnTopOfAnyCategory(page)
@@ -38,7 +57,9 @@ class CategorySortingServiceTest extends Specification {
 	void "returns false when category is not on top of any category"() {
 		given:
 		Page page = new Page(wikitext: WIKITEXT)
-		PageLink pageLink = new PageLink(title: 'Category:Name', description: 'Name')
+		PageLink pageLink = new PageLink(
+				title: 'Category:Name',
+				description: 'Name')
 
 		when:
 		boolean result = categorySortingService.isSortedOnTopOfAnyCategory(page)
@@ -52,8 +73,12 @@ class CategorySortingServiceTest extends Specification {
 	void "returns true when category is on top of any of the given categories"() {
 		given:
 		Page page = new Page(wikitext: WIKITEXT)
-		PageLink pageLink1 = new PageLink(title: "Category:${INVALID_CATEGORY}", description: '')
-		PageLink pageLink2 = new PageLink(title: "Category:${VALID_CATEGORY}", description: '')
+		PageLink pageLink1 = new PageLink(
+				title: "Category:${INVALID_CATEGORY}",
+				description: '')
+		PageLink pageLink2 = new PageLink(
+				title: "Category:${VALID_CATEGORY}",
+				description: '')
 
 		when:
 		boolean result = categorySortingService.isSortedOnTopOfAnyOfCategories(page, Lists.newArrayList('Some_other_category', VALID_CATEGORY))

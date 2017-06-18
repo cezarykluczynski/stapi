@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Service
 public class StepConfigurationValidator {
 
-	private static final long NUMBER_OF_STEPS = 25;
+	private static final long NUMBER_OF_STEPS = 26;
 
 	private final StepsProperties stepsProperties;
 
@@ -67,6 +67,7 @@ public class StepConfigurationValidator {
 		stepPropertiesList.add(stepsProperties.getCreateMagazines());
 		stepPropertiesList.add(stepsProperties.getCreateMagazineSeries());
 		stepPropertiesList.add(stepsProperties.getCreateLiterature());
+		stepPropertiesList.add(stepsProperties.getCreateVideoReleases());
 		stepPropertiesList = stepPropertiesList.stream()
 				.filter(Objects::nonNull)
 				.collect(Collectors.toList());
@@ -97,6 +98,7 @@ public class StepConfigurationValidator {
 		stepPropertiesMap.put(StepName.CREATE_BOOK_COLLECTIONS, stepsProperties.getCreateBookCollections());
 		stepPropertiesMap.put(StepName.CREATE_MAGAZINE_SERIES, stepsProperties.getCreateMagazineSeries());
 		stepPropertiesMap.put(StepName.CREATE_MAGAZINES, stepsProperties.getCreateMagazines());
+		stepPropertiesMap.put(StepName.CREATE_LITERATURE, stepsProperties.getCreateLiterature());
 		stepPropertiesMap.put(StepName.CREATE_LITERATURE, stepsProperties.getCreateLiterature());
 	}
 

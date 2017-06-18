@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.common.service;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -11,9 +12,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
+@Slf4j
 public class CategorySortingService {
 
 	private static final String CATEGORY_PREFIX = "category:";
+	private static final char SPACE = ' ';
 
 	private final WikitextApi wikitextApi;
 
@@ -42,7 +45,11 @@ public class CategorySortingService {
 		return wikitextApi.getPageLinksFromWikitext(page.getWikitext())
 				.stream()
 				.filter(pageLink -> pageLink.getTitle().toLowerCase().startsWith(CATEGORY_PREFIX))
-				.filter(pageLink -> pageLink.getDescription() != null && pageLink.getDescription().length() == 0);
+				.filter(pageLink -> isTopSorting(pageLink.getDescription(), pageLink.getUntrimmedDescription()));
+	}
+
+	private static boolean isTopSorting(String sorting, String untrimmedSorting) {
+		return sorting != null && sorting.length() == 0 || untrimmedSorting != null && untrimmedSorting.charAt(0) == SPACE;
 	}
 
 }

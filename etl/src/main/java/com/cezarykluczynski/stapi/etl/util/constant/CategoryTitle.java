@@ -250,4 +250,6 @@ public class CategoryTitle {
 	public static final String SCIENTIFIC_LITERATURE_RETCONNED = "Scientific_literature_(retconned)";
 	public static final String TECHNICAL_MANUALS = "Technical_manuals";
 
+	public static final String VIDEO_RELEASES = "Video_releases";
+
 }

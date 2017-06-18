@@ -9,6 +9,8 @@ public class PageLink {
 
 	private String description;
 
+	private String untrimmedDescription;
+
 	private Integer startPosition;
 
 	private Integer endPosition;

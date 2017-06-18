@@ -26,7 +26,7 @@ class StepConfigurationValidatorTest extends Specification {
 		then:
 		JobBuilderException jobBuilderException = thrown(JobBuilderException)
 		jobBuilderException.message == 'com.cezarykluczynski.stapi.util.exception.StapiRuntimeException: ' +
-				'Number of configured steps is 25, but 0 steps found'
+				'Number of configured steps is 26, but 0 steps found'
 	}
 
 	void "throws exception when two steps has the same order"() {
@@ -106,6 +106,9 @@ class StepConfigurationValidatorTest extends Specification {
 		StepProperties createLiteratureStepProperties = Mock()
 		createLiteratureStepProperties.order >> 25
 		stepsPropertiesMock.createLiterature >> createLiteratureStepProperties
+		StepProperties createVideoReleasesStepProperties = Mock()
+		createVideoReleasesStepProperties.order >> 26
+		stepsPropertiesMock.createVideoReleases >> createVideoReleasesStepProperties
 
 		when:
 		stepConfigurationValidator.validate()
@@ -193,6 +196,9 @@ class StepConfigurationValidatorTest extends Specification {
 		StepProperties createLiteratureStepProperties = Mock()
 		createLiteratureStepProperties.order >> 25
 		stepsPropertiesMock.createLiterature >> createLiteratureStepProperties
+		StepProperties createVideoReleasesStepProperties = Mock()
+		createVideoReleasesStepProperties.order >> 26
+		stepsPropertiesMock.createVideoReleases >> createVideoReleasesStepProperties
 
 		when:
 		stepConfigurationValidator.validate()

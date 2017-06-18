@@ -75,6 +75,9 @@ import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffProcessor;
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffReader;
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffWriter;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
+import com.cezarykluczynski.stapi.etl.video_release.creation.processor.VideoReleaseProcessor;
+import com.cezarykluczynski.stapi.etl.video_release.creation.processor.VideoReleaseReader;
+import com.cezarykluczynski.stapi.etl.video_release.creation.processor.VideoReleaseWriter;
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject;
 import com.cezarykluczynski.stapi.model.book.entity.Book;
 import com.cezarykluczynski.stapi.model.book_collection.entity.BookCollection;
@@ -97,6 +100,7 @@ import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
+import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -450,6 +454,19 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(LiteratureReader.class))
 				.processor(applicationContext.getBean(LiteratureProcessor.class))
 				.writer(applicationContext.getBean(LiteratureWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_VIDEO_RELEASES)
+	public Step stepCreateVideoReleases() {
+		return stepBuilderFactory.get(StepName.CREATE_VIDEO_RELEASES)
+				.<PageHeader, VideoRelease>chunk(stepsProperties.getCreateVideoReleases().getCommitInterval())
+				.reader(applicationContext.getBean(VideoReleaseReader.class))
+				.processor(applicationContext.getBean(VideoReleaseProcessor.class))
+				.writer(applicationContext.getBean(VideoReleaseWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)
