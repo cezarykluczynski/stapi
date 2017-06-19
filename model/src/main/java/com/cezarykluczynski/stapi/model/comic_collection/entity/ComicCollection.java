@@ -79,63 +79,63 @@ public class ComicCollection extends PageAwareEntity implements PageAware {
 	private Boolean photonovel;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "comic_collection_series",
+	@JoinTable(name = "comic_collections_series",
 			joinColumns = @JoinColumn(name = "comic_collection_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "comic_series_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<ComicSeries> comicSeries = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "comic_collection_writers",
+	@JoinTable(name = "comic_collections_writers",
 			joinColumns = @JoinColumn(name = "comic_collection_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "staff_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Staff> writers = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "comic_collection_artists",
+	@JoinTable(name = "comic_collections_artists",
 			joinColumns = @JoinColumn(name = "comic_collection_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "staff_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Staff> artists = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "comic_collection_editors",
+	@JoinTable(name = "comic_collections_editors",
 			joinColumns = @JoinColumn(name = "comic_collection_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "staff_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Staff> editors = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "comic_collection_staff",
+	@JoinTable(name = "comic_collections_staff",
 			joinColumns = @JoinColumn(name = "comic_collection_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "staff_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Staff> staff = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "comic_collection_publishers",
+	@JoinTable(name = "comic_collections_publishers",
 			joinColumns = @JoinColumn(name = "comic_collection_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "company_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Company> publishers = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "comic_collection_characters",
+	@JoinTable(name = "comic_collections_characters",
 			joinColumns = @JoinColumn(name = "comic_collection_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "character_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Character> characters = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "comic_collection_references",
+	@JoinTable(name = "comic_collections_references",
 			joinColumns = @JoinColumn(name = "comic_collection_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "reference_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Reference> references = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "comic_collection_comics",
+	@JoinTable(name = "comic_collections_comics",
 			joinColumns = @JoinColumn(name = "comic_collection_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "comics_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

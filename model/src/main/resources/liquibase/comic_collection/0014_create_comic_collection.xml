@@ -36,137 +36,137 @@
 				referencedColumnNames="id"
 				referencedTableName="page"/>
 
-		<createTable schemaName="stapi" tableName="comic_collection_series">
+		<createTable schemaName="stapi" tableName="comic_collections_series">
 			<column name="comic_collection_id" type="bigint"/>
 			<column name="comic_series_id" type="bigint"/>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="comic_collection_id"
-				baseTableName="comic_collection_series"
+				baseTableName="comic_collections_series"
 				constraintName="ccs_comic_collection_fkey"
 				referencedColumnNames="id"
 				referencedTableName="comic_collection"/>
 		<addForeignKeyConstraint baseColumnNames="comic_series_id"
-				baseTableName="comic_collection_series"
+				baseTableName="comic_collections_series"
 				constraintName="ccs2_comic_series_fkey"
 				referencedColumnNames="id"
 				referencedTableName="comic_series"/>
 
-		<createTable schemaName="stapi" tableName="comic_collection_writers">
+		<createTable schemaName="stapi" tableName="comic_collections_writers">
 			<column name="comic_collection_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="comic_collection_id"
-				baseTableName="comic_collection_writers"
+				baseTableName="comic_collections_writers"
 				constraintName="ccw_comic_collection_fkey"
 				referencedColumnNames="id"
 				referencedTableName="comic_collection"/>
 		<addForeignKeyConstraint baseColumnNames="staff_id"
-				baseTableName="comic_collection_writers"
+				baseTableName="comic_collections_writers"
 				constraintName="ccw_writer_fkey"
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable schemaName="stapi" tableName="comic_collection_artists">
+		<createTable schemaName="stapi" tableName="comic_collections_artists">
 			<column name="comic_collection_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="comic_collection_id"
-				baseTableName="comic_collection_artists"
+				baseTableName="comic_collections_artists"
 				constraintName="cca_comic_collection_fkey"
 				referencedColumnNames="id"
 				referencedTableName="comic_collection"/>
 		<addForeignKeyConstraint baseColumnNames="staff_id"
-				baseTableName="comic_collection_artists"
+				baseTableName="comic_collections_artists"
 				constraintName="cca_artist_fkey"
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable schemaName="stapi" tableName="comic_collection_editors">
+		<createTable schemaName="stapi" tableName="comic_collections_editors">
 			<column name="comic_collection_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="comic_collection_id"
-				baseTableName="comic_collection_editors"
+				baseTableName="comic_collections_editors"
 				constraintName="cce_comic_collection_fkey"
 				referencedColumnNames="id"
 				referencedTableName="comic_collection"/>
 		<addForeignKeyConstraint baseColumnNames="staff_id"
-				baseTableName="comic_collection_editors"
+				baseTableName="comic_collections_editors"
 				constraintName="cce_editor_fkey"
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable schemaName="stapi" tableName="comic_collection_staff">
+		<createTable schemaName="stapi" tableName="comic_collections_staff">
 			<column name="comic_collection_id" type="bigint"/>
 			<column name="staff_id" type="bigint"/>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="comic_collection_id"
-				baseTableName="comic_collection_staff"
+				baseTableName="comic_collections_staff"
 				constraintName="ccs2_comic_collection_fkey"
 				referencedColumnNames="id"
 				referencedTableName="comic_collection"/>
 		<addForeignKeyConstraint baseColumnNames="staff_id"
-				baseTableName="comic_collection_staff"
+				baseTableName="comic_collections_staff"
 				constraintName="ccs_staff_fkey"
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
-		<createTable schemaName="stapi" tableName="comic_collection_publishers">
+		<createTable schemaName="stapi" tableName="comic_collections_publishers">
 			<column name="comic_collection_id" type="bigint"/>
 			<column name="company_id" type="bigint"/>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="comic_collection_id"
-				baseTableName="comic_collection_publishers"
+				baseTableName="comic_collections_publishers"
 				constraintName="ccp_comic_collection_fkey"
 				referencedColumnNames="id"
 				referencedTableName="comic_collection"/>
 		<addForeignKeyConstraint baseColumnNames="company_id"
-				baseTableName="comic_collection_publishers"
+				baseTableName="comic_collections_publishers"
 				constraintName="ccp_publisher_fkey"
 				referencedColumnNames="id"
 				referencedTableName="company"/>
 
-		<createTable schemaName="stapi" tableName="comic_collection_characters">
+		<createTable schemaName="stapi" tableName="comic_collections_characters">
 			<column name="comic_collection_id" type="bigint"/>
 			<column name="character_id" type="bigint"/>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="comic_collection_id"
-				baseTableName="comic_collection_characters"
+				baseTableName="comic_collections_characters"
 				constraintName="ccc_comic_collection_fkey"
 				referencedColumnNames="id"
 				referencedTableName="comic_collection"/>
 		<addForeignKeyConstraint baseColumnNames="character_id"
-				baseTableName="comic_collection_characters"
+				baseTableName="comic_collections_characters"
 				constraintName="ccc_character_fkey"
 				referencedColumnNames="id"
 				referencedTableName="character"/>
 
-		<createTable schemaName="stapi" tableName="comic_collection_references">
+		<createTable schemaName="stapi" tableName="comic_collections_references">
 			<column name="comic_collection_id" type="bigint"/>
 			<column name="reference_id" type="bigint"/>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="comic_collection_id"
-				baseTableName="comic_collection_references"
+				baseTableName="comic_collections_references"
 				constraintName="ccr_comic_collection_fkey"
 				referencedColumnNames="id"
 				referencedTableName="comic_collection"/>
 		<addForeignKeyConstraint baseColumnNames="reference_id"
-				baseTableName="comic_collection_references"
+				baseTableName="comic_collections_references"
 				constraintName="ccr_reference_fkey"
 				referencedColumnNames="id"
 				referencedTableName="reference"/>
 
-		<createTable schemaName="stapi" tableName="comic_collection_comics">
+		<createTable schemaName="stapi" tableName="comic_collections_comics">
 			<column name="comic_collection_id" type="bigint"/>
 			<column name="comics_id" type="bigint"/>
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="comic_collection_id"
-				baseTableName="comic_collection_comics"
+				baseTableName="comic_collections_comics"
 				constraintName="ccc2_comic_collection_fkey"
 				referencedColumnNames="id"
 				referencedTableName="comic_collection"/>
 		<addForeignKeyConstraint baseColumnNames="comics_id"
-				baseTableName="comic_collection_comics"
+				baseTableName="comic_collections_comics"
 				constraintName="ccc2_character_fkey"
 				referencedColumnNames="id"
 				referencedTableName="comics"/>
