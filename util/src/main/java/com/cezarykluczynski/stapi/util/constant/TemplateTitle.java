@@ -22,6 +22,7 @@ public class TemplateTitle {
 	public static final String SIDEBAR_NOVEL_SERIES = "sidebar novel series";
 	public static final String SIDEBAR_MAGAZINE = "sidebar magazine";
 	public static final String SIDEBAR_MAGAZINE_SERIES = "sidebar magazine series";
+	public static final String SIDEBAR_VIDEO = "sidebar video";
 
 	public static final String BORN = "born";
 
