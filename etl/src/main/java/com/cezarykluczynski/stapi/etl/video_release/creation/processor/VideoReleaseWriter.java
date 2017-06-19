@@ -35,8 +35,8 @@ public class VideoReleaseWriter implements ItemWriter<VideoRelease> {
 		return filterDuplicates(comicsListWithoutExtends);
 	}
 
-	private List<VideoRelease> fromExtendsListToVideoReleaseList(List<? extends VideoRelease> comicsList) {
-		return comicsList
+	private List<VideoRelease> fromExtendsListToVideoReleaseList(List<? extends VideoRelease> videoReleases) {
+		return videoReleases
 				.stream()
 				.map(pageAware -> (VideoRelease) pageAware)
 				.collect(Collectors.toList());

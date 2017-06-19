@@ -29,5 +29,6 @@
 	<include file="magazine_series/0025_create_magazine_series.xml" relativeToChangelogFile="true"/>
 	<include file="magazine/0026_create_magazine.xml" relativeToChangelogFile="true"/>
 	<include file="literature/0027_create_literature.xml" relativeToChangelogFile="true"/>
-	<include file="video_release/0028_create_video_release.xml" relativeToChangelogFile="true"/>
+	<include file="content_rating/0028_create_content_rating.xml" relativeToChangelogFile="true"/>
+	<include file="video_release/0029_create_video_release.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.model.comic_collection.entity.ComicCollection;
 import com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries;
 import com.cezarykluczynski.stapi.model.comic_strip.entity.ComicStrip;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics;
+import com.cezarykluczynski.stapi.model.content_rating.entity.ContentRating;
 import com.cezarykluczynski.stapi.model.magazine_series.entity.MagazineSeries;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.collect.Lists;
@@ -35,6 +36,7 @@ public class EntityMatadataProvider {
 		CUSTOM_SYMBOL_MAP.put(BookSeries.class, "BS");
 		CUSTOM_SYMBOL_MAP.put(BookCollection.class, "BC");
 		CUSTOM_SYMBOL_MAP.put(MagazineSeries.class, "MS");
+		CUSTOM_SYMBOL_MAP.put(ContentRating.class, "CR");
 	}
 
 	private final EntityManager entityManager;
