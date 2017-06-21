@@ -4,9 +4,12 @@ import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplate
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease
+import com.cezarykluczynski.stapi.model.video_release.entity.enums.VideoReleaseFormat
 import com.cezarykluczynski.stapi.util.AbstractVideoReleaseTest
 
 class VideoReleaseTemplateProcessorTest extends AbstractVideoReleaseTest {
+
+	private static final VideoReleaseFormat VIDEO_RELEASE_FORMAT = VideoReleaseFormat.UMD
 
 	private UidGenerator uidGeneratorMock
 
@@ -24,6 +27,7 @@ class VideoReleaseTemplateProcessorTest extends AbstractVideoReleaseTest {
 		VideoTemplate videoReleaseTemplate = new VideoTemplate(
 				page: page,
 				title: TITLE,
+				format: VIDEO_RELEASE_FORMAT,
 				amazonDigitalRelease: AMAZON_DIGITAL_RELEASE,
 				dailymotionDigitalRelease: DAILYMOTION_DIGITAL_RELEASE,
 				googlePlayDigitalRelease: GOOGLE_PLAY_DIGITAL_RELEASE,
@@ -44,6 +48,7 @@ class VideoReleaseTemplateProcessorTest extends AbstractVideoReleaseTest {
 		videoRelease.uid == UID
 		videoRelease.page == page
 		videoRelease.title == TITLE
+		videoRelease.format == VIDEO_RELEASE_FORMAT
 		videoRelease.amazonDigitalRelease == AMAZON_DIGITAL_RELEASE
 		videoRelease.dailymotionDigitalRelease == DAILYMOTION_DIGITAL_RELEASE
 		videoRelease.googlePlayDigitalRelease == GOOGLE_PLAY_DIGITAL_RELEASE

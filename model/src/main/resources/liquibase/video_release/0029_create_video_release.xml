@@ -17,7 +17,7 @@
 				<constraints nullable="false"/>
 			</column>
 			<column name="series_id" type="bigint"/>
-			<column name="video_release_format" type="varchar(16)"/>
+			<column name="format" type="varchar(16)"/>
 			<column name="season_number" type="int"/>
 			<column name="number_of_episodes" type="int"/>
 			<column name="number_of_data_carriers" type="int"/>

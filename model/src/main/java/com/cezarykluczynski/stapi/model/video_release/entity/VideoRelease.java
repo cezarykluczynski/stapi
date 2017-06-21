@@ -57,7 +57,7 @@ public class VideoRelease extends PageAwareEntity implements PageAware {
 	@JoinColumn(name = "series_id")
 	private Series series;
 
-	private VideoReleaseFormat videoReleaseFormat;
+	private VideoReleaseFormat format;
 
 	private Integer seasonNumber;
 

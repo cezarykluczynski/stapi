@@ -25,6 +25,7 @@ public class VideoReleaseTemplateProcessor implements ItemProcessor<VideoTemplat
 		videoRelease.setUid(uidGenerator.generateFromPage(item.getPage(), VideoRelease.class));
 		videoRelease.setPage(item.getPage());
 		videoRelease.setTitle(item.getTitle());
+		videoRelease.setFormat(item.getFormat());
 		videoRelease.setAmazonDigitalRelease(Boolean.TRUE.equals(item.getAmazonDigitalRelease()));
 		videoRelease.setDailymotionDigitalRelease(Boolean.TRUE.equals(item.getDailymotionDigitalRelease()));
 		videoRelease.setGooglePlayDigitalRelease(Boolean.TRUE.equals(item.getGooglePlayDigitalRelease()));

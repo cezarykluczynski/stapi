@@ -1,7 +1,13 @@
 package com.cezarykluczynski.stapi.etl.template.video.dto;
 
 import com.cezarykluczynski.stapi.model.page.entity.Page;
+import com.cezarykluczynski.stapi.model.series.entity.Series;
+import com.cezarykluczynski.stapi.model.video_release.entity.enums.VideoReleaseFormat;
 import lombok.Data;
+
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import java.time.LocalDate;
 
 @Data
 public class VideoTemplate {
@@ -9,6 +15,41 @@ public class VideoTemplate {
 	private String title;
 
 	private Page page;
+
+	private Series series;
+
+	@Enumerated(EnumType.STRING)
+	private VideoReleaseFormat format;
+
+	private Integer seasonNumber;
+
+	private Integer numberOfEpisodes;
+
+	private Integer numberOfDataCarriers;
+
+	private Integer runTime;
+
+	private Float stardateFrom;
+
+	private Float stardateTo;
+
+	private Integer yearFrom;
+
+	private Integer yearTo;
+
+	private LocalDate regionFreeReleaseDate;
+
+	private LocalDate region1AReleaseDate;
+
+	private LocalDate region1SlimlineReleaseDate;
+
+	private LocalDate region2AReleaseDate;
+
+	private LocalDate region2SlimlineReleaseDate;
+
+	private LocalDate region4AReleaseDate;
+
+	private LocalDate region4SlimlineReleaseDate;
 
 	private Boolean amazonDigitalRelease;
 
