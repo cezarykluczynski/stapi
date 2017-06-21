@@ -53,7 +53,7 @@ class AstronomicalObjectLinkEnrichingProcessorTest extends Specification {
 		subject.location == null
 	}
 
-	void "does not set location when location candidate is bigger thansubject"() {
+	void "does not set location when location candidate is bigger than subject"() {
 		given:
 		AstronomicalObject locationCandidate = new AstronomicalObject(astronomicalObjectType: AstronomicalObjectType.STAR)
 		AstronomicalObject subject = new AstronomicalObject(astronomicalObjectType: AstronomicalObjectType.D_CLASS_PLANET)

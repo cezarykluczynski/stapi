@@ -25,6 +25,16 @@ public class VideoReleaseTemplateProcessor implements ItemProcessor<VideoTemplat
 		videoRelease.setUid(uidGenerator.generateFromPage(item.getPage(), VideoRelease.class));
 		videoRelease.setPage(item.getPage());
 		videoRelease.setTitle(item.getTitle());
+		videoRelease.setAmazonDigitalRelease(Boolean.TRUE.equals(item.getAmazonDigitalRelease()));
+		videoRelease.setDailymotionDigitalRelease(Boolean.TRUE.equals(item.getDailymotionDigitalRelease()));
+		videoRelease.setGooglePlayDigitalRelease(Boolean.TRUE.equals(item.getGooglePlayDigitalRelease()));
+		videoRelease.setITunesDigitalRelease(Boolean.TRUE.equals(item.getITunesDigitalRelease()));
+		videoRelease.setUltraVioletDigitalRelease(Boolean.TRUE.equals(item.getUltraVioletDigitalRelease()));
+		videoRelease.setVimeoDigitalRelease(Boolean.TRUE.equals(item.getVimeoDigitalRelease()));
+		videoRelease.setVuduDigitalRelease(Boolean.TRUE.equals(item.getVuduDigitalRelease()));
+		videoRelease.setXboxSmartGlassDigital(Boolean.TRUE.equals(item.getXboxSmartGlassDigital()));
+		videoRelease.setYouTubeDigitalRelease(Boolean.TRUE.equals(item.getYouTubeDigitalRelease()));
+		videoRelease.setNetflixDigitalRelease(Boolean.TRUE.equals(item.getNetflixDigitalRelease()));
 
 		return videoRelease;
 	}

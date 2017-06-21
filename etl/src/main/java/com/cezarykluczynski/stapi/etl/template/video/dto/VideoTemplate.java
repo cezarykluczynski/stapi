@@ -10,4 +10,25 @@ public class VideoTemplate {
 
 	private Page page;
 
+	private Boolean amazonDigitalRelease;
+
+	private Boolean dailymotionDigitalRelease;
+
+	private Boolean googlePlayDigitalRelease;
+
+	@SuppressWarnings("memberName")
+	private Boolean iTunesDigitalRelease;
+
+	private Boolean ultraVioletDigitalRelease;
+
+	private Boolean vimeoDigitalRelease;
+
+	private Boolean vuduDigitalRelease;
+
+	private Boolean xboxSmartGlassDigital;
+
+	private Boolean youTubeDigitalRelease;
+
+	private Boolean netflixDigitalRelease;
+
 }

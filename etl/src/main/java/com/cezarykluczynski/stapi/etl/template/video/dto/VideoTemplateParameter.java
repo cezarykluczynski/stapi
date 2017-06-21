@@ -30,5 +30,6 @@ public class VideoTemplateParameter {
 	public static final String DFVU = "dfvu";
 	public static final String DFXB = "dfxb";
 	public static final String DFYT = "dfyt";
+	public static final String DFNF = "dfnf";
 
 }
