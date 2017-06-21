@@ -32,6 +32,14 @@ public class VideoTemplateContentsEnrichingProcessor implements ItemEnrichingPro
 				case VideoTemplateParameter.FORMAT:
 					videoTemplate.setFormat(videoReleaseFormatProcessor.process(value));
 					break;
+				case VideoTemplateParameter.SERIES:
+				case VideoTemplateParameter.SEASON:
+				case VideoTemplateParameter.EPISODES:
+				case VideoTemplateParameter.DISCS:
+				case VideoTemplateParameter.TIME:
+				case VideoTemplateParameter.YEAR:
+					// TODO
+					break;
 				default:
 					break;
 			}
