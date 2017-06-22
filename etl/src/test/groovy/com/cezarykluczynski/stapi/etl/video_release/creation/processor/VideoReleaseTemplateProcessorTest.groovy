@@ -28,6 +28,13 @@ class VideoReleaseTemplateProcessorTest extends AbstractVideoReleaseTest {
 				page: page,
 				title: TITLE,
 				format: VIDEO_RELEASE_FORMAT,
+				regionFreeReleaseDate: REGION_FREE_RELEASE_DATE,
+				region1AReleaseDate: REGION1_A_RELEASE_DATE,
+				region1SlimlineReleaseDate: REGION1_SLIMLINE_RELEASE_DATE,
+				region2AReleaseDate: REGION2_A_RELEASE_DATE,
+				region2SlimlineReleaseDate: REGION2_SLIMLINE_RELEASE_DATE,
+				region4AReleaseDate: REGION4_A_RELEASE_DATE,
+				region4SlimlineReleaseDate: REGION4_SLIMLINE_RELEASE_DATE,
 				amazonDigitalRelease: AMAZON_DIGITAL_RELEASE,
 				dailymotionDigitalRelease: DAILYMOTION_DIGITAL_RELEASE,
 				googlePlayDigitalRelease: GOOGLE_PLAY_DIGITAL_RELEASE,
@@ -49,6 +56,13 @@ class VideoReleaseTemplateProcessorTest extends AbstractVideoReleaseTest {
 		videoRelease.page == page
 		videoRelease.title == TITLE
 		videoRelease.format == VIDEO_RELEASE_FORMAT
+		videoRelease.regionFreeReleaseDate == REGION_FREE_RELEASE_DATE
+		videoRelease.region1AReleaseDate == REGION1_A_RELEASE_DATE
+		videoRelease.region1SlimlineReleaseDate == REGION1_SLIMLINE_RELEASE_DATE
+		videoRelease.region2AReleaseDate == REGION2_A_RELEASE_DATE
+		videoRelease.region2SlimlineReleaseDate == REGION2_SLIMLINE_RELEASE_DATE
+		videoRelease.region4AReleaseDate == REGION4_A_RELEASE_DATE
+		videoRelease.region4SlimlineReleaseDate == REGION4_SLIMLINE_RELEASE_DATE
 		videoRelease.amazonDigitalRelease == AMAZON_DIGITAL_RELEASE
 		videoRelease.dailymotionDigitalRelease == DAILYMOTION_DIGITAL_RELEASE
 		videoRelease.googlePlayDigitalRelease == GOOGLE_PLAY_DIGITAL_RELEASE

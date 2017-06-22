@@ -21,6 +21,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -57,6 +59,7 @@ public class VideoRelease extends PageAwareEntity implements PageAware {
 	@JoinColumn(name = "series_id")
 	private Series series;
 
+	@Enumerated(EnumType.STRING)
 	private VideoReleaseFormat format;
 
 	private Integer seasonNumber;

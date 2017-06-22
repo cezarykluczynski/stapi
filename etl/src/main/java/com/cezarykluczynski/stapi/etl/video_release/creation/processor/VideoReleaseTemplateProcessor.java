@@ -26,6 +26,13 @@ public class VideoReleaseTemplateProcessor implements ItemProcessor<VideoTemplat
 		videoRelease.setPage(item.getPage());
 		videoRelease.setTitle(item.getTitle());
 		videoRelease.setFormat(item.getFormat());
+		videoRelease.setRegionFreeReleaseDate(item.getRegionFreeReleaseDate());
+		videoRelease.setRegion1AReleaseDate(item.getRegion1AReleaseDate());
+		videoRelease.setRegion1SlimlineReleaseDate(item.getRegion1SlimlineReleaseDate());
+		videoRelease.setRegion2AReleaseDate(item.getRegion2AReleaseDate());
+		videoRelease.setRegion2SlimlineReleaseDate(item.getRegion2SlimlineReleaseDate());
+		videoRelease.setRegion4AReleaseDate(item.getRegion4AReleaseDate());
+		videoRelease.setRegion4SlimlineReleaseDate(item.getRegion4SlimlineReleaseDate());
 		videoRelease.setAmazonDigitalRelease(Boolean.TRUE.equals(item.getAmazonDigitalRelease()));
 		videoRelease.setDailymotionDigitalRelease(Boolean.TRUE.equals(item.getDailymotionDigitalRelease()));
 		videoRelease.setGooglePlayDigitalRelease(Boolean.TRUE.equals(item.getGooglePlayDigitalRelease()));

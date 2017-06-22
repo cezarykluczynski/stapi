@@ -5,8 +5,6 @@ import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.model.video_release.entity.enums.VideoReleaseFormat;
 import lombok.Data;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import java.time.LocalDate;
 
 @Data
@@ -18,7 +16,6 @@ public class VideoTemplate {
 
 	private Series series;
 
-	@Enumerated(EnumType.STRING)
 	private VideoReleaseFormat format;
 
 	private Integer seasonNumber;
