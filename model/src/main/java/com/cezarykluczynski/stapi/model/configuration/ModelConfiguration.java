@@ -103,6 +103,12 @@ public class ModelConfiguration {
 		return springLiquibase;
 	}
 
+	@Bean(name = "liquibase")
+	@Profile(SpringProfile.ETL_NOT)
+	public Object liquibaseMock() {
+		return new Object();
+	}
+
 	@Bean
 	public PlatformTransactionManager transactionManager() {
 		return new JpaTransactionManager(entityManagerFactory());

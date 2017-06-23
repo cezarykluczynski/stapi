@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.LongAdder;
 
 @Service
+@DependsOn("liquibase")
 public class EndpointHitsReader {
 
 	private static final Set<String> ENDPOINT_NAMES_EXCLUDES = Sets.newHashSet("CommonRestEndpoint");
