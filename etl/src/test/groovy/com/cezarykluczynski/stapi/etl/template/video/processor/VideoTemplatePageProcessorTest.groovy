@@ -24,6 +24,8 @@ class VideoTemplatePageProcessorTest extends Specification {
 
 	private VideoTemplateCompositeEnrichingProcessor videoTemplateCompositeEnrichingProcessorMock
 
+	private VideoTemplateFormatEnrichingProcessor videoTemplateFormatEnrichingProcessorMock
+
 	private VideoTemplatePageProcessor videoTemplatePageProcessor
 
 	void setup() {
@@ -31,8 +33,9 @@ class VideoTemplatePageProcessorTest extends Specification {
 		pageBindingServiceMock = Mock()
 		templateFinderMock = Mock()
 		videoTemplateCompositeEnrichingProcessorMock = Mock()
+		videoTemplateFormatEnrichingProcessorMock = Mock()
 		videoTemplatePageProcessor = new VideoTemplatePageProcessor(videoReleasePageFilterMock, pageBindingServiceMock, templateFinderMock,
-				videoTemplateCompositeEnrichingProcessorMock)
+				videoTemplateCompositeEnrichingProcessorMock, videoTemplateFormatEnrichingProcessorMock)
 	}
 
 	void "returns null when VideoReleasePageFilter returns true"() {
@@ -59,6 +62,7 @@ class VideoTemplatePageProcessorTest extends Specification {
 		1 * videoReleasePageFilterMock.shouldBeFilteredOut(page) >> false
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_VIDEO) >> Optional.empty()
+		1 * videoTemplateFormatEnrichingProcessorMock.enrich(_)
 		0 * _
 		videoTemplate.page == modelPage
 		videoTemplate.title == TITLE
@@ -79,6 +83,10 @@ class VideoTemplatePageProcessorTest extends Specification {
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_VIDEO) >> Optional.of(sidebarVideoTemplate)
 		1 * videoTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair<Template, VideoTemplate> enrichablePair ->
 			assert enrichablePair.input == sidebarVideoTemplate
+			assert enrichablePair.output != null
+		}
+		1 * videoTemplateFormatEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {  EnrichablePair<Page, VideoTemplate> enrichablePair ->
+			assert enrichablePair.input == page
 			assert enrichablePair.output != null
 		}
 		0 * _

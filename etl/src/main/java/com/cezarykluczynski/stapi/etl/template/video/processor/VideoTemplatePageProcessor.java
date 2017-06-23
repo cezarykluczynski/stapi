@@ -28,13 +28,17 @@ public class VideoTemplatePageProcessor implements ItemProcessor<Page, VideoTemp
 
 	private final VideoTemplateCompositeEnrichingProcessor videoTemplateCompositeEnrichingProcessor;
 
+	private final VideoTemplateFormatEnrichingProcessor videoTemplateFormatEnrichingProcessor;
+
 	@Inject
 	public VideoTemplatePageProcessor(VideoReleasePageFilter videoReleasePageFilter, PageBindingService pageBindingService,
-			TemplateFinder templateFinder, VideoTemplateCompositeEnrichingProcessor videoTemplateCompositeEnrichingProcessor) {
+			TemplateFinder templateFinder, VideoTemplateCompositeEnrichingProcessor videoTemplateCompositeEnrichingProcessor,
+			VideoTemplateFormatEnrichingProcessor videoTemplateFormatEnrichingProcessor) {
 		this.videoReleasePageFilter = videoReleasePageFilter;
 		this.pageBindingService = pageBindingService;
 		this.templateFinder = templateFinder;
 		this.videoTemplateCompositeEnrichingProcessor = videoTemplateCompositeEnrichingProcessor;
+		this.videoTemplateFormatEnrichingProcessor = videoTemplateFormatEnrichingProcessor;
 	}
 
 	@Override
@@ -54,6 +58,8 @@ public class VideoTemplatePageProcessor implements ItemProcessor<Page, VideoTemp
 		} else {
 			log.info("No sidebar video template found on page: \"{}\"", item.getTitle());
 		}
+
+		videoTemplateFormatEnrichingProcessor.enrich(EnrichablePair.of(item, videoTemplate));
 
 		return videoTemplate;
 	}
