@@ -251,5 +251,20 @@ public class CategoryTitle {
 	public static final String TECHNICAL_MANUALS = "Technical_manuals";
 
 	public static final String VIDEO_RELEASES = "Video_releases";
+	@SuppressWarnings("ConstantName")
+	public static final String _4K_ULTRA_HD_BLU_RAYS = "4K_Ultra_HD_Blu-rays";
+	public static final String BETAMAX_RELEASES = "Betamax_releases";
+	public static final String BLU_RAY_DISCS = "Blu-ray_Discs";
+	public static final String CEDS = "CEDs";
+	public static final String DIGITAL_RELEASES = "Digital_releases";
+	public static final String DVDS = "DVDs";
+	public static final String LASER_DISCS = "LaserDiscs";
+	public static final String SUPER_8S = "Super_8s";
+	public static final String VCDS = "VCDs";
+	public static final String VHDS = "VHDs";
+	public static final String VHS_RELEASES = "VHS_releases";
+	public static final String UK_VHS_RELEASES = "UK_VHS_releases";
+	public static final String US_VHS_RELEASES = "US_VHS_releases";
+	public static final String VIDEO_8S = "Video_8s";
 
 }

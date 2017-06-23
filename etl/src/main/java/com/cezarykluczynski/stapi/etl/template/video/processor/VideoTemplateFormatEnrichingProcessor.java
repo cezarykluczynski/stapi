@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplate;
 import com.cezarykluczynski.stapi.model.video_release.entity.enums.VideoReleaseFormat;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -13,6 +14,8 @@ import javax.inject.Inject;
 @Service
 @Slf4j
 public class VideoTemplateFormatEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Page, VideoTemplate>> {
+
+	private static final String UMD = " (UMD)";
 
 	private final VideoReleaseFormatFromCategoryLinkProcessor videoReleaseFormatFromCategoryLinkProcessor;
 
@@ -33,6 +36,10 @@ public class VideoTemplateFormatEnrichingProcessor implements ItemEnrichingProce
 		} else if (videoReleaseFormatFromCategories != null && videoReleaseFormatFromSidebarVideoTemplate != videoReleaseFormatFromCategories) {
 			log.warn("VideoReleaseFormat {} concluced from page categories differs from format {} found in sidebar video template",
 					videoReleaseFormatFromCategories, videoReleaseFormatFromSidebarVideoTemplate);
+		}
+
+		if (StringUtils.contains(page.getTitle(), UMD)) {
+			videoTemplate.setFormat(VideoReleaseFormat.UMD);
 		}
 	}
 
