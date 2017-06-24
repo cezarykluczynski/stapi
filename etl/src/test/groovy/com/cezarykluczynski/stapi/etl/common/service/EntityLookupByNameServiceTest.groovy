@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.book.entity.Book
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.comics.entity.Comics
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
+import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.model.species.entity.Species
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource as SourcesMediaWikiSource
@@ -20,6 +21,7 @@ class EntityLookupByNameServiceTest extends Specification {
 	private static final String ASTRONOMICAL_OBJECT_NAME = 'ASTRONOMICAL_OBJECT_NAME'
 	private static final String SPECIES_NAME = 'SPECIES_NAME'
 	private static final String BOOK_TITLE = 'BOOK_TITLE'
+	private static final String SERIES_TITLE = 'SERIES_TITLE'
 
 	private GenericEntityLookupByNameService genericEntityLookupByNameService
 
@@ -121,6 +123,19 @@ class EntityLookupByNameServiceTest extends Specification {
 		1 * genericEntityLookupByNameService.findEntityByName(BOOK_TITLE, SOURCES_MEDIA_WIKI_SOURCE, Book) >> Optional.of(book)
 		0 * _
 		bookOptional.get() == book
+	}
+
+	void "gets series object from generic service"() {
+		given:
+		Series series = Mock()
+
+		when:
+		Optional<Series> seriesOptional = entityLookupByNameService.findSeriesByName(SERIES_TITLE, SOURCES_MEDIA_WIKI_SOURCE)
+
+		then:
+		1 * genericEntityLookupByNameService.findEntityByName(SERIES_TITLE, SOURCES_MEDIA_WIKI_SOURCE, Series) >> Optional.of(series)
+		0 * _
+		seriesOptional.get() == series
 	}
 
 }

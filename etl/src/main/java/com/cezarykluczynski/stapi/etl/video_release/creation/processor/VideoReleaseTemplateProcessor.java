@@ -25,6 +25,7 @@ public class VideoReleaseTemplateProcessor implements ItemProcessor<VideoTemplat
 		videoRelease.setUid(uidGenerator.generateFromPage(item.getPage(), VideoRelease.class));
 		videoRelease.setPage(item.getPage());
 		videoRelease.setTitle(item.getTitle());
+		videoRelease.setSeries(item.getSeries());
 		videoRelease.setFormat(item.getFormat());
 		videoRelease.setRegionFreeReleaseDate(item.getRegionFreeReleaseDate());
 		videoRelease.setRegion1AReleaseDate(item.getRegion1AReleaseDate());

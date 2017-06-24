@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.video.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.template.series.processor.WikitextToSeriesProcessor;
 import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplate;
 import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplateParameter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
@@ -14,9 +15,13 @@ public class VideoTemplateContentsEnrichingProcessor implements ItemEnrichingPro
 
 	private final VideoReleaseFormatProcessor videoReleaseFormatProcessor;
 
+	private final WikitextToSeriesProcessor wikitextToSeriesProcessor;
+
 	@Inject
-	public VideoTemplateContentsEnrichingProcessor(VideoReleaseFormatProcessor videoReleaseFormatProcessor) {
+	public VideoTemplateContentsEnrichingProcessor(VideoReleaseFormatProcessor videoReleaseFormatProcessor,
+			WikitextToSeriesProcessor wikitextToSeriesProcessor) {
 		this.videoReleaseFormatProcessor = videoReleaseFormatProcessor;
+		this.wikitextToSeriesProcessor = wikitextToSeriesProcessor;
 	}
 
 	@Override
@@ -33,6 +38,8 @@ public class VideoTemplateContentsEnrichingProcessor implements ItemEnrichingPro
 					videoTemplate.setFormat(videoReleaseFormatProcessor.process(value));
 					break;
 				case VideoTemplateParameter.SERIES:
+					videoTemplate.setSeries(wikitextToSeriesProcessor.process(value));
+					break;
 				case VideoTemplateParameter.SEASON:
 				case VideoTemplateParameter.EPISODES:
 				case VideoTemplateParameter.DISCS:

@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.video_release.creation.processor
 import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplate
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.page.entity.Page
+import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease
 import com.cezarykluczynski.stapi.model.video_release.entity.enums.VideoReleaseFormat
 import com.cezarykluczynski.stapi.util.AbstractVideoReleaseTest
@@ -16,6 +17,7 @@ class VideoReleaseTemplateProcessorTest extends AbstractVideoReleaseTest {
 	private VideoReleaseTemplateProcessor videoReleaseTemplateProcessor
 
 	private final Page page = Mock()
+	private final Series series = Mock()
 
 	void setup() {
 		uidGeneratorMock = Mock()
@@ -27,6 +29,7 @@ class VideoReleaseTemplateProcessorTest extends AbstractVideoReleaseTest {
 		VideoTemplate videoReleaseTemplate = new VideoTemplate(
 				page: page,
 				title: TITLE,
+				series: series,
 				format: VIDEO_RELEASE_FORMAT,
 				regionFreeReleaseDate: REGION_FREE_RELEASE_DATE,
 				region1AReleaseDate: REGION1_A_RELEASE_DATE,
@@ -55,6 +58,7 @@ class VideoReleaseTemplateProcessorTest extends AbstractVideoReleaseTest {
 		videoRelease.uid == UID
 		videoRelease.page == page
 		videoRelease.title == TITLE
+		videoRelease.series == series
 		videoRelease.format == VIDEO_RELEASE_FORMAT
 		videoRelease.regionFreeReleaseDate == REGION_FREE_RELEASE_DATE
 		videoRelease.region1AReleaseDate == REGION1_A_RELEASE_DATE

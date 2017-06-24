@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.book.entity.Book;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
+import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
@@ -51,6 +52,10 @@ public class EntityLookupByNameService {
 
 	public Optional<Book> findBookByName(String speciesName, MediaWikiSource mediaWikiSource) {
 		return genericEntityLookupByNameService.findEntityByName(speciesName, mediaWikiSource, Book.class);
+	}
+
+	public Optional<Series> findSeriesByName(String seriesName, MediaWikiSource mediaWikiSource) {
+		return genericEntityLookupByNameService.findEntityByName(seriesName, mediaWikiSource, Series.class);
 	}
 
 }
