@@ -8,6 +8,9 @@ class AbstractVideoReleaseTest extends AbstractTest {
 
 	protected static final String UID = 'ABCD0123456789'
 	protected static final String TITLE = 'TITLE'
+	protected static final Integer NUMBER_OF_EPISODES = 26
+	protected static final Integer NUMBER_OF_FEATURE_LENGTH_EPISODES = 3
+	protected static final Integer NUMBER_OF_DATA_CARRIERS = 4
 	protected static final LocalDate REGION_FREE_RELEASE_DATE = LocalDate.of(2001, 01, 01)
 	protected static final LocalDate REGION1_A_RELEASE_DATE = LocalDate.of(2002, 02, 02)
 	protected static final LocalDate REGION1_SLIMLINE_RELEASE_DATE = LocalDate.of(2003, 03, 03)

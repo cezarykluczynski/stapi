@@ -62,9 +62,10 @@ public class VideoRelease extends PageAwareEntity implements PageAware {
 	@Enumerated(EnumType.STRING)
 	private VideoReleaseFormat format;
 
-	private Integer seasonNumber;
-
 	private Integer numberOfEpisodes;
+
+	@Column(name = "number_of_fl_episodes")
+	private Integer numberOfFeatureLengthEpisodes;
 
 	private Integer numberOfDataCarriers;
 

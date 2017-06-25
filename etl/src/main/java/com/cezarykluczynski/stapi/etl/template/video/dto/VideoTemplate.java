@@ -18,9 +18,9 @@ public class VideoTemplate {
 
 	private VideoReleaseFormat format;
 
-	private Integer seasonNumber;
-
 	private Integer numberOfEpisodes;
+
+	private Integer numberOfFeatureLengthEpisodes;
 
 	private Integer numberOfDataCarriers;
 

@@ -27,6 +27,9 @@ public class VideoReleaseTemplateProcessor implements ItemProcessor<VideoTemplat
 		videoRelease.setTitle(item.getTitle());
 		videoRelease.setSeries(item.getSeries());
 		videoRelease.setFormat(item.getFormat());
+		videoRelease.setNumberOfEpisodes(item.getNumberOfEpisodes());
+		videoRelease.setNumberOfFeatureLengthEpisodes(item.getNumberOfFeatureLengthEpisodes());
+		videoRelease.setNumberOfDataCarriers(item.getNumberOfDataCarriers());
 		videoRelease.setRegionFreeReleaseDate(item.getRegionFreeReleaseDate());
 		videoRelease.setRegion1AReleaseDate(item.getRegion1AReleaseDate());
 		videoRelease.setRegion1SlimlineReleaseDate(item.getRegion1SlimlineReleaseDate());

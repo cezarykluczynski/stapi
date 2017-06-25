@@ -2,7 +2,7 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
-	<changeSet id="0028_create_video_release" author="cezarykluczynski">
+	<changeSet id="0029_create_video_release" author="cezarykluczynski">
 		<createTable schemaName="stapi" tableName="video_release">
 			<column name="id" type="bigint">
 				<constraints unique="true" nullable="false"/>
@@ -18,8 +18,8 @@
 			</column>
 			<column name="series_id" type="bigint"/>
 			<column name="format" type="varchar(16)"/>
-			<column name="season_number" type="int"/>
 			<column name="number_of_episodes" type="int"/>
+			<column name="number_of_fl_episodes" type="int"/>
 			<column name="number_of_data_carriers" type="int"/>
 			<column name="run_time" type="int"/>
 			<column name="stardate_from" type="float"/>

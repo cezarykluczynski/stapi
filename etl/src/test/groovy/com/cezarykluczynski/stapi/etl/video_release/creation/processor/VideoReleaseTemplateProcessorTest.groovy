@@ -31,6 +31,9 @@ class VideoReleaseTemplateProcessorTest extends AbstractVideoReleaseTest {
 				title: TITLE,
 				series: series,
 				format: VIDEO_RELEASE_FORMAT,
+				numberOfEpisodes: NUMBER_OF_EPISODES,
+				numberOfFeatureLengthEpisodes: NUMBER_OF_FEATURE_LENGTH_EPISODES,
+				numberOfDataCarriers: NUMBER_OF_DATA_CARRIERS,
 				regionFreeReleaseDate: REGION_FREE_RELEASE_DATE,
 				region1AReleaseDate: REGION1_A_RELEASE_DATE,
 				region1SlimlineReleaseDate: REGION1_SLIMLINE_RELEASE_DATE,
@@ -60,6 +63,9 @@ class VideoReleaseTemplateProcessorTest extends AbstractVideoReleaseTest {
 		videoRelease.title == TITLE
 		videoRelease.series == series
 		videoRelease.format == VIDEO_RELEASE_FORMAT
+		videoRelease.numberOfEpisodes == NUMBER_OF_EPISODES
+		videoRelease.numberOfFeatureLengthEpisodes == NUMBER_OF_FEATURE_LENGTH_EPISODES
+		videoRelease.numberOfDataCarriers == NUMBER_OF_DATA_CARRIERS
 		videoRelease.regionFreeReleaseDate == REGION_FREE_RELEASE_DATE
 		videoRelease.region1AReleaseDate == REGION1_A_RELEASE_DATE
 		videoRelease.region1SlimlineReleaseDate == REGION1_SLIMLINE_RELEASE_DATE
