@@ -2,7 +2,7 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
-	<changeSet id="0008_create_episode" author="cezarykluczynski">
+	<changeSet id="0009_create_episode" author="cezarykluczynski">
 		<createTable schemaName="stapi" tableName="episode">
 			<column name="id" type="bigint">
 				<constraints unique="true" nullable="false"/>
@@ -11,6 +11,9 @@
 				<constraints nullable="false"/>
 			</column>
 			<column name="series_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="season_id" type="bigint">
 				<constraints nullable="false"/>
 			</column>
 			<column name="u_id" type="varchar(14)">
@@ -44,6 +47,11 @@
 				constraintName="episode_series_fkey"
 				referencedColumnNames="id"
 				referencedTableName="series"/>
+		<addForeignKeyConstraint baseColumnNames="season_id"
+				baseTableName="episode"
+				constraintName="episode_season_fkey"
+				referencedColumnNames="id"
+				referencedTableName="season"/>
 
 		<createTable schemaName="stapi" tableName="episodes_writers">
 			<column name="episode_id" type="bigint"/>

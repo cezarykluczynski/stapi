@@ -2,7 +2,7 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
-	<changeSet id="0022_create_book" author="cezarykluczynski">
+	<changeSet id="0023_create_book" author="cezarykluczynski">
 		<createTable schemaName="stapi" tableName="book">
 			<column name="id" type="bigint">
 				<constraints unique="true" nullable="false"/>

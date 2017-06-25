@@ -2,8 +2,8 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
-	<changeSet id="0018_create_food" author="cezarykluczynski">
-		<createTable schemaName="stapi" tableName="food">
+	<changeSet id="0004_create_season" author="cezarykluczynski">
+		<createTable schemaName="stapi" tableName="season">
 			<column name="id" type="bigint">
 				<constraints unique="true" nullable="false"/>
 			</column>
@@ -13,25 +13,25 @@
 			<column name="u_id" type="varchar(14)">
 				<constraints nullable="false"/>
 			</column>
-			<column name="name" type="varchar(128)">
+			<column name="title" type="varchar(64)">
+				<constraints nullable="false" unique="true"/>
+			</column>
+			<column name="series_id" type="bigint">
 				<constraints nullable="false"/>
 			</column>
-			<column name="beverage" type="boolean"/>
-			<column name="earthly_origin" type="boolean"/>
-			<column name="dessert" type="boolean"/>
-			<column name="fruit" type="boolean"/>
-			<column name="herb_or_spice" type="boolean"/>
-			<column name="sauce" type="boolean"/>
-			<column name="soup" type="boolean"/>
-			<column name="alcoholic_beverage" type="boolean"/>
-			<column name="juice" type="boolean"/>
-			<column name="tea" type="boolean"/>
+			<column name="season_number" type="int"/>
+			<column name="number_of_episodes" type="int"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="food_sequence"/>
+		<createSequence incrementBy="1" sequenceName="season_sequence"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
-				baseTableName="food"
-				constraintName="food_page_fkey"
+				baseTableName="season"
+				constraintName="season_page_fkey"
 				referencedColumnNames="id"
 				referencedTableName="page"/>
+		<addForeignKeyConstraint baseColumnNames="series_id"
+				baseTableName="season"
+				constraintName="season_series_fkey"
+				referencedColumnNames="id"
+				referencedTableName="series"/>
 	</changeSet>
 </databaseChangeLog>
