@@ -66,6 +66,9 @@ import com.cezarykluczynski.stapi.etl.organization.creation.processor.Organizati
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerProcessor
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerReader
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerWriter
+import com.cezarykluczynski.stapi.etl.season.creation.processor.SeasonProcessor
+import com.cezarykluczynski.stapi.etl.season.creation.processor.SeasonReader
+import com.cezarykluczynski.stapi.etl.season.creation.processor.SeasonWriter
 import com.cezarykluczynski.stapi.etl.series.creation.processor.SeriesProcessor
 import com.cezarykluczynski.stapi.etl.series.creation.processor.SeriesReader
 import com.cezarykluczynski.stapi.etl.series.creation.processor.SeriesWriter
@@ -206,6 +209,39 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(SeriesProcessor) >> itemProcessorMock
 		1 * simpleStepBuilderMock.processor(itemProcessorMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(SeriesWriter) >> itemWriterMock
+		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
+		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
+		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+
+		then: 'step is configured to run only once'
+		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
+		1 * simpleStepBuilderMock.allowStartIfComplete(false) >> simpleStepBuilderMock
+
+		then: 'tasklet step is returned'
+		1 * simpleStepBuilderMock.build() >> taskletStepMock
+
+		then: 'step is being returned'
+		step == taskletStepMock
+	}
+
+	void "CREATE_SEASONS step is created"() {
+		when:
+		Step step = etlJobConfiguration.stepCreateSeasons()
+
+		then: 'StepBuilder is retrieved'
+		1 * stepBuilderFactoryMock.get(StepName.CREATE_SEASONS) >> stepBuilderMock
+
+		then: 'commit interval is configured'
+		1 * stepsPropertiesMock.createSeasons >> stepProperties
+		1 * stepProperties.commitInterval >> STEP_SIZE
+		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+
+		then: 'beans are retrieved from application context, then passed to builder'
+		1 * applicationContextMock.getBean(SeasonReader) >> itemReaderMock
+		1 * simpleStepBuilderMock.reader(itemReaderMock) >> simpleStepBuilderMock
+		1 * applicationContextMock.getBean(SeasonProcessor) >> itemProcessorMock
+		1 * simpleStepBuilderMock.processor(itemProcessorMock) >> simpleStepBuilderMock
+		1 * applicationContextMock.getBean(SeasonWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
 		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock

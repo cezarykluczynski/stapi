@@ -14,6 +14,7 @@ public class StepNames {
 		JOB_STEPS.put(JobName.JOB_CREATE, Lists.newArrayList(
 				StepName.CREATE_COMPANIES,
 				StepName.CREATE_SERIES,
+				StepName.CREATE_SEASONS,
 				StepName.CREATE_PERFORMERS,
 				StepName.CREATE_STAFF,
 				StepName.CREATE_ASTRONOMICAL_OBJECTS,

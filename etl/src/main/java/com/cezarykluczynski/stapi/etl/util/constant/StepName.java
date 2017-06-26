@@ -4,6 +4,7 @@ public class StepName {
 
 	public static final String CREATE_COMPANIES = "CREATE_COMPANIES";
 	public static final String CREATE_SERIES = "CREATE_SERIES";
+	public static final String CREATE_SEASONS = "CREATE_SEASONS";
 	public static final String CREATE_PERFORMERS = "CREATE_PERFORMERS";
 	public static final String CREATE_STAFF = "CREATE_STAFF";
 	public static final String CREATE_ASTRONOMICAL_OBJECTS = "CREATE_ASTRONOMICAL_OBJECTS";

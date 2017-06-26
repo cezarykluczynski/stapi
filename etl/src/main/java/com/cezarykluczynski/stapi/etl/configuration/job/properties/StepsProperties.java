@@ -13,6 +13,8 @@ public class StepsProperties {
 
 	private StepProperties createSeries;
 
+	private StepProperties createSeasons;
+
 	private StepProperties createPerformers;
 
 	private StepProperties createStaff;

@@ -65,6 +65,9 @@ import com.cezarykluczynski.stapi.etl.organization.creation.processor.Organizati
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerProcessor;
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerReader;
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerWriter;
+import com.cezarykluczynski.stapi.etl.season.creation.processor.SeasonProcessor;
+import com.cezarykluczynski.stapi.etl.season.creation.processor.SeasonReader;
+import com.cezarykluczynski.stapi.etl.season.creation.processor.SeasonWriter;
 import com.cezarykluczynski.stapi.etl.series.creation.processor.SeriesProcessor;
 import com.cezarykluczynski.stapi.etl.series.creation.processor.SeriesReader;
 import com.cezarykluczynski.stapi.etl.series.creation.processor.SeriesWriter;
@@ -97,6 +100,7 @@ import com.cezarykluczynski.stapi.model.magazine_series.entity.MagazineSeries;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
+import com.cezarykluczynski.stapi.model.season.entity.Season;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
@@ -155,6 +159,19 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(SeriesReader.class))
 				.processor(applicationContext.getBean(SeriesProcessor.class))
 				.writer(applicationContext.getBean(SeriesWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_SEASONS)
+	public Step stepCreateSeasons() {
+		return stepBuilderFactory.get(StepName.CREATE_SEASONS)
+				.<PageHeader, Season>chunk(stepsProperties.getCreateSeasons().getCommitInterval())
+				.reader(applicationContext.getBean(SeasonReader.class))
+				.processor(applicationContext.getBean(SeasonProcessor.class))
+				.writer(applicationContext.getBean(SeasonWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)

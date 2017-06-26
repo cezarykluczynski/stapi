@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.episode.repository.EpisodeRepository;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
+import com.cezarykluczynski.stapi.model.season.entity.Season;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.google.common.collect.Sets;
@@ -57,6 +58,11 @@ public class Episode extends PageAwareEntity implements PageAware {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "series_id")
 	private Series series;
+
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "season_id")
+	private Season season;
 
 	private String title;
 

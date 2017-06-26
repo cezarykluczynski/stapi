@@ -28,6 +28,7 @@ public class StepToStepPropertiesProvider {
 		stepPropertiesMap = Maps.newHashMap();
 		stepPropertiesMap.put(StepName.CREATE_COMPANIES, stepsProperties.getCreateCompanies());
 		stepPropertiesMap.put(StepName.CREATE_SERIES, stepsProperties.getCreateSeries());
+		stepPropertiesMap.put(StepName.CREATE_SEASONS, stepsProperties.getCreateSeasons());
 		stepPropertiesMap.put(StepName.CREATE_PERFORMERS, stepsProperties.getCreatePerformers());
 		stepPropertiesMap.put(StepName.CREATE_STAFF, stepsProperties.getCreateStaff());
 		stepPropertiesMap.put(StepName.CREATE_ASTRONOMICAL_OBJECTS, stepsProperties.getCreateAstronomicalObjects());

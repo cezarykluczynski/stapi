@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Service
 public class StepConfigurationValidator {
 
-	private static final long NUMBER_OF_STEPS = 26;
+	private static final long NUMBER_OF_STEPS = 27;
 
 	private final StepsProperties stepsProperties;
 
@@ -44,6 +44,7 @@ public class StepConfigurationValidator {
 		stepPropertiesList = Lists.newArrayList();
 		stepPropertiesList.add(stepsProperties.getCreateCompanies());
 		stepPropertiesList.add(stepsProperties.getCreateSeries());
+		stepPropertiesList.add(stepsProperties.getCreateSeasons());
 		stepPropertiesList.add(stepsProperties.getCreatePerformers());
 		stepPropertiesList.add(stepsProperties.getCreateStaff());
 		stepPropertiesList.add(stepsProperties.getCreateAstronomicalObjects());
@@ -77,6 +78,7 @@ public class StepConfigurationValidator {
 		stepPropertiesMap = Maps.newLinkedHashMap();
 		stepPropertiesMap.put(StepName.CREATE_COMPANIES, stepsProperties.getCreateCompanies());
 		stepPropertiesMap.put(StepName.CREATE_SERIES, stepsProperties.getCreateSeries());
+		stepPropertiesMap.put(StepName.CREATE_SEASONS, stepsProperties.getCreateSeasons());
 		stepPropertiesMap.put(StepName.CREATE_PERFORMERS, stepsProperties.getCreatePerformers());
 		stepPropertiesMap.put(StepName.CREATE_STAFF, stepsProperties.getCreateStaff());
 		stepPropertiesMap.put(StepName.CREATE_ASTRONOMICAL_OBJECTS, stepsProperties.getCreateAstronomicalObjects());
