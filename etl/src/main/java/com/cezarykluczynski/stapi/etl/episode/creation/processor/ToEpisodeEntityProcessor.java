@@ -32,6 +32,7 @@ public class ToEpisodeEntityProcessor implements ItemProcessor<EpisodeTemplate, 
 		episode.setTitleJapanese(item.getTitleJapanese());
 		episode.setPage(item.getPage());
 		episode.setSeries(seriesRepository.findOne(item.getSeries().getId()));
+		episode.setSeason(item.getSeason());
 		episode.setUid(uidGenerator.generateFromPage(item.getPage(), Episode.class));
 		episode.setSeasonNumber(item.getSeasonNumber());
 		episode.setEpisodeNumber(item.getEpisodeNumber());

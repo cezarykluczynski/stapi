@@ -5,4 +5,7 @@ import com.cezarykluczynski.stapi.model.season.entity.Season;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SeasonRepository extends JpaRepository<Season, Long>, PageAwareRepository<Season> {
+
+	Season findBySeriesAbbreviationAndSeasonNumber(String seriesName, Integer seasonNumber);
+
 }

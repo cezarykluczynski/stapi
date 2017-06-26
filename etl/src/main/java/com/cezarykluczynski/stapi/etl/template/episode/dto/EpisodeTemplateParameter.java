@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.episode.dto;
 
 public class EpisodeTemplateParameter {
 
+	public static final String S_SERIES = "sseries";
 	public static final String N_SEASON = "nseason";
 	public static final String N_EPISODE = "nepisode";
 	public static final String S_PRODUCTION_SERIAL_NUMBER = "sproductionserialnumber";

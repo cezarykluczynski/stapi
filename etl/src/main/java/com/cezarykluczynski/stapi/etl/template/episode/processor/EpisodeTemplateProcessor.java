@@ -9,7 +9,9 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DayMont
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate;
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplateParameter;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
+import com.cezarykluczynski.stapi.model.season.repository.SeasonRepository;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
@@ -29,14 +31,17 @@ public class EpisodeTemplateProcessor implements ItemProcessor<Template, Episode
 
 	private final ProductionSerialNumberProcessor productionSerialNumberProcessor;
 
+	private final SeasonRepository seasonRepository;
+
 	@Inject
 	public EpisodeTemplateProcessor(DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor,
 			@Qualifier(CommonTemplateConfiguration.EPISODE_TEMPALTE_STARDATE_YEAR_ENRICHING_PROCESSOR)
 					ImageTemplateStardateYearEnrichingProcessor imageTemplateStardateYearEnrichingProcessor,
-			ProductionSerialNumberProcessor productionSerialNumberProcessor) {
+			ProductionSerialNumberProcessor productionSerialNumberProcessor, SeasonRepository seasonRepository) {
 		this.dayMonthYearCandidateToLocalDateProcessor = dayMonthYearCandidateToLocalDateProcessor;
 		this.imageTemplateStardateYearEnrichingProcessor = imageTemplateStardateYearEnrichingProcessor;
 		this.productionSerialNumberProcessor = productionSerialNumberProcessor;
+		this.seasonRepository = seasonRepository;
 	}
 
 	@Override
@@ -47,6 +52,7 @@ public class EpisodeTemplateProcessor implements ItemProcessor<Template, Episode
 		String day = null;
 		String month = null;
 		String year = null;
+		String seriesName = null;
 
 		imageTemplateStardateYearEnrichingProcessor.enrich(EnrichablePair.of(item, episodeTemplate));
 
@@ -59,6 +65,9 @@ public class EpisodeTemplateProcessor implements ItemProcessor<Template, Episode
 			}
 
 			switch (key) {
+				case EpisodeTemplateParameter.S_SERIES:
+					seriesName = value;
+					break;
 				case EpisodeTemplateParameter.N_SEASON:
 					episodeTemplate.setSeasonNumber(Integer.valueOf(value));
 					break;
@@ -88,6 +97,12 @@ public class EpisodeTemplateProcessor implements ItemProcessor<Template, Episode
 		if (day != null && month != null && year != null) {
 			episodeTemplate.setUsAirDate(dayMonthYearCandidateToLocalDateProcessor.process(DayMonthYearCandidate.of(day, month, year)));
 		}
+
+		if (seriesName != null && episodeTemplate.getSeasonNumber() != null) {
+			episodeTemplate.setSeason(seasonRepository.findBySeriesAbbreviationAndSeasonNumber(seriesName, episodeTemplate.getSeasonNumber()));
+		}
+
+		Preconditions.checkNotNull(episodeTemplate.getSeason(), "Season has to be set in episode %s", episodeTemplate.getTitle());
 
 		return episodeTemplate;
 	}

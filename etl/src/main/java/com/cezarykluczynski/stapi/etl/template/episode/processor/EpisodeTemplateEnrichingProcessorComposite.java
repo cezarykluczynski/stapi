@@ -24,7 +24,7 @@ public class EpisodeTemplateEnrichingProcessorComposite implements ItemEnriching
 
 	@Override
 	public void enrich(EnrichablePair<Page, EpisodeTemplate> enrichablePair) throws Exception {
-			episodeTemplateDatesEnrichingProcessor.enrich(enrichablePair);
+		episodeTemplateDatesEnrichingProcessor.enrich(enrichablePair);
 		episodeTemplateTitleLanguagesEnrichingProcessor.enrich(enrichablePair);
 	}
 }

@@ -8,6 +8,8 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DayMont
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplateParameter
 import com.cezarykluczynski.stapi.model.episode.entity.Episode
+import com.cezarykluczynski.stapi.model.season.entity.Season
+import com.cezarykluczynski.stapi.model.season.repository.SeasonRepository
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
 
@@ -24,6 +26,7 @@ class EpisodeTemplateProcessorTest extends AbstractTemplateProcessorTest {
 	private static final String AIRDATE_YEAR = '1998'
 	private static final String AIRDATE_MONTH = 'April'
 	private static final String AIRDATE_DAY = '15'
+	private static final String SERIES_TITLE = 'SERIES_TITLE'
 
 	private DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessorMock
 
@@ -31,19 +34,23 @@ class EpisodeTemplateProcessorTest extends AbstractTemplateProcessorTest {
 
 	private ProductionSerialNumberProcessor productionSerialNumberProcessor
 
+	private SeasonRepository seasonRepositoryMock
+
 	private EpisodeTemplateProcessor episodeTemplateProcessor
 
 	void setup() {
 		dayMonthYearCandidateToLocalDateProcessorMock = Mock()
 		imageTemplateStardateYearEnrichingProcessorMock = Mock()
 		productionSerialNumberProcessor = Mock()
+		seasonRepositoryMock = Mock()
 		episodeTemplateProcessor = new EpisodeTemplateProcessor(dayMonthYearCandidateToLocalDateProcessorMock,
-				imageTemplateStardateYearEnrichingProcessorMock, productionSerialNumberProcessor)
+				imageTemplateStardateYearEnrichingProcessorMock, productionSerialNumberProcessor, seasonRepositoryMock)
 	}
 	void "sets values from template parts"() {
 		given:
 		Template template = new Template(
 				parts: Lists.newArrayList(
+						createTemplatePart(EpisodeTemplateParameter.S_SERIES, SERIES_TITLE),
 						createTemplatePart(EpisodeTemplateParameter.N_SEASON, SEASON_NUMBER_STRING),
 						createTemplatePart(EpisodeTemplateParameter.N_EPISODE, EPISODE_NUMBER_STRING),
 						createTemplatePart(EpisodeTemplateParameter.S_PRODUCTION_SERIAL_NUMBER, PRODUCTION_SERIAL_NUMBER_INPUT),
@@ -54,6 +61,7 @@ class EpisodeTemplateProcessorTest extends AbstractTemplateProcessorTest {
 				)
 		)
 		LocalDate usAirDate = LocalDate.of(1998, 4, 15)
+		Season season = Mock()
 
 		when:
 		EpisodeTemplate episodeTemplate = episodeTemplateProcessor.process(template)
@@ -67,6 +75,7 @@ class EpisodeTemplateProcessorTest extends AbstractTemplateProcessorTest {
 		}
 		1 * productionSerialNumberProcessor.process(PRODUCTION_SERIAL_NUMBER_INPUT) >> PRODUCTION_SERIAL_NUMBER_OUTPUT
 		1 * imageTemplateStardateYearEnrichingProcessorMock.enrich(_)
+		1 * seasonRepositoryMock.findBySeriesAbbreviationAndSeasonNumber(SERIES_TITLE, SEASON_NUMBER_INTEGER) >> season
 		0 * _
 		episodeTemplate.episodeStub instanceof Episode
 		episodeTemplate.seasonNumber == SEASON_NUMBER_INTEGER
@@ -74,44 +83,76 @@ class EpisodeTemplateProcessorTest extends AbstractTemplateProcessorTest {
 		episodeTemplate.productionSerialNumber == PRODUCTION_SERIAL_NUMBER_OUTPUT
 		episodeTemplate.featureLength
 		episodeTemplate.usAirDate == usAirDate
+		episodeTemplate.season == season
 	}
 
 	void "tolerates invalid or ill-formatted season numbers"() {
+		given:
+		Season season = Mock()
+
 		when:
 		EpisodeTemplate episodeTemplate = episodeTemplateProcessor.process(new Template(
 				parts: Lists.newArrayList(
+						createTemplatePart(EpisodeTemplateParameter.S_SERIES, SERIES_TITLE),
+						createTemplatePart(EpisodeTemplateParameter.N_SEASON, SEASON_NUMBER_STRING),
 						createTemplatePart(EpisodeTemplateParameter.N_EPISODE, '25/26')
 				)
 		))
 
 		then:
 		1 * imageTemplateStardateYearEnrichingProcessorMock.enrich(_)
+		1 * seasonRepositoryMock.findBySeriesAbbreviationAndSeasonNumber(SERIES_TITLE, SEASON_NUMBER_INTEGER) >> season
 		0 * _
 		episodeTemplate.episodeNumber == 25
 
 		when:
 		EpisodeTemplate episodeTemplate2 = episodeTemplateProcessor.process(new Template(
 				parts: Lists.newArrayList(
+						createTemplatePart(EpisodeTemplateParameter.S_SERIES, SERIES_TITLE),
+						createTemplatePart(EpisodeTemplateParameter.N_SEASON, SEASON_NUMBER_STRING),
 						createTemplatePart(EpisodeTemplateParameter.N_EPISODE, 'NOT A NUMBER')
 				)
 		))
 
 		then:
 		1 * imageTemplateStardateYearEnrichingProcessorMock.enrich(_)
+		1 * seasonRepositoryMock.findBySeriesAbbreviationAndSeasonNumber(SERIES_TITLE, SEASON_NUMBER_INTEGER) >> season
 		0 * _
 		episodeTemplate2.episodeNumber == null
 	}
 
 	void "tolerates template part with null key"() {
+		given:
+		Season season = Mock()
+
 		when:
 		episodeTemplateProcessor.process(new Template(
-				parts: Lists.newArrayList(createTemplatePart(null, null))
+				parts: Lists.newArrayList(
+						createTemplatePart(EpisodeTemplateParameter.S_SERIES, SERIES_TITLE),
+						createTemplatePart(EpisodeTemplateParameter.N_SEASON, SEASON_NUMBER_STRING),
+						createTemplatePart(null, null)
+				)
+		))
+
+		then:
+		1 * imageTemplateStardateYearEnrichingProcessorMock.enrich(_)
+		1 * seasonRepositoryMock.findBySeriesAbbreviationAndSeasonNumber(SERIES_TITLE, SEASON_NUMBER_INTEGER) >> season
+		0 * _
+		notThrown(Exception)
+	}
+
+	void "throws exception when season is null"() {
+		when:
+		episodeTemplateProcessor.process(new Template(
+				parts: Lists.newArrayList(
+
+				)
 		))
 
 		then:
 		1 * imageTemplateStardateYearEnrichingProcessorMock.enrich(_)
 		0 * _
-		notThrown(Exception)
+		thrown(NullPointerException)
 	}
 
 }

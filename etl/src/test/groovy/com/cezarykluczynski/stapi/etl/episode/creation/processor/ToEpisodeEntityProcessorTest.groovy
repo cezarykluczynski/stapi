@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.model.page.entity.Page
+import com.cezarykluczynski.stapi.model.season.entity.Season
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.model.series.repository.SeriesRepository
 import com.cezarykluczynski.stapi.util.AbstractEpisodeTest
@@ -15,6 +16,7 @@ class ToEpisodeEntityProcessorTest extends AbstractEpisodeTest {
 	private final Page page = Mock()
 	private final Series seriesDetached = Mock()
 	private final Series seriesNew = Mock()
+	private final Season season = Mock()
 
 	private UidGenerator uidGeneratorMock
 
@@ -34,6 +36,7 @@ class ToEpisodeEntityProcessorTest extends AbstractEpisodeTest {
 		EpisodeTemplate episodeTemplate = new EpisodeTemplate(
 				episodeStub: episodeStub,
 				series: seriesDetached,
+				season: season,
 				page: page,
 				title: TITLE,
 				titleGerman: TITLE_GERMAN,
@@ -65,6 +68,7 @@ class ToEpisodeEntityProcessorTest extends AbstractEpisodeTest {
 		episode.titleJapanese == TITLE_JAPANESE
 		episode.page == page
 		episode.series == seriesNew
+		episode.season == season
 		episode.uid == UID
 		episode.seasonNumber == SEASON_NUMBER
 		episode.episodeNumber == EPISODE_NUMBER
