@@ -1,17 +1,20 @@
 package com.cezarykluczynski.stapi.etl.season.creation.processor;
 
+import com.cezarykluczynski.stapi.etl.page.common.processor.PageHeaderProcessor;
 import com.cezarykluczynski.stapi.model.season.entity.Season;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
-import org.springframework.batch.item.ItemProcessor;
+import com.google.common.collect.Lists;
+import org.springframework.batch.item.support.CompositeItemProcessor;
 import org.springframework.stereotype.Service;
 
-@Service
-public class SeasonProcessor implements ItemProcessor<PageHeader, Season> {
+import javax.inject.Inject;
 
-	@Override
-	public Season process(PageHeader item) throws Exception {
-		// TODO
-		return null;
+@Service
+public class SeasonProcessor extends CompositeItemProcessor<PageHeader, Season> {
+
+	@Inject
+	public SeasonProcessor(PageHeaderProcessor pageHeaderProcessor, SeasonPageProcessor literaturePageProcessor) {
+		setDelegates(Lists.newArrayList(pageHeaderProcessor, literaturePageProcessor));
 	}
 
 }

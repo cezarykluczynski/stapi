@@ -34,6 +34,8 @@ public class TemplateTitle {
 	public static final String YEARLINK = "yearlink";
 	public static final String DIS = "dis";
 
+	public static final String E = "e";
+
 	public static final String MBETA = "mbeta";
 
 	public static final String MIRROR = "mirror";
