@@ -1,0 +1,20 @@
+type: object
+description: Base season, returned in search results
+properties:
+  uid:
+    type: string
+    required: true
+    description: Season unique ID
+  title:
+    type: string
+    required: true
+    description: Season title
+  series:
+    $ref: ./series/entity/seriesHeader.yaml
+    description: Series this season belongs to
+  seasonNumber:
+    type: integer
+    description: Season number in series
+  numberOfEpisodes:
+    type: integer
+    description: Number of episodes in this season

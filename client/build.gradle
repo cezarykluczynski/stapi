@@ -20,6 +20,11 @@ wsdl2java {
 					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/series.wsdl"
 			],
 			[
+					'-wsdlLocation', 'classpath:v1/wsdl/season.wsdl',
+					'-p','com.cezarykluczynski.stapi.client.v1.soap',
+					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/season.wsdl"
+			],
+			[
 					'-wsdlLocation', 'classpath:v1/wsdl/performer.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
 					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/performer.wsdl"

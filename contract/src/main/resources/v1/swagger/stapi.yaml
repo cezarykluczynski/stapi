@@ -85,6 +85,10 @@ paths:
     $ref: ./performer/path/performer.path.yaml
   /performer/search:
     $ref: ./performer/path/performerSearch.path.yaml
+  /season:
+    $ref: ./season/path/season.path.yaml
+  /season/search:
+    $ref: ./season/path/seasonSearch.path.yaml
   /series:
     $ref: ./series/path/series.path.yaml
   /series/search:
@@ -302,6 +306,16 @@ definitions:
     $ref: ./common/entity/responseSortClause.yaml
   ResponseSortDirection:
     $ref: ./common/entity/enum/responseSortDirection.yaml
+  SeasonHeader:
+    $ref: ./season/entity/seasonHeader.yaml
+  SeasonBase:
+    $ref: ./season/entity/seasonBase.yaml
+  SeasonFull:
+    $ref: ./season/entity/seasonFull.yaml
+  SeasonBaseResponse:
+    $ref: ./season/entity/seasonBaseResponse.yaml
+  SeasonFullResponse:
+    $ref: ./season/entity/seasonFullResponse.yaml
   SeriesHeader:
     $ref: ./series/entity/seriesHeader.yaml
   SeriesBase:

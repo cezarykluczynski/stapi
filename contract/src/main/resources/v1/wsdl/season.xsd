@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:common="http://stapi.co/api/v1/soap/common"
+		xmlns:episode="http://stapi.co/api/v1/soap/episode"
+		xmlns:season="http://stapi.co/api/v1/soap/season"
+		xmlns:series="http://stapi.co/api/v1/soap/series"
+		elementFormDefault="qualified"
+		targetNamespace="http://stapi.co/api/v1/soap/season">
+	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/episode" schemaLocation="episode.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/series" schemaLocation="series.xsd"/>
+	<xs:element name="SeasonBaseRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for season search</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Request">
+					<xs:sequence>
+						<xs:element name="title" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Season title</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="seasonNumber" type="common:IntegerRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Minimal and maximal season number</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="numberOfEpisodes" type="common:IntegerRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Minimal and maximal number of episodes</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SeasonFullRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for single season query</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:ApiRequest">
+					<xs:sequence>
+						<xs:element name="uid" type="xs:string" minOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Season unique ID</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SeasonBaseResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for season search</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Response">
+					<xs:sequence>
+						<xs:element name="seasons" type="season:SeasonBase" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>List of season matching given criteria</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SeasonFullResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for single season query</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="season" type="season:SeasonFull">
+					<xs:annotation>
+						<xs:documentation>Season, if found</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="SeasonHeader">
+		<xs:annotation>
+			<xs:documentation>Header season, embedded in other objects</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Season unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="title" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Season title</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SeasonBase">
+		<xs:annotation>
+			<xs:documentation>Base season, returned in search results</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Season unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="title" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Season title</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="series" type="series:SeriesHeader">
+				<xs:annotation>
+					<xs:documentation>Series this season belongs to</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="seasonNumber" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>Season number in series</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="numberOfEpisodes" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>Number of episodes in this season</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SeasonFull">
+		<xs:annotation>
+			<xs:documentation>Full season, returned when queried using UID</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Season unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="title" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Season title</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="series" type="series:SeriesBase">
+				<xs:annotation>
+					<xs:documentation>Series this season belongs to</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="seasonNumber" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>Season number in series</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="numberOfEpisodes" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>Number of episodes in this season</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence>
+				<xs:element name="episodes" type="episode:EpisodeBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Episodes in this season</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

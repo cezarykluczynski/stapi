@@ -1,0 +1,6 @@
+type: object
+description: Response object for single season query
+properties:
+  season:
+    $ref: '#/definitions/SeasonFull'
+    description: Season, if found

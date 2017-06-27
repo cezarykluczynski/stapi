@@ -1,0 +1,82 @@
+get:
+  description: Pagination over seasons
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+      description: Zero-based page number
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+      description: Page size
+    - name: apiKey
+      in: query
+      type: string
+      description: API key
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/SeasonBaseResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - Season
+post:
+  description: Searching seasons
+  consumes:
+    - application/x-www-form-urlencoded
+  producers:
+    - application/json
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+      description: Zero-based page number
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+      description: Page size
+    - name: sort
+      type: string
+      in: query
+      description: "Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC"
+    - name: apiKey
+      in: query
+      type: string
+      description: API key
+    - name: title
+      in: formData
+      type: string
+      description: Season title
+    - name: seasonNumberFrom
+      in: formData
+      type: integer
+      format: int32
+      description: Minimal season number
+    - name: seasonNumberTo
+      in: formData
+      type: integer
+      format: int32
+      description: Maximal season number
+    - name: numberOfEpisodesFrom
+      in: formData
+      type: integer
+      format: int32
+      description: Minimal number of episodes in season
+    - name: numberOfEpisodesTo
+      in: formData
+      type: integer
+      format: int32
+      description: Maximal number of episodes in season
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/SeasonBaseResponse'
+  tags:
+    - Season

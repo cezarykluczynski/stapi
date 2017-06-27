@@ -1,0 +1,14 @@
+type: object
+description: Response object for seasons search
+properties:
+  page:
+    $ref: ./common/entity/responsePage.yaml
+    description: Response page
+  sort:
+    $ref: ./common/entity/responseSort.yaml
+    description: Response sort
+  seasons:
+    type: array
+    items:
+      $ref: '#/definitions/SeasonBase'
+    description: List of seasons matching given criteria
