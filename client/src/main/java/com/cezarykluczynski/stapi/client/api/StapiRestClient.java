@@ -18,6 +18,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.api.MagazineSeriesApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.MovieApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.OrganizationApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.PerformerApi;
+import com.cezarykluczynski.stapi.client.v1.rest.api.SeasonApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.SeriesApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.SpeciesApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.StaffApi;
@@ -93,6 +94,9 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 	@Getter
 	private LiteratureApi literatureApi;
 
+	@Getter
+	private SeasonApi seasonApi;
+
 	public StapiRestClient() {
 		seriesApi = new SeriesApi();
 		performerApi = new PerformerApi();
@@ -115,6 +119,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 		magazineApi = new MagazineApi();
 		magazineSeriesApi = new MagazineSeriesApi();
 		literatureApi = new LiteratureApi();
+		seasonApi = new SeasonApi();
 	}
 
 	public StapiRestClient(String apiUrl) {
@@ -141,6 +146,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 		magazineApi = new MagazineApi(apiClient);
 		magazineSeriesApi = new MagazineSeriesApi(apiClient);
 		literatureApi = new LiteratureApi(apiClient);
+		seasonApi = new SeasonApi(apiClient);
 	}
 
 	private void createApiClient() {
