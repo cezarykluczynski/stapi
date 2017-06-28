@@ -4,6 +4,7 @@
 		xmlns:episode="http://stapi.co/api/v1/soap/episode"
 		xmlns:performer="http://stapi.co/api/v1/soap/performer"
 		xmlns:character="http://stapi.co/api/v1/soap/character"
+		xmlns:season="http://stapi.co/api/v1/soap/season"
 		xmlns:series="http://stapi.co/api/v1/soap/series"
 		xmlns:staff="http://stapi.co/api/v1/soap/staff"
 		xmlns:common="http://stapi.co/api/v1/soap/common"
@@ -12,6 +13,7 @@
 	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/character" schemaLocation="character.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/performer" schemaLocation="performer.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/season" schemaLocation="season.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/series" schemaLocation="series.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/staff" schemaLocation="staff.xsd"/>
 	<xs:element name="EpisodeBaseRequest">
@@ -174,6 +176,11 @@
 					<xs:documentation>Series this episode belongs to</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="season" type="season:SeasonHeader">
+				<xs:annotation>
+					<xs:documentation>Season this episode belongs to</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 			<xs:element name="seasonNumber" type="xs:int">
 				<xs:annotation>
 					<xs:documentation>Season number</xs:documentation>
@@ -259,6 +266,11 @@
 			<xs:element name="series" type="series:SeriesBase">
 				<xs:annotation>
 					<xs:documentation>Series this episode belongs to</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="season" type="season:SeasonBase">
+				<xs:annotation>
+					<xs:documentation>Season this episode belongs to</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="seasonNumber" type="xs:int">

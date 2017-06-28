@@ -21,6 +21,9 @@ properties:
   series:
     $ref: ./series/entity/seriesHeader.yaml
     description: Series this episode belongs to
+  season:
+    $ref: ./season/entity/seasonHeader.yaml
+    description: Season this episode belongs to
   seasonNumber:
     type: integer
     description: Season number

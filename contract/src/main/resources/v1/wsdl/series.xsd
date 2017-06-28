@@ -4,12 +4,14 @@
 		xmlns:common="http://stapi.co/api/v1/soap/common"
 		xmlns:company="http://stapi.co/api/v1/soap/company"
 		xmlns:episode="http://stapi.co/api/v1/soap/episode"
+		xmlns:season="http://stapi.co/api/v1/soap/season"
 		xmlns:series="http://stapi.co/api/v1/soap/series"
 		elementFormDefault="qualified"
 		targetNamespace="http://stapi.co/api/v1/soap/series">
 	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/company" schemaLocation="company.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/episode" schemaLocation="episode.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/season" schemaLocation="season.xsd"/>
 	<xs:element name="SeriesBaseRequest">
 		<xs:annotation>
 			<xs:documentation>Request object for series search</xs:documentation>
@@ -253,6 +255,13 @@
 				<xs:element name="episodes" type="episode:EpisodeBase" minOccurs="0" maxOccurs="unbounded">
 					<xs:annotation>
 						<xs:documentation>Episodes in the series</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="seasons" type="season:SeasonBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Seasons in the series</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 			</xs:sequence>

@@ -77,6 +77,7 @@ class EpisodeBaseSoapMapperTest extends AbstractEpisodeMapperTest {
 		then:
 		episodeBase.uid == UID
 		episodeBase.series != null
+		episodeBase.season != null
 		episodeBase.title == TITLE
 		episodeBase.titleGerman == TITLE_GERMAN
 		episodeBase.titleItalian == TITLE_ITALIAN

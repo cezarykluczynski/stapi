@@ -22,6 +22,7 @@ class EpisodeFullRestMapperTest extends AbstractEpisodeMapperTest {
 		then:
 		episodeFull.uid == UID
 		episodeFull.series != null
+		episodeFull.season != null
 		episodeFull.title == TITLE
 		episodeFull.titleGerman == TITLE_GERMAN
 		episodeFull.titleItalian == TITLE_ITALIAN

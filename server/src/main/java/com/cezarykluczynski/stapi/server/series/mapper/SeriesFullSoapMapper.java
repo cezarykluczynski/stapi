@@ -9,11 +9,12 @@ import com.cezarykluczynski.stapi.server.common.mapper.RequestSortSoapMapper;
 import com.cezarykluczynski.stapi.server.company.mapper.CompanyBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeBaseSoapMapper;
+import com.cezarykluczynski.stapi.server.season.mapper.SeasonBaseSoapMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(config = MapstructConfiguration.class, uses = {CompanyBaseSoapMapper.class, CompanyBaseSoapMapper.class, DateMapper.class,
-		EpisodeBaseSoapMapper.class, RequestSortSoapMapper.class})
+@Mapper(config = MapstructConfiguration.class, uses = {CompanyBaseSoapMapper.class, DateMapper.class, EpisodeBaseSoapMapper.class,
+		RequestSortSoapMapper.class, SeasonBaseSoapMapper.class})
 public interface SeriesFullSoapMapper {
 
 	@Mapping(target = "title", ignore = true)

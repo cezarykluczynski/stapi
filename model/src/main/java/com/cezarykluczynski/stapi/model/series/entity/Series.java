@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
+import com.cezarykluczynski.stapi.model.season.entity.Season;
 import com.cezarykluczynski.stapi.model.series.repository.SeriesRepository;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,8 +36,8 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true, exclude = {"productionCompany", "originalBroadcaster", "episodes"})
-@EqualsAndHashCode(callSuper = true, exclude = {"productionCompany", "originalBroadcaster", "episodes"})
+@ToString(callSuper = true, exclude = {"productionCompany", "originalBroadcaster", "episodes", "seasons"})
+@EqualsAndHashCode(callSuper = true, exclude = {"productionCompany", "originalBroadcaster", "episodes", "seasons"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = SeriesRepository.class, singularName = "series", pluralName = "series")
 public class Series extends PageAwareEntity implements PageAware {
@@ -74,8 +75,12 @@ public class Series extends PageAwareEntity implements PageAware {
 	@JoinColumn(name = "original_broadcaster_id")
 	private Company originalBroadcaster;
 
-	@OneToMany(mappedBy = "series", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "series", fetch = FetchType.LAZY, targetEntity = Episode.class)
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Episode> episodes;
+
+	@OneToMany(mappedBy = "series", fetch = FetchType.LAZY, targetEntity = Season.class)
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<Season> seasons;
 
 }

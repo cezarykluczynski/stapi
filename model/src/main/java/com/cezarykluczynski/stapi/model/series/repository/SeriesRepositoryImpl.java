@@ -40,6 +40,7 @@ public class SeriesRepositoryImpl extends AbstractRepositoryImpl<Series> impleme
 		seriesQueryBuilder.fetch(Series_.productionCompany);
 		seriesQueryBuilder.fetch(Series_.originalBroadcaster);
 		seriesQueryBuilder.fetch(Series_.episodes, doFetch);
+		seriesQueryBuilder.fetch(Series_.seasons, doFetch);
 
 		Page<Series> seriesPage = seriesQueryBuilder.findPage();
 		clearProxies(seriesPage, !doFetch);
@@ -60,6 +61,7 @@ public class SeriesRepositoryImpl extends AbstractRepositoryImpl<Series> impleme
 
 		page.getContent().forEach(series -> {
 			series.setEpisodes(Sets.newHashSet());
+			series.setSeasons(Sets.newHashSet());
 		});
 	}
 }

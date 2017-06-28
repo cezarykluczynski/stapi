@@ -43,7 +43,12 @@ properties:
     $ref: '#/definitions/CompanyBase'
     description: Company that originally broadcasted the series
   episodes:
-      type: array
-      items:
-        $ref: '#/definitions/EpisodeBase'
-      description: Episodes in the series
+    type: array
+    items:
+      $ref: '#/definitions/EpisodeBase'
+    description: Episodes in the series
+  seasons:
+     type: array
+     items:
+       $ref: '#/definitions/SeasonBase'
+     description: Seasons in the series

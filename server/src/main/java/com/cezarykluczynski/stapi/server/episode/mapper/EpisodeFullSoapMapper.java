@@ -10,13 +10,14 @@ import com.cezarykluczynski.stapi.server.common.mapper.EnumMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.RequestSortSoapMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseSoapMapper;
+import com.cezarykluczynski.stapi.server.season.mapper.SeasonBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseSoapMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(config = MapstructConfiguration.class, uses = {CharacterBaseSoapMapper.class, DateMapper.class, EnumMapper.class,
-		RequestSortSoapMapper.class, PerformerBaseSoapMapper.class, SeriesBaseSoapMapper.class, StaffBaseSoapMapper.class})
+@Mapper(config = MapstructConfiguration.class, uses = {CharacterBaseSoapMapper.class, DateMapper.class, EnumMapper.class, RequestSortSoapMapper.class,
+		PerformerBaseSoapMapper.class, SeasonBaseSoapMapper.class, SeriesBaseSoapMapper.class, StaffBaseSoapMapper.class})
 public interface EpisodeFullSoapMapper {
 
 	@Mapping(target = "title", ignore = true)

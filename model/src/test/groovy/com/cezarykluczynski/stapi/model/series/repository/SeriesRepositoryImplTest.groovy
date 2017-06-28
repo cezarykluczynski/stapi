@@ -98,6 +98,7 @@ class SeriesRepositoryImplTest extends Specification {
 
 		then: 'fetch is performed with true flag'
 		1 * seriesQueryBuilder.fetch(Series_.episodes, true)
+		1 * seriesQueryBuilder.fetch(Series_.seasons, true)
 
 		then: 'page is searched for'
 		1 * seriesQueryBuilder.findPage() >> page
@@ -130,6 +131,7 @@ class SeriesRepositoryImplTest extends Specification {
 
 		then: 'fetch is performed with false flag'
 		1 * seriesQueryBuilder.fetch(Series_.episodes, false)
+		1 * seriesQueryBuilder.fetch(Series_.seasons, false)
 
 		then: 'page is searched for and returned'
 		1 * seriesQueryBuilder.findPage() >> page
@@ -137,6 +139,7 @@ class SeriesRepositoryImplTest extends Specification {
 		then: 'proxies are cleared'
 		1 * page.content >> Lists.newArrayList(series)
 		1 * series.setEpisodes(Sets.newHashSet())
+		1 * series.setSeasons(Sets.newHashSet())
 		pageOutput == page
 	}
 

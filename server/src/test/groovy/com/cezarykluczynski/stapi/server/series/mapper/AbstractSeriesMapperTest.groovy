@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.server.series.mapper
 
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.episode.entity.Episode
+import com.cezarykluczynski.stapi.model.season.entity.Season
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.util.AbstractSeriesTest
 
@@ -21,7 +22,8 @@ abstract class AbstractSeriesMapperTest extends AbstractSeriesTest {
 				featureLengthEpisodesCount: FEATURE_LENGTH_EPISODES_COUNT,
 				originalBroadcaster: new Company(id: 1L),
 				productionCompany: new Company(id: 2L),
-				episodes: createSetOfRandomNumberOfMocks(Episode))
+				episodes: createSetOfRandomNumberOfMocks(Episode),
+				seasons: createSetOfRandomNumberOfMocks(Season))
 	}
 
 }

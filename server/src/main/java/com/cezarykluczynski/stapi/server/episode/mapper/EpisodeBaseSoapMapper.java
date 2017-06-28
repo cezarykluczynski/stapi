@@ -4,22 +4,19 @@ import com.cezarykluczynski.stapi.client.v1.soap.EpisodeBase;
 import com.cezarykluczynski.stapi.client.v1.soap.EpisodeBaseRequest;
 import com.cezarykluczynski.stapi.model.episode.dto.EpisodeRequestDTO;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
-import com.cezarykluczynski.stapi.server.character.mapper.CharacterBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.DateMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.EnumMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.RequestSortSoapMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
-import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseSoapMapper;
-import com.cezarykluczynski.stapi.server.series.mapper.SeriesBaseSoapMapper;
+import com.cezarykluczynski.stapi.server.season.mapper.SeasonHeaderSoapMapper;
 import com.cezarykluczynski.stapi.server.series.mapper.SeriesHeaderSoapMapper;
-import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseSoapMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import java.util.List;
 
-@Mapper(config = MapstructConfiguration.class, uses = {CharacterBaseSoapMapper.class, DateMapper.class, EnumMapper.class, RequestSortSoapMapper.class,
-		PerformerBaseSoapMapper.class, SeriesHeaderSoapMapper.class, SeriesBaseSoapMapper.class, StaffBaseSoapMapper.class})
+@Mapper(config = MapstructConfiguration.class, uses = {DateMapper.class, EnumMapper.class, RequestSortSoapMapper.class,
+		SeasonHeaderSoapMapper.class, SeriesHeaderSoapMapper.class})
 public interface EpisodeBaseSoapMapper {
 
 	@Mapping(target = "uid", ignore = true)

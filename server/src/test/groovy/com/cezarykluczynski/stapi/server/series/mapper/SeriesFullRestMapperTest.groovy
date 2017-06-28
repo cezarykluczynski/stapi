@@ -33,6 +33,7 @@ class SeriesFullRestMapperTest extends AbstractSeriesMapperTest {
 		seriesFull.originalBroadcaster != null
 		seriesFull.productionCompany != null
 		seriesFull.episodes.size() == series.episodes.size()
+		seriesFull.seasons.size() == series.seasons.size()
 	}
 
 }
