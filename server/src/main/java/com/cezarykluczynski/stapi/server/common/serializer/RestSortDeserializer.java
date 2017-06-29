@@ -9,7 +9,6 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// TODO: tests
 public class RestSortDeserializer {
 
 	private static final String EXCEPTION_MESSAGE = "Sort clause should be in form of \"fieldName,ORDER\", where ORDER is \"ASC\" or \"DESC\", and "
