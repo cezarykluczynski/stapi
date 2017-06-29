@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.model.episode.dto.EpisodeRequestDTO;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode_;
 import com.cezarykluczynski.stapi.model.episode.query.EpisodeQueryBuilderFactory;
+import com.cezarykluczynski.stapi.model.season.entity.Season_;
 import com.cezarykluczynski.stapi.model.series.entity.Series_;
 import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
@@ -48,6 +49,8 @@ public class EpisodeRepositoryImpl extends AbstractRepositoryImpl<Episode> imple
 		episodeQueryBuilder.fetch(Episode_.series);
 		episodeQueryBuilder.fetch(Episode_.series, Series_.productionCompany, doFetch);
 		episodeQueryBuilder.fetch(Episode_.series, Series_.originalBroadcaster, doFetch);
+		episodeQueryBuilder.fetch(Episode_.season, doFetch);
+		episodeQueryBuilder.fetch(Episode_.season, Season_.series, doFetch);
 		episodeQueryBuilder.fetch(Episode_.writers, doFetch);
 		episodeQueryBuilder.fetch(Episode_.teleplayAuthors, doFetch);
 		episodeQueryBuilder.fetch(Episode_.storyAuthors, doFetch);

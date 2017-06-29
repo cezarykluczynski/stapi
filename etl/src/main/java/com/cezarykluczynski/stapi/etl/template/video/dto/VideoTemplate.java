@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.video.dto;
 
 import com.cezarykluczynski.stapi.model.page.entity.Page;
+import com.cezarykluczynski.stapi.model.season.entity.Season;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.model.video_release.entity.enums.VideoReleaseFormat;
 import lombok.Data;
@@ -15,6 +16,8 @@ public class VideoTemplate {
 	private Page page;
 
 	private Series series;
+
+	private Season season;
 
 	private VideoReleaseFormat format;
 

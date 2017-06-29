@@ -17,10 +17,10 @@ class SeasonRestEndpointIntegrationTest extends AbstractSeasonEndpointIntegratio
 
 	void "gets season by UID"() {
 		when:
-		SeasonFullResponse seasonFullResponse = stapiRestClient.seasonApi.seasonGet('SAMA0000001639', null)
+		SeasonFullResponse seasonFullResponse = stapiRestClient.seasonApi.seasonGet('SAMA0000001735', null)
 
 		then:
-		seasonFullResponse.season.title == 'TNG Season 7'
+		seasonFullResponse.season.title == 'DS9 Season 1'
 	}
 
 	void "find all seasons that are seventh in their series"() {

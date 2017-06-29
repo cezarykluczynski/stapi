@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.content_rating.entity.ContentRating;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.reference.entity.Reference;
+import com.cezarykluczynski.stapi.model.season.entity.Season;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.model.video_release.entity.enums.VideoReleaseFormat;
 import com.cezarykluczynski.stapi.model.video_release.repository.VideoReleaseRepository;
@@ -58,6 +59,11 @@ public class VideoRelease extends PageAwareEntity implements PageAware {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "series_id")
 	private Series series;
+
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "season_id")
+	private Season season;
 
 	@Enumerated(EnumType.STRING)
 	private VideoReleaseFormat format;

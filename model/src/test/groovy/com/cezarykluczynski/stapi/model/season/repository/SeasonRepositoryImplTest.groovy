@@ -6,7 +6,10 @@ import com.cezarykluczynski.stapi.model.season.dto.SeasonRequestDTO
 import com.cezarykluczynski.stapi.model.season.entity.Season
 import com.cezarykluczynski.stapi.model.season.entity.Season_
 import com.cezarykluczynski.stapi.model.season.query.SeasonQueryBuilderFactory
+import com.cezarykluczynski.stapi.model.series.entity.Series_
 import com.cezarykluczynski.stapi.util.AbstractSeasonTest
+import com.google.common.collect.Lists
+import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
@@ -24,6 +27,8 @@ class SeasonRepositoryImplTest extends AbstractSeasonTest {
 
 	private SeasonRequestDTO seasonRequestDTO
 
+	private Season season
+
 	private Page page
 
 	void setup() {
@@ -32,6 +37,7 @@ class SeasonRepositoryImplTest extends AbstractSeasonTest {
 		seasonQueryBuilder = Mock()
 		pageable = Mock()
 		seasonRequestDTO = Mock()
+		season = Mock()
 		page = Mock()
 	}
 
@@ -58,6 +64,15 @@ class SeasonRepositoryImplTest extends AbstractSeasonTest {
 		1 * seasonRequestDTO.seasonNumberTo >> SEASON_NUMBER_TO
 		1 * seasonQueryBuilder.between(Season_.seasonNumber, SEASON_NUMBER_FROM, SEASON_NUMBER_TO)
 
+		then: 'fetch is performed'
+		1 * seasonQueryBuilder.fetch(Season_.series)
+
+		then: 'fetch is performed with true flag'
+		1 * seasonQueryBuilder.fetch(Season_.series, Series_.originalBroadcaster, true)
+		1 * seasonQueryBuilder.fetch(Season_.series, Series_.productionCompany, true)
+		1 * seasonQueryBuilder.fetch(Season_.episodes, true)
+		1 * seasonQueryBuilder.fetch(Season_.videoReleases, true)
+
 		then: 'sort is set'
 		1 * seasonRequestDTO.sort >> SORT
 		1 * seasonQueryBuilder.setSort(SORT)
@@ -70,6 +85,26 @@ class SeasonRepositoryImplTest extends AbstractSeasonTest {
 
 		then: 'no other interactions are expected'
 		0 * _
+	}
+
+	void "proxies are cleared when no related entities should be fetched"() {
+		when:
+		Page pageOutput = seasonRepositoryImpl.findMatching(seasonRequestDTO, pageable)
+
+		then: 'criteria builder is retrieved'
+		1 * seasonQueryBuilderFactory.createQueryBuilder(pageable) >> seasonQueryBuilder
+
+		then: 'uid criteria is set to null'
+		1 * seasonRequestDTO.uid >> null
+
+		then: 'page is searched for and returned'
+		1 * seasonQueryBuilder.findPage() >> page
+
+		then: 'proxies are cleared'
+		1 * page.content >> Lists.newArrayList(season)
+		1 * season.setEpisodes(Sets.newHashSet())
+		1 * season.setVideoReleases(Sets.newHashSet())
+		pageOutput == page
 	}
 
 }

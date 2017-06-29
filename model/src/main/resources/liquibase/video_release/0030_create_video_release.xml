@@ -17,6 +17,7 @@
 				<constraints nullable="false"/>
 			</column>
 			<column name="series_id" type="bigint"/>
+			<column name="season_id" type="bigint"/>
 			<column name="format" type="varchar(16)"/>
 			<column name="number_of_episodes" type="int"/>
 			<column name="number_of_fl_episodes" type="int"/>
@@ -55,6 +56,11 @@
 				constraintName="video_release_series_fkey"
 				referencedColumnNames="id"
 				referencedTableName="series"/>
+		<addForeignKeyConstraint baseColumnNames="season_id"
+				baseTableName="video_release"
+				constraintName="video_release_season_fkey"
+				referencedColumnNames="id"
+				referencedTableName="season"/>
 
 		<createTable schemaName="stapi" tableName="video_releases_references">
 			<column name="video_release_id" type="bigint"/>

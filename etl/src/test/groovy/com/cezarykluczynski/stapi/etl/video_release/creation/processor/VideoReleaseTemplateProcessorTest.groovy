@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.video_release.creation.processor
 import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplate
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.page.entity.Page
+import com.cezarykluczynski.stapi.model.season.entity.Season
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease
 import com.cezarykluczynski.stapi.model.video_release.entity.enums.VideoReleaseFormat
@@ -18,6 +19,7 @@ class VideoReleaseTemplateProcessorTest extends AbstractVideoReleaseTest {
 
 	private final Page page = Mock()
 	private final Series series = Mock()
+	private final Season season = Mock()
 
 	void setup() {
 		uidGeneratorMock = Mock()
@@ -30,6 +32,7 @@ class VideoReleaseTemplateProcessorTest extends AbstractVideoReleaseTest {
 				page: page,
 				title: TITLE,
 				series: series,
+				season: season,
 				format: VIDEO_RELEASE_FORMAT,
 				numberOfEpisodes: NUMBER_OF_EPISODES,
 				numberOfFeatureLengthEpisodes: NUMBER_OF_FEATURE_LENGTH_EPISODES,
@@ -62,6 +65,7 @@ class VideoReleaseTemplateProcessorTest extends AbstractVideoReleaseTest {
 		videoRelease.page == page
 		videoRelease.title == TITLE
 		videoRelease.series == series
+		videoRelease.season == season
 		videoRelease.format == VIDEO_RELEASE_FORMAT
 		videoRelease.numberOfEpisodes == NUMBER_OF_EPISODES
 		videoRelease.numberOfFeatureLengthEpisodes == NUMBER_OF_FEATURE_LENGTH_EPISODES

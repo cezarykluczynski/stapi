@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.model.episode.dto.EpisodeRequestDTO
 import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.model.episode.entity.Episode_
 import com.cezarykluczynski.stapi.model.episode.query.EpisodeQueryBuilderFactory
+import com.cezarykluczynski.stapi.model.season.entity.Season_
 import com.cezarykluczynski.stapi.model.series.entity.Series_
 import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
@@ -117,6 +118,8 @@ class EpisodeRepositoryImplTest extends Specification {
 		then: 'fetch is performed with true flag'
 		1 * episodeQueryBuilder.fetch(Episode_.series, Series_.productionCompany, true)
 		1 * episodeQueryBuilder.fetch(Episode_.series, Series_.originalBroadcaster, true)
+		1 * episodeQueryBuilder.fetch(Episode_.season, true)
+		1 * episodeQueryBuilder.fetch(Episode_.season, Season_.series, true)
 		1 * episodeQueryBuilder.fetch(Episode_.writers, true)
 		1 * episodeQueryBuilder.fetch(Episode_.teleplayAuthors, true)
 		1 * episodeQueryBuilder.fetch(Episode_.storyAuthors, true)
@@ -152,6 +155,8 @@ class EpisodeRepositoryImplTest extends Specification {
 		then: 'fetch is performed with false flag'
 		1 * episodeQueryBuilder.fetch(Episode_.series, Series_.productionCompany, false)
 		1 * episodeQueryBuilder.fetch(Episode_.series, Series_.originalBroadcaster, false)
+		1 * episodeQueryBuilder.fetch(Episode_.season, false)
+		1 * episodeQueryBuilder.fetch(Episode_.season, Season_.series, false)
 		1 * episodeQueryBuilder.fetch(Episode_.writers, false)
 		1 * episodeQueryBuilder.fetch(Episode_.teleplayAuthors, false)
 		1 * episodeQueryBuilder.fetch(Episode_.storyAuthors, false)
