@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.processor.season.WikitextToSeasonProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.NumberOfPartsProcessor
 import com.cezarykluczynski.stapi.etl.template.series.processor.WikitextToSeriesProcessor
+import com.cezarykluczynski.stapi.etl.template.video.dto.EpisodesCountDTO
 import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplate
 import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplateParameter
 import com.cezarykluczynski.stapi.model.season.entity.Season
@@ -20,7 +21,10 @@ class VideoTemplateContentsEnrichingProcessorTest extends Specification {
 	private static final String SERIES = 'SERIES'
 	private static final String SEASON = 'SEASON'
 	private static final String DISCS_STRING = 'DISCS_STRING'
-	private static final String DISCS_INTEGER = 3
+	private static final String EPISODES = 'EPISODES'
+	private static final Integer DISCS_INTEGER = 3
+	private static final Integer NUMBER_OF_EPISODES = 14
+	private static final Integer NUMBER_OF_FEATURE_LENGTH_EPISODES = 2
 	private static final VideoReleaseFormat VIDEO_RELEASE_FORMAT = VideoReleaseFormat.BLU_RAY
 
 	private VideoReleaseFormatProcessor videoReleaseFormatProcessorMock
@@ -31,6 +35,8 @@ class VideoTemplateContentsEnrichingProcessorTest extends Specification {
 
 	private WikitextToSeasonProcessor wikitextToSeasonProcessorMock
 
+	private VideoTemplateEpisodesCountProcessor videoTemplateEpisodesCountProcessorMock
+
 	private VideoTemplateContentsEnrichingProcessor videoTemplateContentsEnrichingProcessor
 
 	void setup() {
@@ -38,8 +44,9 @@ class VideoTemplateContentsEnrichingProcessorTest extends Specification {
 		wikitextToSeriesProcessorMock = Mock()
 		numberOfPartsProcessorMock = Mock()
 		wikitextToSeasonProcessorMock = Mock()
+		videoTemplateEpisodesCountProcessorMock = Mock()
 		videoTemplateContentsEnrichingProcessor = new VideoTemplateContentsEnrichingProcessor(videoReleaseFormatProcessorMock,
-				wikitextToSeriesProcessorMock, numberOfPartsProcessorMock, wikitextToSeasonProcessorMock)
+				wikitextToSeriesProcessorMock, numberOfPartsProcessorMock, wikitextToSeasonProcessorMock, videoTemplateEpisodesCountProcessorMock)
 	}
 
 	void "when format part is found, VideoReleaseFormatProcessor is used to process it"() {
@@ -140,6 +147,25 @@ class VideoTemplateContentsEnrichingProcessorTest extends Specification {
 		1 * wikitextToSeasonProcessorMock.process(SEASON) >> Sets.newHashSet(season1, season2)
 		0 * _
 		videoTemplate.season == null
+	}
+
+	void "when episodes part is found, VideoTemplateEpisodesCountProcessor is used to process it"() {
+		given:
+		Template sidebarVideoTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
+				key: VideoTemplateParameter.EPISODES,
+				value: EPISODES)))
+		VideoTemplate videoTemplate = new VideoTemplate()
+
+		when:
+		videoTemplateContentsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoTemplate, videoTemplate))
+
+		then:
+		1 * videoTemplateEpisodesCountProcessorMock.process(EPISODES) >> new EpisodesCountDTO(
+				numberOfEpisodes: NUMBER_OF_EPISODES,
+				numberOfFeatureLengthEpisodes: NUMBER_OF_FEATURE_LENGTH_EPISODES)
+		0 * _
+		videoTemplate.numberOfEpisodes == NUMBER_OF_EPISODES
+		videoTemplate.numberOfFeatureLengthEpisodes == NUMBER_OF_FEATURE_LENGTH_EPISODES
 	}
 
 }

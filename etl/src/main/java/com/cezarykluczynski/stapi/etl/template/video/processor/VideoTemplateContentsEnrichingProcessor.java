@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.season.WikitextToSeasonProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.NumberOfPartsProcessor;
 import com.cezarykluczynski.stapi.etl.template.series.processor.WikitextToSeriesProcessor;
+import com.cezarykluczynski.stapi.etl.template.video.dto.EpisodesCountDTO;
 import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplate;
 import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplateParameter;
 import com.cezarykluczynski.stapi.model.season.entity.Season;
@@ -27,14 +28,17 @@ public class VideoTemplateContentsEnrichingProcessor implements ItemEnrichingPro
 
 	private final WikitextToSeasonProcessor wikitextToSeasonProcessor;
 
+	private final VideoTemplateEpisodesCountProcessor videoTemplateEpisodesCountProcessor;
+
 	@Inject
 	public VideoTemplateContentsEnrichingProcessor(VideoReleaseFormatProcessor videoReleaseFormatProcessor,
 			WikitextToSeriesProcessor wikitextToSeriesProcessor, NumberOfPartsProcessor numberOfPartsProcessor,
-			WikitextToSeasonProcessor wikitextToSeasonProcessor) {
+			WikitextToSeasonProcessor wikitextToSeasonProcessor, VideoTemplateEpisodesCountProcessor videoTemplateEpisodesCountProcessor) {
 		this.videoReleaseFormatProcessor = videoReleaseFormatProcessor;
 		this.wikitextToSeriesProcessor = wikitextToSeriesProcessor;
 		this.numberOfPartsProcessor = numberOfPartsProcessor;
 		this.wikitextToSeasonProcessor = wikitextToSeasonProcessor;
+		this.videoTemplateEpisodesCountProcessor = videoTemplateEpisodesCountProcessor;
 	}
 
 	@Override
@@ -66,7 +70,9 @@ public class VideoTemplateContentsEnrichingProcessor implements ItemEnrichingPro
 					}
 					break;
 				case VideoTemplateParameter.EPISODES:
-					// TODO Should parse episodes and feature length episodes in a single processor
+					EpisodesCountDTO episodesCountDTO = videoTemplateEpisodesCountProcessor.process(value);
+					videoTemplate.setNumberOfEpisodes(episodesCountDTO.getNumberOfEpisodes());
+					videoTemplate.setNumberOfFeatureLengthEpisodes(episodesCountDTO.getNumberOfFeatureLengthEpisodes());
 					break;
 				case VideoTemplateParameter.DISCS:
 					videoTemplate.setNumberOfDataCarriers(numberOfPartsProcessor.process(value));
