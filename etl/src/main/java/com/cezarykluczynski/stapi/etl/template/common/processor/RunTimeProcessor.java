@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.book.processor;
+package com.cezarykluczynski.stapi.etl.template.common.processor;
 
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
@@ -13,11 +13,12 @@ import java.util.regex.Pattern;
 
 @Service
 @Slf4j
-class RunTimeProcessor implements ItemProcessor<String, Integer> {
+public class RunTimeProcessor implements ItemProcessor<String, Integer> {
 
 	private static final Integer MINUTES_IN_HOUR = 60;
-	private static final Pattern HOURS = Pattern.compile(".*?(\\d{1,2})(\\shour).*", Pattern.CASE_INSENSITIVE);
-	private static final Pattern MINUTES = Pattern.compile(".*?(\\d{1,3})(\\sminute).*", Pattern.CASE_INSENSITIVE);
+	private static final Pattern HOURS = Pattern.compile(".*?(\\d{1,3})(\\shour).*", Pattern.CASE_INSENSITIVE);
+	private static final Pattern MINUTES = Pattern.compile(".*?([\\d,]{1,5})(\\sminute).*", Pattern.CASE_INSENSITIVE);
+	private static final Pattern MINUTES_AND_HOURS = Pattern.compile(".*?(\\d{1,3}):(\\d{1,2}).*", Pattern.CASE_INSENSITIVE);
 
 	@Override
 	public Integer process(String item) throws Exception {
@@ -47,7 +48,28 @@ class RunTimeProcessor implements ItemProcessor<String, Integer> {
 	}
 
 	private int tryParse(String runTimeCandidate) {
-		return tryParseMinutes(runTimeCandidate) + tryParseHoursIntoMinutes(runTimeCandidate);
+		Integer hoursAndMinutesTogether = tryParseHoursAndMinutesTogether(runTimeCandidate);
+		return hoursAndMinutesTogether != null ? hoursAndMinutesTogether
+				: tryParseMinutes(runTimeCandidate) + tryParseHoursIntoMinutes(runTimeCandidate);
+	}
+
+	private Integer tryParseHoursAndMinutesTogether(String runTimeCandidate) {
+		Integer minutes = null;
+		Integer hours;
+
+		Matcher minutesMatcher = MINUTES_AND_HOURS.matcher(runTimeCandidate);
+		if (minutesMatcher.matches()) {
+			minutes = Ints.tryParse(minutesMatcher.group(2));
+			hours = Ints.tryParse(minutesMatcher.group(1));
+
+			if (minutes == null || hours == null) {
+				minutes = null;
+			} else {
+				minutes += hours * 60;
+			}
+		}
+
+		return minutes;
 	}
 
 	private Integer tryParseMinutes(String runTimeCandidate) {
@@ -55,7 +77,7 @@ class RunTimeProcessor implements ItemProcessor<String, Integer> {
 
 		Matcher minutesMatcher = MINUTES.matcher(runTimeCandidate);
 		if (minutesMatcher.matches()) {
-			minutes = Ints.tryParse(minutesMatcher.group(1));
+			minutes = Ints.tryParse(minutesMatcher.group(1).replace(",", ""));
 		}
 
 		return minutes == null ? 0 : minutes;

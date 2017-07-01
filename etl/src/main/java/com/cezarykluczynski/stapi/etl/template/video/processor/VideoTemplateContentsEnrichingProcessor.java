@@ -3,7 +3,9 @@ package com.cezarykluczynski.stapi.etl.template.video.processor;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.season.WikitextToSeasonProcessor;
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange;
 import com.cezarykluczynski.stapi.etl.template.common.processor.NumberOfPartsProcessor;
+import com.cezarykluczynski.stapi.etl.template.common.processor.RunTimeProcessor;
 import com.cezarykluczynski.stapi.etl.template.series.processor.WikitextToSeriesProcessor;
 import com.cezarykluczynski.stapi.etl.template.video.dto.EpisodesCountDTO;
 import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplate;
@@ -30,15 +32,22 @@ public class VideoTemplateContentsEnrichingProcessor implements ItemEnrichingPro
 
 	private final VideoTemplateEpisodesCountProcessor videoTemplateEpisodesCountProcessor;
 
+	private final VideoTemplateYearsProcessor videoTemplateYearsProcessor;
+
+	private final RunTimeProcessor runTimeProcessor;
+
 	@Inject
 	public VideoTemplateContentsEnrichingProcessor(VideoReleaseFormatProcessor videoReleaseFormatProcessor,
 			WikitextToSeriesProcessor wikitextToSeriesProcessor, NumberOfPartsProcessor numberOfPartsProcessor,
-			WikitextToSeasonProcessor wikitextToSeasonProcessor, VideoTemplateEpisodesCountProcessor videoTemplateEpisodesCountProcessor) {
+			WikitextToSeasonProcessor wikitextToSeasonProcessor, VideoTemplateEpisodesCountProcessor videoTeplateEpisodesCountProcessor,
+			VideoTemplateYearsProcessor videoTemplateYearsProcessor, RunTimeProcessor runTimeProcessor) {
 		this.videoReleaseFormatProcessor = videoReleaseFormatProcessor;
 		this.wikitextToSeriesProcessor = wikitextToSeriesProcessor;
 		this.numberOfPartsProcessor = numberOfPartsProcessor;
 		this.wikitextToSeasonProcessor = wikitextToSeasonProcessor;
-		this.videoTemplateEpisodesCountProcessor = videoTemplateEpisodesCountProcessor;
+		this.videoTemplateEpisodesCountProcessor = videoTeplateEpisodesCountProcessor;
+		this.videoTemplateYearsProcessor = videoTemplateYearsProcessor;
+		this.runTimeProcessor = runTimeProcessor;
 	}
 
 	@Override
@@ -78,8 +87,12 @@ public class VideoTemplateContentsEnrichingProcessor implements ItemEnrichingPro
 					videoTemplate.setNumberOfDataCarriers(numberOfPartsProcessor.process(value));
 					break;
 				case VideoTemplateParameter.TIME:
+					videoTemplate.setRunTime(runTimeProcessor.process(value));
+					break;
 				case VideoTemplateParameter.YEAR:
-					// TODO
+					YearRange yearRange = videoTemplateYearsProcessor.process(value);
+					videoTemplate.setYearFrom(yearRange.getYearFrom());
+					videoTemplate.setYearTo(yearRange.getYearTo());
 					break;
 				default:
 					break;

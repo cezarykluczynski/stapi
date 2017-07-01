@@ -10,6 +10,7 @@ import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.book_series.processor.WikitextToBookSeriesProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange;
+import com.cezarykluczynski.stapi.etl.template.common.processor.RunTimeProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToStardateRangeProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToYearRangeProcessor;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;

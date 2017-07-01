@@ -2,6 +2,8 @@ package com.cezarykluczynski.stapi.etl.template.video.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.processor.season.WikitextToSeasonProcessor
+import com.cezarykluczynski.stapi.etl.template.common.processor.RunTimeProcessor
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange
 import com.cezarykluczynski.stapi.etl.template.common.processor.NumberOfPartsProcessor
 import com.cezarykluczynski.stapi.etl.template.series.processor.WikitextToSeriesProcessor
 import com.cezarykluczynski.stapi.etl.template.video.dto.EpisodesCountDTO
@@ -22,9 +24,14 @@ class VideoTemplateContentsEnrichingProcessorTest extends Specification {
 	private static final String SEASON = 'SEASON'
 	private static final String DISCS_STRING = 'DISCS_STRING'
 	private static final String EPISODES = 'EPISODES'
+	private static final String YEAR = 'YEAR'
+	private static final String TIME_STRING = 'TIME_STRING'
 	private static final Integer DISCS_INTEGER = 3
 	private static final Integer NUMBER_OF_EPISODES = 14
 	private static final Integer NUMBER_OF_FEATURE_LENGTH_EPISODES = 2
+	private static final Integer YEAR_FROM = 2063
+	private static final Integer YEAR_TO = 2373
+	private static final Integer TIME_INTEGER = 907
 	private static final VideoReleaseFormat VIDEO_RELEASE_FORMAT = VideoReleaseFormat.BLU_RAY
 
 	private VideoReleaseFormatProcessor videoReleaseFormatProcessorMock
@@ -37,6 +44,10 @@ class VideoTemplateContentsEnrichingProcessorTest extends Specification {
 
 	private VideoTemplateEpisodesCountProcessor videoTemplateEpisodesCountProcessorMock
 
+	private VideoTemplateYearsProcessor videoTemplateYearsProcessorMock
+
+	private RunTimeProcessor runTimeProcessorMock
+
 	private VideoTemplateContentsEnrichingProcessor videoTemplateContentsEnrichingProcessor
 
 	void setup() {
@@ -45,8 +56,11 @@ class VideoTemplateContentsEnrichingProcessorTest extends Specification {
 		numberOfPartsProcessorMock = Mock()
 		wikitextToSeasonProcessorMock = Mock()
 		videoTemplateEpisodesCountProcessorMock = Mock()
+		videoTemplateYearsProcessorMock = Mock()
+		runTimeProcessorMock = Mock()
 		videoTemplateContentsEnrichingProcessor = new VideoTemplateContentsEnrichingProcessor(videoReleaseFormatProcessorMock,
-				wikitextToSeriesProcessorMock, numberOfPartsProcessorMock, wikitextToSeasonProcessorMock, videoTemplateEpisodesCountProcessorMock)
+				wikitextToSeriesProcessorMock, numberOfPartsProcessorMock, wikitextToSeasonProcessorMock, videoTemplateEpisodesCountProcessorMock,
+				videoTemplateYearsProcessorMock, runTimeProcessorMock)
 	}
 
 	void "when format part is found, VideoReleaseFormatProcessor is used to process it"() {
@@ -166,6 +180,41 @@ class VideoTemplateContentsEnrichingProcessorTest extends Specification {
 		0 * _
 		videoTemplate.numberOfEpisodes == NUMBER_OF_EPISODES
 		videoTemplate.numberOfFeatureLengthEpisodes == NUMBER_OF_FEATURE_LENGTH_EPISODES
+	}
+
+	void "when year part is found, VideoTemplateYearsProcessor is used to process it"() {
+		given:
+		Template sidebarVideoTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
+				key: VideoTemplateParameter.YEAR,
+				value: YEAR)))
+		VideoTemplate videoTemplate = new VideoTemplate()
+
+		when:
+		videoTemplateContentsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoTemplate, videoTemplate))
+
+		then:
+		1 * videoTemplateYearsProcessorMock.process(YEAR) >> new YearRange(
+				yearFrom: YEAR_FROM,
+				yearTo: YEAR_TO)
+		0 * _
+		videoTemplate.yearFrom == YEAR_FROM
+		videoTemplate.yearTo == YEAR_TO
+	}
+
+	void "when time part is found, RunTimeProcessor is used to process it"() {
+		given:
+		Template sidebarVideoTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
+				key: VideoTemplateParameter.TIME,
+				value: TIME_STRING)))
+		VideoTemplate videoTemplate = new VideoTemplate()
+
+		when:
+		videoTemplateContentsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoTemplate, videoTemplate))
+
+		then:
+		1 * runTimeProcessorMock.process(TIME_STRING) >> TIME_INTEGER
+		0 * _
+		videoTemplate.runTime == TIME_INTEGER
 	}
 
 }
