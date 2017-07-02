@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.model.video_release.entity;
 import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
+import com.cezarykluczynski.stapi.model.content_language.entity.ContentLanguage;
 import com.cezarykluczynski.stapi.model.content_rating.entity.ContentRating;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.reference.entity.Reference;
@@ -40,8 +41,8 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true, exclude = {"series", "references", "ratings"})
-@EqualsAndHashCode(callSuper = true, exclude = {"series", "references", "ratings"})
+@ToString(callSuper = true, exclude = {"series", "references", "ratings", "languages", "languagesSubtitles", "languagesDubbed"})
+@EqualsAndHashCode(callSuper = true, exclude = {"series", "references", "ratings", "languages", "languagesSubtitles", "languagesDubbed"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = VideoReleaseRepository.class, singularName = "video release",
 		pluralName = "video releases")
@@ -134,5 +135,26 @@ public class VideoRelease extends PageAwareEntity implements PageAware {
 			inverseJoinColumns = @JoinColumn(name = "rating_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<ContentRating> ratings = Sets.newHashSet();
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "video_releases_languages",
+			joinColumns = @JoinColumn(name = "video_release_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "content_language_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<ContentLanguage> languages = Sets.newHashSet();
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "video_releases_languages_sub",
+			joinColumns = @JoinColumn(name = "video_release_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "content_language_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<ContentLanguage> languagesSubtitles = Sets.newHashSet();
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "video_releases_languages_dub",
+			joinColumns = @JoinColumn(name = "video_release_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "content_language_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<ContentLanguage> languagesDubbed = Sets.newHashSet();
 
 }

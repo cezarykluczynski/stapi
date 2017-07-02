@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.video.processor;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.reference.processor.ReferencesFromTemplatePartProcessor;
+import com.cezarykluczynski.stapi.etl.template.common.processor.ContentLanguagesProcessor;
 import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplate;
 import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplateParameter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
@@ -15,9 +16,13 @@ public class VideoTemplateRelationsEnrichingProcessor implements ItemEnrichingPr
 
 	private final ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor;
 
+	private final ContentLanguagesProcessor contentLanguagesProcessor;
+
 	@Inject
-	public VideoTemplateRelationsEnrichingProcessor(ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor) {
+	public VideoTemplateRelationsEnrichingProcessor(ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor,
+			ContentLanguagesProcessor contentLanguagesProcessor) {
 		this.referencesFromTemplatePartProcessor = referencesFromTemplatePartProcessor;
+		this.contentLanguagesProcessor = contentLanguagesProcessor;
 	}
 
 	@Override
@@ -31,10 +36,16 @@ public class VideoTemplateRelationsEnrichingProcessor implements ItemEnrichingPr
 
 			switch (key) {
 				case VideoTemplateParameter.RATING:
-				case VideoTemplateParameter.LANGUAGE:
-				case VideoTemplateParameter.SUBTITLES:
-				case VideoTemplateParameter.DUBBED:
 					// TODO
+					break;
+				case VideoTemplateParameter.LANGUAGE:
+					videoTemplate.getLanguages().addAll(contentLanguagesProcessor.process(value));
+					break;
+				case VideoTemplateParameter.SUBTITLES:
+					videoTemplate.getLanguagesSubtitles().addAll(contentLanguagesProcessor.process(value));
+					break;
+				case VideoTemplateParameter.DUBBED:
+					videoTemplate.getLanguagesDubbed().addAll(contentLanguagesProcessor.process(value));
 					break;
 				case VideoTemplateParameter.REFERENCE:
 					videoTemplate.getReferences().addAll(referencesFromTemplatePartProcessor.process(part));

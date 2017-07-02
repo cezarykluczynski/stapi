@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.video_release.creation.processor
 
 import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplate
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator
+import com.cezarykluczynski.stapi.model.content_language.entity.ContentLanguage
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.reference.entity.Reference
 import com.cezarykluczynski.stapi.model.season.entity.Season
@@ -58,6 +59,9 @@ class VideoReleaseTemplateProcessorTest extends AbstractVideoReleaseTest {
 				xboxSmartGlassDigital: XBOX_SMART_GLASS_DIGITAL,
 				youTubeDigitalRelease: YOU_TUBE_DIGITAL_RELEASE,
 				netflixDigitalRelease: NETFLIX_DIGITAL_RELEASE,
+				languages: createSetOfRandomNumberOfMocks(ContentLanguage),
+				languagesSubtitles: createSetOfRandomNumberOfMocks(ContentLanguage),
+				languagesDubbed: createSetOfRandomNumberOfMocks(ContentLanguage),
 				references: createSetOfRandomNumberOfMocks(Reference))
 
 		when:
@@ -95,6 +99,9 @@ class VideoReleaseTemplateProcessorTest extends AbstractVideoReleaseTest {
 		videoRelease.xboxSmartGlassDigital == XBOX_SMART_GLASS_DIGITAL
 		videoRelease.youTubeDigitalRelease == YOU_TUBE_DIGITAL_RELEASE
 		videoRelease.netflixDigitalRelease == NETFLIX_DIGITAL_RELEASE
+		videoRelease.languages.size() == videoTemplate.languages.size()
+		videoRelease.languagesSubtitles.size() == videoTemplate.languagesSubtitles.size()
+		videoRelease.languagesDubbed.size() == videoTemplate.languagesDubbed.size()
 		videoRelease.references.size() == videoTemplate.references.size()
 	}
 

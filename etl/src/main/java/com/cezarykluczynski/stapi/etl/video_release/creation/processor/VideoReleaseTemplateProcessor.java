@@ -51,6 +51,9 @@ public class VideoReleaseTemplateProcessor implements ItemProcessor<VideoTemplat
 		videoRelease.setXboxSmartGlassDigital(Boolean.TRUE.equals(item.getXboxSmartGlassDigital()));
 		videoRelease.setYouTubeDigitalRelease(Boolean.TRUE.equals(item.getYouTubeDigitalRelease()));
 		videoRelease.setNetflixDigitalRelease(Boolean.TRUE.equals(item.getNetflixDigitalRelease()));
+		videoRelease.getLanguages().addAll(item.getLanguages());
+		videoRelease.getLanguagesSubtitles().addAll(item.getLanguagesSubtitles());
+		videoRelease.getLanguagesDubbed().addAll(item.getLanguagesDubbed());
 		videoRelease.getReferences().addAll(item.getReferences());
 
 		return videoRelease;

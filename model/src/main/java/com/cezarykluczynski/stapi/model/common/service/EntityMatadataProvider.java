@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.model.comic_collection.entity.ComicCollection;
 import com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries;
 import com.cezarykluczynski.stapi.model.comic_strip.entity.ComicStrip;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics;
+import com.cezarykluczynski.stapi.model.content_language.entity.ContentLanguage;
 import com.cezarykluczynski.stapi.model.content_rating.entity.ContentRating;
 import com.cezarykluczynski.stapi.model.magazine_series.entity.MagazineSeries;
 import com.cezarykluczynski.stapi.model.season.entity.Season;
@@ -38,6 +39,7 @@ public class EntityMatadataProvider {
 		CUSTOM_SYMBOL_MAP.put(BookCollection.class, "BC");
 		CUSTOM_SYMBOL_MAP.put(MagazineSeries.class, "MS");
 		CUSTOM_SYMBOL_MAP.put(ContentRating.class, "CR");
+		CUSTOM_SYMBOL_MAP.put(ContentLanguage.class, "CA");
 		CUSTOM_SYMBOL_MAP.put(Season.class, "SA");
 	}
 

@@ -2,7 +2,7 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
-	<changeSet id="0030_create_video_release" author="cezarykluczynski">
+	<changeSet id="0031_create_video_release" author="cezarykluczynski">
 		<createTable schemaName="stapi" tableName="video_release">
 			<column name="id" type="bigint">
 				<constraints unique="true" nullable="false"/>
@@ -89,5 +89,50 @@
 				constraintName="vrra_reference_fkey"
 				referencedColumnNames="id"
 				referencedTableName="content_rating"/>
+
+		<createTable schemaName="stapi" tableName="video_releases_languages">
+			<column name="video_release_id" type="bigint"/>
+			<column name="content_language_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="video_release_id"
+				baseTableName="video_releases_languages"
+				constraintName="vrl_video_release_fkey"
+				referencedColumnNames="id"
+				referencedTableName="video_release"/>
+		<addForeignKeyConstraint baseColumnNames="content_language_id"
+				 baseTableName="video_releases_languages"
+				 constraintName="vrl_reference_fkey"
+				 referencedColumnNames="id"
+				 referencedTableName="content_language"/>
+
+		<createTable schemaName="stapi" tableName="video_releases_languages_sub">
+			<column name="video_release_id" type="bigint"/>
+			<column name="content_language_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="video_release_id"
+				baseTableName="video_releases_languages_sub"
+				constraintName="vrls_video_release_fkey"
+				referencedColumnNames="id"
+				referencedTableName="video_release"/>
+		<addForeignKeyConstraint baseColumnNames="content_language_id"
+				 baseTableName="video_releases_languages_sub"
+				 constraintName="vrls_reference_fkey"
+				 referencedColumnNames="id"
+				 referencedTableName="content_language"/>
+
+		<createTable schemaName="stapi" tableName="video_releases_languages_dub">
+			<column name="video_release_id" type="bigint"/>
+			<column name="content_language_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="video_release_id"
+				baseTableName="video_releases_languages_dub"
+				constraintName="vrld_video_release_fkey"
+				referencedColumnNames="id"
+				referencedTableName="video_release"/>
+		<addForeignKeyConstraint baseColumnNames="content_language_id"
+				baseTableName="video_releases_languages_dub"
+				constraintName="vrld_reference_fkey"
+				referencedColumnNames="id"
+				referencedTableName="content_language"/>
 	</changeSet>
 </databaseChangeLog>
