@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.validator.routines.IntegerValidator;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -31,7 +32,7 @@ public class PartToDateRangeProcessor implements ItemProcessor<Template.Part, Da
 	public DateRange process(Template.Part item) throws Exception {
 		List<Template> templateList = item.getTemplates();
 
-		return org.springframework.util.CollectionUtils.isEmpty(templateList) ? null : fromTemplate(templateList, item);
+		return CollectionUtils.isEmpty(templateList) ? null : fromTemplate(templateList, item);
 	}
 
 	private DateRange fromTemplate(List<Template> templateList, Template.Part part) throws Exception {

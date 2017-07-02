@@ -184,21 +184,40 @@ class VideoTemplateContentsEnrichingProcessorTest extends Specification {
 
 	void "when year part is found, VideoTemplateYearsProcessor is used to process it"() {
 		given:
-		Template sidebarVideoTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
+		Template.Part templatePart = new Template.Part(
 				key: VideoTemplateParameter.YEAR,
-				value: YEAR)))
+				value: YEAR)
+		Template sidebarVideoTemplate = new Template(parts: Lists.newArrayList(templatePart))
 		VideoTemplate videoTemplate = new VideoTemplate()
 
 		when:
 		videoTemplateContentsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoTemplate, videoTemplate))
 
 		then:
-		1 * videoTemplateYearsProcessorMock.process(YEAR) >> new YearRange(
+		1 * videoTemplateYearsProcessorMock.process(templatePart) >> new YearRange(
 				yearFrom: YEAR_FROM,
 				yearTo: YEAR_TO)
 		0 * _
 		videoTemplate.yearFrom == YEAR_FROM
 		videoTemplate.yearTo == YEAR_TO
+	}
+
+	void "when year part is found, and VideoTemplateYearsProcessor returns null, nothing happens"() {
+		given:
+		Template.Part templatePart = new Template.Part(
+				key: VideoTemplateParameter.YEAR,
+				value: YEAR)
+		Template sidebarVideoTemplate = new Template(parts: Lists.newArrayList(templatePart))
+		VideoTemplate videoTemplate = new VideoTemplate()
+
+		when:
+		videoTemplateContentsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoTemplate, videoTemplate))
+
+		then:
+		1 * videoTemplateYearsProcessorMock.process(templatePart) >> null
+		0 * _
+		videoTemplate.yearFrom == null
+		videoTemplate.yearTo == null
 	}
 
 	void "when time part is found, RunTimeProcessor is used to process it"() {

@@ -29,10 +29,6 @@ public class VideoTemplate {
 
 	private Integer runTime;
 
-	private Float stardateFrom;
-
-	private Float stardateTo;
-
 	private Integer yearFrom;
 
 	private Integer yearTo;

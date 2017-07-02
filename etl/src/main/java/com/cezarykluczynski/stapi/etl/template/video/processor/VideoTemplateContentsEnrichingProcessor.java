@@ -13,6 +13,7 @@ import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplateParameter;
 import com.cezarykluczynski.stapi.model.season.entity.Season;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -70,12 +71,15 @@ public class VideoTemplateContentsEnrichingProcessor implements ItemEnrichingPro
 				case VideoTemplateParameter.SEASON:
 					Set<Season> seasonSet = wikitextToSeasonProcessor.process(value);
 					int seasonSetSize = seasonSet.size();
+					boolean hasNotBlankValue = StringUtils.isNotBlank(value);
 					if (seasonSetSize == 1) {
 						videoTemplate.setSeason(seasonSet.iterator().next());
-					} else if (seasonSetSize > 1) {
-						log.warn("More than one season found for video {}, using none", title);
-					} else {
-						log.warn("No seasons found for video {}", title);
+					} else if (hasNotBlankValue) {
+						if (seasonSetSize > 1) {
+							log.warn("More than one season found for video \"{}\", using none; value was: {}", title, value);
+						} else {
+							log.warn("No seasons found for video \"{}\", value was: {}", title, value);
+						}
 					}
 					break;
 				case VideoTemplateParameter.EPISODES:
@@ -90,9 +94,11 @@ public class VideoTemplateContentsEnrichingProcessor implements ItemEnrichingPro
 					videoTemplate.setRunTime(runTimeProcessor.process(value));
 					break;
 				case VideoTemplateParameter.YEAR:
-					YearRange yearRange = videoTemplateYearsProcessor.process(value);
-					videoTemplate.setYearFrom(yearRange.getYearFrom());
-					videoTemplate.setYearTo(yearRange.getYearTo());
+					YearRange yearRange = videoTemplateYearsProcessor.process(part);
+					if (yearRange != null) {
+						videoTemplate.setYearFrom(yearRange.getYearFrom());
+						videoTemplate.setYearTo(yearRange.getYearTo());
+					}
 					break;
 				default:
 					break;

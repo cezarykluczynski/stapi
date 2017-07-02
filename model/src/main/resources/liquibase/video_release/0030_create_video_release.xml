@@ -23,8 +23,6 @@
 			<column name="number_of_fl_episodes" type="int"/>
 			<column name="number_of_data_carriers" type="int"/>
 			<column name="run_time" type="int"/>
-			<column name="stardate_from" type="float"/>
-			<column name="stardate_to" type="float"/>
 			<column name="year_from" type="int"/>
 			<column name="year_to" type="int"/>
 			<column name="region_free_release_date" type="date"/>

@@ -77,10 +77,6 @@ public class VideoRelease extends PageAwareEntity implements PageAware {
 
 	private Integer runTime;
 
-	private Float stardateFrom;
-
-	private Float stardateTo;
-
 	private Integer yearFrom;
 
 	private Integer yearTo;

@@ -25,13 +25,9 @@ public class ParseComplementingService {
 
 	public void complement(Page page) {
 		if (wikiaWikisDetector.isWikiaWiki(page.getMediaWikiSource())) {
-			String xmlParseTreeContent = parseWikitextToXml(page.getWikitext());
+			String xmlParseTreeContent = parseApi.parseWikitextToXmlTree(page.getWikitext());
 			page.setTemplates(jsonTemplateParser.parse(xmlParseTreeContent));
 		}
-	}
-
-	private String parseWikitextToXml(String wikitext) {
-		return parseApi.parseWikitextToXmlTree(wikitext);
 	}
 
 }
