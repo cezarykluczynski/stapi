@@ -29,6 +29,8 @@ import java.util.stream.Collectors;
 public class ReferencesFromTemplatePartProcessor implements ItemProcessor<Template.Part, Set<Reference>> {
 
 	private static final Pattern ISBN_PATTERN = Pattern.compile("(ISBN )([0-9\\-\\s]{9,17}[0-9X]?)");
+	private static final Pattern EAN_PATTERN = Pattern.compile("(EAN)(:)? ([0-9]{8,13})");
+	private static final Pattern ISRC_PATTERN = Pattern.compile("(ISRC)(:)? ([0-9A-Z\\-]{12,15})");
 
 	private final ReferenceRepository referenceRepository;
 
@@ -62,6 +64,26 @@ public class ReferencesFromTemplatePartProcessor implements ItemProcessor<Templa
 			while (isbnMatcher.find()) {
 				pairs.add(Pair.of(ReferenceType.ISBN, StringUtils.trim(isbnMatcher.group(2))));
 				found++;
+			}
+
+			Matcher eanMatcher = EAN_PATTERN.matcher(value);
+
+			while (eanMatcher.find()) {
+				String ean = eanMatcher.group(3);
+				if (StringUtils.length(ean) == 8 || StringUtils.length(ean) == 13) {
+					pairs.add(Pair.of(ReferenceType.EAN, StringUtils.trim(ean)));
+					found++;
+				}
+			}
+
+			Matcher isrcMatcher = ISRC_PATTERN.matcher(value);
+
+			while (isrcMatcher.find()) {
+				String isrc = StringUtils.trim(StringUtils.replace(isrcMatcher.group(3), "-", ""));
+				if (StringUtils.length(isrc) == 12) {
+					pairs.add(Pair.of(ReferenceType.ISRC, isrc));
+					found++;
+				}
 			}
 
 			if (found == 0) {

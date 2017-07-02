@@ -34,11 +34,14 @@ class ReferenceFactoryTest extends Specification {
 		reference == referenceFactory.createFromUid(uid)
 
 		where:
-		reference                                                                                                  | uid
+		reference                                                                                                 | uid
 		new Reference(uid: 'ISBN1234567890', referenceType: ReferenceType.ISBN, referenceNumber: '1234567890')    | 'ISBN1234567890'
 		new Reference(uid: 'I1234567890123', referenceType: ReferenceType.ISBN, referenceNumber: '1234567890123') | 'I1234567890123'
 		new Reference(uid: 'I123456789012X', referenceType: ReferenceType.ISBN, referenceNumber: '123456789012X') | 'I123456789012X'
 		new Reference(uid: 'ASINB001PUYIGQ', referenceType: ReferenceType.ASIN, referenceNumber: 'B001PUYIGQ')    | 'ASINB001PUYIGQ'
+		new Reference(uid: 'ISCNA130401060', referenceType: ReferenceType.ISRC, referenceNumber: 'CNA130401060')  | 'ISCNA130401060'
+		new Reference(uid: 'E7332431036161', referenceType: ReferenceType.EAN, referenceNumber: '7332431036161')  | 'E7332431036161'
+		new Reference(uid: 'EAN80096385074', referenceType: ReferenceType.EAN, referenceNumber: '96385074')       | 'EAN80096385074'
 	}
 
 	void "throws exception when invalid UID is passed"() {

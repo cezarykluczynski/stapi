@@ -21,6 +21,12 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 	private static final String UID_1 = 'ISBN1563898500'
 	private static final String UID_2 = 'ISBN1563899183'
 	private static final String ASIN = 'ASINB223213FCF'
+	private static final String EAN_13_FULL = 'EAN: 7332431036161'
+	private static final String EAN_13_BARE = '7332431036161'
+	private static final String EAN_8_FULL = 'EAN 96385074'
+	private static final String EAN_8_BARE = '96385074'
+	private static final String ISRC_FULL = 'ISRC: CN-A13-04-01140/V.J9 '
+	private static final String ISRC_BARE = 'CNA130401140'
 
 	private ReferenceRepository referenceRepositoryMock
 
@@ -207,6 +213,66 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 		then:
 		0 * _
 		referenceSet.empty
+	}
+
+	void "EAN-13 containing template is parsed to Reference, when reference is already present"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: TemplateTitle.REFERENCE, value: EAN_13_FULL)
+		Reference reference = Mock()
+
+		when:
+		Set<Reference> referenceSet = referencesFromTemplatePartProcessor.process(templatePart)
+
+		then:
+		1 * uidGeneratorMock.generateFromReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
+			assert pair.key == ReferenceType.EAN
+			assert pair.value == EAN_13_BARE
+			UID_1
+		}
+		1 * referenceRepositoryMock.findByUid(UID_1) >> Optional.of(reference)
+		0 * _
+		referenceSet.size() == 1
+		referenceSet.contains reference
+	}
+
+	void "EAN-8 containing template is parsed to Reference, when reference is already present"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: TemplateTitle.REFERENCE, value: EAN_8_FULL)
+		Reference reference = Mock()
+
+		when:
+		Set<Reference> referenceSet = referencesFromTemplatePartProcessor.process(templatePart)
+
+		then:
+		1 * uidGeneratorMock.generateFromReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
+			assert pair.key == ReferenceType.EAN
+			assert pair.value == EAN_8_BARE
+			UID_1
+		}
+		1 * referenceRepositoryMock.findByUid(UID_1) >> Optional.of(reference)
+		0 * _
+		referenceSet.size() == 1
+		referenceSet.contains reference
+	}
+
+	void "ISRC containing template is parsed to Reference, when reference is already present"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: TemplateTitle.REFERENCE, value: ISRC_FULL)
+		Reference reference = Mock()
+
+		when:
+		Set<Reference> referenceSet = referencesFromTemplatePartProcessor.process(templatePart)
+
+		then:
+		1 * uidGeneratorMock.generateFromReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
+			assert pair.key == ReferenceType.ISRC
+			assert pair.value == ISRC_BARE
+			UID_1
+		}
+		1 * referenceRepositoryMock.findByUid(UID_1) >> Optional.of(reference)
+		0 * _
+		referenceSet.size() == 1
+		referenceSet.contains reference
 	}
 
 }

@@ -23,6 +23,8 @@ public class UidGenerator {
 	private static final Long MAX_PAGE_ID = 9999999999L;
 	private static final Pattern ASIN = Pattern.compile("^[B]{1}[0-9]{2}[A-Z0-9]{7}|[0-9]{9}(X|[0-9])$");
 	private static final Pattern ISBN = Pattern.compile("^[0-9\\-\\s]{9,17}[0-9X]?$");
+	private static final Pattern EAN = Pattern.compile("^[0-9]{8,13}$");
+	private static final Pattern ISRC = Pattern.compile("^[A-Z]{2}[0-9A-Z]{3}[0-9]{7}$");
 
 	private final Map<MediaWikiSource, String> mediaWikiSourceToSymbolMap = Maps.newHashMap();
 
@@ -59,6 +61,7 @@ public class UidGenerator {
 		return entitySymbol + sourceSymbol + paddedPageId;
 	}
 
+	@SuppressWarnings("ReturnCount")
 	public String generateFromReference(Pair<ReferenceType, String> referenceTypeReferenceNumberPair) {
 		ReferenceType referenceType = referenceTypeReferenceNumberPair.getKey();
 		String referenceNumber = referenceTypeReferenceNumberPair.getValue();
@@ -77,6 +80,17 @@ public class UidGenerator {
 			} else if (clearedIsbn.length() == 13) {
 				return "I" + clearedIsbn;
 			}
+		} else if (ReferenceType.EAN.equals(referenceType) && EAN.matcher(referenceNumber).matches()) {
+			boolean isEan8 = StringUtils.length(referenceNumber) == 8;
+			boolean isEan13 = StringUtils.length(referenceNumber) == 13;
+
+			if (isEan8) {
+				return "EAN800" + referenceNumber;
+			} else if (isEan13) {
+				return "E" + referenceNumber;
+			}
+		} else if (ReferenceType.ISRC.equals(referenceType) && ISRC.matcher(referenceNumber).matches()) {
+			return "IS" + referenceNumber;
 		}
 
 		return null;

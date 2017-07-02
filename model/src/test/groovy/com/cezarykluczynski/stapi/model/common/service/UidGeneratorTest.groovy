@@ -145,6 +145,18 @@ class UidGeneratorTest extends Specification {
 		ReferenceType.ISBN | '978-0-306-4061546' | null
 		null               | '9971502100'        | null
 		ReferenceType.ISBN | null                | null
+		ReferenceType.EAN  | '7332431036161'     | 'E7332431036161'
+		ReferenceType.EAN  | '96385074'          | 'EAN80096385074'
+		ReferenceType.EAN  | 'A223213FCF'        | null
+		ReferenceType.EAN  | '73324310361611'    | null
+		ReferenceType.EAN  | '963850741'         | null
+		null               | '7332431036161'     | null
+		ReferenceType.EAN  | null                | null
+		ReferenceType.ISRC | 'CNA130401060'      | 'ISCNA130401060'
+		ReferenceType.ISRC | 'CNA1304010601'     | null
+		ReferenceType.ISRC | 'CNA13040106'       | null
+		null               | 'CNA130401060'      | null
+		ReferenceType.ISRC | null                | null
 	}
 
 }
