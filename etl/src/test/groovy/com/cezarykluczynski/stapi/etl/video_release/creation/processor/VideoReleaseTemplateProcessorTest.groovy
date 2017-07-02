@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.video_release.creation.processor
 import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplate
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.page.entity.Page
+import com.cezarykluczynski.stapi.model.reference.entity.Reference
 import com.cezarykluczynski.stapi.model.season.entity.Season
 import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease
@@ -28,7 +29,7 @@ class VideoReleaseTemplateProcessorTest extends AbstractVideoReleaseTest {
 
 	void "converts VideoTemplate to VideoRelease"() {
 		given:
-		VideoTemplate videoReleaseTemplate = new VideoTemplate(
+		VideoTemplate videoTemplate = new VideoTemplate(
 				page: page,
 				title: TITLE,
 				series: series,
@@ -56,10 +57,11 @@ class VideoReleaseTemplateProcessorTest extends AbstractVideoReleaseTest {
 				vuduDigitalRelease: VUDU_DIGITAL_RELEASE,
 				xboxSmartGlassDigital: XBOX_SMART_GLASS_DIGITAL,
 				youTubeDigitalRelease: YOU_TUBE_DIGITAL_RELEASE,
-				netflixDigitalRelease: NETFLIX_DIGITAL_RELEASE)
+				netflixDigitalRelease: NETFLIX_DIGITAL_RELEASE,
+				references: createSetOfRandomNumberOfMocks(Reference))
 
 		when:
-		VideoRelease videoRelease = videoReleaseTemplateProcessor.process(videoReleaseTemplate)
+		VideoRelease videoRelease = videoReleaseTemplateProcessor.process(videoTemplate)
 
 		then:
 		1 * uidGeneratorMock.generateFromPage(page, VideoRelease) >> UID
@@ -93,6 +95,7 @@ class VideoReleaseTemplateProcessorTest extends AbstractVideoReleaseTest {
 		videoRelease.xboxSmartGlassDigital == XBOX_SMART_GLASS_DIGITAL
 		videoRelease.youTubeDigitalRelease == YOU_TUBE_DIGITAL_RELEASE
 		videoRelease.netflixDigitalRelease == NETFLIX_DIGITAL_RELEASE
+		videoRelease.references.size() == videoTemplate.references.size()
 	}
 
 }
