@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.video.dto;
 
 import com.cezarykluczynski.stapi.model.content_language.entity.ContentLanguage;
+import com.cezarykluczynski.stapi.model.content_rating.entity.ContentRating;
 import com.cezarykluczynski.stapi.model.page.entity.Page;
 import com.cezarykluczynski.stapi.model.reference.entity.Reference;
 import com.cezarykluczynski.stapi.model.season.entity.Season;
@@ -72,12 +73,14 @@ public class VideoTemplate {
 
 	private Boolean netflixDigitalRelease;
 
+	private Set<Reference> references = Sets.newHashSet();
+
+	private Set<ContentRating> ratings = Sets.newHashSet();
+
 	private Set<ContentLanguage> languages = Sets.newHashSet();
 
 	private Set<ContentLanguage> languagesSubtitles = Sets.newHashSet();
 
 	private Set<ContentLanguage> languagesDubbed = Sets.newHashSet();
-
-	private Set<Reference> references = Sets.newHashSet();
 
 }

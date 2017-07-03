@@ -3,9 +3,11 @@ package com.cezarykluczynski.stapi.etl.template.video.processor
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.reference.processor.ReferencesFromTemplatePartProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.ContentLanguagesProcessor
+import com.cezarykluczynski.stapi.etl.template.common.processor.ContentRatingProcessor
 import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplate
 import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplateParameter
 import com.cezarykluczynski.stapi.model.content_language.entity.ContentLanguage
+import com.cezarykluczynski.stapi.model.content_rating.entity.ContentRating
 import com.cezarykluczynski.stapi.model.reference.entity.Reference
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
@@ -14,10 +16,11 @@ import spock.lang.Specification
 
 class VideoTemplateRelationsEnrichingProcessorTest extends Specification {
 
-	private static final String REFERENCE = 'REFERENCE'
 	private static final String LANGUAGE = 'LANGUAGE'
 	private static final String SUBTITLES = 'SUBTITLES'
 	private static final String DUBBED = 'DUBBED'
+
+	private ContentRatingProcessor contentRatingProcessorMock
 
 	private ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessorMock
 
@@ -26,10 +29,29 @@ class VideoTemplateRelationsEnrichingProcessorTest extends Specification {
 	private VideoTemplateRelationsEnrichingProcessor videoTemplateRelationsEnrichingProcessor
 
 	void setup() {
+		contentRatingProcessorMock = Mock()
 		referencesFromTemplatePartProcessorMock = Mock()
 		contentLanguagesProcessorMock = Mock()
-		videoTemplateRelationsEnrichingProcessor = new VideoTemplateRelationsEnrichingProcessor(referencesFromTemplatePartProcessorMock,
-				contentLanguagesProcessorMock)
+		videoTemplateRelationsEnrichingProcessor = new VideoTemplateRelationsEnrichingProcessor(contentRatingProcessorMock,
+				referencesFromTemplatePartProcessorMock, contentLanguagesProcessorMock)
+	}
+
+	void "when rating part is found, ContentRatingProcessor is used to process it"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: VideoTemplateParameter.RATING)
+		Template sidebarVideoTemplate = new Template(parts: Lists.newArrayList(templatePart))
+		ContentRating contentRating1 = Mock()
+		ContentRating contentRating2 = Mock()
+		VideoTemplate videoTemplate = new VideoTemplate()
+
+		when:
+		videoTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoTemplate, videoTemplate))
+
+		then:
+		1 * contentRatingProcessorMock.process(templatePart) >> Sets.newHashSet(contentRating1, contentRating2)
+		0 * _
+		videoTemplate.ratings.contains contentRating1
+		videoTemplate.ratings.contains contentRating2
 	}
 
 	void "when language part is found, ContentLanguagesProcessor is used to process it"() {
@@ -91,9 +113,7 @@ class VideoTemplateRelationsEnrichingProcessorTest extends Specification {
 
 	void "when reference part is found, ReferencesFromTemplatePartProcessor is used to process it"() {
 		given:
-		Template.Part templatePart = new Template.Part(
-				key: VideoTemplateParameter.REFERENCE,
-				value: REFERENCE)
+		Template.Part templatePart = new Template.Part(key: VideoTemplateParameter.REFERENCE)
 		Template sidebarVideoTemplate = new Template(parts: Lists.newArrayList(templatePart))
 		Reference reference1 = Mock()
 		Reference reference2 = Mock()
