@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.content_language.service;
 import com.cezarykluczynski.stapi.etl.content_language.dto.ContentLanguageDTO;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -198,7 +199,6 @@ public class ContentLanguageDTOProvider {
 		LANGUAGES.add(ContentLanguageDTO.of("Somali", "so"));
 		LANGUAGES.add(ContentLanguageDTO.of("Southern Sotho", "st"));
 		LANGUAGES.add(ContentLanguageDTO.of("Spanish", "es"));
-		LANGUAGES.add(ContentLanguageDTO.of("Castilian", "es"));
 		LANGUAGES.add(ContentLanguageDTO.of("Sundanese", "su"));
 		LANGUAGES.add(ContentLanguageDTO.of("Swahili", "sw"));
 		LANGUAGES.add(ContentLanguageDTO.of("Swati", "ss"));
@@ -239,14 +239,64 @@ public class ContentLanguageDTOProvider {
 
 		NAME_INDEX = LANGUAGES.stream()
 				.collect(Collectors.toMap(ContentLanguageDTO::getName, Function.identity()));
+
+		NAME_INDEX.put("Castillian", NAME_INDEX.get("Spanish"));
+		NAME_INDEX.put("Castilian", NAME_INDEX.get("Spanish"));
+		NAME_INDEX.put("Slovenian", NAME_INDEX.get("Slovene"));
 	}
 
 	public Optional<ContentLanguageDTO> getByName(String name) {
+		if (StringUtils.isBlank(name)) {
+			return Optional.empty();
+		}
+
 		if (NAME_INDEX.containsKey(name)) {
 			return Optional.of(NAME_INDEX.get(name));
 		}
 
+		String nameWithoutBrackets = StringUtils.trim(name.replaceAll("\\(.*?\\) ?", ""));
+		if (NAME_INDEX.containsKey(nameWithoutBrackets)) {
+			return Optional.of(NAME_INDEX.get(nameWithoutBrackets));
+		}
+
+		List<String> words = createWordsList(name);
+
+		if (!words.isEmpty()) {
+			Optional<ContentLanguageDTO> contentLanguageDTOOptional = tryCreateFromWords(words);
+
+			if (contentLanguageDTOOptional.isPresent()) {
+				return contentLanguageDTOOptional;
+			}
+		}
+
 		log.warn("Could not get language by name {}", name);
+		return Optional.empty();
+	}
+
+	private static List<String> createWordsList(String wordListCandiate) {
+		return Lists.newArrayList(wordListCandiate.split(" "))
+				.stream()
+				.filter(StringUtils::isNotBlank)
+				.map(word -> word.replaceAll("[\\[\\]+{}()\\\\/-;,.]", ""))
+				.collect(Collectors.toList());
+	}
+
+	private Optional<ContentLanguageDTO> tryCreateFromWords(List<String> words) {
+		for (int i = 0; i < words.size(); i++) {
+			String singleWord = words.get(i);
+			if (NAME_INDEX.containsKey(singleWord)) {
+				return Optional.of(NAME_INDEX.get(singleWord));
+			}
+
+			if (words.size() > i + 1) {
+				String firstWords = singleWord + " " + words.get(i + 1);
+
+				if (NAME_INDEX.containsKey(firstWords)) {
+					return Optional.of(NAME_INDEX.get(firstWords));
+				}
+			}
+		}
+
 		return Optional.empty();
 	}
 
