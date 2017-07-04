@@ -46,6 +46,9 @@ public class TemplateTitle {
 
 	public static final String RELIGIOUS_TEXTS = "religioustexts";
 
+	public static final String VIDEO_RATINGS = "video ratings";
+	public static final String VR = "vr";
+
 	// Memory Beta
 	public static final String CHARACTER_BOX = "characterbox";
 }

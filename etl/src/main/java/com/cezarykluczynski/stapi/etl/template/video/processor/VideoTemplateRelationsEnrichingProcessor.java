@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.reference.processor.ReferencesFromTemplatePartProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.ContentLanguagesProcessor;
-import com.cezarykluczynski.stapi.etl.template.common.processor.ContentRatingProcessor;
+import com.cezarykluczynski.stapi.etl.template.common.processor.ContentRatingsProcessor;
 import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplate;
 import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplateParameter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
@@ -15,16 +15,16 @@ import javax.inject.Inject;
 @Service
 public class VideoTemplateRelationsEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template, VideoTemplate>> {
 
-	private final ContentRatingProcessor contentRatingProcessor;
+	private final ContentRatingsProcessor contentRatingsProcessor;
 
 	private final ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor;
 
 	private final ContentLanguagesProcessor contentLanguagesProcessor;
 
 	@Inject
-	public VideoTemplateRelationsEnrichingProcessor(ContentRatingProcessor contentRatingProcessor,
+	public VideoTemplateRelationsEnrichingProcessor(ContentRatingsProcessor contentRatingsProcessor,
 			ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor, ContentLanguagesProcessor contentLanguagesProcessor) {
-		this.contentRatingProcessor = contentRatingProcessor;
+		this.contentRatingsProcessor = contentRatingsProcessor;
 		this.referencesFromTemplatePartProcessor = referencesFromTemplatePartProcessor;
 		this.contentLanguagesProcessor = contentLanguagesProcessor;
 	}
@@ -40,7 +40,7 @@ public class VideoTemplateRelationsEnrichingProcessor implements ItemEnrichingPr
 
 			switch (key) {
 				case VideoTemplateParameter.RATING:
-					videoTemplate.getRatings().addAll(contentRatingProcessor.process(part));
+					videoTemplate.getRatings().addAll(contentRatingsProcessor.process(part));
 					break;
 				case VideoTemplateParameter.LANGUAGE:
 					videoTemplate.getLanguages().addAll(contentLanguagesProcessor.process(value));

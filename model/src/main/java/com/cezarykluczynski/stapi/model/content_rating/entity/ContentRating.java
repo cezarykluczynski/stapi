@@ -14,6 +14,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,6 +38,7 @@ public class ContentRating {
 	@SequenceGenerator(name = "content_rating_sequence_generator", sequenceName = "content_rating_sequence", allocationSize = 1)
 	private Long id;
 
+	@Enumerated(EnumType.STRING)
 	private ContentRatingSystem contentRatingSystem;
 
 	private String rating;

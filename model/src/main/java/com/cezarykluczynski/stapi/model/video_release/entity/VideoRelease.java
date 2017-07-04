@@ -132,7 +132,7 @@ public class VideoRelease extends PageAwareEntity implements PageAware {
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "video_releases_ratings",
 			joinColumns = @JoinColumn(name = "video_release_id", nullable = false, updatable = false),
-			inverseJoinColumns = @JoinColumn(name = "rating_id", nullable = false, updatable = false))
+			inverseJoinColumns = @JoinColumn(name = "content_rating_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<ContentRating> ratings = Sets.newHashSet();
 
