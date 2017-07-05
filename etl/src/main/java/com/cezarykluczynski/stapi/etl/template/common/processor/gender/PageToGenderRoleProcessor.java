@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.gender;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
+import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
 import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTemplatePartsEnrichingProcessor;
@@ -36,13 +37,17 @@ public class PageToGenderRoleProcessor implements ItemProcessor<Page, Gender> {
 
 	private final IndividualTemplatePartsEnrichingProcessor individualTemplatePartsEnrichingProcessor;
 
+	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
+
 	@Inject
 	public PageToGenderRoleProcessor(PageApi pageApi, WikitextApi wikitextApi, TemplateFinder templateFinder,
-			IndividualTemplatePartsEnrichingProcessor individualTemplatePartsEnrichingProcessor) {
+			IndividualTemplatePartsEnrichingProcessor individualTemplatePartsEnrichingProcessor,
+			CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {
 		this.pageApi = pageApi;
 		this.wikitextApi = wikitextApi;
 		this.templateFinder = templateFinder;
 		this.individualTemplatePartsEnrichingProcessor = individualTemplatePartsEnrichingProcessor;
+		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
 	}
 
 	@Override
@@ -108,11 +113,7 @@ public class PageToGenderRoleProcessor implements ItemProcessor<Page, Gender> {
 			return false;
 		}
 
-		// TODO CategoryTitlesExtractingProcessor
-		List<String> categories = categoryHeaderList
-				.stream()
-				.map(CategoryHeader::getTitle)
-				.collect(Collectors.toList());
+		List<String> categories = categoryTitlesExtractingProcessor.process(categoryHeaderList);
 
 		return !Collections.disjoint(categories, CategoryTitles.PERFORMERS);
 

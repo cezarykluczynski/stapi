@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange
+import com.cezarykluczynski.stapi.etl.template.common.processor.NumberOfPartsProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToStardateRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToYearRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.publishable.processor.PublishableTemplatePublishedDatesEnrichingProcessor
@@ -52,6 +53,8 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 
 	private ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessorMock
 
+	private NumberOfPartsProcessor numberOfPartsProcessorMock
+
 	private ComicsTemplatePartsEnrichingProcessor comicsTemplatePartsEnrichingProcessor
 
 	void setup() {
@@ -62,10 +65,11 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 		wikitextToStardateRangeProcessorMock = Mock()
 		publishableTemplatePublishedDatesEnrichingProcessorMock = Mock()
 		referencesFromTemplatePartProcessorMock = Mock()
+		numberOfPartsProcessorMock = Mock()
 		comicsTemplatePartsEnrichingProcessor = new ComicsTemplatePartsEnrichingProcessor(comicsTemplatePartStaffEnrichingProcessorMock,
 				wikitextToCompaniesProcessorMock, wikitextToComicSeriesProcessorMock, wikitextToYearRangeProcessorMock,
 				wikitextToStardateRangeProcessorMock, publishableTemplatePublishedDatesEnrichingProcessorMock,
-				referencesFromTemplatePartProcessorMock)
+				referencesFromTemplatePartProcessorMock, numberOfPartsProcessorMock)
 	}
 
 	void "passes ComicsTemplate to ComicsTemplatePartStaffEnrichingProcessor when writer part is found"() {
@@ -186,7 +190,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 		0 * _
 	}
 
-	void "sets number of pages"() {
+	void "sets number of pages from NumberOfPartsProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.PAGES, value: PAGES_STRING)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
@@ -195,6 +199,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 		comicsTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicsTemplate))
 
 		then:
+		1 * numberOfPartsProcessorMock.process(PAGES_STRING) >> PAGES_INTEGER
 		0 * _
 		comicsTemplate.numberOfPages == PAGES_INTEGER
 	}

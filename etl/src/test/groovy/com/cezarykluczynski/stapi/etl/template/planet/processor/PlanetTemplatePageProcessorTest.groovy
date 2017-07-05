@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.planet.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
+import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.template.planet.dto.PlanetTemplate
 import com.cezarykluczynski.stapi.etl.template.planet.dto.PlanetTemplateParameter
@@ -36,6 +37,8 @@ class PlanetTemplatePageProcessorTest extends Specification {
 
 	private AstronomicalObjectCompositeEnrichingProcessor astronomicalObjectCompositeEnrichingProcessorMock
 
+	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessorMock
+
 	private PlanetTemplatePageProcessor planetTemplatePageProcessor
 
 	void setup() {
@@ -45,9 +48,10 @@ class PlanetTemplatePageProcessorTest extends Specification {
 		astronomicalObjectTypeEnrichingProcessorMock = Mock()
 		astronomicalObjectWikitextProcessorMock = Mock()
 		astronomicalObjectCompositeEnrichingProcessorMock = Mock()
+		categoryTitlesExtractingProcessorMock = Mock()
 		planetTemplatePageProcessor = new PlanetTemplatePageProcessor(templateFinderMock, pageBindingServiceMock, astronomicalObjectTypeProcessorMock,
 				astronomicalObjectTypeEnrichingProcessorMock, astronomicalObjectWikitextProcessorMock,
-				astronomicalObjectCompositeEnrichingProcessorMock)
+				astronomicalObjectCompositeEnrichingProcessorMock, categoryTitlesExtractingProcessorMock)
 	}
 
 	void "returns null when page is a product of redirect"() {
@@ -72,15 +76,18 @@ class PlanetTemplatePageProcessorTest extends Specification {
 	}
 
 	void "filters out planet lists"() {
+		given:
+		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(new CategoryHeader(title: CategoryTitle.PLANET_LISTS))
+
 		when:
 		PlanetTemplate planetTemplate = planetTemplatePageProcessor.process(new EtlPage(
 				title: TITLE,
-				categories: Lists.newArrayList(
-						new CategoryHeader(title: CategoryTitle.PLANET_LISTS)
-				)
+				categories: categoryHeaderList
 		))
 
 		then:
+		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.PLANET_LISTS)
+		0 * _
 		planetTemplate == null
 	}
 
@@ -93,6 +100,7 @@ class PlanetTemplatePageProcessorTest extends Specification {
 		PlanetTemplate planetTemplate = planetTemplatePageProcessor.process(page)
 
 		then:
+		1 * categoryTitlesExtractingProcessorMock.process(Lists.newArrayList()) >> Lists.newArrayList()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * astronomicalObjectTypeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair<EtlPage, PlanetTemplate> enrichablePair ->
 			assert enrichablePair.input == page
@@ -119,6 +127,7 @@ class PlanetTemplatePageProcessorTest extends Specification {
 		PlanetTemplate planetTemplate = planetTemplatePageProcessor.process(page)
 
 		then:
+		1 * categoryTitlesExtractingProcessorMock.process(Lists.newArrayList()) >> Lists.newArrayList()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * astronomicalObjectTypeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair<EtlPage, PlanetTemplate> enrichablePair ->
 			enrichablePair.input == page

@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.planet.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
+import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.template.planet.dto.PlanetTemplate;
 import com.cezarykluczynski.stapi.etl.template.planet.dto.PlanetTemplateParameter;
@@ -8,7 +9,6 @@ import com.cezarykluczynski.stapi.etl.template.planet.dto.enums.AstronomicalObje
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -42,18 +41,22 @@ public class PlanetTemplatePageProcessor implements ItemProcessor<Page, PlanetTe
 
 	private final AstronomicalObjectCompositeEnrichingProcessor astronomicalObjectCompositeEnrichingProcessor;
 
+	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
+
 	@Inject
 	public PlanetTemplatePageProcessor(TemplateFinder templateFinder, PageBindingService pageBindingService,
 			AstronomicalObjectTypeProcessor astronomicalObjectTypeProcessor,
 			AstronomicalObjectTypeEnrichingProcessor astronomicalObjectTypeEnrichingProcessor,
 			AstronomicalObjectWikitextProcessor astronomicalObjectWikitextProcessor,
-			AstronomicalObjectCompositeEnrichingProcessor astronomicalObjectCompositeEnrichingProcessor) {
+			AstronomicalObjectCompositeEnrichingProcessor astronomicalObjectCompositeEnrichingProcessor,
+			CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {
 		this.templateFinder = templateFinder;
 		this.pageBindingService = pageBindingService;
 		this.astronomicalObjectTypeProcessor = astronomicalObjectTypeProcessor;
 		this.astronomicalObjectTypeEnrichingProcessor = astronomicalObjectTypeEnrichingProcessor;
 		this.astronomicalObjectWikitextProcessor = astronomicalObjectWikitextProcessor;
 		this.astronomicalObjectCompositeEnrichingProcessor = astronomicalObjectCompositeEnrichingProcessor;
+		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
 	}
 
 	@Override
@@ -117,11 +120,7 @@ public class PlanetTemplatePageProcessor implements ItemProcessor<Page, PlanetTe
 			return true;
 		}
 
-		// TODO CategoryTitlesExtractingProcessor
-		List<String> categoryHeaderList = item.getCategories()
-				.stream()
-				.map(CategoryHeader::getTitle)
-				.collect(Collectors.toList());
+		List<String> categoryHeaderList = categoryTitlesExtractingProcessor.process(item.getCategories());
 
 		return categoryHeaderList.contains(CategoryTitle.PLANET_LISTS);
 	}
