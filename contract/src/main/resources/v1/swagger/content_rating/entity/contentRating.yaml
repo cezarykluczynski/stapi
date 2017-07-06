@@ -1,0 +1,12 @@
+type: object
+description: Rating of video release, etc.
+properties:
+  uid:
+    type: string
+    description: Rating unique ID
+  contentRatingSystem:
+    $ref: ./content_rating/entity/enum/contentRatingSystem.yaml
+    description: Content rating system
+  rating:
+    type: string
+    description: Rating within specified content rating system

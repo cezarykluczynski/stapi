@@ -47,7 +47,7 @@ public class VideoTemplateDigitalFormatsEnrichingProcessor implements ItemEnrich
 					videoTemplate.setVuduDigitalRelease(isYes(value));
 					break;
 				case VideoTemplateParameter.DFXB:
-					videoTemplate.setXboxSmartGlassDigital(isYes(value));
+					videoTemplate.setXboxSmartGlassDigitalRelease(isYes(value));
 					break;
 				case VideoTemplateParameter.DFYT:
 					videoTemplate.setYouTubeDigitalRelease(isYes(value));

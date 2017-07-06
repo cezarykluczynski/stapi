@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:contentRating="http://stapi.co/api/v1/soap/contentRating"
+		elementFormDefault="qualified"
+		targetNamespace="http://stapi.co/api/v1/soap/contentRating">
+	<xs:complexType name="ContentRating">
+		<xs:annotation>
+			<xs:documentation>Rating of video release, etc.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Rating unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="contentRatingSystem" type="contentRating:ContentRatingSystemEnum">
+				<xs:annotation>
+					<xs:documentation>Content rating system</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rating" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Rating within specified content rating system</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="ContentRatingSystemEnum">
+		<xs:annotation>
+			<xs:documentation>Content rating system</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="BBFC"/>
+			<xs:enumeration value="OFLC"/>
+			<xs:enumeration value="OFLCNZ"/>
+			<xs:enumeration value="DJCTQ"/>
+			<xs:enumeration value="MDA"/>
+			<xs:enumeration value="MPAA"/>
+			<xs:enumeration value="CHVRS"/>
+			<xs:enumeration value="RCQ"/>
+			<xs:enumeration value="IFCO"/>
+			<xs:enumeration value="FSK"/>
+			<xs:enumeration value="NICAM"/>
+			<xs:enumeration value="MCCYP"/>
+			<xs:enumeration value="EIRIN"/>
+			<xs:enumeration value="HK"/>
+			<xs:enumeration value="CBFC"/>
+			<xs:enumeration value="NMHH"/>
+			<xs:enumeration value="VRC"/>
+			<xs:enumeration value="RSAC"/>
+			<xs:enumeration value="ESRB"/>
+			<xs:enumeration value="ELSPA"/>
+			<xs:enumeration value="PEGI"/>
+			<xs:enumeration value="USK"/>
+			<xs:enumeration value="SELL"/>
+			<xs:enumeration value="ADESE"/>
+			<xs:enumeration value="GSRR"/>
+			<xs:enumeration value="ITUNES"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

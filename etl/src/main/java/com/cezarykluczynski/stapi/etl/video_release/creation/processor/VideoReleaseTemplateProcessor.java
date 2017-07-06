@@ -37,7 +37,7 @@ public class VideoReleaseTemplateProcessor implements ItemProcessor<VideoTemplat
 		videoRelease.setRegionFreeReleaseDate(item.getRegionFreeReleaseDate());
 		videoRelease.setRegion1AReleaseDate(item.getRegion1AReleaseDate());
 		videoRelease.setRegion1SlimlineReleaseDate(item.getRegion1SlimlineReleaseDate());
-		videoRelease.setRegion2AReleaseDate(item.getRegion2AReleaseDate());
+		videoRelease.setRegion2BReleaseDate(item.getRegion2BReleaseDate());
 		videoRelease.setRegion2SlimlineReleaseDate(item.getRegion2SlimlineReleaseDate());
 		videoRelease.setRegion4AReleaseDate(item.getRegion4AReleaseDate());
 		videoRelease.setRegion4SlimlineReleaseDate(item.getRegion4SlimlineReleaseDate());
@@ -48,7 +48,7 @@ public class VideoReleaseTemplateProcessor implements ItemProcessor<VideoTemplat
 		videoRelease.setUltraVioletDigitalRelease(Boolean.TRUE.equals(item.getUltraVioletDigitalRelease()));
 		videoRelease.setVimeoDigitalRelease(Boolean.TRUE.equals(item.getVimeoDigitalRelease()));
 		videoRelease.setVuduDigitalRelease(Boolean.TRUE.equals(item.getVuduDigitalRelease()));
-		videoRelease.setXboxSmartGlassDigital(Boolean.TRUE.equals(item.getXboxSmartGlassDigital()));
+		videoRelease.setXboxSmartGlassDigitalRelease(Boolean.TRUE.equals(item.getXboxSmartGlassDigitalRelease()));
 		videoRelease.setYouTubeDigitalRelease(Boolean.TRUE.equals(item.getYouTubeDigitalRelease()));
 		videoRelease.setNetflixDigitalRelease(Boolean.TRUE.equals(item.getNetflixDigitalRelease()));
 		videoRelease.getRatings().addAll(item.getRatings());

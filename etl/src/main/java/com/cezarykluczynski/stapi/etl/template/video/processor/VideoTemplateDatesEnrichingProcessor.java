@@ -39,7 +39,7 @@ public class VideoTemplateDatesEnrichingProcessor implements ItemEnrichingProces
 					videoTemplate.setRegion1SlimlineReleaseDate(datePartToLocalDateProcessor.process(part));
 					break;
 				case VideoTemplateParameter.DATE2:
-					videoTemplate.setRegion2AReleaseDate(datePartToLocalDateProcessor.process(part));
+					videoTemplate.setRegion2BReleaseDate(datePartToLocalDateProcessor.process(part));
 					break;
 				case VideoTemplateParameter.DATE2S:
 					videoTemplate.setRegion2SlimlineReleaseDate(datePartToLocalDateProcessor.process(part));

@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:contentLanguage="http://stapi.co/api/v1/soap/contentLanguage"
+		xmlns:contentRating="http://stapi.co/api/v1/soap/contentRating"
+		xmlns:videoRelease="http://stapi.co/api/v1/soap/videoRelease"
+		xmlns:season="http://stapi.co/api/v1/soap/season"
+		xmlns:series="http://stapi.co/api/v1/soap/series"
+		xmlns:reference="http://stapi.co/api/v1/soap/reference"
+		xmlns:common="http://stapi.co/api/v1/soap/common"
+		elementFormDefault="qualified"
+		targetNamespace="http://stapi.co/api/v1/soap/videoRelease">
+	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/contentLanguage" schemaLocation="contentLanguage.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/contentRating" schemaLocation="contentRating.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/reference" schemaLocation="reference.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/season" schemaLocation="season.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/series" schemaLocation="series.xsd"/>
+	<xs:element name="VideoReleaseBaseRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for videoReleases search</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Request">
+					<xs:sequence>
+						<xs:element name="title" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Video release title</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="year" type="common:IntegerRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Starting and ending year of video release story</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="runTime" type="common:IntegerRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Minimal and maximal run time, in minutes</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="VideoReleaseFullRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for single video release query</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:ApiRequest">
+					<xs:sequence>
+						<xs:element name="uid" type="xs:string" minOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Video release unique ID</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="VideoReleaseBaseResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for video releases search</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Response">
+					<xs:sequence>
+						<xs:element name="videoReleases" type="videoRelease:VideoReleaseBase" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>List of video releases matching given criteria</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="VideoReleaseFullResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for single video release query</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="videoRelease" type="videoRelease:VideoReleaseFull">
+					<xs:annotation>
+						<xs:documentation>Video release, if found</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="VideoReleaseHeader">
+		<xs:annotation>
+			<xs:documentation>Header video release, embedded in other objects</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Video release unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="title" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Video release title</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VideoReleaseBase">
+		<xs:annotation>
+			<xs:documentation>Base video release, returned in search results</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Video release unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="title" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Video release title</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="series" type="series:SeriesHeader">
+				<xs:annotation>
+					<xs:documentation>Series this video release is associated with</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="season" type="season:SeasonHeader">
+				<xs:annotation>
+					<xs:documentation>Season this video release is associated with</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="format" type="videoRelease:VideoReleaseFormatEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Video release format</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="numberOfEpisodes" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Number of episodes</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="numberOfFeatureLengthEpisodes" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Number of feature-length episodes</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="numberOfDataCarriers" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Number of data carriers (like DVD, VCD, VHS etc.)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="runTime" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Run time, in minutes</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="yearFrom" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Starting year of video release story</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="yearTo" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ending year of video release story</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="regionFreeReleaseDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Region free release date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="region1AReleaseDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Region 1/A release date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="region1SlimlineReleaseDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Region 1 slimline release date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="region2BReleaseDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Region 2/B release date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="region2SlimlineReleaseDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Region 2 slimline release date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="region4AReleaseDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Region 4 release date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="region4SlimlineReleaseDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Region 4 slimline release date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="amazonDigitalRelease" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this video has been release on Amazon.com</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dailymotionDigitalRelease" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this video has been release on Dailymotion</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="googlePlayDigitalRelease" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this video has been release on Google Play</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="iTunesDigitalRelease" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this video has been release on iTunes</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ultraVioletDigitalRelease" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this video has been release on UltraViolet</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vimeoDigitalRelease" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this video has been release on Vimeo</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vuduDigitalRelease" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this video has been release on VUDU</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="xboxSmartGlassDigitalRelease" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this video has been release on Xbox SmartGlass</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="youTubeDigitalRelease" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this video has been release on YouTube</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="netflixDigitalRelease" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this video has been release on Netflix</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="VideoReleaseFull">
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Video release unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="title" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Video release title</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="series" type="series:SeriesBase">
+				<xs:annotation>
+					<xs:documentation>Series this video release is associated with</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="season" type="season:SeasonBase">
+				<xs:annotation>
+					<xs:documentation>Season this video release is associated with</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="format" type="videoRelease:VideoReleaseFormatEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Video release format</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="numberOfEpisodes" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Number of episodes</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="numberOfFeatureLengthEpisodes" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Number of feature-length episodes</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="numberOfDataCarriers" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Number of data carriers (like DVD, VCD, VHS etc.)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="runTime" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Run time, in minutes</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="yearFrom" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Starting year of video release story</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="yearTo" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ending year of video release story</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="regionFreeReleaseDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Region free release date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="region1AReleaseDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Region 1/A release date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="region1SlimlineReleaseDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Region 1 slimline release date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="region2BReleaseDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Region 2/B release date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="region2SlimlineReleaseDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Region 2 slimline release date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="region4AReleaseDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Region 4 release date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="region4SlimlineReleaseDate" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Region 4 slimline release date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="amazonDigitalRelease" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this video has been release on Amazon.com</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dailymotionDigitalRelease" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this video has been release on Dailymotion</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="googlePlayDigitalRelease" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this video has been release on Google Play</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="iTunesDigitalRelease" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this video has been release on iTunes</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ultraVioletDigitalRelease" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this video has been release on UltraViolet</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vimeoDigitalRelease" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this video has been release on Vimeo</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="vuduDigitalRelease" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this video has been release on VUDU</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="xboxSmartGlassDigitalRelease" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this video has been release on Xbox SmartGlass</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="youTubeDigitalRelease" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this video has been release on YouTube</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="netflixDigitalRelease" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this video has been release on Netflix</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence>
+				<xs:element name="references" type="reference:Reference" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>References</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="ratings" type="contentRating:ContentRating" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Ratings</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="languages" type="contentLanguage:ContentLanguage" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Languages of audio track</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="languagesSubtitles" type="contentLanguage:ContentLanguage" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Languages of subtitles</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="languagesDubbed" type="contentLanguage:ContentLanguage" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Languages that are available with dubbing</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="VideoReleaseFormatEnum">
+		<xs:annotation>
+			<xs:documentation>Video release format</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SUPER_8"/>
+			<xs:enumeration value="BETAMAX"/>
+			<xs:enumeration value="VHS"/>
+			<xs:enumeration value="CED"/>
+			<xs:enumeration value="LD"/>
+			<xs:enumeration value="VHD"/>
+			<xs:enumeration value="VCD"/>
+			<xs:enumeration value="VIDEO_8"/>
+			<xs:enumeration value="DVD"/>
+			<xs:enumeration value="UMD"/>
+			<xs:enumeration value="HD_DVD"/>
+			<xs:enumeration value="BLU_RAY"/>
+			<xs:enumeration value="BLU_RAY_4K_UHD"/>
+			<xs:enumeration value="DIGITAL_FORMAT"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

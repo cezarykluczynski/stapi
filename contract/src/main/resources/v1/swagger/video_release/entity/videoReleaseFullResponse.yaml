@@ -1,0 +1,6 @@
+type: object
+description: Response object for single video release query
+properties:
+  movie:
+    $ref: '#/definitions/MovieFull'
+    description: Video release, if found

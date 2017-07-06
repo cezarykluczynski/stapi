@@ -101,6 +101,10 @@ paths:
     $ref: ./staff/path/staff.path.yaml
   /staff/search:
     $ref: ./staff/path/staffSearch.path.yaml
+  /videoRelease:
+    $ref: ./video_release/path/videoRelease.path.yaml
+  /videoRelease/search:
+    $ref: ./video_release/path/videoReleaseSearch.path.yaml
 definitions:
   AstronomicalObjectHeader:
     $ref: ./astronomical_object/entity/astronomicalObjectHeader.yaml
@@ -204,6 +208,10 @@ definitions:
     $ref: ./company/entity/companyBaseResponse.yaml
   CompanyFullResponse:
     $ref: ./company/entity/companyFullResponse.yaml
+  ContentLanguage:
+    $ref: ./content_language/entity/contentLanguage.yaml
+  ContentRating:
+    $ref: ./content_rating/entity/contentRating.yaml
   EpisodeHeader:
     $ref: ./episode/entity/episodeHeader.yaml
   EpisodeBase:
@@ -346,3 +354,13 @@ definitions:
     $ref: ./staff/entity/staffBaseResponse.yaml
   StaffFullResponse:
     $ref: ./staff/entity/staffFullResponse.yaml
+  VideoReleaseHeader:
+    $ref: ./video_release/entity/videoReleaseHeader.yaml
+  VideoReleaseBase:
+    $ref: ./video_release/entity/videoReleaseBase.yaml
+  VideoReleaseFull:
+    $ref: ./video_release/entity/videoReleaseFull.yaml
+  VideoReleaseBaseResponse:
+    $ref: ./video_release/entity/videoReleaseBaseResponse.yaml
+  VideoReleaseFullResponse:
+    $ref: ./video_release/entity/videoReleaseFullResponse.yaml

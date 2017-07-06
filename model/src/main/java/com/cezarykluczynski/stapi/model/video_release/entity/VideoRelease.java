@@ -91,7 +91,7 @@ public class VideoRelease extends PageAwareEntity implements PageAware {
 	private LocalDate region1SlimlineReleaseDate;
 
 	@Column(name = "region_2b_release_date")
-	private LocalDate region2AReleaseDate;
+	private LocalDate region2BReleaseDate;
 
 	@Column(name = "region_2_slimline_release_date")
 	private LocalDate region2SlimlineReleaseDate;
@@ -116,7 +116,8 @@ public class VideoRelease extends PageAwareEntity implements PageAware {
 
 	private Boolean vuduDigitalRelease;
 
-	private Boolean xboxSmartGlassDigital;
+	@Column(name = "xbox_smart_glass_digital")
+	private Boolean xboxSmartGlassDigitalRelease;
 
 	private Boolean youTubeDigitalRelease;
 

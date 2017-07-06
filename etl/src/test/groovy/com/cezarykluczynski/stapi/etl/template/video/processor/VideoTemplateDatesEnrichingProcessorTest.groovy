@@ -41,7 +41,7 @@ class VideoTemplateDatesEnrichingProcessorTest extends Specification {
 		VideoTemplateParameter.DATE0  | 'regionFreeReleaseDate'
 		VideoTemplateParameter.DATE   | 'region1AReleaseDate'
 		VideoTemplateParameter.DATE1S | 'region1SlimlineReleaseDate'
-		VideoTemplateParameter.DATE2  | 'region2AReleaseDate'
+		VideoTemplateParameter.DATE2  | 'region2BReleaseDate'
 		VideoTemplateParameter.DATE2S | 'region2SlimlineReleaseDate'
 		VideoTemplateParameter.DATE4  | 'region4AReleaseDate'
 		VideoTemplateParameter.DATE4S | 'region4SlimlineReleaseDate'

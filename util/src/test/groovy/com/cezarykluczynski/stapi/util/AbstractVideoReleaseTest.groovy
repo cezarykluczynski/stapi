@@ -17,7 +17,7 @@ class AbstractVideoReleaseTest extends AbstractTest {
 	protected static final LocalDate REGION_FREE_RELEASE_DATE = LocalDate.of(2001, 01, 01)
 	protected static final LocalDate REGION1_A_RELEASE_DATE = LocalDate.of(2002, 02, 02)
 	protected static final LocalDate REGION1_SLIMLINE_RELEASE_DATE = LocalDate.of(2003, 03, 03)
-	protected static final LocalDate REGION2_A_RELEASE_DATE = LocalDate.of(2004, 04, 04)
+	protected static final LocalDate REGION2_B_RELEASE_DATE = LocalDate.of(2004, 04, 04)
 	protected static final LocalDate REGION2_SLIMLINE_RELEASE_DATE = LocalDate.of(2005, 05, 05)
 	protected static final LocalDate REGION4_A_RELEASE_DATE = LocalDate.of(2006, 06, 06)
 	protected static final LocalDate REGION4_SLIMLINE_RELEASE_DATE = LocalDate.of(2007, 07, 07)

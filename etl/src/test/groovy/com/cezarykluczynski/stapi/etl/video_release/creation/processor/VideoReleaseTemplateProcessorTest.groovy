@@ -46,7 +46,7 @@ class VideoReleaseTemplateProcessorTest extends AbstractVideoReleaseTest {
 				regionFreeReleaseDate: REGION_FREE_RELEASE_DATE,
 				region1AReleaseDate: REGION1_A_RELEASE_DATE,
 				region1SlimlineReleaseDate: REGION1_SLIMLINE_RELEASE_DATE,
-				region2AReleaseDate: REGION2_A_RELEASE_DATE,
+				region2BReleaseDate: REGION2_B_RELEASE_DATE,
 				region2SlimlineReleaseDate: REGION2_SLIMLINE_RELEASE_DATE,
 				region4AReleaseDate: REGION4_A_RELEASE_DATE,
 				region4SlimlineReleaseDate: REGION4_SLIMLINE_RELEASE_DATE,
@@ -57,7 +57,7 @@ class VideoReleaseTemplateProcessorTest extends AbstractVideoReleaseTest {
 				ultraVioletDigitalRelease: ULTRA_VIOLET_DIGITAL_RELEASE,
 				vimeoDigitalRelease: VIMEO_DIGITAL_RELEASE,
 				vuduDigitalRelease: VUDU_DIGITAL_RELEASE,
-				xboxSmartGlassDigital: XBOX_SMART_GLASS_DIGITAL,
+				xboxSmartGlassDigitalRelease: XBOX_SMART_GLASS_DIGITAL,
 				youTubeDigitalRelease: YOU_TUBE_DIGITAL_RELEASE,
 				netflixDigitalRelease: NETFLIX_DIGITAL_RELEASE,
 				references: createSetOfRandomNumberOfMocks(Reference),
@@ -87,7 +87,7 @@ class VideoReleaseTemplateProcessorTest extends AbstractVideoReleaseTest {
 		videoRelease.regionFreeReleaseDate == REGION_FREE_RELEASE_DATE
 		videoRelease.region1AReleaseDate == REGION1_A_RELEASE_DATE
 		videoRelease.region1SlimlineReleaseDate == REGION1_SLIMLINE_RELEASE_DATE
-		videoRelease.region2AReleaseDate == REGION2_A_RELEASE_DATE
+		videoRelease.region2BReleaseDate == REGION2_B_RELEASE_DATE
 		videoRelease.region2SlimlineReleaseDate == REGION2_SLIMLINE_RELEASE_DATE
 		videoRelease.region4AReleaseDate == REGION4_A_RELEASE_DATE
 		videoRelease.region4SlimlineReleaseDate == REGION4_SLIMLINE_RELEASE_DATE
@@ -98,7 +98,7 @@ class VideoReleaseTemplateProcessorTest extends AbstractVideoReleaseTest {
 		videoRelease.ultraVioletDigitalRelease == ULTRA_VIOLET_DIGITAL_RELEASE
 		videoRelease.vimeoDigitalRelease == VIMEO_DIGITAL_RELEASE
 		videoRelease.vuduDigitalRelease == VUDU_DIGITAL_RELEASE
-		videoRelease.xboxSmartGlassDigital == XBOX_SMART_GLASS_DIGITAL
+		videoRelease.xboxSmartGlassDigitalRelease == XBOX_SMART_GLASS_DIGITAL
 		videoRelease.youTubeDigitalRelease == YOU_TUBE_DIGITAL_RELEASE
 		videoRelease.netflixDigitalRelease == NETFLIX_DIGITAL_RELEASE
 		videoRelease.references.size() == videoTemplate.references.size()

@@ -1,5 +1,5 @@
 type: object
-description: Reference of book, comics, etc.
+description: Reference of book, comics, video release, etc.
 properties:
   uid:
     type: string

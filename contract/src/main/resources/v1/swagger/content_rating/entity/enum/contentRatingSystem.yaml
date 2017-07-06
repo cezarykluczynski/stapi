@@ -1,0 +1,29 @@
+type: string
+description: Content rating system
+enum:
+  - BBFC
+  - OFLC
+  - OFLCNZ
+  - DJCTQ
+  - MDA
+  - MPAA
+  - CHVRS
+  - RCQ
+  - IFCO
+  - FSK
+  - NICAM
+  - MCCYP
+  - EIRIN
+  - HK
+  - CBFC
+  - NMHH
+  - VRC
+  - RSAC
+  - ESRB
+  - ELSPA
+  - PEGI
+  - USK
+  - SELL
+  - ADESE
+  - GSRR
+  - ITUNES

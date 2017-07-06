@@ -44,7 +44,7 @@ public class VideoTemplate {
 
 	private LocalDate region1SlimlineReleaseDate;
 
-	private LocalDate region2AReleaseDate;
+	private LocalDate region2BReleaseDate;
 
 	private LocalDate region2SlimlineReleaseDate;
 
@@ -67,7 +67,7 @@ public class VideoTemplate {
 
 	private Boolean vuduDigitalRelease;
 
-	private Boolean xboxSmartGlassDigital;
+	private Boolean xboxSmartGlassDigitalRelease;
 
 	private Boolean youTubeDigitalRelease;
 
