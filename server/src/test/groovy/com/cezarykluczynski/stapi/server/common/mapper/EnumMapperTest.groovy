@@ -5,16 +5,19 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.BloodType as RestBloodTyp
 import com.cezarykluczynski.stapi.client.v1.rest.model.Gender as RestGenderEnum
 import com.cezarykluczynski.stapi.client.v1.rest.model.MaritalStatus as RestMaritalStatusEnum
 import com.cezarykluczynski.stapi.client.v1.rest.model.ReferenceType as RestReferenceType
+import com.cezarykluczynski.stapi.client.v1.rest.model.VideoReleaseFormat as RestVideoReleaseFormat
 import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectTypeEnum
 import com.cezarykluczynski.stapi.client.v1.soap.BloodTypeEnum as SoapBloodTypeEnum
 import com.cezarykluczynski.stapi.client.v1.soap.GenderEnum as SoapGenderEnum
 import com.cezarykluczynski.stapi.client.v1.soap.MaritalStatusEnum as SoapMaritalStatusEnum
 import com.cezarykluczynski.stapi.client.v1.soap.ReferenceTypeEnum as SoapReferenceType
+import com.cezarykluczynski.stapi.client.v1.soap.VideoReleaseFormatEnum
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.enums.AstronomicalObjectType as AstronomicalObjectTypeEntity
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType as BloodTypeEntity
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender as GenderEntity
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus as MaritalStatusEntity
 import com.cezarykluczynski.stapi.model.reference.entity.enums.ReferenceType as ModelReferenceType
+import com.cezarykluczynski.stapi.model.video_release.entity.enums.VideoReleaseFormat
 import org.mapstruct.factory.Mappers
 import spock.lang.Specification
 
@@ -282,6 +285,44 @@ class EnumMapperTest extends Specification {
 		enumMapper.mapReferenceTypeFromEntityEnumToRestEnum(null) == null
 		enumMapper.mapReferenceTypeFromEntityEnumToRestEnum(ModelReferenceType.ASIN) == RestReferenceType.ASIN
 		enumMapper.mapReferenceTypeFromEntityEnumToRestEnum(ModelReferenceType.ISBN) == RestReferenceType.ISBN
+	}
+
+	void "maps video release format soap enum to entity enum"() {
+		expect:
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(null) == null
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat.SUPER_8) == VideoReleaseFormatEnum.SUPER_8
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat.BETAMAX) == VideoReleaseFormatEnum.BETAMAX
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat.VHS) == VideoReleaseFormatEnum.VHS
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat.CED) == VideoReleaseFormatEnum.CED
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat.LD) == VideoReleaseFormatEnum.LD
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat.VHD) == VideoReleaseFormatEnum.VHD
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat.VCD) == VideoReleaseFormatEnum.VCD
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat.VIDEO_8) == VideoReleaseFormatEnum.VIDEO_8
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat.DVD) == VideoReleaseFormatEnum.DVD
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat.UMD) == VideoReleaseFormatEnum.UMD
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat.HD_DVD) == VideoReleaseFormatEnum.HD_DVD
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat.BLU_RAY) == VideoReleaseFormatEnum.BLU_RAY
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat.BLU_RAY_4K_UHD) == VideoReleaseFormatEnum.BLU_RAY_4_K_UHD
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat.DIGITAL_FORMAT) == VideoReleaseFormatEnum.DIGITAL_FORMAT
+	}
+
+	void "maps video release entity enum to rest enum"() {
+		expect:
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToRestEnum(null) == null
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToRestEnum(VideoReleaseFormat.SUPER_8) == RestVideoReleaseFormat.SUPER_8
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToRestEnum(VideoReleaseFormat.BETAMAX) == RestVideoReleaseFormat.BETAMAX
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToRestEnum(VideoReleaseFormat.VHS) == RestVideoReleaseFormat.VHS
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToRestEnum(VideoReleaseFormat.CED) == RestVideoReleaseFormat.CED
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToRestEnum(VideoReleaseFormat.LD) == RestVideoReleaseFormat.LD
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToRestEnum(VideoReleaseFormat.VHD) == RestVideoReleaseFormat.VHD
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToRestEnum(VideoReleaseFormat.VCD) == RestVideoReleaseFormat.VCD
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToRestEnum(VideoReleaseFormat.VIDEO_8) == RestVideoReleaseFormat.VIDEO_8
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToRestEnum(VideoReleaseFormat.DVD) == RestVideoReleaseFormat.DVD
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToRestEnum(VideoReleaseFormat.UMD) == RestVideoReleaseFormat.UMD
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToRestEnum(VideoReleaseFormat.HD_DVD) == RestVideoReleaseFormat.HD_DVD
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToRestEnum(VideoReleaseFormat.BLU_RAY) == RestVideoReleaseFormat.BLU_RAY
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToRestEnum(VideoReleaseFormat.BLU_RAY_4K_UHD) == RestVideoReleaseFormat.BLU_RAY_4K_UHD
+		enumMapper.mapVideoReleaseFormatFromEntityEnumToRestEnum(VideoReleaseFormat.DIGITAL_FORMAT) == RestVideoReleaseFormat.DIGITAL_FORMAT
 	}
 
 }

@@ -15,7 +15,7 @@ properties:
   season:
     $ref: ./season/entity/seasonHeader.yaml
     description: Season this video release is associated with
-  videoReleaseFormat:
+  format:
     $ref: ./video_release/entity/enum/videoReleaseFormat.yaml
     description: Video release format
   numberOfEpisodes:

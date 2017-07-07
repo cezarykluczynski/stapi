@@ -13,10 +13,10 @@ get:
   responses:
     200:
       schema:
-        $ref: '#/definitions/MovieFullResponse'
+        $ref: '#/definitions/VideoReleaseFullResponse'
     default:
       description: Unexpected error
       schema:
         $ref: '#/definitions/Error'
   tags:
-  - Movie
+  - VideoRelease

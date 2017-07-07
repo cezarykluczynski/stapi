@@ -7,8 +7,8 @@ properties:
   sort:
     $ref: ./common/entity/responseSort.yaml
     description: Response sort
-  movies:
+  videoReleases:
     type: array
     items:
-      $ref: '#/definitions/MovieBase'
-    description: List of movies matching given criteria
+      $ref: '#/definitions/VideoReleaseBase'
+    description: List of video releases matching given criteria

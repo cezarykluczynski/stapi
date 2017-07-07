@@ -18,13 +18,13 @@ get:
   responses:
     200:
       schema:
-        $ref: '#/definitions/MovieBaseResponse'
+        $ref: '#/definitions/VideoReleaseBaseResponse'
     default:
       description: Unexpected error
       schema:
         $ref: '#/definitions/Error'
   tags:
-  - Movie
+  - VideoRelease
 post:
   description: Searching video releases
   consumes:
@@ -77,6 +77,6 @@ post:
   responses:
     200:
       schema:
-        $ref: '#/definitions/MovieBaseResponse'
+        $ref: '#/definitions/VideoReleaseBaseResponse'
   tags:
-    - Movie
+    - VideoRelease

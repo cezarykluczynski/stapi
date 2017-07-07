@@ -33,4 +33,13 @@ public class RandomUtil {
 		return null;
 	}
 
+	public static <T extends Enum> T randomEnumValue(Class<T> clazz) {
+		T[] values = clazz.getEnumConstants();
+		if (values.length == 0) {
+			return null;
+		}
+		int randomItemIndex = new Random().nextInt(values.length);
+		return values[randomItemIndex];
+	}
+
 }

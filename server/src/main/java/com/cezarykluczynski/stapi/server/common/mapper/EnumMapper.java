@@ -5,11 +5,13 @@ import com.cezarykluczynski.stapi.client.v1.soap.BloodTypeEnum;
 import com.cezarykluczynski.stapi.client.v1.soap.GenderEnum;
 import com.cezarykluczynski.stapi.client.v1.soap.MaritalStatusEnum;
 import com.cezarykluczynski.stapi.client.v1.soap.ReferenceTypeEnum;
+import com.cezarykluczynski.stapi.client.v1.soap.VideoReleaseFormatEnum;
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.enums.AstronomicalObjectType;
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType;
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender;
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus;
 import com.cezarykluczynski.stapi.model.reference.entity.enums.ReferenceType;
+import com.cezarykluczynski.stapi.model.video_release.entity.enums.VideoReleaseFormat;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import org.mapstruct.Mapper;
 
@@ -90,6 +92,25 @@ public interface EnumMapper {
 	default com.cezarykluczynski.stapi.client.v1.rest.model.ReferenceType mapReferenceTypeFromEntityEnumToRestEnum(
 			ReferenceType referenceType) {
 		return referenceType == null ? null : com.cezarykluczynski.stapi.client.v1.rest.model.ReferenceType.valueOf(referenceType.name());
+	}
+
+	default VideoReleaseFormatEnum mapVideoReleaseFormatFromEntityEnumToSoapEnum(VideoReleaseFormat videoReleaseFormat) {
+		if (videoReleaseFormat == null) {
+			return null;
+		}
+
+		switch (videoReleaseFormat) {
+			case BLU_RAY_4K_UHD:
+				return VideoReleaseFormatEnum.BLU_RAY_4_K_UHD;
+			default:
+				return VideoReleaseFormatEnum.valueOf(videoReleaseFormat.name());
+		}
+	}
+
+	default com.cezarykluczynski.stapi.client.v1.rest.model.VideoReleaseFormat mapVideoReleaseFormatFromEntityEnumToRestEnum(
+			VideoReleaseFormat videoReleaseFormat) {
+		return videoReleaseFormat == null ? null : com.cezarykluczynski.stapi.client.v1.rest.model.VideoReleaseFormat
+				.valueOf(videoReleaseFormat.name());
 	}
 
 }
