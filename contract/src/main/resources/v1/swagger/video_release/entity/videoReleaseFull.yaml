@@ -10,10 +10,10 @@ properties:
     required: true
     description: Video release title
   series:
-    $ref: '#/definitions/SeriesHeader'
+    $ref: '#/definitions/SeriesBase'
     description: Series this video release is associated with
   season:
-    $ref: '#/definitions/SeasonHeader'
+    $ref: '#/definitions/SeasonBase'
     description: Season this video release is associated with
   format:
     $ref: '#/definitions/VideoReleaseFormat'

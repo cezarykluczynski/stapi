@@ -9,11 +9,12 @@ import com.cezarykluczynski.stapi.server.common.mapper.EnumMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import com.cezarykluczynski.stapi.server.content_language.mapper.ContentLanguageSoapMapper;
 import com.cezarykluczynski.stapi.server.content_rating.mapper.ContentRatingSoapMapper;
+import com.cezarykluczynski.stapi.server.series.mapper.SeriesBaseSoapMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(config = MapstructConfiguration.class, uses = {ContentLanguageSoapMapper.class, ContentRatingSoapMapper.class, DateMapper.class,
-		EnumMapper.class})
+		EnumMapper.class, SeriesBaseSoapMapper.class, SeriesBaseSoapMapper.class})
 public interface VideoReleaseFullSoapMapper {
 
 	@Mapping(target = "title", ignore = true)
