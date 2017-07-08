@@ -42,6 +42,7 @@ export class About extends Component {
 						<h3>Beta version</h3>
 						<p>
 							Beta version is planned for Q1 2018. As with many open source projects, that date could change.
+							Work progress can be tracked <a href="https://github.com/cezarykluczynski/stapi/wiki/Work-progress">here</a>.
 						</p>
 					</div>
 				</div>

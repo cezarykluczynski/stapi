@@ -11,10 +11,10 @@ import javax.inject.Inject;
 public class MediaWikiMinimalIntervalProvider {
 
 	@Getter
-	private Long memoryAlphaEnInterval;
+	private final Long memoryAlphaEnInterval;
 
 	@Getter
-	private Long memoryBetaEnInterval;
+	private final Long memoryBetaEnInterval;
 
 	@Inject
 	public MediaWikiMinimalIntervalProvider(MediaWikiSourcesProperties mediaWikiSourcesProperties,

@@ -32,6 +32,9 @@ export class Licensing extends Component {
 								href="http://memory-beta.wikia.com/wiki/Memory_Beta:Copyrights">this link</a>.
 						</p>
 						<p>
+							Trading card sets and trading cards data come from StarTrekCards.com and should be considered copyrighted.
+						</p>
+						<p>
 							Some small parts of the content, those coming from the source code, are licensed unded <a
 								href="https://github.com/cezarykluczynski/stapi/blob/master/LICENSE">MIT license</a>.
 						</p>
