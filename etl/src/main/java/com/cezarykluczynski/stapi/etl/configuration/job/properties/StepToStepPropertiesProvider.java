@@ -25,7 +25,7 @@ public class StepToStepPropertiesProvider {
 	}
 
 	private void addAllToMap() {
-		stepPropertiesMap = Maps.newHashMap();
+		stepPropertiesMap = Maps.newLinkedHashMap();
 		stepPropertiesMap.put(StepName.CREATE_COMPANIES, stepsProperties.getCreateCompanies());
 		stepPropertiesMap.put(StepName.CREATE_SERIES, stepsProperties.getCreateSeries());
 		stepPropertiesMap.put(StepName.CREATE_SEASONS, stepsProperties.getCreateSeasons());

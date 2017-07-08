@@ -20,6 +20,7 @@ class StepToStepPropertiesProviderTest extends Specification {
 
 		then:
 		stepPropertiesMap.size() == StepConfigurationValidator.NUMBER_OF_STEPS
+		stepPropertiesMap instanceof LinkedHashMap
 	}
 
 }
