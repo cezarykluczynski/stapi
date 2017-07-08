@@ -38,6 +38,9 @@ public class ContentRating {
 	@SequenceGenerator(name = "content_rating_sequence_generator", sequenceName = "content_rating_sequence", allocationSize = 1)
 	private Long id;
 
+	@Column(length = 14, name = "u_id")
+	private String uid;
+
 	@Enumerated(EnumType.STRING)
 	private ContentRatingSystem contentRatingSystem;
 

@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.model.common.service
 
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries
+import com.cezarykluczynski.stapi.model.content_rating.entity.enums.ContentRatingSystem
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.page.entity.PageAware
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource
@@ -122,13 +123,13 @@ class UidGeneratorTest extends Specification {
 				.toString()
 	}
 
-	@Unroll('when pair of #referenceType and #referenceNumber if passed, #result is returned')
+	@Unroll('when pair of #referenceType and #referenceNumber if passed, #uid is returned')
 	void "when pair of ReferenceType and reference number is passed, it is converted to uid"() {
 		expect:
-		result == uidGenerator.generateFromReference(Pair.of(referenceType, referenceNumber))
+		uid == uidGenerator.generateForReference(Pair.of(referenceType, referenceNumber))
 
 		where:
-		referenceType      | referenceNumber     | result
+		referenceType      | referenceNumber     | uid
 		ReferenceType.ASIN | 'B001PUYIGQ'        | 'ASINB001PUYIGQ'
 		ReferenceType.ASIN | 'B223213FCF'        | 'ASINB223213FCF'
 		ReferenceType.ASIN | '232342342X'        | 'ASIN232342342X'
@@ -157,6 +158,41 @@ class UidGeneratorTest extends Specification {
 		ReferenceType.ISRC | 'CNA13040106'       | null
 		null               | 'CNA130401060'      | null
 		ReferenceType.ISRC | null                | null
+	}
+
+	@Unroll('when #contentRatingSystem and #rating is passed, #uid is returned')
+	void "when ContentRatingSystem and rating is passed, it is converted to uid"() {
+		expect:
+		uid == uidGenerator.generateForContentRating(contentRatingSystem, rating)
+
+		where:
+		contentRatingSystem      | rating     | uid
+		ContentRatingSystem.ESRB | null       | null
+		null                     | 'M'        | null
+		ContentRatingSystem.ESRB | 'M'        | 'RATEESRB00000M'
+		ContentRatingSystem.ESRB | 'ABCDE'    | 'RATEESRB0ABCDE'
+		ContentRatingSystem.ESRB | 'ABCDEF'   | 'RATEESRBABCDEF'
+		ContentRatingSystem.ESRB | 'ABCDEFG'  | 'RATEESRABCDEFG'
+		ContentRatingSystem.ESRB | 'ABCDEFGH' | 'RATEESABCDEFGH'
+		ContentRatingSystem.ESRB | 'M'        | 'RATEESRB00000M'
+		ContentRatingSystem.MPAA | 'PG13'     | 'RATEMPAA00PG13'
+	}
+
+	@Unroll('when #iso639_1Code is passed, #uid is returned')
+	void "when ISO 693-1 code is passed, it is converted to uid"() {
+		expect:
+		uid == uidGenerator.generateForContentLanguage(iso639_1Code)
+
+		where:
+		iso639_1Code | uid
+		null         | null
+		''           | null
+		'A'          | null
+		'BBB'        | null
+		'en'         | 'LANG00000000EN'
+		'EN'         | 'LANG00000000EN'
+		'pl'         | 'LANG00000000PL'
+		'PL'         | 'LANG00000000PL'
 	}
 
 }

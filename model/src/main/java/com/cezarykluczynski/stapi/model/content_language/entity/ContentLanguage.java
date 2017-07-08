@@ -35,6 +35,9 @@ public class ContentLanguage {
 	@SequenceGenerator(name = "content_language_sequence_generator", sequenceName = "content_language_sequence", allocationSize = 1)
 	private Long id;
 
+	@Column(length = 14, name = "u_id")
+	private String uid;
+
 	private String name;
 
 	@Column(name = "iso_639_1_code")

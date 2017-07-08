@@ -9,6 +9,7 @@ import spock.lang.Specification
 
 class ContentRatingSoapMapperTest extends Specification {
 
+	private static final String UID = 'UID'
 	private static final ContentRatingSystem CONTENT_RATING_SYSTEM = RandomUtil.randomEnumValue(ContentRatingSystem)
 	private static final String RATING = 'RATING'
 
@@ -21,6 +22,7 @@ class ContentRatingSoapMapperTest extends Specification {
 	void "maps db entity to SOAP entity"() {
 		given:
 		ContentRating contentRating = new ContentRating(
+				uid: UID,
 				contentRatingSystem: CONTENT_RATING_SYSTEM,
 				rating: RATING)
 
@@ -28,6 +30,7 @@ class ContentRatingSoapMapperTest extends Specification {
 		SoapContentRating soapContentRating = contentRatingSoapMapper.map(contentRating)
 
 		then:
+		soapContentRating.uid == UID
 		soapContentRating.contentRatingSystem.name() == CONTENT_RATING_SYSTEM.name()
 		soapContentRating.rating == RATING
 	}

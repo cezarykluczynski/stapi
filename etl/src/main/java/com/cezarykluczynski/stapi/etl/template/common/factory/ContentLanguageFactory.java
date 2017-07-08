@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.common.factory;
 
 import com.cezarykluczynski.stapi.etl.content_language.dto.ContentLanguageDTO;
 import com.cezarykluczynski.stapi.etl.content_language.service.ContentLanguageDTOProvider;
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import com.cezarykluczynski.stapi.model.content_language.entity.ContentLanguage;
 import com.cezarykluczynski.stapi.model.content_language.repository.ContentLanguageRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -18,10 +19,14 @@ public class ContentLanguageFactory {
 
 	private final ContentLanguageRepository contentLanguageRepository;
 
+	private final UidGenerator uidGenerator;
+
 	@Inject
-	public ContentLanguageFactory(ContentLanguageDTOProvider contentLanguageDTOProvider, ContentLanguageRepository contentLanguageRepository) {
+	public ContentLanguageFactory(ContentLanguageDTOProvider contentLanguageDTOProvider, ContentLanguageRepository contentLanguageRepository,
+			UidGenerator uidGenerator) {
 		this.contentLanguageDTOProvider = contentLanguageDTOProvider;
 		this.contentLanguageRepository = contentLanguageRepository;
+		this.uidGenerator = uidGenerator;
 	}
 
 	public synchronized Optional<ContentLanguage> createForName(String languageName) {
@@ -42,6 +47,7 @@ public class ContentLanguageFactory {
 		ContentLanguage contentLanguage = new ContentLanguage();
 		contentLanguage.setName(contentLanguageDTO.getName());
 		contentLanguage.setIso639_1Code(contentLanguageDTO.getCode());
+		contentLanguage.setUid(uidGenerator.generateForContentLanguage(contentLanguageDTO.getCode()));
 		contentLanguageRepository.save(contentLanguage);
 		return Optional.of(contentLanguage);
 	}

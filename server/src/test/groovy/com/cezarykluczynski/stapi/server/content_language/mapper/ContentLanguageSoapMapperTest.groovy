@@ -7,6 +7,7 @@ import spock.lang.Specification
 
 class ContentLanguageSoapMapperTest extends Specification {
 
+	private static final String UID = 'UID'
 	private static final String NAME = 'NAME'
 	private static final String CODE = 'CODE'
 
@@ -19,6 +20,7 @@ class ContentLanguageSoapMapperTest extends Specification {
 	void "maps db entity to REST entity"() {
 		given:
 		ContentLanguage contentLanguage = new ContentLanguage(
+				uid: UID,
 				name: NAME,
 				iso639_1Code: CODE)
 
@@ -26,6 +28,7 @@ class ContentLanguageSoapMapperTest extends Specification {
 		SoapContentLanguage soapContentRating = contentLanguageSoapMapper.map(contentLanguage)
 
 		then:
+		soapContentRating.uid == UID
 		soapContentRating.name == NAME
 		soapContentRating.iso6391Code == CODE
 	}

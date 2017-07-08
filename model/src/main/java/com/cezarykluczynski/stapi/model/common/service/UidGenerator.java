@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.model.common.service;
 
+import com.cezarykluczynski.stapi.model.content_rating.entity.enums.ContentRatingSystem;
 import com.cezarykluczynski.stapi.model.page.entity.Page;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource;
@@ -25,6 +26,7 @@ public class UidGenerator {
 	private static final Pattern ISBN = Pattern.compile("^[0-9\\-\\s]{9,17}[0-9X]?$");
 	private static final Pattern EAN = Pattern.compile("^[0-9]{8,13}$");
 	private static final Pattern ISRC = Pattern.compile("^[A-Z]{2}[0-9A-Z]{3}[0-9]{7}$");
+	private static final String ZERO = "0";
 
 	private final Map<MediaWikiSource, String> mediaWikiSourceToSymbolMap = Maps.newHashMap();
 
@@ -57,12 +59,12 @@ public class UidGenerator {
 		String mappedClassCanonicalName = mappedClass.getCanonicalName();
 		String entitySymbol = entityMatadataProvider.provideClassNameToSymbolMap().get(mappedClassCanonicalName);
 		String sourceSymbol = mediaWikiSourceToSymbolMap.get(page.getMediaWikiSource());
-		String paddedPageId = StringUtils.leftPad(page.getPageId().toString(), 10, "0");
+		String paddedPageId = StringUtils.leftPad(page.getPageId().toString(), 10, ZERO);
 		return entitySymbol + sourceSymbol + paddedPageId;
 	}
 
 	@SuppressWarnings("ReturnCount")
-	public String generateFromReference(Pair<ReferenceType, String> referenceTypeReferenceNumberPair) {
+	public String generateForReference(Pair<ReferenceType, String> referenceTypeReferenceNumberPair) {
 		ReferenceType referenceType = referenceTypeReferenceNumberPair.getKey();
 		String referenceNumber = referenceTypeReferenceNumberPair.getValue();
 
@@ -94,6 +96,39 @@ public class UidGenerator {
 		}
 
 		return null;
+	}
+
+	public String generateForContentRating(ContentRatingSystem contentRatingSystem, String rating) {
+		if (contentRatingSystem == null || StringUtils.isEmpty(rating)) {
+			return null;
+		}
+
+		String contentRatingSystemName = contentRatingSystem.name();
+
+		int ratingLength = rating.length();
+		int contentRatingSystemNameLength = contentRatingSystemName.length();
+		int freeSpaceForContentRatingSystemName = 10 - ratingLength;
+		int padLength = freeSpaceForContentRatingSystemName - contentRatingSystemNameLength;
+
+		if (freeSpaceForContentRatingSystemName < contentRatingSystemNameLength) {
+			contentRatingSystemName = contentRatingSystemName.substring(0, contentRatingSystemName.length() + padLength);
+		}
+
+		String paddedRating = rating;
+
+		if (padLength > 0) {
+			paddedRating = StringUtils.leftPad(rating, padLength + ratingLength, ZERO);
+		}
+
+		return "RATE" + contentRatingSystemName + paddedRating;
+	}
+
+	public String generateForContentLanguage(@SuppressWarnings("ParameterName") String iso639_1Code) {
+		if (StringUtils.isEmpty(iso639_1Code) || iso639_1Code.length() != 2) {
+			return null;
+		}
+
+		return "LANG00000000" + StringUtils.upperCase(iso639_1Code);
 	}
 
 }

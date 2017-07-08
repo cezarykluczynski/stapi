@@ -65,7 +65,7 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 		Set<Reference> referenceSet = referencesFromTemplatePartProcessor.process(templatePart)
 
 		then:
-		1 * uidGeneratorMock.generateFromReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
+		1 * uidGeneratorMock.generateForReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
 			assert pair.key == ReferenceType.ISBN
 			assert pair.value == ISBN_BARE
 			UID_1
@@ -86,12 +86,12 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 		Set<Reference> referenceSet = referencesFromTemplatePartProcessor.process(templatePart)
 
 		then:
-		1 * uidGeneratorMock.generateFromReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
+		1 * uidGeneratorMock.generateForReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
 			assert pair.key == ReferenceType.ISBN
 			assert pair.value == FULL_ISBN_1
 			UID_1
 		}
-		1 * uidGeneratorMock.generateFromReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
+		1 * uidGeneratorMock.generateForReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
 			assert pair.key == ReferenceType.ISBN
 			assert pair.value == FULL_ISBN_2
 			UID_2
@@ -113,7 +113,7 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 		Set<Reference> referenceSet = referencesFromTemplatePartProcessor.process(templatePart)
 
 		then:
-		1 * uidGeneratorMock.generateFromReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
+		1 * uidGeneratorMock.generateForReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
 			assert pair.key == ReferenceType.ISBN
 			assert pair.value == ISBN_BARE
 			UID_1
@@ -154,7 +154,7 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 		Set<Reference> referenceSet = referencesFromTemplatePartProcessor.process(templatePart)
 
 		then:
-		1 * uidGeneratorMock.generateFromReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
+		1 * uidGeneratorMock.generateForReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
 			assert pair.key == ReferenceType.ASIN
 			assert pair.value == ASIN
 			UID_1
@@ -224,7 +224,7 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 		Set<Reference> referenceSet = referencesFromTemplatePartProcessor.process(templatePart)
 
 		then:
-		1 * uidGeneratorMock.generateFromReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
+		1 * uidGeneratorMock.generateForReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
 			assert pair.key == ReferenceType.EAN
 			assert pair.value == EAN_13_BARE
 			UID_1
@@ -244,7 +244,7 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 		Set<Reference> referenceSet = referencesFromTemplatePartProcessor.process(templatePart)
 
 		then:
-		1 * uidGeneratorMock.generateFromReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
+		1 * uidGeneratorMock.generateForReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
 			assert pair.key == ReferenceType.EAN
 			assert pair.value == EAN_8_BARE
 			UID_1
@@ -264,7 +264,7 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 		Set<Reference> referenceSet = referencesFromTemplatePartProcessor.process(templatePart)
 
 		then:
-		1 * uidGeneratorMock.generateFromReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
+		1 * uidGeneratorMock.generateForReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
 			assert pair.key == ReferenceType.ISRC
 			assert pair.value == ISRC_BARE
 			UID_1

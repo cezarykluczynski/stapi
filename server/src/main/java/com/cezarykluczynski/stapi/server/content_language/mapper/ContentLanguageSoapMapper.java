@@ -9,7 +9,6 @@ import org.mapstruct.Mapping;
 @Mapper(config = MapstructConfiguration.class, uses = {EnumMapper.class})
 public interface ContentLanguageSoapMapper {
 
-	@Mapping(target = "uid", ignore = true)
 	@Mapping(target = "iso6391Code", source = "iso639_1Code")
 	com.cezarykluczynski.stapi.client.v1.soap.ContentLanguage map(ContentLanguage contentLanguage);
 

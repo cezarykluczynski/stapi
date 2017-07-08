@@ -120,7 +120,7 @@ public class ReferencesFromTemplatePartProcessor implements ItemProcessor<Templa
 
 	private Set<Reference> pairsToReferenceSet(Set<Pair<ReferenceType, String>> pairs) {
 		return pairs.stream()
-				.map(uidGenerator::generateFromReference)
+				.map(uidGenerator::generateForReference)
 				.filter(Objects::nonNull)
 				.map(this::uidToReference)
 				.collect(Collectors.toSet());
