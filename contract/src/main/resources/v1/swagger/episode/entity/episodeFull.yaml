@@ -19,10 +19,10 @@ properties:
     type: string
     description: Episode title in Japanese
   series:
-    $ref: ./series/entity/seriesBase.yaml
+    $ref: '#/definitions/SeriesBase'
     description: Series this episode belongs to
   season:
-    $ref: ./season/entity/seasonBase.yaml
+    $ref: '#/definitions/SeasonBase'
     description: Season this episode belongs to
   seasonNumber:
     type: integer

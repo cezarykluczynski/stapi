@@ -6,7 +6,7 @@ properties:
     required: true
     description: Field name results are sorted by
   direction:
-    $ref: ./common/entity/enum/responseSortDirection.yaml
+    $ref: '#/definitions/ResponseSortDirection'
     required: true
     description: Sort direction
   clauseOrder:

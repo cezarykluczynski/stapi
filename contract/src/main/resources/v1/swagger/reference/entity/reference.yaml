@@ -5,7 +5,7 @@ properties:
     type: string
   description: Reference unique ID
   referenceType:
-    $ref: ./reference/entity/enum/referenceType.yaml
+    $ref: '#/definitions/ReferenceType'
   description: Reference type
   referenceNumber:
     type: string

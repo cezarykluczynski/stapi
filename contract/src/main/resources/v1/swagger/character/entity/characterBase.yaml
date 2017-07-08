@@ -10,7 +10,7 @@ properties:
     description: Character name
     required: true
   gender:
-    $ref: ./common/entity/enum/gender.yaml
+    $ref: '#/definitions/Gender'
     description: Character gender
   yearOfBirth:
     type: integer
@@ -46,10 +46,10 @@ properties:
     type: boolean
     description: Whether this character is deceased
   bloodType:
-    $ref: ./common/entity/enum/bloodType.yaml
+    $ref: '#/definitions/BloodType'
     description: Blood type
   maritalStatus:
-    $ref: ./common/entity/enum/maritalStatus.yaml
+    $ref: '#/definitions/MaritalStatus'
     description: Marital status
   serialNumber:
     type: string

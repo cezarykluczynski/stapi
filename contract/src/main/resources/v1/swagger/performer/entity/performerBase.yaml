@@ -13,7 +13,7 @@ properties:
     type: string
     description: Performer birth name
   gender:
-    $ref: ./common/entity/enum/gender.yaml
+    $ref: '#/definitions/Gender'
     description: Performer gender
   dateOfBirth:
     type: string

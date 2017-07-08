@@ -2,10 +2,10 @@ type: object
 description: Response object for seasons search
 properties:
   page:
-    $ref: ./common/entity/responsePage.yaml
+    $ref: '#/definitions/ResponsePage'
     description: Response page
   sort:
-    $ref: ./common/entity/responseSort.yaml
+    $ref: '#/definitions/ResponseSort'
     description: Response sort
   seasons:
     type: array

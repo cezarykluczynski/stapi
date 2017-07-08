@@ -10,7 +10,7 @@ properties:
     required: true
     description: Movie title
   mainDirector:
-    $ref: ./staff/entity/staffHeader.yaml
+    $ref: '#/definitions/StaffHeader'
     description: Director of the movie
   titleBulgarian:
     type: string

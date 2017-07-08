@@ -10,13 +10,13 @@ properties:
     required: true
     description: Video release title
   series:
-    $ref: ./series/entity/seriesHeader.yaml
+    $ref: '#/definitions/SeriesHeader'
     description: Series this video release is associated with
   season:
-    $ref: ./season/entity/seasonHeader.yaml
+    $ref: '#/definitions/SeasonHeader'
     description: Season this video release is associated with
   format:
-    $ref: ./video_release/entity/enum/videoReleaseFormat.yaml
+    $ref: '#/definitions/VideoReleaseFormat'
     description: Video release format
   numberOfEpisodes:
     type: integer

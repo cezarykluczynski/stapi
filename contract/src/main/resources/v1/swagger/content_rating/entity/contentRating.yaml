@@ -5,7 +5,7 @@ properties:
     type: string
     description: Rating unique ID
   contentRatingSystem:
-    $ref: ./content_rating/entity/enum/contentRatingSystem.yaml
+    $ref: '#/definitions/ContentRatingSystem'
     description: Content rating system
   rating:
     type: string

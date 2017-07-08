@@ -10,7 +10,7 @@ properties:
     required: true
     description: Season title
   series:
-    $ref: ./series/entity/seriesHeader.yaml
+    $ref: '#/definitions/SeriesHeader'
     description: Series this season belongs to
   seasonNumber:
     type: integer

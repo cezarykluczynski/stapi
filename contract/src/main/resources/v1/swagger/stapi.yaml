@@ -116,6 +116,10 @@ definitions:
     $ref: ./astronomical_object/entity/astronomicalObjectBaseResponse.yaml
   AstronomicalObjectFullResponse:
     $ref: ./astronomical_object/entity/astronomicalObjectFullResponse.yaml
+  AstronomicalObjectType:
+    $ref: ./astronomical_object/entity/enum/astronomicalObjectType.yaml
+  BloodType:
+    $ref: ./common/entity/enum/bloodType.yaml
   BookHeader:
     $ref: ./book/entity/bookHeader.yaml
   BookBase:
@@ -210,6 +214,8 @@ definitions:
     $ref: ./company/entity/companyFullResponse.yaml
   ContentLanguage:
     $ref: ./content_language/entity/contentLanguage.yaml
+  ContentRatingSystem:
+    $ref: ./content_rating/entity/enum/contentRatingSystem.yaml
   ContentRating:
     $ref: ./content_rating/entity/contentRating.yaml
   EpisodeHeader:
@@ -234,6 +240,8 @@ definitions:
     $ref: ./food/entity/foodBaseResponse.yaml
   FoodFullResponse:
     $ref: ./food/entity/foodFullResponse.yaml
+  Gender:
+    $ref: ./common/entity/enum/gender.yaml
   LiteratureHeader:
     $ref: ./literature/entity/literatureHeader.yaml
   LiteratureBase:
@@ -274,6 +282,8 @@ definitions:
     $ref: ./magazine_series/entity/magazineSeriesBaseResponse.yaml
   MagazineSeriesFullResponse:
     $ref: ./magazine_series/entity/magazineSeriesFullResponse.yaml
+  MaritalStatus:
+    $ref: ./common/entity/enum/maritalStatus.yaml
   MovieHeader:
     $ref: ./movie/entity/movieHeader.yaml
   MovieBase:
@@ -306,6 +316,8 @@ definitions:
     $ref: ./performer/entity/performerFullResponse.yaml
   Reference:
     $ref: ./reference/entity/reference.yaml
+  ReferenceType:
+    $ref: ./reference/entity/enum/referenceType.yaml
   ResponsePage:
     $ref: ./common/entity/responsePage.yaml
   ResponseSort:
@@ -358,6 +370,8 @@ definitions:
     $ref: ./video_release/entity/videoReleaseHeader.yaml
   VideoReleaseBase:
     $ref: ./video_release/entity/videoReleaseBase.yaml
+  VideoReleaseFormat:
+    $ref: ./video_release/entity/enum/videoReleaseFormat.yaml
   VideoReleaseFull:
     $ref: ./video_release/entity/videoReleaseFull.yaml
   VideoReleaseBaseResponse:
