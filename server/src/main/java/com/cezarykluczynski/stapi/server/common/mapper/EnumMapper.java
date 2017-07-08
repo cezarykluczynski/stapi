@@ -38,32 +38,16 @@ public interface EnumMapper {
 		return maritalStatus == null ? null : MaritalStatusEnum.valueOf(maritalStatus.name());
 	}
 
-	default MaritalStatus mapMaritalStatusFromSoapEnumToEntityEnum(MaritalStatusEnum maritalStatusEnum) {
-		return maritalStatusEnum == null ? null : MaritalStatus.valueOf(maritalStatusEnum.name());
-	}
-
 	default com.cezarykluczynski.stapi.client.v1.rest.model.MaritalStatus mapMaritalStatusFromEntityEnumToRestEnum(MaritalStatus maritalStatus) {
 		return maritalStatus == null ? null : com.cezarykluczynski.stapi.client.v1.rest.model.MaritalStatus.valueOf(maritalStatus.name());
-	}
-
-	default MaritalStatus mapMaritalStatusFromRestEnumToEntityEnum(com.cezarykluczynski.stapi.client.v1.rest.model.MaritalStatus maritalStatus) {
-		return maritalStatus == null ? null : MaritalStatus.valueOf(maritalStatus.name());
 	}
 
 	default BloodTypeEnum mapBloodTypeFromEntityEnumToSoapEnum(BloodType bloodType) {
 		return bloodType == null ? null : BloodTypeEnum.valueOf(bloodType.name());
 	}
 
-	default BloodType mapBloodTypeFromSoapEnumToEntityEnum(BloodTypeEnum bloodTypeEnum) {
-		return bloodTypeEnum == null ? null : BloodType.valueOf(bloodTypeEnum.name());
-	}
-
 	default com.cezarykluczynski.stapi.client.v1.rest.model.BloodType mapBloodTypeFromEntityEnumToRestEnum(BloodType bloodType) {
 		return bloodType == null ? null : com.cezarykluczynski.stapi.client.v1.rest.model.BloodType.valueOf(bloodType.name());
-	}
-
-	default BloodType mapBloodTypeFromRestEnumToEntityEnum(com.cezarykluczynski.stapi.client.v1.rest.model.BloodType bloodType) {
-		return bloodType == null ? null : BloodType.valueOf(bloodType.name());
 	}
 
 	default AstronomicalObjectTypeEnum mapAstronomicalObjectTypeFromEntityEnumToSoapEnum(AstronomicalObjectType astronomicalObjectType) {
