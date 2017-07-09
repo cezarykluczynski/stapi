@@ -57,7 +57,7 @@ class TradingCardSetProcessorTest extends Specification {
 		Element tradingCardSetTable = Mock()
 		Elements tradingCardSetTableCandidates = new Elements(tradingCardSetTable)
 		Elements tradingCardsTableCandidates = new Elements()
-		TradingCardSet tradingCardSet = Mock()
+		TradingCardSet tradingCardSet = new TradingCardSet()
 
 		when:
 		TradingCardSet tradingCardSetOutput = tradingCardSetProcessor.process(page)
@@ -70,6 +70,7 @@ class TradingCardSetProcessorTest extends Specification {
 		1 * tradingCardSetTableProcessorMock.process(tradingCardSetTable) >> tradingCardSet
 		0 * _
 		tradingCardSetOutput == tradingCardSet
+		tradingCardSetOutput.title == RENDERED_TITLE
 	}
 
 	void "when trading card set table and trading cards tabled are found, and TradingCardsSet with cards is returned"() {

@@ -52,6 +52,9 @@ public class TradingCardSetProcessor implements ItemProcessor<Page, TradingCardS
 
 		if (tradingCardSetTableCandidates.size() == 1) {
 			tradingCardSet = tradingCardSetTableProcessor.process(tradingCardSetTableCandidates.first());
+			if (tradingCardSet != null) {
+				tradingCardSet.setTitle(title);
+			}
 		} else {
 			log.info("Could not find trading card set table on page {}", title);
 		}
