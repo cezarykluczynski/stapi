@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.individual.service;
 
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
 import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService;
-import com.cezarykluczynski.stapi.etl.template.common.service.PageFilter;
+import com.cezarykluczynski.stapi.etl.template.common.service.MediaWikiPageFilter;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class IndividualTemplateFilter implements PageFilter {
+public class IndividualTemplateFilter implements MediaWikiPageFilter {
 
 	private static final String UNNAMED_PREFIX = "Unnamed";
 	private static final String LIST_OF_PREFIX = "List of ";

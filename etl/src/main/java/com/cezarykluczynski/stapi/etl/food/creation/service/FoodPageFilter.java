@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.food.creation.service;
 
-import com.cezarykluczynski.stapi.etl.template.common.service.PageFilter;
+import com.cezarykluczynski.stapi.etl.template.common.service.MediaWikiPageFilter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class FoodPageFilter implements PageFilter {
+public class FoodPageFilter implements MediaWikiPageFilter {
 
 	private static final String UNNAMED_PREFIX = "Unnamed";
 

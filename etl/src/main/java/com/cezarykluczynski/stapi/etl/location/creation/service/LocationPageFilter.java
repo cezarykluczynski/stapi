@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.location.creation.service;
 
 import com.cezarykluczynski.stapi.etl.common.service.CategoryFinder;
-import com.cezarykluczynski.stapi.etl.template.common.service.PageFilter;
+import com.cezarykluczynski.stapi.etl.template.common.service.MediaWikiPageFilter;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
@@ -13,7 +13,7 @@ import javax.inject.Inject;
 
 @Service
 @Slf4j
-public class LocationPageFilter implements PageFilter {
+public class LocationPageFilter implements MediaWikiPageFilter {
 
 	private final CategoryFinder categoryFinder;
 

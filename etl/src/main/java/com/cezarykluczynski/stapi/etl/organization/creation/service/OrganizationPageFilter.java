@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.organization.creation.service;
 
 import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService;
-import com.cezarykluczynski.stapi.etl.template.common.service.PageFilter;
+import com.cezarykluczynski.stapi.etl.template.common.service.MediaWikiPageFilter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class OrganizationPageFilter implements PageFilter {
+public class OrganizationPageFilter implements MediaWikiPageFilter {
 
 	private final CategorySortingService categorySortingService;
 

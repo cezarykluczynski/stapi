@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.book.creation.service;
 
 import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService;
-import com.cezarykluczynski.stapi.etl.template.common.service.PageFilter;
+import com.cezarykluczynski.stapi.etl.template.common.service.MediaWikiPageFilter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.google.common.collect.Sets;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import java.util.Set;
 
 @Service
-public class BookPageFilter implements PageFilter {
+public class BookPageFilter implements MediaWikiPageFilter {
 
 	private static final Set<String> INVALID_TITLES = Sets.newHashSet("Star Trek Reader", "Schuster & Schuster",
 			"Star Trek Roleplaying Game (Last Unicorn)", "Starlog photo guidebook Special Effects", "The Best of Star Trek (Titan)",
