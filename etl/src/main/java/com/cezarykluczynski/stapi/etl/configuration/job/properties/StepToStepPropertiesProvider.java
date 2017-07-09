@@ -53,6 +53,7 @@ public class StepToStepPropertiesProvider {
 		stepPropertiesMap.put(StepName.CREATE_MAGAZINES, stepsProperties.getCreateMagazines());
 		stepPropertiesMap.put(StepName.CREATE_LITERATURE, stepsProperties.getCreateLiterature());
 		stepPropertiesMap.put(StepName.CREATE_VIDEO_RELEASES, stepsProperties.getCreateVideoReleases());
+		stepPropertiesMap.put(StepName.CREATE_TRADING_CARDS, stepsProperties.getCreateTradingCards());
 	}
 
 }

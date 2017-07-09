@@ -30,7 +30,7 @@ class ComicSeriesCreationConfigurationTest extends AbstractCreationConfiguration
 	void "ComicSeriesReader is created with all pages when step is not completed"() {
 		when:
 		ComicSeriesReader comicSeriesReader = comicSeriesCreationConfiguration.comicSeriesReader()
-		List<String> categoryHeaderTitleList = readerToList(comicSeriesReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(comicSeriesReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_COMIC_SERIES) >> false
@@ -43,7 +43,7 @@ class ComicSeriesCreationConfigurationTest extends AbstractCreationConfiguration
 	void "ComicSeriesReader is created with no pages when step is completed"() {
 		when:
 		ComicSeriesReader comicSeriesReader = comicSeriesCreationConfiguration.comicSeriesReader()
-		List<String> categoryHeaderTitleList = readerToList(comicSeriesReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(comicSeriesReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_COMIC_SERIES) >> true

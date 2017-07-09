@@ -44,7 +44,7 @@ class PerformerCreationConfigurationTest extends AbstractCreationConfigurationTe
 	void "PerformerReader is created is created with all pages when step is not completed"() {
 		when:
 		PerformerReader performerReader = performerCreationConfiguration.performerReader()
-		List<String> categoryHeaderTitleList = readerToList(performerReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(performerReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_PERFORMERS) >> false
@@ -56,7 +56,7 @@ class PerformerCreationConfigurationTest extends AbstractCreationConfigurationTe
 	void "PerformerReader is created with no pages when step is completed"() {
 		when:
 		PerformerReader performerReader = performerCreationConfiguration.performerReader()
-		List<String> categoryHeaderTitleList = readerToList(performerReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(performerReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_PERFORMERS) >> true

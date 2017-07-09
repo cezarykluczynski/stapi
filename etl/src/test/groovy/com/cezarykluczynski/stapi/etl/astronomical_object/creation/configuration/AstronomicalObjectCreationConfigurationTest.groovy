@@ -44,7 +44,7 @@ class AstronomicalObjectCreationConfigurationTest extends AbstractCreationConfig
 	void "PlanetReader is created with all pages when step is not completed"() {
 		when:
 		AstronomicalObjectReader planetReader = astronomicalObjectCreationConfiguration.astronomicalObjectReader()
-		List<String> categoryHeaderTitleList = readerToList(planetReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(planetReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_ASTRONOMICAL_OBJECTS) >> false
@@ -86,7 +86,7 @@ class AstronomicalObjectCreationConfigurationTest extends AbstractCreationConfig
 	void "PlanetReader is created with no pages when step is completed"() {
 		when:
 		AstronomicalObjectReader planetReader = astronomicalObjectCreationConfiguration.astronomicalObjectReader()
-		List<String> categoryHeaderTitleList = readerToList(planetReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(planetReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_ASTRONOMICAL_OBJECTS) >> true

@@ -30,7 +30,7 @@ class MovieCreationConfigurationTest extends AbstractCreationConfigurationTest {
 	void "MovieReader is created with all pages when step is not completed"() {
 		when:
 		MovieReader movieReader = movieCreationConfiguration.movieReader()
-		List<String> categoryHeaderTitleList = readerToList(movieReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(movieReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_MOVIES) >> false
@@ -43,7 +43,7 @@ class MovieCreationConfigurationTest extends AbstractCreationConfigurationTest {
 	void "MovieReader is created with no pages when step is completed"() {
 		when:
 		MovieReader movieReader = movieCreationConfiguration.movieReader()
-		List<String> categoryHeaderTitleList = readerToList(movieReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(movieReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_MOVIES) >> true

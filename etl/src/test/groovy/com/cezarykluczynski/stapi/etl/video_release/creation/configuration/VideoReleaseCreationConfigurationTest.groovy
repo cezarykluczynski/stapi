@@ -30,7 +30,7 @@ class VideoReleaseCreationConfigurationTest extends AbstractCreationConfiguratio
 	void "VideoReleaseReader is created with all pages when step is not completed"() {
 		when:
 		VideoReleaseReader videoReleaseReader = videoReleaseCreationConfiguration.videoReleaseReader()
-		List<String> categoryHeaderTitleList = readerToList(videoReleaseReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(videoReleaseReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_VIDEO_RELEASES) >> false
@@ -43,7 +43,7 @@ class VideoReleaseCreationConfigurationTest extends AbstractCreationConfiguratio
 	void "VideoReleaseReader is created with no pages when step is completed"() {
 		when:
 		VideoReleaseReader videoReleaseReader = videoReleaseCreationConfiguration.videoReleaseReader()
-		List<String> categoryHeaderTitleList = readerToList(videoReleaseReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(videoReleaseReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_VIDEO_RELEASES) >> true

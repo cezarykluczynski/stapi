@@ -31,7 +31,7 @@ class OrganizationCreationConfigurationTest extends AbstractCreationConfiguratio
 	void "OrganizationReader is created is created with all pages when step is not completed"() {
 		when:
 		OrganizationReader organizationReader = organizationCreationConfiguration.organizationReader()
-		List<String> categoryHeaderTitleList = readerToList(organizationReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(organizationReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_ORGANIZATIONS) >> false
@@ -43,7 +43,7 @@ class OrganizationCreationConfigurationTest extends AbstractCreationConfiguratio
 	void "OrganizationReader is created with no pages when step is completed"() {
 		when:
 		OrganizationReader organizationReader = organizationCreationConfiguration.organizationReader()
-		List<String> categoryHeaderTitleList = readerToList(organizationReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(organizationReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_ORGANIZATIONS) >> true

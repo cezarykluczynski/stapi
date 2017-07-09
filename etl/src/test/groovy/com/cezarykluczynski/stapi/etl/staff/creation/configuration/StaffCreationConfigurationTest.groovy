@@ -45,7 +45,7 @@ class StaffCreationConfigurationTest extends AbstractCreationConfigurationTest {
 	void "StaffReader is created with all pages when step is not completed"() {
 		when:
 		StaffReader staffReader = staffCreationConfiguration.staffReader()
-		List<String> categoryHeaderTitleList = readerToList(staffReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(staffReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_STAFF) >> false
@@ -57,7 +57,7 @@ class StaffCreationConfigurationTest extends AbstractCreationConfigurationTest {
 	void "StaffReader is created with no pages when step is completed"() {
 		when:
 		StaffReader staffReader = staffCreationConfiguration.staffReader()
-		List<String> categoryHeaderTitleList = readerToList(staffReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(staffReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_STAFF) >> true

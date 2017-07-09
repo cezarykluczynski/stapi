@@ -77,6 +77,9 @@ import com.cezarykluczynski.stapi.etl.species.creation.processor.SpeciesWriter;
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffProcessor;
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffReader;
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffWriter;
+import com.cezarykluczynski.stapi.etl.trading_card.creation.processor.TradingCardSetProcessor;
+import com.cezarykluczynski.stapi.etl.trading_card.creation.processor.TradingCardSetReader;
+import com.cezarykluczynski.stapi.etl.trading_card.creation.processor.TradingCardSetWriter;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.cezarykluczynski.stapi.etl.video_release.creation.processor.VideoReleaseProcessor;
 import com.cezarykluczynski.stapi.etl.video_release.creation.processor.VideoReleaseReader;
@@ -104,8 +107,10 @@ import com.cezarykluczynski.stapi.model.season.entity.Season;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
+import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet;
 import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
+import com.cezarykluczynski.stapi.sources.wordpress.dto.Page;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
@@ -484,6 +489,19 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(VideoReleaseReader.class))
 				.processor(applicationContext.getBean(VideoReleaseProcessor.class))
 				.writer(applicationContext.getBean(VideoReleaseWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_TRADING_CARDS)
+	public Step stepCreateTradingCards() {
+		return stepBuilderFactory.get(StepName.CREATE_TRADING_CARDS)
+				.<Page, TradingCardSet>chunk(stepsProperties.getCreateTradingCards().getCommitInterval())
+				.reader(applicationContext.getBean(TradingCardSetReader.class))
+				.processor(applicationContext.getBean(TradingCardSetProcessor.class))
+				.writer(applicationContext.getBean(TradingCardSetWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)

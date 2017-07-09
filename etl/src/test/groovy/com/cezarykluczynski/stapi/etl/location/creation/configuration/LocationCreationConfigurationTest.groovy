@@ -30,7 +30,7 @@ class LocationCreationConfigurationTest extends AbstractCreationConfigurationTes
 	void "LocationReader is created is created with all pages when step is not completed"() {
 		when:
 		LocationReader locationReader = locationCreationConfiguration.locationReader()
-		List<String> categoryHeaderTitleList = readerToList(locationReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(locationReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_LOCATIONS) >> false
@@ -42,7 +42,7 @@ class LocationCreationConfigurationTest extends AbstractCreationConfigurationTes
 	void "LocationReader is created with no pages when step is completed"() {
 		when:
 		LocationReader locationReader = locationCreationConfiguration.locationReader()
-		List<String> categoryHeaderTitleList = readerToList(locationReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(locationReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_LOCATIONS) >> true

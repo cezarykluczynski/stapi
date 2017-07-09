@@ -9,6 +9,10 @@ public class Page {
 
 	private Long id;
 
+	private String rawTitle;
+
+	private String renderedTitle;
+
 	private String rawContent;
 
 	private String renderedContent;

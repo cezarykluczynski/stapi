@@ -30,7 +30,7 @@ class CharacterCreationConfigurationTest extends AbstractCreationConfigurationTe
 	void "CharacterReader is created with all pages when step is not completed"() {
 		when:
 		CharacterReader characterReader = characterCreationConfiguration.characterReader()
-		List<String> categoryHeaderTitleList = readerToList(characterReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(characterReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_CHARACTERS) >> false
@@ -49,7 +49,7 @@ class CharacterCreationConfigurationTest extends AbstractCreationConfigurationTe
 	void "CharacterReader is created with no pages when step is completed"() {
 		when:
 		CharacterReader characterReader = characterCreationConfiguration.characterReader()
-		List<String> categoryHeaderTitleList = readerToList(characterReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(characterReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_CHARACTERS) >> true

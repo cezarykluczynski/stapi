@@ -30,7 +30,7 @@ class EpisodeCreationConfigurationTest extends AbstractCreationConfigurationTest
 	void "EpisodeReader is created with all pages when step is not completed"() {
 		when:
 		EpisodeReader episodeReader = episodeCreationConfiguration.episodeReader()
-		List<String> categoryHeaderTitleList = readerToList(episodeReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(episodeReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_EPISODES) >> false
@@ -42,7 +42,7 @@ class EpisodeCreationConfigurationTest extends AbstractCreationConfigurationTest
 	void "EpisodeReader is created with no pages when step is completed"() {
 		when:
 		EpisodeReader episodeReader = episodeCreationConfiguration.episodeReader()
-		List<String> categoryHeaderTitleList = readerToList(episodeReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(episodeReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_EPISODES) >> true

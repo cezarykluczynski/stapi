@@ -32,7 +32,7 @@ class FoodCreationConfigurationTest extends AbstractCreationConfigurationTest {
 	void "FoodReader is created is created with all pages when step is not completed"() {
 		when:
 		FoodReader foodReader = foodCreationConfiguration.foodReader()
-		List<String> categoryHeaderTitleList = readerToList(foodReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(foodReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_FOODS) >> false
@@ -47,7 +47,7 @@ class FoodCreationConfigurationTest extends AbstractCreationConfigurationTest {
 	void "FoodReader is created with no pages when step is completed"() {
 		when:
 		FoodReader foodReader = foodCreationConfiguration.foodReader()
-		List<String> categoryHeaderTitleList = readerToList(foodReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(foodReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_FOODS) >> true

@@ -43,7 +43,7 @@ class StepConfigurationValidatorTest extends Specification {
 		2 * stepToStepPropertiesProviderMock.provide() >> stepPropertiesMap
 		JobBuilderException jobBuilderException = thrown(JobBuilderException)
 		jobBuilderException.message == 'com.cezarykluczynski.stapi.util.exception.StapiRuntimeException: ' +
-				'Number of configured steps is 27, but 26 steps found'
+				'Number of configured steps is 28, but 27 steps found'
 	}
 
 	void "throws exception when two steps has the same order"() {
@@ -159,6 +159,9 @@ class StepConfigurationValidatorTest extends Specification {
 		StepProperties createVideoReleasesStepProperties = Mock()
 		createVideoReleasesStepProperties.order >> 27
 		stepPropertiesMap.put(StepName.CREATE_VIDEO_RELEASES, createVideoReleasesStepProperties)
+		StepProperties createTradingCardsStepProperties = Mock()
+		createTradingCardsStepProperties.order >> 28
+		stepPropertiesMap.put(StepName.CREATE_TRADING_CARDS, createTradingCardsStepProperties)
 
 		stepPropertiesMap
 	}

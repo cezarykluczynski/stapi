@@ -1,0 +1,92 @@
+package com.cezarykluczynski.stapi.model.trading_card_set.entity;
+
+import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
+import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
+import com.cezarykluczynski.stapi.model.company.entity.Company;
+import com.cezarykluczynski.stapi.model.country.entity.Country;
+import com.cezarykluczynski.stapi.model.trading_card.entity.TradingCard;
+import com.cezarykluczynski.stapi.model.video_release.repository.VideoReleaseRepository;
+import com.google.common.collect.Sets;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import java.util.Set;
+
+@Builder
+@Data
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString(exclude = {"manufacturers", "tradingCards", "countriesOfOrigin"})
+@EqualsAndHashCode(exclude = {"manufacturers", "tradingCards", "countriesOfOrigin"})
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = VideoReleaseRepository.class, singularName = "trading card set",
+		pluralName = "trading card sets")
+public class TradingCardSet {
+
+	@Id
+	@Column(nullable = false)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trading_card_set_sequence_generator")
+	@SequenceGenerator(name = "trading_card_set_sequence_generator", sequenceName = "trading_card_set_sequence", allocationSize = 1)
+	private Long id;
+
+	@Column(name = "u_id")
+	private String uid;
+
+	private String title;
+
+	private Integer releaseYear;
+
+	private Integer releaseMonth;
+
+	private Integer releaseDay;
+
+	private Integer cardsPerPack;
+
+	private Integer packsPerBox;
+
+	private Integer boxesPerCase;
+
+	private Integer productionRun;
+
+	private double cardWidth;
+
+	private double cardHeight;
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "trading_card_set_manufacturers",
+			joinColumns = @JoinColumn(name = "trading_card_set_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "company_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<Company> manufacturers = Sets.newHashSet();
+
+	@OneToMany(mappedBy = "tradingCardSet", fetch = FetchType.LAZY)
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<TradingCard> tradingCards = Sets.newHashSet();
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "trading_card_sets_countries",
+			joinColumns = @JoinColumn(name = "trading_card_set_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "country_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<Country> countriesOfOrigin = Sets.newHashSet();
+
+}

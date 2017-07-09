@@ -47,7 +47,7 @@ class SeasonCreationConfigurationTest extends AbstractCreationConfigurationTest 
 	void "SeasonReader is created with no pages when step is completed"() {
 		when:
 		SeasonReader seasonReader = seasonCreationConfiguration.seasonReader()
-		List<String> categoryHeaderTitleList = readerToList(seasonReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(seasonReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_SEASONS) >> true

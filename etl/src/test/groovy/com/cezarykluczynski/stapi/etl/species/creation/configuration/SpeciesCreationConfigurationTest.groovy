@@ -32,7 +32,7 @@ class SpeciesCreationConfigurationTest extends AbstractCreationConfigurationTest
 	void "SpeciesReader is created with all pages when step is not completed"() {
 		when:
 		SpeciesReader speciesReader = speciesCreationConfiguration.speciesReader()
-		List<String> categoryHeaderTitleList = readerToList(speciesReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(speciesReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_SPECIES) >> false
@@ -50,7 +50,7 @@ class SpeciesCreationConfigurationTest extends AbstractCreationConfigurationTest
 	void "SpeciesReader is created with no pages when step is completed"() {
 		when:
 		SpeciesReader speciesReader = speciesCreationConfiguration.speciesReader()
-		List<String> categoryHeaderTitleList = readerToList(speciesReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(speciesReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_SPECIES) >> true

@@ -30,7 +30,7 @@ class BookCreationConfigurationTest extends AbstractCreationConfigurationTest {
 	void "BookReader is created with all pages when step is not completed"() {
 		when:
 		BookReader bookReader = bookCreationConfiguration.bookReader()
-		List<String> categoryHeaderTitleList = readerToList(bookReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(bookReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_BOOKS) >> false
@@ -42,7 +42,7 @@ class BookCreationConfigurationTest extends AbstractCreationConfigurationTest {
 	void "BookReader is created with no pages when step is completed"() {
 		when:
 		BookReader bookReader = bookCreationConfiguration.bookReader()
-		List<String> categoryHeaderTitleList = readerToList(bookReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(bookReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_BOOKS) >> true

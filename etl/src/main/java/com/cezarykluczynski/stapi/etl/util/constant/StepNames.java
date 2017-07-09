@@ -38,7 +38,8 @@ public class StepNames {
 				StepName.CREATE_MAGAZINE_SERIES,
 				StepName.CREATE_MAGAZINES,
 				StepName.CREATE_LITERATURE,
-				StepName.CREATE_VIDEO_RELEASES
+				StepName.CREATE_VIDEO_RELEASES,
+				StepName.CREATE_TRADING_CARDS
 		));
 	}
 

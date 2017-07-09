@@ -37,7 +37,7 @@ class LiteratureCreationConfigurationTest extends AbstractCreationConfigurationT
 	void "LiteratureReader is created is created with all pages when step is not completed"() {
 		when:
 		LiteratureReader literatureReader = literatureCreationConfiguration.literatureReader()
-		List<String> categoryHeaderTitleList = readerToList(literatureReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(literatureReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_LITERATURE) >> false
@@ -61,7 +61,7 @@ class LiteratureCreationConfigurationTest extends AbstractCreationConfigurationT
 	void "LiteratureReader is created with no pages when step is completed"() {
 		when:
 		LiteratureReader literatureReader = literatureCreationConfiguration.literatureReader()
-		List<String> categoryHeaderTitleList = readerToList(literatureReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(literatureReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_LITERATURE) >> true

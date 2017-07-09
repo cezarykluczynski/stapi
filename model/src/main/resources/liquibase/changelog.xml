@@ -33,4 +33,7 @@
 	<include file="content_rating/0029_create_content_rating.xml" relativeToChangelogFile="true"/>
 	<include file="content_language/0030_create_content_language.xml" relativeToChangelogFile="true"/>
 	<include file="video_release/0031_create_video_release.xml" relativeToChangelogFile="true"/>
+	<include file="country/0032_create_country.xml" relativeToChangelogFile="true"/>
+	<include file="trading_card_set/0033_create_trading_card_set.xml" relativeToChangelogFile="true"/>
+	<include file="trading_card/0034_create_trading_card.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

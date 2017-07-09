@@ -30,7 +30,7 @@ class CompanyCreationConfigurationTest extends AbstractCreationConfigurationTest
 	void "CompanyReader is created with all pages when step is not completed"() {
 		when:
 		CompanyReader companyReader = companyCreationConfiguration.companyReader()
-		List<String> categoryHeaderTitleList = readerToList(companyReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(companyReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_COMPANIES) >> false
@@ -43,7 +43,7 @@ class CompanyCreationConfigurationTest extends AbstractCreationConfigurationTest
 	void "CompanyReader is created with no pages when step is completed"() {
 		when:
 		CompanyReader companyReader = companyCreationConfiguration.companyReader()
-		List<String> categoryHeaderTitleList = readerToList(companyReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(companyReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_COMPANIES) >> true

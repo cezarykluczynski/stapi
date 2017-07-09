@@ -30,7 +30,7 @@ class MagazineSeriesCreationConfigurationTest extends AbstractCreationConfigurat
 	void "MagazineSeriesReader is created with all pages when step is not completed"() {
 		when:
 		MagazineSeriesReader magazineReader = magazineCreationConfiguration.magazineSeriesReader()
-		List<String> categoryHeaderTitleList = readerToList(magazineReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(magazineReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_MAGAZINE_SERIES) >> false
@@ -43,7 +43,7 @@ class MagazineSeriesCreationConfigurationTest extends AbstractCreationConfigurat
 	void "MagazineSeriesReader is created with no pages when step is completed"() {
 		when:
 		MagazineSeriesReader magazineReader = magazineCreationConfiguration.magazineSeriesReader()
-		List<String> categoryHeaderTitleList = readerToList(magazineReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(magazineReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_MAGAZINE_SERIES) >> true

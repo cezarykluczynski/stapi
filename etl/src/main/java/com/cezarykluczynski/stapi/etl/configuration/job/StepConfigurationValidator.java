@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Service
 public class StepConfigurationValidator {
 
-	private static final long NUMBER_OF_STEPS = 27;
+	private static final long NUMBER_OF_STEPS = 28;
 
 	private final StepToStepPropertiesProvider stepToStepPropertiesProvider;
 

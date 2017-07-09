@@ -47,7 +47,7 @@ class SeriesCreationConfigurationTest extends AbstractCreationConfigurationTest 
 	void "SeriesReader is created with no pages when step is completed"() {
 		when:
 		SeriesReader seriesReader = seriesCreationConfiguration.seriesReader()
-		List<String> categoryHeaderTitleList = readerToList(seriesReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(seriesReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_SERIES) >> true

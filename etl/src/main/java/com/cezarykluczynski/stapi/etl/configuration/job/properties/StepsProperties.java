@@ -63,4 +63,6 @@ public class StepsProperties {
 
 	private StepProperties createVideoReleases;
 
+	private StepProperties createTradingCards;
+
 }

@@ -30,7 +30,7 @@ class BookCollectionCreationConfigurationTest extends AbstractCreationConfigurat
 	void "BookCollectionReader is created with all pages when step is not completed"() {
 		when:
 		BookCollectionReader bookCollectionReader = bookCollectionCreationConfiguration.bookCollectionReader()
-		List<String> categoryHeaderTitleList = readerToList(bookCollectionReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(bookCollectionReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_BOOK_COLLECTIONS) >> false
@@ -43,7 +43,7 @@ class BookCollectionCreationConfigurationTest extends AbstractCreationConfigurat
 	void "BookCollectionReader is created with no pages when step is completed"() {
 		when:
 		BookCollectionReader bookCollectionReader = bookCollectionCreationConfiguration.bookCollectionReader()
-		List<String> categoryHeaderTitleList = readerToList(bookCollectionReader)
+		List<String> categoryHeaderTitleList = pageHeaderReaderToList(bookCollectionReader)
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_BOOK_COLLECTIONS) >> true
