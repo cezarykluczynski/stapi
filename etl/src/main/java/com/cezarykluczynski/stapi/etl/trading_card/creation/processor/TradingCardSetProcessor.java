@@ -1,17 +1,74 @@
 package com.cezarykluczynski.stapi.etl.trading_card.creation.processor;
 
+import com.cezarykluczynski.stapi.etl.common.service.JsoupParser;
+import com.cezarykluczynski.stapi.etl.trading_card.creation.service.TradingCardSetFilter;
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet;
 import com.cezarykluczynski.stapi.sources.wordpress.dto.Page;
+import lombok.extern.slf4j.Slf4j;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
+
 @Service
+@Slf4j
 public class TradingCardSetProcessor implements ItemProcessor<Page, TradingCardSet> {
+
+	private static final String TRADING_CARD_SET_TABLE_CLASS = "gradienttable";
+	private static final String TRADING_CARDS_TABLE_CLASS = "tablepress";
+
+	private final TradingCardSetFilter tradingCardSetFilter;
+
+	private final JsoupParser jsoupParser;
+
+	private final TradingCardSetTableProcessor tradingCardSetTableProcessor;
+
+	private final TradingCardsTableProcessor tradingCardsTableProcessor;
+
+	@Inject
+	public TradingCardSetProcessor(TradingCardSetFilter tradingCardSetFilter, JsoupParser jsoupParser,
+			TradingCardSetTableProcessor tradingCardSetTableProcessor, TradingCardsTableProcessor tradingCardsTableProcessor) {
+		this.tradingCardSetFilter = tradingCardSetFilter;
+		this.jsoupParser = jsoupParser;
+		this.tradingCardSetTableProcessor = tradingCardSetTableProcessor;
+		this.tradingCardsTableProcessor = tradingCardsTableProcessor;
+	}
 
 	@Override
 	public TradingCardSet process(Page item) throws Exception {
-		// TODO
-		return null;
+		if (tradingCardSetFilter.shouldBeFilteredOut(item)) {
+			return null;
+		}
+
+		String title = item.getRenderedTitle();
+
+		Document document = jsoupParser.parse(item.getRenderedContent());
+		Elements tradingCardSetTableCandidates = document.getElementsByClass(TRADING_CARD_SET_TABLE_CLASS);
+		Elements tradingCardsTableCandidates = document.getElementsByClass(TRADING_CARDS_TABLE_CLASS);
+
+		TradingCardSet tradingCardSet = null;
+
+		if (tradingCardSetTableCandidates.size() == 1) {
+			tradingCardSet = tradingCardSetTableProcessor.process(tradingCardSetTableCandidates.first());
+		} else {
+			log.info("Could not find trading card set table on page {}", title);
+		}
+
+		int tradingCardsTableCandidatesSize = tradingCardsTableCandidates.size();
+
+		if (tradingCardsTableCandidatesSize == 1 && tradingCardSet != null) {
+			tradingCardSet.getTradingCards().addAll(tradingCardsTableProcessor.process(tradingCardsTableCandidates.first()));
+		} else {
+			if (tradingCardsTableCandidatesSize != 1) {
+				log.warn("Expected to find one table with cards on page {}, but found {}", title, tradingCardsTableCandidatesSize);
+			} else {
+				log.warn("There was cards table present, but table set was null for page {}", title);
+			}
+		}
+
+		return tradingCardSet;
 	}
 
 }
