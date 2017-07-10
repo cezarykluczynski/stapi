@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.model.trading_card_set.repository.TradingCardS
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
-class TradingCardWriterTest extends Specification {
+class TradingCardSetWriterTest extends Specification {
 
 	private TradingCardSetRepository tradingCardSetRepositoryMock
 
