@@ -53,7 +53,7 @@ class ImageTemplateStardateYearEnrichingProcessorTest extends AbstractTemplatePr
 		imageTemplateStardateYearEnrichingProcessor.enrich(EnrichablePair.of(template, imageTemplate))
 
 		then:
-		1 * stardateYearProcessorMock.process(StardateYearCandidateDTO.of(WS_DATE, StardateYearSource.EPISODE, null)) >> stardateYearDTO
+		1 * stardateYearProcessorMock.process(StardateYearCandidateDTO.of(WS_DATE, null, StardateYearSource.EPISODE)) >> stardateYearDTO
 		imageTemplate.stardateFrom == STARDATE_FROM
 		imageTemplate.stardateTo == STARDATE_TO
 		imageTemplate.yearFrom == YEAR_INTEGER_FROM
@@ -115,7 +115,7 @@ class ImageTemplateStardateYearEnrichingProcessorTest extends AbstractTemplatePr
 		imageTemplate.yearTo == YEAR_INTEGER_TO
 
 		then: 'interaction with StardateYearProcessor is expected'
-		1 * stardateYearProcessorMock.process(StardateYearCandidateDTO.of(WS_DATE, StardateYearSource.EPISODE, TITLE)) >> stardateYearDTO
+		1 * stardateYearProcessorMock.process(StardateYearCandidateDTO.of(WS_DATE, TITLE, StardateYearSource.EPISODE)) >> stardateYearDTO
 		0 * _
 	}
 

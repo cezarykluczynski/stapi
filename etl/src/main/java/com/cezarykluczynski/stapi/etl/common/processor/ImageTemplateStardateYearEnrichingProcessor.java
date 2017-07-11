@@ -56,7 +56,7 @@ public class ImageTemplateStardateYearEnrichingProcessor
 					break;
 				case WS_DATE:
 					if (!stardateFixedValueFound) {
-						stardateYearDTO = stardateYearProcessor.process(StardateYearCandidateDTO.of(value, StardateYearSource.EPISODE, title));
+						stardateYearDTO = stardateYearProcessor.process(StardateYearCandidateDTO.of(value, title, StardateYearSource.EPISODE));
 					}
 					break;
 				default:

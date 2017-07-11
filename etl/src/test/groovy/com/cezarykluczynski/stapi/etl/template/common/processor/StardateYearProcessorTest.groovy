@@ -48,7 +48,7 @@ class StardateYearProcessorTest extends Specification {
 	void "sets stardates and years from and to values"() {
 		when:
 		StardateYearDTO stardateYearDTO = stardateYearProcessor
-				.process(StardateYearCandidateDTO.of(WS_DATE_FROM_TO, StardateYearSource.EPISODE, TITLE))
+				.process(StardateYearCandidateDTO.of(WS_DATE_FROM_TO, TITLE, StardateYearSource.EPISODE))
 
 		then:
 		1 * wikitextApiMock.getPageLinksFromWikitext(YEAR_STRING_FROM_TO) >> Lists.newArrayList(
@@ -68,7 +68,7 @@ class StardateYearProcessorTest extends Specification {
 	void "sets stardates and years from and to values, then reverse values so the lower if always 'from'"() {
 		when:
 		StardateYearDTO stardateYearDTO = stardateYearProcessor
-				.process(StardateYearCandidateDTO.of(WS_DATE_TO_FROM, StardateYearSource.EPISODE, TITLE))
+				.process(StardateYearCandidateDTO.of(WS_DATE_TO_FROM, TITLE, StardateYearSource.EPISODE))
 
 		then:
 		1 * wikitextApiMock.getPageLinksFromWikitext(YEAR_STRING_TO_FROM) >> Lists.newArrayList(
@@ -88,7 +88,7 @@ class StardateYearProcessorTest extends Specification {
 	void "tolerates invalid dates"() {
 		when:
 		StardateYearDTO stardateYearDTO1 = stardateYearProcessor
-				.process(StardateYearCandidateDTO.of(WS_DATE_INVALID_1, StardateYearSource.EPISODE, TITLE))
+				.process(StardateYearCandidateDTO.of(WS_DATE_INVALID_1, TITLE, StardateYearSource.EPISODE))
 
 		then:
 		1 * wikitextApiMock.getPageLinksFromWikitext(INVALID) >> Lists.newArrayList()
@@ -99,7 +99,7 @@ class StardateYearProcessorTest extends Specification {
 
 		when:
 		StardateYearDTO stardateYearDTO2 = stardateYearProcessor
-				.process(StardateYearCandidateDTO.of(WS_DATE_INVALID_2, StardateYearSource.EPISODE, TITLE))
+				.process(StardateYearCandidateDTO.of(WS_DATE_INVALID_2, TITLE, StardateYearSource.EPISODE))
 
 		then:
 		1 * wikitextApiMock.getPageLinksFromWikitext(YEAR_STRING_FROM) >> Lists.newArrayList(
@@ -114,7 +114,7 @@ class StardateYearProcessorTest extends Specification {
 
 		when:
 		StardateYearDTO stardateYearDTO3 = stardateYearProcessor
-				.process(StardateYearCandidateDTO.of(WS_DATE_INVALID_3, StardateYearSource.EPISODE, TITLE))
+				.process(StardateYearCandidateDTO.of(WS_DATE_INVALID_3, TITLE, StardateYearSource.EPISODE))
 
 		then:
 		0 * _
@@ -125,7 +125,7 @@ class StardateYearProcessorTest extends Specification {
 
 		when:
 		StardateYearDTO stardateYearDTO4 = stardateYearProcessor
-				.process(StardateYearCandidateDTO.of(WS_DATE_INVALID_4, StardateYearSource.EPISODE, TITLE))
+				.process(StardateYearCandidateDTO.of(WS_DATE_INVALID_4, TITLE, StardateYearSource.EPISODE))
 
 		then:
 		1 * wikitextApiMock.getPageLinksFromWikitext(YEAR_TOO_EARLY_STRING) >> Lists.newArrayList(
@@ -141,7 +141,7 @@ class StardateYearProcessorTest extends Specification {
 
 		when:
 		StardateYearDTO stardateYearDTO5 = stardateYearProcessor
-				.process(StardateYearCandidateDTO.of(WS_DATE_INVALID_5, StardateYearSource.EPISODE, TITLE))
+				.process(StardateYearCandidateDTO.of(WS_DATE_INVALID_5, TITLE, StardateYearSource.EPISODE))
 
 		then:
 		1 * wikitextApiMock.getPageLinksFromWikitext(YEAR_TOO_LATE_STRING) >> Lists.newArrayList(
@@ -157,7 +157,7 @@ class StardateYearProcessorTest extends Specification {
 
 		when:
 		StardateYearDTO stardateYearDTO6 = stardateYearProcessor
-				.process(StardateYearCandidateDTO.of(WS_DATE_INVALID_6, StardateYearSource.EPISODE, TITLE))
+				.process(StardateYearCandidateDTO.of(WS_DATE_INVALID_6, TITLE, StardateYearSource.EPISODE))
 
 		then:
 		1 * wikitextApiMock.getPageLinksFromWikitext(YEAR_INVALID_STRING) >> Lists.newArrayList(
@@ -173,7 +173,7 @@ class StardateYearProcessorTest extends Specification {
 
 		when:
 		StardateYearDTO stardateYearDTO7 = stardateYearProcessor
-				.process(StardateYearCandidateDTO.of(WS_DATE_INVALID_7, StardateYearSource.EPISODE, TITLE))
+				.process(StardateYearCandidateDTO.of(WS_DATE_INVALID_7, TITLE, StardateYearSource.EPISODE))
 
 		then:
 		1 * wikitextApiMock.getPageLinksFromWikitext(INVALID) >> Lists.newArrayList()
@@ -185,7 +185,7 @@ class StardateYearProcessorTest extends Specification {
 
 		when:
 		StardateYearDTO stardateYearDTO8 = stardateYearProcessor
-				.process(StardateYearCandidateDTO.of(null, StardateYearSource.EPISODE, TITLE))
+				.process(StardateYearCandidateDTO.of(null, TITLE, StardateYearSource.EPISODE))
 
 		then:
 		0 * _

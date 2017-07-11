@@ -10,8 +10,8 @@ public class StardateYearCandidateDTO {
 
 	private final String value;
 
-	private final StardateYearSource source; // TODO: should be last field in the class
-
 	private final String title;
+
+	private final StardateYearSource source;
 
 }
