@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompleteness
 import com.cezarykluczynski.stapi.etl.trading_card.creation.processor.TradingCardSetReader
 import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
+import com.cezarykluczynski.stapi.etl.util.constant.WordPressPageId
 import com.cezarykluczynski.stapi.sources.wordpress.api.WordPressApi
 import com.cezarykluczynski.stapi.sources.wordpress.api.enums.WordPressSource
 
@@ -33,7 +34,7 @@ class TradingCardCreationConfigurationTest extends AbstractCreationConfiguration
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_TRADING_CARDS) >> false
-		1 * wordPressApiMock.getAllPages(WordPressSource.STAR_TREK_CARDS) >>
+		1 * wordPressApiMock.getAllPagesUnderPage(WordPressPageId.MAIN_CARD_INDEX, WordPressSource.STAR_TREK_CARDS) >>
 				createListWithPageRenderedTitle(TITLE_TRADING_CARD_SET)
 		0 * _
 		pageTitleList.contains TITLE_TRADING_CARD_SET

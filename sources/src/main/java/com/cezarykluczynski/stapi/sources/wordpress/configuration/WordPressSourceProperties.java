@@ -7,4 +7,6 @@ public class WordPressSourceProperties {
 
 	private String apiUrl;
 
+	private Long minimalInterval;
+
 }

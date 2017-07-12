@@ -131,4 +131,8 @@ public class UidGenerator {
 		return "LANG00000000" + StringUtils.upperCase(iso639_1Code);
 	}
 
+	public String generateForTradingCardSet(Long item) {
+		return item == null ? null : "TCS" + StringUtils.leftPad(String.valueOf(item), 11, ZERO);
+	}
+
 }

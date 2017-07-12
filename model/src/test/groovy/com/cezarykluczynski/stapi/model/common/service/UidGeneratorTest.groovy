@@ -195,4 +195,16 @@ class UidGeneratorTest extends Specification {
 		'PL'         | 'LANG00000000PL'
 	}
 
+	@Unroll('when #id is passed, #uid is returned for TradingCardSet')
+	void "when id is passed, it is converted to uid for TradingCardSet"() {
+		expect:
+		uid == uidGenerator.generateForTradingCardSet(id)
+
+		where:
+		id     | uid
+		null   | null
+		1      | 'TCS00000000001'
+		123456 | 'TCS00000123456'
+	}
+
 }

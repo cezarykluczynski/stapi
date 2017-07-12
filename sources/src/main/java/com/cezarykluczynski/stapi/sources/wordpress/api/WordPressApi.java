@@ -15,8 +15,6 @@ import java.util.stream.Collectors;
 @Service
 public class WordPressApi {
 
-	private static final String PAGES_URL_TEMPLATE = "/pages?page={page}";
-
 	private final WordPressAfrozaarConnector wordPressAfrozaarConnector;
 
 	private final WordPressPageMapper wordPressPageMapper;
@@ -27,13 +25,13 @@ public class WordPressApi {
 		this.wordPressPageMapper = wordPressPageMapper;
 	}
 
-	public List<Page> getAllPages(WordPressSource wordPressSource) {
+	public List<Page> getAllPagesUnderPage(String pageId, WordPressSource wordPressSource) {
 		List<com.afrozaar.wordpress.wpapi.v2.model.Page> pageList = Lists.newArrayList();
 		int pageNumber = 1;
 
 		while (true) {
 			PagedResponse<com.afrozaar.wordpress.wpapi.v2.model.Page> pagedResponse = wordPressAfrozaarConnector
-					.getPage(PAGES_URL_TEMPLATE, pageNumber, wordPressSource);
+					.getPagesUnderPage(pageId, pageNumber, wordPressSource);
 
 			pageList.addAll(pagedResponse.getList());
 

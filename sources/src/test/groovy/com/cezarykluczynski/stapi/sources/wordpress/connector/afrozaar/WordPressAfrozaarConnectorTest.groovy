@@ -6,12 +6,14 @@ import com.afrozaar.wordpress.wpapi.v2.response.PagedResponse
 import com.cezarykluczynski.stapi.sources.wordpress.api.enums.WordPressSource
 import com.cezarykluczynski.stapi.sources.wordpress.configuration.WordPressSourceProperties
 import com.cezarykluczynski.stapi.sources.wordpress.configuration.WordPressSourcesProperties
+import com.cezarykluczynski.stapi.sources.wordpress.service.WordPressSourceConfigurationProvider
 import spock.lang.Specification
 
 class WordPressAfrozaarConnectorTest extends Specification {
 
+	private static final WordPressSource SOURCE = WordPressSource.STAR_TREK_CARDS
 	private static final String API_URL = 'API_URL'
-	private static final String URI = 'URI'
+	private static final String PAGE_ID = 'PAGE_ID'
 	private static final Integer PAGE_NUMBER_INTEGER = 1
 	private static final String PAGE_NUMBER_STRING = '1'
 
@@ -19,11 +21,14 @@ class WordPressAfrozaarConnectorTest extends Specification {
 
 	private WordpressFactory wordpressFactoryMock
 
+	private  WordPressSourceConfigurationProvider wordPressSourceConfigurationProviderMock
+
 	private WordPressAfrozaarConnector wordPressAfrozaarConnector
 
 	void setup() {
 		wordPressSourcesPropertiesMock = Mock()
 		wordpressFactoryMock = Mock()
+		wordPressSourceConfigurationProviderMock = Mock()
 	}
 
 	void "create client on connector construction"() {
@@ -32,7 +37,8 @@ class WordPressAfrozaarConnectorTest extends Specification {
 		Wordpress wordpress = Mock()
 
 		when:
-		wordPressAfrozaarConnector = new WordPressAfrozaarConnector(wordPressSourcesPropertiesMock, wordpressFactoryMock)
+		wordPressAfrozaarConnector = new WordPressAfrozaarConnector(wordPressSourcesPropertiesMock, wordpressFactoryMock,
+				wordPressSourceConfigurationProviderMock)
 
 		then:
 		1 * wordPressSourcesPropertiesMock.starTrekCards >> starTrekCardsWordPressSourceProperties
@@ -49,14 +55,18 @@ class WordPressAfrozaarConnectorTest extends Specification {
 		Wordpress wordpress = Mock()
 		wordPressSourcesPropertiesMock.starTrekCards >> starTrekCardsWordPressSourceProperties
 		wordpressFactoryMock.createForUrl(API_URL) >> wordpress
-		wordPressAfrozaarConnector = new WordPressAfrozaarConnector(wordPressSourcesPropertiesMock, wordpressFactoryMock)
+		wordPressAfrozaarConnector = new WordPressAfrozaarConnector(wordPressSourcesPropertiesMock, wordpressFactoryMock,
+				wordPressSourceConfigurationProviderMock)
 		PagedResponse<Page> pagedResponse = Mock()
+		WordPressSourceProperties wordPressSourceProperties = Mock()
 
 		when:
-		PagedResponse<Page> pagedResponseOutput = wordPressAfrozaarConnector.getPage(URI, PAGE_NUMBER_INTEGER, WordPressSource.STAR_TREK_CARDS)
+		PagedResponse<Page> pagedResponseOutput = wordPressAfrozaarConnector.getPagesUnderPage(PAGE_ID, PAGE_NUMBER_INTEGER, SOURCE)
 
 		then:
-		1 * wordpress.getPagedResponse(URI, Page, PAGE_NUMBER_STRING) >> pagedResponse
+		1 * wordPressSourceConfigurationProviderMock.provideFor(SOURCE) >> wordPressSourceProperties
+		1 * wordPressSourceProperties.minimalInterval >> 0
+		1 * wordpress.getPagedResponse(WordPressAfrozaarConnector.PAGE_WITH_SLUG, Page, PAGE_ID, PAGE_NUMBER_STRING) >> pagedResponse
 		0 * _
 		pagedResponseOutput == pagedResponse
 	}

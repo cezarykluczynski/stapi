@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.trading_card.creation.processor;
 
 import com.cezarykluczynski.stapi.etl.common.service.JsoupParser;
 import com.cezarykluczynski.stapi.etl.trading_card.creation.service.TradingCardSetFilter;
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet;
 import com.cezarykluczynski.stapi.sources.wordpress.dto.Page;
 import lombok.extern.slf4j.Slf4j;
@@ -27,13 +28,17 @@ public class TradingCardSetProcessor implements ItemProcessor<Page, TradingCardS
 
 	private final TradingCardsTableProcessor tradingCardsTableProcessor;
 
+	private final UidGenerator uidGenerator;
+
 	@Inject
 	public TradingCardSetProcessor(TradingCardSetFilter tradingCardSetFilter, JsoupParser jsoupParser,
-			TradingCardSetTableProcessor tradingCardSetTableProcessor, TradingCardsTableProcessor tradingCardsTableProcessor) {
+			TradingCardSetTableProcessor tradingCardSetTableProcessor, TradingCardsTableProcessor tradingCardsTableProcessor,
+			UidGenerator uidGenerator) {
 		this.tradingCardSetFilter = tradingCardSetFilter;
 		this.jsoupParser = jsoupParser;
 		this.tradingCardSetTableProcessor = tradingCardSetTableProcessor;
 		this.tradingCardsTableProcessor = tradingCardsTableProcessor;
+		this.uidGenerator = uidGenerator;
 	}
 
 	@Override
@@ -54,6 +59,7 @@ public class TradingCardSetProcessor implements ItemProcessor<Page, TradingCardS
 			tradingCardSet = tradingCardSetTableProcessor.process(tradingCardSetTableCandidates.first());
 			if (tradingCardSet != null) {
 				tradingCardSet.setTitle(title);
+				tradingCardSet.setUid(uidGenerator.generateForTradingCardSet(item.getId()));
 			}
 		} else {
 			log.info("Could not find trading card set table on page {}", title);

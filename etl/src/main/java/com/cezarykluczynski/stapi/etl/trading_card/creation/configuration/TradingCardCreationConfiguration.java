@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompleteness
 import com.cezarykluczynski.stapi.etl.trading_card.creation.processor.TradingCardSetReader;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
+import com.cezarykluczynski.stapi.etl.util.constant.WordPressPageId;
 import com.cezarykluczynski.stapi.sources.wordpress.api.WordPressApi;
 import com.cezarykluczynski.stapi.sources.wordpress.api.enums.WordPressSource;
 import com.cezarykluczynski.stapi.sources.wordpress.dto.Page;
@@ -34,7 +35,7 @@ public class TradingCardCreationConfiguration {
 		List<Page> tradingCardList = Lists.newArrayList();
 
 		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_TRADING_CARDS)) {
-			tradingCardList.addAll(wordPressApi.getAllPages(WordPressSource.STAR_TREK_CARDS));
+			tradingCardList.addAll(wordPressApi.getAllPagesUnderPage(WordPressPageId.MAIN_CARD_INDEX, WordPressSource.STAR_TREK_CARDS));
 		}
 
 		return new TradingCardSetReader(Lists.newArrayList(Sets.newHashSet(tradingCardList)));
