@@ -76,6 +76,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 		given:
 		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.WRITER, value: WRITER)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
+
 		when:
 		comicsTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicsTemplate))
 
@@ -92,6 +93,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 		given:
 		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.ARTIST, value: ARTIST)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
+
 		when:
 		comicsTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicsTemplate))
 
@@ -108,6 +110,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 		given:
 		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.EDITOR, value: EDITOR)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
+
 		when:
 		comicsTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicsTemplate))
 

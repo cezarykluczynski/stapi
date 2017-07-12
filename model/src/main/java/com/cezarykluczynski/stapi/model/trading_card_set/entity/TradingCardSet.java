@@ -67,9 +67,9 @@ public class TradingCardSet {
 
 	private Integer productionRun;
 
-	private double cardWidth;
+	private Double cardWidth;
 
-	private double cardHeight;
+	private Double cardHeight;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "trading_card_set_manufacturers",
