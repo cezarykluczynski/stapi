@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.sources.wordpress.api.enums.WordPressSource
 import com.cezarykluczynski.stapi.sources.wordpress.configuration.WordPressSourceProperties
 import com.cezarykluczynski.stapi.sources.wordpress.configuration.WordPressSourcesProperties
 import com.cezarykluczynski.stapi.sources.wordpress.service.WordPressSourceConfigurationProvider
+import org.springframework.http.converter.HttpMessageNotReadableException
 import spock.lang.Specification
 
 class WordPressAfrozaarConnectorTest extends Specification {
@@ -21,7 +22,7 @@ class WordPressAfrozaarConnectorTest extends Specification {
 
 	private WordpressFactory wordpressFactoryMock
 
-	private  WordPressSourceConfigurationProvider wordPressSourceConfigurationProviderMock
+	private WordPressSourceConfigurationProvider wordPressSourceConfigurationProviderMock
 
 	private WordPressAfrozaarConnector wordPressAfrozaarConnector
 
@@ -62,6 +63,36 @@ class WordPressAfrozaarConnectorTest extends Specification {
 
 		when:
 		PagedResponse<Page> pagedResponseOutput = wordPressAfrozaarConnector.getPagesUnderPage(PAGE_ID, PAGE_NUMBER_INTEGER, SOURCE)
+
+		then:
+		1 * wordPressSourceConfigurationProviderMock.provideFor(SOURCE) >> wordPressSourceProperties
+		1 * wordPressSourceProperties.minimalInterval >> 0
+		1 * wordpress.getPagedResponse(WordPressAfrozaarConnector.PAGE_WITH_SLUG, Page, PAGE_ID, PAGE_NUMBER_STRING) >> pagedResponse
+		0 * _
+		pagedResponseOutput == pagedResponse
+	}
+
+	void "retries when exception was encountered"() {
+		given:
+		WordPressSourceProperties starTrekCardsWordPressSourceProperties = Mock()
+		starTrekCardsWordPressSourceProperties.apiUrl >> API_URL
+		Wordpress wordpress = Mock()
+		wordPressSourcesPropertiesMock.starTrekCards >> starTrekCardsWordPressSourceProperties
+		wordpressFactoryMock.createForUrl(API_URL) >> wordpress
+		wordPressAfrozaarConnector = new WordPressAfrozaarConnector(wordPressSourcesPropertiesMock, wordpressFactoryMock,
+				wordPressSourceConfigurationProviderMock)
+		PagedResponse<Page> pagedResponse = Mock()
+		WordPressSourceProperties wordPressSourceProperties = Mock()
+
+		when:
+		PagedResponse<Page> pagedResponseOutput = wordPressAfrozaarConnector.getPagesUnderPage(PAGE_ID, PAGE_NUMBER_INTEGER, SOURCE)
+
+		then:
+		1 * wordPressSourceConfigurationProviderMock.provideFor(SOURCE) >> wordPressSourceProperties
+		1 * wordPressSourceProperties.minimalInterval >> 0
+		1 * wordpress.getPagedResponse(WordPressAfrozaarConnector.PAGE_WITH_SLUG, Page, PAGE_ID, PAGE_NUMBER_STRING) >> {
+			throw new HttpMessageNotReadableException('')
+		}
 
 		then:
 		1 * wordPressSourceConfigurationProviderMock.provideFor(SOURCE) >> wordPressSourceProperties
