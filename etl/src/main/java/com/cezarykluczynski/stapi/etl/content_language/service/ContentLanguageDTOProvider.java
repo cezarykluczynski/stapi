@@ -16,6 +16,9 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ContentLanguageDTOProvider {
 
+	private static final String SLOVENE = "Slovene";
+	private static final String SPANISH = "Spanish";
+
 	private static final List<ContentLanguageDTO> LANGUAGES = Lists.newArrayList();
 
 	private static final Map<String, ContentLanguageDTO> NAME_INDEX;
@@ -195,10 +198,10 @@ public class ContentLanguageDTOProvider {
 		LANGUAGES.add(ContentLanguageDTO.of("Sinhala", "si"));
 		LANGUAGES.add(ContentLanguageDTO.of("Sinhalese", "si"));
 		LANGUAGES.add(ContentLanguageDTO.of("Slovak", "sk"));
-		LANGUAGES.add(ContentLanguageDTO.of("Slovene", "sl"));
+		LANGUAGES.add(ContentLanguageDTO.of(SLOVENE, "sl"));
 		LANGUAGES.add(ContentLanguageDTO.of("Somali", "so"));
 		LANGUAGES.add(ContentLanguageDTO.of("Southern Sotho", "st"));
-		LANGUAGES.add(ContentLanguageDTO.of("Spanish", "es"));
+		LANGUAGES.add(ContentLanguageDTO.of(SPANISH, "es"));
 		LANGUAGES.add(ContentLanguageDTO.of("Sundanese", "su"));
 		LANGUAGES.add(ContentLanguageDTO.of("Swahili", "sw"));
 		LANGUAGES.add(ContentLanguageDTO.of("Swati", "ss"));
@@ -240,9 +243,9 @@ public class ContentLanguageDTOProvider {
 		NAME_INDEX = LANGUAGES.stream()
 				.collect(Collectors.toMap(ContentLanguageDTO::getName, Function.identity()));
 
-		NAME_INDEX.put("Castillian", NAME_INDEX.get("Spanish"));
-		NAME_INDEX.put("Castilian", NAME_INDEX.get("Spanish"));
-		NAME_INDEX.put("Slovenian", NAME_INDEX.get("Slovene"));
+		NAME_INDEX.put("Castillian", NAME_INDEX.get(SPANISH));
+		NAME_INDEX.put("Castilian", NAME_INDEX.get(SPANISH));
+		NAME_INDEX.put("Slovenian", NAME_INDEX.get(SLOVENE));
 	}
 
 	public Optional<ContentLanguageDTO> getByName(String name) {
