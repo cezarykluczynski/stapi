@@ -18,9 +18,13 @@ public class TradingCardSetTableValuesEnrichingProcessor
 
 	private final CardSizeProcessor cardSizeProcessor;
 
+	private final TradingCardSetCountiesProcessor tradingCardSetCountiesProcessor;
+
 	@Inject
-	public TradingCardSetTableValuesEnrichingProcessor(CardSizeProcessor cardSizeProcessor) {
+	public TradingCardSetTableValuesEnrichingProcessor(CardSizeProcessor cardSizeProcessor,
+			TradingCardSetCountiesProcessor tradingCardSetCountiesProcessor) {
 		this.cardSizeProcessor = cardSizeProcessor;
+		this.tradingCardSetCountiesProcessor = tradingCardSetCountiesProcessor;
 	}
 
 	@Override
@@ -56,7 +60,7 @@ public class TradingCardSetTableValuesEnrichingProcessor
 				// TODO:
 				break;
 			case TradingCardSetTableHeader.COUNTRY:
-				// TODO:
+				tradingCardSet.getCountriesOfOrigin().addAll(tradingCardSetCountiesProcessor.process(value));
 				break;
 			default:
 				if (!TradingCardSetTableHeader.SPARSE_HEADERS.contains(key)) {
