@@ -2,6 +2,9 @@ package com.cezarykluczynski.stapi.etl.trading_card.creation.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.company.TextToCompaniesProcessor;
+import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear;
+import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.TextToDayMonthYearProcessor;
 import com.cezarykluczynski.stapi.etl.trading_card.creation.dto.CardSizeDTO;
 import com.cezarykluczynski.stapi.etl.trading_card.creation.dto.ProductionRunDTO;
 import com.cezarykluczynski.stapi.etl.trading_card.creation.dto.TradingCarSetHeaderValuePair;
@@ -17,17 +20,24 @@ import javax.inject.Inject;
 public class TradingCardSetTableValuesEnrichingProcessor
 		implements ItemEnrichingProcessor<EnrichablePair<TradingCarSetHeaderValuePair, TradingCardSet>> {
 
+	private final TextToDayMonthYearProcessor textToDayMonthYearProcessor;
+
 	private final ProductionRunProcessor productionRunProcessor;
 
 	private final CardSizeProcessor cardSizeProcessor;
 
+	private final TextToCompaniesProcessor textToCompaniesProcessor;
+
 	private final TradingCardSetCountiesProcessor tradingCardSetCountiesProcessor;
 
 	@Inject
-	public TradingCardSetTableValuesEnrichingProcessor(ProductionRunProcessor productionRunProcessor, CardSizeProcessor cardSizeProcessor,
+	public TradingCardSetTableValuesEnrichingProcessor(TextToDayMonthYearProcessor textToDayMonthYearProcessor,
+			ProductionRunProcessor productionRunProcessor, CardSizeProcessor cardSizeProcessor, TextToCompaniesProcessor textToCompaniesProcessor,
 			TradingCardSetCountiesProcessor tradingCardSetCountiesProcessor) {
+		this.textToDayMonthYearProcessor = textToDayMonthYearProcessor;
 		this.productionRunProcessor = productionRunProcessor;
 		this.cardSizeProcessor = cardSizeProcessor;
+		this.textToCompaniesProcessor = textToCompaniesProcessor;
 		this.tradingCardSetCountiesProcessor = tradingCardSetCountiesProcessor;
 	}
 
@@ -39,7 +49,12 @@ public class TradingCardSetTableValuesEnrichingProcessor
 
 		switch(key) {
 			case TradingCardSetTableHeader.RELEASED:
-				// TODO
+				DayMonthYear dayMonthYear = textToDayMonthYearProcessor.process(value);
+				if (dayMonthYear != null) {
+					tradingCardSet.setReleaseDay(dayMonthYear.getDay());
+					tradingCardSet.setReleaseMonth(dayMonthYear.getMonth());
+					tradingCardSet.setReleaseYear(dayMonthYear.getYear());
+				}
 				break;
 			case TradingCardSetTableHeader.CARDS_PER_PACK:
 				// TODO:
@@ -65,7 +80,7 @@ public class TradingCardSetTableValuesEnrichingProcessor
 				}
 				break;
 			case TradingCardSetTableHeader.MANUFACTURER:
-				// TODO:
+				tradingCardSet.getManufacturers().addAll(textToCompaniesProcessor.process(value));
 				break;
 			case TradingCardSetTableHeader.COUNTRY:
 				tradingCardSet.getCountriesOfOrigin().addAll(tradingCardSetCountiesProcessor.process(value));
