@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityTyp
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.country.entity.Country;
 import com.cezarykluczynski.stapi.model.trading_card.entity.TradingCard;
+import com.cezarykluczynski.stapi.model.trading_card_set.entity.enums.ProductionRunUnit;
 import com.cezarykluczynski.stapi.model.video_release.repository.VideoReleaseRepository;
 import com.google.common.collect.Sets;
 import lombok.AllArgsConstructor;
@@ -19,6 +20,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -66,6 +69,9 @@ public class TradingCardSet {
 	private Integer boxesPerCase;
 
 	private Integer productionRun;
+
+	@Enumerated(EnumType.STRING)
+	private ProductionRunUnit productionRunUnit;
 
 	private Double cardWidth;
 

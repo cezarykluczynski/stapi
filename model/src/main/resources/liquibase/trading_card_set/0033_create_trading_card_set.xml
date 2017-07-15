@@ -20,6 +20,7 @@
 			<column name="packs_per_box" type="int"/>
 			<column name="boxes_per_case" type="int"/>
 			<column name="production_run" type="int"/>
+			<column name="production_run_unit" type="varchar(16)"/>
 			<column name="card_width" type="double"/>
 			<column name="card_height" type="double"/>
 		</createTable>

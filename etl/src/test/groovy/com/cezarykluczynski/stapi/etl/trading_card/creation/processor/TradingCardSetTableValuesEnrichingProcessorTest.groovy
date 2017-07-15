@@ -2,19 +2,26 @@ package com.cezarykluczynski.stapi.etl.trading_card.creation.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.trading_card.creation.dto.CardSizeDTO
+import com.cezarykluczynski.stapi.etl.trading_card.creation.dto.ProductionRunDTO
 import com.cezarykluczynski.stapi.etl.trading_card.creation.dto.TradingCarSetHeaderValuePair
 import com.cezarykluczynski.stapi.etl.trading_card.creation.dto.TradingCardSetTableHeader
 import com.cezarykluczynski.stapi.model.country.entity.Country
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet
+import com.cezarykluczynski.stapi.model.trading_card_set.entity.enums.ProductionRunUnit
 import com.google.common.collect.Sets
 import spock.lang.Specification
 
 class TradingCardSetTableValuesEnrichingProcessorTest extends Specification {
 
+	private static final String PRODUCTION_RUN = 'PRODUCTION_RUN'
 	private static final String CARDS_SIZE = 'CARDS_SIZE'
 	private static final String COUNTRY = 'COUNTRY'
+	private static final Integer PRODUCTION_RUN_INTEGER = 5000
+	private static final ProductionRunUnit PRODUCTION_RUN_UNIT = ProductionRunUnit.BOX
 	private static final double WIDTH = 3.5d
 	private static final double HEIGHT = 2.25d
+
+	private ProductionRunProcessor productionRunProcessorMock
 
 	private CardSizeProcessor cardSizeProcessorMock
 
@@ -23,13 +30,51 @@ class TradingCardSetTableValuesEnrichingProcessorTest extends Specification {
 	private TradingCardSetTableValuesEnrichingProcessor tradingCardSetTableValuesEnrichingProcessor
 
 	void setup() {
+		productionRunProcessorMock = Mock()
 		cardSizeProcessorMock = Mock()
 		tradingCardSetCountiesProcessorMock = Mock()
-		tradingCardSetTableValuesEnrichingProcessor = new TradingCardSetTableValuesEnrichingProcessor(cardSizeProcessorMock,
-				tradingCardSetCountiesProcessorMock)
+		tradingCardSetTableValuesEnrichingProcessor = new TradingCardSetTableValuesEnrichingProcessor(productionRunProcessorMock,
+				cardSizeProcessorMock, tradingCardSetCountiesProcessorMock)
 	}
 
-	void "sets card with and card height from CardSizeProcessor when it returns CardSizeDTO when cards size part was found"() {
+	@SuppressWarnings('BracesForMethod')
+	void """sets production run and production run unit from ProductionRunProcessor when it returns ProductionRunDTO,
+			when production run part is found"""() {
+		given:
+		TradingCarSetHeaderValuePair tradingCarSetHeaderValuePair = new TradingCarSetHeaderValuePair(
+				headerText: TradingCardSetTableHeader.PRODUCTION_RUN,
+				valueText: PRODUCTION_RUN)
+		TradingCardSet tradingCardSet = new TradingCardSet()
+		ProductionRunDTO productionRunDTO = ProductionRunDTO.of(PRODUCTION_RUN_INTEGER, PRODUCTION_RUN_UNIT)
+
+		when:
+		tradingCardSetTableValuesEnrichingProcessor.enrich(EnrichablePair.of(tradingCarSetHeaderValuePair, tradingCardSet))
+
+		then:
+		1 * productionRunProcessorMock.process(PRODUCTION_RUN) >> productionRunDTO
+		0 * _
+		tradingCardSet.productionRun == PRODUCTION_RUN_INTEGER
+		tradingCardSet.productionRunUnit == PRODUCTION_RUN_UNIT
+	}
+
+	void "when ProductionRunProcessor returns null, nothing happens"() {
+		given:
+		TradingCarSetHeaderValuePair tradingCarSetHeaderValuePair = new TradingCarSetHeaderValuePair(
+				headerText: TradingCardSetTableHeader.PRODUCTION_RUN,
+				valueText: PRODUCTION_RUN)
+		TradingCardSet tradingCardSet = new TradingCardSet()
+
+		when:
+		tradingCardSetTableValuesEnrichingProcessor.enrich(EnrichablePair.of(tradingCarSetHeaderValuePair, tradingCardSet))
+
+		then:
+		1 * productionRunProcessorMock.process(PRODUCTION_RUN) >> null
+		0 * _
+		tradingCardSet.productionRun == null
+		tradingCardSet.productionRunUnit == null
+	}
+
+	void "sets card width and card height from CardSizeProcessor when it returns CardSizeDTO when cards size part is found"() {
 		given:
 		TradingCarSetHeaderValuePair tradingCarSetHeaderValuePair = new TradingCarSetHeaderValuePair(
 				headerText: TradingCardSetTableHeader.CARDS_SIZE,

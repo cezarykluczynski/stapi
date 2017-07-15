@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.trading_card.creation.processor;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.trading_card.creation.dto.CardSizeDTO;
+import com.cezarykluczynski.stapi.etl.trading_card.creation.dto.ProductionRunDTO;
 import com.cezarykluczynski.stapi.etl.trading_card.creation.dto.TradingCarSetHeaderValuePair;
 import com.cezarykluczynski.stapi.etl.trading_card.creation.dto.TradingCardSetTableHeader;
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet;
@@ -16,13 +17,16 @@ import javax.inject.Inject;
 public class TradingCardSetTableValuesEnrichingProcessor
 		implements ItemEnrichingProcessor<EnrichablePair<TradingCarSetHeaderValuePair, TradingCardSet>> {
 
+	private final ProductionRunProcessor productionRunProcessor;
+
 	private final CardSizeProcessor cardSizeProcessor;
 
 	private final TradingCardSetCountiesProcessor tradingCardSetCountiesProcessor;
 
 	@Inject
-	public TradingCardSetTableValuesEnrichingProcessor(CardSizeProcessor cardSizeProcessor,
+	public TradingCardSetTableValuesEnrichingProcessor(ProductionRunProcessor productionRunProcessor, CardSizeProcessor cardSizeProcessor,
 			TradingCardSetCountiesProcessor tradingCardSetCountiesProcessor) {
+		this.productionRunProcessor = productionRunProcessor;
 		this.cardSizeProcessor = cardSizeProcessor;
 		this.tradingCardSetCountiesProcessor = tradingCardSetCountiesProcessor;
 	}
@@ -47,7 +51,11 @@ public class TradingCardSetTableValuesEnrichingProcessor
 				// TODO:
 				break;
 			case TradingCardSetTableHeader.PRODUCTION_RUN:
-				// TODO:
+				ProductionRunDTO productionRunDTO = productionRunProcessor.process(value);
+				if (productionRunDTO != null) {
+					tradingCardSet.setProductionRun(productionRunDTO.getProductionRun());
+					tradingCardSet.setProductionRunUnit(productionRunDTO.getProductionRunUnit());
+				}
 				break;
 			case TradingCardSetTableHeader.CARDS_SIZE:
 				CardSizeDTO cardSizeDTO = cardSizeProcessor.process(value);
