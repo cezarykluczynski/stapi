@@ -25,6 +25,16 @@ allprojects {
 	apply plugin: 'checkstyle'
 	apply plugin: 'codenarc'
 
+	compileJava.options.encoding = 'UTF-8'
+
+	tasks.withType(JavaCompile) {
+		options.encoding = 'UTF-8'
+	}
+
+	tasks.withType(GroovyCompile) {
+		groovyOptions.encoding = 'UTF-8'
+	}
+
 	repositories {
 		mavenCentral()
 		jcenter()

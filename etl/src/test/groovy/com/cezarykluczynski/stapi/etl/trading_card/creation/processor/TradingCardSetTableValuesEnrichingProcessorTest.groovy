@@ -132,9 +132,7 @@ class TradingCardSetTableValuesEnrichingProcessorTest extends Specification {
 				headerText: TradingCardSetTableHeader.CARDS_SIZE,
 				valueText: CARDS_SIZE)
 		TradingCardSet tradingCardSet = new TradingCardSet()
-		CardSizeDTO cardSizeDTO = new CardSizeDTO(
-				width: WIDTH,
-				height: HEIGHT)
+		CardSizeDTO cardSizeDTO = CardSizeDTO.of(WIDTH, HEIGHT)
 
 		when:
 		tradingCardSetTableValuesEnrichingProcessor.enrich(EnrichablePair.of(tradingCarSetHeaderValuePair, tradingCardSet))
