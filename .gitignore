@@ -4,3 +4,4 @@ build/
 logs/
 server/src/main/resources/application-*.properties
 model/**/*_.java
+stapi.iml

@@ -10,6 +10,7 @@ import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpServerErrorException;
 
 import javax.inject.Inject;
 import java.util.Map;
@@ -61,7 +62,7 @@ public class WordPressAfrozaarConnector {
 		try {
 			pagedResponse = wordpress.getPagedResponse(PAGE_WITH_SLUG, Page.class, pageId, String.valueOf(pageNumber));
 			lastCallTimes.put(wordPressSource, System.currentTimeMillis());
-		} catch (HttpMessageNotReadableException e) {
+		} catch (HttpMessageNotReadableException | HttpServerErrorException e) {
 			lastCallTimes.put(wordPressSource, System.currentTimeMillis());
 			if (tryNumber > RETRY_COUNT) {
 				throw e;
