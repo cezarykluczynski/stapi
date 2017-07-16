@@ -22,6 +22,12 @@ public class TradingCardSetTableValuesEnrichingProcessor
 
 	private final TextToDayMonthYearProcessor textToDayMonthYearProcessor;
 
+	private final CardsPerPackProcessor cardsPerPackProcessor;
+
+	private final PacksPerBoxProcessor packsPerBoxProcessor;
+
+	private final BoxesPerCaseProcessor boxesPerCaseProcessor;
+
 	private final ProductionRunProcessor productionRunProcessor;
 
 	private final CardSizeProcessor cardSizeProcessor;
@@ -32,9 +38,13 @@ public class TradingCardSetTableValuesEnrichingProcessor
 
 	@Inject
 	public TradingCardSetTableValuesEnrichingProcessor(TextToDayMonthYearProcessor textToDayMonthYearProcessor,
+			CardsPerPackProcessor cardsPerPackProcessor, PacksPerBoxProcessor packsPerBoxProcessor, BoxesPerCaseProcessor boxesPerCaseProcessor,
 			ProductionRunProcessor productionRunProcessor, CardSizeProcessor cardSizeProcessor, TextToCompaniesProcessor textToCompaniesProcessor,
 			TradingCardSetCountiesProcessor tradingCardSetCountiesProcessor) {
 		this.textToDayMonthYearProcessor = textToDayMonthYearProcessor;
+		this.cardsPerPackProcessor = cardsPerPackProcessor;
+		this.packsPerBoxProcessor = packsPerBoxProcessor;
+		this.boxesPerCaseProcessor = boxesPerCaseProcessor;
 		this.productionRunProcessor = productionRunProcessor;
 		this.cardSizeProcessor = cardSizeProcessor;
 		this.textToCompaniesProcessor = textToCompaniesProcessor;
@@ -57,13 +67,13 @@ public class TradingCardSetTableValuesEnrichingProcessor
 				}
 				break;
 			case TradingCardSetTableHeader.CARDS_PER_PACK:
-				// TODO:
+				tradingCardSet.setCardsPerPack(cardsPerPackProcessor.process(value));
 				break;
 			case TradingCardSetTableHeader.PACKS_PER_BOX:
-				// TODO:
+				tradingCardSet.setPacksPerBox(packsPerBoxProcessor.process(value));
 				break;
 			case TradingCardSetTableHeader.BOXES_PER_CASE:
-				// TODO:
+				tradingCardSet.setBoxesPerCase(boxesPerCaseProcessor.process(value));
 				break;
 			case TradingCardSetTableHeader.PRODUCTION_RUN:
 				ProductionRunDTO productionRunDTO = productionRunProcessor.process(value);

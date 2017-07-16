@@ -18,6 +18,9 @@ import spock.lang.Specification
 class TradingCardSetTableValuesEnrichingProcessorTest extends Specification {
 
 	private static final String RELEASED = 'RELEASED'
+	private static final String CARDS_PER_PACK = 'CARDS_PER_PACK'
+	private static final String PACKS_PER_BOX = 'PACKS_PER_BOX'
+	private static final String BOXES_PER_CASE = 'BOXES_PER_CASE'
 	private static final String PRODUCTION_RUN = 'PRODUCTION_RUN'
 	private static final String CARDS_SIZE = 'CARDS_SIZE'
 	private static final String MANUFACTURER = 'MANUFACTURER'
@@ -26,11 +29,20 @@ class TradingCardSetTableValuesEnrichingProcessorTest extends Specification {
 	private static final Integer MONTH = 11
 	private static final Integer YEAR = 1998
 	private static final Integer PRODUCTION_RUN_INTEGER = 5000
+	private static final Integer CARDS_PER_PACK_INTEGER = 24
+	private static final Integer PACKS_PER_BOX_INTEGER = 48
+	private static final Integer BOXES_PER_CASE_INTEGER = 12
 	private static final ProductionRunUnit PRODUCTION_RUN_UNIT = ProductionRunUnit.BOX
 	private static final double WIDTH = 3.5d
 	private static final double HEIGHT = 2.25d
 
 	private TextToDayMonthYearProcessor textToDayMonthYearProcessorMock
+
+	private CardsPerPackProcessor cardsPerPackProcessorMock
+
+	private PacksPerBoxProcessor packsPerBoxProcessorMock
+
+	private BoxesPerCaseProcessor boxesPerCaseProcessorMock
 
 	private ProductionRunProcessor productionRunProcessorMock
 
@@ -44,12 +56,16 @@ class TradingCardSetTableValuesEnrichingProcessorTest extends Specification {
 
 	void setup() {
 		textToDayMonthYearProcessorMock = Mock()
+		cardsPerPackProcessorMock = Mock()
+		packsPerBoxProcessorMock = Mock()
+		boxesPerCaseProcessorMock = Mock()
 		productionRunProcessorMock = Mock()
 		cardSizeProcessorMock = Mock()
 		textToCompaniesProcessorMock = Mock()
 		tradingCardSetCountiesProcessorMock = Mock()
 		tradingCardSetTableValuesEnrichingProcessor = new TradingCardSetTableValuesEnrichingProcessor(textToDayMonthYearProcessorMock,
-				productionRunProcessorMock, cardSizeProcessorMock, textToCompaniesProcessorMock, tradingCardSetCountiesProcessorMock)
+				cardsPerPackProcessorMock, packsPerBoxProcessorMock, boxesPerCaseProcessorMock, productionRunProcessorMock, cardSizeProcessorMock,
+				textToCompaniesProcessorMock, tradingCardSetCountiesProcessorMock)
 	}
 
 	void "sets release date from TextToDayMonthYearProcessor when it returns DayMonthYear, when released pair is found"() {
@@ -69,6 +85,54 @@ class TradingCardSetTableValuesEnrichingProcessorTest extends Specification {
 		tradingCardSet.releaseDay == DAY
 		tradingCardSet.releaseMonth == MONTH
 		tradingCardSet.releaseYear == YEAR
+	}
+
+	void "sets cards per pack from CardsPerPackProcessor when cards per pack pair is found"() {
+		given:
+		TradingCarSetHeaderValuePair tradingCarSetHeaderValuePair = new TradingCarSetHeaderValuePair(
+				headerText: TradingCardSetTableHeader.CARDS_PER_PACK,
+				valueText: CARDS_PER_PACK)
+		TradingCardSet tradingCardSet = new TradingCardSet()
+
+		when:
+		tradingCardSetTableValuesEnrichingProcessor.enrich(EnrichablePair.of(tradingCarSetHeaderValuePair, tradingCardSet))
+
+		then:
+		1 * cardsPerPackProcessorMock.process(CARDS_PER_PACK) >> CARDS_PER_PACK_INTEGER
+		0 * _
+		tradingCardSet.cardsPerPack == CARDS_PER_PACK_INTEGER
+	}
+
+	void "sets packs per box from PacksPerBoxProcessor when packs per box pair is found"() {
+		given:
+		TradingCarSetHeaderValuePair tradingCarSetHeaderValuePair = new TradingCarSetHeaderValuePair(
+				headerText: TradingCardSetTableHeader.PACKS_PER_BOX,
+				valueText: PACKS_PER_BOX)
+		TradingCardSet tradingCardSet = new TradingCardSet()
+
+		when:
+		tradingCardSetTableValuesEnrichingProcessor.enrich(EnrichablePair.of(tradingCarSetHeaderValuePair, tradingCardSet))
+
+		then:
+		1 * packsPerBoxProcessorMock.process(PACKS_PER_BOX) >> PACKS_PER_BOX_INTEGER
+		0 * _
+		tradingCardSet.packsPerBox == PACKS_PER_BOX_INTEGER
+	}
+
+	void "sets boxes per case from BoxesPerCaseProcessor when boxes per case pair is found"() {
+		given:
+		TradingCarSetHeaderValuePair tradingCarSetHeaderValuePair = new TradingCarSetHeaderValuePair(
+				headerText: TradingCardSetTableHeader.BOXES_PER_CASE,
+				valueText: BOXES_PER_CASE)
+		TradingCardSet tradingCardSet = new TradingCardSet()
+
+		when:
+		tradingCardSetTableValuesEnrichingProcessor.enrich(EnrichablePair.of(tradingCarSetHeaderValuePair, tradingCardSet))
+
+		then:
+		1 * boxesPerCaseProcessorMock.process(BOXES_PER_CASE) >> BOXES_PER_CASE_INTEGER
+		0 * _
+		tradingCardSet.boxesPerCase == BOXES_PER_CASE_INTEGER
 	}
 
 	void "when TextToDayMonthYearProcessor returns null, nothing happens"() {
