@@ -25,7 +25,7 @@ class TradingCardSetProcessorTest extends Specification {
 
 	private TradingCardSetTableProcessor tradingCardSetTableProcessorMock
 
-	private TradingCardsTableProcessor tradingCardsTableProcessorMock
+	private TradingCardsTablesProcessor tradingCardsTablesProcessorMock
 
 	private UidGenerator uidGeneratorMock
 
@@ -35,10 +35,10 @@ class TradingCardSetProcessorTest extends Specification {
 		tradingCardSetFilterMock = Mock()
 		jsoupParserMock = Mock()
 		tradingCardSetTableProcessorMock = Mock()
-		tradingCardsTableProcessorMock = Mock()
+		tradingCardsTablesProcessorMock = Mock()
 		uidGeneratorMock = Mock()
 		tradingCardSetProcessor = new TradingCardSetProcessor(tradingCardSetFilterMock, jsoupParserMock, tradingCardSetTableProcessorMock,
-				tradingCardsTableProcessorMock, uidGeneratorMock)
+				tradingCardsTablesProcessorMock, uidGeneratorMock)
 	}
 
 	void "returns null when TradingCardSetFilter returns true"() {
@@ -78,7 +78,7 @@ class TradingCardSetProcessorTest extends Specification {
 		1 * uidGeneratorMock.generateForTradingCardSet(ID) >> UID
 		0 * _
 		tradingCardSetOutput == tradingCardSet
-		tradingCardSetOutput.title == RENDERED_TITLE
+		tradingCardSetOutput.name == RENDERED_TITLE
 		tradingCardSetOutput.uid == UID
 	}
 
@@ -107,7 +107,7 @@ class TradingCardSetProcessorTest extends Specification {
 		1 * document.getElementsByClass(TradingCardSetProcessor.TRADING_CARDS_TABLE_CLASS) >> tradingCardsTableCandidates
 		1 * tradingCardSetTableProcessorMock.process(tradingCardSetTable) >> tradingCardSet
 		1 * uidGeneratorMock.generateForTradingCardSet(ID) >> UID
-		1 * tradingCardsTableProcessorMock.process(tradingCardsTable) >> Sets.newHashSet(tradingCard1, tradingCard2)
+		1 * tradingCardsTablesProcessorMock.process(tradingCardsTableCandidates) >> Sets.newHashSet(tradingCard1, tradingCard2)
 		0 * _
 		tradingCardSetOutput.tradingCards.size() == 2
 		tradingCardSetOutput.tradingCards.contains tradingCard1

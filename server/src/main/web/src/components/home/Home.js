@@ -27,7 +27,7 @@ export class Home extends Component {
 						<ul>
 							<li>STAPI uses publically available sources, mainly <a href="http://memory-alpha.wikia.com/">Memory Alpha</a>,
 								to get it's data.</li>
-							<li>Data is cleaned, standarized and put into relational model.</li>
+							<li>Data is cleansed, standarized and put into relational model.</li>
 							<li>API can be browsed by anyone, even right now, using <Link to="/api-browser">API Browser</Link>.</li>
 							<li>SOAP contracts and Swagger specifications can be <Link to="/api-documentation">downloaded</Link>.</li>
 							<li>STAPI is written in Java and Groovy.</li>

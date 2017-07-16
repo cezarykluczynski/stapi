@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityTyp
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.country.entity.Country;
 import com.cezarykluczynski.stapi.model.trading_card.entity.TradingCard;
+import com.cezarykluczynski.stapi.model.trading_card_deck.entity.TradingCardDeck;
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.enums.ProductionRunUnit;
 import com.cezarykluczynski.stapi.model.video_release.repository.VideoReleaseRepository;
 import com.google.common.collect.Sets;
@@ -38,8 +39,8 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(exclude = {"manufacturers", "tradingCards", "countriesOfOrigin"})
-@EqualsAndHashCode(exclude = {"manufacturers", "tradingCards", "countriesOfOrigin"})
+@ToString(exclude = {"manufacturers", "tradingCards", "tradingCardDecks", "countriesOfOrigin"})
+@EqualsAndHashCode(exclude = {"manufacturers", "tradingCards", "tradingCardDecks", "countriesOfOrigin"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = VideoReleaseRepository.class, singularName = "trading card set",
 		pluralName = "trading card sets")
@@ -54,7 +55,7 @@ public class TradingCardSet {
 	@Column(name = "u_id")
 	private String uid;
 
-	private String title;
+	private String name;
 
 	private Integer releaseYear;
 
@@ -84,9 +85,13 @@ public class TradingCardSet {
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Company> manufacturers = Sets.newHashSet();
 
-	@OneToMany(mappedBy = "tradingCardSet", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "tradingCardSet", fetch = FetchType.LAZY, targetEntity = TradingCard.class)
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<TradingCard> tradingCards = Sets.newHashSet();
+
+	@OneToMany(mappedBy = "tradingCardSet", fetch = FetchType.LAZY, targetEntity = TradingCardDeck.class)
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<TradingCardDeck> tradingCardDecks = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "trading_card_sets_countries",

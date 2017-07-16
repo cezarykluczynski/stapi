@@ -13,8 +13,9 @@ public class TradingCardsTableProcessor implements ItemProcessor<Element, Set<Tr
 
 	@Override
 	public Set<TradingCard> process(Element item) throws Exception {
+		Set<TradingCard> tradingCardSet = Sets.newHashSet();
 		// TODO
-		return Sets.newHashSet();
+		return tradingCardSet;
 	}
 
 }

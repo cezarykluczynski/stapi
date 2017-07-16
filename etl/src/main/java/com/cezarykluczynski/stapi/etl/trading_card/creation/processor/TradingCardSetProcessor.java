@@ -26,18 +26,18 @@ public class TradingCardSetProcessor implements ItemProcessor<Page, TradingCardS
 
 	private final TradingCardSetTableProcessor tradingCardSetTableProcessor;
 
-	private final TradingCardsTableProcessor tradingCardsTableProcessor;
+	private final TradingCardsTablesProcessor tradingCardsTablesProcessor;
 
 	private final UidGenerator uidGenerator;
 
 	@Inject
 	public TradingCardSetProcessor(TradingCardSetFilter tradingCardSetFilter, JsoupParser jsoupParser,
-			TradingCardSetTableProcessor tradingCardSetTableProcessor, TradingCardsTableProcessor tradingCardsTableProcessor,
+			TradingCardSetTableProcessor tradingCardSetTableProcessor, TradingCardsTablesProcessor tradingCardsTablesProcessor,
 			UidGenerator uidGenerator) {
 		this.tradingCardSetFilter = tradingCardSetFilter;
 		this.jsoupParser = jsoupParser;
 		this.tradingCardSetTableProcessor = tradingCardSetTableProcessor;
-		this.tradingCardsTableProcessor = tradingCardsTableProcessor;
+		this.tradingCardsTablesProcessor = tradingCardsTablesProcessor;
 		this.uidGenerator = uidGenerator;
 	}
 
@@ -58,7 +58,7 @@ public class TradingCardSetProcessor implements ItemProcessor<Page, TradingCardS
 		if (tradingCardSetTableCandidates.size() == 1) {
 			tradingCardSet = tradingCardSetTableProcessor.process(tradingCardSetTableCandidates.first());
 			if (tradingCardSet != null) {
-				tradingCardSet.setTitle(title);
+				tradingCardSet.setName(title);
 				tradingCardSet.setUid(uidGenerator.generateForTradingCardSet(item.getId()));
 			}
 		} else {
@@ -68,7 +68,7 @@ public class TradingCardSetProcessor implements ItemProcessor<Page, TradingCardS
 		int tradingCardsTableCandidatesSize = tradingCardsTableCandidates.size();
 
 		if (tradingCardsTableCandidatesSize == 1 && tradingCardSet != null) {
-			tradingCardSet.getTradingCards().addAll(tradingCardsTableProcessor.process(tradingCardsTableCandidates.first()));
+			tradingCardSet.getTradingCards().addAll(tradingCardsTablesProcessor.process(tradingCardsTableCandidates));
 		} else {
 			if (tradingCardsTableCandidatesSize != 1) {
 				log.warn("Expected to find one table with cards on page {}, but found {}", title, tradingCardsTableCandidatesSize);
