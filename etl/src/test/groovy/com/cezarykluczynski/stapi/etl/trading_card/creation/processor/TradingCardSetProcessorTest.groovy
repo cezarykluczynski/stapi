@@ -2,8 +2,9 @@ package com.cezarykluczynski.stapi.etl.trading_card.creation.processor
 
 import com.cezarykluczynski.stapi.etl.common.service.JsoupParser
 import com.cezarykluczynski.stapi.etl.trading_card.creation.service.TradingCardSetFilter
+import com.cezarykluczynski.stapi.etl.trading_card.creation.service.TradingCardSetLinker
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator
-import com.cezarykluczynski.stapi.model.trading_card.entity.TradingCard
+import com.cezarykluczynski.stapi.model.trading_card_deck.entity.TradingCardDeck
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet
 import com.cezarykluczynski.stapi.sources.wordpress.dto.Page
 import com.google.common.collect.Sets
@@ -29,6 +30,8 @@ class TradingCardSetProcessorTest extends Specification {
 
 	private UidGenerator uidGeneratorMock
 
+	private TradingCardSetLinker tradingCardSetLinkerMock
+
 	private TradingCardSetProcessor tradingCardSetProcessor
 
 	void setup() {
@@ -37,8 +40,9 @@ class TradingCardSetProcessorTest extends Specification {
 		tradingCardSetTableProcessorMock = Mock()
 		tradingCardsTablesProcessorMock = Mock()
 		uidGeneratorMock = Mock()
+		tradingCardSetLinkerMock = Mock()
 		tradingCardSetProcessor = new TradingCardSetProcessor(tradingCardSetFilterMock, jsoupParserMock, tradingCardSetTableProcessorMock,
-				tradingCardsTablesProcessorMock, uidGeneratorMock)
+				tradingCardsTablesProcessorMock, uidGeneratorMock, tradingCardSetLinkerMock)
 	}
 
 	void "returns null when TradingCardSetFilter returns true"() {
@@ -93,9 +97,9 @@ class TradingCardSetProcessorTest extends Specification {
 		Element tradingCardsTable = Mock()
 		Elements tradingCardSetTableCandidates = new Elements(tradingCardSetTable)
 		Elements tradingCardsTableCandidates = new Elements(tradingCardsTable)
-		TradingCardSet tradingCardSet = new TradingCardSet()
-		TradingCard tradingCard1 = Mock()
-		TradingCard tradingCard2 = Mock()
+		TradingCardSet tradingCardDeck = new TradingCardSet()
+		TradingCardDeck tradingCardDeck1 = new TradingCardDeck(id: 1)
+		TradingCardDeck tradingCardDeck2 = new TradingCardDeck(id: 2)
 
 		when:
 		TradingCardSet tradingCardSetOutput = tradingCardSetProcessor.process(page)
@@ -105,13 +109,14 @@ class TradingCardSetProcessorTest extends Specification {
 		1 * jsoupParserMock.parse(RENDERED_CONTENT) >> document
 		1 * document.getElementsByClass(TradingCardSetProcessor.TRADING_CARD_SET_TABLE_CLASS) >> tradingCardSetTableCandidates
 		1 * document.getElementsByClass(TradingCardSetProcessor.TRADING_CARDS_TABLE_CLASS) >> tradingCardsTableCandidates
-		1 * tradingCardSetTableProcessorMock.process(tradingCardSetTable) >> tradingCardSet
+		1 * tradingCardSetTableProcessorMock.process(tradingCardSetTable) >> tradingCardDeck
 		1 * uidGeneratorMock.generateForTradingCardSet(ID) >> UID
-		1 * tradingCardsTablesProcessorMock.process(tradingCardsTableCandidates) >> Sets.newHashSet(tradingCard1, tradingCard2)
+		1 * tradingCardsTablesProcessorMock.process(tradingCardsTableCandidates) >> Sets.newHashSet(tradingCardDeck1, tradingCardDeck2)
+		1 * tradingCardSetLinkerMock.linkAll(_)
 		0 * _
-		tradingCardSetOutput.tradingCards.size() == 2
-		tradingCardSetOutput.tradingCards.contains tradingCard1
-		tradingCardSetOutput.tradingCards.contains tradingCard2
+		tradingCardSetOutput.tradingCardDecks.size() == 2
+		tradingCardSetOutput.tradingCardDecks.contains tradingCardDeck1
+		tradingCardSetOutput.tradingCardDecks.contains tradingCardDeck2
 	}
 
 	void "when trading card set table is not found, but trading cards tabled is found, nothing happens"() {

@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.trading_card.creation.processor;
 
 import com.cezarykluczynski.stapi.etl.common.service.JsoupParser;
 import com.cezarykluczynski.stapi.etl.trading_card.creation.service.TradingCardSetFilter;
+import com.cezarykluczynski.stapi.etl.trading_card.creation.service.TradingCardSetLinker;
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet;
 import com.cezarykluczynski.stapi.sources.wordpress.dto.Page;
@@ -30,15 +31,18 @@ public class TradingCardSetProcessor implements ItemProcessor<Page, TradingCardS
 
 	private final UidGenerator uidGenerator;
 
+	private final TradingCardSetLinker tradingCardSetLinker;
+
 	@Inject
 	public TradingCardSetProcessor(TradingCardSetFilter tradingCardSetFilter, JsoupParser jsoupParser,
 			TradingCardSetTableProcessor tradingCardSetTableProcessor, TradingCardsTablesProcessor tradingCardsTablesProcessor,
-			UidGenerator uidGenerator) {
+			UidGenerator uidGenerator, TradingCardSetLinker tradingCardSetLinker) {
 		this.tradingCardSetFilter = tradingCardSetFilter;
 		this.jsoupParser = jsoupParser;
 		this.tradingCardSetTableProcessor = tradingCardSetTableProcessor;
 		this.tradingCardsTablesProcessor = tradingCardsTablesProcessor;
 		this.uidGenerator = uidGenerator;
+		this.tradingCardSetLinker = tradingCardSetLinker;
 	}
 
 	@Override
@@ -68,7 +72,8 @@ public class TradingCardSetProcessor implements ItemProcessor<Page, TradingCardS
 		int tradingCardsTableCandidatesSize = tradingCardsTableCandidates.size();
 
 		if (tradingCardsTableCandidatesSize == 1 && tradingCardSet != null) {
-			tradingCardSet.getTradingCards().addAll(tradingCardsTablesProcessor.process(tradingCardsTableCandidates));
+			tradingCardSet.getTradingCardDecks().addAll(tradingCardsTablesProcessor.process(tradingCardsTableCandidates));
+			tradingCardSetLinker.linkAll(tradingCardSet);
 		} else {
 			if (tradingCardsTableCandidatesSize != 1) {
 				log.warn("Expected to find one table with cards on page {}, but found {}", title, tradingCardsTableCandidatesSize);

@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.trading_card.creation.processor;
 
 import com.cezarykluczynski.stapi.etl.trading_card.creation.service.TradingCardTableFilter;
-import com.cezarykluczynski.stapi.model.trading_card.entity.TradingCard;
+import com.cezarykluczynski.stapi.model.trading_card_deck.entity.TradingCardDeck;
 import com.google.common.collect.Sets;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -12,24 +12,24 @@ import javax.inject.Inject;
 import java.util.Set;
 
 @Service
-public class TradingCardsTablesProcessor implements ItemProcessor<Elements, Set<TradingCard>> {
+public class TradingCardsTablesProcessor implements ItemProcessor<Elements, Set<TradingCardDeck>> {
 
 	private final TradingCardTableFilter tradingCardTableFilter;
 
-	private final TradingCardsTableProcessor tradingCardsTableProcessor;
+	private final TradingCardDecksTableProcessor tradingCardDecksTableProcessor;
 
 	@Inject
-	public TradingCardsTablesProcessor(TradingCardTableFilter tradingCardTableFilter, TradingCardsTableProcessor tradingCardsTableProcessor) {
+	public TradingCardsTablesProcessor(TradingCardTableFilter tradingCardTableFilter, TradingCardDecksTableProcessor tradingCardDecksTableProcessor) {
 		this.tradingCardTableFilter = tradingCardTableFilter;
-		this.tradingCardsTableProcessor = tradingCardsTableProcessor;
+		this.tradingCardDecksTableProcessor = tradingCardDecksTableProcessor;
 	}
 
 	@Override
-	public Set<TradingCard> process(Elements item) throws Exception {
-		Set<TradingCard> tradingCardSet = Sets.newHashSet();
+	public Set<TradingCardDeck> process(Elements item) throws Exception {
+		Set<TradingCardDeck> tradingCardDeckSet = Sets.newHashSet();
 
 		if (item.isEmpty()) {
-			return tradingCardSet;
+			return tradingCardDeckSet;
 		}
 
 		for (Element element : item) {
@@ -37,10 +37,10 @@ public class TradingCardsTablesProcessor implements ItemProcessor<Elements, Set<
 				continue;
 			}
 
-			tradingCardSet.addAll(tradingCardsTableProcessor.process(element));
+			tradingCardDeckSet.addAll(tradingCardDecksTableProcessor.process(element));
 		}
 
-		return tradingCardSet;
+		return tradingCardDeckSet;
 	}
 
 }
