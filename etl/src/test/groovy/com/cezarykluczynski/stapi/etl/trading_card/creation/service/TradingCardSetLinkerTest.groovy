@@ -1,17 +1,25 @@
 package com.cezarykluczynski.stapi.etl.trading_card.creation.service
 
+import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.trading_card.entity.TradingCard
 import com.cezarykluczynski.stapi.model.trading_card_deck.entity.TradingCardDeck
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet
+import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import spock.lang.Specification
 
 class TradingCardSetLinkerTest extends Specification {
 
+	private static final String UID1 = 'UID1'
+	private static final String UID2 = 'UID2'
+
+	private UidGenerator uidGeneratorMock
+
 	private TradingCardSetLinker tradingCardSetLinker
 
 	void setup() {
-		tradingCardSetLinker = new TradingCardSetLinker()
+		uidGeneratorMock = Mock()
+		tradingCardSetLinker = new TradingCardSetLinker(uidGeneratorMock)
 	}
 
 	void "when trading card set table and trading cards tabled are found, and TradingCardsSet with cards is returned"() {
@@ -28,10 +36,12 @@ class TradingCardSetLinkerTest extends Specification {
 		tradingCardSetLinker.linkAll(tradingCardSet)
 
 		then:
+		1 * uidGeneratorMock.generateForTradingCardDeck(tradingCardSet, 1) >> UID1
+		1 * uidGeneratorMock.generateForTradingCardDeck(tradingCardSet, 2) >> UID2
 		0 * _
 		tradingCardSet.tradingCardDecks.size() == 2
-		tradingCardSet.tradingCardDecks.contains tradingCardDeck1
-		tradingCardSet.tradingCardDecks.contains tradingCardDeck2
+		Lists.newArrayList(tradingCardSet.tradingCardDecks).contains tradingCardDeck1
+		Lists.newArrayList(tradingCardSet.tradingCardDecks).contains tradingCardDeck2
 		tradingCardDeck1.tradingCardSet == tradingCardSet
 		tradingCardDeck2.tradingCardSet == tradingCardSet
 		tradingCard1.tradingCardSet == tradingCardSet

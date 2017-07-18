@@ -51,11 +51,13 @@ public class TradingCardDeck {
 
 	private String name;
 
+	private String frequency;
+
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "trading_card_set_id")
 	private TradingCardSet tradingCardSet;
 
-	@OneToMany(mappedBy = "tradingCardDeck", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "tradingCardDeck", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<TradingCard> tradingCards = Sets.newHashSet();
 

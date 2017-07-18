@@ -85,11 +85,11 @@ public class TradingCardSet {
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Company> manufacturers = Sets.newHashSet();
 
-	@OneToMany(mappedBy = "tradingCardSet", fetch = FetchType.LAZY, targetEntity = TradingCard.class)
+	@OneToMany(mappedBy = "tradingCardSet", fetch = FetchType.LAZY, targetEntity = TradingCard.class, cascade = CascadeType.ALL)
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<TradingCard> tradingCards = Sets.newHashSet();
 
-	@OneToMany(mappedBy = "tradingCardSet", fetch = FetchType.LAZY, targetEntity = TradingCardDeck.class)
+	@OneToMany(mappedBy = "tradingCardSet", fetch = FetchType.LAZY, targetEntity = TradingCardDeck.class, cascade = CascadeType.ALL)
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<TradingCardDeck> tradingCardDecks = Sets.newHashSet();
 

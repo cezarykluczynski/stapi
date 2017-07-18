@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.model.page.entity.PageAware
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.model.reference.entity.enums.ReferenceType
 import com.cezarykluczynski.stapi.model.series.entity.Series
+import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import com.google.common.collect.Maps
 import org.apache.commons.lang3.tuple.Pair
@@ -76,15 +77,15 @@ class UidGeneratorTest extends Specification {
 	@Unroll('when #page and #clazz is passed, #uid is generated')
 	void "when Page entity and it's base class is passed, valid UID is generated"() {
 		expect:
-		uid == uidGenerator.generateFromPage(page, clazz)
+		uidGenerator.generateFromPage(page, clazz) == uid
 
 		where:
-		uid              | page                                                                        | clazz
-		'CHMA0000000012' | new Page(pageId: 12L, mediaWikiSource: MediaWikiSource.MEMORY_ALPHA_EN)     | Character
-		'SEMA0000023421' | new Page(pageId: 23421L, mediaWikiSource: MediaWikiSource.MEMORY_ALPHA_EN)  | Series
-		'CHMB0000000876' | new Page(pageId: 876L, mediaWikiSource: MediaWikiSource.MEMORY_BETA_EN)     | Character
-		'SEMB0000006543' | new Page(pageId: 6543L, mediaWikiSource: MediaWikiSource.MEMORY_BETA_EN)    | Series
-		'CSMA0000987654' | new Page(pageId: 987654L, mediaWikiSource: MediaWikiSource.MEMORY_ALPHA_EN) | ComicSeries
+		page                                                                        | clazz       | uid
+		new Page(pageId: 12L, mediaWikiSource: MediaWikiSource.MEMORY_ALPHA_EN)     | Character   | 'CHMA0000000012'
+		new Page(pageId: 23421L, mediaWikiSource: MediaWikiSource.MEMORY_ALPHA_EN)  | Series      | 'SEMA0000023421'
+		new Page(pageId: 876L, mediaWikiSource: MediaWikiSource.MEMORY_BETA_EN)     | Character   | 'CHMB0000000876'
+		new Page(pageId: 6543L, mediaWikiSource: MediaWikiSource.MEMORY_BETA_EN)    | Series      | 'SEMB0000006543'
+		new Page(pageId: 987654L, mediaWikiSource: MediaWikiSource.MEMORY_ALPHA_EN) | ComicSeries | 'CSMA0000987654'
 	}
 
 	void "throws exception when there is no mappings available for given class"() {
@@ -126,7 +127,7 @@ class UidGeneratorTest extends Specification {
 	@Unroll('when pair of #referenceType and #referenceNumber if passed, #uid is returned')
 	void "when pair of ReferenceType and reference number is passed, it is converted to uid"() {
 		expect:
-		uid == uidGenerator.generateForReference(Pair.of(referenceType, referenceNumber))
+		uidGenerator.generateForReference(Pair.of(referenceType, referenceNumber)) == uid
 
 		where:
 		referenceType      | referenceNumber     | uid
@@ -163,7 +164,7 @@ class UidGeneratorTest extends Specification {
 	@Unroll('when #contentRatingSystem and #rating is passed, #uid is returned')
 	void "when ContentRatingSystem and rating is passed, it is converted to uid"() {
 		expect:
-		uid == uidGenerator.generateForContentRating(contentRatingSystem, rating)
+		uidGenerator.generateForContentRating(contentRatingSystem, rating) == uid
 
 		where:
 		contentRatingSystem      | rating     | uid
@@ -181,7 +182,7 @@ class UidGeneratorTest extends Specification {
 	@Unroll('when #iso639_1Code is passed, #uid is returned')
 	void "when ISO 693-1 code is passed, it is converted to uid"() {
 		expect:
-		uid == uidGenerator.generateForContentLanguage(iso639_1Code)
+		uidGenerator.generateForContentLanguage(iso639_1Code) == uid
 
 		where:
 		iso639_1Code | uid
@@ -198,13 +199,25 @@ class UidGeneratorTest extends Specification {
 	@Unroll('when #id is passed, #uid is returned for TradingCardSet')
 	void "when id is passed, it is converted to uid for TradingCardSet"() {
 		expect:
-		uid == uidGenerator.generateForTradingCardSet(id)
+		uidGenerator.generateForTradingCardSet(id) == uid
 
 		where:
 		id     | uid
 		null   | null
 		1      | 'TCS00000000001'
 		123456 | 'TCS00000123456'
+	}
+
+	@Unroll('when #tradingCardSet and #id is passed, #uid is returned')
+	void "when trading card deck UID is passed, trading card deck uid is returned"() {
+		expect:
+		uidGenerator.generateForTradingCardDeck(tradingCardSet, id) == uid
+
+		where:
+		tradingCardSet                            | id | uid
+		new TradingCardSet(uid: 'TCS00000000001') | 0  | 'TCD00000000100'
+		new TradingCardSet(uid: 'TCS00000123456') | 1  | 'TCD00012345601'
+		new TradingCardSet(uid: 'TCS00000123456') | 86 | 'TCD00012345686'
 	}
 
 }

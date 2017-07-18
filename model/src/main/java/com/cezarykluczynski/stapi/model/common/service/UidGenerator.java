@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.page.entity.Page;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.model.reference.entity.enums.ReferenceType;
+import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
@@ -133,6 +134,11 @@ public class UidGenerator {
 
 	public String generateForTradingCardSet(Long item) {
 		return item == null ? null : "TCS" + StringUtils.leftPad(String.valueOf(item), 11, ZERO);
+	}
+
+	public String generateForTradingCardDeck(TradingCardSet tradingCardSet, int index) {
+		String uid = tradingCardSet.getUid();
+		return "TCD" + uid.substring(5) + StringUtils.leftPad(String.valueOf(index), 2, ZERO);
 	}
 
 }

@@ -1,6 +1,5 @@
 package com.cezarykluczynski.stapi.etl.trading_card.creation.processor;
 
-import com.cezarykluczynski.stapi.etl.trading_card.creation.service.TradingCardTableFilter;
 import com.cezarykluczynski.stapi.model.trading_card_deck.entity.TradingCardDeck;
 import com.google.common.collect.Sets;
 import org.jsoup.nodes.Element;
@@ -14,13 +13,10 @@ import java.util.Set;
 @Service
 public class TradingCardsTablesProcessor implements ItemProcessor<Elements, Set<TradingCardDeck>> {
 
-	private final TradingCardTableFilter tradingCardTableFilter;
-
 	private final TradingCardDecksTableProcessor tradingCardDecksTableProcessor;
 
 	@Inject
-	public TradingCardsTablesProcessor(TradingCardTableFilter tradingCardTableFilter, TradingCardDecksTableProcessor tradingCardDecksTableProcessor) {
-		this.tradingCardTableFilter = tradingCardTableFilter;
+	public TradingCardsTablesProcessor(TradingCardDecksTableProcessor tradingCardDecksTableProcessor) {
 		this.tradingCardDecksTableProcessor = tradingCardDecksTableProcessor;
 	}
 
@@ -33,10 +29,6 @@ public class TradingCardsTablesProcessor implements ItemProcessor<Elements, Set<
 		}
 
 		for (Element element : item) {
-			if (tradingCardTableFilter.isNonCardTable(element)) {
-				continue;
-			}
-
 			tradingCardDeckSet.addAll(tradingCardDecksTableProcessor.process(element));
 		}
 
