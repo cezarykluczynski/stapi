@@ -16,7 +16,8 @@ import spock.lang.Specification
 class TradingCardSetProcessorTest extends Specification {
 
 	private static final Long ID = 1L
-	private static final String RENDERED_TITLE = 'RENDERED_TITLE'
+	private static final String RENDERED_TITLE_UNESCAPED = 'RENDERED &#038; &#8217; TITLE'
+	private static final String RENDERED_TITLE_ESCAPED = 'RENDERED & ’ TITLE'
 	private static final String RENDERED_CONTENT = 'RENDERED_CONTENT'
 	private static final String UID = 'UID'
 
@@ -62,7 +63,7 @@ class TradingCardSetProcessorTest extends Specification {
 		given:
 		Page page = new Page(
 				id: ID,
-				renderedTitle: RENDERED_TITLE,
+				renderedTitle: RENDERED_TITLE_UNESCAPED,
 				renderedContent: RENDERED_CONTENT)
 		Document document = Mock()
 		Element tradingCardSetTable = Mock()
@@ -82,7 +83,7 @@ class TradingCardSetProcessorTest extends Specification {
 		1 * uidGeneratorMock.generateForTradingCardSet(ID) >> UID
 		0 * _
 		tradingCardSetOutput == tradingCardSet
-		tradingCardSetOutput.name == RENDERED_TITLE
+		tradingCardSetOutput.name == RENDERED_TITLE_ESCAPED
 		tradingCardSetOutput.uid == UID
 	}
 
@@ -90,7 +91,7 @@ class TradingCardSetProcessorTest extends Specification {
 		given:
 		Page page = new Page(
 				id: ID,
-				renderedTitle: RENDERED_TITLE,
+				renderedTitle: RENDERED_TITLE_UNESCAPED,
 				renderedContent: RENDERED_CONTENT)
 		Document document = Mock()
 		Element tradingCardSetTable = Mock()
@@ -122,7 +123,7 @@ class TradingCardSetProcessorTest extends Specification {
 	void "when trading card set table is not found, but trading cards tabled is found, nothing happens"() {
 		given:
 		Page page = new Page(
-				renderedTitle: RENDERED_TITLE,
+				renderedTitle: RENDERED_TITLE_UNESCAPED,
 				renderedContent: RENDERED_CONTENT)
 		Document document = Mock()
 		Element tradingCardsTable = Mock()

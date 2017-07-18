@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet;
 import com.cezarykluczynski.stapi.sources.wordpress.dto.Page;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.batch.item.ItemProcessor;
@@ -62,7 +63,7 @@ public class TradingCardSetProcessor implements ItemProcessor<Page, TradingCardS
 		if (tradingCardSetTableCandidates.size() == 1) {
 			tradingCardSet = tradingCardSetTableProcessor.process(tradingCardSetTableCandidates.first());
 			if (tradingCardSet != null) {
-				tradingCardSet.setName(title);
+				tradingCardSet.setName(StringEscapeUtils.unescapeHtml4(title));
 				tradingCardSet.setUid(uidGenerator.generateForTradingCardSet(item.getId()));
 			}
 		} else {
