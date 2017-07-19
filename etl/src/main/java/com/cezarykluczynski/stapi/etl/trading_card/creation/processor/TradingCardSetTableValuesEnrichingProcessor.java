@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.etl.trading_card.creation.dto.CardSizeDTO;
 import com.cezarykluczynski.stapi.etl.trading_card.creation.dto.ProductionRunDTO;
 import com.cezarykluczynski.stapi.etl.trading_card.creation.dto.TradingCarSetHeaderValuePair;
 import com.cezarykluczynski.stapi.etl.trading_card.creation.dto.TradingCardSetTableHeader;
+import com.cezarykluczynski.stapi.etl.trading_card.creation.dto.TradingCardSetValueWithName;
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -56,6 +57,7 @@ public class TradingCardSetTableValuesEnrichingProcessor
 		String key = enrichablePair.getInput().getHeaderText();
 		String value = enrichablePair.getInput().getValueText();
 		TradingCardSet tradingCardSet = enrichablePair.getOutput();
+		String name = tradingCardSet.getName();
 
 		switch(key) {
 			case TradingCardSetTableHeader.RELEASED:
@@ -76,7 +78,7 @@ public class TradingCardSetTableValuesEnrichingProcessor
 				tradingCardSet.setBoxesPerCase(boxesPerCaseProcessor.process(value));
 				break;
 			case TradingCardSetTableHeader.PRODUCTION_RUN:
-				ProductionRunDTO productionRunDTO = productionRunProcessor.process(value);
+				ProductionRunDTO productionRunDTO = productionRunProcessor.process(TradingCardSetValueWithName.of(value, name));
 				if (productionRunDTO != null) {
 					tradingCardSet.setProductionRun(productionRunDTO.getProductionRun());
 					tradingCardSet.setProductionRunUnit(productionRunDTO.getProductionRunUnit());

@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.etl.trading_card.creation.dto.CardSizeDTO
 import com.cezarykluczynski.stapi.etl.trading_card.creation.dto.ProductionRunDTO
 import com.cezarykluczynski.stapi.etl.trading_card.creation.dto.TradingCarSetHeaderValuePair
 import com.cezarykluczynski.stapi.etl.trading_card.creation.dto.TradingCardSetTableHeader
+import com.cezarykluczynski.stapi.etl.trading_card.creation.dto.TradingCardSetValueWithName
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.country.entity.Country
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet
@@ -17,6 +18,7 @@ import spock.lang.Specification
 
 class TradingCardSetTableValuesEnrichingProcessorTest extends Specification {
 
+	private static final String NAME = 'NAME'
 	private static final String RELEASED = 'RELEASED'
 	private static final String CARDS_PER_PACK = 'CARDS_PER_PACK'
 	private static final String PACKS_PER_BOX = 'PACKS_PER_BOX'
@@ -160,14 +162,14 @@ class TradingCardSetTableValuesEnrichingProcessorTest extends Specification {
 		TradingCarSetHeaderValuePair tradingCarSetHeaderValuePair = new TradingCarSetHeaderValuePair(
 				headerText: TradingCardSetTableHeader.PRODUCTION_RUN,
 				valueText: PRODUCTION_RUN)
-		TradingCardSet tradingCardSet = new TradingCardSet()
+		TradingCardSet tradingCardSet = new TradingCardSet(name: NAME)
 		ProductionRunDTO productionRunDTO = ProductionRunDTO.of(PRODUCTION_RUN_INTEGER, PRODUCTION_RUN_UNIT)
 
 		when:
 		tradingCardSetTableValuesEnrichingProcessor.enrich(EnrichablePair.of(tradingCarSetHeaderValuePair, tradingCardSet))
 
 		then:
-		1 * productionRunProcessorMock.process(PRODUCTION_RUN) >> productionRunDTO
+		1 * productionRunProcessorMock.process(TradingCardSetValueWithName.of(PRODUCTION_RUN, NAME)) >> productionRunDTO
 		0 * _
 		tradingCardSet.productionRun == PRODUCTION_RUN_INTEGER
 		tradingCardSet.productionRunUnit == PRODUCTION_RUN_UNIT
@@ -178,13 +180,13 @@ class TradingCardSetTableValuesEnrichingProcessorTest extends Specification {
 		TradingCarSetHeaderValuePair tradingCarSetHeaderValuePair = new TradingCarSetHeaderValuePair(
 				headerText: TradingCardSetTableHeader.PRODUCTION_RUN,
 				valueText: PRODUCTION_RUN)
-		TradingCardSet tradingCardSet = new TradingCardSet()
+		TradingCardSet tradingCardSet = new TradingCardSet(name: NAME)
 
 		when:
 		tradingCardSetTableValuesEnrichingProcessor.enrich(EnrichablePair.of(tradingCarSetHeaderValuePair, tradingCardSet))
 
 		then:
-		1 * productionRunProcessorMock.process(PRODUCTION_RUN) >> null
+		1 * productionRunProcessorMock.process(TradingCardSetValueWithName.of(PRODUCTION_RUN, NAME)) >> null
 		0 * _
 		tradingCardSet.productionRun == null
 		tradingCardSet.productionRunUnit == null

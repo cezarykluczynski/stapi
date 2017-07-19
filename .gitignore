@@ -1,6 +1,7 @@
 .gradle
 .idea
 build/
+out/
 logs/
 server/src/main/resources/application-*.properties
 model/**/*_.java
