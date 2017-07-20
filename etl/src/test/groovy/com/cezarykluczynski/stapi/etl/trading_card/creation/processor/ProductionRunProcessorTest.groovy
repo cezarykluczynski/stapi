@@ -4,7 +4,6 @@ import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder
 import com.cezarykluczynski.stapi.etl.trading_card.creation.dto.ProductionRunDTO
 import com.cezarykluczynski.stapi.etl.trading_card.creation.dto.TradingCardSetValueWithName
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.enums.ProductionRunUnit
-import spock.lang.Ignore
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -43,7 +42,6 @@ class ProductionRunProcessorTest extends Specification {
 		productionRunDTOOutput == productionRunDTO
 	}
 
-	@Ignore
 	@Unroll('when #input is passed, #output is returned')
 	void "when string candidate is passed, ProductionRunDTO is returned"() {
 		given:
