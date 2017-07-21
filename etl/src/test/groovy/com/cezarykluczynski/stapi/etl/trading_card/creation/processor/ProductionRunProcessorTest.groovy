@@ -52,6 +52,7 @@ class ProductionRunProcessorTest extends Specification {
 
 		where:
 		input                                                                               | output
+		null                                                                                | null
 		TradingCardSetValueWithName.of('Unknown Unknown', TITLE)                            | null
 		TradingCardSetValueWithName.of('Various', TITLE)                                    | null
 		TradingCardSetValueWithName.of('Unlimited', TITLE)                                  | null
