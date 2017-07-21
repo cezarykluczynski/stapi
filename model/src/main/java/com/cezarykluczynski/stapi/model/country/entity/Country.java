@@ -42,6 +42,6 @@ public class Country {
 
 	@SuppressWarnings("MemberName")
 	@Column(name = "iso_3166_1_alpha_2_code")
-	private String iso3166_1Alpha_2Code;
+	private String iso31661Alpha2Code;
 
 }

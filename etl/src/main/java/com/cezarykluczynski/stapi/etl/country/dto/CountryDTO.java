@@ -7,8 +7,8 @@ import lombok.Data;
 @AllArgsConstructor(staticName = "of")
 public class CountryDTO {
 
-	public String name;
+	private String name;
 
-	public String code;
+	private String code;
 
 }

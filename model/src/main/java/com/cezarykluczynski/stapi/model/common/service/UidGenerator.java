@@ -141,4 +141,12 @@ public class UidGenerator {
 		return "TCD" + uid.substring(5) + StringUtils.leftPad(String.valueOf(index), 2, ZERO);
 	}
 
+	public String generateForCountry(String iso3166_1Alpha_2Code) {
+		if (StringUtils.isEmpty(iso3166_1Alpha_2Code) || iso3166_1Alpha_2Code.length() != 2) {
+			return null;
+		}
+
+		return "CU0000000000" + StringUtils.upperCase(iso3166_1Alpha_2Code);
+	}
+
 }

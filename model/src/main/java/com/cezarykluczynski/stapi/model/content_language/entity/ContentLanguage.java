@@ -41,6 +41,6 @@ public class ContentLanguage {
 	private String name;
 
 	@Column(name = "iso_639_1_code")
-	private String iso639_1Code;
+	private String iso6391Code;
 
 }

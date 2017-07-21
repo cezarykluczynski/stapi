@@ -22,7 +22,7 @@ class ContentLanguageRestMapperTest extends Specification {
 		ContentLanguage contentLanguage = new ContentLanguage(
 				uid: UID,
 				name: NAME,
-				iso639_1Code: CODE)
+				iso6391Code: CODE)
 
 		when:
 		RestContentLanguage restContentRating = contentLanguageRestMapper.map(contentLanguage)

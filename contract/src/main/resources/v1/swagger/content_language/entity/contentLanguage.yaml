@@ -7,6 +7,6 @@ properties:
   name:
     type: string
     description: Language name
-  iso639_1Code:
+  iso6391Code:
     type: string
     description: ISO 639-1 code

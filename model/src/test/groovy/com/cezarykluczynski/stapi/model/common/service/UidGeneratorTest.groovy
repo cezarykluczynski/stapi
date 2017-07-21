@@ -220,4 +220,21 @@ class UidGeneratorTest extends Specification {
 		new TradingCardSet(uid: 'TCS00000123456') | 86 | 'TCD00012345686'
 	}
 
+	@Unroll('when #iso3166_1Alpha_2Code is passed, #uid is returned')
+	void "when ISO 3166-1 alpha-2 code is passed, it is converted to uid"() {
+		expect:
+		uidGenerator.generateForCountry(iso3166_1Alpha_2Code) == uid
+
+		where:
+		iso3166_1Alpha_2Code | uid
+		null         | null
+		''           | null
+		'A'          | null
+		'BBB'        | null
+		'GB'         | 'CU0000000000GB'
+		'GB'         | 'CU0000000000GB'
+		'pl'         | 'CU0000000000PL'
+		'PL'         | 'CU0000000000PL'
+	}
+
 }

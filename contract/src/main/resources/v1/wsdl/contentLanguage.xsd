@@ -18,7 +18,7 @@
 					<xs:documentation>Language name</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="iso639_1Code" type="xs:string">
+			<xs:element name="iso6391Code" type="xs:string">
 				<xs:annotation>
 					<xs:documentation>ISO 639-1 code</xs:documentation>
 				</xs:annotation>

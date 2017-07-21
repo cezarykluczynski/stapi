@@ -53,13 +53,13 @@ class ContentLanguageFactoryTest extends Specification {
 		1 * uidGeneratorMock.generateForContentLanguage(CODE) >> UID
 		1 * contentLanguageRepositoryMock.save(_ as ContentLanguage) >> { ContentLanguage contentLanguageInput ->
 			assert contentLanguageInput.name == NAME
-			assert contentLanguageInput.iso639_1Code == CODE
+			assert contentLanguageInput.iso6391Code == CODE
 			assert contentLanguageInput.uid == UID
 		}
 		0 * _
 		contentLanguageOptional.isPresent()
 		contentLanguageOptional.get().name == NAME
-		contentLanguageOptional.get().iso639_1Code == CODE
+		contentLanguageOptional.get().iso6391Code == CODE
 		contentLanguageOptional.get().uid == UID
 	}
 

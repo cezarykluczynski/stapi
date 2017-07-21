@@ -46,7 +46,7 @@ public class ContentLanguageFactory {
 
 		ContentLanguage contentLanguage = new ContentLanguage();
 		contentLanguage.setName(contentLanguageDTO.getName());
-		contentLanguage.setIso639_1Code(contentLanguageDTO.getCode());
+		contentLanguage.setIso6391Code(contentLanguageDTO.getCode());
 		contentLanguage.setUid(uidGenerator.generateForContentLanguage(contentLanguageDTO.getCode()));
 		contentLanguageRepository.save(contentLanguage);
 		return Optional.of(contentLanguage);
