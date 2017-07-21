@@ -40,11 +40,7 @@ class TradingCardSetTableValuesEnrichingProcessorTest extends Specification {
 
 	private TextToDayMonthYearProcessor textToDayMonthYearProcessorMock
 
-	private CardsPerPackProcessor cardsPerPackProcessorMock
-
-	private PacksPerBoxProcessor packsPerBoxProcessorMock
-
-	private BoxesPerCaseProcessor boxesPerCaseProcessorMock
+	private TradingCardSetItemsProcessor tradingCardSetItemsProcessorMock
 
 	private ProductionRunProcessor productionRunProcessorMock
 
@@ -58,16 +54,14 @@ class TradingCardSetTableValuesEnrichingProcessorTest extends Specification {
 
 	void setup() {
 		textToDayMonthYearProcessorMock = Mock()
-		cardsPerPackProcessorMock = Mock()
-		packsPerBoxProcessorMock = Mock()
-		boxesPerCaseProcessorMock = Mock()
+		tradingCardSetItemsProcessorMock = Mock()
 		productionRunProcessorMock = Mock()
 		cardSizeProcessorMock = Mock()
 		textToCompaniesProcessorMock = Mock()
 		tradingCardSetCountiesProcessorMock = Mock()
 		tradingCardSetTableValuesEnrichingProcessor = new TradingCardSetTableValuesEnrichingProcessor(textToDayMonthYearProcessorMock,
-				cardsPerPackProcessorMock, packsPerBoxProcessorMock, boxesPerCaseProcessorMock, productionRunProcessorMock, cardSizeProcessorMock,
-				textToCompaniesProcessorMock, tradingCardSetCountiesProcessorMock)
+				tradingCardSetItemsProcessorMock, productionRunProcessorMock, cardSizeProcessorMock, textToCompaniesProcessorMock,
+				tradingCardSetCountiesProcessorMock)
 	}
 
 	void "sets release date from TextToDayMonthYearProcessor when it returns DayMonthYear, when released pair is found"() {
@@ -89,7 +83,7 @@ class TradingCardSetTableValuesEnrichingProcessorTest extends Specification {
 		tradingCardSet.releaseYear == YEAR
 	}
 
-	void "sets cards per pack from CardsPerPackProcessor when cards per pack pair is found"() {
+	void "sets cards per pack from TradingCardSetItemsProcessor when cards per pack pair is found"() {
 		given:
 		TradingCarSetHeaderValuePair tradingCarSetHeaderValuePair = new TradingCarSetHeaderValuePair(
 				headerText: TradingCardSetTableHeader.CARDS_PER_PACK,
@@ -100,7 +94,7 @@ class TradingCardSetTableValuesEnrichingProcessorTest extends Specification {
 		tradingCardSetTableValuesEnrichingProcessor.enrich(EnrichablePair.of(tradingCarSetHeaderValuePair, tradingCardSet))
 
 		then:
-		1 * cardsPerPackProcessorMock.process(CARDS_PER_PACK) >> CARDS_PER_PACK_INTEGER
+		1 * tradingCardSetItemsProcessorMock.process(CARDS_PER_PACK) >> CARDS_PER_PACK_INTEGER
 		0 * _
 		tradingCardSet.cardsPerPack == CARDS_PER_PACK_INTEGER
 	}
@@ -116,12 +110,12 @@ class TradingCardSetTableValuesEnrichingProcessorTest extends Specification {
 		tradingCardSetTableValuesEnrichingProcessor.enrich(EnrichablePair.of(tradingCarSetHeaderValuePair, tradingCardSet))
 
 		then:
-		1 * packsPerBoxProcessorMock.process(PACKS_PER_BOX) >> PACKS_PER_BOX_INTEGER
+		1 * tradingCardSetItemsProcessorMock.process(PACKS_PER_BOX) >> PACKS_PER_BOX_INTEGER
 		0 * _
 		tradingCardSet.packsPerBox == PACKS_PER_BOX_INTEGER
 	}
 
-	void "sets boxes per case from BoxesPerCaseProcessor when boxes per case pair is found"() {
+	void "sets boxes per case from TradingCardSetItemsProcessor when boxes per case pair is found"() {
 		given:
 		TradingCarSetHeaderValuePair tradingCarSetHeaderValuePair = new TradingCarSetHeaderValuePair(
 				headerText: TradingCardSetTableHeader.BOXES_PER_CASE,
@@ -132,7 +126,7 @@ class TradingCardSetTableValuesEnrichingProcessorTest extends Specification {
 		tradingCardSetTableValuesEnrichingProcessor.enrich(EnrichablePair.of(tradingCarSetHeaderValuePair, tradingCardSet))
 
 		then:
-		1 * boxesPerCaseProcessorMock.process(BOXES_PER_CASE) >> BOXES_PER_CASE_INTEGER
+		1 * tradingCardSetItemsProcessorMock.process(BOXES_PER_CASE) >> BOXES_PER_CASE_INTEGER
 		0 * _
 		tradingCardSet.boxesPerCase == BOXES_PER_CASE_INTEGER
 	}

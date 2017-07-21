@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-public class PacksPerBoxProcessor implements ItemProcessor<String, Integer> {
+public class TradingCardSetItemsProcessor implements ItemProcessor<String, Integer> {
 
 	private static final Pattern SECTION_PATTERN = Pattern.compile("(\\d{1,3})\\s?(\\+\\s?\\d)?\\s?([^\\d]\\w+)?", Pattern.MULTILINE);
 	private static final List<String> LABEL_PRIORITIZED = Lists.newArrayList("Retail", "Blockbuster", "Wal-Mart", "Walmart", "Hobby");

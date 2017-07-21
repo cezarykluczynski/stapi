@@ -23,11 +23,7 @@ public class TradingCardSetTableValuesEnrichingProcessor
 
 	private final TextToDayMonthYearProcessor textToDayMonthYearProcessor;
 
-	private final CardsPerPackProcessor cardsPerPackProcessor;
-
-	private final PacksPerBoxProcessor packsPerBoxProcessor;
-
-	private final BoxesPerCaseProcessor boxesPerCaseProcessor;
+	private final TradingCardSetItemsProcessor tradingCardSetItemsProcessor;
 
 	private final ProductionRunProcessor productionRunProcessor;
 
@@ -39,13 +35,11 @@ public class TradingCardSetTableValuesEnrichingProcessor
 
 	@Inject
 	public TradingCardSetTableValuesEnrichingProcessor(TextToDayMonthYearProcessor textToDayMonthYearProcessor,
-			CardsPerPackProcessor cardsPerPackProcessor, PacksPerBoxProcessor packsPerBoxProcessor, BoxesPerCaseProcessor boxesPerCaseProcessor,
-			ProductionRunProcessor productionRunProcessor, CardSizeProcessor cardSizeProcessor, TextToCompaniesProcessor textToCompaniesProcessor,
+			TradingCardSetItemsProcessor tradingCardSetItemsProcessor, ProductionRunProcessor productionRunProcessor,
+			CardSizeProcessor cardSizeProcessor, TextToCompaniesProcessor textToCompaniesProcessor,
 			TradingCardSetCountiesProcessor tradingCardSetCountiesProcessor) {
 		this.textToDayMonthYearProcessor = textToDayMonthYearProcessor;
-		this.cardsPerPackProcessor = cardsPerPackProcessor;
-		this.packsPerBoxProcessor = packsPerBoxProcessor;
-		this.boxesPerCaseProcessor = boxesPerCaseProcessor;
+		this.tradingCardSetItemsProcessor = tradingCardSetItemsProcessor;
 		this.productionRunProcessor = productionRunProcessor;
 		this.cardSizeProcessor = cardSizeProcessor;
 		this.textToCompaniesProcessor = textToCompaniesProcessor;
@@ -69,13 +63,13 @@ public class TradingCardSetTableValuesEnrichingProcessor
 				}
 				break;
 			case TradingCardSetTableHeader.CARDS_PER_PACK:
-				tradingCardSet.setCardsPerPack(cardsPerPackProcessor.process(value));
+				tradingCardSet.setCardsPerPack(tradingCardSetItemsProcessor.process(value));
 				break;
 			case TradingCardSetTableHeader.PACKS_PER_BOX:
-				tradingCardSet.setPacksPerBox(packsPerBoxProcessor.process(value));
+				tradingCardSet.setPacksPerBox(tradingCardSetItemsProcessor.process(value));
 				break;
 			case TradingCardSetTableHeader.BOXES_PER_CASE:
-				tradingCardSet.setBoxesPerCase(boxesPerCaseProcessor.process(value));
+				tradingCardSet.setBoxesPerCase(tradingCardSetItemsProcessor.process(value));
 				break;
 			case TradingCardSetTableHeader.PRODUCTION_RUN:
 				ProductionRunDTO productionRunDTO = productionRunProcessor.process(TradingCardSetValueWithName.of(value, name));
