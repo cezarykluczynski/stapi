@@ -2,9 +2,9 @@ package com.cezarykluczynski.stapi.etl.trading_card.creation.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.TextToDayMonthYearProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.company.TextToCompaniesProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear;
-import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.TextToDayMonthYearProcessor;
 import com.cezarykluczynski.stapi.etl.trading_card.creation.dto.CardSizeDTO;
 import com.cezarykluczynski.stapi.etl.trading_card.creation.dto.ProductionRunDTO;
 import com.cezarykluczynski.stapi.etl.trading_card.creation.dto.TradingCarSetHeaderValuePair;
@@ -53,7 +53,7 @@ public class TradingCardSetTableValuesEnrichingProcessor
 		TradingCardSet tradingCardSet = enrichablePair.getOutput();
 		String name = tradingCardSet.getName();
 
-		switch(key) {
+		switch (key) {
 			case TradingCardSetTableHeader.RELEASED:
 				DayMonthYear dayMonthYear = textToDayMonthYearProcessor.process(value);
 				if (dayMonthYear != null) {
