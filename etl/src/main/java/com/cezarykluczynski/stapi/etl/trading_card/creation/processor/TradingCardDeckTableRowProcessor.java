@@ -24,10 +24,14 @@ public class TradingCardDeckTableRowProcessor implements ItemProcessor<List<Elem
 
 	private final TradingCardTableFilter tradingCardTableFilter;
 
+	private final TradingCardsProcessor tradingCardsProcessor;
+
 	@Inject
-	public TradingCardDeckTableRowProcessor(ElementTextNodesProcessor elementTextNodesProcessor, TradingCardTableFilter tradingCardTableFilter) {
+	public TradingCardDeckTableRowProcessor(ElementTextNodesProcessor elementTextNodesProcessor, TradingCardTableFilter tradingCardTableFilter,
+			TradingCardsProcessor tradingCardsProcessor) {
 		this.tradingCardTableFilter = tradingCardTableFilter;
 		this.elementTextNodesProcessor = elementTextNodesProcessor;
+		this.tradingCardsProcessor = tradingCardsProcessor;
 	}
 
 	@Override
@@ -66,6 +70,8 @@ public class TradingCardDeckTableRowProcessor implements ItemProcessor<List<Elem
 		} else {
 			tradingCardDeck.setName(nameCandidate);
 		}
+
+		tradingCardDeck.getTradingCards().addAll(tradingCardsProcessor.process(item.subList(1, item.size())));
 
 		return tradingCardDeck;
 	}
