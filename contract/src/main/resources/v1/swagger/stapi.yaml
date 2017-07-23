@@ -101,6 +101,18 @@ paths:
     $ref: ./staff/path/staff.path.yaml
   /staff/search:
     $ref: ./staff/path/staffSearch.path.yaml
+  /tradingCard:
+    $ref: ./trading_card/path/tradingCard.path.yaml
+  /tradingCard/search:
+    $ref: ./trading_card/path/tradingCardSearch.path.yaml
+  /tradingCardDeck:
+    $ref: ./trading_card_deck/path/tradingCardDeck.path.yaml
+  /tradingCardDeck/search:
+    $ref: ./trading_card_deck/path/tradingCardDeckSearch.path.yaml
+  /tradingCardSet:
+    $ref: ./trading_card_set/path/tradingCardSet.path.yaml
+  /tradingCardSet/search:
+    $ref: ./trading_card_set/path/tradingCardSetSearch.path.yaml
   /videoRelease:
     $ref: ./video_release/path/videoRelease.path.yaml
   /videoRelease/search:
@@ -218,6 +230,8 @@ definitions:
     $ref: ./content_rating/entity/enum/contentRatingSystem.yaml
   ContentRating:
     $ref: ./content_rating/entity/contentRating.yaml
+  Country:
+    $ref: ./country/entity/country.yaml
   EpisodeHeader:
     $ref: ./episode/entity/episodeHeader.yaml
   EpisodeBase:
@@ -314,6 +328,8 @@ definitions:
     $ref: ./performer/entity/performerBaseResponse.yaml
   PerformerFullResponse:
     $ref: ./performer/entity/performerFullResponse.yaml
+  ProductionRunUnit:
+    $ref: ./trading_card_set/entity/enum/productionRunUnit.yaml
   Reference:
     $ref: ./reference/entity/reference.yaml
   ReferenceType:
@@ -366,6 +382,36 @@ definitions:
     $ref: ./staff/entity/staffBaseResponse.yaml
   StaffFullResponse:
     $ref: ./staff/entity/staffFullResponse.yaml
+  TradingCardHeader:
+    $ref: ./trading_card/entity/tradingCardHeader.yaml
+  TradingCardBase:
+    $ref: ./trading_card/entity/tradingCardBase.yaml
+  TradingCardFull:
+    $ref: ./trading_card/entity/tradingCardFull.yaml
+  TradingCardBaseResponse:
+    $ref: ./trading_card/entity/tradingCardBaseResponse.yaml
+  TradingCardFullResponse:
+    $ref: ./trading_card/entity/tradingCardFullResponse.yaml
+  TradingCardDeckHeader:
+    $ref: ./trading_card_deck/entity/tradingCardDeckHeader.yaml
+  TradingCardDeckBase:
+    $ref: ./trading_card_deck/entity/tradingCardDeckBase.yaml
+  TradingCardDeckFull:
+    $ref: ./trading_card_deck/entity/tradingCardDeckFull.yaml
+  TradingCardDeckBaseResponse:
+    $ref: ./trading_card_deck/entity/tradingCardDeckBaseResponse.yaml
+  TradingCardDeckFullResponse:
+    $ref: ./trading_card_deck/entity/tradingCardDeckFullResponse.yaml
+  TradingCardSetHeader:
+    $ref: ./trading_card_set/entity/tradingCardSetHeader.yaml
+  TradingCardSetBase:
+    $ref: ./trading_card_set/entity/tradingCardSetBase.yaml
+  TradingCardSetFull:
+    $ref: ./trading_card_set/entity/tradingCardSetFull.yaml
+  TradingCardSetBaseResponse:
+    $ref: ./trading_card_set/entity/tradingCardSetBaseResponse.yaml
+  TradingCardSetFullResponse:
+    $ref: ./trading_card_set/entity/tradingCardSetFullResponse.yaml
   VideoReleaseHeader:
     $ref: ./video_release/entity/videoReleaseHeader.yaml
   VideoReleaseBase:

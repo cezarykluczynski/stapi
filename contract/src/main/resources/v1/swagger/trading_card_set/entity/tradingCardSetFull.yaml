@@ -1,0 +1,63 @@
+type: object
+description: Full trading card set, returned when queried using UID
+properties:
+  uid:
+    type: string
+    required: true
+    description: Trading card set unique ID
+  name:
+    type: string
+    required: true
+    description: Trading card set name
+  releaseYear:
+    type: integer
+    description: Release year
+  releaseMonth:
+    type: integer
+    description: Release month
+  releaseDay:
+    type: integer
+    description: Release day
+  cardsPerDeck:
+    type: integer
+    description: Cards per deck
+  packsPerBox:
+    type: integer
+    description: Packs per box
+  boxesPerCase:
+    type: integer
+    description: Boxes per case
+  productionRun:
+    type: integer
+    description: Production run
+  productionRunUnit:
+    $ref: '#/definitions/VideoReleaseFormat'
+    description: Production run unit
+  cardWidth:
+    type: number
+    format: double
+    description: Card width, in inches
+  cardHeight:
+    type: number
+    format: double
+    description: Card height, in inches
+  manufacturers:
+    type: array
+    items:
+      $ref: '#/definitions/CompanyBase'
+    description: Manufacturers
+  tradingCardDecks:
+    type: array
+    items:
+      $ref: '#/definitions/TradingCardDeckBase'
+    description: Trading card decks in this set
+  tradingCards:
+    type: array
+    items:
+      $ref: '#/definitions/TradingCardBase'
+    description: Trading cards in this set
+  countriesOfOrigin:
+    type: array
+    items:
+      $ref: '#/definitions/Country'
+    description: Countries of origin

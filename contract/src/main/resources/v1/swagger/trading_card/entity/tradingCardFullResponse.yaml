@@ -1,0 +1,6 @@
+type: object
+description: Response object for single trading card query
+properties:
+  tradingCard:
+    $ref: '#/definitions/TradingCardFull'
+    description: Trading card, if found

@@ -1,0 +1,17 @@
+type: object
+description: Base trading card deck, returned in search results
+properties:
+  uid:
+    type: string
+    required: true
+    description: Trading card deck unique ID
+  name:
+    type: string
+    required: true
+    description: Trading card deck name
+  frequency:
+    type: string
+    description: "Frequency with which this deck occur in it's set"
+  tradingCardSet:
+    $ref: '#/definitions/TradingCardSetHeader'
+    description: Trading card set this deck belongs to

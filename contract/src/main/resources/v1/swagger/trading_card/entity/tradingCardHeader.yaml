@@ -1,0 +1,11 @@
+type: object
+description: Header trading card, embedded in other objects
+properties:
+  uid:
+    type: string
+    required: true
+    description: Trading card unique ID
+  name:
+    type: string
+    required: true
+    description: Trading card name

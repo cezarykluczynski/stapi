@@ -1,0 +1,14 @@
+type: object
+description: Response object for trading card decks search
+properties:
+  page:
+    $ref: '#/definitions/ResponsePage'
+    description: Response page
+  sort:
+    $ref: '#/definitions/ResponseSort'
+    description: Response sort
+  tradingCardDecks:
+    type: array
+    items:
+      $ref: '#/definitions/TradingCardDeckBase'
+    description: List of trading card decks matching given criteria

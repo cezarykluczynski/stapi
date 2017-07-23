@@ -1,0 +1,5 @@
+type: string
+description: Production run unit
+enum:
+  - BOX
+  - SET

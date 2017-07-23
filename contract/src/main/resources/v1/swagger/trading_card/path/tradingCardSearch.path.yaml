@@ -1,0 +1,70 @@
+get:
+  description: Pagination over trading cards
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+      description: Zero-based page number
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+      description: Page size
+    - name: apiKey
+      in: query
+      type: string
+      description: API key
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/TradingCardBaseResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - TradingCard
+post:
+  description: Searching trading cards
+  consumes:
+    - application/x-www-form-urlencoded
+  producers:
+    - application/json
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+      description: Zero-based page number
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+      description: Page size
+    - name: sort
+      type: string
+      in: query
+      description: "Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC"
+    - name: apiKey
+      in: query
+      type: string
+      description: API key
+    - name: title
+      in: formData
+      type: string
+      description: Trading card title
+    - name: tradingCardDeckUid
+      in: formData
+      type: string
+      description: UID of trading card deck
+    - name: tradingCardSetUid
+      in: formData
+      type: string
+      description: UID of trading card set
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/TradingCardBaseResponse'
+  tags:
+    - TradingCard

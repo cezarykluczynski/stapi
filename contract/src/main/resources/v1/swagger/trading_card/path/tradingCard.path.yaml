@@ -1,0 +1,22 @@
+get:
+  description: Retrival of a single trading card
+  parameters:
+    - name: uid
+      in: query
+      type: string
+      required: true
+      description: Trading card unique ID
+    - name: apiKey
+      in: query
+      type: string
+      description: API key
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/TradingCardFullResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - TradingCard

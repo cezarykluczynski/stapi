@@ -1,0 +1,27 @@
+type: object
+description: Full trading card, returned when queried using UID
+properties:
+  uid:
+    type: string
+    required: true
+    description: Trading card unique ID
+  name:
+    type: string
+    required: true
+    description: Trading card name
+  tradingCardSet:
+    $ref: '#/definitions/TradingCardSetBase'
+    description: Trading card set this card belongs to
+  tradingCardDeck:
+    $ref: '#/definitions/TradingCardDeckBase'
+    description: Trading card deck this card belongs to
+  number:
+    type: string
+    description: Trading card number
+  releaseYear:
+    type: integer
+    description: Release year, if set was releases over multiple years
+  productionRun:
+    type: integer
+    description: Production run, if different from trading card set production run
+
