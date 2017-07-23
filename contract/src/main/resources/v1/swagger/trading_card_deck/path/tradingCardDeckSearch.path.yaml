@@ -50,10 +50,10 @@ post:
       in: query
       type: string
       description: API key
-    - name: title
+    - name: name
       in: formData
       type: string
-      description: Trading card deck title
+      description: Trading card deck name
     - name: tradingCardSetUid
       in: formData
       type: string

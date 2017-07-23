@@ -43,14 +43,6 @@ public class TradingCard {
 	@SequenceGenerator(name = "trading_card_sequence_generator", sequenceName = "trading_card_sequence", allocationSize = 1)
 	private Long id;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "trading_card_set_id")
-	private TradingCardSet tradingCardSet;
-
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "trading_card_deck_id")
-	private TradingCardDeck tradingCardDeck;
-
 	@Column(name = "u_id")
 	private String uid;
 
@@ -62,5 +54,13 @@ public class TradingCard {
 	private Integer releaseYear;
 
 	private Integer productionRun;
+
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "trading_card_set_id")
+	private TradingCardSet tradingCardSet;
+
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "trading_card_deck_id")
+	private TradingCardDeck tradingCardDeck;
 
 }

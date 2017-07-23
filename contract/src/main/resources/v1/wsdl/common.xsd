@@ -170,6 +170,15 @@
 			<xs:element name="to" type="xs:float" minOccurs="0"/>
 		</xs:sequence>
 	</xs:complexType>
+	<xs:complexType name="DoubleRange">
+		<xs:annotation>
+			<xs:documentation>Double-based values range</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="from" type="xs:double" minOccurs="0"/>
+			<xs:element name="to" type="xs:double" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
 	<xs:complexType name="RequestSort">
 		<xs:annotation>
 			<xs:documentation>Request sort</xs:documentation>

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:company="http://stapi.co/api/v1/soap/company"
+		xmlns:country="http://stapi.co/api/v1/soap/country"
+		xmlns:tradingCard="http://stapi.co/api/v1/soap/tradingCard"
+		xmlns:tradingCardDeck="http://stapi.co/api/v1/soap/tradingCardDeck"
+		xmlns:tradingCardSet="http://stapi.co/api/v1/soap/tradingCardSet"
+		xmlns:common="http://stapi.co/api/v1/soap/common"
+		elementFormDefault="qualified"
+		targetNamespace="http://stapi.co/api/v1/soap/tradingCardSet">
+	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/company" schemaLocation="company.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/country" schemaLocation="country.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/tradingCardDeck" schemaLocation="tradingCardDeck.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/tradingCardSet" schemaLocation="tradingCardSet.xsd"/>
+	<xs:element name="TradingCardSetBaseRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for trading card sets search</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Request">
+					<xs:sequence>
+						<xs:element name="name" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Trading card set name</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="releasedYear" type="common:IntegerRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Starting and ending year the trading card set was released</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="cardsPerDeck" type="common:IntegerRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Minimal and maximal number of cards per deck</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="packsPerBox" type="common:IntegerRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Minimal and maximal number of packs per box</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="boxesPerCase" type="common:IntegerRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Minimal and maximal number of boxes per case</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="productionRun" type="common:IntegerRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Minimal and maximal production run</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="cardWidth" type="common:DoubleRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Minimal and maximal card width, in inches</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="cardHeight" type="common:DoubleRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Minimal and maximal card height, in inches</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TradingCardSetFullRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for single trading card set query</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:ApiRequest">
+					<xs:sequence>
+						<xs:element name="uid" type="xs:string" minOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Trading card set unique ID</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TradingCardSetBaseResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for trading card sets search</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Response">
+					<xs:sequence>
+						<xs:element name="tradingCardSets" type="tradingCardSet:TradingCardSetBase" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>List of trading card sets matching given criteria</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TradingCardSetFullResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for single trading card set query</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="tradingCardSet" type="tradingCardSet:TradingCardSetFull">
+					<xs:annotation>
+						<xs:documentation>Trading card set, if found</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="TradingCardSetHeader">
+		<xs:annotation>
+			<xs:documentation>Header trading card set, embedded in other objects</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Trading card set unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Trading card set name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TradingCardSetBase">
+		<xs:annotation>
+			<xs:documentation>Base trading card set, returned in search results</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Trading card set unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Trading card set name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="releaseYear" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Release year</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="releaseMonth" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Release month</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="releaseDay" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Release day</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cardsPerDeck" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Cards per deck</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="packsPerBox" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Packs per box</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="boxesPerCase" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Boxes per case</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="productionRun" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Production run</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cardWidth" type="xs:double" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Card width, in inches</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cardHeight" type="xs:double" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Card height, in inches</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TradingCardSetFull">
+		<xs:annotation>
+			<xs:documentation>Full trading card set, returned when queried using UID</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Trading card set unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Trading card set name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="releaseYear" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Release year</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="releaseMonth" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Release month</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="releaseDay" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Release day</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cardsPerDeck" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Cards per deck</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="packsPerBox" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Packs per box</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="boxesPerCase" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Boxes per case</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="productionRun" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Production run</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cardWidth" type="xs:double" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Card width, in inches</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cardHeight" type="xs:double" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Card height, in inches</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence>
+				<xs:element name="manufacturers" type="company:CompanyBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Manufacturers</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="tradingCardDecks" type="tradingCardDeck:TradingCardDeckBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Trading card decks in this set</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="tradingCards" type="tradingCard:TradingCardBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Trading cards in this set</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="countriesOfOrigin" type="country:Country" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Countries of origin</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="ProductionRunUnitEnum">
+		<xs:annotation>
+			<xs:documentation>Production run unit</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="BOX"/>
+			<xs:enumeration value="SET"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

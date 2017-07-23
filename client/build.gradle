@@ -133,6 +133,21 @@ wsdl2java {
 					'-wsdlLocation', 'classpath:v1/wsdl/videoRelease.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
 					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/videoRelease.wsdl"
+			],
+			[
+					'-wsdlLocation', 'classpath:v1/wsdl/tradingCard.wsdl',
+					'-p','com.cezarykluczynski.stapi.client.v1.soap',
+					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/tradingCard.wsdl"
+			],
+			[
+					'-wsdlLocation', 'classpath:v1/wsdl/tradingCardSet.wsdl',
+					'-p','com.cezarykluczynski.stapi.client.v1.soap',
+					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/tradingCardSet.wsdl"
+			],
+			[
+					'-wsdlLocation', 'classpath:v1/wsdl/tradingCardDeck.wsdl',
+					'-p','com.cezarykluczynski.stapi.client.v1.soap',
+					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/tradingCardDeck.wsdl"
 			]
 	]
 	generatedWsdlDir = file("$projectDir/build/generated/src/main/java")

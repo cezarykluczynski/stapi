@@ -50,10 +50,10 @@ post:
       in: query
       type: string
       description: API key
-    - name: title
+    - name: name
       in: formData
       type: string
-      description: Trading card set title
+      description: Trading card set name
     - name: releasedYearFrom
       in: formData
       type: integer
@@ -98,12 +98,12 @@ post:
       in: formData
       type: integer
       format: int32
-      description: Minimal number of production run
+      description: Minimal production run
     - name: productionRunTo
       in: formData
       type: integer
       format: int32
-      description: Minimal number of production run
+      description: Minimal production run
     - name: productionRunUnit
       in: formData
       type: string

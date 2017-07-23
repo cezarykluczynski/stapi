@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:tradingCard="http://stapi.co/api/v1/soap/tradingCard"
+		xmlns:tradingCardDeck="http://stapi.co/api/v1/soap/tradingCardDeck"
+		xmlns:tradingCardSet="http://stapi.co/api/v1/soap/tradingCardSet"
+		xmlns:common="http://stapi.co/api/v1/soap/common"
+		elementFormDefault="qualified"
+		targetNamespace="http://stapi.co/api/v1/soap/tradingCardDeck">
+	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/company" schemaLocation="company.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/tradingCard" schemaLocation="tradingCard.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/tradingCardSet" schemaLocation="tradingCardSet.xsd"/>
+	<xs:element name="TradingCardDeckBaseRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for trading card decks search</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Request">
+					<xs:sequence>
+						<xs:element name="name" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Trading card deck name</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="tradingCardSetUid" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>UID of trading card set</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TradingCardDeckFullRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for single trading card deck query</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:ApiRequest">
+					<xs:sequence>
+						<xs:element name="uid" type="xs:string" minOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Trading card deck unique ID</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TradingCardDeckBaseResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for trading card decks search</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Response">
+					<xs:sequence>
+						<xs:element name="tradingCardDecks" type="tradingCardDeck:TradingCardDeckBase" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>List of trading card decks matching given criteria</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TradingCardDeckFullResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for single trading card deck query</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="tradingCard" type="tradingCardDeck:TradingCardDeckFull">
+					<xs:annotation>
+						<xs:documentation>Trading card deck, if found</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="TradingCardDeckHeader">
+		<xs:annotation>
+			<xs:documentation>Header trading card deck, embedded in other objects</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Trading card deck unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Trading card deck name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TradingCardDeckBase">
+		<xs:annotation>
+			<xs:documentation>Base trading card deck, returned in search results</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Trading card deck unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Trading card deck name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="frequency" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Frequency with which this deck occur in it's set</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tradingCardSet" type="tradingCardSet:TradingCardSetHeader">
+				<xs:annotation>
+					<xs:documentation>Trading card set this deck belongs to</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TradingCardDeckFull">
+		<xs:annotation>
+			<xs:documentation>Full trading card set, returned when queried using UID</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Trading card deck unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Trading card deck name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="frequency" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Frequency with which this deck occur in it's set</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tradingCardSet" type="tradingCardSet:TradingCardSetBase">
+				<xs:annotation>
+					<xs:documentation>Trading card set this deck belongs to</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence>
+				<xs:element name="tradingCards" type="tradingCard:TradingCardBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Trading cards in this deck</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

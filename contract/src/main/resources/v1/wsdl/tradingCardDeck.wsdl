@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+		name="TradingCardDeck"
+		targetNamespace="http://stapi.co/api/v1/soap/tradingCardDeck"
+		xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+		xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+		xmlns:stapi="http://stapi.co/api/v1/soap/tradingCardDeck"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<xs:schema targetNamespace="http://stapi.co/api/v1/soap/tradingCardDeck">
+			<xs:include schemaLocation="tradingCardDeck.xsd"/>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="TradingCardDeckBaseRequest">
+		<wsdl:part name="request" element="stapi:TradingCardDeckBaseRequest"/>
+	</wsdl:message>
+	<wsdl:message name="TradingCardDeckFullRequest">
+		<wsdl:part name="request" element="stapi:TradingCardDeckFullRequest"/>
+	</wsdl:message>
+	<wsdl:message name="TradingCardDeckBaseResponse">
+		<wsdl:part name="response" element="stapi:TradingCardDeckBaseResponse"/>
+	</wsdl:message>
+	<wsdl:message name="TradingCardDeckFullResponse">
+		<wsdl:part name="response" element="stapi:TradingCardDeckFullResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="TradingCardDeckPortType">
+		<wsdl:operation name="getTradingCardDeckBase">
+			<wsdl:input name="getTradingCardDeckBaseRequest" message="stapi:TradingCardDeckBaseRequest"/>
+			<wsdl:output name="getTradingCardDeckBaseResponse" message="stapi:TradingCardDeckBaseResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getTradingCardDeckFull">
+			<wsdl:input name="getTradingCardDeckFullRequest" message="stapi:TradingCardDeckFullRequest"/>
+			<wsdl:output name="getTradingCardDeckFullResponse" message="stapi:TradingCardDeckFullResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="TradingCardDeckBinding" type="stapi:TradingCardDeckPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getTradingCardDeckBase">
+			<wsdl:input name="getTradingCardDeckBaseRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getTradingCardDeckBaseResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getTradingCardDeckFull">
+			<wsdl:input name="getTradingCardDeckFullRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getTradingCardDeckFullResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="TradingCardDeckService">
+		<wsdl:port name="TradingCardDeckPortType" binding="stapi:TradingCardDeckBinding">
+			<soap:address location="http://stapi.co/api/v1/soap/tradingCardDeck"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
