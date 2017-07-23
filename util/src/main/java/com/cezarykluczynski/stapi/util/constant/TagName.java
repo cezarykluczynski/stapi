@@ -8,5 +8,8 @@ public class TagName {
 	public static final String TH = "th";
 	public static final String TD = "td";
 	public static final String P = "p";
+	public static final String A = "a";
+	public static final String IMG = "img";
+	public static final String BR = "br";
 
 }

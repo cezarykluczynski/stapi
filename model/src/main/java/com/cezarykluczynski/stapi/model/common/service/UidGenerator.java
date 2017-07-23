@@ -149,4 +149,12 @@ public class UidGenerator {
 		return "CU0000000000" + StringUtils.upperCase(iso3166_1Alpha_2Code);
 	}
 
+	public String generateForTradingCard(Integer itemNumber) {
+		if (itemNumber == null) {
+			return null;
+		}
+
+		return "TC" + StringUtils.leftPad(String.valueOf(itemNumber), 12, ZERO);
+	}
+
 }

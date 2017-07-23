@@ -59,4 +59,8 @@ public class TradingCard {
 	@Column(name = "card_number")
 	private String number;
 
+	private Integer releaseYear;
+
+	private Integer productionRun;
+
 }

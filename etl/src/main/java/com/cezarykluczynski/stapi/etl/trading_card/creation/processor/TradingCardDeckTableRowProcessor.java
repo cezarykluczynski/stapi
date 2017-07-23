@@ -72,6 +72,7 @@ public class TradingCardDeckTableRowProcessor implements ItemProcessor<List<Elem
 		}
 
 		tradingCardDeck.getTradingCards().addAll(tradingCardsProcessor.process(item.subList(1, item.size())));
+		tradingCardDeck.getTradingCards().forEach(tradingCard -> tradingCard.setTradingCardDeck(tradingCardDeck));
 
 		return tradingCardDeck;
 	}

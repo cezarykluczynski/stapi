@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor;
 
+import com.cezarykluczynski.stapi.etl.template.util.PatternDictionary;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
 import liquibase.util.StringUtils;
@@ -38,7 +39,7 @@ public class RunTimeProcessor implements ItemProcessor<String, Integer> {
 	}
 
 	private List<String> toParts(String item) {
-		return Lists.newArrayList(item.split("<br\\s?/?>"));
+		return Lists.newArrayList(item.split(PatternDictionary.BR));
 	}
 
 	private Integer toLength(List<String> parts) {

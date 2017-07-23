@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class TradingCardSetItemsProcessor implements ItemProcessor<String, Integer> {
 
-	private static final Pattern SECTION_PATTERN = Pattern.compile("(\\d{1,3})\\s?(\\+\\s?\\d)?\\s?([^\\d]\\w+)?", Pattern.MULTILINE);
+	private static final Pattern SECTION_PATTERN = Pattern.compile("([0-9,]{1,8})\\s?(\\+\\s?\\d)?\\s?([^\\d]\\w+)?", Pattern.MULTILINE);
 	private static final List<String> LABEL_PRIORITIZED = Lists.newArrayList("Retail", "Blockbuster", "Wal-Mart", "Walmart", "Hobby");
 
 	@Override
@@ -96,7 +96,8 @@ public class TradingCardSetItemsProcessor implements ItemProcessor<String, Integ
 		List<NumberWithType> numbersWithTypes = Lists.newArrayList();
 
 		while (sectionMatcher.find()) {
-			NumberWithType numberWithType = NumberWithType.of(Ints.tryParse(sectionMatcher.group(1)), sectionMatcher.group(3));
+			String numberCandidate = sectionMatcher.group(1).replaceAll(",|\\.", "");
+			NumberWithType numberWithType = NumberWithType.of(Ints.tryParse(numberCandidate), sectionMatcher.group(3));
 			numbersWithTypes.add(numberWithType);
 		}
 

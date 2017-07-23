@@ -29,6 +29,7 @@ class TradingCardSetItemsProcessorTest extends Specification {
 		'42?'                                           | 42
 		'50'                                            | 50
 		'100'                                           | 100
+		'10,000'                                        | 10000
 		'36 24'                                         | 36
 		'36 36'                                         | 36
 		'40+1 CD'                                       | 40

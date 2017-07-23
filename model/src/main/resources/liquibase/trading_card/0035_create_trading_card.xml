@@ -16,8 +16,10 @@
 			<column name="trading_card_deck_id" type="bigint">
 				<constraints nullable="false"/>
 			</column>
-			<column name="name" type="varchar(128)"/>
+			<column name="name" type="varchar(256)"/>
 			<column name="card_number" type="varchar(32)"/>
+			<column name="release_year" type="int"/>
+			<column name="production_run" type="int"/>
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="trading_card_sequence"/>
 		<addForeignKeyConstraint baseColumnNames="trading_card_set_id"

@@ -93,8 +93,8 @@ class TradingCardDeckTableRowProcessorTest extends Specification {
 		Element header = Mock()
 		Element cards1 = Mock()
 		Element cards2 = Mock()
-		TradingCard tradingCard1 = Mock()
-		TradingCard tradingCard2 = Mock()
+		TradingCard tradingCard1 = new TradingCard(id: 1L)
+		TradingCard tradingCard2 = new TradingCard(id: 2L)
 
 		when:
 		TradingCardDeck tradingCardDeck = tradingCardDeckTableRowProcessor.process(Lists.newArrayList(header, cards1, cards2))
@@ -110,6 +110,8 @@ class TradingCardDeckTableRowProcessorTest extends Specification {
 		tradingCardDeck.tradingCards.size() == 2
 		tradingCardDeck.tradingCards.contains tradingCard1
 		tradingCardDeck.tradingCards.contains tradingCard2
+		tradingCard1.tradingCardDeck == tradingCardDeck
+		tradingCard2.tradingCardDeck == tradingCardDeck
 	}
 
 }
