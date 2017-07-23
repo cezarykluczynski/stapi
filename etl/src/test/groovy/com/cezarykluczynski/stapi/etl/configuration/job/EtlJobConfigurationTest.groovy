@@ -75,7 +75,7 @@ import com.cezarykluczynski.stapi.etl.series.creation.processor.SeriesWriter
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffProcessor
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffReader
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffWriter
-import com.cezarykluczynski.stapi.etl.trading_card.creation.processor.TradingCardSetProcessor
+import com.cezarykluczynski.stapi.etl.trading_card.creation.processor.set.TradingCardSetProcessor
 import com.cezarykluczynski.stapi.etl.trading_card.creation.processor.TradingCardSetReader
 import com.cezarykluczynski.stapi.etl.trading_card.creation.processor.TradingCardSetWriter
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
