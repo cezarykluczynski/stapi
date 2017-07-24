@@ -168,6 +168,17 @@ public class QueryBuilder<T> {
 		return this;
 	}
 
+	public QueryBuilder<T> between(SingularAttribute<? super T, Double> key, Double from, Double to) {
+		if (from != null && to != null) {
+			predicateList.add(criteriaBuilder.between(baseRoot.get(key), from, to));
+		} else if (from != null) {
+			predicateList.add(criteriaBuilder.greaterThanOrEqualTo(baseRoot.get(key), from));
+		} else if (to != null) {
+			predicateList.add(criteriaBuilder.lessThanOrEqualTo(baseRoot.get(key), to));
+		}
+		return this;
+	}
+
 	public QueryBuilder<T> fetch(SetAttribute<T, ?> name) {
 		baseRoot.fetch(name, JoinType.LEFT);
 		return this;

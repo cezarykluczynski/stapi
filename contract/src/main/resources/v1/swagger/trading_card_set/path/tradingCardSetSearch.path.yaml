@@ -54,22 +54,22 @@ post:
       in: formData
       type: string
       description: Trading card set name
-    - name: releasedYearFrom
+    - name: releaseYearFrom
       in: formData
       type: integer
       format: int32
       description: Starting year the trading card set was released
-    - name: releasedYearTo
+    - name: releaseYearTo
       in: formData
       type: integer
       format: int32
       description: Ending year the trading card set was released
-    - name: cardsPerDeckFrom
+    - name: cardsPerPackFrom
       in: formData
       type: integer
       format: int32
       description: Minimal number of cards per deck
-    - name: cardsPerDeckTo
+    - name: cardsPerPackTo
       in: formData
       type: integer
       format: int32

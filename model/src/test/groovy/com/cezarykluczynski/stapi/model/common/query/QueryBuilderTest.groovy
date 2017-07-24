@@ -42,8 +42,10 @@ class QueryBuilderTest extends Specification {
 	private static final LocalDate VALID_VALUE_LOCAL_DATE_TO = LocalDate.of(2010, 3, 4)
 	private static final Integer VALID_VALUE_INTEGER_FROM = 1970
 	private static final Integer VALID_VALUE_INTEGER_TO = 2000
-	private static final Float VALID_VALUE_FLOAT_FROM = (Float) 7.3
-	private static final Float VALID_VALUE_FLOAT_TO = (Float) 8.1
+	private static final Float VALID_VALUE_FLOAT_FROM = 7.3f
+	private static final Float VALID_VALUE_FLOAT_TO = 8.1f
+	private static final Double VALID_VALUE_DOUBLE_FROM = 7.2d
+	private static final Double VALID_VALUE_DOUBLE_TO = 8.5d
 	private static final String VALID_KEY_GENDER_STRING = 'VALID_KEY_GENDER_STRING'
 	private static final Long VALID_VALUE_LONG = 5L
 	private static final String VALID_JOIN_PAGE_ID = 'pageId'
@@ -67,6 +69,7 @@ class QueryBuilderTest extends Specification {
 	private final SingularAttribute<?, LocalDate> validKeyLocalDate = Mock()
 	private final SingularAttribute<?, Integer> validKeyInteger = Mock()
 	private final SingularAttribute<?, Float> validKeyFloat = Mock()
+	private final SingularAttribute<?, Double> validKeyDouble = Mock()
 	private final SingularAttribute<?, Gender> validKeyGender = Mock()
 	private final SingularAttribute<?, ?> keyWithUnknownType = Mock()
 	private final String validKeyPage = 'page'
@@ -298,6 +301,24 @@ class QueryBuilderTest extends Specification {
 
 		then: 'right methods are called'
 		1 * criteriaBuilder.lessThanOrEqualTo(_, VALID_VALUE_FLOAT_TO)
+
+		when: 'valid Double range key is added'
+		queryBuilder.between(validKeyDouble, VALID_VALUE_DOUBLE_FROM, VALID_VALUE_DOUBLE_TO)
+
+		then: 'right methods are called'
+		1 * criteriaBuilder.between(_, VALID_VALUE_DOUBLE_FROM, VALID_VALUE_DOUBLE_TO)
+
+		when: 'only start Double is specified'
+		queryBuilder.between(validKeyDouble, VALID_VALUE_DOUBLE_FROM, null)
+
+		then: 'right methods are called'
+		1 * criteriaBuilder.greaterThanOrEqualTo(_, VALID_VALUE_DOUBLE_FROM)
+
+		when: 'only end Double is specified'
+		queryBuilder.between(validKeyDouble, null, VALID_VALUE_DOUBLE_TO)
+
+		then: 'right methods are called'
+		1 * criteriaBuilder.lessThanOrEqualTo(_, VALID_VALUE_DOUBLE_TO)
 
 		when: 'valid gender key is added'
 		queryBuilder.equal(validKeyGender, VALID_VALUE_GENDER)

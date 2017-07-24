@@ -4,12 +4,14 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.AstronomicalObjectType as
 import com.cezarykluczynski.stapi.client.v1.rest.model.BloodType as RestBloodTypeEnum
 import com.cezarykluczynski.stapi.client.v1.rest.model.Gender as RestGenderEnum
 import com.cezarykluczynski.stapi.client.v1.rest.model.MaritalStatus as RestMaritalStatusEnum
+import com.cezarykluczynski.stapi.client.v1.rest.model.ProductionRunUnit as RestProductionRunUnit
 import com.cezarykluczynski.stapi.client.v1.rest.model.ReferenceType as RestReferenceType
 import com.cezarykluczynski.stapi.client.v1.rest.model.VideoReleaseFormat as RestVideoReleaseFormat
 import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectTypeEnum
 import com.cezarykluczynski.stapi.client.v1.soap.BloodTypeEnum as SoapBloodTypeEnum
 import com.cezarykluczynski.stapi.client.v1.soap.GenderEnum as SoapGenderEnum
 import com.cezarykluczynski.stapi.client.v1.soap.MaritalStatusEnum as SoapMaritalStatusEnum
+import com.cezarykluczynski.stapi.client.v1.soap.ProductionRunUnitEnum
 import com.cezarykluczynski.stapi.client.v1.soap.ReferenceTypeEnum as SoapReferenceType
 import com.cezarykluczynski.stapi.client.v1.soap.VideoReleaseFormatEnum
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.enums.AstronomicalObjectType as AstronomicalObjectTypeEntity
@@ -17,6 +19,7 @@ import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType as BloodTy
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender as GenderEntity
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus as MaritalStatusEntity
 import com.cezarykluczynski.stapi.model.reference.entity.enums.ReferenceType as ModelReferenceType
+import com.cezarykluczynski.stapi.model.trading_card_set.entity.enums.ProductionRunUnit as ProductionRunUnitEntity
 import com.cezarykluczynski.stapi.model.video_release.entity.enums.VideoReleaseFormat
 import org.mapstruct.factory.Mappers
 import spock.lang.Specification
@@ -281,6 +284,34 @@ class EnumMapperTest extends Specification {
 		enumMapper.mapVideoReleaseFormatFromEntityEnumToRestEnum(VideoReleaseFormat.BLU_RAY) == RestVideoReleaseFormat.BLU_RAY
 		enumMapper.mapVideoReleaseFormatFromEntityEnumToRestEnum(VideoReleaseFormat.BLU_RAY_4K_UHD) == RestVideoReleaseFormat.BLU_RAY_4K_UHD
 		enumMapper.mapVideoReleaseFormatFromEntityEnumToRestEnum(VideoReleaseFormat.DIGITAL_FORMAT) == RestVideoReleaseFormat.DIGITAL_FORMAT
+	}
+
+	void "maps production run unit entity enum to to soap enum"() {
+		expect:
+		enumMapper.mapProductionRunUnitFromEntityEnumToSoapEnum(null) == null
+		enumMapper.mapProductionRunUnitFromEntityEnumToSoapEnum(ProductionRunUnitEntity.BOX) == ProductionRunUnitEnum.BOX
+		enumMapper.mapProductionRunUnitFromEntityEnumToSoapEnum(ProductionRunUnitEntity.SET) == ProductionRunUnitEnum.SET
+	}
+
+	void "maps production run unit soap enum to entity enum"() {
+		expect:
+		enumMapper.mapProductionRunUnitFromSoapEnumToEntityEnum(null) == null
+		enumMapper.mapProductionRunUnitFromSoapEnumToEntityEnum(ProductionRunUnitEnum.BOX) == ProductionRunUnitEntity.BOX
+		enumMapper.mapProductionRunUnitFromSoapEnumToEntityEnum(ProductionRunUnitEnum.SET) == ProductionRunUnitEntity.SET
+	}
+
+	void "maps production run unit entity enum to rest enum"() {
+		expect:
+		enumMapper.mapProductionRunUnitFromEntityEnumToRestEnum(null) == null
+		enumMapper.mapProductionRunUnitFromEntityEnumToRestEnum(ProductionRunUnitEntity.BOX) == RestProductionRunUnit.BOX
+		enumMapper.mapProductionRunUnitFromEntityEnumToRestEnum(ProductionRunUnitEntity.SET) == RestProductionRunUnit.SET
+	}
+
+	void "maps production run unit rest enum to entity enum"() {
+		expect:
+		enumMapper.mapProductionRunUnitFromRestEnumToEntityEnum(null) == null
+		enumMapper.mapProductionRunUnitFromRestEnumToEntityEnum(RestProductionRunUnit.BOX) == ProductionRunUnitEntity.BOX
+		enumMapper.mapProductionRunUnitFromRestEnumToEntityEnum(RestProductionRunUnit.SET) == ProductionRunUnitEntity.SET
 	}
 
 }

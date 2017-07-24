@@ -32,7 +32,7 @@
 								<xs:documentation>Starting and ending year the trading card set was released</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="cardsPerDeck" type="common:IntegerRange" minOccurs="0">
+						<xs:element name="cardsPerPack" type="common:IntegerRange" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Minimal and maximal number of cards per deck</xs:documentation>
 							</xs:annotation>
@@ -50,6 +50,11 @@
 						<xs:element name="productionRun" type="common:IntegerRange" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Minimal and maximal production run</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="productionRunUnit" type="tradingCardSet:ProductionRunUnitEnum" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Production run unit</xs:documentation>
 							</xs:annotation>
 						</xs:element>
 						<xs:element name="cardWidth" type="common:DoubleRange" minOccurs="0">
@@ -164,7 +169,7 @@
 					<xs:documentation>Release day</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="cardsPerDeck" type="xs:integer" minOccurs="0">
+			<xs:element name="cardsPerPack" type="xs:integer" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Cards per deck</xs:documentation>
 				</xs:annotation>
@@ -182,6 +187,11 @@
 			<xs:element name="productionRun" type="xs:integer" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Production run</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="productionRunUnit" type="tradingCardSet:ProductionRunUnitEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Production run unit</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="cardWidth" type="xs:double" minOccurs="0">
@@ -226,7 +236,7 @@
 					<xs:documentation>Release day</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="cardsPerDeck" type="xs:integer" minOccurs="0">
+			<xs:element name="cardsPerPack" type="xs:integer" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Cards per deck</xs:documentation>
 				</xs:annotation>
@@ -244,6 +254,11 @@
 			<xs:element name="productionRun" type="xs:integer" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Production run</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="productionRunUnit" type="tradingCardSet:ProductionRunUnitEnum" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Production run unit</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="cardWidth" type="xs:double" minOccurs="0">
