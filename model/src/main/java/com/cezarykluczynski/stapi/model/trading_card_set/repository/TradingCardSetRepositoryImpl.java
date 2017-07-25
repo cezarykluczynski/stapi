@@ -2,8 +2,6 @@ package com.cezarykluczynski.stapi.model.trading_card_set.repository;
 
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
 import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
-import com.cezarykluczynski.stapi.model.trading_card.entity.TradingCard_;
-import com.cezarykluczynski.stapi.model.trading_card_deck.entity.TradingCardDeck_;
 import com.cezarykluczynski.stapi.model.trading_card_set.dto.TradingCardSetRequestDTO;
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet;
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet_;
@@ -43,12 +41,9 @@ public class TradingCardSetRepositoryImpl extends AbstractRepositoryImpl<Trading
 		tradingCardSetQueryBuilder.equal(TradingCardSet_.productionRunUnit, criteria.getProductionRunUnit());
 		tradingCardSetQueryBuilder.setSort(criteria.getSort());
 		tradingCardSetQueryBuilder.fetch(TradingCardSet_.manufacturers, doFetch);
-		tradingCardSetQueryBuilder.fetch(TradingCardSet_.tradingCards, doFetch);
-		tradingCardSetQueryBuilder.fetch(TradingCardSet_.tradingCards, TradingCard_.tradingCardSet, doFetch);
-		tradingCardSetQueryBuilder.fetch(TradingCardSet_.tradingCards, TradingCard_.tradingCardDeck, doFetch);
 		tradingCardSetQueryBuilder.fetch(TradingCardSet_.tradingCardDecks, doFetch);
-		tradingCardSetQueryBuilder.fetch(TradingCardSet_.tradingCardDecks, TradingCardDeck_.tradingCardSet, doFetch);
 		tradingCardSetQueryBuilder.fetch(TradingCardSet_.countriesOfOrigin, doFetch);
+		tradingCardSetQueryBuilder.fetch(TradingCardSet_.tradingCards, doFetch);
 
 		Page<TradingCardSet> tradingCardSetPage = tradingCardSetQueryBuilder.findPage();
 		clearProxies(tradingCardSetPage, !doFetch);

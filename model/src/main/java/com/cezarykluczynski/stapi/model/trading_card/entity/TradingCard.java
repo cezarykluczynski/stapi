@@ -59,7 +59,7 @@ public class TradingCard {
 	@JoinColumn(name = "trading_card_set_id")
 	private TradingCardSet tradingCardSet;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "trading_card_deck_id")
 	private TradingCardDeck tradingCardDeck;
 

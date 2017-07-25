@@ -2,8 +2,6 @@ package com.cezarykluczynski.stapi.model.trading_card_set.repository
 
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
-import com.cezarykluczynski.stapi.model.trading_card.entity.TradingCard_
-import com.cezarykluczynski.stapi.model.trading_card_deck.entity.TradingCardDeck_
 import com.cezarykluczynski.stapi.model.trading_card_set.dto.TradingCardSetRequestDTO
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet_
@@ -101,10 +99,7 @@ class TradingCardSetRepositoryImplTest extends AbstractTradingCardSetTest {
 		then: 'fetch is performed'
 		1 * tradingCardSetQueryBuilder.fetch(TradingCardSet_.manufacturers, true)
 		1 * tradingCardSetQueryBuilder.fetch(TradingCardSet_.tradingCards, true)
-		1 * tradingCardSetQueryBuilder.fetch(TradingCardSet_.tradingCards, TradingCard_.tradingCardSet, true)
-		1 * tradingCardSetQueryBuilder.fetch(TradingCardSet_.tradingCards, TradingCard_.tradingCardDeck, true)
 		1 * tradingCardSetQueryBuilder.fetch(TradingCardSet_.tradingCardDecks, true)
-		1 * tradingCardSetQueryBuilder.fetch(TradingCardSet_.tradingCardDecks, TradingCardDeck_.tradingCardSet, true)
 		1 * tradingCardSetQueryBuilder.fetch(TradingCardSet_.countriesOfOrigin, true)
 
 		then: 'page is retrieved'
