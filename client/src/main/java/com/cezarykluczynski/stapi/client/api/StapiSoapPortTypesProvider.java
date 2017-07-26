@@ -44,6 +44,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.SpeciesPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.SpeciesService;
 import com.cezarykluczynski.stapi.client.v1.soap.StaffPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.StaffService;
+import com.cezarykluczynski.stapi.client.v1.soap.TradingCardDeckPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.TradingCardDeckService;
 import com.cezarykluczynski.stapi.client.v1.soap.TradingCardSetPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.TradingCardSetService;
 import com.cezarykluczynski.stapi.client.v1.soap.VideoReleasePortType;
@@ -129,6 +131,9 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 	@Getter
 	private TradingCardSetPortType tradingCardSetPortType;
 
+	@Getter
+	private TradingCardDeckPortType tradingCardDeckPortType;
+
 	public StapiSoapPortTypesProvider() {
 		seriesPortType = new SeriesService().getSeriesPortType();
 		performerPortType = new PerformerService().getPerformerPortType();
@@ -154,6 +159,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		seasonPortType = new SeasonService().getSeasonPortType();
 		videoReleasePortType = new VideoReleaseService().getVideoReleasePortType();
 		tradingCardSetPortType = new TradingCardSetService().getTradingCardSetPortType();
+		tradingCardDeckPortType = new TradingCardDeckService().getTradingCardDeckPortType();
 	}
 
 	public StapiSoapPortTypesProvider(String apiUrl) {
@@ -182,6 +188,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		seasonPortType = changeUrl(new SeasonService().getSeasonPortType());
 		videoReleasePortType = changeUrl(new VideoReleaseService().getVideoReleasePortType());
 		tradingCardSetPortType = changeUrl(new TradingCardSetService().getTradingCardSetPortType());
+		tradingCardDeckPortType = changeUrl(new TradingCardDeckService().getTradingCardDeckPortType());
 	}
 
 	private <T> T changeUrl(T service) {

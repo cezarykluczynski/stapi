@@ -76,7 +76,7 @@
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="tradingCard" type="tradingCardDeck:TradingCardDeckFull">
+				<xs:element name="tradingCardDeck" type="tradingCardDeck:TradingCardDeckFull">
 					<xs:annotation>
 						<xs:documentation>Trading card deck, if found</xs:documentation>
 					</xs:annotation>

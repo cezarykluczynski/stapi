@@ -8,10 +8,12 @@ import com.cezarykluczynski.stapi.server.common.mapper.DateMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.EnumMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import com.cezarykluczynski.stapi.server.country.mapper.CountrySoapMapper;
+import com.cezarykluczynski.stapi.server.trading_card_deck.mapper.TradingCardDeckBaseSoapMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(config = MapstructConfiguration.class, uses = {CountrySoapMapper.class, DateMapper.class, EnumMapper.class})
+@Mapper(config = MapstructConfiguration.class, uses = {CountrySoapMapper.class, DateMapper.class, EnumMapper.class,
+		TradingCardDeckBaseSoapMapper.class})
 public interface TradingCardSetFullSoapMapper {
 
 	@Mapping(target = "name", ignore = true)
@@ -33,7 +35,6 @@ public interface TradingCardSetFullSoapMapper {
 	@Mapping(target = "sort", ignore = true)
 	TradingCardSetRequestDTO mapFull(TradingCardSetFullRequest tradingCardSetFullRequest);
 
-	@Mapping(target = "tradingCardDecks", ignore = true) // TODO
 	@Mapping(target = "tradingCards", ignore = true) // TODO
 	TradingCardSetFull mapFull(TradingCardSet tradingCardSet);
 

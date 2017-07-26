@@ -18,7 +18,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TradingCardSetSoapReader implements BaseReader<TradingCardSetBaseRequest, TradingCardSetBaseResponse>, FullReader<TradingCardSetFullRequest, TradingCardSetFullResponse> {
+public class TradingCardSetSoapReader implements BaseReader<TradingCardSetBaseRequest, TradingCardSetBaseResponse>,
+		FullReader<TradingCardSetFullRequest, TradingCardSetFullResponse> {
 
 	private final TradingCardSetSoapQuery tradingCardSetSoapQuery;
 
@@ -30,8 +31,8 @@ public class TradingCardSetSoapReader implements BaseReader<TradingCardSetBaseRe
 
 	private final SortMapper sortMapper;
 
-	public TradingCardSetSoapReader(TradingCardSetSoapQuery tradingCardSetSoapQuery, TradingCardSetBaseSoapMapper tradingCardSetBaseSoapMapper, TradingCardSetFullSoapMapper tradingCardSetFullSoapMapper,
-			PageMapper pageMapper, SortMapper sortMapper) {
+	public TradingCardSetSoapReader(TradingCardSetSoapQuery tradingCardSetSoapQuery, TradingCardSetBaseSoapMapper tradingCardSetBaseSoapMapper,
+			TradingCardSetFullSoapMapper tradingCardSetFullSoapMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.tradingCardSetSoapQuery = tradingCardSetSoapQuery;
 		this.tradingCardSetBaseSoapMapper = tradingCardSetBaseSoapMapper;
 		this.tradingCardSetFullSoapMapper = tradingCardSetFullSoapMapper;
@@ -54,7 +55,8 @@ public class TradingCardSetSoapReader implements BaseReader<TradingCardSetBaseRe
 		StaticValidator.requireUid(input.getUid());
 		Page<TradingCardSet> tradingCardSetPage = tradingCardSetSoapQuery.query(input);
 		TradingCardSetFullResponse tradingCardSetFullResponse = new TradingCardSetFullResponse();
-		tradingCardSetFullResponse.setTradingCardSet(tradingCardSetFullSoapMapper.mapFull(Iterables.getOnlyElement(tradingCardSetPage.getContent(), null)));
+		tradingCardSetFullResponse.setTradingCardSet(tradingCardSetFullSoapMapper
+				.mapFull(Iterables.getOnlyElement(tradingCardSetPage.getContent(), null)));
 		return tradingCardSetFullResponse;
 	}
 

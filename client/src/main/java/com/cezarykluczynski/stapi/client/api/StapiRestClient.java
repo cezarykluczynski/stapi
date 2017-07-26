@@ -22,6 +22,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.api.SeasonApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.SeriesApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.SpeciesApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.StaffApi;
+import com.cezarykluczynski.stapi.client.v1.rest.api.TradingCardDeckApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.TradingCardSetApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.VideoReleaseApi;
 import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiClient;
@@ -105,6 +106,9 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 	@Getter
 	private TradingCardSetApi tradingCardSetApi;
 
+	@Getter
+	private TradingCardDeckApi tradingCardDeckApi;
+
 	public StapiRestClient() {
 		seriesApi = new SeriesApi();
 		performerApi = new PerformerApi();
@@ -130,6 +134,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 		seasonApi = new SeasonApi();
 		videoReleaseApi = new VideoReleaseApi();
 		tradingCardSetApi = new TradingCardSetApi();
+		tradingCardDeckApi = new TradingCardDeckApi();
 	}
 
 	public StapiRestClient(String apiUrl) {
@@ -159,6 +164,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 		seasonApi = new SeasonApi(apiClient);
 		videoReleaseApi = new VideoReleaseApi(apiClient);
 		tradingCardSetApi = new TradingCardSetApi(apiClient);
+		tradingCardDeckApi = new TradingCardDeckApi(apiClient);
 	}
 
 	private void createApiClient() {

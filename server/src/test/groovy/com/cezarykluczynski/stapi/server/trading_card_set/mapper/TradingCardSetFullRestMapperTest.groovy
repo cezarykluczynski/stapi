@@ -34,7 +34,7 @@ class TradingCardSetFullRestMapperTest extends AbstractTradingCardSetMapperTest 
 		tradingCardSetFull.cardHeight == CARD_HEIGHT
 		tradingCardSetFull.manufacturers.size() == tradingCardSet.manufacturers.size()
 //		tradingCardSetFull.tradingCards.size() == tradingCardSet.tradingCards.size() // TODO
-//		tradingCardSetFull.tradingCardDecks.size() == tradingCardSet.tradingCardDecks.size() // TODO
+		tradingCardSetFull.tradingCardDecks.size() == tradingCardSet.tradingCardDecks.size()
 		tradingCardSetFull.countriesOfOrigin.size() == tradingCardSet.countriesOfOrigin.size()
 	}
 

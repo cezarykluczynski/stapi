@@ -19,7 +19,8 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 
 @Service
-public class TradingCardSetRestReader implements BaseReader<TradingCardSetRestBeanParams, TradingCardSetBaseResponse>, FullReader<String, TradingCardSetFullResponse> {
+public class TradingCardSetRestReader implements BaseReader<TradingCardSetRestBeanParams, TradingCardSetBaseResponse>,
+		FullReader<String, TradingCardSetFullResponse> {
 
 	private final TradingCardSetRestQuery tradingCardSetRestQuery;
 
@@ -32,8 +33,8 @@ public class TradingCardSetRestReader implements BaseReader<TradingCardSetRestBe
 	private final SortMapper sortMapper;
 
 	@Inject
-	public TradingCardSetRestReader(TradingCardSetRestQuery tradingCardSetRestQuery, TradingCardSetBaseRestMapper tradingCardSetBaseRestMapper, TradingCardSetFullRestMapper tradingCardSetFullRestMapper,
-			PageMapper pageMapper, SortMapper sortMapper) {
+	public TradingCardSetRestReader(TradingCardSetRestQuery tradingCardSetRestQuery, TradingCardSetBaseRestMapper tradingCardSetBaseRestMapper,
+			TradingCardSetFullRestMapper tradingCardSetFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.tradingCardSetRestQuery = tradingCardSetRestQuery;
 		this.tradingCardSetBaseRestMapper = tradingCardSetBaseRestMapper;
 		this.tradingCardSetFullRestMapper = tradingCardSetFullRestMapper;
@@ -58,7 +59,8 @@ public class TradingCardSetRestReader implements BaseReader<TradingCardSetRestBe
 		tradingCardSetRestBeanParams.setUid(uid);
 		Page<TradingCardSet> tradingCardSetPage = tradingCardSetRestQuery.query(tradingCardSetRestBeanParams);
 		TradingCardSetFullResponse tradingCardSetResponse = new TradingCardSetFullResponse();
-		tradingCardSetResponse.setTradingCardSet(tradingCardSetFullRestMapper.mapFull(Iterables.getOnlyElement(tradingCardSetPage.getContent(), null)));
+		tradingCardSetResponse.setTradingCardSet(tradingCardSetFullRestMapper
+				.mapFull(Iterables.getOnlyElement(tradingCardSetPage.getContent(), null)));
 		return tradingCardSetResponse;
 	}
 

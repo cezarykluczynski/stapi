@@ -26,8 +26,8 @@ public class TradingCardSetSoapQuery {
 	private final TradingCardSetRepository tradingCardSetRepository;
 
 	@Inject
-	public TradingCardSetSoapQuery(TradingCardSetBaseSoapMapper tradingCardSetBaseSoapMapper, TradingCardSetFullSoapMapper tradingCardSetFullSoapMapper, PageMapper pageMapper,
-			TradingCardSetRepository tradingCardSetRepository) {
+	public TradingCardSetSoapQuery(TradingCardSetBaseSoapMapper tradingCardSetBaseSoapMapper,
+			TradingCardSetFullSoapMapper tradingCardSetFullSoapMapper, PageMapper pageMapper, TradingCardSetRepository tradingCardSetRepository) {
 		this.tradingCardSetBaseSoapMapper = tradingCardSetBaseSoapMapper;
 		this.tradingCardSetFullSoapMapper = tradingCardSetFullSoapMapper;
 		this.pageMapper = pageMapper;
