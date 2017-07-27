@@ -35,7 +35,6 @@ public interface TradingCardSetFullSoapMapper {
 	@Mapping(target = "sort", ignore = true)
 	TradingCardSetRequestDTO mapFull(TradingCardSetFullRequest tradingCardSetFullRequest);
 
-	@Mapping(target = "tradingCards", ignore = true) // TODO
 	TradingCardSetFull mapFull(TradingCardSet tradingCardSet);
 
 }

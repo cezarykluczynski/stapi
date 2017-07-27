@@ -6,7 +6,6 @@ import javax.ws.rs.FormParam;
 
 public class TradingCardDeckRestBeanParams extends PageSortBeanParams {
 
-	@FormParam("uid")
 	private String uid;
 
 	@FormParam("name")

@@ -8,13 +8,11 @@ import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import com.cezarykluczynski.stapi.server.country.mapper.CountryRestMapper;
 import com.cezarykluczynski.stapi.server.trading_card_deck.mapper.TradingCardDeckBaseRestMapper;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 @Mapper(config = MapstructConfiguration.class, uses = {CompanyBaseRestMapper.class, EnumMapper.class, CountryRestMapper.class,
 		TradingCardDeckBaseRestMapper.class})
 public interface TradingCardSetFullRestMapper {
 
-	@Mapping(target = "tradingCards", ignore = true) // TODO
 	TradingCardSetFull mapFull(TradingCardSet tradingCardSet);
 
 }

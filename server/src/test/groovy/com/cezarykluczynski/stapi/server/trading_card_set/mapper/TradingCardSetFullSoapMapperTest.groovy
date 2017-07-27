@@ -46,7 +46,7 @@ class TradingCardSetFullSoapMapperTest extends AbstractTradingCardSetMapperTest 
 		tradingCardSetFull.cardWidth == CARD_WIDTH
 		tradingCardSetFull.cardHeight == CARD_HEIGHT
 		tradingCardSetFull.manufacturers.size() == tradingCardSet.manufacturers.size()
-//		tradingCardSetFull.tradingCards.size() == tradingCardSet.tradingCards.size() // TODO
+		tradingCardSetFull.tradingCards.size() == tradingCardSet.tradingCards.size()
 		tradingCardSetFull.tradingCardDecks.size() == tradingCardSet.tradingCardDecks.size()
 		tradingCardSetFull.countriesOfOrigin.size() == tradingCardSet.countriesOfOrigin.size()
 	}

@@ -46,6 +46,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.StaffPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.StaffService;
 import com.cezarykluczynski.stapi.client.v1.soap.TradingCardDeckPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.TradingCardDeckService;
+import com.cezarykluczynski.stapi.client.v1.soap.TradingCardPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.TradingCardService;
 import com.cezarykluczynski.stapi.client.v1.soap.TradingCardSetPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.TradingCardSetService;
 import com.cezarykluczynski.stapi.client.v1.soap.VideoReleasePortType;
@@ -134,6 +136,9 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 	@Getter
 	private TradingCardDeckPortType tradingCardDeckPortType;
 
+	@Getter
+	private TradingCardPortType tradingCardPortType;
+
 	public StapiSoapPortTypesProvider() {
 		seriesPortType = new SeriesService().getSeriesPortType();
 		performerPortType = new PerformerService().getPerformerPortType();
@@ -160,6 +165,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		videoReleasePortType = new VideoReleaseService().getVideoReleasePortType();
 		tradingCardSetPortType = new TradingCardSetService().getTradingCardSetPortType();
 		tradingCardDeckPortType = new TradingCardDeckService().getTradingCardDeckPortType();
+		tradingCardPortType = new TradingCardService().getTradingCardPortType();
 	}
 
 	public StapiSoapPortTypesProvider(String apiUrl) {
@@ -189,6 +195,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		videoReleasePortType = changeUrl(new VideoReleaseService().getVideoReleasePortType());
 		tradingCardSetPortType = changeUrl(new TradingCardSetService().getTradingCardSetPortType());
 		tradingCardDeckPortType = changeUrl(new TradingCardDeckService().getTradingCardDeckPortType());
+		tradingCardPortType = changeUrl(new TradingCardService().getTradingCardPortType());
 	}
 
 	private <T> T changeUrl(T service) {
