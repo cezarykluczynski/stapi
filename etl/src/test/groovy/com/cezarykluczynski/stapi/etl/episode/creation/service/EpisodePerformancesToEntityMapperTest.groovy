@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.episode.creation.service
 
 import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService
+import com.cezarykluczynski.stapi.etl.common.service.NonQualifiedCharacterFilter
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformanceDTO
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformancesEntitiesDTO
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.enums.PerformanceType
@@ -22,14 +23,20 @@ class EpisodePerformancesToEntityMapperTest extends Specification {
 	private static final String PERFORMANCE_3_PERFORMER_NAME = 'PERFORMANCE_3_PERFORMER_NAME'
 	private static final String PERFORMANCE_3_PERFORMING_FOR = 'PERFORMANCE_3_PERFORMING_FOR'
 	private static final String PERFORMANCE_3_PERFORMANCE_TYPE = PerformanceType.STAND_IN
+	private static final String PERFORMANCE_4_PERFORMER_NAME = 'PERFORMANCE_4_PERFORMER_NAME'
+	private static final String PERFORMANCE_4_CHARACTER_NAME = 'PERFORMANCE_4_CHARACTER_NAME'
+	private static final String PERFORMANCE_4_PERFORMANCE_TYPE = PerformanceType.PERFORMANCE
 
 	private EntityLookupByNameService entityLookupByNameServiceMock
+
+	NonQualifiedCharacterFilter nonQualifiedCharacterFilterMock
 
 	private EpisodePerformancesToEntityMapper episodePerformancesToEntityMapper
 
 	void setup() {
 		entityLookupByNameServiceMock = Mock()
-		episodePerformancesToEntityMapper = new EpisodePerformancesToEntityMapper(entityLookupByNameServiceMock)
+		nonQualifiedCharacterFilterMock = Mock()
+		episodePerformancesToEntityMapper = new EpisodePerformancesToEntityMapper(entityLookupByNameServiceMock, nonQualifiedCharacterFilterMock)
 	}
 
 	void "createss EpisodePerformancesEntitiesDTO and enriches Episode entity"() {
@@ -50,27 +57,32 @@ class EpisodePerformancesToEntityMapperTest extends Specification {
 				performingFor: PERFORMANCE_3_PERFORMING_FOR,
 				performanceType: PERFORMANCE_3_PERFORMANCE_TYPE
 		)
+		EpisodePerformanceDTO performanceDTOToFilterOut = new EpisodePerformanceDTO(
+				performerName: PERFORMANCE_4_PERFORMER_NAME,
+				characterName: PERFORMANCE_4_CHARACTER_NAME,
+				performanceType: PERFORMANCE_4_PERFORMANCE_TYPE
+		)
 		Performer performer = new Performer()
 		Performer stuntPerformer = new Performer()
 		Performer standInPerformer = new Performer()
 		Character character = new Character()
-		List<EpisodePerformanceDTO> episodePerformances = Lists.newArrayList(
-				performanceDTO,
-				stuntPerformanceDTO,
-				standInPerformanceDTO
-		)
+		List<EpisodePerformanceDTO> episodePerformances = Lists.newArrayList(performanceDTO, stuntPerformanceDTO, standInPerformanceDTO,
+				performanceDTOToFilterOut)
 
 		when:
 		EpisodePerformancesEntitiesDTO episodePerformancesEntitiesDTO = episodePerformancesToEntityMapper
 				.mapToEntities(episodePerformances, episode)
 
 		then:
+		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(PERFORMANCE_1_CHARACTER_NAME) >> false
 		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMANCE_1_PERFORMER_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(performer)
 		1 * entityLookupByNameServiceMock.findCharacterByName(PERFORMANCE_1_CHARACTER_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(character)
 		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMANCE_2_PERFORMER_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				Optional.of(stuntPerformer)
 		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMANCE_3_PERFORMER_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				Optional.of(standInPerformer)
+		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(PERFORMANCE_4_CHARACTER_NAME) >> true
+		0 * _
 		performer.characters.contains character
 		character.performers.contains performer
 		episodePerformancesEntitiesDTO.characterSet.contains character

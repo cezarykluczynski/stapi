@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.episode.creation.service;
 
 import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService;
+import com.cezarykluczynski.stapi.etl.common.service.NonQualifiedCharacterFilter;
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformanceDTO;
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformancesEntitiesDTO;
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.enums.PerformanceType;
@@ -9,6 +10,7 @@ import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -17,15 +19,20 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class EpisodePerformancesToEntityMapper {
 
 	private static final MediaWikiSource SOURCE = MediaWikiSource.MEMORY_ALPHA_EN;
 
 	private final EntityLookupByNameService entityLookupByNameService;
 
+	private final NonQualifiedCharacterFilter nonQualifiedCharacterFilter;
+
 	@Inject
-	public EpisodePerformancesToEntityMapper(EntityLookupByNameService entityLookupByNameService) {
+	public EpisodePerformancesToEntityMapper(EntityLookupByNameService entityLookupByNameService,
+			NonQualifiedCharacterFilter nonQualifiedCharacterFilter) {
 		this.entityLookupByNameService = entityLookupByNameService;
+		this.nonQualifiedCharacterFilter = nonQualifiedCharacterFilter;
 	}
 
 	public EpisodePerformancesEntitiesDTO mapToEntities(List<EpisodePerformanceDTO> episodePerformanceDTOList, Episode episode) {
@@ -61,8 +68,14 @@ public class EpisodePerformancesToEntityMapper {
 
 	private EpisodePerformanceEntitiesPair processPerformer(EpisodePerformanceDTO episodePerformanceDTO) {
 		EpisodePerformanceEntitiesPair pair = new EpisodePerformanceEntitiesPair();
-		pair.setCharacter(getCharacter(episodePerformanceDTO.getCharacterName()).orElse(null));
-		pair.setPerformer(getPerformer(episodePerformanceDTO.getPerformerName()).orElse(null));
+		String characterName = episodePerformanceDTO.getCharacterName();
+		if (!nonQualifiedCharacterFilter.shouldBeFilteredOut(characterName)) {
+			pair.setCharacter(getCharacter(characterName).orElse(null));
+			if (pair.getCharacter() == null) {
+				log.info("Character filter candidate: {}", characterName);
+			}
+			pair.setPerformer(getPerformer(episodePerformanceDTO.getPerformerName()).orElse(null));
+		}
 		return pair;
 	}
 
