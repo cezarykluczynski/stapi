@@ -14,6 +14,7 @@ import com.cezarykluczynski.stapi.model.magazine_series.entity.MagazineSeries;
 import com.cezarykluczynski.stapi.model.season.entity.Season;
 import com.cezarykluczynski.stapi.model.trading_card.entity.TradingCard;
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet;
+import com.cezarykluczynski.stapi.model.video_game.entity.VideoGame;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -47,6 +48,7 @@ public class EntityMatadataProvider {
 		CUSTOM_SYMBOL_MAP.put(TradingCard.class, "TC");
 		CUSTOM_SYMBOL_MAP.put(TradingCardSet.class, "TS");
 		CUSTOM_SYMBOL_MAP.put(Country.class, "CU");
+		CUSTOM_SYMBOL_MAP.put(VideoGame.class, "VG");
 	}
 
 	private final EntityManager entityManager;
