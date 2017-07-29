@@ -25,7 +25,7 @@ class MagazineProcessorTest extends Specification {
 		magazineProcessor = new MagazineProcessor(pageHeaderProcessorMock, magazineTemplatePageProcessorMock, magazineTemplateProcessorMock)
 	}
 
-	void "converts PageHeader to Comics"() {
+	void "converts PageHeader to Magazine"() {
 		given:
 		PageHeader pageHeader = new PageHeader()
 		Page page = new Page()

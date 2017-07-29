@@ -268,4 +268,5 @@ public class CategoryTitle {
 	public static final String US_VHS_RELEASES = "US_VHS_releases";
 	public static final String VIDEO_8S = "Video_8s";
 
+	public static final String VIDEO_GAMES = "Video_games";
 }

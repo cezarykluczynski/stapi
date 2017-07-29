@@ -81,6 +81,9 @@ import com.cezarykluczynski.stapi.etl.trading_card.creation.processor.TradingCar
 import com.cezarykluczynski.stapi.etl.trading_card.creation.processor.TradingCardSetWriter;
 import com.cezarykluczynski.stapi.etl.trading_card.creation.processor.set.TradingCardSetProcessor;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
+import com.cezarykluczynski.stapi.etl.video_game.creation.processor.VideoGameProcessor;
+import com.cezarykluczynski.stapi.etl.video_game.creation.processor.VideoGameReader;
+import com.cezarykluczynski.stapi.etl.video_game.creation.processor.VideoGameWriter;
 import com.cezarykluczynski.stapi.etl.video_release.creation.processor.VideoReleaseProcessor;
 import com.cezarykluczynski.stapi.etl.video_release.creation.processor.VideoReleaseReader;
 import com.cezarykluczynski.stapi.etl.video_release.creation.processor.VideoReleaseWriter;
@@ -108,6 +111,7 @@ import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet;
+import com.cezarykluczynski.stapi.model.video_game.entity.VideoGame;
 import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import com.cezarykluczynski.stapi.sources.wordpress.dto.Page;
@@ -502,6 +506,19 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(TradingCardSetReader.class))
 				.processor(applicationContext.getBean(TradingCardSetProcessor.class))
 				.writer(applicationContext.getBean(TradingCardSetWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_VIDEO_GAMES)
+	public Step stepCreateVideoGames() {
+		return stepBuilderFactory.get(StepName.CREATE_VIDEO_GAMES)
+				.<PageHeader, VideoGame>chunk(stepsProperties.getCreateVideoGames().getCommitInterval())
+				.reader(applicationContext.getBean(VideoGameReader.class))
+				.processor(applicationContext.getBean(VideoGameProcessor.class))
+				.writer(applicationContext.getBean(VideoGameWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)

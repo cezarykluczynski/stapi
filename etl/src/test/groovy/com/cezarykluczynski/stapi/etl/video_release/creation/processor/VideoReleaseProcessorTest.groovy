@@ -25,7 +25,7 @@ class VideoReleaseProcessorTest extends Specification {
 		videoReleaseProcessor = new VideoReleaseProcessor(pageHeaderProcessorMock, videoTemplatePageProcessorMock, videoReleaseTemplateProcessorMock)
 	}
 
-	void "converts PageHeader to Comics"() {
+	void "converts PageHeader to VideoRelease"() {
 		given:
 		PageHeader pageHeader = new PageHeader()
 		Page page = new Page()

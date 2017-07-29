@@ -90,6 +90,8 @@ class JobBuilderTest extends Specification {
 
 	private Step createTradingCardsStep
 
+	private Step createVideoGamesStep
+
 	private JobRepository jobRepository
 
 	private SpringBatchJobBuilder springBatchJobBuilder
@@ -131,6 +133,7 @@ class JobBuilderTest extends Specification {
 		createLiteratureStep = Mock()
 		createVideoReleasesStep = Mock()
 		createTradingCardsStep = Mock()
+		createVideoGamesStep = Mock()
 		springBatchJobBuilder = new SpringBatchJobBuilder(JobName.JOB_CREATE)
 		springBatchJobBuilder.repository(jobRepository)
 		jobBuilder = new JobBuilder(applicationContextMock, jobBuilderFactoryMock, stepConfigurationValidatorMock, jobCompletenessDeciderMock,
@@ -324,6 +327,12 @@ class JobBuilderTest extends Specification {
 		1 * applicationContextMock.getBean(StepName.CREATE_TRADING_CARDS, Step) >> createTradingCardsStep
 		1 * createTradingCardsStep.name >> StepName.CREATE_TRADING_CARDS
 
+		then: 'CREATE_VIDEO_RELEASES step is retrieved from application context'
+		1 * stepPropertiesMap.get(StepName.CREATE_VIDEO_GAMES) >> stepProperties
+		1 * stepProperties.isEnabled() >> true
+		1 * applicationContextMock.getBean(StepName.CREATE_VIDEO_GAMES, Step) >> createVideoGamesStep
+		1 * createVideoGamesStep.name >> StepName.CREATE_VIDEO_GAMES
+
 		then: 'Task executor is retrieved from application context'
 		1 * applicationContextMock.getBean(TaskExecutor) >> taskExecutor
 
@@ -371,8 +380,8 @@ class JobBuilderTest extends Specification {
 		1 * stepToStepPropertiesProviderMock.provide() >> stepPropertiesMap
 
 		then: 'all steps are disabled'
-		28 * stepPropertiesMap.get(_) >> stepProperties
-		28 * stepProperties.isEnabled() >> false
+		29 * stepPropertiesMap.get(_) >> stepProperties
+		29 * stepProperties.isEnabled() >> false
 
 		then: 'no other interactions are expected'
 		0 * _
@@ -414,8 +423,8 @@ class JobBuilderTest extends Specification {
 		1 * createSeriesStep.name >> StepName.CREATE_SERIES
 
 		then: 'other steps are skipped'
-		26 * stepPropertiesMap.get(_) >> stepProperties
-		26 * stepProperties.isEnabled() >> false
+		27 * stepPropertiesMap.get(_) >> stepProperties
+		27 * stepProperties.isEnabled() >> false
 
 		then: 'Task executor is retrieved from application context'
 		1 * applicationContextMock.getBean(TaskExecutor) >> taskExecutor
