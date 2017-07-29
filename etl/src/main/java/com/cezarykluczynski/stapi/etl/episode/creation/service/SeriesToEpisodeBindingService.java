@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.episode.creation.service;
 
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
+import com.cezarykluczynski.stapi.etl.util.constant.SeriesAbbreviation;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.model.series.repository.SeriesRepository;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
@@ -21,12 +22,12 @@ public class SeriesToEpisodeBindingService {
 	private static final BiMap<String, String> CATEGORY_TITLES_TO_ABBREVIATIONS = HashBiMap.create();
 
 	static {
-		CATEGORY_TITLES_TO_ABBREVIATIONS.put(CategoryTitle.TOS_EPISODES, "TOS");
-		CATEGORY_TITLES_TO_ABBREVIATIONS.put(CategoryTitle.TAS_EPISODES, "TAS");
-		CATEGORY_TITLES_TO_ABBREVIATIONS.put(CategoryTitle.TNG_EPISODES, "TNG");
-		CATEGORY_TITLES_TO_ABBREVIATIONS.put(CategoryTitle.DS9_EPISODES, "DS9");
-		CATEGORY_TITLES_TO_ABBREVIATIONS.put(CategoryTitle.VOY_EPISODES, "VOY");
-		CATEGORY_TITLES_TO_ABBREVIATIONS.put(CategoryTitle.ENT_EPISODES, "ENT");
+		CATEGORY_TITLES_TO_ABBREVIATIONS.put(CategoryTitle.TOS_EPISODES, SeriesAbbreviation.TOS);
+		CATEGORY_TITLES_TO_ABBREVIATIONS.put(CategoryTitle.TAS_EPISODES, SeriesAbbreviation.TAS);
+		CATEGORY_TITLES_TO_ABBREVIATIONS.put(CategoryTitle.TNG_EPISODES, SeriesAbbreviation.TNG);
+		CATEGORY_TITLES_TO_ABBREVIATIONS.put(CategoryTitle.DS9_EPISODES, SeriesAbbreviation.DS9);
+		CATEGORY_TITLES_TO_ABBREVIATIONS.put(CategoryTitle.VOY_EPISODES, SeriesAbbreviation.VOY);
+		CATEGORY_TITLES_TO_ABBREVIATIONS.put(CategoryTitle.ENT_EPISODES, SeriesAbbreviation.ENT);
 	}
 
 	private SeriesRepository seriesRepository;

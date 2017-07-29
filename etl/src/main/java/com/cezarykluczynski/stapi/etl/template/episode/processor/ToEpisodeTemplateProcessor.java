@@ -58,7 +58,11 @@ public class ToEpisodeTemplateProcessor implements ItemProcessor<Page, EpisodeTe
 	public EpisodeTemplate process(Page item) throws Exception {
 		Optional<Template> templateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_EPISODE);
 
-		if (!isEpisodePage(item) || !templateOptional.isPresent()) {
+		boolean isEpisodePage = isEpisodePage(item);
+		boolean templateOptionalIsPresent = templateOptional.isPresent();
+		if (!isEpisodePage || !templateOptionalIsPresent) {
+			log.info("Page with title \"{}\" marked as not an episode (production list or category: {}, template missing: {})", item.getTitle(),
+					!isEpisodePage, !templateOptionalIsPresent);
 			return null;
 		}
 

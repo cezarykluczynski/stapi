@@ -13,7 +13,7 @@ class NonQualifiedCharacterFilterTest extends Specification {
 
 	void "returns true when given string contains part to exclude"() {
 		expect:
-		nonQualifiedCharacterFilter.shouldBeFilteredOut("bla ${RandomUtil.randomItem(NonQualifiedCharacterFilter.REDIRECTS_TO_LISTS_PARTS)} bla")
+		nonQualifiedCharacterFilter.shouldBeFilteredOut("blah ${RandomUtil.randomItem(NonQualifiedCharacterFilter.REDIRECTS_TO_LISTS_PARTS)} blah")
 	}
 
 	void "returns true when given string is on list of string to exclude"() {

@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.ProductionSerial
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DayMonthYearCandidateToLocalDateProcessor;
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate;
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplateParameter;
+import com.cezarykluczynski.stapi.etl.util.constant.SeriesAbbreviation;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.season.repository.SeasonRepository;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
@@ -92,6 +93,10 @@ public class EpisodeTemplateProcessor implements ItemProcessor<Template, Episode
 				default:
 					break;
 			}
+		}
+
+		if (episodeTemplate.getSeasonNumber() == 0 && SeriesAbbreviation.TOS.equals(seriesName)) {
+			episodeTemplate.setSeasonNumber(1);
 		}
 
 		if (day != null && month != null && year != null) {

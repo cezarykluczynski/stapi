@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.ProductionSerial
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DayMonthYearCandidateToLocalDateProcessor
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplateParameter
+import com.cezarykluczynski.stapi.etl.util.constant.SeriesAbbreviation
 import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.model.season.entity.Season
 import com.cezarykluczynski.stapi.model.season.repository.SeasonRepository
@@ -119,6 +120,26 @@ class EpisodeTemplateProcessorTest extends AbstractTemplateProcessorTest {
 		1 * seasonRepositoryMock.findBySeriesAbbreviationAndSeasonNumber(SERIES_TITLE, SEASON_NUMBER_INTEGER) >> season
 		0 * _
 		episodeTemplate2.episodeNumber == null
+	}
+
+	void "fixes season number for 'The Cage'"() {
+		given:
+		Season season = Mock()
+
+		when:
+		EpisodeTemplate episodeTemplate = episodeTemplateProcessor.process(new Template(
+				parts: Lists.newArrayList(
+						createTemplatePart(EpisodeTemplateParameter.S_SERIES, SeriesAbbreviation.TOS),
+						createTemplatePart(EpisodeTemplateParameter.N_SEASON, '0'),
+						createTemplatePart(EpisodeTemplateParameter.N_EPISODE, '0')
+				)
+		))
+
+		then:
+		1 * imageTemplateStardateYearEnrichingProcessorMock.enrich(_)
+		1 * seasonRepositoryMock.findBySeriesAbbreviationAndSeasonNumber(SeriesAbbreviation.TOS, 1) >> season
+		0 * _
+		episodeTemplate.episodeNumber == 0
 	}
 
 	void "tolerates template part with null key"() {

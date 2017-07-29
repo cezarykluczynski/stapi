@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.movie.linker;
 
 import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService;
+import com.cezarykluczynski.stapi.etl.common.service.NonQualifiedCharacterFilter;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
@@ -25,9 +26,13 @@ public class MoviePerformersCharactersLinkingWorker implements MovieRealPeopleLi
 
 	private final EntityLookupByNameService entityLookupByNameService;
 
+	private final NonQualifiedCharacterFilter nonQualifiedCharacterFilter;
+
 	@Inject
-	public MoviePerformersCharactersLinkingWorker(EntityLookupByNameService entityLookupByNameService) {
+	public MoviePerformersCharactersLinkingWorker(EntityLookupByNameService entityLookupByNameService,
+			NonQualifiedCharacterFilter nonQualifiedCharacterFilter) {
 		this.entityLookupByNameService = entityLookupByNameService;
+		this.nonQualifiedCharacterFilter = nonQualifiedCharacterFilter;
 	}
 
 	@Override
@@ -59,8 +64,12 @@ public class MoviePerformersCharactersLinkingWorker implements MovieRealPeopleLi
 
 			Optional<Performer> performerOptional = entityLookupByNameService
 					.findPerformerByName(performerName, MovieRealPeopleLinkingWorker.SOURCE);
-			Optional<Character> characterOptional = entityLookupByNameService
-					.findCharacterByName(characterName, MovieRealPeopleLinkingWorker.SOURCE);
+
+			Optional<Character> characterOptional = Optional.empty();
+			if (!nonQualifiedCharacterFilter.shouldBeFilteredOut(characterName)) {
+				characterOptional = entityLookupByNameService
+						.findCharacterByName(characterName, MovieRealPeopleLinkingWorker.SOURCE);
+			}
 
 			boolean performerIsPresent = performerOptional.isPresent();
 			boolean characterIsPresent = characterOptional.isPresent();
