@@ -28,7 +28,7 @@ export class EntityHitsGrid extends StatisticsComponent {
 		this.names = this.getEntityNameToPluralNameMap();
 		return (
 			<div>
-				<h4>A total of <strong>{this.state.statistics.hitsStatistics.totalCount}</strong> calls to API was made!</h4>
+				<h4>A total of <strong>{this.getTotalCount()}</strong> calls to API was made!</h4>
 				<hr />
 				<ReactDataGrid columns={this.getColumns()} rowGetter={this.rowGetter} rowsCount={this.getRowsCount()}
 				 		onGridSort={this.sorter} minHeight={400} />
@@ -63,6 +63,7 @@ export class EntityHitsGrid extends StatisticsComponent {
 	}
 
 	sorter(sortColumn, sortDirection) {
+		const totalCount = this.state.statistics.hitsStatistics.totalCount;
 		const comparer = (a, b) => {
 			if (sortDirection === 'ASC') {
 				return (a[sortColumn] > b[sortColumn]) ? 1 : -1;
@@ -74,12 +75,11 @@ export class EntityHitsGrid extends StatisticsComponent {
 		const statistics = sortDirection === 'NONE' ? this.originalSort.slice(0)
 				: this.state.statistics.hitsStatistics.statistics.slice(0).sort(comparer);
 
-		console.log(this.originalSort);
-
 		this.setState({
 			statistics: {
 				hitsStatistics: {
-					statistics: statistics
+					statistics: statistics,
+					totalCount: totalCount
 				}
 			}
 		});
@@ -87,6 +87,10 @@ export class EntityHitsGrid extends StatisticsComponent {
 
 	getRowsCount() {
 		return this.state && this.state.statistics ? this.state.statistics.hitsStatistics.statistics.length : 0;
+	}
+
+	getTotalCount() {
+		return this.state && this.state.statistics ? this.state.statistics.hitsStatistics.totalCount : 0;
 	}
 
 }
