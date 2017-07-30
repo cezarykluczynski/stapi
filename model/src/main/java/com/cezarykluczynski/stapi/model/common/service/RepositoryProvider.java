@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.model.common.service;
 
-import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
+import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
+import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import org.apache.commons.lang3.tuple.Pair;
 import org.hibernate.metadata.ClassMetadata;
 import org.springframework.data.repository.CrudRepository;
@@ -18,7 +19,7 @@ public class RepositoryProvider {
 
 	private final Repositories repositories;
 
-	private Map<Class<? extends PageAwareEntity>, CrudRepository> map;
+	private Map<Class, CrudRepository> map;
 
 	@Inject
 	public RepositoryProvider(EntityMatadataProvider entityMatadataProvider, Repositories repositories) {
@@ -26,7 +27,7 @@ public class RepositoryProvider {
 		this.repositories = repositories;
 	}
 
-	public Map<Class<? extends PageAwareEntity>, CrudRepository> provide() {
+	public Map<Class, CrudRepository> provide() {
 		if (map == null) {
 			synchronized (this) {
 				if (map == null) {
@@ -38,18 +39,26 @@ public class RepositoryProvider {
 		return map;
 	}
 
-	private Map<Class<? extends PageAwareEntity>, CrudRepository> doProvide() {
+	private Map<Class, CrudRepository> doProvide() {
 		return entityMatadataProvider.provideClassNameToMetadataMap().entrySet()
 				.stream()
 				.map(Map.Entry::getValue)
 				.map(ClassMetadata::getMappedClass)
-				.filter(PageAwareEntity.class::isAssignableFrom)
-				.map(clazz -> (Class<? extends PageAwareEntity>) clazz)
+				.filter(this::isPrimaryEntity)
 				.map(clazz -> {
 					CrudRepository crudRepository = (CrudRepository) repositories.getRepositoryFor(clazz);
 					return Pair.of(clazz, crudRepository);
 				})
 				.collect(Collectors.toMap(Pair::getKey, Pair::getValue));
+	}
+
+	private boolean isPrimaryEntity(Class clazz) {
+		if (!clazz.isAnnotationPresent(TrackedEntity.class)) {
+			return false;
+		}
+
+		TrackedEntity trackedEntity = (TrackedEntity) clazz.getAnnotation(TrackedEntity.class);
+		return TrackedEntityType.FICTIONAL_PRIMARY.equals(trackedEntity.type()) || TrackedEntityType.REAL_WORLD_PRIMARY.equals(trackedEntity.type());
 	}
 
 }

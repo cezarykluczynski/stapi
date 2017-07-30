@@ -26,6 +26,7 @@ class CommonEntitiesStatisticsReader {
 		List<RestEndpointStatisticDTO> restEndpointStatisticDTOList = entitySizeStatisticsProvider.provide()
 				.entrySet()
 				.stream()
+				.filter(entry -> entry.getValue() > 0L)
 				.map(entry -> {
 					Long count = entry.getValue();
 					RestEndpointStatisticDTO restEndpointStatisticDTO = new RestEndpointStatisticDTO();

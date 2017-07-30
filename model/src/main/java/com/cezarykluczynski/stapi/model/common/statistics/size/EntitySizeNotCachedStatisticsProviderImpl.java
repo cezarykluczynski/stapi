@@ -1,6 +1,5 @@
 package com.cezarykluczynski.stapi.model.common.statistics.size;
 
-import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,7 @@ public class EntitySizeNotCachedStatisticsProviderImpl implements EntitySizeStat
 	}
 
 	@Override
-	public Map<Class<? extends PageAwareEntity>, Long> provide() {
+	public Map<Class, Long> provide() {
 		return entitySizeCountingService.count();
 	}
 

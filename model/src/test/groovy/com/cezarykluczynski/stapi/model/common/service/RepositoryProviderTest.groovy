@@ -6,6 +6,8 @@ import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.model.series.repository.SeriesRepository
 import com.cezarykluczynski.stapi.model.species.entity.Species
 import com.cezarykluczynski.stapi.model.species.repository.SpeciesRepository
+import com.cezarykluczynski.stapi.model.trading_card.entity.TradingCard
+import com.cezarykluczynski.stapi.model.trading_card.repository.TradingCardRepository
 import com.google.common.collect.Maps
 import org.hibernate.metadata.ClassMetadata
 import org.springframework.data.repository.CrudRepository
@@ -30,6 +32,7 @@ class RepositoryProviderTest extends Specification {
 		given:
 		SeriesRepository seriesRepository = Mock()
 		SpeciesRepository speciesRepository = Mock()
+		TradingCardRepository tradingCardRepository = Mock()
 		Map<String, ClassMetadata> classNameToMetadataMap = Maps.newHashMap()
 		ClassMetadata pageClassMetadata = Mock()
 		classNameToMetadataMap.put('com.cezarykluczynski.stapi.model.page.entity.Page', pageClassMetadata)
@@ -37,6 +40,8 @@ class RepositoryProviderTest extends Specification {
 		classNameToMetadataMap.put('com.cezarykluczynski.stapi.model.series.entity.Series', seriesClassMetadata)
 		ClassMetadata speciesClassMetadata = Mock()
 		classNameToMetadataMap.put('com.cezarykluczynski.stapi.model.species.entity.Species', speciesClassMetadata)
+		ClassMetadata tradingCardsClassMetadata = Mock()
+		classNameToMetadataMap.put('com.cezarykluczynski.stapi.model.trading_card.entity.TradingCard', tradingCardsClassMetadata)
 
 		when:
 		Map<Class<? extends PageAwareEntity>, CrudRepository> map = repositoryProvider.provide()
@@ -46,12 +51,15 @@ class RepositoryProviderTest extends Specification {
 		1 * pageClassMetadata.mappedClass >> Page
 		1 * seriesClassMetadata.mappedClass >> Series
 		1 * speciesClassMetadata.mappedClass >> Species
+		1 * tradingCardsClassMetadata.mappedClass >> TradingCard
 		1 * repositoriesMock.getRepositoryFor(Series) >> seriesRepository
 		1 * repositoriesMock.getRepositoryFor(Species) >> speciesRepository
+		1 * repositoriesMock.getRepositoryFor(TradingCard) >> tradingCardRepository
 		0 * _
-		map.size() == 2
+		map.size() == 3
 		map.get(Series) == seriesRepository
 		map.get(Species) == speciesRepository
+		map.get(TradingCard) == tradingCardRepository
 
 		when: 'another request is made'
 		Map<Class<? extends PageAwareEntity>, CrudRepository> anotherMap = repositoryProvider.provide()
@@ -59,7 +67,6 @@ class RepositoryProviderTest extends Specification {
 		then: 'cached version is returned'
 		0 * _
 		anotherMap == map
-
 	}
 
 }

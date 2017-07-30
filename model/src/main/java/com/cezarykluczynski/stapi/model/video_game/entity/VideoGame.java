@@ -39,8 +39,8 @@ import java.util.Set;
 @ToString(callSuper = true, exclude = {"publishers", "developers", "platforms", "ratings", "references"})
 @EqualsAndHashCode(callSuper = true, exclude = {"publishers", "developers", "platforms", "ratings", "references"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = VideoReleaseRepository.class, singularName = "video release",
-		pluralName = "video releases")
+@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = VideoReleaseRepository.class, singularName = "video game",
+		pluralName = "video games")
 public class VideoGame extends PageAwareEntity implements PageAware {
 
 	@Id
