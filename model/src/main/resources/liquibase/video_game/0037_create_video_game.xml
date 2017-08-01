@@ -21,7 +21,7 @@
 			<column name="stardate_to" type="float"/>
 			<column name="year_from" type="int"/>
 			<column name="year_to" type="int"/>
-			<column name="system_requirements" type="varchar(256)"/>
+			<column name="system_requirements" type="varchar(512)"/>
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="video_game_sequence"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
