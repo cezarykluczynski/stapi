@@ -24,7 +24,7 @@ class TradingCardDeckFullRestMapperTest extends AbstractTradingCardDeckMapperTes
 		tradingCardDeckFull.name == NAME
 		tradingCardDeckFull.frequency == FREQUENCY
 		tradingCardDeckFull.tradingCardSet != null
-//		tradingCardDeckFull.tradingCards.size() == tradingCardDeck.tradingCards.size() // TODO
+		tradingCardDeckFull.tradingCards.size() == tradingCardDeck.tradingCards.size()
 	}
 
 }

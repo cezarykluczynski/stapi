@@ -19,7 +19,6 @@ public interface TradingCardDeckFullSoapMapper {
 	@Mapping(target = "sort", ignore = true)
 	TradingCardDeckRequestDTO mapFull(TradingCardDeckFullRequest tradingCardDeckFullRequest);
 
-	@Mapping(target = "tradingCards", ignore = true) // TODO
 	TradingCardDeckFull mapFull(TradingCardDeck tradingCardDeck);
 
 }
