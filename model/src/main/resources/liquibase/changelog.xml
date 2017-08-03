@@ -38,6 +38,7 @@
 	<include file="trading_card_set/0034_create_trading_card_set.xml" relativeToChangelogFile="true"/>
 	<include file="trading_card/0035_create_trading_card.xml" relativeToChangelogFile="true"/>
 	<include file="platform/0036_create_platform.xml" relativeToChangelogFile="true"/>
-	<include file="video_game/0037_create_video_game.xml" relativeToChangelogFile="true"/>
+	<include file="genre/0037_create_genre.xml" relativeToChangelogFile="true"/>
+	<include file="video_game/0038_create_video_game.xml" relativeToChangelogFile="true"/>
 	<include file="soundtrack/0039_create_soundtrack.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
