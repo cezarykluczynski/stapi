@@ -40,7 +40,8 @@ public class StepNames {
 				StepName.CREATE_LITERATURE,
 				StepName.CREATE_VIDEO_RELEASES,
 				StepName.CREATE_TRADING_CARDS,
-				StepName.CREATE_VIDEO_GAMES
+				StepName.CREATE_VIDEO_GAMES,
+				StepName.CREATE_SOUNDTRACKS
 		));
 	}
 

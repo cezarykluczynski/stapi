@@ -31,5 +31,6 @@ public class StepName {
 	public static final String CREATE_VIDEO_RELEASES = "CREATE_VIDEO_RELEASES";
 	public static final String CREATE_TRADING_CARDS = "CREATE_TRADING_CARDS";
 	public static final String CREATE_VIDEO_GAMES = "CREATE_VIDEO_GAMES";
+	public static final String CREATE_SOUNDTRACKS = "CREATE_SOUNDTRACKS";
 
 }

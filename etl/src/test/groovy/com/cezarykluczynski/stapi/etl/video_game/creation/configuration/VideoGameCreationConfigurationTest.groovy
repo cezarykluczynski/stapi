@@ -11,7 +11,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 
 class VideoGameCreationConfigurationTest extends AbstractCreationConfigurationTest {
 
-	private static final String TITLE_VIDEO_RELEASE = 'TITLE_VIDEO_RELEASE'
+	private static final String TITLE_VIDEO_GAME = 'TITLE_VIDEO_GAME'
 
 	private CategoryApi categoryApiMock
 
@@ -35,9 +35,9 @@ class VideoGameCreationConfigurationTest extends AbstractCreationConfigurationTe
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_VIDEO_GAMES) >> false
 		1 * categoryApiMock.getPages(CategoryTitle.VIDEO_GAMES, MediaWikiSource.MEMORY_ALPHA_EN) >>
-				createListWithPageHeaderTitle(TITLE_VIDEO_RELEASE)
+				createListWithPageHeaderTitle(TITLE_VIDEO_GAME)
 		0 * _
-		categoryHeaderTitleList.contains TITLE_VIDEO_RELEASE
+		categoryHeaderTitleList.contains TITLE_VIDEO_GAME
 	}
 
 	void "VideoGameReader is created with no pages when step is completed"() {

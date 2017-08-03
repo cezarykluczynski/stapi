@@ -71,6 +71,9 @@ import com.cezarykluczynski.stapi.etl.season.creation.processor.SeasonWriter;
 import com.cezarykluczynski.stapi.etl.series.creation.processor.SeriesProcessor;
 import com.cezarykluczynski.stapi.etl.series.creation.processor.SeriesReader;
 import com.cezarykluczynski.stapi.etl.series.creation.processor.SeriesWriter;
+import com.cezarykluczynski.stapi.etl.soundtrack.creation.processor.SoundtrackProcessor;
+import com.cezarykluczynski.stapi.etl.soundtrack.creation.processor.SoundtrackReader;
+import com.cezarykluczynski.stapi.etl.soundtrack.creation.processor.SoundtrackWriter;
 import com.cezarykluczynski.stapi.etl.species.creation.processor.SpeciesProcessor;
 import com.cezarykluczynski.stapi.etl.species.creation.processor.SpeciesReader;
 import com.cezarykluczynski.stapi.etl.species.creation.processor.SpeciesWriter;
@@ -108,6 +111,7 @@ import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.model.season.entity.Season;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
+import com.cezarykluczynski.stapi.model.soundtrack.entity.Soundtrack;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet;
@@ -519,6 +523,19 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(VideoGameReader.class))
 				.processor(applicationContext.getBean(VideoGameProcessor.class))
 				.writer(applicationContext.getBean(VideoGameWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_SOUNDTRACKS)
+	public Step stepCreateSoundtracks() {
+		return stepBuilderFactory.get(StepName.CREATE_SOUNDTRACKS)
+				.<PageHeader, Soundtrack>chunk(stepsProperties.getCreateSoundtracks().getCommitInterval())
+				.reader(applicationContext.getBean(SoundtrackReader.class))
+				.processor(applicationContext.getBean(SoundtrackProcessor.class))
+				.writer(applicationContext.getBean(SoundtrackWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)

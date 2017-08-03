@@ -1,10 +1,10 @@
-package com.cezarykluczynski.stapi.etl.video_game.creation.configuration;
+package com.cezarykluczynski.stapi.etl.soundtrack.creation.configuration;
 
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
+import com.cezarykluczynski.stapi.etl.soundtrack.creation.processor.SoundtrackReader;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
-import com.cezarykluczynski.stapi.etl.video_game.creation.processor.VideoGameReader;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
@@ -18,7 +18,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Configuration
-public class VideoGameCreationConfiguration {
+public class SoundtrackCreationConfiguration {
 
 	@Inject
 	private CategoryApi categoryApi;
@@ -28,14 +28,14 @@ public class VideoGameCreationConfiguration {
 
 	@Bean
 	@DependsOn("batchDatabaseInitializer")
-	public VideoGameReader videoGameReader() {
-		List<PageHeader> videoGameList = Lists.newArrayList();
+	public SoundtrackReader soundtrackReader() {
+		List<PageHeader> soundtrackList = Lists.newArrayList();
 
-		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_VIDEO_GAMES)) {
-			videoGameList.addAll(categoryApi.getPages(CategoryTitle.VIDEO_GAMES, MediaWikiSource.MEMORY_ALPHA_EN));
+		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_SOUNDTRACKS)) {
+			soundtrackList.addAll(categoryApi.getPages(CategoryTitle.SOUNDTRACKS, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 
-		return new VideoGameReader(Lists.newArrayList(Sets.newHashSet(videoGameList)));
+		return new SoundtrackReader(Lists.newArrayList(Sets.newHashSet(soundtrackList)));
 	}
 
 }
