@@ -85,7 +85,7 @@ class StringUtilTest extends Specification {
 		Lists.newArrayList('Government agency') | 'Government' | false
 	}
 
-	@Unroll('#returns $result when #subject ends with any of #suffixList')
+	@Unroll('returns #result when #subject ends with any of #suffixList')
 	void "tells when a string any with any of a given string from the list"() {
 		expect:
 		result == StringUtil.endsWithAny(subject, suffixList)
