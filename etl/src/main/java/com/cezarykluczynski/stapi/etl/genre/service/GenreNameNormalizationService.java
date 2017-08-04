@@ -14,8 +14,8 @@ public class GenreNameNormalizationService {
 	private static final String DASH = "-";
 
 	public String normalize(String genreName) {
-		String normalizedGendeName = StringUtils.replace(genreName, SLASH, StringUtils.SPACE);
-		return normalizeUsing(normalizeUsing(normalizedGendeName, DASH), StringUtils.SPACE);
+		String normalizedGenreName = StringUtils.replace(genreName, SLASH, StringUtils.SPACE);
+		return normalizeUsing(normalizeUsing(normalizedGenreName, DASH), StringUtils.SPACE);
 	}
 
 	private String normalizeUsing(String genreName, String separator) {

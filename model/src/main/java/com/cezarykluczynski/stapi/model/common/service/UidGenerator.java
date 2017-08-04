@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.hibernate.metadata.ClassMetadata;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -155,6 +156,15 @@ public class UidGenerator {
 		}
 
 		return "TC" + StringUtils.leftPad(String.valueOf(itemNumber), 12, ZERO);
+	}
+
+	public String generateForGenre(String genreName) {
+		if (StringUtils.isBlank(genreName)) {
+			return null;
+		}
+
+		String md5Hash = DigestUtils.md5DigestAsHex(genreName.getBytes());
+		return "GENR" + StringUtils.upperCase(md5Hash.substring(0, 10));
 	}
 
 }

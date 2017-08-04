@@ -227,14 +227,14 @@ class UidGeneratorTest extends Specification {
 
 		where:
 		iso3166_1Alpha_2Code | uid
-		null         | null
-		''           | null
-		'A'          | null
-		'BBB'        | null
-		'GB'         | 'CU0000000000GB'
-		'GB'         | 'CU0000000000GB'
-		'pl'         | 'CU0000000000PL'
-		'PL'         | 'CU0000000000PL'
+		null                 | null
+		''                   | null
+		'A'                  | null
+		'BBB'                | null
+		'GB'                 | 'CU0000000000GB'
+		'GB'                 | 'CU0000000000GB'
+		'pl'                 | 'CU0000000000PL'
+		'PL'                 | 'CU0000000000PL'
 	}
 
 	@Unroll('when #id is passed, #uid is returned for TradingCard')
@@ -247,6 +247,19 @@ class UidGeneratorTest extends Specification {
 		null   | null
 		1      | 'TC000000000001'
 		123456 | 'TC000000123456'
+	}
+
+	@Unroll('when #genreName is passed, #uid is returned for Genre')
+	void "when genre name is passed, it is converted to uid for Genre"() {
+		expect:
+		uidGenerator.generateForGenre(genreName) == uid
+
+		where:
+		genreName          | uid
+		null               | null
+		''                 | null
+		'Action'           | 'GENR004BF6C9A4'
+		'Action adventure' | 'GENRAAC3395B45'
 	}
 
 }
