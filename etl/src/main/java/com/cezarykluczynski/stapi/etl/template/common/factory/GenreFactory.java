@@ -4,10 +4,12 @@ import com.cezarykluczynski.stapi.etl.genre.service.GenreNameNormalizationServic
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import com.cezarykluczynski.stapi.model.genre.entity.Genre;
 import com.cezarykluczynski.stapi.model.genre.repository.GenreRepository;
+import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.Optional;
 
+@Service
 public class GenreFactory {
 
 	private final GenreNameNormalizationService genreNameNormalizationService;
