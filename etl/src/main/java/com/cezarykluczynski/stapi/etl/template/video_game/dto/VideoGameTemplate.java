@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.video_game.dto;
 
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.content_rating.entity.ContentRating;
+import com.cezarykluczynski.stapi.model.genre.entity.Genre;
 import com.cezarykluczynski.stapi.model.page.entity.Page;
 import com.cezarykluczynski.stapi.model.platform.entity.Platform;
 import com.cezarykluczynski.stapi.model.reference.entity.Reference;
@@ -36,7 +37,7 @@ public class VideoGameTemplate {
 
 	private Set<Platform> platforms = Sets.newHashSet();
 
-	// TODO: genres
+	private Set<Genre> genres = Sets.newHashSet();
 
 	private Set<ContentRating> ratings = Sets.newHashSet();
 
