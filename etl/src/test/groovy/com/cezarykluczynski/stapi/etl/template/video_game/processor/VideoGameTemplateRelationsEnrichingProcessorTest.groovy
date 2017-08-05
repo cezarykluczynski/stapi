@@ -8,18 +8,22 @@ import com.cezarykluczynski.stapi.etl.template.video_game.dto.VideoGameTemplate
 import com.cezarykluczynski.stapi.etl.template.video_game.dto.VideoGameTemplateParameter
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.content_rating.entity.ContentRating
+import com.cezarykluczynski.stapi.model.genre.entity.Genre
 import com.cezarykluczynski.stapi.model.reference.entity.Reference
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import spock.lang.Specification
 
-class VideoGameRelationsEnrichingProcessorTest extends Specification {
+class VideoGameTemplateRelationsEnrichingProcessorTest extends Specification {
 
 	private static final String PUBLISHER = 'PUBLISHER'
 	private static final String DEVELOPER = 'DEVELOPER'
+	private static final String GENRES = 'GENRES'
 
 	private WikitextToCompaniesProcessor wikitextToCompaniesProcessorMock
+
+	private VideoGameTemplateGenresProcessor videoGameTemplateGenresProcessorMock
 
 	private ContentRatingsProcessor contentRatingsProcessorMock
 
@@ -29,10 +33,11 @@ class VideoGameRelationsEnrichingProcessorTest extends Specification {
 
 	void setup() {
 		wikitextToCompaniesProcessorMock = Mock()
+		videoGameTemplateGenresProcessorMock = Mock()
 		contentRatingsProcessorMock = Mock()
 		referencesFromTemplatePartProcessorMock = Mock()
 		videoGameTemplateRelationsEnrichingProcessor = new VideoGameTemplateRelationsEnrichingProcessor(wikitextToCompaniesProcessorMock,
-				contentRatingsProcessorMock, referencesFromTemplatePartProcessorMock)
+				videoGameTemplateGenresProcessorMock, contentRatingsProcessorMock, referencesFromTemplatePartProcessorMock)
 	}
 
 	void "when publisher part is found, WikitextToCompaniesProcessor is used to process it"() {
@@ -73,6 +78,26 @@ class VideoGameRelationsEnrichingProcessorTest extends Specification {
 		0 * _
 		videoGameTemplate.developers.contains company1
 		videoGameTemplate.developers.contains company2
+	}
+
+	void "when genres part is found, VideoGameTemplateGenresProcessor is used to process it"() {
+		given:
+		Template.Part templatePart = new Template.Part(
+				key: VideoGameTemplateParameter.GENRES,
+				value: GENRES)
+		Template sidebarVideoGameTemplate = new Template(parts: Lists.newArrayList(templatePart))
+		Genre genre1 = Mock()
+		Genre genre2 = Mock()
+		VideoGameTemplate videoGameTemplate = new VideoGameTemplate()
+
+		when:
+		videoGameTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoGameTemplate, videoGameTemplate))
+
+		then:
+		1 * videoGameTemplateGenresProcessorMock.process(GENRES) >> Sets.newHashSet(genre1, genre2)
+		0 * _
+		videoGameTemplate.genres.contains genre1
+		videoGameTemplate.genres.contains genre2
 	}
 
 	void "when rating part is found, ContentRatingProcessor is used to process it"() {

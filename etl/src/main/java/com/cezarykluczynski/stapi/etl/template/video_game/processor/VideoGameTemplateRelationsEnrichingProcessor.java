@@ -15,13 +15,17 @@ class VideoGameTemplateRelationsEnrichingProcessor implements ItemEnrichingProce
 
 	private final WikitextToCompaniesProcessor wikitextToCompaniesProcessor;
 
+	private final VideoGameTemplateGenresProcessor videoGameTemplateGenresProcessor;
+
 	private final ContentRatingsProcessor contentRatingsProcessor;
 
 	private final ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor;
 
 	public VideoGameTemplateRelationsEnrichingProcessor(WikitextToCompaniesProcessor wikitextToCompaniesProcessor,
-			ContentRatingsProcessor contentRatingsProcessor, ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor) {
+			VideoGameTemplateGenresProcessor videoGameTemplateGenresProcessor, ContentRatingsProcessor contentRatingsProcessor,
+			ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor) {
 		this.wikitextToCompaniesProcessor = wikitextToCompaniesProcessor;
+		this.videoGameTemplateGenresProcessor = videoGameTemplateGenresProcessor;
 		this.contentRatingsProcessor = contentRatingsProcessor;
 		this.referencesFromTemplatePartProcessor = referencesFromTemplatePartProcessor;
 	}
@@ -44,8 +48,9 @@ class VideoGameTemplateRelationsEnrichingProcessor implements ItemEnrichingProce
 					break;
 				case VideoGameTemplateParameter.PLATFORM:
 					// TODO
+					break;
 				case VideoGameTemplateParameter.GENRES:
-					// TODO
+					videoGameTemplate.getGenres().addAll(videoGameTemplateGenresProcessor.process(value));
 					break;
 				case VideoGameTemplateParameter.RATING:
 					videoGameTemplate.getRatings().addAll(contentRatingsProcessor.process(part));
