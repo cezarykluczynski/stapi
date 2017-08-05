@@ -36,8 +36,8 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true, exclude = {"label", "composers", "contributors", "references"})
-@EqualsAndHashCode(callSuper = true, exclude = {"label", "composers", "contributors", "references"})
+@ToString(callSuper = true, exclude = {"label", "composers", "contributors", "orchestrators", "references"})
+@EqualsAndHashCode(callSuper = true, exclude = {"label", "composers", "contributors", "orchestrators", "references"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = VideoReleaseRepository.class, singularName = "video game",
 		pluralName = "video games")
@@ -76,15 +76,17 @@ public class Soundtrack extends PageAwareEntity implements PageAware {
 	private Set<Staff> contributors = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "soundtracks_orchestrators",
+			joinColumns = @JoinColumn(name = "soundtrack_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "staff_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<Staff> orchestrators = Sets.newHashSet();
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "soundtracks_references",
 			joinColumns = @JoinColumn(name = "soundtrack_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "reference_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Reference> references = Sets.newHashSet();
-
-	// TODO orchestrators
-	// TODO orchestras
-	// TODO conductors
-
 
 }

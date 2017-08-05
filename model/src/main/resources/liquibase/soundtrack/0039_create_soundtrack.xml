@@ -58,10 +58,25 @@
 				baseTableName="soundtracks_contributors"
 				constraintName="sco_soundtrack_fkey"
 				referencedColumnNames="id"
-				referencedTableName="book_collection"/>
+				referencedTableName="soundtrack"/>
 		<addForeignKeyConstraint baseColumnNames="staff_id"
 				baseTableName="soundtracks_contributors"
 				constraintName="sco_contributor_fkey"
+				referencedColumnNames="id"
+				referencedTableName="staff"/>
+
+		<createTable schemaName="stapi" tableName="soundtracks_orchestrators">
+			<column name="soundtrack_id" type="bigint"/>
+			<column name="staff_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="soundtrack_id"
+				baseTableName="soundtracks_orchestrators"
+				constraintName="sor_soundtrack_fkey"
+				referencedColumnNames="id"
+				referencedTableName="soundtrack"/>
+		<addForeignKeyConstraint baseColumnNames="staff_id"
+				baseTableName="soundtracks_orchestrators"
+				constraintName="sor_contributor_fkey"
 				referencedColumnNames="id"
 				referencedTableName="staff"/>
 
@@ -73,7 +88,7 @@
 				baseTableName="soundtracks_references"
 				constraintName="sr_soundtrack_fkey"
 				referencedColumnNames="id"
-				referencedTableName="comic_collection"/>
+				referencedTableName="soundtrack"/>
 		<addForeignKeyConstraint baseColumnNames="reference_id"
 				baseTableName="soundtracks_references"
 				constraintName="sr_reference_fkey"
