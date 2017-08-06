@@ -75,6 +75,21 @@
 				referencedColumnNames="id"
 				referencedTableName="platform"/>
 
+		<createTable schemaName="stapi" tableName="video_games_genres">
+			<column name="video_game_id" type="bigint"/>
+			<column name="genre_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="video_game_id"
+				baseTableName="video_games_genres"
+				constraintName="vgg_video_game_fkey"
+				referencedColumnNames="id"
+				referencedTableName="video_game"/>
+		<addForeignKeyConstraint baseColumnNames="genre_id"
+				baseTableName="video_games_genres"
+				constraintName="vgg_genre_fkey"
+				referencedColumnNames="id"
+				referencedTableName="genre"/>
+
 		<createTable schemaName="stapi" tableName="video_games_ratings">
 			<column name="video_game_id" type="bigint"/>
 			<column name="content_rating_id" type="bigint"/>

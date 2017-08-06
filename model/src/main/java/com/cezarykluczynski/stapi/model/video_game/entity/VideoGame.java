@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityTyp
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.content_rating.entity.ContentRating;
+import com.cezarykluczynski.stapi.model.genre.entity.Genre;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.platform.entity.Platform;
 import com.cezarykluczynski.stapi.model.reference.entity.Reference;
@@ -36,8 +37,8 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true, exclude = {"publishers", "developers", "platforms", "ratings", "references"})
-@EqualsAndHashCode(callSuper = true, exclude = {"publishers", "developers", "platforms", "ratings", "references"})
+@ToString(callSuper = true, exclude = {"publishers", "developers", "platforms", "genres", "ratings", "references"})
+@EqualsAndHashCode(callSuper = true, exclude = {"publishers", "developers", "platforms", "genres", "ratings", "references"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = VideoReleaseRepository.class, singularName = "video game",
 		pluralName = "video games")
@@ -84,7 +85,12 @@ public class VideoGame extends PageAwareEntity implements PageAware {
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Platform> platforms = Sets.newHashSet();
 
-	// TODO: genres
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "video_games_genres",
+			joinColumns = @JoinColumn(name = "video_game_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "genre_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<Genre> genres = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "video_games_ratings",

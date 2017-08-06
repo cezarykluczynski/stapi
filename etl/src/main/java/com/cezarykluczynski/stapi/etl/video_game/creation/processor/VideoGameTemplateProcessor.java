@@ -34,7 +34,7 @@ public class VideoGameTemplateProcessor implements ItemProcessor<VideoGameTempla
 		videoGame.getPublishers().addAll(item.getPublishers());
 		videoGame.getDevelopers().addAll(item.getDevelopers());
 		videoGame.getPlatforms().addAll(item.getPlatforms());
-		// TODO: genres
+		videoGame.getGenres().addAll(item.getGenres());
 		videoGame.getRatings().addAll(item.getRatings());
 		videoGame.getReferences().addAll(item.getReferences());
 

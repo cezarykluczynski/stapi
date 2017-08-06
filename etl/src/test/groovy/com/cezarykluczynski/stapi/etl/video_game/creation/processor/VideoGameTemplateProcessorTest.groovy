@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.etl.template.video_game.dto.VideoGameTemplate
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.content_rating.entity.ContentRating
+import com.cezarykluczynski.stapi.model.genre.entity.Genre
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.platform.entity.Platform
 import com.cezarykluczynski.stapi.model.reference.entity.Reference
@@ -37,6 +38,7 @@ class VideoGameTemplateProcessorTest extends AbstractVideoGameTest {
 				publishers: createSetOfRandomNumberOfMocks(Company),
 				developers: createSetOfRandomNumberOfMocks(Company),
 				platforms: createSetOfRandomNumberOfMocks(Platform),
+				genres: createSetOfRandomNumberOfMocks(Genre),
 				ratings: createSetOfRandomNumberOfMocks(ContentRating),
 				references: createSetOfRandomNumberOfMocks(Reference))
 
@@ -58,6 +60,7 @@ class VideoGameTemplateProcessorTest extends AbstractVideoGameTest {
 		videoGame.publishers.size() == videoGameTemplate.publishers.size()
 		videoGame.developers.size() == videoGameTemplate.developers.size()
 		videoGame.platforms.size() == videoGameTemplate.platforms.size()
+		videoGame.genres.size() == videoGameTemplate.genres.size()
 		videoGame.ratings.size() == videoGameTemplate.ratings.size()
 		videoGame.references.size() == videoGameTemplate.references.size()
 	}
