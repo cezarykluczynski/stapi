@@ -14,9 +14,9 @@ import javax.inject.Inject;
 public class SoundtrackProcessor extends CompositeItemProcessor<PageHeader, Soundtrack> {
 
 	@Inject
-	public SoundtrackProcessor(PageHeaderProcessor pageHeaderProcessor, SoundtrackTemplatePageProcessor videoGameTemplatePageProcessor,
-			SoundtrackTemplateProcessor videoGameTemplateProcessor) {
-		setDelegates(Lists.newArrayList(pageHeaderProcessor, videoGameTemplatePageProcessor, videoGameTemplateProcessor));
+	public SoundtrackProcessor(PageHeaderProcessor pageHeaderProcessor, SoundtrackTemplatePageProcessor soundtrackTemplatePageProcessor,
+			SoundtrackTemplateProcessor soundtrackTemplateProcessor) {
+		setDelegates(Lists.newArrayList(pageHeaderProcessor, soundtrackTemplatePageProcessor, soundtrackTemplateProcessor));
 	}
 
 }

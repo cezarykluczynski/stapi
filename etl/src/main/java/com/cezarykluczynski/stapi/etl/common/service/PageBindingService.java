@@ -23,7 +23,7 @@ public class PageBindingService {
 		this.mediaWikiSourceMapper = mediaWikiSourceMapper;
 	}
 
-	public com.cezarykluczynski.stapi.model.page.entity.Page fromPageToPageEntity(Page page) {
+	public synchronized com.cezarykluczynski.stapi.model.page.entity.Page fromPageToPageEntity(Page page) {
 		Optional<com.cezarykluczynski.stapi.model.page.entity.Page> pageEntityOptional
 				= findPageByPageId(page.getPageId());
 
@@ -38,7 +38,7 @@ public class PageBindingService {
 				.build());
 	}
 
-	public com.cezarykluczynski.stapi.model.page.entity.Page fromPageHeaderToPageEntity(PageHeader pageHeader) {
+	public synchronized com.cezarykluczynski.stapi.model.page.entity.Page fromPageHeaderToPageEntity(PageHeader pageHeader) {
 		Optional<com.cezarykluczynski.stapi.model.page.entity.Page> pageEntityOptional
 				= findPageByPageId(pageHeader.getPageId());
 
