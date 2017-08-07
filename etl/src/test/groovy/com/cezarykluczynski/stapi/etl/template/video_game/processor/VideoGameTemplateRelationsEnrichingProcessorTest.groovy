@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.etl.template.video_game.dto.VideoGameTemplateP
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.content_rating.entity.ContentRating
 import com.cezarykluczynski.stapi.model.genre.entity.Genre
+import com.cezarykluczynski.stapi.model.platform.entity.Platform
 import com.cezarykluczynski.stapi.model.reference.entity.Reference
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
@@ -23,6 +24,8 @@ class VideoGameTemplateRelationsEnrichingProcessorTest extends Specification {
 
 	private WikitextToCompaniesProcessor wikitextToCompaniesProcessorMock
 
+	private VideoGameTemplatePlatformsProcessor videoGameTemplatePlatformsProcessorMock
+
 	private VideoGameTemplateGenresProcessor videoGameTemplateGenresProcessorMock
 
 	private ContentRatingsProcessor contentRatingsProcessorMock
@@ -33,11 +36,13 @@ class VideoGameTemplateRelationsEnrichingProcessorTest extends Specification {
 
 	void setup() {
 		wikitextToCompaniesProcessorMock = Mock()
+		videoGameTemplatePlatformsProcessorMock = Mock()
 		videoGameTemplateGenresProcessorMock = Mock()
 		contentRatingsProcessorMock = Mock()
 		referencesFromTemplatePartProcessorMock = Mock()
 		videoGameTemplateRelationsEnrichingProcessor = new VideoGameTemplateRelationsEnrichingProcessor(wikitextToCompaniesProcessorMock,
-				videoGameTemplateGenresProcessorMock, contentRatingsProcessorMock, referencesFromTemplatePartProcessorMock)
+				videoGameTemplatePlatformsProcessorMock, videoGameTemplateGenresProcessorMock, contentRatingsProcessorMock,
+				referencesFromTemplatePartProcessorMock)
 	}
 
 	void "when publisher part is found, WikitextToCompaniesProcessor is used to process it"() {
@@ -78,6 +83,24 @@ class VideoGameTemplateRelationsEnrichingProcessorTest extends Specification {
 		0 * _
 		videoGameTemplate.developers.contains company1
 		videoGameTemplate.developers.contains company2
+	}
+
+	void "when platform part is found, VideoGameTemplatePlatformsProcessor is used to process it"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: VideoGameTemplateParameter.PLATFORM)
+		Template sidebarVideoGameTemplate = new Template(parts: Lists.newArrayList(templatePart))
+		Platform platform1 = Mock()
+		Platform platform2 = Mock()
+		VideoGameTemplate videoGameTemplate = new VideoGameTemplate()
+
+		when:
+		videoGameTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoGameTemplate, videoGameTemplate))
+
+		then:
+		1 * videoGameTemplatePlatformsProcessorMock.process(templatePart) >> Sets.newHashSet(platform1, platform2)
+		0 * _
+		videoGameTemplate.platforms.contains platform1
+		videoGameTemplate.platforms.contains platform2
 	}
 
 	void "when genres part is found, VideoGameTemplateGenresProcessor is used to process it"() {

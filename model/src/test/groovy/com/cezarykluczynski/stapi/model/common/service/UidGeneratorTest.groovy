@@ -262,4 +262,20 @@ class UidGeneratorTest extends Specification {
 		'Action adventure' | 'GENRAAC3395B45'
 	}
 
+	@Unroll('when #code is passed, #uid is returned for Platform')
+	void "when code is passed, it is converted to uid for Platform"() {
+		expect:
+		uidGenerator.generateForPlatform(code) == uid
+
+		where:
+		code          | uid
+		null          | null
+		''            | null
+		'360'         | 'PLAT0000000360'
+		'atari-st'    | 'PLAT000ATARIST'
+		'atari2600'   | 'PLAT0ATARI2600'
+		'gameboy'     | 'PLAT000GAMEBOY'
+		'microvision' | 'PLATICROVISION'
+	}
+
 }

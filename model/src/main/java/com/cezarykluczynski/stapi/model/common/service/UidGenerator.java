@@ -167,4 +167,15 @@ public class UidGenerator {
 		return "GENR" + StringUtils.upperCase(md5Hash.substring(0, 10));
 	}
 
+	public String generateForPlatform(String code) {
+		if (StringUtils.isBlank(code)) {
+			return null;
+		}
+
+		String cleanedCode = StringUtils.replace(code, "-", "");
+		int cleanedCodeLength = cleanedCode.length();
+		cleanedCode = cleanedCodeLength > 10 ? cleanedCode.substring(cleanedCodeLength - 10, cleanedCodeLength) : cleanedCode;
+		cleanedCode = StringUtils.leftPad(cleanedCode, 10, ZERO);
+		return "PLAT" + StringUtils.upperCase(cleanedCode);
+	}
 }
