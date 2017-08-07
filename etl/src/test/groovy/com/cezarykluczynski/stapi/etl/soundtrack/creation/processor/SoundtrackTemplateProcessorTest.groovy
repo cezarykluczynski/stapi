@@ -23,7 +23,8 @@ class SoundtrackTemplateProcessorTest extends AbstractSoundtrackTest {
 	void "converts SoundtrackTemplate to Soundtrack"() {
 		given:
 		Page page = Mock()
-		Company label = Mock()
+		Company label1 = Mock()
+		Company label2 = Mock()
 		Staff composer1 = Mock()
 		Staff composer2 = Mock()
 		Staff contributor1 = Mock()
@@ -34,9 +35,8 @@ class SoundtrackTemplateProcessorTest extends AbstractSoundtrackTest {
 				title: TITLE,
 				page: page,
 				releaseDate: RELEASE_DATE,
-				numberOfDataCarriers: NUMBER_OF_DATA_CARRIERS,
 				length: LENGTH,
-				label: label,
+				labels: Sets.newHashSet(label1, label2),
 				composers: Sets.newHashSet(composer1, composer2),
 				contributors: Sets.newHashSet(contributor1, contributor2),
 				orchestrators: Sets.newHashSet(orchestrator1, orchestrator2),
@@ -51,9 +51,9 @@ class SoundtrackTemplateProcessorTest extends AbstractSoundtrackTest {
 		soundtrack.page == page
 		soundtrack.uid == UID
 		soundtrack.releaseDate == RELEASE_DATE
-		soundtrack.numberOfDataCarriers == NUMBER_OF_DATA_CARRIERS
 		soundtrack.length == LENGTH
-		soundtrack.label == label
+		soundtrack.labels.contains label1
+		soundtrack.labels.contains label2
 		soundtrack.composers.contains composer1
 		soundtrack.composers.contains composer2
 		soundtrack.contributors.contains contributor1

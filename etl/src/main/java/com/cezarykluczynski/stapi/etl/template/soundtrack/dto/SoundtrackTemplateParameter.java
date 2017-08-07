@@ -7,7 +7,6 @@ public class SoundtrackTemplateParameter {
 	public static final String ORCHESTRATOR = "orchestrator";
 	public static final String LABEL = "label";
 	public static final String RELEASED = "released";
-	public static final String DISKS = "disks";
 	public static final String LENGTH = "length";
 	public static final String REFERENCE = "reference";
 

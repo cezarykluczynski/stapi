@@ -23,9 +23,8 @@ public class SoundtrackTemplateProcessor implements ItemProcessor<SoundtrackTemp
 		soundtrack.setPage(item.getPage());
 		soundtrack.setUid(uidGenerator.generateFromPage(item.getPage(), Soundtrack.class));
 		soundtrack.setReleaseDate(item.getReleaseDate());
-		soundtrack.setNumberOfDataCarriers(item.getNumberOfDataCarriers());
 		soundtrack.setLength(item.getLength());
-		soundtrack.setLabel(item.getLabel());
+		soundtrack.getLabels().addAll(item.getLabels());
 		soundtrack.getComposers().addAll(item.getComposers());
 		soundtrack.getContributors().addAll(item.getContributors());
 		soundtrack.getOrchestrators().addAll(item.getOrchestrators());

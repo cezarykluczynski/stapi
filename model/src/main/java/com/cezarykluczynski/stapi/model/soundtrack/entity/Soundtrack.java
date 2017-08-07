@@ -27,7 +27,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import java.time.LocalDate;
 import java.util.Set;
@@ -36,8 +35,8 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true, exclude = {"label", "composers", "contributors", "orchestrators", "references"})
-@EqualsAndHashCode(callSuper = true, exclude = {"label", "composers", "contributors", "orchestrators", "references"})
+@ToString(callSuper = true, exclude = {"labels", "composers", "contributors", "orchestrators", "references"})
+@EqualsAndHashCode(callSuper = true, exclude = {"labels", "composers", "contributors", "orchestrators", "references"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = VideoReleaseRepository.class, singularName = "video game",
 		pluralName = "video games")
@@ -53,13 +52,14 @@ public class Soundtrack extends PageAwareEntity implements PageAware {
 
 	private LocalDate releaseDate;
 
-	private Integer numberOfDataCarriers;
-
 	private Integer length;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "label_id")
-	private Company label;
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "soundtracks_labels",
+			joinColumns = @JoinColumn(name = "soundtrack_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "company_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<Company> labels = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "soundtracks_composers",

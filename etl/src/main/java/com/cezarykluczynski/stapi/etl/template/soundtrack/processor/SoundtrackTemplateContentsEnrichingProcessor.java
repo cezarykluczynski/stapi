@@ -2,7 +2,6 @@ package com.cezarykluczynski.stapi.etl.template.soundtrack.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
-import com.cezarykluczynski.stapi.etl.template.common.processor.NumberOfPartsProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.RecordingTimeProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DatePartToLocalDateProcessor;
 import com.cezarykluczynski.stapi.etl.template.soundtrack.dto.SoundtrackTemplate;
@@ -17,15 +16,12 @@ public class SoundtrackTemplateContentsEnrichingProcessor implements ItemEnrichi
 
 	private final DatePartToLocalDateProcessor datePartToLocalDateProcessor;
 
-	private final NumberOfPartsProcessor numberOfPartsProcessor;
-
 	private final RecordingTimeProcessor recordingTimeProcessor;
 
 	@Inject
 	public SoundtrackTemplateContentsEnrichingProcessor(DatePartToLocalDateProcessor datePartToLocalDateProcessor,
-			NumberOfPartsProcessor numberOfPartsProcessor, RecordingTimeProcessor recordingTimeProcessor) {
+			RecordingTimeProcessor recordingTimeProcessor) {
 		this.datePartToLocalDateProcessor = datePartToLocalDateProcessor;
-		this.numberOfPartsProcessor = numberOfPartsProcessor;
 		this.recordingTimeProcessor = recordingTimeProcessor;
 	}
 
@@ -41,9 +37,6 @@ public class SoundtrackTemplateContentsEnrichingProcessor implements ItemEnrichi
 			switch (key) {
 				case SoundtrackTemplateParameter.RELEASED:
 					soundtrackTemplate.setReleaseDate(datePartToLocalDateProcessor.process(part));
-					break;
-				case SoundtrackTemplateParameter.DISKS:
-					soundtrackTemplate.setNumberOfDataCarriers(numberOfPartsProcessor.process(value));
 					break;
 				case SoundtrackTemplateParameter.LENGTH:
 					soundtrackTemplate.setLength(recordingTimeProcessor.process(value));

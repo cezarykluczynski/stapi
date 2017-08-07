@@ -19,11 +19,9 @@ public class SoundtrackTemplate {
 
 	private LocalDate releaseDate;
 
-	private Integer numberOfDataCarriers;
-
 	private Integer length;
 
-	private Company label;
+	private Set<Company> labels = Sets.newHashSet();
 
 	private Set<Staff> composers = Sets.newHashSet();
 

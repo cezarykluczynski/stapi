@@ -17,9 +17,7 @@
 				<constraints nullable="false"/>
 			</column>
 			<column name="release_date" type="date"/>
-			<column name="number_of_data_carriers" type="int"/>
 			<column name="length" type="int"/>
-			<column name="label_id" type="bigint"/>
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="soundtrack_sequence"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
@@ -27,9 +25,19 @@
 				constraintName="soundtrack_page_fkey"
 				referencedColumnNames="id"
 				referencedTableName="page"/>
-		<addForeignKeyConstraint baseColumnNames="label_id"
-				baseTableName="soundtrack"
-				constraintName="soundtrack_label_fkey"
+
+		<createTable schemaName="stapi" tableName="soundtracks_labels">
+			<column name="soundtrack_id" type="bigint"/>
+			<column name="company_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="soundtrack_id"
+				baseTableName="soundtracks_labels"
+				constraintName="sl_soundtrack_fkey"
+				referencedColumnNames="id"
+				referencedTableName="soundtrack"/>
+		<addForeignKeyConstraint baseColumnNames="company_id"
+				baseTableName="soundtracks_labels"
+				constraintName="sl_label_fkey"
 				referencedColumnNames="id"
 				referencedTableName="company"/>
 
