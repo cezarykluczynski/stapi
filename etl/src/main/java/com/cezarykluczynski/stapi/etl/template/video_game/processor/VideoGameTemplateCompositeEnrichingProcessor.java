@@ -9,21 +9,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class VideoGameTemplateCompositeEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template, VideoGameTemplate>> {
 
-	private final VideoGameTemplateContentsEnrichingProcessor videoTemplateContentsEnrichingProcessor;
+	private final VideoGameTemplateContentsEnrichingProcessor videoGameTemplateContentsEnrichingProcessor;
 
-	private final VideoGameTemplateRelationsEnrichingProcessor videoTemplateRelationsEnrichingProcessor;
+	private final VideoGameTemplateRelationsEnrichingProcessor videoGameTemplateRelationsEnrichingProcessor;
 
 
-	public VideoGameTemplateCompositeEnrichingProcessor(VideoGameTemplateContentsEnrichingProcessor videoTemplateContentsEnrichingProcessor,
-			VideoGameTemplateRelationsEnrichingProcessor videoTemplateRelationsEnrichingProcessor) {
-		this.videoTemplateContentsEnrichingProcessor = videoTemplateContentsEnrichingProcessor;
-		this.videoTemplateRelationsEnrichingProcessor = videoTemplateRelationsEnrichingProcessor;
+	public VideoGameTemplateCompositeEnrichingProcessor(VideoGameTemplateContentsEnrichingProcessor videoGameTemplateContentsEnrichingProcessor,
+			VideoGameTemplateRelationsEnrichingProcessor videoGameTemplateRelationsEnrichingProcessor) {
+		this.videoGameTemplateContentsEnrichingProcessor = videoGameTemplateContentsEnrichingProcessor;
+		this.videoGameTemplateRelationsEnrichingProcessor = videoGameTemplateRelationsEnrichingProcessor;
 	}
 
 	@Override
 	public void enrich(EnrichablePair<Template, VideoGameTemplate> enrichablePair) throws Exception {
-		videoTemplateContentsEnrichingProcessor.enrich(enrichablePair);
-		videoTemplateRelationsEnrichingProcessor.enrich(enrichablePair);
+		videoGameTemplateContentsEnrichingProcessor.enrich(enrichablePair);
+		videoGameTemplateRelationsEnrichingProcessor.enrich(enrichablePair);
 	}
 
 }
