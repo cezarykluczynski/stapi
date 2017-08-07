@@ -5,9 +5,11 @@ import com.cezarykluczynski.stapi.etl.template.common.service.MediaWikiPageFilte
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.google.common.collect.Lists;
+import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 
+@Service
 public class SoundtrackFilter implements MediaWikiPageFilter {
 
 	private final CategorySortingService categorySortingService;

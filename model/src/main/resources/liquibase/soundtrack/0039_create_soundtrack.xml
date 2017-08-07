@@ -19,9 +19,7 @@
 			<column name="release_date" type="date"/>
 			<column name="number_of_data_carriers" type="int"/>
 			<column name="length" type="int"/>
-			<column name="label_id" type="bigint">
-				<constraints nullable="false"/>
-			</column>
+			<column name="label_id" type="bigint"/>
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="soundtrack_sequence"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"

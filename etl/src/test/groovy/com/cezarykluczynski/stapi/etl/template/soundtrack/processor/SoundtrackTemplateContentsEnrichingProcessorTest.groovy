@@ -12,7 +12,7 @@ import spock.lang.Specification
 
 import java.time.LocalDate
 
-class SoundtrackContentsEnrichingProcessorTest extends Specification {
+class SoundtrackTemplateContentsEnrichingProcessorTest extends Specification {
 
 	private static final LocalDate RELEASED_DATE = LocalDate.of(2001, 01, 01)
 	private static final String DISKS_STRING = 'DISKS_STRING'
