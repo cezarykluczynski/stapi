@@ -57,11 +57,11 @@ public class ComicSeriesRepositoryImpl extends AbstractRepositoryImpl<ComicSerie
 			return;
 		}
 
-		page.getContent().forEach(episode -> {
-			episode.setParentSeries(Sets.newHashSet());
-			episode.setChildSeries(Sets.newHashSet());
-			episode.setPublishers(Sets.newHashSet());
-			episode.setComics(Sets.newHashSet());
+		page.getContent().forEach(comicSeries -> {
+			comicSeries.setParentSeries(Sets.newHashSet());
+			comicSeries.setChildSeries(Sets.newHashSet());
+			comicSeries.setPublishers(Sets.newHashSet());
+			comicSeries.setComics(Sets.newHashSet());
 		});
 	}
 

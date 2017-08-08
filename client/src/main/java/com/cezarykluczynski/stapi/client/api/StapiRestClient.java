@@ -25,6 +25,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.api.StaffApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.TradingCardApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.TradingCardDeckApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.TradingCardSetApi;
+import com.cezarykluczynski.stapi.client.v1.rest.api.VideoGameApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.VideoReleaseApi;
 import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiClient;
 import lombok.Getter;
@@ -113,6 +114,9 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 	@Getter
 	private TradingCardApi tradingCardApi;
 
+	@Getter
+	private VideoGameApi videoGameApi;
+
 	public StapiRestClient() {
 		seriesApi = new SeriesApi();
 		performerApi = new PerformerApi();
@@ -140,6 +144,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 		tradingCardSetApi = new TradingCardSetApi();
 		tradingCardDeckApi = new TradingCardDeckApi();
 		tradingCardApi = new TradingCardApi();
+		videoGameApi = new VideoGameApi();
 	}
 
 	public StapiRestClient(String apiUrl) {
@@ -171,6 +176,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 		tradingCardSetApi = new TradingCardSetApi(apiClient);
 		tradingCardDeckApi = new TradingCardDeckApi(apiClient);
 		tradingCardApi = new TradingCardApi(apiClient);
+		videoGameApi = new VideoGameApi(apiClient);
 	}
 
 	private void createApiClient() {

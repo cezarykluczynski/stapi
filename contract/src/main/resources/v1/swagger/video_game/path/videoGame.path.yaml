@@ -1,0 +1,22 @@
+get:
+  description: Retrival of a single video game
+  parameters:
+    - name: uid
+      in: query
+      type: string
+      required: true
+      description: VideoGame unique ID
+    - name: apiKey
+      in: query
+      type: string
+      description: API key
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/VideoGameFullResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - VideoGame

@@ -34,7 +34,8 @@ class ContentRatingsProcessorTest extends Specification {
 		Set<ContentRating> contentRatingSet = contentRatingsProcessor.process(templatePart)
 
 		then:
-		1 * templateFilterMock.filterByTitle(Lists.newArrayList(), TemplateTitle.VIDEO_RATINGS, TemplateTitle.VR) >> Lists.newArrayList()
+		1 * templateFilterMock.filterByTitle(Lists.newArrayList(), TemplateTitle.VIDEO_RATINGS, TemplateTitle.VR, TemplateTitle.GAME_RATINGS,
+				TemplateTitle.GR) >> Lists.newArrayList()
 		contentRatingSet.empty
 	}
 
@@ -53,7 +54,8 @@ class ContentRatingsProcessorTest extends Specification {
 		Set<ContentRating> contentRatingSet = contentRatingsProcessor.process(templatePart)
 
 		then:
-		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.VIDEO_RATINGS, TemplateTitle.VR) >> templateList
+		1 * templateFilterMock.filterByTitle(templateList, TemplateTitle.VIDEO_RATINGS, TemplateTitle.VR, TemplateTitle.GAME_RATINGS,
+				TemplateTitle.GR) >> templateList
 		1 * contentRatingFactoryMock.create(ContentRatingSystem.NICAM, NICAM_VALUE) >> nicamContentRating
 		1 * contentRatingFactoryMock.create(ContentRatingSystem.MPAA, MPAA_VALUE) >> null
 		!contentRatingSet.empty

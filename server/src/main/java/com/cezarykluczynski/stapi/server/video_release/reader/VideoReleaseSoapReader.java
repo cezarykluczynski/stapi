@@ -18,7 +18,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-public class VideoReleaseSoapReader implements BaseReader<VideoReleaseBaseRequest, VideoReleaseBaseResponse>, FullReader<VideoReleaseFullRequest, VideoReleaseFullResponse> {
+public class VideoReleaseSoapReader implements BaseReader<VideoReleaseBaseRequest, VideoReleaseBaseResponse>,
+		FullReader<VideoReleaseFullRequest, VideoReleaseFullResponse> {
 
 	private final VideoReleaseSoapQuery videoReleaseSoapQuery;
 
@@ -30,8 +31,8 @@ public class VideoReleaseSoapReader implements BaseReader<VideoReleaseBaseReques
 
 	private final SortMapper sortMapper;
 
-	public VideoReleaseSoapReader(VideoReleaseSoapQuery videoReleaseSoapQuery, VideoReleaseBaseSoapMapper videoReleaseBaseSoapMapper, VideoReleaseFullSoapMapper videoReleaseFullSoapMapper,
-			PageMapper pageMapper, SortMapper sortMapper) {
+	public VideoReleaseSoapReader(VideoReleaseSoapQuery videoReleaseSoapQuery, VideoReleaseBaseSoapMapper videoReleaseBaseSoapMapper,
+			VideoReleaseFullSoapMapper videoReleaseFullSoapMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.videoReleaseSoapQuery = videoReleaseSoapQuery;
 		this.videoReleaseBaseSoapMapper = videoReleaseBaseSoapMapper;
 		this.videoReleaseFullSoapMapper = videoReleaseFullSoapMapper;

@@ -91,18 +91,18 @@ public class BookRepositoryImpl extends AbstractRepositoryImpl<Book> implements 
 			return;
 		}
 
-		page.getContent().forEach(episode -> {
-			episode.setAuthors(Sets.newHashSet());
-			episode.setArtists(Sets.newHashSet());
-			episode.setEditors(Sets.newHashSet());
-			episode.setAudiobookNarrators(Sets.newHashSet());
-			episode.setBookSeries(Sets.newHashSet());
-			episode.setPublishers(Sets.newHashSet());
-			episode.setAudiobookPublishers(Sets.newHashSet());
-			episode.setCharacters(Sets.newHashSet());
-			episode.setReferences(Sets.newHashSet());
-			episode.setAudiobookReferences(Sets.newHashSet());
-			episode.setBookCollections(Sets.newHashSet());
+		page.getContent().forEach(book -> {
+			book.setAuthors(Sets.newHashSet());
+			book.setArtists(Sets.newHashSet());
+			book.setEditors(Sets.newHashSet());
+			book.setAudiobookNarrators(Sets.newHashSet());
+			book.setBookSeries(Sets.newHashSet());
+			book.setPublishers(Sets.newHashSet());
+			book.setAudiobookPublishers(Sets.newHashSet());
+			book.setCharacters(Sets.newHashSet());
+			book.setReferences(Sets.newHashSet());
+			book.setAudiobookReferences(Sets.newHashSet());
+			book.setBookCollections(Sets.newHashSet());
 		});
 	}
 

@@ -87,16 +87,16 @@ public class ComicsRepositoryImpl extends AbstractRepositoryImpl<Comics> impleme
 			return;
 		}
 
-		page.getContent().forEach(episode -> {
-			episode.setWriters(Sets.newHashSet());
-			episode.setArtists(Sets.newHashSet());
-			episode.setEditors(Sets.newHashSet());
-			episode.setStaff(Sets.newHashSet());
-			episode.setComicSeries(Sets.newHashSet());
-			episode.setPublishers(Sets.newHashSet());
-			episode.setCharacters(Sets.newHashSet());
-			episode.setReferences(Sets.newHashSet());
-			episode.setComicCollections(Sets.newHashSet());
+		page.getContent().forEach(comics -> {
+			comics.setWriters(Sets.newHashSet());
+			comics.setArtists(Sets.newHashSet());
+			comics.setEditors(Sets.newHashSet());
+			comics.setStaff(Sets.newHashSet());
+			comics.setComicSeries(Sets.newHashSet());
+			comics.setPublishers(Sets.newHashSet());
+			comics.setCharacters(Sets.newHashSet());
+			comics.setReferences(Sets.newHashSet());
+			comics.setComicCollections(Sets.newHashSet());
 		});
 	}
 

@@ -53,11 +53,11 @@ public class ComicStripRepositoryImpl extends AbstractRepositoryImpl<ComicStrip>
 			return;
 		}
 
-		page.getContent().forEach(episode -> {
-			episode.setComicSeries(Sets.newHashSet());
-			episode.setWriters(Sets.newHashSet());
-			episode.setArtists(Sets.newHashSet());
-			episode.setCharacters(Sets.newHashSet());
+		page.getContent().forEach(comicStrip -> {
+			comicStrip.setComicSeries(Sets.newHashSet());
+			comicStrip.setWriters(Sets.newHashSet());
+			comicStrip.setArtists(Sets.newHashSet());
+			comicStrip.setCharacters(Sets.newHashSet());
 		});
 	}
 

@@ -35,6 +35,7 @@ class StapiSoapClientTest extends AbstractStapiClientTest {
 		((String) toBindingProvider(stapiSoapClient.tradingCardSetPortType).requestContext.get(URL_KEY)).contains(StapiClient.CANONICAL_API_URL)
 		((String) toBindingProvider(stapiSoapClient.tradingCardDeckPortType).requestContext.get(URL_KEY)).contains(StapiClient.CANONICAL_API_URL)
 		((String) toBindingProvider(stapiSoapClient.tradingCardPortType).requestContext.get(URL_KEY)).contains(StapiClient.CANONICAL_API_URL)
+		((String) toBindingProvider(stapiSoapClient.videoGamePortType).requestContext.get(URL_KEY)).contains(StapiClient.CANONICAL_API_URL)
 	}
 
 	void "soap client can be instantiated with custom URL"() {
@@ -68,6 +69,7 @@ class StapiSoapClientTest extends AbstractStapiClientTest {
 		((String) toBindingProvider(stapiSoapClient.tradingCardSetPortType).requestContext.get(URL_KEY)).contains(CUSTOM_URL)
 		((String) toBindingProvider(stapiSoapClient.tradingCardDeckPortType).requestContext.get(URL_KEY)).contains(CUSTOM_URL)
 		((String) toBindingProvider(stapiSoapClient.tradingCardPortType).requestContext.get(URL_KEY)).contains(CUSTOM_URL)
+		((String) toBindingProvider(stapiSoapClient.videoGamePortType).requestContext.get(URL_KEY)).contains(CUSTOM_URL)
 	}
 
 }

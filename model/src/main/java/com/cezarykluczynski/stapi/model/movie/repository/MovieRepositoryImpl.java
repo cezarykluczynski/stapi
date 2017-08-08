@@ -87,17 +87,17 @@ public class MovieRepositoryImpl extends AbstractRepositoryImpl<Movie> implement
 			return;
 		}
 
-		page.getContent().forEach(episode -> {
-			episode.setWriters(Sets.newHashSet());
-			episode.setScreenplayAuthors(Sets.newHashSet());
-			episode.setStoryAuthors(Sets.newHashSet());
-			episode.setDirectors(Sets.newHashSet());
-			episode.setProducers(Sets.newHashSet());
-			episode.setStaff(Sets.newHashSet());
-			episode.setPerformers(Sets.newHashSet());
-			episode.setStuntPerformers(Sets.newHashSet());
-			episode.setStandInPerformers(Sets.newHashSet());
-			episode.setCharacters(Sets.newHashSet());
+		page.getContent().forEach(movie -> {
+			movie.setWriters(Sets.newHashSet());
+			movie.setScreenplayAuthors(Sets.newHashSet());
+			movie.setStoryAuthors(Sets.newHashSet());
+			movie.setDirectors(Sets.newHashSet());
+			movie.setProducers(Sets.newHashSet());
+			movie.setStaff(Sets.newHashSet());
+			movie.setPerformers(Sets.newHashSet());
+			movie.setStuntPerformers(Sets.newHashSet());
+			movie.setStandInPerformers(Sets.newHashSet());
+			movie.setCharacters(Sets.newHashSet());
 		});
 	}
 

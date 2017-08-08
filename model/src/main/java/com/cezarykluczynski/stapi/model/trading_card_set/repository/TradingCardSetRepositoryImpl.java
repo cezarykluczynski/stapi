@@ -56,11 +56,11 @@ public class TradingCardSetRepositoryImpl extends AbstractRepositoryImpl<Trading
 			return;
 		}
 
-		page.getContent().forEach(episode -> {
-			episode.setManufacturers(Sets.newHashSet());
-			episode.setTradingCards(Sets.newHashSet());
-			episode.setTradingCardDecks(Sets.newHashSet());
-			episode.setCountriesOfOrigin(Sets.newHashSet());
+		page.getContent().forEach(tradingCardSet -> {
+			tradingCardSet.setManufacturers(Sets.newHashSet());
+			tradingCardSet.setTradingCards(Sets.newHashSet());
+			tradingCardSet.setTradingCardDecks(Sets.newHashSet());
+			tradingCardSet.setCountriesOfOrigin(Sets.newHashSet());
 		});
 	}
 

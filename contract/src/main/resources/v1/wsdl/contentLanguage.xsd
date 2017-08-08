@@ -10,7 +10,7 @@
 		<xs:sequence>
 			<xs:element name="uid" type="xs:string">
 				<xs:annotation>
-					<xs:documentation>Rating unique ID</xs:documentation>
+					<xs:documentation>Language unique ID</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="name" type="xs:string">

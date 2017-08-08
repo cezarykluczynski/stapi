@@ -49,10 +49,10 @@ public class MagazineRepositoryImpl extends AbstractRepositoryImpl<Magazine> imp
 			return;
 		}
 
-		page.getContent().forEach(episode -> {
-			episode.setMagazineSeries(Sets.newHashSet());
-			episode.setEditors(Sets.newHashSet());
-			episode.setPublishers(Sets.newHashSet());
+		page.getContent().forEach(magazine -> {
+			magazine.setMagazineSeries(Sets.newHashSet());
+			magazine.setEditors(Sets.newHashSet());
+			magazine.setPublishers(Sets.newHashSet());
 		});
 	}
 

@@ -55,11 +55,11 @@ public class BookSeriesRepositoryImpl extends AbstractRepositoryImpl<BookSeries>
 			return;
 		}
 
-		page.getContent().forEach(episode -> {
-			episode.setParentSeries(Sets.newHashSet());
-			episode.setChildSeries(Sets.newHashSet());
-			episode.setPublishers(Sets.newHashSet());
-			episode.setBooks(Sets.newHashSet());
+		page.getContent().forEach(bookSeries -> {
+			bookSeries.setParentSeries(Sets.newHashSet());
+			bookSeries.setChildSeries(Sets.newHashSet());
+			bookSeries.setPublishers(Sets.newHashSet());
+			bookSeries.setBooks(Sets.newHashSet());
 		});
 	}
 

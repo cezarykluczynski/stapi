@@ -50,6 +50,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.TradingCardPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.TradingCardService;
 import com.cezarykluczynski.stapi.client.v1.soap.TradingCardSetPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.TradingCardSetService;
+import com.cezarykluczynski.stapi.client.v1.soap.VideoGamePortType;
+import com.cezarykluczynski.stapi.client.v1.soap.VideoGameService;
 import com.cezarykluczynski.stapi.client.v1.soap.VideoReleasePortType;
 import com.cezarykluczynski.stapi.client.v1.soap.VideoReleaseService;
 import lombok.Getter;
@@ -139,6 +141,9 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 	@Getter
 	private TradingCardPortType tradingCardPortType;
 
+	@Getter
+	private VideoGamePortType videoGamePortType;
+
 	public StapiSoapPortTypesProvider() {
 		seriesPortType = new SeriesService().getSeriesPortType();
 		performerPortType = new PerformerService().getPerformerPortType();
@@ -166,6 +171,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		tradingCardSetPortType = new TradingCardSetService().getTradingCardSetPortType();
 		tradingCardDeckPortType = new TradingCardDeckService().getTradingCardDeckPortType();
 		tradingCardPortType = new TradingCardService().getTradingCardPortType();
+		videoGamePortType = new VideoGameService().getVideoGamePortType();
 	}
 
 	public StapiSoapPortTypesProvider(String apiUrl) {
@@ -196,6 +202,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		tradingCardSetPortType = changeUrl(new TradingCardSetService().getTradingCardSetPortType());
 		tradingCardDeckPortType = changeUrl(new TradingCardDeckService().getTradingCardDeckPortType());
 		tradingCardPortType = changeUrl(new TradingCardService().getTradingCardPortType());
+		videoGamePortType = changeUrl(new VideoGameService().getVideoGamePortType());
 	}
 
 	private <T> T changeUrl(T service) {

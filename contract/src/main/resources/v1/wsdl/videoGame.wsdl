@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+		name="VideoGame"
+		targetNamespace="http://stapi.co/api/v1/soap/videoGame"
+		xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+		xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+		xmlns:stapi="http://stapi.co/api/v1/soap/videoGame"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<xs:schema targetNamespace="http://stapi.co/api/v1/soap/videoGame">
+			<xs:include schemaLocation="videoGame.xsd"/>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="VideoGameBaseRequest">
+		<wsdl:part name="request" element="stapi:VideoGameBaseRequest"/>
+	</wsdl:message>
+	<wsdl:message name="VideoGameFullRequest">
+		<wsdl:part name="request" element="stapi:VideoGameFullRequest"/>
+	</wsdl:message>
+	<wsdl:message name="VideoGameBaseResponse">
+		<wsdl:part name="response" element="stapi:VideoGameBaseResponse"/>
+	</wsdl:message>
+	<wsdl:message name="VideoGameFullResponse">
+		<wsdl:part name="response" element="stapi:VideoGameFullResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="VideoGamePortType">
+		<wsdl:operation name="getVideoGameBase">
+			<wsdl:input name="getVideoGameBaseRequest" message="stapi:VideoGameBaseRequest"/>
+			<wsdl:output name="getVideoGameBaseResponse" message="stapi:VideoGameBaseResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getVideoGameFull">
+			<wsdl:input name="getVideoGameFullRequest" message="stapi:VideoGameFullRequest"/>
+			<wsdl:output name="getVideoGameFullResponse" message="stapi:VideoGameFullResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="VideoGameBinding" type="stapi:VideoGamePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getVideoGameBase">
+			<wsdl:input name="getVideoGameBaseRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getVideoGameBaseResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getVideoGameFull">
+			<wsdl:input name="getVideoGameFullRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getVideoGameFullResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="VideoGameService">
+		<wsdl:port name="VideoGamePortType" binding="stapi:VideoGameBinding">
+			<soap:address location="http://stapi.co/api/v1/soap/videoGame"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

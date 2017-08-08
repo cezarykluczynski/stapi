@@ -47,8 +47,8 @@ public class TradingCardDeckRepositoryImpl extends AbstractRepositoryImpl<Tradin
 			return;
 		}
 
-		page.getContent().forEach(episode -> {
-			episode.setTradingCards(Sets.newHashSet());
+		page.getContent().forEach(tradingCardDeck -> {
+			tradingCardDeck.setTradingCards(Sets.newHashSet());
 		});
 	}
 

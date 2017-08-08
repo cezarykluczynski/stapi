@@ -30,7 +30,7 @@ class VideoReleaseSoapEndpointIntegrationTest extends AbstractVideoReleaseEndpoi
 		videoReleaseBaseList[0].title == 'To Be Takei'
 	}
 
-	void "gets videoRelease by UID"() {
+	void "gets video release by UID"() {
 		when:
 		VideoReleaseFullResponse videoReleaseFullResponse = stapiSoapClient.videoReleasePortType.getVideoReleaseFull(new VideoReleaseFullRequest(
 				uid: 'VIMA0000132054'

@@ -1,0 +1,62 @@
+type: object
+description: Full video game, returned when queried using UID
+properties:
+  uid:
+    type: string
+    required: true
+    description: Video game unique ID
+  title:
+    type: string
+    required: true
+    description: Video game title
+  releaseDate:
+    type: string
+    format: date
+    description: Release date
+  stardateFrom:
+    type: number
+    format: float
+    description: Starting stardate of video game story
+  stardateTo:
+    type: number
+    format: float
+    description: Ending stardate of video game story
+  yearFrom:
+    type: integer
+    description: Starting year of video game story
+  yearTo:
+    type: integer
+    description: Ending year of video game story
+  systemRequirements:
+    type: string
+    description: System requirements
+  publishers:
+    type: array
+    items:
+      $ref: '#/definitions/CompanyBase'
+    description: Publishers
+  developers:
+    type: array
+    items:
+      $ref: '#/definitions/CompanyBase'
+    description: Developers
+  platforms:
+    type: array
+    items:
+      $ref: '#/definitions/Platform'
+    description: Platforms
+  genres:
+    type: array
+    items:
+      $ref: '#/definitions/Genre'
+    description: Genres
+  ratings:
+    type: array
+    items:
+      $ref: '#/definitions/ContentRating'
+    description: Ratings
+  references:
+    type: array
+    items:
+      $ref: '#/definitions/Reference'
+    description: References

@@ -1,5 +1,5 @@
 type: object
-description: Header videl release, embedded in other objects
+description: Header video release, embedded in other objects
 properties:
   uid:
     type: string

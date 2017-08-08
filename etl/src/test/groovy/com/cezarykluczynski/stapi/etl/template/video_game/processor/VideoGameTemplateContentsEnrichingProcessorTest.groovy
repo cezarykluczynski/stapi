@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.Wikitex
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToYearRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.video_game.dto.VideoGameTemplate
 import com.cezarykluczynski.stapi.etl.template.video_game.dto.VideoGameTemplateParameter
+import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.AbstractVideoGameTest
 import com.google.common.collect.Lists
@@ -16,6 +17,7 @@ class VideoGameTemplateContentsEnrichingProcessorTest extends AbstractVideoGameT
 
 	private static final String OLD_TITLE = 'OLD_TITLE'
 	private static final String NEW_TITLE = 'NEW_TITLE'
+	private static final String NEW_TITLE_WITHOUT_LINKS = 'NEW_TITLE_WITHOUT_LINKS'
 	private static final String YEARS = '1995-1997'
 	private static final String STARDATES = '1995-1997'
 
@@ -25,14 +27,17 @@ class VideoGameTemplateContentsEnrichingProcessorTest extends AbstractVideoGameT
 
 	private WikitextToStardateRangeProcessor wikitextToStardateRangeProcessorMock
 
+	private WikitextApi wikitextApiMock
+
 	private VideoGameTemplateContentsEnrichingProcessor videoGameTemplateContentsEnrichingProcessor
 
 	void setup() {
 		datePartToLocalDateProcessorMock = Mock()
 		wikitextToYearRangeProcessorMock = Mock()
 		wikitextToStardateRangeProcessorMock = Mock()
+		wikitextApiMock = Mock()
 		videoGameTemplateContentsEnrichingProcessor = new VideoGameTemplateContentsEnrichingProcessor(datePartToLocalDateProcessorMock,
-				wikitextToYearRangeProcessorMock, wikitextToStardateRangeProcessorMock)
+				wikitextToYearRangeProcessorMock, wikitextToStardateRangeProcessorMock, wikitextApiMock)
 	}
 
 	void "sets title from template, when it is different from title already present"() {
@@ -46,8 +51,9 @@ class VideoGameTemplateContentsEnrichingProcessorTest extends AbstractVideoGameT
 		videoGameTemplateContentsEnrichingProcessor.enrich(enrichablePair)
 
 		then:
+		1 * wikitextApiMock.getWikitextWithoutLinks(NEW_TITLE) >> NEW_TITLE_WITHOUT_LINKS
 		0 * _
-		videoGameTemplate.title == NEW_TITLE
+		videoGameTemplate.title == NEW_TITLE_WITHOUT_LINKS
 	}
 
 	void "does not sets title from template, when it is equal to title already present"() {

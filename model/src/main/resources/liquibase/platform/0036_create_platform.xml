@@ -10,7 +10,7 @@
 			<column name="u_id" type="varchar(14)">
 				<constraints nullable="false"/>
 			</column>
-			<column name="name" type="varchar(32)">
+			<column name="name" type="varchar(64)">
 				<constraints nullable="false"/>
 			</column>
 		</createTable>

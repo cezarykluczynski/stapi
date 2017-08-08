@@ -50,6 +50,8 @@ public class TemplateTitle {
 
 	public static final String VIDEO_RATINGS = "video ratings";
 	public static final String VR = "vr";
+	public static final String GAME_RATINGS = "game ratings";
+	public static final String GR = "gr";
 	public static final String PLATFORM = "platform";
 
 	// Memory Beta

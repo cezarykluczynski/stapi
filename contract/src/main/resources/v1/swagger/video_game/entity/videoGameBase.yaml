@@ -1,0 +1,32 @@
+type: object
+description: Base video game, returned in search results
+properties:
+  uid:
+    type: string
+    required: true
+    description: Video game unique ID
+  title:
+    type: string
+    required: true
+    description: Video game title
+  releaseDate:
+    type: string
+    format: date
+    description: Release date
+  stardateFrom:
+    type: number
+    format: float
+    description: Starting stardate of video game story
+  stardateTo:
+    type: number
+    format: float
+    description: Ending stardate of video game story
+  yearFrom:
+    type: integer
+    description: Starting year of video game story
+  yearTo:
+    type: integer
+    description: Ending year of video game story
+  systemRequirements:
+    type: string
+    description: System requirements

@@ -59,12 +59,12 @@ public class VideoReleaseRepositoryImpl extends AbstractRepositoryImpl<VideoRele
 			return;
 		}
 
-		page.getContent().forEach(episode -> {
-			episode.setReferences(Sets.newHashSet());
-			episode.setRatings(Sets.newHashSet());
-			episode.setLanguages(Sets.newHashSet());
-			episode.setLanguagesSubtitles(Sets.newHashSet());
-			episode.setLanguagesDubbed(Sets.newHashSet());
+		page.getContent().forEach(videoRelease -> {
+			videoRelease.setReferences(Sets.newHashSet());
+			videoRelease.setRatings(Sets.newHashSet());
+			videoRelease.setLanguages(Sets.newHashSet());
+			videoRelease.setLanguagesSubtitles(Sets.newHashSet());
+			videoRelease.setLanguagesDubbed(Sets.newHashSet());
 		});
 	}
 

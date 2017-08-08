@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.Wikitex
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToYearRangeProcessor;
 import com.cezarykluczynski.stapi.etl.template.video_game.dto.VideoGameTemplate;
 import com.cezarykluczynski.stapi.etl.template.video_game.dto.VideoGameTemplateParameter;
+import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -24,11 +25,15 @@ class VideoGameTemplateContentsEnrichingProcessor implements ItemEnrichingProces
 
 	private final WikitextToStardateRangeProcessor wikitextToStardateRangeProcessor;
 
+	private final WikitextApi wikitextApi;
+
 	public VideoGameTemplateContentsEnrichingProcessor(DatePartToLocalDateProcessor datePartToLocalDateProcessor,
-			WikitextToYearRangeProcessor wikitextToYearRangeProcessor, WikitextToStardateRangeProcessor wikitextToStardateRangeProcessor) {
+			WikitextToYearRangeProcessor wikitextToYearRangeProcessor, WikitextToStardateRangeProcessor wikitextToStardateRangeProcessor,
+			WikitextApi wikitextApi) {
 		this.datePartToLocalDateProcessor = datePartToLocalDateProcessor;
 		this.wikitextToYearRangeProcessor = wikitextToYearRangeProcessor;
 		this.wikitextToStardateRangeProcessor = wikitextToStardateRangeProcessor;
+		this.wikitextApi = wikitextApi;
 	}
 
 	@Override
@@ -45,7 +50,7 @@ class VideoGameTemplateContentsEnrichingProcessor implements ItemEnrichingProces
 					String originalTitle = videoGameTemplate.getTitle();
 					if (StringUtils.isNotEmpty(value) && !StringUtils.equals(originalTitle, value)) {
 						log.info("Changing video game title \"{}\" (taken from page title) to \"{}\" (taken from template)", originalTitle, value);
-						videoGameTemplate.setTitle(value);
+						videoGameTemplate.setTitle(wikitextApi.getWikitextWithoutLinks(value));
 					}
 					break;
 				case VideoGameTemplateParameter.RELEASED:
@@ -64,6 +69,7 @@ class VideoGameTemplateContentsEnrichingProcessor implements ItemEnrichingProces
 						videoGameTemplate.setStardateFrom(stardateRange.getStardateFrom());
 						videoGameTemplate.setStardateTo(stardateRange.getStardateTo());
 					}
+					break;
 				case VideoGameTemplateParameter.REQUIREMENTS:
 					videoGameTemplate.setSystemRequirements(value);
 					break;

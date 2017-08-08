@@ -1,11 +1,11 @@
 get:
-  description: Retrival of a single movie
+  description: Retrival of a single video release
   parameters:
     - name: uid
       in: query
       type: string
       required: true
-      description: Movie unique ID
+      description: Video release unique ID
     - name: apiKey
       in: query
       type: string

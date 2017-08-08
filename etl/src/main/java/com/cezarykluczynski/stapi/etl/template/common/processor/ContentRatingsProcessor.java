@@ -35,7 +35,8 @@ public class ContentRatingsProcessor implements ItemProcessor<Template.Part, Set
 	public Set<ContentRating> process(Template.Part item) throws Exception {
 		Set<ContentRating> contentRatingSet = Sets.newHashSet();
 
-		List<Template> videoRatingsTemplateList = templateFilter.filterByTitle(item.getTemplates(), TemplateTitle.VIDEO_RATINGS, TemplateTitle.VR);
+		List<Template> videoRatingsTemplateList = templateFilter.filterByTitle(item.getTemplates(), TemplateTitle.VIDEO_RATINGS, TemplateTitle.VR,
+				TemplateTitle.GAME_RATINGS, TemplateTitle.GR);
 
 		if (videoRatingsTemplateList.isEmpty()) {
 			return contentRatingSet;
