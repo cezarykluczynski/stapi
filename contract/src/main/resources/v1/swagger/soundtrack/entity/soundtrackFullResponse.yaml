@@ -1,0 +1,6 @@
+type: object
+description: Response object for single soundtrack query
+properties:
+  soundtrack:
+    $ref: '#/definitions/SoundtrackFull'
+    description: Soundtrack, if found

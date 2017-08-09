@@ -146,7 +146,7 @@
 					<xs:documentation>Ending year of video game story</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="systemRequirements" type="xs:string">
+			<xs:element name="systemRequirements" type="xs:string" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>System requirements</xs:documentation>
 				</xs:annotation>
@@ -193,7 +193,7 @@
 					<xs:documentation>Ending year of video game story</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="systemRequirements" type="xs:string">
+			<xs:element name="systemRequirements" type="xs:string" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>System requirements</xs:documentation>
 				</xs:annotation>

@@ -1,5 +1,5 @@
 type: object
-description: Response object for movies search
+description: Response object for video releases search
 properties:
   page:
     $ref: '#/definitions/ResponsePage'

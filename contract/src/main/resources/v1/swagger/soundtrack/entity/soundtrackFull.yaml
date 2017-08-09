@@ -1,0 +1,43 @@
+type: object
+description: Full soundtrack, returned when queried using UID
+properties:
+  uid:
+    type: string
+    required: true
+    description: Soundtrack unique ID
+  title:
+    type: string
+    required: true
+    description: Soundtrack title
+  releaseDate:
+    type: string
+    format: date
+    description: Release date
+  length:
+    type: integer
+    description: Length, in seconds
+  labels:
+    type: array
+    items:
+      $ref: '#/definitions/CompanyBase'
+    description: Labels this soundtrack was relesed by
+  composers:
+    type: array
+    items:
+      $ref: '#/definitions/StaffBase'
+    description: Composers
+  contributors:
+    type: array
+    items:
+      $ref: '#/definitions/StaffBase'
+    description: Other musicians that contributed to this soundtrack
+  orchestrators:
+    type: array
+    items:
+      $ref: '#/definitions/StaffBase'
+    description: Orchestrators
+  references:
+    type: array
+    items:
+      $ref: '#/definitions/Reference'
+    description: References

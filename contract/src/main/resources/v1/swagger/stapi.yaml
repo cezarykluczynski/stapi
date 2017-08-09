@@ -97,6 +97,10 @@ paths:
     $ref: ./species/path/species.path.yaml
   /species/search:
     $ref: ./species/path/speciesSearch.path.yaml
+  /soundtrack:
+    $ref: ./soundtrack/path/soundtrack.path.yaml
+  /soundtrack/search:
+    $ref: ./soundtrack/path/soundtrackSearch.path.yaml
   /staff:
     $ref: ./staff/path/staff.path.yaml
   /staff/search:
@@ -390,6 +394,16 @@ definitions:
     $ref: ./staff/entity/staffBaseResponse.yaml
   StaffFullResponse:
     $ref: ./staff/entity/staffFullResponse.yaml
+  SoundtrackHeader:
+    $ref: ./soundtrack/entity/soundtrackHeader.yaml
+  SoundtrackBase:
+    $ref: ./soundtrack/entity/soundtrackBase.yaml
+  SoundtrackFull:
+    $ref: ./soundtrack/entity/soundtrackFull.yaml
+  SoundtrackBaseResponse:
+    $ref: ./soundtrack/entity/soundtrackBaseResponse.yaml
+  SoundtrackFullResponse:
+    $ref: ./soundtrack/entity/soundtrackFullResponse.yaml
   TradingCardHeader:
     $ref: ./trading_card/entity/tradingCardHeader.yaml
   TradingCardBase:

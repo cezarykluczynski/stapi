@@ -20,6 +20,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.api.OrganizationApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.PerformerApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.SeasonApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.SeriesApi;
+import com.cezarykluczynski.stapi.client.v1.rest.api.SoundtrackApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.SpeciesApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.StaffApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.TradingCardApi;
@@ -117,6 +118,9 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 	@Getter
 	private VideoGameApi videoGameApi;
 
+	@Getter
+	private SoundtrackApi soundtrackApi;
+
 	public StapiRestClient() {
 		seriesApi = new SeriesApi();
 		performerApi = new PerformerApi();
@@ -145,6 +149,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 		tradingCardDeckApi = new TradingCardDeckApi();
 		tradingCardApi = new TradingCardApi();
 		videoGameApi = new VideoGameApi();
+		soundtrackApi = new SoundtrackApi();
 	}
 
 	public StapiRestClient(String apiUrl) {
@@ -177,6 +182,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 		tradingCardDeckApi = new TradingCardDeckApi(apiClient);
 		tradingCardApi = new TradingCardApi(apiClient);
 		videoGameApi = new VideoGameApi(apiClient);
+		soundtrackApi = new SoundtrackApi(apiClient);
 	}
 
 	private void createApiClient() {

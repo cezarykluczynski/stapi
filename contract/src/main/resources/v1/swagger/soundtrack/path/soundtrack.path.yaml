@@ -1,0 +1,22 @@
+get:
+  description: Retrival of a single soundtrack
+  parameters:
+    - name: uid
+      in: query
+      type: string
+      required: true
+      description: Soundtrack unique ID
+    - name: apiKey
+      in: query
+      type: string
+      description: API key
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/SoundtrackFullResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - Soundtrack

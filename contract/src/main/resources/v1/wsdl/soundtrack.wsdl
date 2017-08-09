@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+		name="Soundtrack"
+		targetNamespace="http://stapi.co/api/v1/soap/soundtrack"
+		xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+		xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+		xmlns:stapi="http://stapi.co/api/v1/soap/soundtrack"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<xs:schema targetNamespace="http://stapi.co/api/v1/soap/soundtrack">
+			<xs:include schemaLocation="soundtrack.xsd"/>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="SoundtrackBaseRequest">
+		<wsdl:part name="request" element="stapi:SoundtrackBaseRequest"/>
+	</wsdl:message>
+	<wsdl:message name="SoundtrackFullRequest">
+		<wsdl:part name="request" element="stapi:SoundtrackFullRequest"/>
+	</wsdl:message>
+	<wsdl:message name="SoundtrackBaseResponse">
+		<wsdl:part name="response" element="stapi:SoundtrackBaseResponse"/>
+	</wsdl:message>
+	<wsdl:message name="SoundtrackFullResponse">
+		<wsdl:part name="response" element="stapi:SoundtrackFullResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="SoundtrackPortType">
+		<wsdl:operation name="getSoundtrackBase">
+			<wsdl:input name="getSoundtrackBaseRequest" message="stapi:SoundtrackBaseRequest"/>
+			<wsdl:output name="getSoundtrackBaseResponse" message="stapi:SoundtrackBaseResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getSoundtrackFull">
+			<wsdl:input name="getSoundtrackFullRequest" message="stapi:SoundtrackFullRequest"/>
+			<wsdl:output name="getSoundtrackFullResponse" message="stapi:SoundtrackFullResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="SoundtrackBinding" type="stapi:SoundtrackPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getSoundtrackBase">
+			<wsdl:input name="getSoundtrackBaseRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getSoundtrackBaseResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getSoundtrackFull">
+			<wsdl:input name="getSoundtrackFullRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getSoundtrackFullResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="SoundtrackService">
+		<wsdl:port name="SoundtrackPortType" binding="stapi:SoundtrackBinding">
+			<soap:address location="http://stapi.co/api/v1/soap/soundtrack"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

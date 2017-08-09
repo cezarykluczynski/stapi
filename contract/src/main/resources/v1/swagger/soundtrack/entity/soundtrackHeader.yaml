@@ -1,0 +1,11 @@
+type: object
+description: Header soundtrack, embedded in other objects
+properties:
+  uid:
+    type: string
+    required: true
+    description: Soundtrack unique ID
+  title:
+    type: string
+    required: true
+    description: Soundtrack title

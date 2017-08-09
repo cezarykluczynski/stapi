@@ -1,5 +1,5 @@
 type: object
-description: Response object for video games search
+description: Response object for soundtracks search
 properties:
   page:
     $ref: '#/definitions/ResponsePage'
@@ -7,8 +7,8 @@ properties:
   sort:
     $ref: '#/definitions/ResponseSort'
     description: Response sort
-  videoGames:
+  soundtracks:
     type: array
     items:
-      $ref: '#/definitions/VideoGameBase'
-    description: List of video games matching given criteria
+      $ref: '#/definitions/SoundtrackBase'
+    description: List of soundtracks matching given criteria
