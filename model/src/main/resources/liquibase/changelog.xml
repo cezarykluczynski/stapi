@@ -41,4 +41,6 @@
 	<include file="genre/0037_create_genre.xml" relativeToChangelogFile="true"/>
 	<include file="video_game/0038_create_video_game.xml" relativeToChangelogFile="true"/>
 	<include file="soundtrack/0039_create_soundtrack.xml" relativeToChangelogFile="true"/>
+	<include file="spacecraft_type/0040_create_spacecraft_type.xml" relativeToChangelogFile="true"/>
+	<include file="spacecraft_class/0041_create_spacecraft_class.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
