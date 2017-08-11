@@ -22,7 +22,7 @@ subprojects {
 		jacoco {
 			append = false
 			destinationFile = file("$buildDir/jacoco/test.exec")
-			classDumpFile = file("$buildDir/jacoco/classpathdumps")
+			classDumpDir = file("$buildDir/jacoco/classpathdumps")
 		}
 
 		testLogging {
