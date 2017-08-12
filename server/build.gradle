@@ -47,7 +47,6 @@ configurations.compile.exclude group: 'io.swagger'
 
 task copyDocs(type: CopyDocs) << {}
 
-
 task npmBuild(type:Exec) {
 	workingDir 'src/main/web'
 	if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {

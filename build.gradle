@@ -1,3 +1,5 @@
+import groovy.io.FileType
+
 buildscript {
 	repositories {
 		mavenCentral()
@@ -93,6 +95,26 @@ allprojects {
 		configProperties = [
 				'baseDir': "$rootDir"
 		]
+	}
+
+	task cleanMetamodel(type: CleanMetamodel) << {}
+
+	clean {
+		dependsOn cleanMetamodel
+	}
+
+}
+
+class CleanMetamodel extends DefaultTask {
+
+	@TaskAction
+	def cleanMetamodel() {
+		def dir = new File('./model/src/main/java/')
+		dir.eachFileRecurse (FileType.FILES) { file ->
+			if (file.name.endsWith("_.java")) {
+				file.delete()
+			}
+		}
 	}
 }
 
