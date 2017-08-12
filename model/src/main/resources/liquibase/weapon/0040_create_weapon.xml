@@ -7,6 +7,9 @@
 			<column name="id" type="bigint">
 				<constraints unique="true" nullable="false"/>
 			</column>
+			<column name="page_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
 			<column name="u_id" type="varchar(14)">
 				<constraints nullable="false"/>
 			</column>
@@ -16,11 +19,16 @@
 			<column name="hand_held_weapon" type="boolean"/>
 			<column name="laser_technology" type="boolean"/>
 			<column name="plasma_technology" type="boolean"/>
-			<column name="photon_technology" type="boolean"/>
-			<column name="phase_technology" type="boolean"/>
+			<column name="photonic_technology" type="boolean"/>
+			<column name="phaser_technology" type="boolean"/>
 			<column name="mirror" type="boolean"/>
 			<column name="alternate_reality" type="boolean"/>
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="weapon_sequence"/>
+		<addForeignKeyConstraint baseColumnNames="page_id"
+				baseTableName="weapon"
+				constraintName="weapon_page_fkey"
+				referencedColumnNames="id"
+				referencedTableName="page"/>
 	</changeSet>
 </databaseChangeLog>

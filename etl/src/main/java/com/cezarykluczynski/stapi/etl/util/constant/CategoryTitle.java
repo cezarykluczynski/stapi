@@ -271,4 +271,7 @@ public class CategoryTitle {
 	public static final String VIDEO_GAMES = "Video_games";
 
 	public static final String SOUNDTRACKS = "Soundtracks";
+
+	public static final String WEAPONS = "Weapons";
+	public static final String HAND_HELD_WEAPONS = "Hand-held_weapons";
 }

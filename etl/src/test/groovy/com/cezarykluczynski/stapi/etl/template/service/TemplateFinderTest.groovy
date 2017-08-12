@@ -53,4 +53,28 @@ class TemplateFinderTest extends Specification {
 		!templateOptional.isPresent()
 	}
 
+	void "tells if template is present by name"() {
+		given:
+		Template template1title1 = new Template(title: TITLE_1)
+		Page page = new Page(templates: Lists.newArrayList(template1title1))
+
+		when:
+		boolean hasTemplate = templateFinder.hasTemplate(page, TITLE_1)
+
+		then:
+		hasTemplate
+	}
+
+	void "tells if template is not present by name"() {
+		given:
+		Template template1title1 = new Template(title: TITLE_1)
+		Page page = new Page(templates: Lists.newArrayList(template1title1))
+
+		when:
+		boolean hasTemplate = templateFinder.hasTemplate(page, TITLE_2)
+
+		then:
+		!hasTemplate
+	}
+
 }

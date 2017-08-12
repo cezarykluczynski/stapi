@@ -47,6 +47,8 @@ public class TemplateTitle {
 	public static final String REFERENCE = "reference";
 
 	public static final String RELIGIOUS_TEXTS = "religioustexts";
+	public static final String LASER_TECHNOLOGY = "pasertechnology";
+	public static final String PHASER_TECHNOLOGY = "phasertechnology";
 
 	public static final String VIDEO_RATINGS = "video ratings";
 	public static final String VR = "vr";

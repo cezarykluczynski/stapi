@@ -46,9 +46,9 @@ public class Weapon extends PageAwareEntity implements PageAware {
 
 	private Boolean plasmaTechnology;
 
-	private Boolean photonTechnology;
+	private Boolean photonicTechnology;
 
-	private Boolean phaseTechnology;
+	private Boolean phaserTechnology;
 
 	private Boolean mirror;
 

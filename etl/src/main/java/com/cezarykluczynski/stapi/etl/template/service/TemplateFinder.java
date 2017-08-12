@@ -23,4 +23,8 @@ public class TemplateFinder {
 				.findFirst();
 	}
 
+	public boolean hasTemplate(Page page, String name) {
+		return findTemplate(page, name).isPresent();
+	}
+
 }

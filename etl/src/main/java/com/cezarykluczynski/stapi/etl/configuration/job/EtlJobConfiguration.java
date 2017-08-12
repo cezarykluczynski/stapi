@@ -90,6 +90,9 @@ import com.cezarykluczynski.stapi.etl.video_game.creation.processor.VideoGameWri
 import com.cezarykluczynski.stapi.etl.video_release.creation.processor.VideoReleaseProcessor;
 import com.cezarykluczynski.stapi.etl.video_release.creation.processor.VideoReleaseReader;
 import com.cezarykluczynski.stapi.etl.video_release.creation.processor.VideoReleaseWriter;
+import com.cezarykluczynski.stapi.etl.weapon.creation.processor.WeaponProcessor;
+import com.cezarykluczynski.stapi.etl.weapon.creation.processor.WeaponReader;
+import com.cezarykluczynski.stapi.etl.weapon.creation.processor.WeaponWriter;
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject;
 import com.cezarykluczynski.stapi.model.book.entity.Book;
 import com.cezarykluczynski.stapi.model.book_collection.entity.BookCollection;
@@ -117,6 +120,7 @@ import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet;
 import com.cezarykluczynski.stapi.model.video_game.entity.VideoGame;
 import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease;
+import com.cezarykluczynski.stapi.model.weapon.entity.Weapon;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import com.cezarykluczynski.stapi.sources.wordpress.dto.Page;
 import org.springframework.batch.core.Job;
@@ -536,6 +540,19 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(SoundtrackReader.class))
 				.processor(applicationContext.getBean(SoundtrackProcessor.class))
 				.writer(applicationContext.getBean(SoundtrackWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_WEAPONS)
+	public Step stepCreateWeapons() {
+		return stepBuilderFactory.get(StepName.CREATE_WEAPONS)
+				.<PageHeader, Weapon>chunk(stepsProperties.getCreateWeapons().getCommitInterval())
+				.reader(applicationContext.getBean(WeaponReader.class))
+				.processor(applicationContext.getBean(WeaponProcessor.class))
+				.writer(applicationContext.getBean(WeaponWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)

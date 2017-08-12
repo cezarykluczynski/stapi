@@ -94,6 +94,8 @@ class JobBuilderTest extends Specification {
 
 	private Step createSoundtracksStep
 
+	private Step createWeaponsStep
+
 	private JobRepository jobRepository
 
 	private SpringBatchJobBuilder springBatchJobBuilder
@@ -137,6 +139,7 @@ class JobBuilderTest extends Specification {
 		createTradingCardsStep = Mock()
 		createVideoGamesStep = Mock()
 		createSoundtracksStep = Mock()
+		createWeaponsStep = Mock()
 		springBatchJobBuilder = new SpringBatchJobBuilder(JobName.JOB_CREATE)
 		springBatchJobBuilder.repository(jobRepository)
 		jobBuilder = new JobBuilder(applicationContextMock, jobBuilderFactoryMock, stepConfigurationValidatorMock, jobCompletenessDeciderMock,
@@ -330,17 +333,23 @@ class JobBuilderTest extends Specification {
 		1 * applicationContextMock.getBean(StepName.CREATE_TRADING_CARDS, Step) >> createTradingCardsStep
 		1 * createTradingCardsStep.name >> StepName.CREATE_TRADING_CARDS
 
-		then: 'CREATE_VIDEO_RELEASES step is retrieved from application context'
+		then: 'CREATE_VIDEO_GAMES step is retrieved from application context'
 		1 * stepPropertiesMap.get(StepName.CREATE_VIDEO_GAMES) >> stepProperties
 		1 * stepProperties.isEnabled() >> true
 		1 * applicationContextMock.getBean(StepName.CREATE_VIDEO_GAMES, Step) >> createVideoGamesStep
 		1 * createVideoGamesStep.name >> StepName.CREATE_VIDEO_GAMES
 
-		then: 'CREATE_VIDEO_RELEASES step is retrieved from application context'
+		then: 'CREATE_SOUNDTRACKS step is retrieved from application context'
 		1 * stepPropertiesMap.get(StepName.CREATE_SOUNDTRACKS) >> stepProperties
 		1 * stepProperties.isEnabled() >> true
 		1 * applicationContextMock.getBean(StepName.CREATE_SOUNDTRACKS, Step) >> createSoundtracksStep
 		1 * createSoundtracksStep.name >> StepName.CREATE_SOUNDTRACKS
+
+		then: 'CREATE_WEAPONS step is retrieved from application context'
+		1 * stepPropertiesMap.get(StepName.CREATE_WEAPONS) >> stepProperties
+		1 * stepProperties.isEnabled() >> true
+		1 * applicationContextMock.getBean(StepName.CREATE_WEAPONS, Step) >> createWeaponsStep
+		1 * createWeaponsStep.name >> StepName.CREATE_WEAPONS
 
 		then: 'Task executor is retrieved from application context'
 		1 * applicationContextMock.getBean(TaskExecutor) >> taskExecutor
@@ -389,8 +398,8 @@ class JobBuilderTest extends Specification {
 		1 * stepToStepPropertiesProviderMock.provide() >> stepPropertiesMap
 
 		then: 'all steps are disabled'
-		30 * stepPropertiesMap.get(_) >> stepProperties
-		30 * stepProperties.isEnabled() >> false
+		StepConfigurationValidator.NUMBER_OF_STEPS * stepPropertiesMap.get(_) >> stepProperties
+		StepConfigurationValidator.NUMBER_OF_STEPS * stepProperties.isEnabled() >> false
 
 		then: 'no other interactions are expected'
 		0 * _
@@ -432,8 +441,8 @@ class JobBuilderTest extends Specification {
 		1 * createSeriesStep.name >> StepName.CREATE_SERIES
 
 		then: 'other steps are skipped'
-		28 * stepPropertiesMap.get(_) >> stepProperties
-		28 * stepProperties.isEnabled() >> false
+		(StepConfigurationValidator.NUMBER_OF_STEPS - 2) * stepPropertiesMap.get(_) >> stepProperties
+		(StepConfigurationValidator.NUMBER_OF_STEPS - 2) * stepProperties.isEnabled() >> false
 
 		then: 'Task executor is retrieved from application context'
 		1 * applicationContextMock.getBean(TaskExecutor) >> taskExecutor

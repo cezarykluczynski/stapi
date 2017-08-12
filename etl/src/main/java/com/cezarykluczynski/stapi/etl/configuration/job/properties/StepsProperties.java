@@ -69,4 +69,6 @@ public class StepsProperties {
 
 	private StepProperties createSoundtracks;
 
+	private StepProperties createWeapons;
+
 }
