@@ -41,7 +41,7 @@ class LiteratureRestEndpointTest extends AbstractRestEndpointTest {
 		LiteratureBaseResponse literatureResponse = Mock()
 
 		when:
-		LiteratureBaseResponse literatureResponseOutput = literatureRestEndpoint.searchCompanies(pageAwareBeanParams)
+		LiteratureBaseResponse literatureResponseOutput = literatureRestEndpoint.searchLiterature(pageAwareBeanParams)
 
 		then:
 		1 * literatureRestReaderMock.readBase(_ as LiteratureRestBeanParams) >> { LiteratureRestBeanParams literatureRestBeanParams ->
@@ -58,7 +58,7 @@ class LiteratureRestEndpointTest extends AbstractRestEndpointTest {
 		LiteratureBaseResponse literatureResponse = Mock()
 
 		when:
-		LiteratureBaseResponse literatureResponseOutput = literatureRestEndpoint.searchCompanies(literatureRestBeanParams)
+		LiteratureBaseResponse literatureResponseOutput = literatureRestEndpoint.searchLiterature(literatureRestBeanParams)
 
 		then:
 		1 * literatureRestReaderMock.readBase(literatureRestBeanParams as LiteratureRestBeanParams) >> { LiteratureRestBeanParams params ->

@@ -41,7 +41,7 @@ class OrganizationRestEndpointTest extends AbstractRestEndpointTest {
 		OrganizationBaseResponse organizationResponse = Mock()
 
 		when:
-		OrganizationBaseResponse organizationResponseOutput = organizationRestEndpoint.searchCompanies(pageAwareBeanParams)
+		OrganizationBaseResponse organizationResponseOutput = organizationRestEndpoint.searchOrganizations(pageAwareBeanParams)
 
 		then:
 		1 * organizationRestReaderMock.readBase(_ as OrganizationRestBeanParams) >> { OrganizationRestBeanParams organizationRestBeanParams ->
@@ -58,7 +58,7 @@ class OrganizationRestEndpointTest extends AbstractRestEndpointTest {
 		OrganizationBaseResponse organizationResponse = Mock()
 
 		when:
-		OrganizationBaseResponse organizationResponseOutput = organizationRestEndpoint.searchCompanies(organizationRestBeanParams)
+		OrganizationBaseResponse organizationResponseOutput = organizationRestEndpoint.searchOrganizations(organizationRestBeanParams)
 
 		then:
 		1 * organizationRestReaderMock.readBase(organizationRestBeanParams as OrganizationRestBeanParams) >> { OrganizationRestBeanParams params ->

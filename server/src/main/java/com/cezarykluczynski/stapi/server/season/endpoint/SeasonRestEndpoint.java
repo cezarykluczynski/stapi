@@ -39,15 +39,15 @@ public class SeasonRestEndpoint {
 	@GET
 	@Path("search")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public SeasonBaseResponse searchCompanies(@BeanParam PageSortBeanParams pageSortBeanParams) {
+	public SeasonBaseResponse searchSeasons(@BeanParam PageSortBeanParams pageSortBeanParams) {
 		return seasonRestReader.readBase(SeasonRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
 	}
 
 	@POST
 	@Path("search")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public SeasonBaseResponse searchCompanies(@BeanParam SeasonRestBeanParams seriesRestBeanParams) {
-		return seasonRestReader.readBase(seriesRestBeanParams);
+	public SeasonBaseResponse searchSeasons(@BeanParam SeasonRestBeanParams seasonRestBeanParams) {
+		return seasonRestReader.readBase(seasonRestBeanParams);
 	}
 
 }

@@ -1,0 +1,22 @@
+get:
+  description: Retrival of a single weapon
+  parameters:
+    - name: uid
+      in: query
+      type: string
+      required: true
+      description: Weapon unique ID
+    - name: apiKey
+      in: query
+      type: string
+      description: API key
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/WeaponFullResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - Weapon

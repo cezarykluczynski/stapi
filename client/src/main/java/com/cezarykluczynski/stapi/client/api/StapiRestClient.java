@@ -28,6 +28,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.api.TradingCardDeckApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.TradingCardSetApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.VideoGameApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.VideoReleaseApi;
+import com.cezarykluczynski.stapi.client.v1.rest.api.WeaponApi;
 import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiClient;
 import lombok.Getter;
 
@@ -121,6 +122,9 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 	@Getter
 	private SoundtrackApi soundtrackApi;
 
+	@Getter
+	private WeaponApi weaponApi;
+
 	public StapiRestClient() {
 		seriesApi = new SeriesApi();
 		performerApi = new PerformerApi();
@@ -150,6 +154,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 		tradingCardApi = new TradingCardApi();
 		videoGameApi = new VideoGameApi();
 		soundtrackApi = new SoundtrackApi();
+		weaponApi = new WeaponApi();
 	}
 
 	public StapiRestClient(String apiUrl) {
@@ -183,6 +188,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 		tradingCardApi = new TradingCardApi(apiClient);
 		videoGameApi = new VideoGameApi(apiClient);
 		soundtrackApi = new SoundtrackApi(apiClient);
+		weaponApi = new WeaponApi(apiClient);
 	}
 
 	private void createApiClient() {

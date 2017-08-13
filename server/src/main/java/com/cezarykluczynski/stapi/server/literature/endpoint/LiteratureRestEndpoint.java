@@ -39,15 +39,15 @@ public class LiteratureRestEndpoint {
 	@GET
 	@Path("search")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public LiteratureBaseResponse searchCompanies(@BeanParam PageSortBeanParams pageSortBeanParams) {
+	public LiteratureBaseResponse searchLiterature(@BeanParam PageSortBeanParams pageSortBeanParams) {
 		return literatureRestReader.readBase(LiteratureRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
 	}
 
 	@POST
 	@Path("search")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public LiteratureBaseResponse searchCompanies(@BeanParam LiteratureRestBeanParams seriesRestBeanParams) {
-		return literatureRestReader.readBase(seriesRestBeanParams);
+	public LiteratureBaseResponse searchLiterature(@BeanParam LiteratureRestBeanParams literatureRestBeanParams) {
+		return literatureRestReader.readBase(literatureRestBeanParams);
 	}
 
 }

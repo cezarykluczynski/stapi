@@ -41,7 +41,7 @@ class SeasonRestEndpointTest extends AbstractRestEndpointTest {
 		SeasonBaseResponse seasonResponse = Mock()
 
 		when:
-		SeasonBaseResponse seasonResponseOutput = seasonRestEndpoint.searchCompanies(pageAwareBeanParams)
+		SeasonBaseResponse seasonResponseOutput = seasonRestEndpoint.searchSeasons(pageAwareBeanParams)
 
 		then:
 		1 * seasonRestReaderMock.readBase(_ as SeasonRestBeanParams) >> { SeasonRestBeanParams seasonRestBeanParams ->
@@ -58,7 +58,7 @@ class SeasonRestEndpointTest extends AbstractRestEndpointTest {
 		SeasonBaseResponse seasonResponse = Mock()
 
 		when:
-		SeasonBaseResponse seasonResponseOutput = seasonRestEndpoint.searchCompanies(seasonRestBeanParams)
+		SeasonBaseResponse seasonResponseOutput = seasonRestEndpoint.searchSeasons(seasonRestBeanParams)
 
 		then:
 		1 * seasonRestReaderMock.readBase(seasonRestBeanParams as SeasonRestBeanParams) >> { SeasonRestBeanParams params ->

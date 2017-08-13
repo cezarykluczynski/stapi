@@ -39,15 +39,15 @@ public class OrganizationRestEndpoint {
 	@GET
 	@Path("search")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public OrganizationBaseResponse searchCompanies(@BeanParam PageSortBeanParams pageSortBeanParams) {
+	public OrganizationBaseResponse searchOrganizations(@BeanParam PageSortBeanParams pageSortBeanParams) {
 		return organizationRestReader.readBase(OrganizationRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
 	}
 
 	@POST
 	@Path("search")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public OrganizationBaseResponse searchCompanies(@BeanParam OrganizationRestBeanParams seriesRestBeanParams) {
-		return organizationRestReader.readBase(seriesRestBeanParams);
+	public OrganizationBaseResponse searchOrganizations(@BeanParam OrganizationRestBeanParams organizationRestBeanParams) {
+		return organizationRestReader.readBase(organizationRestBeanParams);
 	}
 
 }

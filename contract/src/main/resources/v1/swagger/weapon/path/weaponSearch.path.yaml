@@ -1,0 +1,90 @@
+get:
+  description: Pagination over weapons
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+      description: Zero-based page number
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+      description: Page size
+    - name: apiKey
+      in: query
+      type: string
+      description: API key
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/WeaponBaseResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - Weapon
+post:
+  description: Searching weapons
+  consumes:
+    - application/x-www-form-urlencoded
+  producers:
+    - application/json
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+      description: Zero-based page number
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+      description: Page size
+    - name: sort
+      type: string
+      in: query
+      description: "Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC"
+    - name: apiKey
+      in: query
+      type: string
+      description: API key
+    - name: name
+      in: formData
+      type: string
+      description: Weapon name
+    - name: handHeldWeapon
+      in: formData
+      type: boolean
+      description: Whether it should be a hand-help weapon
+    - name: laserTechnology
+      in: formData
+      type: boolean
+      description: Whether it should be a laser technology
+    - name: plasmaTechnology
+      in: formData
+      type: boolean
+      description: Whether it should be a plasma technology
+    - name: photonicTechnology
+      in: formData
+      type: boolean
+      description: Whether it should be a photonic technology
+    - name: phaserTechnology
+      in: formData
+      type: boolean
+      description: Whether it should be a phaser technology
+    - name: mirror
+      in: formData
+      type: boolean
+      description: Whether this weapon should be from mirror universe
+    - name: alternateReality
+      in: formData
+      type: boolean
+      description: Whether this weapon should be from alternate reality
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/WeaponBaseResponse'
+  tags:
+    - Weapon

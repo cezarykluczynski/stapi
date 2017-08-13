@@ -39,15 +39,15 @@ public class LocationRestEndpoint {
 	@GET
 	@Path("search")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public LocationBaseResponse searchCompanies(@BeanParam PageSortBeanParams pageSortBeanParams) {
+	public LocationBaseResponse searchLocations(@BeanParam PageSortBeanParams pageSortBeanParams) {
 		return locationRestReader.readBase(LocationRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
 	}
 
 	@POST
 	@Path("search")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public LocationBaseResponse searchCompanies(@BeanParam LocationRestBeanParams seriesRestBeanParams) {
-		return locationRestReader.readBase(seriesRestBeanParams);
+	public LocationBaseResponse searchLocations(@BeanParam LocationRestBeanParams locationRestBeanParams) {
+		return locationRestReader.readBase(locationRestBeanParams);
 	}
 
 }

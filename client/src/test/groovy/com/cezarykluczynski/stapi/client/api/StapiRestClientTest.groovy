@@ -37,6 +37,7 @@ class StapiRestClientTest extends AbstractStapiClientTest {
 		stapiRestClient.tradingCardApi.apiClient.basePath.contains(StapiClient.CANONICAL_API_URL)
 		stapiRestClient.videoGameApi.apiClient.basePath.contains(StapiClient.CANONICAL_API_URL)
 		stapiRestClient.soundtrackApi.apiClient.basePath.contains(StapiClient.CANONICAL_API_URL)
+		stapiRestClient.weaponApi.apiClient.basePath.contains(StapiClient.CANONICAL_API_URL)
 	}
 
 	void "rest client can be instantiated with custom URL"() {
@@ -72,6 +73,7 @@ class StapiRestClientTest extends AbstractStapiClientTest {
 		stapiRestClient.tradingCardApi.apiClient.basePath.contains(CUSTOM_URL)
 		stapiRestClient.videoGameApi.apiClient.basePath.contains(CUSTOM_URL)
 		stapiRestClient.soundtrackApi.apiClient.basePath.contains(CUSTOM_URL)
+		stapiRestClient.weaponApi.apiClient.basePath.contains(CUSTOM_URL)
 	}
 
 }

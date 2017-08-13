@@ -125,6 +125,10 @@ paths:
     $ref: ./video_release/path/videoRelease.path.yaml
   /videoRelease/search:
     $ref: ./video_release/path/videoReleaseSearch.path.yaml
+  /weapon:
+    $ref: ./weapon/path/weapon.path.yaml
+  /weapon/search:
+    $ref: ./weapon/path/weaponSearch.path.yaml
 definitions:
   AstronomicalObjectHeader:
     $ref: ./astronomical_object/entity/astronomicalObjectHeader.yaml
@@ -456,3 +460,13 @@ definitions:
     $ref: ./video_release/entity/videoReleaseBaseResponse.yaml
   VideoReleaseFullResponse:
     $ref: ./video_release/entity/videoReleaseFullResponse.yaml
+  WeaponHeader:
+    $ref: ./weapon/entity/weaponHeader.yaml
+  WeaponBase:
+    $ref: ./weapon/entity/weaponBase.yaml
+  WeaponFull:
+    $ref: ./weapon/entity/weaponFull.yaml
+  WeaponBaseResponse:
+    $ref: ./weapon/entity/weaponBaseResponse.yaml
+  WeaponFullResponse:
+    $ref: ./weapon/entity/weaponFullResponse.yaml

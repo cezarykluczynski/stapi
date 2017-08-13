@@ -39,15 +39,15 @@ public class FoodRestEndpoint {
 	@GET
 	@Path("search")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public FoodBaseResponse searchCompanies(@BeanParam PageSortBeanParams pageSortBeanParams) {
+	public FoodBaseResponse searchFoods(@BeanParam PageSortBeanParams pageSortBeanParams) {
 		return foodRestReader.readBase(FoodRestBeanParams.fromPageSortBeanParams(pageSortBeanParams));
 	}
 
 	@POST
 	@Path("search")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public FoodBaseResponse searchCompanies(@BeanParam FoodRestBeanParams seriesRestBeanParams) {
-		return foodRestReader.readBase(seriesRestBeanParams);
+	public FoodBaseResponse searchFoods(@BeanParam FoodRestBeanParams foodRestBeanParams) {
+		return foodRestReader.readBase(foodRestBeanParams);
 	}
 
 }

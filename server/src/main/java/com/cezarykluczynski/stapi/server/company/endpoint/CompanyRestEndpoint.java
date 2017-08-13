@@ -46,8 +46,8 @@ public class CompanyRestEndpoint {
 	@POST
 	@Path("search")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public CompanyBaseResponse searchCompanies(@BeanParam CompanyRestBeanParams seriesRestBeanParams) {
-		return companyRestReader.readBase(seriesRestBeanParams);
+	public CompanyBaseResponse searchCompanies(@BeanParam CompanyRestBeanParams companyRestBeanParams) {
+		return companyRestReader.readBase(companyRestBeanParams);
 	}
 
 }

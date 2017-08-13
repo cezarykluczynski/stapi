@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+		name="Weapon"
+		targetNamespace="http://stapi.co/api/v1/soap/weapon"
+		xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+		xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+		xmlns:stapi="http://stapi.co/api/v1/soap/weapon"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<xs:schema targetNamespace="http://stapi.co/api/v1/soap/weapon">
+			<xs:include schemaLocation="weapon.xsd"/>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="WeaponBaseRequest">
+		<wsdl:part name="request" element="stapi:WeaponBaseRequest"/>
+	</wsdl:message>
+	<wsdl:message name="WeaponFullRequest">
+		<wsdl:part name="request" element="stapi:WeaponFullRequest"/>
+	</wsdl:message>
+	<wsdl:message name="WeaponBaseResponse">
+		<wsdl:part name="response" element="stapi:WeaponBaseResponse"/>
+	</wsdl:message>
+	<wsdl:message name="WeaponFullResponse">
+		<wsdl:part name="response" element="stapi:WeaponFullResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="WeaponPortType">
+		<wsdl:operation name="getWeaponBase">
+			<wsdl:input name="getWeaponBaseRequest" message="stapi:WeaponBaseRequest"/>
+			<wsdl:output name="getWeaponBaseResponse" message="stapi:WeaponBaseResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getWeaponFull">
+			<wsdl:input name="getWeaponFullRequest" message="stapi:WeaponFullRequest"/>
+			<wsdl:output name="getWeaponFullResponse" message="stapi:WeaponFullResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="WeaponBinding" type="stapi:WeaponPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getWeaponBase">
+			<wsdl:input name="getWeaponBaseRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getWeaponBaseResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getWeaponFull">
+			<wsdl:input name="getWeaponFullRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getWeaponFullResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="WeaponService">
+		<wsdl:port name="WeaponPortType" binding="stapi:WeaponBinding">
+			<soap:address location="http://stapi.co/api/v1/soap/weapon"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

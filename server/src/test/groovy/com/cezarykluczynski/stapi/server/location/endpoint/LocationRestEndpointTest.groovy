@@ -41,7 +41,7 @@ class LocationRestEndpointTest extends AbstractRestEndpointTest {
 		LocationBaseResponse locationResponse = Mock()
 
 		when:
-		LocationBaseResponse locationResponseOutput = locationRestEndpoint.searchCompanies(pageAwareBeanParams)
+		LocationBaseResponse locationResponseOutput = locationRestEndpoint.searchLocations(pageAwareBeanParams)
 
 		then:
 		1 * locationRestReaderMock.readBase(_ as LocationRestBeanParams) >> { LocationRestBeanParams locationRestBeanParams ->
@@ -58,7 +58,7 @@ class LocationRestEndpointTest extends AbstractRestEndpointTest {
 		LocationBaseResponse locationResponse = Mock()
 
 		when:
-		LocationBaseResponse locationResponseOutput = locationRestEndpoint.searchCompanies(locationRestBeanParams)
+		LocationBaseResponse locationResponseOutput = locationRestEndpoint.searchLocations(locationRestBeanParams)
 
 		then:
 		1 * locationRestReaderMock.readBase(locationRestBeanParams as LocationRestBeanParams) >> { LocationRestBeanParams params ->

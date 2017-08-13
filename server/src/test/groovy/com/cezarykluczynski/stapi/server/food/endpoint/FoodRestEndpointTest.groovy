@@ -41,7 +41,7 @@ class FoodRestEndpointTest extends AbstractRestEndpointTest {
 		FoodBaseResponse foodResponse = Mock()
 
 		when:
-		FoodBaseResponse foodResponseOutput = foodRestEndpoint.searchCompanies(pageAwareBeanParams)
+		FoodBaseResponse foodResponseOutput = foodRestEndpoint.searchFoods(pageAwareBeanParams)
 
 		then:
 		1 * foodRestReaderMock.readBase(_ as FoodRestBeanParams) >> { FoodRestBeanParams foodRestBeanParams ->
@@ -58,7 +58,7 @@ class FoodRestEndpointTest extends AbstractRestEndpointTest {
 		FoodBaseResponse foodResponse = Mock()
 
 		when:
-		FoodBaseResponse foodResponseOutput = foodRestEndpoint.searchCompanies(foodRestBeanParams)
+		FoodBaseResponse foodResponseOutput = foodRestEndpoint.searchFoods(foodRestBeanParams)
 
 		then:
 		1 * foodRestReaderMock.readBase(foodRestBeanParams as FoodRestBeanParams) >> { FoodRestBeanParams params ->

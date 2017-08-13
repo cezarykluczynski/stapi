@@ -56,6 +56,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.VideoGamePortType;
 import com.cezarykluczynski.stapi.client.v1.soap.VideoGameService;
 import com.cezarykluczynski.stapi.client.v1.soap.VideoReleasePortType;
 import com.cezarykluczynski.stapi.client.v1.soap.VideoReleaseService;
+import com.cezarykluczynski.stapi.client.v1.soap.WeaponPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.WeaponService;
 import lombok.Getter;
 
 import javax.xml.ws.BindingProvider;
@@ -149,6 +151,9 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 	@Getter
 	private SoundtrackPortType soundtrackPortType;
 
+	@Getter
+	private WeaponPortType weaponPortType;
+
 	public StapiSoapPortTypesProvider() {
 		seriesPortType = new SeriesService().getSeriesPortType();
 		performerPortType = new PerformerService().getPerformerPortType();
@@ -178,6 +183,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		tradingCardPortType = new TradingCardService().getTradingCardPortType();
 		videoGamePortType = new VideoGameService().getVideoGamePortType();
 		soundtrackPortType = new SoundtrackService().getSoundtrackPortType();
+		weaponPortType = new WeaponService().getWeaponPortType();
 	}
 
 	public StapiSoapPortTypesProvider(String apiUrl) {
@@ -210,6 +216,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		tradingCardPortType = changeUrl(new TradingCardService().getTradingCardPortType());
 		videoGamePortType = changeUrl(new VideoGameService().getVideoGamePortType());
 		soundtrackPortType = changeUrl(new SoundtrackService().getSoundtrackPortType());
+		weaponPortType = changeUrl(new WeaponService().getWeaponPortType());
 	}
 
 	private <T> T changeUrl(T service) {
