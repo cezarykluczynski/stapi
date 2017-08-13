@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class StarshipClassTemplate {
 
-	private String title;
+	private String name;
 
 	private Page page;
 

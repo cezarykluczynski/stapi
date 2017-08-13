@@ -73,7 +73,7 @@ class StarshipClassTemplatePageProcessorTest extends Specification {
 				assert enrichablePair.output != null
 		}
 		0 * _
-		starshipClassTemplate.title == TITLE
+		starshipClassTemplate.name == TITLE
 		starshipClassTemplate.page == modelPage
 	}
 
@@ -104,7 +104,7 @@ class StarshipClassTemplatePageProcessorTest extends Specification {
 			assert enrichablePair.output != null
 		}
 		0 * _
-		starshipClassTemplate.title == TITLE
+		starshipClassTemplate.name == TITLE
 		starshipClassTemplate.page == modelPage
 	}
 

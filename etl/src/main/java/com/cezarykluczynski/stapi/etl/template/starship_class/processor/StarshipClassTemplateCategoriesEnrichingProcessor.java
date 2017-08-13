@@ -37,7 +37,7 @@ public class StarshipClassTemplateCategoriesEnrichingProcessor
 			enrichablePair.getOutput().setAffiliatedSpecies(speciesCandidatesList.get(0));
 		} else if (!speciesCandidatesList.isEmpty()) {
 			log.warn("More than one species found for starship class {} when categories were looked at, none was used",
-					starshipClassTemplate.getTitle());
+					starshipClassTemplate.getName());
 		}
 	}
 

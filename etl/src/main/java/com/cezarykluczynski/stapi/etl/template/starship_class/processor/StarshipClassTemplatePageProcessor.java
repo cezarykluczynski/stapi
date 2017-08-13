@@ -47,7 +47,7 @@ public class StarshipClassTemplatePageProcessor implements ItemProcessor<Page, S
 		}
 
 		StarshipClassTemplate starshipClassTemplate = new StarshipClassTemplate();
-		starshipClassTemplate.setTitle(TitleUtil.getNameFromTitle(item.getTitle()));
+		starshipClassTemplate.setName(TitleUtil.getNameFromTitle(item.getTitle()));
 		starshipClassTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 
 		Optional<Template> templateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_STARSHIP_CLASS);
