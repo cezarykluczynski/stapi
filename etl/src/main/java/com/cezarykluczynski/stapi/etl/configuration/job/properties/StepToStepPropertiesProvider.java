@@ -57,6 +57,7 @@ public class StepToStepPropertiesProvider {
 		stepPropertiesMap.put(StepName.CREATE_VIDEO_GAMES, stepsProperties.getCreateVideoGames());
 		stepPropertiesMap.put(StepName.CREATE_SOUNDTRACKS, stepsProperties.getCreateSoundtracks());
 		stepPropertiesMap.put(StepName.CREATE_WEAPONS, stepsProperties.getCreateWeapons());
+		stepPropertiesMap.put(StepName.CREATE_SPACECRAFT_CLASSES, stepsProperties.getCreateSpacecraftClasses());
 	}
 
 }

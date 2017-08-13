@@ -27,7 +27,17 @@ class CategoryApiImplTest extends Specification {
 			</query>
 		</api>
 	'''
-	private static final String VALID_XML_WITH_PAGES_AND_CATEGORIES = """<?xml version="1.0"?>
+	private static final String VALID_XML_WITH_PAGES_AND_CATEGORIES_1 = """<?xml version="1.0"?>
+		<api batchcomplete="">
+			<query>
+				<categorymembers>
+					<cm pageid="61470" ns="0" title="${TITLE_1}" />
+					<cm pageid="60187" ns="14" title="Category:Producers" />
+				</categorymembers>
+			</query>
+		</api>
+	"""
+	private static final String VALID_XML_WITH_PAGES_AND_CATEGORIES_2 = """<?xml version="1.0"?>
 		<api batchcomplete="">
 			<query>
 				<categorymembers>
@@ -44,6 +54,16 @@ class CategoryApiImplTest extends Specification {
 					<cm pageid="61470" ns="0" title="${TITLE_2}" />
 					<cm pageid="60187" ns="14" title="Category:${TITLE_1}" />
 					<cm pageid="169866" ns="0" title="${TITLE_3}" />
+				</categorymembers>
+			</query>
+		</api>
+	"""
+	private static final String VALID_XML_WITH_PAGES_AND_CATEGORY_TO_EXCLUDE = """<?xml version="1.0"?>
+		<api batchcomplete="">
+			<query>
+				<categorymembers>
+					<cm pageid="61470" ns="0" title="${TITLE_2}" />
+					<cm pageid="60187" ns="14" title="Category:${TITLE_3}" />
 				</categorymembers>
 			</query>
 		</api>
@@ -87,7 +107,38 @@ class CategoryApiImplTest extends Specification {
 			VALID_XML
 		}
 		1 * pageHeaderConverterMock.fromPageInfoList(_, MEDIA_WIKI_SOURCE) >> pageHeaderListInput
+		0 * _
 		pageHeaderListOutput.contains pageHeader
+	}
+
+	void "gets pages in mutliple categories by category title"() {
+		given:
+		PageHeader pageHeader1 = Mock()
+		PageHeader pageHeader2 = Mock()
+		List<PageHeader> pageHeaderListInput1 = Lists.newArrayList(pageHeader1)
+		List<PageHeader> pageHeaderListInput2 = Lists.newArrayList(pageHeader2)
+
+		when:
+		List<PageHeader> pageHeaderListOutput = categoryApiImpl.getPages(Lists.newArrayList(TITLE_1, TITLE_2), MEDIA_WIKI_SOURCE)
+
+		then:
+		1 * blikiConnectorMock.readXML(_ as Map, _ as MediaWikiSource) >> { Map map, MediaWikiSource mediaWikiSource ->
+			assert map.get(ApiParams.KEY_LIST) == ApiParams.KEY_LIST_VALUE_CATEGORYMEMBERS
+			assert map.get(ApiParams.KEY_CATEGORY_TITLE) == ApiParams.KEY_CATEGORY_TITLE_VALUE_PREFIX + TITLE_1
+			assert map.get(ApiParams.KEY_CATEGORY_LIMIT) == ApiParams.KEY_CATEGORY_LIMIT_VALUE
+			VALID_XML_WITH_PAGES_AND_CATEGORIES_1
+		}
+		1 * blikiConnectorMock.readXML(_ as Map, _ as MediaWikiSource) >> { Map map, MediaWikiSource mediaWikiSource ->
+			assert map.get(ApiParams.KEY_LIST) == ApiParams.KEY_LIST_VALUE_CATEGORYMEMBERS
+			assert map.get(ApiParams.KEY_CATEGORY_TITLE) == ApiParams.KEY_CATEGORY_TITLE_VALUE_PREFIX + TITLE_2
+			assert map.get(ApiParams.KEY_CATEGORY_LIMIT) == ApiParams.KEY_CATEGORY_LIMIT_VALUE
+			VALID_XML_WITH_PAGES_AND_CATEGORIES_2
+		}
+		1 * pageHeaderConverterMock.fromPageInfoList(_, MEDIA_WIKI_SOURCE) >> pageHeaderListInput1
+		1 * pageHeaderConverterMock.fromPageInfoList(_, MEDIA_WIKI_SOURCE) >> pageHeaderListInput2
+		0 * _
+		pageHeaderListOutput.contains pageHeader1
+		pageHeaderListOutput.contains pageHeader2
 	}
 
 	void "gets pages in categories by categories title"() {
@@ -111,10 +162,11 @@ class CategoryApiImplTest extends Specification {
 			assert map.get(ApiParams.KEY_LIST) == ApiParams.KEY_LIST_VALUE_CATEGORYMEMBERS
 			assert map.get(ApiParams.KEY_CATEGORY_TITLE) == ApiParams.KEY_CATEGORY_TITLE_VALUE_PREFIX + TITLE_2
 			assert map.get(ApiParams.KEY_CATEGORY_LIMIT) == ApiParams.KEY_CATEGORY_LIMIT_VALUE
-			VALID_XML_WITH_PAGES_AND_CATEGORIES
+			VALID_XML_WITH_PAGES_AND_CATEGORIES_2
 		}
 		1 * pageHeaderConverterMock.fromPageInfoList(_, MEDIA_WIKI_SOURCE) >> pageHeaderListInput1
 		1 * pageHeaderConverterMock.fromPageInfoList(_, MEDIA_WIKI_SOURCE) >> pageHeaderListInput2
+		0 * _
 		pageHeaderListOutput.contains pageHeader1
 		pageHeaderListOutput.contains pageHeader2
 	}
@@ -143,7 +195,7 @@ class CategoryApiImplTest extends Specification {
 			VALID_XML
 		}
 		1 * pageHeaderConverterMock.fromPageInfoList(_, MEDIA_WIKI_SOURCE) >> pageHeaderListInput
-
+		0 * _
 		pageHeaderListOutput == pageHeaderListInput
 	}
 
@@ -155,6 +207,8 @@ class CategoryApiImplTest extends Specification {
 		categoryApiImpl.getPages(TITLE_1, MEDIA_WIKI_SOURCE)
 
 		then:
+		1 * blikiConnectorMock.readXML(_ as Map, _ as MediaWikiSource)
+		0 * _
 		thrown(StapiRuntimeException)
 	}
 
@@ -166,7 +220,7 @@ class CategoryApiImplTest extends Specification {
 		List<PageHeader> pageHeaderListOutput = categoryApiImpl.getPagesIncludingSubcategories(TITLE_1, MEDIA_WIKI_SOURCE)
 
 		then:
-		1 * blikiConnectorMock.readXML(_ as Map, _ as MediaWikiSource) >> VALID_XML_WITH_PAGES_AND_CATEGORIES
+		1 * blikiConnectorMock.readXML(_ as Map, _ as MediaWikiSource) >> VALID_XML_WITH_PAGES_AND_CATEGORIES_2
 		1 * blikiConnectorMock.readXML(_ as Map, _ as MediaWikiSource) >> VALID_XML_WITH_PAGES_AND_PARENT_CATEGORY
 		1 * pageHeaderConverterMock.fromPageInfoList(_ as List<PageInfo>, MEDIA_WIKI_SOURCE) >> { List<PageInfo> pageInfoList,
 				MediaWikiSource mediaWikiSource ->
@@ -178,6 +232,59 @@ class CategoryApiImplTest extends Specification {
 			assert titles.contains(TITLE_3)
 			pageHeaderList
 		}
+		0 * _
+		pageHeaderListOutput == pageHeaderList
+	}
+
+	void "gets pages in multiple categories, including subcategories"() {
+		given:
+		List<PageHeader> pageHeaderList = Lists.newArrayList()
+
+		when:
+		List<PageHeader> pageHeaderListOutput = categoryApiImpl
+				.getPagesIncludingSubcategories(Lists.newArrayList(TITLE_1, TITLE_2), MEDIA_WIKI_SOURCE)
+
+		then:
+		1 * blikiConnectorMock.readXML(_ as Map, _ as MediaWikiSource) >> VALID_XML_WITH_PAGES_AND_CATEGORIES_1
+		1 * blikiConnectorMock.readXML(_ as Map, _ as MediaWikiSource) >> VALID_XML_WITH_PAGES_AND_PARENT_CATEGORY
+		1 * blikiConnectorMock.readXML(_ as Map, _ as MediaWikiSource) >> VALID_XML_WITH_PAGES_AND_CATEGORIES_2
+		1 * blikiConnectorMock.readXML(_ as Map, _ as MediaWikiSource) >> VALID_XML_WITH_PAGES_AND_PARENT_CATEGORY
+		1 * pageHeaderConverterMock.fromPageInfoList(_ as List<PageInfo>, MEDIA_WIKI_SOURCE) >> { List<PageInfo> pageInfoList,
+				MediaWikiSource mediaWikiSource ->
+			assert pageInfoList.size() == 3
+			List<String> titles = pageInfoList.stream()
+					.map { pageHeader -> pageHeader.title }
+					.collect(Collectors.toList())
+			assert titles.contains(TITLE_1)
+			assert titles.contains(TITLE_2)
+			assert titles.contains(TITLE_3)
+			pageHeaderList
+		}
+		0 * _
+		pageHeaderListOutput == pageHeaderList
+	}
+
+	void "gets pages in multiple categories, including subcategories, with exceptions"() {
+		given:
+		List<PageHeader> pageHeaderList = Lists.newArrayList()
+
+		when:
+		List<PageHeader> pageHeaderListOutput = categoryApiImpl
+				.getPagesIncludingSubcategoriesExcept(TITLE_1, Lists.newArrayList(TITLE_3), MEDIA_WIKI_SOURCE)
+
+		then:
+		1 * blikiConnectorMock.readXML(_ as Map, _ as MediaWikiSource) >> VALID_XML_WITH_PAGES_AND_CATEGORIES_2
+		1 * blikiConnectorMock.readXML(_ as Map, _ as MediaWikiSource) >> VALID_XML_WITH_PAGES_AND_CATEGORY_TO_EXCLUDE
+		1 * pageHeaderConverterMock.fromPageInfoList(_ as List<PageInfo>, MEDIA_WIKI_SOURCE) >> { List<PageInfo> pageInfoList,
+				MediaWikiSource mediaWikiSource ->
+			assert pageInfoList.size() == 1
+			List<String> titles = pageInfoList.stream()
+					.map { pageHeader -> pageHeader.title }
+					.collect(Collectors.toList())
+			assert titles.contains(TITLE_2)
+			pageHeaderList
+		}
+		0 * _
 		pageHeaderListOutput == pageHeaderList
 	}
 

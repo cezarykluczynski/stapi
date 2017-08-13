@@ -96,6 +96,8 @@ class JobBuilderTest extends Specification {
 
 	private Step createWeaponsStep
 
+	private Step createSpacecraftClassesStep
+
 	private JobRepository jobRepository
 
 	private SpringBatchJobBuilder springBatchJobBuilder
@@ -140,6 +142,7 @@ class JobBuilderTest extends Specification {
 		createVideoGamesStep = Mock()
 		createSoundtracksStep = Mock()
 		createWeaponsStep = Mock()
+		createSpacecraftClassesStep = Mock()
 		springBatchJobBuilder = new SpringBatchJobBuilder(JobName.JOB_CREATE)
 		springBatchJobBuilder.repository(jobRepository)
 		jobBuilder = new JobBuilder(applicationContextMock, jobBuilderFactoryMock, stepConfigurationValidatorMock, jobCompletenessDeciderMock,
@@ -350,6 +353,12 @@ class JobBuilderTest extends Specification {
 		1 * stepProperties.isEnabled() >> true
 		1 * applicationContextMock.getBean(StepName.CREATE_WEAPONS, Step) >> createWeaponsStep
 		1 * createWeaponsStep.name >> StepName.CREATE_WEAPONS
+
+		then: 'CREATE_SPACECRAFT_CLASSES step is retrieved from application context'
+		1 * stepPropertiesMap.get(StepName.CREATE_SPACECRAFT_CLASSES) >> stepProperties
+		1 * stepProperties.isEnabled() >> true
+		1 * applicationContextMock.getBean(StepName.CREATE_SPACECRAFT_CLASSES, Step) >> createSpacecraftClassesStep
+		1 * createSpacecraftClassesStep.name >> StepName.CREATE_SPACECRAFT_CLASSES
 
 		then: 'Task executor is retrieved from application context'
 		1 * applicationContextMock.getBean(TaskExecutor) >> taskExecutor
