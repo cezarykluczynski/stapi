@@ -65,7 +65,7 @@ class SoundtrackTemplatePageProcessorTest extends Specification {
 		soundtrackTemplate.page == modelPage
 	}
 
-	void "when sidebar soundtrack template is found, it is passed along with SountrackTemplate to enriching processor"() {
+	void "when sidebar soundtrack template is found, it is passed along with SoundtrackTemplate to enriching processor"() {
 		given:
 		Page page = new Page(title: TITLE_WITH_BRACKETS)
 		ModelPage modelPage = Mock()

@@ -67,4 +67,6 @@ public class SpacecraftClass extends PageAwareEntity implements PageAware {
 
 	private String activeTo;
 
+	// TODO: spacecrafts
+
 }
