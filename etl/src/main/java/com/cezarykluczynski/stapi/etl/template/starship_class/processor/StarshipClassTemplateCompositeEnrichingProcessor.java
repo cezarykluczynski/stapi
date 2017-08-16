@@ -9,9 +9,22 @@ import org.springframework.stereotype.Service;
 @Service
 public class StarshipClassTemplateCompositeEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template, StarshipClassTemplate>> {
 
+	private final StarshipClassTemplateContentsEnrichingProcessor starshipClassTemplateContentsEnrichingProcessor;
+
+	private final StarshipClassTemplateRelationsEnrichingProcessor starshipClassTemplateRelationsEnrichingProcessor;
+
+
+	public StarshipClassTemplateCompositeEnrichingProcessor(
+			StarshipClassTemplateContentsEnrichingProcessor starshipClassTemplateContentsEnrichingProcessor,
+			StarshipClassTemplateRelationsEnrichingProcessor starshipClassTemplateRelationsEnrichingProcessor) {
+		this.starshipClassTemplateContentsEnrichingProcessor = starshipClassTemplateContentsEnrichingProcessor;
+		this.starshipClassTemplateRelationsEnrichingProcessor = starshipClassTemplateRelationsEnrichingProcessor;
+	}
+
 	@Override
 	public void enrich(EnrichablePair<Template, StarshipClassTemplate> enrichablePair) throws Exception {
-		// TODO
+		starshipClassTemplateContentsEnrichingProcessor.enrich(enrichablePair);
+		starshipClassTemplateRelationsEnrichingProcessor.enrich(enrichablePair);
 	}
 
 }
