@@ -15,7 +15,7 @@ public class NonQualifiedCharacterFilter implements PageFilter<String> {
 			"Cardassian", "Human ", "Bajoran ", "Humanoid ", "Vulcan ", "Cardassians ", "Klingon ", "Starfleet ", "Nausicaan ", "Bolian ",
 			"Triannon ", "Talosian ", "Romulan ", "Andorian ", "Tellarite ", "Ajilon Prime ", "Qualor II ", "Enaran ", "Volan III ", "Ferengi ",
 			"Jem'Hadar ", "Gaia Klingon ", " Gaia Human", "Antedian ", "Markalian ", "Yridian Chez Sandrine", "Avenger Orion ", "Krenim wife",
-			" 24th ", " 22nd ", "", " 23rd ", " 19th ", "Iotian ", " 20th ", "Starfleet Academy", " dockmaster", "Betazoid Gift Box",
+			" 24th ", " 22nd ", " 23rd ", " 19th ", "Iotian ", " 20th ", "Starfleet Academy", " dockmaster", "Betazoid Gift Box",
 			"hologram", "Illusion ", "Quarren ", "Dabo girls", "DS9 ", "Sigma Draconis", "villager", " therapist", "Pets Troi dog", "computer voice",
 			"crewman", "lieutenant", "personnel", "officer", "crewmember", "ensign", "technician", "deputy", "guard", "helmsman", "Admiral",
 			" native", "criminal", "tribesman", "engineer", "security", "soldier", "characters", " cadet", " ambassador", " supervisor", "crewmen",
