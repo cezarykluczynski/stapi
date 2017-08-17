@@ -6,18 +6,24 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.NumberOfPartsPro
 import com.cezarykluczynski.stapi.etl.template.starship_class.dto.StarshipClassTemplate;
 import com.cezarykluczynski.stapi.etl.template.starship_class.dto.StarshipClassTemplateParameter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 
 @Service
+@Slf4j
 public class StarshipClassTemplateContentsEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template, StarshipClassTemplate>> {
 
 	private final NumberOfPartsProcessor numberOfPartsProcessor;
 
+	private final StarshipClassWarpCapableProcessor starshipClassWarpCapableProcessor;
+
 	@Inject
-	public StarshipClassTemplateContentsEnrichingProcessor(NumberOfPartsProcessor numberOfPartsProcessor) {
+	public StarshipClassTemplateContentsEnrichingProcessor(NumberOfPartsProcessor numberOfPartsProcessor,
+			StarshipClassWarpCapableProcessor starshipClassWarpCapableProcessor) {
 		this.numberOfPartsProcessor = numberOfPartsProcessor;
+		this.starshipClassWarpCapableProcessor = starshipClassWarpCapableProcessor;
 	}
 
 	@Override
@@ -34,7 +40,7 @@ public class StarshipClassTemplateContentsEnrichingProcessor implements ItemEnri
 					starshipClassTemplate.setNumberOfDecks(numberOfPartsProcessor.process(value));
 					break;
 				case StarshipClassTemplateParameter.SPEED:
-					// TODO
+					starshipClassTemplate.setWarpCapable(starshipClassWarpCapableProcessor.process(value));
 					break;
 				case StarshipClassTemplateParameter.ACTIVE:
 					// TODO
