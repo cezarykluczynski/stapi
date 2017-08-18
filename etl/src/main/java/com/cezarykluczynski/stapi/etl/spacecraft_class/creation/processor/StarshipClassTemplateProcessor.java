@@ -26,7 +26,7 @@ public class StarshipClassTemplateProcessor implements ItemProcessor<StarshipCla
 		spacecraftClass.setAffiliatedOrganization(item.getAffiliatedOrganization());
 		spacecraftClass.setSpacecraftType(item.getSpacecraftType());
 		spacecraftClass.setNumberOfDecks(item.getNumberOfDecks());
-		spacecraftClass.setWarpCapable(item.getWarpCapable());
+		spacecraftClass.setWarpCapable(Boolean.TRUE.equals(item.getWarpCapable()));
 		spacecraftClass.setActiveFrom(item.getActiveFrom());
 		spacecraftClass.setActiveTo(item.getActiveTo());
 

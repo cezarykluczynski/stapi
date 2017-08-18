@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.starship_class.processor;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.NumberOfPartsProcessor;
+import com.cezarykluczynski.stapi.etl.template.starship_class.dto.ActivityPeriodDTO;
 import com.cezarykluczynski.stapi.etl.template.starship_class.dto.StarshipClassTemplate;
 import com.cezarykluczynski.stapi.etl.template.starship_class.dto.StarshipClassTemplateParameter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
@@ -19,11 +20,15 @@ public class StarshipClassTemplateContentsEnrichingProcessor implements ItemEnri
 
 	private final StarshipClassWarpCapableProcessor starshipClassWarpCapableProcessor;
 
+	private final StarshipClassActivityPeriodProcessor starshipClassActivityPeriodProcessor;
+
 	@Inject
 	public StarshipClassTemplateContentsEnrichingProcessor(NumberOfPartsProcessor numberOfPartsProcessor,
-			StarshipClassWarpCapableProcessor starshipClassWarpCapableProcessor) {
+			StarshipClassWarpCapableProcessor starshipClassWarpCapableProcessor,
+			StarshipClassActivityPeriodProcessor starshipClassActivityPeriodProcessor) {
 		this.numberOfPartsProcessor = numberOfPartsProcessor;
 		this.starshipClassWarpCapableProcessor = starshipClassWarpCapableProcessor;
+		this.starshipClassActivityPeriodProcessor = starshipClassActivityPeriodProcessor;
 	}
 
 	@Override
@@ -43,7 +48,11 @@ public class StarshipClassTemplateContentsEnrichingProcessor implements ItemEnri
 					starshipClassTemplate.setWarpCapable(starshipClassWarpCapableProcessor.process(value));
 					break;
 				case StarshipClassTemplateParameter.ACTIVE:
-					// TODO
+					ActivityPeriodDTO activityPeriodDTO = starshipClassActivityPeriodProcessor.process(value);
+					if (activityPeriodDTO != null) {
+						starshipClassTemplate.setActiveFrom(activityPeriodDTO.getFrom());
+						starshipClassTemplate.setActiveTo(activityPeriodDTO.getTo());
+					}
 					break;
 				default:
 					break;
