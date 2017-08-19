@@ -66,7 +66,7 @@ public class StarshipClassActivityPeriodProcessor implements ItemProcessor<Strin
 		PageLink firstPageLink = pageLinkList.get(0);
 		Integer pageLinkEndPosition = firstPageLink.getEndPosition();
 		String pageLinkTitle = firstPageLink.getTitle();
-		boolean hasOnePageLink =  pageLinkList.size() == 1;
+		boolean hasOnePageLink = pageLinkList.size() == 1;
 		String secondTitleWithSeparator = hasOnePageLink ? null : pageLinkList.get(1).getTitle();
 		String secondTitleWithoutSeparator = hasOnePageLink ? pageLinkTitle : pageLinkTitle;
 		boolean hasSeparator = separatorPositions.stream()
