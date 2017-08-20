@@ -31,8 +31,8 @@ import javax.persistence.SequenceGenerator;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true, exclude = {"affiliatedSpecies", "affiliatedOrganization", "spacecraftType"})
-@EqualsAndHashCode(callSuper = true, exclude = {"affiliatedSpecies", "affiliatedOrganization", "spacecraftType"})
+@ToString(callSuper = true, exclude = {"affiliatedSpecies", "owner", "operator", "spacecraftType"})
+@EqualsAndHashCode(callSuper = true, exclude = {"affiliatedSpecies", "owner", "operator", "spacecraftType"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = LocationRepository.class, singularName = "spacecraft class",
 		pluralName = "spacecraft classes")
@@ -52,8 +52,12 @@ public class SpacecraftClass extends PageAwareEntity implements PageAware {
 	private Species affiliatedSpecies;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "affiliated_organization_id")
-	private Organization affiliatedOrganization;
+	@JoinColumn(name = "owner_id")
+	private Organization owner;
+
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "operator_id")
+	private Organization operator;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "spacecraft_type_id")

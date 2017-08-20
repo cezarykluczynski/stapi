@@ -17,7 +17,8 @@
 				<constraints nullable="false"/>
 			</column>
 			<column name="affiliated_species_id" type="bigint"/>
-			<column name="affiliated_organization_id" type="bigint"/>
+			<column name="owner_id" type="bigint"/>
+			<column name="operator_id" type="bigint"/>
 			<column name="spacecraft_type_id" type="bigint"/>
 			<column name="number_of_decks" type="int"/>
 			<column name="warp_capable" type="boolean"/>
@@ -31,9 +32,14 @@
 				constraintName="spc_species_fkey"
 				referencedColumnNames="id"
 				referencedTableName="species"/>
-		<addForeignKeyConstraint baseColumnNames="affiliated_organization_id"
+		<addForeignKeyConstraint baseColumnNames="owner_id"
 				baseTableName="spacecraft_class"
-				constraintName="spc_organization_fkey"
+				constraintName="spc_owner_fkey"
+				referencedColumnNames="id"
+				referencedTableName="organization"/>
+		<addForeignKeyConstraint baseColumnNames="operator_id"
+				baseTableName="spacecraft_class"
+				constraintName="spc_operator_fkey"
 				referencedColumnNames="id"
 				referencedTableName="organization"/>
 		<addForeignKeyConstraint baseColumnNames="spacecraft_type_id"

@@ -51,7 +51,8 @@ public class StarshipClassTemplateCategoriesEnrichingProcessor
 		}
 
 		if (organizationCandidatesList.size() == 1) {
-			starshipClassTemplate.setAffiliatedOrganization(organizationCandidatesList.get(0));
+			starshipClassTemplate.setOwner(organizationCandidatesList.get(0));
+			starshipClassTemplate.setOperator(organizationCandidatesList.get(0));
 		} else if (!organizationCandidatesList.isEmpty()) {
 			log.warn("More than one organization found for starship class {} when categories were looked at, none was used",
 					starshipClassTemplate.getName());

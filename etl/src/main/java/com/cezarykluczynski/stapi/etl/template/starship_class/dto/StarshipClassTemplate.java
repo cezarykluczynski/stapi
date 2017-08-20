@@ -15,7 +15,9 @@ public class StarshipClassTemplate {
 
 	private Species affiliatedSpecies;
 
-	private Organization affiliatedOrganization;
+	private Organization owner;
+
+	private Organization operator;
 
 	private SpacecraftType spacecraftType;
 

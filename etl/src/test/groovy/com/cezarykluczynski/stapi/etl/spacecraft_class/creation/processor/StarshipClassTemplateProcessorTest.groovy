@@ -25,13 +25,15 @@ class StarshipClassTemplateProcessorTest extends AbstractSpacecraftTest {
 	void "converts StarshipClassTemplate to SpacecraftClass"() {
 		given:
 		Species species = Mock()
-		Organization organization = Mock()
+		Organization owner = Mock()
+		Organization operator = Mock()
 		SpacecraftType spacecraftType = Mock()
 		StarshipClassTemplate starshipClassTemplate = new StarshipClassTemplate(
 				name: NAME,
 				page: page,
 				affiliatedSpecies: species,
-				affiliatedOrganization: organization,
+				owner: owner,
+				operator: operator,
 				spacecraftType: spacecraftType,
 				numberOfDecks: NUMBER_OF_DECKS,
 				warpCapable: WARP_CAPABLE,
@@ -47,7 +49,8 @@ class StarshipClassTemplateProcessorTest extends AbstractSpacecraftTest {
 		spacecraftClass.name == NAME
 		spacecraftClass.page == page
 		spacecraftClass.affiliatedSpecies == species
-		spacecraftClass.affiliatedOrganization == organization
+		spacecraftClass.owner == owner
+		spacecraftClass.operator == operator
 		spacecraftClass.spacecraftType == spacecraftType
 		spacecraftClass.numberOfDecks == NUMBER_OF_DECKS
 		spacecraftClass.warpCapable == WARP_CAPABLE

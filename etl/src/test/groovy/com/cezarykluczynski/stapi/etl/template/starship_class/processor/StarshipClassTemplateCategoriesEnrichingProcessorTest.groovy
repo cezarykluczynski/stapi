@@ -42,7 +42,8 @@ class StarshipClassTemplateCategoriesEnrichingProcessorTest extends Specificatio
 		1 * speciesStarshipClassesToOrganizationsMappingProviderMock.provide(TITLE_1) >> Optional.empty()
 		0 * _
 		starshipClassTemplate.affiliatedSpecies == null
-		starshipClassTemplate.affiliatedOrganization == null
+		starshipClassTemplate.owner == null
+		starshipClassTemplate.operator == null
 	}
 
 	void "when exactly one species was found, it is used"() {
@@ -63,7 +64,8 @@ class StarshipClassTemplateCategoriesEnrichingProcessorTest extends Specificatio
 		1 * speciesStarshipClassesToOrganizationsMappingProviderMock.provide(TITLE_2) >> Optional.empty()
 		0 * _
 		starshipClassTemplate.affiliatedSpecies == species
-		starshipClassTemplate.affiliatedOrganization == null
+		starshipClassTemplate.owner == null
+		starshipClassTemplate.operator == null
 	}
 
 	void "when exactly one organization was found, it is used"() {
@@ -83,7 +85,8 @@ class StarshipClassTemplateCategoriesEnrichingProcessorTest extends Specificatio
 		1 * speciesStarshipClassesToSpeciesMappingProviderMock.provide(TITLE_2) >> Optional.empty()
 		1 * speciesStarshipClassesToOrganizationsMappingProviderMock.provide(TITLE_2) >> Optional.empty()
 		0 * _
-		starshipClassTemplate.affiliatedOrganization == organization
+		starshipClassTemplate.owner == organization
+		starshipClassTemplate.operator == organization
 		starshipClassTemplate.affiliatedSpecies == null
 	}
 
@@ -109,7 +112,8 @@ class StarshipClassTemplateCategoriesEnrichingProcessorTest extends Specificatio
 		1 * speciesStarshipClassesToOrganizationsMappingProviderMock.provide(TITLE_3) >> Optional.empty()
 		0 * _
 		starshipClassTemplate.affiliatedSpecies == null
-		starshipClassTemplate.affiliatedOrganization == null
+		starshipClassTemplate.owner == null
+		starshipClassTemplate.operator == null
 	}
 
 	void "when more than one organization was found, none is used"() {
@@ -134,7 +138,8 @@ class StarshipClassTemplateCategoriesEnrichingProcessorTest extends Specificatio
 		1 * speciesStarshipClassesToOrganizationsMappingProviderMock.provide(TITLE_3) >> Optional.of(organization2)
 		0 * _
 		starshipClassTemplate.affiliatedSpecies == null
-		starshipClassTemplate.affiliatedOrganization == null
+		starshipClassTemplate.owner == null
+		starshipClassTemplate.operator == null
 	}
 
 }
