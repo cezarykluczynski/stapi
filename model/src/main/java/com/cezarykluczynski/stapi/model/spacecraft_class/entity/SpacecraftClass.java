@@ -31,8 +31,8 @@ import javax.persistence.SequenceGenerator;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true, exclude = {"affiliatedSpecies", "owner", "operator", "spacecraftType"})
-@EqualsAndHashCode(callSuper = true, exclude = {"affiliatedSpecies", "owner", "operator", "spacecraftType"})
+@ToString(callSuper = true, exclude = {"species", "owner", "operator", "affiliation", "spacecraftType"})
+@EqualsAndHashCode(callSuper = true, exclude = {"species", "owner", "operator", "affiliation", "spacecraftType"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = LocationRepository.class, singularName = "spacecraft class",
 		pluralName = "spacecraft classes")
@@ -48,8 +48,8 @@ public class SpacecraftClass extends PageAwareEntity implements PageAware {
 	private String name;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "affiliated_species_id")
-	private Species affiliatedSpecies;
+	@JoinColumn(name = "species_id")
+	private Species species;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "owner_id")
@@ -58,6 +58,10 @@ public class SpacecraftClass extends PageAwareEntity implements PageAware {
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "operator_id")
 	private Organization operator;
+
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "affiliation_id")
+	private Organization affiliation;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "spacecraft_type_id")

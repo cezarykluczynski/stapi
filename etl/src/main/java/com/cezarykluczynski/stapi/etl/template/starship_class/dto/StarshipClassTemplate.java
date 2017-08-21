@@ -19,6 +19,8 @@ public class StarshipClassTemplate {
 
 	private Organization operator;
 
+	private Organization affiliation;
+
 	private SpacecraftType spacecraftType;
 
 	private Integer numberOfDecks;

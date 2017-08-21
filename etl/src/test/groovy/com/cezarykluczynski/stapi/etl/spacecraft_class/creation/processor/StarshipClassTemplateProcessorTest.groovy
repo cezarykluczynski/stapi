@@ -27,6 +27,7 @@ class StarshipClassTemplateProcessorTest extends AbstractSpacecraftTest {
 		Species species = Mock()
 		Organization owner = Mock()
 		Organization operator = Mock()
+		Organization affiliation = Mock()
 		SpacecraftType spacecraftType = Mock()
 		StarshipClassTemplate starshipClassTemplate = new StarshipClassTemplate(
 				name: NAME,
@@ -34,6 +35,7 @@ class StarshipClassTemplateProcessorTest extends AbstractSpacecraftTest {
 				affiliatedSpecies: species,
 				owner: owner,
 				operator: operator,
+				affiliation: affiliation,
 				spacecraftType: spacecraftType,
 				numberOfDecks: NUMBER_OF_DECKS,
 				warpCapable: WARP_CAPABLE,
@@ -48,9 +50,10 @@ class StarshipClassTemplateProcessorTest extends AbstractSpacecraftTest {
 		0 * _
 		spacecraftClass.name == NAME
 		spacecraftClass.page == page
-		spacecraftClass.affiliatedSpecies == species
+		spacecraftClass.species == species
 		spacecraftClass.owner == owner
 		spacecraftClass.operator == operator
+		spacecraftClass.affiliation == affiliation
 		spacecraftClass.spacecraftType == spacecraftType
 		spacecraftClass.numberOfDecks == NUMBER_OF_DECKS
 		spacecraftClass.warpCapable == WARP_CAPABLE

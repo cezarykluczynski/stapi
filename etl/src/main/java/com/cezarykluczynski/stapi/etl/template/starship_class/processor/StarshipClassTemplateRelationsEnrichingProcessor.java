@@ -54,6 +54,14 @@ public class StarshipClassTemplateRelationsEnrichingProcessor implements ItemEnr
 						log.info("More than one organization found for operator value {}", value);
 					}
 					break;
+				case StarshipClassTemplateParameter.AFFILIATION:
+					Set<Organization> affiliationSet = wikitextToOrganizationsProcessor.process(value);
+					if (affiliationSet.size() == 1) {
+						starshipClassTemplate.setAffiliation(affiliationSet.iterator().next());
+					} else if (!affiliationSet.isEmpty()) {
+						log.info("More than one organization found for operator value {}", value);
+					}
+					break;
 				case StarshipClassTemplateParameter.TYPE:
 					starshipClassTemplate.setSpacecraftType(starshipClassSpacecraftTypeProcessor.process(value));
 					break;
