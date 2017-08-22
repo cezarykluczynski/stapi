@@ -33,6 +33,7 @@ public class StepName {
 	public static final String CREATE_VIDEO_GAMES = "CREATE_VIDEO_GAMES";
 	public static final String CREATE_SOUNDTRACKS = "CREATE_SOUNDTRACKS";
 	public static final String CREATE_WEAPONS = "CREATE_WEAPONS";
+	public static final String CREATE_SPACECRAFT_TYPES = "CREATE_SPACECRAFT_TYPES";
 	public static final String CREATE_SPACECRAFT_CLASSES = "CREATE_SPACECRAFT_CLASSES";
 
 }

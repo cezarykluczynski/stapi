@@ -275,6 +275,7 @@ public class CategoryTitle {
 	public static final String WEAPONS = "Weapons";
 	public static final String HAND_HELD_WEAPONS = "Hand-held_weapons";
 
+	public static final String SPACECRAFT_CLASSIFICATIONS = "Spacecraft_classifications";
 	public static final String SPACECRAFT_CLASSES = "Spacecraft_classes";
 	public static final String SPACECRAFT_CLASSES_ALTERNATE_REALITY = "Spacecraft_classes_(alternate_reality)";
 	public static final String EARTH_SPACECRAFT_CLASSES = "Earth_spacecraft_classes";

@@ -7,6 +7,9 @@
 			<column name="id" type="bigint">
 				<constraints unique="true" nullable="false"/>
 			</column>
+			<column name="page_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
 			<column name="u_id" type="varchar(14)">
 				<constraints nullable="false"/>
 			</column>

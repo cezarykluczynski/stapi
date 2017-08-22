@@ -77,6 +77,9 @@ import com.cezarykluczynski.stapi.etl.soundtrack.creation.processor.SoundtrackWr
 import com.cezarykluczynski.stapi.etl.spacecraft_class.creation.processor.SpacecraftClassProcessor;
 import com.cezarykluczynski.stapi.etl.spacecraft_class.creation.processor.SpacecraftClassReader;
 import com.cezarykluczynski.stapi.etl.spacecraft_class.creation.processor.SpacecraftClassWriter;
+import com.cezarykluczynski.stapi.etl.spacecraft_type.creation.processor.SpacecraftTypeProcessor;
+import com.cezarykluczynski.stapi.etl.spacecraft_type.creation.processor.SpacecraftTypeReader;
+import com.cezarykluczynski.stapi.etl.spacecraft_type.creation.processor.SpacecraftTypeWriter;
 import com.cezarykluczynski.stapi.etl.species.creation.processor.SpeciesProcessor;
 import com.cezarykluczynski.stapi.etl.species.creation.processor.SpeciesReader;
 import com.cezarykluczynski.stapi.etl.species.creation.processor.SpeciesWriter;
@@ -119,6 +122,7 @@ import com.cezarykluczynski.stapi.model.season.entity.Season;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.model.soundtrack.entity.Soundtrack;
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass;
+import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet;
@@ -557,6 +561,19 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(WeaponReader.class))
 				.processor(applicationContext.getBean(WeaponProcessor.class))
 				.writer(applicationContext.getBean(WeaponWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_SPACECRAFT_TYPES)
+	public Step stepCreateSpacecraftTypes() {
+		return stepBuilderFactory.get(StepName.CREATE_SPACECRAFT_TYPES)
+				.<PageHeader, SpacecraftType>chunk(stepsProperties.getCreateSpacecraftTypes().getCommitInterval())
+				.reader(applicationContext.getBean(SpacecraftTypeReader.class))
+				.processor(applicationContext.getBean(SpacecraftTypeProcessor.class))
+				.writer(applicationContext.getBean(SpacecraftTypeWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)

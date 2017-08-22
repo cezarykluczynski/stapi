@@ -43,6 +43,7 @@ public class StepNames {
 				StepName.CREATE_VIDEO_GAMES,
 				StepName.CREATE_SOUNDTRACKS,
 				StepName.CREATE_WEAPONS,
+				StepName.CREATE_SPACECRAFT_TYPES,
 				StepName.CREATE_SPACECRAFT_CLASSES
 		));
 	}
