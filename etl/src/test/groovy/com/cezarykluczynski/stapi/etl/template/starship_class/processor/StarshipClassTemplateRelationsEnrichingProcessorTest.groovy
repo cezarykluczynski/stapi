@@ -41,7 +41,7 @@ class StarshipClassTemplateRelationsEnrichingProcessorTest extends Specification
 		starshipClassTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoGameTemplate, starshipClassTemplate))
 
 		then:
-		1 * wikitextToOrganizationsProcessorMock.process(OWNER) >> Sets.newHashSet()
+		1 * wikitextToOrganizationsProcessorMock.process(OWNER) >> Lists.newArrayList()
 		0 * _
 		starshipClassTemplate.owner == null
 	}
@@ -58,7 +58,7 @@ class StarshipClassTemplateRelationsEnrichingProcessorTest extends Specification
 		starshipClassTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoGameTemplate, starshipClassTemplate))
 
 		then:
-		1 * wikitextToOrganizationsProcessorMock.process(OWNER) >> Sets.newHashSet(organization)
+		1 * wikitextToOrganizationsProcessorMock.process(OWNER) >> Lists.newArrayList(organization)
 		0 * _
 		starshipClassTemplate.owner == organization
 	}
@@ -76,7 +76,7 @@ class StarshipClassTemplateRelationsEnrichingProcessorTest extends Specification
 		starshipClassTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoGameTemplate, starshipClassTemplate))
 
 		then:
-		1 * wikitextToOrganizationsProcessorMock.process(OWNER) >> Sets.newHashSet(organization1, organization2)
+		1 * wikitextToOrganizationsProcessorMock.process(OWNER) >> Lists.newArrayList(organization1, organization2)
 		0 * _
 		starshipClassTemplate.operator == null
 	}
@@ -92,7 +92,7 @@ class StarshipClassTemplateRelationsEnrichingProcessorTest extends Specification
 		starshipClassTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoGameTemplate, starshipClassTemplate))
 
 		then:
-		1 * wikitextToOrganizationsProcessorMock.process(OPERATOR) >> Sets.newHashSet()
+		1 * wikitextToOrganizationsProcessorMock.process(OPERATOR) >> Lists.newArrayList()
 		0 * _
 		starshipClassTemplate.operator == null
 	}
@@ -109,7 +109,7 @@ class StarshipClassTemplateRelationsEnrichingProcessorTest extends Specification
 		starshipClassTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoGameTemplate, starshipClassTemplate))
 
 		then:
-		1 * wikitextToOrganizationsProcessorMock.process(OPERATOR) >> Sets.newHashSet(organization)
+		1 * wikitextToOrganizationsProcessorMock.process(OPERATOR) >> Lists.newArrayList(organization)
 		0 * _
 		starshipClassTemplate.operator == organization
 	}
@@ -127,26 +127,28 @@ class StarshipClassTemplateRelationsEnrichingProcessorTest extends Specification
 		starshipClassTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoGameTemplate, starshipClassTemplate))
 
 		then:
-		1 * wikitextToOrganizationsProcessorMock.process(OPERATOR) >> Sets.newHashSet(organization1, organization2)
+		1 * wikitextToOrganizationsProcessorMock.process(OPERATOR) >> Lists.newArrayList(organization1, organization2)
 		0 * _
 		starshipClassTemplate.owner == null
 	}
 
-	void "when active part is found, StarshipClassActivityPeriodProcessor is used to process it"() {
+	void "when type part is found, StarshipClassActivityPeriodProcessor is used to process it"() {
 		given:
 		Template sidebarStarshipClassTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
 				key: StarshipClassTemplateParameter.TYPE,
 				value: TYPE)))
 		StarshipClassTemplate starshipClassTemplate = new StarshipClassTemplate()
-		SpacecraftType spacecraftType = Mock()
+		SpacecraftType spacecraftType1 = Mock()
+		SpacecraftType spacecraftType2 = Mock()
 
 		when:
 		starshipClassTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipClassTemplate, starshipClassTemplate))
 
 		then:
-		1 * starshipClassSpacecraftTypeProcessorMock.process(TYPE) >> spacecraftType
+		1 * starshipClassSpacecraftTypeProcessorMock.process(TYPE) >> Sets.newHashSet(spacecraftType1, spacecraftType2)
 		0 * _
-		starshipClassTemplate.spacecraftType == spacecraftType
+		starshipClassTemplate.spacecraftTypes.contains spacecraftType1
+		starshipClassTemplate.spacecraftTypes.contains spacecraftType2
 	}
 
 }

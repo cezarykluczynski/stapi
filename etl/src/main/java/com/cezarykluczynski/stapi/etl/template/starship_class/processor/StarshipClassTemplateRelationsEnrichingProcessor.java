@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.Set;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -32,6 +32,7 @@ public class StarshipClassTemplateRelationsEnrichingProcessor implements ItemEnr
 	public void enrich(EnrichablePair<Template, StarshipClassTemplate> enrichablePair) throws Exception {
 		Template template = enrichablePair.getInput();
 		StarshipClassTemplate starshipClassTemplate = enrichablePair.getOutput();
+		String starshipClassName = starshipClassTemplate.getName();
 
 		for (Template.Part part : template.getParts()) {
 			String key = part.getKey();
@@ -39,31 +40,35 @@ public class StarshipClassTemplateRelationsEnrichingProcessor implements ItemEnr
 
 			switch (key) {
 				case StarshipClassTemplateParameter.OWNER:
-					Set<Organization> ownerSet = wikitextToOrganizationsProcessor.process(value);
-					if (ownerSet.size() == 1) {
-						starshipClassTemplate.setOwner(ownerSet.iterator().next());
-					} else if (!ownerSet.isEmpty()) {
+					List<Organization> ownerList = wikitextToOrganizationsProcessor.process(value);
+					if (ownerList.size() == 1) {
+						starshipClassTemplate.setOwner(ownerList.iterator().next());
+					} else if (!ownerList.isEmpty()) {
 						log.info("More than one organization found for owner value {}", value);
 					}
 					break;
 				case StarshipClassTemplateParameter.OPERATOR:
-					Set<Organization> operatorSet = wikitextToOrganizationsProcessor.process(value);
-					if (operatorSet.size() == 1) {
-						starshipClassTemplate.setOperator(operatorSet.iterator().next());
-					} else if (!operatorSet.isEmpty()) {
-						log.info("More than one organization found for operator value {}", value);
+					List<Organization> operatorList = wikitextToOrganizationsProcessor.process(value);
+					if (!operatorList.isEmpty()) {
+						starshipClassTemplate.setOperator(operatorList.iterator().next());
+						if (operatorList.size() > 1) {
+							log.info("More than one organization found for starship class {} for operator value {}, using the first value",
+									starshipClassName, value);
+						}
 					}
 					break;
 				case StarshipClassTemplateParameter.AFFILIATION:
-					Set<Organization> affiliationSet = wikitextToOrganizationsProcessor.process(value);
-					if (affiliationSet.size() == 1) {
-						starshipClassTemplate.setAffiliation(affiliationSet.iterator().next());
-					} else if (!affiliationSet.isEmpty()) {
-						log.info("More than one organization found for operator value {}", value);
+					List<Organization> affiliationList = wikitextToOrganizationsProcessor.process(value);
+					if (!affiliationList.isEmpty()) {
+						starshipClassTemplate.setAffiliation(affiliationList.iterator().next());
+						if (affiliationList.size() > 1) {
+							log.info("More than one organization found for starship class {} for affiliation value {}, using the first value",
+									starshipClassName, value);
+						}
 					}
 					break;
 				case StarshipClassTemplateParameter.TYPE:
-					starshipClassTemplate.setSpacecraftType(starshipClassSpacecraftTypeProcessor.process(value));
+					starshipClassTemplate.getSpacecraftTypes().addAll(starshipClassSpacecraftTypeProcessor.process(value));
 					break;
 				default:
 					break;

@@ -37,7 +37,7 @@
 				referencedTableName="soundtrack"/>
 		<addForeignKeyConstraint baseColumnNames="company_id"
 				baseTableName="soundtracks_labels"
-				constraintName="sl_label_fkey"
+				constraintName="sl_company_fkey"
 				referencedColumnNames="id"
 				referencedTableName="company"/>
 

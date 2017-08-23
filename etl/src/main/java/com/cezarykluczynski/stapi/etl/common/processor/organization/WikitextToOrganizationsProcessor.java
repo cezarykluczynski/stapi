@@ -11,11 +11,10 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class WikitextToOrganizationsProcessor implements ItemProcessor<String, Set<Organization>> {
+public class WikitextToOrganizationsProcessor implements ItemProcessor<String, List<Organization>> {
 
 	private final WikitextApi wikitextApi;
 
@@ -28,14 +27,14 @@ public class WikitextToOrganizationsProcessor implements ItemProcessor<String, S
 	}
 
 	@Override
-	public Set<Organization> process(String item) throws Exception {
+	public List<Organization> process(String item) throws Exception {
 		List<String> pageLinkTitleList = wikitextApi.getPageTitlesFromWikitext(item);
 
 		return pageLinkTitleList.stream()
 				.map(pageLinkTitle -> organizationRepository.findByPageTitleAndPageMediaWikiSource(pageLinkTitle, MediaWikiSource.MEMORY_ALPHA_EN))
 				.filter(Optional::isPresent)
 				.map(Optional::get)
-				.collect(Collectors.toSet());
+				.collect(Collectors.toList());
 	}
 
 }

@@ -20,7 +20,6 @@
 			<column name="owner_id" type="bigint"/>
 			<column name="operator_id" type="bigint"/>
 			<column name="affiliation_id" type="bigint"/>
-			<column name="spacecraft_type_id" type="bigint"/>
 			<column name="number_of_decks" type="int"/>
 			<column name="warp_capable" type="boolean"/>
 			<column name="active_from" type="varchar(32)"/>
@@ -48,10 +47,21 @@
 				constraintName="spc_affiliation_fkey"
 				referencedColumnNames="id"
 				referencedTableName="organization"/>
+
+		<createTable schemaName="stapi" tableName="spacecraft_classes_types">
+			<column name="spacecraft_class_id" type="bigint"/>
+			<column name="spacecraft_type_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="spacecraft_class_id"
+				baseTableName="spacecraft_classes_types"
+				constraintName="scl_spacecraft_class_fkey"
+				referencedColumnNames="id"
+				referencedTableName="spacecraft_class"/>
 		<addForeignKeyConstraint baseColumnNames="spacecraft_type_id"
-				baseTableName="spacecraft_class"
-				constraintName="spc_spacecraft_type_fkey"
+				baseTableName="spacecraft_classes_types"
+				constraintName="scl_spacecraft_type_fkey"
 				referencedColumnNames="id"
 				referencedTableName="spacecraft_type"/>
+
 	</changeSet>
 </databaseChangeLog>

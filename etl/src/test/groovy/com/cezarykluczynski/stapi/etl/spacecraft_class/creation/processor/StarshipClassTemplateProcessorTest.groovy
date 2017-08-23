@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass
 import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType
 import com.cezarykluczynski.stapi.model.species.entity.Species
 import com.cezarykluczynski.stapi.util.AbstractSpacecraftTest
+import com.google.common.collect.Sets
 
 class StarshipClassTemplateProcessorTest extends AbstractSpacecraftTest {
 
@@ -28,7 +29,8 @@ class StarshipClassTemplateProcessorTest extends AbstractSpacecraftTest {
 		Organization owner = Mock()
 		Organization operator = Mock()
 		Organization affiliation = Mock()
-		SpacecraftType spacecraftType = Mock()
+		SpacecraftType spacecraftType1 = Mock()
+		SpacecraftType spacecraftType2 = Mock()
 		StarshipClassTemplate starshipClassTemplate = new StarshipClassTemplate(
 				name: NAME,
 				page: page,
@@ -36,7 +38,7 @@ class StarshipClassTemplateProcessorTest extends AbstractSpacecraftTest {
 				owner: owner,
 				operator: operator,
 				affiliation: affiliation,
-				spacecraftType: spacecraftType,
+				spacecraftTypes: Sets.newHashSet(spacecraftType1, spacecraftType2),
 				numberOfDecks: NUMBER_OF_DECKS,
 				warpCapable: WARP_CAPABLE,
 				activeFrom: ACTIVE_FROM,
@@ -54,7 +56,8 @@ class StarshipClassTemplateProcessorTest extends AbstractSpacecraftTest {
 		spacecraftClass.owner == owner
 		spacecraftClass.operator == operator
 		spacecraftClass.affiliation == affiliation
-		spacecraftClass.spacecraftType == spacecraftType
+		spacecraftClass.spacecraftTypes.contains spacecraftType1
+		spacecraftClass.spacecraftTypes.contains spacecraftType2
 		spacecraftClass.numberOfDecks == NUMBER_OF_DECKS
 		spacecraftClass.warpCapable == WARP_CAPABLE
 		spacecraftClass.activeFrom == ACTIVE_FROM

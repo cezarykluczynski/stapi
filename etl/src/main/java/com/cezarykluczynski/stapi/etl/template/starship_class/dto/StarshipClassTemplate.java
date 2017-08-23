@@ -4,7 +4,10 @@ import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.page.entity.Page;
 import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
+import com.google.common.collect.Sets;
 import lombok.Data;
+
+import java.util.Set;
 
 @Data
 public class StarshipClassTemplate {
@@ -21,7 +24,7 @@ public class StarshipClassTemplate {
 
 	private Organization affiliation;
 
-	private SpacecraftType spacecraftType;
+	private Set<SpacecraftType> spacecraftTypes = Sets.newHashSet();
 
 	private Integer numberOfDecks;
 
