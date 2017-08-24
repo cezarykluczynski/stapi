@@ -163,6 +163,11 @@ wsdl2java {
 					'-wsdlLocation', 'classpath:v1/wsdl/weapon.wsdl',
 					'-p','com.cezarykluczynski.stapi.client.v1.soap',
 					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/weapon.wsdl"
+			],
+			[
+					'-wsdlLocation', 'classpath:v1/wsdl/spacecraftClass.wsdl',
+					'-p','com.cezarykluczynski.stapi.client.v1.soap',
+					'-autoNameResolution', "./contract/src/main/resources/v1/wsdl/spacecraftClass.wsdl"
 			]
 	]
 	generatedWsdlDir = file("$projectDir/build/generated/src/main/java")

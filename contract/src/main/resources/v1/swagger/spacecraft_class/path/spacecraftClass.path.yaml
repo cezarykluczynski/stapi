@@ -1,0 +1,22 @@
+get:
+  description: Retrival of a single spacecraft class
+  parameters:
+    - name: uid
+      in: query
+      type: string
+      required: true
+      description: SpacecraftClass unique ID
+    - name: apiKey
+      in: query
+      type: string
+      description: API key
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/SpacecraftClassFullResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - SpacecraftClass

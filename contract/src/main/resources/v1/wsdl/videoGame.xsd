@@ -18,7 +18,7 @@
 	<xs:import namespace="http://stapi.co/api/v1/soap/platform" schemaLocation="platform.xsd"/>
 	<xs:element name="VideoGameBaseRequest">
 		<xs:annotation>
-			<xs:documentation>Request object for videoGames search</xs:documentation>
+			<xs:documentation>Request object for video games search</xs:documentation>
 		</xs:annotation>
 		<xs:complexType>
 			<xs:complexContent>

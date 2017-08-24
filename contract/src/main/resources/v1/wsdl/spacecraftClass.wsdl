@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+		name="SpacecraftClass"
+		targetNamespace="http://stapi.co/api/v1/soap/spacecraftClass"
+		xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+		xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+		xmlns:stapi="http://stapi.co/api/v1/soap/spacecraftClass"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<xs:schema targetNamespace="http://stapi.co/api/v1/soap/spacecraftClass">
+			<xs:include schemaLocation="spacecraftClass.xsd"/>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="SpacecraftClassBaseRequest">
+		<wsdl:part name="request" element="stapi:SpacecraftClassBaseRequest"/>
+	</wsdl:message>
+	<wsdl:message name="SpacecraftClassFullRequest">
+		<wsdl:part name="request" element="stapi:SpacecraftClassFullRequest"/>
+	</wsdl:message>
+	<wsdl:message name="SpacecraftClassBaseResponse">
+		<wsdl:part name="response" element="stapi:SpacecraftClassBaseResponse"/>
+	</wsdl:message>
+	<wsdl:message name="SpacecraftClassFullResponse">
+		<wsdl:part name="response" element="stapi:SpacecraftClassFullResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="SpacecraftClassPortType">
+		<wsdl:operation name="getSpacecraftClassBase">
+			<wsdl:input name="getSpacecraftClassBaseRequest" message="stapi:SpacecraftClassBaseRequest"/>
+			<wsdl:output name="getSpacecraftClassBaseResponse" message="stapi:SpacecraftClassBaseResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getSpacecraftClassFull">
+			<wsdl:input name="getSpacecraftClassFullRequest" message="stapi:SpacecraftClassFullRequest"/>
+			<wsdl:output name="getSpacecraftClassFullResponse" message="stapi:SpacecraftClassFullResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="SpacecraftClassBinding" type="stapi:SpacecraftClassPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getSpacecraftClassBase">
+			<wsdl:input name="getSpacecraftClassBaseRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getSpacecraftClassBaseResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getSpacecraftClassFull">
+			<wsdl:input name="getSpacecraftClassFullRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getSpacecraftClassFullResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="SpacecraftClassService">
+		<wsdl:port name="SpacecraftClassPortType" binding="stapi:SpacecraftClassBinding">
+			<soap:address location="http://stapi.co/api/v1/soap/spacecraftClass"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

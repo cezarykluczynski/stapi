@@ -1,0 +1,14 @@
+type: object
+description: Response object for spacecraft classes search
+properties:
+  page:
+    $ref: '#/definitions/ResponsePage'
+    description: Response page
+  sort:
+    $ref: '#/definitions/ResponseSort'
+    description: Response sort
+  spacecraftClasses:
+    type: array
+    items:
+      $ref: '#/definitions/SpacecraftClassBase'
+    description: List of spacecraft classes matching given criteria

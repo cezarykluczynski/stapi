@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:spacecraftClass="http://stapi.co/api/v1/soap/spacecraftClass"
+		xmlns:common="http://stapi.co/api/v1/soap/common"
+		xmlns:organization="http://stapi.co/api/v1/soap/organization"
+		xmlns:species="http://stapi.co/api/v1/soap/species"
+		xmlns:spacecraftType="http://stapi.co/api/v1/soap/spacecraftType"
+		elementFormDefault="qualified"
+		targetNamespace="http://stapi.co/api/v1/soap/spacecraftClass">
+	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/organization" schemaLocation="organization.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/species" schemaLocation="species.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/spacecraftType" schemaLocation="spacecraftType.xsd"/>
+	<xs:element name="SpacecraftClassBaseRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for spacecraft classes search</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Request">
+					<xs:sequence>
+						<xs:element name="name" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Spacecraf class name</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SpacecraftClassFullRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for single spacecraft class query</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:ApiRequest">
+					<xs:sequence>
+						<xs:element name="uid" type="xs:string" minOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Spacecraf class unique ID</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SpacecraftClassBaseResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for spacecraft classes search</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Response">
+					<xs:sequence>
+						<xs:element name="spacecraftClasss" type="spacecraftClass:SpacecraftClassBase" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>List of spacecraft classes matching given criteria</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="SpacecraftClassFullResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for single spacecraft class query</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="spacecraftClass" type="spacecraftClass:SpacecraftClassFull">
+					<xs:annotation>
+						<xs:documentation>Spacecraft class, if found</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="SpacecraftClassHeader">
+		<xs:annotation>
+			<xs:documentation>Header spacecraft class, embedded in other objects</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Spacecraft class unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Spacecraft class name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SpacecraftClassBase">
+		<xs:annotation>
+			<xs:documentation>Base spacecraft class, returned in search results</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Spacecraft class unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Spacecraft class name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="numberOfDecks" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Number of decks</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="warpCapable" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a warp-capable spacecraft class</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="activeFrom" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Starting period when this spacecraft class was in use</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="activeTo" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ending period when this spacecraft class was in use</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="species" type="species:SpeciesHeader">
+				<xs:annotation>
+					<xs:documentation>Main species affiliated</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="owner" type="organization:OrganizationHeader">
+				<xs:annotation>
+					<xs:documentation>Owner</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="operator" type="organization:OrganizationHeader">
+				<xs:annotation>
+					<xs:documentation>Operator</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="affiliation" type="organization:OrganizationHeader">
+				<xs:annotation>
+					<xs:documentation>Affiliation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SpacecraftClassFull">
+		<xs:annotation>
+			<xs:documentation>Full spacecraft class, returned when queried using UID</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Spacecraft class unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Spacecraft class name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="numberOfDecks" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Number of decks</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="warpCapable" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a warp-capable spacecraft class</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="activeFrom" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Starting period when this spacecraft class was in use</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="activeTo" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Ending period when this spacecraft class was in use</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="species" type="species:SpeciesBase">
+				<xs:annotation>
+					<xs:documentation>Main species affiliated</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="owner" type="organization:OrganizationBase">
+				<xs:annotation>
+					<xs:documentation>Owner</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="operator" type="organization:OrganizationBase">
+				<xs:annotation>
+					<xs:documentation>Operator</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="affiliation" type="organization:OrganizationBase">
+				<xs:annotation>
+					<xs:documentation>Affiliation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence>
+				<xs:element name="spacecraftTypes" type="spacecraftType:SpacecraftType" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Spacecraft types</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -93,14 +93,18 @@ paths:
     $ref: ./series/path/series.path.yaml
   /series/search:
     $ref: ./series/path/seriesSearch.path.yaml
-  /species:
-    $ref: ./species/path/species.path.yaml
-  /species/search:
-    $ref: ./species/path/speciesSearch.path.yaml
   /soundtrack:
     $ref: ./soundtrack/path/soundtrack.path.yaml
   /soundtrack/search:
     $ref: ./soundtrack/path/soundtrackSearch.path.yaml
+  /spacecraftClass:
+    $ref: ./spacecraft_class/path/spacecraftClass.path.yaml
+  /spacecraftClass/search:
+    $ref: ./spacecraft_class/path/spacecraftClassSearch.path.yaml
+  /species:
+    $ref: ./species/path/species.path.yaml
+  /species/search:
+    $ref: ./species/path/speciesSearch.path.yaml
   /staff:
     $ref: ./staff/path/staff.path.yaml
   /staff/search:
@@ -378,6 +382,28 @@ definitions:
     $ref: ./series/entity/seriesBaseResponse.yaml
   SeriesFullResponse:
     $ref: ./series/entity/seriesFullResponse.yaml
+  SoundtrackHeader:
+    $ref: ./soundtrack/entity/soundtrackHeader.yaml
+  SoundtrackBase:
+    $ref: ./soundtrack/entity/soundtrackBase.yaml
+  SoundtrackFull:
+    $ref: ./soundtrack/entity/soundtrackFull.yaml
+  SoundtrackBaseResponse:
+    $ref: ./soundtrack/entity/soundtrackBaseResponse.yaml
+  SoundtrackFullResponse:
+    $ref: ./soundtrack/entity/soundtrackFullResponse.yaml
+  SpacecraftClassHeader:
+    $ref: ./spacecraft_class/entity/spacecraftClassHeader.yaml
+  SpacecraftClassBase:
+    $ref: ./spacecraft_class/entity/spacecraftClassBase.yaml
+  SpacecraftClassFull:
+    $ref: ./spacecraft_class/entity/spacecraftClassFull.yaml
+  SpacecraftClassBaseResponse:
+    $ref: ./spacecraft_class/entity/spacecraftClassBaseResponse.yaml
+  SpacecraftClassFullResponse:
+    $ref: ./spacecraft_class/entity/spacecraftClassFullResponse.yaml
+  SpacecraftType:
+    $ref: ./spacecraft_type/entity/spacecraftType.yaml
   SpeciesHeader:
     $ref: ./species/entity/speciesHeader.yaml
   SpeciesBase:
@@ -398,16 +424,6 @@ definitions:
     $ref: ./staff/entity/staffBaseResponse.yaml
   StaffFullResponse:
     $ref: ./staff/entity/staffFullResponse.yaml
-  SoundtrackHeader:
-    $ref: ./soundtrack/entity/soundtrackHeader.yaml
-  SoundtrackBase:
-    $ref: ./soundtrack/entity/soundtrackBase.yaml
-  SoundtrackFull:
-    $ref: ./soundtrack/entity/soundtrackFull.yaml
-  SoundtrackBaseResponse:
-    $ref: ./soundtrack/entity/soundtrackBaseResponse.yaml
-  SoundtrackFullResponse:
-    $ref: ./soundtrack/entity/soundtrackFullResponse.yaml
   TradingCardHeader:
     $ref: ./trading_card/entity/tradingCardHeader.yaml
   TradingCardBase:

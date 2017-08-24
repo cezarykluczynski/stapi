@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		elementFormDefault="qualified"
+		targetNamespace="http://stapi.co/api/v1/soap/spacecraftType">
+	<xs:complexType name="SpacecraftType">
+		<xs:annotation>
+			<xs:documentation>Rating of video release, etc.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Spacecraft type unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Spacecraft type name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
