@@ -122,12 +122,12 @@
 					<xs:documentation>Whether it's a warp-capable spacecraft class</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="activeFrom" type="xs:integer" minOccurs="0">
+			<xs:element name="activeFrom" type="xs:string" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Starting period when this spacecraft class was in use</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="activeTo" type="xs:integer" minOccurs="0">
+			<xs:element name="activeTo" type="xs:string" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Ending period when this spacecraft class was in use</xs:documentation>
 				</xs:annotation>
@@ -179,12 +179,12 @@
 					<xs:documentation>Whether it's a warp-capable spacecraft class</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="activeFrom" type="xs:integer" minOccurs="0">
+			<xs:element name="activeFrom" type="xs:string" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Starting period when this spacecraft class was in use</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="activeTo" type="xs:integer" minOccurs="0">
+			<xs:element name="activeTo" type="xs:string" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Ending period when this spacecraft class was in use</xs:documentation>
 				</xs:annotation>

@@ -42,6 +42,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.SeriesPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.SeriesService;
 import com.cezarykluczynski.stapi.client.v1.soap.SoundtrackPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.SoundtrackService;
+import com.cezarykluczynski.stapi.client.v1.soap.SpacecraftClassPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.SpacecraftClassService;
 import com.cezarykluczynski.stapi.client.v1.soap.SpeciesPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.SpeciesService;
 import com.cezarykluczynski.stapi.client.v1.soap.StaffPortType;
@@ -154,6 +156,9 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 	@Getter
 	private WeaponPortType weaponPortType;
 
+	@Getter
+	private SpacecraftClassPortType spacecraftClassPortType;
+
 	public StapiSoapPortTypesProvider() {
 		seriesPortType = new SeriesService().getSeriesPortType();
 		performerPortType = new PerformerService().getPerformerPortType();
@@ -184,6 +189,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		videoGamePortType = new VideoGameService().getVideoGamePortType();
 		soundtrackPortType = new SoundtrackService().getSoundtrackPortType();
 		weaponPortType = new WeaponService().getWeaponPortType();
+		spacecraftClassPortType = new SpacecraftClassService().getSpacecraftClassPortType();
 	}
 
 	public StapiSoapPortTypesProvider(String apiUrl) {
@@ -217,6 +223,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		videoGamePortType = changeUrl(new VideoGameService().getVideoGamePortType());
 		soundtrackPortType = changeUrl(new SoundtrackService().getSoundtrackPortType());
 		weaponPortType = changeUrl(new WeaponService().getWeaponPortType());
+		spacecraftClassPortType = changeUrl(new SpacecraftClassService().getSpacecraftClassPortType());
 	}
 
 	private <T> T changeUrl(T service) {

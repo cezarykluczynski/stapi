@@ -51,6 +51,14 @@ public class SpacecraftClass extends PageAwareEntity implements PageAware {
 	@Column(nullable = false)
 	private String name;
 
+	private Integer numberOfDecks;
+
+	private Boolean warpCapable;
+
+	private String activeFrom;
+
+	private String activeTo;
+
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "species_id")
 	private Species species;
@@ -74,13 +82,6 @@ public class SpacecraftClass extends PageAwareEntity implements PageAware {
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<SpacecraftType> spacecraftTypes = Sets.newHashSet();
 
-	private Integer numberOfDecks;
-
-	private Boolean warpCapable;
-
-	private String activeFrom;
-
-	private String activeTo;
 
 	// TODO: spacecrafts
 

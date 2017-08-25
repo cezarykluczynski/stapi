@@ -21,6 +21,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.PerformerPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.SeasonPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.SeriesPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.SoundtrackPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.SpacecraftClassPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.SpeciesPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.StaffPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.TradingCardDeckPortType;
@@ -122,6 +123,9 @@ public class StapiSoapClient {
 	@Getter
 	private WeaponPortType weaponPortType;
 
+	@Getter
+	private SpacecraftClassPortType spacecraftClassPortType;
+
 	public StapiSoapClient() {
 		stapiSoapPortTypesProvider = new StapiSoapPortTypesProvider();
 		bindPortTypes();
@@ -162,6 +166,7 @@ public class StapiSoapClient {
 		videoGamePortType = stapiSoapPortTypesProvider.getVideoGamePortType();
 		soundtrackPortType = stapiSoapPortTypesProvider.getSoundtrackPortType();
 		weaponPortType = stapiSoapPortTypesProvider.getWeaponPortType();
+		spacecraftClassPortType = stapiSoapPortTypesProvider.getSpacecraftClassPortType();
 	}
 
 }

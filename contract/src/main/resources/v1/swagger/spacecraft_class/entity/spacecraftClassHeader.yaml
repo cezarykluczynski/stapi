@@ -5,7 +5,7 @@ properties:
     type: string
     required: true
     description: Spacecraft class unique ID
-  title:
+  name:
     type: string
     required: true
-    description: Spacecraft class title
+    description: Spacecraft class name

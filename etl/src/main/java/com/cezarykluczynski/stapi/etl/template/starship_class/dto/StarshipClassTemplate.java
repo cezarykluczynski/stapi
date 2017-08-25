@@ -16,6 +16,14 @@ public class StarshipClassTemplate {
 
 	private Page page;
 
+	private Integer numberOfDecks;
+
+	private Boolean warpCapable;
+
+	private String activeFrom;
+
+	private String activeTo;
+
 	private Species affiliatedSpecies;
 
 	private Organization owner;
@@ -25,13 +33,5 @@ public class StarshipClassTemplate {
 	private Organization affiliation;
 
 	private Set<SpacecraftType> spacecraftTypes = Sets.newHashSet();
-
-	private Integer numberOfDecks;
-
-	private Boolean warpCapable;
-
-	private String activeFrom;
-
-	private String activeTo;
 
 }
