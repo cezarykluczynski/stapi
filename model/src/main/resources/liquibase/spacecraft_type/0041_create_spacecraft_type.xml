@@ -18,5 +18,10 @@
 			</column>
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="spacecraft_type_sequence"/>
+		<addForeignKeyConstraint baseColumnNames="page_id"
+				baseTableName="spacecraft_type"
+				constraintName="spacecraft_type_page_fkey"
+				referencedColumnNames="id"
+				referencedTableName="page"/>
 	</changeSet>
 </databaseChangeLog>
