@@ -41,7 +41,7 @@ class StarshipClassTemplateCategoriesEnrichingProcessorTest extends Specificatio
 		1 * speciesStarshipClassesToSpeciesMappingProviderMock.provide(TITLE_1) >> Optional.empty()
 		1 * speciesStarshipClassesToOrganizationsMappingProviderMock.provide(TITLE_1) >> Optional.empty()
 		0 * _
-		starshipClassTemplate.affiliatedSpecies == null
+		starshipClassTemplate.species == null
 		starshipClassTemplate.affiliation == null
 	}
 
@@ -62,7 +62,7 @@ class StarshipClassTemplateCategoriesEnrichingProcessorTest extends Specificatio
 		1 * speciesStarshipClassesToSpeciesMappingProviderMock.provide(TITLE_2) >> Optional.empty()
 		1 * speciesStarshipClassesToOrganizationsMappingProviderMock.provide(TITLE_2) >> Optional.empty()
 		0 * _
-		starshipClassTemplate.affiliatedSpecies == species
+		starshipClassTemplate.species == species
 		starshipClassTemplate.affiliation == null
 	}
 
@@ -84,7 +84,7 @@ class StarshipClassTemplateCategoriesEnrichingProcessorTest extends Specificatio
 		1 * speciesStarshipClassesToOrganizationsMappingProviderMock.provide(TITLE_2) >> Optional.empty()
 		0 * _
 		starshipClassTemplate.affiliation == organization
-		starshipClassTemplate.affiliatedSpecies == null
+		starshipClassTemplate.species == null
 	}
 
 	void "when more than one species was found, none is used"() {
@@ -108,7 +108,7 @@ class StarshipClassTemplateCategoriesEnrichingProcessorTest extends Specificatio
 		1 * speciesStarshipClassesToSpeciesMappingProviderMock.provide(TITLE_3) >> Optional.of(species2)
 		1 * speciesStarshipClassesToOrganizationsMappingProviderMock.provide(TITLE_3) >> Optional.empty()
 		0 * _
-		starshipClassTemplate.affiliatedSpecies == null
+		starshipClassTemplate.species == null
 		starshipClassTemplate.affiliation == null
 	}
 
@@ -133,7 +133,7 @@ class StarshipClassTemplateCategoriesEnrichingProcessorTest extends Specificatio
 		1 * speciesStarshipClassesToSpeciesMappingProviderMock.provide(TITLE_3) >> Optional.empty()
 		1 * speciesStarshipClassesToOrganizationsMappingProviderMock.provide(TITLE_3) >> Optional.of(organization2)
 		0 * _
-		starshipClassTemplate.affiliatedSpecies == null
+		starshipClassTemplate.species == null
 		starshipClassTemplate.affiliation == null
 	}
 

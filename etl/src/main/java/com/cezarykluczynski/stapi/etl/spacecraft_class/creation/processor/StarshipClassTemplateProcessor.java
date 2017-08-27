@@ -22,7 +22,7 @@ public class StarshipClassTemplateProcessor implements ItemProcessor<StarshipCla
 		spacecraftClass.setName(item.getName());
 		spacecraftClass.setPage(item.getPage());
 		spacecraftClass.setUid(uidGenerator.generateFromPage(item.getPage(), SpacecraftClass.class));
-		spacecraftClass.setSpecies(item.getAffiliatedSpecies());
+		spacecraftClass.setSpecies(item.getSpecies());
 		spacecraftClass.setOwner(item.getOwner());
 		spacecraftClass.setOperator(item.getOperator());
 		spacecraftClass.setAffiliation(item.getAffiliation());

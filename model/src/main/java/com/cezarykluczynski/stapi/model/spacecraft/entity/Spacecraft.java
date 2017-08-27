@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.location.repository.LocationRepository;
+import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass;
 import lombok.AllArgsConstructor;
@@ -29,8 +30,8 @@ import javax.persistence.SequenceGenerator;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString(callSuper = true, exclude = {"spacecraftClass"})
-@EqualsAndHashCode(callSuper = true, exclude = {"spacecraftClass"})
+@ToString(callSuper = true, exclude = {"spacecraftClass", "owner", "operator"})
+@EqualsAndHashCode(callSuper = true, exclude = {"spacecraftClass", "owner", "operator"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = LocationRepository.class, singularName = "spacecraft",
 		pluralName = "spacecrafts")
@@ -45,10 +46,18 @@ public class Spacecraft extends PageAwareEntity implements PageAware {
 	@Column(nullable = false)
 	private String name;
 
+	private String registry;
+
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "spacecraft_class_id")
 	private SpacecraftClass spacecraftClass;
 
-	// TODO
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "owner_id")
+	private Organization owner;
+
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "operator_id")
+	private Organization operator;
 
 }

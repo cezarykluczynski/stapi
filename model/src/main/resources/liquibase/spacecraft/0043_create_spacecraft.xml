@@ -16,7 +16,10 @@
 			<column name="name" type="varchar(64)">
 				<constraints nullable="false"/>
 			</column>
+			<column name="registry" type="varchar(64)"/>
 			<column name="spacecraft_class_id" type="bigint"/>
+			<column name="owner_id" type="bigint"/>
+			<column name="operator_id" type="bigint"/>
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="spacecraft_sequence"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
@@ -26,8 +29,18 @@
 				referencedTableName="page"/>
 		<addForeignKeyConstraint baseColumnNames="spacecraft_class_id"
 				baseTableName="spacecraft"
-				constraintName="s_spacecraft_fkey"
+				constraintName="sr_spacecraft_class_fkey"
 				referencedColumnNames="id"
 				referencedTableName="spacecraft_class"/>
+		<addForeignKeyConstraint baseColumnNames="owner_id"
+				baseTableName="spacecraft"
+				constraintName="sr_owner_fkey"
+				referencedColumnNames="id"
+				referencedTableName="organization"/>
+		<addForeignKeyConstraint baseColumnNames="operator_id"
+				baseTableName="spacecraft"
+				constraintName="sr_operator_fkey"
+				referencedColumnNames="id"
+				referencedTableName="organization"/>
 	</changeSet>
 </databaseChangeLog>

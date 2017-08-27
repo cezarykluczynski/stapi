@@ -44,7 +44,7 @@ public class StarshipClassTemplateCategoriesEnrichingProcessor
 		});
 
 		if (speciesCandidatesList.size() == 1) {
-			starshipClassTemplate.setAffiliatedSpecies(speciesCandidatesList.get(0));
+			starshipClassTemplate.setSpecies(speciesCandidatesList.get(0));
 		} else if (!speciesCandidatesList.isEmpty()) {
 			log.warn("More than one species found for starship class {} when categories were looked at, none was used",
 					starshipClassTemplate.getName());

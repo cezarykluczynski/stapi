@@ -7,10 +7,10 @@ import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass
 import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType
 import com.cezarykluczynski.stapi.model.species.entity.Species
-import com.cezarykluczynski.stapi.util.AbstractSpacecraftTest
+import com.cezarykluczynski.stapi.util.AbstractSpacecraftClassTest
 import com.google.common.collect.Sets
 
-class StarshipClassTemplateProcessorTest extends AbstractSpacecraftTest {
+class StarshipClassTemplateProcessorTest extends AbstractSpacecraftClassTest {
 
 	private UidGenerator uidGeneratorMock
 
@@ -34,7 +34,7 @@ class StarshipClassTemplateProcessorTest extends AbstractSpacecraftTest {
 		StarshipClassTemplate starshipClassTemplate = new StarshipClassTemplate(
 				name: NAME,
 				page: page,
-				affiliatedSpecies: species,
+				species: species,
 				owner: owner,
 				operator: operator,
 				affiliation: affiliation,

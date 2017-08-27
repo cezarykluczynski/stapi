@@ -24,7 +24,7 @@ public class StarshipClassTemplate {
 
 	private String activeTo;
 
-	private Species affiliatedSpecies;
+	private Species species;
 
 	private Organization owner;
 
