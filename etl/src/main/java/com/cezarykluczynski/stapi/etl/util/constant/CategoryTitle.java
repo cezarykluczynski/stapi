@@ -283,4 +283,14 @@ public class CategoryTitle {
 	public static final String SHUTTLE_CLASSES = "Shuttle_classes";
 	public static final String STARSHIP_CLASSES = "Starship_classes";
 	public static final String MEMORY_ALPHA_NON_CANON_REDIRECTS_STARSHIP_CLASSES = "Memory_Alpha_non-canon_redirects_(starship_classes)";
+	public static final String SPACECRAFT_ALTERNATE_REALITY = "Spacecraft_(alternate_reality)";
+	public static final String SHUTTLES_ALTERNATE_REALITY = "Shuttles_(alternate_reality)";
+	public static final String STARSHIPS_ALTERNATE_REALITY = "Starships_(alternate_reality)";
+	public static final String FEDERATION_STARSHIPS_ALTERNATE_REALITY = "Federation_starships_(alternate_reality)";
+	public static final String EARTH_SPACECRAFT = "Earth_spacecraft";
+	public static final String ESCAPE_PODS = "Escape_pods";
+	public static final String PROBES = "Probes";
+	public static final String SHUTTLES = "Shuttles";
+	public static final String STARSHIPS = "Starships";
+	public static final String MEMORY_ALPHA_NON_CANON_REDIRECTS_STARSHIPS = "Memory_Alpha_non-canon_redirects_(starships)";
 }

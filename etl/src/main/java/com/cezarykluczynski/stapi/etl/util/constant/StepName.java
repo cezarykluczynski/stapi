@@ -35,5 +35,6 @@ public class StepName {
 	public static final String CREATE_WEAPONS = "CREATE_WEAPONS";
 	public static final String CREATE_SPACECRAFT_TYPES = "CREATE_SPACECRAFT_TYPES";
 	public static final String CREATE_SPACECRAFT_CLASSES = "CREATE_SPACECRAFT_CLASSES";
+	public static final String CREATE_SPACECRAFTS = "CREATE_SPACECRAFTS";
 
 }

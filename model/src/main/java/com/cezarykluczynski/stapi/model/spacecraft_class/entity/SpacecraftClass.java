@@ -82,7 +82,6 @@ public class SpacecraftClass extends PageAwareEntity implements PageAware {
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<SpacecraftType> spacecraftTypes = Sets.newHashSet();
 
-
 	// TODO: spacecrafts
 
 }

@@ -44,7 +44,8 @@ public class StepNames {
 				StepName.CREATE_SOUNDTRACKS,
 				StepName.CREATE_WEAPONS,
 				StepName.CREATE_SPACECRAFT_TYPES,
-				StepName.CREATE_SPACECRAFT_CLASSES
+				StepName.CREATE_SPACECRAFT_CLASSES,
+				StepName.CREATE_SPACECRAFTS
 		));
 	}
 

@@ -42,14 +42,14 @@ class SpacecraftClassCreationConfigurationTest extends AbstractCreationConfigura
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_SPACECRAFT_CLASSES) >> false
 		1 * categoryApiMock.getPages(CategoryTitle.SPACECRAFT_CLASSES, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_SPACECRAFT_CLASSES)
+		1 * categoryApiMock.getPages(CategoryTitle.ESCAPE_POD_CLASSES, MediaWikiSource.MEMORY_ALPHA_EN) >>
+				createListWithPageHeaderTitle(TITLE_ESCAPE_POD_CLASSES)
 		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryTitle.SPACECRAFT_CLASSES_ALTERNATE_REALITY, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_SPACECRAFT_CLASSES_ALTERNATE_REALITY)
 		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryTitle.EARTH_SPACECRAFT_CLASSES, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_EARTH_SPACECRAFT_CLASSES)
 		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryTitle.SHUTTLE_CLASSES, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_SHUTTLE_CLASSES)
-		1 * categoryApiMock.getPages(CategoryTitle.ESCAPE_POD_CLASSES, MediaWikiSource.MEMORY_ALPHA_EN) >>
-				createListWithPageHeaderTitle(TITLE_ESCAPE_POD_CLASSES)
 		1 * categoryApiMock.getPagesIncludingSubcategoriesExcept(CategoryTitle.STARSHIP_CLASSES, Lists.newArrayList(
 				CategoryTitle.MEMORY_ALPHA_NON_CANON_REDIRECTS_STARSHIP_CLASSES), MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_STARSHIP_CLASSES)

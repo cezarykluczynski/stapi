@@ -59,6 +59,7 @@ public class StepToStepPropertiesProvider {
 		stepPropertiesMap.put(StepName.CREATE_WEAPONS, stepsProperties.getCreateWeapons());
 		stepPropertiesMap.put(StepName.CREATE_SPACECRAFT_TYPES, stepsProperties.getCreateSpacecraftTypes());
 		stepPropertiesMap.put(StepName.CREATE_SPACECRAFT_CLASSES, stepsProperties.getCreateSpacecraftClasses());
+		stepPropertiesMap.put(StepName.CREATE_SPACECRAFTS, stepsProperties.getCreateSpacecrafts());
 	}
 
 }

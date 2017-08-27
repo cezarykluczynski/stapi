@@ -34,12 +34,12 @@ public class SpacecraftClassCreationConfiguration {
 
 		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_SPACECRAFT_CLASSES)) {
 			spacecraftClasss.addAll(categoryApi.getPages(CategoryTitle.SPACECRAFT_CLASSES, MediaWikiSource.MEMORY_ALPHA_EN));
+			spacecraftClasss.addAll(categoryApi.getPages(CategoryTitle.ESCAPE_POD_CLASSES, MediaWikiSource.MEMORY_ALPHA_EN));
 			spacecraftClasss.addAll(categoryApi.getPagesIncludingSubcategories(CategoryTitle.SPACECRAFT_CLASSES_ALTERNATE_REALITY,
 					MediaWikiSource.MEMORY_ALPHA_EN));
 			spacecraftClasss.addAll(categoryApi.getPagesIncludingSubcategories(CategoryTitle.EARTH_SPACECRAFT_CLASSES,
 					MediaWikiSource.MEMORY_ALPHA_EN));
 			spacecraftClasss.addAll(categoryApi.getPagesIncludingSubcategories(CategoryTitle.SHUTTLE_CLASSES, MediaWikiSource.MEMORY_ALPHA_EN));
-			spacecraftClasss.addAll(categoryApi.getPages(CategoryTitle.ESCAPE_POD_CLASSES, MediaWikiSource.MEMORY_ALPHA_EN));
 			spacecraftClasss.addAll(categoryApi.getPagesIncludingSubcategoriesExcept(CategoryTitle.STARSHIP_CLASSES,
 					Lists.newArrayList(CategoryTitle.MEMORY_ALPHA_NON_CANON_REDIRECTS_STARSHIP_CLASSES), MediaWikiSource.MEMORY_ALPHA_EN));
 		}

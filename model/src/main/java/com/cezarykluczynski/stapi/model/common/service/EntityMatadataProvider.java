@@ -12,6 +12,7 @@ import com.cezarykluczynski.stapi.model.content_rating.entity.ContentRating;
 import com.cezarykluczynski.stapi.model.country.entity.Country;
 import com.cezarykluczynski.stapi.model.magazine_series.entity.MagazineSeries;
 import com.cezarykluczynski.stapi.model.season.entity.Season;
+import com.cezarykluczynski.stapi.model.spacecraft.entity.Spacecraft;
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass;
 import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType;
 import com.cezarykluczynski.stapi.model.trading_card.entity.TradingCard;
@@ -53,6 +54,7 @@ public class EntityMatadataProvider {
 		CUSTOM_SYMBOL_MAP.put(VideoGame.class, "VG");
 		CUSTOM_SYMBOL_MAP.put(SpacecraftClass.class, "SC");
 		CUSTOM_SYMBOL_MAP.put(SpacecraftType.class, "SY");
+		CUSTOM_SYMBOL_MAP.put(Spacecraft.class, "SR");
 	}
 
 	private final EntityManager entityManager;
