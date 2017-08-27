@@ -41,6 +41,7 @@ class StarshipClassTemplateProcessorTest extends AbstractSpacecraftClassTest {
 				spacecraftTypes: Sets.newHashSet(spacecraftType1, spacecraftType2),
 				numberOfDecks: NUMBER_OF_DECKS,
 				warpCapable: WARP_CAPABLE,
+				alternateReality: ALTERNATE_REALITY,
 				activeFrom: ACTIVE_FROM,
 				activeTo: ACTIVE_TO)
 
@@ -60,6 +61,7 @@ class StarshipClassTemplateProcessorTest extends AbstractSpacecraftClassTest {
 		spacecraftClass.spacecraftTypes.contains spacecraftType2
 		spacecraftClass.numberOfDecks == NUMBER_OF_DECKS
 		spacecraftClass.warpCapable == WARP_CAPABLE
+		spacecraftClass.alternateReality == ALTERNATE_REALITY
 		spacecraftClass.activeFrom == ACTIVE_FROM
 		spacecraftClass.activeTo == ACTIVE_TO
 	}

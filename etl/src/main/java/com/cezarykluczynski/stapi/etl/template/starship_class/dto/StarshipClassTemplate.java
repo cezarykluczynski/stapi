@@ -18,6 +18,8 @@ public class StarshipClassTemplate {
 
 	private Integer numberOfDecks;
 
+	private Boolean alternateReality;
+
 	private Boolean warpCapable;
 
 	private String activeFrom;

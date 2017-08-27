@@ -22,6 +22,7 @@
 			<column name="affiliation_id" type="bigint"/>
 			<column name="number_of_decks" type="int"/>
 			<column name="warp_capable" type="boolean"/>
+			<column name="alternate_reality" type="boolean"/>
 			<column name="active_from" type="varchar(32)"/>
 			<column name="active_to" type="varchar(32)"/>
 		</createTable>

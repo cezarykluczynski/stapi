@@ -59,6 +59,8 @@ public class SpacecraftClass extends PageAwareEntity implements PageAware {
 
 	private String activeTo;
 
+	private Boolean alternateReality;
+
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "species_id")
 	private Species species;

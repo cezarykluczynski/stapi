@@ -10,6 +10,7 @@ import com.cezarykluczynski.stapi.model.species.entity.Species;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +19,8 @@ import java.util.List;
 @Slf4j
 public class StarshipClassTemplateCategoriesEnrichingProcessor
 		implements ItemEnrichingProcessor<EnrichablePair<List<CategoryHeader>, StarshipClassTemplate>> {
+
+	private static final String ALTERNATE_REALITY = "alternate_reality";
 
 	private final SpeciesStarshipClassesToSpeciesMappingProvider speciesStarshipClassesToSpeciesMappingProvider;
 
@@ -41,6 +44,9 @@ public class StarshipClassTemplateCategoriesEnrichingProcessor
 			String title = categoryHeader.getTitle();
 			speciesStarshipClassesToSpeciesMappingProvider.provide(title).ifPresent(speciesCandidatesList::add);
 			organizationsStarshipClassesToOrganizationsMappingProvider.provide(title).ifPresent(organizationCandidatesList::add);
+			if (StringUtils.contains(title, ALTERNATE_REALITY)) {
+				starshipClassTemplate.setAlternateReality(true);
+			}
 		});
 
 		if (speciesCandidatesList.size() == 1) {
