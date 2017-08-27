@@ -12,6 +12,10 @@ public class SpacecraftClassRequestDTO {
 
 	private String name;
 
+	private Boolean warpCapable;
+
+	private Boolean alternateReality;
+
 	private RequestSortDTO sort;
 
 }

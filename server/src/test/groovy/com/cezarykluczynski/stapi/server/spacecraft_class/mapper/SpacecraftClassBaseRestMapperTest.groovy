@@ -19,7 +19,9 @@ class SpacecraftClassBaseRestMapperTest extends AbstractSpacecraftClassMapperTes
 		given:
 		SpacecraftClassRestBeanParams spacecraftClassRestBeanParams = new SpacecraftClassRestBeanParams(
 				uid: UID,
-				name: NAME)
+				name: NAME,
+				warpCapable: WARP_CAPABLE,
+				alternateReality: ALTERNATE_REALITY)
 
 		when:
 		SpacecraftClassRequestDTO spacecraftClassRequestDTO = spacecraftClassBaseRestMapper.mapBase spacecraftClassRestBeanParams
@@ -27,6 +29,8 @@ class SpacecraftClassBaseRestMapperTest extends AbstractSpacecraftClassMapperTes
 		then:
 		spacecraftClassRequestDTO.uid == UID
 		spacecraftClassRequestDTO.name == NAME
+		spacecraftClassRequestDTO.warpCapable == WARP_CAPABLE
+		spacecraftClassRequestDTO.alternateReality == ALTERNATE_REALITY
 	}
 
 	void "maps DB entity to base REST entity"() {
@@ -41,6 +45,7 @@ class SpacecraftClassBaseRestMapperTest extends AbstractSpacecraftClassMapperTes
 		spacecraftClassBase.name == NAME
 		spacecraftClassBase.numberOfDecks == NUMBER_OF_DECKS
 		spacecraftClassBase.warpCapable == WARP_CAPABLE
+		spacecraftClassBase.alternateReality == ALTERNATE_REALITY
 		spacecraftClassBase.activeFrom == ACTIVE_FROM
 		spacecraftClassBase.activeTo == ACTIVE_TO
 		spacecraftClassBase.species != null

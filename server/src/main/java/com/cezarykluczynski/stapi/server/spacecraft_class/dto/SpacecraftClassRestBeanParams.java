@@ -11,6 +11,12 @@ public class SpacecraftClassRestBeanParams extends PageSortBeanParams {
 	@FormParam("name")
 	private String name;
 
+	@FormParam("warpCapable")
+	private String warpCapable;
+
+	@FormParam("alternateReality")
+	private String alternateReality;
+
 	public String getUid() {
 		return uid;
 	}
@@ -21,6 +27,14 @@ public class SpacecraftClassRestBeanParams extends PageSortBeanParams {
 
 	public String getName() {
 		return name;
+	}
+
+	public String getWarpCapable() {
+		return warpCapable;
+	}
+
+	public String getAlternateReality() {
+		return alternateReality;
 	}
 
 	public static SpacecraftClassRestBeanParams fromPageSortBeanParams(PageSortBeanParams pageSortBeanParams) {

@@ -15,6 +15,9 @@ properties:
   warpCapable:
     type: boolean
     description: Whether it's a warp-capable spacecraft class
+  alternateReality:
+    type: boolean
+    description: Whether this spacecraft class is from alternate reality
   activeFrom:
     type: string
     description: Starting period when this spacecraft class was in use

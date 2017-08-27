@@ -32,6 +32,8 @@ public class SpacecraftClassRepositoryImpl extends AbstractRepositoryImpl<Spacec
 
 		spacecraftClassQueryBuilder.equal(SpacecraftClass_.uid, uid);
 		spacecraftClassQueryBuilder.like(SpacecraftClass_.name, criteria.getName());
+		spacecraftClassQueryBuilder.equal(SpacecraftClass_.warpCapable, criteria.getWarpCapable());
+		spacecraftClassQueryBuilder.equal(SpacecraftClass_.alternateReality, criteria.getAlternateReality());
 		spacecraftClassQueryBuilder.setSort(criteria.getSort());
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.species);
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.species, Species_.homeworld, doFetch);

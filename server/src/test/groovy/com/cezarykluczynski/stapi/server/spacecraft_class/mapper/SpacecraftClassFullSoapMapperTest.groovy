@@ -37,6 +37,7 @@ class SpacecraftClassFullSoapMapperTest extends AbstractSpacecraftClassMapperTes
 		spacecraftClassFull.name == NAME
 		spacecraftClassFull.numberOfDecks == NUMBER_OF_DECKS
 		spacecraftClassFull.warpCapable == WARP_CAPABLE
+		spacecraftClassFull.alternateReality == ALTERNATE_REALITY
 		spacecraftClassFull.activeFrom == ACTIVE_FROM
 		spacecraftClassFull.activeTo == ACTIVE_TO
 		spacecraftClassFull.species != null

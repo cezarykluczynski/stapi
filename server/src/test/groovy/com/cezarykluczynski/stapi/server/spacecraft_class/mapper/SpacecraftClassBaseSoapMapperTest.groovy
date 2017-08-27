@@ -18,13 +18,17 @@ class SpacecraftClassBaseSoapMapperTest extends AbstractSpacecraftClassMapperTes
 	void "maps SOAP SpacecraftClassRequest to SpacecraftClassRequestDTO"() {
 		given:
 		SpacecraftClassBaseRequest spacecraftClassBaseRequest = new SpacecraftClassBaseRequest(
-				name: NAME)
+				name: NAME,
+				warpCapable: WARP_CAPABLE,
+				alternateReality: ALTERNATE_REALITY)
 
 		when:
 		SpacecraftClassRequestDTO spacecraftClassRequestDTO = spacecraftClassBaseSoapMapper.mapBase spacecraftClassBaseRequest
 
 		then:
 		spacecraftClassRequestDTO.name == NAME
+		spacecraftClassRequestDTO.warpCapable == WARP_CAPABLE
+		spacecraftClassRequestDTO.alternateReality == ALTERNATE_REALITY
 	}
 
 	void "maps DB entity to base SOAP entity"() {
@@ -39,6 +43,7 @@ class SpacecraftClassBaseSoapMapperTest extends AbstractSpacecraftClassMapperTes
 		spacecraftClassBase.name == NAME
 		spacecraftClassBase.numberOfDecks == NUMBER_OF_DECKS
 		spacecraftClassBase.warpCapable == WARP_CAPABLE
+		spacecraftClassBase.alternateReality == ALTERNATE_REALITY
 		spacecraftClassBase.activeFrom == ACTIVE_FROM
 		spacecraftClassBase.activeTo == ACTIVE_TO
 		spacecraftClassBase.species != null

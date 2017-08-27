@@ -20,6 +20,8 @@ import org.mapstruct.Mapping;
 public interface SpacecraftClassFullSoapMapper {
 
 	@Mapping(target = "name", ignore = true)
+	@Mapping(target = "warpCapable", ignore = true)
+	@Mapping(target = "alternateReality", ignore = true)
 	@Mapping(target = "sort", ignore = true)
 	SpacecraftClassRequestDTO mapFull(SpacecraftClassFullRequest spacecraftClassFullRequest);
 

@@ -54,6 +54,14 @@ post:
       in: formData
       type: string
       description: Spacecraft class name
+    - name: warpCapableSpecies
+      in: formData
+      type: boolean
+      description: Whether it should be a warp-capable spacecraft class
+    - name: alternateReality
+      in: formData
+      type: boolean
+      description: Whether this spacecraft class should be from alternate reality
   responses:
     200:
       schema:

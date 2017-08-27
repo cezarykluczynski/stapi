@@ -43,4 +43,18 @@ class SpacecraftClassSoapEndpointIntegrationTest extends AbstractSpacecraftClass
 		spacecraftClassFullResponse.spacecraftClass.species.name == 'Vulcan'
 	}
 
+	void "'Franklin type' is among warp-capable spacecraft types from alternate-reality"() {
+		when:
+		SpacecraftClassBaseResponse spacecraftClassBaseResponse = stapiSoapClient.spacecraftClassPortType
+				.getSpacecraftClassBase(new SpacecraftClassBaseRequest(
+						warpCapable: true,
+						alternateReality: true
+				))
+		List<SpacecraftClassBase> spacecraftClassBaseList = spacecraftClassBaseResponse.spacecraftClasss
+
+		then:
+		spacecraftClassBaseList.stream()
+				.anyMatch { it.name == 'Franklin type' }
+	}
+
 }

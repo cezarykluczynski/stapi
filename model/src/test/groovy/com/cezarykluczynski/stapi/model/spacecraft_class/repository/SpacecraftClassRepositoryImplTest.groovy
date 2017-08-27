@@ -57,6 +57,12 @@ class SpacecraftClassRepositoryImplTest extends AbstractSpacecraftClassTest {
 		1 * spacecraftClassRequestDTO.name >> NAME
 		1 * spacecraftClassQueryBuilder.like(SpacecraftClass_.name, NAME)
 
+		then: 'boolean criteria are set'
+		1 * spacecraftClassRequestDTO.warpCapable >> WARP_CAPABLE
+		1 * spacecraftClassQueryBuilder.equal(Species_.warpCapableSpecies, WARP_CAPABLE)
+		1 * spacecraftClassRequestDTO.alternateReality >> ALTERNATE_REALITY
+		1 * spacecraftClassQueryBuilder.equal(Species_.alternateReality, ALTERNATE_REALITY)
+
 		then: 'sort is set'
 		1 * spacecraftClassRequestDTO.sort >> SORT
 		1 * spacecraftClassQueryBuilder.setSort(SORT)
