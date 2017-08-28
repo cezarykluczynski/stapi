@@ -7,10 +7,8 @@ import com.cezarykluczynski.stapi.model.location.repository.LocationRepository;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -28,8 +26,6 @@ import javax.persistence.SequenceGenerator;
 
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString(callSuper = true, exclude = {"spacecraftClass", "owner", "operator"})
 @EqualsAndHashCode(callSuper = true, exclude = {"spacecraftClass", "owner", "operator"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

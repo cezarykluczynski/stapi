@@ -9,11 +9,8 @@ import com.cezarykluczynski.stapi.model.season.repository.SeasonRepository;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease;
 import com.google.common.collect.Sets;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -31,11 +28,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import java.util.Set;
 
-@Builder
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString(callSuper = true, exclude = {"series", "episodes", "videoReleases"})
 @EqualsAndHashCode(callSuper = true, exclude = {"series", "episodes", "videoReleases"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

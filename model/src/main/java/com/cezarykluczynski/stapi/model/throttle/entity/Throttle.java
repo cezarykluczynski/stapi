@@ -4,10 +4,7 @@ import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.throttle.entity.enums.ThrottleType;
 import com.cezarykluczynski.stapi.model.throttle.repository.ThrottleRepository;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.Column;
@@ -20,11 +17,8 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import java.time.LocalDateTime;
 
-@Builder
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
 @TrackedEntity(type = TrackedEntityType.TECHNICAL, repository = ThrottleRepository.class, apiEntity = false, singularName = "throttle",
 		pluralName = "throttles")

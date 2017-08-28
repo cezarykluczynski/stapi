@@ -5,10 +5,7 @@ import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.endpoint_hit.entity.enums.EndpointType;
 import com.cezarykluczynski.stapi.model.endpoint_hit.repository.EndpointHitRepository;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.Column;
@@ -21,11 +18,8 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-@Builder
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
 @TrackedEntity(type = TrackedEntityType.TECHNICAL, repository = EndpointHitRepository.class, apiEntity = false, metricsEntity = true,
 		singularName = "endpoint hit", pluralName = "endpoint hits")

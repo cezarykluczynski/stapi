@@ -11,10 +11,8 @@ import com.cezarykluczynski.stapi.model.platform.entity.Platform;
 import com.cezarykluczynski.stapi.model.reference.entity.Reference;
 import com.cezarykluczynski.stapi.model.video_release.repository.VideoReleaseRepository;
 import com.google.common.collect.Sets;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -35,8 +33,6 @@ import java.util.Set;
 
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString(callSuper = true, exclude = {"publishers", "developers", "platforms", "genres", "ratings", "references"})
 @EqualsAndHashCode(callSuper = true, exclude = {"publishers", "developers", "platforms", "genres", "ratings", "references"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

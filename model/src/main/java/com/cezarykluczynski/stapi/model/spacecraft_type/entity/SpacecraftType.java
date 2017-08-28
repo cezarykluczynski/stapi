@@ -5,10 +5,8 @@ import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityTyp
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.spacecraft_type.repository.SpacecraftTypeRepository;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -22,10 +20,8 @@ import javax.persistence.SequenceGenerator;
 
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
-@EqualsAndHashCode
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_HELPER, repository = SpacecraftTypeRepository.class, apiEntity = false,
 		singularName = "spacecraft type", pluralName = "spacecraft types")

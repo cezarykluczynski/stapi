@@ -8,11 +8,8 @@ import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.species.repository.SpeciesRepository;
 import com.google.common.collect.Sets;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -30,11 +27,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Transient;
 import java.util.Set;
 
-@Builder
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString(callSuper = true, exclude = {"homeworld", "quadrant", "characters"})
 @EqualsAndHashCode(callSuper = true, exclude = {"homeworld", "quadrant", "characters"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

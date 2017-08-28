@@ -9,10 +9,8 @@ import com.cezarykluczynski.stapi.model.magazine_series.entity.MagazineSeries;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.google.common.collect.Sets;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -32,8 +30,6 @@ import java.util.Set;
 
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString(callSuper = true, exclude = {"magazineSeries", "editors", "publishers"})
 @EqualsAndHashCode(callSuper = true, exclude = {"magazineSeries", "editors", "publishers"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

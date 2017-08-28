@@ -12,10 +12,8 @@ import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.reference.entity.Reference;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.google.common.collect.Sets;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -35,8 +33,6 @@ import java.util.Set;
 
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString(callSuper = true, exclude = {"comicSeries", "writers", "artists", "editors", "staff", "publishers", "characters", "references",
 		"comicCollections"})
 @EqualsAndHashCode(callSuper = true, exclude = {"comicSeries", "writers", "artists", "editors", "staff", "publishers", "characters", "references",

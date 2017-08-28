@@ -28,19 +28,19 @@ public class PageHeaderConverter {
 	}
 
 	private PageHeader fromPage(Page page) {
-		return PageHeader.builder()
-				.pageId(page.getPageId())
-				.title(page.getTitle())
-				.mediaWikiSource(page.getMediaWikiSource())
-				.build();
+		PageHeader pageHeader = new PageHeader();
+		pageHeader.setTitle(page.getTitle());
+		pageHeader.setPageId(page.getPageId());
+		pageHeader.setMediaWikiSource(page.getMediaWikiSource());
+		return pageHeader;
 	}
 
 	private PageHeader fromPageInfo(PageInfo pageInfo, MediaWikiSource mediaWikiSource) {
-		return PageHeader.builder()
-				.pageId(Long.valueOf(pageInfo.getPageid()))
-				.title(pageInfo.getTitle())
-				.mediaWikiSource(mediaWikiSource)
-				.build();
+		PageHeader pageHeader = new PageHeader();
+		pageHeader.setTitle(pageInfo.getTitle());
+		pageHeader.setPageId(Long.valueOf(pageInfo.getPageid()));
+		pageHeader.setMediaWikiSource(mediaWikiSource);
+		return pageHeader;
 	}
 
 }

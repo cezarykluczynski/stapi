@@ -42,10 +42,9 @@ class PageHeaderProcessorTest extends Specification {
 
 	void "gets page using page header's title"() {
 		given:
-		PageHeader pageHeader = PageHeader.builder()
-				.title(TITLE)
-				.mediaWikiSource(MEDIA_WIKI_SOURCE)
-				.build()
+		PageHeader pageHeader = new PageHeader(
+				title: TITLE,
+				mediaWikiSource: MEDIA_WIKI_SOURCE)
 		Page page = new Page(pageId: PAGE_ID)
 
 		when:
@@ -59,11 +58,10 @@ class PageHeaderProcessorTest extends Specification {
 
 	void "gets page, and supplement page id from page header when redirect list is empty"() {
 		given:
-		PageHeader pageHeader = PageHeader.builder()
-				.title(TITLE)
-				.mediaWikiSource(MEDIA_WIKI_SOURCE)
-				.pageId(PAGE_ID)
-				.build()
+		PageHeader pageHeader = new PageHeader(
+				title: TITLE,
+				mediaWikiSource: MEDIA_WIKI_SOURCE,
+				pageId: PAGE_ID)
 		Page page = new Page()
 
 		when:
@@ -78,16 +76,14 @@ class PageHeaderProcessorTest extends Specification {
 
 	void "gets page, and supplement page id from page header and redirect list item, when redirect list is not empty"() {
 		given:
-		PageHeader pageHeader = PageHeader.builder()
-				.title(TITLE)
-				.mediaWikiSource(MEDIA_WIKI_SOURCE)
-				.pageId(PAGE_ID)
-				.build()
-		PageHeader redirectPageHeader = PageHeader.builder()
-				.title(TITLE_AFTER_REDIRECT)
-				.mediaWikiSource(MEDIA_WIKI_SOURCE)
-				.pageId(REDIRECT_PAGE_ID)
-				.build()
+		PageHeader pageHeader = new PageHeader(
+				title: TITLE,
+				mediaWikiSource: MEDIA_WIKI_SOURCE,
+				pageId: PAGE_ID)
+		PageHeader redirectPageHeader =  new PageHeader(
+				title: TITLE_AFTER_REDIRECT,
+				mediaWikiSource: MEDIA_WIKI_SOURCE,
+				pageId: REDIRECT_PAGE_ID)
 		Page page = new Page(redirectPath: Lists.newArrayList(redirectPageHeader))
 
 		when:
@@ -103,14 +99,12 @@ class PageHeaderProcessorTest extends Specification {
 
 	void "gets page, and supplement page if for both page header and redirect list items"() {
 		given:
-		PageHeader pageHeader = PageHeader.builder()
-				.title(TITLE)
-				.mediaWikiSource(MEDIA_WIKI_SOURCE)
-				.build()
-		PageHeader redirectPageHeader = PageHeader.builder()
-				.title(TITLE_AFTER_REDIRECT)
-				.mediaWikiSource(MEDIA_WIKI_SOURCE)
-				.build()
+		PageHeader pageHeader = new PageHeader(
+				title: TITLE,
+				mediaWikiSource: MEDIA_WIKI_SOURCE)
+		PageHeader redirectPageHeader =  new PageHeader(
+				title: TITLE_AFTER_REDIRECT,
+				mediaWikiSource: MEDIA_WIKI_SOURCE)
 		Page page = new Page(
 				title: TITLE_AFTER_REDIRECT,
 				redirectPath: Lists.newArrayList(redirectPageHeader))
@@ -131,10 +125,9 @@ class PageHeaderProcessorTest extends Specification {
 
 	void "throws exception when PageInfo for original page is null"() {
 		given:
-		PageHeader pageHeader = PageHeader.builder()
-				.title(TITLE)
-				.mediaWikiSource(MEDIA_WIKI_SOURCE)
-				.build()
+		PageHeader pageHeader = new PageHeader(
+				title: TITLE,
+				mediaWikiSource: MEDIA_WIKI_SOURCE)
 		PageHeader pageHeaderRedirect = Mock()
 		Page page = new Page(
 				title: TITLE_AFTER_REDIRECT,
@@ -151,14 +144,12 @@ class PageHeaderProcessorTest extends Specification {
 
 	void "throws exception when PageInfo for item from redirect list is null"() {
 		given:
-		PageHeader pageHeader = PageHeader.builder()
-				.title(TITLE)
-				.mediaWikiSource(MEDIA_WIKI_SOURCE)
-				.build()
-		PageHeader redirectPageHeader = PageHeader.builder()
-				.title(TITLE_AFTER_REDIRECT)
-				.mediaWikiSource(MEDIA_WIKI_SOURCE)
-				.build()
+		PageHeader pageHeader = new PageHeader(
+				title: TITLE,
+				mediaWikiSource: MEDIA_WIKI_SOURCE)
+		PageHeader redirectPageHeader =  new PageHeader(
+				title: TITLE_AFTER_REDIRECT,
+				mediaWikiSource: MEDIA_WIKI_SOURCE)
 		Page page = new Page(
 				title: TITLE,
 				redirectPath: Lists.newArrayList(redirectPageHeader))

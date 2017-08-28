@@ -31,7 +31,7 @@ class SeriesCreationConfigurationTest extends AbstractCreationConfigurationTest 
 
 	void "SeriesReader is created with all pages when step is not completed"() {
 		given:
-		List<PageHeader> pageHeaderList = Lists.newArrayList(PageHeader.builder().title(TITLE).build())
+		List<PageHeader> pageHeaderList = Lists.newArrayList(new PageHeader(title: TITLE))
 
 		when:
 		SeriesReader seriesReader = seriesCreationConfiguration.seriesReader()

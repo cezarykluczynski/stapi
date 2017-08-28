@@ -130,11 +130,12 @@ public class PageApiImpl implements PageApi {
 				return null;
 			}
 
-			redirectPage.getRedirectPath().add(PageHeader.builder()
-					.title(title)
-					.pageId(page.getPageId())
-					.mediaWikiSource(mediaWikiSource)
-					.build());
+			PageHeader pageHeader = new PageHeader();
+			pageHeader.setTitle(title);
+			pageHeader.setPageId(page.getPageId());
+			pageHeader.setMediaWikiSource(page.getMediaWikiSource());
+
+			redirectPage.getRedirectPath().add(pageHeader);
 			return redirectPage;
 		}
 	}

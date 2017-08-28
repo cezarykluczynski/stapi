@@ -11,11 +11,8 @@ import com.cezarykluczynski.stapi.model.season.entity.Season;
 import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.google.common.collect.Sets;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -35,11 +32,8 @@ import javax.persistence.SequenceGenerator;
 import java.time.LocalDate;
 import java.util.Set;
 
-@Builder
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString(callSuper = true, exclude = {"series", "writers", "teleplayAuthors", "storyAuthors", "directors", "staff", "performers", "stuntPerformers",
 		"standInPerformers", "characters"})
 @EqualsAndHashCode(callSuper = true, exclude = {"series", "writers", "teleplayAuthors", "storyAuthors", "directors", "staff", "performers",

@@ -4,10 +4,7 @@ import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.model.page.repository.PageRepository;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.Column;
@@ -19,11 +16,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
-@Builder
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
 @TrackedEntity(type = TrackedEntityType.TECHNICAL, repository = PageRepository.class, apiEntity = false, singularName = "page", pluralName = "pages")
 public class Page {

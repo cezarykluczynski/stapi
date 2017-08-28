@@ -6,11 +6,8 @@ import com.cezarykluczynski.stapi.model.trading_card.entity.TradingCard;
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet;
 import com.cezarykluczynski.stapi.model.video_release.repository.VideoReleaseRepository;
 import com.google.common.collect.Sets;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -28,11 +25,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import java.util.Set;
 
-@Builder
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString(exclude = {"tradingCardSet", "tradingCards"})
 @EqualsAndHashCode(exclude = {"tradingCardSet", "tradingCards"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

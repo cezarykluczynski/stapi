@@ -67,11 +67,10 @@ class ActorTemplateListPageProcessorTest extends Specification {
 		given:
 		Page page = new Page(
 				title: PageTitle.STAR_TREK_GAME_PERFORMERS,
-				redirectPath: Lists.newArrayList(PageHeader.builder()
-						.title(TITLE)
-						.pageId(PAGE_ID)
-						.mediaWikiSource(SOURCES_MEDIA_WIKI_SOURCE)
-						.build()))
+				redirectPath: Lists.newArrayList(new PageHeader(
+						title: TITLE,
+						pageId: PAGE_ID,
+						mediaWikiSource: SOURCES_MEDIA_WIKI_SOURCE)))
 		PageEntity pageEntity = Mock()
 
 		when:
@@ -92,9 +91,7 @@ class ActorTemplateListPageProcessorTest extends Specification {
 	void "sets name from original page wiki page dto"() {
 		given:
 		Page page = new Page(title: PageTitle.STAR_TREK_GAME_PERFORMERS,
-				redirectPath: Lists.newArrayList(PageHeader.builder()
-						.title(TITLE)
-						.build()))
+				redirectPath: Lists.newArrayList(new PageHeader(title: TITLE)))
 
 		when:
 		ActorTemplate actorTemplate = actorTemplateListPageProcessor.process(page)
@@ -123,17 +120,12 @@ class ActorTemplateListPageProcessorTest extends Specification {
 		given:
 		Page page = new Page(
 				title: PageTitle.STAR_TREK_GAME_PERFORMERS,
-				redirectPath: Lists.newArrayList(PageHeader.builder()
-						.title(TITLE)
-						.pageId(PAGE_ID)
-						.mediaWikiSource(SOURCES_MEDIA_WIKI_SOURCE)
-						.build()))
+				redirectPath: Lists.newArrayList(new PageHeader(
+						title: TITLE,
+						pageId: PAGE_ID,
+						mediaWikiSource: SOURCES_MEDIA_WIKI_SOURCE)))
 		PageEntity pageEntity = Mock()
-		LifeRangeDTO lifeRangeDTO = new LifeRangeDTO(
-				dateOfBirth: DATE_OF_BIRTH,
-				placeOfBirth: PLACE_OF_BIRTH,
-				dateOfDeath: DATE_OF_DEATH,
-				placeOfDeath: PLACE_OF_DEATH)
+		LifeRangeDTO lifeRangeDTO = LifeRangeDTO.of(DATE_OF_BIRTH, PLACE_OF_BIRTH, DATE_OF_DEATH, PLACE_OF_DEATH)
 
 		when:
 		ActorTemplate actorTemplate = actorTemplateListPageProcessor.process(page)

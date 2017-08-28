@@ -3,11 +3,7 @@ package com.cezarykluczynski.stapi.model.genre.entity;
 import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.genre.repository.GenreRepository;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -20,10 +16,6 @@ import javax.persistence.SequenceGenerator;
 
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
-@EqualsAndHashCode
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_HELPER, repository = GenreRepository.class, apiEntity = false,
 		singularName = "genre", pluralName = "genres")

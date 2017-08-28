@@ -4,11 +4,7 @@ import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.reference.entity.enums.ReferenceType;
 import com.cezarykluczynski.stapi.model.reference.repository.ReferenceRepository;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -23,10 +19,6 @@ import javax.persistence.SequenceGenerator;
 
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
-@EqualsAndHashCode
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = ReferenceRepository.class, apiEntity = false, singularName = "reference",
 		pluralName = "characters")

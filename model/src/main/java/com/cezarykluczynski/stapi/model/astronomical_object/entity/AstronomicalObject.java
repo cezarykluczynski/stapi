@@ -6,10 +6,8 @@ import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -31,8 +29,6 @@ import java.util.Set;
 
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString(callSuper = true, exclude = {"location", "astronomicalObjects"})
 @EqualsAndHashCode(callSuper = true, exclude = {"location", "astronomicalObjects"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

@@ -4,11 +4,7 @@ import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.content_rating.entity.enums.ContentRatingSystem;
 import com.cezarykluczynski.stapi.model.content_rating.repository.ContentRatingRepository;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -23,10 +19,6 @@ import javax.persistence.SequenceGenerator;
 
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
-@EqualsAndHashCode
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.REAL_WORLD_HELPER, repository = ContentRatingRepository.class, apiEntity = false,
 		singularName = "content rating", pluralName = "content ratings")

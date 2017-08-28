@@ -9,10 +9,8 @@ import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
 import com.google.common.collect.Sets;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -33,8 +31,6 @@ import java.util.Set;
 
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString(callSuper = true, exclude = {"species", "owner", "operator", "affiliation", "spacecraftTypes"})
 @EqualsAndHashCode(callSuper = true, exclude = {"species", "owner", "operator", "affiliation", "spacecraftTypes"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

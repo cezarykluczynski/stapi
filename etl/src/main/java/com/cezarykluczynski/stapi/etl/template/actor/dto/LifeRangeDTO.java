@@ -2,13 +2,11 @@ package com.cezarykluczynski.stapi.etl.template.actor.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Getter
 @AllArgsConstructor(staticName = "of")
-@NoArgsConstructor
 public class LifeRangeDTO {
 
 	private LocalDate dateOfBirth;

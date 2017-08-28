@@ -5,11 +5,8 @@ import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityTyp
 import com.cezarykluczynski.stapi.model.trading_card_deck.entity.TradingCardDeck;
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet;
 import com.cezarykluczynski.stapi.model.video_release.repository.VideoReleaseRepository;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -25,11 +22,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
-@Builder
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString(exclude = {"tradingCardSet", "tradingCardDeck"})
 @EqualsAndHashCode(exclude = {"tradingCardSet", "tradingCardDeck"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

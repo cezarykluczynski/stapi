@@ -31,11 +31,11 @@ public class PageBindingService {
 			return pageEntityOptional.get();
 		}
 
-		return pageRepository.save(com.cezarykluczynski.stapi.model.page.entity.Page.builder()
-				.pageId(page.getPageId())
-				.title(page.getTitle())
-				.mediaWikiSource(map(page.getMediaWikiSource()))
-				.build());
+		com.cezarykluczynski.stapi.model.page.entity.Page pageEntity = new com.cezarykluczynski.stapi.model.page.entity.Page();
+		pageEntity.setPageId(page.getPageId());
+		pageEntity.setTitle(page.getTitle());
+		pageEntity.setMediaWikiSource(map(page.getMediaWikiSource()));
+		return pageRepository.save(pageEntity);
 	}
 
 	public synchronized com.cezarykluczynski.stapi.model.page.entity.Page fromPageHeaderToPageEntity(PageHeader pageHeader) {
@@ -46,11 +46,11 @@ public class PageBindingService {
 			return pageEntityOptional.get();
 		}
 
-		return pageRepository.save(com.cezarykluczynski.stapi.model.page.entity.Page.builder()
-				.pageId(pageHeader.getPageId())
-				.title(pageHeader.getTitle())
-				.mediaWikiSource(map(pageHeader.getMediaWikiSource()))
-				.build());
+		com.cezarykluczynski.stapi.model.page.entity.Page pageEntity = new com.cezarykluczynski.stapi.model.page.entity.Page();
+		pageEntity.setPageId(pageHeader.getPageId());
+		pageEntity.setTitle(pageHeader.getTitle());
+		pageEntity.setMediaWikiSource(map(pageHeader.getMediaWikiSource()));
+		return pageRepository.save(pageEntity);
 	}
 
 	private Optional<com.cezarykluczynski.stapi.model.page.entity.Page> findPageByPageId(Long pageId) {

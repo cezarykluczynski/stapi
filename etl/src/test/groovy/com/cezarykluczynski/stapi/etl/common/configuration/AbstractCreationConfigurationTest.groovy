@@ -9,7 +9,7 @@ import spock.lang.Specification
 abstract class AbstractCreationConfigurationTest extends Specification {
 
 	protected static List<PageHeader> createListWithPageHeaderTitle(String title) {
-		Lists.newArrayList(PageHeader.builder().title(title).build())
+		Lists.newArrayList(new PageHeader(title: title))
 	}
 
 	protected static List<Page> createListWithPageRenderedTitle(String title) {

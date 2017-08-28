@@ -12,7 +12,6 @@ import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.model.video_release.entity.enums.VideoReleaseFormat;
 import com.cezarykluczynski.stapi.model.video_release.repository.VideoReleaseRepository;
 import com.google.common.collect.Sets;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -39,8 +38,6 @@ import java.util.Set;
 
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString(callSuper = true, exclude = {"series", "references", "ratings", "languages", "languagesSubtitles", "languagesDubbed"})
 @EqualsAndHashCode(callSuper = true, exclude = {"series", "references", "ratings", "languages", "languagesSubtitles", "languagesDubbed"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

@@ -9,10 +9,8 @@ import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository;
 import com.google.common.collect.Sets;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -32,8 +30,6 @@ import java.util.Set;
 
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString(callSuper = true, exclude = {"episodesPerformances", "episodesStuntPerformances", "episodesStandInPerformances", "moviesPerformances",
 		"moviesStuntPerformances", "moviesStandInPerformances", "characters"})
 @EqualsAndHashCode(callSuper = true, exclude = {"episodesPerformances", "episodesStuntPerformances", "episodesStandInPerformances",

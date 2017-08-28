@@ -23,12 +23,11 @@ public class EndpointHitFactory {
 	}
 
 	public void tryCreateAndPersistEmptyEntityFromKey(MetricsEndpointKeyDTO key) {
-		EndpointHit endpointHit = EndpointHit.builder()
-				.endpointName(key.getEndpointName())
-				.endpointType(endpointTypeFromEndpointName(key.getEndpointName()))
-				.methodName(key.getMethodName())
-				.numberOfHits(0L)
-				.build();
+		EndpointHit endpointHit = new EndpointHit();
+		endpointHit.setEndpointName(key.getEndpointName());
+		endpointHit.setEndpointType(endpointTypeFromEndpointName(key.getEndpointName()));
+		endpointHit.setMethodName(key.getMethodName());
+		endpointHit.setNumberOfHits(0L);
 
 		try {
 			endpointHitRepository.save(endpointHit);

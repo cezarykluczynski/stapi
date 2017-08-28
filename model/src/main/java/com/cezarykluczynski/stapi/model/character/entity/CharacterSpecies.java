@@ -4,10 +4,8 @@ import com.cezarykluczynski.stapi.model.character.repository.CharacterSpeciesRep
 import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -26,8 +24,6 @@ import java.io.Serializable;
 
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString(exclude = {"species"})
 @EqualsAndHashCode(exclude = {"species"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

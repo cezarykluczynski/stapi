@@ -7,10 +7,8 @@ import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.staff.repository.StaffRepository;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -26,8 +24,6 @@ import java.util.Set;
 
 @Data
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString(callSuper = true, exclude = {"writtenEpisodes", "teleplayAuthoredEpisodes", "storyAuthoredEpisodes", "directedEpisodes", "episodes",
 		"writtenMovies", "screenplayAuthoredMovies", "storyAuthoredMovies", "directedMovies", "producedMovies", "movies"})
 @EqualsAndHashCode(callSuper = true, exclude = {"writtenEpisodes", "teleplayAuthoredEpisodes", "storyAuthoredEpisodes", "directedEpisodes",

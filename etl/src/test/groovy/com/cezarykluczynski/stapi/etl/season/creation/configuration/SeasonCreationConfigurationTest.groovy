@@ -31,7 +31,7 @@ class SeasonCreationConfigurationTest extends AbstractCreationConfigurationTest 
 
 	void "SeasonReader is created with all pages when step is not completed"() {
 		given:
-		List<PageHeader> pageHeaderList = Lists.newArrayList(PageHeader.builder().title(TITLE).build())
+		List<PageHeader> pageHeaderList = Lists.newArrayList(new PageHeader(title: TITLE))
 
 		when:
 		SeasonReader seasonReader = seasonCreationConfiguration.seasonReader()
