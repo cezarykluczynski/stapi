@@ -27,17 +27,17 @@ public class StarshipClassTemplatePageProcessor implements ItemProcessor<Page, S
 
 	private final StarshipClassTemplateCategoriesEnrichingProcessor starshipClassTemplateCategoriesEnrichingProcessor;
 
-	private final StarshipClassTemplateCompositeEnrichingProcessor soundtrackTemplateCompositeEnrichingProcessor;
+	private final StarshipClassTemplateCompositeEnrichingProcessor starshipClassTemplateCompositeEnrichingProcessor;
 
 	public StarshipClassTemplatePageProcessor(StarshipClassFilter starshipClassFilter, TemplateFinder templateFinder,
 			PageBindingService pageBindingService,
 			StarshipClassTemplateCategoriesEnrichingProcessor starshipClassTemplateCategoriesEnrichingProcessor,
-			StarshipClassTemplateCompositeEnrichingProcessor soundtrackTemplateCompositeEnrichingProcessor) {
+			StarshipClassTemplateCompositeEnrichingProcessor starshipClassTemplateCompositeEnrichingProcessor) {
 		this.starshipClassFilter = starshipClassFilter;
 		this.templateFinder = templateFinder;
 		this.pageBindingService = pageBindingService;
 		this.starshipClassTemplateCategoriesEnrichingProcessor = starshipClassTemplateCategoriesEnrichingProcessor;
-		this.soundtrackTemplateCompositeEnrichingProcessor = soundtrackTemplateCompositeEnrichingProcessor;
+		this.starshipClassTemplateCompositeEnrichingProcessor = starshipClassTemplateCompositeEnrichingProcessor;
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class StarshipClassTemplatePageProcessor implements ItemProcessor<Page, S
 		starshipClassTemplateCategoriesEnrichingProcessor.enrich(EnrichablePair.of(item.getCategories(), starshipClassTemplate));
 
 		if (templateOptional.isPresent()) {
-			soundtrackTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(templateOptional.get(), starshipClassTemplate));
+			starshipClassTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(templateOptional.get(), starshipClassTemplate));
 		}
 
 		return starshipClassTemplate;
