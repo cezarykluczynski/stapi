@@ -41,10 +41,12 @@ public class StarshipClassTemplateRelationsEnrichingProcessor implements ItemEnr
 			switch (key) {
 				case StarshipClassTemplateParameter.OWNER:
 					List<Organization> ownerList = wikitextToOrganizationsProcessor.process(value);
-					if (ownerList.size() == 1) {
+					if (!ownerList.isEmpty()) {
 						starshipClassTemplate.setOwner(ownerList.iterator().next());
-					} else if (!ownerList.isEmpty()) {
-						log.info("More than one organization found for owner value {}", value);
+						if (ownerList.size() > 1) {
+							log.info("More than one organization found for starship class {} for owner value {}, using the first value",
+									starshipClassName, value);
+						}
 					}
 					break;
 				case StarshipClassTemplateParameter.OPERATOR:

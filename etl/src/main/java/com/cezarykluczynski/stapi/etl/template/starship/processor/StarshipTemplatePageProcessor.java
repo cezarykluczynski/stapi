@@ -43,7 +43,7 @@ public class StarshipTemplatePageProcessor implements ItemProcessor<Page, Starsh
 		starshipTemplate.setName(TitleUtil.getNameFromTitle(item.getTitle()));
 		starshipTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 
-		Optional<Template> templateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_STARSHIP_CLASS);
+		Optional<Template> templateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_STARSHIP);
 
 		if (templateOptional.isPresent()) {
 			starshipTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(templateOptional.get(), starshipTemplate));

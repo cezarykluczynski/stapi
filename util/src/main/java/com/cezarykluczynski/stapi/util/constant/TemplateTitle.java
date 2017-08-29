@@ -26,6 +26,7 @@ public class TemplateTitle {
 	public static final String SIDEBAR_VIDEOGAME = "sidebar videogame";
 	public static final String SIDEBAR_SOUNDTRACK = "sidebar soundtrack";
 	public static final String SIDEBAR_STARSHIP_CLASS = "sidebar starship class";
+	public static final String SIDEBAR_STARSHIP = "sidebar starship";
 
 	public static final String BORN = "born";
 

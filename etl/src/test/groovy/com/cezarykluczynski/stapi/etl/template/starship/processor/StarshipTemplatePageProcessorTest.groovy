@@ -63,7 +63,7 @@ class StarshipTemplatePageProcessorTest extends Specification {
 		then:
 		1 * starshipFilterMock.shouldBeFilteredOut(page) >> false
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
-		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_STARSHIP_CLASS) >> Optional.empty()
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_STARSHIP) >> Optional.empty()
 		0 * _
 		starshipTemplate.name == TITLE
 		starshipTemplate.page == modelPage
@@ -84,7 +84,7 @@ class StarshipTemplatePageProcessorTest extends Specification {
 		then:
 		1 * starshipFilterMock.shouldBeFilteredOut(page) >> false
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
-		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_STARSHIP_CLASS) >> Optional.of(template)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_STARSHIP) >> Optional.of(template)
 		1 * starshipTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 				EnrichablePair<Template, StarshipTemplate> enrichablePair ->
 			assert enrichablePair.input == template
