@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplate
-import com.cezarykluczynski.stapi.etl.template.starship.service.StarshipFilter
+import com.cezarykluczynski.stapi.etl.template.starship.service.StarshipPageFilter
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
@@ -17,7 +17,7 @@ class StarshipTemplatePageProcessorTest extends Specification {
 	private static final String TITLE_WITH_BRACKETS = 'TITLE (something in brackets)'
 	private static final String TITLE = 'TITLE'
 
-	private StarshipFilter starshipFilterMock
+	private StarshipPageFilter starshipPageFilterMock
 
 	private TemplateFinder templateFinderMock
 
@@ -28,11 +28,11 @@ class StarshipTemplatePageProcessorTest extends Specification {
 	private StarshipTemplatePageProcessor starshipTemplatePageProcessor
 
 	void setup() {
-		starshipFilterMock = Mock()
+		starshipPageFilterMock = Mock()
 		templateFinderMock = Mock()
 		pageBindingServiceMock = Mock()
 		starshipTemplateCompositeEnrichingProcessorMock = Mock()
-		starshipTemplatePageProcessor = new StarshipTemplatePageProcessor(starshipFilterMock, templateFinderMock, pageBindingServiceMock,
+		starshipTemplatePageProcessor = new StarshipTemplatePageProcessor(starshipPageFilterMock, templateFinderMock, pageBindingServiceMock,
 				starshipTemplateCompositeEnrichingProcessorMock)
 	}
 
@@ -44,7 +44,7 @@ class StarshipTemplatePageProcessorTest extends Specification {
 		StarshipTemplate starshipTemplate = starshipTemplatePageProcessor.process(page)
 
 		then:
-		1 * starshipFilterMock.shouldBeFilteredOut(page) >> true
+		1 * starshipPageFilterMock.shouldBeFilteredOut(page) >> true
 		0 * _
 		starshipTemplate == null
 	}
@@ -61,7 +61,7 @@ class StarshipTemplatePageProcessorTest extends Specification {
 		StarshipTemplate starshipTemplate = starshipTemplatePageProcessor.process(page)
 
 		then:
-		1 * starshipFilterMock.shouldBeFilteredOut(page) >> false
+		1 * starshipPageFilterMock.shouldBeFilteredOut(page) >> false
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_STARSHIP) >> Optional.empty()
 		0 * _
@@ -82,7 +82,7 @@ class StarshipTemplatePageProcessorTest extends Specification {
 		StarshipTemplate starshipTemplate = starshipTemplatePageProcessor.process(page)
 
 		then:
-		1 * starshipFilterMock.shouldBeFilteredOut(page) >> false
+		1 * starshipPageFilterMock.shouldBeFilteredOut(page) >> false
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_STARSHIP) >> Optional.of(template)
 		1 * starshipTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {

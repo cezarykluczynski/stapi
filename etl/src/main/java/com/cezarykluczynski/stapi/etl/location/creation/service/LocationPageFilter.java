@@ -27,11 +27,7 @@ public class LocationPageFilter implements MediaWikiPageFilter {
 
 	@Override
 	public boolean shouldBeFilteredOut(Page page) {
-		if (!page.getRedirectPath().isEmpty()) {
-			return true;
-		}
-
-		if (categoryFinder.hasAnyCategory(page, CategoryTitles.ORGANIZATIONS)
+		if (!page.getRedirectPath().isEmpty() || categoryFinder.hasAnyCategory(page, CategoryTitles.ORGANIZATIONS)
 				|| categoryFinder.hasAnyCategory(page, Lists.newArrayList(CategoryTitle.LISTS))) {
 			return true;
 		}

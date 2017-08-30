@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplate;
-import com.cezarykluczynski.stapi.etl.template.starship.service.StarshipFilter;
+import com.cezarykluczynski.stapi.etl.template.starship.service.StarshipPageFilter;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
@@ -17,7 +17,7 @@ import java.util.Optional;
 @Service
 public class StarshipTemplatePageProcessor implements ItemProcessor<Page, StarshipTemplate> {
 
-	private final StarshipFilter starshipFilter;
+	private final StarshipPageFilter starshipPageFilter;
 
 	private final TemplateFinder templateFinder;
 
@@ -25,9 +25,9 @@ public class StarshipTemplatePageProcessor implements ItemProcessor<Page, Starsh
 
 	private final StarshipTemplateCompositeEnrichingProcessor starshipTemplateCompositeEnrichingProcessor;
 
-	public StarshipTemplatePageProcessor(StarshipFilter starshipFilter, TemplateFinder templateFinder, PageBindingService pageBindingService,
+	public StarshipTemplatePageProcessor(StarshipPageFilter starshipPageFilter, TemplateFinder templateFinder, PageBindingService pageBindingService,
 			StarshipTemplateCompositeEnrichingProcessor starshipTemplateCompositeEnrichingProcessor) {
-		this.starshipFilter = starshipFilter;
+		this.starshipPageFilter = starshipPageFilter;
 		this.templateFinder = templateFinder;
 		this.pageBindingService = pageBindingService;
 		this.starshipTemplateCompositeEnrichingProcessor = starshipTemplateCompositeEnrichingProcessor;
@@ -35,7 +35,7 @@ public class StarshipTemplatePageProcessor implements ItemProcessor<Page, Starsh
 
 	@Override
 	public StarshipTemplate process(Page item) throws Exception {
-		if (starshipFilter.shouldBeFilteredOut(item)) {
+		if (starshipPageFilter.shouldBeFilteredOut(item)) {
 			return null;
 		}
 
