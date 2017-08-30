@@ -69,6 +69,8 @@ public class StarshipTemplateRelationsEnrichingProcessor implements ItemEnrichin
 							log.info("More than one spacecraft class found for starship {} for operator value {}, using the first value",
 									starshipName, value);
 						}
+					} else {
+						// TODO parsing class template
 					}
 					break;
 				default:
