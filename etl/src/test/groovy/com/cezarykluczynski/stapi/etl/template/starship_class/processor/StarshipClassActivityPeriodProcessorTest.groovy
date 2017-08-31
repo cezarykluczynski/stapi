@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.starship_class.processor
 
+import com.cezarykluczynski.stapi.etl.common.service.PeriodCandidateDetector
 import com.cezarykluczynski.stapi.etl.template.starship_class.dto.ActivityPeriodDTO
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApiImpl
 import spock.lang.Specification
@@ -7,14 +8,20 @@ import spock.lang.Unroll
 
 class StarshipClassActivityPeriodProcessorTest extends Specification {
 
+	private PeriodCandidateDetector periodCandidateDetectorMock
+
 	private StarshipClassActivityPeriodProcessor starshipClassActivityPeriodProcessor
 
 	void setup() {
-		starshipClassActivityPeriodProcessor = new StarshipClassActivityPeriodProcessor(new WikitextApiImpl())
+		periodCandidateDetectorMock = Mock()
+		starshipClassActivityPeriodProcessor = new StarshipClassActivityPeriodProcessor(new WikitextApiImpl(), periodCandidateDetectorMock)
 	}
 
 	@Unroll('when #text is passed, #activityPeriod is returned')
 	void "parses various text values into activityPeriod"() {
+		given:
+		periodCandidateDetectorMock.isPeriodCandidate(_) >> true
+
 		expect:
 		starshipClassActivityPeriodProcessor.process(text) == activityPeriod
 

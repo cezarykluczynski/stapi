@@ -1,11 +1,10 @@
 package com.cezarykluczynski.stapi.etl.template.starship_class.processor;
 
+import com.cezarykluczynski.stapi.etl.common.service.PeriodCandidateDetector;
 import com.cezarykluczynski.stapi.etl.template.starship_class.dto.ActivityPeriodDTO;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import com.google.common.collect.Lists;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
@@ -22,9 +21,12 @@ public class StarshipClassActivityPeriodProcessor implements ItemProcessor<Strin
 
 	private final WikitextApi wikitextApi;
 
+	private final PeriodCandidateDetector periodCandidateDetector;
+
 	@Inject
-	public StarshipClassActivityPeriodProcessor(WikitextApi wikitextApi) {
+	public StarshipClassActivityPeriodProcessor(WikitextApi wikitextApi, PeriodCandidateDetector periodCandidateDetector) {
 		this.wikitextApi = wikitextApi;
+		this.periodCandidateDetector = periodCandidateDetector;
 	}
 
 	@Override
@@ -75,7 +77,7 @@ public class StarshipClassActivityPeriodProcessor implements ItemProcessor<Strin
 	}
 
 	private boolean isPeriodCandidate(PageLink pageLink) {
-		return StringUtils.length(pageLink.getTitle()) > 2 && NumberUtils.isDigits(StringUtils.substring(pageLink.getTitle(), 0, 2));
+		return periodCandidateDetector.isPeriodCandidate(pageLink.getTitle());
 	}
 
 }

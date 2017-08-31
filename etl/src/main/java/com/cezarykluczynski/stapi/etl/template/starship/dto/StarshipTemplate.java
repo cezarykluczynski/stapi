@@ -20,8 +20,8 @@ public class StarshipTemplate {
 
 	private Organization operator;
 
-	private String status; // TODO
+	private String status;
 
-	private String dateStatus; // TODO
+	private String dateStatus;
 
 }

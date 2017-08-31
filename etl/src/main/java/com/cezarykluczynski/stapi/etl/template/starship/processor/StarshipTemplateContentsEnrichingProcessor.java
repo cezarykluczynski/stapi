@@ -6,7 +6,6 @@ import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplate;
 import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplateParameter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,10 +16,13 @@ public class StarshipTemplateContentsEnrichingProcessor implements ItemEnriching
 
 	private final StarshipStatusProcessor starshipStatusProcessor;
 
+	private final StarshipDateStatusProcessor starshipDateStatusProcessor;
+
 	public StarshipTemplateContentsEnrichingProcessor(StarshipRegistryProcessor starshipRegistryProcessor,
-			StarshipStatusProcessor starshipStatusProcessor) {
+			StarshipStatusProcessor starshipStatusProcessor, StarshipDateStatusProcessor starshipDateStatusProcessor) {
 		this.starshipRegistryProcessor = starshipRegistryProcessor;
 		this.starshipStatusProcessor = starshipStatusProcessor;
+		this.starshipDateStatusProcessor = starshipDateStatusProcessor;
 	}
 
 	@Override
@@ -40,9 +42,7 @@ public class StarshipTemplateContentsEnrichingProcessor implements ItemEnriching
 					starshipTemplate.setStatus(starshipStatusProcessor.process(value));
 					break;
 				case StarshipTemplateParameter.DATE_STATUS:
-					if (StringUtils.isNotEmpty(value)) {
-						starshipTemplate.setDateStatus(value);
-					}
+					starshipTemplate.setDateStatus(starshipDateStatusProcessor.process(value));
 					break;
 				default:
 					break;
