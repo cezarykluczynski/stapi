@@ -42,7 +42,6 @@ class TradingCardDeckBaseSoapMapperTest extends AbstractTradingCardDeckMapperTes
 		tradingCardDeckBase.name == NAME
 		tradingCardDeckBase.frequency == FREQUENCY
 		tradingCardDeckBase.tradingCardSet != null
-//		tradingCardDeckBase.tradingCards.size() == tradingCardDeck.tradingCards.size() // TODO
 	}
 
 }
