@@ -23,11 +23,15 @@ public class StarshipTemplateRelationsEnrichingProcessor implements ItemEnrichin
 
 	private final WikitextToSpacecraftClassesProcessor wikitextToSpacecraftClassesProcessor;
 
+	private final ClassTemplateSpacecraftClassesProcessor classTemplateSpacecraftClassesProcessor;
+
 	@Inject
 	public StarshipTemplateRelationsEnrichingProcessor(WikitextToOrganizationsProcessor wikitextToOrganizationsProcessor,
-			WikitextToSpacecraftClassesProcessor wikitextToSpacecraftClassesProcessor) {
+			WikitextToSpacecraftClassesProcessor wikitextToSpacecraftClassesProcessor,
+			ClassTemplateSpacecraftClassesProcessor classTemplateSpacecraftClassesProcessor) {
 		this.wikitextToOrganizationsProcessor = wikitextToOrganizationsProcessor;
 		this.wikitextToSpacecraftClassesProcessor = wikitextToSpacecraftClassesProcessor;
+		this.classTemplateSpacecraftClassesProcessor = classTemplateSpacecraftClassesProcessor;
 	}
 
 	@Override
@@ -64,12 +68,21 @@ public class StarshipTemplateRelationsEnrichingProcessor implements ItemEnrichin
 				case StarshipTemplateParameter.CLASS:
 					List<SpacecraftClass> classList = wikitextToSpacecraftClassesProcessor.process(value);
 					if (!classList.isEmpty()) {
-						starshipTemplate.setSpacecraftClass(classList.iterator().next());
+						setFirstSpacecraftToTemplate(classList, starshipTemplate);
 						if (classList.size() > 1) {
 							log.info("More than one spacecraft class found for starship {} for operator value {}, using the first value",
 									starshipName, value);
 						}
 					} else {
+						classList = classTemplateSpacecraftClassesProcessor.process(part);
+						if (!classList.isEmpty()) {
+							setFirstSpacecraftToTemplate(classList, starshipTemplate);
+							if (classList.size() > 1) {
+								log.info("More than one spacecraft class found for starship {} for operator part {}, using the first value",
+										starshipName, part);
+							}
+						}
+
 						// TODO parsing class template
 					}
 					break;
@@ -77,6 +90,10 @@ public class StarshipTemplateRelationsEnrichingProcessor implements ItemEnrichin
 					break;
 			}
 		}
+	}
+
+	private void setFirstSpacecraftToTemplate(List<SpacecraftClass> classList, StarshipTemplate starshipTemplate) {
+		starshipTemplate.setSpacecraftClass(classList.iterator().next());
 	}
 
 }

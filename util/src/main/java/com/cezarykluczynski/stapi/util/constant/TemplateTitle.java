@@ -58,6 +58,8 @@ public class TemplateTitle {
 	public static final String GR = "gr";
 	public static final String PLATFORM = "platform";
 
+	public static final String CLASS = "class";
+
 	// Memory Beta
 	public static final String CHARACTER_BOX = "characterbox";
 }

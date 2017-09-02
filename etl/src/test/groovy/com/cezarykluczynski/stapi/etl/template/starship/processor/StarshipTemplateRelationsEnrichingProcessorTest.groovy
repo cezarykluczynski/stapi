@@ -21,13 +21,16 @@ class StarshipTemplateRelationsEnrichingProcessorTest extends Specification {
 
 	private WikitextToSpacecraftClassesProcessor wikitextToSpacecraftClassesProcessorMock
 
+	private ClassTemplateSpacecraftClassesProcessor classTemplateSpacecraftClassesProcessorMock
+
 	private StarshipTemplateRelationsEnrichingProcessor starshipTemplateRelationsEnrichingProcessor
 
 	void setup() {
 		wikitextToOrganizationsProcessorMock = Mock()
 		wikitextToSpacecraftClassesProcessorMock = Mock()
+		classTemplateSpacecraftClassesProcessorMock = Mock()
 		starshipTemplateRelationsEnrichingProcessor = new StarshipTemplateRelationsEnrichingProcessor(wikitextToOrganizationsProcessorMock,
-				wikitextToSpacecraftClassesProcessorMock)
+				wikitextToSpacecraftClassesProcessorMock, classTemplateSpacecraftClassesProcessorMock)
 	}
 
 	void "when owner part is found, and WikitextToOrganizationsProcessor returns no items, nothing happens"() {
@@ -132,20 +135,22 @@ class StarshipTemplateRelationsEnrichingProcessorTest extends Specification {
 		starshipTemplate.operator == organization1
 	}
 
-	void "when class part is found, and WikitextToSpacecraftClassesProcessor returns no items, nothing happens"() {
+	void "when class part is found, and WikitextToSpacecraftClassesProcessor returns two items, first one is used"() {
 		given:
 		Template sidebarStarshipTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
 				key: StarshipTemplateParameter.CLASS,
 				value: CLASS)))
+		SpacecraftClass spacecraftClass1 = Mock()
+		SpacecraftClass spacecraftClass2 = Mock()
 		StarshipTemplate starshipTemplate = new StarshipTemplate()
 
 		when:
 		starshipTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipTemplate, starshipTemplate))
 
 		then:
-		1 * wikitextToSpacecraftClassesProcessorMock.process(CLASS) >> Lists.newArrayList()
+		1 * wikitextToSpacecraftClassesProcessorMock.process(CLASS) >> Lists.newArrayList(spacecraftClass1, spacecraftClass2)
 		0 * _
-		starshipTemplate.spacecraftClass == null
+		starshipTemplate.spacecraftClass == spacecraftClass1
 	}
 
 	void "when class part is found, and WikitextToSpacecraftClassesProcessor returns one item, it is used as owner"() {
@@ -165,22 +170,67 @@ class StarshipTemplateRelationsEnrichingProcessorTest extends Specification {
 		starshipTemplate.spacecraftClass == spacecraftClass
 	}
 
-	void "when class part is found, and WikitextToSpacecraftClassesProcessor returns two items, first one is used"() {
+	@SuppressWarnings('BracesForMethod')
+	void """when class part is found, and WikitextToSpacecraftClassesProcessor returns no items, ClassTemplateSpacecraftClassesProcessor is used
+			to retrieve spacecraft classes"""() {
 		given:
-		Template sidebarStarshipTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
+		Template.Part templatePart = new Template.Part(
 				key: StarshipTemplateParameter.CLASS,
-				value: CLASS)))
+				value: CLASS)
+		Template sidebarStarshipTemplate = new Template(parts: Lists.newArrayList(templatePart))
+		StarshipTemplate starshipTemplate = new StarshipTemplate()
+		SpacecraftClass spacecraftClass = Mock()
+
+		when:
+		starshipTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipTemplate, starshipTemplate))
+
+		then:
+		1 * wikitextToSpacecraftClassesProcessorMock.process(CLASS) >> Lists.newArrayList()
+		1 * classTemplateSpacecraftClassesProcessorMock.process(templatePart) >> Lists.newArrayList(spacecraftClass)
+		0 * _
+		starshipTemplate.spacecraftClass == spacecraftClass
+	}
+
+	@SuppressWarnings('BracesForMethod')
+	void """when class part is found, and WikitextToSpacecraftClassesProcessor returns no items, and ClassTemplateSpacecraftClassesProcessor
+			returns two items, first one is used"""() {
+		given:
+		Template.Part templatePart = new Template.Part(
+				key: StarshipTemplateParameter.CLASS,
+				value: CLASS)
+		Template sidebarStarshipTemplate = new Template(parts: Lists.newArrayList(templatePart))
+		StarshipTemplate starshipTemplate = new StarshipTemplate()
 		SpacecraftClass spacecraftClass1 = Mock()
 		SpacecraftClass spacecraftClass2 = Mock()
+
+		when:
+		starshipTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipTemplate, starshipTemplate))
+
+		then:
+		1 * wikitextToSpacecraftClassesProcessorMock.process(CLASS) >> Lists.newArrayList()
+		1 * classTemplateSpacecraftClassesProcessorMock.process(templatePart) >> Lists.newArrayList(spacecraftClass1, spacecraftClass2)
+		0 * _
+		starshipTemplate.spacecraftClass == spacecraftClass1
+	}
+
+	@SuppressWarnings('BracesForMethod')
+	void """when class part is found, and WikitextToSpacecraftClassesProcessor returns no items, ClassTemplateSpacecraftClassesProcessor returns
+			no items, spacecraftClass is set to null"""() {
+		given:
+		Template.Part templatePart = new Template.Part(
+				key: StarshipTemplateParameter.CLASS,
+				value: CLASS)
+		Template sidebarStarshipTemplate = new Template(parts: Lists.newArrayList(templatePart))
 		StarshipTemplate starshipTemplate = new StarshipTemplate()
 
 		when:
 		starshipTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipTemplate, starshipTemplate))
 
 		then:
-		1 * wikitextToSpacecraftClassesProcessorMock.process(CLASS) >> Lists.newArrayList(spacecraftClass1, spacecraftClass2)
+		1 * wikitextToSpacecraftClassesProcessorMock.process(CLASS) >> Lists.newArrayList()
+		1 * classTemplateSpacecraftClassesProcessorMock.process(templatePart) >> Lists.newArrayList()
 		0 * _
-		starshipTemplate.spacecraftClass == spacecraftClass1
+		starshipTemplate.spacecraftClass == null
 	}
 
 }

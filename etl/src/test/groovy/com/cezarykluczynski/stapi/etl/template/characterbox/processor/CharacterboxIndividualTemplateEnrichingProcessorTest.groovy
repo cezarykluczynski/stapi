@@ -64,7 +64,7 @@ class CharacterboxIndividualTemplateEnrichingProcessorTest extends Specification
 
 	@SuppressWarnings('BracesForMethod')
 	void """when template and page is found, and CharacterboxTemplateProcessor returns null,
-	IndividualTemplateWithCharacterboxTemplateEnrichingProcessor is not called"""() {
+			IndividualTemplateWithCharacterboxTemplateEnrichingProcessor is not called"""() {
 		given:
 		Template template = new Template(title: TemplateTitle.MBETA)
 		IndividualTemplate individualTemplate = new IndividualTemplate(page: new PageEntity(
@@ -82,7 +82,7 @@ class CharacterboxIndividualTemplateEnrichingProcessorTest extends Specification
 
 	@SuppressWarnings('BracesForMethod')
 	void """when template and page is found, and CharacterboxTemplateProcessor returns template,
-	IndividualTemplateWithCharacterboxTemplateEnrichingProcessor is called"""() {
+			IndividualTemplateWithCharacterboxTemplateEnrichingProcessor is called"""() {
 		given:
 		Template template = new Template(title: TemplateTitle.MBETA)
 		IndividualTemplate individualTemplate = new IndividualTemplate(page: new PageEntity(
