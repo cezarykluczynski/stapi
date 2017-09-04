@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.starship.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.organization.WikitextToOrganizationsProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.spacecraft_class.WikitextToSpacecraftClassesProcessor;
 import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplate;
@@ -17,7 +17,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class StarshipTemplateRelationsEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template, StarshipTemplate>> {
+public class StarshipTemplateRelationsEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<StarshipTemplate> {
 
 	private final WikitextToOrganizationsProcessor wikitextToOrganizationsProcessor;
 

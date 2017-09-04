@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.characterbox.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.characterbox.dto.CharacterboxTemplate;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
 import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTemplateWithCharacterboxTemplateEnrichingProcessor;
@@ -17,7 +17,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Service
-public class CharacterboxIndividualTemplateEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template, IndividualTemplate>> {
+public class CharacterboxIndividualTemplateEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<IndividualTemplate> {
 
 	private static final MediaWikiSource SOURCE = MediaWikiSource.MEMORY_BETA_EN;
 

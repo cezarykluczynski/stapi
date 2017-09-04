@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.soundtrack.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.RecordingTimeProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DatePartToLocalDateProcessor;
 import com.cezarykluczynski.stapi.etl.template.soundtrack.dto.SoundtrackTemplate;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 
 @Service
-public class SoundtrackTemplateContentsEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template, SoundtrackTemplate>> {
+public class SoundtrackTemplateContentsEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<SoundtrackTemplate> {
 
 	private final DatePartToLocalDateProcessor datePartToLocalDateProcessor;
 

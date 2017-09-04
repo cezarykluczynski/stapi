@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.video.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DatePartToLocalDateProcessor;
 import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplate;
 import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplateParameter;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 
 @Service
-public class VideoTemplateDatesEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template, VideoTemplate>> {
+public class VideoTemplateDatesEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<VideoTemplate> {
 
 	private final DatePartToLocalDateProcessor datePartToLocalDateProcessor;
 

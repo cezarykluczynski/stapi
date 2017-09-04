@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.video_game.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor;
 import com.cezarykluczynski.stapi.etl.reference.processor.ReferencesFromTemplatePartProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.ContentRatingsProcessor;
@@ -11,7 +11,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.springframework.stereotype.Service;
 
 @Service
-class VideoGameTemplateRelationsEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template, VideoGameTemplate>> {
+class VideoGameTemplateRelationsEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<VideoGameTemplate> {
 
 	private final WikitextToCompaniesProcessor wikitextToCompaniesProcessor;
 

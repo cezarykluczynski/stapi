@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.video.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.season.WikitextToSeasonProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange;
 import com.cezarykluczynski.stapi.etl.template.common.processor.NumberOfPartsProcessor;
@@ -21,7 +21,7 @@ import java.util.Set;
 
 @Service
 @Slf4j
-public class VideoTemplateContentsEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template, VideoTemplate>> {
+public class VideoTemplateContentsEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<VideoTemplate> {
 
 	private final VideoReleaseFormatProcessor videoReleaseFormatProcessor;
 

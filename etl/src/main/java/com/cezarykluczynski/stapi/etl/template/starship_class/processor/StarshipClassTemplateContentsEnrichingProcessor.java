@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.starship_class.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.NumberOfPartsProcessor;
 import com.cezarykluczynski.stapi.etl.template.starship_class.dto.ActivityPeriodDTO;
 import com.cezarykluczynski.stapi.etl.template.starship_class.dto.StarshipClassTemplate;
@@ -14,7 +14,7 @@ import javax.inject.Inject;
 
 @Service
 @Slf4j
-public class StarshipClassTemplateContentsEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template, StarshipClassTemplate>> {
+public class StarshipClassTemplateContentsEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<StarshipClassTemplate> {
 
 	private final NumberOfPartsProcessor numberOfPartsProcessor;
 

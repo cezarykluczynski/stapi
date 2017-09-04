@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.starship.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplate;
 import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplateParameter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class StarshipTemplateContentsEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template, StarshipTemplate>> {
+public class StarshipTemplateContentsEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<StarshipTemplate> {
 
 	private final StarshipRegistryProcessor starshipRegistryProcessor;
 

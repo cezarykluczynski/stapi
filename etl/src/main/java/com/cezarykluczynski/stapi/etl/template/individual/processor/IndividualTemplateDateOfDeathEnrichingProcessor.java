@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.individual.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplateParameter;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
@@ -17,7 +17,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class IndividualTemplateDateOfDeathEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template, IndividualTemplate>> {
+public class IndividualTemplateDateOfDeathEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<IndividualTemplate> {
 
 	private static final String KIA = "kia";
 	private static final List<String> DEAD_SYNONYMS = Lists.newArrayList(

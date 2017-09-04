@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.video.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.reference.processor.ReferencesFromTemplatePartProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.ContentLanguagesProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.ContentRatingsProcessor;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 
 @Service
-public class VideoTemplateRelationsEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template, VideoTemplate>> {
+public class VideoTemplateRelationsEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<VideoTemplate> {
 
 	private final ContentRatingsProcessor contentRatingsProcessor;
 

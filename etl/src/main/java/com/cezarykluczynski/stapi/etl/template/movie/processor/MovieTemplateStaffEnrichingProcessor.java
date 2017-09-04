@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.movie.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService;
 import com.cezarykluczynski.stapi.etl.template.movie.dto.MovieTemplate;
 import com.cezarykluczynski.stapi.etl.template.movie.dto.MovieTemplateParameter;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-public class MovieTemplateStaffEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template, MovieTemplate>> {
+public class MovieTemplateStaffEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<MovieTemplate> {
 
 	private static final MediaWikiSource SOURCE = MediaWikiSource.MEMORY_ALPHA_EN;
 
@@ -36,8 +36,7 @@ public class MovieTemplateStaffEnrichingProcessor implements ItemEnrichingProces
 	private final EntityLookupByNameService entityLookupByNameService;
 
 	@Inject
-	public MovieTemplateStaffEnrichingProcessor(WikitextApi wikitextApi,
-			EntityLookupByNameService entityLookupByNameService) {
+	public MovieTemplateStaffEnrichingProcessor(WikitextApi wikitextApi, EntityLookupByNameService entityLookupByNameService) {
 		this.wikitextApi = wikitextApi;
 		this.entityLookupByNameService = entityLookupByNameService;
 	}

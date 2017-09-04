@@ -12,8 +12,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ImageTemplateStardateYearEnrichingProcessor
-		implements ItemEnrichingProcessor<EnrichablePair<Template, ImageTemplate>> {
+public class ImageTemplateStardateYearEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<ImageTemplate> {
 
 	private static final String S_TITLE = "stitle";
 	private static final String WS_DATE = "wsdate";

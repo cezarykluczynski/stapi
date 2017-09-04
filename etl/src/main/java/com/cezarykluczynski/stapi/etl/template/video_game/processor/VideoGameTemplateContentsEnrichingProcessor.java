@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.video_game.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DatePartToLocalDateProcessor;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-class VideoGameTemplateContentsEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template, VideoGameTemplate>> {
+class VideoGameTemplateContentsEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<VideoGameTemplate> {
 
 	private final DatePartToLocalDateProcessor datePartToLocalDateProcessor;
 
