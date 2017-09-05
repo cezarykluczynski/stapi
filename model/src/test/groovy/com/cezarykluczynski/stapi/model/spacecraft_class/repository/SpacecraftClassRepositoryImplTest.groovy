@@ -75,6 +75,7 @@ class SpacecraftClassRepositoryImplTest extends AbstractSpacecraftClassTest {
 		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.operator)
 		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.affiliation)
 		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecraftTypes, true)
+		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecrafts, true)
 
 		then: 'page is retrieved'
 		1 * spacecraftClassQueryBuilder.findPage() >> page
@@ -102,6 +103,7 @@ class SpacecraftClassRepositoryImplTest extends AbstractSpacecraftClassTest {
 		then: 'proxies are cleared'
 		1 * page.content >> Lists.newArrayList(spacecraftClass)
 		1 * spacecraftClass.setSpacecraftTypes(Sets.newHashSet())
+		1 * spacecraftClass.setSpacecrafts(Sets.newHashSet())
 		pageOutput == page
 	}
 

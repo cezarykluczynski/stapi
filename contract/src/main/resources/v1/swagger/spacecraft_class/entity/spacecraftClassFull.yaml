@@ -41,3 +41,4 @@ properties:
     items:
       $ref: '#/definitions/SpacecraftType'
     description: Spacecraft types
+  # TODO spacecrafts

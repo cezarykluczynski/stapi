@@ -30,7 +30,7 @@ class SpacecraftClassRestEndpointIntegrationTest extends AbstractSpacecraftClass
 	void "'Tellarite freighter' is among Tellarite spacecraft classes"() {
 		when:
 		SpacecraftClassBaseResponse spacecraftClassBaseResponse = stapiRestClient.spacecraftClassApi.spacecraftClassSearchPost(null, null, null, null,
-				'Tellarite')
+				'Tellarite', null, null)
 
 		then:
 		spacecraftClassBaseResponse.spacecraftClasses.stream()

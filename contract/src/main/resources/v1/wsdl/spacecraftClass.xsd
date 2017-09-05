@@ -236,6 +236,7 @@
 					</xs:annotation>
 				</xs:element>
 			</xs:sequence>
+			<!-- TODO spacecrafts -->
 		</xs:sequence>
 	</xs:complexType>
 </xs:schema>

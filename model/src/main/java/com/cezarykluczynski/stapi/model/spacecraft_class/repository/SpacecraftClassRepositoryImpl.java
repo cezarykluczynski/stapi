@@ -42,6 +42,7 @@ public class SpacecraftClassRepositoryImpl extends AbstractRepositoryImpl<Spacec
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.operator);
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.affiliation);
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecraftTypes, doFetch);
+		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecrafts, doFetch);
 
 		Page<SpacecraftClass> spacecraftClassPage = spacecraftClassQueryBuilder.findPage();
 		clearProxies(spacecraftClassPage, !doFetch);
@@ -56,6 +57,7 @@ public class SpacecraftClassRepositoryImpl extends AbstractRepositoryImpl<Spacec
 
 		page.getContent().forEach(spacecraftClass -> {
 			spacecraftClass.setSpacecraftTypes(Sets.newHashSet());
+			spacecraftClass.setSpacecrafts(Sets.newHashSet());
 		});
 	}
 

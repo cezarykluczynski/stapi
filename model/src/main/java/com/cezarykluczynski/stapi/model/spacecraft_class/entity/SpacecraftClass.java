@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.location.repository.LocationRepository;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
+import com.cezarykluczynski.stapi.model.spacecraft.entity.Spacecraft;
 import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
 import com.google.common.collect.Sets;
@@ -25,14 +26,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import java.util.Set;
 
 @Data
 @Entity
-@ToString(callSuper = true, exclude = {"species", "owner", "operator", "affiliation", "spacecraftTypes"})
-@EqualsAndHashCode(callSuper = true, exclude = {"species", "owner", "operator", "affiliation", "spacecraftTypes"})
+@ToString(callSuper = true, exclude = {"species", "owner", "operator", "affiliation", "spacecraftTypes", "spacecrafts"})
+@EqualsAndHashCode(callSuper = true, exclude = {"species", "owner", "operator", "affiliation", "spacecraftTypes", "spacecrafts"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = LocationRepository.class, singularName = "spacecraft class",
 		pluralName = "spacecraft classes")
@@ -80,6 +82,8 @@ public class SpacecraftClass extends PageAwareEntity implements PageAware {
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<SpacecraftType> spacecraftTypes = Sets.newHashSet();
 
-	// TODO: spacecrafts
+	@OneToMany(mappedBy = "spacecraftClass", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<Spacecraft> spacecrafts = Sets.newHashSet();
 
 }
