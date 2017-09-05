@@ -29,6 +29,8 @@ class StarshipTemplateProcessorTest extends AbstractSpacecraftTest {
 		StarshipTemplate starshipTemplate = new StarshipTemplate(
 				name: NAME,
 				registry: REGISTRY,
+				status: STATUS,
+				dateStatus: DATE_STATUS,
 				page: page,
 				owner: owner,
 				operator: operator,
@@ -42,6 +44,8 @@ class StarshipTemplateProcessorTest extends AbstractSpacecraftTest {
 		0 * _
 		spacecraft.name == NAME
 		spacecraft.registry == REGISTRY
+		spacecraft.status == STATUS
+		spacecraft.dateStatus == DATE_STATUS
 		spacecraft.page == page
 		spacecraft.owner == owner
 		spacecraft.operator == operator

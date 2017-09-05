@@ -44,6 +44,10 @@ public class Spacecraft extends PageAwareEntity implements PageAware {
 
 	private String registry;
 
+	private String status;
+
+	private String dateStatus;
+
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "spacecraft_class_id")
 	private SpacecraftClass spacecraftClass;

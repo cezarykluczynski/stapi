@@ -16,12 +16,12 @@ public class StarshipTemplate {
 
 	private String registry;
 
-	private Organization owner;
-
-	private Organization operator;
-
 	private String status;
 
 	private String dateStatus;
+
+	private Organization owner;
+
+	private Organization operator;
 
 }
