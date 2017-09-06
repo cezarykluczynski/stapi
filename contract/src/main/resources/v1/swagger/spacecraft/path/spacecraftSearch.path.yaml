@@ -1,0 +1,62 @@
+get:
+  description: Pagination over spacecrafts
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+      description: Zero-based page number
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+      description: Page size
+    - name: apiKey
+      in: query
+      type: string
+      description: API key
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/SpacecraftBaseResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - Spacecraft
+post:
+  description: Searching spacecrafts
+  consumes:
+    - application/x-www-form-urlencoded
+  producers:
+    - application/json
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+      description: Zero-based page number
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+      description: Page size
+    - name: sort
+      type: string
+      in: query
+      description: "Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC"
+    - name: apiKey
+      in: query
+      type: string
+      description: API key
+    - name: name
+      in: formData
+      type: string
+      description: Spacecraft name
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/SpacecraftBaseResponse'
+  tags:
+    - Spacecraft

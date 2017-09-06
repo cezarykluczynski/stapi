@@ -1,0 +1,11 @@
+type: object
+description: Header spacecraft, embedded in other objects
+properties:
+  uid:
+    type: string
+    required: true
+    description: Spacecraft unique ID
+  name:
+    type: string
+    required: true
+    description: Spacecraft name

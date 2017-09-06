@@ -1,0 +1,14 @@
+type: object
+description: Response object for spacecrafts search
+properties:
+  page:
+    $ref: '#/definitions/ResponsePage'
+    description: Response page
+  sort:
+    $ref: '#/definitions/ResponseSort'
+    description: Response sort
+  spacecrafts:
+    type: array
+    items:
+      $ref: '#/definitions/SpacecraftBase'
+    description: List of spacecrafts matching given criteria

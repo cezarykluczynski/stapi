@@ -1,0 +1,29 @@
+type: object
+description: Base spacecraft, returned in search results
+properties:
+  uid:
+    type: string
+    required: true
+    description: Spacecraft unique ID
+  name:
+    type: string
+    required: true
+    description: Spacecraft name
+  registry:
+    type: string
+    description: Spacecraft registry
+  status:
+    type: string
+    description: Status of a spacecraft (in prime reality, if spacecraft was in more than one realities)
+  dateStatus:
+    type: string
+    description: Date the spacecraft status was last known
+  spacecraftClass:
+    $ref: '#/definitions/SpacecraftClassHeader'
+    description: Spacecraft class
+  owner:
+    $ref: '#/definitions/OrganizationHeader'
+    description: Owner
+  operator:
+    $ref: '#/definitions/OrganizationHeader'
+    description: Operator

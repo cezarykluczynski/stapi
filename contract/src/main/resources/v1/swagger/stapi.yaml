@@ -97,6 +97,10 @@ paths:
     $ref: ./soundtrack/path/soundtrack.path.yaml
   /soundtrack/search:
     $ref: ./soundtrack/path/soundtrackSearch.path.yaml
+  /spacecraft:
+    $ref: ./spacecraft/path/spacecraft.path.yaml
+  /spacecraft/search:
+    $ref: ./spacecraft/path/spacecraftSearch.path.yaml
   /spacecraftClass:
     $ref: ./spacecraft_class/path/spacecraftClass.path.yaml
   /spacecraftClass/search:
@@ -392,6 +396,16 @@ definitions:
     $ref: ./soundtrack/entity/soundtrackBaseResponse.yaml
   SoundtrackFullResponse:
     $ref: ./soundtrack/entity/soundtrackFullResponse.yaml
+  SpacecraftHeader:
+    $ref: ./spacecraft/entity/spacecraftHeader.yaml
+  SpacecraftBase:
+    $ref: ./spacecraft/entity/spacecraftBase.yaml
+  SpacecraftFull:
+    $ref: ./spacecraft/entity/spacecraftFull.yaml
+  SpacecraftBaseResponse:
+    $ref: ./spacecraft/entity/spacecraftBaseResponse.yaml
+  SpacecraftFullResponse:
+    $ref: ./spacecraft/entity/spacecraftFullResponse.yaml
   SpacecraftClassHeader:
     $ref: ./spacecraft_class/entity/spacecraftClassHeader.yaml
   SpacecraftClassBase:
