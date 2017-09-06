@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.spacecraft_class.mapper
 
 import com.cezarykluczynski.stapi.model.organization.entity.Organization
+import com.cezarykluczynski.stapi.model.spacecraft.entity.Spacecraft
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass
 import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType
 import com.cezarykluczynski.stapi.model.species.entity.Species
@@ -21,7 +22,8 @@ abstract class AbstractSpacecraftClassMapperTest extends AbstractSpacecraftClass
 				owner: new Organization(),
 				operator: new Organization(),
 				affiliation: new Organization(),
-				spacecraftTypes: createSetOfRandomNumberOfMocks(SpacecraftType))
+				spacecraftTypes: createSetOfRandomNumberOfMocks(SpacecraftType),
+				spacecrafts: createSetOfRandomNumberOfMocks(Spacecraft))
 	}
 
 }

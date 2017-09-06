@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.model.spacecraft_class.repository;
 
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
 import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
+import com.cezarykluczynski.stapi.model.spacecraft.entity.Spacecraft_;
 import com.cezarykluczynski.stapi.model.spacecraft_class.dto.SpacecraftClassRequestDTO;
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass;
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass_;
@@ -43,6 +44,8 @@ public class SpacecraftClassRepositoryImpl extends AbstractRepositoryImpl<Spacec
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.affiliation);
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecraftTypes, doFetch);
 		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecrafts, doFetch);
+		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecrafts, Spacecraft_.owner, doFetch);
+		spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecrafts, Spacecraft_.operator, doFetch);
 
 		Page<SpacecraftClass> spacecraftClassPage = spacecraftClassQueryBuilder.findPage();
 		clearProxies(spacecraftClassPage, !doFetch);

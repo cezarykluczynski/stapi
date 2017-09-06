@@ -10,10 +10,13 @@ import com.cezarykluczynski.stapi.server.content_rating.mapper.ContentRatingRest
 import com.cezarykluczynski.stapi.server.genre.mapper.GenreRestMapper;
 import com.cezarykluczynski.stapi.server.platform.mapper.PlatformRestMapper;
 import com.cezarykluczynski.stapi.server.reference.mapper.ReferenceRestMapper;
+import com.cezarykluczynski.stapi.server.spacecraft.mapper.SpacecraftBaseRestMapper;
+import com.cezarykluczynski.stapi.server.spacecraft_type.mapper.SpacecraftTypeRestMapper;
 import org.mapstruct.Mapper;
 
 @Mapper(config = MapstructConfiguration.class, uses = {CompanyBaseRestMapper.class, DateMapper.class, EnumMapper.class, PlatformRestMapper.class,
-		GenreRestMapper.class, ContentRatingRestMapper.class, ReferenceRestMapper.class})
+		GenreRestMapper.class, ContentRatingRestMapper.class, ReferenceRestMapper.class, SpacecraftBaseRestMapper.class,
+		SpacecraftTypeRestMapper.class})
 public interface SpacecraftClassFullRestMapper {
 
 	SpacecraftClassFull mapFull(SpacecraftClass spacecraftClass);

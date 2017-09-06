@@ -25,12 +25,12 @@ class ContentLanguageRestMapperTest extends Specification {
 				iso6391Code: CODE)
 
 		when:
-		RestContentLanguage restContentRating = contentLanguageRestMapper.map(contentLanguage)
+		RestContentLanguage restContentLanguage = contentLanguageRestMapper.map(contentLanguage)
 
 		then:
-		restContentRating.uid == UID
-		restContentRating.name == NAME
-		restContentRating.iso6391Code == CODE
+		restContentLanguage.uid == UID
+		restContentLanguage.name == NAME
+		restContentLanguage.iso6391Code == CODE
 	}
 
 }

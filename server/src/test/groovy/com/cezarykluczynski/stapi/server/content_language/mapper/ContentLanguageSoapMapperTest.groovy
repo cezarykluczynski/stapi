@@ -25,12 +25,12 @@ class ContentLanguageSoapMapperTest extends Specification {
 				iso6391Code: CODE)
 
 		when:
-		SoapContentLanguage soapContentRating = contentLanguageSoapMapper.map(contentLanguage)
+		SoapContentLanguage soapContentLanguage = contentLanguageSoapMapper.map(contentLanguage)
 
 		then:
-		soapContentRating.uid == UID
-		soapContentRating.name == NAME
-		soapContentRating.iso6391Code == CODE
+		soapContentLanguage.uid == UID
+		soapContentLanguage.name == NAME
+		soapContentLanguage.iso6391Code == CODE
 	}
 
 }

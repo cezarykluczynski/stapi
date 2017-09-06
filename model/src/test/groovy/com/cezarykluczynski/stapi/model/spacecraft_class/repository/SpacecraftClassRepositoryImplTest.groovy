@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.model.spacecraft_class.repository
 
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
+import com.cezarykluczynski.stapi.model.spacecraft.entity.Spacecraft_
 import com.cezarykluczynski.stapi.model.spacecraft_class.dto.SpacecraftClassRequestDTO
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass_
@@ -76,6 +77,8 @@ class SpacecraftClassRepositoryImplTest extends AbstractSpacecraftClassTest {
 		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.affiliation)
 		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecraftTypes, true)
 		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecrafts, true)
+		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecrafts, Spacecraft_.owner, true)
+		1 * spacecraftClassQueryBuilder.fetch(SpacecraftClass_.spacecrafts, Spacecraft_.operator, true)
 
 		then: 'page is retrieved'
 		1 * spacecraftClassQueryBuilder.findPage() >> page

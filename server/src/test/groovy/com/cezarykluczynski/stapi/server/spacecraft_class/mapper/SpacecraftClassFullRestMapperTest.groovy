@@ -32,6 +32,7 @@ class SpacecraftClassFullRestMapperTest extends AbstractSpacecraftClassMapperTes
 		spacecraftClassFull.operator != null
 		spacecraftClassFull.affiliation != null
 		spacecraftClassFull.spacecraftTypes.size() == spacecraftClass.spacecraftTypes.size()
+		spacecraftClassFull.spacecrafts.size() == spacecraftClass.spacecrafts.size()
 	}
 
 }

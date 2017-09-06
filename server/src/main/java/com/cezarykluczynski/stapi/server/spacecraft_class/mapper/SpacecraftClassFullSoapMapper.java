@@ -12,11 +12,14 @@ import com.cezarykluczynski.stapi.server.content_rating.mapper.ContentRatingSoap
 import com.cezarykluczynski.stapi.server.genre.mapper.GenreSoapMapper;
 import com.cezarykluczynski.stapi.server.platform.mapper.PlatformSoapMapper;
 import com.cezarykluczynski.stapi.server.reference.mapper.ReferenceSoapMapper;
+import com.cezarykluczynski.stapi.server.spacecraft.mapper.SpacecraftBaseSoapMapper;
+import com.cezarykluczynski.stapi.server.spacecraft_type.mapper.SpacecraftTypeSoapMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(config = MapstructConfiguration.class, uses = {CompanyBaseSoapMapper.class, DateMapper.class, EnumMapper.class, PlatformSoapMapper.class,
-		GenreSoapMapper.class, ContentRatingSoapMapper.class, ReferenceSoapMapper.class})
+		GenreSoapMapper.class, ContentRatingSoapMapper.class, ReferenceSoapMapper.class, SpacecraftBaseSoapMapper.class,
+		SpacecraftTypeSoapMapper.class})
 public interface SpacecraftClassFullSoapMapper {
 
 	@Mapping(target = "name", ignore = true)
