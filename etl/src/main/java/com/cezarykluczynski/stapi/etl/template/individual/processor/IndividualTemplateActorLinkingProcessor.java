@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.individual.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplatePartEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
@@ -20,7 +20,7 @@ import java.util.Set;
 
 @Service
 @Slf4j
-public class IndividualTemplateActorLinkingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template.Part, IndividualTemplate>> {
+public class IndividualTemplateActorLinkingProcessor implements ItemWithTemplatePartEnrichingProcessor<IndividualTemplate> {
 
 	private final WikitextApi wikitextApi;
 

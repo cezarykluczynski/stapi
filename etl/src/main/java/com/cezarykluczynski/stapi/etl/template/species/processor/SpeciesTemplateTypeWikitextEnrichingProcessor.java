@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.species.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplatePartEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.species.dto.SpeciesTemplate;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class SpeciesTemplateTypeWikitextEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template.Part, SpeciesTemplate>> {
+public class SpeciesTemplateTypeWikitextEnrichingProcessor implements ItemWithTemplatePartEnrichingProcessor<SpeciesTemplate> {
 
 	private static final String UNKNOWN = "unknown";
 	private static final String HUMANOID = "Humanoid";

@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.comic_strip.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplatePartEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService;
 import com.cezarykluczynski.stapi.etl.template.comic_strip.dto.ComicStripTemplate;
 import com.cezarykluczynski.stapi.etl.template.comic_strip.dto.ComicStripTemplateParameter;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class ComicStripTemplatePartStaffEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template.Part, ComicStripTemplate>> {
+public class ComicStripTemplatePartStaffEnrichingProcessor implements ItemWithTemplatePartEnrichingProcessor<ComicStripTemplate> {
 
 	private final WikitextApi wikitextApi;
 

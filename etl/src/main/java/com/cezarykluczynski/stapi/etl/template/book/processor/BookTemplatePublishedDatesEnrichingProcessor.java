@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.book.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplatePartEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplate;
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 
 @Service
-public class BookTemplatePublishedDatesEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template.Part, BookTemplate>> {
+public class BookTemplatePublishedDatesEnrichingProcessor implements ItemWithTemplatePartEnrichingProcessor<BookTemplate> {
 
 	private final DatePartToDayMonthYearProcessor datePartToDayMonthYearProcessor;
 

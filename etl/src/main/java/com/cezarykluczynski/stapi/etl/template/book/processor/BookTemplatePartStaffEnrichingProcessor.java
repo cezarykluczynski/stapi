@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.book.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplatePartEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.WikitextStaffProcessor;
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplate;
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplateParameter;
@@ -13,7 +13,7 @@ import javax.inject.Inject;
 import java.util.Set;
 
 @Service
-public class BookTemplatePartStaffEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Template.Part, BookTemplate>> {
+public class BookTemplatePartStaffEnrichingProcessor implements ItemWithTemplatePartEnrichingProcessor<BookTemplate> {
 
 	private final WikitextStaffProcessor wikitextStaffProcessor;
 

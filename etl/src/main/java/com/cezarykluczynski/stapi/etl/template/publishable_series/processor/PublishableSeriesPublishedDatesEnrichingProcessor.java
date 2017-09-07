@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.publishable_series.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.dto.Range;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplatePartEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear;
 import com.cezarykluczynski.stapi.etl.template.common.processor.DayMonthYearRangeProcessor;
 import com.cezarykluczynski.stapi.etl.template.publishable_series.dto.PublishableSeriesTemplate;
@@ -15,8 +15,7 @@ import javax.inject.Inject;
 
 @Service
 @Slf4j
-public class PublishableSeriesPublishedDatesEnrichingProcessor
-		implements ItemEnrichingProcessor<EnrichablePair<Template.Part, PublishableSeriesTemplate>> {
+public class PublishableSeriesPublishedDatesEnrichingProcessor implements ItemWithTemplatePartEnrichingProcessor<PublishableSeriesTemplate> {
 
 	private final DayMonthYearRangeProcessor dayMonthYearRangeProcessor;
 
