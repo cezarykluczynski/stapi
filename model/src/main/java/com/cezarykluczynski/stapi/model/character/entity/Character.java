@@ -84,6 +84,10 @@ public class Character extends PageAwareEntity implements PageAware {
 
 	private String serialNumber;
 
+	private Boolean hologram;
+
+	private Boolean fictionalCharacter;
+
 	private Boolean mirror;
 
 	private Boolean alternateReality;

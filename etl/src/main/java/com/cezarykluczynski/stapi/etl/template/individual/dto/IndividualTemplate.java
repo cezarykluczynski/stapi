@@ -50,6 +50,10 @@ public class IndividualTemplate {
 
 	private String serialNumber;
 
+	private Boolean hologram;
+
+	private Boolean fictionalCharacter;
+
 	private Boolean mirror;
 
 	private Boolean alternateReality;

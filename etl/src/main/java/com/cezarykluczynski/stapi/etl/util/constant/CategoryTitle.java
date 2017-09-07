@@ -93,6 +93,11 @@ public class CategoryTitle {
 	public static final String MILITARY_PERSONNEL = "Military_personnel";
 	public static final String Q_CONTINUUM = "Q_Continuum";
 	public static final String STARFLEET_PERSONNEL = "Starfleet_personnel";
+	public static final String HOLOGRAMS = "Holograms";
+	public static final String HOLOGRAPHIC_DUPLICATES = "Holographic_duplicates";
+	public static final String FICTIONAL_CHARACTERS = "Fictional_characters";
+	public static final String THE_DIXON_HILL_SERIES_CHARACTERS = "The_Dixon_Hill_Series_characters";
+	public static final String SHAKESPEARE_CHARACTERS = "Shakespeare_characters";
 	public static final String PERSONNEL_LISTS = "Personnel_lists";
 	public static final String FAMILIES = "Families";
 	public static final String MIRROR_UNIVERSE_INHABITANTS = "Mirror_universe_inhabitants";

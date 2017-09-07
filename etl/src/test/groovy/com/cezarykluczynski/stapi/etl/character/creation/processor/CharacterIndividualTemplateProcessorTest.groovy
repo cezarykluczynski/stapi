@@ -59,6 +59,8 @@ class CharacterIndividualTemplateProcessorTest extends AbstractIndividualTest {
 				bloodType: BLOOD_TYPE,
 				maritalStatus: MARITAL_STATUS,
 				serialNumber: SERIAL_NUMBER,
+				hologram: HOLOGRAM,
+				fictionalCharacter: FICTIONAL_CHARACTER,
 				mirror: MIRROR,
 				alternateReality: ALTERNATE_REALITY,
 				performers: Sets.newHashSet(performer1, performer2),
@@ -70,6 +72,7 @@ class CharacterIndividualTemplateProcessorTest extends AbstractIndividualTest {
 		then:
 		1 * uidGeneratorMock.generateFromPage(PAGE, Character) >> UID
 		1 * genderMapperMock.fromEtlToModel(ETL_GENDER) >> MODEL_GENDER
+		0 * _
 		character.page == PAGE
 		character.uid == UID
 		character.name == NAME
@@ -88,6 +91,8 @@ class CharacterIndividualTemplateProcessorTest extends AbstractIndividualTest {
 		character.bloodType == BLOOD_TYPE
 		character.maritalStatus == MARITAL_STATUS
 		character.serialNumber == SERIAL_NUMBER
+		character.hologram == HOLOGRAM
+		character.fictionalCharacter == FICTIONAL_CHARACTER
 		character.mirror == MIRROR
 		character.alternateReality == ALTERNATE_REALITY
 		character.performers.size() == 2
@@ -99,7 +104,7 @@ class CharacterIndividualTemplateProcessorTest extends AbstractIndividualTest {
 		character.characterSpecies.contains characterSpecies2
 	}
 
-	void "when mirror and alternate universe flags are null, false is put into Character"() {
+	void "when boolean flags are null, false is put into them"() {
 		given:
 		IndividualTemplate individualTemplate = new IndividualTemplate()
 
@@ -109,6 +114,9 @@ class CharacterIndividualTemplateProcessorTest extends AbstractIndividualTest {
 		then:
 		1 * uidGeneratorMock.generateFromPage(null, Character) >> null
 		1 * genderMapperMock.fromEtlToModel(null) >> null
+		0 * _
+		!character.hologram
+		!character.fictionalCharacter
 		!character.mirror
 		!character.alternateReality
 	}
