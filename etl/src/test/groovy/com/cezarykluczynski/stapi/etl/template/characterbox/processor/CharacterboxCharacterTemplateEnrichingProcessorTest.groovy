@@ -2,8 +2,8 @@ package com.cezarykluczynski.stapi.etl.template.characterbox.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.template.characterbox.dto.CharacterboxTemplate
-import com.cezarykluczynski.stapi.etl.template.individual.dto.CharacterTemplate
-import com.cezarykluczynski.stapi.etl.template.individual.processor.CharacterTemplateWithCharacterboxTemplateEnrichingProcessor
+import com.cezarykluczynski.stapi.etl.template.character.dto.CharacterTemplate
+import com.cezarykluczynski.stapi.etl.template.character.processor.CharacterTemplateWithCharacterboxTemplateEnrichingProcessor
 import com.cezarykluczynski.stapi.model.page.entity.Page as PageEntity
 import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page

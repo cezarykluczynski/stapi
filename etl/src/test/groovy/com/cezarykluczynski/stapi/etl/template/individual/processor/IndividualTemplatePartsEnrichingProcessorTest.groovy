@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender
 import com.cezarykluczynski.stapi.etl.template.common.processor.MaritalStatusProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PartToGenderProcessor
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualLifeBoundaryDTO
-import com.cezarykluczynski.stapi.etl.template.individual.dto.CharacterTemplate
+import com.cezarykluczynski.stapi.etl.template.character.dto.CharacterTemplate
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.individual.processor.species.CharacterSpeciesWikitextProcessor
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies
@@ -18,7 +18,7 @@ import com.google.common.collect.Sets
 import org.apache.commons.lang3.tuple.Pair
 import spock.lang.Specification
 
-class CharacterTemplatePartsEnrichingProcessorTest extends Specification {
+class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 
 	private static final String VALUE = 'VALUE'
 	private static final Integer HEIGHT = 183

@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.individual.service
+package com.cezarykluczynski.stapi.etl.template.character.service
 
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor
 import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService
@@ -200,7 +200,7 @@ class CharacterPageFilterTest extends Specification {
 		then:
 		1 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
 		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> sortedOnTop
-		shouldBeFilteredOut ==  sortedOnTop
+		shouldBeFilteredOut == sortedOnTop
 	}
 
 }

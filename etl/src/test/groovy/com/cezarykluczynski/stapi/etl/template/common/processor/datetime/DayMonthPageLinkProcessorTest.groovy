@@ -1,6 +1,5 @@
-package com.cezarykluczynski.stapi.etl.template.individual.processor
+package com.cezarykluczynski.stapi.etl.template.common.processor.datetime
 
-import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.MonthNameToMonthProcessor
 import com.cezarykluczynski.stapi.etl.template.individual.dto.DayMonthDTO
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
 import com.google.common.collect.Maps

@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.individual.processor;
 
 import com.cezarykluczynski.stapi.etl.template.common.processor.PageLinkToYearProcessor;
+import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DayMonthPageLinkProcessor;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.DayMonthDTO;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualLifeBoundaryDTO;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;

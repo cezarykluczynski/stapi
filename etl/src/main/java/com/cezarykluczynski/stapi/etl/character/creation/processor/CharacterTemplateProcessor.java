@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.character.creation.processor;
 
 import com.cezarykluczynski.stapi.etl.common.mapper.GenderMapper;
-import com.cezarykluczynski.stapi.etl.template.individual.dto.CharacterTemplate;
+import com.cezarykluczynski.stapi.etl.template.character.dto.CharacterTemplate;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import org.springframework.batch.item.ItemProcessor;

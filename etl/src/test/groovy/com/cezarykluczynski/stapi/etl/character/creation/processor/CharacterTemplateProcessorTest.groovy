@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.character.creation.processor
 
 import com.cezarykluczynski.stapi.etl.common.mapper.GenderMapper
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender as EtlGender
-import com.cezarykluczynski.stapi.etl.template.individual.dto.CharacterTemplate
+import com.cezarykluczynski.stapi.etl.template.character.dto.CharacterTemplate
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType

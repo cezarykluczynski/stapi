@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.individual.dto;
+package com.cezarykluczynski.stapi.etl.template.character.dto;
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender;
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies;
