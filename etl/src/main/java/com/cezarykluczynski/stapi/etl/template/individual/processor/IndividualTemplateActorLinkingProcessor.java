@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.individual.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplatePartEnrichingProcessor;
-import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
+import com.cezarykluczynski.stapi.etl.template.individual.dto.CharacterTemplate;
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository;
@@ -20,7 +20,7 @@ import java.util.Set;
 
 @Service
 @Slf4j
-public class IndividualTemplateActorLinkingProcessor implements ItemWithTemplatePartEnrichingProcessor<IndividualTemplate> {
+public class IndividualTemplateActorLinkingProcessor implements ItemWithTemplatePartEnrichingProcessor<CharacterTemplate> {
 
 	private final WikitextApi wikitextApi;
 
@@ -33,11 +33,11 @@ public class IndividualTemplateActorLinkingProcessor implements ItemWithTemplate
 	}
 
 	@Override
-	public void enrich(EnrichablePair<Template.Part, IndividualTemplate> enrichablePair) throws Exception {
+	public void enrich(EnrichablePair<Template.Part, CharacterTemplate> enrichablePair) throws Exception {
 		Template.Part actorTemplatePart = enrichablePair.getInput();
-		IndividualTemplate individualTemplate = enrichablePair.getOutput();
+		CharacterTemplate characterTemplate = enrichablePair.getOutput();
 
-		if (actorTemplatePart == null || individualTemplate == null) {
+		if (actorTemplatePart == null || characterTemplate == null) {
 			return;
 		}
 
@@ -58,13 +58,13 @@ public class IndividualTemplateActorLinkingProcessor implements ItemWithTemplate
 
 				if (!performerOptional.isPresent()) {
 					log.warn("Could not find performer {} playing {} in local database",
-							pageLink.getTitle(), individualTemplate.getName());
+							pageLink.getTitle(), characterTemplate.getName());
 				}
 			} catch (Throwable e) {
 				log.warn("Ooops {}", e);
 			}
 		}
 
-		individualTemplate.getPerformers().addAll(performerSet);
+		characterTemplate.getPerformers().addAll(performerSet);
 	}
 }

@@ -11,7 +11,7 @@ import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
-class IndividualTemplateFilterTest extends Specification {
+class CharacterPageFilterTest extends Specification {
 
 	private static final String TITLE = 'TITLE'
 	private static final String WIKITEXT = 'WIKITEXT'
@@ -20,12 +20,12 @@ class IndividualTemplateFilterTest extends Specification {
 
 	private CategorySortingService categorySortingServiceMock
 
-	private IndividualTemplateFilter individualTemplateFilter
+	private CharacterPageFilter characterPageFilter
 
 	void setup() {
 		categoryTitlesExtractingProcessorMock = Mock()
 		categorySortingServiceMock = Mock()
-		individualTemplateFilter = new IndividualTemplateFilter(categoryTitlesExtractingProcessorMock, categorySortingServiceMock)
+		characterPageFilter = new CharacterPageFilter(categoryTitlesExtractingProcessorMock, categorySortingServiceMock)
 	}
 
 	void "returns true when page name starts with 'Unnamed '"() {
@@ -36,7 +36,7 @@ class IndividualTemplateFilterTest extends Specification {
 				templates: Lists.newArrayList())
 
 		when:
-		boolean shouldBeFilteredOut = individualTemplateFilter.shouldBeFilteredOut(page)
+		boolean shouldBeFilteredOut = characterPageFilter.shouldBeFilteredOut(page)
 
 		then:
 		shouldBeFilteredOut
@@ -50,7 +50,7 @@ class IndividualTemplateFilterTest extends Specification {
 				templates: Lists.newArrayList())
 
 		when:
-		boolean shouldBeFilteredOut = individualTemplateFilter.shouldBeFilteredOut(page)
+		boolean shouldBeFilteredOut = characterPageFilter.shouldBeFilteredOut(page)
 
 		then:
 		shouldBeFilteredOut
@@ -64,7 +64,7 @@ class IndividualTemplateFilterTest extends Specification {
 				templates: Lists.newArrayList())
 
 		when:
-		boolean shouldBeFilteredOut = individualTemplateFilter.shouldBeFilteredOut(page)
+		boolean shouldBeFilteredOut = characterPageFilter.shouldBeFilteredOut(page)
 
 		then:
 		shouldBeFilteredOut
@@ -78,7 +78,7 @@ class IndividualTemplateFilterTest extends Specification {
 				templates: Lists.newArrayList())
 
 		when:
-		boolean shouldBeFilteredOut = individualTemplateFilter.shouldBeFilteredOut(page)
+		boolean shouldBeFilteredOut = characterPageFilter.shouldBeFilteredOut(page)
 
 		then:
 		shouldBeFilteredOut
@@ -94,7 +94,7 @@ class IndividualTemplateFilterTest extends Specification {
 				templates: Lists.newArrayList())
 
 		when:
-		boolean shouldBeFilteredOut = individualTemplateFilter.shouldBeFilteredOut(page)
+		boolean shouldBeFilteredOut = characterPageFilter.shouldBeFilteredOut(page)
 
 		then:
 		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.PRODUCTION_LISTS)
@@ -111,7 +111,7 @@ class IndividualTemplateFilterTest extends Specification {
 				templates: Lists.newArrayList())
 
 		when:
-		boolean shouldBeFilteredOut = individualTemplateFilter.shouldBeFilteredOut(page)
+		boolean shouldBeFilteredOut = characterPageFilter.shouldBeFilteredOut(page)
 
 		then:
 		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.FAMILIES)
@@ -128,7 +128,7 @@ class IndividualTemplateFilterTest extends Specification {
 				templates: Lists.newArrayList())
 
 		when:
-		boolean shouldBeFilteredOut = individualTemplateFilter.shouldBeFilteredOut(page)
+		boolean shouldBeFilteredOut = characterPageFilter.shouldBeFilteredOut(page)
 
 		then:
 		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.PERSONNEL_LISTS)
@@ -145,7 +145,7 @@ class IndividualTemplateFilterTest extends Specification {
 				templates: Lists.newArrayList())
 
 		when:
-		boolean shouldBeFilteredOut = individualTemplateFilter.shouldBeFilteredOut(page)
+		boolean shouldBeFilteredOut = characterPageFilter.shouldBeFilteredOut(page)
 
 		then:
 		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.LISTS)
@@ -163,7 +163,7 @@ class IndividualTemplateFilterTest extends Specification {
 				templates: Lists.newArrayList())
 
 		when:
-		boolean shouldBeFilteredOut = individualTemplateFilter.shouldBeFilteredOut(page)
+		boolean shouldBeFilteredOut = characterPageFilter.shouldBeFilteredOut(page)
 
 		then:
 		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(categoryTitle)
@@ -178,7 +178,7 @@ class IndividualTemplateFilterTest extends Specification {
 				redirectPath: Lists.newArrayList(pageHeader))
 
 		when:
-		boolean shouldBeFilteredOut = individualTemplateFilter.shouldBeFilteredOut(page)
+		boolean shouldBeFilteredOut = characterPageFilter.shouldBeFilteredOut(page)
 
 		then:
 		1 * categoryTitlesExtractingProcessorMock.process(Lists.newArrayList()) >> Lists.newArrayList()
@@ -195,7 +195,7 @@ class IndividualTemplateFilterTest extends Specification {
 				templates: Lists.newArrayList())
 
 		when:
-		boolean shouldBeFilteredOut = individualTemplateFilter.shouldBeFilteredOut(page)
+		boolean shouldBeFilteredOut = characterPageFilter.shouldBeFilteredOut(page)
 
 		then:
 		1 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()

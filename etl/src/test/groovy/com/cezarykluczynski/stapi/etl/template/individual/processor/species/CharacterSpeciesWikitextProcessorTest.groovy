@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.individual.processor.species
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder
-import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate
+import com.cezarykluczynski.stapi.etl.template.individual.dto.CharacterTemplate
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
@@ -44,7 +44,7 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 	void "returns empty set when page links list is empty"() {
 		when:
 		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor
-				.process(Pair.of(WIKITEXT_FORMER, new IndividualTemplate(name: INDIVIDUAL_NAME)))
+				.process(Pair.of(WIKITEXT_FORMER, new CharacterTemplate(name: INDIVIDUAL_NAME)))
 
 		then:
 		1 * characterSpeciesFixedValueProviderMock.getSearchedValue(INDIVIDUAL_NAME) >> FixedValueHolder.empty()
@@ -60,7 +60,7 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 
 		when:
 		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor
-				.process(Pair.of(WIKITEXT, new IndividualTemplate(name: INDIVIDUAL_NAME)))
+				.process(Pair.of(WIKITEXT, new CharacterTemplate(name: INDIVIDUAL_NAME)))
 
 		then:
 		1 * characterSpeciesFixedValueProviderMock.getSearchedValue(INDIVIDUAL_NAME) >> FixedValueHolder.found(ImmutableMap.of(
@@ -93,7 +93,7 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 
 		when:
 		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor
-				.process(Pair.of(WIKITEXT, new IndividualTemplate(name: INDIVIDUAL_NAME)))
+				.process(Pair.of(WIKITEXT, new CharacterTemplate(name: INDIVIDUAL_NAME)))
 
 		then:
 		1 * characterSpeciesFixedValueProviderMock.getSearchedValue(INDIVIDUAL_NAME) >> FixedValueHolder.empty()
@@ -117,7 +117,7 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 
 		when:
 		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor
-				.process(Pair.of(WIKITEXT_WITH_FRACTIONS, new IndividualTemplate(name: INDIVIDUAL_NAME)))
+				.process(Pair.of(WIKITEXT_WITH_FRACTIONS, new CharacterTemplate(name: INDIVIDUAL_NAME)))
 
 		then:
 		1 * characterSpeciesFixedValueProviderMock.getSearchedValue(INDIVIDUAL_NAME) >> FixedValueHolder.empty()
@@ -141,7 +141,7 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 
 		when:
 		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor
-				.process(Pair.of(WIKITEXT, new IndividualTemplate(name: INDIVIDUAL_NAME)))
+				.process(Pair.of(WIKITEXT, new CharacterTemplate(name: INDIVIDUAL_NAME)))
 
 		then:
 		1 * characterSpeciesFixedValueProviderMock.getSearchedValue(INDIVIDUAL_NAME) >> FixedValueHolder.empty()
@@ -166,7 +166,7 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 
 		when:
 		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor
-				.process(Pair.of(WIKITEXT_HYBRID, new IndividualTemplate(name: INDIVIDUAL_NAME)))
+				.process(Pair.of(WIKITEXT_HYBRID, new CharacterTemplate(name: INDIVIDUAL_NAME)))
 
 		then:
 		1 * characterSpeciesFixedValueProviderMock.getSearchedValue(INDIVIDUAL_NAME) >> FixedValueHolder.empty()
@@ -200,7 +200,7 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 
 		when:
 		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor
-				.process(Pair.of(WIKITEXT_HYBRID, new IndividualTemplate(name: INDIVIDUAL_NAME)))
+				.process(Pair.of(WIKITEXT_HYBRID, new CharacterTemplate(name: INDIVIDUAL_NAME)))
 
 		then:
 		1 * characterSpeciesFixedValueProviderMock.getSearchedValue(INDIVIDUAL_NAME) >> FixedValueHolder.empty()
@@ -232,7 +232,7 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 
 		when:
 		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor
-				.process(Pair.of(WIKITEXT, new IndividualTemplate(name: INDIVIDUAL_NAME)))
+				.process(Pair.of(WIKITEXT, new CharacterTemplate(name: INDIVIDUAL_NAME)))
 
 		then:
 		1 * characterSpeciesFixedValueProviderMock.getSearchedValue(INDIVIDUAL_NAME) >> FixedValueHolder.empty()
@@ -256,7 +256,7 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 
 		when:
 		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor
-				.process(Pair.of(WIKITEXT_FORMER, new IndividualTemplate(name: INDIVIDUAL_NAME)))
+				.process(Pair.of(WIKITEXT_FORMER, new CharacterTemplate(name: INDIVIDUAL_NAME)))
 
 		then:
 		1 * characterSpeciesFixedValueProviderMock.getSearchedValue(INDIVIDUAL_NAME) >> FixedValueHolder.empty()

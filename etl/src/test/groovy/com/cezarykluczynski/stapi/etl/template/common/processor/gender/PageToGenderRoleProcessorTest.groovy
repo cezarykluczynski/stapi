@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.common.processor.gender
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender
-import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate
+import com.cezarykluczynski.stapi.etl.template.individual.dto.CharacterTemplate
 import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTemplatePartsEnrichingProcessor
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles
@@ -147,7 +147,7 @@ class PageToGenderRoleProcessorTest extends Specification {
 		1 * wikitextApiMock.getPageTitlesFromWikitext(VALID_WIKITEXT) >> titleList
 		1 * pageApiMock.getPages(titleList, MediaWikiSource.MEMORY_ALPHA_EN) >> Lists.newArrayList(subpage)
 		1 * templateFinderMock.findTemplate(subpage, TemplateTitle.SIDEBAR_INDIVIDUAL) >> Optional.of(sidebarIndividualTemplate)
-		1 * individualTemplatePartsEnrichingProcessorMock.enrich(_) >> { EnrichablePair<List<Template.Part>, IndividualTemplate> enrichablePair ->
+		1 * individualTemplatePartsEnrichingProcessorMock.enrich(_) >> { EnrichablePair<List<Template.Part>, CharacterTemplate> enrichablePair ->
 			enrichablePair.output.gender = GENDER
 		}
 		0 * _

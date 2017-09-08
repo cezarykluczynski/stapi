@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.individual.processor;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
-import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
+import com.cezarykluczynski.stapi.etl.template.individual.dto.CharacterTemplate;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
@@ -14,7 +14,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Service
-public class IndividualMirrorAlternateUniverseEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Page, IndividualTemplate>> {
+public class CharacterTemplateMirrorAlternateUniverseEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Page, CharacterTemplate>> {
 
 	private static final String MIRROR = "(mirror)";
 
@@ -25,41 +25,41 @@ public class IndividualMirrorAlternateUniverseEnrichingProcessor implements Item
 	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
 	@Inject
-	public IndividualMirrorAlternateUniverseEnrichingProcessor(TemplateFinder templateFinder,
+	public CharacterTemplateMirrorAlternateUniverseEnrichingProcessor(TemplateFinder templateFinder,
 			CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {
 		this.templateFinder = templateFinder;
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
 	}
 
 	@Override
-	public void enrich(EnrichablePair<Page, IndividualTemplate> enrichablePair) throws Exception {
+	public void enrich(EnrichablePair<Page, CharacterTemplate> enrichablePair) throws Exception {
 		Page page = enrichablePair.getInput();
-		IndividualTemplate individualTemplate = enrichablePair.getOutput();
+		CharacterTemplate characterTemplate = enrichablePair.getOutput();
 		String pageTitle = page.getTitle();
 		List<String> categoryNameList = categoryTitlesExtractingProcessor.process(page.getCategories());
 
 		if (pageTitle.contains(MIRROR)) {
-			individualTemplate.setMirror(true);
+			characterTemplate.setMirror(true);
 		}
 
 		if (templateFinder.findTemplate(page, TemplateTitle.MIRROR).isPresent()) {
-			individualTemplate.setMirror(true);
+			characterTemplate.setMirror(true);
 		}
 
 		if (categoryNameList.contains(CategoryTitle.MIRROR_UNIVERSE_INHABITANTS)) {
-			individualTemplate.setMirror(true);
+			characterTemplate.setMirror(true);
 		}
 
 		if (pageTitle.contains(ALTERNATE_REALITY)) {
-			individualTemplate.setAlternateReality(true);
+			characterTemplate.setAlternateReality(true);
 		}
 
 		if (templateFinder.findTemplate(page, TemplateTitle.ALT_REALITY).isPresent()) {
-			individualTemplate.setAlternateReality(true);
+			characterTemplate.setAlternateReality(true);
 		}
 
 		if (categoryNameList.stream().anyMatch(categoryName -> categoryName.contains(ALTERNATE_REALITY))) {
-			individualTemplate.setAlternateReality(true);
+			characterTemplate.setAlternateReality(true);
 		}
 	}
 

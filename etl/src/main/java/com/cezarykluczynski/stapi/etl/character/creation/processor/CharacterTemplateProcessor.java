@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.character.creation.processor;
 
 import com.cezarykluczynski.stapi.etl.common.mapper.GenderMapper;
-import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
+import com.cezarykluczynski.stapi.etl.template.individual.dto.CharacterTemplate;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import org.springframework.batch.item.ItemProcessor;
@@ -10,20 +10,20 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 
 @Service
-public class CharacterIndividualTemplateProcessor implements ItemProcessor<IndividualTemplate, Character> {
+public class CharacterTemplateProcessor implements ItemProcessor<CharacterTemplate, Character> {
 
 	private final UidGenerator uidGenerator;
 
 	private final GenderMapper genderMapper;
 
 	@Inject
-	public CharacterIndividualTemplateProcessor(UidGenerator uidGenerator, GenderMapper genderMapper) {
+	public CharacterTemplateProcessor(UidGenerator uidGenerator, GenderMapper genderMapper) {
 		this.uidGenerator = uidGenerator;
 		this.genderMapper = genderMapper;
 	}
 
 	@Override
-	public Character process(IndividualTemplate item) throws Exception {
+	public Character process(CharacterTemplate item) throws Exception {
 		Character character = new Character();
 
 		character.setName(item.getName());

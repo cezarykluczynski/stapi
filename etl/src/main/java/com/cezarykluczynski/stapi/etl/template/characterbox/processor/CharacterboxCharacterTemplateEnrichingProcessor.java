@@ -3,8 +3,8 @@ package com.cezarykluczynski.stapi.etl.template.characterbox.processor;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.characterbox.dto.CharacterboxTemplate;
-import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
-import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTemplateWithCharacterboxTemplateEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.template.individual.dto.CharacterTemplate;
+import com.cezarykluczynski.stapi.etl.template.individual.processor.CharacterTemplateWithCharacterboxTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
@@ -17,7 +17,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Service
-public class CharacterboxIndividualTemplateEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<IndividualTemplate> {
+public class CharacterboxCharacterTemplateEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<CharacterTemplate> {
 
 	private static final MediaWikiSource SOURCE = MediaWikiSource.MEMORY_BETA_EN;
 
@@ -25,26 +25,26 @@ public class CharacterboxIndividualTemplateEnrichingProcessor implements ItemWit
 
 	private final CharacterboxTemplateProcessor characterboxTemplateProcessor;
 
-	private final IndividualTemplateWithCharacterboxTemplateEnrichingProcessor individualTemplateWithCharacterboxTemplateEnrichingProcessor;
+	private final CharacterTemplateWithCharacterboxTemplateEnrichingProcessor characterTemplateWithCharacterboxTemplateEnrichingProcessor;
 
 	@Inject
-	public CharacterboxIndividualTemplateEnrichingProcessor(PageApi pageApi, CharacterboxTemplateProcessor characterboxTemplateProcessor,
-			IndividualTemplateWithCharacterboxTemplateEnrichingProcessor individualTemplateWithCharacterboxTemplateEnrichingProcessor) {
+	public CharacterboxCharacterTemplateEnrichingProcessor(PageApi pageApi, CharacterboxTemplateProcessor characterboxTemplateProcessor,
+			CharacterTemplateWithCharacterboxTemplateEnrichingProcessor characterTemplateWithCharacterboxTemplateEnrichingProcessor) {
 		this.pageApi = pageApi;
 		this.characterboxTemplateProcessor = characterboxTemplateProcessor;
-		this.individualTemplateWithCharacterboxTemplateEnrichingProcessor = individualTemplateWithCharacterboxTemplateEnrichingProcessor;
+		this.characterTemplateWithCharacterboxTemplateEnrichingProcessor = characterTemplateWithCharacterboxTemplateEnrichingProcessor;
 	}
 
 	@Override
-	public void enrich(EnrichablePair<Template, IndividualTemplate> enrichablePair) throws Exception {
+	public void enrich(EnrichablePair<Template, CharacterTemplate> enrichablePair) throws Exception {
 		Template template = enrichablePair.getInput();
-		IndividualTemplate individualTemplate = enrichablePair.getOutput();
+		CharacterTemplate characterTemplate = enrichablePair.getOutput();
 
 		List<Template.Part> templatePartList = template.getParts();
 
 		if (templatePartList.size() == 0) {
 			Template.Part templatePart = new Template.Part();
-			templatePart.setValue(individualTemplate.getPage().getTitle());
+			templatePart.setValue(characterTemplate.getPage().getTitle());
 			template.getParts().add(templatePart);
 		}
 
@@ -60,8 +60,8 @@ public class CharacterboxIndividualTemplateEnrichingProcessor implements ItemWit
 
 		CharacterboxTemplate characterboxTemplate = characterboxTemplateProcessor.process(page);
 		if (characterboxTemplate != null) {
-			individualTemplateWithCharacterboxTemplateEnrichingProcessor
-					.enrich(EnrichablePair.of(characterboxTemplate, individualTemplate));
+			characterTemplateWithCharacterboxTemplateEnrichingProcessor
+					.enrich(EnrichablePair.of(characterboxTemplate, characterTemplate));
 		}
 	}
 

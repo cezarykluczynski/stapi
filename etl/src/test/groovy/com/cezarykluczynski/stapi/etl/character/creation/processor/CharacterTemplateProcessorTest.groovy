@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.character.creation.processor
 
 import com.cezarykluczynski.stapi.etl.common.mapper.GenderMapper
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender as EtlGender
-import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate
+import com.cezarykluczynski.stapi.etl.template.individual.dto.CharacterTemplate
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType
@@ -14,7 +14,7 @@ import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.util.AbstractIndividualTest
 import com.google.common.collect.Sets
 
-class CharacterIndividualTemplateProcessorTest extends AbstractIndividualTest {
+class CharacterTemplateProcessorTest extends AbstractIndividualTest {
 
 	private static final Page PAGE = new Page(id: 1L)
 	private static final EtlGender ETL_GENDER = EtlGender.F
@@ -26,12 +26,12 @@ class CharacterIndividualTemplateProcessorTest extends AbstractIndividualTest {
 
 	private GenderMapper genderMapperMock
 
-	private CharacterIndividualTemplateProcessor characterIndividualTemplateProcessor
+	private CharacterTemplateProcessor characterTemplateProcessor
 
 	void setup() {
 		uidGeneratorMock = Mock()
 		genderMapperMock = Mock()
-		characterIndividualTemplateProcessor = new CharacterIndividualTemplateProcessor(uidGeneratorMock, genderMapperMock)
+		characterTemplateProcessor = new CharacterTemplateProcessor(uidGeneratorMock, genderMapperMock)
 	}
 
 	void "converts IndividualTemplate to Character"() {
@@ -41,7 +41,7 @@ class CharacterIndividualTemplateProcessorTest extends AbstractIndividualTest {
 		CharacterSpecies characterSpecies1 = new CharacterSpecies(id: 21L)
 		CharacterSpecies characterSpecies2 = new CharacterSpecies(id: 22L)
 
-		IndividualTemplate individualTemplate = new IndividualTemplate(
+		CharacterTemplate characterTemplate = new CharacterTemplate(
 				page: PAGE,
 				name: NAME,
 				gender: ETL_GENDER,
@@ -67,7 +67,7 @@ class CharacterIndividualTemplateProcessorTest extends AbstractIndividualTest {
 				characterSpecies: Sets.newHashSet(characterSpecies1, characterSpecies2)
 		)
 		when:
-		Character character = characterIndividualTemplateProcessor.process(individualTemplate)
+		Character character = characterTemplateProcessor.process(characterTemplate)
 
 		then:
 		1 * uidGeneratorMock.generateFromPage(PAGE, Character) >> UID
@@ -106,10 +106,10 @@ class CharacterIndividualTemplateProcessorTest extends AbstractIndividualTest {
 
 	void "when boolean flags are null, false is put into them"() {
 		given:
-		IndividualTemplate individualTemplate = new IndividualTemplate()
+		CharacterTemplate characterTemplate = new CharacterTemplate()
 
 		when:
-		Character character = characterIndividualTemplateProcessor.process(individualTemplate)
+		Character character = characterTemplateProcessor.process(characterTemplate)
 
 		then:
 		1 * uidGeneratorMock.generateFromPage(null, Character) >> null

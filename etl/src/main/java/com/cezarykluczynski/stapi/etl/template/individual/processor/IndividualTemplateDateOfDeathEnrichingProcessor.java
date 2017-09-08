@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.individual.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplateEnrichingProcessor;
-import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
+import com.cezarykluczynski.stapi.etl.template.individual.dto.CharacterTemplate;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplateParameter;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
@@ -17,7 +17,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class IndividualTemplateDateOfDeathEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<IndividualTemplate> {
+public class IndividualTemplateDateOfDeathEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<CharacterTemplate> {
 
 	private static final String KIA = "kia";
 	private static final List<String> DEAD_SYNONYMS = Lists.newArrayList(
@@ -81,9 +81,9 @@ public class IndividualTemplateDateOfDeathEnrichingProcessor implements ItemWith
 	}
 
 	@Override
-	public void enrich(EnrichablePair<Template, IndividualTemplate> enrichablePair) throws Exception {
+	public void enrich(EnrichablePair<Template, CharacterTemplate> enrichablePair) throws Exception {
 		Template template = enrichablePair.getInput();
-		IndividualTemplate individualTemplate = enrichablePair.getOutput();
+		CharacterTemplate characterTemplate = enrichablePair.getOutput();
 
 		Template.Part status = null;
 		Template.Part dateStatus = null;
@@ -104,11 +104,11 @@ public class IndividualTemplateDateOfDeathEnrichingProcessor implements ItemWith
 		}
 
 		if (status != null && dateStatus != null) {
-			doEnrich(individualTemplate, status, dateStatus);
+			doEnrich(characterTemplate, status, dateStatus);
 		}
 	}
 
-	private void doEnrich(IndividualTemplate individualTemplate, Template.Part status, Template.Part dateStatus) throws Exception {
+	private void doEnrich(CharacterTemplate characterTemplate, Template.Part status, Template.Part dateStatus) throws Exception {
 		String statusValue = StringUtils.lowerCase(StringUtils.trim(status.getValue()));
 
 		if (StringUtils.isBlank(statusValue)) {
@@ -128,13 +128,13 @@ public class IndividualTemplateDateOfDeathEnrichingProcessor implements ItemWith
 
 		if (isAlive && isDeceased) {
 			log.error("Conflicting findings on whether individual {} is dead or alive, found both in status: {}",
-					individualTemplate.getName(), statusValue);
+					characterTemplate.getName(), statusValue);
 		} else if (!isAlive && !isDeceased) {
 			log.warn("Could not determine whether individual {} is dead or alive, found status: {}",
-					individualTemplate.getName(), statusValue);
+					characterTemplate.getName(), statusValue);
 		} else if (isDeceased) {
-			individualTemplate.setDeceased(true);
-			individualTemplate.setYearOfDeath(individualDateStatusValueToYearProcessor.process(dateStatus.getValue()));
+			characterTemplate.setDeceased(true);
+			characterTemplate.setYearOfDeath(individualDateStatusValueToYearProcessor.process(dateStatus.getValue()));
 		}
 	}
 

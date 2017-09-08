@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class IndividualTemplateFilter implements MediaWikiPageFilter {
+public class CharacterPageFilter implements MediaWikiPageFilter {
 
 	private static final String UNNAMED_PREFIX = "Unnamed";
 	private static final String LIST_OF_PREFIX = "List of ";
@@ -32,7 +32,7 @@ public class IndividualTemplateFilter implements MediaWikiPageFilter {
 
 	private final CategorySortingService categorySortingService;
 
-	public IndividualTemplateFilter(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor,
+	public CharacterPageFilter(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor,
 			CategorySortingService categorySortingService) {
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
 		this.categorySortingService = categorySortingService;

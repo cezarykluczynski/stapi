@@ -3,12 +3,12 @@ package com.cezarykluczynski.stapi.etl.template.individual.processor
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.template.characterbox.dto.CharacterboxTemplate
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender
-import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate
+import com.cezarykluczynski.stapi.etl.template.individual.dto.CharacterTemplate
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus
 import spock.lang.Specification
 import spock.lang.Unroll
 
-class IndividualTemplateWithCharacterboxTemplateEnrichingProcessorTest extends Specification {
+class CharacterTemplateWithCharacterboxTemplateEnrichingProcessorTest extends Specification {
 
 	private static final Gender GENDER_F = Gender.F
 	private static final Gender GENDER_M = Gender.M
@@ -27,10 +27,10 @@ class IndividualTemplateWithCharacterboxTemplateEnrichingProcessorTest extends S
 	private static final MaritalStatus MARITAL_STATUS_MARRIED = MaritalStatus.MARRIED
 	private static final MaritalStatus MARITAL_STATUS_DIVORCED = MaritalStatus.DIVORCED
 
-	private IndividualTemplateWithCharacterboxTemplateEnrichingProcessor individualTemplateWithCharacterboxTemplateEnrichingProcessor
+	private CharacterTemplateWithCharacterboxTemplateEnrichingProcessor individualTemplateWithCharacterboxTemplateEnrichingProcessor
 
 	void setup() {
-		individualTemplateWithCharacterboxTemplateEnrichingProcessor = new IndividualTemplateWithCharacterboxTemplateEnrichingProcessor()
+		individualTemplateWithCharacterboxTemplateEnrichingProcessor = new CharacterTemplateWithCharacterboxTemplateEnrichingProcessor()
 	}
 
 	@Unroll('''sets IndividualTemplate gender to #expectedIndividualGender when IndividualTemplate has
@@ -38,11 +38,11 @@ class IndividualTemplateWithCharacterboxTemplateEnrichingProcessorTest extends S
 	void "sets gender values of IndividualTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(gender: characterboxGender)
-		IndividualTemplate individualTemplate = new IndividualTemplate(gender: individualGender)
+		CharacterTemplate characterTemplate = new CharacterTemplate(gender: individualGender)
 
 		expect:
-		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, individualTemplate))
-		individualTemplate.gender == expectedIndividualGender
+		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, characterTemplate))
+		characterTemplate.gender == expectedIndividualGender
 
 		where:
 		individualGender | characterboxGender | expectedIndividualGender
@@ -57,11 +57,11 @@ class IndividualTemplateWithCharacterboxTemplateEnrichingProcessorTest extends S
 	void "sets weight values of IndividualTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(weight: characterboxWeight)
-		IndividualTemplate individualTemplate = new IndividualTemplate(weight: individualWeight)
+		CharacterTemplate characterTemplate = new CharacterTemplate(weight: individualWeight)
 
 		expect:
-		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, individualTemplate))
-		individualTemplate.weight == expectedIndividualWeight
+		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, characterTemplate))
+		characterTemplate.weight == expectedIndividualWeight
 
 		where:
 		individualWeight | characterboxWeight | expectedIndividualWeight
@@ -76,11 +76,11 @@ class IndividualTemplateWithCharacterboxTemplateEnrichingProcessorTest extends S
 	void "sets height values of IndividualTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(height: characterboxHeight)
-		IndividualTemplate individualTemplate = new IndividualTemplate(height: individualHeight)
+		CharacterTemplate characterTemplate = new CharacterTemplate(height: individualHeight)
 
 		expect:
-		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, individualTemplate))
-		individualTemplate.height == expectedIndividualHeight
+		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, characterTemplate))
+		characterTemplate.height == expectedIndividualHeight
 
 		where:
 		individualHeight | characterboxHeight | expectedIndividualHeight
@@ -95,11 +95,11 @@ class IndividualTemplateWithCharacterboxTemplateEnrichingProcessorTest extends S
 	void "sets marital status values of IndividualTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(maritalStatus: characterboxMaritalStatus)
-		IndividualTemplate individualTemplate = new IndividualTemplate(maritalStatus: individualMaritalStatus)
+		CharacterTemplate characterTemplate = new CharacterTemplate(maritalStatus: individualMaritalStatus)
 
 		expect:
-		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, individualTemplate))
-		individualTemplate.maritalStatus == expectedIndividualMaritalStatus
+		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, characterTemplate))
+		characterTemplate.maritalStatus == expectedIndividualMaritalStatus
 
 		where:
 		individualMaritalStatus | characterboxMaritalStatus | expectedIndividualMaritalStatus
@@ -114,11 +114,11 @@ class IndividualTemplateWithCharacterboxTemplateEnrichingProcessorTest extends S
 	void "sets year of birth values of IndividualTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(yearOfBirth: characterboxYearOfBirth)
-		IndividualTemplate individualTemplate = new IndividualTemplate(yearOfBirth: individualYearOfBirth)
+		CharacterTemplate characterTemplate = new CharacterTemplate(yearOfBirth: individualYearOfBirth)
 
 		expect:
-		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, individualTemplate))
-		individualTemplate.yearOfBirth == expectedIndividualYearOfBirth
+		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, characterTemplate))
+		characterTemplate.yearOfBirth == expectedIndividualYearOfBirth
 
 		where:
 		individualYearOfBirth | characterboxYearOfBirth | expectedIndividualYearOfBirth
@@ -133,11 +133,11 @@ class IndividualTemplateWithCharacterboxTemplateEnrichingProcessorTest extends S
 	void "sets month of birth values of IndividualTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(monthOfBirth: characterboxMonthOfBirth)
-		IndividualTemplate individualTemplate = new IndividualTemplate(monthOfBirth: individualMonthOfBirth)
+		CharacterTemplate characterTemplate = new CharacterTemplate(monthOfBirth: individualMonthOfBirth)
 
 		expect:
-		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, individualTemplate))
-		individualTemplate.monthOfBirth == expectedIndividualMonthOfBirth
+		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, characterTemplate))
+		characterTemplate.monthOfBirth == expectedIndividualMonthOfBirth
 
 		where:
 		individualMonthOfBirth | characterboxMonthOfBirth | expectedIndividualMonthOfBirth
@@ -152,11 +152,11 @@ class IndividualTemplateWithCharacterboxTemplateEnrichingProcessorTest extends S
 	void "sets day of birth values of IndividualTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(dayOfBirth: characterboxDayOfBirth)
-		IndividualTemplate individualTemplate = new IndividualTemplate(dayOfBirth: individualDayOfBirth)
+		CharacterTemplate characterTemplate = new CharacterTemplate(dayOfBirth: individualDayOfBirth)
 
 		expect:
-		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, individualTemplate))
-		individualTemplate.dayOfBirth == expectedIndividualDayOfBirth
+		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, characterTemplate))
+		characterTemplate.dayOfBirth == expectedIndividualDayOfBirth
 
 		where:
 		individualDayOfBirth | characterboxDayOfBirth | expectedIndividualDayOfBirth
@@ -171,11 +171,11 @@ class IndividualTemplateWithCharacterboxTemplateEnrichingProcessorTest extends S
 	void "sets place of birth values of IndividualTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(placeOfBirth: characterboxPlaceOfBirth)
-		IndividualTemplate individualTemplate = new IndividualTemplate(placeOfBirth: individualPlaceOfBirth)
+		CharacterTemplate characterTemplate = new CharacterTemplate(placeOfBirth: individualPlaceOfBirth)
 
 		expect:
-		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, individualTemplate))
-		individualTemplate.placeOfBirth == expectedIndividualPlaceOfBirth
+		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, characterTemplate))
+		characterTemplate.placeOfBirth == expectedIndividualPlaceOfBirth
 
 		where:
 		individualPlaceOfBirth | characterboxPlaceOfBirth | expectedIndividualPlaceOfBirth
@@ -190,11 +190,11 @@ class IndividualTemplateWithCharacterboxTemplateEnrichingProcessorTest extends S
 	void "sets year of death values of IndividualTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(yearOfDeath: characterboxYearOfDeath)
-		IndividualTemplate individualTemplate = new IndividualTemplate(yearOfDeath: individualYearOfDeath)
+		CharacterTemplate characterTemplate = new CharacterTemplate(yearOfDeath: individualYearOfDeath)
 
 		expect:
-		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, individualTemplate))
-		individualTemplate.yearOfDeath == expectedIndividualYearOfDeath
+		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, characterTemplate))
+		characterTemplate.yearOfDeath == expectedIndividualYearOfDeath
 
 		where:
 		individualYearOfDeath | characterboxYearOfDeath | expectedIndividualYearOfDeath
@@ -209,11 +209,11 @@ class IndividualTemplateWithCharacterboxTemplateEnrichingProcessorTest extends S
 	void "sets month of death values of IndividualTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(monthOfDeath: characterboxMonthOfDeath)
-		IndividualTemplate individualTemplate = new IndividualTemplate(monthOfDeath: individualMonthOfDeath)
+		CharacterTemplate characterTemplate = new CharacterTemplate(monthOfDeath: individualMonthOfDeath)
 
 		expect:
-		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, individualTemplate))
-		individualTemplate.monthOfDeath == expectedIndividualMonthOfDeath
+		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, characterTemplate))
+		characterTemplate.monthOfDeath == expectedIndividualMonthOfDeath
 
 		where:
 		individualMonthOfDeath | characterboxMonthOfDeath | expectedIndividualMonthOfDeath
@@ -228,11 +228,11 @@ class IndividualTemplateWithCharacterboxTemplateEnrichingProcessorTest extends S
 	void "sets day of death values of IndividualTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(dayOfDeath: characterboxDayOfDeath)
-		IndividualTemplate individualTemplate = new IndividualTemplate(dayOfDeath: individualDayOfDeath)
+		CharacterTemplate characterTemplate = new CharacterTemplate(dayOfDeath: individualDayOfDeath)
 
 		expect:
-		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, individualTemplate))
-		individualTemplate.dayOfDeath == expectedIndividualDayOfDeath
+		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, characterTemplate))
+		characterTemplate.dayOfDeath == expectedIndividualDayOfDeath
 
 		where:
 		individualDayOfDeath | characterboxDayOfDeath | expectedIndividualDayOfDeath
@@ -247,11 +247,11 @@ class IndividualTemplateWithCharacterboxTemplateEnrichingProcessorTest extends S
 	void "sets place of death values of IndividualTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(placeOfDeath: characterboxPlaceOfDeath)
-		IndividualTemplate individualTemplate = new IndividualTemplate(placeOfDeath: individualPlaceOfDeath)
+		CharacterTemplate characterTemplate = new CharacterTemplate(placeOfDeath: individualPlaceOfDeath)
 
 		expect:
-		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, individualTemplate))
-		individualTemplate.placeOfDeath == expectedIndividualPlaceOfDeath
+		individualTemplateWithCharacterboxTemplateEnrichingProcessor.enrich(EnrichablePair.of(characterboxTemplate, characterTemplate))
+		characterTemplate.placeOfDeath == expectedIndividualPlaceOfDeath
 
 		where:
 		individualPlaceOfDeath | characterboxPlaceOfDeath | expectedIndividualPlaceOfDeath

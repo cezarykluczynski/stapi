@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.etl.character.creation.processor
 
 import com.cezarykluczynski.stapi.etl.page.common.processor.PageHeaderProcessor
-import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate
-import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTemplatePageProcessor
+import com.cezarykluczynski.stapi.etl.template.individual.dto.CharacterTemplate
+import com.cezarykluczynski.stapi.etl.template.individual.processor.CharacterTemplatePageProcessor
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
@@ -12,25 +12,24 @@ class CharacterProcessorTest extends Specification {
 
 	private PageHeaderProcessor pageHeaderProcessorMock
 
-	private IndividualTemplatePageProcessor individualTemplatePageProcessorMock
+	private CharacterTemplatePageProcessor characterTemplatePageProcessorMock
 
-	private CharacterIndividualTemplateProcessor characterIndividualTemplateProcessorMock
+	private CharacterTemplateProcessor characterTemplateProcessorMock
 
 	private CharacterProcessor characterProcessor
 
 	void setup() {
 		pageHeaderProcessorMock = Mock()
-		individualTemplatePageProcessorMock = Mock()
-		characterIndividualTemplateProcessorMock = Mock()
-		characterProcessor = new CharacterProcessor(pageHeaderProcessorMock, individualTemplatePageProcessorMock,
-				characterIndividualTemplateProcessorMock)
+		characterTemplatePageProcessorMock = Mock()
+		characterTemplateProcessorMock = Mock()
+		characterProcessor = new CharacterProcessor(pageHeaderProcessorMock, characterTemplatePageProcessorMock, characterTemplateProcessorMock)
 	}
 
 	void "converts PageHeader to Character"() {
 		given:
 		PageHeader pageHeader = new PageHeader()
 		Page page = new Page()
-		IndividualTemplate individualTemplate = new IndividualTemplate()
+		CharacterTemplate characterTemplate = new CharacterTemplate()
 		Character character = new Character()
 
 		when:
@@ -38,8 +37,8 @@ class CharacterProcessorTest extends Specification {
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
-		1 * individualTemplatePageProcessorMock.process(page) >> individualTemplate
-		1 * characterIndividualTemplateProcessorMock.process(individualTemplate) >> character
+		1 * characterTemplatePageProcessorMock.process(page) >> characterTemplate
+		1 * characterTemplateProcessorMock.process(characterTemplate) >> character
 
 		then: 'last processor output is returned'
 		outputCharacter == character

@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender
 import com.cezarykluczynski.stapi.etl.template.common.processor.MaritalStatusProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PartToGenderProcessor
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualLifeBoundaryDTO
-import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate
+import com.cezarykluczynski.stapi.etl.template.individual.dto.CharacterTemplate
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.individual.processor.species.CharacterSpeciesWikitextProcessor
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies
@@ -18,7 +18,7 @@ import com.google.common.collect.Sets
 import org.apache.commons.lang3.tuple.Pair
 import spock.lang.Specification
 
-class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
+class CharacterTemplatePartsEnrichingProcessorTest extends Specification {
 
 	private static final String VALUE = 'VALUE'
 	private static final Integer HEIGHT = 183
@@ -66,36 +66,36 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 	void "sets gender from PartToGenderProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: IndividualTemplateParameter.GENDER)
-		IndividualTemplate individualTemplate = new IndividualTemplate()
+		CharacterTemplate characterTemplate = new CharacterTemplate()
 
 		when:
-		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), individualTemplate))
+		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), characterTemplate))
 
 		then:
 		1 * partToGenderProcessorMock.process(templatePart) >> GENDER
 		0 * _
-		individualTemplate.gender == GENDER
-		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 3
+		characterTemplate.gender == GENDER
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 3
 	}
 
 	void "when actor key is found, part is passed to IndividualActorLinkingProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: IndividualTemplateParameter.ACTOR)
-		IndividualTemplate individualTemplateInActorLinkingProcessor = null
-		IndividualTemplate individualTemplate = new IndividualTemplate()
+		CharacterTemplate characterTemplateInActorLinkingProcessor = null
+		CharacterTemplate characterTemplate = new CharacterTemplate()
 
 		when:
-		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), individualTemplate))
+		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), characterTemplate))
 
 		then:
-		1 * individualActorLinkingProcessorMock.enrich(_ as EnrichablePair<Template.Part, IndividualTemplate>) >> {
-			EnrichablePair<Template.Part, IndividualTemplate> enrichablePair ->
+		1 * individualActorLinkingProcessorMock.enrich(_ as EnrichablePair<Template.Part, CharacterTemplate>) >> {
+			EnrichablePair<Template.Part, CharacterTemplate> enrichablePair ->
 				assert enrichablePair.input == templatePart
-				individualTemplateInActorLinkingProcessor = enrichablePair.output
+				characterTemplateInActorLinkingProcessor = enrichablePair.output
 		}
 		0 * _
-		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 2
-		individualTemplateInActorLinkingProcessor == individualTemplate
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 2
+		characterTemplateInActorLinkingProcessor == characterTemplate
 	}
 
 	void "sets height from IndividualHeightProcessor"() {
@@ -103,16 +103,16 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		Template.Part templatePart = new Template.Part(
 				key: IndividualTemplateParameter.HEIGHT,
 				value: VALUE)
-		IndividualTemplate individualTemplate = new IndividualTemplate()
+		CharacterTemplate characterTemplate = new CharacterTemplate()
 
 		when:
-		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), individualTemplate))
+		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), characterTemplate))
 
 		then:
 		1 * individualHeightProcessorMock.process(VALUE) >> HEIGHT
 		0 * _
-		individualTemplate.height == HEIGHT
-		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 3
+		characterTemplate.height == HEIGHT
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 3
 	}
 
 	void "sets weight from IndividualWeightProcessor"() {
@@ -120,16 +120,16 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		Template.Part templatePart = new Template.Part(
 				key: IndividualTemplateParameter.WEIGHT,
 				value: VALUE)
-		IndividualTemplate individualTemplate = new IndividualTemplate()
+		CharacterTemplate characterTemplate = new CharacterTemplate()
 
 		when:
-		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), individualTemplate))
+		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), characterTemplate))
 
 		then:
 		1 * individualWeightProcessorMock.process(VALUE) >> WEIGHT
 		0 * _
-		individualTemplate.weight == WEIGHT
-		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 3
+		characterTemplate.weight == WEIGHT
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 3
 	}
 
 	void "does not set serial number when it is not empty"() {
@@ -137,15 +137,15 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		Template.Part templatePart = new Template.Part(
 				key: IndividualTemplateParameter.SERIAL_NUMBER,
 				value: '')
-		IndividualTemplate individualTemplate = new IndividualTemplate()
+		CharacterTemplate characterTemplate = new CharacterTemplate()
 
 		when:
-		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), individualTemplate))
+		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), characterTemplate))
 
 		then:
 		0 * _
-		individualTemplate.serialNumber == null
-		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 2
+		characterTemplate.serialNumber == null
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 2
 	}
 
 	void "sets serial number when it is not empty"() {
@@ -153,15 +153,15 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		Template.Part templatePart = new Template.Part(
 				key: IndividualTemplateParameter.SERIAL_NUMBER,
 				value: VALUE)
-		IndividualTemplate individualTemplate = new IndividualTemplate()
+		CharacterTemplate characterTemplate = new CharacterTemplate()
 
 		when:
-		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), individualTemplate))
+		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), characterTemplate))
 
 		then:
 		0 * _
-		individualTemplate.serialNumber == VALUE
-		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 3
+		characterTemplate.serialNumber == VALUE
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 3
 	}
 
 	void "sets birth values from IndividualLifeBoundaryProcessor"() {
@@ -173,18 +173,18 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 				year: YEAR,
 				month: MONTH,
 				day: DAY)
-		IndividualTemplate individualTemplate = new IndividualTemplate()
+		CharacterTemplate characterTemplate = new CharacterTemplate()
 
 		when:
-		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), individualTemplate))
+		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), characterTemplate))
 
 		then:
 		1 * individualLifeBoundaryProcessorMock.process(VALUE) >> individualLifeBoundaryDTO
 		0 * _
-		individualTemplate.yearOfBirth == YEAR
-		individualTemplate.monthOfBirth == MONTH
-		individualTemplate.dayOfBirth == DAY
-		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 5
+		characterTemplate.yearOfBirth == YEAR
+		characterTemplate.monthOfBirth == MONTH
+		characterTemplate.dayOfBirth == DAY
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 5
 	}
 
 	void "sets death values from IndividualLifeBoundaryProcessor"() {
@@ -196,18 +196,18 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 				year: YEAR,
 				month: MONTH,
 				day: DAY)
-		IndividualTemplate individualTemplate = new IndividualTemplate()
+		CharacterTemplate characterTemplate = new CharacterTemplate()
 
 		when:
-		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), individualTemplate))
+		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), characterTemplate))
 
 		then:
 		1 * individualLifeBoundaryProcessorMock.process(VALUE) >> individualLifeBoundaryDTO
 		0 * _
-		individualTemplate.yearOfDeath == YEAR
-		individualTemplate.monthOfDeath == MONTH
-		individualTemplate.dayOfDeath == DAY
-		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 5
+		characterTemplate.yearOfDeath == YEAR
+		characterTemplate.monthOfDeath == MONTH
+		characterTemplate.dayOfDeath == DAY
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 5
 	}
 
 	void "sets marital status from MaritalStatusProcessor"() {
@@ -215,16 +215,16 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		Template.Part templatePart = new Template.Part(
 				key: IndividualTemplateParameter.MARITAL_STATUS,
 				value: VALUE)
-		IndividualTemplate individualTemplate = new IndividualTemplate()
+		CharacterTemplate characterTemplate = new CharacterTemplate()
 
 		when:
-		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), individualTemplate))
+		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), characterTemplate))
 
 		then:
 		1 * maritalStatusProcessorMock.process(VALUE) >> MARITAL_STATUS
 		0 * _
-		individualTemplate.maritalStatus == MARITAL_STATUS
-		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 3
+		characterTemplate.maritalStatus == MARITAL_STATUS
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 3
 	}
 
 	void "sets blood type from BloodTypeProcessor"() {
@@ -232,33 +232,33 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		Template.Part templatePart = new Template.Part(
 				key: IndividualTemplateParameter.BLOOD_TYPE,
 				value: VALUE)
-		IndividualTemplate individualTemplate = new IndividualTemplate()
+		CharacterTemplate characterTemplate = new CharacterTemplate()
 
 		when:
-		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), individualTemplate))
+		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), characterTemplate))
 
 		then:
 		1 * individualBloodTypeProcessorMock.process(VALUE) >> BLOOD_TYPE
 		0 * _
-		individualTemplate.bloodType == BLOOD_TYPE
-		ReflectionTestUtils.getNumberOfNotNullFields(individualTemplate) == 3
+		characterTemplate.bloodType == BLOOD_TYPE
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 3
 	}
 
 	void "adds all CharacterSpecies from CharacterSpeciesWikitextProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: IndividualTemplateParameter.SPECIES, value: VALUE)
-		IndividualTemplate individualTemplate = new IndividualTemplate()
+		CharacterTemplate characterTemplate = new CharacterTemplate()
 		CharacterSpecies characterSpecies1 = Mock()
 		CharacterSpecies characterSpecies2 = Mock()
 
 		when:
-		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), individualTemplate))
+		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), characterTemplate))
 
 		then:
 		1 * characterSpeciesWikitextProcessorMock.process(_ as Pair) >> Sets.newHashSet(characterSpecies1, characterSpecies2)
 		0 * _
-		individualTemplate.characterSpecies.contains characterSpecies1
-		individualTemplate.characterSpecies.contains characterSpecies2
+		characterTemplate.characterSpecies.contains characterSpecies1
+		characterTemplate.characterSpecies.contains characterSpecies2
 	}
 
 }

@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.individual.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
-import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate
+import com.cezarykluczynski.stapi.etl.template.individual.dto.CharacterTemplate
 import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository
@@ -38,7 +38,7 @@ class IndividualTemplateActorLinkingProcessorTest extends Specification {
 
 	void "should do nothing if either template part or individual template is null"() {
 		when: 'Template.Part is null'
-		individualTemplateActorLinkingProcessor.enrich(EnrichablePair.of(null, new IndividualTemplate()))
+		individualTemplateActorLinkingProcessor.enrich(EnrichablePair.of(null, new CharacterTemplate()))
 
 		then: 'there is no interactions with dependencies'
 		0 * _
@@ -56,7 +56,7 @@ class IndividualTemplateActorLinkingProcessorTest extends Specification {
 				value: VALUE
 		)
 		Set<Performer> performerList = Sets.newHashSet()
-		IndividualTemplate individualTemplate = Mock()
+		CharacterTemplate characterTemplate = Mock()
 		PageLink pageLink1 = new PageLink(title: TITLE_1)
 		PageLink pageLink2 = new PageLink(title: TITLE_2)
 		PageLink pageLink3 = Mock()
@@ -68,7 +68,7 @@ class IndividualTemplateActorLinkingProcessorTest extends Specification {
 		Performer performer4 = new Performer(id: ID_2)
 
 		when:
-		individualTemplateActorLinkingProcessor.enrich(EnrichablePair.of(templatePart, individualTemplate))
+		individualTemplateActorLinkingProcessor.enrich(EnrichablePair.of(templatePart, characterTemplate))
 
 		then: 'page links are found'
 		1 * wikitextApiMock.getPageLinksFromWikitext(VALUE) >> Lists.newArrayList(
@@ -82,13 +82,13 @@ class IndividualTemplateActorLinkingProcessorTest extends Specification {
 
 		then: 'missing page title and individual name is used for logging'
 		1 * pageLink3.title >> TITLE_3
-		1 * individualTemplate.name
+		1 * characterTemplate.name
 
 		then: 'remaining page is found'
 		1 * performerRepositoryMock.findByPageTitleAndPageMediaWikiSource(TITLE_4, SOURCE) >> Optional.of(performer4)
 
 		then: 'list of performers consist of two unique performers'
-		1 * individualTemplate.performers >> performerList
+		1 * characterTemplate.performers >> performerList
 		performerList.size() == 2
 		performerList.contains performer1
 		performerList.contains performer2

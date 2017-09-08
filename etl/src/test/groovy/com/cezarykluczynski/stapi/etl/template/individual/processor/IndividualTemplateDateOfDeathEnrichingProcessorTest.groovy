@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.individual.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
-import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate
+import com.cezarykluczynski.stapi.etl.template.individual.dto.CharacterTemplate
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplateParameter
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
@@ -38,10 +38,10 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 		given:
 		Template.Part templatePart = Mock(Template.Part)
 		Template template = Mock()
-		IndividualTemplate individualTemplate = Mock()
+		CharacterTemplate characterTemplate = Mock()
 
 		when:
-		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
+		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, characterTemplate))
 
 		then:
 		1 * template.parts >> Lists.newArrayList(templatePart)
@@ -53,10 +53,10 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 		given:
 		Template.Part templatePart = Mock(Template.Part)
 		Template template = Mock()
-		IndividualTemplate individualTemplate = Mock()
+		CharacterTemplate characterTemplate = Mock()
 
 		when:
-		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
+		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, characterTemplate))
 
 		then:
 		1 * template.parts >> Lists.newArrayList(templatePart)
@@ -68,10 +68,10 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 		given:
 		Template.Part templatePart = Mock(Template.Part)
 		Template template = Mock()
-		IndividualTemplate individualTemplate = Mock()
+		CharacterTemplate characterTemplate = Mock()
 
 		when:
-		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
+		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, characterTemplate))
 
 		then:
 		1 * template.parts >> Lists.newArrayList(templatePart)
@@ -84,10 +84,10 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 		Template.Part dateTemplatePart = Mock(Template.Part)
 		Template.Part dateStatusTemplatePart = Mock(Template.Part)
 		Template template = Mock()
-		IndividualTemplate individualTemplate = Mock()
+		CharacterTemplate characterTemplate = Mock()
 
 		when:
-		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
+		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, characterTemplate))
 
 		then:
 		1 * template.parts >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
@@ -102,10 +102,10 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 		Template.Part dateTemplatePart = Mock(Template.Part)
 		Template.Part dateStatusTemplatePart = Mock(Template.Part)
 		Template template = Mock()
-		IndividualTemplate individualTemplate = Mock()
+		CharacterTemplate characterTemplate = Mock()
 
 		when:
-		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
+		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, characterTemplate))
 
 		then:
 		1 * template.parts >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
@@ -119,9 +119,9 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 						description: KIA_DESCRIPTION
 				)
 		)
-		1 * individualTemplate.setDeceased(true)
+		1 * characterTemplate.setDeceased(true)
 		1 * individualDateStatusValueToYearProcessorMock.process(YEAR_STRING) >> YEAR_INTEGER
-		1 * individualTemplate.setYearOfDeath(YEAR_INTEGER)
+		1 * characterTemplate.setYearOfDeath(YEAR_INTEGER)
 		0 * _
 	}
 
@@ -130,10 +130,10 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 		Template.Part dateTemplatePart = Mock(Template.Part)
 		Template.Part dateStatusTemplatePart = Mock(Template.Part)
 		Template template = Mock()
-		IndividualTemplate individualTemplate = Mock()
+		CharacterTemplate characterTemplate = Mock()
 
 		when:
-		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
+		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, characterTemplate))
 
 		then:
 		1 * template.parts >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
@@ -142,9 +142,9 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 		1 * dateStatusTemplatePart.key >> IndividualTemplateParameter.DATE_STATUS
 		1 * dateStatusTemplatePart.value >> YEAR_STRING
 		1 * wikitextApiMock.getPageLinksFromWikitext(DEAD_SYNONYM) >> Lists.newArrayList()
-		1 * individualTemplate.setDeceased(true)
+		1 * characterTemplate.setDeceased(true)
 		1 * individualDateStatusValueToYearProcessorMock.process(YEAR_STRING) >> YEAR_INTEGER
-		1 * individualTemplate.setYearOfDeath(YEAR_INTEGER)
+		1 * characterTemplate.setYearOfDeath(YEAR_INTEGER)
 		0 * _
 	}
 
@@ -153,10 +153,10 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 		Template.Part dateTemplatePart = Mock(Template.Part)
 		Template.Part dateStatusTemplatePart = Mock(Template.Part)
 		Template template = Mock()
-		IndividualTemplate individualTemplate = Mock()
+		CharacterTemplate characterTemplate = Mock()
 
 		when:
-		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
+		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, characterTemplate))
 
 		then:
 		1 * template.parts >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
@@ -172,10 +172,10 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 		Template.Part dateTemplatePart = Mock(Template.Part)
 		Template.Part dateStatusTemplatePart = Mock(Template.Part)
 		Template template = Mock()
-		IndividualTemplate individualTemplate = Mock()
+		CharacterTemplate characterTemplate = Mock()
 
 		when:
-		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
+		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, characterTemplate))
 
 		then:
 		1 * template.parts >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
@@ -183,7 +183,7 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 		2 * dateTemplatePart.value >> NEITHER_WORD
 		1 * dateStatusTemplatePart.key >> IndividualTemplateParameter.DATE_STATUS
 		1 * wikitextApiMock.getPageLinksFromWikitext(NEITHER_WORD) >> Lists.newArrayList()
-		1 * individualTemplate.name
+		1 * characterTemplate.name
 		0 * _
 	}
 
@@ -192,10 +192,10 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 		Template.Part dateTemplatePart = Mock(Template.Part)
 		Template.Part dateStatusTemplatePart = Mock(Template.Part)
 		Template template = Mock()
-		IndividualTemplate individualTemplate = Mock()
+		CharacterTemplate characterTemplate = Mock()
 
 		when:
-		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, individualTemplate))
+		individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(template, characterTemplate))
 
 		then:
 		1 * template.parts >> Lists.newArrayList(dateTemplatePart, dateStatusTemplatePart)
@@ -203,7 +203,7 @@ class IndividualTemplateDateOfDeathEnrichingProcessorTest extends Specification 
 		2 * dateTemplatePart.value >> DEAD_SYNONYM + ' ' + NOT_DEAD_SYNONYM
 		1 * dateStatusTemplatePart.key >> IndividualTemplateParameter.DATE_STATUS
 		1 * wikitextApiMock.getPageLinksFromWikitext(DEAD_SYNONYM + ' ' + NOT_DEAD_SYNONYM) >> Lists.newArrayList()
-		1 * individualTemplate.name
+		1 * characterTemplate.name
 		0 * _
 	}
 

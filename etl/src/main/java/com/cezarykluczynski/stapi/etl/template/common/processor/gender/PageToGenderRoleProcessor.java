@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.common.processor.gender;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender;
-import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
+import com.cezarykluczynski.stapi.etl.template.individual.dto.CharacterTemplate;
 import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTemplatePartsEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles;
@@ -35,18 +35,18 @@ public class PageToGenderRoleProcessor implements ItemProcessor<Page, Gender> {
 
 	private final TemplateFinder templateFinder;
 
-	private final IndividualTemplatePartsEnrichingProcessor individualTemplatePartsEnrichingProcessor;
+	private final IndividualTemplatePartsEnrichingProcessor characterTemplatePartsEnrichingProcessor;
 
 	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
 	@Inject
 	public PageToGenderRoleProcessor(PageApi pageApi, WikitextApi wikitextApi, TemplateFinder templateFinder,
-			IndividualTemplatePartsEnrichingProcessor individualTemplatePartsEnrichingProcessor,
+			IndividualTemplatePartsEnrichingProcessor characterTemplatePartsEnrichingProcessor,
 			CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {
 		this.pageApi = pageApi;
 		this.wikitextApi = wikitextApi;
 		this.templateFinder = templateFinder;
-		this.individualTemplatePartsEnrichingProcessor = individualTemplatePartsEnrichingProcessor;
+		this.characterTemplatePartsEnrichingProcessor = characterTemplatePartsEnrichingProcessor;
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
 	}
 
@@ -74,9 +74,9 @@ public class PageToGenderRoleProcessor implements ItemProcessor<Page, Gender> {
 		List<Page> pageList = pageApi.getPages(linkedPagesList, MediaWikiSource.MEMORY_ALPHA_EN);
 
 		for (Page page : pageList) {
-			IndividualTemplate individualTemplate = getEnrichedIndividualTemplate(page);
-			if (individualTemplate != null) {
-				Gender gender = individualTemplate.getGender();
+			CharacterTemplate characterTemplate = getEnrichedIndividualTemplate(page);
+			if (characterTemplate != null) {
+				Gender gender = characterTemplate.getGender();
 				if (gender != null) {
 					log.info("Guessing gender {} of real person {} based of gender of played character {}",
 							gender, item.getTitle(), page.getTitle());
@@ -94,16 +94,16 @@ public class PageToGenderRoleProcessor implements ItemProcessor<Page, Gender> {
 		return null;
 	}
 
-	private IndividualTemplate getEnrichedIndividualTemplate(Page page) throws Exception {
-		IndividualTemplate individualTemplate = new IndividualTemplate();
+	private CharacterTemplate getEnrichedIndividualTemplate(Page page) throws Exception {
+		CharacterTemplate characterTemplate = new CharacterTemplate();
 		Optional<Template> templateOptional = templateFinder.findTemplate(page, TemplateTitle.SIDEBAR_INDIVIDUAL);
 
 		if (!templateOptional.isPresent()) {
-			return individualTemplate;
+			return characterTemplate;
 		}
 
-		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(templateOptional.get().getParts(), individualTemplate));
-		return individualTemplate;
+		characterTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(templateOptional.get().getParts(), characterTemplate));
+		return characterTemplate;
 	}
 
 	private boolean isPerformer(Page item) {

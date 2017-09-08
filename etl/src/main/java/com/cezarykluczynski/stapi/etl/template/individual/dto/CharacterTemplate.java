@@ -12,7 +12,7 @@ import lombok.Data;
 import java.util.Set;
 
 @Data
-public class IndividualTemplate {
+public class CharacterTemplate {
 
 	private String name;
 

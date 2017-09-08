@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.individual.processor.species;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
-import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate;
+import com.cezarykluczynski.stapi.etl.template.individual.dto.CharacterTemplate;
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
@@ -24,7 +24,7 @@ import java.util.Set;
 
 @Service
 @Slf4j
-public class CharacterSpeciesWikitextProcessor implements ItemProcessor<Pair<String, IndividualTemplate>, Set<CharacterSpecies>> {
+public class CharacterSpeciesWikitextProcessor implements ItemProcessor<Pair<String, CharacterTemplate>, Set<CharacterSpecies>> {
 
 	private static final String HUMAN = "Human";
 	private static final String AUGMENT = "Augment";
@@ -54,13 +54,13 @@ public class CharacterSpeciesWikitextProcessor implements ItemProcessor<Pair<Str
 	}
 
 	@Override
-	public Set<CharacterSpecies> process(Pair<String, IndividualTemplate> pair) throws Exception {
+	public Set<CharacterSpecies> process(Pair<String, CharacterTemplate> pair) throws Exception {
 		String item = pair.getLeft();
-		IndividualTemplate individualTemplate = pair.getRight();
+		CharacterTemplate characterTemplate = pair.getRight();
 		Set<CharacterSpecies> characterSpeciesSet = Sets.newHashSet();
 
 		FixedValueHolder<Map<String, Fraction>> characterSpeciesFixedValueHolder = characterSpeciesFixedValueProvider
-				.getSearchedValue(individualTemplate.getName());
+				.getSearchedValue(characterTemplate.getName());
 
 		if (characterSpeciesFixedValueHolder.isFound()) {
 			for (Map.Entry<String, Fraction> speciesCandidate : characterSpeciesFixedValueHolder.getValue().entrySet()) {
