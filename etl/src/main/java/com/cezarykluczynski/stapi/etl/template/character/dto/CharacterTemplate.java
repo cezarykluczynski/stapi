@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.character.dto;
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender;
+import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies;
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType;
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus;
@@ -21,8 +22,6 @@ public class CharacterTemplate {
 	private Gender gender;
 
 	private Boolean deceased;
-
-	private Integer statusDate;
 
 	private Integer yearOfBirth;
 
@@ -50,6 +49,12 @@ public class CharacterTemplate {
 
 	private String serialNumber;
 
+	private String hologramActivationDate;
+
+	private String hologramStatus;
+
+	private String hologramDateStatus;
+
 	private Boolean hologram;
 
 	private Boolean fictionalCharacter;
@@ -61,5 +66,7 @@ public class CharacterTemplate {
 	private Set<Performer> performers = Sets.newHashSet();
 
 	private Set<CharacterSpecies> characterSpecies = Sets.newHashSet();
+
+	private Set<Character> creators = Sets.newHashSet();
 
 }

@@ -35,8 +35,8 @@ import java.util.Set;
 
 @Data
 @Entity
-@ToString(callSuper = true, exclude = {"performers", "episodes", "movies", "characterSpecies"})
-@EqualsAndHashCode(callSuper = true, exclude = {"performers", "episodes", "movies", "characterSpecies"})
+@ToString(callSuper = true, exclude = {"performers", "episodes", "movies", "characterSpecies", "creators"})
+@EqualsAndHashCode(callSuper = true, exclude = {"performers", "episodes", "movies", "characterSpecies", "creators"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = CharacterRepository.class, singularName = "character",
 		pluralName = "characters")
@@ -84,6 +84,12 @@ public class Character extends PageAwareEntity implements PageAware {
 
 	private String serialNumber;
 
+	private String hologramActivationDate;
+
+	private String hologramStatus;
+
+	private String hologramDateStatus;
+
 	private Boolean hologram;
 
 	private Boolean fictionalCharacter;
@@ -110,6 +116,13 @@ public class Character extends PageAwareEntity implements PageAware {
 			inverseJoinColumns = @JoinColumn(name = "character_species_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<CharacterSpecies> characterSpecies = Sets.newHashSet();
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "characters_creators",
+			joinColumns = @JoinColumn(name = "character_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "creator_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<Character> creators = Sets.newHashSet();
 
 
 }

@@ -16,7 +16,6 @@ import com.google.common.collect.Sets
 
 class CharacterTemplateProcessorTest extends AbstractIndividualTest {
 
-	private static final Page PAGE = new Page(id: 1L)
 	private static final EtlGender ETL_GENDER = EtlGender.F
 	private static final ModelGender MODEL_GENDER = ModelGender.F
 	private static final BloodType BLOOD_TYPE = BloodType.B_NEGATIVE
@@ -34,15 +33,18 @@ class CharacterTemplateProcessorTest extends AbstractIndividualTest {
 		characterTemplateProcessor = new CharacterTemplateProcessor(uidGeneratorMock, genderMapperMock)
 	}
 
-	void "converts IndividualTemplate to Character"() {
+	void "converts CharacterTemplate to Character"() {
 		given:
+		Page page = Mock()
 		Performer performer1 = new Performer(id: 11L)
 		Performer performer2 = new Performer(id: 12L)
 		CharacterSpecies characterSpecies1 = new CharacterSpecies(id: 21L)
 		CharacterSpecies characterSpecies2 = new CharacterSpecies(id: 22L)
+		Character creator1 = Mock()
+		Character creator2 = Mock()
 
 		CharacterTemplate characterTemplate = new CharacterTemplate(
-				page: PAGE,
+				page: page,
 				name: NAME,
 				gender: ETL_GENDER,
 				yearOfBirth: YEAR_OF_BIRTH,
@@ -59,21 +61,25 @@ class CharacterTemplateProcessorTest extends AbstractIndividualTest {
 				bloodType: BLOOD_TYPE,
 				maritalStatus: MARITAL_STATUS,
 				serialNumber: SERIAL_NUMBER,
+				hologramActivationDate: HOLOGRAM_ACTIVATION_DATE,
+				hologramStatus: HOLOGRAM_STATUS,
+				hologramDateStatus: HOLOGRAM_DATE_STATUS,
 				hologram: HOLOGRAM,
 				fictionalCharacter: FICTIONAL_CHARACTER,
 				mirror: MIRROR,
 				alternateReality: ALTERNATE_REALITY,
 				performers: Sets.newHashSet(performer1, performer2),
-				characterSpecies: Sets.newHashSet(characterSpecies1, characterSpecies2)
-		)
+				characterSpecies: Sets.newHashSet(characterSpecies1, characterSpecies2),
+				creators: Sets.newHashSet(creator1, creator2))
+
 		when:
 		Character character = characterTemplateProcessor.process(characterTemplate)
 
 		then:
-		1 * uidGeneratorMock.generateFromPage(PAGE, Character) >> UID
+		1 * uidGeneratorMock.generateFromPage(page, Character) >> UID
 		1 * genderMapperMock.fromEtlToModel(ETL_GENDER) >> MODEL_GENDER
 		0 * _
-		character.page == PAGE
+		character.page == page
 		character.uid == UID
 		character.name == NAME
 		character.gender == MODEL_GENDER
@@ -91,6 +97,9 @@ class CharacterTemplateProcessorTest extends AbstractIndividualTest {
 		character.bloodType == BLOOD_TYPE
 		character.maritalStatus == MARITAL_STATUS
 		character.serialNumber == SERIAL_NUMBER
+		character.hologramActivationDate == HOLOGRAM_ACTIVATION_DATE
+		character.hologramStatus == HOLOGRAM_STATUS
+		character.hologramDateStatus == HOLOGRAM_DATE_STATUS
 		character.hologram == HOLOGRAM
 		character.fictionalCharacter == FICTIONAL_CHARACTER
 		character.mirror == MIRROR
@@ -102,6 +111,8 @@ class CharacterTemplateProcessorTest extends AbstractIndividualTest {
 		performer2.characters.contains character
 		character.characterSpecies.contains characterSpecies1
 		character.characterSpecies.contains characterSpecies2
+		character.creators.contains creator1
+		character.creators.contains creator2
 	}
 
 	void "when boolean flags are null, false is put into them"() {

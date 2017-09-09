@@ -44,6 +44,9 @@ public class CharacterTemplateProcessor implements ItemProcessor<CharacterTempla
 		character.setBloodType(item.getBloodType());
 		character.setMaritalStatus(item.getMaritalStatus());
 		character.setSerialNumber(item.getSerialNumber());
+		character.setHologramActivationDate(item.getHologramActivationDate());
+		character.setHologramStatus(item.getHologramStatus());
+		character.setHologramDateStatus(item.getHologramDateStatus());
 		character.setHologram(Boolean.TRUE.equals(item.getHologram()));
 		character.setFictionalCharacter(Boolean.TRUE.equals(item.getFictionalCharacter()));
 		character.setMirror(Boolean.TRUE.equals(item.getMirror()));
@@ -51,6 +54,7 @@ public class CharacterTemplateProcessor implements ItemProcessor<CharacterTempla
 		character.getPerformers().addAll(item.getPerformers());
 		item.getPerformers().forEach(performer -> performer.getCharacters().add(character));
 		character.getCharacterSpecies().addAll(item.getCharacterSpecies());
+		character.getCreators().addAll(item.getCreators());
 
 		return character;
 	}

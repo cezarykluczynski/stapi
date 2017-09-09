@@ -33,9 +33,9 @@ class CharacterTemplateWithCharacterboxTemplateEnrichingProcessorTest extends Sp
 		individualTemplateWithCharacterboxTemplateEnrichingProcessor = new CharacterTemplateWithCharacterboxTemplateEnrichingProcessor()
 	}
 
-	@Unroll('''sets IndividualTemplate gender to #expectedIndividualGender when IndividualTemplate has
+	@Unroll('''sets CharacterTemplate gender to #expectedIndividualGender when CharacterTemplate has
 		#individualGender and CharacterboxTemplate has #characterboxGender''')
-	void "sets gender values of IndividualTemplate with values of CharacterboxTemplate"() {
+	void "sets gender values of CharacterTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(gender: characterboxGender)
 		CharacterTemplate characterTemplate = new CharacterTemplate(gender: individualGender)
@@ -52,9 +52,9 @@ class CharacterTemplateWithCharacterboxTemplateEnrichingProcessorTest extends Sp
 		GENDER_F         | null               | GENDER_F
 	}
 
-	@Unroll('''sets IndividualTemplate weight to #expectedIndividualWeight when IndividualTemplate has
+	@Unroll('''sets CharacterTemplate weight to #expectedIndividualWeight when CharacterTemplate has
 		#individualWeight and CharacterboxTemplate has #characterboxWeight''')
-	void "sets weight values of IndividualTemplate with values of CharacterboxTemplate"() {
+	void "sets weight values of CharacterTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(weight: characterboxWeight)
 		CharacterTemplate characterTemplate = new CharacterTemplate(weight: individualWeight)
@@ -71,9 +71,9 @@ class CharacterTemplateWithCharacterboxTemplateEnrichingProcessorTest extends Sp
 		WEIGHT_1         | null               | WEIGHT_1
 	}
 
-	@Unroll('''sets IndividualTemplate height to #expectedIndividualHeight when IndividualTemplate has
+	@Unroll('''sets CharacterTemplate height to #expectedIndividualHeight when CharacterTemplate has
 		#individualHeight and CharacterboxTemplate has #characterboxHeight''')
-	void "sets height values of IndividualTemplate with values of CharacterboxTemplate"() {
+	void "sets height values of CharacterTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(height: characterboxHeight)
 		CharacterTemplate characterTemplate = new CharacterTemplate(height: individualHeight)
@@ -90,9 +90,9 @@ class CharacterTemplateWithCharacterboxTemplateEnrichingProcessorTest extends Sp
 		HEIGHT_1         | null               | HEIGHT_1
 	}
 
-	@Unroll('''sets IndividualTemplate marital status to #expectedIndividualMaritalStatus when IndividualTemplate has
+	@Unroll('''sets CharacterTemplate marital status to #expectedIndividualMaritalStatus when CharacterTemplate has
 		#individualMaritalStatus and CharacterboxTemplate has #characterboxMaritalStatus''')
-	void "sets marital status values of IndividualTemplate with values of CharacterboxTemplate"() {
+	void "sets marital status values of CharacterTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(maritalStatus: characterboxMaritalStatus)
 		CharacterTemplate characterTemplate = new CharacterTemplate(maritalStatus: individualMaritalStatus)
@@ -109,9 +109,9 @@ class CharacterTemplateWithCharacterboxTemplateEnrichingProcessorTest extends Sp
 		MARITAL_STATUS_MARRIED  | null                      | MARITAL_STATUS_MARRIED
 	}
 
-	@Unroll('''sets IndividualTemplate year of birth to #expectedIndividualYearOfBirth when IndividualTemplate has
+	@Unroll('''sets CharacterTemplate year of birth to #expectedIndividualYearOfBirth when CharacterTemplate has
 		#individualYearOfBirth and CharacterboxTemplate has #characterboxYearOfBirth''')
-	void "sets year of birth values of IndividualTemplate with values of CharacterboxTemplate"() {
+	void "sets year of birth values of CharacterTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(yearOfBirth: characterboxYearOfBirth)
 		CharacterTemplate characterTemplate = new CharacterTemplate(yearOfBirth: individualYearOfBirth)
@@ -128,9 +128,9 @@ class CharacterTemplateWithCharacterboxTemplateEnrichingProcessorTest extends Sp
 		YEAR_1                | null                    | YEAR_1
 	}
 
-	@Unroll('''sets IndividualTemplate month of birth to #expectedIndividualMonthOfBirth when IndividualTemplate has
+	@Unroll('''sets CharacterTemplate month of birth to #expectedIndividualMonthOfBirth when CharacterTemplate has
 		#individualMonthOfBirth and CharacterboxTemplate has #characterboxMonthOfBirth''')
-	void "sets month of birth values of IndividualTemplate with values of CharacterboxTemplate"() {
+	void "sets month of birth values of CharacterTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(monthOfBirth: characterboxMonthOfBirth)
 		CharacterTemplate characterTemplate = new CharacterTemplate(monthOfBirth: individualMonthOfBirth)
@@ -147,9 +147,9 @@ class CharacterTemplateWithCharacterboxTemplateEnrichingProcessorTest extends Sp
 		MONTH_1                | null                     | MONTH_1
 	}
 
-	@Unroll('''sets IndividualTemplate day of birth to #expectedIndividualDayOfBirth when IndividualTemplate has
+	@Unroll('''sets CharacterTemplate day of birth to #expectedIndividualDayOfBirth when CharacterTemplate has
 #individualDayOfBirth and CharacterboxTemplate has #characterboxDayOfBirth''')
-	void "sets day of birth values of IndividualTemplate with values of CharacterboxTemplate"() {
+	void "sets day of birth values of CharacterTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(dayOfBirth: characterboxDayOfBirth)
 		CharacterTemplate characterTemplate = new CharacterTemplate(dayOfBirth: individualDayOfBirth)
@@ -166,9 +166,9 @@ class CharacterTemplateWithCharacterboxTemplateEnrichingProcessorTest extends Sp
 		DAY_1                | null                   | DAY_1
 	}
 
-	@Unroll('''sets IndividualTemplate place of birth to #expectedIndividualPlaceOfBirth when IndividualTemplate has
+	@Unroll('''sets CharacterTemplate place of birth to #expectedIndividualPlaceOfBirth when CharacterTemplate has
 		#individualPlaceOfBirth and CharacterboxTemplate has #characterboxPlaceOfBirth''')
-	void "sets place of birth values of IndividualTemplate with values of CharacterboxTemplate"() {
+	void "sets place of birth values of CharacterTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(placeOfBirth: characterboxPlaceOfBirth)
 		CharacterTemplate characterTemplate = new CharacterTemplate(placeOfBirth: individualPlaceOfBirth)
@@ -185,9 +185,9 @@ class CharacterTemplateWithCharacterboxTemplateEnrichingProcessorTest extends Sp
 		PLACE_1                | null                     | PLACE_1
 	}
 
-	@Unroll('''sets IndividualTemplate year of death to #expectedIndividualYearOfDeath when IndividualTemplate has
+	@Unroll('''sets CharacterTemplate year of death to #expectedIndividualYearOfDeath when CharacterTemplate has
 		#individualYearOfDeath and CharacterboxTemplate has #characterboxYearOfDeath''')
-	void "sets year of death values of IndividualTemplate with values of CharacterboxTemplate"() {
+	void "sets year of death values of CharacterTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(yearOfDeath: characterboxYearOfDeath)
 		CharacterTemplate characterTemplate = new CharacterTemplate(yearOfDeath: individualYearOfDeath)
@@ -204,9 +204,9 @@ class CharacterTemplateWithCharacterboxTemplateEnrichingProcessorTest extends Sp
 		YEAR_1                | null                    | YEAR_1
 	}
 
-	@Unroll('''sets IndividualTemplate month of death to #expectedIndividualMonthOfDeath when IndividualTemplate has
+	@Unroll('''sets CharacterTemplate month of death to #expectedIndividualMonthOfDeath when CharacterTemplate has
 		#individualMonthOfDeath and CharacterboxTemplate has #characterboxMonthOfDeath''')
-	void "sets month of death values of IndividualTemplate with values of CharacterboxTemplate"() {
+	void "sets month of death values of CharacterTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(monthOfDeath: characterboxMonthOfDeath)
 		CharacterTemplate characterTemplate = new CharacterTemplate(monthOfDeath: individualMonthOfDeath)
@@ -223,9 +223,9 @@ class CharacterTemplateWithCharacterboxTemplateEnrichingProcessorTest extends Sp
 		MONTH_1                | null                     | MONTH_1
 	}
 
-	@Unroll('''sets IndividualTemplate day of death to #expectedIndividualDayOfDeath when IndividualTemplate has
+	@Unroll('''sets CharacterTemplate day of death to #expectedIndividualDayOfDeath when CharacterTemplate has
 		#individualDayOfDeath and CharacterboxTemplate has #characterboxDayOfDeath''')
-	void "sets day of death values of IndividualTemplate with values of CharacterboxTemplate"() {
+	void "sets day of death values of CharacterTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(dayOfDeath: characterboxDayOfDeath)
 		CharacterTemplate characterTemplate = new CharacterTemplate(dayOfDeath: individualDayOfDeath)
@@ -242,9 +242,9 @@ class CharacterTemplateWithCharacterboxTemplateEnrichingProcessorTest extends Sp
 		DAY_1                | null                   | DAY_1
 	}
 
-	@Unroll('''sets IndividualTemplate place of death to #expectedIndividualPlaceOfDeath when IndividualTemplate has
+	@Unroll('''sets CharacterTemplate place of death to #expectedIndividualPlaceOfDeath when CharacterTemplate has
 		#individualPlaceOfDeath and CharacterboxTemplate has #characterboxPlaceOfDeath''')
-	void "sets place of death values of IndividualTemplate with values of CharacterboxTemplate"() {
+	void "sets place of death values of CharacterTemplate with values of CharacterboxTemplate"() {
 		given:
 		CharacterboxTemplate characterboxTemplate = new CharacterboxTemplate(placeOfDeath: characterboxPlaceOfDeath)
 		CharacterTemplate characterTemplate = new CharacterTemplate(placeOfDeath: individualPlaceOfDeath)

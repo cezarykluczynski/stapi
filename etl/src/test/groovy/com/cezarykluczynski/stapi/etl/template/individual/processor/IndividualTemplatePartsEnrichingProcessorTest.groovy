@@ -75,7 +75,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		1 * partToGenderProcessorMock.process(templatePart) >> GENDER
 		0 * _
 		characterTemplate.gender == GENDER
-		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 3
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 4
 	}
 
 	void "when actor key is found, part is passed to IndividualActorLinkingProcessor"() {
@@ -94,7 +94,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 				characterTemplateInActorLinkingProcessor = enrichablePair.output
 		}
 		0 * _
-		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 2
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 3
 		characterTemplateInActorLinkingProcessor == characterTemplate
 	}
 
@@ -112,7 +112,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		1 * individualHeightProcessorMock.process(VALUE) >> HEIGHT
 		0 * _
 		characterTemplate.height == HEIGHT
-		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 3
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 4
 	}
 
 	void "sets weight from IndividualWeightProcessor"() {
@@ -129,7 +129,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		1 * individualWeightProcessorMock.process(VALUE) >> WEIGHT
 		0 * _
 		characterTemplate.weight == WEIGHT
-		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 3
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 4
 	}
 
 	void "does not set serial number when it is not empty"() {
@@ -145,7 +145,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		then:
 		0 * _
 		characterTemplate.serialNumber == null
-		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 2
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 3
 	}
 
 	void "sets serial number when it is not empty"() {
@@ -161,7 +161,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		then:
 		0 * _
 		characterTemplate.serialNumber == VALUE
-		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 3
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 4
 	}
 
 	void "sets birth values from IndividualLifeBoundaryProcessor"() {
@@ -184,7 +184,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		characterTemplate.yearOfBirth == YEAR
 		characterTemplate.monthOfBirth == MONTH
 		characterTemplate.dayOfBirth == DAY
-		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 5
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 6
 	}
 
 	void "sets death values from IndividualLifeBoundaryProcessor"() {
@@ -207,7 +207,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		characterTemplate.yearOfDeath == YEAR
 		characterTemplate.monthOfDeath == MONTH
 		characterTemplate.dayOfDeath == DAY
-		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 5
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 6
 	}
 
 	void "sets marital status from MaritalStatusProcessor"() {
@@ -224,7 +224,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		1 * maritalStatusProcessorMock.process(VALUE) >> MARITAL_STATUS
 		0 * _
 		characterTemplate.maritalStatus == MARITAL_STATUS
-		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 3
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 4
 	}
 
 	void "sets blood type from BloodTypeProcessor"() {
@@ -241,7 +241,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		1 * individualBloodTypeProcessorMock.process(VALUE) >> BLOOD_TYPE
 		0 * _
 		characterTemplate.bloodType == BLOOD_TYPE
-		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 3
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 4
 	}
 
 	void "adds all CharacterSpecies from CharacterSpeciesWikitextProcessor"() {

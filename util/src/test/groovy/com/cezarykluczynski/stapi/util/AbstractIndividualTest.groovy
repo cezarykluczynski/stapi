@@ -16,6 +16,9 @@ abstract class AbstractIndividualTest extends AbstractTest {
 	protected static final String PLACE_OF_DEATH = 'PLACE_OF_DEATH'
 	protected static final Integer HEIGHT = 175
 	protected static final Integer WEIGHT = 80
+	protected static final String HOLOGRAM_ACTIVATION_DATE = 'HOLOGRAM_ACTIVATION_DATE'
+	protected static final String HOLOGRAM_STATUS = 'HOLOGRAM_STATUS'
+	protected static final String HOLOGRAM_DATE_STATUS = 'HOLOGRAM_DATE_STATUS'
 	protected static final Boolean HOLOGRAM = RandomUtil.nextBoolean()
 	protected static final Boolean FICTIONAL_CHARACTER = RandomUtil.nextBoolean()
 	protected static final Boolean DECEASED = RandomUtil.nextBoolean()
