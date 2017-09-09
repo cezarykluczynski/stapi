@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.etl.template.character.dto.CharacterTemplate
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
+import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.ImmutableMap
 import com.google.common.collect.Lists
 import org.apache.commons.lang3.math.Fraction
@@ -104,6 +105,30 @@ class CharacterSpeciesWikitextProcessorTest extends Specification {
 			assert enrichablePair.input.right.numerator == 1
 			assert enrichablePair.input.right.denominator == 1
 			enrichablePair.output.add characterSpecies
+		}
+		0 * _
+		characterSpeciesSet.contains characterSpecies
+	}
+
+	void "when two page links are found, second one being gender, the first one is passed to CharacterSpeciesWithSpeciesNameEnrichingProcessor"() {
+		given:
+		PageLink pageLink = new PageLink(title: TITLE_1)
+		PageLink pageLinkGender = new PageLink(title: RandomUtil.randomItem(Lists.newArrayList(CharacterSpeciesWikitextProcessor.GENDERS)))
+		CharacterSpecies characterSpecies = Mock()
+
+		when:
+		Set<CharacterSpecies> characterSpeciesSet = characterSpeciesWikitextProcessor
+				.process(Pair.of(WIKITEXT, new CharacterTemplate(name: INDIVIDUAL_NAME)))
+
+		then:
+		1 * characterSpeciesFixedValueProviderMock.getSearchedValue(INDIVIDUAL_NAME) >> FixedValueHolder.empty()
+		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT) >> Lists.newArrayList(pageLink, pageLinkGender)
+		1 * characterSpeciesWithSpeciesNameEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+			EnrichablePair<Pair<String, Fraction>, Set<CharacterSpecies>> enrichablePair ->
+				assert enrichablePair.input.left == TITLE_1
+				assert enrichablePair.input.right.numerator == 1
+				assert enrichablePair.input.right.denominator == 1
+				enrichablePair.output.add characterSpecies
 		}
 		0 * _
 		characterSpeciesSet.contains characterSpecies

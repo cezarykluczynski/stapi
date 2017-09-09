@@ -1,25 +1,26 @@
-package com.cezarykluczynski.stapi.etl.template.starship.processor
+package com.cezarykluczynski.stapi.etl.template.common.processor
 
 import spock.lang.Specification
 import spock.lang.Unroll
 
-class StarshipStatusProcessorTest extends Specification {
+class StatusProcessorTest extends Specification {
 
-	private StarshipStatusProcessor starshipStatusProcessor
+	private StatusProcessor statusProcessor
 
 	void setup() {
-		starshipStatusProcessor = new StarshipStatusProcessor()
+		statusProcessor = new StatusProcessor()
 	}
 
 	@Unroll('when #input is passed, #output is returned')
 	void "when string candidate is passed, starship status is returned"() {
 		expect:
-		starshipStatusProcessor.process(input) == output
+		statusProcessor.process(input) == output
 
 		where:
 		input                                                                                                   | output
 		null                                                                                                    | null
 		''                                                                                                      | null
+		// starship
 		'Presumably destroyed or assimilated'                                                                   | null
 		'''Presumed destroyed'''                                                                                | null
 		'Presumably destroyed'                                                                                  | null
@@ -52,6 +53,16 @@ class StarshipStatusProcessorTest extends Specification {
 		''''Active ([[prime reality]])  <small>''([[2233]])''</small><br />Destroyed ([[alternate reality]])''' | 'Active'
 		'''Missing ([[prime reality]]) <small>''([[2387]])''</small><br />Destroyed ([[alternate reality]])'''  | 'Missing'
 		'''Missing ([[prime universe]]) <small>''([[2268]])''</small><br />Active ([[mirror universe]])'''      | 'Missing'
+		// hologram
+		'Dematerialized'                                                                                        | 'Dematerialized'
+		'Detained in external memory module'                                                                    | 'Detained'
+		'Detained in external memory module ([[2369]])'                                                         | 'Detained'
+		'Deactivation'                                                                                          | 'Deactivation'
+		'Deceased'                                                                                              | 'Deceased'
+		'Active'                                                                                                | 'Active'
+		'Deactivated ([[2377]])'                                                                                | 'Deactivated'
+		'Active ([[2377]])'                                                                                     | 'Active'
+		'Deactivated'                                                                                           | 'Deactivated'
 	}
 
 }

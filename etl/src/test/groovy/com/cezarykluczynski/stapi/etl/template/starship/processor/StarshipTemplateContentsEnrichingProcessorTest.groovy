@@ -1,6 +1,8 @@
 package com.cezarykluczynski.stapi.etl.template.starship.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
+import com.cezarykluczynski.stapi.etl.template.common.processor.DateStatusProcessor
+import com.cezarykluczynski.stapi.etl.template.common.processor.StatusProcessor
 import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplate
 import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplateParameter
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
@@ -18,18 +20,18 @@ class StarshipTemplateContentsEnrichingProcessorTest extends Specification {
 
 	private StarshipRegistryProcessor starshipRegistryProcessorMock
 
-	private StarshipStatusProcessor starshipStatusProcessorMock
+	private StatusProcessor statusProcessorMock
 
-	private StarshipDateStatusProcessor starshipDateStatusProcessorMock
+	private DateStatusProcessor dateStatusProcessorMock
 
 	private StarshipTemplateContentsEnrichingProcessor starshipTemplateContentsEnrichingProcessor
 
 	void setup() {
 		starshipRegistryProcessorMock = Mock()
-		starshipStatusProcessorMock = Mock()
-		starshipDateStatusProcessorMock = Mock()
+		statusProcessorMock = Mock()
+		dateStatusProcessorMock = Mock()
 		starshipTemplateContentsEnrichingProcessor = new StarshipTemplateContentsEnrichingProcessor(starshipRegistryProcessorMock,
-				starshipStatusProcessorMock, starshipDateStatusProcessorMock)
+				statusProcessorMock, dateStatusProcessorMock)
 	}
 
 	void "when registry part is found, StarshipRegistryProcessor is used to process it"() {
@@ -48,7 +50,7 @@ class StarshipTemplateContentsEnrichingProcessorTest extends Specification {
 		starshipTemplate.registry == REGISTRY_RESULT
 	}
 
-	void "when status part is found, StarshipStatusProcessor is used to process it"() {
+	void "when status part is found, StatusProcessor is used to process it"() {
 		given:
 		Template sidebarStarshipTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
 				key: StarshipTemplateParameter.STATUS,
@@ -59,12 +61,12 @@ class StarshipTemplateContentsEnrichingProcessorTest extends Specification {
 		starshipTemplateContentsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipTemplate, starshipTemplate))
 
 		then:
-		1 * starshipStatusProcessorMock.process(STATUS) >> STATUS_RESULT
+		1 * statusProcessorMock.process(STATUS) >> STATUS_RESULT
 		0 * _
 		starshipTemplate.status == STATUS_RESULT
 	}
 
-	void "when date status part is found, StarshipDateStatusProcessor is used to process it"() {
+	void "when date status part is found, DateStatusProcessor is used to process it"() {
 		given:
 		Template sidebarStarshipTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
 				key: StarshipTemplateParameter.DATE_STATUS,
@@ -75,7 +77,7 @@ class StarshipTemplateContentsEnrichingProcessorTest extends Specification {
 		starshipTemplateContentsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipTemplate, starshipTemplate))
 
 		then:
-		1 * starshipDateStatusProcessorMock.process(DATE_STATUS) >> DATE_STATUS_RESULT
+		1 * dateStatusProcessorMock.process(DATE_STATUS) >> DATE_STATUS_RESULT
 		0 * _
 		starshipTemplate.dateStatus == DATE_STATUS_RESULT
 	}

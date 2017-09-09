@@ -32,8 +32,8 @@
 			<column name="marital_status" type="varchar(32)"/>
 			<column name="serial_number" type="varchar(32)"/>
 			<column name="hologram_activation_date" type="varchar(32)"/>
-			<column name="status" type="varchar(32)"/>
-			<column name="date_status" type="varchar(32)"/>
+			<column name="hologram_status" type="varchar(32)"/>
+			<column name="hologram_date_status" type="varchar(32)"/>
 			<column name="hologram" type="boolean"/>
 			<column name="fictional_character" type="boolean"/>
 			<column name="mirror" type="boolean"/>

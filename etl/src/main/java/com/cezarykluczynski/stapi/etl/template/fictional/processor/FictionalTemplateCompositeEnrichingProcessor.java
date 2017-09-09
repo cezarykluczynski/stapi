@@ -50,9 +50,9 @@ public class FictionalTemplateCompositeEnrichingProcessor implements ItemWithTem
 					characterTemplate.getCharacterSpecies().addAll(characterSpeciesWikitextProcessor.process(Pair.of(value, characterTemplate)));
 					break;
 				case FictionalTemplateParameter.CREATOR:
-					// TODO
 				case FictionalTemplateParameter.CHARACTER:
 					// TODO
+					break;
 				case FictionalTemplateParameter.ACTOR:
 					characterTemplateActorLinkingEnrichingProcessor.enrich(EnrichablePair.of(part, characterTemplate));
 					break;

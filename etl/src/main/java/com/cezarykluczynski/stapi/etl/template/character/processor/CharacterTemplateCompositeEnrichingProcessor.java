@@ -26,7 +26,7 @@ public class CharacterTemplateCompositeEnrichingProcessor implements ItemEnrichi
 
 	private final IndividualTemplateCompositeEnrichingProcessor individualTemplateCompositeEnrichingProcessor;
 
-	private final CharacterTemplateMirrorAlternateUniverseEnrichingProcessor characterTemplateMirrorAlternateUniverseEnrichingProcessor;
+	private final CharacterTemplateFlagsEnrichingProcessor characterTemplateFlagsEnrichingProcessor;
 
 	private final IndividualTemplatePlacesFixedValueProvider individualTemplatePlacesFixedValueProvider;
 
@@ -39,14 +39,14 @@ public class CharacterTemplateCompositeEnrichingProcessor implements ItemEnrichi
 	@Inject
 	public CharacterTemplateCompositeEnrichingProcessor(TemplateFinder templateFinder,
 			IndividualTemplateCompositeEnrichingProcessor individualTemplateCompositeEnrichingProcessor,
-			CharacterTemplateMirrorAlternateUniverseEnrichingProcessor characterTemplateMirrorAlternateUniverseEnrichingProcessor,
+			CharacterTemplateFlagsEnrichingProcessor characterTemplateFlagsEnrichingProcessor,
 			IndividualTemplatePlacesFixedValueProvider individualTemplatePlacesFixedValueProvider,
 			CharacterboxCharacterTemplateEnrichingProcessor characterboxCharacterTemplateEnrichingProcessor,
 			HologramTemplateCompositeEnrichingProcessor hologramTemplateCompositeEnrichingProcessor,
 			FictionalTemplateCompositeEnrichingProcessor fictionalTemplateCompositeEnrichingProcessor) {
 		this.templateFinder = templateFinder;
 		this.individualTemplateCompositeEnrichingProcessor = individualTemplateCompositeEnrichingProcessor;
-		this.characterTemplateMirrorAlternateUniverseEnrichingProcessor = characterTemplateMirrorAlternateUniverseEnrichingProcessor;
+		this.characterTemplateFlagsEnrichingProcessor = characterTemplateFlagsEnrichingProcessor;
 		this.individualTemplatePlacesFixedValueProvider = individualTemplatePlacesFixedValueProvider;
 		this.characterboxCharacterTemplateEnrichingProcessor = characterboxCharacterTemplateEnrichingProcessor;
 		this.hologramTemplateCompositeEnrichingProcessor = hologramTemplateCompositeEnrichingProcessor;
@@ -58,7 +58,7 @@ public class CharacterTemplateCompositeEnrichingProcessor implements ItemEnrichi
 		CharacterTemplate characterTemplate = enrichablePair.getOutput();
 		Page item = enrichablePair.getInput();
 
-		characterTemplateMirrorAlternateUniverseEnrichingProcessor.enrich(EnrichablePair.of(item, characterTemplate));
+		characterTemplateFlagsEnrichingProcessor.enrich(EnrichablePair.of(item, characterTemplate));
 
 		FixedValueHolder<IndividualLifeBoundaryPlacesDTO> individualLifeBoundaryPlacesDTOFixedValueHolder
 				= individualTemplatePlacesFixedValueProvider.getSearchedValue(item.getTitle());

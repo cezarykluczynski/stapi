@@ -2,6 +2,8 @@ package com.cezarykluczynski.stapi.etl.template.starship.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplateEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.template.common.processor.DateStatusProcessor;
+import com.cezarykluczynski.stapi.etl.template.common.processor.StatusProcessor;
 import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplate;
 import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplateParameter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
@@ -14,15 +16,15 @@ public class StarshipTemplateContentsEnrichingProcessor implements ItemWithTempl
 
 	private final StarshipRegistryProcessor starshipRegistryProcessor;
 
-	private final StarshipStatusProcessor starshipStatusProcessor;
+	private final StatusProcessor statusProcessor;
 
-	private final StarshipDateStatusProcessor starshipDateStatusProcessor;
+	private final DateStatusProcessor dateStatusProcessor;
 
 	public StarshipTemplateContentsEnrichingProcessor(StarshipRegistryProcessor starshipRegistryProcessor,
-			StarshipStatusProcessor starshipStatusProcessor, StarshipDateStatusProcessor starshipDateStatusProcessor) {
+			StatusProcessor statusProcessor, DateStatusProcessor dateStatusProcessor) {
 		this.starshipRegistryProcessor = starshipRegistryProcessor;
-		this.starshipStatusProcessor = starshipStatusProcessor;
-		this.starshipDateStatusProcessor = starshipDateStatusProcessor;
+		this.statusProcessor = statusProcessor;
+		this.dateStatusProcessor = dateStatusProcessor;
 	}
 
 	@Override
@@ -39,10 +41,10 @@ public class StarshipTemplateContentsEnrichingProcessor implements ItemWithTempl
 					starshipTemplate.setRegistry(starshipRegistryProcessor.process(value));
 					break;
 				case StarshipTemplateParameter.STATUS:
-					starshipTemplate.setStatus(starshipStatusProcessor.process(value));
+					starshipTemplate.setStatus(statusProcessor.process(value));
 					break;
 				case StarshipTemplateParameter.DATE_STATUS:
-					starshipTemplate.setDateStatus(starshipDateStatusProcessor.process(value));
+					starshipTemplate.setDateStatus(dateStatusProcessor.process(value));
 					break;
 				default:
 					break;

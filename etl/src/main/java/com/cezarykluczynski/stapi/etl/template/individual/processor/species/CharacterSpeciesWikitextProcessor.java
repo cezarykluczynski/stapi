@@ -21,6 +21,7 @@ import javax.inject.Inject;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -31,6 +32,7 @@ public class CharacterSpeciesWikitextProcessor implements ItemProcessor<Pair<Str
 	private static final String HYBRID = "hybrid";
 	private static final String ARDANAN = "Ardanan";
 	private static final String FORMER = "former";
+	private static final String[] GENDERS = {"male", "female"};
 
 	private static final List<String> FRACTION_NAMES = Lists.newArrayList(CharacterSpeciesLiteralFractionWikitextEnrichingProcessor
 			.FRACTIONS.keySet());
@@ -76,6 +78,10 @@ public class CharacterSpeciesWikitextProcessor implements ItemProcessor<Pair<Str
 			return characterSpeciesSet;
 		}
 
+		pageLinkList = pageLinkList.stream()
+				.filter(this::isNotGender)
+				.collect(Collectors.toList());
+
 		if (pageLinkList.size() == 1) {
 			tryAddSingleSpeciesName(pageLinkList.get(0).getTitle(), characterSpeciesSet);
 		} else {
@@ -100,6 +106,10 @@ public class CharacterSpeciesWikitextProcessor implements ItemProcessor<Pair<Str
 		}
 
 		return characterSpeciesSet;
+	}
+
+	private boolean isNotGender(PageLink pageLink) {
+		return !StringUtils.equalsAnyIgnoreCase(pageLink.getTitle(), GENDERS);
 	}
 
 	private boolean isHumanAugment(List<PageLink> pageLinkList) {

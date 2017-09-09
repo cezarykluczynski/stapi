@@ -9,16 +9,16 @@
 	<include file="performer/0005_create_performer.xml" relativeToChangelogFile="true"/>
 	<include file="staff/0006_create_staff.xml" relativeToChangelogFile="true"/>
 	<include file="astronomical_object/0007_create_astronomical_object.xml" relativeToChangelogFile="true"/>
-	<include file="character/0008_create_character.xml" relativeToChangelogFile="true"/>
-	<include file="episode/0009_create_episode.xml" relativeToChangelogFile="true"/>
-	<include file="movie/0010_create_movie.xml" relativeToChangelogFile="true"/>
-	<include file="comic_series/0011_create_comic_series.xml" relativeToChangelogFile="true"/>
-	<include file="comics/0012_create_comics.xml" relativeToChangelogFile="true"/>
-	<include file="reference/0013_create_reference.xml" relativeToChangelogFile="true"/>
-	<include file="comic_strip/0014_create_comic_strip.xml" relativeToChangelogFile="true"/>
-	<include file="comic_collection/0015_create_comic_collection.xml" relativeToChangelogFile="true"/>
-	<include file="species/0016_create_species.xml" relativeToChangelogFile="true"/>
-	<include file="character/0017_create_character_species.xml" relativeToChangelogFile="true"/>
+	<include file="species/0008_create_species.xml" relativeToChangelogFile="true"/>
+	<include file="character/0009_create_character.xml" relativeToChangelogFile="true"/>
+	<include file="character/0010_create_character_species.xml" relativeToChangelogFile="true"/>
+	<include file="episode/0011_create_episode.xml" relativeToChangelogFile="true"/>
+	<include file="movie/0012_create_movie.xml" relativeToChangelogFile="true"/>
+	<include file="comic_series/0013_create_comic_series.xml" relativeToChangelogFile="true"/>
+	<include file="comics/0014_create_comics.xml" relativeToChangelogFile="true"/>
+	<include file="reference/0015_create_reference.xml" relativeToChangelogFile="true"/>
+	<include file="comic_strip/0016_create_comic_strip.xml" relativeToChangelogFile="true"/>
+	<include file="comic_collection/0017_create_comic_collection.xml" relativeToChangelogFile="true"/>
 	<include file="organization/0018_create_organization.xml" relativeToChangelogFile="true"/>
 	<include file="food/0019_create_food.xml" relativeToChangelogFile="true"/>
 	<include file="throttle/0020_create_throttle.xml" relativeToChangelogFile="true"/>

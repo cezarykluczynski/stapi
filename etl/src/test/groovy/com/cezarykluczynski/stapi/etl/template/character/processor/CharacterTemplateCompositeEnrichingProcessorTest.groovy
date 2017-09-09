@@ -20,7 +20,7 @@ class CharacterTemplateCompositeEnrichingProcessorTest extends Specification {
 
 	private IndividualTemplateCompositeEnrichingProcessor individualTemplateCompositeEnrichingProcessorMock
 
-	private CharacterTemplateMirrorAlternateUniverseEnrichingProcessor characterTemplateMirrorAlternateUniverseEnrichingProcessorMock
+	private CharacterTemplateFlagsEnrichingProcessor characterTemplateFlagsEnrichingProcessorMock
 
 	private IndividualTemplatePlacesFixedValueProvider individualTemplatePlacesFixedValueProviderMock
 
@@ -35,13 +35,13 @@ class CharacterTemplateCompositeEnrichingProcessorTest extends Specification {
 	void setup() {
 		templateFinderMock = Mock()
 		individualTemplateCompositeEnrichingProcessorMock = Mock()
-		characterTemplateMirrorAlternateUniverseEnrichingProcessorMock = Mock()
+		characterTemplateFlagsEnrichingProcessorMock = Mock()
 		individualTemplatePlacesFixedValueProviderMock = Mock()
 		characterboxCharacterTemplateEnrichingProcessorMock  = Mock()
 		hologramTemplateCompositeEnrichingProcessorMock = Mock()
 		fictionalTemplateCompositeEnrichingProcessorMock = Mock()
 		characterTemplateCompositeEnrichingProcessor = new CharacterTemplateCompositeEnrichingProcessor(templateFinderMock,
-				individualTemplateCompositeEnrichingProcessorMock, characterTemplateMirrorAlternateUniverseEnrichingProcessorMock,
+				individualTemplateCompositeEnrichingProcessorMock, characterTemplateFlagsEnrichingProcessorMock,
 				individualTemplatePlacesFixedValueProviderMock, characterboxCharacterTemplateEnrichingProcessorMock,
 				hologramTemplateCompositeEnrichingProcessorMock, fictionalTemplateCompositeEnrichingProcessorMock)
 	}
@@ -54,7 +54,7 @@ class CharacterTemplateCompositeEnrichingProcessorTest extends Specification {
 		characterTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(page, characterTemplate))
 
 		then:
-		1 * characterTemplateMirrorAlternateUniverseEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+		1 * characterTemplateFlagsEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 			EnrichablePair<Page, CharacterTemplate> enrichablePair ->
 				assert enrichablePair.input == page
 				assert enrichablePair.output == characterTemplate
@@ -79,7 +79,7 @@ class CharacterTemplateCompositeEnrichingProcessorTest extends Specification {
 		characterTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(page, characterTemplate))
 
 		then:
-		1 * characterTemplateMirrorAlternateUniverseEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+		1 * characterTemplateFlagsEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 			EnrichablePair<Page, CharacterTemplate> enrichablePair ->
 				assert enrichablePair.input == page
 				assert enrichablePair.output == characterTemplate

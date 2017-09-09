@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.starship.processor;
+package com.cezarykluczynski.stapi.etl.template.common.processor;
 
 import com.cezarykluczynski.stapi.etl.template.util.PatternDictionary;
 import com.google.common.collect.Lists;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-public class StarshipStatusProcessor implements ItemProcessor<String, String> {
+public class StatusProcessor implements ItemProcessor<String, String> {
 
 	private static final String PRESUM = "Presum";
 	private static final String UNKNOWN = "Unknown";

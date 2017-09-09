@@ -8,24 +8,27 @@ import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
+import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
 
 @Service
-public class CharacterTemplateMirrorAlternateUniverseEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Page, CharacterTemplate>> {
+public class CharacterTemplateFlagsEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Page, CharacterTemplate>> {
 
 	private static final String MIRROR = "(mirror)";
-
 	private static final String ALTERNATE_REALITY = "(alternate reality)";
+	private static final List<String> FICTIONAL_CHARACTERS_CATEGORIES = Lists.newArrayList(CategoryTitle.FICTIONAL_CHARACTERS,
+			CategoryTitle.THE_DIXON_HILL_SERIES_CHARACTERS, CategoryTitle.SHAKESPEARE_CHARACTERS);
+	private static final List<String> HOLOGRAMS_CATEGORIES = Lists.newArrayList(CategoryTitle.HOLOGRAMS, CategoryTitle.HOLOGRAPHIC_DUPLICATES);
 
 	private final TemplateFinder templateFinder;
 
 	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
 	@Inject
-	public CharacterTemplateMirrorAlternateUniverseEnrichingProcessor(TemplateFinder templateFinder,
+	public CharacterTemplateFlagsEnrichingProcessor(TemplateFinder templateFinder,
 			CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {
 		this.templateFinder = templateFinder;
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
@@ -38,28 +41,22 @@ public class CharacterTemplateMirrorAlternateUniverseEnrichingProcessor implemen
 		String pageTitle = page.getTitle();
 		List<String> categoryNameList = categoryTitlesExtractingProcessor.process(page.getCategories());
 
-		if (pageTitle.contains(MIRROR)) {
+		if (pageTitle.contains(MIRROR) || templateFinder.findTemplate(page, TemplateTitle.MIRROR).isPresent()
+				|| categoryNameList.contains(CategoryTitle.MIRROR_UNIVERSE_INHABITANTS)) {
 			characterTemplate.setMirror(true);
 		}
 
-		if (templateFinder.findTemplate(page, TemplateTitle.MIRROR).isPresent()) {
-			characterTemplate.setMirror(true);
-		}
-
-		if (categoryNameList.contains(CategoryTitle.MIRROR_UNIVERSE_INHABITANTS)) {
-			characterTemplate.setMirror(true);
-		}
-
-		if (pageTitle.contains(ALTERNATE_REALITY)) {
+		if (pageTitle.contains(ALTERNATE_REALITY) || templateFinder.findTemplate(page, TemplateTitle.ALT_REALITY).isPresent()
+				|| categoryNameList.stream().anyMatch(categoryName -> categoryName.contains(ALTERNATE_REALITY))) {
 			characterTemplate.setAlternateReality(true);
 		}
 
-		if (templateFinder.findTemplate(page, TemplateTitle.ALT_REALITY).isPresent()) {
-			characterTemplate.setAlternateReality(true);
+		if (categoryNameList.stream().anyMatch(HOLOGRAMS_CATEGORIES::contains)) {
+			characterTemplate.setHologram(true);
 		}
 
-		if (categoryNameList.stream().anyMatch(categoryName -> categoryName.contains(ALTERNATE_REALITY))) {
-			characterTemplate.setAlternateReality(true);
+		if (categoryNameList.stream().anyMatch(FICTIONAL_CHARACTERS_CATEGORIES::contains)) {
+			characterTemplate.setFictionalCharacter(true);
 		}
 	}
 
