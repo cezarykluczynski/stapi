@@ -6,23 +6,19 @@ import com.cezarykluczynski.stapi.etl.template.character.dto.CharacterTemplate
 import com.cezarykluczynski.stapi.etl.template.characterbox.processor.CharacterboxCharacterTemplateEnrichingProcessor
 import com.cezarykluczynski.stapi.etl.template.fictional.processor.FictionalTemplateCompositeEnrichingProcessor
 import com.cezarykluczynski.stapi.etl.template.hologram.processor.HologramTemplateCompositeEnrichingProcessor
-import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTemplateDateOfDeathEnrichingProcessor
-import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTemplatePartsEnrichingProcessor
+import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTemplateCompositeEnrichingProcessor
 import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTemplatePlacesFixedValueProvider
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
-import com.google.common.collect.Lists
 import spock.lang.Specification
 
 class CharacterTemplateCompositeEnrichingProcessorTest extends Specification {
 
 	private TemplateFinder templateFinderMock
 
-	private IndividualTemplateDateOfDeathEnrichingProcessor individualDateOfDeathEnrichingProcessorMock
-
-	private IndividualTemplatePartsEnrichingProcessor individualTemplatePartsEnrichingProcessorMock
+	private IndividualTemplateCompositeEnrichingProcessor individualTemplateCompositeEnrichingProcessorMock
 
 	private CharacterTemplateMirrorAlternateUniverseEnrichingProcessor characterTemplateMirrorAlternateUniverseEnrichingProcessorMock
 
@@ -38,18 +34,16 @@ class CharacterTemplateCompositeEnrichingProcessorTest extends Specification {
 
 	void setup() {
 		templateFinderMock = Mock()
-		individualDateOfDeathEnrichingProcessorMock = Mock()
-		individualTemplatePartsEnrichingProcessorMock = Mock()
+		individualTemplateCompositeEnrichingProcessorMock = Mock()
 		characterTemplateMirrorAlternateUniverseEnrichingProcessorMock = Mock()
 		individualTemplatePlacesFixedValueProviderMock = Mock()
 		characterboxCharacterTemplateEnrichingProcessorMock  = Mock()
 		hologramTemplateCompositeEnrichingProcessorMock = Mock()
 		fictionalTemplateCompositeEnrichingProcessorMock = Mock()
 		characterTemplateCompositeEnrichingProcessor = new CharacterTemplateCompositeEnrichingProcessor(templateFinderMock,
-				individualDateOfDeathEnrichingProcessorMock, individualTemplatePartsEnrichingProcessorMock,
-				characterTemplateMirrorAlternateUniverseEnrichingProcessorMock, individualTemplatePlacesFixedValueProviderMock,
-				characterboxCharacterTemplateEnrichingProcessorMock, hologramTemplateCompositeEnrichingProcessorMock,
-				fictionalTemplateCompositeEnrichingProcessorMock)
+				individualTemplateCompositeEnrichingProcessorMock, characterTemplateMirrorAlternateUniverseEnrichingProcessorMock,
+				individualTemplatePlacesFixedValueProviderMock, characterboxCharacterTemplateEnrichingProcessorMock,
+				hologramTemplateCompositeEnrichingProcessorMock, fictionalTemplateCompositeEnrichingProcessorMock)
 	}
 
 	void "when fixed value and template are not found, minimal set of dependencies is called"() {
@@ -60,6 +54,11 @@ class CharacterTemplateCompositeEnrichingProcessorTest extends Specification {
 		characterTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(page, characterTemplate))
 
 		then:
+		1 * characterTemplateMirrorAlternateUniverseEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+			EnrichablePair<Page, CharacterTemplate> enrichablePair ->
+				assert enrichablePair.input == page
+				assert enrichablePair.output == characterTemplate
+		}
 		1 * individualTemplatePlacesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_INDIVIDUAL) >> Optional.empty()
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.MBETA) >> Optional.empty()
@@ -71,9 +70,7 @@ class CharacterTemplateCompositeEnrichingProcessorTest extends Specification {
 	void "when fixed value and template are found, full set of dependencies is called"() {
 		Page page = new Page()
 		CharacterTemplate characterTemplate = new CharacterTemplate()
-		Template.Part templatePart = Mock()
-		List<Template.Part> templatePartList = Lists.newArrayList(templatePart)
-		Template sidebarIndividualTemplate = new Template(parts: templatePartList)
+		Template sidebarIndividualTemplate = Mock()
 		Template mbetaTemplate = Mock()
 		Template sidebarHologramTemplate = Mock()
 		Template sidebarFictionalTemplate = Mock()
@@ -82,21 +79,16 @@ class CharacterTemplateCompositeEnrichingProcessorTest extends Specification {
 		characterTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(page, characterTemplate))
 
 		then:
-		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_INDIVIDUAL) >> Optional.of(sidebarIndividualTemplate)
-		1 * individualTemplatePlacesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
-		1 * individualDateOfDeathEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
-			EnrichablePair<Template, CharacterTemplate> enrichablePair ->
-				assert enrichablePair.input == sidebarIndividualTemplate
-				assert enrichablePair.output == characterTemplate
-		}
-		1 * individualTemplatePartsEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
-			EnrichablePair<List<Template.Part>, CharacterTemplate> enrichablePair ->
-				assert enrichablePair.input == templatePartList
-				assert enrichablePair.output == characterTemplate
-		}
 		1 * characterTemplateMirrorAlternateUniverseEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 			EnrichablePair<Page, CharacterTemplate> enrichablePair ->
 				assert enrichablePair.input == page
+				assert enrichablePair.output == characterTemplate
+		}
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_INDIVIDUAL) >> Optional.of(sidebarIndividualTemplate)
+		1 * individualTemplatePlacesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
+		1 * individualTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+			EnrichablePair<Template, CharacterTemplate> enrichablePair ->
+				assert enrichablePair.input == sidebarIndividualTemplate
 				assert enrichablePair.output == characterTemplate
 		}
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.MBETA) >> Optional.of(mbetaTemplate)

@@ -8,8 +8,7 @@ import com.cezarykluczynski.stapi.etl.template.characterbox.processor.Characterb
 import com.cezarykluczynski.stapi.etl.template.fictional.processor.FictionalTemplateCompositeEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.hologram.processor.HologramTemplateCompositeEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualLifeBoundaryPlacesDTO;
-import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTemplateDateOfDeathEnrichingProcessor;
-import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTemplatePartsEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTemplateCompositeEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTemplatePlacesFixedValueProvider;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
@@ -25,9 +24,7 @@ public class CharacterTemplateCompositeEnrichingProcessor implements ItemEnrichi
 
 	private final TemplateFinder templateFinder;
 
-	private final IndividualTemplateDateOfDeathEnrichingProcessor individualTemplateDateOfDeathEnrichingProcessor;
-
-	private final IndividualTemplatePartsEnrichingProcessor characterTemplatePartsEnrichingProcessor;
+	private final IndividualTemplateCompositeEnrichingProcessor individualTemplateCompositeEnrichingProcessor;
 
 	private final CharacterTemplateMirrorAlternateUniverseEnrichingProcessor characterTemplateMirrorAlternateUniverseEnrichingProcessor;
 
@@ -40,18 +37,15 @@ public class CharacterTemplateCompositeEnrichingProcessor implements ItemEnrichi
 	private final FictionalTemplateCompositeEnrichingProcessor fictionalTemplateCompositeEnrichingProcessor;
 
 	@Inject
-	@SuppressWarnings("ParameterNumber")
 	public CharacterTemplateCompositeEnrichingProcessor(TemplateFinder templateFinder,
-			IndividualTemplateDateOfDeathEnrichingProcessor individualTemplateDateOfDeathEnrichingProcessor,
-			IndividualTemplatePartsEnrichingProcessor characterTemplatePartsEnrichingProcessor,
+			IndividualTemplateCompositeEnrichingProcessor individualTemplateCompositeEnrichingProcessor,
 			CharacterTemplateMirrorAlternateUniverseEnrichingProcessor characterTemplateMirrorAlternateUniverseEnrichingProcessor,
 			IndividualTemplatePlacesFixedValueProvider individualTemplatePlacesFixedValueProvider,
 			CharacterboxCharacterTemplateEnrichingProcessor characterboxCharacterTemplateEnrichingProcessor,
 			HologramTemplateCompositeEnrichingProcessor hologramTemplateCompositeEnrichingProcessor,
 			FictionalTemplateCompositeEnrichingProcessor fictionalTemplateCompositeEnrichingProcessor) {
 		this.templateFinder = templateFinder;
-		this.individualTemplateDateOfDeathEnrichingProcessor = individualTemplateDateOfDeathEnrichingProcessor;
-		this.characterTemplatePartsEnrichingProcessor = characterTemplatePartsEnrichingProcessor;
+		this.individualTemplateCompositeEnrichingProcessor = individualTemplateCompositeEnrichingProcessor;
 		this.characterTemplateMirrorAlternateUniverseEnrichingProcessor = characterTemplateMirrorAlternateUniverseEnrichingProcessor;
 		this.individualTemplatePlacesFixedValueProvider = individualTemplatePlacesFixedValueProvider;
 		this.characterboxCharacterTemplateEnrichingProcessor = characterboxCharacterTemplateEnrichingProcessor;
@@ -63,6 +57,8 @@ public class CharacterTemplateCompositeEnrichingProcessor implements ItemEnrichi
 	public void enrich(EnrichablePair<Page, CharacterTemplate> enrichablePair) throws Exception {
 		CharacterTemplate characterTemplate = enrichablePair.getOutput();
 		Page item = enrichablePair.getInput();
+
+		characterTemplateMirrorAlternateUniverseEnrichingProcessor.enrich(EnrichablePair.of(item, characterTemplate));
 
 		FixedValueHolder<IndividualLifeBoundaryPlacesDTO> individualLifeBoundaryPlacesDTOFixedValueHolder
 				= individualTemplatePlacesFixedValueProvider.getSearchedValue(item.getTitle());
@@ -76,10 +72,7 @@ public class CharacterTemplateCompositeEnrichingProcessor implements ItemEnrichi
 		Optional<Template> sidebarIndividualTemplateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_INDIVIDUAL);
 		if (sidebarIndividualTemplateOptional.isPresent()) {
 			Template sidebarIndividualTemplate = sidebarIndividualTemplateOptional.get();
-			// TODO: extract into IndividualTemplateCompositeEnrichingProcessor
-			individualTemplateDateOfDeathEnrichingProcessor.enrich(EnrichablePair.of(sidebarIndividualTemplate, characterTemplate));
-			characterTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(sidebarIndividualTemplate.getParts(), characterTemplate));
-			characterTemplateMirrorAlternateUniverseEnrichingProcessor.enrich(EnrichablePair.of(item, characterTemplate));
+			individualTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(sidebarIndividualTemplate, characterTemplate));
 		}
 
 		Optional<Template> memoryBetaTemplateOptional = templateFinder.findTemplate(item, TemplateTitle.MBETA);

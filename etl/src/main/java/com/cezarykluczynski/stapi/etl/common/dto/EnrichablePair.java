@@ -1,8 +1,10 @@
 package com.cezarykluczynski.stapi.etl.common.dto;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Getter
+@EqualsAndHashCode
 public final class EnrichablePair<I, O> {
 
 	private final I input;
