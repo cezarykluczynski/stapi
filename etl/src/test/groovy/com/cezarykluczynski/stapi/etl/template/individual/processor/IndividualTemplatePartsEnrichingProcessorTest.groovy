@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.individual.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
+import com.cezarykluczynski.stapi.etl.template.character.processor.CharacterTemplateActorLinkingEnrichingProcessor
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender
 import com.cezarykluczynski.stapi.etl.template.common.processor.MaritalStatusProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PartToGenderProcessor
@@ -34,7 +35,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 
 	private IndividualLifeBoundaryProcessor individualLifeBoundaryProcessorMock
 
-	private IndividualTemplateActorLinkingProcessor individualActorLinkingProcessorMock
+	private CharacterTemplateActorLinkingEnrichingProcessor characterTemplateActorLinkingEnrichingProcessorMock
 
 	private IndividualHeightProcessor individualHeightProcessorMock
 
@@ -51,14 +52,14 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 	void setup() {
 		partToGenderProcessorMock = Mock()
 		individualLifeBoundaryProcessorMock = Mock()
-		individualActorLinkingProcessorMock = Mock()
+		characterTemplateActorLinkingEnrichingProcessorMock = Mock()
 		individualHeightProcessorMock = Mock()
 		individualWeightProcessorMock = Mock()
 		individualBloodTypeProcessorMock = Mock()
 		maritalStatusProcessorMock = Mock()
 		characterSpeciesWikitextProcessorMock = Mock()
 		individualTemplatePartsEnrichingProcessor = new IndividualTemplatePartsEnrichingProcessor(partToGenderProcessorMock,
-				individualLifeBoundaryProcessorMock, individualActorLinkingProcessorMock, individualHeightProcessorMock,
+				individualLifeBoundaryProcessorMock, characterTemplateActorLinkingEnrichingProcessorMock, individualHeightProcessorMock,
 				individualWeightProcessorMock, individualBloodTypeProcessorMock, maritalStatusProcessorMock,
 				characterSpeciesWikitextProcessorMock)
 	}
@@ -78,7 +79,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 4
 	}
 
-	void "when actor key is found, part is passed to IndividualActorLinkingProcessor"() {
+	void "when actor key is found, CharacterTemplateActorLinkingEnrichingProcessor is used to process it"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: IndividualTemplateParameter.ACTOR)
 		CharacterTemplate characterTemplateInActorLinkingProcessor = null
@@ -88,9 +89,10 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), characterTemplate))
 
 		then:
-		1 * individualActorLinkingProcessorMock.enrich(_ as EnrichablePair<Template.Part, CharacterTemplate>) >> {
+		1 * characterTemplateActorLinkingEnrichingProcessorMock.enrich(_ as EnrichablePair<Template.Part, CharacterTemplate>) >> {
 			EnrichablePair<Template.Part, CharacterTemplate> enrichablePair ->
 				assert enrichablePair.input == templatePart
+				assert enrichablePair.output == characterTemplate
 				characterTemplateInActorLinkingProcessor = enrichablePair.output
 		}
 		0 * _
@@ -255,7 +257,11 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), characterTemplate))
 
 		then:
-		1 * characterSpeciesWikitextProcessorMock.process(_ as Pair) >> Sets.newHashSet(characterSpecies1, characterSpecies2)
+		1 * characterSpeciesWikitextProcessorMock.process(_ as Pair) >> { Pair<String, CharacterTemplate> pair ->
+			assert pair.key == VALUE
+			assert pair.value == characterTemplate
+			Sets.newHashSet(characterSpecies1, characterSpecies2)
+		}
 		0 * _
 		characterTemplate.characterSpecies.contains characterSpecies1
 		characterTemplate.characterSpecies.contains characterSpecies2

@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.individual.processor;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.character.dto.CharacterTemplate;
+import com.cezarykluczynski.stapi.etl.template.character.processor.CharacterTemplateActorLinkingEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.MaritalStatusProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PartToGenderProcessor;
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualLifeBoundaryDTO;
@@ -23,7 +24,7 @@ public class IndividualTemplatePartsEnrichingProcessor implements ItemEnrichingP
 
 	private final IndividualLifeBoundaryProcessor individualLifeBoundaryProcessor;
 
-	private final IndividualTemplateActorLinkingProcessor individualTemplateActorLinkingProcessor;
+	private final CharacterTemplateActorLinkingEnrichingProcessor characterTemplateActorLinkingEnrichingProcessor;
 
 	private final IndividualHeightProcessor individualHeightProcessor;
 
@@ -39,12 +40,13 @@ public class IndividualTemplatePartsEnrichingProcessor implements ItemEnrichingP
 	@SuppressWarnings("ParameterNumber")
 	public IndividualTemplatePartsEnrichingProcessor(PartToGenderProcessor partToGenderProcessor,
 			IndividualLifeBoundaryProcessor individualLifeBoundaryProcessor,
-			IndividualTemplateActorLinkingProcessor individualTemplateActorLinkingProcessor, IndividualHeightProcessor individualHeightProcessor,
-			IndividualWeightProcessor individualWeightProcessor, IndividualBloodTypeProcessor individualBloodTypeProcessor,
-			MaritalStatusProcessor maritalStatusProcessor, CharacterSpeciesWikitextProcessor characterSpeciesWikitextProcessor) {
+			CharacterTemplateActorLinkingEnrichingProcessor characterTemplateActorLinkingEnrichingProcessor,
+			IndividualHeightProcessor individualHeightProcessor, IndividualWeightProcessor individualWeightProcessor,
+			IndividualBloodTypeProcessor individualBloodTypeProcessor, MaritalStatusProcessor maritalStatusProcessor,
+			CharacterSpeciesWikitextProcessor characterSpeciesWikitextProcessor) {
 		this.partToGenderProcessor = partToGenderProcessor;
 		this.individualLifeBoundaryProcessor = individualLifeBoundaryProcessor;
-		this.individualTemplateActorLinkingProcessor = individualTemplateActorLinkingProcessor;
+		this.characterTemplateActorLinkingEnrichingProcessor = characterTemplateActorLinkingEnrichingProcessor;
 		this.individualHeightProcessor = individualHeightProcessor;
 		this.individualWeightProcessor = individualWeightProcessor;
 		this.individualBloodTypeProcessor = individualBloodTypeProcessor;
@@ -65,7 +67,7 @@ public class IndividualTemplatePartsEnrichingProcessor implements ItemEnrichingP
 					characterTemplate.setGender(partToGenderProcessor.process(part));
 					break;
 				case IndividualTemplateParameter.ACTOR:
-					individualTemplateActorLinkingProcessor.enrich(EnrichablePair.of(part, characterTemplate));
+					characterTemplateActorLinkingEnrichingProcessor.enrich(EnrichablePair.of(part, characterTemplate));
 					break;
 				case IndividualTemplateParameter.HEIGHT:
 					characterTemplate.setHeight(individualHeightProcessor.process(value));

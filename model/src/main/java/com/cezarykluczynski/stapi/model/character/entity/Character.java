@@ -30,13 +30,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import java.util.Set;
 
 @Data
 @Entity
-@ToString(callSuper = true, exclude = {"performers", "episodes", "movies", "characterSpecies", "creators"})
-@EqualsAndHashCode(callSuper = true, exclude = {"performers", "episodes", "movies", "characterSpecies", "creators"})
+@ToString(callSuper = true, exclude = {"hologramCharacter", "performers", "episodes", "movies", "characterSpecies", "creators"})
+@EqualsAndHashCode(callSuper = true, exclude = {"hologramCharacter", "performers", "episodes", "movies", "characterSpecies", "creators"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = CharacterRepository.class, singularName = "character",
 		pluralName = "characters")
@@ -97,6 +98,10 @@ public class Character extends PageAwareEntity implements PageAware {
 	private Boolean mirror;
 
 	private Boolean alternateReality;
+
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "hologram_character_id")
+	private Character hologramCharacter;
 
 	@ManyToMany(mappedBy = "characters", targetEntity = Performer.class)
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.individual.processor;
+package com.cezarykluczynski.stapi.etl.template.character.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplatePartEnrichingProcessor;
@@ -20,19 +20,20 @@ import java.util.Set;
 
 @Service
 @Slf4j
-public class IndividualTemplateActorLinkingProcessor implements ItemWithTemplatePartEnrichingProcessor<CharacterTemplate> {
+public class CharacterTemplateActorLinkingEnrichingProcessor implements ItemWithTemplatePartEnrichingProcessor<CharacterTemplate> {
 
 	private final WikitextApi wikitextApi;
 
 	private final PerformerRepository performerRepository;
 
 	@Inject
-	public IndividualTemplateActorLinkingProcessor(WikitextApi wikitextApi, PerformerRepository performerRepository) {
+	public CharacterTemplateActorLinkingEnrichingProcessor(WikitextApi wikitextApi, PerformerRepository performerRepository) {
 		this.wikitextApi = wikitextApi;
 		this.performerRepository = performerRepository;
 	}
 
 	@Override
+	// TODO: no need to pass part, value will be enough
 	public void enrich(EnrichablePair<Template.Part, CharacterTemplate> enrichablePair) throws Exception {
 		Template.Part actorTemplatePart = enrichablePair.getInput();
 		CharacterTemplate characterTemplate = enrichablePair.getOutput();

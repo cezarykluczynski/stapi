@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.individual.processor
+package com.cezarykluczynski.stapi.etl.template.character.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.template.character.dto.CharacterTemplate
@@ -12,7 +12,7 @@ import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import spock.lang.Specification
 
-class IndividualTemplateActorLinkingProcessorTest extends Specification {
+class CharacterTemplateActorLinkingEnrichingProcessorTest extends Specification {
 
 	private static final String VALUE = 'VALUE'
 	private static final String TITLE_1 = 'TITLE_1'
@@ -28,23 +28,24 @@ class IndividualTemplateActorLinkingProcessorTest extends Specification {
 
 	private PerformerRepository performerRepositoryMock
 
-	private IndividualTemplateActorLinkingProcessor individualTemplateActorLinkingProcessor
+	private CharacterTemplateActorLinkingEnrichingProcessor characterTemplateActorLinkingEnrichingProcessorMock
 
 	void setup() {
 		wikitextApiMock = Mock()
 		performerRepositoryMock = Mock()
-		individualTemplateActorLinkingProcessor = new IndividualTemplateActorLinkingProcessor(wikitextApiMock, performerRepositoryMock)
+		characterTemplateActorLinkingEnrichingProcessorMock = new CharacterTemplateActorLinkingEnrichingProcessor(wikitextApiMock,
+				performerRepositoryMock)
 	}
 
 	void "should do nothing if either template part or individual template is null"() {
 		when: 'Template.Part is null'
-		individualTemplateActorLinkingProcessor.enrich(EnrichablePair.of(null, new CharacterTemplate()))
+		characterTemplateActorLinkingEnrichingProcessorMock.enrich(EnrichablePair.of(null, new CharacterTemplate()))
 
 		then: 'there is no interactions with dependencies'
 		0 * _
 
 		when: 'Template.Part is null'
-		individualTemplateActorLinkingProcessor.enrich(EnrichablePair.of(new Template.Part(), null))
+		characterTemplateActorLinkingEnrichingProcessorMock.enrich(EnrichablePair.of(new Template.Part(), null))
 
 		then: 'there is no interactions with dependencies'
 		0 * _
@@ -68,7 +69,7 @@ class IndividualTemplateActorLinkingProcessorTest extends Specification {
 		Performer performer4 = new Performer(id: ID_2)
 
 		when:
-		individualTemplateActorLinkingProcessor.enrich(EnrichablePair.of(templatePart, characterTemplate))
+		characterTemplateActorLinkingEnrichingProcessorMock.enrich(EnrichablePair.of(templatePart, characterTemplate))
 
 		then: 'page links are found'
 		1 * wikitextApiMock.getPageLinksFromWikitext(VALUE) >> Lists.newArrayList(
