@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.fictional.processor
 
+import com.cezarykluczynski.stapi.etl.character.common.dto.CharacterRelationsMap
+import com.cezarykluczynski.stapi.etl.character.common.service.CharactersRelationsCache
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.template.character.dto.CharacterTemplate
 import com.cezarykluczynski.stapi.etl.template.character.processor.CharacterTemplateActorLinkingEnrichingProcessor
@@ -8,7 +10,9 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PartToGen
 import com.cezarykluczynski.stapi.etl.template.fictional.dto.FictionalTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.individual.processor.species.CharacterSpeciesWikitextProcessor
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies
+import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import org.apache.commons.lang3.tuple.Pair
@@ -17,11 +21,19 @@ import spock.lang.Specification
 class FictionalTemplateCompositeEnrichingProcessorTest extends Specification {
 
 	private static final Gender GENDER = Gender.F
+	private static final Long PAGE_ID = 5L
 	private static final String SPECIES = 'SPECIES'
+	private static final String CREATOR = 'CREATOR'
+	private static final String CHARACTER = 'CHARACTER'
+	private static final String SPOUSE = 'SPOUSE'
+	private static final String CHILDREN = 'CHILDREN'
+	private static final String RELATIVE = 'RELATIVE'
 
 	private PartToGenderProcessor partToGenderProcessorMock
 
 	private CharacterSpeciesWikitextProcessor characterSpeciesWikitextProcessorMock
+
+	private CharactersRelationsCache charactersRelationsCacheMock
 
 	private CharacterTemplateActorLinkingEnrichingProcessor characterTemplateActorLinkingEnrichingProcessorMock
 
@@ -30,9 +42,10 @@ class FictionalTemplateCompositeEnrichingProcessorTest extends Specification {
 	void setup() {
 		partToGenderProcessorMock = Mock()
 		characterSpeciesWikitextProcessorMock = Mock()
+		charactersRelationsCacheMock = Mock()
 		characterTemplateActorLinkingEnrichingProcessorMock = Mock()
 		fictionalTemplateCompositeEnrichingProcessor = new FictionalTemplateCompositeEnrichingProcessor(partToGenderProcessorMock,
-				characterSpeciesWikitextProcessorMock, characterTemplateActorLinkingEnrichingProcessorMock)
+				characterSpeciesWikitextProcessorMock, charactersRelationsCacheMock, characterTemplateActorLinkingEnrichingProcessorMock)
 	}
 
 	void "sets fictionalCharacter flag"() {
@@ -81,6 +94,96 @@ class FictionalTemplateCompositeEnrichingProcessorTest extends Specification {
 		0 * _
 		characterTemplate.characterSpecies.contains characterSpecies1
 		characterTemplate.characterSpecies.contains characterSpecies2
+	}
+
+	void "when creator part is found, it is put into CharactersRelationsCache"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: FictionalTemplateParameter.CREATOR, value: CREATOR)
+		Template sidebarHologramTemplate = new Template(parts: Lists.newArrayList(templatePart))
+		CharacterTemplate characterTemplate = new CharacterTemplate(page: new Page(pageId: PAGE_ID))
+		when:
+		fictionalTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(sidebarHologramTemplate, characterTemplate))
+
+		then:
+		1 * charactersRelationsCacheMock.put(PAGE_ID, _ as CharacterRelationsMap) >> { Long pageId, CharacterRelationsMap characterRelationsMap ->
+			assert characterRelationsMap.size() == 1
+			assert characterRelationsMap.keySet()[0].sidebarTemplateTitle == TemplateTitle.SIDEBAR_FICTIONAL
+			assert characterRelationsMap.keySet()[0].parameterName == FictionalTemplateParameter.CREATOR
+			assert characterRelationsMap.values()[0] == templatePart
+		}
+		0 * _
+	}
+
+	void "when character part is found, it is put into CharactersRelationsCache"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: FictionalTemplateParameter.CHARACTER, value: CHARACTER)
+		Template sidebarHologramTemplate = new Template(parts: Lists.newArrayList(templatePart))
+		CharacterTemplate characterTemplate = new CharacterTemplate(page: new Page(pageId: PAGE_ID))
+		when:
+		fictionalTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(sidebarHologramTemplate, characterTemplate))
+
+		then:
+		1 * charactersRelationsCacheMock.put(PAGE_ID, _ as CharacterRelationsMap) >> { Long pageId, CharacterRelationsMap characterRelationsMap ->
+			assert characterRelationsMap.size() == 1
+			assert characterRelationsMap.keySet()[0].sidebarTemplateTitle == TemplateTitle.SIDEBAR_FICTIONAL
+			assert characterRelationsMap.keySet()[0].parameterName == FictionalTemplateParameter.CHARACTER
+			assert characterRelationsMap.values()[0] == templatePart
+		}
+		0 * _
+	}
+
+	void "when spouse part is found, it is put into CharactersRelationsCache"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: FictionalTemplateParameter.SPOUSE, value: SPOUSE)
+		Template sidebarHologramTemplate = new Template(parts: Lists.newArrayList(templatePart))
+		CharacterTemplate characterTemplate = new CharacterTemplate(page: new Page(pageId: PAGE_ID))
+		when:
+		fictionalTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(sidebarHologramTemplate, characterTemplate))
+
+		then:
+		1 * charactersRelationsCacheMock.put(PAGE_ID, _ as CharacterRelationsMap) >> { Long pageId, CharacterRelationsMap characterRelationsMap ->
+			assert characterRelationsMap.size() == 1
+			assert characterRelationsMap.keySet()[0].sidebarTemplateTitle == TemplateTitle.SIDEBAR_FICTIONAL
+			assert characterRelationsMap.keySet()[0].parameterName == FictionalTemplateParameter.SPOUSE
+			assert characterRelationsMap.values()[0] == templatePart
+		}
+		0 * _
+	}
+
+	void "when children part is found, it is put into CharactersRelationsCache"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: FictionalTemplateParameter.CHILDREN, value: CHILDREN)
+		Template sidebarHologramTemplate = new Template(parts: Lists.newArrayList(templatePart))
+		CharacterTemplate characterTemplate = new CharacterTemplate(page: new Page(pageId: PAGE_ID))
+		when:
+		fictionalTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(sidebarHologramTemplate, characterTemplate))
+
+		then:
+		1 * charactersRelationsCacheMock.put(PAGE_ID, _ as CharacterRelationsMap) >> { Long pageId, CharacterRelationsMap characterRelationsMap ->
+			assert characterRelationsMap.size() == 1
+			assert characterRelationsMap.keySet()[0].sidebarTemplateTitle == TemplateTitle.SIDEBAR_FICTIONAL
+			assert characterRelationsMap.keySet()[0].parameterName == FictionalTemplateParameter.CHILDREN
+			assert characterRelationsMap.values()[0] == templatePart
+		}
+		0 * _
+	}
+
+	void "when relative part is found, it is put into CharactersRelationsCache"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: FictionalTemplateParameter.RELATIVE, value: RELATIVE)
+		Template sidebarHologramTemplate = new Template(parts: Lists.newArrayList(templatePart))
+		CharacterTemplate characterTemplate = new CharacterTemplate(page: new Page(pageId: PAGE_ID))
+		when:
+		fictionalTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(sidebarHologramTemplate, characterTemplate))
+
+		then:
+		1 * charactersRelationsCacheMock.put(PAGE_ID, _ as CharacterRelationsMap) >> { Long pageId, CharacterRelationsMap characterRelationsMap ->
+			assert characterRelationsMap.size() == 1
+			assert characterRelationsMap.keySet()[0].sidebarTemplateTitle == TemplateTitle.SIDEBAR_FICTIONAL
+			assert characterRelationsMap.keySet()[0].parameterName == FictionalTemplateParameter.RELATIVE
+			assert characterRelationsMap.values()[0] == templatePart
+		}
+		0 * _
 	}
 
 	void "when actor key is found, CharacterTemplateActorLinkingEnrichingProcessor is used to process it"() {

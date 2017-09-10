@@ -1,5 +1,8 @@
 package com.cezarykluczynski.stapi.etl.template.hologram.processor;
 
+import com.cezarykluczynski.stapi.etl.character.common.dto.CharacterRelationCacheKey;
+import com.cezarykluczynski.stapi.etl.character.common.dto.CharacterRelationsMap;
+import com.cezarykluczynski.stapi.etl.character.common.service.CharactersRelationsCache;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.character.dto.CharacterTemplate;
@@ -9,6 +12,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.StatusProcessor;
 import com.cezarykluczynski.stapi.etl.template.hologram.dto.HologramTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.individual.processor.species.CharacterSpeciesWikitextProcessor;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
@@ -21,6 +25,8 @@ public class HologramTemplateCompositeEnrichingProcessor implements ItemWithTemp
 
 	private final CharacterSpeciesWikitextProcessor characterSpeciesWikitextProcessor;
 
+	private final CharactersRelationsCache charactersRelationsCache;
+
 	private final HologramActivationDateProcessor hologramActivationDateProcessor;
 
 	private final StatusProcessor statusProcessor;
@@ -31,9 +37,11 @@ public class HologramTemplateCompositeEnrichingProcessor implements ItemWithTemp
 
 	@Inject
 	public HologramTemplateCompositeEnrichingProcessor(CharacterSpeciesWikitextProcessor characterSpeciesWikitextProcessor,
-			HologramActivationDateProcessor hologramActivationDateProcessor, StatusProcessor statusProcessor, DateStatusProcessor dateStatusProcessor,
+			CharactersRelationsCache charactersRelationsCache, HologramActivationDateProcessor hologramActivationDateProcessor,
+			StatusProcessor statusProcessor, DateStatusProcessor dateStatusProcessor,
 			CharacterTemplateActorLinkingEnrichingProcessor characterTemplateActorLinkingEnrichingProcessor) {
 		this.characterSpeciesWikitextProcessor = characterSpeciesWikitextProcessor;
+		this.charactersRelationsCache = charactersRelationsCache;
 		this.hologramActivationDateProcessor = hologramActivationDateProcessor;
 		this.statusProcessor = statusProcessor;
 		this.dateStatusProcessor = dateStatusProcessor;
@@ -57,7 +65,11 @@ public class HologramTemplateCompositeEnrichingProcessor implements ItemWithTemp
 					characterTemplate.getCharacterSpecies().addAll(characterSpeciesWikitextProcessor.process(Pair.of(value, characterTemplate)));
 					break;
 				case HologramTemplateParameter.CREATOR:
-					// TODO
+				case HologramTemplateParameter.SPOUSE:
+				case HologramTemplateParameter.CHILDREN:
+				case HologramTemplateParameter.RELATIVE:
+					charactersRelationsCache.put(characterTemplate.getPage().getPageId(), CharacterRelationsMap
+							.of(CharacterRelationCacheKey.of(TemplateTitle.SIDEBAR_HOLOGRAM, key), part));
 					break;
 				case HologramTemplateParameter.ACTIVATION_DATE:
 					characterTemplate.setHologramActivationDate(hologramActivationDateProcessor.process(value));

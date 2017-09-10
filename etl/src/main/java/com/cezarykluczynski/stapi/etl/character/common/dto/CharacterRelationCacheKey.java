@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor(staticName = "of")
 public class CharacterRelationCacheKey {
 
-	private String sidebarTemplateName;
+	private String sidebarTemplateTitle;
 
 	private String parameterName;
 

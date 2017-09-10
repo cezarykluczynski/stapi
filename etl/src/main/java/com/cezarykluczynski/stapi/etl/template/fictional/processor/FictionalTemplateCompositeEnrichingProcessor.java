@@ -1,5 +1,8 @@
 package com.cezarykluczynski.stapi.etl.template.fictional.processor;
 
+import com.cezarykluczynski.stapi.etl.character.common.dto.CharacterRelationCacheKey;
+import com.cezarykluczynski.stapi.etl.character.common.dto.CharacterRelationsMap;
+import com.cezarykluczynski.stapi.etl.character.common.service.CharactersRelationsCache;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.character.dto.CharacterTemplate;
@@ -8,6 +11,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PartToGen
 import com.cezarykluczynski.stapi.etl.template.fictional.dto.FictionalTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.individual.processor.species.CharacterSpeciesWikitextProcessor;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 
@@ -20,14 +24,17 @@ public class FictionalTemplateCompositeEnrichingProcessor implements ItemWithTem
 
 	private final CharacterSpeciesWikitextProcessor characterSpeciesWikitextProcessor;
 
+	private final CharactersRelationsCache charactersRelationsCache;
+
 	private final CharacterTemplateActorLinkingEnrichingProcessor characterTemplateActorLinkingEnrichingProcessor;
 
 	@Inject
 	public FictionalTemplateCompositeEnrichingProcessor(PartToGenderProcessor partToGenderProcessor,
-			CharacterSpeciesWikitextProcessor characterSpeciesWikitextProcessor,
+			CharacterSpeciesWikitextProcessor characterSpeciesWikitextProcessor, CharactersRelationsCache charactersRelationsCache,
 			CharacterTemplateActorLinkingEnrichingProcessor characterTemplateActorLinkingEnrichingProcessor) {
 		this.partToGenderProcessor = partToGenderProcessor;
 		this.characterSpeciesWikitextProcessor = characterSpeciesWikitextProcessor;
+		this.charactersRelationsCache = charactersRelationsCache;
 		this.characterTemplateActorLinkingEnrichingProcessor = characterTemplateActorLinkingEnrichingProcessor;
 	}
 
@@ -51,7 +58,11 @@ public class FictionalTemplateCompositeEnrichingProcessor implements ItemWithTem
 					break;
 				case FictionalTemplateParameter.CREATOR:
 				case FictionalTemplateParameter.CHARACTER:
-					// TODO
+				case FictionalTemplateParameter.SPOUSE:
+				case FictionalTemplateParameter.CHILDREN:
+				case FictionalTemplateParameter.RELATIVE:
+					charactersRelationsCache.put(characterTemplate.getPage().getPageId(), CharacterRelationsMap
+							.of(CharacterRelationCacheKey.of(TemplateTitle.SIDEBAR_FICTIONAL, key), part));
 					break;
 				case FictionalTemplateParameter.ACTOR:
 					characterTemplateActorLinkingEnrichingProcessor.enrich(EnrichablePair.of(part, characterTemplate));

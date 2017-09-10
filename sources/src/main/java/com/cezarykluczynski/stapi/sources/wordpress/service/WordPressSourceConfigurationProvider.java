@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.inject.Inject;
 import java.util.Map;
 
+// TODO: tests
 @Service
 public class WordPressSourceConfigurationProvider {
 

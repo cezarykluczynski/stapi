@@ -7,5 +7,8 @@ public class FictionalTemplateParameter {
 	public static final String CREATOR = "creator";
 	public static final String CHARACTER = "character";
 	public static final String ACTOR = "actor";
+	public static final String SPOUSE = "spouse";
+	public static final String CHILDREN = "children";
+	public static final String RELATIVE = "relative";
 
 }

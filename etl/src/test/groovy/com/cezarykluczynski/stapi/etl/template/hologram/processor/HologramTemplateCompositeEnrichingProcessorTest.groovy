@@ -1,14 +1,19 @@
 package com.cezarykluczynski.stapi.etl.template.hologram.processor
 
+import com.cezarykluczynski.stapi.etl.character.common.dto.CharacterRelationsMap
+import com.cezarykluczynski.stapi.etl.character.common.service.CharactersRelationsCache
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.template.character.dto.CharacterTemplate
 import com.cezarykluczynski.stapi.etl.template.character.processor.CharacterTemplateActorLinkingEnrichingProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.DateStatusProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.StatusProcessor
+import com.cezarykluczynski.stapi.etl.template.fictional.dto.FictionalTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.hologram.dto.HologramTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.individual.processor.species.CharacterSpeciesWikitextProcessor
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies
+import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import org.apache.commons.lang3.tuple.Pair
@@ -16,8 +21,13 @@ import spock.lang.Specification
 
 class HologramTemplateCompositeEnrichingProcessorTest extends Specification {
 
+	private static final Long PAGE_ID = 5L
 	private static final String APPEARANCE = 'APPEARANCE'
 	private static final String SPECIES = 'SPECIES'
+	private static final String CREATOR = 'CREATOR'
+	private static final String SPOUSE = 'SPOUSE'
+	private static final String CHILDREN = 'CHILDREN'
+	private static final String RELATIVE = 'RELATIVE'
 	private static final String ACTIVATION_DATE_INPUT = 'ACTIVATION_DATE_INPUT'
 	private static final String ACTIVATION_DATE_OUTPUT = 'ACTIVATION_DATE_OUTPUT'
 	private static final String STATUS_INPUT = 'STATUS_INPUT'
@@ -26,6 +36,8 @@ class HologramTemplateCompositeEnrichingProcessorTest extends Specification {
 	private static final String DATE_STATUS_OUTPUT = 'DATE_STATUS_OUTPUT'
 
 	private CharacterSpeciesWikitextProcessor characterSpeciesWikitextProcessorMock
+
+	private CharactersRelationsCache charactersRelationsCacheMock
 
 	private HologramActivationDateProcessor hologramActivationDateProcessorMock
 
@@ -39,12 +51,13 @@ class HologramTemplateCompositeEnrichingProcessorTest extends Specification {
 
 	void setup() {
 		characterSpeciesWikitextProcessorMock = Mock()
+		charactersRelationsCacheMock = Mock()
 		hologramActivationDateProcessorMock = Mock()
 		statusProcessorMock = Mock()
 		dateStatusProcessorMock = Mock()
 		characterTemplateActorLinkingEnrichingProcessorMock = Mock()
 		hologramTemplateCompositeEnrichingProcessor = new HologramTemplateCompositeEnrichingProcessor(characterSpeciesWikitextProcessorMock,
-				hologramActivationDateProcessorMock, statusProcessorMock, dateStatusProcessorMock,
+				charactersRelationsCacheMock, hologramActivationDateProcessorMock, statusProcessorMock, dateStatusProcessorMock,
 				characterTemplateActorLinkingEnrichingProcessorMock)
 	}
 
@@ -102,6 +115,78 @@ class HologramTemplateCompositeEnrichingProcessorTest extends Specification {
 		0 * _
 		characterTemplate.characterSpecies.contains characterSpecies1
 		characterTemplate.characterSpecies.contains characterSpecies2
+	}
+
+	void "when creator part is found, it is put into CharactersRelationsCache"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: FictionalTemplateParameter.CREATOR, value: CREATOR)
+		Template sidebarHologramTemplate = new Template(parts: Lists.newArrayList(templatePart))
+		CharacterTemplate characterTemplate = new CharacterTemplate(page: new Page(pageId: PAGE_ID))
+		when:
+		hologramTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(sidebarHologramTemplate, characterTemplate))
+
+		then:
+		1 * charactersRelationsCacheMock.put(PAGE_ID, _ as CharacterRelationsMap) >> { Long pageId, CharacterRelationsMap characterRelationsMap ->
+			assert characterRelationsMap.size() == 1
+			assert characterRelationsMap.keySet()[0].sidebarTemplateTitle == TemplateTitle.SIDEBAR_HOLOGRAM
+			assert characterRelationsMap.keySet()[0].parameterName == HologramTemplateParameter.CREATOR
+			assert characterRelationsMap.values()[0] == templatePart
+		}
+		0 * _
+	}
+
+	void "when spouse part is found, it is put into CharactersRelationsCache"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: FictionalTemplateParameter.SPOUSE, value: SPOUSE)
+		Template sidebarHologramTemplate = new Template(parts: Lists.newArrayList(templatePart))
+		CharacterTemplate characterTemplate = new CharacterTemplate(page: new Page(pageId: PAGE_ID))
+		when:
+		hologramTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(sidebarHologramTemplate, characterTemplate))
+
+		then:
+		1 * charactersRelationsCacheMock.put(PAGE_ID, _ as CharacterRelationsMap) >> { Long pageId, CharacterRelationsMap characterRelationsMap ->
+			assert characterRelationsMap.size() == 1
+			assert characterRelationsMap.keySet()[0].sidebarTemplateTitle == TemplateTitle.SIDEBAR_HOLOGRAM
+			assert characterRelationsMap.keySet()[0].parameterName == HologramTemplateParameter.SPOUSE
+			assert characterRelationsMap.values()[0] == templatePart
+		}
+		0 * _
+	}
+
+	void "when children part is found, it is put into CharactersRelationsCache"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: FictionalTemplateParameter.CHILDREN, value: CHILDREN)
+		Template sidebarHologramTemplate = new Template(parts: Lists.newArrayList(templatePart))
+		CharacterTemplate characterTemplate = new CharacterTemplate(page: new Page(pageId: PAGE_ID))
+		when:
+		hologramTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(sidebarHologramTemplate, characterTemplate))
+
+		then:
+		1 * charactersRelationsCacheMock.put(PAGE_ID, _ as CharacterRelationsMap) >> { Long pageId, CharacterRelationsMap characterRelationsMap ->
+			assert characterRelationsMap.size() == 1
+			assert characterRelationsMap.keySet()[0].sidebarTemplateTitle == TemplateTitle.SIDEBAR_HOLOGRAM
+			assert characterRelationsMap.keySet()[0].parameterName == HologramTemplateParameter.CHILDREN
+			assert characterRelationsMap.values()[0] == templatePart
+		}
+		0 * _
+	}
+
+	void "when relative part is found, it is put into CharactersRelationsCache"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: FictionalTemplateParameter.RELATIVE, value: RELATIVE)
+		Template sidebarHologramTemplate = new Template(parts: Lists.newArrayList(templatePart))
+		CharacterTemplate characterTemplate = new CharacterTemplate(page: new Page(pageId: PAGE_ID))
+		when:
+		hologramTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(sidebarHologramTemplate, characterTemplate))
+
+		then:
+		1 * charactersRelationsCacheMock.put(PAGE_ID, _ as CharacterRelationsMap) >> { Long pageId, CharacterRelationsMap characterRelationsMap ->
+			assert characterRelationsMap.size() == 1
+			assert characterRelationsMap.keySet()[0].sidebarTemplateTitle == TemplateTitle.SIDEBAR_HOLOGRAM
+			assert characterRelationsMap.keySet()[0].parameterName == HologramTemplateParameter.RELATIVE
+			assert characterRelationsMap.values()[0] == templatePart
+		}
+		0 * _
 	}
 
 	void "when activation date part is found, HologramActivationDateProcessor is used to process it"() {

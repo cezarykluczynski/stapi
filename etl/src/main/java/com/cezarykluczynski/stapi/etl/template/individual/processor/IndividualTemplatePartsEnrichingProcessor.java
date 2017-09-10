@@ -1,5 +1,8 @@
 package com.cezarykluczynski.stapi.etl.template.individual.processor;
 
+import com.cezarykluczynski.stapi.etl.character.common.dto.CharacterRelationCacheKey;
+import com.cezarykluczynski.stapi.etl.character.common.dto.CharacterRelationsMap;
+import com.cezarykluczynski.stapi.etl.character.common.service.CharactersRelationsCache;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.character.dto.CharacterTemplate;
@@ -10,6 +13,7 @@ import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualLifeBoun
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.individual.processor.species.CharacterSpeciesWikitextProcessor;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
+import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
@@ -32,6 +36,8 @@ public class IndividualTemplatePartsEnrichingProcessor implements ItemEnrichingP
 
 	private final IndividualBloodTypeProcessor individualBloodTypeProcessor;
 
+	private final CharactersRelationsCache charactersRelationsCache;
+
 	private final MaritalStatusProcessor maritalStatusProcessor;
 
 	private final CharacterSpeciesWikitextProcessor characterSpeciesWikitextProcessor;
@@ -42,14 +48,15 @@ public class IndividualTemplatePartsEnrichingProcessor implements ItemEnrichingP
 			IndividualLifeBoundaryProcessor individualLifeBoundaryProcessor,
 			CharacterTemplateActorLinkingEnrichingProcessor characterTemplateActorLinkingEnrichingProcessor,
 			IndividualHeightProcessor individualHeightProcessor, IndividualWeightProcessor individualWeightProcessor,
-			IndividualBloodTypeProcessor individualBloodTypeProcessor, MaritalStatusProcessor maritalStatusProcessor,
-			CharacterSpeciesWikitextProcessor characterSpeciesWikitextProcessor) {
+			IndividualBloodTypeProcessor individualBloodTypeProcessor, CharactersRelationsCache charactersRelationsCache,
+			MaritalStatusProcessor maritalStatusProcessor, CharacterSpeciesWikitextProcessor characterSpeciesWikitextProcessor) {
 		this.partToGenderProcessor = partToGenderProcessor;
 		this.individualLifeBoundaryProcessor = individualLifeBoundaryProcessor;
 		this.characterTemplateActorLinkingEnrichingProcessor = characterTemplateActorLinkingEnrichingProcessor;
 		this.individualHeightProcessor = individualHeightProcessor;
 		this.individualWeightProcessor = individualWeightProcessor;
 		this.individualBloodTypeProcessor = individualBloodTypeProcessor;
+		this.charactersRelationsCache = charactersRelationsCache;
 		this.maritalStatusProcessor = maritalStatusProcessor;
 		this.characterSpeciesWikitextProcessor = characterSpeciesWikitextProcessor;
 	}
@@ -91,6 +98,16 @@ public class IndividualTemplatePartsEnrichingProcessor implements ItemEnrichingP
 					characterTemplate.setYearOfDeath(deathBoundaryDTO.getYear());
 					characterTemplate.setMonthOfDeath(deathBoundaryDTO.getMonth());
 					characterTemplate.setDayOfDeath(deathBoundaryDTO.getDay());
+					break;
+				case IndividualTemplateParameter.FATHER:
+				case IndividualTemplateParameter.MOTHER:
+				case IndividualTemplateParameter.OWNER:
+				case IndividualTemplateParameter.SIBLING:
+				case IndividualTemplateParameter.RELATIVE:
+				case IndividualTemplateParameter.SPOUSE:
+				case IndividualTemplateParameter.CHILDREN:
+					charactersRelationsCache.put(characterTemplate.getPage().getPageId(), CharacterRelationsMap
+							.of(CharacterRelationCacheKey.of(TemplateTitle.SIDEBAR_INDIVIDUAL, key), part));
 					break;
 				case IndividualTemplateParameter.MARITAL_STATUS:
 					characterTemplate.setMaritalStatus(maritalStatusProcessor.process(value));
