@@ -38,7 +38,6 @@
 			<column name="fictional_character" type="boolean"/>
 			<column name="mirror" type="boolean"/>
 			<column name="alternate_reality" type="boolean"/>
-			<column name="hologram_character_id" type="bigint"/>
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="character_sequence"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
@@ -46,11 +45,6 @@
 				constraintName="character_page_fkey"
 				referencedColumnNames="id"
 				referencedTableName="page"/>
-		<addForeignKeyConstraint baseColumnNames="hologram_character_id"
-				baseTableName="character"
-				constraintName="c_hologram_character_fkey"
-				referencedColumnNames="id"
-				referencedTableName="character"/>
 
 		<createTable schemaName="stapi" tableName="performers_characters">
 			<column name="performer_id" type="bigint"/>
@@ -64,21 +58,6 @@
 		<addForeignKeyConstraint baseColumnNames="character_id"
 				baseTableName="performers_characters"
 				constraintName="pc_character_fkey"
-				referencedColumnNames="id"
-				referencedTableName="character"/>
-
-		<createTable schemaName="stapi" tableName="characters_creators">
-			<column name="character_id" type="bigint"/>
-			<column name="creator_id" type="bigint"/>
-		</createTable>
-		<addForeignKeyConstraint baseColumnNames="character_id"
-				baseTableName="characters_creators"
-				constraintName="c_creators_character_fkey"
-				referencedColumnNames="id"
-				referencedTableName="character"/>
-		<addForeignKeyConstraint baseColumnNames="creator_id"
-				baseTableName="characters_creators"
-				constraintName="c_creators_creator_fkey"
 				referencedColumnNames="id"
 				referencedTableName="character"/>
 	</changeSet>

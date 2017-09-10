@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.model.common.service;
 
 import com.cezarykluczynski.stapi.model.book_collection.entity.BookCollection;
 import com.cezarykluczynski.stapi.model.book_series.entity.BookSeries;
+import com.cezarykluczynski.stapi.model.character.entity.CharacterRelation;
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies;
 import com.cezarykluczynski.stapi.model.comic_collection.entity.ComicCollection;
 import com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries;
@@ -42,6 +43,7 @@ public class EntityMatadataProvider {
 		CUSTOM_SYMBOL_MAP.put(ComicStrip.class, "CT");
 		CUSTOM_SYMBOL_MAP.put(ComicCollection.class, "CL");
 		CUSTOM_SYMBOL_MAP.put(CharacterSpecies.class, "CP");
+		CUSTOM_SYMBOL_MAP.put(CharacterRelation.class, "RC");
 		CUSTOM_SYMBOL_MAP.put(BookSeries.class, "BS");
 		CUSTOM_SYMBOL_MAP.put(BookCollection.class, "BC");
 		CUSTOM_SYMBOL_MAP.put(MagazineSeries.class, "MS");

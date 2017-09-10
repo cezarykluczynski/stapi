@@ -21,7 +21,8 @@ public class CharacterTemplateFlagsEnrichingProcessor implements ItemEnrichingPr
 	private static final String ALTERNATE_REALITY = "(alternate reality)";
 	private static final List<String> FICTIONAL_CHARACTERS_CATEGORIES = Lists.newArrayList(CategoryTitle.FICTIONAL_CHARACTERS,
 			CategoryTitle.THE_DIXON_HILL_SERIES_CHARACTERS, CategoryTitle.SHAKESPEARE_CHARACTERS);
-	private static final List<String> HOLOGRAMS_CATEGORIES = Lists.newArrayList(CategoryTitle.HOLOGRAMS, CategoryTitle.HOLOGRAPHIC_DUPLICATES);
+	private static final List<String> HOLOGRAMS_CATEGORIES = Lists.newArrayList(CategoryTitle.HOLOGRAMS, CategoryTitle.HOLOGRAPHIC_DUPLICATES,
+			CategoryTitle.THE_ADVENTURES_OF_CAPTAIN_PROTON, CategoryTitle.THE_ADVENTURES_OF_FLOTTER, CategoryTitle.PARIS_042);
 
 	private final TemplateFinder templateFinder;
 

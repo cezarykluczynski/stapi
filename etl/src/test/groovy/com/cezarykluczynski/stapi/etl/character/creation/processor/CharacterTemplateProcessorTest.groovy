@@ -1,9 +1,10 @@
 package com.cezarykluczynski.stapi.etl.character.creation.processor
 
 import com.cezarykluczynski.stapi.etl.common.mapper.GenderMapper
-import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender as EtlGender
 import com.cezarykluczynski.stapi.etl.template.character.dto.CharacterTemplate
+import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender as EtlGender
 import com.cezarykluczynski.stapi.model.character.entity.Character
+import com.cezarykluczynski.stapi.model.character.entity.CharacterRelation
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender as ModelGender
@@ -36,12 +37,12 @@ class CharacterTemplateProcessorTest extends AbstractIndividualTest {
 	void "converts CharacterTemplate to Character"() {
 		given:
 		Page page = Mock()
-		Performer performer1 = new Performer(id: 11L)
-		Performer performer2 = new Performer(id: 12L)
-		CharacterSpecies characterSpecies1 = new CharacterSpecies(id: 21L)
-		CharacterSpecies characterSpecies2 = new CharacterSpecies(id: 22L)
-		Character creator1 = Mock()
-		Character creator2 = Mock()
+		Performer performer1 = new Performer(id: 1L)
+		Performer performer2 = new Performer(id: 2L)
+		CharacterSpecies characterSpecies1 = Mock()
+		CharacterSpecies characterSpecies2 = Mock()
+		CharacterRelation characterRelation1 = Mock()
+		CharacterRelation characterRelation2 = Mock()
 
 		CharacterTemplate characterTemplate = new CharacterTemplate(
 				page: page,
@@ -70,7 +71,7 @@ class CharacterTemplateProcessorTest extends AbstractIndividualTest {
 				alternateReality: ALTERNATE_REALITY,
 				performers: Sets.newHashSet(performer1, performer2),
 				characterSpecies: Sets.newHashSet(characterSpecies1, characterSpecies2),
-				creators: Sets.newHashSet(creator1, creator2))
+				characterRelations: Sets.newHashSet(characterRelation1, characterRelation2))
 
 		when:
 		Character character = characterTemplateProcessor.process(characterTemplate)
@@ -111,8 +112,8 @@ class CharacterTemplateProcessorTest extends AbstractIndividualTest {
 		performer2.characters.contains character
 		character.characterSpecies.contains characterSpecies1
 		character.characterSpecies.contains characterSpecies2
-		character.creators.contains creator1
-		character.creators.contains creator2
+		character.characterRelations.contains characterRelation1
+		character.characterRelations.contains characterRelation2
 	}
 
 	void "when boolean flags are null, false is put into them"() {

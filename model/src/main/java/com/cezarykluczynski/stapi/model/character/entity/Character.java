@@ -30,14 +30,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import java.util.Set;
 
 @Data
 @Entity
-@ToString(callSuper = true, exclude = {"hologramCharacter", "performers", "episodes", "movies", "characterSpecies", "creators"})
-@EqualsAndHashCode(callSuper = true, exclude = {"hologramCharacter", "performers", "episodes", "movies", "characterSpecies", "creators"})
+@ToString(callSuper = true, exclude = {"performers", "episodes", "movies", "characterSpecies", "characterRelations"})
+@EqualsAndHashCode(callSuper = true, exclude = {"performers", "episodes", "movies", "characterSpecies", "characterRelations"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = CharacterRepository.class, singularName = "character",
 		pluralName = "characters")
@@ -99,10 +98,6 @@ public class Character extends PageAwareEntity implements PageAware {
 
 	private Boolean alternateReality;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "hologram_character_id")
-	private Character hologramCharacter;
-
 	@ManyToMany(mappedBy = "characters", targetEntity = Performer.class)
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Performer> performers = Sets.newHashSet();
@@ -123,11 +118,10 @@ public class Character extends PageAwareEntity implements PageAware {
 	private Set<CharacterSpecies> characterSpecies = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "characters_creators",
+	@JoinTable(name = "characters_character_species",
 			joinColumns = @JoinColumn(name = "character_id", nullable = false, updatable = false),
-			inverseJoinColumns = @JoinColumn(name = "creator_id", nullable = false, updatable = false))
+			inverseJoinColumns = @JoinColumn(name = "character_species_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-	private Set<Character> creators = Sets.newHashSet();
-
+	private Set<CharacterRelation> characterRelations = Sets.newHashSet();
 
 }

@@ -1,7 +1,6 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
-
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 	<include file="page/0001_create_page.xml" relativeToChangelogFile="true"/>
 	<include file="company/0002_create_company.xml" relativeToChangelogFile="true"/>
 	<include file="series/0003_create_series.xml" relativeToChangelogFile="true"/>
@@ -12,37 +11,38 @@
 	<include file="species/0008_create_species.xml" relativeToChangelogFile="true"/>
 	<include file="character/0009_create_character.xml" relativeToChangelogFile="true"/>
 	<include file="character/0010_create_character_species.xml" relativeToChangelogFile="true"/>
-	<include file="episode/0011_create_episode.xml" relativeToChangelogFile="true"/>
-	<include file="movie/0012_create_movie.xml" relativeToChangelogFile="true"/>
-	<include file="comic_series/0013_create_comic_series.xml" relativeToChangelogFile="true"/>
-	<include file="comics/0014_create_comics.xml" relativeToChangelogFile="true"/>
-	<include file="reference/0015_create_reference.xml" relativeToChangelogFile="true"/>
-	<include file="comic_strip/0016_create_comic_strip.xml" relativeToChangelogFile="true"/>
-	<include file="comic_collection/0017_create_comic_collection.xml" relativeToChangelogFile="true"/>
-	<include file="organization/0018_create_organization.xml" relativeToChangelogFile="true"/>
-	<include file="food/0019_create_food.xml" relativeToChangelogFile="true"/>
-	<include file="throttle/0020_create_throttle.xml" relativeToChangelogFile="true"/>
-	<include file="location/0021_create_location.xml" relativeToChangelogFile="true"/>
-	<include file="book_series/0022_create_book_series.xml" relativeToChangelogFile="true"/>
-	<include file="book/0023_create_book.xml" relativeToChangelogFile="true"/>
-	<include file="book_collection/0024_create_book_collection.xml" relativeToChangelogFile="true"/>
-	<include file="hit/0025_create_endpoint_hit.xml" relativeToChangelogFile="true"/>
-	<include file="magazine_series/0026_create_magazine_series.xml" relativeToChangelogFile="true"/>
-	<include file="magazine/0027_create_magazine.xml" relativeToChangelogFile="true"/>
-	<include file="literature/0028_create_literature.xml" relativeToChangelogFile="true"/>
-	<include file="content_rating/0029_create_content_rating.xml" relativeToChangelogFile="true"/>
-	<include file="content_language/0030_create_content_language.xml" relativeToChangelogFile="true"/>
-	<include file="video_release/0031_create_video_release.xml" relativeToChangelogFile="true"/>
-	<include file="country/0032_create_country.xml" relativeToChangelogFile="true"/>
-	<include file="trading_card_deck/0033_create_trading_card_deck.xml" relativeToChangelogFile="true"/>
-	<include file="trading_card_set/0034_create_trading_card_set.xml" relativeToChangelogFile="true"/>
-	<include file="trading_card/0035_create_trading_card.xml" relativeToChangelogFile="true"/>
-	<include file="platform/0036_create_platform.xml" relativeToChangelogFile="true"/>
-	<include file="genre/0037_create_genre.xml" relativeToChangelogFile="true"/>
-	<include file="video_game/0038_create_video_game.xml" relativeToChangelogFile="true"/>
-	<include file="soundtrack/0039_create_soundtrack.xml" relativeToChangelogFile="true"/>
-	<include file="weapon/0040_create_weapon.xml" relativeToChangelogFile="true"/>
-	<include file="spacecraft_type/0041_create_spacecraft_type.xml" relativeToChangelogFile="true"/>
-	<include file="spacecraft_class/0042_create_spacecraft_class.xml" relativeToChangelogFile="true"/>
-	<include file="spacecraft/0043_create_spacecraft.xml" relativeToChangelogFile="true"/>
+	<include file="character/0011_create_character_relations.xml" relativeToChangelogFile="true"/>
+	<include file="episode/0012_create_episode.xml" relativeToChangelogFile="true"/>
+	<include file="movie/0013_create_movie.xml" relativeToChangelogFile="true"/>
+	<include file="comic_series/0014_create_comic_series.xml" relativeToChangelogFile="true"/>
+	<include file="comics/0015_create_comics.xml" relativeToChangelogFile="true"/>
+	<include file="reference/0016_create_reference.xml" relativeToChangelogFile="true"/>
+	<include file="comic_strip/0017_create_comic_strip.xml" relativeToChangelogFile="true"/>
+	<include file="comic_collection/0018_create_comic_collection.xml" relativeToChangelogFile="true"/>
+	<include file="organization/0019_create_organization.xml" relativeToChangelogFile="true"/>
+	<include file="food/0020_create_food.xml" relativeToChangelogFile="true"/>
+	<include file="throttle/0021_create_throttle.xml" relativeToChangelogFile="true"/>
+	<include file="location/0022_create_location.xml" relativeToChangelogFile="true"/>
+	<include file="book_series/0023_create_book_series.xml" relativeToChangelogFile="true"/>
+	<include file="book/0024_create_book.xml" relativeToChangelogFile="true"/>
+	<include file="book_collection/0025_create_book_collection.xml" relativeToChangelogFile="true"/>
+	<include file="hit/0026_create_endpoint_hit.xml" relativeToChangelogFile="true"/>
+	<include file="magazine_series/0027_create_magazine_series.xml" relativeToChangelogFile="true"/>
+	<include file="magazine/0028_create_magazine.xml" relativeToChangelogFile="true"/>
+	<include file="literature/0029_create_literature.xml" relativeToChangelogFile="true"/>
+	<include file="content_rating/0030_create_content_rating.xml" relativeToChangelogFile="true"/>
+	<include file="content_language/0031_create_content_language.xml" relativeToChangelogFile="true"/>
+	<include file="video_release/0032_create_video_release.xml" relativeToChangelogFile="true"/>
+	<include file="country/0033_create_country.xml" relativeToChangelogFile="true"/>
+	<include file="trading_card_deck/0034_create_trading_card_deck.xml" relativeToChangelogFile="true"/>
+	<include file="trading_card_set/0035_create_trading_card_set.xml" relativeToChangelogFile="true"/>
+	<include file="trading_card/0036_create_trading_card.xml" relativeToChangelogFile="true"/>
+	<include file="platform/0037_create_platform.xml" relativeToChangelogFile="true"/>
+	<include file="genre/0038_create_genre.xml" relativeToChangelogFile="true"/>
+	<include file="video_game/0039_create_video_game.xml" relativeToChangelogFile="true"/>
+	<include file="soundtrack/0040_create_soundtrack.xml" relativeToChangelogFile="true"/>
+	<include file="weapon/0041_create_weapon.xml" relativeToChangelogFile="true"/>
+	<include file="spacecraft_type/0042_create_spacecraft_type.xml" relativeToChangelogFile="true"/>
+	<include file="spacecraft_class/0043_create_spacecraft_class.xml" relativeToChangelogFile="true"/>
+	<include file="spacecraft/0044_create_spacecraft.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

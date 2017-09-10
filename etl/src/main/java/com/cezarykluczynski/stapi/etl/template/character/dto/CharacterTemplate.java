@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.character.dto;
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender;
-import com.cezarykluczynski.stapi.model.character.entity.Character;
+import com.cezarykluczynski.stapi.model.character.entity.CharacterRelation;
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies;
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType;
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus;
@@ -67,6 +67,6 @@ public class CharacterTemplate {
 
 	private Set<CharacterSpecies> characterSpecies = Sets.newHashSet();
 
-	private Set<Character> creators = Sets.newHashSet();
+	private Set<CharacterRelation> characterRelations = Sets.newHashSet();
 
 }

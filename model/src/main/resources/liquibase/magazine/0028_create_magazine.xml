@@ -1,0 +1,80 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet id="0028_create_magazine" author="cezarykluczynski">
+		<createTable schemaName="stapi" tableName="magazine">
+			<column name="id" type="bigint">
+				<constraints unique="true" nullable="false"/>
+			</column>
+			<column name="page_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="u_id" type="varchar(14)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="title" type="varchar(128)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="published_year" type="int"/>
+			<column name="published_month" type="int"/>
+			<column name="published_day" type="int"/>
+			<column name="cover_year" type="int"/>
+			<column name="cover_month" type="int"/>
+			<column name="cover_day" type="int"/>
+			<column name="number_of_pages" type="int"/>
+			<column name="issue_number" type="varchar(128)"/>
+		</createTable>
+		<createSequence incrementBy="1" sequenceName="magazine_sequence"/>
+		<addForeignKeyConstraint baseColumnNames="page_id"
+				baseTableName="magazine"
+				constraintName="magazine_page_fkey"
+				referencedColumnNames="id"
+				referencedTableName="page"/>
+
+		<createTable schemaName="stapi" tableName="magazines_publishers">
+			<column name="magazine_id" type="bigint"/>
+			<column name="company_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="magazine_id"
+				baseTableName="magazines_publishers"
+				constraintName="mp_publisher_fkey"
+				referencedColumnNames="id"
+				referencedTableName="magazine"/>
+		<addForeignKeyConstraint baseColumnNames="company_id"
+				baseTableName="magazines_publishers"
+				constraintName="mp_company_fkey"
+				referencedColumnNames="id"
+				referencedTableName="company"/>
+
+		<createTable schemaName="stapi" tableName="magazines_editors">
+			<column name="magazine_id" type="bigint"/>
+			<column name="staff_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="magazine_id"
+				baseTableName="magazines_editors"
+				constraintName="me_book_fkey"
+				referencedColumnNames="id"
+				referencedTableName="book"/>
+		<addForeignKeyConstraint baseColumnNames="staff_id"
+				baseTableName="magazines_editors"
+				constraintName="me_editor_fkey"
+				referencedColumnNames="id"
+				referencedTableName="staff"/>
+
+		<createTable schemaName="stapi" tableName="magazines_magazine_series">
+			<column name="magazine_id" type="bigint"/>
+			<column name="magazine_series_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="magazine_id"
+				baseTableName="magazines_magazine_series"
+				constraintName="mms_magazine_fkey"
+				referencedColumnNames="id"
+				referencedTableName="magazine"/>
+		<addForeignKeyConstraint baseColumnNames="magazine_series_id"
+				baseTableName="magazines_magazine_series"
+				constraintName="mms_magazine_series_fkey"
+				referencedColumnNames="id"
+				referencedTableName="magazine_series"/>
+	</changeSet>
+</databaseChangeLog>

@@ -1,0 +1,70 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet id="0014_create_comic_series" author="cezarykluczynski">
+		<createTable schemaName="stapi" tableName="comic_series">
+			<column name="id" type="bigint">
+				<constraints unique="true" nullable="false"/>
+			</column>
+			<column name="page_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="u_id" type="varchar(14)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="title" type="varchar(128)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="published_year_from" type="int"/>
+			<column name="published_month_from" type="int"/>
+			<column name="published_day_from" type="int"/>
+			<column name="published_year_to" type="int"/>
+			<column name="published_month_to" type="int"/>
+			<column name="published_day_to" type="int"/>
+			<column name="number_of_issues" type="int"/>
+			<column name="stardate_from" type="float"/>
+			<column name="stardate_to" type="float"/>
+			<column name="year_from" type="int"/>
+			<column name="year_to" type="int"/>
+			<column name="miniseries" type="boolean"/>
+			<column name="photonovel_series" type="boolean"/>
+		</createTable>
+		<createSequence incrementBy="1" sequenceName="comic_series_sequence"/>
+		<addForeignKeyConstraint baseColumnNames="page_id"
+				baseTableName="comic_series"
+				constraintName="comic_series_page_fkey"
+				referencedColumnNames="id"
+				referencedTableName="page"/>
+
+		<createTable schemaName="stapi" tableName="comic_series_comic_series">
+			<column name="comic_series_id" type="bigint"/>
+			<column name="comic_series_parent_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="comic_series_id"
+				baseTableName="comic_series_comic_series"
+				constraintName="cs_comic_series_fkey"
+				referencedColumnNames="id"
+				referencedTableName="comic_series"/>
+		<addForeignKeyConstraint baseColumnNames="comic_series_parent_id"
+				baseTableName="comic_series_comic_series"
+				constraintName="cs_comic_series_parent_fkey"
+				referencedColumnNames="id"
+				referencedTableName="comic_series"/>
+
+		<createTable schemaName="stapi" tableName="comic_series_publishers">
+			<column name="comic_series_id" type="bigint"/>
+			<column name="company_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="comic_series_id"
+				baseTableName="comic_series_publishers"
+				constraintName="cs_publisher_fkey"
+				referencedColumnNames="id"
+				referencedTableName="comic_series"/>
+		<addForeignKeyConstraint baseColumnNames="company_id"
+				baseTableName="comic_series_publishers"
+				constraintName="cs_company_fkey"
+				referencedColumnNames="id"
+				referencedTableName="company"/>
+	</changeSet>
+</databaseChangeLog>

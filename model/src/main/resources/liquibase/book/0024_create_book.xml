@@ -1,0 +1,199 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet id="0024_create_book" author="cezarykluczynski">
+		<createTable schemaName="stapi" tableName="book">
+			<column name="id" type="bigint">
+				<constraints unique="true" nullable="false"/>
+			</column>
+			<column name="page_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="u_id" type="varchar(14)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="title" type="varchar(128)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="published_year" type="int"/>
+			<column name="published_month" type="int"/>
+			<column name="published_day" type="int"/>
+			<column name="number_of_pages" type="int"/>
+			<column name="stardate_from" type="float"/>
+			<column name="stardate_to" type="float"/>
+			<column name="year_from" type="int"/>
+			<column name="year_to" type="int"/>
+			<column name="novel" type="boolean"/>
+			<column name="reference_book" type="boolean"/>
+			<column name="biography_book" type="boolean"/>
+			<column name="role_playing_book" type="boolean"/>
+			<column name="e_book" type="boolean"/>
+			<column name="anthology" type="boolean"/>
+			<column name="novelization" type="boolean"/>
+			<column name="audiobook" type="boolean"/>
+			<column name="audiobook_abridged" type="boolean"/>
+			<column name="audiobook_published_year" type="int"/>
+			<column name="audiobook_published_month" type="int"/>
+			<column name="audiobook_published_day" type="int"/>
+			<column name="audiobook_run_time" type="int"/>
+			<column name="production_number" type="varchar(32)"/>
+		</createTable>
+		<createSequence incrementBy="1" sequenceName="book_sequence"/>
+		<addForeignKeyConstraint baseColumnNames="page_id"
+				baseTableName="book"
+				constraintName="book_page_fkey"
+				referencedColumnNames="id"
+				referencedTableName="page"/>
+
+		<createTable schemaName="stapi" tableName="books_book_series">
+			<column name="book_id" type="bigint"/>
+			<column name="book_series_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="book_id"
+				baseTableName="books_book_series"
+				constraintName="bbs_book_fkey"
+				referencedColumnNames="id"
+				referencedTableName="book"/>
+		<addForeignKeyConstraint baseColumnNames="book_series_id"
+				baseTableName="books_book_series"
+				constraintName="bbs_book_series_fkey"
+				referencedColumnNames="id"
+				referencedTableName="book_series"/>
+
+		<createTable schemaName="stapi" tableName="books_authors">
+			<column name="book_id" type="bigint"/>
+			<column name="staff_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="book_id"
+				baseTableName="books_authors"
+				constraintName="ba_book_fkey"
+				referencedColumnNames="id"
+				referencedTableName="book"/>
+		<addForeignKeyConstraint baseColumnNames="staff_id"
+				baseTableName="books_authors"
+				constraintName="ba_author_fkey"
+				referencedColumnNames="id"
+				referencedTableName="staff"/>
+
+		<createTable schemaName="stapi" tableName="books_artists">
+			<column name="book_id" type="bigint"/>
+			<column name="staff_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="book_id"
+				baseTableName="books_artists"
+				constraintName="bar_book_fkey"
+				referencedColumnNames="id"
+				referencedTableName="book"/>
+		<addForeignKeyConstraint baseColumnNames="staff_id"
+				baseTableName="books_artists"
+				constraintName="bar_artist_fkey"
+				referencedColumnNames="id"
+				referencedTableName="staff"/>
+
+		<createTable schemaName="stapi" tableName="books_editors">
+			<column name="book_id" type="bigint"/>
+			<column name="staff_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="book_id"
+				baseTableName="books_editors"
+				constraintName="be_book_fkey"
+				referencedColumnNames="id"
+				referencedTableName="book"/>
+		<addForeignKeyConstraint baseColumnNames="staff_id"
+				baseTableName="books_editors"
+				constraintName="be_editor_fkey"
+				referencedColumnNames="id"
+				referencedTableName="staff"/>
+
+		<createTable schemaName="stapi" tableName="audiobooks_narrators">
+			<column name="book_id" type="bigint"/>
+			<column name="staff_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="book_id"
+				baseTableName="audiobooks_narrators"
+				constraintName="abn_book_fkey"
+				referencedColumnNames="id"
+				referencedTableName="book"/>
+		<addForeignKeyConstraint baseColumnNames="staff_id"
+				baseTableName="audiobooks_narrators"
+				constraintName="abn_editor_fkey"
+				referencedColumnNames="id"
+				referencedTableName="staff"/>
+
+		<createTable schemaName="stapi" tableName="books_publishers">
+			<column name="book_id" type="bigint"/>
+			<column name="company_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="book_id"
+				baseTableName="books_publishers"
+				constraintName="bp_book_fkey"
+				referencedColumnNames="id"
+				referencedTableName="book"/>
+		<addForeignKeyConstraint baseColumnNames="company_id"
+				baseTableName="books_publishers"
+				constraintName="bp_publisher_fkey"
+				referencedColumnNames="id"
+				referencedTableName="company"/>
+
+		<createTable schemaName="stapi" tableName="audiobooks_publishers">
+			<column name="book_id" type="bigint"/>
+			<column name="company_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="book_id"
+				baseTableName="audiobooks_publishers"
+				constraintName="abp_book_fkey"
+				referencedColumnNames="id"
+				referencedTableName="book"/>
+		<addForeignKeyConstraint baseColumnNames="company_id"
+				baseTableName="audiobooks_publishers"
+				constraintName="abp_publisher_fkey"
+				referencedColumnNames="id"
+				referencedTableName="company"/>
+
+		<createTable schemaName="stapi" tableName="books_characters">
+			<column name="book_id" type="bigint"/>
+			<column name="character_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="book_id"
+				baseTableName="books_characters"
+				constraintName="bc_book_fkey"
+				referencedColumnNames="id"
+				referencedTableName="book"/>
+		<addForeignKeyConstraint baseColumnNames="character_id"
+				baseTableName="books_characters"
+				constraintName="bc_character_fkey"
+				referencedColumnNames="id"
+				referencedTableName="character"/>
+
+		<createTable schemaName="stapi" tableName="books_references">
+			<column name="book_id" type="bigint"/>
+			<column name="reference_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="book_id"
+				baseTableName="books_references"
+				constraintName="br_book_fkey"
+				referencedColumnNames="id"
+				referencedTableName="book"/>
+		<addForeignKeyConstraint baseColumnNames="reference_id"
+				baseTableName="books_references"
+				constraintName="br_reference_fkey"
+				referencedColumnNames="id"
+				referencedTableName="reference"/>
+
+		<createTable schemaName="stapi" tableName="audiobooks_references">
+			<column name="book_id" type="bigint"/>
+			<column name="reference_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="book_id"
+				baseTableName="audiobooks_references"
+				constraintName="abr_book_fkey"
+				referencedColumnNames="id"
+				referencedTableName="book"/>
+		<addForeignKeyConstraint baseColumnNames="reference_id"
+				baseTableName="audiobooks_references"
+				constraintName="abr_reference_fkey"
+				referencedColumnNames="id"
+				referencedTableName="reference"/>
+	</changeSet>
+</databaseChangeLog>

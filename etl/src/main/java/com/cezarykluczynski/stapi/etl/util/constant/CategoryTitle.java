@@ -97,6 +97,9 @@ public class CategoryTitle {
 	public static final String HOLOGRAPHIC_DUPLICATES = "Holographic_duplicates";
 	public static final String FICTIONAL_CHARACTERS = "Fictional_characters";
 	public static final String THE_DIXON_HILL_SERIES_CHARACTERS = "The_Dixon_Hill_Series_characters";
+	public static final String THE_ADVENTURES_OF_CAPTAIN_PROTON = "The_Adventures_of_Captain_Proton";
+	public static final String THE_ADVENTURES_OF_FLOTTER = "The_Adventures_of_Flotter";
+	public static final String PARIS_042 = "Paris_042";
 	public static final String SHAKESPEARE_CHARACTERS = "Shakespeare_characters";
 	public static final String PERSONNEL_LISTS = "Personnel_lists";
 	public static final String FAMILIES = "Families";
