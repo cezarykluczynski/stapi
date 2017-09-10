@@ -6,6 +6,8 @@ import com.google.common.collect.Lists
 import org.springframework.batch.item.support.ListItemReader
 import spock.lang.Specification
 
+import java.util.stream.Collectors
+
 abstract class AbstractCreationConfigurationTest extends Specification {
 
 	protected static List<PageHeader> createListWithPageHeaderTitle(String title) {
@@ -46,6 +48,12 @@ abstract class AbstractCreationConfigurationTest extends Specification {
 		}
 
 		pageHeaderList
+	}
+
+	protected static List<String> pageHeaderListToPageTitleList(List<PageHeader> pageHeaderList) {
+		pageHeaderList.stream()
+				.map { it.title }
+				.collect(Collectors.toList())
 	}
 
 }

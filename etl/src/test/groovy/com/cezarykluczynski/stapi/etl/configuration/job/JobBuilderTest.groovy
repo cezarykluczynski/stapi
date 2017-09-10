@@ -50,6 +50,8 @@ class JobBuilderTest extends Specification {
 
 	private Step createCharactersStep
 
+	private Step linkCharactersStep
+
 	private Step createEpisodesStep
 
 	private Step createMoviesStep
@@ -122,6 +124,7 @@ class JobBuilderTest extends Specification {
 		createAstronomicalObjectsStep = Mock()
 		createSpeciesStep = Mock()
 		createCharactersStep = Mock()
+		linkCharactersStep = Mock()
 		createEpisodesStep = Mock()
 		createMoviesStep = Mock()
 		linkAstronomicalObjectsStep = Mock()
@@ -221,6 +224,12 @@ class JobBuilderTest extends Specification {
 		1 * stepProperties.isEnabled() >> true
 		1 * applicationContextMock.getBean(StepName.CREATE_CHARACTERS, Step) >> createCharactersStep
 		1 * createCharactersStep.name >> StepName.CREATE_CHARACTERS
+
+		then: 'LINK_CHARACTERS step is retrieved from application context'
+		1 * stepPropertiesMap.get(StepName.LINK_CHARACTERS) >> stepProperties
+		1 * stepProperties.isEnabled() >> true
+		1 * applicationContextMock.getBean(StepName.LINK_CHARACTERS, Step) >> linkCharactersStep
+		1 * linkCharactersStep.name >> StepName.LINK_CHARACTERS
 
 		then: 'CREATE_EPISODES step is retrieved from application context'
 		1 * stepPropertiesMap.get(StepName.CREATE_EPISODES) >> stepProperties

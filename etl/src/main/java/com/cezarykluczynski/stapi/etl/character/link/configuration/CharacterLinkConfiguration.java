@@ -1,7 +1,7 @@
-package com.cezarykluczynski.stapi.etl.character.creation.configuration;
+package com.cezarykluczynski.stapi.etl.character.link.configuration;
 
 import com.cezarykluczynski.stapi.etl.character.common.service.CharactersPageHeadersProvider;
-import com.cezarykluczynski.stapi.etl.character.creation.processor.CharacterReader;
+import com.cezarykluczynski.stapi.etl.character.link.processor.CharacterLinkReader;
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
@@ -15,7 +15,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Configuration
-public class CharacterCreationConfiguration {
+public class CharacterLinkConfiguration {
 
 	@Inject
 	private CharactersPageHeadersProvider charactersPageHeadersProvider;
@@ -25,14 +25,14 @@ public class CharacterCreationConfiguration {
 
 	@Bean
 	@DependsOn("batchDatabaseInitializer")
-	public CharacterReader characterReader() {
+	public CharacterLinkReader characterLinkReader() {
 		List<PageHeader> characters = Lists.newArrayList();
 
-		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_CHARACTERS)) {
+		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.LINK_CHARACTERS)) {
 			characters.addAll(charactersPageHeadersProvider.provide());
 		}
 
-		return new CharacterReader(characters);
+		return new CharacterLinkReader(characters);
 	}
 
 }

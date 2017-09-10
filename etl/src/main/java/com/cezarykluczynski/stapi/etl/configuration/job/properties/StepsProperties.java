@@ -25,6 +25,8 @@ public class StepsProperties {
 
 	private StepProperties createCharacters;
 
+	private StepProperties linkCharacters;
+
 	private StepProperties createEpisodes;
 
 	private StepProperties createMovies;
