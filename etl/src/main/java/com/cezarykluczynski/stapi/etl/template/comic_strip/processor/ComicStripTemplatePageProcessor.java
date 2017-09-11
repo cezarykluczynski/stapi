@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.comic_strip.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
-import com.cezarykluczynski.stapi.etl.common.processor.WikitextCharactersProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.character.WikitextSectionsCharactersProcessor;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.template.comic_strip.dto.ComicStripTemplate;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
@@ -27,16 +27,16 @@ public class ComicStripTemplatePageProcessor implements ItemProcessor<Page, Comi
 
 	private final ComicStripTemplatePartsEnrichingProcessor comicStripTemplatePartsEnrichingProcessor;
 
-	private final WikitextCharactersProcessor wikitextCharactersProcessor;
+	private final WikitextSectionsCharactersProcessor wikitextSectionsCharactersProcessor;
 
 	@Inject
 	public ComicStripTemplatePageProcessor(TemplateFinder templateFinder, PageBindingService pageBindingService,
 			ComicStripTemplatePartsEnrichingProcessor comicStripTemplatePartsEnrichingProcessor,
-			WikitextCharactersProcessor wikitextCharactersProcessor) {
+			WikitextSectionsCharactersProcessor wikitextSectionsCharactersProcessor) {
 		this.templateFinder = templateFinder;
 		this.pageBindingService = pageBindingService;
 		this.comicStripTemplatePartsEnrichingProcessor = comicStripTemplatePartsEnrichingProcessor;
-		this.wikitextCharactersProcessor = wikitextCharactersProcessor;
+		this.wikitextSectionsCharactersProcessor = wikitextSectionsCharactersProcessor;
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class ComicStripTemplatePageProcessor implements ItemProcessor<Page, Comi
 		comicStripTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
 
 		comicStripTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(template.getParts(), comicStripTemplate));
-		comicStripTemplate.getCharacters().addAll(wikitextCharactersProcessor.process(item));
+		comicStripTemplate.getCharacters().addAll(wikitextSectionsCharactersProcessor.process(item));
 
 		return comicStripTemplate;
 	}

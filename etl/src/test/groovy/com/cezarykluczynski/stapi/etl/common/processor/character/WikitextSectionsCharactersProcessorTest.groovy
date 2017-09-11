@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.common.processor
+package com.cezarykluczynski.stapi.etl.common.processor.character
 
 import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService
 import com.cezarykluczynski.stapi.etl.common.service.PageSectionExtractor
@@ -10,7 +10,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
-class WikitextCharactersProcessorTest extends Specification {
+class WikitextSectionsCharactersProcessorTest extends Specification {
 
 	private static final String WIKITEXT = 'WIKITEXT'
 	private static final String PAGE_TITLE_1 = 'PAGE_TITLE_1'
@@ -23,13 +23,14 @@ class WikitextCharactersProcessorTest extends Specification {
 
 	private EntityLookupByNameService entityLookupByNameServiceMock
 
-	private WikitextCharactersProcessor wikitextCharactersProcessor
+	private WikitextSectionsCharactersProcessor wikitextSectionsCharactersProcessor
 
 	void setup() {
 		pageSectionExtractorMock = Mock()
 		wikitextApiMock = Mock()
 		entityLookupByNameServiceMock = Mock()
-		wikitextCharactersProcessor = new WikitextCharactersProcessor(pageSectionExtractorMock, wikitextApiMock, entityLookupByNameServiceMock)
+		wikitextSectionsCharactersProcessor = new WikitextSectionsCharactersProcessor(pageSectionExtractorMock, wikitextApiMock,
+				entityLookupByNameServiceMock)
 	}
 
 	void "adds found characters to ComicStripTemplate"() {
@@ -39,11 +40,11 @@ class WikitextCharactersProcessorTest extends Specification {
 		PageSection pageSection = new PageSection(wikitext: WIKITEXT)
 
 		when:
-		Set<Character> characterSet = wikitextCharactersProcessor.process(page)
+		Set<Character> characterSet = wikitextSectionsCharactersProcessor.process(page)
 
 		then:
-		1 * pageSectionExtractorMock.findByTitlesIncludingSubsections(page, WikitextCharactersProcessor.CHARACTERS,
-				WikitextCharactersProcessor.REGULAR_CAST) >> Lists.newArrayList(pageSection)
+		1 * pageSectionExtractorMock.findByTitlesIncludingSubsections(page, WikitextSectionsCharactersProcessor.CHARACTERS,
+				WikitextSectionsCharactersProcessor.REGULAR_CAST) >> Lists.newArrayList(pageSection)
 		1 * wikitextApiMock.getPageTitlesFromWikitext(WIKITEXT) >> Lists.newArrayList(PAGE_TITLE_1, PAGE_TITLE_2)
 		1 * entityLookupByNameServiceMock.findCharacterByName(PAGE_TITLE_1, SOURCE) >> Optional.of(character)
 		1 * entityLookupByNameServiceMock.findCharacterByName(PAGE_TITLE_2, SOURCE) >> Optional.empty()

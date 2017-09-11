@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.book.processor
 
 import com.cezarykluczynski.stapi.etl.book.creation.service.BookPageFilter
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
-import com.cezarykluczynski.stapi.etl.common.processor.WikitextCharactersProcessor
+import com.cezarykluczynski.stapi.etl.common.processor.character.WikitextSectionsCharactersProcessor
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplate
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
@@ -31,7 +31,7 @@ class BookTemplatePageProcessorTest extends Specification {
 
 	private BookTemplatePartsEnrichingProcessor bookTemplatePartsEnrichingProcessorMock
 
-	private WikitextCharactersProcessor wikitextCharactersProcessorMock
+	private WikitextSectionsCharactersProcessor wikitextSectionsCharactersProcessorMock
 
 	private BookTemplatePageProcessor bookTemplatePageProcessor
 
@@ -41,9 +41,9 @@ class BookTemplatePageProcessorTest extends Specification {
 		templateFinderMock = Mock()
 		categoriesBookTemplateEnrichingProcessorMock = Mock()
 		bookTemplatePartsEnrichingProcessorMock = Mock()
-		wikitextCharactersProcessorMock = Mock()
+		wikitextSectionsCharactersProcessorMock = Mock()
 		bookTemplatePageProcessor = new BookTemplatePageProcessor(bookPageFilterMock, pageBindingServiceMock, templateFinderMock,
-				categoriesBookTemplateEnrichingProcessorMock, bookTemplatePartsEnrichingProcessorMock, wikitextCharactersProcessorMock)
+				categoriesBookTemplateEnrichingProcessorMock, bookTemplatePartsEnrichingProcessorMock, wikitextSectionsCharactersProcessorMock)
 	}
 
 	void "returns null when BookPageFilter returns true"() {
@@ -67,7 +67,7 @@ class BookTemplatePageProcessorTest extends Specification {
 		BookTemplate bookTemplate = bookTemplatePageProcessor.process(page)
 
 		then:
-		1 * wikitextCharactersProcessorMock.process(page) >> Sets.newHashSet()
+		1 * wikitextSectionsCharactersProcessorMock.process(page) >> Sets.newHashSet()
 		1 * templateFinderMock.findTemplate(*_) >> Optional.empty()
 		bookTemplate.title == TITLE
 
@@ -94,7 +94,7 @@ class BookTemplatePageProcessorTest extends Specification {
 			assert enrichablePair.input == categoryHeaderList
 			assert enrichablePair.output != null
 		}
-		1 * wikitextCharactersProcessorMock.process(page) >> Sets.newHashSet(character)
+		1 * wikitextSectionsCharactersProcessorMock.process(page) >> Sets.newHashSet(character)
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_NOVEL, TemplateTitle.SIDEBAR_REFERENCE_BOOK, TemplateTitle.SIDEBAR_RPG_BOOK,
 				TemplateTitle.SIDEBAR_BIOGRAPHY_BOOK, TemplateTitle.SIDEBAR_AUDIO) >> Optional.empty()
 		0 * _
@@ -126,7 +126,7 @@ class BookTemplatePageProcessorTest extends Specification {
 			assert enrichablePair.input == categoryHeaderList
 			assert enrichablePair.output != null
 		}
-		1 * wikitextCharactersProcessorMock.process(page) >> Sets.newHashSet()
+		1 * wikitextSectionsCharactersProcessorMock.process(page) >> Sets.newHashSet()
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_NOVEL, TemplateTitle.SIDEBAR_REFERENCE_BOOK, TemplateTitle.SIDEBAR_RPG_BOOK,
 				TemplateTitle.SIDEBAR_BIOGRAPHY_BOOK, TemplateTitle.SIDEBAR_AUDIO) >> Optional.of(sidebarBookTemplate)
 		1 * bookTemplatePartsEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair<Template, BookTemplate> enrichablePair ->

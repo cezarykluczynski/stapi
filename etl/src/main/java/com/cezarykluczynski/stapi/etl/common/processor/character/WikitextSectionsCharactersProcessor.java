@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.common.processor;
+package com.cezarykluczynski.stapi.etl.common.processor.character;
 
 import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService;
 import com.cezarykluczynski.stapi.etl.common.service.PageSectionExtractor;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class WikitextCharactersProcessor implements ItemProcessor<Page, Set<Character>> {
+public class WikitextSectionsCharactersProcessor implements ItemProcessor<Page, Set<Character>> {
 
 	private static final String CHARACTERS = "Characters";
 	private static final String REGULAR_CAST = "Regular Cast";
@@ -28,7 +28,7 @@ public class WikitextCharactersProcessor implements ItemProcessor<Page, Set<Char
 	private final EntityLookupByNameService entityLookupByNameService;
 
 	@Inject
-	public WikitextCharactersProcessor(PageSectionExtractor pageSectionExtractor, WikitextApi wikitextApi,
+	public WikitextSectionsCharactersProcessor(PageSectionExtractor pageSectionExtractor, WikitextApi wikitextApi,
 			EntityLookupByNameService entityLookupByNameService) {
 		this.pageSectionExtractor = pageSectionExtractor;
 		this.wikitextApi = wikitextApi;

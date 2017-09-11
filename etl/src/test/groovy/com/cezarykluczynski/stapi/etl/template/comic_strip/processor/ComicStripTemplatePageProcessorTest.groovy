@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.comic_strip.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
-import com.cezarykluczynski.stapi.etl.common.processor.WikitextCharactersProcessor
+import com.cezarykluczynski.stapi.etl.common.processor.character.WikitextSectionsCharactersProcessor
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.template.comic_strip.dto.ComicStripTemplate
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
@@ -25,7 +25,7 @@ class ComicStripTemplatePageProcessorTest extends Specification {
 
 	private ComicStripTemplatePartsEnrichingProcessor comicStripTemplatePartsEnrichingProcessorMock
 
-	private WikitextCharactersProcessor comicStripTemplateCharactersEnrichingProcessorMock
+	private WikitextSectionsCharactersProcessor comicStripTemplateCharactersEnrichingProcessorMock
 
 	private ComicStripTemplatePageProcessor comicStripTemplatePageProcessor
 

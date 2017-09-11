@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.comics.processor;
 import com.cezarykluczynski.stapi.etl.comic_strip.creation.service.ComicStripCandidatePageGatheringService;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
-import com.cezarykluczynski.stapi.etl.common.processor.WikitextCharactersProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.character.WikitextSectionsCharactersProcessor;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
@@ -44,7 +44,7 @@ public class ComicsTemplatePageProcessor implements ItemProcessor<Page, ComicsTe
 
 	private final ComicsTemplatePartsEnrichingProcessor comicsTemplatePartsEnrichingProcessor;
 
-	private final WikitextCharactersProcessor wikitextCharactersProcessor;
+	private final WikitextSectionsCharactersProcessor wikitextSectionsCharactersProcessor;
 
 	private final PageCacheStorage pageCacheStorage;
 
@@ -53,15 +53,15 @@ public class ComicsTemplatePageProcessor implements ItemProcessor<Page, ComicsTe
 	public ComicsTemplatePageProcessor(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor,
 			ComicStripCandidatePageGatheringService comicStripCandidatePageGatheringService, PageBindingService pageBindingService,
 			TemplateFinder templateFinder, ComicsTemplateCompositeEnrichingProcessor comicsTemplateCompositeEnrichingProcessor,
-			ComicsTemplatePartsEnrichingProcessor comicsTemplatePartsEnrichingProcessor, WikitextCharactersProcessor wikitextCharactersProcessor,
-			PageCacheStorage pageCacheStorage) {
+			ComicsTemplatePartsEnrichingProcessor comicsTemplatePartsEnrichingProcessor,
+			WikitextSectionsCharactersProcessor wikitextSectionsCharactersProcessor, PageCacheStorage pageCacheStorage) {
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
 		this.comicStripCandidatePageGatheringService = comicStripCandidatePageGatheringService;
 		this.pageBindingService = pageBindingService;
 		this.templateFinder = templateFinder;
 		this.comicsTemplateCompositeEnrichingProcessor = comicsTemplateCompositeEnrichingProcessor;
 		this.comicsTemplatePartsEnrichingProcessor = comicsTemplatePartsEnrichingProcessor;
-		this.wikitextCharactersProcessor = wikitextCharactersProcessor;
+		this.wikitextSectionsCharactersProcessor = wikitextSectionsCharactersProcessor;
 		this.pageCacheStorage = pageCacheStorage;
 	}
 
@@ -87,7 +87,7 @@ public class ComicsTemplatePageProcessor implements ItemProcessor<Page, ComicsTe
 		comicsTemplate.setAdaptation(isAdaptation(item));
 
 		comicsTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(item, comicsTemplate));
-		comicsTemplate.getCharacters().addAll(wikitextCharactersProcessor.process(item));
+		comicsTemplate.getCharacters().addAll(wikitextSectionsCharactersProcessor.process(item));
 
 		Optional<Template> sidebarComicsTemplateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_COMIC, TemplateTitle.SIDEBAR_NOVEL,
 				TemplateTitle.SIDEBAR_AUDIO);
