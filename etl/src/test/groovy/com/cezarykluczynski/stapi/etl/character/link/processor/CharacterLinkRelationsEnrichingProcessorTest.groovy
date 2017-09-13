@@ -61,10 +61,10 @@ class CharacterLinkRelationsEnrichingProcessorTest extends Specification {
 		then:
 		1 * characterLinkExtendedRelationsExtractorMock.extract(WIKITEXT_1) >> Lists
 				.newArrayList(characterPageLinkWithRelationName1, characterPageLinkWithRelationName2)
-		1 * characterRelationFactoryMock.create(character, characterPageLinkWithRelationName1) >> null
-		1 * characterRelationFactoryMock.create(character, characterPageLinkWithRelationName2) >> characterRelation1
+		1 * characterRelationFactoryMock.create(character, characterPageLinkWithRelationName1, characterRelationCacheKey1) >> null
+		1 * characterRelationFactoryMock.create(character, characterPageLinkWithRelationName2, characterRelationCacheKey1) >> characterRelation1
 		1 * characterLinkExtendedRelationsExtractorMock.extract(WIKITEXT_2) >> Lists.newArrayList(characterPageLinkWithRelationName3)
-		1 * characterRelationFactoryMock.create(character, characterPageLinkWithRelationName3) >> characterRelation2
+		1 * characterRelationFactoryMock.create(character, characterPageLinkWithRelationName3, characterRelationCacheKey3) >> characterRelation2
 		1 * characterRelationRepositoryMock.linkAndSave(_ as List) >> { args ->
 			List<CharacterRelation> characterRelationList = args[0]
 			assert characterRelationList.size() == 2

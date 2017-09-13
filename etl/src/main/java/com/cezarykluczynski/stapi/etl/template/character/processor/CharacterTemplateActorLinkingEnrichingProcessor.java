@@ -62,7 +62,7 @@ public class CharacterTemplateActorLinkingEnrichingProcessor implements ItemWith
 							pageLink.getTitle(), characterTemplate.getName());
 				}
 			} catch (Throwable e) {
-				log.warn("Ooops {}", e);
+				log.warn("Ooops", e);
 			}
 		}
 

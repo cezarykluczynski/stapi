@@ -118,9 +118,9 @@ public class Character extends PageAwareEntity implements PageAware {
 	private Set<CharacterSpecies> characterSpecies = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "characters_character_species",
+	@JoinTable(name = "characters_character_relations",
 			joinColumns = @JoinColumn(name = "character_id", nullable = false, updatable = false),
-			inverseJoinColumns = @JoinColumn(name = "character_species_id", nullable = false, updatable = false))
+			inverseJoinColumns = @JoinColumn(name = "character_relation_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<CharacterRelation> characterRelations = Sets.newHashSet();
 

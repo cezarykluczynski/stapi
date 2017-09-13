@@ -46,7 +46,8 @@ public class CharacterLinkRelationsEnrichingProcessor implements ItemEnrichingPr
 						.extract(part.getValue());
 
 				for (CharacterPageLinkWithRelationName characterPageLinkWithRelationName : characterPageLinkWithRelationNameList) {
-					CharacterRelation characterRelation = characterRelationFactory.create(character, characterPageLinkWithRelationName);
+					CharacterRelation characterRelation = characterRelationFactory
+							.create(character, characterPageLinkWithRelationName, characterRelationCacheKey);
 
 					if (characterRelation != null) {
 						characterRelationList.add(characterRelation);

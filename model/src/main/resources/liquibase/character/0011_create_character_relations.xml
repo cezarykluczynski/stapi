@@ -3,7 +3,7 @@
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 	<changeSet id="0011_create_character_relations" author="cezarykluczynski">
-		<createTable schemaName="stapi" tableName="character_relations">
+		<createTable schemaName="stapi" tableName="character_relation">
 			<column name="id" type="bigint">
 				<constraints unique="true" nullable="false"/>
 			</column>
@@ -16,12 +16,12 @@
 		<createSequence incrementBy="1" sequenceName="character_relations_sequence"/>
 
 		<addForeignKeyConstraint baseColumnNames="subject_character_id"
-				baseTableName="character_relations"
+				baseTableName="character_relation"
 				constraintName="cr_character_fkey"
 				referencedColumnNames="id"
 				referencedTableName="character"/>
 		<addForeignKeyConstraint baseColumnNames="target_character_id"
-				baseTableName="character_relations"
+				baseTableName="character_relation"
 				constraintName="cr_other_character_fkey"
 				referencedColumnNames="id"
 				referencedTableName="character"/>
@@ -39,6 +39,6 @@
 				baseTableName="characters_character_relations"
 				constraintName="ccr_character_relations_fkey"
 				referencedColumnNames="id"
-				referencedTableName="character_relations"/>
+				referencedTableName="character_relation"/>
 	</changeSet>
 </databaseChangeLog>
