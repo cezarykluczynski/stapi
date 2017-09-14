@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.character.link.relation.service;
 
 import com.cezarykluczynski.stapi.etl.character.common.dto.CharacterRelationCacheKey;
 import com.cezarykluczynski.stapi.etl.character.link.relation.dto.CharacterPageLinkWithRelationName;
+import com.cezarykluczynski.stapi.etl.character.link.relation.service.normalization.CharacterRelationNormalizationService;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.character.entity.CharacterRelation;
 import com.cezarykluczynski.stapi.model.character.repository.CharacterRepository;
@@ -54,7 +55,8 @@ public class CharacterRelationFactory {
 			characterRelation.setTarget(targetOptional.get());
 
 			if (characterPageLinkWithRelationName.getRelationName() != null) {
-				characterRelation.setType(characterRelationNormalizationService.normalize(characterPageLinkWithRelationName.getRelationName()));
+				characterRelation.setType(characterRelationNormalizationService
+						.normalize(characterRelationCacheKey, characterPageLinkWithRelationName.getRelationName()));
 			}
 
 			if (characterRelation.getType() == null) {

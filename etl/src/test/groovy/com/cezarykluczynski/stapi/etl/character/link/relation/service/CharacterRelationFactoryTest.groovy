@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.character.link.relation.service
 
 import com.cezarykluczynski.stapi.etl.character.common.dto.CharacterRelationCacheKey
 import com.cezarykluczynski.stapi.etl.character.link.relation.dto.CharacterPageLinkWithRelationName
+import com.cezarykluczynski.stapi.etl.character.link.relation.service.normalization.CharacterRelationNormalizationService
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.character.entity.CharacterRelation
 import com.cezarykluczynski.stapi.model.character.repository.CharacterRepository
@@ -74,7 +75,7 @@ class CharacterRelationFactoryTest extends Specification {
 
 		then:
 		1 * characterRepositoryMock.findByPageTitleAndPageMediaWikiSource(TITLE, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(target)
-		1 * characterRelationNormalizationServiceMock.normalize(RELATION_NAME_RAW) >> RELATION_NAME
+		1 * characterRelationNormalizationServiceMock.normalize(characterRelationCacheKey, RELATION_NAME_RAW) >> RELATION_NAME
 		0 * _
 		characterRelation.subject == subject
 		characterRelation.target == target
@@ -126,7 +127,7 @@ class CharacterRelationFactoryTest extends Specification {
 		1 * pageApiMock.getPage(TITLE, com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN) >> page
 		1 * characterRepositoryMock.findByPageTitleAndPageMediaWikiSource(TITLE_AFTER_REDIRECT, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				Optional.of(target)
-		1 * characterRelationNormalizationServiceMock.normalize(RELATION_NAME_RAW) >> RELATION_NAME
+		1 * characterRelationNormalizationServiceMock.normalize(characterRelationCacheKey, RELATION_NAME_RAW) >> RELATION_NAME
 		0 * _
 		characterRelation.subject == subject
 		characterRelation.target == target

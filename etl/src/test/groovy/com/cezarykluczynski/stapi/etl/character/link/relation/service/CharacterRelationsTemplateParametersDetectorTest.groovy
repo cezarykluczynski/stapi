@@ -39,7 +39,7 @@ class CharacterRelationsTemplateParametersDetectorTest extends Specification {
 	@Unroll('when #templateParameter is passes to isSidebarFictionalPartKey, #result is returned')
 	void "when template parameter name is passed to isSidebarFictionalPartKey, boolean flag is returned"() {
 		expect:
-		characterRelationsTemplateParametersDetector.isSidebarHologramPartKey(templateParameter) == result
+		characterRelationsTemplateParametersDetector.isSidebarFictionalPartKey(templateParameter) == result
 
 		where:
 		templateParameter                                                                                    | result
