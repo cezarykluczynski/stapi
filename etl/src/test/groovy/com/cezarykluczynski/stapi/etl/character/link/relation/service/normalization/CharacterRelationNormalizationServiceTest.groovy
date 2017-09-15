@@ -98,6 +98,15 @@ class CharacterRelationNormalizationServiceTest extends Specification {
 		relationName == RELATION_NAME
 	}
 
+	void "when unknown parameter name is passed, null is returned"() {
+		when:
+		String relationName = characterRelationNormalizationService.normalize(keyOf(StringUtils.EMPTY), RAW_RELATION_NAME)
+
+		then:
+		0 * _
+		relationName == null
+	}
+
 	private static CharacterRelationCacheKey keyOf(String parameterName) {
 		CharacterRelationCacheKey.of(StringUtils.EMPTY, parameterName)
 	}
