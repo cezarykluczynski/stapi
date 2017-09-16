@@ -29,6 +29,8 @@ class CharacterBaseRestMapperTest extends AbstractCharacterMapperTest {
 				name: NAME,
 				gender: MODEL_GENDER,
 				deceased: DECEASED,
+				hologram: HOLOGRAM,
+				fictionalCharacter: FICTIONAL_CHARACTER,
 				mirror: MIRROR,
 				alternateReality: ALTERNATE_REALITY)
 
@@ -40,6 +42,8 @@ class CharacterBaseRestMapperTest extends AbstractCharacterMapperTest {
 		characterRequestDTO.name == NAME
 		characterRequestDTO.gender == MODEL_GENDER
 		characterRequestDTO.deceased == DECEASED
+		characterRequestDTO.hologram == HOLOGRAM
+		characterRequestDTO.fictionalCharacter == FICTIONAL_CHARACTER
 		characterRequestDTO.mirror == MIRROR
 		characterRequestDTO.alternateReality == ALTERNATE_REALITY
 	}
@@ -49,27 +53,32 @@ class CharacterBaseRestMapperTest extends AbstractCharacterMapperTest {
 		Character character = createCharacter()
 
 		when:
-		CharacterBase restCharacter = characterRestMapper.mapBase(Lists.newArrayList(character))[0]
+		CharacterBase characterBase = characterRestMapper.mapBase(Lists.newArrayList(character))[0]
 
 		then:
-		restCharacter.name == NAME
-		restCharacter.gender == REST_GENDER
-		restCharacter.yearOfBirth == YEAR_OF_BIRTH
-		restCharacter.monthOfBirth == MONTH_OF_BIRTH
-		restCharacter.dayOfBirth == DAY_OF_BIRTH
-		restCharacter.placeOfBirth == PLACE_OF_BIRTH
-		restCharacter.yearOfDeath == YEAR_OF_DEATH
-		restCharacter.monthOfDeath == MONTH_OF_DEATH
-		restCharacter.dayOfDeath == DAY_OF_DEATH
-		restCharacter.placeOfDeath == PLACE_OF_DEATH
-		restCharacter.height == HEIGHT
-		restCharacter.weight == WEIGHT
-		restCharacter.deceased == DECEASED
-		restCharacter.bloodType == REST_BLOOD_TYPE
-		restCharacter.maritalStatus == REST_MARITAL_STATUS
-		restCharacter.serialNumber == SERIAL_NUMBER
-		restCharacter.mirror == MIRROR
-		restCharacter.alternateReality == ALTERNATE_REALITY
+		characterBase.name == NAME
+		characterBase.gender == REST_GENDER
+		characterBase.yearOfBirth == YEAR_OF_BIRTH
+		characterBase.monthOfBirth == MONTH_OF_BIRTH
+		characterBase.dayOfBirth == DAY_OF_BIRTH
+		characterBase.placeOfBirth == PLACE_OF_BIRTH
+		characterBase.yearOfDeath == YEAR_OF_DEATH
+		characterBase.monthOfDeath == MONTH_OF_DEATH
+		characterBase.dayOfDeath == DAY_OF_DEATH
+		characterBase.placeOfDeath == PLACE_OF_DEATH
+		characterBase.height == HEIGHT
+		characterBase.weight == WEIGHT
+		characterBase.deceased == DECEASED
+		characterBase.bloodType == REST_BLOOD_TYPE
+		characterBase.maritalStatus == REST_MARITAL_STATUS
+		characterBase.serialNumber == SERIAL_NUMBER
+		characterBase.hologramActivationDate == HOLOGRAM_ACTIVATION_DATE
+		characterBase.hologramStatus == HOLOGRAM_STATUS
+		characterBase.hologramDateStatus == HOLOGRAM_DATE_STATUS
+		characterBase.hologram == HOLOGRAM
+		characterBase.fictionalCharacter == FICTIONAL_CHARACTER
+		characterBase.mirror == MIRROR
+		characterBase.alternateReality == ALTERNATE_REALITY
 	}
 
 }

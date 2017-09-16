@@ -21,6 +21,8 @@ class CharacterBaseSoapMapperTest extends AbstractCharacterMapperTest {
 				name: NAME,
 				gender: SOAP_GENDER,
 				deceased: DECEASED,
+				hologram: HOLOGRAM,
+				fictionalCharacter: FICTIONAL_CHARACTER,
 				mirror: MIRROR,
 				alternateReality: ALTERNATE_REALITY)
 
@@ -31,6 +33,8 @@ class CharacterBaseSoapMapperTest extends AbstractCharacterMapperTest {
 		characterRequestDTO.name == NAME
 		characterRequestDTO.gender == MODEL_GENDER
 		characterRequestDTO.deceased == DECEASED
+		characterRequestDTO.hologram == HOLOGRAM
+		characterRequestDTO.fictionalCharacter == FICTIONAL_CHARACTER
 		characterRequestDTO.mirror == MIRROR
 		characterRequestDTO.alternateReality == ALTERNATE_REALITY
 	}
@@ -60,6 +64,11 @@ class CharacterBaseSoapMapperTest extends AbstractCharacterMapperTest {
 		characterBase.bloodType == SOAP_BLOOD_TYPE
 		characterBase.maritalStatus == SOAP_MARITAL_STATUS
 		characterBase.serialNumber == SERIAL_NUMBER
+		characterBase.hologramActivationDate == HOLOGRAM_ACTIVATION_DATE
+		characterBase.hologramStatus == HOLOGRAM_STATUS
+		characterBase.hologramDateStatus == HOLOGRAM_DATE_STATUS
+		characterBase.hologram == HOLOGRAM
+		characterBase.fictionalCharacter == FICTIONAL_CHARACTER
 		characterBase.mirror == MIRROR
 		characterBase.alternateReality == ALTERNATE_REALITY
 	}

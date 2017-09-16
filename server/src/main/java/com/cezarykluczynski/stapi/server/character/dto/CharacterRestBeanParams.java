@@ -18,6 +18,12 @@ public class CharacterRestBeanParams extends PageSortBeanParams {
 	@FormParam("deceased")
 	private Boolean deceased;
 
+	@FormParam("hologram")
+	private Boolean hologram;
+
+	@FormParam("fictionalCharacter")
+	private Boolean fictionalCharacter;
+
 	@FormParam("mirror")
 	private Boolean mirror;
 
@@ -42,6 +48,14 @@ public class CharacterRestBeanParams extends PageSortBeanParams {
 
 	public Boolean getDeceased() {
 		return deceased;
+	}
+
+	public Boolean getHologram() {
+		return hologram;
+	}
+
+	public Boolean getFictionalCharacter() {
+		return fictionalCharacter;
 	}
 
 	public Boolean getMirror() {

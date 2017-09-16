@@ -54,6 +54,21 @@ properties:
   serialNumber:
     type: string
     description: Serial number
+  hologramActivationDate:
+    type: string
+    description: Hologram activation date
+  hologramStatus:
+    type: string
+    description: Hologram status
+  hologramDateStatus:
+    type: string
+    description: Hologram date status
+  hologram:
+    type: boolean
+    description: Whether this character is a hologram
+  fictionalCharacter:
+    type: boolean
+    description: Whether this character is a fictional character (from universe point of view)
   mirror:
     type: boolean
     description: Whether this character is from mirror universe

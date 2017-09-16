@@ -50,6 +50,11 @@ class CharacterFullSoapMapperTest extends AbstractCharacterMapperTest {
 		characterFull.bloodType == SOAP_BLOOD_TYPE
 		characterFull.maritalStatus == SOAP_MARITAL_STATUS
 		characterFull.serialNumber == SERIAL_NUMBER
+		characterFull.hologramActivationDate == HOLOGRAM_ACTIVATION_DATE
+		characterFull.hologramStatus == HOLOGRAM_STATUS
+		characterFull.hologramDateStatus == HOLOGRAM_DATE_STATUS
+		characterFull.hologram == HOLOGRAM
+		characterFull.fictionalCharacter == FICTIONAL_CHARACTER
 		characterFull.mirror == MIRROR
 		characterFull.alternateReality == ALTERNATE_REALITY
 		characterFull.performers.size() == character.performers.size()

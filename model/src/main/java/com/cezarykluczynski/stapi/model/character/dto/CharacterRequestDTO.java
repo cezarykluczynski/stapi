@@ -15,6 +15,10 @@ public class CharacterRequestDTO {
 
 	private Boolean deceased;
 
+	private Boolean hologram;
+
+	private Boolean fictionalCharacter;
+
 	private Boolean mirror;
 
 	private Boolean alternateReality;

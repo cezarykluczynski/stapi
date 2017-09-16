@@ -62,6 +62,14 @@ post:
       in: formData
       type: boolean
       description: Whether it should be a deceased character
+    - name: hologram
+      in: formData
+      type: boolean
+      description: Whether it should be a hologram
+    - name: fictionalCharacter
+      in: formData
+      type: boolean
+      description: Whether it should be a fictional character (from universe point of view)
     - name: mirror
       in: formData
       type: boolean

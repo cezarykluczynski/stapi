@@ -24,31 +24,36 @@ class CharacterFullRestMapperTest extends AbstractCharacterMapperTest {
 		Character character = createCharacter()
 
 		when:
-		CharacterFull restCharacter = characterFullRestMapper.mapFull(character)
+		CharacterFull characterFull = characterFullRestMapper.mapFull(character)
 
 		then:
-		restCharacter.name == NAME
-		restCharacter.gender == REST_GENDER
-		restCharacter.yearOfBirth == YEAR_OF_BIRTH
-		restCharacter.monthOfBirth == MONTH_OF_BIRTH
-		restCharacter.dayOfBirth == DAY_OF_BIRTH
-		restCharacter.placeOfBirth == PLACE_OF_BIRTH
-		restCharacter.yearOfDeath == YEAR_OF_DEATH
-		restCharacter.monthOfDeath == MONTH_OF_DEATH
-		restCharacter.dayOfDeath == DAY_OF_DEATH
-		restCharacter.placeOfDeath == PLACE_OF_DEATH
-		restCharacter.height == HEIGHT
-		restCharacter.weight == WEIGHT
-		restCharacter.deceased == DECEASED
-		restCharacter.bloodType == REST_BLOOD_TYPE
-		restCharacter.maritalStatus == REST_MARITAL_STATUS
-		restCharacter.serialNumber == SERIAL_NUMBER
-		restCharacter.mirror == MIRROR
-		restCharacter.alternateReality == ALTERNATE_REALITY
-		restCharacter.performers.size() == character.performers.size()
-		restCharacter.episodes.size() == character.episodes.size()
-		restCharacter.movies.size() == character.movies.size()
-		restCharacter.characterSpecies.size() == character.characterSpecies.size()
+		characterFull.name == NAME
+		characterFull.gender == REST_GENDER
+		characterFull.yearOfBirth == YEAR_OF_BIRTH
+		characterFull.monthOfBirth == MONTH_OF_BIRTH
+		characterFull.dayOfBirth == DAY_OF_BIRTH
+		characterFull.placeOfBirth == PLACE_OF_BIRTH
+		characterFull.yearOfDeath == YEAR_OF_DEATH
+		characterFull.monthOfDeath == MONTH_OF_DEATH
+		characterFull.dayOfDeath == DAY_OF_DEATH
+		characterFull.placeOfDeath == PLACE_OF_DEATH
+		characterFull.height == HEIGHT
+		characterFull.weight == WEIGHT
+		characterFull.deceased == DECEASED
+		characterFull.bloodType == REST_BLOOD_TYPE
+		characterFull.maritalStatus == REST_MARITAL_STATUS
+		characterFull.serialNumber == SERIAL_NUMBER
+		characterFull.hologramActivationDate == HOLOGRAM_ACTIVATION_DATE
+		characterFull.hologramStatus == HOLOGRAM_STATUS
+		characterFull.hologramDateStatus == HOLOGRAM_DATE_STATUS
+		characterFull.hologram == HOLOGRAM
+		characterFull.fictionalCharacter == FICTIONAL_CHARACTER
+		characterFull.mirror == MIRROR
+		characterFull.alternateReality == ALTERNATE_REALITY
+		characterFull.performers.size() == character.performers.size()
+		characterFull.episodes.size() == character.episodes.size()
+		characterFull.movies.size() == character.movies.size()
+		characterFull.characterSpecies.size() == character.characterSpecies.size()
 	}
 
 }

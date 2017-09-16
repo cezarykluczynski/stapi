@@ -22,6 +22,8 @@ class CharacterRepositoryImplTest extends Specification {
 	private static final String NAME = 'NAME'
 	private static final Gender GENDER = Gender.F
 	private static final Boolean DECEASED = RandomUtil.nextBoolean()
+	private static final Boolean HOLOGRAM = RandomUtil.nextBoolean()
+	private static final Boolean FICTIONAL_CHARACTER = RandomUtil.nextBoolean()
 	private static final Boolean MIRROR = RandomUtil.nextBoolean()
 	private static final Boolean ALTERNATE_REALITY = RandomUtil.nextBoolean()
 	private static final RequestSortDTO SORT = new RequestSortDTO()
@@ -72,6 +74,10 @@ class CharacterRepositoryImplTest extends Specification {
 		then: 'boolean criteria are set'
 		1 * characterRequestDTO.deceased >> DECEASED
 		1 * characterQueryBuilder.equal(Character_.deceased, DECEASED)
+		1 * characterRequestDTO.hologram >> HOLOGRAM
+		1 * characterQueryBuilder.equal(Character_.hologram, HOLOGRAM)
+		1 * characterRequestDTO.fictionalCharacter >> FICTIONAL_CHARACTER
+		1 * characterQueryBuilder.equal(Character_.fictionalCharacter, FICTIONAL_CHARACTER)
 		1 * characterRequestDTO.mirror >> MIRROR
 		1 * characterQueryBuilder.equal(Character_.mirror, MIRROR)
 		1 * characterRequestDTO.alternateReality >> ALTERNATE_REALITY

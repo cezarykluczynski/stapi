@@ -35,6 +35,16 @@
 								<xs:documentation>Whether it should be a deceased character</xs:documentation>
 							</xs:annotation>
 						</xs:element>
+						<xs:element name="hologram" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a hologram</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="fictionalCharacter" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a fictional character (from universe point of view)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
 						<xs:element name="mirror" type="xs:boolean" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>Whether it should be a mirror universe character</xs:documentation>
@@ -207,6 +217,31 @@
 					<xs:documentation>Serial number</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:element name="hologramActivationDate" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Hologram activation date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hologramStatus" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Hologram status</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hologramDateStatus" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Hologram date status</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hologram" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Whether this character is a hologram</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fictionalCharacter" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Whether this character is a fictional character (from universe point of view)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
 			<xs:element name="mirror" type="xs:boolean" minOccurs="0">
 				<xs:annotation>
 					<xs:documentation>Whether this character is from mirror universe</xs:documentation>
@@ -307,6 +342,31 @@
 			<xs:element name="serialNumber" type="xs:string">
 				<xs:annotation>
 					<xs:documentation>Serial number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hologramActivationDate" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Hologram activation date</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hologramStatus" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Hologram status</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hologramDateStatus" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Hologram date status</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hologram" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Whether this character is a hologram</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fictionalCharacter" type="xs:boolean" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Whether this character is a fictional character (from universe point of view)</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 			<xs:element name="mirror" type="xs:boolean" minOccurs="0">

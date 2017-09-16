@@ -19,6 +19,8 @@ public interface CharacterFullSoapMapper {
 	@Mapping(target = "name", ignore = true)
 	@Mapping(target = "gender", ignore = true)
 	@Mapping(target = "deceased", ignore = true)
+	@Mapping(target = "hologram", ignore = true)
+	@Mapping(target = "fictionalCharacter", ignore = true)
 	@Mapping(target = "mirror", ignore = true)
 	@Mapping(target = "alternateReality", ignore = true)
 	@Mapping(target = "sort", ignore = true)
