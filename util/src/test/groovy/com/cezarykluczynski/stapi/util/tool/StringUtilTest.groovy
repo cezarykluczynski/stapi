@@ -9,9 +9,9 @@ class StringUtilTest extends Specification {
 	@Unroll('tells if #subject start with any of #candidates, ignoring case')
 	void "tells if string starts with any of the given strings, ignoring case"() {
 		expect:
-		result == StringUtil.startsWithAnyIgnoreCase(subject, candidates)
+		StringUtil.startsWithAnyIgnoreCase(subject, candidates) == result
 
-		where:
+				where:
 		subject | candidates     | result
 		null    | ['def', 'abc'] | false
 		'ABC'   | ['qwerty']     | false
@@ -26,9 +26,9 @@ class StringUtilTest extends Specification {
 	@Unroll('tells if #subject contains any of #candidates, ignoring case')
 	void "tells if string contains any of the given strings, ignoring case"() {
 		expect:
-		result == StringUtil.containsAnyIgnoreCase(subject, candidates)
+		StringUtil.containsAnyIgnoreCase(subject, candidates) == result
 
-		where:
+				where:
 		subject    | candidates     | result
 		null       | ['def', 'abc'] | false
 		'blah ABC' | ['qwerty']     | false
@@ -40,12 +40,29 @@ class StringUtilTest extends Specification {
 		'blah abc' | ['DEF', 'ABC'] | true
 	}
 
+	@Unroll('tells if #subject contains all of #candidates, ignoring case')
+	void "tells if string contains all of the given strings, ignoring case"() {
+		expect:
+		StringUtil.containsAllIgnoreCase(subject, candidates) == result
+
+				where:
+		subject    | candidates     | result
+		null       | ['def', 'abc'] | false
+		'blah ABC' | ['qwerty']     | false
+		'blah abc' | null           | false
+		'blah abc' | ['', null]     | false
+		'blah ABC' | ['DEF', 'ABC'] | false
+		'efg ABC'  | ['efg', 'abc'] | true
+		'DEF abc'  | ['def', 'abc'] | true
+		'abc'      | ['ABC']        | true
+	}
+
 	@Unroll('returns #positions when asked for positions of #search in #subject')
 	void "returns all positions of a substring in a string"() {
 		expect:
-		result == StringUtil.getAllSubstringPositions(subject, search)
+		StringUtil.getAllSubstringPositions(subject, search) == result
 
-		where:
+				where:
 		subject                                        | search     | result
 		''                                             | 'a'        | Lists.newArrayList()
 		'a'                                            | null       | Lists.newArrayList()
@@ -60,9 +77,9 @@ class StringUtilTest extends Specification {
 	@Unroll('returns #result if any of #stringList starts with #suffix ignore case')
 	void "tells when any string starts with given suffix"() {
 		expect:
-		result == StringUtil.anyStartsWithIgnoreCase(stringList, suffix)
+		StringUtil.anyStartsWithIgnoreCase(stringList, suffix) == result
 
-		where:
+				where:
 		stringList                              | suffix       | result
 		Lists.newArrayList()                    | ''           | false
 		Lists.newArrayList('Government agency') | 'agency'     | false
@@ -88,9 +105,9 @@ class StringUtilTest extends Specification {
 	@Unroll('returns #result when #subject ends with any of #suffixList')
 	void "tells when a string any with any of a given string from the list"() {
 		expect:
-		result == StringUtil.endsWithAny(subject, suffixList)
+		StringUtil.endsWithAny(subject, suffixList) == result
 
-		where:
+				where:
 		subject   | suffixList                           | result
 		'test'    | Lists.newArrayList('est')            | true
 		'last'    | Lists.newArrayList('rd', 'nd', 'st') | true
@@ -102,9 +119,9 @@ class StringUtilTest extends Specification {
 	@Unroll('returns #result when #subject is passed with #suffixed')
 	void "returns string cut before any of the given suffixes"() {
 		expect:
-		result == StringUtil.substringBeforeAny(subject, suffixList)
+		StringUtil.substringBeforeAny(subject, suffixList) == result
 
-		where:
+				where:
 		subject                          | suffixList                                         | result
 		'AstronomicalObjectBaseResponse' | Lists.newArrayList('BaseResponse', 'FullResponse') | 'AstronomicalObject'
 		'BookBase'                       | Lists.newArrayList('Full', 'Base')                 | 'Book'

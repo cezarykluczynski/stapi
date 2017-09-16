@@ -48,22 +48,22 @@ class CharacterRelationNormalizationServiceTest extends Specification {
 		relationName == RELATION_NAME
 	}
 
-	void "when relative parameter name is passed, CharacterRelationRelativeNormalizationService is used"() {
-		when:
-		String relationName = characterRelationNormalizationService.normalize(keyOf(CommonCharacterTemplateParameter.RELATIVE), RAW_RELATION_NAME)
-
-		then:
-		1 * characterRelationRelativeNormalizationServiceMock.normalize(RAW_RELATION_NAME) >> RELATION_NAME
-		0 * _
-		relationName == RELATION_NAME
-	}
-
 	void "when children parameter name is passed, CharacterRelationChildrenNormalizationService is used"() {
 		when:
 		String relationName = characterRelationNormalizationService.normalize(keyOf(CommonCharacterTemplateParameter.CHILDREN), RAW_RELATION_NAME)
 
 		then:
 		1 * characterRelationChildrenNormalizationServiceMock.normalize(RAW_RELATION_NAME) >> RELATION_NAME
+		0 * _
+		relationName == RELATION_NAME
+	}
+
+	void "when relative parameter name is passed, CharacterRelationRelativeNormalizationService is used"() {
+		when:
+		String relationName = characterRelationNormalizationService.normalize(keyOf(CommonCharacterTemplateParameter.RELATIVE), RAW_RELATION_NAME)
+
+		then:
+		1 * characterRelationRelativeNormalizationServiceMock.normalize(RAW_RELATION_NAME) >> RELATION_NAME
 		0 * _
 		relationName == RELATION_NAME
 	}

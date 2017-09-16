@@ -6,6 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Optional;
 
 abstract class AbstractCharacterRelationNormalizationService {
+
+	static final String ADOPT = "adopt";
 	private static final String DECEASED_UPPERCASE = "Deceased";
 	private static final String DECEASED_LOWERCASE = "deceased";
 

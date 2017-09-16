@@ -27,6 +27,15 @@ public class StringUtil {
 		return getLowerCandidatesStream(candidates).anyMatch(subjectLowerCase::contains);
 	}
 
+	public static boolean containsAllIgnoreCase(String subject, List<String> candidates) {
+		if (subject == null || candidates == null) {
+			return false;
+		}
+
+		String subjectLowerCase = subject.toLowerCase();
+		return getLowerCandidatesStream(candidates).allMatch(subjectLowerCase::contains) && getLowerCandidatesStream(candidates).count() > 0;
+	}
+
 	public static List<Integer> getAllSubstringPositions(String subject, String search) {
 		List<Integer> positionList = Lists.newArrayList();
 

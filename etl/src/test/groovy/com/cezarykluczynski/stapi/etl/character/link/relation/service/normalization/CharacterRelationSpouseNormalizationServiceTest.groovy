@@ -9,8 +9,7 @@ class CharacterRelationSpouseNormalizationServiceTest extends Specification {
 	private CharacterRelationSpouseNormalizationService characterRelationSpouseNormalizationService
 
 	void setup() {
-		characterRelationSpouseNormalizationService = new CharacterRelationSpouseNormalizationService(
-				new PunctuationIgnoringWeightedLevenshtein())
+		characterRelationSpouseNormalizationService = new CharacterRelationSpouseNormalizationService(new PunctuationIgnoringWeightedLevenshtein())
 	}
 
 	@Unroll('when #rawRelationName is passed, #relationName is returned')

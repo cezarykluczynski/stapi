@@ -8,16 +8,28 @@ import java.util.Set;
 public class CharacterRelationName {
 
 	public static final String FATHER = "Father";
+	public static final String FOSTER_FATHER = "Foster father";
+	public static final String ADOPTIVE_FATHER = "Adoptive father";
 	public static final String MOTHER = "Mother";
+	public static final String FOSTER_MOTHER = "Foster mother";
+	public static final String ADOPTIVE_MOTHER = "Adoptive mother";
+	public static final String SURROGATE_MOTHER = "Surrogate mother";
 	public static final String BROTHER = "Brother";
-	public static final String DAUGHTER = "Daughter";
+	public static final String ADOPTIVE_BROTHER = "Adoptive brother";
+	public static final String HALF_BROTHER = "Half-brother";
+	public static final String SON = "Son";
 	public static final String SISTER = "Sister";
+	public static final String ADOPTIVE_SISTER = "Adoptive sister";
+	public static final String HALF_SISTER = "Half-sister";
+	public static final String DAUGHTER = "Daughter";
 	public static final String OWNER = "Owner";
 	public static final String SIBLING = "Sibling";
+	public static final String ADOPTIVE_SIBLING = "Adoptive sibling";
 	public static final String RELATIVE = "Relative";
 	public static final String SPOUSE = "Spouse";
 	public static final String EX_SPOUSE = "Ex-spouse";
 	public static final String CHILD = "Child";
+	public static final String ADOPTIVE_CHILD = "Adoptive child";
 	public static final String CREATOR = "Creator";
 	public static final String ORIGINAL_CHARACTER = "Original character";
 	public static final String PROPERTY = "Property";
@@ -65,6 +77,7 @@ public class CharacterRelationName {
 	public static final String GRANDSON_IN_LAW = "Grandson in-law";
 	public static final String NIECE = "Niece";
 	public static final String STEPFATHER = "Stepfather";
+	public static final String STEPMOTHER = "Stepmother";
 	public static final String STEPSON = "Stepson";
 	public static final String EX_STEPFATHER = "Ex-stepfather";
 	public static final String ADOPTIVE_GRANDPARENT = "Adoptive grandparent";
@@ -79,6 +92,8 @@ public class CharacterRelationName {
 	public static final String DNA_DONOR = "DNA donor";
 	public static final String DNA_RECIPIENT = "DNA recipient";
 	public static final String DNA_TEMPLATE = "DNA template";
+	public static final String TRANSPORTER_DUPLICATE = "Transporter duplicate";
+	public static final String CLONE = "Clone";
 
 	public static final Set<String> ALL_RELATIONS = Sets.newHashSet();
 

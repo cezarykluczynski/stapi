@@ -5,6 +5,8 @@ import com.cezarykluczynski.stapi.etl.template.character.dto.CommonCharacterTemp
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplateParameter;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
+
 @Service
 public class CharacterRelationNormalizationService {
 
@@ -20,6 +22,7 @@ public class CharacterRelationNormalizationService {
 
 	private final CharacterRelationMotherNormalizationService characterRelationMotherNormalizationService;
 
+	@Inject
 	public CharacterRelationNormalizationService(CharacterRelationSpouseNormalizationService characterRelationSpouseNormalizationService,
 			CharacterRelationChildrenNormalizationService characterRelationChildrenNormalizationService,
 			CharacterRelationRelativeNormalizationService characterRelationRelativeNormalizationService,
@@ -39,10 +42,10 @@ public class CharacterRelationNormalizationService {
 		switch (characterRelationCacheKey.getParameterName()) {
 			case CommonCharacterTemplateParameter.SPOUSE:
 				return characterRelationSpouseNormalizationService.normalize(rawRelationName);
-			case CommonCharacterTemplateParameter.RELATIVE:
-				return characterRelationRelativeNormalizationService.normalize(rawRelationName);
 			case CommonCharacterTemplateParameter.CHILDREN:
 				return characterRelationChildrenNormalizationService.normalize(rawRelationName);
+			case CommonCharacterTemplateParameter.RELATIVE:
+			return characterRelationRelativeNormalizationService.normalize(rawRelationName);
 			case IndividualTemplateParameter.SIBLING:
 			return characterRelationSiblingNormalizationService.normalize(rawRelationName);
 			case IndividualTemplateParameter.FATHER:
