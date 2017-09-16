@@ -192,6 +192,8 @@ definitions:
     $ref: ./character/entity/characterBaseResponse.yaml
   CharacterFullResponse:
     $ref: ./character/entity/characterFullResponse.yaml
+  CharacterRelation:
+    $ref: ./character/entity/characterRelation.yaml
   CharacterSpecies:
     $ref: ./character/entity/characterSpecies.yaml
   ComicsHeader:

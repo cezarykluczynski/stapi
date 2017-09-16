@@ -36,23 +36,23 @@ public class CharacterRelationFactory {
 		this.characterRelationNormalizationService = characterRelationNormalizationService;
 	}
 
-	public CharacterRelation create(Character subject, CharacterPageLinkWithRelationName characterPageLinkWithRelationName,
+	public CharacterRelation create(Character target, CharacterPageLinkWithRelationName characterPageLinkWithRelationName,
 			CharacterRelationCacheKey characterRelationCacheKey) {
 		PageLink pageLink = characterPageLinkWithRelationName.getPageLink();
-		Optional<Character> targetOptional = characterRepository
+		Optional<Character> sourceOptional = characterRepository
 				.findByPageTitleAndPageMediaWikiSource(pageLink.getTitle(), MediaWikiSource.MEMORY_ALPHA_EN);
 
-		if (!targetOptional.isPresent()) {
+		if (!sourceOptional.isPresent()) {
 			Page page = pageApi.getPage(pageLink.getTitle(), com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN);
 			if (page != null && !page.getRedirectPath().isEmpty()) {
-				targetOptional = characterRepository.findByPageTitleAndPageMediaWikiSource(page.getTitle(), MediaWikiSource.MEMORY_ALPHA_EN);
+				sourceOptional = characterRepository.findByPageTitleAndPageMediaWikiSource(page.getTitle(), MediaWikiSource.MEMORY_ALPHA_EN);
 			}
 		}
 
-		if (targetOptional.isPresent()) {
+		if (sourceOptional.isPresent()) {
 			CharacterRelation characterRelation = new CharacterRelation();
-			characterRelation.setSubject(subject);
-			characterRelation.setTarget(targetOptional.get());
+			characterRelation.setSource(sourceOptional.get());
+			characterRelation.setTarget(target);
 
 			if (characterPageLinkWithRelationName.getRelationName() != null) {
 				characterRelation.setType(characterRelationNormalizationService

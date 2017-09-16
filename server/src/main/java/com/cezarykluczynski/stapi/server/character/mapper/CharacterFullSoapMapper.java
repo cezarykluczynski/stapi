@@ -12,8 +12,8 @@ import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseSoapMappe
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(config = MapstructConfiguration.class, uses = {CharacterSpeciesSoapMapper.class, EnumMapper.class, EpisodeBaseSoapMapper.class,
-		MovieBaseSoapMapper.class, PerformerBaseSoapMapper.class})
+@Mapper(config = MapstructConfiguration.class, uses = {CharacterRelationSoapMapper.class, CharacterSpeciesSoapMapper.class, EnumMapper.class,
+		EpisodeBaseSoapMapper.class, MovieBaseSoapMapper.class, PerformerBaseSoapMapper.class})
 public interface CharacterFullSoapMapper {
 
 	@Mapping(target = "name", ignore = true)

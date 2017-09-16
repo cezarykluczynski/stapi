@@ -60,7 +60,6 @@ properties:
   alternateReality:
     type: boolean
     description: Whether this character is from alternate reality
-
   performers:
     type: array
     items:
@@ -81,3 +80,8 @@ properties:
     items:
       $ref: '#/definitions/CharacterSpecies'
     description: Species this character belongs to
+  characterRelations:
+    type: array
+    items:
+      $ref: '#/definitions/CharacterRelation'
+    description: Relations with other characters

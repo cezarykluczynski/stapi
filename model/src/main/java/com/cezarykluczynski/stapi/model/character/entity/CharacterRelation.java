@@ -22,16 +22,16 @@ import javax.persistence.SequenceGenerator;
 
 @Data
 @Entity
-@ToString(exclude = {"subject", "target"})
-@EqualsAndHashCode(exclude = {"subject", "target"})
+@ToString(exclude = {"source", "target"})
+@EqualsAndHashCode(exclude = {"source", "target"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_HELPER, repository = CharacterRelationRepository.class, apiEntity = false,
 		singularName = "character relation", pluralName = "character relations")
 public class CharacterRelation {
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "subject_character_id")
-	private Character subject;
+	@JoinColumn(name = "source_character_id")
+	private Character source;
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "target_character_id")

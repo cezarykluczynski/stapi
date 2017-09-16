@@ -9,8 +9,8 @@ import com.cezarykluczynski.stapi.server.movie.mapper.MovieBaseRestMapper;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseRestMapper;
 import org.mapstruct.Mapper;
 
-@Mapper(config = MapstructConfiguration.class, uses = {CharacterSpeciesRestMapper.class, EnumMapper.class, EpisodeBaseRestMapper.class,
-		MovieBaseRestMapper.class, PerformerBaseRestMapper.class})
+@Mapper(config = MapstructConfiguration.class, uses = {CharacterRelationRestMapper.class, CharacterSpeciesRestMapper.class, EnumMapper.class,
+		EpisodeBaseRestMapper.class, MovieBaseRestMapper.class, PerformerBaseRestMapper.class})
 public interface CharacterFullRestMapper {
 
 	CharacterFull mapFull(Character series);

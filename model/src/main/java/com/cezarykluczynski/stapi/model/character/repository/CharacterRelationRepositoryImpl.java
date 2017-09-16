@@ -28,9 +28,9 @@ public class CharacterRelationRepositoryImpl implements CharacterRelationReposit
 
 		for (CharacterRelation characterRelation : characterRelationList) {
 			CharacterRelation persistedCharacterRelation = characterRelationRepository.save(characterRelation);
-			persistedCharacterRelation.getSubject().getCharacterRelations().add(persistedCharacterRelation);
+			persistedCharacterRelation.getSource().getCharacterRelations().add(persistedCharacterRelation);
 			persistedCharacterRelation.getTarget().getCharacterRelations().add(persistedCharacterRelation);
-			characterSet.add(persistedCharacterRelation.getSubject());
+			characterSet.add(persistedCharacterRelation.getSource());
 			characterSet.add(persistedCharacterRelation.getTarget());
 		}
 

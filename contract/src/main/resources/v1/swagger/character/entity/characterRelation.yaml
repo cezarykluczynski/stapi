@@ -1,0 +1,12 @@
+type: object
+description: Relation between characters
+properties:
+  type:
+    type: string
+    description: Relation type
+  source:
+    $ref: '#/definitions/CharacterHeader'
+    description: Character from which this relation is directed
+  target:
+    $ref: '#/definitions/CharacterHeader'
+    description: Character to which this relation is directed

@@ -31,11 +31,11 @@ class CharacterRelationRepositoryImplTest extends Specification {
 		Character target2 = new Character(id: 3)
 		CharacterRelation characterRelation1 = new CharacterRelation(
 				type: 'Creator',
-				subject: subject,
+				source: subject,
 				target: target1)
 		CharacterRelation characterRelation2 = new CharacterRelation(
 				type: 'Relative',
-				subject: subject,
+				source: subject,
 				target: target2)
 
 		when:

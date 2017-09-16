@@ -347,6 +347,13 @@
 					</xs:annotation>
 				</xs:element>
 			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="characterRelations" type="character:CharacterRelation" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Relations with other characters</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="CharacterSpecies">
@@ -372,6 +379,28 @@
 			<xs:element name="denominator" type="xs:int">
 				<xs:annotation>
 					<xs:documentation>Denominator</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CharacterRelation">
+		<xs:annotation>
+			<xs:documentation>Relation between characters</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="type" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Relation type</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="source" type="character:CharacterHeader">
+				<xs:annotation>
+					<xs:documentation>Character from which this relation is directed</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="target" type="character:CharacterHeader">
+				<xs:annotation>
+					<xs:documentation>Character to which this relation is directed</xs:documentation>
 				</xs:annotation>
 			</xs:element>
 		</xs:sequence>

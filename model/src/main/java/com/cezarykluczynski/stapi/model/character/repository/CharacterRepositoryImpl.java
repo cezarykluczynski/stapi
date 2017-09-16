@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.model.character.repository;
 
 import com.cezarykluczynski.stapi.model.character.dto.CharacterRequestDTO;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
+import com.cezarykluczynski.stapi.model.character.entity.CharacterRelation_;
 import com.cezarykluczynski.stapi.model.character.entity.Character_;
 import com.cezarykluczynski.stapi.model.character.query.CharacterQueryBuilderFactory;
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
@@ -42,6 +43,9 @@ public class CharacterRepositoryImpl extends AbstractRepositoryImpl<Character> i
 		characterQueryBuilder.fetch(Character_.movies, doFetch);
 		characterQueryBuilder.fetch(Character_.movies, Movie_.mainDirector, doFetch);
 		characterQueryBuilder.fetch(Character_.characterSpecies, doFetch);
+		characterQueryBuilder.fetch(Character_.characterRelations, doFetch);
+		characterQueryBuilder.fetch(Character_.characterRelations, CharacterRelation_.source, doFetch);
+		characterQueryBuilder.fetch(Character_.characterRelations, CharacterRelation_.target, doFetch);
 
 		Page<Character> performerPage = characterQueryBuilder.findPage();
 		clearProxies(performerPage, !doFetch);
@@ -59,6 +63,7 @@ public class CharacterRepositoryImpl extends AbstractRepositoryImpl<Character> i
 			character.setEpisodes(Sets.newHashSet());
 			character.setMovies(Sets.newHashSet());
 			character.setCharacterSpecies(Sets.newHashSet());
+			character.setCharacterRelations(Sets.newHashSet());
 		});
 	}
 

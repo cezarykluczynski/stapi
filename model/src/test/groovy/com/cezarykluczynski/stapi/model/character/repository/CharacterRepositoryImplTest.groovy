@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.model.character.repository
 
 import com.cezarykluczynski.stapi.model.character.dto.CharacterRequestDTO
 import com.cezarykluczynski.stapi.model.character.entity.Character
+import com.cezarykluczynski.stapi.model.character.entity.CharacterRelation_
 import com.cezarykluczynski.stapi.model.character.entity.Character_
 import com.cezarykluczynski.stapi.model.character.query.CharacterQueryBuilderFactory
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
@@ -86,6 +87,9 @@ class CharacterRepositoryImplTest extends Specification {
 		1 * characterQueryBuilder.fetch(Character_.movies, true)
 		1 * characterQueryBuilder.fetch(Character_.movies, Movie_.mainDirector, true)
 		1 * characterQueryBuilder.fetch(Character_.characterSpecies, true)
+		1 * characterQueryBuilder.fetch(Character_.characterRelations, true)
+		1 * characterQueryBuilder.fetch(Character_.characterRelations, CharacterRelation_.source, true)
+		1 * characterQueryBuilder.fetch(Character_.characterRelations, CharacterRelation_.target, true)
 
 		then: 'page is searched for and returned'
 		1 * characterQueryBuilder.findPage() >> page
@@ -112,6 +116,9 @@ class CharacterRepositoryImplTest extends Specification {
 		1 * characterQueryBuilder.fetch(Character_.movies, false)
 		1 * characterQueryBuilder.fetch(Character_.movies, Movie_.mainDirector, false)
 		1 * characterQueryBuilder.fetch(Character_.characterSpecies, false)
+		1 * characterQueryBuilder.fetch(Character_.characterRelations, false)
+		1 * characterQueryBuilder.fetch(Character_.characterRelations, CharacterRelation_.source, false)
+		1 * characterQueryBuilder.fetch(Character_.characterRelations, CharacterRelation_.target, false)
 
 		then: 'page is searched for and returned'
 		1 * characterQueryBuilder.findPage() >> page
@@ -122,6 +129,7 @@ class CharacterRepositoryImplTest extends Specification {
 		1 * character.setEpisodes(Sets.newHashSet())
 		1 * character.setMovies(Sets.newHashSet())
 		1 * character.setCharacterSpecies(Sets.newHashSet())
+		1 * character.setCharacterRelations(Sets.newHashSet())
 		pageOutput == page
 	}
 
