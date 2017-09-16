@@ -16,6 +16,7 @@ public class CharacterRelationName {
 	public static final String SIBLING = "Sibling";
 	public static final String RELATIVE = "Relative";
 	public static final String SPOUSE = "Spouse";
+	public static final String EX_SPOUSE = "Ex-spouse";
 	public static final String CHILD = "Child";
 	public static final String CREATOR = "Creator";
 	public static final String ORIGINAL_CHARACTER = "Original character";
@@ -42,6 +43,10 @@ public class CharacterRelationName {
 	public static final String GREAT_GRANDSON = "Great-grandson";
 	public static final String GREAT_GRANDDAUGHTER = "Great-granddaughter";
 	public static final String GREAT_GREAT_GRANDDAUGHTER = "Great-great-granddaughter";
+	public static final String WIFE = "Wife";
+	public static final String HUSBAND = "Husband";
+	public static final String CONSORT = "Consort";
+	public static final String PARTNER = "Partner";
 	public static final String FORMER_PARTNER = "Former partner";
 	public static final String COUSIN = "Cousin";
 	public static final String ANCESTOR = "Ancestor";

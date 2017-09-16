@@ -2,12 +2,14 @@ package com.cezarykluczynski.stapi.etl.character.link.relation.service.normaliza
 
 import org.springframework.stereotype.Service;
 
-@Service
-class CharacterRelationRelativeNormalizationService {
+import javax.inject.Inject;
 
-	String normalize(String rawRelationName) {
-		// TODO
-		return null;
+@Service
+class CharacterRelationRelativeNormalizationService extends AbstractCharacterRelationNormalizationService {
+
+	@Inject
+	CharacterRelationRelativeNormalizationService(PunctuationIgnoringWeightedLevenshtein punctuationIgnoringWeightedLevenshtein) {
+		super(punctuationIgnoringWeightedLevenshtein);
 	}
 
 }

@@ -4,19 +4,19 @@ import com.cezarykluczynski.stapi.etl.character.link.relation.dto.CharacterRelat
 import spock.lang.Specification
 import spock.lang.Unroll
 
-class CharacterRelationChildrenNormalizationServiceTest extends Specification {
+class CharacterRelationRelativeNormalizationServiceTest extends Specification {
 
-	private CharacterRelationChildrenNormalizationService characterRelationChildrenNormalizationService
+	private CharacterRelationRelativeNormalizationService characterRelationRelativeNormalizationService
 
 	void setup() {
-		characterRelationChildrenNormalizationService = new CharacterRelationChildrenNormalizationService(
+		characterRelationRelativeNormalizationService = new CharacterRelationRelativeNormalizationService(
 				new PunctuationIgnoringWeightedLevenshtein())
 	}
 
 	@Unroll('when #rawRelationName is passed, #relationName is returned')
 	"when raw relation name is passed, normalized relation name is returned"() {
 		expect:
-		characterRelationChildrenNormalizationService.normalize(rawRelationName) == relationName
+		characterRelationRelativeNormalizationService.normalize(rawRelationName) == relationName
 
 		where:
 		rawRelationName                  | relationName

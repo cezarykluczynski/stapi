@@ -10,9 +10,9 @@ public class CharacterRelationNormalizationService {
 
 	private final CharacterRelationSpouseNormalizationService characterRelationSpouseNormalizationService;
 
-	private final CharacterRelationRelativeNormalizationService characterRelationRelativeNormalizationService;
-
 	private final CharacterRelationChildrenNormalizationService characterRelationChildrenNormalizationService;
+
+	private final CharacterRelationRelativeNormalizationService characterRelationRelativeNormalizationService;
 
 	private final CharacterRelationSiblingNormalizationService characterRelationSiblingNormalizationService;
 
@@ -21,14 +21,14 @@ public class CharacterRelationNormalizationService {
 	private final CharacterRelationMotherNormalizationService characterRelationMotherNormalizationService;
 
 	public CharacterRelationNormalizationService(CharacterRelationSpouseNormalizationService characterRelationSpouseNormalizationService,
-			CharacterRelationRelativeNormalizationService characterRelationRelativeNormalizationService,
 			CharacterRelationChildrenNormalizationService characterRelationChildrenNormalizationService,
+			CharacterRelationRelativeNormalizationService characterRelationRelativeNormalizationService,
 			CharacterRelationSiblingNormalizationService characterRelationSiblingNormalizationService,
 			CharacterRelationFatherNormalizationService characterRelationFatherNormalizationService,
 			CharacterRelationMotherNormalizationService characterRelationMotherNormalizationService) {
 		this.characterRelationSpouseNormalizationService = characterRelationSpouseNormalizationService;
-		this.characterRelationRelativeNormalizationService = characterRelationRelativeNormalizationService;
 		this.characterRelationChildrenNormalizationService = characterRelationChildrenNormalizationService;
+		this.characterRelationRelativeNormalizationService = characterRelationRelativeNormalizationService;
 		this.characterRelationSiblingNormalizationService = characterRelationSiblingNormalizationService;
 		this.characterRelationFatherNormalizationService = characterRelationFatherNormalizationService;
 		this.characterRelationMotherNormalizationService = characterRelationMotherNormalizationService;
@@ -44,7 +44,7 @@ public class CharacterRelationNormalizationService {
 			case CommonCharacterTemplateParameter.CHILDREN:
 				return characterRelationChildrenNormalizationService.normalize(rawRelationName);
 			case IndividualTemplateParameter.SIBLING:
-				return characterRelationSiblingNormalizationService.normalize(rawRelationName);
+			return characterRelationSiblingNormalizationService.normalize(rawRelationName);
 			case IndividualTemplateParameter.FATHER:
 				return characterRelationFatherNormalizationService.normalize(rawRelationName);
 			case IndividualTemplateParameter.MOTHER:

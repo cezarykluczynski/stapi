@@ -13,9 +13,9 @@ class CharacterRelationNormalizationServiceTest extends Specification {
 
 	private CharacterRelationSpouseNormalizationService characterRelationSpouseNormalizationServiceMock
 
-	private CharacterRelationRelativeNormalizationService characterRelationRelativeNormalizationServiceMock
-
 	private CharacterRelationChildrenNormalizationService characterRelationChildrenNormalizationServiceMock
+
+	private CharacterRelationRelativeNormalizationService characterRelationRelativeNormalizationServiceMock
 
 	private CharacterRelationSiblingNormalizationService characterRelationSiblingNormalizationServiceMock
 
@@ -27,13 +27,13 @@ class CharacterRelationNormalizationServiceTest extends Specification {
 
 	void setup() {
 		characterRelationSpouseNormalizationServiceMock = Mock()
-		characterRelationRelativeNormalizationServiceMock = Mock()
 		characterRelationChildrenNormalizationServiceMock = Mock()
+		characterRelationRelativeNormalizationServiceMock = Mock()
 		characterRelationSiblingNormalizationServiceMock = Mock()
 		characterRelationFatherNormalizationServiceMock = Mock()
 		characterRelationMotherNormalizationServiceMock = Mock()
 		characterRelationNormalizationService = new CharacterRelationNormalizationService(characterRelationSpouseNormalizationServiceMock,
-				characterRelationRelativeNormalizationServiceMock, characterRelationChildrenNormalizationServiceMock,
+				characterRelationChildrenNormalizationServiceMock, characterRelationRelativeNormalizationServiceMock,
 				characterRelationSiblingNormalizationServiceMock, characterRelationFatherNormalizationServiceMock,
 				characterRelationMotherNormalizationServiceMock)
 	}
