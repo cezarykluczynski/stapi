@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.title.creation.configuration;
 
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
 import com.cezarykluczynski.stapi.etl.title.creation.processor.TitleReader;
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles;
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi;
@@ -31,8 +31,10 @@ public class TitleCreationConfiguration {
 	public TitleReader titleReader() {
 		List<PageHeader> titles = Lists.newArrayList();
 
-		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_LOCATIONS)) {
-			titles.addAll(categoryApi.getPages(CategoryTitles.LOCATIONS, MediaWikiSource.MEMORY_ALPHA_EN));
+		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_TITLES)) {
+			titles.addAll(categoryApi.getPages(CategoryTitle.TITLES, MediaWikiSource.MEMORY_ALPHA_EN));
+			titles.addAll(categoryApi.getPages(CategoryTitle.MILITARY_RANKS, MediaWikiSource.MEMORY_ALPHA_EN));
+			titles.addAll(categoryApi.getPages(CategoryTitle.RELIGIOUS_TITLES, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 
 		return new TitleReader(Lists.newArrayList(Sets.newHashSet(titles)));

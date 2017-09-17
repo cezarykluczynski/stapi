@@ -302,4 +302,8 @@ public class CategoryTitle {
 	public static final String STARSHIPS = "Starships";
 	public static final String MEMORY_ALPHA_NON_CANON_REDIRECTS_STARSHIPS = "Memory_Alpha_non-canon_redirects_(starships)";
 
+	public static final String TITLES = "Titles";
+	public static final String MILITARY_RANKS = "Military_ranks";
+	public static final String RELIGIOUS_TITLES = "Religious_titles";
+
 }
