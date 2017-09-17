@@ -48,6 +48,10 @@ class JobBuilderTest extends Specification {
 
 	private Step createSpeciesStep
 
+	private Step createOrganizationsStep
+
+	private Step createTitlesStep
+
 	private Step createCharactersStep
 
 	private Step linkCharactersStep
@@ -67,8 +71,6 @@ class JobBuilderTest extends Specification {
 	private Step createComicStripsStep
 
 	private Step createComicCollectionsStep
-
-	private Step createOrganizationsStep
 
 	private Step createFoodsStep
 
@@ -123,6 +125,8 @@ class JobBuilderTest extends Specification {
 		createStaffStep = Mock()
 		createAstronomicalObjectsStep = Mock()
 		createSpeciesStep = Mock()
+		createOrganizationsStep = Mock()
+		createTitlesStep = Mock()
 		createCharactersStep = Mock()
 		linkCharactersStep = Mock()
 		createEpisodesStep = Mock()
@@ -133,7 +137,6 @@ class JobBuilderTest extends Specification {
 		createComicsStep = Mock()
 		createComicStripsStep = Mock()
 		createComicCollectionsStep = Mock()
-		createOrganizationsStep = Mock()
 		createFoodsStep = Mock()
 		createLocationsStep = Mock()
 		createBookSeriesStep = Mock()
@@ -219,6 +222,18 @@ class JobBuilderTest extends Specification {
 		1 * applicationContextMock.getBean(StepName.CREATE_SPECIES, Step) >> createSpeciesStep
 		1 * createSpeciesStep.name >> StepName.CREATE_SPECIES
 
+		then: 'CREATE_ORGANIZATIONS step is retrieved from application context'
+		1 * stepPropertiesMap.get(StepName.CREATE_ORGANIZATIONS) >> stepProperties
+		1 * stepProperties.isEnabled() >> true
+		1 * applicationContextMock.getBean(StepName.CREATE_ORGANIZATIONS, Step) >> createOrganizationsStep
+		1 * createOrganizationsStep.name >> StepName.CREATE_ORGANIZATIONS
+
+		then: 'CREATE_TITLES step is retrieved from application context'
+		1 * stepPropertiesMap.get(StepName.CREATE_TITLES) >> stepProperties
+		1 * stepProperties.isEnabled() >> true
+		1 * applicationContextMock.getBean(StepName.CREATE_TITLES, Step) >> createTitlesStep
+		1 * createTitlesStep.name >> StepName.CREATE_TITLES
+
 		then: 'CREATE_CHARACTERS step is retrieved from application context'
 		1 * stepPropertiesMap.get(StepName.CREATE_CHARACTERS) >> stepProperties
 		1 * stepProperties.isEnabled() >> true
@@ -278,12 +293,6 @@ class JobBuilderTest extends Specification {
 		1 * stepProperties.isEnabled() >> true
 		1 * applicationContextMock.getBean(StepName.CREATE_COMIC_COLLECTIONS, Step) >> createComicCollectionsStep
 		1 * createComicCollectionsStep.name >> StepName.CREATE_COMIC_COLLECTIONS
-
-		then: 'CREATE_ORGANIZATIONS step is retrieved from application context'
-		1 * stepPropertiesMap.get(StepName.CREATE_ORGANIZATIONS) >> stepProperties
-		1 * stepProperties.isEnabled() >> true
-		1 * applicationContextMock.getBean(StepName.CREATE_ORGANIZATIONS, Step) >> createOrganizationsStep
-		1 * createOrganizationsStep.name >> StepName.CREATE_ORGANIZATIONS
 
 		then: 'CREATE_FOODS step is retrieved from application context'
 		1 * stepPropertiesMap.get(StepName.CREATE_FOODS) >> stepProperties

@@ -1,0 +1,31 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet id="0009_create_title" author="cezarykluczynski">
+		<createTable schemaName="stapi" tableName="title">
+			<column name="id" type="bigint">
+				<constraints unique="true" nullable="false"/>
+			</column>
+			<column name="page_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="u_id" type="varchar(14)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="name" type="varchar(64)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="military_rank" type="boolean"/>
+			<column name="fleet_rank" type="boolean"/>
+			<column name="religious_title" type="boolean"/>
+			<column name="position" type="boolean"/>
+		</createTable>
+		<createSequence incrementBy="1" sequenceName="title_sequence"/>
+		<addForeignKeyConstraint baseColumnNames="page_id"
+				baseTableName="title"
+				constraintName="title_page_fkey"
+				referencedColumnNames="id"
+				referencedTableName="page"/>
+	</changeSet>
+</databaseChangeLog>

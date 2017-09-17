@@ -92,6 +92,9 @@ import com.cezarykluczynski.stapi.etl.species.creation.processor.SpeciesWriter;
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffProcessor;
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffReader;
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffWriter;
+import com.cezarykluczynski.stapi.etl.title.creation.processor.TitleProcessor;
+import com.cezarykluczynski.stapi.etl.title.creation.processor.TitleReader;
+import com.cezarykluczynski.stapi.etl.title.creation.processor.TitleWriter;
 import com.cezarykluczynski.stapi.etl.trading_card.creation.processor.TradingCardSetReader;
 import com.cezarykluczynski.stapi.etl.trading_card.creation.processor.TradingCardSetWriter;
 import com.cezarykluczynski.stapi.etl.trading_card.creation.processor.set.TradingCardSetProcessor;
@@ -132,6 +135,7 @@ import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass;
 import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
+import com.cezarykluczynski.stapi.model.title.entity.Title;
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet;
 import com.cezarykluczynski.stapi.model.video_game.entity.VideoGame;
 import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease;
@@ -262,6 +266,33 @@ public class EtlJobConfiguration {
 				.build();
 	}
 
+
+	@Bean(name = StepName.CREATE_ORGANIZATIONS)
+	public Step stepCreateOrganizations() {
+		return stepBuilderFactory.get(StepName.CREATE_ORGANIZATIONS)
+				.<PageHeader, Organization>chunk(stepsProperties.getCreateOrganizations().getCommitInterval())
+				.reader(applicationContext.getBean(OrganizationReader.class))
+				.processor(applicationContext.getBean(OrganizationProcessor.class))
+				.writer(applicationContext.getBean(OrganizationWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_TITLES)
+	public Step stepCreateTitles() {
+		return stepBuilderFactory.get(StepName.CREATE_TITLES)
+				.<PageHeader, Title>chunk(stepsProperties.getCreateTitles().getCommitInterval())
+				.reader(applicationContext.getBean(TitleReader.class))
+				.processor(applicationContext.getBean(TitleProcessor.class))
+				.writer(applicationContext.getBean(TitleWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
 	@Bean(name = StepName.CREATE_CHARACTERS)
 	public Step stepCreateCharacters() {
 		return stepBuilderFactory.get(StepName.CREATE_CHARACTERS)
@@ -386,19 +417,6 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(ComicCollectionReader.class))
 				.processor(applicationContext.getBean(ComicCollectionProcessor.class))
 				.writer(applicationContext.getBean(ComicCollectionWriter.class))
-				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
-				.startLimit(1)
-				.allowStartIfComplete(false)
-				.build();
-	}
-
-	@Bean(name = StepName.CREATE_ORGANIZATIONS)
-	public Step stepCreateOrganizations() {
-		return stepBuilderFactory.get(StepName.CREATE_ORGANIZATIONS)
-				.<PageHeader, Organization>chunk(stepsProperties.getCreateOrganizations().getCommitInterval())
-				.reader(applicationContext.getBean(OrganizationReader.class))
-				.processor(applicationContext.getBean(OrganizationProcessor.class))
-				.writer(applicationContext.getBean(OrganizationWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)

@@ -1,0 +1,123 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet id="0040_create_video_game" author="cezarykluczynski">
+		<createTable schemaName="stapi" tableName="video_game">
+			<column name="id" type="bigint">
+				<constraints unique="true" nullable="false"/>
+			</column>
+			<column name="page_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="u_id" type="varchar(14)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="title" type="varchar(128)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="release_date" type="date"/>
+			<column name="stardate_from" type="float"/>
+			<column name="stardate_to" type="float"/>
+			<column name="year_from" type="int"/>
+			<column name="year_to" type="int"/>
+			<column name="system_requirements" type="varchar(512)"/>
+		</createTable>
+		<createSequence incrementBy="1" sequenceName="video_game_sequence"/>
+		<addForeignKeyConstraint baseColumnNames="page_id"
+				baseTableName="video_game"
+				constraintName="video_game_page_fkey"
+				referencedColumnNames="id"
+				referencedTableName="page"/>
+
+		<createTable schemaName="stapi" tableName="video_games_publishers">
+			<column name="video_game_id" type="bigint"/>
+			<column name="company_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="video_game_id"
+				baseTableName="video_games_publishers"
+				constraintName="vgp_video_game_fkey"
+				referencedColumnNames="id"
+				referencedTableName="video_game"/>
+		<addForeignKeyConstraint baseColumnNames="company_id"
+				baseTableName="video_games_publishers"
+				constraintName="vgp_company_fkey"
+				referencedColumnNames="id"
+				referencedTableName="company"/>
+
+		<createTable schemaName="stapi" tableName="video_games_developers">
+			<column name="video_game_id" type="bigint"/>
+			<column name="company_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="video_game_id"
+				baseTableName="video_games_developers"
+				constraintName="vgd_video_game_fkey"
+				referencedColumnNames="id"
+				referencedTableName="video_game"/>
+		<addForeignKeyConstraint baseColumnNames="company_id"
+				baseTableName="video_games_developers"
+				constraintName="vgd_company_fkey"
+				referencedColumnNames="id"
+				referencedTableName="company"/>
+
+		<createTable schemaName="stapi" tableName="video_games_platforms">
+			<column name="video_game_id" type="bigint"/>
+			<column name="platform_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="video_game_id"
+				baseTableName="video_games_platforms"
+				constraintName="vgpl_video_game_fkey"
+				referencedColumnNames="id"
+				referencedTableName="video_game"/>
+		<addForeignKeyConstraint baseColumnNames="platform_id"
+				baseTableName="video_games_platforms"
+				constraintName="vgpl_platform_fkey"
+				referencedColumnNames="id"
+				referencedTableName="platform"/>
+
+		<createTable schemaName="stapi" tableName="video_games_genres">
+			<column name="video_game_id" type="bigint"/>
+			<column name="genre_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="video_game_id"
+				baseTableName="video_games_genres"
+				constraintName="vgg_video_game_fkey"
+				referencedColumnNames="id"
+				referencedTableName="video_game"/>
+		<addForeignKeyConstraint baseColumnNames="genre_id"
+				baseTableName="video_games_genres"
+				constraintName="vgg_genre_fkey"
+				referencedColumnNames="id"
+				referencedTableName="genre"/>
+
+		<createTable schemaName="stapi" tableName="video_games_ratings">
+			<column name="video_game_id" type="bigint"/>
+			<column name="content_rating_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="video_game_id"
+				baseTableName="video_games_ratings"
+				constraintName="vgra_video_game_fkey"
+				referencedColumnNames="id"
+				referencedTableName="video_game"/>
+		<addForeignKeyConstraint baseColumnNames="content_rating_id"
+				baseTableName="video_games_ratings"
+				constraintName="vgra_reference_fkey"
+				referencedColumnNames="id"
+				referencedTableName="content_rating"/>
+
+		<createTable schemaName="stapi" tableName="video_games_references">
+			<column name="video_game_id" type="bigint"/>
+			<column name="reference_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="video_game_id"
+				baseTableName="video_games_references"
+				constraintName="vgre_video_game_fkey"
+				referencedColumnNames="id"
+				referencedTableName="video_game"/>
+		<addForeignKeyConstraint baseColumnNames="reference_id"
+				baseTableName="video_games_references"
+				constraintName="vgre_reference_fkey"
+				referencedColumnNames="id"
+				referencedTableName="reference"/>
+	</changeSet>
+</databaseChangeLog>

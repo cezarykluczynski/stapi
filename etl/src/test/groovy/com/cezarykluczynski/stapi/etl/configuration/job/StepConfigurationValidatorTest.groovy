@@ -43,7 +43,7 @@ class StepConfigurationValidatorTest extends Specification {
 		2 * stepToStepPropertiesProviderMock.provide() >> stepPropertiesMap
 		JobBuilderException jobBuilderException = thrown(JobBuilderException)
 		jobBuilderException.message == 'com.cezarykluczynski.stapi.util.exception.StapiRuntimeException: ' +
-				'Number of configured steps is 35, but 34 steps found'
+				'Number of configured steps is 36, but 35 steps found'
 	}
 
 	void "throws exception when two steps has the same order"() {
@@ -99,89 +99,92 @@ class StepConfigurationValidatorTest extends Specification {
 		StepProperties createSpeciesStepProperties = Mock()
 		createSpeciesStepProperties.order >> 7
 		stepPropertiesMap.put(StepName.CREATE_SPECIES, createSpeciesStepProperties)
+		StepProperties createOrganizationsStepProperties = Mock()
+		createOrganizationsStepProperties.order >> 8
+		stepPropertiesMap.put(StepName.CREATE_ORGANIZATIONS, createOrganizationsStepProperties)
+		StepProperties createTitlesStepProperties = Mock()
+		createTitlesStepProperties.order >> 9
+		stepPropertiesMap.put(StepName.CREATE_TITLES, createTitlesStepProperties)
 		StepProperties createCharactersStepProperties = Mock()
-		createCharactersStepProperties.order >> 8
+		createCharactersStepProperties.order >> 10
 		stepPropertiesMap.put(StepName.CREATE_CHARACTERS, createCharactersStepProperties)
 		StepProperties linkCharactersStepProperties = Mock()
-		linkCharactersStepProperties.order >> 9
+		linkCharactersStepProperties.order >> 11
 		stepPropertiesMap.put(StepName.LINK_CHARACTERS, linkCharactersStepProperties)
 		StepProperties createEpisodesStepProperties = Mock()
-		createEpisodesStepProperties.order >> 0
+		createEpisodesStepProperties.order >> 12
 		stepPropertiesMap.put(StepName.CREATE_EPISODES, createEpisodesStepProperties)
 		StepProperties createMoviesStepProperties = Mock()
-		createMoviesStepProperties.order >> 11
+		createMoviesStepProperties.order >> 13
 		stepPropertiesMap.put(StepName.CREATE_MOVIES, createMoviesStepProperties)
 		StepProperties linkAstronomicalObjectsStepProperties = Mock()
-		linkAstronomicalObjectsStepProperties.order >> 12
+		linkAstronomicalObjectsStepProperties.order >> 14
 		stepPropertiesMap.put(StepName.LINK_ASTRONOMICAL_OBJECTS, linkAstronomicalObjectsStepProperties)
 		StepProperties createComicSeriesStepProperties = Mock()
-		createComicSeriesStepProperties.order >> 13
+		createComicSeriesStepProperties.order >> 15
 		stepPropertiesMap.put(StepName.CREATE_COMIC_SERIES, createComicSeriesStepProperties)
 		StepProperties linkComicSeriesStepProperties = Mock()
-		linkComicSeriesStepProperties.order >> 14
+		linkComicSeriesStepProperties.order >> 16
 		stepPropertiesMap.put(StepName.LINK_COMIC_SERIES, linkComicSeriesStepProperties)
 		StepProperties createComicsStepProperties = Mock()
-		createComicsStepProperties.order >> 15
+		createComicsStepProperties.order >> 17
 		stepPropertiesMap.put(StepName.CREATE_COMICS, createComicsStepProperties)
 		StepProperties createComicStripsStepProperties = Mock()
-		createComicStripsStepProperties.order >> 16
+		createComicStripsStepProperties.order >> 18
 		stepPropertiesMap.put(StepName.CREATE_COMIC_STRIPS, createComicStripsStepProperties)
 		StepProperties createComicCollectionsStepProperties = Mock()
-		createComicCollectionsStepProperties.order >> 17
+		createComicCollectionsStepProperties.order >> 19
 		stepPropertiesMap.put(StepName.CREATE_COMIC_COLLECTIONS, createComicCollectionsStepProperties)
-		StepProperties createOrganizationsStepProperties = Mock()
-		createOrganizationsStepProperties.order >> 18
-		stepPropertiesMap.put(StepName.CREATE_ORGANIZATIONS, createOrganizationsStepProperties)
 		StepProperties createFoodsStepProperties = Mock()
-		createFoodsStepProperties.order >> 19
+		createFoodsStepProperties.order >> 20
 		stepPropertiesMap.put(StepName.CREATE_FOODS, createFoodsStepProperties)
 		StepProperties createLocationsStepProperties = Mock()
-		createLocationsStepProperties.order >> 20
+		createLocationsStepProperties.order >> 21
 		stepPropertiesMap.put(StepName.CREATE_LOCATIONS, createLocationsStepProperties)
 		StepProperties createBookSeriesStepProperties = Mock()
-		createBookSeriesStepProperties.order >> 21
+		createBookSeriesStepProperties.order >> 22
 		stepPropertiesMap.put(StepName.CREATE_BOOK_SERIES, createBookSeriesStepProperties)
 		StepProperties linkBookSeriesStepProperties = Mock()
-		linkBookSeriesStepProperties.order >> 22
+		linkBookSeriesStepProperties.order >> 23
 		stepPropertiesMap.put(StepName.LINK_BOOK_SERIES, linkBookSeriesStepProperties)
 		StepProperties createBooksStepProperties = Mock()
-		createBooksStepProperties.order >> 23
+		createBooksStepProperties.order >> 24
 		stepPropertiesMap.put(StepName.CREATE_BOOKS, createBooksStepProperties)
 		StepProperties createBookCollectionsStepProperties = Mock()
-		createBookCollectionsStepProperties.order >> 24
+		createBookCollectionsStepProperties.order >> 25
 		stepPropertiesMap.put(StepName.CREATE_BOOK_COLLECTIONS, createBookCollectionsStepProperties)
 		StepProperties createMagazinesStepProperties = Mock()
-		createMagazinesStepProperties.order >> 25
+		createMagazinesStepProperties.order >> 26
 		stepPropertiesMap.put(StepName.CREATE_MAGAZINES, createMagazinesStepProperties)
 		StepProperties createMagazineSeriesStepProperties = Mock()
-		createMagazineSeriesStepProperties.order >> 26
+		createMagazineSeriesStepProperties.order >> 27
 		stepPropertiesMap.put(StepName.CREATE_MAGAZINE_SERIES, createMagazineSeriesStepProperties)
 		StepProperties createLiteratureStepProperties = Mock()
-		createLiteratureStepProperties.order >> 27
+		createLiteratureStepProperties.order >> 28
 		stepPropertiesMap.put(StepName.CREATE_LITERATURE, createLiteratureStepProperties)
 		StepProperties createVideoReleasesStepProperties = Mock()
-		createVideoReleasesStepProperties.order >> 28
+		createVideoReleasesStepProperties.order >> 29
 		stepPropertiesMap.put(StepName.CREATE_VIDEO_RELEASES, createVideoReleasesStepProperties)
 		StepProperties createTradingCardsStepProperties = Mock()
-		createTradingCardsStepProperties.order >> 29
+		createTradingCardsStepProperties.order >> 30
 		stepPropertiesMap.put(StepName.CREATE_TRADING_CARDS, createTradingCardsStepProperties)
 		StepProperties createVideoGamesStepProperties = Mock()
-		createVideoGamesStepProperties.order >> 30
+		createVideoGamesStepProperties.order >> 31
 		stepPropertiesMap.put(StepName.CREATE_VIDEO_GAMES, createVideoGamesStepProperties)
 		StepProperties createSoundtracksStepProperties = Mock()
-		createSoundtracksStepProperties.order >> 31
+		createSoundtracksStepProperties.order >> 32
 		stepPropertiesMap.put(StepName.CREATE_SOUNDTRACKS, createSoundtracksStepProperties)
 		StepProperties createWeaponsStepProperties = Mock()
-		createWeaponsStepProperties.order >> 32
+		createWeaponsStepProperties.order >> 33
 		stepPropertiesMap.put(StepName.CREATE_WEAPONS, createWeaponsStepProperties)
 		StepProperties createSpacecraftTypesStepProperties = Mock()
-		createSpacecraftTypesStepProperties.order >> 33
+		createSpacecraftTypesStepProperties.order >> 34
 		stepPropertiesMap.put(StepName.CREATE_SPACECRAFT_TYPES, createSpacecraftTypesStepProperties)
 		StepProperties createSpacecraftClassesStepProperties = Mock()
-		createSpacecraftClassesStepProperties.order >> 34
+		createSpacecraftClassesStepProperties.order >> 35
 		stepPropertiesMap.put(StepName.CREATE_SPACECRAFT_CLASSES, createSpacecraftClassesStepProperties)
 		StepProperties createSpacecraftsStepProperties = Mock()
-		createSpacecraftsStepProperties.order >> 35
+		createSpacecraftsStepProperties.order >> 36
 		stepPropertiesMap.put(StepName.CREATE_SPACECRAFTS, createSpacecraftsStepProperties)
 
 		stepPropertiesMap

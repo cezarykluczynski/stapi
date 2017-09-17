@@ -33,6 +33,8 @@ public class StepToStepPropertiesProvider {
 		stepPropertiesMap.put(StepName.CREATE_STAFF, stepsProperties.getCreateStaff());
 		stepPropertiesMap.put(StepName.CREATE_ASTRONOMICAL_OBJECTS, stepsProperties.getCreateAstronomicalObjects());
 		stepPropertiesMap.put(StepName.CREATE_SPECIES, stepsProperties.getCreateSpecies());
+		stepPropertiesMap.put(StepName.CREATE_ORGANIZATIONS, stepsProperties.getCreateOrganizations());
+		stepPropertiesMap.put(StepName.CREATE_TITLES, stepsProperties.getCreateTitles());
 		stepPropertiesMap.put(StepName.CREATE_CHARACTERS, stepsProperties.getCreateCharacters());
 		stepPropertiesMap.put(StepName.LINK_CHARACTERS, stepsProperties.getLinkCharacters());
 		stepPropertiesMap.put(StepName.CREATE_EPISODES, stepsProperties.getCreateEpisodes());
@@ -43,7 +45,6 @@ public class StepToStepPropertiesProvider {
 		stepPropertiesMap.put(StepName.CREATE_COMICS, stepsProperties.getCreateComics());
 		stepPropertiesMap.put(StepName.CREATE_COMIC_STRIPS, stepsProperties.getCreateComicStrips());
 		stepPropertiesMap.put(StepName.CREATE_COMIC_COLLECTIONS, stepsProperties.getCreateComicCollections());
-		stepPropertiesMap.put(StepName.CREATE_ORGANIZATIONS, stepsProperties.getCreateOrganizations());
 		stepPropertiesMap.put(StepName.CREATE_FOODS, stepsProperties.getCreateFoods());
 		stepPropertiesMap.put(StepName.CREATE_LOCATIONS, stepsProperties.getCreateLocations());
 		stepPropertiesMap.put(StepName.CREATE_BOOK_SERIES, stepsProperties.getCreateBookSeries());

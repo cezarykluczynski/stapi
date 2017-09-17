@@ -1,0 +1,155 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet id="0026_create_book_collection" author="cezarykluczynski">
+		<createTable schemaName="stapi" tableName="book_collection">
+			<column name="id" type="bigint">
+				<constraints unique="true" nullable="false"/>
+			</column>
+			<column name="page_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="u_id" type="varchar(14)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="title" type="varchar(128)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="published_year" type="int"/>
+			<column name="published_month" type="int"/>
+			<column name="published_day" type="int"/>
+			<column name="number_of_pages" type="int"/>
+			<column name="stardate_from" type="float"/>
+			<column name="stardate_to" type="float"/>
+			<column name="year_from" type="int"/>
+			<column name="year_to" type="int"/>
+		</createTable>
+		<createSequence incrementBy="1" sequenceName="book_collection_sequence"/>
+		<addForeignKeyConstraint baseColumnNames="page_id"
+				baseTableName="book_collection"
+				constraintName="book_collection_page_fkey"
+				referencedColumnNames="id"
+				referencedTableName="page"/>
+
+		<createTable schemaName="stapi" tableName="book_collections_series">
+			<column name="book_collection_id" type="bigint"/>
+			<column name="book_series_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="book_collection_id"
+				baseTableName="book_collections_series"
+				constraintName="bcs_book_collection_fkey"
+				referencedColumnNames="id"
+				referencedTableName="book_collection"/>
+		<addForeignKeyConstraint baseColumnNames="book_series_id"
+				baseTableName="book_collections_series"
+				constraintName="bcs2_book_series_fkey"
+				referencedColumnNames="id"
+				referencedTableName="book_series"/>
+
+		<createTable schemaName="stapi" tableName="book_collections_writers">
+			<column name="book_collection_id" type="bigint"/>
+			<column name="staff_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="book_collection_id"
+				baseTableName="book_collections_writers"
+				constraintName="bcw_book_collection_fkey"
+				referencedColumnNames="id"
+				referencedTableName="book_collection"/>
+		<addForeignKeyConstraint baseColumnNames="staff_id"
+				baseTableName="book_collections_writers"
+				constraintName="bcw_writer_fkey"
+				referencedColumnNames="id"
+				referencedTableName="staff"/>
+
+		<createTable schemaName="stapi" tableName="book_collections_artists">
+			<column name="book_collection_id" type="bigint"/>
+			<column name="staff_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="book_collection_id"
+				baseTableName="book_collections_artists"
+				constraintName="bca_book_collection_fkey"
+				referencedColumnNames="id"
+				referencedTableName="book_collection"/>
+		<addForeignKeyConstraint baseColumnNames="staff_id"
+				baseTableName="book_collections_artists"
+				constraintName="bca_artist_fkey"
+				referencedColumnNames="id"
+				referencedTableName="staff"/>
+
+		<createTable schemaName="stapi" tableName="book_collections_editors">
+			<column name="book_collection_id" type="bigint"/>
+			<column name="staff_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="book_collection_id"
+				baseTableName="book_collections_editors"
+				constraintName="bce_book_collection_fkey"
+				referencedColumnNames="id"
+				referencedTableName="book_collection"/>
+		<addForeignKeyConstraint baseColumnNames="staff_id"
+				baseTableName="book_collections_editors"
+				constraintName="bce_editor_fkey"
+				referencedColumnNames="id"
+				referencedTableName="staff"/>
+
+		<createTable schemaName="stapi" tableName="book_collections_publishers">
+			<column name="book_collection_id" type="bigint"/>
+			<column name="company_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="book_collection_id"
+				baseTableName="book_collections_publishers"
+				constraintName="bcp_book_collection_fkey"
+				referencedColumnNames="id"
+				referencedTableName="book_collection"/>
+		<addForeignKeyConstraint baseColumnNames="company_id"
+				baseTableName="book_collections_publishers"
+				constraintName="bcp_publisher_fkey"
+				referencedColumnNames="id"
+				referencedTableName="company"/>
+
+		<createTable schemaName="stapi" tableName="book_collections_characters">
+			<column name="book_collection_id" type="bigint"/>
+			<column name="character_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="book_collection_id"
+				baseTableName="book_collections_characters"
+				constraintName="bcc_book_collection_fkey"
+				referencedColumnNames="id"
+				referencedTableName="book_collection"/>
+		<addForeignKeyConstraint baseColumnNames="character_id"
+				baseTableName="book_collections_characters"
+				constraintName="bcc_character_fkey"
+				referencedColumnNames="id"
+				referencedTableName="character"/>
+
+		<createTable schemaName="stapi" tableName="book_collections_references">
+			<column name="book_collection_id" type="bigint"/>
+			<column name="reference_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="book_collection_id"
+				baseTableName="book_collections_references"
+				constraintName="bcr_book_collection_fkey"
+				referencedColumnNames="id"
+				referencedTableName="book_collection"/>
+		<addForeignKeyConstraint baseColumnNames="reference_id"
+				baseTableName="book_collections_references"
+				constraintName="bcr_reference_fkey"
+				referencedColumnNames="id"
+				referencedTableName="reference"/>
+
+		<createTable schemaName="stapi" tableName="book_collections_books">
+			<column name="book_collection_id" type="bigint"/>
+			<column name="book_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="book_collection_id"
+				baseTableName="book_collections_books"
+				constraintName="bcc2_book_collection_fkey"
+				referencedColumnNames="id"
+				referencedTableName="book_collection"/>
+		<addForeignKeyConstraint baseColumnNames="book_id"
+				baseTableName="book_collections_books"
+				constraintName="bcc2_character_fkey"
+				referencedColumnNames="id"
+				referencedTableName="book"/>
+	</changeSet>
+</databaseChangeLog>

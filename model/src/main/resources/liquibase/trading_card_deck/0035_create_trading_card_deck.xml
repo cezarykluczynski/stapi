@@ -1,0 +1,18 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet id="0035_create_trading_card_deck" author="cezarykluczynski">
+		<createTable schemaName="stapi" tableName="trading_card_deck">
+			<column name="id" type="bigint">
+				<constraints unique="true" nullable="false"/>
+			</column>
+			<column name="u_id" type="varchar(14)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="name" type="varchar(128)"/>
+			<column name="frequency" type="varchar(32)"/>
+		</createTable>
+		<createSequence incrementBy="1" sequenceName="trading_card_deck_sequence"/>
+	</changeSet>
+</databaseChangeLog>

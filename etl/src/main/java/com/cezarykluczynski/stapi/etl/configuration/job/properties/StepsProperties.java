@@ -23,6 +23,10 @@ public class StepsProperties {
 
 	private StepProperties createSpecies;
 
+	private StepProperties createOrganizations;
+
+	private StepProperties createTitles;
+
 	private StepProperties createCharacters;
 
 	private StepProperties linkCharacters;
@@ -43,11 +47,9 @@ public class StepsProperties {
 
 	private StepProperties createComicCollections;
 
-	private StepProperties createOrganizations;
+	private StepProperties createLocations;
 
 	private StepProperties createFoods;
-
-	private StepProperties createLocations;
 
 	private StepProperties createBookSeries;
 

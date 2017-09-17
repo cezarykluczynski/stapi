@@ -9,6 +9,8 @@ public class StepName {
 	public static final String CREATE_STAFF = "CREATE_STAFF";
 	public static final String CREATE_ASTRONOMICAL_OBJECTS = "CREATE_ASTRONOMICAL_OBJECTS";
 	public static final String CREATE_SPECIES = "CREATE_SPECIES";
+	public static final String CREATE_ORGANIZATIONS = "CREATE_ORGANIZATIONS";
+	public static final String CREATE_TITLES = "CREATE_TITLES";
 	public static final String CREATE_CHARACTERS = "CREATE_CHARACTERS";
 	public static final String LINK_CHARACTERS = "LINK_CHARACTERS";
 	public static final String CREATE_EPISODES = "CREATE_EPISODES";
@@ -19,7 +21,6 @@ public class StepName {
 	public static final String CREATE_COMICS = "CREATE_COMICS";
 	public static final String CREATE_COMIC_STRIPS = "CREATE_COMIC_STRIPS";
 	public static final String CREATE_COMIC_COLLECTIONS = "CREATE_COMIC_COLLECTIONS";
-	public static final String CREATE_ORGANIZATIONS = "CREATE_ORGANIZATIONS";
 	public static final String CREATE_FOODS = "CREATE_FOODS";
 	public static final String CREATE_LOCATIONS = "CREATE_LOCATIONS";
 	public static final String CREATE_BOOK_SERIES = "CREATE_BOOK_SERIES";
