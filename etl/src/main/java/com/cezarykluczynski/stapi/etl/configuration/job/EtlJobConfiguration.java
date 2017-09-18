@@ -95,6 +95,7 @@ import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffWriter;
 import com.cezarykluczynski.stapi.etl.title.creation.processor.TitleProcessor;
 import com.cezarykluczynski.stapi.etl.title.creation.processor.TitleReader;
 import com.cezarykluczynski.stapi.etl.title.creation.processor.TitleWriter;
+import com.cezarykluczynski.stapi.etl.title.creation.service.TitleListStepExecutionListener;
 import com.cezarykluczynski.stapi.etl.trading_card.creation.processor.TradingCardSetReader;
 import com.cezarykluczynski.stapi.etl.trading_card.creation.processor.TradingCardSetWriter;
 import com.cezarykluczynski.stapi.etl.trading_card.creation.processor.set.TradingCardSetProcessor;
@@ -288,6 +289,7 @@ public class EtlJobConfiguration {
 				.processor(applicationContext.getBean(TitleProcessor.class))
 				.writer(applicationContext.getBean(TitleWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.listener(applicationContext.getBean(TitleListStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)
 				.build();

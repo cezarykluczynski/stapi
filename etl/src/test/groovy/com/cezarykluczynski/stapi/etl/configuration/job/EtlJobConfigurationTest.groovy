@@ -96,6 +96,7 @@ import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffWriter
 import com.cezarykluczynski.stapi.etl.title.creation.processor.TitleProcessor
 import com.cezarykluczynski.stapi.etl.title.creation.processor.TitleReader
 import com.cezarykluczynski.stapi.etl.title.creation.processor.TitleWriter
+import com.cezarykluczynski.stapi.etl.title.creation.service.TitleListStepExecutionListener
 import com.cezarykluczynski.stapi.etl.trading_card.creation.processor.TradingCardSetReader
 import com.cezarykluczynski.stapi.etl.trading_card.creation.processor.TradingCardSetWriter
 import com.cezarykluczynski.stapi.etl.trading_card.creation.processor.set.TradingCardSetProcessor
@@ -454,6 +455,9 @@ class EtlJobConfigurationTest extends Specification {
 	}
 
 	void "CREATE_TITLES step is created"() {
+		given:
+		TitleListStepExecutionListener titleListStepExecutionListener = Mock()
+
 		when:
 		Step step = etlJobConfiguration.stepCreateTitles()
 
@@ -474,6 +478,8 @@ class EtlJobConfigurationTest extends Specification {
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
 		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+		1 * applicationContextMock.getBean(TitleListStepExecutionListener) >> titleListStepExecutionListener
+		1 * simpleStepBuilderMock.listener(titleListStepExecutionListener) >> simpleStepBuilderMock
 
 		then: 'step is configured to run only once'
 		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
