@@ -43,4 +43,6 @@ public class Title extends PageAwareEntity implements PageAware {
 
 	private Boolean position;
 
+	private Boolean mirror;
+
 }

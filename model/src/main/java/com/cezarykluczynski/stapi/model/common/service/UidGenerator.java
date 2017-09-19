@@ -178,4 +178,14 @@ public class UidGenerator {
 		cleanedCode = StringUtils.leftPad(cleanedCode, 10, ZERO);
 		return "PLAT" + StringUtils.upperCase(cleanedCode);
 	}
+
+	public String generateForTitleListItem(Page page, Integer pageSectionIndex) {
+		if (page == null || pageSectionIndex == null) {
+			return null;
+		}
+
+		return "TIMA" + StringUtils.leftPad(page.getPageId().toString(), 8, ZERO) + StringUtils.leftPad(pageSectionIndex.toString(), 2, ZERO);
+	}
+
+
 }

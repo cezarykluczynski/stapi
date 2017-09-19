@@ -20,6 +20,7 @@
 			<column name="fleet_rank" type="boolean"/>
 			<column name="religious_title" type="boolean"/>
 			<column name="position" type="boolean"/>
+			<column name="mirror" type="boolean"/>
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="title_sequence"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"

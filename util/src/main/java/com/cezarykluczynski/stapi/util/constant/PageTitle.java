@@ -44,5 +44,16 @@ public class PageTitle {
 
 	public static final String MAGAZINES = "Magazines";
 	public static final String PARTWORK = "Partwork";
+	public static final String ANDORIAN_IMPERIAL_GUARD_RANKS = "Andorian Imperial Guard ranks";
+	public static final String BAJORAN_RANKS = "Bajoran ranks";
+	public static final String CARDASSIAN_RANKS = "Cardassian ranks";
+	public static final String JEM_HADAR_RANKS = "Jem'Hadar ranks";
+	public static final String MACO_RANKS = "MACO ranks";
+	public static final String ROMULAN_RANKS = "Romulan ranks";
+	public static final String STARFLEET_RANKS = "Starfleet ranks";
+	public static final String SCHUTZSTAFFEL_UNIFORMS_AND_INSIGNIA = "Schutzstaffel uniforms and insignia";
+	public static final String STARFLEET_RANKS_MIRROR = "Starfleet ranks (mirror)";
+	public static final String VULCAN_RANKS = "Vulcan ranks";
+
 
 }
