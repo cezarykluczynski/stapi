@@ -39,7 +39,7 @@ class TitleListSectionProcessor {
 		this.titleRepository = titleRepository;
 	}
 
-	public Title process(Page page, PageSection pageSection, String organization, Integer index) {
+	public void process(Page page, PageSection pageSection, String organization, Integer index) {
 		String organizationInTitle = organization;
 		String text = pageSection.getText();
 		boolean isMirror = StringUtils.contains(page.getTitle(), MIRROR);
@@ -56,7 +56,7 @@ class TitleListSectionProcessor {
 		}
 
 		if (PAGE_SECTIONS_TO_FILTER_OUT.contains(text)) {
-			return null;
+			return;
 		}
 
 		Title title = new Title();
@@ -68,7 +68,7 @@ class TitleListSectionProcessor {
 		title.setPosition(false);
 		title.setFleetRank(false);
 		title.setMirror(isMirror);
-		return titleRepository.save(title);
+		titleRepository.save(title);
 	}
 
 }

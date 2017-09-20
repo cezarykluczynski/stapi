@@ -29,15 +29,13 @@ class TitleListMacoMirrorProcessor {
 		this.titleRepository = titleRepository;
 	}
 
-	List<Title> produceAll(Page item, int index) {
-		List<Title> titleList = Lists.newArrayList();
+	void produceAll(Page item, int index) {
 		for (int j = 0; j < MACO_RANKS_MIRROR.size(); j++) {
-			titleList.add(toMacoTitle(MACO_RANKS_MIRROR.get(j), item, index + j * 10));
+			toMacoTitle(MACO_RANKS_MIRROR.get(j), item, index + j * 10);
 		}
-		return titleList;
 	}
 
-	private Title toMacoTitle(String macoTitleName, Page item, int index) {
+	private void toMacoTitle(String macoTitleName, Page item, int index) {
 		com.cezarykluczynski.stapi.model.page.entity.Page modelPage = pageRepository.findByPageId(item.getPageId()).orElse(null);
 		Title title = new Title();
 		title.setName(macoTitleName + " (MACO, mirror)");
@@ -48,7 +46,7 @@ class TitleListMacoMirrorProcessor {
 		title.setPosition(false);
 		title.setFleetRank(false);
 		title.setMirror(true);
-		return titleRepository.save(title);
+		titleRepository.save(title);
 	}
 
 }

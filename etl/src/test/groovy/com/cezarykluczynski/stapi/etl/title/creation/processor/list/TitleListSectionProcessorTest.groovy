@@ -46,20 +46,22 @@ class TitleListSectionProcessorTest extends Specification {
 		Integer index = 0
 
 		when:
-		Title title = titleListSectionProcessor.process(page, pageSection, ORGANIZATION, index)
+		titleListSectionProcessor.process(page, pageSection, ORGANIZATION, index)
 
 		then:
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * uidGeneratorMock.generateForTitleListItem(modelPage, index) >> UID
-		1 * titleRepositoryMock.save(_ as Title) >> { Title title1 -> title1 }
+		1 * titleRepositoryMock.save(_ as Title) >> { Title title ->
+			assert title.name == NAME
+			assert title.page == modelPage
+			assert title.militaryRank
+			assert !title.religiousTitle
+			assert !title.position
+			assert !title.fleetRank
+			assert !title.mirror
+			title
+		}
 		0 * _
-		title.name == NAME
-		title.page == modelPage
-		title.militaryRank
-		!title.religiousTitle
-		!title.position
-		!title.fleetRank
-		!title.mirror
 	}
 
 	void "creates Title for index higher than 0"() {
@@ -70,23 +72,25 @@ class TitleListSectionProcessorTest extends Specification {
 		Integer index = 1
 
 		when:
-		Title title = titleListSectionProcessor.process(page, pageSection, ORGANIZATION, index)
+		titleListSectionProcessor.process(page, pageSection, ORGANIZATION, index)
 
 		then:
 		1 * pageRepositoryMock.findByPageId(PAGE_ID) >> Optional.of(modelPage)
 		1 * uidGeneratorMock.generateForTitleListItem(modelPage, index) >> UID
-		1 * titleRepositoryMock.save(_ as Title) >> { Title title1 -> title1 }
+		1 * titleRepositoryMock.save(_ as Title) >> { Title title ->
+			title.name == NAME
+			title.page == modelPage
+			title.militaryRank
+			!title.religiousTitle
+			!title.position
+			!title.fleetRank
+			!title.mirror
+			title
+		}
 		0 * _
-		title.name == NAME
-		title.page == modelPage
-		title.militaryRank
-		!title.religiousTitle
-		!title.position
-		!title.fleetRank
-		!title.mirror
 	}
 
-	void "returns null when page section should be filtered out"() {
+	void "does not create title when page section should be filtered out"() {
 		given:
 		Page page = new Page()
 		PageSection pageSection = new PageSection(text: RandomUtil.randomItem(TitleListSectionProcessor.PAGE_SECTIONS_TO_FILTER_OUT))
@@ -94,12 +98,11 @@ class TitleListSectionProcessorTest extends Specification {
 		Integer index = 0
 
 		when:
-		Title title = titleListSectionProcessor.process(page, pageSection, ORGANIZATION, index)
+		titleListSectionProcessor.process(page, pageSection, ORGANIZATION, index)
 
 		then:
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		0 * _
-		title == null
 	}
 
 	void "creates Title for mirror universe"() {
@@ -110,20 +113,22 @@ class TitleListSectionProcessorTest extends Specification {
 		Integer index = 0
 
 		when:
-		Title title = titleListSectionProcessor.process(page, pageSection, ORGANIZATION, index)
+		titleListSectionProcessor.process(page, pageSection, ORGANIZATION, index)
 
 		then:
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * uidGeneratorMock.generateForTitleListItem(modelPage, index) >> UID
-		1 * titleRepositoryMock.save(_ as Title) >> { Title title1 -> title1 }
+		1 * titleRepositoryMock.save(_ as Title) >> { Title title ->
+			title.name == NAME_MIRROR
+			title.page == modelPage
+			title.militaryRank
+			!title.religiousTitle
+			!title.position
+			!title.fleetRank
+			title.mirror
+			title
+		}
 		0 * _
-		title.name == NAME_MIRROR
-		title.page == modelPage
-		title.militaryRank
-		!title.religiousTitle
-		!title.position
-		!title.fleetRank
-		title.mirror
 	}
 
 }

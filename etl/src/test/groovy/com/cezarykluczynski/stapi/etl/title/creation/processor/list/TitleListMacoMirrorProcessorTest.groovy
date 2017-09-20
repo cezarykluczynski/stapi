@@ -38,7 +38,7 @@ class TitleListMacoMirrorProcessorTest extends Specification {
 		int index = 8
 
 		when:
-		List<Title> titleList = titleListMacoMirrorProcessor.produceAll(page, index)
+		titleListMacoMirrorProcessor.produceAll(page, index)
 
 		then:
 		4 * pageRepositoryMock.findByPageId(PAGE_ID) >> Optional.of(modelPage)
@@ -58,14 +58,6 @@ class TitleListMacoMirrorProcessorTest extends Specification {
 			title
 		}
 		0 * _
-		titleList[0].uid == UID_1
-		titleList[0].name.contains TitleListMacoMirrorProcessor.MACO_RANKS_MIRROR[0]
-		titleList[1].uid == UID_2
-		titleList[1].name.contains TitleListMacoMirrorProcessor.MACO_RANKS_MIRROR[1]
-		titleList[2].uid == UID_3
-		titleList[2].name.contains TitleListMacoMirrorProcessor.MACO_RANKS_MIRROR[2]
-		titleList[3].uid == UID_4
-		titleList[3].name.contains TitleListMacoMirrorProcessor.MACO_RANKS_MIRROR[3]
 	}
 
 }

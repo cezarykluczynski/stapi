@@ -30,7 +30,6 @@ public class TradingCardCreationConfiguration {
 	@Bean
 	@DependsOn("batchDatabaseInitializer")
 	@Transactional
-	@javax.transaction.Transactional
 	public TradingCardSetReader tradingCardReader() {
 		List<Page> tradingCardList = Lists.newArrayList();
 
