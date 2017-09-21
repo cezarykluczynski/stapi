@@ -4,12 +4,15 @@ import com.cezarykluczynski.stapi.model.throttle.dto.ThrottleStatistics;
 import com.cezarykluczynski.stapi.model.throttle.repository.ThrottleRepository;
 import com.cezarykluczynski.stapi.server.common.throttle.credential.RequestCredential;
 import com.cezarykluczynski.stapi.server.common.throttle.credential.RequestCredentialProvider;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import org.apache.cxf.message.Message;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 
 @Service
+@Profile(SpringProfile.API_THROTTLE)
 public class ThrottleValidator {
 
 	private final ThrottleQualifyingService throttleQualifyingService;

@@ -1,11 +1,14 @@
 package com.cezarykluczynski.stapi.server.common.throttle;
 
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 @Service
+@Profile(SpringProfile.API_THROTTLE)
 class ThrottleQualifyingService {
 
 	private static final String COMMON_URI_PART = "rest/common";

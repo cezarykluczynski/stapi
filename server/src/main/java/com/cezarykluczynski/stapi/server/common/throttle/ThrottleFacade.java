@@ -1,9 +1,11 @@
 package com.cezarykluczynski.stapi.server.common.throttle;
 
 import com.cezarykluczynski.stapi.server.common.throttle.rest.RestException;
+import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import com.google.common.collect.Maps;
 import org.apache.cxf.binding.soap.SoapFault;
 import org.apache.cxf.message.Message;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -11,6 +13,7 @@ import javax.xml.namespace.QName;
 import java.util.Map;
 
 @Service
+@Profile(SpringProfile.API_THROTTLE)
 public class ThrottleFacade {
 
 	private static final String PATH_INFO = "org.apache.cxf.message.Message.PATH_INFO";
