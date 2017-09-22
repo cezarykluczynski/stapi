@@ -5,6 +5,8 @@ import com.cezarykluczynski.stapi.server.common.dto.PongDTO;
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailsDTO;
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO;
 import com.cezarykluczynski.stapi.server.common.reader.CommonDataReader;
+import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
+import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -17,6 +19,7 @@ import javax.ws.rs.core.Response;
 
 @Service
 @Produces(MediaType.APPLICATION_JSON)
+@CrossOriginResourceSharing(allowAllOrigins = CxfConfiguration.CORS_ALLOW_ALL_ORIGINS, maxAge = CxfConfiguration.CORS_MAX_AGE)
 public class CommonRestEndpoint {
 
 	public static final String ADDRESS = "/v1/rest/common";

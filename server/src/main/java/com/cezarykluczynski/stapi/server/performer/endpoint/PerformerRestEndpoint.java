@@ -3,8 +3,10 @@ package com.cezarykluczynski.stapi.server.performer.endpoint;
 import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerBaseResponse;
 import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerFullResponse;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
+import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
 import com.cezarykluczynski.stapi.server.performer.dto.PerformerRestBeanParams;
 import com.cezarykluczynski.stapi.server.performer.reader.PerformerRestReader;
+import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -19,6 +21,7 @@ import javax.ws.rs.core.MediaType;
 
 @Service
 @Produces(MediaType.APPLICATION_JSON)
+@CrossOriginResourceSharing(allowAllOrigins = CxfConfiguration.CORS_ALLOW_ALL_ORIGINS, maxAge = CxfConfiguration.CORS_MAX_AGE)
 public class PerformerRestEndpoint {
 
 	public static final String ADDRESS = "/v1/rest/performer";

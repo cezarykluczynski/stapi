@@ -3,8 +3,10 @@ package com.cezarykluczynski.stapi.server.staff.endpoint;
 import com.cezarykluczynski.stapi.client.v1.rest.model.StaffBaseResponse;
 import com.cezarykluczynski.stapi.client.v1.rest.model.StaffFullResponse;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
+import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
 import com.cezarykluczynski.stapi.server.staff.dto.StaffRestBeanParams;
 import com.cezarykluczynski.stapi.server.staff.reader.StaffRestReader;
+import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -19,6 +21,7 @@ import javax.ws.rs.core.MediaType;
 
 @Service
 @Produces(MediaType.APPLICATION_JSON)
+@CrossOriginResourceSharing(allowAllOrigins = CxfConfiguration.CORS_ALLOW_ALL_ORIGINS, maxAge = CxfConfiguration.CORS_MAX_AGE)
 public class StaffRestEndpoint {
 
 	public static final String ADDRESS = "/v1/rest/staff";

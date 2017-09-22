@@ -14,6 +14,7 @@ import org.apache.cxf.bus.spring.SpringBus
 import org.apache.cxf.endpoint.Server
 import org.apache.cxf.endpoint.ServerImpl
 import org.apache.cxf.jaxws.EndpointImpl
+import org.apache.cxf.rs.security.cors.CrossOriginResourceSharingFilter
 import org.springframework.context.ApplicationContext
 import spock.lang.Specification
 
@@ -66,6 +67,7 @@ class EndpointFactoryTest extends Specification {
 		MissingUIDExceptionMapper missingUIDExceptionMapper = Mock()
 		ApiThrottlingInterceptor apiThrottlingInterceptor = Mock()
 		ApiThrottleLimitHeadersBindingInterceptor apiThrottleLimitHeadersBindingInterceptor = Mock()
+		CrossOriginResourceSharingFilter crossOriginResourceSharingFilter = Mock()
 
 		when:
 		Server server = endpointFactory.createRestEndpoint(seriesRestEndpointClass, SeriesRestEndpoint.ADDRESS)
@@ -77,6 +79,7 @@ class EndpointFactoryTest extends Specification {
 		1 * applicationContextMock.getBean(CxfRestPrettyPrintContainerResponseFilter) >> cxfRestPrettyPrintContainerResponseFilter
 		1 * applicationContextMock.getBean(LocalDateRestParamConverterProvider) >> localDateRestParamConverterProvider
 		1 * applicationContextMock.getBean(RestExceptionMapper) >> restExceptionMapper
+		1 * applicationContextMock.getBean(CrossOriginResourceSharingFilter) >> crossOriginResourceSharingFilter
 		1 * applicationContextMock.getBean(MissingUIDExceptionMapper) >> missingUIDExceptionMapper
 		1 * applicationContextMock.getBean(ApiThrottlingInterceptor) >> apiThrottlingInterceptor
 		1 * applicationContextMock.getBean(ApiThrottleLimitHeadersBindingInterceptor) >> apiThrottleLimitHeadersBindingInterceptor

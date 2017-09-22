@@ -14,6 +14,7 @@ import org.apache.cxf.bus.spring.SpringBus;
 import org.apache.cxf.endpoint.Server;
 import org.apache.cxf.jaxrs.JAXRSServerFactoryBean;
 import org.apache.cxf.jaxws.EndpointImpl;
+import org.apache.cxf.rs.security.cors.CrossOriginResourceSharingFilter;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +47,7 @@ public class EndpointFactory {
 				applicationContext.getBean(CxfRestPrettyPrintContainerResponseFilter.class),
 				applicationContext.getBean(LocalDateRestParamConverterProvider.class),
 				applicationContext.getBean(RestExceptionMapper.class),
+				applicationContext.getBean(CrossOriginResourceSharingFilter.class),
 				applicationContext.getBean(MissingUIDExceptionMapper.class)));
 		factory.setInInterceptors(Lists.newArrayList(applicationContext.getBean(ApiThrottlingInterceptor.class)));
 		factory.setOutInterceptors(Lists.newArrayList(applicationContext.getBean(ApiThrottleLimitHeadersBindingInterceptor.class)));

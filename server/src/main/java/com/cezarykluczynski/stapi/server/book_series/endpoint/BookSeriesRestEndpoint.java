@@ -5,6 +5,8 @@ import com.cezarykluczynski.stapi.client.v1.rest.model.BookSeriesFullResponse;
 import com.cezarykluczynski.stapi.server.book_series.dto.BookSeriesRestBeanParams;
 import com.cezarykluczynski.stapi.server.book_series.reader.BookSeriesRestReader;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
+import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
+import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -19,6 +21,7 @@ import javax.ws.rs.core.MediaType;
 
 @Service
 @Produces(MediaType.APPLICATION_JSON)
+@CrossOriginResourceSharing(allowAllOrigins = CxfConfiguration.CORS_ALLOW_ALL_ORIGINS, maxAge = CxfConfiguration.CORS_MAX_AGE)
 public class BookSeriesRestEndpoint {
 
 	public static final String ADDRESS = "/v1/rest/bookSeries";
