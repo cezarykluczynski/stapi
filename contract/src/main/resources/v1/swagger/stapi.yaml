@@ -113,6 +113,10 @@ paths:
     $ref: ./staff/path/staff.path.yaml
   /staff/search:
     $ref: ./staff/path/staffSearch.path.yaml
+  /title:
+    $ref: ./title/path/title.path.yaml
+  /title/search:
+    $ref: ./title/path/titleSearch.path.yaml
   /tradingCard:
     $ref: ./trading_card/path/tradingCard.path.yaml
   /tradingCard/search:
@@ -440,6 +444,16 @@ definitions:
     $ref: ./staff/entity/staffBaseResponse.yaml
   StaffFullResponse:
     $ref: ./staff/entity/staffFullResponse.yaml
+  TitleHeader:
+    $ref: ./title/entity/titleHeader.yaml
+  TitleBase:
+    $ref: ./title/entity/titleBase.yaml
+  TitleFull:
+    $ref: ./title/entity/titleFull.yaml
+  TitleBaseResponse:
+    $ref: ./title/entity/titleBaseResponse.yaml
+  TitleFullResponse:
+    $ref: ./title/entity/titleFullResponse.yaml
   TradingCardHeader:
     $ref: ./trading_card/entity/tradingCardHeader.yaml
   TradingCardBase:

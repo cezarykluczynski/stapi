@@ -1,0 +1,6 @@
+type: object
+description: Response object for single title query
+properties:
+  title:
+    $ref: '#/definitions/TitleFull'
+    description: Title, if found

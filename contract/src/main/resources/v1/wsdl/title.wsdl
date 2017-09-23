@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+		name="Title"
+		targetNamespace="http://stapi.co/api/v1/soap/title"
+		xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+		xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+		xmlns:stapi="http://stapi.co/api/v1/soap/title"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<xs:schema targetNamespace="http://stapi.co/api/v1/soap/title">
+			<xs:include schemaLocation="title.xsd"/>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="TitleBaseRequest">
+		<wsdl:part name="request" element="stapi:TitleBaseRequest"/>
+	</wsdl:message>
+	<wsdl:message name="TitleFullRequest">
+		<wsdl:part name="request" element="stapi:TitleFullRequest"/>
+	</wsdl:message>
+	<wsdl:message name="TitleBaseResponse">
+		<wsdl:part name="response" element="stapi:TitleBaseResponse"/>
+	</wsdl:message>
+	<wsdl:message name="TitleFullResponse">
+		<wsdl:part name="response" element="stapi:TitleFullResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="TitlePortType">
+		<wsdl:operation name="getTitleBase">
+			<wsdl:input name="getTitleBaseRequest" message="stapi:TitleBaseRequest"/>
+			<wsdl:output name="getTitleBaseResponse" message="stapi:TitleBaseResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getTitleFull">
+			<wsdl:input name="getTitleFullRequest" message="stapi:TitleFullRequest"/>
+			<wsdl:output name="getTitleFullResponse" message="stapi:TitleFullResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="TitleBinding" type="stapi:TitlePortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getTitleBase">
+			<wsdl:input name="getTitleBaseRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getTitleBaseResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getTitleFull">
+			<wsdl:input name="getTitleFullRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getTitleFullResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="TitleService">
+		<wsdl:port name="TitlePortType" binding="stapi:TitleBinding">
+			<soap:address location="http://stapi.co/api/v1/soap/title"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,26 @@
+type: object
+description: Base title, returned in search results
+properties:
+  uid:
+    type: string
+    required: true
+    description: Title unique ID
+  name:
+    type: string
+    required: true
+    description: Title name
+  militaryRank:
+    type: boolean
+    description: Whether it's a military rank
+  fleetRank:
+    type: boolean
+    description: Whether it's a fleet rank
+  religiousTitle:
+    type: boolean
+    description: Whether it's a religious title
+  position:
+    type: boolean
+    description: Whether it's a position
+  mirror:
+    type: boolean
+    description: Whether this title is from mirror universe

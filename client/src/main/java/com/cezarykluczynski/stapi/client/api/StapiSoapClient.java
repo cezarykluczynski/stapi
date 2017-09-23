@@ -25,6 +25,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.SpacecraftClassPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.SpacecraftPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.SpeciesPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.StaffPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.TitlePortType;
 import com.cezarykluczynski.stapi.client.v1.soap.TradingCardDeckPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.TradingCardPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.TradingCardSetPortType;
@@ -130,6 +131,9 @@ public class StapiSoapClient {
 	@Getter
 	private SpacecraftPortType spacecraftPortType;
 
+	@Getter
+	private TitlePortType titlePortType;
+
 	public StapiSoapClient() {
 		stapiSoapPortTypesProvider = new StapiSoapPortTypesProvider();
 		bindPortTypes();
@@ -172,6 +176,7 @@ public class StapiSoapClient {
 		weaponPortType = stapiSoapPortTypesProvider.getWeaponPortType();
 		spacecraftClassPortType = stapiSoapPortTypesProvider.getSpacecraftClassPortType();
 		spacecraftPortType = stapiSoapPortTypesProvider.getSpacecraftPortType();
+		titlePortType = stapiSoapPortTypesProvider.getTitlePortType();
 	}
 
 }

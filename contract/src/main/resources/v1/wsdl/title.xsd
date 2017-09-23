@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:title="http://stapi.co/api/v1/soap/title"
+		xmlns:common="http://stapi.co/api/v1/soap/common"
+		elementFormDefault="qualified"
+		targetNamespace="http://stapi.co/api/v1/soap/title">
+	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
+	<xs:element name="TitleBaseRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for titles search</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Request">
+					<xs:sequence>
+						<xs:element name="name" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Title name</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="militaryRank" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a military rank</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="fleetRank" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a fleet rank</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="religiousTitle" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a religious title</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="position" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a position</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="mirror" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether this title should be from mirror universe</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TitleFullRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for single title query</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:ApiRequest">
+					<xs:sequence>
+						<xs:element name="uid" type="xs:string" minOccurs="1">
+							<xs:annotation>
+								<xs:documentation>Title unique ID</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TitleBaseResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for titles search</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Response">
+					<xs:sequence>
+						<xs:element name="titles" type="title:TitleBase" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>List of titles matching given criteria</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TitleFullResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for single title query</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="title" type="title:TitleFull">
+					<xs:annotation>
+						<xs:documentation>Title, if found</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="TitleHeader">
+		<xs:annotation>
+			<xs:documentation>Header title, embedded in other objects</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Title unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Title name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TitleBase">
+		<xs:annotation>
+			<xs:documentation>Base title, returned in search results</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Title unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Title name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="militaryRank" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a military rank</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fleetRank" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a fleet rank</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="religiousTitle" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a religious title</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="position" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a position</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mirror" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this title is from mirror universe</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TitleFull">
+		<xs:annotation>
+			<xs:documentation>Full title, returned when queried using UID</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Title unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Title name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="militaryRank" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a military rank</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fleetRank" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a fleet rank</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="religiousTitle" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a religious title</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="position" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a position</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="mirror" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this title is from mirror universe</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

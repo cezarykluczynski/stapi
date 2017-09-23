@@ -25,6 +25,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.api.SpacecraftApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.SpacecraftClassApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.SpeciesApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.StaffApi;
+import com.cezarykluczynski.stapi.client.v1.rest.api.TitleApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.TradingCardApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.TradingCardDeckApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.TradingCardSetApi;
@@ -133,6 +134,9 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 	@Getter
 	private SpacecraftApi spacecraftApi;
 
+	@Getter
+	private TitleApi titleApi;
+
 	public StapiRestClient() {
 		seriesApi = new SeriesApi();
 		performerApi = new PerformerApi();
@@ -165,6 +169,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 		weaponApi = new WeaponApi();
 		spacecraftClassApi = new SpacecraftClassApi();
 		spacecraftApi = new SpacecraftApi();
+		titleApi = new TitleApi();
 	}
 
 	public StapiRestClient(String apiUrl) {
@@ -201,6 +206,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 		weaponApi = new WeaponApi(apiClient);
 		spacecraftClassApi = new SpacecraftClassApi(apiClient);
 		spacecraftApi = new SpacecraftApi(apiClient);
+		titleApi = new TitleApi(apiClient);
 	}
 
 	private void createApiClient() {

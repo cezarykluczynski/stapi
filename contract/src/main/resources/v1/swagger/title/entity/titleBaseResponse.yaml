@@ -1,0 +1,14 @@
+type: object
+description: Response object for titles search
+properties:
+  page:
+    $ref: '#/definitions/ResponsePage'
+    description: Response page
+  sort:
+    $ref: '#/definitions/ResponseSort'
+    description: Response sort
+  titles:
+    type: array
+    items:
+      $ref: '#/definitions/TitleBase'
+    description: List of titles matching given criteria

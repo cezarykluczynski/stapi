@@ -50,6 +50,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.SpeciesPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.SpeciesService;
 import com.cezarykluczynski.stapi.client.v1.soap.StaffPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.StaffService;
+import com.cezarykluczynski.stapi.client.v1.soap.TitlePortType;
+import com.cezarykluczynski.stapi.client.v1.soap.TitleService;
 import com.cezarykluczynski.stapi.client.v1.soap.TradingCardDeckPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.TradingCardDeckService;
 import com.cezarykluczynski.stapi.client.v1.soap.TradingCardPortType;
@@ -164,6 +166,9 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 	@Getter
 	private SpacecraftPortType spacecraftPortType;
 
+	@Getter
+	private TitlePortType titlePortType;
+
 	public StapiSoapPortTypesProvider() {
 		seriesPortType = new SeriesService().getSeriesPortType();
 		performerPortType = new PerformerService().getPerformerPortType();
@@ -196,6 +201,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		weaponPortType = new WeaponService().getWeaponPortType();
 		spacecraftClassPortType = new SpacecraftClassService().getSpacecraftClassPortType();
 		spacecraftPortType = new SpacecraftService().getSpacecraftPortType();
+		titlePortType = new TitleService().getTitlePortType();
 	}
 
 	public StapiSoapPortTypesProvider(String apiUrl) {
@@ -231,6 +237,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		weaponPortType = changeUrl(new WeaponService().getWeaponPortType());
 		spacecraftClassPortType = changeUrl(new SpacecraftClassService().getSpacecraftClassPortType());
 		spacecraftPortType = changeUrl(new SpacecraftService().getSpacecraftPortType());
+		titlePortType = changeUrl(new TitleService().getTitlePortType());
 	}
 
 	private <T> T changeUrl(T service) {
