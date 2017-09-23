@@ -46,4 +46,5 @@
 	<include file="spacecraft_type/0043_create_spacecraft_type.xml" relativeToChangelogFile="true"/>
 	<include file="spacecraft_class/0044_create_spacecraft_class.xml" relativeToChangelogFile="true"/>
 	<include file="spacecraft/0045_create_spacecraft.xml" relativeToChangelogFile="true"/>
+	<include file="material/0046_create_material.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
