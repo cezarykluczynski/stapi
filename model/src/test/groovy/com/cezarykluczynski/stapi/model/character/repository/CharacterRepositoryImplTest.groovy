@@ -96,6 +96,8 @@ class CharacterRepositoryImplTest extends Specification {
 		1 * characterQueryBuilder.fetch(Character_.characterRelations, true)
 		1 * characterQueryBuilder.fetch(Character_.characterRelations, CharacterRelation_.source, true)
 		1 * characterQueryBuilder.fetch(Character_.characterRelations, CharacterRelation_.target, true)
+		1 * characterQueryBuilder.fetch(Character_.titles, true)
+		1 * characterQueryBuilder.fetch(Character_.organizations, true)
 
 		then: 'page is searched for and returned'
 		1 * characterQueryBuilder.findPage() >> page
@@ -125,6 +127,8 @@ class CharacterRepositoryImplTest extends Specification {
 		1 * characterQueryBuilder.fetch(Character_.characterRelations, false)
 		1 * characterQueryBuilder.fetch(Character_.characterRelations, CharacterRelation_.source, false)
 		1 * characterQueryBuilder.fetch(Character_.characterRelations, CharacterRelation_.target, false)
+		1 * characterQueryBuilder.fetch(Character_.titles, false)
+		1 * characterQueryBuilder.fetch(Character_.organizations, false)
 
 		then: 'page is searched for and returned'
 		1 * characterQueryBuilder.findPage() >> page
@@ -136,6 +140,8 @@ class CharacterRepositoryImplTest extends Specification {
 		1 * character.setMovies(Sets.newHashSet())
 		1 * character.setCharacterSpecies(Sets.newHashSet())
 		1 * character.setCharacterRelations(Sets.newHashSet())
+		1 * character.setTitles(Sets.newHashSet())
+		1 * character.setOrganizations(Sets.newHashSet())
 		pageOutput == page
 	}
 

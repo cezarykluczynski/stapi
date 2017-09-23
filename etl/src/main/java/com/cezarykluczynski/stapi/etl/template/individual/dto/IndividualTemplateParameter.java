@@ -3,6 +3,8 @@ package com.cezarykluczynski.stapi.etl.template.individual.dto;
 public class IndividualTemplateParameter {
 
 	public static final String GENDER = "gender";
+	public static final String AFFILIATION = "affiliation";
+	public static final String RANK = "rank";
 	public static final String ACTOR = "actor";
 	public static final String HEIGHT = "height";
 	public static final String WEIGHT = "weight";

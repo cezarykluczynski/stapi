@@ -55,6 +55,8 @@ public class CharacterTemplateProcessor implements ItemProcessor<CharacterTempla
 		item.getPerformers().forEach(performer -> performer.getCharacters().add(character));
 		character.getCharacterSpecies().addAll(item.getCharacterSpecies());
 		character.getCharacterRelations().addAll(item.getCharacterRelations());
+		character.getTitles().addAll(item.getTitles());
+		character.getOrganizations().addAll(item.getOrganizations());
 
 		return character;
 	}

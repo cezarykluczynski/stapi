@@ -3,6 +3,8 @@ package com.cezarykluczynski.stapi.etl.template.individual.processor
 import com.cezarykluczynski.stapi.etl.character.common.dto.CharacterRelationsMap
 import com.cezarykluczynski.stapi.etl.character.common.service.CharactersRelationsCache
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
+import com.cezarykluczynski.stapi.etl.common.processor.organization.WikitextToOrganizationsProcessor
+import com.cezarykluczynski.stapi.etl.common.processor.title.WikitextToTitlesProcessor
 import com.cezarykluczynski.stapi.etl.template.character.dto.CharacterTemplate
 import com.cezarykluczynski.stapi.etl.template.character.processor.CharacterTemplateActorLinkingEnrichingProcessor
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender
@@ -14,7 +16,9 @@ import com.cezarykluczynski.stapi.etl.template.individual.processor.species.Char
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus
+import com.cezarykluczynski.stapi.model.organization.entity.Organization
 import com.cezarykluczynski.stapi.model.page.entity.Page
+import com.cezarykluczynski.stapi.model.title.entity.Title
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.ReflectionTestUtils
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
@@ -45,6 +49,10 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 
 	private PartToGenderProcessor partToGenderProcessorMock
 
+	private WikitextToOrganizationsProcessor wikitextToOrganizationsProcessorMock
+
+	private WikitextToTitlesProcessor wikitextToTitlesProcessorMock
+
 	private IndividualLifeBoundaryProcessor individualLifeBoundaryProcessorMock
 
 	private CharacterTemplateActorLinkingEnrichingProcessor characterTemplateActorLinkingEnrichingProcessorMock
@@ -65,6 +73,8 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void setup() {
 		partToGenderProcessorMock = Mock()
+		wikitextToOrganizationsProcessorMock = Mock()
+		wikitextToTitlesProcessorMock = Mock()
 		individualLifeBoundaryProcessorMock = Mock()
 		characterTemplateActorLinkingEnrichingProcessorMock = Mock()
 		individualHeightProcessorMock = Mock()
@@ -74,9 +84,9 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		maritalStatusProcessorMock = Mock()
 		characterSpeciesWikitextProcessorMock = Mock()
 		individualTemplatePartsEnrichingProcessor = new IndividualTemplatePartsEnrichingProcessor(partToGenderProcessorMock,
-				individualLifeBoundaryProcessorMock, characterTemplateActorLinkingEnrichingProcessorMock, individualHeightProcessorMock,
-				individualWeightProcessorMock, individualBloodTypeProcessorMock, charactersRelationsCacheMock, maritalStatusProcessorMock,
-				characterSpeciesWikitextProcessorMock)
+				wikitextToOrganizationsProcessorMock, wikitextToTitlesProcessorMock, individualLifeBoundaryProcessorMock,
+				characterTemplateActorLinkingEnrichingProcessorMock, individualHeightProcessorMock, individualWeightProcessorMock,
+				individualBloodTypeProcessorMock, charactersRelationsCacheMock, maritalStatusProcessorMock, characterSpeciesWikitextProcessorMock)
 	}
 
 	void "sets gender from PartToGenderProcessor"() {
@@ -91,7 +101,41 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		1 * partToGenderProcessorMock.process(templatePart) >> GENDER
 		0 * _
 		characterTemplate.gender == GENDER
-		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 4
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 6
+	}
+
+	void "adds all Organizations from WikitextToOrganizationsProcessor"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: IndividualTemplateParameter.AFFILIATION, value: VALUE)
+		CharacterTemplate characterTemplate = new CharacterTemplate()
+		Organization organization1 = Mock()
+		Organization organization2 = Mock()
+
+		when:
+		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), characterTemplate))
+
+		then:
+		1 * wikitextToOrganizationsProcessorMock.process(VALUE) >> Lists.newArrayList(organization1, organization2)
+		0 * _
+		characterTemplate.organizations.contains organization1
+		characterTemplate.organizations.contains organization2
+	}
+
+	void "adds all Titles from WikitextToTitlesProcessor"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: IndividualTemplateParameter.RANK, value: VALUE)
+		CharacterTemplate characterTemplate = new CharacterTemplate()
+		Title title1 = Mock()
+		Title title2 = Mock()
+
+		when:
+		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), characterTemplate))
+
+		then:
+		1 * wikitextToTitlesProcessorMock.process(VALUE) >> Lists.newArrayList(title1, title2)
+		0 * _
+		characterTemplate.titles.contains title1
+		characterTemplate.titles.contains title2
 	}
 
 	void "when actor key is found, CharacterTemplateActorLinkingEnrichingProcessor is used to process it"() {
@@ -111,7 +155,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 				characterTemplateInActorLinkingProcessor = enrichablePair.output
 		}
 		0 * _
-		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 3
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 5
 		characterTemplateInActorLinkingProcessor == characterTemplate
 	}
 
@@ -129,7 +173,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		1 * individualHeightProcessorMock.process(VALUE) >> HEIGHT
 		0 * _
 		characterTemplate.height == HEIGHT
-		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 4
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 6
 	}
 
 	void "sets weight from IndividualWeightProcessor"() {
@@ -146,7 +190,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		1 * individualWeightProcessorMock.process(VALUE) >> WEIGHT
 		0 * _
 		characterTemplate.weight == WEIGHT
-		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 4
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 6
 	}
 
 	void "does not set serial number when it is not empty"() {
@@ -162,7 +206,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		then:
 		0 * _
 		characterTemplate.serialNumber == null
-		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 3
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 5
 	}
 
 	void "sets serial number when it is not empty"() {
@@ -178,7 +222,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		then:
 		0 * _
 		characterTemplate.serialNumber == VALUE
-		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 4
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 6
 	}
 
 	void "sets birth values from IndividualLifeBoundaryProcessor"() {
@@ -201,7 +245,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		characterTemplate.yearOfBirth == YEAR
 		characterTemplate.monthOfBirth == MONTH
 		characterTemplate.dayOfBirth == DAY
-		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 6
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 8
 	}
 
 	void "sets death values from IndividualLifeBoundaryProcessor"() {
@@ -224,7 +268,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		characterTemplate.yearOfDeath == YEAR
 		characterTemplate.monthOfDeath == MONTH
 		characterTemplate.dayOfDeath == DAY
-		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 6
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 8
 	}
 
 	void "when father part is found, it is put into CharactersRelationsCache"() {
@@ -360,7 +404,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		1 * maritalStatusProcessorMock.process(VALUE) >> MARITAL_STATUS
 		0 * _
 		characterTemplate.maritalStatus == MARITAL_STATUS
-		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 4
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 6
 	}
 
 	void "sets blood type from BloodTypeProcessor"() {
@@ -377,7 +421,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		1 * individualBloodTypeProcessorMock.process(VALUE) >> BLOOD_TYPE
 		0 * _
 		characterTemplate.bloodType == BLOOD_TYPE
-		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 4
+		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 6
 	}
 
 	void "adds all CharacterSpecies from CharacterSpeciesWikitextProcessor"() {

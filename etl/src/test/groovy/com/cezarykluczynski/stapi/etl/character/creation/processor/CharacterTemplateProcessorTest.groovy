@@ -10,8 +10,10 @@ import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender as ModelGender
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator
+import com.cezarykluczynski.stapi.model.organization.entity.Organization
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
+import com.cezarykluczynski.stapi.model.title.entity.Title
 import com.cezarykluczynski.stapi.util.AbstractIndividualTest
 import com.google.common.collect.Sets
 
@@ -43,6 +45,10 @@ class CharacterTemplateProcessorTest extends AbstractIndividualTest {
 		CharacterSpecies characterSpecies2 = Mock()
 		CharacterRelation characterRelation1 = Mock()
 		CharacterRelation characterRelation2 = Mock()
+		Title title1 = Mock()
+		Title title2 = Mock()
+		Organization organization1 = Mock()
+		Organization organization2 = Mock()
 
 		CharacterTemplate characterTemplate = new CharacterTemplate(
 				page: page,
@@ -71,7 +77,9 @@ class CharacterTemplateProcessorTest extends AbstractIndividualTest {
 				alternateReality: ALTERNATE_REALITY,
 				performers: Sets.newHashSet(performer1, performer2),
 				characterSpecies: Sets.newHashSet(characterSpecies1, characterSpecies2),
-				characterRelations: Sets.newHashSet(characterRelation1, characterRelation2))
+				characterRelations: Sets.newHashSet(characterRelation1, characterRelation2),
+				titles: Sets.newHashSet(title1, title2),
+				organizations: Sets.newHashSet(organization1, organization2))
 
 		when:
 		Character character = characterTemplateProcessor.process(characterTemplate)
@@ -114,6 +122,10 @@ class CharacterTemplateProcessorTest extends AbstractIndividualTest {
 		character.characterSpecies.contains characterSpecies2
 		character.characterRelations.contains characterRelation1
 		character.characterRelations.contains characterRelation2
+		character.titles.contains title1
+		character.titles.contains title2
+		character.organizations.contains organization1
+		character.organizations.contains organization2
 	}
 
 	void "when boolean flags are null, false is put into them"() {

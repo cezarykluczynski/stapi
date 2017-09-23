@@ -5,8 +5,10 @@ import com.cezarykluczynski.stapi.model.character.entity.CharacterRelation;
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies;
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType;
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus;
+import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.page.entity.Page;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
+import com.cezarykluczynski.stapi.model.title.entity.Title;
 import com.google.common.collect.Sets;
 import lombok.Data;
 
@@ -68,5 +70,9 @@ public class CharacterTemplate {
 	private Set<CharacterSpecies> characterSpecies = Sets.newHashSet();
 
 	private Set<CharacterRelation> characterRelations = Sets.newHashSet();
+
+	private Set<Title> titles = Sets.newHashSet();
+
+	private Set<Organization> organizations = Sets.newHashSet();
 
 }

@@ -100,3 +100,13 @@ properties:
     items:
       $ref: '#/definitions/CharacterRelation'
     description: Relations with other characters
+  titles:
+    type: array
+    items:
+      $ref: '#/definitions/TitleBase'
+    description: Titles this character holds
+  organizations:
+    type: array
+    items:
+      $ref: '#/definitions/OrganizationBase'
+    description: Organizations this character has affiliation with

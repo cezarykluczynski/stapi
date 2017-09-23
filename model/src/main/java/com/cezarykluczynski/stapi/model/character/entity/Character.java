@@ -9,8 +9,10 @@ import com.cezarykluczynski.stapi.model.common.entity.enums.Gender;
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
+import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
+import com.cezarykluczynski.stapi.model.title.entity.Title;
 import com.google.common.collect.Sets;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -35,8 +37,9 @@ import java.util.Set;
 
 @Data
 @Entity
-@ToString(callSuper = true, exclude = {"performers", "episodes", "movies", "characterSpecies", "characterRelations"})
-@EqualsAndHashCode(callSuper = true, exclude = {"performers", "episodes", "movies", "characterSpecies", "characterRelations"})
+@ToString(callSuper = true, exclude = {"performers", "episodes", "movies", "characterSpecies", "characterRelations", "titles", "organizations"})
+@EqualsAndHashCode(callSuper = true, exclude = {"performers", "episodes", "movies", "characterSpecies", "characterRelations", "titles",
+		"organizations"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = CharacterRepository.class, singularName = "character",
 		pluralName = "characters")
@@ -123,5 +126,19 @@ public class Character extends PageAwareEntity implements PageAware {
 			inverseJoinColumns = @JoinColumn(name = "character_relation_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<CharacterRelation> characterRelations = Sets.newHashSet();
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "characters_titles",
+			joinColumns = @JoinColumn(name = "character_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "title_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<Title> titles = Sets.newHashSet();
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "characters_organizations",
+			joinColumns = @JoinColumn(name = "character_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "organization_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<Organization> organizations = Sets.newHashSet();
 
 }
