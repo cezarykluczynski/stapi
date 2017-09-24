@@ -1,0 +1,11 @@
+type: object
+description: Header material, embedded in other objects
+properties:
+  uid:
+    type: string
+    required: true
+    description: Material unique ID
+  name:
+    type: string
+    required: true
+    description: Material name

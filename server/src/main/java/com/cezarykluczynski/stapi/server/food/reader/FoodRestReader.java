@@ -58,8 +58,7 @@ public class FoodRestReader implements BaseReader<FoodRestBeanParams, FoodBaseRe
 		foodRestBeanParams.setUid(uid);
 		Page<Food> foodPage = foodRestQuery.query(foodRestBeanParams);
 		FoodFullResponse foodResponse = new FoodFullResponse();
-		foodResponse.setFood(foodFullRestMapper
-				.mapFull(Iterables.getOnlyElement(foodPage.getContent(), null)));
+		foodResponse.setFood(foodFullRestMapper.mapFull(Iterables.getOnlyElement(foodPage.getContent(), null)));
 		return foodResponse;
 	}
 }

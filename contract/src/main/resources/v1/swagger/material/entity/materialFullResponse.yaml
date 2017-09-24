@@ -1,0 +1,6 @@
+type: object
+description: Response object for single material query
+properties:
+  material:
+    $ref: '#/definitions/MaterialFull'
+    description: Material, if found

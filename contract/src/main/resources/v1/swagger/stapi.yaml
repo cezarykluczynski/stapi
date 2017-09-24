@@ -73,6 +73,10 @@ paths:
     $ref: ./magazine_series/path/magazineSeries.path.yaml
   /magazineSeries/search:
     $ref: ./magazine_series/path/magazineSeriesSearch.path.yaml
+  /material:
+    $ref: ./material/path/material.path.yaml
+  /material/search:
+    $ref: ./material/path/materialSearch.path.yaml
   /movie:
     $ref: ./movie/path/movie.path.yaml
   /movie/search:
@@ -326,6 +330,16 @@ definitions:
     $ref: ./magazine_series/entity/magazineSeriesFullResponse.yaml
   MaritalStatus:
     $ref: ./common/entity/enum/maritalStatus.yaml
+  MaterialHeader:
+    $ref: ./material/entity/materialHeader.yaml
+  MaterialBase:
+    $ref: ./material/entity/materialBase.yaml
+  MaterialFull:
+    $ref: ./material/entity/materialFull.yaml
+  MaterialBaseResponse:
+    $ref: ./material/entity/materialBaseResponse.yaml
+  MaterialFullResponse:
+    $ref: ./material/entity/materialFullResponse.yaml
   MovieHeader:
     $ref: ./movie/entity/movieHeader.yaml
   MovieBase:

@@ -15,6 +15,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.api.LiteratureApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.LocationApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.MagazineApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.MagazineSeriesApi;
+import com.cezarykluczynski.stapi.client.v1.rest.api.MaterialApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.MovieApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.OrganizationApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.PerformerApi;
@@ -137,6 +138,9 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 	@Getter
 	private TitleApi titleApi;
 
+	@Getter
+	private MaterialApi materialApi;
+
 	public StapiRestClient() {
 		seriesApi = new SeriesApi();
 		performerApi = new PerformerApi();
@@ -170,6 +174,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 		spacecraftClassApi = new SpacecraftClassApi();
 		spacecraftApi = new SpacecraftApi();
 		titleApi = new TitleApi();
+		materialApi = new MaterialApi();
 	}
 
 	public StapiRestClient(String apiUrl) {
@@ -207,6 +212,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 		spacecraftClassApi = new SpacecraftClassApi(apiClient);
 		spacecraftApi = new SpacecraftApi(apiClient);
 		titleApi = new TitleApi(apiClient);
+		materialApi = new MaterialApi(apiClient);
 	}
 
 	private void createApiClient() {

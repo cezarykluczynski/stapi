@@ -1,5 +1,5 @@
 get:
-  description: Pagination over foods
+  description: Pagination over materials
   parameters:
     - name: pageNumber
       in: query
@@ -18,15 +18,15 @@ get:
   responses:
     200:
       schema:
-        $ref: '#/definitions/FoodBaseResponse'
+        $ref: '#/definitions/MaterialBaseResponse'
     default:
       description: Unexpected error
       schema:
         $ref: '#/definitions/Error'
   tags:
-  - Food
+  - Material
 post:
-  description: Searching foods
+  description: Searching materials
   consumes:
     - application/x-www-form-urlencoded
   producers:
@@ -53,50 +53,50 @@ post:
     - name: name
       in: formData
       type: string
-      description: Food name
-    - name: earthlyOrigin
+      description: Material name
+    - name: chemicalCompound
       in: formData
       type: boolean
-      description: Whether it should be of earthly origin
-    - name: dessert
+      description: Whether it should be a chemical compound
+    - name: biochemicalCompound
       in: formData
       type: boolean
-      description: Whether it should be a dessert
-    - name: fruit
+      description: Whether it should be a biochemical compound
+    - name: drug
       in: formData
       type: boolean
-      description: Whether it should be a fruit
-    - name: herbOrSpice
+      description: Whether it should be a drug
+    - name: poisonousSubstance
       in: formData
       type: boolean
-      description: Whether it should be an herb or a spice
-    - name: sauce
+      description: Whether it should be a poisonous substance
+    - name: explosive
       in: formData
       type: boolean
-      description: Whether it should be a sauce
-    - name: soup
+      description: Whether it should be an explosive
+    - name: gemstone
       in: formData
       type: boolean
-      description: Whether it should be a soup
-    - name: beverage
+      description: Whether it should be a gemstone
+    - name: alloyOrComposite
       in: formData
       type: boolean
-      description: Whether it should be a beverage
-    - name: alcoholicBeverage
+      description: Whether it should be an alloy or a composite
+    - name: fuel
       in: formData
       type: boolean
-      description: Whether it should be an alcoholic beverage
-    - name: juice
+      description: Whether it should be a fuel
+    - name: mineral
       in: formData
       type: boolean
-      description: Whether it should be a juice
-    - name: tea
+      description: Whether it should be a mineral
+    - name: preciousMaterial
       in: formData
       type: boolean
-      description: Whether it should be a tea
+      description: Whether it should be a precious material
   responses:
     200:
       schema:
-        $ref: '#/definitions/FoodBaseResponse'
+        $ref: '#/definitions/MaterialBaseResponse'
   tags:
-    - Food
+    - Material

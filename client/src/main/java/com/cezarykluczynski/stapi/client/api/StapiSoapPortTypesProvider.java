@@ -30,6 +30,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.MagazinePortType;
 import com.cezarykluczynski.stapi.client.v1.soap.MagazineSeriesPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.MagazineSeriesService;
 import com.cezarykluczynski.stapi.client.v1.soap.MagazineService;
+import com.cezarykluczynski.stapi.client.v1.soap.MaterialPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.MaterialService;
 import com.cezarykluczynski.stapi.client.v1.soap.MoviePortType;
 import com.cezarykluczynski.stapi.client.v1.soap.MovieService;
 import com.cezarykluczynski.stapi.client.v1.soap.OrganizationPortType;
@@ -169,6 +171,9 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 	@Getter
 	private TitlePortType titlePortType;
 
+	@Getter
+	private MaterialPortType materialPortType;
+
 	public StapiSoapPortTypesProvider() {
 		seriesPortType = new SeriesService().getSeriesPortType();
 		performerPortType = new PerformerService().getPerformerPortType();
@@ -202,6 +207,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		spacecraftClassPortType = new SpacecraftClassService().getSpacecraftClassPortType();
 		spacecraftPortType = new SpacecraftService().getSpacecraftPortType();
 		titlePortType = new TitleService().getTitlePortType();
+		materialPortType = new MaterialService().getMaterialPortType();
 	}
 
 	public StapiSoapPortTypesProvider(String apiUrl) {
@@ -238,6 +244,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		spacecraftClassPortType = changeUrl(new SpacecraftClassService().getSpacecraftClassPortType());
 		spacecraftPortType = changeUrl(new SpacecraftService().getSpacecraftPortType());
 		titlePortType = changeUrl(new TitleService().getTitlePortType());
+		materialPortType = changeUrl(new MaterialService().getMaterialPortType());
 	}
 
 	private <T> T changeUrl(T service) {

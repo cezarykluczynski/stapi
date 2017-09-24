@@ -54,8 +54,7 @@ public class FoodSoapReader implements BaseReader<FoodBaseRequest, FoodBaseRespo
 		StaticValidator.requireUid(input.getUid());
 		Page<Food> foodPage = foodSoapQuery.query(input);
 		FoodFullResponse foodFullResponse = new FoodFullResponse();
-		foodFullResponse.setFood(foodFullSoapMapper
-				.mapFull(Iterables.getOnlyElement(foodPage.getContent(), null)));
+		foodFullResponse.setFood(foodFullSoapMapper.mapFull(Iterables.getOnlyElement(foodPage.getContent(), null)));
 		return foodFullResponse;
 	}
 
