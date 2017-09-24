@@ -306,4 +306,12 @@ public class CategoryTitle {
 	public static final String MILITARY_RANKS = "Military_ranks";
 	public static final String RELIGIOUS_TITLES = "Religious_titles";
 
+	public static final String MATERIALS = "Materials";
+	public static final String CHEMICAL_COMPOUNDS = "Chemical_compounds";
+	public static final String BIOCHEMICAL_COMPOUNDS = "Biochemical_compounds";
+	public static final String DRUGS = "Drugs";
+	public static final String POISONOUS_SUBSTANCES = "Poisonous_substances";
+	public static final String EXPLOSIVES = "Explosives";
+	public static final String GEMSTONES = "Gemstones";
+
 }

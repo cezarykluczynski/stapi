@@ -81,4 +81,6 @@ public class StepsProperties {
 
 	private StepProperties createSpacecrafts;
 
+	private StepProperties createMaterials;
+
 }
