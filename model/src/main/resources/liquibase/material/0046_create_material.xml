@@ -26,7 +26,6 @@
 			<column name="fuel" type="boolean"/>
 			<column name="mineral" type="boolean"/>
 			<column name="precious_material" type="boolean"/>
-			<column name="mirror" type="boolean"/>
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="material_sequence"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"

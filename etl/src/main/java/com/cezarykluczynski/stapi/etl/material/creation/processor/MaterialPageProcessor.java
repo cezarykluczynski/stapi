@@ -79,7 +79,6 @@ public class MaterialPageProcessor implements ItemProcessor<Page, Material> {
 		material.setAlloyOrComposite(materialsAndSubstancesDetectorService.isAlloyOrComposite(pageTitle));
 		material.setFuel(materialsAndSubstancesDetectorService.isFuel(pageTitle));
 		material.setMineral(templateFinder.hasTemplate(item, TemplateTitle.MINERALS));
-		material.setMirror(categoryTitleList.contains(CategoryTitle.MIRROR_UNIVERSE));
 
 		return material;
 	}

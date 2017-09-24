@@ -98,7 +98,6 @@ class MaterialPageProcessorTest extends Specification {
 		!material.fuel
 		!material.mineral
 		!material.preciousMaterial
-		!material.mirror
 	}
 
 	void "material is generated without categories and with flags from RanksTemplateService and TemplateFinder"() {
@@ -136,7 +135,6 @@ class MaterialPageProcessorTest extends Specification {
 		material.fuel
 		material.mineral
 		material.preciousMaterial
-		!material.mirror
 	}
 
 	void "when explosives category is found, but page is not among listed explosives, and no other related categories are found"() {
@@ -185,7 +183,6 @@ class MaterialPageProcessorTest extends Specification {
 		new SourcesPage(categories: createList(CategoryTitle.POISONOUS_SUBSTANCES))            | 'chemicalCompound'    | true  | 2
 		new SourcesPage(categories: createList(CategoryTitle.EXPLOSIVES), title: HUTZELITE_27) | 'explosive'           | true  | 1
 		new SourcesPage(categories: createList(CategoryTitle.GEMSTONES))                       | 'gemstone'            | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.MIRROR_UNIVERSE))                 | 'mirror'              | true  | 1
 	}
 
 	private static List<CategoryHeader> createList(String material) {

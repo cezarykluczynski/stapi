@@ -55,6 +55,4 @@ public class Material extends PageAwareEntity implements PageAware {
 
 	private Boolean preciousMaterial;
 
-	private Boolean mirror;
-
 }
