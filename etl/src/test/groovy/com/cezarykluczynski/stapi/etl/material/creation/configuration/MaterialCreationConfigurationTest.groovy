@@ -36,7 +36,7 @@ class MaterialCreationConfigurationTest extends AbstractCreationConfigurationTes
 		List<String> categoryHeaderMaterialList = pageHeaderReaderToList(materialReader)
 
 		then:
-		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_TITLES) >> false
+		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_MATERIALS) >> false
 		1 * categoryApiMock.getPages(CategoryTitle.MATERIALS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_MATERIALS)
 		1 * categoryApiMock.getPages(CategoryTitle.EXPLOSIVES, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_EXPLOSIVES)
 		1 * categoryApiMock.getPages(CategoryTitle.GEMSTONES, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_GEMSTONES)
@@ -55,7 +55,7 @@ class MaterialCreationConfigurationTest extends AbstractCreationConfigurationTes
 		List<String> categoryHeaderMaterialList = pageHeaderReaderToList(materialReader)
 
 		then:
-		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_TITLES) >> true
+		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_MATERIALS) >> true
 		0 * _
 		categoryHeaderMaterialList.empty
 	}

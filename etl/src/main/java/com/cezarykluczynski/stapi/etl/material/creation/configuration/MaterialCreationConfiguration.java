@@ -31,7 +31,7 @@ public class MaterialCreationConfiguration {
 	public MaterialReader materialReader() {
 		List<PageHeader> materials = Lists.newArrayList();
 
-		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_TITLES)) {
+		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_MATERIALS)) {
 			materials.addAll(categoryApi.getPages(CategoryTitle.MATERIALS, MediaWikiSource.MEMORY_ALPHA_EN));
 			materials.addAll(categoryApi.getPages(CategoryTitle.EXPLOSIVES, MediaWikiSource.MEMORY_ALPHA_EN));
 			materials.addAll(categoryApi.getPages(CategoryTitle.GEMSTONES, MediaWikiSource.MEMORY_ALPHA_EN));

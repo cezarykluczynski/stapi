@@ -88,37 +88,6 @@ class TitlePageProcessorTest extends Specification {
 		!title.mirror
 	}
 
-	void "title is generated with categories and without flags from RanksTemplateService"() {
-		given:
-		CategoryHeader categoryHeader = Mock()
-		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(categoryHeader)
-		SourcesPage page = new SourcesPage(
-				title: NAME_WITH_BRACKETS,
-				categories: categoryHeaderList)
-		ModelPage modelPage = new ModelPage()
-
-		when:
-		Title title = titlePageProcessor.process(page)
-
-		then:
-		1 * titlePageFilterMock.shouldBeFilteredOut(page) >> false
-		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.MILITARY_RANKS,
-				CategoryTitle.RELIGIOUS_TITLES, CategoryTitle.MIRROR_UNIVERSE)
-		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
-		1 * uidGeneratorMock.generateFromPage(modelPage, Title) >> UID
-		1 * ranksTemplateServiceMock.isFleetRank(NAME_WITH_BRACKETS) >> false
-		1 * ranksTemplateServiceMock.isPosition(NAME_WITH_BRACKETS) >> false
-		0 * _
-		title.name == NAME
-		title.uid == UID
-		title.page == modelPage
-		title.militaryRank
-		!title.fleetRank
-		title.religiousTitle
-		!title.position
-		title.mirror
-	}
-
 	void "title is generated without categories and with flags from RanksTemplateService"() {
 		given:
 		CategoryHeader categoryHeader = Mock()

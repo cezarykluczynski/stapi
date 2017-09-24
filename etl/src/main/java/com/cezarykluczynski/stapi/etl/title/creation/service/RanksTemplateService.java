@@ -28,9 +28,9 @@ public class RanksTemplateService {
 
 	private final WikitextApi wikitextApi;
 
-	private Set<String> fleetRanks = Sets.newHashSet();
-	private Set<String> militaryRanks = Sets.newHashSet();
-	private Set<String> positions = Sets.newHashSet();
+	private final Set<String> fleetRanks = Sets.newHashSet();
+	private final Set<String> militaryRanks = Sets.newHashSet();
+	private final Set<String> positions = Sets.newHashSet();
 
 	@Inject
 	public RanksTemplateService(PageApi pageApi, WikitextApi wikitextApi) {

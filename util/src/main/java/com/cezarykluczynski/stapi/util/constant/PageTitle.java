@@ -55,5 +55,7 @@ public class PageTitle {
 	public static final String STARFLEET_RANKS_MIRROR = "Starfleet ranks (mirror)";
 	public static final String VULCAN_RANKS = "Vulcan ranks";
 
+	public static final String MATERIALS_AND_SUBSTANCES = "Materials and substances";
+
 
 }
