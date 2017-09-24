@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.title.creation.processor;
 
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
+import com.cezarykluczynski.stapi.etl.title.creation.service.RanksTemplateService;
 import com.cezarykluczynski.stapi.etl.title.creation.service.TitlePageFilter;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
@@ -25,13 +26,16 @@ public class TitlePageProcessor implements ItemProcessor<Page, Title> {
 
 	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
+	private final RanksTemplateService ranksTemplateService;
+
 	@Inject
 	public TitlePageProcessor(TitlePageFilter titlePageFilter, PageBindingService pageBindingService, UidGenerator uidGenerator,
-			CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {
+			CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor, RanksTemplateService ranksTemplateService) {
 		this.titlePageFilter = titlePageFilter;
 		this.pageBindingService = pageBindingService;
 		this.uidGenerator = uidGenerator;
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
+		this.ranksTemplateService = ranksTemplateService;
 	}
 
 	@Override
@@ -47,9 +51,13 @@ public class TitlePageProcessor implements ItemProcessor<Page, Title> {
 		title.setUid(uidGenerator.generateFromPage(title.getPage(), Title.class));
 
 		List<String> categoryTitleList = categoryTitlesExtractingProcessor.process(item.getCategories());
-		title.setMilitaryRank(categoryTitleList.contains(CategoryTitle.MILITARY_RANKS));
+		String pageTitle = item.getTitle();
+
+		title.setMilitaryRank(categoryTitleList.contains(CategoryTitle.MILITARY_RANKS) || ranksTemplateService.isMilitaryRank(pageTitle));
 		title.setReligiousTitle(categoryTitleList.contains(CategoryTitle.RELIGIOUS_TITLES));
-		// TODO: Template:Ranks
+		title.setFleetRank(ranksTemplateService.isFleetRank(pageTitle));
+		title.setPosition(ranksTemplateService.isPosition(pageTitle));
+		title.setMirror(categoryTitleList.contains(CategoryTitle.MIRROR_UNIVERSE));
 
 		return title;
 	}

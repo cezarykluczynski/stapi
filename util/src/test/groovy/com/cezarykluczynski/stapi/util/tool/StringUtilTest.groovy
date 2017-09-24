@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.util.tool
 
 import com.google.common.collect.Lists
+import com.google.common.collect.Sets
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -11,7 +12,7 @@ class StringUtilTest extends Specification {
 		expect:
 		StringUtil.startsWithAnyIgnoreCase(subject, candidates) == result
 
-				where:
+		where:
 		subject | candidates     | result
 		null    | ['def', 'abc'] | false
 		'ABC'   | ['qwerty']     | false
@@ -28,7 +29,7 @@ class StringUtilTest extends Specification {
 		expect:
 		StringUtil.containsAnyIgnoreCase(subject, candidates) == result
 
-				where:
+		where:
 		subject    | candidates     | result
 		null       | ['def', 'abc'] | false
 		'blah ABC' | ['qwerty']     | false
@@ -45,7 +46,7 @@ class StringUtilTest extends Specification {
 		expect:
 		StringUtil.containsAllIgnoreCase(subject, candidates) == result
 
-				where:
+		where:
 		subject    | candidates     | result
 		null       | ['def', 'abc'] | false
 		'blah ABC' | ['qwerty']     | false
@@ -62,7 +63,7 @@ class StringUtilTest extends Specification {
 		expect:
 		StringUtil.getAllSubstringPositions(subject, search) == result
 
-				where:
+		where:
 		subject                                        | search     | result
 		''                                             | 'a'        | Lists.newArrayList()
 		'a'                                            | null       | Lists.newArrayList()
@@ -79,7 +80,7 @@ class StringUtilTest extends Specification {
 		expect:
 		StringUtil.anyStartsWithIgnoreCase(stringList, suffix) == result
 
-				where:
+		where:
 		stringList                              | suffix       | result
 		Lists.newArrayList()                    | ''           | false
 		Lists.newArrayList('Government agency') | 'agency'     | false
@@ -107,7 +108,7 @@ class StringUtilTest extends Specification {
 		expect:
 		StringUtil.endsWithAny(subject, suffixList) == result
 
-				where:
+		where:
 		subject   | suffixList                           | result
 		'test'    | Lists.newArrayList('est')            | true
 		'last'    | Lists.newArrayList('rd', 'nd', 'st') | true
@@ -121,11 +122,28 @@ class StringUtilTest extends Specification {
 		expect:
 		StringUtil.substringBeforeAny(subject, suffixList) == result
 
-				where:
+		where:
 		subject                          | suffixList                                         | result
 		'AstronomicalObjectBaseResponse' | Lists.newArrayList('BaseResponse', 'FullResponse') | 'AstronomicalObject'
 		'BookBase'                       | Lists.newArrayList('Full', 'Base')                 | 'Book'
 		'ComicsFullRequest'              | Lists.newArrayList('FullRequest', 'BaseRequest')   | 'Comics'
+	}
+
+	@Unroll('returns #result when #stringCollection and #lookup is passed')
+	void "returns true or false when collection of string and string to lookup in collection is passed"() {
+		expect:
+		StringUtil.containsIgnoreCase(stringCollection, lookup) == result
+
+		where:
+		stringCollection                           | lookup   | result
+		Sets.newHashSet()                          | 'lookup' | false
+		Sets.newHashSet('one', 'two')              | 'lookup' | false
+		Sets.newHashSet('lookup')                  | 'lookup' | true
+		Sets.newHashSet('Lookup')                  | 'Lookup' | true
+		Sets.newHashSet('Lookup')                  | 'lookup' | true
+		Sets.newHashSet('Lookup')                  | 'Lookup' | true
+		Lists.newArrayList('one', 'two', 'lookup') | 'lookup' | true
+		Lists.newArrayList('one', 'two', 'lookup') | 'Lookup' | true
 	}
 
 }

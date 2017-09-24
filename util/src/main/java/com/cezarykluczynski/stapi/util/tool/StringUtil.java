@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.util.tool;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -90,6 +91,10 @@ public class StringUtil {
 				.collect(Collectors.toList());
 
 		return candidatesLowerCase.stream();
+	}
+
+	public static boolean containsIgnoreCase(Collection<String> stringCollection, String lookup) {
+		return stringCollection.stream().anyMatch(string -> StringUtils.equalsIgnoreCase(string, lookup));
 	}
 
 }

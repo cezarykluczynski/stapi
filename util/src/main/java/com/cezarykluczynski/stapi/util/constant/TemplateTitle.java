@@ -62,6 +62,8 @@ public class TemplateTitle {
 
 	public static final String CLASS = "class";
 
+	public static final String RANKS = "ranks";
+
 	// Memory Beta
 	public static final String CHARACTER_BOX = "characterbox";
 }
