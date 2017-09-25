@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.server.comic_series.dto.ComicSeriesRestBeanPar
 import com.cezarykluczynski.stapi.server.comic_series.reader.ComicSeriesRestReader;
 import com.cezarykluczynski.stapi.server.common.dto.PageSortBeanParams;
 import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
+import com.cezarykluczynski.stapi.util.constant.ContentType;
 import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 @Service
-@Produces(MediaType.APPLICATION_JSON)
+@Produces(ContentType.APPLICATION_JSON_CHARSET_UTF8)
 @CrossOriginResourceSharing(allowAllOrigins = CxfConfiguration.CORS_ALLOW_ALL_ORIGINS, maxAge = CxfConfiguration.CORS_MAX_AGE)
 public class ComicSeriesRestEndpoint {
 
