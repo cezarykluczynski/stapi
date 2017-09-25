@@ -28,6 +28,7 @@ public class SeriesToEpisodeBindingService {
 		CATEGORY_TITLES_TO_ABBREVIATIONS.put(CategoryTitle.DS9_EPISODES, SeriesAbbreviation.DS9);
 		CATEGORY_TITLES_TO_ABBREVIATIONS.put(CategoryTitle.VOY_EPISODES, SeriesAbbreviation.VOY);
 		CATEGORY_TITLES_TO_ABBREVIATIONS.put(CategoryTitle.ENT_EPISODES, SeriesAbbreviation.ENT);
+		CATEGORY_TITLES_TO_ABBREVIATIONS.put(CategoryTitle.DIS_EPISODES, SeriesAbbreviation.DIS);
 	}
 
 	private SeriesRepository seriesRepository;
