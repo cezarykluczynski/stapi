@@ -179,4 +179,22 @@ public class CategoryTitles {
 			CategoryTitle.E_BOOK_SERIES
 	);
 
+	public static final List<String> ASTRONOMICAL_OBJECTS = Lists.newArrayList(
+			CategoryTitle.ASTEROIDS,
+			CategoryTitle.ASTEROID_BELTS,
+			CategoryTitle.CLUSTERS,
+			CategoryTitle.COMETS,
+			CategoryTitle.CONSTELLATIONS,
+			CategoryTitle.GALAXIES,
+			CategoryTitle.HOMEWORLDS,
+			CategoryTitle.MOONS,
+			CategoryTitle.NEBULAE,
+			CategoryTitle.PLANETOIDS,
+			CategoryTitle.PLANETS,
+			CategoryTitle.REGIONS,
+			CategoryTitle.QUASARS,
+			CategoryTitle.STAR_SYSTEMS,
+			CategoryTitle.STARS
+	);
+
 }
