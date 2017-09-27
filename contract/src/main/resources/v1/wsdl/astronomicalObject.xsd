@@ -42,7 +42,7 @@
 			<xs:complexContent>
 				<xs:extension base="common:ApiRequest">
 					<xs:sequence>
-						<xs:element name="uid" type="xs:string" minOccurs="1">
+						<xs:element name="uid" type="xs:string">
 							<xs:annotation>
 								<xs:documentation>Astronomical object unique ID</xs:documentation>
 							</xs:annotation>
@@ -116,7 +116,7 @@
 					<xs:documentation>Astronomical object name</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="astronomicalObjectType" type="astronomicalObject:AstronomicalObjectTypeEnum" minOccurs="1">
+			<xs:element name="astronomicalObjectType" type="astronomicalObject:AstronomicalObjectTypeEnum">
 				<xs:annotation>
 					<xs:documentation>Type of astronomical object</xs:documentation>
 				</xs:annotation>
@@ -143,7 +143,7 @@
 					<xs:documentation>Astronomical object name</xs:documentation>
 				</xs:annotation>
 			</xs:element>
-			<xs:element name="astronomicalObjectType" type="astronomicalObject:AstronomicalObjectTypeEnum" minOccurs="1">
+			<xs:element name="astronomicalObjectType" type="astronomicalObject:AstronomicalObjectTypeEnum">
 				<xs:annotation>
 					<xs:documentation>Type of astronomical object</xs:documentation>
 				</xs:annotation>

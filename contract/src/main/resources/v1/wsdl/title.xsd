@@ -57,7 +57,7 @@
 			<xs:complexContent>
 				<xs:extension base="common:ApiRequest">
 					<xs:sequence>
-						<xs:element name="uid" type="xs:string" minOccurs="1">
+						<xs:element name="uid" type="xs:string">
 							<xs:annotation>
 								<xs:documentation>Title unique ID</xs:documentation>
 							</xs:annotation>
