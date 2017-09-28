@@ -34,8 +34,8 @@ import java.util.Set;
 @ToString(callSuper = true, exclude = {"labels", "composers", "contributors", "orchestrators", "references"})
 @EqualsAndHashCode(callSuper = true, exclude = {"labels", "composers", "contributors", "orchestrators", "references"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = VideoReleaseRepository.class, singularName = "video game",
-		pluralName = "video games")
+@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = VideoReleaseRepository.class, singularName = "soundtrack",
+		pluralName = "soundtracks")
 public class Soundtrack extends PageAwareEntity implements PageAware {
 
 	@Id
