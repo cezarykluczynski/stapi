@@ -1,61 +1,53 @@
 package com.cezarykluczynski.stapi.etl.common.listener
 
-import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
-import com.cezarykluczynski.stapi.sources.mediawiki.cache.FrequentHitCachingHelper
-import com.cezarykluczynski.stapi.sources.mediawiki.cache.FrequentHitCachingHelperDumpFormatter
-import org.springframework.batch.core.ExitStatus
+import com.cezarykluczynski.stapi.etl.common.service.step.StepLogger
+import com.google.common.collect.Lists
 import org.springframework.batch.core.StepExecution
 import spock.lang.Specification
 
 class CommonStepExecutionListenerTest extends Specification {
 
-	private FrequentHitCachingHelper frequentHitCachingHelperMock
+	private StepLogger stepLogger1
 
-	private FrequentHitCachingHelperDumpFormatter frequentHitCachingHelperDumpFormatterMock
+	private StepLogger stepLogger2
+
+	private List<StepLogger> stepLoggerList
 
 	private StepExecution stepExecutionMock
 
 	private CommonStepExecutionListener commonStepExecutionListener
 
 	void setup() {
-		frequentHitCachingHelperMock = Mock()
-		frequentHitCachingHelperDumpFormatterMock = Mock()
+		stepLogger1 = Mock()
+		stepLogger2 = Mock()
+		stepLoggerList = Lists.newArrayList(stepLogger1, stepLogger2)
 		stepExecutionMock = Mock()
-		commonStepExecutionListener = new CommonStepExecutionListener(frequentHitCachingHelperMock,
-				frequentHitCachingHelperDumpFormatterMock)
+		commonStepExecutionListener = new CommonStepExecutionListener(stepLoggerList)
 	}
 
 	void "logs before step"() {
 		when: 'before step callback is called'
 		commonStepExecutionListener.beforeStep(stepExecutionMock)
 
-		then: 'name and start time is used to build message'
-		1 * stepExecutionMock.stepName
-		1 * stepExecutionMock.startTime
+		then: 'first logger is interacted with'
+		1 * stepLogger1.stepStarted(stepExecutionMock)
+
+		then: 'second logger is interacted with'
+		1 * stepLogger2.stepStarted(stepExecutionMock)
 
 		then: 'no other interactions are expected'
 		0 * _
 	}
 
 	void "logs after step"() {
-		given:
-		ExitStatus exitStatusMock = Mock()
-		Map<MediaWikiSource, Map<String, Integer>> cacheMap = Mock()
-
 		when: 'after step callback is called'
 		commonStepExecutionListener.afterStep(stepExecutionMock)
 
-		then: 'name, last update time, exit code, read count, and write count is used to build message'
-		1 * stepExecutionMock.stepName
-		1 * stepExecutionMock.lastUpdated
-		1 * stepExecutionMock.exitStatus >> exitStatusMock
-		1 * exitStatusMock.exitCode
-		1 * stepExecutionMock.readCount
-		1 * stepExecutionMock.writeCount
+		then: 'first logger is interacted with'
+		1 * stepLogger1.stepEnded(stepExecutionMock)
 
-		then: 'cache statistics are dumped'
-		1 * frequentHitCachingHelperMock.dumpStatisticsAndReset() >> cacheMap
-		1 * frequentHitCachingHelperDumpFormatterMock.format(cacheMap)
+		then: 'second logger is interacted with'
+		1 * stepLogger2.stepEnded(stepExecutionMock)
 
 		then: 'no other interactions are expected'
 		0 * _
