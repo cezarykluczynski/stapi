@@ -59,7 +59,7 @@ class StepTimeLoggerTest extends Specification {
 		stepTimeLogger.stepEnded(stepExecution1)
 
 		then:
-		1 * stepExecution1.endTime >> END_TIME_DATE_1
+		1 * stepExecution1.lastUpdated >> END_TIME_DATE_1
 		1 * stepExecution1.stepName >> STEP_NAME_1
 		1 * localDateTimeAttributeConverterMock.convertToEntityAttribute(END_TIME_DATE_1) >> END_TIME_LOCAL_DATE_TIME_1
 		1 * stepTimeFormatterMock.format(_ as Map) >> { Map<String, Range<LocalDateTime>> map ->
@@ -72,7 +72,7 @@ class StepTimeLoggerTest extends Specification {
 		stepTimeLogger.stepEnded(stepExecution2)
 
 		then:
-		1 * stepExecution2.endTime >> END_TIME_DATE_2
+		1 * stepExecution2.lastUpdated >> END_TIME_DATE_2
 		1 * stepExecution2.stepName >> STEP_NAME_2
 		1 * localDateTimeAttributeConverterMock.convertToEntityAttribute(END_TIME_DATE_2) >> END_TIME_LOCAL_DATE_TIME_2
 		1 * stepTimeFormatterMock.format(_ as Map) >> { Map<String, Range<LocalDateTime>> map ->

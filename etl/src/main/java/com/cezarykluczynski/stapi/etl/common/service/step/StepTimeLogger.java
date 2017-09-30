@@ -16,8 +16,8 @@ import java.util.Map;
 @Slf4j
 public class StepTimeLogger implements StepLogger {
 
-	private final Map<String, LocalDateTime> stepsStartTimes = Maps.newHashMap();
-	private final Map<String, Range<LocalDateTime>> stepsTotalTimes = Maps.newHashMap();
+	private final Map<String, LocalDateTime> stepsStartTimes = Maps.newLinkedHashMap();
+	private final Map<String, Range<LocalDateTime>> stepsTotalTimes = Maps.newLinkedHashMap();
 
 	private final LocalDateTimeAttributeConverter localDateTimeAttributeConverter;
 
@@ -36,7 +36,8 @@ public class StepTimeLogger implements StepLogger {
 		String stepName = stepExecution.getStepName();
 		LocalDateTime stepStartTime = stepsStartTimes.get(stepName);
 		stepsStartTimes.remove(stepName);
-		stepsTotalTimes.put(stepName, Range.of(stepStartTime, localDateTimeAttributeConverter.convertToEntityAttribute(stepExecution.getEndTime())));
+		stepsTotalTimes.put(stepName, Range.of(stepStartTime, localDateTimeAttributeConverter
+				.convertToEntityAttribute(stepExecution.getLastUpdated())));
 		log.info(stepTimeFormatter.format(stepsTotalTimes));
 	}
 
