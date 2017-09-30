@@ -140,7 +140,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void "when actor key is found, CharacterTemplateActorLinkingEnrichingProcessor is used to process it"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: IndividualTemplateParameter.ACTOR)
+		Template.Part templatePart = new Template.Part(key: IndividualTemplateParameter.ACTOR, value: VALUE)
 		CharacterTemplate characterTemplateInActorLinkingProcessor = null
 		CharacterTemplate characterTemplate = new CharacterTemplate()
 
@@ -148,9 +148,9 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), characterTemplate))
 
 		then:
-		1 * characterTemplateActorLinkingEnrichingProcessorMock.enrich(_ as EnrichablePair<Template.Part, CharacterTemplate>) >> {
-			EnrichablePair<Template.Part, CharacterTemplate> enrichablePair ->
-				assert enrichablePair.input == templatePart
+		1 * characterTemplateActorLinkingEnrichingProcessorMock.enrich(_ as EnrichablePair<String, CharacterTemplate>) >> {
+			EnrichablePair<String, CharacterTemplate> enrichablePair ->
+				assert enrichablePair.input == VALUE
 				assert enrichablePair.output == characterTemplate
 				characterTemplateInActorLinkingProcessor = enrichablePair.output
 		}

@@ -81,7 +81,7 @@ public class HologramTemplateCompositeEnrichingProcessor implements ItemWithTemp
 					characterTemplate.setHologramDateStatus(dateStatusProcessor.process(value));
 					break;
 				case HologramTemplateParameter.ACTOR:
-					characterTemplateActorLinkingEnrichingProcessor.enrich(EnrichablePair.of(part, characterTemplate));
+					characterTemplateActorLinkingEnrichingProcessor.enrich(EnrichablePair.of(value, characterTemplate));
 					break;
 				default:
 					break;

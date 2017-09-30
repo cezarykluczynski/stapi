@@ -7,7 +7,6 @@ import com.cezarykluczynski.stapi.model.performer.entity.Performer
 import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import spock.lang.Specification
@@ -37,7 +36,7 @@ class CharacterTemplateActorLinkingEnrichingProcessorTest extends Specification 
 				performerRepositoryMock)
 	}
 
-	void "should do nothing if either template part or individual template is null"() {
+	void "should do nothing if either value or individual template is null"() {
 		when: 'Template.Part is null'
 		characterTemplateActorLinkingEnrichingProcessorMock.enrich(EnrichablePair.of(null, new CharacterTemplate()))
 
@@ -45,7 +44,7 @@ class CharacterTemplateActorLinkingEnrichingProcessorTest extends Specification 
 		0 * _
 
 		when: 'Template.Part is null'
-		characterTemplateActorLinkingEnrichingProcessorMock.enrich(EnrichablePair.of(new Template.Part(), null))
+		characterTemplateActorLinkingEnrichingProcessorMock.enrich(EnrichablePair.of(null, null))
 
 		then: 'there is no interactions with dependencies'
 		0 * _
@@ -53,9 +52,6 @@ class CharacterTemplateActorLinkingEnrichingProcessorTest extends Specification 
 
 	void "found performers should be added"() {
 		given:
-		Template.Part templatePart = new Template.Part(
-				value: VALUE
-		)
 		Set<Performer> performerList = Sets.newHashSet()
 		CharacterTemplate characterTemplate = Mock()
 		PageLink pageLink1 = new PageLink(title: TITLE_1)
@@ -69,7 +65,7 @@ class CharacterTemplateActorLinkingEnrichingProcessorTest extends Specification 
 		Performer performer4 = new Performer(id: ID_2)
 
 		when:
-		characterTemplateActorLinkingEnrichingProcessorMock.enrich(EnrichablePair.of(templatePart, characterTemplate))
+		characterTemplateActorLinkingEnrichingProcessorMock.enrich(EnrichablePair.of(VALUE, characterTemplate))
 
 		then: 'page links are found'
 		1 * wikitextApiMock.getPageLinksFromWikitext(VALUE) >> Lists.newArrayList(

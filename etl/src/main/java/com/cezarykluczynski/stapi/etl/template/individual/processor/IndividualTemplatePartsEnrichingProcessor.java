@@ -90,7 +90,7 @@ public class IndividualTemplatePartsEnrichingProcessor implements ItemEnrichingP
 					characterTemplate.getTitles().addAll(wikitextToTitlesProcessor.process(value));
 					break;
 				case IndividualTemplateParameter.ACTOR:
-					characterTemplateActorLinkingEnrichingProcessor.enrich(EnrichablePair.of(part, characterTemplate));
+					characterTemplateActorLinkingEnrichingProcessor.enrich(EnrichablePair.of(value, characterTemplate));
 					break;
 				case IndividualTemplateParameter.HEIGHT:
 					characterTemplate.setHeight(individualHeightProcessor.process(value));

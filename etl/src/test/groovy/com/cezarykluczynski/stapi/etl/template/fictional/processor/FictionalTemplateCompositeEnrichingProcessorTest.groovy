@@ -28,6 +28,7 @@ class FictionalTemplateCompositeEnrichingProcessorTest extends Specification {
 	private static final String SPOUSE = 'SPOUSE'
 	private static final String CHILDREN = 'CHILDREN'
 	private static final String RELATIVE = 'RELATIVE'
+	private static final String ACTOR = 'ACTOR'
 
 	private PartToGenderProcessor partToGenderProcessorMock
 
@@ -188,7 +189,7 @@ class FictionalTemplateCompositeEnrichingProcessorTest extends Specification {
 
 	void "when actor key is found, CharacterTemplateActorLinkingEnrichingProcessor is used to process it"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: FictionalTemplateParameter.ACTOR)
+		Template.Part templatePart = new Template.Part(key: FictionalTemplateParameter.ACTOR, value: ACTOR)
 		Template sidebarHologramTemplate = new Template(parts: Lists.newArrayList(templatePart))
 		CharacterTemplate characterTemplate = new CharacterTemplate()
 
@@ -196,9 +197,9 @@ class FictionalTemplateCompositeEnrichingProcessorTest extends Specification {
 		fictionalTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(sidebarHologramTemplate, characterTemplate))
 
 		then:
-		1 * characterTemplateActorLinkingEnrichingProcessorMock.enrich(_ as EnrichablePair<Template.Part, CharacterTemplate>) >> {
+		1 * characterTemplateActorLinkingEnrichingProcessorMock.enrich(_ as EnrichablePair<String, CharacterTemplate>) >> {
 			EnrichablePair<Template.Part, CharacterTemplate> enrichablePair ->
-				assert enrichablePair.input == templatePart
+				assert enrichablePair.input == ACTOR
 				assert enrichablePair.output == characterTemplate
 		}
 		0 * _

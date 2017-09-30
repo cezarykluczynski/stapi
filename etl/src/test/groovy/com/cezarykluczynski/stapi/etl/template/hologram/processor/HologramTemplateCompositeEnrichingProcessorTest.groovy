@@ -34,6 +34,7 @@ class HologramTemplateCompositeEnrichingProcessorTest extends Specification {
 	private static final String STATUS_OUTPUT = 'STATUS_OUTPUT'
 	private static final String DATE_STATUS_INPUT = 'DATE_STATUS_INPUT'
 	private static final String DATE_STATUS_OUTPUT = 'DATE_STATUS_OUTPUT'
+	private static final String ACTOR = 'ACTOR'
 
 	private CharacterSpeciesWikitextProcessor characterSpeciesWikitextProcessorMock
 
@@ -242,7 +243,7 @@ class HologramTemplateCompositeEnrichingProcessorTest extends Specification {
 
 	void "when actor key is found, CharacterTemplateActorLinkingEnrichingProcessor is used to process it"() {
 		given:
-		Template.Part templatePart = new Template.Part(key: HologramTemplateParameter.ACTOR)
+		Template.Part templatePart = new Template.Part(key: HologramTemplateParameter.ACTOR, value: ACTOR)
 		Template sidebarHologramTemplate = new Template(parts: Lists.newArrayList(templatePart))
 		CharacterTemplate characterTemplate = new CharacterTemplate()
 
@@ -250,9 +251,9 @@ class HologramTemplateCompositeEnrichingProcessorTest extends Specification {
 		hologramTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(sidebarHologramTemplate, characterTemplate))
 
 		then:
-		1 * characterTemplateActorLinkingEnrichingProcessorMock.enrich(_ as EnrichablePair<Template.Part, CharacterTemplate>) >> {
+		1 * characterTemplateActorLinkingEnrichingProcessorMock.enrich(_ as EnrichablePair<String, CharacterTemplate>) >> {
 			EnrichablePair<Template.Part, CharacterTemplate> enrichablePair ->
-				assert enrichablePair.input == templatePart
+				assert enrichablePair.input == ACTOR
 				assert enrichablePair.output == characterTemplate
 		}
 		0 * _

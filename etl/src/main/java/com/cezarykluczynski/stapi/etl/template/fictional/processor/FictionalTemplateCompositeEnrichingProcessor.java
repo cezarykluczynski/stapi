@@ -65,7 +65,7 @@ public class FictionalTemplateCompositeEnrichingProcessor implements ItemWithTem
 							.of(CharacterRelationCacheKey.of(TemplateTitle.SIDEBAR_FICTIONAL, key), part));
 					break;
 				case FictionalTemplateParameter.ACTOR:
-					characterTemplateActorLinkingEnrichingProcessor.enrich(EnrichablePair.of(part, characterTemplate));
+					characterTemplateActorLinkingEnrichingProcessor.enrich(EnrichablePair.of(value, characterTemplate));
 					break;
 				default:
 					break;
