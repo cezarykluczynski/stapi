@@ -34,6 +34,7 @@ public class SpacecraftTypeCreationConfiguration {
 
 		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_SPACECRAFT_TYPES)) {
 			spacecraftTypes.addAll(categoryApi.getPages(CategoryTitle.SPACECRAFT_CLASSIFICATIONS, MediaWikiSource.MEMORY_ALPHA_EN));
+			spacecraftTypes.addAll(categoryApi.getPages(CategoryTitle.STATION_TYPES, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 
 		return new SpacecraftTypeReader(Lists.newArrayList(Sets.newHashSet(spacecraftTypes)));

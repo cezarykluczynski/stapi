@@ -11,7 +11,8 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 
 class SpacecraftTypeCreationConfigurationTest extends AbstractCreationConfigurationTest {
 
-	private static final String SPACECRAFT_CLASSIFICATIONS = 'SPACECRAFT_CLASSIFICATIONS'
+	private static final String SPACECRAFT_CLASSIFICATIONS_TITLE = 'SPACECRAFT_CLASSIFICATIONS_TITLE'
+	private static final String STATION_TYPES_TITLE = 'STATION_TYPES_TITLE'
 
 	private CategoryApi categoryApiMock
 
@@ -35,9 +36,12 @@ class SpacecraftTypeCreationConfigurationTest extends AbstractCreationConfigurat
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_SPACECRAFT_TYPES) >> false
 		1 * categoryApiMock.getPages(CategoryTitle.SPACECRAFT_CLASSIFICATIONS, MediaWikiSource.MEMORY_ALPHA_EN) >>
-				createListWithPageHeaderTitle(SPACECRAFT_CLASSIFICATIONS)
+				createListWithPageHeaderTitle(SPACECRAFT_CLASSIFICATIONS_TITLE)
+		1 * categoryApiMock.getPages(CategoryTitle.STATION_TYPES, MediaWikiSource.MEMORY_ALPHA_EN) >>
+				createListWithPageHeaderTitle(STATION_TYPES_TITLE)
 		0 * _
-		categoryHeaderTitleList.contains SPACECRAFT_CLASSIFICATIONS
+		categoryHeaderTitleList.contains SPACECRAFT_CLASSIFICATIONS_TITLE
+		categoryHeaderTitleList.contains STATION_TYPES_TITLE
 	}
 
 	void "SpacecraftTypeReader is created with no pages when step is completed"() {
