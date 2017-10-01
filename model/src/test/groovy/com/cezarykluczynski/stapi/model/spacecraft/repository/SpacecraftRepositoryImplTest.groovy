@@ -57,13 +57,14 @@ class SpacecraftRepositoryImplTest extends AbstractSpacecraftTest {
 		1 * spacecraftQueryBuilder.setSort(SORT)
 
 		then: 'fetch is performed'
-		1 * spacecraftQueryBuilder.fetch(Spacecraft_.spacecraftClass, true)
+		1 * spacecraftQueryBuilder.fetch(Spacecraft_.spacecraftClass)
 		1 * spacecraftQueryBuilder.fetch(Spacecraft_.spacecraftClass, SpacecraftClass_.species, true)
 		1 * spacecraftQueryBuilder.fetch(Spacecraft_.spacecraftClass, SpacecraftClass_.owner, true)
 		1 * spacecraftQueryBuilder.fetch(Spacecraft_.spacecraftClass, SpacecraftClass_.operator, true)
 		1 * spacecraftQueryBuilder.fetch(Spacecraft_.spacecraftClass, SpacecraftClass_.affiliation, true)
 		1 * spacecraftQueryBuilder.fetch(Spacecraft_.owner)
 		1 * spacecraftQueryBuilder.fetch(Spacecraft_.operator)
+		1 * spacecraftQueryBuilder.fetch(Spacecraft_.spacecraftTypes, true)
 
 		then: 'page is retrieved'
 		1 * spacecraftQueryBuilder.findPage() >> page

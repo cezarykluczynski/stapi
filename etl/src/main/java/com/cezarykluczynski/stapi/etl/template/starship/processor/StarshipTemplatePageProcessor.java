@@ -3,7 +3,9 @@ package com.cezarykluczynski.stapi.etl.template.starship.processor;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
+import com.cezarykluczynski.stapi.etl.spacecraft.creation.processor.SpacecraftCategoriesEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
+import com.cezarykluczynski.stapi.etl.template.spacecraft.processor.SpacecraftTemplateCompositeEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplate;
 import com.cezarykluczynski.stapi.etl.template.starship.service.StarshipPageFilter;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
@@ -25,24 +27,20 @@ public class StarshipTemplatePageProcessor implements ItemProcessor<Page, Starsh
 
 	private final PageBindingService pageBindingService;
 
-	private final StarshipTemplateCompositeEnrichingProcessor starshipTemplateCompositeEnrichingProcessor;
-
-	private final StationTemplateCompositeEnrichingProcessor stationTemplateCompositeEnrichingProcessor;
+	private final SpacecraftTemplateCompositeEnrichingProcessor spacecraftTemplateCompositeEnrichingProcessor;
 
 	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
 	private final SpacecraftCategoriesEnrichingProcessor spacecraftCategoriesEnrichingProcessor;
 
 	public StarshipTemplatePageProcessor(StarshipPageFilter starshipPageFilter, TemplateFinder templateFinder, PageBindingService pageBindingService,
-			StarshipTemplateCompositeEnrichingProcessor starshipTemplateCompositeEnrichingProcessor,
-			StationTemplateCompositeEnrichingProcessor stationTemplateCompositeEnrichingProcessor,
+			SpacecraftTemplateCompositeEnrichingProcessor spacecraftTemplateCompositeEnrichingProcessor,
 			CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor,
 			SpacecraftCategoriesEnrichingProcessor spacecraftCategoriesEnrichingProcessor) {
 		this.starshipPageFilter = starshipPageFilter;
 		this.templateFinder = templateFinder;
 		this.pageBindingService = pageBindingService;
-		this.starshipTemplateCompositeEnrichingProcessor = starshipTemplateCompositeEnrichingProcessor;
-		this.stationTemplateCompositeEnrichingProcessor = stationTemplateCompositeEnrichingProcessor;
+		this.spacecraftTemplateCompositeEnrichingProcessor = spacecraftTemplateCompositeEnrichingProcessor;
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
 		this.spacecraftCategoriesEnrichingProcessor = spacecraftCategoriesEnrichingProcessor;
 	}
@@ -61,11 +59,11 @@ public class StarshipTemplatePageProcessor implements ItemProcessor<Page, Starsh
 		Optional<Template> stationTemplateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_STATION);
 
 		if (starshipTemplateOptional.isPresent()) {
-			starshipTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(starshipTemplateOptional.get(), starshipTemplate));
+			spacecraftTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(starshipTemplateOptional.get(), starshipTemplate));
 		}
 
 		if (stationTemplateOptional.isPresent()) {
-			stationTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(stationTemplateOptional.get(), starshipTemplate));
+			spacecraftTemplateCompositeEnrichingProcessor.enrich(EnrichablePair.of(stationTemplateOptional.get(), starshipTemplate));
 		}
 
 		List<String> categoryTitleList = categoryTitlesExtractingProcessor.process(item.getCategories());

@@ -302,6 +302,10 @@ public class CategoryTitle {
 	public static final String STARSHIPS = "Starships";
 	public static final String MEMORY_ALPHA_NON_CANON_REDIRECTS_STARSHIPS = "Memory_Alpha_non-canon_redirects_(starships)";
 	public static final String STATION_TYPES = "Station_types";
+	public static final String SPACE_STATIONS = "Space_stations";
+	public static final String OUTPOSTS = "Outposts";
+	public static final String STARBASES = "Starbases";
+	public static final String STARBASES_RETCONNED = "Starbases_(retconned)";
 
 	public static final String TITLES = "Titles";
 	public static final String MILITARY_RANKS = "Military_ranks";

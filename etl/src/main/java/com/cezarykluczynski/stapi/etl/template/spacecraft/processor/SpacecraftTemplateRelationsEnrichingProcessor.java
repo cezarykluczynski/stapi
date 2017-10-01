@@ -1,11 +1,13 @@
-package com.cezarykluczynski.stapi.etl.template.starship.processor;
+package com.cezarykluczynski.stapi.etl.template.spacecraft.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.organization.WikitextToOrganizationsProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.spacecraft_class.WikitextToSpacecraftClassesProcessor;
+import com.cezarykluczynski.stapi.etl.template.spacecraft.dto.SpacecraftTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplate;
 import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplateParameter;
+import com.cezarykluczynski.stapi.etl.template.starship.processor.ClassTemplateSpacecraftClassesProcessor;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
@@ -17,7 +19,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class StarshipTemplateRelationsEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<StarshipTemplate> {
+public class SpacecraftTemplateRelationsEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<StarshipTemplate> {
 
 	private final WikitextToOrganizationsProcessor wikitextToOrganizationsProcessor;
 
@@ -26,7 +28,7 @@ public class StarshipTemplateRelationsEnrichingProcessor implements ItemWithTemp
 	private final ClassTemplateSpacecraftClassesProcessor classTemplateSpacecraftClassesProcessor;
 
 	@Inject
-	public StarshipTemplateRelationsEnrichingProcessor(WikitextToOrganizationsProcessor wikitextToOrganizationsProcessor,
+	public SpacecraftTemplateRelationsEnrichingProcessor(WikitextToOrganizationsProcessor wikitextToOrganizationsProcessor,
 			WikitextToSpacecraftClassesProcessor wikitextToSpacecraftClassesProcessor,
 			ClassTemplateSpacecraftClassesProcessor classTemplateSpacecraftClassesProcessor) {
 		this.wikitextToOrganizationsProcessor = wikitextToOrganizationsProcessor;
@@ -45,7 +47,7 @@ public class StarshipTemplateRelationsEnrichingProcessor implements ItemWithTemp
 			String value = part.getValue();
 
 			switch (key) {
-				case StarshipTemplateParameter.OWNER:
+				case SpacecraftTemplateParameter.OWNER:
 					List<Organization> ownerList = wikitextToOrganizationsProcessor.process(value);
 					if (!ownerList.isEmpty()) {
 						starshipTemplate.setOwner(ownerList.iterator().next());
@@ -55,7 +57,7 @@ public class StarshipTemplateRelationsEnrichingProcessor implements ItemWithTemp
 						}
 					}
 					break;
-				case StarshipTemplateParameter.OPERATOR:
+				case SpacecraftTemplateParameter.OPERATOR:
 					List<Organization> operatorList = wikitextToOrganizationsProcessor.process(value);
 					if (!operatorList.isEmpty()) {
 						starshipTemplate.setOperator(operatorList.iterator().next());
@@ -82,8 +84,6 @@ public class StarshipTemplateRelationsEnrichingProcessor implements ItemWithTemp
 										starshipName, part);
 							}
 						}
-
-						// TODO parsing class template
 					}
 					break;
 				default:

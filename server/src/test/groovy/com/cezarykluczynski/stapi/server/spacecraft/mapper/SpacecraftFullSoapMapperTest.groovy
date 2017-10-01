@@ -41,6 +41,7 @@ class SpacecraftFullSoapMapperTest extends AbstractSpacecraftMapperTest {
 		spacecraftFull.spacecraftClass != null
 		spacecraftFull.owner != null
 		spacecraftFull.operator != null
+		spacecraftFull.spacecraftTypes.size() == spacecraft.spacecraftTypes.size()
 	}
 
 }

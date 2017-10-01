@@ -57,5 +57,7 @@ public class PageTitle {
 
 	public static final String MATERIALS_AND_SUBSTANCES = "Materials and substances";
 
-
+	public static final String SPACE_STATION = "Space station";
+	public static final String OUTPOST = "Outpost";
+	public static final String STARBASE = "Starbase";
 }

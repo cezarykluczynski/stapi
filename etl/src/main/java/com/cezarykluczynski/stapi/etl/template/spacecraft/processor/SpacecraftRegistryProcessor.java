@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.starship.processor;
+package com.cezarykluczynski.stapi.etl.template.spacecraft.processor;
 
 import com.cezarykluczynski.stapi.etl.template.util.PatternDictionary;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
@@ -13,12 +13,12 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class StarshipRegistryProcessor implements ItemProcessor<String, String> {
+public class SpacecraftRegistryProcessor implements ItemProcessor<String, String> {
 
 	private final WikitextApi wikitextApi;
 
 	@Inject
-	public StarshipRegistryProcessor(WikitextApi wikitextApi) {
+	public SpacecraftRegistryProcessor(WikitextApi wikitextApi) {
 		this.wikitextApi = wikitextApi;
 	}
 

@@ -1,15 +1,15 @@
-package com.cezarykluczynski.stapi.etl.template.starship.processor
+package com.cezarykluczynski.stapi.etl.template.spacecraft.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.template.common.processor.DateStatusProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.StatusProcessor
+import com.cezarykluczynski.stapi.etl.template.spacecraft.dto.SpacecraftTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplate
-import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplateParameter
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
-class StarshipTemplateContentsEnrichingProcessorTest extends Specification {
+class SpacecraftTemplateContentsEnrichingProcessorTest extends Specification {
 
 	private static final String REGISTRY = 'REGISTRY'
 	private static final String STATUS = 'STATUS'
@@ -18,34 +18,34 @@ class StarshipTemplateContentsEnrichingProcessorTest extends Specification {
 	private static final String STATUS_RESULT = 'STATUS_RESULT'
 	private static final String DATE_STATUS_RESULT = 'DATE_STATUS_RESULT'
 
-	private StarshipRegistryProcessor starshipRegistryProcessorMock
+	private SpacecraftRegistryProcessor spacecraftRegistryProcessorMock
 
 	private StatusProcessor statusProcessorMock
 
 	private DateStatusProcessor dateStatusProcessorMock
 
-	private StarshipTemplateContentsEnrichingProcessor starshipTemplateContentsEnrichingProcessor
+	private SpacecraftTemplateContentsEnrichingProcessor spacecraftTemplateContentsEnrichingProcessor
 
 	void setup() {
-		starshipRegistryProcessorMock = Mock()
+		spacecraftRegistryProcessorMock = Mock()
 		statusProcessorMock = Mock()
 		dateStatusProcessorMock = Mock()
-		starshipTemplateContentsEnrichingProcessor = new StarshipTemplateContentsEnrichingProcessor(starshipRegistryProcessorMock,
+		spacecraftTemplateContentsEnrichingProcessor = new SpacecraftTemplateContentsEnrichingProcessor(spacecraftRegistryProcessorMock,
 				statusProcessorMock, dateStatusProcessorMock)
 	}
 
 	void "when registry part is found, StarshipRegistryProcessor is used to process it"() {
 		given:
 		Template sidebarStarshipTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
-				key: StarshipTemplateParameter.REGISTRY,
+				key: SpacecraftTemplateParameter.REGISTRY,
 				value: REGISTRY)))
 		StarshipTemplate starshipTemplate = new StarshipTemplate()
 
 		when:
-		starshipTemplateContentsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipTemplate, starshipTemplate))
+		spacecraftTemplateContentsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipTemplate, starshipTemplate))
 
 		then:
-		1 * starshipRegistryProcessorMock.process(REGISTRY) >> REGISTRY_RESULT
+		1 * spacecraftRegistryProcessorMock.process(REGISTRY) >> REGISTRY_RESULT
 		0 * _
 		starshipTemplate.registry == REGISTRY_RESULT
 	}
@@ -53,12 +53,12 @@ class StarshipTemplateContentsEnrichingProcessorTest extends Specification {
 	void "when status part is found, StatusProcessor is used to process it"() {
 		given:
 		Template sidebarStarshipTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
-				key: StarshipTemplateParameter.STATUS,
+				key: SpacecraftTemplateParameter.STATUS,
 				value: STATUS)))
 		StarshipTemplate starshipTemplate = new StarshipTemplate()
 
 		when:
-		starshipTemplateContentsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipTemplate, starshipTemplate))
+		spacecraftTemplateContentsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipTemplate, starshipTemplate))
 
 		then:
 		1 * statusProcessorMock.process(STATUS) >> STATUS_RESULT
@@ -69,12 +69,12 @@ class StarshipTemplateContentsEnrichingProcessorTest extends Specification {
 	void "when date status part is found, DateStatusProcessor is used to process it"() {
 		given:
 		Template sidebarStarshipTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
-				key: StarshipTemplateParameter.DATE_STATUS,
+				key: SpacecraftTemplateParameter.DATE_STATUS,
 				value: DATE_STATUS)))
 		StarshipTemplate starshipTemplate = new StarshipTemplate()
 
 		when:
-		starshipTemplateContentsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipTemplate, starshipTemplate))
+		spacecraftTemplateContentsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipTemplate, starshipTemplate))
 
 		then:
 		1 * dateStatusProcessorMock.process(DATE_STATUS) >> DATE_STATUS_RESULT

@@ -3,7 +3,9 @@ package com.cezarykluczynski.stapi.etl.template.starship.processor
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
+import com.cezarykluczynski.stapi.etl.spacecraft.creation.processor.SpacecraftCategoriesEnrichingProcessor
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
+import com.cezarykluczynski.stapi.etl.template.spacecraft.processor.SpacecraftTemplateCompositeEnrichingProcessor
 import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplate
 import com.cezarykluczynski.stapi.etl.template.starship.service.StarshipPageFilter
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
@@ -24,9 +26,7 @@ class StarshipTemplatePageProcessorTest extends Specification {
 
 	private PageBindingService pageBindingServiceMock
 
-	private StarshipTemplateCompositeEnrichingProcessor starshipTemplateCompositeEnrichingProcessorMock
-
-	private StationTemplateCompositeEnrichingProcessor stationTemplateCompositeEnrichingProcessorMock
+	private SpacecraftTemplateCompositeEnrichingProcessor spacecraftTemplateCompositeEnrichingProcessorMock
 
 	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessorMock
 
@@ -38,13 +38,11 @@ class StarshipTemplatePageProcessorTest extends Specification {
 		starshipPageFilterMock = Mock()
 		templateFinderMock = Mock()
 		pageBindingServiceMock = Mock()
-		starshipTemplateCompositeEnrichingProcessorMock = Mock()
-		stationTemplateCompositeEnrichingProcessorMock = Mock()
+		spacecraftTemplateCompositeEnrichingProcessorMock = Mock()
 		categoryTitlesExtractingProcessorMock = Mock()
 		spacecraftCategoriesEnrichingProcessorMock = Mock()
 		starshipTemplatePageProcessor = new StarshipTemplatePageProcessor(starshipPageFilterMock, templateFinderMock, pageBindingServiceMock,
-				starshipTemplateCompositeEnrichingProcessorMock, stationTemplateCompositeEnrichingProcessorMock,
-				categoryTitlesExtractingProcessorMock, spacecraftCategoriesEnrichingProcessorMock)
+				spacecraftTemplateCompositeEnrichingProcessorMock, categoryTitlesExtractingProcessorMock, spacecraftCategoriesEnrichingProcessorMock)
 	}
 
 	void "when StarshipFilter returns true, null is returned"() {
@@ -94,7 +92,7 @@ class StarshipTemplatePageProcessorTest extends Specification {
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_STARSHIP) >> Optional.of(template)
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_STATION) >> Optional.empty()
-		1 * starshipTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+		1 * spacecraftTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 				EnrichablePair<Template, StarshipTemplate> enrichablePair ->
 			assert enrichablePair.input == template
 			assert enrichablePair.output != null
@@ -120,7 +118,7 @@ class StarshipTemplatePageProcessorTest extends Specification {
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_STARSHIP) >> Optional.empty()
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_STATION) >> Optional.of(template)
-		1 * stationTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+		1 * spacecraftTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 			EnrichablePair<Template, StarshipTemplate> enrichablePair ->
 				assert enrichablePair.input == template
 				assert enrichablePair.output != null
@@ -150,7 +148,7 @@ class StarshipTemplatePageProcessorTest extends Specification {
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_STARSHIP) >> Optional.empty()
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_STATION) >> Optional.of(template)
-		1 * stationTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+		1 * spacecraftTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 			EnrichablePair<Template, StarshipTemplate> enrichablePair ->
 				assert enrichablePair.input == template
 				assert enrichablePair.output != null

@@ -5,11 +5,13 @@
 		xmlns:common="http://stapi.co/api/v1/soap/common"
 		xmlns:organization="http://stapi.co/api/v1/soap/organization"
 		xmlns:spacecraftClass="http://stapi.co/api/v1/soap/spacecraftClass"
+		xmlns:spacecraftType="http://stapi.co/api/v1/soap/spacecraftType"
 		elementFormDefault="qualified"
 		targetNamespace="http://stapi.co/api/v1/soap/spacecraft">
 	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/organization" schemaLocation="organization.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/spacecraftClass" schemaLocation="spacecraftClass.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/spacecraftType" schemaLocation="spacecraftType.xsd"/>
 	<xs:element name="SpacecraftBaseRequest">
 		<xs:annotation>
 			<xs:documentation>Request object for spacecrafts search</xs:documentation>
@@ -187,6 +189,13 @@
 					<xs:documentation>Operator</xs:documentation>
 				</xs:annotation>
 			</xs:element>
+			<xs:sequence>
+				<xs:element name="spacecraftTypes" type="spacecraftType:SpacecraftType" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Spacecraft types</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
 		</xs:sequence>
 	</xs:complexType>
 </xs:schema>

@@ -44,5 +44,20 @@
 				constraintName="sr_operator_fkey"
 				referencedColumnNames="id"
 				referencedTableName="organization"/>
+
+		<createTable schemaName="stapi" tableName="spacecrafts_spacecraft_types">
+			<column name="spacecraft_id" type="bigint"/>
+			<column name="spacecraft_type_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="spacecraft_id"
+				baseTableName="spacecrafts_spacecraft_types"
+				constraintName="sst_spacecraft_fkey"
+				referencedColumnNames="id"
+				referencedTableName="spacecraft"/>
+		<addForeignKeyConstraint baseColumnNames="spacecraft_type_id"
+				baseTableName="spacecrafts_spacecraft_types"
+				constraintName="sst_spacecraft_type_fkey"
+				referencedColumnNames="id"
+				referencedTableName="spacecraft_type"/>
 	</changeSet>
 </databaseChangeLog>

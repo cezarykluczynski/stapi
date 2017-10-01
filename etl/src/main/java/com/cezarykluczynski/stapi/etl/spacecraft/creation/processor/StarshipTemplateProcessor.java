@@ -24,6 +24,10 @@ public class StarshipTemplateProcessor implements ItemProcessor<StarshipTemplate
 		spacecraft.setUid(uidGenerator.generateFromPage(item.getPage(), Spacecraft.class));
 		spacecraft.setRegistry(item.getRegistry());
 		spacecraft.setSpacecraftClass(item.getSpacecraftClass());
+		spacecraft.getSpacecraftTypes().addAll(item.getSpacecraftTypes());
+		if (item.getSpacecraftClass() != null) {
+			spacecraft.getSpacecraftTypes().addAll(item.getSpacecraftClass().getSpacecraftTypes());
+		}
 		spacecraft.setOwner(item.getOwner());
 		spacecraft.setOperator(item.getOperator());
 		spacecraft.setStatus(item.getStatus());

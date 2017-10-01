@@ -20,6 +20,7 @@ class SpacecraftCreationConfigurationTest extends AbstractCreationConfigurationT
 	private static final String TITLE_PROBES = 'TITLE_PROBES'
 	private static final String TITLE_EARTH_SPACECRAFT = 'TITLE_EARTH_SPACECRAFT'
 	private static final String TITLE_SHUTTLES = 'TITLE_SHUTTLES'
+	private static final String TITLE_SPACE_STATIONS = 'TITLE_SPACE_STATIONS'
 	private static final String TITLE_STARSHIPS = 'TITLE_STARSHIPS'
 
 	private CategoryApi categoryApiMock
@@ -57,6 +58,8 @@ class SpacecraftCreationConfigurationTest extends AbstractCreationConfigurationT
 				createListWithPageHeaderTitle(TITLE_EARTH_SPACECRAFT)
 		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryTitle.SHUTTLES, MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_SHUTTLES)
+		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryTitle.SPACE_STATIONS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+				createListWithPageHeaderTitle(TITLE_SPACE_STATIONS)
 		1 * categoryApiMock.getPagesIncludingSubcategoriesExcept(CategoryTitle.STARSHIPS, Lists
 				.newArrayList(CategoryTitle.MEMORY_ALPHA_NON_CANON_REDIRECTS_STARSHIPS), MediaWikiSource.MEMORY_ALPHA_EN) >>
 				createListWithPageHeaderTitle(TITLE_STARSHIPS)
@@ -69,6 +72,7 @@ class SpacecraftCreationConfigurationTest extends AbstractCreationConfigurationT
 		categoryHeaderTitleList.contains TITLE_PROBES
 		categoryHeaderTitleList.contains TITLE_EARTH_SPACECRAFT
 		categoryHeaderTitleList.contains TITLE_SHUTTLES
+		categoryHeaderTitleList.contains TITLE_SPACE_STATIONS
 		categoryHeaderTitleList.contains TITLE_STARSHIPS
 	}
 

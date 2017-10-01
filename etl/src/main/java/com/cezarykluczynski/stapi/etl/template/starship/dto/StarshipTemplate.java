@@ -3,7 +3,11 @@ package com.cezarykluczynski.stapi.etl.template.starship.dto;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.page.entity.Page;
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass;
+import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType;
+import com.google.common.collect.Sets;
 import lombok.Data;
+
+import java.util.Set;
 
 @Data
 public class StarshipTemplate {
@@ -23,5 +27,7 @@ public class StarshipTemplate {
 	private Organization owner;
 
 	private Organization operator;
+
+	private Set<SpacecraftType> spacecraftTypes = Sets.newHashSet();
 
 }

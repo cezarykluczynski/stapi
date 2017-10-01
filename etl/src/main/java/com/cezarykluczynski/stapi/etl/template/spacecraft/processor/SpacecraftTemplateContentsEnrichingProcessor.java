@@ -1,28 +1,28 @@
-package com.cezarykluczynski.stapi.etl.template.starship.processor;
+package com.cezarykluczynski.stapi.etl.template.spacecraft.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.DateStatusProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.StatusProcessor;
+import com.cezarykluczynski.stapi.etl.template.spacecraft.dto.SpacecraftTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplate;
-import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplateParameter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class StarshipTemplateContentsEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<StarshipTemplate> {
+public class SpacecraftTemplateContentsEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<StarshipTemplate> {
 
-	private final StarshipRegistryProcessor starshipRegistryProcessor;
+	private final SpacecraftRegistryProcessor spacecraftRegistryProcessor;
 
 	private final StatusProcessor statusProcessor;
 
 	private final DateStatusProcessor dateStatusProcessor;
 
-	public StarshipTemplateContentsEnrichingProcessor(StarshipRegistryProcessor starshipRegistryProcessor,
+	public SpacecraftTemplateContentsEnrichingProcessor(SpacecraftRegistryProcessor spacecraftRegistryProcessor,
 			StatusProcessor statusProcessor, DateStatusProcessor dateStatusProcessor) {
-		this.starshipRegistryProcessor = starshipRegistryProcessor;
+		this.spacecraftRegistryProcessor = spacecraftRegistryProcessor;
 		this.statusProcessor = statusProcessor;
 		this.dateStatusProcessor = dateStatusProcessor;
 	}
@@ -37,13 +37,13 @@ public class StarshipTemplateContentsEnrichingProcessor implements ItemWithTempl
 			String value = part.getValue();
 
 			switch (key) {
-				case StarshipTemplateParameter.REGISTRY:
-					starshipTemplate.setRegistry(starshipRegistryProcessor.process(value));
+				case SpacecraftTemplateParameter.REGISTRY:
+					starshipTemplate.setRegistry(spacecraftRegistryProcessor.process(value));
 					break;
-				case StarshipTemplateParameter.STATUS:
+				case SpacecraftTemplateParameter.STATUS:
 					starshipTemplate.setStatus(statusProcessor.process(value));
 					break;
-				case StarshipTemplateParameter.DATE_STATUS:
+				case SpacecraftTemplateParameter.DATE_STATUS:
 					starshipTemplate.setDateStatus(dateStatusProcessor.process(value));
 					break;
 				default:

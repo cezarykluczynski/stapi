@@ -27,4 +27,8 @@ properties:
   operator:
     $ref: '#/definitions/OrganizationBase'
     description: Operator
-
+  spacecraftTypes:
+    type: array
+    items:
+      $ref: '#/definitions/SpacecraftType'
+    description: Spacecraft types

@@ -7,6 +7,8 @@ import com.cezarykluczynski.stapi.model.location.repository.LocationRepository;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass;
+import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType;
+import com.google.common.collect.Sets;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -21,13 +23,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import java.util.Set;
 
 @Data
 @Entity
-@ToString(callSuper = true, exclude = {"spacecraftClass", "owner", "operator"})
-@EqualsAndHashCode(callSuper = true, exclude = {"spacecraftClass", "owner", "operator"})
+@ToString(callSuper = true, exclude = {"spacecraftClass", "owner", "operator", "spacecraftTypes"})
+@EqualsAndHashCode(callSuper = true, exclude = {"spacecraftClass", "owner", "operator", "spacecraftTypes"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = LocationRepository.class, singularName = "spacecraft",
 		pluralName = "spacecrafts")
@@ -59,5 +64,12 @@ public class Spacecraft extends PageAwareEntity implements PageAware {
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "operator_id")
 	private Organization operator;
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "spacecrafts_spacecraft_types",
+			joinColumns = @JoinColumn(name = "spacecraft_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "spacecraft_type_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<SpacecraftType> spacecraftTypes = Sets.newHashSet();
 
 }

@@ -31,13 +31,14 @@ public class SpacecraftRepositoryImpl implements SpacecraftRepositoryCustom {
 		spacecraftQueryBuilder.equal(Spacecraft_.uid, uid);
 		spacecraftQueryBuilder.like(Spacecraft_.name, criteria.getName());
 		spacecraftQueryBuilder.setSort(criteria.getSort());
-		spacecraftQueryBuilder.fetch(Spacecraft_.spacecraftClass, doFetch);
+		spacecraftQueryBuilder.fetch(Spacecraft_.spacecraftClass);
 		spacecraftQueryBuilder.fetch(Spacecraft_.spacecraftClass, SpacecraftClass_.species, doFetch);
 		spacecraftQueryBuilder.fetch(Spacecraft_.spacecraftClass, SpacecraftClass_.owner, doFetch);
 		spacecraftQueryBuilder.fetch(Spacecraft_.spacecraftClass, SpacecraftClass_.operator, doFetch);
 		spacecraftQueryBuilder.fetch(Spacecraft_.spacecraftClass, SpacecraftClass_.affiliation, doFetch);
 		spacecraftQueryBuilder.fetch(Spacecraft_.owner);
 		spacecraftQueryBuilder.fetch(Spacecraft_.operator);
+		spacecraftQueryBuilder.fetch(Spacecraft_.spacecraftTypes, doFetch);
 
 		return spacecraftQueryBuilder.findPage();
 	}

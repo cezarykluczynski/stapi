@@ -40,9 +40,9 @@ public class SpacecraftCreationConfiguration {
 			spacecrafts.addAll(categoryApi.getPages(CategoryTitle.PROBES, MediaWikiSource.MEMORY_ALPHA_EN));
 			spacecrafts.addAll(categoryApi.getPagesIncludingSubcategories(CategoryTitle.EARTH_SPACECRAFT, MediaWikiSource.MEMORY_ALPHA_EN));
 			spacecrafts.addAll(categoryApi.getPagesIncludingSubcategories(CategoryTitle.SHUTTLES, MediaWikiSource.MEMORY_ALPHA_EN));
+			spacecrafts.addAll(categoryApi.getPagesIncludingSubcategories(CategoryTitle.SPACE_STATIONS, MediaWikiSource.MEMORY_ALPHA_EN));
 			spacecrafts.addAll(categoryApi.getPagesIncludingSubcategoriesExcept(CategoryTitle.STARSHIPS, Lists
 					.newArrayList(CategoryTitle.MEMORY_ALPHA_NON_CANON_REDIRECTS_STARSHIPS), MediaWikiSource.MEMORY_ALPHA_EN));
-
 		}
 
 		return new SpacecraftReader(Lists.newArrayList(Sets.newHashSet(spacecrafts)));
