@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.starship.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
+import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplate
@@ -25,6 +26,12 @@ class StarshipTemplatePageProcessorTest extends Specification {
 
 	private StarshipTemplateCompositeEnrichingProcessor starshipTemplateCompositeEnrichingProcessorMock
 
+	private StationTemplateCompositeEnrichingProcessor stationTemplateCompositeEnrichingProcessorMock
+
+	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessorMock
+
+	private SpacecraftCategoriesEnrichingProcessor spacecraftCategoriesEnrichingProcessorMock
+
 	private StarshipTemplatePageProcessor starshipTemplatePageProcessor
 
 	void setup() {
@@ -32,8 +39,12 @@ class StarshipTemplatePageProcessorTest extends Specification {
 		templateFinderMock = Mock()
 		pageBindingServiceMock = Mock()
 		starshipTemplateCompositeEnrichingProcessorMock = Mock()
+		stationTemplateCompositeEnrichingProcessorMock = Mock()
+		categoryTitlesExtractingProcessorMock = Mock()
+		spacecraftCategoriesEnrichingProcessorMock = Mock()
 		starshipTemplatePageProcessor = new StarshipTemplatePageProcessor(starshipPageFilterMock, templateFinderMock, pageBindingServiceMock,
-				starshipTemplateCompositeEnrichingProcessorMock)
+				starshipTemplateCompositeEnrichingProcessorMock, stationTemplateCompositeEnrichingProcessorMock,
+				categoryTitlesExtractingProcessorMock, spacecraftCategoriesEnrichingProcessorMock)
 	}
 
 	void "when StarshipFilter returns true, null is returned"() {
@@ -49,12 +60,9 @@ class StarshipTemplatePageProcessorTest extends Specification {
 		starshipTemplate == null
 	}
 
-	void "when sidebar starship template is not found, basic StarshipTemplate is returned"() {
+	void "when not templates are not found, basic StarshipTemplate is returned"() {
 		given:
-		List<CategoryHeader> categoryHeaderList = Mock()
-		Page page = new Page(
-				title: TITLE_WITH_BRACKETS,
-				categories: categoryHeaderList)
+		Page page = new Page(title: TITLE_WITH_BRACKETS)
 		ModelPage modelPage = Mock()
 
 		when:
@@ -64,6 +72,9 @@ class StarshipTemplatePageProcessorTest extends Specification {
 		1 * starshipPageFilterMock.shouldBeFilteredOut(page) >> false
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_STARSHIP) >> Optional.empty()
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_STATION) >> Optional.empty()
+		1 * categoryTitlesExtractingProcessorMock.process(_)
+		1 * spacecraftCategoriesEnrichingProcessorMock.enrich(_)
 		0 * _
 		starshipTemplate.name == TITLE
 		starshipTemplate.page == modelPage
@@ -71,7 +82,60 @@ class StarshipTemplatePageProcessorTest extends Specification {
 
 	void "when sidebar starship template is found, it is passed along with StarshipTemplate to enriching processor"() {
 		given:
+		Page page = new Page(title: TITLE_WITH_BRACKETS)
+		ModelPage modelPage = Mock()
+		Template template = Mock()
+
+		when:
+		StarshipTemplate starshipTemplate = starshipTemplatePageProcessor.process(page)
+
+		then:
+		1 * starshipPageFilterMock.shouldBeFilteredOut(page) >> false
+		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_STARSHIP) >> Optional.of(template)
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_STATION) >> Optional.empty()
+		1 * starshipTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+				EnrichablePair<Template, StarshipTemplate> enrichablePair ->
+			assert enrichablePair.input == template
+			assert enrichablePair.output != null
+		}
+		1 * categoryTitlesExtractingProcessorMock.process(_)
+		1 * spacecraftCategoriesEnrichingProcessorMock.enrich(_)
+		0 * _
+		starshipTemplate.name == TITLE
+		starshipTemplate.page == modelPage
+	}
+
+	void "when sidebar station template is found, it is passed along with StarshipTemplate to enriching processor"() {
+		given:
+		Page page = new Page(title: TITLE_WITH_BRACKETS)
+		ModelPage modelPage = Mock()
+		Template template = Mock()
+
+		when:
+		StarshipTemplate starshipTemplate = starshipTemplatePageProcessor.process(page)
+
+		then:
+		1 * starshipPageFilterMock.shouldBeFilteredOut(page) >> false
+		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_STARSHIP) >> Optional.empty()
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_STATION) >> Optional.of(template)
+		1 * stationTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+			EnrichablePair<Template, StarshipTemplate> enrichablePair ->
+				assert enrichablePair.input == template
+				assert enrichablePair.output != null
+		}
+		1 * categoryTitlesExtractingProcessorMock.process(_)
+		1 * spacecraftCategoriesEnrichingProcessorMock.enrich(_)
+		0 * _
+		starshipTemplate.name == TITLE
+		starshipTemplate.page == modelPage
+	}
+
+	void "categories are passed to SpacecraftCategoriesEnrichingProcessor"() {
+		given:
 		List<CategoryHeader> categoryHeaderList = Mock()
+		List<String> categoryTitleList = Mock()
 		Page page = new Page(
 				title: TITLE_WITH_BRACKETS,
 				categories: categoryHeaderList)
@@ -84,15 +148,21 @@ class StarshipTemplatePageProcessorTest extends Specification {
 		then:
 		1 * starshipPageFilterMock.shouldBeFilteredOut(page) >> false
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
-		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_STARSHIP) >> Optional.of(template)
-		1 * starshipTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
-				EnrichablePair<Template, StarshipTemplate> enrichablePair ->
-			assert enrichablePair.input == template
-			assert enrichablePair.output != null
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_STARSHIP) >> Optional.empty()
+		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_STATION) >> Optional.of(template)
+		1 * stationTemplateCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+			EnrichablePair<Template, StarshipTemplate> enrichablePair ->
+				assert enrichablePair.input == template
+				assert enrichablePair.output != null
+		}
+		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> categoryTitleList
+		1 * spacecraftCategoriesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+				EnrichablePair<List<String>, StarshipTemplate> enrichablePair ->
+			enrichablePair.input == categoryTitleList
+			enrichablePair.output != null
 		}
 		0 * _
-		starshipTemplate.name == TITLE
-		starshipTemplate.page == modelPage
+		starshipTemplate != null
 	}
 
 }

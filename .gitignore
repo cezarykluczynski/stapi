@@ -4,5 +4,6 @@ build/
 out/
 logs/
 server/src/main/resources/application-*.properties
+node_modules
 model/**/*_.java
 stapi.iml
