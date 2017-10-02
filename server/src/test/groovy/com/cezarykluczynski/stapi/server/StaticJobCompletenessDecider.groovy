@@ -2,18 +2,17 @@ package com.cezarykluczynski.stapi.server
 
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider
 import com.cezarykluczynski.stapi.model.step.SimpleStep
-import com.cezarykluczynski.stapi.util.constant.SpringProfile
 import com.google.common.collect.Lists
 import liquibase.integration.spring.SpringLiquibase
 import org.springframework.batch.core.BatchStatus
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing
 import org.springframework.beans.BeansException
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.ApplicationContext
 import org.springframework.context.ConfigurableApplicationContext
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
-import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Service
 
 import javax.inject.Inject
@@ -72,7 +71,7 @@ class StaticJobCompletenessDecider {
 		}
 
 		@Bean
-		@Profile(SpringProfile.ETL_NOT)
+		@ConditionalOnProperty(name = 'etl.enabled', havingValue = 'false')
 		SpringLiquibase liquibase() {
 			new SpringLiquibase(
 					changeLog: 'classpath:liquibase/changelog.xml',

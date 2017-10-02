@@ -1,14 +1,13 @@
 package com.cezarykluczynski.stapi.model.common.statistics.size;
 
-import com.cezarykluczynski.stapi.util.constant.SpringProfile;
-import org.springframework.context.annotation.Profile;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.Map;
 
 @Service
-@Profile(SpringProfile.ETL_NOT)
+@ConditionalOnProperty(name = "etl.enabled", havingValue = "false")
 public class EntitySizeCachedStatisticsProviderImpl implements EntitySizeStatisticsProvider {
 
 	private Map<Class, Long> statistics;

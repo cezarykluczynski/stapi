@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepToStepPro
 import com.cezarykluczynski.stapi.etl.configuration.job.service.JobCompletenessDecider
 import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
+import com.cezarykluczynski.stapi.model.common.etl.EtlProperties
 import org.springframework.batch.core.Step
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.job.builder.JobBuilder as SpringBatchJobBuilder
@@ -27,6 +28,8 @@ class JobBuilderTest extends Specification {
 	private JobCompletenessDecider jobCompletenessDeciderMock
 
 	private StepToStepPropertiesProvider stepToStepPropertiesProviderMock
+
+	private EtlProperties etlPropertiesMock
 
 	private Map<String, StepProperties> stepPropertiesMap
 
@@ -118,6 +121,7 @@ class JobBuilderTest extends Specification {
 		stepConfigurationValidatorMock = Mock()
 		jobCompletenessDeciderMock = Mock()
 		stepToStepPropertiesProviderMock = Mock()
+		etlPropertiesMock = Mock()
 		stepPropertiesMap = Mock()
 		stepProperties = Mock()
 		createCompaniesStep = Mock()
@@ -161,7 +165,7 @@ class JobBuilderTest extends Specification {
 		springBatchJobBuilder = new SpringBatchJobBuilder(JobName.JOB_CREATE)
 		springBatchJobBuilder.repository(jobRepository)
 		jobBuilder = new JobBuilder(applicationContextMock, jobBuilderFactoryMock, stepConfigurationValidatorMock, jobCompletenessDeciderMock,
-				stepToStepPropertiesProviderMock)
+				stepToStepPropertiesProviderMock, etlPropertiesMock)
 	}
 
 	void "Job is built"() {
@@ -176,6 +180,9 @@ class JobBuilderTest extends Specification {
 
 		then: 'check is performed whether job is completed'
 		1 * jobCompletenessDeciderMock.isJobCompleted(JobName.JOB_CREATE) >> false
+
+		then: 'check is performed whether etl is enabled'
+		1 * etlPropertiesMock.enabled >> true
 
 		then: 'jobCreate builder is retrieved'
 		1 * jobBuilderFactoryMock.get(JobName.JOB_CREATE) >> springBatchJobBuilder
@@ -418,51 +425,6 @@ class JobBuilderTest extends Specification {
 		((SplitState) ((SimpleFlow) job.flow).startState).flows[0].name == 'flow1'
 	}
 
-	void "Job is not built when job is completed"() {
-		when:
-		FlowJob job = (FlowJob) jobBuilder.build()
-
-		then: 'validation is performed'
-		1 * stepConfigurationValidatorMock.validate()
-
-		then: 'check is performed whether all steps in job are completed'
-		1 * jobCompletenessDeciderMock.isJobCompleted(JobName.JOB_CREATE) >> true
-
-		then: 'no other interactions are expected'
-		0 * _
-
-		then: 'job is null'
-		job == null
-	}
-
-	void "Job is not build when no steps are enabled"() {
-		when:
-		FlowJob job = (FlowJob) jobBuilder.build()
-
-		then: 'validation is performed'
-		1 * stepConfigurationValidatorMock.validate()
-
-		then: 'check is performed whether job is completed'
-		1 * jobCompletenessDeciderMock.isJobCompleted(JobName.JOB_CREATE) >> false
-
-		then: 'jobCreate builder is retrieved'
-		1 * jobBuilderFactoryMock.get(JobName.JOB_CREATE) >> springBatchJobBuilder
-
-		then: 'step properties are provided'
-		1 * stepToStepPropertiesProviderMock.provide() >> stepPropertiesMap
-
-		then: 'all steps are disabled'
-		StepConfigurationValidator.NUMBER_OF_STEPS * stepPropertiesMap.get(_) >> stepProperties
-		StepConfigurationValidator.NUMBER_OF_STEPS * stepProperties.isEnabled() >> false
-
-		then: 'no other interactions are expected'
-		0 * _
-
-		then: 'null is being returned'
-		job == null
-
-	}
-
 	void "job is built with only two steps"() {
 		given:
 		TaskExecutor taskExecutor = Mock()
@@ -475,6 +437,9 @@ class JobBuilderTest extends Specification {
 
 		then: 'check is performed whether job is completed'
 		1 * jobCompletenessDeciderMock.isJobCompleted(JobName.JOB_CREATE) >> false
+
+		then: 'check is performed whether etl is enabled'
+		1 * etlPropertiesMock.enabled >> true
 
 		then: 'jobCreate builder is retrieved'
 		1 * jobBuilderFactoryMock.get(JobName.JOB_CREATE) >> springBatchJobBuilder
@@ -509,6 +474,73 @@ class JobBuilderTest extends Specification {
 		job.jobRepository == jobRepository
 		((SplitState) ((SimpleFlow) job.flow).startState).flows.size() == 1
 		((SplitState) ((SimpleFlow) job.flow).startState).flows[0].name == 'flow1'
+	}
+
+	void "Job is not built when job is completed"() {
+		when:
+		FlowJob job = (FlowJob) jobBuilder.build()
+
+		then: 'validation is performed'
+		1 * stepConfigurationValidatorMock.validate()
+
+		then: 'check is performed whether all steps in job are completed'
+		1 * jobCompletenessDeciderMock.isJobCompleted(JobName.JOB_CREATE) >> true
+
+		then: 'no other interactions are expected'
+		0 * _
+
+		then: 'job is null'
+		job == null
+	}
+
+	void "Job is not build when no steps are enabled"() {
+		when:
+		FlowJob job = (FlowJob) jobBuilder.build()
+
+		then: 'validation is performed'
+		1 * stepConfigurationValidatorMock.validate()
+
+		then: 'check is performed whether job is completed'
+		1 * jobCompletenessDeciderMock.isJobCompleted(JobName.JOB_CREATE) >> false
+
+		then: 'check is performed whether etl is enabled'
+		1 * etlPropertiesMock.enabled >> true
+
+		then: 'jobCreate builder is retrieved'
+		1 * jobBuilderFactoryMock.get(JobName.JOB_CREATE) >> springBatchJobBuilder
+
+		then: 'step properties are provided'
+		1 * stepToStepPropertiesProviderMock.provide() >> stepPropertiesMap
+
+		then: 'all steps are disabled'
+		StepConfigurationValidator.NUMBER_OF_STEPS * stepPropertiesMap.get(_) >> stepProperties
+		StepConfigurationValidator.NUMBER_OF_STEPS * stepProperties.isEnabled() >> false
+
+		then: 'no other interactions are expected'
+		0 * _
+
+		then: 'null is being returned'
+		job == null
+	}
+
+	void "Job is not build when etl is not enabled"() {
+		when:
+		FlowJob job = (FlowJob) jobBuilder.build()
+
+		then: 'validation is performed'
+		1 * stepConfigurationValidatorMock.validate()
+
+		then: 'check is performed whether job is completed'
+		1 * jobCompletenessDeciderMock.isJobCompleted(JobName.JOB_CREATE) >> false
+
+		then: 'check is performed whether etl is enabled'
+		1 * etlPropertiesMock.enabled >> false
+
+		then: 'no other interactions are expected'
+		0 * _
+
+		then: 'null is being returned'
+		job == null
 	}
 
 }

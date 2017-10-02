@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepToStepPro
 import com.cezarykluczynski.stapi.etl.configuration.job.service.JobCompletenessDecider;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepNames;
+import com.cezarykluczynski.stapi.model.common.etl.EtlProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -34,21 +35,24 @@ public class JobBuilder {
 
 	private final StepToStepPropertiesProvider stepToStepPropertiesProvider;
 
+	private final EtlProperties etlProperties;
+
 	@Inject
 	public JobBuilder(ApplicationContext applicationContext, JobBuilderFactory jobBuilderFactory,
 			StepConfigurationValidator stepConfigurationValidator, JobCompletenessDecider jobCompletenessDecider,
-			StepToStepPropertiesProvider stepToStepPropertiesProvider) {
+			StepToStepPropertiesProvider stepToStepPropertiesProvider, EtlProperties etlProperties) {
 		this.applicationContext = applicationContext;
 		this.jobBuilderFactory = jobBuilderFactory;
 		this.stepConfigurationValidator = stepConfigurationValidator;
 		this.jobCompletenessDecider = jobCompletenessDecider;
 		this.stepToStepPropertiesProvider = stepToStepPropertiesProvider;
+		this.etlProperties = etlProperties;
 	}
 
 	public synchronized Job build() {
 		stepConfigurationValidator.validate();
 
-		if (jobCompletenessDecider.isJobCompleted(JobName.JOB_CREATE)) {
+		if (jobCompletenessDecider.isJobCompleted(JobName.JOB_CREATE) || Boolean.FALSE.equals(etlProperties.getEnabled())) {
 			return null;
 		}
 
