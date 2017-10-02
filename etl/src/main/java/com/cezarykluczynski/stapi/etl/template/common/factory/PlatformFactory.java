@@ -29,7 +29,7 @@ public class PlatformFactory {
 		String name = platformCodeToNameMapper.map(code);
 
 		if (name == null) {
-			log.error("Could not map code {} to platform name", code);
+			log.warn("Could not map code \"{}\" to platform name", code);
 			return Optional.empty();
 		}
 

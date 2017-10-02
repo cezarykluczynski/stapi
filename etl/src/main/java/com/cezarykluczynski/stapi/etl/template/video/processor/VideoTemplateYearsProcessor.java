@@ -54,7 +54,7 @@ public class VideoTemplateYearsProcessor implements ItemProcessor<Template.Part,
 			}
 		}
 
-		log.warn("Could not parse template part {} into YearRange", item);
+		log.info("Could not parse template part {} into YearRange", item);
 		return null;
 	}
 

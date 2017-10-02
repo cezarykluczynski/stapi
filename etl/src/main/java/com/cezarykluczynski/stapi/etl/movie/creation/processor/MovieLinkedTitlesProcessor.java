@@ -161,7 +161,7 @@ public class MovieLinkedTitlesProcessor implements ItemProcessor<List<PageSectio
 			} else if (isStandInPerformersSection(pageSectionTitle)) {
 				movieLinkedTitlesDTO.getStandInPerformers().addAll(sectionLinkListSet);
 			} else {
-				log.error("Section \"{}\" not mapped to any type of work in movie", pageSectionTitle);
+				log.warn("Section \"{}\" not mapped to any type of work in movie", pageSectionTitle);
 			}
 		}
 

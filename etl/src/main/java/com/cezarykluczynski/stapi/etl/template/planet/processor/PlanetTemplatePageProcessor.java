@@ -93,7 +93,7 @@ public class PlanetTemplatePageProcessor implements ItemProcessor<Page, PlanetTe
 		trySetTypeFromWikitext(planetTemplate, item);
 
 		if (planetTemplate.getAstronomicalObjectType() == null) {
-			log.warn("Could not get astronomical object type for {}", item.getTitle());
+			log.info("Could not get astronomical object type for {}", item.getTitle());
 		}
 
 		return planetTemplate;

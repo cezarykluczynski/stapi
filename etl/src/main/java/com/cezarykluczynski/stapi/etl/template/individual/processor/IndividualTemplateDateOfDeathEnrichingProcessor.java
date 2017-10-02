@@ -127,7 +127,7 @@ public class IndividualTemplateDateOfDeathEnrichingProcessor implements ItemWith
 		boolean isAlive = NOT_DEAD_SYNONYMS.stream().anyMatch(statusValue::contains);
 
 		if (isAlive && isDeceased) {
-			log.error("Conflicting findings on whether individual {} is dead or alive, found both in status: {}",
+			log.warn("Conflicting findings on whether individual {} is dead or alive, found both in status: {}",
 					characterTemplate.getName(), statusValue);
 		} else if (!isAlive && !isDeceased) {
 			log.warn("Could not determine whether individual {} is dead or alive, found status: {}",

@@ -41,11 +41,11 @@ public class DayMonthYearCandidateToLocalDateProcessor implements ItemProcessor<
 				return LocalDate.of(year, month, day);
 			} else {
 				if (year == null) {
-					log.error("{} candidate year could not be parsed to integer.", yearValue);
+					log.info("{} candidate year could not be parsed to integer.", yearValue);
 				}
 
 				if (day == null) {
-					log.error("{} candidate day could not be parsed to integer.", dayValue);
+					log.info("{} candidate day could not be parsed to integer.", dayValue);
 				}
 			}
 		}

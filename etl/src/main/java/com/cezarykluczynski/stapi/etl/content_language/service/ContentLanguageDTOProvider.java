@@ -272,7 +272,7 @@ public class ContentLanguageDTOProvider {
 			}
 		}
 
-		log.warn("Could not get language by name {}", name);
+		log.warn("Could not get language by name \"{}\"", name);
 		return Optional.empty();
 	}
 

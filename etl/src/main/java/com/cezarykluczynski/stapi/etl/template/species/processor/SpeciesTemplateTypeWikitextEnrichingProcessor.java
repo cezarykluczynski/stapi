@@ -51,7 +51,7 @@ public class SpeciesTemplateTypeWikitextEnrichingProcessor implements ItemWithTe
 		} else if (pageTitleList.contains(NON_CORPOREAL_SPECIES)) {
 			speciesTemplate.setNonCorporealSpecies(true);
 		} else if (!pageTitleList.contains(NON_HUMANOID)) {
-			log.warn("Could not get species type from wikitext: {}", wikitext);
+			log.info("Could not get species type from wikitext: \"{}\"", wikitext);
 		}
 	}
 

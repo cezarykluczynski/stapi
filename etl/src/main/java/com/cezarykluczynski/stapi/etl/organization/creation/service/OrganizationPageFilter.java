@@ -43,7 +43,7 @@ public class OrganizationPageFilter implements MediaWikiPageFilter {
 		}
 
 		if (isAnOrganization == null) {
-			log.error("Could not decide whether {} is an organization or not. Add appropriate entry in OrganizationNameFilter", organizationName);
+			log.error("Could not decide whether \"{}\" is an organization or not. Add appropriate entry in OrganizationNameFilter", organizationName);
 		}
 
 		return false;

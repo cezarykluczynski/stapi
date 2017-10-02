@@ -52,7 +52,7 @@ public class SpacecraftTemplateRelationsEnrichingProcessor implements ItemWithTe
 					if (!ownerList.isEmpty()) {
 						starshipTemplate.setOwner(ownerList.iterator().next());
 						if (ownerList.size() > 1) {
-							log.info("More than one organization found for starship {} for owner value {}, using the first value",
+							log.info("More than one organization found for spacecraft \"{}\" for owner value \"{}\", using the first value",
 									starshipName, value);
 						}
 					}
@@ -62,7 +62,7 @@ public class SpacecraftTemplateRelationsEnrichingProcessor implements ItemWithTe
 					if (!operatorList.isEmpty()) {
 						starshipTemplate.setOperator(operatorList.iterator().next());
 						if (operatorList.size() > 1) {
-							log.info("More than one organization found for starship {} for operator value {}, using the first value",
+							log.info("More than one organization found for spacecraft \"{}\" for operator value \"{}\", using the first value",
 									starshipName, value);
 						}
 					}
@@ -72,7 +72,7 @@ public class SpacecraftTemplateRelationsEnrichingProcessor implements ItemWithTe
 					if (!classList.isEmpty()) {
 						setFirstSpacecraftToTemplate(classList, starshipTemplate);
 						if (classList.size() > 1) {
-							log.info("More than one spacecraft class found for starship {} for operator value {}, using the first value",
+							log.info("More than one spacecraft class found for spacecraft \"{}\" for operator value \"{}\", using the first value",
 									starshipName, value);
 						}
 					} else {
@@ -80,7 +80,7 @@ public class SpacecraftTemplateRelationsEnrichingProcessor implements ItemWithTe
 						if (!classList.isEmpty()) {
 							setFirstSpacecraftToTemplate(classList, starshipTemplate);
 							if (classList.size() > 1) {
-								log.info("More than one spacecraft class found for starship {} for operator part {}, using the first value",
+								log.info("More than one spacecraft class found for spacecraft \"{}\" for operator part \"{}\", using the first value",
 										starshipName, part);
 							}
 						}

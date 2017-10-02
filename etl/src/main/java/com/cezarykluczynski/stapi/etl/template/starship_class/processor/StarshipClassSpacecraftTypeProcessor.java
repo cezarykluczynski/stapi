@@ -109,7 +109,7 @@ public class StarshipClassSpacecraftTypeProcessor implements ItemProcessor<Strin
 	}
 
 	private void doLogMissingEntityByTitle(String pageTitle) {
-		log.warn("Could not find spacecraft type \"{}\" in local database", pageTitle);
+		log.info("Could not find spacecraft type \"{}\" in local database", pageTitle);
 	}
 
 }

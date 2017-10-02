@@ -68,7 +68,7 @@ public class TextToCompaniesProcessor implements ItemProcessor<String, Set<Compa
 				}
 
 				if (!hasSpace || sizeBefore == companySet.size()) {
-					log.warn("Could not find company named {}", internalCompanyCandidate);
+					log.info("Could not find company named \"{}\"", internalCompanyCandidate);
 				}
 			}
 		}

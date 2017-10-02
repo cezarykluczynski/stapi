@@ -72,7 +72,7 @@ public class EpisodePerformancesToEntityMapper {
 		if (!nonQualifiedCharacterFilter.shouldBeFilteredOut(characterName)) {
 			pair.setCharacter(getCharacter(characterName).orElse(null));
 			if (pair.getCharacter() == null) {
-				log.info("Character filter candidate: {}", characterName);
+				log.info("Character filter candidate: \"{}\"", characterName);
 			}
 			pair.setPerformer(getPerformer(episodePerformanceDTO.getPerformerName()).orElse(null));
 		}

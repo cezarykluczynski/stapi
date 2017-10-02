@@ -62,8 +62,8 @@ public class CharacterTemplateWithCharacterboxTemplateEnrichingProcessor
 		if (LogicUtil.xorNull(baseValue, newValue)) {
 			return ObjectUtils.firstNonNull(baseValue, newValue);
 		} else if (!Objects.equals(baseValue, newValue)) {
-			log.warn("{} for {} differs: MA has {}, while MB has {}", StringUtils.upperCaseFirst(valueName), characterTemplate.getName(), baseValue,
-					newValue);
+			log.warn("{} for {} differs: MA has \"{}\", while MB has \"{}\"", StringUtils.upperCaseFirst(valueName), characterTemplate.getName(),
+					baseValue, newValue);
 			return baseValue;
 		} else {
 			return newValue;

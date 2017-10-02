@@ -73,7 +73,7 @@ public class StardateYearProcessor implements ItemProcessor<StardateYearCandidat
 			}
 
 		} else {
-			log.warn("Could not get any date links from {} {} string {}", imageType, title, years);
+			log.warn("Could not get any date links from {} \"{}\" string \"{}\"", imageType, title, years);
 		}
 	}
 
@@ -85,7 +85,7 @@ public class StardateYearProcessor implements ItemProcessor<StardateYearCandidat
 					stardateYearDTO.setStardateFrom(Float.valueOf(stardateParts.get(0)));
 				}
 			} catch (NumberFormatException e) {
-				log.warn("Could not cast {} {} \"from\" stardate {} to float", imageType, title, stardateParts.get(0));
+				log.info("Could not cast {} \"{}\" \"from\" stardate {} to float", imageType, title, stardateParts.get(0));
 			}
 
 			try {
@@ -93,7 +93,7 @@ public class StardateYearProcessor implements ItemProcessor<StardateYearCandidat
 					stardateYearDTO.setStardateTo(Float.valueOf(stardateParts.get(1)));
 				}
 			} catch (NumberFormatException e) {
-				log.warn("Could not cast {} \"to\" stardate {} to float", imageType, title, stardateParts.get(1));
+				log.info("Could not cast {} \"to\" stardate {} to float", imageType, title, stardateParts.get(1));
 			}
 
 			if (stardateYearDTO.getStardateTo() == null) {
@@ -114,13 +114,13 @@ public class StardateYearProcessor implements ItemProcessor<StardateYearCandidat
 			Integer year = Integer.valueOf(linkTitle);
 			if (year < 1000 || year > 9999) {
 				String type = from ? "\"from\"" : "\"to\"";
-				log.warn("Tried to parse {} {} year {}, but it was out of range", imageType, type, year);
+				log.info("Tried to parse {} {} year \"{}\", but it was out of range", imageType, type, year);
 				return null;
 			}
 
 			return year;
 		} catch (NumberFormatException e) {
-			log.warn("Could not cast {} {} link {} to year", imageType, templateTitle, linkTitle);
+			log.warn("Could not cast {} {} link \"{}\" to year", imageType, templateTitle, linkTitle);
 			return null;
 		}
 	}

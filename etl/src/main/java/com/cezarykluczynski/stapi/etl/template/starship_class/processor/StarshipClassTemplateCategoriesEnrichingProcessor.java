@@ -52,14 +52,14 @@ public class StarshipClassTemplateCategoriesEnrichingProcessor
 		if (speciesCandidatesList.size() == 1) {
 			starshipClassTemplate.setSpecies(speciesCandidatesList.get(0));
 		} else if (!speciesCandidatesList.isEmpty()) {
-			log.warn("More than one species found for starship class {} when categories were looked at, none was used",
+			log.warn("More than one species found for starship class \"{}\" when categories were looked at, none was used",
 					starshipClassTemplate.getName());
 		}
 
 		if (organizationCandidatesList.size() == 1) {
 			starshipClassTemplate.setAffiliation(organizationCandidatesList.get(0));
 		} else if (!organizationCandidatesList.isEmpty()) {
-			log.warn("More than one organization found for starship class {} when categories were looked at, none was used",
+			log.warn("More than one organization found for starship class \"{}\" when categories were looked at, none was used",
 					starshipClassTemplate.getName());
 		}
 	}

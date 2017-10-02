@@ -106,7 +106,7 @@ public class ActorTemplateSinglePageProcessor implements ItemProcessor<Page, Act
 		Gender supplementedGender = actorTemplateFromTemplate.getGender();
 
 		if (originalGender != null && supplementedGender != null && !originalGender.equals(supplementedGender)) {
-			log.error("Gender {} found by ActorTemplatePageProcessor differs from gender {} found by "
+			log.warn("Gender {} found by ActorTemplatePageProcessor differs from gender {} found by "
 					+ "ActorTemplateTemplateProcessor for {} - setting gender to null", originalGender, supplementedGender, actorTemplate.getName());
 
 			actorTemplate.setGender(null);

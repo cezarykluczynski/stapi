@@ -77,7 +77,7 @@ public class PartToYearRangeProcessor implements ItemProcessor<Template.Part, Ye
 		}
 
 		if (size > 2) {
-			log.warn("Template list {} has more than two yearlink templates.", templateList);
+			log.info("Template list {} has more than two yearlink templates.", templateList);
 		}
 
 		return yearRange;

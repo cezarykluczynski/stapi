@@ -71,7 +71,7 @@ public class UidGenerator {
 		String referenceNumber = referenceTypeReferenceNumberPair.getValue();
 
 		if (referenceType == null || referenceNumber == null) {
-			log.warn("Pair {} passed for reference UID generation was not complete", referenceTypeReferenceNumberPair);
+			log.warn("Pair \"{}\" passed for reference UID generation was not complete", referenceTypeReferenceNumberPair);
 			return null;
 		}
 

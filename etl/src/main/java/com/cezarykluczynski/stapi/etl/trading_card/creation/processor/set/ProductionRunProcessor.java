@@ -63,7 +63,7 @@ public class ProductionRunProcessor implements ItemProcessor<TradingCardSetValue
 		boolean isSets = SETS_PATTERN.matcher(value).matches();
 
 		if (isSets && isBoxes) {
-			log.error("Could not determine if {} is sets or boxes", value);
+			log.warn("Could not determine if \"{}\" is sets or boxes", value);
 			return null;
 		}
 
@@ -93,7 +93,7 @@ public class ProductionRunProcessor implements ItemProcessor<TradingCardSetValue
 					.mapToInt(Ints::tryParse)
 					.sum();
 		} catch (NullPointerException e) {
-			log.error("Could not parse {} into ProductionRunDTO", value);
+			log.error("Could not parse \"{}\" into ProductionRunDTO, {}", value, e);
 			return null;
 		}
 

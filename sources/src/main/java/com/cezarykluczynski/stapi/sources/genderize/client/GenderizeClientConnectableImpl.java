@@ -43,7 +43,7 @@ public class GenderizeClientConnectableImpl implements GenderizeClient {
 
 	public synchronized NameGenderDTO getNameGender(String name) {
 		if (nameGenderCache.containsKey(name)) {
-			log.info("Using name to gender cache for name {}", name);
+			log.debug("Using name to gender cache for name \"{}\"", name);
 			return nameGenderCache.get(name);
 		}
 
@@ -60,7 +60,7 @@ public class GenderizeClientConnectableImpl implements GenderizeClient {
 			JSONObject jsonObject = new JSONObject(result);
 			return tryParseResponse(jsonObject, name);
 		} catch (Exception e) {
-			log.warn("Could not get details about name " + name + " from API because of exception", e);
+			log.error("Could not get details about name " + name + " from API because of exception", e);
 			return null;
 		}
 	}

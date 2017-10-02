@@ -87,7 +87,7 @@ public class ReferencesFromTemplatePartProcessor implements ItemProcessor<Templa
 			}
 
 			if (found == 0) {
-				log.warn("Could not parse reference number {}", value);
+				log.info("Could not parse reference number \"{}\"", value);
 			}
 		} else if (CollectionUtils.isNotEmpty(templateList)) {
 			templateList.stream()

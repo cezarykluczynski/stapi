@@ -44,7 +44,7 @@ public class StarshipClassTemplateRelationsEnrichingProcessor implements ItemWit
 					if (!ownerList.isEmpty()) {
 						starshipClassTemplate.setOwner(ownerList.iterator().next());
 						if (ownerList.size() > 1) {
-							log.info("More than one organization found for starship class {} for owner value {}, using the first value",
+							log.info("More than one organization found for starship class \"{}\" for owner value \"{}\", using the first value",
 									starshipClassName, value);
 						}
 					}
@@ -54,7 +54,7 @@ public class StarshipClassTemplateRelationsEnrichingProcessor implements ItemWit
 					if (!operatorList.isEmpty()) {
 						starshipClassTemplate.setOperator(operatorList.iterator().next());
 						if (operatorList.size() > 1) {
-							log.info("More than one organization found for starship class {} for operator value {}, using the first value",
+							log.info("More than one organization found for starship class \"{}\" for operator value \"{}\", using the first value",
 									starshipClassName, value);
 						}
 					}

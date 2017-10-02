@@ -34,7 +34,7 @@ public class SeriesTemplateCompanyProcessor implements ItemProcessor<Template.Pa
 		String pageLinkTitle = getCompanyNameFromWikitext(item.getValue(), item.getTemplates());
 
 		if (pageLinkTitle == null) {
-			log.error("No company can be found in template part {}", item);
+			log.debug("No company can be found in template part \"{}\"", item);
 			return null;
 		}
 

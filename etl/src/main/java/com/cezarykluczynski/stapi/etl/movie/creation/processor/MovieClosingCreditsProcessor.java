@@ -56,7 +56,7 @@ public class MovieClosingCreditsProcessor implements ItemProcessor<Page, List<Pa
 				"Closing Credits", "Cast", "Crew");
 
 		if (CollectionUtils.isEmpty(pageSectionList)) {
-			log.warn("Could not find closing credits section for page {}", pageTitle);
+			log.info("Could not find closing credits section for page {}", pageTitle);
 			return creditsPageSectionList;
 		}
 
@@ -96,15 +96,13 @@ public class MovieClosingCreditsProcessor implements ItemProcessor<Page, List<Pa
 				createNewSection = true;
 			} else if (isListItem || pageSectionLine.startsWith(":")) {
 				if (creditsPageSection == null) {
-					log.warn("List item \"{}\" on page {} found before any section started", pageSectionLine,
-							pageTitle);
+					log.warn("List item \"{}\" on page \"{}\" found before any section started", pageSectionLine, pageTitle);
 					continue;
 				}
 				creditsPageSectionWikitextLines.add(pageSectionLine);
 			} else if (pageSectionLine.length() > 2 && !isSkippable(pageSectionLine) && !isNonInclude(pageSectionLine)
 					&& !isInterwiki(pageSectionLine)) {
-				log.warn("List item \"{}\" on page {} found, but not a list item nor a section part", pageSectionLine,
-						pageTitle);
+				log.warn("List item \"{}\" on page \"{}\" found, but not a list item nor a section part", pageSectionLine, pageTitle);
 			}
 
 			if (createNewSection) {

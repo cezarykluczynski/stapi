@@ -36,7 +36,7 @@ public class HologramActivationDateProcessor implements ItemProcessor<String, St
 		try {
 			return dateStatusProcessor.process(s);
 		} catch (Exception e) {
-			log.error("Exception thrown by DateStatusProcessor: {}", e);
+			log.warn("Exception thrown by DateStatusProcessor", e);
 			return null;
 		}
 	}

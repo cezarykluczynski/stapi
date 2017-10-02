@@ -35,7 +35,7 @@ public class IndividualWeightProcessor implements ItemProcessor<String, Integer>
 			return Integer.valueOf(kilogramMatcher.group(1));
 		}
 
-		log.warn("Could not extract weight from not-empty value {}", item);
+		log.info("Could not extract weight from not-empty value \"{}\"", item);
 		return null;
 	}
 

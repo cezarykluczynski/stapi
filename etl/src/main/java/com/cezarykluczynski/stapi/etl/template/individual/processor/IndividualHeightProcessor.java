@@ -45,7 +45,7 @@ public class IndividualHeightProcessor implements ItemProcessor<String, Integer>
 			return Integer.valueOf(cmMatcher.group(1));
 		}
 
-		log.warn("Could not extract height from not-empty value {}", item);
+		log.info("Could not extract height from not-empty value \"{}\"", item);
 		return null;
 	}
 }

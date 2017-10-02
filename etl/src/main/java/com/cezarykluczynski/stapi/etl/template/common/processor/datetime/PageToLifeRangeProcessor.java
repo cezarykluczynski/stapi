@@ -37,7 +37,7 @@ public class PageToLifeRangeProcessor implements ItemProcessor<Page, DateRange> 
 		}
 
 		if (bornTemplates.size() > 1) {
-			log.warn("More than one {} template found for {}, using the first one", TemplateTitle.BORN, item.getTitle());
+			log.info("More than one {} template found for \"{}\", using the first one", TemplateTitle.BORN, item.getTitle());
 		}
 
 		Template bornTemplate = bornTemplates.get(0);

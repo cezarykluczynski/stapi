@@ -68,7 +68,7 @@ public class TradingCardSetProcessor implements ItemProcessor<Page, TradingCardS
 				tradingCardSet.setUid(uidGenerator.generateForTradingCardSet(item.getId()));
 			}
 		} else {
-			log.info("Could not find trading card set table on page {}", title);
+			log.info("Could not find trading card set table on page \"{}\"", title);
 		}
 
 		int tradingCardsTableCandidatesSize = tradingCardsTableCandidates.size();
@@ -78,9 +78,9 @@ public class TradingCardSetProcessor implements ItemProcessor<Page, TradingCardS
 			tradingCardSetLinker.linkAll(tradingCardSet);
 		} else {
 			if (tradingCardsTableCandidatesSize != 1) {
-				log.warn("Expected to find one table with cards on page {}, but found {}", title, tradingCardsTableCandidatesSize);
+				log.warn("Expected to find one table with cards on page \"{}\", but found {}", title, tradingCardsTableCandidatesSize);
 			} else {
-				log.warn("There was cards table present, but table set was null for page {}", title);
+				log.warn("There was cards table present, but table set was null for page \"{}\"", title);
 			}
 		}
 

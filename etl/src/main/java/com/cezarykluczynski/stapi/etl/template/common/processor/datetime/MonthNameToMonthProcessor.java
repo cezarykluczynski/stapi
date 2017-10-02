@@ -17,7 +17,7 @@ public class MonthNameToMonthProcessor implements ItemProcessor<String, Month> {
 		try {
 			return Month.valueOf(monthNameUpperCase);
 		} catch (IllegalArgumentException e) {
-			log.error("{} could not be mapped to Month.", monthNameUpperCase);
+			log.info("{} could not be mapped to Month.", monthNameUpperCase);
 			return null;
 		}
 	}

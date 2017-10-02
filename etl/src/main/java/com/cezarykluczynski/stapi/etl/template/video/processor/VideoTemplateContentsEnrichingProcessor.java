@@ -76,9 +76,9 @@ public class VideoTemplateContentsEnrichingProcessor implements ItemWithTemplate
 						videoTemplate.setSeason(seasonSet.iterator().next());
 					} else if (hasNotBlankValue) {
 						if (seasonSetSize > 1) {
-							log.warn("More than one season found for video \"{}\", using none; value was: {}", title, value);
+							log.warn("More than one season found for video \"{}\", using none; value was: \"{}\"", title, value);
 						} else {
-							log.warn("No seasons found for video \"{}\", value was: {}", title, value);
+							log.warn("No seasons found for video \"{}\", value was: \"{}\"", title, value);
 						}
 					}
 					break;

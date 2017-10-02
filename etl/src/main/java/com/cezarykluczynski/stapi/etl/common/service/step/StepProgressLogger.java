@@ -16,12 +16,8 @@ public class StepProgressLogger implements StepLogger {
 
 	public void stepEnded(StepExecution stepExecution) {
 		String stepName = stepExecution.getStepName();
-		log.info("Step {} finished at {} with exit code {}, with {} reads, and {} entities to write",
-				stepName,
-				stepExecution.getLastUpdated(),
-				stepExecution.getExitStatus().getExitCode(),
-				stepExecution.getReadCount(),
-				stepExecution.getWriteCount());
+		log.info("Step {} finished at {} with exit code {}, with {} reads, and {} entities to write", stepName, stepExecution.getLastUpdated(),
+				stepExecution.getExitStatus().getExitCode(), stepExecution.getReadCount(), stepExecution.getWriteCount());
 	}
 
 }

@@ -34,25 +34,25 @@ public class PageToGenderNameProcessor implements ItemProcessor<Page, Gender> {
 		NameGenderDTO nameGenderDTO = genderizeClient.getNameGender(name);
 
 		if (nameGenderDTO == null) {
-			log.info("Could not determine gender of {} using external API because response was invalid",
-					item.getTitle());
+			log.info("Could not determine gender of \"{}\" using external API because response was invalid", item.getTitle());
 			return null;
 		}
 
 		String foundGender = nameGenderDTO.getGender();
 
 		if (foundGender == null) {
-			log.info("Could not determine gender of {} using external API", item.getTitle());
+			log.info("Could not determine gender of \"{}\" using external API", item.getTitle());
 			return null;
 		}
 
 		Gender gender = foundGender.compareToIgnoreCase("male") == 0 ? Gender.M : Gender.F;
 
-		log.info("Gender {} found in external API for {} with probability {}",
+		log.info("Gender {} found in external API for \"{}\" with probability {}",
 				gender, item.getTitle(), nameGenderDTO.getProbability());
 
 		if (nameGenderDTO.getProbability() < MINIMAL_PROBABILITY) {
-			log.warn("Probability of gender {} found in external API for name {} lower than required.", gender, name);
+			log.warn("Probability {} of gender {} found in external API for name \"{}\" lower than required {}.",
+					nameGenderDTO.getProbability(), gender, name, MINIMAL_PROBABILITY);
 			return null;
 		}
 

@@ -128,7 +128,7 @@ public class SpeciesTypeDetector implements InitializingBean {
 		Page page = pageApi.getPage(pageTitle, MediaWikiSource.MEMORY_ALPHA_EN);
 		if (page == null) {
 			speciesTypesToPageTitles.put(pageTitle, Lists.newArrayList());
-			log.warn("Could not get page {}", pageTitle);
+			log.info("Could not get page \"{}\"", pageTitle);
 			return;
 		}
 

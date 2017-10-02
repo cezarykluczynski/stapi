@@ -62,7 +62,7 @@ public class TradingCardPropertiesProcessor implements ItemProcessor<Element, Tr
 			tradingCardProperties.setName(filteredParts.get(1));
 
 			if (filteredParts.size() > 2) {
-				log.warn("More than two lines find in trading card text elements: \"{}\"", filteredParts);
+				log.info("More than two lines find in trading card text elements: \"{}\"", filteredParts);
 			}
 		}
 

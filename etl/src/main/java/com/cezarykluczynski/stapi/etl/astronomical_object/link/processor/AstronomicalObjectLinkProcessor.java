@@ -91,8 +91,8 @@ public class AstronomicalObjectLinkProcessor implements ItemProcessor<Astronomic
 		} else if (Objects.equal(astronomicalObjectFromTemplate, astronomicalObjectFromWikitext)) {
 			astronomicalObjectLinkEnrichingProcessor.enrich(EnrichablePair.of(astronomicalObjectFromTemplate, item));
 		} else {
-			log.warn("Different location found for {}, location says it is {}, but wikitext says it is {}. Using value from template", item,
-					astronomicalObjectFromTemplate, astronomicalObjectFromWikitext);
+			log.warn("Different location found for \"{}\", location says it is \"{}\", but wikitext says it is \"{}\". Using value from template",
+					item, astronomicalObjectFromTemplate, astronomicalObjectFromWikitext);
 			astronomicalObjectLinkEnrichingProcessor.enrich(EnrichablePair.of(astronomicalObjectFromTemplate, item));
 		}
 	}

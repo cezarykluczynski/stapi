@@ -53,7 +53,7 @@ public class MaritalStatusProcessor implements ItemProcessor<String, MaritalStat
 			}
 		}
 
-		log.error("Unknown character marital status: {} ", itemTrimmedLowerCase);
+		log.info("Unknown character marital status: \"{}\"", itemTrimmedLowerCase);
 		return null;
 	}
 

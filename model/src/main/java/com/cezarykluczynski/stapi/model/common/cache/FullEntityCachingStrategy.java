@@ -22,7 +22,7 @@ public class FullEntityCachingStrategy implements CachingStrategy {
 			field.setAccessible(true);
 			pathMap = (Map<String, Path>) field.get(root);
 		} catch (Exception e) {
-			log.warn("Could not get \"attributePathRegistry\" from root because of {}", e);
+			log.warn("Could not get \"attributePathRegistry\" from root because of exception", e);
 			return false;
 		}
 

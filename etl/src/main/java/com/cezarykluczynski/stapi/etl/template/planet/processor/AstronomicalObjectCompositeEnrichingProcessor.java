@@ -41,7 +41,7 @@ public class AstronomicalObjectCompositeEnrichingProcessor
 				return AstronomicalObjectType.ASTEROIDAL_MOON;
 			}
 
-			log.error("Planet template {} type {} differs from {}", planetTemplate.getName(), currentAstronomicalObjectType,
+			log.warn("Planet template \"{}\" type \"{}\" differs from \"{}\"", planetTemplate.getName(), currentAstronomicalObjectType,
 					astronomicalObjectTypeFromProcessor);
 		}
 

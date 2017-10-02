@@ -66,7 +66,7 @@ public class BookCollectionTemplateWikitextBooksProcessor implements ItemProcess
 		PageSection pageSection = pageSectionList.get(0);
 
 		if (pageSectionList.size() > 1) {
-			log.warn("Page {} contains more than one section, using the first one {}", pageTitle, pageSection.getText());
+			log.warn("Page \"{}\" contains more than one section, using the first one: \"{}\"", pageTitle, pageSection.getText());
 		}
 
 		bookSet.addAll(extractBook(pageSection.getWikitext()));
@@ -76,7 +76,7 @@ public class BookCollectionTemplateWikitextBooksProcessor implements ItemProcess
 		}
 
 		if (bookSet.isEmpty()) {
-			log.warn("No books could be extracted for book collection {}", pageTitle);
+			log.warn("No books could be extracted for book collection \"{}\"", pageTitle);
 		}
 
 		return bookSet;

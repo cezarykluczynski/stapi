@@ -36,17 +36,17 @@ public class DatePartToDayMonthYearProcessor implements ItemProcessor<Template.P
 
 		if (!dayTemplateList.isEmpty()) {
 			if (dayTemplateList.size() > 1) {
-				log.warn("More than one datelink template found {}, using the first one", dayTemplateList);
+				log.info("More than one datelink template found {}, using the first one", dayTemplateList);
 			}
 			dayMonthYearFrom = templateToDayMonthYearParser.parseDayMonthYearCandidate(dayTemplateList.get(0));
 		} else if (!monthTemplateList.isEmpty()) {
 			if (monthTemplateList.size() > 1) {
-				log.warn("More than one monthlink template found {}, using the first one", monthTemplateList);
+				log.info("More than one monthlink template found {}, using the first one", monthTemplateList);
 			}
 			dayMonthYearFrom = templateToDayMonthYearParser.parseMonthYearCandidate(monthTemplateList.get(0));
 		} else if (!yearTemplateList.isEmpty()) {
 			if (yearTemplateList.size() > 1) {
-				log.warn("More than one yearlink template found {}, using the first one", yearTemplateList);
+				log.info("More than one yearlink template found {}, using the first one", yearTemplateList);
 			}
 			dayMonthYearFrom = templateToDayMonthYearParser.parseYearCandidate(yearTemplateList.get(0));
 		}

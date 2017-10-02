@@ -55,7 +55,7 @@ public class ComicCollectionTemplateWikitextComicsProcessor implements ItemProce
 				BACKGROUND_INFORMATION);
 
 		if (pageSectionList.isEmpty()) {
-			log.warn("No comics containing sections were found for comic collection {}", item.getTitle());
+			log.info("No comics containing sections were found for comic collection \"{}\"", item.getTitle());
 			return comicsSet;
 		}
 
@@ -68,7 +68,7 @@ public class ComicCollectionTemplateWikitextComicsProcessor implements ItemProce
 		PageSection pageSection = pageSectionList.get(0);
 
 		if (pageSectionList.size() > 1) {
-			log.warn("Page {} contains more than one section, using the first one {}", item.getTitle(), pageSection.getText());
+			log.info("Page \"{}\" contains more than one section, using the first one: {}", item.getTitle(), pageSection.getText());
 		}
 
 		String pageSectionWikitext = pageSection.getWikitext();
@@ -77,7 +77,7 @@ public class ComicCollectionTemplateWikitextComicsProcessor implements ItemProce
 		comicsSet.addAll(extractComics(wikitextListsExtractor.extractDefinitionsFromWikitext(pageSectionWikitext)));
 
 		if (comicsSet.isEmpty()) {
-			log.warn("No comics could be extracted from page {}", item.getTitle());
+			log.info("No comics could be extracted from page \"{}\"", item.getTitle());
 		}
 
 		return comicsSet;

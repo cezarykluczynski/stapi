@@ -34,7 +34,7 @@ public class RunTimeProcessor implements ItemProcessor<String, Integer> {
 			return length;
 		}
 
-		log.warn("Value {} could not be parsed into run time", item);
+		log.info("Value \"{}\" could not be parsed into run time", item);
 		return null;
 	}
 

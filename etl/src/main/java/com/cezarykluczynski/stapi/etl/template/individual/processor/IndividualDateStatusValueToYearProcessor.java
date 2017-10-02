@@ -38,7 +38,7 @@ public class IndividualDateStatusValueToYearProcessor implements ItemProcessor<S
 
 		if (!pageLinkList.isEmpty()) {
 			if (pageLinkList.size() > 1) {
-				log.error("More than one link found in date status, links are: {}", pageLinkList);
+				log.info("More than one link found in date status, links are: {}", pageLinkList);
 			}
 
 			List<Integer> years = pageLinkList.stream()
@@ -55,14 +55,14 @@ public class IndividualDateStatusValueToYearProcessor implements ItemProcessor<S
 			if (years.size() == 1) {
 				return years.get(0);
 			} else if (years.size() > 1) {
-				log.error("More than one year found in links for status date {}, values are: {}", value, years);
+				log.warn("More than one year found in links for status date \"{}\", values are: {}", value, years);
 			}
 		}
 
 		try {
 			return Integer.valueOf(value);
 		} catch (NumberFormatException e) {
-			log.error("Expected value that can be casted to Integer, but {} found", value);
+			log.error("Expected value that can be casted to Integer, but \"{}\" found", value);
 			return null;
 		}
 	}

@@ -40,7 +40,7 @@ public class WikitextToYearRangeProcessor implements ItemProcessor<String, YearR
 
 		if (yearRange != null && (yearRange.getYearFrom() != null || yearRange.getYearTo() != null)) {
 			if (LogicUtil.xorNull(yearRange.getYearFrom(), yearRange.getYearTo())) {
-				log.warn("When parsing {} with PartToYearRangeProcessor, start year was {}, while end year was: {}",
+				log.warn("When parsing {} with PartToYearRangeProcessor, start year was \"{}\", while end year was: \"{}\"",
 						item, yearRange.getYearFrom(), yearRange.getYearTo());
 			}
 

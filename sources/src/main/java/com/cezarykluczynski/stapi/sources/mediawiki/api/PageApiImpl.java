@@ -60,7 +60,7 @@ public class PageApiImpl implements PageApi {
 			Page page = getPage(title, mediaWikiSource);
 
 			if (page == null) {
-				log.warn("Could not get page with title {}", title);
+				log.debug("Could not get page with title {}", title);
 				continue;
 			}
 

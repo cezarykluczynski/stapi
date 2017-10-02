@@ -39,7 +39,7 @@ public class FirstPerformerFindingMovieRealPeopleLinkingWorkerHelper {
 			if (performerOptional.isPresent()) {
 				performerSet.add(performerOptional.get());
 			} else {
-				log.warn("Performer not found by name {}", line);
+				log.info("Performer not found by name \"{}\"", line);
 			}
 		});
 

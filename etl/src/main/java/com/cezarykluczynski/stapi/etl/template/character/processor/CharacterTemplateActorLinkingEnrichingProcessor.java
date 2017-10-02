@@ -56,11 +56,11 @@ public class CharacterTemplateActorLinkingEnrichingProcessor implements ItemEnri
 				performerOptional.ifPresent(performerSet::add);
 
 				if (!performerOptional.isPresent()) {
-					log.warn("Could not find performer {} playing {} in local database",
+					log.info("Could not find performer \"{}\" playing \"{}\" in local database",
 							pageLink.getTitle(), characterTemplate.getName());
 				}
 			} catch (Throwable e) {
-				log.warn("Ooops", e);
+				log.error("Ooops", e);
 			}
 		}
 

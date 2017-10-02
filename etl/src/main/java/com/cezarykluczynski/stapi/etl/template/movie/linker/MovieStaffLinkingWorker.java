@@ -36,7 +36,7 @@ public class MovieStaffLinkingWorker implements MovieRealPeopleLinkingWorker {
 				//} else if (false) {
 					// TODO: Check is we dealing with company, rename to MovieStaffCompanyLinkingWorker
 				} else {
-					log.warn("Staff not found by name {}", line);
+					log.info("Staff not found by name \"{}\"", line);
 				}
 			})
 		);

@@ -51,7 +51,7 @@ public class PartToDateRangeProcessor implements ItemProcessor<Template.Part, Da
 		}
 
 		if (size > 2) {
-			log.warn("Template part {} has more than two datelink templates.", part);
+			log.info("Template part {} has more than two datelink templates.", part);
 		}
 
 		return dateRange;

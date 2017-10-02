@@ -34,12 +34,12 @@ public class TradingCardSetElementsProcessor implements ItemProcessor<TradingCar
 		Elements values = lastRow.getElementsByTag(TagName.TD);
 
 		if (headers.size() == 0) {
-			log.warn("No header cells found");
+			log.info("No header cells found");
 			return null;
 		}
 
 		if (headers.size() != values.size()) {
-			log.warn("Number of header cells does not equal number of value cells");
+			log.info("Number of header cells does not equal number of value cells");
 			return null;
 		}
 

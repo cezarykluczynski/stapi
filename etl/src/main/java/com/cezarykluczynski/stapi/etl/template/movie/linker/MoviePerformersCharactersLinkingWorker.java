@@ -75,12 +75,12 @@ public class MoviePerformersCharactersLinkingWorker implements MovieRealPeopleLi
 			boolean characterIsPresent = characterOptional.isPresent();
 
 			if (!performerIsPresent && !characterIsPresent) {
-				log.warn("Entities for performer {} and the played character {} were not found", performerName,
+				log.warn("Entities for performer \"{}\" and the played character \"{}\" were not found", performerName,
 						characterName);
 			} else if (!performerIsPresent) {
-				log.warn("Entity for performer {} playing character {} was not found", performerName, characterName);
+				log.warn("Entity for performer \"{}\" playing character \"{}\" was not found", performerName, characterName);
 			} else if (!characterIsPresent) {
-				log.warn("Entity for character {} played by performer {} was not found", characterName, performerName);
+				log.warn("Entity for character \"{}\" played by performer \"{}\" was not found", characterName, performerName);
 			}
 
 			performerOptional.ifPresent(performerSet::add);

@@ -57,7 +57,7 @@ public class SpeciesTemplatePartsEnrichingProcessor implements ItemEnrichingProc
 					if (value.equalsIgnoreCase(EXTINCT)) {
 						speciesTemplate.setExtinctSpecies(true);
 					} else {
-						log.info("Skipped population value \"{}\" for species {}", value, speciesTemplate.getName());
+						log.info("Skipped population value \"{}\" for species \"{}\"", value, speciesTemplate.getName());
 					}
 					break;
 				default:

@@ -118,7 +118,7 @@ public class EpisodeTemplateProcessor implements ItemProcessor<Template, Episode
 		try {
 			return Integer.valueOf(numbers.get(0));
 		} catch (Exception e) {
-			log.error("Could not parse episode number {}", episodeNumberCandidate);
+			log.info("Could not parse episode number {}", episodeNumberCandidate);
 			return null;
 		}
 	}

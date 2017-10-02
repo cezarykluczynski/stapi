@@ -64,7 +64,7 @@ public class MaterialPageProcessor implements ItemProcessor<Page, Material> {
 		boolean isAmongListedExplosives = materialsAndSubstancesDetectorService.isExplosive(pageTitle);
 
 		if (hasExplosivesCategory && !isAmongListedExplosives && !hasMaterialsCategory && !hasChemicalCompoundsCategory) {
-			log.error("Page \"{}\" has explosives category, but no related categories, and is not listed among explosives", pageTitle);
+			log.info("Page \"{}\" has explosives category, but no related categories, and is not listed among explosives", pageTitle);
 			return null;
 		}
 

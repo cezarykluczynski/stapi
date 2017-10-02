@@ -61,7 +61,7 @@ public class SeriesToEpisodeBindingService {
 				if (series == null) {
 					series = categoryTitlesToSeries.get(categoryTitle);
 				} else {
-					log.error("More than one category denoting episode in series previous was {}, but {} also found ",
+					log.warn("More than one category denoting episode in series previous was \"{}\", but \"{}\" also found",
 							series.getTitle(), categoryTitlesToSeries.get(categoryTitle).getTitle());
 					return null;
 				}
@@ -69,7 +69,7 @@ public class SeriesToEpisodeBindingService {
 		}
 
 		if (series == null) {
-			log.error("Could not determine series from categories {}", categoryHeaderList);
+			log.info("Could not determine series from categories {}", categoryHeaderList);
 		}
 
 		return series;

@@ -69,7 +69,7 @@ public class TradingCardDecksTableProcessor implements ItemProcessor<Element, Se
 			}
 
 			if (currentList == null) {
-				log.warn("Current list was empty when trying to add {}", trCandidate);
+				log.warn("Current list was null when trying to add \"{}\"", trCandidate);
 			} else {
 				currentList.add(trCandidate);
 			}

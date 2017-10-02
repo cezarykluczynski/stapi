@@ -75,7 +75,7 @@ public class ContentRatingsProcessor implements ItemProcessor<Template.Part, Set
 		try {
 			return ContentRatingSystem.valueOf(StringUtils.upperCase(key));
 		} catch (Exception e) {
-			log.error("Could not map string {} to ContentRatingSystem", key);
+			log.info("Could not map string \"{}\" to ContentRatingSystem", key);
 			return null;
 		}
 	}

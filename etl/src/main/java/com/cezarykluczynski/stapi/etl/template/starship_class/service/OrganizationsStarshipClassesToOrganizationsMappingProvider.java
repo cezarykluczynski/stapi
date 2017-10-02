@@ -39,7 +39,7 @@ public class OrganizationsStarshipClassesToOrganizationsMappingProvider {
 		Optional<Organization> organizationOptional = organizationRepository.findByName(organizationName);
 
 		if (!organizationOptional.isPresent()) {
-			log.warn("Could not find organization by name \"{}\" given in mappings", organizationName);
+			log.info("Could not find organization by name \"{}\" given in mappings", organizationName);
 		}
 
 		return organizationOptional;

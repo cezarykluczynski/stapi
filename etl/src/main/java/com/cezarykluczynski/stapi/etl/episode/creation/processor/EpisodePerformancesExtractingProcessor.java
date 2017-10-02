@@ -105,7 +105,7 @@ public class EpisodePerformancesExtractingProcessor implements ItemProcessor<Pag
 		Optional<PageSection> pageSectionOptional = findSubsectionsOfSectionWithTitle(pageSectionList, LINKS_AND_REFERENCES);
 
 		if (!pageSectionOptional.isPresent()) {
-			log.error("Section {} not found in episode {}", LINKS_AND_REFERENCES, page.getTitle());
+			log.warn("Section {} not found in episode {}", LINKS_AND_REFERENCES, page.getTitle());
 			return episodePerformances;
 		}
 

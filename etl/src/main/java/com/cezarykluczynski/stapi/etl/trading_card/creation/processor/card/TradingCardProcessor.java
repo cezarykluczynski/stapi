@@ -47,7 +47,7 @@ public class TradingCardProcessor implements ItemProcessor<Element, TradingCard>
 		}
 
 		if (anchorCandidates.size() != 1) {
-			log.warn("One anchor expected when creating trading card, {} found instead", anchorCandidates.size());
+			log.info("One anchor expected when creating trading card, {} found instead", anchorCandidates.size());
 			return null;
 		}
 

@@ -96,7 +96,7 @@ public class WikitextApiImpl implements WikitextApi {
 			Template.Part templatePart1 = getTemplatePartByKey(templatePartList, ONE);
 			Template.Part templatePart2 = getTemplatePartByKey(templatePartList, TWO);
 			if (templatePart1 != null && templatePart2 == null) {
-				log.warn("Two template parts were found, but \"{}\" key was not found", TWO);
+				log.info("Two template parts were found, but \"{}\" key was not found", TWO);
 				return templatePart1.getValue();
 			} else if (templatePart1 != null) {
 				return templatePart1.getValue() + SPACE + LEFT_BRACKET + templatePart2.getValue() + RIGHT_BRACKET;

@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalO
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.enums.AstronomicalObjectType;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -58,11 +59,11 @@ public class AstronomicalObjectLinkEnrichingProcessor implements ItemEnrichingPr
 		Integer locationCandidateSize = ASTRONOMICAL_OBJECTS_SIZE_MAP.get(locationCandidate.getAstronomicalObjectType());
 		Integer subjectSize = ASTRONOMICAL_OBJECTS_SIZE_MAP.get(subject.getAstronomicalObjectType());
 
-		if (locationCandidateSize == subjectSize) {
-			log.error("Determined that astronomical object location candidate {} has the same type {} as the target {}", locationCandidate,
+		if (NumberUtils.compare(locationCandidateSize, subjectSize) == 0) {
+			log.warn("Determined that astronomical object location candidate {} has the same type {} as the target {}", locationCandidate,
 					locationCandidate.getAstronomicalObjectType(), subject);
 		} else if (locationCandidateSize < subjectSize) {
-			log.error("Determined that astronomical object location candidate {} has lower size than {} as the target {}", locationCandidate,
+			log.warn("Determined that astronomical object location candidate {} has lower size than {} as the target {}", locationCandidate,
 					locationCandidate.getAstronomicalObjectType(), subject);
 		} else {
 			subject.setLocation(locationCandidate);

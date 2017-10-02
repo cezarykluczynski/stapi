@@ -48,7 +48,7 @@ public class VideoTemplateFormatEnrichingProcessor implements ItemEnrichingProce
 		if (videoReleaseFormatFromSidebarVideoTemplate == null) {
 			videoTemplate.setFormat(videoReleaseFormatFromCategories);
 		} else if (videoReleaseFormatFromCategories != null && videoReleaseFormatFromSidebarVideoTemplate != videoReleaseFormatFromCategories) {
-			log.warn("VideoReleaseFormat {} concluded from page categories differs from format {} found in sidebar video template for page {}",
+			log.warn("VideoReleaseFormat {} concluded from page categories differs from format {} found in sidebar video template for page \"{}\"",
 					videoReleaseFormatFromCategories, videoReleaseFormatFromSidebarVideoTemplate, page.getTitle());
 		}
 

@@ -44,7 +44,7 @@ public class VideoGameTemplatePageProcessor implements ItemProcessor<Page, Video
 		Optional<Template> templateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_VIDEOGAME);
 
 		if (!templateOptional.isPresent()) {
-			log.warn("Could not find template {} on page {}", TemplateTitle.SIDEBAR_VIDEOGAME, item.getTitle());
+			log.info("Could not find template {} on page \"{}\"", TemplateTitle.SIDEBAR_VIDEOGAME, item.getTitle());
 			return null;
 		}
 

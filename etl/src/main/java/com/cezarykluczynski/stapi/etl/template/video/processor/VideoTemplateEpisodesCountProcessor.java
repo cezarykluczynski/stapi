@@ -55,7 +55,7 @@ public class VideoTemplateEpisodesCountProcessor implements ItemProcessor<String
 		}
 
 		if (episodesCountDTO.getNumberOfEpisodes() == null && episodesCountDTO.getNumberOfFeatureLengthEpisodes() == null) {
-			log.info("EpisodesCountDTO candidate not parsed: {}", item);
+			log.info("EpisodesCountDTO candidate not parsed: \"{}\"", item);
 		}
 
 		return episodesCountDTO;

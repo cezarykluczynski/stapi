@@ -43,7 +43,7 @@ public class StatusProcessor implements ItemProcessor<String, String> {
 			return capitalizeAndCleanFirst(wordsWithoutTags);
 		}
 
-		log.warn("Could not map statship status candidate \"{}\" to starship status", item);
+		log.info("Could not map statship status candidate \"{}\" to starship status", item);
 		return null;
 	}
 

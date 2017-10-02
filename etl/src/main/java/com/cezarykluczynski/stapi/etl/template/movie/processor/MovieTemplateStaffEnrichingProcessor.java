@@ -151,19 +151,19 @@ public class MovieTemplateStaffEnrichingProcessor implements ItemWithTemplateEnr
 				String baseRawValue = staffParsingState.getRawValue();
 
 				if (StringUtils.contains(baseRawValue, otherStaff.getName())) {
-					log.info("Adding unlinked staff {} to set of {}, because raw value was \"{}\", name was: \"{}\"",
+					log.info("Adding unlinked staff \"{}\" to set of {}, because raw value was \"{}\", name was: \"{}\"",
 							otherStaff.getName(), toNameList(baseStaffSet), baseRawValue, otherStaff.getName());
 					baseStaffSet.add(otherStaff);
 				} else if (StringUtils.contains(baseRawValue, otherStaff.getBirthName())) {
-					log.info("Adding unlinked staff {} to set of {}, because raw value was \"{}\", birth name was: \"{}\"",
+					log.info("Adding unlinked staff \"{}\" to set of {}, because raw value was \"{}\", birth name was: \"{}\"",
 							otherStaff.getName(), toNameList(baseStaffSet), baseRawValue, otherStaff.getBirthName());
 					baseStaffSet.add(otherStaff);
 				} else if (StringUtils.contains(baseRawValue, otherPageLink.getTitle())) {
-					log.info("Adding unlinked staff {} to set of {}, because raw value was \"{}\", link title was: \"{}\"",
+					log.info("Adding unlinked staff \"{}\" to set of {}, because raw value was \"{}\", link title was: \"{}\"",
 							otherStaff.getName(), toNameList(baseStaffSet), baseRawValue, otherPageLink.getTitle());
 					baseStaffSet.add(otherStaff);
 				} else if (StringUtils.contains(baseRawValue, otherPageLink.getDescription())) {
-					log.info("Adding unlinked staff {} to set of {}, because raw value was \"{}\", link description was: \"{}\"",
+					log.info("Adding unlinked staff \"{}\" to set of {}, because raw value was \"{}\", link description was: \"{}\"",
 							otherStaff.getName(), toNameList(baseStaffSet), baseRawValue, otherPageLink.getDescription());
 					baseStaffSet.add(otherStaff);
 				}

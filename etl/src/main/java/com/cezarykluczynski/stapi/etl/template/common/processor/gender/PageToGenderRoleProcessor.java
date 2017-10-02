@@ -58,7 +58,7 @@ public class PageToGenderRoleProcessor implements ItemProcessor<Page, Gender> {
 
 		if (position == -1) {
 			if (isPerformer(item)) {
-				log.info("Could not determine gender of {} from played roles", item.getTitle());
+				log.info("Could not determine gender of \"{}\" from played roles", item.getTitle());
 			}
 			return null;
 		}
@@ -67,7 +67,7 @@ public class PageToGenderRoleProcessor implements ItemProcessor<Page, Gender> {
 		List<String> linkedPagesList = wikitextApi.getPageTitlesFromWikitext(candidate);
 
 		if (linkedPagesList.isEmpty()) {
-			log.warn("Could not extract any links from {}", item.getTitle());
+			log.info("Could not extract any links from \"{}\"", item.getTitle());
 			return null;
 		}
 
@@ -78,11 +78,11 @@ public class PageToGenderRoleProcessor implements ItemProcessor<Page, Gender> {
 			if (characterTemplate != null) {
 				Gender gender = characterTemplate.getGender();
 				if (gender != null) {
-					log.info("Guessing gender {} of real person {} based of gender of played character {}",
+					log.info("Guessing gender {} of real person \"{}\" based of gender of played character \"{}\"",
 							gender, item.getTitle(), page.getTitle());
 					return gender;
 				} else {
-					log.info("Performer {} played individual {}, but the latter have no gender specified.",
+					log.debug("Performer \"{}\" played individual \"{}\", but the latter have no gender specified.",
 							item.getTitle(), page.getTitle());
 				}
 			}
@@ -114,9 +114,7 @@ public class PageToGenderRoleProcessor implements ItemProcessor<Page, Gender> {
 		}
 
 		List<String> categories = categoryTitlesExtractingProcessor.process(categoryHeaderList);
-
 		return !Collections.disjoint(categories, CategoryTitles.PERFORMERS);
-
 	}
 
 }

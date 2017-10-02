@@ -13,7 +13,7 @@ public class VideoReleaseFormatProcessor implements ItemProcessor<String, VideoR
 	@SuppressWarnings("returnCount")
 	public VideoReleaseFormat process(String item) throws Exception {
 		if (item == null) {
-			log.info("Null value passed to VideoReleaseFormatProcessor");
+			log.info("null value passed to VideoReleaseFormatProcessor");
 			return null;
 		}
 
