@@ -4,6 +4,7 @@
 	<property name="CONSOLE_PATTERN" value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){yellow} %clr(%5p){blue} %clr(${PID:- }){green} %clr(%-60.60logger{59}){magenta} %clr(::){red} %msg %n"/>
 	<property name="FILE_PATTERN"    value="%d{yyyy-MM-dd HH:mm:ss.SSS} %5p ${PID:- } %logger :: %msg %n"/>
 	<property resource="application.properties"/>
+	<property resource="application-stapi-custom.properties"/>
 	<springProperty name="destinationPath" source="logging.log-files-path"/>
 
 	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
@@ -52,34 +53,46 @@
 		</encoder>
 	</appender>
 
-	<logger name="org.springframework" additivity="FALSE" level="INFO">
+	<logger name="org.springframework" additivity="FALSE" level="${logging.level.springframework}">
 		<appender-ref ref="CONSOLE"/>
 	</logger>
 
-	<logger name="org.springframework.boot.web.servlet.FilterRegistrationBean" additivity="FALSE" level="WARNING"/>
-	<logger name="org.springframework.web.web.servlet.handler.SimpleUrlHandlerMapping" additivity="FALSE" level="WARNING"/>
-	<logger name="org.springframework.web.web.servlet.handler.AbstractUrlHandlerMapping" additivity="FALSE" level="WARNING"/>
-	<logger name="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" additivity="FALSE" level="WARNING"/>
-	<logger name="org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping" additivity="FALSE" level="WARNING"/>
-	<logger name="org.springframework.boot.actuate.endpoint.jmx.EndpointMBeanExporter" additivity="FALSE" level="WARNING"/>
-
-	<logger name="liquibase" additivity="FALSE" level="INFO">
+	<logger name="org.springframework.boot.web.servlet.FilterRegistrationBean" level="${logging.level.springframeworkServlet}">
+		<appender-ref ref="CONSOLE"/>
+	</logger>
+	<logger name="org.springframework.web.web.servlet.handler.SimpleUrlHandlerMapping" level="${logging.level.springframeworkServlet}">
+		<appender-ref ref="CONSOLE"/>
+	</logger>
+	<logger name="org.springframework.web.web.servlet.handler.AbstractUrlHandlerMapping" level="${logging.level.springframeworkServlet}">
+		<appender-ref ref="CONSOLE"/>
+	</logger>
+	<logger name="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" level="${logging.level.springframeworkServlet}">
+		<appender-ref ref="CONSOLE"/>
+	</logger>
+	<logger name="org.springframework.boot.actuate.endpoint.mvc.EndpointHandlerMapping" level="${logging.level.actuator}">
+		<appender-ref ref="CONSOLE"/>
+	</logger>
+	<logger name="org.springframework.boot.actuate.endpoint.jmx.EndpointMBeanExporter" level="${logging.level.actuator}">
 		<appender-ref ref="CONSOLE"/>
 	</logger>
 
-	<logger name="com.cezarykluczynski.stapi" additivity="FALSE" level="INFO">
+	<logger name="liquibase" additivity="FALSE" level="${logging.level.liquibase}">
 		<appender-ref ref="CONSOLE"/>
 	</logger>
 
-	<logger name="com.cezarykluczynski.stapi" additivity="FALSE" level="DEBUG">
-		<appender-ref ref="ETL"/>
-	</logger>
-
-	<logger name="org.hibernate.SQL" additivity="FALSE">
+	<logger name="org.hibernate.SQL" additivity="FALSE" level="${logging.level.hibernateSql}">
 		<appender-ref ref="HIBERNATE"/>
 	</logger>
 
-	<root>
-		<appender-ref ref="FULL" level="INFO"/>
+	<logger name="com.cezarykluczynski.stapi" level="${logging.level.stapiConsole}">
+		<appender-ref ref="CONSOLE"/>
+	</logger>
+
+	<logger name="com.cezarykluczynski.stapi" additivity="FALSE" level="${logging.level.stapiEtl}">
+		<appender-ref ref="ETL"/>
+	</logger>
+
+	<root level="${logging.level.full}">
+		<appender-ref ref="FULL"/>
 	</root>
 </configuration>

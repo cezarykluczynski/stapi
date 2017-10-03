@@ -103,6 +103,15 @@ allprojects {
 		dependsOn cleanMetamodel
 	}
 
+	assemble.doFirst {
+		def customProperties = 'application-stapi-custom.properties'
+		File file = new File('server/src/main/resources/' + customProperties)
+		if (!file.exists()) {
+			logger.warn('Custom properties did not exists, empty file created.')
+			file.createNewFile()
+		}
+	}
+
 }
 
 class CleanMetamodel extends DefaultTask {

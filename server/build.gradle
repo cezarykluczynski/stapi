@@ -82,4 +82,5 @@ class CopyDocs extends DefaultTask {
 war {
 	archiveName = 'stapi.war'
 	dependsOn(copyDocs, npmBuild)
+	rootSpec.exclude '**/application-stapi-custom.properties'
 }

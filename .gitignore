@@ -3,7 +3,7 @@
 build/
 out/
 logs/
-server/src/main/resources/application-*.properties
+server/src/main/resources/application-stapi-custom.properties
 node_modules
 model/**/*_.java
 stapi.iml
