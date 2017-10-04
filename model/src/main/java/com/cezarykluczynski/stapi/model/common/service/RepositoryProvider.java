@@ -58,7 +58,8 @@ public class RepositoryProvider {
 		}
 
 		TrackedEntity trackedEntity = (TrackedEntity) clazz.getAnnotation(TrackedEntity.class);
-		return TrackedEntityType.FICTIONAL_PRIMARY.equals(trackedEntity.type()) || TrackedEntityType.REAL_WORLD_PRIMARY.equals(trackedEntity.type());
+		TrackedEntityType trackedEntityType = trackedEntity.type();
+		return TrackedEntityType.FICTIONAL_PRIMARY.equals(trackedEntityType) || TrackedEntityType.REAL_WORLD_PRIMARY.equals(trackedEntityType);
 	}
 
 }

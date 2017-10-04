@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.publishable_series.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
-import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToStardateRangeProcessor;
@@ -19,7 +19,7 @@ import java.util.List;
 public class PublishableSeriesTemplatePartsEnrichingProcessor
 		implements ItemEnrichingProcessor<EnrichablePair<List<Template.Part>, PublishableSeriesTemplate>> {
 
-	private final WikitextToCompaniesProcessor wikitextToCompaniesProcessor;
+	private final WikitextToEntitiesProcessor wikitextToEntitiesProcessor;
 
 	private final PublishableSeriesPublishedDatesEnrichingProcessor publishableSeriesPublishedDatesEnrichingProcessor;
 
@@ -30,11 +30,11 @@ public class PublishableSeriesTemplatePartsEnrichingProcessor
 	private final PublishableSeriesTemplateMiniseriesProcessor publishableSeriesTemplateMiniseriesProcessor;
 
 	@Inject
-	public PublishableSeriesTemplatePartsEnrichingProcessor(WikitextToCompaniesProcessor wikitextToCompaniesProcessor,
+	public PublishableSeriesTemplatePartsEnrichingProcessor(WikitextToEntitiesProcessor wikitextToEntitiesProcessor,
 			PublishableSeriesPublishedDatesEnrichingProcessor publishableSeriesPublishedDatesEnrichingProcessor,
 			WikitextToYearRangeProcessor wikitextToYearRangeProcessor, WikitextToStardateRangeProcessor wikitextToStardateRangeProcessor,
 			PublishableSeriesTemplateMiniseriesProcessor publishableSeriesTemplateMiniseriesProcessor) {
-		this.wikitextToCompaniesProcessor = wikitextToCompaniesProcessor;
+		this.wikitextToEntitiesProcessor = wikitextToEntitiesProcessor;
 		this.publishableSeriesPublishedDatesEnrichingProcessor = publishableSeriesPublishedDatesEnrichingProcessor;
 		this.wikitextToYearRangeProcessor = wikitextToYearRangeProcessor;
 		this.wikitextToStardateRangeProcessor = wikitextToStardateRangeProcessor;
@@ -51,7 +51,7 @@ public class PublishableSeriesTemplatePartsEnrichingProcessor
 
 			switch (key) {
 				case PublishableSeriesTemplateParameter.PUBLISHER:
-					bookSeriesTemplate.getPublishers().addAll(wikitextToCompaniesProcessor.process(value));
+					bookSeriesTemplate.getPublishers().addAll(wikitextToEntitiesProcessor.findCompanies(value));
 					break;
 				case PublishableSeriesTemplateParameter.PUBLISHED:
 					if (bookSeriesTemplate.getPublishedYearFrom() == null && bookSeriesTemplate.getPublishedYearTo() == null) {

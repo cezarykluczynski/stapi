@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.video_game.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
-import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor
 import com.cezarykluczynski.stapi.etl.reference.processor.ReferencesFromTemplatePartProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.ContentRatingsProcessor
 import com.cezarykluczynski.stapi.etl.template.video_game.dto.VideoGameTemplate
@@ -22,7 +22,7 @@ class VideoGameTemplateRelationsEnrichingProcessorTest extends Specification {
 	private static final String DEVELOPER = 'DEVELOPER'
 	private static final String GENRES = 'GENRES'
 
-	private WikitextToCompaniesProcessor wikitextToCompaniesProcessorMock
+	private WikitextToEntitiesProcessor wikitextToEntitiesProcessorMock
 
 	private VideoGameTemplatePlatformsProcessor videoGameTemplatePlatformsProcessorMock
 
@@ -35,12 +35,12 @@ class VideoGameTemplateRelationsEnrichingProcessorTest extends Specification {
 	private VideoGameTemplateRelationsEnrichingProcessor videoGameTemplateRelationsEnrichingProcessor
 
 	void setup() {
-		wikitextToCompaniesProcessorMock = Mock()
+		wikitextToEntitiesProcessorMock = Mock()
 		videoGameTemplatePlatformsProcessorMock = Mock()
 		videoGameTemplateGenresProcessorMock = Mock()
 		contentRatingsProcessorMock = Mock()
 		referencesFromTemplatePartProcessorMock = Mock()
-		videoGameTemplateRelationsEnrichingProcessor = new VideoGameTemplateRelationsEnrichingProcessor(wikitextToCompaniesProcessorMock,
+		videoGameTemplateRelationsEnrichingProcessor = new VideoGameTemplateRelationsEnrichingProcessor(wikitextToEntitiesProcessorMock,
 				videoGameTemplatePlatformsProcessorMock, videoGameTemplateGenresProcessorMock, contentRatingsProcessorMock,
 				referencesFromTemplatePartProcessorMock)
 	}
@@ -59,7 +59,7 @@ class VideoGameTemplateRelationsEnrichingProcessorTest extends Specification {
 		videoGameTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoGameTemplate, videoGameTemplate))
 
 		then:
-		1 * wikitextToCompaniesProcessorMock.process(PUBLISHER) >> Sets.newHashSet(company1, company2)
+		1 * wikitextToEntitiesProcessorMock.findCompanies(PUBLISHER) >> Lists.newArrayList(company1, company2)
 		0 * _
 		videoGameTemplate.publishers.contains company1
 		videoGameTemplate.publishers.contains company2
@@ -79,7 +79,7 @@ class VideoGameTemplateRelationsEnrichingProcessorTest extends Specification {
 		videoGameTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarVideoGameTemplate, videoGameTemplate))
 
 		then:
-		1 * wikitextToCompaniesProcessorMock.process(DEVELOPER) >> Sets.newHashSet(company1, company2)
+		1 * wikitextToEntitiesProcessorMock.findCompanies(DEVELOPER) >> Lists.newArrayList(company1, company2)
 		0 * _
 		videoGameTemplate.developers.contains company1
 		videoGameTemplate.developers.contains company2

@@ -2,8 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.comics.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
-import com.cezarykluczynski.stapi.etl.common.processor.comic_series.WikitextToComicSeriesProcessor;
-import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor;
 import com.cezarykluczynski.stapi.etl.reference.processor.ReferencesFromTemplatePartProcessor;
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate;
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplateParameter;
@@ -24,9 +23,7 @@ public class ComicsTemplatePartsEnrichingProcessor implements ItemEnrichingProce
 
 	private final ComicsTemplatePartStaffEnrichingProcessor comicsTemplatePartStaffEnrichingProcessor;
 
-	private final WikitextToCompaniesProcessor wikitextToCompaniesProcessor;
-
-	private final WikitextToComicSeriesProcessor wikitextToComicSeriesProcessor;
+	private final WikitextToEntitiesProcessor wikitextToEntitiesProcessor;
 
 	private final WikitextToYearRangeProcessor wikitextToYearRangeProcessor;
 
@@ -39,15 +36,13 @@ public class ComicsTemplatePartsEnrichingProcessor implements ItemEnrichingProce
 	private final NumberOfPartsProcessor numberOfPartsProcessor;
 
 	@Inject
-	@SuppressWarnings("ParameterNumber")
 	public ComicsTemplatePartsEnrichingProcessor(ComicsTemplatePartStaffEnrichingProcessor comicsTemplatePartStaffEnrichingProcessor,
-			WikitextToCompaniesProcessor wikitextToCompaniesProcessor, WikitextToComicSeriesProcessor wikitextToComicSeriesProcessor,
+			WikitextToEntitiesProcessor wikitextToEntitiesProcessor,
 			WikitextToYearRangeProcessor wikitextToYearRangeProcessor, WikitextToStardateRangeProcessor wikitextToStardateRangeProcessor,
 			PublishableTemplatePublishedDatesEnrichingProcessor publishableTemplatePublishedDatesEnrichingProcessor,
 			ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor, NumberOfPartsProcessor numberOfPartsProcessor) {
 		this.comicsTemplatePartStaffEnrichingProcessor = comicsTemplatePartStaffEnrichingProcessor;
-		this.wikitextToCompaniesProcessor = wikitextToCompaniesProcessor;
-		this.wikitextToComicSeriesProcessor = wikitextToComicSeriesProcessor;
+		this.wikitextToEntitiesProcessor = wikitextToEntitiesProcessor;
 		this.wikitextToYearRangeProcessor = wikitextToYearRangeProcessor;
 		this.wikitextToStardateRangeProcessor = wikitextToStardateRangeProcessor;
 		this.publishableTemplatePublishedDatesEnrichingProcessor = publishableTemplatePublishedDatesEnrichingProcessor;
@@ -70,10 +65,10 @@ public class ComicsTemplatePartsEnrichingProcessor implements ItemEnrichingProce
 					comicsTemplatePartStaffEnrichingProcessor.enrich(EnrichablePair.of(part, comicsTemplate));
 					break;
 				case ComicsTemplateParameter.PUBLISHER:
-					comicsTemplate.getPublishers().addAll(wikitextToCompaniesProcessor.process(value));
+					comicsTemplate.getPublishers().addAll(wikitextToEntitiesProcessor.findCompanies(value));
 					break;
 				case ComicsTemplateParameter.SERIES:
-					comicsTemplate.getComicSeries().addAll(wikitextToComicSeriesProcessor.process(value));
+					comicsTemplate.getComicSeries().addAll(wikitextToEntitiesProcessor.findComicSeries(value));
 					break;
 				case ComicsTemplateParameter.PUBLISHED:
 				case ComicsTemplateParameter.COVER_DATE:

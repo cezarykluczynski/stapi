@@ -2,22 +2,22 @@ package com.cezarykluczynski.stapi.etl.template.video.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplateEnrichingProcessor;
-import com.cezarykluczynski.stapi.etl.common.processor.season.WikitextToSeasonProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange;
 import com.cezarykluczynski.stapi.etl.template.common.processor.NumberOfPartsProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.RunTimeProcessor;
-import com.cezarykluczynski.stapi.etl.template.series.processor.WikitextToSeriesProcessor;
 import com.cezarykluczynski.stapi.etl.template.video.dto.EpisodesCountDTO;
 import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplate;
 import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplateParameter;
 import com.cezarykluczynski.stapi.model.season.entity.Season;
+import com.cezarykluczynski.stapi.model.series.entity.Series;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.Set;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -25,11 +25,9 @@ public class VideoTemplateContentsEnrichingProcessor implements ItemWithTemplate
 
 	private final VideoReleaseFormatProcessor videoReleaseFormatProcessor;
 
-	private final WikitextToSeriesProcessor wikitextToSeriesProcessor;
+	private final WikitextToEntitiesProcessor wikitextToEntitiesProcessor;
 
 	private final NumberOfPartsProcessor numberOfPartsProcessor;
-
-	private final WikitextToSeasonProcessor wikitextToSeasonProcessor;
 
 	private final VideoTemplateEpisodesCountProcessor videoTemplateEpisodesCountProcessor;
 
@@ -39,13 +37,12 @@ public class VideoTemplateContentsEnrichingProcessor implements ItemWithTemplate
 
 	@Inject
 	public VideoTemplateContentsEnrichingProcessor(VideoReleaseFormatProcessor videoReleaseFormatProcessor,
-			WikitextToSeriesProcessor wikitextToSeriesProcessor, NumberOfPartsProcessor numberOfPartsProcessor,
-			WikitextToSeasonProcessor wikitextToSeasonProcessor, VideoTemplateEpisodesCountProcessor videoTeplateEpisodesCountProcessor,
-			VideoTemplateYearsProcessor videoTemplateYearsProcessor, RunTimeProcessor runTimeProcessor) {
+			WikitextToEntitiesProcessor wikitextToEntitiesProcessor, NumberOfPartsProcessor numberOfPartsProcessor,
+			VideoTemplateEpisodesCountProcessor videoTeplateEpisodesCountProcessor, VideoTemplateYearsProcessor videoTemplateYearsProcessor,
+			RunTimeProcessor runTimeProcessor) {
 		this.videoReleaseFormatProcessor = videoReleaseFormatProcessor;
-		this.wikitextToSeriesProcessor = wikitextToSeriesProcessor;
+		this.wikitextToEntitiesProcessor = wikitextToEntitiesProcessor;
 		this.numberOfPartsProcessor = numberOfPartsProcessor;
-		this.wikitextToSeasonProcessor = wikitextToSeasonProcessor;
 		this.videoTemplateEpisodesCountProcessor = videoTeplateEpisodesCountProcessor;
 		this.videoTemplateYearsProcessor = videoTemplateYearsProcessor;
 		this.runTimeProcessor = runTimeProcessor;
@@ -66,14 +63,15 @@ public class VideoTemplateContentsEnrichingProcessor implements ItemWithTemplate
 					videoTemplate.setFormat(videoReleaseFormatProcessor.process(value));
 					break;
 				case VideoTemplateParameter.SERIES:
-					videoTemplate.setSeries(wikitextToSeriesProcessor.process(value));
+					List<Series> seriesList = wikitextToEntitiesProcessor.findSeries(value);
+					videoTemplate.setSeries(seriesList.isEmpty() ? null : seriesList.get(0));
 					break;
 				case VideoTemplateParameter.SEASON:
-					Set<Season> seasonSet = wikitextToSeasonProcessor.process(value);
-					int seasonSetSize = seasonSet.size();
+					List<Season> seasonList = wikitextToEntitiesProcessor.findSeasons(value);
+					int seasonSetSize = seasonList.size();
 					boolean hasNotBlankValue = StringUtils.isNotBlank(value);
 					if (seasonSetSize == 1) {
-						videoTemplate.setSeason(seasonSet.iterator().next());
+						videoTemplate.setSeason(seasonList.iterator().next());
 					} else if (hasNotBlankValue) {
 						if (seasonSetSize > 1) {
 							log.warn("More than one season found for video \"{}\", using none; value was: \"{}\"", title, value);

@@ -1,12 +1,11 @@
 package com.cezarykluczynski.stapi.etl.template.book.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
-import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor
 import com.cezarykluczynski.stapi.etl.reference.processor.ReferencesFromTemplatePartProcessor
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplate
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.book_series.dto.BookSeriesTemplate
-import com.cezarykluczynski.stapi.etl.template.book_series.processor.WikitextToBookSeriesProcessor
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange
 import com.cezarykluczynski.stapi.etl.template.common.processor.RunTimeProcessor
@@ -48,8 +47,6 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 
 	private BookTemplatePartStaffEnrichingProcessor bookTemplatePartStaffEnrichingProcessorMock
 
-	private WikitextToCompaniesProcessor wikitextToCompaniesProcessorMock
-
 	private BookTemplatePublishedDatesEnrichingProcessor bookTemplatePublishedDatesEnrichingProcessorMock
 
 	private WikitextToYearRangeProcessor wikitextToYearRangeProcessorMock
@@ -60,23 +57,21 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 
 	private RunTimeProcessor runTimeProcessorMock
 
-	private WikitextToBookSeriesProcessor wikitextToBookSeriesProcessorMock
+	private WikitextToEntitiesProcessor wikitextToEntitiesProcessorMock
 
 	private BookTemplatePartsEnrichingProcessor bookTemplatePartsEnrichingProcessor
 
 	void setup() {
 		bookTemplatePartStaffEnrichingProcessorMock = Mock()
-		wikitextToCompaniesProcessorMock = Mock()
 		bookTemplatePublishedDatesEnrichingProcessorMock = Mock()
 		wikitextToYearRangeProcessorMock = Mock()
 		wikitextToStardateRangeProcessorMock = Mock()
 		referencesFromTemplatePartProcessorMock = Mock()
 		runTimeProcessorMock = Mock()
-		wikitextToBookSeriesProcessorMock = Mock()
+		wikitextToEntitiesProcessorMock = Mock()
 		bookTemplatePartsEnrichingProcessor = new BookTemplatePartsEnrichingProcessor(bookTemplatePartStaffEnrichingProcessorMock,
-				wikitextToCompaniesProcessorMock, bookTemplatePublishedDatesEnrichingProcessorMock, wikitextToYearRangeProcessorMock,
-				wikitextToStardateRangeProcessorMock, referencesFromTemplatePartProcessorMock, runTimeProcessorMock,
-				wikitextToBookSeriesProcessorMock)
+				bookTemplatePublishedDatesEnrichingProcessorMock, wikitextToYearRangeProcessorMock, wikitextToStardateRangeProcessorMock,
+				referencesFromTemplatePartProcessorMock, runTimeProcessorMock, wikitextToEntitiesProcessorMock)
 	}
 
 	void "passes BookTemplate to BookTemplatePartStaffEnrichingProcessor when author part is found"() {
@@ -154,7 +149,7 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 		bookTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), bookTemplate))
 
 		then:
-		1 * wikitextToCompaniesProcessorMock.process(PUBLISHER) >> Sets.newHashSet(company1, company2)
+		1 * wikitextToEntitiesProcessorMock.findCompanies(PUBLISHER) >> Lists.newArrayList(company1, company2)
 		0 * _
 		bookTemplate.publishers.size() == 2
 		bookTemplate.publishers.contains company1
@@ -172,7 +167,7 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 		bookTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), bookTemplate))
 
 		then:
-		1 * wikitextToBookSeriesProcessorMock.process(SERIES) >> Sets.newHashSet(bookSeries1, bookSeries2)
+		1 * wikitextToEntitiesProcessorMock.findBookSeries(SERIES) >> Lists.newArrayList(bookSeries1, bookSeries2)
 		0 * _
 		bookTemplate.bookSeries.size() == 2
 		bookTemplate.bookSeries.contains bookSeries1
@@ -190,7 +185,7 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 		bookTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), bookTemplate))
 
 		then:
-		1 * wikitextToCompaniesProcessorMock.process(AUDIOBOOK_PUBLISHER) >> Sets.newHashSet(company1, company2)
+		1 * wikitextToEntitiesProcessorMock.findCompanies(AUDIOBOOK_PUBLISHER) >> Lists.newArrayList(company1, company2)
 		0 * _
 		bookTemplate.audiobookPublishers.size() == 2
 		bookTemplate.audiobookPublishers.contains company1

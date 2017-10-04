@@ -1,25 +1,25 @@
 package com.cezarykluczynski.stapi.etl.template.book.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
-import com.cezarykluczynski.stapi.etl.common.processor.WikitextStaffProcessor
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplate
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplateParameter
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
-import com.google.common.collect.Sets
+import com.google.common.collect.Lists
 import spock.lang.Specification
 
 class BookTemplatePartStaffEnrichingProcessorTest extends Specification {
 
 	private static final String WIKITEXT = 'WIKITEXT'
 
-	private WikitextStaffProcessor wikitextStaffProcessorMock
+	private WikitextToEntitiesProcessor wikitextToEntitiesProcessorMock
 
 	private BookTemplatePartStaffEnrichingProcessor bookTemplatePartStaffEnrichingProcessor
 
 	void setup() {
-		wikitextStaffProcessorMock = Mock()
-		bookTemplatePartStaffEnrichingProcessor = new BookTemplatePartStaffEnrichingProcessor(wikitextStaffProcessorMock)
+		wikitextToEntitiesProcessorMock = Mock()
+		bookTemplatePartStaffEnrichingProcessor = new BookTemplatePartStaffEnrichingProcessor(wikitextToEntitiesProcessorMock)
 	}
 
 	void "gets authors from wikitext"() {
@@ -33,7 +33,7 @@ class BookTemplatePartStaffEnrichingProcessorTest extends Specification {
 		bookTemplatePartStaffEnrichingProcessor.enrich(EnrichablePair.of(templatePart, bookTemplate))
 
 		then:
-		1 * wikitextStaffProcessorMock.process(WIKITEXT) >> Sets.newHashSet(staff1, staff2)
+		1 * wikitextToEntitiesProcessorMock.findStaff(WIKITEXT) >> Lists.newArrayList(staff1, staff2)
 		0 * _
 		bookTemplate.authors.size() == 2
 		bookTemplate.authors.contains staff1
@@ -54,7 +54,7 @@ class BookTemplatePartStaffEnrichingProcessorTest extends Specification {
 		bookTemplatePartStaffEnrichingProcessor.enrich(EnrichablePair.of(templatePart, bookTemplate))
 
 		then:
-		1 * wikitextStaffProcessorMock.process(WIKITEXT) >> Sets.newHashSet(staff1, staff2)
+		1 * wikitextToEntitiesProcessorMock.findStaff(WIKITEXT) >> Lists.newArrayList(staff1, staff2)
 		0 * _
 		bookTemplate.artists.size() == 2
 		bookTemplate.artists.contains staff1
@@ -75,7 +75,7 @@ class BookTemplatePartStaffEnrichingProcessorTest extends Specification {
 		bookTemplatePartStaffEnrichingProcessor.enrich(EnrichablePair.of(templatePart, bookTemplate))
 
 		then:
-		1 * wikitextStaffProcessorMock.process(WIKITEXT) >> Sets.newHashSet(staff1, staff2)
+		1 * wikitextToEntitiesProcessorMock.findStaff(WIKITEXT) >> Lists.newArrayList(staff1, staff2)
 		0 * _
 		bookTemplate.editors.size() == 2
 		bookTemplate.editors.contains staff1
@@ -96,7 +96,7 @@ class BookTemplatePartStaffEnrichingProcessorTest extends Specification {
 		bookTemplatePartStaffEnrichingProcessor.enrich(EnrichablePair.of(templatePart, bookTemplate))
 
 		then:
-		1 * wikitextStaffProcessorMock.process(WIKITEXT) >> Sets.newHashSet(staff1, staff2)
+		1 * wikitextToEntitiesProcessorMock.findStaff(WIKITEXT) >> Lists.newArrayList(staff1, staff2)
 		0 * _
 		bookTemplate.audiobookNarrators.size() == 2
 		bookTemplate.audiobookNarrators.contains staff1
@@ -116,7 +116,7 @@ class BookTemplatePartStaffEnrichingProcessorTest extends Specification {
 		bookTemplatePartStaffEnrichingProcessor.enrich(EnrichablePair.of(templatePart, bookTemplate))
 
 		then:
-		1 * wikitextStaffProcessorMock.process(WIKITEXT) >> Sets.newHashSet(staff1)
+		1 * wikitextToEntitiesProcessorMock.findStaff(WIKITEXT) >> Lists.newArrayList(staff1)
 		0 * _
 		bookTemplate.authors.empty
 		bookTemplate.artists.empty

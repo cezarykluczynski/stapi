@@ -1,8 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.comics.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
-import com.cezarykluczynski.stapi.etl.common.processor.comic_series.WikitextToComicSeriesProcessor
-import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor
 import com.cezarykluczynski.stapi.etl.reference.processor.ReferencesFromTemplatePartProcessor
 import com.cezarykluczynski.stapi.etl.template.comic_series.dto.ComicSeriesTemplate
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate
@@ -41,9 +40,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 
 	private ComicsTemplatePartStaffEnrichingProcessor comicsTemplatePartStaffEnrichingProcessorMock
 
-	private WikitextToCompaniesProcessor wikitextToCompaniesProcessorMock
-
-	private WikitextToComicSeriesProcessor wikitextToComicSeriesProcessorMock
+	private WikitextToEntitiesProcessor wikitextToEntitiesProcessorMock
 
 	private WikitextToYearRangeProcessor wikitextToYearRangeProcessorMock
 
@@ -59,17 +56,15 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void setup() {
 		comicsTemplatePartStaffEnrichingProcessorMock = Mock()
-		wikitextToCompaniesProcessorMock = Mock()
-		wikitextToComicSeriesProcessorMock = Mock()
+		wikitextToEntitiesProcessorMock = Mock()
 		wikitextToYearRangeProcessorMock = Mock()
 		wikitextToStardateRangeProcessorMock = Mock()
 		publishableTemplatePublishedDatesEnrichingProcessorMock = Mock()
 		referencesFromTemplatePartProcessorMock = Mock()
 		numberOfPartsProcessorMock = Mock()
 		comicsTemplatePartsEnrichingProcessor = new ComicsTemplatePartsEnrichingProcessor(comicsTemplatePartStaffEnrichingProcessorMock,
-				wikitextToCompaniesProcessorMock, wikitextToComicSeriesProcessorMock, wikitextToYearRangeProcessorMock,
-				wikitextToStardateRangeProcessorMock, publishableTemplatePublishedDatesEnrichingProcessorMock,
-				referencesFromTemplatePartProcessorMock, numberOfPartsProcessorMock)
+				wikitextToEntitiesProcessorMock, wikitextToYearRangeProcessorMock, wikitextToStardateRangeProcessorMock,
+				publishableTemplatePublishedDatesEnrichingProcessorMock, referencesFromTemplatePartProcessorMock, numberOfPartsProcessorMock)
 	}
 
 	void "passes ComicsTemplate to ComicsTemplatePartStaffEnrichingProcessor when writer part is found"() {
@@ -134,7 +129,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 		comicsTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicsTemplate))
 
 		then:
-		1 * wikitextToCompaniesProcessorMock.process(PUBLISHER) >> Sets.newHashSet(company1, company2)
+		1 * wikitextToEntitiesProcessorMock.findCompanies(PUBLISHER) >> Lists.newArrayList(company1, company2)
 		0 * _
 		comicsTemplate.publishers.size() == 2
 		comicsTemplate.publishers.contains company1
@@ -152,7 +147,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 		comicsTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicsTemplate))
 
 		then:
-		1 * wikitextToComicSeriesProcessorMock.process(SERIES) >> Sets.newHashSet(comicSeries1, comicSeries2)
+		1 * wikitextToEntitiesProcessorMock.findComicSeries(SERIES) >> Lists.newArrayList(comicSeries1, comicSeries2)
 		0 * _
 		comicsTemplate.comicSeries.size() == 2
 		comicsTemplate.comicSeries.contains comicSeries1

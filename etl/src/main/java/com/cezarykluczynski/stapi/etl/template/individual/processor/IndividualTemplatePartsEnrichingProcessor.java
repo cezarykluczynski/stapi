@@ -5,8 +5,7 @@ import com.cezarykluczynski.stapi.etl.character.common.dto.CharacterRelationsMap
 import com.cezarykluczynski.stapi.etl.character.common.service.CharactersRelationsCache;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
-import com.cezarykluczynski.stapi.etl.common.processor.organization.WikitextToOrganizationsProcessor;
-import com.cezarykluczynski.stapi.etl.common.processor.title.WikitextToTitlesProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor;
 import com.cezarykluczynski.stapi.etl.template.character.dto.CharacterTemplate;
 import com.cezarykluczynski.stapi.etl.template.character.processor.CharacterTemplateActorLinkingEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.MaritalStatusProcessor;
@@ -28,9 +27,7 @@ public class IndividualTemplatePartsEnrichingProcessor implements ItemEnrichingP
 
 	private final PartToGenderProcessor partToGenderProcessor;
 
-	private final WikitextToOrganizationsProcessor wikitextToOrganizationsProcessor;
-
-	private final WikitextToTitlesProcessor wikitextToTitlesProcessor;
+	private final WikitextToEntitiesProcessor wikitextToEntitiesProcessor;
 
 	private final IndividualLifeBoundaryProcessor individualLifeBoundaryProcessor;
 
@@ -51,15 +48,13 @@ public class IndividualTemplatePartsEnrichingProcessor implements ItemEnrichingP
 	@Inject
 	@SuppressWarnings("ParameterNumber")
 	public IndividualTemplatePartsEnrichingProcessor(PartToGenderProcessor partToGenderProcessor,
-			WikitextToOrganizationsProcessor wikitextToOrganizationsProcessor, WikitextToTitlesProcessor wikitextToTitlesProcessor,
-			IndividualLifeBoundaryProcessor individualLifeBoundaryProcessor,
+			WikitextToEntitiesProcessor wikitextToEntitiesProcessor, IndividualLifeBoundaryProcessor individualLifeBoundaryProcessor,
 			CharacterTemplateActorLinkingEnrichingProcessor characterTemplateActorLinkingEnrichingProcessor,
 			IndividualHeightProcessor individualHeightProcessor, IndividualWeightProcessor individualWeightProcessor,
 			IndividualBloodTypeProcessor individualBloodTypeProcessor, CharactersRelationsCache charactersRelationsCache,
 			MaritalStatusProcessor maritalStatusProcessor, CharacterSpeciesWikitextProcessor characterSpeciesWikitextProcessor) {
 		this.partToGenderProcessor = partToGenderProcessor;
-		this.wikitextToOrganizationsProcessor = wikitextToOrganizationsProcessor;
-		this.wikitextToTitlesProcessor = wikitextToTitlesProcessor;
+		this.wikitextToEntitiesProcessor = wikitextToEntitiesProcessor;
 		this.individualLifeBoundaryProcessor = individualLifeBoundaryProcessor;
 		this.characterTemplateActorLinkingEnrichingProcessor = characterTemplateActorLinkingEnrichingProcessor;
 		this.individualHeightProcessor = individualHeightProcessor;
@@ -84,10 +79,10 @@ public class IndividualTemplatePartsEnrichingProcessor implements ItemEnrichingP
 					characterTemplate.setGender(partToGenderProcessor.process(part));
 					break;
 				case IndividualTemplateParameter.AFFILIATION:
-					characterTemplate.getOrganizations().addAll(wikitextToOrganizationsProcessor.process(value));
+					characterTemplate.getOrganizations().addAll(wikitextToEntitiesProcessor.findOrganizations(value));
 					break;
 				case IndividualTemplateParameter.RANK:
-					characterTemplate.getTitles().addAll(wikitextToTitlesProcessor.process(value));
+					characterTemplate.getTitles().addAll(wikitextToEntitiesProcessor.findTitles(value));
 					break;
 				case IndividualTemplateParameter.ACTOR:
 					characterTemplateActorLinkingEnrichingProcessor.enrich(EnrichablePair.of(value, characterTemplate));

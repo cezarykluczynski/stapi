@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.magazine_series.processor;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
-import com.cezarykluczynski.stapi.etl.common.processor.WikitextStaffProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.MonthYear;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.MonthYearRange;
 import com.cezarykluczynski.stapi.etl.template.common.processor.NumberOfPartsProcessor;
@@ -24,7 +24,7 @@ public class MagazineSeriesTemplatePartsEnrichingProcessor
 
 	private final NumberOfPartsProcessor numberOfPartsProcessor;
 
-	private final WikitextStaffProcessor wikitextStaffProcessor;
+	private final WikitextToEntitiesProcessor wikitextToEntitiesProcessor;
 
 	private final MagazineSeriesPublicationDatesFixedValueProvider magazineSeriesPublicationDatesFixedValueProvider;
 
@@ -33,12 +33,12 @@ public class MagazineSeriesTemplatePartsEnrichingProcessor
 	@Inject
 	public MagazineSeriesTemplatePartsEnrichingProcessor(PublishableSeriesTemplatePartsEnrichingProcessor
 			publishableSeriesTemplatePartsEnrichingProcessor, NumberOfPartsProcessor numberOfPartsProcessor,
-			WikitextStaffProcessor wikitextStaffProcessor,
+			WikitextToEntitiesProcessor wikitextToEntitiesProcessor,
 			MagazineSeriesPublicationDatesFixedValueProvider magazineSeriesPublicationDatesFixedValueProvider,
 			MagazineSeriesNumberOfIssuesFixedValueProvider magazineSeriesNumberOfIssuesFixedValueProvider) {
 		this.publishableSeriesTemplatePartsEnrichingProcessor = publishableSeriesTemplatePartsEnrichingProcessor;
 		this.numberOfPartsProcessor = numberOfPartsProcessor;
-		this.wikitextStaffProcessor = wikitextStaffProcessor;
+		this.wikitextToEntitiesProcessor = wikitextToEntitiesProcessor;
 		this.magazineSeriesPublicationDatesFixedValueProvider = magazineSeriesPublicationDatesFixedValueProvider;
 		this.magazineSeriesNumberOfIssuesFixedValueProvider = magazineSeriesNumberOfIssuesFixedValueProvider;
 	}
@@ -60,7 +60,7 @@ public class MagazineSeriesTemplatePartsEnrichingProcessor
 					}
 					break;
 				case MagazineSeriesTemplateParameter.EDITOR:
-					magazineSeriesTemplate.getEditors().addAll(wikitextStaffProcessor.process(value));
+					magazineSeriesTemplate.getEditors().addAll(wikitextToEntitiesProcessor.findStaff(value));
 					break;
 				default:
 					break;

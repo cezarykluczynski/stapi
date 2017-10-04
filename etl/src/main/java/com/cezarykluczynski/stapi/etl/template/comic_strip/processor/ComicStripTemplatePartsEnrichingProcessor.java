@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.comic_strip.processor;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.dto.Range;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
-import com.cezarykluczynski.stapi.etl.common.processor.comic_series.WikitextToComicSeriesProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor;
 import com.cezarykluczynski.stapi.etl.template.comic_strip.dto.ComicStripTemplate;
 import com.cezarykluczynski.stapi.etl.template.comic_strip.dto.ComicStripTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear;
@@ -22,7 +22,7 @@ public class ComicStripTemplatePartsEnrichingProcessor implements ItemEnrichingP
 
 	private final ComicStripTemplatePartStaffEnrichingProcessor comicStripTemplatePartStaffEnrichingProcessor;
 
-	private final WikitextToComicSeriesProcessor wikitextToComicSeriesProcessor;
+	private final WikitextToEntitiesProcessor wikitextToEntitiesProcessor;
 
 	private final DayMonthYearRangeProcessor dayMonthYearRangeProcessor;
 
@@ -32,11 +32,11 @@ public class ComicStripTemplatePartsEnrichingProcessor implements ItemEnrichingP
 
 	@Inject
 	public ComicStripTemplatePartsEnrichingProcessor(ComicStripTemplatePartStaffEnrichingProcessor comicStripTemplatePartStaffEnrichingProcessor,
-			WikitextToComicSeriesProcessor wikitextToComicSeriesProcessor, DayMonthYearRangeProcessor dayMonthYearRangeProcessor,
+			WikitextToEntitiesProcessor wikitextToEntitiesProcessor, DayMonthYearRangeProcessor dayMonthYearRangeProcessor,
 			ComicStripTemplateDayMonthYearRangeEnrichingProcessor comicStripTemplateDayMonthYearRangeEnrichingProcessor,
 			WikitextToYearRangeProcessor wikitextToYearRangeProcessor) {
 		this.comicStripTemplatePartStaffEnrichingProcessor = comicStripTemplatePartStaffEnrichingProcessor;
-		this.wikitextToComicSeriesProcessor = wikitextToComicSeriesProcessor;
+		this.wikitextToEntitiesProcessor = wikitextToEntitiesProcessor;
 		this.dayMonthYearRangeProcessor = dayMonthYearRangeProcessor;
 		this.comicStripTemplateDayMonthYearRangeEnrichingProcessor = comicStripTemplateDayMonthYearRangeEnrichingProcessor;
 		this.wikitextToYearRangeProcessor = wikitextToYearRangeProcessor;
@@ -59,7 +59,7 @@ public class ComicStripTemplatePartsEnrichingProcessor implements ItemEnrichingP
 					comicStripTemplate.setPeriodical(value.replaceAll("'", ""));
 					break;
 				case ComicStripTemplateParameter.SERIES:
-					comicStripTemplate.getComicSeries().addAll(wikitextToComicSeriesProcessor.process(value));
+					comicStripTemplate.getComicSeries().addAll(wikitextToEntitiesProcessor.findComicSeries(value));
 					break;
 				case ComicStripTemplateParameter.PUBLISHED:
 					Range<DayMonthYear> dayMonthYearRange = dayMonthYearRangeProcessor.process(part);

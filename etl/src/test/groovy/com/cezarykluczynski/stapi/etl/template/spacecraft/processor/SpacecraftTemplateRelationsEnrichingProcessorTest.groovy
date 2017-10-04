@@ -1,8 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.spacecraft.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
-import com.cezarykluczynski.stapi.etl.common.processor.organization.WikitextToOrganizationsProcessor
-import com.cezarykluczynski.stapi.etl.common.processor.spacecraft_class.WikitextToSpacecraftClassesProcessor
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor
 import com.cezarykluczynski.stapi.etl.template.spacecraft.dto.SpacecraftTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplate
 import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplateParameter
@@ -19,20 +18,17 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 	private static final String OPERATOR = 'OPERATOR'
 	private static final String CLASS = 'CLASS'
 
-	private WikitextToOrganizationsProcessor wikitextToOrganizationsProcessorMock
-
-	private WikitextToSpacecraftClassesProcessor wikitextToSpacecraftClassesProcessorMock
+	private WikitextToEntitiesProcessor wikitextToEntitiesProcessorMock
 
 	private ClassTemplateSpacecraftClassesProcessor classTemplateSpacecraftClassesProcessorMock
 
 	private SpacecraftTemplateRelationsEnrichingProcessor spacecraftTemplateRelationsEnrichingProcessor
 
 	void setup() {
-		wikitextToOrganizationsProcessorMock = Mock()
-		wikitextToSpacecraftClassesProcessorMock = Mock()
+		wikitextToEntitiesProcessorMock = Mock()
 		classTemplateSpacecraftClassesProcessorMock = Mock()
-		spacecraftTemplateRelationsEnrichingProcessor = new SpacecraftTemplateRelationsEnrichingProcessor(wikitextToOrganizationsProcessorMock,
-				wikitextToSpacecraftClassesProcessorMock, classTemplateSpacecraftClassesProcessorMock)
+		spacecraftTemplateRelationsEnrichingProcessor = new SpacecraftTemplateRelationsEnrichingProcessor(wikitextToEntitiesProcessorMock,
+				classTemplateSpacecraftClassesProcessorMock)
 	}
 
 	void "when owner part is found, and WikitextToOrganizationsProcessor returns no items, nothing happens"() {
@@ -46,7 +42,7 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 		spacecraftTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipTemplate, starshipTemplate))
 
 		then:
-		1 * wikitextToOrganizationsProcessorMock.process(OWNER) >> Lists.newArrayList()
+		1 * wikitextToEntitiesProcessorMock.findOrganizations(OWNER) >> Lists.newArrayList()
 		0 * _
 		starshipTemplate.owner == null
 	}
@@ -63,7 +59,7 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 		spacecraftTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipTemplate, starshipTemplate))
 
 		then:
-		1 * wikitextToOrganizationsProcessorMock.process(OWNER) >> Lists.newArrayList(organization)
+		1 * wikitextToEntitiesProcessorMock.findOrganizations(OWNER) >> Lists.newArrayList(organization)
 		0 * _
 		starshipTemplate.owner == organization
 	}
@@ -81,7 +77,7 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 		spacecraftTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipTemplate, starshipTemplate))
 
 		then:
-		1 * wikitextToOrganizationsProcessorMock.process(OWNER) >> Lists.newArrayList(organization1, organization2)
+		1 * wikitextToEntitiesProcessorMock.findOrganizations(OWNER) >> Lists.newArrayList(organization1, organization2)
 		0 * _
 		starshipTemplate.owner == organization1
 	}
@@ -97,7 +93,7 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 		spacecraftTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipTemplate, starshipTemplate))
 
 		then:
-		1 * wikitextToOrganizationsProcessorMock.process(OPERATOR) >> Lists.newArrayList()
+		1 * wikitextToEntitiesProcessorMock.findOrganizations(OPERATOR) >> Lists.newArrayList()
 		0 * _
 		starshipTemplate.operator == null
 	}
@@ -114,7 +110,7 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 		spacecraftTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipTemplate, starshipTemplate))
 
 		then:
-		1 * wikitextToOrganizationsProcessorMock.process(OPERATOR) >> Lists.newArrayList(organization)
+		1 * wikitextToEntitiesProcessorMock.findOrganizations(OPERATOR) >> Lists.newArrayList(organization)
 		0 * _
 		starshipTemplate.operator == organization
 	}
@@ -132,7 +128,7 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 		spacecraftTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipTemplate, starshipTemplate))
 
 		then:
-		1 * wikitextToOrganizationsProcessorMock.process(OPERATOR) >> Lists.newArrayList(organization1, organization2)
+		1 * wikitextToEntitiesProcessorMock.findOrganizations(OPERATOR) >> Lists.newArrayList(organization1, organization2)
 		0 * _
 		starshipTemplate.operator == organization1
 	}
@@ -150,7 +146,7 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 		spacecraftTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipTemplate, starshipTemplate))
 
 		then:
-		1 * wikitextToSpacecraftClassesProcessorMock.process(CLASS) >> Lists.newArrayList(spacecraftClass1, spacecraftClass2)
+		1 * wikitextToEntitiesProcessorMock.findSpacecraftClasses(CLASS) >> Lists.newArrayList(spacecraftClass1, spacecraftClass2)
 		0 * _
 		starshipTemplate.spacecraftClass == spacecraftClass1
 	}
@@ -167,7 +163,7 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 		spacecraftTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipTemplate, starshipTemplate))
 
 		then:
-		1 * wikitextToSpacecraftClassesProcessorMock.process(CLASS) >> Lists.newArrayList(spacecraftClass)
+		1 * wikitextToEntitiesProcessorMock.findSpacecraftClasses(CLASS) >> Lists.newArrayList(spacecraftClass)
 		0 * _
 		starshipTemplate.spacecraftClass == spacecraftClass
 	}
@@ -187,7 +183,7 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 		spacecraftTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipTemplate, starshipTemplate))
 
 		then:
-		1 * wikitextToSpacecraftClassesProcessorMock.process(CLASS) >> Lists.newArrayList()
+		1 * wikitextToEntitiesProcessorMock.findSpacecraftClasses(CLASS) >> Lists.newArrayList()
 		1 * classTemplateSpacecraftClassesProcessorMock.process(templatePart) >> Lists.newArrayList(spacecraftClass)
 		0 * _
 		starshipTemplate.spacecraftClass == spacecraftClass
@@ -209,7 +205,7 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 		spacecraftTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipTemplate, starshipTemplate))
 
 		then:
-		1 * wikitextToSpacecraftClassesProcessorMock.process(CLASS) >> Lists.newArrayList()
+		1 * wikitextToEntitiesProcessorMock.findSpacecraftClasses(CLASS) >> Lists.newArrayList()
 		1 * classTemplateSpacecraftClassesProcessorMock.process(templatePart) >> Lists.newArrayList(spacecraftClass1, spacecraftClass2)
 		0 * _
 		starshipTemplate.spacecraftClass == spacecraftClass1
@@ -229,7 +225,7 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 		spacecraftTemplateRelationsEnrichingProcessor.enrich(EnrichablePair.of(sidebarStarshipTemplate, starshipTemplate))
 
 		then:
-		1 * wikitextToSpacecraftClassesProcessorMock.process(CLASS) >> Lists.newArrayList()
+		1 * wikitextToEntitiesProcessorMock.findSpacecraftClasses(CLASS) >> Lists.newArrayList()
 		1 * classTemplateSpacecraftClassesProcessorMock.process(templatePart) >> Lists.newArrayList()
 		0 * _
 		starshipTemplate.spacecraftClass == null

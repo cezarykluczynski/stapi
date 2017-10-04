@@ -1,18 +1,14 @@
 package com.cezarykluczynski.stapi.etl.common.processor.character;
 
-import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService;
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor;
 import com.cezarykluczynski.stapi.etl.common.service.PageSectionExtractor;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection;
-import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.google.common.collect.Sets;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.List;
 import java.util.Set;
 
 @Service
@@ -23,31 +19,20 @@ public class WikitextSectionsCharactersProcessor implements ItemProcessor<Page, 
 
 	private final PageSectionExtractor pageSectionExtractor;
 
-	private final WikitextApi wikitextApi;
-
-	private final EntityLookupByNameService entityLookupByNameService;
+	private final WikitextToEntitiesProcessor wikitextToEntitiesProcessor;
 
 	@Inject
-	public WikitextSectionsCharactersProcessor(PageSectionExtractor pageSectionExtractor, WikitextApi wikitextApi,
-			EntityLookupByNameService entityLookupByNameService) {
+	public WikitextSectionsCharactersProcessor(PageSectionExtractor pageSectionExtractor, WikitextToEntitiesProcessor wikitextToEntitiesProcessor) {
 		this.pageSectionExtractor = pageSectionExtractor;
-		this.wikitextApi = wikitextApi;
-		this.entityLookupByNameService = entityLookupByNameService;
+		this.wikitextToEntitiesProcessor = wikitextToEntitiesProcessor;
 	}
 
 	@Override
 	public Set<Character> process(Page page) throws Exception {
 		Set<Character> characters = Sets.newHashSet();
 
-		List<PageSection> charactersPageSectionList = pageSectionExtractor.findByTitlesIncludingSubsections(page, CHARACTERS, REGULAR_CAST);
-
-		charactersPageSectionList.forEach(wikitextList -> {
-			List<String> pageTitleList = wikitextApi.getPageTitlesFromWikitext(wikitextList.getWikitext());
-
-			pageTitleList.forEach(pageTitle -> entityLookupByNameService
-					.findCharacterByName(pageTitle, MediaWikiSource.MEMORY_ALPHA_EN)
-					.ifPresent(characters::add));
-		});
+		pageSectionExtractor.findByTitlesIncludingSubsections(page, CHARACTERS, REGULAR_CAST)
+				.forEach(wikitextList -> characters.addAll(wikitextToEntitiesProcessor.findCharacters(wikitextList.getWikitext())));
 
 		return characters;
 	}

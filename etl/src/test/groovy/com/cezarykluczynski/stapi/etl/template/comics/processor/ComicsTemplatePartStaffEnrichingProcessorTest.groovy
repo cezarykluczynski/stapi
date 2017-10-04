@@ -1,25 +1,25 @@
 package com.cezarykluczynski.stapi.etl.template.comics.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
-import com.cezarykluczynski.stapi.etl.common.processor.WikitextStaffProcessor
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplateParameter
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
-import com.google.common.collect.Sets
+import com.google.common.collect.Lists
 import spock.lang.Specification
 
 class ComicsTemplatePartStaffEnrichingProcessorTest extends Specification {
 
 	private static final String WIKITEXT = 'WIKITEXT'
 
-	private WikitextStaffProcessor wikitextStaffProcessorMock
+	private WikitextToEntitiesProcessor wikitextToEntitiesProcessorMock
 
 	private ComicsTemplatePartStaffEnrichingProcessor comicsTemplatePartStaffEnrichingProcessor
 
 	void setup() {
-		wikitextStaffProcessorMock = Mock()
-		comicsTemplatePartStaffEnrichingProcessor = new ComicsTemplatePartStaffEnrichingProcessor(wikitextStaffProcessorMock)
+		wikitextToEntitiesProcessorMock = Mock()
+		comicsTemplatePartStaffEnrichingProcessor = new ComicsTemplatePartStaffEnrichingProcessor(wikitextToEntitiesProcessorMock)
 	}
 
 	void "gets writers from wikitext"() {
@@ -33,7 +33,7 @@ class ComicsTemplatePartStaffEnrichingProcessorTest extends Specification {
 		comicsTemplatePartStaffEnrichingProcessor.enrich(EnrichablePair.of(templatePart, comicsTemplate))
 
 		then:
-		1 * wikitextStaffProcessorMock.process(WIKITEXT) >> Sets.newHashSet(staff1, staff2)
+		1 * wikitextToEntitiesProcessorMock.findStaff(WIKITEXT) >> Lists.newArrayList(staff1, staff2)
 		0 * _
 		comicsTemplate.writers.size() == 2
 		comicsTemplate.writers.contains staff1
@@ -54,7 +54,7 @@ class ComicsTemplatePartStaffEnrichingProcessorTest extends Specification {
 		comicsTemplatePartStaffEnrichingProcessor.enrich(EnrichablePair.of(templatePart, comicsTemplate))
 
 		then:
-		1 * wikitextStaffProcessorMock.process(WIKITEXT) >> Sets.newHashSet(staff1, staff2)
+		1 * wikitextToEntitiesProcessorMock.findStaff(WIKITEXT) >> Lists.newArrayList(staff1, staff2)
 		0 * _
 		comicsTemplate.artists.size() == 2
 		comicsTemplate.artists.contains staff1
@@ -75,7 +75,7 @@ class ComicsTemplatePartStaffEnrichingProcessorTest extends Specification {
 		comicsTemplatePartStaffEnrichingProcessor.enrich(EnrichablePair.of(templatePart, comicsTemplate))
 
 		then:
-		1 * wikitextStaffProcessorMock.process(WIKITEXT) >> Sets.newHashSet(staff1, staff2)
+		1 * wikitextToEntitiesProcessorMock.findStaff(WIKITEXT) >> Lists.newArrayList(staff1, staff2)
 		0 * _
 		comicsTemplate.editors.size() == 2
 		comicsTemplate.editors.contains staff1
@@ -95,7 +95,7 @@ class ComicsTemplatePartStaffEnrichingProcessorTest extends Specification {
 		comicsTemplatePartStaffEnrichingProcessor.enrich(EnrichablePair.of(templatePart, comicsTemplate))
 
 		then:
-		1 * wikitextStaffProcessorMock.process(WIKITEXT) >> Sets.newHashSet(staff1)
+		1 * wikitextToEntitiesProcessorMock.findStaff(WIKITEXT) >> Lists.newArrayList(staff1)
 		0 * _
 		comicsTemplate.editors.empty
 		comicsTemplate.writers.empty

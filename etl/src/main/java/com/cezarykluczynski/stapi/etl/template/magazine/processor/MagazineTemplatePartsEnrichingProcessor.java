@@ -3,9 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.magazine.processor;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
-import com.cezarykluczynski.stapi.etl.common.processor.WikitextStaffProcessor;
-import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor;
-import com.cezarykluczynski.stapi.etl.common.processor.magazine_series.WikitextToMagazineSeriesProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor;
 import com.cezarykluczynski.stapi.etl.magazine.creation.processor.MagazineTemplateNumberOfPagesFixedValueProvider;
 import com.cezarykluczynski.stapi.etl.magazine.creation.processor.MagazineTemplatePublicationDatesFixedValueProvider;
 import com.cezarykluczynski.stapi.etl.template.book.dto.ReferenceBookTemplateParameter;
@@ -26,13 +24,9 @@ import java.util.List;
 @Slf4j
 public class MagazineTemplatePartsEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<List<Template.Part>, MagazineTemplate>> {
 
-	private final WikitextToMagazineSeriesProcessor wikitextToMagazineSeriesProcessor;
-
 	private final NumberOfPartsProcessor numberOfPartsProcessor;
 
-	private final WikitextToCompaniesProcessor wikitextToCompaniesProcessor;
-
-	private final WikitextStaffProcessor wikitextStaffProcessor;
+	private final WikitextToEntitiesProcessor wikitextToEntitiesProcessor;
 
 	private final PublishableTemplatePublishedDatesEnrichingProcessor publishableTemplatePublishedDatesEnrichingProcessor;
 
@@ -41,16 +35,13 @@ public class MagazineTemplatePartsEnrichingProcessor implements ItemEnrichingPro
 	private final MagazineTemplateNumberOfPagesFixedValueProvider magazineTemplateNumberOfPagesFixedValueProvider;
 
 	@Inject
-	public MagazineTemplatePartsEnrichingProcessor(WikitextToMagazineSeriesProcessor wikitextToMagazineSeriesProcessor,
-			NumberOfPartsProcessor numberOfPartsProcessor, WikitextToCompaniesProcessor wikitextToCompaniesProcessor,
-			WikitextStaffProcessor wikitextStaffProcessor,
+	public MagazineTemplatePartsEnrichingProcessor(NumberOfPartsProcessor numberOfPartsProcessor,
+			WikitextToEntitiesProcessor wikitextToEntitiesProcessor,
 			PublishableTemplatePublishedDatesEnrichingProcessor publishableTemplatePublishedDatesEnrichingProcessor,
 			MagazineTemplatePublicationDatesFixedValueProvider magazineTemplatePublicationDatesFixedValueProvider,
 			MagazineTemplateNumberOfPagesFixedValueProvider magazineTemplateNumberOfPagesFixedValueProvider) {
-		this.wikitextToMagazineSeriesProcessor = wikitextToMagazineSeriesProcessor;
 		this.numberOfPartsProcessor = numberOfPartsProcessor;
-		this.wikitextToCompaniesProcessor = wikitextToCompaniesProcessor;
-		this.wikitextStaffProcessor = wikitextStaffProcessor;
+		this.wikitextToEntitiesProcessor = wikitextToEntitiesProcessor;
 		this.publishableTemplatePublishedDatesEnrichingProcessor = publishableTemplatePublishedDatesEnrichingProcessor;
 		this.magazineTemplatePublicationDatesFixedValueProvider = magazineTemplatePublicationDatesFixedValueProvider;
 		this.magazineTemplateNumberOfPagesFixedValueProvider = magazineTemplateNumberOfPagesFixedValueProvider;
@@ -66,16 +57,16 @@ public class MagazineTemplatePartsEnrichingProcessor implements ItemEnrichingPro
 
 			switch (key) {
 				case MagazineTemplateParameter.PUBLICATION:
-					magazineTemplate.getMagazineSeries().addAll(wikitextToMagazineSeriesProcessor.process(value));
+					magazineTemplate.getMagazineSeries().addAll(wikitextToEntitiesProcessor.findMagazineSeries(value));
 					break;
 				case MagazineTemplateParameter.ISSUE:
 					magazineTemplate.setIssueNumber(value);
 					break;
 				case MagazineTemplateParameter.PUBLISHER:
-					magazineTemplate.getPublishers().addAll(wikitextToCompaniesProcessor.process(value));
+					magazineTemplate.getPublishers().addAll(wikitextToEntitiesProcessor.findCompanies(value));
 					break;
 				case MagazineTemplateParameter.EDITOR:
-					magazineTemplate.getEditors().addAll(wikitextStaffProcessor.process(value));
+					magazineTemplate.getEditors().addAll(wikitextToEntitiesProcessor.findStaff(value));
 					break;
 				case MagazineTemplateParameter.RELEASED:
 				case MagazineTemplateParameter.COVER_DATE:

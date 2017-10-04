@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.video_game.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplateEnrichingProcessor;
-import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor;
 import com.cezarykluczynski.stapi.etl.reference.processor.ReferencesFromTemplatePartProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.ContentRatingsProcessor;
 import com.cezarykluczynski.stapi.etl.template.video_game.dto.VideoGameTemplate;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 class VideoGameTemplateRelationsEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<VideoGameTemplate> {
 
-	private final WikitextToCompaniesProcessor wikitextToCompaniesProcessor;
+	private final WikitextToEntitiesProcessor wikitextToEntitiesProcessor;
 
 	private final VideoGameTemplatePlatformsProcessor videoGameTemplatePlatformsProcessor;
 
@@ -23,11 +23,11 @@ class VideoGameTemplateRelationsEnrichingProcessor implements ItemWithTemplateEn
 
 	private final ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor;
 
-	public VideoGameTemplateRelationsEnrichingProcessor(WikitextToCompaniesProcessor wikitextToCompaniesProcessor,
+	public VideoGameTemplateRelationsEnrichingProcessor(WikitextToEntitiesProcessor wikitextToEntitiesProcessor,
 			VideoGameTemplatePlatformsProcessor videoGameTemplatePlatformsProcessor,
 			VideoGameTemplateGenresProcessor videoGameTemplateGenresProcessor, ContentRatingsProcessor contentRatingsProcessor,
 			ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor) {
-		this.wikitextToCompaniesProcessor = wikitextToCompaniesProcessor;
+		this.wikitextToEntitiesProcessor = wikitextToEntitiesProcessor;
 		this.videoGameTemplatePlatformsProcessor = videoGameTemplatePlatformsProcessor;
 		this.videoGameTemplateGenresProcessor = videoGameTemplateGenresProcessor;
 		this.contentRatingsProcessor = contentRatingsProcessor;
@@ -45,10 +45,10 @@ class VideoGameTemplateRelationsEnrichingProcessor implements ItemWithTemplateEn
 
 			switch (key) {
 				case VideoGameTemplateParameter.PUBLISHER:
-					videoGameTemplate.getPublishers().addAll(wikitextToCompaniesProcessor.process(value));
+					videoGameTemplate.getPublishers().addAll(wikitextToEntitiesProcessor.findCompanies(value));
 					break;
 				case VideoGameTemplateParameter.DEVELOPER:
-					videoGameTemplate.getDevelopers().addAll(wikitextToCompaniesProcessor.process(value));
+					videoGameTemplate.getDevelopers().addAll(wikitextToEntitiesProcessor.findCompanies(value));
 					break;
 				case VideoGameTemplateParameter.PLATFORM:
 					videoGameTemplate.getPlatforms().addAll(videoGameTemplatePlatformsProcessor.process(part));

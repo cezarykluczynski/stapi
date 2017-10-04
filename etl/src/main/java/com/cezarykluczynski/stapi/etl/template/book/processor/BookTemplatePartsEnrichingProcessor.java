@@ -2,12 +2,11 @@ package com.cezarykluczynski.stapi.etl.template.book.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
-import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor;
 import com.cezarykluczynski.stapi.etl.reference.processor.ReferencesFromTemplatePartProcessor;
 import com.cezarykluczynski.stapi.etl.template.audio.dto.AudioTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplate;
 import com.cezarykluczynski.stapi.etl.template.book.dto.BookTemplateParameter;
-import com.cezarykluczynski.stapi.etl.template.book_series.processor.WikitextToBookSeriesProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange;
 import com.cezarykluczynski.stapi.etl.template.common.processor.RunTimeProcessor;
@@ -28,8 +27,6 @@ public class BookTemplatePartsEnrichingProcessor implements ItemEnrichingProcess
 
 	private final BookTemplatePartStaffEnrichingProcessor bookTemplatePartStaffEnrichingProcessor;
 
-	private final WikitextToCompaniesProcessor wikitextToCompaniesProcessor;
-
 	private final BookTemplatePublishedDatesEnrichingProcessor bookTemplatePublishedDatesEnrichingProcessor;
 
 	private final WikitextToYearRangeProcessor wikitextToYearRangeProcessor;
@@ -40,24 +37,22 @@ public class BookTemplatePartsEnrichingProcessor implements ItemEnrichingProcess
 
 	private final RunTimeProcessor runTimeProcessor;
 
-	private final WikitextToBookSeriesProcessor wikitextToBookSeriesProcessor;
+	private final WikitextToEntitiesProcessor wikitextToEntitiesProcessor;
 
 	@SuppressWarnings("ParameterNumber")
 	@Inject
 	public BookTemplatePartsEnrichingProcessor(BookTemplatePartStaffEnrichingProcessor bookTemplatePartStaffEnrichingProcessor,
-			WikitextToCompaniesProcessor wikitextToCompaniesProcessor,
 			BookTemplatePublishedDatesEnrichingProcessor bookTemplatePublishedDatesEnrichingProcessor,
 			WikitextToYearRangeProcessor wikitextToYearRangeProcessor, WikitextToStardateRangeProcessor wikitextToStardateRangeProcessor,
 			ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor, RunTimeProcessor runTimeProcessor,
-			WikitextToBookSeriesProcessor wikitextToBookSeriesProcessor) {
+			WikitextToEntitiesProcessor wikitextToEntitiesProcessor) {
 		this.bookTemplatePartStaffEnrichingProcessor = bookTemplatePartStaffEnrichingProcessor;
-		this.wikitextToCompaniesProcessor = wikitextToCompaniesProcessor;
 		this.bookTemplatePublishedDatesEnrichingProcessor = bookTemplatePublishedDatesEnrichingProcessor;
 		this.wikitextToYearRangeProcessor = wikitextToYearRangeProcessor;
 		this.wikitextToStardateRangeProcessor = wikitextToStardateRangeProcessor;
 		this.referencesFromTemplatePartProcessor = referencesFromTemplatePartProcessor;
 		this.runTimeProcessor = runTimeProcessor;
-		this.wikitextToBookSeriesProcessor = wikitextToBookSeriesProcessor;
+		this.wikitextToEntitiesProcessor = wikitextToEntitiesProcessor;
 	}
 
 	@Override
@@ -77,10 +72,10 @@ public class BookTemplatePartsEnrichingProcessor implements ItemEnrichingProcess
 					bookTemplatePartStaffEnrichingProcessor.enrich(EnrichablePair.of(part, bookTemplate));
 					break;
 				case BookTemplateParameter.PUBLISHER:
-					bookTemplate.getPublishers().addAll(wikitextToCompaniesProcessor.process(value));
+					bookTemplate.getPublishers().addAll(wikitextToEntitiesProcessor.findCompanies(value));
 					break;
 				case BookTemplateParameter.AUDIOBOOK_PUBLISHER:
-					bookTemplate.getAudiobookPublishers().addAll(wikitextToCompaniesProcessor.process(value));
+					bookTemplate.getAudiobookPublishers().addAll(wikitextToEntitiesProcessor.findCompanies(value));
 					break;
 				case BookTemplateParameter.PUBLISHED:
 				case BookTemplateParameter.AUDIOBOOK_PUBLISHED:
@@ -104,7 +99,7 @@ public class BookTemplatePartsEnrichingProcessor implements ItemEnrichingProcess
 					}
 					break;
 				case BookTemplateParameter.SERIES:
-					bookTemplate.getBookSeries().addAll(wikitextToBookSeriesProcessor.process(value));
+					bookTemplate.getBookSeries().addAll(wikitextToEntitiesProcessor.findBookSeries(value));
 					break;
 				case BookTemplateParameter.ISBN:
 					bookTemplate.getReferences().addAll(referencesFromTemplatePartProcessor.process(part));

@@ -2,8 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.soundtrack.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplateEnrichingProcessor;
-import com.cezarykluczynski.stapi.etl.common.processor.WikitextStaffProcessor;
-import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor;
 import com.cezarykluczynski.stapi.etl.reference.processor.ReferencesFromTemplatePartProcessor;
 import com.cezarykluczynski.stapi.etl.template.soundtrack.dto.SoundtrackTemplate;
 import com.cezarykluczynski.stapi.etl.template.soundtrack.dto.SoundtrackTemplateParameter;
@@ -13,18 +12,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
+// TODO: tests
 public class SoundtrackTemplateRelationsEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<SoundtrackTemplate> {
 
-	private final WikitextStaffProcessor wikitextStaffProcessor;
-
-	private final WikitextToCompaniesProcessor wikitextToCompaniesProcessor;
+	private final WikitextToEntitiesProcessor wikitextToEntitiesProcessor;
 
 	private final ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor;
 
-	public SoundtrackTemplateRelationsEnrichingProcessor(WikitextStaffProcessor wikitextStaffProcessor,
-			WikitextToCompaniesProcessor wikitextToCompaniesProcessor, ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor) {
-		this.wikitextStaffProcessor = wikitextStaffProcessor;
-		this.wikitextToCompaniesProcessor = wikitextToCompaniesProcessor;
+	public SoundtrackTemplateRelationsEnrichingProcessor(WikitextToEntitiesProcessor wikitextToEntitiesProcessor,
+			ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor) {
+		this.wikitextToEntitiesProcessor = wikitextToEntitiesProcessor;
 		this.referencesFromTemplatePartProcessor = referencesFromTemplatePartProcessor;
 	}
 
@@ -39,16 +36,16 @@ public class SoundtrackTemplateRelationsEnrichingProcessor implements ItemWithTe
 
 			switch (key) {
 				case SoundtrackTemplateParameter.COMPOSER:
-					soundtrackTemplate.getComposers().addAll(wikitextStaffProcessor.process(value));
+					soundtrackTemplate.getComposers().addAll(wikitextToEntitiesProcessor.findStaff(value));
 					break;
 				case SoundtrackTemplateParameter.ADD_MUSIC:
-					soundtrackTemplate.getContributors().addAll(wikitextStaffProcessor.process(value));
+					soundtrackTemplate.getContributors().addAll(wikitextToEntitiesProcessor.findStaff(value));
 					break;
 				case SoundtrackTemplateParameter.ORCHESTRATOR:
-					soundtrackTemplate.getOrchestrators().addAll(wikitextStaffProcessor.process(value));
+					soundtrackTemplate.getOrchestrators().addAll(wikitextToEntitiesProcessor.findStaff(value));
 					break;
 				case SoundtrackTemplateParameter.LABEL:
-					soundtrackTemplate.getLabels().addAll(wikitextToCompaniesProcessor.process(value));
+					soundtrackTemplate.getLabels().addAll(wikitextToEntitiesProcessor.findCompanies(value));
 					break;
 				case SoundtrackTemplateParameter.REFERENCE:
 					soundtrackTemplate.getReferences().addAll(referencesFromTemplatePartProcessor.process(part));

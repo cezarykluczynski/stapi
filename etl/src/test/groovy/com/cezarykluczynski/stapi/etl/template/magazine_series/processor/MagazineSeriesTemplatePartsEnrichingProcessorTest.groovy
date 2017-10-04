@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.magazine_series.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder
-import com.cezarykluczynski.stapi.etl.common.processor.WikitextStaffProcessor
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.MonthYear
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.MonthYearRange
 import com.cezarykluczynski.stapi.etl.template.common.processor.NumberOfPartsProcessor
@@ -13,7 +13,6 @@ import com.cezarykluczynski.stapi.etl.template.publishable_series.processor.Publ
 import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
-import com.google.common.collect.Sets
 import spock.lang.Specification
 
 class MagazineSeriesTemplatePartsEnrichingProcessorTest extends Specification {
@@ -32,7 +31,7 @@ class MagazineSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 
 	private NumberOfPartsProcessor numberOfPartsProcessorMock
 
-	private WikitextStaffProcessor wikitextStaffProcessorMock
+	private WikitextToEntitiesProcessor wikitextToEntitiesProcessorMock
 
 	private MagazineSeriesPublicationDatesFixedValueProvider magazineSeriesPublicationDatesFixedValueProviderMock
 
@@ -43,11 +42,11 @@ class MagazineSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 	void setup() {
 		publishableSeriesTemplatePartsEnrichingProcessorMock = Mock()
 		numberOfPartsProcessorMock = Mock()
-		wikitextStaffProcessorMock = Mock()
+		wikitextToEntitiesProcessorMock = Mock()
 		magazineSeriesPublicationDatesFixedValueProviderMock = Mock()
 		magazineSeriesNumberOfIssuesFixedValueProviderMock = Mock()
 		magazineSeriesTemplatePartsEnrichingProcessor = new MagazineSeriesTemplatePartsEnrichingProcessor(
-				publishableSeriesTemplatePartsEnrichingProcessorMock, numberOfPartsProcessorMock, wikitextStaffProcessorMock,
+				publishableSeriesTemplatePartsEnrichingProcessorMock, numberOfPartsProcessorMock, wikitextToEntitiesProcessorMock,
 				magazineSeriesPublicationDatesFixedValueProviderMock, magazineSeriesNumberOfIssuesFixedValueProviderMock)
 	}
 
@@ -116,7 +115,7 @@ class MagazineSeriesTemplatePartsEnrichingProcessorTest extends Specification {
 
 		then:
 		1 * publishableSeriesTemplatePartsEnrichingProcessorMock.enrich(_)
-		1 * wikitextStaffProcessorMock.process(EDITOR) >> Sets.newHashSet(editor1, editor2)
+		1 * wikitextToEntitiesProcessorMock.findStaff(EDITOR) >> Lists.newArrayList(editor1, editor2)
 		1 * magazineSeriesPublicationDatesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
 		1 * magazineSeriesNumberOfIssuesFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
 		0 * _

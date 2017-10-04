@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.publishable_series.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
-import com.cezarykluczynski.stapi.etl.common.processor.company.WikitextToCompaniesProcessor
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange
@@ -13,7 +13,6 @@ import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
-import com.google.common.collect.Sets
 import spock.lang.Specification
 
 class PublishableSeriesTemplatePartsEnrichingProcessorTest extends Specification {
@@ -30,7 +29,7 @@ class PublishableSeriesTemplatePartsEnrichingProcessorTest extends Specification
 	private static final String SERIES = 'SERIES'
 	private static final Boolean MINISERIES = RandomUtil.nextBoolean()
 
-	private WikitextToCompaniesProcessor wikitextToCompaniesProcessorMock
+	private WikitextToEntitiesProcessor wikitextToEntitiesProcessorMock
 
 	private PublishableSeriesPublishedDatesEnrichingProcessor publishableSeriesPublishedDatesEnrichingProcessorMock
 
@@ -43,12 +42,12 @@ class PublishableSeriesTemplatePartsEnrichingProcessorTest extends Specification
 	private PublishableSeriesTemplatePartsEnrichingProcessor publishableSeriesTemplatePartsEnrichingProcessor
 
 	void setup() {
-		wikitextToCompaniesProcessorMock = Mock()
+		wikitextToEntitiesProcessorMock = Mock()
 		publishableSeriesPublishedDatesEnrichingProcessorMock = Mock()
 		wikitextToYearRangeProcessorMock = Mock()
 		wikitextToStardateRangeProcessorMock = Mock()
 		publishableSeriesTemplateMiniseriesProcessorMock = Mock()
-		publishableSeriesTemplatePartsEnrichingProcessor = new PublishableSeriesTemplatePartsEnrichingProcessor(wikitextToCompaniesProcessorMock,
+		publishableSeriesTemplatePartsEnrichingProcessor = new PublishableSeriesTemplatePartsEnrichingProcessor(wikitextToEntitiesProcessorMock,
 				publishableSeriesPublishedDatesEnrichingProcessorMock, wikitextToYearRangeProcessorMock, wikitextToStardateRangeProcessorMock,
 				publishableSeriesTemplateMiniseriesProcessorMock)
 	}
@@ -64,7 +63,7 @@ class PublishableSeriesTemplatePartsEnrichingProcessorTest extends Specification
 		publishableSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), publishableSeriesTemplate))
 
 		then:
-		1 * wikitextToCompaniesProcessorMock.process(PUBLISHER) >> Sets.newHashSet(publisher1, publisher2)
+		1 * wikitextToEntitiesProcessorMock.findCompanies(PUBLISHER) >> Lists.newArrayList(publisher1, publisher2)
 		0 * _
 		publishableSeriesTemplate.publishers.size() == 2
 		publishableSeriesTemplate.publishers.contains publisher1

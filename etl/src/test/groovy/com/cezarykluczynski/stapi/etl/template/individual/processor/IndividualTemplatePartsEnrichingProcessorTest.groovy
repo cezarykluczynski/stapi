@@ -3,8 +3,7 @@ package com.cezarykluczynski.stapi.etl.template.individual.processor
 import com.cezarykluczynski.stapi.etl.character.common.dto.CharacterRelationsMap
 import com.cezarykluczynski.stapi.etl.character.common.service.CharactersRelationsCache
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
-import com.cezarykluczynski.stapi.etl.common.processor.organization.WikitextToOrganizationsProcessor
-import com.cezarykluczynski.stapi.etl.common.processor.title.WikitextToTitlesProcessor
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor
 import com.cezarykluczynski.stapi.etl.template.character.dto.CharacterTemplate
 import com.cezarykluczynski.stapi.etl.template.character.processor.CharacterTemplateActorLinkingEnrichingProcessor
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender
@@ -49,9 +48,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 
 	private PartToGenderProcessor partToGenderProcessorMock
 
-	private WikitextToOrganizationsProcessor wikitextToOrganizationsProcessorMock
-
-	private WikitextToTitlesProcessor wikitextToTitlesProcessorMock
+	private WikitextToEntitiesProcessor wikitextToEntitiesProcessorMock
 
 	private IndividualLifeBoundaryProcessor individualLifeBoundaryProcessorMock
 
@@ -73,8 +70,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void setup() {
 		partToGenderProcessorMock = Mock()
-		wikitextToOrganizationsProcessorMock = Mock()
-		wikitextToTitlesProcessorMock = Mock()
+		wikitextToEntitiesProcessorMock = Mock()
 		individualLifeBoundaryProcessorMock = Mock()
 		characterTemplateActorLinkingEnrichingProcessorMock = Mock()
 		individualHeightProcessorMock = Mock()
@@ -84,9 +80,9 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		maritalStatusProcessorMock = Mock()
 		characterSpeciesWikitextProcessorMock = Mock()
 		individualTemplatePartsEnrichingProcessor = new IndividualTemplatePartsEnrichingProcessor(partToGenderProcessorMock,
-				wikitextToOrganizationsProcessorMock, wikitextToTitlesProcessorMock, individualLifeBoundaryProcessorMock,
-				characterTemplateActorLinkingEnrichingProcessorMock, individualHeightProcessorMock, individualWeightProcessorMock,
-				individualBloodTypeProcessorMock, charactersRelationsCacheMock, maritalStatusProcessorMock, characterSpeciesWikitextProcessorMock)
+				wikitextToEntitiesProcessorMock, individualLifeBoundaryProcessorMock, characterTemplateActorLinkingEnrichingProcessorMock,
+				individualHeightProcessorMock, individualWeightProcessorMock, individualBloodTypeProcessorMock, charactersRelationsCacheMock,
+				maritalStatusProcessorMock, characterSpeciesWikitextProcessorMock)
 	}
 
 	void "sets gender from PartToGenderProcessor"() {
@@ -104,7 +100,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 6
 	}
 
-	void "adds all Organizations from WikitextToOrganizationsProcessor"() {
+	void "adds all Organizations from WikitextToEntitiesProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: IndividualTemplateParameter.AFFILIATION, value: VALUE)
 		CharacterTemplate characterTemplate = new CharacterTemplate()
@@ -115,13 +111,13 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), characterTemplate))
 
 		then:
-		1 * wikitextToOrganizationsProcessorMock.process(VALUE) >> Lists.newArrayList(organization1, organization2)
+		1 * wikitextToEntitiesProcessorMock.findOrganizations(VALUE) >> Lists.newArrayList(organization1, organization2)
 		0 * _
 		characterTemplate.organizations.contains organization1
 		characterTemplate.organizations.contains organization2
 	}
 
-	void "adds all Titles from WikitextToTitlesProcessor"() {
+	void "adds all Titles from WikitextToEntitiesProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: IndividualTemplateParameter.RANK, value: VALUE)
 		CharacterTemplate characterTemplate = new CharacterTemplate()
@@ -132,7 +128,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), characterTemplate))
 
 		then:
-		1 * wikitextToTitlesProcessorMock.process(VALUE) >> Lists.newArrayList(title1, title2)
+		1 * wikitextToEntitiesProcessorMock.findTitles(VALUE) >> Lists.newArrayList(title1, title2)
 		0 * _
 		characterTemplate.titles.contains title1
 		characterTemplate.titles.contains title2

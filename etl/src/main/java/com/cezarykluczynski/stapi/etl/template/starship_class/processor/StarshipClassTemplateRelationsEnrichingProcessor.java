@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.starship_class.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplateEnrichingProcessor;
-import com.cezarykluczynski.stapi.etl.common.processor.organization.WikitextToOrganizationsProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor;
 import com.cezarykluczynski.stapi.etl.template.starship_class.dto.StarshipClassTemplate;
 import com.cezarykluczynski.stapi.etl.template.starship_class.dto.StarshipClassTemplateParameter;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
@@ -19,13 +19,13 @@ public class StarshipClassTemplateRelationsEnrichingProcessor implements ItemWit
 
 	private final StarshipClassSpacecraftTypeProcessor starshipClassSpacecraftTypeProcessor;
 
-	private final WikitextToOrganizationsProcessor wikitextToOrganizationsProcessor;
+	private final WikitextToEntitiesProcessor wikitextToEntitiesProcessor;
 
 	@Inject
 	public StarshipClassTemplateRelationsEnrichingProcessor(StarshipClassSpacecraftTypeProcessor starshipClassSpacecraftTypeProcessor,
-			WikitextToOrganizationsProcessor wikitextToOrganizationsProcessor) {
+			WikitextToEntitiesProcessor wikitextToEntitiesProcessor) {
 		this.starshipClassSpacecraftTypeProcessor = starshipClassSpacecraftTypeProcessor;
-		this.wikitextToOrganizationsProcessor = wikitextToOrganizationsProcessor;
+		this.wikitextToEntitiesProcessor = wikitextToEntitiesProcessor;
 	}
 
 	@Override
@@ -40,7 +40,7 @@ public class StarshipClassTemplateRelationsEnrichingProcessor implements ItemWit
 
 			switch (key) {
 				case StarshipClassTemplateParameter.OWNER:
-					List<Organization> ownerList = wikitextToOrganizationsProcessor.process(value);
+					List<Organization> ownerList = wikitextToEntitiesProcessor.findOrganizations(value);
 					if (!ownerList.isEmpty()) {
 						starshipClassTemplate.setOwner(ownerList.iterator().next());
 						if (ownerList.size() > 1) {
@@ -50,7 +50,7 @@ public class StarshipClassTemplateRelationsEnrichingProcessor implements ItemWit
 					}
 					break;
 				case StarshipClassTemplateParameter.OPERATOR:
-					List<Organization> operatorList = wikitextToOrganizationsProcessor.process(value);
+					List<Organization> operatorList = wikitextToEntitiesProcessor.findOrganizations(value);
 					if (!operatorList.isEmpty()) {
 						starshipClassTemplate.setOperator(operatorList.iterator().next());
 						if (operatorList.size() > 1) {
@@ -60,7 +60,7 @@ public class StarshipClassTemplateRelationsEnrichingProcessor implements ItemWit
 					}
 					break;
 				case StarshipClassTemplateParameter.AFFILIATION:
-					List<Organization> affiliationList = wikitextToOrganizationsProcessor.process(value);
+					List<Organization> affiliationList = wikitextToEntitiesProcessor.findOrganizations(value);
 					if (!affiliationList.isEmpty()) {
 						starshipClassTemplate.setAffiliation(affiliationList.iterator().next());
 						if (affiliationList.size() > 1) {

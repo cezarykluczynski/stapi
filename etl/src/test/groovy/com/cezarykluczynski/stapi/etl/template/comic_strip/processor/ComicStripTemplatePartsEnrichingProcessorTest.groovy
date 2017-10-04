@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.comic_strip.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.dto.Range
-import com.cezarykluczynski.stapi.etl.common.processor.comic_series.WikitextToComicSeriesProcessor
+import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor
 import com.cezarykluczynski.stapi.etl.template.comic_strip.dto.ComicStripTemplate
 import com.cezarykluczynski.stapi.etl.template.comic_strip.dto.ComicStripTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplateParameter
@@ -13,7 +13,6 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.Wikitex
 import com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.google.common.collect.Lists
-import com.google.common.collect.Sets
 import spock.lang.Specification
 
 class ComicStripTemplatePartsEnrichingProcessorTest extends Specification {
@@ -30,7 +29,7 @@ class ComicStripTemplatePartsEnrichingProcessorTest extends Specification {
 
 	private ComicStripTemplatePartStaffEnrichingProcessor comicStripTemplatePartStaffEnrichingProcessorMock
 
-	private WikitextToComicSeriesProcessor wikitextToComicSeriesProcessorMock
+	private WikitextToEntitiesProcessor wikitextToEntitiesProcessorMock
 
 	private DayMonthYearRangeProcessor dayMonthYearRangeProcessorMock
 
@@ -42,12 +41,12 @@ class ComicStripTemplatePartsEnrichingProcessorTest extends Specification {
 
 	void setup() {
 		comicStripTemplatePartStaffEnrichingProcessorMock = Mock()
-		wikitextToComicSeriesProcessorMock = Mock()
+		wikitextToEntitiesProcessorMock = Mock()
 		dayMonthYearRangeProcessorMock = Mock()
 		comicStripTemplateDayMonthYearRangeEnrichingProcessorMock = Mock()
 		wikitextToYearRangeProcessorMock = Mock()
 		comicStripTemplatePartsEnrichingProcessor = new ComicStripTemplatePartsEnrichingProcessor(comicStripTemplatePartStaffEnrichingProcessorMock,
-				wikitextToComicSeriesProcessorMock, dayMonthYearRangeProcessorMock, comicStripTemplateDayMonthYearRangeEnrichingProcessorMock,
+				wikitextToEntitiesProcessorMock, dayMonthYearRangeProcessorMock, comicStripTemplateDayMonthYearRangeEnrichingProcessorMock,
 				wikitextToYearRangeProcessorMock)
 	}
 
@@ -100,7 +99,7 @@ class ComicStripTemplatePartsEnrichingProcessorTest extends Specification {
 		comicStripTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicStripTemplate))
 
 		then:
-		1 * wikitextToComicSeriesProcessorMock.process(SERIES) >> Sets.newHashSet(comicSeries1, comicSeries2)
+		1 * wikitextToEntitiesProcessorMock.findComicSeries(SERIES) >> Lists.newArrayList(comicSeries1, comicSeries2)
 		0 * _
 		comicStripTemplate.comicSeries.size() == 2
 		comicStripTemplate.comicSeries.contains comicSeries1
