@@ -45,7 +45,7 @@ class VideoGameTemplateRelationsEnrichingProcessorTest extends Specification {
 				referencesFromTemplatePartProcessorMock)
 	}
 
-	void "when publisher part is found, WikitextToCompaniesProcessor is used to process it"() {
+	void "when publisher part is found, WikitextToEntitiesProcessor is used to process it"() {
 		given:
 		Template.Part templatePart = new Template.Part(
 				key: VideoGameTemplateParameter.PUBLISHER,
@@ -65,7 +65,7 @@ class VideoGameTemplateRelationsEnrichingProcessorTest extends Specification {
 		videoGameTemplate.publishers.contains company2
 	}
 
-	void "when developer part is found, WikitextToCompaniesProcessor is used to process it"() {
+	void "when developer part is found, WikitextToEntitiesProcessor is used to process it"() {
 		given:
 		Template.Part templatePart = new Template.Part(
 				key: VideoGameTemplateParameter.DEVELOPER,

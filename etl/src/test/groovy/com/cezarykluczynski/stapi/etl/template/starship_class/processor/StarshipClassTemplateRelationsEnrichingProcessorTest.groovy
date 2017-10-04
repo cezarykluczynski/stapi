@@ -30,7 +30,7 @@ class StarshipClassTemplateRelationsEnrichingProcessorTest extends Specification
 				starshipClassSpacecraftTypeProcessorMock, wikitextToEntitiesProcessorMock)
 	}
 
-	void "when owner part is found, and WikitextToOrganizationsProcessor returns no items, nothing happens"() {
+	void "when owner part is found, and WikitextToEntitiesProcessor returns no items, nothing happens"() {
 		given:
 		Template sidebarVideoGameTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
 				key: StarshipClassTemplateParameter.OWNER,
@@ -46,7 +46,7 @@ class StarshipClassTemplateRelationsEnrichingProcessorTest extends Specification
 		starshipClassTemplate.owner == null
 	}
 
-	void "when owner part is found, and WikitextToOrganizationsProcessor returns one item, it is used as owner"() {
+	void "when owner part is found, and WikitextToEntitiesProcessor returns one item, it is used as owner"() {
 		given:
 		Template sidebarVideoGameTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
 				key: StarshipClassTemplateParameter.OWNER,
@@ -63,7 +63,7 @@ class StarshipClassTemplateRelationsEnrichingProcessorTest extends Specification
 		starshipClassTemplate.owner == organization
 	}
 
-	void "when owner part is found, and WikitextToOrganizationsProcessor returns two items, first one is used"() {
+	void "when owner part is found, and WikitextToEntitiesProcessor returns two items, first one is used"() {
 		given:
 		Template sidebarVideoGameTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
 				key: StarshipClassTemplateParameter.OWNER,
@@ -81,7 +81,7 @@ class StarshipClassTemplateRelationsEnrichingProcessorTest extends Specification
 		starshipClassTemplate.owner == organization1
 	}
 
-	void "when operator part is found, and WikitextToOrganizationsProcessor returns no items, nothing happens"() {
+	void "when operator part is found, and WikitextToEntitiesProcessor returns no items, nothing happens"() {
 		given:
 		Template sidebarVideoGameTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
 				key: StarshipClassTemplateParameter.OPERATOR,
@@ -97,7 +97,7 @@ class StarshipClassTemplateRelationsEnrichingProcessorTest extends Specification
 		starshipClassTemplate.operator == null
 	}
 
-	void "when operator part is found, and WikitextToOrganizationsProcessor returns one item, it is used as owner"() {
+	void "when operator part is found, and WikitextToEntitiesProcessor returns one item, it is used as owner"() {
 		given:
 		Template sidebarVideoGameTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
 				key: StarshipClassTemplateParameter.OPERATOR,
@@ -114,7 +114,7 @@ class StarshipClassTemplateRelationsEnrichingProcessorTest extends Specification
 		starshipClassTemplate.operator == organization
 	}
 
-	void "when operator part is found, and WikitextToOrganizationsProcessor returns two items, first one is used"() {
+	void "when operator part is found, and WikitextToEntitiesProcessor returns two items, first one is used"() {
 		given:
 		Template sidebarVideoGameTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
 				key: StarshipClassTemplateParameter.OPERATOR,

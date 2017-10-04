@@ -123,7 +123,7 @@ class VideoTemplateContentsEnrichingProcessorTest extends Specification {
 		videoTemplate.numberOfDataCarriers == DISCS_INTEGER
 	}
 
-	void "when season part is found, and WikitextToSeasonProcessor returns empty set, season is null"() {
+	void "when season part is found, and WikitextToEntitiesProcessor returns empty set, season is null"() {
 		given:
 		Template sidebarVideoTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
 				key: VideoTemplateParameter.SEASON,
@@ -139,7 +139,7 @@ class VideoTemplateContentsEnrichingProcessorTest extends Specification {
 		videoTemplate.season == null
 	}
 
-	void "when season part is found, and WikitextToSeasonProcessor returns one result, it is used"() {
+	void "when season part is found, and WikitextToEntitiesProcessor returns one result, it is used"() {
 		given:
 		Template sidebarVideoTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
 				key: VideoTemplateParameter.SEASON,
@@ -156,7 +156,7 @@ class VideoTemplateContentsEnrichingProcessorTest extends Specification {
 		videoTemplate.season == season
 	}
 
-	void "when season part is found, and WikitextToSeasonProcessor returns more than one result, season is null"() {
+	void "when season part is found, and WikitextToEntitiesProcessor returns more than one result, season is null"() {
 		given:
 		Template sidebarVideoTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
 				key: VideoTemplateParameter.SEASON,

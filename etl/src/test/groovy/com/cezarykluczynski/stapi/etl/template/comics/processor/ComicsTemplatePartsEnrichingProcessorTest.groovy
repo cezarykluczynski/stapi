@@ -118,7 +118,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 		0 * _
 	}
 
-	void "sets publishers from WikitextToCompaniesProcessor"() {
+	void "sets publishers from WikitextToEntitiesProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.PUBLISHER, value: PUBLISHER)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
@@ -136,7 +136,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 		comicsTemplate.publishers.contains company2
 	}
 
-	void "sets comic series from WikitextToComicSeriesProcessor"() {
+	void "sets comic series from WikitextToEntitiesProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.SERIES, value: SERIES)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()

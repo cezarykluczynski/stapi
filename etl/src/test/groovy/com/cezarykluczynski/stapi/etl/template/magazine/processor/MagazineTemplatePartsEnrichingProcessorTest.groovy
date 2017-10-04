@@ -60,7 +60,7 @@ class MagazineTemplatePartsEnrichingProcessorTest extends Specification {
 				magazineTemplatePublicationDatesFixedValueProviderMock, magazineTemplateNumberOfPagesFixedValueProviderMock)
 	}
 
-	void "sets magazine series from WikitextToMagazineSeriesProcessor"() {
+	void "sets magazine series from WikitextToEntitiesProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: MagazineTemplateParameter.PUBLICATION, value: PUBLICATION)
 		MagazineTemplate magazineTemplate = new MagazineTemplate()
@@ -95,7 +95,7 @@ class MagazineTemplatePartsEnrichingProcessorTest extends Specification {
 		magazineTemplate.issueNumber == ISSUE
 	}
 
-	void "sets publishers from WikitextToCompaniesProcessor"() {
+	void "sets publishers from WikitextToEntitiesProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: MagazineTemplateParameter.PUBLISHER, value: PUBLISHER)
 		MagazineTemplate magazineTemplate = new MagazineTemplate()

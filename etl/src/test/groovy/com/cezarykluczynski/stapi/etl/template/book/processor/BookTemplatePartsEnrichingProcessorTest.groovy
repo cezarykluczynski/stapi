@@ -138,7 +138,7 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 		0 * _
 	}
 
-	void "sets publishers from WikitextToCompaniesProcessor"() {
+	void "sets publishers from WikitextToEntitiesProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: BookTemplateParameter.PUBLISHER, value: PUBLISHER)
 		BookTemplate bookTemplate = new BookTemplate()
@@ -156,7 +156,7 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 		bookTemplate.publishers.contains company2
 	}
 
-	void "sets book series from WikitextToBookSeriesProcessor"() {
+	void "sets book series from WikitextToEntitiesProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: BookTemplateParameter.SERIES, value: SERIES)
 		BookTemplate bookTemplate = new BookTemplate()
@@ -174,7 +174,7 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 		bookTemplate.bookSeries.contains bookSeries2
 	}
 
-	void "sets audiobook publishers from WikitextToCompaniesProcessor"() {
+	void "sets audiobook publishers from WikitextToEntitiesProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: BookTemplateParameter.AUDIOBOOK_PUBLISHER, value: AUDIOBOOK_PUBLISHER)
 		BookTemplate bookTemplate = new BookTemplate()

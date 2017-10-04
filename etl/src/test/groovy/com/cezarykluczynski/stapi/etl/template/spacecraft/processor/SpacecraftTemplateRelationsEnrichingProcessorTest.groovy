@@ -31,7 +31,7 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 				classTemplateSpacecraftClassesProcessorMock)
 	}
 
-	void "when owner part is found, and WikitextToOrganizationsProcessor returns no items, nothing happens"() {
+	void "when owner part is found, and WikitextToEntitiesProcessor returns no items, nothing happens"() {
 		given:
 		Template sidebarStarshipTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
 				key: SpacecraftTemplateParameter.OWNER,
@@ -47,7 +47,7 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 		starshipTemplate.owner == null
 	}
 
-	void "when owner part is found, and WikitextToOrganizationsProcessor returns one item, it is used as owner"() {
+	void "when owner part is found, and WikitextToEntitiesProcessor returns one item, it is used as owner"() {
 		given:
 		Template sidebarStarshipTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
 				key: SpacecraftTemplateParameter.OWNER,
@@ -64,7 +64,7 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 		starshipTemplate.owner == organization
 	}
 
-	void "when owner part is found, and WikitextToOrganizationsProcessor returns two items, first one is used"() {
+	void "when owner part is found, and WikitextToEntitiesProcessor returns two items, first one is used"() {
 		given:
 		Template sidebarStarshipTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
 				key: SpacecraftTemplateParameter.OWNER,
@@ -82,7 +82,7 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 		starshipTemplate.owner == organization1
 	}
 
-	void "when operator part is found, and WikitextToOrganizationsProcessor returns no items, nothing happens"() {
+	void "when operator part is found, and WikitextToEntitiesProcessor returns no items, nothing happens"() {
 		given:
 		Template sidebarStarshipTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
 				key: SpacecraftTemplateParameter.OPERATOR,
@@ -98,7 +98,7 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 		starshipTemplate.operator == null
 	}
 
-	void "when operator part is found, and WikitextToOrganizationsProcessor returns one item, it is used as owner"() {
+	void "when operator part is found, and WikitextToEntitiesProcessor returns one item, it is used as owner"() {
 		given:
 		Template sidebarStarshipTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
 				key: SpacecraftTemplateParameter.OPERATOR,
@@ -115,7 +115,7 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 		starshipTemplate.operator == organization
 	}
 
-	void "when operator part is found, and WikitextToOrganizationsProcessor returns two items, first one is used"() {
+	void "when operator part is found, and WikitextToEntitiesProcessor returns two items, first one is used"() {
 		given:
 		Template sidebarStarshipTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
 				key: SpacecraftTemplateParameter.OPERATOR,
@@ -133,7 +133,7 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 		starshipTemplate.operator == organization1
 	}
 
-	void "when class part is found, and WikitextToSpacecraftClassesProcessor returns two items, first one is used"() {
+	void "when class part is found, and WikitextToEntitiesProcessor returns two items, first one is used"() {
 		given:
 		Template sidebarStarshipTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
 				key: StarshipTemplateParameter.CLASS,
@@ -151,7 +151,7 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 		starshipTemplate.spacecraftClass == spacecraftClass1
 	}
 
-	void "when class part is found, and WikitextToSpacecraftClassesProcessor returns one item, it is used as owner"() {
+	void "when class part is found, and WikitextToEntitiesProcessor returns one item, it is used as owner"() {
 		given:
 		Template sidebarStarshipTemplate = new Template(parts: Lists.newArrayList(new Template.Part(
 				key: StarshipTemplateParameter.CLASS,
@@ -169,7 +169,7 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 	}
 
 	@SuppressWarnings('BracesForMethod')
-	void """when class part is found, and WikitextToSpacecraftClassesProcessor returns no items, ClassTemplateSpacecraftClassesProcessor is used
+	void """when class part is found, and WikitextToEntitiesProcessor returns no items, ClassTemplateSpacecraftClassesProcessor is used
 			to retrieve spacecraft classes"""() {
 		given:
 		Template.Part templatePart = new Template.Part(
@@ -190,7 +190,7 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 	}
 
 	@SuppressWarnings('BracesForMethod')
-	void """when class part is found, and WikitextToSpacecraftClassesProcessor returns no items, and ClassTemplateSpacecraftClassesProcessor
+	void """when class part is found, and WikitextToEntitiesProcessor returns no items, and ClassTemplateSpacecraftClassesProcessor
 			returns two items, first one is used"""() {
 		given:
 		Template.Part templatePart = new Template.Part(
@@ -212,7 +212,7 @@ class SpacecraftTemplateRelationsEnrichingProcessorTest extends Specification {
 	}
 
 	@SuppressWarnings('BracesForMethod')
-	void """when class part is found, and WikitextToSpacecraftClassesProcessor returns no items, ClassTemplateSpacecraftClassesProcessor returns
+	void """when class part is found, and WikitextToEntitiesProcessor returns no items, ClassTemplateSpacecraftClassesProcessor returns
 			no items, spacecraftClass is set to null"""() {
 		given:
 		Template.Part templatePart = new Template.Part(

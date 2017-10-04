@@ -88,7 +88,7 @@ class ComicStripTemplatePartsEnrichingProcessorTest extends Specification {
 		0 * _
 	}
 
-	void "gets all comic series from WikitextToComicSeriesProcessor"() {
+	void "gets all comic series from WikitextToEntitiesProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: ComicStripTemplateParameter.SERIES, value: SERIES)
 		ComicSeries comicSeries1 = Mock()
