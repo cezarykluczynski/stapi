@@ -18,6 +18,16 @@ class ComicSeriesSoapEndpointIntegrationTest extends AbstractComicSeriesEndpoint
 		createSoapClient()
 	}
 
+	void "gets comics by UID"() {
+		when:
+		ComicSeriesFullResponse comicSeriesBaseResponse = stapiSoapClient.comicSeriesPortType.getComicSeriesFull(new ComicSeriesFullRequest(
+				uid: 'CSMA0000125094'
+		))
+
+		then:
+		comicSeriesBaseResponse.comicSeries.title == 'Star Trek: Captain\'s Log'
+	}
+
 	void "gets the only comic series published during the year of original airing of TNG, that also have 'The Next Generation' in it's title"() {
 		when:
 		ComicSeriesBaseResponse comicSeriesBaseResponse = stapiSoapClient.comicSeriesPortType.getComicSeriesBase(new ComicSeriesBaseRequest(
@@ -31,16 +41,6 @@ class ComicSeriesSoapEndpointIntegrationTest extends AbstractComicSeriesEndpoint
 		then:
 		comicSeriesBaseResponse.comicSeries.size() == 1
 		comicSeriesBaseResponse.comicSeries[0].title == 'Star Trek: The Next Generation (DC volume 1)'
-	}
-
-	void "gets comics by UID"() {
-		when:
-		ComicSeriesFullResponse comicSeriesBaseResponse = stapiSoapClient.comicSeriesPortType.getComicSeriesFull(new ComicSeriesFullRequest(
-				uid: 'CSMA0000125094'
-		))
-
-		then:
-		comicSeriesBaseResponse.comicSeries.title == 'Star Trek: Captain\'s Log'
 	}
 
 }

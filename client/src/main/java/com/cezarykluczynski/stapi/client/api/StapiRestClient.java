@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.client.api;
 
 import com.cezarykluczynski.stapi.client.v1.rest.api.AstronomicalObjectApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.BookApi;
+import com.cezarykluczynski.stapi.client.v1.rest.api.BookCollectionApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.BookSeriesApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.CharacterApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.ComicCollectionApi;
@@ -97,6 +98,9 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 	private BookApi bookApi;
 
 	@Getter
+	private BookCollectionApi bookCollectionApi;
+
+	@Getter
 	private MagazineApi magazineApi;
 
 	@Getter
@@ -160,6 +164,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 		locationApi = new LocationApi();
 		bookSeriesApi = new BookSeriesApi();
 		bookApi = new BookApi();
+		bookCollectionApi = new BookCollectionApi();
 		magazineApi = new MagazineApi();
 		magazineSeriesApi = new MagazineSeriesApi();
 		literatureApi = new LiteratureApi();
@@ -198,6 +203,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 		locationApi = new LocationApi(apiClient);
 		bookSeriesApi = new BookSeriesApi(apiClient);
 		bookApi = new BookApi(apiClient);
+		bookCollectionApi = new BookCollectionApi(apiClient);
 		magazineApi = new MagazineApi(apiClient);
 		magazineSeriesApi = new MagazineSeriesApi(apiClient);
 		literatureApi = new LiteratureApi(apiClient);

@@ -19,6 +19,20 @@ class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointInte
 		createRestClient()
 	}
 
+	@Requires({
+		StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_EPISODES) &&
+				StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_MOVIES)
+	})
+	void "gets performer by uid"() {
+		when:
+		PerformerFullResponse performerResponse = stapiRestClient.performerApi.performerGet(UID, null)
+
+		then:
+		performerResponse.performer.uid == UID
+		performerResponse.performer.episodesPerformances.size() == 177
+		performerResponse.performer.moviesPerformances.size() == 4
+	}
+
 	void "gets first page of performers"() {
 		given:
 		Integer pageNumber = 0
@@ -41,20 +55,6 @@ class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointInte
 		then:
 		performerResponse.page.totalElements == 1
 		performerResponse.performers[0].name == 'Majel Barrett-Roddenberry'
-	}
-
-	@Requires({
-		StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_EPISODES) &&
-				StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_MOVIES)
-	})
-	void "gets performer by uid"() {
-		when:
-		PerformerFullResponse performerResponse = stapiRestClient.performerApi.performerGet(UID, null)
-
-		then:
-		performerResponse.performer.uid == UID
-		performerResponse.performer.episodesPerformances.size() == 177
-		performerResponse.performer.moviesPerformances.size() == 4
 	}
 
 	void "gets performers sorted by name"() {

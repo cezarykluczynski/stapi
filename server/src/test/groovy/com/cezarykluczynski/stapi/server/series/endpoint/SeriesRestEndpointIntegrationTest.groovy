@@ -19,6 +19,18 @@ class SeriesRestEndpointIntegrationTest extends AbstractSeriesEndpointIntegratio
 		createRestClient()
 	}
 
+	@Requires({
+		StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_EPISODES)
+	})
+	void "gets series by uid"() {
+		when:
+		SeriesFullResponse seriesFullResponse = stapiRestClient.seriesApi.seriesGet(UID, null)
+
+		then:
+		seriesFullResponse.series.abbreviation == TAS
+		seriesFullResponse.series.episodes.size() == 22
+	}
+
 	void "gets all series"() {
 		given:
 		Integer pageNumber = 0
@@ -47,18 +59,6 @@ class SeriesRestEndpointIntegrationTest extends AbstractSeriesEndpointIntegratio
 		seriesBaseResponse.page.pageSize == pageSize
 		seriesBaseResponse.series.size() == 1
 		seriesBaseResponse.series[0].title.contains VOYAGER
-	}
-
-	@Requires({
-		StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_EPISODES)
-	})
-	void "gets series by uid"() {
-		when:
-		SeriesFullResponse seriesFullResponse = stapiRestClient.seriesApi.seriesGet(UID, null)
-
-		then:
-		seriesFullResponse.series.abbreviation == TAS
-		seriesFullResponse.series.episodes.size() == 22
 	}
 
 	void "gets series sorted by production end year descending"() {

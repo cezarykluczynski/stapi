@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.spacecraft_class.endpoint
 
-import com.cezarykluczynski.stapi.server.series.common.AbstractEndpointIntegrationTest
+import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest
 
 abstract class AbstractSpacecraftClassEndpointIntegrationTest extends AbstractEndpointIntegrationTest {
 }

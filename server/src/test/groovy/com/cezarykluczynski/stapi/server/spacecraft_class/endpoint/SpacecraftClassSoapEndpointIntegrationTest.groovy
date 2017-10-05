@@ -18,6 +18,18 @@ class SpacecraftClassSoapEndpointIntegrationTest extends AbstractSpacecraftClass
 		createSoapClient()
 	}
 
+	void "gets spacecraft class by UID"() {
+		when:
+		SpacecraftClassFullResponse spacecraftClassFullResponse = stapiSoapClient.spacecraftClassPortType
+				.getSpacecraftClassFull(new SpacecraftClassFullRequest(
+				uid: 'SCMA0000071768'
+		))
+
+		then:
+		spacecraftClassFullResponse.spacecraftClass.name == 'Vulcan science vessel'
+		spacecraftClassFullResponse.spacecraftClass.species.name == 'Vulcan'
+	}
+
 	void "gets spacecraft class by name"() {
 		when:
 		SpacecraftClassBaseResponse spacecraftClassBaseResponse = stapiSoapClient.spacecraftClassPortType
@@ -29,18 +41,6 @@ class SpacecraftClassSoapEndpointIntegrationTest extends AbstractSpacecraftClass
 		then:
 		spacecraftClassBaseList.size() == 1
 		spacecraftClassBaseList[0].uid == 'SCMA0000040720'
-	}
-
-	void "gets spacecraft class by UID"() {
-		when:
-		SpacecraftClassFullResponse spacecraftClassFullResponse = stapiSoapClient.spacecraftClassPortType
-				.getSpacecraftClassFull(new SpacecraftClassFullRequest(
-						uid: 'SCMA0000071768'
-				))
-
-		then:
-		spacecraftClassFullResponse.spacecraftClass.name == 'Vulcan science vessel'
-		spacecraftClassFullResponse.spacecraftClass.species.name == 'Vulcan'
 	}
 
 	void "'Franklin type' is among warp-capable spacecraft types from alternate-reality"() {

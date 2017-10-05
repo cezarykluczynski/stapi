@@ -18,6 +18,16 @@ class PerformerSoapEndpointIntegrationTest extends AbstractPerformerEndpointInte
 		createSoapClient()
 	}
 
+	void "gets performer by uid"() {
+		when:
+		PerformerFullResponse performerResponse = stapiSoapClient.performerPortType.getPerformerFull(new PerformerFullRequest(
+				uid: UID
+		))
+
+		then:
+		performerResponse.performer.uid == UID
+	}
+
 	void "gets first page of performers"() {
 		given:
 		Integer pageNumber = 0
@@ -49,16 +59,6 @@ class PerformerSoapEndpointIntegrationTest extends AbstractPerformerEndpointInte
 		then:
 		performerResponse.page.totalElements == 1
 		performerResponse.performers[0].name == 'Majel Barrett-Roddenberry'
-	}
-
-	void "gets performer by uid"() {
-		when:
-		PerformerFullResponse performerResponse = stapiSoapClient.performerPortType.getPerformerFull(new PerformerFullRequest(
-				uid: UID
-		))
-
-		then:
-		performerResponse.performer.uid == UID
 	}
 
 }

@@ -18,6 +18,16 @@ class SoundtrackSoapEndpointIntegrationTest extends AbstractSoundtrackEndpointIn
 		createSoapClient()
 	}
 
+	void "gets soundtrack by UID"() {
+		when:
+		SoundtrackFullResponse soundtrackFullResponse = stapiSoapClient.soundtrackPortType.getSoundtrackFull(new SoundtrackFullRequest(
+				uid: 'SOMA0000135387'
+		))
+
+		then:
+		soundtrackFullResponse.soundtrack.title == 'Star Trek: The Deluxe Edition'
+	}
+
 	void "gets soundtrack by title"() {
 		when:
 		SoundtrackBaseResponse soundtrackBaseResponse = stapiSoapClient.soundtrackPortType.getSoundtrackBase(new SoundtrackBaseRequest(
@@ -28,16 +38,6 @@ class SoundtrackSoapEndpointIntegrationTest extends AbstractSoundtrackEndpointIn
 		then:
 		soundtrackBaseList.size() == 1
 		soundtrackBaseList[0].uid == 'SOMA0000185593'
-	}
-
-	void "gets soundtrack by UID"() {
-		when:
-		SoundtrackFullResponse soundtrackFullResponse = stapiSoapClient.soundtrackPortType.getSoundtrackFull(new SoundtrackFullRequest(
-				uid: 'SOMA0000135387'
-		))
-
-		then:
-		soundtrackFullResponse.soundtrack.title == 'Star Trek: The Deluxe Edition'
 	}
 
 }

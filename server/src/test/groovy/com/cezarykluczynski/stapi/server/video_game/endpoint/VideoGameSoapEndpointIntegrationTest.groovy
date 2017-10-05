@@ -18,6 +18,16 @@ class VideoGameSoapEndpointIntegrationTest extends AbstractVideoGameEndpointInte
 		createSoapClient()
 	}
 
+	void "gets video game by UID"() {
+		when:
+		VideoGameFullResponse videoGameFullResponse = stapiSoapClient.videoGamePortType.getVideoGameFull(new VideoGameFullRequest(
+				uid: 'VGMA0000111268'
+		))
+
+		then:
+		videoGameFullResponse.videoGame.title == 'Star Trek: Tactical Assault'
+	}
+
 	void "gets video game by title"() {
 		when:
 		VideoGameBaseResponse videoGameBaseResponse = stapiSoapClient.videoGamePortType.getVideoGameBase(new VideoGameBaseRequest(
@@ -28,16 +38,6 @@ class VideoGameSoapEndpointIntegrationTest extends AbstractVideoGameEndpointInte
 		then:
 		videoGameBaseList.size() == 1
 		videoGameBaseList[0].uid == 'VGMA0000015824'
-	}
-
-	void "gets video game by UID"() {
-		when:
-		VideoGameFullResponse videoGameFullResponse = stapiSoapClient.videoGamePortType.getVideoGameFull(new VideoGameFullRequest(
-				uid: 'VGMA0000111268'
-		))
-
-		then:
-		videoGameFullResponse.videoGame.title == 'Star Trek: Tactical Assault'
 	}
 
 }

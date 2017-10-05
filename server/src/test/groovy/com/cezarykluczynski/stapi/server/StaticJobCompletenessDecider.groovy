@@ -105,7 +105,8 @@ class StaticJobCompletenessDecider {
 				.sources(EtlMockConfiguration)
 				.run(
 						'--server.port=8543',
-						'--spring.profiles.active=default,custom'
+						'--spring.profiles.active=default,stapi-custom',
+						'--etl.enabled=false'
 				)
 	}
 

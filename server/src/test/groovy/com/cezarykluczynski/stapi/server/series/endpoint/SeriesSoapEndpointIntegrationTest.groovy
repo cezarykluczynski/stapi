@@ -18,6 +18,20 @@ class SeriesSoapEndpointIntegrationTest extends AbstractSeriesEndpointIntegratio
 		createSoapClient()
 	}
 
+	@Requires({
+		StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_EPISODES)
+	})
+	void "gets series by uid"() {
+		when:
+		SeriesFullResponse seriesFullResponse = stapiSoapClient.seriesPortType.getSeriesFull(new SeriesFullRequest(
+				uid: UID
+		))
+
+		then:
+		seriesFullResponse.series.uid == UID
+		seriesFullResponse.series.abbreviation == TAS
+	}
+
 	void "gets all series"() {
 		given:
 		Integer pageNumber = 0
@@ -57,20 +71,6 @@ class SeriesSoapEndpointIntegrationTest extends AbstractSeriesEndpointIntegratio
 		seriesResponse.page.pageSize == pageSize
 		seriesResponse.series.size() == 1
 		seriesResponse.series[0].title.contains VOYAGER
-	}
-
-	@Requires({
-		StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_EPISODES)
-	})
-	void "gets series by uid"() {
-		when:
-		SeriesFullResponse seriesFullResponse = stapiSoapClient.seriesPortType.getSeriesFull(new SeriesFullRequest(
-				uid: UID
-		))
-
-		then:
-		seriesFullResponse.series.uid == UID
-		seriesFullResponse.series.abbreviation == TAS
 	}
 
 }

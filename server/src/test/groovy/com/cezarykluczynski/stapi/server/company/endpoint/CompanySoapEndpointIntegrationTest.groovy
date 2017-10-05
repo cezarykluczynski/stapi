@@ -21,6 +21,15 @@ class CompanySoapEndpointIntegrationTest extends AbstractCompanyEndpointIntegrat
 		createSoapClient()
 	}
 
+	void "gets company by UID"() {
+		when:
+		CompanyFullResponse companyFullResponse = stapiSoapClient.companyPortType
+				.getCompanyFull(new CompanyFullRequest(uid: 'COMA0000111666'))
+
+		then:
+		companyFullResponse.company.name == 'PBS'
+	}
+
 	void "gets companies that done digital visual effects, matte painting, and model and miniatures effects, sorted by name descending"() {
 		when:
 		CompanyBaseResponse astronomicalObjectResponse = stapiSoapClient.companyPortType
@@ -40,15 +49,6 @@ class CompanySoapEndpointIntegrationTest extends AbstractCompanyEndpointIntegrat
 		astronomicalObjectResponse.companies.size() == 2
 		astronomicalObjectResponse.companies[0].name == 'Industrial Light & Magic'
 		astronomicalObjectResponse.companies[1].name == 'Digital Domain'
-	}
-
-	void "gets company by UID"() {
-		when:
-		CompanyFullResponse companyFullResponse = stapiSoapClient.companyPortType
-				.getCompanyFull(new CompanyFullRequest(uid: 'COMA0000111666'))
-
-		then:
-		companyFullResponse.company.name == 'PBS'
 	}
 
 }

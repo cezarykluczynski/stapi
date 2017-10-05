@@ -2,6 +2,8 @@ package com.cezarykluczynski.stapi.server.comic_strip.endpoint
 
 import com.cezarykluczynski.stapi.client.v1.soap.ComicStripBaseRequest
 import com.cezarykluczynski.stapi.client.v1.soap.ComicStripBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.ComicStripFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.ComicStripFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.RequestSort
 import com.cezarykluczynski.stapi.client.v1.soap.RequestSortClause
 import com.cezarykluczynski.stapi.client.v1.soap.RequestSortDirectionEnum
@@ -17,6 +19,16 @@ class ComicStripSoapEndpointIntegrationTest extends AbstractComicStripEndpointIn
 
 	void setup() {
 		createSoapClient()
+	}
+
+	void "gets comic strip by UID"() {
+		when:
+		ComicStripFullResponse comicStripFullResponse = stapiSoapClient.comicStripPortType.getComicStripFull(new ComicStripFullRequest(
+				uid: 'CTMA0000088263'
+		))
+
+		then:
+		comicStripFullResponse.comicStrip.title == 'Sixth UK Annual Story'
 	}
 
 	void "gets 'UK Story Arc' comic strips sorted by publication date"() {

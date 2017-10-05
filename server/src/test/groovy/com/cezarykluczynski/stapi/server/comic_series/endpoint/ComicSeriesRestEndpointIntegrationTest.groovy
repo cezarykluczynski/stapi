@@ -15,6 +15,14 @@ class ComicSeriesRestEndpointIntegrationTest extends AbstractComicSeriesEndpoint
 		createRestClient()
 	}
 
+	void "gets comic series by UID"() {
+		when:
+		ComicSeriesFullResponse comicSeriesFullResponse = stapiRestClient.comicSeriesApi.comicSeriesGet('CSMA0000157262', null)
+
+		then:
+		comicSeriesFullResponse.comicSeries.title == 'Star Trek Classics'
+	}
+
 	void "gets the only photoseries that is also a miniseries"() {
 		when:
 		ComicSeriesBaseResponse comicSeriesBaseResponse = stapiRestClient.comicSeriesApi
@@ -23,14 +31,6 @@ class ComicSeriesRestEndpointIntegrationTest extends AbstractComicSeriesEndpoint
 		then:
 		comicSeriesBaseResponse.comicSeries.size() == 1
 		comicSeriesBaseResponse.comicSeries[0].title == 'Star Trek: New Visions'
-	}
-
-	void "gets comic series by UID"() {
-		when:
-		ComicSeriesFullResponse comicSeriesFullResponse = stapiRestClient.comicSeriesApi.comicSeriesGet('CSMA0000157262', null)
-
-		then:
-		comicSeriesFullResponse.comicSeries.title == 'Star Trek Classics'
 	}
 
 }

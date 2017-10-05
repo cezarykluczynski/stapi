@@ -18,6 +18,16 @@ class StaffSoapEndpointIntegrationTest extends AbstractStaffEndpointIntegrationT
 		createSoapClient()
 	}
 
+	void "gets staff by UID"() {
+		when:
+		StaffFullResponse staffResponse = stapiSoapClient.staffPortType.getStaffFull(new StaffFullRequest(
+				uid: IRA_STEVEN_BEHR_UID
+		))
+
+		then:
+		staffResponse.staff.uid == IRA_STEVEN_BEHR_UID
+	}
+
 	void "gets first page of staff"() {
 		given:
 		Integer pageNumber = 0
@@ -33,16 +43,6 @@ class StaffSoapEndpointIntegrationTest extends AbstractStaffEndpointIntegrationT
 		staffResponse.page.pageNumber == pageNumber
 		staffResponse.page.pageSize == pageSize
 		staffResponse.staff.size() == pageSize
-	}
-
-	void "gets staff by uid"() {
-		when:
-		StaffFullResponse staffResponse = stapiSoapClient.staffPortType.getStaffFull(new StaffFullRequest(
-				uid: IRA_STEVEN_BEHR_UID
-		))
-
-		then:
-		staffResponse.staff.uid == IRA_STEVEN_BEHR_UID
 	}
 
 }

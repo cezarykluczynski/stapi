@@ -2,6 +2,8 @@ package com.cezarykluczynski.stapi.client.api;
 
 import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectService;
+import com.cezarykluczynski.stapi.client.v1.soap.BookCollectionPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.BookCollectionService;
 import com.cezarykluczynski.stapi.client.v1.soap.BookPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.BookSeriesPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.BookSeriesService;
@@ -130,6 +132,9 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 	private BookPortType bookPortType;
 
 	@Getter
+	private BookCollectionPortType bookCollectionPortType;
+
+	@Getter
 	private MagazinePortType magazinePortType;
 
 	@Getter
@@ -193,6 +198,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		locationPortType = new LocationService().getLocationPortType();
 		bookSeriesPortType = new BookSeriesService().getBookSeriesPortType();
 		bookPortType = new BookService().getBookPortType();
+		bookCollectionPortType = new BookCollectionService().getBookCollectionPortType();
 		magazinePortType = new MagazineService().getMagazinePortType();
 		magazineSeriesPortType = new MagazineSeriesService().getMagazineSeriesPortType();
 		literaturePortType = new LiteratureService().getLiteraturePortType();
@@ -230,6 +236,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		locationPortType = changeUrl(new LocationService().getLocationPortType());
 		bookSeriesPortType = changeUrl(new BookSeriesService().getBookSeriesPortType());
 		bookPortType = changeUrl(new BookService().getBookPortType());
+		bookCollectionPortType = changeUrl(new BookCollectionService().getBookCollectionPortType());
 		magazinePortType = changeUrl(new MagazineService().getMagazinePortType());
 		magazineSeriesPortType = changeUrl(new MagazineSeriesService().getMagazineSeriesPortType());
 		literaturePortType = changeUrl(new LiteratureService().getLiteraturePortType());

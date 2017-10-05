@@ -19,6 +19,14 @@ class ComicsRestEndpointIntegrationTest extends AbstractComicsEndpointIntegratio
 		createRestClient()
 	}
 
+	void "gets comics by UID"() {
+		when:
+		ComicsFullResponse comicsFullResponse = stapiRestClient.comicsApi.comicsGet('CCMA0000054566', null)
+
+		then:
+		comicsFullResponse.comics.title == 'Day of the Inquisitors'
+	}
+
 	void "gets five issues of 'Ghosts'"() {
 		when:
 		ComicsBaseResponse comicsBaseResponse = stapiRestClient.comicsApi
@@ -33,14 +41,6 @@ class ComicsRestEndpointIntegrationTest extends AbstractComicsEndpointIntegratio
 		comicsBaseResponse.comics[2].title == 'Ghosts, Issue 3'
 		comicsBaseResponse.comics[3].title == 'Ghosts, Issue 4'
 		comicsBaseResponse.comics[4].title == 'Ghosts, Issue 5'
-	}
-
-	void "gets comics by UID"() {
-		when:
-		ComicsFullResponse comicsFullResponse = stapiRestClient.comicsApi.comicsGet('CCMA0000054566', null)
-
-		then:
-		comicsFullResponse.comics.title == 'Day of the Inquisitors'
 	}
 
 }

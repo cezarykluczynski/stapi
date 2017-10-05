@@ -20,6 +20,15 @@ class ComicCollectionSoapEndpointIntegrationTest extends AbstractComicCollection
 		createSoapClient()
 	}
 
+	void "gets comic collection by UID"() {
+		when:
+		ComicCollectionFullResponse comicCollectionFullResponse = stapiSoapClient.comicCollectionPortType
+				.getComicCollectionFull(new ComicCollectionFullRequest(uid: 'CLMA0000105753'))
+
+		then:
+		comicCollectionFullResponse.comicCollection.title == 'Best of Gary Seven'
+	}
+
 	void "'The Battle Within' is among collection with 132 to 160 pages that happened between 2365 and 2370"() {
 		when:
 		ComicCollectionBaseResponse comicCollectionResponse = stapiSoapClient.comicCollectionPortType
@@ -45,15 +54,6 @@ class ComicCollectionSoapEndpointIntegrationTest extends AbstractComicCollection
 
 		then:
 		titleList.contains 'The Battle Within'
-	}
-
-	void "gets comic collection by UID"() {
-		when:
-		ComicCollectionFullResponse comicCollectionFullResponse = stapiSoapClient.comicCollectionPortType
-				.getComicCollectionFull(new ComicCollectionFullRequest(uid: 'CLMA0000105753'))
-
-		then:
-		comicCollectionFullResponse.comicCollection.title == 'Best of Gary Seven'
 	}
 
 }

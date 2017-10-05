@@ -15,6 +15,14 @@ class EpisodeRestEndpointIntegrationTest extends AbstractEpisodeEndpointIntegrat
 		createRestClient()
 	}
 
+	void "gets episode by UID"() {
+		when:
+		EpisodeFullResponse episodeResponse = stapiRestClient.episodeApi.episodeGet('EPMA0000001458', null)
+
+		then:
+		episodeResponse.episode.title == 'All Good Things...'
+	}
+
 	void "episode has stardate and year set"() {
 		when:
 		EpisodeBaseResponse episodeBaseResponse = stapiRestClient.episodeApi.episodeSearchPost(null, null, null, null, 'Bem', null, null, null, null,
@@ -26,14 +34,6 @@ class EpisodeRestEndpointIntegrationTest extends AbstractEpisodeEndpointIntegrat
 		episodeBaseResponse.episodes[0].stardateTo != null
 		episodeBaseResponse.episodes[0].yearFrom != null
 		episodeBaseResponse.episodes[0].yearTo != null
-	}
-
-	void "episodes could be found by UID"() {
-		when:
-		EpisodeFullResponse episodeResponse = stapiRestClient.episodeApi.episodeGet('EPMA0000001458', null)
-
-		then:
-		episodeResponse.episode.title == 'All Good Things...'
 	}
 
 }

@@ -21,6 +21,14 @@ class MovieRestEndpointIntegrationTest extends AbstractMovieEndpointIntegrationT
 		createRestClient()
 	}
 
+	void 'gets movie by UID'() {
+		when:
+		MovieFullResponse movieFullResponse = stapiRestClient.movieApi.movieGet('MOMA0000003135', null)
+
+		then:
+		movieFullResponse.movie.title == 'Star Trek Nemesis'
+	}
+
 	void "gets all movie releases in the last decade of XX century, sorted by us release date"() {
 		when:
 		MovieBaseResponse movieBaseResponse = stapiRestClient.movieApi.movieSearchPost(null, null,

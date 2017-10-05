@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.magazine_series.endpoint
 
-import com.cezarykluczynski.stapi.server.series.common.AbstractEndpointIntegrationTest
+import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest
 
 abstract class AbstractMagazineSeriesEndpointIntegrationTest extends AbstractEndpointIntegrationTest {
 }

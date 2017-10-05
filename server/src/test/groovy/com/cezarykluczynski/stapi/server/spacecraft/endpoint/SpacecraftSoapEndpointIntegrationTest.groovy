@@ -18,6 +18,18 @@ class SpacecraftSoapEndpointIntegrationTest extends AbstractSpacecraftEndpointIn
 		createSoapClient()
 	}
 
+	void "gets spacecraft  by UID"() {
+		when:
+		SpacecraftFullResponse spacecraftFullResponse = stapiSoapClient.spacecraftPortType
+				.getSpacecraftFull(new SpacecraftFullRequest(
+				uid: 'SRMA0000003219'
+		))
+
+		then:
+		spacecraftFullResponse.spacecraft.name == 'USS Shenandoah'
+		spacecraftFullResponse.spacecraft.registry == 'NCC-73024'
+	}
+
 	void "gets spacecraft by name"() {
 		when:
 		SpacecraftBaseResponse spacecraftBaseResponse = stapiSoapClient.spacecraftPortType
@@ -29,18 +41,6 @@ class SpacecraftSoapEndpointIntegrationTest extends AbstractSpacecraftEndpointIn
 		then:
 		spacecraftBaseList.size() == 1
 		spacecraftBaseList[0].uid == 'SRMA0000008658'
-	}
-
-	void "gets spacecraft  by UID"() {
-		when:
-		SpacecraftFullResponse spacecraftFullResponse = stapiSoapClient.spacecraftPortType
-				.getSpacecraftFull(new SpacecraftFullRequest(
-						uid: 'SRMA0000003219'
-				))
-
-		then:
-		spacecraftFullResponse.spacecraft.name == 'USS Shenandoah'
-		spacecraftFullResponse.spacecraft.registry == 'NCC-73024'
 	}
 
 }

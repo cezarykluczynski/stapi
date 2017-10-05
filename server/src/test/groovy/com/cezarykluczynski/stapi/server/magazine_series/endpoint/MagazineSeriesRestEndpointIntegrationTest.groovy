@@ -15,6 +15,14 @@ class MagazineSeriesRestEndpointIntegrationTest extends AbstractMagazineSeriesEn
 		createRestClient()
 	}
 
+	void "gets magazine series by UID"() {
+		when:
+		MagazineSeriesFullResponse magazineSeriesFullResponse = stapiRestClient.magazineSeriesApi.magazineSeriesGet('MSMA0000012747', null)
+
+		then:
+		magazineSeriesFullResponse.magazineSeries.title == 'Star Trek: Communicator'
+	}
+
 	void "'Sci-Fi & Fantasy Models' is among megazine series published between 1993 and 2001"() {
 		when:
 		MagazineSeriesBaseResponse magazineSeriesBaseResponse = stapiRestClient.magazineSeriesApi
@@ -22,14 +30,6 @@ class MagazineSeriesRestEndpointIntegrationTest extends AbstractMagazineSeriesEn
 
 		then:
 		magazineSeriesBaseResponse.magazineSeries.stream().anyMatch { it.title == 'Sci-Fi & Fantasy Models' }
-	}
-
-	void "gets magazine series by UID"() {
-		when:
-		MagazineSeriesFullResponse magazineSeriesFullResponse = stapiRestClient.magazineSeriesApi.magazineSeriesGet('MSMA0000012747', null)
-
-		then:
-		magazineSeriesFullResponse.magazineSeries.title == 'Star Trek: Communicator'
 	}
 
 }

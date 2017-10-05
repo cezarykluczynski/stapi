@@ -18,6 +18,16 @@ class MovieSoapEndpointIntegrationTest extends AbstractMovieEndpointIntegrationT
 		createSoapClient()
 	}
 
+	void "gets movie by UID"() {
+		when:
+		MovieFullResponse movieFullResponse = stapiSoapClient.moviePortType.getMovieFull(new MovieFullRequest(
+				uid: 'MOMA0000103536'
+		))
+
+		then:
+		movieFullResponse.movie.title == 'Star Trek Generations'
+	}
+
 	void "gets movie by title"() {
 		when:
 		MovieBaseResponse movieBaseResponse = stapiSoapClient.moviePortType.getMovieBase(new MovieBaseRequest(
@@ -28,16 +38,6 @@ class MovieSoapEndpointIntegrationTest extends AbstractMovieEndpointIntegrationT
 		then:
 		movieBaseList.size() == 1
 		movieBaseList[0].title == 'Star Trek Into Darkness'
-	}
-
-	void "gets movie by UID"() {
-		when:
-		MovieFullResponse movieFullResponse = stapiSoapClient.moviePortType.getMovieFull(new MovieFullRequest(
-				uid: 'MOMA0000103536'
-		))
-
-		then:
-		movieFullResponse.movie.title == 'Star Trek Generations'
 	}
 
 }

@@ -18,6 +18,15 @@ class AstronomicalObjectSoapEndpointIntegrationTest extends AbstractAstronomical
 		createSoapClient()
 	}
 
+	void "gets Selay by UID"() {
+		when:
+		AstronomicalObjectFullResponse astronomicalObjectFullResponse = stapiSoapClient.astronomicalObjectPortType
+				.getAstronomicalObjectFull(new AstronomicalObjectFullRequest(uid: 'ASMA0000000810'))
+
+		then:
+		astronomicalObjectFullResponse.astronomicalObject.name == 'Selay'
+	}
+
 	@Requires({
 		StaticJobCompletenessDecider.isStepCompleted(StepName.LINK_ASTRONOMICAL_OBJECTS)
 	})
@@ -30,15 +39,6 @@ class AstronomicalObjectSoapEndpointIntegrationTest extends AbstractAstronomical
 
 		then:
 		astronomicalObjectResponse.astronomicalObjects.size() == 14
-	}
-
-	void "gets Selay by UID"() {
-		when:
-		AstronomicalObjectFullResponse astronomicalObjectFullResponse = stapiSoapClient.astronomicalObjectPortType
-				.getAstronomicalObjectFull(new AstronomicalObjectFullRequest(uid: 'ASMA0000000810'))
-
-		then:
-		astronomicalObjectFullResponse.astronomicalObject.name == 'Selay'
 	}
 
 }

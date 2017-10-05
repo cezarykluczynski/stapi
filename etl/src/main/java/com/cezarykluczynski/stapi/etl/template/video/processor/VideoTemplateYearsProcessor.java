@@ -85,9 +85,9 @@ public class VideoTemplateYearsProcessor implements ItemProcessor<Template.Part,
 		return Optional.empty();
 	}
 
-	private static void addIfNotNull(List<Integer> yearList, Integer yearCandiate) {
-		if (yearCandiate != null) {
-			yearList.add(yearCandiate);
+	private static void addIfNotNull(List<Integer> yearList, Integer yearCandidate) {
+		if (yearCandidate != null) {
+			yearList.add(yearCandidate);
 		}
 	}
 

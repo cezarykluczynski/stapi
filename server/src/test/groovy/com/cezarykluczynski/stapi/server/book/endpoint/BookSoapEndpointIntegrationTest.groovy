@@ -17,7 +17,7 @@ class BookSoapEndpointIntegrationTest extends AbstractBookEndpointIntegrationTes
 		createSoapClient()
 	}
 
-	void "gets book series by UID"() {
+	void "gets book by UID"() {
 		when:
 		BookFullResponse bookFullResponse = stapiSoapClient.bookPortType.getBookFull(new BookFullRequest(
 				uid: 'BOMA0000097110'

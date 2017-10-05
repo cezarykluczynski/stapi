@@ -18,6 +18,16 @@ class VideoReleaseSoapEndpointIntegrationTest extends AbstractVideoReleaseEndpoi
 		createSoapClient()
 	}
 
+	void "gets video release by UID"() {
+		when:
+		VideoReleaseFullResponse videoReleaseFullResponse = stapiSoapClient.videoReleasePortType.getVideoReleaseFull(new VideoReleaseFullRequest(
+				uid: 'VIMA0000132054'
+		))
+
+		then:
+		videoReleaseFullResponse.videoRelease.title == 'Star Trek 25th Anniversary Special'
+	}
+
 	void "gets video release by title"() {
 		when:
 		VideoReleaseBaseResponse videoReleaseBaseResponse = stapiSoapClient.videoReleasePortType.getVideoReleaseBase(new VideoReleaseBaseRequest(
@@ -28,16 +38,6 @@ class VideoReleaseSoapEndpointIntegrationTest extends AbstractVideoReleaseEndpoi
 		then:
 		videoReleaseBaseList.size() == 1
 		videoReleaseBaseList[0].title == 'To Be Takei'
-	}
-
-	void "gets video release by UID"() {
-		when:
-		VideoReleaseFullResponse videoReleaseFullResponse = stapiSoapClient.videoReleasePortType.getVideoReleaseFull(new VideoReleaseFullRequest(
-				uid: 'VIMA0000132054'
-		))
-
-		then:
-		videoReleaseFullResponse.videoRelease.title == 'Star Trek 25th Anniversary Special'
 	}
 
 }

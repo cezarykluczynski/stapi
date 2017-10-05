@@ -19,6 +19,17 @@ class StaffRestEndpointIntegrationTest extends AbstractStaffEndpointIntegrationT
 		createRestClient()
 	}
 
+	void "gets staff with movie experience by UID"() {
+		when:
+		StaffFullResponse staffFullResponse = stapiRestClient.staffApi.staffGet(RICK_BERMAN_UID, null)
+
+		then:
+		staffFullResponse.staff.uid == RICK_BERMAN_UID
+		staffFullResponse.staff.storyAuthoredMovies.size() == 4
+		staffFullResponse.staff.producedMovies.size() == 4
+		staffFullResponse.staff.movies.size() == 4
+	}
+
 	void "gets first page of staff"() {
 		given:
 		Integer pageNumber = 0
@@ -42,17 +53,6 @@ class StaffRestEndpointIntegrationTest extends AbstractStaffEndpointIntegrationT
 		staffFullResponse.staff.writtenEpisodes.size() == 34
 		staffFullResponse.staff.teleplayAuthoredEpisodes.size() == 18
 		staffFullResponse.staff.storyAuthoredEpisodes.size() == 10
-	}
-
-	void "gets staff with movie experience by UID"() {
-		when:
-		StaffFullResponse staffFullResponse = stapiRestClient.staffApi.staffGet(RICK_BERMAN_UID, null)
-
-		then:
-		staffFullResponse.staff.uid == RICK_BERMAN_UID
-		staffFullResponse.staff.storyAuthoredMovies.size() == 4
-		staffFullResponse.staff.producedMovies.size() == 4
-		staffFullResponse.staff.movies.size() == 4
 	}
 
 	void "gets staff sorted by name"() {

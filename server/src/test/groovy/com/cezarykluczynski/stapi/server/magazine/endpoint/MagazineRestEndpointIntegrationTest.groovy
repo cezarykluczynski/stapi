@@ -15,6 +15,14 @@ class MagazineRestEndpointIntegrationTest extends AbstractMagazineEndpointIntegr
 		createRestClient()
 	}
 
+	void "gets magazine by UID"() {
+		when:
+		MagazineFullResponse magazineFullResponse = stapiRestClient.magazineApi.magazineGet('MAMA0000203315', null)
+
+		then:
+		magazineFullResponse.magazine.title == 'Star Trek: Heroes and Villains'
+	}
+
 	void "'Star Trek Magazine Souvenir Special' is among magazines with more than 120 pages"() {
 		when:
 		MagazineBaseResponse magazineBaseResponse = stapiRestClient.magazineApi
@@ -23,14 +31,6 @@ class MagazineRestEndpointIntegrationTest extends AbstractMagazineEndpointIntegr
 		then:
 		magazineBaseResponse.magazines.stream()
 				.anyMatch { it.title == 'Star Trek Magazine Souvenir Special' }
-	}
-
-	void "gets magazine by UID"() {
-		when:
-		MagazineFullResponse magazineFullResponse = stapiRestClient.magazineApi.magazineGet('MAMA0000203315', null)
-
-		then:
-		magazineFullResponse.magazine.title == 'Star Trek: Heroes and Villains'
 	}
 
 }

@@ -15,17 +15,6 @@ class ComicCollectionRestEndpointIntegrationTest extends AbstractComicCollection
 		createRestClient()
 	}
 
-	void "'Star Trek Ultimate Edition' is among collections with more than 500 pages"() {
-		when:
-		ComicCollectionBaseResponse comicCollectionBaseResponse = stapiRestClient.comicCollectionApi.comicCollectionSearchPost(null, null, null, null,
-				null, null, null, 500, null, null, null, null, null, null)
-
-		then:
-		comicCollectionBaseResponse.comicCollections.stream()
-				.anyMatch { it -> it.title == 'Star Trek Ultimate Edition' }
-
-	}
-
 	@Requires({
 		StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_COMICS)
 	})
@@ -36,6 +25,16 @@ class ComicCollectionRestEndpointIntegrationTest extends AbstractComicCollection
 		then:
 		comicCollectionFullResponse.comicCollection.title == 'Convergence'
 		comicCollectionFullResponse.comicCollection.comics.size() >= 3
+	}
+
+	void "'Star Trek Ultimate Edition' is among collections with more than 500 pages"() {
+		when:
+		ComicCollectionBaseResponse comicCollectionBaseResponse = stapiRestClient.comicCollectionApi.comicCollectionSearchPost(null, null, null, null,
+				null, null, null, 500, null, null, null, null, null, null)
+
+		then:
+		comicCollectionBaseResponse.comicCollections.stream()
+				.anyMatch { it -> it.title == 'Star Trek Ultimate Edition' }
 	}
 
 }

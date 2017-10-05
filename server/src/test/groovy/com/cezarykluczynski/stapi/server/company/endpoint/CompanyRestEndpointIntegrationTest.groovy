@@ -17,6 +17,14 @@ class CompanyRestEndpointIntegrationTest extends AbstractCompanyEndpointIntegrat
 		createRestClient()
 	}
 
+	void "gets company by UID"() {
+		when:
+		CompanyFullResponse companyFullResponse = stapiRestClient.companyApi.companyGet('COMA0000006521', null)
+
+		then:
+		companyFullResponse.company.name == 'NBC'
+	}
+
 	void "gets CBS-related broadcasters"() {
 		when:
 		CompanyBaseResponse companyResponse = stapiRestClient.companyApi.companySearchPost(0, 20, null, null, 'CBS', true, false, false, false, false,
@@ -29,14 +37,6 @@ class CompanyRestEndpointIntegrationTest extends AbstractCompanyEndpointIntegrat
 		then:
 		companyNameList.contains 'CBS Action'
 		companyNameList.contains 'CBS Studios'
-	}
-
-	void "gets company by UID"() {
-		when:
-		CompanyFullResponse companyFullResponse = stapiRestClient.companyApi.companyGet('COMA0000006521', null)
-
-		then:
-		companyFullResponse.company.name == 'NBC'
 	}
 
 }

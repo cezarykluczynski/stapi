@@ -6,7 +6,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.OrganizationFullRequest
 import com.cezarykluczynski.stapi.client.v1.soap.OrganizationFullResponse
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
-import com.cezarykluczynski.stapi.server.series.common.AbstractEndpointIntegrationTest
+import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest
 import spock.lang.Requires
 
 @Requires({

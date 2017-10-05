@@ -4,6 +4,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.DateRange
 import com.cezarykluczynski.stapi.client.v1.soap.EpisodeBase
 import com.cezarykluczynski.stapi.client.v1.soap.EpisodeBaseRequest
 import com.cezarykluczynski.stapi.client.v1.soap.EpisodeBaseResponse
+import com.cezarykluczynski.stapi.client.v1.soap.EpisodeFullRequest
+import com.cezarykluczynski.stapi.client.v1.soap.EpisodeFullResponse
 import com.cezarykluczynski.stapi.client.v1.soap.RequestPage
 import com.cezarykluczynski.stapi.client.v1.soap.RequestSort
 import com.cezarykluczynski.stapi.client.v1.soap.RequestSortClause
@@ -24,6 +26,16 @@ class EpisodeSoapEndpointIntegrationTest extends AbstractEpisodeEndpointIntegrat
 
 	void setup() {
 		createSoapClient()
+	}
+
+	void "gets episode by UID"() {
+		when:
+		EpisodeFullResponse episodeFullResponse = stapiSoapClient.episodePortType.getEpisodeFull(new EpisodeFullRequest(
+				uid: 'EPMA0000001413'
+		))
+
+		then:
+		episodeFullResponse.episode.title == 'True Q'
 	}
 
 	void "gets episode by title"() {

@@ -20,10 +20,9 @@ class TradingCardSoapEndpointIntegrationTest extends AbstractTradingCardEndpoint
 
 	void "gets trading card by UID"() {
 		when:
-		TradingCardFullResponse tradingCardFullResponse = stapiSoapClient.tradingCardPortType
-				.getTradingCardFull(new TradingCardFullRequest(
-						uid: 'TC000000030111'
-				))
+		TradingCardFullResponse tradingCardFullResponse = stapiSoapClient.tradingCardPortType.getTradingCardFull(new TradingCardFullRequest(
+				uid: 'TC000000030111'
+		))
 
 		then:
 		tradingCardFullResponse.tradingCard.name == 'Lt. Geordi LaForge in Dress Uniform'
@@ -31,10 +30,9 @@ class TradingCardSoapEndpointIntegrationTest extends AbstractTradingCardEndpoint
 
 	void "there are 50 cards in 'Star Trek: The Original Series Art and Images' set"() {
 		when:
-		TradingCardBaseResponse tradingCardBaseResponse = stapiSoapClient.tradingCardPortType
-				.getTradingCardBase(new TradingCardBaseRequest(
-						tradingCardSetUid: 'TCS00000001641'
-				))
+		TradingCardBaseResponse tradingCardBaseResponse = stapiSoapClient.tradingCardPortType.getTradingCardBase(new TradingCardBaseRequest(
+				tradingCardSetUid: 'TCS00000001641'
+		))
 		List<TradingCardBase> tradingCardBaseList = tradingCardBaseResponse.tradingCards
 
 		then:
