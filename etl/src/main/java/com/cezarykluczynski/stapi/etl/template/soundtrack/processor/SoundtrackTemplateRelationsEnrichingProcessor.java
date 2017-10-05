@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-// TODO: tests
 public class SoundtrackTemplateRelationsEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<SoundtrackTemplate> {
 
 	private final WikitextToEntitiesProcessor wikitextToEntitiesProcessor;
