@@ -17,7 +17,7 @@ class MovieRepositoryImplTest extends Specification {
 
 	private static final String UID = 'ABCD0123456789'
 
-	private MovieInitialQueryBuilderFactory movieInitialQueryBuilderFactory
+	private MovieInitialQueryBuilderFactory movieInitialQueryBuilderFactoryMock
 
 	private MovieRepositoryImpl movieRepositoryImpl
 
@@ -52,8 +52,8 @@ class MovieRepositoryImplTest extends Specification {
 	private Set<Character> charactersSet
 
 	void setup() {
-		movieInitialQueryBuilderFactory = Mock()
-		movieRepositoryImpl = new MovieRepositoryImpl(movieInitialQueryBuilderFactory)
+		movieInitialQueryBuilderFactoryMock = Mock()
+		movieRepositoryImpl = new MovieRepositoryImpl(movieInitialQueryBuilderFactoryMock)
 		movieQueryBuilder = Mock()
 		moviePerformersQueryBuilder = Mock()
 		movieCharactersQueryBuilder = Mock()
@@ -76,7 +76,7 @@ class MovieRepositoryImplTest extends Specification {
 		Page pageOutput = movieRepositoryImpl.findMatching(movieRequestDTO, pageable)
 
 		then: 'criteria builder is retrieved'
-		1 * movieInitialQueryBuilderFactory.createInitialQueryBuilder(movieRequestDTO, pageable) >> movieQueryBuilder
+		1 * movieInitialQueryBuilderFactoryMock.createInitialQueryBuilder(movieRequestDTO, pageable) >> movieQueryBuilder
 
 		then: 'uid is retrieved, and it is not null'
 		1 * movieRequestDTO.uid >> UID
@@ -97,14 +97,14 @@ class MovieRepositoryImplTest extends Specification {
 		1 * page.content >> Lists.newArrayList(movie)
 
 		then: 'another criteria builder is retrieved for performers'
-		1 * movieInitialQueryBuilderFactory.createInitialQueryBuilder(movieRequestDTO, pageable) >> moviePerformersQueryBuilder
+		1 * movieInitialQueryBuilderFactoryMock.createInitialQueryBuilder(movieRequestDTO, pageable) >> moviePerformersQueryBuilder
 
 		then: 'performers fetch is performed'
 		1 * moviePerformersQueryBuilder.fetch(Movie_.performers)
 		1 * moviePerformersQueryBuilder.fetch(Movie_.stuntPerformers)
 		1 * moviePerformersQueryBuilder.fetch(Movie_.standInPerformers)
 
-		then: 'performers list is retrieved'
+		then: 'result list is retrieved'
 		1 * moviePerformersQueryBuilder.findAll() >> Lists.newArrayList(performersMovie)
 
 		then: 'performers from performers movie are set to movie'
@@ -116,12 +116,12 @@ class MovieRepositoryImplTest extends Specification {
 		1 * movie.setStandInPerformers(standInPerformersSet)
 
 		then: 'another criteria builder is retrieved for characters'
-		1 * movieInitialQueryBuilderFactory.createInitialQueryBuilder(movieRequestDTO, pageable) >> movieCharactersQueryBuilder
+		1 * movieInitialQueryBuilderFactoryMock.createInitialQueryBuilder(movieRequestDTO, pageable) >> movieCharactersQueryBuilder
 
 		then: 'characters fetch is performed'
 		1 * movieCharactersQueryBuilder.fetch(Movie_.characters)
 
-		then: 'characters list is retrieved'
+		then: 'result list is retrieved'
 		1 * movieCharactersQueryBuilder.findAll() >> Lists.newArrayList(charactersMovie)
 
 		then: 'performers from performers movie are set to movie'
@@ -140,7 +140,7 @@ class MovieRepositoryImplTest extends Specification {
 		Page pageOutput = movieRepositoryImpl.findMatching(movieRequestDTO, pageable)
 
 		then: 'criteria builder is retrieved'
-		1 * movieInitialQueryBuilderFactory.createInitialQueryBuilder(movieRequestDTO, pageable) >> movieQueryBuilder
+		1 * movieInitialQueryBuilderFactoryMock.createInitialQueryBuilder(movieRequestDTO, pageable) >> movieQueryBuilder
 
 		then: 'uid is retrieved, and it is not null'
 		1 * movieRequestDTO.uid >> UID
@@ -161,7 +161,7 @@ class MovieRepositoryImplTest extends Specification {
 		1 * page.content >> Lists.newArrayList(movie)
 
 		then: 'another criteria builder is retrieved for performers'
-		1 * movieInitialQueryBuilderFactory.createInitialQueryBuilder(movieRequestDTO, pageable) >> moviePerformersQueryBuilder
+		1 * movieInitialQueryBuilderFactoryMock.createInitialQueryBuilder(movieRequestDTO, pageable) >> moviePerformersQueryBuilder
 
 		then: 'performers fetch is performed'
 		1 * moviePerformersQueryBuilder.fetch(Movie_.performers)
@@ -172,7 +172,7 @@ class MovieRepositoryImplTest extends Specification {
 		1 * moviePerformersQueryBuilder.findAll() >> Lists.newArrayList()
 
 		then: 'another criteria builder is retrieved for characters'
-		1 * movieInitialQueryBuilderFactory.createInitialQueryBuilder(movieRequestDTO, pageable) >> movieCharactersQueryBuilder
+		1 * movieInitialQueryBuilderFactoryMock.createInitialQueryBuilder(movieRequestDTO, pageable) >> movieCharactersQueryBuilder
 
 		then: 'characters fetch is performed'
 		1 * movieCharactersQueryBuilder.fetch(Movie_.characters)
@@ -192,7 +192,7 @@ class MovieRepositoryImplTest extends Specification {
 		Page pageOutput = movieRepositoryImpl.findMatching(movieRequestDTO, pageable)
 
 		then: 'criteria builder is retrieved'
-		1 * movieInitialQueryBuilderFactory.createInitialQueryBuilder(movieRequestDTO, pageable) >> movieQueryBuilder
+		1 * movieInitialQueryBuilderFactoryMock.createInitialQueryBuilder(movieRequestDTO, pageable) >> movieQueryBuilder
 
 		then: 'uid is retrieved, and it is not null'
 		1 * movieRequestDTO.uid >> UID
@@ -224,7 +224,7 @@ class MovieRepositoryImplTest extends Specification {
 		Page pageOutput = movieRepositoryImpl.findMatching(movieRequestDTO, pageable)
 
 		then: 'criteria builder is retrieved'
-		1 * movieInitialQueryBuilderFactory.createInitialQueryBuilder(movieRequestDTO, pageable) >> movieQueryBuilder
+		1 * movieInitialQueryBuilderFactoryMock.createInitialQueryBuilder(movieRequestDTO, pageable) >> movieQueryBuilder
 
 		then: 'uid criteria is set to null'
 		1 * movieRequestDTO.uid >> null

@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.model.character.dto.CharacterRequestDTO;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.character.entity.CharacterRelation_;
 import com.cezarykluczynski.stapi.model.character.entity.Character_;
-import com.cezarykluczynski.stapi.model.character.query.CharacterQueryBuilderFactory;
+import com.cezarykluczynski.stapi.model.character.query.CharacterInitialQueryBuilderFactory;
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
 import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie_;
@@ -14,46 +14,78 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import javax.inject.Inject;
+import java.util.List;
 
 @Repository
 public class CharacterRepositoryImpl extends AbstractRepositoryImpl<Character> implements CharacterRepositoryCustom {
 
-	private final CharacterQueryBuilderFactory characterQueryBuilderFactory;
+	private final CharacterInitialQueryBuilderFactory characterInitialQueryBuilderFactory;
 
 	@Inject
-	public CharacterRepositoryImpl(CharacterQueryBuilderFactory characterQueryBuilderFactory) {
-		this.characterQueryBuilderFactory = characterQueryBuilderFactory;
+	public CharacterRepositoryImpl(CharacterInitialQueryBuilderFactory characterInitialQueryBuilderFactory) {
+		this.characterInitialQueryBuilderFactory = characterInitialQueryBuilderFactory;
 	}
 
 	@Override
 	public Page<Character> findMatching(CharacterRequestDTO criteria, Pageable pageable) {
-		QueryBuilder<Character> characterQueryBuilder = characterQueryBuilderFactory.createQueryBuilder(pageable);
+		QueryBuilder<Character> characterQueryBuilder = createInitialCharacterQueryBuilder(criteria, pageable);
 		String uid = criteria.getUid();
 		boolean doFetch = uid != null;
 
-		characterQueryBuilder.equal(Character_.uid, uid);
-		characterQueryBuilder.like(Character_.name, criteria.getName());
-		characterQueryBuilder.equal(Character_.gender, criteria.getGender());
-		characterQueryBuilder.equal(Character_.deceased, criteria.getDeceased());
-		characterQueryBuilder.equal(Character_.hologram, criteria.getHologram());
-		characterQueryBuilder.equal(Character_.fictionalCharacter, criteria.getFictionalCharacter());
-		characterQueryBuilder.equal(Character_.mirror, criteria.getMirror());
-		characterQueryBuilder.equal(Character_.alternateReality, criteria.getAlternateReality());
-		characterQueryBuilder.setSort(criteria.getSort());
-		characterQueryBuilder.fetch(Character_.performers, doFetch);
-		characterQueryBuilder.fetch(Character_.episodes, doFetch);
-		characterQueryBuilder.fetch(Character_.movies, doFetch);
-		characterQueryBuilder.fetch(Character_.movies, Movie_.mainDirector, doFetch);
-		characterQueryBuilder.fetch(Character_.characterSpecies, doFetch);
-		characterQueryBuilder.fetch(Character_.characterRelations, doFetch);
-		characterQueryBuilder.fetch(Character_.characterRelations, CharacterRelation_.source, doFetch);
-		characterQueryBuilder.fetch(Character_.characterRelations, CharacterRelation_.target, doFetch);
-		characterQueryBuilder.fetch(Character_.titles, doFetch);
-		characterQueryBuilder.fetch(Character_.organizations, doFetch);
+		Page<Character> characterPage;
 
-		Page<Character> performerPage = characterQueryBuilder.findPage();
-		clearProxies(performerPage, !doFetch);
-		return performerPage;
+		if (doFetch) {
+			characterQueryBuilder.fetch(Character_.performers);
+			characterQueryBuilder.fetch(Character_.episodes);
+			characterQueryBuilder.fetch(Character_.movies);
+			characterQueryBuilder.fetch(Character_.movies, Movie_.mainDirector);
+			characterPage = characterQueryBuilder.findPage();
+
+			List<Character> characterList = characterPage.getContent();
+
+			if (characterList.size() == 0) {
+				return characterPage;
+			}
+
+			Character character = characterList.get(0);
+
+			QueryBuilder<Character> characterSpeciesAndRelationsQueryBuilder = createInitialCharacterQueryBuilder(criteria, pageable);
+
+			characterSpeciesAndRelationsQueryBuilder.fetch(Character_.characterSpecies);
+			characterSpeciesAndRelationsQueryBuilder.fetch(Character_.characterRelations);
+			characterSpeciesAndRelationsQueryBuilder.fetch(Character_.characterRelations, CharacterRelation_.source);
+			characterSpeciesAndRelationsQueryBuilder.fetch(Character_.characterRelations, CharacterRelation_.target);
+
+			List<Character> characterSpeciesAndRelationsList = characterSpeciesAndRelationsQueryBuilder.findAll();
+
+			if (characterSpeciesAndRelationsList.size() == 1) {
+				Character charactersSpeciesAndRelationsCharacter = characterSpeciesAndRelationsList.get(0);
+				character.setCharacterSpecies(charactersSpeciesAndRelationsCharacter.getCharacterSpecies());
+				character.setCharacterRelations(charactersSpeciesAndRelationsCharacter.getCharacterRelations());
+			}
+
+			QueryBuilder<Character> titlesAndOrganizationsQueryBuilder = createInitialCharacterQueryBuilder(criteria, pageable);
+
+			titlesAndOrganizationsQueryBuilder.fetch(Character_.titles);
+			titlesAndOrganizationsQueryBuilder.fetch(Character_.organizations);
+
+			List<Character> titlesAndOrganizationsList = titlesAndOrganizationsQueryBuilder.findAll();
+
+			if (characterSpeciesAndRelationsList.size() == 1) {
+				Character titlesAndOrganizationsListCharacter = titlesAndOrganizationsList.get(0);
+				character.setTitles(titlesAndOrganizationsListCharacter.getTitles());
+				character.setOrganizations(titlesAndOrganizationsListCharacter.getOrganizations());
+			}
+		} else {
+			characterPage = characterQueryBuilder.findPage();
+		}
+
+		clearProxies(characterPage, !doFetch);
+		return characterPage;
+	}
+
+	private QueryBuilder<Character> createInitialCharacterQueryBuilder(CharacterRequestDTO criteria, Pageable pageable) {
+		return characterInitialQueryBuilderFactory.createInitialQueryBuilder(criteria, pageable);
 	}
 
 	@Override

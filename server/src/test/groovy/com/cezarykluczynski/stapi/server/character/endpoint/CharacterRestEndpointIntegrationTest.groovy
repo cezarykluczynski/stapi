@@ -25,7 +25,6 @@ class CharacterRestEndpointIntegrationTest extends AbstractCharacterEndpointInte
 
 		then:
 		characterFullResponse.character.uid == DEANNA_TROI_UID
-		characterFullResponse.character.episodes.size() == 166
 		characterFullResponse.character.movies.size() == 4
 	}
 
