@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.etl.template.soundtrack.dto.SoundtrackTemplate
-import com.cezarykluczynski.stapi.etl.template.soundtrack.service.SoundtrackFilter
+import com.cezarykluczynski.stapi.etl.soundtrack.creation.service.SoundtrackPageFilter
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
@@ -16,7 +16,7 @@ class SoundtrackTemplatePageProcessorTest extends Specification {
 	private static final String TITLE_WITH_BRACKETS = 'TITLE (soundtrack)'
 	private static final String TITLE = 'TITLE'
 
-	private SoundtrackFilter soundtrackFilterMock
+	private SoundtrackPageFilter soundtrackFilterMock
 
 	private TemplateFinder templateFinderMock
 

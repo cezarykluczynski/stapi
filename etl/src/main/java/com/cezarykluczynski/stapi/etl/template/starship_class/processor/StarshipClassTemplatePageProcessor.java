@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.template.starship_class.dto.StarshipClassTemplate;
-import com.cezarykluczynski.stapi.etl.template.starship_class.service.StarshipClassFilter;
+import com.cezarykluczynski.stapi.etl.spacecraft_class.creation.service.SpacecraftClassPageFilter;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
@@ -19,7 +19,7 @@ import java.util.Optional;
 @Slf4j
 public class StarshipClassTemplatePageProcessor implements ItemProcessor<Page, StarshipClassTemplate> {
 
-	private final StarshipClassFilter starshipClassFilter;
+	private final SpacecraftClassPageFilter spacecraftClassPageFilter;
 
 	private final TemplateFinder templateFinder;
 
@@ -29,11 +29,11 @@ public class StarshipClassTemplatePageProcessor implements ItemProcessor<Page, S
 
 	private final StarshipClassTemplateCompositeEnrichingProcessor starshipClassTemplateCompositeEnrichingProcessor;
 
-	public StarshipClassTemplatePageProcessor(StarshipClassFilter starshipClassFilter, TemplateFinder templateFinder,
-			PageBindingService pageBindingService,
-			StarshipClassTemplateCategoriesEnrichingProcessor starshipClassTemplateCategoriesEnrichingProcessor,
-			StarshipClassTemplateCompositeEnrichingProcessor starshipClassTemplateCompositeEnrichingProcessor) {
-		this.starshipClassFilter = starshipClassFilter;
+	public StarshipClassTemplatePageProcessor(SpacecraftClassPageFilter spacecraftClassPageFilter, TemplateFinder templateFinder,
+	                                          PageBindingService pageBindingService,
+	                                          StarshipClassTemplateCategoriesEnrichingProcessor starshipClassTemplateCategoriesEnrichingProcessor,
+	                                          StarshipClassTemplateCompositeEnrichingProcessor starshipClassTemplateCompositeEnrichingProcessor) {
+		this.spacecraftClassPageFilter = spacecraftClassPageFilter;
 		this.templateFinder = templateFinder;
 		this.pageBindingService = pageBindingService;
 		this.starshipClassTemplateCategoriesEnrichingProcessor = starshipClassTemplateCategoriesEnrichingProcessor;
@@ -42,7 +42,7 @@ public class StarshipClassTemplatePageProcessor implements ItemProcessor<Page, S
 
 	@Override
 	public StarshipClassTemplate process(Page item) throws Exception {
-		if (starshipClassFilter.shouldBeFilteredOut(item)) {
+		if (spacecraftClassPageFilter.shouldBeFilteredOut(item)) {
 			return null;
 		}
 

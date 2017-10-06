@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.video_game.service;
+package com.cezarykluczynski.stapi.etl.video_game.creation.service;
 
 import com.cezarykluczynski.stapi.etl.template.common.service.MediaWikiPageFilter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 
 @Service
-public class VideoGameFilter implements MediaWikiPageFilter {
+public class VideoGamePageFilter implements MediaWikiPageFilter {
 
 	private static final Set<String> INVALID_TITLES = Sets.newHashSet("Star Trek: Starfleet Command series");
 

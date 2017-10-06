@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.species.service;
+package com.cezarykluczynski.stapi.etl.species.creation.service;
 
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
 import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService;
@@ -13,7 +13,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Service
-public class SpeciesTemplateFilter implements MediaWikiPageFilter {
+public class SpeciesPageFilter implements MediaWikiPageFilter {
 
 	private static final String UNNAMED_PREFIX = "Unnamed";
 
@@ -25,7 +25,7 @@ public class SpeciesTemplateFilter implements MediaWikiPageFilter {
 	private final CategorySortingService categorySortingService;
 
 	@Inject
-	public SpeciesTemplateFilter(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor, CategorySortingService categorySortingService) {
+	public SpeciesPageFilter(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor, CategorySortingService categorySortingService) {
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
 		this.categorySortingService = categorySortingService;
 	}

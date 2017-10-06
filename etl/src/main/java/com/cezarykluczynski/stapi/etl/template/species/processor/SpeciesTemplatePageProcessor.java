@@ -2,9 +2,9 @@ package com.cezarykluczynski.stapi.etl.template.species.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
+import com.cezarykluczynski.stapi.etl.species.creation.service.SpeciesPageFilter;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.template.species.dto.SpeciesTemplate;
-import com.cezarykluczynski.stapi.etl.template.species.service.SpeciesTemplateFilter;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
@@ -18,7 +18,7 @@ import java.util.Optional;
 @Service
 public class SpeciesTemplatePageProcessor implements ItemProcessor<Page, SpeciesTemplate> {
 
-	private final SpeciesTemplateFilter speciesTemplateFilter;
+	private final SpeciesPageFilter speciesPageFilter;
 
 	private final PageBindingService pageBindingService;
 
@@ -29,10 +29,10 @@ public class SpeciesTemplatePageProcessor implements ItemProcessor<Page, Species
 	private final SpeciesTemplateTypeEnrichingProcessor speciesTemplateTypeEnrichingProcessor;
 
 	@Inject
-	public SpeciesTemplatePageProcessor(SpeciesTemplateFilter speciesTemplateFilter, PageBindingService pageBindingService,
+	public SpeciesTemplatePageProcessor(SpeciesPageFilter speciesPageFilter, PageBindingService pageBindingService,
 			TemplateFinder templateFinder, SpeciesTemplatePartsEnrichingProcessor speciesTemplatePartsEnrichingProcessor,
 			SpeciesTemplateTypeEnrichingProcessor speciesTemplateTypeEnrichingProcessor) {
-		this.speciesTemplateFilter = speciesTemplateFilter;
+		this.speciesPageFilter = speciesPageFilter;
 		this.pageBindingService = pageBindingService;
 		this.templateFinder = templateFinder;
 		this.speciesTemplatePartsEnrichingProcessor = speciesTemplatePartsEnrichingProcessor;
@@ -41,7 +41,7 @@ public class SpeciesTemplatePageProcessor implements ItemProcessor<Page, Species
 
 	@Override
 	public SpeciesTemplate process(Page item) throws Exception {
-		if (speciesTemplateFilter.shouldBeFilteredOut(item)) {
+		if (speciesPageFilter.shouldBeFilteredOut(item)) {
 			return null;
 		}
 

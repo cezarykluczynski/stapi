@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.etl.template.species.dto.SpeciesTemplate
-import com.cezarykluczynski.stapi.etl.template.species.service.SpeciesTemplateFilter
+import com.cezarykluczynski.stapi.etl.species.creation.service.SpeciesPageFilter
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page as SourcesPage
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
@@ -17,7 +17,7 @@ class SpeciesTemplatePageProcessorTest extends Specification {
 	private static final String TITLE = 'TITLE'
 	private static final String TITLE_WITH_BRACKETS = 'TITLE (species)'
 
-	private SpeciesTemplateFilter speciesTemplateFilterMock
+	private SpeciesPageFilter speciesTemplateFilterMock
 
 	private PageBindingService pageBindingServiceMock
 

@@ -2,9 +2,9 @@ package com.cezarykluczynski.stapi.etl.template.soundtrack.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
+import com.cezarykluczynski.stapi.etl.soundtrack.creation.service.SoundtrackPageFilter;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.template.soundtrack.dto.SoundtrackTemplate;
-import com.cezarykluczynski.stapi.etl.template.soundtrack.service.SoundtrackFilter;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
@@ -19,7 +19,7 @@ import java.util.Optional;
 @Slf4j
 public class SoundtrackTemplatePageProcessor implements ItemProcessor<Page, SoundtrackTemplate> {
 
-	private final SoundtrackFilter soundtrackFilter;
+	private final SoundtrackPageFilter soundtrackPageFilter;
 
 	private final TemplateFinder templateFinder;
 
@@ -27,9 +27,9 @@ public class SoundtrackTemplatePageProcessor implements ItemProcessor<Page, Soun
 
 	private final SoundtrackTemplateCompositeEnrichingProcessor soundtrackTemplateCompositeEnrichingProcessor;
 
-	public SoundtrackTemplatePageProcessor(SoundtrackFilter soundtrackFilter, TemplateFinder templateFinder, PageBindingService pageBindingService,
-			SoundtrackTemplateCompositeEnrichingProcessor soundtrackTemplateCompositeEnrichingProcessor) {
-		this.soundtrackFilter = soundtrackFilter;
+	public SoundtrackTemplatePageProcessor(SoundtrackPageFilter soundtrackPageFilter, TemplateFinder templateFinder,
+			PageBindingService pageBindingService, SoundtrackTemplateCompositeEnrichingProcessor soundtrackTemplateCompositeEnrichingProcessor) {
+		this.soundtrackPageFilter = soundtrackPageFilter;
 		this.templateFinder = templateFinder;
 		this.pageBindingService = pageBindingService;
 		this.soundtrackTemplateCompositeEnrichingProcessor = soundtrackTemplateCompositeEnrichingProcessor;
@@ -37,7 +37,7 @@ public class SoundtrackTemplatePageProcessor implements ItemProcessor<Page, Soun
 
 	@Override
 	public SoundtrackTemplate process(Page item) throws Exception {
-		if (soundtrackFilter.shouldBeFilteredOut(item)) {
+		if (soundtrackPageFilter.shouldBeFilteredOut(item)) {
 			return null;
 		}
 

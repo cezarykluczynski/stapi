@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.starship_class.service
+package com.cezarykluczynski.stapi.etl.spacecraft_class.creation.service
 
 import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
@@ -6,15 +6,15 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
-class StarshipClassFilterTest extends Specification {
+class SpacecraftClassPageFilterTest extends Specification {
 
 	private CategorySortingService categorySortingServiceMock
 
-	private StarshipClassFilter starshipClassFilter
+	private SpacecraftClassPageFilter starshipClassFilter
 
 	void setup() {
 		categorySortingServiceMock = Mock()
-		starshipClassFilter = new StarshipClassFilter(categorySortingServiceMock)
+		starshipClassFilter = new SpacecraftClassPageFilter(categorySortingServiceMock)
 	}
 
 	void "returns true when page is an effect of redirect"() {

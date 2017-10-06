@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.starship.service
+package com.cezarykluczynski.stapi.etl.spacecraft.creation.service
 
 import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
@@ -7,15 +7,15 @@ import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
-class StarshipPageFilterTest extends Specification {
+class SpacecraftPageFilterTest extends Specification {
 
 	private CategorySortingService categorySortingServiceMock
 
-	private StarshipPageFilter starshipPageFilter
+	private SpacecraftPageFilter starshipPageFilter
 
 	void setup() {
 		categorySortingServiceMock = Mock()
-		starshipPageFilter = new StarshipPageFilter(categorySortingServiceMock)
+		starshipPageFilter = new SpacecraftPageFilter(categorySortingServiceMock)
 	}
 
 	void "returns true when redirect path is not empty"() {
@@ -57,7 +57,7 @@ class StarshipPageFilterTest extends Specification {
 
 	void "returns true when page title is on list of title to filter out"() {
 		given:
-		Page page = new Page(title: RandomUtil.randomItem(StarshipPageFilter.INVALID_TITLES))
+		Page page = new Page(title: RandomUtil.randomItem(SpacecraftPageFilter.INVALID_TITLES))
 
 		when:
 		boolean shouldBeFilteredOut = starshipPageFilter.shouldBeFilteredOut(page)

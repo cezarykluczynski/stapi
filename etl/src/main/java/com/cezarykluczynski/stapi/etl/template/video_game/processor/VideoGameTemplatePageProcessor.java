@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.template.video_game.dto.VideoGameTemplate;
-import com.cezarykluczynski.stapi.etl.template.video_game.service.VideoGameFilter;
+import com.cezarykluczynski.stapi.etl.video_game.creation.service.VideoGamePageFilter;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
@@ -19,7 +19,7 @@ import java.util.Optional;
 @Slf4j
 public class VideoGameTemplatePageProcessor implements ItemProcessor<Page, VideoGameTemplate> {
 
-	private final VideoGameFilter videoGameFilter;
+	private final VideoGamePageFilter videoGamePageFilter;
 
 	private final TemplateFinder templateFinder;
 
@@ -27,9 +27,9 @@ public class VideoGameTemplatePageProcessor implements ItemProcessor<Page, Video
 
 	private final VideoGameTemplateCompositeEnrichingProcessor videoGameTemplateCompositeEnrichingProcessor;
 
-	public VideoGameTemplatePageProcessor(VideoGameFilter videoGameFilter, TemplateFinder templateFinder, PageBindingService pageBindingService,
-			VideoGameTemplateCompositeEnrichingProcessor videoGameTemplateCompositeEnrichingProcessor) {
-		this.videoGameFilter = videoGameFilter;
+	public VideoGameTemplatePageProcessor(VideoGamePageFilter videoGamePageFilter, TemplateFinder templateFinder, PageBindingService pageBindingService,
+	                                      VideoGameTemplateCompositeEnrichingProcessor videoGameTemplateCompositeEnrichingProcessor) {
+		this.videoGamePageFilter = videoGamePageFilter;
 		this.templateFinder = templateFinder;
 		this.pageBindingService = pageBindingService;
 		this.videoGameTemplateCompositeEnrichingProcessor = videoGameTemplateCompositeEnrichingProcessor;
@@ -37,7 +37,7 @@ public class VideoGameTemplatePageProcessor implements ItemProcessor<Page, Video
 
 	@Override
 	public VideoGameTemplate process(Page item) throws Exception {
-		if (videoGameFilter.shouldBeFilteredOut(item)) {
+		if (videoGamePageFilter.shouldBeFilteredOut(item)) {
 			return null;
 		}
 

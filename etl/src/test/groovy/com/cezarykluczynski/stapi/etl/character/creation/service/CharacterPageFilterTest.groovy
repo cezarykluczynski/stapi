@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.character.service
+package com.cezarykluczynski.stapi.etl.character.creation.service
 
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor
 import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService

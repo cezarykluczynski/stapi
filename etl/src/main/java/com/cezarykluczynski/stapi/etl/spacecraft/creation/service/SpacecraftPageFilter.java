@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.starship.service;
+package com.cezarykluczynski.stapi.etl.spacecraft.creation.service;
 
 import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService;
 import com.cezarykluczynski.stapi.etl.template.common.service.MediaWikiPageFilter;
@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import java.util.Set;
 
 @Service
-public class StarshipPageFilter implements MediaWikiPageFilter {
+public class SpacecraftPageFilter implements MediaWikiPageFilter {
 
 	private static final String UNNAMED_PREFIX = "Unnamed";
 
@@ -19,7 +19,7 @@ public class StarshipPageFilter implements MediaWikiPageFilter {
 	private final CategorySortingService categorySortingService;
 
 	@Inject
-	public StarshipPageFilter(CategorySortingService categorySortingService) {
+	public SpacecraftPageFilter(CategorySortingService categorySortingService) {
 		this.categorySortingService = categorySortingService;
 	}
 

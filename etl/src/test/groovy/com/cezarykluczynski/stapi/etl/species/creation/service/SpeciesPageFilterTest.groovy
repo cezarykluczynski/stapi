@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.template.species.service
+package com.cezarykluczynski.stapi.etl.species.creation.service
 
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor
 import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService
@@ -11,18 +11,18 @@ import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
-class SpeciesTemplateFilterTest extends Specification {
+class SpeciesPageFilterTest extends Specification {
 
 	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessorMock
 
 	private CategorySortingService categorySortingServiceMock
 
-	private SpeciesTemplateFilter speciesTemplateFilter
+	private SpeciesPageFilter speciesTemplateFilter
 
 	void setup() {
 		categoryTitlesExtractingProcessorMock = Mock()
 		categorySortingServiceMock = Mock()
-		speciesTemplateFilter = new SpeciesTemplateFilter(categoryTitlesExtractingProcessorMock, categorySortingServiceMock)
+		speciesTemplateFilter = new SpeciesPageFilter(categoryTitlesExtractingProcessorMock, categorySortingServiceMock)
 	}
 
 	void "return true when page is a product of redirect"() {
@@ -105,7 +105,7 @@ class SpeciesTemplateFilterTest extends Specification {
 
 		then:
 		1 * categoryTitlesExtractingProcessorMock.process(Lists.newArrayList()) >> Lists.newArrayList()
-		1 * categorySortingServiceMock.isSortedOnTopOfAnyOfCategories(page, SpeciesTemplateFilter.SPECIES_CATEGORIES) >> sortedOnTop
+		1 * categorySortingServiceMock.isSortedOnTopOfAnyOfCategories(page, SpeciesPageFilter.SPECIES_CATEGORIES) >> sortedOnTop
 		0 * _
 		result == sortedOnTop
 	}

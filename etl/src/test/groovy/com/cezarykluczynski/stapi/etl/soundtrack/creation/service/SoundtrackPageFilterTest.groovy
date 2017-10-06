@@ -1,21 +1,20 @@
 package com.cezarykluczynski.stapi.etl.soundtrack.creation.service
 
 import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService
-import com.cezarykluczynski.stapi.etl.template.soundtrack.service.SoundtrackFilter
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
-class SoundtrackFilterTest extends Specification {
+class SoundtrackPageFilterTest extends Specification {
 
 	private CategorySortingService categorySortingServiceMock
 
-	private SoundtrackFilter soundtrackFilter
+	private SoundtrackPageFilter soundtrackFilter
 
 	void setup() {
 		categorySortingServiceMock = Mock()
-		soundtrackFilter = new SoundtrackFilter(categorySortingServiceMock)
+		soundtrackFilter = new SoundtrackPageFilter(categorySortingServiceMock)
 	}
 
 	void "returns true when page is sorted on top of 'Soundtracks' category"() {

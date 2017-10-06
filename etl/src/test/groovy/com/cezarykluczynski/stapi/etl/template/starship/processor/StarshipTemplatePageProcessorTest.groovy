@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.etl.spacecraft.creation.processor.SpacecraftCa
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.etl.template.spacecraft.processor.SpacecraftTemplateCompositeEnrichingProcessor
 import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplate
-import com.cezarykluczynski.stapi.etl.template.starship.service.StarshipPageFilter
+import com.cezarykluczynski.stapi.etl.spacecraft.creation.service.SpacecraftPageFilter
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
@@ -20,7 +20,7 @@ class StarshipTemplatePageProcessorTest extends Specification {
 	private static final String TITLE_WITH_BRACKETS = 'TITLE (something in brackets)'
 	private static final String TITLE = 'TITLE'
 
-	private StarshipPageFilter starshipPageFilterMock
+	private SpacecraftPageFilter starshipPageFilterMock
 
 	private TemplateFinder templateFinderMock
 
