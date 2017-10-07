@@ -34,7 +34,7 @@ public class RequestCredentialProvider {
 		}
 
 		requestCredential.setRequestCredentialType(RequestCredentialType.IP_ADDRESS);
-		requestCredential.setIpAddress(httpServletRequest.getRemoteAddr());
+		requestCredential.setIpAddress(httpServletRequest.getRemoteAddr()); // remember to keep IP address even when API key is present!
 		return requestCredential;
 	}
 

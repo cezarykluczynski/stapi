@@ -13,4 +13,8 @@ public class ThrottleProperties {
 
 	private Integer minutesToDeleteExpiredIpAddresses;
 
+	private Integer frequentRequestsPeriodLengthInSeconds;
+
+	private Integer frequentRequestsMaxRequestsPerPeriod;
+
 }

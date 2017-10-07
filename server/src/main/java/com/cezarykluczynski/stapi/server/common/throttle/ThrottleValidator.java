@@ -9,52 +9,48 @@ import org.apache.cxf.message.Message;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 @Profile(SpringProfile.API_THROTTLE)
 public class ThrottleValidator {
+
+	private final RequestCredentialProvider requestCredentialProvider;
+
+	private final FrequentRequestsValidator frequentRequestsValidator;
 
 	private final ThrottleQualifyingService throttleQualifyingService;
 
 	private final ThrottleRepository throttleRepository;
 
-	private final RequestCredentialProvider requestCredentialProvider;
-
 	private final RequestSpecificThrottleStatistics requestSpecificThrottleStatistics;
 
-	@Inject
-	public ThrottleValidator(ThrottleQualifyingService throttleQualifyingService, ThrottleRepository throttleRepository,
-			RequestCredentialProvider requestCredentialProvider, RequestSpecificThrottleStatistics requestSpecificThrottleStatistics) {
+	public ThrottleValidator(RequestCredentialProvider requestCredentialProvider, FrequentRequestsValidator frequentRequestsValidator,
+			ThrottleQualifyingService throttleQualifyingService, ThrottleRepository throttleRepository,
+			RequestSpecificThrottleStatistics requestSpecificThrottleStatistics) {
+		this.requestCredentialProvider = requestCredentialProvider;
+		this.frequentRequestsValidator = frequentRequestsValidator;
 		this.throttleQualifyingService = throttleQualifyingService;
 		this.throttleRepository = throttleRepository;
-		this.requestCredentialProvider = requestCredentialProvider;
 		this.requestSpecificThrottleStatistics = requestSpecificThrottleStatistics;
 	}
 
 	ThrottleResult validate(Message message) {
-		if (throttleQualifyingService.isQualifiedForThrottle()) {
-			RequestCredential requestCredential = requestCredentialProvider.provideRequestCredential(message);
+		RequestCredential requestCredential = requestCredentialProvider.provideRequestCredential(message);
+		ThrottleResult tooMuchThrottleResult = frequentRequestsValidator.validate(requestCredential);
+
+		if (Boolean.TRUE.equals(tooMuchThrottleResult.getThrottle())) {
+			return tooMuchThrottleResult;
+		} else if (throttleQualifyingService.isQualifiedForThrottle()) {
 			return validateByIp(requestCredential);
 		} else {
 			return ThrottleResult.NOT_THROTTLED;
 		}
+
 	}
 
 	private ThrottleResult validateByIp(RequestCredential requestCredential) {
 		ThrottleStatistics throttleStatistics = throttleRepository.decrementByIpAndGetStatistics(requestCredential.getIpAddress());
 		requestSpecificThrottleStatistics.setThrottleStatistics(throttleStatistics);
-
-		ThrottleResult throttleResult = new ThrottleResult();
-
-		if (!throttleStatistics.isDecremented()) {
-			throttleResult.setThrottle(true);
-			throttleResult.setThrottleReason(ThrottleReason.HOURLY_IP_LIMIT_EXCEEDED);
-			return throttleResult;
-		}
-
-		throttleResult.setThrottle(false);
-		return throttleResult;
+		return throttleStatistics.isDecremented() ? ThrottleResult.NOT_THROTTLED : ThrottleResult.HOURLY_IP_LIMIT_EXCEEDED;
 	}
 
 }
