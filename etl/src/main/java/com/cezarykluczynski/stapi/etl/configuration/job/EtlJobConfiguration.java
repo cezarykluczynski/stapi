@@ -41,6 +41,9 @@ import com.cezarykluczynski.stapi.etl.company.creation.processor.CompanyProcesso
 import com.cezarykluczynski.stapi.etl.company.creation.processor.CompanyReader;
 import com.cezarykluczynski.stapi.etl.company.creation.processor.CompanyWriter;
 import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepsProperties;
+import com.cezarykluczynski.stapi.etl.conflict.creation.processor.ConflictProcessor;
+import com.cezarykluczynski.stapi.etl.conflict.creation.processor.ConflictReader;
+import com.cezarykluczynski.stapi.etl.conflict.creation.processor.ConflictWriter;
 import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeProcessor;
 import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeReader;
 import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeWriter;
@@ -122,6 +125,7 @@ import com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries;
 import com.cezarykluczynski.stapi.model.comic_strip.entity.ComicStrip;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
+import com.cezarykluczynski.stapi.model.conflict.entity.Conflict;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.food.entity.Food;
 import com.cezarykluczynski.stapi.model.literature.entity.Literature;
@@ -657,6 +661,19 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(MaterialReader.class))
 				.processor(applicationContext.getBean(MaterialProcessor.class))
 				.writer(applicationContext.getBean(MaterialWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_CONFLICTS)
+	public Step stepCreateConflicts() {
+		return stepBuilderFactory.get(StepName.CREATE_CONFLICTS)
+				.<PageHeader, Conflict>chunk(stepsProperties.getCreateConflicts().getCommitInterval())
+				.reader(applicationContext.getBean(ConflictReader.class))
+				.processor(applicationContext.getBean(ConflictProcessor.class))
+				.writer(applicationContext.getBean(ConflictWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)

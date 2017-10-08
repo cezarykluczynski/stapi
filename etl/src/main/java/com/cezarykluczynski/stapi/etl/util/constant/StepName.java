@@ -39,5 +39,6 @@ public class StepName {
 	public static final String CREATE_SPACECRAFT_CLASSES = "CREATE_SPACECRAFT_CLASSES";
 	public static final String CREATE_SPACECRAFTS = "CREATE_SPACECRAFTS";
 	public static final String CREATE_MATERIALS = "CREATE_MATERIALS";
+	public static final String CREATE_CONFLICTS = "CREATE_CONFLICTS";
 
 }

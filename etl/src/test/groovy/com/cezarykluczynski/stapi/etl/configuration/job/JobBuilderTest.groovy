@@ -111,6 +111,8 @@ class JobBuilderTest extends Specification {
 
 	private Step createMaterialsStep
 
+	private Step createConflictsStep
+
 	private JobRepository jobRepository
 
 	private SpringBatchJobBuilder springBatchJobBuilder
@@ -162,6 +164,7 @@ class JobBuilderTest extends Specification {
 		createSpacecraftClassesStep = Mock()
 		createSpacecraftsStep = Mock()
 		createMaterialsStep = Mock()
+		createConflictsStep = Mock()
 		springBatchJobBuilder = new SpringBatchJobBuilder(JobName.JOB_CREATE)
 		springBatchJobBuilder.repository(jobRepository)
 		jobBuilder = new JobBuilder(applicationContextMock, jobBuilderFactoryMock, stepConfigurationValidatorMock, jobCompletenessDeciderMock,
@@ -411,6 +414,12 @@ class JobBuilderTest extends Specification {
 		1 * stepProperties.isEnabled() >> true
 		1 * applicationContextMock.getBean(StepName.CREATE_MATERIALS, Step) >> createMaterialsStep
 		1 * createMaterialsStep.name >> StepName.CREATE_MATERIALS
+
+		then: 'CREATE_CONFLICTS step is retrieved from application context'
+		1 * stepPropertiesMap.get(StepName.CREATE_CONFLICTS) >> stepProperties
+		1 * stepProperties.isEnabled() >> true
+		1 * applicationContextMock.getBean(StepName.CREATE_CONFLICTS, Step) >> createConflictsStep
+		1 * createConflictsStep.name >> StepName.CREATE_CONFLICTS
 
 		then: 'Task executor is retrieved from application context'
 		1 * applicationContextMock.getBean(TaskExecutor) >> taskExecutor

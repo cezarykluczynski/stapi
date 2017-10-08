@@ -319,4 +319,6 @@ public class CategoryTitle {
 	public static final String EXPLOSIVES = "Explosives";
 	public static final String GEMSTONES = "Gemstones";
 
+	public static final String CONFLICTS = "Conflicts";
+
 }

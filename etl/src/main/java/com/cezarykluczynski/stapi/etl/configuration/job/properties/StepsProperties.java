@@ -83,4 +83,6 @@ public class StepsProperties {
 
 	private StepProperties createMaterials;
 
+	private StepProperties createConflicts;
+
 }
