@@ -30,6 +30,7 @@ public class TemplateTitle {
 	public static final String SIDEBAR_STARSHIP_CLASS = "sidebar starship class";
 	public static final String SIDEBAR_STARSHIP = "sidebar starship";
 	public static final String SIDEBAR_STATION = "sidebar station";
+	public static final String SIDEBAR_MILITARY_CONFLICT = "sidebar military conflict";
 
 	public static final String BORN = "born";
 
