@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.model.location.entity.Location;
 import com.cezarykluczynski.stapi.model.location.repository.LocationRepository;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
+import com.google.common.collect.Sets;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -65,34 +66,34 @@ public class Conflict extends PageAwareEntity implements PageAware {
 			joinColumns = @JoinColumn(name = "conflict_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "location_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-	private Set<Location> locations;
+	private Set<Location> locations = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "conflicts_1side_belligerents",
 			joinColumns = @JoinColumn(name = "conflict_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "organization_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-	private Set<Organization> firstSideBelligerents;
+	private Set<Organization> firstSideBelligerents = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "conflicts_2side_belligerents",
 			joinColumns = @JoinColumn(name = "conflict_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "organization_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-	private Set<Organization> secondSideBelligerents;
+	private Set<Organization> secondSideBelligerents = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "conflicts_1side_commanders",
 			joinColumns = @JoinColumn(name = "conflict_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "character_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-	private Set<Character> firstSideCommanders;
+	private Set<Character> firstSideCommanders = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "conflicts_2side_commanders",
 			joinColumns = @JoinColumn(name = "conflict_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "character_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-	private Set<Character> secondSideCommanders;
+	private Set<Character> secondSideCommanders = Sets.newHashSet();
 
 }

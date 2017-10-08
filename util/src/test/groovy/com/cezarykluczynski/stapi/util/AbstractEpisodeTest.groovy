@@ -32,8 +32,7 @@ abstract class AbstractEpisodeTest extends AbstractTest {
 	protected static final LocalDate FINAL_SCRIPT_DATE = LocalDate.of(1989, 4, 2)
 	protected static final LocalDate FINAL_SCRIPT_DATE_FROM = LocalDate.of(1996, 5, 6)
 	protected static final LocalDate FINAL_SCRIPT_DATE_TO = LocalDate.of(1998, 7, 8)
-	protected static final XMLGregorianCalendar US_AIR_DATE_XML = XMLGregorianCalendarImpl
-			.createDate(1990, 8, 4, DatatypeConstants.FIELD_UNDEFINED)
+	protected static final XMLGregorianCalendar US_AIR_DATE_XML = XMLGregorianCalendarImpl.createDate(1990, 8, 4, DatatypeConstants.FIELD_UNDEFINED)
 	protected static final XMLGregorianCalendar US_AIR_DATE_FROM_XML = XMLGregorianCalendarImpl
 			.createDate(1991, 1, 2, DatatypeConstants.FIELD_UNDEFINED)
 	protected static final XMLGregorianCalendar US_AIR_DATE_TO_XML = XMLGregorianCalendarImpl

@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.military_conflict.dto;
 
+import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.location.entity.Location;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.page.entity.Page;
