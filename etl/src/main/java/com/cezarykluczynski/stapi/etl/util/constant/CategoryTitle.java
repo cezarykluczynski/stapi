@@ -320,5 +320,8 @@ public class CategoryTitle {
 	public static final String GEMSTONES = "Gemstones";
 
 	public static final String CONFLICTS = "Conflicts";
+	public static final String EARTH_CONFLICTS = "Earth_conflicts";
+	public static final String EARTH_CONFLICTS_RETCONNED = "Earth_conflicts_(retconned)";
+	public static final String CONFLICTS_ALTERNATE_REALITY = "Conflicts_(alternate_reality)";
 
 }
