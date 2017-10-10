@@ -16,22 +16,22 @@ class MilitaryConflictTemplateCategoriesEnrichingProcessorTest extends Specifica
 		militaryConflictTemplateCategoriesEnrichingProcessor = new MilitaryConflictTemplateCategoriesEnrichingProcessor()
 	}
 
+	@SuppressWarnings('LineLength')
 	@Unroll('set #flagName flag when #categoryTitleList is passed')
 	void "sets flagName when categoryTitleList is passed"() {
-		given:
-		MilitaryConflictTemplate militaryConflictTemplate = new MilitaryConflictTemplate()
-
 		expect:
 		militaryConflictTemplateCategoriesEnrichingProcessor.enrich(EnrichablePair.of(categoryTitleList, militaryConflictTemplate))
 		flag == militaryConflictTemplate[flagName]
 		numberOfTrueBooleans == ReflectionTestUtils.getNumberOfTrueBooleanFields(militaryConflictTemplate)
 
 		where:
-		categoryTitleList                                             | flagName           | flag  | numberOfTrueBooleans
-		Lists.newArrayList()                                          | 'earthConflict'    | false | 0
-		Lists.newArrayList(CategoryTitle.EARTH_CONFLICTS)             | 'earthConflict'    | true  | 1
-		Lists.newArrayList(CategoryTitle.EARTH_CONFLICTS_RETCONNED)   | 'earthConflict'    | true  | 1
-		Lists.newArrayList(CategoryTitle.CONFLICTS_ALTERNATE_REALITY) | 'alternateReality' | true  | 1
+		categoryTitleList                                             | militaryConflictTemplate                             | flagName           | flag  | numberOfTrueBooleans
+		Lists.newArrayList()                                          | new MilitaryConflictTemplate()                       | 'earthConflict'    | false | 0
+		Lists.newArrayList(CategoryTitle.EARTH_CONFLICTS)             | new MilitaryConflictTemplate()                       | 'earthConflict'    | true  | 1
+		Lists.newArrayList()                                          | new MilitaryConflictTemplate(earthConflict: true)    | 'earthConflict'    | true  | 1
+		Lists.newArrayList(CategoryTitle.EARTH_CONFLICTS_RETCONNED)   | new MilitaryConflictTemplate()                       | 'earthConflict'    | true  | 1
+		Lists.newArrayList(CategoryTitle.CONFLICTS_ALTERNATE_REALITY) | new MilitaryConflictTemplate()                       | 'alternateReality' | true  | 1
+		Lists.newArrayList()                                          | new MilitaryConflictTemplate(alternateReality: true) | 'alternateReality' | true  | 1
 	}
 
 }

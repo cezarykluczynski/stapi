@@ -17,9 +17,10 @@ public class MilitaryConflictTemplateCategoriesEnrichingProcessor
 		List<String> categoryTitleList = enrichablePair.getInput();
 		MilitaryConflictTemplate militaryConflictTemplate = enrichablePair.getOutput();
 
-		militaryConflictTemplate.setEarthConflict(categoryTitleList.contains(CategoryTitle.EARTH_CONFLICTS)
-				|| categoryTitleList.contains(CategoryTitle.EARTH_CONFLICTS_RETCONNED));
-		militaryConflictTemplate.setAlternateReality(categoryTitleList.contains(CategoryTitle.CONFLICTS_ALTERNATE_REALITY));
+		militaryConflictTemplate.setEarthConflict(Boolean.TRUE.equals(militaryConflictTemplate.getEarthConflict())
+				|| categoryTitleList.contains(CategoryTitle.EARTH_CONFLICTS) || categoryTitleList.contains(CategoryTitle.EARTH_CONFLICTS_RETCONNED));
+		militaryConflictTemplate.setAlternateReality(Boolean.TRUE.equals(militaryConflictTemplate.getAlternateReality())
+				|| categoryTitleList.contains(CategoryTitle.CONFLICTS_ALTERNATE_REALITY));
 	}
 
 }

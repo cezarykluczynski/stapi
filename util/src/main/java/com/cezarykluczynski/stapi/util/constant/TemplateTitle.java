@@ -68,6 +68,11 @@ public class TemplateTitle {
 
 	public static final String MINERALS = "minerals";
 
+	public static final String EARTHWARS = "earthwars";
+	public static final String FEDERATION_WARS = "federation wars";
+	public static final String DOMINION_WAR_BATTLES = "dominion war battles";
+	public static final String KLINGON_WARS = "klingon wars";
+
 	// Memory Beta
 	public static final String CHARACTER_BOX = "characterbox";
 }
