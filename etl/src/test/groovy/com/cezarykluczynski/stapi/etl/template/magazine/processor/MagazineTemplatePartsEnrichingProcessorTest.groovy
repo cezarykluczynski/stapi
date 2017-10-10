@@ -6,7 +6,6 @@ import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcess
 import com.cezarykluczynski.stapi.etl.magazine.creation.processor.MagazineTemplateNumberOfPagesFixedValueProvider
 import com.cezarykluczynski.stapi.etl.magazine.creation.processor.MagazineTemplatePublicationDatesFixedValueProvider
 import com.cezarykluczynski.stapi.etl.template.book.dto.ReferenceBookTemplateParameter
-import com.cezarykluczynski.stapi.etl.template.comic_series.dto.ComicSeriesTemplate
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DayMonthYear
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.PublicationDates
 import com.cezarykluczynski.stapi.etl.template.common.processor.NumberOfPartsProcessor
@@ -145,7 +144,7 @@ class MagazineTemplatePartsEnrichingProcessorTest extends Specification {
 
 		then:
 		1 * publishableTemplatePublishedDatesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
-			EnrichablePair<Template.Part, ComicSeriesTemplate> enrichablePair ->
+			EnrichablePair<Template.Part, MagazineTemplate> enrichablePair ->
 				assert enrichablePair.input == templatePart
 				assert enrichablePair.output != null
 		}
@@ -164,7 +163,7 @@ class MagazineTemplatePartsEnrichingProcessorTest extends Specification {
 
 		then:
 		1 * publishableTemplatePublishedDatesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
-			EnrichablePair<Template.Part, ComicSeriesTemplate> enrichablePair ->
+			EnrichablePair<Template.Part, MagazineTemplate> enrichablePair ->
 				assert enrichablePair.input == templatePart
 				assert enrichablePair.output != null
 		}
@@ -183,7 +182,7 @@ class MagazineTemplatePartsEnrichingProcessorTest extends Specification {
 
 		then:
 		1 * publishableTemplatePublishedDatesEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
-			EnrichablePair<Template.Part, ComicSeriesTemplate> enrichablePair ->
+			EnrichablePair<Template.Part, MagazineTemplate> enrichablePair ->
 				assert enrichablePair.input == templatePart
 				assert enrichablePair.output != null
 		}

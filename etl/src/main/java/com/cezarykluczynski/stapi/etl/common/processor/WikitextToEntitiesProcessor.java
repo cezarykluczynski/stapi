@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.book_series.entity.BookSeries;
 import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
+import com.cezarykluczynski.stapi.model.location.entity.Location;
 import com.cezarykluczynski.stapi.model.magazine_series.entity.MagazineSeries;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.season.entity.Season;
@@ -68,6 +69,10 @@ public class WikitextToEntitiesProcessor {
 
 	public List<SpacecraftClass> findSpacecraftClasses(String item) {
 		return wikitextToEntitiesGenericProcessor.process(item, SpacecraftClass.class);
+	}
+
+	public List<Location> findLocations(String item) {
+		return wikitextToEntitiesGenericProcessor.process(item, Location.class);
 	}
 
 }
