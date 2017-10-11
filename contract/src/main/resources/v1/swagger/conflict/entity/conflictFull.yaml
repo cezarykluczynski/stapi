@@ -1,0 +1,57 @@
+type: object
+description: Base conflict, returned in search results
+properties:
+  uid:
+    type: string
+    required: true
+    description: Conflict unique ID
+  name:
+    type: string
+    required: true
+    description: Conflict name
+  yearFrom:
+    type: integer
+    description: Starting year of the conflict
+  yearTo:
+    type: integer
+    description: Ending year of the conflict
+  earthConflict:
+    type: boolean
+    description: Whether it is an Earth conflict
+  federationWar:
+    type: boolean
+    description: Whether this conflict is a part of war involving Federation
+  klingonWar:
+    type: boolean
+    description: Whether this conflict is a part of war involving the Klingons
+  dominionWarBattle:
+    type: string
+    description: Whether this conflict is a Dominion war battle
+  alternateReality:
+    type: boolean
+    description: Whether this conflict is from alternate reality
+  locations:
+    type: array
+    items:
+      $ref: '#/definitions/LocationBase'
+    description: Locations this conflict occurred at
+  firstSideBelligerents:
+    type: array
+    items:
+      $ref: '#/definitions/OrganizationBase'
+    description: Organization involved in conflict on first side
+  firstSideCommanders:
+    type: array
+    items:
+      $ref: '#/definitions/CharacterBase'
+    description: Commanders involved in conflict on first side
+  secondSideBelligerents:
+    type: array
+    items:
+      $ref: '#/definitions/OrganizationBase'
+    description: Organization involved in conflict on second side
+  secondSideCommanders:
+    type: array
+    items:
+      $ref: '#/definitions/CharacterBase'
+    description: Commanders involved in conflict on second side

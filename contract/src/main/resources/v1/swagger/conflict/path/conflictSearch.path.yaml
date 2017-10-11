@@ -1,0 +1,92 @@
+get:
+  description: Pagination over conflicts
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+      description: Zero-based page number
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+      description: Page size
+    - name: apiKey
+      in: query
+      type: string
+      description: API key
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/ConflictBaseResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - Conflict
+post:
+  description: Searching conflicts
+  consumes:
+    - application/x-www-form-urlencoded
+  producers:
+    - application/json
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+      description: Zero-based page number
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+      description: Page size
+    - name: sort
+      type: string
+      in: query
+      description: "Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC"
+    - name: apiKey
+      in: query
+      type: string
+      description: API key
+    - name: name
+      in: formData
+      type: string
+      description: Conflict name
+    - name: yearFrom
+      in: formData
+      type: integer
+      format: int32
+      description: Starting year of the conflict
+    - name: yearTo
+      in: formData
+      type: integer
+      format: int32
+      description: Ending year of the conflict
+    - name: earthConflict
+      in: formData
+      type: boolean
+      description: Whether it should be an Earth conflict
+    - name: federationWar
+      in: formData
+      type: boolean
+      description: Whether this conflict should be a part of war involving Federation
+    - name: klingonWar
+      in: formData
+      type: boolean
+      description: Whether this conflict should be a part of war involving the Klingons
+    - name: dominionWarBattle
+      in: formData
+      type: boolean
+      description: Whether this conflict should be a Dominion war battle
+    - name: alternateReality
+      in: formData
+      type: boolean
+      description: Whether this conflict should be from alternate reality
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/ConflictBaseResponse'
+  tags:
+    - Conflict

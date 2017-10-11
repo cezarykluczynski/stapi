@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:character="http://stapi.co/api/v1/soap/character"
+		xmlns:conflict="http://stapi.co/api/v1/soap/conflict"
+		xmlns:common="http://stapi.co/api/v1/soap/common"
+		xmlns:location="http://stapi.co/api/v1/soap/location"
+		xmlns:organization="http://stapi.co/api/v1/soap/organization"
+		elementFormDefault="qualified"
+		targetNamespace="http://stapi.co/api/v1/soap/conflict">
+	<xs:import namespace="http://stapi.co/api/v1/soap/character" schemaLocation="character.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/location" schemaLocation="location.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/organization" schemaLocation="organization.xsd"/>
+	<xs:element name="ConflictBaseRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for conflicts search</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Request">
+					<xs:sequence>
+						<xs:element name="name" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Conflict name</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="year" type="common:IntegerRange" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Starting and ending year of the conflict</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="earthConflict" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be an Earth conflict</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="federationWar" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether this conflict should be a part of war involving Federation</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="klingonWar" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether this conflict should be a part of war involving the Klingons</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="dominionWarBattle" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether this conflict should be a Dominion war battle</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="alternateReality" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether this conflict should be from alternate reality</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ConflictFullRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for single conflict query</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:ApiRequest">
+					<xs:sequence>
+						<xs:element name="uid" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>Conflict unique ID</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ConflictBaseResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for conflicts search</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Response">
+					<xs:sequence>
+						<xs:element name="conflicts" type="conflict:ConflictBase" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>List of conflicts matching given criteria</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ConflictFullResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for single conflict query</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="conflict" type="conflict:ConflictFull">
+					<xs:annotation>
+						<xs:documentation>Conflict, if found</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ConflictHeader">
+		<xs:annotation>
+			<xs:documentation>Header conflict, embedded in other objects</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Conflict unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Conflict name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ConflictBase">
+		<xs:annotation>
+			<xs:documentation>Base conflict, returned in search results</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Conflict unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Conflict name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="yearFrom" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Starting year of the conflict</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="yearTo" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation> Ending year of the conflict</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="earthConflict" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it is an Earth conflict</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="federationWar" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this conflict is a part of war involving Federation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="klingonWar" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this conflict is a part of war involving the Klingons</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dominionWarBattle" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this conflict is a Dominion war battle</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="alternateReality" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this conflict is from alternate reality</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ConflictFull">
+		<xs:annotation>
+			<xs:documentation>Full conflict, returned when queried using UID</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Conflict unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Conflict name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="yearFrom" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Starting year of the conflict</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="yearTo" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation> Ending year of the conflict</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="earthConflict" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it is an Earth conflict</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="federationWar" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this conflict is a part of war involving Federation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="klingonWar" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this conflict is a part of war involving the Klingons</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="dominionWarBattle" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this conflict is a Dominion war battle</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="alternateReality" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether this conflict is from alternate reality</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:sequence>
+				<xs:element name="locations" type="location:LocationBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Locations this conflict occurred at</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="firstSideBelligerents" type="organization:OrganizationBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Organization involved in conflict on first side</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="firstSideCommanders" type="character:CharacterBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Commanders involved in conflict on first side</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="secondSideBelligerents" type="organization:OrganizationBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Organization involved in conflict on second side</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="secondSideCommanders" type="character:CharacterBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Commanders involved in conflict on second side</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

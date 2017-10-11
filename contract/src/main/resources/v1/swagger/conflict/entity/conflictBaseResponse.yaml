@@ -1,0 +1,14 @@
+type: object
+description: Response object for conflicts search
+properties:
+  page:
+    $ref: '#/definitions/ResponsePage'
+    description: Response page
+  sort:
+    $ref: '#/definitions/ResponseSort'
+    description: Response sort
+  conflicts:
+    type: array
+    items:
+      $ref: '#/definitions/ConflictBase'
+    description: List of conflicts matching given criteria

@@ -34,7 +34,8 @@ class ConflictCreationConfigurationTest extends AbstractCreationConfigurationTes
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_CONFLICTS) >> false
-		1 * categoryApiMock.getPages(CategoryTitle.CONFLICTS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_CONFLICTS)
+		1 * categoryApiMock.getPagesIncludingSubcategories(CategoryTitle.CONFLICTS, MediaWikiSource.MEMORY_ALPHA_EN) >>
+				createListWithPageHeaderTitle(TITLE_CONFLICTS)
 		0 * _
 		categoryHeaderTitleList.contains TITLE_CONFLICTS
 	}

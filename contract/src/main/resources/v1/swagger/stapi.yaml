@@ -49,6 +49,10 @@ paths:
     $ref: ./company/path/company.path.yaml
   /company/search:
     $ref: ./company/path/companySearch.path.yaml
+  /conflict:
+    $ref: ./conflict/path/conflict.path.yaml
+  /conflict/search:
+    $ref: ./conflict/path/conflictSearch.path.yaml
   /episode:
     $ref: ./episode/path/episode.path.yaml
   /episode/search:
@@ -254,6 +258,16 @@ definitions:
     $ref: ./company/entity/companyBaseResponse.yaml
   CompanyFullResponse:
     $ref: ./company/entity/companyFullResponse.yaml
+  ConflictBase:
+    $ref: ./conflict/entity/conflictBase.yaml
+  ConflictFull:
+    $ref: ./conflict/entity/conflictFull.yaml
+  ConflictHeader:
+    $ref: ./conflict/entity/conflictHeader.yaml
+  ConflictBaseResponse:
+    $ref: ./conflict/entity/conflictBaseResponse.yaml
+  ConflictFullResponse:
+    $ref: ./conflict/entity/conflictFullResponse.yaml
   ContentLanguage:
     $ref: ./content_language/entity/contentLanguage.yaml
   ContentRatingSystem:

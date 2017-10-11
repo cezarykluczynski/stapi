@@ -32,7 +32,7 @@ public class ConflictCreationConfiguration {
 		List<PageHeader> conflicts = Lists.newArrayList();
 
 		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_CONFLICTS)) {
-			conflicts.addAll(categoryApi.getPages(CategoryTitle.CONFLICTS, MediaWikiSource.MEMORY_ALPHA_EN));
+			conflicts.addAll(categoryApi.getPagesIncludingSubcategories(CategoryTitle.CONFLICTS, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 
 		return new ConflictReader(Lists.newArrayList(Sets.newHashSet(conflicts)));

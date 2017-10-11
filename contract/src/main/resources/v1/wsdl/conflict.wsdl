@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+		name="Conflict"
+		targetNamespace="http://stapi.co/api/v1/soap/conflict"
+		xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+		xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+		xmlns:stapi="http://stapi.co/api/v1/soap/conflict"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<xs:schema targetNamespace="http://stapi.co/api/v1/soap/conflict">
+			<xs:include schemaLocation="conflict.xsd"/>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="ConflictBaseRequest">
+		<wsdl:part name="request" element="stapi:ConflictBaseRequest"/>
+	</wsdl:message>
+	<wsdl:message name="ConflictFullRequest">
+		<wsdl:part name="request" element="stapi:ConflictFullRequest"/>
+	</wsdl:message>
+	<wsdl:message name="ConflictBaseResponse">
+		<wsdl:part name="response" element="stapi:ConflictBaseResponse"/>
+	</wsdl:message>
+	<wsdl:message name="ConflictFullResponse">
+		<wsdl:part name="response" element="stapi:ConflictFullResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="ConflictPortType">
+		<wsdl:operation name="getConflictBase">
+			<wsdl:input name="getConflictBaseRequest" message="stapi:ConflictBaseRequest"/>
+			<wsdl:output name="getConflictBaseResponse" message="stapi:ConflictBaseResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getConflictFull">
+			<wsdl:input name="getConflictFullRequest" message="stapi:ConflictFullRequest"/>
+			<wsdl:output name="getConflictFullResponse" message="stapi:ConflictFullResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="ConflictBinding" type="stapi:ConflictPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getConflictBase">
+			<wsdl:input name="getConflictBaseRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getConflictBaseResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getConflictFull">
+			<wsdl:input name="getConflictFullRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getConflictFullResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="ConflictService">
+		<wsdl:port name="ConflictPortType" binding="stapi:ConflictBinding">
+			<soap:address location="http://stapi.co/api/v1/soap/conflict"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
