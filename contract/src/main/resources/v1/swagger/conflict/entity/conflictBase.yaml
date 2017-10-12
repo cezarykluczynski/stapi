@@ -25,7 +25,7 @@ properties:
     type: boolean
     description: Whether this conflict is part of war involving the Klingons
   dominionWarBattle:
-    type: string
+    type: boolean
     description: Whether this conflict is a Dominion war battle
   alternateReality:
     type: boolean
