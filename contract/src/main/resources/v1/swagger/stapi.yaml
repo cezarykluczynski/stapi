@@ -9,6 +9,10 @@ basePath: /api/v1/rest
 produces:
   - application/json
 paths:
+  /animal:
+    $ref: ./animal/path/animal.path.yaml
+  /animal/search:
+    $ref: ./animal/path/animalSearch.path.yaml
   /astronomicalObject:
     $ref: ./astronomical_object/path/astronomicalObject.path.yaml
   /astronomicalObject/search:
@@ -150,6 +154,16 @@ paths:
   /weapon/search:
     $ref: ./weapon/path/weaponSearch.path.yaml
 definitions:
+  AnimalHeader:
+    $ref: ./animal/entity/animalHeader.yaml
+  AnimalBase:
+    $ref: ./animal/entity/animalBase.yaml
+  AnimalFull:
+    $ref: ./animal/entity/animalFull.yaml
+  AnimalBaseResponse:
+    $ref: ./animal/entity/animalBaseResponse.yaml
+  AnimalFullResponse:
+    $ref: ./animal/entity/animalFullResponse.yaml
   AstronomicalObjectHeader:
     $ref: ./astronomical_object/entity/astronomicalObjectHeader.yaml
   AstronomicalObjectBase:

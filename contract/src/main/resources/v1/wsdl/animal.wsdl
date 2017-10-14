@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+		name="Animal"
+		targetNamespace="http://stapi.co/api/v1/soap/animal"
+		xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+		xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+		xmlns:stapi="http://stapi.co/api/v1/soap/animal"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<xs:schema targetNamespace="http://stapi.co/api/v1/soap/animal">
+			<xs:include schemaLocation="animal.xsd"/>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="AnimalBaseRequest">
+		<wsdl:part name="request" element="stapi:AnimalBaseRequest"/>
+	</wsdl:message>
+	<wsdl:message name="AnimalFullRequest">
+		<wsdl:part name="request" element="stapi:AnimalFullRequest"/>
+	</wsdl:message>
+	<wsdl:message name="AnimalBaseResponse">
+		<wsdl:part name="response" element="stapi:AnimalBaseResponse"/>
+	</wsdl:message>
+	<wsdl:message name="AnimalFullResponse">
+		<wsdl:part name="response" element="stapi:AnimalFullResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="AnimalPortType">
+		<wsdl:operation name="getAnimalBase">
+			<wsdl:input name="getAnimalBaseRequest" message="stapi:AnimalBaseRequest"/>
+			<wsdl:output name="getAnimalBaseResponse" message="stapi:AnimalBaseResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getAnimalFull">
+			<wsdl:input name="getAnimalFullRequest" message="stapi:AnimalFullRequest"/>
+			<wsdl:output name="getAnimalFullResponse" message="stapi:AnimalFullResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="AnimalBinding" type="stapi:AnimalPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getAnimalBase">
+			<wsdl:input name="getAnimalBaseRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getAnimalBaseResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getAnimalFull">
+			<wsdl:input name="getAnimalFullRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getAnimalFullResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="AnimalService">
+		<wsdl:port name="AnimalPortType" binding="stapi:AnimalBinding">
+			<soap:address location="http://stapi.co/api/v1/soap/animal"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

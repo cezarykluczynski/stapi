@@ -1,0 +1,11 @@
+type: object
+description: Header animal, embedded in other objects
+properties:
+  uid:
+    type: string
+    required: true
+    description: Animal unique ID
+  name:
+    type: string
+    required: true
+    description: Animal name

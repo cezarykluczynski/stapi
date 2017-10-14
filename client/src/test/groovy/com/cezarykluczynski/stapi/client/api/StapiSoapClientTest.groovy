@@ -44,6 +44,7 @@ class StapiSoapClientTest extends AbstractStapiClientTest {
 		((String) toBindingProvider(stapiSoapClient.titlePortType).requestContext.get(URL_KEY)).contains(StapiClient.CANONICAL_API_URL)
 		((String) toBindingProvider(stapiSoapClient.materialPortType).requestContext.get(URL_KEY)).contains(StapiClient.CANONICAL_API_URL)
 		((String) toBindingProvider(stapiSoapClient.conflictPortType).requestContext.get(URL_KEY)).contains(StapiClient.CANONICAL_API_URL)
+		((String) toBindingProvider(stapiSoapClient.animalPortType).requestContext.get(URL_KEY)).contains(StapiClient.CANONICAL_API_URL)
 	}
 
 	void "soap client can be instantiated with custom URL"() {
@@ -86,6 +87,7 @@ class StapiSoapClientTest extends AbstractStapiClientTest {
 		((String) toBindingProvider(stapiSoapClient.titlePortType).requestContext.get(URL_KEY)).contains(CUSTOM_URL)
 		((String) toBindingProvider(stapiSoapClient.materialPortType).requestContext.get(URL_KEY)).contains(CUSTOM_URL)
 		((String) toBindingProvider(stapiSoapClient.conflictPortType).requestContext.get(URL_KEY)).contains(CUSTOM_URL)
+		((String) toBindingProvider(stapiSoapClient.animalPortType).requestContext.get(URL_KEY)).contains(CUSTOM_URL)
 	}
 
 }

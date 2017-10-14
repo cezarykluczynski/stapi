@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.client.api;
 
+import com.cezarykluczynski.stapi.client.v1.rest.api.AnimalApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.AstronomicalObjectApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.BookApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.BookCollectionApi;
@@ -149,6 +150,9 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 	@Getter
 	private ConflictApi conflictApi;
 
+	@Getter
+	private AnimalApi animalApi;
+
 	public StapiRestClient() {
 		seriesApi = new SeriesApi();
 		performerApi = new PerformerApi();
@@ -185,6 +189,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 		titleApi = new TitleApi();
 		materialApi = new MaterialApi();
 		conflictApi = new ConflictApi();
+		animalApi = new AnimalApi();
 	}
 
 	public StapiRestClient(String apiUrl) {
@@ -225,6 +230,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 		titleApi = new TitleApi(apiClient);
 		materialApi = new MaterialApi(apiClient);
 		conflictApi = new ConflictApi(apiClient);
+		animalApi = new AnimalApi(apiClient);
 	}
 
 	private void createApiClient() {

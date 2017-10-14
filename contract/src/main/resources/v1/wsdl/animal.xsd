@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:animal="http://stapi.co/api/v1/soap/animal"
+		xmlns:common="http://stapi.co/api/v1/soap/common"
+		elementFormDefault="qualified"
+		targetNamespace="http://stapi.co/api/v1/soap/animal">
+	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
+	<xs:element name="AnimalBaseRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for animals search</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Request">
+					<xs:sequence>
+						<xs:element name="name" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Animal name</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="earthAnimal" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be an earth animal</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="earthInsect" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be an earth insect</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="avian" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be an avian</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="canine" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a canine</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="feline" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a feline</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="AnimalFullRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for single animal query</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:ApiRequest">
+					<xs:sequence>
+						<xs:element name="uid" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>Animal unique ID</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="AnimalBaseResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for animals search</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Response">
+					<xs:sequence>
+						<xs:element name="animals" type="animal:AnimalBase" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>List of animals matching given criteria</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="AnimalFullResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for single animal query</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="animal" type="animal:AnimalFull">
+					<xs:annotation>
+						<xs:documentation>Animal, if found</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="AnimalHeader">
+		<xs:annotation>
+			<xs:documentation>Header animal, embedded in other objects</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Animal unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Animal name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AnimalBase">
+		<xs:annotation>
+			<xs:documentation>Base animal, returned in search results</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Animal unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Animal name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="earthAnimal" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's an earth animal</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="earthInsect" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a dessert</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="avian" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's an avian</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="canine" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a canine</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="feline" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a feline</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AnimalFull">
+		<xs:annotation>
+			<xs:documentation>Full animal, returned when queried using UID</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Animal unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Animal name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="earthAnimal" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's an earth animal</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="earthInsect" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a dessert</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="avian" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's an avian</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="canine" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a canine</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="feline" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a feline</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
