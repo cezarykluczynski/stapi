@@ -3,9 +3,9 @@ package com.cezarykluczynski.stapi.model.spacecraft.entity;
 import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
-import com.cezarykluczynski.stapi.model.location.repository.LocationRepository;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
+import com.cezarykluczynski.stapi.model.spacecraft.repository.SpacecraftRepository;
 import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass;
 import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType;
 import com.google.common.collect.Sets;
@@ -34,7 +34,7 @@ import java.util.Set;
 @ToString(callSuper = true, exclude = {"spacecraftClass", "owner", "operator", "spacecraftTypes"})
 @EqualsAndHashCode(callSuper = true, exclude = {"spacecraftClass", "owner", "operator", "spacecraftTypes"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-@TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = LocationRepository.class, singularName = "spacecraft",
+@TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = SpacecraftRepository.class, singularName = "spacecraft",
 		pluralName = "spacecrafts")
 public class Spacecraft extends PageAwareEntity implements PageAware {
 

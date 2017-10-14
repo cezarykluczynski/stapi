@@ -5,8 +5,8 @@ import com.cezarykluczynski.stapi.model.character.entity.Character;
 import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
+import com.cezarykluczynski.stapi.model.conflict.repository.ConflictRepository;
 import com.cezarykluczynski.stapi.model.location.entity.Location;
-import com.cezarykluczynski.stapi.model.location.repository.LocationRepository;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.google.common.collect.Sets;
@@ -35,7 +35,7 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true, exclude = {"locations", "firstSideBelligerents", "secondSideBelligerents", "firstSideCommanders",
 		"secondSideCommanders"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-@TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = LocationRepository.class, singularName = "conflict", pluralName = "conflicts")
+@TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = ConflictRepository.class, singularName = "conflict", pluralName = "conflicts")
 public class Conflict extends PageAwareEntity implements PageAware {
 
 	@Id

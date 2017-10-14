@@ -2,9 +2,9 @@ package com.cezarykluczynski.stapi.model.trading_card.entity;
 
 import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
+import com.cezarykluczynski.stapi.model.trading_card.repository.TradingCardRepository;
 import com.cezarykluczynski.stapi.model.trading_card_deck.entity.TradingCardDeck;
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet;
-import com.cezarykluczynski.stapi.model.video_release.repository.VideoReleaseRepository;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -27,7 +27,7 @@ import javax.persistence.SequenceGenerator;
 @ToString(exclude = {"tradingCardSet", "tradingCardDeck"})
 @EqualsAndHashCode(exclude = {"tradingCardSet", "tradingCardDeck"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = VideoReleaseRepository.class, singularName = "trading card set",
+@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = TradingCardRepository.class, singularName = "trading card set",
 		pluralName = "trading card sets")
 public class TradingCard {
 

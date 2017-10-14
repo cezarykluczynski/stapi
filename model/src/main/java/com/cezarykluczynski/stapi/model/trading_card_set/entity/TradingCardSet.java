@@ -7,7 +7,7 @@ import com.cezarykluczynski.stapi.model.country.entity.Country;
 import com.cezarykluczynski.stapi.model.trading_card.entity.TradingCard;
 import com.cezarykluczynski.stapi.model.trading_card_deck.entity.TradingCardDeck;
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.enums.ProductionRunUnit;
-import com.cezarykluczynski.stapi.model.video_release.repository.VideoReleaseRepository;
+import com.cezarykluczynski.stapi.model.trading_card_set.repository.TradingCardSetRepository;
 import com.google.common.collect.Sets;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -36,7 +36,7 @@ import java.util.Set;
 @ToString(exclude = {"manufacturers", "tradingCards", "tradingCardDecks", "countriesOfOrigin"})
 @EqualsAndHashCode(exclude = {"manufacturers", "tradingCards", "tradingCardDecks", "countriesOfOrigin"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = VideoReleaseRepository.class, singularName = "trading card set",
+@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = TradingCardSetRepository.class, singularName = "trading card set",
 		pluralName = "trading card sets")
 public class TradingCardSet {
 

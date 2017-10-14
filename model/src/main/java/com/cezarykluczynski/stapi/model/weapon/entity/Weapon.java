@@ -3,8 +3,8 @@ package com.cezarykluczynski.stapi.model.weapon.entity;
 import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
-import com.cezarykluczynski.stapi.model.location.repository.LocationRepository;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
+import com.cezarykluczynski.stapi.model.weapon.repository.WeaponRepository;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -23,7 +23,7 @@ import javax.persistence.SequenceGenerator;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-@TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = LocationRepository.class, singularName = "weapon",
+@TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = WeaponRepository.class, singularName = "weapon",
 		pluralName = "weapons")
 public class Weapon extends PageAwareEntity implements PageAware {
 

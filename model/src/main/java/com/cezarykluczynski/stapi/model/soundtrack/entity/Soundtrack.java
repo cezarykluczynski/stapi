@@ -6,8 +6,8 @@ import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.reference.entity.Reference;
+import com.cezarykluczynski.stapi.model.soundtrack.repository.SoundtrackRepository;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
-import com.cezarykluczynski.stapi.model.video_release.repository.VideoReleaseRepository;
 import com.google.common.collect.Sets;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -34,7 +34,7 @@ import java.util.Set;
 @ToString(callSuper = true, exclude = {"labels", "composers", "contributors", "orchestrators", "references"})
 @EqualsAndHashCode(callSuper = true, exclude = {"labels", "composers", "contributors", "orchestrators", "references"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = VideoReleaseRepository.class, singularName = "soundtrack",
+@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = SoundtrackRepository.class, singularName = "soundtrack",
 		pluralName = "soundtracks")
 public class Soundtrack extends PageAwareEntity implements PageAware {
 

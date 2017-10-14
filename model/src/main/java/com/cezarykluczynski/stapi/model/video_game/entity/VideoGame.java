@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.model.genre.entity.Genre;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.platform.entity.Platform;
 import com.cezarykluczynski.stapi.model.reference.entity.Reference;
-import com.cezarykluczynski.stapi.model.video_release.repository.VideoReleaseRepository;
+import com.cezarykluczynski.stapi.model.video_game.repository.VideoGameRepository;
 import com.google.common.collect.Sets;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -36,7 +36,7 @@ import java.util.Set;
 @ToString(callSuper = true, exclude = {"publishers", "developers", "platforms", "genres", "ratings", "references"})
 @EqualsAndHashCode(callSuper = true, exclude = {"publishers", "developers", "platforms", "genres", "ratings", "references"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = VideoReleaseRepository.class, singularName = "video game",
+@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = VideoGameRepository.class, singularName = "video game",
 		pluralName = "video games")
 public class VideoGame extends PageAwareEntity implements PageAware {
 

@@ -1,10 +1,10 @@
 package com.cezarykluczynski.stapi.model.magazine.entity;
 
-import com.cezarykluczynski.stapi.model.comics.repository.ComicsRepository;
 import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
+import com.cezarykluczynski.stapi.model.magazine.repository.MagazineRepository;
 import com.cezarykluczynski.stapi.model.magazine_series.entity.MagazineSeries;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
@@ -33,7 +33,8 @@ import java.util.Set;
 @ToString(callSuper = true, exclude = {"magazineSeries", "editors", "publishers"})
 @EqualsAndHashCode(callSuper = true, exclude = {"magazineSeries", "editors", "publishers"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = ComicsRepository.class, singularName = "magazine", pluralName = "magazines")
+@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = MagazineRepository.class, singularName = "magazine",
+		pluralName = "magazines")
 public class Magazine extends PageAwareEntity implements PageAware {
 
 	@Id

@@ -3,10 +3,10 @@ package com.cezarykluczynski.stapi.model.spacecraft_class.entity;
 import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.common.entity.PageAwareEntity;
-import com.cezarykluczynski.stapi.model.location.repository.LocationRepository;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.spacecraft.entity.Spacecraft;
+import com.cezarykluczynski.stapi.model.spacecraft_class.repository.SpacecraftClassRepository;
 import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
 import com.google.common.collect.Sets;
@@ -36,7 +36,7 @@ import java.util.Set;
 @ToString(callSuper = true, exclude = {"species", "owner", "operator", "affiliation", "spacecraftTypes", "spacecrafts"})
 @EqualsAndHashCode(callSuper = true, exclude = {"species", "owner", "operator", "affiliation", "spacecraftTypes", "spacecrafts"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-@TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = LocationRepository.class, singularName = "spacecraft class",
+@TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = SpacecraftClassRepository.class, singularName = "spacecraft class",
 		pluralName = "spacecraft classes")
 public class SpacecraftClass extends PageAwareEntity implements PageAware {
 
