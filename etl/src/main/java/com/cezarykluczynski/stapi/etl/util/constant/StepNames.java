@@ -49,7 +49,8 @@ public class StepNames {
 				StepName.CREATE_SPACECRAFT_CLASSES,
 				StepName.CREATE_SPACECRAFTS,
 				StepName.CREATE_MATERIALS,
-				StepName.CREATE_CONFLICTS
+				StepName.CREATE_CONFLICTS,
+				StepName.CREATE_ANIMALS
 		));
 	}
 

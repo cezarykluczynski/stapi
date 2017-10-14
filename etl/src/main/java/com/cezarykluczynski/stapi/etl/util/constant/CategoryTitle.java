@@ -324,4 +324,13 @@ public class CategoryTitle {
 	public static final String EARTH_CONFLICTS_RETCONNED = "Earth_conflicts_(retconned)";
 	public static final String CONFLICTS_ALTERNATE_REALITY = "Conflicts_(alternate_reality)";
 
+	public static final String ANIMALS = "Animals";
+	public static final String EARTH_ANIMALS = "Earth_animals";
+	public static final String EARTH_ANIMALS_RETCONNED = "Earth_animals_(retconned)";
+	public static final String EARTH_INSECTS = "Earth_insects";
+	public static final String AVIANS = "Avians";
+	public static final String CANINES = "Canines";
+	public static final String FELINES = "Felines";
+	public static final String INDIVIDUAL_ANIMALS = "Individual_animals";
+
 }

@@ -113,6 +113,8 @@ class JobBuilderTest extends Specification {
 
 	private Step createConflictsStep
 
+	private Step createAnimalsStep
+
 	private JobRepository jobRepository
 
 	private SpringBatchJobBuilder springBatchJobBuilder
@@ -165,6 +167,7 @@ class JobBuilderTest extends Specification {
 		createSpacecraftsStep = Mock()
 		createMaterialsStep = Mock()
 		createConflictsStep = Mock()
+		createAnimalsStep = Mock()
 		springBatchJobBuilder = new SpringBatchJobBuilder(JobName.JOB_CREATE)
 		springBatchJobBuilder.repository(jobRepository)
 		jobBuilder = new JobBuilder(applicationContextMock, jobBuilderFactoryMock, stepConfigurationValidatorMock, jobCompletenessDeciderMock,
@@ -420,6 +423,12 @@ class JobBuilderTest extends Specification {
 		1 * stepProperties.isEnabled() >> true
 		1 * applicationContextMock.getBean(StepName.CREATE_CONFLICTS, Step) >> createConflictsStep
 		1 * createConflictsStep.name >> StepName.CREATE_CONFLICTS
+
+		then: 'CREATE_CONFLICTS step is retrieved from application context'
+		1 * stepPropertiesMap.get(StepName.CREATE_ANIMALS) >> stepProperties
+		1 * stepProperties.isEnabled() >> true
+		1 * applicationContextMock.getBean(StepName.CREATE_ANIMALS, Step) >> createAnimalsStep
+		1 * createAnimalsStep.name >> StepName.CREATE_ANIMALS
 
 		then: 'Task executor is retrieved from application context'
 		1 * applicationContextMock.getBean(TaskExecutor) >> taskExecutor

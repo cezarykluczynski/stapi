@@ -1,5 +1,8 @@
 package com.cezarykluczynski.stapi.etl.configuration.job;
 
+import com.cezarykluczynski.stapi.etl.animal.creation.processor.AnimalProcessor;
+import com.cezarykluczynski.stapi.etl.animal.creation.processor.AnimalReader;
+import com.cezarykluczynski.stapi.etl.animal.creation.processor.AnimalWriter;
 import com.cezarykluczynski.stapi.etl.astronomical_object.creation.processor.AstronomicalObjectProcessor;
 import com.cezarykluczynski.stapi.etl.astronomical_object.creation.processor.AstronomicalObjectReader;
 import com.cezarykluczynski.stapi.etl.astronomical_object.creation.processor.AstronomicalObjectWriter;
@@ -115,6 +118,7 @@ import com.cezarykluczynski.stapi.etl.video_release.creation.processor.VideoRele
 import com.cezarykluczynski.stapi.etl.weapon.creation.processor.WeaponProcessor;
 import com.cezarykluczynski.stapi.etl.weapon.creation.processor.WeaponReader;
 import com.cezarykluczynski.stapi.etl.weapon.creation.processor.WeaponWriter;
+import com.cezarykluczynski.stapi.model.animal.entity.Animal;
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject;
 import com.cezarykluczynski.stapi.model.book.entity.Book;
 import com.cezarykluczynski.stapi.model.book_collection.entity.BookCollection;
@@ -674,6 +678,19 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(ConflictReader.class))
 				.processor(applicationContext.getBean(ConflictProcessor.class))
 				.writer(applicationContext.getBean(ConflictWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_ANIMALS)
+	public Step stepCreateAnimals() {
+		return stepBuilderFactory.get(StepName.CREATE_ANIMALS)
+				.<PageHeader, Animal>chunk(stepsProperties.getCreateAnimals().getCommitInterval())
+				.reader(applicationContext.getBean(AnimalReader.class))
+				.processor(applicationContext.getBean(AnimalProcessor.class))
+				.writer(applicationContext.getBean(AnimalWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)

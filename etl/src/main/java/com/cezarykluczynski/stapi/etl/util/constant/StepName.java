@@ -40,5 +40,6 @@ public class StepName {
 	public static final String CREATE_SPACECRAFTS = "CREATE_SPACECRAFTS";
 	public static final String CREATE_MATERIALS = "CREATE_MATERIALS";
 	public static final String CREATE_CONFLICTS = "CREATE_CONFLICTS";
+	public static final String CREATE_ANIMALS = "CREATE_ANIMALS";
 
 }

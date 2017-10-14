@@ -48,4 +48,5 @@
 	<include file="spacecraft/0045_create_spacecraft.xml" relativeToChangelogFile="true"/>
 	<include file="material/0046_create_material.xml" relativeToChangelogFile="true"/>
 	<include file="conflict/0047_create_conflict.xml" relativeToChangelogFile="true"/>
+	<include file="animal/0048_create_animal.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

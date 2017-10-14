@@ -85,4 +85,6 @@ public class StepsProperties {
 
 	private StepProperties createConflicts;
 
+	private StepProperties createAnimals;
+
 }

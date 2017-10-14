@@ -64,6 +64,7 @@ public class StepToStepPropertiesProvider {
 		stepPropertiesMap.put(StepName.CREATE_SPACECRAFTS, stepsProperties.getCreateSpacecrafts());
 		stepPropertiesMap.put(StepName.CREATE_MATERIALS, stepsProperties.getCreateMaterials());
 		stepPropertiesMap.put(StepName.CREATE_CONFLICTS, stepsProperties.getCreateConflicts());
+		stepPropertiesMap.put(StepName.CREATE_ANIMALS, stepsProperties.getCreateAnimals());
 	}
 
 }
