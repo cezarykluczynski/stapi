@@ -9,7 +9,7 @@ import com.cezarykluczynski.stapi.server.StaticJobCompletenessDecider
 import spock.lang.Requires
 
 @Requires({
-	StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_FOODS)
+	StaticJobCompletenessDecider.isStepCompleted(StepName.CREATE_ANIMALS)
 })
 class AnimalSoapEndpointIntegrationTest extends AbstractAnimalEndpointIntegrationTest {
 
