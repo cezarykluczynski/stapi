@@ -1,0 +1,94 @@
+get:
+  description: Pagination over elements
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+      description: Zero-based page number
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+      description: Page size
+    - name: apiKey
+      in: query
+      type: string
+      description: API key
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/ElementBaseResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - Element
+post:
+  description: Searching elements
+  consumes:
+    - application/x-www-form-urlencoded
+  producers:
+    - application/json
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+      description: Zero-based page number
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+      description: Page size
+    - name: sort
+      type: string
+      in: query
+      description: "Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC"
+    - name: apiKey
+      in: query
+      type: string
+      description: API key
+    - name: name
+      in: formData
+      type: string
+      description: Element name
+    - name: symbol
+      in: formData
+      type: string
+      description: Element symbol
+    - name: transuranium
+      in: formData
+      type: boolean
+      description: Whether it should be a transuranium
+    - name: gammaSeries
+      in: formData
+      type: boolean
+      description: Whether it should belong to Gamma series
+    - name: hypersonicSeries
+      in: formData
+      type: boolean
+      description: Whether it should belong to Hypersonic series
+    - name: megaSeries
+      in: formData
+      type: boolean
+      description: Whether it should belong to Mega series
+    - name: omegaSeries
+      in: formData
+      type: boolean
+      description: Whether it should belong to Omega series
+    - name: transonicSeries
+      in: formData
+      type: boolean
+      description: Whether it should belong to Transonic series
+    - name: worldSeries
+      in: formData
+      type: boolean
+      description: Whether it should belong to World series
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/ElementBaseResponse'
+  tags:
+    - Element

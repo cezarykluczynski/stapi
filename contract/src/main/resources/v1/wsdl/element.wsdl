@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+		name="Element"
+		targetNamespace="http://stapi.co/api/v1/soap/element"
+		xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+		xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+		xmlns:stapi="http://stapi.co/api/v1/soap/element"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<xs:schema targetNamespace="http://stapi.co/api/v1/soap/element">
+			<xs:include schemaLocation="element.xsd"/>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="ElementBaseRequest">
+		<wsdl:part name="request" element="stapi:ElementBaseRequest"/>
+	</wsdl:message>
+	<wsdl:message name="ElementFullRequest">
+		<wsdl:part name="request" element="stapi:ElementFullRequest"/>
+	</wsdl:message>
+	<wsdl:message name="ElementBaseResponse">
+		<wsdl:part name="response" element="stapi:ElementBaseResponse"/>
+	</wsdl:message>
+	<wsdl:message name="ElementFullResponse">
+		<wsdl:part name="response" element="stapi:ElementFullResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="ElementPortType">
+		<wsdl:operation name="getElementBase">
+			<wsdl:input name="getElementBaseRequest" message="stapi:ElementBaseRequest"/>
+			<wsdl:output name="getElementBaseResponse" message="stapi:ElementBaseResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getElementFull">
+			<wsdl:input name="getElementFullRequest" message="stapi:ElementFullRequest"/>
+			<wsdl:output name="getElementFullResponse" message="stapi:ElementFullResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="ElementBinding" type="stapi:ElementPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getElementBase">
+			<wsdl:input name="getElementBaseRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getElementBaseResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getElementFull">
+			<wsdl:input name="getElementFullRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getElementFullResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="ElementService">
+		<wsdl:port name="ElementPortType" binding="stapi:ElementBinding">
+			<soap:address location="http://stapi.co/api/v1/soap/element"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

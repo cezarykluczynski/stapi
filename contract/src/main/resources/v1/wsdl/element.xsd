@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:element="http://stapi.co/api/v1/soap/element"
+		xmlns:common="http://stapi.co/api/v1/soap/common"
+		elementFormDefault="qualified"
+		targetNamespace="http://stapi.co/api/v1/soap/element">
+	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
+	<xs:element name="ElementBaseRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for elements search</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Request">
+					<xs:sequence>
+						<xs:element name="name" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Element name</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="symbol" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Element symbol</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="transuranium" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a transuranium</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="gammaSeries" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should belong to Gamma series</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="hypersonicSeries" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should belong to Hypersonic series</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="megaSeries" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should belong to Mega series</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="omegaSeries" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should belong to Omega series</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="transonicSeries" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should belong to Transonic series</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="worldSeries" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should belong to World series</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ElementFullRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for single element query</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:ApiRequest">
+					<xs:sequence>
+						<xs:element name="uid" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>Element unique ID</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ElementBaseResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for elements search</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Response">
+					<xs:sequence>
+						<xs:element name="elements" type="element:ElementBase" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>List of elements matching given criteria</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ElementFullResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for single element query</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="element" type="element:ElementFull">
+					<xs:annotation>
+						<xs:documentation>Element, if found</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="ElementHeader">
+		<xs:annotation>
+			<xs:documentation>Header element, embedded in other objects</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Element unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Element name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ElementBase">
+		<xs:annotation>
+			<xs:documentation>Base element, returned in search results</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Element unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Element name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="symbol" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Element symbol</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="atomicNumber" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Element atomic number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="atomicWeight" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Element atomic weight</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="transuranium" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a transuranium</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="gammaSeries" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it belongs to Gamma series</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hypersonicSeries" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it belongs to Hypersonic series</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="megaSeries" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it belongs to Mega series</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="omegaSeries" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it belongs to Omega series</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="transonicSeries" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it belongs to Transonic series</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="worldSeries" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it belongs to World seriese</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ElementFull">
+		<xs:annotation>
+			<xs:documentation>Full element, returned when queried using UID</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Element unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Element name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="symbol" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Element symbol</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="atomicNumber" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Element atomic number</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="atomicWeight" type="xs:integer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Element atomic weight</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="transuranium" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a transuranium</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="gammaSeries" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it belongs to Gamma series</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="hypersonicSeries" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it belongs to Hypersonic series</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="megaSeries" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it belongs to Mega series</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="omegaSeries" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it belongs to Omega series</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="transonicSeries" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it belongs to Transonic series</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="worldSeries" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it belongs to World seriese</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

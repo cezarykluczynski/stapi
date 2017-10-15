@@ -24,6 +24,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.CompanyPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.CompanyService;
 import com.cezarykluczynski.stapi.client.v1.soap.ConflictPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.ConflictService;
+import com.cezarykluczynski.stapi.client.v1.soap.ElementPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.ElementService;
 import com.cezarykluczynski.stapi.client.v1.soap.EpisodePortType;
 import com.cezarykluczynski.stapi.client.v1.soap.EpisodeService;
 import com.cezarykluczynski.stapi.client.v1.soap.FoodPortType;
@@ -189,6 +191,9 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 	@Getter
 	private AnimalPortType animalPortType;
 
+	@Getter
+	private ElementPortType elementPortType;
+
 	public StapiSoapPortTypesProvider() {
 		seriesPortType = new SeriesService().getSeriesPortType();
 		performerPortType = new PerformerService().getPerformerPortType();
@@ -226,6 +231,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		materialPortType = new MaterialService().getMaterialPortType();
 		conflictPortType = new ConflictService().getConflictPortType();
 		animalPortType = new AnimalService().getAnimalPortType();
+		elementPortType = new ElementService().getElementPortType();
 	}
 
 	public StapiSoapPortTypesProvider(String apiUrl) {
@@ -266,6 +272,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		materialPortType = changeUrl(new MaterialService().getMaterialPortType());
 		conflictPortType = changeUrl(new ConflictService().getConflictPortType());
 		animalPortType = changeUrl(new AnimalService().getAnimalPortType());
+		elementPortType = changeUrl(new ElementService().getElementPortType());
 	}
 
 	private <T> T changeUrl(T service) {

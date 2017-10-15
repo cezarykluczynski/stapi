@@ -12,6 +12,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.ComicStripPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.ComicsPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.CompanyPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.ConflictPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.ElementPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.EpisodePortType;
 import com.cezarykluczynski.stapi.client.v1.soap.FoodPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.LiteraturePortType;
@@ -150,6 +151,9 @@ public class StapiSoapClient {
 	@Getter
 	private AnimalPortType animalPortType;
 
+	@Getter
+	private ElementPortType elementPortType;
+
 	public StapiSoapClient() {
 		stapiSoapPortTypesProvider = new StapiSoapPortTypesProvider();
 		bindPortTypes();
@@ -197,6 +201,7 @@ public class StapiSoapClient {
 		materialPortType = stapiSoapPortTypesProvider.getMaterialPortType();
 		conflictPortType = stapiSoapPortTypesProvider.getConflictPortType();
 		animalPortType = stapiSoapPortTypesProvider.getAnimalPortType();
+		elementPortType = stapiSoapPortTypesProvider.getElementPortType();
 	}
 
 }

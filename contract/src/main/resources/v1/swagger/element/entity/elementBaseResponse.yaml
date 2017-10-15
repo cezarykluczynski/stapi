@@ -1,0 +1,14 @@
+type: object
+description: Response object for elements search
+properties:
+  page:
+    $ref: '#/definitions/ResponsePage'
+    description: Response page
+  sort:
+    $ref: '#/definitions/ResponseSort'
+    description: Response sort
+  elements:
+    type: array
+    items:
+      $ref: '#/definitions/ElementBase'
+    description: List of elements matching given criteria

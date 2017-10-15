@@ -1,0 +1,11 @@
+type: object
+description: Header element, embedded in other objects
+properties:
+  uid:
+    type: string
+    required: true
+    description: Element unique ID
+  name:
+    type: string
+    required: true
+    description: Element name

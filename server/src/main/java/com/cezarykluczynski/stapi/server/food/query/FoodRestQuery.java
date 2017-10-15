@@ -22,8 +22,7 @@ public class FoodRestQuery {
 	private final FoodRepository foodRepository;
 
 	@Inject
-	public FoodRestQuery(FoodBaseRestMapper foodBaseRestMapper, PageMapper pageMapper,
-			FoodRepository foodRepository) {
+	public FoodRestQuery(FoodBaseRestMapper foodBaseRestMapper, PageMapper pageMapper, FoodRepository foodRepository) {
 		this.foodBaseRestMapper = foodBaseRestMapper;
 		this.pageMapper = pageMapper;
 		this.foodRepository = foodRepository;

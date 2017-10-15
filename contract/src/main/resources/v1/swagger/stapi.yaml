@@ -57,6 +57,10 @@ paths:
     $ref: ./conflict/path/conflict.path.yaml
   /conflict/search:
     $ref: ./conflict/path/conflictSearch.path.yaml
+  /element:
+    $ref: ./element/path/element.path.yaml
+  /element/search:
+    $ref: ./element/path/elementSearch.path.yaml
   /episode:
     $ref: ./episode/path/episode.path.yaml
   /episode/search:
@@ -290,6 +294,16 @@ definitions:
     $ref: ./content_rating/entity/contentRating.yaml
   Country:
     $ref: ./country/entity/country.yaml
+  ElementHeader:
+    $ref: ./element/entity/elementHeader.yaml
+  ElementBase:
+    $ref: ./element/entity/elementBase.yaml
+  ElementFull:
+    $ref: ./element/entity/elementFull.yaml
+  ElementBaseResponse:
+    $ref: ./element/entity/elementBaseResponse.yaml
+  ElementFullResponse:
+    $ref: ./element/entity/elementFullResponse.yaml
   EpisodeHeader:
     $ref: ./episode/entity/episodeHeader.yaml
   EpisodeBase:

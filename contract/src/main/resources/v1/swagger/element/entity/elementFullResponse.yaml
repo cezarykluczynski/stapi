@@ -1,0 +1,6 @@
+type: object
+description: Response object for single element query
+properties:
+  element:
+    $ref: '#/definitions/ElementFull'
+    description: Element, if found
