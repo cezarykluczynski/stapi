@@ -333,4 +333,6 @@ public class CategoryTitle {
 	public static final String FELINES = "Felines";
 	public static final String INDIVIDUAL_ANIMALS = "Individual_animals";
 
+	public static final String ELEMENTS = "Elements";
+
 }

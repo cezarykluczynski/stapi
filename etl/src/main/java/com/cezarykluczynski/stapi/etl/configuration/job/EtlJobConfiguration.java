@@ -47,6 +47,9 @@ import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepsProperti
 import com.cezarykluczynski.stapi.etl.conflict.creation.processor.ConflictProcessor;
 import com.cezarykluczynski.stapi.etl.conflict.creation.processor.ConflictReader;
 import com.cezarykluczynski.stapi.etl.conflict.creation.processor.ConflictWriter;
+import com.cezarykluczynski.stapi.etl.element.creation.processor.ElementProcessor;
+import com.cezarykluczynski.stapi.etl.element.creation.processor.ElementReader;
+import com.cezarykluczynski.stapi.etl.element.creation.processor.ElementWriter;
 import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeProcessor;
 import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeReader;
 import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeWriter;
@@ -130,6 +133,7 @@ import com.cezarykluczynski.stapi.model.comic_strip.entity.ComicStrip;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics;
 import com.cezarykluczynski.stapi.model.company.entity.Company;
 import com.cezarykluczynski.stapi.model.conflict.entity.Conflict;
+import com.cezarykluczynski.stapi.model.element.entity.Element;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.food.entity.Food;
 import com.cezarykluczynski.stapi.model.literature.entity.Literature;
@@ -691,6 +695,19 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(AnimalReader.class))
 				.processor(applicationContext.getBean(AnimalProcessor.class))
 				.writer(applicationContext.getBean(AnimalWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_ELEMENTS)
+	public Step stepCreateElements() {
+		return stepBuilderFactory.get(StepName.CREATE_ELEMENTS)
+				.<PageHeader, Element>chunk(stepsProperties.getCreateElements().getCommitInterval())
+				.reader(applicationContext.getBean(ElementReader.class))
+				.processor(applicationContext.getBean(ElementProcessor.class))
+				.writer(applicationContext.getBean(ElementWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)

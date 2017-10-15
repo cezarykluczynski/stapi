@@ -50,7 +50,8 @@ public class StepNames {
 				StepName.CREATE_SPACECRAFTS,
 				StepName.CREATE_MATERIALS,
 				StepName.CREATE_CONFLICTS,
-				StepName.CREATE_ANIMALS
+				StepName.CREATE_ANIMALS,
+				StepName.CREATE_ELEMENTS
 		));
 	}
 

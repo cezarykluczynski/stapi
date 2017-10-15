@@ -31,6 +31,7 @@ public class TemplateTitle {
 	public static final String SIDEBAR_STARSHIP = "sidebar starship";
 	public static final String SIDEBAR_STATION = "sidebar station";
 	public static final String SIDEBAR_MILITARY_CONFLICT = "sidebar military conflict";
+	public static final String SIDEBAR_ELEMENT = "sidebar element";
 
 	public static final String BORN = "born";
 
@@ -72,6 +73,13 @@ public class TemplateTitle {
 	public static final String FEDERATION_WARS = "federation wars";
 	public static final String DOMINION_WAR_BATTLES = "dominion war battles";
 	public static final String KLINGON_WARS = "klingon wars";
+
+	public static final String GAMMASERIES = "gammaseries";
+	public static final String HYPERSONICSERIES = "hypersonicseries";
+	public static final String MEGASERIES = "megaseries";
+	public static final String OMEGASERIES = "omegaseries";
+	public static final String TRANSONICSERIES = "transonicseries";
+	public static final String WORLD_SERIES = "world series";
 
 	// Memory Beta
 	public static final String CHARACTER_BOX = "characterbox";

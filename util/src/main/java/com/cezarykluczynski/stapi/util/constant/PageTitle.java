@@ -60,4 +60,5 @@ public class PageTitle {
 	public static final String SPACE_STATION = "Space station";
 	public static final String OUTPOST = "Outpost";
 	public static final String STARBASE = "Starbase";
+	public static final String TRANSURANIC = "Transuranic";
 }
