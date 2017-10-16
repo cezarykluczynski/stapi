@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.comics.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplatePartListEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor;
 import com.cezarykluczynski.stapi.etl.reference.processor.ReferencesFromTemplatePartProcessor;
 import com.cezarykluczynski.stapi.etl.template.comics.dto.ComicsTemplate;
@@ -19,7 +19,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Service
-public class ComicsTemplatePartsEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<List<Template.Part>, ComicsTemplate>> {
+public class ComicsTemplatePartsEnrichingProcessor implements ItemWithTemplatePartListEnrichingProcessor<ComicsTemplate> {
 
 	private final ComicsTemplatePartStaffEnrichingProcessor comicsTemplatePartStaffEnrichingProcessor;
 

@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.magazine.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplatePartListEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor;
 import com.cezarykluczynski.stapi.etl.magazine.creation.processor.MagazineTemplateNumberOfPagesFixedValueProvider;
 import com.cezarykluczynski.stapi.etl.magazine.creation.processor.MagazineTemplatePublicationDatesFixedValueProvider;
@@ -22,7 +22,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class MagazineTemplatePartsEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<List<Template.Part>, MagazineTemplate>> {
+public class MagazineTemplatePartsEnrichingProcessor implements ItemWithTemplatePartListEnrichingProcessor<MagazineTemplate> {
 
 	private final NumberOfPartsProcessor numberOfPartsProcessor;
 

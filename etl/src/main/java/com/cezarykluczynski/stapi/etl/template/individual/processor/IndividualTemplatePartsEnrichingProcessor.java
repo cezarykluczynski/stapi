@@ -4,7 +4,7 @@ import com.cezarykluczynski.stapi.etl.character.common.dto.CharacterRelationCach
 import com.cezarykluczynski.stapi.etl.character.common.dto.CharacterRelationsMap;
 import com.cezarykluczynski.stapi.etl.character.common.service.CharactersRelationsCache;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplatePartListEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor;
 import com.cezarykluczynski.stapi.etl.template.character.dto.CharacterTemplate;
 import com.cezarykluczynski.stapi.etl.template.character.processor.CharacterTemplateActorLinkingEnrichingProcessor;
@@ -23,7 +23,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Service
-public class IndividualTemplatePartsEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<List<Template.Part>, CharacterTemplate>> {
+public class IndividualTemplatePartsEnrichingProcessor implements ItemWithTemplatePartListEnrichingProcessor<CharacterTemplate> {
 
 	private final PartToGenderProcessor partToGenderProcessor;
 

@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.military_conflict.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplatePartListEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.WikitextToYearRangeProcessor;
@@ -14,8 +14,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Service
-public class MilitaryConflictTemplatePartsEnrichingProcessor
-		implements ItemEnrichingProcessor<EnrichablePair<List<Template.Part>, MilitaryConflictTemplate>> {
+public class MilitaryConflictTemplatePartsEnrichingProcessor implements ItemWithTemplatePartListEnrichingProcessor<MilitaryConflictTemplate> {
 
 	private final MilitaryConflictTemplatePartOfEnrichingProcessor militaryConflictTemplatePartOfEnrichingProcessor;
 

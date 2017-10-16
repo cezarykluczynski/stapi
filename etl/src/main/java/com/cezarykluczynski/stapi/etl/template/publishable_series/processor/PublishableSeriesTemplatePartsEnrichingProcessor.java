@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.publishable_series.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplatePartListEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.StardateRange;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange;
@@ -16,8 +16,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Service
-public class PublishableSeriesTemplatePartsEnrichingProcessor
-		implements ItemEnrichingProcessor<EnrichablePair<List<Template.Part>, PublishableSeriesTemplate>> {
+public class PublishableSeriesTemplatePartsEnrichingProcessor implements ItemWithTemplatePartListEnrichingProcessor<PublishableSeriesTemplate> {
 
 	private final WikitextToEntitiesProcessor wikitextToEntitiesProcessor;
 

@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.book.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplatePartListEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor;
 import com.cezarykluczynski.stapi.etl.reference.processor.ReferencesFromTemplatePartProcessor;
 import com.cezarykluczynski.stapi.etl.template.audio.dto.AudioTemplateParameter;
@@ -21,7 +21,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Service
-public class BookTemplatePartsEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<List<Template.Part>, BookTemplate>> {
+public class BookTemplatePartsEnrichingProcessor implements ItemWithTemplatePartListEnrichingProcessor<BookTemplate> {
 
 	private static final String YES = "yes";
 

@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.species.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplatePartListEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService;
 import com.cezarykluczynski.stapi.etl.template.species.dto.SpeciesTemplate;
 import com.cezarykluczynski.stapi.etl.template.species.dto.SpeciesTemplateParameter;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class SpeciesTemplatePartsEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<List<Template.Part>, SpeciesTemplate>> {
+public class SpeciesTemplatePartsEnrichingProcessor implements ItemWithTemplatePartListEnrichingProcessor<SpeciesTemplate> {
 
 	private static final String EXTINCT = "extinct";
 

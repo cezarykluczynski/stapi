@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.book_series.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplatePartListEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.template.book_series.dto.BookSeriesTemplate;
 import com.cezarykluczynski.stapi.etl.template.book_series.dto.BookSeriesTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.common.processor.NumberOfPartsProcessor;
@@ -13,7 +13,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Service
-public class BookSeriesTemplatePartsEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<List<Template.Part>, BookSeriesTemplate>> {
+public class BookSeriesTemplatePartsEnrichingProcessor implements ItemWithTemplatePartListEnrichingProcessor<BookSeriesTemplate> {
 
 	private final PublishableSeriesTemplatePartsEnrichingProcessor publishableSeriesTemplatePartsEnrichingProcessor;
 

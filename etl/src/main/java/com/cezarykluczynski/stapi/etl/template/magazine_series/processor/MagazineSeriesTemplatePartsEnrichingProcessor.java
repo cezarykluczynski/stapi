@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.magazine_series.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplatePartListEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.MonthYear;
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.MonthYearRange;
@@ -17,8 +17,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Service
-public class MagazineSeriesTemplatePartsEnrichingProcessor
-		implements ItemEnrichingProcessor<EnrichablePair<List<Template.Part>, MagazineSeriesTemplate>> {
+public class MagazineSeriesTemplatePartsEnrichingProcessor implements ItemWithTemplatePartListEnrichingProcessor<MagazineSeriesTemplate> {
 
 	private final PublishableSeriesTemplatePartsEnrichingProcessor publishableSeriesTemplatePartsEnrichingProcessor;
 

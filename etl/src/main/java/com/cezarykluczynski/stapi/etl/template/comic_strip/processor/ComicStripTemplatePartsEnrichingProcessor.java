@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.comic_strip.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.dto.Range;
-import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ItemWithTemplatePartListEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.WikitextToEntitiesProcessor;
 import com.cezarykluczynski.stapi.etl.template.comic_strip.dto.ComicStripTemplate;
 import com.cezarykluczynski.stapi.etl.template.comic_strip.dto.ComicStripTemplateParameter;
@@ -18,7 +18,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Service
-public class ComicStripTemplatePartsEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<List<Template.Part>, ComicStripTemplate>> {
+public class ComicStripTemplatePartsEnrichingProcessor implements ItemWithTemplatePartListEnrichingProcessor<ComicStripTemplate> {
 
 	private final ComicStripTemplatePartStaffEnrichingProcessor comicStripTemplatePartStaffEnrichingProcessor;
 
