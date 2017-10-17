@@ -103,6 +103,15 @@ public class CategoryTitle {
 	public static final String SHAKESPEARE_CHARACTERS = "Shakespeare_characters";
 	public static final String PERSONNEL_LISTS = "Personnel_lists";
 	public static final String FAMILIES = "Families";
+	public static final String ARTISTS = "Artists";
+	public static final String ATHLETES = "Athletes";
+	public static final String AUTHORS = "Authors";
+	public static final String DABO_GIRLS = "Dabo_girls";
+	public static final String EDUCATORS = "Educators";
+	public static final String ENTERTAINERS = "Entertainers";
+	public static final String GOVERNMENT_OFFICIALS = "Government_officials";
+	public static final String MUSICIANS = "Musicians";
+	public static final String SCIENTISTS = "Scientists";
 	public static final String MIRROR_UNIVERSE_INHABITANTS = "Mirror_universe_inhabitants";
 	public static final String MIRROR_UNIVERSE = "Mirror_universe";
 	public static final String ALTERNATE_REALITY = "Alternate_reality";

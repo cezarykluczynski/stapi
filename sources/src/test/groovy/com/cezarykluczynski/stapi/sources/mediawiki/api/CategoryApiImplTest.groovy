@@ -10,6 +10,7 @@ import com.google.common.collect.Lists
 import info.bliki.api.PageInfo
 import spock.lang.Specification
 
+import java.util.regex.Pattern
 import java.util.stream.Collectors
 
 class CategoryApiImplTest extends Specification {
@@ -271,6 +272,30 @@ class CategoryApiImplTest extends Specification {
 		when:
 		List<PageHeader> pageHeaderListOutput = categoryApiImpl
 				.getPagesIncludingSubcategoriesExcept(TITLE_1, Lists.newArrayList(TITLE_3), MEDIA_WIKI_SOURCE)
+
+		then:
+		1 * blikiConnectorMock.readXML(_ as Map, _ as MediaWikiSource) >> VALID_XML_WITH_PAGES_AND_CATEGORIES_2
+		1 * blikiConnectorMock.readXML(_ as Map, _ as MediaWikiSource) >> VALID_XML_WITH_PAGES_AND_CATEGORY_TO_EXCLUDE
+		1 * pageHeaderConverterMock.fromPageInfoList(_ as List<PageInfo>, MEDIA_WIKI_SOURCE) >> { List<PageInfo> pageInfoList,
+				MediaWikiSource mediaWikiSource ->
+			assert pageInfoList.size() == 1
+			List<String> titles = pageInfoList.stream()
+					.map { pageHeader -> pageHeader.title }
+					.collect(Collectors.toList())
+			assert titles.contains(TITLE_2)
+			pageHeaderList
+		}
+		0 * _
+		pageHeaderListOutput == pageHeaderList
+	}
+
+	void "gets pages in multiple categories, including subcategories, with excludes"() {
+		given:
+		List<PageHeader> pageHeaderList = Lists.newArrayList()
+
+		when:
+		List<PageHeader> pageHeaderListOutput = categoryApiImpl
+				.getPagesIncludingSubcategoriesExcluding(TITLE_1, Lists.newArrayList(Pattern.compile("(${TITLE_3}).*")), MEDIA_WIKI_SOURCE)
 
 		then:
 		1 * blikiConnectorMock.readXML(_ as Map, _ as MediaWikiSource) >> VALID_XML_WITH_PAGES_AND_CATEGORIES_2

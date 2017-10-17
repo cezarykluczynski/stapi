@@ -19,6 +19,8 @@ import javax.inject.Inject;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Service
 public class CategoryApiImpl implements CategoryApi {
@@ -54,7 +56,7 @@ public class CategoryApiImpl implements CategoryApi {
 	@Override
 	public List<PageHeader> getPagesIncludingSubcategories(List<String> titleList, MediaWikiSource mediaWikiSource) {
 		List<PageInfo> pageInfoIncludingSubcategoriesList = privateGetPagesIncludingSubcategories(titleList, mediaWikiSource,
-				Lists.newArrayList(titleList));
+				Lists.newArrayList(titleList), Lists.newArrayList());
 		pageInfoIncludingSubcategoriesList = Lists.newArrayList(Sets.newHashSet(pageInfoIncludingSubcategoriesList));
 		return pageHeaderConverter.fromPageInfoList(pageInfoIncludingSubcategoriesList, mediaWikiSource);
 	}
@@ -64,14 +66,24 @@ public class CategoryApiImpl implements CategoryApi {
 		List<String> visitedCategoriesNames = Lists.newArrayList(exceptions);
 		visitedCategoriesNames.add(title);
 		List<PageInfo> pageInfoIncludingSubcategoriesList = privateGetPagesIncludingSubcategories(Lists.newArrayList(title), mediaWikiSource,
-				visitedCategoriesNames);
+				visitedCategoriesNames, Lists.newArrayList());
+		pageInfoIncludingSubcategoriesList = Lists.newArrayList(Sets.newHashSet(pageInfoIncludingSubcategoriesList));
+		return pageHeaderConverter.fromPageInfoList(pageInfoIncludingSubcategoriesList, mediaWikiSource);
+	}
+
+	@Override
+	public List<PageHeader> getPagesIncludingSubcategoriesExcluding(String title, List<Pattern> excludes, MediaWikiSource mediaWikiSource) {
+		List<String> visitedCategoriesNames = Lists.newArrayList();
+		visitedCategoriesNames.add(title);
+		List<PageInfo> pageInfoIncludingSubcategoriesList = privateGetPagesIncludingSubcategories(Lists.newArrayList(title), mediaWikiSource,
+				visitedCategoriesNames, excludes);
 		pageInfoIncludingSubcategoriesList = Lists.newArrayList(Sets.newHashSet(pageInfoIncludingSubcategoriesList));
 		return pageHeaderConverter.fromPageInfoList(pageInfoIncludingSubcategoriesList, mediaWikiSource);
 	}
 
 	private List<PageInfo> privateGetPagesIncludingSubcategories(List<String> titleList, MediaWikiSource mediaWikiSource,
-			List<String> visitedCategoriesNames) {
-		List<PageInfo> pageInfoList = getPageInfoList(titleList, mediaWikiSource);
+			List<String> visitedCategoriesNames, List<Pattern> excludes) {
+		List<PageInfo> pageInfoList = getPageInfoList(filterWithExcludes(titleList, excludes), mediaWikiSource);
 		List<PageInfo> pages = Lists.newArrayList();
 
 		for (PageInfo pageInfo : pageInfoList) {
@@ -81,11 +93,25 @@ public class CategoryApiImpl implements CategoryApi {
 				pages.add(pageInfo);
 			} else if (MemoryAlpha.CATEGORY_NAMESPACE.equals(namespace) && !visitedCategoriesNames.contains(categoryTitle)) {
 				visitedCategoriesNames.add(categoryTitle);
-				pages.addAll(privateGetPagesIncludingSubcategories(Lists.newArrayList(categoryTitle), mediaWikiSource, visitedCategoriesNames));
+				pages.addAll(privateGetPagesIncludingSubcategories(Lists.newArrayList(categoryTitle), mediaWikiSource, visitedCategoriesNames,
+						excludes));
 			}
 		}
 
 		return pages;
+	}
+
+	private List<String> filterWithExcludes(List<String> titleList, List<Pattern> excludes) {
+		return titleList.stream()
+				.filter(title -> {
+					for (Pattern pattern : excludes) {
+						if (pattern.matcher(title).matches()) {
+							return false;
+						}
+					}
+					return true;
+				})
+				.collect(Collectors.toList());
 	}
 
 	private List<PageInfo> getPageInfoList(List<String> titleList, MediaWikiSource mediaWikiSource) {
