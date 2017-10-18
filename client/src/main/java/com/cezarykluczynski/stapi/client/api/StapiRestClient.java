@@ -20,6 +20,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.api.LocationApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.MagazineApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.MagazineSeriesApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.MaterialApi;
+import com.cezarykluczynski.stapi.client.v1.rest.api.MedicalConditionApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.MovieApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.OrganizationApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.PerformerApi;
@@ -157,6 +158,9 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 	@Getter
 	private ElementApi elementApi;
 
+	@Getter
+	private MedicalConditionApi medicalConditionApi;
+
 	public StapiRestClient() {
 		seriesApi = new SeriesApi();
 		performerApi = new PerformerApi();
@@ -195,6 +199,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 		conflictApi = new ConflictApi();
 		animalApi = new AnimalApi();
 		elementApi = new ElementApi();
+		medicalConditionApi = new MedicalConditionApi();
 	}
 
 	public StapiRestClient(String apiUrl) {
@@ -237,6 +242,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 		conflictApi = new ConflictApi(apiClient);
 		animalApi = new AnimalApi(apiClient);
 		elementApi = new ElementApi(apiClient);
+		medicalConditionApi = new MedicalConditionApi(apiClient);
 	}
 
 	private void createApiClient() {

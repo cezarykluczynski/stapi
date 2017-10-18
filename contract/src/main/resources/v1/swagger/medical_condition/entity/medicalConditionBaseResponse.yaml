@@ -1,0 +1,14 @@
+type: object
+description: Response object for medical conditions search
+properties:
+  page:
+    $ref: '#/definitions/ResponsePage'
+    description: Response page
+  sort:
+    $ref: '#/definitions/ResponseSort'
+    description: Response sort
+  medicalConditions:
+    type: array
+    items:
+      $ref: '#/definitions/MedicalConditionBase'
+    description: List of medical conditions matching given criteria

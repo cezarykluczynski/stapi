@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+		name="MedicalCondition"
+		targetNamespace="http://stapi.co/api/v1/soap/medicalCondition"
+		xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+		xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+		xmlns:stapi="http://stapi.co/api/v1/soap/medicalCondition"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<xs:schema targetNamespace="http://stapi.co/api/v1/soap/medicalCondition">
+			<xs:include schemaLocation="medicalCondition.xsd"/>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="MedicalConditionBaseRequest">
+		<wsdl:part name="request" element="stapi:MedicalConditionBaseRequest"/>
+	</wsdl:message>
+	<wsdl:message name="MedicalConditionFullRequest">
+		<wsdl:part name="request" element="stapi:MedicalConditionFullRequest"/>
+	</wsdl:message>
+	<wsdl:message name="MedicalConditionBaseResponse">
+		<wsdl:part name="response" element="stapi:MedicalConditionBaseResponse"/>
+	</wsdl:message>
+	<wsdl:message name="MedicalConditionFullResponse">
+		<wsdl:part name="response" element="stapi:MedicalConditionFullResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="MedicalConditionPortType">
+		<wsdl:operation name="getMedicalConditionBase">
+			<wsdl:input name="getMedicalConditionBaseRequest" message="stapi:MedicalConditionBaseRequest"/>
+			<wsdl:output name="getMedicalConditionBaseResponse" message="stapi:MedicalConditionBaseResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getMedicalConditionFull">
+			<wsdl:input name="getMedicalConditionFullRequest" message="stapi:MedicalConditionFullRequest"/>
+			<wsdl:output name="getMedicalConditionFullResponse" message="stapi:MedicalConditionFullResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="MedicalConditionBinding" type="stapi:MedicalConditionPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getMedicalConditionBase">
+			<wsdl:input name="getMedicalConditionBaseRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getMedicalConditionBaseResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getMedicalConditionFull">
+			<wsdl:input name="getMedicalConditionFullRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getMedicalConditionFullResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="MedicalConditionService">
+		<wsdl:port name="MedicalConditionPortType" binding="stapi:MedicalConditionBinding">
+			<soap:address location="http://stapi.co/api/v1/soap/medicalCondition"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

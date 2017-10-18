@@ -1,0 +1,6 @@
+type: object
+description: Response object for single medical condition query
+properties:
+  medicalCondition:
+    $ref: '#/definitions/MedicalConditionFull'
+    description: Medical condition, if found

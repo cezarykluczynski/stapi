@@ -89,6 +89,10 @@ paths:
     $ref: ./material/path/material.path.yaml
   /material/search:
     $ref: ./material/path/materialSearch.path.yaml
+  /medicalCondition:
+    $ref: ./medical_condition/path/medicalCondition.path.yaml
+  /medicalCondition/search:
+    $ref: ./medical_condition/path/medicalConditionSearch.path.yaml
   /movie:
     $ref: ./movie/path/movie.path.yaml
   /movie/search:
@@ -382,6 +386,16 @@ definitions:
     $ref: ./material/entity/materialBaseResponse.yaml
   MaterialFullResponse:
     $ref: ./material/entity/materialFullResponse.yaml
+  MedicalConditionHeader:
+    $ref: ./medical_condition/entity/medicalConditionHeader.yaml
+  MedicalConditionBase:
+    $ref: ./medical_condition/entity/medicalConditionBase.yaml
+  MedicalConditionFull:
+    $ref: ./medical_condition/entity/medicalConditionFull.yaml
+  MedicalConditionBaseResponse:
+    $ref: ./medical_condition/entity/medicalConditionBaseResponse.yaml
+  MedicalConditionFullResponse:
+    $ref: ./medical_condition/entity/medicalConditionFullResponse.yaml
   MovieHeader:
     $ref: ./movie/entity/movieHeader.yaml
   MovieBase:

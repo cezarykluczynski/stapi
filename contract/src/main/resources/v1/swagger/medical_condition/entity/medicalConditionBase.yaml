@@ -1,0 +1,14 @@
+type: object
+description: Base medical condition, returned in search results
+properties:
+  uid:
+    type: string
+    required: true
+    description: Medical condition unique ID
+  name:
+    type: string
+    required: true
+    description: Medical condition name
+  psychologicalCondition:
+    type: boolean
+    description: Whether it's a psychological condition

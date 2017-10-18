@@ -1,0 +1,11 @@
+type: object
+description: Header medical condition, embedded in other objects
+properties:
+  uid:
+    type: string
+    required: true
+    description: Medical condition unique ID
+  name:
+    type: string
+    required: true
+    description: Medical condition name

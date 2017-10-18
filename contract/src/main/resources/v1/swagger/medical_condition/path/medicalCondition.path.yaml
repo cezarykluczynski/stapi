@@ -1,0 +1,22 @@
+get:
+  description: Retrival of a single medical condition
+  parameters:
+    - name: uid
+      in: query
+      type: string
+      required: true
+      description: Medical condition unique ID
+    - name: apiKey
+      in: query
+      type: string
+      description: API key
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/MedicalConditionFullResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - MedicalCondition

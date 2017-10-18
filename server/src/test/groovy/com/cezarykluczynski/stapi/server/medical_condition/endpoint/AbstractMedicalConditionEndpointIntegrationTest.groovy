@@ -1,0 +1,6 @@
+package com.cezarykluczynski.stapi.server.medical_condition.endpoint
+
+import com.cezarykluczynski.stapi.server.common.endpoint.AbstractEndpointIntegrationTest
+
+abstract class AbstractMedicalConditionEndpointIntegrationTest extends AbstractEndpointIntegrationTest {
+}
