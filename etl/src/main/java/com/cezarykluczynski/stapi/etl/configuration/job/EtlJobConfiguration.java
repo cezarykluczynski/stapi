@@ -71,6 +71,9 @@ import com.cezarykluczynski.stapi.etl.magazine_series.creation.processor.Magazin
 import com.cezarykluczynski.stapi.etl.material.creation.processor.MaterialProcessor;
 import com.cezarykluczynski.stapi.etl.material.creation.processor.MaterialReader;
 import com.cezarykluczynski.stapi.etl.material.creation.processor.MaterialWriter;
+import com.cezarykluczynski.stapi.etl.medical_condition.creation.processor.MedicalConditionProcessor;
+import com.cezarykluczynski.stapi.etl.medical_condition.creation.processor.MedicalConditionReader;
+import com.cezarykluczynski.stapi.etl.medical_condition.creation.processor.MedicalConditionWriter;
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieProcessor;
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieReader;
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieWriter;
@@ -141,6 +144,7 @@ import com.cezarykluczynski.stapi.model.location.entity.Location;
 import com.cezarykluczynski.stapi.model.magazine.entity.Magazine;
 import com.cezarykluczynski.stapi.model.magazine_series.entity.MagazineSeries;
 import com.cezarykluczynski.stapi.model.material.entity.Material;
+import com.cezarykluczynski.stapi.model.medical_condition.entity.MedicalCondition;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
@@ -708,6 +712,19 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(ElementReader.class))
 				.processor(applicationContext.getBean(ElementProcessor.class))
 				.writer(applicationContext.getBean(ElementWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_MEDICAL_CONDITIONS)
+	public Step stepCreateMedicalConditions() {
+		return stepBuilderFactory.get(StepName.CREATE_MEDICAL_CONDITIONS)
+				.<PageHeader, MedicalCondition>chunk(stepsProperties.getCreateMedicalConditions().getCommitInterval())
+				.reader(applicationContext.getBean(MedicalConditionReader.class))
+				.processor(applicationContext.getBean(MedicalConditionProcessor.class))
+				.writer(applicationContext.getBean(MedicalConditionWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)

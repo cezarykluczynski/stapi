@@ -117,6 +117,8 @@ class JobBuilderTest extends Specification {
 
 	private Step createElementsStep
 
+	private Step createMedicalConditionsStep
+
 	private JobRepository jobRepository
 
 	private SpringBatchJobBuilder springBatchJobBuilder
@@ -171,6 +173,7 @@ class JobBuilderTest extends Specification {
 		createConflictsStep = Mock()
 		createAnimalsStep = Mock()
 		createElementsStep = Mock()
+		createMedicalConditionsStep = Mock()
 		springBatchJobBuilder = new SpringBatchJobBuilder(JobName.JOB_CREATE)
 		springBatchJobBuilder.repository(jobRepository)
 		jobBuilder = new JobBuilder(applicationContextMock, jobBuilderFactoryMock, stepConfigurationValidatorMock, jobCompletenessDeciderMock,
@@ -439,6 +442,12 @@ class JobBuilderTest extends Specification {
 		1 * applicationContextMock.getBean(StepName.CREATE_ELEMENTS, Step) >> createElementsStep
 		1 * createElementsStep.name >> StepName.CREATE_ELEMENTS
 
+		then: 'CREATE_MEDICAL_CONDITIONS step is retrieved from application context'
+		1 * stepPropertiesMap.get(StepName.CREATE_MEDICAL_CONDITIONS) >> stepProperties
+		1 * stepProperties.isEnabled() >> true
+		1 * applicationContextMock.getBean(StepName.CREATE_MEDICAL_CONDITIONS, Step) >> createMedicalConditionsStep
+		1 * createMedicalConditionsStep.name >> StepName.CREATE_MEDICAL_CONDITIONS
+
 		then: 'Task executor is retrieved from application context'
 		1 * applicationContextMock.getBean(TaskExecutor) >> taskExecutor
 
@@ -449,7 +458,7 @@ class JobBuilderTest extends Specification {
 		job.name == JobName.JOB_CREATE
 		job.jobRepository == jobRepository
 		((SplitState) ((SimpleFlow) job.flow).startState).flows.size() == 1
-		((SplitState) ((SimpleFlow) job.flow).startState).flows[0].name == 'flow1'
+		((SplitState) ((SimpleFlow) job.flow).startState).flows[0].name == 'create'
 	}
 
 	void "job is built with only two steps"() {
@@ -500,7 +509,7 @@ class JobBuilderTest extends Specification {
 		job.name == JobName.JOB_CREATE
 		job.jobRepository == jobRepository
 		((SplitState) ((SimpleFlow) job.flow).startState).flows.size() == 1
-		((SplitState) ((SimpleFlow) job.flow).startState).flows[0].name == 'flow1'
+		((SplitState) ((SimpleFlow) job.flow).startState).flows[0].name == 'create'
 	}
 
 	void "Job is not built when job is completed"() {

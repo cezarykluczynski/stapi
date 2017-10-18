@@ -344,4 +344,7 @@ public class CategoryTitle {
 
 	public static final String ELEMENTS = "Elements";
 
+	public static final String MEDICAL_CONDITIONS = "Medical_conditions";
+	public static final String PSYCHOLOGICAL_CONDITIONS = "Psychological_conditions";
+
 }

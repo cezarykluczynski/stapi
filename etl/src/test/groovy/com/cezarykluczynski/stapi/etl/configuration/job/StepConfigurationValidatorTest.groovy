@@ -43,7 +43,7 @@ class StepConfigurationValidatorTest extends Specification {
 		2 * stepToStepPropertiesProviderMock.provide() >> stepPropertiesMap
 		JobBuilderException jobBuilderException = thrown(JobBuilderException)
 		jobBuilderException.message == 'com.cezarykluczynski.stapi.util.exception.StapiRuntimeException: ' +
-				'Number of configured steps is 40, but 39 steps found'
+				'Number of configured steps is 41, but 40 steps found'
 	}
 
 	void "throws exception when two steps has the same order"() {
@@ -198,6 +198,9 @@ class StepConfigurationValidatorTest extends Specification {
 		StepProperties createElementsStepProperties = Mock()
 		createElementsStepProperties.order >> 40
 		stepPropertiesMap.put(StepName.CREATE_ELEMENTS, createElementsStepProperties)
+		StepProperties createMedicalConditionsStepProperties = Mock()
+		createMedicalConditionsStepProperties.order >> 41
+		stepPropertiesMap.put(StepName.CREATE_MEDICAL_CONDITIONS, createMedicalConditionsStepProperties)
 
 		stepPropertiesMap
 	}

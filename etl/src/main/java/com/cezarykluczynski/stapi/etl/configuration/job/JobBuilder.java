@@ -59,7 +59,7 @@ public class JobBuilder {
 		org.springframework.batch.core.job.builder.JobBuilder jobBuilder = jobBuilderFactory.get(JobName.JOB_CREATE);
 		SimpleJobBuilder simpleJobBuilder = new SimpleJobBuilder(jobBuilder);
 
-		FlowBuilder<Flow> flowBuilder = new FlowBuilder<>("flow1");
+		FlowBuilder<Flow> flowBuilder = new FlowBuilder<>("create");
 		Map<String, StepProperties> stepPropertiesMap = stepToStepPropertiesProvider.provide();
 
 		List<String> stepNameList = StepNames.JOB_STEPS.get(JobName.JOB_CREATE);

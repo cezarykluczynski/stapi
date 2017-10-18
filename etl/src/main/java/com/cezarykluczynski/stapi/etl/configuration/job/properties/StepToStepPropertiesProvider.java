@@ -66,6 +66,7 @@ public class StepToStepPropertiesProvider {
 		stepPropertiesMap.put(StepName.CREATE_CONFLICTS, stepsProperties.getCreateConflicts());
 		stepPropertiesMap.put(StepName.CREATE_ANIMALS, stepsProperties.getCreateAnimals());
 		stepPropertiesMap.put(StepName.CREATE_ELEMENTS, stepsProperties.getCreateElements());
+		stepPropertiesMap.put(StepName.CREATE_MEDICAL_CONDITIONS, stepsProperties.getCreateMedicalConditions());
 	}
 
 }

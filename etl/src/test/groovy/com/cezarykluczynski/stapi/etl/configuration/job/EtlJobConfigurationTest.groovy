@@ -72,6 +72,9 @@ import com.cezarykluczynski.stapi.etl.magazine_series.creation.processor.Magazin
 import com.cezarykluczynski.stapi.etl.material.creation.processor.MaterialProcessor
 import com.cezarykluczynski.stapi.etl.material.creation.processor.MaterialReader
 import com.cezarykluczynski.stapi.etl.material.creation.processor.MaterialWriter
+import com.cezarykluczynski.stapi.etl.medical_condition.creation.processor.MedicalConditionProcessor
+import com.cezarykluczynski.stapi.etl.medical_condition.creation.processor.MedicalConditionReader
+import com.cezarykluczynski.stapi.etl.medical_condition.creation.processor.MedicalConditionWriter
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieProcessor
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieReader
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieWriter
@@ -1512,6 +1515,39 @@ class EtlJobConfigurationTest extends Specification {
 		1 * applicationContextMock.getBean(ElementProcessor) >> itemProcessorMock
 		1 * simpleStepBuilderMock.processor(itemProcessorMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(ElementWriter) >> itemWriterMock
+		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
+		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
+		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock
+
+		then: 'step is configured to run only once'
+		1 * simpleStepBuilderMock.startLimit(1) >> simpleStepBuilderMock
+		1 * simpleStepBuilderMock.allowStartIfComplete(false) >> simpleStepBuilderMock
+
+		then: 'tasklet step is returned'
+		1 * simpleStepBuilderMock.build() >> taskletStepMock
+
+		then: 'step is being returned'
+		step == taskletStepMock
+	}
+
+	void "CREATE_MEDICAL_CONDITIONS step is created"() {
+		when:
+		Step step = etlJobConfiguration.stepCreateMedicalConditions()
+
+		then: 'StepBuilder is retrieved'
+		1 * stepBuilderFactoryMock.get(StepName.CREATE_MEDICAL_CONDITIONS) >> stepBuilderMock
+
+		then: 'commit interval is configured'
+		1 * stepsPropertiesMock.createMedicalConditions >> stepProperties
+		1 * stepProperties.commitInterval >> STEP_SIZE
+		1 * stepBuilderMock.chunk(STEP_SIZE) >> simpleStepBuilderMock
+
+		then: 'beans are retrieved from application context, then passed to builder'
+		1 * applicationContextMock.getBean(MedicalConditionReader) >> itemReaderMock
+		1 * simpleStepBuilderMock.reader(itemReaderMock) >> simpleStepBuilderMock
+		1 * applicationContextMock.getBean(MedicalConditionProcessor) >> itemProcessorMock
+		1 * simpleStepBuilderMock.processor(itemProcessorMock) >> simpleStepBuilderMock
+		1 * applicationContextMock.getBean(MedicalConditionWriter) >> itemWriterMock
 		1 * simpleStepBuilderMock.writer(itemWriterMock) >> simpleStepBuilderMock
 		1 * applicationContextMock.getBean(CommonStepExecutionListener) >> stepExecutionListenerMock
 		1 * simpleStepBuilderMock.listener(stepExecutionListenerMock) >> simpleStepBuilderMock

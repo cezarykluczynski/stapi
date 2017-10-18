@@ -42,5 +42,6 @@ public class StepName {
 	public static final String CREATE_CONFLICTS = "CREATE_CONFLICTS";
 	public static final String CREATE_ANIMALS = "CREATE_ANIMALS";
 	public static final String CREATE_ELEMENTS = "CREATE_ELEMENTS";
+	public static final String CREATE_MEDICAL_CONDITIONS = "CREATE_MEDICAL_CONDITIONS";
 
 }

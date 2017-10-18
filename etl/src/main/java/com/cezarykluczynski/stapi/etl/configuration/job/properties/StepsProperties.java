@@ -89,4 +89,6 @@ public class StepsProperties {
 
 	private StepProperties createElements;
 
+	private StepProperties createMedicalConditions;
+
 }
