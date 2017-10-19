@@ -107,6 +107,9 @@ import com.cezarykluczynski.stapi.etl.species.creation.processor.SpeciesWriter;
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffProcessor;
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffReader;
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffWriter;
+import com.cezarykluczynski.stapi.etl.technology.creation.processor.TechnologyProcessor;
+import com.cezarykluczynski.stapi.etl.technology.creation.processor.TechnologyReader;
+import com.cezarykluczynski.stapi.etl.technology.creation.processor.TechnologyWriter;
 import com.cezarykluczynski.stapi.etl.title.creation.processor.TitleProcessor;
 import com.cezarykluczynski.stapi.etl.title.creation.processor.TitleReader;
 import com.cezarykluczynski.stapi.etl.title.creation.processor.TitleWriter;
@@ -156,6 +159,7 @@ import com.cezarykluczynski.stapi.model.spacecraft_class.entity.SpacecraftClass;
 import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
+import com.cezarykluczynski.stapi.model.technology.entity.Technology;
 import com.cezarykluczynski.stapi.model.title.entity.Title;
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet;
 import com.cezarykluczynski.stapi.model.video_game.entity.VideoGame;
@@ -725,6 +729,19 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(MedicalConditionReader.class))
 				.processor(applicationContext.getBean(MedicalConditionProcessor.class))
 				.writer(applicationContext.getBean(MedicalConditionWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_TECHNOLOGY)
+	public Step stepCreateTechnology() {
+		return stepBuilderFactory.get(StepName.CREATE_TECHNOLOGY)
+				.<PageHeader, Technology>chunk(stepsProperties.getCreateTechnology().getCommitInterval())
+				.reader(applicationContext.getBean(TechnologyReader.class))
+				.processor(applicationContext.getBean(TechnologyProcessor.class))
+				.writer(applicationContext.getBean(TechnologyWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)

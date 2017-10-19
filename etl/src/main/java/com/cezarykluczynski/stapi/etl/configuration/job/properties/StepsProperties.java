@@ -91,4 +91,6 @@ public class StepsProperties {
 
 	private StepProperties createMedicalConditions;
 
+	private StepProperties createTechnology;
+
 }

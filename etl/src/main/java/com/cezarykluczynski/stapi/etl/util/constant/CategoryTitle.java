@@ -347,4 +347,30 @@ public class CategoryTitle {
 	public static final String MEDICAL_CONDITIONS = "Medical_conditions";
 	public static final String PSYCHOLOGICAL_CONDITIONS = "Psychological_conditions";
 
+	public static final String TECHNOLOGY = "Technology";
+	public static final String BORG_TECHNOLOGY = "Borg_technology";
+	public static final String BORG_COMPONENTS = "Borg_components";
+	public static final String COMMUNICATIONS_TECHNOLOGY = "Communications_technology";
+	public static final String COMMUNICATIONS_TECHNOLOGY_RETCONNED = "Communications_technology_(retconned)";
+	public static final String COMPUTER_TECHNOLOGY = "Computer_technology";
+	public static final String COMPUTER_PROGRAMMING = "Computer_programming";
+	public static final String SUBROUTINES = "Subroutines";
+	public static final String DATABASES = "Databases";
+	public static final String ENERGY_TECHNOLOGY = "Energy_technology";
+	public static final String ENERGY_TECHNOLOGY_RETCONNED = "Energy_technology_(retconned)";
+	public static final String FICTIONAL_TECHNOLOGY = "Fictional_technology";
+	public static final String HOLOGRAPHIC_TECHNOLOGY = "Holographic_technology";
+	public static final String IDENTIFICATION_TECHNOLOGY = "Identification_technology";
+	public static final String LIFE_SUPPORT_TECHNOLOGY = "Life_support_technology";
+	public static final String SENSOR_TECHNOLOGY = "Sensor_technology";
+	public static final String SENSOR_TECHNOLOGY_RETCONNED = "Sensor_technology_(retconned)";
+	public static final String SHIELD_TECHNOLOGY = "Shield_technology";
+	public static final String SHIELD_TECHNOLOGY_RETCONNED = "Shield_technology_(retconned)";
+	public static final String TOOLS = "Tools";
+	public static final String CULINARY_TOOLS = "Culinary_tools";
+	public static final String ENGINEERING_TOOLS = "Engineering_tools";
+	public static final String HOUSEHOLD_TOOLS = "Household_tools";
+	public static final String MEDICAL_EQUIPMENT = "Medical_equipment";
+	public static final String TRANSPORTER_TECHNOLOGY = "Transporter_technology";
+
 }

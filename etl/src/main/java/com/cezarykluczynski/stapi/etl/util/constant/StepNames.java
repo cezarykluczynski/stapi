@@ -52,7 +52,8 @@ public class StepNames {
 				StepName.CREATE_CONFLICTS,
 				StepName.CREATE_ANIMALS,
 				StepName.CREATE_ELEMENTS,
-				StepName.CREATE_MEDICAL_CONDITIONS
+				StepName.CREATE_MEDICAL_CONDITIONS,
+				StepName.CREATE_TECHNOLOGY
 		));
 	}
 
