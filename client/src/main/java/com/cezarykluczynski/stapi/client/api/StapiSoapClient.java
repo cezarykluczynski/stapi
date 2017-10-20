@@ -31,6 +31,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.SpacecraftClassPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.SpacecraftPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.SpeciesPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.StaffPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.TechnologyPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.TitlePortType;
 import com.cezarykluczynski.stapi.client.v1.soap.TradingCardDeckPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.TradingCardPortType;
@@ -158,6 +159,9 @@ public class StapiSoapClient {
 	@Getter
 	private MedicalConditionPortType medicalConditionPortType;
 
+	@Getter
+	private TechnologyPortType technologyPortType;
+
 	public StapiSoapClient() {
 		stapiSoapPortTypesProvider = new StapiSoapPortTypesProvider();
 		bindPortTypes();
@@ -207,6 +211,7 @@ public class StapiSoapClient {
 		animalPortType = stapiSoapPortTypesProvider.getAnimalPortType();
 		elementPortType = stapiSoapPortTypesProvider.getElementPortType();
 		medicalConditionPortType = stapiSoapPortTypesProvider.getMedicalConditionPortType();
+		technologyPortType = stapiSoapPortTypesProvider.getTechnologyPortType();
 	}
 
 }

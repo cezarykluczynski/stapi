@@ -1,0 +1,142 @@
+get:
+  description: Pagination over technology
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+      description: Zero-based page number
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+      description: Page size
+    - name: apiKey
+      in: query
+      type: string
+      description: API key
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/TechnologyBaseResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - Technology
+post:
+  description: Searching technology
+  consumes:
+    - application/x-www-form-urlencoded
+  producers:
+    - application/json
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+      description: Zero-based page number
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+      description: Page size
+    - name: sort
+      type: string
+      in: query
+      description: "Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC"
+    - name: apiKey
+      in: query
+      type: string
+      description: API key
+    - name: name
+      in: formData
+      type: string
+      description: Technology name
+    - name: borgTechnology
+      in: formData
+      type: boolean
+      description: Whether it should be a Borg technology
+    - name: borgComponent
+      in: formData
+      type: boolean
+      description: Whether it should be a Borg component
+    - name: communicationsTechnology
+      in: formData
+      type: boolean
+      description: Whether it should be a communications technology
+    - name: computerTechnology
+      in: formData
+      type: boolean
+      description: Whether it should be a computer technology
+    - name: computerProgramming
+      in: formData
+      type: boolean
+      description: Whether it should be a technology related to computer programming
+    - name: subroutine
+      in: formData
+      type: boolean
+      description: Whether it should be a subroutine
+    - name: database
+      in: formData
+      type: boolean
+      description: Whether it should be a database
+    - name: energyTechnology
+      in: formData
+      type: boolean
+      description: Whether it should be a energy technology
+    - name: fictionalTechnology
+      in: formData
+      type: boolean
+      description: Whether it should be a fictional technology
+    - name: holographicTechnology
+      in: formData
+      type: boolean
+      description: Whether it should be a holographic technology
+    - name: identificationTechnology
+      in: formData
+      type: boolean
+      description: Whether it should be a identification technology
+    - name: lifeSupportTechnology
+      in: formData
+      type: boolean
+      description: Whether it should be a life support technology
+    - name: sensorTechnology
+      in: formData
+      type: boolean
+      description: Whether it should be a sensor technology
+    - name: shieldTechnology
+      in: formData
+      type: boolean
+      description: Whether it should be a shield technology
+    - name: tool
+      in: formData
+      type: boolean
+      description: Whether it should be a tool
+    - name: culinaryTool
+      in: formData
+      type: boolean
+      description: Whether it should be a culinary tool
+    - name: engineeringTool
+      in: formData
+      type: boolean
+      description: Whether it should be a engineering tool
+    - name: householdTool
+      in: formData
+      type: boolean
+      description: Whether it should be a household tool
+    - name: medicalEquipment
+      in: formData
+      type: boolean
+      description: Whether it should be a medical equipment
+    - name: transporterTechnology
+      in: formData
+      type: boolean
+      description: Whether it's a transporter technology
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/TechnologyBaseResponse'
+  tags:
+    - Technology

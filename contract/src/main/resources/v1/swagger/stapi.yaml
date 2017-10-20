@@ -133,6 +133,10 @@ paths:
     $ref: ./staff/path/staff.path.yaml
   /staff/search:
     $ref: ./staff/path/staffSearch.path.yaml
+  /technology:
+    $ref: ./technology/path/technology.path.yaml
+  /technology/search:
+    $ref: ./technology/path/technologySearch.path.yaml
   /title:
     $ref: ./title/path/title.path.yaml
   /title/search:
@@ -514,6 +518,16 @@ definitions:
     $ref: ./staff/entity/staffBaseResponse.yaml
   StaffFullResponse:
     $ref: ./staff/entity/staffFullResponse.yaml
+  TechnologyHeader:
+    $ref: ./technology/entity/technologyHeader.yaml
+  TechnologyBase:
+    $ref: ./technology/entity/technologyBase.yaml
+  TechnologyFull:
+    $ref: ./technology/entity/technologyFull.yaml
+  TechnologyBaseResponse:
+    $ref: ./technology/entity/technologyBaseResponse.yaml
+  TechnologyFullResponse:
+    $ref: ./technology/entity/technologyFullResponse.yaml
   TitleHeader:
     $ref: ./title/entity/titleHeader.yaml
   TitleBase:

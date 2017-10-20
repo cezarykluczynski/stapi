@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:technology="http://stapi.co/api/v1/soap/technology"
+		xmlns:common="http://stapi.co/api/v1/soap/common"
+		elementFormDefault="qualified"
+		targetNamespace="http://stapi.co/api/v1/soap/technology">
+	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
+	<xs:element name="TechnologyBaseRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for technology search</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Request">
+					<xs:sequence>
+						<xs:element name="name" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Technology name</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="borgTechnology" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a Borg technology</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="borgComponent" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a Borg component</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="communicationsTechnology" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a communications technology</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="computerTechnology" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a computer technology</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="computerProgramming" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a technology related to computer programming</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="subroutine" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a subroutine</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="database" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a database</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="energyTechnology" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a energy technology</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="fictionalTechnology" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a fictional technology</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="holographicTechnology" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a holographic technology</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="identificationTechnology" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a identification technology</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="lifeSupportTechnology" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a life support technology</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="sensorTechnology" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a sensor technology</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="shieldTechnology" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a shield technology</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="tool" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a tool</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="culinaryTool" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a culinary tool</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="engineeringTool" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a engineering tool</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="householdTool" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a household tool</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="medicalEquipment" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a medical equipment</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="transporterTechnology" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it's a transporter technology</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TechnologyFullRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for single technology query</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:ApiRequest">
+					<xs:sequence>
+						<xs:element name="uid" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>Technology unique ID</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TechnologyBaseResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for technology search</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Response">
+					<xs:sequence>
+						<xs:element name="technology" type="technology:TechnologyBase" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>List of technology matching given criteria</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="TechnologyFullResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for single technology query</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="technology" type="technology:TechnologyFull">
+					<xs:annotation>
+						<xs:documentation>Technology, if found</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="TechnologyHeader">
+		<xs:annotation>
+			<xs:documentation>Header technology, embedded in other objects</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Technology unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Technology name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TechnologyBase">
+		<xs:annotation>
+			<xs:documentation>Base technology, returned in search results</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Technology unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Technology name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="borgTechnology" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a Borg technology</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="borgComponent" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a Borg component</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="communicationsTechnology" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a communications technology</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="computerTechnology" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a computer technology</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="computerProgramming" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a technology related to computer programming</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subroutine" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a subroutine</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="database" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a database</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="energyTechnology" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a energy technology</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fictionalTechnology" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a fictional technology</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="holographicTechnology" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a holographic technology</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="identificationTechnology" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a identification technology</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lifeSupportTechnology" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a life support technology</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sensorTechnology" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a sensor technology</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="shieldTechnology" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a shield technology</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tool" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a tool</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="culinaryTool" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a culinary tool</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="engineeringTool" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a engineering tool</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="householdTool" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a household tool</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="medicalEquipment" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a medical equipment</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="transporterTechnology" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a transporter technology</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="TechnologyFull">
+		<xs:annotation>
+			<xs:documentation>Full technology, returned when queried using UID</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Technology unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Technology name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="borgTechnology" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a Borg technology</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="borgComponent" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a Borg component</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="communicationsTechnology" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a communications technology</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="computerTechnology" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a computer technology</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="computerProgramming" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a technology related to computer programming</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subroutine" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a subroutine</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="database" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a database</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="energyTechnology" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a energy technology</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="fictionalTechnology" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a fictional technology</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="holographicTechnology" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a holographic technology</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="identificationTechnology" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a identification technology</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="lifeSupportTechnology" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a life support technology</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="sensorTechnology" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a sensor technology</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="shieldTechnology" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a shield technology</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="tool" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a tool</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="culinaryTool" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a culinary tool</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="engineeringTool" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a engineering tool</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="householdTool" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a household tool</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="medicalEquipment" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a medical equipment</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="transporterTechnology" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a transporter technology</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

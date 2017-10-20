@@ -1,0 +1,14 @@
+type: object
+description: Response object for technology search
+properties:
+  page:
+    $ref: '#/definitions/ResponsePage'
+    description: Response page
+  sort:
+    $ref: '#/definitions/ResponseSort'
+    description: Response sort
+  technology:
+    type: array
+    items:
+      $ref: '#/definitions/TechnologyBase'
+    description: List of technology matching given criteria

@@ -47,6 +47,7 @@ class StapiRestClientTest extends AbstractStapiClientTest {
 		stapiRestClient.animalApi.apiClient.basePath.contains(StapiClient.CANONICAL_API_URL)
 		stapiRestClient.elementApi.apiClient.basePath.contains(StapiClient.CANONICAL_API_URL)
 		stapiRestClient.medicalConditionApi.apiClient.basePath.contains(StapiClient.CANONICAL_API_URL)
+		stapiRestClient.technologyApi.apiClient.basePath.contains(StapiClient.CANONICAL_API_URL)
 	}
 
 	void "rest client can be instantiated with custom URL"() {
@@ -92,6 +93,7 @@ class StapiRestClientTest extends AbstractStapiClientTest {
 		stapiRestClient.animalApi.apiClient.basePath.contains(CUSTOM_URL)
 		stapiRestClient.elementApi.apiClient.basePath.contains(CUSTOM_URL)
 		stapiRestClient.medicalConditionApi.apiClient.basePath.contains(CUSTOM_URL)
+		stapiRestClient.technologyApi.apiClient.basePath.contains(CUSTOM_URL)
 	}
 
 }

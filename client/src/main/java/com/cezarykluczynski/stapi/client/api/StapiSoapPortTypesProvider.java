@@ -62,6 +62,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.SpeciesPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.SpeciesService;
 import com.cezarykluczynski.stapi.client.v1.soap.StaffPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.StaffService;
+import com.cezarykluczynski.stapi.client.v1.soap.TechnologyPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.TechnologyService;
 import com.cezarykluczynski.stapi.client.v1.soap.TitlePortType;
 import com.cezarykluczynski.stapi.client.v1.soap.TitleService;
 import com.cezarykluczynski.stapi.client.v1.soap.TradingCardDeckPortType;
@@ -199,6 +201,9 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 	@Getter
 	private MedicalConditionPortType medicalConditionPortType;
 
+	@Getter
+	private TechnologyPortType technologyPortType;
+
 	public StapiSoapPortTypesProvider() {
 		seriesPortType = new SeriesService().getSeriesPortType();
 		performerPortType = new PerformerService().getPerformerPortType();
@@ -238,6 +243,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		animalPortType = new AnimalService().getAnimalPortType();
 		elementPortType = new ElementService().getElementPortType();
 		medicalConditionPortType = new MedicalConditionService().getMedicalConditionPortType();
+		technologyPortType = new TechnologyService().getTechnologyPortType();
 	}
 
 	public StapiSoapPortTypesProvider(String apiUrl) {
@@ -280,6 +286,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		animalPortType = changeUrl(new AnimalService().getAnimalPortType());
 		elementPortType = changeUrl(new ElementService().getElementPortType());
 		medicalConditionPortType = changeUrl(new MedicalConditionService().getMedicalConditionPortType());
+		technologyPortType = changeUrl(new TechnologyService().getTechnologyPortType());
 	}
 
 	private <T> T changeUrl(T service) {

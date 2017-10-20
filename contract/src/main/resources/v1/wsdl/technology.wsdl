@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+		name="Technology"
+		targetNamespace="http://stapi.co/api/v1/soap/technology"
+		xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+		xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+		xmlns:stapi="http://stapi.co/api/v1/soap/technology"
+		xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<wsdl:types>
+		<xs:schema targetNamespace="http://stapi.co/api/v1/soap/technology">
+			<xs:include schemaLocation="technology.xsd"/>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="TechnologyBaseRequest">
+		<wsdl:part name="request" element="stapi:TechnologyBaseRequest"/>
+	</wsdl:message>
+	<wsdl:message name="TechnologyFullRequest">
+		<wsdl:part name="request" element="stapi:TechnologyFullRequest"/>
+	</wsdl:message>
+	<wsdl:message name="TechnologyBaseResponse">
+		<wsdl:part name="response" element="stapi:TechnologyBaseResponse"/>
+	</wsdl:message>
+	<wsdl:message name="TechnologyFullResponse">
+		<wsdl:part name="response" element="stapi:TechnologyFullResponse"/>
+	</wsdl:message>
+	<wsdl:portType name="TechnologyPortType">
+		<wsdl:operation name="getTechnologyBase">
+			<wsdl:input name="getTechnologyBaseRequest" message="stapi:TechnologyBaseRequest"/>
+			<wsdl:output name="getTechnologyBaseResponse" message="stapi:TechnologyBaseResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="getTechnologyFull">
+			<wsdl:input name="getTechnologyFullRequest" message="stapi:TechnologyFullRequest"/>
+			<wsdl:output name="getTechnologyFullResponse" message="stapi:TechnologyFullResponse"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="TechnologyBinding" type="stapi:TechnologyPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="getTechnologyBase">
+			<wsdl:input name="getTechnologyBaseRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getTechnologyBaseResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getTechnologyFull">
+			<wsdl:input name="getTechnologyFullRequest">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="getTechnologyFullResponse">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="TechnologyService">
+		<wsdl:port name="TechnologyPortType" binding="stapi:TechnologyBinding">
+			<soap:address location="http://stapi.co/api/v1/soap/technology"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
