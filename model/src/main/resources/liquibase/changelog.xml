@@ -52,4 +52,5 @@
 	<include file="element/0049_create_element.xml" relativeToChangelogFile="true"/>
 	<include file="medical_condition/0050_create_medical_condition.xml" relativeToChangelogFile="true"/>
 	<include file="technology/0051_create_technology.xml" relativeToChangelogFile="true"/>
+	<include file="occupation/0052_create_occupation.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
