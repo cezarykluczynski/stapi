@@ -53,7 +53,8 @@ public class StepNames {
 				StepName.CREATE_ANIMALS,
 				StepName.CREATE_ELEMENTS,
 				StepName.CREATE_MEDICAL_CONDITIONS,
-				StepName.CREATE_TECHNOLOGY
+				StepName.CREATE_TECHNOLOGY,
+				StepName.CREATE_OCCUPATIONS
 		));
 	}
 

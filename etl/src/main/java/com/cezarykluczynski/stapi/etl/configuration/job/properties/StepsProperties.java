@@ -93,4 +93,6 @@ public class StepsProperties {
 
 	private StepProperties createTechnology;
 
+	private StepProperties createOccupations;
+
 }

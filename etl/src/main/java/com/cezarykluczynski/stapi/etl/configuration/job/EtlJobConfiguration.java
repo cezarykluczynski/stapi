@@ -77,6 +77,9 @@ import com.cezarykluczynski.stapi.etl.medical_condition.creation.processor.Medic
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieProcessor;
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieReader;
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieWriter;
+import com.cezarykluczynski.stapi.etl.occupation.creation.processor.OccupationProcessor;
+import com.cezarykluczynski.stapi.etl.occupation.creation.processor.OccupationReader;
+import com.cezarykluczynski.stapi.etl.occupation.creation.processor.OccupationWriter;
 import com.cezarykluczynski.stapi.etl.organization.creation.processor.OrganizationProcessor;
 import com.cezarykluczynski.stapi.etl.organization.creation.processor.OrganizationReader;
 import com.cezarykluczynski.stapi.etl.organization.creation.processor.OrganizationWriter;
@@ -149,6 +152,7 @@ import com.cezarykluczynski.stapi.model.magazine_series.entity.MagazineSeries;
 import com.cezarykluczynski.stapi.model.material.entity.Material;
 import com.cezarykluczynski.stapi.model.medical_condition.entity.MedicalCondition;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
+import com.cezarykluczynski.stapi.model.occupation.entity.Occupation;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.model.season.entity.Season;
@@ -742,6 +746,19 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(TechnologyReader.class))
 				.processor(applicationContext.getBean(TechnologyProcessor.class))
 				.writer(applicationContext.getBean(TechnologyWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
+	@Bean(name = StepName.CREATE_OCCUPATIONS)
+	public Step stepCreateOccupations() {
+		return stepBuilderFactory.get(StepName.CREATE_OCCUPATIONS)
+				.<PageHeader, Occupation>chunk(stepsProperties.getCreateOccupations().getCommitInterval())
+				.reader(applicationContext.getBean(OccupationReader.class))
+				.processor(applicationContext.getBean(OccupationProcessor.class))
+				.writer(applicationContext.getBean(OccupationWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)

@@ -44,5 +44,6 @@ public class StepName {
 	public static final String CREATE_ELEMENTS = "CREATE_ELEMENTS";
 	public static final String CREATE_MEDICAL_CONDITIONS = "CREATE_MEDICAL_CONDITIONS";
 	public static final String CREATE_TECHNOLOGY = "CREATE_TECHNOLOGY";
+	public static final String CREATE_OCCUPATIONS = "CREATE_OCCUPATIONS";
 
 }

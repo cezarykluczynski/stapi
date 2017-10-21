@@ -18,7 +18,7 @@
 			</column>
 			<column name="legal_occupation" type="boolean"/>
 			<column name="medical_occupation" type="boolean"/>
-			<column name="scientific_occupations" type="boolean"/>
+			<column name="scientific_occupation" type="boolean"/>
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="occupation_sequence"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"

@@ -121,6 +121,8 @@ class JobBuilderTest extends Specification {
 
 	private Step createTechnologyStep
 
+	private Step createOccupationsStep
+
 	private JobRepository jobRepository
 
 	private SpringBatchJobBuilder springBatchJobBuilder
@@ -177,6 +179,7 @@ class JobBuilderTest extends Specification {
 		createElementsStep = Mock()
 		createMedicalConditionsStep = Mock()
 		createTechnologyStep = Mock()
+		createOccupationsStep = Mock()
 		springBatchJobBuilder = new SpringBatchJobBuilder(JobName.JOB_CREATE)
 		springBatchJobBuilder.repository(jobRepository)
 		jobBuilder = new JobBuilder(applicationContextMock, jobBuilderFactoryMock, stepConfigurationValidatorMock, jobCompletenessDeciderMock,
@@ -456,6 +459,12 @@ class JobBuilderTest extends Specification {
 		1 * stepProperties.isEnabled() >> true
 		1 * applicationContextMock.getBean(StepName.CREATE_TECHNOLOGY, Step) >> createTechnologyStep
 		1 * createTechnologyStep.name >> StepName.CREATE_TECHNOLOGY
+
+		then: 'CREATE_OCCUPATIONS step is retrieved from application context'
+		1 * stepPropertiesMap.get(StepName.CREATE_OCCUPATIONS) >> stepProperties
+		1 * stepProperties.isEnabled() >> true
+		1 * applicationContextMock.getBean(StepName.CREATE_OCCUPATIONS, Step) >> createOccupationsStep
+		1 * createOccupationsStep.name >> StepName.CREATE_OCCUPATIONS
 
 		then: 'Task executor is retrieved from application context'
 		1 * applicationContextMock.getBean(TaskExecutor) >> taskExecutor

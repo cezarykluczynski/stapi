@@ -40,6 +40,6 @@ public class Occupation extends PageAwareEntity implements PageAware {
 
 	private Boolean medicalOccupation;
 
-	private Boolean scientificOccupations;
+	private Boolean scientificOccupation;
 
 }

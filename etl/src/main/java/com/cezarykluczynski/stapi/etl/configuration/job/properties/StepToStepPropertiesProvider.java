@@ -68,6 +68,7 @@ public class StepToStepPropertiesProvider {
 		stepPropertiesMap.put(StepName.CREATE_ELEMENTS, stepsProperties.getCreateElements());
 		stepPropertiesMap.put(StepName.CREATE_MEDICAL_CONDITIONS, stepsProperties.getCreateMedicalConditions());
 		stepPropertiesMap.put(StepName.CREATE_TECHNOLOGY, stepsProperties.getCreateTechnology());
+		stepPropertiesMap.put(StepName.CREATE_OCCUPATIONS, stepsProperties.getCreateOccupations());
 	}
 
 }

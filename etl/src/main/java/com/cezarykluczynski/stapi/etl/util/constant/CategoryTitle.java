@@ -373,4 +373,9 @@ public class CategoryTitle {
 	public static final String MEDICAL_EQUIPMENT = "Medical_equipment";
 	public static final String TRANSPORTER_TECHNOLOGY = "Transporter_technology";
 
+	public static final String OCCUPATIONS = "Occupations";
+	public static final String LEGAL_OCCUPATIONS = "Legal_occupations";
+	public static final String MEDICAL_OCCUPATIONS = "Medical_occupations";
+	public static final String SCIENTIFIC_OCCUPATIONS = "Scientific_occupations";
+
 }
