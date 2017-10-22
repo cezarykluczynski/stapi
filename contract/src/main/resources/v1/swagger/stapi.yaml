@@ -97,6 +97,10 @@ paths:
     $ref: ./movie/path/movie.path.yaml
   /movie/search:
     $ref: ./movie/path/movieSearch.path.yaml
+  /occupation:
+    $ref: ./occupation/path/occupation.path.yaml
+  /occupation/search:
+    $ref: ./occupation/path/occupationSearch.path.yaml
   /organization:
     $ref: ./organization/path/organization.path.yaml
   /organization/search:
@@ -410,6 +414,16 @@ definitions:
     $ref: ./movie/entity/movieBaseResponse.yaml
   MovieFullResponse:
     $ref: ./movie/entity/movieFullResponse.yaml
+  OccupationHeader:
+    $ref: ./occupation/entity/occupationHeader.yaml
+  OccupationBase:
+    $ref: ./occupation/entity/occupationBase.yaml
+  OccupationFull:
+    $ref: ./occupation/entity/occupationFull.yaml
+  OccupationBaseResponse:
+    $ref: ./occupation/entity/occupationBaseResponse.yaml
+  OccupationFullResponse:
+    $ref: ./occupation/entity/occupationFullResponse.yaml
   OrganizationHeader:
     $ref: ./organization/entity/organizationHeader.yaml
   OrganizationBase:

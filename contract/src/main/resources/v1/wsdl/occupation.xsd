@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+		xmlns:xs="http://www.w3.org/2001/XMLSchema"
+		xmlns:occupation="http://stapi.co/api/v1/soap/occupation"
+		xmlns:common="http://stapi.co/api/v1/soap/common"
+		elementFormDefault="qualified"
+		targetNamespace="http://stapi.co/api/v1/soap/occupation">
+	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
+	<xs:element name="OccupationBaseRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for occupations search</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Request">
+					<xs:sequence>
+						<xs:element name="name" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Occupation name</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="legalOccupation" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a legal occupation</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="medicalOccupation" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a medical occupation</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="scientificOccupation" type="xs:boolean" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Whether it should be a scientific occupation</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OccupationFullRequest">
+		<xs:annotation>
+			<xs:documentation>Request object for single occupation query</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:ApiRequest">
+					<xs:sequence>
+						<xs:element name="uid" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>Occupation unique ID</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OccupationBaseResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for occupations search</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:extension base="common:Response">
+					<xs:sequence>
+						<xs:element name="occupations" type="occupation:OccupationBase" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>List of occupations matching given criteria</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:extension>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="OccupationFullResponse">
+		<xs:annotation>
+			<xs:documentation>Response object for single occupation query</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="occupation" type="occupation:OccupationFull">
+					<xs:annotation>
+						<xs:documentation>Occupation, if found</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="OccupationHeader">
+		<xs:annotation>
+			<xs:documentation>Header occupation, embedded in other objects</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Occupation unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Occupation name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OccupationBase">
+		<xs:annotation>
+			<xs:documentation>Base occupation, returned in search results</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Occupation unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Occupation name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="legalOccupation" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a legal occupation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="medicalOccupation" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a medical occupation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="scientificOccupation" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a scientific occupation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OccupationFull">
+		<xs:annotation>
+			<xs:documentation>Full occupation, returned when queried using UID</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="uid" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Occupation unique ID</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Occupation name</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="legalOccupation" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a legal occupation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="medicalOccupation" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a medical occupation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="scientificOccupation" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Whether it's a scientific occupation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

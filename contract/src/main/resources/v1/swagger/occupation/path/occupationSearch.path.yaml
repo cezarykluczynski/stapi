@@ -1,0 +1,74 @@
+get:
+  description: Pagination over occupations
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+      description: Zero-based page number
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+      description: Page size
+    - name: apiKey
+      in: query
+      type: string
+      description: API key
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/OccupationBaseResponse'
+    default:
+      description: Unexpected error
+      schema:
+        $ref: '#/definitions/Error'
+  tags:
+  - Occupation
+post:
+  description: Searching occupations
+  consumes:
+    - application/x-www-form-urlencoded
+  producers:
+    - application/json
+  parameters:
+    - name: pageNumber
+      in: query
+      type: integer
+      format: int32
+      description: Zero-based page number
+    - name: pageSize
+      in: query
+      type: integer
+      format: int32
+      description: Page size
+    - name: sort
+      type: string
+      in: query
+      description: "Sorting, serialized like this: fieldName,ASC;anotherFieldName,DESC"
+    - name: apiKey
+      in: query
+      type: string
+      description: API key
+    - name: name
+      in: formData
+      type: string
+      description: Occupation name
+    - name: legalOccupation
+      in: formData
+      type: boolean
+      description: Whether it should be a legal occupation
+    - name: medicalOccupation
+      in: formData
+      type: boolean
+      description: Whether it should be a medical occupation
+    - name: scientificOccupation
+      in: formData
+      type: boolean
+      description: Whether it should be a scientific occupation
+  responses:
+    200:
+      schema:
+        $ref: '#/definitions/OccupationBaseResponse'
+  tags:
+    - Occupation

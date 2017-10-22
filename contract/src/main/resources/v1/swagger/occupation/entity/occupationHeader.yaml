@@ -1,0 +1,11 @@
+type: object
+description: Header occupation, embedded in other objects
+properties:
+  uid:
+    type: string
+    required: true
+    description: Occupation unique ID
+  name:
+    type: string
+    required: true
+    description: Occupation name

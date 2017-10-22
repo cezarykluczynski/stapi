@@ -1,0 +1,14 @@
+type: object
+description: Response object for occupations search
+properties:
+  page:
+    $ref: '#/definitions/ResponsePage'
+    description: Response page
+  sort:
+    $ref: '#/definitions/ResponseSort'
+    description: Response sort
+  occupations:
+    type: array
+    items:
+      $ref: '#/definitions/OccupationBase'
+    description: List of occupations matching given criteria

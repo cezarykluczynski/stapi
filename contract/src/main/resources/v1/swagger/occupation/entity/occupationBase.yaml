@@ -1,0 +1,20 @@
+type: object
+description: Base occupations, returned in search results
+properties:
+  uid:
+    type: string
+    required: true
+    description: Occupation unique ID
+  name:
+    type: string
+    required: true
+    description: Occupation name
+  legalOccupation:
+    type: boolean
+    description: Whether it's a legal occupation
+  medicalOccupation:
+    type: boolean
+    description: Whether it's a medical occupation
+  scientificOccupation:
+    type: boolean
+    description: Whether it's a scientific occupation

@@ -22,6 +22,7 @@ import com.cezarykluczynski.stapi.client.v1.soap.MagazineSeriesPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.MaterialPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.MedicalConditionPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.MoviePortType;
+import com.cezarykluczynski.stapi.client.v1.soap.OccupationPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.OrganizationPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.PerformerPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.SeasonPortType;
@@ -162,6 +163,9 @@ public class StapiSoapClient {
 	@Getter
 	private TechnologyPortType technologyPortType;
 
+	@Getter
+	private OccupationPortType occupationPortType;
+
 	public StapiSoapClient() {
 		stapiSoapPortTypesProvider = new StapiSoapPortTypesProvider();
 		bindPortTypes();
@@ -212,6 +216,7 @@ public class StapiSoapClient {
 		elementPortType = stapiSoapPortTypesProvider.getElementPortType();
 		medicalConditionPortType = stapiSoapPortTypesProvider.getMedicalConditionPortType();
 		technologyPortType = stapiSoapPortTypesProvider.getTechnologyPortType();
+		occupationPortType = stapiSoapPortTypesProvider.getOccupationPortType();
 	}
 
 }

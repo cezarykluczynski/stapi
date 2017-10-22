@@ -44,6 +44,8 @@ import com.cezarykluczynski.stapi.client.v1.soap.MedicalConditionPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.MedicalConditionService;
 import com.cezarykluczynski.stapi.client.v1.soap.MoviePortType;
 import com.cezarykluczynski.stapi.client.v1.soap.MovieService;
+import com.cezarykluczynski.stapi.client.v1.soap.OccupationPortType;
+import com.cezarykluczynski.stapi.client.v1.soap.OccupationService;
 import com.cezarykluczynski.stapi.client.v1.soap.OrganizationPortType;
 import com.cezarykluczynski.stapi.client.v1.soap.OrganizationService;
 import com.cezarykluczynski.stapi.client.v1.soap.PerformerPortType;
@@ -83,126 +85,90 @@ import lombok.Getter;
 import javax.xml.ws.BindingProvider;
 import java.util.Map;
 
+@Getter
 public class StapiSoapPortTypesProvider extends AbstractStapiClient implements StapiClient {
 
 	private String apiUrl;
 
-	@Getter
 	private SeriesPortType seriesPortType;
 
-	@Getter
 	private PerformerPortType performerPortType;
 
-	@Getter
 	private StaffPortType staffPortType;
 
-	@Getter
 	private CharacterPortType characterPortType;
 
-	@Getter
 	private EpisodePortType episodePortType;
 
-	@Getter
 	private MoviePortType moviePortType;
 
-	@Getter
 	private AstronomicalObjectPortType astronomicalObjectPortType;
 
-	@Getter
 	private CompanyPortType companyPortType;
 
-	@Getter
 	private ComicSeriesPortType comicSeriesPortType;
 
-	@Getter
 	private ComicsPortType comicsPortType;
 
-	@Getter
 	private ComicStripPortType comicStripPortType;
 
-	@Getter
 	private ComicCollectionPortType comicCollectionPortType;
 
-	@Getter
 	private SpeciesPortType speciesPortType;
 
-	@Getter
 	private OrganizationPortType organizationPortType;
 
-	@Getter
 	private FoodPortType foodPortType;
 
-	@Getter
 	private LocationPortType locationPortType;
 
-	@Getter
 	private BookSeriesPortType bookSeriesPortType;
 
-	@Getter
 	private BookPortType bookPortType;
 
-	@Getter
 	private BookCollectionPortType bookCollectionPortType;
 
-	@Getter
 	private MagazinePortType magazinePortType;
 
-	@Getter
 	private MagazineSeriesPortType magazineSeriesPortType;
 
-	@Getter
 	private LiteraturePortType literaturePortType;
 
-	@Getter
 	private SeasonPortType seasonPortType;
 
-	@Getter
 	private VideoReleasePortType videoReleasePortType;
 
-	@Getter
 	private TradingCardSetPortType tradingCardSetPortType;
 
-	@Getter
 	private TradingCardDeckPortType tradingCardDeckPortType;
 
-	@Getter
 	private TradingCardPortType tradingCardPortType;
 
-	@Getter
 	private VideoGamePortType videoGamePortType;
 
-	@Getter
 	private SoundtrackPortType soundtrackPortType;
 
-	@Getter
 	private WeaponPortType weaponPortType;
 
-	@Getter
 	private SpacecraftClassPortType spacecraftClassPortType;
 
-	@Getter
 	private SpacecraftPortType spacecraftPortType;
 
-	@Getter
 	private TitlePortType titlePortType;
 
-	@Getter
 	private MaterialPortType materialPortType;
 
-	@Getter
 	private ConflictPortType conflictPortType;
 
-	@Getter
 	private AnimalPortType animalPortType;
 
-	@Getter
 	private ElementPortType elementPortType;
 
-	@Getter
 	private MedicalConditionPortType medicalConditionPortType;
 
-	@Getter
 	private TechnologyPortType technologyPortType;
+
+	private OccupationPortType occupationPortType;
 
 	public StapiSoapPortTypesProvider() {
 		seriesPortType = new SeriesService().getSeriesPortType();
@@ -244,6 +210,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		elementPortType = new ElementService().getElementPortType();
 		medicalConditionPortType = new MedicalConditionService().getMedicalConditionPortType();
 		technologyPortType = new TechnologyService().getTechnologyPortType();
+		occupationPortType = new OccupationService().getOccupationPortType();
 	}
 
 	public StapiSoapPortTypesProvider(String apiUrl) {
@@ -287,6 +254,7 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 		elementPortType = changeUrl(new ElementService().getElementPortType());
 		medicalConditionPortType = changeUrl(new MedicalConditionService().getMedicalConditionPortType());
 		technologyPortType = changeUrl(new TechnologyService().getTechnologyPortType());
+		occupationPortType = changeUrl(new OccupationService().getOccupationPortType());
 	}
 
 	private <T> T changeUrl(T service) {

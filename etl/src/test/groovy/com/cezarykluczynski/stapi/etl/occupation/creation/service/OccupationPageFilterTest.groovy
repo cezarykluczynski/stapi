@@ -10,11 +10,11 @@ class OccupationPageFilterTest extends Specification {
 
 	private CategorySortingService categorySortingServiceMock
 
-	private OccupationPageFilter cccupationPageFilter
+	private OccupationPageFilter occupationPageFilter
 
 	void setup() {
 		categorySortingServiceMock = Mock()
-		cccupationPageFilter = new OccupationPageFilter(categorySortingServiceMock)
+		occupationPageFilter = new OccupationPageFilter(categorySortingServiceMock)
 	}
 
 	void "returns true when redirect path is not empty"() {
@@ -23,7 +23,7 @@ class OccupationPageFilterTest extends Specification {
 		Page page = new Page(redirectPath: Lists.newArrayList(pageHeader))
 
 		when:
-		boolean shouldBeFilteredOut = cccupationPageFilter.shouldBeFilteredOut(page)
+		boolean shouldBeFilteredOut = occupationPageFilter.shouldBeFilteredOut(page)
 
 		then:
 		0 * _
@@ -35,7 +35,7 @@ class OccupationPageFilterTest extends Specification {
 		Page page = new Page()
 
 		when:
-		boolean shouldBeFilteredOut = cccupationPageFilter.shouldBeFilteredOut(page)
+		boolean shouldBeFilteredOut = occupationPageFilter.shouldBeFilteredOut(page)
 
 		then:
 		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> true
@@ -48,7 +48,7 @@ class OccupationPageFilterTest extends Specification {
 		Page page = new Page()
 
 		when:
-		boolean shouldBeFilteredOut = cccupationPageFilter.shouldBeFilteredOut(page)
+		boolean shouldBeFilteredOut = occupationPageFilter.shouldBeFilteredOut(page)
 
 		then:
 		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> false
