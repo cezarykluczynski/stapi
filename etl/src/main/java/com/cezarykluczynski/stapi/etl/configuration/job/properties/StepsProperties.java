@@ -27,6 +27,8 @@ public class StepsProperties {
 
 	private StepProperties createTitles;
 
+	private StepProperties createOccupations;
+
 	private StepProperties createCharacters;
 
 	private StepProperties linkCharacters;
@@ -92,7 +94,5 @@ public class StepsProperties {
 	private StepProperties createMedicalConditions;
 
 	private StepProperties createTechnology;
-
-	private StepProperties createOccupations;
 
 }

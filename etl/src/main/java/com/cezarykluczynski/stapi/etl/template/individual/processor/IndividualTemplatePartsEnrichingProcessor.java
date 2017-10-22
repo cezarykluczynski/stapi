@@ -84,6 +84,9 @@ public class IndividualTemplatePartsEnrichingProcessor implements ItemWithTempla
 				case IndividualTemplateParameter.RANK:
 					characterTemplate.getTitles().addAll(wikitextToEntitiesProcessor.findTitles(value));
 					break;
+				case IndividualTemplateParameter.OCCUPATION:
+					characterTemplate.getOccupations().addAll(wikitextToEntitiesProcessor.findOccupations(value));
+					break;
 				case IndividualTemplateParameter.ACTOR:
 					characterTemplateActorLinkingEnrichingProcessor.enrich(EnrichablePair.of(value, characterTemplate));
 					break;

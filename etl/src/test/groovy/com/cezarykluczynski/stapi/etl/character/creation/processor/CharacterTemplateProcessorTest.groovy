@@ -10,6 +10,7 @@ import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender as ModelGender
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator
+import com.cezarykluczynski.stapi.model.occupation.entity.Occupation
 import com.cezarykluczynski.stapi.model.organization.entity.Organization
 import com.cezarykluczynski.stapi.model.page.entity.Page
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
@@ -47,6 +48,8 @@ class CharacterTemplateProcessorTest extends AbstractIndividualTest {
 		CharacterRelation characterRelation2 = Mock()
 		Title title1 = Mock()
 		Title title2 = Mock()
+		Occupation occupation1 = Mock()
+		Occupation occupation2 = Mock()
 		Organization organization1 = Mock()
 		Organization organization2 = Mock()
 
@@ -79,6 +82,7 @@ class CharacterTemplateProcessorTest extends AbstractIndividualTest {
 				characterSpecies: Sets.newHashSet(characterSpecies1, characterSpecies2),
 				characterRelations: Sets.newHashSet(characterRelation1, characterRelation2),
 				titles: Sets.newHashSet(title1, title2),
+				occupations: Sets.newHashSet(occupation1, occupation2),
 				organizations: Sets.newHashSet(organization1, organization2))
 
 		when:
@@ -124,6 +128,8 @@ class CharacterTemplateProcessorTest extends AbstractIndividualTest {
 		character.characterRelations.contains characterRelation2
 		character.titles.contains title1
 		character.titles.contains title2
+		character.occupations.contains occupation1
+		character.occupations.contains occupation2
 		character.organizations.contains organization1
 		character.organizations.contains organization2
 	}

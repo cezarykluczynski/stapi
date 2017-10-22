@@ -4,6 +4,7 @@
 		xmlns:character="http://stapi.co/api/v1/soap/character"
 		xmlns:episode="http://stapi.co/api/v1/soap/episode"
 		xmlns:movie="http://stapi.co/api/v1/soap/movie"
+		xmlns:occupation="http://stapi.co/api/v1/soap/occupation"
 		xmlns:organization="http://stapi.co/api/v1/soap/organization"
 		xmlns:performer="http://stapi.co/api/v1/soap/performer"
 		xmlns:title="http://stapi.co/api/v1/soap/title"
@@ -13,6 +14,7 @@
 	<xs:import namespace="http://stapi.co/api/v1/soap/common" schemaLocation="common.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/episode" schemaLocation="episode.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/movie" schemaLocation="movie.xsd"/>
+	<xs:import namespace="http://stapi.co/api/v1/soap/occupation" schemaLocation="occupation.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/organization" schemaLocation="organization.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/performer" schemaLocation="performer.xsd"/>
 	<xs:import namespace="http://stapi.co/api/v1/soap/title" schemaLocation="title.xsd"/>
@@ -422,6 +424,13 @@
 				<xs:element name="titles" type="title:TitleBase" minOccurs="0" maxOccurs="unbounded">
 					<xs:annotation>
 						<xs:documentation>Titles this character holds</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:sequence>
+				<xs:element name="occupations" type="occupation:OccupationBase" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>Occupations of this character</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 			</xs:sequence>

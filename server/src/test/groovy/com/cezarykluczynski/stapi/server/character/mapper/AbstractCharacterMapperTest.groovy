@@ -4,13 +4,17 @@ import com.cezarykluczynski.stapi.client.v1.soap.BloodTypeEnum
 import com.cezarykluczynski.stapi.client.v1.soap.GenderEnum
 import com.cezarykluczynski.stapi.client.v1.soap.MaritalStatusEnum
 import com.cezarykluczynski.stapi.model.character.entity.Character
+import com.cezarykluczynski.stapi.model.character.entity.CharacterRelation
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType
 import com.cezarykluczynski.stapi.model.common.entity.enums.Gender
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus
 import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.model.movie.entity.Movie
+import com.cezarykluczynski.stapi.model.occupation.entity.Occupation
+import com.cezarykluczynski.stapi.model.organization.entity.Organization
 import com.cezarykluczynski.stapi.model.performer.entity.Performer
+import com.cezarykluczynski.stapi.model.title.entity.Title
 import com.cezarykluczynski.stapi.util.AbstractIndividualTest
 
 abstract class AbstractCharacterMapperTest extends AbstractIndividualTest {
@@ -53,7 +57,11 @@ abstract class AbstractCharacterMapperTest extends AbstractIndividualTest {
 				performers: createSetOfRandomNumberOfMocks(Performer),
 				episodes: createSetOfRandomNumberOfMocks(Episode),
 				movies: createSetOfRandomNumberOfMocks(Movie),
-				characterSpecies: createSetOfRandomNumberOfMocks(CharacterSpecies))
+				characterSpecies: createSetOfRandomNumberOfMocks(CharacterSpecies),
+				characterRelations: createSetOfRandomNumberOfMocks(CharacterRelation),
+				titles: createSetOfRandomNumberOfMocks(Title),
+				occupations: createSetOfRandomNumberOfMocks(Occupation),
+				organizations: createSetOfRandomNumberOfMocks(Organization))
 	}
 
 }

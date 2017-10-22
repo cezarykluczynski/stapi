@@ -1,0 +1,37 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet id="0047_create_material" author="cezarykluczynski">
+		<createTable schemaName="stapi" tableName="material">
+			<column name="id" type="bigint">
+				<constraints unique="true" nullable="false"/>
+			</column>
+			<column name="page_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="u_id" type="varchar(14)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="name" type="varchar(128)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="chemical_compound" type="boolean"/>
+			<column name="biochemical_compound" type="boolean"/>
+			<column name="drug" type="boolean"/>
+			<column name="poisonous_substance" type="boolean"/>
+			<column name="explosive" type="boolean"/>
+			<column name="gemstone" type="boolean"/>
+			<column name="alloy_or_composite" type="boolean"/>
+			<column name="fuel" type="boolean"/>
+			<column name="mineral" type="boolean"/>
+			<column name="precious_material" type="boolean"/>
+		</createTable>
+		<createSequence incrementBy="1" sequenceName="material_sequence"/>
+		<addForeignKeyConstraint baseColumnNames="page_id"
+				baseTableName="material"
+				constraintName="material_page_fkey"
+				referencedColumnNames="id"
+				referencedTableName="page"/>
+	</changeSet>
+</databaseChangeLog>

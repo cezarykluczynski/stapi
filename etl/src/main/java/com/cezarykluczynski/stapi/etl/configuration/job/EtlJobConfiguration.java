@@ -323,6 +323,19 @@ public class EtlJobConfiguration {
 				.build();
 	}
 
+	@Bean(name = StepName.CREATE_OCCUPATIONS)
+	public Step stepCreateOccupations() {
+		return stepBuilderFactory.get(StepName.CREATE_OCCUPATIONS)
+				.<PageHeader, Occupation>chunk(stepsProperties.getCreateOccupations().getCommitInterval())
+				.reader(applicationContext.getBean(OccupationReader.class))
+				.processor(applicationContext.getBean(OccupationProcessor.class))
+				.writer(applicationContext.getBean(OccupationWriter.class))
+				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
+				.startLimit(1)
+				.allowStartIfComplete(false)
+				.build();
+	}
+
 	@Bean(name = StepName.CREATE_CHARACTERS)
 	public Step stepCreateCharacters() {
 		return stepBuilderFactory.get(StepName.CREATE_CHARACTERS)
@@ -746,19 +759,6 @@ public class EtlJobConfiguration {
 				.reader(applicationContext.getBean(TechnologyReader.class))
 				.processor(applicationContext.getBean(TechnologyProcessor.class))
 				.writer(applicationContext.getBean(TechnologyWriter.class))
-				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
-				.startLimit(1)
-				.allowStartIfComplete(false)
-				.build();
-	}
-
-	@Bean(name = StepName.CREATE_OCCUPATIONS)
-	public Step stepCreateOccupations() {
-		return stepBuilderFactory.get(StepName.CREATE_OCCUPATIONS)
-				.<PageHeader, Occupation>chunk(stepsProperties.getCreateOccupations().getCommitInterval())
-				.reader(applicationContext.getBean(OccupationReader.class))
-				.processor(applicationContext.getBean(OccupationProcessor.class))
-				.writer(applicationContext.getBean(OccupationWriter.class))
 				.listener(applicationContext.getBean(CommonStepExecutionListener.class))
 				.startLimit(1)
 				.allowStartIfComplete(false)

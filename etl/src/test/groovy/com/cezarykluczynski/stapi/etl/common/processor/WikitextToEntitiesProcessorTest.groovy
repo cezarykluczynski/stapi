@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.location.entity.Location
 import com.cezarykluczynski.stapi.model.magazine_series.entity.MagazineSeries
+import com.cezarykluczynski.stapi.model.occupation.entity.Occupation
 import com.cezarykluczynski.stapi.model.organization.entity.Organization
 import com.cezarykluczynski.stapi.model.season.entity.Season
 import com.cezarykluczynski.stapi.model.series.entity.Series
@@ -181,6 +182,19 @@ class WikitextToEntitiesProcessorTest extends Specification {
 		1 * wikitextToEntitiesGenericProcessorMock.process(WIKITEXT, Location) >> locationClassList
 		0 * _
 		locationClassListOutput == locationClassList
+	}
+
+	void "finds occupations"() {
+		given:
+		List<Occupation> occupationClassList = Mock()
+
+		when:
+		List<Occupation> occupationClassListOutput = wikitextToEntitiesProcessor.findOccupations(WIKITEXT)
+
+		then:
+		1 * wikitextToEntitiesGenericProcessorMock.process(WIKITEXT, Occupation) >> occupationClassList
+		0 * _
+		occupationClassListOutput == occupationClassList
 	}
 
 }

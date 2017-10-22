@@ -1,0 +1,67 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet id="0037_create_trading_card_set" author="cezarykluczynski">
+		<createTable schemaName="stapi" tableName="trading_card_set">
+			<column name="id" type="bigint">
+				<constraints unique="true" nullable="false"/>
+			</column>
+			<column name="u_id" type="varchar(14)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="name" type="varchar(128)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="release_year" type="int"/>
+			<column name="release_month" type="int"/>
+			<column name="release_day" type="int"/>
+			<column name="cards_per_pack" type="int"/>
+			<column name="packs_per_box" type="int"/>
+			<column name="boxes_per_case" type="int"/>
+			<column name="production_run" type="int"/>
+			<column name="production_run_unit" type="varchar(16)"/>
+			<column name="card_width" type="double"/>
+			<column name="card_height" type="double"/>
+		</createTable>
+		<createSequence incrementBy="1" sequenceName="trading_card_set_sequence"/>
+
+		<createTable schemaName="stapi" tableName="trading_card_set_manufacturers">
+			<column name="trading_card_set_id" type="bigint"/>
+			<column name="company_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="trading_card_set_id"
+				baseTableName="trading_card_set_manufacturers"
+				constraintName="tcsm_trading_card_set_fkey"
+				referencedColumnNames="id"
+				referencedTableName="trading_card_set"/>
+		<addForeignKeyConstraint baseColumnNames="company_id"
+				baseTableName="trading_card_set_manufacturers"
+				constraintName="tcsm_company_fkey"
+				referencedColumnNames="id"
+				referencedTableName="company"/>
+
+		<createTable schemaName="stapi" tableName="trading_card_sets_countries">
+			<column name="trading_card_set_id" type="bigint"/>
+			<column name="country_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="trading_card_set_id"
+				baseTableName="trading_card_sets_countries"
+				constraintName="tcsc_trading_card_set_fkey"
+				referencedColumnNames="id"
+				referencedTableName="trading_card_set"/>
+		<addForeignKeyConstraint baseColumnNames="country_id"
+				baseTableName="trading_card_sets_countries"
+				constraintName="tcsc_country_fkey"
+				referencedColumnNames="id"
+				referencedTableName="country"/>
+		<addColumn schemaName="stapi" tableName="trading_card_deck">
+			<column name="trading_card_set_id" type="bigint"/>
+		</addColumn>
+		<addForeignKeyConstraint baseColumnNames="trading_card_set_id"
+				baseTableName="trading_card_deck"
+				constraintName="tcd_trading_card_set_fkey"
+				referencedColumnNames="id"
+				referencedTableName="trading_card_set"/>
+	</changeSet>
+</databaseChangeLog>

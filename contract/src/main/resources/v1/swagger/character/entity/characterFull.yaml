@@ -105,6 +105,11 @@ properties:
     items:
       $ref: '#/definitions/TitleBase'
     description: Titles this character holds
+  occupations:
+    type: array
+    items:
+      $ref: '#/definitions/OccupationBase'
+    description: Occupations of this character
   organizations:
     type: array
     items:

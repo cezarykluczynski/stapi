@@ -35,6 +35,7 @@ public class StepToStepPropertiesProvider {
 		stepPropertiesMap.put(StepName.CREATE_SPECIES, stepsProperties.getCreateSpecies());
 		stepPropertiesMap.put(StepName.CREATE_ORGANIZATIONS, stepsProperties.getCreateOrganizations());
 		stepPropertiesMap.put(StepName.CREATE_TITLES, stepsProperties.getCreateTitles());
+		stepPropertiesMap.put(StepName.CREATE_OCCUPATIONS, stepsProperties.getCreateOccupations());
 		stepPropertiesMap.put(StepName.CREATE_CHARACTERS, stepsProperties.getCreateCharacters());
 		stepPropertiesMap.put(StepName.LINK_CHARACTERS, stepsProperties.getLinkCharacters());
 		stepPropertiesMap.put(StepName.CREATE_EPISODES, stepsProperties.getCreateEpisodes());
@@ -68,7 +69,6 @@ public class StepToStepPropertiesProvider {
 		stepPropertiesMap.put(StepName.CREATE_ELEMENTS, stepsProperties.getCreateElements());
 		stepPropertiesMap.put(StepName.CREATE_MEDICAL_CONDITIONS, stepsProperties.getCreateMedicalConditions());
 		stepPropertiesMap.put(StepName.CREATE_TECHNOLOGY, stepsProperties.getCreateTechnology());
-		stepPropertiesMap.put(StepName.CREATE_OCCUPATIONS, stepsProperties.getCreateOccupations());
 	}
 
 }

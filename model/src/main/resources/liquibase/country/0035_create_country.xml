@@ -1,0 +1,22 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet id="0035_create_country" author="cezarykluczynski">
+		<createTable schemaName="stapi" tableName="country">
+			<column name="id" type="bigint">
+				<constraints unique="true" nullable="false"/>
+			</column>
+			<column name="u_id" type="varchar(14)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="name" type="varchar(64)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="iso_3166_1_alpha_2_code" type="varchar(2)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+		<createSequence incrementBy="1" sequenceName="country_sequence"/>
+	</changeSet>
+</databaseChangeLog>

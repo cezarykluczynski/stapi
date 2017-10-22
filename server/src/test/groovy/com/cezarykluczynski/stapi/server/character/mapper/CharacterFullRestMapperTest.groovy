@@ -54,6 +54,10 @@ class CharacterFullRestMapperTest extends AbstractCharacterMapperTest {
 		characterFull.episodes.size() == character.episodes.size()
 		characterFull.movies.size() == character.movies.size()
 		characterFull.characterSpecies.size() == character.characterSpecies.size()
+		characterFull.characterRelations.size() == character.characterRelations.size()
+		characterFull.titles.size() == character.titles.size()
+		characterFull.occupations.size() == character.occupations.size()
+		characterFull.organizations.size() == character.organizations.size()
 	}
 
 }

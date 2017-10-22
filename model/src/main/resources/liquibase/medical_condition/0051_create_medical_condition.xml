@@ -1,0 +1,28 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet id="0051_create_medical_condition" author="cezarykluczynski">
+		<createTable schemaName="stapi" tableName="medical_condition">
+			<column name="id" type="bigint">
+				<constraints unique="true" nullable="false"/>
+			</column>
+			<column name="page_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="u_id" type="varchar(14)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="name" type="varchar(128)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="psychological_condition" type="boolean"/>
+		</createTable>
+		<createSequence incrementBy="1" sequenceName="medical_condition_sequence"/>
+		<addForeignKeyConstraint baseColumnNames="page_id"
+				baseTableName="medical_condition"
+				constraintName="medical_condition_page_fkey"
+				referencedColumnNames="id"
+				referencedTableName="page"/>
+	</changeSet>
+</databaseChangeLog>

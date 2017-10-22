@@ -1,0 +1,44 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet id="0014_create_character_relations" author="cezarykluczynski">
+		<createTable schemaName="stapi" tableName="character_relation">
+			<column name="id" type="bigint">
+				<constraints unique="true" nullable="false"/>
+			</column>
+			<column name="source_character_id" type="bigint"/>
+			<column name="target_character_id" type="bigint"/>
+			<column name="type" type="varchar(32)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+		<createSequence incrementBy="1" sequenceName="character_relations_sequence"/>
+
+		<addForeignKeyConstraint baseColumnNames="source_character_id"
+				baseTableName="character_relation"
+				constraintName="cr_character_fkey"
+				referencedColumnNames="id"
+				referencedTableName="character"/>
+		<addForeignKeyConstraint baseColumnNames="target_character_id"
+				baseTableName="character_relation"
+				constraintName="cr_other_character_fkey"
+				referencedColumnNames="id"
+				referencedTableName="character"/>
+
+		<createTable schemaName="stapi" tableName="characters_character_relations">
+			<column name="character_id" type="bigint"/>
+			<column name="character_relation_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="character_id"
+				baseTableName="characters_character_relations"
+				constraintName="ccr_character_fkey"
+				referencedColumnNames="id"
+				referencedTableName="character"/>
+		<addForeignKeyConstraint baseColumnNames="character_relation_id"
+				baseTableName="characters_character_relations"
+				constraintName="ccr_character_relations_fkey"
+				referencedColumnNames="id"
+				referencedTableName="character_relation"/>
+	</changeSet>
+</databaseChangeLog>

@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.model.common.entity.enums.Gender;
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
+import com.cezarykluczynski.stapi.model.occupation.entity.Occupation;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
@@ -37,8 +38,9 @@ import java.util.Set;
 
 @Data
 @Entity
-@ToString(callSuper = true, exclude = {"performers", "episodes", "movies", "characterSpecies", "characterRelations", "titles", "organizations"})
-@EqualsAndHashCode(callSuper = true, exclude = {"performers", "episodes", "movies", "characterSpecies", "characterRelations", "titles",
+@ToString(callSuper = true, exclude = {"performers", "episodes", "movies", "characterSpecies", "characterRelations", "titles", "occupations",
+		"organizations"})
+@EqualsAndHashCode(callSuper = true, exclude = {"performers", "episodes", "movies", "characterSpecies", "characterRelations", "titles", "occupations",
 		"organizations"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = CharacterRepository.class, singularName = "character",
@@ -133,6 +135,13 @@ public class Character extends PageAwareEntity implements PageAware {
 			inverseJoinColumns = @JoinColumn(name = "title_id", nullable = false, updatable = false))
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Title> titles = Sets.newHashSet();
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "characters_occupations",
+			joinColumns = @JoinColumn(name = "character_id", nullable = false, updatable = false),
+			inverseJoinColumns = @JoinColumn(name = "occupation_id", nullable = false, updatable = false))
+	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
+	private Set<Occupation> occupations = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "characters_organizations",

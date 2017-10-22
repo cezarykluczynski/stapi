@@ -1,0 +1,109 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet id="0012_create_character" author="cezarykluczynski">
+		<createTable schemaName="stapi" tableName="character">
+			<column name="id" type="bigint">
+				<constraints unique="true" nullable="false"/>
+			</column>
+			<column name="page_id" type="bigint">
+				<constraints nullable="false"/>
+			</column>
+			<column name="u_id" type="varchar(14)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="name" type="varchar(128)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="gender" type="varchar(1)"/>
+			<column name="year_of_birth" type="int"/>
+			<column name="month_of_birth" type="int"/>
+			<column name="day_of_birth" type="int"/>
+			<column name="place_of_birth" type="varchar(128)"/>
+			<column name="year_of_death" type="int"/>
+			<column name="month_of_death" type="int"/>
+			<column name="day_of_death" type="int"/>
+			<column name="place_of_death" type="varchar(128)"/>
+			<column name="height" type="int"/>
+			<column name="weight" type="int"/>
+			<column name="deceased" type="boolean"/>
+			<column name="blood_type" type="varchar(32)"/>
+			<column name="marital_status" type="varchar(32)"/>
+			<column name="serial_number" type="varchar(32)"/>
+			<column name="hologram_activation_date" type="varchar(32)"/>
+			<column name="hologram_status" type="varchar(32)"/>
+			<column name="hologram_date_status" type="varchar(32)"/>
+			<column name="hologram" type="boolean"/>
+			<column name="fictional_character" type="boolean"/>
+			<column name="mirror" type="boolean"/>
+			<column name="alternate_reality" type="boolean"/>
+		</createTable>
+		<createSequence incrementBy="1" sequenceName="character_sequence"/>
+		<addForeignKeyConstraint baseColumnNames="page_id"
+				baseTableName="character"
+				constraintName="character_page_fkey"
+				referencedColumnNames="id"
+				referencedTableName="page"/>
+
+		<createTable schemaName="stapi" tableName="performers_characters">
+			<column name="performer_id" type="bigint"/>
+			<column name="character_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="performer_id"
+				baseTableName="performers_characters"
+				constraintName="pc_performer_fkey"
+				referencedColumnNames="id"
+				referencedTableName="performer"/>
+		<addForeignKeyConstraint baseColumnNames="character_id"
+				baseTableName="performers_characters"
+				constraintName="pc_character_fkey"
+				referencedColumnNames="id"
+				referencedTableName="character"/>
+
+		<createTable schemaName="stapi" tableName="characters_titles">
+			<column name="character_id" type="bigint"/>
+			<column name="title_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="character_id"
+				baseTableName="characters_titles"
+				constraintName="ct_character_fkey"
+				referencedColumnNames="id"
+				referencedTableName="character"/>
+		<addForeignKeyConstraint baseColumnNames="title_id"
+				baseTableName="characters_titles"
+				constraintName="ct_title_fkey"
+				referencedColumnNames="id"
+				referencedTableName="title"/>
+
+		<createTable schemaName="stapi" tableName="characters_occupations">
+			<column name="character_id" type="bigint"/>
+			<column name="occupation_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="character_id"
+				baseTableName="characters_occupations"
+				constraintName="coc_character_fkey"
+				referencedColumnNames="id"
+				referencedTableName="character"/>
+		<addForeignKeyConstraint baseColumnNames="occupation_id"
+				baseTableName="characters_occupations"
+				constraintName="coc_title_fkey"
+				referencedColumnNames="id"
+				referencedTableName="occupation"/>
+
+		<createTable schemaName="stapi" tableName="characters_organizations">
+			<column name="character_id" type="bigint"/>
+			<column name="organization_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="character_id"
+				baseTableName="characters_organizations"
+				constraintName="cor_character_fkey"
+				referencedColumnNames="id"
+				referencedTableName="character"/>
+		<addForeignKeyConstraint baseColumnNames="organization_id"
+				baseTableName="characters_organizations"
+				constraintName="cor_organization_fkey"
+				referencedColumnNames="id"
+				referencedTableName="organization"/>
+	</changeSet>
+</databaseChangeLog>

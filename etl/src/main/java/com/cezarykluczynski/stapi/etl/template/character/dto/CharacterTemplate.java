@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.character.entity.CharacterRelation;
 import com.cezarykluczynski.stapi.model.character.entity.CharacterSpecies;
 import com.cezarykluczynski.stapi.model.common.entity.enums.BloodType;
 import com.cezarykluczynski.stapi.model.common.entity.enums.MaritalStatus;
+import com.cezarykluczynski.stapi.model.occupation.entity.Occupation;
 import com.cezarykluczynski.stapi.model.organization.entity.Organization;
 import com.cezarykluczynski.stapi.model.page.entity.Page;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
@@ -72,6 +73,8 @@ public class CharacterTemplate {
 	private Set<CharacterRelation> characterRelations = Sets.newHashSet();
 
 	private Set<Title> titles = Sets.newHashSet();
+
+	private Set<Occupation> occupations = Sets.newHashSet();
 
 	private Set<Organization> organizations = Sets.newHashSet();
 

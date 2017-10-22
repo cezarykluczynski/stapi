@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.server.common.mapper.EnumMapper;
 import com.cezarykluczynski.stapi.server.configuration.MapstructConfiguration;
 import com.cezarykluczynski.stapi.server.episode.mapper.EpisodeBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.movie.mapper.MovieBaseSoapMapper;
+import com.cezarykluczynski.stapi.server.occupation.mapper.OccupationBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.organization.mapper.OrganizationBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.title.mapper.TitleBaseSoapMapper;
@@ -15,8 +16,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(config = MapstructConfiguration.class, uses = {CharacterRelationSoapMapper.class, CharacterSpeciesSoapMapper.class, EnumMapper.class,
-		EpisodeBaseSoapMapper.class, MovieBaseSoapMapper.class, OrganizationBaseSoapMapper.class, PerformerBaseSoapMapper.class,
-		TitleBaseSoapMapper.class})
+		EpisodeBaseSoapMapper.class, MovieBaseSoapMapper.class, OccupationBaseSoapMapper.class, OrganizationBaseSoapMapper.class,
+		PerformerBaseSoapMapper.class, TitleBaseSoapMapper.class})
 public interface CharacterFullSoapMapper {
 
 	@Mapping(target = "name", ignore = true)

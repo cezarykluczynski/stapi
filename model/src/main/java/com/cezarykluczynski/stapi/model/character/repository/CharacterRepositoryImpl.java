@@ -64,16 +64,18 @@ public class CharacterRepositoryImpl extends AbstractRepositoryImpl<Character> i
 				character.setCharacterRelations(charactersSpeciesAndRelationsCharacter.getCharacterRelations());
 			}
 
-			QueryBuilder<Character> titlesAndOrganizationsQueryBuilder = createInitialCharacterQueryBuilder(criteria, pageable);
+			QueryBuilder<Character> titlesOccupationsAndOrganizationsQueryBuilder = createInitialCharacterQueryBuilder(criteria, pageable);
 
-			titlesAndOrganizationsQueryBuilder.fetch(Character_.titles);
-			titlesAndOrganizationsQueryBuilder.fetch(Character_.organizations);
+			titlesOccupationsAndOrganizationsQueryBuilder.fetch(Character_.titles);
+			titlesOccupationsAndOrganizationsQueryBuilder.fetch(Character_.occupations);
+			titlesOccupationsAndOrganizationsQueryBuilder.fetch(Character_.organizations);
 
-			List<Character> titlesAndOrganizationsList = titlesAndOrganizationsQueryBuilder.findAll();
+			List<Character> titlesAndOrganizationsList = titlesOccupationsAndOrganizationsQueryBuilder.findAll();
 
 			if (characterSpeciesAndRelationsList.size() == 1) {
 				Character titlesAndOrganizationsListCharacter = titlesAndOrganizationsList.get(0);
 				character.setTitles(titlesAndOrganizationsListCharacter.getTitles());
+				character.setOccupations(titlesAndOrganizationsListCharacter.getOccupations());
 				character.setOrganizations(titlesAndOrganizationsListCharacter.getOrganizations());
 			}
 		} else {
@@ -101,6 +103,7 @@ public class CharacterRepositoryImpl extends AbstractRepositoryImpl<Character> i
 			character.setCharacterSpecies(Sets.newHashSet());
 			character.setCharacterRelations(Sets.newHashSet());
 			character.setTitles(Sets.newHashSet());
+			character.setOccupations(Sets.newHashSet());
 			character.setOrganizations(Sets.newHashSet());
 		});
 	}

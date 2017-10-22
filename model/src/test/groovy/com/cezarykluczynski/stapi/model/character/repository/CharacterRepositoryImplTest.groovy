@@ -10,6 +10,7 @@ import com.cezarykluczynski.stapi.model.character.query.CharacterInitialQueryBui
 import com.cezarykluczynski.stapi.model.character.query.CharacterQueryBuilderFactory
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.movie.entity.Movie_
+import com.cezarykluczynski.stapi.model.occupation.entity.Occupation
 import com.cezarykluczynski.stapi.model.organization.entity.Organization
 import com.cezarykluczynski.stapi.model.title.entity.Title
 import com.google.common.collect.Lists
@@ -52,6 +53,8 @@ class CharacterRepositoryImplTest extends Specification {
 
 	private Set<Title> titleSet
 
+	private Set<Occupation> occupationSet
+
 	private Set<Organization> organizationSet
 
 	void setup() {
@@ -70,6 +73,7 @@ class CharacterRepositoryImplTest extends Specification {
 		characterSpeciesSet = Mock()
 		characterRelationSet = Mock()
 		titleSet = Mock()
+		occupationSet = Mock()
 		organizationSet = Mock()
 	}
 
@@ -116,6 +120,7 @@ class CharacterRepositoryImplTest extends Specification {
 
 		then: 'character species and character relations fetch is performed'
 		1 * titlesAndOrganizationsQueryBuilder.fetch(Character_.titles)
+		1 * titlesAndOrganizationsQueryBuilder.fetch(Character_.occupations)
 		1 * titlesAndOrganizationsQueryBuilder.fetch(Character_.organizations)
 
 		then: 'result list is retrieved'
@@ -124,6 +129,8 @@ class CharacterRepositoryImplTest extends Specification {
 		then: 'entities are set to base character'
 		1 * titlesAndOrganizationsCharacter.titles >> titleSet
 		1 * character.setTitles(titleSet)
+		1 * titlesAndOrganizationsCharacter.occupations >> occupationSet
+		1 * character.setOccupations(occupationSet)
 		1 * titlesAndOrganizationsCharacter.organizations >> organizationSet
 		1 * character.setOrganizations(organizationSet)
 
@@ -155,6 +162,7 @@ class CharacterRepositoryImplTest extends Specification {
 		1 * character.setCharacterSpecies(Sets.newHashSet())
 		1 * character.setCharacterRelations(Sets.newHashSet())
 		1 * character.setTitles(Sets.newHashSet())
+		1 * character.setOccupations(Sets.newHashSet())
 		1 * character.setOrganizations(Sets.newHashSet())
 		pageOutput == page
 	}
