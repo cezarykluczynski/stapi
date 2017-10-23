@@ -37,7 +37,11 @@ class ComicStripProcessorTest extends Specification {
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
+
+		and:
 		1 * comicStripTemplatePageProcessorMock.process(page) >> comicStripTemplate
+
+		and:
 		1 * comicStripTemplateProcessorMock.process(comicStripTemplate) >> comicStrip
 
 		then: 'last processor output is returned'

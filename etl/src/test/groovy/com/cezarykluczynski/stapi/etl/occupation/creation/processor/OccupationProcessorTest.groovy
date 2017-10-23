@@ -31,6 +31,8 @@ class OccupationProcessorTest extends Specification {
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
+
+		and:
 		1 * occupationPageProcessorMock.process(page) >> occupation
 
 		then: 'last processor output is returned'

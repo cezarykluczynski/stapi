@@ -38,7 +38,11 @@ class BookSeriesProcessorTest extends Specification {
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
+
+		and:
 		1 * bookSeriesTemplatePageProcessorMock.process(page) >> bookSeriesTemplate
+
+		and:
 		1 * bookSeriesTemplateProcessorMock.process(bookSeriesTemplate) >> bookSeries
 
 		then: 'last processor output is returned'

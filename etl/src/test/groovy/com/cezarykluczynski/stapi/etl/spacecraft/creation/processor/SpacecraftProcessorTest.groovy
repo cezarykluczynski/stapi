@@ -37,7 +37,11 @@ class SpacecraftProcessorTest extends Specification {
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
+
+		and:
 		1 * starshipTemplatePageProcessorMock.process(page) >> starshipClassTemplate
+
+		and:
 		1 * starshipTemplateProcessorMock.process(starshipClassTemplate) >> spacecraft
 
 		then: 'last processor output is returned'

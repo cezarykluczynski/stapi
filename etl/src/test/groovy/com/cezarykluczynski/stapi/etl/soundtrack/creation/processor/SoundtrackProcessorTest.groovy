@@ -37,7 +37,11 @@ class SoundtrackProcessorTest extends Specification {
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
+
+		and:
 		1 * soundtrackTemplatePageProcessorMock.process(page) >> soundtrackTemplate
+
+		and:
 		1 * soundtrackTemplateProcessorMock.process(soundtrackTemplate) >> soundtrack
 
 		then: 'last processor output is returned'

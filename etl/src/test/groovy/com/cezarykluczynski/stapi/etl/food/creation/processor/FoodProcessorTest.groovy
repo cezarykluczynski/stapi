@@ -31,6 +31,8 @@ class FoodProcessorTest extends Specification {
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
+
+		and:
 		1 * foodPageProcessorMock.process(page) >> food
 
 		then: 'last processor output is returned'

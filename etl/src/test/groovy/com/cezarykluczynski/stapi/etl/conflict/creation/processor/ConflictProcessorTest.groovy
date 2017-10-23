@@ -38,7 +38,11 @@ class ConflictProcessorTest extends Specification {
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
+
+		and:
 		1 * militaryConflictTemplatePageProcessorMock.process(page) >> militaryConflictTemplate
+
+		and:
 		1 * militaryConflictTemplateProcessorMock.process(militaryConflictTemplate) >> conflict
 
 		then: 'last processor output is returned'

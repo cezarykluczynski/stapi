@@ -37,7 +37,11 @@ class StaffProcessorTest extends Specification {
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
+
+		and:
 		1 * actorTemplatePageProcessorMock.process(page) >> actorTemplate
+
+		and:
 		1 * staffActorTemplateProcessorMock.process(actorTemplate) >> staff
 
 		then: 'last processor output is returned'

@@ -37,7 +37,11 @@ class VideoReleaseProcessorTest extends Specification {
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
+
+		and:
 		1 * videoTemplatePageProcessorMock.process(page) >> videoTemplate
+
+		and:
 		1 * videoReleaseTemplateProcessorMock.process(videoTemplate) >> videoRelease
 
 		then: 'last processor output is returned'

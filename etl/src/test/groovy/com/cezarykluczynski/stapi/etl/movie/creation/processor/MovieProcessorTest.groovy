@@ -37,7 +37,11 @@ class MovieProcessorTest extends Specification {
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
+
+		and:
 		1 * movieTemplatePageProcessorMock.process(page) >> episodeTemplate
+
+		and:
 		1 * toMovieEntityProcessorMock.process(episodeTemplate) >> movie
 
 		then: 'last processor output is returned'

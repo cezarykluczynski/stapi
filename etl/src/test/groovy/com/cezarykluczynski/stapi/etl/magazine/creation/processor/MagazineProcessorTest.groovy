@@ -37,7 +37,11 @@ class MagazineProcessorTest extends Specification {
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
+
+		and:
 		1 * magazineTemplatePageProcessorMock.process(page) >> magazineTemplate
+
+		and:
 		1 * magazineTemplateProcessorMock.process(magazineTemplate) >> magazine
 
 		then: 'last processor output is returned'

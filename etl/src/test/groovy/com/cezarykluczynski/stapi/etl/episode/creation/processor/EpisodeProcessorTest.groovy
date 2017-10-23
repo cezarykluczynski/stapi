@@ -38,7 +38,11 @@ class EpisodeProcessorTest extends Specification {
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
+
+		and:
 		1 * toEpisodeTemplateProcessorMock.process(page) >> episodeTemplate
+
+		and:
 		1 * toEpisodeEntityProcessorMock.process(episodeTemplate) >> episode
 
 		then: 'last processor output is returned'

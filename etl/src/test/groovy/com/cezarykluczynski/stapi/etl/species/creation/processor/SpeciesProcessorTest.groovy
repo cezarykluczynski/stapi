@@ -37,7 +37,11 @@ class SpeciesProcessorTest extends Specification {
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
+
+		and:
 		1 * pageProcessorMock.process(page) >> speciesTemplate
+
+		and:
 		1 * speciesTemplateProcessorMock.process(speciesTemplate) >> species
 
 		then: 'last processor output is returned'

@@ -38,7 +38,11 @@ class AstronomicalObjectProcessorTest extends Specification {
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
+
+		and:
 		1 * planetTemplatePageProcessorMock.process(page) >> planetTemplate
+
+		and:
 		1 * planetTemplateProcessorMock.process(planetTemplate) >> astronomicalObject
 
 		then: 'last processor output is returned'

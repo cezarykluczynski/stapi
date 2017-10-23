@@ -38,7 +38,11 @@ class PerformerProcessorTest extends Specification {
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
+
+		and:
 		1 * actorTemplatePageProcessorMock.process(page) >> actorTemplate
+
+		and:
 		1 * actorTemplateProcessorMock.process(actorTemplate) >> performer
 
 		then: 'last processor output is returned'

@@ -31,6 +31,8 @@ class TechnologyProcessorTest extends Specification {
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
+
+		and:
 		1 * technologyPageProcessorMock.process(page) >> technology
 
 		then: 'last processor output is returned'

@@ -31,6 +31,8 @@ class WeaponProcessorTest extends Specification {
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
+
+		and:
 		1 * weaponPageProcessorMock.process(page) >> weapon
 
 		then: 'last processor output is returned'

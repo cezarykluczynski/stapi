@@ -37,7 +37,11 @@ class VideoGameProcessorTest extends Specification {
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
+
+		and:
 		1 * videoGameTemplatePageProcessorMock.process(page) >> videoGameTemplate
+
+		and:
 		1 * videoGameTemplateProcessorMock.process(videoGameTemplate) >> videoGame
 
 		then: 'last processor output is returned'

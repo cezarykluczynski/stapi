@@ -31,6 +31,8 @@ class AnimalProcessorTest extends Specification {
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
+
+		and:
 		1 * animalPageProcessorMock.process(page) >> animal
 
 		then: 'last processor output is returned'

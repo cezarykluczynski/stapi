@@ -31,6 +31,8 @@ class MaterialProcessorTest extends Specification {
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
+
+		and:
 		1 * materialPageProcessorMock.process(page) >> material
 
 		then: 'last processor output is returned'

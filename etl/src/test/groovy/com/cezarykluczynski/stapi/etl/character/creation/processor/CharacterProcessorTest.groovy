@@ -37,7 +37,11 @@ class CharacterProcessorTest extends Specification {
 
 		then: 'processors are used in right order'
 		1 * pageHeaderProcessorMock.process(pageHeader) >> page
+
+		and:
 		1 * characterTemplatePageProcessorMock.process(page) >> characterTemplate
+
+		and:
 		1 * characterTemplateProcessorMock.process(characterTemplate) >> character
 
 		then: 'last processor output is returned'
