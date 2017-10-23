@@ -8,8 +8,6 @@ STAPI is a public [Star Trek API](http://stapi.co), currently in it's alpha stag
 
 It was inspired by [Star Wars API](https://github.com/phalt/swapi) and [Pokéapi](https://github.com/PokeAPI/pokeapi).
 
-See work progress [here](https://github.com/cezarykluczynski/stapi/wiki/Work-progress).
-
 ## Documentation
 * API documentation can be found on the [website](http://stapi.co/api-documentation).
 * Project documentation can be found on [wiki home](https://github.com/cezarykluczynski/stapi/wiki).

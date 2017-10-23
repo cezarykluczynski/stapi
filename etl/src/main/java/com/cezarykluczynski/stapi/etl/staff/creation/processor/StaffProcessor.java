@@ -17,8 +17,7 @@ public class StaffProcessor extends CompositeItemProcessor<PageHeader, Staff> {
 
 	@Inject
 	public StaffProcessor(PageHeaderProcessor pageHeaderProcessor,
-			@Qualifier(StaffCreationConfiguration.STAFF_ACTOR_TEMPLATE_PAGE_PROCESSOR)
-					ActorTemplatePageProcessor actorTemplatePageProcessor,
+			@Qualifier(StaffCreationConfiguration.STAFF_ACTOR_TEMPLATE_PAGE_PROCESSOR) ActorTemplatePageProcessor actorTemplatePageProcessor,
 			StaffActorTemplateProcessor staffActorTemplateProcessor) {
 		setDelegates(Lists.newArrayList(pageHeaderProcessor, actorTemplatePageProcessor, staffActorTemplateProcessor));
 	}
