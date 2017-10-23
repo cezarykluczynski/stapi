@@ -2,7 +2,7 @@ apply plugin: 'groovy'
 apply plugin: 'java'
 
 dependencies {
-	compile project(':util'), project(':model')
+	compile project(':model')
 	compile group: 'info.bliki.wiki', name: 'bliki-core', version: '3.1.0'
 	compile group: 'com.afrozaar.wordpress', name: 'wp-api-v2-client-java', version: '2.0-beta15'
 	compile group: 'org.jsoup', name: 'jsoup', version: '1.10.2'
