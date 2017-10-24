@@ -12,11 +12,11 @@ import spock.lang.Specification
 
 import javax.persistence.EntityManager
 
-class EntityMatadataProviderTest extends Specification {
+class EntityMetadataProviderTest extends Specification {
 
 	private EntityManager entityManagerMock
 
-	private EntityMatadataProvider entityMatadataProvider
+	private EntityMetadataProvider entityMetadataProvider
 
 	private Map<String, ClassMetadata> classNameToMetadataMap
 
@@ -51,7 +51,7 @@ class EntityMatadataProviderTest extends Specification {
 		classNameToMetadataMap.put('java.lang.CharSequence', classMetadata)
 
 		when:
-		entityMatadataProvider = new EntityMatadataProvider(entityManagerMock)
+		entityMetadataProvider = new EntityMetadataProvider(entityManagerMock)
 
 		then:
 		StapiRuntimeException stapiRuntimeException = thrown(StapiRuntimeException)
@@ -60,8 +60,8 @@ class EntityMatadataProviderTest extends Specification {
 
 	void "provides class name to symbol map"() {
 		when:
-		entityMatadataProvider = new EntityMatadataProvider(entityManagerMock)
-		Map<String, String> classNameToSymbolMap = entityMatadataProvider.provideClassNameToSymbolMap()
+		entityMetadataProvider = new EntityMetadataProvider(entityManagerMock)
+		Map<String, String> classNameToSymbolMap = entityMetadataProvider.provideClassNameToSymbolMap()
 
 		then:
 		classNameToSymbolMap['com.cezarykluczynski.stapi.model.series.entity.Series'] == 'SE'
@@ -71,8 +71,8 @@ class EntityMatadataProviderTest extends Specification {
 
 	void "provides class name to metadata map"() {
 		when:
-		entityMatadataProvider = new EntityMatadataProvider(entityManagerMock)
-		Map<String, ClassMetadata> classNameToMetadataMapOutput = entityMatadataProvider.provideClassNameToMetadataMap()
+		entityMetadataProvider = new EntityMetadataProvider(entityManagerMock)
+		Map<String, ClassMetadata> classNameToMetadataMapOutput = entityMetadataProvider.provideClassNameToMetadataMap()
 
 		then:
 		classNameToMetadataMapOutput == classNameToMetadataMap
@@ -80,8 +80,8 @@ class EntityMatadataProviderTest extends Specification {
 
 	void "provides class simple name to class map"() {
 		when:
-		entityMatadataProvider = new EntityMatadataProvider(entityManagerMock)
-		Map<String, Class> classSimpleNameToClassMap = entityMatadataProvider.provideClassSimpleNameToClassMap()
+		entityMetadataProvider = new EntityMetadataProvider(entityManagerMock)
+		Map<String, Class> classSimpleNameToClassMap = entityMetadataProvider.provideClassSimpleNameToClassMap()
 
 		then:
 		classSimpleNameToClassMap['Series'] == Series

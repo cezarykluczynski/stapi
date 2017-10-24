@@ -2,7 +2,7 @@ package com.cezarykluczynski.stapi.server.common.metrics.service
 
 import com.cezarykluczynski.stapi.model.astronomical_object.entity.AstronomicalObject
 import com.cezarykluczynski.stapi.model.book.entity.Book
-import com.cezarykluczynski.stapi.model.common.service.EntityMatadataProvider
+import com.cezarykluczynski.stapi.model.common.service.EntityMetadataProvider
 import com.cezarykluczynski.stapi.model.endpoint_hit.entity.EndpointHit
 import com.cezarykluczynski.stapi.model.endpoint_hit.repository.EndpointHitRepository
 import com.cezarykluczynski.stapi.model.page.entity.PageAware
@@ -20,14 +20,14 @@ class EndpointHitsReaderTest extends Specification {
 
 	private EndpointHitRepository endpointHitRepositoryMock
 
-	private EntityMatadataProvider entityMatadataProviderMock
+	private EntityMetadataProvider entityMetadataProviderMock
 
 	private EndpointHitsReader endpointHitsReader
 
 	void setup() {
 		endpointHitRepositoryMock = Mock()
-		entityMatadataProviderMock = Mock()
-		endpointHitsReader = new EndpointHitsReader(endpointHitRepositoryMock, entityMatadataProviderMock)
+		entityMetadataProviderMock = Mock()
+		endpointHitsReader = new EndpointHitsReader(endpointHitRepositoryMock, entityMetadataProviderMock)
 	}
 
 	void "reads hits when refreshed"() {
@@ -51,7 +51,7 @@ class EndpointHitsReaderTest extends Specification {
 
 		then: 'dependencies are interacted with'
 		1 * endpointHitRepositoryMock.findAll() >> Lists.newArrayList(restEndpointHit, soapEndpointHit, ignoredEndpointHit)
-		1 * entityMatadataProviderMock.provideClassSimpleNameToClassMap() >> classSimpleNameToClassMap
+		1 * entityMetadataProviderMock.provideClassSimpleNameToClassMap() >> classSimpleNameToClassMap
 
 		then: 'correct total hit count is provided'
 		endpointHitsReader.readAllHitsCount() == REST_ENDPOINT_NUMBER_OF_HITS + SOAP_ENDPOINT_NUMBER_OF_HITS
@@ -74,7 +74,7 @@ class EndpointHitsReaderTest extends Specification {
 
 		then: 'dependencies are interacted with'
 		1 * endpointHitRepositoryMock.findAll() >> Lists.newArrayList(restEndpointHit)
-		1 * entityMatadataProviderMock.provideClassSimpleNameToClassMap() >> Maps.newHashMap()
+		1 * entityMetadataProviderMock.provideClassSimpleNameToClassMap() >> Maps.newHashMap()
 
 		then: 'exception is thrown'
 		StapiRuntimeException stapiRuntimeException = thrown(StapiRuntimeException)

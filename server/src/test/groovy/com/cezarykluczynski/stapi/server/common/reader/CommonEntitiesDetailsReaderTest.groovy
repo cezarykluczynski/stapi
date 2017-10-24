@@ -3,7 +3,7 @@ package com.cezarykluczynski.stapi.server.common.reader
 import com.cezarykluczynski.stapi.model.book.entity.Book
 import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType
-import com.cezarykluczynski.stapi.model.common.service.EntityMatadataProvider
+import com.cezarykluczynski.stapi.model.common.service.EntityMetadataProvider
 import com.cezarykluczynski.stapi.model.reference.entity.Reference
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailsDTO
 import com.google.common.collect.Maps
@@ -12,7 +12,7 @@ import spock.lang.Specification
 
 class CommonEntitiesDetailsReaderTest extends Specification {
 
-	private EntityMatadataProvider entityMatadataProviderMock
+	private EntityMetadataProvider entityMetadataProviderMock
 
 	private CommonEntitiesDetailsReader commonEntitiesDetailsReader
 
@@ -39,8 +39,8 @@ class CommonEntitiesDetailsReaderTest extends Specification {
 		classNameToSymbolMap.put('com.cezarykluczynski.stapi.model.character.entity.Character', 'CH')
 		classNameToSymbolMap.put('com.cezarykluczynski.stapi.model.book.entity.Book', 'BO')
 
-		entityMatadataProviderMock = Mock()
-		commonEntitiesDetailsReader = new CommonEntitiesDetailsReader(entityMatadataProviderMock)
+		entityMetadataProviderMock = Mock()
+		commonEntitiesDetailsReader = new CommonEntitiesDetailsReader(entityMetadataProviderMock)
 	}
 
 	void "maps entities metadata to RestEndpointDetailsDTO"() {
@@ -48,8 +48,8 @@ class CommonEntitiesDetailsReaderTest extends Specification {
 		RestEndpointDetailsDTO restEndpointDetailsDTO = commonEntitiesDetailsReader.details()
 
 		then:
-		1 * entityMatadataProviderMock.provideClassNameToMetadataMap() >> classMetadataMap
-		1 * entityMatadataProviderMock.provideClassNameToSymbolMap() >> classNameToSymbolMap
+		1 * entityMetadataProviderMock.provideClassNameToMetadataMap() >> classMetadataMap
+		1 * entityMetadataProviderMock.provideClassNameToSymbolMap() >> classNameToSymbolMap
 		1 * referenceClassMetadata.mappedClass >> Reference
 		1 * characterClassMetadata.mappedClass >> Character
 		1 * bookClassMetadata.mappedClass >> Book

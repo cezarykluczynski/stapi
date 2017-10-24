@@ -16,16 +16,16 @@ import spock.lang.Specification
 
 class RepositoryProviderTest extends Specification {
 
-	private EntityMatadataProvider entityMatadataProviderMock
+	private EntityMetadataProvider entityMetadataProviderMock
 
 	private Repositories repositoriesMock
 
 	private RepositoryProvider repositoryProvider
 
 	void setup() {
-		entityMatadataProviderMock = Mock()
+		entityMetadataProviderMock = Mock()
 		repositoriesMock = Mock()
-		repositoryProvider = new RepositoryProvider(entityMatadataProviderMock, repositoriesMock)
+		repositoryProvider = new RepositoryProvider(entityMetadataProviderMock, repositoriesMock)
 	}
 
 	void "provides list of repositories that's entities extend PageAwareEntity"() {
@@ -47,7 +47,7 @@ class RepositoryProviderTest extends Specification {
 		Map<Class<? extends PageAwareEntity>, CrudRepository> map = repositoryProvider.provide()
 
 		then:
-		1 * entityMatadataProviderMock.provideClassNameToMetadataMap() >> classNameToMetadataMap
+		1 * entityMetadataProviderMock.provideClassNameToMetadataMap() >> classNameToMetadataMap
 		1 * pageClassMetadata.mappedClass >> Page
 		1 * seriesClassMetadata.mappedClass >> Series
 		1 * speciesClassMetadata.mappedClass >> Species

@@ -15,15 +15,15 @@ import java.util.stream.Collectors;
 @Service
 public class RepositoryProvider {
 
-	private final EntityMatadataProvider entityMatadataProvider;
+	private final EntityMetadataProvider entityMetadataProvider;
 
 	private final Repositories repositories;
 
 	private Map<Class, CrudRepository> map;
 
 	@Inject
-	public RepositoryProvider(EntityMatadataProvider entityMatadataProvider, Repositories repositories) {
-		this.entityMatadataProvider = entityMatadataProvider;
+	public RepositoryProvider(EntityMetadataProvider entityMetadataProvider, Repositories repositories) {
+		this.entityMetadataProvider = entityMetadataProvider;
 		this.repositories = repositories;
 	}
 
@@ -40,7 +40,7 @@ public class RepositoryProvider {
 	}
 
 	private Map<Class, CrudRepository> doProvide() {
-		return entityMatadataProvider.provideClassNameToMetadataMap().entrySet()
+		return entityMetadataProvider.provideClassNameToMetadataMap().entrySet()
 				.stream()
 				.map(Map.Entry::getValue)
 				.map(ClassMetadata::getMappedClass)

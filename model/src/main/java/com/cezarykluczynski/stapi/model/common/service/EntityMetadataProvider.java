@@ -35,7 +35,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class EntityMatadataProvider {
+public class EntityMetadataProvider {
 
 	private static final Map<Class, String> CUSTOM_SYMBOL_MAP = Maps.newHashMap();
 
@@ -71,7 +71,7 @@ public class EntityMatadataProvider {
 
 	private Map<String, Class> classSimpleNameToClassMap;
 
-	public EntityMatadataProvider(EntityManager entityManager) {
+	public EntityMetadataProvider(EntityManager entityManager) {
 		this.entityManager = entityManager;
 		buildClassNameToSymbolMap();
 		buildClassNameToMetadataMap();

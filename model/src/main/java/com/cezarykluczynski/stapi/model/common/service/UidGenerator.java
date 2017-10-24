@@ -32,10 +32,10 @@ public class UidGenerator {
 
 	private final Map<MediaWikiSource, String> mediaWikiSourceToSymbolMap = Maps.newHashMap();
 
-	private final EntityMatadataProvider entityMatadataProvider;
+	private final EntityMetadataProvider entityMetadataProvider;
 
-	public UidGenerator(EntityMatadataProvider entityMatadataProvider) {
-		this.entityMatadataProvider = entityMatadataProvider;
+	public UidGenerator(EntityMetadataProvider entityMetadataProvider) {
+		this.entityMetadataProvider = entityMetadataProvider;
 		buildMediaWikiSourceToSymbolMap();
 	}
 
@@ -47,7 +47,7 @@ public class UidGenerator {
 	public String generateFromPage(Page page, Class<? extends PageAware> clazz) {
 		Preconditions.checkNotNull(page, "Page cannot be null");
 		Preconditions.checkNotNull(page.getPageId(), "Page ID cannot be null");
-		Map<String, ClassMetadata> classMetadataMap = entityMatadataProvider.provideClassNameToMetadataMap();
+		Map<String, ClassMetadata> classMetadataMap = entityMetadataProvider.provideClassNameToMetadataMap();
 		ClassMetadata classMetadata = classMetadataMap.get(clazz.getCanonicalName());
 		if (classMetadata == null) {
 			throw new StapiRuntimeException(String.format("No class metadata for entity %s.", clazz.getCanonicalName()));
@@ -59,7 +59,7 @@ public class UidGenerator {
 
 		Class mappedClass = classMetadata.getMappedClass();
 		String mappedClassCanonicalName = mappedClass.getCanonicalName();
-		String entitySymbol = entityMatadataProvider.provideClassNameToSymbolMap().get(mappedClassCanonicalName);
+		String entitySymbol = entityMetadataProvider.provideClassNameToSymbolMap().get(mappedClassCanonicalName);
 		String sourceSymbol = mediaWikiSourceToSymbolMap.get(page.getMediaWikiSource());
 		String paddedPageId = StringUtils.leftPad(page.getPageId().toString(), 10, ZERO);
 		return entitySymbol + sourceSymbol + paddedPageId;

@@ -41,7 +41,7 @@ class UidGeneratorTest extends Specification {
 
 	}
 
-	private EntityMatadataProvider entityMatadataProvider
+	private EntityMetadataProvider entityMetadataProvider
 
 	private UidGenerator uidGenerator
 
@@ -67,11 +67,11 @@ class UidGeneratorTest extends Specification {
 		classNameToSymbolMap.put('com.cezarykluczynski.stapi.model.series.entity.Series', 'SE')
 		classNameToSymbolMap.put('com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries', 'CS')
 
-		entityMatadataProvider = Mock()
-		entityMatadataProvider.provideClassNameToMetadataMap() >> classMetadataMap
-		entityMatadataProvider.provideClassNameToSymbolMap() >> classNameToSymbolMap
+		entityMetadataProvider = Mock()
+		entityMetadataProvider.provideClassNameToMetadataMap() >> classMetadataMap
+		entityMetadataProvider.provideClassNameToSymbolMap() >> classNameToSymbolMap
 
-		uidGenerator = new UidGenerator(entityMatadataProvider)
+		uidGenerator = new UidGenerator(entityMetadataProvider)
 	}
 
 	@Unroll('when #page and #clazz is passed, #uid is generated')

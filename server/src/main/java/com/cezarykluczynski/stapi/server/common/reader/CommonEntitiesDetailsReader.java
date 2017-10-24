@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.common.reader;
 
 import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
-import com.cezarykluczynski.stapi.model.common.service.EntityMatadataProvider;
+import com.cezarykluczynski.stapi.model.common.service.EntityMetadataProvider;
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailDTO;
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailsDTO;
 import liquibase.util.StringUtils;
@@ -18,15 +18,15 @@ import java.util.stream.Collectors;
 @Service
 class CommonEntitiesDetailsReader {
 
-	private final EntityMatadataProvider entityMatadataProvider;
+	private final EntityMetadataProvider entityMetadataProvider;
 
 	private Map<String, String> simpleClassNameToSymbolMap;
 
 	private Map<String, ClassMetadata> classNameToMetadataMap;
 
 	@Inject
-	CommonEntitiesDetailsReader(EntityMatadataProvider entityMatadataProvider) {
-		this.entityMatadataProvider = entityMatadataProvider;
+	CommonEntitiesDetailsReader(EntityMetadataProvider entityMetadataProvider) {
+		this.entityMetadataProvider = entityMetadataProvider;
 	}
 
 	RestEndpointDetailsDTO details() {
@@ -54,14 +54,14 @@ class CommonEntitiesDetailsReader {
 		if (classNameToMetadataMap == null) {
 			synchronized (this) {
 				if (classNameToMetadataMap == null) {
-					classNameToMetadataMap = entityMatadataProvider.provideClassNameToMetadataMap();
+					classNameToMetadataMap = entityMetadataProvider.provideClassNameToMetadataMap();
 				}
 			}
 		}
 	}
 
 	private Map<String, String> getSimpleClassNameToSymbolMap() {
-		return entityMatadataProvider.provideClassNameToSymbolMap()
+		return entityMetadataProvider.provideClassNameToSymbolMap()
 				.entrySet()
 				.stream()
 				.map(entry -> {

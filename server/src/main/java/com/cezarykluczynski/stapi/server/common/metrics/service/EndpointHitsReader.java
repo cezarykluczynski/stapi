@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.server.common.metrics.service;
 
-import com.cezarykluczynski.stapi.model.common.service.EntityMatadataProvider;
+import com.cezarykluczynski.stapi.model.common.service.EntityMetadataProvider;
 import com.cezarykluczynski.stapi.model.endpoint_hit.entity.EndpointHit;
 import com.cezarykluczynski.stapi.model.endpoint_hit.repository.EndpointHitRepository;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
@@ -30,12 +30,12 @@ public class EndpointHitsReader {
 
 	private final EndpointHitRepository endpointHitRepository;
 
-	private final EntityMatadataProvider entityMatadataProvider;
+	private final EntityMetadataProvider entityMetadataProvider;
 
 	@Inject
-	public EndpointHitsReader(EndpointHitRepository endpointHitRepository, EntityMatadataProvider entityMatadataProvider) {
+	public EndpointHitsReader(EndpointHitRepository endpointHitRepository, EntityMetadataProvider entityMetadataProvider) {
 		this.endpointHitRepository = endpointHitRepository;
-		this.entityMatadataProvider = entityMatadataProvider;
+		this.entityMetadataProvider = entityMetadataProvider;
 	}
 
 	public Long readAllHitsCount() {
@@ -50,7 +50,7 @@ public class EndpointHitsReader {
 	@PostConstruct
 	public void refresh() {
 		List<EndpointHit> endpointHitList = endpointHitRepository.findAll();
-		Map<String, Class> classNameToMetadataMap = entityMatadataProvider.provideClassSimpleNameToClassMap();
+		Map<String, Class> classNameToMetadataMap = entityMetadataProvider.provideClassSimpleNameToClassMap();
 		Map<Class<? extends PageAware>, Long> temporaryEntityToHitCountMap = Maps.newHashMap();
 		LongAdder temporaryAllHitsCount = new LongAdder();
 		endpointHitList.forEach(endpointHit -> {
