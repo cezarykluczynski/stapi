@@ -81,11 +81,7 @@ public class DocumentationReader {
 		DocumentDTO documentDTO = new DocumentDTO();
 		documentDTO.setType(filePath.toString().endsWith(".yaml") ? DocumentType.YAML : DocumentType.XML);
 		try {
-			String content = StringUtils.join(Files.readAllLines(filePath, Charset.forName("UTF-8")), "\n");
-			if (DocumentType.XML.equals(documentDTO.getType())) {
-				content = StringUtils.replace(content, "<", "&lt;");
-			}
-			documentDTO.setContent(content);
+			documentDTO.setContent(StringUtils.join(Files.readAllLines(filePath, Charset.forName("UTF-8")), "\n"));
 		} catch (Exception e) {
 			LOG.error("Could not get content for file {}, exception was: {}", filePath.toString(), e);
 		}

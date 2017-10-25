@@ -2,7 +2,7 @@ apply plugin: 'groovy'
 apply plugin: 'java'
 
 dependencies {
-	compile project(':model'), project(':sources')
+	compile project(':sources')
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-batch', version: springBootVersion
 	compile group: 'info.debatty', name: 'java-string-similarity', version: '1.0.0'
 	testCompile project(':util').sourceSets.test.output

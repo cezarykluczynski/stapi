@@ -1,0 +1,15 @@
+<div className='entity-statistics-cloud'>
+	<div>
+		<h4>Currently serving <strong>{{getTotalCount()}}</strong> entities!</h4>
+		<hr>
+		<div>
+			<span *ngFor="let statistic of getStatisticsForFictionalEntities()" class="tag-cloud-tag"
+				[style.font-size]="statistic.fontSize + 'px'">{{statistic.text}}</span>
+		</div>
+		<hr>
+		<div>
+			<span *ngFor="let statistic of getStatisticsForRealWorldEntities()" class="tag-cloud-tag"
+				[style.font-size]="statistic.fontSize + 'px'">{{statistic.text}}</span>
+		</div>
+	</div>
+</div>

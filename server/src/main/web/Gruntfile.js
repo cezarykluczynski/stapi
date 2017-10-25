@@ -4,20 +4,22 @@ module.exports = function(grunt) {
 			options: {
 				force: true
 			},
-			build: ['build', '../resources/build'],
+			build: ['dist', '../resources/build'],
 		},
 		copy: {
 			main: {
 				files: [
 					{
 						expand: true,
-						src: ['build/**'],
-						dest: '../resources/'
+						src: '**',
+						cwd: 'dist',
+						dest: '../resources/build'
 					},
 					{
 						expand: true,
-						src: ['build/**'],
-						dest: '../../../build/resources/main/'
+						src: '**',
+						cwd: 'dist',
+						dest: '../../../build/resources/main/build'
 					}
 				],
 			},

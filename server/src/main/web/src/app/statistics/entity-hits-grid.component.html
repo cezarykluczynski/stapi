@@ -1,0 +1,6 @@
+<div>
+	<h4>A total of <strong>{{getTotalCount()}}</strong> calls to API was made!</h4>
+	<hr />
+	<ag-grid-angular class="ag-dark" [rowData]="getGridRowData()" [columnDefs]="getGridColumnDefs()"
+		[gridOptions]="getGridOptions()"></ag-grid-angular>
+</div>

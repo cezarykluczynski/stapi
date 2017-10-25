@@ -13,6 +13,8 @@ buildscript {
 	}
 	dependencies {
 		classpath 'org.springframework.boot:spring-boot-gradle-plugin:' << springBootVersion
+		classpath group: 'org.zeroturnaround', name: 'zt-zip', version: '1.11'
+		classpath group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
 		classpath "no.nils:wsdl2java:0.10"
 	}
 }

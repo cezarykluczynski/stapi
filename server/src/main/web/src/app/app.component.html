@@ -1,0 +1,25 @@
+<div>
+	<div class='navbar navbar-default navbar-fixed-top'>
+		<div class='container-fluid'>
+			<div class='collapse navbar-collapse'>
+					<ul class='nav navbar-nav'>
+						<li><a routerLinkActive="navigation-element--active" [routerLinkActiveOptions]="{exact: true}" routerLink="">Home</a></li>
+						<li><a routerLinkActive="navigation-element--active" routerLink="about">About</a></li>
+						<li><a routerLinkActive="navigation-element--active" routerLink="api-browser">API Browser</a></li>
+						<li><a routerLinkActive="navigation-element--active" routerLink="api-documentation">API documentation</a></li>
+						<li><a routerLinkActive="navigation-element--active" routerLink="licensing">Licensing</a></li>
+						<li><a routerLinkActive="navigation-element--active" routerLink="statistics">Statistics</a></li>
+					</ul>
+					<ul class='nav navbar-nav navbar-right'>
+						<li class='navigation__github-star' [innerHtml]="getGitHubStar()"></li>
+						<li><a href='https://github.com/cezarykluczynski/stapi'>STAPI on GitHub</a></li>
+						<li><a href='https://github.com/cezarykluczynski/stapi/issues'>Report an issue</a></li>
+						<li><a href="https://github.com/cezarykluczynski/stapi/wiki">Wiki</a></li>
+					</ul>
+			</div>
+		</div>
+	</div>
+	<div>
+		<router-outlet></router-outlet>
+	</div>
+</div>

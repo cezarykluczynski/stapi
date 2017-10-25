@@ -1,4 +1,9 @@
 import groovy.io.FileType
+import org.apache.commons.lang3.StringUtils
+import org.zeroturnaround.zip.ZipUtil
+import org.zeroturnaround.zip.commons.FileUtils
+
+import java.util.stream.Collectors
 
 plugins {
 	id 'net.ltgt.apt' version '0.8'
@@ -30,7 +35,7 @@ dependencies {
 	compile group: 'com.google.code.gson', name: 'gson', version: '2.8.1'
 	compile 'org.mapstruct:mapstruct-jdk8:1.2.0.Beta2'
 	apt 'org.mapstruct:mapstruct-processor:1.2.0.Beta2'
-	compile 'org.zeroturnaround:zt-zip:1.11'
+	compile group: 'org.zeroturnaround', name: 'zt-zip', version: '1.11'
 
 	// Other
 	compile group: 'javax.servlet', name: 'jstl', version: '1.2'
@@ -47,6 +52,7 @@ apply from: 'codeGen.gradle'
 configurations.compile.exclude group: 'io.swagger'
 
 task copyDocs(type: CopyDocs) << {}
+task addWarProfile(type: AddWarProfile) << {}
 
 task npmBuild(type:Exec) {
 	workingDir 'src/main/web'
@@ -77,10 +83,58 @@ class CopyDocs extends DefaultTask {
 			destination.write(file.text)
 		}
 	}
+
+}
+
+class AddWarProfile extends DefaultTask {
+
+	private static final String NEW_LINE_SEPARATOR = "\r\n"
+	private static final String PROFILES_PREFIX = "spring.profiles.active="
+	private static final String WAR = "war"
+
+	@TaskAction
+	def addProfile() {
+		File sourceWar = new File('./server/build/libs/stapi.war')
+		File tempWar = new File('./server/build/libs/stapi-tmp.war')
+		println(sourceWar.absolutePath)
+
+		if (!sourceWar.exists()) {
+			throw new RuntimeException("No source war!")
+		}
+
+		String applicationPropertiesWarLocation = 'WEB-INF/classes/application.properties'
+		byte[] applicationProperties = ZipUtil.unpackEntry(sourceWar, applicationPropertiesWarLocation)
+		byte[] applicationPropertiesWithChangedProfile = replace(applicationProperties);
+		ZipUtil.replaceEntry(sourceWar, applicationPropertiesWarLocation, applicationPropertiesWithChangedProfile, tempWar)
+		FileUtils.forceDelete(sourceWar)
+		FileUtils.moveFile(tempWar, sourceWar)
+	}
+
+	byte[] replace(byte[] applicationProperties) {
+		String applicationPropertiesString = new String(applicationProperties)
+		List<String> lines = applicationPropertiesString.split(NEW_LINE_SEPARATOR).toList()
+		List<String> newLines = lines.stream()
+				.map({line ->
+ 					if (line.startsWith(PROFILES_PREFIX) && !line.contains("," + WAR) && !line.contains( WAR + ",")) {
+						logger.info("Adding war profile")
+						return line + ",war"
+					} else {
+						logger.info("Not adding war profile")
+						return line
+					}
+				})
+				.collect(Collectors.toList())
+		return StringUtils.join(newLines, NEW_LINE_SEPARATOR).getBytes()
+	}
+
 }
 
 war {
 	archiveName = 'stapi.war'
 	dependsOn(copyDocs, npmBuild)
 	rootSpec.exclude '**/application-stapi-custom.properties'
+}
+
+war.doLast {
+	tasks.addWarProfile.execute()
 }
