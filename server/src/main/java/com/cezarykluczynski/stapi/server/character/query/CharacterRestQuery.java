@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class CharacterRestQuery {
 
@@ -21,7 +19,6 @@ public class CharacterRestQuery {
 
 	private final CharacterRepository characterRepository;
 
-	@Inject
 	public CharacterRestQuery(CharacterBaseRestMapper characterBaseRestMapper, PageMapper pageMapper, CharacterRepository characterRepository) {
 		this.characterRequestMapper = characterBaseRestMapper;
 		this.pageMapper = pageMapper;

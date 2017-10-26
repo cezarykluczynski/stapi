@@ -8,7 +8,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -17,7 +16,6 @@ public class SpacecraftRegistryProcessor implements ItemProcessor<String, String
 
 	private final WikitextApi wikitextApi;
 
-	@Inject
 	public SpacecraftRegistryProcessor(WikitextApi wikitextApi) {
 		this.wikitextApi = wikitextApi;
 	}

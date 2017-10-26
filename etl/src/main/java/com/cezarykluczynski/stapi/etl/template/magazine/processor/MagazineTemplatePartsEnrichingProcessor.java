@@ -17,7 +17,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -34,7 +33,6 @@ public class MagazineTemplatePartsEnrichingProcessor implements ItemWithTemplate
 
 	private final MagazineTemplateNumberOfPagesFixedValueProvider magazineTemplateNumberOfPagesFixedValueProvider;
 
-	@Inject
 	public MagazineTemplatePartsEnrichingProcessor(NumberOfPartsProcessor numberOfPartsProcessor,
 			WikitextToEntitiesProcessor wikitextToEntitiesProcessor,
 			PublishableTemplatePublishedDatesEnrichingProcessor publishableTemplatePublishedDatesEnrichingProcessor,

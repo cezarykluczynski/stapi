@@ -11,7 +11,6 @@ import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Map;
 
@@ -37,7 +36,6 @@ public class SeriesToEpisodeBindingService {
 
 	private Map<String, Series> categoryTitlesToSeries = Maps.newHashMap();
 
-	@Inject
 	public SeriesToEpisodeBindingService(SeriesRepository seriesRepository) {
 		this.seriesRepository = seriesRepository;
 

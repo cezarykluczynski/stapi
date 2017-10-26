@@ -17,7 +17,6 @@ public class CharacterRelationRepositoryImpl implements CharacterRelationReposit
 	@Inject
 	private CharacterRelationRepository characterRelationRepository;
 
-	@Inject
 	public CharacterRelationRepositoryImpl(CharacterRepository characterRepository) {
 		this.characterRepository = characterRepository;
 	}

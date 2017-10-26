@@ -5,14 +5,11 @@ import com.cezarykluczynski.stapi.etl.template.common.service.MediaWikiPageFilte
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class ElementPageFilter implements MediaWikiPageFilter {
 
 	private final CategorySortingService categorySortingService;
 
-	@Inject
 	public ElementPageFilter(CategorySortingService categorySortingService) {
 		this.categorySortingService = categorySortingService;
 	}

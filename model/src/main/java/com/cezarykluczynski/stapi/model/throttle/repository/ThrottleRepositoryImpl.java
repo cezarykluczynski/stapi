@@ -19,7 +19,6 @@ public class ThrottleRepositoryImpl implements ThrottleRepositoryCustom {
 	@Inject
 	private ThrottleRepository throttleRepository;
 
-	@Inject
 	public ThrottleRepositoryImpl(ThrottleProperties throttleProperties) {
 		this.throttleProperties = throttleProperties;
 	}

@@ -6,8 +6,6 @@ import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class EpisodeTemplateEnrichingProcessorComposite implements ItemEnrichingProcessor<EnrichablePair<Page, EpisodeTemplate>> {
 
@@ -15,7 +13,6 @@ public class EpisodeTemplateEnrichingProcessorComposite implements ItemEnriching
 
 	private final EpisodeTemplateTitleLanguagesEnrichingProcessor episodeTemplateTitleLanguagesEnrichingProcessor;
 
-	@Inject
 	public EpisodeTemplateEnrichingProcessorComposite(EpisodeTemplateDatesEnrichingProcessor episodeTemplateDatesEnrichingProcessor,
 			EpisodeTemplateTitleLanguagesEnrichingProcessor episodeTemplateTitleLanguagesEnrichingProcessor) {
 		this.episodeTemplateDatesEnrichingProcessor = episodeTemplateDatesEnrichingProcessor;

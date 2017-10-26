@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class PerformerRestQuery {
 
@@ -21,7 +19,6 @@ public class PerformerRestQuery {
 
 	private final PerformerRepository performerRepository;
 
-	@Inject
 	public PerformerRestQuery(PerformerBaseRestMapper performerBaseRestMapper, PageMapper pageMapper, PerformerRepository performerRepository) {
 		this.performerBaseRestMapper = performerBaseRestMapper;
 		this.pageMapper = pageMapper;

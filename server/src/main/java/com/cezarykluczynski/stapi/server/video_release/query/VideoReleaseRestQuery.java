@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class VideoReleaseRestQuery {
 
@@ -21,8 +19,8 @@ public class VideoReleaseRestQuery {
 
 	private final VideoReleaseRepository videoReleaseRepository;
 
-	@Inject
-	public VideoReleaseRestQuery(VideoReleaseBaseRestMapper videoReleaseBaseRestMapper, PageMapper pageMapper, VideoReleaseRepository videoReleaseRepository) {
+	public VideoReleaseRestQuery(VideoReleaseBaseRestMapper videoReleaseBaseRestMapper, PageMapper pageMapper,
+			VideoReleaseRepository videoReleaseRepository) {
 		this.videoReleaseBaseRestMapper = videoReleaseBaseRestMapper;
 		this.pageMapper = pageMapper;
 		this.videoReleaseRepository = videoReleaseRepository;

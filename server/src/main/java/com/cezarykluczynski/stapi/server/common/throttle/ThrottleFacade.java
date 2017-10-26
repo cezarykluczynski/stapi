@@ -8,7 +8,6 @@ import org.apache.cxf.message.Message;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.xml.namespace.QName;
 import java.util.Map;
 
@@ -27,7 +26,6 @@ public class ThrottleFacade {
 
 	private final ThrottleValidator throttleValidator;
 
-	@Inject
 	public ThrottleFacade(ThrottleValidator throttleValidator) {
 		this.throttleValidator = throttleValidator;
 	}

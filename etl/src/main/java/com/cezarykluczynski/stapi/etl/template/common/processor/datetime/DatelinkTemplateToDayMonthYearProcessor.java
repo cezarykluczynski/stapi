@@ -6,7 +6,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.time.LocalDate;
 
 @Service
@@ -16,7 +15,6 @@ public class DatelinkTemplateToDayMonthYearProcessor implements ItemProcessor<Te
 
 	private final DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor;
 
-	@Inject
 	public DatelinkTemplateToDayMonthYearProcessor(DatelinkTemplateToDayMonthYearCandiateProcessor datelinkTemplateToDayMonthYearCandiateProcessor,
 			DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor) {
 		this.datelinkTemplateToDayMonthYearCandiateProcessor = datelinkTemplateToDayMonthYearCandiateProcessor;

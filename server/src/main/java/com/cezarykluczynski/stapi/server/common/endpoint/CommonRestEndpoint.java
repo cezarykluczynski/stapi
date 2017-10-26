@@ -11,7 +11,6 @@ import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -27,7 +26,6 @@ public class CommonRestEndpoint {
 
 	private final CommonDataReader commonDataReader;
 
-	@Inject
 	public CommonRestEndpoint(CommonDataReader commonDataReader) {
 		this.commonDataReader = commonDataReader;
 	}

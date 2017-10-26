@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class ComicStripRestQuery {
 
@@ -21,7 +19,6 @@ public class ComicStripRestQuery {
 
 	private final ComicStripRepository comicStripRepository;
 
-	@Inject
 	public ComicStripRestQuery(ComicStripBaseRestMapper comicStripBaseRestMapper, PageMapper pageMapper, ComicStripRepository comicStripRepository) {
 		this.comicStripBaseRestMapper = comicStripBaseRestMapper;
 		this.pageMapper = pageMapper;

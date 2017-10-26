@@ -7,8 +7,6 @@ import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class PlanetTemplateProcessor implements ItemProcessor<PlanetTemplate, AstronomicalObject> {
 
@@ -16,7 +14,6 @@ public class PlanetTemplateProcessor implements ItemProcessor<PlanetTemplate, As
 
 	private final AstronomicalObjectTypeMapper astronomicalObjectTypeMapper;
 
-	@Inject
 	public PlanetTemplateProcessor(UidGenerator uidGenerator, AstronomicalObjectTypeMapper astronomicalObjectTypeMapper) {
 		this.uidGenerator = uidGenerator;
 		this.astronomicalObjectTypeMapper = astronomicalObjectTypeMapper;

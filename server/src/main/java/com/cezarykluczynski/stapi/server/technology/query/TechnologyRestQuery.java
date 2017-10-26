@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class TechnologyRestQuery {
 
@@ -21,7 +19,6 @@ public class TechnologyRestQuery {
 
 	private final TechnologyRepository technologyRepository;
 
-	@Inject
 	public TechnologyRestQuery(TechnologyBaseRestMapper technologyBaseRestMapper, PageMapper pageMapper, TechnologyRepository technologyRepository) {
 		this.technologyBaseRestMapper = technologyBaseRestMapper;
 		this.pageMapper = pageMapper;

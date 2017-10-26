@@ -10,8 +10,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.util.constant.PageTitle;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class SpeciesTemplateTypeEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Page, SpeciesTemplate>> {
 
@@ -21,7 +19,6 @@ public class SpeciesTemplateTypeEnrichingProcessor implements ItemEnrichingProce
 
 	private final EntityLookupByNameService entityLookupByNameService;
 
-	@Inject
 	public SpeciesTemplateTypeEnrichingProcessor(SpeciesTypeDetector speciesTypeDetector, EntityLookupByNameService entityLookupByNameService) {
 		this.speciesTypeDetector = speciesTypeDetector;
 		this.entityLookupByNameService = entityLookupByNameService;

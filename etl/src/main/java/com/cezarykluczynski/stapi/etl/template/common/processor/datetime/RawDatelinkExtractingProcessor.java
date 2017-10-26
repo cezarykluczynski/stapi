@@ -6,7 +6,6 @@ import com.google.common.collect.Lists;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -20,7 +19,6 @@ public class RawDatelinkExtractingProcessor implements ItemProcessor<String, Lis
 
 	private final DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor;
 
-	@Inject
 	public RawDatelinkExtractingProcessor(DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor) {
 		this.dayMonthYearCandidateToLocalDateProcessor = dayMonthYearCandidateToLocalDateProcessor;
 	}

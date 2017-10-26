@@ -10,8 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 @Slf4j
 public class CharacterTemplatePageProcessor implements ItemProcessor<Page, CharacterTemplate> {
@@ -22,7 +20,6 @@ public class CharacterTemplatePageProcessor implements ItemProcessor<Page, Chara
 
 	private final CharacterTemplateCompositeEnrichingProcessor characterTemplateCompositeEnrichingProcessor;
 
-	@Inject
 	public CharacterTemplatePageProcessor(CharacterPageFilter characterPageFilter, PageBindingService pageBindingService,
 			CharacterTemplateCompositeEnrichingProcessor characterTemplateCompositeEnrichingProcessor) {
 		this.characterPageFilter = characterPageFilter;

@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -16,7 +15,6 @@ public class StaffCategoriesActorTemplateEnrichingProcessor implements Categorie
 
 	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
-	@Inject
 	public StaffCategoriesActorTemplateEnrichingProcessor(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
 	}

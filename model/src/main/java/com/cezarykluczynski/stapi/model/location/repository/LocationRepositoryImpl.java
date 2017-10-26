@@ -9,14 +9,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
-
 @Repository
 public class LocationRepositoryImpl implements LocationRepositoryCustom {
 
 	private final LocationQueryBuilderFactory locationQueryBuilderFactory;
 
-	@Inject
 	public LocationRepositoryImpl(LocationQueryBuilderFactory locationQueryBuilderFactory) {
 		this.locationQueryBuilderFactory = locationQueryBuilderFactory;
 	}

@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.google.common.collect.Sets;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Set;
 
 @Service
@@ -20,7 +19,6 @@ public class OccupationPageFilter implements MediaWikiPageFilter {
 
 	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
-	@Inject
 	public OccupationPageFilter(CategorySortingService categorySortingService, CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {
 		this.categorySortingService = categorySortingService;
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;

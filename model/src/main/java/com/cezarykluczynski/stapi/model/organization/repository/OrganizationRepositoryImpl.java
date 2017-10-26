@@ -9,14 +9,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
-
 @Repository
 public class OrganizationRepositoryImpl implements OrganizationRepositoryCustom {
 
 	private final OrganizationQueryBuilderFactory organizationQueryBuilderFactory;
 
-	@Inject
 	public OrganizationRepositoryImpl(OrganizationQueryBuilderFactory organizationQueryBuilderFactory) {
 		this.organizationQueryBuilderFactory = organizationQueryBuilderFactory;
 	}

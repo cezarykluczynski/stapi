@@ -15,7 +15,6 @@ import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.model.title.entity.Title;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -23,7 +22,6 @@ public class WikitextToEntitiesProcessor {
 
 	private final WikitextToEntitiesGenericProcessor wikitextToEntitiesGenericProcessor;
 
-	@Inject
 	public WikitextToEntitiesProcessor(WikitextToEntitiesGenericProcessor wikitextToEntitiesGenericProcessor) {
 		this.wikitextToEntitiesGenericProcessor = wikitextToEntitiesGenericProcessor;
 	}

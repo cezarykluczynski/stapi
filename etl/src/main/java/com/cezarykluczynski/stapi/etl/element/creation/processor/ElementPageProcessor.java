@@ -16,7 +16,6 @@ import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Optional;
 
 @Service
@@ -41,7 +40,6 @@ public class ElementPageProcessor implements ItemProcessor<Page, Element> {
 	private final ElementSymbolFixedValueProvider elementSymbolFixedValueProvider;
 
 	@SuppressWarnings("ParameterNumber")
-	@Inject
 	public ElementPageProcessor(ElementPageFilter elementPageFilter, PageBindingService pageBindingService, UidGenerator uidGenerator,
 			TemplateFinder templateFinder, ElementTemplateEnrichingProcessor elementTemplateEnrichingProcessor,
 			TemplateTitlesExtractingProcessor templateTitlesExtractingProcessor,

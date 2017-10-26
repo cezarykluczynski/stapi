@@ -6,7 +6,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -29,7 +28,6 @@ public class AstronomicalObjectWikitextProcessor implements ItemProcessor<String
 
 	private final WikitextApi wikitextApi;
 
-	@Inject
 	public AstronomicalObjectWikitextProcessor(WikitextApi wikitextApi) {
 		this.wikitextApi = wikitextApi;
 	}

@@ -12,7 +12,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -32,7 +31,6 @@ public class EndpointHitsReader {
 
 	private final EntityMetadataProvider entityMetadataProvider;
 
-	@Inject
 	public EndpointHitsReader(EndpointHitRepository endpointHitRepository, EntityMetadataProvider entityMetadataProvider) {
 		this.endpointHitRepository = endpointHitRepository;
 		this.entityMetadataProvider = entityMetadataProvider;

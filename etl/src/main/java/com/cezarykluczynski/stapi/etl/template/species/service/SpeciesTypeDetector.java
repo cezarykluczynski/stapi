@@ -21,7 +21,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -44,7 +43,6 @@ public class SpeciesTypeDetector implements InitializingBean {
 
 	private final SpeciesTypeFixedValueProvider speciesTypeFixedValueProvider;
 
-	@Inject
 	public SpeciesTypeDetector(PageApi pageApi, WikitextApi wikitextApi, StepCompletenessDecider stepCompletenessDecider,
 			CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor, ParagraphExtractor paragraphExtractor,
 			SpeciesTypeFixedValueProvider speciesTypeFixedValueProvider) {

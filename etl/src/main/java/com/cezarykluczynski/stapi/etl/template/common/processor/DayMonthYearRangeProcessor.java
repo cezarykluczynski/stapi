@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -27,7 +26,6 @@ public class DayMonthYearRangeProcessor implements ItemProcessor<Template.Part, 
 
 	private final TemplateToDayMonthYearParser templateToDayMonthYearParser;
 
-	@Inject
 	public DayMonthYearRangeProcessor(TemplateFilter templateFilter, TemplateToDayMonthYearParser templateToDayMonthYearParser) {
 		this.templateFilter = templateFilter;
 		this.templateToDayMonthYearParser = templateToDayMonthYearParser;

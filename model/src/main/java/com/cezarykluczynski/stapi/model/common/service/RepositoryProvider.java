@@ -8,7 +8,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.support.Repositories;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -21,7 +20,6 @@ public class RepositoryProvider {
 
 	private Map<Class, CrudRepository> map;
 
-	@Inject
 	public RepositoryProvider(EntityMetadataProvider entityMetadataProvider, Repositories repositories) {
 		this.entityMetadataProvider = entityMetadataProvider;
 		this.repositories = repositories;

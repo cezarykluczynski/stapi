@@ -11,8 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 @Slf4j
 public class PublishableSeriesPublishedDatesEnrichingProcessor implements ItemWithTemplatePartEnrichingProcessor<PublishableSeriesTemplate> {
@@ -21,7 +19,6 @@ public class PublishableSeriesPublishedDatesEnrichingProcessor implements ItemWi
 
 	private final PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessor publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor;
 
-	@Inject
 	public PublishableSeriesPublishedDatesEnrichingProcessor(DayMonthYearRangeProcessor dayMonthYearRangeProcessor,
 			PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessor publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor) {
 		this.dayMonthYearRangeProcessor = dayMonthYearRangeProcessor;

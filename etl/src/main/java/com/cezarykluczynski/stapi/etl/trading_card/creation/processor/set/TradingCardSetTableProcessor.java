@@ -9,15 +9,12 @@ import org.jsoup.select.Elements;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 @Slf4j
 public class TradingCardSetTableProcessor implements ItemProcessor<Element, TradingCardSet> {
 
 	private final TradingCardSetElementsProcessor tradingCardSetElementsProcessor;
 
-	@Inject
 	public TradingCardSetTableProcessor(TradingCardSetElementsProcessor tradingCardSetElementsProcessor) {
 		this.tradingCardSetElementsProcessor = tradingCardSetElementsProcessor;
 	}

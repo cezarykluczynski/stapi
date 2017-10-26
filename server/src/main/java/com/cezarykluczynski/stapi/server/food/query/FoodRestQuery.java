@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class FoodRestQuery {
 
@@ -21,7 +19,6 @@ public class FoodRestQuery {
 
 	private final FoodRepository foodRepository;
 
-	@Inject
 	public FoodRestQuery(FoodBaseRestMapper foodBaseRestMapper, PageMapper pageMapper, FoodRepository foodRepository) {
 		this.foodBaseRestMapper = foodBaseRestMapper;
 		this.pageMapper = pageMapper;

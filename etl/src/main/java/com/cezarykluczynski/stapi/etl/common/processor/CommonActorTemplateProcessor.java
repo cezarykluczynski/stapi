@@ -7,14 +7,11 @@ import com.cezarykluczynski.stapi.model.common.entity.RealWorldPerson;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class CommonActorTemplateProcessor {
 
 	private final GenderMapper genderMapper;
 
-	@Inject
 	public CommonActorTemplateProcessor(GenderMapper genderMapper) {
 		this.genderMapper = genderMapper;
 	}

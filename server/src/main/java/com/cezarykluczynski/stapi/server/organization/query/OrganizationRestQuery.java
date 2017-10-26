@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class OrganizationRestQuery {
 
@@ -21,7 +19,6 @@ public class OrganizationRestQuery {
 
 	private final OrganizationRepository organizationRepository;
 
-	@Inject
 	public OrganizationRestQuery(OrganizationBaseRestMapper organizationBaseRestMapper, PageMapper pageMapper,
 			OrganizationRepository organizationRepository) {
 		this.organizationBaseRestMapper = organizationBaseRestMapper;

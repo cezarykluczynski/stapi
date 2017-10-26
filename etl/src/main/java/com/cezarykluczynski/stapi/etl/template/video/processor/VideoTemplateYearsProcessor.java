@@ -12,7 +12,6 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import javax.inject.Inject;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +26,6 @@ public class VideoTemplateYearsProcessor implements ItemProcessor<Template.Part,
 
 	private final YearlinkToYearProcessor yearlinkToYearProcessor;
 
-	@Inject
 	public VideoTemplateYearsProcessor(WikitextApi wikitextApi, PageLinkToYearProcessor pageLinkToYearProcessor,
 			YearlinkToYearProcessor yearlinkToYearProcessor) {
 		this.wikitextApi = wikitextApi;

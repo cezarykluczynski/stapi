@@ -10,8 +10,6 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.DatePar
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class BookTemplatePublishedDatesEnrichingProcessor implements ItemWithTemplatePartEnrichingProcessor<BookTemplate> {
 
@@ -19,7 +17,6 @@ public class BookTemplatePublishedDatesEnrichingProcessor implements ItemWithTem
 
 	private final BookPublishedDateFixedValueProvider bookPublishedDateFixedValueProvider;
 
-	@Inject
 	public BookTemplatePublishedDatesEnrichingProcessor(DatePartToDayMonthYearProcessor datePartToDayMonthYearProcessor,
 			BookPublishedDateFixedValueProvider bookPublishedDateFixedValueProvider) {
 		this.datePartToDayMonthYearProcessor = datePartToDayMonthYearProcessor;

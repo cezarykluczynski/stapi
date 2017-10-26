@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.client.v1.soap.AstronomicalObjectPortType;
 import com.cezarykluczynski.stapi.server.astronomical_object.reader.AstronomicalObjectSoapReader;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.jws.WebParam;
 
 @Service
@@ -18,7 +17,6 @@ public class AstronomicalObjectSoapEndpoint implements AstronomicalObjectPortTyp
 
 	private final AstronomicalObjectSoapReader seriesSoapReader;
 
-	@Inject
 	public AstronomicalObjectSoapEndpoint(AstronomicalObjectSoapReader seriesSoapReader) {
 		this.seriesSoapReader = seriesSoapReader;
 	}

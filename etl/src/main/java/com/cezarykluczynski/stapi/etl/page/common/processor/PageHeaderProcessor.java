@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -18,7 +17,6 @@ public class PageHeaderProcessor implements ItemProcessor<PageHeader, Page> {
 
 	private final PageApi pageApi;
 
-	@Inject
 	public PageHeaderProcessor(PageApi pageApi) {
 		this.pageApi = pageApi;
 	}

@@ -7,12 +7,9 @@ import com.google.common.collect.Lists;
 import org.springframework.batch.item.support.CompositeItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class MedicalConditionProcessor extends CompositeItemProcessor<PageHeader, MedicalCondition> {
 
-	@Inject
 	public MedicalConditionProcessor(PageHeaderProcessor pageHeaderProcessor, MedicalConditionPageProcessor medicalConditionPageProcessor) {
 		setDelegates(Lists.newArrayList(pageHeaderProcessor, medicalConditionPageProcessor));
 	}

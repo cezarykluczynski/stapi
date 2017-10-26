@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class LocationSoapQuery {
 
@@ -25,7 +23,6 @@ public class LocationSoapQuery {
 
 	private final LocationRepository locationRepository;
 
-	@Inject
 	public LocationSoapQuery(LocationBaseSoapMapper locationBaseSoapMapper, LocationFullSoapMapper locationFullSoapMapper, PageMapper pageMapper,
 			LocationRepository locationRepository) {
 		this.locationBaseSoapMapper = locationBaseSoapMapper;

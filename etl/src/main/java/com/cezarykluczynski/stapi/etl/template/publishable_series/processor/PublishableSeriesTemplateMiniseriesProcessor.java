@@ -4,7 +4,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -12,7 +11,6 @@ public class PublishableSeriesTemplateMiniseriesProcessor implements ItemProcess
 
 	private final WikitextApi wikitextApi;
 
-	@Inject
 	public PublishableSeriesTemplateMiniseriesProcessor(WikitextApi wikitextApi) {
 		this.wikitextApi = wikitextApi;
 	}

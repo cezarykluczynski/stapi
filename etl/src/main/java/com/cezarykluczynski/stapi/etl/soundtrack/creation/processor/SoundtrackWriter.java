@@ -7,7 +7,6 @@ import com.cezarykluczynski.stapi.model.soundtrack.repository.SoundtrackReposito
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +17,6 @@ public class SoundtrackWriter implements ItemWriter<Soundtrack> {
 
 	private final DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
 
-	@Inject
 	public SoundtrackWriter(SoundtrackRepository soundtrackRepository,
 			DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor) {
 		this.soundtrackRepository = soundtrackRepository;

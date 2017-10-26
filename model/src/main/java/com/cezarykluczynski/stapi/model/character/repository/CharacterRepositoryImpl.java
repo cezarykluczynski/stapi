@@ -13,7 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Repository
@@ -21,7 +20,6 @@ public class CharacterRepositoryImpl extends AbstractRepositoryImpl<Character> i
 
 	private final CharacterInitialQueryBuilderFactory characterInitialQueryBuilderFactory;
 
-	@Inject
 	public CharacterRepositoryImpl(CharacterInitialQueryBuilderFactory characterInitialQueryBuilderFactory) {
 		this.characterInitialQueryBuilderFactory = characterInitialQueryBuilderFactory;
 	}

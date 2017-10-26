@@ -16,7 +16,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Optional;
 
 @Service
@@ -36,7 +35,6 @@ public class CharacterTemplateCompositeEnrichingProcessor implements ItemEnrichi
 
 	private final FictionalTemplateCompositeEnrichingProcessor fictionalTemplateCompositeEnrichingProcessor;
 
-	@Inject
 	public CharacterTemplateCompositeEnrichingProcessor(TemplateFinder templateFinder,
 			IndividualTemplateCompositeEnrichingProcessor individualTemplateCompositeEnrichingProcessor,
 			CharacterTemplateFlagsEnrichingProcessor characterTemplateFlagsEnrichingProcessor,

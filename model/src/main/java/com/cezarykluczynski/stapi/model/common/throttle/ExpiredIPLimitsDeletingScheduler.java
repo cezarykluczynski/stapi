@@ -7,8 +7,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 @Slf4j
 @Profile(SpringProfile.API_THROTTLE)
@@ -16,7 +14,6 @@ public class ExpiredIPLimitsDeletingScheduler {
 
 	private final ThrottleRepository throttleRepository;
 
-	@Inject
 	public ExpiredIPLimitsDeletingScheduler(ThrottleRepository throttleRepository) {
 		this.throttleRepository = throttleRepository;
 	}

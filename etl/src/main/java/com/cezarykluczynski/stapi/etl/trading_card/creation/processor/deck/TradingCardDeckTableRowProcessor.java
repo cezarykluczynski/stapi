@@ -9,7 +9,6 @@ import org.jsoup.nodes.Element;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,7 +26,6 @@ public class TradingCardDeckTableRowProcessor implements ItemProcessor<List<Elem
 
 	private final TradingCardsProcessor tradingCardsProcessor;
 
-	@Inject
 	public TradingCardDeckTableRowProcessor(ElementTextNodesProcessor elementTextNodesProcessor, TradingCardTableFilter tradingCardTableFilter,
 			TradingCardsProcessor tradingCardsProcessor) {
 		this.tradingCardTableFilter = tradingCardTableFilter;

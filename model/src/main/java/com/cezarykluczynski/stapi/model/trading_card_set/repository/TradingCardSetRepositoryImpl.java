@@ -11,14 +11,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
-
 @Repository
 public class TradingCardSetRepositoryImpl extends AbstractRepositoryImpl<TradingCardSet> implements TradingCardSetRepositoryCustom {
 
 	private final TradingCardSetQueryBuilderFactory tradingCardSetQueryBuilderFactory;
 
-	@Inject
 	public TradingCardSetRepositoryImpl(TradingCardSetQueryBuilderFactory tradingCardSetQueryBuilderFactory) {
 		this.tradingCardSetQueryBuilderFactory = tradingCardSetQueryBuilderFactory;
 	}

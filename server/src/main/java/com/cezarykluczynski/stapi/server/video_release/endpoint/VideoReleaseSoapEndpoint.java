@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.client.v1.soap.VideoReleasePortType;
 import com.cezarykluczynski.stapi.server.video_release.reader.VideoReleaseSoapReader;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.jws.WebParam;
 
 @Service
@@ -18,7 +17,6 @@ public class VideoReleaseSoapEndpoint implements VideoReleasePortType {
 
 	private final VideoReleaseSoapReader videoReleaseSoapReader;
 
-	@Inject
 	public VideoReleaseSoapEndpoint(VideoReleaseSoapReader videoReleaseSoapReader) {
 		this.videoReleaseSoapReader = videoReleaseSoapReader;
 	}

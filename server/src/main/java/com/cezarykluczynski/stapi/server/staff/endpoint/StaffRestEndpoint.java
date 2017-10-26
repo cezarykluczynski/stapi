@@ -10,7 +10,6 @@ import com.cezarykluczynski.stapi.util.constant.ContentType;
 import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -29,7 +28,6 @@ public class StaffRestEndpoint {
 
 	private final StaffRestReader staffRestReader;
 
-	@Inject
 	public StaffRestEndpoint(StaffRestReader staffRestReader) {
 		this.staffRestReader = staffRestReader;
 	}

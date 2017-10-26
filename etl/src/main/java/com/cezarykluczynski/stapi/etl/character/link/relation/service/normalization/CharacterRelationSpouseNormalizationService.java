@@ -6,7 +6,6 @@ import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -14,7 +13,6 @@ class CharacterRelationSpouseNormalizationService extends AbstractCharacterRelat
 
 	private static final List<String> EXES = Lists.newArrayList("divorced", "ex", "former");
 
-	@Inject
 	CharacterRelationSpouseNormalizationService(PunctuationIgnoringWeightedLevenshtein punctuationIgnoringWeightedLevenshtein) {
 		super(punctuationIgnoringWeightedLevenshtein);
 	}

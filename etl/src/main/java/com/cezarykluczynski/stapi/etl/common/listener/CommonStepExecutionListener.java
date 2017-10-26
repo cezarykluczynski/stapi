@@ -7,7 +7,6 @@ import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.StepExecutionListener;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -16,7 +15,6 @@ public class CommonStepExecutionListener implements StepExecutionListener {
 
 	private final List<StepLogger> stepLoggerList;
 
-	@Inject
 	public CommonStepExecutionListener(List<StepLogger> stepLoggerList) {
 		this.stepLoggerList = stepLoggerList;
 	}

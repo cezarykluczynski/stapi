@@ -6,7 +6,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -16,7 +15,6 @@ public class MagazineCandidatePageGatheringService {
 
 	private final List<Page> pageList = Lists.newArrayList();
 
-	@Inject
 	public MagazineCandidatePageGatheringService(PageHeaderConverter pageHeaderConverter) {
 		this.pageHeaderConverter = pageHeaderConverter;
 	}

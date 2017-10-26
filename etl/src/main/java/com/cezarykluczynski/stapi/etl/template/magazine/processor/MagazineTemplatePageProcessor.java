@@ -13,7 +13,6 @@ import com.google.common.collect.Sets;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Optional;
 import java.util.Set;
 
@@ -31,7 +30,6 @@ public class MagazineTemplatePageProcessor implements ItemProcessor<Page, Magazi
 
 	private final MagazineTemplatePartsEnrichingProcessor magazineTemplatePartsEnrichingProcessor;
 
-	@Inject
 	public MagazineTemplatePageProcessor(TemplateFinder templateFinder, MagazineSeriesDetector magazineSeriesDetector,
 			PageBindingService pageBindingService, MagazineTemplatePartsEnrichingProcessor magazineTemplatePartsEnrichingProcessor) {
 		this.templateFinder = templateFinder;

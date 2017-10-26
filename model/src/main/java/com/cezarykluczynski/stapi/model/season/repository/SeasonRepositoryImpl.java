@@ -12,14 +12,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
-
 @Repository
 public class SeasonRepositoryImpl extends AbstractRepositoryImpl<Season> implements SeasonRepositoryCustom {
 
 	private final SeasonQueryBuilderFactory seasonQueryBuilderFactory;
 
-	@Inject
 	public SeasonRepositoryImpl(SeasonQueryBuilderFactory seasonQueryBuilderFactory) {
 		this.seasonQueryBuilderFactory = seasonQueryBuilderFactory;
 	}

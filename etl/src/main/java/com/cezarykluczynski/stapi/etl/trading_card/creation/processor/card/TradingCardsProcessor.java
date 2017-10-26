@@ -9,7 +9,6 @@ import org.jsoup.select.Elements;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Set;
 
@@ -18,7 +17,6 @@ public class TradingCardsProcessor implements ItemProcessor<List<Element>, Set<T
 
 	private final TradingCardProcessor tradingCardProcessor;
 
-	@Inject
 	public TradingCardsProcessor(TradingCardProcessor tradingCardProcessor) {
 		this.tradingCardProcessor = tradingCardProcessor;
 	}

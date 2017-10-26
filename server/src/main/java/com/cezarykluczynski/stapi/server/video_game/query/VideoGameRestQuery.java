@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class VideoGameRestQuery {
 
@@ -21,7 +19,6 @@ public class VideoGameRestQuery {
 
 	private final VideoGameRepository videoGameRepository;
 
-	@Inject
 	public VideoGameRestQuery(VideoGameBaseRestMapper videoGameBaseRestMapper, PageMapper pageMapper, VideoGameRepository videoGameRepository) {
 		this.videoGameBaseRestMapper = videoGameBaseRestMapper;
 		this.pageMapper = pageMapper;

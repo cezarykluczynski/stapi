@@ -11,7 +11,6 @@ import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Optional;
 
 @Service
@@ -27,7 +26,6 @@ public class BookSeriesTemplatePageProcessor implements ItemProcessor<Page, Book
 
 	private final BookSeriesTemplateEBookSeriesProcessor bookSeriesTemplateEBookSeriesProcessor;
 
-	@Inject
 	public BookSeriesTemplatePageProcessor(PageBindingService pageBindingService, TemplateFinder templateFinder,
 			BookSeriesTemplatePartsEnrichingProcessor bookSeriesTemplatePartsEnrichingProcessor,
 			BookSeriesTemplateFixedValuesEnrichingProcessor bookSeriesTemplateFixedValuesEnrichingProcessor,

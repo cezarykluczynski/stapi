@@ -16,8 +16,6 @@ import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class FoodRestReader implements BaseReader<FoodRestBeanParams, FoodBaseResponse>, FullReader<String, FoodFullResponse> {
 
@@ -31,7 +29,6 @@ public class FoodRestReader implements BaseReader<FoodRestBeanParams, FoodBaseRe
 
 	private final SortMapper sortMapper;
 
-	@Inject
 	public FoodRestReader(FoodRestQuery foodRestQuery, FoodBaseRestMapper foodBaseRestMapper, FoodFullRestMapper foodFullRestMapper,
 			PageMapper pageMapper, SortMapper sortMapper) {
 		this.foodRestQuery = foodRestQuery;

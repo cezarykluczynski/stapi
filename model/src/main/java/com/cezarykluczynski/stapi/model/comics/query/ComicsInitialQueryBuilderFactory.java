@@ -8,14 +8,11 @@ import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class ComicsInitialQueryBuilderFactory implements InitialQueryBuilderFactory<ComicsRequestDTO, Comics> {
 
 	private final ComicsQueryBuilderFactory comicsQueryBuilderFactory;
 
-	@Inject
 	public ComicsInitialQueryBuilderFactory(ComicsQueryBuilderFactory comicsQueryBuilderFactory) {
 		this.comicsQueryBuilderFactory = comicsQueryBuilderFactory;
 	}

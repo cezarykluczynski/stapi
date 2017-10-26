@@ -6,14 +6,11 @@ import com.cezarykluczynski.stapi.model.conflict.entity.Conflict;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class MilitaryConflictTemplateProcessor implements ItemProcessor<MilitaryConflictTemplate, Conflict> {
 
 	private final UidGenerator uidGenerator;
 
-	@Inject
 	public MilitaryConflictTemplateProcessor(UidGenerator uidGenerator) {
 		this.uidGenerator = uidGenerator;
 	}

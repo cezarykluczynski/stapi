@@ -10,7 +10,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -21,7 +20,6 @@ public class StarshipClassTemplateRelationsEnrichingProcessor implements ItemWit
 
 	private final WikitextToEntitiesProcessor wikitextToEntitiesProcessor;
 
-	@Inject
 	public StarshipClassTemplateRelationsEnrichingProcessor(StarshipClassSpacecraftTypeProcessor starshipClassSpacecraftTypeProcessor,
 			WikitextToEntitiesProcessor wikitextToEntitiesProcessor) {
 		this.starshipClassSpacecraftTypeProcessor = starshipClassSpacecraftTypeProcessor;

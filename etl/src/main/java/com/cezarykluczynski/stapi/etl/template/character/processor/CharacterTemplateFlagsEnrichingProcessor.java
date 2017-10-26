@@ -11,7 +11,6 @@ import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -28,7 +27,6 @@ public class CharacterTemplateFlagsEnrichingProcessor implements ItemEnrichingPr
 
 	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
-	@Inject
 	public CharacterTemplateFlagsEnrichingProcessor(TemplateFinder templateFinder,
 			CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {
 		this.templateFinder = templateFinder;

@@ -11,7 +11,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -26,7 +25,6 @@ public class SpeciesTemplatePartsEnrichingProcessor implements ItemWithTemplateP
 
 	private final SpeciesTemplateTypeWikitextEnrichingProcessor speciesTemplateTypeWikitextEnrichingProcessor;
 
-	@Inject
 	public SpeciesTemplatePartsEnrichingProcessor(WikitextApi wikitextApi, EntityLookupByNameService entityLookupByNameService,
 			SpeciesTemplateTypeWikitextEnrichingProcessor speciesTemplateTypeWikitextEnrichingProcessor) {
 		this.wikitextApi = wikitextApi;

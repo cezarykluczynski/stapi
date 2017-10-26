@@ -16,8 +16,6 @@ import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class CharacterRestReader implements BaseReader<CharacterRestBeanParams, CharacterBaseResponse>, FullReader<String, CharacterFullResponse> {
 
@@ -31,7 +29,6 @@ public class CharacterRestReader implements BaseReader<CharacterRestBeanParams, 
 
 	private final SortMapper sortMapper;
 
-	@Inject
 	public CharacterRestReader(CharacterRestQuery characterRestQuery, CharacterBaseRestMapper characterBaseRestMapper,
 			CharacterFullRestMapper characterFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.characterRestQuery = characterRestQuery;

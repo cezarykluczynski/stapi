@@ -9,14 +9,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
-
 @Repository
 public class ElementRepositoryImpl implements ElementRepositoryCustom {
 
 	private final ElementQueryBuilderFactory elementQueryBuilderFactory;
 
-	@Inject
 	public ElementRepositoryImpl(ElementQueryBuilderFactory elementQueryBuilderFactory) {
 		this.elementQueryBuilderFactory = elementQueryBuilderFactory;
 	}

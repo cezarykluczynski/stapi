@@ -9,7 +9,6 @@ import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -17,7 +16,6 @@ public class AstronomicalObjectTypeEnrichingProcessor implements ItemEnrichingPr
 
 	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
-	@Inject
 	public AstronomicalObjectTypeEnrichingProcessor(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
 	}

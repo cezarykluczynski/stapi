@@ -9,7 +9,6 @@ import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -17,7 +16,6 @@ public class BookTemplatePartStaffEnrichingProcessor implements ItemWithTemplate
 
 	private final WikitextToEntitiesProcessor wikitextToEntitiesProcessor;
 
-	@Inject
 	public BookTemplatePartStaffEnrichingProcessor(WikitextToEntitiesProcessor wikitextToEntitiesProcessor) {
 		this.wikitextToEntitiesProcessor = wikitextToEntitiesProcessor;
 	}

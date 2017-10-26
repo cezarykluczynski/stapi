@@ -8,14 +8,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class ActorTemplateTemplateProcessor implements ItemProcessor<Template, ActorTemplate> {
 
 	private PartToGenderProcessor partToGenderProcessor;
 
-	@Inject
 	public ActorTemplateTemplateProcessor(PartToGenderProcessor partToGenderProcessor) {
 		this.partToGenderProcessor = partToGenderProcessor;
 	}

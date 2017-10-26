@@ -18,7 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,7 +39,6 @@ public class ToEpisodeTemplateProcessor implements ItemProcessor<Page, EpisodeTe
 
 	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
-	@Inject
 	public ToEpisodeTemplateProcessor(EpisodeTemplateProcessor episodeTemplateProcessor, EpisodeLinkingWorkerComposite episodeLinkingWorkerComposite,
 			PageBindingService pageBindingService, SeriesToEpisodeBindingService seriesToEpisodeBindingService,
 			EpisodeTemplateEnrichingProcessorComposite episodeTemplateEnrichingProcessorComposite, TemplateFinder templateFinder,

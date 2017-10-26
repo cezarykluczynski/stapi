@@ -19,7 +19,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Optional;
 import java.util.Set;
 
@@ -48,7 +47,6 @@ public class ComicsTemplatePageProcessor implements ItemProcessor<Page, ComicsTe
 
 	private final PageCacheStorage pageCacheStorage;
 
-	@Inject
 	@SuppressWarnings("ParameterNumber")
 	public ComicsTemplatePageProcessor(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor,
 			ComicStripCandidatePageGatheringService comicStripCandidatePageGatheringService, PageBindingService pageBindingService,

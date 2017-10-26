@@ -6,15 +6,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 @Slf4j
 public class PageCacheService {
 
 	private final FrequentHitCachingHelper frequentHitCachingHelper;
 
-	@Inject
 	public PageCacheService(FrequentHitCachingHelper frequentHitCachingHelper) {
 		this.frequentHitCachingHelper = frequentHitCachingHelper;
 	}

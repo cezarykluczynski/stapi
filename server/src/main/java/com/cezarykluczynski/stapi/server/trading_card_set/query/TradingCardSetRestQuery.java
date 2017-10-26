@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class TradingCardSetRestQuery {
 
@@ -21,7 +19,6 @@ public class TradingCardSetRestQuery {
 
 	private final TradingCardSetRepository tradingCardSetRepository;
 
-	@Inject
 	public TradingCardSetRestQuery(TradingCardSetBaseRestMapper tradingCardSetBaseRestMapper, PageMapper pageMapper,
 			TradingCardSetRepository tradingCardSetRepository) {
 		this.tradingCardSetBaseRestMapper = tradingCardSetBaseRestMapper;

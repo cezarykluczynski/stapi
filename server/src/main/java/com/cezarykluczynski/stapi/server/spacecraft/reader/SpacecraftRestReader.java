@@ -16,8 +16,6 @@ import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class SpacecraftRestReader implements BaseReader<SpacecraftRestBeanParams, SpacecraftBaseResponse>,
 		FullReader<String, SpacecraftFullResponse> {
@@ -32,7 +30,6 @@ public class SpacecraftRestReader implements BaseReader<SpacecraftRestBeanParams
 
 	private final SortMapper sortMapper;
 
-	@Inject
 	public SpacecraftRestReader(SpacecraftRestQuery spacecraftRestQuery, SpacecraftBaseRestMapper spacecraftBaseRestMapper,
 			SpacecraftFullRestMapper spacecraftFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.spacecraftRestQuery = spacecraftRestQuery;

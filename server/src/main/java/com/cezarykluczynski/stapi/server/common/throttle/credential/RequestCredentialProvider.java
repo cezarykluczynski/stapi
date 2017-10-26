@@ -3,7 +3,6 @@ package com.cezarykluczynski.stapi.server.common.throttle.credential;
 import org.apache.cxf.message.Message;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 @Service
@@ -17,7 +16,6 @@ public class RequestCredentialProvider {
 
 	private final RestApiKeyExtractor restApiKeyExtractor;
 
-	@Inject
 	public RequestCredentialProvider(HttpServletRequest httpServletRequest, MessageContentExtractor messageContentExtractor,
 			SoapApiKeyExtractor soapApiKeyExtractor, RestApiKeyExtractor restApiKeyExtractor) {
 		this.httpServletRequest = httpServletRequest;

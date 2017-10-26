@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -73,7 +72,6 @@ public class IndividualTemplateDateOfDeathEnrichingProcessor implements ItemWith
 
 	private final IndividualDateStatusValueToYearProcessor individualDateStatusValueToYearProcessor;
 
-	@Inject
 	public IndividualTemplateDateOfDeathEnrichingProcessor(WikitextApi wikitextApi,
 			IndividualDateStatusValueToYearProcessor individualDateStatusValueToYearProcessor) {
 		this.wikitextApi = wikitextApi;

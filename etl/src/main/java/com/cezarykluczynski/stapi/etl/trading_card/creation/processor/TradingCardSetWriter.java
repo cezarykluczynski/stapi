@@ -5,7 +5,6 @@ import com.cezarykluczynski.stapi.model.trading_card_set.repository.TradingCardS
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -13,7 +12,6 @@ public class TradingCardSetWriter implements ItemWriter<TradingCardSet> {
 
 	private final TradingCardSetRepository tradingCardSetRepository;
 
-	@Inject
 	public TradingCardSetWriter(TradingCardSetRepository tradingCardSetRepository) {
 		this.tradingCardSetRepository = tradingCardSetRepository;
 	}

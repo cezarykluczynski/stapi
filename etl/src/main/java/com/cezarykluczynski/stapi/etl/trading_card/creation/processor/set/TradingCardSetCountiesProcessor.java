@@ -6,7 +6,6 @@ import com.cezarykluczynski.stapi.model.country.entity.Country;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -17,7 +16,6 @@ public class TradingCardSetCountiesProcessor implements ItemProcessor<String, Se
 
 	private final CountryFactory countryFactory;
 
-	@Inject
 	public TradingCardSetCountiesProcessor(CountryDTOProvider countryDTOProvider, CountryFactory countryFactory) {
 		this.countryDTOProvider = countryDTOProvider;
 		this.countryFactory = countryFactory;

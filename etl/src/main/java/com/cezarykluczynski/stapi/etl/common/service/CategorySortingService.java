@@ -6,7 +6,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -20,7 +19,6 @@ public class CategorySortingService {
 
 	private final WikitextApi wikitextApi;
 
-	@Inject
 	public CategorySortingService(WikitextApi wikitextApi) {
 		this.wikitextApi = wikitextApi;
 	}

@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class TradingCardSetSoapQuery {
 
@@ -25,7 +23,6 @@ public class TradingCardSetSoapQuery {
 
 	private final TradingCardSetRepository tradingCardSetRepository;
 
-	@Inject
 	public TradingCardSetSoapQuery(TradingCardSetBaseSoapMapper tradingCardSetBaseSoapMapper,
 			TradingCardSetFullSoapMapper tradingCardSetFullSoapMapper, PageMapper pageMapper, TradingCardSetRepository tradingCardSetRepository) {
 		this.tradingCardSetBaseSoapMapper = tradingCardSetBaseSoapMapper;

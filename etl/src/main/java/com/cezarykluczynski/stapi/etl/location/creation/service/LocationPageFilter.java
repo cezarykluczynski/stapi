@@ -9,8 +9,6 @@ import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 @Slf4j
 public class LocationPageFilter implements MediaWikiPageFilter {
@@ -19,7 +17,6 @@ public class LocationPageFilter implements MediaWikiPageFilter {
 
 	private final LocationNameFilter locationNameFilter;
 
-	@Inject
 	public LocationPageFilter(CategoryFinder categoryFinder, LocationNameFilter locationNameFilter) {
 		this.categoryFinder = categoryFinder;
 		this.locationNameFilter = locationNameFilter;

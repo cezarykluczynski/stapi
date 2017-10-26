@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.client.v1.soap.LocationPortType;
 import com.cezarykluczynski.stapi.server.location.reader.LocationSoapReader;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.jws.WebParam;
 
 @Service
@@ -18,7 +17,6 @@ public class LocationSoapEndpoint implements LocationPortType {
 
 	private final LocationSoapReader seriesSoapReader;
 
-	@Inject
 	public LocationSoapEndpoint(LocationSoapReader seriesSoapReader) {
 		this.seriesSoapReader = seriesSoapReader;
 	}

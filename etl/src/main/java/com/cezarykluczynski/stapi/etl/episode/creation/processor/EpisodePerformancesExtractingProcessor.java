@@ -13,7 +13,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -92,7 +91,6 @@ public class EpisodePerformancesExtractingProcessor implements ItemProcessor<Pag
 
 	private WikitextApi wikitextApi;
 
-	@Inject
 	public EpisodePerformancesExtractingProcessor(WikitextApi wikitextApi) {
 		this.wikitextApi = wikitextApi;
 	}

@@ -10,7 +10,6 @@ import org.apache.commons.lang3.math.Fraction;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +30,6 @@ public class CharacterSpeciesLiteralFractionWikitextEnrichingProcessor
 
 	private final CharacterSpeciesWithSpeciesNameEnrichingProcessor characterSpeciesWithSpeciesNameEnrichingProcessor;
 
-	@Inject
 	public CharacterSpeciesLiteralFractionWikitextEnrichingProcessor(
 			CharacterSpeciesWithSpeciesNameEnrichingProcessor characterSpeciesWithSpeciesNameEnrichingProcessor) {
 		this.characterSpeciesWithSpeciesNameEnrichingProcessor = characterSpeciesWithSpeciesNameEnrichingProcessor;

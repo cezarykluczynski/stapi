@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class SoundtrackRestQuery {
 
@@ -21,7 +19,6 @@ public class SoundtrackRestQuery {
 
 	private final SoundtrackRepository soundtrackRepository;
 
-	@Inject
 	public SoundtrackRestQuery(SoundtrackBaseRestMapper soundtrackBaseRestMapper, PageMapper pageMapper, SoundtrackRepository soundtrackRepository) {
 		this.soundtrackBaseRestMapper = soundtrackBaseRestMapper;
 		this.pageMapper = pageMapper;

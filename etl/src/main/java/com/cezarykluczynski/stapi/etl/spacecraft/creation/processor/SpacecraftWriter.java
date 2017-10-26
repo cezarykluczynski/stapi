@@ -7,7 +7,6 @@ import com.cezarykluczynski.stapi.model.spacecraft.repository.SpacecraftReposito
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +17,6 @@ public class SpacecraftWriter implements ItemWriter<Spacecraft> {
 
 	private final DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
 
-	@Inject
 	public SpacecraftWriter(SpacecraftRepository spacecraftRepository,
 			DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor) {
 		this.spacecraftRepository = spacecraftRepository;

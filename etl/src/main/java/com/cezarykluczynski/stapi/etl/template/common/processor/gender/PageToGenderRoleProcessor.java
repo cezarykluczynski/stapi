@@ -19,7 +19,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +38,6 @@ public class PageToGenderRoleProcessor implements ItemProcessor<Page, Gender> {
 
 	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
-	@Inject
 	public PageToGenderRoleProcessor(PageApi pageApi, WikitextApi wikitextApi, TemplateFinder templateFinder,
 			IndividualTemplatePartsEnrichingProcessor characterTemplatePartsEnrichingProcessor,
 			CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {

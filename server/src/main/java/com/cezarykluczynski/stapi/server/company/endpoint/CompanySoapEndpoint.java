@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.client.v1.soap.CompanyPortType;
 import com.cezarykluczynski.stapi.server.company.reader.CompanySoapReader;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.jws.WebParam;
 
 @Service
@@ -18,7 +17,6 @@ public class CompanySoapEndpoint implements CompanyPortType {
 
 	private final CompanySoapReader seriesSoapReader;
 
-	@Inject
 	public CompanySoapEndpoint(CompanySoapReader seriesSoapReader) {
 		this.seriesSoapReader = seriesSoapReader;
 	}

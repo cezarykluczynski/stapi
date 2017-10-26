@@ -14,8 +14,6 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 @Slf4j
 
@@ -27,7 +25,6 @@ public class MovieTemplateProcessor implements ItemProcessor<Template, MovieTemp
 
 	private final MovieTemplateStaffEnrichingProcessor movieTemplateStaffEnrichingProcessor;
 
-	@Inject
 	public MovieTemplateProcessor(DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor,
 			@Qualifier(CommonTemplateConfiguration.MOVIE_TEMPALTE_STARDATE_YEAR_ENRICHING_PROCESSOR)
 					ImageTemplateStardateYearEnrichingProcessor imageTemplateStardateYearEnrichingProcessor,

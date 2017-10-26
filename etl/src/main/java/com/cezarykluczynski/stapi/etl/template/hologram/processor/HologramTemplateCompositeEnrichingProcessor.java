@@ -17,8 +17,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 @Slf4j
 public class HologramTemplateCompositeEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<CharacterTemplate> {
@@ -35,7 +33,6 @@ public class HologramTemplateCompositeEnrichingProcessor implements ItemWithTemp
 
 	private final CharacterTemplateActorLinkingEnrichingProcessor characterTemplateActorLinkingEnrichingProcessor;
 
-	@Inject
 	public HologramTemplateCompositeEnrichingProcessor(CharacterSpeciesWikitextProcessor characterSpeciesWikitextProcessor,
 			CharactersRelationsCache charactersRelationsCache, HologramActivationDateProcessor hologramActivationDateProcessor,
 			StatusProcessor statusProcessor, DateStatusProcessor dateStatusProcessor,

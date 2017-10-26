@@ -6,15 +6,12 @@ import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 class CharacterRelationSiblingNormalizationService extends AbstractCharacterRelationNormalizationService {
 
 	private static final String OLDER = "older";
 	private static final String YOUNGER = "younger";
 
-	@Inject
 	CharacterRelationSiblingNormalizationService(PunctuationIgnoringWeightedLevenshtein punctuationIgnoringWeightedLevenshtein) {
 		super(punctuationIgnoringWeightedLevenshtein);
 	}

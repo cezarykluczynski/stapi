@@ -7,8 +7,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class ComicCollectionTemplatePageProcessor implements ItemProcessor<Page, ComicCollectionTemplate> {
 
@@ -18,7 +16,6 @@ public class ComicCollectionTemplatePageProcessor implements ItemProcessor<Page,
 
 	private final ComicCollectionTemplateWikitextComicsProcessor comicCollectionTemplateWikitextComicsProcessor;
 
-	@Inject
 	public ComicCollectionTemplatePageProcessor(ComicsTemplatePageProcessor comicsTemplatePageProcessor,
 			ComicsTemplateToComicCollectionTemplateProcessor comicsTemplateToComicCollectionTemplateProcessor,
 			ComicCollectionTemplateWikitextComicsProcessor comicCollectionTemplateWikitextComicsProcessor) {

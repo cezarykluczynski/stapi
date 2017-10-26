@@ -17,7 +17,6 @@ import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
@@ -46,8 +45,6 @@ public class BlikiConnector {
 
 	private final MediaWikiSourcesProperties mediaWikiSourcesProperties;
 
-
-	@Inject
 	public BlikiConnector(BlikiUserDecoratorBeanMapProvider blikiUserDecoratorBeanMapProvider, WikiaWikisDetector wikiaWikisDetector,
 			MediaWikiMinimalIntervalProvider mediaWikiMinimalIntervalProvider, MediaWikiSourcesProperties mediaWikiSourcesProperties) {
 		this.blikiUserDecoratorBeanMapProvider = blikiUserDecoratorBeanMapProvider;

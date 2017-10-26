@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,7 +22,6 @@ public class SeriesTemplateCompanyProcessor implements ItemProcessor<Template.Pa
 
 	private final CompanyRepository companyRepository;
 
-	@Inject
 	public SeriesTemplateCompanyProcessor(WikitextApi wikitextApi, CompanyRepository companyRepository) {
 		this.wikitextApi = wikitextApi;
 		this.companyRepository = companyRepository;

@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class TitleSoapQuery {
 
@@ -25,7 +23,6 @@ public class TitleSoapQuery {
 
 	private final TitleRepository titleRepository;
 
-	@Inject
 	public TitleSoapQuery(TitleBaseSoapMapper titleBaseSoapMapper, TitleFullSoapMapper titleFullSoapMapper, PageMapper pageMapper,
 			TitleRepository titleRepository) {
 		this.titleBaseSoapMapper = titleBaseSoapMapper;

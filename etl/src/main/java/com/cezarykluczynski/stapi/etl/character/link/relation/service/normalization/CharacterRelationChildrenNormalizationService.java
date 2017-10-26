@@ -4,15 +4,12 @@ import com.cezarykluczynski.stapi.etl.character.link.relation.dto.CharacterRelat
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 class CharacterRelationChildrenNormalizationService extends AbstractCharacterRelationNormalizationService {
 
 	private static final String STEP_SON = "Step-son";
 	private static final String[] ADOPTIVE_CHILDREN_ADJECTIVE = {"adopted", "adoptive"};
 
-	@Inject
 	CharacterRelationChildrenNormalizationService(PunctuationIgnoringWeightedLevenshtein punctuationIgnoringWeightedLevenshtein) {
 		super(punctuationIgnoringWeightedLevenshtein);
 	}

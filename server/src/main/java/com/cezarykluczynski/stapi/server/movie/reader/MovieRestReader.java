@@ -16,8 +16,6 @@ import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class MovieRestReader implements BaseReader<MovieRestBeanParams, MovieBaseResponse>, FullReader<String, MovieFullResponse> {
 
@@ -31,7 +29,6 @@ public class MovieRestReader implements BaseReader<MovieRestBeanParams, MovieBas
 
 	private final SortMapper sortMapper;
 
-	@Inject
 	public MovieRestReader(MovieRestQuery movieRestQuery, MovieBaseRestMapper movieBaseRestMapper, MovieFullRestMapper movieFullRestMapper,
 			PageMapper pageMapper, SortMapper sortMapper) {
 		this.movieRestQuery = movieRestQuery;

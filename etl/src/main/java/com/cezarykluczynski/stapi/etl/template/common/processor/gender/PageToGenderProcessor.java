@@ -7,8 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 @Slf4j
 public class PageToGenderProcessor implements ItemProcessor<Page, Gender> {
@@ -21,7 +19,6 @@ public class PageToGenderProcessor implements ItemProcessor<Page, Gender> {
 
 	private final PageToGenderNameProcessor pageToGenderNameProcessor;
 
-	@Inject
 	public PageToGenderProcessor(PageToGenderPronounProcessor pageToGenderPronounProcessor, PageToGenderRoleProcessor pageToGenderRoleProcessor,
 			GenderFixedValueProvider genderFixedValueProvider, PageToGenderNameProcessor pageToGenderNameProcessor) {
 		this.pageToGenderPronounProcessor = pageToGenderPronounProcessor;

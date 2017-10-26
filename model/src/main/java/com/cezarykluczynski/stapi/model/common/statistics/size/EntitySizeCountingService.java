@@ -4,7 +4,6 @@ import com.cezarykluczynski.stapi.model.common.service.RepositoryProvider;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -13,7 +12,6 @@ class EntitySizeCountingService {
 
 	private final RepositoryProvider repositoryProvider;
 
-	@Inject
 	EntitySizeCountingService(RepositoryProvider repositoryProvider) {
 		this.repositoryProvider = repositoryProvider;
 	}

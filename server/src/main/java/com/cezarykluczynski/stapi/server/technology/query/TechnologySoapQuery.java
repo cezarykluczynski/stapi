@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class TechnologySoapQuery {
 
@@ -25,7 +23,6 @@ public class TechnologySoapQuery {
 
 	private final TechnologyRepository technologyRepository;
 
-	@Inject
 	public TechnologySoapQuery(TechnologyBaseSoapMapper technologyBaseSoapMapper, TechnologyFullSoapMapper technologyFullSoapMapper,
 			PageMapper pageMapper, TechnologyRepository technologyRepository) {
 		this.technologyBaseSoapMapper = technologyBaseSoapMapper;

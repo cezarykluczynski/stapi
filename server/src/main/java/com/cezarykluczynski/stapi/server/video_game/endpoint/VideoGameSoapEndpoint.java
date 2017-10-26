@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.client.v1.soap.VideoGamePortType;
 import com.cezarykluczynski.stapi.server.video_game.reader.VideoGameSoapReader;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.jws.WebParam;
 
 @Service
@@ -18,7 +17,6 @@ public class VideoGameSoapEndpoint implements VideoGamePortType {
 
 	private final VideoGameSoapReader videoGameSoapReader;
 
-	@Inject
 	public VideoGameSoapEndpoint(VideoGameSoapReader videoGameSoapReader) {
 		this.videoGameSoapReader = videoGameSoapReader;
 	}

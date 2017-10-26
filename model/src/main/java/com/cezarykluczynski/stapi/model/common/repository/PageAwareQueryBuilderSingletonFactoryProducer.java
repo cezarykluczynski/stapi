@@ -6,7 +6,6 @@ import com.google.common.collect.Maps;
 import org.springframework.data.jpa.repository.JpaContext;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Map;
 
 @Service
@@ -18,7 +17,6 @@ public class PageAwareQueryBuilderSingletonFactoryProducer {
 
 	private final Map<Class<? extends PageAware>, PageAwareQueryBuilderFactory> factoryCache = Maps.newHashMap();
 
-	@Inject
 	public PageAwareQueryBuilderSingletonFactoryProducer(JpaContext jpaContext, CachingStrategy cachingStrategy) {
 		this.jpaContext = jpaContext;
 		this.cachingStrategy = cachingStrategy;

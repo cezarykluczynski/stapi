@@ -1,13 +1,12 @@
 package com.cezarykluczynski.stapi.etl.spacecraft_type.creation.processor;
 
-import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType;
-import com.cezarykluczynski.stapi.model.spacecraft_type.repository.SpacecraftTypeRepository;
 import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.service.DuplicateFilteringPreSavePageAwareFilter;
+import com.cezarykluczynski.stapi.model.spacecraft_type.entity.SpacecraftType;
+import com.cezarykluczynski.stapi.model.spacecraft_type.repository.SpacecraftTypeRepository;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +17,6 @@ public class SpacecraftTypeWriter implements ItemWriter<SpacecraftType> {
 
 	private final DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
 
-	@Inject
 	public SpacecraftTypeWriter(SpacecraftTypeRepository spacecraftTypeRepository,
 			DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor) {
 		this.spacecraftTypeRepository = spacecraftTypeRepository;

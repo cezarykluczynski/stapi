@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.client.v1.soap.PerformerPortType;
 import com.cezarykluczynski.stapi.server.performer.reader.PerformerSoapReader;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.jws.WebParam;
 
 @Service
@@ -18,7 +17,6 @@ public class PerformerSoapEndpoint implements PerformerPortType {
 
 	private final PerformerSoapReader performerSoapReader;
 
-	@Inject
 	public PerformerSoapEndpoint(PerformerSoapReader performerSoapReader) {
 		this.performerSoapReader = performerSoapReader;
 	}

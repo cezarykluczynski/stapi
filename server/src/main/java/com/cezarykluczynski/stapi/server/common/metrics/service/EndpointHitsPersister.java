@@ -7,7 +7,6 @@ import com.cezarykluczynski.stapi.server.common.metrics.factory.EndpointHitFacto
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -21,7 +20,6 @@ public class EndpointHitsPersister {
 
 	private final EndpointHitFactory endpointHitFactory;
 
-	@Inject
 	public EndpointHitsPersister(EndpointHitRepository endpointHitRepository, EndpointHitFactory endpointHitFactory) {
 		this.endpointHitRepository = endpointHitRepository;
 		this.endpointHitFactory = endpointHitFactory;

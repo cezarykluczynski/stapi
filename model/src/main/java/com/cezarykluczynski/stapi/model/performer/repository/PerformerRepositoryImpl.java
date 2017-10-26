@@ -12,14 +12,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
-
 @Repository
 public class PerformerRepositoryImpl extends AbstractRepositoryImpl<Performer> implements PerformerRepositoryCustom {
 
 	private final PerformerQueryBuilderFactory performerQueryBuilderFactory;
 
-	@Inject
 	public PerformerRepositoryImpl(PerformerQueryBuilderFactory performerQueryBuilderFactory) {
 		this.performerQueryBuilderFactory = performerQueryBuilderFactory;
 	}

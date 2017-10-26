@@ -8,8 +8,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class SeasonPageProcessor implements ItemProcessor<Page, Season> {
 
@@ -23,7 +21,6 @@ public class SeasonPageProcessor implements ItemProcessor<Page, Season> {
 
 	private final SeasonNumberOfEpisodesFixedValueProvider seasonNumberOfEpisodesFixedValueProvider;
 
-	@Inject
 	public SeasonPageProcessor(UidGenerator uidGenerator, PageBindingService pageBindingService, SeasonSeriesProcessor seasonSeriesProcessor,
 			SeasonNumberProcessor seasonNumberProcessor, SeasonNumberOfEpisodesFixedValueProvider seasonNumberOfEpisodesFixedValueProvider) {
 		this.uidGenerator = uidGenerator;

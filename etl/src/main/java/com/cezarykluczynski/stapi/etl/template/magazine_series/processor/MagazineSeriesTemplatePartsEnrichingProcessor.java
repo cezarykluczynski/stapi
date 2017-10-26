@@ -13,7 +13,6 @@ import com.cezarykluczynski.stapi.etl.template.publishable_series.processor.Publ
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -29,7 +28,6 @@ public class MagazineSeriesTemplatePartsEnrichingProcessor implements ItemWithTe
 
 	private final MagazineSeriesNumberOfIssuesFixedValueProvider magazineSeriesNumberOfIssuesFixedValueProvider;
 
-	@Inject
 	public MagazineSeriesTemplatePartsEnrichingProcessor(PublishableSeriesTemplatePartsEnrichingProcessor
 			publishableSeriesTemplatePartsEnrichingProcessor, NumberOfPartsProcessor numberOfPartsProcessor,
 			WikitextToEntitiesProcessor wikitextToEntitiesProcessor,

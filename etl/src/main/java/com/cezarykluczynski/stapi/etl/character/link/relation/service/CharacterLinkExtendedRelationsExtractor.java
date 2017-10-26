@@ -7,7 +7,6 @@ import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,7 +18,6 @@ public class CharacterLinkExtendedRelationsExtractor {
 
 	private final WikitextApi wikitextApi;
 
-	@Inject
 	public CharacterLinkExtendedRelationsExtractor(WikitextApi wikitextApi) {
 		this.wikitextApi = wikitextApi;
 	}

@@ -9,7 +9,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -23,7 +22,6 @@ public class ComicsTemplateCompositeEnrichingProcessor implements ItemEnrichingP
 
 	private final ComicsTemplateWikitextStaffEnrichingProcessor comicsTemplateWikitextStaffEnrichingProcessor;
 
-	@Inject
 	public ComicsTemplateCompositeEnrichingProcessor(PageSectionExtractor pageSectionExtractor,
 			ComicsTemplateWikitextStaffEnrichingProcessor comicsTemplateWikitextStaffEnrichingProcessor) {
 		this.pageSectionExtractor = pageSectionExtractor;

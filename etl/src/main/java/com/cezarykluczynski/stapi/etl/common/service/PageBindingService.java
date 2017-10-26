@@ -7,7 +7,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Optional;
 
 @Service
@@ -17,7 +16,6 @@ public class PageBindingService {
 
 	private final MediaWikiSourceMapper mediaWikiSourceMapper;
 
-	@Inject
 	public PageBindingService(PageRepository pageRepository, MediaWikiSourceMapper mediaWikiSourceMapper) {
 		this.pageRepository = pageRepository;
 		this.mediaWikiSourceMapper = mediaWikiSourceMapper;

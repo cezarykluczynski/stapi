@@ -6,7 +6,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.time.YearMonth;
 
 @Service
@@ -16,7 +15,6 @@ public class MonthlinkTemplateToMonthYearProcessor implements ItemProcessor<Temp
 
 	private final MonthYearCandidateToYearMonthProcessor monthYearCandidateToYearMonthProcessor;
 
-	@Inject
 	public MonthlinkTemplateToMonthYearProcessor(MonthlinkTemplateToMonthYearCandiateProcessor monthlinkTemplateToMonthYearCandiateProcessor,
 			MonthYearCandidateToYearMonthProcessor monthYearCandidateToYearMonthProcessor) {
 		this.monthlinkTemplateToMonthYearCandiateProcessor = monthlinkTemplateToMonthYearCandiateProcessor;

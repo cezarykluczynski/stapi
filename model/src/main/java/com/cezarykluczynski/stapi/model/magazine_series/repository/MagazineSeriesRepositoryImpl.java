@@ -1,24 +1,21 @@
 package com.cezarykluczynski.stapi.model.magazine_series.repository;
 
+import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
+import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
 import com.cezarykluczynski.stapi.model.magazine_series.dto.MagazineSeriesRequestDTO;
 import com.cezarykluczynski.stapi.model.magazine_series.entity.MagazineSeries;
 import com.cezarykluczynski.stapi.model.magazine_series.entity.MagazineSeries_;
 import com.cezarykluczynski.stapi.model.magazine_series.query.MagazineSeriesQueryBuilderFactory;
-import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
-import com.cezarykluczynski.stapi.model.common.repository.AbstractRepositoryImpl;
 import com.google.common.collect.Sets;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
-
-import javax.inject.Inject;
 
 @Repository
 public class MagazineSeriesRepositoryImpl extends AbstractRepositoryImpl<MagazineSeries> implements MagazineSeriesRepositoryCustom {
 
 	private final MagazineSeriesQueryBuilderFactory comicSeriesQueryBuilderFactory;
 
-	@Inject
 	public MagazineSeriesRepositoryImpl(MagazineSeriesQueryBuilderFactory comicSeriesQueryBuilderFactory) {
 		this.comicSeriesQueryBuilderFactory = comicSeriesQueryBuilderFactory;
 	}

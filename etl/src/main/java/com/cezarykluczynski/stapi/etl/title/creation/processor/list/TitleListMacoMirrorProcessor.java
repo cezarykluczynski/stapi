@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -22,7 +21,6 @@ class TitleListMacoMirrorProcessor {
 
 	private final TitleRepository titleRepository;
 
-	@Inject
 	TitleListMacoMirrorProcessor(PageRepository pageRepository, UidGenerator uidGenerator, TitleRepository titleRepository) {
 		this.pageRepository = pageRepository;
 		this.uidGenerator = uidGenerator;

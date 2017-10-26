@@ -16,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,7 +37,6 @@ public class PageApiImpl implements PageApi {
 
 	private final PageCacheStorage pageCacheStorage;
 
-	@Inject
 	public PageApiImpl(BlikiConnector blikiConnector, WikitextApi wikitextApi, ParseComplementingService parseComplementingService,
 			PageCacheStorage pageCacheStorage) {
 		this.blikiConnector = blikiConnector;

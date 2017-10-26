@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.client.v1.soap.AnimalPortType;
 import com.cezarykluczynski.stapi.server.animal.reader.AnimalSoapReader;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.jws.WebParam;
 
 @Service
@@ -18,7 +17,6 @@ public class AnimalSoapEndpoint implements AnimalPortType {
 
 	private final AnimalSoapReader seriesSoapReader;
 
-	@Inject
 	public AnimalSoapEndpoint(AnimalSoapReader seriesSoapReader) {
 		this.seriesSoapReader = seriesSoapReader;
 	}

@@ -6,8 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 @Slf4j
 public class MediaWikiMinimalIntervalConfigurationStrategy {
@@ -16,7 +14,6 @@ public class MediaWikiMinimalIntervalConfigurationStrategy {
 
 	private final WikiaUrlDetector wikiaUrlDetector;
 
-	@Inject
 	public MediaWikiMinimalIntervalConfigurationStrategy(WikiaUrlDetector wikiaUrlDetector) {
 		this.wikiaUrlDetector = wikiaUrlDetector;
 	}

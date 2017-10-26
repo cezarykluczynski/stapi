@@ -15,7 +15,6 @@ import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Set;
 
@@ -46,7 +45,6 @@ public class ComicsTemplateWikitextStaffEnrichingProcessor implements ItemEnrich
 
 	private final EntityLookupByNameService entityLookupByNameService;
 
-	@Inject
 	public ComicsTemplateWikitextStaffEnrichingProcessor(WikitextListsExtractor wikitextListsExtractor, WikitextApi wikitextApi,
 			EntityLookupByNameService entityLookupByNameService) {
 		this.wikitextListsExtractor = wikitextListsExtractor;

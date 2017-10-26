@@ -6,8 +6,6 @@ import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 @Slf4j
 public class MovieStaffLinkingWorkerComposite implements LinkingWorker<MovieLinkedTitlesDTO, Movie> {
@@ -24,7 +22,6 @@ public class MovieStaffLinkingWorkerComposite implements LinkingWorker<MovieLink
 
 	private final MovieStaffLinkingWorker movieStaffLinkingWorker;
 
-	@Inject
 	public MovieStaffLinkingWorkerComposite(MovieWritersLinkingWorker movieWritersLinkingWorker,
 	MovieScreenplayAuthorsLinkingWorker movieScreenplayAuthorsLinkingWorker,
 	MovieStoryAuthorsLinkingWorker movieStoryAuthorsLinkingWorker,

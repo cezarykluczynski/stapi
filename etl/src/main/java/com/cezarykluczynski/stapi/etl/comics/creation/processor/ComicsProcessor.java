@@ -8,12 +8,9 @@ import com.google.common.collect.Lists;
 import org.springframework.batch.item.support.CompositeItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class ComicsProcessor extends CompositeItemProcessor<PageHeader, Comics> {
 
-	@Inject
 	public ComicsProcessor(PageHeaderProcessor pageHeaderProcessor, ComicsTemplatePageProcessor comicSeriesTemplatePageProcessor,
 			ComicsTemplateProcessor comicSeriesTemplateProcessor) {
 		setDelegates(Lists.newArrayList(pageHeaderProcessor, comicSeriesTemplatePageProcessor,

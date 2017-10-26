@@ -16,8 +16,6 @@ import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class LocationRestReader implements BaseReader<LocationRestBeanParams, LocationBaseResponse>, FullReader<String, LocationFullResponse> {
 
@@ -31,7 +29,6 @@ public class LocationRestReader implements BaseReader<LocationRestBeanParams, Lo
 
 	private final SortMapper sortMapper;
 
-	@Inject
 	public LocationRestReader(LocationRestQuery locationRestQuery, LocationBaseRestMapper locationBaseRestMapper,
 			LocationFullRestMapper locationFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.locationRestQuery = locationRestQuery;

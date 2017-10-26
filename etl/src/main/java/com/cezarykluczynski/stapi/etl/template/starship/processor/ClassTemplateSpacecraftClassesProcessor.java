@@ -12,7 +12,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +27,6 @@ public class ClassTemplateSpacecraftClassesProcessor implements ItemProcessor<Te
 
 	private final SpacecraftClassRepository spacecraftClassRepository;
 
-	@Inject
 	public ClassTemplateSpacecraftClassesProcessor(SpacecraftClassRepository spacecraftClassRepository) {
 		this.spacecraftClassRepository = spacecraftClassRepository;
 	}

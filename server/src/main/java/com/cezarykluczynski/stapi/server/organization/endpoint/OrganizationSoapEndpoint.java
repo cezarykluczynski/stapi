@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.client.v1.soap.OrganizationPortType;
 import com.cezarykluczynski.stapi.server.organization.reader.OrganizationSoapReader;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.jws.WebParam;
 
 @Service
@@ -18,7 +17,6 @@ public class OrganizationSoapEndpoint implements OrganizationPortType {
 
 	private final OrganizationSoapReader seriesSoapReader;
 
-	@Inject
 	public OrganizationSoapEndpoint(OrganizationSoapReader seriesSoapReader) {
 		this.seriesSoapReader = seriesSoapReader;
 	}

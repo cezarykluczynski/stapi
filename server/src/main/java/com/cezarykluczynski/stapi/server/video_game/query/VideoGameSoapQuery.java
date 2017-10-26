@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class VideoGameSoapQuery {
 
@@ -25,7 +23,6 @@ public class VideoGameSoapQuery {
 
 	private final VideoGameRepository videoGameRepository;
 
-	@Inject
 	public VideoGameSoapQuery(VideoGameBaseSoapMapper videoGameBaseSoapMapper, VideoGameFullSoapMapper videoGameFullSoapMapper, PageMapper pageMapper,
 			VideoGameRepository videoGameRepository) {
 		this.videoGameBaseSoapMapper = videoGameBaseSoapMapper;

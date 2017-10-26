@@ -14,8 +14,6 @@ import org.jsoup.select.Elements;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 @Slf4j
 public class TradingCardSetProcessor implements ItemProcessor<Page, TradingCardSet> {
@@ -35,7 +33,6 @@ public class TradingCardSetProcessor implements ItemProcessor<Page, TradingCardS
 
 	private final TradingCardSetLinker tradingCardSetLinker;
 
-	@Inject
 	public TradingCardSetProcessor(TradingCardSetFilter tradingCardSetFilter, JsoupParser jsoupParser,
 			TradingCardSetTableProcessor tradingCardSetTableProcessor, TradingCardsTablesProcessor tradingCardsTablesProcessor,
 			UidGenerator uidGenerator, TradingCardSetLinker tradingCardSetLinker) {

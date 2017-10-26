@@ -10,7 +10,6 @@ import com.cezarykluczynski.stapi.etl.template.military_conflict.dto.MilitaryCon
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -22,7 +21,6 @@ public class MilitaryConflictTemplatePartsEnrichingProcessor implements ItemWith
 
 	private final WikitextToEntitiesProcessor wikitextToEntitiesProcessor;
 
-	@Inject
 	public MilitaryConflictTemplatePartsEnrichingProcessor(
 			MilitaryConflictTemplatePartOfEnrichingProcessor militaryConflictTemplatePartOfEnrichingProcessor,
 			WikitextToYearRangeProcessor wikitextToYearRangeProcessor,

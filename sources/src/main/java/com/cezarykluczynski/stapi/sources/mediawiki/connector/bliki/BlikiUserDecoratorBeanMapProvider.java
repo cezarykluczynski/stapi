@@ -5,7 +5,6 @@ import com.google.common.collect.Maps;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Map;
 
 @Service
@@ -22,7 +21,6 @@ public class BlikiUserDecoratorBeanMapProvider {
 		STRING_ENUM_MAP.put(BlikiConnectorConfiguration.TECHNICAL_HELPER_USER_DECORATOR, MediaWikiSource.TECHNICAL_HELPER);
 	}
 
-	@Inject
 	public BlikiUserDecoratorBeanMapProvider(Map<String, UserDecorator> stringUserDecoratorMap) {
 		translateStringMappingsToEnumMappings(stringUserDecoratorMap);
 	}

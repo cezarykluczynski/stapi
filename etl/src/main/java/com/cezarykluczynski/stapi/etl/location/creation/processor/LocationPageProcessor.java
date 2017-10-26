@@ -13,7 +13,6 @@ import com.cezarykluczynski.stapi.util.tool.StringUtil;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -29,7 +28,6 @@ public class LocationPageProcessor implements ItemProcessor<Page, Location> {
 
 	private final LocationNameFixedValueProvider locationNameFixedValueProvider;
 
-	@Inject
 	public LocationPageProcessor(LocationPageFilter locationPageFilter, PageBindingService pageBindingService, UidGenerator uidGenerator,
 			CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor, LocationNameFixedValueProvider locationNameFixedValueProvider) {
 		this.locationPageFilter = locationPageFilter;

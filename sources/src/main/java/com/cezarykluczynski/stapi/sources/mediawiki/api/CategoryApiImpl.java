@@ -15,7 +15,6 @@ import info.bliki.api.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -29,7 +28,6 @@ public class CategoryApiImpl implements CategoryApi {
 
 	private final PageHeaderConverter pageHeaderConverter;
 
-	@Inject
 	public CategoryApiImpl(BlikiConnector blikiConnector, PageHeaderConverter pageHeaderConverter) {
 		this.blikiConnector = blikiConnector;
 		this.pageHeaderConverter = pageHeaderConverter;

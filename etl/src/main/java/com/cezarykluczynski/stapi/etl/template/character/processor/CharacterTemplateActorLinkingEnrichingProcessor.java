@@ -12,7 +12,6 @@ import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -25,7 +24,6 @@ public class CharacterTemplateActorLinkingEnrichingProcessor implements ItemEnri
 
 	private final PerformerRepository performerRepository;
 
-	@Inject
 	public CharacterTemplateActorLinkingEnrichingProcessor(WikitextApi wikitextApi, PerformerRepository performerRepository) {
 		this.wikitextApi = wikitextApi;
 		this.performerRepository = performerRepository;

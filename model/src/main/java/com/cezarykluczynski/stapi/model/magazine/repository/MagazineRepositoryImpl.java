@@ -11,14 +11,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
-
 @Repository
 public class MagazineRepositoryImpl extends AbstractRepositoryImpl<Magazine> implements MagazineRepositoryCustom {
 
 	private final MagazineQueryBuilderFactory magazineQueryBuilderFactory;
 
-	@Inject
 	public MagazineRepositoryImpl(MagazineQueryBuilderFactory magazineQueryBuilderFactory) {
 		this.magazineQueryBuilderFactory = magazineQueryBuilderFactory;
 	}

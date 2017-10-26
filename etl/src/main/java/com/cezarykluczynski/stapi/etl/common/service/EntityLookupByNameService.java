@@ -12,7 +12,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Optional;
 
 @Service
@@ -21,7 +20,6 @@ public class EntityLookupByNameService {
 
 	private final GenericEntityLookupByNameService genericEntityLookupByNameService;
 
-	@Inject
 	public EntityLookupByNameService(GenericEntityLookupByNameService genericEntityLookupByNameService) {
 		this.genericEntityLookupByNameService = genericEntityLookupByNameService;
 	}

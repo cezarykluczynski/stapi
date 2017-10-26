@@ -10,7 +10,6 @@ import com.cezarykluczynski.stapi.util.constant.PageTitle;
 import com.google.common.collect.Maps;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -28,7 +27,6 @@ public class SpacecraftCategoriesEnrichingProcessor implements ItemEnrichingProc
 
 	private final SpacecraftTypeRepository spacecraftTypeRepository;
 
-	@Inject
 	public SpacecraftCategoriesEnrichingProcessor(SpacecraftTypeRepository spacecraftTypeRepository) {
 		this.spacecraftTypeRepository = spacecraftTypeRepository;
 	}

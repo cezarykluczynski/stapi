@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class WeaponRestQuery {
 
@@ -21,7 +19,6 @@ public class WeaponRestQuery {
 
 	private final WeaponRepository weaponRepository;
 
-	@Inject
 	public WeaponRestQuery(WeaponBaseRestMapper weaponBaseRestMapper, PageMapper pageMapper, WeaponRepository weaponRepository) {
 		this.weaponBaseRestMapper = weaponBaseRestMapper;
 		this.pageMapper = pageMapper;

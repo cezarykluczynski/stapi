@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.client.v1.soap.SeasonPortType;
 import com.cezarykluczynski.stapi.server.season.reader.SeasonSoapReader;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.jws.WebParam;
 
 @Service
@@ -18,7 +17,6 @@ public class SeasonSoapEndpoint implements SeasonPortType {
 
 	private final SeasonSoapReader seriesSoapReader;
 
-	@Inject
 	public SeasonSoapEndpoint(SeasonSoapReader seriesSoapReader) {
 		this.seriesSoapReader = seriesSoapReader;
 	}

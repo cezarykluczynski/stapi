@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.ResourceAccessException;
 
-import javax.inject.Inject;
 import java.util.Map;
 
 @Service
@@ -29,7 +28,6 @@ public class WordPressAfrozaarConnector {
 
 	private final WordPressSourceConfigurationProvider wordPressSourceConfigurationProvider;
 
-	@Inject
 	public WordPressAfrozaarConnector(WordPressSourcesProperties wordPressSourcesProperties, WordpressFactory wordpressFactory,
 			WordPressSourceConfigurationProvider wordPressSourceConfigurationProvider) {
 		wordpress = wordpressFactory.createForUrl(wordPressSourcesProperties.getStarTrekCards().getApiUrl());

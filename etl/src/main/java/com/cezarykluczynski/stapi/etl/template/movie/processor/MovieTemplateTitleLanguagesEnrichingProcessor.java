@@ -11,7 +11,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -21,7 +20,6 @@ public class MovieTemplateTitleLanguagesEnrichingProcessor implements ItemEnrich
 
 	private final PageSectionExtractor pageSectionExtractor;
 
-	@Inject
 	public MovieTemplateTitleLanguagesEnrichingProcessor(WikitextApi wikitextApi,
 			PageSectionExtractor pageSectionExtractor) {
 		this.wikitextApi = wikitextApi;

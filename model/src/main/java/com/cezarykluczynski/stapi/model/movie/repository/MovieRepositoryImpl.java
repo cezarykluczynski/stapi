@@ -11,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Repository
@@ -19,7 +18,6 @@ public class MovieRepositoryImpl extends AbstractRepositoryImpl<Movie> implement
 
 	private final MovieInitialQueryBuilderFactory movieInitialQueryBuilderFactory;
 
-	@Inject
 	public MovieRepositoryImpl(MovieInitialQueryBuilderFactory movieInitialQueryBuilderFactory) {
 		this.movieInitialQueryBuilderFactory = movieInitialQueryBuilderFactory;
 	}

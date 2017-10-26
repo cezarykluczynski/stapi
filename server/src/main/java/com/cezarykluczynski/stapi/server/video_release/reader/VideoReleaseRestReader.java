@@ -16,10 +16,9 @@ import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
-public class VideoReleaseRestReader implements BaseReader<VideoReleaseRestBeanParams, VideoReleaseBaseResponse>, FullReader<String, VideoReleaseFullResponse> {
+public class VideoReleaseRestReader implements BaseReader<VideoReleaseRestBeanParams, VideoReleaseBaseResponse>,
+		FullReader<String, VideoReleaseFullResponse> {
 
 	private final VideoReleaseRestQuery videoReleaseRestQuery;
 
@@ -31,9 +30,8 @@ public class VideoReleaseRestReader implements BaseReader<VideoReleaseRestBeanPa
 
 	private final SortMapper sortMapper;
 
-	@Inject
-	public VideoReleaseRestReader(VideoReleaseRestQuery videoReleaseRestQuery, VideoReleaseBaseRestMapper videoReleaseBaseRestMapper, VideoReleaseFullRestMapper videoReleaseFullRestMapper,
-			PageMapper pageMapper, SortMapper sortMapper) {
+	public VideoReleaseRestReader(VideoReleaseRestQuery videoReleaseRestQuery, VideoReleaseBaseRestMapper videoReleaseBaseRestMapper,
+			VideoReleaseFullRestMapper videoReleaseFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.videoReleaseRestQuery = videoReleaseRestQuery;
 		this.videoReleaseBaseRestMapper = videoReleaseBaseRestMapper;
 		this.videoReleaseFullRestMapper = videoReleaseFullRestMapper;

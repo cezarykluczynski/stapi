@@ -12,7 +12,6 @@ import com.cezarykluczynski.stapi.etl.template.publishable_series.dto.Publishabl
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -28,7 +27,6 @@ public class PublishableSeriesTemplatePartsEnrichingProcessor implements ItemWit
 
 	private final PublishableSeriesTemplateMiniseriesProcessor publishableSeriesTemplateMiniseriesProcessor;
 
-	@Inject
 	public PublishableSeriesTemplatePartsEnrichingProcessor(WikitextToEntitiesProcessor wikitextToEntitiesProcessor,
 			PublishableSeriesPublishedDatesEnrichingProcessor publishableSeriesPublishedDatesEnrichingProcessor,
 			WikitextToYearRangeProcessor wikitextToYearRangeProcessor, WikitextToStardateRangeProcessor wikitextToStardateRangeProcessor,

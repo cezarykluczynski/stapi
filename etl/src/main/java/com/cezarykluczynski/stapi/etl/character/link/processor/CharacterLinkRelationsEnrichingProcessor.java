@@ -13,7 +13,6 @@ import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -26,7 +25,6 @@ public class CharacterLinkRelationsEnrichingProcessor implements ItemEnrichingPr
 
 	private final CharacterRelationRepository characterRelationRepository;
 
-	@Inject
 	public CharacterLinkRelationsEnrichingProcessor(CharacterLinkExtendedRelationsExtractor characterLinkExtendedRelationsExtractor,
 			CharacterRelationFactory characterRelationFactory, CharacterRelationRepository characterRelationRepository) {
 		this.characterLinkExtendedRelationsExtractor = characterLinkExtendedRelationsExtractor;

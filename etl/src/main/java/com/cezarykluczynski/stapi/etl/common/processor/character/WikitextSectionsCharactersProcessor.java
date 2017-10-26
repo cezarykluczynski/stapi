@@ -8,7 +8,6 @@ import com.google.common.collect.Sets;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Set;
 
 @Service
@@ -21,7 +20,6 @@ public class WikitextSectionsCharactersProcessor implements ItemProcessor<Page, 
 
 	private final WikitextToEntitiesProcessor wikitextToEntitiesProcessor;
 
-	@Inject
 	public WikitextSectionsCharactersProcessor(PageSectionExtractor pageSectionExtractor, WikitextToEntitiesProcessor wikitextToEntitiesProcessor) {
 		this.pageSectionExtractor = pageSectionExtractor;
 		this.wikitextToEntitiesProcessor = wikitextToEntitiesProcessor;

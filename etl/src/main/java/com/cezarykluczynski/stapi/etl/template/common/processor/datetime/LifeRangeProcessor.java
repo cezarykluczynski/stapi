@@ -12,7 +12,6 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -26,7 +25,6 @@ public class LifeRangeProcessor implements ItemProcessor<Page, DateRange> {
 
 	private final TemplateFinder templateFinder;
 
-	@Inject
 	public LifeRangeProcessor(PageToLifeRangeProcessor pageToLifeRangeProcessor,
 			ActorTemplateToLifeRangeProcessor actorTemplateToLifeRangeProcessor, TemplateFinder templateFinder) {
 		this.pageToLifeRangeProcessor = pageToLifeRangeProcessor;

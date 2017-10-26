@@ -12,7 +12,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.google.common.collect.Sets;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Set;
 
@@ -23,7 +22,6 @@ public class ComicStripTemplatePartStaffEnrichingProcessor implements ItemWithTe
 
 	private final EntityLookupByNameService entityLookupByNameService;
 
-	@Inject
 	public ComicStripTemplatePartStaffEnrichingProcessor(WikitextApi wikitextApi, EntityLookupByNameService entityLookupByNameService) {
 		this.wikitextApi = wikitextApi;
 		this.entityLookupByNameService = entityLookupByNameService;

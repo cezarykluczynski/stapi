@@ -10,14 +10,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
-
 @Repository
 public class SpacecraftRepositoryImpl implements SpacecraftRepositoryCustom {
 
 	private final SpacecraftQueryBuilderFactory spacecraftQueryBuilderFactory;
 
-	@Inject
 	public SpacecraftRepositoryImpl(SpacecraftQueryBuilderFactory spacecraftQueryBuilderFactory) {
 		this.spacecraftQueryBuilderFactory = spacecraftQueryBuilderFactory;
 	}

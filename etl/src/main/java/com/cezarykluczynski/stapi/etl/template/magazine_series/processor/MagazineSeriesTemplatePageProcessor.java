@@ -17,7 +17,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Optional;
 import java.util.Set;
 
@@ -39,7 +38,6 @@ public class MagazineSeriesTemplatePageProcessor implements ItemProcessor<Page, 
 
 	private final MagazineSeriesTemplatePartsEnrichingProcessor magazineSeriesTemplatePartsEnrichingProcessor;
 
-	@Inject
 	public MagazineSeriesTemplatePageProcessor(TemplateFinder templateFinder, MagazineSeriesDetector magazineSeriesDetector,
 			MagazineCandidatePageGatheringService magazineCandidatePageGatheringService,
 			PageCacheStorage pageCacheStorage, PageBindingService pageBindingService,

@@ -10,7 +10,6 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -21,7 +20,6 @@ public class PartToDateRangeProcessor implements ItemProcessor<Template.Part, Da
 
 	private final TemplateFilter templateFilter;
 
-	@Inject
 	public PartToDateRangeProcessor(DatelinkTemplateToLocalDateProcessor datelinkTemplateToLocalDateProcessor,
 			TemplateFilter templateFilter) {
 		this.datelinkTemplateToLocalDateProcessor = datelinkTemplateToLocalDateProcessor;

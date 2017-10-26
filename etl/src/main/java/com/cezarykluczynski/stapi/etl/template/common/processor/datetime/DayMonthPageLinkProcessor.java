@@ -8,7 +8,6 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.time.Month;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,7 +27,6 @@ public class DayMonthPageLinkProcessor implements ItemProcessor<PageLink, DayMon
 
 	private final MonthNameToMonthProcessor monthNameToMonthProcessor;
 
-	@Inject
 	public DayMonthPageLinkProcessor(MonthNameToMonthProcessor monthNameToMonthProcessor) {
 		this.monthNameToMonthProcessor = monthNameToMonthProcessor;
 	}

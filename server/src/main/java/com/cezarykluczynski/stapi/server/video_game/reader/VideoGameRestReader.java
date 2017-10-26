@@ -16,8 +16,6 @@ import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class VideoGameRestReader implements BaseReader<VideoGameRestBeanParams, VideoGameBaseResponse>, FullReader<String, VideoGameFullResponse> {
 
@@ -31,7 +29,6 @@ public class VideoGameRestReader implements BaseReader<VideoGameRestBeanParams, 
 
 	private final SortMapper sortMapper;
 
-	@Inject
 	public VideoGameRestReader(VideoGameRestQuery videoGameRestQuery, VideoGameBaseRestMapper videoGameBaseRestMapper,
 			VideoGameFullRestMapper videoGameFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.videoGameRestQuery = videoGameRestQuery;

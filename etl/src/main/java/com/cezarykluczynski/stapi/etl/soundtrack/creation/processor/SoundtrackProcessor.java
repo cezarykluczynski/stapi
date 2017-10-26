@@ -8,12 +8,9 @@ import com.google.common.collect.Lists;
 import org.springframework.batch.item.support.CompositeItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class SoundtrackProcessor extends CompositeItemProcessor<PageHeader, Soundtrack> {
 
-	@Inject
 	public SoundtrackProcessor(PageHeaderProcessor pageHeaderProcessor, SoundtrackTemplatePageProcessor soundtrackTemplatePageProcessor,
 			SoundtrackTemplateProcessor soundtrackTemplateProcessor) {
 		setDelegates(Lists.newArrayList(pageHeaderProcessor, soundtrackTemplatePageProcessor, soundtrackTemplateProcessor));

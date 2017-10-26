@@ -6,12 +6,9 @@ import com.cezarykluczynski.stapi.model.medical_condition.entity.MedicalConditio
 import org.springframework.data.jpa.repository.JpaContext;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class MedicalConditionQueryBuilderFactory extends AbstractQueryBuilderFactory<MedicalCondition> {
 
-	@Inject
 	public MedicalConditionQueryBuilderFactory(JpaContext jpaContext, CachingStrategy cachingStrategy) {
 		super(jpaContext, cachingStrategy, MedicalCondition.class);
 	}

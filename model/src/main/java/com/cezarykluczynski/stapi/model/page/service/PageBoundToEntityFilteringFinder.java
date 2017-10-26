@@ -6,7 +6,6 @@ import com.cezarykluczynski.stapi.model.page.entity.PageAware;
 import com.cezarykluczynski.stapi.model.page.repository.PageRepository;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -18,9 +17,7 @@ public class PageBoundToEntityFilteringFinder {
 
 	private final InPageAwareRepositoryPageFinder inPageAwareRepositoryPageFinder;
 
-	@Inject
-	public PageBoundToEntityFilteringFinder(PageRepository pageRepository,
-			InPageAwareRepositoryPageFinder inPageAwareRepositoryPageFinder) {
+	public PageBoundToEntityFilteringFinder(PageRepository pageRepository, InPageAwareRepositoryPageFinder inPageAwareRepositoryPageFinder) {
 		this.pageRepository = pageRepository;
 		this.inPageAwareRepositoryPageFinder = inPageAwareRepositoryPageFinder;
 	}

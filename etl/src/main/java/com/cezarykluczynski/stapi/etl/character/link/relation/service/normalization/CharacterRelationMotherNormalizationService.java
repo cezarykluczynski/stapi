@@ -4,8 +4,6 @@ import com.cezarykluczynski.stapi.etl.character.link.relation.dto.CharacterRelat
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 class CharacterRelationMotherNormalizationService extends AbstractCharacterRelationNormalizationService {
 
@@ -13,7 +11,6 @@ class CharacterRelationMotherNormalizationService extends AbstractCharacterRelat
 	private static final String STEP = "step-";
 	private static final String SURROGATE = "surrogate";
 
-	@Inject
 	CharacterRelationMotherNormalizationService(PunctuationIgnoringWeightedLevenshtein punctuationIgnoringWeightedLevenshtein) {
 		super(punctuationIgnoringWeightedLevenshtein);
 	}

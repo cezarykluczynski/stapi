@@ -11,7 +11,6 @@ import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.cezarykluczynski.stapi.util.tool.StringUtil;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -27,7 +26,6 @@ public class ElementTransuraniumProcessor {
 
 	private List<String> pageTitleList;
 
-	@Inject
 	public ElementTransuraniumProcessor(PageApi pageApi, WikitextApi wikitextApi, PageSectionExtractor pageSectionExtractor) {
 		this.pageApi = pageApi;
 		this.wikitextApi = wikitextApi;

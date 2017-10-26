@@ -7,7 +7,6 @@ import com.google.common.collect.Lists;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,7 +17,6 @@ public class DuplicateForbiddingPreSavePageAwareFilter extends AbstractPreSavePa
 
 	private final PageBoundToEntityFilteringFinder pageBoundToEntityFilteringFinder;
 
-	@Inject
 	public DuplicateForbiddingPreSavePageAwareFilter(PageBoundToEntityFilteringFinder pageBoundToEntityFilteringFinder) {
 		this.pageBoundToEntityFilteringFinder = pageBoundToEntityFilteringFinder;
 	}

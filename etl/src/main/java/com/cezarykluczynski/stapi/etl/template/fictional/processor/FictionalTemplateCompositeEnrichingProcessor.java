@@ -15,8 +15,6 @@ import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class FictionalTemplateCompositeEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<CharacterTemplate> {
 
@@ -28,7 +26,6 @@ public class FictionalTemplateCompositeEnrichingProcessor implements ItemWithTem
 
 	private final CharacterTemplateActorLinkingEnrichingProcessor characterTemplateActorLinkingEnrichingProcessor;
 
-	@Inject
 	public FictionalTemplateCompositeEnrichingProcessor(PartToGenderProcessor partToGenderProcessor,
 			CharacterSpeciesWikitextProcessor characterSpeciesWikitextProcessor, CharactersRelationsCache charactersRelationsCache,
 			CharacterTemplateActorLinkingEnrichingProcessor characterTemplateActorLinkingEnrichingProcessor) {

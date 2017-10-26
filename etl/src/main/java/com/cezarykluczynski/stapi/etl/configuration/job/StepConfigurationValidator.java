@@ -10,7 +10,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.batch.core.job.builder.JobBuilderException;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +26,6 @@ public class StepConfigurationValidator {
 
 	private final Map<String, StepProperties> stepPropertiesMap = Maps.newLinkedHashMap();
 
-	@Inject
 	public StepConfigurationValidator(StepToStepPropertiesProvider stepToStepPropertiesProvider) {
 		this.stepToStepPropertiesProvider = stepToStepPropertiesProvider;
 	}

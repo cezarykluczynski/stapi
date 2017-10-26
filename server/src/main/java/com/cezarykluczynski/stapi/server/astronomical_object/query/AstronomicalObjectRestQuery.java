@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class AstronomicalObjectRestQuery {
 
@@ -21,7 +19,6 @@ public class AstronomicalObjectRestQuery {
 
 	private final AstronomicalObjectRepository astronomicalObjectRepository;
 
-	@Inject
 	public AstronomicalObjectRestQuery(AstronomicalObjectBaseRestMapper astronomicalObjectBaseRestMapper, PageMapper pageMapper,
 			AstronomicalObjectRepository astronomicalObjectRepository) {
 		this.astronomicalObjectBaseRestMapper = astronomicalObjectBaseRestMapper;

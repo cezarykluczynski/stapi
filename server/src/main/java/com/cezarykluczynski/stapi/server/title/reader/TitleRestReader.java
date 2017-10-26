@@ -16,8 +16,6 @@ import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class TitleRestReader implements BaseReader<TitleRestBeanParams, TitleBaseResponse>, FullReader<String, TitleFullResponse> {
 
@@ -31,7 +29,6 @@ public class TitleRestReader implements BaseReader<TitleRestBeanParams, TitleBas
 
 	private final SortMapper sortMapper;
 
-	@Inject
 	public TitleRestReader(TitleRestQuery titleRestQuery, TitleBaseRestMapper titleBaseRestMapper, TitleFullRestMapper titleFullRestMapper,
 			PageMapper pageMapper, SortMapper sortMapper) {
 		this.titleRestQuery = titleRestQuery;

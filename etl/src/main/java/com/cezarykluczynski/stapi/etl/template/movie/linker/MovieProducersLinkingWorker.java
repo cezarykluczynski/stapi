@@ -3,7 +3,6 @@ package com.cezarykluczynski.stapi.etl.template.movie.linker;
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Set;
 
@@ -12,7 +11,6 @@ public class MovieProducersLinkingWorker implements MovieRealPeopleLinkingWorker
 
 	private final AllStaffFindingMovieRealPeopleLinkingWorkerHelper allStaffFindingMovieRealPeopleLinkingWorkerHelper;
 
-	@Inject
 	public MovieProducersLinkingWorker(AllStaffFindingMovieRealPeopleLinkingWorkerHelper allStaffFindingMovieRealPeopleLinkingWorkerHelper) {
 		this.allStaffFindingMovieRealPeopleLinkingWorkerHelper = allStaffFindingMovieRealPeopleLinkingWorkerHelper;
 	}

@@ -11,7 +11,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaContext;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.util.List;
 
@@ -22,7 +21,6 @@ public class CharacterSpeciesRepositoryImpl implements CharacterSpeciesRepositor
 
 	private final JpaContext jpaContext;
 
-	@Inject
 	public CharacterSpeciesRepositoryImpl(CharacterSpeciesQueryBuilderFactory characterSpeciesQueryBuilderFactory, JpaContext jpaContext) {
 		this.characterSpeciesQueryBuilderFactory = characterSpeciesQueryBuilderFactory;
 		this.jpaContext = jpaContext;

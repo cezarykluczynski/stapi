@@ -4,7 +4,6 @@ import com.cezarykluczynski.stapi.util.constant.SpringProfile;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 @Service
@@ -15,7 +14,6 @@ class ThrottleQualifyingService {
 
 	private final HttpServletRequest httpServletRequest;
 
-	@Inject
 	ThrottleQualifyingService(HttpServletRequest httpServletRequest) {
 		this.httpServletRequest = httpServletRequest;
 	}

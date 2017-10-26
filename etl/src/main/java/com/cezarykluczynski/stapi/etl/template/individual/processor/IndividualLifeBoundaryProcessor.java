@@ -11,7 +11,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 // TODO: places
@@ -27,7 +26,6 @@ public class IndividualLifeBoundaryProcessor implements ItemProcessor<String, In
 
 	private final DayInMonthProximityFindingProcessor dayInMonthProximityFindingProcessor;
 
-	@Inject
 	public IndividualLifeBoundaryProcessor(WikitextApi wikitextApi, PageLinkToYearProcessor pageLinkToYearProcessor,
 			DayMonthPageLinkProcessor dayMonthPageLinkProcessor, DayInMonthProximityFindingProcessor dayInMonthProximityFindingProcessor) {
 		this.wikitextApi = wikitextApi;

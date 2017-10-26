@@ -14,14 +14,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
-
 @Repository
 public class EpisodeRepositoryImpl extends AbstractRepositoryImpl<Episode> implements EpisodeRepositoryCustom {
 
 	private final EpisodeQueryBuilderFactory episodeQueryBuilderFactory;
 
-	@Inject
 	public EpisodeRepositoryImpl(EpisodeQueryBuilderFactory episodeQueryBuilderFactory) {
 		this.episodeQueryBuilderFactory = episodeQueryBuilderFactory;
 	}

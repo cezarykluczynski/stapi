@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import org.springframework.data.repository.support.Repositories;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.persistence.NonUniqueResultException;
 import java.util.Optional;
 
@@ -21,7 +20,6 @@ class GenericEntityLookupByNameService {
 
 	private final Repositories repositories;
 
-	@Inject
 	GenericEntityLookupByNameService(PageApi pageApi, MediaWikiSourceMapper mediaWikiSourceMapper, Repositories repositories) {
 		this.pageApi = pageApi;
 		this.mediaWikiSourceMapper = mediaWikiSourceMapper;

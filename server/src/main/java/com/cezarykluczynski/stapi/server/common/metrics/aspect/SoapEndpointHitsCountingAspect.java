@@ -8,8 +8,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Aspect
 @Service
 @Slf4j
@@ -17,7 +15,6 @@ public class SoapEndpointHitsCountingAspect {
 
 	private final EndpointHitsCountingService endpointHitsCountingService;
 
-	@Inject
 	public SoapEndpointHitsCountingAspect(EndpointHitsCountingService endpointHitsCountingService) {
 		this.endpointHitsCountingService = endpointHitsCountingService;
 	}

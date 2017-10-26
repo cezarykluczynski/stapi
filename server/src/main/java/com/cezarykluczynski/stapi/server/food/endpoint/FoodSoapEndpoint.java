@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.client.v1.soap.FoodPortType;
 import com.cezarykluczynski.stapi.server.food.reader.FoodSoapReader;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.jws.WebParam;
 
 @Service
@@ -18,7 +17,6 @@ public class FoodSoapEndpoint implements FoodPortType {
 
 	private final FoodSoapReader seriesSoapReader;
 
-	@Inject
 	public FoodSoapEndpoint(FoodSoapReader seriesSoapReader) {
 		this.seriesSoapReader = seriesSoapReader;
 	}

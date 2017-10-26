@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class BookSoapQuery {
 
@@ -25,7 +23,6 @@ public class BookSoapQuery {
 
 	private final BookRepository bookRepository;
 
-	@Inject
 	public BookSoapQuery(BookBaseSoapMapper bookBaseSoapMapper, BookFullSoapMapper bookFullSoapMapper, PageMapper pageMapper,
 			BookRepository bookRepository) {
 		this.bookBaseSoapMapper = bookBaseSoapMapper;

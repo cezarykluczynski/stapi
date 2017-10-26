@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Objects;
 
 @Service
@@ -17,7 +16,6 @@ public class HologramActivationDateProcessor implements ItemProcessor<String, St
 
 	private final DateStatusProcessor dateStatusProcessor;
 
-	@Inject
 	public HologramActivationDateProcessor(WikitextApi wikitextApi, DateStatusProcessor dateStatusProcessor) {
 		this.wikitextApi = wikitextApi;
 		this.dateStatusProcessor = dateStatusProcessor;

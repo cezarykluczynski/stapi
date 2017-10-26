@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -35,7 +34,6 @@ public class GenderizeClientConnectableImpl implements GenderizeClient {
 
 	private long minimalInterval = 1000L;
 
-	@Inject
 	public GenderizeClientConnectableImpl(@Value("${source.genderize.apiUrl}") String apiUrl) {
 		Preconditions.checkNotNull(apiUrl);
 		this.apiUrl = apiUrl;

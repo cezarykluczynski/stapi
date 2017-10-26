@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.client.v1.soap.TitlePortType;
 import com.cezarykluczynski.stapi.server.title.reader.TitleSoapReader;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.jws.WebParam;
 
 @Service
@@ -18,7 +17,6 @@ public class TitleSoapEndpoint implements TitlePortType {
 
 	private final TitleSoapReader seriesSoapReader;
 
-	@Inject
 	public TitleSoapEndpoint(TitleSoapReader seriesSoapReader) {
 		this.seriesSoapReader = seriesSoapReader;
 	}

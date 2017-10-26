@@ -9,7 +9,6 @@ import com.google.common.collect.Sets;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Set;
 
 @Service
@@ -22,7 +21,6 @@ public class AnimalPageFilter implements MediaWikiPageFilter {
 
 	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
-	@Inject
 	public AnimalPageFilter(CategorySortingService categorySortingService, CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {
 		this.categorySortingService = categorySortingService;
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;

@@ -12,7 +12,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import javax.inject.Inject;
 import java.util.Set;
 
 @Service
@@ -32,7 +31,6 @@ public class RanksTemplateService {
 	private final Set<String> militaryRanks = Sets.newHashSet();
 	private final Set<String> positions = Sets.newHashSet();
 
-	@Inject
 	public RanksTemplateService(PageApi pageApi, WikitextApi wikitextApi) {
 		this.pageApi = pageApi;
 		this.wikitextApi = wikitextApi;

@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class TitleRestQuery {
 
@@ -21,7 +19,6 @@ public class TitleRestQuery {
 
 	private final TitleRepository titleRepository;
 
-	@Inject
 	public TitleRestQuery(TitleBaseRestMapper titleBaseRestMapper, PageMapper pageMapper, TitleRepository titleRepository) {
 		this.titleBaseRestMapper = titleBaseRestMapper;
 		this.pageMapper = pageMapper;

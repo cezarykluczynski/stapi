@@ -12,7 +12,6 @@ import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -41,7 +40,6 @@ public class EpisodeTemplateDatesEnrichingProcessor implements ItemEnrichingProc
 
 	private EpisodeFinalScriptDateFixedValueProvider episodeFinalScriptDateFixedValueProvider;
 
-	@Inject
 	public EpisodeTemplateDatesEnrichingProcessor(RawDatelinkExtractingProcessor rawDatelinkExtractingProcessor,
 			EpisodeFinalScriptDateFixedValueProvider episodeFinalScriptDateFixedValueProvider) {
 		this.rawDatelinkExtractingProcessor = rawDatelinkExtractingProcessor;

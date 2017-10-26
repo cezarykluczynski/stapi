@@ -9,14 +9,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
-
 @Repository
 public class LiteratureRepositoryImpl implements LiteratureRepositoryCustom {
 
 	private final LiteratureQueryBuilderFactory literatureQueryBuilderFactory;
 
-	@Inject
 	public LiteratureRepositoryImpl(LiteratureQueryBuilderFactory literatureQueryBuilderFactory) {
 		this.literatureQueryBuilderFactory = literatureQueryBuilderFactory;
 	}

@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class MedicalConditionRestQuery {
 
@@ -21,7 +19,6 @@ public class MedicalConditionRestQuery {
 
 	private final MedicalConditionRepository medicalConditionRepository;
 
-	@Inject
 	public MedicalConditionRestQuery(MedicalConditionBaseRestMapper medicalConditionBaseRestMapper, PageMapper pageMapper,
 			MedicalConditionRepository medicalConditionRepository) {
 		this.medicalConditionBaseRestMapper = medicalConditionBaseRestMapper;

@@ -16,8 +16,6 @@ import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class TechnologyRestReader implements BaseReader<TechnologyRestBeanParams, TechnologyBaseResponse>,
 		FullReader<String, TechnologyFullResponse> {
@@ -32,7 +30,6 @@ public class TechnologyRestReader implements BaseReader<TechnologyRestBeanParams
 
 	private final SortMapper sortMapper;
 
-	@Inject
 	public TechnologyRestReader(TechnologyRestQuery technologyRestQuery, TechnologyBaseRestMapper technologyBaseRestMapper,
 			TechnologyFullRestMapper technologyFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.technologyRestQuery = technologyRestQuery;

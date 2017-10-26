@@ -12,7 +12,6 @@ import org.apache.commons.validator.routines.IntegerValidator;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,7 +23,6 @@ public class PartToYearRangeProcessor implements ItemProcessor<Template.Part, Ye
 
 	private final TemplateFilter templateFilter;
 
-	@Inject
 	public PartToYearRangeProcessor(YearlinkToYearProcessor yearlinkToYearProcessor, TemplateFilter templateFilter) {
 		this.yearlinkToYearProcessor = yearlinkToYearProcessor;
 		this.templateFilter = templateFilter;

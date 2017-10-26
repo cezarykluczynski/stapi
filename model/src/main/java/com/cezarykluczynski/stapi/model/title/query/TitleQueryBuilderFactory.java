@@ -6,12 +6,9 @@ import com.cezarykluczynski.stapi.model.title.entity.Title;
 import org.springframework.data.jpa.repository.JpaContext;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class TitleQueryBuilderFactory extends AbstractQueryBuilderFactory<Title> {
 
-	@Inject
 	public TitleQueryBuilderFactory(JpaContext jpaContext, CachingStrategy cachingStrategy) {
 		super(jpaContext, cachingStrategy, Title.class);
 	}

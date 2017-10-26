@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -24,7 +23,6 @@ public class WikitextToYearRangeProcessor implements ItemProcessor<String, YearR
 
 	private final PageLinkToYearProcessor pageLinkToYearProcessor;
 
-	@Inject
 	public WikitextToYearRangeProcessor(PartToYearRangeProcessor partToYearRangeProcessor, WikitextApi wikitextApi,
 			PageLinkToYearProcessor pageLinkToYearProcessor) {
 		this.partToYearRangeProcessor = partToYearRangeProcessor;

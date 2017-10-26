@@ -11,14 +11,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
-
 @Repository
 public class ComicSeriesRepositoryImpl extends AbstractRepositoryImpl<ComicSeries> implements ComicSeriesRepositoryCustom {
 
 	private final ComicSeriesQueryBuilderFactory comicSeriesQueryBuilderFactory;
 
-	@Inject
 	public ComicSeriesRepositoryImpl(ComicSeriesQueryBuilderFactory comicSeriesQueryBuilderFactory) {
 		this.comicSeriesQueryBuilderFactory = comicSeriesQueryBuilderFactory;
 	}

@@ -8,7 +8,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -16,7 +15,6 @@ public class VideoReleaseFormatFromCategoryLinkProcessor implements ItemProcesso
 
 	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
-	@Inject
 	public VideoReleaseFormatFromCategoryLinkProcessor(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
 	}

@@ -6,7 +6,6 @@ import com.cezarykluczynski.stapi.server.common.dto.RestEndpointDetailsDTO;
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 
 @Service
@@ -20,7 +19,6 @@ public class CommonDataReader {
 
 	private final DocumentationProvider documentationProvider;
 
-	@Inject
 	public CommonDataReader(CommonEntitiesStatisticsReader commonEntitiesStatisticsReader, CommonEntitiesDetailsReader commonEntitiesDetailsReader,
 			CommonHitsStatisticsReader commonHitsStatisticsReader, DocumentationProvider documentationProvider) {
 		this.commonEntitiesStatisticsReader = commonEntitiesStatisticsReader;

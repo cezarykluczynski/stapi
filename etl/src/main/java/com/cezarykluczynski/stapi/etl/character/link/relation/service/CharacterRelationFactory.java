@@ -12,7 +12,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Optional;
 
 @Service
@@ -26,7 +25,6 @@ public class CharacterRelationFactory {
 
 	private final CharacterRelationNormalizationService characterRelationNormalizationService;
 
-	@Inject
 	public CharacterRelationFactory(CharacterRepository characterRepository, PageApi pageApi,
 			CharacterRelationsSidebarTemplateMappingsProvider characterRelationsSidebarTemplateMappingsProvider,
 			CharacterRelationNormalizationService characterRelationNormalizationService) {

@@ -6,14 +6,11 @@ import com.cezarykluczynski.stapi.model.trading_card_deck.entity.TradingCardDeck
 import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class TradingCardSetLinker {
 
 	private final UidGenerator uidGenerator;
 
-	@Inject
 	public TradingCardSetLinker(UidGenerator uidGenerator) {
 		this.uidGenerator = uidGenerator;
 	}

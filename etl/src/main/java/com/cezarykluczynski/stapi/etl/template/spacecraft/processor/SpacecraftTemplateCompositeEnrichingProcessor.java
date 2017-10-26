@@ -6,8 +6,6 @@ import com.cezarykluczynski.stapi.etl.template.starship.dto.StarshipTemplate;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class SpacecraftTemplateCompositeEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<StarshipTemplate> {
 
@@ -15,7 +13,6 @@ public class SpacecraftTemplateCompositeEnrichingProcessor implements ItemWithTe
 
 	private final SpacecraftTemplateRelationsEnrichingProcessor spacecraftTemplateRelationsEnrichingProcessor;
 
-	@Inject
 	public SpacecraftTemplateCompositeEnrichingProcessor(SpacecraftTemplateContentsEnrichingProcessor spacecraftTemplateContentsEnrichingProcessor,
 			SpacecraftTemplateRelationsEnrichingProcessor spacecraftTemplateRelationsEnrichingProcessor) {
 		this.spacecraftTemplateContentsEnrichingProcessor = spacecraftTemplateContentsEnrichingProcessor;

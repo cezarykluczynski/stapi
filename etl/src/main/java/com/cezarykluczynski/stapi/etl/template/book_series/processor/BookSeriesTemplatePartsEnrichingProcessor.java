@@ -9,7 +9,6 @@ import com.cezarykluczynski.stapi.etl.template.publishable_series.processor.Publ
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -19,7 +18,6 @@ public class BookSeriesTemplatePartsEnrichingProcessor implements ItemWithTempla
 
 	private final NumberOfPartsProcessor numberOfPartsProcessor;
 
-	@Inject
 	public BookSeriesTemplatePartsEnrichingProcessor(PublishableSeriesTemplatePartsEnrichingProcessor
 			publishableSeriesTemplatePartsEnrichingProcessor, NumberOfPartsProcessor numberOfPartsProcessor) {
 		this.publishableSeriesTemplatePartsEnrichingProcessor = publishableSeriesTemplatePartsEnrichingProcessor;

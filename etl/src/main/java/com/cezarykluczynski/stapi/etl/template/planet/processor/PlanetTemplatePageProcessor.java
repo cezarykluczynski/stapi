@@ -18,7 +18,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,7 +42,6 @@ public class PlanetTemplatePageProcessor implements ItemProcessor<Page, PlanetTe
 
 	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
-	@Inject
 	public PlanetTemplatePageProcessor(TemplateFinder templateFinder, PageBindingService pageBindingService,
 			AstronomicalObjectTypeProcessor astronomicalObjectTypeProcessor,
 			AstronomicalObjectTypeEnrichingProcessor astronomicalObjectTypeEnrichingProcessor,

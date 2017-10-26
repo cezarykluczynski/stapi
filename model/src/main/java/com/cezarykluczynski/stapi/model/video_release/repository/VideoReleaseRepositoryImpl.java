@@ -13,14 +13,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
-
 @Repository
 public class VideoReleaseRepositoryImpl extends AbstractRepositoryImpl<VideoRelease> implements VideoReleaseRepositoryCustom {
 
 	private final VideoReleaseQueryBuilderFactory videoReleaseQueryBuilderFactory;
 
-	@Inject
 	public VideoReleaseRepositoryImpl(VideoReleaseQueryBuilderFactory videoReleaseQueryBuilderFactory) {
 		this.videoReleaseQueryBuilderFactory = videoReleaseQueryBuilderFactory;
 	}

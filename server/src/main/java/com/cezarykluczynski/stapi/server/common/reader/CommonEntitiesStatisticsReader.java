@@ -5,7 +5,6 @@ import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticDTO;
 import com.cezarykluczynski.stapi.server.common.dto.RestEndpointStatisticsDTO;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.concurrent.atomic.LongAdder;
 import java.util.stream.Collectors;
@@ -15,7 +14,6 @@ class CommonEntitiesStatisticsReader {
 
 	private final EntitySizeStatisticsProvider entitySizeStatisticsProvider;
 
-	@Inject
 	CommonEntitiesStatisticsReader(EntitySizeStatisticsProvider entitySizeStatisticsProvider) {
 		this.entitySizeStatisticsProvider = entitySizeStatisticsProvider;
 	}

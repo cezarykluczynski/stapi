@@ -6,7 +6,6 @@ import com.google.common.collect.Sets;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -24,7 +23,6 @@ public class TitleListPageProcessor {
 
 	private final TitleListMacoMirrorProcessor titleListMacoMirrorProcessor;
 
-	@Inject
 	public TitleListPageProcessor(TitleListSectionProcessor titleListSectionProcessor, TitleListMacoMirrorProcessor titleListMacoMirrorProcessor) {
 		this.titleListSectionProcessor = titleListSectionProcessor;
 		this.titleListMacoMirrorProcessor = titleListMacoMirrorProcessor;

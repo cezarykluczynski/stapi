@@ -7,8 +7,6 @@ import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class CharacterTemplateProcessor implements ItemProcessor<CharacterTemplate, Character> {
 
@@ -16,7 +14,6 @@ public class CharacterTemplateProcessor implements ItemProcessor<CharacterTempla
 
 	private final GenderMapper genderMapper;
 
-	@Inject
 	public CharacterTemplateProcessor(UidGenerator uidGenerator, GenderMapper genderMapper) {
 		this.uidGenerator = uidGenerator;
 		this.genderMapper = genderMapper;

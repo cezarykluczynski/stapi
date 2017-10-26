@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.time.LocalDate;
 import java.time.Month;
 
@@ -17,7 +16,6 @@ public class DayMonthYearCandidateToLocalDateProcessor implements ItemProcessor<
 
 	private final MonthNameToMonthProcessor monthNameToMonthProcessor;
 
-	@Inject
 	public DayMonthYearCandidateToLocalDateProcessor(MonthNameToMonthProcessor monthNameToMonthProcessor) {
 		this.monthNameToMonthProcessor = monthNameToMonthProcessor;
 	}

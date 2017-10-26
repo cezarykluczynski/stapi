@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class MovieSoapQuery {
 
@@ -25,7 +23,6 @@ public class MovieSoapQuery {
 
 	private final MovieRepository movieRepository;
 
-	@Inject
 	public MovieSoapQuery(MovieBaseSoapMapper movieBaseSoapMapper, MovieFullSoapMapper movieFullSoapMapper, PageMapper pageMapper,
 			MovieRepository movieRepository) {
 		this.movieBaseSoapMapper = movieBaseSoapMapper;

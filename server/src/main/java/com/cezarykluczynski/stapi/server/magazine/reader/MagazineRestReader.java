@@ -16,8 +16,6 @@ import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class MagazineRestReader implements BaseReader<MagazineRestBeanParams, MagazineBaseResponse>, FullReader<String, MagazineFullResponse> {
 
@@ -31,7 +29,6 @@ public class MagazineRestReader implements BaseReader<MagazineRestBeanParams, Ma
 
 	private final SortMapper sortMapper;
 
-	@Inject
 	public MagazineRestReader(MagazineRestQuery magazineRestQuery, MagazineBaseRestMapper magazineBaseRestMapper,
 			MagazineFullRestMapper magazineFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.magazineRestQuery = magazineRestQuery;

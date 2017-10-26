@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class SpeciesRestQuery {
 
@@ -21,7 +19,6 @@ public class SpeciesRestQuery {
 
 	private final SpeciesRepository speciesRepository;
 
-	@Inject
 	public SpeciesRestQuery(SpeciesBaseRestMapper speciesBaseRestMapper, PageMapper pageMapper, SpeciesRepository speciesRepository) {
 		this.speciesRequestMapper = speciesBaseRestMapper;
 		this.pageMapper = pageMapper;

@@ -9,14 +9,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
-
 @Repository
 public class MaterialRepositoryImpl implements MaterialRepositoryCustom {
 
 	private final MaterialQueryBuilderFactory materialQueryBuilderFactory;
 
-	@Inject
 	public MaterialRepositoryImpl(MaterialQueryBuilderFactory materialQueryBuilderFactory) {
 		this.materialQueryBuilderFactory = materialQueryBuilderFactory;
 	}

@@ -11,14 +11,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
-
 @Repository
 public class VideoGameRepositoryImpl extends AbstractRepositoryImpl<VideoGame> implements VideoGameRepositoryCustom {
 
 	private final VideoGameQueryBuilderFactory videoGameQueryBuilderFactory;
 
-	@Inject
 	public VideoGameRepositoryImpl(VideoGameQueryBuilderFactory videoGameQueryBuilderFactory) {
 		this.videoGameQueryBuilderFactory = videoGameQueryBuilderFactory;
 	}

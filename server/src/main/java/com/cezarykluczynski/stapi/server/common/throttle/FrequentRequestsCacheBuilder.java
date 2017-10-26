@@ -5,7 +5,6 @@ import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -17,7 +16,6 @@ class FrequentRequestsCacheBuilder {
 
 	private Boolean built = false;
 
-	@Inject
 	FrequentRequestsCacheBuilder(ThrottleProperties throttleProperties) {
 		this.throttleProperties = throttleProperties;
 	}

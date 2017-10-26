@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -26,7 +25,6 @@ public class SpeciesTemplateTypeWikitextEnrichingProcessor implements ItemWithTe
 
 	private final WikitextApi wikitextApi;
 
-	@Inject
 	public SpeciesTemplateTypeWikitextEnrichingProcessor(WikitextApi wikitextApi) {
 		this.wikitextApi = wikitextApi;
 	}

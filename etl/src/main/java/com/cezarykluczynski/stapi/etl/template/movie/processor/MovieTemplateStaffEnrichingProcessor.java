@@ -18,7 +18,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -35,7 +34,6 @@ public class MovieTemplateStaffEnrichingProcessor implements ItemWithTemplateEnr
 
 	private final EntityLookupByNameService entityLookupByNameService;
 
-	@Inject
 	public MovieTemplateStaffEnrichingProcessor(WikitextApi wikitextApi, EntityLookupByNameService entityLookupByNameService) {
 		this.wikitextApi = wikitextApi;
 		this.entityLookupByNameService = entityLookupByNameService;

@@ -10,7 +10,6 @@ import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -22,7 +21,6 @@ public class MilitaryConflictTemplatePartOfEnrichingProcessor implements ItemWit
 
 	private final WikitextApi wikitextApi;
 
-	@Inject
 	public MilitaryConflictTemplatePartOfEnrichingProcessor(WikitextApi wikitextApi) {
 		this.wikitextApi = wikitextApi;
 	}

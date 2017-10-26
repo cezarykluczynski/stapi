@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class SpacecraftClassRestQuery {
 
@@ -21,7 +19,6 @@ public class SpacecraftClassRestQuery {
 
 	private final SpacecraftClassRepository spacecraftClassRepository;
 
-	@Inject
 	public SpacecraftClassRestQuery(SpacecraftClassBaseRestMapper spacecraftClassBaseRestMapper, PageMapper pageMapper,
 			SpacecraftClassRepository spacecraftClassRepository) {
 		this.spacecraftClassBaseRestMapper = spacecraftClassBaseRestMapper;

@@ -11,7 +11,6 @@ import org.apache.commons.lang3.math.Fraction;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Optional;
 import java.util.Set;
 
@@ -23,7 +22,6 @@ public class CharacterSpeciesWithSpeciesNameEnrichingProcessor implements
 
 	private final EntityLookupByNameService entityLookupByNameService;
 
-	@Inject
 	public CharacterSpeciesWithSpeciesNameEnrichingProcessor(CharacterSpeciesRepository characterSpeciesRepository,
 			EntityLookupByNameService entityLookupByNameService) {
 		this.characterSpeciesRepository = characterSpeciesRepository;

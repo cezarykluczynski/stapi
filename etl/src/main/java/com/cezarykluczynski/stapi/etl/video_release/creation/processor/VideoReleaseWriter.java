@@ -7,7 +7,6 @@ import com.cezarykluczynski.stapi.model.video_release.repository.VideoReleaseRep
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +17,6 @@ public class VideoReleaseWriter implements ItemWriter<VideoRelease> {
 
 	private final DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor;
 
-	@Inject
 	public VideoReleaseWriter(VideoReleaseRepository videoReleaseRepository,
 			DuplicateFilteringPreSavePageAwareFilter duplicateFilteringPreSavePageAwareProcessor) {
 		this.videoReleaseRepository = videoReleaseRepository;

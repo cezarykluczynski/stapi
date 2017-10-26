@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,7 +25,6 @@ public class PageToGenderPronounProcessor implements ItemProcessor<Page, Gender>
 
 	private final ParagraphExtractor paragraphExtractor;
 
-	@Inject
 	public PageToGenderPronounProcessor(ParagraphExtractor paragraphExtractor) {
 		this.paragraphExtractor = paragraphExtractor;
 	}

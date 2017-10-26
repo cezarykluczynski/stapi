@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import javax.inject.Inject;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -31,7 +30,6 @@ class FrequentRequestsValidator {
 
 	private Cache<FrequentRequestsKey, List<LocalDateTime>> cache;
 
-	@Inject
 	FrequentRequestsValidator(ThrottleProperties throttleProperties, FrequentRequestsCacheBuilder frequentRequestsCacheBuilder,
 			FrequentRequestsKeysFactory frequentRequestsKeysFactory, NowProvider nowProvider) {
 		this.throttleProperties = throttleProperties;

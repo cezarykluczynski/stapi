@@ -16,8 +16,6 @@ import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class TradingCardRestReader implements BaseReader<TradingCardRestBeanParams, TradingCardBaseResponse>,
 		FullReader<String, TradingCardFullResponse> {
@@ -32,7 +30,6 @@ public class TradingCardRestReader implements BaseReader<TradingCardRestBeanPara
 
 	private final SortMapper sortMapper;
 
-	@Inject
 	public TradingCardRestReader(TradingCardRestQuery tradingCardRestQuery, TradingCardBaseRestMapper tradingCardBaseRestMapper,
 			TradingCardFullRestMapper tradingCardFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.tradingCardRestQuery = tradingCardRestQuery;

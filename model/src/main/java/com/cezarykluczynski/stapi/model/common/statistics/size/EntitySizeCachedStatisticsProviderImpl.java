@@ -3,7 +3,6 @@ package com.cezarykluczynski.stapi.model.common.statistics.size;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Map;
 
 @Service
@@ -14,7 +13,6 @@ public class EntitySizeCachedStatisticsProviderImpl implements EntitySizeStatist
 
 	private final EntitySizeCountingService entitySizeCountingService;
 
-	@Inject
 	public EntitySizeCachedStatisticsProviderImpl(EntitySizeCountingService entitySizeCountingService) {
 		this.entitySizeCountingService = entitySizeCountingService;
 	}

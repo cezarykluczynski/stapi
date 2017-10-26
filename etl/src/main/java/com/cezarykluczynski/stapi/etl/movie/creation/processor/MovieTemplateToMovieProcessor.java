@@ -6,14 +6,11 @@ import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class MovieTemplateToMovieProcessor implements ItemProcessor<MovieTemplate, Movie> {
 
 	private final UidGenerator uidGenerator;
 
-	@Inject
 	public MovieTemplateToMovieProcessor(UidGenerator uidGenerator) {
 		this.uidGenerator = uidGenerator;
 	}

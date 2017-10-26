@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class StaffSoapQuery {
 
@@ -25,7 +23,6 @@ public class StaffSoapQuery {
 
 	private final StaffRepository staffRepository;
 
-	@Inject
 	public StaffSoapQuery(StaffBaseSoapMapper staffBaseSoapMapper, StaffFullSoapMapper staffFullSoapMapper, PageMapper pageMapper,
 			StaffRepository staffRepository) {
 		this.staffBaseSoapMapper = staffBaseSoapMapper;

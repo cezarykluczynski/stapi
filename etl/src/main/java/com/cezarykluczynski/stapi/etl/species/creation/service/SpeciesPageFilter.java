@@ -9,7 +9,6 @@ import com.cezarykluczynski.stapi.util.constant.PageTitle;
 import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -24,7 +23,6 @@ public class SpeciesPageFilter implements MediaWikiPageFilter {
 
 	private final CategorySortingService categorySortingService;
 
-	@Inject
 	public SpeciesPageFilter(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor, CategorySortingService categorySortingService) {
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
 		this.categorySortingService = categorySortingService;

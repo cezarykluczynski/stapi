@@ -16,8 +16,6 @@ import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class MedicalConditionRestReader implements BaseReader<MedicalConditionRestBeanParams, MedicalConditionBaseResponse>,
 		FullReader<String, MedicalConditionFullResponse> {
@@ -32,7 +30,6 @@ public class MedicalConditionRestReader implements BaseReader<MedicalConditionRe
 
 	private final SortMapper sortMapper;
 
-	@Inject
 	public MedicalConditionRestReader(MedicalConditionRestQuery medicalConditionRestQuery,
 			MedicalConditionBaseRestMapper medicalConditionBaseRestMapper, MedicalConditionFullRestMapper medicalConditionFullRestMapper,
 			PageMapper pageMapper, SortMapper sortMapper) {

@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.sources.wordpress.dto.Page;
 import org.assertj.core.util.Lists;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,7 +18,6 @@ public class WordPressApi {
 
 	private final WordPressPageMapper wordPressPageMapper;
 
-	@Inject
 	public WordPressApi(WordPressAfrozaarConnector wordPressAfrozaarConnector, WordPressPageMapper wordPressPageMapper) {
 		this.wordPressAfrozaarConnector = wordPressAfrozaarConnector;
 		this.wordPressPageMapper = wordPressPageMapper;

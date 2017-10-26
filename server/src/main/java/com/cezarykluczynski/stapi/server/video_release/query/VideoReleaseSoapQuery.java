@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class VideoReleaseSoapQuery {
 
@@ -25,9 +23,8 @@ public class VideoReleaseSoapQuery {
 
 	private final VideoReleaseRepository videoReleaseRepository;
 
-	@Inject
-	public VideoReleaseSoapQuery(VideoReleaseBaseSoapMapper videoReleaseBaseSoapMapper, VideoReleaseFullSoapMapper videoReleaseFullSoapMapper, PageMapper pageMapper,
-			VideoReleaseRepository videoReleaseRepository) {
+	public VideoReleaseSoapQuery(VideoReleaseBaseSoapMapper videoReleaseBaseSoapMapper, VideoReleaseFullSoapMapper videoReleaseFullSoapMapper,
+			PageMapper pageMapper, VideoReleaseRepository videoReleaseRepository) {
 		this.videoReleaseBaseSoapMapper = videoReleaseBaseSoapMapper;
 		this.videoReleaseFullSoapMapper = videoReleaseFullSoapMapper;
 		this.pageMapper = pageMapper;

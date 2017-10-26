@@ -9,8 +9,6 @@ import com.cezarykluczynski.stapi.etl.template.soundtrack.dto.SoundtrackTemplate
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class SoundtrackTemplateContentsEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<SoundtrackTemplate> {
 
@@ -18,7 +16,6 @@ public class SoundtrackTemplateContentsEnrichingProcessor implements ItemWithTem
 
 	private final RecordingTimeProcessor recordingTimeProcessor;
 
-	@Inject
 	public SoundtrackTemplateContentsEnrichingProcessor(DatePartToLocalDateProcessor datePartToLocalDateProcessor,
 			RecordingTimeProcessor recordingTimeProcessor) {
 		this.datePartToLocalDateProcessor = datePartToLocalDateProcessor;

@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.client.v1.soap.ComicStripPortType;
 import com.cezarykluczynski.stapi.server.comic_strip.reader.ComicStripSoapReader;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.jws.WebParam;
 
 @Service
@@ -18,7 +17,6 @@ public class ComicStripSoapEndpoint implements ComicStripPortType {
 
 	private final ComicStripSoapReader comicStripSoapReader;
 
-	@Inject
 	public ComicStripSoapEndpoint(ComicStripSoapReader comicStripSoapReader) {
 		this.comicStripSoapReader = comicStripSoapReader;
 	}

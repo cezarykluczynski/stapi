@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.client.v1.soap.TradingCardDeckPortType;
 import com.cezarykluczynski.stapi.server.trading_card_deck.reader.TradingCardDeckSoapReader;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.jws.WebParam;
 
 @Service
@@ -18,7 +17,6 @@ public class TradingCardDeckSoapEndpoint implements TradingCardDeckPortType {
 
 	private final TradingCardDeckSoapReader tradingCardDeckSoapReader;
 
-	@Inject
 	public TradingCardDeckSoapEndpoint(TradingCardDeckSoapReader tradingCardDeckSoapReader) {
 		this.tradingCardDeckSoapReader = tradingCardDeckSoapReader;
 	}

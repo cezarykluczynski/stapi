@@ -16,8 +16,6 @@ import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class WeaponRestReader implements BaseReader<WeaponRestBeanParams, WeaponBaseResponse>, FullReader<String, WeaponFullResponse> {
 
@@ -31,9 +29,8 @@ public class WeaponRestReader implements BaseReader<WeaponRestBeanParams, Weapon
 
 	private final SortMapper sortMapper;
 
-	@Inject
-	public WeaponRestReader(WeaponRestQuery weaponRestQuery, WeaponBaseRestMapper weaponBaseRestMapper,
-			WeaponFullRestMapper weaponFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
+	public WeaponRestReader(WeaponRestQuery weaponRestQuery, WeaponBaseRestMapper weaponBaseRestMapper, WeaponFullRestMapper weaponFullRestMapper,
+			PageMapper pageMapper, SortMapper sortMapper) {
 		this.weaponRestQuery = weaponRestQuery;
 		this.weaponBaseRestMapper = weaponBaseRestMapper;
 		this.weaponFullRestMapper = weaponFullRestMapper;

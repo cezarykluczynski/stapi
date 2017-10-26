@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class BookCollectionRestQuery {
 
@@ -21,7 +19,6 @@ public class BookCollectionRestQuery {
 
 	private final BookCollectionRepository bookCollectionRepository;
 
-	@Inject
 	public BookCollectionRestQuery(BookCollectionBaseRestMapper bookCollectionBaseRestMapper, PageMapper pageMapper,
 			BookCollectionRepository bookCollectionRepository) {
 		this.bookCollectionBaseRestMapper = bookCollectionBaseRestMapper;

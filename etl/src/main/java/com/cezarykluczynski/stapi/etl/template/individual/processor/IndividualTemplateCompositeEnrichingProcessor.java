@@ -6,8 +6,6 @@ import com.cezarykluczynski.stapi.etl.template.character.dto.CharacterTemplate;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class IndividualTemplateCompositeEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<CharacterTemplate> {
 
@@ -15,7 +13,6 @@ public class IndividualTemplateCompositeEnrichingProcessor implements ItemWithTe
 
 	private final IndividualTemplatePartsEnrichingProcessor individualTemplatePartsEnrichingProcessor;
 
-	@Inject
 	public IndividualTemplateCompositeEnrichingProcessor(
 			IndividualTemplateDateOfDeathEnrichingProcessor individualTemplateDateOfDeathEnrichingProcessor,
 			IndividualTemplatePartsEnrichingProcessor individualTemplatePartsEnrichingProcessor) {

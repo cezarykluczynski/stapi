@@ -11,8 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 @Slf4j
 public class VideoTemplateFormatEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Page, VideoTemplate>> {
@@ -23,7 +21,6 @@ public class VideoTemplateFormatEnrichingProcessor implements ItemEnrichingProce
 
 	private final VideoReleaseFormatFromCategoryLinkProcessor videoReleaseFormatFromCategoryLinkProcessor;
 
-	@Inject
 	public VideoTemplateFormatEnrichingProcessor(VideoReleaseFormatFixedValueProvider videoReleaseFormatFixedValueProvider,
 			VideoReleaseFormatFromCategoryLinkProcessor videoReleaseFormatFromCategoryLinkProcessor) {
 		this.videoReleaseFormatFixedValueProvider = videoReleaseFormatFixedValueProvider;

@@ -6,14 +6,11 @@ import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class ComicsTemplateProcessor implements ItemProcessor<ComicsTemplate, Comics> {
 
 	private final UidGenerator uidGenerator;
 
-	@Inject
 	public ComicsTemplateProcessor(UidGenerator uidGenerator) {
 		this.uidGenerator = uidGenerator;
 	}

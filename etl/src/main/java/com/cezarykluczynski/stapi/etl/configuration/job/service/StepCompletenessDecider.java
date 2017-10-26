@@ -6,7 +6,6 @@ import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Collection;
 import java.util.Map;
 
@@ -17,7 +16,6 @@ public class StepCompletenessDecider {
 
 	private final AllStepExecutionsProvider allStepExecutionsProvider;
 
-	@Inject
 	public StepCompletenessDecider(StepToStepPropertiesProvider stepToStepPropertiesProvider,
 			AllStepExecutionsProvider allStepExecutionsProvider) {
 		this.stepToStepPropertiesProvider = stepToStepPropertiesProvider;

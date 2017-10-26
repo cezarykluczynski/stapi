@@ -6,14 +6,11 @@ import com.cezarykluczynski.stapi.model.video_game.entity.VideoGame;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class VideoGameTemplateProcessor implements ItemProcessor<VideoGameTemplate, VideoGame> {
 
 	private final UidGenerator uidGenerator;
 
-	@Inject
 	public VideoGameTemplateProcessor(UidGenerator uidGenerator) {
 		this.uidGenerator = uidGenerator;
 	}

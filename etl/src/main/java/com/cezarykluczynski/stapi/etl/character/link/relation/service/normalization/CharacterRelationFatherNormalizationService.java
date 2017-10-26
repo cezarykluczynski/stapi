@@ -4,14 +4,11 @@ import com.cezarykluczynski.stapi.etl.character.link.relation.dto.CharacterRelat
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 class CharacterRelationFatherNormalizationService extends AbstractCharacterRelationNormalizationService {
 
 	private static final String FOSTER = "foster";
 
-	@Inject
 	CharacterRelationFatherNormalizationService(PunctuationIgnoringWeightedLevenshtein punctuationIgnoringWeightedLevenshtein) {
 		super(punctuationIgnoringWeightedLevenshtein);
 	}

@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.client.v1.soap.OccupationPortType;
 import com.cezarykluczynski.stapi.server.occupation.reader.OccupationSoapReader;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.jws.WebParam;
 
 @Service
@@ -18,7 +17,6 @@ public class OccupationSoapEndpoint implements OccupationPortType {
 
 	private final OccupationSoapReader seriesSoapReader;
 
-	@Inject
 	public OccupationSoapEndpoint(OccupationSoapReader seriesSoapReader) {
 		this.seriesSoapReader = seriesSoapReader;
 	}

@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class ConflictRestQuery {
 
@@ -21,7 +19,6 @@ public class ConflictRestQuery {
 
 	private final ConflictRepository conflictRepository;
 
-	@Inject
 	public ConflictRestQuery(ConflictBaseRestMapper conflictBaseRestMapper, PageMapper pageMapper, ConflictRepository conflictRepository) {
 		this.conflictBaseRestMapper = conflictBaseRestMapper;
 		this.pageMapper = pageMapper;

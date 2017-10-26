@@ -8,12 +8,9 @@ import com.google.common.collect.Lists;
 import org.springframework.batch.item.support.CompositeItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class ConflictProcessor extends CompositeItemProcessor<PageHeader, Conflict> {
 
-	@Inject
 	public ConflictProcessor(PageHeaderProcessor pageHeaderProcessor, MilitaryConflictTemplatePageProcessor militaryConflictTemplatePageProcessor,
 			MilitaryConflictTemplateProcessor militaryConflictTemplateProcessor) {
 		setDelegates(Lists.newArrayList(pageHeaderProcessor, militaryConflictTemplatePageProcessor, militaryConflictTemplateProcessor));

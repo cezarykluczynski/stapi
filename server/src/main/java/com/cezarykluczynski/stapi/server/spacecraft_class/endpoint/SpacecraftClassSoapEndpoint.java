@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.client.v1.soap.SpacecraftClassPortType;
 import com.cezarykluczynski.stapi.server.spacecraft_class.reader.SpacecraftClassSoapReader;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.jws.WebParam;
 
 @Service
@@ -18,7 +17,6 @@ public class SpacecraftClassSoapEndpoint implements SpacecraftClassPortType {
 
 	private final SpacecraftClassSoapReader spacecraftClassSoapReader;
 
-	@Inject
 	public SpacecraftClassSoapEndpoint(SpacecraftClassSoapReader spacecraftClassSoapReader) {
 		this.spacecraftClassSoapReader = spacecraftClassSoapReader;
 	}

@@ -10,8 +10,6 @@ import com.cezarykluczynski.stapi.etl.template.publishable_series.processor.Publ
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class BookSeriesTemplateFixedValuesEnrichingProcessor
 		implements ItemEnrichingProcessor<EnrichablePair<BookSeriesTemplate, BookSeriesTemplate>> {
@@ -22,7 +20,6 @@ public class BookSeriesTemplateFixedValuesEnrichingProcessor
 
 	private final BookSeriesTemplateNumberOfBooksFixedValueProvider bookSeriesTemplateNumberOfIssuesFixedValueProvider;
 
-	@Inject
 	public BookSeriesTemplateFixedValuesEnrichingProcessor(BookSeriesPublishedDateFixedValueProvider bookSeriesPublishedDateFixedValueProvider,
 			PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessor publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor,
 			BookSeriesTemplateNumberOfBooksFixedValueProvider bookSeriesTemplateNumberOfIssuesFixedValueProvider) {

@@ -8,12 +8,9 @@ import com.google.common.collect.Lists;
 import org.springframework.batch.item.support.CompositeItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class AstronomicalObjectProcessor extends CompositeItemProcessor<PageHeader, AstronomicalObject> {
 
-	@Inject
 	public AstronomicalObjectProcessor(PageHeaderProcessor pageHeaderProcessor, PlanetTemplatePageProcessor planetTemplatePageProcessor,
 			PlanetTemplateProcessor planetTemplateProcessor) {
 		setDelegates(Lists.newArrayList(pageHeaderProcessor, planetTemplatePageProcessor, planetTemplateProcessor));

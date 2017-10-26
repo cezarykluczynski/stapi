@@ -11,7 +11,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.persistence.NonUniqueResultException;
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +25,6 @@ public class AstronomicalObjectLinkWikitextProcessor implements ItemProcessor<St
 
 	private final AstronomicalObjectRepository astronomicalObjectRepository;
 
-	@Inject
 	public AstronomicalObjectLinkWikitextProcessor(ParagraphExtractor paragraphExtractor, WikitextApi wikitextApi,
 			AstronomicalObjectRepository astronomicalObjectRepository) {
 		this.wikitextApi = wikitextApi;

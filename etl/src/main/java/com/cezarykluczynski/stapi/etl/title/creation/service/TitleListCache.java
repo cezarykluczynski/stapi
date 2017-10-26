@@ -6,7 +6,6 @@ import com.google.common.collect.Sets;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
 import java.util.Set;
 
 @Service
@@ -16,7 +15,6 @@ public class TitleListCache {
 
 	private final TitleListPageProcessor titleListPageProcessor;
 
-	@Inject
 	public TitleListCache(TitleListPageProcessor titleListPageProcessor) {
 		this.titleListPageProcessor = titleListPageProcessor;
 	}

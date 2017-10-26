@@ -5,7 +5,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourc
 import com.google.common.collect.Maps;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Map;
 
 @Service
@@ -17,7 +16,6 @@ public class WikiaWikisDetector {
 
 	private final WikiaUrlDetector wikiaUrlDetector;
 
-	@Inject
 	public WikiaWikisDetector(MediaWikiSourcesProperties mediaWikiSourcesProperties, WikiaUrlDetector wikiaUrlDetector) {
 		this.mediaWikiSourcesProperties = mediaWikiSourcesProperties;
 		this.wikiaUrlDetector = wikiaUrlDetector;

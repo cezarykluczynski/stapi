@@ -4,14 +4,11 @@ import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class CachingStrategyFactoryBean implements FactoryBean<CachingStrategy> {
 
 	private final CacheProperties cacheProperties;
 
-	@Inject
 	public CachingStrategyFactoryBean(CacheProperties cacheProperties) {
 		this.cacheProperties = cacheProperties;
 	}

@@ -14,7 +14,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.google.common.primitives.Ints;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -30,7 +29,6 @@ public class ComicStripTemplatePartsEnrichingProcessor implements ItemWithTempla
 
 	private final WikitextToYearRangeProcessor wikitextToYearRangeProcessor;
 
-	@Inject
 	public ComicStripTemplatePartsEnrichingProcessor(ComicStripTemplatePartStaffEnrichingProcessor comicStripTemplatePartStaffEnrichingProcessor,
 			WikitextToEntitiesProcessor wikitextToEntitiesProcessor, DayMonthYearRangeProcessor dayMonthYearRangeProcessor,
 			ComicStripTemplateDayMonthYearRangeEnrichingProcessor comicStripTemplateDayMonthYearRangeEnrichingProcessor,

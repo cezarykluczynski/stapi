@@ -12,7 +12,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -28,7 +27,6 @@ public class TitlePageProcessor implements ItemProcessor<Page, Title> {
 
 	private final RanksTemplateService ranksTemplateService;
 
-	@Inject
 	public TitlePageProcessor(TitlePageFilter titlePageFilter, PageBindingService pageBindingService, UidGenerator uidGenerator,
 			CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor, RanksTemplateService ranksTemplateService) {
 		this.titlePageFilter = titlePageFilter;

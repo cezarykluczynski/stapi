@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class SpeciesSoapQuery {
 
@@ -25,7 +23,6 @@ public class SpeciesSoapQuery {
 
 	private final SpeciesRepository speciesRepository;
 
-	@Inject
 	public SpeciesSoapQuery(SpeciesBaseSoapMapper speciesBaseSoapMapper, SpeciesFullSoapMapper speciesFullSoapMapper, PageMapper pageMapper,
 			SpeciesRepository speciesRepository) {
 		this.speciesBaseSoapMapper = speciesBaseSoapMapper;

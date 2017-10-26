@@ -4,7 +4,6 @@ import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.google.common.collect.Maps;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Map;
 
 @Service
@@ -14,7 +13,6 @@ public class StepToStepPropertiesProvider {
 
 	private StepsProperties stepsProperties;
 
-	@Inject
 	public StepToStepPropertiesProvider(StepsProperties stepsProperties) {
 		this.stepsProperties = stepsProperties;
 		addAllToMap();

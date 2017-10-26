@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class PerformerSoapQuery {
 
@@ -25,7 +23,6 @@ public class PerformerSoapQuery {
 
 	private final PerformerRepository performerRepository;
 
-	@Inject
 	public PerformerSoapQuery(PerformerBaseSoapMapper performerBaseSoapMapper, PerformerFullSoapMapper performerFullSoapMapper, PageMapper pageMapper,
 			PerformerRepository performerRepository) {
 		this.performerBaseSoapMapper = performerBaseSoapMapper;

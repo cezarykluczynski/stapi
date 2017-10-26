@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 @Slf4j
 public class MediaWikiMinimalIntervalProvider {
@@ -16,7 +14,6 @@ public class MediaWikiMinimalIntervalProvider {
 	@Getter
 	private final Long memoryBetaEnInterval;
 
-	@Inject
 	public MediaWikiMinimalIntervalProvider(MediaWikiSourcesProperties mediaWikiSourcesProperties,
 		MediaWikiMinimalIntervalConfigurationStrategy mediaWikiMinimalIntervalConfigurationStrategy) {
 		this.memoryAlphaEnInterval = mediaWikiMinimalIntervalConfigurationStrategy.configureInterval(

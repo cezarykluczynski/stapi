@@ -16,8 +16,6 @@ import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class MaterialRestReader implements BaseReader<MaterialRestBeanParams, MaterialBaseResponse>, FullReader<String, MaterialFullResponse> {
 
@@ -31,7 +29,6 @@ public class MaterialRestReader implements BaseReader<MaterialRestBeanParams, Ma
 
 	private final SortMapper sortMapper;
 
-	@Inject
 	public MaterialRestReader(MaterialRestQuery materialRestQuery, MaterialBaseRestMapper materialBaseRestMapper,
 			MaterialFullRestMapper materialFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.materialRestQuery = materialRestQuery;

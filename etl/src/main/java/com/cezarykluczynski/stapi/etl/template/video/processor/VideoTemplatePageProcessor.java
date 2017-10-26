@@ -13,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Optional;
 
 @Service
@@ -30,7 +29,6 @@ public class VideoTemplatePageProcessor implements ItemProcessor<Page, VideoTemp
 
 	private final VideoTemplateFormatEnrichingProcessor videoTemplateFormatEnrichingProcessor;
 
-	@Inject
 	public VideoTemplatePageProcessor(VideoReleasePageFilter videoReleasePageFilter, PageBindingService pageBindingService,
 			TemplateFinder templateFinder, VideoTemplateCompositeEnrichingProcessor videoTemplateCompositeEnrichingProcessor,
 			VideoTemplateFormatEnrichingProcessor videoTemplateFormatEnrichingProcessor) {

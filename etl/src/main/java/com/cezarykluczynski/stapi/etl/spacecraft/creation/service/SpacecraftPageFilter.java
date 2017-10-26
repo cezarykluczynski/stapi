@@ -6,7 +6,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.google.common.collect.Sets;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Set;
 
 @Service
@@ -18,7 +17,6 @@ public class SpacecraftPageFilter implements MediaWikiPageFilter {
 
 	private final CategorySortingService categorySortingService;
 
-	@Inject
 	public SpacecraftPageFilter(CategorySortingService categorySortingService) {
 		this.categorySortingService = categorySortingService;
 	}

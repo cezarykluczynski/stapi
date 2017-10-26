@@ -8,8 +8,6 @@ import com.cezarykluczynski.stapi.model.series.entity.Series;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class SeriesTemplateProcessor implements ItemProcessor<SeriesTemplate, Series> {
 
@@ -19,7 +17,6 @@ public class SeriesTemplateProcessor implements ItemProcessor<SeriesTemplate, Se
 
 	private final SeriesEpisodeStatisticsFixedValueProvider seriesEpisodeStatisticsFixedValueProvider;
 
-	@Inject
 	public SeriesTemplateProcessor(UidGenerator uidGenerator, SeriesAbbreviationFixedValueProvider seriesAbbreviationFixedValueProvider,
 			SeriesEpisodeStatisticsFixedValueProvider seriesEpisodeStatisticsFixedValueProvider) {
 		this.uidGenerator = uidGenerator;

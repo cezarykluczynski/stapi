@@ -5,14 +5,12 @@ import com.cezarykluczynski.stapi.client.v1.soap.MagazineSeriesFullRequest;
 import com.cezarykluczynski.stapi.model.magazine_series.dto.MagazineSeriesRequestDTO;
 import com.cezarykluczynski.stapi.model.magazine_series.entity.MagazineSeries;
 import com.cezarykluczynski.stapi.model.magazine_series.repository.MagazineSeriesRepository;
+import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.magazine_series.mapper.MagazineSeriesBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.magazine_series.mapper.MagazineSeriesFullSoapMapper;
-import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
-import javax.inject.Inject;
 
 @Service
 public class MagazineSeriesSoapQuery {
@@ -25,7 +23,6 @@ public class MagazineSeriesSoapQuery {
 
 	private final MagazineSeriesRepository magazineSeriesRepository;
 
-	@Inject
 	public MagazineSeriesSoapQuery(MagazineSeriesBaseSoapMapper magazineSeriesBaseSoapMapper,
 			MagazineSeriesFullSoapMapper magazineSeriesFullSoapMapper, PageMapper pageMapper, MagazineSeriesRepository magazineSeriesRepository) {
 		this.magazineSeriesBaseSoapMapper = magazineSeriesBaseSoapMapper;

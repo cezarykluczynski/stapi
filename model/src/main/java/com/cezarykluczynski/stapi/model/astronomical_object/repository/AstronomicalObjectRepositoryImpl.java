@@ -10,14 +10,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
-
 @Repository
 public class AstronomicalObjectRepositoryImpl implements AstronomicalObjectRepositoryCustom {
 
 	private final AstronomicalObjectQueryBuilderFactory astronomicalObjectQueryBuilderFactory;
 
-	@Inject
 	public AstronomicalObjectRepositoryImpl(AstronomicalObjectQueryBuilderFactory astronomicalObjectQueryBuilderFactory) {
 		this.astronomicalObjectQueryBuilderFactory = astronomicalObjectQueryBuilderFactory;
 	}

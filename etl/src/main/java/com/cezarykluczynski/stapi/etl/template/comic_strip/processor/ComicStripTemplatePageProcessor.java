@@ -13,7 +13,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Optional;
 
 @Service
@@ -29,7 +28,6 @@ public class ComicStripTemplatePageProcessor implements ItemProcessor<Page, Comi
 
 	private final WikitextSectionsCharactersProcessor wikitextSectionsCharactersProcessor;
 
-	@Inject
 	public ComicStripTemplatePageProcessor(TemplateFinder templateFinder, PageBindingService pageBindingService,
 			ComicStripTemplatePartsEnrichingProcessor comicStripTemplatePartsEnrichingProcessor,
 			WikitextSectionsCharactersProcessor wikitextSectionsCharactersProcessor) {

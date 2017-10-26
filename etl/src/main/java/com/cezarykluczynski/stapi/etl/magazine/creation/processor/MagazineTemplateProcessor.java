@@ -6,14 +6,11 @@ import com.cezarykluczynski.stapi.model.magazine.entity.Magazine;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class MagazineTemplateProcessor implements ItemProcessor<MagazineTemplate, Magazine> {
 
 	private final UidGenerator uidGenerator;
 
-	@Inject
 	public MagazineTemplateProcessor(UidGenerator uidGenerator) {
 		this.uidGenerator = uidGenerator;
 	}

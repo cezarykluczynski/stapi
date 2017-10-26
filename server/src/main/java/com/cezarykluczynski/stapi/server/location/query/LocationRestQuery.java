@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class LocationRestQuery {
 
@@ -21,7 +19,6 @@ public class LocationRestQuery {
 
 	private final LocationRepository locationRepository;
 
-	@Inject
 	public LocationRestQuery(LocationBaseRestMapper locationBaseRestMapper, PageMapper pageMapper, LocationRepository locationRepository) {
 		this.locationBaseRestMapper = locationBaseRestMapper;
 		this.pageMapper = pageMapper;

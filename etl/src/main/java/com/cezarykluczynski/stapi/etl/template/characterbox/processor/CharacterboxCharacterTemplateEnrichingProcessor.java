@@ -13,7 +13,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -27,7 +26,6 @@ public class CharacterboxCharacterTemplateEnrichingProcessor implements ItemWith
 
 	private final CharacterTemplateWithCharacterboxTemplateEnrichingProcessor characterTemplateWithCharacterboxTemplateEnrichingProcessor;
 
-	@Inject
 	public CharacterboxCharacterTemplateEnrichingProcessor(PageApi pageApi, CharacterboxTemplateProcessor characterboxTemplateProcessor,
 			CharacterTemplateWithCharacterboxTemplateEnrichingProcessor characterTemplateWithCharacterboxTemplateEnrichingProcessor) {
 		this.pageApi = pageApi;

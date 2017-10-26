@@ -5,8 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 @Slf4j
 public class AstronomicalObjectTypeProcessor implements ItemProcessor<String, AstronomicalObjectType> {
@@ -17,7 +15,6 @@ public class AstronomicalObjectTypeProcessor implements ItemProcessor<String, As
 
 	private final AstronomicalObjectWikitextProcessor astronomicalObjectWikitextProcessor;
 
-	@Inject
 	public AstronomicalObjectTypeProcessor(AstronomicalObjectWikitextProcessor astronomicalObjectWikitextProcessor) {
 		this.astronomicalObjectWikitextProcessor = astronomicalObjectWikitextProcessor;
 	}

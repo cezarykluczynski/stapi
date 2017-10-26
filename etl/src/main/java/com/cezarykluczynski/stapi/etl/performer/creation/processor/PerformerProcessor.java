@@ -10,12 +10,9 @@ import org.springframework.batch.item.support.CompositeItemProcessor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class PerformerProcessor extends CompositeItemProcessor<PageHeader, Performer> {
 
-	@Inject
 	public PerformerProcessor(PageHeaderProcessor pageHeaderProcessor,
 			@Qualifier(PerformerCreationConfiguration.PERFORMER_ACTOR_TEMPLATE_PAGE_PROCESSOR)
 					ActorTemplatePageProcessor actorTemplatePageProcessor,

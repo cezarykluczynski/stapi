@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class MaterialRestQuery {
 
@@ -21,7 +19,6 @@ public class MaterialRestQuery {
 
 	private final MaterialRepository materialRepository;
 
-	@Inject
 	public MaterialRestQuery(MaterialBaseRestMapper materialBaseRestMapper, PageMapper pageMapper, MaterialRepository materialRepository) {
 		this.materialBaseRestMapper = materialBaseRestMapper;
 		this.pageMapper = pageMapper;

@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -26,7 +25,6 @@ public class TextToCompaniesProcessor implements ItemProcessor<String, Set<Compa
 
 	private final CompanyAliasFixedValueProvider companyAliasFixedValueProvider;
 
-	@Inject
 	public TextToCompaniesProcessor(CompanyRepository companyRepository, CompanyAliasFixedValueProvider companyAliasFixedValueProvider) {
 		this.companyRepository = companyRepository;
 		this.companyAliasFixedValueProvider = companyAliasFixedValueProvider;

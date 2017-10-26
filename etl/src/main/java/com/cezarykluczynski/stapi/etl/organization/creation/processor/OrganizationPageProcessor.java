@@ -12,7 +12,6 @@ import com.cezarykluczynski.stapi.util.tool.StringUtil;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -28,7 +27,6 @@ public class OrganizationPageProcessor implements ItemProcessor<Page, Organizati
 
 	private final OrganizationNameFixedValueProvider organizationNameFixedValueProvider;
 
-	@Inject
 	public OrganizationPageProcessor(OrganizationPageFilter organizationPageFilter, PageBindingService pageBindingService,
 			UidGenerator uidGenerator, CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor,
 			OrganizationNameFixedValueProvider organizationNameFixedValueProvider) {

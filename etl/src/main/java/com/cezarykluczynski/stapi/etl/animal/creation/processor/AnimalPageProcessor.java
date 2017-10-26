@@ -11,7 +11,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -25,7 +24,6 @@ public class AnimalPageProcessor implements ItemProcessor<Page, Animal> {
 
 	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
-	@Inject
 	public AnimalPageProcessor(AnimalPageFilter animalPageFilter, PageBindingService pageBindingService, UidGenerator uidGenerator,
 			CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {
 		this.animalPageFilter = animalPageFilter;

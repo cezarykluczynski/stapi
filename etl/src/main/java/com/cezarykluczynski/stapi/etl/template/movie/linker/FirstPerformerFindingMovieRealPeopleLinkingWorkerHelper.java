@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -19,7 +18,6 @@ public class FirstPerformerFindingMovieRealPeopleLinkingWorkerHelper {
 
 	private final EntityLookupByNameService entityLookupByNameService;
 
-	@Inject
 	public FirstPerformerFindingMovieRealPeopleLinkingWorkerHelper(EntityLookupByNameService entityLookupByNameService) {
 		this.entityLookupByNameService = entityLookupByNameService;
 	}

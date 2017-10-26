@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +16,6 @@ public class DuplicateReattachingPreSavePageAwareFilter extends AbstractPreSaveP
 
 	private final PageRepository pageRepository;
 
-	@Inject
 	public DuplicateReattachingPreSavePageAwareFilter(PageRepository pageRepository) {
 		this.pageRepository = pageRepository;
 	}

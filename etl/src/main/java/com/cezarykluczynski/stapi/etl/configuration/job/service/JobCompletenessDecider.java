@@ -5,7 +5,6 @@ import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -13,7 +12,6 @@ public class JobCompletenessDecider {
 
 	private final AllStepExecutionsProvider allStepExecutionsProvider;
 
-	@Inject
 	public JobCompletenessDecider(AllStepExecutionsProvider allStepExecutionsProvider) {
 		this.allStepExecutionsProvider = allStepExecutionsProvider;
 	}

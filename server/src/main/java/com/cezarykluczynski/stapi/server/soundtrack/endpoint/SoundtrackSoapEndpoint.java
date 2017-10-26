@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.client.v1.soap.SoundtrackPortType;
 import com.cezarykluczynski.stapi.server.soundtrack.reader.SoundtrackSoapReader;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.jws.WebParam;
 
 @Service
@@ -18,7 +17,6 @@ public class SoundtrackSoapEndpoint implements SoundtrackPortType {
 
 	private final SoundtrackSoapReader soundtrackSoapReader;
 
-	@Inject
 	public SoundtrackSoapEndpoint(SoundtrackSoapReader soundtrackSoapReader) {
 		this.soundtrackSoapReader = soundtrackSoapReader;
 	}

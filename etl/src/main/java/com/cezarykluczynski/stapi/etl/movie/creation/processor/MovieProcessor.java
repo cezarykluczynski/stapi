@@ -8,12 +8,9 @@ import com.google.common.collect.Lists;
 import org.springframework.batch.item.support.CompositeItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class MovieProcessor extends CompositeItemProcessor<PageHeader, Movie> {
 
-	@Inject
 	public MovieProcessor(PageHeaderProcessor pageHeaderProcessor, MovieTemplatePageProcessor movieTemplatePageProcessor,
 			MovieTemplateToMovieProcessor movieTemplateToMovieProcessor) {
 		setDelegates(Lists.newArrayList(pageHeaderProcessor, movieTemplatePageProcessor, movieTemplateToMovieProcessor));

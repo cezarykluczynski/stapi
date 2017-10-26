@@ -17,7 +17,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -45,7 +44,6 @@ public class CharacterSpeciesWikitextProcessor implements ItemProcessor<Pair<Str
 
 	private final CharacterSpeciesWithSpeciesNameEnrichingProcessor characterSpeciesWithSpeciesNameEnrichingProcessor;
 
-	@Inject
 	public CharacterSpeciesWikitextProcessor(CharacterSpeciesFixedValueProvider characterSpeciesFixedValueProvider, WikitextApi wikitextApi,
 			CharacterSpeciesLiteralFractionWikitextEnrichingProcessor characterSpeciesLiteralFractionWikitextEnrichingProcessor,
 			CharacterSpeciesWithSpeciesNameEnrichingProcessor characterSpeciesWithSpeciesNameEnrichingProcessor) {

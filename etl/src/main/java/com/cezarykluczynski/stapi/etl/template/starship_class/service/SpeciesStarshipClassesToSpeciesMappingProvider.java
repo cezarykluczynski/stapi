@@ -6,7 +6,6 @@ import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Map;
 import java.util.Optional;
 
@@ -42,7 +41,6 @@ public class SpeciesStarshipClassesToSpeciesMappingProvider {
 
 	private final SpeciesRepository speciesRepository;
 
-	@Inject
 	public SpeciesStarshipClassesToSpeciesMappingProvider(SpeciesRepository speciesRepository) {
 		this.speciesRepository = speciesRepository;
 	}

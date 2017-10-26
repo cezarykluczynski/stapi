@@ -11,8 +11,6 @@ import org.jsoup.select.Elements;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 @Slf4j
 public class TradingCardProcessor implements ItemProcessor<Element, TradingCard> {
@@ -25,7 +23,6 @@ public class TradingCardProcessor implements ItemProcessor<Element, TradingCard>
 
 	private final TradingCardPropertiesProcessor tradingCardPropertiesProcessor;
 
-	@Inject
 	public TradingCardProcessor(TradingCardItemNumberProcessor tradingCardItemNumberProcessor, UidGenerator uidGenerator,
 			TradingCardPropertiesProcessor tradingCardPropertiesProcessor) {
 		this.tradingCardItemNumberProcessor = tradingCardItemNumberProcessor;

@@ -14,7 +14,6 @@ import com.google.common.collect.Lists;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,7 +33,6 @@ public class MovieTemplatePageProcessor implements ItemProcessor<Page, MovieTemp
 
 	private final MovieRealPeopleLinkingWorkerComposite movieRealPeopleLinkingWorkerComposite;
 
-	@Inject
 	public MovieTemplatePageProcessor(MovieTemplateProcessor movieTemplateProcessor, TemplateFinder templateFinder,
 			PageBindingService pageBindingService,
 			MovieTemplateTitleLanguagesEnrichingProcessor movieTemplateTitleLanguagesEnrichingProcessor,

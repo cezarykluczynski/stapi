@@ -5,14 +5,11 @@ import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.StepExecutionListener;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class TitleListStepExecutionListener implements StepExecutionListener {
 
 	private final TitleListCache titleListCache;
 
-	@Inject
 	public TitleListStepExecutionListener(TitleListCache titleListCache) {
 		this.titleListCache = titleListCache;
 	}

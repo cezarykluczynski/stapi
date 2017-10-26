@@ -6,7 +6,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -14,7 +13,6 @@ public class ComicSeriesTemplatePhotonovelSeriesProcessor implements ItemProcess
 
 	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
-	@Inject
 	public ComicSeriesTemplatePhotonovelSeriesProcessor(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
 	}

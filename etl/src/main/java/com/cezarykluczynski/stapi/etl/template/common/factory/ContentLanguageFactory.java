@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.model.content_language.repository.ContentLangu
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Optional;
 
 @Service
@@ -21,7 +20,6 @@ public class ContentLanguageFactory {
 
 	private final UidGenerator uidGenerator;
 
-	@Inject
 	public ContentLanguageFactory(ContentLanguageDTOProvider contentLanguageDTOProvider, ContentLanguageRepository contentLanguageRepository,
 			UidGenerator uidGenerator) {
 		this.contentLanguageDTOProvider = contentLanguageDTOProvider;

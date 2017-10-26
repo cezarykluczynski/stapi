@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.client.v1.soap.MedicalConditionPortType;
 import com.cezarykluczynski.stapi.server.medical_condition.reader.MedicalConditionSoapReader;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.jws.WebParam;
 
 @Service
@@ -18,7 +17,6 @@ public class MedicalConditionSoapEndpoint implements MedicalConditionPortType {
 
 	private final MedicalConditionSoapReader seriesSoapReader;
 
-	@Inject
 	public MedicalConditionSoapEndpoint(MedicalConditionSoapReader seriesSoapReader) {
 		this.seriesSoapReader = seriesSoapReader;
 	}

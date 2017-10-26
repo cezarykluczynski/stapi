@@ -8,14 +8,11 @@ import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplateParameter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class VideoTemplateDatesEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<VideoTemplate> {
 
 	private final DatePartToLocalDateProcessor datePartToLocalDateProcessor;
 
-	@Inject
 	public VideoTemplateDatesEnrichingProcessor(DatePartToLocalDateProcessor datePartToLocalDateProcessor) {
 		this.datePartToLocalDateProcessor = datePartToLocalDateProcessor;
 	}

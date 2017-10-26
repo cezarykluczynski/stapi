@@ -17,7 +17,6 @@ import com.google.common.primitives.Ints;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -40,7 +39,6 @@ public class BookTemplatePartsEnrichingProcessor implements ItemWithTemplatePart
 	private final WikitextToEntitiesProcessor wikitextToEntitiesProcessor;
 
 	@SuppressWarnings("ParameterNumber")
-	@Inject
 	public BookTemplatePartsEnrichingProcessor(BookTemplatePartStaffEnrichingProcessor bookTemplatePartStaffEnrichingProcessor,
 			BookTemplatePublishedDatesEnrichingProcessor bookTemplatePublishedDatesEnrichingProcessor,
 			WikitextToYearRangeProcessor wikitextToYearRangeProcessor, WikitextToStardateRangeProcessor wikitextToStardateRangeProcessor,

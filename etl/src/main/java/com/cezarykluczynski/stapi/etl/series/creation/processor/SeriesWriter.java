@@ -5,7 +5,6 @@ import com.cezarykluczynski.stapi.model.series.repository.SeriesRepository;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,7 +13,6 @@ public class SeriesWriter implements ItemWriter<Series> {
 
 	private final SeriesRepository seriesRepository;
 
-	@Inject
 	public SeriesWriter(SeriesRepository seriesRepository) {
 		this.seriesRepository = seriesRepository;
 	}

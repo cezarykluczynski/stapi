@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class SeasonRestQuery {
 
@@ -21,7 +19,6 @@ public class SeasonRestQuery {
 
 	private final SeasonRepository seasonRepository;
 
-	@Inject
 	public SeasonRestQuery(SeasonBaseRestMapper seasonBaseRestMapper, PageMapper pageMapper, SeasonRepository seasonRepository) {
 		this.seasonBaseRestMapper = seasonBaseRestMapper;
 		this.pageMapper = pageMapper;

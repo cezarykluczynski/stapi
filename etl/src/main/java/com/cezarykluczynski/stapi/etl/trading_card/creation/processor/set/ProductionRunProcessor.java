@@ -11,7 +11,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,7 +25,6 @@ public class ProductionRunProcessor implements ItemProcessor<TradingCardSetValue
 
 	private final BoxesPerCaseFixedValueProvider boxesPerCaseFixedValueProvider;
 
-	@Inject
 	public ProductionRunProcessor(BoxesPerCaseFixedValueProvider boxesPerCaseFixedValueProvider) {
 		this.boxesPerCaseFixedValueProvider = boxesPerCaseFixedValueProvider;
 	}

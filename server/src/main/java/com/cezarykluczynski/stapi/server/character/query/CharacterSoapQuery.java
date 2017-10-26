@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class CharacterSoapQuery {
 
@@ -25,7 +23,6 @@ public class CharacterSoapQuery {
 
 	private final CharacterRepository characterRepository;
 
-	@Inject
 	public CharacterSoapQuery(CharacterBaseSoapMapper characterBaseSoapMapper, CharacterFullSoapMapper characterFullSoapMapper, PageMapper pageMapper,
 			CharacterRepository characterRepository) {
 		this.characterBaseSoapMapper = characterBaseSoapMapper;

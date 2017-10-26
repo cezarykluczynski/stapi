@@ -8,7 +8,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -18,7 +17,6 @@ public class ContentLanguagesProcessor implements ItemProcessor<String, Set<Cont
 
 	private final ContentLanguageFactory contentLanguageFactory;
 
-	@Inject
 	public ContentLanguagesProcessor(ContentLanguageFactory contentLanguageFactory) {
 		this.contentLanguageFactory = contentLanguageFactory;
 	}

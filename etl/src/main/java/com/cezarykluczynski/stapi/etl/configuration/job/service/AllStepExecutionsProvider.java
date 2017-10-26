@@ -11,7 +11,6 @@ import org.springframework.batch.core.repository.dao.JobInstanceDao;
 import org.springframework.batch.core.repository.dao.StepExecutionDao;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -25,7 +24,6 @@ public class AllStepExecutionsProvider {
 
 	private final ExecutionContextDao executionContextDao;
 
-	@Inject
 	public AllStepExecutionsProvider(JobInstanceDao jobInstanceDao, JobExecutionDao jobExecutionDao,
 			StepExecutionDao stepExecutionDao, ExecutionContextDao executionContextDao) {
 		this.jobInstanceDao = jobInstanceDao;

@@ -11,8 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class EpisodeRestQuery {
 
@@ -22,7 +20,6 @@ public class EpisodeRestQuery {
 
 	private final EpisodeRepository episodeRepository;
 
-	@Inject
 	public EpisodeRestQuery(EpisodeBaseRestMapper episodeBaseRestMapper, PageMapper pageMapper, EpisodeRepository episodeRepository) {
 		this.episodeBaseRestMapper = episodeBaseRestMapper;
 		this.pageMapper = pageMapper;

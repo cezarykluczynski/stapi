@@ -16,8 +16,6 @@ import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class SoundtrackRestReader implements BaseReader<SoundtrackRestBeanParams, SoundtrackBaseResponse>,
 		FullReader<String, SoundtrackFullResponse> {
@@ -32,7 +30,6 @@ public class SoundtrackRestReader implements BaseReader<SoundtrackRestBeanParams
 
 	private final SortMapper sortMapper;
 
-	@Inject
 	public SoundtrackRestReader(SoundtrackRestQuery soundtrackRestQuery, SoundtrackBaseRestMapper soundtrackBaseRestMapper,
 			SoundtrackFullRestMapper soundtrackFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.soundtrackRestQuery = soundtrackRestQuery;

@@ -10,8 +10,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 @Slf4j
 public class StarshipClassTemplateContentsEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<StarshipClassTemplate> {
@@ -22,7 +20,6 @@ public class StarshipClassTemplateContentsEnrichingProcessor implements ItemWith
 
 	private final StarshipClassActivityPeriodProcessor starshipClassActivityPeriodProcessor;
 
-	@Inject
 	public StarshipClassTemplateContentsEnrichingProcessor(NumberOfPartsProcessor numberOfPartsProcessor,
 			StarshipClassWarpCapableProcessor starshipClassWarpCapableProcessor,
 			StarshipClassActivityPeriodProcessor starshipClassActivityPeriodProcessor) {

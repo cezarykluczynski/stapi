@@ -9,14 +9,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
-
 @Repository
 public class WeaponRepositoryImpl implements WeaponRepositoryCustom {
 
 	private final WeaponQueryBuilderFactory weaponQueryBuilderFactory;
 
-	@Inject
 	public WeaponRepositoryImpl(WeaponQueryBuilderFactory weaponQueryBuilderFactory) {
 		this.weaponQueryBuilderFactory = weaponQueryBuilderFactory;
 	}

@@ -7,8 +7,6 @@ import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class StaffActorTemplateProcessor implements ItemProcessor<ActorTemplate, Staff> {
 
@@ -16,7 +14,6 @@ public class StaffActorTemplateProcessor implements ItemProcessor<ActorTemplate,
 
 	private final CommonActorTemplateProcessor commonActorTemplateProcessor;
 
-	@Inject
 	public StaffActorTemplateProcessor(UidGenerator uidGenerator, CommonActorTemplateProcessor commonActorTemplateProcessor) {
 		this.uidGenerator = uidGenerator;
 		this.commonActorTemplateProcessor = commonActorTemplateProcessor;

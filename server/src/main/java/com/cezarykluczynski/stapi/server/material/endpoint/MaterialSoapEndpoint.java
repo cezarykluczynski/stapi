@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.client.v1.soap.MaterialPortType;
 import com.cezarykluczynski.stapi.server.material.reader.MaterialSoapReader;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.jws.WebParam;
 
 @Service
@@ -18,7 +17,6 @@ public class MaterialSoapEndpoint implements MaterialPortType {
 
 	private final MaterialSoapReader seriesSoapReader;
 
-	@Inject
 	public MaterialSoapEndpoint(MaterialSoapReader seriesSoapReader) {
 		this.seriesSoapReader = seriesSoapReader;
 	}

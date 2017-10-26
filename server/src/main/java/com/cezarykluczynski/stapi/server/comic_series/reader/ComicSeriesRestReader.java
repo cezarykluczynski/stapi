@@ -16,8 +16,6 @@ import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class ComicSeriesRestReader implements BaseReader<ComicSeriesRestBeanParams, ComicSeriesBaseResponse>,
 		FullReader<String, ComicSeriesFullResponse> {
@@ -32,7 +30,6 @@ public class ComicSeriesRestReader implements BaseReader<ComicSeriesRestBeanPara
 
 	private final SortMapper sortMapper;
 
-	@Inject
 	public ComicSeriesRestReader(ComicSeriesRestQuery comicSeriesRestQuery, ComicSeriesBaseRestMapper comicSeriesBaseRestMapper,
 			ComicSeriesFullRestMapper comicSeriesFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.comicSeriesRestQuery = comicSeriesRestQuery;

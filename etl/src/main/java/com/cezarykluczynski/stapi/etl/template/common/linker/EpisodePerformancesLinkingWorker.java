@@ -12,7 +12,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -27,7 +26,6 @@ public class EpisodePerformancesLinkingWorker implements LinkingWorker<Page, Epi
 
 	private final EpisodePerformancesToEntityMapper episodePerformancesToEntityMapper;
 
-	@Inject
 	public EpisodePerformancesLinkingWorker(CharacterRepository characterRepository,
 			PerformerRepository performerRepository, EpisodePerformancesExtractingProcessor episodePerformancesExtractingProcessor,
 			EpisodePerformancesToEntityMapper episodePerformancesToEntityMapper) {

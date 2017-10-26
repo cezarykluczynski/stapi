@@ -17,7 +17,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Map;
 
@@ -37,7 +36,6 @@ public class JobBuilder {
 
 	private final EtlProperties etlProperties;
 
-	@Inject
 	public JobBuilder(ApplicationContext applicationContext, JobBuilderFactory jobBuilderFactory,
 			StepConfigurationValidator stepConfigurationValidator, JobCompletenessDecider jobCompletenessDecider,
 			StepToStepPropertiesProvider stepToStepPropertiesProvider, EtlProperties etlProperties) {

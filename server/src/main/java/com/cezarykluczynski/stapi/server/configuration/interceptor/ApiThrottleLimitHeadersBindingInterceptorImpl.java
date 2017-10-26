@@ -12,7 +12,6 @@ import org.apache.cxf.phase.Phase;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +25,6 @@ public class ApiThrottleLimitHeadersBindingInterceptorImpl extends AbstractPhase
 
 	private final RequestSpecificThrottleStatistics requestSpecificThrottleStatistics;
 
-	@Inject
 	public ApiThrottleLimitHeadersBindingInterceptorImpl(RequestSpecificThrottleStatistics requestSpecificThrottleStatistics) {
 		super(Phase.PRE_STREAM);
 		this.requestSpecificThrottleStatistics = requestSpecificThrottleStatistics;

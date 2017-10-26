@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class AstronomicalObjectSoapQuery {
 
@@ -25,7 +23,6 @@ public class AstronomicalObjectSoapQuery {
 
 	private final AstronomicalObjectRepository astronomicalObjectRepository;
 
-	@Inject
 	public AstronomicalObjectSoapQuery(AstronomicalObjectBaseSoapMapper astronomicalObjectBaseSoapMapper,
 			AstronomicalObjectFullSoapMapper astronomicalObjectFullSoapMapper, PageMapper pageMapper,
 			AstronomicalObjectRepository astronomicalObjectRepository) {

@@ -16,8 +16,6 @@ import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class EpisodeRestReader implements BaseReader<EpisodeRestBeanParams, EpisodeBaseResponse>, FullReader<String, EpisodeFullResponse> {
 
@@ -31,7 +29,6 @@ public class EpisodeRestReader implements BaseReader<EpisodeRestBeanParams, Epis
 
 	private final SortMapper sortMapper;
 
-	@Inject
 	public EpisodeRestReader(EpisodeRestQuery episodeRestQuery, EpisodeBaseRestMapper episodeBaseRestMapper,
 			EpisodeFullRestMapper episodeFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.episodeRestQuery = episodeRestQuery;

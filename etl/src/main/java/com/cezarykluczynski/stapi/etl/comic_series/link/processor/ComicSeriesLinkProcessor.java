@@ -14,7 +14,6 @@ import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -32,7 +31,6 @@ public class ComicSeriesLinkProcessor implements ItemProcessor<ComicSeries, Comi
 
 	private final ComicSeriesRepository comicSeriesRepository;
 
-	@Inject
 	public ComicSeriesLinkProcessor(MediaWikiSourceMapper mediaWikiSourceMapper, PageApi pageApi, TemplateFinder templateFinder,
 			WikitextApi wikitextApi, ComicSeriesRepository comicSeriesRepository) {
 		this.mediaWikiSourceMapper = mediaWikiSourceMapper;

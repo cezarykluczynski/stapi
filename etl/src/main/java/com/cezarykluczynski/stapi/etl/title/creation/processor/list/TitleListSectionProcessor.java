@@ -12,7 +12,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Set;
 
 @Service
@@ -30,7 +29,6 @@ class TitleListSectionProcessor {
 
 	private final TitleRepository titleRepository;
 
-	@Inject
 	TitleListSectionProcessor(PageBindingService pageBindingService, PageRepository pageRepository, UidGenerator uidGenerator,
 			TitleRepository titleRepository) {
 		this.pageBindingService = pageBindingService;

@@ -13,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Repository
@@ -21,7 +20,6 @@ public class StaffRepositoryImpl extends AbstractRepositoryImpl<Staff> implement
 
 	private final StaffInitialQueryBuilderFactory staffInitialQueryBuilderFactory;
 
-	@Inject
 	public StaffRepositoryImpl(StaffInitialQueryBuilderFactory staffInitialQueryBuilderFactory) {
 		this.staffInitialQueryBuilderFactory = staffInitialQueryBuilderFactory;
 	}

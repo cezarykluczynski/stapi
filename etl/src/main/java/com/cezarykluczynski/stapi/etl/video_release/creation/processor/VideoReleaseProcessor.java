@@ -8,12 +8,9 @@ import com.google.common.collect.Lists;
 import org.springframework.batch.item.support.CompositeItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class VideoReleaseProcessor extends CompositeItemProcessor<PageHeader, VideoRelease> {
 
-	@Inject
 	public VideoReleaseProcessor(PageHeaderProcessor pageHeaderProcessor, VideoTemplatePageProcessor videoReleaseTemplatePageProcessor,
 			VideoReleaseTemplateProcessor videoReleaseTemplateProcessor) {
 		setDelegates(Lists.newArrayList(pageHeaderProcessor, videoReleaseTemplatePageProcessor, videoReleaseTemplateProcessor));

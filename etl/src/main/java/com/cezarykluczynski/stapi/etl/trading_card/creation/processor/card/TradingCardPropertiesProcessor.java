@@ -11,7 +11,6 @@ import org.jsoup.nodes.TextNode;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,7 +27,6 @@ public class TradingCardPropertiesProcessor implements ItemProcessor<Element, Tr
 
 	private final TradingCardItemsProcessor tradingCardItemsProcessor;
 
-	@Inject
 	public TradingCardPropertiesProcessor(TradingCardItemsProcessor tradingCardItemsProcessor) {
 		this.tradingCardItemsProcessor = tradingCardItemsProcessor;
 	}

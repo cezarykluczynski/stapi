@@ -11,14 +11,11 @@ import com.cezarykluczynski.stapi.etl.template.publishable.dto.PublishableTempla
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class PublishableTemplatePublishedDatesEnrichingProcessor implements ItemWithTemplatePartEnrichingProcessor<PublishableTemplate> {
 
 	private final DatePartToDayMonthYearProcessor datePartToDayMonthYearProcessor;
 
-	@Inject
 	public PublishableTemplatePublishedDatesEnrichingProcessor(DatePartToDayMonthYearProcessor datePartToDayMonthYearProcessor) {
 		this.datePartToDayMonthYearProcessor = datePartToDayMonthYearProcessor;
 	}

@@ -13,7 +13,6 @@ import com.google.common.collect.Sets;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Optional;
 import java.util.Set;
 
@@ -35,7 +34,6 @@ public class ComicSeriesTemplatePageProcessor implements ItemProcessor<Page, Com
 
 	private final ComicSeriesTemplatePhotonovelSeriesProcessor comicSeriesTemplatePhotonovelSeriesProcessor;
 
-	@Inject
 	public ComicSeriesTemplatePageProcessor(PageBindingService pageBindingService, TemplateFinder templateFinder,
 			ComicSeriesTemplatePartsEnrichingProcessor comicSeriesTemplatePartsEnrichingProcessor,
 			ComicSeriesTemplateFixedValuesEnrichingProcessor comicSeriesTemplateFixedValuesEnrichingProcessor,

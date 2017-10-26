@@ -12,7 +12,6 @@ import com.cezarykluczynski.stapi.util.constant.PageTitle;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -26,7 +25,6 @@ public class CompanyPageProcessor implements ItemProcessor<Page, Company> {
 
 	private final CompanyNameFixedValueProvider companyNameFixedValueProvider;
 
-	@Inject
 	public CompanyPageProcessor(PageBindingService pageBindingService, UidGenerator uidGenerator,
 			CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor, CompanyNameFixedValueProvider companyNameFixedValueProvider) {
 		this.pageBindingService = pageBindingService;

@@ -9,15 +9,12 @@ import org.apache.cxf.phase.Phase;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 @Profile(SpringProfile.API_THROTTLE)
 public class ApiThrottlingInterceptorImpl extends AbstractPhaseInterceptor<Message> implements ApiThrottlingInterceptor {
 
 	private final ThrottleFacade throttleFacade;
 
-	@Inject
 	public ApiThrottlingInterceptorImpl(ThrottleFacade throttleFacade) {
 		super(Phase.RECEIVE);
 		this.throttleFacade = throttleFacade;

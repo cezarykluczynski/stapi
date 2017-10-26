@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -33,7 +32,6 @@ public class BookCollectionTemplateWikitextBooksProcessor implements ItemProcess
 
 	private final EntityLookupByNameService entityLookupByNameService;
 
-	@Inject
 	public BookCollectionTemplateWikitextBooksProcessor(PageSectionExtractor pageSectionExtractor, WikitextApi wikitextApi,
 			EntityLookupByNameService entityLookupByNameService) {
 		this.pageSectionExtractor = pageSectionExtractor;

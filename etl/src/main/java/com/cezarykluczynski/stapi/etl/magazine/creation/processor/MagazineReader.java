@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Iterator;
 import java.util.List;
 
@@ -34,7 +33,6 @@ public class MagazineReader implements ItemReader<PageHeader> {
 
 	private boolean initialized;
 
-	@Inject
 	public MagazineReader(MagazineCandidatePageGatheringService magazineCandidatePageGatheringService, CategoryApi categoryApi,
 			StepCompletenessDecider stepCompletenessDecider) {
 		this.magazineCandidatePageGatheringService = magazineCandidatePageGatheringService;

@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.client.v1.soap.WeaponPortType;
 import com.cezarykluczynski.stapi.server.weapon.reader.WeaponSoapReader;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.jws.WebParam;
 
 @Service
@@ -18,7 +17,6 @@ public class WeaponSoapEndpoint implements WeaponPortType {
 
 	private final WeaponSoapReader seriesSoapReader;
 
-	@Inject
 	public WeaponSoapEndpoint(WeaponSoapReader seriesSoapReader) {
 		this.seriesSoapReader = seriesSoapReader;
 	}

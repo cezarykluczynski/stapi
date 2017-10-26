@@ -13,7 +13,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -33,7 +32,6 @@ public class EpisodeStaffLinkingWorker implements LinkingWorker<Page, Episode> {
 
 	private final TemplateFinder templateFinder;
 
-	@Inject
 	public EpisodeStaffLinkingWorker(WikitextApi wikitextApi, EntityLookupByNameService entityLookupByNameService,
 			TemplateFinder templateFinder) {
 		this.wikitextApi = wikitextApi;

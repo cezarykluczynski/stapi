@@ -7,7 +7,6 @@ import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -18,7 +17,6 @@ public class OrganizationPageFilter implements MediaWikiPageFilter {
 
 	private final OrganizationNameFilter organizationNameFilter;
 
-	@Inject
 	public OrganizationPageFilter(CategorySortingService categorySortingService, OrganizationNameFilter organizationNameFilter) {
 		this.categorySortingService = categorySortingService;
 		this.organizationNameFilter = organizationNameFilter;

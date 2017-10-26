@@ -11,7 +11,6 @@ import com.cezarykluczynski.stapi.util.constant.PageTitle;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -21,7 +20,6 @@ public class ActorTemplateListPageProcessor implements ItemProcessor<Page, Actor
 
 	private VideoGamePerformerLifeRangeFixedValueProvider videoGamePerformerLifeRangeFixedValueProvider;
 
-	@Inject
 	public ActorTemplateListPageProcessor(PageBindingService pageBindingService,
 			VideoGamePerformerLifeRangeFixedValueProvider videoGamePerformerLifeRangeFixedValueProvider) {
 		this.pageBindingService = pageBindingService;

@@ -10,7 +10,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Set;
 
@@ -121,7 +120,6 @@ public class MovieLinkedTitlesProcessor implements ItemProcessor<List<PageSectio
 
 	private final WikitextApi wikitextApi;
 
-	@Inject
 	public MovieLinkedTitlesProcessor(WikitextApi wikitextApi) {
 		this.wikitextApi = wikitextApi;
 	}

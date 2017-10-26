@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class ComicCollectionSoapQuery {
 
@@ -25,7 +23,6 @@ public class ComicCollectionSoapQuery {
 
 	private final ComicCollectionRepository comicCollectionRepository;
 
-	@Inject
 	public ComicCollectionSoapQuery(ComicCollectionBaseSoapMapper comicCollectionBaseSoapMapper,
 			ComicCollectionFullSoapMapper comicCollectionFullSoapMapper, PageMapper pageMapper, ComicCollectionRepository comicCollectionRepository) {
 		this.comicCollectionBaseSoapMapper = comicCollectionBaseSoapMapper;

@@ -14,7 +14,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -35,7 +34,6 @@ public class WeaponPageProcessor implements ItemProcessor<Page, Weapon> {
 
 	private final TemplateFinder templateFinder;
 
-	@Inject
 	public WeaponPageProcessor(WeaponPageFilter weaponPageFilter, PageBindingService pageBindingService, UidGenerator uidGenerator,
 		CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor, TemplateFinder templateFinder) {
 		this.weaponPageFilter = weaponPageFilter;

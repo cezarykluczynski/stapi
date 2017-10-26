@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class SoundtrackSoapQuery {
 
@@ -25,7 +23,6 @@ public class SoundtrackSoapQuery {
 
 	private final SoundtrackRepository soundtrackRepository;
 
-	@Inject
 	public SoundtrackSoapQuery(SoundtrackBaseSoapMapper soundtrackBaseSoapMapper, SoundtrackFullSoapMapper soundtrackFullSoapMapper,
 			PageMapper pageMapper, SoundtrackRepository soundtrackRepository) {
 		this.soundtrackBaseSoapMapper = soundtrackBaseSoapMapper;

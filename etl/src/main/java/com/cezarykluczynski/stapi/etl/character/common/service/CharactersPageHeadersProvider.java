@@ -8,7 +8,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -23,7 +22,6 @@ public class CharactersPageHeadersProvider {
 
 	private List<PageHeader> characters;
 
-	@Inject
 	public CharactersPageHeadersProvider(CategoryApi categoryApi) {
 		this.categoryApi = categoryApi;
 	}

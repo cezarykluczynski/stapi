@@ -7,8 +7,6 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.Yearlin
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class TemplateToDayMonthYearParser {
 
@@ -18,7 +16,6 @@ public class TemplateToDayMonthYearParser {
 
 	private final YearlinkToYearProcessor yearlinkToYearProcessor;
 
-	@Inject
 	public TemplateToDayMonthYearParser(DatelinkTemplateToDayMonthYearProcessor datelinkTemplateToDayMonthYearProcessor,
 			MonthlinkTemplateToMonthYearProcessor monthlinkTemplateToMonthYearProcessor,
 			YearlinkToYearProcessor yearlinkToYearProcessor) {

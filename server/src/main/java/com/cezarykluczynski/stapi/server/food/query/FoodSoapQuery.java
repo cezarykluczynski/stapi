@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class FoodSoapQuery {
 
@@ -25,7 +23,6 @@ public class FoodSoapQuery {
 
 	private final FoodRepository foodRepository;
 
-	@Inject
 	public FoodSoapQuery(FoodBaseSoapMapper foodBaseSoapMapper, FoodFullSoapMapper foodFullSoapMapper, PageMapper pageMapper,
 			FoodRepository foodRepository) {
 		this.foodBaseSoapMapper = foodBaseSoapMapper;

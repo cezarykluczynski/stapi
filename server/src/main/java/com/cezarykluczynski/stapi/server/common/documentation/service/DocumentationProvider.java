@@ -4,7 +4,6 @@ import com.cezarykluczynski.stapi.contract.documentation.dto.DocumentationDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.File;
@@ -24,7 +23,6 @@ public class DocumentationProvider {
 
 	private DocumentationDTO documentationDTO;
 
-	@Inject
 	public DocumentationProvider(DocumentationReader documentationReader, DocumentationZipper documentationZipper,
 			DocumentationDirectoryProvider documentationDirectoryProvider) {
 		this.documentationReader = documentationReader;

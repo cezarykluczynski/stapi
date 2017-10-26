@@ -5,8 +5,6 @@ import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class EpisodeLinkingWorkerComposite implements LinkingWorker<Page, Episode> {
 
@@ -14,7 +12,6 @@ public class EpisodeLinkingWorkerComposite implements LinkingWorker<Page, Episod
 
 	private final EpisodeStaffLinkingWorker episodeStaffLinkingWorker;
 
-	@Inject
 	public EpisodeLinkingWorkerComposite(EpisodePerformancesLinkingWorker episodePerformancesLinkingWorker,
 			EpisodeStaffLinkingWorker episodeStaffLinkingWorker) {
 		this.episodePerformancesLinkingWorker = episodePerformancesLinkingWorker;

@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.client.v1.soap.ConflictPortType;
 import com.cezarykluczynski.stapi.server.conflict.reader.ConflictSoapReader;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.jws.WebParam;
 
 @Service
@@ -18,7 +17,6 @@ public class ConflictSoapEndpoint implements ConflictPortType {
 
 	private final ConflictSoapReader conflictSoapReader;
 
-	@Inject
 	public ConflictSoapEndpoint(ConflictSoapReader conflictSoapReader) {
 		this.conflictSoapReader = conflictSoapReader;
 	}

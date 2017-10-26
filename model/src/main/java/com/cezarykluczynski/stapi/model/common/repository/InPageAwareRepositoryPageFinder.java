@@ -9,7 +9,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -19,7 +18,6 @@ public class InPageAwareRepositoryPageFinder {
 
 	private final PageAwareQueryBuilderSingletonFactoryProducer pageAwareQueryBuilderSingletonFactoryProducer;
 
-	@Inject
 	public InPageAwareRepositoryPageFinder(PageAwareQueryBuilderSingletonFactoryProducer pageAwareQueryBuilderSingletonFactoryProducer) {
 		this.pageAwareQueryBuilderSingletonFactoryProducer = pageAwareQueryBuilderSingletonFactoryProducer;
 	}

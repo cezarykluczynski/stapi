@@ -3,20 +3,18 @@ package com.cezarykluczynski.stapi.server.magazine_series.reader;
 import com.cezarykluczynski.stapi.client.v1.rest.model.MagazineSeriesBaseResponse;
 import com.cezarykluczynski.stapi.client.v1.rest.model.MagazineSeriesFullResponse;
 import com.cezarykluczynski.stapi.model.magazine_series.entity.MagazineSeries;
-import com.cezarykluczynski.stapi.server.magazine_series.dto.MagazineSeriesRestBeanParams;
-import com.cezarykluczynski.stapi.server.magazine_series.mapper.MagazineSeriesBaseRestMapper;
-import com.cezarykluczynski.stapi.server.magazine_series.mapper.MagazineSeriesFullRestMapper;
-import com.cezarykluczynski.stapi.server.magazine_series.query.MagazineSeriesRestQuery;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.SortMapper;
 import com.cezarykluczynski.stapi.server.common.reader.BaseReader;
 import com.cezarykluczynski.stapi.server.common.reader.FullReader;
 import com.cezarykluczynski.stapi.server.common.validator.StaticValidator;
+import com.cezarykluczynski.stapi.server.magazine_series.dto.MagazineSeriesRestBeanParams;
+import com.cezarykluczynski.stapi.server.magazine_series.mapper.MagazineSeriesBaseRestMapper;
+import com.cezarykluczynski.stapi.server.magazine_series.mapper.MagazineSeriesFullRestMapper;
+import com.cezarykluczynski.stapi.server.magazine_series.query.MagazineSeriesRestQuery;
 import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-
-import javax.inject.Inject;
 
 @Service
 public class MagazineSeriesRestReader implements BaseReader<MagazineSeriesRestBeanParams, MagazineSeriesBaseResponse>,
@@ -32,7 +30,6 @@ public class MagazineSeriesRestReader implements BaseReader<MagazineSeriesRestBe
 
 	private final SortMapper sortMapper;
 
-	@Inject
 	public MagazineSeriesRestReader(MagazineSeriesRestQuery magazineSeriesRestQuery, MagazineSeriesBaseRestMapper magazineSeriesBaseRestMapper,
 			MagazineSeriesFullRestMapper magazineSeriesFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.magazineSeriesRestQuery = magazineSeriesRestQuery;

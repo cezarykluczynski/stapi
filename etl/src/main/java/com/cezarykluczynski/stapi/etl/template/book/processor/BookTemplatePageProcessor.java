@@ -16,7 +16,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +38,6 @@ public class BookTemplatePageProcessor implements ItemProcessor<Page, BookTempla
 
 	private final WikitextSectionsCharactersProcessor wikitextSectionsCharactersProcessor;
 
-	@Inject
 	public BookTemplatePageProcessor(BookPageFilter bookPageFilter, PageBindingService pageBindingService, TemplateFinder templateFinder,
 			CategoriesBookTemplateEnrichingProcessor categoriesBookTemplateEnrichingProcessor,
 			BookTemplatePartsEnrichingProcessor bookTemplatePartsEnrichingProcessor,

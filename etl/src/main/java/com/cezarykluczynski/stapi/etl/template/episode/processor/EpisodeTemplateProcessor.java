@@ -19,7 +19,6 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -34,7 +33,6 @@ public class EpisodeTemplateProcessor implements ItemProcessor<Template, Episode
 
 	private final SeasonRepository seasonRepository;
 
-	@Inject
 	public EpisodeTemplateProcessor(DayMonthYearCandidateToLocalDateProcessor dayMonthYearCandidateToLocalDateProcessor,
 			@Qualifier(CommonTemplateConfiguration.EPISODE_TEMPALTE_STARDATE_YEAR_ENRICHING_PROCESSOR)
 					ImageTemplateStardateYearEnrichingProcessor imageTemplateStardateYearEnrichingProcessor,

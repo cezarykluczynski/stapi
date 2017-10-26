@@ -11,8 +11,6 @@ import com.cezarykluczynski.stapi.etl.template.publishable_series.processor.Publ
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class ComicSeriesTemplateFixedValuesEnrichingProcessor
 		implements ItemEnrichingProcessor<EnrichablePair<ComicSeriesTemplate, ComicSeriesTemplate>> {
@@ -25,7 +23,6 @@ public class ComicSeriesTemplateFixedValuesEnrichingProcessor
 
 	private final ComicSeriesStardateYearFixedValueProvider comicSeriesStardateYearFixedValueProvider;
 
-	@Inject
 	public ComicSeriesTemplateFixedValuesEnrichingProcessor(ComicSeriesPublishedDateFixedValueProvider comicSeriesPublishedDateFixedValueProvider,
 			PublishableSeriesTemplateDayMonthYearRangeEnrichingProcessor publishableSeriesTemplateDayMonthYearRangeEnrichingProcessor,
 			ComicSeriesTemplateNumberOfIssuesFixedValueProvider comicSeriesTemplateNumberOfIssuesFixedValueProvider,

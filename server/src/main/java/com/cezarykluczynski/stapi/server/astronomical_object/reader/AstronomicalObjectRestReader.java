@@ -16,8 +16,6 @@ import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class AstronomicalObjectRestReader implements BaseReader<AstronomicalObjectRestBeanParams, AstronomicalObjectBaseResponse>,
 		FullReader<String, AstronomicalObjectFullResponse> {
@@ -32,7 +30,6 @@ public class AstronomicalObjectRestReader implements BaseReader<AstronomicalObje
 
 	private final SortMapper sortMapper;
 
-	@Inject
 	public AstronomicalObjectRestReader(AstronomicalObjectRestQuery astronomicalObjectRestQuery,
 			AstronomicalObjectBaseRestMapper astronomicalObjectBaseRestMapper, AstronomicalObjectFullRestMapper astronomicalObjectFullRestMapper,
 			PageMapper pageMapper, SortMapper sortMapper) {

@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.client.v1.soap.MagazinePortType;
 import com.cezarykluczynski.stapi.server.magazine.reader.MagazineSoapReader;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.jws.WebParam;
 
 @Service
@@ -18,7 +17,6 @@ public class MagazineSoapEndpoint implements MagazinePortType {
 
 	private final MagazineSoapReader magazineSoapReader;
 
-	@Inject
 	public MagazineSoapEndpoint(MagazineSoapReader magazineSoapReader) {
 		this.magazineSoapReader = magazineSoapReader;
 	}

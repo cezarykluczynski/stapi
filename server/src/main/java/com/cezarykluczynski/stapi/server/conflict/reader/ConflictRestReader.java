@@ -16,8 +16,6 @@ import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class ConflictRestReader implements BaseReader<ConflictRestBeanParams, ConflictBaseResponse>,
 		FullReader<String, ConflictFullResponse> {
@@ -32,7 +30,6 @@ public class ConflictRestReader implements BaseReader<ConflictRestBeanParams, Co
 
 	private final SortMapper sortMapper;
 
-	@Inject
 	public ConflictRestReader(ConflictRestQuery conflictRestQuery, ConflictBaseRestMapper conflictBaseRestMapper,
 			ConflictFullRestMapper conflictFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.conflictRestQuery = conflictRestQuery;

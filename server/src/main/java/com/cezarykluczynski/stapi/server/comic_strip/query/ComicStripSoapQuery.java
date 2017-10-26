@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class ComicStripSoapQuery {
 
@@ -25,7 +23,6 @@ public class ComicStripSoapQuery {
 
 	private final ComicStripRepository comicStripRepository;
 
-	@Inject
 	public ComicStripSoapQuery(ComicStripBaseSoapMapper comicStripBaseSoapMapper, ComicStripFullSoapMapper comicStripFullSoapMapper,
 			PageMapper pageMapper, ComicStripRepository comicStripRepository) {
 		this.comicStripBaseSoapMapper = comicStripBaseSoapMapper;

@@ -9,7 +9,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.hibernate.metadata.ClassMetadata;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -24,7 +23,6 @@ class CommonEntitiesDetailsReader {
 
 	private Map<String, ClassMetadata> classNameToMetadataMap;
 
-	@Inject
 	CommonEntitiesDetailsReader(EntityMetadataProvider entityMetadataProvider) {
 		this.entityMetadataProvider = entityMetadataProvider;
 	}

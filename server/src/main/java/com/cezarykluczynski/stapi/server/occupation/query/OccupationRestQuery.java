@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class OccupationRestQuery {
 
@@ -21,7 +19,6 @@ public class OccupationRestQuery {
 
 	private final OccupationRepository occupationRepository;
 
-	@Inject
 	public OccupationRestQuery(OccupationBaseRestMapper occupationBaseRestMapper, PageMapper pageMapper, OccupationRepository occupationRepository) {
 		this.occupationBaseRestMapper = occupationBaseRestMapper;
 		this.pageMapper = pageMapper;

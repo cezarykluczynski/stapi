@@ -8,7 +8,6 @@ import com.cezarykluczynski.stapi.client.v1.soap.MoviePortType;
 import com.cezarykluczynski.stapi.server.movie.reader.MovieSoapReader;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import javax.jws.WebParam;
 
 @Service
@@ -18,7 +17,6 @@ public class MovieSoapEndpoint implements MoviePortType {
 
 	private final MovieSoapReader movieSoapReader;
 
-	@Inject
 	public MovieSoapEndpoint(MovieSoapReader movieSoapReader) {
 		this.movieSoapReader = movieSoapReader;
 	}

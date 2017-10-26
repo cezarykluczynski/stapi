@@ -7,7 +7,6 @@ import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -18,7 +17,6 @@ public class AllStaffFindingMovieRealPeopleLinkingWorkerHelper {
 
 	private final EntityLookupByNameService entityLookupByNameService;
 
-	@Inject
 	public AllStaffFindingMovieRealPeopleLinkingWorkerHelper(EntityLookupByNameService entityLookupByNameService) {
 		this.entityLookupByNameService = entityLookupByNameService;
 	}

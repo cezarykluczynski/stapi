@@ -7,8 +7,6 @@ import com.cezarykluczynski.stapi.model.series.repository.SeriesRepository;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class ToEpisodeEntityProcessor implements ItemProcessor<EpisodeTemplate, Episode> {
 
@@ -16,7 +14,6 @@ public class ToEpisodeEntityProcessor implements ItemProcessor<EpisodeTemplate, 
 
 	private final SeriesRepository seriesRepository;
 
-	@Inject
 	public ToEpisodeEntityProcessor(UidGenerator uidGenerator, SeriesRepository seriesRepository) {
 		this.uidGenerator = uidGenerator;
 		this.seriesRepository = seriesRepository;

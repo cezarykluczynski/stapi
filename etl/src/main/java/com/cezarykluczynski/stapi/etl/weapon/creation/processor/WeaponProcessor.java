@@ -7,12 +7,9 @@ import com.google.common.collect.Lists;
 import org.springframework.batch.item.support.CompositeItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class WeaponProcessor extends CompositeItemProcessor<PageHeader, Weapon> {
 
-	@Inject
 	public WeaponProcessor(PageHeaderProcessor pageHeaderProcessor, WeaponPageProcessor weaponPageProcessor) {
 		setDelegates(Lists.newArrayList(pageHeaderProcessor, weaponPageProcessor));
 	}

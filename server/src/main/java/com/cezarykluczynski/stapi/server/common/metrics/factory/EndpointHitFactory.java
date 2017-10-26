@@ -8,8 +8,6 @@ import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class EndpointHitFactory {
 
@@ -17,7 +15,6 @@ public class EndpointHitFactory {
 
 	private final EndpointHitRepository endpointHitRepository;
 
-	@Inject
 	public EndpointHitFactory(EndpointHitRepository endpointHitRepository) {
 		this.endpointHitRepository = endpointHitRepository;
 	}

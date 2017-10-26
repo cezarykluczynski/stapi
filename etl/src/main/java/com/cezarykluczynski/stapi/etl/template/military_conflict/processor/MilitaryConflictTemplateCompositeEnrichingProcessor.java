@@ -8,8 +8,6 @@ import com.cezarykluczynski.stapi.etl.template.military_conflict.dto.MilitaryCon
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class MilitaryConflictTemplateCompositeEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Page, MilitaryConflictTemplate>> {
 
@@ -21,7 +19,6 @@ public class MilitaryConflictTemplateCompositeEnrichingProcessor implements Item
 
 	private final MilitaryConflictTemplateTemplatesEnrichingProcessor militaryConflictTemplateTemplatesEnrichingProcessor;
 
-	@Inject
 	public MilitaryConflictTemplateCompositeEnrichingProcessor(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor,
 			TemplateTitlesExtractingProcessor templateTitlesExtractingProcessor,
 			MilitaryConflictTemplateCategoriesEnrichingProcessor militaryConflictTemplateCategoriesEnrichingProcessor,

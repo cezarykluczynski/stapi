@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class ConflictSoapQuery {
 
@@ -25,7 +23,6 @@ public class ConflictSoapQuery {
 
 	private final ConflictRepository conflictRepository;
 
-	@Inject
 	public ConflictSoapQuery(ConflictBaseSoapMapper conflictBaseSoapMapper, ConflictFullSoapMapper conflictFullSoapMapper,
 			PageMapper pageMapper, ConflictRepository conflictRepository) {
 		this.conflictBaseSoapMapper = conflictBaseSoapMapper;

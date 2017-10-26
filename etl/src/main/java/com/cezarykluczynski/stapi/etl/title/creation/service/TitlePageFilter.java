@@ -8,7 +8,6 @@ import com.google.common.collect.Sets;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Set;
 
 @Service
@@ -21,7 +20,6 @@ public class TitlePageFilter implements MediaWikiPageFilter {
 
 	private final TitleListCache titleListCache;
 
-	@Inject
 	public TitlePageFilter(CategorySortingService categorySortingService, TitleListCache titleListCache) {
 		this.categorySortingService = categorySortingService;
 		this.titleListCache = titleListCache;

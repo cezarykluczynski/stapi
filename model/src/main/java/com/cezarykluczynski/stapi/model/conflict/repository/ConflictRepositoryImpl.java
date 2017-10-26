@@ -11,14 +11,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
-
 @Repository
 public class ConflictRepositoryImpl extends AbstractRepositoryImpl<Conflict> implements ConflictRepositoryCustom {
 
 	private final ConflictQueryBuilderFactory conflictQueryBuilderFactory;
 
-	@Inject
 	public ConflictRepositoryImpl(ConflictQueryBuilderFactory conflictQueryBuilderFactory) {
 		this.conflictQueryBuilderFactory = conflictQueryBuilderFactory;
 	}

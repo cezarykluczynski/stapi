@@ -12,7 +12,6 @@ import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Optional;
 
 @Service
@@ -28,7 +27,6 @@ public class MilitaryConflictTemplatePageProcessor implements ItemProcessor<Page
 
 	private final MilitaryConflictTemplateCompositeEnrichingProcessor militaryConflictTemplateCompositeEnrichingProcessor;
 
-	@Inject
 	public MilitaryConflictTemplatePageProcessor(ConflictPageFilter conflictPageFilter, PageBindingService pageBindingService,
 			TemplateFinder templateFinder, MilitaryConflictTemplatePartsEnrichingProcessor militaryConflictTemplatePartsEnrichingProcessor,
 			MilitaryConflictTemplateCompositeEnrichingProcessor militaryConflictTemplateCompositeEnrichingProcessor) {

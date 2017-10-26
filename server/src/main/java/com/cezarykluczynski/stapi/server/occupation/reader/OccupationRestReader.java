@@ -16,8 +16,6 @@ import com.google.common.collect.Iterables;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class OccupationRestReader implements BaseReader<OccupationRestBeanParams, OccupationBaseResponse>,
 		FullReader<String, OccupationFullResponse> {
@@ -32,7 +30,6 @@ public class OccupationRestReader implements BaseReader<OccupationRestBeanParams
 
 	private final SortMapper sortMapper;
 
-	@Inject
 	public OccupationRestReader(OccupationRestQuery occupationRestQuery, OccupationBaseRestMapper occupationBaseRestMapper,
 			OccupationFullRestMapper occupationFullRestMapper, PageMapper pageMapper, SortMapper sortMapper) {
 		this.occupationRestQuery = occupationRestQuery;

@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class MedicalConditionSoapQuery {
 
@@ -25,7 +23,6 @@ public class MedicalConditionSoapQuery {
 
 	private final MedicalConditionRepository medicalConditionRepository;
 
-	@Inject
 	public MedicalConditionSoapQuery(MedicalConditionBaseSoapMapper medicalConditionBaseSoapMapper,
 			MedicalConditionFullSoapMapper medicalConditionFullSoapMapper, PageMapper pageMapper,
 			MedicalConditionRepository medicalConditionRepository) {

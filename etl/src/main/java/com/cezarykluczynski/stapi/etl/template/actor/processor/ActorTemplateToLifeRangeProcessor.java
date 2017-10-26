@@ -11,7 +11,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -23,7 +22,6 @@ public class ActorTemplateToLifeRangeProcessor implements ItemProcessor<Template
 
 	private TemplateFilter templateFilter;
 
-	@Inject
 	public ActorTemplateToLifeRangeProcessor(DatelinkTemplateToLocalDateProcessor datelinkTemplateToLocalDateProcessor,
 			TemplateFilter templateFilter) {
 		this.datelinkTemplateToLocalDateProcessor = datelinkTemplateToLocalDateProcessor;

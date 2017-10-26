@@ -10,8 +10,6 @@ import com.cezarykluczynski.stapi.etl.template.video.dto.VideoTemplateParameter;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class VideoTemplateRelationsEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<VideoTemplate> {
 
@@ -21,7 +19,6 @@ public class VideoTemplateRelationsEnrichingProcessor implements ItemWithTemplat
 
 	private final ContentLanguagesProcessor contentLanguagesProcessor;
 
-	@Inject
 	public VideoTemplateRelationsEnrichingProcessor(ContentRatingsProcessor contentRatingsProcessor,
 			ReferencesFromTemplatePartProcessor referencesFromTemplatePartProcessor, ContentLanguagesProcessor contentLanguagesProcessor) {
 		this.contentRatingsProcessor = contentRatingsProcessor;

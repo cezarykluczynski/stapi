@@ -15,7 +15,6 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -38,7 +37,6 @@ public class ReferencesFromTemplatePartProcessor implements ItemProcessor<Templa
 
 	private final ReferenceFactory referenceFactory;
 
-	@Inject
 	public ReferencesFromTemplatePartProcessor(ReferenceRepository referenceRepository, UidGenerator uidGenerator,
 			ReferenceFactory referenceFactory) {
 		this.referenceRepository = referenceRepository;

@@ -14,7 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
 import java.util.Set;
 
 @Repository
@@ -26,7 +25,6 @@ public class SpeciesRepositoryImpl implements SpeciesRepositoryCustom {
 
 	private final CharacterRepository characterRepository;
 
-	@Inject
 	public SpeciesRepositoryImpl(SpeciesQueryBuilderFactory speciesQueryBuilderFactory, CharacterSpeciesRepository characterSpeciesRepository,
 			CharacterRepository characterRepository) {
 		this.speciesQueryBuilderFactory = speciesQueryBuilderFactory;

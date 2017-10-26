@@ -10,7 +10,6 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -35,7 +34,6 @@ public class MovieClosingCreditsProcessor implements ItemProcessor<Page, List<Pa
 
 	private final PageSectionExtractor pageSectionExtractor;
 
-	@Inject
 	public MovieClosingCreditsProcessor(PageApi pageApi, PageSectionExtractor pageSectionExtractor) {
 		this.pageApi = pageApi;
 		this.pageSectionExtractor = pageSectionExtractor;

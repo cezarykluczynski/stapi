@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class SpacecraftSoapQuery {
 
@@ -25,7 +23,6 @@ public class SpacecraftSoapQuery {
 
 	private final SpacecraftRepository spacecraftRepository;
 
-	@Inject
 	public SpacecraftSoapQuery(SpacecraftBaseSoapMapper spacecraftBaseSoapMapper, SpacecraftFullSoapMapper spacecraftFullSoapMapper,
 			PageMapper pageMapper, SpacecraftRepository spacecraftRepository) {
 		this.spacecraftBaseSoapMapper = spacecraftBaseSoapMapper;

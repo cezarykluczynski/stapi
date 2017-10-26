@@ -15,8 +15,6 @@ import com.cezarykluczynski.stapi.model.trading_card_set.entity.TradingCardSet;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 @Slf4j
 public class TradingCardSetTableValuesEnrichingProcessor
@@ -34,11 +32,10 @@ public class TradingCardSetTableValuesEnrichingProcessor
 
 	private final TradingCardSetCountiesProcessor tradingCardSetCountiesProcessor;
 
-	@Inject
 	public TradingCardSetTableValuesEnrichingProcessor(TextToDayMonthYearProcessor textToDayMonthYearProcessor,
-	                                                   TradingCardItemsProcessor tradingCardItemsProcessor, ProductionRunProcessor productionRunProcessor,
-	                                                   CardSizeProcessor cardSizeProcessor, TextToCompaniesProcessor textToCompaniesProcessor,
-	                                                   TradingCardSetCountiesProcessor tradingCardSetCountiesProcessor) {
+			TradingCardItemsProcessor tradingCardItemsProcessor, ProductionRunProcessor productionRunProcessor,
+			CardSizeProcessor cardSizeProcessor, TextToCompaniesProcessor textToCompaniesProcessor,
+			TradingCardSetCountiesProcessor tradingCardSetCountiesProcessor) {
 		this.textToDayMonthYearProcessor = textToDayMonthYearProcessor;
 		this.tradingCardItemsProcessor = tradingCardItemsProcessor;
 		this.productionRunProcessor = productionRunProcessor;

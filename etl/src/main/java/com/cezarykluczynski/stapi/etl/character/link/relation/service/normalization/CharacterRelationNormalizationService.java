@@ -5,8 +5,6 @@ import com.cezarykluczynski.stapi.etl.template.character.dto.CommonCharacterTemp
 import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplateParameter;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class CharacterRelationNormalizationService {
 
@@ -22,7 +20,6 @@ public class CharacterRelationNormalizationService {
 
 	private final CharacterRelationMotherNormalizationService characterRelationMotherNormalizationService;
 
-	@Inject
 	public CharacterRelationNormalizationService(CharacterRelationSpouseNormalizationService characterRelationSpouseNormalizationService,
 			CharacterRelationChildrenNormalizationService characterRelationChildrenNormalizationService,
 			CharacterRelationRelativeNormalizationService characterRelationRelativeNormalizationService,

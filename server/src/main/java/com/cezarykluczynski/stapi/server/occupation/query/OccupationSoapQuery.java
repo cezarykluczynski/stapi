@@ -12,8 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class OccupationSoapQuery {
 
@@ -25,7 +23,6 @@ public class OccupationSoapQuery {
 
 	private final OccupationRepository occupationRepository;
 
-	@Inject
 	public OccupationSoapQuery(OccupationBaseSoapMapper occupationBaseSoapMapper, OccupationFullSoapMapper occupationFullSoapMapper,
 			PageMapper pageMapper, OccupationRepository occupationRepository) {
 		this.occupationBaseSoapMapper = occupationBaseSoapMapper;

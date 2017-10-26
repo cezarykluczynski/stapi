@@ -13,7 +13,6 @@ import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Set;
 
@@ -23,7 +22,6 @@ public class TradingCardDecksTableProcessor implements ItemProcessor<Element, Se
 
 	private final TradingCardDeckTableRowProcessor tradingCardDeckTableRowProcessor;
 
-	@Inject
 	public TradingCardDecksTableProcessor(TradingCardDeckTableRowProcessor tradingCardDeckTableRowProcessor) {
 		this.tradingCardDeckTableRowProcessor = tradingCardDeckTableRowProcessor;
 	}

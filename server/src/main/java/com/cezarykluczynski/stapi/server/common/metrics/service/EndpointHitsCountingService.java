@@ -4,7 +4,6 @@ import com.cezarykluczynski.stapi.model.endpoint_hit.dto.MetricsEndpointKeyDTO;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -18,7 +17,6 @@ public class EndpointHitsCountingService {
 
 	private final EndpointHitsPersister endpointHitsPersister;
 
-	@Inject
 	public EndpointHitsCountingService(EndpointHitsPersister endpointHitsPersister) {
 		this.endpointHitsPersister = endpointHitsPersister;
 	}

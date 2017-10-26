@@ -8,7 +8,6 @@ import com.google.common.collect.Lists;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,7 +22,6 @@ public class StarshipClassActivityPeriodProcessor implements ItemProcessor<Strin
 
 	private final PeriodCandidateDetector periodCandidateDetector;
 
-	@Inject
 	public StarshipClassActivityPeriodProcessor(WikitextApi wikitextApi, PeriodCandidateDetector periodCandidateDetector) {
 		this.wikitextApi = wikitextApi;
 		this.periodCandidateDetector = periodCandidateDetector;

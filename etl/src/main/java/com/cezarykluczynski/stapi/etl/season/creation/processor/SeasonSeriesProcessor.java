@@ -7,7 +7,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Optional;
 
 @Service
@@ -15,7 +14,6 @@ public class SeasonSeriesProcessor implements ItemProcessor<String, Series> {
 
 	private final SeriesRepository seriesRepository;
 
-	@Inject
 	public SeasonSeriesProcessor(SeriesRepository seriesRepository) {
 		this.seriesRepository = seriesRepository;
 	}

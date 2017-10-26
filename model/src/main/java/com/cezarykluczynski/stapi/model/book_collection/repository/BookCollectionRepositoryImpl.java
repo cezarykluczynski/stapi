@@ -11,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Repository
@@ -19,7 +18,6 @@ public class BookCollectionRepositoryImpl extends AbstractRepositoryImpl<BookCol
 
 	private final BookCollectionInitialQueryBuilderFactory bookCollectionInitialQueryBuilderFactory;
 
-	@Inject
 	public BookCollectionRepositoryImpl(BookCollectionInitialQueryBuilderFactory bookCollectionInitialQueryBuilderFactory) {
 		this.bookCollectionInitialQueryBuilderFactory = bookCollectionInitialQueryBuilderFactory;
 	}

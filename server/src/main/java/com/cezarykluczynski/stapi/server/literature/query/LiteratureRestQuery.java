@@ -10,8 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class LiteratureRestQuery {
 
@@ -21,7 +19,6 @@ public class LiteratureRestQuery {
 
 	private final LiteratureRepository literatureRepository;
 
-	@Inject
 	public LiteratureRestQuery(LiteratureBaseRestMapper literatureBaseRestMapper, PageMapper pageMapper, LiteratureRepository literatureRepository) {
 		this.literatureBaseRestMapper = literatureBaseRestMapper;
 		this.pageMapper = pageMapper;

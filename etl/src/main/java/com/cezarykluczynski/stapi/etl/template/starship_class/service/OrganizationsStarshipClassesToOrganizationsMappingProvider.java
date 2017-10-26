@@ -6,7 +6,6 @@ import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Map;
 import java.util.Optional;
 
@@ -18,7 +17,6 @@ public class OrganizationsStarshipClassesToOrganizationsMappingProvider {
 
 	private final OrganizationRepository organizationRepository;
 
-	@Inject
 	public OrganizationsStarshipClassesToOrganizationsMappingProvider(OrganizationRepository organizationRepository) {
 		this.organizationRepository = organizationRepository;
 	}

@@ -6,8 +6,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.parser.JsonTemplateParser;
 import com.cezarykluczynski.stapi.sources.mediawiki.service.wikia.WikiaWikisDetector;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class ParseComplementingService {
 
@@ -17,7 +15,6 @@ public class ParseComplementingService {
 
 	private final JsonTemplateParser jsonTemplateParser = new JsonTemplateParser();
 
-	@Inject
 	ParseComplementingService(WikiaWikisDetector wikiaWikisDetector, ParseApi parseApi) {
 		this.wikiaWikisDetector = wikiaWikisDetector;
 		this.parseApi = parseApi;

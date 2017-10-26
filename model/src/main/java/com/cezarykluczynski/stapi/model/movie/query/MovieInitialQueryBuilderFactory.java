@@ -8,14 +8,11 @@ import com.cezarykluczynski.stapi.model.movie.entity.Movie_;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class MovieInitialQueryBuilderFactory implements InitialQueryBuilderFactory<MovieRequestDTO, Movie> {
 
 	private final MovieQueryBuilderFactory movieQueryBuilderFactory;
 
-	@Inject
 	public MovieInitialQueryBuilderFactory(MovieQueryBuilderFactory movieQueryBuilderFactory) {
 		this.movieQueryBuilderFactory = movieQueryBuilderFactory;
 	}

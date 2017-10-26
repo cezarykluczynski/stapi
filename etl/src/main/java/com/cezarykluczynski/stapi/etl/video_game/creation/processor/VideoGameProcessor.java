@@ -8,12 +8,9 @@ import com.google.common.collect.Lists;
 import org.springframework.batch.item.support.CompositeItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class VideoGameProcessor extends CompositeItemProcessor<PageHeader, VideoGame> {
 
-	@Inject
 	public VideoGameProcessor(PageHeaderProcessor pageHeaderProcessor, VideoGameTemplatePageProcessor videoGameTemplatePageProcessor,
 			VideoGameTemplateProcessor videoGameTemplateProcessor) {
 		setDelegates(Lists.newArrayList(pageHeaderProcessor, videoGameTemplatePageProcessor, videoGameTemplateProcessor));

@@ -6,7 +6,6 @@ import com.cezarykluczynski.stapi.sources.wordpress.configuration.WordPressSourc
 import com.google.common.collect.Maps;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.Map;
 
 @Service
@@ -16,7 +15,6 @@ public class WordPressSourceConfigurationProvider {
 
 	private final WordPressSourcesProperties wordPressSourcesProperties;
 
-	@Inject
 	public WordPressSourceConfigurationProvider(WordPressSourcesProperties wordPressSourcesProperties) {
 		this.wordPressSourcesProperties = wordPressSourcesProperties;
 	}

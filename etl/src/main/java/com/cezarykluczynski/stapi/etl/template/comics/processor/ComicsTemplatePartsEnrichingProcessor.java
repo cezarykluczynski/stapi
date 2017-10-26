@@ -15,7 +15,6 @@ import com.cezarykluczynski.stapi.etl.template.publishable.processor.Publishable
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Service
@@ -35,7 +34,6 @@ public class ComicsTemplatePartsEnrichingProcessor implements ItemWithTemplatePa
 
 	private final NumberOfPartsProcessor numberOfPartsProcessor;
 
-	@Inject
 	public ComicsTemplatePartsEnrichingProcessor(ComicsTemplatePartStaffEnrichingProcessor comicsTemplatePartStaffEnrichingProcessor,
 			WikitextToEntitiesProcessor wikitextToEntitiesProcessor,
 			WikitextToYearRangeProcessor wikitextToYearRangeProcessor, WikitextToStardateRangeProcessor wikitextToStardateRangeProcessor,

@@ -8,14 +8,11 @@ import com.cezarykluczynski.stapi.model.staff.entity.Staff_;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class StaffInitialQueryBuilderFactory implements InitialQueryBuilderFactory<StaffRequestDTO, Staff> {
 
 	private final StaffQueryBuilderFactory staffQueryBuilderFactory;
 
-	@Inject
 	public StaffInitialQueryBuilderFactory(StaffQueryBuilderFactory staffQueryBuilderFactory) {
 		this.staffQueryBuilderFactory = staffQueryBuilderFactory;
 	}

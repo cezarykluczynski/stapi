@@ -6,14 +6,11 @@ import com.cezarykluczynski.stapi.model.video_release.entity.VideoRelease;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-
 @Service
 public class VideoReleaseTemplateProcessor implements ItemProcessor<VideoTemplate, VideoRelease> {
 
 	private final UidGenerator uidGenerator;
 
-	@Inject
 	public VideoReleaseTemplateProcessor(UidGenerator uidGenerator) {
 		this.uidGenerator = uidGenerator;
 	}

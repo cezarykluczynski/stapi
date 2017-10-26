@@ -11,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
-import javax.inject.Inject;
 import java.util.List;
 
 @Repository
@@ -19,7 +18,6 @@ public class ComicsRepositoryImpl extends AbstractRepositoryImpl<Comics> impleme
 
 	private final ComicsInitialQueryBuilderFactory comicsInitialQueryBuilderFactory;
 
-	@Inject
 	public ComicsRepositoryImpl(ComicsInitialQueryBuilderFactory comicsInitialQueryBuilderFactory) {
 		this.comicsInitialQueryBuilderFactory = comicsInitialQueryBuilderFactory;
 	}
