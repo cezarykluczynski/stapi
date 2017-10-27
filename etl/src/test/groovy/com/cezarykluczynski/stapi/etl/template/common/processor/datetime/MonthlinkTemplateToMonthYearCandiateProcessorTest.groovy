@@ -57,8 +57,7 @@ class MonthlinkTemplateToMonthYearCandiateProcessorTest extends Specification {
 
 	void "template of different title produces null LocalDate"() {
 		when:
-		MonthYearCandidate monthYearCandidate = monthlinkTemplateToMonthYearCandiateProcessor
-				.process(new Template(title: 'different template'))
+		MonthYearCandidate monthYearCandidate = monthlinkTemplateToMonthYearCandiateProcessor.process(new Template(title: 'different template'))
 
 		then:
 		monthYearCandidate == null

@@ -184,8 +184,7 @@ class StardateYearProcessorTest extends Specification {
 		stardateYearDTO7.yearTo == null
 
 		when:
-		StardateYearDTO stardateYearDTO8 = stardateYearProcessor
-				.process(StardateYearCandidateDTO.of(null, TITLE, StardateYearSource.EPISODE))
+		StardateYearDTO stardateYearDTO8 = stardateYearProcessor.process(StardateYearCandidateDTO.of(null, TITLE, StardateYearSource.EPISODE))
 
 		then:
 		0 * _

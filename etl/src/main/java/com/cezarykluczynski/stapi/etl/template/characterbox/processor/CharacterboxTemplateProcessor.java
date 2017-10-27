@@ -69,15 +69,13 @@ public class CharacterboxTemplateProcessor implements ItemProcessor<Page, Charac
 					characterboxTemplate.setWeight(individualWeightProcessor.process(value));
 					break;
 				case CharacterboxTemplateParameter.BORN:
-					IndividualLifeBoundaryDTO birthBoundaryDTO = individualLifeBoundaryProcessor
-							.process(value);
+					IndividualLifeBoundaryDTO birthBoundaryDTO = individualLifeBoundaryProcessor.process(value);
 					characterboxTemplate.setYearOfBirth(birthBoundaryDTO.getYear());
 					characterboxTemplate.setMonthOfBirth(birthBoundaryDTO.getMonth());
 					characterboxTemplate.setDayOfBirth(birthBoundaryDTO.getDay());
 					break;
 				case CharacterboxTemplateParameter.DIED:
-					IndividualLifeBoundaryDTO deathBoundaryDTO = individualLifeBoundaryProcessor
-							.process(value);
+					IndividualLifeBoundaryDTO deathBoundaryDTO = individualLifeBoundaryProcessor.process(value);
 					characterboxTemplate.setYearOfDeath(deathBoundaryDTO.getYear());
 					characterboxTemplate.setMonthOfDeath(deathBoundaryDTO.getMonth());
 					characterboxTemplate.setDayOfDeath(deathBoundaryDTO.getDay());
