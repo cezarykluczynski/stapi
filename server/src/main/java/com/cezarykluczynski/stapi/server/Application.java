@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Import;
 @SpringBootApplication
 @ComponentScan({
 		Package.SERVER,
+		Package.SOURCES,
 		Package.MODEL,
 		Package.CONTRACT
 })
