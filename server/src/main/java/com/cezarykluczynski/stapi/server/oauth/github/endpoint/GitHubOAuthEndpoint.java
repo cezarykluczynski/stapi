@@ -29,10 +29,10 @@ public class GitHubOAuthEndpoint {
 	}
 
 	@GET
-	@Path("getRedirectUrl")
+	@Path("oAuthAuthorizeUrl")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public GitHubRedirectUrlDTO getGitHubRedirectUrl() {
-		return gitHubOAuthFacade.getGitHubRedirectUrl();
+	public GitHubRedirectUrlDTO getGitHubOAuthAuthorizeUrl() {
+		return gitHubOAuthFacade.getGitHubOAuthAuthorizeUrl();
 	}
 
 	@GET

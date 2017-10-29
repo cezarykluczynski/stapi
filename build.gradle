@@ -49,6 +49,8 @@ allprojects {
 
 	dependencies {
 		compile group: 'org.springframework.boot', name: 'spring-boot', version: springBootVersion
+		compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: springBootVersion
+		compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
 		compile group: 'javax.inject', name: 'javax.inject', version: '1'
 
 		// Utils

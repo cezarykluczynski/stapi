@@ -20,15 +20,15 @@ class GitHubOAuthEndpointTest extends Specification {
 		gitHubOAuthEndpoint = new GitHubOAuthEndpoint(gitHubOAuthFacadeMock)
 	}
 
-	void "gets github redirect url"() {
+	void "gets github OAuth authorize url"() {
 		given:
 		GitHubRedirectUrlDTO gitHubRedirectUrlDTO = Mock()
 
 		when:
-		GitHubRedirectUrlDTO gitHubRedirectUrlDTOOutput = gitHubOAuthEndpoint.gitHubRedirectUrl
+		GitHubRedirectUrlDTO gitHubRedirectUrlDTOOutput = gitHubOAuthEndpoint.gitHubOAuthAuthorizeUrl
 
 		then:
-		1 * gitHubOAuthFacadeMock.gitHubRedirectUrl >> gitHubRedirectUrlDTO
+		1 * gitHubOAuthFacadeMock.gitHubOAuthAuthorizeUrl >> gitHubRedirectUrlDTO
 		0 * _
 		gitHubRedirectUrlDTOOutput == gitHubRedirectUrlDTO
 	}

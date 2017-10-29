@@ -6,14 +6,22 @@ import org.springframework.stereotype.Service;
 @Service
 public class GitHubOAuthFacade {
 
-	public GitHubRedirectUrlDTO getGitHubRedirectUrl() {
-		// TODO
-		return new GitHubRedirectUrlDTO(null);
+	private final GitHubOAuthUrlFactory gitHubOAuthUrlFactory;
+
+	private final GitHubOAuthAuthenticationService gitHubOAuthAuthenticationService;
+
+	public GitHubOAuthFacade(GitHubOAuthUrlFactory gitHubOAuthUrlFactory,
+			GitHubOAuthAuthenticationService gitHubOAuthAuthenticationService) {
+		this.gitHubOAuthUrlFactory = gitHubOAuthUrlFactory;
+		this.gitHubOAuthAuthenticationService = gitHubOAuthAuthenticationService;
+	}
+
+	public GitHubRedirectUrlDTO getGitHubOAuthAuthorizeUrl() {
+		return gitHubOAuthUrlFactory.createGitHubOAuthorizeUrl();
 	}
 
 	public GitHubRedirectUrlDTO authenticate(String code) {
-		// TODO
-		return new GitHubRedirectUrlDTO(null);
+		return gitHubOAuthAuthenticationService.authenticate(code);
 	}
 
 }

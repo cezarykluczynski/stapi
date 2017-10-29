@@ -3,6 +3,8 @@ package com.cezarykluczynski.stapi.sources.oauth.github.configuration;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.util.List;
+
 @Data
 @ConfigurationProperties(prefix = GitHubOAuthProperties.PREFIX)
 public class GitHubOAuthProperties {
@@ -12,5 +14,7 @@ public class GitHubOAuthProperties {
 	private String clientId;
 
 	private String clientSecret;
+
+	private List<Long> adminIdentifiers;
 
 }

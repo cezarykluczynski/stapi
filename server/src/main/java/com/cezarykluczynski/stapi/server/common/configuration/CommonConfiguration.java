@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.inject.Inject;
 
-@Configuration
+@Configuration("serverCommonConfiguration")
 public class CommonConfiguration {
 
 	@Inject
