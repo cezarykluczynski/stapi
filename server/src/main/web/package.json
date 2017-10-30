@@ -30,6 +30,7 @@
 		"ag-grid-angular": "^13.2.0",
 		"angular-highlight-js": "^2.0.0",
 		"another-rest-client": "0.3.2",
+		"bootstrap": "^3.3.7",
 		"bootswatch": "^3.3.7",
 		"core-js": "^2.4.1",
 		"highlight.js": "^9.12.0",

@@ -28,7 +28,7 @@ class GitHubOAuthConfigurationTest extends Specification {
 		Server server = Mock()
 
 		when:
-		Server serverOutput = gitHubOAuthConfiguration.gitHubOAuthEndpoint()
+		Server serverOutput = gitHubOAuthConfiguration.gitHubOAuthRestEndpoint()
 
 		then:
 		1 * endpointFactoryMock.createRestEndpoint(GitHubOAuthEndpoint, GitHubOAuthEndpoint.ADDRESS) >> server
@@ -38,7 +38,7 @@ class GitHubOAuthConfigurationTest extends Specification {
 
 	void "FilterRegistrationBean is created for OAuthSessionFilter is created"() {
 		when:
-		FilterRegistrationBean filterRegistrationBean = gitHubOAuthConfiguration.filterRegistrationBean()
+		FilterRegistrationBean filterRegistrationBean = gitHubOAuthConfiguration.oauthSessionFilterRegistrationBean()
 
 		then:
 		filterRegistrationBean.filter == oAuthSessionFilterMock

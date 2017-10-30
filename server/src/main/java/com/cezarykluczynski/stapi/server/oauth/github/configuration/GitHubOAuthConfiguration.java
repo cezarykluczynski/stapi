@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.server.oauth.github.configuration;
 
+import com.cezarykluczynski.stapi.etl.util.constant.FilterOrder;
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
 import com.cezarykluczynski.stapi.server.oauth.github.endpoint.GitHubOAuthEndpoint;
 import com.cezarykluczynski.stapi.sources.oauth.github.session.OAuthSessionFilter;
@@ -24,16 +25,16 @@ public class GitHubOAuthConfiguration {
 	private OAuthSessionFilter oauthSessionFilter;
 
 	@Bean
-	public Server gitHubOAuthEndpoint() {
+	public Server gitHubOAuthRestEndpoint() {
 		return endpointFactory.createRestEndpoint(GitHubOAuthEndpoint.class, GitHubOAuthEndpoint.ADDRESS);
 	}
 
 	@Bean
-	public FilterRegistrationBean filterRegistrationBean() {
+	public FilterRegistrationBean oauthSessionFilterRegistrationBean() {
 		FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
 		filterRegistrationBean.setFilter(oauthSessionFilter);
 		filterRegistrationBean.addUrlPatterns("*");
-		filterRegistrationBean.setOrder(0);
+		filterRegistrationBean.setOrder(FilterOrder.GITHUB_OAUTH);
 		return filterRegistrationBean;
 	}
 

@@ -25,6 +25,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { RestApiService } from './rest-api/rest-api.service';
 import { RestClientFactoryService } from './rest-api/rest-client-factory.service';
 import { InfoComponent } from './info/info.component';
+import { PanelComponent } from './panel/panel.component';
 
 const appRoutes: Routes = [
 	{
@@ -52,6 +53,10 @@ const appRoutes: Routes = [
 		component: StatisticsComponent
 	},
 	{
+		path: 'panel',
+		component: PanelComponent
+	},
+	{
 		path: '**',
 		component: PageNotFoundComponent
 	}
@@ -73,7 +78,8 @@ export function initConfiguration(restApiService: RestApiService): Function {
 		EntityStatisticsCloudComponent,
 		EntityHitsGridComponent,
 		PageNotFoundComponent,
-		InfoComponent
+		InfoComponent,
+		PanelComponent
 	],
 	imports: [
 		RouterModule.forRoot(appRoutes),
