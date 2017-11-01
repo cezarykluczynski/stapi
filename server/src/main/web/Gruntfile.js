@@ -4,7 +4,7 @@ module.exports = function(grunt) {
 			options: {
 				force: true
 			},
-			build: ['dist', '../resources/build'],
+			build: ['dist', '../resources/build', '../../../build/resources/main'],
 		},
 		copy: {
 			main: {

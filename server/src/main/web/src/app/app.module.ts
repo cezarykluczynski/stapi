@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgGridModule } from 'ag-grid-angular/main';
 import * as hljs from 'highlight.js';
 import { HighlightJsModule, HIGHLIGHT_JS } from 'angular-highlight-js';
+import { CookieService } from 'ngx-cookie-service';
 
 export function highlightJsFactory() {
   return hljs;
@@ -24,6 +25,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 
 import { RestApiService } from './rest-api/rest-api.service';
 import { RestClientFactoryService } from './rest-api/rest-client-factory.service';
+import { WindowReferenceService } from './window-reference/window-reference.service';
 import { InfoComponent } from './info/info.component';
 import { PanelComponent } from './panel/panel.component';
 
@@ -100,7 +102,9 @@ export function initConfiguration(restApiService: RestApiService): Function {
 			deps: [RestApiService]
 		},
 		RestApiService,
-		RestClientFactoryService
+		RestClientFactoryService,
+		WindowReferenceService,
+		CookieService
 	],
 	bootstrap: [AppComponent]
 })

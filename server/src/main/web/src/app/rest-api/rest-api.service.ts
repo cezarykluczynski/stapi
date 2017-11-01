@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import RestClient from 'another-rest-client';
 
+import { CookieService } from 'ngx-cookie-service';
+
 import { RestClientFactoryService } from './rest-client-factory.service';
 
 @Injectable()
 export class RestApiService {
 
 	private api: RestClient;
+	private cookieService: CookieService;
 	private statistics: any;
 	private documentation: any;
 	private onLimitUpdateCallback: any;
@@ -16,13 +19,19 @@ export class RestApiService {
 	private documentationPromise: any;
 	private limits: any;
 
-	constructor(restClientFactoryService: RestClientFactoryService) {
+	constructor(restClientFactoryService: RestClientFactoryService, cookieService: CookieService) {
+		this.cookieService = cookieService;
 		const prefix = location.href.includes('localhost:4200') ? 'http://localhost:8686' : '';
 		this.api = restClientFactoryService.createRestClient(prefix + '/api/v1/rest');
 		this.api.res('common').res('details');
 		this.api.res('common').res('documentation');
 		this.api.res('common').res('statistics').res('entities');
 		this.api.res('common').res('statistics').res('hits');
+		this.api.res('panel').res('common').res('me');
+		this.api.res('oauth').res('github').res('oAuthAuthorizeUrl');
+		this.api.on('request', (xhr) => {
+			xhr.setRequestHeader('X-XSRF-TOKEN', cookieService.get('XSRF-TOKEN'));
+		});
 		this.api.on('response', (xhr) => {
 			try {
 				this.limits = {
@@ -99,6 +108,14 @@ export class RestApiService {
 				return url;
 			}
 		}
+	}
+
+	getMe() {
+		return this.api.panel.common.me.get();
+	}
+
+	getOAuthAuthorizeUrl() {
+		return this.api.oauth.github.oAuthAuthorizeUrl.get();
 	}
 
 	private loadDetails() {
