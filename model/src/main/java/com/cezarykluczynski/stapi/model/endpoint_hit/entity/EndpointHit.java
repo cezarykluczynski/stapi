@@ -23,13 +23,13 @@ import javax.persistence.Table;
 @ToString
 @TrackedEntity(type = TrackedEntityType.TECHNICAL, repository = EndpointHitRepository.class, apiEntity = false, metricsEntity = true,
 		singularName = "endpoint hit", pluralName = "endpoint hits")
-@Table(name = "endpoint_hit", schema = "stapi_metrics")
+@Table(name = "endpoint_hit", schema = "stapi_users")
 public class EndpointHit {
 
 	@Id
 	@Column(nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "endpoint_hit_sequence_generator")
-	@SequenceGenerator(name = "endpoint_hit_sequence_generator", sequenceName = "endpoint_hit_sequence", schema = "stapi_metrics", allocationSize = 1)
+	@SequenceGenerator(name = "endpoint_hit_sequence_generator", sequenceName = "endpoint_hit_sequence", schema = "stapi_users", allocationSize = 1)
 	private Long id;
 
 	private String endpointName;

@@ -51,9 +51,9 @@ class EntityCacheableReflectionTest extends AbstractEntityReflectionTest {
 		notThrown(Exception)
 	}
 
-	void "all @Entity classes, except Page, Throttle, and EndpointHit are also annotated with @Cache"() {
+	void "all @Entity classes, except Page, Throttle, EndpointHit, and Account are also annotated with @Cache"() {
 		given:
-		List<String> excludes = Lists.newArrayList('Page', 'Throttle', 'EndpointHit', 'SimpleStep')
+		List<String> excludes = Lists.newArrayList('Page', 'Throttle', 'EndpointHit', 'SimpleStep', 'Account')
 		Reflections reflections = new Reflections(new ConfigurationBuilder()
 				.setUrls(ClasspathHelper.forPackage('com.cezarykluczynski.stapi.model'))
 				.setScanners(new SubTypesScanner(), new TypeAnnotationsScanner(), new FieldAnnotationsScanner()))

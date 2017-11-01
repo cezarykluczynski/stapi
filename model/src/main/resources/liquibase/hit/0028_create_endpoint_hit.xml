@@ -5,10 +5,10 @@
 	<changeSet id="0028_create_endpoint_hit" author="cezarykluczynski">
 		<preConditions onFail="MARK_RAN">
 			<not>
-				<tableExists tableName="endpoint_hit" schemaName="stapi_metrics"/>
+				<tableExists tableName="endpoint_hit" schemaName="stapi_users"/>
 			</not>
 		</preConditions>
-		<createTable schemaName="stapi_metrics" tableName="endpoint_hit">
+		<createTable schemaName="stapi_users" tableName="endpoint_hit">
 			<column name="id" type="bigint">
 				<constraints unique="true" nullable="false"/>
 			</column>
@@ -25,12 +25,12 @@
 				<constraints nullable="false"/>
 			</column>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="endpoint_hit_sequence" schemaName="stapi_metrics"/>
+		<createSequence incrementBy="1" sequenceName="endpoint_hit_sequence" schemaName="stapi_users"/>
 
 		<addUniqueConstraint
 				columnNames="endpoint_name, method_name"
 				constraintName="eh_unique_endpoint_method"
-				schemaName="stapi_metrics"
+				schemaName="stapi_users"
 				tableName="endpoint_hit"/>
 	</changeSet>
 </databaseChangeLog>
