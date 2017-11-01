@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.oauth.github.endpoint
 
-import com.cezarykluczynski.stapi.sources.oauth.github.dto.GitHubRedirectUrlDTO
-import com.cezarykluczynski.stapi.sources.oauth.github.service.GitHubOAuthFacade
+import com.cezarykluczynski.stapi.auth.oauth.github.dto.GitHubRedirectUrlDTO
+import com.cezarykluczynski.stapi.auth.oauth.github.service.GitHubOAuthFacade
 import spock.lang.Specification
 
 import javax.ws.rs.core.Response

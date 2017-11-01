@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.oauth.github.endpoint;
 
+import com.cezarykluczynski.stapi.auth.oauth.github.dto.GitHubRedirectUrlDTO;
+import com.cezarykluczynski.stapi.auth.oauth.github.service.GitHubOAuthFacade;
 import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
-import com.cezarykluczynski.stapi.sources.oauth.github.dto.GitHubRedirectUrlDTO;
-import com.cezarykluczynski.stapi.sources.oauth.github.service.GitHubOAuthFacade;
 import com.cezarykluczynski.stapi.util.constant.ContentType;
 import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
 import org.springframework.stereotype.Service;

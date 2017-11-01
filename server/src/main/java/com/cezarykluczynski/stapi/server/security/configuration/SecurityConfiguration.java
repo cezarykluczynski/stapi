@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.server.security.configuration;
 
-import com.cezarykluczynski.stapi.etl.util.constant.FilterOrder;
 import com.cezarykluczynski.stapi.server.security.filter.OriginVerifyingFilter;
+import com.cezarykluczynski.stapi.util.constant.FilterOrder;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,6 @@ import javax.inject.Inject;
 public class SecurityConfiguration {
 
 	public static final String CSFR_SENSITIVE_PATH = "/rest/panel/";
-	private static final String STAR = "*";
 
 	@Inject
 	private OriginVerifyingFilter originVerifyingFilter;
@@ -26,7 +25,7 @@ public class SecurityConfiguration {
 	public FilterRegistrationBean originVerifyingFilterRegistrationBean() {
 		FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
 		filterRegistrationBean.setFilter(originVerifyingFilter);
-		filterRegistrationBean.addUrlPatterns(STAR);
+		filterRegistrationBean.addUrlPatterns("*");
 		filterRegistrationBean.setOrder(FilterOrder.ORIGIN_VERIFIER);
 		return filterRegistrationBean;
 	}

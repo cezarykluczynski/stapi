@@ -1,0 +1,15 @@
+group 'stapi'
+version '0.0.5-SNAPSHOT'
+
+apply plugin: 'groovy'
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile project(':util'), project(':model'), project(':sources')
+}

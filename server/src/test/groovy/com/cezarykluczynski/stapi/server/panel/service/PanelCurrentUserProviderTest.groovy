@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.server.panel.service
 
-import com.cezarykluczynski.stapi.sources.oauth.github.dto.UserDTO
-import com.cezarykluczynski.stapi.sources.oauth.github.session.OAuthSession
-import com.cezarykluczynski.stapi.sources.oauth.github.session.OAuthSessionHolder
-import com.cezarykluczynski.stapi.sources.oauth.github.session.UserDTOMapper
+import com.cezarykluczynski.stapi.auth.account.dto.UserDTO
+import com.cezarykluczynski.stapi.auth.oauth.session.OAuthSession
+import com.cezarykluczynski.stapi.auth.oauth.session.OAuthSessionHolder
+import com.cezarykluczynski.stapi.auth.account.mapper.UserDTOMapper
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import spock.lang.Specification
 

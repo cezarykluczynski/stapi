@@ -17,7 +17,7 @@ springBoot {
 }
 
 dependencies {
-	compile project(':etl'), project(':client')
+	compile project(':etl'), project(':client'), project(':auth')
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-tomcat', version: springBootVersion
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web-services', version: springBootVersion
 	compile group: 'org.liquibase', name: 'liquibase-core', version: '3.5.3'

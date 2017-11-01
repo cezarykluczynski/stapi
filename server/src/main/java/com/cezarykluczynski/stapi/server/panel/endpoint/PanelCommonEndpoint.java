@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.panel.endpoint;
 
+import com.cezarykluczynski.stapi.auth.account.dto.UserDTO;
 import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
 import com.cezarykluczynski.stapi.server.panel.service.PanelCurrentUserProvider;
-import com.cezarykluczynski.stapi.sources.oauth.github.dto.UserDTO;
 import com.cezarykluczynski.stapi.util.constant.ContentType;
 import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
 import org.springframework.security.access.prepost.PreAuthorize;
