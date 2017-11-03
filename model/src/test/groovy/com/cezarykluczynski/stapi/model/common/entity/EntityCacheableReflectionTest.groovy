@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.model.common.entity
 
+import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity
+import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType
 import org.apache.commons.lang3.StringUtils
 import org.assertj.core.util.Lists
 import org.hibernate.annotations.Cache
@@ -51,9 +53,9 @@ class EntityCacheableReflectionTest extends AbstractEntityReflectionTest {
 		notThrown(Exception)
 	}
 
-	void "all @Entity classes, except Page, Throttle, EndpointHit, and Account are also annotated with @Cache"() {
+	void "all @Entity classes, except Throttle and technical entities, are also annotated with @Cache"() {
 		given:
-		List<String> excludes = Lists.newArrayList('Page', 'Throttle', 'EndpointHit', 'SimpleStep', 'Account')
+		List<String> excludes = Lists.newArrayList('Throttle')
 		Reflections reflections = new Reflections(new ConfigurationBuilder()
 				.setUrls(ClasspathHelper.forPackage('com.cezarykluczynski.stapi.model'))
 				.setScanners(new SubTypesScanner(), new TypeAnnotationsScanner(), new FieldAnnotationsScanner()))
@@ -64,6 +66,11 @@ class EntityCacheableReflectionTest extends AbstractEntityReflectionTest {
 		when:
 		entitiesClasses.forEach { it ->
 			if (excludes.contains(it.simpleName)) {
+				return
+			}
+
+			TrackedEntity trackedEntity = (TrackedEntity) it.getAnnotation(TrackedEntity)
+			if (TrackedEntityType.TECHNICAL == trackedEntity.type()) {
 				return
 			}
 

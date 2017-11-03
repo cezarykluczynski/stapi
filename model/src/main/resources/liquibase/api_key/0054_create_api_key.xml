@@ -1,0 +1,28 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet id="0053_create_account" author="cezarykluczynski">
+		<createTable schemaName="stapi_users" tableName="api_key">
+			<column name="id" type="bigint">
+				<constraints unique="true" nullable="false"/>
+			</column>
+			<column name="api_key" type="varchar(40)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="account_id" type="bigint"/>
+			<column name="limit" type="int"/>
+			<column name="active" type="boolean"/>
+			<column name="blocked" type="boolean"/>
+			<column name="description" type="varchar(256)"/>
+		</createTable>
+		<createSequence incrementBy="1" sequenceName="api_key_sequence" schemaName="stapi_users"/>
+		<addForeignKeyConstraint baseColumnNames="account_id"
+				baseTableName="api_key"
+				baseTableSchemaName="stapi_users"
+				constraintName="api_key_account_fkey"
+				referencedColumnNames="id"
+				referencedTableName="account"
+				referencedTableSchemaName="stapi_users"/>
+	</changeSet>
+</databaseChangeLog>
