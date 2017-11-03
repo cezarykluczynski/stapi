@@ -53,9 +53,8 @@ class EntityCacheableReflectionTest extends AbstractEntityReflectionTest {
 		notThrown(Exception)
 	}
 
-	void "all @Entity classes, except Throttle and technical entities, are also annotated with @Cache"() {
+	void "all @Entity classes, except technical entities, are also annotated with @Cache"() {
 		given:
-		List<String> excludes = Lists.newArrayList('Throttle')
 		Reflections reflections = new Reflections(new ConfigurationBuilder()
 				.setUrls(ClasspathHelper.forPackage('com.cezarykluczynski.stapi.model'))
 				.setScanners(new SubTypesScanner(), new TypeAnnotationsScanner(), new FieldAnnotationsScanner()))
@@ -65,10 +64,6 @@ class EntityCacheableReflectionTest extends AbstractEntityReflectionTest {
 
 		when:
 		entitiesClasses.forEach { it ->
-			if (excludes.contains(it.simpleName)) {
-				return
-			}
-
 			TrackedEntity trackedEntity = (TrackedEntity) it.getAnnotation(TrackedEntity)
 			if (TrackedEntityType.TECHNICAL == trackedEntity.type()) {
 				return

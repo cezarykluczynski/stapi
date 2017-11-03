@@ -22,7 +22,7 @@ import javax.persistence.Table;
 @ToString
 @TrackedEntity(type = TrackedEntityType.TECHNICAL, repository = ApiKeyRepository.class, apiEntity = false, singularName = "api key",
 		pluralName = "api keys")
-@Table(name = "api key", schema = "stapi_users")
+@Table(name = "api_key", schema = "stapi_users")
 public class ApiKey {
 
 	@Id

@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Data
@@ -22,12 +23,13 @@ import java.time.LocalDateTime;
 @ToString
 @TrackedEntity(type = TrackedEntityType.TECHNICAL, repository = ThrottleRepository.class, apiEntity = false, singularName = "throttle",
 		pluralName = "throttles")
+@Table(name = "throttle", schema = "stapi_users")
 public class Throttle {
 
 	@Id
 	@Column(nullable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "page_sequence_generator")
-	@SequenceGenerator(name = "page_sequence_generator", sequenceName = "page_sequence", allocationSize = 1)
+	@SequenceGenerator(name = "page_sequence_generator", sequenceName = "page_sequence", schema = "stapi_users", allocationSize = 1)
 	private Long id;
 
 	@Enumerated(EnumType.STRING)
