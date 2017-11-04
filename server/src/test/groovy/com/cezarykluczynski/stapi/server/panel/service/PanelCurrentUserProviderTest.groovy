@@ -1,10 +1,9 @@
 package com.cezarykluczynski.stapi.server.panel.service
 
 import com.cezarykluczynski.stapi.auth.account.dto.UserDTO
+import com.cezarykluczynski.stapi.auth.account.mapper.UserDTOMapper
 import com.cezarykluczynski.stapi.auth.oauth.session.OAuthSession
 import com.cezarykluczynski.stapi.auth.oauth.session.OAuthSessionHolder
-import com.cezarykluczynski.stapi.auth.account.mapper.UserDTOMapper
-import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import spock.lang.Specification
 
 class PanelCurrentUserProviderTest extends Specification {
@@ -21,16 +20,6 @@ class PanelCurrentUserProviderTest extends Specification {
 		panelCurrentUserProvider = new PanelCurrentUserProvider(oAuthSessionHolderMock, userDTOMapperMock)
 	}
 
-	void "when there is no OAuthSession, exception is thrown"() {
-		when:
-		panelCurrentUserProvider.provide()
-
-		then:
-		1 * oAuthSessionHolderMock.OAuthSession >> null
-		0 * _
-		thrown(StapiRuntimeException)
-	}
-
 	void "when OAuthSession is found, it is mapped to UserDTO and returned"() {
 		given:
 		OAuthSession oAuthSession = Mock()
@@ -40,7 +29,7 @@ class PanelCurrentUserProviderTest extends Specification {
 		UserDTO userDTOOutput = panelCurrentUserProvider.provide()
 
 		then:
-		1 * oAuthSessionHolderMock.OAuthSession >> oAuthSession
+		1 * oAuthSessionHolderMock.nullableOAuthSession >> oAuthSession
 		1 * userDTOMapperMock.map(oAuthSession) >> userDTO
 		0 * _
 		userDTOOutput == userDTO

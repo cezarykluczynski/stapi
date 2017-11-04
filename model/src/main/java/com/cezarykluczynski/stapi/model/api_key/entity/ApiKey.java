@@ -37,6 +37,9 @@ public class ApiKey {
 	@JoinColumn(name = "account_id")
 	private Account account;
 
+	@Column(name = "account_id", insertable = false, updatable = false)
+	private Long accountId;
+
 	private Integer limit;
 
 	private Boolean active;

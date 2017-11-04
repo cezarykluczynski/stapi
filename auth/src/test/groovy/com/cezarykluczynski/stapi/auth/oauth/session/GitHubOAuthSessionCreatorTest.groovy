@@ -1,15 +1,15 @@
 package com.cezarykluczynski.stapi.auth.oauth.session
 
-import com.cezarykluczynski.stapi.auth.oauth.github.dto.GitHubUserDetailsDTO
 import com.cezarykluczynski.stapi.auth.oauth.github.service.GitHubAdminDetector
+import com.cezarykluczynski.stapi.model.account.entity.Account
 import com.cezarykluczynski.stapi.util.constant.ApplicationPermission
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
 class GitHubOAuthSessionCreatorTest extends Specification {
 
-	private static final String LOGIN = 'LOGIN'
-	private static final Long ID = 11L
+	private static final Long ACCOUNT_ID = 6L
+	private static final Long GITHUB_ID = 11L
 	private static final String NAME = 'NAME'
 
 	private OAuthSessionHolder oauthSessionHolderMock
@@ -24,51 +24,36 @@ class GitHubOAuthSessionCreatorTest extends Specification {
 		gitHubOAuthSessionCreator = new GitHubOAuthSessionCreator(oauthSessionHolderMock, gitHubAdminDetectorMock)
 	}
 
-	void "GitHub user data is stored in session, without user name and without admin privileges"() {
+	void "Account data is stored in session, without admin privileges"() {
 		given:
-		GitHubUserDetailsDTO gitHubUserDetailsDTO = new GitHubUserDetailsDTO(id: ID, login: LOGIN)
+		Account account = new Account(id: ACCOUNT_ID, gitHubUserId: GITHUB_ID, name: NAME)
 
 		when:
-		gitHubOAuthSessionCreator.create(gitHubUserDetailsDTO)
+		gitHubOAuthSessionCreator.create(account)
 
 		then:
-		1 * gitHubAdminDetectorMock.isAdminId(ID) >> false
+		1 * gitHubAdminDetectorMock.isAdminId(GITHUB_ID) >> false
 		1 * oauthSessionHolderMock.setOAuthSession(_ as OAuthSession) >> { OAuthSession oAuthSession ->
-			assert oAuthSession.gitHubId == ID
-			assert oAuthSession.gitHubName == LOGIN
-			assert oAuthSession.permissions == Lists.newArrayList(ApplicationPermission.API_KEY_MANAGEMENT)
-		}
-		0 * _
-	}
-
-	void "GitHub user data is stored in session, with user name, and without admin privileges"() {
-		given:
-		GitHubUserDetailsDTO gitHubUserDetailsDTO = new GitHubUserDetailsDTO(id: ID, login: LOGIN, name: NAME)
-
-		when:
-		gitHubOAuthSessionCreator.create(gitHubUserDetailsDTO)
-
-		then:
-		1 * gitHubAdminDetectorMock.isAdminId(ID) >> false
-		1 * oauthSessionHolderMock.setOAuthSession(_ as OAuthSession) >> { OAuthSession oAuthSession ->
-			assert oAuthSession.gitHubId == ID
+			assert oAuthSession.accountId == ACCOUNT_ID
+			assert oAuthSession.gitHubId == GITHUB_ID
 			assert oAuthSession.gitHubName == NAME
 			assert oAuthSession.permissions == Lists.newArrayList(ApplicationPermission.API_KEY_MANAGEMENT)
 		}
 		0 * _
 	}
 
-	void "GitHub user data is stored in session, with user name, and with admin privileges"() {
+	void "Account data is stored in session, and with admin privileges"() {
 		given:
-		GitHubUserDetailsDTO gitHubUserDetailsDTO = new GitHubUserDetailsDTO(id: ID, login: LOGIN, name: NAME)
+		Account account = new Account(id: ACCOUNT_ID, gitHubUserId: GITHUB_ID, name: NAME)
 
 		when:
-		gitHubOAuthSessionCreator.create(gitHubUserDetailsDTO)
+		gitHubOAuthSessionCreator.create(account)
 
 		then:
-		1 * gitHubAdminDetectorMock.isAdminId(ID) >> true
+		1 * gitHubAdminDetectorMock.isAdminId(GITHUB_ID) >> true
 		1 * oauthSessionHolderMock.setOAuthSession(_ as OAuthSession) >> { OAuthSession oAuthSession ->
-			assert oAuthSession.gitHubId == ID
+			assert oAuthSession.accountId == ACCOUNT_ID
+			assert oAuthSession.gitHubId == GITHUB_ID
 			assert oAuthSession.gitHubName == NAME
 			assert oAuthSession.permissions == Lists.newArrayList(ApplicationPermission.API_KEY_MANAGEMENT, ApplicationPermission.ADMIN_MANAGEMENT)
 		}

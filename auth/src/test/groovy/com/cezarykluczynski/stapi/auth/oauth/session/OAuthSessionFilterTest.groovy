@@ -50,7 +50,7 @@ class OAuthSessionFilterTest extends Specification {
 		oAuthSessionFilter.doFilter(servletRequest, servletResponse, filterChain)
 
 		then:
-		1 * oauthSessionHolderMock.OAuthSession >> null
+		1 * oauthSessionHolderMock.nullableOAuthSession >> null
 		1 * filterChain.doFilter(servletRequest, servletResponse)
 		0 * _
 		SecurityContextHolder.context.authentication != null
@@ -69,7 +69,7 @@ class OAuthSessionFilterTest extends Specification {
 		oAuthSessionFilter.doFilter(servletRequest, servletResponse, filterChain)
 
 		then:
-		1 * oauthSessionHolderMock.OAuthSession >> oAuthSession
+		1 * oauthSessionHolderMock.nullableOAuthSession >> oAuthSession
 		1 * filterChain.doFilter(servletRequest, servletResponse)
 		0 * _
 		SecurityContextHolder.context.authentication != null

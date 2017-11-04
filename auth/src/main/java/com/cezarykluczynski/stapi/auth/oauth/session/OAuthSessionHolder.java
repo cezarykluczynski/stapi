@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.auth.oauth.session;
 
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
@@ -12,8 +13,16 @@ public class OAuthSessionHolder {
 	@SuppressWarnings("MemberName")
 	private OAuthSession oAuthSession;
 
-	public OAuthSession getOAuthSession() {
+	public synchronized OAuthSession getNullableOAuthSession() {
 		return oAuthSession == null ? null : oAuthSession.copy();
+	}
+
+	public synchronized OAuthSession getOAuthSession() {
+		if (oAuthSession == null) {
+			throw new StapiRuntimeException("No session!");
+		}
+
+		return oAuthSession.copy();
 	}
 
 	void setOAuthSession(@SuppressWarnings("ParameterName") OAuthSession newOAuthSession) {

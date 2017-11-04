@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.auth.oauth.session
 
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -15,18 +16,18 @@ class OAuthSessionHolderTest extends Specification {
 		oAuthSessionHolder = new OAuthSessionHolder()
 	}
 
-	void "set OAuthSession, then returns copy of it"() {
+	void "set OAuthSession, then returns nullable copy of it"() {
 		given:
 		OAuthSession oAuthSession = new OAuthSession(gitHubId: ID, gitHubName: NAME, permissions: Lists.newArrayList(PERMISSION))
 		oAuthSessionHolder.setOAuthSession(oAuthSession)
 
 		when:
-		OAuthSession oAuthSessionCopy = oAuthSessionHolder.OAuthSession
+		OAuthSession oAuthSessionNullableCopy = oAuthSessionHolder.nullableOAuthSession
 
 		then:
-		oAuthSessionCopy.gitHubId == oAuthSession.gitHubId
-		oAuthSessionCopy.gitHubName == oAuthSession.gitHubName
-		oAuthSessionCopy.permissions[0] == oAuthSession.permissions[0]
+		oAuthSessionNullableCopy.gitHubId == oAuthSession.gitHubId
+		oAuthSessionNullableCopy.gitHubName == oAuthSession.gitHubName
+		oAuthSessionNullableCopy.permissions[0] == oAuthSession.permissions[0]
 
 		when:
 		oAuthSession.gitHubId = null
@@ -39,17 +40,54 @@ class OAuthSessionHolderTest extends Specification {
 		oAuthSession.permissions == Lists.newArrayList()
 
 		then:
-		oAuthSessionCopy.gitHubId == ID
-		oAuthSessionCopy.gitHubName == NAME
-		oAuthSessionCopy.permissions[0] == PERMISSION
+		oAuthSessionNullableCopy.gitHubId == ID
+		oAuthSessionNullableCopy.gitHubName == NAME
+		oAuthSessionNullableCopy.permissions[0] == PERMISSION
+	}
+
+	void "set OAuthSession, then returns copy of it"() {
+		given:
+		OAuthSession oAuthSession = new OAuthSession(gitHubId: ID, gitHubName: NAME, permissions: Lists.newArrayList(PERMISSION))
+		oAuthSessionHolder.setOAuthSession(oAuthSession)
+
+		when:
+		OAuthSession oAuthSessionNullableCopy = oAuthSessionHolder.OAuthSession
+
+		then:
+		oAuthSessionNullableCopy.gitHubId == oAuthSession.gitHubId
+		oAuthSessionNullableCopy.gitHubName == oAuthSession.gitHubName
+		oAuthSessionNullableCopy.permissions[0] == oAuthSession.permissions[0]
+
+		when:
+		oAuthSession.gitHubId = null
+		oAuthSession.gitHubName = null
+		oAuthSession.permissions = Lists.newArrayList()
+
+		then:
+		oAuthSession.gitHubId == null
+		oAuthSession.gitHubName == null
+		oAuthSession.permissions == Lists.newArrayList()
+
+		then:
+		oAuthSessionNullableCopy.gitHubId == ID
+		oAuthSessionNullableCopy.gitHubName == NAME
+		oAuthSessionNullableCopy.permissions[0] == PERMISSION
 	}
 
 	void "returns null when no OAuthSession has been set"() {
 		when:
-		OAuthSession oAuthSessionCopy = oAuthSessionHolder.OAuthSession
+		OAuthSession oAuthSessionCopy = oAuthSessionHolder.nullableOAuthSession
 
 		then:
 		oAuthSessionCopy == null
+	}
+
+	void "throws exception when no OAuthSession has been set"() {
+		when:
+		oAuthSessionHolder.OAuthSession
+
+		then:
+		thrown(StapiRuntimeException)
 	}
 
 }

@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.auth.account.api;
 import com.cezarykluczynski.stapi.auth.oauth.github.dto.GitHubUserDetailsDTO;
 import com.cezarykluczynski.stapi.model.account.entity.Account;
 import com.cezarykluczynski.stapi.model.account.repository.AccountRepository;
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,15 @@ public class AccountApi {
 		this.accountRepository = accountRepository;
 	}
 
-	public void ensureExists(GitHubUserDetailsDTO gitHubUserDetailsDTO) {
+	public Account ensureExists(GitHubUserDetailsDTO gitHubUserDetailsDTO) {
+		return ensureExists(gitHubUserDetailsDTO, 0);
+	}
+
+	private Account ensureExists(GitHubUserDetailsDTO gitHubUserDetailsDTO, int depth) {
+		if (depth == 2) {
+			throw new StapiRuntimeException("Cannot ensure user is saved locally!");
+		}
+
 		Long id = gitHubUserDetailsDTO.getId();
 		Optional<Account> accountOptional = accountRepository.findByGitHubUserId(id);
 		if (!accountOptional.isPresent()) {
@@ -31,10 +40,13 @@ public class AccountApi {
 			account.setEmail(gitHubUserDetailsDTO.getEmail());
 			account.setGitHubUserId(id);
 			try {
-				accountRepository.save(account);
+				return accountRepository.save(account);
 			} catch (DataIntegrityViolationException e) {
-				// an unlikely event of other thread already creating this user, just carry on
+				// in an unlikely event of other thread already creating this user, another run should do it
+				return ensureExists(gitHubUserDetailsDTO, depth + 1);
 			}
+		} else {
+			return accountOptional.get();
 		}
 	}
 

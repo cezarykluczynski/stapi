@@ -36,7 +36,7 @@ public class OAuthSessionFilter implements Filter {
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
 			throws IOException, ServletException {
 		@SuppressWarnings("LocalVariableName")
-		OAuthSession oAuthSession = oauthSessionHolder.getOAuthSession();
+		OAuthSession oAuthSession = oauthSessionHolder.getNullableOAuthSession();
 		Authentication authentication = new UsernamePasswordAuthenticationToken(oAuthSession, null, createGrantedAuthorities(oAuthSession));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		filterChain.doFilter(servletRequest, servletResponse);

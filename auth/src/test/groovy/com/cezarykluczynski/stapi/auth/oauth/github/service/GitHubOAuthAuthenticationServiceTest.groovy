@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.auth.account.api.AccountApi
 import com.cezarykluczynski.stapi.auth.oauth.github.dto.GitHubRedirectUrlDTO
 import com.cezarykluczynski.stapi.auth.oauth.github.dto.GitHubUserDetailsDTO
 import com.cezarykluczynski.stapi.auth.oauth.session.GitHubOAuthSessionCreator
+import com.cezarykluczynski.stapi.model.account.entity.Account
 import com.cezarykluczynski.stapi.sources.common.service.UrlContentRetriever
 import spock.lang.Specification
 
@@ -80,6 +81,7 @@ class GitHubOAuthAuthenticationServiceTest extends Specification {
 	void "authentication is performed"() {
 		given:
 		GitHubUserDetailsDTO gitHubUserDetailsDTO = Mock()
+		Account account = Mock()
 
 		when:
 		GitHubRedirectUrlDTO gitHubRedirectUrlDTO = gitHubOAuthAuthenticationService.authenticate(CODE)
@@ -91,8 +93,8 @@ class GitHubOAuthAuthenticationServiceTest extends Specification {
 		1 * gitHubOAuthUrlFactoryMock.createUserUrl(ACCESS_TOKEN) >> new GitHubRedirectUrlDTO(USER_URL)
 		1 * urlContentRetrieverMock.getBody(USER_URL) >> USER_RESPONSE_BODY
 		1 * gitHubUserDetailsDTOFactoryMock.create(USER_RESPONSE_BODY) >> gitHubUserDetailsDTO
-		1 * gitHubOAuthSessionCreatorMock.create(gitHubUserDetailsDTO)
-		1 * accountApiMock.ensureExists(gitHubUserDetailsDTO)
+		1 * accountApiMock.ensureExists(gitHubUserDetailsDTO) >> account
+		1 * gitHubOAuthSessionCreatorMock.create(account)
 		0 * _
 		gitHubRedirectUrlDTO.url == '/panel'
 	}

@@ -8,6 +8,8 @@ import java.util.List;
 @Data
 public class OAuthSession {
 
+	private Long accountId;
+
 	private Long gitHubId;
 
 	private String gitHubName;
@@ -16,6 +18,7 @@ public class OAuthSession {
 
 	OAuthSession copy() {
 		OAuthSession copy = new OAuthSession();
+		copy.setAccountId(accountId);
 		copy.setGitHubId(gitHubId);
 		copy.setGitHubName(gitHubName);
 		copy.setPermissions(Lists.newArrayList(permissions));

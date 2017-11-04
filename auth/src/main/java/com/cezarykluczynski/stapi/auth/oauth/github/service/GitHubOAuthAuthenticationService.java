@@ -2,7 +2,6 @@ package com.cezarykluczynski.stapi.auth.oauth.github.service;
 
 import com.cezarykluczynski.stapi.auth.account.api.AccountApi;
 import com.cezarykluczynski.stapi.auth.oauth.github.dto.GitHubRedirectUrlDTO;
-import com.cezarykluczynski.stapi.auth.oauth.github.dto.GitHubUserDetailsDTO;
 import com.cezarykluczynski.stapi.auth.oauth.session.GitHubOAuthSessionCreator;
 import com.cezarykluczynski.stapi.sources.common.service.UrlContentRetriever;
 import org.springframework.stereotype.Service;
@@ -56,9 +55,7 @@ class GitHubOAuthAuthenticationService {
 			return;
 		}
 
-		GitHubUserDetailsDTO gitHubUserDetailsDTO = gitHubUserDetailsDTOFactory.create(userResponseBody);
-		gitHubOAuthSessionCreator.create(gitHubUserDetailsDTO);
-		accountApi.ensureExists(gitHubUserDetailsDTO);
+		gitHubOAuthSessionCreator.create(accountApi.ensureExists(gitHubUserDetailsDTOFactory.create(userResponseBody)));
 	}
 
 }
