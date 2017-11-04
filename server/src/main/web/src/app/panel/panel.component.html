@@ -1,7 +1,32 @@
-<div class='container content licensing' *ngIf="isAuthenticated()">
-	<div class="row">
+<div class='container content licensing'>
+	<div class="row" *ngIf="isAuthenticated()">
 		<div class="col-md-12">
 			Hello, <span>{{getName()}}</span>.
+		</div>
+	</div>
+	<div class="row" *ngIf="isAuthenticationRequired()">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Authentication required</h3>
+				</div>
+				<div class="panel-body">
+					<p>
+						You are currently <b>not logged in</b>. To use panel to manage API keys, you have to be logged in.
+					</p>
+					<p>
+						You can authenticate using GitHub. Only basic information from GitHub will be required.
+					</p>
+					<p>
+						You can later remove your account from STAPI, and it will be deleted along with your personal data and API keys.
+					</p>
+					<p>
+						If you already logged in to STAPI, authenticate again to get access to your account.
+					</p>
+					<p><button class="panel-github-authenticate btn btn-success btn-md" (click)="redirectToOAuth()"
+						[disabled]="this.isRedirecting()" role="button">{{getButtonLabel()}}</button></p>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

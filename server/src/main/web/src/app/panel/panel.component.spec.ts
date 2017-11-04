@@ -1,4 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 
 import { RestApiService } from '../rest-api/rest-api.service';
 import { WindowReferenceService } from '../window-reference/window-reference.service';
@@ -92,12 +93,29 @@ describe('PanelComponent', () => {
 
 		it('is performed', () => {
 			expect(component).toBeTruthy();
-
+			expect(component.isAuthenticated()).toBeFalse();
+			expect(component.isAuthenticationRequired()).toBeFalse();
+			expect(component.isRedirecting()).toBeFalse();
+			expect(component.getButtonLabel()).toBe('Authenticate with GitHub');
 			fixture.detectChanges();
 
 			fixture.whenStable().then(() => {
-				expect(component.getName()).toBeUndefined();
-				expect(window.location.href).toBe(URL);
+				expect(component.isAuthenticated()).toBeFalse();
+				expect(component.isAuthenticationRequired()).toBeTrue();
+				expect(component.isRedirecting()).toBeFalse();
+				expect(component.getButtonLabel()).toBe('Authenticate with GitHub');
+				fixture.detectChanges();
+
+				fixture.debugElement.query(By.css('.panel-github-authenticate')).nativeElement.click();
+
+				fixture.whenStable().then(() => {
+					expect(component.getName()).toBeUndefined();
+					expect(window.location.href).toBe(URL);
+					expect(component.isAuthenticated()).toBeFalse();
+					expect(component.isAuthenticationRequired()).toBeTrue();
+					expect(component.isRedirecting()).toBeTrue();
+					expect(component.getButtonLabel()).toBe('Redirecting to GitHub...');
+				});
 			});
 		});
 	});

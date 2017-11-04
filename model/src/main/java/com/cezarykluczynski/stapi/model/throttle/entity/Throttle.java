@@ -28,8 +28,8 @@ public class Throttle {
 
 	@Id
 	@Column(nullable = false)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "page_sequence_generator")
-	@SequenceGenerator(name = "page_sequence_generator", sequenceName = "page_sequence", schema = "stapi_users", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "throttle_sequence_generator")
+	@SequenceGenerator(name = "throttle_sequence_generator", sequenceName = "throttle_sequence", schema = "stapi_users", allocationSize = 1)
 	private Long id;
 
 	@Enumerated(EnumType.STRING)
