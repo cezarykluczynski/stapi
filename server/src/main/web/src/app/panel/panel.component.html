@@ -1,7 +1,23 @@
-<div class='container content licensing'>
+<div class='container content account-panel'>
 	<div class="row" *ngIf="isAuthenticated()">
-		<div class="col-md-12">
-			Hello, <span>{{getName()}}</span>.
+		<div class="col-md-3">
+			<ul class="list-group">
+				<li class="list-group-item account-panel__name">Hello, <span>{{getName()}}</span>!</li>
+			</ul>
+
+			<ul class="list-group">
+				<li class="list-group-item account-panel__section-selector" [ngClass]="{'list-group-item': true, 'active': apiKeysIsVisible()}"
+					(click)="showApiKeys()">API keys</li>
+				<li class="list-group-item account-panel__section-selector" [ngClass]="{'list-group-item': true, 'active': accountSettingsIsVisible()}"
+					(click)="showAccountSettings()">Account settings</li>
+				<li class="list-group-item account-panel__section-selector" [ngClass]="{'list-group-item': true, 'active': adminManagementIsVisible()}"
+					(click)="showAdminManagement()" *ngIf="hasAdminManagementPermission()">Admin management</li>
+			</ul>
+		</div>
+		<div class="col-md-9">
+			<panel-api-keys *ngIf="apiKeysIsVisible()"></panel-api-keys>
+			<panel-account-settings *ngIf="accountSettingsIsVisible()"></panel-account-settings>
+			<panel-admin-management *ngIf="adminManagementIsVisible()"></panel-admin-management>
 		</div>
 	</div>
 	<div class="row" *ngIf="isAuthenticationRequired()">

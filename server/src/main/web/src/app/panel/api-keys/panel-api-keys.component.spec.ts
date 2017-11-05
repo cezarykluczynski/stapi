@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LicensingComponent } from './licensing.component';
+import { PanelApiKeysComponent } from './panel-api-keys.component';
 
-describe('LicensingComponent', () => {
-	let component: LicensingComponent;
-	let fixture: ComponentFixture<LicensingComponent>;
+describe('PanelApiKeysComponent', () => {
+	let component: PanelApiKeysComponent;
+	let fixture: ComponentFixture<PanelApiKeysComponent>;
 
 	beforeEach(async(() => {
 		TestBed.configureTestingModule({
-			declarations: [LicensingComponent]
+			declarations: [PanelApiKeysComponent]
 		})
 		.compileComponents();
 	}));
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(LicensingComponent);
+		fixture = TestBed.createComponent(PanelApiKeysComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

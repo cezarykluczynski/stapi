@@ -1,10 +1,13 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, fakeAsync, ComponentFixture, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { RestApiService } from '../rest-api/rest-api.service';
 import { WindowReferenceService } from '../window-reference/window-reference.service';
 
 import { PanelComponent } from './panel.component';
+import { PanelApiKeysComponent } from './api-keys/panel-api-keys.component';
+import { PanelAccountSettingsComponent } from './account-settings/panel-account-settings.component';
+import { PanelAdminManagementComponent } from './admin-management/panel-admin-management.component';
 
 class RestApiServiceMock {
 	public getMe() {}
@@ -27,7 +30,7 @@ describe('PanelComponent', () => {
 		restApiServiceMock = new RestApiServiceMock();
 		windowReferenceServiceMock = new WindowReferenceServiceMock()
 		TestBed.configureTestingModule({
-			declarations: [PanelComponent],
+			declarations: [PanelComponent, PanelApiKeysComponent, PanelAccountSettingsComponent, PanelAdminManagementComponent],
 			providers: [
 				{
 					provide: RestApiService,
@@ -48,22 +51,74 @@ describe('PanelComponent', () => {
 	});
 
 	describe('initialization without error', () => {
+		let permissions;
+		var resolve;
+
 		beforeEach(() => {
-			spyOn(restApiServiceMock, 'getMe').and.returnValue(new Promise((resolve) => {
-				resolve({
-					name: NAME
-				});
+			permissions = [];
+			spyOn(restApiServiceMock, 'getMe').and.returnValue(new Promise((_resolve) => {
+				resolve = () => {
+					_resolve({
+						name: NAME,
+						permissions: permissions
+					});
+				}
 			}));
-			fixture.detectChanges();
 		});
 
-		it('is performed', () => {
-			expect(component).toBeTruthy();
-
+		it('is performed', fakeAsync(() => {
+			resolve();
 			fixture.detectChanges();
+
+			expect(component).toBeTruthy();
 
 			fixture.whenStable().then(() => {
 				expect(component.getName()).toEqual(NAME);
+			});
+		}));
+
+		it('allows tab switching', () => {
+			resolve();
+			fixture.detectChanges();
+
+			expect(component.apiKeysIsVisible()).toBeTrue();
+			expect(component.accountSettingsIsVisible()).toBeFalse();
+			expect(component.adminManagementIsVisible()).toBeFalse();
+
+			fixture.whenStable().then(() => {
+				fixture.detectChanges();
+
+				fixture.debugElement.query(By.css('.account-panel__section-selector:nth-child(2)')).nativeElement.click();
+
+				expect(component.apiKeysIsVisible()).toBeFalse();
+				expect(component.accountSettingsIsVisible()).toBeTrue();
+				expect(component.adminManagementIsVisible()).toBeFalse();
+				expect(fixture.debugElement.query(By.css('.account-panel__section-selector:nth-child(3)'))).toBeNull();
+			});
+		});
+
+		describe('admin management', () => {
+			beforeEach(() => {
+				permissions = ['API_KEY_MANAGEMENT', 'ADMIN_MANAGEMENT']
+			});
+
+			it('allows tab switching', () => {
+				resolve();
+				fixture.detectChanges();
+
+				expect(component.apiKeysIsVisible()).toBeTrue();
+				expect(component.accountSettingsIsVisible()).toBeFalse();
+				expect(component.adminManagementIsVisible()).toBeFalse();
+
+				fixture.whenStable().then(() => {
+					fixture.detectChanges();
+
+					fixture.debugElement.query(By.css('.account-panel__section-selector:nth-child(3)')).nativeElement.click();
+
+					expect(component.apiKeysIsVisible()).toBeFalse();
+					expect(component.accountSettingsIsVisible()).toBeFalse();
+					expect(component.adminManagementIsVisible()).toBeTrue();
+				});
 			});
 		});
 	});

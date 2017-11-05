@@ -28,6 +28,9 @@ import { RestClientFactoryService } from './rest-api/rest-client-factory.service
 import { WindowReferenceService } from './window-reference/window-reference.service';
 import { InfoComponent } from './info/info.component';
 import { PanelComponent } from './panel/panel.component';
+import { PanelApiKeysComponent } from './panel/api-keys/panel-api-keys.component';
+import { PanelAccountSettingsComponent } from './panel/account-settings/panel-account-settings.component';
+import { PanelAdminManagementComponent } from './panel/admin-management/panel-admin-management.component';
 
 const appRoutes: Routes = [
 	{
@@ -81,7 +84,10 @@ export function initConfiguration(restApiService: RestApiService): Function {
 		EntityHitsGridComponent,
 		PageNotFoundComponent,
 		InfoComponent,
-		PanelComponent
+		PanelComponent,
+		PanelApiKeysComponent,
+		PanelAccountSettingsComponent,
+		PanelAdminManagementComponent
 	],
 	imports: [
 		RouterModule.forRoot(appRoutes),

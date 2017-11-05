@@ -12,6 +12,7 @@ public class UserDTOMapper {
 		Preconditions.checkNotNull(oAuthSession, "oAuthSession cannot be null");
 		UserDTO userDTO = new UserDTO();
 		userDTO.setName(oAuthSession.getGitHubName());
+		userDTO.getPermissions().addAll(oAuthSession.getPermissions());
 		return userDTO;
 	}
 
