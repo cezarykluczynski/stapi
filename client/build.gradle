@@ -272,11 +272,11 @@ uploadArchives {
 			}
 
 			repository(url: "http://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-				authentication(userName: ossrhUsername, password: ossrhPassword)
+				authentication(userName: project.findProperty("ossrhUsername") ?: "", password: project.findProperty("ossrhPassword") ?: "")
 			}
 
 			snapshotRepository(url: "http://oss.sonatype.org/content/repositories/snapshots/") {
-				authentication(userName: ossrhUsername, password: ossrhPassword)
+				authentication(userName: project.findProperty("ossrhUsername") ?: "", password: project.findProperty("ossrhPassword") ?: "")
 			}
 
 			pom.project {
