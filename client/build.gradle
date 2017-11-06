@@ -249,3 +249,70 @@ compileJava {
 	dependsOn(wsdl2java, swaggerGenerate)
 	source += "build/generated/src/main/java/"
 }
+
+task javadocJar(type: Jar) {
+	classifier = 'javadoc'
+	from javadoc
+}
+
+task sourcesJar(type: Jar) {
+	classifier = 'sources'
+	from sourceSets.main.allSource
+}
+
+artifacts {
+	archives javadocJar, sourcesJar
+}
+
+uploadArchives {
+	repositories {
+		mavenDeployer {
+			beforeDeployment {
+				MavenDeployment deployment -> signing.signPom(deployment)
+			}
+
+			repository(url: "http://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+				authentication(userName: ossrhUsername, password: ossrhPassword)
+			}
+
+			snapshotRepository(url: "http://oss.sonatype.org/content/repositories/snapshots/") {
+				authentication(userName: ossrhUsername, password: ossrhPassword)
+			}
+
+			pom.project {
+				name 'STAPI Client'
+				description 'Official client library for STAPI, a Star Trek API'
+				version '0.0.7'
+				packaging 'jar'
+				artifactId 'stapi-client'
+				groupId 'com.cezarykluczynski.stapi'
+				url 'http://stapi.co/'
+
+				scm {
+					connection 'https://github.com/cezarykluczynski/stapi.git'
+					developerConnection 'git@github.com:cezarykluczynski/stapi.git'
+					url 'https://github.com/cezarykluczynski/stapi'
+				}
+
+				licenses {
+					license {
+						name 'MIT'
+						url 'https://opensource.org/licenses/MIT'
+					}
+				}
+
+				developers {
+					developer {
+						id 'cezary.kluczynski'
+						name 'Cezary Kluczyński'
+						email 'cezary.kluczynski@gmail.com'
+					}
+				}
+			}
+		}
+	}
+}
+
+signing {
+	sign configurations.archives
+}
