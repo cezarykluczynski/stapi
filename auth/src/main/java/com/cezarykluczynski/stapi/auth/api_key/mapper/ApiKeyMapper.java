@@ -17,6 +17,9 @@ public class ApiKeyMapper {
 		apiKeyDTO.setId(apiKey.getId());
 		apiKeyDTO.setApiKey(apiKey.getApiKey());
 		apiKeyDTO.setAccountId(apiKey.getAccountId());
+		if (apiKeyDTO.getAccountId() == null && apiKey.getAccount() != null) {
+			apiKeyDTO.setAccountId(apiKey.getAccount().getId());
+		}
 		apiKeyDTO.setLimit(apiKey.getLimit());
 		apiKeyDTO.setActive(apiKey.getActive());
 		apiKeyDTO.setBlocked(apiKey.getBlocked());

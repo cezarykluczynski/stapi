@@ -1,7 +1,8 @@
 package com.cezarykluczynski.stapi.server.panel.endpoint;
 
 import com.cezarykluczynski.stapi.auth.api_key.dto.ApiKeyDTO;
-import com.cezarykluczynski.stapi.auth.api_key.service.ApiKeysOwnOperationsService;
+import com.cezarykluczynski.stapi.auth.api_key.operation.ApiKeysOwnOperationsService;
+import com.cezarykluczynski.stapi.auth.api_key.operation.creation.ApiKeyCreationResponseDTO;
 import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
 import com.cezarykluczynski.stapi.util.constant.ContentType;
 import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -32,6 +34,13 @@ public class PanelApiKeysEndpoint {
 	@PreAuthorize("hasPermission(filterObject, 'API_KEY_MANAGEMENT')")
 	public List<ApiKeyDTO> getAll() {
 		return apiKeysOwnOperationsService.getAll();
+	}
+
+	@POST
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@PreAuthorize("hasPermission(filterObject, 'API_KEY_MANAGEMENT')")
+	public ApiKeyCreationResponseDTO create() {
+		return apiKeysOwnOperationsService.create();
 	}
 
 }

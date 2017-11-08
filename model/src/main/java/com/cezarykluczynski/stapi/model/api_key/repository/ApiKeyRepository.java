@@ -9,4 +9,6 @@ public interface ApiKeyRepository extends JpaRepository<ApiKey, Long> {
 
 	List<ApiKey> findAllByAccountId(Long id);
 
+	long countByAccountId(Long id);
+
 }

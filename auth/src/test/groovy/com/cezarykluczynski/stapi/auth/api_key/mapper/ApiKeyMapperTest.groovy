@@ -1,7 +1,7 @@
-package com.cezarykluczynski.stapi.auth.oauth.api_key.mapper
+package com.cezarykluczynski.stapi.auth.api_key.mapper
 
 import com.cezarykluczynski.stapi.auth.api_key.dto.ApiKeyDTO
-import com.cezarykluczynski.stapi.auth.api_key.mapper.ApiKeyMapper
+import com.cezarykluczynski.stapi.model.account.entity.Account
 import com.cezarykluczynski.stapi.model.api_key.entity.ApiKey
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import com.cezarykluczynski.stapi.util.tool.RandomUtil
@@ -31,12 +31,33 @@ class ApiKeyMapperTest extends Specification {
 		thrown(StapiRuntimeException)
 	}
 
-	void "maps ApiKey to ApiKeyDTO"() {
+	void "maps ApiKey with account ID to ApiKeyDTO"() {
 		when:
 		ApiKeyDTO apiKeyDTO = apiKeyMapper.map(new ApiKey(
 				id: ID,
 				apiKey: API_KEY,
 				accountId: ACCOUNT_ID,
+				limit: LIMIT,
+				active: ACTIVE,
+				blocked: BLOCKED,
+				description: DESCRIPTION))
+
+		then:
+		apiKeyDTO.id == ID
+		apiKeyDTO.apiKey == API_KEY
+		apiKeyDTO.accountId == ACCOUNT_ID
+		apiKeyDTO.limit == LIMIT
+		apiKeyDTO.active == ACTIVE
+		apiKeyDTO.blocked == BLOCKED
+		apiKeyDTO.description == DESCRIPTION
+	}
+
+	void "maps ApiKey with Account to ApiKeyDTO"() {
+		when:
+		ApiKeyDTO apiKeyDTO = apiKeyMapper.map(new ApiKey(
+				id: ID,
+				apiKey: API_KEY,
+				account: new Account(id: ACCOUNT_ID),
 				limit: LIMIT,
 				active: ACTIVE,
 				blocked: BLOCKED,

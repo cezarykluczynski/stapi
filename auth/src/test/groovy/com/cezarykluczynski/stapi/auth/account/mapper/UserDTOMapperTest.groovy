@@ -1,7 +1,6 @@
-package com.cezarykluczynski.stapi.auth.oauth.account.mapper
+package com.cezarykluczynski.stapi.auth.account.mapper
 
 import com.cezarykluczynski.stapi.auth.account.dto.UserDTO
-import com.cezarykluczynski.stapi.auth.account.mapper.UserDTOMapper
 import com.cezarykluczynski.stapi.auth.oauth.session.OAuthSession
 import com.google.common.collect.Lists
 import spock.lang.Specification

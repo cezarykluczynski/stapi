@@ -5,7 +5,7 @@ import spock.lang.Specification
 
 class OAuthSessionTest extends Specification {
 
-	private static final Long ACCOUNT_ID = 5L
+	private static final Long ACCOUNT_ID = 10L
 	private static final Long GITHUB_ID = 11L
 	private static final String NAME = 'NAME'
 	private static final String PERMISSION = 'PERMISSION'

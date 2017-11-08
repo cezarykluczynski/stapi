@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.auth.api_key.creation;
+package com.cezarykluczynski.stapi.auth.api_key.operation.creation;
 
 import com.google.common.collect.ImmutableSet;
 import org.apache.commons.lang3.RandomUtils;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 
 @Service
-public class ApiKeyGenerator {
+class ApiKeyGenerator {
 
 	private static final Set<String> INVALID_CHARACTERS = new ImmutableSet.Builder<String>().add(":", ";", "<", "=", ">", "?", "@").build();
 	private static final int API_KEY_LENGTH = 40;
@@ -18,7 +18,7 @@ public class ApiKeyGenerator {
 			.filteredBy(character -> !INVALID_CHARACTERS.contains(Character.toString((char) character)))
 			.build();
 
-	public String generate() {
+	String generate() {
 		return RANDOM_STRING_GENERATOR.generate(API_KEY_LENGTH).toLowerCase();
 	}
 

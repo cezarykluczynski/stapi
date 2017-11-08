@@ -1,6 +1,5 @@
-package com.cezarykluczynski.stapi.auth.oauth.api_key.creation
+package com.cezarykluczynski.stapi.auth.api_key.operation.creation
 
-import com.cezarykluczynski.stapi.auth.api_key.creation.ApiKeyGenerator
 import com.google.common.collect.Sets
 import spock.lang.Specification
 
@@ -16,7 +15,7 @@ class ApiKeyGeneratorTest extends Specification {
 		apiKeyGenerator = new ApiKeyGenerator()
 	}
 
-	void "creates api keys"() {
+	void "creates unique api keys"() {
 		given:
 		Set<String> apiKeySet = Sets.newHashSet()
 

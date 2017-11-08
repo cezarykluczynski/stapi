@@ -1,15 +1,14 @@
-package com.cezarykluczynski.stapi.auth.oauth.api_key.service
+package com.cezarykluczynski.stapi.auth.api_key.operation
 
 import com.cezarykluczynski.stapi.auth.api_key.dto.ApiKeyDTO
-import com.cezarykluczynski.stapi.auth.api_key.service.ApiKeysOperationsService
-import com.cezarykluczynski.stapi.auth.api_key.service.ApiKeysOwnOperationsService
+import com.cezarykluczynski.stapi.auth.api_key.operation.creation.ApiKeyCreationResponseDTO
 import com.cezarykluczynski.stapi.auth.oauth.session.OAuthSession
 import com.cezarykluczynski.stapi.auth.oauth.session.OAuthSessionHolder
 import spock.lang.Specification
 
 class ApiKeysOwnOperationsServiceTest extends Specification {
 
-	private static final Long ACCOUNT_ID = 5L
+	private static final Long ACCOUNT_ID = 10L
 
 	private OAuthSessionHolder oAuthSessionHolderMock
 
@@ -36,6 +35,21 @@ class ApiKeysOwnOperationsServiceTest extends Specification {
 		1 * apiKeysOperationsServiceMock.getAll(ACCOUNT_ID) >> apiKeyDTOList
 		0 * _
 		apiKeyDTOListOutput == apiKeyDTOList
+	}
+
+	void "creates own key"() {
+		given:
+		OAuthSession oAuthSession = new OAuthSession(accountId: ACCOUNT_ID)
+		ApiKeyCreationResponseDTO apiKeyCreationResponseDTO = Mock()
+
+		when:
+		ApiKeyCreationResponseDTO apiKeyCreationResponseDTOOutput = apiKeysOwnOperationsService.create()
+
+		then:
+		1 * oAuthSessionHolderMock.OAuthSession >> oAuthSession
+		1 * apiKeysOperationsServiceMock.create(ACCOUNT_ID) >> apiKeyCreationResponseDTO
+		0 * _
+		apiKeyCreationResponseDTOOutput == apiKeyCreationResponseDTO
 	}
 
 }

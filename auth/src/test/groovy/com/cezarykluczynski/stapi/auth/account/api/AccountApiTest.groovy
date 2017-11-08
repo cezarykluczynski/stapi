@@ -1,6 +1,5 @@
-package com.cezarykluczynski.stapi.auth.oauth.account.api
+package com.cezarykluczynski.stapi.auth.account.api
 
-import com.cezarykluczynski.stapi.auth.account.api.AccountApi
 import com.cezarykluczynski.stapi.auth.oauth.github.dto.GitHubUserDetailsDTO
 import com.cezarykluczynski.stapi.model.account.entity.Account
 import com.cezarykluczynski.stapi.model.account.repository.AccountRepository

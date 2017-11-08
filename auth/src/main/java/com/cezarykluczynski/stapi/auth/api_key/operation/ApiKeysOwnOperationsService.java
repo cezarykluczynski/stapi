@@ -1,5 +1,6 @@
-package com.cezarykluczynski.stapi.auth.api_key.service;
+package com.cezarykluczynski.stapi.auth.api_key.operation;
 
+import com.cezarykluczynski.stapi.auth.api_key.operation.creation.ApiKeyCreationResponseDTO;
 import com.cezarykluczynski.stapi.auth.api_key.dto.ApiKeyDTO;
 import com.cezarykluczynski.stapi.auth.oauth.session.OAuthSessionHolder;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,10 @@ public class ApiKeysOwnOperationsService {
 
 	public List<ApiKeyDTO> getAll() {
 		return apiKeysOperationsService.getAll(oAuthSessionHolder.getOAuthSession().getAccountId());
+	}
+
+	public ApiKeyCreationResponseDTO create() {
+		return apiKeysOperationsService.create(oAuthSessionHolder.getOAuthSession().getAccountId());
 	}
 
 }

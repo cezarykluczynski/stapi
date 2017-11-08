@@ -1,8 +1,9 @@
-package com.cezarykluczynski.stapi.auth.oauth.api_key.service
+package com.cezarykluczynski.stapi.auth.api_key.operation
 
 import com.cezarykluczynski.stapi.auth.api_key.dto.ApiKeyDTO
 import com.cezarykluczynski.stapi.auth.api_key.mapper.ApiKeyMapper
-import com.cezarykluczynski.stapi.auth.api_key.service.ApiKeysOperationsService
+import com.cezarykluczynski.stapi.auth.api_key.operation.creation.ApiKeyCreationOperation
+import com.cezarykluczynski.stapi.auth.api_key.operation.creation.ApiKeyCreationResponseDTO
 import com.cezarykluczynski.stapi.model.api_key.entity.ApiKey
 import com.cezarykluczynski.stapi.model.api_key.repository.ApiKeyRepository
 import com.google.common.collect.Lists
@@ -10,7 +11,9 @@ import spock.lang.Specification
 
 class ApiKeysOperationsServiceTest extends Specification {
 
-	private static final Long ACCOUNT_ID = 5L
+	private static final Long ACCOUNT_ID = 10L
+
+	private ApiKeyCreationOperation apiKeyCreationOperationMock
 
 	private ApiKeyRepository apiKeyRepositoryMock
 
@@ -19,9 +22,10 @@ class ApiKeysOperationsServiceTest extends Specification {
 	private ApiKeysOperationsService apiKeysOperationsService
 
 	void setup() {
+		apiKeyCreationOperationMock = Mock()
 		apiKeyRepositoryMock = Mock()
 		apiKeyMapperMock = Mock()
-		apiKeysOperationsService = new ApiKeysOperationsService(apiKeyRepositoryMock, apiKeyMapperMock)
+		apiKeysOperationsService = new ApiKeysOperationsService(apiKeyCreationOperationMock, apiKeyRepositoryMock, apiKeyMapperMock)
 	}
 
 	void "gets all keys"() {
@@ -42,6 +46,19 @@ class ApiKeysOperationsServiceTest extends Specification {
 		apiKeyDTOList.size() == 2
 		apiKeyDTOList[0] == apiKeyDTO1
 		apiKeyDTOList[1] == apiKeyDTO2
+	}
+
+	void "creates key"() {
+		given:
+		ApiKeyCreationResponseDTO apiKeyCreationResponseDTO = Mock()
+
+		when:
+		ApiKeyCreationResponseDTO apiKeyCreationResponseDTOOutput = apiKeysOperationsService.create(ACCOUNT_ID)
+
+		then:
+		1 * apiKeyCreationOperationMock.create(ACCOUNT_ID) >> apiKeyCreationResponseDTO
+		0 * _
+		apiKeyCreationResponseDTOOutput == apiKeyCreationResponseDTO
 	}
 
 }

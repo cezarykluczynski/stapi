@@ -2,13 +2,13 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
-	<changeSet id="0053_create_account" author="cezarykluczynski">
+	<changeSet id="0054_create_api_key" author="cezarykluczynski">
 		<createTable schemaName="stapi_users" tableName="api_key">
 			<column name="id" type="bigint">
 				<constraints unique="true" nullable="false"/>
 			</column>
 			<column name="api_key" type="varchar(40)">
-				<constraints nullable="false"/>
+				<constraints nullable="false" unique="true"/>
 			</column>
 			<column name="account_id" type="bigint"/>
 			<column name="limit" type="int"/>
