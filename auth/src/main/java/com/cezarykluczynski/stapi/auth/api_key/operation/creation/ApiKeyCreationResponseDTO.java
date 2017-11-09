@@ -10,11 +10,11 @@ public class ApiKeyCreationResponseDTO {
 
 	private boolean created;
 
-	private CreationFailReason creationFailReason;
+	private FailReason failReason;
 
 	private ApiKeyDTO apiKeyDTO;
 
-	public enum CreationFailReason {
+	public enum FailReason {
 
 		TOO_MUCH_KEYS_ALREADY_CREATED
 

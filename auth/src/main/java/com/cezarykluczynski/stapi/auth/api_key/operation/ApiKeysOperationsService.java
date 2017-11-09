@@ -4,6 +4,8 @@ import com.cezarykluczynski.stapi.auth.api_key.dto.ApiKeyDTO;
 import com.cezarykluczynski.stapi.auth.api_key.mapper.ApiKeyMapper;
 import com.cezarykluczynski.stapi.auth.api_key.operation.creation.ApiKeyCreationOperation;
 import com.cezarykluczynski.stapi.auth.api_key.operation.creation.ApiKeyCreationResponseDTO;
+import com.cezarykluczynski.stapi.auth.api_key.operation.removal.ApiKeyRemovalOperation;
+import com.cezarykluczynski.stapi.auth.api_key.operation.removal.ApiKeyRemovalResponseDTO;
 import com.cezarykluczynski.stapi.model.api_key.repository.ApiKeyRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,12 +17,16 @@ class ApiKeysOperationsService {
 
 	private final ApiKeyCreationOperation apiKeyCreationOperation;
 
+	private final ApiKeyRemovalOperation apiKeyRemovalOperation;
+
 	private final ApiKeyRepository apiKeyRepository;
 
 	private final ApiKeyMapper apiKeyMapper;
 
-	ApiKeysOperationsService(ApiKeyCreationOperation apiKeyCreationOperation, ApiKeyRepository apiKeyRepository, ApiKeyMapper apiKeyMapper) {
+	ApiKeysOperationsService(ApiKeyCreationOperation apiKeyCreationOperation, ApiKeyRemovalOperation apiKeyRemovalOperation,
+			ApiKeyRepository apiKeyRepository, ApiKeyMapper apiKeyMapper) {
 		this.apiKeyCreationOperation = apiKeyCreationOperation;
+		this.apiKeyRemovalOperation = apiKeyRemovalOperation;
 		this.apiKeyRepository = apiKeyRepository;
 		this.apiKeyMapper = apiKeyMapper;
 	}
@@ -33,11 +39,11 @@ class ApiKeysOperationsService {
 	}
 
 	public ApiKeyCreationResponseDTO create(Long accountId) {
-		return apiKeyCreationOperation.create(accountId);
+		return apiKeyCreationOperation.execute(accountId);
 	}
 
-	public void delete(Long accountId, Long keyId) {
-		// TODO
+	public ApiKeyRemovalResponseDTO remove(Long accountId, Long apiKeyId) {
+		return apiKeyRemovalOperation.execute(accountId, apiKeyId);
 	}
 
 	public void deactive(Long accountId, Long keyId) {

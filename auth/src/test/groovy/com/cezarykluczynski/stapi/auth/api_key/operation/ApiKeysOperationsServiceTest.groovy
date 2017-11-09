@@ -4,6 +4,8 @@ import com.cezarykluczynski.stapi.auth.api_key.dto.ApiKeyDTO
 import com.cezarykluczynski.stapi.auth.api_key.mapper.ApiKeyMapper
 import com.cezarykluczynski.stapi.auth.api_key.operation.creation.ApiKeyCreationOperation
 import com.cezarykluczynski.stapi.auth.api_key.operation.creation.ApiKeyCreationResponseDTO
+import com.cezarykluczynski.stapi.auth.api_key.operation.removal.ApiKeyRemovalOperation
+import com.cezarykluczynski.stapi.auth.api_key.operation.removal.ApiKeyRemovalResponseDTO
 import com.cezarykluczynski.stapi.model.api_key.entity.ApiKey
 import com.cezarykluczynski.stapi.model.api_key.repository.ApiKeyRepository
 import com.google.common.collect.Lists
@@ -12,8 +14,11 @@ import spock.lang.Specification
 class ApiKeysOperationsServiceTest extends Specification {
 
 	private static final Long ACCOUNT_ID = 10L
+	private static final Long API_KEY_ID = 15L
 
 	private ApiKeyCreationOperation apiKeyCreationOperationMock
+
+	private ApiKeyRemovalOperation apiKeyRemovalOperationMock
 
 	private ApiKeyRepository apiKeyRepositoryMock
 
@@ -23,9 +28,11 @@ class ApiKeysOperationsServiceTest extends Specification {
 
 	void setup() {
 		apiKeyCreationOperationMock = Mock()
+		apiKeyRemovalOperationMock = Mock()
 		apiKeyRepositoryMock = Mock()
 		apiKeyMapperMock = Mock()
-		apiKeysOperationsService = new ApiKeysOperationsService(apiKeyCreationOperationMock, apiKeyRepositoryMock, apiKeyMapperMock)
+		apiKeysOperationsService = new ApiKeysOperationsService(apiKeyCreationOperationMock, apiKeyRemovalOperationMock, apiKeyRepositoryMock,
+				apiKeyMapperMock)
 	}
 
 	void "gets all keys"() {
@@ -56,9 +63,22 @@ class ApiKeysOperationsServiceTest extends Specification {
 		ApiKeyCreationResponseDTO apiKeyCreationResponseDTOOutput = apiKeysOperationsService.create(ACCOUNT_ID)
 
 		then:
-		1 * apiKeyCreationOperationMock.create(ACCOUNT_ID) >> apiKeyCreationResponseDTO
+		1 * apiKeyCreationOperationMock.execute(ACCOUNT_ID) >> apiKeyCreationResponseDTO
 		0 * _
 		apiKeyCreationResponseDTOOutput == apiKeyCreationResponseDTO
+	}
+
+	void "removes key"() {
+		given:
+		ApiKeyRemovalResponseDTO apiKeyRemovalResponseDTO = Mock()
+
+		when:
+		ApiKeyRemovalResponseDTO apiKeyRemovalResponseDTOOutput = apiKeysOperationsService.remove(ACCOUNT_ID, API_KEY_ID)
+
+		then:
+		1 * apiKeyRemovalOperationMock.execute(ACCOUNT_ID, API_KEY_ID) >> apiKeyRemovalResponseDTO
+		0 * _
+		apiKeyRemovalResponseDTOOutput == apiKeyRemovalResponseDTO
 	}
 
 }

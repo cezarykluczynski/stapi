@@ -14,11 +14,11 @@ class ApiKeyCreationResponseDTOFactoryTest extends Specification {
 	void "creates failed response"() {
 		when:
 		ApiKeyCreationResponseDTO apiKeyCreationResponseDTO = apiKeyCreationResponseDTOFactory
-				.createFailedWithReason(ApiKeyCreationResponseDTO.CreationFailReason.TOO_MUCH_KEYS_ALREADY_CREATED)
+				.createFailedWithReason(ApiKeyCreationResponseDTO.FailReason.TOO_MUCH_KEYS_ALREADY_CREATED)
 
 		then:
 		!apiKeyCreationResponseDTO.created
-		apiKeyCreationResponseDTO.creationFailReason == ApiKeyCreationResponseDTO.CreationFailReason.TOO_MUCH_KEYS_ALREADY_CREATED
+		apiKeyCreationResponseDTO.failReason == ApiKeyCreationResponseDTO.FailReason.TOO_MUCH_KEYS_ALREADY_CREATED
 		apiKeyCreationResponseDTO.apiKeyDTO == null
 	}
 
@@ -31,7 +31,7 @@ class ApiKeyCreationResponseDTOFactoryTest extends Specification {
 
 		then:
 		apiKeyCreationResponseDTO.created
-		apiKeyCreationResponseDTO.creationFailReason == null
+		apiKeyCreationResponseDTO.failReason == null
 		apiKeyCreationResponseDTO.apiKeyDTO == apiKeyDTO
 	}
 

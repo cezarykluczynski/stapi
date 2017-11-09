@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service;
 @Service
 class ApiKeyCreationResponseDTOFactory {
 
-	ApiKeyCreationResponseDTO createFailedWithReason(ApiKeyCreationResponseDTO.CreationFailReason creationFailReason) {
+	ApiKeyCreationResponseDTO createFailedWithReason(ApiKeyCreationResponseDTO.FailReason failReason) {
 		return ApiKeyCreationResponseDTO.builder()
 				.created(false)
-				.creationFailReason(creationFailReason)
+				.failReason(failReason)
 				.build();
 	}
 

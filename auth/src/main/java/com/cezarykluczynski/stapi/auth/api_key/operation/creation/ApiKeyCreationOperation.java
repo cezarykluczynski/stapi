@@ -19,7 +19,7 @@ public class ApiKeyCreationOperation {
 		this.apiKeyCreationResponseDTOFactory = apiKeyCreationResponseDTOFactory;
 	}
 
-	public synchronized ApiKeyCreationResponseDTO create(Long accountId) {
+	public synchronized ApiKeyCreationResponseDTO execute(Long accountId) {
 		if (apiKeyCreationValidator.canBeCreated(accountId)) {
 			ApiKeyDTO apiKeyDTO;
 			try {
@@ -35,8 +35,7 @@ public class ApiKeyCreationOperation {
 	}
 
 	private ApiKeyCreationResponseDTO createFailedApiKeyCreationResponseDTO() {
-		return apiKeyCreationResponseDTOFactory
-				.createFailedWithReason(ApiKeyCreationResponseDTO.CreationFailReason.TOO_MUCH_KEYS_ALREADY_CREATED);
+		return apiKeyCreationResponseDTOFactory.createFailedWithReason(ApiKeyCreationResponseDTO.FailReason.TOO_MUCH_KEYS_ALREADY_CREATED);
 	}
 
 }

@@ -28,7 +28,7 @@ class ApiKeyCreationOperationTest extends Specification {
 		ApiKeyCreationResponseDTO apiKeyCreationResponseDTO = Mock()
 
 		when:
-		ApiKeyCreationResponseDTO apiKeyCreationResponseDTOOutput = apiKeyCreationOperation.create(ACCOUNT_ID)
+		ApiKeyCreationResponseDTO apiKeyCreationResponseDTOOutput = apiKeyCreationOperation.execute(ACCOUNT_ID)
 
 		then:
 		1 * apiKeyCreationValidatorMock.canBeCreated(ACCOUNT_ID) >> true
@@ -43,7 +43,7 @@ class ApiKeyCreationOperationTest extends Specification {
 		ApiKeyCreationResponseDTO apiKeyCreationResponseDTO = Mock()
 
 		when:
-		ApiKeyCreationResponseDTO apiKeyCreationResponseDTOOutput = apiKeyCreationOperation.create(ACCOUNT_ID)
+		ApiKeyCreationResponseDTO apiKeyCreationResponseDTOOutput = apiKeyCreationOperation.execute(ACCOUNT_ID)
 
 		then:
 		1 * apiKeyCreationValidatorMock.canBeCreated(ACCOUNT_ID) >> true
@@ -51,7 +51,7 @@ class ApiKeyCreationOperationTest extends Specification {
 			throw new MultipleApiKeysSimultaneouslyCreatedException()
 		}
 		1 *  apiKeyCreationResponseDTOFactoryMock
-				.createFailedWithReason(ApiKeyCreationResponseDTO.CreationFailReason.TOO_MUCH_KEYS_ALREADY_CREATED) >> apiKeyCreationResponseDTO
+				.createFailedWithReason(ApiKeyCreationResponseDTO.FailReason.TOO_MUCH_KEYS_ALREADY_CREATED) >> apiKeyCreationResponseDTO
 		0 * _
 		apiKeyCreationResponseDTOOutput == apiKeyCreationResponseDTO
 	}
@@ -61,12 +61,12 @@ class ApiKeyCreationOperationTest extends Specification {
 		ApiKeyCreationResponseDTO apiKeyCreationResponseDTO = Mock()
 
 		when:
-		ApiKeyCreationResponseDTO apiKeyCreationResponseDTOOutput = apiKeyCreationOperation.create(ACCOUNT_ID)
+		ApiKeyCreationResponseDTO apiKeyCreationResponseDTOOutput = apiKeyCreationOperation.execute(ACCOUNT_ID)
 
 		then:
 		1 * apiKeyCreationValidatorMock.canBeCreated(ACCOUNT_ID) >> false
 		1 *  apiKeyCreationResponseDTOFactoryMock
-				.createFailedWithReason(ApiKeyCreationResponseDTO.CreationFailReason.TOO_MUCH_KEYS_ALREADY_CREATED) >> apiKeyCreationResponseDTO
+				.createFailedWithReason(ApiKeyCreationResponseDTO.FailReason.TOO_MUCH_KEYS_ALREADY_CREATED) >> apiKeyCreationResponseDTO
 		0 * _
 		apiKeyCreationResponseDTOOutput == apiKeyCreationResponseDTO
 	}
