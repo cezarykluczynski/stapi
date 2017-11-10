@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.panel.endpoint
 
-import com.cezarykluczynski.stapi.auth.api_key.dto.ApiKeyDTO
 import com.cezarykluczynski.stapi.auth.api_key.operation.ApiKeysOwnOperationsService
 import com.cezarykluczynski.stapi.auth.api_key.operation.creation.ApiKeyCreationResponseDTO
+import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeyReadResponseDTO
 import com.cezarykluczynski.stapi.auth.api_key.operation.removal.ApiKeyRemovalResponseDTO
 import spock.lang.Specification
 
@@ -21,15 +21,15 @@ class PanelApiKeysEndpointTest extends Specification {
 
 	void "gets all api keys"() {
 		given:
-		List<ApiKeyDTO> apiKeyDTOList = Mock()
+		ApiKeyReadResponseDTO apiKeyReadResponseDTO = Mock()
 
 		when:
-		List<ApiKeyDTO> all = panelApiKeysEndpoint.all
+		ApiKeyReadResponseDTO apiKeyReadResponseDTOOutput = panelApiKeysEndpoint.all
 
 		then:
-		1 * apiKeysOwnOperationsServiceMock.all >> apiKeyDTOList
+		1 * apiKeysOwnOperationsServiceMock.all >> apiKeyReadResponseDTO
 		0 * _
-		all == apiKeyDTOList
+		apiKeyReadResponseDTOOutput == apiKeyReadResponseDTO
 	}
 
 	void "creates api key"() {

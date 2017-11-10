@@ -1,8 +1,8 @@
 package com.cezarykluczynski.stapi.server.panel.endpoint;
 
-import com.cezarykluczynski.stapi.auth.api_key.dto.ApiKeyDTO;
 import com.cezarykluczynski.stapi.auth.api_key.operation.ApiKeysOwnOperationsService;
 import com.cezarykluczynski.stapi.auth.api_key.operation.creation.ApiKeyCreationResponseDTO;
+import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeyReadResponseDTO;
 import com.cezarykluczynski.stapi.auth.api_key.operation.removal.ApiKeyRemovalResponseDTO;
 import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
 import com.cezarykluczynski.stapi.util.constant.ContentType;
@@ -18,7 +18,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.List;
 
 @Service
 @Produces(ContentType.APPLICATION_JSON_CHARSET_UTF8)
@@ -36,7 +35,7 @@ public class PanelApiKeysEndpoint {
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
 	@PreAuthorize("hasPermission(filterObject, 'API_KEY_MANAGEMENT')")
-	public List<ApiKeyDTO> getAll() {
+	public ApiKeyReadResponseDTO getAll() {
 		return apiKeysOwnOperationsService.getAll();
 	}
 

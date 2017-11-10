@@ -14,4 +14,6 @@ public class ApiKeyProperties {
 
 	private int requestLimitPerKey;
 
+	private int adminPageSize;
+
 }

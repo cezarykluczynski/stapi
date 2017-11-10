@@ -1,7 +1,7 @@
 package com.cezarykluczynski.stapi.auth.api_key.operation
 
-import com.cezarykluczynski.stapi.auth.api_key.dto.ApiKeyDTO
 import com.cezarykluczynski.stapi.auth.api_key.operation.creation.ApiKeyCreationResponseDTO
+import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeyReadResponseDTO
 import com.cezarykluczynski.stapi.auth.api_key.operation.removal.ApiKeyRemovalResponseDTO
 import com.cezarykluczynski.stapi.auth.oauth.session.OAuthSession
 import com.cezarykluczynski.stapi.auth.oauth.session.OAuthSessionHolder
@@ -27,16 +27,16 @@ class ApiKeysOwnOperationsServiceTest extends Specification {
 	void "gets own keys"() {
 		given:
 		OAuthSession oAuthSession = new OAuthSession(accountId: ACCOUNT_ID)
-		List<ApiKeyDTO> apiKeyDTOList = Mock()
+		ApiKeyReadResponseDTO apiKeyReadResponseDTO = Mock()
 
 		when:
-		List<ApiKeyDTO> apiKeyDTOListOutput = apiKeysOwnOperationsService.all
+		ApiKeyReadResponseDTO apiKeyReadResponseDTOOutput = apiKeysOwnOperationsService.all
 
 		then:
 		1 * oAuthSessionHolderMock.OAuthSession >> oAuthSession
-		1 * apiKeysOperationsServiceMock.getAll(ACCOUNT_ID) >> apiKeyDTOList
+		1 * apiKeysOperationsServiceMock.getAll(ACCOUNT_ID) >> apiKeyReadResponseDTO
 		0 * _
-		apiKeyDTOListOutput == apiKeyDTOList
+		apiKeyReadResponseDTOOutput == apiKeyReadResponseDTO
 	}
 
 	void "creates own key"() {
