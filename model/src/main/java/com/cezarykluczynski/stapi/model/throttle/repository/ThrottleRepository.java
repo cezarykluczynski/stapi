@@ -29,6 +29,10 @@ public interface ThrottleRepository extends JpaRepository<Throttle, Long>, Throt
 			+ " and t.lastHitTime <= :lastHitTime")
 	void deleteIPAddressesOlderThan(@Param("lastHitTime") LocalDateTime lastHitTime);
 
+	@Modifying
+	@Transactional
+	void deleteByApiKey(String apiKey);
+
 	Optional<Throttle> findByIpAddress(String ipAddress);
 
 }
