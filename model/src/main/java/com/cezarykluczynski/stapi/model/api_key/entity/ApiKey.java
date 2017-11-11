@@ -42,8 +42,6 @@ public class ApiKey {
 
 	private Integer limit;
 
-	private Boolean active;
-
 	private Boolean blocked;
 
 	private String description;

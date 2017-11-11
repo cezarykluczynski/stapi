@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.auth.api_key.operation.removal;
 
+import com.cezarykluczynski.stapi.auth.api_key.operation.common.ApiKeyException;
 import com.cezarykluczynski.stapi.model.api_key.entity.ApiKey;
 import com.cezarykluczynski.stapi.model.api_key.repository.ApiKeyRepository;
 import com.cezarykluczynski.stapi.model.throttle.repository.ThrottleRepository;
@@ -33,8 +34,8 @@ public class ApiKeyRemovalOperation {
 	public ApiKeyRemovalResponseDTO execute(Long accountId, Long apiKeyId) {
 		try {
 			apiKeyRemovalValidator.validate(accountId, apiKeyId);
-		} catch (ApiKeyRemovalException apiKeyRemovalException) {
-			return apiKeyRemovalExceptionMapper.map(apiKeyRemovalException);
+		} catch (ApiKeyException apiKeyException) {
+			return apiKeyRemovalExceptionMapper.map(apiKeyException);
 		}
 
 		ApiKey apiKey = apiKeyRepository.findOne(apiKeyId);

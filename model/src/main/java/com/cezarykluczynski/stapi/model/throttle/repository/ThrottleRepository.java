@@ -33,6 +33,8 @@ public interface ThrottleRepository extends JpaRepository<Throttle, Long>, Throt
 	@Transactional
 	void deleteByApiKey(String apiKey);
 
+	Throttle findByApiKey(String apiKey);
+
 	Optional<Throttle> findByIpAddress(String ipAddress);
 
 }

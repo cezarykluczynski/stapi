@@ -19,6 +19,7 @@
 			<column name="hits_limit" type="int"/>
 			<column name="remaining_hits" type="int"/>
 			<column name="last_hit_time" type="datetime"/>
+			<column name="active" type="boolean"/>
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="throttle_sequence" schemaName="stapi_users"/>
 	</changeSet>

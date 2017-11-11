@@ -12,7 +12,6 @@
 			</column>
 			<column name="account_id" type="bigint"/>
 			<column name="limit" type="int"/>
-			<column name="active" type="boolean"/>
 			<column name="blocked" type="boolean"/>
 			<column name="description" type="varchar(256)"/>
 		</createTable>

@@ -45,4 +45,6 @@ public class Throttle {
 
 	private LocalDateTime lastHitTime;
 
+	private Boolean active;
+
 }

@@ -1,5 +1,8 @@
 package com.cezarykluczynski.stapi.auth.api_key.operation;
 
+import com.cezarykluczynski.stapi.auth.api_key.operation.block.ApiKeyBlockOperation;
+import com.cezarykluczynski.stapi.auth.api_key.operation.block.ApiKeyBlockRelatedResponseDTO;
+import com.cezarykluczynski.stapi.auth.api_key.operation.block.ApiKeyUnblockOperation;
 import com.cezarykluczynski.stapi.auth.api_key.operation.creation.ApiKeyCreationOperation;
 import com.cezarykluczynski.stapi.auth.api_key.operation.creation.ApiKeyCreationResponseDTO;
 import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeyReadResponseDTO;
@@ -17,11 +20,17 @@ class ApiKeysOperationsService {
 
 	private final ApiKeyRemovalOperation apiKeyRemovalOperation;
 
+	private final ApiKeyBlockOperation apiKeyBlockOperation;
+
+	private final ApiKeyUnblockOperation apiKeyUnblockOperation;
+
 	ApiKeysOperationsService(ApiKeysReadOperation apiKeysReadOperation, ApiKeyCreationOperation apiKeyCreationOperation,
-			ApiKeyRemovalOperation apiKeyRemovalOperation) {
+			ApiKeyRemovalOperation apiKeyRemovalOperation, ApiKeyBlockOperation apiKeyBlockOperation, ApiKeyUnblockOperation apiKeyUnblockOperation) {
 		this.apiKeysReadOperation = apiKeysReadOperation;
 		this.apiKeyCreationOperation = apiKeyCreationOperation;
 		this.apiKeyRemovalOperation = apiKeyRemovalOperation;
+		this.apiKeyBlockOperation = apiKeyBlockOperation;
+		this.apiKeyUnblockOperation = apiKeyUnblockOperation;
 	}
 
 	public ApiKeyReadResponseDTO getAll(Long accountId) {
@@ -36,20 +45,12 @@ class ApiKeysOperationsService {
 		return apiKeyRemovalOperation.execute(accountId, apiKeyId);
 	}
 
-	public void deactive(Long accountId, Long keyId) {
-		// TODO
+	public ApiKeyBlockRelatedResponseDTO block(Long accountId, Long apiKeyId) {
+		return apiKeyBlockOperation.execute(accountId, apiKeyId);
 	}
 
-	public void activate(Long accountId, Long keyId) {
-		// TODO
-	}
-
-	public void block(Long accountId, Long keyId) {
-		// TODO
-	}
-
-	public void unblock(Long accountId, Long keyId) {
-		// TODO
+	public ApiKeyBlockRelatedResponseDTO unblock(Long accountId, Long apiKeyId) {
+		return apiKeyUnblockOperation.execute(accountId, apiKeyId);
 	}
 
 }

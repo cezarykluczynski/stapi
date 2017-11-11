@@ -1,5 +1,8 @@
 package com.cezarykluczynski.stapi.auth.api_key.operation.removal
 
+import com.cezarykluczynski.stapi.auth.api_key.operation.common.ApiKeyException
+import com.cezarykluczynski.stapi.auth.api_key.operation.common.KeyDoesNotExistException
+import com.cezarykluczynski.stapi.auth.api_key.operation.common.KeyNotOwnedByAccountException
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import spock.lang.Specification
 
@@ -61,7 +64,7 @@ class ApiKeyRemovalExceptionMapperTest extends Specification {
 		stapiRuntimeException.message == 'Exception NotMappedException not mapped to ApiKeyRemovalResponseDTO.FailReason'
 	}
 
-	class NotMappedException extends ApiKeyRemovalException {
+	class NotMappedException extends ApiKeyException {
 
 		NotMappedException(String message) {
 			super(message)

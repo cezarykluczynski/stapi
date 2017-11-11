@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.auth.api_key.operation.removal
 
+import com.cezarykluczynski.stapi.auth.api_key.operation.common.ApiKeyException
 import com.cezarykluczynski.stapi.model.api_key.entity.ApiKey
 import com.cezarykluczynski.stapi.model.api_key.repository.ApiKeyRepository
 import com.cezarykluczynski.stapi.model.throttle.repository.ThrottleRepository
@@ -35,7 +36,7 @@ class ApiKeyRemovalOperationTest extends Specification {
 
 	void "when validator throws exception, it is mapped to ApiKeyRemovalResponseDTO"() {
 		given:
-		ApiKeyRemovalException apiKeyRemovalException = new ApiKeyRemovalException('')
+		ApiKeyException apiKeyException = new ApiKeyException('')
 		ApiKeyRemovalResponseDTO apiKeyRemovalResponseDTO = Mock()
 
 		when:
@@ -43,9 +44,9 @@ class ApiKeyRemovalOperationTest extends Specification {
 
 		then:
 		1 * apiKeyRemovalValidatorMock.validate(ACCOUNT_ID, API_KEY_ID) >> {
-			throw apiKeyRemovalException
+			throw apiKeyException
 		}
-		1 * apiKeyRemovalExceptionMapperMock.map(apiKeyRemovalException) >> apiKeyRemovalResponseDTO
+		1 * apiKeyRemovalExceptionMapperMock.map(apiKeyException) >> apiKeyRemovalResponseDTO
 		0 * _
 		apiKeyRemovalResponseDTOOutput == apiKeyRemovalResponseDTO
 	}

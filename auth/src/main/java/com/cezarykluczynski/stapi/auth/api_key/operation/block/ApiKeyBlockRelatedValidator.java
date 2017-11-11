@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.auth.api_key.operation.removal;
+package com.cezarykluczynski.stapi.auth.api_key.operation.block;
 
 import com.cezarykluczynski.stapi.auth.api_key.operation.common.KeyDoesNotExistException;
 import com.cezarykluczynski.stapi.auth.api_key.operation.common.KeyNotOwnedByAccountException;
@@ -7,11 +7,11 @@ import com.cezarykluczynski.stapi.model.api_key.repository.ApiKeyRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-class ApiKeyRemovalValidator {
+class ApiKeyBlockRelatedValidator {
 
 	private final ApiKeyRepository apiKeyRepository;
 
-	ApiKeyRemovalValidator(ApiKeyRepository apiKeyRepository) {
+	ApiKeyBlockRelatedValidator(ApiKeyRepository apiKeyRepository) {
 		this.apiKeyRepository = apiKeyRepository;
 	}
 
@@ -24,10 +24,6 @@ class ApiKeyRemovalValidator {
 
 		if (Long.compare(apiKey.getAccountId(), accountId) != 0) {
 			throw new KeyNotOwnedByAccountException();
-		}
-
-		if (Boolean.TRUE.equals(apiKey.getBlocked())) {
-			throw new BlockedKeyException();
 		}
 	}
 

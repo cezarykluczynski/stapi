@@ -37,7 +37,6 @@ class ApiKeyWithThrottleFactory {
 		ApiKey apiKey = new ApiKey();
 		apiKey.setAccount(Preconditions.checkNotNull(accountRepository.findOne(accountId), "Account cannot be null"));
 		apiKey.setApiKey(apiKeyGenerator.generate());
-		apiKey.setActive(true);
 		apiKey.setBlocked(false);
 		apiKey.setLimit(apiKeyLimit);
 		return apiKey;

@@ -13,7 +13,6 @@ class ApiKeyMapperTest extends Specification {
 	private static final String API_KEY = 'API_KEY'
 	private static final Long ACCOUNT_ID = 10L
 	private static final Integer LIMIT = 1000
-	private static final Boolean ACTIVE = RandomUtil.nextBoolean()
 	private static final Boolean BLOCKED = RandomUtil.nextBoolean()
 	private static final String DESCRIPTION = 'DESCRIPTION'
 
@@ -38,7 +37,6 @@ class ApiKeyMapperTest extends Specification {
 				apiKey: API_KEY,
 				accountId: ACCOUNT_ID,
 				limit: LIMIT,
-				active: ACTIVE,
 				blocked: BLOCKED,
 				description: DESCRIPTION))
 
@@ -47,7 +45,6 @@ class ApiKeyMapperTest extends Specification {
 		apiKeyDTO.apiKey == API_KEY
 		apiKeyDTO.accountId == ACCOUNT_ID
 		apiKeyDTO.limit == LIMIT
-		apiKeyDTO.active == ACTIVE
 		apiKeyDTO.blocked == BLOCKED
 		apiKeyDTO.description == DESCRIPTION
 	}
@@ -59,7 +56,6 @@ class ApiKeyMapperTest extends Specification {
 				apiKey: API_KEY,
 				account: new Account(id: ACCOUNT_ID),
 				limit: LIMIT,
-				active: ACTIVE,
 				blocked: BLOCKED,
 				description: DESCRIPTION))
 
@@ -68,7 +64,6 @@ class ApiKeyMapperTest extends Specification {
 		apiKeyDTO.apiKey == API_KEY
 		apiKeyDTO.accountId == ACCOUNT_ID
 		apiKeyDTO.limit == LIMIT
-		apiKeyDTO.active == ACTIVE
 		apiKeyDTO.blocked == BLOCKED
 		apiKeyDTO.description == DESCRIPTION
 	}

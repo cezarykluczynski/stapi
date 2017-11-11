@@ -1,5 +1,8 @@
 package com.cezarykluczynski.stapi.auth.api_key.operation
 
+import com.cezarykluczynski.stapi.auth.api_key.operation.block.ApiKeyBlockOperation
+import com.cezarykluczynski.stapi.auth.api_key.operation.block.ApiKeyBlockRelatedResponseDTO
+import com.cezarykluczynski.stapi.auth.api_key.operation.block.ApiKeyUnblockOperation
 import com.cezarykluczynski.stapi.auth.api_key.operation.creation.ApiKeyCreationOperation
 import com.cezarykluczynski.stapi.auth.api_key.operation.creation.ApiKeyCreationResponseDTO
 import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeyReadResponseDTO
@@ -19,13 +22,20 @@ class ApiKeysOperationsServiceTest extends Specification {
 
 	private ApiKeyRemovalOperation apiKeyRemovalOperationMock
 
+	private ApiKeyBlockOperation apiKeyBlockOperationMock
+
+	private ApiKeyUnblockOperation apiKeyUnblockOperationMock
+
 	private ApiKeysOperationsService apiKeysOperationsService
 
 	void setup() {
 		apiKeysReadOperationMock = Mock()
 		apiKeyCreationOperationMock = Mock()
 		apiKeyRemovalOperationMock = Mock()
-		apiKeysOperationsService = new ApiKeysOperationsService(apiKeysReadOperationMock, apiKeyCreationOperationMock, apiKeyRemovalOperationMock)
+		apiKeyBlockOperationMock = Mock()
+		apiKeyUnblockOperationMock = Mock()
+		apiKeysOperationsService = new ApiKeysOperationsService(apiKeysReadOperationMock, apiKeyCreationOperationMock, apiKeyRemovalOperationMock,
+				apiKeyBlockOperationMock, apiKeyUnblockOperationMock)
 	}
 
 	void "gets all keys"() {
@@ -65,6 +75,32 @@ class ApiKeysOperationsServiceTest extends Specification {
 		1 * apiKeyRemovalOperationMock.execute(ACCOUNT_ID, API_KEY_ID) >> apiKeyRemovalResponseDTO
 		0 * _
 		apiKeyRemovalResponseDTOOutput == apiKeyRemovalResponseDTO
+	}
+
+	void "blocks key"() {
+		given:
+		ApiKeyBlockRelatedResponseDTO apiKeyBlockRelatedResponseDTO = Mock()
+
+		when:
+		ApiKeyBlockRelatedResponseDTO apiKeyBlockRelatedResponseDTOOutput = apiKeysOperationsService.block(ACCOUNT_ID, API_KEY_ID)
+
+		then:
+		1 * apiKeyBlockOperationMock.execute(ACCOUNT_ID, API_KEY_ID) >> apiKeyBlockRelatedResponseDTO
+		0 * _
+		apiKeyBlockRelatedResponseDTOOutput == apiKeyBlockRelatedResponseDTO
+	}
+
+	void "unblocks key"() {
+		given:
+		ApiKeyBlockRelatedResponseDTO apiKeyBlockRelatedResponseDTO = Mock()
+
+		when:
+		ApiKeyBlockRelatedResponseDTO apiKeyBlockRelatedResponseDTOOutput = apiKeysOperationsService.unblock(ACCOUNT_ID, API_KEY_ID)
+
+		then:
+		1 * apiKeyUnblockOperationMock.execute(ACCOUNT_ID, API_KEY_ID) >> apiKeyBlockRelatedResponseDTO
+		0 * _
+		apiKeyBlockRelatedResponseDTOOutput == apiKeyBlockRelatedResponseDTO
 	}
 
 }

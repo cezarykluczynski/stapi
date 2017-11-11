@@ -51,7 +51,6 @@ class ApiKeyWithThrottleFactoryTest extends Specification {
 		0 * _
 		apiKeyWithThrottleDTO.apiKey.account == account
 		apiKeyWithThrottleDTO.apiKey.apiKey == API_KEY
-		apiKeyWithThrottleDTO.apiKey.active
 		!apiKeyWithThrottleDTO.apiKey.blocked
 		apiKeyWithThrottleDTO.apiKey.limit == HITS_LIMIT
 		apiKeyWithThrottleDTO.throttle.apiKey == API_KEY
