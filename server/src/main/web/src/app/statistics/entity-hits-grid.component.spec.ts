@@ -3,17 +3,22 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AgGridModule } from 'ag-grid-angular/main';
 
 import { EntityHitsGridComponent } from './entity-hits-grid.component';
-import { RestApiService } from '../rest-api/rest-api.service';
+import { StatisticsApi } from './statistics-api.service';
+import { ApiBrowserApi } from '../api-browser/api-browser-api.service';
 
 import { TOTAL_COUNT, STATISTICS, DETAILS } from './statistics.fixture';
 
-class RestApiServiceMock {
-	getStatistics() {
+class StatisticsApiMock {
+	public getStatistics() {
 		return {
+			entitiesStatistics: STATISTICS,
 			hitsStatistics: STATISTICS
 		};
 	}
-	getDetails() {
+}
+
+class ApiBrowserApiMock {
+	public getDetails() {
 		return DETAILS;
 	}
 }
@@ -21,16 +26,23 @@ class RestApiServiceMock {
 describe('EntityHitsGridComponent', () => {
 	let component: EntityHitsGridComponent;
 	let fixture: ComponentFixture<EntityHitsGridComponent>;
-	let restApiServiceMock: RestApiServiceMock;
+	let statisticsApiMock: StatisticsApiMock;
+	let apiBrowserApiMock: ApiBrowserApiMock;
 
 	beforeEach(async(() => {
-		restApiServiceMock = new RestApiServiceMock();
+		statisticsApiMock = new StatisticsApiMock();
+		apiBrowserApiMock = new ApiBrowserApiMock();
+
 		TestBed.configureTestingModule({
 			declarations: [EntityHitsGridComponent],
 			providers: [
 				{
-					provide: RestApiService,
-					useValue: restApiServiceMock
+					provide: StatisticsApi,
+					useValue: statisticsApiMock
+				},
+				{
+					provide: ApiBrowserApi,
+					useValue: apiBrowserApiMock
 				}
 			],
 			imports: [

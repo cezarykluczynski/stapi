@@ -2,7 +2,8 @@ import { Component, OnInit, ChangeDetectionStrategy, ViewEncapsulation } from '@
 
 import {ColumnApi, GridApi, GridOptions} from 'ag-grid/main';
 
-import { RestApiService } from '../rest-api/rest-api.service';
+import { StatisticsApi } from './statistics-api.service';
+import { ApiBrowserApi } from '../api-browser/api-browser-api.service';
 
 @Component({
 	selector: 'entity-hits-grid',
@@ -15,20 +16,15 @@ import { RestApiService } from '../rest-api/rest-api.service';
 	encapsulation: ViewEncapsulation.None,
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EntityHitsGridComponent implements OnInit {
+export class EntityHitsGridComponent {
 
-	private restApiService: RestApiService;
 	private statistics: any;
 	private details: any;
 	private names: any;
 
-	constructor(restApiService: RestApiService) {
-		this.restApiService = restApiService;
-	}
-
-	ngOnInit() {
-		this.statistics = this.restApiService.getStatistics();
-		this.details = this.restApiService.getDetails();
+	constructor(statisticsApi: StatisticsApi, apiBrowserApi: ApiBrowserApi) {
+		this.statistics = statisticsApi.getStatistics();
+		this.details = apiBrowserApi.getDetails();
 		this.names = this.getEntityNameToPluralNameMap();
 	}
 

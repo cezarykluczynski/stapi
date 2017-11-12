@@ -5,6 +5,7 @@ import { HighlightJsModule, HIGHLIGHT_JS } from 'angular-highlight-js';
 
 import { RestApiService } from '../rest-api/rest-api.service';
 import { ApiDocumentationComponent } from './api-documentation.component';
+import { ApiDocumentationApi } from './api-documentation-api.service';
 
 export function highlightJsFactory() {
 	return hljs;
@@ -24,7 +25,7 @@ const SOAP_DOCUMENT = {
 	content: SOAP_DOCUMENT_CONTENT
 };
 
-class RestApiServiceMock {
+class ApiDocumentationApiMock {
 	public getDocumentation() {
 		return {
 			restDocuments: [REST_DOCUMENT, REST_DOCUMENT_2],
@@ -36,10 +37,10 @@ class RestApiServiceMock {
 describe('ApiDocumentationComponent', () => {
 	let component: ApiDocumentationComponent;
 	let fixture: ComponentFixture<ApiDocumentationComponent>;
-	let restApiServiceMock: RestApiServiceMock;
+	let apiDocumentationApiMock: ApiDocumentationApiMock;
 
 	beforeEach(async(() => {
-		restApiServiceMock = new RestApiServiceMock();
+		apiDocumentationApiMock = new ApiDocumentationApiMock();
 
 		TestBed.configureTestingModule({
 			declarations: [ApiDocumentationComponent],
@@ -51,8 +52,8 @@ describe('ApiDocumentationComponent', () => {
 			],
 			providers: [
 				{
-					provide: RestApiService,
-					useValue: restApiServiceMock
+					provide: ApiDocumentationApi,
+					useValue: apiDocumentationApiMock
 				}
 			]
 		})

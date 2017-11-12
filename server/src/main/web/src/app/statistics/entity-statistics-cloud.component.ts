@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { RestApiService } from '../rest-api/rest-api.service';
+import { StatisticsApi } from './statistics-api.service';
+import { ApiBrowserApi } from '../api-browser/api-browser-api.service';
 
 @Component({
 	selector: 'entity-statistics-cloud',
@@ -9,7 +10,8 @@ import { RestApiService } from '../rest-api/rest-api.service';
 })
 export class EntityStatisticsCloudComponent implements OnInit {
 
-	private restApiService: RestApiService;
+	private statisticsApi: StatisticsApi;
+	private apiBrowserApi: ApiBrowserApi;
 	private statistics: any;
 	private details: any;
 	private fictionalEntitites: Array<any>;
@@ -18,13 +20,14 @@ export class EntityStatisticsCloudComponent implements OnInit {
 	private fontSizeMin = 18;
 	private fontSizeMax = 35;
 
-	constructor(restApiService: RestApiService) {
-		this.restApiService = restApiService;
+	constructor(statisticsApi: StatisticsApi, apiBrowserApi: ApiBrowserApi) {
+		this.statisticsApi = statisticsApi;
+		this.apiBrowserApi = apiBrowserApi;
 	}
 
 	ngOnInit() {
-		this.statistics = this.restApiService.getStatistics();
-		this.details = this.restApiService.getDetails();
+		this.statistics = this.statisticsApi.getStatistics();
+		this.details = this.apiBrowserApi.getDetails();
 		this.fictionalEntitites = this.createStatisticsForFictionalEntities();
 		this.realWorldEntitites = this.createStatisticsForRealWorldEntities();
 	}

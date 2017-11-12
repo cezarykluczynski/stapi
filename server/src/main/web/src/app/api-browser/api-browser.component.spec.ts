@@ -4,20 +4,25 @@ import { NO_ERRORS_SCHEMA, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 import { ApiBrowserComponent } from './api-browser.component';
+import { ApiBrowserApi } from './api-browser-api.service';
 import { RestApiService } from '../rest-api/rest-api.service';
 
 declare var $: any;
 
-class RestApiServiceMock {
+class ApiBrowserApiMock {
 	public getStatistics() {}
 	public getDetails() {}
-	public onLimitUpdate() {}
 	public search() {}
+}
+
+class RestApiServiceMock {
+	public onLimitUpdate() {}
 }
 
 describe('ApiBrowserComponent', () => {
 	let component: ApiBrowserComponent;
 	let fixture: ComponentFixture<ApiBrowserComponent>;
+	let apiBrowserApiMock: ApiBrowserApiMock;
 	let restApiServiceMock: RestApiServiceMock;
 	let element: HTMLElement;
 	let details: any[] = [
@@ -34,8 +39,9 @@ describe('ApiBrowserComponent', () => {
 
 	beforeEach(async(() => {
 		restApiServiceMock = new RestApiServiceMock();
-		spyOn(restApiServiceMock, 'getStatistics').and.returnValue({});
-		spyOn(restApiServiceMock, 'getDetails').and.returnValue(details);
+		apiBrowserApiMock = new ApiBrowserApiMock();
+		spyOn(apiBrowserApiMock, 'getStatistics').and.returnValue({});
+		spyOn(apiBrowserApiMock, 'getDetails').and.returnValue(details);
 		spyOn(restApiServiceMock, 'onLimitUpdate').and.callFake((_onLimitUpdate) => {
 			onLimitUpdate = _onLimitUpdate;
 		});
@@ -45,6 +51,10 @@ describe('ApiBrowserComponent', () => {
 			declarations: [ApiBrowserComponent],
 			schemas: [NO_ERRORS_SCHEMA],
 			providers: [
+				{
+					provide: ApiBrowserApi,
+					useValue: apiBrowserApiMock
+				},
 				{
 					provide: RestApiService,
 					useValue: restApiServiceMock
@@ -83,19 +93,19 @@ describe('ApiBrowserComponent', () => {
 	});
 
 	it('allows searching for entities', () => {
-		const restApiServiceMockSearchSpy: jasmine.Spy = spyOn(restApiServiceMock, 'search').and.returnValue(new Promise((resolve) => {
+		const apiBrowserApiMockSearchSpy: jasmine.Spy = spyOn(apiBrowserApiMock, 'search').and.returnValue(new Promise((resolve) => {
 			resolve({});
 		}));
 
 		fixture.debugElement.query(By.css('button[type=submit]')).nativeElement.click();
 		fixture.detectChanges();
 
-		expect(restApiServiceMock.search).toHaveBeenCalled();
-		expect(restApiServiceMockSearchSpy.calls.argsFor(0)).toEqual(['AN', '', false]);
+		expect(apiBrowserApiMock.search).toHaveBeenCalled();
+		expect(apiBrowserApiMockSearchSpy.calls.argsFor(0)).toEqual(['AN', '', false]);
 	});
 
 	it('handles errorous response when searching for entities', () => {
-		const restApiServiceMockSearchSpy: jasmine.Spy = spyOn(restApiServiceMock, 'search').and
+		const apiBrowserApiMockSearchSpy: jasmine.Spy = spyOn(apiBrowserApiMock, 'search').and
 			.returnValue(new Promise((resolve, reject) => {
 				reject({
 					response: '{"error": true}'
@@ -112,7 +122,7 @@ describe('ApiBrowserComponent', () => {
 
 	describe('when response is reveiced', () => {
 		let respondWith = (response) => {
-			spyOn(restApiServiceMock, 'search').and.returnValue(new Promise((resolve) => {
+			spyOn(apiBrowserApiMock, 'search').and.returnValue(new Promise((resolve) => {
 				resolve(response);
 			}));
 

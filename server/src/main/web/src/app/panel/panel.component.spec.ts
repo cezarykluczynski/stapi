@@ -1,17 +1,21 @@
 import { async, fakeAsync, ComponentFixture, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { RestApiService } from '../rest-api/rest-api.service';
+import { PanelApi } from './panel-api.service';
 import { WindowReferenceService } from '../window-reference/window-reference.service';
 
 import { PanelComponent } from './panel.component';
 import { PanelApiKeysComponent } from './api-keys/panel-api-keys.component';
+import { PanelApiKeysApi } from './api-keys/panel-api-keys-api.service';
 import { PanelAccountSettingsComponent } from './account-settings/panel-account-settings.component';
 import { PanelAdminManagementComponent } from './admin-management/panel-admin-management.component';
 
-class RestApiServiceMock {
+class PanelApiMock {
 	public getMe() {}
 	public getOAuthAuthorizeUrl() {}
+}
+
+class PanelApiKeysApiMock {
 }
 
 class WindowReferenceServiceMock {
@@ -23,18 +27,29 @@ describe('PanelComponent', () => {
 	const URL = 'URL';
 	let component: PanelComponent;
 	let fixture: ComponentFixture<PanelComponent>;
-	let restApiServiceMock: RestApiServiceMock;
+	let panelApiMock: PanelApiMock;
+	let panelApiKeysApiMock: PanelApiKeysApiMock;
 	let windowReferenceServiceMock: WindowReferenceServiceMock;
 
 	beforeEach(async(() => {
-		restApiServiceMock = new RestApiServiceMock();
+		panelApiMock = new PanelApiMock();
+		panelApiKeysApiMock = new PanelApiKeysApiMock();
 		windowReferenceServiceMock = new WindowReferenceServiceMock()
 		TestBed.configureTestingModule({
-			declarations: [PanelComponent, PanelApiKeysComponent, PanelAccountSettingsComponent, PanelAdminManagementComponent],
+			declarations: [
+				PanelComponent,
+				PanelApiKeysComponent,
+				PanelAccountSettingsComponent,
+				PanelAdminManagementComponent
+			],
 			providers: [
 				{
-					provide: RestApiService,
-					useValue: restApiServiceMock
+					provide: PanelApiKeysApi,
+					useValue: panelApiKeysApiMock
+				},
+				{
+					provide: PanelApi,
+					useValue: panelApiMock
 				},
 				{
 					provide: WindowReferenceService,
@@ -56,7 +71,7 @@ describe('PanelComponent', () => {
 
 		beforeEach(() => {
 			permissions = [];
-			spyOn(restApiServiceMock, 'getMe').and.returnValue(new Promise((_resolve) => {
+			spyOn(panelApiMock, 'getMe').and.returnValue(new Promise((_resolve) => {
 				resolve = () => {
 					_resolve({
 						name: NAME,
@@ -131,12 +146,12 @@ describe('PanelComponent', () => {
 		};
 
 		beforeEach(() => {
-			spyOn(restApiServiceMock, 'getMe').and.returnValue(new Promise((resolve, reject) => {
+			spyOn(panelApiMock, 'getMe').and.returnValue(new Promise((resolve, reject) => {
 				reject({
 					status: 403
 				});
 			}));
-			spyOn(restApiServiceMock, 'getOAuthAuthorizeUrl').and.returnValue(new Promise((resolve) => {
+			spyOn(panelApiMock, 'getOAuthAuthorizeUrl').and.returnValue(new Promise((resolve) => {
 				resolve({
 					url: URL
 				});

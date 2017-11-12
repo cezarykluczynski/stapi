@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
-import { RestApiService } from '../rest-api/rest-api.service';
+import { ApiDocumentationApi } from './api-documentation-api.service';
 
 declare var $: any;
 
@@ -16,15 +16,15 @@ export class ApiDocumentationComponent implements OnInit {
 	private selectedDocumentationType: string;
 	private documentation: any;
 
-	private restApiService: RestApiService;
+	private apiDocumentationApi: ApiDocumentationApi;
 
-	constructor(restApiService: RestApiService) {
-		this.restApiService = restApiService;
+	constructor(apiDocumentationApi: ApiDocumentationApi) {
+		this.apiDocumentationApi = apiDocumentationApi;
 	}
 
 	ngOnInit() {
 		this.selectedDocumentationType = 'REST';
-		this.documentation = this.restApiService.getDocumentation();
+		this.documentation = this.apiDocumentationApi.getDocumentation();
 	}
 
 	getRestSpecsZipLink() {

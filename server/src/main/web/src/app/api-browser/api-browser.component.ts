@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { RestApiService } from '../rest-api/rest-api.service';
+import { ApiBrowserApi } from './api-browser-api.service';
 
 @Component({
 	selector: 'app-api-browser',
@@ -10,8 +11,8 @@ import { RestApiService } from '../rest-api/rest-api.service';
 })
 export class ApiBrowserComponent implements OnInit {
 
+	private apiBrowserApi: ApiBrowserApi;
 	private restApiService: RestApiService;
-	private statistics: any;
 	private details: any;
 	private options: Array<any>;
 	private lastUpdateWasError: boolean;
@@ -22,13 +23,13 @@ export class ApiBrowserComponent implements OnInit {
 	public phrase: any = '';
 	public loaded: boolean;
 
-	constructor(restApiService: RestApiService) {
+	constructor(apiBrowserApi: ApiBrowserApi, restApiService: RestApiService) {
+		this.apiBrowserApi = apiBrowserApi;
 		this.restApiService = restApiService;
 	}
 
 	ngOnInit() {
-		this.statistics = this.restApiService.getStatistics();
-		this.details = this.restApiService.getDetails();
+		this.details = this.apiBrowserApi.getDetails();
 		this.options = this.details;
 		this.restApiService.onLimitUpdate(limits => {
 			this.limits = limits;
@@ -39,7 +40,7 @@ export class ApiBrowserComponent implements OnInit {
 
 	submit($event) {
 		$event.preventDefault();
-		this.handleRequest(this.restApiService.search(this.symbol, this.phrase, false));
+		this.handleRequest(this.apiBrowserApi.search(this.symbol, this.phrase, false));
 	}
 
 	handleRequest(promise) {

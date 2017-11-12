@@ -2,16 +2,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EntityStatisticsCloudComponent } from './entity-statistics-cloud.component';
 
-import { RestApiService } from '../rest-api/rest-api.service';
+import { StatisticsApi } from './statistics-api.service';
+import { ApiBrowserApi } from '../api-browser/api-browser-api.service';
 
 import { TOTAL_COUNT, STATISTICS, DETAILS } from './statistics.fixture';
 
-class RestApiServiceMock {
+class StatisticsApiMock {
 	public getStatistics() {
 		return {
-			entitiesStatistics: STATISTICS
+			entitiesStatistics: STATISTICS,
+			hitsStatistics: STATISTICS
 		};
 	}
+}
+
+class ApiBrowserApiMock {
 	public getDetails() {
 		return DETAILS;
 	}
@@ -20,17 +25,23 @@ class RestApiServiceMock {
 describe('EntityStatisticsCloudComponent', () => {
 	let component: EntityStatisticsCloudComponent;
 	let fixture: ComponentFixture<EntityStatisticsCloudComponent>;
-	let restApiServiceMock: RestApiServiceMock;
+	let statisticsApiMock: StatisticsApiMock;
+	let apiBrowserApiMock: ApiBrowserApiMock;
 
 	beforeEach(async(() => {
-		restApiServiceMock = new RestApiServiceMock();
+		statisticsApiMock = new StatisticsApiMock();
+		apiBrowserApiMock = new ApiBrowserApiMock();
 
 		TestBed.configureTestingModule({
 			declarations: [EntityStatisticsCloudComponent],
 			providers: [
 				{
-					provide: RestApiService,
-					useValue: restApiServiceMock
+					provide: StatisticsApi,
+					useValue: statisticsApiMock
+				},
+				{
+					provide: ApiBrowserApi,
+					useValue: apiBrowserApiMock
 				}
 			]
 		})

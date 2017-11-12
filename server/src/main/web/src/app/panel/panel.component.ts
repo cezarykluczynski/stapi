@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
-import { RestApiService } from '../rest-api/rest-api.service';
+import { PanelApi } from './panel-api.service';
 import { WindowReferenceService } from '../window-reference/window-reference.service';
 import { PanelApiKeysComponent } from './api-keys/panel-api-keys.component';
 
@@ -22,7 +22,7 @@ enum ApplicationPermission {
 })
 export class PanelComponent implements OnInit {
 
-	private restApiService: RestApiService;
+	private panelApi: PanelApi;
 	private windowReferenceService: WindowReferenceService;
 	private name: string;
 	private permissions: Set<ApplicationPermission>;
@@ -31,13 +31,13 @@ export class PanelComponent implements OnInit {
 	private authenticationRequired: boolean = false;
 	private activeView: PanelView = PanelView.API_KEYS;
 
-	constructor(restApiService: RestApiService, windowReferenceService: WindowReferenceService) {
-		this.restApiService = restApiService;
+	constructor(panelApi: PanelApi, windowReferenceService: WindowReferenceService) {
+		this.panelApi = panelApi;
 		this.windowReferenceService = windowReferenceService;
 	}
 
 	ngOnInit() {
-		this.restApiService.getMe().then((response) => {
+		this.panelApi.getMe().then((response) => {
 			this.authenticated = true;
 			this.name = response.name;
 			this.permissions = new Set();
@@ -102,7 +102,7 @@ export class PanelComponent implements OnInit {
 
 	redirectToOAuth() {
 		this.redirecting = true;
-		this.restApiService.getOAuthAuthorizeUrl().then((response) => {
+		this.panelApi.getOAuthAuthorizeUrl().then((response) => {
 			this.windowReferenceService.getWindow().location.href = response.url;
 		});
 	}
