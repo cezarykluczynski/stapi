@@ -16,6 +16,9 @@ class PanelApiMock {
 }
 
 class PanelApiKeysApiMock {
+	public getApiKeys() {
+		return Promise.resolve({});
+	}
 }
 
 class WindowReferenceServiceMock {

@@ -1,3 +1,32 @@
-<p>
-	<button class="btn btn-success" (click)="createApiKey()">Create API key</button>
-</p>
+<div>
+	<div class="row">
+		<div class="col-md-9">
+			<h3>API keys</h3>
+		</div>
+		<div class="col-md-3">
+			<h3><button class="btn btn-success btn-sm pull-right" (click)="createApiKey()">Create API key</button></h3>
+		</div>
+	</div>
+	<ul class="list-group" *ngIf="hasApiKeys()">
+		<li class="list-group-item" *ngFor="let apiKey of getApiKeys()">
+			<div *ngIf="!removingApiKey(apiKey.id)">
+				<button class="btn btn-danger btn-sm pull-right" (click)="askForApiKeyRemoval(apiKey.id)">Remove</button>
+				<h4><span class="label label-default">{{apiKey.apiKey}}</span></h4>
+				<small>
+					Limit: <strong>{{apiKey.limit}}</strong>, blocked: <span>{{apiKey.blocked}}</span>
+				</small>
+			</div>
+			<div *ngIf="removingApiKey(apiKey.id)">
+				Are you sure you want to remove this key? This action cannot be reverted, meaning that the same key cannot be recreated.
+				All application using this key will be treated as not authenticated. Remove key now?
+				<br>
+				<button class="btn btn-danger btn-sm" (click)="removeApiKey(apiKey.id)">Yes, remove this key</button>
+				<button class="btn btn-primary btn-sm" (click)="doNotRemoveApiKey(apiKey.id)">No, do not remove this key</button>
+			</div>
+		</li>
+	</ul>
+	<div *ngIf="!hasApiKeys()">
+		No API keys.
+	</div>
+
+</div>

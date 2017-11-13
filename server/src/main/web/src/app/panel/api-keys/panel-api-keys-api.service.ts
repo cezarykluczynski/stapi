@@ -18,6 +18,14 @@ export class PanelApiKeysApi {
 		return this.api.panel.apiKeys.post({}, 'application/x-www-form-urlencoded');
 	}
 
+	getApiKeys() {
+		return this.api.panel.apiKeys.get();
+	}
+
+	removeApiKey(apiKeyId: number) {
+		return this.api.panel.apiKeys(apiKeyId).delete();
+	}
+
 	private register() {
 		this.api.res('panel').res('apiKeys');
 	}
