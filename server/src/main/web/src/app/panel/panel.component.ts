@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 
+import { RestApiService } from '../rest-api/rest-api.service';
 import { PanelApi } from './panel-api.service';
 import { WindowReferenceService } from '../window-reference/window-reference.service';
 import { PanelApiKeysComponent } from './api-keys/panel-api-keys.component';
@@ -24,6 +26,7 @@ export class PanelComponent implements OnInit {
 
 	private panelApi: PanelApi;
 	private windowReferenceService: WindowReferenceService;
+	private restApiService: RestApiService;
 	private name: string;
 	private permissions: Set<ApplicationPermission>;
 	private authenticated: boolean = false;
@@ -31,12 +34,20 @@ export class PanelComponent implements OnInit {
 	private authenticationRequired: boolean = false;
 	private activeView: PanelView = PanelView.API_KEYS;
 
-	constructor(panelApi: PanelApi, windowReferenceService: WindowReferenceService) {
+	constructor(panelApi: PanelApi, windowReferenceService: WindowReferenceService, restApiService: RestApiService) {
 		this.panelApi = panelApi;
 		this.windowReferenceService = windowReferenceService;
+		this.restApiService = restApiService;
 	}
 
 	ngOnInit() {
+		this.restApiService.getApi().on('error', (error) => {
+			if (error.status === 403) {
+				this.authenticated = false;
+				this.authenticationRequired = true;
+			}
+		});
+
 		this.panelApi.getMe().then((response) => {
 			this.authenticated = true;
 			this.name = response.name;
@@ -45,10 +56,6 @@ export class PanelComponent implements OnInit {
 				let applicationPermission: ApplicationPermission = ApplicationPermission[<string>permission];
 				this.permissions.add(applicationPermission);
 			});
-		}).catch((error) => {
-			if (error.status === 403) {
-				this.authenticationRequired = true;
-			}
 		});
 	}
 

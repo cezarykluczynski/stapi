@@ -1,6 +1,7 @@
 import { async, fakeAsync, ComponentFixture, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
+import { RestApiService } from '../rest-api/rest-api.service';
 import { PanelApi } from './panel-api.service';
 import { WindowReferenceService } from '../window-reference/window-reference.service';
 
@@ -25,6 +26,10 @@ class WindowReferenceServiceMock {
 	public getWindow() {}
 }
 
+class RestApiServiceMock {
+	public getApi() {}
+}
+
 describe('PanelComponent', () => {
 	const NAME = 'NAME';
 	const URL = 'URL';
@@ -33,11 +38,20 @@ describe('PanelComponent', () => {
 	let panelApiMock: PanelApiMock;
 	let panelApiKeysApiMock: PanelApiKeysApiMock;
 	let windowReferenceServiceMock: WindowReferenceServiceMock;
+	let restApiServiceMock: RestApiServiceMock;
+	let api: any;
 
 	beforeEach(async(() => {
 		panelApiMock = new PanelApiMock();
 		panelApiKeysApiMock = new PanelApiKeysApiMock();
-		windowReferenceServiceMock = new WindowReferenceServiceMock()
+		windowReferenceServiceMock = new WindowReferenceServiceMock();
+		restApiServiceMock = new RestApiServiceMock();
+
+		api = {
+			on: jasmine.createSpy('on')
+		};
+		spyOn(restApiServiceMock, 'getApi').and.returnValue(api);
+
 		TestBed.configureTestingModule({
 			declarations: [
 				PanelComponent,
@@ -57,6 +71,10 @@ describe('PanelComponent', () => {
 				{
 					provide: WindowReferenceService,
 					useValue: windowReferenceServiceMock
+				},
+				{
+					provide: RestApiService,
+					useValue: restApiServiceMock
 				}
 			]
 		})
@@ -147,12 +165,13 @@ describe('PanelComponent', () => {
 				href: ''
 			}
 		};
+		let error = {
+			status: 403
+		};
 
 		beforeEach(() => {
 			spyOn(panelApiMock, 'getMe').and.returnValue(new Promise((resolve, reject) => {
-				reject({
-					status: 403
-				});
+				reject(error);
 			}));
 			spyOn(panelApiMock, 'getOAuthAuthorizeUrl').and.returnValue(new Promise((resolve) => {
 				resolve({
@@ -170,6 +189,9 @@ describe('PanelComponent', () => {
 			expect(component.isAuthenticationRequired()).toBeFalse();
 			expect(component.isRedirecting()).toBeFalse();
 			expect(component.getButtonLabel()).toBe('Authenticate with GitHub');
+
+			api.on.calls.argsFor(0)[1](error);
+
 			fixture.detectChanges();
 
 			fixture.whenStable().then(() => {
