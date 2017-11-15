@@ -28,11 +28,13 @@ public class RequestCredentialProvider {
 		RequestCredential requestCredential = new RequestCredential();
 		String apiKey = tryExtractApiKey(message);
 		if (apiKey != null) {
-			// TODO: validate API key
+			requestCredential.setRequestCredentialType(RequestCredentialType.API_KEY);
+			requestCredential.setApiKey(apiKey);
+		} else {
+			requestCredential.setRequestCredentialType(RequestCredentialType.IP_ADDRESS);
 		}
 
-		requestCredential.setRequestCredentialType(RequestCredentialType.IP_ADDRESS);
-		requestCredential.setIpAddress(httpServletRequest.getRemoteAddr()); // remember to keep IP address even when API key is present!
+		requestCredential.setIpAddress(httpServletRequest.getRemoteAddr());
 		return requestCredential;
 	}
 

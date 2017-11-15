@@ -4,7 +4,9 @@ import com.cezarykluczynski.stapi.model.throttle.dto.ThrottleStatistics;
 import com.cezarykluczynski.stapi.model.throttle.repository.ThrottleRepository;
 import com.cezarykluczynski.stapi.server.common.throttle.credential.RequestCredential;
 import com.cezarykluczynski.stapi.server.common.throttle.credential.RequestCredentialProvider;
+import com.cezarykluczynski.stapi.server.common.throttle.credential.RequestCredentialType;
 import com.cezarykluczynski.stapi.util.constant.SpringProfile;
+import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import org.apache.cxf.message.Message;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -40,7 +42,14 @@ public class ThrottleValidator {
 		if (Boolean.TRUE.equals(tooMuchThrottleResult.getThrottle())) {
 			return tooMuchThrottleResult;
 		} else if (throttleQualifyingService.isQualifiedForThrottle()) {
-			return validateByIp(requestCredential);
+			RequestCredentialType requestCredentialType = requestCredential.getRequestCredentialType();
+			if (RequestCredentialType.IP_ADDRESS.equals(requestCredentialType)) {
+				return validateByIp(requestCredential);
+			} else if (RequestCredentialType.API_KEY.equals(requestCredentialType)) {
+				return validateByApiKey(requestCredential);
+			} else {
+				throw new StapiRuntimeException(String.format("Validation not implemented for RequestCredentialType %s", requestCredentialType));
+			}
 		} else {
 			return ThrottleResult.NOT_THROTTLED;
 		}
@@ -51,6 +60,13 @@ public class ThrottleValidator {
 		ThrottleStatistics throttleStatistics = throttleRepository.decrementByIpAndGetStatistics(requestCredential.getIpAddress());
 		requestSpecificThrottleStatistics.setThrottleStatistics(throttleStatistics);
 		return throttleStatistics.isDecremented() ? ThrottleResult.NOT_THROTTLED : ThrottleResult.HOURLY_IP_LIMIT_EXCEEDED;
+	}
+
+	private ThrottleResult validateByApiKey(RequestCredential requestCredential) {
+		ThrottleStatistics throttleStatistics = throttleRepository
+				.decrementByApiKeyAndGetStatistics(requestCredential.getApiKey(), requestCredential.getIpAddress());
+		requestSpecificThrottleStatistics.setThrottleStatistics(throttleStatistics);
+		return throttleStatistics.isDecremented() ? ThrottleResult.NOT_THROTTLED : ThrottleResult.HOURLY_API_KEY_LIMIT_EXCEEDED;
 	}
 
 }

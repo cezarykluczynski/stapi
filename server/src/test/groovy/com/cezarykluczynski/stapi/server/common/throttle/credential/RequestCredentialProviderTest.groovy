@@ -59,8 +59,8 @@ class RequestCredentialProviderTest extends Specification {
 		1 * httpServletRequestMock.remoteAddr >> IP_ADDRESS
 		0 * _
 		requestCredential.ipAddress == IP_ADDRESS
-		requestCredential.apiKey == null
-		requestCredential.requestCredentialType == RequestCredentialType.IP_ADDRESS
+		requestCredential.apiKey == API_KEY
+		requestCredential.requestCredentialType == RequestCredentialType.API_KEY
 	}
 
 	void "creates RequestCredential SOAP API key"() {
@@ -77,8 +77,8 @@ class RequestCredentialProviderTest extends Specification {
 		1 * httpServletRequestMock.remoteAddr >> IP_ADDRESS
 		0 * _
 		requestCredential.ipAddress == IP_ADDRESS
-		requestCredential.apiKey == null
-		requestCredential.requestCredentialType == RequestCredentialType.IP_ADDRESS
+		requestCredential.apiKey == API_KEY
+		requestCredential.requestCredentialType == RequestCredentialType.API_KEY
 	}
 
 }

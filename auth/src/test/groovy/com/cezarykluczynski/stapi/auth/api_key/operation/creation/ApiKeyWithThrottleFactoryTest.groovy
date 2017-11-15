@@ -57,6 +57,7 @@ class ApiKeyWithThrottleFactoryTest extends Specification {
 		apiKeyWithThrottleDTO.throttle.throttleType == ThrottleType.API_KEY
 		apiKeyWithThrottleDTO.throttle.hitsLimit == HITS_LIMIT
 		apiKeyWithThrottleDTO.throttle.remainingHits == HITS_LIMIT
+		apiKeyWithThrottleDTO.throttle.active
 	}
 
 }

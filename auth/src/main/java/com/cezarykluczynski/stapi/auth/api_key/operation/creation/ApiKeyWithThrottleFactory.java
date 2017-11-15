@@ -48,6 +48,7 @@ class ApiKeyWithThrottleFactory {
 		throttle.setThrottleType(ThrottleType.API_KEY);
 		throttle.setHitsLimit(apiKeyLimit);
 		throttle.setRemainingHits(apiKeyLimit);
+		throttle.setActive(true);
 		return throttle;
 	}
 

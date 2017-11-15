@@ -6,6 +6,8 @@ public interface ThrottleRepositoryCustom {
 
 	ThrottleStatistics decrementByIpAndGetStatistics(String ipAddress);
 
+	ThrottleStatistics decrementByApiKeyAndGetStatistics(String apiKey, String ipAddress);
+
 	void regenerateIPAddressesRemainingHits();
 
 	void deleteExpiredIPLimits();

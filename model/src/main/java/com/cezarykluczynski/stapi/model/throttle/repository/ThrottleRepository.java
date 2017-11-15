@@ -19,6 +19,11 @@ public interface ThrottleRepository extends JpaRepository<Throttle, Long>, Throt
 
 	@Modifying
 	@Transactional
+	@Query("update Throttle t set t.remainingHits = t.remainingHits - 1, t.lastHitTime = :lastHitTime where t.apiKey = :apiKey")
+	void decrementByApiKey(@Param("apiKey") String apiKey, @Param("lastHitTime") LocalDateTime lastHitTime);
+
+	@Modifying
+	@Transactional
 	@Query("update Throttle t set t.remainingHits = :remainingHits "
 			+ "where t.throttleType = com.cezarykluczynski.stapi.model.throttle.entity.enums.ThrottleType.IP_ADDRESS")
 	void regenerateIPAddressesWithRemainingHits(@Param("remainingHits") Integer remainingHits);
@@ -36,5 +41,7 @@ public interface ThrottleRepository extends JpaRepository<Throttle, Long>, Throt
 	Throttle findByApiKey(String apiKey);
 
 	Optional<Throttle> findByIpAddress(String ipAddress);
+
+	Optional<Throttle> findByApiKeyAndActiveTrue(String apiKey);
 
 }

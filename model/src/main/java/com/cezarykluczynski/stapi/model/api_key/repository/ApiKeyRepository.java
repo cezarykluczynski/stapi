@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ApiKeyRepository extends JpaRepository<ApiKey, Long> {
 
@@ -14,6 +15,8 @@ public interface ApiKeyRepository extends JpaRepository<ApiKey, Long> {
 	Page<ApiKey> findAllByAccountId(Long accountId, Pageable pageable);
 
 	Page<ApiKey> findAllByAccountIdAndId(Long accountId, Long apiKeyId, Pageable pageable);
+
+	Optional<ApiKey> findByApiKey(String apiKey);
 
 	long countByAccountId(Long id);
 
