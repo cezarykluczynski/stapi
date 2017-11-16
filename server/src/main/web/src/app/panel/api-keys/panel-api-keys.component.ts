@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { NotificationsService } from 'angular2-notifications';
+
 import { PanelApiKeysApi } from './panel-api-keys-api.service';
 
 @Component({
@@ -10,11 +12,13 @@ import { PanelApiKeysApi } from './panel-api-keys-api.service';
 export class PanelApiKeysComponent implements OnInit {
 
 	private panelApiKeysApi: PanelApiKeysApi;
+	private notificationsService : NotificationsService;
 	private apiKeys: Array<any>;
 	private keysBeingRemoved: Set<number> = new Set();
 
-	constructor(panelApiKeysApi: PanelApiKeysApi) {
+	constructor(panelApiKeysApi: PanelApiKeysApi, notificationsService: NotificationsService) {
 		this.panelApiKeysApi = panelApiKeysApi;
+		this.notificationsService = notificationsService;
 	}
 
 	ngOnInit() {
@@ -33,6 +37,8 @@ export class PanelApiKeysComponent implements OnInit {
 		return this.panelApiKeysApi.createApiKey().then((response) => {
 			if (response.created) {
 				return this.loadApiKeys();
+			} else {
+				this.notificationsService.error(this.createErrorNotification(response.failReason));
 			}
 		});
 	}
@@ -61,6 +67,15 @@ export class PanelApiKeysComponent implements OnInit {
 
 	removingApiKey(apiKeyId) {
 		return this.keysBeingRemoved.has(apiKeyId);
+	}
+
+	private createErrorNotification(failReason: string) {
+		switch (failReason) {
+			case 'TOO_MUCH_KEYS_ALREADY_CREATED':
+				return 'You already created the maximal number of API keys.';
+			default:
+				return 'Uknown error occured. Code: ' + failReason;
+		}
 	}
 
 }

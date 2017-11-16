@@ -1,15 +1,13 @@
 import { async, fakeAsync, ComponentFixture, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { RestApiService } from '../rest-api/rest-api.service';
 import { PanelApi } from './panel-api.service';
 import { WindowReferenceService } from '../window-reference/window-reference.service';
 
 import { PanelComponent } from './panel.component';
-import { PanelApiKeysComponent } from './api-keys/panel-api-keys.component';
 import { PanelApiKeysApi } from './api-keys/panel-api-keys-api.service';
-import { PanelAccountSettingsComponent } from './account-settings/panel-account-settings.component';
-import { PanelAdminManagementComponent } from './admin-management/panel-admin-management.component';
 
 class PanelApiMock {
 	public getMe() {}
@@ -54,11 +52,9 @@ describe('PanelComponent', () => {
 
 		TestBed.configureTestingModule({
 			declarations: [
-				PanelComponent,
-				PanelApiKeysComponent,
-				PanelAccountSettingsComponent,
-				PanelAdminManagementComponent
+				PanelComponent
 			],
+			schemas: [NO_ERRORS_SCHEMA],
 			providers: [
 				{
 					provide: PanelApiKeysApi,

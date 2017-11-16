@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -7,6 +8,7 @@ import { AgGridModule } from 'ag-grid-angular/main';
 import * as hljs from 'highlight.js';
 import { HighlightJsModule, HIGHLIGHT_JS } from 'angular-highlight-js';
 import { CookieService } from 'ngx-cookie-service';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 export function highlightJsFactory() {
   return hljs;
@@ -97,13 +99,15 @@ export function initConfiguration(initializerService: InitializerService): Funct
 	imports: [
 		RouterModule.forRoot(appRoutes),
 		BrowserModule,
+		BrowserAnimationsModule,
 		FormsModule,
 		ReactiveFormsModule,
 		AgGridModule.withComponents([]),
 		HighlightJsModule.forRoot({
 			provide: HIGHLIGHT_JS,
 			useFactory: highlightJsFactory
-		})
+		}),
+		SimpleNotificationsModule.forRoot()
 	],
 	providers: [
 		{
