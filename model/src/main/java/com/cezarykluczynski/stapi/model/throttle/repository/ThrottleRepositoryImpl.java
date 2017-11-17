@@ -97,6 +97,11 @@ public class ThrottleRepositoryImpl implements ThrottleRepositoryCustom {
 	}
 
 	@Override
+	public void regenerateApiKeysRemainingHits() {
+		// TODO
+	}
+
+	@Override
 	public void deleteExpiredIPLimits() {
 		LocalDateTime localDateTime = LocalDateTime.now();
 		LocalDateTime thresholdDate = localDateTime.minusMinutes(throttleProperties.getMinutesToDeleteExpiredIpAddresses());

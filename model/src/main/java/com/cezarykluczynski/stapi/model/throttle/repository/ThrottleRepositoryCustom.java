@@ -10,6 +10,8 @@ public interface ThrottleRepositoryCustom {
 
 	void regenerateIPAddressesRemainingHits();
 
+	void regenerateApiKeysRemainingHits();
+
 	void deleteExpiredIPLimits();
 
 }
