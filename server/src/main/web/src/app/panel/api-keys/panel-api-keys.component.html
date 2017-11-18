@@ -14,7 +14,7 @@
 				<button class="btn btn-danger btn-sm pull-right" (click)="askForApiKeyRemoval(apiKey.id)">Remove</button>
 				<h4><span class="label label-default">{{apiKey.apiKey}}</span></h4>
 				<small>
-					Limit: <strong>{{apiKey.limit}}</strong>, blocked: <span>{{apiKey.blocked}}</span>
+					Limit: <strong>{{apiKey.limit}}</strong>, remaining hits: <strong>{{apiKey.remaining}}</strong>, blocked: <span>{{apiKey.blocked}}</span>
 				</small>
 			</div>
 			<div *ngIf="removingApiKey(apiKey.id)">

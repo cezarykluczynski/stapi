@@ -20,6 +20,9 @@ public class ApiKeyMapper {
 		if (apiKeyDTO.getAccountId() == null && apiKey.getAccount() != null) {
 			apiKeyDTO.setAccountId(apiKey.getAccount().getId());
 		}
+		if (apiKey.getThrottle() != null) {
+			apiKeyDTO.setRemaining(apiKey.getThrottle().getRemainingHits());
+		}
 		apiKeyDTO.setLimit(apiKey.getLimit());
 		apiKeyDTO.setBlocked(apiKey.getBlocked());
 		apiKeyDTO.setDescription(apiKey.getDescription());

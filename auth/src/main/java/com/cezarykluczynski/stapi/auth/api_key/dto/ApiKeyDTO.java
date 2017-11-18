@@ -13,6 +13,8 @@ public class ApiKeyDTO {
 
 	private Integer limit;
 
+	private Integer remaining;
+
 	private Boolean blocked;
 
 	private String description;

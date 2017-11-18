@@ -2,7 +2,9 @@ package com.cezarykluczynski.stapi.auth.api_key.operation.read
 
 import com.cezarykluczynski.stapi.auth.configuration.ApiKeyProperties
 import com.cezarykluczynski.stapi.model.api_key.entity.ApiKey
-import com.cezarykluczynski.stapi.model.api_key.repository.ApiKeyRepository
+import com.cezarykluczynski.stapi.model.api_key.entity.ApiKey_
+import com.cezarykluczynski.stapi.model.api_key.query.ApiKeyQueryBuilderFactory
+import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import spock.lang.Specification
@@ -14,16 +16,16 @@ class ApiKeysReaderTest extends Specification {
 	private static final int PAGE_NUMBER = 2
 	private static final int ADMIN_PAGE_SIZE = 20
 
-	private ApiKeyRepository apiKeyRepositoryMock
+	private ApiKeyQueryBuilderFactory apiKeyQueryBuilderFactoryMock
 
 	private ApiKeyProperties apiKeyPropertiesMock
 
 	private ApiKeysReader apiKeysReader
 
 	void setup() {
-		apiKeyRepositoryMock = Mock()
+		apiKeyQueryBuilderFactoryMock = Mock()
 		apiKeyPropertiesMock = new ApiKeyProperties(adminPageSize: ADMIN_PAGE_SIZE)
-		apiKeysReader = new ApiKeysReader(apiKeyRepositoryMock, apiKeyPropertiesMock)
+		apiKeysReader = new ApiKeysReader(apiKeyQueryBuilderFactoryMock, apiKeyPropertiesMock)
 	}
 
 	void "does not allow null page number"() {
@@ -54,6 +56,7 @@ class ApiKeysReaderTest extends Specification {
 
 	void "find page with no account ID nor API key ID"() {
 		given:
+		QueryBuilder<ApiKey> apiKeyQueryBuilder = Mock()
 		ApiKeysReadCriteria apiKeysReadCriteria = new ApiKeysReadCriteria(pageNumber: PAGE_NUMBER)
 		Page<ApiKey> page = Mock()
 
@@ -61,37 +64,21 @@ class ApiKeysReaderTest extends Specification {
 		Page<ApiKey> pageOutput = apiKeysReader.execute(apiKeysReadCriteria)
 
 		then:
-		1 * apiKeyRepositoryMock.findAll(_ as Pageable) >> { Pageable pageable ->
+		1 * apiKeyQueryBuilderFactoryMock.createQueryBuilder(_ as Pageable) >> { Pageable pageable ->
 			assert pageable.pageNumber == PAGE_NUMBER
 			assert pageable.pageSize == ADMIN_PAGE_SIZE
-			page
+			apiKeyQueryBuilder
 		}
-		0 * _
-		pageOutput == page
-	}
-
-	void "find page with account ID and without API key ID"() {
-		given:
-		ApiKeysReadCriteria apiKeysReadCriteria = new ApiKeysReadCriteria(
-				accountId: ACCOUNT_ID,
-				pageNumber: PAGE_NUMBER)
-		Page<ApiKey> page = Mock()
-
-		when:
-		Page<ApiKey> pageOutput = apiKeysReader.execute(apiKeysReadCriteria)
-
-		then:
-		1 * apiKeyRepositoryMock.findAllByAccountId(ACCOUNT_ID, _ as Pageable) >> { Long accountId, Pageable pageable ->
-			assert pageable.pageNumber == PAGE_NUMBER
-			assert pageable.pageSize == ADMIN_PAGE_SIZE
-			page
-		}
+		2 * apiKeyQueryBuilder.equal(_, null)
+		1 * apiKeyQueryBuilder.fetch(ApiKey_.throttle)
+		1 * apiKeyQueryBuilder.findPage() >> page
 		0 * _
 		pageOutput == page
 	}
 
 	void "find page with account ID and API key ID"() {
 		given:
+		QueryBuilder<ApiKey> apiKeyQueryBuilder = Mock()
 		ApiKeysReadCriteria apiKeysReadCriteria = new ApiKeysReadCriteria(
 				accountId: ACCOUNT_ID,
 				apiKeyId: API_KEY_ID,
@@ -102,12 +89,15 @@ class ApiKeysReaderTest extends Specification {
 		Page<ApiKey> pageOutput = apiKeysReader.execute(apiKeysReadCriteria)
 
 		then:
-		1 * apiKeyRepositoryMock.findAllByAccountIdAndId(ACCOUNT_ID, API_KEY_ID, _ as Pageable) >> {
-				Long accountId, Long apiKeyId, Pageable pageable ->
+		1 * apiKeyQueryBuilderFactoryMock.createQueryBuilder(_ as Pageable) >> { Pageable pageable ->
 			assert pageable.pageNumber == PAGE_NUMBER
 			assert pageable.pageSize == ADMIN_PAGE_SIZE
-			page
+			apiKeyQueryBuilder
 		}
+		1 * apiKeyQueryBuilder.equal(ApiKey_.accountId, ACCOUNT_ID)
+		1 * apiKeyQueryBuilder.equal(ApiKey_.id, API_KEY_ID)
+		1 * apiKeyQueryBuilder.fetch(ApiKey_.throttle)
+		1 * apiKeyQueryBuilder.findPage() >> page
 		0 * _
 		pageOutput == page
 	}
