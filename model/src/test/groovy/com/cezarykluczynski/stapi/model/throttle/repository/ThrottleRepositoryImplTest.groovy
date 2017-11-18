@@ -1,12 +1,17 @@
 package com.cezarykluczynski.stapi.model.throttle.repository
 
 import com.cezarykluczynski.stapi.model.api_key.entity.ApiKey
+import com.cezarykluczynski.stapi.model.api_key.entity.ApiKey_
+import com.cezarykluczynski.stapi.model.api_key.query.ApiKeyQueryBuilderFactory
 import com.cezarykluczynski.stapi.model.api_key.repository.ApiKeyRepository
+import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.configuration.ThrottleProperties
 import com.cezarykluczynski.stapi.model.throttle.dto.ThrottleStatistics
 import com.cezarykluczynski.stapi.model.throttle.entity.Throttle
 import com.cezarykluczynski.stapi.model.throttle.entity.enums.ThrottleType
+import com.google.common.collect.Lists
 import org.springframework.dao.DataIntegrityViolationException
+import org.springframework.data.domain.Pageable
 import spock.lang.Specification
 
 import java.time.LocalDateTime
@@ -22,8 +27,12 @@ class ThrottleRepositoryImplTest extends Specification {
 	private static final Integer REMAINING_HITS = 10
 	private static final Integer REMAINING_HITS_DECREMENTED = 9
 	private static final Integer MINUTES_TO_DELETE_EXPIRED_IP_ADDRESSES = 1440
+	private static final Integer API_KEY_1_LIMIT = 1000
+	private static final Integer API_KEY_2_LIMIT = 2000
 
 	private ThrottleProperties throttlePropertiesMock
+
+	private ApiKeyQueryBuilderFactory apiKeyQueryBuilderFactoryMock
 
 	private ThrottleRepository throttleRepositoryMock
 
@@ -33,9 +42,10 @@ class ThrottleRepositoryImplTest extends Specification {
 
 	void setup() {
 		throttlePropertiesMock = Mock()
+		apiKeyQueryBuilderFactoryMock = Mock()
 		throttleRepositoryMock = Mock()
 		apiKeyRepositoryMock = Mock()
-		throttleRepositoryImpl = new ThrottleRepositoryImpl(throttlePropertiesMock)
+		throttleRepositoryImpl = new ThrottleRepositoryImpl(throttlePropertiesMock, apiKeyQueryBuilderFactoryMock)
 		throttleRepositoryImpl.throttleRepository = throttleRepositoryMock
 		throttleRepositoryImpl.apiKeyRepository = apiKeyRepositoryMock
 	}
@@ -200,7 +210,7 @@ class ThrottleRepositoryImplTest extends Specification {
 		throttleStatistics.remaining == 0
 	}
 
-	void "regenerates IP addresses remaining hits limit"() {
+	void "regenerates IP addresses remaining hits limits"() {
 		when:
 		throttleRepositoryImpl.regenerateIPAddressesRemainingHits()
 
@@ -208,6 +218,34 @@ class ThrottleRepositoryImplTest extends Specification {
 		1 * throttlePropertiesMock.ipAddressHourlyLimit >> IP_ADDRESS_HOURLY_LIMIT
 		1 * throttleRepositoryMock.regenerateIPAddressesWithRemainingHits(IP_ADDRESS_HOURLY_LIMIT)
 		0 * _
+	}
+
+	void "regenerates API keys remaining hits limit"() {
+		given:
+		QueryBuilder<ApiKey> apiKeyQueryBuilder = Mock()
+		Throttle throttle1 = new Throttle(remainingHits: 5)
+		Throttle throttle2 = new Throttle(remainingHits: 10)
+		ApiKey apiKey1 = new ApiKey(throttle: throttle1, limit: API_KEY_1_LIMIT)
+		ApiKey apiKey2 = new ApiKey(throttle: throttle2, limit: API_KEY_2_LIMIT)
+
+		when:
+		throttleRepositoryImpl.regenerateApiKeysRemainingHits()
+
+		then:
+		1 * apiKeyQueryBuilderFactoryMock.createQueryBuilder(_ as Pageable) >> { Pageable pageable ->
+			assert pageable.pageNumber == 0
+			assert pageable.pageSize == Integer.MAX_VALUE
+			apiKeyQueryBuilder
+		}
+		1 * apiKeyQueryBuilder.fetch(ApiKey_.throttle)
+		1 * apiKeyQueryBuilder.findAll() >> Lists.newArrayList(apiKey1, apiKey2)
+		1 * throttleRepositoryMock.save(_ as List) >> { args ->
+			List<Throttle> throttleList = (List<Throttle>) args[0]
+			assert throttleList[0] == throttle1
+			assert throttleList[0].remainingHits == API_KEY_1_LIMIT
+			assert throttleList[1] == throttle2
+			assert throttleList[1].remainingHits == API_KEY_2_LIMIT
+		}
 	}
 
 	void "deletes expired IP limits"() {

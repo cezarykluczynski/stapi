@@ -1,22 +1,31 @@
 package com.cezarykluczynski.stapi.model.throttle.repository;
 
 import com.cezarykluczynski.stapi.model.api_key.entity.ApiKey;
+import com.cezarykluczynski.stapi.model.api_key.entity.ApiKey_;
+import com.cezarykluczynski.stapi.model.api_key.query.ApiKeyQueryBuilderFactory;
 import com.cezarykluczynski.stapi.model.api_key.repository.ApiKeyRepository;
+import com.cezarykluczynski.stapi.model.common.query.QueryBuilder;
 import com.cezarykluczynski.stapi.model.configuration.ThrottleProperties;
 import com.cezarykluczynski.stapi.model.throttle.dto.ThrottleStatistics;
 import com.cezarykluczynski.stapi.model.throttle.entity.Throttle;
 import com.cezarykluczynski.stapi.model.throttle.entity.enums.ThrottleType;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ThrottleRepositoryImpl implements ThrottleRepositoryCustom {
 
 	private final ThrottleProperties throttleProperties;
+
+	private final ApiKeyQueryBuilderFactory apiKeyQueryBuilderFactory;
 
 	@Inject
 	private ThrottleRepository throttleRepository;
@@ -24,8 +33,9 @@ public class ThrottleRepositoryImpl implements ThrottleRepositoryCustom {
 	@Inject
 	private ApiKeyRepository apiKeyRepository;
 
-	public ThrottleRepositoryImpl(ThrottleProperties throttleProperties) {
+	public ThrottleRepositoryImpl(ThrottleProperties throttleProperties, ApiKeyQueryBuilderFactory apiKeyQueryBuilderFactory) {
 		this.throttleProperties = throttleProperties;
+		this.apiKeyQueryBuilderFactory = apiKeyQueryBuilderFactory;
 	}
 
 	@Override
@@ -97,8 +107,12 @@ public class ThrottleRepositoryImpl implements ThrottleRepositoryCustom {
 	}
 
 	@Override
+	@Transactional
 	public void regenerateApiKeysRemainingHits() {
-		// TODO
+		QueryBuilder<ApiKey> apiKeyQueryBuilder = createApiKeyQueryBuilderWithThrottlesFetched();
+		List<ApiKey> apiKeyList = apiKeyQueryBuilder.findAll();
+		List<Throttle> throttleList = getThrottlesWithRegeneratedLimits(apiKeyList);
+		throttleRepository.save(throttleList);
 	}
 
 	@Override
@@ -106,6 +120,24 @@ public class ThrottleRepositoryImpl implements ThrottleRepositoryCustom {
 		LocalDateTime localDateTime = LocalDateTime.now();
 		LocalDateTime thresholdDate = localDateTime.minusMinutes(throttleProperties.getMinutesToDeleteExpiredIpAddresses());
 		throttleRepository.deleteIPAddressesOlderThan(thresholdDate);
+	}
+
+	private QueryBuilder<ApiKey> createApiKeyQueryBuilderWithThrottlesFetched() {
+		QueryBuilder<ApiKey> apiKeyQueryBuilder = apiKeyQueryBuilderFactory.createQueryBuilder(new PageRequest(0, Integer.MAX_VALUE));
+		apiKeyQueryBuilder.fetch(ApiKey_.throttle);
+		return apiKeyQueryBuilder;
+	}
+
+	private List<Throttle> getThrottlesWithRegeneratedLimits(List<ApiKey> apiKeyList) {
+		return apiKeyList.stream()
+				.peek(this::regeneratedApiKeysThrottle)
+				.map(ApiKey::getThrottle)
+				.collect(Collectors.toList());
+	}
+
+	private void regeneratedApiKeysThrottle(ApiKey apiKey) {
+		int limit = apiKey.getLimit();
+		apiKey.getThrottle().setRemainingHits(limit);
 	}
 
 }

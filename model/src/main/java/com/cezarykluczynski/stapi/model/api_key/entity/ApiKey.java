@@ -4,22 +4,27 @@ import com.cezarykluczynski.stapi.model.account.entity.Account;
 import com.cezarykluczynski.stapi.model.api_key.repository.ApiKeyRepository;
 import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
+import com.cezarykluczynski.stapi.model.throttle.entity.Throttle;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Data
 @Entity
-@ToString
+@ToString(exclude = "throttle")
+@EqualsAndHashCode(exclude = "throttle")
 @TrackedEntity(type = TrackedEntityType.TECHNICAL, repository = ApiKeyRepository.class, apiEntity = false, singularName = "api key",
 		pluralName = "api keys")
 @Table(name = "api_key", schema = "stapi_users")
@@ -39,6 +44,10 @@ public class ApiKey {
 
 	@Column(name = "account_id", insertable = false, updatable = false)
 	private Long accountId;
+
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "apiKey", referencedColumnName = "apiKey", updatable = false, insertable = false, unique = true)
+	private Throttle throttle;
 
 	private Integer limit;
 

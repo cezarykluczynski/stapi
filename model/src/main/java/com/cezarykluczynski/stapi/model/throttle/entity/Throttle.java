@@ -16,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
@@ -24,7 +25,7 @@ import java.time.LocalDateTime;
 @TrackedEntity(type = TrackedEntityType.TECHNICAL, repository = ThrottleRepository.class, apiEntity = false, singularName = "throttle",
 		pluralName = "throttles")
 @Table(name = "throttle", schema = "stapi_users")
-public class Throttle {
+public class Throttle implements Serializable {
 
 	@Id
 	@Column(nullable = false)
