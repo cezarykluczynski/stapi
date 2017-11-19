@@ -4,6 +4,7 @@ class AbstractTradingCardSetTest extends AbstractTest {
 
 	protected static final String UID = 'ABCD0987654321'
 	protected static final String NAME = 'NAME'
+	protected static final String PRODUCTION_RUN_UNIT = 'PRODUCTION_RUN_UNIT'
 	protected static final Integer RELEASE_YEAR = 1990
 	protected static final Integer RELEASE_YEAR_FROM = 1989
 	protected static final Integer RELEASE_YEAR_TO = 1991

@@ -114,7 +114,7 @@ class AddWarProfile extends DefaultTask {
 		List<String> lines = applicationPropertiesString.split(NEW_LINE_SEPARATOR).toList()
 		List<String> newLines = lines.stream()
 				.map({line ->
- 					if (line.startsWith(PROFILES_PREFIX) && !line.contains("," + WAR) && !line.contains( WAR + ",")) {
+					if (line.startsWith(PROFILES_PREFIX) && !line.contains("," + WAR) && !line.contains( WAR + ",")) {
 						logger.info("Adding war profile")
 						return line + ",war"
 					} else {

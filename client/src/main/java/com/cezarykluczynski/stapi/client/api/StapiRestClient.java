@@ -1,5 +1,45 @@
 package com.cezarykluczynski.stapi.client.api;
 
+import com.cezarykluczynski.stapi.client.api.rest.Animal;
+import com.cezarykluczynski.stapi.client.api.rest.AstronomicalObject;
+import com.cezarykluczynski.stapi.client.api.rest.Book;
+import com.cezarykluczynski.stapi.client.api.rest.BookCollection;
+import com.cezarykluczynski.stapi.client.api.rest.BookSeries;
+import com.cezarykluczynski.stapi.client.api.rest.Character;
+import com.cezarykluczynski.stapi.client.api.rest.ComicCollection;
+import com.cezarykluczynski.stapi.client.api.rest.ComicSeries;
+import com.cezarykluczynski.stapi.client.api.rest.ComicStrip;
+import com.cezarykluczynski.stapi.client.api.rest.Comics;
+import com.cezarykluczynski.stapi.client.api.rest.Company;
+import com.cezarykluczynski.stapi.client.api.rest.Conflict;
+import com.cezarykluczynski.stapi.client.api.rest.Element;
+import com.cezarykluczynski.stapi.client.api.rest.Episode;
+import com.cezarykluczynski.stapi.client.api.rest.Food;
+import com.cezarykluczynski.stapi.client.api.rest.Literature;
+import com.cezarykluczynski.stapi.client.api.rest.Location;
+import com.cezarykluczynski.stapi.client.api.rest.Magazine;
+import com.cezarykluczynski.stapi.client.api.rest.MagazineSeries;
+import com.cezarykluczynski.stapi.client.api.rest.Material;
+import com.cezarykluczynski.stapi.client.api.rest.MedicalCondition;
+import com.cezarykluczynski.stapi.client.api.rest.Movie;
+import com.cezarykluczynski.stapi.client.api.rest.Occupation;
+import com.cezarykluczynski.stapi.client.api.rest.Organization;
+import com.cezarykluczynski.stapi.client.api.rest.Performer;
+import com.cezarykluczynski.stapi.client.api.rest.Season;
+import com.cezarykluczynski.stapi.client.api.rest.Series;
+import com.cezarykluczynski.stapi.client.api.rest.Soundtrack;
+import com.cezarykluczynski.stapi.client.api.rest.Spacecraft;
+import com.cezarykluczynski.stapi.client.api.rest.SpacecraftClass;
+import com.cezarykluczynski.stapi.client.api.rest.Species;
+import com.cezarykluczynski.stapi.client.api.rest.Staff;
+import com.cezarykluczynski.stapi.client.api.rest.Technology;
+import com.cezarykluczynski.stapi.client.api.rest.Title;
+import com.cezarykluczynski.stapi.client.api.rest.TradingCard;
+import com.cezarykluczynski.stapi.client.api.rest.TradingCardDeck;
+import com.cezarykluczynski.stapi.client.api.rest.TradingCardSet;
+import com.cezarykluczynski.stapi.client.api.rest.VideoGame;
+import com.cezarykluczynski.stapi.client.api.rest.VideoRelease;
+import com.cezarykluczynski.stapi.client.api.rest.Weapon;
 import com.cezarykluczynski.stapi.client.v1.rest.api.AnimalApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.AstronomicalObjectApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.BookApi;
@@ -42,6 +82,7 @@ import com.cezarykluczynski.stapi.client.v1.rest.api.VideoReleaseApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.WeaponApi;
 import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiClient;
 import lombok.Getter;
+import org.apache.commons.lang3.StringUtils;
 
 public class StapiRestClient extends AbstractStapiClient implements StapiClient {
 
@@ -50,55 +91,10 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 	private ApiClient apiClient;
 
 	@Getter
-	private SeriesApi seriesApi;
-
-	@Getter
-	private PerformerApi performerApi;
-
-	@Getter
-	private StaffApi staffApi;
-
-	@Getter
-	private EpisodeApi episodeApi;
-
-	@Getter
-	private CharacterApi characterApi;
-
-	@Getter
-	private MovieApi movieApi;
+	private AnimalApi animalApi;
 
 	@Getter
 	private AstronomicalObjectApi astronomicalObjectApi;
-
-	@Getter
-	private CompanyApi companyApi;
-
-	@Getter
-	private ComicSeriesApi comicSeriesApi;
-
-	@Getter
-	private ComicsApi comicsApi;
-
-	@Getter
-	private ComicStripApi comicStripApi;
-
-	@Getter
-	private ComicCollectionApi comicCollectionApi;
-
-	@Getter
-	private SpeciesApi speciesApi;
-
-	@Getter
-	private OrganizationApi organizationApi;
-
-	@Getter
-	private FoodApi foodApi;
-
-	@Getter
-	private LocationApi locationApi;
-
-	@Getter
-	private BookSeriesApi bookSeriesApi;
 
 	@Getter
 	private BookApi bookApi;
@@ -107,154 +103,316 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 	private BookCollectionApi bookCollectionApi;
 
 	@Getter
+	private BookSeriesApi bookSeriesApi;
+
+	@Getter
+	private CharacterApi characterApi;
+
+	@Getter
+	private ComicCollectionApi comicCollectionApi;
+
+	@Getter
+	private ComicsApi comicsApi;
+
+	@Getter
+	private ComicSeriesApi comicSeriesApi;
+
+	@Getter
+	private ComicStripApi comicStripApi;
+
+	@Getter
+	private CompanyApi companyApi;
+
+	@Getter
+	private ConflictApi conflictApi;
+
+	@Getter
+	private ElementApi elementApi;
+
+	@Getter
+	private EpisodeApi episodeApi;
+
+	@Getter
+	private FoodApi foodApi;
+
+	@Getter
+	private LiteratureApi literatureApi;
+
+	@Getter
+	private LocationApi locationApi;
+
+	@Getter
 	private MagazineApi magazineApi;
 
 	@Getter
 	private MagazineSeriesApi magazineSeriesApi;
 
 	@Getter
-	private LiteratureApi literatureApi;
-
-	@Getter
-	private SeasonApi seasonApi;
-
-	@Getter
-	private VideoReleaseApi videoReleaseApi;
-
-	@Getter
-	private TradingCardSetApi tradingCardSetApi;
-
-	@Getter
-	private TradingCardDeckApi tradingCardDeckApi;
-
-	@Getter
-	private TradingCardApi tradingCardApi;
-
-	@Getter
-	private VideoGameApi videoGameApi;
-
-	@Getter
-	private SoundtrackApi soundtrackApi;
-
-	@Getter
-	private WeaponApi weaponApi;
-
-	@Getter
-	private SpacecraftClassApi spacecraftClassApi;
-
-	@Getter
-	private SpacecraftApi spacecraftApi;
-
-	@Getter
-	private TitleApi titleApi;
-
-	@Getter
 	private MaterialApi materialApi;
-
-	@Getter
-	private ConflictApi conflictApi;
-
-	@Getter
-	private AnimalApi animalApi;
-
-	@Getter
-	private ElementApi elementApi;
 
 	@Getter
 	private MedicalConditionApi medicalConditionApi;
 
 	@Getter
-	private TechnologyApi technologyApi;
+	private MovieApi movieApi;
 
 	@Getter
 	private OccupationApi occupationApi;
 
-	public StapiRestClient() {
-		seriesApi = new SeriesApi();
-		performerApi = new PerformerApi();
-		staffApi = new StaffApi();
-		characterApi = new CharacterApi();
-		episodeApi = new EpisodeApi();
-		movieApi = new MovieApi();
-		astronomicalObjectApi = new AstronomicalObjectApi();
-		companyApi = new CompanyApi();
-		comicSeriesApi = new ComicSeriesApi();
-		comicsApi = new ComicsApi();
-		comicStripApi = new ComicStripApi();
-		comicCollectionApi = new ComicCollectionApi();
-		speciesApi = new SpeciesApi();
-		organizationApi = new OrganizationApi();
-		foodApi = new FoodApi();
-		locationApi = new LocationApi();
-		bookSeriesApi = new BookSeriesApi();
-		bookApi = new BookApi();
-		bookCollectionApi = new BookCollectionApi();
-		magazineApi = new MagazineApi();
-		magazineSeriesApi = new MagazineSeriesApi();
-		literatureApi = new LiteratureApi();
-		seasonApi = new SeasonApi();
-		videoReleaseApi = new VideoReleaseApi();
-		tradingCardSetApi = new TradingCardSetApi();
-		tradingCardDeckApi = new TradingCardDeckApi();
-		tradingCardApi = new TradingCardApi();
-		videoGameApi = new VideoGameApi();
-		soundtrackApi = new SoundtrackApi();
-		weaponApi = new WeaponApi();
-		spacecraftClassApi = new SpacecraftClassApi();
-		spacecraftApi = new SpacecraftApi();
-		titleApi = new TitleApi();
-		materialApi = new MaterialApi();
-		conflictApi = new ConflictApi();
-		animalApi = new AnimalApi();
-		elementApi = new ElementApi();
-		medicalConditionApi = new MedicalConditionApi();
-		technologyApi = new TechnologyApi();
-		occupationApi = new OccupationApi();
-	}
+	@Getter
+	private OrganizationApi organizationApi;
 
-	public StapiRestClient(String apiUrl) {
-		this.apiUrl = apiUrl;
+	@Getter
+	private PerformerApi performerApi;
+
+	@Getter
+	private SeasonApi seasonApi;
+
+	@Getter
+	private SeriesApi seriesApi;
+
+	@Getter
+	private SoundtrackApi soundtrackApi;
+
+	@Getter
+	private SpacecraftApi spacecraftApi;
+
+	@Getter
+	private SpacecraftClassApi spacecraftClassApi;
+
+	@Getter
+	private SpeciesApi speciesApi;
+
+	@Getter
+	private StaffApi staffApi;
+
+	@Getter
+	private TechnologyApi technologyApi;
+
+	@Getter
+	private TitleApi titleApi;
+
+	@Getter
+	private TradingCardApi tradingCardApi;
+
+	@Getter
+	private TradingCardDeckApi tradingCardDeckApi;
+
+	@Getter
+	private TradingCardSetApi tradingCardSetApi;
+
+	@Getter
+	private VideoGameApi videoGameApi;
+
+	@Getter
+	private VideoReleaseApi videoReleaseApi;
+
+	@Getter
+	private WeaponApi weaponApi;
+
+	@Getter
+	private Animal animal;
+
+	@Getter
+	private AstronomicalObject astronomicalObject;
+
+	@Getter
+	private Book book;
+
+	@Getter
+	private BookCollection bookCollection;
+
+	@Getter
+	private BookSeries bookSeries;
+
+	@Getter
+	private Character character;
+
+	@Getter
+	private ComicCollection comicCollection;
+
+	@Getter
+	private Comics comics;
+
+	@Getter
+	private ComicSeries comicSeries;
+
+	@Getter
+	private ComicStrip comicStrip;
+
+	@Getter
+	private Company company;
+
+	@Getter
+	private Conflict conflict;
+
+	@Getter
+	private Element element;
+
+	@Getter
+	private Episode episode;
+
+	@Getter
+	private Food food;
+
+	@Getter
+	private Literature literature;
+
+	@Getter
+	private Location location;
+
+	@Getter
+	private Magazine magazine;
+
+	@Getter
+	private MagazineSeries magazineSeries;
+
+	@Getter
+	private Material material;
+
+	@Getter
+	private MedicalCondition medicalCondition;
+
+	@Getter
+	private Movie movie;
+
+	@Getter
+	private Occupation occupation;
+
+	@Getter
+	private Organization organization;
+
+	@Getter
+	private Performer performer;
+
+	@Getter
+	private Season season;
+
+	@Getter
+	private Series series;
+
+	@Getter
+	private Soundtrack soundtrack;
+
+	@Getter
+	private Spacecraft spacecraft;
+
+	@Getter
+	private SpacecraftClass spacecraftClass;
+
+	@Getter
+	private Species species;
+
+	@Getter
+	private Staff staff;
+
+	@Getter
+	private Technology technology;
+
+	@Getter
+	private Title title;
+
+	@Getter
+	private TradingCard tradingCard;
+
+	@Getter
+	private TradingCardDeck tradingCardDeck;
+
+	@Getter
+	private TradingCardSet tradingCardSet;
+
+	@Getter
+	private VideoGame videoGame;
+
+	@Getter
+	private VideoRelease videoRelease;
+
+	@Getter
+	private Weapon weapon;
+
+	public StapiRestClient(String apiUrl, String apiKey) {
+		this.apiUrl = StringUtils.defaultIfBlank(apiUrl, CANONICAL_API_URL);
 		createApiClient();
-		seriesApi = new SeriesApi(apiClient);
-		performerApi = new PerformerApi(apiClient);
-		staffApi = new StaffApi(apiClient);
-		characterApi = new CharacterApi(apiClient);
-		episodeApi = new EpisodeApi(apiClient);
-		movieApi = new MovieApi(apiClient);
 		astronomicalObjectApi = new AstronomicalObjectApi(apiClient);
-		companyApi = new CompanyApi(apiClient);
-		comicSeriesApi = new ComicSeriesApi(apiClient);
-		comicsApi = new ComicsApi(apiClient);
-		comicStripApi = new ComicStripApi(apiClient);
-		comicCollectionApi = new ComicCollectionApi(apiClient);
-		speciesApi = new SpeciesApi(apiClient);
-		organizationApi = new OrganizationApi(apiClient);
-		foodApi = new FoodApi(apiClient);
-		locationApi = new LocationApi(apiClient);
-		bookSeriesApi = new BookSeriesApi(apiClient);
+		animalApi = new AnimalApi(apiClient);
 		bookApi = new BookApi(apiClient);
 		bookCollectionApi = new BookCollectionApi(apiClient);
+		bookSeriesApi = new BookSeriesApi(apiClient);
+		characterApi = new CharacterApi(apiClient);
+		comicCollectionApi = new ComicCollectionApi(apiClient);
+		comicsApi = new ComicsApi(apiClient);
+		comicSeriesApi = new ComicSeriesApi(apiClient);
+		comicStripApi = new ComicStripApi(apiClient);
+		companyApi = new CompanyApi(apiClient);
+		conflictApi = new ConflictApi(apiClient);
+		elementApi = new ElementApi(apiClient);
+		episodeApi = new EpisodeApi(apiClient);
+		foodApi = new FoodApi(apiClient);
+		literatureApi = new LiteratureApi(apiClient);
+		locationApi = new LocationApi(apiClient);
 		magazineApi = new MagazineApi(apiClient);
 		magazineSeriesApi = new MagazineSeriesApi(apiClient);
-		literatureApi = new LiteratureApi(apiClient);
-		seasonApi = new SeasonApi(apiClient);
-		videoReleaseApi = new VideoReleaseApi(apiClient);
-		tradingCardSetApi = new TradingCardSetApi(apiClient);
-		tradingCardDeckApi = new TradingCardDeckApi(apiClient);
-		tradingCardApi = new TradingCardApi(apiClient);
-		videoGameApi = new VideoGameApi(apiClient);
-		soundtrackApi = new SoundtrackApi(apiClient);
-		weaponApi = new WeaponApi(apiClient);
-		spacecraftClassApi = new SpacecraftClassApi(apiClient);
-		spacecraftApi = new SpacecraftApi(apiClient);
-		titleApi = new TitleApi(apiClient);
 		materialApi = new MaterialApi(apiClient);
-		conflictApi = new ConflictApi(apiClient);
-		animalApi = new AnimalApi(apiClient);
-		elementApi = new ElementApi(apiClient);
 		medicalConditionApi = new MedicalConditionApi(apiClient);
-		technologyApi = new TechnologyApi(apiClient);
+		movieApi = new MovieApi(apiClient);
 		occupationApi = new OccupationApi(apiClient);
+		organizationApi = new OrganizationApi(apiClient);
+		performerApi = new PerformerApi(apiClient);
+		seasonApi = new SeasonApi(apiClient);
+		seriesApi = new SeriesApi(apiClient);
+		soundtrackApi = new SoundtrackApi(apiClient);
+		spacecraftApi = new SpacecraftApi(apiClient);
+		spacecraftClassApi = new SpacecraftClassApi(apiClient);
+		speciesApi = new SpeciesApi(apiClient);
+		staffApi = new StaffApi(apiClient);
+		technologyApi = new TechnologyApi(apiClient);
+		titleApi = new TitleApi(apiClient);
+		tradingCardApi = new TradingCardApi(apiClient);
+		tradingCardDeckApi = new TradingCardDeckApi(apiClient);
+		tradingCardSetApi = new TradingCardSetApi(apiClient);
+		videoGameApi = new VideoGameApi(apiClient);
+		videoReleaseApi = new VideoReleaseApi(apiClient);
+		weaponApi = new WeaponApi(apiClient);
+		animal = new Animal(animalApi, apiKey);
+		astronomicalObject = new AstronomicalObject(astronomicalObjectApi, apiKey);
+		book = new Book(bookApi, apiKey);
+		bookCollection = new BookCollection(bookCollectionApi, apiKey);
+		bookSeries = new BookSeries(bookSeriesApi, apiKey);
+		character = new Character(characterApi, apiKey);
+		comicCollection = new ComicCollection(comicCollectionApi, apiKey);
+		comics = new Comics(comicsApi, apiKey);
+		comicSeries = new ComicSeries(comicSeriesApi, apiKey);
+		comicStrip = new ComicStrip(comicStripApi, apiKey);
+		company = new Company(companyApi, apiKey);
+		conflict = new Conflict(conflictApi, apiKey);
+		element = new Element(elementApi, apiKey);
+		episode = new Episode(episodeApi, apiKey);
+		food = new Food(foodApi, apiKey);
+		literature = new Literature(literatureApi, apiKey);
+		location = new Location(locationApi, apiKey);
+		magazine = new Magazine(magazineApi, apiKey);
+		magazineSeries = new MagazineSeries(magazineSeriesApi, apiKey);
+		material = new Material(materialApi, apiKey);
+		medicalCondition = new MedicalCondition(medicalConditionApi, apiKey);
+		movie = new Movie(movieApi, apiKey);
+		occupation = new Occupation(occupationApi, apiKey);
+		organization = new Organization(organizationApi, apiKey);
+		performer = new Performer(performerApi, apiKey);
+		season = new Season(seasonApi, apiKey);
+		series = new Series(seriesApi, apiKey);
+		soundtrack = new Soundtrack(soundtrackApi, apiKey);
+		spacecraft = new Spacecraft(spacecraftApi, apiKey);
+		spacecraftClass = new SpacecraftClass(spacecraftClassApi, apiKey);
+		species = new Species(speciesApi, apiKey);
+		staff = new Staff(staffApi, apiKey);
+		technology = new Technology(technologyApi, apiKey);
+		title = new Title(titleApi, apiKey);
+		tradingCard = new TradingCard(tradingCardApi, apiKey);
+		tradingCardDeck = new TradingCardDeck(tradingCardDeckApi, apiKey);
+		tradingCardSet = new TradingCardSet(tradingCardSetApi, apiKey);
+		videoGame = new VideoGame(videoGameApi, apiKey);
+		videoRelease = new VideoRelease(videoReleaseApi, apiKey);
+		weapon = new Weapon(weaponApi, apiKey);
 	}
 
 	private void createApiClient() {

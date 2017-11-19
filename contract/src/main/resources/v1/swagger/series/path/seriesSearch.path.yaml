@@ -68,12 +68,12 @@ post:
       type: integer
       format: int32
       description: Maximal year the series production started
-    - name: productionStartEndFrom
+    - name: productionEndYearFrom
       in: formData
       type: integer
       format: int32
       description: Minimal year the series production ended
-    - name: productionStartEndTo
+    - name: productionEndYearTo
       in: formData
       type: integer
       format: int32

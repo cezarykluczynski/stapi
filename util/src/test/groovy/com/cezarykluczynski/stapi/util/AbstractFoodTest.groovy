@@ -1,9 +1,8 @@
 package com.cezarykluczynski.stapi.util
 
 import com.cezarykluczynski.stapi.util.tool.RandomUtil
-import spock.lang.Specification
 
-abstract class AbstractFoodTest extends Specification {
+abstract class AbstractFoodTest extends AbstractTest {
 
 	protected static final String NAME = 'NAME'
 	protected static final String UID = 'UID'

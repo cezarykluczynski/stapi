@@ -11,5 +11,6 @@
 	<suppress files=".+CategoryTitle\.java" checks="FileLength"/>
 	<suppress files=".+CountryDTOProvider\.java" checks="FileLength"/>
 	<suppress files=".+EtlJobConfiguration\.java" checks="FileLength"/>
+	<suppress files=".+StapiRestClient\.java" checks="FileLength"/>
 	<suppress files="com[\\/]cezarykluczynski[\\/]stapi[\\/]client[\\/]" checks="ClassFanOutComplexity"/>
 </suppressions>

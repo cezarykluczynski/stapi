@@ -110,23 +110,23 @@ post:
       description: Production run unit
     - name: cardWidthFrom
       in: formData
-      type: integer
-      format: int32
+      type: number
+      format: double
       description: Minimal card width, in inches
     - name: cardWidthTo
       in: formData
-      type: integer
-      format: int32
+      type: number
+      format: double
       description: Minimal card width, in inches
     - name: cardHeightFrom
       in: formData
-      type: integer
-      format: int32
+      type: number
+      format: double
       description: Minimal card height, in inches
     - name: cardHeightTo
       in: formData
-      type: integer
-      format: int32
+      type: number
+      format: double
       description: Minimal card height, in inches
   responses:
     200:

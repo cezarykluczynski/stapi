@@ -1,9 +1,8 @@
 package com.cezarykluczynski.stapi.util
 
 import com.cezarykluczynski.stapi.util.tool.RandomUtil
-import spock.lang.Specification
 
-class AbstractLiteratureTest extends Specification {
+class AbstractLiteratureTest extends AbstractTest {
 
 	protected static final String UID = 'ABCD0123456789'
 	protected static final String TITLE = 'TITLE'
