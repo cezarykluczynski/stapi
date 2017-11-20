@@ -417,7 +417,9 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 
 	private void createApiClient() {
 		apiClient = new ApiClient();
-		apiClient.setBasePath(changeBaseUrl(apiUrl, apiClient.getBasePath()));
+		if (apiUrl != null) {
+			apiClient.setBasePath(changeBaseUrl(apiUrl, apiClient.getBasePath()));
+		}
 		apiClient.setConnectTimeout(10000);
 	}
 

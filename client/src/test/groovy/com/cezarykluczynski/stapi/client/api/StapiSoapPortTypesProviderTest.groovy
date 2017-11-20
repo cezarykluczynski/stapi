@@ -5,7 +5,7 @@ class StapiSoapPortTypesProviderTest extends AbstractStapiClientTest {
 	@SuppressWarnings('LineLength')
 	void "provider can be instantiated with canonical URL"() {
 		when:
-		StapiSoapPortTypesProvider stapiSoapPortTypesProvider = new StapiSoapPortTypesProvider()
+		StapiSoapPortTypesProvider stapiSoapPortTypesProvider = new StapiSoapPortTypesProvider(null)
 
 		then:
 		((String) toBindingProvider(stapiSoapPortTypesProvider.seriesPortType).requestContext.get(URL_KEY)).contains(StapiClient.CANONICAL_API_URL)

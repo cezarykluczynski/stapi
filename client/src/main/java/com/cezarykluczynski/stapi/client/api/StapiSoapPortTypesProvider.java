@@ -170,49 +170,6 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 
 	private OccupationPortType occupationPortType;
 
-	public StapiSoapPortTypesProvider() {
-		seriesPortType = new SeriesService().getSeriesPortType();
-		performerPortType = new PerformerService().getPerformerPortType();
-		staffPortType = new StaffService().getStaffPortType();
-		characterPortType = new CharacterService().getCharacterPortType();
-		episodePortType = new EpisodeService().getEpisodePortType();
-		moviePortType = new MovieService().getMoviePortType();
-		astronomicalObjectPortType = new AstronomicalObjectService().getAstronomicalObjectPortType();
-		companyPortType = new CompanyService().getCompanyPortType();
-		comicSeriesPortType = new ComicSeriesService().getComicSeriesPortType();
-		comicsPortType = new ComicsService().getComicsPortType();
-		comicStripPortType = new ComicStripService().getComicStripPortType();
-		comicCollectionPortType = new ComicCollectionService().getComicCollectionPortType();
-		speciesPortType = new SpeciesService().getSpeciesPortType();
-		organizationPortType = new OrganizationService().getOrganizationPortType();
-		foodPortType = new FoodService().getFoodPortType();
-		locationPortType = new LocationService().getLocationPortType();
-		bookSeriesPortType = new BookSeriesService().getBookSeriesPortType();
-		bookPortType = new BookService().getBookPortType();
-		bookCollectionPortType = new BookCollectionService().getBookCollectionPortType();
-		magazinePortType = new MagazineService().getMagazinePortType();
-		magazineSeriesPortType = new MagazineSeriesService().getMagazineSeriesPortType();
-		literaturePortType = new LiteratureService().getLiteraturePortType();
-		seasonPortType = new SeasonService().getSeasonPortType();
-		videoReleasePortType = new VideoReleaseService().getVideoReleasePortType();
-		tradingCardSetPortType = new TradingCardSetService().getTradingCardSetPortType();
-		tradingCardDeckPortType = new TradingCardDeckService().getTradingCardDeckPortType();
-		tradingCardPortType = new TradingCardService().getTradingCardPortType();
-		videoGamePortType = new VideoGameService().getVideoGamePortType();
-		soundtrackPortType = new SoundtrackService().getSoundtrackPortType();
-		weaponPortType = new WeaponService().getWeaponPortType();
-		spacecraftClassPortType = new SpacecraftClassService().getSpacecraftClassPortType();
-		spacecraftPortType = new SpacecraftService().getSpacecraftPortType();
-		titlePortType = new TitleService().getTitlePortType();
-		materialPortType = new MaterialService().getMaterialPortType();
-		conflictPortType = new ConflictService().getConflictPortType();
-		animalPortType = new AnimalService().getAnimalPortType();
-		elementPortType = new ElementService().getElementPortType();
-		medicalConditionPortType = new MedicalConditionService().getMedicalConditionPortType();
-		technologyPortType = new TechnologyService().getTechnologyPortType();
-		occupationPortType = new OccupationService().getOccupationPortType();
-	}
-
 	public StapiSoapPortTypesProvider(String apiUrl) {
 		this.apiUrl = apiUrl;
 		seriesPortType = changeUrl(new SeriesService().getSeriesPortType());
@@ -258,6 +215,10 @@ public class StapiSoapPortTypesProvider extends AbstractStapiClient implements S
 	}
 
 	private <T> T changeUrl(T service) {
+		if (getApiUrl() == null) {
+			return service;
+		}
+
 		BindingProvider bindingProvider = (BindingProvider) service;
 		Map<String, Object> requestContext = bindingProvider.getRequestContext();
 		String newServiceUrl = changeBaseUrl(apiUrl, (String) requestContext.get(BindingProvider.ENDPOINT_ADDRESS_PROPERTY));
