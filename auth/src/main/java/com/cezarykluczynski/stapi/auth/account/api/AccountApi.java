@@ -3,10 +3,12 @@ package com.cezarykluczynski.stapi.auth.account.api;
 import com.cezarykluczynski.stapi.auth.oauth.github.dto.GitHubUserDetailsDTO;
 import com.cezarykluczynski.stapi.model.account.entity.Account;
 import com.cezarykluczynski.stapi.model.account.repository.AccountRepository;
+import com.cezarykluczynski.stapi.model.api_key.repository.ApiKeyRepository;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -16,8 +18,11 @@ public class AccountApi {
 
 	private final AccountRepository accountRepository;
 
-	public AccountApi(AccountRepository accountRepository) {
+	private final ApiKeyRepository apiKeyRepository;
+
+	public AccountApi(AccountRepository accountRepository, ApiKeyRepository apiKeyRepository) {
 		this.accountRepository = accountRepository;
+		this.apiKeyRepository = apiKeyRepository;
 	}
 
 	public Account ensureExists(GitHubUserDetailsDTO gitHubUserDetailsDTO) {
@@ -48,6 +53,12 @@ public class AccountApi {
 		} else {
 			return accountOptional.get();
 		}
+	}
+
+	@Transactional
+	public void remove(Long accountId) {
+		apiKeyRepository.deleteByAccountId(accountId);
+		accountRepository.delete(accountId);
 	}
 
 }

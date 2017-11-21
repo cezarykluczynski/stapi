@@ -17,4 +17,5 @@ class ApiKeyRemovalResponseDTOFactory {
 				.removed(true)
 				.build();
 	}
+
 }

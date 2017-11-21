@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.auth.account.api
 import com.cezarykluczynski.stapi.auth.oauth.github.dto.GitHubUserDetailsDTO
 import com.cezarykluczynski.stapi.model.account.entity.Account
 import com.cezarykluczynski.stapi.model.account.repository.AccountRepository
+import com.cezarykluczynski.stapi.model.api_key.repository.ApiKeyRepository
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import org.springframework.dao.DataIntegrityViolationException
 import spock.lang.Specification
@@ -10,16 +11,20 @@ import spock.lang.Specification
 class AccountApiTest extends Specification {
 
 	private static final Long ID = 11L
+	private static final Long ACCOUNT_ID = 10L
 	private static final String NAME = 'NAME'
 	private static final String LOGIN = 'LOGIN'
 
 	private AccountRepository accountRepositoryMock
 
+	private ApiKeyRepository apiKeyRepositoryMock
+
 	private AccountApi accountApi
 
 	void setup() {
 		accountRepositoryMock = Mock()
-		accountApi = new AccountApi(accountRepositoryMock)
+		apiKeyRepositoryMock = Mock()
+		accountApi = new AccountApi(accountRepositoryMock, apiKeyRepositoryMock)
 	}
 
 	void "when account is found by GitHub ID, nothing happens"() {
@@ -116,6 +121,16 @@ class AccountApiTest extends Specification {
 		then:
 		0 * _
 		thrown(StapiRuntimeException)
+	}
+
+	void "deletes account with API keys"() {
+		when:
+		accountApi.remove(ACCOUNT_ID)
+
+		then:
+		1 * apiKeyRepositoryMock.deleteByAccountId(ACCOUNT_ID)
+		1 * accountRepositoryMock.delete(ACCOUNT_ID)
+		0 * _
 	}
 
 }

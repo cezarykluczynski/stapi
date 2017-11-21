@@ -20,4 +20,5 @@ public interface ApiKeyRepository extends JpaRepository<ApiKey, Long> {
 
 	long countByAccountId(Long id);
 
+	void deleteByAccountId(Long accountId);
 }

@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.server.panel.endpoint;
 
+import com.cezarykluczynski.stapi.auth.account.operation.AccountOwnOperationsService;
+import com.cezarykluczynski.stapi.auth.account.operation.removal.AccountRemovalResponseDTO;
 import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
 import com.cezarykluczynski.stapi.util.constant.ContentType;
 import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
@@ -17,10 +19,16 @@ public class PanelAccountSettingsEndpoint {
 
 	public static final String ADDRESS = "/v1/rest/panel/accountSettings";
 
+	private final AccountOwnOperationsService accountOwnOperationsService;
+
+	public PanelAccountSettingsEndpoint(AccountOwnOperationsService accountOwnOperationsService) {
+		this.accountOwnOperationsService = accountOwnOperationsService;
+	}
+
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	public String todo() {
-		return "todo"; // TODO
+	public AccountRemovalResponseDTO remove() {
+		return accountOwnOperationsService.remove();
 	}
 
 }
