@@ -90,4 +90,16 @@ class OAuthSessionHolderTest extends Specification {
 		thrown(StapiRuntimeException)
 	}
 
+	void "session can be removed"() {
+		given:
+		OAuthSession oAuthSession = new OAuthSession(gitHubId: ID, gitHubName: NAME, permissions: Lists.newArrayList(PERMISSION))
+		oAuthSessionHolder.setOAuthSession(oAuthSession)
+
+		when:
+		oAuthSessionHolder.remove()
+
+		then:
+		oAuthSessionHolder.nullableOAuthSession == null
+	}
+
 }

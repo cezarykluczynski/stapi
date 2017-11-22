@@ -136,7 +136,7 @@ describe('PanelApiKeysComponent', () => {
 		});
 	});
 
-	it('ask for API key removal, then removed key', () => {
+	it('ask for API key removal, then removes key', () => {
 		fixture.whenStable().then(() => {
 			const apiKeyId = API_KEYS.apiKeys[0].id;
 			component.askForApiKeyRemoval(apiKeyId);

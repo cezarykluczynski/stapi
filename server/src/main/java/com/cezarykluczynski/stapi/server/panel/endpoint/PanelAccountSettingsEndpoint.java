@@ -8,7 +8,7 @@ import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -25,7 +25,7 @@ public class PanelAccountSettingsEndpoint {
 		this.accountOwnOperationsService = accountOwnOperationsService;
 	}
 
-	@GET
+	@DELETE
 	@Consumes(MediaType.APPLICATION_JSON)
 	public AccountRemovalResponseDTO remove() {
 		return accountOwnOperationsService.remove();

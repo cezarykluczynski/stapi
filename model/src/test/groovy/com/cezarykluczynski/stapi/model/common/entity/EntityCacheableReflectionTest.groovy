@@ -32,6 +32,11 @@ class EntityCacheableReflectionTest extends AbstractEntityReflectionTest {
 
 		when:
 		entitiesClasses.forEach { entityClass ->
+			TrackedEntity trackedEntity = (TrackedEntity) entityClass.getAnnotation(TrackedEntity)
+			if (TrackedEntityType.TECHNICAL == trackedEntity.type()) {
+				return
+			}
+
 			Set<Field> thisFieldsOneToMany = getFieldsByClass(fieldsOneToMany, entityClass)
 			Set<Field> thisFieldsManyToMany = getFieldsByClass(fieldsManyToMany, entityClass)
 			String entityName = StringUtils.split(entityClass.name, '.').last()
@@ -63,14 +68,14 @@ class EntityCacheableReflectionTest extends AbstractEntityReflectionTest {
 		Set<Class<?>> cacheClasses = reflections.getTypesAnnotatedWith(Cache)
 
 		when:
-		entitiesClasses.forEach { it ->
-			TrackedEntity trackedEntity = (TrackedEntity) it.getAnnotation(TrackedEntity)
+		entitiesClasses.forEach { entityClass ->
+			TrackedEntity trackedEntity = (TrackedEntity) entityClass.getAnnotation(TrackedEntity)
 			if (TrackedEntityType.TECHNICAL == trackedEntity.type()) {
 				return
 			}
 
-			if (!cacheClasses.contains(it)) {
-				throw new RuntimeException("Class $it.name is annotated with @Entity, but not with @Cache")
+			if (!cacheClasses.contains(entityClass)) {
+				throw new RuntimeException("Class $entityClass.name is annotated with @Entity, but not with @Cache")
 			}
 		}
 

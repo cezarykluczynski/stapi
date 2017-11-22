@@ -1,22 +1,29 @@
 package com.cezarykluczynski.stapi.model.account.entity;
 
 import com.cezarykluczynski.stapi.model.account.repository.AccountRepository;
+import com.cezarykluczynski.stapi.model.api_key.entity.ApiKey;
 import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.util.Set;
 
 @Data
 @Entity
-@ToString
+@ToString(exclude = {"apiKeys"})
+@EqualsAndHashCode(exclude = {"apiKeys"})
 @TrackedEntity(type = TrackedEntityType.TECHNICAL, repository = AccountRepository.class, apiEntity = false, singularName = "account",
 		pluralName = "accounts")
 @Table(name = "account", schema = "stapi_users")
@@ -34,5 +41,8 @@ public class Account {
 
 	@Column(name = "github_user_id")
 	private Long gitHubUserId;
+
+	@OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	private Set<ApiKey> apiKeys;
 
 }

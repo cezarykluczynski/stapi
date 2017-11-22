@@ -29,4 +29,8 @@ public class OAuthSessionHolder {
 		this.oAuthSession = newOAuthSession;
 	}
 
+	public void remove() {
+		this.oAuthSession = null;
+	}
+
 }

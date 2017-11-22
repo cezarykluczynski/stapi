@@ -1,3 +1,20 @@
-<p>
-	panel-account-settings works!
-</p>
+<div>
+	<div class="row">
+		<div class="col-md-12">
+			<h3>Remove account</h3>
+		</div>
+		<div class="col-md-12" *ngIf="!isAccountBeingRemoved()">
+			You can remove your account along with you API keys. This action cannot be reverted.
+			<br>
+			<button class="btn btn-danger btn-sm" (click)="askForAccountRemoval()">Remove my account</button>
+		</div>
+		<div class="col-md-12" *ngIf="isAccountBeingRemoved()">
+			Are you sure you want to remove you account? This action cannot be reverted. This will also delete your
+			API keys, and those same keys cannot be recreated.All application using this key will be treated
+			as not authenticated. Remove you account along with your keys now?
+			<br>
+			<button class="btn btn-danger btn-sm" (click)="removeAccount()">Yes, remove my account</button>
+			<button class="btn btn-primary btn-sm" (click)="cancelAccountRemoval()">No, do not remove my account</button>
+		</div>
+	</div>
+</div>

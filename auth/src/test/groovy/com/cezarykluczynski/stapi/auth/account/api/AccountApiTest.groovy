@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.auth.account.api
 
 import com.cezarykluczynski.stapi.auth.oauth.github.dto.GitHubUserDetailsDTO
+import com.cezarykluczynski.stapi.auth.oauth.session.OAuthSessionHolder
 import com.cezarykluczynski.stapi.model.account.entity.Account
 import com.cezarykluczynski.stapi.model.account.repository.AccountRepository
-import com.cezarykluczynski.stapi.model.api_key.repository.ApiKeyRepository
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import org.springframework.dao.DataIntegrityViolationException
 import spock.lang.Specification
@@ -17,14 +17,14 @@ class AccountApiTest extends Specification {
 
 	private AccountRepository accountRepositoryMock
 
-	private ApiKeyRepository apiKeyRepositoryMock
+	private OAuthSessionHolder oAuthSessionHolderMock
 
 	private AccountApi accountApi
 
 	void setup() {
 		accountRepositoryMock = Mock()
-		apiKeyRepositoryMock = Mock()
-		accountApi = new AccountApi(accountRepositoryMock, apiKeyRepositoryMock)
+		oAuthSessionHolderMock = Mock()
+		accountApi = new AccountApi(accountRepositoryMock, oAuthSessionHolderMock)
 	}
 
 	void "when account is found by GitHub ID, nothing happens"() {
@@ -123,13 +123,13 @@ class AccountApiTest extends Specification {
 		thrown(StapiRuntimeException)
 	}
 
-	void "deletes account with API keys"() {
+	void "deletes account and session entry"() {
 		when:
 		accountApi.remove(ACCOUNT_ID)
 
 		then:
-		1 * apiKeyRepositoryMock.deleteByAccountId(ACCOUNT_ID)
 		1 * accountRepositoryMock.delete(ACCOUNT_ID)
+		1 * oAuthSessionHolderMock.remove()
 		0 * _
 	}
 

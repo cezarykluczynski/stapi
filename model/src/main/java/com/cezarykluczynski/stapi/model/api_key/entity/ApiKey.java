@@ -24,8 +24,8 @@ import javax.persistence.Table;
 
 @Data
 @Entity
-@ToString(exclude = "throttle")
-@EqualsAndHashCode(exclude = "throttle")
+@ToString(exclude = {"account", "throttle"})
+@EqualsAndHashCode(exclude = {"account", "throttle"})
 @TrackedEntity(type = TrackedEntityType.TECHNICAL, repository = ApiKeyRepository.class, apiEntity = false, singularName = "api key",
 		pluralName = "api keys")
 @Table(name = "api_key", schema = "stapi_users")

@@ -37,6 +37,7 @@ import { PanelApi } from './panel/panel-api.service';
 import { PanelApiKeysComponent } from './panel/api-keys/panel-api-keys.component';
 import { PanelApiKeysApi } from './panel/api-keys/panel-api-keys-api.service';
 import { PanelAccountSettingsComponent } from './panel/account-settings/panel-account-settings.component';
+import { PanelAccountApi } from './panel/account-settings/panel-account-api.service';
 import { PanelAdminManagementComponent } from './panel/admin-management/panel-admin-management.component';
 
 const appRoutes: Routes = [
@@ -120,6 +121,7 @@ export function initConfiguration(initializerService: InitializerService): Funct
 		ApiBrowserApi,
 		ApiDocumentationApi,
 		RestApiService,
+		PanelAccountApi,
 		PanelApiKeysApi,
 		PanelApi,
 		StatisticsApi,

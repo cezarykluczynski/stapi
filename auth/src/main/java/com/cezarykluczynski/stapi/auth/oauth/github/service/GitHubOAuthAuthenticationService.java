@@ -40,22 +40,15 @@ class GitHubOAuthAuthenticationService {
 	private void doAuthenticate(String code) {
 		String accessTokenResponseBody = urlContentRetriever.getBody(gitHubOAuthUrlFactory.createAccessTokenUrl(code).getUrl());
 
-		if (accessTokenResponseBody == null) {
-			return;
+		if (accessTokenResponseBody != null) {
+			String accessToken = gitHubAccessTokenExtractor.extract(accessTokenResponseBody);
+			if (accessToken != null) {
+				String userResponseBody = urlContentRetriever.getBody(gitHubOAuthUrlFactory.createUserUrl(accessToken).getUrl());
+				if (userResponseBody != null) {
+					gitHubOAuthSessionCreator.create(accountApi.ensureExists(gitHubUserDetailsDTOFactory.create(userResponseBody)));
+				}
+			}
 		}
-
-		String accessToken = gitHubAccessTokenExtractor.extract(accessTokenResponseBody);
-		if (accessToken == null) {
-			return;
-		}
-
-		String userResponseBody = urlContentRetriever.getBody(gitHubOAuthUrlFactory.createUserUrl(accessToken).getUrl());
-
-		if (userResponseBody == null) {
-			return;
-		}
-
-		gitHubOAuthSessionCreator.create(accountApi.ensureExists(gitHubUserDetailsDTOFactory.create(userResponseBody)));
 	}
 
 }

@@ -1,9 +1,9 @@
 package com.cezarykluczynski.stapi.auth.account.api;
 
 import com.cezarykluczynski.stapi.auth.oauth.github.dto.GitHubUserDetailsDTO;
+import com.cezarykluczynski.stapi.auth.oauth.session.OAuthSessionHolder;
 import com.cezarykluczynski.stapi.model.account.entity.Account;
 import com.cezarykluczynski.stapi.model.account.repository.AccountRepository;
-import com.cezarykluczynski.stapi.model.api_key.repository.ApiKeyRepository;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -14,15 +14,16 @@ import java.util.Optional;
 
 @Service
 @Slf4j
+@SuppressWarnings({"MemberName", "ParameterName"})
 public class AccountApi {
 
 	private final AccountRepository accountRepository;
 
-	private final ApiKeyRepository apiKeyRepository;
+	private final OAuthSessionHolder oAuthSessionHolder;
 
-	public AccountApi(AccountRepository accountRepository, ApiKeyRepository apiKeyRepository) {
+	public AccountApi(AccountRepository accountRepository, OAuthSessionHolder oAuthSessionHolder) {
 		this.accountRepository = accountRepository;
-		this.apiKeyRepository = apiKeyRepository;
+		this.oAuthSessionHolder = oAuthSessionHolder;
 	}
 
 	public Account ensureExists(GitHubUserDetailsDTO gitHubUserDetailsDTO) {
@@ -57,8 +58,8 @@ public class AccountApi {
 
 	@Transactional
 	public void remove(Long accountId) {
-		apiKeyRepository.deleteByAccountId(accountId);
 		accountRepository.delete(accountId);
+		oAuthSessionHolder.remove();
 	}
 
 }
