@@ -12,6 +12,7 @@ class AccountApiTest extends Specification {
 
 	private static final Long ID = 11L
 	private static final Long ACCOUNT_ID = 10L
+	private static final Long GITHUB_ID = 12L
 	private static final String NAME = 'NAME'
 	private static final String LOGIN = 'LOGIN'
 
@@ -131,6 +132,20 @@ class AccountApiTest extends Specification {
 		1 * accountRepositoryMock.delete(ACCOUNT_ID)
 		1 * oAuthSessionHolderMock.remove()
 		0 * _
+	}
+
+	void "finds account by GitHub ID"() {
+		given:
+		Account account = Mock()
+
+		when:
+		Optional<Account> accountOptional = accountApi.findByGitHubUserId(GITHUB_ID)
+
+		then:
+		1 * accountRepositoryMock.findByGitHubUserId(GITHUB_ID) >> Optional.of(account)
+		0 * _
+		accountOptional.isPresent()
+		accountOptional.get() == account
 	}
 
 }

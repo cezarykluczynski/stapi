@@ -62,4 +62,7 @@ public class AccountApi {
 		oAuthSessionHolder.remove();
 	}
 
+	public Optional<Account> findByGitHubUserId(Long gitHubId) {
+		return accountRepository.findByGitHubUserId(gitHubId);
+	}
 }

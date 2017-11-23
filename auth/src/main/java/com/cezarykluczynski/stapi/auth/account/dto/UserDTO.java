@@ -10,6 +10,8 @@ public class UserDTO {
 
 	private String name;
 
+	private String email;
+
 	private Set<String> permissions = Sets.newHashSet();
 
 }

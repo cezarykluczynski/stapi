@@ -19,7 +19,7 @@ public class PanelCurrentUserProvider {
 	}
 
 	public UserDTO provide() {
-		return userDTOMapper.map(oAuthSessionHolder.getNullableOAuthSession());
+		return userDTOMapper.map(oAuthSessionHolder.getOAuthSession());
 	}
 
 }

@@ -29,7 +29,7 @@ class PanelCurrentUserProviderTest extends Specification {
 		UserDTO userDTOOutput = panelCurrentUserProvider.provide()
 
 		then:
-		1 * oAuthSessionHolderMock.nullableOAuthSession >> oAuthSession
+		1 * oAuthSessionHolderMock.OAuthSession >> oAuthSession
 		1 * userDTOMapperMock.map(oAuthSession) >> userDTO
 		0 * _
 		userDTOOutput == userDTO
