@@ -148,4 +148,19 @@ class AccountApiTest extends Specification {
 		accountOptional.get() == account
 	}
 
+	void "find account by ID"() {
+		given:
+		Account account = Mock()
+
+		when:
+		Optional<Account> accountOptional = accountApi.findById(ID)
+
+		then:
+		1 * accountRepositoryMock.findOne(ID) >> account
+		0 * _
+		accountOptional.isPresent()
+		accountOptional.get() == account
+
+	}
+
 }

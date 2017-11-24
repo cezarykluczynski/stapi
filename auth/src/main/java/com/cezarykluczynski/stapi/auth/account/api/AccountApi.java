@@ -65,4 +65,8 @@ public class AccountApi {
 	public Optional<Account> findByGitHubUserId(Long gitHubId) {
 		return accountRepository.findByGitHubUserId(gitHubId);
 	}
+
+	public Optional<Account> findById(Long accountId) {
+		return Optional.ofNullable(accountRepository.findOne(accountId));
+	}
 }

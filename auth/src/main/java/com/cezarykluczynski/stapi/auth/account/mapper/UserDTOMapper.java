@@ -20,10 +20,7 @@ public class UserDTOMapper {
 
 	public UserDTO map(@SuppressWarnings("ParameterName") OAuthSession oAuthSession) {
 		Optional<Account> accountOptional = accountApi.findByGitHubUserId(oAuthSession.getGitHubId());
-		if (!accountOptional.isPresent()) {
-			throw new StapiRuntimeException("Account not found!");
-		}
-		Account account = accountOptional.get();
+		Account account = accountOptional.orElseThrow(() -> new StapiRuntimeException("Account not found!"));
 		UserDTO userDTO = new UserDTO();
 		userDTO.setName(account.getName());
 		userDTO.setEmail(account.getEmail());
