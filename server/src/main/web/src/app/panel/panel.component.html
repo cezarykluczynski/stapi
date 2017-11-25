@@ -16,7 +16,7 @@
 		</div>
 		<div class="col-md-9">
 			<panel-api-keys *ngIf="apiKeysIsVisible()"></panel-api-keys>
-			<panel-account-settings *ngIf="accountSettingsIsVisible()"></panel-account-settings>
+			<panel-account-settings *ngIf="accountSettingsIsVisible()" [basicData]="basicData"></panel-account-settings>
 			<panel-admin-management *ngIf="adminManagementIsVisible()"></panel-admin-management>
 		</div>
 	</div>

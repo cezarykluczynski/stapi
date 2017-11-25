@@ -30,6 +30,7 @@ class RestApiServiceMock {
 
 describe('PanelComponent', () => {
 	const NAME = 'NAME';
+	const EMAIL = 'EMAIL';
 	const URL = 'URL';
 	let component: PanelComponent;
 	let fixture: ComponentFixture<PanelComponent>;
@@ -92,6 +93,7 @@ describe('PanelComponent', () => {
 				resolve = () => {
 					_resolve({
 						name: NAME,
+						email: EMAIL,
 						permissions: permissions
 					});
 				}
@@ -200,7 +202,7 @@ describe('PanelComponent', () => {
 				fixture.debugElement.query(By.css('.panel-github-authenticate')).nativeElement.click();
 
 				fixture.whenStable().then(() => {
-					expect(component.getName()).toBeUndefined();
+					expect(component.getName()).toBe('stranger');
 					expect(window.location.href).toBe(URL);
 					expect(component.isAuthenticated()).toBeFalse();
 					expect(component.isAuthenticationRequired()).toBeTrue();

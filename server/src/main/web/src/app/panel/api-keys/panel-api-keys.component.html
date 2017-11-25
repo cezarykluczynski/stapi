@@ -17,8 +17,8 @@
 				</small>
 			</div>
 			<div *ngIf="removingApiKey(apiKey.id)">
-				Are you sure you want to remove this key? This action cannot be reverted, meaning that the same key cannot be recreated.
-				All application using this key will be treated as not authenticated. Remove key now?
+				Are you sure you want to remove this key? This action cannot be reverted, meaning that the same key cannot be recreated. All
+				application using this key will be treated as not authenticated. Remove key now?
 				<br>
 				<button class="btn btn-danger btn-sm" (click)="removeApiKey(apiKey.id)">Yes, remove this key</button>
 				<button class="btn btn-primary btn-sm" (click)="doNotRemoveApiKey(apiKey.id)">No, do not remove this key</button>

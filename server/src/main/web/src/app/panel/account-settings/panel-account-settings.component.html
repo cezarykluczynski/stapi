@@ -1,10 +1,36 @@
 <div>
 	<div class="row">
 		<div class="col-md-12">
+			<h3>Perfonal informations</h3>
+			<form>
+				<div class="form-group">
+					<label for="name">Name</label>
+					<input type="text" class="form-control" [(ngModel)]="basicDataEditable.name" name="name" required>
+				</div>
+
+				<div class="form-group">
+					<label for="email">E-mail</label>
+					<input type="email" class="form-control" [(ngModel)]="basicDataEditable.email" name="email" required>
+				</div>
+
+				<button type="submit" class="btn btn-success" (click)="updateBasicData()">Save</button>
+			</form>
+		</div>
+
+		<hr>
+
+		<div class="col-md-12">
+			<h3>Subscriptions</h3>
+		</div>
+
+		<hr>
+
+		<div class="col-md-12">
 			<h3>Remove account</h3>
 		</div>
 		<div class="col-md-12" *ngIf="!isAccountBeingRemoved()">
 			You can remove your account along with you API keys. This action cannot be reverted.
+			<br>
 			<br>
 			<button class="btn btn-danger btn-sm" (click)="askForAccountRemoval()">Remove my account</button>
 		</div>
@@ -12,6 +38,7 @@
 			Are you sure you want to remove you account? This action cannot be reverted. This will also delete your
 			API keys, and those same keys cannot be recreated.All application using this key will be treated
 			as not authenticated. Remove you account along with your keys now?
+			<br>
 			<br>
 			<button class="btn btn-danger btn-sm" (click)="removeAccount()">Yes, remove my account</button>
 			<button class="btn btn-primary btn-sm" (click)="cancelAccountRemoval()">No, do not remove my account</button>

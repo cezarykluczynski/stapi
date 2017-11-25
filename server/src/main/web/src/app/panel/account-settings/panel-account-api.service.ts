@@ -18,8 +18,13 @@ export class PanelAccountApi {
 		return this.api.panel.accountSettings.delete();
 	}
 
+	updateBasicData(basicData) {
+		return this.api.panel.basicData.post(basicData, 'application/x-www-form-urlencoded');
+	}
+
 	private register() {
 		this.api.res('panel').res('accountSettings');
+		this.api.res('panel').res('basicData');
 	}
 
 }

@@ -33,6 +33,7 @@ export class PanelComponent implements OnInit {
 	private redirecting: boolean = false;
 	private authenticationRequired: boolean = false;
 	private activeView: PanelView = PanelView.API_KEYS;
+	private basicData: any;
 
 	constructor(panelApi: PanelApi, windowReferenceService: WindowReferenceService, restApiService: RestApiService) {
 		this.panelApi = panelApi;
@@ -50,7 +51,10 @@ export class PanelComponent implements OnInit {
 
 		this.panelApi.getMe().then((response) => {
 			this.authenticated = true;
-			this.name = response.name;
+			this.basicData = {
+				name: response.name,
+				email: response.email
+			};
 			this.permissions = new Set();
 			response.permissions.forEach((permission) => {
 				let applicationPermission: ApplicationPermission = ApplicationPermission[<string>permission];
@@ -60,7 +64,7 @@ export class PanelComponent implements OnInit {
 	}
 
 	getName() {
-		return this.name;
+		return this.basicData ? this.basicData.name : 'stranger';
 	}
 
 	getButtonLabel() {

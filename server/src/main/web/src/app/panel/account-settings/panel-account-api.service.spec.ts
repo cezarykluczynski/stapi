@@ -45,15 +45,20 @@ describe('PanelAccountApi', () => {
 	it('is created', inject([PanelAccountApi], (panelAccountApi: PanelAccountApi) => {
 		expect(panelAccountApi).toBeTruthy();
 
-		expect(res.calls.count()).toBe(2);
+		expect(res.calls.count()).toBe(4);
 		expect(res.calls.argsFor(0)).toEqual(['panel']);
 		expect(res.calls.argsFor(1)).toEqual(['accountSettings']);
+		expect(res.calls.argsFor(2)).toEqual(['panel']);
+		expect(res.calls.argsFor(3)).toEqual(['basicData']);
 	}));
 
 	describe('after initialization', () => {
-		let DELETE_RESULT = {
+		const DELETE_RESULT = {
 			successful: true
 		};
+		const UPDATE_RESULT = {
+			successful: true
+		}
 
 		beforeEach(() => {
 			restClientMock.panel = {};
@@ -62,11 +67,22 @@ describe('PanelAccountApi', () => {
 					return Promise.resolve(DELETE_RESULT);
 				}
 			};
+			restClientMock.panel.basicData = {
+				post: () => {
+					return Promise.resolve(UPDATE_RESULT);
+				}
+			}
 		});
 
 		it('removes account', inject([PanelAccountApi], (panelAccountApi: PanelAccountApi) => {
 			panelAccountApi.removeAccount().then((response) => {
 				expect(response).toBe(DELETE_RESULT);
+			});
+		}));
+
+		it('updates basic data', inject([PanelAccountApi], (panelAccountApi: PanelAccountApi) => {
+			panelAccountApi.updateBasicData({}).then((response) => {
+				expect(response).toBe(UPDATE_RESULT);
 			});
 		}));
 	});
