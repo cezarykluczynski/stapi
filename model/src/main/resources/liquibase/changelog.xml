@@ -55,4 +55,5 @@
 	<include file="technology/0052_create_technology.xml" relativeToChangelogFile="true"/>
 	<include file="account/0053_create_account.xml" relativeToChangelogFile="true"/>
 	<include file="api_key/0054_create_api_key.xml" relativeToChangelogFile="true"/>
+	<include file="consent/0055_create_consent.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

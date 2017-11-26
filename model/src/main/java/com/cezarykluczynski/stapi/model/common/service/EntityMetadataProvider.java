@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.model.comic_series.entity.ComicSeries;
 import com.cezarykluczynski.stapi.model.comic_strip.entity.ComicStrip;
 import com.cezarykluczynski.stapi.model.comics.entity.Comics;
 import com.cezarykluczynski.stapi.model.conflict.entity.Conflict;
+import com.cezarykluczynski.stapi.model.consent.entity.Consent;
 import com.cezarykluczynski.stapi.model.content_language.entity.ContentLanguage;
 import com.cezarykluczynski.stapi.model.content_rating.entity.ContentRating;
 import com.cezarykluczynski.stapi.model.country.entity.Country;
@@ -61,6 +62,7 @@ public class EntityMetadataProvider {
 		CUSTOM_SYMBOL_MAP.put(Spacecraft.class, "SR");
 		CUSTOM_SYMBOL_MAP.put(Material.class, "MT");
 		CUSTOM_SYMBOL_MAP.put(Conflict.class, "CF");
+		CUSTOM_SYMBOL_MAP.put(Consent.class, "CN");
 	}
 
 	private final EntityManager entityManager;

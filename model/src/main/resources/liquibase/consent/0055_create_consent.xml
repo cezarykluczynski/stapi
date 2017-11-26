@@ -1,0 +1,35 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet id="0055_create_consent" author="cezarykluczynski">
+		<createTable schemaName="stapi_users" tableName="consent">
+			<column name="id" type="bigint">
+				<constraints unique="true" nullable="false"/>
+			</column>
+			<column name="consent_type" type="varchar(64)">
+				<constraints nullable="false" unique="true"/>
+			</column>
+		</createTable>
+		<createSequence incrementBy="1" sequenceName="consent_sequence" schemaName="stapi_users"/>
+
+		<createTable schemaName="stapi_users" tableName="accounts_consents">
+			<column name="account_id" type="bigint"/>
+			<column name="consent_id" type="bigint"/>
+		</createTable>
+		<addForeignKeyConstraint baseColumnNames="account_id"
+				baseTableName="accounts_consents"
+				baseTableSchemaName="stapi_users"
+				constraintName="ac_account_fkey"
+				referencedColumnNames="id"
+				referencedTableName="account"
+				referencedTableSchemaName="stapi_users"/>
+		<addForeignKeyConstraint baseColumnNames="consent_id"
+				baseTableName="accounts_consents"
+				baseTableSchemaName="stapi_users"
+				constraintName="ac_consent_fkey"
+				referencedColumnNames="id"
+				referencedTableName="consent"
+				referencedTableSchemaName="stapi_users"/>
+	</changeSet>
+</databaseChangeLog>
