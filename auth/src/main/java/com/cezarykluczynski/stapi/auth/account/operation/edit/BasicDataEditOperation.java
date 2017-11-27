@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class AccountEditOperation {
+public class BasicDataEditOperation {
 
 	private final AccountApi accountApi;
 
@@ -20,7 +20,7 @@ public class AccountEditOperation {
 
 	private final AccountEditResponseDTOFactory accountEditResponseDTOFactory;
 
-	public AccountEditOperation(AccountApi accountApi, BasicDataNameSpecification basicDataNameSpecification,
+	public BasicDataEditOperation(AccountApi accountApi, BasicDataNameSpecification basicDataNameSpecification,
 			BasicDataEmailSpecification basicDataEmailSpecification, AccountEditResponseDTOFactory accountEditResponseDTOFactory) {
 		this.accountApi = accountApi;
 		this.basicDataNameSpecification = basicDataNameSpecification;

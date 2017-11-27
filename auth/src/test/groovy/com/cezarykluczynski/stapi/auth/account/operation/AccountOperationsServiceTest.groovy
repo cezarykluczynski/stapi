@@ -1,10 +1,14 @@
 package com.cezarykluczynski.stapi.auth.account.operation
 
 import com.cezarykluczynski.stapi.auth.account.dto.BasicDataDTO
-import com.cezarykluczynski.stapi.auth.account.operation.edit.AccountEditOperation
+import com.cezarykluczynski.stapi.auth.account.operation.edit.BasicDataEditOperation
 import com.cezarykluczynski.stapi.auth.account.operation.edit.AccountEditResponseDTO
+import com.cezarykluczynski.stapi.auth.account.operation.edit.ConsentsEditOperation
 import com.cezarykluczynski.stapi.auth.account.operation.removal.AccountRemovalOperation
 import com.cezarykluczynski.stapi.auth.account.operation.removal.AccountRemovalResponseDTO
+import com.cezarykluczynski.stapi.model.consent.entity.enums.ConsentType
+import com.cezarykluczynski.stapi.util.tool.RandomUtil
+import com.google.common.collect.Sets
 import spock.lang.Specification
 
 class AccountOperationsServiceTest extends Specification {
@@ -13,14 +17,17 @@ class AccountOperationsServiceTest extends Specification {
 
 	private AccountRemovalOperation accountRemovalOperationMock
 
-	private AccountEditOperation accountEditOperationMock
+	private BasicDataEditOperation basicDataEditOperationMock
+
+	private ConsentsEditOperation consentsEditOperationMock
 
 	private AccountOperationsService accountOperationsService
 
 	void setup() {
 		accountRemovalOperationMock = Mock()
-		accountEditOperationMock = Mock()
-		accountOperationsService = new AccountOperationsService(accountRemovalOperationMock, accountEditOperationMock)
+		basicDataEditOperationMock = Mock()
+		consentsEditOperationMock = Mock()
+		accountOperationsService = new AccountOperationsService(accountRemovalOperationMock, basicDataEditOperationMock, consentsEditOperationMock)
 	}
 
 	void "removes account"() {
@@ -45,7 +52,21 @@ class AccountOperationsServiceTest extends Specification {
 		AccountEditResponseDTO accountEditResponseDTOOutput = accountOperationsService.updateBasicData(ACCOUNT_ID, basicDataDTO)
 
 		then:
-		1 * accountEditOperationMock.execute(ACCOUNT_ID, basicDataDTO) >> accountEditResponseDTO
+		1 * basicDataEditOperationMock.execute(ACCOUNT_ID, basicDataDTO) >> accountEditResponseDTO
+		0 * _
+		accountEditResponseDTOOutput == accountEditResponseDTO
+	}
+
+	void "updates account consents"() {
+		given:
+		AccountEditResponseDTO accountEditResponseDTO = Mock()
+		Set<ConsentType> consentTypes = Sets.newHashSet(RandomUtil.randomEnumValue(ConsentType))
+
+		when:
+		AccountEditResponseDTO accountEditResponseDTOOutput = accountOperationsService.updateConsents(ACCOUNT_ID, consentTypes)
+
+		then:
+		1 * consentsEditOperationMock.execute(ACCOUNT_ID, consentTypes) >> accountEditResponseDTO
 		0 * _
 		accountEditResponseDTOOutput == accountEditResponseDTO
 	}

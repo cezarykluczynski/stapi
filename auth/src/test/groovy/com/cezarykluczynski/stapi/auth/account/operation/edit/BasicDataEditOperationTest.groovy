@@ -6,7 +6,7 @@ import com.cezarykluczynski.stapi.model.account.entity.Account
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import spock.lang.Specification
 
-class AccountEditOperationTest extends Specification {
+class BasicDataEditOperationTest extends Specification {
 
 	private static final Long ACCOUNT_ID = 10L
 	private static final String NAME_1 = 'NAME_1'
@@ -22,14 +22,14 @@ class AccountEditOperationTest extends Specification {
 
 	private AccountEditResponseDTOFactory accountEditResponseDTOFactoryMock
 
-	private AccountEditOperation accountEditOperation
+	private BasicDataEditOperation basicDataEditOperation
 
 	void setup() {
 		accountApiMock = Mock()
 		basicDataNameSpecificationMock = Mock()
 		basicDataEmailSpecificationMock = Mock()
 		accountEditResponseDTOFactoryMock = Mock()
-		accountEditOperation = new AccountEditOperation(accountApiMock, basicDataNameSpecificationMock, basicDataEmailSpecificationMock,
+		basicDataEditOperation = new BasicDataEditOperation(accountApiMock, basicDataNameSpecificationMock, basicDataEmailSpecificationMock,
 				accountEditResponseDTOFactoryMock)
 	}
 
@@ -38,7 +38,7 @@ class AccountEditOperationTest extends Specification {
 		BasicDataDTO basicDataDTO = Mock()
 
 		when:
-		accountEditOperation.execute(null, basicDataDTO)
+		basicDataEditOperation.execute(null, basicDataDTO)
 
 		then:
 		thrown(NullPointerException)
@@ -46,7 +46,7 @@ class AccountEditOperationTest extends Specification {
 
 	void "when BasicDataDTO is null, exception is thrown"() {
 		when:
-		accountEditOperation.execute(ACCOUNT_ID, null)
+		basicDataEditOperation.execute(ACCOUNT_ID, null)
 
 		then:
 		thrown(NullPointerException)
@@ -57,7 +57,7 @@ class AccountEditOperationTest extends Specification {
 		BasicDataDTO basicDataDTO = Mock()
 
 		when:
-		accountEditOperation.execute(ACCOUNT_ID, basicDataDTO)
+		basicDataEditOperation.execute(ACCOUNT_ID, basicDataDTO)
 
 		then:
 		1 * accountApiMock.findById(ACCOUNT_ID) >> Optional.empty()
@@ -76,7 +76,7 @@ class AccountEditOperationTest extends Specification {
 		AccountEditResponseDTO accountEditResponseDTO = Mock()
 
 		when:
-		AccountEditResponseDTO accountEditResponseDTOOutput = accountEditOperation.execute(ACCOUNT_ID, basicDataDTO)
+		AccountEditResponseDTO accountEditResponseDTOOutput = basicDataEditOperation.execute(ACCOUNT_ID, basicDataDTO)
 
 		then:
 		1 * accountApiMock.findById(ACCOUNT_ID) >> Optional.of(account)
@@ -97,7 +97,7 @@ class AccountEditOperationTest extends Specification {
 		AccountEditResponseDTO accountEditResponseDTO = Mock()
 
 		when:
-		AccountEditResponseDTO accountEditResponseDTOOutput = accountEditOperation.execute(ACCOUNT_ID, basicDataDTO)
+		AccountEditResponseDTO accountEditResponseDTOOutput = basicDataEditOperation.execute(ACCOUNT_ID, basicDataDTO)
 
 		then:
 		1 * accountApiMock.findById(ACCOUNT_ID) >> Optional.of(account)
@@ -119,7 +119,7 @@ class AccountEditOperationTest extends Specification {
 		AccountEditResponseDTO accountEditResponseDTO = Mock()
 
 		when:
-		AccountEditResponseDTO accountEditResponseDTOOutput = accountEditOperation.execute(ACCOUNT_ID, basicDataDTO)
+		AccountEditResponseDTO accountEditResponseDTOOutput = basicDataEditOperation.execute(ACCOUNT_ID, basicDataDTO)
 
 		then:
 		1 * accountApiMock.findById(ACCOUNT_ID) >> Optional.of(account)
@@ -141,7 +141,7 @@ class AccountEditOperationTest extends Specification {
 		AccountEditResponseDTO accountEditResponseDTO = Mock()
 
 		when:
-		AccountEditResponseDTO accountEditResponseDTOOutput = accountEditOperation.execute(ACCOUNT_ID, basicDataDTO)
+		AccountEditResponseDTO accountEditResponseDTOOutput = basicDataEditOperation.execute(ACCOUNT_ID, basicDataDTO)
 
 		then:
 		1 * accountApiMock.findById(ACCOUNT_ID) >> Optional.of(account)

@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.api_key.entity.ApiKey;
 import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.consent.entity.Consent;
+import com.google.common.collect.Sets;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -47,12 +48,12 @@ public class Account {
 	private Long gitHubUserId;
 
 	@OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-	private Set<ApiKey> apiKeys;
+	private Set<ApiKey> apiKeys = Sets.newHashSet();
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@JoinTable(name = "accounts_consents", schema = "stapi_users",
 			joinColumns = @JoinColumn(name = "account_id", nullable = false, updatable = false),
 			inverseJoinColumns = @JoinColumn(name = "consent_id", nullable = false, updatable = false))
-	private Set<Consent> consents;
+	private Set<Consent> consents = Sets.newHashSet();
 
 }

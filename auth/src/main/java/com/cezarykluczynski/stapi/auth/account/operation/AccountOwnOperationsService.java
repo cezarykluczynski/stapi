@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.auth.account.operation;
 
 import com.cezarykluczynski.stapi.auth.account.dto.BasicDataDTO;
+import com.cezarykluczynski.stapi.auth.account.operation.edit.AccountConsentTypesExtractor;
 import com.cezarykluczynski.stapi.auth.account.operation.edit.AccountEditResponseDTO;
 import com.cezarykluczynski.stapi.auth.account.operation.removal.AccountRemovalResponseDTO;
 import com.cezarykluczynski.stapi.auth.oauth.session.OAuthSessionHolder;
@@ -14,9 +15,13 @@ public class AccountOwnOperationsService {
 
 	private final AccountOperationsService accountOperationsService;
 
-	public AccountOwnOperationsService(OAuthSessionHolder oAuthSessionHolder, AccountOperationsService accountOperationsService) {
+	private final AccountConsentTypesExtractor accountConsentTypesExtractor;
+
+	public AccountOwnOperationsService(OAuthSessionHolder oAuthSessionHolder, AccountOperationsService accountOperationsService,
+			AccountConsentTypesExtractor accountConsentTypesExtractor) {
 		this.oAuthSessionHolder = oAuthSessionHolder;
 		this.accountOperationsService = accountOperationsService;
+		this.accountConsentTypesExtractor = accountConsentTypesExtractor;
 	}
 
 	public AccountRemovalResponseDTO remove() {
@@ -28,6 +33,11 @@ public class AccountOwnOperationsService {
 				.name(name)
 				.email(email)
 				.build());
+	}
+
+	public AccountEditResponseDTO updateConsents(String[] consentTypes) {
+		return accountOperationsService.updateConsents(oAuthSessionHolder.getOAuthSession().getAccountId(), accountConsentTypesExtractor
+				.extract(consentTypes));
 	}
 
 }

@@ -16,7 +16,8 @@ public class AccountEditResponseDTO {
 	public enum FailReason {
 
 		INVALID_NAME,
-		INVALID_EMAIL
+		INVALID_EMAIL,
+		CONSENTS_CANNOT_BE_SAVED
 
 	}
 

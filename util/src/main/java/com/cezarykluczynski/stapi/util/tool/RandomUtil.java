@@ -35,6 +35,9 @@ public class RandomUtil {
 
 	public static <T extends Enum> T randomEnumValue(Class<T> clazz) {
 		T[] values = clazz.getEnumConstants();
+		if (values == null) {
+			throw new IllegalArgumentException("Not an enum");
+		}
 		if (values.length == 0) {
 			return null;
 		}
