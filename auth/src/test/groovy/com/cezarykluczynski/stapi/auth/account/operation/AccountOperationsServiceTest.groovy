@@ -4,6 +4,8 @@ import com.cezarykluczynski.stapi.auth.account.dto.BasicDataDTO
 import com.cezarykluczynski.stapi.auth.account.operation.edit.BasicDataEditOperation
 import com.cezarykluczynski.stapi.auth.account.operation.edit.AccountEditResponseDTO
 import com.cezarykluczynski.stapi.auth.account.operation.edit.ConsentsEditOperation
+import com.cezarykluczynski.stapi.auth.account.operation.read.AccountConsentsReadOperation
+import com.cezarykluczynski.stapi.auth.account.operation.read.AccountConsentsReadResponseDTO
 import com.cezarykluczynski.stapi.auth.account.operation.removal.AccountRemovalOperation
 import com.cezarykluczynski.stapi.auth.account.operation.removal.AccountRemovalResponseDTO
 import com.cezarykluczynski.stapi.model.consent.entity.enums.ConsentType
@@ -21,13 +23,17 @@ class AccountOperationsServiceTest extends Specification {
 
 	private ConsentsEditOperation consentsEditOperationMock
 
+	private AccountConsentsReadOperation accountConsentsReadOperationMock
+
 	private AccountOperationsService accountOperationsService
 
 	void setup() {
 		accountRemovalOperationMock = Mock()
 		basicDataEditOperationMock = Mock()
 		consentsEditOperationMock = Mock()
-		accountOperationsService = new AccountOperationsService(accountRemovalOperationMock, basicDataEditOperationMock, consentsEditOperationMock)
+		accountConsentsReadOperationMock = Mock()
+		accountOperationsService = new AccountOperationsService(accountRemovalOperationMock, basicDataEditOperationMock, consentsEditOperationMock,
+				accountConsentsReadOperationMock)
 	}
 
 	void "removes account"() {
@@ -69,6 +75,19 @@ class AccountOperationsServiceTest extends Specification {
 		1 * consentsEditOperationMock.execute(ACCOUNT_ID, consentTypes) >> accountEditResponseDTO
 		0 * _
 		accountEditResponseDTOOutput == accountEditResponseDTO
+	}
+
+	void "reads account consents"() {
+		given:
+		AccountConsentsReadResponseDTO accountConsentsReadResponseDTO = Mock()
+
+		when:
+		AccountConsentsReadResponseDTO accountConsentsReadResponseDTOOutput = accountOperationsService.readConsents(ACCOUNT_ID)
+
+		then:
+		1 * accountConsentsReadOperationMock.execute(ACCOUNT_ID) >> accountConsentsReadResponseDTO
+		0 * _
+		accountConsentsReadResponseDTOOutput == accountConsentsReadResponseDTO
 	}
 
 }

@@ -218,4 +218,18 @@ class AccountApiTest extends Specification {
 		thrown(StapiRuntimeException)
 	}
 
+	void "finds one account with consents"() {
+		given:
+		Account account = Mock()
+
+		when:
+		Optional<Account> accountOptional = accountApi.findOneWithConsents(ACCOUNT_ID)
+
+		then:
+		1 * accountRepositoryMock.findOneWithConsents(ACCOUNT_ID) >> Optional.of(account)
+		0 * _
+		accountOptional.isPresent()
+		accountOptional.get() == account
+	}
+
 }

@@ -27,9 +27,16 @@ public class AccountConsentTypesExtractor {
 				.collect(Collectors.toSet());
 	}
 
-	Set<ConsentType> extract(Account account) {
+	public Set<ConsentType> extract(Account account) {
 		return account.getConsents().stream()
 				.map(Consent::getConsentType)
+				.collect(Collectors.toSet());
+	}
+
+	public Set<String> extractAsStrings(Account account) {
+		return account.getConsents().stream()
+				.map(Consent::getConsentType)
+				.map(ConsentType::name)
 				.collect(Collectors.toSet());
 	}
 

@@ -4,6 +4,8 @@ import com.cezarykluczynski.stapi.auth.account.dto.BasicDataDTO;
 import com.cezarykluczynski.stapi.auth.account.operation.edit.AccountEditResponseDTO;
 import com.cezarykluczynski.stapi.auth.account.operation.edit.BasicDataEditOperation;
 import com.cezarykluczynski.stapi.auth.account.operation.edit.ConsentsEditOperation;
+import com.cezarykluczynski.stapi.auth.account.operation.read.AccountConsentsReadOperation;
+import com.cezarykluczynski.stapi.auth.account.operation.read.AccountConsentsReadResponseDTO;
 import com.cezarykluczynski.stapi.auth.account.operation.removal.AccountRemovalOperation;
 import com.cezarykluczynski.stapi.auth.account.operation.removal.AccountRemovalResponseDTO;
 import com.cezarykluczynski.stapi.model.consent.entity.enums.ConsentType;
@@ -20,11 +22,14 @@ class AccountOperationsService {
 
 	private final ConsentsEditOperation consentsEditOperation;
 
+	private final AccountConsentsReadOperation accountConsentsReadOperation;
+
 	AccountOperationsService(AccountRemovalOperation accountRemovalOperation, BasicDataEditOperation basicDataEditOperation,
-			ConsentsEditOperation consentsEditOperation) {
+			ConsentsEditOperation consentsEditOperation, AccountConsentsReadOperation accountConsentsReadOperation) {
 		this.accountRemovalOperation = accountRemovalOperation;
 		this.basicDataEditOperation = basicDataEditOperation;
 		this.consentsEditOperation = consentsEditOperation;
+		this.accountConsentsReadOperation = accountConsentsReadOperation;
 	}
 
 	AccountRemovalResponseDTO remove(Long accountId) {
@@ -38,4 +43,9 @@ class AccountOperationsService {
 	AccountEditResponseDTO updateConsents(Long accountId, Set<ConsentType> consentTypes) {
 		return consentsEditOperation.execute(accountId, consentTypes);
 	}
+
+	AccountConsentsReadResponseDTO readConsents(Long accountId) {
+		return accountConsentsReadOperation.execute(accountId);
+	}
+
 }

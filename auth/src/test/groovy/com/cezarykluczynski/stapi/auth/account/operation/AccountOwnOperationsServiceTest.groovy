@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.auth.account.operation
 import com.cezarykluczynski.stapi.auth.account.dto.BasicDataDTO
 import com.cezarykluczynski.stapi.auth.account.operation.edit.AccountConsentTypesExtractor
 import com.cezarykluczynski.stapi.auth.account.operation.edit.AccountEditResponseDTO
+import com.cezarykluczynski.stapi.auth.account.operation.read.AccountConsentsReadResponseDTO
 import com.cezarykluczynski.stapi.auth.account.operation.removal.AccountRemovalResponseDTO
 import com.cezarykluczynski.stapi.auth.oauth.session.OAuthSession
 import com.cezarykluczynski.stapi.auth.oauth.session.OAuthSessionHolder
@@ -85,6 +86,21 @@ class AccountOwnOperationsServiceTest extends Specification {
 		1 * accountOperationsServiceMock.updateConsents(ACCOUNT_ID, consentTypes) >> accountEditResponseDTO
 		0 * _
 		accountEditResponseDTOOutput == accountEditResponseDTO
+	}
+
+	void "reads own account consents"() {
+		given:
+		OAuthSession oAuthSession = new OAuthSession(accountId: ACCOUNT_ID)
+		AccountConsentsReadResponseDTO accountConsentsReadResponseDTO = Mock()
+
+		when:
+		AccountConsentsReadResponseDTO accountConsentsReadResponseDTOOutput = accountOwnOperationsService.readConsents()
+
+		then:
+		1 * oAuthSessionHolderMock.OAuthSession >> oAuthSession
+		1 * accountOperationsServiceMock.readConsents(ACCOUNT_ID) >> accountConsentsReadResponseDTO
+		0 * _
+		accountConsentsReadResponseDTOOutput == accountConsentsReadResponseDTO
 	}
 
 }

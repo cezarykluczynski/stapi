@@ -57,4 +57,17 @@ class AccountConsentTypesExtractorTest extends Specification {
 		consentTypes.contains ConsentType.TECHNICAL_MAILING
 	}
 
+	void "extracts consent types as string from account"() {
+		given:
+		Consent consent = new Consent(consentType: ConsentType.TECHNICAL_MAILING)
+		Account account = new Account(consents: Sets.newHashSet(consent))
+
+		when:
+		Set<String> consentTypes = accountConsentTypesExtractor.extractAsStrings(account)
+
+		then:
+		consentTypes.size() == 1
+		consentTypes.contains ConsentType.TECHNICAL_MAILING.name()
+	}
+
 }

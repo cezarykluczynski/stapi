@@ -94,4 +94,8 @@ public class AccountApi {
 			return ensureExists(gitHubUserDetailsDTO, depth + 1);
 		}
 	}
+
+	public Optional<Account> findOneWithConsents(Long accountId) {
+		return accountRepository.findOneWithConsents(accountId);
+	}
 }
