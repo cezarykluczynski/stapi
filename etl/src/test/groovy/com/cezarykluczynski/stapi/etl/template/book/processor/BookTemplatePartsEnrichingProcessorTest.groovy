@@ -259,7 +259,7 @@ class BookTemplatePartsEnrichingProcessorTest extends Specification {
 		given:
 		Template.Part templatePart = new Template.Part(key: BookTemplateParameter.STARDATE, value: STARDATES)
 		BookTemplate bookTemplate = new BookTemplate()
-		StardateRange stardateRange = new StardateRange(stardateFrom: STARDATE_FROM, stardateTo: STARDATE_TO)
+		StardateRange stardateRange = StardateRange.of(STARDATE_FROM, STARDATE_TO)
 
 		when:
 		bookTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), bookTemplate))

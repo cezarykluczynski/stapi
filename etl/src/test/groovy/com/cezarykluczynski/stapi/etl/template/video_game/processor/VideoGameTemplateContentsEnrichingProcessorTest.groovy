@@ -109,7 +109,7 @@ class VideoGameTemplateContentsEnrichingProcessorTest extends AbstractVideoGameT
 		Template.Part templatePart = new Template.Part(key: VideoGameTemplateParameter.STARDATE, value: STARDATES)
 		Template template = new Template(parts: Lists.newArrayList(templatePart))
 		VideoGameTemplate videoGameTemplate = new VideoGameTemplate()
-		StardateRange stardateRange = new StardateRange(stardateFrom: STARDATE_FROM, stardateTo: STARDATE_TO)
+		StardateRange stardateRange = StardateRange.of(STARDATE_FROM, STARDATE_TO)
 
 		when:
 		videoGameTemplateContentsEnrichingProcessor.enrich(EnrichablePair.of(template, videoGameTemplate))

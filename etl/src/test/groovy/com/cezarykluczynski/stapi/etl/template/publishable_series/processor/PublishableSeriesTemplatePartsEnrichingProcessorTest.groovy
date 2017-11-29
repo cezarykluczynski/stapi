@@ -141,7 +141,7 @@ class PublishableSeriesTemplatePartsEnrichingProcessorTest extends Specification
 		given:
 		Template.Part templatePart = new Template.Part(key: PublishableSeriesTemplateParameter.STARDATE, value: STARDATES)
 		PublishableSeriesTemplate publishableSeriesTemplate = new PublishableSeriesTemplate()
-		StardateRange stardateRange = new StardateRange(stardateFrom: STARDATE_FROM, stardateTo: STARDATE_TO)
+		StardateRange stardateRange = StardateRange.of(STARDATE_FROM, STARDATE_TO)
 
 		when:
 		publishableSeriesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), publishableSeriesTemplate))

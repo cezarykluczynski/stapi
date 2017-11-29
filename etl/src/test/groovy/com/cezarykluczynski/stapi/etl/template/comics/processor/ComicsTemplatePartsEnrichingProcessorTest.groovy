@@ -235,7 +235,7 @@ class ComicsTemplatePartsEnrichingProcessorTest extends Specification {
 		given:
 		Template.Part templatePart = new Template.Part(key: ComicsTemplateParameter.STARDATE, value: STARDATES)
 		ComicsTemplate comicsTemplate = new ComicsTemplate()
-		StardateRange stardateRange = new StardateRange(stardateFrom: STARDATE_FROM, stardateTo: STARDATE_TO)
+		StardateRange stardateRange = StardateRange.of(STARDATE_FROM, STARDATE_TO)
 
 		when:
 		comicsTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), comicsTemplate))
