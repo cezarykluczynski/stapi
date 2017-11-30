@@ -45,20 +45,32 @@ describe('PanelAccountApi', () => {
 	it('is created', inject([PanelAccountApi], (panelAccountApi: PanelAccountApi) => {
 		expect(panelAccountApi).toBeTruthy();
 
-		expect(res.calls.count()).toBe(4);
+		expect(res.calls.count()).toBe(7);
 		expect(res.calls.argsFor(0)).toEqual(['panel']);
 		expect(res.calls.argsFor(1)).toEqual(['accountSettings']);
 		expect(res.calls.argsFor(2)).toEqual(['panel']);
 		expect(res.calls.argsFor(3)).toEqual(['basicData']);
+		expect(res.calls.argsFor(4)).toEqual(['panel']);
+		expect(res.calls.argsFor(5)).toEqual(['consents']);
+		expect(res.calls.argsFor(6)).toEqual(['own']);
 	}));
 
 	describe('after initialization', () => {
 		const DELETE_RESULT = {
 			successful: true
 		};
-		const UPDATE_RESULT = {
+		const UPDATE_BASIC_DATA_RESULT = {
 			successful: true
-		}
+		};
+		const GET_CONSENTS_RESULT = {
+			successful: true
+		};
+		const UPDATE_CONSENTS_RESULT = {
+			successful: true
+		};
+		const GET_OWN_CONSENTS_RESULT = {
+			successful: true
+		};
 
 		beforeEach(() => {
 			restClientMock.panel = {};
@@ -69,9 +81,21 @@ describe('PanelAccountApi', () => {
 			};
 			restClientMock.panel.basicData = {
 				post: () => {
-					return Promise.resolve(UPDATE_RESULT);
+					return Promise.resolve(UPDATE_BASIC_DATA_RESULT);
 				}
-			}
+			};
+			restClientMock.panel.consents = {};
+			restClientMock.panel.consents.get = () => {
+				return Promise.resolve(GET_CONSENTS_RESULT);
+			};
+			restClientMock.panel.consents.own = {
+				post: () => {
+					return Promise.resolve(UPDATE_CONSENTS_RESULT);
+				},
+				get: () => {
+					return Promise.resolve(GET_OWN_CONSENTS_RESULT);
+				}
+			};
 		});
 
 		it('removes account', inject([PanelAccountApi], (panelAccountApi: PanelAccountApi) => {
@@ -82,7 +106,25 @@ describe('PanelAccountApi', () => {
 
 		it('updates basic data', inject([PanelAccountApi], (panelAccountApi: PanelAccountApi) => {
 			panelAccountApi.updateBasicData({}).then((response) => {
-				expect(response).toBe(UPDATE_RESULT);
+				expect(response).toBe(UPDATE_BASIC_DATA_RESULT);
+			});
+		}));
+
+		it('updates own consents', inject([PanelAccountApi], (panelAccountApi: PanelAccountApi) => {
+			panelAccountApi.updateOwnConsents({}).then((response) => {
+				expect(response).toBe(UPDATE_CONSENTS_RESULT);
+			});
+		}));
+
+		it('gets own consents', inject([PanelAccountApi], (panelAccountApi: PanelAccountApi) => {
+			panelAccountApi.getOwnConsents().then((response) => {
+				expect(response).toBe(GET_OWN_CONSENTS_RESULT);
+			});
+		}));
+
+		it('gets consents', inject([PanelAccountApi], (panelAccountApi: PanelAccountApi) => {
+			panelAccountApi.getConsents().then((response) => {
+				expect(response).toBe(GET_CONSENTS_RESULT);
 			});
 		}));
 	});

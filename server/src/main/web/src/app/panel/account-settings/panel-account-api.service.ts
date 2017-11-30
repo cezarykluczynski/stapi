@@ -22,9 +22,22 @@ export class PanelAccountApi {
 		return this.api.panel.basicData.post(basicData, 'application/x-www-form-urlencoded');
 	}
 
+	updateOwnConsents(consents) {
+		return this.api.panel.consents.own.post({consents}, 'application/x-www-form-urlencoded');
+	}
+
+	getOwnConsents() {
+		return this.api.panel.consents.own.get();
+	}
+
+	getConsents() {
+		return this.api.panel.consents.get();
+	}
+
 	private register() {
 		this.api.res('panel').res('accountSettings');
 		this.api.res('panel').res('basicData');
+		this.api.res('panel').res('consents').res('own');
 	}
 
 }
