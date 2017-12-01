@@ -16,7 +16,11 @@ export class PanelAccountSettingsComponent implements OnInit {
 	private router: Router;
 	private notificationsService: NotificationsService;
 	private accountIsBeingRemoved: boolean;
+	private consents: Array<any>;
+	private ownConsents: Array<string>;
+	public selectedConsents: any = {};
 	public basicDataEditable: any;
+
 
 	@Input()
 	public basicData: any;
@@ -29,6 +33,54 @@ export class PanelAccountSettingsComponent implements OnInit {
 
 	ngOnInit() {
 		this.basicDataEditable = {...this.basicData};
+		Promise.all([this.panelAccountApi.getConsents().then((response) => {
+			this.consents = response;
+		}),
+		this.panelAccountApi.getOwnConsents().then((response) => {
+			this.ownConsents = response.consentCodes;
+		})]).then(() => {
+			this.buildConsents();
+		});
+	}
+
+	buildConsents() {
+		this.consents.forEach((consent) => {
+			this.selectedConsents[consent.code] = this.hasConsentSelected(consent.code);
+		});
+	}
+
+	hasConsentsLoaded() {
+		return !!(this.consents && this.ownConsents);
+	}
+
+	getConsents() {
+		return this.consents;
+	}
+
+	hasConsentSelected(consentCode: string) {
+		return this.ownConsents.indexOf(consentCode) > -1;
+	}
+
+	getConsentDescription(consentCode: string) {
+		switch (consentCode) {
+			case 'TECHNICAL_MAILING':
+				return 'I agree to receive technical mailing, mainly information about new STAPI versions, '
+					+ 'scheduled maintenance, outages, and details about limitation on access to STAPI.';
+			default:
+				'Unknown consent...'
+		}
+	}
+
+	updateOwnConsents() {
+		this.ownConsents = [];
+		for (let key in this.selectedConsents) {
+			if (this.selectedConsents.hasOwnProperty(key) && this.selectedConsents[key]) {
+				this.ownConsents.push(key);
+			}
+		}
+		this.panelAccountApi.updateOwnConsents(this.ownConsents).then((response) => {
+			this.notificationsService.success('Consents saved!');
+		});
 	}
 
 	askForAccountRemoval() {

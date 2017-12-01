@@ -10,6 +10,9 @@ import { PanelAccountApi } from './panel-account-api.service';
 class PanelAccountApiMock {
 	public removeAccount() {}
 	public updateBasicData() {}
+	public getOwnConsents() {}
+	public updateOwnConsents() {}
+	public getConsents() {}
 }
 
 class NotificationsServiceMock {
@@ -56,6 +59,11 @@ describe('PanelAccountSettingsComponent', () => {
 		successful: true,
 		changed: false
 	};
+	const ownConsentCodes = ['CONSENT_1'];
+	const consentCodes = ['CONSENT_1'];
+	let CONSENTS_UPDATE = {
+		successful: true
+	};
 
 	beforeEach(async(() => {
 		panelAccountApiMock = new PanelAccountApiMock();
@@ -63,6 +71,11 @@ describe('PanelAccountSettingsComponent', () => {
 		notificationsServiceMock = new NotificationsServiceMock();
 
 		spyOn(panelAccountApiMock, 'removeAccount').and.returnValue(Promise.resolve());
+		spyOn(panelAccountApiMock, 'getOwnConsents').and.returnValue(Promise.resolve({
+			consentCodes: consentCodes
+		}));
+		spyOn(panelAccountApiMock, 'getConsents').and.returnValue(Promise.resolve(consentCodes));
+		spyOn(panelAccountApiMock, 'updateOwnConsents').and.returnValue(Promise.resolve(CONSENTS_UPDATE));
 		spyOn(routerMock, 'navigate');
 		spyOn(notificationsServiceMock, 'success');
 		spyOn(notificationsServiceMock, 'info');
@@ -103,6 +116,15 @@ describe('PanelAccountSettingsComponent', () => {
 
 	it('should create', () => {
 		expect(component).toBeTruthy();
+	});
+
+	it('should fetch consents on initialization', () => {
+		expect(component.hasConsentsLoaded()).toBeFalse();
+
+		fixture.whenStable().then(() => {
+			expect(component.getConsents()).toBe(consentCodes);
+			expect(component.hasConsentSelected(consentCodes[0])).toBeTrue();
+		});
 	});
 
 	it('ask for account removal, then reverts state', () => {
@@ -193,6 +215,18 @@ describe('PanelAccountSettingsComponent', () => {
 			fixture.whenStable().then(() => {
 				expect(notificationsServiceMock.error).toHaveBeenCalledWith('Uknown error occured. Code: UNKNOWN_ERROR');
 				expect(component.basicData.name).toBe(NAME_1);
+			});
+		});
+	});
+
+	it('unselects consent, then saves own consents', () => {
+		fixture.whenStable().then(() => {
+			component.selectedConsents['TECHNICAL_MAILING'] = false;
+			component.updateOwnConsents();
+
+			fixture.whenStable().then(() => {
+				expect(panelAccountApiMock.updateOwnConsents).toHaveBeenCalled();
+				expect(notificationsServiceMock.success).toHaveBeenCalledWith('Consents saved!');
 			});
 		});
 	});
