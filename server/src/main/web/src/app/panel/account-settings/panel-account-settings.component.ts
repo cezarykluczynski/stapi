@@ -79,7 +79,11 @@ export class PanelAccountSettingsComponent implements OnInit {
 			}
 		}
 		this.panelAccountApi.updateOwnConsents(this.ownConsents).then((response) => {
-			this.notificationsService.success('Consents saved!');
+			if (response.successful) {
+				this.notificationsService.success('Consents saved!');
+			} else {
+				this.notificationsService.error('Consent could not be saved. Error code: ' + response.failReason);
+			}
 		});
 	}
 

@@ -59,10 +59,14 @@ describe('PanelAccountSettingsComponent', () => {
 		successful: true,
 		changed: false
 	};
-	const ownConsentCodes = ['CONSENT_1'];
-	const consentCodes = ['CONSENT_1'];
-	let CONSENTS_UPDATE = {
+	const CONSENT_CODES = ['CONSENT_1'];
+	const OWN_CONSENT_CODES = ['CONSENT_1'];
+	const CONSENTS_UPDATE_SUCCESSFUL = {
 		successful: true
+	};
+	const CONSENTS_UPDATE_UNSUCCESSFUL = {
+		successful: false,
+		failReason: 'CONSENTS_CANNOT_BE_SAVED'
 	};
 
 	beforeEach(async(() => {
@@ -72,10 +76,9 @@ describe('PanelAccountSettingsComponent', () => {
 
 		spyOn(panelAccountApiMock, 'removeAccount').and.returnValue(Promise.resolve());
 		spyOn(panelAccountApiMock, 'getOwnConsents').and.returnValue(Promise.resolve({
-			consentCodes: consentCodes
+			consentCodes: OWN_CONSENT_CODES
 		}));
-		spyOn(panelAccountApiMock, 'getConsents').and.returnValue(Promise.resolve(consentCodes));
-		spyOn(panelAccountApiMock, 'updateOwnConsents').and.returnValue(Promise.resolve(CONSENTS_UPDATE));
+		spyOn(panelAccountApiMock, 'getConsents').and.returnValue(Promise.resolve(CONSENT_CODES));
 		spyOn(routerMock, 'navigate');
 		spyOn(notificationsServiceMock, 'success');
 		spyOn(notificationsServiceMock, 'info');
@@ -122,8 +125,8 @@ describe('PanelAccountSettingsComponent', () => {
 		expect(component.hasConsentsLoaded()).toBeFalse();
 
 		fixture.whenStable().then(() => {
-			expect(component.getConsents()).toBe(consentCodes);
-			expect(component.hasConsentSelected(consentCodes[0])).toBeTrue();
+			expect(component.getConsents()).toBe(CONSENT_CODES);
+			expect(component.hasConsentSelected(CONSENT_CODES[0])).toBeTrue();
 		});
 	});
 
@@ -220,6 +223,8 @@ describe('PanelAccountSettingsComponent', () => {
 	});
 
 	it('unselects consent, then saves own consents', () => {
+		spyOn(panelAccountApiMock, 'updateOwnConsents').and.returnValue(Promise.resolve(CONSENTS_UPDATE_SUCCESSFUL));
+
 		fixture.whenStable().then(() => {
 			component.selectedConsents['TECHNICAL_MAILING'] = false;
 			component.updateOwnConsents();
@@ -227,6 +232,20 @@ describe('PanelAccountSettingsComponent', () => {
 			fixture.whenStable().then(() => {
 				expect(panelAccountApiMock.updateOwnConsents).toHaveBeenCalled();
 				expect(notificationsServiceMock.success).toHaveBeenCalledWith('Consents saved!');
+			});
+		});
+	});
+
+	it('saves own consents, then reports error', () => {
+		spyOn(panelAccountApiMock, 'updateOwnConsents').and.returnValue(Promise.resolve(CONSENTS_UPDATE_UNSUCCESSFUL));
+
+		fixture.whenStable().then(() => {
+			component.selectedConsents['TECHNICAL_MAILING'] = true;
+			component.updateOwnConsents();
+
+			fixture.whenStable().then(() => {
+				expect(panelAccountApiMock.updateOwnConsents).toHaveBeenCalled();
+				expect(notificationsServiceMock.error).toHaveBeenCalledWith('Consent could not be saved. Error code: CONSENTS_CANNOT_BE_SAVED');
 			});
 		});
 	});
