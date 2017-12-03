@@ -5,6 +5,9 @@ import com.cezarykluczynski.stapi.auth.api_key.operation.block.ApiKeyBlockRelate
 import com.cezarykluczynski.stapi.auth.api_key.operation.block.ApiKeyUnblockOperation
 import com.cezarykluczynski.stapi.auth.api_key.operation.creation.ApiKeyCreationOperation
 import com.cezarykluczynski.stapi.auth.api_key.operation.creation.ApiKeyCreationResponseDTO
+import com.cezarykluczynski.stapi.auth.api_key.operation.edit.ApiKeyDetailsDTO
+import com.cezarykluczynski.stapi.auth.api_key.operation.edit.ApiKeyEditOperation
+import com.cezarykluczynski.stapi.auth.api_key.operation.edit.ApiKeyEditResponseDTO
 import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeyReadResponseDTO
 import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeysReadOperation
 import com.cezarykluczynski.stapi.auth.api_key.operation.removal.ApiKeyRemovalOperation
@@ -26,6 +29,8 @@ class ApiKeysOperationsServiceTest extends Specification {
 
 	private ApiKeyUnblockOperation apiKeyUnblockOperationMock
 
+	private ApiKeyEditOperation apiKeyEditOperationMock
+
 	private ApiKeysOperationsService apiKeysOperationsService
 
 	void setup() {
@@ -34,8 +39,9 @@ class ApiKeysOperationsServiceTest extends Specification {
 		apiKeyRemovalOperationMock = Mock()
 		apiKeyBlockOperationMock = Mock()
 		apiKeyUnblockOperationMock = Mock()
+		apiKeyEditOperationMock = Mock()
 		apiKeysOperationsService = new ApiKeysOperationsService(apiKeysReadOperationMock, apiKeyCreationOperationMock, apiKeyRemovalOperationMock,
-				apiKeyBlockOperationMock, apiKeyUnblockOperationMock)
+				apiKeyBlockOperationMock, apiKeyUnblockOperationMock, apiKeyEditOperationMock)
 	}
 
 	void "gets all keys"() {
@@ -101,6 +107,20 @@ class ApiKeysOperationsServiceTest extends Specification {
 		1 * apiKeyUnblockOperationMock.execute(ACCOUNT_ID, API_KEY_ID) >> apiKeyBlockRelatedResponseDTO
 		0 * _
 		apiKeyBlockRelatedResponseDTOOutput == apiKeyBlockRelatedResponseDTO
+	}
+
+	void "edits key details"() {
+		given:
+		ApiKeyDetailsDTO apiKeyDetailsDTO = Mock()
+		ApiKeyEditResponseDTO apiKeyEditResponseDTO = Mock()
+
+		when:
+		ApiKeyEditResponseDTO apiKeyEditResponseDTOOutput = apiKeysOperationsService.edit(ACCOUNT_ID, apiKeyDetailsDTO)
+
+		then:
+		1 * apiKeyEditOperationMock.execute(ACCOUNT_ID, apiKeyDetailsDTO) >> apiKeyEditResponseDTO
+		0 * _
+		apiKeyEditResponseDTOOutput == apiKeyEditResponseDTO
 	}
 
 }

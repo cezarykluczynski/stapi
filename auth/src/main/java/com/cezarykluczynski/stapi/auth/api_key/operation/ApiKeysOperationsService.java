@@ -5,6 +5,9 @@ import com.cezarykluczynski.stapi.auth.api_key.operation.block.ApiKeyBlockRelate
 import com.cezarykluczynski.stapi.auth.api_key.operation.block.ApiKeyUnblockOperation;
 import com.cezarykluczynski.stapi.auth.api_key.operation.creation.ApiKeyCreationOperation;
 import com.cezarykluczynski.stapi.auth.api_key.operation.creation.ApiKeyCreationResponseDTO;
+import com.cezarykluczynski.stapi.auth.api_key.operation.edit.ApiKeyDetailsDTO;
+import com.cezarykluczynski.stapi.auth.api_key.operation.edit.ApiKeyEditOperation;
+import com.cezarykluczynski.stapi.auth.api_key.operation.edit.ApiKeyEditResponseDTO;
 import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeyReadResponseDTO;
 import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeysReadOperation;
 import com.cezarykluczynski.stapi.auth.api_key.operation.removal.ApiKeyRemovalOperation;
@@ -24,13 +27,17 @@ class ApiKeysOperationsService {
 
 	private final ApiKeyUnblockOperation apiKeyUnblockOperation;
 
+	private final ApiKeyEditOperation apiKeyEditOperation;
+
 	ApiKeysOperationsService(ApiKeysReadOperation apiKeysReadOperation, ApiKeyCreationOperation apiKeyCreationOperation,
-			ApiKeyRemovalOperation apiKeyRemovalOperation, ApiKeyBlockOperation apiKeyBlockOperation, ApiKeyUnblockOperation apiKeyUnblockOperation) {
+			ApiKeyRemovalOperation apiKeyRemovalOperation, ApiKeyBlockOperation apiKeyBlockOperation, ApiKeyUnblockOperation apiKeyUnblockOperation,
+			ApiKeyEditOperation apiKeyEditOperation) {
 		this.apiKeysReadOperation = apiKeysReadOperation;
 		this.apiKeyCreationOperation = apiKeyCreationOperation;
 		this.apiKeyRemovalOperation = apiKeyRemovalOperation;
 		this.apiKeyBlockOperation = apiKeyBlockOperation;
 		this.apiKeyUnblockOperation = apiKeyUnblockOperation;
+		this.apiKeyEditOperation = apiKeyEditOperation;
 	}
 
 	public ApiKeyReadResponseDTO getAll(Long accountId) {
@@ -51,6 +58,10 @@ class ApiKeysOperationsService {
 
 	public ApiKeyBlockRelatedResponseDTO unblock(Long accountId, Long apiKeyId) {
 		return apiKeyUnblockOperation.execute(accountId, apiKeyId);
+	}
+
+	public ApiKeyEditResponseDTO edit(Long accountId, ApiKeyDetailsDTO apiKeyDetailsDTO) {
+		return apiKeyEditOperation.execute(accountId, apiKeyDetailsDTO);
 	}
 
 }

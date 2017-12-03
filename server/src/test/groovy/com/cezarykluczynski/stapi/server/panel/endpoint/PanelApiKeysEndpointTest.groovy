@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.server.panel.endpoint
 
 import com.cezarykluczynski.stapi.auth.api_key.operation.ApiKeysOwnOperationsService
 import com.cezarykluczynski.stapi.auth.api_key.operation.creation.ApiKeyCreationResponseDTO
+import com.cezarykluczynski.stapi.auth.api_key.operation.edit.ApiKeyEditResponseDTO
 import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeyReadResponseDTO
 import com.cezarykluczynski.stapi.auth.api_key.operation.removal.ApiKeyRemovalResponseDTO
 import spock.lang.Specification
@@ -9,6 +10,8 @@ import spock.lang.Specification
 class PanelApiKeysEndpointTest extends Specification {
 
 	private static final Long API_KEY_ID = 15L
+	private static final String URL = 'URL'
+	private static final String DESCRIPTION = 'DESCRIPTION'
 
 	private ApiKeysOwnOperationsService apiKeysOwnOperationsServiceMock
 
@@ -56,6 +59,19 @@ class PanelApiKeysEndpointTest extends Specification {
 		1 * apiKeysOwnOperationsServiceMock.remove(API_KEY_ID) >> apiKeyRemovalResponseDTO
 		0 * _
 		apiKeyRemovalResponseDTOOutput == apiKeyRemovalResponseDTO
+	}
+
+	void "edits api key"() {
+		given:
+		ApiKeyEditResponseDTO apiKeyEditResponseDTO = Mock()
+
+		when:
+		ApiKeyEditResponseDTO apiKeyEditResponseDTOOutput = panelApiKeysEndpoint.edit(API_KEY_ID, URL, DESCRIPTION)
+
+		then:
+		1 * apiKeysOwnOperationsServiceMock.edit(API_KEY_ID, URL, DESCRIPTION) >> apiKeyEditResponseDTO
+		0 * _
+		apiKeyEditResponseDTOOutput == apiKeyEditResponseDTO
 	}
 
 }

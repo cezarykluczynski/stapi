@@ -54,6 +54,8 @@ public class ApiKey {
 
 	private Boolean blocked;
 
+	private String url;
+
 	private String description;
 
 }

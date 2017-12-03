@@ -1,6 +1,8 @@
 package com.cezarykluczynski.stapi.auth.api_key.operation;
 
 import com.cezarykluczynski.stapi.auth.api_key.operation.creation.ApiKeyCreationResponseDTO;
+import com.cezarykluczynski.stapi.auth.api_key.operation.edit.ApiKeyDetailsDTO;
+import com.cezarykluczynski.stapi.auth.api_key.operation.edit.ApiKeyEditResponseDTO;
 import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeyReadResponseDTO;
 import com.cezarykluczynski.stapi.auth.api_key.operation.removal.ApiKeyRemovalResponseDTO;
 import com.cezarykluczynski.stapi.auth.oauth.session.OAuthSessionHolder;
@@ -30,4 +32,11 @@ public class ApiKeysOwnOperationsService {
 		return apiKeysOperationsService.remove(oAuthSessionHolder.getOAuthSession().getAccountId(), apiKeyId);
 	}
 
+	public ApiKeyEditResponseDTO edit(Long apiKeyId, String url, String description) {
+		return apiKeysOperationsService.edit(oAuthSessionHolder.getOAuthSession().getAccountId(), ApiKeyDetailsDTO.builder()
+				.apiKeyId(apiKeyId)
+				.url(url)
+				.description(description)
+				.build());
+	}
 }

@@ -13,7 +13,8 @@
 			<column name="account_id" type="bigint"/>
 			<column name="limit" type="int"/>
 			<column name="blocked" type="boolean"/>
-			<column name="description" type="varchar(256)"/>
+			<column name="url" type="varchar(256)"/>
+			<column name="description" type="text"/>
 		</createTable>
 		<createSequence incrementBy="1" sequenceName="api_key_sequence" schemaName="stapi_users"/>
 		<addForeignKeyConstraint baseColumnNames="account_id"
