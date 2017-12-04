@@ -14,7 +14,9 @@ export class PanelApiKeysComponent implements OnInit {
 	private panelApiKeysApi: PanelApiKeysApi;
 	private notificationsService : NotificationsService;
 	private apiKeys: Array<any>;
+	private apiKeyDetails: any;
 	private keysBeingRemoved: Set<number> = new Set();
+	private keysBeingEdited: Set<number> = new Set();
 
 	constructor(panelApiKeysApi: PanelApiKeysApi, notificationsService: NotificationsService) {
 		this.panelApiKeysApi = panelApiKeysApi;
@@ -38,7 +40,7 @@ export class PanelApiKeysComponent implements OnInit {
 			if (response.created) {
 				return this.loadApiKeys();
 			} else {
-				this.notificationsService.error(this.createErrorNotification(response.failReason));
+				this.notificationsService.error(this.createApiKeyCreationErrorNotification(response.failReason));
 			}
 		});
 	}
@@ -52,9 +54,24 @@ export class PanelApiKeysComponent implements OnInit {
 	}
 
 	loadApiKeys() {
-		return  this.panelApiKeysApi.getApiKeys().then((response) => {
+		return this.panelApiKeysApi.getApiKeys().then((response) => {
 			this.apiKeys = response.apiKeys;
+			this.buildApiKeysDetails();
 		});
+	}
+
+	private buildApiKeysDetails() {
+		this.apiKeyDetails = {};
+		if (!this.apiKeys) {
+			return;
+		}
+		for (let i = 0; i < this.apiKeys.length; i++) {
+			const apiKey = this.apiKeys[i];
+			this.apiKeyDetails[apiKey.id] = {
+				url: apiKey.url,
+				description: apiKey.description
+			};
+		}
 	}
 
 	askForApiKeyRemoval(apiKeyId) {
@@ -69,10 +86,46 @@ export class PanelApiKeysComponent implements OnInit {
 		return this.keysBeingRemoved.has(apiKeyId);
 	}
 
-	private createErrorNotification(failReason: string) {
+	openApiKeyEdit(apiKeyId) {
+		this.keysBeingEdited.add(apiKeyId);
+	}
+
+	closeApiKeyEdit(apiKeyId) {
+		this.keysBeingEdited.delete(apiKeyId);
+	}
+
+	editingApiKey(apiKeyId) {
+		return this.keysBeingEdited.has(apiKeyId);
+	}
+
+	updateApiKey(apiKeyId) {
+		this.panelApiKeysApi.saveApiKeyDetails(apiKeyId, this.apiKeyDetails[apiKeyId]).then((response) => {
+			this.closeApiKeyEdit(apiKeyId);
+			if (response.successful && response.changed) {
+				this.notificationsService.success('API key details saved!');
+			} else if (response.successful && !response.changed) {
+				this.notificationsService.info('There was no changes to save.');
+			} else {
+				this.notificationsService.error(this.createApiKeyEditErrorNotification(response.failReason));
+			}
+		});
+	}
+
+	private createApiKeyCreationErrorNotification(failReason: string) {
 		switch (failReason) {
 			case 'TOO_MUCH_KEYS_ALREADY_CREATED':
 				return 'You already created the maximal number of API keys.';
+			default:
+				return 'Uknown error occured. Code: ' + failReason;
+		}
+	}
+
+	private createApiKeyEditErrorNotification(failReason: string) {
+		switch (failReason) {
+			case 'URL_TOO_LONG':
+				return 'URL is too long. Max length is 256 characters.';
+			case 'DESCRIPTION_TOO_LONG':
+				return 'Description is too long. Max length is 4000 characters.';
 			default:
 				return 'Uknown error occured. Code: ' + failReason;
 		}

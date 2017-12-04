@@ -61,6 +61,10 @@ describe('PanelApiKeysApi', () => {
 		let DELETE_RESULT = {
 			removed: true
 		};
+		const UPDATE_RESULT = {
+			successful: true
+		};
+		const API_KEY_DETAILS = {};
 
 		beforeEach(() => {
 			restClientMock.panel = {};
@@ -69,6 +73,11 @@ describe('PanelApiKeysApi', () => {
 					delete: () => {
 						expect(apiKeyId).toBe(API_KEY_ID);
 						return Promise.resolve(DELETE_RESULT);
+					},
+					post: (details) => {
+						expect(apiKeyId).toBe(API_KEY_ID);
+						expect(details).toBe(API_KEY_DETAILS);
+						return Promise.resolve(UPDATE_RESULT);
 					}
 				}
 			};
@@ -96,6 +105,12 @@ describe('PanelApiKeysApi', () => {
 		it('removes API key', inject([PanelApiKeysApi], (panelApiKeysApi: PanelApiKeysApi) => {
 			panelApiKeysApi.removeApiKey(API_KEY_ID).then((response) => {
 				expect(response).toBe(DELETE_RESULT);
+			});
+		}));
+
+		it('save API key details', inject([PanelApiKeysApi], (panelApiKeysApi: PanelApiKeysApi) => {
+			panelApiKeysApi.saveApiKeyDetails(API_KEY_ID, API_KEY_DETAILS).then((response) => {
+				expect(response).toBe(UPDATE_RESULT);
 			});
 		}));
 	});

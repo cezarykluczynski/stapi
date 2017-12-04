@@ -10,6 +10,7 @@
 	<ul class="list-group" *ngIf="hasApiKeys()">
 		<li class="list-group-item" *ngFor="let apiKey of getApiKeys()">
 			<div *ngIf="!removingApiKey(apiKey.id)">
+				<button class="btn btn-primary btn-sm pull-right panel-api-keys__edit" (click)="openApiKeyEdit(apiKey.id)">Edit</button>
 				<button class="btn btn-danger btn-sm pull-right" (click)="askForApiKeyRemoval(apiKey.id)">Remove</button>
 				<h4><span class="label label-default">{{apiKey.apiKey}}</span></h4>
 				<small>
@@ -22,6 +23,26 @@
 				<br>
 				<button class="btn btn-danger btn-sm" (click)="removeApiKey(apiKey.id)">Yes, remove this key</button>
 				<button class="btn btn-primary btn-sm" (click)="doNotRemoveApiKey(apiKey.id)">No, do not remove this key</button>
+			</div>
+			<div *ngIf="editingApiKey(apiKey.id)">
+				<hr>
+				Optionally, you can provide details on what this API key is used for, and URL of application, project page, or GitHub repository
+				that uses this API key. This might help understand the nature of traffic coming from you
+				<br>
+				<br>
+				<form class="panel-api-keys__key-edit">
+					<div class="form-group">
+						<label>URL</label>
+						<input type="text" class="form-control" [(ngModel)]="apiKeyDetails[apiKey.id].url" name="name">
+					</div>
+
+					<div class="form-group">
+						<label>Description</label>
+						<textarea type="email" class="form-control" [(ngModel)]="apiKeyDetails[apiKey.id].description" name="email"></textarea>
+					</div>
+					<button class="btn btn-success btn-sm" (click)="updateApiKey(apiKey.id)">Save</button>
+					<button class="btn btn-warning btn-sm" (click)="closeApiKeyEdit(apiKey.id)">Cancel</button>
+				</form>
 			</div>
 		</li>
 	</ul>

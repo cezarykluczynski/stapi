@@ -47,7 +47,7 @@ public class ApiKeyEditOperation {
 		}
 
 		if (!urlsEquals && !apiKeyEditValidator.isUrlShortEnough(incomingUrl)) {
-			return apiKeyEditResponseDTOFactory.createUnsuccessful(ApiKeyEditResponseDTO.FailReason.URL_TO_LONG);
+			return apiKeyEditResponseDTOFactory.createUnsuccessful(ApiKeyEditResponseDTO.FailReason.URL_TOO_LONG);
 		}
 
 		if (!descriptionsEquals && !apiKeyEditValidator.isDescriptionShortEnough(incomingDescription)) {

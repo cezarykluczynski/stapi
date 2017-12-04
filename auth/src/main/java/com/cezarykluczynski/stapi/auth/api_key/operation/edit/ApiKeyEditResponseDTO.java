@@ -15,7 +15,7 @@ public class ApiKeyEditResponseDTO {
 
 	public enum FailReason {
 
-		URL_TO_LONG,
+		URL_TOO_LONG,
 		DESCRIPTION_TOO_LONG
 
 	}

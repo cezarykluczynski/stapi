@@ -26,6 +26,10 @@ export class PanelApiKeysApi {
 		return this.api.panel.apiKeys(apiKeyId).delete();
 	}
 
+	saveApiKeyDetails(apiKeyId: number, details: any) {
+		return this.api.panel.apiKeys(apiKeyId).post(details, 'application/x-www-form-urlencoded');
+	}
+
 	private register() {
 		this.api.res('panel').res('apiKeys');
 	}

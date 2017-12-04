@@ -12,12 +12,12 @@ class ApiKeyEditResponseDTOFactoryTest extends Specification {
 
 	void "creates unsuccessful response with reason"() {
 		when:
-		ApiKeyEditResponseDTO apiKeyEditResponseDTO = apiKeyEditResponseDTOFactory.createUnsuccessful(ApiKeyEditResponseDTO.FailReason.URL_TO_LONG)
+		ApiKeyEditResponseDTO apiKeyEditResponseDTO = apiKeyEditResponseDTOFactory.createUnsuccessful(ApiKeyEditResponseDTO.FailReason.URL_TOO_LONG)
 
 		then:
 		!apiKeyEditResponseDTO.successful
 		!apiKeyEditResponseDTO.changed
-		apiKeyEditResponseDTO.failReason == ApiKeyEditResponseDTO.FailReason.URL_TO_LONG
+		apiKeyEditResponseDTO.failReason == ApiKeyEditResponseDTO.FailReason.URL_TOO_LONG
 	}
 
 	void "creates unchanged response"() {

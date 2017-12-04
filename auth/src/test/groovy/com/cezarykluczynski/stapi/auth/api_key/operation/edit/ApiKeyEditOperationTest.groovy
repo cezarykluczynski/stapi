@@ -106,7 +106,7 @@ class ApiKeyEditOperationTest extends Specification {
 		then:
 		1 * apiKeyRepositoryMock.findAllByAccountId(ACCOUNT_ID) >> Lists.newArrayList(validApiKey)
 		1 * apiKeyEditValidatorMock.isUrlShortEnough(INCOMING_URL) >> false
-		1 * apiKeyEditResponseDTOFactoryMock.createUnsuccessful(ApiKeyEditResponseDTO.FailReason.URL_TO_LONG) >> apiKeyEditResponseDTO
+		1 * apiKeyEditResponseDTOFactoryMock.createUnsuccessful(ApiKeyEditResponseDTO.FailReason.URL_TOO_LONG) >> apiKeyEditResponseDTO
 		0 * _
 		apiKeyEditResponseDTOOutput == apiKeyEditResponseDTO
 	}
