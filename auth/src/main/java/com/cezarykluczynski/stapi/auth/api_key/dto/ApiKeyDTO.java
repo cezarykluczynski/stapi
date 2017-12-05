@@ -17,6 +17,8 @@ public class ApiKeyDTO {
 
 	private Boolean blocked;
 
+	private String url;
+
 	private String description;
 
 }

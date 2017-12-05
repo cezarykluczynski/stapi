@@ -25,6 +25,7 @@ public class ApiKeyMapper {
 		}
 		apiKeyDTO.setLimit(apiKey.getLimit());
 		apiKeyDTO.setBlocked(apiKey.getBlocked());
+		apiKeyDTO.setUrl(apiKey.getUrl());
 		apiKeyDTO.setDescription(apiKey.getDescription());
 
 		return apiKeyDTO;

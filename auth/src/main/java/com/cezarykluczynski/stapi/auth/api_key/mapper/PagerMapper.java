@@ -5,9 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 @Service
-class PagerMapper {
+public class PagerMapper {
 
-	<T> Pager map(Page<T> page) {
+	public <T> Pager map(Page<T> page) {
 		return Pager.builder()
 				.totalPages(page.getTotalPages())
 				.totalElements((int) page.getTotalElements())

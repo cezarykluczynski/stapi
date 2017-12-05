@@ -4,6 +4,8 @@ import com.cezarykluczynski.stapi.auth.configuration.ApiKeyProperties
 import com.cezarykluczynski.stapi.model.api_key.entity.ApiKey
 import com.cezarykluczynski.stapi.model.api_key.entity.ApiKey_
 import com.cezarykluczynski.stapi.model.api_key.query.ApiKeyQueryBuilderFactory
+import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
+import com.cezarykluczynski.stapi.model.common.dto.enums.RequestSortDirectionDTO
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -71,6 +73,10 @@ class ApiKeysReaderTest extends Specification {
 		}
 		2 * apiKeyQueryBuilder.equal(_, null)
 		1 * apiKeyQueryBuilder.fetch(ApiKey_.throttle)
+		1 * apiKeyQueryBuilder.setSort(_ as RequestSortDTO) >> { RequestSortDTO requestSortDTO ->
+			assert requestSortDTO.clauses[0].name == 'id'
+			assert requestSortDTO.clauses[0].direction == RequestSortDirectionDTO.ASC
+		}
 		1 * apiKeyQueryBuilder.findPage() >> page
 		0 * _
 		pageOutput == page
@@ -97,6 +103,10 @@ class ApiKeysReaderTest extends Specification {
 		1 * apiKeyQueryBuilder.equal(ApiKey_.accountId, ACCOUNT_ID)
 		1 * apiKeyQueryBuilder.equal(ApiKey_.id, API_KEY_ID)
 		1 * apiKeyQueryBuilder.fetch(ApiKey_.throttle)
+		1 * apiKeyQueryBuilder.setSort(_ as RequestSortDTO) >> { RequestSortDTO requestSortDTO ->
+			assert requestSortDTO.clauses[0].name == 'id'
+			assert requestSortDTO.clauses[0].direction == RequestSortDirectionDTO.ASC
+		}
 		1 * apiKeyQueryBuilder.findPage() >> page
 		0 * _
 		pageOutput == page

@@ -17,10 +17,19 @@ public class ApiKeysReadCriteria {
 
 	private Integer pageNumber;
 
+	private Integer pageSize;
+
 	static ApiKeysReadCriteria ofAccountId(Long accountId) {
 		return ApiKeysReadCriteria.builder()
 				.accountId(accountId)
 				.pageNumber(0)
+				.build();
+	}
+
+	static ApiKeysReadCriteria ofPageNumberAndPageSize(int pageNumber, int pageSize) {
+		return ApiKeysReadCriteria.builder()
+				.pageNumber(pageNumber)
+				.pageSize(pageSize)
 				.build();
 	}
 

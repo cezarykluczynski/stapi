@@ -16,6 +16,7 @@ class ApiKeyMapperTest extends Specification {
 	private static final Integer LIMIT = 1000
 	private static final Integer REMAINING = 500
 	private static final Boolean BLOCKED = RandomUtil.nextBoolean()
+	private static final String URL = 'URL'
 	private static final String DESCRIPTION = 'DESCRIPTION'
 
 	private ApiKeyMapper apiKeyMapper
@@ -40,6 +41,7 @@ class ApiKeyMapperTest extends Specification {
 				accountId: ACCOUNT_ID,
 				limit: LIMIT,
 				blocked: BLOCKED,
+				url: URL,
 				description: DESCRIPTION))
 
 		then:
@@ -49,6 +51,7 @@ class ApiKeyMapperTest extends Specification {
 		apiKeyDTO.limit == LIMIT
 		apiKeyDTO.remaining == null
 		apiKeyDTO.blocked == BLOCKED
+		apiKeyDTO.url == URL
 		apiKeyDTO.description == DESCRIPTION
 	}
 
@@ -61,6 +64,7 @@ class ApiKeyMapperTest extends Specification {
 				throttle: new Throttle(remainingHits: REMAINING),
 				limit: LIMIT,
 				blocked: BLOCKED,
+				url: URL,
 				description: DESCRIPTION))
 
 		then:
@@ -70,6 +74,7 @@ class ApiKeyMapperTest extends Specification {
 		apiKeyDTO.limit == LIMIT
 		apiKeyDTO.remaining == REMAINING
 		apiKeyDTO.blocked == BLOCKED
+		apiKeyDTO.url == URL
 		apiKeyDTO.description == DESCRIPTION
 	}
 

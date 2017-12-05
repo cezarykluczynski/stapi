@@ -218,7 +218,7 @@ public class QueryBuilder<T> {
 	}
 
 	public QueryBuilder<T> setSort(RequestSortDTO requestSortDTO) {
-		if (requestSortDTO == null || CollectionUtils.isEmpty(requestSortDTO.getClauses())) {
+		if (CollectionUtils.isEmpty(requestSortDTO.getClauses())) {
 			return this;
 		}
 

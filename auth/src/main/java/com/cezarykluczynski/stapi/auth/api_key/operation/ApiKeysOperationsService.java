@@ -10,6 +10,7 @@ import com.cezarykluczynski.stapi.auth.api_key.operation.edit.ApiKeyEditOperatio
 import com.cezarykluczynski.stapi.auth.api_key.operation.edit.ApiKeyEditResponseDTO;
 import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeyReadResponseDTO;
 import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeysReadOperation;
+import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeysReadPageOperation;
 import com.cezarykluczynski.stapi.auth.api_key.operation.removal.ApiKeyRemovalOperation;
 import com.cezarykluczynski.stapi.auth.api_key.operation.removal.ApiKeyRemovalResponseDTO;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,8 @@ import org.springframework.stereotype.Service;
 class ApiKeysOperationsService {
 
 	private final ApiKeysReadOperation apiKeysReadOperation;
+
+	private final ApiKeysReadPageOperation apiKeysReadPageOperation;
 
 	private final ApiKeyCreationOperation apiKeyCreationOperation;
 
@@ -29,10 +32,11 @@ class ApiKeysOperationsService {
 
 	private final ApiKeyEditOperation apiKeyEditOperation;
 
-	ApiKeysOperationsService(ApiKeysReadOperation apiKeysReadOperation, ApiKeyCreationOperation apiKeyCreationOperation,
-			ApiKeyRemovalOperation apiKeyRemovalOperation, ApiKeyBlockOperation apiKeyBlockOperation, ApiKeyUnblockOperation apiKeyUnblockOperation,
-			ApiKeyEditOperation apiKeyEditOperation) {
+	ApiKeysOperationsService(ApiKeysReadOperation apiKeysReadOperation, ApiKeysReadPageOperation apiKeysReadPageOperation,
+			ApiKeyCreationOperation apiKeyCreationOperation, ApiKeyRemovalOperation apiKeyRemovalOperation, ApiKeyBlockOperation apiKeyBlockOperation,
+			ApiKeyUnblockOperation apiKeyUnblockOperation, ApiKeyEditOperation apiKeyEditOperation) {
 		this.apiKeysReadOperation = apiKeysReadOperation;
+		this.apiKeysReadPageOperation = apiKeysReadPageOperation;
 		this.apiKeyCreationOperation = apiKeyCreationOperation;
 		this.apiKeyRemovalOperation = apiKeyRemovalOperation;
 		this.apiKeyBlockOperation = apiKeyBlockOperation;
@@ -40,27 +44,31 @@ class ApiKeysOperationsService {
 		this.apiKeyEditOperation = apiKeyEditOperation;
 	}
 
-	public ApiKeyReadResponseDTO getAll(Long accountId) {
+	ApiKeyReadResponseDTO getAll(Long accountId) {
 		return apiKeysReadOperation.execute(accountId);
 	}
 
-	public ApiKeyCreationResponseDTO create(Long accountId) {
+	ApiKeyReadResponseDTO getPage(int pageNumber, int pageSize) {
+		return apiKeysReadPageOperation.execute(pageNumber, pageSize);
+	}
+
+	ApiKeyCreationResponseDTO create(Long accountId) {
 		return apiKeyCreationOperation.execute(accountId);
 	}
 
-	public ApiKeyRemovalResponseDTO remove(Long accountId, Long apiKeyId) {
+	ApiKeyRemovalResponseDTO remove(Long accountId, Long apiKeyId) {
 		return apiKeyRemovalOperation.execute(accountId, apiKeyId);
 	}
 
-	public ApiKeyBlockRelatedResponseDTO block(Long accountId, Long apiKeyId) {
+	ApiKeyBlockRelatedResponseDTO block(Long accountId, Long apiKeyId) {
 		return apiKeyBlockOperation.execute(accountId, apiKeyId);
 	}
 
-	public ApiKeyBlockRelatedResponseDTO unblock(Long accountId, Long apiKeyId) {
+	ApiKeyBlockRelatedResponseDTO unblock(Long accountId, Long apiKeyId) {
 		return apiKeyUnblockOperation.execute(accountId, apiKeyId);
 	}
 
-	public ApiKeyEditResponseDTO edit(Long accountId, ApiKeyDetailsDTO apiKeyDetailsDTO) {
+	ApiKeyEditResponseDTO edit(Long accountId, ApiKeyDetailsDTO apiKeyDetailsDTO) {
 		return apiKeyEditOperation.execute(accountId, apiKeyDetailsDTO);
 	}
 

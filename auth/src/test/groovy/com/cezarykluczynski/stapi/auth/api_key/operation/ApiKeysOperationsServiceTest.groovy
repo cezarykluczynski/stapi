@@ -10,6 +10,7 @@ import com.cezarykluczynski.stapi.auth.api_key.operation.edit.ApiKeyEditOperatio
 import com.cezarykluczynski.stapi.auth.api_key.operation.edit.ApiKeyEditResponseDTO
 import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeyReadResponseDTO
 import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeysReadOperation
+import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeysReadPageOperation
 import com.cezarykluczynski.stapi.auth.api_key.operation.removal.ApiKeyRemovalOperation
 import com.cezarykluczynski.stapi.auth.api_key.operation.removal.ApiKeyRemovalResponseDTO
 import spock.lang.Specification
@@ -18,8 +19,12 @@ class ApiKeysOperationsServiceTest extends Specification {
 
 	private static final Long ACCOUNT_ID = 10L
 	private static final Long API_KEY_ID = 15L
+	private static final int PAGE_NUMBER = 4
+	private static final int PAGE_SIZE = 20
 
 	private ApiKeysReadOperation apiKeysReadOperationMock
+
+	private ApiKeysReadPageOperation apiKeysReadPageOperationMock
 
 	private ApiKeyCreationOperation apiKeyCreationOperationMock
 
@@ -35,13 +40,14 @@ class ApiKeysOperationsServiceTest extends Specification {
 
 	void setup() {
 		apiKeysReadOperationMock = Mock()
+		apiKeysReadPageOperationMock = Mock()
 		apiKeyCreationOperationMock = Mock()
 		apiKeyRemovalOperationMock = Mock()
 		apiKeyBlockOperationMock = Mock()
 		apiKeyUnblockOperationMock = Mock()
 		apiKeyEditOperationMock = Mock()
-		apiKeysOperationsService = new ApiKeysOperationsService(apiKeysReadOperationMock, apiKeyCreationOperationMock, apiKeyRemovalOperationMock,
-				apiKeyBlockOperationMock, apiKeyUnblockOperationMock, apiKeyEditOperationMock)
+		apiKeysOperationsService = new ApiKeysOperationsService(apiKeysReadOperationMock, apiKeysReadPageOperationMock, apiKeyCreationOperationMock,
+				apiKeyRemovalOperationMock, apiKeyBlockOperationMock, apiKeyUnblockOperationMock, apiKeyEditOperationMock)
 	}
 
 	void "gets all keys"() {
@@ -53,6 +59,19 @@ class ApiKeysOperationsServiceTest extends Specification {
 
 		then:
 		1 * apiKeysReadOperationMock.execute(ACCOUNT_ID) >> apiKeyReadResponseDTO
+		0 * _
+		apiKeyReadResponseDTOOutput == apiKeyReadResponseDTO
+	}
+
+	void "gets page"() {
+		given:
+		ApiKeyReadResponseDTO apiKeyReadResponseDTO = Mock()
+
+		when:
+		ApiKeyReadResponseDTO apiKeyReadResponseDTOOutput = apiKeysOperationsService.getPage(PAGE_NUMBER, PAGE_SIZE)
+
+		then:
+		1 * apiKeysReadPageOperationMock.execute(PAGE_NUMBER, PAGE_SIZE) >> apiKeyReadResponseDTO
 		0 * _
 		apiKeyReadResponseDTOOutput == apiKeyReadResponseDTO
 	}
