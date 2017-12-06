@@ -9,6 +9,7 @@ import * as hljs from 'highlight.js';
 import { HighlightJsModule, HIGHLIGHT_JS } from 'angular-highlight-js';
 import { CookieService } from 'ngx-cookie-service';
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 export function highlightJsFactory() {
   return hljs;
@@ -39,6 +40,9 @@ import { PanelApiKeysApi } from './panel/api-keys/panel-api-keys-api.service';
 import { PanelAccountSettingsComponent } from './panel/account-settings/panel-account-settings.component';
 import { PanelAccountApi } from './panel/account-settings/panel-account-api.service';
 import { PanelAdminManagementComponent } from './panel/admin-management/panel-admin-management.component';
+import { PanelAdminManagementApi } from './panel/admin-management/panel-admin-management-api.service';
+import { PanelAdminApiKeysComponent } from './panel/admin-management/panel-admin-api-keys/panel-admin-api-keys.component';
+import { PanelAdminAccountsComponent } from './panel/admin-management/panel-admin-accounts/panel-admin-accounts.component';
 
 const appRoutes: Routes = [
 	{
@@ -95,7 +99,9 @@ export function initConfiguration(initializerService: InitializerService): Funct
 		PanelComponent,
 		PanelApiKeysComponent,
 		PanelAccountSettingsComponent,
-		PanelAdminManagementComponent
+		PanelAdminManagementComponent,
+		PanelAdminApiKeysComponent,
+		PanelAdminAccountsComponent
 	],
 	imports: [
 		RouterModule.forRoot(appRoutes),
@@ -108,7 +114,8 @@ export function initConfiguration(initializerService: InitializerService): Funct
 			provide: HIGHLIGHT_JS,
 			useFactory: highlightJsFactory
 		}),
-		SimpleNotificationsModule.forRoot()
+		SimpleNotificationsModule.forRoot(),
+		NgbModule.forRoot()
 	],
 	providers: [
 		{
@@ -121,6 +128,7 @@ export function initConfiguration(initializerService: InitializerService): Funct
 		ApiBrowserApi,
 		ApiDocumentationApi,
 		RestApiService,
+		PanelAdminManagementApi,
 		PanelAccountApi,
 		PanelApiKeysApi,
 		PanelApi,

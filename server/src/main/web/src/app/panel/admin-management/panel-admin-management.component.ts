@@ -5,10 +5,5 @@ import { Component, OnInit } from '@angular/core';
 	templateUrl: './panel-admin-management.component.html',
 	styleUrls: ['./panel-admin-management.component.sass']
 })
-export class PanelAdminManagementComponent implements OnInit {
-
-	constructor() {}
-
-	ngOnInit() {}
-
+export class PanelAdminManagementComponent {
 }

@@ -1,0 +1,5 @@
+<div>
+	<div *ngIf="!loadingApiKeys">
+		<ngb-pagination [collectionSize]="pager.totalPages" [(page)]="pager.pageNumber" (pageChange)="loadApiKeys()"></ngb-pagination>
+	</div>
+</div>
