@@ -17,8 +17,6 @@ public class ApiKeysReadCriteria {
 
 	private Integer pageNumber;
 
-	private Integer pageSize;
-
 	static ApiKeysReadCriteria ofAccountId(Long accountId) {
 		return ApiKeysReadCriteria.builder()
 				.accountId(accountId)
@@ -26,10 +24,9 @@ public class ApiKeysReadCriteria {
 				.build();
 	}
 
-	static ApiKeysReadCriteria ofPageNumberAndPageSize(int pageNumber, int pageSize) {
+	static ApiKeysReadCriteria ofPageNumber(int pageNumber) {
 		return ApiKeysReadCriteria.builder()
 				.pageNumber(pageNumber)
-				.pageSize(pageSize)
 				.build();
 	}
 

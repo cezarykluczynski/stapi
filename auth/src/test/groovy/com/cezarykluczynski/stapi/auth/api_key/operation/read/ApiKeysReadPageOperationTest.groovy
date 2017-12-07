@@ -13,7 +13,6 @@ import spock.lang.Specification
 class ApiKeysReadPageOperationTest extends Specification {
 
 	private static final int PAGE_NUMBER = 4
-	private static final int PAGE_SIZE = 20
 
 	private ApiKeysReader apiKeysReaderMock
 
@@ -43,14 +42,13 @@ class ApiKeysReadPageOperationTest extends Specification {
 		ApiKeyReadResponseDTO apiKeyReadResponseDTO = Mock()
 
 		when:
-		ApiKeyReadResponseDTO apiKeyReadResponseDTOOutput = apiKeysReadPageOperation.execute(PAGE_NUMBER, PAGE_SIZE)
+		ApiKeyReadResponseDTO apiKeyReadResponseDTOOutput = apiKeysReadPageOperation.execute(PAGE_NUMBER)
 
 		then:
 		1 * apiKeysReaderMock.execute(_ as ApiKeysReadCriteria) >> { ApiKeysReadCriteria apiKeysReadCriteria ->
 			assert apiKeysReadCriteria.accountId == null
 			assert apiKeysReadCriteria.apiKeyId == null
 			assert apiKeysReadCriteria.pageNumber == PAGE_NUMBER
-			assert apiKeysReadCriteria.pageSize == PAGE_SIZE
 			apiKeyPage
 		}
 		1 * apiKeyMapperMock.map(apiKey) >> apiKeyDTO

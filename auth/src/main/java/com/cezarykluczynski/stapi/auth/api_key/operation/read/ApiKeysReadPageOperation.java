@@ -30,8 +30,8 @@ public class ApiKeysReadPageOperation {
 		this.apiKeyReadResponseDTOFactory = apiKeyReadResponseDTOFactory;
 	}
 
-	public ApiKeyReadResponseDTO execute(int pageNumber, int pageSize) {
-		Page<ApiKey> apiKeyPage = apiKeysReader.execute(ApiKeysReadCriteria.ofPageNumberAndPageSize(pageNumber, pageSize));
+	public ApiKeyReadResponseDTO execute(int pageNumber) {
+		Page<ApiKey> apiKeyPage = apiKeysReader.execute(ApiKeysReadCriteria.ofPageNumber(pageNumber));
 		List<ApiKeyDTO> apiKeyList = apiKeyPage.getContent().stream()
 				.map(apiKeyMapper::map)
 				.collect(Collectors.toList());

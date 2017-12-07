@@ -7,7 +7,6 @@ import spock.lang.Specification
 class ApiKeyAdminOperationsServiceTest extends Specification {
 
 	private static final int PAGE_NUMBER = 4
-	private static final int PAGE_SIZE = 20
 	private static final Long ACCOUNT_ID = 123
 	private static final Long API_KEY_ID = 456
 
@@ -25,10 +24,10 @@ class ApiKeyAdminOperationsServiceTest extends Specification {
 		ApiKeyReadResponseDTO apiKeyReadResponseDTO = Mock()
 
 		when:
-		ApiKeyReadResponseDTO apiKeyReadResponseDTOOutput = apiKeyAdminOperationsService.getPage(PAGE_NUMBER, PAGE_SIZE)
+		ApiKeyReadResponseDTO apiKeyReadResponseDTOOutput = apiKeyAdminOperationsService.getPage(PAGE_NUMBER)
 
 		then:
-		1 * apiKeysOperationsServiceMock.getPage(PAGE_NUMBER, PAGE_SIZE) >> apiKeyReadResponseDTO
+		1 * apiKeysOperationsServiceMock.getPage(PAGE_NUMBER) >> apiKeyReadResponseDTO
 		0 * _
 		apiKeyReadResponseDTOOutput == apiKeyReadResponseDTO
 	}

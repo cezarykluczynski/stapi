@@ -20,7 +20,6 @@ class ApiKeysOperationsServiceTest extends Specification {
 	private static final Long ACCOUNT_ID = 10L
 	private static final Long API_KEY_ID = 15L
 	private static final int PAGE_NUMBER = 4
-	private static final int PAGE_SIZE = 20
 
 	private ApiKeysReadOperation apiKeysReadOperationMock
 
@@ -68,10 +67,10 @@ class ApiKeysOperationsServiceTest extends Specification {
 		ApiKeyReadResponseDTO apiKeyReadResponseDTO = Mock()
 
 		when:
-		ApiKeyReadResponseDTO apiKeyReadResponseDTOOutput = apiKeysOperationsService.getPage(PAGE_NUMBER, PAGE_SIZE)
+		ApiKeyReadResponseDTO apiKeyReadResponseDTOOutput = apiKeysOperationsService.getPage(PAGE_NUMBER)
 
 		then:
-		1 * apiKeysReadPageOperationMock.execute(PAGE_NUMBER, PAGE_SIZE) >> apiKeyReadResponseDTO
+		1 * apiKeysReadPageOperationMock.execute(PAGE_NUMBER) >> apiKeyReadResponseDTO
 		0 * _
 		apiKeyReadResponseDTOOutput == apiKeyReadResponseDTO
 	}

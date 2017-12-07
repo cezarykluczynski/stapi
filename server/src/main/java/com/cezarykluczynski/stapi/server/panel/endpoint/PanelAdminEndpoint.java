@@ -14,8 +14,8 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 @Service
@@ -35,24 +35,24 @@ public class PanelAdminEndpoint {
 	@Path("apiKeys")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@PreAuthorize("hasPermission(filterObject, 'ADMIN_MANAGEMENT')")
-	public ApiKeyReadResponseDTO readApiKeysPage(@PathParam("pageNumber") int pageNumber, @PathParam("pageSize") int pageSize) {
-		return apiKeyAdminOperationsService.getPage(pageNumber, pageSize);
+	public ApiKeyReadResponseDTO readApiKeysPage(@QueryParam("pageNumber") int pageNumber) {
+		return apiKeyAdminOperationsService.getPage(pageNumber);
 	}
 
 	@POST
 	@Path("apiKeys/block")
-	@Consumes(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@PreAuthorize("hasPermission(filterObject, 'ADMIN_MANAGEMENT')")
-	public ApiKeyBlockRelatedResponseDTO blockApiKey(@FormParam("apiKey") Long accountId, @FormParam("apiKey") Long apiKey) {
-		return apiKeyAdminOperationsService.block(accountId, apiKey);
+	public ApiKeyBlockRelatedResponseDTO blockApiKey(@FormParam("accountId") Long accountId, @FormParam("apiKeyId") Long apiKeyId) {
+		return apiKeyAdminOperationsService.block(accountId, apiKeyId);
 	}
 
 	@POST
 	@Path("apiKeys/unblock")
-	@Consumes(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@PreAuthorize("hasPermission(filterObject, 'ADMIN_MANAGEMENT')")
-	public ApiKeyBlockRelatedResponseDTO unblockApiKey(@FormParam("apiKey") Long accountId, @FormParam("apiKey") Long apiKey) {
-		return apiKeyAdminOperationsService.unblock(accountId, apiKey);
+	public ApiKeyBlockRelatedResponseDTO unblockApiKey(@FormParam("accountId") Long accountId, @FormParam("apiKeyId") Long apiKeyId) {
+		return apiKeyAdminOperationsService.unblock(accountId, apiKeyId);
 	}
 
 }

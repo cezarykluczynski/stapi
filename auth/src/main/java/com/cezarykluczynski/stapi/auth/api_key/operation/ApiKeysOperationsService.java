@@ -48,8 +48,8 @@ class ApiKeysOperationsService {
 		return apiKeysReadOperation.execute(accountId);
 	}
 
-	ApiKeyReadResponseDTO getPage(int pageNumber, int pageSize) {
-		return apiKeysReadPageOperation.execute(pageNumber, pageSize);
+	ApiKeyReadResponseDTO getPage(int pageNumber) {
+		return apiKeysReadPageOperation.execute(pageNumber);
 	}
 
 	ApiKeyCreationResponseDTO create(Long accountId) {

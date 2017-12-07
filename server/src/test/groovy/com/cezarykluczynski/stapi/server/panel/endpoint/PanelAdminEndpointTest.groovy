@@ -8,7 +8,6 @@ import spock.lang.Specification
 class PanelAdminEndpointTest extends Specification {
 
 	private static final int PAGE_NUMBER = 4
-	private static final int PAGE_SIZE = 20
 	private static final Long ACCOUNT_ID = 10L
 	private static final Long API_KEY_ID = 15L
 
@@ -26,10 +25,10 @@ class PanelAdminEndpointTest extends Specification {
 		ApiKeyReadResponseDTO apiKeyReadResponseDTO = Mock()
 
 		when:
-		ApiKeyReadResponseDTO apiKeyReadResponseDTOOutput = panelAdminEndpoint.readApiKeysPage(PAGE_NUMBER, PAGE_SIZE)
+		ApiKeyReadResponseDTO apiKeyReadResponseDTOOutput = panelAdminEndpoint.readApiKeysPage(PAGE_NUMBER)
 
 		then:
-		1 * apiKeyAdminOperationsServiceMock.getPage(PAGE_NUMBER, PAGE_SIZE) >> apiKeyReadResponseDTO
+		1 * apiKeyAdminOperationsServiceMock.getPage(PAGE_NUMBER) >> apiKeyReadResponseDTO
 		0 * _
 		apiKeyReadResponseDTOOutput == apiKeyReadResponseDTO
 	}

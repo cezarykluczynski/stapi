@@ -13,8 +13,8 @@ public class ApiKeyAdminOperationsService {
 		this.apiKeysOperationsService = apiKeysOperationsService;
 	}
 
-	public ApiKeyReadResponseDTO getPage(int pageNumber, int pageSize) {
-		return apiKeysOperationsService.getPage(pageNumber, pageSize);
+	public ApiKeyReadResponseDTO getPage(int pageNumber) {
+		return apiKeysOperationsService.getPage(pageNumber);
 	}
 
 	public ApiKeyBlockRelatedResponseDTO block(Long accountId, Long apiKeyId) {
