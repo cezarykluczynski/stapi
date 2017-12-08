@@ -13,9 +13,12 @@ export class PanelAdminApiKeysComponent implements OnInit {
 
 	private panelAdminManagementApi: PanelAdminManagementApi;
 	private notificationsService : NotificationsService;
-	private pageNumber: Number;
-	private pageSize: Number;
-	private pager: any;
+	private pageNumber: Number = 0;
+	private pager: any = {
+		totalPages: 0,
+		pageNumber: 1,
+		pageSize: 0
+	};
 	private apiKeys: Array<any>;
 	private loadingApiKeys: boolean = true;
 
@@ -25,20 +28,33 @@ export class PanelAdminApiKeysComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.pageSize = 20;
-		this.loadApiKeys();
+		this.loadApiKeys(true);
 	}
 
-	private loadApiKeys() {
-		if (this.pager && this.pageNumber === this.pager.pageNumber) {
+	private loadApiKeys(force?: boolean) {
+		if (!force && this.pager && this.pageNumber === this.pager.pageNumber - 1) {
 			return;
 		}
 
-		this.pageNumber = this.pager ? this.pager.pageNumber : 0;
-		this.panelAdminManagementApi.getApiKeysPage(this.pageNumber, this.pageSize).then((response) => {
-			this.pager = response.pager;
+		this.pageNumber = this.pager.pageNumber - 1;
+		this.panelAdminManagementApi.getApiKeysPage(this.pageNumber).then((response) => {
+			this.pager.pageNumber = response.pager.pageNumber + 1;
+			this.pager.pageSize = response.pager.pageSize;
+			this.pager.totalElements = response.pager.totalElements;
 			this.apiKeys = response.apiKeys;
 			this.loadingApiKeys = false;
+		});
+	}
+
+	blockApiKey(accountId: Number, apiKeyId: Number) {
+		this.panelAdminManagementApi.blockApiKey({accountId, apiKeyId}).then((response) => {
+			this.loadApiKeys(true);
+		});
+	}
+
+	unblockApiKey(accountId: Number, apiKeyId: Number) {
+		this.panelAdminManagementApi.unblockApiKey({accountId, apiKeyId}).then((response) => {
+			this.loadApiKeys(true);
 		});
 	}
 

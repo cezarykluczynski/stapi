@@ -14,8 +14,16 @@ export class PanelAdminManagementApi {
 		this.register();
 	}
 
-	getApiKeysPage(pageNumber: Number, pageSize: Number) {
-		return this.api.panel.admin.apiKeys.get(pageNumber, pageSize);
+	getApiKeysPage(pageNumber: Number) {
+		return this.api.panel.admin.apiKeys.get({pageNumber});
+	}
+
+	blockApiKey(block: any) {
+		return this.api.panel.admin.apiKeys.block.post(block, 'application/x-www-form-urlencoded');
+	}
+
+	unblockApiKey(unblock: any) {
+		return this.api.panel.admin.apiKeys.unblock.post(unblock, 'application/x-www-form-urlencoded');
 	}
 
 	private register() {

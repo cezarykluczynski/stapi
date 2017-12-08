@@ -19,6 +19,26 @@ describe('PanelAdminManagementApi', () => {
 	let restApiServiceMock: RestApiServiceMock;
 	let res;
 
+	const PAGE_NUMBER = 2;
+	const BLOCK = {
+		accountId: 1,
+		apiKeyId: 2
+	};
+	const UNBLOCK = {
+		accountId: 3,
+		apiKeyId: 4
+	};
+	const GET_RESULT = {
+		apiKeys: {},
+		pager: {}
+	};
+	const BLOCK_RESULT = {
+		successful: true
+	};
+	const UNBLOCK_RESULT = {
+		successful: true
+	};
+
 	beforeEach(() => {
 		restClientMock = new RestClientMock();
 		restApiServiceMock = new RestApiServiceMock();
@@ -58,7 +78,46 @@ describe('PanelAdminManagementApi', () => {
 
 	describe('after initialization', () => {
 		beforeEach(() => {
-			restClientMock.panel = {};
+			restClientMock.panel = {
+				admin: {
+					apiKeys: {
+						get: (data: any) => {
+							expect(data.pageNumber).toBe(PAGE_NUMBER);
+							return Promise.resolve(GET_RESULT);
+						},
+						block: {
+							post: (block: any) => {
+								expect(block).toBe(BLOCK);
+								return Promise.resolve(BLOCK_RESULT);
+							}
+						},
+						unblock: {
+							post: (unblock: any) => {
+								expect(unblock).toBe(UNBLOCK);
+								return Promise.resolve(UNBLOCK_RESULT);
+							}
+						}
+					}
+				}
+			};
 		});
+
+		it('gets API keys page', inject([PanelAdminManagementApi], (panelAdminManagementApi: PanelAdminManagementApi) => {
+			panelAdminManagementApi.getApiKeysPage(PAGE_NUMBER).then((response) => {
+				expect(response).toBe(GET_RESULT);
+			});
+		}));
+
+		it('block API key', inject([PanelAdminManagementApi], (panelAdminManagementApi: PanelAdminManagementApi) => {
+			panelAdminManagementApi.blockApiKey(BLOCK).then((response) => {
+				expect(response).toBe(BLOCK_RESULT);
+			});
+		}));
+
+		it('unblock API key', inject([PanelAdminManagementApi], (panelAdminManagementApi: PanelAdminManagementApi) => {
+			panelAdminManagementApi.unblockApiKey(UNBLOCK).then((response) => {
+				expect(response).toBe(UNBLOCK_RESULT);
+			});
+		}));
 	});
 });
