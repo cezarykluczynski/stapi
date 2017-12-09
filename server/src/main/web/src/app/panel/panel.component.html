@@ -6,18 +6,22 @@
 			</ul>
 
 			<ul class="list-group">
-				<li class="list-group-item account-panel__section-selector" [ngClass]="{'list-group-item': true, 'active': apiKeysIsVisible()}"
+				<li class="list-group-item account-panel__section-selector" [ngClass]="{'active': apiKeysIsVisible()}"
 					(click)="showApiKeys()">API keys</li>
-				<li class="list-group-item account-panel__section-selector" [ngClass]="{'list-group-item': true, 'active': accountSettingsIsVisible()}"
+				<li class="list-group-item account-panel__section-selector" [ngClass]="{'active': accountSettingsIsVisible()}"
 					(click)="showAccountSettings()">Account settings</li>
-				<li class="list-group-item account-panel__section-selector" [ngClass]="{'list-group-item': true, 'active': adminManagementIsVisible()}"
-					(click)="showAdminManagement()" *ngIf="hasAdminManagementPermission()">Admin management</li>
+				<li class="list-group-item account-panel__section-selector" [ngClass]="{'active': adminApiKeysIsVisible()}"
+					(click)="showAdminApiKeys()" *ngIf="hasAdminManagementPermission()">(Admin) API keys</li>
+				<li class="list-group-item account-panel__section-selector" [ngClass]="{'active': adminAccountsIsVisible()}"
+					(click)="showAdminAccounts()" *ngIf="hasAdminManagementPermission()">(Admin) Accounts</li>
+
 			</ul>
 		</div>
 		<div class="col-md-9">
 			<panel-api-keys *ngIf="apiKeysIsVisible()"></panel-api-keys>
 			<panel-account-settings *ngIf="accountSettingsIsVisible()" [basicData]="basicData"></panel-account-settings>
-			<panel-admin-management *ngIf="adminManagementIsVisible()"></panel-admin-management>
+			<panel-admin-api-keys *ngIf="adminApiKeysIsVisible()"></panel-admin-api-keys>
+			<panel-admin-accounts *ngIf="adminAccountsIsVisible()"></panel-admin-accounts>
 		</div>
 	</div>
 	<div class="row" *ngIf="isAuthenticationRequired()">

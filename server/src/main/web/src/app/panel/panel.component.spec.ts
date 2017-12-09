@@ -117,7 +117,8 @@ describe('PanelComponent', () => {
 
 			expect(component.apiKeysIsVisible()).toBeTrue();
 			expect(component.accountSettingsIsVisible()).toBeFalse();
-			expect(component.adminManagementIsVisible()).toBeFalse();
+			expect(component.adminApiKeysIsVisible()).toBeFalse();
+			expect(component.adminAccountsIsVisible()).toBeFalse();
 
 			fixture.whenStable().then(() => {
 				fixture.detectChanges();
@@ -126,12 +127,13 @@ describe('PanelComponent', () => {
 
 				expect(component.apiKeysIsVisible()).toBeFalse();
 				expect(component.accountSettingsIsVisible()).toBeTrue();
-				expect(component.adminManagementIsVisible()).toBeFalse();
+				expect(component.adminApiKeysIsVisible()).toBeFalse();
+				expect(component.adminAccountsIsVisible()).toBeFalse();
 				expect(fixture.debugElement.query(By.css('.account-panel__section-selector:nth-child(3)'))).toBeNull();
 			});
 		});
 
-		describe('admin management', () => {
+		describe('admin API keys', () => {
 			beforeEach(() => {
 				permissions = ['API_KEY_MANAGEMENT', 'ADMIN_MANAGEMENT']
 			});
@@ -142,7 +144,8 @@ describe('PanelComponent', () => {
 
 				expect(component.apiKeysIsVisible()).toBeTrue();
 				expect(component.accountSettingsIsVisible()).toBeFalse();
-				expect(component.adminManagementIsVisible()).toBeFalse();
+				expect(component.adminApiKeysIsVisible()).toBeFalse();
+				expect(component.adminAccountsIsVisible()).toBeFalse();
 
 				fixture.whenStable().then(() => {
 					fixture.detectChanges();
@@ -151,7 +154,8 @@ describe('PanelComponent', () => {
 
 					expect(component.apiKeysIsVisible()).toBeFalse();
 					expect(component.accountSettingsIsVisible()).toBeFalse();
-					expect(component.adminManagementIsVisible()).toBeTrue();
+					expect(component.adminApiKeysIsVisible()).toBeTrue();
+					expect(component.adminAccountsIsVisible()).toBeFalse();
 				});
 			});
 		});

@@ -9,7 +9,8 @@ import { PanelApiKeysComponent } from './api-keys/panel-api-keys.component';
 enum PanelView {
 	API_KEYS,
 	ACCOUNT_SETTINGS,
-	ADMINISTRATION
+	ADMIN_API_KEYS,
+	ADMIN_ACCOUNTS
 }
 
 enum ApplicationPermission {
@@ -91,8 +92,12 @@ export class PanelComponent implements OnInit {
 		this.activeView = PanelView.ACCOUNT_SETTINGS;
 	}
 
-	showAdminManagement() {
-		this.activeView = PanelView.ADMINISTRATION;
+	showAdminApiKeys() {
+		this.activeView = PanelView.ADMIN_API_KEYS;
+	}
+
+	showAdminAccounts() {
+		this.activeView = PanelView.ADMIN_ACCOUNTS;
 	}
 
 	apiKeysIsVisible() {
@@ -103,8 +108,12 @@ export class PanelComponent implements OnInit {
 		return this.activeView === PanelView.ACCOUNT_SETTINGS;
 	}
 
-	adminManagementIsVisible() {
-		return this.activeView === PanelView.ADMINISTRATION;
+	adminApiKeysIsVisible() {
+		return this.activeView === PanelView.ADMIN_API_KEYS;
+	}
+
+	adminAccountsIsVisible() {
+		return this.activeView === PanelView.ADMIN_ACCOUNTS;
 	}
 
 	hasAdminManagementPermission() {

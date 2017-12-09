@@ -39,7 +39,6 @@ import { PanelApiKeysComponent } from './panel/api-keys/panel-api-keys.component
 import { PanelApiKeysApi } from './panel/api-keys/panel-api-keys-api.service';
 import { PanelAccountSettingsComponent } from './panel/account-settings/panel-account-settings.component';
 import { PanelAccountApi } from './panel/account-settings/panel-account-api.service';
-import { PanelAdminManagementComponent } from './panel/admin-management/panel-admin-management.component';
 import { PanelAdminManagementApi } from './panel/admin-management/panel-admin-management-api.service';
 import { PanelAdminApiKeysComponent } from './panel/admin-management/panel-admin-api-keys/panel-admin-api-keys.component';
 import { PanelAdminAccountsComponent } from './panel/admin-management/panel-admin-accounts/panel-admin-accounts.component';
@@ -99,7 +98,6 @@ export function initConfiguration(initializerService: InitializerService): Funct
 		PanelComponent,
 		PanelApiKeysComponent,
 		PanelAccountSettingsComponent,
-		PanelAdminManagementComponent,
 		PanelAdminApiKeysComponent,
 		PanelAdminAccountsComponent
 	],
