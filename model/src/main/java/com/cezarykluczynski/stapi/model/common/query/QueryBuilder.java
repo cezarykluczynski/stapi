@@ -85,6 +85,13 @@ public class QueryBuilder<T> {
 		return this;
 	}
 
+	public QueryBuilder<T> like(SingularAttribute key, SingularAttribute key2, String value) {
+		if (value != null) {
+			predicateList.add(criteriaBuilder.like(criteriaBuilder.upper(baseRoot.get(key).get(key2)), wildcardLike(value).toUpperCase()));
+		}
+		return this;
+	}
+
 	public QueryBuilder<T> joinPageIdsIn(Set<Long> value) {
 		if (value != null) {
 			predicateList.add(baseRoot.get("page").get("pageId").in(value));
@@ -124,6 +131,13 @@ public class QueryBuilder<T> {
 	public QueryBuilder<T> equal(SingularAttribute<? super T, Long> key, Long value) {
 		if (value != null) {
 			predicateList.add(criteriaBuilder.equal(baseRoot.get(key), value));
+		}
+		return this;
+	}
+
+	public QueryBuilder<T> equal(SingularAttribute key, SingularAttribute key2, Long value) {
+		if (value != null) {
+			predicateList.add(criteriaBuilder.equal(baseRoot.get(key).get(key2), value));
 		}
 		return this;
 	}

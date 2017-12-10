@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.auth.api_key.operation.read
 
 import com.cezarykluczynski.stapi.auth.configuration.ApiKeyProperties
+import com.cezarykluczynski.stapi.model.account.entity.Account_
 import com.cezarykluczynski.stapi.model.api_key.entity.ApiKey
 import com.cezarykluczynski.stapi.model.api_key.entity.ApiKey_
 import com.cezarykluczynski.stapi.model.api_key.query.ApiKeyQueryBuilderFactory
@@ -14,9 +15,13 @@ import spock.lang.Specification
 class ApiKeysReaderTest extends Specification {
 
 	private static final Long ACCOUNT_ID = 10L
+	private static final Long GITHUB_ACCOUNT_ID = 11L
 	private static final Long API_KEY_ID = 15L
 	private static final int PAGE_NUMBER = 2
 	private static final int ADMIN_PAGE_SIZE = 20
+	private static final String NAME = 'NAME'
+	private static final String EMAIL = 'EMAIL'
+	private static final String API_KEY = 'API_KEY'
 
 	private ApiKeyQueryBuilderFactory apiKeyQueryBuilderFactoryMock
 
@@ -59,7 +64,12 @@ class ApiKeysReaderTest extends Specification {
 	void "find page with no account ID nor API key ID"() {
 		given:
 		QueryBuilder<ApiKey> apiKeyQueryBuilder = Mock()
-		ApiKeysReadCriteria apiKeysReadCriteria = new ApiKeysReadCriteria(pageNumber: PAGE_NUMBER)
+		ApiKeysReadCriteria apiKeysReadCriteria = new ApiKeysReadCriteria(
+				gitHubAccountId: GITHUB_ACCOUNT_ID,
+				pageNumber: PAGE_NUMBER,
+				name: NAME,
+				email: EMAIL,
+				apiKey: API_KEY)
 		Page<ApiKey> page = Mock()
 
 		when:
@@ -72,6 +82,10 @@ class ApiKeysReaderTest extends Specification {
 			apiKeyQueryBuilder
 		}
 		2 * apiKeyQueryBuilder.equal(_, null)
+		1 * apiKeyQueryBuilder.equal(ApiKey_.account, Account_.gitHubUserId, GITHUB_ACCOUNT_ID)
+		1 * apiKeyQueryBuilder.like(ApiKey_.account, Account_.name, NAME)
+		1 * apiKeyQueryBuilder.like(ApiKey_.account, Account_.email, EMAIL)
+		1 * apiKeyQueryBuilder.like(ApiKey_.apiKey, API_KEY)
 		1 * apiKeyQueryBuilder.fetch(ApiKey_.throttle)
 		1 * apiKeyQueryBuilder.setSort(_ as RequestSortDTO) >> { RequestSortDTO requestSortDTO ->
 			assert requestSortDTO.clauses[0].name == 'id'
@@ -87,8 +101,12 @@ class ApiKeysReaderTest extends Specification {
 		QueryBuilder<ApiKey> apiKeyQueryBuilder = Mock()
 		ApiKeysReadCriteria apiKeysReadCriteria = new ApiKeysReadCriteria(
 				accountId: ACCOUNT_ID,
+				gitHubAccountId: GITHUB_ACCOUNT_ID,
 				apiKeyId: API_KEY_ID,
-				pageNumber: PAGE_NUMBER)
+				pageNumber: PAGE_NUMBER,
+				name: NAME,
+				email: EMAIL,
+				apiKey: API_KEY)
 		Page<ApiKey> page = Mock()
 
 		when:
@@ -100,9 +118,14 @@ class ApiKeysReaderTest extends Specification {
 			assert pageable.pageSize == ADMIN_PAGE_SIZE
 			apiKeyQueryBuilder
 		}
-		1 * apiKeyQueryBuilder.equal(ApiKey_.accountId, ACCOUNT_ID)
 		1 * apiKeyQueryBuilder.equal(ApiKey_.id, API_KEY_ID)
+		1 * apiKeyQueryBuilder.equal(ApiKey_.accountId, ACCOUNT_ID)
+		1 * apiKeyQueryBuilder.equal(ApiKey_.account, Account_.gitHubUserId, GITHUB_ACCOUNT_ID)
+		1 * apiKeyQueryBuilder.like(ApiKey_.account, Account_.name, NAME)
+		1 * apiKeyQueryBuilder.like(ApiKey_.account, Account_.email, EMAIL)
+		1 * apiKeyQueryBuilder.like(ApiKey_.apiKey, API_KEY)
 		1 * apiKeyQueryBuilder.fetch(ApiKey_.throttle)
+
 		1 * apiKeyQueryBuilder.setSort(_ as RequestSortDTO) >> { RequestSortDTO requestSortDTO ->
 			assert requestSortDTO.clauses[0].name == 'id'
 			assert requestSortDTO.clauses[0].direction == RequestSortDirectionDTO.ASC

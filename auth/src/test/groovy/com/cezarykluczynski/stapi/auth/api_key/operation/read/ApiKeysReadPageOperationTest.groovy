@@ -12,7 +12,7 @@ import spock.lang.Specification
 
 class ApiKeysReadPageOperationTest extends Specification {
 
-	private static final int PAGE_NUMBER = 4
+	private ApiKeysReadCriteriaMapper apiKeysReadCriteriaMapperMock
 
 	private ApiKeysReader apiKeysReaderMock
 
@@ -25,15 +25,19 @@ class ApiKeysReadPageOperationTest extends Specification {
 	private ApiKeysReadPageOperation apiKeysReadPageOperation
 
 	void setup() {
+		apiKeysReadCriteriaMapperMock = Mock()
 		apiKeysReaderMock = Mock()
 		apiKeyMapperMock = Mock()
 		pageMapperMock = Mock()
 		apiKeyReadResponseDTOFactoryMock = Mock()
-		apiKeysReadPageOperation = new ApiKeysReadPageOperation(apiKeysReaderMock, apiKeyMapperMock, pageMapperMock, apiKeyReadResponseDTOFactoryMock)
+		apiKeysReadPageOperation = new ApiKeysReadPageOperation(apiKeysReadCriteriaMapperMock, apiKeysReaderMock, apiKeyMapperMock, pageMapperMock,
+				apiKeyReadResponseDTOFactoryMock)
 	}
 
 	void "successful response is returned"() {
 		given:
+		ApiKeysSearchCriteriaDTO apiKeysSearchCriteriaDTO = Mock()
+		ApiKeysReadCriteria apiKeysReadCriteria = Mock()
 		ApiKey apiKey = Mock()
 		List<ApiKey> apiKeys = Lists.newArrayList(apiKey)
 		Page<ApiKey> apiKeyPage = new PageImpl<>(apiKeys)
@@ -42,15 +46,11 @@ class ApiKeysReadPageOperationTest extends Specification {
 		ApiKeyReadResponseDTO apiKeyReadResponseDTO = Mock()
 
 		when:
-		ApiKeyReadResponseDTO apiKeyReadResponseDTOOutput = apiKeysReadPageOperation.execute(PAGE_NUMBER)
+		ApiKeyReadResponseDTO apiKeyReadResponseDTOOutput = apiKeysReadPageOperation.execute(apiKeysSearchCriteriaDTO)
 
 		then:
-		1 * apiKeysReaderMock.execute(_ as ApiKeysReadCriteria) >> { ApiKeysReadCriteria apiKeysReadCriteria ->
-			assert apiKeysReadCriteria.accountId == null
-			assert apiKeysReadCriteria.apiKeyId == null
-			assert apiKeysReadCriteria.pageNumber == PAGE_NUMBER
-			apiKeyPage
-		}
+		1 * apiKeysReadCriteriaMapperMock.fromSearchCriteria(apiKeysSearchCriteriaDTO) >> apiKeysReadCriteria
+		1 * apiKeysReaderMock.execute(apiKeysReadCriteria) >> apiKeyPage
 		1 * apiKeyMapperMock.map(apiKey) >> apiKeyDTO
 		1 * pageMapperMock.map(apiKeyPage) >> pager
 		1 * apiKeyReadResponseDTOFactoryMock.createWithApiKeysAndPager(Lists.newArrayList(apiKeyDTO), pager) >> apiKeyReadResponseDTO

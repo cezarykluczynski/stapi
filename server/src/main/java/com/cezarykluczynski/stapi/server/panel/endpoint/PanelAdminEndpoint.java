@@ -3,19 +3,19 @@ package com.cezarykluczynski.stapi.server.panel.endpoint;
 import com.cezarykluczynski.stapi.auth.api_key.operation.ApiKeyAdminOperationsService;
 import com.cezarykluczynski.stapi.auth.api_key.operation.block.ApiKeyBlockRelatedResponseDTO;
 import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeyReadResponseDTO;
+import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeysSearchCriteriaDTO;
 import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
 import com.cezarykluczynski.stapi.util.constant.ContentType;
 import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 @Service
@@ -31,12 +31,12 @@ public class PanelAdminEndpoint {
 		this.apiKeyAdminOperationsService = apiKeyAdminOperationsService;
 	}
 
-	@GET
+	@POST
 	@Path("apiKeys")
-	@Consumes(MediaType.APPLICATION_JSON)
+	@Consumes(ContentType.APPLICATION_JSON_CHARSET_UTF8)
 	@PreAuthorize("hasPermission(filterObject, 'ADMIN_MANAGEMENT')")
-	public ApiKeyReadResponseDTO readApiKeysPage(@QueryParam("pageNumber") int pageNumber) {
-		return apiKeyAdminOperationsService.getPage(pageNumber);
+	public ApiKeyReadResponseDTO readApiKeysPage(@RequestBody ApiKeysSearchCriteriaDTO apiKeysSearchCriteriaDTO) {
+		return apiKeyAdminOperationsService.getPage(apiKeysSearchCriteriaDTO);
 	}
 
 	@POST

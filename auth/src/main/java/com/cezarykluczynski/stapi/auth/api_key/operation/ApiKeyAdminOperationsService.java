@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.auth.api_key.operation;
 
 import com.cezarykluczynski.stapi.auth.api_key.operation.block.ApiKeyBlockRelatedResponseDTO;
 import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeyReadResponseDTO;
+import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeysSearchCriteriaDTO;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,8 +14,8 @@ public class ApiKeyAdminOperationsService {
 		this.apiKeysOperationsService = apiKeysOperationsService;
 	}
 
-	public ApiKeyReadResponseDTO getPage(int pageNumber) {
-		return apiKeysOperationsService.getPage(pageNumber);
+	public ApiKeyReadResponseDTO getPage(ApiKeysSearchCriteriaDTO apiKeysSearchCriteriaDTO) {
+		return apiKeysOperationsService.getPage(apiKeysSearchCriteriaDTO);
 	}
 
 	public ApiKeyBlockRelatedResponseDTO block(Long accountId, Long apiKeyId) {

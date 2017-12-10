@@ -62,8 +62,10 @@ class QueryBuilderTest extends Specification {
 	private static final Integer REQUEST_ORDER_CLAUSE_CLAUSE_ORDER_2 = 2
 	private static final Boolean CACHEABLE = RandomUtil.nextBoolean()
 	private final SingularAttribute<?, String> validKeyString = Mock()
+	private final SingularAttribute<?, String> validKeyString2 = Mock()
 	private final SingularAttribute<?, Boolean> validKeyBoolean = Mock()
 	private final SingularAttribute<?, Long> validKeyLong = Mock()
+	private final SingularAttribute<?, Long> validKeyLong2 = Mock()
 	private final SetAttribute<?, ?> fetchSetName = Mock()
 	private final SetAttribute<?, ?> fetchSingularName = Mock()
 	private final SingularAttribute<?, LocalDate> validKeyLocalDate = Mock()
@@ -222,8 +224,16 @@ class QueryBuilderTest extends Specification {
 		queryBuilder.like(validKeyString, VALID_VALUE_STRING)
 
 		then: 'right methods are called'
-		1 *
 		1 * baseRoot.get(validKeyString) >> path
+		1 * criteriaBuilder.upper(path) >> path
+		1 * criteriaBuilder.like(path, "%${VALID_VALUE_STRING_UPPER_CASE}%")
+
+		when: 'valid string key with secondary key is added for like comparison'
+		queryBuilder.like(validKeyString, validKeyString2, VALID_VALUE_STRING)
+
+		then: 'right methods are called'
+		1 * baseRoot.get(validKeyString) >> path
+		1 * path.get(validKeyString2) >> path
 		1 * criteriaBuilder.upper(path) >> path
 		1 * criteriaBuilder.like(path, "%${VALID_VALUE_STRING_UPPER_CASE}%")
 
@@ -242,6 +252,14 @@ class QueryBuilderTest extends Specification {
 		1 * criteriaBuilder.equal(path, VALID_VALUE_BOOLEAN)
 
 		when: 'valid long key is added'
+		queryBuilder.equal(validKeyLong, validKeyLong2, VALID_VALUE_LONG)
+
+		then: 'right methods are called'
+		1 * baseRoot.get(validKeyLong) >> path
+		1 * path.get(validKeyLong2) >> path
+		1 * criteriaBuilder.equal(path, VALID_VALUE_LONG)
+
+		when: 'valid long key with secondary key is added'
 		queryBuilder.equal(validKeyLong, VALID_VALUE_LONG)
 
 		then: 'right methods are called'

@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
 @Service
 public class ApiKeysReadPageOperation {
 
+	private final ApiKeysReadCriteriaMapper apiKeysReadCriteriaMapper;
+
 	private final ApiKeysReader apiKeysReader;
 
 	private final ApiKeyMapper apiKeyMapper;
@@ -22,16 +24,17 @@ public class ApiKeysReadPageOperation {
 
 	private final ApiKeyReadResponseDTOFactory apiKeyReadResponseDTOFactory;
 
-	public ApiKeysReadPageOperation(ApiKeysReader apiKeysReader, ApiKeyMapper apiKeyMapper, PagerMapper pageMapper,
-			ApiKeyReadResponseDTOFactory apiKeyReadResponseDTOFactory) {
+	public ApiKeysReadPageOperation(ApiKeysReadCriteriaMapper apiKeysReadCriteriaMapper, ApiKeysReader apiKeysReader, ApiKeyMapper apiKeyMapper,
+			PagerMapper pageMapper, ApiKeyReadResponseDTOFactory apiKeyReadResponseDTOFactory) {
+		this.apiKeysReadCriteriaMapper = apiKeysReadCriteriaMapper;
 		this.apiKeysReader = apiKeysReader;
 		this.apiKeyMapper = apiKeyMapper;
 		this.pageMapper = pageMapper;
 		this.apiKeyReadResponseDTOFactory = apiKeyReadResponseDTOFactory;
 	}
 
-	public ApiKeyReadResponseDTO execute(int pageNumber) {
-		Page<ApiKey> apiKeyPage = apiKeysReader.execute(ApiKeysReadCriteria.ofPageNumber(pageNumber));
+	public ApiKeyReadResponseDTO execute(ApiKeysSearchCriteriaDTO apiKeysSearchCriteriaDTO) {
+		Page<ApiKey> apiKeyPage = apiKeysReader.execute(apiKeysReadCriteriaMapper.fromSearchCriteria(apiKeysSearchCriteriaDTO));
 		List<ApiKeyDTO> apiKeyList = apiKeyPage.getContent().stream()
 				.map(apiKeyMapper::map)
 				.collect(Collectors.toList());

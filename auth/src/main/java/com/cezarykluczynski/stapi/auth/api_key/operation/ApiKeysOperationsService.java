@@ -11,6 +11,7 @@ import com.cezarykluczynski.stapi.auth.api_key.operation.edit.ApiKeyEditResponse
 import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeyReadResponseDTO;
 import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeysReadOperation;
 import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeysReadPageOperation;
+import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeysSearchCriteriaDTO;
 import com.cezarykluczynski.stapi.auth.api_key.operation.removal.ApiKeyRemovalOperation;
 import com.cezarykluczynski.stapi.auth.api_key.operation.removal.ApiKeyRemovalResponseDTO;
 import org.springframework.stereotype.Service;
@@ -48,8 +49,8 @@ class ApiKeysOperationsService {
 		return apiKeysReadOperation.execute(accountId);
 	}
 
-	ApiKeyReadResponseDTO getPage(int pageNumber) {
-		return apiKeysReadPageOperation.execute(pageNumber);
+	ApiKeyReadResponseDTO getPage(ApiKeysSearchCriteriaDTO apiKeysSearchCriteriaDTO) {
+		return apiKeysReadPageOperation.execute(apiKeysSearchCriteriaDTO);
 	}
 
 	ApiKeyCreationResponseDTO create(Long accountId) {

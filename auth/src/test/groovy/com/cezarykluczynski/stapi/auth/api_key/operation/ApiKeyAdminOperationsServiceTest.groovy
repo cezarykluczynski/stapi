@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.auth.api_key.operation
 
 import com.cezarykluczynski.stapi.auth.api_key.operation.block.ApiKeyBlockRelatedResponseDTO
 import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeyReadResponseDTO
+import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeysSearchCriteriaDTO
 import spock.lang.Specification
 
 class ApiKeyAdminOperationsServiceTest extends Specification {
@@ -21,13 +22,14 @@ class ApiKeyAdminOperationsServiceTest extends Specification {
 
 	void "gets page"() {
 		given:
+		ApiKeysSearchCriteriaDTO apiKeysSearchCriteriaDTO = Mock()
 		ApiKeyReadResponseDTO apiKeyReadResponseDTO = Mock()
 
 		when:
-		ApiKeyReadResponseDTO apiKeyReadResponseDTOOutput = apiKeyAdminOperationsService.getPage(PAGE_NUMBER)
+		ApiKeyReadResponseDTO apiKeyReadResponseDTOOutput = apiKeyAdminOperationsService.getPage(apiKeysSearchCriteriaDTO)
 
 		then:
-		1 * apiKeysOperationsServiceMock.getPage(PAGE_NUMBER) >> apiKeyReadResponseDTO
+		1 * apiKeysOperationsServiceMock.getPage(apiKeysSearchCriteriaDTO) >> apiKeyReadResponseDTO
 		0 * _
 		apiKeyReadResponseDTOOutput == apiKeyReadResponseDTO
 	}

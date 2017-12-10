@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 @Service
 public class ApiKeysReadOperation {
 
+	private final ApiKeysReadCriteriaMapper apiKeysReadCriteriaMapper;
+
 	private final ApiKeysReader apiKeysReader;
 
 	private final ApiKeyPageAccountSpecification apiKeyPageAccountSpecification;
@@ -18,8 +20,10 @@ public class ApiKeysReadOperation {
 
 	private final ApiKeyReadResponseDTOFactory apiKeyReadResponseDTOFactory;
 
-	public ApiKeysReadOperation(ApiKeysReader apiKeysReader, ApiKeyPageAccountSpecification apiKeyPageAccountSpecification,
-			ApiKeyMapper apiKeyMapper, ApiKeyReadResponseDTOFactory apiKeyReadResponseDTOFactory) {
+	public ApiKeysReadOperation(ApiKeysReadCriteriaMapper apiKeysReadCriteriaMapper, ApiKeysReader apiKeysReader,
+			ApiKeyPageAccountSpecification apiKeyPageAccountSpecification, ApiKeyMapper apiKeyMapper,
+			ApiKeyReadResponseDTOFactory apiKeyReadResponseDTOFactory) {
+		this.apiKeysReadCriteriaMapper = apiKeysReadCriteriaMapper;
 		this.apiKeyPageAccountSpecification = apiKeyPageAccountSpecification;
 		this.apiKeysReader = apiKeysReader;
 		this.apiKeyMapper = apiKeyMapper;
@@ -27,7 +31,7 @@ public class ApiKeysReadOperation {
 	}
 
 	public ApiKeyReadResponseDTO execute(Long accountId) {
-		Page<ApiKey> apiKeyPage = apiKeysReader.execute(ApiKeysReadCriteria.ofAccountId(accountId));
+		Page<ApiKey> apiKeyPage = apiKeysReader.execute(apiKeysReadCriteriaMapper.fromAccountId(accountId));
 
 		if (!apiKeyPageAccountSpecification.isSatisfiedBy(apiKeyPage)) {
 			return apiKeyReadResponseDTOFactory.createFailedWithReason(ApiKeyReadResponseDTO.FailReason.TOO_MUCH_ENTRIES_FOR_A_SINGLE_PAGE);

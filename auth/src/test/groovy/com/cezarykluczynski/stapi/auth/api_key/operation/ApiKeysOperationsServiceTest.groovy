@@ -11,6 +11,7 @@ import com.cezarykluczynski.stapi.auth.api_key.operation.edit.ApiKeyEditResponse
 import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeyReadResponseDTO
 import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeysReadOperation
 import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeysReadPageOperation
+import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeysSearchCriteriaDTO
 import com.cezarykluczynski.stapi.auth.api_key.operation.removal.ApiKeyRemovalOperation
 import com.cezarykluczynski.stapi.auth.api_key.operation.removal.ApiKeyRemovalResponseDTO
 import spock.lang.Specification
@@ -19,7 +20,6 @@ class ApiKeysOperationsServiceTest extends Specification {
 
 	private static final Long ACCOUNT_ID = 10L
 	private static final Long API_KEY_ID = 15L
-	private static final int PAGE_NUMBER = 4
 
 	private ApiKeysReadOperation apiKeysReadOperationMock
 
@@ -64,13 +64,14 @@ class ApiKeysOperationsServiceTest extends Specification {
 
 	void "gets page"() {
 		given:
+		ApiKeysSearchCriteriaDTO apiKeysSearchCriteriaDTO = Mock()
 		ApiKeyReadResponseDTO apiKeyReadResponseDTO = Mock()
 
 		when:
-		ApiKeyReadResponseDTO apiKeyReadResponseDTOOutput = apiKeysOperationsService.getPage(PAGE_NUMBER)
+		ApiKeyReadResponseDTO apiKeyReadResponseDTOOutput = apiKeysOperationsService.getPage(apiKeysSearchCriteriaDTO)
 
 		then:
-		1 * apiKeysReadPageOperationMock.execute(PAGE_NUMBER) >> apiKeyReadResponseDTO
+		1 * apiKeysReadPageOperationMock.execute(apiKeysSearchCriteriaDTO) >> apiKeyReadResponseDTO
 		0 * _
 		apiKeyReadResponseDTOOutput == apiKeyReadResponseDTO
 	}

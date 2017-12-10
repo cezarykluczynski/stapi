@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.auth.api_key.operation.read;
 
 import com.cezarykluczynski.stapi.auth.configuration.ApiKeyProperties;
+import com.cezarykluczynski.stapi.model.account.entity.Account_;
 import com.cezarykluczynski.stapi.model.api_key.entity.ApiKey;
 import com.cezarykluczynski.stapi.model.api_key.entity.ApiKey_;
 import com.cezarykluczynski.stapi.model.api_key.query.ApiKeyQueryBuilderFactory;
@@ -38,8 +39,12 @@ class ApiKeysReader {
 		}
 
 		QueryBuilder<ApiKey> apiKeyQueryBuilder = apiKeyQueryBuilderFactory.createQueryBuilder(pageable);
-		apiKeyQueryBuilder.equal(ApiKey_.accountId, accountId);
 		apiKeyQueryBuilder.equal(ApiKey_.id, apiKeyId);
+		apiKeyQueryBuilder.equal(ApiKey_.accountId, accountId);
+		apiKeyQueryBuilder.equal(ApiKey_.account, Account_.gitHubUserId, criteria.getGitHubAccountId());
+		apiKeyQueryBuilder.like(ApiKey_.account, Account_.name, criteria.getName());
+		apiKeyQueryBuilder.like(ApiKey_.account, Account_.email, criteria.getEmail());
+		apiKeyQueryBuilder.like(ApiKey_.apiKey, criteria.getApiKey());
 		apiKeyQueryBuilder.fetch(ApiKey_.throttle);
 		apiKeyQueryBuilder.setSort(createRequestSortDTO());
 		return apiKeyQueryBuilder.findPage();

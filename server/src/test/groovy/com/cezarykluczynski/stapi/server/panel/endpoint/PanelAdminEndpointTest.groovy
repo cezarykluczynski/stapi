@@ -3,11 +3,11 @@ package com.cezarykluczynski.stapi.server.panel.endpoint
 import com.cezarykluczynski.stapi.auth.api_key.operation.ApiKeyAdminOperationsService
 import com.cezarykluczynski.stapi.auth.api_key.operation.block.ApiKeyBlockRelatedResponseDTO
 import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeyReadResponseDTO
+import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeysSearchCriteriaDTO
 import spock.lang.Specification
 
 class PanelAdminEndpointTest extends Specification {
 
-	private static final int PAGE_NUMBER = 4
 	private static final Long ACCOUNT_ID = 10L
 	private static final Long API_KEY_ID = 15L
 
@@ -22,13 +22,14 @@ class PanelAdminEndpointTest extends Specification {
 
 	void "reads API keys page"() {
 		given:
+		ApiKeysSearchCriteriaDTO apiKeysSearchCriteriaDTO = Mock()
 		ApiKeyReadResponseDTO apiKeyReadResponseDTO = Mock()
 
 		when:
-		ApiKeyReadResponseDTO apiKeyReadResponseDTOOutput = panelAdminEndpoint.readApiKeysPage(PAGE_NUMBER)
+		ApiKeyReadResponseDTO apiKeyReadResponseDTOOutput = panelAdminEndpoint.readApiKeysPage(apiKeysSearchCriteriaDTO)
 
 		then:
-		1 * apiKeyAdminOperationsServiceMock.getPage(PAGE_NUMBER) >> apiKeyReadResponseDTO
+		1 * apiKeyAdminOperationsServiceMock.getPage(apiKeysSearchCriteriaDTO) >> apiKeyReadResponseDTO
 		0 * _
 		apiKeyReadResponseDTOOutput == apiKeyReadResponseDTO
 	}

@@ -13,21 +13,16 @@ public class ApiKeysReadCriteria {
 
 	private Long accountId;
 
+	private Long gitHubAccountId;
+
 	private Long apiKeyId;
 
 	private Integer pageNumber;
 
-	static ApiKeysReadCriteria ofAccountId(Long accountId) {
-		return ApiKeysReadCriteria.builder()
-				.accountId(accountId)
-				.pageNumber(0)
-				.build();
-	}
+	private String name;
 
-	static ApiKeysReadCriteria ofPageNumber(int pageNumber) {
-		return ApiKeysReadCriteria.builder()
-				.pageNumber(pageNumber)
-				.build();
-	}
+	private String email;
+
+	private String apiKey;
 
 }

@@ -12,6 +12,8 @@ class ApiKeysReadOperationTest extends Specification {
 
 	private static final Long ACCOUNT_ID = 10L
 
+	private ApiKeysReadCriteriaMapper apiKeysReadCriteriaMapperMock
+
 	private ApiKeysReader apiKeysReaderMock
 
 	private ApiKeyPageAccountSpecification apiKeyPageAccountSpecificationMock
@@ -23,16 +25,18 @@ class ApiKeysReadOperationTest extends Specification {
 	private ApiKeysReadOperation apiKeysReadOperation
 
 	void setup() {
+		apiKeysReadCriteriaMapperMock = Mock()
 		apiKeysReaderMock = Mock()
 		apiKeyPageAccountSpecificationMock = Mock()
 		apiKeyMapperMock = Mock()
 		apiKeyReadResponseDTOFactoryMock = Mock()
-		apiKeysReadOperation = new ApiKeysReadOperation(apiKeysReaderMock, apiKeyPageAccountSpecificationMock, apiKeyMapperMock,
-				apiKeyReadResponseDTOFactoryMock)
+		apiKeysReadOperation = new ApiKeysReadOperation(apiKeysReadCriteriaMapperMock, apiKeysReaderMock, apiKeyPageAccountSpecificationMock,
+				apiKeyMapperMock, apiKeyReadResponseDTOFactoryMock)
 	}
 
 	void "when specification is not met, failed response is returned"() {
 		given:
+		ApiKeysReadCriteria apiKeysReadCriteria = Mock()
 		Page<ApiKey> apiKeyPage = Mock()
 		ApiKeyReadResponseDTO apiKeyReadResponseDTO = Mock()
 
@@ -40,12 +44,8 @@ class ApiKeysReadOperationTest extends Specification {
 		ApiKeyReadResponseDTO apiKeyReadResponseDTOOutput = apiKeysReadOperation.execute(ACCOUNT_ID)
 
 		then:
-		1 * apiKeysReaderMock.execute(_ as ApiKeysReadCriteria) >> { ApiKeysReadCriteria apiKeysReadCriteria ->
-			assert apiKeysReadCriteria.accountId == ACCOUNT_ID
-			assert apiKeysReadCriteria.apiKeyId == null
-			assert apiKeysReadCriteria.pageNumber == 0
-			apiKeyPage
-		}
+		1 * apiKeysReadCriteriaMapperMock.fromAccountId(ACCOUNT_ID) >> apiKeysReadCriteria
+		1 * apiKeysReaderMock.execute(apiKeysReadCriteria) >> apiKeyPage
 		1 * apiKeyPageAccountSpecificationMock.isSatisfiedBy(apiKeyPage) >> false
 		1 * apiKeyReadResponseDTOFactoryMock
 				.createFailedWithReason(ApiKeyReadResponseDTO.FailReason.TOO_MUCH_ENTRIES_FOR_A_SINGLE_PAGE) >> apiKeyReadResponseDTO
@@ -55,6 +55,7 @@ class ApiKeysReadOperationTest extends Specification {
 
 	void "when specification is met, successful response is returned"() {
 		given:
+		ApiKeysReadCriteria apiKeysReadCriteria = Mock()
 		ApiKey apiKey = Mock()
 		List<ApiKey> apiKeys = Lists.newArrayList(apiKey)
 		Page<ApiKey> apiKeyPage = new PageImpl<>(apiKeys)
@@ -65,12 +66,8 @@ class ApiKeysReadOperationTest extends Specification {
 		ApiKeyReadResponseDTO apiKeyReadResponseDTOOutput = apiKeysReadOperation.execute(ACCOUNT_ID)
 
 		then:
-		1 * apiKeysReaderMock.execute(_ as ApiKeysReadCriteria) >> { ApiKeysReadCriteria apiKeysReadCriteria ->
-			assert apiKeysReadCriteria.accountId == ACCOUNT_ID
-			assert apiKeysReadCriteria.apiKeyId == null
-			assert apiKeysReadCriteria.pageNumber == 0
-			apiKeyPage
-		}
+		1 * apiKeysReadCriteriaMapperMock.fromAccountId(ACCOUNT_ID) >> apiKeysReadCriteria
+		1 * apiKeysReaderMock.execute(apiKeysReadCriteria) >> apiKeyPage
 		1 * apiKeyPageAccountSpecificationMock.isSatisfiedBy(apiKeyPage) >> true
 		1 * apiKeyMapperMock.map(apiKey) >> apiKeyDTO
 		1 * apiKeyReadResponseDTOFactoryMock.createWithApiKeys(Lists.newArrayList(apiKeyDTO)) >> apiKeyReadResponseDTO
