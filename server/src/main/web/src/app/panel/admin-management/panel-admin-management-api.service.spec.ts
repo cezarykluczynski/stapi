@@ -28,7 +28,7 @@ describe('PanelAdminManagementApi', () => {
 		accountId: 3,
 		apiKeyId: 4
 	};
-	const GET_RESULT = {
+	const SEARCH_CRITERIA_RESULT = {
 		apiKeys: {},
 		pager: {}
 	};
@@ -38,6 +38,7 @@ describe('PanelAdminManagementApi', () => {
 	const UNBLOCK_RESULT = {
 		successful: true
 	};
+	const SEARCH_CRITERIA = {};
 
 	beforeEach(() => {
 		restClientMock = new RestClientMock();
@@ -81,9 +82,9 @@ describe('PanelAdminManagementApi', () => {
 			restClientMock.panel = {
 				admin: {
 					apiKeys: {
-						get: (data: any) => {
-							expect(data.pageNumber).toBe(PAGE_NUMBER);
-							return Promise.resolve(GET_RESULT);
+						post: (searchCriteria: any) => {
+							expect(searchCriteria).toBe(SEARCH_CRITERIA);
+							return Promise.resolve(SEARCH_CRITERIA_RESULT);
 						},
 						block: {
 							post: (block: any) => {
@@ -103,8 +104,8 @@ describe('PanelAdminManagementApi', () => {
 		});
 
 		it('gets API keys page', inject([PanelAdminManagementApi], (panelAdminManagementApi: PanelAdminManagementApi) => {
-			panelAdminManagementApi.getApiKeysPage(PAGE_NUMBER).then((response) => {
-				expect(response).toBe(GET_RESULT);
+			panelAdminManagementApi.searchApiKeysPage(SEARCH_CRITERIA).then((response) => {
+				expect(response).toBe(SEARCH_CRITERIA_RESULT);
 			});
 		}));
 

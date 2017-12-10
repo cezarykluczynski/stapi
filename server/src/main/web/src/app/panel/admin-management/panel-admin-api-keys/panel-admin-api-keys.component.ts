@@ -19,6 +19,13 @@ export class PanelAdminApiKeysComponent implements OnInit {
 		pageNumber: 1,
 		pageSize: 0
 	};
+	private searchCriteria: any = {
+		accountId: null,
+		gitHubAccountId: null,
+		name: null,
+		email: null,
+		apiKey: null
+	};
 	private apiKeys: Array<any>;
 	private loadingApiKeys: boolean = true;
 
@@ -31,13 +38,24 @@ export class PanelAdminApiKeysComponent implements OnInit {
 		this.loadApiKeys(true);
 	}
 
+	search(event: any) {
+		event && event.preventDefault && event.preventDefault();
+		this.loadApiKeys(true);
+	}
+
 	private loadApiKeys(force?: boolean) {
 		if (!force && this.pager && this.pageNumber === this.pager.pageNumber - 1) {
 			return;
 		}
 
 		this.pageNumber = this.pager.pageNumber - 1;
-		this.panelAdminManagementApi.getApiKeysPage(this.pageNumber).then((response) => {
+		this.searchCriteria.pageNumber = this.pageNumber;
+		this.searchCriteria.accountId = this.searchCriteria.accountId ? this.searchCriteria.accountId : null;
+		this.searchCriteria.gitHubAccountId = this.searchCriteria.gitHubAccountId ? this.searchCriteria.gitHubAccountId : null;
+		this.searchCriteria.name = this.searchCriteria.name ? this.searchCriteria.name : null;
+		this.searchCriteria.email = this.searchCriteria.email ? this.searchCriteria.email : null;
+		this.searchCriteria.apiKey = this.searchCriteria.apiKey ? this.searchCriteria.apiKey : null;
+		this.panelAdminManagementApi.searchApiKeysPage(this.searchCriteria).then((response) => {
 			this.pager.pageNumber = response.pager.pageNumber + 1;
 			this.pager.pageSize = response.pager.pageSize;
 			this.pager.totalElements = response.pager.totalElements;

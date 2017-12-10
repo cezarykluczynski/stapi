@@ -10,7 +10,7 @@ class NotificationsServiceMock {
 }
 
 class PanelAdminManagementApiMock {
-	public getApiKeysPage() {}
+	public searchApiKeysPage() {}
 	public blockApiKey() {}
 	public unblockApiKey() {}
 }
@@ -46,7 +46,7 @@ describe('PanelAdminApiKeysComponent', () => {
 		notificationsServiceMock = new NotificationsServiceMock();
 		panelAdminManagementApiMock = new PanelAdminManagementApiMock();
 
-		panelAdminManagementApiMockGetApiKeysPageSpy = spyOn(panelAdminManagementApiMock, 'getApiKeysPage').and.returnValue(Promise.resolve(API_KEYS));
+		panelAdminManagementApiMockGetApiKeysPageSpy = spyOn(panelAdminManagementApiMock, 'searchApiKeysPage').and.returnValue(Promise.resolve(API_KEYS));
 		spyOn(panelAdminManagementApiMock, 'blockApiKey').and.returnValue(Promise.resolve(BLOCK_RESULT));
 		spyOn(panelAdminManagementApiMock, 'unblockApiKey').and.returnValue(Promise.resolve(UNBLOCK_RESULT));
 
@@ -73,11 +73,11 @@ describe('PanelAdminApiKeysComponent', () => {
 		fixture.detectChanges();
 	});
 
-	it('should create', () => {
+	it('is creates', () => {
 		expect(component).toBeTruthy();
 	});
 
-	it('should load api keys', () => {
+	it('loads api keys', () => {
 		expect(component.hasApiKeys()).toBeFalse();
 		expect(component.getApiKeys()).toEqual([]);
 
@@ -87,7 +87,23 @@ describe('PanelAdminApiKeysComponent', () => {
 		});
 	});
 
-	it('should block api key', () => {
+	it('searches for API keys', () => {
+		fixture.whenStable().then(() => {
+			expect(panelAdminManagementApiMockGetApiKeysPageSpy.calls.count()).toBe(1);
+			let event = {
+				preventDefault: jasmine.createSpy('preventDefault')
+			};
+
+			component.search(event);
+			expect(event.preventDefault).toHaveBeenCalled();
+
+			fixture.whenStable().then(() => {
+				expect(panelAdminManagementApiMockGetApiKeysPageSpy.calls.count()).toBe(2);
+			});
+		});
+	});
+
+	it('blocks api key', () => {
 		fixture.whenStable().then(() => {
 			expect(panelAdminManagementApiMockGetApiKeysPageSpy.calls.count()).toBe(1);
 
@@ -95,6 +111,23 @@ describe('PanelAdminApiKeysComponent', () => {
 
 			fixture.whenStable().then(() => {
 				expect(panelAdminManagementApiMock.blockApiKey).toHaveBeenCalledWith({
+					accountId: ACCOUNT_ID,
+					apiKeyId: API_KEY_ID
+				});
+
+				expect(panelAdminManagementApiMockGetApiKeysPageSpy.calls.count()).toBe(2);
+			});
+		});
+	});
+
+	it('unblocks api key', () => {
+		fixture.whenStable().then(() => {
+			expect(panelAdminManagementApiMockGetApiKeysPageSpy.calls.count()).toBe(1);
+
+			component.unblockApiKey(ACCOUNT_ID, API_KEY_ID);
+
+			fixture.whenStable().then(() => {
+				expect(panelAdminManagementApiMock.unblockApiKey).toHaveBeenCalledWith({
 					accountId: ACCOUNT_ID,
 					apiKeyId: API_KEY_ID
 				});

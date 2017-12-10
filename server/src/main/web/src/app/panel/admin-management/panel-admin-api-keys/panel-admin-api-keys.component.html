@@ -1,4 +1,55 @@
 <div>
+	<form>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label>Name</label>
+					<input class="form-control" [(ngModel)]="searchCriteria.name" name="name">
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<div class="form-group">
+					<label>Email</label>
+					<input class="form-control" [(ngModel)]="searchCriteria.email" name="email">
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<div class="form-group">
+					<label>API key</label>
+					<input class="form-control" [(ngModel)]="searchCriteria.apiKey" name="apiKey">
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<div class="form-group">
+					<label>Account ID</label>
+					<input class="form-control" [(ngModel)]="searchCriteria.accountId" name="accountId">
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<div class="form-group">
+					<label>GitHub account ID</label>
+					<input class="form-control" [(ngModel)]="searchCriteria.gitHubAccountId" name="gitHubAccountId">
+				</div>
+			</div>
+
+			<div class="col-md-4">
+				<div class="form-group">
+					<label>&nbsp;</label>
+					<button type="submit" class="btn btn-primary form-control" (click)="search($event)">Search</button>
+				</div>
+			</div>
+		</div>
+
+	</form>
+
+	<div>
+		<ngb-pagination [collectionSize]="pager.totalElements" [pageSize]="pager.pageSize" [(page)]="pager.pageNumber" (pageChange)="loadApiKeys()"></ngb-pagination>
+	</div>
+
 	<ul class="list-group" *ngIf="hasApiKeys()">
 		<li class="list-group-item" *ngFor="let apiKey of getApiKeys()">
 
@@ -12,8 +63,4 @@
 			</div>
 		</li>
 	</ul>
-
-	<div>
-		<ngb-pagination [collectionSize]="pager.totalElements" [pageSize]="pager.pageSize" [(page)]="pager.pageNumber" (pageChange)="loadApiKeys()"></ngb-pagination>
-	</div>
 </div>

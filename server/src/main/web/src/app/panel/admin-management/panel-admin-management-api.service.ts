@@ -14,8 +14,8 @@ export class PanelAdminManagementApi {
 		this.register();
 	}
 
-	getApiKeysPage(pageNumber: Number) {
-		return this.api.panel.admin.apiKeys.get({pageNumber});
+	searchApiKeysPage(searchCriteria: any) {
+		return this.api.panel.admin.apiKeys.post(searchCriteria);
 	}
 
 	blockApiKey(block: any) {

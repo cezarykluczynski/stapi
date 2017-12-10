@@ -33,12 +33,12 @@
 				<form class="panel-api-keys__key-edit">
 					<div class="form-group">
 						<label>URL</label>
-						<input type="text" class="form-control" [(ngModel)]="apiKeyDetails[apiKey.id].url" name="name">
+						<input type="text" class="form-control" [(ngModel)]="apiKeyDetails[apiKey.id].url" name="url">
 					</div>
 
 					<div class="form-group">
 						<label>Description</label>
-						<textarea type="email" class="form-control" [(ngModel)]="apiKeyDetails[apiKey.id].description" name="email"></textarea>
+						<textarea class="form-control" [(ngModel)]="apiKeyDetails[apiKey.id].description" name="description"></textarea>
 					</div>
 					<button class="btn btn-success btn-sm" (click)="updateApiKey(apiKey.id)">Save</button>
 					<button class="btn btn-warning btn-sm" (click)="closeApiKeyEdit(apiKey.id)">Cancel</button>
