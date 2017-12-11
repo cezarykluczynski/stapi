@@ -14,8 +14,8 @@ public class ApiKeyAdminOperationsService {
 		this.apiKeysOperationsService = apiKeysOperationsService;
 	}
 
-	public ApiKeyReadResponseDTO getPage(ApiKeysSearchCriteriaDTO apiKeysSearchCriteriaDTO) {
-		return apiKeysOperationsService.getPage(apiKeysSearchCriteriaDTO);
+	public ApiKeyReadResponseDTO search(ApiKeysSearchCriteriaDTO apiKeysSearchCriteriaDTO) {
+		return apiKeysOperationsService.search(apiKeysSearchCriteriaDTO);
 	}
 
 	public ApiKeyBlockRelatedResponseDTO block(Long accountId, Long apiKeyId) {

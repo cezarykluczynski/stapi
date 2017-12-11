@@ -1,12 +1,12 @@
 package com.cezarykluczynski.stapi.auth.api_key.operation.read
 
+import com.cezarykluczynski.stapi.auth.common.factory.RequestSortDTOFactory
 import com.cezarykluczynski.stapi.auth.configuration.ApiKeyProperties
 import com.cezarykluczynski.stapi.model.account.entity.Account_
 import com.cezarykluczynski.stapi.model.api_key.entity.ApiKey
 import com.cezarykluczynski.stapi.model.api_key.entity.ApiKey_
 import com.cezarykluczynski.stapi.model.api_key.query.ApiKeyQueryBuilderFactory
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
-import com.cezarykluczynski.stapi.model.common.dto.enums.RequestSortDirectionDTO
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -27,12 +27,15 @@ class ApiKeysReaderTest extends Specification {
 
 	private ApiKeyProperties apiKeyPropertiesMock
 
+	private RequestSortDTOFactory requestSortDTOFactoryMock
+
 	private ApiKeysReader apiKeysReader
 
 	void setup() {
 		apiKeyQueryBuilderFactoryMock = Mock()
 		apiKeyPropertiesMock = new ApiKeyProperties(adminPageSize: ADMIN_PAGE_SIZE)
-		apiKeysReader = new ApiKeysReader(apiKeyQueryBuilderFactoryMock, apiKeyPropertiesMock)
+		requestSortDTOFactoryMock = Mock()
+		apiKeysReader = new ApiKeysReader(apiKeyQueryBuilderFactoryMock, apiKeyPropertiesMock, requestSortDTOFactoryMock)
 	}
 
 	void "does not allow null page number"() {
@@ -71,6 +74,7 @@ class ApiKeysReaderTest extends Specification {
 				email: EMAIL,
 				apiKey: API_KEY)
 		Page<ApiKey> page = Mock()
+		RequestSortDTO requestSortDTO = Mock()
 
 		when:
 		Page<ApiKey> pageOutput = apiKeysReader.execute(apiKeysReadCriteria)
@@ -87,10 +91,8 @@ class ApiKeysReaderTest extends Specification {
 		1 * apiKeyQueryBuilder.like(ApiKey_.account, Account_.email, EMAIL)
 		1 * apiKeyQueryBuilder.like(ApiKey_.apiKey, API_KEY)
 		1 * apiKeyQueryBuilder.fetch(ApiKey_.throttle)
-		1 * apiKeyQueryBuilder.setSort(_ as RequestSortDTO) >> { RequestSortDTO requestSortDTO ->
-			assert requestSortDTO.clauses[0].name == 'id'
-			assert requestSortDTO.clauses[0].direction == RequestSortDirectionDTO.ASC
-		}
+		1 * requestSortDTOFactoryMock.create() >> requestSortDTO
+		1 * apiKeyQueryBuilder.setSort(requestSortDTO)
 		1 * apiKeyQueryBuilder.findPage() >> page
 		0 * _
 		pageOutput == page
@@ -108,6 +110,7 @@ class ApiKeysReaderTest extends Specification {
 				email: EMAIL,
 				apiKey: API_KEY)
 		Page<ApiKey> page = Mock()
+		RequestSortDTO requestSortDTO = Mock()
 
 		when:
 		Page<ApiKey> pageOutput = apiKeysReader.execute(apiKeysReadCriteria)
@@ -125,11 +128,8 @@ class ApiKeysReaderTest extends Specification {
 		1 * apiKeyQueryBuilder.like(ApiKey_.account, Account_.email, EMAIL)
 		1 * apiKeyQueryBuilder.like(ApiKey_.apiKey, API_KEY)
 		1 * apiKeyQueryBuilder.fetch(ApiKey_.throttle)
-
-		1 * apiKeyQueryBuilder.setSort(_ as RequestSortDTO) >> { RequestSortDTO requestSortDTO ->
-			assert requestSortDTO.clauses[0].name == 'id'
-			assert requestSortDTO.clauses[0].direction == RequestSortDirectionDTO.ASC
-		}
+		1 * requestSortDTOFactoryMock.create() >> requestSortDTO
+		1 * apiKeyQueryBuilder.setSort(requestSortDTO)
 		1 * apiKeyQueryBuilder.findPage() >> page
 		0 * _
 		pageOutput == page

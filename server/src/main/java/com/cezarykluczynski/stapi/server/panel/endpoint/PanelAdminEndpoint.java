@@ -1,5 +1,8 @@
 package com.cezarykluczynski.stapi.server.panel.endpoint;
 
+import com.cezarykluczynski.stapi.auth.account.operation.AccountAdminOperationsService;
+import com.cezarykluczynski.stapi.auth.account.operation.read.AccountReadResponseDTO;
+import com.cezarykluczynski.stapi.auth.account.operation.read.AccountsSearchCriteriaDTO;
 import com.cezarykluczynski.stapi.auth.api_key.operation.ApiKeyAdminOperationsService;
 import com.cezarykluczynski.stapi.auth.api_key.operation.block.ApiKeyBlockRelatedResponseDTO;
 import com.cezarykluczynski.stapi.auth.api_key.operation.read.ApiKeyReadResponseDTO;
@@ -27,16 +30,20 @@ public class PanelAdminEndpoint {
 
 	private final ApiKeyAdminOperationsService apiKeyAdminOperationsService;
 
-	public PanelAdminEndpoint(ApiKeyAdminOperationsService apiKeyAdminOperationsService) {
+	private final AccountAdminOperationsService accountAdminOperationsService;
+
+	public PanelAdminEndpoint(ApiKeyAdminOperationsService apiKeyAdminOperationsService,
+			AccountAdminOperationsService accountAdminOperationsService) {
 		this.apiKeyAdminOperationsService = apiKeyAdminOperationsService;
+		this.accountAdminOperationsService = accountAdminOperationsService;
 	}
 
 	@POST
 	@Path("apiKeys")
 	@Consumes(ContentType.APPLICATION_JSON_CHARSET_UTF8)
 	@PreAuthorize("hasPermission(filterObject, 'ADMIN_MANAGEMENT')")
-	public ApiKeyReadResponseDTO readApiKeysPage(@RequestBody ApiKeysSearchCriteriaDTO apiKeysSearchCriteriaDTO) {
-		return apiKeyAdminOperationsService.getPage(apiKeysSearchCriteriaDTO);
+	public ApiKeyReadResponseDTO searchApiKeys(@RequestBody ApiKeysSearchCriteriaDTO apiKeysSearchCriteriaDTO) {
+		return apiKeyAdminOperationsService.search(apiKeysSearchCriteriaDTO);
 	}
 
 	@POST
@@ -53,6 +60,14 @@ public class PanelAdminEndpoint {
 	@PreAuthorize("hasPermission(filterObject, 'ADMIN_MANAGEMENT')")
 	public ApiKeyBlockRelatedResponseDTO unblockApiKey(@FormParam("accountId") Long accountId, @FormParam("apiKeyId") Long apiKeyId) {
 		return apiKeyAdminOperationsService.unblock(accountId, apiKeyId);
+	}
+
+	@POST
+	@Path("accounts")
+	@Consumes(ContentType.APPLICATION_JSON_CHARSET_UTF8)
+	@PreAuthorize("hasPermission(filterObject, 'ADMIN_MANAGEMENT')")
+	public AccountReadResponseDTO searchAccounts(@RequestBody AccountsSearchCriteriaDTO accountsSearchCriteriaDTO) {
+		return accountAdminOperationsService.search(accountsSearchCriteriaDTO);
 	}
 
 }

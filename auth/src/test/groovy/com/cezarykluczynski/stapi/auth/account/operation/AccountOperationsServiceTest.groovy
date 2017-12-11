@@ -6,6 +6,9 @@ import com.cezarykluczynski.stapi.auth.account.operation.edit.AccountEditRespons
 import com.cezarykluczynski.stapi.auth.account.operation.edit.ConsentsEditOperation
 import com.cezarykluczynski.stapi.auth.account.operation.read.AccountConsentsReadOperation
 import com.cezarykluczynski.stapi.auth.account.operation.read.AccountConsentsReadResponseDTO
+import com.cezarykluczynski.stapi.auth.account.operation.read.AccountReadResponseDTO
+import com.cezarykluczynski.stapi.auth.account.operation.read.AccountsReadPageOperation
+import com.cezarykluczynski.stapi.auth.account.operation.read.AccountsSearchCriteriaDTO
 import com.cezarykluczynski.stapi.auth.account.operation.removal.AccountRemovalOperation
 import com.cezarykluczynski.stapi.auth.account.operation.removal.AccountRemovalResponseDTO
 import com.cezarykluczynski.stapi.model.consent.entity.enums.ConsentType
@@ -19,6 +22,8 @@ class AccountOperationsServiceTest extends Specification {
 
 	private AccountRemovalOperation accountRemovalOperationMock
 
+	private AccountsReadPageOperation apiKeysReadPageOperationMock
+
 	private BasicDataEditOperation basicDataEditOperationMock
 
 	private ConsentsEditOperation consentsEditOperationMock
@@ -29,11 +34,12 @@ class AccountOperationsServiceTest extends Specification {
 
 	void setup() {
 		accountRemovalOperationMock = Mock()
+		apiKeysReadPageOperationMock = Mock()
 		basicDataEditOperationMock = Mock()
 		consentsEditOperationMock = Mock()
 		accountConsentsReadOperationMock = Mock()
-		accountOperationsService = new AccountOperationsService(accountRemovalOperationMock, basicDataEditOperationMock, consentsEditOperationMock,
-				accountConsentsReadOperationMock)
+		accountOperationsService = new AccountOperationsService(accountRemovalOperationMock, apiKeysReadPageOperationMock, basicDataEditOperationMock,
+				consentsEditOperationMock, accountConsentsReadOperationMock)
 	}
 
 	void "removes account"() {
@@ -47,6 +53,20 @@ class AccountOperationsServiceTest extends Specification {
 		1 * accountRemovalOperationMock.execute(ACCOUNT_ID) >> accountRemovalResponseDTO
 		0 * _
 		accountRemovalResponseDTOOutput == accountRemovalResponseDTO
+	}
+
+	void "searches for accounts"() {
+		given:
+		AccountsSearchCriteriaDTO accountsSearchCriteriaDTO = Mock()
+		AccountReadResponseDTO accountReadResponseDTO = Mock()
+
+		when:
+		AccountReadResponseDTO accountReadResponseDTOOutput = accountOperationsService.search(accountsSearchCriteriaDTO)
+
+		then:
+		1 * apiKeysReadPageOperationMock.execute(accountsSearchCriteriaDTO) >> accountReadResponseDTO
+		0 * _
+		accountReadResponseDTOOutput == accountReadResponseDTO
 	}
 
 	void "updates account basic data"() {

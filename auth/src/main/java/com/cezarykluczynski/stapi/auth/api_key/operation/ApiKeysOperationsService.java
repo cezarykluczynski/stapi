@@ -49,7 +49,7 @@ class ApiKeysOperationsService {
 		return apiKeysReadOperation.execute(accountId);
 	}
 
-	ApiKeyReadResponseDTO getPage(ApiKeysSearchCriteriaDTO apiKeysSearchCriteriaDTO) {
+	ApiKeyReadResponseDTO search(ApiKeysSearchCriteriaDTO apiKeysSearchCriteriaDTO) {
 		return apiKeysReadPageOperation.execute(apiKeysSearchCriteriaDTO);
 	}
 

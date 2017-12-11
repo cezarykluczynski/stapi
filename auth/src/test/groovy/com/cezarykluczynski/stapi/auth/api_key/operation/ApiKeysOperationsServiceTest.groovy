@@ -68,7 +68,7 @@ class ApiKeysOperationsServiceTest extends Specification {
 		ApiKeyReadResponseDTO apiKeyReadResponseDTO = Mock()
 
 		when:
-		ApiKeyReadResponseDTO apiKeyReadResponseDTOOutput = apiKeysOperationsService.getPage(apiKeysSearchCriteriaDTO)
+		ApiKeyReadResponseDTO apiKeyReadResponseDTOOutput = apiKeysOperationsService.search(apiKeysSearchCriteriaDTO)
 
 		then:
 		1 * apiKeysReadPageOperationMock.execute(apiKeysSearchCriteriaDTO) >> apiKeyReadResponseDTO

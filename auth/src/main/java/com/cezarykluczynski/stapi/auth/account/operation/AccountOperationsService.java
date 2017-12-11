@@ -6,6 +6,9 @@ import com.cezarykluczynski.stapi.auth.account.operation.edit.BasicDataEditOpera
 import com.cezarykluczynski.stapi.auth.account.operation.edit.ConsentsEditOperation;
 import com.cezarykluczynski.stapi.auth.account.operation.read.AccountConsentsReadOperation;
 import com.cezarykluczynski.stapi.auth.account.operation.read.AccountConsentsReadResponseDTO;
+import com.cezarykluczynski.stapi.auth.account.operation.read.AccountReadResponseDTO;
+import com.cezarykluczynski.stapi.auth.account.operation.read.AccountsReadPageOperation;
+import com.cezarykluczynski.stapi.auth.account.operation.read.AccountsSearchCriteriaDTO;
 import com.cezarykluczynski.stapi.auth.account.operation.removal.AccountRemovalOperation;
 import com.cezarykluczynski.stapi.auth.account.operation.removal.AccountRemovalResponseDTO;
 import com.cezarykluczynski.stapi.model.consent.entity.enums.ConsentType;
@@ -18,15 +21,19 @@ class AccountOperationsService {
 
 	private final AccountRemovalOperation accountRemovalOperation;
 
+	private final AccountsReadPageOperation apiKeysReadPageOperation;
+
 	private final BasicDataEditOperation basicDataEditOperation;
 
 	private final ConsentsEditOperation consentsEditOperation;
 
 	private final AccountConsentsReadOperation accountConsentsReadOperation;
 
-	AccountOperationsService(AccountRemovalOperation accountRemovalOperation, BasicDataEditOperation basicDataEditOperation,
-			ConsentsEditOperation consentsEditOperation, AccountConsentsReadOperation accountConsentsReadOperation) {
+	AccountOperationsService(AccountRemovalOperation accountRemovalOperation, AccountsReadPageOperation apiKeysReadPageOperation,
+			BasicDataEditOperation basicDataEditOperation, ConsentsEditOperation consentsEditOperation,
+			AccountConsentsReadOperation accountConsentsReadOperation) {
 		this.accountRemovalOperation = accountRemovalOperation;
+		this.apiKeysReadPageOperation = apiKeysReadPageOperation;
 		this.basicDataEditOperation = basicDataEditOperation;
 		this.consentsEditOperation = consentsEditOperation;
 		this.accountConsentsReadOperation = accountConsentsReadOperation;
@@ -34,6 +41,10 @@ class AccountOperationsService {
 
 	AccountRemovalResponseDTO remove(Long accountId) {
 		return accountRemovalOperation.execute(accountId);
+	}
+
+	AccountReadResponseDTO search(AccountsSearchCriteriaDTO accountsSearchCriteriaDTO) {
+		return apiKeysReadPageOperation.execute(accountsSearchCriteriaDTO);
 	}
 
 	AccountEditResponseDTO updateBasicData(Long accountId, BasicDataDTO basicDataDTO) {

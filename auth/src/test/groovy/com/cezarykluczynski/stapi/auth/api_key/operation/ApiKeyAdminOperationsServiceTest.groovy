@@ -26,10 +26,10 @@ class ApiKeyAdminOperationsServiceTest extends Specification {
 		ApiKeyReadResponseDTO apiKeyReadResponseDTO = Mock()
 
 		when:
-		ApiKeyReadResponseDTO apiKeyReadResponseDTOOutput = apiKeyAdminOperationsService.getPage(apiKeysSearchCriteriaDTO)
+		ApiKeyReadResponseDTO apiKeyReadResponseDTOOutput = apiKeyAdminOperationsService.search(apiKeysSearchCriteriaDTO)
 
 		then:
-		1 * apiKeysOperationsServiceMock.getPage(apiKeysSearchCriteriaDTO) >> apiKeyReadResponseDTO
+		1 * apiKeysOperationsServiceMock.search(apiKeysSearchCriteriaDTO) >> apiKeyReadResponseDTO
 		0 * _
 		apiKeyReadResponseDTOOutput == apiKeyReadResponseDTO
 	}
