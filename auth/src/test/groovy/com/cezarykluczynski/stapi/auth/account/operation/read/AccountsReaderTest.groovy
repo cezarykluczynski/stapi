@@ -57,7 +57,7 @@ class AccountsReaderTest extends Specification {
 			accountQueryBuilder
 		}
 		1 * accountQueryBuilder.equal(Account_.id, ID)
-		1 * accountQueryBuilder.equal(Account_.gitHubUserId, Account_.gitHubUserId, GITHUB_ACCOUNT_ID)
+		1 * accountQueryBuilder.equal(Account_.gitHubUserId, GITHUB_ACCOUNT_ID)
 		1 * accountQueryBuilder.like(Account_.name, NAME)
 		1 * accountQueryBuilder.like(Account_.email, EMAIL)
 		1 * requestSortDTOFactoryMock.create() >> requestSortDTO

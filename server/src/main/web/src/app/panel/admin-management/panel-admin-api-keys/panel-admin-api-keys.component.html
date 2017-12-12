@@ -58,7 +58,8 @@
 				<button class="btn btn-primary btn-sm pull-right" *ngIf="apiKey.blocked" (click)="unblockApiKey(apiKey.accountId, apiKey.id)">Unblock</button>
 				<h4><span class="label label-default">{{apiKey.apiKey}}</span></h4>
 				<small>
-					Limit: <strong>{{apiKey.limit}}</strong>, remaining hits: <strong>{{apiKey.remaining}}</strong>
+					Limit: <strong>{{apiKey.limit}}</strong>, remaining hits: <strong>{{apiKey.remaining}}</strong>,
+					account ID: <strong>{{apiKey.accountId}}</strong>
 				</small>
 			</div>
 		</li>

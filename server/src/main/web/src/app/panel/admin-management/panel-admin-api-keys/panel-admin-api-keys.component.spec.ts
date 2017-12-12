@@ -10,7 +10,7 @@ class NotificationsServiceMock {
 }
 
 class PanelAdminManagementApiMock {
-	public searchApiKeysPage() {}
+	public searchApiKeys() {}
 	public blockApiKey() {}
 	public unblockApiKey() {}
 }
@@ -20,7 +20,7 @@ describe('PanelAdminApiKeysComponent', () => {
 	let fixture: ComponentFixture<PanelAdminApiKeysComponent>;
 	let notificationsServiceMock: NotificationsServiceMock;
 	let panelAdminManagementApiMock: PanelAdminManagementApiMock;
-	let panelAdminManagementApiMockGetApiKeysPageSpy: jasmine.Spy;
+	let panelAdminManagementApiMockSearchApiKeysSpy: jasmine.Spy;
 
 	const API_KEYS = {
 		apiKeys: [
@@ -46,7 +46,7 @@ describe('PanelAdminApiKeysComponent', () => {
 		notificationsServiceMock = new NotificationsServiceMock();
 		panelAdminManagementApiMock = new PanelAdminManagementApiMock();
 
-		panelAdminManagementApiMockGetApiKeysPageSpy = spyOn(panelAdminManagementApiMock, 'searchApiKeysPage').and.returnValue(Promise.resolve(API_KEYS));
+		panelAdminManagementApiMockSearchApiKeysSpy = spyOn(panelAdminManagementApiMock, 'searchApiKeys').and.returnValue(Promise.resolve(API_KEYS));
 		spyOn(panelAdminManagementApiMock, 'blockApiKey').and.returnValue(Promise.resolve(BLOCK_RESULT));
 		spyOn(panelAdminManagementApiMock, 'unblockApiKey').and.returnValue(Promise.resolve(UNBLOCK_RESULT));
 
@@ -77,7 +77,7 @@ describe('PanelAdminApiKeysComponent', () => {
 		expect(component).toBeTruthy();
 	});
 
-	it('loads api keys', () => {
+	it('loads API keys', () => {
 		expect(component.hasApiKeys()).toBeFalse();
 		expect(component.getApiKeys()).toEqual([]);
 
@@ -89,7 +89,7 @@ describe('PanelAdminApiKeysComponent', () => {
 
 	it('searches for API keys', () => {
 		fixture.whenStable().then(() => {
-			expect(panelAdminManagementApiMockGetApiKeysPageSpy.calls.count()).toBe(1);
+			expect(panelAdminManagementApiMockSearchApiKeysSpy.calls.count()).toBe(1);
 			let event = {
 				preventDefault: jasmine.createSpy('preventDefault')
 			};
@@ -98,14 +98,14 @@ describe('PanelAdminApiKeysComponent', () => {
 			expect(event.preventDefault).toHaveBeenCalled();
 
 			fixture.whenStable().then(() => {
-				expect(panelAdminManagementApiMockGetApiKeysPageSpy.calls.count()).toBe(2);
+				expect(panelAdminManagementApiMockSearchApiKeysSpy.calls.count()).toBe(2);
 			});
 		});
 	});
 
 	it('blocks api key', () => {
 		fixture.whenStable().then(() => {
-			expect(panelAdminManagementApiMockGetApiKeysPageSpy.calls.count()).toBe(1);
+			expect(panelAdminManagementApiMockSearchApiKeysSpy.calls.count()).toBe(1);
 
 			component.blockApiKey(ACCOUNT_ID, API_KEY_ID);
 
@@ -115,14 +115,14 @@ describe('PanelAdminApiKeysComponent', () => {
 					apiKeyId: API_KEY_ID
 				});
 
-				expect(panelAdminManagementApiMockGetApiKeysPageSpy.calls.count()).toBe(2);
+				expect(panelAdminManagementApiMockSearchApiKeysSpy.calls.count()).toBe(2);
 			});
 		});
 	});
 
 	it('unblocks api key', () => {
 		fixture.whenStable().then(() => {
-			expect(panelAdminManagementApiMockGetApiKeysPageSpy.calls.count()).toBe(1);
+			expect(panelAdminManagementApiMockSearchApiKeysSpy.calls.count()).toBe(1);
 
 			component.unblockApiKey(ACCOUNT_ID, API_KEY_ID);
 
@@ -132,7 +132,7 @@ describe('PanelAdminApiKeysComponent', () => {
 					apiKeyId: API_KEY_ID
 				});
 
-				expect(panelAdminManagementApiMockGetApiKeysPageSpy.calls.count()).toBe(2);
+				expect(panelAdminManagementApiMockSearchApiKeysSpy.calls.count()).toBe(2);
 			});
 		});
 	});

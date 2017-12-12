@@ -35,7 +35,7 @@ class AccountsReader {
 
 		QueryBuilder<Account> accountQueryBuilder = accountQueryBuilderFactory.createQueryBuilder(pageable);
 		accountQueryBuilder.equal(Account_.id, criteria.getId());
-		accountQueryBuilder.equal(Account_.gitHubUserId, Account_.gitHubUserId, criteria.getGitHubAccountId());
+		accountQueryBuilder.equal(Account_.gitHubUserId, criteria.getGitHubAccountId());
 		accountQueryBuilder.like(Account_.name, criteria.getName());
 		accountQueryBuilder.like(Account_.email, criteria.getEmail());
 		accountQueryBuilder.setSort(requestSortDTOFactory.create());

@@ -14,7 +14,7 @@ export class PanelAdminManagementApi {
 		this.register();
 	}
 
-	searchApiKeysPage(searchCriteria: any) {
+	searchApiKeys(searchCriteria: any) {
 		return this.api.panel.admin.apiKeys.post(searchCriteria);
 	}
 
@@ -26,9 +26,22 @@ export class PanelAdminManagementApi {
 		return this.api.panel.admin.apiKeys.unblock.post(unblock, 'application/x-www-form-urlencoded');
 	}
 
+	searchAccounts(searchCriteria: any) {
+		return this.api.panel.admin.accounts.post(searchCriteria);
+	}
+
+	blockAccount(block: any) {
+		return this.api.panel.admin.accounts.block.post(block, 'application/x-www-form-urlencoded');
+	}
+
+	unblockAccount(unblock: any) {
+		return this.api.panel.admin.accounts.unblock.post(unblock, 'application/x-www-form-urlencoded');
+	}
+
 	private register() {
 		this.api.res('panel').res('admin').res('apiKeys').res('block');
 		this.api.res('panel').res('admin').res('apiKeys').res('unblock');
+		this.api.res('panel').res('admin').res('accounts');
 	}
 
 }

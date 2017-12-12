@@ -55,7 +55,7 @@ export class PanelAdminApiKeysComponent implements OnInit {
 		this.searchCriteria.name = this.searchCriteria.name ? this.searchCriteria.name : null;
 		this.searchCriteria.email = this.searchCriteria.email ? this.searchCriteria.email : null;
 		this.searchCriteria.apiKey = this.searchCriteria.apiKey ? this.searchCriteria.apiKey : null;
-		this.panelAdminManagementApi.searchApiKeysPage(this.searchCriteria).then((response) => {
+		this.panelAdminManagementApi.searchApiKeys(this.searchCriteria).then((response) => {
 			this.pager.pageNumber = response.pager.pageNumber + 1;
 			this.pager.pageSize = response.pager.pageSize;
 			this.pager.totalElements = response.pager.totalElements;

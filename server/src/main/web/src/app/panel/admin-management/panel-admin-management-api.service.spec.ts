@@ -28,7 +28,11 @@ describe('PanelAdminManagementApi', () => {
 		accountId: 3,
 		apiKeyId: 4
 	};
-	const SEARCH_CRITERIA_RESULT = {
+	const API_KEYS_SEARCH_CRITERIA_RESULT = {
+		apiKeys: {},
+		pager: {}
+	};
+	const ACCOUNTS_SEARCH_CRITERIA_RESULT = {
 		apiKeys: {},
 		pager: {}
 	};
@@ -38,7 +42,8 @@ describe('PanelAdminManagementApi', () => {
 	const UNBLOCK_RESULT = {
 		successful: true
 	};
-	const SEARCH_CRITERIA = {};
+	const API_KEYS_SEARCH_CRITERIA = {};
+	const ACCOUNTS_SEARCH_CRITERIA = {};
 
 	beforeEach(() => {
 		restClientMock = new RestClientMock();
@@ -66,7 +71,7 @@ describe('PanelAdminManagementApi', () => {
 	it('is created', inject([PanelAdminManagementApi], (panelAdminManagementApi: PanelAdminManagementApi) => {
 		expect(panelAdminManagementApi).toBeTruthy();
 
-		expect(res.calls.count()).toBe(8);
+		expect(res.calls.count()).toBe(11);
 		expect(res.calls.argsFor(0)).toEqual(['panel']);
 		expect(res.calls.argsFor(1)).toEqual(['admin']);
 		expect(res.calls.argsFor(2)).toEqual(['apiKeys']);
@@ -75,6 +80,9 @@ describe('PanelAdminManagementApi', () => {
 		expect(res.calls.argsFor(5)).toEqual(['admin']);
 		expect(res.calls.argsFor(6)).toEqual(['apiKeys']);
 		expect(res.calls.argsFor(7)).toEqual(['unblock']);
+		expect(res.calls.argsFor(8)).toEqual(['panel']);
+		expect(res.calls.argsFor(9)).toEqual(['admin']);
+		expect(res.calls.argsFor(10)).toEqual(['accounts']);
 	}));
 
 	describe('after initialization', () => {
@@ -83,8 +91,8 @@ describe('PanelAdminManagementApi', () => {
 				admin: {
 					apiKeys: {
 						post: (searchCriteria: any) => {
-							expect(searchCriteria).toBe(SEARCH_CRITERIA);
-							return Promise.resolve(SEARCH_CRITERIA_RESULT);
+							expect(searchCriteria).toBe(API_KEYS_SEARCH_CRITERIA);
+							return Promise.resolve(API_KEYS_SEARCH_CRITERIA_RESULT);
 						},
 						block: {
 							post: (block: any) => {
@@ -98,14 +106,20 @@ describe('PanelAdminManagementApi', () => {
 								return Promise.resolve(UNBLOCK_RESULT);
 							}
 						}
+					},
+					accounts: {
+						post: (searchCriteria: any) => {
+							expect(searchCriteria).toBe(ACCOUNTS_SEARCH_CRITERIA);
+							return Promise.resolve(ACCOUNTS_SEARCH_CRITERIA_RESULT);
+						},
 					}
 				}
 			};
 		});
 
-		it('gets API keys page', inject([PanelAdminManagementApi], (panelAdminManagementApi: PanelAdminManagementApi) => {
-			panelAdminManagementApi.searchApiKeysPage(SEARCH_CRITERIA).then((response) => {
-				expect(response).toBe(SEARCH_CRITERIA_RESULT);
+		it('searches for API keys', inject([PanelAdminManagementApi], (panelAdminManagementApi: PanelAdminManagementApi) => {
+			panelAdminManagementApi.searchApiKeys(API_KEYS_SEARCH_CRITERIA).then((response) => {
+				expect(response).toBe(API_KEYS_SEARCH_CRITERIA_RESULT);
 			});
 		}));
 
@@ -118,6 +132,12 @@ describe('PanelAdminManagementApi', () => {
 		it('unblock API key', inject([PanelAdminManagementApi], (panelAdminManagementApi: PanelAdminManagementApi) => {
 			panelAdminManagementApi.unblockApiKey(UNBLOCK).then((response) => {
 				expect(response).toBe(UNBLOCK_RESULT);
+			});
+		}));
+
+		it('searches for API keys', inject([PanelAdminManagementApi], (panelAdminManagementApi: PanelAdminManagementApi) => {
+			panelAdminManagementApi.searchAccounts(ACCOUNTS_SEARCH_CRITERIA).then((response) => {
+				expect(response).toBe(ACCOUNTS_SEARCH_CRITERIA_RESULT);
 			});
 		}));
 	});
