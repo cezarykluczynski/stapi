@@ -40,6 +40,7 @@ class TitleFullSoapMapperTest extends AbstractTitleMapperTest {
 		titleFull.religiousTitle == RELIGIOUS_TITLE
 		titleFull.position == POSITION
 		titleFull.mirror == MIRROR
+		titleFull.characters.size() == title.characters.size()
 	}
 
 }

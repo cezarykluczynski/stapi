@@ -45,3 +45,8 @@ properties:
   alternateReality:
     type: boolean
     description: Whether this organization is from alternate reality
+  characters:
+    type: array
+    items:
+      $ref: '#/definitions/CharacterBase'
+    description: Characters belonging to this organization

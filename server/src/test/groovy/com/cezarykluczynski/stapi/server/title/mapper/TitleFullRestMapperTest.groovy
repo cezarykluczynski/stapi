@@ -14,10 +14,10 @@ class TitleFullRestMapperTest extends AbstractTitleMapperTest {
 
 	void "maps DB entity to full REST entity"() {
 		given:
-		Title dBTitle = createTitle()
+		Title title = createTitle()
 
 		when:
-		TitleFull titleFull = titleFullRestMapper.mapFull(dBTitle)
+		TitleFull titleFull = titleFullRestMapper.mapFull(title)
 
 		then:
 		titleFull.uid == UID
@@ -27,6 +27,7 @@ class TitleFullRestMapperTest extends AbstractTitleMapperTest {
 		titleFull.religiousTitle == RELIGIOUS_TITLE
 		titleFull.position == POSITION
 		titleFull.mirror == MIRROR
+		titleFull.characters.size() == title.characters.size()
 	}
 
 }

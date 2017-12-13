@@ -14,10 +14,10 @@ class OrganizationFullRestMapperTest extends AbstractOrganizationMapperTest {
 
 	void "maps DB entity to full REST entity"() {
 		given:
-		Organization dBOrganization = createOrganization()
+		Organization organization = createOrganization()
 
 		when:
-		OrganizationFull organizationFull = organizationFullRestMapper.mapFull(dBOrganization)
+		OrganizationFull organizationFull = organizationFullRestMapper.mapFull(organization)
 
 		then:
 		organizationFull.uid == UID
@@ -34,6 +34,7 @@ class OrganizationFullRestMapperTest extends AbstractOrganizationMapperTest {
 		organizationFull.prisonOrPenalColony == PRISON_OR_PENAL_COLONY
 		organizationFull.mirror == MIRROR
 		organizationFull.alternateReality == ALTERNATE_REALITY
+		organizationFull.characters.size() == organization.characters.size()
 	}
 
 }

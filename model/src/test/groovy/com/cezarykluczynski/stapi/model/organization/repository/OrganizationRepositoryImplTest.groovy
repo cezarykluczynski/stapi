@@ -7,6 +7,8 @@ import com.cezarykluczynski.stapi.model.organization.entity.Organization
 import com.cezarykluczynski.stapi.model.organization.entity.Organization_
 import com.cezarykluczynski.stapi.model.organization.query.OrganizationQueryBuilderFactory
 import com.cezarykluczynski.stapi.util.AbstractOrganizationTest
+import com.google.common.collect.Lists
+import com.google.common.collect.Sets
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
@@ -14,7 +16,7 @@ class OrganizationRepositoryImplTest extends AbstractOrganizationTest {
 
 	private static final RequestSortDTO SORT = new RequestSortDTO()
 
-	private OrganizationQueryBuilderFactory organizationQueryBuilderFactory
+	private OrganizationQueryBuilderFactory organizationQueryBuilderFactoryMock
 
 	private OrganizationRepositoryImpl organizationRepositoryImpl
 
@@ -24,14 +26,17 @@ class OrganizationRepositoryImplTest extends AbstractOrganizationTest {
 
 	private OrganizationRequestDTO organizationRequestDTO
 
+	private Organization organization
+
 	private Page page
 
 	void setup() {
-		organizationQueryBuilderFactory = Mock()
-		organizationRepositoryImpl = new OrganizationRepositoryImpl(organizationQueryBuilderFactory)
+		organizationQueryBuilderFactoryMock = Mock()
+		organizationRepositoryImpl = new OrganizationRepositoryImpl(organizationQueryBuilderFactoryMock)
 		organizationQueryBuilder = Mock()
 		pageable = Mock()
 		organizationRequestDTO = Mock()
+		organization = Mock()
 		page = Mock()
 	}
 
@@ -40,7 +45,7 @@ class OrganizationRepositoryImplTest extends AbstractOrganizationTest {
 		Page pageOutput = organizationRepositoryImpl.findMatching(organizationRequestDTO, pageable)
 
 		then: 'criteria builder is retrieved'
-		1 * organizationQueryBuilderFactory.createQueryBuilder(pageable) >> organizationQueryBuilder
+		1 * organizationQueryBuilderFactoryMock.createQueryBuilder(pageable) >> organizationQueryBuilder
 
 		then: 'uid criteria is set'
 		1 * organizationRequestDTO.uid >> UID
@@ -80,14 +85,40 @@ class OrganizationRepositoryImplTest extends AbstractOrganizationTest {
 		1 * organizationRequestDTO.sort >> SORT
 		1 * organizationQueryBuilder.setSort(SORT)
 
+		then: 'fetch is performed with true flag'
+		1 * organizationQueryBuilder.fetch(Organization_.characters, true)
+
 		then: 'page is retrieved'
 		1 * organizationQueryBuilder.findPage() >> page
+		0 * page.content
 
 		then: 'page is returned'
 		pageOutput == page
 
 		then: 'no other interactions are expected'
 		0 * _
+	}
+
+	void "proxies are cleared when no related entities should be fetched"() {
+		when:
+		Page pageOutput = organizationRepositoryImpl.findMatching(organizationRequestDTO, pageable)
+
+		then:
+		1 * organizationQueryBuilderFactoryMock.createQueryBuilder(pageable) >> organizationQueryBuilder
+
+		then: 'uid criteria is set to null'
+		1 * organizationRequestDTO.uid >> null
+
+		then: 'fetch is performed with false flag'
+		1 * organizationQueryBuilder.fetch(Organization_.characters, false)
+
+		then: 'page is searched for and returned'
+		1 * organizationQueryBuilder.findPage() >> page
+
+		then: 'proxies are cleared'
+		1 * page.content >> Lists.newArrayList(organization)
+		1 * organization.setCharacters(Sets.newHashSet())
+		pageOutput == page
 	}
 
 }

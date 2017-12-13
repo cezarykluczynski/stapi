@@ -1,11 +1,12 @@
 package com.cezarykluczynski.stapi.server.title.mapper
 
+import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.title.entity.Title
 import com.cezarykluczynski.stapi.util.AbstractTitleTest
 
 abstract class AbstractTitleMapperTest extends AbstractTitleTest {
 
-	protected static Title createTitle() {
+	protected Title createTitle() {
 		new Title(
 				uid: UID,
 				name: NAME,
@@ -13,7 +14,8 @@ abstract class AbstractTitleMapperTest extends AbstractTitleTest {
 				fleetRank: FLEET_RANK,
 				religiousTitle: RELIGIOUS_TITLE,
 				position: POSITION,
-				mirror: MIRROR)
+				mirror: MIRROR,
+				characters: createSetOfRandomNumberOfMocks(Character))
 	}
 
 }

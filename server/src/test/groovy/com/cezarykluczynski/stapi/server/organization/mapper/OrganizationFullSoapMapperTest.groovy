@@ -47,6 +47,7 @@ class OrganizationFullSoapMapperTest extends AbstractOrganizationMapperTest {
 		organizationFull.prisonOrPenalColony == PRISON_OR_PENAL_COLONY
 		organizationFull.mirror == MIRROR
 		organizationFull.alternateReality == ALTERNATE_REALITY
+		organizationFull.characters.size() == organization.characters.size()
 	}
 
 }

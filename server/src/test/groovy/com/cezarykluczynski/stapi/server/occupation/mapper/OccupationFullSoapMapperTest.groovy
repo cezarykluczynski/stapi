@@ -38,6 +38,7 @@ class OccupationFullSoapMapperTest extends AbstractOccupationMapperTest {
 		occupationFull.legalOccupation == LEGAL_OCCUPATION
 		occupationFull.medicalOccupation == MEDICAL_OCCUPATION
 		occupationFull.scientificOccupation == SCIENTIFIC_OCCUPATION
+		occupationFull.characters.size() == occupation.characters.size()
 	}
 
 }

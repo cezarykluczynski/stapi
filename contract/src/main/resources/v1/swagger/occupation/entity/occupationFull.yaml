@@ -18,3 +18,8 @@ properties:
   scientificOccupation:
     type: boolean
     description: Whether it's a scientific occupation
+  characters:
+    type: array
+    items:
+      $ref: '#/definitions/CharacterBase'
+    description: Characters with this occupation

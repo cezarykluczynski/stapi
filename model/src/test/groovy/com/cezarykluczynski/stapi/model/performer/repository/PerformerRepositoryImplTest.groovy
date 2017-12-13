@@ -119,6 +119,8 @@ class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 		then: 'page is searched for and returned'
 		1 * performerQueryBuilder.findPage() >> page
 		0 * page.content
+
+		then: 'page is returned'
 		pageOutput == page
 
 		then: 'no other interactions are expected'

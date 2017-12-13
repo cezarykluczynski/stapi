@@ -14,10 +14,10 @@ class OccupationFullRestMapperTest extends AbstractOccupationMapperTest {
 
 	void "maps DB entity to full REST entity"() {
 		given:
-		Occupation dBOccupation = createOccupation()
+		Occupation occupation = createOccupation()
 
 		when:
-		OccupationFull occupationFull = occupationFullRestMapper.mapFull(dBOccupation)
+		OccupationFull occupationFull = occupationFullRestMapper.mapFull(occupation)
 
 		then:
 		occupationFull.uid == UID
@@ -25,6 +25,7 @@ class OccupationFullRestMapperTest extends AbstractOccupationMapperTest {
 		occupationFull.legalOccupation == LEGAL_OCCUPATION
 		occupationFull.medicalOccupation == MEDICAL_OCCUPATION
 		occupationFull.scientificOccupation == SCIENTIFIC_OCCUPATION
+		occupationFull.characters.size() == occupation.characters.size()
 	}
 
 }

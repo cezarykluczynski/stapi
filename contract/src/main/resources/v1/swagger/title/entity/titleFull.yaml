@@ -24,3 +24,8 @@ properties:
   mirror:
     type: boolean
     description: Whether this title is from mirror universe
+  characters:
+    type: array
+    items:
+      $ref: '#/definitions/CharacterBase'
+    description: Characters that holds this title
