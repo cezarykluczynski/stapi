@@ -64,7 +64,7 @@ public class Organization extends PageAwareEntity implements PageAware {
 
 	private Boolean alternateReality;
 
-	@ManyToMany(mappedBy = "characters", targetEntity = Character.class)
+	@ManyToMany(mappedBy = "organizations", targetEntity = Character.class)
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Character> characters = Sets.newHashSet();
 

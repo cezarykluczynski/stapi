@@ -71,7 +71,7 @@ class StaticJobCompletenessDecider {
 		}
 
 		@Bean
-		@ConditionalOnProperty(name = 'etl.enabled', havingValue = 'false')
+		@ConditionalOnProperty(name = 'liquibase.enabled', havingValue = 'false')
 		SpringLiquibase liquibase() {
 			new SpringLiquibase(
 					changeLog: 'classpath:liquibase/changelog.xml',
@@ -106,7 +106,8 @@ class StaticJobCompletenessDecider {
 				.run(
 						'--server.port=8543',
 						'--spring.profiles.active=default,stapi-custom',
-						'--etl.enabled=false'
+						'--etl.enabled=false',
+						'--liquibase.enabled=false'
 				)
 	}
 

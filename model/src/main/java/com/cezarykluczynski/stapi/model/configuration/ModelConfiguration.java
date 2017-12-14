@@ -98,7 +98,7 @@ public class ModelConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnProperty("etl.enabled")
+	@ConditionalOnProperty("liquibase.enabled")
 	public SpringLiquibase liquibase() {
 		SpringLiquibase springLiquibase = new SpringLiquibase();
 		springLiquibase.setChangeLog("classpath:liquibase/changelog.xml");
@@ -107,7 +107,7 @@ public class ModelConfiguration {
 	}
 
 	@Bean(name = "liquibase")
-	@ConditionalOnProperty(name = "etl.enabled", havingValue = "false")
+	@ConditionalOnProperty(name = "liquibase.enabled", havingValue = "false")
 	public Object liquibaseMock() {
 		return new Object();
 	}

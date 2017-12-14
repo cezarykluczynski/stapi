@@ -46,7 +46,7 @@ public class Occupation extends PageAwareEntity implements PageAware {
 
 	private Boolean scientificOccupation;
 
-	@ManyToMany(mappedBy = "characters", targetEntity = Character.class)
+	@ManyToMany(mappedBy = "occupations", targetEntity = Character.class)
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Character> characters = Sets.newHashSet();
 

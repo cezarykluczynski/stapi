@@ -49,7 +49,7 @@ public class Title extends PageAwareEntity implements PageAware {
 
 	private Boolean mirror;
 
-	@ManyToMany(mappedBy = "characters", targetEntity = Character.class)
+	@ManyToMany(mappedBy = "titles", targetEntity = Character.class)
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 	private Set<Character> characters = Sets.newHashSet();
 
