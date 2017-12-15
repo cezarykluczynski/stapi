@@ -12,7 +12,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 export function highlightJsFactory() {
-  return hljs;
+	return hljs;
 }
 
 import { AppComponent } from './app.component';
@@ -42,6 +42,7 @@ import { PanelAccountApi } from './panel/account-settings/panel-account-api.serv
 import { PanelAdminManagementApi } from './panel/admin-management/panel-admin-management-api.service';
 import { PanelAdminApiKeysComponent } from './panel/admin-management/panel-admin-api-keys/panel-admin-api-keys.component';
 import { PanelAdminAccountsComponent } from './panel/admin-management/panel-admin-accounts/panel-admin-accounts.component';
+import { ApiOverviewComponent } from './api-overview/api-overview.component';
 
 const appRoutes: Routes = [
 	{
@@ -73,6 +74,10 @@ const appRoutes: Routes = [
 		component: PanelComponent
 	},
 	{
+		path: 'api-overview',
+		component: ApiOverviewComponent
+	},
+	{
 		path: '**',
 		component: PageNotFoundComponent
 	}
@@ -99,7 +104,8 @@ export function initConfiguration(initializerService: InitializerService): Funct
 		PanelApiKeysComponent,
 		PanelAccountSettingsComponent,
 		PanelAdminApiKeysComponent,
-		PanelAdminAccountsComponent
+		PanelAdminAccountsComponent,
+		ApiOverviewComponent
 	],
 	imports: [
 		RouterModule.forRoot(appRoutes),
