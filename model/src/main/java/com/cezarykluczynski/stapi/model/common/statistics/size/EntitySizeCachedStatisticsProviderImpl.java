@@ -18,13 +18,9 @@ public class EntitySizeCachedStatisticsProviderImpl implements EntitySizeStatist
 	}
 
 	@Override
-	public Map<Class, Long> provide() {
+	public synchronized Map<Class, Long> provide() {
 		if (statistics == null) {
-			synchronized (this) {
-				if (statistics == null) {
-					statistics = entitySizeCountingService.count();
-				}
-			}
+			statistics = entitySizeCountingService.count();
 		}
 
 		return statistics;

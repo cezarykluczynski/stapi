@@ -38,16 +38,13 @@ public class SeriesToEpisodeBindingService {
 
 	public SeriesToEpisodeBindingService(SeriesRepository seriesRepository) {
 		this.seriesRepository = seriesRepository;
-
 	}
 
 	public Series mapCategoriesToSeries(List<CategoryHeader> categoryHeaderList) {
-		if (seriesList == null) {
-			synchronized (this) {
-				if (seriesList == null) {
-					seriesList = seriesRepository.findAll();
-					fillCategoryTitlesToSeries();
-				}
+		synchronized (this) {
+			if (seriesList == null) {
+				seriesList = seriesRepository.findAll();
+				fillCategoryTitlesToSeries();
 			}
 		}
 

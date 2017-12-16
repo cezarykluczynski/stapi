@@ -41,16 +41,26 @@ public class FrequentHitCachingHelperDumpFormatter {
 
 		int numberOfDigits = String.valueOf(max).length();
 
+		StringBuilder stringBuilder = new StringBuilder(output);
+
 		for (MediaWikiSource mediaWikiSource : SOURCES_ORDER) {
-			output += mediaWikiSource.name() + ":" + NEW_LINE;
+			stringBuilder
+					.append(mediaWikiSource.name())
+					.append(":")
+					.append(NEW_LINE);
 
 			List<Pair<String, Integer>> pairList = sortedTitlesMap.get(mediaWikiSource);
 
 			for (Pair<String, Integer> pair : pairList) {
-				output += StringUtils.leftPad(String.valueOf(pair.getValue()), numberOfDigits + 1) + " :: " + pair.getKey() + NEW_LINE;
+				stringBuilder
+						.append(StringUtils.leftPad(String.valueOf(pair.getValue()), numberOfDigits + 1))
+						.append(" :: ")
+						.append(pair.getKey())
+						.append(NEW_LINE);
 			}
 		}
 
+		output = stringBuilder.toString();
 		return output.substring(0, output.length() - 1);
 	}
 

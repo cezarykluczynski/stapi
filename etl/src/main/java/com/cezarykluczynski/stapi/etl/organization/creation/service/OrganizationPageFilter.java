@@ -29,9 +29,9 @@ public class OrganizationPageFilter implements MediaWikiPageFilter {
 		}
 
 		String organizationName = page.getTitle();
-		Boolean isAnOrganization = organizationNameFilter.isAnOrganization(organizationName);
+		OrganizationNameFilter.Match isAnOrganization = organizationNameFilter.isAnOrganization(organizationName);
 
-		if (Boolean.FALSE.equals(isAnOrganization)) {
+		if (OrganizationNameFilter.Match.IS_NOT_AN_ORGANIZATION.equals(isAnOrganization)) {
 			return true;
 		}
 
@@ -40,7 +40,7 @@ public class OrganizationPageFilter implements MediaWikiPageFilter {
 			return false;
 		}
 
-		if (isAnOrganization == null) {
+		if (OrganizationNameFilter.Match.UNKNOWN_RESULT.equals(isAnOrganization)) {
 			log.error("Could not decide whether \"{}\" is an organization or not. Add appropriate entry in OrganizationNameFilter", organizationName);
 		}
 

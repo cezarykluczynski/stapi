@@ -81,7 +81,7 @@ public class RunTimeProcessor implements ItemProcessor<String, Integer> {
 			minutes = Ints.tryParse(minutesMatcher.group(1).replace(",", ""));
 		}
 
-		return minutes == null ? 0 : minutes;
+		return minutes == null ? Integer.valueOf(0) : minutes;
 	}
 
 	private Integer tryParseHoursIntoMinutes(String runTimeCandidate) {

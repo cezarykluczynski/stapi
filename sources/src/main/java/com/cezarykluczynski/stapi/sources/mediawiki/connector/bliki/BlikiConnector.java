@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.util.constant.ApiParams;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import info.bliki.api.Connector;
 import info.bliki.api.User;
 import info.bliki.api.query.RequestBuilder;
@@ -105,6 +106,7 @@ public class BlikiConnector {
 		return synchronizedDoQuery(requestBuilder, MediaWikiSource.MEMORY_BETA_EN, mediaWikiMinimalIntervalProvider.getMemoryBetaEnInterval());
 	}
 
+	@SuppressFBWarnings("SWL_SLEEP_WITH_LOCK_HELD")
 	private String synchronizedDoQuery(RequestBuilder requestBuilder, MediaWikiSource mediaWikiSource, Long interval) {
 		long startTime = System.currentTimeMillis();
 		long diff = startTime - lastCallTimes.get(mediaWikiSource);

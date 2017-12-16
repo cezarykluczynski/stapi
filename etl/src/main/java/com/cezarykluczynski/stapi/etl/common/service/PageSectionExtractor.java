@@ -8,6 +8,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,7 @@ public class PageSectionExtractor {
 
 		List<PageSection> pageSectionListInverted = pageSectionList
 				.stream()
-				.sorted((left, right) -> left.getByteOffset().compareTo(right.getByteOffset()))
+				.sorted(Comparator.comparing(PageSection::getByteOffset))
 				.collect(Collectors.toList());
 
 		return pageSectionListInverted.get(pageSectionListInverted.size() - 1);

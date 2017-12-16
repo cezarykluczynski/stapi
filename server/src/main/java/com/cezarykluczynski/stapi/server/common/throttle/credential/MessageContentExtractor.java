@@ -13,6 +13,7 @@ import java.nio.charset.Charset;
 @Service
 class MessageContentExtractor {
 
+	private static final Charset CHARSET = Charset.forName("UTF-8");
 	private static final org.slf4j.Logger LOG = org.slf4j.LoggerFactory.getLogger(MessageContentExtractor.class);
 
 	String extract(Message message) {
@@ -23,7 +24,7 @@ class MessageContentExtractor {
 	}
 
 	private Object toInputStream(String content) {
-		return new ByteArrayInputStream(Charset.forName("UTF-8").encode(content).array());
+		return new ByteArrayInputStream(CHARSET.encode(content).array());
 	}
 
 	private String fromInputStream(InputStream inputStream) {
@@ -33,7 +34,7 @@ class MessageContentExtractor {
 		} catch (IOException e) {
 			LOG.error("Could not copy input stream {}", inputStream);
 		}
-		return new String(byteArrayOutputStream.toByteArray());
+		return new String(byteArrayOutputStream.toByteArray(), CHARSET);
 	}
 
 }

@@ -145,7 +145,6 @@ public class CardSizeProcessor implements ItemProcessor<String, CardSizeDTO> {
 	private Double tryGetFractionWithSlashes(String part, Double fraction) {
 		List<String> numberCandidates = Lists.newArrayList(StringUtils.split(part, joinArray(SLASHES)));
 		Double numerator = Doubles.tryParse(numberCandidates.get(0));
-		StringUtils.split(numberCandidates.get(1), joinArray(INCHES));
 		Double denominator = Doubles.tryParse(StringUtils.split(numberCandidates.get(1), joinArray(INCHES))[0]);
 		if (numerator != null && denominator != null) {
 			fraction = numerator / denominator;

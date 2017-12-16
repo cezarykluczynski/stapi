@@ -31,12 +31,20 @@ public class StepTimeFormatter {
 		int maxDiffLength = getMaxDiffLength(diffs);
 		int longestStepNameLength = longestStepNameLengthOptional.getAsInt();
 
+		StringBuilder stringBuilder = new StringBuilder(formattedStepsTime);
+
 		for (Map.Entry<String, Range<LocalDateTime>> entry : stepsTotalTimes.entrySet()) {
-			formattedStepsTime += "Step " + padStepName(entry.getKey(), longestStepNameLength) + " lasted for "
-					+ StringUtils.leftPad(diffs.get(entry.getKey()), maxDiffLength) + StringUtils.SPACE + formatRange(entry.getValue()) + lineBreak;
+			stringBuilder
+					.append("Step ")
+					.append(padStepName(entry.getKey(), longestStepNameLength))
+					.append(" lasted for ")
+					.append(StringUtils.leftPad(diffs.get(entry.getKey()), maxDiffLength))
+					.append(StringUtils.SPACE)
+					.append(formatRange(entry.getValue()))
+					.append(lineBreak);
 		}
 
-		return formattedStepsTime;
+		return stringBuilder.toString();
 	}
 
 	private int getMaxDiffLength(Map<String, String> diffs) {

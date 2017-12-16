@@ -108,8 +108,7 @@ public class LocationPageProcessor implements ItemProcessor<Page, Location> {
 	}
 
 	private Boolean hasCountryCategory(List<String> categoryTitleList) {
-		return categoryTitleList.contains(CategoryTitle.COUNTRIES) || categoryTitleList.contains(CategoryTitle.EARTH_COUNTRIES)
-				|| categoryTitleList.contains(CategoryTitle.EARTH_COUNTRIES);
+		return categoryTitleList.contains(CategoryTitle.COUNTRIES) || categoryTitleList.contains(CategoryTitle.EARTH_COUNTRIES);
 	}
 
 }

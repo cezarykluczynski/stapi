@@ -39,8 +39,7 @@ public class StepConfigurationValidator {
 
 	private void addAllToList() {
 		stepToStepPropertiesProvider.provide().forEach((stepName, stepProperties) -> {
-			Preconditions.checkNotNull(stepProperties, "StepProperties for step %s cannot be null", stepName);
-			stepPropertiesList.add(stepProperties);
+			stepPropertiesList.add(Preconditions.checkNotNull(stepProperties, "StepProperties for step %s cannot be null", stepName));
 		});
 	}
 

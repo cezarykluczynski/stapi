@@ -25,13 +25,9 @@ public class RepositoryProvider {
 		this.repositories = repositories;
 	}
 
-	public Map<Class, CrudRepository> provide() {
+	public synchronized Map<Class, CrudRepository> provide() {
 		if (map == null) {
-			synchronized (this) {
-				if (map == null) {
-					map = doProvide();
-				}
-			}
+			map = doProvide();
 		}
 
 		return map;

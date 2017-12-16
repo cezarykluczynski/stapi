@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.common.startup;
 
 import com.google.common.collect.Lists;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.apache.cxf.helpers.IOUtils;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.io.InputStream;
 
 @Service
+@SuppressFBWarnings("DE_MIGHT_IGNORE")
 public class ApplicationStartupBannerDisplayingEventListener implements ApplicationListener<ContextRefreshedEvent> {
 
 	@Override

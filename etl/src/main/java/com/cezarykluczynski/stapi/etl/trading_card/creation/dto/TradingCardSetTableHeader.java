@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.trading_card.creation.dto;
 
-import java.util.HashSet;
+import com.google.common.collect.ImmutableSet;
+
 import java.util.Set;
 
 public class TradingCardSetTableHeader {
@@ -14,22 +15,24 @@ public class TradingCardSetTableHeader {
 	public static final String MANUFACTURER = "Manufacturer";
 	public static final String COUNTRY = "Country";
 
-	public static final Set<String> SPARSE_HEADERS = new HashSet<>();
+	public static final Set<String> SPARSE_HEADERS;
 
 	static {
-		SPARSE_HEADERS.add("Cards per Candy");
-		SPARSE_HEADERS.add("Cards per Box");
-		SPARSE_HEADERS.add("Cards per Item");
-		SPARSE_HEADERS.add("Cards in Set");
-		SPARSE_HEADERS.add("Cards per Set");
-		SPARSE_HEADERS.add("Cards per Video");
-		SPARSE_HEADERS.add("Cards per Comic");
-		SPARSE_HEADERS.add("Cards per Tin");
-		SPARSE_HEADERS.add("Tins per Case");
-		SPARSE_HEADERS.add("Cards per Sheet");
-		SPARSE_HEADERS.add("Cards per Model");
-		SPARSE_HEADERS.add("Cards per Video Set");
-		SPARSE_HEADERS.add("CD’s per Pack");
+		SPARSE_HEADERS = ImmutableSet.<String>builder()
+		.add("Cards per Candy")
+		.add("Cards per Box")
+		.add("Cards per Item")
+		.add("Cards in Set")
+		.add("Cards per Set")
+		.add("Cards per Video")
+		.add("Cards per Comic")
+		.add("Cards per Tin")
+		.add("Tins per Case")
+		.add("Cards per Sheet")
+		.add("Cards per Model")
+		.add("Cards per Video Set")
+		.add("CD’s per Pack")
+		.build();
 	}
 
 }

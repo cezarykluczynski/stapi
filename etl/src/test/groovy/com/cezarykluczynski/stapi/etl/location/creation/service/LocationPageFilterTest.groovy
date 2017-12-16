@@ -74,7 +74,7 @@ class LocationPageFilterTest extends Specification {
 		then:
 		1 * categoryFinderMock.hasAnyCategory(page, CategoryTitles.ORGANIZATIONS) >> false
 		1 * categoryFinderMock.hasAnyCategory(page, Lists.newArrayList(CategoryTitle.LISTS)) >> false
-		1 * locationNameFilterMock.isLocation(TITLE) >> false
+		1 * locationNameFilterMock.isLocation(TITLE) >> LocationNameFilter.Match.IS_NOT_A_LOCATION
 		0 * _
 		shouldBeFilteredOut
 	}
@@ -89,7 +89,7 @@ class LocationPageFilterTest extends Specification {
 		then:
 		1 * categoryFinderMock.hasAnyCategory(page, CategoryTitles.ORGANIZATIONS) >> false
 		1 * categoryFinderMock.hasAnyCategory(page, Lists.newArrayList(CategoryTitle.LISTS)) >> false
-		1 * locationNameFilterMock.isLocation(TITLE) >> null
+		1 * locationNameFilterMock.isLocation(TITLE) >> LocationNameFilter.Match.UNKNOWN_RESULT
 		0 * _
 		!shouldBeFilteredOut
 	}

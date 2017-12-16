@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.etl.character.link.relation.dto;
 
-import com.google.common.collect.Sets;
+import com.google.common.collect.ImmutableSet;
 
 import java.lang.reflect.Field;
 import java.util.Set;
@@ -95,20 +95,22 @@ public class CharacterRelationName {
 	public static final String TRANSPORTER_DUPLICATE = "Transporter duplicate";
 	public static final String CLONE = "Clone";
 
-	public static final Set<String> ALL_RELATIONS = Sets.newHashSet();
+	public static final Set<String> ALL_RELATIONS;
 
 	static {
+		ImmutableSet.Builder<String> builder = ImmutableSet.builder();
 		for (Field field : CharacterRelationName.class.getDeclaredFields()) {
 			if (java.lang.reflect.Modifier.isStatic(field.getModifiers())) {
 				try {
 					if (field.getType() == String.class) {
-						ALL_RELATIONS.add((String) field.get(null));
+						builder.add((String) field.get(null));
 					}
 				} catch (IllegalAccessException e) {
 					// do nothing
 				}
 			}
 		}
+		ALL_RELATIONS = builder.build();
 	}
 
 }

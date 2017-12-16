@@ -16,6 +16,7 @@ import org.hibernate.metadata.ClassMetadata;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -163,7 +164,7 @@ public class UidGenerator {
 			return null;
 		}
 
-		String md5Hash = DigestUtils.md5DigestAsHex(genreName.getBytes());
+		String md5Hash = DigestUtils.md5DigestAsHex(genreName.getBytes(Charset.forName("UTF-8")));
 		return "GENR" + StringUtils.upperCase(md5Hash.substring(0, 10));
 	}
 

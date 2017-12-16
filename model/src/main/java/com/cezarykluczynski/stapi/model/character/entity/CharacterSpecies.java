@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.character.repository.CharacterSpeciesRep
 import com.cezarykluczynski.stapi.model.common.annotation.TrackedEntity;
 import com.cezarykluczynski.stapi.model.common.annotation.enums.TrackedEntityType;
 import com.cezarykluczynski.stapi.model.species.entity.Species;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -29,6 +30,7 @@ import java.io.Serializable;
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
 @TrackedEntity(type = TrackedEntityType.FICTIONAL_HELPER, repository = CharacterSpeciesRepository.class, apiEntity = false,
 		singularName = "character species", pluralName = "characters species")
+@SuppressFBWarnings("SE_BAD_FIELD")
 public class CharacterSpecies implements Serializable {
 
 	@Id

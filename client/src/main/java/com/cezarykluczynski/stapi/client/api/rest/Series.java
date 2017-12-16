@@ -4,7 +4,6 @@ import com.cezarykluczynski.stapi.client.v1.rest.api.SeriesApi;
 import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
 import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesBaseResponse;
 import com.cezarykluczynski.stapi.client.v1.rest.model.SeriesFullResponse;
-import com.google.common.base.Preconditions;
 
 import java.time.LocalDate;
 
@@ -16,7 +15,6 @@ public class Series {
 	private final String apiKey;
 
 	public Series(SeriesApi seriesApi, String apiKey) {
-		Preconditions.checkNotNull(seriesApi, "SeriesApi cannot be null");
 		this.seriesApi = seriesApi;
 		this.apiKey = apiKey;
 	}

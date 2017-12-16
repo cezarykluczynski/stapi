@@ -10,14 +10,14 @@ class LocationNameFilterTest extends Specification {
 		locationNameFilter = new LocationNameFilter()
 	}
 
-	void "returns false for not a location"() {
+	void "returns false match for not a location"() {
 		expect:
-		!locationNameFilter.isLocation('Democrat')
+		locationNameFilter.isLocation('Baldwin') == LocationNameFilter.Match.IS_NOT_A_LOCATION
 	}
 
-	void "returns null for entity that is not listed as not a location"() {
+	void "returns unknown match for entity that is not listed as not a location"() {
 		expect:
-		locationNameFilter.isLocation('Not a real title') == null
+		locationNameFilter.isLocation('Not a real title') == LocationNameFilter.Match.UNKNOWN_RESULT
 	}
 
 }

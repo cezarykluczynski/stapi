@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -50,9 +51,26 @@ public class GenderizeClientConnectableImpl implements GenderizeClient {
 		try {
 			URL url = new URL(apiUrl + "?name=" + name);
 			URLConnection connection = url.openConnection();
-			InputStream in = connection.getInputStream();
-			String result = new BufferedReader(new InputStreamReader(in))
-					.lines().collect(Collectors.joining("\n"));
+			InputStream inputStream = null;
+			InputStreamReader inputStreamReader = null;
+			BufferedReader bufferedReader = null;
+			String result;
+			try {
+				inputStream = connection.getInputStream();
+				inputStreamReader = new InputStreamReader(inputStream, Charset.forName("UTF-8"));
+				bufferedReader = new BufferedReader(inputStreamReader);
+				result = bufferedReader.lines().collect(Collectors.joining("\n"));
+			} finally {
+				if (inputStream != null) {
+					inputStream.close();
+				}
+				if (inputStreamReader != null) {
+					inputStreamReader.close();
+				}
+				if (bufferedReader != null) {
+					bufferedReader.close();
+				}
+			}
 			callsCount++;
 			log.info("A total of {} calls were made to genderize.io API", callsCount);
 			JSONObject jsonObject = new JSONObject(result);

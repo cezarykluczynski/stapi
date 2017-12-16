@@ -1,0 +1,12 @@
+<FindBugsFilter>
+	<Match>
+		<Package name="~com\.cezarykluczynski\.stapi\.client\.v1\.rest.*"/>
+	</Match>
+	<Match>
+		<Package name="~com\.cezarykluczynski\.stapi\.model.*"/>
+		<Bug pattern="UUF_UNUSED_PUBLIC_OR_PROTECTED_FIELD, UWF_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD"/>
+	</Match>
+	<Match>
+		<Bug pattern="RV_RETURN_VALUE_IGNORED"/>
+	</Match>
+</FindBugsFilter>

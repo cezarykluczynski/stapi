@@ -62,14 +62,22 @@ public class OrganizationNameFilter {
 			"Zefram Cochrane Institute for Advanced Theoretical Physics", "University of California, Berkeley", "University of Manitoba",
 			"University of Hawaii");
 
-	public Boolean isAnOrganization(String organizationName) {
+	public Match isAnOrganization(String organizationName) {
 		if (NOT_AN_ORGANIZATIONS.contains(organizationName)) {
-			return false;
+			return Match.IS_NOT_AN_ORGANIZATION;
 		} else if (ORGANIZATIONS.contains(organizationName)) {
-			return true;
+			return Match.IS_AN_ORGANIZATION;
 		}
 
-		return null;
+		return Match.UNKNOWN_RESULT;
+	}
+
+	public enum Match {
+
+		IS_AN_ORGANIZATION,
+		IS_NOT_AN_ORGANIZATION,
+		UNKNOWN_RESULT
+
 	}
 
 }

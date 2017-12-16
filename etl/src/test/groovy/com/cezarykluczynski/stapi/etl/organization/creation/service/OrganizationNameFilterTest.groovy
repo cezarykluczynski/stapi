@@ -10,19 +10,19 @@ class OrganizationNameFilterTest extends Specification {
 		organizationNameFilter = new OrganizationNameFilter()
 	}
 
-	void "returns true for organization"() {
+	void "returns match for organization"() {
 		expect:
-		organizationNameFilter.isAnOrganization('United Federation of Planets')
+		organizationNameFilter.isAnOrganization('United Federation of Planets') == OrganizationNameFilter.Match.IS_AN_ORGANIZATION
 	}
 
-	void "returns false for entity that is not an organization"() {
+	void "returns false match for entity that is not an organization"() {
 		expect:
-		organizationNameFilter.isAnOrganization('Garrison') == Boolean.FALSE
+		organizationNameFilter.isAnOrganization('Garrison')  == OrganizationNameFilter.Match.IS_NOT_AN_ORGANIZATION
 	}
 
-	void "returns false for entity that is not listed"() {
+	void "returns empty match for entity that is not listed"() {
 		expect:
-		organizationNameFilter.isAnOrganization('Not a real title') == null
+		organizationNameFilter.isAnOrganization('Not a real title')  == OrganizationNameFilter.Match.UNKNOWN_RESULT
 	}
 
 }

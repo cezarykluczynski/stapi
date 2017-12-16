@@ -1,12 +1,12 @@
 package com.cezarykluczynski.stapi.etl.util.constant;
 
-import com.google.common.collect.Lists;
+import com.google.common.collect.ImmutableList;
 
 import java.util.List;
 
 public class CategoryTitles {
 
-	public static final List<String> PERFORMERS = Lists.newArrayList(
+	public static final List<String> PERFORMERS = ImmutableList.of(
 			CategoryTitle.PERFORMERS,
 			CategoryTitle.ANIMAL_PERFORMERS,
 			CategoryTitle.DIS_PERFORMERS,
@@ -24,7 +24,7 @@ public class CategoryTitles {
 			CategoryTitle.VOY_PERFORMERS
 	);
 
-	public static final List<String> STAFF = Lists.newArrayList(
+	public static final List<String> STAFF = ImmutableList.of(
 			CategoryTitle.ART_DEPARTMENT,
 			CategoryTitle.ART_DIRECTORS,
 			CategoryTitle.PRODUCTION_DESIGNERS,
@@ -82,7 +82,7 @@ public class CategoryTitles {
 			CategoryTitle.WRITERS
 	);
 
-	public static final List<String> EPISODES = Lists.newArrayList(
+	public static final List<String> EPISODES = ImmutableList.of(
 			CategoryTitle.TOS_EPISODES,
 			CategoryTitle.TAS_EPISODES,
 			CategoryTitle.TNG_EPISODES,
@@ -92,7 +92,7 @@ public class CategoryTitles {
 			CategoryTitle.DIS_EPISODES
 	);
 
-	public static final List<String> ORGANIZATIONS = Lists.newArrayList(
+	public static final List<String> ORGANIZATIONS = ImmutableList.of(
 			CategoryTitle.AGENCIES,
 			CategoryTitle.BAJORAN_AGENCIES,
 			CategoryTitle.CARDASSIAN_AGENCIES,
@@ -116,7 +116,7 @@ public class CategoryTitles {
 			CategoryTitle.MILITARY_UNITS
 	);
 
-	public static final List<String> LOCATIONS = Lists.newArrayList(
+	public static final List<String> LOCATIONS = ImmutableList.of(
 			CategoryTitle.LOCATIONS,
 			CategoryTitle.EARTH_LOCATIONS,
 			CategoryTitle.EARTH_LANDMARKS,
@@ -157,13 +157,13 @@ public class CategoryTitles {
 			CategoryTitle.SHIPYARDS
 	);
 
-	public static final List<String> LISTS = Lists.newArrayList(
+	public static final List<String> LISTS = ImmutableList.of(
 			CategoryTitle.PRODUCTION_LISTS,
 			CategoryTitle.LISTS,
 			CategoryTitle.PERSONNEL_LISTS
 	);
 
-	public static final List<String> BOOKS = Lists.newArrayList(
+	public static final List<String> BOOKS = ImmutableList.of(
 			CategoryTitle.NOVELS,
 			CategoryTitle.E_BOOKS,
 			CategoryTitle.AUDIOBOOKS,
@@ -174,12 +174,12 @@ public class CategoryTitles {
 			CategoryTitle.ROLE_PLAYING_GAMES
 	);
 
-	public static final List<String> BOOK_SERIES = Lists.newArrayList(
+	public static final List<String> BOOK_SERIES = ImmutableList.of(
 			CategoryTitle.NOVEL_SERIES,
 			CategoryTitle.E_BOOK_SERIES
 	);
 
-	public static final List<String> ASTRONOMICAL_OBJECTS = Lists.newArrayList(
+	public static final List<String> ASTRONOMICAL_OBJECTS = ImmutableList.of(
 			CategoryTitle.ASTEROIDS,
 			CategoryTitle.ASTEROID_BELTS,
 			CategoryTitle.CLUSTERS,

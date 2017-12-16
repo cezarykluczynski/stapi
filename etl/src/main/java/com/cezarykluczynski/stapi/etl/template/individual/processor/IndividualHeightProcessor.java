@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.individual.processor;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
@@ -19,6 +20,7 @@ public class IndividualHeightProcessor implements ItemProcessor<String, Integer>
 	private static final double METERS_IN_INCH = .0254;
 
 	@Override
+	@SuppressFBWarnings("DM_BOXED_PRIMITIVE_FOR_PARSING")
 	public Integer process(String item) throws Exception {
 		if (StringUtils.isBlank(item)) {
 			return null;

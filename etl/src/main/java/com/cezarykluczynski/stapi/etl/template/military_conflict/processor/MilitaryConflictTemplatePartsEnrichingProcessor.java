@@ -64,6 +64,8 @@ public class MilitaryConflictTemplatePartsEnrichingProcessor implements ItemWith
 				case MilitaryConflictTemplateParameter.COMMANDER_2:
 					militaryConflictTemplate.getSecondSideCommanders().addAll(wikitextToEntitiesProcessor.findCharacters(value));
 					break;
+				default:
+					break;
 			}
 		}
 	}

@@ -57,7 +57,7 @@ class OrganizationPageFilterTest extends Specification {
 		boolean shouldBeFilteredOut = organizationPageFilter.shouldBeFilteredOut(page)
 
 		then:
-		1 * organizationNameFilterMock.isAnOrganization(title) >> null
+		1 * organizationNameFilterMock.isAnOrganization(title) >> OrganizationNameFilter.Match.UNKNOWN_RESULT
 		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> false
 		0 * _
 		!shouldBeFilteredOut
@@ -71,7 +71,7 @@ class OrganizationPageFilterTest extends Specification {
 		boolean shouldBeFilteredOut = organizationPageFilter.shouldBeFilteredOut(page)
 
 		then:
-		1 * organizationNameFilterMock.isAnOrganization(TITLE_BOTH_CASES) >> null
+		1 * organizationNameFilterMock.isAnOrganization(TITLE_BOTH_CASES) >> OrganizationNameFilter.Match.UNKNOWN_RESULT
 		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> false
 		0 * _
 		!shouldBeFilteredOut
@@ -86,7 +86,7 @@ class OrganizationPageFilterTest extends Specification {
 
 		then:
 		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> false
-		1 * organizationNameFilterMock.isAnOrganization(TITLE_BOTH_CASES) >> true
+		1 * organizationNameFilterMock.isAnOrganization(TITLE_BOTH_CASES) >> OrganizationNameFilter.Match.IS_AN_ORGANIZATION
 		0 * _
 		!shouldBeFilteredOut
 	}
@@ -100,7 +100,7 @@ class OrganizationPageFilterTest extends Specification {
 
 		then:
 		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> false
-		1 * organizationNameFilterMock.isAnOrganization(TITLE_BOTH_CASES) >> false
+		1 * organizationNameFilterMock.isAnOrganization(TITLE_BOTH_CASES) >> OrganizationNameFilter.Match.IS_NOT_AN_ORGANIZATION
 		0 * _
 		shouldBeFilteredOut
 	}

@@ -30,7 +30,7 @@ public class LocationPageFilter implements MediaWikiPageFilter {
 		}
 
 		String locationName = page.getTitle();
-		return Boolean.FALSE.equals(locationNameFilter.isLocation(locationName));
+		return LocationNameFilter.Match.IS_NOT_A_LOCATION.equals(locationNameFilter.isLocation(locationName));
 	}
 
 }

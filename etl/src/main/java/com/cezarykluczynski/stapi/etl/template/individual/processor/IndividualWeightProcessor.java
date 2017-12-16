@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.etl.template.individual.processor;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
@@ -17,6 +18,7 @@ public class IndividualWeightProcessor implements ItemProcessor<String, Integer>
 	private static final double POUNDS_IN_KILOGRAM = 2.20462262;
 
 	@Override
+	@SuppressFBWarnings("DM_BOXED_PRIMITIVE_FOR_PARSING")
 	public Integer process(String item) throws Exception {
 		if (StringUtils.isBlank(item)) {
 			return null;

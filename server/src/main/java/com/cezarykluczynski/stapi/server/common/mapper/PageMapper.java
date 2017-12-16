@@ -57,9 +57,9 @@ public class PageMapper {
 	}
 
 	private static PageRequest fromPageNumberAndPageSize(Integer pageNumber, Integer pageSize) {
-		Integer actualPageNumber = ObjectUtils.defaultIfNull(pageNumber, PageDefault.PAGE_NUMBER);
+		int actualPageNumber = ObjectUtils.defaultIfNull(pageNumber, PageDefault.PAGE_NUMBER);
 		actualPageNumber = actualPageNumber < 0 ? PageDefault.PAGE_NUMBER : actualPageNumber;
-		Integer actualPageSize = ObjectUtils.defaultIfNull(pageSize, PageDefault.PAGE_SIZE);
+		int actualPageSize = ObjectUtils.defaultIfNull(pageSize, PageDefault.PAGE_SIZE);
 		actualPageSize = actualPageSize <= 0 ? PageDefault.PAGE_SIZE : actualPageSize;
 		actualPageSize = NumberUtil.ensureWithinRangeInclusive(actualPageSize, PageDefault.PAGE_SIZE_MIN, PageDefault.PAGE_SIZE_MAX);
 		return new PageRequest(actualPageNumber, actualPageSize);

@@ -30,15 +30,11 @@ public class DocumentationProvider {
 		this.documentationDirectoryProvider = documentationDirectoryProvider;
 	}
 
-	public DocumentationDTO provideDocumentation() {
+	public synchronized DocumentationDTO provideDocumentation() {
 		if (documentationDTO == null) {
-			synchronized (this) {
-				if (documentationDTO == null) {
-					documentationDTO = new DocumentationDTO();
-					documentationDTO.setRestDocuments(documentationReader.readDirectory(documentationDirectoryProvider.getSwaggerDirectory()));
-					documentationDTO.setSoapDocuments(documentationReader.readDirectory(documentationDirectoryProvider.getWsdlDirectory()));
-				}
-			}
+			documentationDTO = new DocumentationDTO();
+			documentationDTO.setRestDocuments(documentationReader.readDirectory(documentationDirectoryProvider.getSwaggerDirectory()));
+			documentationDTO.setSoapDocuments(documentationReader.readDirectory(documentationDirectoryProvider.getWsdlDirectory()));
 		}
 
 		return documentationDTO;

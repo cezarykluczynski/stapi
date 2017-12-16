@@ -23,9 +23,7 @@ class ToEpisodeTemplateProcessorTest extends Specification {
 	private static final Long PAGE_ID = 1L
 	private static final String PAGE_TITLE = 'All Good Things... (episode)'
 	private static final String EPISODE_TITLE = 'All Good Things...'
-	private final Template sidebarEpisodeTemplate = new Template(
-			title: TemplateTitle.SIDEBAR_EPISODE
-	)
+	private final Template sidebarEpisodeTemplate = new Template(title: TemplateTitle.SIDEBAR_EPISODE)
 	private final Series series = Mock()
 
 	private EpisodeTemplateProcessor episodeTemplateProcessorMock

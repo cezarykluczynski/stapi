@@ -40,21 +40,13 @@ class CommonEntitiesDetailsReader {
 		return new RestEndpointDetailsDTO(restEndpointDetailsDTOList);
 	}
 
-	private void init() {
+	private synchronized void init() {
 		if (simpleClassNameToSymbolMap == null) {
-			synchronized (this) {
-				if (simpleClassNameToSymbolMap == null) {
-					simpleClassNameToSymbolMap = getSimpleClassNameToSymbolMap();
-				}
-			}
+			simpleClassNameToSymbolMap = getSimpleClassNameToSymbolMap();
 		}
 
 		if (classNameToMetadataMap == null) {
-			synchronized (this) {
-				if (classNameToMetadataMap == null) {
-					classNameToMetadataMap = entityMetadataProvider.provideClassNameToMetadataMap();
-				}
-			}
+			classNameToMetadataMap = entityMetadataProvider.provideClassNameToMetadataMap();
 		}
 	}
 

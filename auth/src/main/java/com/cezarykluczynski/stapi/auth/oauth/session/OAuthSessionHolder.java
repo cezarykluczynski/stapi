@@ -25,11 +25,11 @@ public class OAuthSessionHolder {
 		return oAuthSession.copy();
 	}
 
-	void setOAuthSession(@SuppressWarnings("ParameterName") OAuthSession newOAuthSession) {
+	synchronized void setOAuthSession(@SuppressWarnings("ParameterName") OAuthSession newOAuthSession) {
 		this.oAuthSession = newOAuthSession;
 	}
 
-	public void remove() {
+	public synchronized void remove() {
 		this.oAuthSession = null;
 	}
 

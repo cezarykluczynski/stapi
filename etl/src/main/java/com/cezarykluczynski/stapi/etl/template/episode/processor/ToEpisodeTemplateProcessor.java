@@ -14,6 +14,7 @@ import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
@@ -53,6 +54,7 @@ public class ToEpisodeTemplateProcessor implements ItemProcessor<Page, EpisodeTe
 	}
 
 	@Override
+	@SuppressFBWarnings("RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE")
 	public EpisodeTemplate process(Page item) throws Exception {
 		Optional<Template> templateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_EPISODE);
 

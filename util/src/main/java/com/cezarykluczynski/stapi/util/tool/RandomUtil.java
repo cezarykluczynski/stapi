@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.util.tool;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.apache.commons.lang3.RandomUtils;
 
 import java.util.Collection;
@@ -12,6 +13,7 @@ public class RandomUtil {
 		return RandomUtils.nextInt(0, 2) == 0;
 	}
 
+	@SuppressFBWarnings("DMI_RANDOM_USED_ONLY_ONCE")
 	public static <T> T randomItem(Collection<T> collection) {
 		if (collection.isEmpty()) {
 			return null;
