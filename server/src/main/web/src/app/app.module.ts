@@ -43,45 +43,7 @@ import { PanelAdminManagementApi } from './panel/admin-management/panel-admin-ma
 import { PanelAdminApiKeysComponent } from './panel/admin-management/panel-admin-api-keys/panel-admin-api-keys.component';
 import { PanelAdminAccountsComponent } from './panel/admin-management/panel-admin-accounts/panel-admin-accounts.component';
 import { ApiOverviewComponent } from './api-overview/api-overview.component';
-
-const appRoutes: Routes = [
-	{
-		path: '',
-		component: HomeComponent
-	},
-	{
-		path: 'about',
-		component: AboutComponent
-	},
-	{
-		path: 'api-browser',
-		component: ApiBrowserComponent
-	},
-	{
-		path: 'api-documentation',
-		component: ApiDocumentationComponent
-	},
-	{
-		path: 'licensing',
-		component: LicensingComponent
-	},
-	{
-		path: 'statistics',
-		component: StatisticsComponent
-	},
-	{
-		path: 'panel',
-		component: PanelComponent
-	},
-	{
-		path: 'api-overview',
-		component: ApiOverviewComponent
-	},
-	{
-		path: '**',
-		component: PageNotFoundComponent
-	}
-];
+import { APP_ROUTES } from './app.routes';
 
 export function initConfiguration(initializerService: InitializerService): Function {
 	return () => initializerService.init();
@@ -108,7 +70,7 @@ export function initConfiguration(initializerService: InitializerService): Funct
 		ApiOverviewComponent
 	],
 	imports: [
-		RouterModule.forRoot(appRoutes),
+		RouterModule.forRoot(APP_ROUTES),
 		BrowserModule,
 		BrowserAnimationsModule,
 		FormsModule,
