@@ -4,6 +4,8 @@ import com.google.common.collect.Maps
 import org.springframework.security.config.annotation.ObjectPostProcessor
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer
+import org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository
 import spock.lang.Specification
 
@@ -34,6 +36,8 @@ class WebSecurityConfigurationTest extends Specification {
 		CookieCsrfTokenRepository cookieCsrfTokenRepository = (CookieCsrfTokenRepository) httpSecurity.csrf().csrfTokenRepository
 		!cookieCsrfTokenRepository.cookieHttpOnly
 		httpSecurity.csrf().requireCsrfProtectionMatcher == sensitivePathsRequestMatcherMock
+		httpSecurity.getConfigurers(HttpBasicConfigurer).size() == 1
+		httpSecurity.getConfigurers(ExpressionUrlAuthorizationConfigurer).size() == 1
 	}
 
 }

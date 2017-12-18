@@ -17,7 +17,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf()
 				.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-				.requireCsrfProtectionMatcher(sensitivePathsRequestMatcher);
+				.requireCsrfProtectionMatcher(sensitivePathsRequestMatcher)
+				.and()
+				.httpBasic()
+				.and()
+				.authorizeRequests()
+				.antMatchers("/actuator/**")
+				.authenticated();
 	}
 
 }
