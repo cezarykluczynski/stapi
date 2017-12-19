@@ -10,20 +10,22 @@ import net.sf.ehcache.statistics.extended.ExtendedStatistics;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.actuate.info.Info;
 import org.springframework.boot.actuate.info.InfoContributor;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
 
-// TODO: get important data
-@Service
 public class EhCacheInfoContributor implements InfoContributor {
 
 	private static final String DOT = ".";
 
+	private final CacheManager cacheManager;
+
+	EhCacheInfoContributor(CacheManager cacheManager) {
+		this.cacheManager = cacheManager;
+	}
+
 	@Override
 	public void contribute(Info.Builder builder) {
-		CacheManager cacheManager = CacheManager.getInstance();
 		String[] cacheNames = cacheManager.getCacheNames();
 		Map<String, Integer> map = Maps.newHashMap();
 

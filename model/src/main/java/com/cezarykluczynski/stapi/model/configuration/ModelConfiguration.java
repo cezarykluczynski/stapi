@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.util.constant.Package;
 import com.google.common.collect.Maps;
 import com.zaxxer.hikari.HikariDataSource;
 import liquibase.integration.spring.SpringLiquibase;
+import net.sf.ehcache.CacheManager;
 import org.hibernate.jpa.AvailableSettings;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
@@ -120,6 +121,11 @@ public class ModelConfiguration {
 	@Bean
 	public Repositories repositories() {
 		return new Repositories(applicationContext);
+	}
+
+	@Bean
+	public EhCacheInfoContributor ehCacheInfoContributor() {
+		return new EhCacheInfoContributor(CacheManager.getInstance());
 	}
 
 }
