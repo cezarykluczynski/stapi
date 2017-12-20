@@ -40,7 +40,7 @@
 	</form>
 
 	<div>
-		<ngb-pagination [collectionSize]="pager.totalElements" [pageSize]="pager.pageSize" [(page)]="pager.pageNumber" (pageChange)="loadApiKeys()"></ngb-pagination>
+		<ngb-pagination [collectionSize]="pager.totalElements" [pageSize]="pager.pageSize" [(page)]="pager.pageNumber" (pageChange)="loadAccounts()"></ngb-pagination>
 	</div>
 
 	<ul class="list-group" *ngIf="hasAccounts()">

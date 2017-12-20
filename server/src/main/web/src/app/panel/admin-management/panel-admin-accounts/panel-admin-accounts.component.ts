@@ -14,12 +14,12 @@ export class PanelAdminAccountsComponent implements OnInit {
 	private panelAdminManagementApi: PanelAdminManagementApi;
 	private notificationsService : NotificationsService;
 	private pageNumber: Number = 0;
-	private pager: any = {
+	public pager: any = {
 		totalPages: 0,
 		pageNumber: 1,
 		pageSize: 0
 	};
-	private searchCriteria: any = {
+	public searchCriteria: any = {
 		id: null,
 		gitHubAccountId: null,
 		name: null,
@@ -42,7 +42,7 @@ export class PanelAdminAccountsComponent implements OnInit {
 		this.loadAccounts(true);
 	}
 
-	private loadAccounts(force?: boolean) {
+	loadAccounts(force?: boolean) {
 		if (!force && this.pager && this.pageNumber === this.pager.pageNumber - 1) {
 			return;
 		}

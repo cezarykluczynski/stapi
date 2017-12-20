@@ -1,6 +1,6 @@
 {
 	"name": "stapi",
-	"version": "0.0.8-SNAPSHOT",
+	"version": "0.0.8",
 	"license": "MIT",
 	"scripts": {
 		"ng": "ng",

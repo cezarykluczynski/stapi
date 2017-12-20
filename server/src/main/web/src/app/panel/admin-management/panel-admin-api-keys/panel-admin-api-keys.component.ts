@@ -14,12 +14,12 @@ export class PanelAdminApiKeysComponent implements OnInit {
 	private panelAdminManagementApi: PanelAdminManagementApi;
 	private notificationsService : NotificationsService;
 	private pageNumber: Number = 0;
-	private pager: any = {
+	public pager: any = {
 		totalPages: 0,
 		pageNumber: 1,
 		pageSize: 0
 	};
-	private searchCriteria: any = {
+	public searchCriteria: any = {
 		accountId: null,
 		gitHubAccountId: null,
 		name: null,
@@ -43,7 +43,7 @@ export class PanelAdminApiKeysComponent implements OnInit {
 		this.loadApiKeys(true);
 	}
 
-	private loadApiKeys(force?: boolean) {
+	loadApiKeys(force?: boolean) {
 		if (!force && this.pager && this.pageNumber === this.pager.pageNumber - 1) {
 			return;
 		}
