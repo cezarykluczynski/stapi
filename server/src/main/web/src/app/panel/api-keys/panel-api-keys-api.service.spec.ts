@@ -45,9 +45,10 @@ describe('PanelApiKeysApi', () => {
 	it('is created', inject([PanelApiKeysApi], (panelApiKeysApi: PanelApiKeysApi) => {
 		expect(panelApiKeysApi).toBeTruthy();
 
-		expect(res.calls.count()).toBe(2);
-		expect(res.calls.argsFor(0)).toEqual(['panel']);
-		expect(res.calls.argsFor(1)).toEqual(['apiKeys']);
+		expect(res.calls.count()).toBe(3);
+		expect(res.calls.argsFor(0)).toEqual(['common']);
+		expect(res.calls.argsFor(1)).toEqual(['panel']);
+		expect(res.calls.argsFor(2)).toEqual(['apiKeys']);
 	}));
 
 	describe('after initialization', () => {
@@ -67,8 +68,9 @@ describe('PanelApiKeysApi', () => {
 		const API_KEY_DETAILS = {};
 
 		beforeEach(() => {
-			restClientMock.panel = {};
-			restClientMock.panel.apiKeys = (apiKeyId) => {
+			restClientMock.common = {};
+			restClientMock.common.panel = {};
+			restClientMock.common.panel.apiKeys = (apiKeyId) => {
 				return {
 					delete: () => {
 						expect(apiKeyId).toBe(API_KEY_ID);
@@ -81,11 +83,10 @@ describe('PanelApiKeysApi', () => {
 					}
 				}
 			};
-
-			restClientMock.panel.apiKeys.post = () => {
+			restClientMock.common.panel.apiKeys.post = () => {
 				return Promise.resolve(API_KEY);
 			};
-			restClientMock.panel.apiKeys.get = () => {
+			restClientMock.common.panel.apiKeys.get = () => {
 				return Promise.resolve(API_KEYS);
 			};
 		});

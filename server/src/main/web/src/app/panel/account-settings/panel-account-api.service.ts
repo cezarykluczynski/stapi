@@ -15,29 +15,29 @@ export class PanelAccountApi {
 	}
 
 	removeAccount() {
-		return this.api.panel.accountSettings.delete();
+		return this.api.common.panel.accountSettings.delete();
 	}
 
 	updateBasicData(basicData) {
-		return this.api.panel.basicData.post(basicData, 'application/x-www-form-urlencoded');
+		return this.api.common.panel.accountSettings.basicData.post(basicData, 'application/x-www-form-urlencoded');
 	}
 
 	updateOwnConsents(consents) {
-		return this.api.panel.consents.own.post({consents}, 'application/x-www-form-urlencoded');
+		return this.api.common.panel.accountSettings.consents.own.post({consents}, 'application/x-www-form-urlencoded');
 	}
 
 	getOwnConsents() {
-		return this.api.panel.consents.own.get();
+		return this.api.common.panel.accountSettings.consents.own.get();
 	}
 
 	getConsents() {
-		return this.api.panel.consents.get();
+		return this.api.common.panel.accountSettings.consents.get();
 	}
 
 	private register() {
-		this.api.res('panel').res('accountSettings');
-		this.api.res('panel').res('basicData');
-		this.api.res('panel').res('consents').res('own');
+		this.api.res('common').res('panel').res('accountSettings');
+		this.api.res('common').res('panel').res('accountSettings').res('basicData');
+		this.api.res('common').res('panel').res('accountSettings').res('consents').res('own');
 	}
 
 }

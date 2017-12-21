@@ -27,7 +27,7 @@ import java.util.List;
 @CrossOriginResourceSharing(allowAllOrigins = true, maxAge = CxfConfiguration.CORS_MAX_AGE)
 public class PanelAccountSettingsEndpoint {
 
-	public static final String ADDRESS = "/v1/rest/panel";
+	public static final String ADDRESS = "/v1/rest/common/panel/accountSettings";
 
 	private final AccountOwnOperationsService accountOwnOperationsService;
 
@@ -39,7 +39,6 @@ public class PanelAccountSettingsEndpoint {
 	}
 
 	@DELETE
-	@Path("accountSettings")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@PreAuthorize("hasPermission(filterObject, 'API_KEY_MANAGEMENT')")
 	public AccountRemovalResponseDTO remove() {

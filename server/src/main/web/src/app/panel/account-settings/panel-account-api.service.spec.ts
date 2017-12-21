@@ -45,14 +45,19 @@ describe('PanelAccountApi', () => {
 	it('is created', inject([PanelAccountApi], (panelAccountApi: PanelAccountApi) => {
 		expect(panelAccountApi).toBeTruthy();
 
-		expect(res.calls.count()).toBe(7);
-		expect(res.calls.argsFor(0)).toEqual(['panel']);
-		expect(res.calls.argsFor(1)).toEqual(['accountSettings']);
-		expect(res.calls.argsFor(2)).toEqual(['panel']);
-		expect(res.calls.argsFor(3)).toEqual(['basicData']);
+		expect(res.calls.count()).toBe(12);
+		expect(res.calls.argsFor(0)).toEqual(['common']);
+		expect(res.calls.argsFor(1)).toEqual(['panel']);
+		expect(res.calls.argsFor(2)).toEqual(['accountSettings']);
+		expect(res.calls.argsFor(3)).toEqual(['common']);
 		expect(res.calls.argsFor(4)).toEqual(['panel']);
-		expect(res.calls.argsFor(5)).toEqual(['consents']);
-		expect(res.calls.argsFor(6)).toEqual(['own']);
+		expect(res.calls.argsFor(5)).toEqual(['accountSettings']);
+		expect(res.calls.argsFor(6)).toEqual(['basicData']);
+		expect(res.calls.argsFor(7)).toEqual(['common']);
+		expect(res.calls.argsFor(8)).toEqual(['panel']);
+		expect(res.calls.argsFor(9)).toEqual(['accountSettings']);
+		expect(res.calls.argsFor(10)).toEqual(['consents']);
+		expect(res.calls.argsFor(11)).toEqual(['own']);
 	}));
 
 	describe('after initialization', () => {
@@ -73,22 +78,23 @@ describe('PanelAccountApi', () => {
 		};
 
 		beforeEach(() => {
-			restClientMock.panel = {};
-			restClientMock.panel.accountSettings = {
+			restClientMock.common = {};
+			restClientMock.common.panel = {};
+			restClientMock.common.panel.accountSettings = {
 				delete: () => {
 					return Promise.resolve(DELETE_RESULT);
 				}
 			};
-			restClientMock.panel.basicData = {
+			restClientMock.common.panel.accountSettings.basicData = {
 				post: () => {
 					return Promise.resolve(UPDATE_BASIC_DATA_RESULT);
 				}
 			};
-			restClientMock.panel.consents = {};
-			restClientMock.panel.consents.get = () => {
+			restClientMock.common.panel.accountSettings.consents = {};
+			restClientMock.common.panel.accountSettings.consents.get = () => {
 				return Promise.resolve(GET_CONSENTS_RESULT);
 			};
-			restClientMock.panel.consents.own = {
+			restClientMock.common.panel.accountSettings.consents.own = {
 				post: () => {
 					return Promise.resolve(UPDATE_CONSENTS_RESULT);
 				},

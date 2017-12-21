@@ -13,7 +13,7 @@ import javax.inject.Inject;
 @Configuration
 public class SecurityConfiguration {
 
-	public static final String CSFR_SENSITIVE_PATH = "/rest/panel/";
+	public static final String CSFR_SENSITIVE_PATH = "/rest/common/panel/";
 
 	@Inject
 	private OriginVerifyingFilter originVerifyingFilter;

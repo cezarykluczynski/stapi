@@ -6,7 +6,7 @@ import { PanelApi } from './panel-api.service';
 
 class RestClientMock {
 	public res: any;
-	public panel: any;
+	public common: any;
 	public oauth: any;
 }
 
@@ -46,8 +46,8 @@ describe('PanelApi', () => {
 		expect(panelApi).toBeTruthy();
 
 		expect(res.calls.count()).toBe(6);
-		expect(res.calls.argsFor(0)).toEqual(['panel']);
-		expect(res.calls.argsFor(1)).toEqual(['common']);
+		expect(res.calls.argsFor(0)).toEqual(['common']);
+		expect(res.calls.argsFor(1)).toEqual(['panel']);
 		expect(res.calls.argsFor(2)).toEqual(['me']);
 		expect(res.calls.argsFor(3)).toEqual(['oauth']);
 		expect(res.calls.argsFor(4)).toEqual(['github']);
@@ -63,8 +63,8 @@ describe('PanelApi', () => {
 		};
 
 		beforeEach(() => {
-			restClientMock.panel = {
-				common: {
+			restClientMock.common = {
+				panel: {
 					me: {
 						get: () => {
 							return Promise.resolve(ME);

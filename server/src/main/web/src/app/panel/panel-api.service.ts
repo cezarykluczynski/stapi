@@ -15,7 +15,7 @@ export class PanelApi {
 	}
 
 	getMe() {
-		return this.api.panel.common.me.get();
+		return this.api.common.panel.me.get();
 	}
 
 	getOAuthAuthorizeUrl() {
@@ -23,7 +23,7 @@ export class PanelApi {
 	}
 
 	private register() {
-		this.api.res('panel').res('common').res('me');
+		this.api.res('common').res('panel').res('me');
 		this.api.res('oauth').res('github').res('oAuthAuthorizeUrl');
 	}
 

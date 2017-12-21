@@ -26,7 +26,7 @@ import javax.ws.rs.core.MediaType;
 @CrossOriginResourceSharing(allowAllOrigins = true, maxAge = CxfConfiguration.CORS_MAX_AGE)
 public class PanelAdminEndpoint {
 
-	public static final String ADDRESS = "/v1/rest/panel/admin";
+	public static final String ADDRESS = "/v1/rest/common/panel/admin";
 
 	private final ApiKeyAdminOperationsService apiKeyAdminOperationsService;
 
