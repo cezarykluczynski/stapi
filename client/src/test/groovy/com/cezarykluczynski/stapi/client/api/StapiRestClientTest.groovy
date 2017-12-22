@@ -147,4 +147,28 @@ class StapiRestClientTest extends AbstractStapiClientTest {
 		stapiRestClient.weapon.apiKey == API_KEY
 	}
 
+	void "REST client cannot be instantiated with URL that does not start with 'http'"() {
+		when:
+		stapiRestClient = new StapiRestClient('url/', API_KEY)
+
+		then:
+		thrown(IllegalArgumentException)
+	}
+
+	void "REST client cannot be instantiated with URL that does not end with slash"() {
+		when:
+		stapiRestClient = new StapiRestClient('http://url', API_KEY)
+
+		then:
+		thrown(IllegalArgumentException)
+	}
+
+	void "when null URL is passed, canonical URL is used"() {
+		when:
+		stapiRestClient = new StapiRestClient(null, API_KEY)
+
+		then:
+		stapiRestClient.apiUrl == StapiClient.CANONICAL_API_URL
+	}
+
 }

@@ -85,6 +85,7 @@ import lombok.Getter;
 
 public class StapiRestClient extends AbstractStapiClient implements StapiClient {
 
+	@Getter
 	private String apiUrl;
 
 	private ApiClient apiClient;
@@ -330,7 +331,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 	private Weapon weapon;
 
 	public StapiRestClient(String apiUrl, String apiKey) {
-		this.apiUrl = defaultIfBlank(apiUrl, CANONICAL_API_URL);
+		this.apiUrl = validateUrl(defaultIfBlank(apiUrl, CANONICAL_API_URL));
 		createApiClient();
 		astronomicalObjectApi = new AstronomicalObjectApi(apiClient);
 		animalApi = new AnimalApi(apiClient);
@@ -420,10 +421,6 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 			apiClient.setBasePath(changeBaseUrl(apiUrl, apiClient.getBasePath()));
 		}
 		apiClient.setConnectTimeout(10000);
-	}
-
-	private String defaultIfBlank(String string, String defaultString) {
-		return string != null && !string.isEmpty() ? string : defaultString;
 	}
 
 }

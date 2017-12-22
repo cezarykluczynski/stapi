@@ -164,4 +164,28 @@ class StapiSoapClientTest extends AbstractStapiClientTest {
 		animalBaseRequest.apiKey == API_KEY
 	}
 
+	void "SOAP client cannot be instantiated with URL that does not start with 'http'"() {
+		when:
+		stapiSoapClient = new StapiSoapClient('url/', API_KEY)
+
+		then:
+		thrown(IllegalArgumentException)
+	}
+
+	void "SOAP client cannot be instantiated with URL that does not end with slash"() {
+		when:
+		stapiSoapClient = new StapiSoapClient('http://url', API_KEY)
+
+		then:
+		thrown(IllegalArgumentException)
+	}
+
+	void "when null URL is passed, canonical URL is used"() {
+		when:
+		stapiSoapClient = new StapiSoapClient(null, API_KEY)
+
+		then:
+		stapiSoapClient.apiUrl == StapiClient.CANONICAL_API_URL
+	}
+
 }

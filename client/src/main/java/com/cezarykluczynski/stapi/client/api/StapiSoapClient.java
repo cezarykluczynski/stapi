@@ -83,7 +83,10 @@ import com.cezarykluczynski.stapi.client.v1.soap.VideoReleasePortType;
 import com.cezarykluczynski.stapi.client.v1.soap.WeaponPortType;
 import lombok.Getter;
 
-public class StapiSoapClient {
+public class StapiSoapClient extends AbstractStapiClient implements StapiClient {
+
+	@Getter
+	private String apiUrl;
 
 	private StapiSoapPortTypesProvider stapiSoapPortTypesProvider;
 
@@ -330,7 +333,8 @@ public class StapiSoapClient {
 	private Weapon weapon;
 
 	public StapiSoapClient(String apiUrl, String apiKey) {
-		stapiSoapPortTypesProvider = new StapiSoapPortTypesProvider(apiUrl);
+		this.apiUrl = validateUrl(defaultIfBlank(apiUrl, CANONICAL_API_URL));
+		stapiSoapPortTypesProvider = new StapiSoapPortTypesProvider(this.apiUrl);
 		apiKeySupplier = new ApiKeySupplier(apiKey);
 		bindPortTypes();
 		createApiKeyAwareProxies();
