@@ -82,7 +82,6 @@ import com.cezarykluczynski.stapi.client.v1.rest.api.VideoReleaseApi;
 import com.cezarykluczynski.stapi.client.v1.rest.api.WeaponApi;
 import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiClient;
 import lombok.Getter;
-import org.apache.commons.lang3.StringUtils;
 
 public class StapiRestClient extends AbstractStapiClient implements StapiClient {
 
@@ -331,7 +330,7 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 	private Weapon weapon;
 
 	public StapiRestClient(String apiUrl, String apiKey) {
-		this.apiUrl = StringUtils.defaultIfBlank(apiUrl, CANONICAL_API_URL);
+		this.apiUrl = defaultIfBlank(apiUrl, CANONICAL_API_URL);
 		createApiClient();
 		astronomicalObjectApi = new AstronomicalObjectApi(apiClient);
 		animalApi = new AnimalApi(apiClient);
@@ -421,6 +420,10 @@ public class StapiRestClient extends AbstractStapiClient implements StapiClient 
 			apiClient.setBasePath(changeBaseUrl(apiUrl, apiClient.getBasePath()));
 		}
 		apiClient.setConnectTimeout(10000);
+	}
+
+	private String defaultIfBlank(String string, String defaultString) {
+		return string != null && !string.isEmpty() ? string : defaultString;
 	}
 
 }

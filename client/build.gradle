@@ -283,7 +283,7 @@ uploadArchives {
 			pom.project {
 				name 'STAPI Client'
 				description 'Official client library for STAPI, a Star Trek API'
-				version '0.0.9'
+				version '0.0.10'
 				packaging 'jar'
 				artifactId 'stapi-client'
 				groupId 'com.cezarykluczynski.stapi'
