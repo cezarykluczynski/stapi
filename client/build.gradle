@@ -283,7 +283,7 @@ uploadArchives {
 			pom.project {
 				name 'STAPI Client'
 				description 'Official client library for STAPI, a Star Trek API'
-				version '0.0.9-SNAPSHOT'
+				version '0.0.9'
 				packaging 'jar'
 				artifactId 'stapi-client'
 				groupId 'com.cezarykluczynski.stapi'
@@ -307,6 +307,31 @@ uploadArchives {
 						id 'cezary.kluczynski'
 						name 'Cezary Kluczyński'
 						email 'cezary.kluczynski@gmail.com'
+					}
+				}
+			}
+
+			pom.withXml {
+				Node pomNode = asNode()
+				Node dependencies = ((NodeList) pomNode.get("dependencies")).first()
+				List<Node> children = dependencies.children()
+				for (int i = children.size() - 1; i >= 0; i--) {
+					Node childNode = (Node) children.get(i)
+					List<Node> dependencyList = childNode.children()
+					boolean doDelete = true
+					for (int j = 0; j < dependencyList.size(); j++) {
+						Node subChild = (Node) dependencyList.get(j)
+						String subChildName = (String) subChild.name()
+						if (subChildName.endsWith('groupId')) {
+							String value = (String) subChild.value()
+							if (value.contains('com.squareup.okhttp') || value.contains('com.google.code.gson')) {
+								doDelete = false
+							}
+						}
+					}
+
+					if (doDelete) {
+						dependencies.remove(childNode)
 					}
 				}
 			}
