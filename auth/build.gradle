@@ -1,5 +1,5 @@
 group 'stapi'
-version '0.0.10'
+version '0.0.10-SNAPSHOT'
 
 apply plugin: 'groovy'
 apply plugin: 'java'
