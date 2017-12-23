@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToD
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToYearRangeProcessor;
 import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplate;
 import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplateParameter;
+import com.cezarykluczynski.stapi.etl.template.series.service.SeriesPageFilter;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
@@ -17,6 +18,8 @@ import java.util.Optional;
 @Service
 public class SeriesTemplatePageProcessor implements ItemProcessor<Page, SeriesTemplate> {
 
+	private final SeriesPageFilter seriesPageFilter;
+
 	private final PartToYearRangeProcessor partToYearRangeProcessor;
 
 	private final PartToDateRangeProcessor partToDateRangeProcessor;
@@ -27,8 +30,10 @@ public class SeriesTemplatePageProcessor implements ItemProcessor<Page, SeriesTe
 
 	private final SeriesTemplateCompanyProcessor seriesTemplateCompanyProcessor;
 
-	public SeriesTemplatePageProcessor(PartToYearRangeProcessor partToYearRangeProcessor, PartToDateRangeProcessor partToDateRangeProcessor,
-			PageBindingService pageBindingService, TemplateFinder templateFinder, SeriesTemplateCompanyProcessor seriesTemplateCompanyProcessor) {
+	public SeriesTemplatePageProcessor(SeriesPageFilter seriesPageFilter, PartToYearRangeProcessor partToYearRangeProcessor,
+			PartToDateRangeProcessor partToDateRangeProcessor, PageBindingService pageBindingService, TemplateFinder templateFinder,
+			SeriesTemplateCompanyProcessor seriesTemplateCompanyProcessor) {
+		this.seriesPageFilter = seriesPageFilter;
 		this.partToYearRangeProcessor = partToYearRangeProcessor;
 		this.partToDateRangeProcessor = partToDateRangeProcessor;
 		this.pageBindingService = pageBindingService;
@@ -38,6 +43,10 @@ public class SeriesTemplatePageProcessor implements ItemProcessor<Page, SeriesTe
 
 	@Override
 	public SeriesTemplate process(Page item) throws Exception {
+		if (seriesPageFilter.shouldBeFilteredOut(item)) {
+			return null;
+		}
+
 		Optional<Template> templateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_SERIES);
 
 		if (!templateOptional.isPresent()) {
@@ -78,6 +87,5 @@ public class SeriesTemplatePageProcessor implements ItemProcessor<Page, SeriesTe
 
 		return seriesTemplate;
 	}
-
 
 }

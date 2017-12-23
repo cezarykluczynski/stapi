@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.season.creation.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
+import com.cezarykluczynski.stapi.etl.season.creation.service.SeasonPageFilter
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
 import com.cezarykluczynski.stapi.model.season.entity.Season
@@ -16,6 +17,8 @@ class SeasonPageProcessorTest extends Specification {
 	private static final Integer SEASON_NUMBER = 3
 	private static final Integer NUMBER_OF_EPISODES = 26
 
+	private SeasonPageFilter seasonPageFilterMock
+
 	private UidGenerator uidGeneratorMock
 
 	private PageBindingService pageBindingServiceMock
@@ -29,13 +32,25 @@ class SeasonPageProcessorTest extends Specification {
 	private SeasonPageProcessor seasonPageProcessor
 
 	void setup() {
+		seasonPageFilterMock = Mock()
 		uidGeneratorMock = Mock()
 		pageBindingServiceMock = Mock()
 		seasonSeriesProcessorMock = Mock()
 		seasonNumberProcessorMock = Mock()
 		seasonNumberOfEpisodesFixedValueProviderMock = Mock()
-		seasonPageProcessor = new SeasonPageProcessor(uidGeneratorMock, pageBindingServiceMock, seasonSeriesProcessorMock, seasonNumberProcessorMock,
-				seasonNumberOfEpisodesFixedValueProviderMock)
+		seasonPageProcessor = new SeasonPageProcessor(seasonPageFilterMock, uidGeneratorMock, pageBindingServiceMock, seasonSeriesProcessorMock,
+				seasonNumberProcessorMock, seasonNumberOfEpisodesFixedValueProviderMock)
+	}
+
+	void "returns null when page should be filtered out"() {
+		SourcesPage sourcesPage = Mock()
+
+		when:
+		Season season = seasonPageProcessor.process(sourcesPage)
+
+		then:
+		1 * seasonPageFilterMock.shouldBeFilteredOut(sourcesPage) >> true
+		season == null
 	}
 
 	void "parses page with number of episodes"() {
@@ -48,6 +63,7 @@ class SeasonPageProcessorTest extends Specification {
 		Season season = seasonPageProcessor.process(sourcesPage)
 
 		then:
+		1 * seasonPageFilterMock.shouldBeFilteredOut(sourcesPage) >> false
 		1 * pageBindingServiceMock.fromPageToPageEntity(sourcesPage) >> modelPage
 		1 * uidGeneratorMock.generateFromPage(modelPage, Season) >> UID
 		1 * seasonSeriesProcessorMock.process(TITLE) >> series
@@ -72,6 +88,7 @@ class SeasonPageProcessorTest extends Specification {
 		Season season = seasonPageProcessor.process(sourcesPage)
 
 		then:
+		1 * seasonPageFilterMock.shouldBeFilteredOut(sourcesPage) >> false
 		1 * pageBindingServiceMock.fromPageToPageEntity(sourcesPage) >> modelPage
 		1 * uidGeneratorMock.generateFromPage(modelPage, Season) >> UID
 		1 * seasonSeriesProcessorMock.process(TITLE) >> series

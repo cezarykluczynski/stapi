@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToD
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToYearRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplate
 import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplateParameter
+import com.cezarykluczynski.stapi.etl.template.series.service.SeriesPageFilter
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.model.company.entity.Company
 import com.cezarykluczynski.stapi.model.page.entity.Page as PageEntity
@@ -24,6 +25,8 @@ class SeriesTemplatePageProcessorTest extends Specification {
 	private static final Long PAGE_ID = 11L
 	private static final SourcesMediaWikiSource SOURCES_MEDIA_WIKI_SOURCE = SourcesMediaWikiSource.MEMORY_ALPHA_EN
 
+	private SeriesPageFilter seriesPageFilterMock
+
 	private PartToYearRangeProcessor partToYearRangeProcessorMock
 
 	private PartToDateRangeProcessor partToDateRangeProcessorMock
@@ -37,14 +40,27 @@ class SeriesTemplatePageProcessorTest extends Specification {
 	private SeriesTemplatePageProcessor seriesTemplatePageProcessor
 
 	void setup() {
+		seriesPageFilterMock = Mock()
 		partToYearRangeProcessorMock = Mock()
 		partToDateRangeProcessorMock = Mock()
 		pageBindingServiceMock = Mock()
 		templateFinderMock = Mock()
 		seriesTemplateCompanyProcessorMock = Mock()
-		seriesTemplatePageProcessor = new SeriesTemplatePageProcessor(partToYearRangeProcessorMock, partToDateRangeProcessorMock,
-				pageBindingServiceMock, templateFinderMock, seriesTemplateCompanyProcessorMock)
+		seriesTemplatePageProcessor = new SeriesTemplatePageProcessor(seriesPageFilterMock, partToYearRangeProcessorMock,
+				partToDateRangeProcessorMock, pageBindingServiceMock, templateFinderMock, seriesTemplateCompanyProcessorMock)
 	}
+
+	void "returns null when page should be filtered out"() {
+		Page page = Mock()
+
+		when:
+		SeriesTemplate seriesTemplate = seriesTemplatePageProcessor.process(page)
+
+		then:
+		1 * seriesPageFilterMock.shouldBeFilteredOut(page) >> true
+		seriesTemplate == null
+	}
+
 
 	void "missing template results in null SeriesTemplate"() {
 		given:
@@ -54,6 +70,7 @@ class SeriesTemplatePageProcessorTest extends Specification {
 		SeriesTemplate seriesTemplate = seriesTemplatePageProcessor.process(page)
 
 		then:
+		1 * seriesPageFilterMock.shouldBeFilteredOut(page) >> false
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_SERIES) >> Optional.empty()
 		seriesTemplate == null
 	}
@@ -86,6 +103,9 @@ class SeriesTemplatePageProcessorTest extends Specification {
 
 		when:
 		SeriesTemplate seriesTemplate = seriesTemplatePageProcessor.process(page)
+
+		then: 'page is not supposed to be filtered out'
+		1 * seriesPageFilterMock.shouldBeFilteredOut(page) >> false
 
 		then: 'template is passed through TemplateFinder'
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_SERIES) >> Optional.of(template)
