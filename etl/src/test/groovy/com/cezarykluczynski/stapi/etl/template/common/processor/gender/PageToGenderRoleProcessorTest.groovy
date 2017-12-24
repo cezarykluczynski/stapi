@@ -1,10 +1,8 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.gender
 
-import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender
-import com.cezarykluczynski.stapi.etl.template.character.dto.CharacterTemplate
-import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTemplatePartsEnrichingProcessor
+import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTemplatePartsGenderProcessor
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles
 import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi
@@ -29,7 +27,7 @@ class PageToGenderRoleProcessorTest extends Specification {
 
 	private TemplateFinder templateFinderMock
 
-	private IndividualTemplatePartsEnrichingProcessor individualTemplatePartsEnrichingProcessorMock
+	private IndividualTemplatePartsGenderProcessor individualTemplatePartsGenderProcessorMock
 
 	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessorMock
 
@@ -39,10 +37,10 @@ class PageToGenderRoleProcessorTest extends Specification {
 		pageApiMock = Mock()
 		wikitextApiMock = Mock()
 		templateFinderMock = Mock()
-		individualTemplatePartsEnrichingProcessorMock = Mock()
+		individualTemplatePartsGenderProcessorMock = Mock()
 		categoryTitlesExtractingProcessorMock = Mock()
 		pageToGenderRoleProcessor = new PageToGenderRoleProcessor(pageApiMock, wikitextApiMock, templateFinderMock,
-				individualTemplatePartsEnrichingProcessorMock, categoryTitlesExtractingProcessorMock)
+				individualTemplatePartsGenderProcessorMock, categoryTitlesExtractingProcessorMock)
 	}
 
 	void "returns null when wikitext does not contain 'played' word"() {
@@ -137,7 +135,8 @@ class PageToGenderRoleProcessorTest extends Specification {
 		List<String> titleList = Lists.newArrayList(TITLE)
 		Page page = Mock()
 		Page subpage = Mock()
-		Template sidebarIndividualTemplate = new Template()
+		Template.Part templatePart = Mock()
+		Template sidebarIndividualTemplate = new Template(parts: Lists.newArrayList(templatePart))
 
 		when:
 		Gender gender = pageToGenderRoleProcessor.process(page)
@@ -147,9 +146,7 @@ class PageToGenderRoleProcessorTest extends Specification {
 		1 * wikitextApiMock.getPageTitlesFromWikitext(VALID_WIKITEXT) >> titleList
 		1 * pageApiMock.getPages(titleList, MediaWikiSource.MEMORY_ALPHA_EN) >> Lists.newArrayList(subpage)
 		1 * templateFinderMock.findTemplate(subpage, TemplateTitle.SIDEBAR_INDIVIDUAL) >> Optional.of(sidebarIndividualTemplate)
-		1 * individualTemplatePartsEnrichingProcessorMock.enrich(_) >> { EnrichablePair<List<Template.Part>, CharacterTemplate> enrichablePair ->
-			enrichablePair.output.gender = GENDER
-		}
+		1 * individualTemplatePartsGenderProcessorMock.process(Lists.newArrayList(templatePart)) >> GENDER
 		0 * _
 		gender == GENDER
 
