@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.server.panel.endpoint.PanelAdminEndpoint;
 import com.cezarykluczynski.stapi.server.panel.endpoint.PanelApiKeysEndpoint;
 import com.cezarykluczynski.stapi.server.panel.endpoint.PanelCommonEndpoint;
 import org.apache.cxf.endpoint.Server;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,6 +19,7 @@ public class PanelConfiguration {
 	private EndpointFactory endpointFactory;
 
 	@Bean
+	@ConditionalOnProperty("featureSwitch.panel")
 	public Server panelAccountSettingsRestEndpoint() {
 		return endpointFactory.createRestEndpoint(PanelAccountSettingsEndpoint.class, PanelAccountSettingsEndpoint.ADDRESS);
 	}
@@ -28,6 +30,7 @@ public class PanelConfiguration {
 	}
 
 	@Bean
+	@ConditionalOnProperty("featureSwitch.panel")
 	public Server panelApiKeysRestEndpoint() {
 		return endpointFactory.createRestEndpoint(PanelApiKeysEndpoint.class, PanelApiKeysEndpoint.ADDRESS);
 	}

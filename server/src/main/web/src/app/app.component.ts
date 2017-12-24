@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { FeatureSwitchApi } from './feature-switch/feature-switch-api.service';
 
 @Component({
 	selector: 'app-root',
@@ -8,7 +9,11 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class AppComponent {
 
-	constructor(private domSanitizer: DomSanitizer) {
+	constructor(private domSanitizer: DomSanitizer, private featureSwitchApi: FeatureSwitchApi) {
+	}
+
+	panelIsEnabled() {
+		return this.featureSwitchApi.isEnabled('PANEL');
 	}
 
 	getGitHubStar() {

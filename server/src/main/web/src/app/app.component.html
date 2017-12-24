@@ -33,7 +33,7 @@
 								<li><a href="https://github.com/cezarykluczynski/stapi/wiki">Wiki</a></li>
 							</ul>
 						</li>
-						<li><a routerLinkActive="navigation-element--active" routerLink="panel">Panel</a></li>
+						<li *ngIf="panelIsEnabled()"><a routerLinkActive="navigation-element--active" routerLink="panel">Panel</a></li>
 					</ul>
 			</div>
 		</div>
