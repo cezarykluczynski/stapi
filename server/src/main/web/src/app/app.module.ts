@@ -43,6 +43,7 @@ import { PanelAdminManagementApi } from './panel/admin-management/panel-admin-ma
 import { PanelAdminApiKeysComponent } from './panel/admin-management/panel-admin-api-keys/panel-admin-api-keys.component';
 import { PanelAdminAccountsComponent } from './panel/admin-management/panel-admin-accounts/panel-admin-accounts.component';
 import { ApiOverviewComponent } from './api-overview/api-overview.component';
+import { FeatureSwitchApi } from './feature-switch/feature-switch-api.service';
 import { APP_ROUTES } from './app.routes';
 
 export function initConfiguration(initializerService: InitializerService): Function {
@@ -101,7 +102,8 @@ export function initConfiguration(initializerService: InitializerService): Funct
 		StatisticsApi,
 		RestClientFactoryService,
 		WindowReferenceService,
-		CookieService
+		CookieService,
+		FeatureSwitchApi
 	],
 	bootstrap: [AppComponent]
 })

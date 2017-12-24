@@ -23,7 +23,8 @@ import org.springframework.context.annotation.Import;
 		Package.SERVER,
 		Package.SOURCES,
 		Package.MODEL,
-		Package.CONTRACT
+		Package.CONTRACT,
+		Package.UTIL
 })
 @Import(EtlConfiguration.class)
 @EnableAutoConfiguration(exclude = {CxfAutoConfiguration.class, DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class,
