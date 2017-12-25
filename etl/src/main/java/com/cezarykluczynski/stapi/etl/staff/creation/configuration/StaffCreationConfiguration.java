@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.staff.creation.configuration;
 
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
+import com.cezarykluczynski.stapi.etl.performer.creation.service.ActorPageFilter;
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffCategoriesActorTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffReader;
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateListPageProcessor;
@@ -68,6 +69,7 @@ public class StaffCreationConfiguration {
 	@Bean(STAFF_ACTOR_TEMPLATE_PAGE_PROCESSOR)
 	public ActorTemplatePageProcessor actorTemplatePageProcessor() {
 		return new ActorTemplatePageProcessor(
+				applicationContext.getBean(ActorPageFilter.class),
 				applicationContext.getBean(STAFF_ACTOR_TEMPLATE_SINGLE_PAGE_PROCESSOR, ActorTemplateSinglePageProcessor.class),
 				applicationContext.getBean(ActorTemplateListPageProcessor.class));
 	}

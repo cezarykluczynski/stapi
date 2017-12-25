@@ -11,6 +11,7 @@ public class StepName {
 	public static final String CREATE_SPECIES = "CREATE_SPECIES";
 	public static final String CREATE_ORGANIZATIONS = "CREATE_ORGANIZATIONS";
 	public static final String CREATE_TITLES = "CREATE_TITLES";
+	public static final String CREATE_OCCUPATIONS = "CREATE_OCCUPATIONS";
 	public static final String CREATE_CHARACTERS = "CREATE_CHARACTERS";
 	public static final String LINK_CHARACTERS = "LINK_CHARACTERS";
 	public static final String CREATE_EPISODES = "CREATE_EPISODES";
@@ -44,6 +45,5 @@ public class StepName {
 	public static final String CREATE_ELEMENTS = "CREATE_ELEMENTS";
 	public static final String CREATE_MEDICAL_CONDITIONS = "CREATE_MEDICAL_CONDITIONS";
 	public static final String CREATE_TECHNOLOGY = "CREATE_TECHNOLOGY";
-	public static final String CREATE_OCCUPATIONS = "CREATE_OCCUPATIONS";
 
 }

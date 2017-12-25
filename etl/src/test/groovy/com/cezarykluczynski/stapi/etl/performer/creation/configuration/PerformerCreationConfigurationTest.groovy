@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerCategoriesActorTemplateEnrichingProcessor
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerReader
+import com.cezarykluczynski.stapi.etl.performer.creation.service.ActorPageFilter
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateListPageProcessor
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplatePageProcessor
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateSinglePageProcessor
@@ -99,16 +100,18 @@ class PerformerCreationConfigurationTest extends AbstractCreationConfigurationTe
 		given:
 		ActorTemplateSinglePageProcessor actorTemplateSinglePageProcessorMock = Mock()
 		ActorTemplateListPageProcessor actorTemplateListPageProcessorMock = Mock()
+		ActorPageFilter actorPageFilterMock = Mock()
 
 		when:
-		ActorTemplatePageProcessor actorTemplatePageProcessor = performerCreationConfiguration
-				.actorTemplatePageProcessor()
+		ActorTemplatePageProcessor actorTemplatePageProcessor = performerCreationConfiguration.actorTemplatePageProcessor()
 
 		then:
+		1 * applicationContextMock.getBean(ActorPageFilter) >> actorPageFilterMock
 		1 * applicationContextMock.getBean(PerformerCreationConfiguration.PERFORMER_ACTOR_TEMPLATE_SINGLE_PAGE_PROCESSOR,
 				ActorTemplateSinglePageProcessor) >> actorTemplateSinglePageProcessorMock
 		1 * applicationContextMock.getBean(ActorTemplateListPageProcessor) >> actorTemplateListPageProcessorMock
 		0 * _
+		actorTemplatePageProcessor.actorPageFilter == actorPageFilterMock
 		actorTemplatePageProcessor.actorTemplateSinglePageProcessor == actorTemplateSinglePageProcessorMock
 		actorTemplatePageProcessor.actorTemplateListPageProcessor == actorTemplateListPageProcessorMock
 	}

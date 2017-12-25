@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.NonUniqueResultException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -60,7 +61,13 @@ class WikitextToEntitiesGenericProcessor {
 		if (!entityOptional.isPresent()) {
 			Page page = pageApi.getPage(pageLinkTitle, com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN);
 			if (page != null && !page.getRedirectPath().isEmpty()) {
-				entityOptional = pageAwareRepository.findByPageTitleAndPageMediaWikiSource(page.getTitle(), MediaWikiSource.MEMORY_ALPHA_EN);
+				try {
+					entityOptional = pageAwareRepository.findByPageTitleAndPageMediaWikiSource(page.getTitle(), MediaWikiSource.MEMORY_ALPHA_EN);
+				} catch (NonUniqueResultException e) {
+					log.error("When searching using page title {} and MediaWiki source {}, non unique result was found", page.getTitle(),
+							MediaWikiSource.MEMORY_ALPHA_EN);
+					entityOptional = Optional.empty();
+				}
 			}
 		}
 
