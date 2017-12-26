@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.comics.processor
 
 import com.cezarykluczynski.stapi.etl.comic_strip.creation.service.ComicStripCandidatePageGatheringService
+import com.cezarykluczynski.stapi.etl.comics.creation.service.ComicsPageFilter
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor
 import com.cezarykluczynski.stapi.etl.common.processor.character.WikitextSectionsCharactersProcessor
@@ -13,10 +14,8 @@ import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
 import com.cezarykluczynski.stapi.sources.mediawiki.cache.PageCacheStorage
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
-import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
 import spock.lang.Specification
@@ -27,6 +26,8 @@ class ComicsTemplatePageProcessorTest extends Specification {
 	private static final String TITLE_COMICS = 'TITLE (comic)'
 	private static final String TITLE_FOTONOVEL = 'TITLE (fotonovel)'
 	private static final String TITLE_OMNIBUS = 'TITLE (omnibus)'
+
+	private ComicsPageFilter comicsPageFilterMock
 
 	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessorMock
 
@@ -47,6 +48,7 @@ class ComicsTemplatePageProcessorTest extends Specification {
 	private ComicsTemplatePageProcessor comicsTemplatePageProcessor
 
 	void setup() {
+		comicsPageFilterMock = Mock()
 		categoryTitlesExtractingProcessorMock = Mock()
 		comicStripCandidatePageGatheringServiceMock = Mock()
 		pageBindingServiceMock = Mock()
@@ -55,50 +57,21 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		comicsTemplatePartsEnrichingProcessorMock = Mock()
 		wikitextSectionsCharactersProcessorMock = Mock()
 		pageCacheStorageMock = Mock()
-		comicsTemplatePageProcessor = new ComicsTemplatePageProcessor(categoryTitlesExtractingProcessorMock,
+		comicsTemplatePageProcessor = new ComicsTemplatePageProcessor(comicsPageFilterMock, categoryTitlesExtractingProcessorMock,
 				comicStripCandidatePageGatheringServiceMock, pageBindingServiceMock, templateFinderMock,
 				comicsTemplateCompositeEnrichingProcessorMock, comicsTemplatePartsEnrichingProcessorMock, wikitextSectionsCharactersProcessorMock,
 				pageCacheStorageMock)
 	}
 
-	void "returns null when page title is among invalid page titles"() {
+	void "returns null when ComicsPageFilter returns true"() {
 		given:
-		Page page = new Page(title: RandomUtil.randomItem(ComicsTemplatePageProcessor.INVALID_TITLES))
+		Page page = Mock()
 
 		when:
 		ComicsTemplate comicsTemplate = comicsTemplatePageProcessor.process(page)
 
 		then:
-		0 * _
-		comicsTemplate == null
-	}
-
-	void "returns null when 'Star_Trek_series_magazines' is among page categories"() {
-		given:
-		List<CategoryHeader> categoryHeaderList = Mock()
-		Page page = new Page(
-				title: TITLE,
-				categories: categoryHeaderList)
-
-		when:
-		ComicsTemplate comicsTemplate = comicsTemplatePageProcessor.process(page)
-
-		then:
-		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.STAR_TREK_SERIES_MAGAZINES)
-		0 * _
-		comicsTemplate == null
-	}
-
-	void "returns null when page is a product of redirect"() {
-		given:
-		PageHeader pageHeader = Mock()
-		Page page = new Page(redirectPath: Lists.newArrayList(pageHeader))
-
-		when:
-		ComicsTemplate comicsTemplate = comicsTemplatePageProcessor.process(page)
-
-		then:
-		1 * categoryTitlesExtractingProcessorMock.process(Lists.newArrayList()) >> Lists.newArrayList()
+		1 * comicsPageFilterMock.shouldBeFilteredOut(page) >> true
 		0 * _
 		comicsTemplate == null
 	}
@@ -115,7 +88,8 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		ComicsTemplate comicsTemplate = comicsTemplatePageProcessor.process(page)
 
 		then:
-		3 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.PHOTONOVELS)
+		1 * comicsPageFilterMock.shouldBeFilteredOut(page) >> false
+		2 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.PHOTONOVELS)
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * wikitextSectionsCharactersProcessorMock.process(page) >> Sets.newHashSet()
@@ -138,7 +112,8 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		ComicsTemplate comicsTemplate = comicsTemplatePageProcessor.process(page)
 
 		then:
-		3 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.PHOTONOVELS_COLLECTIONS)
+		1 * comicsPageFilterMock.shouldBeFilteredOut(page) >> false
+		2 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.PHOTONOVELS_COLLECTIONS)
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * wikitextSectionsCharactersProcessorMock.process(page) >> Sets.newHashSet()
@@ -161,7 +136,8 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		ComicsTemplate comicsTemplate = comicsTemplatePageProcessor.process(page)
 
 		then:
-		3 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.COMIC_ADAPTATIONS)
+		1 * comicsPageFilterMock.shouldBeFilteredOut(page) >> false
+		2 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.COMIC_ADAPTATIONS)
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * wikitextSectionsCharactersProcessorMock.process(page) >> Sets.newHashSet()
@@ -184,7 +160,8 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		ComicsTemplate comicsTemplate = comicsTemplatePageProcessor.process(page)
 
 		then:
-		3 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.PHOTONOVELS)
+		1 * comicsPageFilterMock.shouldBeFilteredOut(page) >> false
+		2 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.PHOTONOVELS)
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * wikitextSectionsCharactersProcessorMock.process(page) >> Sets.newHashSet()
@@ -207,7 +184,8 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		ComicsTemplate comicsTemplate = comicsTemplatePageProcessor.process(page)
 
 		then:
-		3 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.PHOTONOVELS)
+		1 * comicsPageFilterMock.shouldBeFilteredOut(page) >> false
+		2 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.PHOTONOVELS)
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >>
 				Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
@@ -231,7 +209,8 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		ComicsTemplate comicsTemplate = comicsTemplatePageProcessor.process(page)
 
 		then:
-		3 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.PHOTONOVELS)
+		1 * comicsPageFilterMock.shouldBeFilteredOut(page) >> false
+		2 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.PHOTONOVELS)
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >>
 				Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
@@ -254,7 +233,7 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		ComicsTemplate comicsTemplate = comicsTemplatePageProcessor.process(page)
 
 		then:
-		1 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
+		1 * comicsPageFilterMock.shouldBeFilteredOut(page) >> false
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >> Optional.of(comisStripTemplate)
 		1 * comicStripCandidatePageGatheringServiceMock.addCandidate(page)
 		1 * pageCacheStorageMock.put(page)
@@ -272,7 +251,8 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		ComicsTemplate comicsTemplate = comicsTemplatePageProcessor.process(page)
 
 		then:
-		3 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
+		1 * comicsPageFilterMock.shouldBeFilteredOut(page) >> false
+		2 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >>
 				Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
@@ -300,7 +280,8 @@ class ComicsTemplatePageProcessorTest extends Specification {
 		ComicsTemplate comicsTemplate = comicsTemplatePageProcessor.process(page)
 
 		then:
-		3 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
+		1 * comicsPageFilterMock.shouldBeFilteredOut(page) >> false
+		2 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_COMIC_STRIP) >> Optional.empty()
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * wikitextSectionsCharactersProcessorMock.process(page) >> Sets.newHashSet()

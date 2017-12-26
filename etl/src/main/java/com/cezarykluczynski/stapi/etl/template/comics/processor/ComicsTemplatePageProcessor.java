@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.template.comics.processor;
 
 import com.cezarykluczynski.stapi.etl.comic_strip.creation.service.ComicStripCandidatePageGatheringService;
+import com.cezarykluczynski.stapi.etl.comics.creation.service.ComicsPageFilter;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
 import com.cezarykluczynski.stapi.etl.common.processor.character.WikitextSectionsCharactersProcessor;
@@ -12,7 +13,6 @@ import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.sources.mediawiki.cache.PageCacheStorage;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.PageTitle;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import com.google.common.collect.Sets;
 import org.apache.commons.lang3.StringUtils;
@@ -25,11 +25,12 @@ import java.util.Set;
 @Service
 public class ComicsTemplatePageProcessor implements ItemProcessor<Page, ComicsTemplate> {
 
-	private static final Set<String> INVALID_TITLES = Sets.newHashSet(PageTitle.COMICS, PageTitle.PHOTONOVELS);
 	private static final Set<String> PHOTONOVEL_CATEGORIES = Sets.newHashSet(CategoryTitle.PHOTONOVELS, CategoryTitle.PHOTONOVELS_COLLECTIONS);
 	private static final String COMIC = "(comic";
 	private static final String FOTONOVEL = "(fotonovel";
 	private static final String OMNIBUS = "(omnibus";
+
+	private final ComicsPageFilter comicsPageFilter;
 
 	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
@@ -48,11 +49,12 @@ public class ComicsTemplatePageProcessor implements ItemProcessor<Page, ComicsTe
 	private final PageCacheStorage pageCacheStorage;
 
 	@SuppressWarnings("ParameterNumber")
-	public ComicsTemplatePageProcessor(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor,
+	public ComicsTemplatePageProcessor(ComicsPageFilter comicsPageFilter, CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor,
 			ComicStripCandidatePageGatheringService comicStripCandidatePageGatheringService, PageBindingService pageBindingService,
 			TemplateFinder templateFinder, ComicsTemplateCompositeEnrichingProcessor comicsTemplateCompositeEnrichingProcessor,
 			ComicsTemplatePartsEnrichingProcessor comicsTemplatePartsEnrichingProcessor,
 			WikitextSectionsCharactersProcessor wikitextSectionsCharactersProcessor, PageCacheStorage pageCacheStorage) {
+		this.comicsPageFilter = comicsPageFilter;
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
 		this.comicStripCandidatePageGatheringService = comicStripCandidatePageGatheringService;
 		this.pageBindingService = pageBindingService;
@@ -65,7 +67,7 @@ public class ComicsTemplatePageProcessor implements ItemProcessor<Page, ComicsTe
 
 	@Override
 	public ComicsTemplate process(Page item) throws Exception {
-		if (shouldBeFilteredOut(item)) {
+		if (comicsPageFilter.shouldBeFilteredOut(item)) {
 			return null;
 		}
 
@@ -98,11 +100,6 @@ public class ComicsTemplatePageProcessor implements ItemProcessor<Page, ComicsTe
 		comicsTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(sidebarComicsTemplate.getParts(), comicsTemplate));
 
 		return comicsTemplate;
-	}
-
-	private boolean shouldBeFilteredOut(Page item) {
-		return INVALID_TITLES.contains(item.getTitle()) || categoryTitlesExtractingProcessor.process(item.getCategories())
-				.contains(CategoryTitle.STAR_TREK_SERIES_MAGAZINES) || !item.getRedirectPath().isEmpty();
 	}
 
 	private boolean isPhotonovel(Page item) {
