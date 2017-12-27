@@ -2,50 +2,39 @@ package com.cezarykluczynski.stapi.etl.template.magazine.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
-import com.cezarykluczynski.stapi.etl.magazine_series.creation.service.MagazineSeriesDetector;
+import com.cezarykluczynski.stapi.etl.magazine.creation.service.MagazinePageFilter;
 import com.cezarykluczynski.stapi.etl.template.magazine.dto.MagazineTemplate;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.PageTitle;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
-import com.google.common.collect.Sets;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class MagazineTemplatePageProcessor implements ItemProcessor<Page, MagazineTemplate> {
 
-	private static final Set<String> INVALID_TITLES = Sets.newHashSet(PageTitle.MAGAZINES, PageTitle.PARTWORK, "The Case of Jonathan Doe Starship",
-			"Star Trek Magazine - The Archives", "Star Trek: The Motion Picture (comic magazine)", "Starfleet Technical Database");
-
 	private final TemplateFinder templateFinder;
 
-	private final MagazineSeriesDetector magazineSeriesDetector;
+	private final MagazinePageFilter magazinePageFilter;
 
 	private final PageBindingService pageBindingService;
 
 	private final MagazineTemplatePartsEnrichingProcessor magazineTemplatePartsEnrichingProcessor;
 
-	public MagazineTemplatePageProcessor(TemplateFinder templateFinder, MagazineSeriesDetector magazineSeriesDetector,
+	public MagazineTemplatePageProcessor(TemplateFinder templateFinder, MagazinePageFilter magazinePageFilter,
 			PageBindingService pageBindingService, MagazineTemplatePartsEnrichingProcessor magazineTemplatePartsEnrichingProcessor) {
 		this.templateFinder = templateFinder;
-		this.magazineSeriesDetector = magazineSeriesDetector;
+		this.magazinePageFilter = magazinePageFilter;
 		this.pageBindingService = pageBindingService;
 		this.magazineTemplatePartsEnrichingProcessor = magazineTemplatePartsEnrichingProcessor;
 	}
 
 	@Override
 	public MagazineTemplate process(Page item) throws Exception {
-		if (shouldBeFilteredOut(item)) {
-			return null;
-		}
-
-		Optional<Template> sidebarMagazineSeriesTemplateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_MAGAZINE_SERIES);
-		if (sidebarMagazineSeriesTemplateOptional.isPresent()) {
+		if (magazinePageFilter.shouldBeFilteredOut(item)) {
 			return null;
 		}
 
@@ -63,10 +52,6 @@ public class MagazineTemplatePageProcessor implements ItemProcessor<Page, Magazi
 		magazineTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(sidebarMagazineTemplateOptional.get().getParts(), magazineTemplate));
 
 		return magazineTemplate;
-	}
-
-	private boolean shouldBeFilteredOut(Page item) {
-		return INVALID_TITLES.contains(item.getTitle()) || !item.getRedirectPath().isEmpty() || magazineSeriesDetector.isMagazineSeries(item);
 	}
 
 }

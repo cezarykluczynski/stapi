@@ -55,8 +55,12 @@ class WikitextToEntitiesGenericProcessor {
 	}
 
 	private <T> Optional<T> tryFindEntity(String pageLinkTitle, PageAwareRepository<T> pageAwareRepository) {
-		Optional<T> entityOptional = pageAwareRepository
-				.findByPageTitleAndPageMediaWikiSource(pageLinkTitle, MediaWikiSource.MEMORY_ALPHA_EN);
+		Optional<T> entityOptional;
+		try {
+			entityOptional = pageAwareRepository.findByPageTitleAndPageMediaWikiSource(pageLinkTitle, MediaWikiSource.MEMORY_ALPHA_EN);
+		} catch (NonUniqueResultException e) {
+			entityOptional = Optional.empty();
+		}
 
 		if (!entityOptional.isPresent()) {
 			Page page = pageApi.getPage(pageLinkTitle, com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource.MEMORY_ALPHA_EN);

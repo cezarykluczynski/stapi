@@ -2,15 +2,13 @@ package com.cezarykluczynski.stapi.etl.template.magazine.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
-import com.cezarykluczynski.stapi.etl.magazine_series.creation.service.MagazineSeriesDetector
+import com.cezarykluczynski.stapi.etl.magazine.creation.service.MagazinePageFilter
 import com.cezarykluczynski.stapi.etl.template.magazine.dto.MagazineTemplate
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
-import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -20,7 +18,7 @@ class MagazineTemplatePageProcessorTest extends Specification {
 
 	private TemplateFinder templateFinderMock
 
-	private MagazineSeriesDetector magazineSeriesDetectorMock
+	private MagazinePageFilter magazinePageFilterMock
 
 	private PageBindingService pageBindingServiceMock
 
@@ -30,39 +28,14 @@ class MagazineTemplatePageProcessorTest extends Specification {
 
 	void setup() {
 		templateFinderMock = Mock()
-		magazineSeriesDetectorMock = Mock()
+		magazinePageFilterMock = Mock()
 		pageBindingServiceMock = Mock()
 		magazineTemplatePartsEnrichingProcessorMock = Mock()
-		magazineTemplatePageProcessor = new MagazineTemplatePageProcessor(templateFinderMock, magazineSeriesDetectorMock, pageBindingServiceMock,
+		magazineTemplatePageProcessor = new MagazineTemplatePageProcessor(templateFinderMock, magazinePageFilterMock, pageBindingServiceMock,
 				magazineTemplatePartsEnrichingProcessorMock)
 	}
 
-	void "returns null when page title is among invalid page titles"() {
-		given:
-		Page page = new Page(title: RandomUtil.randomItem(MagazineTemplatePageProcessor.INVALID_TITLES))
-
-		when:
-		MagazineTemplate magazineTemplate = magazineTemplatePageProcessor.process(page)
-
-		then:
-		0 * _
-		magazineTemplate == null
-	}
-
-	void "returns null when page is a product of redirect"() {
-		given:
-		PageHeader pageHeader = Mock()
-		Page page = new Page(redirectPath: Lists.newArrayList(pageHeader))
-
-		when:
-		MagazineTemplate magazineTemplate = magazineTemplatePageProcessor.process(page)
-
-		then:
-		0 * _
-		magazineTemplate == null
-	}
-
-	void "returns null when MagazineSeriesDetector detect magazine series"() {
+	void "returns null when ComicsPageFilter returns true"() {
 		given:
 		Page page = new Page()
 
@@ -70,24 +43,9 @@ class MagazineTemplatePageProcessorTest extends Specification {
 		MagazineTemplate magazineTemplate = magazineTemplatePageProcessor.process(page)
 
 		then:
-		1 * magazineSeriesDetectorMock.isMagazineSeries(page) >> true
+		1 * magazinePageFilterMock.shouldBeFilteredOut(page) >> true
 		0 * _
 		magazineTemplate == null
-	}
-
-	void "returns null when sidebar magazine series template is found"() {
-		given:
-		Page page = new Page(title: TITLE)
-		Template sidebarMagazineSeriesTemplate = Mock()
-
-		when:
-		MagazineTemplate comicsTemplate = magazineTemplatePageProcessor.process(page)
-
-		then:
-		1 * magazineSeriesDetectorMock.isMagazineSeries(page) >> false
-		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_MAGAZINE_SERIES) >> Optional.of(sidebarMagazineSeriesTemplate)
-		0 * _
-		comicsTemplate == null
 	}
 
 	void "parses page that does not have sidebar magazine template"() {
@@ -99,8 +57,7 @@ class MagazineTemplatePageProcessorTest extends Specification {
 		MagazineTemplate comicsTemplate = magazineTemplatePageProcessor.process(page)
 
 		then:
-		1 * magazineSeriesDetectorMock.isMagazineSeries(page) >> false
-		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_MAGAZINE_SERIES) >> Optional.empty()
+		1 * magazinePageFilterMock.shouldBeFilteredOut(page) >> false
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_MAGAZINE, TemplateTitle.SIDEBAR_REFERENCE_BOOK) >> Optional.empty()
 		0 * _
@@ -119,8 +76,7 @@ class MagazineTemplatePageProcessorTest extends Specification {
 		MagazineTemplate comicsTemplate = magazineTemplatePageProcessor.process(page)
 
 		then:
-		1 * magazineSeriesDetectorMock.isMagazineSeries(page) >> false
-		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_MAGAZINE_SERIES) >> Optional.empty()
+		1 * magazinePageFilterMock.shouldBeFilteredOut(page) >> false
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_MAGAZINE, TemplateTitle.SIDEBAR_REFERENCE_BOOK) >>
 				Optional.of(sidebarMagazineTemplate)
