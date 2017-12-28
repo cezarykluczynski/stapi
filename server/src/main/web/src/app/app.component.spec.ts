@@ -39,8 +39,8 @@ describe('AppComponent', () => {
 		const fixture = TestBed.createComponent(AppComponent);
 		const gitHubButtonHtml = fixture.componentInstance.getGitHubStar()['changingThisBreaksApplicationSecurity'];
 
-		expect(gitHubButtonHtml).toContain('github.com/cezarykluczynski/stapi');
-		expect(gitHubButtonHtml).toContain('Star cezarykluczynski/stapi on GitHub');
+		expect(gitHubButtonHtml).toContain('cezarykluczynski');
+		expect(gitHubButtonHtml).toContain('stapi');
 	}));
 
 	it('tells whether panel is enabled', async(() => {
