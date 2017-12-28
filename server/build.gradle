@@ -51,22 +51,32 @@ apply from: 'codeGen.gradle'
 configurations.compile.exclude group: 'io.swagger'
 
 task copyDocs(type: CopyDocs) << {}
+task copyResources(type: CopyResources) << {}
 task addWarProfile(type: AddWarProfile) << {}
+task npmBuild(type: NpmRunBuild) << {}
 
-task npmBuild(type:Exec) {
-	workingDir 'src/main/web'
-	if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
-		commandLine 'cmd', '/c', 'npm', 'run', 'install-build'
-	} else {
-		commandLine 'npm', 'run', 'install-build'
-	}
-	standardOutput = new ByteArrayOutputStream()
-	ext.output = {
-		return standardOutput.toString()
-	}
-	// see: https://github.com/gradle/gradle/issues/882#issuecomment-269849435
-	doLast {
-		println()
+copyResources {
+	dependsOn(copyDocs)
+}
+copyDocs {
+	dependsOn(npmBuild)
+}
+
+class NpmRunBuild extends DefaultTask {
+
+	@TaskAction
+	def doExecute() {
+		ProcessBuilder pb
+		if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+			pb = new ProcessBuilder(['cmd', '/c', 'npm', 'run', 'install-build'])
+		} else {
+			pb = new ProcessBuilder(['npm', 'run', 'install-build'])
+		}
+		pb.directory(new File('./server/src/main/web'))
+		pb.inheritIO()
+
+		Process proc = pb.start()
+		proc.waitFor()
 	}
 }
 
@@ -76,11 +86,29 @@ class CopyDocs extends DefaultTask {
 	def copy() {
 		def dir = new File('./contract/src/main/resources/v1/')
 		dir.eachFileRecurse (FileType.FILES) { file ->
-			File destination = new File('./server/build/resources/main/' + file.getPath())
+			File destination = new File('./server/build/resources/main/' + file.getPath().substring(2))
 			destination.parentFile.mkdirs()
-			destination.createNewFile()
-			destination.write(file.text)
+			FileUtils.copyFile(file, destination)
 		}
+	}
+
+}
+
+class CopyResources extends DefaultTask {
+
+	@TaskAction
+	def copy() {
+		def dir = new File('./server/src/main/resources/')
+		dir.eachFile (FileType.FILES) { file ->
+			String extension = file.getAbsolutePath().split('\\.').last()
+			if (['xml', 'txt', 'properties'].contains(extension) && !file.getName().contains('stapi-custom')) {
+				File destination = new File('./server/build/resources/main/' + file.getName())
+				destination.parentFile.mkdirs()
+				destination.createNewFile()
+				FileUtils.copyFile(file, destination)
+			}
+		}
+
 	}
 
 }
@@ -95,7 +123,6 @@ class AddWarProfile extends DefaultTask {
 	def addProfile() {
 		File sourceWar = new File('./server/build/libs/stapi.war')
 		File tempWar = new File('./server/build/libs/stapi-tmp.war')
-		println(sourceWar.absolutePath)
 
 		if (!sourceWar.exists()) {
 			throw new RuntimeException("No source war!")
@@ -103,7 +130,7 @@ class AddWarProfile extends DefaultTask {
 
 		String applicationPropertiesWarLocation = 'WEB-INF/classes/application.properties'
 		byte[] applicationProperties = ZipUtil.unpackEntry(sourceWar, applicationPropertiesWarLocation)
-		byte[] applicationPropertiesWithChangedProfile = replace(applicationProperties);
+		byte[] applicationPropertiesWithChangedProfile = replace(applicationProperties)
 		ZipUtil.replaceEntry(sourceWar, applicationPropertiesWarLocation, applicationPropertiesWithChangedProfile, tempWar)
 		FileUtils.forceDelete(sourceWar)
 		FileUtils.moveFile(tempWar, sourceWar)
@@ -130,8 +157,7 @@ class AddWarProfile extends DefaultTask {
 
 war {
 	archiveName = 'stapi.war'
-	dependsOn(copyDocs, npmBuild)
-	rootSpec.exclude '**/application-stapi-custom.properties'
+	dependsOn(copyResources)
 }
 
 war.doLast {
