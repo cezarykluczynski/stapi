@@ -11,7 +11,7 @@ class NoCacheCachingStrategyTest extends Specification {
 		noCacheCachingStrategy = new NoCacheCachingStrategy()
 	}
 
-	void "marks everything as cacheable"() {
+	void "marks everything as not cacheable"() {
 		given:
 		QueryBuilder queryBuilder = Mock()
 

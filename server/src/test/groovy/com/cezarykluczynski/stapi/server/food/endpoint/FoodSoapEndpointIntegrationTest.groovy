@@ -25,17 +25,17 @@ class FoodSoapEndpointIntegrationTest extends AbstractFoodEndpointIntegrationTes
 		foodFullResponse.food.name == 'Tennessee whiskey'
 	}
 
-	void "Vulcan mint is among Vulcan spices"() {
+	void "Cupcake is a dessert of earthly origin"() {
 		when:
 		FoodBaseResponse foodFullResponse = stapiSoapClient.foodPortType.getFoodBase(new FoodBaseRequest(
-				name: 'Vulcan',
-				herbOrSpice: true
+				earthlyOrigin: true,
+				dessert: true
 		))
 
 		then:
 		foodFullResponse.foods
 				.stream()
-				.anyMatch { it.name == 'Vulcan mint' }
+				.anyMatch { it.name == 'Cupcake' }
 	}
 
 }

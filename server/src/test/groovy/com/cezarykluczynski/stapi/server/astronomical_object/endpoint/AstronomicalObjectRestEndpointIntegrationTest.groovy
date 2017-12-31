@@ -25,14 +25,14 @@ class AstronomicalObjectRestEndpointIntegrationTest extends AbstractAstronomical
 		astronomicalObjectFullResponse.astronomicalObject.name == 'Omicron Ceti III'
 	}
 
-	void "finds Andoria by astronomical object type"() {
+	void "finds Tarok by astronomical object type"() {
 		when:
 		AstronomicalObjectBaseResponse astronomicalObjectResponse = stapiRestClient.astronomicalObjectApi.astronomicalObjectSearchPost(0, 20, null,
 				null, null, 'M_CLASS_MOON', null)
 
 		then:
 		astronomicalObjectResponse.astronomicalObjects.stream()
-				.anyMatch { it -> it.name == 'Andoria' }
+				.anyMatch { it -> it.name == 'Tarok' }
 	}
 
 }

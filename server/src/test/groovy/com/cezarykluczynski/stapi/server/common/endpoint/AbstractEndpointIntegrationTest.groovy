@@ -10,7 +10,7 @@ import org.springframework.test.context.TestPropertySource
 import spock.lang.Specification
 
 @SpringBootTest(
-		classes = [Application],
+		classes = [Application, IntegrationTestConfiguration],
 		webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
 @ActiveProfiles('default,stapi-custom')
@@ -29,7 +29,7 @@ abstract class AbstractEndpointIntegrationTest extends Specification {
 	protected StapiRestClient createRestClient() {
 		synchronized (lock) {
 			if (stapiRestClient == null) {
-				stapiRestClient = new StapiRestClient("http://localhost:${localServerPost}/")
+				stapiRestClient = new StapiRestClient("http://localhost:${localServerPost}/", null)
 			}
 		}
 	}
@@ -37,7 +37,7 @@ abstract class AbstractEndpointIntegrationTest extends Specification {
 	protected StapiSoapClient createSoapClient() {
 		synchronized (lock) {
 			if (stapiSoapClient == null) {
-				stapiSoapClient = new StapiSoapClient("http://localhost:${localServerPost}/")
+				stapiSoapClient = new StapiSoapClient("http://localhost:${localServerPost}/", null)
 			}
 		}
 	}
