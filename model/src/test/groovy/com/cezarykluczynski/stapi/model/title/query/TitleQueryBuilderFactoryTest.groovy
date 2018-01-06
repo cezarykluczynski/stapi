@@ -17,7 +17,7 @@ class TitleQueryBuilderFactoryTest extends Specification {
 		cachingStrategyMock = Mock()
 	}
 
-	void "TitleQueryBuilder is created"() {
+	void "TitleQueryBuilderFactory is created"() {
 		when:
 		titleQueryBuilderFactory = new TitleQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 

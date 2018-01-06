@@ -17,7 +17,7 @@ class SeasonQueryBuilderFactoryTest extends Specification {
 		cachingStrategyMock = Mock()
 	}
 
-	void "SeasonQueryBuilder is created"() {
+	void "SeasonQueryBuilderFactory is created"() {
 		when:
 		seasonQueryBuilderFactory = new SeasonQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 

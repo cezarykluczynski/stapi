@@ -17,7 +17,7 @@ class WeaponQueryBuilderFactoryTest extends Specification {
 		cachingStrategyMock = Mock()
 	}
 
-	void "WeaponQueryBuilder is created"() {
+	void "WeaponQueryBuilderFactory is created"() {
 		when:
 		weaponQueryBuilderFactory = new WeaponQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 

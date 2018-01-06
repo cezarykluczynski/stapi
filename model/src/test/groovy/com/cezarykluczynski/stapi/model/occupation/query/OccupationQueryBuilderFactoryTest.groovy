@@ -17,7 +17,7 @@ class OccupationQueryBuilderFactoryTest extends Specification {
 		cachingStrategyMock = Mock()
 	}
 
-	void "OccupationQueryBuilder is created"() {
+	void "OccupationQueryBuilderFactory is created"() {
 		when:
 		occupationQueryBuilderFactory = new OccupationQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 

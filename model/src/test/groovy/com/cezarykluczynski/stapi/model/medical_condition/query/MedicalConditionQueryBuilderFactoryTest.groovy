@@ -17,7 +17,7 @@ class MedicalConditionQueryBuilderFactoryTest extends Specification {
 		cachingStrategyMock = Mock()
 	}
 
-	void "MedicalConditionQueryBuilder is created"() {
+	void "MedicalConditionQueryBuilderFactory is created"() {
 		when:
 		medicalConditionQueryBuilderFactory = new MedicalConditionQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 

@@ -17,7 +17,7 @@ class TradingCardDeckQueryBuilderFactoryTest extends Specification {
 		cachingStrategyMock = Mock()
 	}
 
-	void "TradingCardDeckQueryBuilder is created"() {
+	void "TradingCardDeckQueryBuilderFactory is created"() {
 		when:
 		tradingCardDeckQueryBuilderFactory = new TradingCardDeckQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 

@@ -17,7 +17,7 @@ class MovieQueryBuilderFactoryTest extends Specification {
 		cachingStrategyMock = Mock()
 	}
 
-	void "MovieQueryBuilder is created"() {
+	void "MovieQueryBuilderFactory is created"() {
 		when:
 		movieQueryBuilderFactory = new MovieQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 

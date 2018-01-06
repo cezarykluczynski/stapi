@@ -17,7 +17,7 @@ class MaterialQueryBuilderFactoryTest extends Specification {
 		cachingStrategyMock = Mock()
 	}
 
-	void "MaterialQueryBuilder is created"() {
+	void "MaterialQueryBuilderFactory is created"() {
 		when:
 		materialQueryBuilderFactory = new MaterialQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 

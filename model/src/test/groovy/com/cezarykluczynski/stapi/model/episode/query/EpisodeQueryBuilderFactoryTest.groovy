@@ -17,7 +17,7 @@ class EpisodeQueryBuilderFactoryTest extends Specification {
 		cachingStrategyMock = Mock()
 	}
 
-	void "EpisodeQueryBuilder is created"() {
+	void "EpisodeQueryBuilderFactory is created"() {
 		when:
 		episodeQueryBuilderFactory = new EpisodeQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 

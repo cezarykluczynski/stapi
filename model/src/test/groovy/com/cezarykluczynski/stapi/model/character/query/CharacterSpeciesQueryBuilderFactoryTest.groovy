@@ -17,7 +17,7 @@ class CharacterSpeciesQueryBuilderFactoryTest extends Specification {
 		cachingStrategyMock = Mock()
 	}
 
-	void "CharacterSpeciesQueryBuilder is created"() {
+	void "CharacterSpeciesQueryBuilderFactory is created"() {
 		when:
 		characterSpeciesQueryBuilderFactory = new CharacterSpeciesQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 

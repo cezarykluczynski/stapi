@@ -13,7 +13,7 @@ class AccountQueryBuilderFactoryTest extends Specification {
 		jpaContextMock = Mock()
 	}
 
-	void "AccountQueryBuilder is created"() {
+	void "AccountQueryBuilderFactory is created"() {
 		when:
 		accountQueryBuilderFactory = new AccountQueryBuilderFactory(jpaContextMock)
 

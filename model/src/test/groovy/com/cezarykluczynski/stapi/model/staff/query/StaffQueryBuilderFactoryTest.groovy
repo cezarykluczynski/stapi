@@ -17,7 +17,7 @@ class StaffQueryBuilderFactoryTest extends Specification {
 		cachingStrategyMock = Mock()
 	}
 
-	void "StaffQueryBuilder is created"() {
+	void "StaffQueryBuilderFactory is created"() {
 		when:
 		staffQueryBuilderFactory = new StaffQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 

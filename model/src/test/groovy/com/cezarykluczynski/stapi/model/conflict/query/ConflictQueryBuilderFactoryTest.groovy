@@ -17,7 +17,7 @@ class ConflictQueryBuilderFactoryTest extends Specification {
 		cachingStrategyMock = Mock()
 	}
 
-	void "ConflictQueryBuilder is created"() {
+	void "ConflictQueryBuilderFactory is created"() {
 		when:
 		conflictQueryBuilderFactory = new ConflictQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 

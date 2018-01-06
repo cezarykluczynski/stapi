@@ -17,7 +17,7 @@ class MagazineQueryBuilderFactoryTest extends Specification {
 		cachingStrategyMock = Mock()
 	}
 
-	void "MagazineQueryBuilder is created"() {
+	void "MagazineQueryBuilderFactory is created"() {
 		when:
 		magazineQueryBuilderFactory = new MagazineQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 

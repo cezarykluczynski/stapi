@@ -17,7 +17,7 @@ class AstronomicalObjectQueryBuilderFactoryTest extends Specification {
 		cachingStrategyMock = Mock()
 	}
 
-	void "AstronomicalObjectQueryBuilder is created"() {
+	void "AstronomicalObjectQueryBuilderFactory is created"() {
 		when:
 		astronomicalObjectQueryBuilderFactory = new AstronomicalObjectQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 

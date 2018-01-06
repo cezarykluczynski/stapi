@@ -17,7 +17,7 @@ class OrganizationQueryBuilderFactoryTest extends Specification {
 		cachingStrategyMock = Mock()
 	}
 
-	void "OrganizationQueryBuilder is created"() {
+	void "OrganizationQueryBuilderFactory is created"() {
 		when:
 		organizationQueryBuilderFactory = new OrganizationQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 

@@ -17,7 +17,7 @@ class VideoGameQueryBuilderFactoryTest extends Specification {
 		cachingStrategyMock = Mock()
 	}
 
-	void "VideoGameQueryBuilder is created"() {
+	void "VideoGameQueryBuilderFactory is created"() {
 		when:
 		videoGameQueryBuilderFactory = new VideoGameQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 

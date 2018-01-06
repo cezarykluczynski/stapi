@@ -17,7 +17,7 @@ class LocationQueryBuilderFactoryTest extends Specification {
 		cachingStrategyMock = Mock()
 	}
 
-	void "LocationQueryBuilder is created"() {
+	void "LocationQueryBuilderFactory is created"() {
 		when:
 		locationQueryBuilderFactory = new LocationQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 

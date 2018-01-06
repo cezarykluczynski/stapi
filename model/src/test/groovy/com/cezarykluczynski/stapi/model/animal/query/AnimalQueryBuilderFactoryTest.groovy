@@ -17,7 +17,7 @@ class AnimalQueryBuilderFactoryTest extends Specification {
 		cachingStrategyMock = Mock()
 	}
 
-	void "AnimalQueryBuilder is created"() {
+	void "AnimalQueryBuilderFactory is created"() {
 		when:
 		animalQueryBuilderFactory = new AnimalQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 

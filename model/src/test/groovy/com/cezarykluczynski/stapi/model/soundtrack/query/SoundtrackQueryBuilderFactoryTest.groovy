@@ -17,7 +17,7 @@ class SoundtrackQueryBuilderFactoryTest extends Specification {
 		cachingStrategyMock = Mock()
 	}
 
-	void "SoundtrackQueryBuilder is created"() {
+	void "SoundtrackQueryBuilderFactory is created"() {
 		when:
 		soundtrackQueryBuilderFactory = new SoundtrackQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 

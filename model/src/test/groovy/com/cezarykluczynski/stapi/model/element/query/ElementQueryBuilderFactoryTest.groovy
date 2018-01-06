@@ -17,7 +17,7 @@ class ElementQueryBuilderFactoryTest extends Specification {
 		cachingStrategyMock = Mock()
 	}
 
-	void "ElementQueryBuilder is created"() {
+	void "ElementQueryBuilderFactory is created"() {
 		when:
 		elementQueryBuilderFactory = new ElementQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 

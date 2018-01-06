@@ -43,7 +43,7 @@ class AbstractQueryBuilderFactoryTest extends Specification {
 		abstractQueryBuilderFactory = new ConcreteQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 	}
 
-	void "QueryBuilder is created"() {
+	void "QueryBuilderFactory is created"() {
 		given:
 		CriteriaQuery<Series> criteriaQuery = Mock()
 		CriteriaQuery<Long> countCriteriaQuery = Mock()

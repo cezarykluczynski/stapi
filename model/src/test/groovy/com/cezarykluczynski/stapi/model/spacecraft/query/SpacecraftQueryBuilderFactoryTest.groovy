@@ -17,7 +17,7 @@ class SpacecraftQueryBuilderFactoryTest extends Specification {
 		cachingStrategyMock = Mock()
 	}
 
-	void "SpacecraftQueryBuilder is created"() {
+	void "SpacecraftQueryBuilderFactory is created"() {
 		when:
 		spacecraftQueryBuilderFactory = new SpacecraftQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 

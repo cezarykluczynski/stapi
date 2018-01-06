@@ -17,7 +17,7 @@ class TechnologyQueryBuilderFactoryTest extends Specification {
 		cachingStrategyMock = Mock()
 	}
 
-	void "TechnologyQueryBuilder is created"() {
+	void "TechnologyQueryBuilderFactory is created"() {
 		when:
 		technologyQueryBuilderFactory = new TechnologyQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 

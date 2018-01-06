@@ -17,7 +17,7 @@ class PerformerQueryBuilderFactoryTest extends Specification {
 		cachingStrategyMock = Mock()
 	}
 
-	void "PerformerQueryBuilder is created"() {
+	void "PerformerQueryBuilderFactory is created"() {
 		when:
 		performerQueryBuilderFactory = new PerformerQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 

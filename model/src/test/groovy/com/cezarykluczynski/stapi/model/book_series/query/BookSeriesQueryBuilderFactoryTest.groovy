@@ -17,7 +17,7 @@ class BookSeriesQueryBuilderFactoryTest extends Specification {
 		cachingStrategyMock = Mock()
 	}
 
-	void "BookSeriesQueryBuilder is created"() {
+	void "BookSeriesQueryBuilderFactory is created"() {
 		when:
 		bookSeriesQueryBuilderFactory = new BookSeriesQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 

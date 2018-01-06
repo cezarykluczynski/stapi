@@ -17,7 +17,7 @@ class VideoReleaseQueryBuilderFactoryTest extends Specification {
 		cachingStrategyMock = Mock()
 	}
 
-	void "VideoReleaseQueryBuilder is created"() {
+	void "VideoReleaseQueryBuilderFactory is created"() {
 		when:
 		videoReleaseQueryBuilderFactory = new VideoReleaseQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 

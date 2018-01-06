@@ -439,14 +439,14 @@ class QueryBuilderTest extends Specification {
 		1 * baseRoot.fetch(fetchSetName, JoinType.LEFT) >> fetch
 		1 * fetch.fetch(keyWithUnknownType, JoinType.LEFT)
 
-		when: 'singular and fetch attributes fetch is performed with boolean flag set to true'
+		when: 'singular and set attributes fetch is performed with boolean flag set to true'
 		queryBuilder.fetch(fetchSetName, keyWithUnknownType, true)
 
 		then: 'right methods are called'
 		1 * baseRoot.fetch(fetchSetName, JoinType.LEFT) >> fetch
 		1 * fetch.fetch(keyWithUnknownType, JoinType.LEFT)
 
-		when: 'singular and fetch attributes fetch is performed with boolean flag set to false'
+		when: 'singular and set attributes fetch is performed with boolean flag set to false'
 		queryBuilder.fetch(fetchSetName, keyWithUnknownType, false)
 
 		then: 'no fetch methods are called'

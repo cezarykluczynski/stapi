@@ -17,7 +17,7 @@ class FoodQueryBuilderFactoryTest extends Specification {
 		cachingStrategyMock = Mock()
 	}
 
-	void "FoodQueryBuilder is created"() {
+	void "FoodQueryBuilderFactory is created"() {
 		when:
 		foodQueryBuilderFactory = new FoodQueryBuilderFactory(jpaContextMock, cachingStrategyMock)
 

@@ -13,7 +13,7 @@ class ApiKeyQueryBuilderFactoryTest extends Specification {
 		jpaContextMock = Mock()
 	}
 
-	void "ApiKeyQueryBuilder is created"() {
+	void "ApiKeyQueryBuilderFactory is created"() {
 		when:
 		apiKeyQueryBuilderFactory = new ApiKeyQueryBuilderFactory(jpaContextMock)
 
