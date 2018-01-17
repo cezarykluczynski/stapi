@@ -12,6 +12,7 @@ class GitHubUserDetailsDTOFactoryTest extends Specification {
 	private static final String JSON_WITHOUT_ID = '{"login": "' + LOGIN + '"}'
 	private static final String JSON_WITHOUT_LOGIN = '{"id": ' + ID + '}'
 	private static final String JSON_WITH_ID_AND_LOGIN = '{"login": "' + LOGIN + '", "id": ' + ID + '}'
+	private static final String JSON_WITH_NULL_NAME_AND_EMAIL = '{"login": "octocat", "id": 1, "name": null, "email": null}'
 	private static final String JSON_WITH_ALL_DATA = '{"login": "octocat", "id": 1, "name": "' + NAME + '", "email": "' + EMAIL + '"}'
 
 	private GitHubUserDetailsDTOFactory gitHubUserDetailsDTOFactory
@@ -39,6 +40,17 @@ class GitHubUserDetailsDTOFactoryTest extends Specification {
 	void "creates GitHubUserDetailsDTO with only id and login"() {
 		when:
 		GitHubUserDetailsDTO gitHubUserDetailsDTO = gitHubUserDetailsDTOFactory.create(JSON_WITH_ID_AND_LOGIN)
+
+		then:
+		gitHubUserDetailsDTO.login == LOGIN
+		gitHubUserDetailsDTO.id == ID
+		gitHubUserDetailsDTO.name == null
+		gitHubUserDetailsDTO.email == null
+	}
+
+	void "creates GitHubUserDetailsDTO with null name and e-mail"() {
+		when:
+		GitHubUserDetailsDTO gitHubUserDetailsDTO = gitHubUserDetailsDTOFactory.create(JSON_WITH_NULL_NAME_AND_EMAIL)
 
 		then:
 		gitHubUserDetailsDTO.login == LOGIN

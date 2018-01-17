@@ -16,13 +16,21 @@ public class GitHubUserDetailsDTOFactory {
 	GitHubUserDetailsDTO create(String userResponseBody) {
 		JSONObject userResponseJson = new JSONObject(userResponseBody);
 		GitHubUserDetailsDTO gitHubUserDetailsDTO = new GitHubUserDetailsDTO();
-		gitHubUserDetailsDTO.setLogin(userResponseJson.has(KEY_LOGIN) ? userResponseJson.getString(KEY_LOGIN) : null);
-		gitHubUserDetailsDTO.setId(userResponseJson.has(KEY_ID) ? userResponseJson.getLong(KEY_ID) : null);
-		gitHubUserDetailsDTO.setName(userResponseJson.has(KEY_NAME) ? userResponseJson.getString(KEY_NAME) : null);
-		gitHubUserDetailsDTO.setEmail(userResponseJson.has(KEY_EMAIL) ? userResponseJson.getString(KEY_EMAIL) : null);
+		gitHubUserDetailsDTO.setLogin(getString(userResponseJson, KEY_LOGIN));
+		gitHubUserDetailsDTO.setId(getLong(userResponseJson, KEY_ID));
+		gitHubUserDetailsDTO.setName(getString(userResponseJson, KEY_NAME));
+		gitHubUserDetailsDTO.setEmail(getString(userResponseJson, KEY_EMAIL));
 		Preconditions.checkNotNull(gitHubUserDetailsDTO.getLogin(), "Login cannot be null");
 		Preconditions.checkNotNull(gitHubUserDetailsDTO.getId(), "ID cannot be null");
 		return gitHubUserDetailsDTO;
+	}
+
+	private String getString(JSONObject userResponseJson, String key) {
+		return userResponseJson.has(key) && !userResponseJson.isNull(key) ? userResponseJson.getString(key) : null;
+	}
+
+	private Long getLong(JSONObject userResponseJson, String key) {
+		return userResponseJson.has(key) && !userResponseJson.isNull(key) ? userResponseJson.getLong(key) : null;
 	}
 
 }
