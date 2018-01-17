@@ -10,9 +10,7 @@
 			<column name="name" type="varchar(128)">
 				<constraints nullable="false"/>
 			</column>
-			<column name="email" type="varchar(128)">
-				<constraints nullable="false"/>
-			</column>
+			<column name="email" type="varchar(128)"/>
 			<column name="github_user_id" type="bigint">
 				<constraints unique="true"/>
 			</column>
