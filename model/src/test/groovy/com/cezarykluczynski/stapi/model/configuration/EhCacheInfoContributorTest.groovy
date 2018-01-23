@@ -101,9 +101,9 @@ class EhCacheInfoContributorTest extends Specification {
 
 		and:
 		Info info = builder.build()
-		info.getDetails().get('ehcache') != null
-		((Map) info.getDetails().get('ehcache')).get(CACHE_KEY_1) == MAGAZINE_STATISTICS_SUMMARY
-		((Map) info.getDetails().get('ehcache')).get(CACHE_KEY_2) == BOOK_COLLECTION_STATISTICS_SUMMARY
+		info.details.get('ehcache') != null
+		((Map) info.details.get('ehcache')).get(CACHE_KEY_1) == MAGAZINE_STATISTICS_SUMMARY
+		((Map) info.details.get('ehcache')).get(CACHE_KEY_2) == BOOK_COLLECTION_STATISTICS_SUMMARY
 	}
 
 }

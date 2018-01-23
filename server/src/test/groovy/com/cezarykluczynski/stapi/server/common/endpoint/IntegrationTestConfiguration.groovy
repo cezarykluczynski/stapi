@@ -12,15 +12,15 @@ class IntegrationTestConfiguration extends Specification {
 
 	@Bean
 	OAuthSessionHolder oAuthSessionHolder() {
-		return Mock(OAuthSessionHolder)
+		Mock(OAuthSessionHolder)
 	}
 
 	@Bean
 	FilterRegistrationBean filterRegistrationBean() {
 		FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean()
 		filterRegistrationBean.setFilter(new RequestContextFilter())
-		filterRegistrationBean.addUrlPatterns("*")
-		return filterRegistrationBean
+		filterRegistrationBean.addUrlPatterns('*')
+		filterRegistrationBean
 	}
 
 }

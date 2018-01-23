@@ -61,7 +61,6 @@ class SeriesTemplatePageProcessorTest extends Specification {
 		seriesTemplate == null
 	}
 
-
 	void "missing template results in null SeriesTemplate"() {
 		given:
 		Page page = new Page()

@@ -48,7 +48,7 @@ class ActorTemplatePageProcessorTest extends Specification {
 		then:
 		1 * actorPageFilterMock.shouldBeFilteredOut(pageMock) >> false
 		1 * actorTemplateSinglePageProcessorMock.process(pageMock) >> actorTemplate
-		0 *_
+		0 * _
 		actorTemplateOutput == actorTemplate
 	}
 

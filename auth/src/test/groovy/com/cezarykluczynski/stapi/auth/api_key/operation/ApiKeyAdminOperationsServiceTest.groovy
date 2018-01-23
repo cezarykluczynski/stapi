@@ -7,7 +7,6 @@ import spock.lang.Specification
 
 class ApiKeyAdminOperationsServiceTest extends Specification {
 
-	private static final int PAGE_NUMBER = 4
 	private static final Long ACCOUNT_ID = 123
 	private static final Long API_KEY_ID = 456
 

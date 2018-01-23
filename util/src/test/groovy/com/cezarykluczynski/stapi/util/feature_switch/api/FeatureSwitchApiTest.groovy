@@ -32,7 +32,7 @@ class FeatureSwitchApiTest extends Specification {
 		FeatureSwitchesDTO featureSwitchesDTO = featureSwitchApi.all
 
 		then:
-		1 * featureSwitchPropertiesMock.getFeatureSwitch() >> ImmutableMap.of(KEY, FEATURE_SWITCH_VALUE)
+		1 * featureSwitchPropertiesMock.featureSwitch >> ImmutableMap.of(KEY, FEATURE_SWITCH_VALUE)
 		1 * featureSwitchTypePropertiesMapperMock.map(KEY) >> ENUM_VALUE
 		0 * _
 		featureSwitchesDTO.featureSwitches.size() == 1
@@ -45,7 +45,7 @@ class FeatureSwitchApiTest extends Specification {
 		boolean isEnabled = featureSwitchApi.isEnabled(ENUM_VALUE)
 
 		then:
-		1 * featureSwitchPropertiesMock.getFeatureSwitch() >> ImmutableMap.of(KEY, true)
+		1 * featureSwitchPropertiesMock.featureSwitch >> ImmutableMap.of(KEY, true)
 		1 * featureSwitchTypePropertiesMapperMock.map(KEY) >> ENUM_VALUE
 		0 * _
 		isEnabled
@@ -56,7 +56,7 @@ class FeatureSwitchApiTest extends Specification {
 		boolean isEnabled = featureSwitchApi.isEnabled(ENUM_VALUE)
 
 		then:
-		1 * featureSwitchPropertiesMock.getFeatureSwitch() >> ImmutableMap.of(KEY, false)
+		1 * featureSwitchPropertiesMock.featureSwitch >> ImmutableMap.of(KEY, false)
 		1 * featureSwitchTypePropertiesMapperMock.map(KEY) >> ENUM_VALUE
 		0 * _
 		!isEnabled
@@ -67,7 +67,7 @@ class FeatureSwitchApiTest extends Specification {
 		featureSwitchApi.isEnabled(ENUM_VALUE)
 
 		then:
-		1 * featureSwitchPropertiesMock.getFeatureSwitch() >> ImmutableMap.of()
+		1 * featureSwitchPropertiesMock.featureSwitch >> ImmutableMap.of()
 		0 * _
 		thrown(StapiRuntimeException)
 	}

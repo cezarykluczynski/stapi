@@ -53,7 +53,7 @@ class ModelConfigurationTest extends Specification {
 
 		then:
 		1 * applicationContextMock.getBeanNamesForType(*_) >> new String[0]
-		1 * applicationContextMock.getParentBeanFactory() >> null
+		1 * applicationContextMock.parentBeanFactory >> null
 		0 * _
 		repositories != null
 	}

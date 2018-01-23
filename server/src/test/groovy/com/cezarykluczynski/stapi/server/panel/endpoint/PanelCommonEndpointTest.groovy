@@ -41,7 +41,7 @@ class PanelCommonEndpointTest extends Specification {
 		FeatureSwitchesDTO featureSwitchesDTOOutput = panelCommonEndpoint.featureSwitches()
 
 		then:
-		1 * featureSwitchApiMock.getAll() >> featureSwitchesDTO
+		1 * featureSwitchApiMock.all >> featureSwitchesDTO
 		0 * _
 		featureSwitchesDTOOutput == featureSwitchesDTO
 	}
