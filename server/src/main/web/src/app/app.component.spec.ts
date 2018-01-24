@@ -35,14 +35,6 @@ describe('AppComponent', () => {
 		expect(app).toBeTruthy();
 	}));
 
-	it('returns GitHub star button', async(() => {
-		const fixture = TestBed.createComponent(AppComponent);
-		const gitHubButtonHtml = fixture.componentInstance.getGitHubStar()['changingThisBreaksApplicationSecurity'];
-
-		expect(gitHubButtonHtml).toContain('cezarykluczynski');
-		expect(gitHubButtonHtml).toContain('stapi');
-	}));
-
 	it('tells whether panel is enabled', async(() => {
 		const fixture = TestBed.createComponent(AppComponent);
 
