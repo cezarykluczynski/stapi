@@ -18,4 +18,20 @@ class WebAppControllerTest extends Specification {
 		templateName == 'index'
 	}
 
+	void "returns terms of service template name"() {
+		when:
+		String templateName = webAppController.termsOfService()
+
+		then:
+		templateName == 'termsOfService'
+	}
+
+	void "returns privacy policy template name"() {
+		when:
+		String templateName = webAppController.privacyPolicy()
+
+		then:
+		templateName == 'privacyPolicy'
+	}
+
 }

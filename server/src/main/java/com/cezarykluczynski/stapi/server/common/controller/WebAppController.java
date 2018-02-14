@@ -11,6 +11,16 @@ public class WebAppController {
 		return "index";
 	}
 
+	@RequestMapping({"/terms-of-service"})
+	public String termsOfService() {
+		return "termsOfService";
+	}
+
+	@RequestMapping({"/privacy-policy"})
+	public String privacyPolicy() {
+		return "privacyPolicy";
+	}
+
 }
 
 
