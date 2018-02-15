@@ -12,7 +12,7 @@
 		"test-once-cov": "ng test --watch=false --sourcemaps=false --code-coverage --reporters=coverage-istanbul,progress,kjhtml",
 		"lint": "ng lint",
 		"e2e": "ng e2e",
-		"build-prod": "grunt clean && ng build --target=production --environment=prod && grunt copy",
+		"build-prod": "grunt clean && ng build --target=production --environment=prod --build-optimizer=false && grunt copy",
 		"install-build": "npm install && npm run build-prod"
 	},
 	"private": true,
@@ -43,6 +43,7 @@
 	},
 	"devDependencies": {
 		"@angular/cli": "1.6.5",
+		"@angular-devkit/core": "0.3.1",
 		"@angular/compiler-cli": "5.2.0",
 		"@angular/language-service": "5.2.0",
 		"@types/jasmine": "2.5.53",

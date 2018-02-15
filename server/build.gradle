@@ -58,8 +58,8 @@ task npmBuild(type: NpmRunBuild) << {}
 copyResources {
 	dependsOn(copyDocs)
 }
-copyDocs {
-	dependsOn(npmBuild)
+npmBuild {
+	dependsOn(copyDocs)
 }
 
 class NpmRunBuild extends DefaultTask {
@@ -157,7 +157,7 @@ class AddWarProfile extends DefaultTask {
 
 war {
 	archiveName = 'stapi.war'
-	dependsOn(copyResources)
+	dependsOn(npmBuild)
 }
 
 war.doLast {
