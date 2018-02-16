@@ -9,6 +9,7 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PanelComponent } from './panel/panel.component';
 import { ApiOverviewComponent } from './api-overview/api-overview.component';
+import { LegalComponent } from './legal/legal.component';
 
 export const APP_ROUTES: Routes = [
 	{
@@ -42,6 +43,14 @@ export const APP_ROUTES: Routes = [
 	{
 		path: 'api-overview',
 		component: ApiOverviewComponent
+	},
+	{
+		path: 'privacy-policy',
+		component: LegalComponent
+	},
+	{
+		path: 'terms-of-service',
+		component: LegalComponent
 	},
 	{
 		path: '**',

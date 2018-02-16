@@ -18,7 +18,7 @@ module.exports = function(grunt) {
 	}
 
 	function wrapLegal(content) {
-		return '<app-root></app-root><script>document.write("<style>.legal {display: none}</style>");</script><div class="legal">' + content + '</div>';
+		return '<app-root></app-root><script>document.write("<style>.legal-holder {display: none}</style>");</script><div class="legal-holder">' + content + '</div>';
 	}
 
 	grunt.initConfig({

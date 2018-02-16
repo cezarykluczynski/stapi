@@ -43,6 +43,7 @@ import { PanelAdminManagementApi } from './panel/admin-management/panel-admin-ma
 import { PanelAdminApiKeysComponent } from './panel/admin-management/panel-admin-api-keys/panel-admin-api-keys.component';
 import { PanelAdminAccountsComponent } from './panel/admin-management/panel-admin-accounts/panel-admin-accounts.component';
 import { ApiOverviewComponent } from './api-overview/api-overview.component';
+import { LegalComponent } from './legal/legal.component';
 import { FeatureSwitchApi } from './feature-switch/feature-switch-api.service';
 import { APP_ROUTES } from './app.routes';
 
@@ -68,7 +69,8 @@ export function initConfiguration(initializerService: InitializerService): Funct
 		PanelAccountSettingsComponent,
 		PanelAdminApiKeysComponent,
 		PanelAdminAccountsComponent,
-		ApiOverviewComponent
+		ApiOverviewComponent,
+		LegalComponent
 	],
 	imports: [
 		RouterModule.forRoot(APP_ROUTES),
