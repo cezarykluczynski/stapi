@@ -26,7 +26,7 @@ module.exports = function(grunt) {
 			options: {
 				force: true
 			},
-			build: ['dist', '../resources/build', '../../../build/resources/main'],
+			build: ['dist', '../resources/build', '../../../build/resources/main', '../../../out/production/resources/build'],
 		},
 		copy: {
 			main: {
