@@ -43,8 +43,17 @@
 					<p>
 						If you already logged in to STAPI, authenticate again to get access to your account.
 					</p>
-					<p><button class="panel-github-authenticate btn btn-success btn-md" (click)="redirectToOAuth()"
-						[disabled]="this.isRedirecting()" role="button">{{getButtonLabel()}}</button></p>
+					<br>
+					<p>
+						<label><input type="checkbox" name="hasLegalConsents" (change)="consentChange($event)" class="legal-consents-checkbox">
+							I agree to the <a routerLink="terms-of-service">Terms of Service</a> and <a routerLink="privacy-policy">Privacy Policy</a>.
+						</label>
+					</p>
+					<br>
+					<p>
+						<button class="panel-github-authenticate btn btn-success btn-md" (click)="redirectToOAuth()"
+						[disabled]="buttonIsDisabled()" role="button">{{getButtonLabel()}}</button>
+					</p>
 				</div>
 			</div>
 		</div>

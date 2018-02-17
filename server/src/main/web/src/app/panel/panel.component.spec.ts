@@ -191,9 +191,9 @@ describe('PanelComponent', () => {
 			expect(component.isAuthenticationRequired()).toBeFalse();
 			expect(component.isRedirecting()).toBeFalse();
 			expect(component.getButtonLabel()).toBe('Authenticate with GitHub');
+			expect(component.buttonIsDisabled()).toBeTrue();
 
 			api.on.calls.argsFor(0)[1](error);
-
 			fixture.detectChanges();
 
 			fixture.whenStable().then(() => {
@@ -201,17 +201,26 @@ describe('PanelComponent', () => {
 				expect(component.isAuthenticationRequired()).toBeTrue();
 				expect(component.isRedirecting()).toBeFalse();
 				expect(component.getButtonLabel()).toBe('Authenticate with GitHub');
-				fixture.detectChanges();
+				expect(component.buttonIsDisabled()).toBeTrue();
 
-				fixture.debugElement.query(By.css('.panel-github-authenticate')).nativeElement.click();
+				fixture.debugElement.query(By.css('input.legal-consents-checkbox')).nativeElement.click();
+				fixture.detectChanges();
 
 				fixture.whenStable().then(() => {
 					expect(component.getName()).toBe('stranger');
-					expect(window.location.href).toBe(URL);
-					expect(component.isAuthenticated()).toBeFalse();
-					expect(component.isAuthenticationRequired()).toBeTrue();
-					expect(component.isRedirecting()).toBeTrue();
-					expect(component.getButtonLabel()).toBe('Redirecting to GitHub...');
+					expect(component.buttonIsDisabled()).toBeFalse();
+
+					fixture.debugElement.query(By.css('.panel-github-authenticate')).nativeElement.click();
+					fixture.detectChanges();
+
+					fixture.whenStable().then(() => {
+						expect(window.location.href).toBe(URL);
+						expect(component.isAuthenticated()).toBeFalse();
+						expect(component.isAuthenticationRequired()).toBeTrue();
+						expect(component.buttonIsDisabled()).toBeTrue();
+						expect(component.isRedirecting()).toBeTrue();
+						expect(component.getButtonLabel()).toBe('Redirecting to GitHub...');
+					});
 				});
 			});
 		});

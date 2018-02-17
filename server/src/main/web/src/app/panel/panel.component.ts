@@ -33,6 +33,7 @@ export class PanelComponent implements OnInit {
 	private authenticated: boolean = false;
 	private redirecting: boolean = false;
 	private authenticationRequired: boolean = false;
+	private hasLegalConsents: boolean = false;
 	private activeView: PanelView = PanelView.API_KEYS;
 	private basicData: any;
 
@@ -68,8 +69,17 @@ export class PanelComponent implements OnInit {
 		return this.basicData ? this.basicData.name : 'stranger';
 	}
 
+	buttonIsDisabled() {
+		console.log('buttonIsDisabled', this.hasLegalConsents, this.isRedirecting());
+		return !this.hasLegalConsents || this.isRedirecting();
+	}
+
 	getButtonLabel() {
 		return this.isRedirecting() ? 'Redirecting to GitHub...' : 'Authenticate with GitHub';
+	}
+
+	consentChange(event) {
+		this.hasLegalConsents = event.target.checked;
 	}
 
 	isRedirecting() {
