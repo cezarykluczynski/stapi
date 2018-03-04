@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.server.common.throttle
 
+import com.cezarykluczynski.stapi.model.configuration.ThrottleProperties
 import com.cezarykluczynski.stapi.model.throttle.dto.ThrottleStatistics
 import com.cezarykluczynski.stapi.model.throttle.repository.ThrottleRepository
 import com.cezarykluczynski.stapi.server.common.throttle.credential.RequestCredential
@@ -12,6 +13,8 @@ class ThrottleValidatorTest extends Specification {
 
 	private static final String IP_ADDRESS = 'IP_ADDRESS'
 	private static final String API_KEY = 'API_KEY'
+
+	private ThrottleProperties throttlePropertiesMock
 
 	private RequestCredentialProvider requestCredentialProviderMock
 
@@ -26,16 +29,33 @@ class ThrottleValidatorTest extends Specification {
 	private ThrottleValidator throttleValidator
 
 	void setup() {
+		throttlePropertiesMock = Mock()
 		requestCredentialProviderMock = Mock()
 		frequentRequestsValidatorMock = Mock()
 		throttleQualifyingServiceMock = Mock()
 		throttleRepositoryMock = Mock()
 		requestSpecificThrottleStatisticsMock = Mock()
-		throttleValidator = new ThrottleValidator(requestCredentialProviderMock, frequentRequestsValidatorMock, throttleQualifyingServiceMock,
-				throttleRepositoryMock, requestSpecificThrottleStatisticsMock)
+		throttleValidator = new ThrottleValidator(throttlePropertiesMock, requestCredentialProviderMock, frequentRequestsValidatorMock,
+				throttleQualifyingServiceMock, throttleRepositoryMock, requestSpecificThrottleStatisticsMock)
 	}
 
-	void "when there is too much requests and, returns throttled result"() {
+	void "when throttling is disabled, returns not throttled result"() {
+		given:
+		Message message = Mock()
+
+		when:
+		ThrottleResult throttleResult = throttleValidator.validate(message)
+
+		then:
+		1 * throttlePropertiesMock.isValidateFrequentRequests() >> false
+		1 * throttlePropertiesMock.isThrottleIpAddresses() >> false
+		1 * throttlePropertiesMock.isThrottleApiKey() >> false
+		0 * _
+		!throttleResult.throttle
+		throttleResult.throttleReason == null
+	}
+
+	void "when there is too much requests and there is too much requests in a given period, returns throttled result"() {
 		given:
 		RequestCredential requestCredential = new RequestCredential(
 				requestCredentialType: RequestCredentialType.IP_ADDRESS,
@@ -46,6 +66,9 @@ class ThrottleValidatorTest extends Specification {
 		ThrottleResult throttleResult = throttleValidator.validate(message)
 
 		then:
+		1 * throttlePropertiesMock.isValidateFrequentRequests() >> true
+		1 * throttlePropertiesMock.isThrottleIpAddresses() >> false
+		1 * throttlePropertiesMock.isThrottleApiKey() >> false
 		1 * requestCredentialProviderMock.provideRequestCredential(message) >> requestCredential
 		1 * frequentRequestsValidatorMock.validate(requestCredential) >> ThrottleResult.TOO_SHORT_INTERVAL_BETWEEN_REQUESTS
 		0 * _
@@ -64,6 +87,9 @@ class ThrottleValidatorTest extends Specification {
 		ThrottleResult throttleResult = throttleValidator.validate(message)
 
 		then:
+		1 * throttlePropertiesMock.isValidateFrequentRequests() >> true
+		1 * throttlePropertiesMock.isThrottleIpAddresses() >> true
+		1 * throttlePropertiesMock.isThrottleApiKey() >> true
 		1 * requestCredentialProviderMock.provideRequestCredential(message) >> requestCredential
 		1 * frequentRequestsValidatorMock.validate(requestCredential) >> ThrottleResult.NOT_THROTTLED
 		1 * throttleQualifyingServiceMock.isQualifiedForThrottle() >> false
@@ -84,6 +110,9 @@ class ThrottleValidatorTest extends Specification {
 		ThrottleResult throttleResult = throttleValidator.validate(message)
 
 		then:
+		1 * throttlePropertiesMock.isValidateFrequentRequests() >> true
+		1 * throttlePropertiesMock.isThrottleIpAddresses() >> true
+		1 * throttlePropertiesMock.isThrottleApiKey() >> true
 		1 * requestCredentialProviderMock.provideRequestCredential(message) >> requestCredential
 		1 * frequentRequestsValidatorMock.validate(requestCredential) >> ThrottleResult.NOT_THROTTLED
 		1 * throttleQualifyingServiceMock.isQualifiedForThrottle() >> true
@@ -107,12 +136,37 @@ class ThrottleValidatorTest extends Specification {
 		ThrottleResult throttleResult = throttleValidator.validate(message)
 
 		then:
+		1 * throttlePropertiesMock.isValidateFrequentRequests() >> true
+		1 * throttlePropertiesMock.isThrottleIpAddresses() >> true
+		1 * throttlePropertiesMock.isThrottleApiKey() >> true
 		1 * requestCredentialProviderMock.provideRequestCredential(message) >> requestCredential
 		1 * frequentRequestsValidatorMock.validate(requestCredential) >> ThrottleResult.NOT_THROTTLED
 		1 * throttleQualifyingServiceMock.isQualifiedForThrottle() >> true
 		1 * throttleRepositoryMock.decrementByIpAndGetStatistics(IP_ADDRESS) >> throttleStatistics
 		1 * requestSpecificThrottleStatisticsMock.setThrottleStatistics(throttleStatistics)
 		1 * throttleStatistics.decremented >> true
+		0 * _
+		!throttleResult.throttle
+		throttleResult.throttleReason == null
+	}
+
+	void "when requests is qualified for throttle, but throttle for IP id disabled, returns not throttled result"() {
+		given:
+		RequestCredential requestCredential = new RequestCredential(
+				requestCredentialType: RequestCredentialType.IP_ADDRESS,
+				ipAddress: IP_ADDRESS)
+		Message message = Mock()
+
+		when:
+		ThrottleResult throttleResult = throttleValidator.validate(message)
+
+		then:
+		1 * throttlePropertiesMock.isValidateFrequentRequests() >> true
+		1 * throttlePropertiesMock.isThrottleIpAddresses() >> false
+		1 * throttlePropertiesMock.isThrottleApiKey() >> true
+		1 * requestCredentialProviderMock.provideRequestCredential(message) >> requestCredential
+		1 * frequentRequestsValidatorMock.validate(requestCredential) >> ThrottleResult.NOT_THROTTLED
+		1 * throttleQualifyingServiceMock.isQualifiedForThrottle() >> true
 		0 * _
 		!throttleResult.throttle
 		throttleResult.throttleReason == null
@@ -131,6 +185,9 @@ class ThrottleValidatorTest extends Specification {
 		ThrottleResult throttleResult = throttleValidator.validate(message)
 
 		then:
+		1 * throttlePropertiesMock.isValidateFrequentRequests() >> true
+		1 * throttlePropertiesMock.isThrottleIpAddresses() >> true
+		1 * throttlePropertiesMock.isThrottleApiKey() >> true
 		1 * requestCredentialProviderMock.provideRequestCredential(message) >> requestCredential
 		1 * frequentRequestsValidatorMock.validate(requestCredential) >> ThrottleResult.NOT_THROTTLED
 		1 * throttleQualifyingServiceMock.isQualifiedForThrottle() >> true
@@ -155,12 +212,38 @@ class ThrottleValidatorTest extends Specification {
 		ThrottleResult throttleResult = throttleValidator.validate(message)
 
 		then:
+		1 * throttlePropertiesMock.isValidateFrequentRequests() >> true
+		1 * throttlePropertiesMock.isThrottleIpAddresses() >> true
+		1 * throttlePropertiesMock.isThrottleApiKey() >> true
 		1 * requestCredentialProviderMock.provideRequestCredential(message) >> requestCredential
 		1 * frequentRequestsValidatorMock.validate(requestCredential) >> ThrottleResult.NOT_THROTTLED
 		1 * throttleQualifyingServiceMock.isQualifiedForThrottle() >> true
 		1 * throttleRepositoryMock.decrementByApiKeyAndGetStatistics(API_KEY, IP_ADDRESS) >> throttleStatistics
 		1 * requestSpecificThrottleStatisticsMock.setThrottleStatistics(throttleStatistics)
 		1 * throttleStatistics.decremented >> true
+		0 * _
+		!throttleResult.throttle
+		throttleResult.throttleReason == null
+	}
+
+	void "when requests is qualified for throttle, but throttle for API key id disabled, returns not throttled result"() {
+		given:
+		RequestCredential requestCredential = new RequestCredential(
+				requestCredentialType: RequestCredentialType.API_KEY,
+				ipAddress: IP_ADDRESS,
+				apiKey: API_KEY)
+		Message message = Mock()
+
+		when:
+		ThrottleResult throttleResult = throttleValidator.validate(message)
+
+		then:
+		1 * throttlePropertiesMock.isValidateFrequentRequests() >> true
+		1 * throttlePropertiesMock.isThrottleIpAddresses() >> true
+		1 * throttlePropertiesMock.isThrottleApiKey() >> false
+		1 * requestCredentialProviderMock.provideRequestCredential(message) >> requestCredential
+		1 * frequentRequestsValidatorMock.validate(requestCredential) >> ThrottleResult.NOT_THROTTLED
+		1 * throttleQualifyingServiceMock.isQualifiedForThrottle() >> true
 		0 * _
 		!throttleResult.throttle
 		throttleResult.throttleReason == null

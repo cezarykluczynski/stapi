@@ -9,6 +9,12 @@ public class ThrottleProperties {
 
 	public static final String PREFIX = "throttle";
 
+	private boolean validateFrequentRequests;
+
+	private boolean throttleIpAddresses;
+
+	private boolean throttleApiKey;
+
 	private Integer ipAddressHourlyLimit;
 
 	private Integer minutesToDeleteExpiredIpAddresses;

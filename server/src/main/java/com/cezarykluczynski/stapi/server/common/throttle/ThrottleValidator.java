@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.server.common.throttle;
 
+import com.cezarykluczynski.stapi.model.configuration.ThrottleProperties;
 import com.cezarykluczynski.stapi.model.throttle.dto.ThrottleStatistics;
 import com.cezarykluczynski.stapi.model.throttle.repository.ThrottleRepository;
 import com.cezarykluczynski.stapi.server.common.throttle.credential.RequestCredential;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Service;
 @Profile(SpringProfile.API_THROTTLE)
 public class ThrottleValidator {
 
+	private final ThrottleProperties throttleProperties;
+
 	private final RequestCredentialProvider requestCredentialProvider;
 
 	private final FrequentRequestsValidator frequentRequestsValidator;
@@ -25,9 +28,10 @@ public class ThrottleValidator {
 
 	private final RequestSpecificThrottleStatistics requestSpecificThrottleStatistics;
 
-	public ThrottleValidator(RequestCredentialProvider requestCredentialProvider, FrequentRequestsValidator frequentRequestsValidator,
-			ThrottleQualifyingService throttleQualifyingService, ThrottleRepository throttleRepository,
-			RequestSpecificThrottleStatistics requestSpecificThrottleStatistics) {
+	public ThrottleValidator(ThrottleProperties throttleProperties, RequestCredentialProvider requestCredentialProvider,
+			FrequentRequestsValidator frequentRequestsValidator, ThrottleQualifyingService throttleQualifyingService,
+			ThrottleRepository throttleRepository, RequestSpecificThrottleStatistics requestSpecificThrottleStatistics) {
+		this.throttleProperties = throttleProperties;
 		this.requestCredentialProvider = requestCredentialProvider;
 		this.frequentRequestsValidator = frequentRequestsValidator;
 		this.throttleQualifyingService = throttleQualifyingService;
@@ -36,24 +40,35 @@ public class ThrottleValidator {
 	}
 
 	ThrottleResult validate(Message message) {
-		RequestCredential requestCredential = requestCredentialProvider.provideRequestCredential(message);
-		ThrottleResult tooMuchThrottleResult = frequentRequestsValidator.validate(requestCredential);
+		boolean validateFrequentRequests = throttleProperties.isValidateFrequentRequests();
+		boolean throttleIpAddresses = throttleProperties.isThrottleIpAddresses();
+		boolean throttleApiKey = throttleProperties.isThrottleApiKey();
 
-		if (Boolean.TRUE.equals(tooMuchThrottleResult.getThrottle())) {
-			return tooMuchThrottleResult;
-		} else if (throttleQualifyingService.isQualifiedForThrottle()) {
-			RequestCredentialType requestCredentialType = requestCredential.getRequestCredentialType();
-			if (RequestCredentialType.IP_ADDRESS.equals(requestCredentialType)) {
-				return validateByIp(requestCredential);
-			} else if (RequestCredentialType.API_KEY.equals(requestCredentialType)) {
-				return validateByApiKey(requestCredential);
-			} else {
-				throw new StapiRuntimeException(String.format("Validation not implemented for RequestCredentialType %s", requestCredentialType));
-			}
-		} else {
+		if (!validateFrequentRequests && !throttleIpAddresses && !throttleApiKey) {
 			return ThrottleResult.NOT_THROTTLED;
 		}
 
+		RequestCredential requestCredential = requestCredentialProvider.provideRequestCredential(message);
+		ThrottleResult tooMuchThrottleResult = frequentRequestsValidator.validate(requestCredential);
+
+		if (validateFrequentRequests && Boolean.TRUE.equals(tooMuchThrottleResult.getThrottle())) {
+			return tooMuchThrottleResult;
+		} else if ((throttleIpAddresses || throttleApiKey) && throttleQualifyingService.isQualifiedForThrottle()) {
+			RequestCredentialType requestCredentialType = requestCredential.getRequestCredentialType();
+			if (RequestCredentialType.IP_ADDRESS.equals(requestCredentialType)) {
+				if (throttleIpAddresses) {
+					return validateByIp(requestCredential);
+				}
+			} else if (RequestCredentialType.API_KEY.equals(requestCredentialType)) {
+				if (throttleApiKey) {
+					return validateByApiKey(requestCredential);
+				}
+			} else {
+				throw new StapiRuntimeException(String.format("Validation not implemented for RequestCredentialType %s", requestCredentialType));
+			}
+		}
+
+		return ThrottleResult.NOT_THROTTLED;
 	}
 
 	private ThrottleResult validateByIp(RequestCredential requestCredential) {
