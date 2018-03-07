@@ -5,6 +5,7 @@ import { RestApiService } from '../rest-api/rest-api.service';
 import { PanelApi } from './panel-api.service';
 import { WindowReferenceService } from '../window-reference/window-reference.service';
 import { PanelApiKeysComponent } from './api-keys/panel-api-keys.component';
+import { FeatureSwitchApi } from '../feature-switch/feature-switch-api.service';
 
 enum PanelView {
 	API_KEYS,
@@ -28,6 +29,8 @@ export class PanelComponent implements OnInit {
 	private panelApi: PanelApi;
 	private windowReferenceService: WindowReferenceService;
 	private restApiService: RestApiService;
+	private featureSwitchApi: FeatureSwitchApi;
+	private router: Router;
 	private name: string;
 	private permissions: Set<ApplicationPermission>;
 	private authenticated: boolean = false;
@@ -37,13 +40,21 @@ export class PanelComponent implements OnInit {
 	private activeView: PanelView = PanelView.API_KEYS;
 	private basicData: any;
 
-	constructor(panelApi: PanelApi, windowReferenceService: WindowReferenceService, restApiService: RestApiService) {
+	constructor(panelApi: PanelApi, windowReferenceService: WindowReferenceService, restApiService: RestApiService,
+			featureSwitchApi: FeatureSwitchApi, router: Router) {
 		this.panelApi = panelApi;
 		this.windowReferenceService = windowReferenceService;
 		this.restApiService = restApiService;
+		this.featureSwitchApi = featureSwitchApi;
+		this.router = router;
 	}
 
 	ngOnInit() {
+		if (!this.featureSwitchApi.isEnabled('USER_PANEL') && !this.featureSwitchApi.isEnabled('ADMIN_PANEL')) {
+			this.router.navigate(['/']);
+			return;
+		}
+
 		this.restApiService.getApi().on('error', (error) => {
 			if (error.status === 403) {
 				this.authenticated = false;
@@ -70,7 +81,6 @@ export class PanelComponent implements OnInit {
 	}
 
 	buttonIsDisabled() {
-		console.log('buttonIsDisabled', this.hasLegalConsents, this.isRedirecting());
 		return !this.hasLegalConsents || this.isRedirecting();
 	}
 

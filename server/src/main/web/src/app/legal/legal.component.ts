@@ -12,7 +12,6 @@ export class LegalComponent implements OnInit {
 	constructor() {}
 
 	ngOnInit() {
-		console.log('init');
 		$('.legal-holder').appendTo($('.legal-wrapper'));
 	}
 

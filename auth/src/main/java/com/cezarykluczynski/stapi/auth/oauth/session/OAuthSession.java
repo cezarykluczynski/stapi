@@ -21,7 +21,7 @@ public class OAuthSession {
 		copy.setAccountId(accountId);
 		copy.setGitHubId(gitHubId);
 		copy.setGitHubName(gitHubName);
-		copy.setPermissions(Lists.newArrayList(permissions));
+		copy.getPermissions().addAll(permissions);
 		return copy;
 	}
 

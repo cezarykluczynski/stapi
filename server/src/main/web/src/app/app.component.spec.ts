@@ -38,11 +38,16 @@ describe('AppComponent', () => {
 	it('tells whether panel is enabled', async(() => {
 		const fixture = TestBed.createComponent(AppComponent);
 
-		spyOn(featureSwitchApiMock, 'isEnabled').and.returnValue(true);
+		let isEnabled: jasmine.Spy = spyOn(featureSwitchApiMock, 'isEnabled');
+
+		isEnabled.and.callFake((featureSwitchName) => {
+			return featureSwitchName === 'ADMIN_PANEL';
+		});
 
 		const panelIsEnabled = fixture.componentInstance.panelIsEnabled();
 
-		expect(featureSwitchApiMock.isEnabled).toHaveBeenCalledWith('PANEL');
+		expect(isEnabled.calls.argsFor(0)[0]).toBe('USER_PANEL');
+		expect(isEnabled.calls.argsFor(1)[0]).toBe('ADMIN_PANEL');
 		expect(panelIsEnabled).toBeTrue();
 	}));
 });

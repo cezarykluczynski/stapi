@@ -1,10 +1,12 @@
 import { async, fakeAsync, ComponentFixture, TestBed, tick } from '@angular/core/testing';
+import { Router } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { RestApiService } from '../rest-api/rest-api.service';
 import { PanelApi } from './panel-api.service';
 import { WindowReferenceService } from '../window-reference/window-reference.service';
+import { FeatureSwitchApi } from '../feature-switch/feature-switch-api.service';
 
 import { PanelComponent } from './panel.component';
 import { PanelApiKeysApi } from './api-keys/panel-api-keys-api.service';
@@ -28,6 +30,14 @@ class RestApiServiceMock {
 	public getApi() {}
 }
 
+class FeatureSwitchApiMock {
+	public isEnabled() {}
+}
+
+class RouterMock {
+	public navigate() {}
+}
+
 describe('PanelComponent', () => {
 	const NAME = 'NAME';
 	const EMAIL = 'EMAIL';
@@ -38,6 +48,8 @@ describe('PanelComponent', () => {
 	let panelApiKeysApiMock: PanelApiKeysApiMock;
 	let windowReferenceServiceMock: WindowReferenceServiceMock;
 	let restApiServiceMock: RestApiServiceMock;
+	let featureSwitchApiMock: FeatureSwitchApiMock;
+	let routerMock: RouterMock;
 	let api: any;
 
 	beforeEach(async(() => {
@@ -45,6 +57,8 @@ describe('PanelComponent', () => {
 		panelApiKeysApiMock = new PanelApiKeysApiMock();
 		windowReferenceServiceMock = new WindowReferenceServiceMock();
 		restApiServiceMock = new RestApiServiceMock();
+		featureSwitchApiMock = new FeatureSwitchApiMock();
+		routerMock = new RouterMock();
 
 		api = {
 			on: jasmine.createSpy('on')
@@ -72,6 +86,14 @@ describe('PanelComponent', () => {
 				{
 					provide: RestApiService,
 					useValue: restApiServiceMock
+				},
+				{
+					provide: FeatureSwitchApi,
+					useValue: featureSwitchApiMock
+				},
+				{
+					provide: Router,
+					useValue: routerMock
 				}
 			]
 		})
@@ -101,6 +123,8 @@ describe('PanelComponent', () => {
 		});
 
 		it('is performed', fakeAsync(() => {
+			spyOn(featureSwitchApiMock, 'isEnabled').and.returnValue(true);
+
 			resolve();
 			fixture.detectChanges();
 
@@ -112,6 +136,8 @@ describe('PanelComponent', () => {
 		}));
 
 		it('allows tab switching', () => {
+			spyOn(featureSwitchApiMock, 'isEnabled').and.returnValue(true);
+
 			resolve();
 			fixture.detectChanges();
 
@@ -139,6 +165,8 @@ describe('PanelComponent', () => {
 			});
 
 			it('allows tab switching', () => {
+				spyOn(featureSwitchApiMock, 'isEnabled').and.returnValue(true);
+
 				resolve();
 				fixture.detectChanges();
 
@@ -181,6 +209,7 @@ describe('PanelComponent', () => {
 				});
 			}));
 			spyOn(windowReferenceServiceMock, 'getWindow').and.returnValue(window);
+			spyOn(featureSwitchApiMock, 'isEnabled').and.returnValue(true);
 
 			fixture.detectChanges();
 		});

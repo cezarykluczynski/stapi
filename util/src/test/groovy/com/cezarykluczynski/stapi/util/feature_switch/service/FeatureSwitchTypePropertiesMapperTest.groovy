@@ -14,7 +14,8 @@ class FeatureSwitchTypePropertiesMapperTest extends Specification {
 
 	void "maps valid string to enum"() {
 		expect:
-		featureSwitchTypePropertiesMapper.map('panel') == FeatureSwitchType.PANEL
+		featureSwitchTypePropertiesMapper.map('adminPanel') == FeatureSwitchType.ADMIN_PANEL
+		featureSwitchTypePropertiesMapper.map('userPanel') == FeatureSwitchType.USER_PANEL
 	}
 
 	void "throws exception when invalid value is mapped to enum"() {

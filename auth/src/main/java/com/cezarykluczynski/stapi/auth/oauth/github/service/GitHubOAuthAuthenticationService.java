@@ -45,6 +45,7 @@ class GitHubOAuthAuthenticationService {
 	}
 
 	GitHubRedirectUrlDTO authenticate(String code) {
+		ensureUserPanelEnabled();
 		doAuthenticate(code);
 		return new GitHubRedirectUrlDTO("/panel");
 	}
@@ -59,13 +60,19 @@ class GitHubOAuthAuthenticationService {
 				if (userResponseBody != null) {
 					GitHubUserDetailsDTO gitHubUserDetailsDTO = gitHubUserDetailsDTOFactory.create(userResponseBody);
 
-					if (!featureSwitchApi.isEnabled(FeatureSwitchType.PANEL) && !gitHubAdminDetector.isAdminId(gitHubUserDetailsDTO.getId())) {
+					if (!featureSwitchApi.isEnabled(FeatureSwitchType.ADMIN_PANEL) && !gitHubAdminDetector.isAdminId(gitHubUserDetailsDTO.getId())) {
 						throw new StapiRuntimeException("Cannot create account while panel is disabled");
 					}
 
 					gitHubOAuthSessionCreator.create(accountApi.ensureExists(gitHubUserDetailsDTO));
 				}
 			}
+		}
+	}
+
+	private void ensureUserPanelEnabled() {
+		if (!featureSwitchApi.isEnabled(FeatureSwitchType.USER_PANEL)) {
+			throw new StapiRuntimeException("Authentication not possible when user panel is disabled");
 		}
 	}
 

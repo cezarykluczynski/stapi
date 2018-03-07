@@ -52,7 +52,7 @@ describe('FeatureSwitchApi', () => {
 				return Promise.resolve({
 					featureSwitches: [
 						{
-							type: 'PANEL',
+							type: 'ADMIN_PANEL',
 							enabled: true
 						}
 					]
@@ -78,7 +78,7 @@ describe('FeatureSwitchApi', () => {
 			featureSwitchApi.loadFeatureSwitches();
 
 			setTimeout(() => {
-				expect(featureSwitchApi.isEnabled('PANEL')).toBeTrue();
+				expect(featureSwitchApi.isEnabled('ADMIN_PANEL')).toBeTrue();
 			});
 		})));
 

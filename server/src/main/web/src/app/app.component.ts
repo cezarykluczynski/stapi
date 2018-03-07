@@ -15,7 +15,7 @@ export class AppComponent  {
 	}
 
 	panelIsEnabled() {
-		return this.featureSwitchApi.isEnabled('PANEL');
+		return this.featureSwitchApi.isEnabled('USER_PANEL') || this.featureSwitchApi.isEnabled('ADMIN_PANEL');
 	}
 
 	ngOnInit() {

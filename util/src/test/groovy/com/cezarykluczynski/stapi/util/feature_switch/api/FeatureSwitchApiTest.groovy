@@ -11,8 +11,8 @@ import spock.lang.Specification
 
 class FeatureSwitchApiTest extends Specification {
 
-	private static final String KEY = 'PANEL'
-	private static final FeatureSwitchType ENUM_VALUE = FeatureSwitchType.PANEL
+	private static final String KEY = 'ADMIN_PANEL'
+	private static final FeatureSwitchType ENUM_VALUE = FeatureSwitchType.ADMIN_PANEL
 	private static final boolean FEATURE_SWITCH_VALUE = RandomUtil.nextBoolean()
 
 	private FeatureSwitchProperties featureSwitchPropertiesMock

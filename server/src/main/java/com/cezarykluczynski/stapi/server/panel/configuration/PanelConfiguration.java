@@ -19,7 +19,7 @@ public class PanelConfiguration {
 	private EndpointFactory endpointFactory;
 
 	@Bean
-	@ConditionalOnProperty("featureSwitch.panel")
+	@ConditionalOnProperty("featureSwitch.adminPanel")
 	public Server panelAccountSettingsRestEndpoint() {
 		return endpointFactory.createRestEndpoint(PanelAccountSettingsEndpoint.class, PanelAccountSettingsEndpoint.ADDRESS);
 	}
@@ -30,7 +30,7 @@ public class PanelConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnProperty("featureSwitch.panel")
+	@ConditionalOnProperty("featureSwitch.adminPanel")
 	public Server panelApiKeysRestEndpoint() {
 		return endpointFactory.createRestEndpoint(PanelApiKeysEndpoint.class, PanelApiKeysEndpoint.ADDRESS);
 	}

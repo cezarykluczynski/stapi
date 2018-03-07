@@ -53,11 +53,22 @@ class GitHubOAuthAuthenticationServiceTest extends Specification {
 				gitHubOAuthSessionCreatorMock, accountApiMock)
 	}
 
+	void "when user panel is disabled, authentication is not possible"() {
+		when:
+		gitHubOAuthAuthenticationService.authenticate(CODE)
+
+		then:
+		1 * featureSwitchApiMock.isEnabled(FeatureSwitchType.USER_PANEL) >> false
+		0 * _
+		thrown(StapiRuntimeException)
+	}
+
 	void "when access token body cannot be retrieved, authentication is not continued"() {
 		when:
 		GitHubRedirectUrlDTO gitHubRedirectUrlDTO = gitHubOAuthAuthenticationService.authenticate(CODE)
 
 		then:
+		1 * featureSwitchApiMock.isEnabled(FeatureSwitchType.USER_PANEL) >> true
 		1 * gitHubOAuthUrlFactoryMock.createAccessTokenUrl(CODE) >> new GitHubRedirectUrlDTO(ACCESS_TOKEN_URL)
 		1 * urlContentRetrieverMock.getBody(ACCESS_TOKEN_URL) >> null
 		0 * _
@@ -69,6 +80,7 @@ class GitHubOAuthAuthenticationServiceTest extends Specification {
 		GitHubRedirectUrlDTO gitHubRedirectUrlDTO = gitHubOAuthAuthenticationService.authenticate(CODE)
 
 		then:
+		1 * featureSwitchApiMock.isEnabled(FeatureSwitchType.USER_PANEL) >> true
 		1 * gitHubOAuthUrlFactoryMock.createAccessTokenUrl(CODE) >> new GitHubRedirectUrlDTO(ACCESS_TOKEN_URL)
 		1 * urlContentRetrieverMock.getBody(ACCESS_TOKEN_URL) >> ACCESS_TOKEN_RESPONSE_BODY
 		1 * gitHubAccessTokenExtractorMock.extract(ACCESS_TOKEN_RESPONSE_BODY) >> null
@@ -81,6 +93,7 @@ class GitHubOAuthAuthenticationServiceTest extends Specification {
 		GitHubRedirectUrlDTO gitHubRedirectUrlDTO = gitHubOAuthAuthenticationService.authenticate(CODE)
 
 		then:
+		1 * featureSwitchApiMock.isEnabled(FeatureSwitchType.USER_PANEL) >> true
 		1 * gitHubOAuthUrlFactoryMock.createAccessTokenUrl(CODE) >> new GitHubRedirectUrlDTO(ACCESS_TOKEN_URL)
 		1 * urlContentRetrieverMock.getBody(ACCESS_TOKEN_URL) >> ACCESS_TOKEN_RESPONSE_BODY
 		1 * gitHubAccessTokenExtractorMock.extract(ACCESS_TOKEN_RESPONSE_BODY) >> ACCESS_TOKEN
@@ -98,13 +111,14 @@ class GitHubOAuthAuthenticationServiceTest extends Specification {
 		gitHubOAuthAuthenticationService.authenticate(CODE)
 
 		then:
+		1 * featureSwitchApiMock.isEnabled(FeatureSwitchType.USER_PANEL) >> true
 		1 * gitHubOAuthUrlFactoryMock.createAccessTokenUrl(CODE) >> new GitHubRedirectUrlDTO(ACCESS_TOKEN_URL)
 		1 * urlContentRetrieverMock.getBody(ACCESS_TOKEN_URL) >> ACCESS_TOKEN_RESPONSE_BODY
 		1 * gitHubAccessTokenExtractorMock.extract(ACCESS_TOKEN_RESPONSE_BODY) >> ACCESS_TOKEN
 		1 * gitHubOAuthUrlFactoryMock.createUserUrl(ACCESS_TOKEN) >> new GitHubRedirectUrlDTO(USER_URL)
 		1 * urlContentRetrieverMock.getBody(USER_URL) >> USER_RESPONSE_BODY
 		1 * gitHubUserDetailsDTOFactoryMock.create(USER_RESPONSE_BODY) >> gitHubUserDetailsDTO
-		1 * featureSwitchApiMock.isEnabled(FeatureSwitchType.PANEL) >> false
+		1 * featureSwitchApiMock.isEnabled(FeatureSwitchType.ADMIN_PANEL) >> false
 		1 * gitHubUserDetailsDTO.id >> GITHUB_ID
 		1 * gitHubAdminDetectorMock.isAdminId(GITHUB_ID) >> false
 		thrown(StapiRuntimeException)
@@ -119,13 +133,14 @@ class GitHubOAuthAuthenticationServiceTest extends Specification {
 		GitHubRedirectUrlDTO gitHubRedirectUrlDTO = gitHubOAuthAuthenticationService.authenticate(CODE)
 
 		then:
+		1 * featureSwitchApiMock.isEnabled(FeatureSwitchType.USER_PANEL) >> true
 		1 * gitHubOAuthUrlFactoryMock.createAccessTokenUrl(CODE) >> new GitHubRedirectUrlDTO(ACCESS_TOKEN_URL)
 		1 * urlContentRetrieverMock.getBody(ACCESS_TOKEN_URL) >> ACCESS_TOKEN_RESPONSE_BODY
 		1 * gitHubAccessTokenExtractorMock.extract(ACCESS_TOKEN_RESPONSE_BODY) >> ACCESS_TOKEN
 		1 * gitHubOAuthUrlFactoryMock.createUserUrl(ACCESS_TOKEN) >> new GitHubRedirectUrlDTO(USER_URL)
 		1 * urlContentRetrieverMock.getBody(USER_URL) >> USER_RESPONSE_BODY
 		1 * gitHubUserDetailsDTOFactoryMock.create(USER_RESPONSE_BODY) >> gitHubUserDetailsDTO
-		1 * featureSwitchApiMock.isEnabled(FeatureSwitchType.PANEL) >> true
+		1 * featureSwitchApiMock.isEnabled(FeatureSwitchType.ADMIN_PANEL) >> true
 		1 * accountApiMock.ensureExists(gitHubUserDetailsDTO) >> account
 		1 * gitHubOAuthSessionCreatorMock.create(account)
 		0 * _
