@@ -50,8 +50,6 @@ post:
       in: query
       type: string
       description: API key
-      in: query
-      type: string
     - name: name
       in: formData
       type: string
