@@ -21,10 +21,10 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
+@Table(name = "throttle", schema = "stapi_users")
 @ToString
 @TrackedEntity(type = TrackedEntityType.TECHNICAL, repository = ThrottleRepository.class, apiEntity = false, singularName = "throttle",
 		pluralName = "throttles")
-@Table(name = "throttle", schema = "stapi_users")
 public class Throttle implements Serializable {
 
 	@Id

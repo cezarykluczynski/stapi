@@ -22,11 +22,13 @@
 			<column name="position" type="boolean"/>
 			<column name="mirror" type="boolean"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="title_sequence"/>
+		<createSequence incrementBy="1" sequenceName="title_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="title"
+				baseTableSchemaName="stapi"
 				constraintName="title_page_fkey"
 				referencedColumnNames="id"
-				referencedTableName="page"/>
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

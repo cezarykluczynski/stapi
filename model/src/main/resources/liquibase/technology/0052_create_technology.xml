@@ -37,11 +37,13 @@
 			<column name="medical_equipment" type="boolean"/>
 			<column name="transporter_technology" type="boolean"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="technology_sequence"/>
+		<createSequence incrementBy="1" sequenceName="technology_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="technology"
+				baseTableSchemaName="stapi"
 				constraintName="technology_page_fkey"
 				referencedColumnNames="id"
-				referencedTableName="page"/>
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

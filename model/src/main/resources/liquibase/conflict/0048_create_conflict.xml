@@ -25,12 +25,14 @@
 			<column name="dominion_war_battle" type="boolean"/>
 			<column name="alternate_reality" type="boolean"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="conflict_sequence"/>
+		<createSequence incrementBy="1" sequenceName="conflict_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="conflict"
+				baseTableSchemaName="stapi"
 				constraintName="conflict_page_fkey"
 				referencedColumnNames="id"
-				referencedTableName="page"/>
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="conflicts_locations">
 			<column name="conflict_id" type="bigint"/>
@@ -38,14 +40,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="conflict_id"
 				baseTableName="conflicts_locations"
+				baseTableSchemaName="stapi"
 				constraintName="cl_conflict_fkey"
 				referencedColumnNames="id"
-				referencedTableName="conflict"/>
+				referencedTableName="conflict"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="location_id"
 				baseTableName="conflicts_locations"
+				baseTableSchemaName="stapi"
 				constraintName="cl_location_fkey"
 				referencedColumnNames="id"
-				referencedTableName="location"/>
+				referencedTableName="location"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="conflicts_1side_belligerents">
 			<column name="conflict_id" type="bigint"/>
@@ -53,14 +59,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="conflict_id"
 				baseTableName="conflicts_1side_belligerents"
+				baseTableSchemaName="stapi"
 				constraintName="cc1sb_conflict_fkey"
 				referencedColumnNames="id"
-				referencedTableName="conflict"/>
+				referencedTableName="conflict"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="organization_id"
 				baseTableName="conflicts_1side_belligerents"
+				baseTableSchemaName="stapi"
 				constraintName="cc1sb_organization_fkey"
 				referencedColumnNames="id"
-				referencedTableName="organization"/>
+				referencedTableName="organization"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="conflicts_2side_belligerents">
 			<column name="conflict_id" type="bigint"/>
@@ -68,14 +78,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="conflict_id"
 				baseTableName="conflicts_2side_belligerents"
+				baseTableSchemaName="stapi"
 				constraintName="cc2sb_conflict_fkey"
 				referencedColumnNames="id"
-				referencedTableName="conflict"/>
+				referencedTableName="conflict"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="organization_id"
 				baseTableName="conflicts_2side_belligerents"
+				baseTableSchemaName="stapi"
 				constraintName="cc2sb_organization_fkey"
 				referencedColumnNames="id"
-				referencedTableName="organization"/>
+				referencedTableName="organization"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="conflicts_1side_commanders">
 			<column name="conflict_id" type="bigint"/>
@@ -83,14 +97,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="conflict_id"
 				baseTableName="conflicts_1side_commanders"
+				baseTableSchemaName="stapi"
 				constraintName="cc1sc_conflict_fkey"
 				referencedColumnNames="id"
-				referencedTableName="conflict"/>
+				referencedTableName="conflict"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="character_id"
 				baseTableName="conflicts_1side_commanders"
+				baseTableSchemaName="stapi"
 				constraintName="cc1sc_character_fkey"
 				referencedColumnNames="id"
-				referencedTableName="character"/>
+				referencedTableName="character"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="conflicts_2side_commanders">
 			<column name="conflict_id" type="bigint"/>
@@ -98,13 +116,17 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="conflict_id"
 				baseTableName="conflicts_2side_commanders"
+				baseTableSchemaName="stapi"
 				constraintName="cc2sc_conflict_fkey"
 				referencedColumnNames="id"
-				referencedTableName="conflict"/>
+				referencedTableName="conflict"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="character_id"
 				baseTableName="conflicts_2side_commanders"
+				baseTableSchemaName="stapi"
 				constraintName="cc2sc_character_fkey"
 				referencedColumnNames="id"
-				referencedTableName="character"/>
+				referencedTableName="character"
+								 referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

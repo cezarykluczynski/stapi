@@ -40,11 +40,13 @@
 			<column name="mirror" type="boolean"/>
 			<column name="alternate_reality" type="boolean"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="location_sequence"/>
+		<createSequence incrementBy="1" sequenceName="location_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="location"
+				baseTableSchemaName="stapi"
 				constraintName="location_page_fkey"
 				referencedColumnNames="id"
-				referencedTableName="page"/>
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

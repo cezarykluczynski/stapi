@@ -36,11 +36,13 @@
 			<column name="voice_performer" type="boolean"/>
 			<column name="voy_performer" type="boolean"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="performer_sequence"/>
+		<createSequence incrementBy="1" sequenceName="performer_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="performer"
+				baseTableSchemaName="stapi"
 				constraintName="performer_page_fkey"
 				referencedColumnNames="id"
-				referencedTableName="page"/>
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

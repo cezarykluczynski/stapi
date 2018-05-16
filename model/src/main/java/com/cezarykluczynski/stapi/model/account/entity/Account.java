@@ -27,11 +27,11 @@ import java.util.Set;
 
 @Data
 @Entity
+@Table(name = "account", schema = "stapi_users")
 @ToString(exclude = {"apiKeys", "consents"})
 @EqualsAndHashCode(exclude = {"apiKeys", "consents"})
 @TrackedEntity(type = TrackedEntityType.TECHNICAL, repository = AccountRepository.class, apiEntity = false, singularName = "account",
 		pluralName = "accounts")
-@Table(name = "account", schema = "stapi_users")
 public class Account {
 
 	@Id

@@ -15,9 +15,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Data
 @Entity
+@Table(schema = "stapi")
 @ToString
 @TrackedEntity(type = TrackedEntityType.TECHNICAL, repository = PageRepository.class, apiEntity = false, singularName = "page", pluralName = "pages")
 public class Page {

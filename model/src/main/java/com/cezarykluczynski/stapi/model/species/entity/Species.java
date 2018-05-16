@@ -24,11 +24,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.util.Set;
 
 @Data
 @Entity
+@Table(schema = "stapi")
 @ToString(callSuper = true, exclude = {"homeworld", "quadrant", "characters"})
 @EqualsAndHashCode(callSuper = true, exclude = {"homeworld", "quadrant", "characters"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

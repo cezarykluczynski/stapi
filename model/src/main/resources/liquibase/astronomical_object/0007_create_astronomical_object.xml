@@ -17,16 +17,20 @@
 			<column name="location_id" type="bigint"/>
 			<column name="astronomical_object_type" type="varchar(64)"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="astronomical_object_sequence"/>
+		<createSequence incrementBy="1" sequenceName="astronomical_object_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="astronomical_object"
+				baseTableSchemaName="stapi"
 				constraintName="ao_page_fkey"
 				referencedColumnNames="id"
-				referencedTableName="page"/>
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="location_id"
 				baseTableName="astronomical_object"
+				baseTableSchemaName="stapi"
 				constraintName="ao_location_fkey"
 				referencedColumnNames="id"
-				referencedTableName="astronomical_object"/>
+				referencedTableName="astronomical_object"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

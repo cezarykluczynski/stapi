@@ -18,9 +18,9 @@ import javax.persistence.Table;
 
 @Data
 @Entity
+@Table(name = "consent", schema = "stapi_users")
 @TrackedEntity(type = TrackedEntityType.TECHNICAL, repository = ConsentRepository.class, apiEntity = false, singularName = "consent",
 		pluralName = "consents")
-@Table(name = "consent", schema = "stapi_users")
 public class Consent {
 
 	@Id

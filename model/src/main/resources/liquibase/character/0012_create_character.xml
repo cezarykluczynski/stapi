@@ -39,12 +39,14 @@
 			<column name="mirror" type="boolean"/>
 			<column name="alternate_reality" type="boolean"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="character_sequence"/>
+		<createSequence incrementBy="1" sequenceName="character_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="character"
+				baseTableSchemaName="stapi"
 				constraintName="character_page_fkey"
 				referencedColumnNames="id"
-				referencedTableName="page"/>
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="performers_characters">
 			<column name="performer_id" type="bigint"/>
@@ -52,14 +54,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="performer_id"
 				baseTableName="performers_characters"
+				baseTableSchemaName="stapi"
 				constraintName="pc_performer_fkey"
 				referencedColumnNames="id"
-				referencedTableName="performer"/>
+				referencedTableName="performer"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="character_id"
 				baseTableName="performers_characters"
+				baseTableSchemaName="stapi"
 				constraintName="pc_character_fkey"
 				referencedColumnNames="id"
-				referencedTableName="character"/>
+				referencedTableName="character"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="characters_titles">
 			<column name="character_id" type="bigint"/>
@@ -67,14 +73,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="character_id"
 				baseTableName="characters_titles"
+				baseTableSchemaName="stapi"
 				constraintName="ct_character_fkey"
 				referencedColumnNames="id"
-				referencedTableName="character"/>
+				referencedTableName="character"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="title_id"
 				baseTableName="characters_titles"
+				baseTableSchemaName="stapi"
 				constraintName="ct_title_fkey"
 				referencedColumnNames="id"
-				referencedTableName="title"/>
+				referencedTableName="title"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="characters_occupations">
 			<column name="character_id" type="bigint"/>
@@ -82,14 +92,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="character_id"
 				baseTableName="characters_occupations"
+				baseTableSchemaName="stapi"
 				constraintName="coc_character_fkey"
 				referencedColumnNames="id"
-				referencedTableName="character"/>
+				referencedTableName="character"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="occupation_id"
 				baseTableName="characters_occupations"
+				baseTableSchemaName="stapi"
 				constraintName="coc_title_fkey"
 				referencedColumnNames="id"
-				referencedTableName="occupation"/>
+				referencedTableName="occupation"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="characters_organizations">
 			<column name="character_id" type="bigint"/>
@@ -97,13 +111,17 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="character_id"
 				baseTableName="characters_organizations"
+				baseTableSchemaName="stapi"
 				constraintName="cor_character_fkey"
 				referencedColumnNames="id"
-				referencedTableName="character"/>
+				referencedTableName="character"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="organization_id"
 				baseTableName="characters_organizations"
+				baseTableSchemaName="stapi"
 				constraintName="cor_organization_fkey"
 				referencedColumnNames="id"
-				referencedTableName="organization"/>
+				referencedTableName="organization"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

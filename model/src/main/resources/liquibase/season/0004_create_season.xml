@@ -22,16 +22,20 @@
 			<column name="season_number" type="int"/>
 			<column name="number_of_episodes" type="int"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="season_sequence"/>
+		<createSequence incrementBy="1" sequenceName="season_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="season"
+				baseTableSchemaName="stapi"
 				constraintName="season_page_fkey"
 				referencedColumnNames="id"
-				referencedTableName="page"/>
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="series_id"
 				baseTableName="season"
+				baseTableSchemaName="stapi"
 				constraintName="season_series_fkey"
 				referencedColumnNames="id"
-				referencedTableName="series"/>
+				referencedTableName="series"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

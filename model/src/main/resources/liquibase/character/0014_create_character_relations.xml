@@ -13,18 +13,22 @@
 				<constraints nullable="false"/>
 			</column>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="character_relations_sequence"/>
+		<createSequence incrementBy="1" sequenceName="character_relations_sequence" schemaName="stapi"/>
 
 		<addForeignKeyConstraint baseColumnNames="source_character_id"
 				baseTableName="character_relation"
+				baseTableSchemaName="stapi"
 				constraintName="cr_character_fkey"
 				referencedColumnNames="id"
-				referencedTableName="character"/>
+				referencedTableName="character"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="target_character_id"
 				baseTableName="character_relation"
+				baseTableSchemaName="stapi"
 				constraintName="cr_other_character_fkey"
 				referencedColumnNames="id"
-				referencedTableName="character"/>
+				referencedTableName="character"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="characters_character_relations">
 			<column name="character_id" type="bigint"/>
@@ -32,13 +36,17 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="character_id"
 				baseTableName="characters_character_relations"
+				baseTableSchemaName="stapi"
 				constraintName="ccr_character_fkey"
 				referencedColumnNames="id"
-				referencedTableName="character"/>
+				referencedTableName="character"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="character_relation_id"
 				baseTableName="characters_character_relations"
+				baseTableSchemaName="stapi"
 				constraintName="ccr_character_relations_fkey"
 				referencedColumnNames="id"
-				referencedTableName="character_relation"/>
+				referencedTableName="character_relation"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

@@ -39,12 +39,14 @@
 			<column name="audiobook_run_time" type="int"/>
 			<column name="production_number" type="varchar(32)"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="book_sequence"/>
+		<createSequence incrementBy="1" sequenceName="book_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="book"
+				baseTableSchemaName="stapi"
 				constraintName="book_page_fkey"
 				referencedColumnNames="id"
-				referencedTableName="page"/>
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="books_book_series">
 			<column name="book_id" type="bigint"/>
@@ -52,14 +54,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="book_id"
 				baseTableName="books_book_series"
+				baseTableSchemaName="stapi"
 				constraintName="bbs_book_fkey"
 				referencedColumnNames="id"
-				referencedTableName="book"/>
+				referencedTableName="book"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="book_series_id"
 				baseTableName="books_book_series"
+				baseTableSchemaName="stapi"
 				constraintName="bbs_book_series_fkey"
 				referencedColumnNames="id"
-				referencedTableName="book_series"/>
+				referencedTableName="book_series"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="books_authors">
 			<column name="book_id" type="bigint"/>
@@ -67,14 +73,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="book_id"
 				baseTableName="books_authors"
+				baseTableSchemaName="stapi"
 				constraintName="ba_book_fkey"
 				referencedColumnNames="id"
-				referencedTableName="book"/>
+				referencedTableName="book"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="staff_id"
 				baseTableName="books_authors"
+				baseTableSchemaName="stapi"
 				constraintName="ba_author_fkey"
 				referencedColumnNames="id"
-				referencedTableName="staff"/>
+				referencedTableName="staff"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="books_artists">
 			<column name="book_id" type="bigint"/>
@@ -82,14 +92,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="book_id"
 				baseTableName="books_artists"
+				baseTableSchemaName="stapi"
 				constraintName="bar_book_fkey"
 				referencedColumnNames="id"
-				referencedTableName="book"/>
+				referencedTableName="book"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="staff_id"
 				baseTableName="books_artists"
+				baseTableSchemaName="stapi"
 				constraintName="bar_artist_fkey"
 				referencedColumnNames="id"
-				referencedTableName="staff"/>
+				referencedTableName="staff"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="books_editors">
 			<column name="book_id" type="bigint"/>
@@ -97,14 +111,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="book_id"
 				baseTableName="books_editors"
+				baseTableSchemaName="stapi"
 				constraintName="be_book_fkey"
 				referencedColumnNames="id"
-				referencedTableName="book"/>
+				referencedTableName="book"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="staff_id"
 				baseTableName="books_editors"
+				baseTableSchemaName="stapi"
 				constraintName="be_editor_fkey"
 				referencedColumnNames="id"
-				referencedTableName="staff"/>
+				referencedTableName="staff"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="audiobooks_narrators">
 			<column name="book_id" type="bigint"/>
@@ -112,14 +130,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="book_id"
 				baseTableName="audiobooks_narrators"
+				baseTableSchemaName="stapi"
 				constraintName="abn_book_fkey"
 				referencedColumnNames="id"
-				referencedTableName="book"/>
+				referencedTableName="book"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="staff_id"
 				baseTableName="audiobooks_narrators"
+				baseTableSchemaName="stapi"
 				constraintName="abn_editor_fkey"
 				referencedColumnNames="id"
-				referencedTableName="staff"/>
+				referencedTableName="staff"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="books_publishers">
 			<column name="book_id" type="bigint"/>
@@ -127,14 +149,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="book_id"
 				baseTableName="books_publishers"
+				baseTableSchemaName="stapi"
 				constraintName="bp_book_fkey"
 				referencedColumnNames="id"
-				referencedTableName="book"/>
+				referencedTableName="book"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="company_id"
 				baseTableName="books_publishers"
+				baseTableSchemaName="stapi"
 				constraintName="bp_publisher_fkey"
 				referencedColumnNames="id"
-				referencedTableName="company"/>
+				referencedTableName="company"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="audiobooks_publishers">
 			<column name="book_id" type="bigint"/>
@@ -142,14 +168,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="book_id"
 				baseTableName="audiobooks_publishers"
+				baseTableSchemaName="stapi"
 				constraintName="abp_book_fkey"
 				referencedColumnNames="id"
-				referencedTableName="book"/>
+				referencedTableName="book"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="company_id"
 				baseTableName="audiobooks_publishers"
+				baseTableSchemaName="stapi"
 				constraintName="abp_publisher_fkey"
 				referencedColumnNames="id"
-				referencedTableName="company"/>
+				referencedTableName="company"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="books_characters">
 			<column name="book_id" type="bigint"/>
@@ -157,14 +187,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="book_id"
 				baseTableName="books_characters"
+				baseTableSchemaName="stapi"
 				constraintName="bc_book_fkey"
 				referencedColumnNames="id"
-				referencedTableName="book"/>
+				referencedTableName="book"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="character_id"
 				baseTableName="books_characters"
+				baseTableSchemaName="stapi"
 				constraintName="bc_character_fkey"
 				referencedColumnNames="id"
-				referencedTableName="character"/>
+				referencedTableName="character"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="books_references">
 			<column name="book_id" type="bigint"/>
@@ -172,14 +206,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="book_id"
 				baseTableName="books_references"
+				baseTableSchemaName="stapi"
 				constraintName="br_book_fkey"
 				referencedColumnNames="id"
-				referencedTableName="book"/>
+				referencedTableName="book"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="reference_id"
 				baseTableName="books_references"
+				baseTableSchemaName="stapi"
 				constraintName="br_reference_fkey"
 				referencedColumnNames="id"
-				referencedTableName="reference"/>
+				referencedTableName="reference"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="audiobooks_references">
 			<column name="book_id" type="bigint"/>
@@ -187,13 +225,17 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="book_id"
 				baseTableName="audiobooks_references"
+				baseTableSchemaName="stapi"
 				constraintName="abr_book_fkey"
 				referencedColumnNames="id"
-				referencedTableName="book"/>
+				referencedTableName="book"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="reference_id"
 				baseTableName="audiobooks_references"
+				baseTableSchemaName="stapi"
 				constraintName="abr_reference_fkey"
 				referencedColumnNames="id"
-				referencedTableName="reference"/>
+				referencedTableName="reference"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

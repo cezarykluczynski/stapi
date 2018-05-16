@@ -19,9 +19,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Data
 @Entity
+@Table(schema = "stapi")
 @ToString(exclude = {"source", "target"})
 @EqualsAndHashCode(exclude = {"source", "target"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

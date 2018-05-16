@@ -23,12 +23,14 @@
 			<column name="year_to" type="int"/>
 			<column name="system_requirements" type="varchar(512)"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="video_game_sequence"/>
+		<createSequence incrementBy="1" sequenceName="video_game_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="video_game"
+				baseTableSchemaName="stapi"
 				constraintName="video_game_page_fkey"
 				referencedColumnNames="id"
-				referencedTableName="page"/>
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="video_games_publishers">
 			<column name="video_game_id" type="bigint"/>
@@ -36,14 +38,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="video_game_id"
 				baseTableName="video_games_publishers"
+				baseTableSchemaName="stapi"
 				constraintName="vgp_video_game_fkey"
 				referencedColumnNames="id"
-				referencedTableName="video_game"/>
+				referencedTableName="video_game"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="company_id"
 				baseTableName="video_games_publishers"
+				baseTableSchemaName="stapi"
 				constraintName="vgp_company_fkey"
 				referencedColumnNames="id"
-				referencedTableName="company"/>
+				referencedTableName="company"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="video_games_developers">
 			<column name="video_game_id" type="bigint"/>
@@ -51,14 +57,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="video_game_id"
 				baseTableName="video_games_developers"
+				baseTableSchemaName="stapi"
 				constraintName="vgd_video_game_fkey"
 				referencedColumnNames="id"
-				referencedTableName="video_game"/>
+				referencedTableName="video_game"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="company_id"
 				baseTableName="video_games_developers"
+				baseTableSchemaName="stapi"
 				constraintName="vgd_company_fkey"
 				referencedColumnNames="id"
-				referencedTableName="company"/>
+				referencedTableName="company"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="video_games_platforms">
 			<column name="video_game_id" type="bigint"/>
@@ -66,14 +76,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="video_game_id"
 				baseTableName="video_games_platforms"
+				baseTableSchemaName="stapi"
 				constraintName="vgpl_video_game_fkey"
 				referencedColumnNames="id"
-				referencedTableName="video_game"/>
+				referencedTableName="video_game"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="platform_id"
 				baseTableName="video_games_platforms"
+				baseTableSchemaName="stapi"
 				constraintName="vgpl_platform_fkey"
 				referencedColumnNames="id"
-				referencedTableName="platform"/>
+				referencedTableName="platform"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="video_games_genres">
 			<column name="video_game_id" type="bigint"/>
@@ -81,14 +95,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="video_game_id"
 				baseTableName="video_games_genres"
+				baseTableSchemaName="stapi"
 				constraintName="vgg_video_game_fkey"
 				referencedColumnNames="id"
-				referencedTableName="video_game"/>
+				referencedTableName="video_game"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="genre_id"
 				baseTableName="video_games_genres"
+				baseTableSchemaName="stapi"
 				constraintName="vgg_genre_fkey"
 				referencedColumnNames="id"
-				referencedTableName="genre"/>
+				referencedTableName="genre"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="video_games_ratings">
 			<column name="video_game_id" type="bigint"/>
@@ -96,14 +114,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="video_game_id"
 				baseTableName="video_games_ratings"
+				baseTableSchemaName="stapi"
 				constraintName="vgra_video_game_fkey"
 				referencedColumnNames="id"
-				referencedTableName="video_game"/>
+				referencedTableName="video_game"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="content_rating_id"
 				baseTableName="video_games_ratings"
+				baseTableSchemaName="stapi"
 				constraintName="vgra_reference_fkey"
 				referencedColumnNames="id"
-				referencedTableName="content_rating"/>
+				referencedTableName="content_rating"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="video_games_references">
 			<column name="video_game_id" type="bigint"/>
@@ -111,13 +133,17 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="video_game_id"
 				baseTableName="video_games_references"
+				baseTableSchemaName="stapi"
 				constraintName="vgre_video_game_fkey"
 				referencedColumnNames="id"
-				referencedTableName="video_game"/>
+				referencedTableName="video_game"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="reference_id"
 				baseTableName="video_games_references"
+				baseTableSchemaName="stapi"
 				constraintName="vgre_reference_fkey"
 				referencedColumnNames="id"
-				referencedTableName="reference"/>
+				referencedTableName="reference"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

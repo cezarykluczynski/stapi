@@ -17,7 +17,7 @@
 				<constraints nullable="false"/>
 			</column>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="reference_sequence"/>
+		<createSequence incrementBy="1" sequenceName="reference_sequence" schemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="comics_references">
 			<column name="comics_id" type="bigint"/>
@@ -25,13 +25,17 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="comics_id"
 				baseTableName="comics_references"
+				baseTableSchemaName="stapi"
 				constraintName="cr_comics_fkey"
 				referencedColumnNames="id"
-				referencedTableName="comics"/>
+				referencedTableName="comics"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="reference_id"
 				baseTableName="comics_references"
+				baseTableSchemaName="stapi"
 				constraintName="cr_reference_fkey"
 				referencedColumnNames="id"
-				referencedTableName="reference"/>
+				referencedTableName="reference"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

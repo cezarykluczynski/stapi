@@ -30,12 +30,14 @@
 			<column name="miniseries" type="boolean"/>
 			<column name="photonovel_series" type="boolean"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="comic_series_sequence"/>
+		<createSequence incrementBy="1" sequenceName="comic_series_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="comic_series"
+				baseTableSchemaName="stapi"
 				constraintName="comic_series_page_fkey"
 				referencedColumnNames="id"
-				referencedTableName="page"/>
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="comic_series_comic_series">
 			<column name="comic_series_id" type="bigint"/>
@@ -43,14 +45,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="comic_series_id"
 				baseTableName="comic_series_comic_series"
+				baseTableSchemaName="stapi"
 				constraintName="cs_comic_series_fkey"
 				referencedColumnNames="id"
-				referencedTableName="comic_series"/>
+				referencedTableName="comic_series"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="comic_series_parent_id"
 				baseTableName="comic_series_comic_series"
+				baseTableSchemaName="stapi"
 				constraintName="cs_comic_series_parent_fkey"
 				referencedColumnNames="id"
-				referencedTableName="comic_series"/>
+				referencedTableName="comic_series"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="comic_series_publishers">
 			<column name="comic_series_id" type="bigint"/>
@@ -58,13 +64,17 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="comic_series_id"
 				baseTableName="comic_series_publishers"
+				baseTableSchemaName="stapi"
 				constraintName="cs_publisher_fkey"
 				referencedColumnNames="id"
-				referencedTableName="comic_series"/>
+				referencedTableName="comic_series"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="company_id"
 				baseTableName="comic_series_publishers"
+				baseTableSchemaName="stapi"
 				constraintName="cs_company_fkey"
 				referencedColumnNames="id"
-				referencedTableName="company"/>
+				referencedTableName="company"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

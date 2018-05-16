@@ -27,11 +27,13 @@
 			<column name="juice" type="boolean"/>
 			<column name="tea" type="boolean"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="food_sequence"/>
+		<createSequence incrementBy="1" sequenceName="food_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="food"
+				baseTableSchemaName="stapi"
 				constraintName="food_page_fkey"
 				referencedColumnNames="id"
-				referencedTableName="page"/>
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

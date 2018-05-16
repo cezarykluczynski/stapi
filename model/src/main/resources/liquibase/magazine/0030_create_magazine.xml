@@ -25,12 +25,14 @@
 			<column name="number_of_pages" type="int"/>
 			<column name="issue_number" type="varchar(128)"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="magazine_sequence"/>
+		<createSequence incrementBy="1" sequenceName="magazine_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="magazine"
+				baseTableSchemaName="stapi"
 				constraintName="magazine_page_fkey"
 				referencedColumnNames="id"
-				referencedTableName="page"/>
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="magazines_publishers">
 			<column name="magazine_id" type="bigint"/>
@@ -38,14 +40,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="magazine_id"
 				baseTableName="magazines_publishers"
+				baseTableSchemaName="stapi"
 				constraintName="mp_publisher_fkey"
 				referencedColumnNames="id"
-				referencedTableName="magazine"/>
+				referencedTableName="magazine"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="company_id"
 				baseTableName="magazines_publishers"
+				baseTableSchemaName="stapi"
 				constraintName="mp_company_fkey"
 				referencedColumnNames="id"
-				referencedTableName="company"/>
+				referencedTableName="company"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="magazines_editors">
 			<column name="magazine_id" type="bigint"/>
@@ -53,14 +59,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="magazine_id"
 				baseTableName="magazines_editors"
+				baseTableSchemaName="stapi"
 				constraintName="me_book_fkey"
 				referencedColumnNames="id"
-				referencedTableName="book"/>
+				referencedTableName="book"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="staff_id"
 				baseTableName="magazines_editors"
+				baseTableSchemaName="stapi"
 				constraintName="me_editor_fkey"
 				referencedColumnNames="id"
-				referencedTableName="staff"/>
+				referencedTableName="staff"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="magazines_magazine_series">
 			<column name="magazine_id" type="bigint"/>
@@ -68,13 +78,17 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="magazine_id"
 				baseTableName="magazines_magazine_series"
+				baseTableSchemaName="stapi"
 				constraintName="mms_magazine_fkey"
 				referencedColumnNames="id"
-				referencedTableName="magazine"/>
+				referencedTableName="magazine"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="magazine_series_id"
 				baseTableName="magazines_magazine_series"
+				baseTableSchemaName="stapi"
 				constraintName="mms_magazine_series_fkey"
 				referencedColumnNames="id"
-				referencedTableName="magazine_series"/>
+				referencedTableName="magazine_series"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

@@ -31,21 +31,27 @@
 			<column name="episodes_count" type="int"/>
 			<column name="feature_length_episodes_count" type="int"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="series_sequence"/>
+		<createSequence incrementBy="1" sequenceName="series_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="series"
+				baseTableSchemaName="stapi"
 				constraintName="series_page_fkey"
 				referencedColumnNames="id"
-				referencedTableName="page"/>
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="production_company_id"
 				baseTableName="series"
+				baseTableSchemaName="stapi"
 				constraintName="series_pc_fkey"
 				referencedColumnNames="id"
-				referencedTableName="company"/>
+				referencedTableName="company"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="original_broadcaster_id"
 				baseTableName="series"
+				baseTableSchemaName="stapi"
 				constraintName="series_ob_fkey"
 				referencedColumnNames="id"
-				referencedTableName="company"/>
+				referencedTableName="company"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

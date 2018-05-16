@@ -21,10 +21,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 @Data
 @Entity
+@Table(schema = "stapi")
 @ToString(exclude = {"species"})
 @EqualsAndHashCode(exclude = {"species"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

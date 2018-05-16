@@ -35,17 +35,21 @@
 			<column name="year_to" type="int"/>
 			<column name="us_release_date" type="date"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="movie_sequence"/>
+		<createSequence incrementBy="1" sequenceName="movie_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="movie"
+				baseTableSchemaName="stapi"
 				constraintName="movie_page_fkey"
 				referencedColumnNames="id"
-				referencedTableName="page"/>
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="main_director_id"
 				baseTableName="movie"
+				baseTableSchemaName="stapi"
 				constraintName="movie_main_director_fkey"
 				referencedColumnNames="id"
-				referencedTableName="staff"/>
+				referencedTableName="staff"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="movies_writers">
 			<column name="movie_id" type="bigint"/>
@@ -53,14 +57,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="movie_id"
 				baseTableName="movies_writers"
+				baseTableSchemaName="stapi"
 				constraintName="mw_movie_fkey"
 				referencedColumnNames="id"
-				referencedTableName="movie"/>
+				referencedTableName="movie"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="staff_id"
 				baseTableName="movies_writers"
+				baseTableSchemaName="stapi"
 				constraintName="mw_writer_fkey"
 				referencedColumnNames="id"
-				referencedTableName="staff"/>
+				referencedTableName="staff"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="movies_screenplay_authors">
 			<column name="movie_id" type="bigint"/>
@@ -68,14 +76,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="movie_id"
 				baseTableName="movies_screenplay_authors"
+				baseTableSchemaName="stapi"
 				constraintName="mspa_movie_fkey"
 				referencedColumnNames="id"
-				referencedTableName="movie"/>
+				referencedTableName="movie"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="staff_id"
 				baseTableName="movies_screenplay_authors"
+				baseTableSchemaName="stapi"
 				constraintName="mspa_screenplay_author_fkey"
 				referencedColumnNames="id"
-				referencedTableName="staff"/>
+				referencedTableName="staff"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="movies_story_authors">
 			<column name="movie_id" type="bigint"/>
@@ -83,14 +95,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="movie_id"
 				baseTableName="movies_story_authors"
+				baseTableSchemaName="stapi"
 				constraintName="msa_movie_fkey"
 				referencedColumnNames="id"
-				referencedTableName="movie"/>
+				referencedTableName="movie"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="staff_id"
 				baseTableName="movies_story_authors"
+				baseTableSchemaName="stapi"
 				constraintName="mpa_story_author_fkey"
 				referencedColumnNames="id"
-				referencedTableName="staff"/>
+				referencedTableName="staff"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="movies_directors">
 			<column name="movie_id" type="bigint"/>
@@ -98,14 +114,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="movie_id"
 				baseTableName="movies_directors"
+				baseTableSchemaName="stapi"
 				constraintName="md_movie_fkey"
 				referencedColumnNames="id"
-				referencedTableName="movie"/>
+				referencedTableName="movie"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="staff_id"
 				baseTableName="movies_directors"
+				baseTableSchemaName="stapi"
 				constraintName="md_director_fkey"
 				referencedColumnNames="id"
-				referencedTableName="staff"/>
+				referencedTableName="staff"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="movies_producers">
 			<column name="movie_id" type="bigint"/>
@@ -113,14 +133,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="movie_id"
 				baseTableName="movies_producers"
+				baseTableSchemaName="stapi"
 				constraintName="mpro_movie_fkey"
 				referencedColumnNames="id"
-				referencedTableName="movie"/>
+				referencedTableName="movie"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="staff_id"
 				baseTableName="movies_producers"
+				baseTableSchemaName="stapi"
 				constraintName="mpro_staff_fkey"
 				referencedColumnNames="id"
-				referencedTableName="staff"/>
+				referencedTableName="staff"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="movies_staff">
 			<column name="movie_id" type="bigint"/>
@@ -128,14 +152,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="movie_id"
 				baseTableName="movies_staff"
+				baseTableSchemaName="stapi"
 				constraintName="ms_movie_fkey"
 				referencedColumnNames="id"
-				referencedTableName="movie"/>
+				referencedTableName="movie"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="staff_id"
 				baseTableName="movies_staff"
+				baseTableSchemaName="stapi"
 				constraintName="ms_staff_fkey"
 				referencedColumnNames="id"
-				referencedTableName="staff"/>
+				referencedTableName="staff"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="movies_performers">
 			<column name="movie_id" type="bigint"/>
@@ -143,14 +171,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="movie_id"
 				baseTableName="movies_performers"
+				baseTableSchemaName="stapi"
 				constraintName="mper_movie_fkey"
 				referencedColumnNames="id"
-				referencedTableName="movie"/>
+				referencedTableName="movie"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="performer_id"
 				baseTableName="movies_performers"
+				baseTableSchemaName="stapi"
 				constraintName="mper_performer_fkey"
 				referencedColumnNames="id"
-				referencedTableName="performer"/>
+				referencedTableName="performer"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="movies_stunt_performers">
 			<column name="movie_id" type="bigint"/>
@@ -158,14 +190,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="movie_id"
 				baseTableName="movies_stunt_performers"
+				baseTableSchemaName="stapi"
 				constraintName="mstup_movie_fkey"
 				referencedColumnNames="id"
-				referencedTableName="movie"/>
+				referencedTableName="movie"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="performer_id"
 				baseTableName="movies_stunt_performers"
+				baseTableSchemaName="stapi"
 				constraintName="mstup_performer_fkey"
 				referencedColumnNames="id"
-				referencedTableName="performer"/>
+				referencedTableName="performer"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="movies_stand_in_performers">
 			<column name="movie_id" type="bigint"/>
@@ -173,14 +209,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="movie_id"
 				baseTableName="movies_stand_in_performers"
+				baseTableSchemaName="stapi"
 				constraintName="mstap_movie_fkey"
 				referencedColumnNames="id"
-				referencedTableName="movie"/>
+				referencedTableName="movie"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="performer_id"
 				baseTableName="movies_stand_in_performers"
+				baseTableSchemaName="stapi"
 				constraintName="mstap_performer_fkey"
 				referencedColumnNames="id"
-				referencedTableName="performer"/>
+				referencedTableName="performer"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="movies_characters">
 			<column name="movie_id" type="bigint"/>
@@ -188,13 +228,17 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="movie_id"
 				baseTableName="movies_characters"
+				baseTableSchemaName="stapi"
 				constraintName="mc_movie_fkey"
 				referencedColumnNames="id"
-				referencedTableName="movie"/>
+				referencedTableName="movie"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="character_id"
 				baseTableName="movies_characters"
+				baseTableSchemaName="stapi"
 				constraintName="mc_character_fkey"
 				referencedColumnNames="id"
-				referencedTableName="character"/>
+				referencedTableName="character"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

@@ -17,6 +17,6 @@
 				<constraints nullable="false"/>
 			</column>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="content_language_sequence"/>
+		<createSequence incrementBy="1" sequenceName="content_language_sequence" schemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

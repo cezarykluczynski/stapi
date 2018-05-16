@@ -75,7 +75,8 @@ class StaticJobCompletenessDecider {
 		SpringLiquibase liquibase() {
 			new SpringLiquibase(
 					changeLog: 'classpath:liquibase/changelog.xml',
-					dataSource: applicationContext.getBean(DataSource)
+					dataSource: applicationContext.getBean(DataSource),
+					defaultSchema: 'stapi'
 			)
 		}
 

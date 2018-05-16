@@ -346,7 +346,7 @@ uploadArchives {
 		}
 	}
 }
-
-signing {
-	sign configurations.archives
-}
+// TODO: uncomment and make it configurable to sign client
+//signing {
+//	sign configurations.archives
+//}

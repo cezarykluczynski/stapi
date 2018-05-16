@@ -24,11 +24,11 @@ import javax.persistence.Table;
 
 @Data
 @Entity
+@Table(name = "api_key", schema = "stapi_users")
 @ToString(exclude = {"account", "throttle"})
 @EqualsAndHashCode(exclude = {"account", "throttle"})
 @TrackedEntity(type = TrackedEntityType.TECHNICAL, repository = ApiKeyRepository.class, apiEntity = false, singularName = "api key",
 		pluralName = "api keys")
-@Table(name = "api_key", schema = "stapi_users")
 public class ApiKey {
 
 	@Id

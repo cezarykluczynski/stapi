@@ -27,11 +27,13 @@
 			<column name="transonic_series" type="boolean"/>
 			<column name="world_series" type="boolean"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="element_sequence"/>
+		<createSequence incrementBy="1" sequenceName="element_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="element"
+				baseTableSchemaName="stapi"
 				constraintName="element_page_fkey"
 				referencedColumnNames="id"
-				referencedTableName="page"/>
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

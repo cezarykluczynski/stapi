@@ -78,11 +78,13 @@
 			<column name="video_game_production_staff" type="boolean"/>
 			<column name="writer" type="boolean"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="staff_sequence"/>
+		<createSequence incrementBy="1" sequenceName="staff_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="staff"
+				baseTableSchemaName="stapi"
 				constraintName="staff_page_fkey"
 				referencedColumnNames="id"
-				referencedTableName="page"/>
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

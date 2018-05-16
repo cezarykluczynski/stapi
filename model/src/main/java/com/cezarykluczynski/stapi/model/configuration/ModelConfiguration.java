@@ -103,6 +103,7 @@ public class ModelConfiguration {
 	public SpringLiquibase liquibase() {
 		SpringLiquibase springLiquibase = new SpringLiquibase();
 		springLiquibase.setChangeLog("classpath:liquibase/changelog.xml");
+		springLiquibase.setDefaultSchema("stapi");
 		springLiquibase.setDataSource(dataSource());
 		return springLiquibase;
 	}

@@ -29,10 +29,12 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import java.util.Set;
 
 @Data
 @Entity
+@Table(schema = "stapi")
 @ToString(callSuper = true, exclude = {"species", "owner", "operator", "affiliation", "spacecraftTypes", "spacecrafts"})
 @EqualsAndHashCode(callSuper = true, exclude = {"species", "owner", "operator", "affiliation", "spacecraftTypes", "spacecrafts"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

@@ -20,10 +20,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import java.util.Set;
 
 @Data
 @Entity
+@Table(schema = "stapi")
 @ToString(callSuper = true, exclude = {"writtenEpisodes", "teleplayAuthoredEpisodes", "storyAuthoredEpisodes", "directedEpisodes", "episodes",
 		"writtenMovies", "screenplayAuthoredMovies", "storyAuthoredMovies", "directedMovies", "producedMovies", "movies"})
 @EqualsAndHashCode(callSuper = true, exclude = {"writtenEpisodes", "teleplayAuthoredEpisodes", "storyAuthoredEpisodes", "directedEpisodes",

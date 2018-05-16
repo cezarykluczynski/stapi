@@ -27,12 +27,14 @@
 			<column name="year_from" type="int"/>
 			<column name="year_to" type="int"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="comic_strip_sequence"/>
+		<createSequence incrementBy="1" sequenceName="comic_strip_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="comic_strip"
+				baseTableSchemaName="stapi"
 				constraintName="comic_strip_page_fkey"
 				referencedColumnNames="id"
-				referencedTableName="page"/>
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="comic_strips_comics_series">
 			<column name="comic_strip_id" type="bigint"/>
@@ -40,14 +42,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="comic_strip_id"
 				baseTableName="comic_strips_comics_series"
+				baseTableSchemaName="stapi"
 				constraintName="cscs_comic_strip_fkey"
 				referencedColumnNames="id"
-				referencedTableName="comic_strip"/>
+				referencedTableName="comic_strip"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="comic_series_id"
 				baseTableName="comic_strips_comics_series"
+				baseTableSchemaName="stapi"
 				constraintName="cscs_comic_series_fkey"
 				referencedColumnNames="id"
-				referencedTableName="comic_series"/>
+				referencedTableName="comic_series"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="comic_strips_writers">
 			<column name="comic_strip_id" type="bigint"/>
@@ -55,14 +61,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="comic_strip_id"
 				baseTableName="comic_strips_writers"
+				baseTableSchemaName="stapi"
 				constraintName="csw_comic_strip_fkey"
 				referencedColumnNames="id"
-				referencedTableName="comic_strip"/>
+				referencedTableName="comic_strip"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="staff_id"
 				baseTableName="comic_strips_writers"
+				baseTableSchemaName="stapi"
 				constraintName="csw_writer_fkey"
 				referencedColumnNames="id"
-				referencedTableName="staff"/>
+				referencedTableName="staff"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="comic_strips_artists">
 			<column name="comic_strip_id" type="bigint"/>
@@ -70,14 +80,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="comic_strip_id"
 				baseTableName="comic_strips_artists"
+				baseTableSchemaName="stapi"
 				constraintName="csa_comic_strip_fkey"
 				referencedColumnNames="id"
-				referencedTableName="comic_strip"/>
+				referencedTableName="comic_strip"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="staff_id"
 				baseTableName="comic_strips_artists"
+				baseTableSchemaName="stapi"
 				constraintName="csa_artist_fkey"
 				referencedColumnNames="id"
-				referencedTableName="staff"/>
+				referencedTableName="staff"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="comic_strips_characters">
 			<column name="comic_strip_id" type="bigint"/>
@@ -85,13 +99,17 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="comic_strip_id"
 				baseTableName="comic_strips_characters"
+				baseTableSchemaName="stapi"
 				constraintName="csc_comic_strip_fkey"
 				referencedColumnNames="id"
-				referencedTableName="comic_strip"/>
+				referencedTableName="comic_strip"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="character_id"
 				baseTableName="comic_strips_characters"
+				baseTableSchemaName="stapi"
 				constraintName="csc_character_fkey"
 				referencedColumnNames="id"
-				referencedTableName="character"/>
+				referencedTableName="character"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

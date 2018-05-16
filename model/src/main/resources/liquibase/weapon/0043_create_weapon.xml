@@ -24,11 +24,13 @@
 			<column name="mirror" type="boolean"/>
 			<column name="alternate_reality" type="boolean"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="weapon_sequence"/>
+		<createSequence incrementBy="1" sequenceName="weapon_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="weapon"
+				baseTableSchemaName="stapi"
 				constraintName="weapon_page_fkey"
 				referencedColumnNames="id"
-				referencedTableName="page"/>
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

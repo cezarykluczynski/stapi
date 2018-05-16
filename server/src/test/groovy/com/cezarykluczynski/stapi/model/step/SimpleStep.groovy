@@ -15,7 +15,7 @@ import javax.persistence.Table
 
 @Data
 @Entity(name = 'SimpleStep')
-@Table(name = 'batch_step_execution')
+@Table(schema = 'stapi', name = 'batch_step_execution')
 @SuppressWarnings('UnusedPrivateField')
 @TrackedEntity(type = TrackedEntityType.TECHNICAL, repository = CrudRepository, apiEntity = false, singularName = '', pluralName = '')
 class SimpleStep {

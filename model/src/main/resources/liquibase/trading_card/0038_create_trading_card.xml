@@ -21,16 +21,20 @@
 			<column name="release_year" type="int"/>
 			<column name="production_run" type="int"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="trading_card_sequence"/>
+		<createSequence incrementBy="1" sequenceName="trading_card_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="trading_card_set_id"
 				baseTableName="trading_card"
+				baseTableSchemaName="stapi"
 				constraintName="tc_trading_card_fkey"
 				referencedColumnNames="id"
-				referencedTableName="trading_card_set"/>
+				referencedTableName="trading_card_set"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="trading_card_deck_id"
 				baseTableName="trading_card"
+				baseTableSchemaName="stapi"
 				constraintName="tc_trading_card_deck_fkey"
 				referencedColumnNames="id"
-				referencedTableName="trading_card_deck"/>
+				referencedTableName="trading_card_deck"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

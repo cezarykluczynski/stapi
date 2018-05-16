@@ -25,10 +25,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import java.util.Set;
 
 @Data
 @Entity
+@Table(schema = "stapi")
 @ToString(callSuper = true, exclude = {"location", "astronomicalObjects"})
 @EqualsAndHashCode(callSuper = true, exclude = {"location", "astronomicalObjects"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

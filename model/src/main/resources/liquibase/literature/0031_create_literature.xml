@@ -23,11 +23,13 @@
 			<column name="technical_manual" type="boolean"/>
 			<column name="religious_literature" type="boolean"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="literature_sequence"/>
+		<createSequence incrementBy="1" sequenceName="literature_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="literature"
+				baseTableSchemaName="stapi"
 				constraintName="literature_page_fkey"
 				referencedColumnNames="id"
-				referencedTableName="page"/>
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

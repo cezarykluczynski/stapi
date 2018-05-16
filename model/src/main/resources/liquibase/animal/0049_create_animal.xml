@@ -22,11 +22,13 @@
 			<column name="canine" type="boolean"/>
 			<column name="feline" type="boolean"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="animal_sequence"/>
+		<createSequence incrementBy="1" sequenceName="animal_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="animal"
+				baseTableSchemaName="stapi"
 				constraintName="animal_page_fkey"
 				referencedColumnNames="id"
-				referencedTableName="page"/>
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

@@ -26,10 +26,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import java.util.Set;
 
 @Data
 @Entity
+@Table(schema = "stapi")
 @ToString(callSuper = true, exclude = {"comicSeries", "writers", "artists", "characters"})
 @EqualsAndHashCode(callSuper = true, exclude = {"comicSeries", "writers", "artists", "characters"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

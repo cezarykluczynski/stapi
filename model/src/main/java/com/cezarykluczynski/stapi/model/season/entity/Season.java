@@ -26,10 +26,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import java.util.Set;
 
 @Data
 @Entity
+@Table(schema = "stapi")
 @ToString(callSuper = true, exclude = {"series", "episodes", "videoReleases"})
 @EqualsAndHashCode(callSuper = true, exclude = {"series", "episodes", "videoReleases"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

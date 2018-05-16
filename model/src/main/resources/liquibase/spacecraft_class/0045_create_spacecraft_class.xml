@@ -26,33 +26,43 @@
 			<column name="active_from" type="varchar(32)"/>
 			<column name="active_to" type="varchar(32)"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="spacecraft_class_sequence"/>
+		<createSequence incrementBy="1" sequenceName="spacecraft_class_sequence" schemaName="stapi"/>
 
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="spacecraft_class"
+				baseTableSchemaName="stapi"
 				constraintName="spacecraft_class_page_fkey"
 				referencedColumnNames="id"
-				referencedTableName="page"/>
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="species_id"
 				baseTableName="spacecraft_class"
+				baseTableSchemaName="stapi"
 				constraintName="spc_species_fkey"
 				referencedColumnNames="id"
-				referencedTableName="species"/>
+				referencedTableName="species"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="owner_id"
 				baseTableName="spacecraft_class"
+				baseTableSchemaName="stapi"
 				constraintName="spc_owner_fkey"
 				referencedColumnNames="id"
-				referencedTableName="organization"/>
+				referencedTableName="organization"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="operator_id"
 				baseTableName="spacecraft_class"
+				baseTableSchemaName="stapi"
 				constraintName="spc_operator_fkey"
 				referencedColumnNames="id"
-				referencedTableName="organization"/>
+				referencedTableName="organization"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="affiliation_id"
 				baseTableName="spacecraft_class"
+				baseTableSchemaName="stapi"
 				constraintName="spc_affiliation_fkey"
 				referencedColumnNames="id"
-				referencedTableName="organization"/>
+				referencedTableName="organization"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="spacecraft_classes_types">
 			<column name="spacecraft_class_id" type="bigint"/>
@@ -60,14 +70,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="spacecraft_class_id"
 				baseTableName="spacecraft_classes_types"
+				baseTableSchemaName="stapi"
 				constraintName="scl_spacecraft_class_fkey"
 				referencedColumnNames="id"
-				referencedTableName="spacecraft_class"/>
+				referencedTableName="spacecraft_class"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="spacecraft_type_id"
 				baseTableName="spacecraft_classes_types"
+				baseTableSchemaName="stapi"
 				constraintName="scl_spacecraft_type_fkey"
 				referencedColumnNames="id"
-				referencedTableName="spacecraft_type"/>
+				referencedTableName="spacecraft_type"
+				referencedTableSchemaName="stapi"/>
 
 	</changeSet>
 </databaseChangeLog>

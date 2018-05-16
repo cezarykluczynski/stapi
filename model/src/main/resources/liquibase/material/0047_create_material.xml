@@ -27,11 +27,13 @@
 			<column name="mineral" type="boolean"/>
 			<column name="precious_material" type="boolean"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="material_sequence"/>
+		<createSequence incrementBy="1" sequenceName="material_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="material"
+				baseTableSchemaName="stapi"
 				constraintName="material_page_fkey"
 				referencedColumnNames="id"
-				referencedTableName="page"/>
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

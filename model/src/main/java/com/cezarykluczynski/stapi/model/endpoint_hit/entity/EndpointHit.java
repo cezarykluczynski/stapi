@@ -20,10 +20,10 @@ import javax.persistence.Table;
 
 @Data
 @Entity
+@Table(name = "endpoint_hit", schema = "stapi_users")
 @ToString
 @TrackedEntity(type = TrackedEntityType.TECHNICAL, repository = EndpointHitRepository.class, apiEntity = false, metricsEntity = true,
 		singularName = "endpoint hit", pluralName = "endpoint hits")
-@Table(name = "endpoint_hit", schema = "stapi_users")
 public class EndpointHit {
 
 	@Id

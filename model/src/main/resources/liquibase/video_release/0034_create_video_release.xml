@@ -43,22 +43,28 @@
 			<column name="you_tube_digital_release" type="boolean"/>
 			<column name="netflix_digital_release" type="boolean"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="video_release_sequence"/>
+		<createSequence incrementBy="1" sequenceName="video_release_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="video_release"
+				baseTableSchemaName="stapi"
 				constraintName="video_release_page_fkey"
 				referencedColumnNames="id"
-				referencedTableName="page"/>
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="series_id"
 				baseTableName="video_release"
+				baseTableSchemaName="stapi"
 				constraintName="video_release_series_fkey"
 				referencedColumnNames="id"
-				referencedTableName="series"/>
+				referencedTableName="series"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="season_id"
 				baseTableName="video_release"
+				baseTableSchemaName="stapi"
 				constraintName="video_release_season_fkey"
 				referencedColumnNames="id"
-				referencedTableName="season"/>
+				referencedTableName="season"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="video_releases_references">
 			<column name="video_release_id" type="bigint"/>
@@ -66,14 +72,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="video_release_id"
 				baseTableName="video_releases_references"
+				baseTableSchemaName="stapi"
 				constraintName="vrre_video_release_fkey"
 				referencedColumnNames="id"
-				referencedTableName="video_release"/>
+				referencedTableName="video_release"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="reference_id"
 				baseTableName="video_releases_references"
+				baseTableSchemaName="stapi"
 				constraintName="vrre_reference_fkey"
 				referencedColumnNames="id"
-				referencedTableName="reference"/>
+				referencedTableName="reference"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="video_releases_ratings">
 			<column name="video_release_id" type="bigint"/>
@@ -81,14 +91,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="video_release_id"
 				baseTableName="video_releases_ratings"
+				baseTableSchemaName="stapi"
 				constraintName="vrra_video_release_fkey"
 				referencedColumnNames="id"
-				referencedTableName="video_release"/>
+				referencedTableName="video_release"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="content_rating_id"
 				baseTableName="video_releases_ratings"
+				baseTableSchemaName="stapi"
 				constraintName="vrra_reference_fkey"
 				referencedColumnNames="id"
-				referencedTableName="content_rating"/>
+				referencedTableName="content_rating"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="video_releases_languages">
 			<column name="video_release_id" type="bigint"/>
@@ -96,14 +110,17 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="video_release_id"
 				baseTableName="video_releases_languages"
+				baseTableSchemaName="stapi"
 				constraintName="vrl_video_release_fkey"
 				referencedColumnNames="id"
-				referencedTableName="video_release"/>
+				referencedTableName="video_release"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="content_language_id"
-				 baseTableName="video_releases_languages"
-				 constraintName="vrl_reference_fkey"
-				 referencedColumnNames="id"
-				 referencedTableName="content_language"/>
+				baseTableName="video_releases_languages"
+				constraintName="vrl_reference_fkey"
+				referencedColumnNames="id"
+				referencedTableName="content_language"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="video_releases_languages_sub">
 			<column name="video_release_id" type="bigint"/>
@@ -111,14 +128,17 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="video_release_id"
 				baseTableName="video_releases_languages_sub"
+				baseTableSchemaName="stapi"
 				constraintName="vrls_video_release_fkey"
 				referencedColumnNames="id"
-				referencedTableName="video_release"/>
+				referencedTableName="video_release"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="content_language_id"
-				 baseTableName="video_releases_languages_sub"
-				 constraintName="vrls_reference_fkey"
-				 referencedColumnNames="id"
-				 referencedTableName="content_language"/>
+				baseTableName="video_releases_languages_sub"
+				constraintName="vrls_reference_fkey"
+				referencedColumnNames="id"
+				referencedTableName="content_language"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="video_releases_languages_dub">
 			<column name="video_release_id" type="bigint"/>
@@ -126,13 +146,17 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="video_release_id"
 				baseTableName="video_releases_languages_dub"
+				baseTableSchemaName="stapi"
 				constraintName="vrld_video_release_fkey"
 				referencedColumnNames="id"
-				referencedTableName="video_release"/>
+				referencedTableName="video_release"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="content_language_id"
 				baseTableName="video_releases_languages_dub"
+				baseTableSchemaName="stapi"
 				constraintName="vrld_reference_fkey"
 				referencedColumnNames="id"
-				referencedTableName="content_language"/>
+				referencedTableName="content_language"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

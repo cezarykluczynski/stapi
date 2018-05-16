@@ -11,13 +11,15 @@
 			<column name="numerator" type="int"/>
 			<column name="denominator" type="int"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="character_species_sequence"/>
+		<createSequence incrementBy="1" sequenceName="character_species_sequence" schemaName="stapi"/>
 
 		<addForeignKeyConstraint baseColumnNames="species_id"
 				baseTableName="character_species"
+				baseTableSchemaName="stapi"
 				constraintName="sc_species_fkey"
 				referencedColumnNames="id"
-				referencedTableName="species"/>
+				referencedTableName="species"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="characters_character_species">
 			<column name="character_id" type="bigint"/>
@@ -25,13 +27,17 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="character_id"
 				baseTableName="characters_character_species"
+				baseTableSchemaName="stapi"
 				constraintName="ccs_character_fkey"
 				referencedColumnNames="id"
-				referencedTableName="character"/>
+				referencedTableName="character"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="character_species_id"
 				baseTableName="characters_character_species"
+				baseTableSchemaName="stapi"
 				constraintName="ccs_character_species_fkey"
 				referencedColumnNames="id"
-				referencedTableName="character_species"/>
+				referencedTableName="character_species"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

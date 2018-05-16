@@ -27,10 +27,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import java.util.Set;
 
 @Data
 @Entity
+@Table(schema = "stapi")
 @ToString(callSuper = true, exclude = {"spacecraftClass", "owner", "operator", "spacecraftTypes"})
 @EqualsAndHashCode(callSuper = true, exclude = {"spacecraftClass", "owner", "operator", "spacecraftTypes"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

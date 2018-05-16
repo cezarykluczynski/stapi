@@ -36,22 +36,28 @@
 			<column name="us_air_date" type="date"/>
 			<column name="final_script_date" type="date"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="episode_sequence"/>
+		<createSequence incrementBy="1" sequenceName="episode_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="episode"
+				baseTableSchemaName="stapi"
 				constraintName="episode_page_fkey"
 				referencedColumnNames="id"
-				referencedTableName="page"/>
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="series_id"
 				baseTableName="episode"
+				baseTableSchemaName="stapi"
 				constraintName="episode_series_fkey"
 				referencedColumnNames="id"
-				referencedTableName="series"/>
+				referencedTableName="series"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="season_id"
 				baseTableName="episode"
+				baseTableSchemaName="stapi"
 				constraintName="episode_season_fkey"
 				referencedColumnNames="id"
-				referencedTableName="season"/>
+				referencedTableName="season"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="episodes_writers">
 			<column name="episode_id" type="bigint"/>
@@ -59,14 +65,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="episode_id"
 				baseTableName="episodes_writers"
+				baseTableSchemaName="stapi"
 				constraintName="ew_episode_fkey"
 				referencedColumnNames="id"
-				referencedTableName="episode"/>
+				referencedTableName="episode"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="staff_id"
 				baseTableName="episodes_writers"
+				baseTableSchemaName="stapi"
 				constraintName="ew_writer_fkey"
 				referencedColumnNames="id"
-				referencedTableName="staff"/>
+				referencedTableName="staff"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="episodes_teleplay_authors">
 			<column name="episode_id" type="bigint"/>
@@ -74,14 +84,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="episode_id"
 				baseTableName="episodes_teleplay_authors"
+				baseTableSchemaName="stapi"
 				constraintName="eta_episode_fkey"
 				referencedColumnNames="id"
-				referencedTableName="episode"/>
+				referencedTableName="episode"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="staff_id"
 				baseTableName="episodes_teleplay_authors"
+				baseTableSchemaName="stapi"
 				constraintName="eta_teleplay_author_fkey"
 				referencedColumnNames="id"
-				referencedTableName="staff"/>
+				referencedTableName="staff"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="episodes_story_authors">
 			<column name="episode_id" type="bigint"/>
@@ -89,14 +103,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="episode_id"
 				baseTableName="episodes_story_authors"
+				baseTableSchemaName="stapi"
 				constraintName="esa_episode_fkey"
 				referencedColumnNames="id"
-				referencedTableName="episode"/>
+				referencedTableName="episode"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="staff_id"
 				baseTableName="episodes_story_authors"
+				baseTableSchemaName="stapi"
 				constraintName="esa_story_author_fkey"
 				referencedColumnNames="id"
-				referencedTableName="staff"/>
+				referencedTableName="staff"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="episodes_directors">
 			<column name="episode_id" type="bigint"/>
@@ -104,14 +122,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="episode_id"
 				baseTableName="episodes_directors"
+				baseTableSchemaName="stapi"
 				constraintName="ed_episode_fkey"
 				referencedColumnNames="id"
-				referencedTableName="episode"/>
+				referencedTableName="episode"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="staff_id"
 				baseTableName="episodes_directors"
+				baseTableSchemaName="stapi"
 				constraintName="ed_director_fkey"
 				referencedColumnNames="id"
-				referencedTableName="staff"/>
+				referencedTableName="staff"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="episodes_staff">
 			<column name="episode_id" type="bigint"/>
@@ -119,14 +141,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="episode_id"
 				baseTableName="episodes_staff"
+				baseTableSchemaName="stapi"
 				constraintName="es_episode_fkey"
 				referencedColumnNames="id"
-				referencedTableName="episode"/>
+				referencedTableName="episode"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="staff_id"
 				baseTableName="episodes_staff"
+				baseTableSchemaName="stapi"
 				constraintName="es_staff_fkey"
 				referencedColumnNames="id"
-				referencedTableName="staff"/>
+				referencedTableName="staff"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="episodes_performers">
 			<column name="episode_id" type="bigint"/>
@@ -134,14 +160,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="episode_id"
 				baseTableName="episodes_performers"
+				baseTableSchemaName="stapi"
 				constraintName="ep_episode_fkey"
 				referencedColumnNames="id"
-				referencedTableName="episode"/>
+				referencedTableName="episode"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="performer_id"
 				baseTableName="episodes_performers"
+				baseTableSchemaName="stapi"
 				constraintName="ep_performer_fkey"
 				referencedColumnNames="id"
-				referencedTableName="performer"/>
+				referencedTableName="performer"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="episodes_stunt_performers">
 			<column name="episode_id" type="bigint"/>
@@ -149,14 +179,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="episode_id"
 				baseTableName="episodes_stunt_performers"
+				baseTableSchemaName="stapi"
 				constraintName="esp_episode_fkey"
 				referencedColumnNames="id"
-				referencedTableName="episode"/>
+				referencedTableName="episode"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="performer_id"
 				baseTableName="episodes_stunt_performers"
+				baseTableSchemaName="stapi"
 				constraintName="esp_performer_fkey"
 				referencedColumnNames="id"
-				referencedTableName="performer"/>
+				referencedTableName="performer"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="episodes_stand_in_performers">
 			<column name="episode_id" type="bigint"/>
@@ -164,14 +198,18 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="episode_id"
 				baseTableName="episodes_stand_in_performers"
+				baseTableSchemaName="stapi"
 				constraintName="esip_episode_fkey"
 				referencedColumnNames="id"
-				referencedTableName="episode"/>
+				referencedTableName="episode"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="performer_id"
 				baseTableName="episodes_stand_in_performers"
+				baseTableSchemaName="stapi"
 				constraintName="esip_performer_fkey"
 				referencedColumnNames="id"
-				referencedTableName="performer"/>
+				referencedTableName="performer"
+				referencedTableSchemaName="stapi"/>
 
 		<createTable schemaName="stapi" tableName="episodes_characters">
 			<column name="episode_id" type="bigint"/>
@@ -179,13 +217,17 @@
 		</createTable>
 		<addForeignKeyConstraint baseColumnNames="episode_id"
 				baseTableName="episodes_characters"
+				baseTableSchemaName="stapi"
 				constraintName="ec_episode_fkey"
 				referencedColumnNames="id"
-				referencedTableName="episode"/>
+				referencedTableName="episode"
+				referencedTableSchemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="character_id"
 				baseTableName="episodes_characters"
+				baseTableSchemaName="stapi"
 				constraintName="ec_performer_fkey"
 				referencedColumnNames="id"
-				referencedTableName="character"/>
+				referencedTableName="character"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

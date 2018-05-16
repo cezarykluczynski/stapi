@@ -17,11 +17,13 @@
 				<constraints nullable="false"/>
 			</column>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="spacecraft_type_sequence"/>
+		<createSequence incrementBy="1" sequenceName="spacecraft_type_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="spacecraft_type"
+				baseTableSchemaName="stapi"
 				constraintName="spacecraft_type_page_fkey"
 				referencedColumnNames="id"
-				referencedTableName="page"/>
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

@@ -29,11 +29,13 @@
 			<column name="mirror" type="boolean"/>
 			<column name="alternate_reality" type="boolean"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="organization_sequence"/>
+		<createSequence incrementBy="1" sequenceName="organization_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="organization"
+				baseTableSchemaName="stapi"
 				constraintName="organization_page_fkey"
 				referencedColumnNames="id"
-				referencedTableName="page"/>
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>

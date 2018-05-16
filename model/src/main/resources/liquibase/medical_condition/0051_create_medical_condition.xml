@@ -18,11 +18,13 @@
 			</column>
 			<column name="psychological_condition" type="boolean"/>
 		</createTable>
-		<createSequence incrementBy="1" sequenceName="medical_condition_sequence"/>
+		<createSequence incrementBy="1" sequenceName="medical_condition_sequence" schemaName="stapi"/>
 		<addForeignKeyConstraint baseColumnNames="page_id"
 				baseTableName="medical_condition"
+				baseTableSchemaName="stapi"
 				constraintName="medical_condition_page_fkey"
 				referencedColumnNames="id"
-				referencedTableName="page"/>
+				referencedTableName="page"
+				referencedTableSchemaName="stapi"/>
 	</changeSet>
 </databaseChangeLog>
