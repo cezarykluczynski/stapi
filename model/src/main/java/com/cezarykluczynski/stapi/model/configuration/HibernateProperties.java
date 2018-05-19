@@ -10,5 +10,6 @@ public class HibernateProperties {
 	public static final String PREFIX = "hibernate";
 
 	private String dialect;
+	private String defaultSchema;
 
 }

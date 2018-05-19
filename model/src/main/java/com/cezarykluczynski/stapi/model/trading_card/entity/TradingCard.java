@@ -21,11 +21,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 
 @Data
 @Entity
-@Table(schema = "stapi")
 @ToString(exclude = {"tradingCardSet", "tradingCardDeck"})
 @EqualsAndHashCode(exclude = {"tradingCardSet", "tradingCardDeck"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

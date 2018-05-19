@@ -93,6 +93,7 @@ public class ModelConfiguration {
 		properties.put("spring.jpa.hibernate.show_sql", TRUE);
 		properties.put("spring.jpa.hibernate.format_sql", TRUE);
 		properties.put("hibernate.dialect", hibernateProperties.getDialect());
+		properties.put("hibernate.default_schema", hibernateProperties.getDefaultSchema());
 		lef.setJpaPropertyMap(properties);
 		lef.afterPropertiesSet();
 		return lef.getObject();

@@ -29,13 +29,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import java.time.LocalDate;
 import java.util.Set;
 
 @Data
 @Entity
-@Table(schema = "stapi")
 @ToString(callSuper = true, exclude = {"series", "writers", "teleplayAuthors", "storyAuthors", "directors", "staff", "performers", "stuntPerformers",
 		"standInPerformers", "characters"})
 @EqualsAndHashCode(callSuper = true, exclude = {"series", "writers", "teleplayAuthors", "storyAuthors", "directors", "staff", "performers",

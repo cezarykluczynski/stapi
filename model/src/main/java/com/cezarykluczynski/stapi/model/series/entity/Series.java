@@ -25,13 +25,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import java.time.LocalDate;
 import java.util.Set;
 
 @Data
 @Entity
-@Table(schema = "stapi")
 @ToString(callSuper = true, exclude = {"productionCompany", "originalBroadcaster", "episodes", "seasons"})
 @EqualsAndHashCode(callSuper = true, exclude = {"productionCompany", "originalBroadcaster", "episodes", "seasons"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

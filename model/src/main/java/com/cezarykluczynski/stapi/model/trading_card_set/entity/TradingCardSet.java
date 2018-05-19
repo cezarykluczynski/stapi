@@ -29,12 +29,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import java.util.Set;
 
 @Data
 @Entity
-@Table(schema = "stapi")
 @ToString(exclude = {"manufacturers", "tradingCards", "tradingCardDecks", "countriesOfOrigin"})
 @EqualsAndHashCode(exclude = {"manufacturers", "tradingCards", "tradingCardDecks", "countriesOfOrigin"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

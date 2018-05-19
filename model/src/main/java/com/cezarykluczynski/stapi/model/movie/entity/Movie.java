@@ -27,13 +27,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import java.time.LocalDate;
 import java.util.Set;
 
 @Data
 @Entity
-@Table(schema = "stapi")
 @ToString(exclude = {"mainDirector", "writers", "screenplayAuthors", "storyAuthors", "directors", "producers", "staff", "performers",
 		"stuntPerformers", "standInPerformers", "characters"})
 @EqualsAndHashCode(callSuper = true, exclude = {"mainDirector", "writers", "screenplayAuthors", "storyAuthors", "directors", "producers", "staff",
