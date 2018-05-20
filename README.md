@@ -5,7 +5,7 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.cezarykluczynski.stapi/stapi-client/badge.svg)](https://mvnrepository.com/artifact/com.cezarykluczynski.stapi/stapi-client)
 
 ## About
-STAPI is a public [Star Trek API](http://stapi.co), currently in it's alpha stage.
+STAPI is a public [Star Trek API](http://stapi.co), currently in it's beta stage. It is feasible for production use, and the API model is considered stable.
 
 It was inspired by [Star Wars API](https://github.com/phalt/swapi) and [Pokéapi](https://github.com/PokeAPI/pokeapi).
 

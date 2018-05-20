@@ -47,10 +47,17 @@
 
 			<h4>Single entity</h4>
 			<p>Single entities can also be retrieved, using previously obtained UID. After searching for seasons, you will find that season one
-				of The Next Generation happens to have UID SAMA0000001633 (entity UID's rarely change over time).
+				of The Next Generation happens to have UID SAMA0000001633 (entity UID's rarely change over time, and ideally would not change at all).
 				So another call to the API renders details about this season, as well as all episodes from this season:
 				<a href="http://stapi.co/api/v1/rest/season?uid=SAMA0000001633">http://stapi.co/api/v1/rest/season?uid=SAMA0000001633</a>.
 			</p>
+
+			<h4>Tips</h4>
+			<ul>
+				<li>You can prepend <code>pretty</code> to any REST request URL to pretty print JSON, for example:
+					<a href="http://stapi.co/api/v1/rest/season?uid=SAMA0000001633&pretty">http://stapi.co/api/v1/rest/season?uid=SAMA0000001633&pretty</a>.
+				</li>
+			</ul>
 		</div>
 	</div>
 </div>
