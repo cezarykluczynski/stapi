@@ -9,10 +9,21 @@ declare var $: any;
 })
 export class LegalComponent implements OnInit {
 
+	private translationVisible: any;
+
 	constructor() {}
 
 	ngOnInit() {
 		$('.legal-holder').appendTo($('.legal-wrapper'));
+		$('.legal-holder-translation').appendTo($('.legal-wrapper-translation'));
+	}
+
+	toggleTranslation() {
+		this.translationVisible = !this.translationVisible;
+	}
+
+	showTranslation() {
+		return this.translationVisible;
 	}
 
 }

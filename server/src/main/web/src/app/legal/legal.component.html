@@ -1,6 +1,14 @@
 <div class='legal container content'>
 	<div class="row">
 		<div class="col-md-offset-3 col-md-6">
+			<div class="legal-wrapper-notice jumbotron">
+				<div class="legal-wrapper-translation-info">
+					English translation of this document is available for informational purposes.
+					Any legal disputes will be based on Polish text.</div>
+				<br>
+				<button class="btn btn-primary" (click)="toggleTranslation()">Toggle translation</button>
+				<div class="legal-wrapper-translation" [hidden]="!showTranslation()"></div>
+			</div>
 			<div class="legal-wrapper"></div>
 		</div>
 	</div>

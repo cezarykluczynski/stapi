@@ -6,7 +6,28 @@
 	<base href="/">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="shortcut icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4QYEDwQag7x7MwAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAAq0lEQVQ4y82TMQrCQBBFXzYrWNiktvAU3mqPIx7FXhDsrAQFS0UrxaQRo5OxWSSISTQL4i8H3p+ZP7uRqhIiQ6B+atABLNAtF6O6DETElBoZFIieZqjqxQKMh4teur06wAF9QID4k7Gsh5fAoFUGvvMrHH8Togu5gvU7V2qSjYqj7NJNPk/u3N4a1MFylkO2zmeJUlROUKmT7LNVPk0UbfeQmuBGgyb4Pz7TA0c9RBlB9koWAAAAAElFTkSuQmCC"/>
-
+	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+	<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+	<script>
+window.addEventListener("load", function(){
+window.cookieconsent.initialise({
+  "palette": {
+    "popup": {
+      "background": "#375a7f",
+      "text": "#ffffff"
+    },
+    "button": {
+      "background": "#00bc8c",
+      "text": "#ffffff"
+    }
+  },
+  "theme": "classic",
+  "position": "bottom-left",
+  "content": {
+    "href": "/privacy-policy"
+  }
+})});
+</script>
 </head>
 <body>
 	<app-root></app-root>

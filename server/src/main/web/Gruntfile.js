@@ -4,7 +4,9 @@ module.exports = function(grunt) {
 	var obj = properties.parse(fs.readFileSync('./../resources/application-stapi-custom.properties', 'utf8'));
 
 	var termsOfService = '';
+	var termsOfServiceTranslation = '';
 	var privacyPolicy = '';
+	var privacyPolicyTranslation = '';
 
 	try {
 		termsOfService = fs.readFileSync(obj['legal.termsOfService']);
@@ -12,13 +14,24 @@ module.exports = function(grunt) {
 		console.warn('Terms of service file not found, continuing with empty string...');
 	}
 	try {
+		termsOfServiceTranslation = fs.readFileSync(obj['legal.termsOfServiceTranslation']);
+	} catch (e) {
+		console.warn('Terms of service translation file not found, continuing with empty string...');
+	}
+	try {
 		privacyPolicy = fs.readFileSync(obj['legal.privacyPolicy']);
 	} catch (e) {
 		console.warn('Privacy policy file not found, continuing with empty string...');
 	}
+	try {
+		privacyPolicyTranslation = fs.readFileSync(obj['legal.privacyPolicyTranslation']);
+	} catch (e) {
+		console.warn('Privacy policy translation file not found, continuing with empty string...');
+	}
 
-	function wrapLegal(content) {
-		return '<app-root></app-root><script>document.write("<style>.legal-holder {display: none}</style>");</script><div class="legal-holder">' + content + '</div>';
+	function wrapLegal(content, translation) {
+		return '<app-root></app-root><script>document.write("<style>.legal-holder,.legal-holder-translation {display: none}</style>");'
+				+ '</script><div class="legal-holder">' + content + '</div><div class="legal-holder-translation">' + translation + '</div>';
 	}
 
 	grunt.initConfig({
@@ -84,9 +97,11 @@ module.exports = function(grunt) {
 					process: function (content, srcpath, targetPath) {
 						if (srcpath == '../resources/build/index.html') {
 							if (targetPath.endsWith('termsOfService.html')) {
-								return content.replace(new RegExp('<app-root></app-root>', 'g'), wrapLegal(termsOfService));
+								return content.replace(new RegExp('<app-root></app-root>', 'g'),
+									wrapLegal(termsOfService, termsOfServiceTranslation));
 							} else if (targetPath.endsWith('privacyPolicy.html')) {
-								return content.replace(new RegExp('<app-root></app-root>', 'g'), wrapLegal(privacyPolicy));
+								return content.replace(new RegExp('<app-root></app-root>', 'g'),
+									wrapLegal(privacyPolicy, privacyPolicyTranslation));
 							}
 						}
 						return content;
