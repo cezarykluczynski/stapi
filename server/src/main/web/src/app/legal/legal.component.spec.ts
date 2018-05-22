@@ -22,4 +22,16 @@ describe('LegalComponent', () => {
 	it('creates', () => {
 		expect(component).toBeTruthy();
 	});
+
+	it('translation can be toggled on and off', () => {
+		expect(component.showTranslation()).toBeFalse();
+
+		component.toggleTranslation();
+
+		expect(component.showTranslation()).toBeTrue();
+
+		component.toggleTranslation();
+
+		expect(component.showTranslation()).toBeFalse();
+	});
 });

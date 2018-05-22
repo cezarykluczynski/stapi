@@ -31,6 +31,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 					.and();
 		} else {
 			httpSecurity = http
+					.csrf()
+					.disable()
 					.sessionManagement()
 					.sessionCreationPolicy(SessionCreationPolicy.NEVER)
 					.and();

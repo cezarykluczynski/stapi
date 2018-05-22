@@ -18,7 +18,10 @@ export class RestApiService {
 		const prefix = location.href.includes('localhost:4200') ? 'http://localhost:8686' : '';
 		this.api = restClientFactoryService.createRestClient(prefix + '/api/v1/rest');
 		this.api.on('request', (xhr) => {
-			xhr.setRequestHeader('X-XSRF-TOKEN', cookieService.get('XSRF-TOKEN'));
+			const xsrfToken = cookieService.get('XSRF-TOKEN');
+			if (xsrfToken) {
+				xhr.setRequestHeader('X-XSRF-TOKEN', xsrfToken);
+			}
 		});
 		this.api.on('response', (xhr) => {
 			try {

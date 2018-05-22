@@ -9,7 +9,7 @@ declare var $: any;
 })
 export class LegalComponent implements OnInit {
 
-	private translationVisible: any;
+	private translationVisible: any = false;
 
 	constructor() {}
 
