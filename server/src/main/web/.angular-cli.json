@@ -19,7 +19,7 @@
 			"testTsconfig": "tsconfig.spec.json",
 			"prefix": "app",
 			"styles": [
-				"../node_modules/bootswatch/darkly/bootstrap.min.css",
+				"assets/bootswatch.darkly.min.css",
 				"../node_modules/highlight.js/styles/atelier-savanna-dark.css",
 				"styles.sass"
 			],
