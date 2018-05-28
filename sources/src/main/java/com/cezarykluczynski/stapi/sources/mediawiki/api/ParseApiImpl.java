@@ -83,13 +83,15 @@ public class ParseApiImpl implements ParseApi {
 
 	private HttpEntity doPostParams(List<NameValuePair> params) {
 		try {
-			HttpPost httppost = new HttpPost(expandTemplatesUrl);
-			httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+			HttpPost httpPost = new HttpPost(expandTemplatesUrl);
+			httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
 			HttpClient httpclient = HttpClients.createDefault();
-			HttpResponse response = httpclient.execute(httppost);
+			HttpResponse response = httpclient.execute(httpPost);
 			return response.getEntity();
 		} catch (Exception e) {
+			// TODO: retry few times
+			log.error("Could not execute HTTP POST", e);
 			return null;
 		}
 	}
