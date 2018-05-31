@@ -23,8 +23,14 @@ public class AstronomicalObjectWikitextProcessor implements ItemProcessor<String
 	private static final String GAS_GIANT = "Gas giant";
 	private static final String PLANETOID = "Planetoid";
 	private static final String MOON = "Moon";
+	private static final String CLASS_4_MOON = "Class 4 moon";
 	private static final String NON = "non-";
 	private static final String FORMERLY = "formerly";
+	private static final String PLANET = "Planet";
+	private static final String ASTEROID = "Asteroid";
+	private static final String STAR = "Star";
+	private static final String BINARY_SUN = "Binary sun";
+	private static final String PROTOPLANET = "Protoplanet";
 
 	private final WikitextApi wikitextApi;
 
@@ -33,6 +39,7 @@ public class AstronomicalObjectWikitextProcessor implements ItemProcessor<String
 	}
 
 	@Override
+	@SuppressWarnings("CyclomaticComplexity")
 	public AstronomicalObjectType process(String item) throws Exception {
 		List<PageLink> pageLinkList = wikitextApi.getPageLinksFromWikitext(item);
 
@@ -63,8 +70,18 @@ public class AstronomicalObjectWikitextProcessor implements ItemProcessor<String
 				astronomicalObjectType = AstronomicalObjectType.GAS_GIANT_PLANET;
 			} else if (PLANETOID.equalsIgnoreCase(title)) {
 				astronomicalObjectType = AstronomicalObjectType.PLANETOID;
-			} else if (MOON.equalsIgnoreCase(title)) {
+			} else if (MOON.equalsIgnoreCase(title) || CLASS_4_MOON.equalsIgnoreCase(title)) {
 				astronomicalObjectType = AstronomicalObjectType.MOON;
+			} else if (PLANET.equalsIgnoreCase(title)) {
+				astronomicalObjectType = AstronomicalObjectType.PLANET;
+			} else if (ASTEROID.equalsIgnoreCase(title)) {
+				astronomicalObjectType = AstronomicalObjectType.ASTEROID;
+			} else if (STAR.equalsIgnoreCase(title)) {
+				astronomicalObjectType = AstronomicalObjectType.STAR;
+			} else if (BINARY_SUN.equalsIgnoreCase(title)) {
+				astronomicalObjectType = AstronomicalObjectType.STAR; // TODO version 2: Change to BINARY_STAR
+			} else if (PROTOPLANET.equalsIgnoreCase(title)) {
+				astronomicalObjectType = AstronomicalObjectType.PLANET; // TODO version 2: change to PROTOPLANET
 			}
 
 			if (astronomicalObjectType != null) {

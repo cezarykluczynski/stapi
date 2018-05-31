@@ -80,7 +80,7 @@ public class PlanetTemplatePageProcessor implements ItemProcessor<Page, PlanetTe
 			String key = part.getKey();
 			String value = part.getValue();
 
-			if (PlanetTemplateParameter.CLASS.equals(key)) {
+			if (PlanetTemplateParameter.CLASS.equals(key) || PlanetTemplateParameter.TYPE.equals(key)) {
 				AstronomicalObjectType astronomicalObjectTypeFromProcessor = astronomicalObjectTypeProcessor.process(value);
 				AstronomicalObjectType currentAstronomicalObjectType = planetTemplate.getAstronomicalObjectType();
 				astronomicalObjectCompositeEnrichingProcessor.enrich(EnrichablePair.of(Pair
