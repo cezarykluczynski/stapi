@@ -15,7 +15,6 @@ import com.cezarykluczynski.stapi.etl.template.individual.dto.IndividualTemplate
 import com.cezarykluczynski.stapi.etl.template.individual.processor.species.CharacterSpeciesWikitextProcessor;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +35,8 @@ public class IndividualTemplatePartsEnrichingProcessor implements ItemWithTempla
 
 	private final IndividualWeightProcessor individualWeightProcessor;
 
+	private final IndividualSerialNumberProcessor individualSerialNumberProcessor;
+
 	private final IndividualBloodTypeProcessor individualBloodTypeProcessor;
 
 	private final CharactersRelationsCache charactersRelationsCache;
@@ -49,14 +50,16 @@ public class IndividualTemplatePartsEnrichingProcessor implements ItemWithTempla
 			WikitextToEntitiesProcessor wikitextToEntitiesProcessor, IndividualLifeBoundaryProcessor individualLifeBoundaryProcessor,
 			CharacterTemplateActorLinkingEnrichingProcessor characterTemplateActorLinkingEnrichingProcessor,
 			IndividualHeightProcessor individualHeightProcessor, IndividualWeightProcessor individualWeightProcessor,
-			IndividualBloodTypeProcessor individualBloodTypeProcessor, CharactersRelationsCache charactersRelationsCache,
-			MaritalStatusProcessor maritalStatusProcessor, CharacterSpeciesWikitextProcessor characterSpeciesWikitextProcessor) {
+			IndividualSerialNumberProcessor individualSerialNumberProcessor, IndividualBloodTypeProcessor individualBloodTypeProcessor,
+			CharactersRelationsCache charactersRelationsCache, MaritalStatusProcessor maritalStatusProcessor,
+			CharacterSpeciesWikitextProcessor characterSpeciesWikitextProcessor) {
 		this.partToGenderProcessor = partToGenderProcessor;
 		this.wikitextToEntitiesProcessor = wikitextToEntitiesProcessor;
 		this.individualLifeBoundaryProcessor = individualLifeBoundaryProcessor;
 		this.characterTemplateActorLinkingEnrichingProcessor = characterTemplateActorLinkingEnrichingProcessor;
 		this.individualHeightProcessor = individualHeightProcessor;
 		this.individualWeightProcessor = individualWeightProcessor;
+		this.individualSerialNumberProcessor = individualSerialNumberProcessor;
 		this.individualBloodTypeProcessor = individualBloodTypeProcessor;
 		this.charactersRelationsCache = charactersRelationsCache;
 		this.maritalStatusProcessor = maritalStatusProcessor;
@@ -95,9 +98,7 @@ public class IndividualTemplatePartsEnrichingProcessor implements ItemWithTempla
 					characterTemplate.setWeight(individualWeightProcessor.process(value));
 					break;
 				case IndividualTemplateParameter.SERIAL_NUMBER:
-					if (StringUtils.isNotBlank(value)) {
-						characterTemplate.setSerialNumber(value);
-					}
+					characterTemplate.setSerialNumber(individualSerialNumberProcessor.process(value));
 					break;
 				case IndividualTemplateParameter.BORN:
 					IndividualLifeBoundaryDTO birthBoundaryDTO = individualLifeBoundaryProcessor.process(value);

@@ -44,6 +44,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 	private static final String RELATIVE = 'RELATIVE'
 	private static final String SPOUSE = 'SPOUSE'
 	private static final String CHILDREN = 'CHILDREN'
+	private static final String SERIAL_NUMBER = 'SERIAL_NUMBER'
 	private static final MaritalStatus MARITAL_STATUS = MaritalStatus.MARRIED
 	private static final BloodType BLOOD_TYPE = BloodType.B_NEGATIVE
 
@@ -58,6 +59,8 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 	private IndividualHeightProcessor individualHeightProcessorMock
 
 	private IndividualWeightProcessor individualWeightProcessorMock
+
+	private IndividualSerialNumberProcessor individualSerialNumberProcessorMock
 
 	private IndividualBloodTypeProcessor individualBloodTypeProcessorMock
 
@@ -76,14 +79,15 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		characterTemplateActorLinkingEnrichingProcessorMock = Mock()
 		individualHeightProcessorMock = Mock()
 		individualWeightProcessorMock = Mock()
+		individualSerialNumberProcessorMock = Mock()
 		individualBloodTypeProcessorMock = Mock()
 		charactersRelationsCacheMock = Mock()
 		maritalStatusProcessorMock = Mock()
 		characterSpeciesWikitextProcessorMock = Mock()
 		individualTemplatePartsEnrichingProcessor = new IndividualTemplatePartsEnrichingProcessor(partToGenderProcessorMock,
 				wikitextToEntitiesProcessorMock, individualLifeBoundaryProcessorMock, characterTemplateActorLinkingEnrichingProcessorMock,
-				individualHeightProcessorMock, individualWeightProcessorMock, individualBloodTypeProcessorMock, charactersRelationsCacheMock,
-				maritalStatusProcessorMock, characterSpeciesWikitextProcessorMock)
+				individualHeightProcessorMock, individualWeightProcessorMock, individualSerialNumberProcessorMock, individualBloodTypeProcessorMock,
+				charactersRelationsCacheMock, maritalStatusProcessorMock, characterSpeciesWikitextProcessorMock)
 	}
 
 	void "sets gender from PartToGenderProcessor"() {
@@ -207,23 +211,7 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 7
 	}
 
-	void "does not set serial number when it is not empty"() {
-		given:
-		Template.Part templatePart = new Template.Part(
-				key: IndividualTemplateParameter.SERIAL_NUMBER,
-				value: '')
-		CharacterTemplate characterTemplate = new CharacterTemplate()
-
-		when:
-		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), characterTemplate))
-
-		then:
-		0 * _
-		characterTemplate.serialNumber == null
-		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 6
-	}
-
-	void "sets serial number when it is not empty"() {
+	void "sets serial number from IndividualSerialNumberProcessor"() {
 		given:
 		Template.Part templatePart = new Template.Part(
 				key: IndividualTemplateParameter.SERIAL_NUMBER,
@@ -234,8 +222,9 @@ class IndividualTemplatePartsEnrichingProcessorTest extends Specification {
 		individualTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), characterTemplate))
 
 		then:
+		1 * individualSerialNumberProcessorMock.process(VALUE) >> SERIAL_NUMBER
 		0 * _
-		characterTemplate.serialNumber == VALUE
+		characterTemplate.serialNumber == SERIAL_NUMBER
 		ReflectionTestUtils.getNumberOfNotNullFields(characterTemplate) == 7
 	}
 
