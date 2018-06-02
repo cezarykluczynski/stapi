@@ -191,6 +191,8 @@ public class CategoryTitles {
 			CategoryTitle.NEBULAE,
 			CategoryTitle.PLANETOIDS,
 			CategoryTitle.PLANETS,
+			CategoryTitle.PLANETS_RETCONNED,
+			CategoryTitle.UNNAMED_PLANETS,
 			CategoryTitle.REGIONS,
 			CategoryTitle.QUASARS,
 			CategoryTitle.STAR_SYSTEMS,

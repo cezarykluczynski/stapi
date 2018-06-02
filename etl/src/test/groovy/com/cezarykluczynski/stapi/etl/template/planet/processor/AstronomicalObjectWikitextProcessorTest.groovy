@@ -47,6 +47,12 @@ class AstronomicalObjectWikitextProcessorTest extends Specification {
 		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.GAS_GIANT))      | AstronomicalObjectType.GAS_GIANT_PLANET | WIKITEXT
 		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.PLANETOID))      | AstronomicalObjectType.PLANETOID        | WIKITEXT
 		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.MOON))           | AstronomicalObjectType.MOON             | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.CLASS_4_MOON))   | AstronomicalObjectType.MOON             | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.PLANET))         | AstronomicalObjectType.PLANET           | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.ASTEROID))       | AstronomicalObjectType.ASTEROID         | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.STAR))           | AstronomicalObjectType.STAR             | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.BINARY_SUN))     | AstronomicalObjectType.STAR             | WIKITEXT
+		Lists.newArrayList(new PageLink(title: AstronomicalObjectWikitextProcessor.PROTOPLANET))    | AstronomicalObjectType.PLANET           | WIKITEXT
 	}
 
 }

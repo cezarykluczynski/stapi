@@ -36,22 +36,24 @@ class AstronomicalObjectTypeEnrichingProcessorTest extends Specification {
 		astronomicalObjectType == planetTemplate.astronomicalObjectType
 
 		where:
-		categoryTitle                | astronomicalObjectType
-		null                         | null
-		CategoryTitle.PLANETS        | AstronomicalObjectType.PLANET
-		CategoryTitle.ASTEROIDS      | AstronomicalObjectType.ASTEROID
-		CategoryTitle.ASTEROID_BELTS | AstronomicalObjectType.ASTEROID_BELT
-		CategoryTitle.CLUSTERS       | AstronomicalObjectType.CLUSTER
-		CategoryTitle.COMETS         | AstronomicalObjectType.COMET
-		CategoryTitle.CONSTELLATIONS | AstronomicalObjectType.CONSTELLATION
-		CategoryTitle.GALAXIES       | AstronomicalObjectType.GALAXY
-		CategoryTitle.MOONS          | AstronomicalObjectType.MOON
-		CategoryTitle.NEBULAE        | AstronomicalObjectType.NEBULA
-		CategoryTitle.PLANETOIDS     | AstronomicalObjectType.PLANETOID
-		CategoryTitle.QUASARS        | AstronomicalObjectType.QUASAR
-		CategoryTitle.REGIONS        | AstronomicalObjectType.REGION
-		CategoryTitle.STAR_SYSTEMS   | AstronomicalObjectType.STAR_SYSTEM
-		CategoryTitle.STARS          | AstronomicalObjectType.STAR
+		categoryTitle                   | astronomicalObjectType
+		null                            | null
+		CategoryTitle.PLANETS           | AstronomicalObjectType.PLANET
+		CategoryTitle.PLANETS_RETCONNED | AstronomicalObjectType.PLANET
+		CategoryTitle.UNNAMED_PLANETS   | AstronomicalObjectType.PLANET
+		CategoryTitle.ASTEROIDS         | AstronomicalObjectType.ASTEROID
+		CategoryTitle.ASTEROID_BELTS    | AstronomicalObjectType.ASTEROID_BELT
+		CategoryTitle.CLUSTERS          | AstronomicalObjectType.CLUSTER
+		CategoryTitle.COMETS            | AstronomicalObjectType.COMET
+		CategoryTitle.CONSTELLATIONS    | AstronomicalObjectType.CONSTELLATION
+		CategoryTitle.GALAXIES          | AstronomicalObjectType.GALAXY
+		CategoryTitle.MOONS             | AstronomicalObjectType.MOON
+		CategoryTitle.NEBULAE           | AstronomicalObjectType.NEBULA
+		CategoryTitle.PLANETOIDS        | AstronomicalObjectType.PLANETOID
+		CategoryTitle.QUASARS           | AstronomicalObjectType.QUASAR
+		CategoryTitle.REGIONS           | AstronomicalObjectType.REGION
+		CategoryTitle.STAR_SYSTEMS      | AstronomicalObjectType.STAR_SYSTEM
+		CategoryTitle.STARS             | AstronomicalObjectType.STAR
 	}
 
 }

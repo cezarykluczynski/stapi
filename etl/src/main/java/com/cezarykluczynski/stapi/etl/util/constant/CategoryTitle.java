@@ -128,6 +128,8 @@ public class CategoryTitle {
 	public static final String MOONS = "Moons";
 	public static final String NEBULAE = "Nebulae";
 	public static final String PLANETS = "Planets";
+	public static final String PLANETS_RETCONNED = "Planets_(retconned)";
+	public static final String UNNAMED_PLANETS = "Unnamed_planets";
 	public static final String PLANETOIDS = "Planetoids";
 	public static final String REGIONS = "Regions";
 	public static final String QUASARS = "Quasars";

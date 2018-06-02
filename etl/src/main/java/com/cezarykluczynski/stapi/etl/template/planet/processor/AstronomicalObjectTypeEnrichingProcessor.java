@@ -27,7 +27,8 @@ public class AstronomicalObjectTypeEnrichingProcessor implements ItemEnrichingPr
 
 		List<String> categoryTitleList = categoryTitlesExtractingProcessor.process(page.getCategories());
 
-		if (categoryTitleList.contains(CategoryTitle.PLANETS)) {
+		if (categoryTitleList.contains(CategoryTitle.PLANETS) || categoryTitleList.contains(CategoryTitle.PLANETS_RETCONNED)
+				|| categoryTitleList.contains(CategoryTitle.UNNAMED_PLANETS)) {
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.PLANET);
 		} else if (categoryTitleList.contains(CategoryTitle.ASTEROIDS)) {
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.ASTEROID);

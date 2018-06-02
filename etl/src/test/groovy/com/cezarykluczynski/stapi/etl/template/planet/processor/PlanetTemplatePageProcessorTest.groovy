@@ -1,16 +1,14 @@
 package com.cezarykluczynski.stapi.etl.template.planet.processor
 
+import com.cezarykluczynski.stapi.etl.astronomical_object.creation.service.AstronomicalObjectPageFilter
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
-import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.template.planet.dto.PlanetTemplate
 import com.cezarykluczynski.stapi.etl.template.planet.dto.PlanetTemplateParameter
 import com.cezarykluczynski.stapi.etl.template.planet.dto.enums.AstronomicalObjectType
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page as EtlPage
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
@@ -24,7 +22,8 @@ class PlanetTemplatePageProcessorTest extends Specification {
 	private static final String CLASS = 'CLASS'
 	private static final String TYPE = 'TYPE'
 	private static final AstronomicalObjectType GALAXY = AstronomicalObjectType.GALAXY
-	private static final AstronomicalObjectType NEBULA = AstronomicalObjectType.NEBULA
+
+	private AstronomicalObjectPageFilter astronomicalObjectPageFilterMock
 
 	private TemplateFinder templateFinderMock
 
@@ -34,81 +33,61 @@ class PlanetTemplatePageProcessorTest extends Specification {
 
 	private AstronomicalObjectTypeEnrichingProcessor astronomicalObjectTypeEnrichingProcessorMock
 
-	private AstronomicalObjectWikitextProcessor astronomicalObjectWikitextProcessorMock
-
 	private AstronomicalObjectCompositeEnrichingProcessor astronomicalObjectCompositeEnrichingProcessorMock
 
-	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessorMock
+	private PlanetTemplateWikitextEnrichingProcessor planetTemplateWikitextEnrichingProcessorMock
 
 	private PlanetTemplatePageProcessor planetTemplatePageProcessor
 
 	void setup() {
+		astronomicalObjectPageFilterMock = Mock()
 		templateFinderMock = Mock()
 		pageBindingServiceMock = Mock()
 		astronomicalObjectTypeProcessorMock = Mock()
 		astronomicalObjectTypeEnrichingProcessorMock = Mock()
-		astronomicalObjectWikitextProcessorMock = Mock()
 		astronomicalObjectCompositeEnrichingProcessorMock = Mock()
-		categoryTitlesExtractingProcessorMock = Mock()
-		planetTemplatePageProcessor = new PlanetTemplatePageProcessor(templateFinderMock, pageBindingServiceMock, astronomicalObjectTypeProcessorMock,
-				astronomicalObjectTypeEnrichingProcessorMock, astronomicalObjectWikitextProcessorMock,
-				astronomicalObjectCompositeEnrichingProcessorMock, categoryTitlesExtractingProcessorMock)
+		planetTemplateWikitextEnrichingProcessorMock = Mock()
+		planetTemplatePageProcessor = new PlanetTemplatePageProcessor(astronomicalObjectPageFilterMock, templateFinderMock, pageBindingServiceMock,
+				astronomicalObjectTypeProcessorMock,
+				astronomicalObjectTypeEnrichingProcessorMock,
+				astronomicalObjectCompositeEnrichingProcessorMock, planetTemplateWikitextEnrichingProcessorMock)
 	}
 
-	void "returns null when page is a product of redirect"() {
+	void "returns null when AstronomicalObjectPageFilter returns true"() {
 		given:
 		PageHeader pageHeader = Mock()
-		EtlPage page = new EtlPage(redirectPath: Lists.newArrayList(pageHeader))
+		Page page = new Page(redirectPath: Lists.newArrayList(pageHeader))
 
 		when:
 		PlanetTemplate planetTemplate = planetTemplatePageProcessor.process(page)
 
 		then:
-		0 * _
-		planetTemplate == null
-	}
-
-	void "filters out unnamed planets"() {
-		when:
-		PlanetTemplate planetTemplate = planetTemplatePageProcessor.process(new EtlPage(title: 'Unnamed planets'))
-
-		then:
-		planetTemplate == null
-	}
-
-	void "filters out planet lists"() {
-		given:
-		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(new CategoryHeader(title: CategoryTitle.PLANET_LISTS))
-
-		when:
-		PlanetTemplate planetTemplate = planetTemplatePageProcessor.process(new EtlPage(
-				title: TITLE,
-				categories: categoryHeaderList
-		))
-
-		then:
-		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.PLANET_LISTS)
+		1 * astronomicalObjectPageFilterMock.shouldBeFilteredOut(page) >> true
 		0 * _
 		planetTemplate == null
 	}
 
 	void "calls PageBindingService and AstronomicalObjectTypeEnrichingProcessor, then returns when sidebar planet template is not found"() {
 		given:
-		EtlPage page = new EtlPage(title: TITLE)
+		Page page = new Page(title: TITLE)
 		ModelPage modelPage = Mock()
 
 		when:
 		PlanetTemplate planetTemplate = planetTemplatePageProcessor.process(page)
 
 		then:
-		1 * categoryTitlesExtractingProcessorMock.process(Lists.newArrayList()) >> Lists.newArrayList()
+		1 * astronomicalObjectPageFilterMock.shouldBeFilteredOut(page) >> false
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
-		1 * astronomicalObjectTypeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair<EtlPage, PlanetTemplate> enrichablePair ->
+		1 * astronomicalObjectTypeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair<Page, PlanetTemplate> enrichablePair ->
 			assert enrichablePair.input == page
 			assert enrichablePair.output != null
 		}
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_PLANET) >> Optional.empty()
-		1 * astronomicalObjectWikitextProcessorMock.process(_) >> null
+		1 * planetTemplateWikitextEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+			EnrichablePair<Page, PlanetTemplate> enrichablePair ->
+				assert enrichablePair.input == page
+				assert enrichablePair.output != null
+		}
 		0 * _
 		planetTemplate.page == modelPage
 	}
@@ -119,7 +98,7 @@ class PlanetTemplatePageProcessorTest extends Specification {
 		Template template = new Template(
 				parts: Lists.newArrayList(classTemplatePart)
 		)
-		EtlPage page = new EtlPage(
+		Page page = new Page(
 				title: TITLE,
 				templates: Lists.newArrayList(template))
 		ModelPage modelPage = Mock()
@@ -128,14 +107,13 @@ class PlanetTemplatePageProcessorTest extends Specification {
 		PlanetTemplate planetTemplate = planetTemplatePageProcessor.process(page)
 
 		then:
-		1 * categoryTitlesExtractingProcessorMock.process(Lists.newArrayList()) >> Lists.newArrayList()
+		1 * astronomicalObjectPageFilterMock.shouldBeFilteredOut(page) >> false
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
-		1 * astronomicalObjectTypeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair<EtlPage, PlanetTemplate> enrichablePair ->
+		1 * astronomicalObjectTypeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair<Page, PlanetTemplate> enrichablePair ->
 			enrichablePair.input == page
 			enrichablePair.output != null
 		}
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_PLANET) >> Optional.of(template)
-		1 * astronomicalObjectWikitextProcessorMock.process(_) >> NEBULA
 		1 * astronomicalObjectTypeProcessorMock.process(CLASS) >> GALAXY
 		1 * astronomicalObjectCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 			EnrichablePair<Pair<AstronomicalObjectType, AstronomicalObjectType>, PlanetTemplate> enrichablePair ->
@@ -143,9 +121,13 @@ class PlanetTemplatePageProcessorTest extends Specification {
 				assert enrichablePair.input.right == GALAXY
 				assert enrichablePair.output != null
 		}
+		1 * planetTemplateWikitextEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+				EnrichablePair<Page, PlanetTemplate> enrichablePair ->
+			assert enrichablePair.input == page
+			assert enrichablePair.output != null
+		}
 		0 * _
 		planetTemplate.page == modelPage
-		planetTemplate.astronomicalObjectType == NEBULA
 	}
 
 	void "calls all dependencies when page with planet template is passed with Template.Part key type"() {
@@ -154,7 +136,7 @@ class PlanetTemplatePageProcessorTest extends Specification {
 		Template template = new Template(
 				parts: Lists.newArrayList(classTemplatePart)
 		)
-		EtlPage page = new EtlPage(
+		Page page = new Page(
 				title: TITLE,
 				templates: Lists.newArrayList(template))
 		ModelPage modelPage = Mock()
@@ -163,14 +145,13 @@ class PlanetTemplatePageProcessorTest extends Specification {
 		PlanetTemplate planetTemplate = planetTemplatePageProcessor.process(page)
 
 		then:
-		1 * categoryTitlesExtractingProcessorMock.process(Lists.newArrayList()) >> Lists.newArrayList()
+		1 * astronomicalObjectPageFilterMock.shouldBeFilteredOut(page) >> false
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
-		1 * astronomicalObjectTypeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair<EtlPage, PlanetTemplate> enrichablePair ->
+		1 * astronomicalObjectTypeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> { EnrichablePair<Page, PlanetTemplate> enrichablePair ->
 			enrichablePair.input == page
 			enrichablePair.output != null
 		}
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_PLANET) >> Optional.of(template)
-		1 * astronomicalObjectWikitextProcessorMock.process(_) >> NEBULA
 		1 * astronomicalObjectTypeProcessorMock.process(TYPE) >> GALAXY
 		1 * astronomicalObjectCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 			EnrichablePair<Pair<AstronomicalObjectType, AstronomicalObjectType>, PlanetTemplate> enrichablePair ->
@@ -178,9 +159,13 @@ class PlanetTemplatePageProcessorTest extends Specification {
 				assert enrichablePair.input.right == GALAXY
 				assert enrichablePair.output != null
 		}
+		1 * planetTemplateWikitextEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+			EnrichablePair<Page, PlanetTemplate> enrichablePair ->
+				assert enrichablePair.input == page
+				assert enrichablePair.output != null
+		}
 		0 * _
 		planetTemplate.page == modelPage
-		planetTemplate.astronomicalObjectType == NEBULA
 	}
 
 }
