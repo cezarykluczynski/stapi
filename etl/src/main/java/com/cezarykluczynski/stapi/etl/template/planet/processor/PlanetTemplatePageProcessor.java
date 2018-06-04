@@ -32,21 +32,21 @@ public class PlanetTemplatePageProcessor implements ItemProcessor<Page, PlanetTe
 
 	private final AstronomicalObjectTypeEnrichingProcessor astronomicalObjectTypeEnrichingProcessor;
 
-	private final AstronomicalObjectCompositeEnrichingProcessor astronomicalObjectCompositeEnrichingProcessor;
+	private final AstronomicalObjectBestPickEnrichingProcessor astronomicalObjectBestPickEnrichingProcessor;
 
 	private final PlanetTemplateWikitextEnrichingProcessor planetTemplateWikitextEnrichingProcessor;
 
 	public PlanetTemplatePageProcessor(AstronomicalObjectPageFilter astronomicalObjectPageFilter, TemplateFinder templateFinder,
 			PageBindingService pageBindingService, AstronomicalObjectTypeProcessor astronomicalObjectTypeProcessor,
 			AstronomicalObjectTypeEnrichingProcessor astronomicalObjectTypeEnrichingProcessor,
-			AstronomicalObjectCompositeEnrichingProcessor astronomicalObjectCompositeEnrichingProcessor,
+			AstronomicalObjectBestPickEnrichingProcessor astronomicalObjectBestPickEnrichingProcessor,
 			PlanetTemplateWikitextEnrichingProcessor planetTemplateWikitextEnrichingProcessor) {
 		this.astronomicalObjectPageFilter = astronomicalObjectPageFilter;
 		this.templateFinder = templateFinder;
 		this.pageBindingService = pageBindingService;
 		this.astronomicalObjectTypeProcessor = astronomicalObjectTypeProcessor;
 		this.astronomicalObjectTypeEnrichingProcessor = astronomicalObjectTypeEnrichingProcessor;
-		this.astronomicalObjectCompositeEnrichingProcessor = astronomicalObjectCompositeEnrichingProcessor;
+		this.astronomicalObjectBestPickEnrichingProcessor = astronomicalObjectBestPickEnrichingProcessor;
 		this.planetTemplateWikitextEnrichingProcessor = planetTemplateWikitextEnrichingProcessor;
 	}
 
@@ -76,7 +76,7 @@ public class PlanetTemplatePageProcessor implements ItemProcessor<Page, PlanetTe
 			if (PlanetTemplateParameter.CLASS.equals(key) || PlanetTemplateParameter.TYPE.equals(key)) {
 				AstronomicalObjectType astronomicalObjectTypeFromProcessor = astronomicalObjectTypeProcessor.process(value);
 				AstronomicalObjectType currentAstronomicalObjectType = planetTemplate.getAstronomicalObjectType();
-				astronomicalObjectCompositeEnrichingProcessor.enrich(EnrichablePair.of(Pair
+				astronomicalObjectBestPickEnrichingProcessor.enrich(EnrichablePair.of(Pair
 						.of(currentAstronomicalObjectType, astronomicalObjectTypeFromProcessor), planetTemplate));
 			}
 		}

@@ -33,7 +33,7 @@ class PlanetTemplatePageProcessorTest extends Specification {
 
 	private AstronomicalObjectTypeEnrichingProcessor astronomicalObjectTypeEnrichingProcessorMock
 
-	private AstronomicalObjectCompositeEnrichingProcessor astronomicalObjectCompositeEnrichingProcessorMock
+	private AstronomicalObjectBestPickEnrichingProcessor astronomicalObjectBestPickEnrichingProcessorMock
 
 	private PlanetTemplateWikitextEnrichingProcessor planetTemplateWikitextEnrichingProcessorMock
 
@@ -45,12 +45,12 @@ class PlanetTemplatePageProcessorTest extends Specification {
 		pageBindingServiceMock = Mock()
 		astronomicalObjectTypeProcessorMock = Mock()
 		astronomicalObjectTypeEnrichingProcessorMock = Mock()
-		astronomicalObjectCompositeEnrichingProcessorMock = Mock()
+		astronomicalObjectBestPickEnrichingProcessorMock = Mock()
 		planetTemplateWikitextEnrichingProcessorMock = Mock()
 		planetTemplatePageProcessor = new PlanetTemplatePageProcessor(astronomicalObjectPageFilterMock, templateFinderMock, pageBindingServiceMock,
 				astronomicalObjectTypeProcessorMock,
 				astronomicalObjectTypeEnrichingProcessorMock,
-				astronomicalObjectCompositeEnrichingProcessorMock, planetTemplateWikitextEnrichingProcessorMock)
+				astronomicalObjectBestPickEnrichingProcessorMock, planetTemplateWikitextEnrichingProcessorMock)
 	}
 
 	void "returns null when AstronomicalObjectPageFilter returns true"() {
@@ -115,7 +115,7 @@ class PlanetTemplatePageProcessorTest extends Specification {
 		}
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_PLANET) >> Optional.of(template)
 		1 * astronomicalObjectTypeProcessorMock.process(CLASS) >> GALAXY
-		1 * astronomicalObjectCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+		1 * astronomicalObjectBestPickEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 			EnrichablePair<Pair<AstronomicalObjectType, AstronomicalObjectType>, PlanetTemplate> enrichablePair ->
 				assert enrichablePair.input.left == null
 				assert enrichablePair.input.right == GALAXY
@@ -153,7 +153,7 @@ class PlanetTemplatePageProcessorTest extends Specification {
 		}
 		1 * templateFinderMock.findTemplate(page, TemplateTitle.SIDEBAR_PLANET) >> Optional.of(template)
 		1 * astronomicalObjectTypeProcessorMock.process(TYPE) >> GALAXY
-		1 * astronomicalObjectCompositeEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+		1 * astronomicalObjectBestPickEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
 			EnrichablePair<Pair<AstronomicalObjectType, AstronomicalObjectType>, PlanetTemplate> enrichablePair ->
 				assert enrichablePair.input.left == null
 				assert enrichablePair.input.right == GALAXY
