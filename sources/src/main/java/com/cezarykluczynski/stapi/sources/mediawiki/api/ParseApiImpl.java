@@ -1,5 +1,6 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.api;
 
+import com.cezarykluczynski.stapi.sources.http.connector.HttpConnector;
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourcesProperties;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.base.Charsets;
@@ -8,12 +9,7 @@ import com.google.common.io.CharStreams;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -32,7 +28,10 @@ public class ParseApiImpl implements ParseApi {
 
 	private final String expandTemplatesUrl;
 
-	public ParseApiImpl(MediaWikiSourcesProperties mediaWikiSourcesProperties) {
+	private final HttpConnector httpConnector;
+
+	public ParseApiImpl(HttpConnector httpConnector, MediaWikiSourcesProperties mediaWikiSourcesProperties) {
+		this.httpConnector = httpConnector;
 		String apiUrl = mediaWikiSourcesProperties.getTechnicalHelper().getApiUrl();
 
 		if (apiUrl == null) {
@@ -57,14 +56,14 @@ public class ParseApiImpl implements ParseApi {
 
 	private String getXmlTree(HttpEntity entity) {
 		try {
-			InputStream instream = entity.getContent();
+			InputStream inputStream = entity.getContent();
 			try {
-				String result = CharStreams.toString(new InputStreamReader(instream, Charsets.UTF_8));
+				String result = CharStreams.toString(new InputStreamReader(inputStream, Charsets.UTF_8));
 				Document doc = Jsoup.parse(result);
 				Element xmlTextarea = doc.select("textarea[name=output]").first();
 				return xmlTextarea == null ? null : xmlTextarea.text();
 			} finally {
-				instream.close();
+				inputStream.close();
 			}
 		} catch (Exception e) {
 			return null;
@@ -82,18 +81,7 @@ public class ParseApiImpl implements ParseApi {
 	}
 
 	private HttpEntity doPostParams(List<NameValuePair> params) {
-		try {
-			HttpPost httpPost = new HttpPost(expandTemplatesUrl);
-			httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-
-			HttpClient httpclient = HttpClients.createDefault();
-			HttpResponse response = httpclient.execute(httpPost);
-			return response.getEntity();
-		} catch (Exception e) {
-			// TODO: retry few times
-			log.error("Could not execute HTTP POST", e);
-			return null;
-		}
+		return httpConnector.post(expandTemplatesUrl, params);
 	}
 
 
