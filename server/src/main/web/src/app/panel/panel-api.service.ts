@@ -22,8 +22,13 @@ export class PanelApi {
 		return this.api.oauth.github.oAuthAuthorizeUrl.get();
 	}
 
+	getGitHubProjectDetails() {
+		return this.api.common.panel.github.projectDetails.get();
+	}
+
 	private register() {
 		this.api.res('common').res('panel').res('me');
+		this.api.res('common').res('panel').res('github').res('projectDetails');
 		this.api.res('oauth').res('github').res('oAuthAuthorizeUrl');
 	}
 

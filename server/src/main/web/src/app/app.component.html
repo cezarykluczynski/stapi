@@ -28,6 +28,16 @@
 						<li><a routerLinkActive="navigation-element--active" routerLink="statistics">Statistics</a></li>
 					</ul>
 					<ul class='nav navbar-nav navbar-right'>
+						<li *ngIf="hasGitHubProjectDetails()">
+							<button class="btn btn-success btn-xs github-stars">
+								<a class="github-stars__link" href="https://github.com/cezarykluczynski/stapi/stargazers">
+									<span class="github-stars__star">
+										<svg height="24" class="octicon octicon-star" viewBox="0 0 14 16" version="1.1" width="24" aria-hidden="true"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z"></path></svg>
+									</span>
+									<span class="github-stars__count">{{getGitHubStarsCount()}}</span>
+								</a>
+							</button>
+						</li>
 						<li class="dropdown">
 							<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 								GitHub <span class="caret"></span>

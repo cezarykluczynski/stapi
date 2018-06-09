@@ -22,6 +22,7 @@ dependencies {
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-web-services', version: springBootVersion
 	compile group: 'org.liquibase', name: 'liquibase-core', version: '3.5.3'
 	compile group: 'com.oracle', name: 'ojdbc6', version: '11.2.0.4.0-atlassian-hosted'
+	compile group: 'org.kohsuke', name: 'github-api', version: '1.82'
 
 	// CXF
 	compile group: 'org.apache.cxf', name: 'cxf-spring-boot-starter-jaxws', version: '3.1.7'

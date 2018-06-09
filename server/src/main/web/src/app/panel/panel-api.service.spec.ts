@@ -45,13 +45,17 @@ describe('PanelApi', () => {
 	it('is created', inject([PanelApi], (panelApi: PanelApi) => {
 		expect(panelApi).toBeTruthy();
 
-		expect(res.calls.count()).toBe(6);
+		expect(res.calls.count()).toBe(10);
 		expect(res.calls.argsFor(0)).toEqual(['common']);
 		expect(res.calls.argsFor(1)).toEqual(['panel']);
 		expect(res.calls.argsFor(2)).toEqual(['me']);
-		expect(res.calls.argsFor(3)).toEqual(['oauth']);
-		expect(res.calls.argsFor(4)).toEqual(['github']);
-		expect(res.calls.argsFor(5)).toEqual(['oAuthAuthorizeUrl']);
+		expect(res.calls.argsFor(3)).toEqual(['common']);
+		expect(res.calls.argsFor(4)).toEqual(['panel']);
+		expect(res.calls.argsFor(5)).toEqual(['github']);
+		expect(res.calls.argsFor(6)).toEqual(['projectDetails']);
+		expect(res.calls.argsFor(7)).toEqual(['oauth']);
+		expect(res.calls.argsFor(8)).toEqual(['github']);
+		expect(res.calls.argsFor(9)).toEqual(['oAuthAuthorizeUrl']);
 	}));
 
 	describe('after initialization', () => {
@@ -61,6 +65,9 @@ describe('PanelApi', () => {
 		const OAUTH_AUTHORIZE_URL = {
 			url: 'url'
 		};
+		const PROJECT_DETAILS = {
+			stargazersCount: 23
+		};
 
 		beforeEach(() => {
 			restClientMock.common = {
@@ -69,7 +76,13 @@ describe('PanelApi', () => {
 						get: () => {
 							return Promise.resolve(ME);
 						}
-
+					},
+					github: {
+						projectDetails: {
+							get: () => {
+								return Promise.resolve(PROJECT_DETAILS);
+							}
+						}
 					}
 				}
 			};
@@ -94,6 +107,12 @@ describe('PanelApi', () => {
 		it('gets OAuth authorize URL', inject([PanelApi], (panelApi: PanelApi) => {
 			panelApi.getOAuthAuthorizeUrl().then((response) => {
 				expect(response).toBe(OAUTH_AUTHORIZE_URL);
+			});
+		}));
+
+		it('gets GitHub project details', inject([PanelApi], (panelApi: PanelApi) => {
+			panelApi.getGitHubProjectDetails().then((response) => {
+				expect(response).toBe(PROJECT_DETAILS);
 			});
 		}));
 	});

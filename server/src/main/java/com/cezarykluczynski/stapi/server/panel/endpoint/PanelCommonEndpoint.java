@@ -2,6 +2,8 @@ package com.cezarykluczynski.stapi.server.panel.endpoint;
 
 import com.cezarykluczynski.stapi.auth.account.dto.UserDTO;
 import com.cezarykluczynski.stapi.server.configuration.CxfConfiguration;
+import com.cezarykluczynski.stapi.server.github.model.GitHubDTO;
+import com.cezarykluczynski.stapi.server.github.service.GitHubApi;
 import com.cezarykluczynski.stapi.server.panel.service.PanelCurrentUserProvider;
 import com.cezarykluczynski.stapi.util.constant.ContentType;
 import com.cezarykluczynski.stapi.util.feature_switch.api.FeatureSwitchApi;
@@ -27,9 +29,12 @@ public class PanelCommonEndpoint {
 
 	private final FeatureSwitchApi featureSwitchApi;
 
-	public PanelCommonEndpoint(PanelCurrentUserProvider panelCurrentUserProvider, FeatureSwitchApi featureSwitchApi) {
+	private final GitHubApi gitHubApi;
+
+	public PanelCommonEndpoint(PanelCurrentUserProvider panelCurrentUserProvider, FeatureSwitchApi featureSwitchApi, GitHubApi gitHubApi) {
 		this.panelCurrentUserProvider = panelCurrentUserProvider;
 		this.featureSwitchApi = featureSwitchApi;
+		this.gitHubApi = gitHubApi;
 	}
 
 	@GET
@@ -45,6 +50,13 @@ public class PanelCommonEndpoint {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public FeatureSwitchesDTO featureSwitches() {
 		return featureSwitchApi.getAll();
+	}
+
+	@GET
+	@Path("github/projectDetails")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public GitHubDTO gitHubProjectDetails() {
+		return gitHubApi.getProjectDetails();
 	}
 
 }
