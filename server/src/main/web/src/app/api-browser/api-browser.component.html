@@ -26,7 +26,7 @@
 						<span class="api-browser__remaining">{{this.limits.remaining}}</span> requests of {{this.limits.total}} left
 					</span>
 					<span>Searched for phrase
-						<span class="api-browser__phrase-result">{{phrase}}</span>.
+						<span class="api-browser__phrase-result">{{latestLookupPhrase}}</span>.
 					</span>
 					There were <span>{{getTotalResults()}}</span> result.
 					<span *ngIf="hasMoreThanLimitResults()"> First 50 are shown.</span>

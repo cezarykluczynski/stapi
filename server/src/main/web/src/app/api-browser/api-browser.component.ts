@@ -21,6 +21,7 @@ export class ApiBrowserComponent implements OnInit {
 	private limits: any;
 	private symbol: any;
 	public phrase: any = '';
+	public latestLookupPhrase: any = '';
 	public loaded: boolean;
 
 	constructor(apiBrowserApi: ApiBrowserApi, restApiService: RestApiService) {
@@ -40,6 +41,7 @@ export class ApiBrowserComponent implements OnInit {
 
 	submit($event) {
 		$event.preventDefault();
+		this.latestLookupPhrase = this.phrase;
 		this.handleRequest(this.apiBrowserApi.search(this.symbol, this.phrase, false));
 	}
 
