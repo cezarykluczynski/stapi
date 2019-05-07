@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 public class WikiaUrlDetector {
 
 	public boolean isWikiaWikiUrl(String url) {
-		return url.contains(".wikia.com");
+		return url.contains(".fandom.com");
 	}
 
 }

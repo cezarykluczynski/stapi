@@ -12,7 +12,7 @@ class WikiaUrlDetectorTest extends Specification {
 
 	void "detects Wikia's url"() {
 		expect:
-		wikiaUrlDetector.isWikiaWikiUrl('http://memory-alpha.wikia.com/api.php')
+		wikiaUrlDetector.isWikiaWikiUrl('http://memory-alpha.fandom.com/api.php')
 	}
 
 	void "detects non-Wikia's url"() {

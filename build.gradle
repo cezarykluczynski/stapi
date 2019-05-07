@@ -138,6 +138,13 @@ allprojects {
 		}
 	}
 
+	configurations.codenarc {
+		resolutionStrategy.eachDependency { DependencyResolveDetails d ->
+			if (d.requested.group == 'org.codehaus.groovy') {
+				d.useVersion '2.4.10'
+			}
+		}
+	}
 }
 
 class CleanMetamodel extends DefaultTask {
