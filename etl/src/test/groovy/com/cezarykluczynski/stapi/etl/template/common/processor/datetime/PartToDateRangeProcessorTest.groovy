@@ -30,9 +30,7 @@ class PartToDateRangeProcessorTest extends Specification {
 
 	void "valid Part is converted to DateRange with both dates"() {
 		given:
-		List<Template> templateList = Lists.newArrayList(
-				START_TEMPLATE, END_TEMPLATE
-		)
+		List<Template> templateList = Lists.newArrayList(START_TEMPLATE, END_TEMPLATE)
 		Template.Part part = new Template.Part(templates: templateList)
 
 		when:
@@ -50,10 +48,8 @@ class PartToDateRangeProcessorTest extends Specification {
 
 	void "Part with only start date is converted to DateRange with only start date"() {
 		given:
-		List<Template> templateList = Lists.newArrayList(
-				START_TEMPLATE
-		)
-				Template.Part part = new Template.Part(templates: templateList)
+		List<Template> templateList = Lists.newArrayList(START_TEMPLATE)
+		Template.Part part = new Template.Part(templates: templateList)
 
 		when:
 		DateRange dateRange = partToDateRangeProcessor.process(part)
@@ -73,11 +69,24 @@ class PartToDateRangeProcessorTest extends Specification {
 		0 * _
 	}
 
+	void "Part with no templates is converted to empty DateRange"() {
+		given:
+		Template.Part part = new Template.Part(templates: [])
+
+		when:
+		DateRange dateRange = partToDateRangeProcessor.process(part)
+
+		then: 'both dates are null'
+		dateRange.startDate == null
+		dateRange.endDate == null
+
+		then: 'no other interactions are expected'
+		0 * _
+	}
+
 	void "Part with more than 2 date templates results in empty DateRange"() {
 		given:
-		List<Template> templateList = Lists.newArrayList(
-				START_TEMPLATE, END_TEMPLATE, START_TEMPLATE
-		)
+		List<Template> templateList = Lists.newArrayList(START_TEMPLATE, END_TEMPLATE, START_TEMPLATE)
 		Template.Part part = new Template.Part(templates: templateList)
 
 		when:

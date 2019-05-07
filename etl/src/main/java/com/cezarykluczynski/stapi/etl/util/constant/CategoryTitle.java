@@ -127,6 +127,7 @@ public class CategoryTitle {
 	public static final String HOMEWORLDS = "Homeworlds";
 	public static final String MOONS = "Moons";
 	public static final String NEBULAE = "Nebulae";
+	public static final String NEBULAE_RETCONNED = "Nebulae_(retconned)";
 	public static final String PLANETS = "Planets";
 	public static final String PLANETS_RETCONNED = "Planets_(retconned)";
 	public static final String UNNAMED_PLANETS = "Unnamed_planets";

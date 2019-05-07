@@ -189,6 +189,7 @@ public class CategoryTitles {
 			CategoryTitle.HOMEWORLDS,
 			CategoryTitle.MOONS,
 			CategoryTitle.NEBULAE,
+			CategoryTitle.NEBULAE_RETCONNED,
 			CategoryTitle.PLANETOIDS,
 			CategoryTitle.PLANETS,
 			CategoryTitle.PLANETS_RETCONNED,

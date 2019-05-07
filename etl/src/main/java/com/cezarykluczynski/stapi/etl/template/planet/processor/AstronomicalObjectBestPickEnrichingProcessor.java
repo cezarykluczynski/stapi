@@ -71,7 +71,7 @@ public class AstronomicalObjectBestPickEnrichingProcessor
 			}
 		}
 
-		log.info("From object \"{}\", given \"{}\" and \"{}\", going with \"{}\" in lack of better option", planetTemplate.getName(),
+		log.info("For object \"{}\", given \"{}\" and \"{}\", going with \"{}\" in lack of better option", planetTemplate.getName(),
 				astronomicalObjectTypeFromProcessor, currentAstronomicalObjectType, astronomicalObjectTypeFromProcessor);
 		return astronomicalObjectTypeFromProcessor;
 	}

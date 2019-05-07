@@ -14,6 +14,7 @@ public class SeasonNumberOfEpisodesFixedValueProvider implements FixedValueProvi
 
 	static {
 		TITLES_TO_NUMBER_OF_EPISODES.put("DIS Season 1", 15);
+		TITLES_TO_NUMBER_OF_EPISODES.put("DIS Season 2", 14);
 		TITLES_TO_NUMBER_OF_EPISODES.put("DS9 Season 1", 19);
 		TITLES_TO_NUMBER_OF_EPISODES.put("DS9 Season 2", 26);
 		TITLES_TO_NUMBER_OF_EPISODES.put("DS9 Season 3", 26);

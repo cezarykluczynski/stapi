@@ -29,16 +29,15 @@ public class PartToDateRangeProcessor implements ItemProcessor<Template.Part, Da
 	@Override
 	public DateRange process(Template.Part item) throws Exception {
 		List<Template> templateList = item.getTemplates();
-
-		return CollectionUtils.isEmpty(templateList) ? null : fromTemplate(templateList, item);
-	}
-
-	private DateRange fromTemplate(List<Template> templateList, Template.Part part) throws Exception {
 		DateRange dateRange = new DateRange();
+
+		if (CollectionUtils.isEmpty(templateList)) {
+			return dateRange;
+		}
 
 		List<Template> dateTemplateList = templateFilter.filterByTitle(templateList, TemplateTitle.D, TemplateTitle.DATELINK);
 
-		Integer size = dateTemplateList.size();
+		int size = dateTemplateList.size();
 
 		if (IntegerValidator.getInstance().isInRange(size, 1, 2)) {
 			dateRange.setStartDate(datelinkTemplateToLocalDateProcessor.process(templateList.get(0)));
@@ -49,7 +48,7 @@ public class PartToDateRangeProcessor implements ItemProcessor<Template.Part, Da
 		}
 
 		if (size > 2) {
-			log.info("Template part {} has more than two datelink templates.", part);
+			log.info("Template part {} has more than two datelink templates.", item);
 		}
 
 		return dateRange;
