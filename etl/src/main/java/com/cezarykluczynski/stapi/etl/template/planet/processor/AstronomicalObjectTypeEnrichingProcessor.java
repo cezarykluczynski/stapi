@@ -52,6 +52,8 @@ public class AstronomicalObjectTypeEnrichingProcessor implements ItemEnrichingPr
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.QUASAR);
 		} else if (categoryTitleList.contains(CategoryTitle.REGIONS)) {
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.REGION);
+		} else if (categoryTitleList.contains(CategoryTitle.SECTORS)) {
+			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.SECTOR);
 		} else if (categoryTitleList.contains(CategoryTitle.STAR_SYSTEMS)) {
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.STAR_SYSTEM);
 		} else if (categoryTitleList.contains(CategoryTitle.STARS)) {

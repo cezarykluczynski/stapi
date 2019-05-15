@@ -196,6 +196,7 @@ public class CategoryTitles {
 			CategoryTitle.UNNAMED_PLANETS,
 			CategoryTitle.REGIONS,
 			CategoryTitle.QUASARS,
+			CategoryTitle.SECTORS,
 			CategoryTitle.STAR_SYSTEMS,
 			CategoryTitle.STARS
 	);

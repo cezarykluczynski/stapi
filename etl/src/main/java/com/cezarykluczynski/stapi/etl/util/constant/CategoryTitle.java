@@ -134,6 +134,7 @@ public class CategoryTitle {
 	public static final String PLANETOIDS = "Planetoids";
 	public static final String REGIONS = "Regions";
 	public static final String QUASARS = "Quasars";
+	public static final String SECTORS = "Sectors";
 	public static final String STAR_SYSTEMS = "Star_systems";
 	public static final String STARS = "Stars";
 	public static final String PLANET_LISTS = "Planet_lists";

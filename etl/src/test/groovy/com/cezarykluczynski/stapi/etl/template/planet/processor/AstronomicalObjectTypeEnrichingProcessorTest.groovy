@@ -52,6 +52,7 @@ class AstronomicalObjectTypeEnrichingProcessorTest extends Specification {
 		CategoryTitle.PLANETOIDS        | AstronomicalObjectType.PLANETOID
 		CategoryTitle.QUASARS           | AstronomicalObjectType.QUASAR
 		CategoryTitle.REGIONS           | AstronomicalObjectType.REGION
+		CategoryTitle.SECTORS           | AstronomicalObjectType.SECTOR
 		CategoryTitle.STAR_SYSTEMS      | AstronomicalObjectType.STAR_SYSTEM
 		CategoryTitle.STARS             | AstronomicalObjectType.STAR
 	}
