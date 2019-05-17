@@ -11,7 +11,8 @@ public class OrganizationNameFilter {
 	private static final List<String> NOT_AN_ORGANIZATIONS = Lists.newArrayList("Intelligence agency", "Platoon", "Task force", "Dungeon", "Baldwin",
 			"Flotilla", "League", "Assault team", "Medical complex", "Column", "Squad", "Assault fleet", "Squadron", "Research facilities", "Fleet",
 			"Grand jury", "Legion", "Regiment","Fleet organization", "Garrison", "Division", "Dynasty", "Armada", "Battalion", "Attack wing",
-			"Brigade", "Militia", "Battery (unit)", "Democrat");
+			"Brigade", "Militia", "Battery (unit)", "Democrat", "Service branch", "Kingdom", "City council", "News agency",
+			"Secretary of Exploration", "Medical ethics board", "Civic center");
 
 	private static final List<String> ORGANIZATIONS = Lists.newArrayList(
 			"Bolian restaurant", "Lazon II labor camp", "Vulcan Institute for Defensive Arts", "Singha refugee camp", "Lincoln", "Datsun",
@@ -60,7 +61,9 @@ public class OrganizationNameFilter {
 			"Biggs'", "Elasian Council of Nobles", "Confederate States of America", "Banzai Institute for Advanced Studies", "Angosian military",
 			"University of Mississippi", "University of Texas", "California Institute of Technology", "University of California, Santa Cruz",
 			"Zefram Cochrane Institute for Advanced Theoretical Physics", "University of California, Berkeley", "University of Manitoba",
-			"University of Hawaii");
+			"University of Hawaii", "Terran cabinet", "Rutian police", "Bureau of Identification", "Betazed government", "Tellun",
+			"New Sydney police", "Suliban government", "Ministry of Information", "Mexican army", "Council of Nobles", "Quaternary star systems",
+			"Ministry of Justice");
 
 	public Match isAnOrganization(String organizationName) {
 		if (NOT_AN_ORGANIZATIONS.contains(organizationName)) {
