@@ -44,7 +44,7 @@ public class AstronomicalObjectTypeEnrichingProcessor implements ItemEnrichingPr
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.GALAXY);
 		} else if (categoryTitleList.contains(CategoryTitle.MOONS)) {
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.MOON);
-		} else if (categoryTitleList.contains(CategoryTitle.NEBULAE)) {
+		} else if (categoryTitleList.contains(CategoryTitle.NEBULAE) || categoryTitleList.contains(CategoryTitle.NEBULAE_RETCONNED)) {
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.NEBULA);
 		} else if (categoryTitleList.contains(CategoryTitle.PLANETOIDS)) {
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.PLANETOID);

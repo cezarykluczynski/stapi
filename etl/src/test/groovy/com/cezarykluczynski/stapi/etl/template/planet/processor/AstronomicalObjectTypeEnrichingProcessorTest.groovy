@@ -49,6 +49,7 @@ class AstronomicalObjectTypeEnrichingProcessorTest extends Specification {
 		CategoryTitle.GALAXIES          | AstronomicalObjectType.GALAXY
 		CategoryTitle.MOONS             | AstronomicalObjectType.MOON
 		CategoryTitle.NEBULAE           | AstronomicalObjectType.NEBULA
+		CategoryTitle.NEBULAE_RETCONNED | AstronomicalObjectType.NEBULA
 		CategoryTitle.PLANETOIDS        | AstronomicalObjectType.PLANETOID
 		CategoryTitle.QUASARS           | AstronomicalObjectType.QUASAR
 		CategoryTitle.REGIONS           | AstronomicalObjectType.REGION

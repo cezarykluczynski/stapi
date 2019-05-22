@@ -56,8 +56,18 @@ public class AstronomicalObjectLinkEnrichingProcessor implements ItemEnrichingPr
 			return;
 		}
 
-		Integer locationCandidateSize = ASTRONOMICAL_OBJECTS_SIZE_MAP.get(locationCandidate.getAstronomicalObjectType());
-		Integer subjectSize = ASTRONOMICAL_OBJECTS_SIZE_MAP.get(subject.getAstronomicalObjectType());
+		AstronomicalObjectType subjectType = subject.getAstronomicalObjectType();
+		if (subjectType == null) {
+			throw new RuntimeException(String.format("Subject \"%s\" astronomical object type not set.", subject.getName()));
+		}
+
+		AstronomicalObjectType locationCandidateType = locationCandidate.getAstronomicalObjectType();
+		if (locationCandidateType == null) {
+			throw new RuntimeException(String.format("Location candidate \"%s\" astronomical object type not set.", locationCandidate.getName()));
+		}
+
+		Integer locationCandidateSize = ASTRONOMICAL_OBJECTS_SIZE_MAP.get(locationCandidateType);
+		Integer subjectSize = ASTRONOMICAL_OBJECTS_SIZE_MAP.get(subjectType);
 
 		if (NumberUtils.compare(locationCandidateSize, subjectSize) == 0) {
 			log.warn("Determined that astronomical object location candidate {} has the same type {} as the target {}", locationCandidate,

@@ -7,6 +7,9 @@ import spock.lang.Specification
 
 class AstronomicalObjectLinkEnrichingProcessorTest extends Specification {
 
+	private static final String SUBJECT = 'SUBJECT'
+	private static final String LOCATION_CANDIDATE = 'LOCATION_CANDIDATE'
+
 	private AstronomicalObjectLinkEnrichingProcessor astronomicalObjectLinkEnrichingProcessor
 
 	void setup() {
@@ -63,6 +66,32 @@ class AstronomicalObjectLinkEnrichingProcessorTest extends Specification {
 
 		then:
 		subject.location == locationCandidate
+	}
+
+	void "throws exception when subject astronomical object type is null"() {
+		given:
+		AstronomicalObject locationCandidate = new AstronomicalObject(name: LOCATION_CANDIDATE, astronomicalObjectType: AstronomicalObjectType.STAR)
+		AstronomicalObject subject = new AstronomicalObject(name: SUBJECT)
+
+		when:
+		astronomicalObjectLinkEnrichingProcessor.enrich(EnrichablePair.of(locationCandidate, subject))
+
+		then:
+		RuntimeException runtimeException = thrown(RuntimeException)
+		runtimeException.message == 'Subject "SUBJECT" astronomical object type not set.'
+	}
+
+	void "throws exception when location candidate astronomical object type is null"() {
+		given:
+		AstronomicalObject locationCandidate = new AstronomicalObject(name: LOCATION_CANDIDATE)
+		AstronomicalObject subject = new AstronomicalObject(name: SUBJECT, astronomicalObjectType: AstronomicalObjectType.STAR)
+
+		when:
+		astronomicalObjectLinkEnrichingProcessor.enrich(EnrichablePair.of(locationCandidate, subject))
+
+		then:
+		RuntimeException runtimeException = thrown(RuntimeException)
+		runtimeException.message == 'Location candidate "LOCATION_CANDIDATE" astronomical object type not set.'
 	}
 
 }
