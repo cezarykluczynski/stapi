@@ -56,4 +56,5 @@
 	<include file="account/0053_create_account.xml" relativeToChangelogFile="true"/>
 	<include file="api_key/0054_create_api_key.xml" relativeToChangelogFile="true"/>
 	<include file="consent/0055_create_consent.xml" relativeToChangelogFile="true"/>
+	<include file="magazine/0056_fix_me_magazine_fkey.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
