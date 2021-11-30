@@ -23,11 +23,11 @@ public interface StaffBaseRestMapper {
 	@Mapping(target = "comicCoverArtist", ignore = true)
 	StaffRequestDTO mapBase(StaffRestBeanParams staffRestBeanParams);
 
-	StaffRequestDTO mapBase(StaffV2RestBeanParams staffV2RestBeanParams);
-
 	StaffBase mapBase(Staff staff);
 
 	List<StaffBase> mapBase(List<Staff> staffList);
+
+	StaffRequestDTO mapV2Base(StaffV2RestBeanParams staffV2RestBeanParams);
 
 	List<StaffV2Base> mapV2Base(List<Staff> staffList);
 

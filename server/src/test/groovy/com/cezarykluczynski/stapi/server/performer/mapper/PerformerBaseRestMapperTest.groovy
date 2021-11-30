@@ -109,7 +109,7 @@ class PerformerBaseRestMapperTest extends AbstractPerformerMapperTest {
 				voyPerformer: VOY_PERFORMER)
 
 		when:
-		PerformerRequestDTO performerRequestDTO = performerRestMapper.mapBase performerV2RestBeanParams
+		PerformerRequestDTO performerRequestDTO = performerRestMapper.mapV2Base performerV2RestBeanParams
 
 		then:
 		performerRequestDTO.uid == UID

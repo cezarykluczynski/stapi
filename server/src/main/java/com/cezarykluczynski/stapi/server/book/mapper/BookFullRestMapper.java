@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.server.book.mapper;
 
+import com.cezarykluczynski.stapi.client.v1.rest.model.BookFull;
+import com.cezarykluczynski.stapi.client.v1.rest.model.BookV2Full;
 import com.cezarykluczynski.stapi.model.book.entity.Book;
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterBaseRestMapper;
 import com.cezarykluczynski.stapi.server.comic_collection.mapper.ComicCollectionBaseRestMapper;
@@ -14,6 +16,8 @@ import org.mapstruct.Mapper;
 		ComicSeriesBaseRestMapper.class, CompanyBaseRestMapper.class, ReferenceRestMapper.class, StaffBaseRestMapper.class})
 public interface BookFullRestMapper {
 
-	com.cezarykluczynski.stapi.client.v1.rest.model.BookFull mapFull(Book book);
+	BookFull mapFull(Book book);
+
+	BookV2Full mapV2Full(Book book);
 
 }

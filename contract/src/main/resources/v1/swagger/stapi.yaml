@@ -21,11 +21,14 @@ paths:
     $ref: ./astronomical_object/path/astronomicalObjectV2.path.yaml
   /v2/rest/astronomicalObject/search:
     $ref: ./astronomical_object/path/astronomicalObjectV2Search.path.yaml
-  # TODO: Add V2
   /v1/rest/book:
     $ref: ./book/path/book.path.yaml
   /v1/rest/book/search:
     $ref: ./book/path/bookSearch.path.yaml
+  /v2/rest/book:
+    $ref: ./book/path/bookV2.path.yaml
+  /v2/rest/book/search:
+    $ref: ./book/path/bookV2Search.path.yaml
   /v1/rest/bookCollection:
     $ref: ./book_collection/path/bookCollection.path.yaml
   /v1/rest/bookCollection/search:
@@ -234,6 +237,14 @@ definitions:
     $ref: ./book/entity/bookBaseResponse.yaml
   BookFullResponse:
     $ref: ./book/entity/bookFullResponse.yaml
+  BookV2Base:
+    $ref: ./book/entity/bookV2Base.yaml
+  BookV2Full:
+    $ref: ./book/entity/bookV2Full.yaml
+  BookV2BaseResponse:
+    $ref: ./book/entity/bookV2BaseResponse.yaml
+  BookV2FullResponse:
+    $ref: ./book/entity/bookV2FullResponse.yaml
   BookCollectionHeader:
     $ref: ./book_collection/entity/bookCollectionHeader.yaml
   BookCollectionBase:

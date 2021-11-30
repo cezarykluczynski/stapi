@@ -29,6 +29,7 @@ abstract class AbstractBookMapperTest extends AbstractBookTest {
 				eBook: E_BOOK,
 				anthology: ANTHOLOGY,
 				novelization: NOVELIZATION,
+				unauthorizedPublication: UNAUTHORIZED_PUBLICATION,
 				audiobook: AUDIOBOOK,
 				audiobookAbridged: AUDIOBOOK_ABRIDGED,
 				audiobookPublishedYear: AUDIOBOOK_PUBLISHED_YEAR,

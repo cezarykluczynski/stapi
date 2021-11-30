@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.model.book.dto.BookRequestDTO;
 import com.cezarykluczynski.stapi.model.book.entity.Book;
 import com.cezarykluczynski.stapi.model.book.repository.BookRepository;
 import com.cezarykluczynski.stapi.server.book.dto.BookRestBeanParams;
+import com.cezarykluczynski.stapi.server.book.dto.BookV2RestBeanParams;
 import com.cezarykluczynski.stapi.server.book.mapper.BookBaseRestMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import org.springframework.data.domain.Page;
@@ -28,6 +29,12 @@ public class BookRestQuery {
 	public Page<Book> query(BookRestBeanParams bookRestBeanParams) {
 		BookRequestDTO bookRequestDTO = bookBaseRestMapper.mapBase(bookRestBeanParams);
 		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(bookRestBeanParams);
+		return bookRepository.findMatching(bookRequestDTO, pageRequest);
+	}
+
+	public Page<Book> query(BookV2RestBeanParams bookV2RestBeanParams) {
+		BookRequestDTO bookRequestDTO = bookBaseRestMapper.mapV2Base(bookV2RestBeanParams);
+		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(bookV2RestBeanParams);
 		return bookRepository.findMatching(bookRequestDTO, pageRequest);
 	}
 

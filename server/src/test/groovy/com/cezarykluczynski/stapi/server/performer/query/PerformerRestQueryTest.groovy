@@ -55,7 +55,7 @@ class PerformerRestQueryTest extends Specification {
 		Page pageOutput = performerRestQuery.query(performerV2RestBeanParams)
 
 		then:
-		1 * performerBaseRestMapperMock.mapBase(performerV2RestBeanParams) >> performerRequestDTO
+		1 * performerBaseRestMapperMock.mapV2Base(performerV2RestBeanParams) >> performerRequestDTO
 		1 * pageMapperMock.fromPageSortBeanParamsToPageRequest(performerV2RestBeanParams) >> pageRequest
 		1 * performerRepositoryMock.findMatching(performerRequestDTO, pageRequest) >> page
 		pageOutput == page

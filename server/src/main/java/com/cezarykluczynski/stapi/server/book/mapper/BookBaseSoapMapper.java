@@ -27,6 +27,7 @@ public interface BookBaseSoapMapper {
 	@Mapping(source = "audiobookPublishedYear.to", target = "audiobookPublishedYearTo")
 	@Mapping(source = "audiobookRunTime.from", target = "audiobookRunTimeFrom")
 	@Mapping(source = "audiobookRunTime.to", target = "audiobookRunTimeTo")
+	@Mapping(target = "unauthorizedPublication", ignore = true)
 	BookRequestDTO mapBase(BookBaseRequest bookBaseRequest);
 
 	BookBase mapBase(Book book);

@@ -24,7 +24,7 @@ class DocumentationReaderTest extends Specification {
 					.filter { it.path.endsWith('bookBase.yaml') }
 					.findFirst().get()
 		then:
-		documentDTOList.size() == 7
+		documentDTOList.size() == 13
 		documentDTO.path.endsWith 'bookBase.yaml'
 		documentDTO.content.contains 'rolePlayingBook:'
 		documentDTO.type == DocumentType.YAML

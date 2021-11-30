@@ -34,6 +34,7 @@ public interface BookFullSoapMapper {
 	@Mapping(target = "EBook", ignore = true)
 	@Mapping(target = "anthology", ignore = true)
 	@Mapping(target = "novelization", ignore = true)
+	@Mapping(target = "unauthorizedPublication", ignore = true)
 	@Mapping(target = "audiobook", ignore = true)
 	@Mapping(target = "audiobookAbridged", ignore = true)
 	@Mapping(target = "audiobookPublishedYearFrom", ignore = true)

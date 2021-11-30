@@ -28,11 +28,11 @@ public interface PerformerBaseRestMapper {
 	@Mapping(target = "stPerformer", ignore = true)
 	PerformerRequestDTO mapBase(PerformerRestBeanParams performerRestBeanParams);
 
-	PerformerRequestDTO mapBase(PerformerV2RestBeanParams performerV2RestBeanParams);
-
 	PerformerBase mapBase(Performer performer);
 
 	List<PerformerBase> mapBase(List<Performer> performerList);
+
+	PerformerRequestDTO mapV2Base(PerformerV2RestBeanParams performerV2RestBeanParams);
 
 	List<PerformerV2Base> mapV2Base(List<Performer> performerList);
 

@@ -230,7 +230,7 @@ class StaffBaseRestMapperTest extends AbstractStaffMapperTest {
 				writer: WRITER)
 
 		when:
-		StaffRequestDTO staffRequestDTO = staffBaseRestMapper.mapBase staffV2RestBeanParams
+		StaffRequestDTO staffRequestDTO = staffBaseRestMapper.mapV2Base staffV2RestBeanParams
 
 		then:
 		staffRequestDTO.uid == UID
