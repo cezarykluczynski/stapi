@@ -52,7 +52,7 @@
 		"@types/jquery": "3.2.13",
 		"@types/node": "6.0.60",
 		"codelyzer": "4.0.0",
-		"grunt": "1.0.1",
+		"grunt": "1.5.2",
 		"grunt-contrib-clean": "1.1.0",
 		"grunt-contrib-copy": "1.0.0",
 		"grunt-exec": "1.0.0",
