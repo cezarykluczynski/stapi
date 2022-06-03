@@ -29,7 +29,7 @@ post:
   description: Searching movies
   consumes:
     - application/x-www-form-urlencoded
-  producers:
+  produces:
     - application/json
   parameters:
     - name: pageNumber

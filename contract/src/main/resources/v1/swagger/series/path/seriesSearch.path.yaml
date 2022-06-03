@@ -29,7 +29,7 @@ post:
   description: Searching series
   consumes:
     - application/x-www-form-urlencoded
-  producers:
+  produces:
     - application/json
   parameters:
     - name: pageNumber
@@ -104,4 +104,3 @@ post:
         $ref: '#/definitions/SeriesBaseResponse'
   tags:
     - Series
-

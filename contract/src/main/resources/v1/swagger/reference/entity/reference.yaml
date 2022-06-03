@@ -3,10 +3,10 @@ description: Reference of book, comics, video release, etc.
 properties:
   uid:
     type: string
-  description: Reference unique ID
+    description: Reference unique ID
   referenceType:
     $ref: '#/definitions/ReferenceType'
-  description: Reference type
+    description: Reference type
   referenceNumber:
     type: string
-  description: Reference number
+    description: Reference number
