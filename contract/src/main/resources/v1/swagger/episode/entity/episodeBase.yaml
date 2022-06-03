@@ -22,7 +22,7 @@ properties:
     $ref: '#/definitions/SeriesHeader'
     description: Series this episode belongs to
   season:
-    $ref: '#/definitions/seasonHeader'
+    $ref: '#/definitions/SeasonHeader'
     description: Season this episode belongs to
   seasonNumber:
     type: integer
