@@ -1,6 +1,8 @@
 package com.cezarykluczynski.stapi.etl.template.series.processor;
 
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
+import com.cezarykluczynski.stapi.etl.template.common.processor.NumberOfEpisodesProcessor;
+import com.cezarykluczynski.stapi.etl.template.common.processor.NumberOfPartsProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToDateRangeProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToYearRangeProcessor;
 import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplate;
@@ -30,15 +32,23 @@ public class SeriesTemplatePageProcessor implements ItemProcessor<Page, SeriesTe
 
 	private final SeriesTemplateCompanyProcessor seriesTemplateCompanyProcessor;
 
+	private final NumberOfPartsProcessor numberOfPartsProcessor;
+
+	private final NumberOfEpisodesProcessor numberOfEpisodesProcessor;
+
+	@SuppressWarnings("ParameterNumber")
 	public SeriesTemplatePageProcessor(SeriesPageFilter seriesPageFilter, PartToYearRangeProcessor partToYearRangeProcessor,
 			PartToDateRangeProcessor partToDateRangeProcessor, PageBindingService pageBindingService, TemplateFinder templateFinder,
-			SeriesTemplateCompanyProcessor seriesTemplateCompanyProcessor) {
+			SeriesTemplateCompanyProcessor seriesTemplateCompanyProcessor, NumberOfPartsProcessor numberOfPartsProcessor,
+			NumberOfEpisodesProcessor numberOfEpisodesProcessor) {
 		this.seriesPageFilter = seriesPageFilter;
 		this.partToYearRangeProcessor = partToYearRangeProcessor;
 		this.partToDateRangeProcessor = partToDateRangeProcessor;
 		this.pageBindingService = pageBindingService;
 		this.templateFinder = templateFinder;
 		this.seriesTemplateCompanyProcessor = seriesTemplateCompanyProcessor;
+		this.numberOfPartsProcessor = numberOfPartsProcessor;
+		this.numberOfEpisodesProcessor = numberOfEpisodesProcessor;
 	}
 
 	@Override
@@ -66,7 +76,9 @@ public class SeriesTemplatePageProcessor implements ItemProcessor<Page, SeriesTe
 
 			switch (key) {
 				case SeriesTemplateParameter.ABBR:
-					seriesTemplate.setAbbreviation(value);
+					if (!"".equals(value)) {
+						seriesTemplate.setAbbreviation(value);
+					}
 					break;
 				case SeriesTemplateParameter.DATES:
 					seriesTemplate.setProductionYearRange(partToYearRangeProcessor.process(part));
@@ -79,6 +91,12 @@ public class SeriesTemplatePageProcessor implements ItemProcessor<Page, SeriesTe
 					break;
 				case SeriesTemplateParameter.NETWORK:
 					seriesTemplate.setOriginalBroadcaster(seriesTemplateCompanyProcessor.process(part));
+					break;
+				case SeriesTemplateParameter.SEASONS:
+					seriesTemplate.setSeasonsCount(numberOfPartsProcessor.process(part.getValue()));
+					break;
+				case SeriesTemplateParameter.EPISODES:
+					seriesTemplate.setEpisodesCount(numberOfEpisodesProcessor.process(part));
 					break;
 				default:
 					break;

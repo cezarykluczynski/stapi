@@ -11,9 +11,9 @@ class SeriesPageFilterTest extends Specification {
 		seriesPageFilter = new SeriesPageFilter()
 	}
 
-	void "returns true when page title is 'After Trek'"() {
+	void "returns true when page title is 'Untitled Section 31 series'"() {
 		given:
-		Page page = new Page(title: 'After Trek')
+		Page page = new Page(title: 'Untitled Section 31 series')
 
 		when:
 		boolean shouldBeFilteredOut = seriesPageFilter.shouldBeFilteredOut(page)

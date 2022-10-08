@@ -10,7 +10,8 @@ class CachingStrategyFactoryBeanTest extends Specification {
 
 	void setup() {
 		cachePropertiesMock = Mock()
-		cachingStrategyFactoryBean = new CachingStrategyFactoryBean(cachePropertiesMock)
+		cachingStrategyFactoryBean = new CachingStrategyFactoryBean()
+		cachingStrategyFactoryBean.cacheProperties = cachePropertiesMock
 	}
 
 	void "returns NoCacheCachingStrategy for NO_CACHE CachingStrategyType"() {

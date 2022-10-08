@@ -12,6 +12,8 @@ public class Template {
 
 	private String title;
 
+	private String originalTitle;
+
 	private List<Part> parts = Lists.newArrayList();
 
 	@Data

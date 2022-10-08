@@ -22,4 +22,9 @@ public class SeriesTemplate {
 	private Company productionCompany;
 
 	private Company originalBroadcaster;
+
+	private Integer seasonsCount;
+
+	private Integer episodesCount;
+
 }

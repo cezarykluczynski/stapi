@@ -7,5 +7,7 @@ public class SeriesTemplateParameter {
 	public static final String RUN = "run";
 	public static final String STUDIO = "studio";
 	public static final String NETWORK = "network";
+	public static final String SEASONS = "seasons";
+	public static final String EPISODES = "episodes";
 
 }

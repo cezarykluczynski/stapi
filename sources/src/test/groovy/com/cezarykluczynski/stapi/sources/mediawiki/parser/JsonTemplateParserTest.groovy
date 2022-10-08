@@ -9,7 +9,7 @@ class JsonTemplateParserTest extends Specification {
 	private static final String XML = """
 		<root>
 			<template>
-				<title>realworld</title>
+				<title>Realworld</title>
 			</template>
 			<template lineStart="1">
 				<title>${TemplateTitle.SIDEBAR_ACTOR} </title>
@@ -44,7 +44,7 @@ class JsonTemplateParserTest extends Specification {
 		List<Template> template = new JsonTemplateParser().parse(XML)
 
 		then:
-		template[0] == new Template(title: 'realworld')
+		template[0] == new Template(title: 'realworld', originalTitle: 'Realworld')
 		template[1].title == TemplateTitle.SIDEBAR_ACTOR
 		template[1].parts[0] == new Template.Part(key: 'name', value: 'Sir Patrick Stewart')
 		template[1].parts[1] == new Template.Part(key: 'birth name', value: 'Patrick Hewes Stewart')

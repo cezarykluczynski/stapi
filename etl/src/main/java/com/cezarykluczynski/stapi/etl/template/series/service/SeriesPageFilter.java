@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class SeriesPageFilter implements MediaWikiPageFilter {
 
-	private static final String AFTER_TREK = "After Trek";
+	private static final String UNTITLED_SECTION_31_SERIES = "Untitled Section 31 series";
 
 	@Override
 	public boolean shouldBeFilteredOut(Page page) {
-		return StringUtils.equals(page.getTitle(), AFTER_TREK);
+		return StringUtils.equals(page.getTitle(), UNTITLED_SECTION_31_SERIES);
 	}
 
 }

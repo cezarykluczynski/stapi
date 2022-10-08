@@ -30,6 +30,7 @@ public class WikitextApiImpl implements WikitextApi {
 	private static final Pattern DIS_LINK = Pattern.compile("\\{\\{dis\\|(.+?)}}");
 
 	private static final Pattern MULTILINE_WITHOUT_TEMPLATES = Pattern.compile("\\{\\{(.*?)}}", Pattern.DOTALL);
+	private static final Pattern NO_INCLUDE_PATTERN = Pattern.compile("<noinclude>(.+?)</noinclude>", Pattern.DOTALL);
 
 	private static final String ONE = "1";
 	private static final String TWO = "2";
@@ -66,6 +67,15 @@ public class WikitextApiImpl implements WikitextApi {
 		}
 
 		return MULTILINE_WITHOUT_TEMPLATES.matcher(wikitext).replaceAll("");
+	}
+
+	@Override
+	public String getWikitextWithoutNoInclude(String wikitext) {
+		if (wikitext == null) {
+			return null;
+		}
+
+		return StringUtils.trim(NO_INCLUDE_PATTERN.matcher(wikitext).replaceAll(""));
 	}
 
 	@Override

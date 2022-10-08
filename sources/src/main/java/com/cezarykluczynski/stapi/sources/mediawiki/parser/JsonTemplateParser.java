@@ -85,6 +85,7 @@ public class JsonTemplateParser {
 		Template template = new Template();
 
 		template.setTitle(StringUtils.lowerCase(title));
+		template.setOriginalTitle(title);
 		template.setParts(Lists.newArrayList());
 
 		JSONArray jsonArrayParts;
@@ -175,7 +176,17 @@ public class JsonTemplateParser {
 			JSONObject jsonObjectValue = (JSONObject) partJsonObject.get(KEY_VALUE);
 			content = jsonObjectValue.getString(KEY_CONTENT);
 		} catch (Exception e) {
-			//do nothing
+			try {
+				JSONObject jsonObjectValue = (JSONObject) partJsonObject.get(KEY_VALUE);
+				final JSONArray jsonArray = jsonObjectValue.getJSONArray(KEY_CONTENT);
+				StringBuilder tempContent = new StringBuilder();
+				for (int i = 0; i < jsonArray.length(); i++) {
+					tempContent.append(jsonArray.getString(i));
+				}
+				content = tempContent.toString();
+			} catch (Exception e2) {
+				//do nothing
+			}
 		}
 
 		return Triple.of(value, content, partTemplatesJsonArray);

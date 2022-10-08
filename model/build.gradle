@@ -18,7 +18,7 @@ dependencies {
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: springBootVersion
 	compile group: 'com.oracle', name: 'ojdbc6', version: '11.2.0.4.0-atlassian-hosted'
 	compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.0.Final'
-	compile group: 'org.postgresql', name: 'postgresql', version:'9.4.1207'
+	compile group: 'org.postgresql', name: 'postgresql', version:'42.5.0'
 	jpamodelgen group: 'org.hibernate', name: 'hibernate-jpamodelgen', version: hibernateVersion
 	testCompile project(':util').sourceSets.test.output
 }

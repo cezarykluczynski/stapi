@@ -13,6 +13,8 @@ class WikitextApiImplTest extends Specification {
 	private static final String WIKITEXT_WITH_TEMPLATES = '{{realworld}}{{sidebar planet\nName=Mantiles}}blah blah{{ds9|Some page}} blah'
 	private static final String WIKITEXT_WITH_DIS = '* [[Malibu DS9]]:\n** #1: "{{dis|Stowaway|comic}}"\n** #2: "[[Stowaway, Part II]]"\n' +
 			'** #3: "{{dis|Old Wounds|comic|the comic}}"\n** #4: "[[Emancipation, Part I]]"'
+	private static final String WIKITEXT_WITH_NO_INCLUDE = '<noinclude>The number of produced {{s|TAS}} episodes: ' +
+			'</noinclude>22<noinclude>[[Category:Memory Alpha constants templates|{{PAGENAME}}]]</noinclude>'
 	private static final String WIKITEXT_WITHOUT_TEMPLATES = 'blah blah blah'
 	private static final String WIKITEXT_WITH_LINKS = '\'\'[[Star Trek]]\'\' created by [[Gene Roddenberry]], [[25th anniversary|25th Anniversary]]'
 	private static final String WIKITEXT_WITHOUT_LINKS = '\'\'Star Trek\'\' created by Gene Roddenberry, 25th Anniversary'
@@ -90,6 +92,14 @@ class WikitextApiImplTest extends Specification {
 
 		then:
 		wikitextWithoutTemplates == WIKITEXT_WITHOUT_TEMPLATES
+	}
+
+	void "removes noinclude from wikitext"() {
+		when:
+		String wikitextWithoutNoInclude = wikitextApiImpl.getWikitextWithoutNoInclude(WIKITEXT_WITH_NO_INCLUDE)
+
+		then:
+		wikitextWithoutNoInclude == '22'
 	}
 
 	void "gets text without links"() {

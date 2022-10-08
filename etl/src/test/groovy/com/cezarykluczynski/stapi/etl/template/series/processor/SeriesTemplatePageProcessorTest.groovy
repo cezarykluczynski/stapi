@@ -3,6 +3,8 @@ package com.cezarykluczynski.stapi.etl.template.series.processor
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.DateRange
 import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.YearRange
+import com.cezarykluczynski.stapi.etl.template.common.processor.NumberOfEpisodesProcessor
+import com.cezarykluczynski.stapi.etl.template.common.processor.NumberOfPartsProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToDateRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PartToYearRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.series.dto.SeriesTemplate
@@ -23,6 +25,9 @@ class SeriesTemplatePageProcessorTest extends Specification {
 	private static final String TITLE = 'TITLE'
 	private static final String ABBREVIATION = 'abbreviation'
 	private static final Long PAGE_ID = 11L
+	private static final String RAW_SEASONS = '3+'
+	private static final Integer SEASONS_COUNT = 3
+	private static final Integer EPISODES_COUNT = 27
 	private static final SourcesMediaWikiSource SOURCES_MEDIA_WIKI_SOURCE = SourcesMediaWikiSource.MEMORY_ALPHA_EN
 
 	private SeriesPageFilter seriesPageFilterMock
@@ -37,6 +42,10 @@ class SeriesTemplatePageProcessorTest extends Specification {
 
 	private SeriesTemplateCompanyProcessor seriesTemplateCompanyProcessorMock
 
+	private NumberOfPartsProcessor numberOfPartsProcessorMock
+
+	private NumberOfEpisodesProcessor numberOfEpisodesProcessorMock
+
 	private SeriesTemplatePageProcessor seriesTemplatePageProcessor
 
 	void setup() {
@@ -46,8 +55,11 @@ class SeriesTemplatePageProcessorTest extends Specification {
 		pageBindingServiceMock = Mock()
 		templateFinderMock = Mock()
 		seriesTemplateCompanyProcessorMock = Mock()
+		numberOfPartsProcessorMock = Mock()
+		numberOfEpisodesProcessorMock = Mock()
 		seriesTemplatePageProcessor = new SeriesTemplatePageProcessor(seriesPageFilterMock, partToYearRangeProcessorMock,
-				partToDateRangeProcessorMock, pageBindingServiceMock, templateFinderMock, seriesTemplateCompanyProcessorMock)
+				partToDateRangeProcessorMock, pageBindingServiceMock, templateFinderMock, seriesTemplateCompanyProcessorMock,
+				numberOfPartsProcessorMock, numberOfEpisodesProcessorMock)
 	}
 
 	void "returns null when page should be filtered out"() {
@@ -82,6 +94,8 @@ class SeriesTemplatePageProcessorTest extends Specification {
 		Company originalBroadcaster = Mock()
 		Template.Part productionCompanyPart = new Template.Part(key: SeriesTemplateParameter.STUDIO)
 		Template.Part originalBroadcasterPart = new Template.Part(key: SeriesTemplateParameter.NETWORK)
+		Template.Part seasonsCountPart = new Template.Part(key: SeriesTemplateParameter.SEASONS, value: RAW_SEASONS)
+		Template.Part episodesCountPart = new Template.Part(key: SeriesTemplateParameter.EPISODES)
 		YearRange yearRange = Mock()
 		DateRange dateRange = Mock()
 
@@ -90,7 +104,9 @@ class SeriesTemplatePageProcessorTest extends Specification {
 				yearRangePart,
 				dateRangePart,
 				productionCompanyPart,
-				originalBroadcasterPart
+				originalBroadcasterPart,
+				seasonsCountPart,
+				episodesCountPart
 		))
 		Page page = new Page(
 				title: TITLE,
@@ -118,6 +134,12 @@ class SeriesTemplatePageProcessorTest extends Specification {
 		1 * seriesTemplateCompanyProcessorMock.process(productionCompanyPart) >> productionCompany
 		1 * seriesTemplateCompanyProcessorMock.process(originalBroadcasterPart) >> originalBroadcaster
 
+		then: 'seasons count is extracted'
+		1 * numberOfPartsProcessorMock.process(RAW_SEASONS) >> SEASONS_COUNT
+
+		then: 'episodes count is extracted'
+		1 * numberOfEpisodesProcessorMock.process(episodesCountPart) >> EPISODES_COUNT
+
 		then: 'all values are parsed'
 		seriesTemplate.title == TITLE
 		seriesTemplate.page == pageEntity
@@ -126,6 +148,8 @@ class SeriesTemplatePageProcessorTest extends Specification {
 		seriesTemplate.originalRunDateRange == dateRange
 		seriesTemplate.productionCompany == productionCompany
 		seriesTemplate.originalBroadcaster == originalBroadcaster
+		seriesTemplate.seasonsCount == SEASONS_COUNT
+		seriesTemplate.episodesCount == EPISODES_COUNT
 	}
 
 }

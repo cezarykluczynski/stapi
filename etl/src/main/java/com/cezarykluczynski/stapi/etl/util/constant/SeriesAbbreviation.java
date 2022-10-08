@@ -9,5 +9,9 @@ public class SeriesAbbreviation {
 	public static final String VOY = "VOY";
 	public static final String ENT = "ENT";
 	public static final String DIS = "DIS";
+	public static final String LD = "LD";
+	public static final String PIC = "PIC";
+	public static final String PRO = "PRO";
+	public static final String SNW = "SNW";
 
 }

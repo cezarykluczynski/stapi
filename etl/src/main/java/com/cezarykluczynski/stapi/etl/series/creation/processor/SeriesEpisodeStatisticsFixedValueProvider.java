@@ -15,13 +15,12 @@ public class SeriesEpisodeStatisticsFixedValueProvider implements FixedValueProv
 	private static final Map<String, SeriesEpisodeStatisticsDTO> ABBREVIATION_TO_STATISTICS_MAP = Maps.newHashMap();
 
 	static {
-		ABBREVIATION_TO_STATISTICS_MAP.put(SeriesAbbreviation.TOS, SeriesEpisodeStatisticsDTO.of(3, 76, 0));
-		ABBREVIATION_TO_STATISTICS_MAP.put(SeriesAbbreviation.TAS, SeriesEpisodeStatisticsDTO.of(2, 22, 0));
+		ABBREVIATION_TO_STATISTICS_MAP.put(SeriesAbbreviation.TOS, SeriesEpisodeStatisticsDTO.of(3, 79, 0));
 		ABBREVIATION_TO_STATISTICS_MAP.put(SeriesAbbreviation.TNG, SeriesEpisodeStatisticsDTO.of(7, 176, 2));
 		ABBREVIATION_TO_STATISTICS_MAP.put(SeriesAbbreviation.DS9, SeriesEpisodeStatisticsDTO.of(7, 173, 3));
-		ABBREVIATION_TO_STATISTICS_MAP.put(SeriesAbbreviation.VOY, SeriesEpisodeStatisticsDTO.of(7, 167, 4));
+		ABBREVIATION_TO_STATISTICS_MAP.put(SeriesAbbreviation.VOY, SeriesEpisodeStatisticsDTO.of(7, 168, 4));
 		ABBREVIATION_TO_STATISTICS_MAP.put(SeriesAbbreviation.ENT, SeriesEpisodeStatisticsDTO.of(4, 97, 1));
-		ABBREVIATION_TO_STATISTICS_MAP.put(SeriesAbbreviation.DIS, SeriesEpisodeStatisticsDTO.of(1, 13, 0));
+		ABBREVIATION_TO_STATISTICS_MAP.put(SeriesAbbreviation.PRO, SeriesEpisodeStatisticsDTO.of(1, 9, 0));
 	}
 
 	@Override

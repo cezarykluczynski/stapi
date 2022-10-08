@@ -2,16 +2,14 @@ package com.cezarykluczynski.stapi.model.common.cache;
 
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CachingStrategyFactoryBean implements FactoryBean<CachingStrategy> {
 
-	private final CacheProperties cacheProperties;
-
-	public CachingStrategyFactoryBean(CacheProperties cacheProperties) {
-		this.cacheProperties = cacheProperties;
-	}
+	@Autowired
+	private CacheProperties cacheProperties;
 
 	@Override
 	public CachingStrategy getObject() throws Exception {
