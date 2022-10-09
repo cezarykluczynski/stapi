@@ -10,6 +10,10 @@ public interface PageApi {
 
 	Page getPage(String title, MediaWikiSource mediaWikiSource);
 
+	default Page getTemplate(String title, MediaWikiSource mediaWikiSource) {
+		return getPage("Template:" + title, mediaWikiSource);
+	}
+
 	PageInfo getPageInfo(String title, MediaWikiSource mediaWikiSource);
 
 	List<Page> getPages(List<String> titles, MediaWikiSource mediaWikiSource);

@@ -1,18 +1,16 @@
 package com.cezarykluczynski.stapi.etl.season.creation.processor;
 
-import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
-import com.cezarykluczynski.stapi.etl.season.creation.service.SeasonPageFilter;
 import com.cezarykluczynski.stapi.model.common.service.UidGenerator;
 import com.cezarykluczynski.stapi.model.season.entity.Season;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class SeasonPageProcessor implements ItemProcessor<Page, Season> {
-
-	private final SeasonPageFilter seasonPageFilter;
 
 	private final UidGenerator uidGenerator;
 
@@ -22,25 +20,20 @@ public class SeasonPageProcessor implements ItemProcessor<Page, Season> {
 
 	private final SeasonNumberProcessor seasonNumberProcessor;
 
-	private final SeasonNumberOfEpisodesFixedValueProvider seasonNumberOfEpisodesFixedValueProvider;
+	private final SeasonNumberOfEpisodesProcessor seasonNumberOfEpisodesProcessor;
 
-	public SeasonPageProcessor(SeasonPageFilter seasonPageFilter, UidGenerator uidGenerator, PageBindingService pageBindingService,
+	public SeasonPageProcessor(UidGenerator uidGenerator, PageBindingService pageBindingService,
 			SeasonSeriesProcessor seasonSeriesProcessor, SeasonNumberProcessor seasonNumberProcessor,
-			SeasonNumberOfEpisodesFixedValueProvider seasonNumberOfEpisodesFixedValueProvider) {
-		this.seasonPageFilter = seasonPageFilter;
+			SeasonNumberOfEpisodesProcessor seasonNumberOfEpisodesProcessor) {
 		this.uidGenerator = uidGenerator;
 		this.pageBindingService = pageBindingService;
 		this.seasonSeriesProcessor = seasonSeriesProcessor;
 		this.seasonNumberProcessor = seasonNumberProcessor;
-		this.seasonNumberOfEpisodesFixedValueProvider = seasonNumberOfEpisodesFixedValueProvider;
+		this.seasonNumberOfEpisodesProcessor = seasonNumberOfEpisodesProcessor;
 	}
 
 	@Override
 	public Season process(Page item) throws Exception {
-		if (seasonPageFilter.shouldBeFilteredOut(item)) {
-			return null;
-		}
-
 		String pageTitle = item.getTitle();
 		Season season = new Season();
 		season.setTitle(pageTitle);
@@ -48,13 +41,7 @@ public class SeasonPageProcessor implements ItemProcessor<Page, Season> {
 		season.setUid(uidGenerator.generateFromPage(season.getPage(), Season.class));
 		season.setSeries(seasonSeriesProcessor.process(pageTitle));
 		season.setSeasonNumber(seasonNumberProcessor.process(pageTitle));
-
-		FixedValueHolder<Integer> numberOfEpisodesFixedValueHolder = seasonNumberOfEpisodesFixedValueProvider.getSearchedValue(pageTitle);
-
-		if (numberOfEpisodesFixedValueHolder.isFound()) {
-			season.setNumberOfEpisodes(numberOfEpisodesFixedValueHolder.getValue());
-		}
-
+		season.setNumberOfEpisodes(seasonNumberOfEpisodesProcessor.process(item));
 		return season;
 	}
 

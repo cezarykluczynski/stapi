@@ -30,7 +30,7 @@ public class NumberOfEpisodesProcessor implements ItemProcessor<Template.Part, I
 			return null;
 		}
 
-		final Page page = pageApi.getPage("Template:" + item.getTemplates().get(0).getOriginalTitle(), MediaWikiSource.MEMORY_ALPHA_EN);
+		final Page page = pageApi.getTemplate(item.getTemplates().get(0).getOriginalTitle(), MediaWikiSource.MEMORY_ALPHA_EN);
 		final String wikitextWithoutNoInclude = wikitextApi.getWikitextWithoutNoInclude(page.getWikitext());
 		Integer numberOfEpisodes = Ints.tryParse(wikitextWithoutNoInclude);
 		if (numberOfEpisodes != null) {

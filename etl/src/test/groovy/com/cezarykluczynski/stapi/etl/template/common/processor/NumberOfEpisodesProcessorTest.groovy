@@ -27,7 +27,7 @@ class NumberOfEpisodesProcessorTest extends Specification {
         numberOfEpisodesProcessor.process(new Template.Part()) == null
     }
 
-    void "returns null for when numbers of episodes cound not be parsed" () {
+    void "returns null for when numbers of episodes count not be parsed" () {
         given:
         Template.Part item = new Template.Part()
         item.setTemplates([new Template(originalTitle: ORIGINAL_TITLE)])
@@ -37,7 +37,7 @@ class NumberOfEpisodesProcessorTest extends Specification {
         Integer numberOfEpisodes = numberOfEpisodesProcessor.process(item)
 
         then:
-        1 * pageApiMock.getPage("Template:$ORIGINAL_TITLE", MediaWikiSource.MEMORY_ALPHA_EN) >> page
+        1 * pageApiMock.getTemplate(ORIGINAL_TITLE, MediaWikiSource.MEMORY_ALPHA_EN) >> page
         1 * wikitextApiMock.getWikitextWithoutNoInclude(WIKITEXT) >> 'gibberish'
         0 * _
         numberOfEpisodes == null
@@ -53,7 +53,7 @@ class NumberOfEpisodesProcessorTest extends Specification {
         Integer numberOfEpisodes = numberOfEpisodesProcessor.process(item)
 
         then:
-        1 * pageApiMock.getPage("Template:$ORIGINAL_TITLE", MediaWikiSource.MEMORY_ALPHA_EN) >> page
+        1 * pageApiMock.getTemplate(ORIGINAL_TITLE, MediaWikiSource.MEMORY_ALPHA_EN) >> page
         1 * wikitextApiMock.getWikitextWithoutNoInclude(WIKITEXT) >> '22'
         0 * _
         numberOfEpisodes == 22

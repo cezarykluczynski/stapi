@@ -43,6 +43,19 @@ class TemplateFinderTest extends Specification {
 		templateOptional.get() == template2
 	}
 
+	void "finds all templates by multiple names"() {
+		Template template1 = new Template(title: TITLE_1)
+		Template template2 = new Template(title: TITLE_2)
+		Template templateInvalid = new Template(title: INVALID_TITLE)
+		Page page = new Page(templates: Lists.newArrayList(templateInvalid, template2, template1))
+
+		when:
+		List<Template> templates = templateFinder.findTemplates(page, TITLE_1, TITLE_2)
+
+		then:
+		templates == [template2, template1]
+	}
+
 	void "returns empty optional is nothing is found"() {
 		Page page = new Page()
 

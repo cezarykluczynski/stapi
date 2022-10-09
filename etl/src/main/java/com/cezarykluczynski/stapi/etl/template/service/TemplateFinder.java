@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TemplateFinder {
@@ -21,6 +22,17 @@ public class TemplateFinder {
 		return page.getTemplates().stream()
 				.filter(template -> nameList.contains(template.getTitle()))
 				.findFirst();
+	}
+
+	public List<Template> findTemplates(Page page, String... names) {
+		List<String> nameList = Lists.newArrayList(names);
+		if (CollectionUtils.isEmpty(page.getTemplates())) {
+			return Lists.newArrayList();
+		}
+
+		return page.getTemplates().stream()
+				.filter(template -> nameList.contains(template.getTitle()))
+				.collect(Collectors.toList());
 	}
 
 	public boolean hasTemplate(Page page, String name) {

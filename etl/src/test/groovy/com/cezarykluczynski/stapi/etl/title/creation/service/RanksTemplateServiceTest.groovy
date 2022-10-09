@@ -38,7 +38,7 @@ class RanksTemplateServiceTest extends Specification {
 		ranksTemplateService.postConstruct()
 
 		then:
-		pageApiMock.getPage('Template:' + TemplateTitle.RANKS, MediaWikiSource.MEMORY_ALPHA_EN) >> page
+		pageApiMock.getTemplate(TemplateTitle.RANKS, MediaWikiSource.MEMORY_ALPHA_EN) >> page
 
 		then:
 		ranksTemplateService.isFleetRank('Crewman')

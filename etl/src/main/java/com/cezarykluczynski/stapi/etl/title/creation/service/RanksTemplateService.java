@@ -38,7 +38,7 @@ public class RanksTemplateService {
 
 	@PostConstruct
 	public void postConstruct() {
-		Page page = pageApi.getPage("Template:" + TemplateTitle.RANKS, MediaWikiSource.MEMORY_ALPHA_EN);
+		Page page = pageApi.getTemplate(TemplateTitle.RANKS, MediaWikiSource.MEMORY_ALPHA_EN);
 
 		if (page == null) {
 			return;
