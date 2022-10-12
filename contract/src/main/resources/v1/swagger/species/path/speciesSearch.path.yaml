@@ -29,7 +29,7 @@ post:
   description: Searching species
   consumes:
     - application/x-www-form-urlencoded
-  producers:
+  produces:
     - application/json
   parameters:
     - name: pageNumber
@@ -108,4 +108,3 @@ post:
         $ref: '#/definitions/SpeciesBaseResponse'
   tags:
     - Species
-

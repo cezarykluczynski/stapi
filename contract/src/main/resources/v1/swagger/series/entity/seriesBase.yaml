@@ -37,8 +37,8 @@ properties:
     type: integer
     description: Number of feature length episodes
   productionCompany:
-    $ref: CompanyHeader
+    $ref: ./company/entity/companyHeader.yaml
     description: Company that produced the series
   originalBroadcaster:
-    $ref: CompanyHeader
+    $ref: ./company/entity/companyHeader.yaml
     description: Company that originally broadcasted the series

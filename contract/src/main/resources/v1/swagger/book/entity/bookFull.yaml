@@ -9,7 +9,6 @@ properties:
     type: string
     required: true
     description: Book title
-    required: true
   publishedYear:
     type: integer
     description: Year the book was published

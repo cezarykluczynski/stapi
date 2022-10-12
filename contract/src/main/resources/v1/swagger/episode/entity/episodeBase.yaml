@@ -19,10 +19,10 @@ properties:
     type: string
     description: Episode title in Japanese
   series:
-    $ref: '#/definitions/seriesHeader'
+    $ref: '#/definitions/SeriesHeader'
     description: Series this episode belongs to
   season:
-    $ref: '#/definitions/seasonHeader'
+    $ref: '#/definitions/SeasonHeader'
     description: Season this episode belongs to
   seasonNumber:
     type: integer
