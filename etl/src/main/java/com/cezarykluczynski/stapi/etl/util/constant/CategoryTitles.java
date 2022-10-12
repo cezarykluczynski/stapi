@@ -6,24 +6,6 @@ import java.util.List;
 
 public class CategoryTitles {
 
-	public static final List<String> PERFORMERS = ImmutableList.of(
-			CategoryTitle.PERFORMERS,
-			CategoryTitle.ANIMAL_PERFORMERS,
-			CategoryTitle.DIS_PERFORMERS,
-			CategoryTitle.DS9_PERFORMERS,
-			CategoryTitle.ENT_PERFORMERS,
-			CategoryTitle.FILM_PERFORMERS,
-			CategoryTitle.STAND_INS,
-			CategoryTitle.STUNT_PERFORMERS,
-			CategoryTitle.TAS_PERFORMERS,
-			CategoryTitle.TNG_PERFORMERS,
-			CategoryTitle.TOS_PERFORMERS,
-			CategoryTitle.TOS_REMASTERED_PERFORMERS,
-			CategoryTitle.VIDEO_GAME_PERFORMERS,
-			CategoryTitle.VOICE_PERFORMERS,
-			CategoryTitle.VOY_PERFORMERS
-	);
-
 	public static final List<String> STAFF = ImmutableList.of(
 			CategoryTitle.ART_DEPARTMENT,
 			CategoryTitle.ART_DIRECTORS,

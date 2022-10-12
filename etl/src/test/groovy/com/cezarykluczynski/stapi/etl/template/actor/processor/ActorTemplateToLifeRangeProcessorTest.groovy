@@ -47,10 +47,10 @@ class ActorTemplateToLifeRangeProcessorTest extends Specification {
 		Template template = new Template(title: TemplateTitle.SIDEBAR_ACTOR,
 				parts: Lists.newArrayList(
 						new Template.Part(
-								key: ActorTemplateParameter.DATE_OF_BIRTH,
+								key: ActorTemplateParameter.BIRTHDAY,
 								templates: templatesDateOfBirth),
 						new Template.Part(
-								key: ActorTemplateParameter.DATE_OF_DEATH,
+								key: ActorTemplateParameter.DEATHDAY,
 								templates: templatesDateOfDeath)))
 
 		when:
@@ -83,10 +83,10 @@ class ActorTemplateToLifeRangeProcessorTest extends Specification {
 		Template template = new Template(title: TemplateTitle.SIDEBAR_ACTOR,
 				parts: Lists.newArrayList(
 						new Template.Part(
-								key: ActorTemplateParameter.DATE_OF_BIRTH,
+								key: ActorTemplateParameter.BIRTHDAY,
 								templates: Lists.newArrayList()),
 						new Template.Part(
-								key: ActorTemplateParameter.DATE_OF_DEATH,
+								key: ActorTemplateParameter.DEATHDAY,
 								templates: Lists.newArrayList(invalidTemplate))))
 
 		when:

@@ -36,10 +36,10 @@ public class ActorTemplateTemplateProcessor implements ItemProcessor<Template, A
 				case ActorTemplateParameter.BIRTH_NAME:
 					actorTemplate.setBirthName(value);
 					break;
-				case ActorTemplateParameter.PLACE_OF_BIRTH:
+				case ActorTemplateParameter.BIRTHPLACE:
 					actorTemplate.setPlaceOfBirth(value);
 					break;
-				case ActorTemplateParameter.PLACE_OF_DEATH:
+				case ActorTemplateParameter.DEATHPLACE:
 					actorTemplate.setPlaceOfDeath(value);
 					break;
 				case ActorTemplateParameter.GENDER:

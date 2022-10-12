@@ -18,9 +18,9 @@ import java.util.List;
 @Slf4j
 public class ActorTemplateToLifeRangeProcessor implements ItemProcessor<Template, DateRange> {
 
-	private DatelinkTemplateToLocalDateProcessor datelinkTemplateToLocalDateProcessor;
+	private final DatelinkTemplateToLocalDateProcessor datelinkTemplateToLocalDateProcessor;
 
-	private TemplateFilter templateFilter;
+	private final TemplateFilter templateFilter;
 
 	public ActorTemplateToLifeRangeProcessor(DatelinkTemplateToLocalDateProcessor datelinkTemplateToLocalDateProcessor,
 			TemplateFilter templateFilter) {
@@ -41,11 +41,10 @@ public class ActorTemplateToLifeRangeProcessor implements ItemProcessor<Template
 		for (Template.Part part : item.getParts()) {
 			String key = part.getKey();
 
-			if (ActorTemplateParameter.DATE_OF_BIRTH.equals(key)) {
+			if (ActorTemplateParameter.BIRTHDAY.equals(key)) {
 				dateOfBirth = tryExtractDate(part.getTemplates());
-			} else if (ActorTemplateParameter.DATE_OF_DEATH.equals(key)) {
+			} else if (ActorTemplateParameter.DEATHDAY.equals(key)) {
 				dateOfDeath = tryExtractDate(part.getTemplates());
-
 			}
 		}
 

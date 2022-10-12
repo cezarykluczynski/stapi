@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.IntervalCalculationStrategy;
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiMinimalIntervalProvider;
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourcesProperties;
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.service.wikia.WikiaWikisDetector;
 import com.cezarykluczynski.stapi.sources.mediawiki.util.constant.ApiParams;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
@@ -15,12 +16,20 @@ import info.bliki.api.User;
 import info.bliki.api.query.RequestBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.BooleanUtils;
+import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 @Service
 @Slf4j
@@ -46,12 +55,16 @@ public class BlikiConnector {
 
 	private final MediaWikiSourcesProperties mediaWikiSourcesProperties;
 
+	private final RestTemplate restTemplate;
+
 	public BlikiConnector(BlikiUserDecoratorBeanMapProvider blikiUserDecoratorBeanMapProvider, WikiaWikisDetector wikiaWikisDetector,
-			MediaWikiMinimalIntervalProvider mediaWikiMinimalIntervalProvider, MediaWikiSourcesProperties mediaWikiSourcesProperties) {
+			MediaWikiMinimalIntervalProvider mediaWikiMinimalIntervalProvider, MediaWikiSourcesProperties mediaWikiSourcesProperties,
+			RestTemplate restTemplate) {
 		this.blikiUserDecoratorBeanMapProvider = blikiUserDecoratorBeanMapProvider;
 		this.wikiaWikisDetector = wikiaWikisDetector;
 		this.mediaWikiMinimalIntervalProvider = mediaWikiMinimalIntervalProvider;
 		this.mediaWikiSourcesProperties = mediaWikiSourcesProperties;
+		this.restTemplate = restTemplate;
 		configure();
 	}
 
@@ -91,23 +104,81 @@ public class BlikiConnector {
 
 		switch (mediaWikiSource) {
 			case MEMORY_BETA_EN:
-				return doQueryMemoryBeta(requestBuilder);
+				return doQueryMemoryBeta(() -> doQuery(requestBuilder, MediaWikiSource.MEMORY_BETA_EN));
 			default:
 			case MEMORY_ALPHA_EN:
-				return doQueryMemoryAlpha(requestBuilder);
+				return doQueryMemoryAlpha(() -> doQuery(requestBuilder, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 	}
 
-	private synchronized String doQueryMemoryAlpha(RequestBuilder requestBuilder) {
-		return synchronizedDoQuery(requestBuilder, MediaWikiSource.MEMORY_ALPHA_EN, mediaWikiMinimalIntervalProvider.getMemoryAlphaEnInterval());
+	public List<CategoryHeader> getCategories(String categoryTitle, MediaWikiSource mediaWikiSource, int depth) {
+		String rawCategoriesJson;
+		switch (mediaWikiSource) {
+			case MEMORY_BETA_EN:
+				rawCategoriesJson = doQueryMemoryBeta(() -> rawJsonCategories(categoryTitle, depth, MediaWikiSource.MEMORY_BETA_EN));
+				break;
+			default:
+			case MEMORY_ALPHA_EN:
+				rawCategoriesJson = doQueryMemoryAlpha(() -> rawJsonCategories(categoryTitle, depth, MediaWikiSource.MEMORY_ALPHA_EN));
+		}
+
+		return rawJsonCategoriesToList(rawCategoriesJson);
 	}
 
-	private synchronized String doQueryMemoryBeta(RequestBuilder requestBuilder) {
-		return synchronizedDoQuery(requestBuilder, MediaWikiSource.MEMORY_BETA_EN, mediaWikiMinimalIntervalProvider.getMemoryBetaEnInterval());
+	private String rawJsonCategories(String categoryTitle, int depth, MediaWikiSource mediaWikiSource) {
+		String urlPrefix;
+		if (MediaWikiSource.MEMORY_BETA_EN.equals(mediaWikiSource)) {
+			urlPrefix = mediaWikiSourcesProperties.getMemoryBetaEn().getApiUrl();
+		} else {
+			urlPrefix = mediaWikiSourcesProperties.getMemoryAlphaEn().getApiUrl();
+		}
+		String options = String.format("{\"depth\":%d}", depth);
+		String url = String.format("%s?action=categorytree&category=%s&format=json&options={options}", urlPrefix, categoryTitle);
+		final ResponseEntity<String> forEntity = restTemplate.getForEntity(url, String.class, options);
+		return forEntity.getBody();
+	}
+
+	private List<CategoryHeader> rawJsonCategoriesToList(String rawJsonCategories) {
+		JSONObject jsonObject = new JSONObject(rawJsonCategories);
+		final JSONObject categorytree = jsonObject.getJSONObject("categorytree");
+		List<CategoryHeader> categoryHeaders = Lists.newArrayList();
+		for (String sortKey : categorytree.keySet()) {
+			final Document document = Jsoup.parse(categorytree.getString(sortKey));
+			final Elements categoryTreeSection = document.getElementsByClass("CategoryTreeSection");
+			for (Element element : categoryTreeSection) {
+				final Elements a = element.select("div a");
+				if (a.size() == 0) {
+					log.warn("For category tree {} found no links.", element);
+					continue;
+				}
+				final Element first = a.first();
+				final String title = first.attr("title");
+				if (title.startsWith("Category:")) {
+					final String categoryTitle = title.substring(9);
+					CategoryHeader categoryHeader = new CategoryHeader();
+					categoryHeader.setTitle(categoryTitle.replace(" ", "_"));
+					categoryHeaders.add(categoryHeader);
+				} else {
+					log.info("Title {} does not appear to be a category.", title);
+				}
+			}
+		}
+		return categoryHeaders;
+	}
+
+	private synchronized String doQueryMemoryAlpha(Supplier<String> supplier) {
+		return synchronizedDoQuery(MediaWikiSource.MEMORY_ALPHA_EN,
+				mediaWikiMinimalIntervalProvider.getMemoryAlphaEnInterval(), supplier);
+	}
+
+	private synchronized String doQueryMemoryBeta(Supplier<String> supplier) {
+		return synchronizedDoQuery(MediaWikiSource.MEMORY_BETA_EN,
+				mediaWikiMinimalIntervalProvider.getMemoryBetaEnInterval(), supplier);
 	}
 
 	@SuppressFBWarnings("SWL_SLEEP_WITH_LOCK_HELD")
-	private String synchronizedDoQuery(RequestBuilder requestBuilder, MediaWikiSource mediaWikiSource, Long interval) {
+	private String synchronizedDoQuery(MediaWikiSource mediaWikiSource, Long interval,
+										Supplier<String> supplier) {
 		long startTime = System.currentTimeMillis();
 		long diff = startTime - lastCallTimes.get(mediaWikiSource);
 		long minimalInterval = interval;
@@ -124,14 +195,14 @@ public class BlikiConnector {
 			}
 		}
 
-		String xml = doQuery(requestBuilder, mediaWikiSource);
+		String result = supplier.get();
 
 		long lastCallTime = IntervalCalculationStrategy.FROM_AFTER_RECEIVED
 				.equals(intervalCalculationStrategies.get(mediaWikiSource)) ? System.currentTimeMillis() : startTime;
 		lastCallTimes.put(mediaWikiSource, lastCallTime);
 
 		synchronized (this) {
-			if (xml == null) {
+			if (result == null) {
 				long postpone = getNetworkTroublePostpone();
 				log.info("Network troubles. Postponing next call for {} seconds", postpone / 1000);
 				try {
@@ -139,7 +210,7 @@ public class BlikiConnector {
 				} catch (InterruptedException e) {
 					Thread.currentThread().interrupt();
 				}
-				return synchronizedDoQuery(requestBuilder, mediaWikiSource, interval);
+				return synchronizedDoQuery(mediaWikiSource, interval, supplier);
 			} else {
 				if (lastNetworkTroublePostponeIndex > 0) {
 					log.info("Network is back to normal");
@@ -148,7 +219,7 @@ public class BlikiConnector {
 			}
 		}
 
-		return xml;
+		return result;
 	}
 
 	private String doQuery(RequestBuilder requestBuilder, MediaWikiSource mediaWikiSource) {

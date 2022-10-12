@@ -24,6 +24,10 @@ public class ActorTemplate {
 
 	private boolean animalPerformer;
 
+	private boolean audiobookPerformer;
+
+	private boolean cutPerformer;
+
 	private boolean disPerformer;
 
 	private boolean ds9Performer;
@@ -32,7 +36,19 @@ public class ActorTemplate {
 
 	private boolean filmPerformer;
 
+	private boolean ldPerformer;
+
+	private boolean picPerformer;
+
+	private boolean proPerformer;
+
+	private boolean puppeteer;
+
+	private boolean snwPerformer;
+
 	private boolean standInPerformer;
+
+	private boolean stPerformer;
 
 	private boolean stuntPerformer;
 

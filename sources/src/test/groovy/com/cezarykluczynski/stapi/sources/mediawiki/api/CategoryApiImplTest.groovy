@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.sources.mediawiki.api
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.connector.bliki.BlikiConnector
 import com.cezarykluczynski.stapi.sources.mediawiki.converter.PageHeaderConverter
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.util.constant.ApiParams
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
@@ -311,6 +312,32 @@ class CategoryApiImplTest extends Specification {
 		}
 		0 * _
 		pageHeaderListOutput == pageHeaderList
+	}
+
+	void "gets categories in category"() {
+		given:
+		CategoryHeader categoryHeader = Mock()
+
+		when:
+		List<CategoryHeader> categoryHeaders = categoryApiImpl.getCategoriesInCategory(TITLE_1, MEDIA_WIKI_SOURCE)
+
+		then:
+		1 * blikiConnectorMock.getCategories(TITLE_1, MEDIA_WIKI_SOURCE, 1) >> [categoryHeader]
+		0 * _
+		categoryHeaders == [categoryHeader]
+	}
+
+	void "gets categories in category, including subcategories"() {
+		given:
+		CategoryHeader categoryHeader = Mock()
+
+		when:
+		List<CategoryHeader> categoryHeaders = categoryApiImpl.getCategoriesInCategoryIncludingSubcategories(TITLE_1, MEDIA_WIKI_SOURCE)
+
+		then:
+		1 * blikiConnectorMock.getCategories(TITLE_1, MEDIA_WIKI_SOURCE, 100) >> [categoryHeader]
+		0 * _
+		categoryHeaders == [categoryHeader]
 	}
 
 }

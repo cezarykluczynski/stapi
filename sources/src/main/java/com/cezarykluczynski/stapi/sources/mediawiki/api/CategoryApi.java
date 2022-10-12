@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.api;
 
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 
 import java.util.List;
@@ -19,5 +20,9 @@ public interface CategoryApi {
 	List<PageHeader> getPagesIncludingSubcategoriesExcept(String title, List<String> exceptions, MediaWikiSource mediaWikiSource);
 
 	List<PageHeader> getPagesIncludingSubcategoriesExcluding(String title, List<Pattern> exceptions, MediaWikiSource mediaWikiSource);
+
+	List<CategoryHeader> getCategoriesInCategory(String categoryTitle, MediaWikiSource mediaWikiSource);
+
+	List<CategoryHeader> getCategoriesInCategoryIncludingSubcategories(String categoryTitle, MediaWikiSource mediaWikiSource);
 
 }

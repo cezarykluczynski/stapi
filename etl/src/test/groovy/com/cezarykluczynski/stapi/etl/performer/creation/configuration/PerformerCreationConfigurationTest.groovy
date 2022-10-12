@@ -6,6 +6,7 @@ import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompleteness
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerCategoriesActorTemplateEnrichingProcessor
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerReader
 import com.cezarykluczynski.stapi.etl.performer.creation.service.ActorPageFilter
+import com.cezarykluczynski.stapi.etl.performer.creation.service.PerformerCategoriesProvider
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateListPageProcessor
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplatePageProcessor
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateSinglePageProcessor
@@ -13,18 +14,22 @@ import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateTemp
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PageToLifeRangeProcessor
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGenderProcessor
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
+import com.google.common.collect.Lists
 import org.springframework.context.ApplicationContext
 
 class PerformerCreationConfigurationTest extends AbstractCreationConfigurationTest {
 
+	private static final List<String> CATEGORIES = Lists.newArrayList(CategoryTitle.DIS_PERFORMERS, CategoryTitle.DS9_PERFORMERS)
 	private static final String TITLE_PERFORMERS = 'TITLE_PERFORMERS'
 
 	private ApplicationContext applicationContextMock
+
+	private PerformerCategoriesProvider performerCategoriesProviderMock
 
 	private CategoryApi categoryApiMock
 
@@ -34,10 +39,12 @@ class PerformerCreationConfigurationTest extends AbstractCreationConfigurationTe
 
 	void setup() {
 		applicationContextMock = Mock()
+		performerCategoriesProviderMock = Mock()
 		categoryApiMock = Mock()
 		jobCompletenessDeciderMock = Mock()
 		performerCreationConfiguration = new PerformerCreationConfiguration(
 				applicationContext: applicationContextMock,
+				performerCategoriesProvider: performerCategoriesProviderMock,
 				categoryApi: categoryApiMock,
 				stepCompletenessDecider: jobCompletenessDeciderMock)
 	}
@@ -49,7 +56,8 @@ class PerformerCreationConfigurationTest extends AbstractCreationConfigurationTe
 
 		then:
 		1 * jobCompletenessDeciderMock.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_PERFORMERS) >> false
-		1 * categoryApiMock.getPages(CategoryTitles.PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_PERFORMERS)
+		1 * performerCategoriesProviderMock.provide() >> CATEGORIES
+		1 * categoryApiMock.getPages(CATEGORIES, MediaWikiSource.MEMORY_ALPHA_EN) >> createListWithPageHeaderTitle(TITLE_PERFORMERS)
 		0 * _
 		categoryHeaderTitleList.contains TITLE_PERFORMERS
 	}

@@ -38,11 +38,19 @@ class PerformerCategoriesActorTemplateEnrichingProcessorTest extends Specificati
 		categoryHeaderList                                                | actorTemplate       | flagName             | flag  | numberOfTrueBooleans
 		Lists.newArrayList()                                              | new ActorTemplate() | 'animalPerformer'    | false | 0
 		createCategoryHeaderList(CategoryTitle.ANIMAL_PERFORMERS)         | new ActorTemplate() | 'animalPerformer'    | true  | 1
+		createCategoryHeaderList(CategoryTitle.AUDIOBOOK_PERFORMERS)      | new ActorTemplate() | 'audiobookPerformer' | true  | 1
+		createCategoryHeaderList(CategoryTitle.PERFORMERS_CUT)            | new ActorTemplate() | 'cutPerformer'       | true  | 1
 		createCategoryHeaderList(CategoryTitle.DIS_PERFORMERS)            | new ActorTemplate() | 'disPerformer'       | true  | 1
 		createCategoryHeaderList(CategoryTitle.DS9_PERFORMERS)            | new ActorTemplate() | 'ds9Performer'       | true  | 1
 		createCategoryHeaderList(CategoryTitle.ENT_PERFORMERS)            | new ActorTemplate() | 'entPerformer'       | true  | 1
 		createCategoryHeaderList(CategoryTitle.FILM_PERFORMERS)           | new ActorTemplate() | 'filmPerformer'      | true  | 1
+		createCategoryHeaderList(CategoryTitle.LD_PERFORMERS)             | new ActorTemplate() | 'ldPerformer'        | true  | 1
+		createCategoryHeaderList(CategoryTitle.PIC_PEFORMERS)             | new ActorTemplate() | 'picPerformer'       | true  | 1
+		createCategoryHeaderList(CategoryTitle.PRO_PEFORMERS)             | new ActorTemplate() | 'proPerformer'       | true  | 1
+		createCategoryHeaderList(CategoryTitle.PUPPETEERS)                | new ActorTemplate() | 'puppeteer'          | true  | 1
+		createCategoryHeaderList(CategoryTitle.SNW_PEFORMERS)             | new ActorTemplate() | 'snwPerformer'       | true  | 1
 		createCategoryHeaderList(CategoryTitle.STAND_INS)                 | new ActorTemplate() | 'standInPerformer'   | true  | 1
+		createCategoryHeaderList(CategoryTitle.ST_PEFORMERS)              | new ActorTemplate() | 'stPerformer'        | true  | 1
 		createCategoryHeaderList(CategoryTitle.STUNT_PERFORMERS)          | new ActorTemplate() | 'stuntPerformer'     | true  | 1
 		createCategoryHeaderList(CategoryTitle.TAS_PERFORMERS)            | new ActorTemplate() | 'tasPerformer'       | true  | 1
 		createCategoryHeaderList(CategoryTitle.TNG_PERFORMERS)            | new ActorTemplate() | 'tngPerformer'       | true  | 1

@@ -10,10 +10,18 @@ public class CategoryTitle {
 
 	public static final String PERFORMERS = "Performers";
 	public static final String ANIMAL_PERFORMERS = "Animal_performers";
+	public static final String AUDIOBOOK_PERFORMERS = "Audiobook_performers";
 	public static final String DIS_PERFORMERS = "DIS_performers";
 	public static final String DS9_PERFORMERS = "DS9_performers";
 	public static final String ENT_PERFORMERS = "ENT_performers";
 	public static final String FILM_PERFORMERS = "Film_performers";
+	public static final String LD_PERFORMERS = "LD_performers";
+	public static final String PERFORMERS_CUT = "Performers_(cut)";
+	public static final String PIC_PEFORMERS = "PIC_performers";
+	public static final String PRO_PEFORMERS = "PRO_performers";
+	public static final String PUPPETEERS = "Puppeteers";
+	public static final String SNW_PEFORMERS = "SNW_performers";
+	public static final String ST_PEFORMERS = "ST_performers";
 	public static final String STAND_INS = "Stand-ins";
 	public static final String STUNT_PERFORMERS = "Stunt_performers";
 	public static final String TAS_PERFORMERS = "TAS_performers";

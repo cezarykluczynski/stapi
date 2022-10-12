@@ -1,10 +1,10 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.gender
 
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor
+import com.cezarykluczynski.stapi.etl.performer.creation.service.PerformerCategoriesProvider
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender
 import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTemplatePartsGenderProcessor
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles
 import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
@@ -18,6 +18,7 @@ import spock.lang.Specification
 class PageToGenderRoleProcessorTest extends Specification {
 
 	private static final String TITLE = 'Title'
+	private static final String CATEGORY = 'CATEGORY'
 	private static final String VALID_WIKITEXT = 'played frisbee for fun'
 	private static final Gender GENDER = Gender.F
 
@@ -31,6 +32,8 @@ class PageToGenderRoleProcessorTest extends Specification {
 
 	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessorMock
 
+	private PerformerCategoriesProvider performerCategoriesProviderMock
+
 	private PageToGenderRoleProcessor pageToGenderRoleProcessor
 
 	void setup() {
@@ -39,8 +42,10 @@ class PageToGenderRoleProcessorTest extends Specification {
 		templateFinderMock = Mock()
 		individualTemplatePartsGenderProcessorMock = Mock()
 		categoryTitlesExtractingProcessorMock = Mock()
+		performerCategoriesProviderMock = Mock()
 		pageToGenderRoleProcessor = new PageToGenderRoleProcessor(pageApiMock, wikitextApiMock, templateFinderMock,
-				individualTemplatePartsGenderProcessorMock, categoryTitlesExtractingProcessorMock)
+				individualTemplatePartsGenderProcessorMock, categoryTitlesExtractingProcessorMock,
+				performerCategoriesProviderMock)
 	}
 
 	void "returns null when wikitext does not contain 'played' word"() {
@@ -54,7 +59,7 @@ class PageToGenderRoleProcessorTest extends Specification {
 
 	void "logs that no roles were found when page is a performer page"() {
 		given:
-		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(new CategoryHeader(title: CategoryTitles.PERFORMERS.get(0)))
+		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(new CategoryHeader(title: CATEGORY))
 		Page page = new Page(
 				title: TITLE,
 				categories: categoryHeaderList)
@@ -63,21 +68,23 @@ class PageToGenderRoleProcessorTest extends Specification {
 		Gender gender = pageToGenderRoleProcessor.process(page)
 
 		then:
-		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitles.PERFORMERS.get(0))
+		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CATEGORY)
+		1 * performerCategoriesProviderMock.provide() >> Lists.newArrayList(CATEGORY)
 		0 * _
 		gender == null
 	}
 
 	void "does not log that no roles were found when page is not a performer page"() {
 		given:
-		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(new CategoryHeader(title: CategoryTitles.STAFF.get(0)))
+		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(new CategoryHeader(title: CATEGORY))
 		Page page = new Page(categories: categoryHeaderList)
 
 		when:
 		Gender gender = pageToGenderRoleProcessor.process(page)
 
 		then:
-		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitles.STAFF.get(0))
+		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CATEGORY)
+		1 * performerCategoriesProviderMock.provide() >> Lists.newArrayList('SOME OTHER CATEGORY')
 		0 * _
 		gender == null
 	}

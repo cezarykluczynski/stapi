@@ -57,4 +57,5 @@
 	<include file="api_key/0054_create_api_key.xml" relativeToChangelogFile="true"/>
 	<include file="consent/0055_create_consent.xml" relativeToChangelogFile="true"/>
 	<include file="magazine/0056_fix_me_magazine_fkey.xml" relativeToChangelogFile="true"/>
+	<include file="performer/0057_extend_performer.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

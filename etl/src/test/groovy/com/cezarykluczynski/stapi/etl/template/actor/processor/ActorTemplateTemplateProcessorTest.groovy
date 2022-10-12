@@ -33,8 +33,8 @@ class ActorTemplateTemplateProcessorTest extends Specification {
 		Template template = new Template(parts: Lists.newArrayList(
 				new Template.Part(key: ActorTemplateParameter.NAME, value: NAME),
 				new Template.Part(key: ActorTemplateParameter.BIRTH_NAME, value: BIRTH_NAME),
-				new Template.Part(key: ActorTemplateParameter.PLACE_OF_BIRTH, value: PLACE_OF_BIRTH),
-				new Template.Part(key: ActorTemplateParameter.PLACE_OF_DEATH, value: PLACE_OF_DEATH),
+				new Template.Part(key: ActorTemplateParameter.BIRTHPLACE, value: PLACE_OF_BIRTH),
+				new Template.Part(key: ActorTemplateParameter.DEATHPLACE, value: PLACE_OF_DEATH),
 				genderPart
 		))
 
@@ -58,8 +58,8 @@ class ActorTemplateTemplateProcessorTest extends Specification {
 				new Template.Part(key: ActorTemplateParameter.NAME, value: StringUtils.EMPTY),
 				new Template.Part(key: ActorTemplateParameter.BIRTH_NAME, value: StringUtils.EMPTY),
 				new Template.Part(key: ActorTemplateParameter.GENDER, value: StringUtils.EMPTY),
-				new Template.Part(key: ActorTemplateParameter.PLACE_OF_BIRTH, value: StringUtils.EMPTY),
-				new Template.Part(key: ActorTemplateParameter.PLACE_OF_DEATH, value: StringUtils.EMPTY)
+				new Template.Part(key: ActorTemplateParameter.BIRTHPLACE, value: StringUtils.EMPTY),
+				new Template.Part(key: ActorTemplateParameter.DEATHPLACE, value: StringUtils.EMPTY)
 		))
 
 		when:

@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.sources.mediawiki.api;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.connector.bliki.BlikiConnector;
 import com.cezarykluczynski.stapi.sources.mediawiki.converter.PageHeaderConverter;
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.parser.XMLCategoryMembersParser;
 import com.cezarykluczynski.stapi.sources.mediawiki.util.constant.ApiParams;
@@ -77,6 +78,16 @@ public class CategoryApiImpl implements CategoryApi {
 				visitedCategoriesNames, excludes);
 		pageInfoIncludingSubcategoriesList = Lists.newArrayList(Sets.newHashSet(pageInfoIncludingSubcategoriesList));
 		return pageHeaderConverter.fromPageInfoList(pageInfoIncludingSubcategoriesList, mediaWikiSource);
+	}
+
+	@Override
+	public List<CategoryHeader> getCategoriesInCategory(String categoryTitle, MediaWikiSource mediaWikiSource) {
+		return blikiConnector.getCategories(categoryTitle, mediaWikiSource, 1);
+	}
+
+	@Override
+	public List<CategoryHeader> getCategoriesInCategoryIncludingSubcategories(String categoryTitle, MediaWikiSource mediaWikiSource) {
+		return blikiConnector.getCategories(categoryTitle, mediaWikiSource, 100);
 	}
 
 	private List<PageInfo> privateGetPagesIncludingSubcategories(List<String> titleList, MediaWikiSource mediaWikiSource,

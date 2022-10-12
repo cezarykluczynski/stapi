@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompleteness
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerCategoriesActorTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerReader;
 import com.cezarykluczynski.stapi.etl.performer.creation.service.ActorPageFilter;
+import com.cezarykluczynski.stapi.etl.performer.creation.service.PerformerCategoriesProvider;
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateListPageProcessor;
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplatePageProcessor;
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateSinglePageProcessor;
@@ -12,7 +13,6 @@ import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateTemp
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PageToLifeRangeProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGenderProcessor;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi;
@@ -26,7 +26,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
 import javax.inject.Inject;
+
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Configuration
 public class PerformerCreationConfiguration {
@@ -38,6 +42,9 @@ public class PerformerCreationConfiguration {
 	private ApplicationContext applicationContext;
 
 	@Inject
+	private PerformerCategoriesProvider performerCategoriesProvider;
+
+	@Inject
 	private CategoryApi categoryApi;
 
 	@Inject
@@ -46,13 +53,16 @@ public class PerformerCreationConfiguration {
 	@Bean
 	@DependsOn("batchDatabaseInitializer")
 	public PerformerReader performerReader() {
-		List<PageHeader> performers = Lists.newArrayList();
+		Set<PageHeader> performers = Sets.newHashSet();
 
 		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_PERFORMERS)) {
-			performers.addAll(categoryApi.getPages(CategoryTitles.PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN));
+			List<String> categories = performerCategoriesProvider.provide();
+			performers.addAll(categoryApi.getPages(categories, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 
-		return new PerformerReader(Lists.newArrayList(Sets.newHashSet(performers)));
+		return new PerformerReader(Lists.newArrayList(performers).stream()
+				.sorted(Comparator.comparing(PageHeader::getTitle))
+				.collect(Collectors.toList()));
 	}
 
 	@Bean(PERFORMER_ACTOR_TEMPLATE_SINGLE_PAGE_PROCESSOR)

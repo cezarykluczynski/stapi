@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiMinimalIntervalProvider
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourceProperties
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourcesProperties
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.service.wikia.WikiaWikisDetector
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import com.google.common.collect.Maps
@@ -18,6 +19,8 @@ import org.apache.http.client.methods.CloseableHttpResponse
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.impl.client.CloseableHttpClient
 import org.apache.http.impl.client.HttpClientBuilder
+import org.springframework.http.ResponseEntity
+import org.springframework.web.client.RestTemplate
 import spock.lang.Specification
 
 class BlikiConnectorTest extends Specification {
@@ -25,8 +28,16 @@ class BlikiConnectorTest extends Specification {
 	private static final String XML = '<?xml version="1.0"?><root></root>'
 	private static final Long INTERVAL = 500L
 	private static final String TITLE = 'TITLE'
+	private static final String API_URL = 'API_URL'
 	private static final String ACTION_URL = 'ACTION_URL'
-
+	private static final String CATEGORY_TITLE = 'CATEGORY_TITLE'
+	private static final String CATEGORY_JSON = '{"categorytree":{"*":"<div class=\\"CategoryTreeSection\\">' +
+			'<div class=\\"CategoryTreeItem\\"><span class=\\"CategoryTreeEmptyBullet\\"></span>' +
+			'<a href=\\"/wiki/Category:Animal_performers\\" title=\\"Category:Animal performers\\">Animal performers</a></div>' +
+			'<div class=\\"CategoryTreeChildren\\" style=\\"display:none\\"></div></div><div class=\\"CategoryTreeSection\\">' +
+			'<div class=\\"CategoryTreeItem\\"><span class=\\"CategoryTreeEmptyBullet\\"></span> ' +
+			'<a href=\\"/wiki/Category:Audiobook_performers\\" title=\\"Category:Audiobook performers\\">Audiobook performers</a></div>' +
+			'</div>"}}'
 	private BlikiUserDecoratorBeanMapProvider blikiUserDecoratorBeanMapProviderMock
 
 	private WikiaWikisDetector wikiaWikisDetector
@@ -44,6 +55,8 @@ class BlikiConnectorTest extends Specification {
 
 	private CloseableHttpResponse closeableHttpResponse
 
+	private RestTemplate restTemplateMock
+
 	private BlikiConnector blikiConnector
 
 	void setup() {
@@ -51,7 +64,7 @@ class BlikiConnectorTest extends Specification {
 		wikiaWikisDetector = Mock()
 		mediaWikiMinimalIntervalProviderMock = Mock()
 		mediaWikiSourcesProperties = new MediaWikiSourcesProperties(
-				memoryAlphaEn: new MediaWikiSourceProperties(),
+				memoryAlphaEn: new MediaWikiSourceProperties(apiUrl: API_URL),
 				memoryBetaEn: new MediaWikiSourceProperties()
 		)
 
@@ -80,8 +93,10 @@ class BlikiConnectorTest extends Specification {
 		httpClientBuilderMock = Mock()
 		httpClientBuilderMock.build() >> closeableHttpClient
 
+		restTemplateMock = Mock()
+
 		blikiConnector = new BlikiConnector(blikiUserDecoratorBeanMapProviderMock, wikiaWikisDetector, mediaWikiMinimalIntervalProviderMock,
-				mediaWikiSourcesProperties)
+				mediaWikiSourcesProperties, restTemplateMock)
 	}
 
 	void "reads page from Memory Alpha EN"() {
@@ -220,7 +235,7 @@ class BlikiConnectorTest extends Specification {
 		httpClientBuilderMock.build() >> closeableHttpClient
 
 		blikiConnector = new BlikiConnector(blikiUserDecoratorBeanMapProviderMock, wikiaWikisDetector, mediaWikiMinimalIntervalProviderMock,
-				mediaWikiSourcesProperties)
+				mediaWikiSourcesProperties, restTemplateMock)
 
 		Connector connector = new Connector(httpClientBuilderMock)
 		UserDecorator userDecorator = Mock()
@@ -272,6 +287,21 @@ class BlikiConnectorTest extends Specification {
 		1 * userDecorator.connector >> connector
 		2 * userDecorator.actionUrl >> ACTION_URL
 		xml == XML
+	}
+
+	void "gets categories from Memory Alpha EN"() {
+		given:
+		String url = "$API_URL?action=categorytree&category=$CATEGORY_TITLE&format=json&options={options}"
+		int depth = 2
+
+		when:
+		List<CategoryHeader> categoryHeaders = blikiConnector.getCategories(CATEGORY_TITLE, MediaWikiSource.MEMORY_ALPHA_EN, depth)
+
+		then:
+		1 * mediaWikiMinimalIntervalProviderMock.memoryAlphaEnInterval >> INTERVAL
+		1 * restTemplateMock.getForEntity(url, String, "{\"depth\":$depth}") >> ResponseEntity.ok(CATEGORY_JSON)
+		0 * _
+		categoryHeaders == [new CategoryHeader(title: 'Animal_performers'), new CategoryHeader(title: 'Audiobook_performers')]
 	}
 
 	void "throws StapiRuntimeError on any error"() {

@@ -47,6 +47,10 @@ public class Performer extends RealWorldPerson implements PageAware {
 
 	private boolean animalPerformer;
 
+	private boolean audiobookPerformer;
+
+	private boolean cutPerformer;
+
 	private boolean disPerformer;
 
 	@Column(name = "ds9_performer")
@@ -56,7 +60,19 @@ public class Performer extends RealWorldPerson implements PageAware {
 
 	private boolean filmPerformer;
 
+	private boolean ldPerformer;
+
+	private boolean picPerformer;
+
+	private boolean proPerformer;
+
+	private boolean puppeteer;
+
+	private boolean snwPerformer;
+
 	private boolean standInPerformer;
+
+	private boolean stPerformer;
 
 	private boolean stuntPerformer;
 
