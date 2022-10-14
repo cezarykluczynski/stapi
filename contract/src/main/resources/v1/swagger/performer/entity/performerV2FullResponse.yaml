@@ -1,0 +1,6 @@
+type: object
+description: Response object for single performer query (V2)
+properties:
+  performer:
+    $ref: '#/definitions/PerformerV2Full'
+    description: Performer, if found

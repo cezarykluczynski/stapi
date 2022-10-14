@@ -18,7 +18,7 @@ public class Company {
 	}
 
 	public CompanyFullResponse get(String uid) throws ApiException {
-		return companyApi.companyGet(uid, apiKey);
+		return companyApi.v1RestCompanyGet(uid, apiKey);
 	}
 
 	public CompanyBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean broadcaster,
@@ -26,7 +26,7 @@ public class Company {
 			Boolean filmEquipmentCompany, Boolean makeUpEffectsStudio, Boolean mattePaintingCompany, Boolean modelAndMiniatureEffectsCompany,
 			Boolean postProductionCompany, Boolean productionCompany, Boolean propCompany, Boolean recordLabel, Boolean specialEffectsCompany,
 			Boolean tvAndFilmProductionCompany, Boolean videoGameCompany) throws ApiException {
-		return companyApi.companySearchPost(pageNumber, pageSize, sort, apiKey, name, broadcaster, collectibleCompany, conglomerate,
+		return companyApi.v1RestCompanySearchPost(pageNumber, pageSize, sort, apiKey, name, broadcaster, collectibleCompany, conglomerate,
 				digitalVisualEffectsCompany, distributor, gameCompany, filmEquipmentCompany, makeUpEffectsStudio, mattePaintingCompany,
 				modelAndMiniatureEffectsCompany, postProductionCompany, productionCompany, propCompany, recordLabel, specialEffectsCompany,
 				tvAndFilmProductionCompany, videoGameCompany);

@@ -18,13 +18,13 @@ public class Weapon {
 	}
 
 	public WeaponFullResponse get(String uid) throws ApiException {
-		return weaponApi.weaponGet(uid, apiKey);
+		return weaponApi.v1RestWeaponGet(uid, apiKey);
 	}
 
 	public WeaponBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean handHeldWeapon, Boolean laserTechnology,
 			Boolean plasmaTechnology, Boolean photonicTechnology, Boolean phaserTechnology, Boolean mirror, Boolean alternateReality)
 			throws ApiException {
-		return weaponApi.weaponSearchPost(pageNumber, pageSize, sort, apiKey, name, handHeldWeapon, laserTechnology, plasmaTechnology,
+		return weaponApi.v1RestWeaponSearchPost(pageNumber, pageSize, sort, apiKey, name, handHeldWeapon, laserTechnology, plasmaTechnology,
 				photonicTechnology, phaserTechnology, mirror, alternateReality);
 	}
 

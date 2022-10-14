@@ -18,14 +18,14 @@ public class ComicSeries {
 	}
 
 	public ComicSeriesFullResponse get(String uid) throws ApiException {
-		return comicSeriesApi.comicSeriesGet(uid, apiKey);
+		return comicSeriesApi.v1RestComicSeriesGet(uid, apiKey);
 	}
 
 	public ComicSeriesBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer publishedYearFrom,
 			Integer publishedYearTo, Integer numberOfIssuesFrom, Integer numberOfIssuesTo, Float stardateFrom, Float stardateTo, Integer yearFrom,
 			Integer yearTo, Boolean miniseries, Boolean photonovelSeries) throws ApiException {
-		return comicSeriesApi.comicSeriesSearchPost(pageNumber, pageSize, sort, apiKey, title, publishedYearFrom, publishedYearTo, numberOfIssuesFrom,
-				numberOfIssuesTo, stardateFrom, stardateTo, yearFrom, yearTo, miniseries, photonovelSeries);
+		return comicSeriesApi.v1RestComicSeriesSearchPost(pageNumber, pageSize, sort, apiKey, title, publishedYearFrom, publishedYearTo,
+				numberOfIssuesFrom, numberOfIssuesTo, stardateFrom, stardateTo, yearFrom, yearTo, miniseries, photonovelSeries);
 	}
 
 }

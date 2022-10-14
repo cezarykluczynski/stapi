@@ -24,7 +24,7 @@ class SoundtrackTest extends AbstractSoundtrackTest {
 		SoundtrackFullResponse soundtrackFullResponseOutput = soundtrack.get(UID)
 
 		then:
-		1 * soundtrackApiMock.soundtrackGet(UID, API_KEY) >> soundtrackFullResponse
+		1 * soundtrackApiMock.v1RestSoundtrackGet(UID, API_KEY) >> soundtrackFullResponse
 		0 * _
 		soundtrackFullResponse == soundtrackFullResponseOutput
 	}
@@ -38,7 +38,7 @@ class SoundtrackTest extends AbstractSoundtrackTest {
 				RELEASE_DATE_TO, LENGTH_FROM, LENGTH_TO)
 
 		then:
-		1 * soundtrackApiMock.soundtrackSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, TITLE, RELEASE_DATE_FROM, RELEASE_DATE_TO, LENGTH_FROM,
+		1 * soundtrackApiMock.v1RestSoundtrackSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, TITLE, RELEASE_DATE_FROM, RELEASE_DATE_TO, LENGTH_FROM,
 				LENGTH_TO) >> soundtrackBaseResponse
 		0 * _
 		soundtrackBaseResponse == soundtrackBaseResponseOutput

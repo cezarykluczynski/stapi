@@ -20,12 +20,13 @@ public class Soundtrack {
 	}
 
 	public SoundtrackFullResponse get(String uid) throws ApiException {
-		return soundtrackApi.soundtrackGet(uid, apiKey);
+		return soundtrackApi.v1RestSoundtrackGet(uid, apiKey);
 	}
 
 	public SoundtrackBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, LocalDate releaseDateFrom,
 			LocalDate releaseDateTo, Integer lengthFrom, Integer lengthTo) throws ApiException {
-		return soundtrackApi.soundtrackSearchPost(pageNumber, pageSize, sort, apiKey, title, releaseDateFrom, releaseDateTo, lengthFrom, lengthTo);
+		return soundtrackApi.v1RestSoundtrackSearchPost(pageNumber, pageSize, sort, apiKey, title, releaseDateFrom, releaseDateTo, lengthFrom,
+				lengthTo);
 	}
 
 }

@@ -18,14 +18,14 @@ public class Species {
 	}
 
 	public SpeciesFullResponse get(String uid) throws ApiException {
-		return speciesApi.speciesGet(uid, apiKey);
+		return speciesApi.v1RestSpeciesGet(uid, apiKey);
 	}
 
 	public SpeciesBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean extinctSpecies,
 			Boolean warpCapableSpecies, Boolean extraGalacticSpecies, Boolean humanoidSpecies, Boolean reptilianSpecies, Boolean nonCorporealSpecies,
 			Boolean shapeshiftingSpecies, Boolean spaceborneSpecies, Boolean telepathicSpecies, Boolean transDimensionalSpecies,
 			Boolean unnamedSpecies, Boolean alternateReality) throws ApiException {
-		return speciesApi.speciesSearchPost(pageNumber, pageSize, sort, apiKey, name, extinctSpecies, warpCapableSpecies, extraGalacticSpecies,
+		return speciesApi.v1RestSpeciesSearchPost(pageNumber, pageSize, sort, apiKey, name, extinctSpecies, warpCapableSpecies, extraGalacticSpecies,
 				humanoidSpecies, reptilianSpecies, nonCorporealSpecies, shapeshiftingSpecies, spaceborneSpecies, telepathicSpecies,
 				transDimensionalSpecies, unnamedSpecies, alternateReality);
 	}

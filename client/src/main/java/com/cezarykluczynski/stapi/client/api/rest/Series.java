@@ -20,16 +20,16 @@ public class Series {
 	}
 
 	public SeriesFullResponse get(String uid) throws ApiException {
-		return seriesApi.seriesGet(uid, apiKey);
+		return seriesApi.v1RestSeriesGet(uid, apiKey);
 	}
 
 	public SeriesBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, String abbreviation,
 			Integer productionStartYearFrom, Integer productionStartYearTo, Integer productionEndYearFrom, Integer productionEndYearTo,
 			LocalDate originalRunStartDateFrom, LocalDate originalRunStartDateTo, LocalDate originalRunEndDateFrom, LocalDate originalRunEndDateTo)
 			throws ApiException {
-		return seriesApi.seriesSearchPost(pageNumber, pageSize, sort, apiKey, title, abbreviation, productionStartYearFrom, productionStartYearTo,
-				productionEndYearFrom, productionEndYearTo, originalRunStartDateFrom, originalRunStartDateTo, originalRunEndDateFrom,
-				originalRunEndDateTo);
+		return seriesApi.v1RestSeriesSearchPost(pageNumber, pageSize, sort, apiKey, title, abbreviation, productionStartYearFrom,
+				productionStartYearTo, productionEndYearFrom, productionEndYearTo, originalRunStartDateFrom, originalRunStartDateTo,
+				originalRunEndDateFrom, originalRunEndDateTo);
 	}
 
 }

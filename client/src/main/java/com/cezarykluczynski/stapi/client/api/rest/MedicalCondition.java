@@ -17,12 +17,12 @@ public class MedicalCondition {
 	}
 
 	public MedicalConditionFullResponse get(String uid) throws ApiException {
-		return medicalConditionApi.medicalConditionGet(uid, apiKey);
+		return medicalConditionApi.v1RestMedicalConditionGet(uid, apiKey);
 	}
 
 	public MedicalConditionBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean psychologicalCondition)
 			throws ApiException {
-		return medicalConditionApi.medicalConditionSearchPost(pageNumber, pageSize, sort, apiKey, name, psychologicalCondition);
+		return medicalConditionApi.v1RestMedicalConditionSearchPost(pageNumber, pageSize, sort, apiKey, name, psychologicalCondition);
 	}
 
 }

@@ -18,12 +18,12 @@ public class Animal {
 	}
 
 	public AnimalFullResponse get(String uid) throws ApiException {
-		return animalApi.animalGet(uid, apiKey);
+		return animalApi.v1RestAnimalGet(uid, apiKey);
 	}
 
 	public AnimalBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean earthAnimal, Boolean earthInsect,
 			Boolean avian, Boolean canine, Boolean feline) throws ApiException {
-		return animalApi.animalSearchPost(pageNumber, pageSize, sort, apiKey, name, earthAnimal, earthInsect, avian, canine, feline);
+		return animalApi.v1RestAnimalSearchPost(pageNumber, pageSize, sort, apiKey, name, earthAnimal, earthInsect, avian, canine, feline);
 	}
 
 }

@@ -18,12 +18,13 @@ public class AstronomicalObject {
 	}
 
 	public AstronomicalObjectFullResponse get(String uid) throws ApiException {
-		return astronomicalObjectApi.astronomicalObjectGet(uid, apiKey);
+		return astronomicalObjectApi.v1RestAstronomicalObjectGet(uid, apiKey);
 	}
 
 	public AstronomicalObjectBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, String astronomicalObjectType,
 			String locationUid) throws ApiException {
-		return astronomicalObjectApi.astronomicalObjectSearchPost(pageNumber, pageSize, sort, apiKey, name, astronomicalObjectType, locationUid);
+		return astronomicalObjectApi.v1RestAstronomicalObjectSearchPost(pageNumber, pageSize, sort, apiKey, name, astronomicalObjectType,
+				locationUid);
 	}
 
 }

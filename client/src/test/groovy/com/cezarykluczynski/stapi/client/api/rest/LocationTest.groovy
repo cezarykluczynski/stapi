@@ -24,7 +24,7 @@ class LocationTest extends AbstractLocationTest {
 		LocationFullResponse locationFullResponseOutput = location.get(UID)
 
 		then:
-		1 * locationApiMock.locationGet(UID, API_KEY) >> locationFullResponse
+		1 * locationApiMock.v1RestLocationGet(UID, API_KEY) >> locationFullResponse
 		0 * _
 		locationFullResponse == locationFullResponseOutput
 	}
@@ -40,7 +40,7 @@ class LocationTest extends AbstractLocationTest {
 				SCHOOL, MIRROR, ALTERNATE_REALITY)
 
 		then:
-		1 * locationApiMock.locationSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, EARTHLY_LOCATION, FICTIONAL_LOCATION, RELIGIOUS_LOCATION,
+		1 * locationApiMock.v1RestLocationSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, EARTHLY_LOCATION, FICTIONAL_LOCATION, RELIGIOUS_LOCATION,
 				GEOGRAPHICAL_LOCATION, BODY_OF_WATER, COUNTRY, SUBNATIONAL_ENTITY, SETTLEMENT, US_SETTLEMENT, BAJORAN_SETTLEMENT, COLONY, LANDFORM,
 				LANDMARK, ROAD, STRUCTURE, SHIPYARD, BUILDING_INTERIOR, ESTABLISHMENT, MEDICAL_ESTABLISHMENT, DS9_ESTABLISHMENT, SCHOOL, MIRROR,
 				ALTERNATE_REALITY) >> locationBaseResponse

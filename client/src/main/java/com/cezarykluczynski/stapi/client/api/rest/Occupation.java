@@ -18,12 +18,13 @@ public class Occupation {
 	}
 
 	public OccupationFullResponse get(String uid) throws ApiException {
-		return occupationApi.occupationGet(uid, apiKey);
+		return occupationApi.v1RestOccupationGet(uid, apiKey);
 	}
 
 	public OccupationBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean legalOccupation,
 			Boolean medicalOccupation, Boolean scientificOccupation) throws ApiException {
-		return occupationApi.occupationSearchPost(pageNumber, pageSize, sort, apiKey, name, legalOccupation, medicalOccupation, scientificOccupation);
+		return occupationApi.v1RestOccupationSearchPost(pageNumber, pageSize, sort, apiKey, name, legalOccupation, medicalOccupation,
+				scientificOccupation);
 	}
 
 }

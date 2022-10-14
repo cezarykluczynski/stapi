@@ -19,12 +19,12 @@ public class VideoGame {
 	}
 
 	public VideoGameFullResponse get(String uid) throws ApiException {
-		return videoGameApi.videoGameGet(uid, apiKey);
+		return videoGameApi.v1RestVideoGameGet(uid, apiKey);
 	}
 
 	public VideoGameBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, LocalDate releaseDateFrom,
 			LocalDate releaseDateTo) throws ApiException {
-		return videoGameApi.videoGameSearchPost(pageNumber, pageSize, sort, apiKey, title, releaseDateFrom, releaseDateTo);
+		return videoGameApi.v1RestVideoGameSearchPost(pageNumber, pageSize, sort, apiKey, title, releaseDateFrom, releaseDateTo);
 	}
 
 }

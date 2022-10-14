@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.model.performer.repository.PerformerRepository;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.performer.dto.PerformerRestBeanParams;
+import com.cezarykluczynski.stapi.server.performer.dto.PerformerV2RestBeanParams;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseRestMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +27,12 @@ public class PerformerRestQuery {
 	}
 
 	public Page<Performer> query(PerformerRestBeanParams performerRestBeanParams) {
+		PerformerRequestDTO performerRequestDTO = performerBaseRestMapper.mapBase(performerRestBeanParams);
+		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(performerRestBeanParams);
+		return performerRepository.findMatching(performerRequestDTO, pageRequest);
+	}
+
+	public Page<Performer> query(PerformerV2RestBeanParams performerRestBeanParams) {
 		PerformerRequestDTO performerRequestDTO = performerBaseRestMapper.mapBase(performerRestBeanParams);
 		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(performerRestBeanParams);
 		return performerRepository.findMatching(performerRequestDTO, pageRequest);

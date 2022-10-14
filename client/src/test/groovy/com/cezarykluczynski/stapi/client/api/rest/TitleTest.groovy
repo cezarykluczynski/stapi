@@ -24,7 +24,7 @@ class TitleTest extends AbstractTitleTest {
 		TitleFullResponse titleFullResponseOutput = title.get(UID)
 
 		then:
-		1 * titleApiMock.titleGet(UID, API_KEY) >> titleFullResponse
+		1 * titleApiMock.v1RestTitleGet(UID, API_KEY) >> titleFullResponse
 		0 * _
 		titleFullResponse == titleFullResponseOutput
 	}
@@ -38,7 +38,7 @@ class TitleTest extends AbstractTitleTest {
 				POSITION, MIRROR)
 
 		then:
-		1 * titleApiMock.titleSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, MILITARY_RANK, FLEET_RANK, RELIGIOUS_TITLE, POSITION,
+		1 * titleApiMock.v1RestTitleSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, MILITARY_RANK, FLEET_RANK, RELIGIOUS_TITLE, POSITION,
 				MIRROR) >> titleBaseResponse
 		0 * _
 		titleBaseResponse == titleBaseResponseOutput

@@ -17,12 +17,12 @@ public class SpacecraftClass {
 	}
 
 	public SpacecraftClassFullResponse get(String uid) throws ApiException {
-		return spacecraftClassApi.spacecraftClassGet(uid, apiKey);
+		return spacecraftClassApi.v1RestSpacecraftClassGet(uid, apiKey);
 	}
 
 	public SpacecraftClassBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean warpCapableSpecies,
 			Boolean alternateReality) throws ApiException {
-		return spacecraftClassApi.spacecraftClassSearchPost(pageNumber, pageSize, sort, apiKey, name, warpCapableSpecies, alternateReality);
+		return spacecraftClassApi.v1RestSpacecraftClassSearchPost(pageNumber, pageSize, sort, apiKey, name, warpCapableSpecies, alternateReality);
 	}
 
 }

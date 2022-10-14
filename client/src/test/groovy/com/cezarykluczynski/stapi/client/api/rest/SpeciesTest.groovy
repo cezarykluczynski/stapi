@@ -24,7 +24,7 @@ class SpeciesTest extends AbstractSpeciesTest {
 		SpeciesFullResponse speciesFullResponseOutput = species.get(UID)
 
 		then:
-		1 * speciesApiMock.speciesGet(UID, API_KEY) >> speciesFullResponse
+		1 * speciesApiMock.v1RestSpeciesGet(UID, API_KEY) >> speciesFullResponse
 		0 * _
 		speciesFullResponse == speciesFullResponseOutput
 	}
@@ -39,7 +39,7 @@ class SpeciesTest extends AbstractSpeciesTest {
 				TELEPATHIC_SPECIES, TRANS_DIMENSIONAL_SPECIES, UNNAMED_SPECIES, ALTERNATE_REALITY)
 
 		then:
-		1 * speciesApiMock.speciesSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, EXTINCT_SPECIES, WARP_CAPABLE_SPECIES,
+		1 * speciesApiMock.v1RestSpeciesSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, EXTINCT_SPECIES, WARP_CAPABLE_SPECIES,
 				EXTRA_GALACTIC_SPECIES, HUMANOID_SPECIES, REPTILIAN_SPECIES, NON_CORPOREAL_SPECIES, SHAPESHIFTING_SPECIES, SPACEBORNE_SPECIES,
 				TELEPATHIC_SPECIES, TRANS_DIMENSIONAL_SPECIES, UNNAMED_SPECIES, ALTERNATE_REALITY) >> speciesBaseResponse
 		0 * _

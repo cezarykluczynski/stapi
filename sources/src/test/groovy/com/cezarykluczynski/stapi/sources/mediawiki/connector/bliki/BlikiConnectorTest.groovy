@@ -186,7 +186,7 @@ class BlikiConnectorTest extends Specification {
 		String xml2 = blikiConnector.getPage(TITLE, MEDIA_WIKI_SOURCE_MEMORY_BETA_EN)
 		long endInMillis = System.currentTimeMillis()
 
-		then: 'another page is returned,  but call is postponed'
+		then: 'another page is returned, but call is postponed'
 		1 * wikiaWikisDetector.isWikiaWiki(_) >> false
 		1 * mediaWikiMinimalIntervalProviderMock.memoryBetaEnInterval >> INTERVAL
 		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap

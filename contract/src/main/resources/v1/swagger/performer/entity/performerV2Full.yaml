@@ -1,0 +1,129 @@
+type: object
+description: Full performer, returned when queried using UID (V2)
+properties:
+  uid:
+    type: string
+    required: true
+    description: Performer unique ID
+  name:
+    type: string
+    required: true
+    description: Performer name
+  birthName:
+    type: string
+    description: Performer birth name
+  gender:
+    $ref: '#/definitions/Gender'
+    description: Performer gender
+  dateOfBirth:
+    type: string
+    format: date
+    description: Date the performer was born
+  placeOfBirth:
+    type: string
+    description: Place the performer was born
+  dateOfDeath:
+    type: string
+    format: date
+    description: Date the performer died
+  placeOfDeath:
+    type: string
+    description: Place the performer died
+  animalPerformer:
+    type: boolean
+    description: Whether it's an animal performer
+  audiobookPerformer:
+    type: boolean
+    description: Whether it's an audiobook performer
+  cutPerformer:
+    type: boolean
+    description: Whether it's a cut performer
+  disPerformer:
+    type: boolean
+    description: "Whether it's a performer that appeared in Star Trek: Discovery"
+  ds9Performer:
+    type: boolean
+    description: "Whether it's a performer that appeared in Star Trek: Deep Space Nine"
+  entPerformer:
+    type: boolean
+    description: "Whether it's a performer that appeared in Star Trek: Enterprise"
+  filmPerformer:
+    type: boolean
+    description: Whether it's a performer that appeared in a Star Trek movie
+  ldPerformer:
+    type: boolean
+    description: "Whether it's a performer that appeared in Star Trek: Lower Decks"
+  picPerformer:
+    type: boolean
+    description: "Whether it's a performer that appeared in Star Trek: Picard"
+  proPerformer:
+    type: boolean
+    description: "Whether it's a performer that appeared in Star Trek: Prodigy"
+  puppeteer:
+    type: boolean
+    description: Whether it's a stand-in puppeteer
+  snwPerformer:
+    type: boolean
+    description: "Whether it's a performer that appeared in Star Trek: Strange New Worlds"
+  standInPerformer:
+    type: boolean
+    description: Whether it's a stand-in performer
+  stPerformer:
+    type: boolean
+    description: "Whether it's a performer that appeared in Star Trek: Short Treks"
+  stuntPerformer:
+    type: boolean
+    description: Whether it's a stunt performer
+  tasPerformer:
+    type: boolean
+    description: "Whether it's a performer that appeared in Star Trek: The Animated Series"
+  tngPerformer:
+    type: boolean
+    description: "Whether it's a performer that appeared in Star Trek: The Next Generation"
+  tosPerformer:
+    type: boolean
+    description: "Whether it's a performer that appeared in Star Trek: The Original Series"
+  videoGamePerformer:
+    type: boolean
+    description: Whether it's a video game performer
+  voicePerformer:
+    type: boolean
+    description: Whether it's a voice performer
+  voyPerformer:
+    type: boolean
+    description: "Whether it's a performer that appeared in Star Trek: Voyager"
+  episodesPerformances:
+    type: array
+    items:
+      $ref: '#/definitions/EpisodeBase'
+    description: Episodes in which this person appeared as a performer
+  episodesStuntPerformances:
+    type: array
+    items:
+      $ref: '#/definitions/EpisodeBase'
+    description: Episodes in which this person appeared as a stunt performer
+  episodesStandInPerformances:
+    type: array
+    items:
+      $ref: '#/definitions/EpisodeBase'
+    description: Episodes in which this person appeared as a stand-in performer
+  moviesPerformances:
+    type: array
+    items:
+      $ref: '#/definitions/MovieBase'
+    description: Movies in which this person appeared as a performer
+  moviesStuntPerformances:
+    type: array
+    items:
+      $ref: '#/definitions/MovieBase'
+    description: Movies in which this person appeared as a stunt performer
+  moviesStandInPerformances:
+    type: array
+    items:
+      $ref: '#/definitions/MovieBase'
+    description: Movies in which this person appeared as a stand-in performer
+  characters:
+    type: array
+    items:
+      $ref: '#/definitions/CharacterBase'
+    description: Characters played by this performer

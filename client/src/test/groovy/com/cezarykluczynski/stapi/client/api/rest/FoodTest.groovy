@@ -24,7 +24,7 @@ class FoodTest extends AbstractFoodTest {
 		FoodFullResponse foodFullResponseOutput = food.get(UID)
 
 		then:
-		1 * foodApiMock.foodGet(UID, API_KEY) >> foodFullResponse
+		1 * foodApiMock.v1RestFoodGet(UID, API_KEY) >> foodFullResponse
 		0 * _
 		foodFullResponse == foodFullResponseOutput
 	}
@@ -38,7 +38,7 @@ class FoodTest extends AbstractFoodTest {
 				SAUCE, SOUP, BEVERAGE, ALCOHOLIC_BEVERAGE, JUICE, TEA)
 
 		then:
-		1 * foodApiMock.foodSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, EARTHLY_ORIGIN, DESSERT, FRUIT, HERB_OR_SPICE, SAUCE, SOUP,
+		1 * foodApiMock.v1RestFoodSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, EARTHLY_ORIGIN, DESSERT, FRUIT, HERB_OR_SPICE, SAUCE, SOUP,
 				BEVERAGE, ALCOHOLIC_BEVERAGE, JUICE, TEA) >> foodBaseResponse
 		0 * _
 		foodBaseResponse == foodBaseResponseOutput

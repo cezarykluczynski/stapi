@@ -18,12 +18,12 @@ public class VideoRelease {
 	}
 
 	public VideoReleaseFullResponse get(String uid) throws ApiException {
-		return videoReleaseApi.videoReleaseGet(uid, apiKey);
+		return videoReleaseApi.v1RestVideoReleaseGet(uid, apiKey);
 	}
 
 	public VideoReleaseBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer yearFrom, Integer yearTo,
 			Integer runTimeFrom, Integer runTimeTo) throws ApiException {
-		return videoReleaseApi.videoReleaseSearchPost(pageNumber, pageSize, sort, apiKey, title, yearFrom, yearTo, runTimeFrom, runTimeTo);
+		return videoReleaseApi.v1RestVideoReleaseSearchPost(pageNumber, pageSize, sort, apiKey, title, yearFrom, yearTo, runTimeFrom, runTimeTo);
 	}
 
 }

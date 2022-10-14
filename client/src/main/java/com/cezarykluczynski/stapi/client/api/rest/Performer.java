@@ -4,6 +4,8 @@ import com.cezarykluczynski.stapi.client.v1.rest.api.PerformerApi;
 import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
 import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerBaseResponse;
 import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerFullResponse;
+import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerV2BaseResponse;
+import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerV2FullResponse;
 
 import java.time.LocalDate;
 
@@ -20,7 +22,7 @@ public class Performer {
 	}
 
 	public PerformerFullResponse get(String uid) throws ApiException {
-		return performerApi.performerGet(uid, apiKey);
+		return performerApi.v1RestPerformerGet(uid, apiKey);
 	}
 
 	public PerformerBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, String birthName, String gender,
@@ -28,9 +30,26 @@ public class Performer {
 			String placeOfDeath, Boolean animalPerformer, Boolean disPerformer, Boolean ds9Performer, Boolean entPerformer, Boolean filmPerformer,
 			Boolean standInPerformer, Boolean stuntPerformer, Boolean tasPerformer, Boolean tngPerformer, Boolean tosPerformer,
 			Boolean videoGamePerformer, Boolean voicePerformer, Boolean voyPerformer) throws ApiException {
-		return performerApi.performerSearchPost(pageNumber, pageSize, sort, apiKey, name, birthName, gender, dateOfBirthFrom, dateOfBirthTo,
+		return performerApi.v1RestPerformerSearchPost(pageNumber, pageSize, sort, apiKey, name, birthName, gender, dateOfBirthFrom, dateOfBirthTo,
 				placeOfBirth, dateOfDeathFrom, dateOfDeathTo, placeOfDeath, animalPerformer, disPerformer, ds9Performer, entPerformer, filmPerformer,
 				standInPerformer, stuntPerformer, tasPerformer, tngPerformer, tosPerformer, videoGamePerformer, voicePerformer, voyPerformer);
+	}
+
+	public PerformerV2FullResponse getV2(String uid) throws ApiException {
+		return performerApi.v2RestPerformerGet(uid, apiKey);
+	}
+
+	public PerformerV2BaseResponse searchV2(Integer pageNumber, Integer pageSize, String sort, String name, String birthName, String gender,
+			LocalDate dateOfBirthFrom, LocalDate dateOfBirthTo, String placeOfBirth, LocalDate dateOfDeathFrom, LocalDate dateOfDeathTo,
+			String placeOfDeath, Boolean animalPerformer, Boolean audiobookPerformer, Boolean cutPerformer, Boolean disPerformer,
+			Boolean ds9Performer, Boolean entPerformer, Boolean filmPerformer, Boolean ldPerformer, Boolean picPerformer,
+			Boolean proPerformer, Boolean puppeteer, Boolean snwPerformer, Boolean standInPerformer, Boolean stPerformer,
+			Boolean stuntPerformer, Boolean tasPerformer, Boolean tngPerformer, Boolean tosPerformer, Boolean videoGamePerformer,
+			Boolean voicePerformer, Boolean voyPerformer) throws ApiException {
+		return performerApi.v2RestPerformerSearchPost(pageNumber, pageSize, sort, apiKey, name, birthName, gender, dateOfBirthFrom, dateOfBirthTo,
+				placeOfBirth, dateOfDeathFrom, dateOfDeathTo, placeOfDeath, animalPerformer, audiobookPerformer, cutPerformer, disPerformer,
+				ds9Performer, entPerformer, filmPerformer, ldPerformer, picPerformer, proPerformer, puppeteer, snwPerformer, standInPerformer,
+				stPerformer, stuntPerformer, tasPerformer, tngPerformer, tosPerformer, videoGamePerformer, voicePerformer, voyPerformer);
 	}
 
 }

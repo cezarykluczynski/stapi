@@ -18,7 +18,7 @@ public class Technology {
 	}
 
 	public TechnologyFullResponse get(String uid) throws ApiException {
-		return technologyApi.technologyGet(uid, apiKey);
+		return technologyApi.v1RestTechnologyGet(uid, apiKey);
 	}
 
 	public TechnologyBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean borgTechnology,
@@ -26,10 +26,10 @@ public class Technology {
 			Boolean database, Boolean energyTechnology, Boolean fictionalTechnology, Boolean holographicTechnology, Boolean identificationTechnology,
 			Boolean lifeSupportTechnology, Boolean sensorTechnology, Boolean shieldTechnology, Boolean tool, Boolean culinaryTool,
 			Boolean engineeringTool, Boolean householdTool, Boolean medicalEquipment, Boolean transporterTechnology) throws ApiException {
-		return technologyApi.technologySearchPost(pageNumber, pageSize, sort, apiKey, name, borgTechnology, borgComponent, communicationsTechnology,
-				computerTechnology, computerProgramming, subroutine, database, energyTechnology, fictionalTechnology, holographicTechnology,
-				identificationTechnology, lifeSupportTechnology, sensorTechnology, shieldTechnology, tool, culinaryTool, engineeringTool,
-				householdTool, medicalEquipment, transporterTechnology);
+		return technologyApi.v1RestTechnologySearchPost(pageNumber, pageSize, sort, apiKey, name, borgTechnology, borgComponent,
+				communicationsTechnology, computerTechnology, computerProgramming, subroutine, database, energyTechnology, fictionalTechnology,
+				holographicTechnology, identificationTechnology, lifeSupportTechnology, sensorTechnology, shieldTechnology, tool, culinaryTool,
+				engineeringTool, householdTool, medicalEquipment, transporterTechnology);
 	}
 
 }

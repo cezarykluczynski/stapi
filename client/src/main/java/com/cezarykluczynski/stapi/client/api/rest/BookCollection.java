@@ -18,13 +18,13 @@ public class BookCollection {
 	}
 
 	public BookCollectionFullResponse get(String uid) throws ApiException {
-		return bookCollectionApi.bookCollectionGet(uid, apiKey);
+		return bookCollectionApi.v1RestBookCollectionGet(uid, apiKey);
 	}
 
 	public BookCollectionBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer publishedYearFrom,
 			Integer publishedYearTo, Integer numberOfPagesFrom, Integer numberOfPagesTo, Float stardateFrom, Float stardateTo, Integer yearFrom,
 			Integer yearTo) throws ApiException {
-		return bookCollectionApi.bookCollectionSearchPost(pageNumber, pageSize, sort, apiKey, title, publishedYearFrom, publishedYearTo,
+		return bookCollectionApi.v1RestBookCollectionSearchPost(pageNumber, pageSize, sort, apiKey, title, publishedYearFrom, publishedYearTo,
 				numberOfPagesFrom, numberOfPagesTo, stardateFrom, stardateTo, yearFrom, yearTo);
 	}
 

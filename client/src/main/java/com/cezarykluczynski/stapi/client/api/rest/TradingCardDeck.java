@@ -18,12 +18,12 @@ public class TradingCardDeck {
 	}
 
 	public TradingCardDeckFullResponse get(String uid) throws ApiException {
-		return tradingCardDeckApi.tradingCardDeckGet(uid, apiKey);
+		return tradingCardDeckApi.v1RestTradingCardDeckGet(uid, apiKey);
 	}
 
 	public TradingCardDeckBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, String tradingCardSetUid)
 			throws ApiException {
-		return tradingCardDeckApi.tradingCardDeckSearchPost(pageNumber, pageSize, sort, apiKey, name, tradingCardSetUid);
+		return tradingCardDeckApi.v1RestTradingCardDeckSearchPost(pageNumber, pageSize, sort, apiKey, name, tradingCardSetUid);
 	}
 
 }

@@ -24,7 +24,7 @@ class AstronomicalObjectTest extends AbstractAstronomicalObjectTest {
 		AstronomicalObjectFullResponse astronomicalObjectFullResponseOutput = astronomicalObject.get(UID)
 
 		then:
-		1 * astronomicalObjectApiMock.astronomicalObjectGet(UID, API_KEY) >> astronomicalObjectFullResponse
+		1 * astronomicalObjectApiMock.v1RestAstronomicalObjectGet(UID, API_KEY) >> astronomicalObjectFullResponse
 		0 * _
 		astronomicalObjectFullResponse == astronomicalObjectFullResponseOutput
 	}
@@ -38,7 +38,7 @@ class AstronomicalObjectTest extends AbstractAstronomicalObjectTest {
 				ASTRONOMICAL_OBJECT_TYPE, LOCATION_UID)
 
 		then:
-		1 * astronomicalObjectApiMock.astronomicalObjectSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, ASTRONOMICAL_OBJECT_TYPE,
+		1 * astronomicalObjectApiMock.v1RestAstronomicalObjectSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, ASTRONOMICAL_OBJECT_TYPE,
 				LOCATION_UID) >> astronomicalObjectBaseResponse
 		0 * _
 		astronomicalObjectBaseResponse == astronomicalObjectBaseResponseOutput

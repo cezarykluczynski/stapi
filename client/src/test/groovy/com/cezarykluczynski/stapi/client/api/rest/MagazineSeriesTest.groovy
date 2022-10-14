@@ -24,7 +24,7 @@ class MagazineSeriesTest extends AbstractMagazineSeriesTest {
 		MagazineSeriesFullResponse magazineSeriesFullResponseOutput = magazineSeries.get(UID)
 
 		then:
-		1 * magazineSeriesApiMock.magazineSeriesGet(UID, API_KEY) >> magazineSeriesFullResponse
+		1 * magazineSeriesApiMock.v1RestMagazineSeriesGet(UID, API_KEY) >> magazineSeriesFullResponse
 		0 * _
 		magazineSeriesFullResponse == magazineSeriesFullResponseOutput
 	}
@@ -38,7 +38,7 @@ class MagazineSeriesTest extends AbstractMagazineSeriesTest {
 				PUBLISHED_YEAR_TO, NUMBER_OF_ISSUES_FROM, NUMBER_OF_ISSUES_TO)
 
 		then:
-		1 * magazineSeriesApiMock.magazineSeriesSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
+		1 * magazineSeriesApiMock.v1RestMagazineSeriesSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
 				NUMBER_OF_ISSUES_FROM, NUMBER_OF_ISSUES_TO) >> magazineSeriesBaseResponse
 		0 * _
 		magazineSeriesBaseResponse == magazineSeriesBaseResponseOutput

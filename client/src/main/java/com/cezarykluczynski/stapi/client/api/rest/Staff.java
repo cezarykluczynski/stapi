@@ -20,7 +20,7 @@ public class Staff {
 	}
 
 	public StaffFullResponse get(String uid) throws ApiException {
-		return staffApi.staffGet(uid, apiKey);
+		return staffApi.v1RestStaffGet(uid, apiKey);
 	}
 
 	public StaffBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, String birthName, String gender,
@@ -37,15 +37,16 @@ public class Staff {
 			Boolean publicityArtist, Boolean cbsDigitalStaff, Boolean ilmProductionStaff, Boolean specialFeaturesStaff, Boolean storyEditor,
 			Boolean studioExecutive, Boolean stuntDepartment, Boolean transportationDepartment, Boolean videoGameProductionStaff, Boolean writer)
 			throws ApiException {
-		return staffApi.staffSearchPost(pageNumber, pageSize, sort, apiKey, name, birthName, gender, dateOfBirthFrom, dateOfBirthTo, placeOfBirth,
-				dateOfDeathFrom, dateOfDeathTo, placeOfDeath, artDepartment, artDirector, productionDesigner, cameraAndElectricalDepartment,
-				cinematographer, castingDepartment, costumeDepartment, costumeDesigner, director, assistantOrSecondUnitDirector,
-				exhibitAndAttractionStaff, filmEditor, linguist, locationStaff, makeupStaff, musicDepartment, composer, personalAssistant, producer,
-				productionAssociate, productionStaff, publicationStaff, scienceConsultant, soundDepartment, specialAndVisualEffectsStaff, author,
-				audioAuthor, calendarArtist, comicArtist, comicAuthor, comicColorArtist, comicInteriorArtist, comicInkArtist, comicPencilArtist,
-				comicLetterArtist, comicStripArtist, gameArtist, gameAuthor, novelArtist, novelAuthor, referenceArtist, referenceAuthor,
-				publicationArtist, publicationDesigner, publicationEditor, publicityArtist, cbsDigitalStaff, ilmProductionStaff, specialFeaturesStaff,
-				storyEditor, studioExecutive, stuntDepartment, transportationDepartment, videoGameProductionStaff, writer);
+		return staffApi.v1RestStaffSearchPost(pageNumber, pageSize, sort, apiKey, name, birthName, gender, dateOfBirthFrom, dateOfBirthTo,
+				placeOfBirth, dateOfDeathFrom, dateOfDeathTo, placeOfDeath, artDepartment, artDirector, productionDesigner,
+				cameraAndElectricalDepartment, cinematographer, castingDepartment, costumeDepartment, costumeDesigner, director,
+				assistantOrSecondUnitDirector, exhibitAndAttractionStaff, filmEditor, linguist, locationStaff, makeupStaff, musicDepartment,
+				composer, personalAssistant, producer, productionAssociate, productionStaff, publicationStaff, scienceConsultant, soundDepartment,
+				specialAndVisualEffectsStaff, author, audioAuthor, calendarArtist, comicArtist, comicAuthor, comicColorArtist, comicInteriorArtist,
+				comicInkArtist, comicPencilArtist, comicLetterArtist, comicStripArtist, gameArtist, gameAuthor, novelArtist, novelAuthor,
+				referenceArtist, referenceAuthor, publicationArtist, publicationDesigner, publicationEditor, publicityArtist, cbsDigitalStaff,
+				ilmProductionStaff, specialFeaturesStaff, storyEditor, studioExecutive, stuntDepartment, transportationDepartment,
+				videoGameProductionStaff, writer);
 	}
 
 }

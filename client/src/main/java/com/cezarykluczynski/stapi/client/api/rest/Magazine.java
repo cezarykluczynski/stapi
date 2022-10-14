@@ -18,12 +18,12 @@ public class Magazine {
 	}
 
 	public MagazineFullResponse get(String uid) throws ApiException {
-		return magazineApi.magazineGet(uid, apiKey);
+		return magazineApi.v1RestMagazineGet(uid, apiKey);
 	}
 
 	public MagazineBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer publishedYearFrom,
 			Integer publishedYearTo, Integer numberOfPagesFrom, Integer numberOfPagesTo) throws ApiException {
-		return magazineApi.magazineSearchPost(pageNumber, pageSize, sort, apiKey, title, publishedYearFrom, publishedYearTo, numberOfPagesFrom,
+		return magazineApi.v1RestMagazineSearchPost(pageNumber, pageSize, sort, apiKey, title, publishedYearFrom, publishedYearTo, numberOfPagesFrom,
 				numberOfPagesTo);
 	}
 

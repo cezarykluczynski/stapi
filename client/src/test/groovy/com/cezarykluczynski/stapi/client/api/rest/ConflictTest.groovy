@@ -24,7 +24,7 @@ class ConflictTest extends AbstractConflictTest {
 		ConflictFullResponse conflictFullResponseOutput = conflict.get(UID)
 
 		then:
-		1 * conflictApiMock.conflictGet(UID, API_KEY) >> conflictFullResponse
+		1 * conflictApiMock.v1RestConflictGet(UID, API_KEY) >> conflictFullResponse
 		0 * _
 		conflictFullResponse == conflictFullResponseOutput
 	}
@@ -38,7 +38,7 @@ class ConflictTest extends AbstractConflictTest {
 				FEDERATION_WAR, KLINGON_WAR, DOMINION_WAR_BATTLE, ALTERNATE_REALITY)
 
 		then:
-		1 * conflictApiMock.conflictSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, YEAR_FROM, YEAR_TO, EARTH_CONFLICT, FEDERATION_WAR,
+		1 * conflictApiMock.v1RestConflictSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, YEAR_FROM, YEAR_TO, EARTH_CONFLICT, FEDERATION_WAR,
 				KLINGON_WAR, DOMINION_WAR_BATTLE, ALTERNATE_REALITY) >> conflictBaseResponse
 		0 * _
 		conflictBaseResponse == conflictBaseResponseOutput

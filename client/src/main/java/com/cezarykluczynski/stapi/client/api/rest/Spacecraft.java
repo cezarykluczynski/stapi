@@ -17,11 +17,11 @@ public class Spacecraft {
 	}
 
 	public SpacecraftFullResponse get(String uid) throws ApiException {
-		return spacecraftApi.spacecraftGet(uid, apiKey);
+		return spacecraftApi.v1RestSpacecraftGet(uid, apiKey);
 	}
 
 	public SpacecraftBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name) throws ApiException {
-		return spacecraftApi.spacecraftSearchPost(pageNumber, pageSize, sort, apiKey, name);
+		return spacecraftApi.v1RestSpacecraftSearchPost(pageNumber, pageSize, sort, apiKey, name);
 	}
 
 }

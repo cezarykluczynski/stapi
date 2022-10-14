@@ -24,7 +24,7 @@ class TechnologyTest extends AbstractTechnologyTest {
 		TechnologyFullResponse technologyFullResponseOutput = technology.get(UID)
 
 		then:
-		1 * technologyApiMock.technologyGet(UID, API_KEY) >> technologyFullResponse
+		1 * technologyApiMock.v1RestTechnologyGet(UID, API_KEY) >> technologyFullResponse
 		0 * _
 		technologyFullResponse == technologyFullResponseOutput
 	}
@@ -40,7 +40,7 @@ class TechnologyTest extends AbstractTechnologyTest {
 				ENGINEERING_TOOL, HOUSEHOLD_TOOL, MEDICAL_EQUIPMENT, TRANSPORTER_TECHNOLOGY)
 
 		then:
-		1 * technologyApiMock.technologySearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, BORG_TECHNOLOGY, BORG_COMPONENT,
+		1 * technologyApiMock.v1RestTechnologySearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, BORG_TECHNOLOGY, BORG_COMPONENT,
 				COMMUNICATIONS_TECHNOLOGY, COMPUTER_TECHNOLOGY, COMPUTER_PROGRAMMING, SUBROUTINE, DATABASE, ENERGY_TECHNOLOGY, FICTIONAL_TECHNOLOGY,
 				HOLOGRAPHIC_TECHNOLOGY, IDENTIFICATION_TECHNOLOGY, LIFE_SUPPORT_TECHNOLOGY, SENSOR_TECHNOLOGY, SHIELD_TECHNOLOGY, TOOL, CULINARY_TOOL,
 				ENGINEERING_TOOL, HOUSEHOLD_TOOL, MEDICAL_EQUIPMENT, TRANSPORTER_TECHNOLOGY) >> technologyBaseResponse

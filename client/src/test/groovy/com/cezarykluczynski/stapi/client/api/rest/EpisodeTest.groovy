@@ -24,7 +24,7 @@ class EpisodeTest extends AbstractEpisodeTest {
 		EpisodeFullResponse episodeFullResponseOutput = episode.get(UID)
 
 		then:
-		1 * episodeApiMock.episodeGet(UID, API_KEY) >> episodeFullResponse
+		1 * episodeApiMock.v1RestEpisodeGet(UID, API_KEY) >> episodeFullResponse
 		0 * _
 		episodeFullResponse == episodeFullResponseOutput
 	}
@@ -39,7 +39,7 @@ class EpisodeTest extends AbstractEpisodeTest {
 				US_AIR_DATE_FROM, US_AIR_DATE_TO, FINAL_SCRIPT_DATE_FROM, FINAL_SCRIPT_DATE_TO)
 
 		then:
-		1 * episodeApiMock.episodeSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, TITLE, SEASON_NUMBER_FROM, SEASON_NUMBER_TO, EPISODE_NUMBER_FROM,
+		1 * episodeApiMock.v1RestEpisodeSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, TITLE, SEASON_NUMBER_FROM, SEASON_NUMBER_TO, EPISODE_NUMBER_FROM,
 				EPISODE_NUMBER_TO, PRODUCTION_SERIAL_NUMBER, FEATURE_LENGTH, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO, US_AIR_DATE_FROM,
 				US_AIR_DATE_TO, FINAL_SCRIPT_DATE_FROM, FINAL_SCRIPT_DATE_TO) >> episodeBaseResponse
 		0 * _

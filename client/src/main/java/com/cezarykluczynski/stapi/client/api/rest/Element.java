@@ -18,14 +18,14 @@ public class Element {
 	}
 
 	public ElementFullResponse get(String uid) throws ApiException {
-		return elementApi.elementGet(uid, apiKey);
+		return elementApi.v1RestElementGet(uid, apiKey);
 	}
 
 	public ElementBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, String symbol, Boolean transuranium,
 			Boolean gammaSeries, Boolean hypersonicSeries, Boolean megaSeries, Boolean omegaSeries, Boolean transonicSeries, Boolean worldSeries)
 			throws ApiException {
-		return elementApi.elementSearchPost(pageNumber, pageSize, sort, apiKey, name, symbol, transuranium, gammaSeries, hypersonicSeries, megaSeries,
-				omegaSeries, transonicSeries, worldSeries);
+		return elementApi.v1RestElementSearchPost(pageNumber, pageSize, sort, apiKey, name, symbol, transuranium, gammaSeries, hypersonicSeries,
+				megaSeries, omegaSeries, transonicSeries, worldSeries);
 	}
 
 }

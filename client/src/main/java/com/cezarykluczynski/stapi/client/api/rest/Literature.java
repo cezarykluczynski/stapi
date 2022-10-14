@@ -18,13 +18,13 @@ public class Literature {
 	}
 
 	public LiteratureFullResponse get(String uid) throws ApiException {
-		return literatureApi.literatureGet(uid, apiKey);
+		return literatureApi.v1RestLiteratureGet(uid, apiKey);
 	}
 
 	public LiteratureBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Boolean earthlyOrigin,
 			Boolean shakespeareanWork, Boolean report, Boolean scientificLiterature, Boolean technicalManual, Boolean religiousLiterature)
 			throws ApiException {
-		return literatureApi.literatureSearchPost(pageNumber, pageSize, sort, apiKey, title, earthlyOrigin, shakespeareanWork, report,
+		return literatureApi.v1RestLiteratureSearchPost(pageNumber, pageSize, sort, apiKey, title, earthlyOrigin, shakespeareanWork, report,
 				scientificLiterature, technicalManual, religiousLiterature);
 	}
 

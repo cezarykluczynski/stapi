@@ -21,6 +21,14 @@ public interface PerformerBaseSoapMapper {
 	@Mapping(source = "dateOfBirth.to", target = "dateOfBirthTo")
 	@Mapping(source = "dateOfDeath.from", target = "dateOfDeathFrom")
 	@Mapping(source = "dateOfDeath.to", target = "dateOfDeathTo")
+	@Mapping(target = "audiobookPerformer", ignore = true)
+	@Mapping(target = "cutPerformer", ignore = true)
+	@Mapping(target = "ldPerformer", ignore = true)
+	@Mapping(target = "picPerformer", ignore = true)
+	@Mapping(target = "proPerformer", ignore = true)
+	@Mapping(target = "puppeteer", ignore = true)
+	@Mapping(target = "snwPerformer", ignore = true)
+	@Mapping(target = "stPerformer", ignore = true)
 	PerformerRequestDTO mapBase(PerformerBaseRequest performerBaseRequest);
 
 	PerformerBase mapBase(Performer performer);

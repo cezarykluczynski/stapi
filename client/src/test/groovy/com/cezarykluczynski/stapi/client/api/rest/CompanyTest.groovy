@@ -24,7 +24,7 @@ class CompanyTest extends AbstractCompanyTest {
 		CompanyFullResponse companyFullResponseOutput = company.get(UID)
 
 		then:
-		1 * companyApiMock.companyGet(UID, API_KEY) >> companyFullResponse
+		1 * companyApiMock.v1RestCompanyGet(UID, API_KEY) >> companyFullResponse
 		0 * _
 		companyFullResponse == companyFullResponseOutput
 	}
@@ -40,7 +40,7 @@ class CompanyTest extends AbstractCompanyTest {
 				SPECIAL_EFFECTS_COMPANY, TV_AND_FILM_PRODUCTION_COMPANY, VIDEO_GAME_COMPANY)
 
 		then:
-		1 * companyApiMock.companySearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, BROADCASTER, COLLECTIBLE_COMPANY, CONGLOMERATE,
+		1 * companyApiMock.v1RestCompanySearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME, BROADCASTER, COLLECTIBLE_COMPANY, CONGLOMERATE,
 				DIGITAL_VISUAL_EFFECTS_COMPANY, DISTRIBUTOR, GAME_COMPANY, FILM_EQUIPMENT_COMPANY, MAKE_UP_EFFECTS_STUDIO, MATTE_PAINTING_COMPANY,
 				MODEL_AND_MINIATURE_EFFECTS_COMPANY, POST_PRODUCTION_COMPANY, PRODUCTION_COMPANY, PROP_COMPANY, RECORD_LABEL, SPECIAL_EFFECTS_COMPANY,
 				TV_AND_FILM_PRODUCTION_COMPANY, VIDEO_GAME_COMPANY) >> companyBaseResponse

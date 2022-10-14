@@ -18,13 +18,13 @@ public class Character {
 	}
 
 	public CharacterFullResponse get(String uid) throws ApiException {
-		return characterApi.characterGet(uid, apiKey);
+		return characterApi.v1RestCharacterGet(uid, apiKey);
 	}
 
 	public CharacterBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, String gender, Boolean deceased,
 			Boolean hologram, Boolean fictionalCharacter, Boolean mirror, Boolean alternateReality) throws ApiException {
-		return characterApi.characterSearchPost(pageNumber, pageSize, sort, apiKey, name, gender, deceased, hologram, fictionalCharacter, mirror,
-				alternateReality);
+		return characterApi.v1RestCharacterSearchPost(pageNumber, pageSize, sort, apiKey, name, gender, deceased, hologram, fictionalCharacter,
+				mirror, alternateReality);
 	}
 
 }

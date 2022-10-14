@@ -18,14 +18,14 @@ public class Food {
 	}
 
 	public FoodFullResponse get(String uid) throws ApiException {
-		return foodApi.foodGet(uid, apiKey);
+		return foodApi.v1RestFoodGet(uid, apiKey);
 	}
 
 	public FoodBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean earthlyOrigin, Boolean dessert,
 			Boolean fruit, Boolean herbOrSpice, Boolean sauce, Boolean soup, Boolean beverage, Boolean alcoholicBeverage, Boolean juice, Boolean tea)
 			throws ApiException {
-		return foodApi.foodSearchPost(pageNumber, pageSize, sort, apiKey, name, earthlyOrigin, dessert, fruit, herbOrSpice, sauce, soup, beverage,
-				alcoholicBeverage, juice, tea);
+		return foodApi.v1RestFoodSearchPost(pageNumber, pageSize, sort, apiKey, name, earthlyOrigin, dessert, fruit, herbOrSpice, sauce, soup,
+				beverage, alcoholicBeverage, juice, tea);
 	}
 
 }

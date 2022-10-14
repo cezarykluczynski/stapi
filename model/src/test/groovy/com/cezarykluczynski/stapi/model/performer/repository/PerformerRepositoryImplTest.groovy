@@ -78,6 +78,10 @@ class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 		then: 'boolean criteria are set'
 		1 * performerRequestDTO.animalPerformer >> ANIMAL_PERFORMER
 		1 * performerQueryBuilder.equal(Performer_.animalPerformer, ANIMAL_PERFORMER)
+		1 * performerRequestDTO.audiobookPerformer >> AUDIOBOOK_PERFORMER
+		1 * performerQueryBuilder.equal(Performer_.audiobookPerformer, AUDIOBOOK_PERFORMER)
+		1 * performerRequestDTO.cutPerformer >> CUT_PERFORMER
+		1 * performerQueryBuilder.equal(Performer_.cutPerformer, CUT_PERFORMER)
 		1 * performerRequestDTO.disPerformer >> DIS_PERFORMER
 		1 * performerQueryBuilder.equal(Performer_.disPerformer, DIS_PERFORMER)
 		1 * performerRequestDTO.ds9Performer >> DS9_PERFORMER
@@ -86,8 +90,20 @@ class PerformerRepositoryImplTest extends AbstractRealWorldPersonTest {
 		1 * performerQueryBuilder.equal(Performer_.entPerformer, ENT_PERFORMER)
 		1 * performerRequestDTO.filmPerformer >> FILM_PERFORMER
 		1 * performerQueryBuilder.equal(Performer_.filmPerformer, FILM_PERFORMER)
+		1 * performerRequestDTO.ldPerformer >> LD_PERFORMER
+		1 * performerQueryBuilder.equal(Performer_.ldPerformer, LD_PERFORMER)
+		1 * performerRequestDTO.picPerformer >> PIC_PERFORMER
+		1 * performerQueryBuilder.equal(Performer_.picPerformer, PIC_PERFORMER)
+		1 * performerRequestDTO.proPerformer >> PRO_PERFORMER
+		1 * performerQueryBuilder.equal(Performer_.proPerformer, PRO_PERFORMER)
+		1 * performerRequestDTO.puppeteer >> PUPPETEER
+		1 * performerQueryBuilder.equal(Performer_.puppeteer, PUPPETEER)
+		1 * performerRequestDTO.snwPerformer >> SNW_PERFORMER
+		1 * performerQueryBuilder.equal(Performer_.snwPerformer, SNW_PERFORMER)
 		1 * performerRequestDTO.standInPerformer >> STAND_IN_PERFORMER
 		1 * performerQueryBuilder.equal(Performer_.standInPerformer, STAND_IN_PERFORMER)
+		1 * performerRequestDTO.stPerformer >> ST_PERFORMER
+		1 * performerQueryBuilder.equal(Performer_.stPerformer, ST_PERFORMER)
 		1 * performerRequestDTO.stuntPerformer >> STUNT_PERFORMER
 		1 * performerQueryBuilder.equal(Performer_.stuntPerformer, STUNT_PERFORMER)
 		1 * performerRequestDTO.tasPerformer >> TAS_PERFORMER

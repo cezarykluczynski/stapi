@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.performer.configuration;
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
 import com.cezarykluczynski.stapi.server.performer.endpoint.PerformerRestEndpoint;
 import com.cezarykluczynski.stapi.server.performer.endpoint.PerformerSoapEndpoint;
+import com.cezarykluczynski.stapi.server.performer.endpoint.PerformerV2RestEndpoint;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseRestMapper;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.performer.mapper.PerformerFullRestMapper;
@@ -29,6 +30,11 @@ public class PerformerConfiguration {
 	@Bean
 	public Server performerServer() {
 		return endpointFactory.createRestEndpoint(PerformerRestEndpoint.class, PerformerRestEndpoint.ADDRESS);
+	}
+
+	@Bean
+	public Server performerV2Server() {
+		return endpointFactory.createRestEndpoint(PerformerV2RestEndpoint.class, PerformerV2RestEndpoint.ADDRESS);
 	}
 
 	@Bean

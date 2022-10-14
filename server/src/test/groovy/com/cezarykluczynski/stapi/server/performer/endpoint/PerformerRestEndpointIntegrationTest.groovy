@@ -25,7 +25,7 @@ class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointInte
 	})
 	void "gets performer by uid"() {
 		when:
-		PerformerFullResponse performerResponse = stapiRestClient.performerApi.performerGet(UID, null)
+		PerformerFullResponse performerResponse = stapiRestClient.performerApi.v1RestPerformerGet(UID, null)
 
 		then:
 		performerResponse.performer.uid == UID
@@ -39,7 +39,7 @@ class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointInte
 		Integer pageSize = 10
 
 		when:
-		PerformerBaseResponse performerResponse = stapiRestClient.performerApi.performerSearchGet(pageNumber, pageSize, null)
+		PerformerBaseResponse performerResponse = stapiRestClient.performerApi.v1RestPerformerSearchGet(pageNumber, pageSize, null)
 
 		then:
 		performerResponse.page.pageNumber == pageNumber
@@ -49,7 +49,7 @@ class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointInte
 
 	void "gets the only person to star in 6 series"() {
 		when:
-		PerformerBaseResponse performerResponse = stapiRestClient.performerApi.performerSearchPost(null, null, null, null, null, null, null, null,
+		PerformerBaseResponse performerResponse = stapiRestClient.performerApi.v1RestPerformerSearchPost(null, null, null, null, null, null, null, null,
 				null, null, null, null, null, null, null, true, true, null, null, null, true, true, true, null, null, true)
 
 		then:
@@ -59,7 +59,7 @@ class PerformerRestEndpointIntegrationTest extends AbstractPerformerEndpointInte
 
 	void "gets performers sorted by name"() {
 		when:
-		PerformerBaseResponse performerResponse = stapiRestClient.performerApi.performerSearchPost(null, null,
+		PerformerBaseResponse performerResponse = stapiRestClient.performerApi.v1RestPerformerSearchPost(null, null,
 				StapiRestSortSerializer.serialize(Lists.newArrayList(
 						new RestSortClause(name: 'name', direction: RestSortDirection.ASC)
 				)), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,

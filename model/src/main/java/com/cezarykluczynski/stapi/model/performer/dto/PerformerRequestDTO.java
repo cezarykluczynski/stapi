@@ -10,6 +10,10 @@ public class PerformerRequestDTO extends RealWorldPersonRequestDTO {
 
 	private Boolean animalPerformer;
 
+	private Boolean audiobookPerformer;
+
+	private Boolean cutPerformer;
+
 	private Boolean disPerformer;
 
 	private Boolean ds9Performer;
@@ -18,7 +22,19 @@ public class PerformerRequestDTO extends RealWorldPersonRequestDTO {
 
 	private Boolean filmPerformer;
 
+	private Boolean ldPerformer;
+
+	private Boolean picPerformer;
+
+	private Boolean proPerformer;
+
+	private Boolean puppeteer;
+
+	private Boolean snwPerformer;
+
 	private Boolean standInPerformer;
+
+	private Boolean stPerformer;
 
 	private Boolean stuntPerformer;
 

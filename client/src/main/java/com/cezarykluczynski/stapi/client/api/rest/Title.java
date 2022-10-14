@@ -18,12 +18,12 @@ public class Title {
 	}
 
 	public TitleFullResponse get(String uid) throws ApiException {
-		return titleApi.titleGet(uid, apiKey);
+		return titleApi.v1RestTitleGet(uid, apiKey);
 	}
 
 	public TitleBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Boolean militaryRank, Boolean fleetRank,
 			Boolean religiousTitle, Boolean position, Boolean mirror) throws ApiException {
-		return titleApi.titleSearchPost(pageNumber, pageSize, sort, apiKey, name, militaryRank, fleetRank, religiousTitle, position, mirror);
+		return titleApi.v1RestTitleSearchPost(pageNumber, pageSize, sort, apiKey, name, militaryRank, fleetRank, religiousTitle, position, mirror);
 	}
 
 }

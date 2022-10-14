@@ -20,14 +20,14 @@ public class Episode {
 	}
 
 	public EpisodeFullResponse get(String uid) throws ApiException {
-		return episodeApi.episodeGet(uid, apiKey);
+		return episodeApi.v1RestEpisodeGet(uid, apiKey);
 	}
 
 	public EpisodeBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer seasonNumberFrom,
 			Integer seasonNumberTo, Integer episodeNumberFrom, Integer episodeNumberTo, String productionSerialNumber, Boolean featureLength,
 			Float stardateFrom, Float stardateTo, Integer yearFrom, Integer yearTo, LocalDate usAirDateFrom, LocalDate usAirDateTo,
 			LocalDate finalScriptDateFrom, LocalDate finalScriptDateTo) throws ApiException {
-		return episodeApi.episodeSearchPost(pageNumber, pageSize, sort, apiKey, title, seasonNumberFrom, seasonNumberTo, episodeNumberFrom,
+		return episodeApi.v1RestEpisodeSearchPost(pageNumber, pageSize, sort, apiKey, title, seasonNumberFrom, seasonNumberTo, episodeNumberFrom,
 				episodeNumberTo, productionSerialNumber, featureLength, stardateFrom, stardateTo, yearFrom, yearTo, usAirDateFrom, usAirDateTo,
 				finalScriptDateFrom, finalScriptDateTo);
 	}

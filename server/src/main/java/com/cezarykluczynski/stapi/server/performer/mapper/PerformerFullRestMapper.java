@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.server.performer.mapper;
 
 import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerFull;
+import com.cezarykluczynski.stapi.client.v1.rest.model.PerformerV2Full;
 import com.cezarykluczynski.stapi.model.performer.entity.Performer;
 import com.cezarykluczynski.stapi.server.character.mapper.CharacterBaseRestMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.DateMapper;
@@ -15,5 +16,7 @@ import org.mapstruct.Mapper;
 public interface PerformerFullRestMapper {
 
 	PerformerFull mapFull(Performer performer);
+
+	PerformerV2Full mapV2Full(Performer performer);
 
 }

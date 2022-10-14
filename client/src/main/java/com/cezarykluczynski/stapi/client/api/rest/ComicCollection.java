@@ -18,13 +18,13 @@ public class ComicCollection {
 	}
 
 	public ComicCollectionFullResponse get(String uid) throws ApiException {
-		return comicCollectionApi.comicCollectionGet(uid, apiKey);
+		return comicCollectionApi.v1RestComicCollectionGet(uid, apiKey);
 	}
 
 	public ComicCollectionBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer publishedYearFrom,
 			Integer publishedYearTo, Integer numberOfPagesFrom, Integer numberOfPagesTo, Float stardateFrom, Float stardateTo, Integer yearFrom,
 			Integer yearTo, Boolean photonovel) throws ApiException {
-		return comicCollectionApi.comicCollectionSearchPost(pageNumber, pageSize, sort, apiKey, title, publishedYearFrom, publishedYearTo,
+		return comicCollectionApi.v1RestComicCollectionSearchPost(pageNumber, pageSize, sort, apiKey, title, publishedYearFrom, publishedYearTo,
 				numberOfPagesFrom, numberOfPagesTo, stardateFrom, stardateTo, yearFrom, yearTo, photonovel);
 	}
 

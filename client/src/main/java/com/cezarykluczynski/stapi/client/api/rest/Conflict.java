@@ -18,14 +18,14 @@ public class Conflict {
 	}
 
 	public ConflictFullResponse get(String uid) throws ApiException {
-		return conflictApi.conflictGet(uid, apiKey);
+		return conflictApi.v1RestConflictGet(uid, apiKey);
 	}
 
 	public ConflictBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, Integer yearFrom, Integer yearTo,
 			Boolean earthConflict, Boolean federationWar, Boolean klingonWar, Boolean dominionWarBattle, Boolean alternateReality)
 			throws ApiException {
-		return conflictApi.conflictSearchPost(pageNumber, pageSize, sort, apiKey, name, yearFrom, yearTo, earthConflict, federationWar, klingonWar,
-				dominionWarBattle, alternateReality);
+		return conflictApi.v1RestConflictSearchPost(pageNumber, pageSize, sort, apiKey, name, yearFrom, yearTo, earthConflict, federationWar,
+				klingonWar, dominionWarBattle, alternateReality);
 	}
 
 }

@@ -24,7 +24,7 @@ class ComicSeriesTest extends AbstractComicSeriesTest {
 		ComicSeriesFullResponse comicSeriesFullResponseOutput = comicSeries.get(UID)
 
 		then:
-		1 * comicSeriesApiMock.comicSeriesGet(UID, API_KEY) >> comicSeriesFullResponse
+		1 * comicSeriesApiMock.v1RestComicSeriesGet(UID, API_KEY) >> comicSeriesFullResponse
 		0 * _
 		comicSeriesFullResponse == comicSeriesFullResponseOutput
 	}
@@ -39,7 +39,7 @@ class ComicSeriesTest extends AbstractComicSeriesTest {
 				PHOTONOVEL_SERIES)
 
 		then:
-		1 * comicSeriesApiMock.comicSeriesSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
+		1 * comicSeriesApiMock.v1RestComicSeriesSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
 				NUMBER_OF_ISSUES_FROM, NUMBER_OF_ISSUES_TO, STARDATE_FROM, STARDATE_FROM, YEAR_FROM, YEAR_TO, MINISERIES, PHOTONOVEL_SERIES) >>
 				comicSeriesBaseResponse
 		0 * _

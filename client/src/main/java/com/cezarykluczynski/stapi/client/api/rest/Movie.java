@@ -20,13 +20,13 @@ public class Movie {
 	}
 
 	public MovieFullResponse get(String uid) throws ApiException {
-		return movieApi.movieGet(uid, apiKey);
+		return movieApi.v1RestMovieGet(uid, apiKey);
 	}
 
 	public MovieBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Float stardateFrom, Float stardateTo,
 			Integer yearFrom, Integer yearTo, LocalDate usReleaseDateFrom, LocalDate usReleaseDateTo) throws ApiException {
-		return movieApi.movieSearchPost(pageNumber, pageSize, sort, apiKey, title, stardateFrom, stardateTo, yearFrom, yearTo, usReleaseDateFrom,
-				usReleaseDateTo);
+		return movieApi.v1RestMovieSearchPost(pageNumber, pageSize, sort, apiKey, title, stardateFrom, stardateTo, yearFrom, yearTo,
+				usReleaseDateFrom, usReleaseDateTo);
 	}
 
 }

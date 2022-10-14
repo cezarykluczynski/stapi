@@ -18,13 +18,13 @@ public class ComicStrip {
 	}
 
 	public ComicStripFullResponse get(String uid) throws ApiException {
-		return comicStripApi.comicStripGet(uid, apiKey);
+		return comicStripApi.v1RestComicStripGet(uid, apiKey);
 	}
 
 	public ComicStripBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer publishedYearFrom,
 			Integer publishedYearTo, Integer numberOfPagesFrom, Integer numberOfPagesTo, Integer yearFrom, Integer yearTo) throws ApiException {
-		return comicStripApi.comicStripSearchPost(pageNumber, pageSize, sort, apiKey, title, publishedYearFrom, publishedYearTo, numberOfPagesFrom,
-				numberOfPagesTo, yearFrom, yearTo);
+		return comicStripApi.v1RestComicStripSearchPost(pageNumber, pageSize, sort, apiKey, title, publishedYearFrom, publishedYearTo,
+				numberOfPagesFrom, numberOfPagesTo, yearFrom, yearTo);
 	}
 
 }

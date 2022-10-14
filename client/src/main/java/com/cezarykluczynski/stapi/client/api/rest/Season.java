@@ -18,12 +18,12 @@ public class Season {
 	}
 
 	public SeasonFullResponse get(String uid) throws ApiException {
-		return seasonApi.seasonGet(uid, apiKey);
+		return seasonApi.v1RestSeasonGet(uid, apiKey);
 	}
 
 	public SeasonBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String title, Integer seasonNumberFrom,
 			Integer seasonNumberTo, Integer numberOfEpisodesFrom, Integer numberOfEpisodesTo) throws ApiException {
-		return seasonApi.seasonSearchPost(pageNumber, pageSize, sort, apiKey, title, seasonNumberFrom, seasonNumberTo, numberOfEpisodesFrom,
+		return seasonApi.v1RestSeasonSearchPost(pageNumber, pageSize, sort, apiKey, title, seasonNumberFrom, seasonNumberTo, numberOfEpisodesFrom,
 				numberOfEpisodesTo);
 	}
 

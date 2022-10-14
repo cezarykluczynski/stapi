@@ -18,7 +18,7 @@ public class Book {
 	}
 
 	public BookFullResponse get(String uid) throws ApiException {
-		return bookApi.bookGet(uid, apiKey);
+		return bookApi.v1RestBookGet(uid, apiKey);
 	}
 
 	@SuppressWarnings("ParameterName")
@@ -27,7 +27,7 @@ public class Book {
 			Integer yearTo, Boolean novel, Boolean referenceBook, Boolean biographyBook, Boolean rolePlayingBook, Boolean eBook, Boolean anthology,
 			Boolean novelization, Boolean audiobook, Boolean audiobookAbridged, Integer audiobookPublishedYearFrom, Integer audiobookPublishedYearTo,
 			Integer audiobookRunTimeFrom, Integer audiobookRunTimeTo) throws ApiException {
-		return bookApi.bookSearchPost(pageNumber, pageSize, sort, apiKey, title, publishedYearFrom, publishedYearTo, numberOfPagesFrom,
+		return bookApi.v1RestBookSearchPost(pageNumber, pageSize, sort, apiKey, title, publishedYearFrom, publishedYearTo, numberOfPagesFrom,
 				numberOfPagesTo, stardateFrom, stardateTo, yearFrom, yearTo, novel, referenceBook, biographyBook, rolePlayingBook, eBook, anthology,
 				novelization, audiobook, audiobookAbridged, audiobookPublishedYearFrom, audiobookPublishedYearTo, audiobookRunTimeFrom,
 				audiobookRunTimeTo);

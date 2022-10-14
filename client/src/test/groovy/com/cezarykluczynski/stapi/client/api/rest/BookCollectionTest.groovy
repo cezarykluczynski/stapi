@@ -24,7 +24,7 @@ class BookCollectionTest extends AbstractBookCollectionTest {
 		BookCollectionFullResponse bookCollectionFullResponseOutput = bookCollection.get(UID)
 
 		then:
-		1 * bookCollectionApiMock.bookCollectionGet(UID, API_KEY) >> bookCollectionFullResponse
+		1 * bookCollectionApiMock.v1RestBookCollectionGet(UID, API_KEY) >> bookCollectionFullResponse
 		0 * _
 		bookCollectionFullResponse == bookCollectionFullResponseOutput
 	}
@@ -38,7 +38,7 @@ class BookCollectionTest extends AbstractBookCollectionTest {
 				PUBLISHED_YEAR_TO, NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO)
 
 		then:
-		1 * bookCollectionApiMock.bookCollectionSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
+		1 * bookCollectionApiMock.v1RestBookCollectionSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, TITLE, PUBLISHED_YEAR_FROM, PUBLISHED_YEAR_TO,
 				NUMBER_OF_PAGES_FROM, NUMBER_OF_PAGES_TO, STARDATE_FROM, STARDATE_TO, YEAR_FROM, YEAR_TO) >> bookCollectionBaseResponse
 		0 * _
 		bookCollectionBaseResponse == bookCollectionBaseResponseOutput

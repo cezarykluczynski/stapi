@@ -24,7 +24,7 @@ class SpacecraftTest extends AbstractSpacecraftTest {
 		SpacecraftFullResponse spacecraftFullResponseOutput = spacecraft.get(UID)
 
 		then:
-		1 * spacecraftApiMock.spacecraftGet(UID, API_KEY) >> spacecraftFullResponse
+		1 * spacecraftApiMock.v1RestSpacecraftGet(UID, API_KEY) >> spacecraftFullResponse
 		0 * _
 		spacecraftFullResponse == spacecraftFullResponseOutput
 	}
@@ -37,7 +37,7 @@ class SpacecraftTest extends AbstractSpacecraftTest {
 		SpacecraftBaseResponse spacecraftBaseResponseOutput = spacecraft.search(PAGE_NUMBER, PAGE_SIZE, SORT, NAME)
 
 		then:
-		1 * spacecraftApiMock.spacecraftSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME) >> spacecraftBaseResponse
+		1 * spacecraftApiMock.v1RestSpacecraftSearchPost(PAGE_NUMBER, PAGE_SIZE, SORT, API_KEY, NAME) >> spacecraftBaseResponse
 		0 * _
 		spacecraftBaseResponse == spacecraftBaseResponseOutput
 	}
