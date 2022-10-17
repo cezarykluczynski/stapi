@@ -97,12 +97,16 @@ class StaffInitialQueryBuilderFactoryTest extends AbstractRealWorldPersonTest {
 		1 * staffQueryBuilder.equal(Staff_.exhibitAndAttractionStaff, EXHIBIT_AND_ATTRACTION_STAFF)
 		1 * staffRequestDTO.filmEditor >> FILM_EDITOR
 		1 * staffQueryBuilder.equal(Staff_.filmEditor, FILM_EDITOR)
+		1 * staffRequestDTO.filmationProductionStaff >> FILMATION_PRODUCTION_STAFF
+		1 * staffQueryBuilder.equal(Staff_.filmationProductionStaff, FILMATION_PRODUCTION_STAFF)
 		1 * staffRequestDTO.linguist >> LINGUIST
 		1 * staffQueryBuilder.equal(Staff_.linguist, LINGUIST)
 		1 * staffRequestDTO.locationStaff >> LOCATION_STAFF
 		1 * staffQueryBuilder.equal(Staff_.locationStaff, LOCATION_STAFF)
 		1 * staffRequestDTO.makeupStaff >> MAKEUP_STAFF
 		1 * staffQueryBuilder.equal(Staff_.makeupStaff, MAKEUP_STAFF)
+		1 * staffRequestDTO.merchandiseStaff >> MERCHANDISE_STAFF
+		1 * staffQueryBuilder.equal(Staff_.merchandiseStaff, MERCHANDISE_STAFF)
 		1 * staffRequestDTO.musicDepartment >> MUSIC_DEPARTMENT
 		1 * staffQueryBuilder.equal(Staff_.musicDepartment, MUSIC_DEPARTMENT)
 		1 * staffRequestDTO.composer >> COMPOSER
@@ -135,6 +139,8 @@ class StaffInitialQueryBuilderFactoryTest extends AbstractRealWorldPersonTest {
 		1 * staffQueryBuilder.equal(Staff_.comicAuthor, COMIC_AUTHOR)
 		1 * staffRequestDTO.comicColorArtist >> COMIC_COLOR_ARTIST
 		1 * staffQueryBuilder.equal(Staff_.comicColorArtist, COMIC_COLOR_ARTIST)
+		1 * staffRequestDTO.comicCoverArtist >> COMIC_COVER_ARTIST
+		1 * staffQueryBuilder.equal(Staff_.comicCoverArtist, COMIC_COVER_ARTIST)
 		1 * staffRequestDTO.comicInteriorArtist >> COMIC_INTERIOR_ARTIST
 		1 * staffQueryBuilder.equal(Staff_.comicInteriorArtist, COMIC_INTERIOR_ARTIST)
 		1 * staffRequestDTO.comicInkArtist >> COMIC_INK_ARTIST

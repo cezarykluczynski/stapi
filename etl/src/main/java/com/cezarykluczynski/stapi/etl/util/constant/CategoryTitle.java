@@ -32,6 +32,7 @@ public class CategoryTitle {
 	public static final String VOICE_PERFORMERS = "Voice_performers";
 	public static final String VOY_PERFORMERS = "VOY_performers";
 
+	public static final String STAFF = "Staff";
 	public static final String ART_DEPARTMENT = "Art_department";
 	public static final String ART_DIRECTORS = "Art_directors";
 	public static final String PRODUCTION_DESIGNERS = "Production_designers";
@@ -44,9 +45,11 @@ public class CategoryTitle {
 	public static final String ASSISTANT_AND_SECOND_UNIT_DIRECTORS = "Assistant_and_second_unit_directors";
 	public static final String EXHIBIT_AND_ATTRACTION_STAFF = "Exhibit_and_attraction_staff";
 	public static final String FILM_EDITORS = "Film_editors";
+	public static final String FILMATION_PRODUCTION_STAFF = "Filmation_production_staff";
 	public static final String LINGUISTS = "Linguists";
 	public static final String LOCATION_STAFF = "Location_staff";
 	public static final String MAKEUP_STAFF = "Makeup_staff";
+	public static final String MERCHANDISE_STAFF = "Merchandise_staff";
 	public static final String MUSIC_DEPARTMENT = "Music_department";
 	public static final String COMPOSERS = "Composers";
 	public static final String PERSONAL_ASSISTANTS = "Personal_assistants";
@@ -63,6 +66,7 @@ public class CategoryTitle {
 	public static final String STAR_TREK_COMIC_ARTISTS = "Star_Trek_comic_artists";
 	public static final String STAR_TREK_COMIC_AUTHORS = "Star_Trek_comic_authors";
 	public static final String STAR_TREK_COMIC_COLOR_ARTISTS = "Star_Trek_comic_color_artists";
+	public static final String STAR_TREK_COMIC_COVER_ARTISTS = "Star_Trek_comic_cover_artists";
 	public static final String STAR_TREK_COMIC_INTERIOR_ARTISTS = "Star_Trek_comic_interior_artists";
 	public static final String STAR_TREK_COMIC_INK_ARTISTS = "Star_Trek_comic_ink_artists";
 	public static final String STAR_TREK_COMIC_PENCIL_ARTISTS = "Star_Trek_comic_pencil_artists";

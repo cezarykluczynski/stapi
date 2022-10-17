@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.etl.performer.creation.configuration;
 
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
+import com.cezarykluczynski.stapi.etl.common.service.SubcategoriesProvider;
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerCategoriesActorTemplateEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.performer.creation.processor.PerformerReader;
 import com.cezarykluczynski.stapi.etl.performer.creation.service.ActorPageFilter;
-import com.cezarykluczynski.stapi.etl.performer.creation.service.PerformerCategoriesProvider;
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateListPageProcessor;
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplatePageProcessor;
 import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateSinglePageProcessor;
@@ -13,9 +13,11 @@ import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateTemp
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PageToLifeRangeProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGenderProcessor;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi;
+import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import com.google.common.collect.Lists;
@@ -42,7 +44,7 @@ public class PerformerCreationConfiguration {
 	private ApplicationContext applicationContext;
 
 	@Inject
-	private PerformerCategoriesProvider performerCategoriesProvider;
+	private SubcategoriesProvider subcategoriesProvider;
 
 	@Inject
 	private CategoryApi categoryApi;
@@ -56,7 +58,7 @@ public class PerformerCreationConfiguration {
 		Set<PageHeader> performers = Sets.newHashSet();
 
 		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_PERFORMERS)) {
-			List<String> categories = performerCategoriesProvider.provide();
+			List<String> categories = subcategoriesProvider.provideSubcategories(CategoryTitle.PERFORMERS);
 			performers.addAll(categoryApi.getPages(categories, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 
@@ -73,7 +75,8 @@ public class PerformerCreationConfiguration {
 				applicationContext.getBean(ActorTemplateTemplateProcessor.class),
 				applicationContext.getBean(PerformerCategoriesActorTemplateEnrichingProcessor.class),
 				applicationContext.getBean(PageBindingService.class),
-				applicationContext.getBean(TemplateFinder.class));
+				applicationContext.getBean(TemplateFinder.class),
+				applicationContext.getBean(WikitextApi.class));
 	}
 
 	@Bean(PERFORMER_ACTOR_TEMPLATE_PAGE_PROCESSOR)

@@ -1,10 +1,11 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.gender
 
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor
-import com.cezarykluczynski.stapi.etl.performer.creation.service.PerformerCategoriesProvider
+import com.cezarykluczynski.stapi.etl.common.service.SubcategoriesProvider
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender
 import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTemplatePartsGenderProcessor
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
@@ -32,7 +33,7 @@ class PageToGenderRoleProcessorTest extends Specification {
 
 	private CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessorMock
 
-	private PerformerCategoriesProvider performerCategoriesProviderMock
+	private SubcategoriesProvider performerCategoriesProviderMock
 
 	private PageToGenderRoleProcessor pageToGenderRoleProcessor
 
@@ -69,7 +70,7 @@ class PageToGenderRoleProcessorTest extends Specification {
 
 		then:
 		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CATEGORY)
-		1 * performerCategoriesProviderMock.provide() >> Lists.newArrayList(CATEGORY)
+		1 * performerCategoriesProviderMock.provideSubcategories(CategoryTitle.PERFORMERS) >> Lists.newArrayList(CATEGORY)
 		0 * _
 		gender == null
 	}
@@ -84,7 +85,7 @@ class PageToGenderRoleProcessorTest extends Specification {
 
 		then:
 		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CATEGORY)
-		1 * performerCategoriesProviderMock.provide() >> Lists.newArrayList('SOME OTHER CATEGORY')
+		1 * performerCategoriesProviderMock.provideSubcategories(CategoryTitle.PERFORMERS) >> Lists.newArrayList('SOME OTHER CATEGORY')
 		0 * _
 		gender == null
 	}

@@ -16,8 +16,10 @@ class WikitextApiImplTest extends Specification {
 	private static final String WIKITEXT_WITH_NO_INCLUDE = '<noinclude>The number of produced {{s|TAS}} episodes: ' +
 			'</noinclude>22<noinclude>[[Category:Memory Alpha constants templates|{{PAGENAME}}]]</noinclude>'
 	private static final String WIKITEXT_WITHOUT_TEMPLATES = 'blah blah blah'
-	private static final String WIKITEXT_WITH_LINKS = '\'\'[[Star Trek]]\'\' created by [[Gene Roddenberry]], [[25th anniversary|25th Anniversary]]'
-	private static final String WIKITEXT_WITHOUT_LINKS = '\'\'Star Trek\'\' created by Gene Roddenberry, 25th Anniversary'
+	private static final String WIKITEXT_WITH_LINKS = '\'\'[[Star Trek]]\'\' created by [[Gene Roddenberry]], ' +
+			'[[25th anniversary|25th Anniversary]]; [[IMDb:nm6618259|Jenna Vaughn]], [[A. Conan Doyle]]'
+	private static final String WIKITEXT_WITHOUT_LINKS = '\'\'Star Trek\'\' created by Gene Roddenberry, ' +
+			'25th Anniversary; Jenna Vaughn, A. Conan Doyle'
 	private static final String DIS_TEMPLATE_PAGE_NAME = 'Page'
 	private static final String DIS_TEMPLATE_PAGE_DETAIL = '(detail)'
 

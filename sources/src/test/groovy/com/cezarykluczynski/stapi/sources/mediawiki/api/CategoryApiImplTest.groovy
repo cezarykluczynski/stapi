@@ -329,15 +329,19 @@ class CategoryApiImplTest extends Specification {
 
 	void "gets categories in category, including subcategories"() {
 		given:
-		CategoryHeader categoryHeader = Mock()
+		CategoryHeader categoryHeader = new CategoryHeader(title: TITLE_2)
+		CategoryHeader categoryHeader2 = new CategoryHeader(title: TITLE_3)
 
 		when:
-		List<CategoryHeader> categoryHeaders = categoryApiImpl.getCategoriesInCategoryIncludingSubcategories(TITLE_1, MEDIA_WIKI_SOURCE)
+		List<CategoryHeader> categoryHeaders = categoryApiImpl.getCategoriesInCategoryIncludingSubcategories(TITLE_1, MEDIA_WIKI_SOURCE,
+				Lists.newArrayList())
 
 		then:
-		1 * blikiConnectorMock.getCategories(TITLE_1, MEDIA_WIKI_SOURCE, 100) >> [categoryHeader]
+		1 * blikiConnectorMock.getCategories(TITLE_1, MEDIA_WIKI_SOURCE, 1) >> [categoryHeader]
+		1 * blikiConnectorMock.getCategories(TITLE_2, MEDIA_WIKI_SOURCE, 1) >> [categoryHeader2]
+		1 * blikiConnectorMock.getCategories(TITLE_3, MEDIA_WIKI_SOURCE, 1) >> []
 		0 * _
-		categoryHeaders == [categoryHeader]
+		categoryHeaders == [categoryHeader, categoryHeader2]
 	}
 
 }

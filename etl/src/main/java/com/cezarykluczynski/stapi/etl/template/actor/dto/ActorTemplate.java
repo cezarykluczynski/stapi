@@ -88,11 +88,15 @@ public class ActorTemplate {
 
 	private boolean filmEditor;
 
+	private boolean filmationProductionStaff;
+
 	private boolean linguist;
 
 	private boolean locationStaff;
 
 	private boolean makeupStaff;
+
+	private boolean merchandiseStaff;
 
 	private boolean musicDepartment;
 
@@ -125,6 +129,8 @@ public class ActorTemplate {
 	private boolean comicAuthor;
 
 	private boolean comicColorArtist;
+
+	private boolean comicCoverArtist;
 
 	private boolean comicInteriorArtist;
 

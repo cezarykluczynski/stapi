@@ -70,7 +70,9 @@ public class EndpointHitsReader {
 	}
 
 	private Class<? extends PageAware> endpointNameToClass(String endpointName, Map<String, Class> classNameToMetadataMap) {
-		String entityName = endpointName.replace("SoapEndpoint", "").replace("RestEndpoint", "");
+		String entityName = endpointName.replace("SoapEndpoint", "")
+				.replace("V2RestEndpoint", "")
+				.replace("RestEndpoint", "");
 
 		if (classNameToMetadataMap.containsKey(entityName)) {
 			return (Class<? extends PageAware>) classNameToMetadataMap.get(entityName);

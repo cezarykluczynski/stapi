@@ -10,6 +10,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGen
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
+import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
@@ -43,16 +44,19 @@ public class ActorTemplateSinglePageProcessor implements ItemProcessor<Page, Act
 
 	private TemplateFinder templateFinder;
 
+	private WikitextApi wikitextApi;
+
 	public ActorTemplateSinglePageProcessor(PageToGenderProcessor pageToGenderProcessor, PageToLifeRangeProcessor pageToLifeRangeProcessor,
 			ActorTemplateTemplateProcessor actorTemplateTemplateProcessor,
 			CategoriesActorTemplateEnrichingProcessor categoriesActorTemplateEnrichingProcessor,
-			PageBindingService pageBindingService, TemplateFinder templateFinder) {
+			PageBindingService pageBindingService, TemplateFinder templateFinder, WikitextApi wikitextApi) {
 		this.pageToGenderProcessor = pageToGenderProcessor;
 		this.pageToLifeRangeProcessor = pageToLifeRangeProcessor;
 		this.actorTemplateTemplateProcessor = actorTemplateTemplateProcessor;
 		this.categoriesActorTemplateEnrichingProcessor = categoriesActorTemplateEnrichingProcessor;
 		this.pageBindingService = pageBindingService;
 		this.templateFinder = templateFinder;
+		this.wikitextApi = wikitextApi;
 	}
 
 	@Override
@@ -124,7 +128,7 @@ public class ActorTemplateSinglePageProcessor implements ItemProcessor<Page, Act
 		}
 
 		Matcher matcher = BIRTH_NAME.matcher(wikitext);
-		return matcher.find() ? matcher.group(1) : null;
+		return matcher.find() ? wikitextApi.getWikitextWithoutLinks(matcher.group(1)) : null;
 	}
 
 	private void removeBirthNameIfItEqualsName(ActorTemplate actorTemplate) {

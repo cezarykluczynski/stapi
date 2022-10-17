@@ -37,9 +37,11 @@ public class StaffActorTemplateProcessor implements ItemProcessor<ActorTemplate,
 		staff.setAssistantOrSecondUnitDirector(item.isAssistantOrSecondUnitDirector());
 		staff.setExhibitAndAttractionStaff(item.isExhibitAndAttractionStaff());
 		staff.setFilmEditor(item.isFilmEditor());
+		staff.setFilmationProductionStaff(item.isFilmationProductionStaff());
 		staff.setLinguist(item.isLinguist());
 		staff.setLocationStaff(item.isLocationStaff());
 		staff.setMakeupStaff(item.isMakeupStaff());
+		staff.setMerchandiseStaff(item.isMerchandiseStaff());
 		staff.setMusicDepartment(item.isMusicDepartment());
 		staff.setComposer(item.isComposer());
 		staff.setPersonalAssistant(item.isPersonalAssistant());
@@ -56,6 +58,7 @@ public class StaffActorTemplateProcessor implements ItemProcessor<ActorTemplate,
 		staff.setComicArtist(item.isComicArtist());
 		staff.setComicAuthor(item.isComicAuthor());
 		staff.setComicColorArtist(item.isComicColorArtist());
+		staff.setComicCoverArtist(item.isComicCoverArtist());
 		staff.setComicInteriorArtist(item.isComicInteriorArtist());
 		staff.setComicInkArtist(item.isComicInkArtist());
 		staff.setComicPencilArtist(item.isComicPencilArtist());

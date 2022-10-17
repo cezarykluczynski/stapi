@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.server.staff.configuration;
 import com.cezarykluczynski.stapi.server.common.endpoint.EndpointFactory;
 import com.cezarykluczynski.stapi.server.staff.endpoint.StaffRestEndpoint;
 import com.cezarykluczynski.stapi.server.staff.endpoint.StaffSoapEndpoint;
+import com.cezarykluczynski.stapi.server.staff.endpoint.StaffV2RestEndpoint;
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseRestMapper;
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseSoapMapper;
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffFullRestMapper;
@@ -29,6 +30,11 @@ public class StaffConfiguration {
 	@Bean
 	public Server staffServer() {
 		return endpointFactory.createRestEndpoint(StaffRestEndpoint.class, StaffRestEndpoint.ADDRESS);
+	}
+
+	@Bean
+	public Server staffV2Server() {
+		return endpointFactory.createRestEndpoint(StaffV2RestEndpoint.class, StaffV2RestEndpoint.ADDRESS);
 	}
 
 	@Bean

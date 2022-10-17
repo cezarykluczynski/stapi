@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.model.staff.repository.StaffRepository;
 import com.cezarykluczynski.stapi.server.common.mapper.PageMapper;
 import com.cezarykluczynski.stapi.server.staff.dto.StaffRestBeanParams;
+import com.cezarykluczynski.stapi.server.staff.dto.StaffV2RestBeanParams;
 import com.cezarykluczynski.stapi.server.staff.mapper.StaffBaseRestMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +27,12 @@ public class StaffRestQuery {
 	}
 
 	public Page<Staff> query(StaffRestBeanParams staffRestBeanParams) {
+		StaffRequestDTO staffRequestDTO = staffBaseRestMapper.mapBase(staffRestBeanParams);
+		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(staffRestBeanParams);
+		return staffRepository.findMatching(staffRequestDTO, pageRequest);
+	}
+
+	public Page<Staff> query(StaffV2RestBeanParams staffRestBeanParams) {
 		StaffRequestDTO staffRequestDTO = staffBaseRestMapper.mapBase(staffRestBeanParams);
 		PageRequest pageRequest = pageMapper.fromPageSortBeanParamsToPageRequest(staffRestBeanParams);
 		return staffRepository.findMatching(staffRequestDTO, pageRequest);

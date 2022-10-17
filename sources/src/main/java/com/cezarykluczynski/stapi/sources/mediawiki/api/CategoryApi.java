@@ -23,6 +23,7 @@ public interface CategoryApi {
 
 	List<CategoryHeader> getCategoriesInCategory(String categoryTitle, MediaWikiSource mediaWikiSource);
 
-	List<CategoryHeader> getCategoriesInCategoryIncludingSubcategories(String categoryTitle, MediaWikiSource mediaWikiSource);
+	List<CategoryHeader> getCategoriesInCategoryIncludingSubcategories(String categoryTitle, MediaWikiSource mediaWikiSource,
+		List<String> excluding);
 
 }

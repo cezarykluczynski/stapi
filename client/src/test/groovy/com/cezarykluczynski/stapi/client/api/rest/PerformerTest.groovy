@@ -31,6 +31,19 @@ class PerformerTest extends AbstractRealWorldPersonTest {
 		performerFullResponse == performerFullResponseOutput
 	}
 
+	void "gets single entity (V2)"() {
+		given:
+		PerformerV2FullResponse performerV2FullResponse = Mock()
+
+		when:
+		PerformerV2FullResponse performerV2FullResponseOutput = performer.getV2(UID)
+
+		then:
+		1 * performerApiMock.v2RestPerformerGet(UID, API_KEY) >> performerV2FullResponse
+		0 * _
+		performerV2FullResponse == performerV2FullResponseOutput
+	}
+
 	void "searches entities"() {
 		given:
 		PerformerBaseResponse performerBaseResponse = Mock()
@@ -48,19 +61,6 @@ class PerformerTest extends AbstractRealWorldPersonTest {
 				VIDEO_GAME_PERFORMER, VOICE_PERFORMER, VOY_PERFORMER) >> performerBaseResponse
 		0 * _
 		performerBaseResponse == performerBaseResponseOutput
-	}
-
-	void "gets single entity (V2)"() {
-		given:
-		PerformerV2FullResponse performerV2FullResponse = Mock()
-
-		when:
-		PerformerV2FullResponse performerV2FullResponseOutput = performer.getV2(UID)
-
-		then:
-		1 * performerApiMock.v2RestPerformerGet(UID, API_KEY) >> performerV2FullResponse
-		0 * _
-		performerV2FullResponse == performerV2FullResponseOutput
 	}
 
 	void "searches entities (v2)"() {

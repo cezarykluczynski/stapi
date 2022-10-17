@@ -1,4 +1,4 @@
-package com.cezarykluczynski.stapi.etl.performer.creation.service
+package com.cezarykluczynski.stapi.etl.common.service
 
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
@@ -7,17 +7,17 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import org.assertj.core.util.Lists
 import spock.lang.Specification
 
-class PerformerCategoriesProviderTest extends Specification {
+class SubcategoriesProviderTest extends Specification {
 
 	private static final String CATEGORY_TITLE_1 = 'CATEGORY_TITLE_1'
 	private static final String CATEGORY_TITLE_2 = 'CATEGORY_TITLE_2'
 
 	private CategoryApi categoryApiMock
-	private PerformerCategoriesProvider performerCategoriesProvider
+	private SubcategoriesProvider performerCategoriesProvider
 
 	void setup() {
 		categoryApiMock = Mock()
-		performerCategoriesProvider = new PerformerCategoriesProvider(categoryApiMock)
+		performerCategoriesProvider = new SubcategoriesProvider(categoryApiMock)
 	}
 
 	void "gets performer categories once"() {
@@ -27,16 +27,16 @@ class PerformerCategoriesProviderTest extends Specification {
 		List<CategoryHeader> categoryHeaders = Lists.newArrayList(categoryHeader1, categoryHeader2)
 
 		when:
-		List<String> categoryHeadersResponse = performerCategoriesProvider.provide()
+		List<String> categoryHeadersResponse = performerCategoriesProvider.provideSubcategories(CategoryTitle.PERFORMERS)
 
 		then:
-		1 * categoryApiMock.getCategoriesInCategoryIncludingSubcategories(CategoryTitle.PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN) >>
-				categoryHeaders
+		1 * categoryApiMock.getCategoriesInCategoryIncludingSubcategories(CategoryTitle.PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN,
+				Lists.newArrayList()) >> categoryHeaders
 		0 * _
 		categoryHeadersResponse == [CategoryTitle.PERFORMERS, CATEGORY_TITLE_1, CATEGORY_TITLE_2]
 
 		when:
-		categoryHeadersResponse = performerCategoriesProvider.provide()
+		categoryHeadersResponse = performerCategoriesProvider.provideSubcategories(CategoryTitle.PERFORMERS)
 
 		then:
 		0 * _

@@ -38,9 +38,11 @@ class StaffActorTemplateProcessorTest extends AbstractRealWorldActorTemplateProc
 				assistantOrSecondUnitDirector: ASSISTANT_AND_SECOND_UNIT_DIRECTOR,
 				exhibitAndAttractionStaff: EXHIBIT_AND_ATTRACTION_STAFF,
 				filmEditor: FILM_EDITOR,
+				filmationProductionStaff: FILMATION_PRODUCTION_STAFF,
 				linguist: LINGUIST,
 				locationStaff: LOCATION_STAFF,
 				makeupStaff: MAKEUP_STAFF,
+				merchandiseStaff: MERCHANDISE_STAFF,
 				musicDepartment: MUSIC_DEPARTMENT,
 				composer: COMPOSER,
 				personalAssistant: PERSONAL_ASSISTANT,
@@ -57,6 +59,7 @@ class StaffActorTemplateProcessorTest extends AbstractRealWorldActorTemplateProc
 				comicArtist: COMIC_ARTIST,
 				comicAuthor: COMIC_AUTHOR,
 				comicColorArtist: COMIC_COLOR_ARTIST,
+				comicCoverArtist: COMIC_COVER_ARTIST,
 				comicInteriorArtist: COMIC_INTERIOR_ARTIST,
 				comicInkArtist: COMIC_INK_ARTIST,
 				comicPencilArtist: COMIC_PENCIL_ARTIST,
@@ -101,9 +104,11 @@ class StaffActorTemplateProcessorTest extends AbstractRealWorldActorTemplateProc
 		staff.assistantOrSecondUnitDirector == ASSISTANT_AND_SECOND_UNIT_DIRECTOR
 		staff.exhibitAndAttractionStaff == EXHIBIT_AND_ATTRACTION_STAFF
 		staff.filmEditor == FILM_EDITOR
+		staff.filmationProductionStaff == FILMATION_PRODUCTION_STAFF
 		staff.linguist == LINGUIST
 		staff.locationStaff == LOCATION_STAFF
 		staff.makeupStaff == MAKEUP_STAFF
+		staff.merchandiseStaff == MERCHANDISE_STAFF
 		staff.musicDepartment == MUSIC_DEPARTMENT
 		staff.composer == COMPOSER
 		staff.personalAssistant == PERSONAL_ASSISTANT
@@ -120,6 +125,7 @@ class StaffActorTemplateProcessorTest extends AbstractRealWorldActorTemplateProc
 		staff.comicArtist == COMIC_ARTIST
 		staff.comicAuthor == COMIC_AUTHOR
 		staff.comicColorArtist == COMIC_COLOR_ARTIST
+		staff.comicCoverArtist == COMIC_COVER_ARTIST
 		staff.comicInteriorArtist == COMIC_INTERIOR_ARTIST
 		staff.comicInkArtist == COMIC_INK_ARTIST
 		staff.comicPencilArtist == COMIC_PENCIL_ARTIST

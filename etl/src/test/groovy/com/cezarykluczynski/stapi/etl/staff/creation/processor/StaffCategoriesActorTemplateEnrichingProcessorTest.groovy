@@ -40,9 +40,11 @@ class StaffCategoriesActorTemplateEnrichingProcessorTest extends Specification {
 		createList(CategoryTitle.CASTING_DEPARTMENT)                  | new ActorTemplate() | 'castingDepartment'              | true  | 1
 		createList(CategoryTitle.EXHIBIT_AND_ATTRACTION_STAFF)        | new ActorTemplate() | 'exhibitAndAttractionStaff'      | true  | 1
 		createList(CategoryTitle.FILM_EDITORS)                        | new ActorTemplate() | 'filmEditor'                     | true  | 1
+		createList(CategoryTitle.FILMATION_PRODUCTION_STAFF)          | new ActorTemplate() | 'filmationProductionStaff'       | true  | 1
 		createList(CategoryTitle.LINGUISTS)                           | new ActorTemplate() | 'linguist'                       | true  | 1
 		createList(CategoryTitle.LOCATION_STAFF)                      | new ActorTemplate() | 'locationStaff'                  | true  | 1
 		createList(CategoryTitle.MAKEUP_STAFF)                        | new ActorTemplate() | 'makeupStaff'                    | true  | 1
+		createList(CategoryTitle.MERCHANDISE_STAFF)                   | new ActorTemplate() | 'merchandiseStaff'               | true  | 1
 		createList(CategoryTitle.PERSONAL_ASSISTANTS)                 | new ActorTemplate() | 'personalAssistant'              | true  | 1
 		createList(CategoryTitle.PRODUCERS)                           | new ActorTemplate() | 'producer'                       | true  | 1
 		createList(CategoryTitle.PRODUCTION_ASSOCIATES)               | new ActorTemplate() | 'productionAssociate'            | true  | 1
@@ -95,6 +97,8 @@ class StaffCategoriesActorTemplateEnrichingProcessorTest extends Specification {
 		createList(CategoryTitle.STAR_TREK_COMIC_AUTHORS)             | new ActorTemplate() | 'author'                         | true  | 2
 		createList(CategoryTitle.STAR_TREK_COMIC_COLOR_ARTISTS)       | new ActorTemplate() | 'comicColorArtist'               | true  | 2
 		createList(CategoryTitle.STAR_TREK_COMIC_COLOR_ARTISTS)       | new ActorTemplate() | 'comicArtist'                    | true  | 2
+		createList(CategoryTitle.STAR_TREK_COMIC_COVER_ARTISTS)       | new ActorTemplate() | 'comicCoverArtist'               | true  | 2
+		createList(CategoryTitle.STAR_TREK_COMIC_COVER_ARTISTS)       | new ActorTemplate() | 'comicArtist'                    | true  | 2
 		createList(CategoryTitle.STAR_TREK_COMIC_INTERIOR_ARTISTS)    | new ActorTemplate() | 'comicInteriorArtist'            | true  | 2
 		createList(CategoryTitle.STAR_TREK_COMIC_INTERIOR_ARTISTS)    | new ActorTemplate() | 'comicArtist'                    | true  | 2
 		createList(CategoryTitle.STAR_TREK_COMIC_INK_ARTISTS)         | new ActorTemplate() | 'comicInkArtist'                 | true  | 2

@@ -27,9 +27,11 @@ public class StaffCategoriesActorTemplateEnrichingProcessor implements Categorie
 		actorTemplate.setCastingDepartment(categoryTitlesList.contains(CategoryTitle.CASTING_DEPARTMENT));
 		actorTemplate.setExhibitAndAttractionStaff(categoryTitlesList.contains(CategoryTitle.EXHIBIT_AND_ATTRACTION_STAFF));
 		actorTemplate.setFilmEditor(categoryTitlesList.contains(CategoryTitle.FILM_EDITORS));
+		actorTemplate.setFilmationProductionStaff(categoryTitlesList.contains(CategoryTitle.FILMATION_PRODUCTION_STAFF));
 		actorTemplate.setLinguist(categoryTitlesList.contains(CategoryTitle.LINGUISTS));
 		actorTemplate.setLocationStaff(categoryTitlesList.contains(CategoryTitle.LOCATION_STAFF));
 		actorTemplate.setMakeupStaff(categoryTitlesList.contains(CategoryTitle.MAKEUP_STAFF));
+		actorTemplate.setMerchandiseStaff(categoryTitlesList.contains(CategoryTitle.MERCHANDISE_STAFF));
 		actorTemplate.setPersonalAssistant(categoryTitlesList.contains(CategoryTitle.PERSONAL_ASSISTANTS));
 		actorTemplate.setProducer(categoryTitlesList.contains(CategoryTitle.PRODUCERS));
 		actorTemplate.setProductionAssociate(categoryTitlesList.contains(CategoryTitle.PRODUCTION_ASSOCIATES));
@@ -105,6 +107,7 @@ public class StaffCategoriesActorTemplateEnrichingProcessor implements Categorie
 	private void setComicsFlags(ActorTemplate actorTemplate, List<String> categoryTitlesList) {
 		actorTemplate.setComicAuthor(categoryTitlesList.contains(CategoryTitle.STAR_TREK_COMIC_AUTHORS));
 		actorTemplate.setComicColorArtist(categoryTitlesList.contains(CategoryTitle.STAR_TREK_COMIC_COLOR_ARTISTS));
+		actorTemplate.setComicCoverArtist(categoryTitlesList.contains(CategoryTitle.STAR_TREK_COMIC_COVER_ARTISTS));
 		actorTemplate.setComicInteriorArtist(categoryTitlesList.contains(CategoryTitle.STAR_TREK_COMIC_INTERIOR_ARTISTS));
 		actorTemplate.setComicInkArtist(categoryTitlesList.contains(CategoryTitle.STAR_TREK_COMIC_INK_ARTISTS));
 		actorTemplate.setComicPencilArtist(categoryTitlesList.contains(CategoryTitle.STAR_TREK_COMIC_PENCIL_ARTISTS));
@@ -113,9 +116,11 @@ public class StaffCategoriesActorTemplateEnrichingProcessor implements Categorie
 		actorTemplate.setComicArtist(categoryTitlesList.contains(CategoryTitle.STAR_TREK_COMIC_ARTISTS) || isComicActorTemplate(actorTemplate));
 	}
 
+	@SuppressWarnings("BooleanExpressionComplexity")
 	private boolean isComicActorTemplate(ActorTemplate actorTemplate) {
-		return actorTemplate.isComicColorArtist() || actorTemplate.isComicInteriorArtist() || actorTemplate.isComicInkArtist()
-				|| actorTemplate.isComicPencilArtist() || actorTemplate.isComicLetterArtist() || actorTemplate.isComicStripArtist();
+		return actorTemplate.isComicColorArtist() || actorTemplate.isComicCoverArtist() || actorTemplate.isComicInteriorArtist()
+				|| actorTemplate.isComicInkArtist() || actorTemplate.isComicPencilArtist() || actorTemplate.isComicLetterArtist()
+				|| actorTemplate.isComicStripArtist();
 	}
 
 	private void setSpecialEffectsFlags(ActorTemplate actorTemplate, List<String> categoryTitlesList) {

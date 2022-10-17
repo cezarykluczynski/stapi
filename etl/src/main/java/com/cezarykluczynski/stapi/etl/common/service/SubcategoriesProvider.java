@@ -1,35 +1,36 @@
-package com.cezarykluczynski.stapi.etl.performer.creation.service;
+package com.cezarykluczynski.stapi.etl.common.service;
 
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class PerformerCategoriesProvider {
+public class SubcategoriesProvider {
 
 	private final CategoryApi categoryApi;
 
-	private List<String> performerCategories;
+	private final Map<String, List<String>> subcategories = Maps.newLinkedHashMap();
 
-	public synchronized List<String> provide() {
-		if (performerCategories == null) {
+	public synchronized List<String> provideSubcategories(String categoryTitle) {
+		if (!subcategories.containsKey(categoryTitle)) {
 			final List<CategoryHeader> categoriesInCategory = categoryApi
-					.getCategoriesInCategoryIncludingSubcategories(CategoryTitle.PERFORMERS, MediaWikiSource.MEMORY_ALPHA_EN);
-			final List<String> categories = Lists.newArrayList(CategoryTitle.PERFORMERS);
+					.getCategoriesInCategoryIncludingSubcategories(categoryTitle, MediaWikiSource.MEMORY_ALPHA_EN, Lists.newArrayList());
+			final List<String> categories = Lists.newArrayList(categoryTitle);
 			categories.addAll(categoriesInCategory.stream()
 					.map(CategoryHeader::getTitle)
 					.collect(Collectors.toList()));
-			performerCategories = categories;
+			subcategories.put(categoryTitle, categories);
 		}
-		return Lists.newArrayList(performerCategories);
+		return subcategories.get(categoryTitle);
 	}
 
 }

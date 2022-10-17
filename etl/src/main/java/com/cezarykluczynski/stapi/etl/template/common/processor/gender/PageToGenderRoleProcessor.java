@@ -1,10 +1,11 @@
 package com.cezarykluczynski.stapi.etl.template.common.processor.gender;
 
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
-import com.cezarykluczynski.stapi.etl.performer.creation.service.PerformerCategoriesProvider;
+import com.cezarykluczynski.stapi.etl.common.service.SubcategoriesProvider;
 import com.cezarykluczynski.stapi.etl.template.common.dto.enums.Gender;
 import com.cezarykluczynski.stapi.etl.template.individual.processor.IndividualTemplatePartsGenderProcessor;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
@@ -36,18 +37,18 @@ public class PageToGenderRoleProcessor implements ItemProcessor<Page, Gender> {
 
 	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
-	private final PerformerCategoriesProvider performerCategoriesProvider;
+	private final SubcategoriesProvider subcategoriesProvider;
 
 	public PageToGenderRoleProcessor(PageApi pageApi, WikitextApi wikitextApi, TemplateFinder templateFinder,
 			IndividualTemplatePartsGenderProcessor individualTemplatePartsGenderProcessor,
 			CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor,
-			PerformerCategoriesProvider performerCategoriesProvider) {
+			SubcategoriesProvider subcategoriesProvider) {
 		this.pageApi = pageApi;
 		this.wikitextApi = wikitextApi;
 		this.templateFinder = templateFinder;
 		this.individualTemplatePartsGenderProcessor = individualTemplatePartsGenderProcessor;
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
-		this.performerCategoriesProvider = performerCategoriesProvider;
+		this.subcategoriesProvider = subcategoriesProvider;
 	}
 
 	@Override
@@ -109,7 +110,7 @@ public class PageToGenderRoleProcessor implements ItemProcessor<Page, Gender> {
 		}
 
 		List<String> categories = categoryTitlesExtractingProcessor.process(categoryHeaderList);
-		return !Collections.disjoint(categories, performerCategoriesProvider.provide());
+		return !Collections.disjoint(categories, subcategoriesProvider.provideSubcategories(CategoryTitle.PERFORMERS));
 	}
 
 }

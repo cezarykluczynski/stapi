@@ -1,5 +1,7 @@
 package com.cezarykluczynski.stapi.server.staff.mapper;
 
+import com.cezarykluczynski.stapi.client.v1.rest.model.StaffFull;
+import com.cezarykluczynski.stapi.client.v1.rest.model.StaffV2Full;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
 import com.cezarykluczynski.stapi.server.common.mapper.DateMapper;
 import com.cezarykluczynski.stapi.server.common.mapper.EnumMapper;
@@ -11,6 +13,8 @@ import org.mapstruct.Mapper;
 @Mapper(config = MapstructConfiguration.class, uses = {DateMapper.class, EnumMapper.class, EpisodeBaseRestMapper.class, MovieBaseRestMapper.class})
 public interface StaffFullRestMapper {
 
-	com.cezarykluczynski.stapi.client.v1.rest.model.StaffFull mapFull(Staff staff);
+	StaffFull mapFull(Staff staff);
+
+	StaffV2Full mapV2Full(Staff staff);
 
 }

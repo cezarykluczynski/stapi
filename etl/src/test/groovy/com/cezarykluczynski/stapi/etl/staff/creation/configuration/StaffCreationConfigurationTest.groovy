@@ -18,6 +18,7 @@ import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles
 import com.cezarykluczynski.stapi.etl.util.constant.JobName
 import com.cezarykluczynski.stapi.etl.util.constant.StepName
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi
+import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 import org.springframework.context.ApplicationContext
 
@@ -74,6 +75,7 @@ class StaffCreationConfigurationTest extends AbstractCreationConfigurationTest {
 		PerformerCategoriesActorTemplateEnrichingProcessor performerCategoriesActorTemplateEnrichingProcessorMock = Mock()
 		PageBindingService pageBindingServiceMock = Mock()
 		TemplateFinder templateFinderMock = Mock()
+		WikitextApi wikitextApiMock = Mock()
 
 		when:
 		ActorTemplateSinglePageProcessor actorTemplateSinglePageProcessor = staffCreationConfiguration
@@ -87,6 +89,7 @@ class StaffCreationConfigurationTest extends AbstractCreationConfigurationTest {
 				performerCategoriesActorTemplateEnrichingProcessorMock
 		1 * applicationContextMock.getBean(PageBindingService) >> pageBindingServiceMock
 		1 * applicationContextMock.getBean(TemplateFinder) >> templateFinderMock
+		1 * applicationContextMock.getBean(WikitextApi) >> wikitextApiMock
 		0 * _
 		actorTemplateSinglePageProcessor.pageToGenderProcessor == pageToGenderProcessorMock
 		actorTemplateSinglePageProcessor.pageToLifeRangeProcessor == pageToLifeRangeProcessorMock
@@ -94,6 +97,7 @@ class StaffCreationConfigurationTest extends AbstractCreationConfigurationTest {
 		actorTemplateSinglePageProcessor.categoriesActorTemplateEnrichingProcessor == performerCategoriesActorTemplateEnrichingProcessorMock
 		actorTemplateSinglePageProcessor.pageBindingService == pageBindingServiceMock
 		actorTemplateSinglePageProcessor.templateFinder == templateFinderMock
+		actorTemplateSinglePageProcessor.wikitextApi == wikitextApiMock
 
 	}
 

@@ -41,9 +41,11 @@ public class StaffInitialQueryBuilderFactory implements InitialQueryBuilderFacto
 		staffQueryBuilder.equal(Staff_.assistantOrSecondUnitDirector, criteria.getAssistantOrSecondUnitDirector());
 		staffQueryBuilder.equal(Staff_.exhibitAndAttractionStaff, criteria.getExhibitAndAttractionStaff());
 		staffQueryBuilder.equal(Staff_.filmEditor, criteria.getFilmEditor());
+		staffQueryBuilder.equal(Staff_.filmationProductionStaff, criteria.getFilmationProductionStaff());
 		staffQueryBuilder.equal(Staff_.linguist, criteria.getLinguist());
 		staffQueryBuilder.equal(Staff_.locationStaff, criteria.getLocationStaff());
 		staffQueryBuilder.equal(Staff_.makeupStaff, criteria.getMakeupStaff());
+		staffQueryBuilder.equal(Staff_.merchandiseStaff, criteria.getMerchandiseStaff());
 		staffQueryBuilder.equal(Staff_.musicDepartment, criteria.getMusicDepartment());
 		staffQueryBuilder.equal(Staff_.composer, criteria.getComposer());
 		staffQueryBuilder.equal(Staff_.personalAssistant, criteria.getPersonalAssistant());
@@ -60,6 +62,7 @@ public class StaffInitialQueryBuilderFactory implements InitialQueryBuilderFacto
 		staffQueryBuilder.equal(Staff_.comicArtist, criteria.getComicArtist());
 		staffQueryBuilder.equal(Staff_.comicAuthor, criteria.getComicAuthor());
 		staffQueryBuilder.equal(Staff_.comicColorArtist, criteria.getComicColorArtist());
+		staffQueryBuilder.equal(Staff_.comicCoverArtist, criteria.getComicCoverArtist());
 		staffQueryBuilder.equal(Staff_.comicInteriorArtist, criteria.getComicInteriorArtist());
 		staffQueryBuilder.equal(Staff_.comicInkArtist, criteria.getComicInkArtist());
 		staffQueryBuilder.equal(Staff_.comicPencilArtist, criteria.getComicPencilArtist());

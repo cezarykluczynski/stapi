@@ -1,0 +1,14 @@
+type: object
+description: Response object for staff search (V2)
+properties:
+  page:
+    $ref: '#/definitions/ResponsePage'
+    description: Response page
+  sort:
+    $ref: '#/definitions/ResponseSort'
+    description: Response sort
+  staff:
+    type: array
+    items:
+      $ref: '#/definitions/StaffV2Base'
+    description: List of staff matching given criteria

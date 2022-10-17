@@ -141,6 +141,10 @@ paths:
     $ref: ./staff/path/staff.path.yaml
   /v1/rest/staff/search:
     $ref: ./staff/path/staffSearch.path.yaml
+  /v2/rest/staff:
+    $ref: ./staff/path/staffV2.path.yaml
+  /v2/rest/staff/search:
+    $ref: ./staff/path/staffV2Search.path.yaml
   /v1/rest/technology:
     $ref: ./technology/path/technology.path.yaml
   /v1/rest/technology/search:
@@ -544,6 +548,14 @@ definitions:
     $ref: ./staff/entity/staffBaseResponse.yaml
   StaffFullResponse:
     $ref: ./staff/entity/staffFullResponse.yaml
+  StaffV2Base:
+    $ref: ./staff/entity/staffV2Base.yaml
+  StaffV2Full:
+    $ref: ./staff/entity/staffV2Full.yaml
+  StaffV2BaseResponse:
+    $ref: ./staff/entity/staffV2BaseResponse.yaml
+  StaffV2FullResponse:
+    $ref: ./staff/entity/staffV2FullResponse.yaml
   TechnologyHeader:
     $ref: ./technology/entity/technologyHeader.yaml
   TechnologyBase:

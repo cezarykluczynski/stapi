@@ -4,6 +4,8 @@ import com.cezarykluczynski.stapi.client.v1.rest.api.StaffApi;
 import com.cezarykluczynski.stapi.client.v1.rest.invoker.ApiException;
 import com.cezarykluczynski.stapi.client.v1.rest.model.StaffBaseResponse;
 import com.cezarykluczynski.stapi.client.v1.rest.model.StaffFullResponse;
+import com.cezarykluczynski.stapi.client.v1.rest.model.StaffV2BaseResponse;
+import com.cezarykluczynski.stapi.client.v1.rest.model.StaffV2FullResponse;
 
 import java.time.LocalDate;
 
@@ -21,6 +23,10 @@ public class Staff {
 
 	public StaffFullResponse get(String uid) throws ApiException {
 		return staffApi.v1RestStaffGet(uid, apiKey);
+	}
+
+	public StaffV2FullResponse getV2(String uid) throws ApiException {
+		return staffApi.v2RestStaffGet(uid, apiKey);
 	}
 
 	public StaffBaseResponse search(Integer pageNumber, Integer pageSize, String sort, String name, String birthName, String gender,
@@ -47,6 +53,32 @@ public class Staff {
 				referenceArtist, referenceAuthor, publicationArtist, publicationDesigner, publicationEditor, publicityArtist, cbsDigitalStaff,
 				ilmProductionStaff, specialFeaturesStaff, storyEditor, studioExecutive, stuntDepartment, transportationDepartment,
 				videoGameProductionStaff, writer);
+	}
+
+	public StaffV2BaseResponse searchV2(Integer pageNumber, Integer pageSize, String sort, String name, String birthName, String gender,
+			LocalDate dateOfBirthFrom, LocalDate dateOfBirthTo, String placeOfBirth, LocalDate dateOfDeathFrom, LocalDate dateOfDeathTo,
+			String placeOfDeath, Boolean artDepartment, Boolean artDirector, Boolean productionDesigner, Boolean cameraAndElectricalDepartment,
+			Boolean cinematographer, Boolean castingDepartment, Boolean costumeDepartment, Boolean costumeDesigner, Boolean director,
+			Boolean assistantOrSecondUnitDirector, Boolean exhibitAndAttractionStaff, Boolean filmEditor, Boolean filmationProductionStaff,
+			Boolean linguist, Boolean locationStaff, Boolean makeupStaff, Boolean merchandiseStaff, Boolean musicDepartment, Boolean composer,
+			Boolean personalAssistant, Boolean producer, Boolean productionAssociate, Boolean productionStaff, Boolean publicationStaff,
+			Boolean scienceConsultant, Boolean soundDepartment, Boolean specialAndVisualEffectsStaff, Boolean author, Boolean audioAuthor,
+			Boolean calendarArtist, Boolean comicArtist, Boolean comicAuthor, Boolean comicColorArtist, Boolean comicCoverArtist,
+			Boolean comicInteriorArtist, Boolean comicInkArtist, Boolean comicPencilArtist, Boolean comicLetterArtist, Boolean comicStripArtist,
+			Boolean gameArtist, Boolean gameAuthor, Boolean novelArtist, Boolean novelAuthor, Boolean referenceArtist, Boolean referenceAuthor,
+			Boolean publicationArtist, Boolean publicationDesigner, Boolean publicationEditor, Boolean publicityArtist, Boolean cbsDigitalStaff,
+			Boolean ilmProductionStaff, Boolean specialFeaturesStaff, Boolean storyEditor, Boolean studioExecutive, Boolean stuntDepartment,
+			Boolean transportationDepartment, Boolean videoGameProductionStaff, Boolean writer) throws ApiException {
+		return staffApi.v2RestStaffSearchPost(pageNumber, pageSize, sort, apiKey, name, birthName, gender, dateOfBirthFrom, dateOfBirthTo,
+				placeOfBirth, dateOfDeathFrom, dateOfDeathTo, placeOfDeath, artDepartment, artDirector, productionDesigner,
+				cameraAndElectricalDepartment, cinematographer, castingDepartment, costumeDepartment, costumeDesigner, director,
+				assistantOrSecondUnitDirector, exhibitAndAttractionStaff, filmEditor, filmationProductionStaff, linguist, locationStaff, makeupStaff,
+				merchandiseStaff, musicDepartment, composer, personalAssistant, producer, productionAssociate, productionStaff, publicationStaff,
+				scienceConsultant, soundDepartment, specialAndVisualEffectsStaff, author, audioAuthor, calendarArtist, comicArtist, comicAuthor,
+				comicColorArtist, comicCoverArtist, comicInteriorArtist, comicInkArtist, comicPencilArtist, comicLetterArtist, comicStripArtist,
+				gameArtist, gameAuthor, novelArtist, novelAuthor, referenceArtist, referenceAuthor, publicationArtist, publicationDesigner,
+				publicationEditor, publicityArtist, cbsDigitalStaff, ilmProductionStaff, specialFeaturesStaff, storyEditor, studioExecutive,
+				stuntDepartment, transportationDepartment, videoGameProductionStaff, writer);
 	}
 
 }

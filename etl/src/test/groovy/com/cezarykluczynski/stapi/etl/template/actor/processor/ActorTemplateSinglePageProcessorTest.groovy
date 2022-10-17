@@ -11,6 +11,7 @@ import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGen
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.model.page.entity.Page as PageEntity
+import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource as SourcesMediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
@@ -45,6 +46,8 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 
 	private TemplateFinder templateFinderMock
 
+	private WikitextApi wikitextApiMock
+
 	private ActorTemplateSinglePageProcessor actorTemplateSinglePageProcessor
 
 	private Template template
@@ -58,8 +61,10 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		categoriesActorTemplateEnrichingProcessorMock = Mock()
 		pageBindingServiceMock = Mock()
 		templateFinderMock = Mock()
+		wikitextApiMock = Mock()
 		actorTemplateSinglePageProcessor = new ActorTemplateSinglePageProcessor(pageToGenderProcessorMock, pageToLifeRangeProcessorMock,
-				actorTemplateTemplateProcessorMock, categoriesActorTemplateEnrichingProcessorMock, pageBindingServiceMock, templateFinderMock)
+				actorTemplateTemplateProcessorMock, categoriesActorTemplateEnrichingProcessorMock, pageBindingServiceMock, templateFinderMock,
+				wikitextApiMock)
 
 		template = new Template(title: TemplateTitle.SIDEBAR_ACTOR)
 		pageWithTemplate = new Page(templates: Lists.newArrayList(
@@ -190,7 +195,7 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 
 	void "sets birth name from page content"() {
 		given:
-		pageWithTemplate.wikitext = "'''${BIRTH_NAME}''' is an actor."
+		pageWithTemplate.wikitext = "'''[[${BIRTH_NAME}]]''' is an actor."
 
 		when:
 		ActorTemplate actorTemplate = actorTemplateSinglePageProcessor.process(pageWithTemplate)
@@ -198,6 +203,7 @@ class ActorTemplateSinglePageProcessorTest extends Specification {
 		then:
 		1 * templateFinderMock.findTemplate(pageWithTemplate, TemplateTitle.SIDEBAR_ACTOR, TemplateTitle.SIDEBAR_CREW) >> Optional.of(template)
 		1 * actorTemplateTemplateProcessorMock.process(template) >> new ActorTemplate()
+		1 * wikitextApiMock.getWikitextWithoutLinks("[[${BIRTH_NAME}]]") >> BIRTH_NAME
 		actorTemplate.birthName == BIRTH_NAME
 	}
 

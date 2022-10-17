@@ -64,11 +64,15 @@ public class Staff extends RealWorldPerson implements PageAware {
 
 	private Boolean filmEditor;
 
+	private Boolean filmationProductionStaff;
+
 	private Boolean linguist;
 
 	private Boolean locationStaff;
 
 	private Boolean makeupStaff;
+
+	private Boolean merchandiseStaff;
 
 	private Boolean musicDepartment;
 
@@ -102,6 +106,8 @@ public class Staff extends RealWorldPerson implements PageAware {
 	private Boolean comicAuthor;
 
 	private Boolean comicColorArtist;
+
+	private Boolean comicCoverArtist;
 
 	private Boolean comicInteriorArtist;
 

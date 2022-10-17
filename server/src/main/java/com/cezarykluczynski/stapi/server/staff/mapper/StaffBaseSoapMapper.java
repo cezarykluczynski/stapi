@@ -21,6 +21,9 @@ public interface StaffBaseSoapMapper {
 	@Mapping(source = "dateOfBirth.to", target = "dateOfBirthTo")
 	@Mapping(source = "dateOfDeath.from", target = "dateOfDeathFrom")
 	@Mapping(source = "dateOfDeath.to", target = "dateOfDeathTo")
+	@Mapping(target = "filmationProductionStaff", ignore = true)
+	@Mapping(target = "merchandiseStaff", ignore = true)
+	@Mapping(target = "comicCoverArtist", ignore = true)
 	StaffRequestDTO mapBase(StaffBaseRequest staffBaseRequest);
 
 	StaffBase mapBase(Staff staff);

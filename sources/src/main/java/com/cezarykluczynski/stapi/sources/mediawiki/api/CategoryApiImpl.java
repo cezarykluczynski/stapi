@@ -16,6 +16,7 @@ import info.bliki.api.PageInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -86,8 +87,25 @@ public class CategoryApiImpl implements CategoryApi {
 	}
 
 	@Override
-	public List<CategoryHeader> getCategoriesInCategoryIncludingSubcategories(String categoryTitle, MediaWikiSource mediaWikiSource) {
-		return blikiConnector.getCategories(categoryTitle, mediaWikiSource, 100);
+	public List<CategoryHeader> getCategoriesInCategoryIncludingSubcategories(String categoryTitle, MediaWikiSource mediaWikiSource,
+			List<String> excluding) {
+		List<CategoryHeader> categoriesInCategoryForIteration = getCategoriesInCategory(categoryTitle, mediaWikiSource);
+		List<CategoryHeader> categoriesInCategory = Lists.newArrayList();
+		categoriesInCategory.addAll(categoriesInCategoryForIteration);
+		for (CategoryHeader categoryHeader : categoriesInCategoryForIteration) {
+			if (excluding.contains(categoryHeader.getTitle())) {
+				continue;
+			}
+			excluding.add(categoryHeader.getTitle());
+			final List<CategoryHeader> subcategories = getCategoriesInCategoryIncludingSubcategories(
+					categoryHeader.getTitle(), mediaWikiSource, excluding);
+			categoriesInCategory.addAll(subcategories);
+		}
+
+		return categoriesInCategory.stream()
+				.distinct()
+				.sorted(Comparator.comparing(CategoryHeader::getTitle))
+				.collect(Collectors.toList());
 	}
 
 	private List<PageInfo> privateGetPagesIncludingSubcategories(List<String> titleList, MediaWikiSource mediaWikiSource,

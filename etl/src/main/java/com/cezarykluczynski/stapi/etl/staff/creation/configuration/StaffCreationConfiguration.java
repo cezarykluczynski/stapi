@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.staff.creation.configuration;
 
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
+import com.cezarykluczynski.stapi.etl.common.service.SubcategoriesProvider;
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
 import com.cezarykluczynski.stapi.etl.performer.creation.service.ActorPageFilter;
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffCategoriesActorTemplateEnrichingProcessor;
@@ -16,17 +17,20 @@ import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi;
+import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
 import javax.inject.Inject;
+
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Configuration
 public class StaffCreationConfiguration {
@@ -36,6 +40,9 @@ public class StaffCreationConfiguration {
 
 	@Inject
 	private ApplicationContext applicationContext;
+
+	@Inject
+	private SubcategoriesProvider subcategoriesProvider;
 
 	@Inject
 	private CategoryApi categoryApi;
@@ -52,7 +59,9 @@ public class StaffCreationConfiguration {
 			staff.addAll(categoryApi.getPages(CategoryTitles.STAFF, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 
-		return new StaffReader(Lists.newArrayList(Sets.newHashSet(staff)));
+		return new StaffReader(Lists.newArrayList(staff).stream()
+				.sorted(Comparator.comparing(PageHeader::getTitle))
+				.collect(Collectors.toList()));
 	}
 
 	@Bean(STAFF_ACTOR_TEMPLATE_SINGLE_PAGE_PROCESSOR)
@@ -63,7 +72,8 @@ public class StaffCreationConfiguration {
 				applicationContext.getBean(ActorTemplateTemplateProcessor.class),
 				applicationContext.getBean(StaffCategoriesActorTemplateEnrichingProcessor.class),
 				applicationContext.getBean(PageBindingService.class),
-				applicationContext.getBean(TemplateFinder.class));
+				applicationContext.getBean(TemplateFinder.class),
+				applicationContext.getBean(WikitextApi.class));
 	}
 
 	@Bean(STAFF_ACTOR_TEMPLATE_PAGE_PROCESSOR)
