@@ -13,6 +13,7 @@ import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateTemp
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PageToLifeRangeProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGenderProcessor;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
+import com.cezarykluczynski.stapi.etl.util.SortingUtil;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
@@ -20,7 +21,6 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -29,10 +29,8 @@ import org.springframework.context.annotation.DependsOn;
 
 import javax.inject.Inject;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Configuration
 public class PerformerCreationConfiguration {
@@ -62,9 +60,7 @@ public class PerformerCreationConfiguration {
 			performers.addAll(categoryApi.getPages(categories, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 
-		return new PerformerReader(Lists.newArrayList(performers).stream()
-				.sorted(Comparator.comparing(PageHeader::getTitle))
-				.collect(Collectors.toList()));
+		return new PerformerReader(SortingUtil.sortedUnique(performers));
 	}
 
 	@Bean(PERFORMER_ACTOR_TEMPLATE_SINGLE_PAGE_PROCESSOR)

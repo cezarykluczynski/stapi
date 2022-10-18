@@ -1,7 +1,6 @@
 package com.cezarykluczynski.stapi.etl.staff.creation.configuration;
 
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
-import com.cezarykluczynski.stapi.etl.common.service.SubcategoriesProvider;
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
 import com.cezarykluczynski.stapi.etl.performer.creation.service.ActorPageFilter;
 import com.cezarykluczynski.stapi.etl.staff.creation.processor.StaffCategoriesActorTemplateEnrichingProcessor;
@@ -13,6 +12,7 @@ import com.cezarykluczynski.stapi.etl.template.actor.processor.ActorTemplateTemp
 import com.cezarykluczynski.stapi.etl.template.common.processor.datetime.PageToLifeRangeProcessor;
 import com.cezarykluczynski.stapi.etl.template.common.processor.gender.PageToGenderProcessor;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
+import com.cezarykluczynski.stapi.etl.util.SortingUtil;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
@@ -28,9 +28,7 @@ import org.springframework.context.annotation.DependsOn;
 
 import javax.inject.Inject;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Configuration
 public class StaffCreationConfiguration {
@@ -40,9 +38,6 @@ public class StaffCreationConfiguration {
 
 	@Inject
 	private ApplicationContext applicationContext;
-
-	@Inject
-	private SubcategoriesProvider subcategoriesProvider;
 
 	@Inject
 	private CategoryApi categoryApi;
@@ -59,9 +54,7 @@ public class StaffCreationConfiguration {
 			staff.addAll(categoryApi.getPages(CategoryTitles.STAFF, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 
-		return new StaffReader(Lists.newArrayList(staff).stream()
-				.sorted(Comparator.comparing(PageHeader::getTitle))
-				.collect(Collectors.toList()));
+		return new StaffReader(SortingUtil.sortedUnique(staff));
 	}
 
 	@Bean(STAFF_ACTOR_TEMPLATE_SINGLE_PAGE_PROCESSOR)

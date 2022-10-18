@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.series.creation.configuration;
 
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
 import com.cezarykluczynski.stapi.etl.series.creation.processor.SeriesReader;
+import com.cezarykluczynski.stapi.etl.util.SortingUtil;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
@@ -34,7 +35,7 @@ public class SeriesCreationConfiguration {
 			pageHeaderList.addAll(categoryApi.getPages(CategoryTitle.STAR_TREK_SERIES, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 
-		return new SeriesReader(pageHeaderList);
+		return new SeriesReader(SortingUtil.sortedUnique(pageHeaderList));
 	}
 
 }
