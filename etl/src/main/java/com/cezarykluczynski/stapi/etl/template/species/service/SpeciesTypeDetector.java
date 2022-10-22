@@ -64,11 +64,8 @@ public class SpeciesTypeDetector implements InitializingBean {
 		initializeKey(PageTitle.EXTRA_GALACTIC_SPECIES);
 		initializeKey(PageTitle.GAMMA_QUADRANT_SPECIES);
 		initializeKey(PageTitle.HUMANOID_SPECIES);
-		initializeKey(PageTitle.NON_CORPOREAL_SPECIES);
 		initializeKey(PageTitle.SHAPESHIFTING_SPECIES);
 		initializeKey(PageTitle.SPACEBORNE_SPECIES);
-		initializeKey(PageTitle.TELEPATHIC_SPECIES);
-		initializeKey(PageTitle.TRANS_DIMENSIONAL_SPECIES);
 	}
 
 	public boolean isDeltaQuadrantSpecies(Page page) {
@@ -77,8 +74,9 @@ public class SpeciesTypeDetector implements InitializingBean {
 
 	public boolean isWarpCapableSpecies(Page page) {
 		FixedValueHolder<Boolean> speciesFixedValueHolder = speciesTypeFixedValueProvider.getSearchedValue(page.getTitle());
-		return speciesFixedValueHolder.isFound() && speciesFixedValueHolder.getValue()
+		boolean isWarpCapable = speciesFixedValueHolder.isFound() && speciesFixedValueHolder.getValue()
 				|| wikitextApi.getPageLinksFromWikitext(getFirstParagraph(page)).stream().anyMatch(this::isWarpCapableLink);
+		return isWarpCapable;
 	}
 
 	public boolean isExtraGalacticSpecies(Page page) {
@@ -94,12 +92,11 @@ public class SpeciesTypeDetector implements InitializingBean {
 	}
 
 	public boolean isReptilianSpecies(Page page) {
-		return wikitextApi.getPageLinksFromWikitext(getFirstParagraph(page)).stream()
-				.anyMatch(this::isReptileLink);
+		return wikitextApi.getPageLinksFromWikitext(getFirstParagraph(page)).stream().anyMatch(this::isReptileLink);
 	}
 
 	public boolean isNonCorporealSpecies(Page page) {
-		return speciesTypesToPageTitles.get(PageTitle.NON_CORPOREAL_SPECIES).contains(page.getTitle());
+		return categoryTitlesExtractingProcessor.process(page.getCategories()).contains(CategoryTitle.NON_CORPOREAL_SPECIES);
 	}
 
 	public boolean isShapeshiftingSpecies(Page page) {
@@ -111,11 +108,11 @@ public class SpeciesTypeDetector implements InitializingBean {
 	}
 
 	public boolean isTelepathicSpecies(Page page) {
-		return speciesTypesToPageTitles.get(PageTitle.TELEPATHIC_SPECIES).contains(page.getTitle());
+		return categoryTitlesExtractingProcessor.process(page.getCategories()).contains(CategoryTitle.TELEPATHIC_SPECIES);
 	}
 
 	public boolean isTransDimensionalSpecies(Page page) {
-		return speciesTypesToPageTitles.get(PageTitle.TRANS_DIMENSIONAL_SPECIES).contains(page.getTitle());
+		return wikitextApi.getPageLinksFromWikitext(page.getWikitext()).stream().anyMatch(this::isTransDimensional);
 	}
 
 	public boolean isUnnamedSpecies(Page page) {
@@ -130,7 +127,8 @@ public class SpeciesTypeDetector implements InitializingBean {
 			return;
 		}
 
-		speciesTypesToPageTitles.put(pageTitle, wikitextApi.getPageTitlesFromWikitext(page.getWikitext()));
+		final List<String> pageTitlesFromWikitext = wikitextApi.getPageTitlesFromWikitext(page.getWikitext());
+		speciesTypesToPageTitles.put(pageTitle, pageTitlesFromWikitext);
 	}
 
 	private boolean isWarpCapableLink(PageLink pageLink) {
@@ -148,6 +146,11 @@ public class SpeciesTypeDetector implements InitializingBean {
 
 	private boolean isReptileLink(PageLink pageLink) {
 		return StringUtils.equalsIgnoreCase(pageLink.getTitle(), PageTitle.REPTILE);
+	}
+
+	private boolean isTransDimensional(PageLink pageLink) {
+		return StringUtils.equalsIgnoreCase(pageLink.getTitle(), PageTitle.TRANS_DIMENSIONAL_SPECIES)
+				|| StringUtils.equalsIgnoreCase(pageLink.getTitle(), PageTitle.TRANS_DIMENSIONAL_BEING);
 	}
 
 	private String getFirstParagraph(Page page) {

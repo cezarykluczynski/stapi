@@ -7,6 +7,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.ReflectionTestUtils
 import com.google.common.collect.Lists
 import spock.lang.Specification
+import spock.lang.Unroll
 
 class SpeciesTemplateTypeWikitextEnrichingProcessorTest extends Specification {
 
@@ -22,6 +23,7 @@ class SpeciesTemplateTypeWikitextEnrichingProcessorTest extends Specification {
 	}
 
 	@SuppressWarnings('LineLength')
+	@Unroll('#title sets #flagName to #flag')
 	void "sets flag from species type link"() {
 		given:
 		Template.Part templatePart = new Template.Part(value: WIKITEXT)
@@ -33,14 +35,20 @@ class SpeciesTemplateTypeWikitextEnrichingProcessorTest extends Specification {
 		numberOfTrueBooleans == ReflectionTestUtils.getNumberOfTrueBooleanFields(speciesTemplate)
 
 		where:
-		speciesTemplate       | title                                                               | flagName               | flag  | numberOfTrueBooleans
-		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.HUMANOID              | 'humanoidSpecies'      | true  | 1
-		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.SHAPESHIFTER          | 'shapeshiftingSpecies' | true  | 1
-		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.SAURIAN               | 'reptilianSpecies'     | true  | 1
-		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.NON_CORPOREAL_SPECIES | 'nonCorporealSpecies'  | true  | 1
-		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.REPTILE               | 'reptilianSpecies'     | true  | 1
-		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.UNKNOWN               | 'humanoidSpecies'      | false | 0
-		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.NON_HUMANOID          | 'humanoidSpecies'      | false | 0
+		speciesTemplate       | title                                                                | flagName               | flag  | numberOfTrueBooleans
+		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.HUMANOID               | 'humanoidSpecies'      | true  | 1
+		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.SHAPESHIFTER           | 'shapeshiftingSpecies' | true  | 1
+		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.SHAPESHIFTING_SPECIES  | 'shapeshiftingSpecies' | true  | 1
+		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.SHAPE_CHANGER          | 'shapeshiftingSpecies' | true  | 1
+		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.REPTILE                | 'reptilianSpecies'     | true  | 1
+		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.REPTILIAN              | 'reptilianSpecies'     | true  | 1
+		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.REPTILOID              | 'reptilianSpecies'     | true  | 1
+		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.SAURIAN                | 'reptilianSpecies'     | true  | 1
+		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.NON_CORPOREAL_SPECIES  | 'nonCorporealSpecies'  | true  | 1
+		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.NON_CORPOREAL          | 'nonCorporealSpecies'  | true  | 1
+		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.NON_CORPOREAL_LIFEFORM | 'nonCorporealSpecies'  | true  | 1
+		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.UNKNOWN                | 'humanoidSpecies'      | false | 0
+		new SpeciesTemplate() | SpeciesTemplateTypeWikitextEnrichingProcessor.NON_HUMANOID           | 'humanoidSpecies'      | false | 0
 	}
 
 }

@@ -9,6 +9,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,7 +43,9 @@ public class SpeciesTemplatePartsEnrichingProcessor implements ItemWithTemplateP
 
 			switch (key) {
 				case SpeciesTemplateParameter.NAME:
-					speciesTemplate.setName(value);
+					if (!StringUtils.isBlank(value)) {
+						speciesTemplate.setName(value);
+					}
 					break;
 				case SpeciesTemplateParameter.PLANET:
 				case SpeciesTemplateParameter.QUADRANT:

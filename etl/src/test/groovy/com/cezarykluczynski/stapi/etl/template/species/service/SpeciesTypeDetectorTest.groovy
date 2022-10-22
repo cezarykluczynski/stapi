@@ -25,20 +25,14 @@ class SpeciesTypeDetectorTest extends Specification {
 	private static final String EXTRA_GALACTIC_SPECIES_WIKITEXT = 'EXTRA_GALACTIC_SPECIES_WIKITEXT'
 	private static final String GAMMA_QUADRANT_SPECIES_WIKITEXT = 'GAMMA_QUADRANT_SPECIES_WIKITEXT'
 	private static final String HUMANOID_SPECIES_WIKITEXT = 'HUMANOID_SPECIES_WIKITEXT'
-	private static final String NON_CORPOREAL_SPECIES_WIKITEXT = 'NON_CORPOREAL_SPECIES_WIKITEXT'
 	private static final String SHAPESHIFTING_SPECIES_WIKITEXT = 'SHAPESHIFTING_SPECIES_WIKITEXT'
 	private static final String SPACEBORNE_SPECIES_WIKITEXT = 'SPACEBORNE_SPECIES_WIKITEXT'
-	private static final String TELEPATHIC_SPECIES_WIKITEXT = 'TELEPATHIC_SPECIES_WIKITEXT'
-	private static final String TRANS_DIMENSIONAL_SPECIES_WIKITEXT = 'TRANS_DIMENSIONAL_SPECIES_WIKITEXT'
 	private static final String DELTA_QUADRANT_SPECIES_TITLE = 'DELTA_QUADRANT_SPECIES_TITLE'
 	private static final String EXTRA_GALACTIC_SPECIES_TITLE = 'EXTRA_GALACTIC_SPECIES_TITLE'
 	private static final String GAMMA_QUADRANT_SPECIES_TITLE = 'GAMMA_QUADRANT_SPECIES_TITLE'
 	private static final String HUMANOID_SPECIES_TITLE = 'HUMANOID_SPECIES_TITLE'
-	private static final String NON_CORPOREAL_SPECIES_TITLE = 'NON_CORPOREAL_SPECIES_TITLE'
 	private static final String SHAPESHIFTING_SPECIES_TITLE = 'SHAPESHIFTING_SPECIES_TITLE'
 	private static final String SPACEBORNE_SPECIES_TITLE = 'SPACEBORNE_SPECIES_TITLE'
-	private static final String TELEPATHIC_SPECIES_TITLE = 'TELEPATHIC_SPECIES_TITLE'
-	private static final String TRANS_DIMENSIONAL_SPECIES_TITLE = 'TRANS_DIMENSIONAL_SPECIES_TITLE'
 	private static final String SOME_OTHER_TITLE = 'SOME_OTHER_TITLE'
 	private static final String WIKITEXT = 'WIKITEXT'
 	private static final String TITLE = 'TITLE'
@@ -76,11 +70,8 @@ class SpeciesTypeDetectorTest extends Specification {
 		Page extraGalacticSpeciesPage = new Page(wikitext: EXTRA_GALACTIC_SPECIES_WIKITEXT)
 		Page gammaQuadrantSpeciesPage = new Page(wikitext: GAMMA_QUADRANT_SPECIES_WIKITEXT)
 		Page humanoidSpeciesPage = new Page(wikitext: HUMANOID_SPECIES_WIKITEXT)
-		Page nonCorporealSpeciesPage = new Page(wikitext: NON_CORPOREAL_SPECIES_WIKITEXT)
 		Page shapeshiftingSpeciesPage = new Page(wikitext: SHAPESHIFTING_SPECIES_WIKITEXT)
 		Page spaceborneSpeciesPage = new Page(wikitext: SPACEBORNE_SPECIES_WIKITEXT)
-		Page telepathicSpeciesPage = new Page(wikitext: TELEPATHIC_SPECIES_WIKITEXT)
-		Page transDimensionalSpeciesPage = new Page(wikitext: TRANS_DIMENSIONAL_SPECIES_WIKITEXT)
 
 		when:
 		speciesTypeDetector.afterPropertiesSet()
@@ -95,16 +86,10 @@ class SpeciesTypeDetectorTest extends Specification {
 		1 * wikitextApiMock.getPageTitlesFromWikitext(GAMMA_QUADRANT_SPECIES_WIKITEXT) >> Lists.newArrayList(GAMMA_QUADRANT_SPECIES_TITLE)
 		1 * pageApiMock.getPage(PageTitle.HUMANOID_SPECIES, SOURCE) >> humanoidSpeciesPage
 		1 * wikitextApiMock.getPageTitlesFromWikitext(HUMANOID_SPECIES_WIKITEXT) >> Lists.newArrayList(HUMANOID_SPECIES_TITLE)
-		1 * pageApiMock.getPage(PageTitle.NON_CORPOREAL_SPECIES, SOURCE) >> nonCorporealSpeciesPage
-		1 * wikitextApiMock.getPageTitlesFromWikitext(NON_CORPOREAL_SPECIES_WIKITEXT) >> Lists.newArrayList(NON_CORPOREAL_SPECIES_TITLE)
 		1 * pageApiMock.getPage(PageTitle.SHAPESHIFTING_SPECIES, SOURCE) >> shapeshiftingSpeciesPage
 		1 * wikitextApiMock.getPageTitlesFromWikitext(SHAPESHIFTING_SPECIES_WIKITEXT) >> Lists.newArrayList(SHAPESHIFTING_SPECIES_TITLE)
 		1 * pageApiMock.getPage(PageTitle.SPACEBORNE_SPECIES, SOURCE) >> spaceborneSpeciesPage
 		1 * wikitextApiMock.getPageTitlesFromWikitext(SPACEBORNE_SPECIES_WIKITEXT) >> Lists.newArrayList(SPACEBORNE_SPECIES_TITLE)
-		1 * pageApiMock.getPage(PageTitle.TELEPATHIC_SPECIES, SOURCE) >> telepathicSpeciesPage
-		1 * wikitextApiMock.getPageTitlesFromWikitext(TELEPATHIC_SPECIES_WIKITEXT) >> Lists.newArrayList(TELEPATHIC_SPECIES_TITLE)
-		1 * pageApiMock.getPage(PageTitle.TRANS_DIMENSIONAL_SPECIES, SOURCE) >> transDimensionalSpeciesPage
-		1 * wikitextApiMock.getPageTitlesFromWikitext(TRANS_DIMENSIONAL_SPECIES_WIKITEXT) >> Lists.newArrayList(TRANS_DIMENSIONAL_SPECIES_TITLE)
 	}
 
 	void "detector is not initialized when CREATE_SPECIES step is completed"() {
@@ -333,26 +318,16 @@ class SpeciesTypeDetectorTest extends Specification {
 
 	void "non-corporeal species pages are recognized"() {
 		given:
-		Page page = new Page(wikitext: NON_CORPOREAL_SPECIES_WIKITEXT)
-
-		when:
+		List<CategoryHeader> categoryHeaderList = Mock()
+		Page page = new Page(categories: categoryHeaderList)
 		speciesTypeDetector.afterPropertiesSet()
 
-		then:
-		1 * pageApiMock.getPage(PageTitle.NON_CORPOREAL_SPECIES, SOURCE) >> page
-		1 * wikitextApiMock.getPageTitlesFromWikitext(NON_CORPOREAL_SPECIES_WIKITEXT) >> Lists.newArrayList(NON_CORPOREAL_SPECIES_TITLE)
-
 		when:
-		boolean positiveResult = speciesTypeDetector.isNonCorporealSpecies(new Page(title: NON_CORPOREAL_SPECIES_TITLE))
+		boolean positiveResult = speciesTypeDetector.isNonCorporealSpecies(page)
 
 		then:
+		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.NON_CORPOREAL_SPECIES)
 		positiveResult
-
-		when:
-		boolean negativeResult = speciesTypeDetector.isNonCorporealSpecies(new Page(title: SOME_OTHER_TITLE))
-
-		then:
-		!negativeResult
 	}
 
 	void "shapeshifting species pages are recognized"() {
@@ -405,49 +380,31 @@ class SpeciesTypeDetectorTest extends Specification {
 
 	void "telepathic species pages are recognized"() {
 		given:
-		Page page = new Page(wikitext: TELEPATHIC_SPECIES_WIKITEXT)
-
-		when:
+		List<CategoryHeader> categoryHeaderList = Mock()
+		Page page = new Page(categories: categoryHeaderList)
 		speciesTypeDetector.afterPropertiesSet()
 
-		then:
-		1 * pageApiMock.getPage(PageTitle.TELEPATHIC_SPECIES, SOURCE) >> page
-		1 * wikitextApiMock.getPageTitlesFromWikitext(TELEPATHIC_SPECIES_WIKITEXT) >> Lists.newArrayList(TELEPATHIC_SPECIES_TITLE)
-
 		when:
-		boolean positiveResult = speciesTypeDetector.isTelepathicSpecies(new Page(title: TELEPATHIC_SPECIES_TITLE))
+		boolean positiveResult = speciesTypeDetector.isTelepathicSpecies(page)
 
 		then:
+		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.TELEPATHIC_SPECIES)
 		positiveResult
-
-		when:
-		boolean negativeResult = speciesTypeDetector.isTelepathicSpecies(new Page(title: SOME_OTHER_TITLE))
-
-		then:
-		!negativeResult
 	}
 
 	void "trans-dimensional species pages are recognized"() {
-		given:
-		Page page = new Page(wikitext: TRANS_DIMENSIONAL_SPECIES_WIKITEXT)
-
 		when:
-		speciesTypeDetector.afterPropertiesSet()
+		boolean positiveResult = speciesTypeDetector.isTransDimensionalSpecies(new Page(wikitext: WIKITEXT))
 
 		then:
-		1 * pageApiMock.getPage(PageTitle.TRANS_DIMENSIONAL_SPECIES, SOURCE) >> page
-		1 * wikitextApiMock.getPageTitlesFromWikitext(TRANS_DIMENSIONAL_SPECIES_WIKITEXT) >> Lists.newArrayList(TRANS_DIMENSIONAL_SPECIES_TITLE)
-
-		when:
-		boolean positiveResult = speciesTypeDetector.isTransDimensionalSpecies(new Page(title: TRANS_DIMENSIONAL_SPECIES_TITLE))
-
-		then:
+		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT) >> [new PageLink(title: PageTitle.TRANS_DIMENSIONAL_SPECIES)]
 		positiveResult
 
 		when:
-		boolean negativeResult = speciesTypeDetector.isTransDimensionalSpecies(new Page(title: SOME_OTHER_TITLE))
+		boolean negativeResult = speciesTypeDetector.isTransDimensionalSpecies(new Page(wikitext: WIKITEXT_WITHOUT_TEMPLATES))
 
 		then:
+		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT_WITHOUT_TEMPLATES) >> [new PageLink(title: PageTitle.CARDASSIAN_RANKS)]
 		!negativeResult
 	}
 

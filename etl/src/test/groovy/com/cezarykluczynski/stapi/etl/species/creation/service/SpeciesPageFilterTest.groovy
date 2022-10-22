@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.species.creation.service
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor
 import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
@@ -50,7 +51,22 @@ class SpeciesPageFilterTest extends Specification {
 		result
 	}
 
-	void "returns true when any of the categories starts with 'Unnamed'"() {
+	void "returns true when any of the categories starts with 'Unnamed' and it is not a 'Unnamed species' category"() {
+		given:
+		CategoryHeader categoryHeader = Mock()
+		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(categoryHeader)
+		Page page = new Page(categories: categoryHeaderList)
+
+		when:
+		boolean result = speciesTemplateFilter.shouldBeFilteredOut(page)
+
+		then:
+		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.UNNAMED_PLANETS)
+		0 * _
+		result
+	}
+
+	void "returns false for 'Unnamed species' category"() {
 		given:
 		CategoryHeader categoryHeader = Mock()
 		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(categoryHeader)
@@ -61,8 +77,10 @@ class SpeciesPageFilterTest extends Specification {
 
 		then:
 		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.UNNAMED_SPECIES)
+		1 * categorySortingServiceMock.isSortedOnTopOfAnyOfCategories(page, CategoryTitles.SPECIES) >> false
+
 		0 * _
-		result
+		!result
 	}
 
 	void "returns true when 'Lists' category is present"() {
@@ -105,7 +123,7 @@ class SpeciesPageFilterTest extends Specification {
 
 		then:
 		1 * categoryTitlesExtractingProcessorMock.process(Lists.newArrayList()) >> Lists.newArrayList()
-		1 * categorySortingServiceMock.isSortedOnTopOfAnyOfCategories(page, SpeciesPageFilter.SPECIES_CATEGORIES) >> sortedOnTop
+		1 * categorySortingServiceMock.isSortedOnTopOfAnyOfCategories(page, CategoryTitles.SPECIES) >> sortedOnTop
 		0 * _
 		result == sortedOnTop
 	}

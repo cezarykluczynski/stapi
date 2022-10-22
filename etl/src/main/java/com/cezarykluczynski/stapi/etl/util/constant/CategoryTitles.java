@@ -186,4 +186,11 @@ public class CategoryTitles {
 			CategoryTitle.STARS
 	);
 
+	public static final List<String> SPECIES = ImmutableList.of(
+			CategoryTitle.SPECIES,
+			CategoryTitle.UNNAMED_SPECIES,
+			CategoryTitle.NON_CORPOREAL_SPECIES,
+			CategoryTitle.TELEPATHIC_SPECIES
+	);
+
 }

@@ -184,7 +184,8 @@ public class CategoryTitle {
 
 	public static final String SPECIES = "Species";
 	public static final String UNNAMED_SPECIES = "Unnamed_species";
-	public static final String NON_CORPOREALS = "Non-corporeals";
+	public static final String NON_CORPOREAL_SPECIES = "Non-corporeal_species";
+	public static final String TELEPATHIC_SPECIES = "Telepathic_species";
 
 	public static final String BIOLOGY = "Biology";
 

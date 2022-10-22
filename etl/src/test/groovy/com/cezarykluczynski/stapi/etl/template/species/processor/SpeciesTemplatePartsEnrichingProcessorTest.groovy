@@ -48,6 +48,19 @@ class SpeciesTemplatePartsEnrichingProcessorTest extends Specification {
 		speciesTemplate.name == NAME
 	}
 
+	void "does not set name to empty string"() {
+		given:
+		Template.Part templatePart = new Template.Part(key: SpeciesTemplateParameter.NAME, value: '')
+		SpeciesTemplate speciesTemplate = new SpeciesTemplate(name: NAME)
+
+		when:
+		speciesTemplatePartsEnrichingProcessor.enrich(EnrichablePair.of(Lists.newArrayList(templatePart), speciesTemplate))
+
+		then:
+		0 * _
+		speciesTemplate.name == NAME
+	}
+
 	void "sets homeworld from wikitext, then from EntityLookupByNameService"() {
 		given:
 		Template.Part templatePart = new Template.Part(key: SpeciesTemplateParameter.PLANET, value: WIKITEXT)

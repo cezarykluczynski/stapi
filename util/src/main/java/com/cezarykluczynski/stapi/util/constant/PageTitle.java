@@ -30,9 +30,11 @@ public class PageTitle {
 	public static final String HUMANOID_SPECIES = "Humanoid species";
 	public static final String NON_CORPOREAL_SPECIES = "Non-corporeal species";
 	public static final String SHAPESHIFTING_SPECIES = "Shapeshifting species";
+	public static final String ANTHROPOMORPHIC_SPECIES = "Anthropomorphic species";
 	public static final String SPACEBORNE_SPECIES = "Spaceborne species";
 	public static final String TELEPATHIC_SPECIES = "Telepathic species";
 	public static final String TRANS_DIMENSIONAL_SPECIES = "Trans-dimensional species";
+	public static final String TRANS_DIMENSIONAL_BEING = "Trans-dimensional being";
 
 	public static final String DELTA_QUADRANT = "Delta Quadrant";
 	public static final String GAMMA_QUADRANT = "Gamma Quadrant";

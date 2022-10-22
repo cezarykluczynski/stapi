@@ -2,7 +2,8 @@ package com.cezarykluczynski.stapi.etl.species.creation.configuration;
 
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
 import com.cezarykluczynski.stapi.etl.species.creation.processor.SpeciesReader;
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
+import com.cezarykluczynski.stapi.etl.util.SortingUtil;
+import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi;
@@ -28,15 +29,13 @@ public class SpeciesCreationConfiguration {
 	@Bean
 	@DependsOn("batchDatabaseInitializer")
 	public SpeciesReader speciesReader() {
-		List<PageHeader> pageHeaderList = Lists.newArrayList();
+		List<PageHeader> species = Lists.newArrayList();
 
 		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_SPECIES)) {
-			pageHeaderList.addAll(categoryApi.getPages(CategoryTitle.SPECIES, MediaWikiSource.MEMORY_ALPHA_EN));
-			pageHeaderList.addAll(categoryApi.getPages(CategoryTitle.UNNAMED_SPECIES, MediaWikiSource.MEMORY_ALPHA_EN));
-			pageHeaderList.addAll(categoryApi.getPages(CategoryTitle.NON_CORPOREALS, MediaWikiSource.MEMORY_ALPHA_EN));
+			species.addAll(categoryApi.getPages(CategoryTitles.SPECIES, MediaWikiSource.MEMORY_ALPHA_EN));
 		}
 
-		return new SpeciesReader(pageHeaderList);
+		return new SpeciesReader(SortingUtil.sortedUnique(species));
 	}
 
 }
