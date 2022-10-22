@@ -12,10 +12,11 @@ public class OrganizationNameFilter {
 			"Flotilla", "League", "Assault team", "Medical complex", "Column", "Squad", "Assault fleet", "Squadron", "Research facilities", "Fleet",
 			"Grand jury", "Legion", "Regiment","Fleet organization", "Garrison", "Division", "Dynasty", "Armada", "Battalion", "Attack wing",
 			"Brigade", "Militia", "Battery (unit)", "Democrat", "Service branch", "Kingdom", "City council", "News agency",
-			"Secretary of Exploration", "Medical ethics board", "Civic center");
+			"Secretary of Exploration", "Medical ethics board", "Civic center", "Cruiser wing", "ELDS", "Enolian prison transport", "Fire team",
+			"Military organization", "Picard's blockade fleet", "Bolian restaurant", "Soviet space program", "Sports team");
 
 	private static final List<String> ORGANIZATIONS = Lists.newArrayList(
-			"Bolian restaurant", "Lazon II labor camp", "Vulcan Institute for Defensive Arts", "Singha refugee camp", "Lincoln", "Datsun",
+			"Lazon II labor camp", "Vulcan Institute for Defensive Arts", "Singha refugee camp", "Lincoln", "Datsun",
 			"Quarren Ministry of Health", "Paradan government", "Empire", "San Francisco bar", "Division of Planetary Operations", "Bowling alley",
 			"Grain processing center", "Vulcan nightclub", "Central Bank of Lissepia", "Central Hospital of Altair IV", "Morn's",
 			"Quark's Bar, Grill, Gaming House and Holosuite Arcade", "Pyrex", "Klingon training academy", "Le Coeur de Lion", "Tagruato",
@@ -63,7 +64,11 @@ public class OrganizationNameFilter {
 			"Zefram Cochrane Institute for Advanced Theoretical Physics", "University of California, Berkeley", "University of Manitoba",
 			"University of Hawaii", "Terran cabinet", "Rutian police", "Bureau of Identification", "Betazed government", "Tellun",
 			"New Sydney police", "Suliban government", "Ministry of Information", "Mexican army", "Council of Nobles", "Quaternary star systems",
-			"Ministry of Justice");
+			"Ministry of Justice", "Confederation of Earth", "Department of Homeland Security", "Department of State",
+			"Division of Advanced Synthetic Research", "El-Keshtanktil", "Federation Food and Drug Administration",
+			"Federation of State Medical Boards", "Freecloud Institute of Entertainment Robotics", "Immigration and Customs Enforcement",
+			"Kelpien and Ba'ul Alliance", "Kyrian forces", "MARDET", "METI", "Royal Family of Hysperia", "Search for Extra Terrestrial Intelligence",
+			"Supreme Court of the United States", "United Earth and Titan", "United States military", "Vaskan forces");
 
 	public Match isAnOrganization(String organizationName) {
 		if (NOT_AN_ORGANIZATIONS.contains(organizationName)) {
