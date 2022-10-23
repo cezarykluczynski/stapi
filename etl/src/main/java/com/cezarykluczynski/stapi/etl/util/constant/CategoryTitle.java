@@ -336,6 +336,7 @@ public class CategoryTitle {
 	public static final String TITLES = "Titles";
 	public static final String MILITARY_RANKS = "Military_ranks";
 	public static final String RELIGIOUS_TITLES = "Religious_titles";
+	public static final String EDUCATION_TITLES = "Education_titles";
 
 	public static final String MATERIALS = "Materials";
 	public static final String CHEMICAL_COMPOUNDS = "Chemical_compounds";

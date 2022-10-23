@@ -53,6 +53,7 @@ public class TitlePageProcessor implements ItemProcessor<Page, Title> {
 
 		title.setMilitaryRank(categoryTitleList.contains(CategoryTitle.MILITARY_RANKS) || ranksTemplateService.isMilitaryRank(pageTitle));
 		title.setReligiousTitle(categoryTitleList.contains(CategoryTitle.RELIGIOUS_TITLES));
+		title.setEducationTitle(categoryTitleList.contains(CategoryTitle.EDUCATION_TITLES));
 		title.setFleetRank(ranksTemplateService.isFleetRank(pageTitle));
 		title.setPosition(ranksTemplateService.isPosition(pageTitle));
 		title.setMirror(categoryTitleList.contains(CategoryTitle.MIRROR_UNIVERSE));

@@ -7,11 +7,14 @@ import com.cezarykluczynski.stapi.model.title.entity.Title;
 import com.cezarykluczynski.stapi.model.title.repository.TitleRepository;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
+import com.cezarykluczynski.stapi.util.tool.StringUtil;
 import com.google.common.collect.Sets;
 import org.apache.commons.lang3.StringUtils;
+import org.assertj.core.util.Lists;
 import org.jsoup.Jsoup;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -19,7 +22,8 @@ class TitleListSectionProcessor {
 
 	private static final String MIRROR = "(mirror)";
 	private static final Set<String> PAGE_SECTIONS_TO_FILTER_OUT = Sets.newHashSet("Enlisted personnel", "Background information", "External link",
-			"Appendices", "See also", "Appendix", "Rank insignia", "Romulan military", "Tal Shiar");
+			"Appendices", "See also", "Appendix", "Rank insignia", "Romulan military", "Tal Shiar", "Apocrypha");
+	private static final List<String> TITLE_ENDS_TO_FILTER_OUT = Lists.newArrayList("titles", "ranks");
 
 	private final PageBindingService pageBindingService;
 
@@ -53,7 +57,7 @@ class TitleListSectionProcessor {
 			modelPage = pageRepository.findByPageId(page.getPageId()).orElse(null);
 		}
 
-		if (PAGE_SECTIONS_TO_FILTER_OUT.contains(text)) {
+		if (PAGE_SECTIONS_TO_FILTER_OUT.contains(text) || StringUtil.endsWithAny(text, TITLE_ENDS_TO_FILTER_OUT)) {
 			return;
 		}
 
@@ -63,6 +67,7 @@ class TitleListSectionProcessor {
 		title.setUid(uidGenerator.generateForTitleListItem(title.getPage(), index));
 		title.setMilitaryRank(true);
 		title.setReligiousTitle(false);
+		title.setEducationTitle(false);
 		title.setPosition(false);
 		title.setFleetRank(false);
 		title.setMirror(isMirror);

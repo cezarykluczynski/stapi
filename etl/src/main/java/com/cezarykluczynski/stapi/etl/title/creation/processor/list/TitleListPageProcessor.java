@@ -17,15 +17,13 @@ public class TitleListPageProcessor {
 	private static final String RANKS = " ranks";
 	private static final String MACOS = "MACOs";
 	private static final Set<String> PAGE_SECTIONS_TO_FILTER_OUT = Sets.newHashSet("Enlisted personnel", "Background information", "External link",
-			"Appendices", "See also", "Appendix", "Rank insignia", "Romulan military", "Tal Shiar");
+			"External links", "Appendices", "See also", "Appendix", "Rank insignia", "Romulan military", "Tal Shiar");
 
 	private final TitleListSectionProcessor titleListSectionProcessor;
 
-	private final TitleListMacoMirrorProcessor titleListMacoMirrorProcessor;
 
-	public TitleListPageProcessor(TitleListSectionProcessor titleListSectionProcessor, TitleListMacoMirrorProcessor titleListMacoMirrorProcessor) {
+	public TitleListPageProcessor(TitleListSectionProcessor titleListSectionProcessor) {
 		this.titleListSectionProcessor = titleListSectionProcessor;
-		this.titleListMacoMirrorProcessor = titleListMacoMirrorProcessor;
 	}
 
 	public void process(Page item) {
@@ -48,9 +46,7 @@ public class TitleListPageProcessor {
 		for (int i = 0; i < pageSectionList.size(); i++) {
 			PageSection pageSection = pageSectionList.get(i);
 
-			if (MACOS.equals(pageSection.getText())) {
-				titleListMacoMirrorProcessor.produceAll(item, i);
-			} else {
+			if (!MACOS.equals(pageSection.getText())) {
 				titleListSectionProcessor.process(item, pageSection, organization, i);
 			}
 		}

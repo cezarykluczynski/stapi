@@ -193,4 +193,11 @@ public class CategoryTitles {
 			CategoryTitle.TELEPATHIC_SPECIES
 	);
 
+	public static final List<String> TITLES = ImmutableList.of(
+			CategoryTitle.TITLES,
+			CategoryTitle.MILITARY_RANKS,
+			CategoryTitle.RELIGIOUS_TITLES,
+			CategoryTitle.EDUCATION_TITLES
+	);
+
 }

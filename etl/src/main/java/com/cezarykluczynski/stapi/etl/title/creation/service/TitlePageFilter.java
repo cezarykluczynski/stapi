@@ -14,7 +14,8 @@ import java.util.Set;
 public class TitlePageFilter implements MediaWikiPageFilter {
 
 	private static final String RANKS = " ranks";
-	private static final Set<String> TITLES_TO_FILTER_OUT = Sets.newHashSet(PageTitle.STARFLEET_RANKS, PageTitle.SCHUTZSTAFFEL_UNIFORMS_AND_INSIGNIA);
+	private static final Set<String> TITLES_TO_FILTER_OUT = Sets.newHashSet(PageTitle.STARFLEET_RANKS, PageTitle.FERENGI_RANKS,
+			PageTitle.SCHUTZSTAFFEL_UNIFORMS_AND_INSIGNIA, PageTitle.NATIONAL_SOCIALIST_RANKS);
 
 	private final CategorySortingService categorySortingService;
 

@@ -10,14 +10,11 @@ class TitleListPageProcessorTest extends Specification {
 
 	private TitleListSectionProcessor titleListSectionProcessorMock
 
-	private TitleListMacoMirrorProcessor titleListMacoMirrorProcessorMock
-
 	private TitleListPageProcessor titleListPageProcessor
 
 	void setup() {
 		titleListSectionProcessorMock = Mock()
-		titleListMacoMirrorProcessorMock = Mock()
-		titleListPageProcessor = new TitleListPageProcessor(titleListSectionProcessorMock, titleListMacoMirrorProcessorMock)
+		titleListPageProcessor = new TitleListPageProcessor(titleListSectionProcessorMock)
 	}
 
 	void "parses page"() {
@@ -26,10 +23,9 @@ class TitleListPageProcessorTest extends Specification {
 		PageSection pageSectionToFilterOut1 = createPageSection(2, null)
 		PageSection pageSectionToFilterOut2 = createPageSection(3, RandomUtil.randomItem(TitleListPageProcessor.PAGE_SECTIONS_TO_FILTER_OUT))
 		PageSection pageSection1 = createPageSection(3, 'title 1')
-		PageSection pageSection2 = createPageSection(3, TitleListPageProcessor.MACOS)
 		Page page = new Page(
 				title: 'Klingon ranks',
-				sections: Lists.newArrayList(pageSectionToFilterOut1, pageSectionToFilterOut2, pageSection1, pageSection2)
+				sections: Lists.newArrayList(pageSectionToFilterOut1, pageSectionToFilterOut2, pageSection1)
 		)
 
 		when:
@@ -37,7 +33,6 @@ class TitleListPageProcessorTest extends Specification {
 
 		then:
 		1 * titleListSectionProcessorMock.process(page, pageSection1, 'Klingon', 0)
-		1 * titleListMacoMirrorProcessorMock.produceAll(page, 1)
 		0 * _
 	}
 

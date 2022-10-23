@@ -136,6 +136,7 @@ class TitlePageProcessorTest extends Specification {
 		new SourcesPage(categories: Lists.newArrayList())                       | 'militaryRank'   | false | 0
 		new SourcesPage(categories: createList(CategoryTitle.MILITARY_RANKS))   | 'militaryRank'   | true  | 1
 		new SourcesPage(categories: createList(CategoryTitle.RELIGIOUS_TITLES)) | 'religiousTitle' | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.EDUCATION_TITLES)) | 'educationTitle' | true  | 1
 		new SourcesPage(categories: createList(CategoryTitle.MIRROR_UNIVERSE))  | 'mirror'         | true  | 1
 	}
 

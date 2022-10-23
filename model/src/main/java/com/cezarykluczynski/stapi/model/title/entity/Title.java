@@ -27,7 +27,7 @@ import java.util.Set;
 @ToString(callSuper = true, exclude = {"characters"})
 @EqualsAndHashCode(callSuper = true, exclude = {"characters"})
 @Cache(usage = CacheConcurrencyStrategy.READ_ONLY)
-@TrackedEntity(type = TrackedEntityType.REAL_WORLD_PRIMARY, repository = TitleRepository.class, singularName = "title", pluralName = "titles")
+@TrackedEntity(type = TrackedEntityType.FICTIONAL_PRIMARY, repository = TitleRepository.class, singularName = "title", pluralName = "titles")
 public class Title extends PageAwareEntity implements PageAware {
 
 	@Id
@@ -44,6 +44,8 @@ public class Title extends PageAwareEntity implements PageAware {
 	private Boolean fleetRank;
 
 	private Boolean religiousTitle;
+
+	private Boolean educationTitle;
 
 	private Boolean position;
 

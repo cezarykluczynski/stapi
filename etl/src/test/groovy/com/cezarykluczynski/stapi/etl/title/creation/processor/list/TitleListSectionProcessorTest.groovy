@@ -56,6 +56,7 @@ class TitleListSectionProcessorTest extends Specification {
 			assert title.page == modelPage
 			assert title.militaryRank
 			assert !title.religiousTitle
+			assert !title.educationTitle
 			assert !title.position
 			assert !title.fleetRank
 			assert !title.mirror
@@ -78,13 +79,13 @@ class TitleListSectionProcessorTest extends Specification {
 		1 * pageRepositoryMock.findByPageId(PAGE_ID) >> Optional.of(modelPage)
 		1 * uidGeneratorMock.generateForTitleListItem(modelPage, index) >> UID
 		1 * titleRepositoryMock.save(_ as Title) >> { Title title ->
-			title.name == NAME
-			title.page == modelPage
-			title.militaryRank
-			!title.religiousTitle
-			!title.position
-			!title.fleetRank
-			!title.mirror
+			assert title.name == NAME
+			assert title.page == modelPage
+			assert title.militaryRank
+			assert !title.religiousTitle
+			assert !title.position
+			assert !title.fleetRank
+			assert !title.mirror
 			title
 		}
 		0 * _
@@ -119,13 +120,14 @@ class TitleListSectionProcessorTest extends Specification {
 		1 * pageBindingServiceMock.fromPageToPageEntity(page) >> modelPage
 		1 * uidGeneratorMock.generateForTitleListItem(modelPage, index) >> UID
 		1 * titleRepositoryMock.save(_ as Title) >> { Title title ->
-			title.name == NAME_MIRROR
-			title.page == modelPage
-			title.militaryRank
-			!title.religiousTitle
-			!title.position
-			!title.fleetRank
-			title.mirror
+			assert title.name == NAME_MIRROR
+			assert title.page == modelPage
+			assert title.militaryRank
+			assert !title.religiousTitle
+			assert !title.educationTitle
+			assert !title.position
+			assert !title.fleetRank
+			assert title.mirror
 			title
 		}
 		0 * _
