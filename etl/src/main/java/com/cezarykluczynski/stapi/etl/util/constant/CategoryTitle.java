@@ -392,8 +392,16 @@ public class CategoryTitle {
 	public static final String TRANSPORTER_TECHNOLOGY = "Transporter_technology";
 
 	public static final String OCCUPATIONS = "Occupations";
+	public static final String ARTS_OCCUPATIONS = "Arts_occupations";
+	public static final String COMMUNICATION_OCCUPATIONS = "Communication_occupations";
+	public static final String ECONOMIC_OCCUPATIONS = "Economic_occupations";
+	public static final String EDUCATION_OCCUPATIONS = "Education_occupations";
+	public static final String ENTERTAINMENT_OCCUPATIONS = "Entertainment_occupations";
+	public static final String ILLEGAL_OCCUPATIONS = "Illegal_occupations";
 	public static final String LEGAL_OCCUPATIONS = "Legal_occupations";
 	public static final String MEDICAL_OCCUPATIONS = "Medical_occupations";
 	public static final String SCIENTIFIC_OCCUPATIONS = "Scientific_occupations";
+	public static final String SPORTS_OCCUPATIONS = "Sports_occupations";
+	public static final String VICTUAL_OCCUPATIONS = "Victual_occupations";
 
 }

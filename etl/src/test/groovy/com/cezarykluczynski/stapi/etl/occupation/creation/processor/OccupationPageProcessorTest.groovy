@@ -10,6 +10,7 @@ import com.cezarykluczynski.stapi.model.occupation.entity.Occupation
 import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page as SourcesPage
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.util.ReflectionTestUtils
 import com.google.common.collect.Lists
 import spock.lang.Specification
@@ -66,6 +67,18 @@ class OccupationPageProcessorTest extends Specification {
 		occupation.name == TITLE
 	}
 
+	void "sets name from redirect page title, and cuts brackets when they are present"() {
+		given:
+		SourcesPage page = new SourcesPage(title: 'SOME_OTHER_TITLE', redirectPath: [new PageHeader(title: TITLE_WITH_BRACKETS)])
+
+		when:
+		Occupation occupation = occupationPageProcessor.process(page)
+
+		then:
+		1 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
+		occupation.name == TITLE
+	}
+
 	void "page is bound"() {
 		given:
 		SourcesPage page = new SourcesPage(title: NAME)
@@ -108,11 +121,19 @@ class OccupationPageProcessorTest extends Specification {
 		ReflectionTestUtils.getNumberOfTrueBooleanFields(occupation) == trueBooleans
 
 		where:
-		page                                                                          | flagName               | flag  | trueBooleans
-		new SourcesPage(categories: Lists.newArrayList())                             | 'legalOccupation'      | false | 0
-		new SourcesPage(categories: createList(CategoryTitle.LEGAL_OCCUPATIONS))      | 'legalOccupation'      | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.MEDICAL_OCCUPATIONS))    | 'medicalOccupation'    | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.SCIENTIFIC_OCCUPATIONS)) | 'scientificOccupation' | true  | 1
+		page                                                                             | flagName                  | flag  | trueBooleans
+		new SourcesPage(categories: Lists.newArrayList())                                | 'legalOccupation'         | false | 0
+		new SourcesPage(categories: createList(CategoryTitle.ARTS_OCCUPATIONS))          | 'artsOccupation'          | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.COMMUNICATION_OCCUPATIONS)) | 'communicationOccupation' | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.ECONOMIC_OCCUPATIONS))      | 'economicOccupation'      | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.EDUCATION_OCCUPATIONS))     | 'educationOccupation'     | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.ENTERTAINMENT_OCCUPATIONS)) | 'entertainmentOccupation' | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.ILLEGAL_OCCUPATIONS))       | 'illegalOccupation'       | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.LEGAL_OCCUPATIONS))         | 'legalOccupation'         | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.MEDICAL_OCCUPATIONS))       | 'medicalOccupation'       | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.SCIENTIFIC_OCCUPATIONS))    | 'scientificOccupation'    | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.SPORTS_OCCUPATIONS))        | 'sportsOccupation'        | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.VICTUAL_OCCUPATIONS))       | 'victualOccupation'       | true  | 1
 	}
 
 	private static List<CategoryHeader> createList(String title) {

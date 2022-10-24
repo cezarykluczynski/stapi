@@ -60,4 +60,5 @@
 	<include file="performer/0057_extend_performer.xml" relativeToChangelogFile="true"/>
 	<include file="staff/0058_extend_staff.xml" relativeToChangelogFile="true"/>
 	<include file="title/0059_extend_title.xml" relativeToChangelogFile="true"/>
+	<include file="occupation/0060_extend_occupation.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

@@ -40,15 +40,26 @@ public class OccupationPageProcessor implements ItemProcessor<Page, Occupation> 
 
 		Occupation occupation = new Occupation();
 		occupation.setName(TitleUtil.getNameFromTitle(item.getTitle()));
+		if (!item.getRedirectPath().isEmpty()) {
+			occupation.setName(TitleUtil.getNameFromTitle(item.getRedirectPath().get(0).getTitle()));
+		}
 
 		occupation.setPage(pageBindingService.fromPageToPageEntity(item));
 		occupation.setUid(uidGenerator.generateFromPage(occupation.getPage(), Occupation.class));
 
 		List<String> categoryTitleList = categoryTitlesExtractingProcessor.process(item.getCategories());
 
+		occupation.setArtsOccupation(categoryTitleList.contains(CategoryTitle.ARTS_OCCUPATIONS));
+		occupation.setCommunicationOccupation(categoryTitleList.contains(CategoryTitle.COMMUNICATION_OCCUPATIONS));
+		occupation.setEconomicOccupation(categoryTitleList.contains(CategoryTitle.ECONOMIC_OCCUPATIONS));
+		occupation.setEducationOccupation(categoryTitleList.contains(CategoryTitle.EDUCATION_OCCUPATIONS));
+		occupation.setEntertainmentOccupation(categoryTitleList.contains(CategoryTitle.ENTERTAINMENT_OCCUPATIONS));
+		occupation.setIllegalOccupation(categoryTitleList.contains(CategoryTitle.ILLEGAL_OCCUPATIONS));
 		occupation.setLegalOccupation(categoryTitleList.contains(CategoryTitle.LEGAL_OCCUPATIONS));
 		occupation.setMedicalOccupation(categoryTitleList.contains(CategoryTitle.MEDICAL_OCCUPATIONS));
 		occupation.setScientificOccupation(categoryTitleList.contains(CategoryTitle.SCIENTIFIC_OCCUPATIONS));
+		occupation.setSportsOccupation(categoryTitleList.contains(CategoryTitle.SPORTS_OCCUPATIONS));
+		occupation.setVictualOccupation(categoryTitleList.contains(CategoryTitle.VICTUAL_OCCUPATIONS));
 
 		return occupation;
 	}

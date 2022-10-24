@@ -40,11 +40,27 @@ public class Occupation extends PageAwareEntity implements PageAware {
 	@Column(nullable = false)
 	private String name;
 
+	private Boolean artsOccupation;
+
+	private Boolean communicationOccupation;
+
+	private Boolean economicOccupation;
+
+	private Boolean educationOccupation;
+
+	private Boolean entertainmentOccupation;
+
+	private Boolean illegalOccupation;
+
 	private Boolean legalOccupation;
 
 	private Boolean medicalOccupation;
 
 	private Boolean scientificOccupation;
+
+	private Boolean sportsOccupation;
+
+	private Boolean victualOccupation;
 
 	@ManyToMany(mappedBy = "occupations", targetEntity = Character.class)
 	@Cache(usage = CacheConcurrencyStrategy.READ_ONLY)

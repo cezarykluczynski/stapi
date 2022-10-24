@@ -35,7 +35,7 @@ import java.util.function.Supplier;
 @Slf4j
 public class BlikiConnector {
 
-	private static final List<Long> NETWORK_TROUBLE_POSTPONES_TIMES = Lists.newArrayList(10000L, 30000L, 60000L, 300000L);
+	private static final List<Long> NETWORK_TROUBLE_POSTPONES_TIMES = Lists.newArrayList(10000L, 30000L, 60000L);
 
 	private Map<MediaWikiSource, Long> lastCallTimes = Maps.newHashMap();
 
@@ -177,8 +177,7 @@ public class BlikiConnector {
 	}
 
 	@SuppressFBWarnings("SWL_SLEEP_WITH_LOCK_HELD")
-	private String synchronizedDoQuery(MediaWikiSource mediaWikiSource, Long interval,
-										Supplier<String> supplier) {
+	private String synchronizedDoQuery(MediaWikiSource mediaWikiSource, Long interval, Supplier<String> supplier) {
 		long startTime = System.currentTimeMillis();
 		long diff = startTime - lastCallTimes.get(mediaWikiSource);
 		long minimalInterval = interval;

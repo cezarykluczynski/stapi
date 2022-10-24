@@ -5,12 +5,13 @@ import com.cezarykluczynski.stapi.etl.common.service.CategorySortingService
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
-import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
 import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
 class OccupationPageFilterTest extends Specification {
+
+	private static final String TITLE = 'TITLE'
 
 	private CategorySortingService categorySortingServiceMock
 
@@ -22,19 +23,6 @@ class OccupationPageFilterTest extends Specification {
 		categorySortingServiceMock = Mock()
 		categoryTitlesExtractingProcessorMock = Mock()
 		occupationPageFilter = new OccupationPageFilter(categorySortingServiceMock, categoryTitlesExtractingProcessorMock)
-	}
-
-	void "returns true when redirect path is not empty"() {
-		given:
-		PageHeader pageHeader = Mock()
-		Page page = new Page(redirectPath: Lists.newArrayList(pageHeader))
-
-		when:
-		boolean shouldBeFilteredOut = occupationPageFilter.shouldBeFilteredOut(page)
-
-		then:
-		0 * _
-		shouldBeFilteredOut
 	}
 
 	void "returns true when page is sorted on top of any category"() {
@@ -63,10 +51,23 @@ class OccupationPageFilterTest extends Specification {
 		shouldBeFilteredOut
 	}
 
+	void "returns true when page title ends with suffix pointing to a group"() {
+		given:
+		Page page = new Page(title: "Some ${RandomUtil.randomItem(OccupationPageFilter.INVALID_SUFFIXES)}")
+
+		when:
+		boolean shouldBeFilteredOut = occupationPageFilter.shouldBeFilteredOut(page)
+
+		then:
+		1 * categorySortingServiceMock.isSortedOnTopOfAnyCategory(page) >> false
+		0 * _
+		shouldBeFilteredOut
+	}
+
 	void "returns true when 'Lists' category is found"() {
 		given:
 		CategoryHeader categoryHeader = Mock()
-		Page page = new Page(categories: Lists.newArrayList(categoryHeader))
+		Page page = new Page(title: TITLE, categories: Lists.newArrayList(categoryHeader))
 
 		when:
 		boolean shouldBeFilteredOut = occupationPageFilter.shouldBeFilteredOut(page)
@@ -80,7 +81,7 @@ class OccupationPageFilterTest extends Specification {
 
 	void "returns false when redirect path is empty and page is not sorted on top of any category, and no 'Lists' category is found"() {
 		given:
-		Page page = new Page()
+		Page page = new Page(title: TITLE)
 
 		when:
 		boolean shouldBeFilteredOut = occupationPageFilter.shouldBeFilteredOut(page)

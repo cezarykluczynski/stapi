@@ -200,4 +200,19 @@ public class CategoryTitles {
 			CategoryTitle.EDUCATION_TITLES
 	);
 
+	public static final List<String> OCCUPATIONS = ImmutableList.of(
+			CategoryTitle.OCCUPATIONS,
+			CategoryTitle.ARTS_OCCUPATIONS,
+			CategoryTitle.COMMUNICATION_OCCUPATIONS,
+			CategoryTitle.ECONOMIC_OCCUPATIONS,
+			CategoryTitle.EDUCATION_OCCUPATIONS,
+			CategoryTitle.ENTERTAINMENT_OCCUPATIONS,
+			CategoryTitle.ILLEGAL_OCCUPATIONS,
+			CategoryTitle.LEGAL_OCCUPATIONS,
+			CategoryTitle.MEDICAL_OCCUPATIONS,
+			CategoryTitle.SCIENTIFIC_OCCUPATIONS,
+			CategoryTitle.SPORTS_OCCUPATIONS,
+			CategoryTitle.VICTUAL_OCCUPATIONS
+	);
+
 }

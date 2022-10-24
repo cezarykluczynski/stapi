@@ -17,7 +17,7 @@ import java.util.List;
 @Slf4j
 public class HttpConnector {
 
-	private static final List<Long> NETWORK_TROUBLE_POSTPONES_TIMES = Lists.newArrayList(10000L, 30000L, 60000L, 300000L);
+	private static final List<Long> NETWORK_TROUBLE_POSTPONES_TIMES = Lists.newArrayList(10000L, 30000L, 60000L);
 
 	private Integer lastNetworkTroublePostponeIndex = 0;
 
@@ -50,7 +50,7 @@ public class HttpConnector {
 			HttpResponse httpResponse = httpClient.execute(httpPost);
 			httpEntity = httpResponse.getEntity();
 		} catch (Exception e) {
-			log.error("Could not execute HTTP POST");
+			log.error("Could not execute HTTP POST to URL {}", url);
 		}
 
 		if (httpEntity == null) {

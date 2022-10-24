@@ -14,6 +14,7 @@ import java.util.Set;
 public class OccupationPageFilter implements MediaWikiPageFilter {
 
 	private static final Set<String> INVALID_TITLES = Sets.newHashSet("Commando", "Occupational hazard", "Prostitution", "Public relations");
+	private static final Set<String> INVALID_SUFFIXES = Sets.newHashSet(" crew", " line", " organization", " team");
 
 	private final CategorySortingService categorySortingService;
 
@@ -26,8 +27,10 @@ public class OccupationPageFilter implements MediaWikiPageFilter {
 
 	@Override
 	public boolean shouldBeFilteredOut(Page page) {
-		return !page.getRedirectPath().isEmpty() || categorySortingService.isSortedOnTopOfAnyCategory(page)
-				|| INVALID_TITLES.contains(page.getTitle())
+		String title = page.getTitle();
+		return categorySortingService.isSortedOnTopOfAnyCategory(page)
+				|| INVALID_TITLES.contains(title)
+				|| INVALID_SUFFIXES.stream().anyMatch(title::endsWith)
 				|| categoryTitlesExtractingProcessor.process(page.getCategories()).contains(CategoryTitle.LISTS);
 	}
 
