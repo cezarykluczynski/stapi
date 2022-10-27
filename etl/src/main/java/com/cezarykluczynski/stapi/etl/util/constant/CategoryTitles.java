@@ -74,7 +74,11 @@ public class CategoryTitles {
 			CategoryTitle.DS9_EPISODES,
 			CategoryTitle.VOY_EPISODES,
 			CategoryTitle.ENT_EPISODES,
-			CategoryTitle.DIS_EPISODES
+			CategoryTitle.DIS_EPISODES,
+			CategoryTitle.PIC_EPISODES,
+			CategoryTitle.LD_EPISODES,
+			CategoryTitle.PRO_EPISODES,
+			CategoryTitle.SNW_EPISODES
 	);
 
 	public static final List<String> ORGANIZATIONS = ImmutableList.of(

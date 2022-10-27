@@ -56,6 +56,34 @@ class CharacterPageFilterTest extends Specification {
 		shouldBeFilteredOut
 	}
 
+	void "returns true when page name starts with 'Species '"() {
+		given:
+		Page page = new Page(
+				title: 'Species 5973',
+				categories: Lists.newArrayList(),
+				templates: Lists.newArrayList())
+
+		when:
+		boolean shouldBeFilteredOut = characterPageFilter.shouldBeFilteredOut(page)
+
+		then:
+		shouldBeFilteredOut
+	}
+
+	void "returns true when page name starts with 'Starfleet '"() {
+		given:
+		Page page = new Page(
+				title: 'Starfleet lieutenant commanders',
+				categories: Lists.newArrayList(),
+				templates: Lists.newArrayList())
+
+		when:
+		boolean shouldBeFilteredOut = characterPageFilter.shouldBeFilteredOut(page)
+
+		then:
+		shouldBeFilteredOut
+	}
+
 	void "returns true when page name starts with 'Memory Alpha images '"() {
 		given:
 		Page page = new Page(

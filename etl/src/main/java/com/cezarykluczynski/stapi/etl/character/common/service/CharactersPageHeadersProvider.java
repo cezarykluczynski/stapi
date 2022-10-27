@@ -1,22 +1,29 @@
 package com.cezarykluczynski.stapi.etl.character.common.service;
 
+import com.cezarykluczynski.stapi.etl.util.SortingUtil;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.CategoryApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
+import com.google.common.base.Stopwatch;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 @Service
+@Slf4j
 public class CharactersPageHeadersProvider {
 
 	private static final List<Pattern> EXCLUDES = Lists.newArrayList(
 			Pattern.compile("(Memory_Alpha_images).*"),
-			Pattern.compile("(Memory_Alpha_non-canon_redirects).*"));
+			Pattern.compile("(Memory_Alpha_non-canon_redirects).*")
+	);
 
 	private final CategoryApi categoryApi;
 
@@ -26,33 +33,22 @@ public class CharactersPageHeadersProvider {
 		this.categoryApi = categoryApi;
 	}
 
+	@SuppressWarnings("VariableDeclarationUsageDistance")
 	public synchronized List<PageHeader> provide() {
 		if (characters == null) {
+			Stopwatch stopwatch = Stopwatch.createStarted();
 			characters = Lists.newArrayList();
-			characters.addAll(categoryApi.getPagesIncludingSubcategoriesExcluding(CategoryTitle.INDIVIDUALS, EXCLUDES,
+			characters.addAll(categoryApi.getPagesIncludingSubcategoriesExcluding(CategoryTitle.INDIVIDUALS, EXCLUDES, 3,
 					MediaWikiSource.MEMORY_ALPHA_EN));
-			characters.addAll(categoryApi.getPagesIncludingSubcategories(CategoryTitle.MILITARY_PERSONNEL, MediaWikiSource.MEMORY_ALPHA_EN));
-			characters.addAll(categoryApi.getPagesIncludingSubcategories(CategoryTitle.Q_CONTINUUM, MediaWikiSource.MEMORY_ALPHA_EN));
 			characters.addAll(categoryApi.getPagesIncludingSubcategories(CategoryTitle.STARFLEET_PERSONNEL, MediaWikiSource.MEMORY_ALPHA_EN));
-			characters.addAll(categoryApi.getPagesIncludingSubcategories(CategoryTitle.EDUCATORS, MediaWikiSource.MEMORY_ALPHA_EN));
-			characters.addAll(categoryApi.getPagesIncludingSubcategories(CategoryTitle.ENTERTAINERS, MediaWikiSource.MEMORY_ALPHA_EN));
 			characters.addAll(categoryApi.getPagesIncludingSubcategories(CategoryTitle.GOVERNMENT_OFFICIALS, MediaWikiSource.MEMORY_ALPHA_EN));
 			characters.addAll(categoryApi.getPagesIncludingSubcategories(CategoryTitle.SCIENTISTS, MediaWikiSource.MEMORY_ALPHA_EN));
-			characters.addAll(categoryApi.getPages(CategoryTitle.HOLOGRAMS, MediaWikiSource.MEMORY_ALPHA_EN));
-			characters.addAll(categoryApi.getPages(CategoryTitle.HOLOGRAPHIC_DUPLICATES, MediaWikiSource.MEMORY_ALPHA_EN));
-			characters.addAll(categoryApi.getPages(CategoryTitle.FICTIONAL_CHARACTERS, MediaWikiSource.MEMORY_ALPHA_EN));
-			characters.addAll(categoryApi.getPages(CategoryTitle.THE_DIXON_HILL_SERIES_CHARACTERS, MediaWikiSource.MEMORY_ALPHA_EN));
-			characters.addAll(categoryApi.getPages(CategoryTitle.SHAKESPEARE_CHARACTERS, MediaWikiSource.MEMORY_ALPHA_EN));
-			characters.addAll(categoryApi.getPages(CategoryTitle.ARTISTS, MediaWikiSource.MEMORY_ALPHA_EN));
-			characters.addAll(categoryApi.getPages(CategoryTitle.ATHLETES, MediaWikiSource.MEMORY_ALPHA_EN));
-			characters.addAll(categoryApi.getPages(CategoryTitle.AUTHORS, MediaWikiSource.MEMORY_ALPHA_EN));
-			characters.addAll(categoryApi.getPages(CategoryTitle.DABO_GIRLS, MediaWikiSource.MEMORY_ALPHA_EN));
-			characters.addAll(categoryApi.getPages(CategoryTitle.MUSICIANS, MediaWikiSource.MEMORY_ALPHA_EN));
-			characters.addAll(categoryApi.getPages(CategoryTitle.INDIVIDUAL_ANIMALS, MediaWikiSource.MEMORY_ALPHA_EN));
-			characters = Lists.newArrayList(Sets.newHashSet(characters));
+			characters.addAll(categoryApi.getPagesIncludingSubcategories(CategoryTitle.MONARCHS, MediaWikiSource.MEMORY_ALPHA_EN));
+			characters = SortingUtil.sortedUnique(characters);
+			log.info("Grabbing characters took {} minutes.", stopwatch.elapsed(TimeUnit.MINUTES));
 		}
 
-		return Lists.newArrayList(characters);
+		return ImmutableList.copyOf(characters);
 	}
 
 }

@@ -99,6 +99,11 @@ public class CategoryTitle {
 	public static final String VOY_EPISODES = "VOY_episodes";
 	public static final String ENT_EPISODES = "ENT_episodes";
 	public static final String DIS_EPISODES = "DIS_episodes";
+	public static final String PIC_EPISODES = "PIC_episodes";
+	public static final String LD_EPISODES = "LD_episodes";
+	public static final String PRO_EPISODES = "PRO_episodes";
+	public static final String SNW_EPISODES = "SNW_episodes";
+	public static final String DOUBLE_LENGTH_EPISODES = "Double-length_episodes";
 
 	public static final String INDIVIDUALS = "Individuals";
 	public static final String UNNAMED_INDIVIDUALS = "Unnamed_individuals";
@@ -115,6 +120,8 @@ public class CategoryTitle {
 	public static final String SHAKESPEARE_CHARACTERS = "Shakespeare_characters";
 	public static final String PERSONNEL_LISTS = "Personnel_lists";
 	public static final String FAMILIES = "Families";
+	public static final String GROUPS = "Groups";
+	public static final String EARTH_GROUPS = "Earth_groups";
 	public static final String ARTISTS = "Artists";
 	public static final String ATHLETES = "Athletes";
 	public static final String AUTHORS = "Authors";
@@ -124,6 +131,7 @@ public class CategoryTitle {
 	public static final String GOVERNMENT_OFFICIALS = "Government_officials";
 	public static final String MUSICIANS = "Musicians";
 	public static final String SCIENTISTS = "Scientists";
+	public static final String MONARCHS = "Monarchs";
 	public static final String MIRROR_UNIVERSE_INHABITANTS = "Mirror_universe_inhabitants";
 	public static final String MIRROR_UNIVERSE = "Mirror_universe";
 	public static final String ALTERNATE_REALITY = "Alternate_reality";
@@ -218,6 +226,7 @@ public class CategoryTitle {
 	public static final String MEDICAL_ORGANIZATIONS = "Medical_organizations";
 	public static final String MILITARY_ORGANIZATIONS = "Military_organizations";
 	public static final String MILITARY_UNITS = "Military_units";
+	public static final String MYTHOLOGICAL_LOCATIONS = "Mythological_locations";
 	public static final String RESEARCH_ORGANIZATIONS = "Research_organizations";
 	public static final String SPORTS_ORGANIZATIONS = "Sports_organizations";
 	public static final String LOCATIONS = "Locations";

@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.etl.character.link.configuration;
 import com.cezarykluczynski.stapi.etl.character.common.service.CharactersPageHeadersProvider;
 import com.cezarykluczynski.stapi.etl.character.link.processor.CharacterLinkReader;
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
+import com.cezarykluczynski.stapi.etl.util.SortingUtil;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader;
@@ -32,7 +33,7 @@ public class CharacterLinkConfiguration {
 			characters.addAll(charactersPageHeadersProvider.provide());
 		}
 
-		return new CharacterLinkReader(characters);
+		return new CharacterLinkReader(SortingUtil.sortedUnique(characters));
 	}
 
 }

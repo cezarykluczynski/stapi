@@ -18,6 +18,8 @@ public class CharacterPageFilter implements MediaWikiPageFilter {
 
 	private static final String UNNAMED_PREFIX = "Unnamed";
 	private static final String LIST_OF_PREFIX = "List of ";
+	private static final String SPECIES_PREFIX = "Species ";
+	private static final String STARFLEET_PREFIX = "Starfleet ";
 	private static final String MEMORY_ALPHA_IMAGES_PREFIX = "Memory Alpha images";
 	private static final String PERSONNEL = "personnel";
 
@@ -26,6 +28,11 @@ public class CharacterPageFilter implements MediaWikiPageFilter {
 	static {
 		NOT_CHARACTERS_CATEGORY_TITLES.addAll(CategoryTitles.LISTS);
 		NOT_CHARACTERS_CATEGORY_TITLES.add(CategoryTitle.FAMILIES);
+		NOT_CHARACTERS_CATEGORY_TITLES.add(CategoryTitle.GROUPS);
+		NOT_CHARACTERS_CATEGORY_TITLES.add(CategoryTitle.EARTH_GROUPS);
+		NOT_CHARACTERS_CATEGORY_TITLES.add(CategoryTitle.GOVERNMENTS);
+		NOT_CHARACTERS_CATEGORY_TITLES.add(CategoryTitle.MYTHOLOGICAL_LOCATIONS);
+		NOT_CHARACTERS_CATEGORY_TITLES.add(CategoryTitle.SETTLEMENTS);
 	}
 
 	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
@@ -41,7 +48,8 @@ public class CharacterPageFilter implements MediaWikiPageFilter {
 	@Override
 	public boolean shouldBeFilteredOut(Page page) {
 		String title = page.getTitle();
-		if (StringUtils.startsWithAny(title, UNNAMED_PREFIX, LIST_OF_PREFIX, MEMORY_ALPHA_IMAGES_PREFIX) || page.getTitle().contains(PERSONNEL)) {
+		if (StringUtils.startsWithAny(title, UNNAMED_PREFIX, LIST_OF_PREFIX, MEMORY_ALPHA_IMAGES_PREFIX, SPECIES_PREFIX, STARFLEET_PREFIX)
+				|| title.contains(PERSONNEL)) {
 			return true;
 		}
 

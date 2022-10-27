@@ -15,11 +15,15 @@ public interface CategoryApi {
 
 	List<PageHeader> getPagesIncludingSubcategories(String title, MediaWikiSource mediaWikiSource);
 
+	List<PageHeader> getPagesIncludingSubcategories(String title, int depth, MediaWikiSource mediaWikiSource);
+
 	List<PageHeader> getPagesIncludingSubcategories(List<String> titleList, MediaWikiSource mediaWikiSource);
+
+	List<PageHeader> getPagesIncludingSubcategories(List<String> titleList, int depth, MediaWikiSource mediaWikiSource);
 
 	List<PageHeader> getPagesIncludingSubcategoriesExcept(String title, List<String> exceptions, MediaWikiSource mediaWikiSource);
 
-	List<PageHeader> getPagesIncludingSubcategoriesExcluding(String title, List<Pattern> exceptions, MediaWikiSource mediaWikiSource);
+	List<PageHeader> getPagesIncludingSubcategoriesExcluding(String title, List<Pattern> exceptions, int depth, MediaWikiSource mediaWikiSource);
 
 	List<CategoryHeader> getCategoriesInCategory(String categoryTitle, MediaWikiSource mediaWikiSource);
 
