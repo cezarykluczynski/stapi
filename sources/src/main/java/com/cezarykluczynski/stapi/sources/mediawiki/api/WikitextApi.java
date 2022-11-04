@@ -19,4 +19,6 @@ public interface WikitextApi {
 
 	String disTemplateToPageTitle(Template template);
 
+	List<String> getTemplateNamesFromWikitext(String wikitext);
+
 }

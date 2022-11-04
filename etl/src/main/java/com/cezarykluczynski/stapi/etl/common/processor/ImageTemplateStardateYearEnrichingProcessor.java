@@ -14,8 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ImageTemplateStardateYearEnrichingProcessor implements ItemWithTemplateEnrichingProcessor<ImageTemplate> {
 
-	private static final String S_TITLE = "stitle";
-	private static final String WS_DATE = "wsdate";
+	private static final String TITLE = "title";
+	private static final String DATE = "date";
 
 	private final FixedValueProvider<String, StardateYearDTO> stardateYearDTOFixedValueProvider;
 
@@ -45,7 +45,7 @@ public class ImageTemplateStardateYearEnrichingProcessor implements ItemWithTemp
 			}
 
 			switch (key) {
-				case S_TITLE:
+				case TITLE:
 					title = value;
 					FixedValueHolder<StardateYearDTO> fixedValueHolder = stardateYearDTOFixedValueProvider.getSearchedValue(value);
 					stardateFixedValueFound = fixedValueHolder.isFound();
@@ -53,7 +53,7 @@ public class ImageTemplateStardateYearEnrichingProcessor implements ItemWithTemp
 						stardateYearDTO = fixedValueHolder.getValue();
 					}
 					break;
-				case WS_DATE:
+				case DATE:
 					if (!stardateFixedValueFound) {
 						stardateYearDTO = stardateYearProcessor.process(StardateYearCandidateDTO.of(value, title, StardateYearSource.EPISODE));
 					}

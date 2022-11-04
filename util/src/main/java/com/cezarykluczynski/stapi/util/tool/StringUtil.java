@@ -97,4 +97,8 @@ public class StringUtil {
 		return stringCollection.stream().anyMatch(string -> StringUtils.equalsIgnoreCase(string, lookup));
 	}
 
+	public static boolean isNotNull(String string) {
+		return string != null && !"null".equals(string);
+	}
+
 }

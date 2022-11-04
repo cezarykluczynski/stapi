@@ -146,4 +146,18 @@ class StringUtilTest extends Specification {
 		Lists.newArrayList('one', 'two', 'lookup') | 'Lookup' | true
 	}
 
+	@Unroll('returns #result when #value is passed')
+	void "returns true or false when is it determined whether string is null or 'null'"() {
+		expect:
+		StringUtil.isNotNull(value) == result
+
+		where:
+		value       | result
+		'NULL'      | true
+		'whathever' | true
+		''          | true
+		'null'      | false
+		null        | false
+	}
+
 }

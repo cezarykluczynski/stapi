@@ -3,6 +3,7 @@ package com.cezarykluczynski.stapi.sources.mediawiki.parser;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.collect.Lists;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.tuple.Triple;
@@ -153,6 +154,9 @@ public class JsonTemplateParser {
 		templatePart.setValue(valueContentTemplateTriple.getLeft());
 		if (valueContentTemplateTriple.getRight() != null) {
 			addTemplates(templatePart, valueContentTemplateTriple.getRight());
+		}
+		if (templatePart.getContent() != null && templatePart.getValue() == null && CollectionUtils.isNotEmpty(templatePart.getTemplates())) {
+			templatePart.setValue(templatePart.getContent());
 		}
 	}
 

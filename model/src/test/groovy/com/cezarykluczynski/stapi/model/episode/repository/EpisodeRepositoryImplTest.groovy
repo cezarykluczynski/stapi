@@ -1,13 +1,18 @@
 package com.cezarykluczynski.stapi.model.episode.repository
 
+import com.cezarykluczynski.stapi.model.character.entity.Character
 import com.cezarykluczynski.stapi.model.common.dto.RequestSortDTO
 import com.cezarykluczynski.stapi.model.common.query.QueryBuilder
 import com.cezarykluczynski.stapi.model.episode.dto.EpisodeRequestDTO
 import com.cezarykluczynski.stapi.model.episode.entity.Episode
 import com.cezarykluczynski.stapi.model.episode.entity.Episode_
 import com.cezarykluczynski.stapi.model.episode.query.EpisodeQueryBuilderFactory
+import com.cezarykluczynski.stapi.model.performer.entity.Performer
+import com.cezarykluczynski.stapi.model.season.entity.Season
 import com.cezarykluczynski.stapi.model.season.entity.Season_
+import com.cezarykluczynski.stapi.model.series.entity.Series
 import com.cezarykluczynski.stapi.model.series.entity.Series_
+import com.cezarykluczynski.stapi.model.staff.entity.Staff
 import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
 import com.google.common.collect.Sets
@@ -61,16 +66,115 @@ class EpisodeRepositoryImplTest extends Specification {
 		episode = Mock()
 	}
 
-	void "query is built and performed"() {
+	void "query is built and performed for single result"() {
+		given:
+		Page page1 = Mock()
+		Page page2 = Mock()
+		Page page3 = Mock()
+		Page page4 = Mock()
+		Series series = Mock()
+		Season season = Mock()
+		Staff writer = Mock()
+		Staff teleplayAuthor = Mock()
+		Staff storyAuthor = Mock()
+		Staff director = Mock()
+		Staff staff = Mock()
+		Performer performer = Mock()
+		Performer stuntPerformer = Mock()
+		Performer standInPerformer = Mock()
+		Character character = Mock()
+		Episode episode1 = new Episode(series: series, season: season)
+		Episode episode2 = new Episode(writers: [writer], teleplayAuthors: [teleplayAuthor], storyAuthors: [storyAuthor], directors: [director])
+		Episode episode3 = new Episode(staff: [staff], performers: [performer], stuntPerformers: [stuntPerformer])
+		Episode episode4 = new Episode(standInPerformers: [standInPerformer], characters: [character])
+
+		when:
+		Page pageOutput = episodeRepositoryImpl.findMatching(episodeRequestDTO, pageable)
+
+		then: 'uid is retrieved'
+		1 * episodeRequestDTO.uid >> UID
+
+		then: 'first query builder is built'
+		1 *  episodeQueryBuilderFactoryMock.createQueryBuilder(pageable) >> episodeQueryBuilder
+		1 * episodeQueryBuilder.equal(Episode_.uid, UID)
+
+		then: 'first fetch is performed'
+		1 * episodeQueryBuilder.fetch(Episode_.series)
+		1 * episodeQueryBuilder.fetch(Episode_.series, Series_.productionCompany, true)
+		1 * episodeQueryBuilder.fetch(Episode_.series, Series_.originalBroadcaster, true)
+		1 * episodeQueryBuilder.fetch(Episode_.season, true)
+		1 * episodeQueryBuilder.fetch(Episode_.season, Season_.series, true)
+
+		then: 'first page is found'
+		1 * episodeQueryBuilder.findPage() >> page1
+		1 * page1.content >> [episode1]
+
+		then: 'second query builder is built'
+		1 *   episodeQueryBuilderFactoryMock.createQueryBuilder(pageable) >> episodeQueryBuilder
+		1 * episodeQueryBuilder.equal(Episode_.uid, UID)
+
+		then: 'second fetch is performed'
+		1 * episodeQueryBuilder.fetch(Episode_.writers, true)
+		1 * episodeQueryBuilder.fetch(Episode_.teleplayAuthors, true)
+		1 * episodeQueryBuilder.fetch(Episode_.storyAuthors, true)
+		1 * episodeQueryBuilder.fetch(Episode_.directors, true)
+
+		then: 'second page is found'
+		1 * episodeQueryBuilder.findPage() >> page2
+
+		then: 'third query builder is built'
+		1 *    episodeQueryBuilderFactoryMock.createQueryBuilder(pageable) >> episodeQueryBuilder
+		1 * episodeQueryBuilder.equal(Episode_.uid, UID)
+
+		then: 'third fetch is performed'
+		1 * episodeQueryBuilder.fetch(Episode_.staff, true)
+		1 * episodeQueryBuilder.fetch(Episode_.performers, true)
+		1 * episodeQueryBuilder.fetch(Episode_.stuntPerformers, true)
+
+		then: 'third page is found'
+		1 * episodeQueryBuilder.findPage() >> page3
+
+		then: 'fourth query builder is built'
+		1 *     episodeQueryBuilderFactoryMock.createQueryBuilder(pageable) >> episodeQueryBuilder
+		1 * episodeQueryBuilder.equal(Episode_.uid, UID)
+
+		then: 'fourth fetch is performed'
+		1 * episodeQueryBuilder.fetch(Episode_.standInPerformers, true)
+		1 * episodeQueryBuilder.fetch(Episode_.characters, true)
+
+		then: 'fourth page is found'
+		1 * episodeQueryBuilder.findPage() >> page4
+
+		then: 'content is merged'
+		1 * page2.content >> [episode2]
+		1 * page3.content >> [episode3]
+		1 * page4.content >> [episode4]
+
+		then: 'no other interactions are expected'
+		0 * _
+
+		then: 'content is merged'
+		pageOutput == page1
+		episode1.series == series
+		episode1.season == season
+		episode1.writers.contains writer
+		episode1.teleplayAuthors.contains teleplayAuthor
+		episode1.storyAuthors.contains storyAuthor
+		episode1.directors.contains director
+		episode1.staff.contains staff
+		episode1.performers.contains performer
+		episode1.stuntPerformers.contains stuntPerformer
+		episode1.standInPerformers.contains standInPerformer
+		episode1.characters.contains character
+	}
+
+	void "query is built and performed for multiple criteria"() {
 		when:
 		Page pageOutput = episodeRepositoryImpl.findMatching(episodeRequestDTO, pageable)
 
 		then:
 		1 * episodeQueryBuilderFactoryMock.createQueryBuilder(pageable) >> episodeQueryBuilder
-
-		then: 'uid criteria is set'
-		1 * episodeRequestDTO.uid >> UID
-		1 * episodeQueryBuilder.equal(Episode_.uid, UID)
+		1 * episodeRequestDTO.uid >> null
 
 		then: 'string criteria are set'
 		1 * episodeRequestDTO.title >> TITLE
@@ -112,61 +216,6 @@ class EpisodeRepositoryImplTest extends Specification {
 		1 * episodeRequestDTO.sort >> SORT
 		1 * episodeQueryBuilder.setSort(SORT)
 
-		then: 'fetch is performed'
-		1 * episodeQueryBuilder.fetch(Episode_.series)
-
-		then: 'fetch is performed with true flag'
-		1 * episodeQueryBuilder.fetch(Episode_.series, Series_.productionCompany, true)
-		1 * episodeQueryBuilder.fetch(Episode_.series, Series_.originalBroadcaster, true)
-		1 * episodeQueryBuilder.fetch(Episode_.season, true)
-		1 * episodeQueryBuilder.fetch(Episode_.season, Season_.series, true)
-		1 * episodeQueryBuilder.fetch(Episode_.writers, true)
-		1 * episodeQueryBuilder.fetch(Episode_.teleplayAuthors, true)
-		1 * episodeQueryBuilder.fetch(Episode_.storyAuthors, true)
-		1 * episodeQueryBuilder.fetch(Episode_.directors, true)
-		1 * episodeQueryBuilder.fetch(Episode_.staff, true)
-		1 * episodeQueryBuilder.fetch(Episode_.performers, true)
-		1 * episodeQueryBuilder.fetch(Episode_.stuntPerformers, true)
-		1 * episodeQueryBuilder.fetch(Episode_.standInPerformers, true)
-		1 * episodeQueryBuilder.fetch(Episode_.characters, true)
-
-		then: 'page is searched for and returned'
-		1 * episodeQueryBuilder.findPage() >> page
-		0 * page.content
-		pageOutput == page
-
-		then: 'no other interactions are expected'
-		0 * _
-	}
-
-	void "proxies are cleared when no related entities should be fetched"() {
-		when:
-		Page pageOutput = episodeRepositoryImpl.findMatching(episodeRequestDTO, pageable)
-
-		then:
-		1 * episodeQueryBuilderFactoryMock.createQueryBuilder(pageable) >> episodeQueryBuilder
-
-		then: 'uid criteria is set to null'
-		1 * episodeRequestDTO.uid >> null
-
-		then: 'fetch is performed'
-		1 * episodeQueryBuilder.fetch(Episode_.series)
-
-		then: 'fetch is performed with false flag'
-		1 * episodeQueryBuilder.fetch(Episode_.series, Series_.productionCompany, false)
-		1 * episodeQueryBuilder.fetch(Episode_.series, Series_.originalBroadcaster, false)
-		1 * episodeQueryBuilder.fetch(Episode_.season, false)
-		1 * episodeQueryBuilder.fetch(Episode_.season, Season_.series, false)
-		1 * episodeQueryBuilder.fetch(Episode_.writers, false)
-		1 * episodeQueryBuilder.fetch(Episode_.teleplayAuthors, false)
-		1 * episodeQueryBuilder.fetch(Episode_.storyAuthors, false)
-		1 * episodeQueryBuilder.fetch(Episode_.directors, false)
-		1 * episodeQueryBuilder.fetch(Episode_.staff, false)
-		1 * episodeQueryBuilder.fetch(Episode_.performers, false)
-		1 * episodeQueryBuilder.fetch(Episode_.stuntPerformers, false)
-		1 * episodeQueryBuilder.fetch(Episode_.standInPerformers, false)
-		1 * episodeQueryBuilder.fetch(Episode_.characters, false)
-
 		then: 'page is searched for and returned'
 		1 * episodeQueryBuilder.findPage() >> page
 
@@ -181,6 +230,9 @@ class EpisodeRepositoryImplTest extends Specification {
 		1 * episode.setStuntPerformers(Sets.newHashSet())
 		1 * episode.setStandInPerformers(Sets.newHashSet())
 		1 * episode.setCharacters(Sets.newConcurrentHashSet())
+
+		then: 'no other interactions are expected'
+		0 * _
 		pageOutput == page
 	}
 

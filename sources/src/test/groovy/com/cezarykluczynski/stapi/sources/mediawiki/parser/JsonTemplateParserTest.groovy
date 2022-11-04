@@ -27,6 +27,19 @@ class JsonTemplateParserTest extends Specification {
 						</template>
 					</value>
 				</part>
+				<part>
+					<name>writer            </name>
+					<equals>=</equals>
+					<value>
+						<template>
+							<title>anchor</title>
+							<part>
+								<name index="1"/>
+								<value>B</value>
+							</part>
+						</template>[[Chuck Menville]] and [[Len Janson]]&lt;sup&gt;[[#W|↓]]&lt;/sup&gt;
+					</value>
+				</part>
 			</template>
 			<template>
 				<title>born</title>
@@ -49,12 +62,15 @@ class JsonTemplateParserTest extends Specification {
 		template[1].parts[0] == new Template.Part(key: 'name', value: 'Sir Patrick Stewart')
 		template[1].parts[1] == new Template.Part(key: 'birth name', value: 'Patrick Hewes Stewart')
 		template[1].parts[2].key == 'date of birth'
-		template[1].parts[2].value == null
+		template[1].parts[2].value == 'content'
 		template[1].parts[2].content == 'content'
 		template[1].parts[2].templates[0].title == TemplateTitle.D
 		template[1].parts[2].templates[0].parts[0] == new Template.Part(key: '1', value: '13')
 		template[1].parts[2].templates[0].parts[1] == new Template.Part(key: '2', value: 'July')
 		template[1].parts[2].templates[0].parts[2] == new Template.Part(key: '3', value: '1940')
+		template[1].parts[3].value == '[[Chuck Menville]] and [[Len Janson]]<sup>[[#W|↓]]</sup>'
+		template[1].parts[3].templates[0].title == 'anchor'
+		template[1].parts[3].templates[0].parts[0] == new Template.Part(key: '1', value: 'B')
 		template[2].title == 'born'
 		template[2].parts[0] == new Template.Part(key: '1', value: '13')
 		template[2].parts[1] == new Template.Part(key: '2', value: 'July')

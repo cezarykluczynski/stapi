@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,9 +37,9 @@ public class EpisodeTemplateDatesEnrichingProcessor implements ItemEnrichingProc
 			"revised draft"
 	);
 
-	private RawDatelinkExtractingProcessor rawDatelinkExtractingProcessor;
+	private final RawDatelinkExtractingProcessor rawDatelinkExtractingProcessor;
 
-	private EpisodeFinalScriptDateFixedValueProvider episodeFinalScriptDateFixedValueProvider;
+	private final EpisodeFinalScriptDateFixedValueProvider episodeFinalScriptDateFixedValueProvider;
 
 	public EpisodeTemplateDatesEnrichingProcessor(RawDatelinkExtractingProcessor rawDatelinkExtractingProcessor,
 			EpisodeFinalScriptDateFixedValueProvider episodeFinalScriptDateFixedValueProvider) {
@@ -81,8 +82,14 @@ public class EpisodeTemplateDatesEnrichingProcessor implements ItemEnrichingProc
 		if (localDateList.size() == 1) {
 			episodeTemplate.setFinalScriptDate(localDateList.get(0));
 		} else if (localDateList.size() > 1) {
-			log.warn("Could not extract final script date for episode \"{}\" from string \"{}\", found multiple dates: {}",
-					episodeTemplate.getTitle(), sectionsListItem, localDateList);
+			final List<LocalDate> sortedDates = localDateList.stream()
+					.sorted(Comparator.naturalOrder())
+					.collect(Collectors.toList());
+			final LocalDate latestDate = sortedDates.get(sortedDates.size() - 1);
+			log.warn("Could not extract one final script date for episode \"{}\" from string \"{}\", found multiple dates: {}, "
+							+ "using latest date {}.",
+					episodeTemplate.getTitle(), sectionsListItem, localDateList, latestDate);
+			episodeTemplate.setFinalScriptDate(latestDate);
 		}
 	}
 

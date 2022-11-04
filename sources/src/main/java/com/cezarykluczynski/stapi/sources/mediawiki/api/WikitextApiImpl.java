@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -28,6 +29,8 @@ public class WikitextApiImpl implements WikitextApi {
 
 	private static final Pattern LINK = Pattern.compile("\\[\\[(.+?)]]");
 	private static final Pattern DIS_LINK = Pattern.compile("\\{\\{dis\\|(.+?)}}");
+	private static final Pattern MU_LINK = Pattern.compile("\\{\\{mu\\|(.+?)}}");
+	private static final Pattern ALT_LINK = Pattern.compile("\\{\\{alt\\|(.+?)}}");
 
 	private static final Pattern MULTILINE_WITHOUT_TEMPLATES = Pattern.compile("\\{\\{(.*?)}}", Pattern.DOTALL);
 	private static final Pattern NO_INCLUDE_PATTERN = Pattern.compile("<noinclude>(.+?)</noinclude>", Pattern.DOTALL);
@@ -52,7 +55,9 @@ public class WikitextApiImpl implements WikitextApi {
 		List<PageLink> allMatches = Lists.newArrayList();
 
 		allMatches.addAll(extractLinkMatches(wikitext));
-		allMatches.addAll(extractDisMatches(wikitext));
+		allMatches.addAll(extractMatches(wikitext, DIS_LINK, 2, templateParts -> templateParts.get(1)));
+		allMatches.addAll(extractMatches(wikitext, MU_LINK, 1, strings -> "mirror"));
+		allMatches.addAll(extractMatches(wikitext, ALT_LINK, 1, strings -> "alternate reality"));
 
 		return allMatches
 				.stream()
@@ -80,6 +85,9 @@ public class WikitextApiImpl implements WikitextApi {
 
 	@Override
 	public String getWikitextWithoutLinks(String wikitext) {
+		if (wikitext == null) {
+			return null;
+		}
 		String wikitextWithoutLinks = wikitext;
 		List<PageLink> pageLinkList = Lists.reverse(getPageLinksFromWikitext(wikitext));
 
@@ -116,6 +124,30 @@ public class WikitextApiImpl implements WikitextApi {
 		return null;
 	}
 
+	@Override
+	public List<String> getTemplateNamesFromWikitext(String wikitext) {
+		if (wikitext == null) {
+			return null;
+		}
+		String wikitextNoWhiteChars = wikitext.replaceAll("[\\t|\\r\\n]+", PIPE);
+		List<String> allMatches = Lists.newArrayList();
+
+		final Matcher matcher = MULTILINE_WITHOUT_TEMPLATES.matcher(wikitextNoWhiteChars);
+		while (matcher.find()) {
+			allMatches.add(matcher.group());
+		}
+
+		allMatches = allMatches.stream()
+				.map(s -> {
+					s = s.substring(2, s.length() - 2).trim();
+					s = StringUtils.substringBefore(s, PIPE);
+					return s;
+				})
+				.collect(Collectors.toList());
+
+		return allMatches;
+	}
+
 	private List<PageLink> extractLinkMatches(String wikitext) {
 		List<PageLink> linkMatches = Lists.newArrayList();
 		Matcher linkMatcher = LINK.matcher(wikitext);
@@ -134,33 +166,33 @@ public class WikitextApiImpl implements WikitextApi {
 		return linkMatches;
 	}
 
-	private List<PageLink> extractDisMatches(String wikitext) {
-		List<PageLink> disMatches = Lists.newArrayList();
-		Matcher disMatcher = DIS_LINK.matcher(wikitext);
+	private List<PageLink> extractMatches(String wikitext, Pattern pattern, int minParts, Function<List<String>, String> linkConstructor) {
+		List<PageLink> matches = Lists.newArrayList();
+		Matcher matcher = pattern.matcher(wikitext);
 
-		while (disMatcher.find()) {
-			String group = disMatcher.group(LINK_CONTENTS_GROUP);
+		while (matcher.find()) {
+			String group = matcher.group(LINK_CONTENTS_GROUP);
 			List<String> templateParts = Lists.newArrayList(group.split("\\" + PIPE));
 			PageLink pageLink = new PageLink();
 
-			if (templateParts.size() < 2) {
+			if (templateParts.size() < minParts) {
 				continue;
 			}
 
-			String title = templateParts.get(0) + SPACE + LEFT_BRACKET + templateParts.get(1) + RIGHT_BRACKET;
+			String title = templateParts.get(0) + SPACE + LEFT_BRACKET + linkConstructor.apply(templateParts) + RIGHT_BRACKET;
 			pageLink.setTitle(title);
 			pageLink.setDescription(templateParts.get(0));
 
-			if (templateParts.size() == 3) {
-				pageLink.setDescription(templateParts.get(2));
+			if (templateParts.size() == minParts + 1) {
+				pageLink.setDescription(templateParts.get(minParts));
 			}
 
-			pageLink.setStartPosition(disMatcher.start(LINK_CONTENTS_GROUP) - PADDING);
-			pageLink.setEndPosition(disMatcher.end(LINK_CONTENTS_GROUP) + PADDING);
-			disMatches.add(pageLink);
+			pageLink.setStartPosition(matcher.start(LINK_CONTENTS_GROUP) - PADDING);
+			pageLink.setEndPosition(matcher.end(LINK_CONTENTS_GROUP) + PADDING);
+			matches.add(pageLink);
 		}
 
-		return disMatches;
+		return matches;
 	}
 
 	private Template.Part getTemplatePartByKey(List<Template.Part> templatePartList, String key) {

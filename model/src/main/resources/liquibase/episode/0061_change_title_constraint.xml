@@ -1,0 +1,16 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet id="0061_change_title_constraint" author="cezarykluczynski">
+		<dropUniqueConstraint schemaName="stapi"
+				tableName="episode"
+				constraintName="episode_title_key"
+				uniqueColumns="title"/>
+		<addUniqueConstraint
+				columnNames="title, series_id"
+				constraintName="episode_unique_title_series_id"
+				schemaName="stapi"
+				tableName="episode"/>
+	</changeSet>
+</databaseChangeLog>

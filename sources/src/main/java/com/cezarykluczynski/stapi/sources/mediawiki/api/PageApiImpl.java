@@ -14,6 +14,7 @@ import com.google.common.collect.Lists;
 import info.bliki.api.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,6 +37,8 @@ public class PageApiImpl implements PageApi {
 	private final ParseComplementingService parseComplementingService;
 
 	private final PageCacheStorage pageCacheStorage;
+
+	private final List<Pair<String, String>> loggedRedirects = Lists.newArrayList();
 
 	public PageApiImpl(BlikiConnector blikiConnector, WikitextApi wikitextApi, ParseComplementingService parseComplementingService,
 			PageCacheStorage pageCacheStorage) {
@@ -93,7 +96,6 @@ public class PageApiImpl implements PageApi {
 		}
 
 		if (page == null) {
-			log.info("Page with title {} and source {} was not found after {} redirects", title, mediaWikiSource, redirectCount);
 			return null;
 		}
 
@@ -120,11 +122,14 @@ public class PageApiImpl implements PageApi {
 			return page;
 		} else {
 			String redirectTarget = redirects.get(0);
-			log.debug("Following redirect from {} to {}", title, redirectTarget);
+			final Pair<String, String> pair = Pair.of(title, redirectTarget);
+			if (!loggedRedirects.contains(pair)) {
+				log.debug("Following redirect from {} to {}", title, redirectTarget);
+				loggedRedirects.add(pair);
+			}
 			Page redirectPage = getPageRedirectAware(redirectTarget, redirectCount + 1, mediaWikiSource);
 
 			if (redirectPage == null) {
-				log.warn("Redirect {} leaded to unexisting page", redirectTarget);
 				return null;
 			}
 

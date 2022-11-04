@@ -15,7 +15,7 @@ class PageApiImplTest extends Specification {
 	private static final String TITLE_1 = 'Patrick Stewart'
 	private static final String TITLE_2 = 'Brent Spiner'
 	private static final String TITLE_3 = 'Jonathan Frakes'
-	private static final String TITLE_4 = 'Shoud never be used'
+	private static final String TITLE_4 = 'Should never be used'
 	private static final String NS = 'NS'
 	private static final String TITLE_NOT_FOUND = ''
 	private static final String NOT_FOUND_TITLE = 'Harrison Ford'

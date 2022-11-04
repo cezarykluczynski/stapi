@@ -2,6 +2,8 @@ package com.cezarykluczynski.stapi.etl.episode.creation.configuration;
 
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
 import com.cezarykluczynski.stapi.etl.episode.creation.processor.EpisodeReader;
+import com.cezarykluczynski.stapi.etl.episode.creation.service.ModuleEpisodeDataProvider;
+import com.cezarykluczynski.stapi.etl.util.SortingUtil;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
@@ -14,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
 import javax.inject.Inject;
+
 import java.util.List;
 
 @Configuration
@@ -25,6 +28,9 @@ public class EpisodeCreationConfiguration {
 	@Inject
 	private StepCompletenessDecider stepCompletenessDecider;
 
+	@Inject
+	private ModuleEpisodeDataProvider moduleEpisodeDataProvider;
+
 	@Bean
 	@DependsOn("batchDatabaseInitializer")
 	public EpisodeReader episodeReader() {
@@ -32,9 +38,10 @@ public class EpisodeCreationConfiguration {
 
 		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_EPISODES)) {
 			episodes.addAll(categoryApi.getPages(CategoryTitles.EPISODES, MediaWikiSource.MEMORY_ALPHA_EN));
+			moduleEpisodeDataProvider.initialize();
 		}
 
-		return new EpisodeReader(episodes);
+		return new EpisodeReader(SortingUtil.sortedUnique(episodes));
 	}
 
 }

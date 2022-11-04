@@ -69,6 +69,7 @@ public class XMLParseParser extends AbstractXMLParser {
 	}
 
 	@Override
+	@SuppressWarnings({"NPathComplexity"})
 	public void startElement(String uri, String localName, String qualifiedName, Attributes attributes) throws SAXException {
 		if (API.equals(qualifiedName)) {
 			hasAPI = true;
@@ -102,7 +103,11 @@ public class XMLParseParser extends AbstractXMLParser {
 				pageSection.setByteOffset(Integer.valueOf(attributes.getValue(BYTE_OFFSET)));
 			} catch (NumberFormatException e) {
 				pageSection.setByteOffset(0);
-				log.warn("Page \"{}\" section \"{}\" does not have byte offset specified", page.getTitle(), pageSection.getAnchor());
+				String anchor = pageSection.getAnchor();
+				// often no byte offset due to embedded templates
+				if (!"Starring".equals(anchor) && !"Also_starring".equals(anchor) && !"Also_Starring".equals(anchor)) {
+					log.warn("Page \"{}\" section \"{}\" does not have byte offset specified", page.getTitle(), anchor);
+				}
 			}
 			pageSection.setLevel(Integer.valueOf(attributes.getValue(LEVEL)));
 			pageSection.setNumber(attributes.getValue(NUMBER));

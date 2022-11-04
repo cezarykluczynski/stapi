@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.episode.creation.processor
 
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.EpisodePerformanceDTO
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.enums.PerformanceType
+import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApiImpl
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
@@ -9,8 +10,6 @@ import com.google.common.collect.Lists
 import spock.lang.Specification
 
 class EpisodePerformancesExtractingProcessorTest extends Specification {
-
-	private static final String UNKNOWN_PAGE_SECTION = 'Unknown page section'
 
 	private static final List<PageSection> PAGE_SECTION_LIST = Lists.newArrayList(
 			new PageSection(level: 2, text: 'Summary', anchor: 'Summary', number: '1', byteOffset: 1657, wikitext: ''),
@@ -37,12 +36,13 @@ class EpisodePerformancesExtractingProcessorTest extends Specification {
 					'[[Unnamed USS Enterprise (NCC-1701-D) operations division personnel#Female ops ensign|operations division officer]]\n* ' +
 					'{{dis|Crystal|cat}} as [[Cat|Data\'s cat]]\n* [[Brian Demonbreun]] as [[Andrew Powell]]\n* [[Fido]] as [[Cat|Data\'s cat]]\n* ' +
 					'[[Holiday Freeman]] as [[Unnamed USS Enterprise (NCC-1701-D) command division personnel#Female command division ' +
-					'officer|command division officer]]\n"'),
+					'officer|command division officer]]\n*[[Stephen James Carver]] as\n**[[Ibudan]]\n**[[Ibudan (first clone)]]'),
 			new PageSection(level: 3, text: 'Stunt double', anchor: 'Stunt_double', number: '4.7', byteOffset: 67875, wikitext:
-					'* [[LaFaye Baker]] as [[stunt double]] for [[Alison Brooks]])'),
+					'* [[LaFaye Baker]] as [[stunt double]] for [[Alison Brooks]] and stand-in for Gates McFadden)\n* [[Susan Lewis]] –\n' +
+					'** Photo double for [[Roxann Dawson]] (off-screen)\n** Stand-in for Marina Sirtis\n** Stunt for Michael Dorn'),
 			new PageSection(level: 3, text: 'Stand-ins', anchor: 'Stand-ins', number: '4.8', byteOffset: 67958, wikitext:
 					'* [[David Keith Anderson]] &ndash; [[stand-in]] for [[LeVar Burton]]\n* [[Richard Sarstedt]] &ndash; stand-in for ' +
-					'[[Jonathan Frakes]] and [[John de Lancie]]\n* [[Guy Vardaman]] &ndash; [[photo double]] for [[Brent Spiner]])'),
+					'[[Jonathan Frakes]] and [[John de Lancie]]\n* [[Guy Vardaman]] &ndash; photo double for Brent Spiner)'),
 			new PageSection(level: 3, text: 'References', anchor: 'References', number: '4.9', byteOffset: 68554, wikitext: '[[acetylcholine]]; ' +
 					'[[alphabet]]; [[alternate timeline]]; [[amino acid]]; [[anti-time]]; [[Pets Data cats 001|Anti-time Data\'s cats]]; ' +
 					'[[anti-time eruption]]; [[anti-time future]]; [[anti-time past]]; [[anti-time present]]; [[antimatter containment]]; ' +
@@ -80,13 +80,16 @@ class EpisodePerformancesExtractingProcessorTest extends Specification {
 							'Things...]]\n[[sv:All Good Things...]]\n[[Category:TNG episodes]])')
 	)
 
+	private PageApi pageApiMock
+
 	private EpisodePerformancesExtractingProcessor episodePerformancesExtractor
 
 	void setup() {
-		episodePerformancesExtractor = new EpisodePerformancesExtractingProcessor(new WikitextApiImpl())
+		pageApiMock = Mock()
+		episodePerformancesExtractor = new EpisodePerformancesExtractingProcessor(new WikitextApiImpl(), pageApiMock)
 	}
 
-	void "logs error and returns when page section list does not contain 'Links and references'"() {
+	void "returns empty list when page section list does not contain 'Links and references'"() {
 		given:
 		Page page = Mock()
 
@@ -100,29 +103,7 @@ class EpisodePerformancesExtractingProcessorTest extends Specification {
 		episodePerformances.empty
 	}
 
-	void "logs error when there are sections other than specified"() {
-		given:
-		Page page = Mock()
-		PageSection linksAndReferencesPageSection = Mock()
-		PageSection starringPageSection = Mock()
-		PageSection unknownPageSection = Mock()
-
-		when:
-		episodePerformancesExtractor.process(page)
-
-		then:
-		page.sections >> Lists.newArrayList(
-				linksAndReferencesPageSection,
-				starringPageSection,
-				unknownPageSection
-		)
-		3 * linksAndReferencesPageSection.text >> EpisodePerformancesExtractingProcessor.LINKS_AND_REFERENCES
-		2 * linksAndReferencesPageSection.number >> '4'
-		2 * starringPageSection.text >> EpisodePerformancesExtractingProcessor.STARRING
-		1 * unknownPageSection.number >> '4.1'
-		2 * unknownPageSection.text >> UNKNOWN_PAGE_SECTION
-	}
-
+	@SuppressWarnings('LineLength')
 	void "extracts the right links from the right sections"() {
 		given:
 		Page page = new Page(
@@ -133,7 +114,7 @@ class EpisodePerformancesExtractingProcessorTest extends Specification {
 		List<EpisodePerformanceDTO> episodePerformances = episodePerformancesExtractor.process(page)
 
 		then:
-		episodePerformances.size() == 27
+		episodePerformances.size() == 36
 		episodePerformances[0] == createEpisodePerformanceDTO('Patrick Stewart', 'Jean-Luc Picard', PerformanceType.PERFORMANCE)
 		episodePerformances[1] == createEpisodePerformanceDTO('Jonathan Frakes', 'William T. Riker', PerformanceType.PERFORMANCE)
 		episodePerformances[2] == createEpisodePerformanceDTO('LeVar Burton', 'Geordi La Forge', PerformanceType.PERFORMANCE)
@@ -150,18 +131,26 @@ class EpisodePerformancesExtractingProcessorTest extends Specification {
 		episodePerformances[13] == createEpisodePerformanceDTO('Pamela Kosh', 'Jessel', PerformanceType.PERFORMANCE)
 		episodePerformances[14] == createEpisodePerformanceDTO('Tim Kelleher', 'Gaines', PerformanceType.PERFORMANCE)
 		episodePerformances[15] == createEpisodePerformanceDTO('Alison Brooks', 'Nell Chilton', PerformanceType.PERFORMANCE)
-		episodePerformances[16] == createEpisodePerformanceDTO('Stephen Matthew Garvin', 'Starfleet future Enterprise-D ensign 001',
-				PerformanceType.PERFORMANCE)
+		episodePerformances[16] == createEpisodePerformanceDTO('Stephen Matthew Garvin', 'Starfleet future Enterprise-D ensign 001', PerformanceType.PERFORMANCE)
 		episodePerformances[17] == createEpisodePerformanceDTO('Majel Barrett', 'Computer Voice', PerformanceType.PERFORMANCE)
 		episodePerformances[18] == createEpisodePerformanceDTO('David Keith Anderson', 'Armstrong', PerformanceType.PERFORMANCE)
-		episodePerformances[19] == createEpisodePerformanceDTO('Cameron', 'Kellogg', PerformanceType.PERFORMANCE)
-		episodePerformances[20] == createEpisodePerformanceDTO('Tracee Lee Cocco', 'Jae', PerformanceType.PERFORMANCE)
-		episodePerformances[21] == createEpisodePerformanceDTO('Brian Demonbreun', 'Andrew Powell', PerformanceType.PERFORMANCE)
-		episodePerformances[22] == createEpisodePerformanceDTOPerformingFor('LaFaye Baker', 'Alison Brooks', PerformanceType.STUNT)
-		episodePerformances[23] == createEpisodePerformanceDTOPerformingFor('David Keith Anderson', 'LeVar Burton', PerformanceType.STAND_IN)
-		episodePerformances[24] == createEpisodePerformanceDTOPerformingFor('Richard Sarstedt', 'Jonathan Frakes', PerformanceType.STAND_IN)
-		episodePerformances[25] == createEpisodePerformanceDTOPerformingFor('Richard Sarstedt', 'John de Lancie', PerformanceType.STAND_IN)
-		episodePerformances[26] == createEpisodePerformanceDTOPerformingFor('Guy Vardaman', 'Brent Spiner', PerformanceType.STAND_IN)
+		episodePerformances[19] == createEpisodePerformanceDTO('Aspen', 'Cat', PerformanceType.PERFORMANCE)
+		episodePerformances[20] == createEpisodePerformanceDTO('Cameron', 'Kellogg', PerformanceType.PERFORMANCE)
+		episodePerformances[21] == createEpisodePerformanceDTO('Tracee Lee Cocco', 'Jae', PerformanceType.PERFORMANCE)
+		episodePerformances[22] == createEpisodePerformanceDTO('Crystal (cat)', 'Cat', PerformanceType.PERFORMANCE)
+		episodePerformances[23] == createEpisodePerformanceDTO('Brian Demonbreun', 'Andrew Powell', PerformanceType.PERFORMANCE)
+		episodePerformances[24] == createEpisodePerformanceDTO('Fido', 'Cat', PerformanceType.PERFORMANCE)
+		episodePerformances[25] == createEpisodePerformanceDTO('Stephen James Carver', 'Ibudan', PerformanceType.PERFORMANCE)
+		episodePerformances[26] == createEpisodePerformanceDTO('Stephen James Carver', 'Ibudan (first clone)', PerformanceType.PERFORMANCE)
+		episodePerformances[27] == createEpisodePerformanceDTOPerformingFor('LaFaye Baker', 'Alison Brooks', PerformanceType.STUNT)
+		episodePerformances[28] == createEpisodePerformanceDTOPerformingFor('LaFaye Baker', 'Gates McFadden', PerformanceType.STAND_IN)
+		episodePerformances[29] == createEpisodePerformanceDTOPerformingFor('Susan Lewis', 'Roxann Dawson', PerformanceType.STUNT)
+		episodePerformances[30] == createEpisodePerformanceDTOPerformingFor('Susan Lewis', 'Marina Sirtis', PerformanceType.STAND_IN)
+		episodePerformances[31] == createEpisodePerformanceDTOPerformingFor('Susan Lewis', 'Michael Dorn', PerformanceType.STUNT)
+		episodePerformances[32] == createEpisodePerformanceDTOPerformingFor('David Keith Anderson', 'LeVar Burton', PerformanceType.STAND_IN)
+		episodePerformances[33] == createEpisodePerformanceDTOPerformingFor('Richard Sarstedt', 'Jonathan Frakes', PerformanceType.STAND_IN)
+		episodePerformances[34] == createEpisodePerformanceDTOPerformingFor('Richard Sarstedt', 'John de Lancie', PerformanceType.STAND_IN)
+		episodePerformances[35] == createEpisodePerformanceDTOPerformingFor('Guy Vardaman', 'Brent Spiner', PerformanceType.STAND_IN)
 	}
 
 	private static EpisodePerformanceDTO createEpisodePerformanceDTO(String performerName, String characterName, PerformanceType performanceType) {

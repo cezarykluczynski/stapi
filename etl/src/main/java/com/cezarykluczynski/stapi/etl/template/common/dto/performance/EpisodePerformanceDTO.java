@@ -16,4 +16,13 @@ public class EpisodePerformanceDTO {
 
 	private PerformanceType performanceType;
 
+	public EpisodePerformanceDTO copyOf() {
+		EpisodePerformanceDTO clone = new EpisodePerformanceDTO();
+		clone.setPerformerName(performerName);
+		clone.setPerformingFor(performingFor);
+		clone.setCharacterName(characterName);
+		clone.setPerformanceType(performanceType);
+		return clone;
+	}
+
 }

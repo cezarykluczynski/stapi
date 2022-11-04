@@ -70,7 +70,7 @@ class EpisodeTemplateDatesEnrichingProcessorTest extends Specification {
 		episodeTemplate.finalScriptDate == localDate
 	}
 
-	void "does not get date when there is more than one date"() {
+	void "gets date from section when more than one is present"() {
 		given:
 		Page page = new Page(
 				sections: Lists.newArrayList(
@@ -83,16 +83,16 @@ class EpisodeTemplateDatesEnrichingProcessorTest extends Specification {
 		EpisodeTemplate episodeTemplate = new EpisodeTemplate(
 				title: TITLE
 		)
-		LocalDate localDate1 = LocalDate.of(2003, 10, 28)
-		LocalDate localDate2 = LocalDate.of(2004, 11, 29)
+		LocalDate earlierDate = LocalDate.of(2003, 10, 28)
+		LocalDate laterDate = LocalDate.of(2004, 11, 29)
 
 		when:
 		episodeTemplateDatesEnrichingProcessor.enrich(EnrichablePair.of(page, episodeTemplate))
 
 		then:
 		1 * episodeFinalScriptDateFixedValueProviderMock.getSearchedValue(TITLE) >> FixedValueHolder.notFound()
-		1 * rawDatelinkExtractingProcessorMock.process(WIKITEXT) >> Lists.newArrayList(localDate1, localDate2)
-		episodeTemplate.finalScriptDate == null
+		1 * rawDatelinkExtractingProcessorMock.process(WIKITEXT) >> Lists.newArrayList(earlierDate, laterDate)
+		episodeTemplate.finalScriptDate == laterDate
 	}
 
 }

@@ -1,9 +1,12 @@
 package com.cezarykluczynski.stapi.etl.template.episode.processor;
 
+import com.cezarykluczynski.stapi.etl.common.configuration.CommonTemplateConfiguration;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor;
+import com.cezarykluczynski.stapi.etl.common.processor.ImageTemplateStardateYearEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
-import com.cezarykluczynski.stapi.etl.episode.creation.service.SeriesToEpisodeBindingService;
+import com.cezarykluczynski.stapi.etl.episode.creation.dto.ModuleEpisodeData;
+import com.cezarykluczynski.stapi.etl.episode.creation.service.ModuleEpisodeDataProvider;
 import com.cezarykluczynski.stapi.etl.template.common.linker.EpisodeLinkingWorkerComposite;
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
@@ -14,25 +17,23 @@ import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import com.google.common.base.Preconditions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-@Service
 @Slf4j
+@Service
+@SuppressWarnings("ParameterNumber")
 public class ToEpisodeTemplateProcessor implements ItemProcessor<Page, EpisodeTemplate> {
-
-	private final EpisodeTemplateProcessor episodeTemplateProcessor;
 
 	private final EpisodeLinkingWorkerComposite episodeLinkingWorkerComposite;
 
 	private final PageBindingService pageBindingService;
-
-	private final SeriesToEpisodeBindingService seriesToEpisodeBindingService;
 
 	private final EpisodeTemplateEnrichingProcessorComposite episodeTemplateEnrichingProcessorComposite;
 
@@ -40,51 +41,68 @@ public class ToEpisodeTemplateProcessor implements ItemProcessor<Page, EpisodeTe
 
 	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
-	public ToEpisodeTemplateProcessor(EpisodeTemplateProcessor episodeTemplateProcessor, EpisodeLinkingWorkerComposite episodeLinkingWorkerComposite,
-			PageBindingService pageBindingService, SeriesToEpisodeBindingService seriesToEpisodeBindingService,
+	private final ModuleEpisodeDataEnrichingProcessor moduleEpisodeDataEnrichingProcessor;
+
+	private final ImageTemplateStardateYearEnrichingProcessor imageTemplateStardateYearEnrichingProcessor;
+
+	private final ModuleEpisodeDataProvider moduleEpisodeDataProvider;
+
+	public ToEpisodeTemplateProcessor(EpisodeLinkingWorkerComposite episodeLinkingWorkerComposite, PageBindingService pageBindingService,
 			EpisodeTemplateEnrichingProcessorComposite episodeTemplateEnrichingProcessorComposite, TemplateFinder templateFinder,
-			CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {
-		this.episodeTemplateProcessor = episodeTemplateProcessor;
+			CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor,
+			ModuleEpisodeDataEnrichingProcessor moduleEpisodeDataEnrichingProcessor,
+			@Qualifier(CommonTemplateConfiguration.EPISODE_TEMPALTE_STARDATE_YEAR_ENRICHING_PROCESSOR)
+			ImageTemplateStardateYearEnrichingProcessor imageTemplateStardateYearEnrichingProcessor,
+			ModuleEpisodeDataProvider moduleEpisodeDataProvider) {
 		this.episodeLinkingWorkerComposite = episodeLinkingWorkerComposite;
 		this.pageBindingService = pageBindingService;
-		this.seriesToEpisodeBindingService = seriesToEpisodeBindingService;
 		this.episodeTemplateEnrichingProcessorComposite = episodeTemplateEnrichingProcessorComposite;
 		this.templateFinder = templateFinder;
 		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
+		this.moduleEpisodeDataEnrichingProcessor = moduleEpisodeDataEnrichingProcessor;
+		this.imageTemplateStardateYearEnrichingProcessor = imageTemplateStardateYearEnrichingProcessor;
+		this.moduleEpisodeDataProvider = moduleEpisodeDataProvider;
 	}
 
 	@Override
-	@SuppressFBWarnings("RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE")
+	// @SuppressFBWarnings("RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE")
 	public EpisodeTemplate process(Page item) throws Exception {
+		List<String> categoryHeaderList = categoryTitlesExtractingProcessor.process(item.getCategories());
+		boolean isEpisodePage = isEpisodePage(categoryHeaderList);
+
+		if (!isEpisodePage) {
+			log.info("Page with title \"{}\" marked as not an episode (excluding category present).", item.getTitle());
+			return null;
+		}
+		log.info("Processing episode {}.", item.getTitle());
+
+		EpisodeTemplate episodeTemplate = new EpisodeTemplate();
+		episodeTemplate.setEpisodeStub(new Episode());
 		Optional<Template> templateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_EPISODE);
-
-		boolean isEpisodePage = isEpisodePage(item);
-		boolean templateOptionalIsPresent = templateOptional.isPresent();
-		if (!isEpisodePage || !templateOptionalIsPresent) {
-			log.info("Page with title \"{}\" marked as not an episode (production list or category: {}, template missing: {})", item.getTitle(),
-					!isEpisodePage, !templateOptionalIsPresent);
-			return null;
+		if (templateOptional.isPresent()) {
+			imageTemplateStardateYearEnrichingProcessor.enrich(EnrichablePair.of(templateOptional.get(), episodeTemplate));
 		}
-
-		EpisodeTemplate episodeTemplate = episodeTemplateProcessor.process(templateOptional.get());
-
-		if (episodeTemplate == null) {
-			return null;
-		}
-
-		Episode episodeStub = episodeTemplate.getEpisodeStub();
-
 		setTemplateValuesFromPage(episodeTemplate, item);
+		final ModuleEpisodeData moduleEpisodeData = moduleEpisodeDataProvider.provideDataFor(item.getTitle());
+		if (moduleEpisodeData == null) {
+			log.info("Page with title \"{}\" has no entry in module episode data, skipping.", item.getTitle());
+			return null;
+		}
+		moduleEpisodeDataEnrichingProcessor.enrich(EnrichablePair.of(moduleEpisodeData, episodeTemplate));
+		Episode episodeStub = episodeTemplate.getEpisodeStub();
 		linkPerformancesAndStaff(episodeStub, item);
 		enrichTemplateWithPage(episodeTemplate, item);
-
+		if (!Boolean.TRUE.equals(episodeTemplate.getFeatureLength())) {
+			episodeTemplate.setFeatureLength(categoryHeaderList.contains(CategoryTitle.DOUBLE_LENGTH_EPISODES));
+		}
+		Preconditions.checkNotNull(episodeTemplate.getSeason(), "Season has to be set in episode %s", episodeTemplate.getTitle());
+		Preconditions.checkNotNull(episodeTemplate.getSeries(), "Series has to be set in episode %s", episodeTemplate.getTitle());
 		return episodeTemplate;
 	}
 
 	private void setTemplateValuesFromPage(EpisodeTemplate episodeTemplate, Page item) {
 		episodeTemplate.setTitle(TitleUtil.getNameFromTitle(item.getTitle()));
 		episodeTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
-		episodeTemplate.setSeries(seriesToEpisodeBindingService.mapCategoriesToSeries(item.getCategories()));
 	}
 
 	private void linkPerformancesAndStaff(Episode episodeStub, Page item) {
@@ -95,9 +113,7 @@ public class ToEpisodeTemplateProcessor implements ItemProcessor<Page, EpisodeTe
 		episodeTemplateEnrichingProcessorComposite.enrich(EnrichablePair.of(item, episodeTemplate));
 	}
 
-	private boolean isEpisodePage(Page source) {
-		List<String> categoryHeaderList = categoryTitlesExtractingProcessor.process(source.getCategories());
-
+	private boolean isEpisodePage(List<String> categoryHeaderList) {
 		boolean hasEpisodeCategory = categoryHeaderList.stream()
 				.anyMatch(this::isEpisodeCategory);
 

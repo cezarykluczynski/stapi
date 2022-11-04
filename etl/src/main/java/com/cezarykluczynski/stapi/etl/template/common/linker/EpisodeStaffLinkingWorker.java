@@ -2,6 +2,7 @@ package com.cezarykluczynski.stapi.etl.template.common.linker;
 
 import com.cezarykluczynski.stapi.etl.common.processor.LinkingWorker;
 import com.cezarykluczynski.stapi.etl.common.service.EntityLookupByNameService;
+import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplateParameter;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.model.episode.entity.Episode;
 import com.cezarykluczynski.stapi.model.staff.entity.Staff;
@@ -11,6 +12,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
+import com.google.common.collect.Sets;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -21,10 +23,6 @@ import java.util.stream.Collectors;
 public class EpisodeStaffLinkingWorker implements LinkingWorker<Page, Episode> {
 
 	private static final MediaWikiSource SOURCE = MediaWikiSource.MEMORY_ALPHA_EN;
-	private static final String WS_WRITTEN_BY = "wswrittenby";
-	private static final String WS_TELEPLAY_BY = "wsteleplayby";
-	private static final String WS_STORY_BY = "wsstoryby";
-	private static final String WS_DIRECTED_BY = "wsdirectedby";
 
 	private final WikitextApi wikitextApi;
 
@@ -32,8 +30,7 @@ public class EpisodeStaffLinkingWorker implements LinkingWorker<Page, Episode> {
 
 	private final TemplateFinder templateFinder;
 
-	public EpisodeStaffLinkingWorker(WikitextApi wikitextApi, EntityLookupByNameService entityLookupByNameService,
-			TemplateFinder templateFinder) {
+	public EpisodeStaffLinkingWorker(WikitextApi wikitextApi, EntityLookupByNameService entityLookupByNameService, TemplateFinder templateFinder) {
 		this.wikitextApi = wikitextApi;
 		this.entityLookupByNameService = entityLookupByNameService;
 		this.templateFinder = templateFinder;
@@ -49,6 +46,10 @@ public class EpisodeStaffLinkingWorker implements LinkingWorker<Page, Episode> {
 
 		Template template = templateOptional.get();
 
+		String writerValue = null;
+		String teleplayValue = null;
+		String storyValue = null;
+		String directorValue = null;
 		for (Template.Part part : template.getParts()) {
 			String key = part.getKey();
 			String value = part.getValue();
@@ -58,22 +59,35 @@ public class EpisodeStaffLinkingWorker implements LinkingWorker<Page, Episode> {
 			}
 
 			switch (key) {
-				case WS_WRITTEN_BY:
+				case EpisodeTemplateParameter.WRITER:
+					writerValue = value;
 					baseEntity.setWriters(extractStaffFromWikitext(value));
 					break;
-				case WS_TELEPLAY_BY:
+				case EpisodeTemplateParameter.TELEPLAY:
+					teleplayValue = value;
 					baseEntity.setTeleplayAuthors(extractStaffFromWikitext(value));
 					break;
-				case WS_STORY_BY:
+				case EpisodeTemplateParameter.STORY:
+					storyValue = value;
 					baseEntity.setStoryAuthors(extractStaffFromWikitext(value));
 					break;
-				case WS_DIRECTED_BY:
+				case EpisodeTemplateParameter.DIRECTOR:
+					directorValue = value;
 					baseEntity.setDirectors(extractStaffFromWikitext(value));
 					break;
 				default:
 					break;
 			}
 		}
+		Set<Staff> all = Sets.newHashSet();
+		all.addAll(baseEntity.getWriters());
+		all.addAll(baseEntity.getTeleplayAuthors());
+		all.addAll(baseEntity.getStoryAuthors());
+		all.addAll(baseEntity.getDirectors());
+		baseEntity.getWriters().addAll(getMissingValues(writerValue, all));
+		baseEntity.getTeleplayAuthors().addAll(getMissingValues(teleplayValue, all));
+		baseEntity.getStoryAuthors().addAll(getMissingValues(storyValue, all));
+		baseEntity.getDirectors().addAll(getMissingValues(directorValue, all));
 	}
 
 	private Set<Staff> extractStaffFromWikitext(String value) {
@@ -87,6 +101,16 @@ public class EpisodeStaffLinkingWorker implements LinkingWorker<Page, Episode> {
 
 	private Optional<Staff> findStaffByName(String staffName) {
 		return entityLookupByNameService.findStaffByName(staffName, SOURCE);
+	}
+
+
+	private Set<Staff> getMissingValues(String value, Set<Staff> all) {
+		if (value == null) {
+			return Sets.newHashSet();
+		}
+		return all.stream()
+				.filter(staff -> value.contains(staff.getName()))
+				.collect(Collectors.toSet());
 	}
 
 }

@@ -48,7 +48,7 @@ class GenericEntityLookupByNameService {
 			return genericOptional;
 		} else {
 			Page page = pageApi.getPage(pageName, mediaWikiSource);
-			if (page != null && !page.getRedirectPath().isEmpty()) {
+			if (page != null) {
 				return pageAwareRepository.findByPagePageIdAndPageMediaWikiSource(page.getPageId(),
 						mediaWikiSourceMapper.fromSourcesToEntity(page.getMediaWikiSource()));
 			}

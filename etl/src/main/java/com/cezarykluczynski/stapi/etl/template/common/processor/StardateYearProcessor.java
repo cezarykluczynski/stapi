@@ -5,8 +5,10 @@ import com.cezarykluczynski.stapi.etl.template.common.dto.datetime.enums.Stardat
 import com.cezarykluczynski.stapi.etl.template.common.dto.performance.StardateYearCandidateDTO;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
+import com.cezarykluczynski.stapi.util.tool.StringUtil;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
@@ -78,22 +80,27 @@ public class StardateYearProcessor implements ItemProcessor<StardateYearCandidat
 	private void enrichWithStardates(StardateYearDTO stardateYearDTO, String stardate, String imageType, String title) {
 		if (stardate != null && !stardate.contains("Unknown")) {
 			List<String> stardateParts = Lists.newArrayList(stardate.split("-"));
-			try {
-				if (!stardateParts.isEmpty()) {
-					stardateYearDTO.setStardateFrom(Float.valueOf(stardateParts.get(0)));
+			if (!stardateParts.isEmpty()) {
+				final String wikitextWithoutLinks = wikitextApi.getWikitextWithoutLinks(stardateParts.get(0));
+				try {
+					if (StringUtil.isNotNull(wikitextWithoutLinks) && StringUtils.isNotBlank(wikitextWithoutLinks)) {
+						stardateYearDTO.setStardateFrom(Float.valueOf(wikitextWithoutLinks));
+					}
+				} catch (NumberFormatException e) {
+					log.info("Could not cast {} \"{}\" \"from\" stardate \"{}\" to float", imageType, title, stardateParts.get(0));
 				}
-			} catch (NumberFormatException e) {
-				log.info("Could not cast {} \"{}\" \"from\" stardate {} to float", imageType, title, stardateParts.get(0));
 			}
 
-			try {
-				if (stardateParts.size() > 1) {
-					stardateYearDTO.setStardateTo(Float.valueOf(stardateParts.get(1)));
+			if (stardateParts.size() > 1) {
+				final String wikitextWithoutLinks = wikitextApi.getWikitextWithoutLinks(stardateParts.get(1));
+				try {
+					if (StringUtil.isNotNull(wikitextWithoutLinks) && StringUtils.isNotBlank(wikitextWithoutLinks)) {
+						stardateYearDTO.setStardateTo(Float.valueOf(wikitextWithoutLinks));
+					}
+				} catch (NumberFormatException e) {
+					log.info("Could not cast {} \"{}\" \"to\" stardate \"{}\" to float", imageType, title, stardateParts.get(1));
 				}
-			} catch (NumberFormatException e) {
-				log.info("Could not cast {} \"to\" stardate {} to float", imageType, title, stardateParts.get(1));
 			}
-
 			if (stardateYearDTO.getStardateTo() == null) {
 				stardateYearDTO.setStardateTo(stardateYearDTO.getStardateFrom());
 			}

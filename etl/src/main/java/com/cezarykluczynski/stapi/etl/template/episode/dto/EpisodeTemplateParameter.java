@@ -2,13 +2,18 @@ package com.cezarykluczynski.stapi.etl.template.episode.dto;
 
 public class EpisodeTemplateParameter {
 
-	public static final String S_SERIES = "sseries";
-	public static final String N_SEASON = "nseason";
-	public static final String N_EPISODE = "nepisode";
-	public static final String S_PRODUCTION_SERIAL_NUMBER = "sproductionserialnumber";
-	public static final String B_FEATURE_LENGTH = "bfeaturelength";
-	public static final String N_AIRDATE_YEAR = "nairdateyear";
-	public static final String S_AIRDATE_MONTH = "sairdatemonth";
-	public static final String N_AIRDATE_DAY = "nairdateday";
+	public static final String SERIES = "series";
+	public static final String SEASON = "season";
+	public static final String EPISODE = "episode";
+	public static final String PRODUCTION = "production";
+	public static final String FEATURE = "feature";
+	public static final String RELEASE_YEAR = "release year";
+	public static final String RELEASE_MONTH = "release month";
+	public static final String RELEASE_DAY = "release day";
+	public static final String DATE = "date";
+	public static final String WRITER = "writer";
+	public static final String TELEPLAY = "teleplay";
+	public static final String STORY = "story";
+	public static final String DIRECTOR = "director";
 
 }

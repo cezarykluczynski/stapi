@@ -18,6 +18,7 @@ public class SeriesAbbreviationFixedValueProvider implements FixedValueProvider<
 		TITLE_TO_ABBREVIATION_MAP.put("Star Trek: Discovery", SeriesAbbreviation.DIS);
 	}
 
+	// TODO: remove?
 	@Override
 	public FixedValueHolder<String> getSearchedValue(String key) {
 		return FixedValueHolder.of(TITLE_TO_ABBREVIATION_MAP.containsKey(key), TITLE_TO_ABBREVIATION_MAP.get(key));

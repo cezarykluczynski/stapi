@@ -39,7 +39,7 @@ class ImageTemplateStardateYearEnrichingProcessorTest extends AbstractTemplatePr
 		given:
 		Template template = new Template(
 				parts: Lists.newArrayList(
-						createTemplatePart(ImageTemplateStardateYearEnrichingProcessor.WS_DATE, WS_DATE),
+						createTemplatePart(ImageTemplateStardateYearEnrichingProcessor.DATE, WS_DATE),
 				)
 		)
 		ImageTemplate imageTemplate = new ImageTemplate()
@@ -69,8 +69,8 @@ class ImageTemplateStardateYearEnrichingProcessorTest extends AbstractTemplatePr
 		when:
 		imageTemplateStardateYearEnrichingProcessor.enrich(EnrichablePair.of(new Template(
 				parts: Lists.newArrayList(
-						createTemplatePart(ImageTemplateStardateYearEnrichingProcessor.S_TITLE, TITLE),
-						createTemplatePart(ImageTemplateStardateYearEnrichingProcessor.WS_DATE, WS_DATE_INVALID_1)
+						createTemplatePart(ImageTemplateStardateYearEnrichingProcessor.TITLE, TITLE),
+						createTemplatePart(ImageTemplateStardateYearEnrichingProcessor.DATE, WS_DATE_INVALID_1)
 				)
 		), imageTemplate))
 
@@ -100,8 +100,8 @@ class ImageTemplateStardateYearEnrichingProcessorTest extends AbstractTemplatePr
 		when:
 		imageTemplateStardateYearEnrichingProcessor.enrich(EnrichablePair.of(new Template(
 				parts: Lists.newArrayList(
-						createTemplatePart(ImageTemplateStardateYearEnrichingProcessor.S_TITLE, TITLE),
-						createTemplatePart(ImageTemplateStardateYearEnrichingProcessor.WS_DATE, WS_DATE)
+						createTemplatePart(ImageTemplateStardateYearEnrichingProcessor.TITLE, TITLE),
+						createTemplatePart(ImageTemplateStardateYearEnrichingProcessor.DATE, WS_DATE)
 				)
 		), imageTemplate))
 

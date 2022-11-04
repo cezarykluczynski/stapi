@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+// Note: this service is used by BlikiConnector via Spring annotation @Cacheable
 @Service
 @Slf4j
 public class PageCacheService {
