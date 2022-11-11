@@ -7,13 +7,16 @@ import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieLinkedTitles
 import com.cezarykluczynski.stapi.model.movie.entity.Movie;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 @Slf4j
+@Service
+@RequiredArgsConstructor
 public class MovieRealPeopleLinkingWorkerComposite implements LinkingWorker<Page, Movie> {
 
 	private final MovieClosingCreditsProcessor movieClosingCreditsProcessor;
@@ -24,27 +27,19 @@ public class MovieRealPeopleLinkingWorkerComposite implements LinkingWorker<Page
 
 	private final MoviePerformersLinkingWorkerComposite moviePerformersLinkingWorkerComposite;
 
-	public MovieRealPeopleLinkingWorkerComposite(MovieClosingCreditsProcessor movieClosingCreditsProcessor,
-			MovieLinkedTitlesProcessor movieLinkedTitlesProcessor, MovieStaffLinkingWorkerComposite movieStaffLinkingWorkerComposite,
-			MoviePerformersLinkingWorkerComposite moviePerformersLinkingWorkerComposite) {
-		this.movieClosingCreditsProcessor = movieClosingCreditsProcessor;
-		this.movieLinkedTitlesProcessor = movieLinkedTitlesProcessor;
-		this.movieStaffLinkingWorkerComposite = movieStaffLinkingWorkerComposite;
-		this.moviePerformersLinkingWorkerComposite = moviePerformersLinkingWorkerComposite;
-	}
-
 	@Override
 	public void link(Page source, Movie baseEntity) {
 		MovieLinkedTitlesDTO movieLinkedTitlesDTO;
 		try {
-			List<PageSection> creditsPageSectionList = movieClosingCreditsProcessor.process(source);
-			movieLinkedTitlesDTO = movieLinkedTitlesProcessor.process(creditsPageSectionList);
+			Pair<List<PageSection>, Page> creditsPageSectionsAndPage = movieClosingCreditsProcessor.process(source);
+			movieLinkedTitlesDTO = movieLinkedTitlesProcessor.process(creditsPageSectionsAndPage);
 		} catch (Exception e) {
 			return;
 		}
 
 		movieStaffLinkingWorkerComposite.link(movieLinkedTitlesDTO, baseEntity);
 		moviePerformersLinkingWorkerComposite.link(movieLinkedTitlesDTO, baseEntity);
+
 	}
 
 }

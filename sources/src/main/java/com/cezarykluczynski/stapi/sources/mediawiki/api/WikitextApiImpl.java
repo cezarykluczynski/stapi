@@ -1,12 +1,14 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.api;
 
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
 import com.google.common.base.Objects;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -42,6 +44,32 @@ public class WikitextApiImpl implements WikitextApi {
 	public List<String> getPageTitlesFromWikitext(String wikitext) {
 		return getPageLinksFromWikitext(wikitext)
 				.stream()
+				.map(PageLink::getTitle)
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<String> getPageTitlesFromWikitextExcludingNotFound(String wikitext, Page page) {
+		final Document htmlDocument = page.getHtmlDocument();
+		List<PageLink> nonExistingPageLinks = htmlDocument.select("span.new").stream()
+				.map(element -> {
+					PageLink pageLink = new PageLink();
+					pageLink.setTitle(element.attr("title").replace(" (page does not exist)", ""));
+					pageLink.setDescription(element.text());
+					return pageLink;
+				})
+				.collect(Collectors.toList());
+
+		final List<PageLink> pageLinksFromWikitext = getPageLinksFromWikitext(wikitext);
+
+		return pageLinksFromWikitext
+				.stream()
+				.filter(pageLink -> {
+					return nonExistingPageLinks.stream().noneMatch(nonExistingPageLink ->
+							StringUtils.equals(nonExistingPageLink.getTitle(), pageLink.getTitle())
+									&& (pageLink.getDescription() == null
+									|| StringUtils.equals(nonExistingPageLink.getDescription(), pageLink.getDescription())));
+				})
 				.map(PageLink::getTitle)
 				.collect(Collectors.toList());
 	}

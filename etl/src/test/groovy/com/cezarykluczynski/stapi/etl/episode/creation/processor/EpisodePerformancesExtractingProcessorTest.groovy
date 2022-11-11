@@ -11,7 +11,7 @@ import spock.lang.Specification
 
 class EpisodePerformancesExtractingProcessorTest extends Specification {
 
-	private static final List<PageSection> PAGE_SECTION_LIST = Lists.newArrayList(
+	private static final List<PageSection> EPISODE_PAGE_SECTION_LIST = Lists.newArrayList(
 			new PageSection(level: 2, text: 'Summary', anchor: 'Summary', number: '1', byteOffset: 1657, wikitext: ''),
 			new PageSection(level: 2, text: 'Links and references', anchor: 'Links_and_references', number: '4', byteOffset: 62396, wikitext:''),
 			new PageSection(level: 3, text: 'Starring', anchor: 'Starring', number: '4.1', byteOffset: 62423, wikitext: '* [[Patrick Stewart]] ' +
@@ -106,9 +106,7 @@ class EpisodePerformancesExtractingProcessorTest extends Specification {
 	@SuppressWarnings('LineLength')
 	void "extracts the right links from the right sections"() {
 		given:
-		Page page = new Page(
-				sections: PAGE_SECTION_LIST
-		)
+		Page page = new Page(sections: EPISODE_PAGE_SECTION_LIST)
 
 		when:
 		List<EpisodePerformanceDTO> episodePerformances = episodePerformancesExtractor.process(page)

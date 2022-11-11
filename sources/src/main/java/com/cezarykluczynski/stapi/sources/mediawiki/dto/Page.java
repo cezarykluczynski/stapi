@@ -4,6 +4,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.google.common.collect.Lists;
 import lombok.Data;
+import org.jsoup.nodes.Document;
 
 import java.util.List;
 
@@ -17,6 +18,8 @@ public class Page {
 	private MediaWikiSource mediaWikiSource;
 
 	private String wikitext;
+
+	private Document htmlDocument;
 
 	private List<CategoryHeader> categories = Lists.newArrayList();
 

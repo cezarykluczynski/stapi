@@ -2,26 +2,29 @@ package com.cezarykluczynski.stapi.etl.template.movie.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.service.PageBindingService;
+import com.cezarykluczynski.stapi.etl.episode.creation.dto.ModuleEpisodeData;
+import com.cezarykluczynski.stapi.etl.episode.creation.service.ModuleEpisodeDataProvider;
+import com.cezarykluczynski.stapi.etl.movie.creation.service.MoviePageFilter;
 import com.cezarykluczynski.stapi.etl.template.movie.dto.MovieTemplate;
 import com.cezarykluczynski.stapi.etl.template.movie.linker.MovieRealPeopleLinkingWorkerComposite;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
 import com.cezarykluczynski.stapi.etl.util.TitleUtil;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
-import com.cezarykluczynski.stapi.util.constant.PageTitle;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
-import com.google.common.collect.Lists;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
+@RequiredArgsConstructor
 public class MovieTemplatePageProcessor implements ItemProcessor<Page, MovieTemplate> {
 
-	private static final List<String> IGNORABLE_TITLES = Lists.newArrayList(PageTitle.STAR_TREK_FILMS,
-			PageTitle.STAR_TREK_XIV);
+	private final MoviePageFilter moviePageFilter;
 
 	private final MovieTemplateProcessor movieTemplateProcessor;
 
@@ -33,37 +36,38 @@ public class MovieTemplatePageProcessor implements ItemProcessor<Page, MovieTemp
 
 	private final MovieRealPeopleLinkingWorkerComposite movieRealPeopleLinkingWorkerComposite;
 
-	public MovieTemplatePageProcessor(MovieTemplateProcessor movieTemplateProcessor, TemplateFinder templateFinder,
-			PageBindingService pageBindingService,
-			MovieTemplateTitleLanguagesEnrichingProcessor movieTemplateTitleLanguagesEnrichingProcessor,
-			MovieRealPeopleLinkingWorkerComposite movieRealPeopleLinkingWorkerComposite) {
-		this.movieTemplateProcessor = movieTemplateProcessor;
-		this.templateFinder = templateFinder;
-		this.pageBindingService = pageBindingService;
-		this.movieTemplateTitleLanguagesEnrichingProcessor = movieTemplateTitleLanguagesEnrichingProcessor;
-		this.movieRealPeopleLinkingWorkerComposite = movieRealPeopleLinkingWorkerComposite;
-	}
+	private final ModuleEpisodeDataProvider moduleEpisodeDataProvider;
+
+	private final ModuleMovieDataEnrichingProcessor moduleMovieDataEnrichingProcessor;
 
 	@Override
 	public MovieTemplate process(Page item) throws Exception {
-		Optional<Template> templateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_FILM);
-
-		if (!isMoviePage(item) || !templateOptional.isPresent()) {
+		if (moviePageFilter.shouldBeFilteredOut(item)) {
 			return null;
 		}
+		String title = item.getTitle();
+		Optional<Template> templateOptional = templateFinder.findTemplate(item, TemplateTitle.SIDEBAR_FILM);
+		if (!templateOptional.isPresent()) {
+			log.info("Template {} not found in page {}, skipping.", TemplateTitle.SIDEBAR_FILM, title);
+			return null;
+		}
+		log.info("Processing movie: {}", item.getTitle());
 
 		MovieTemplate movieTemplate = movieTemplateProcessor.process(templateOptional.get());
-		movieTemplate.setTitle(TitleUtil.getNameFromTitle(item.getTitle()));
+		movieTemplate.setTitle(TitleUtil.getNameFromTitle(title));
 		movieTemplate.setPage(pageBindingService.fromPageToPageEntity(item));
+
+		final ModuleEpisodeData moduleEpisodeData = moduleEpisodeDataProvider.provideDataFor(title);
+		if (moduleEpisodeData != null) {
+			moduleMovieDataEnrichingProcessor.enrich(EnrichablePair.of(moduleEpisodeData, movieTemplate));
+		} else {
+			log.info("No ModuleEpisodeData found for {}", title);
+		}
 
 		movieTemplateTitleLanguagesEnrichingProcessor.enrich(EnrichablePair.of(item, movieTemplate));
 		movieRealPeopleLinkingWorkerComposite.link(item, movieTemplate.getMovieStub());
 
 		return movieTemplate;
-	}
-
-	private boolean isMoviePage(Page source) {
-		return !IGNORABLE_TITLES.contains(source.getTitle());
 	}
 
 }

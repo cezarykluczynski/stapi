@@ -3,7 +3,6 @@ package com.cezarykluczynski.stapi.etl.template.episode.processor;
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
 import com.cezarykluczynski.stapi.etl.common.processor.ItemEnrichingProcessor;
 import com.cezarykluczynski.stapi.etl.episode.creation.dto.ModuleEpisodeData;
-import com.cezarykluczynski.stapi.etl.episode.creation.service.ModuleEpisodeDataProvider;
 import com.cezarykluczynski.stapi.etl.episode.creation.service.SeriesToEpisodeBindingService;
 import com.cezarykluczynski.stapi.etl.template.episode.dto.EpisodeTemplate;
 import com.cezarykluczynski.stapi.etl.util.constant.SeriesAbbreviation;
@@ -16,8 +15,6 @@ import java.time.LocalDate;
 @Service
 @RequiredArgsConstructor
 public class ModuleEpisodeDataEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<ModuleEpisodeData, EpisodeTemplate>> {
-
-	private final ModuleEpisodeDataProvider moduleEpisodeDataProvider;
 
 	private final SeasonRepository seasonRepository;
 
@@ -34,17 +31,19 @@ public class ModuleEpisodeDataEnrichingProcessor implements ItemEnrichingProcess
 			if (moduleEpisodeData.getSeasonNumber() != null) {
 				episodeTemplate.setSeasonNumber(moduleEpisodeData.getSeasonNumber());
 			}
+			if (moduleEpisodeData.getEpisodeNumber() != null) {
+				episodeTemplate.setEpisodeNumber(moduleEpisodeData.getEpisodeNumber());
+			}
 			if (moduleEpisodeData.getSeries() != null && moduleEpisodeData.getSeasonNumber() != null) {
 				if (SeriesAbbreviation.TOS.equals(moduleEpisodeData.getSeries()) && moduleEpisodeData.getSeasonNumber() == 0) {
 					episodeTemplate.setSeason(seasonRepository.findBySeriesAbbreviationAndSeasonNumber(moduleEpisodeData.getSeries(), 1));
-					episodeTemplate.setEpisodeNumber(0); // there is no entity for season 0 of TOS, so let's make it episode 0 of season 1 instead
+					// there is no entity for season 0 of TOS, so let's make it episode 0 of season 1 instead
+					episodeTemplate.setSeasonNumber(1);
+					episodeTemplate.setEpisodeNumber(0);
 				} else {
 					episodeTemplate.setSeason(seasonRepository.findBySeriesAbbreviationAndSeasonNumber(moduleEpisodeData.getSeries(),
 							episodeTemplate.getSeasonNumber()));
 				}
-			}
-			if (moduleEpisodeData.getEpisodeNumber() != null) {
-				episodeTemplate.setEpisodeNumber(moduleEpisodeData.getEpisodeNumber());
 			}
 			if (moduleEpisodeData.getReleaseDay() != null
 					&& moduleEpisodeData.getReleaseMonth() != null

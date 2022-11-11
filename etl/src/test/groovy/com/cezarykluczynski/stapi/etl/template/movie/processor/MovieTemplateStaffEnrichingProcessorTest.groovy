@@ -54,11 +54,11 @@ class MovieTemplateStaffEnrichingProcessorTest extends AbstractTemplateProcessor
 		given:
 		Movie movieStub = new Movie()
 		Template template = new Template(parts: Lists.newArrayList(
-				createTemplatePart(MovieTemplateParameter.WS_WRITTEN_BY, WRITERS),
-				createTemplatePart(MovieTemplateParameter.WS_SCREENPLAY_BY, SCREENPLAY_AUTHORS),
-				createTemplatePart(MovieTemplateParameter.WS_STORY_BY, STORY_AUTHORS),
-				createTemplatePart(MovieTemplateParameter.WS_DIRECTED_BY, DIRECTORS),
-				createTemplatePart(MovieTemplateParameter.WS_PRODUCED_BY, PRODUCERS),
+				createTemplatePart(MovieTemplateParameter.WRITER, WRITERS),
+				createTemplatePart(MovieTemplateParameter.SCREENPLAY, SCREENPLAY_AUTHORS),
+				createTemplatePart(MovieTemplateParameter.STORY, STORY_AUTHORS),
+				createTemplatePart(MovieTemplateParameter.DIRECTOR, DIRECTORS),
+				createTemplatePart(MovieTemplateParameter.PRODUCER, PRODUCERS),
 		))
 		MovieTemplate movieTemplate = new MovieTemplate(
 				movieStub: movieStub
@@ -112,11 +112,11 @@ class MovieTemplateStaffEnrichingProcessorTest extends AbstractTemplateProcessor
 		String producersWikitext = 'blah ' + WRITER_5
 		Movie movieStub = new Movie()
 		Template template = new Template(parts: Lists.newArrayList(
-				createTemplatePart(MovieTemplateParameter.WS_WRITTEN_BY, WRITERS),
-				createTemplatePart(MovieTemplateParameter.WS_SCREENPLAY_BY, screenplayAuthorsWikitext),
-				createTemplatePart(MovieTemplateParameter.WS_STORY_BY, storyAuthorWikitext),
-				createTemplatePart(MovieTemplateParameter.WS_DIRECTED_BY, directorsWikitext),
-				createTemplatePart(MovieTemplateParameter.WS_PRODUCED_BY, producersWikitext),
+				createTemplatePart(MovieTemplateParameter.WRITER, WRITERS),
+				createTemplatePart(MovieTemplateParameter.SCREENPLAY, screenplayAuthorsWikitext),
+				createTemplatePart(MovieTemplateParameter.STORY, storyAuthorWikitext),
+				createTemplatePart(MovieTemplateParameter.DIRECTOR, directorsWikitext),
+				createTemplatePart(MovieTemplateParameter.PRODUCER, producersWikitext),
 		))
 		MovieTemplate movieTemplate = new MovieTemplate(
 				movieStub: movieStub
@@ -178,8 +178,8 @@ class MovieTemplateStaffEnrichingProcessorTest extends AbstractTemplateProcessor
 		given:
 		Movie movieStub = new Movie()
 		Template template = new Template(parts: Lists.newArrayList(
-				createTemplatePart(MovieTemplateParameter.WS_WRITTEN_BY, WRITERS),
-				createTemplatePart(MovieTemplateParameter.WS_SCREENPLAY_BY, null)
+				createTemplatePart(MovieTemplateParameter.WRITER, WRITERS),
+				createTemplatePart(MovieTemplateParameter.SCREENPLAY, null)
 		))
 		MovieTemplate movieTemplate = new MovieTemplate(
 				movieStub: movieStub
@@ -207,7 +207,7 @@ class MovieTemplateStaffEnrichingProcessorTest extends AbstractTemplateProcessor
 		given:
 		Movie movieStub = new Movie()
 		Template template = new Template(parts: Lists.newArrayList(
-				createTemplatePart(MovieTemplateParameter.WS_DIRECTED_BY, DIRECTORS)
+				createTemplatePart(MovieTemplateParameter.DIRECTOR, DIRECTORS)
 		))
 		MovieTemplate movieTemplate = new MovieTemplate(
 				movieStub: movieStub

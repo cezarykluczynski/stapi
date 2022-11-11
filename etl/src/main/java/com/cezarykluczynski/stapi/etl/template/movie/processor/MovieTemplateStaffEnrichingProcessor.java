@@ -11,6 +11,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +35,8 @@ public class MovieTemplateStaffEnrichingProcessor implements ItemWithTemplateEnr
 
 	private final EntityLookupByNameService entityLookupByNameService;
 
+	private final List<String> loggedUnlinkedStaff = Lists.newArrayList();
+
 	public MovieTemplateStaffEnrichingProcessor(WikitextApi wikitextApi, EntityLookupByNameService entityLookupByNameService) {
 		this.wikitextApi = wikitextApi;
 		this.entityLookupByNameService = entityLookupByNameService;
@@ -56,19 +59,19 @@ public class MovieTemplateStaffEnrichingProcessor implements ItemWithTemplateEnr
 			String value = part.getValue();
 
 			switch (key) {
-				case MovieTemplateParameter.WS_WRITTEN_BY:
+				case MovieTemplateParameter.WRITER:
 					addAllStaff(writersStaffParsingState, value);
 					break;
-				case MovieTemplateParameter.WS_SCREENPLAY_BY:
+				case MovieTemplateParameter.SCREENPLAY:
 					addAllStaff(screenplayAuthorsStaffParsingState, value);
 					break;
-				case MovieTemplateParameter.WS_STORY_BY:
+				case MovieTemplateParameter.STORY:
 					addAllStaff(storyAuthorsStaffParsingState, value);
 					break;
-				case MovieTemplateParameter.WS_DIRECTED_BY:
+				case MovieTemplateParameter.DIRECTOR:
 					addAllStaff(directorsStaffParsingState, value);
 					break;
-				case MovieTemplateParameter.WS_PRODUCED_BY:
+				case MovieTemplateParameter.PRODUCER:
 					addAllStaff(producersStaffParsingState, value);
 					break;
 				default:
@@ -147,22 +150,39 @@ public class MovieTemplateStaffEnrichingProcessor implements ItemWithTemplateEnr
 				PageLink otherPageLink = otherPair.getRight();
 				Set<Staff> baseStaffSet = staffParsingState.getSupplementedStaffSet();
 				String baseRawValue = staffParsingState.getRawValue();
+				String otherStaffName = otherStaff.getName();
 
-				if (StringUtils.contains(baseRawValue, otherStaff.getName())) {
-					log.info("Adding unlinked staff \"{}\" to set of {}, because raw value was \"{}\", name was: \"{}\"",
-							otherStaff.getName(), toNameList(baseStaffSet), baseRawValue, otherStaff.getName());
+				if (baseStaffSet.contains(otherStaff)) {
+					continue;
+				}
+
+				if (StringUtils.contains(baseRawValue, otherStaffName)) {
+					if (!loggedUnlinkedStaff.contains(otherStaffName)) {
+						log.info("Adding unlinked staff \"{}\" to set of {}, because raw value was \"{}\", name was: \"{}\"",
+								otherStaffName, toNameList(baseStaffSet), baseRawValue, otherStaffName);
+						loggedUnlinkedStaff.add(otherStaffName);
+					}
 					baseStaffSet.add(otherStaff);
 				} else if (StringUtils.contains(baseRawValue, otherStaff.getBirthName())) {
-					log.info("Adding unlinked staff \"{}\" to set of {}, because raw value was \"{}\", birth name was: \"{}\"",
-							otherStaff.getName(), toNameList(baseStaffSet), baseRawValue, otherStaff.getBirthName());
+					if (!loggedUnlinkedStaff.contains(otherStaffName)) {
+						log.info("Adding unlinked staff \"{}\" to set of {}, because raw value was \"{}\", birth name was: \"{}\"",
+								otherStaffName, toNameList(baseStaffSet), baseRawValue, otherStaff.getBirthName());
+						loggedUnlinkedStaff.add(otherStaffName);
+					}
 					baseStaffSet.add(otherStaff);
 				} else if (StringUtils.contains(baseRawValue, otherPageLink.getTitle())) {
-					log.info("Adding unlinked staff \"{}\" to set of {}, because raw value was \"{}\", link title was: \"{}\"",
-							otherStaff.getName(), toNameList(baseStaffSet), baseRawValue, otherPageLink.getTitle());
+					if (!loggedUnlinkedStaff.contains(otherStaffName)) {
+						log.info("Adding unlinked staff \"{}\" to set of {}, because raw value was \"{}\", link title was: \"{}\"",
+								otherStaffName, toNameList(baseStaffSet), baseRawValue, otherPageLink.getTitle());
+						loggedUnlinkedStaff.add(otherStaffName);
+					}
 					baseStaffSet.add(otherStaff);
 				} else if (StringUtils.contains(baseRawValue, otherPageLink.getDescription())) {
-					log.info("Adding unlinked staff \"{}\" to set of {}, because raw value was \"{}\", link description was: \"{}\"",
-							otherStaff.getName(), toNameList(baseStaffSet), baseRawValue, otherPageLink.getDescription());
+					if (!loggedUnlinkedStaff.contains(otherStaffName)) {
+						log.info("Adding unlinked staff \"{}\" to set of {}, because raw value was \"{}\", link description was: \"{}\"",
+								otherStaffName, toNameList(baseStaffSet), baseRawValue, otherPageLink.getDescription());
+						loggedUnlinkedStaff.add(otherStaffName);
+					}
 					baseStaffSet.add(otherStaff);
 				}
 			}

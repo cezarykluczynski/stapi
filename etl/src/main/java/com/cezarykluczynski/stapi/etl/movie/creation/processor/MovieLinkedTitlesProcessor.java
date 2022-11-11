@@ -3,10 +3,12 @@ package com.cezarykluczynski.stapi.etl.movie.creation.processor;
 import com.cezarykluczynski.stapi.etl.movie.creation.dto.MovieLinkedTitlesDTO;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageSection;
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
@@ -16,20 +18,17 @@ import java.util.Set;
 @Service
 @Slf4j
 @SuppressWarnings("MultipleStringLiterals")
-public class MovieLinkedTitlesProcessor implements ItemProcessor<List<PageSection>, MovieLinkedTitlesDTO> {
+public class MovieLinkedTitlesProcessor implements ItemProcessor<Pair<List<PageSection>, Page>, MovieLinkedTitlesDTO> {
 
 	private static final List<String> IGNORABLE_SECTION_EXACT_TITLE_LIST = Lists.newArrayList("Score Recorded and Mixed at",
-			"Theme from ''[[TOS|Star Trek]]'' TV Series", "Grateful acknowledgment is made to the", "[[Spot|Cat]] by", "Rocket Propulsion by",
-			"Certain Models Manufactured at", "[[USS Enterprise technical assistant 1|Technical Assistant]]s",
-			"Based upon ''[[Star Trek]]'' created by", "Animatic Data Effects by", "[[Jean-Luc Picard]]", "[[William T. Riker]]", "[[Data]]/[[B-4]]",
-			"[[Geordi La Forge]]", "[[Worf]]", "[[Deanna Troi]]", "[[Beverly Crusher]]", "[[Shinzon]]", "{{dis|Viceroy|Reman}}",
-			"Senator [[Tal'aura]]", "Commander [[Donatra]]", "Commander [[Suran]]", "Praetor [[Hiren]]", "Senator", "Helm Officer [[Branson]]",
-			"[[Kathryn Janeway|Admiral Janeway]]", "[[Reman officer 002|Reman Officer]]", "Commanders", "[[Wesley Crusher]]", "[[Computer Voice]]",
+			"Theme from ''[[TOS|Star Trek]]'' TV Series", "Grateful acknowledgment is made to the", "Rocket Propulsion by",
+			"Certain Models Manufactured at", "A [[Rick Berman]] Production",
+			"Based upon ''[[Star Trek]]'' created by", "[[Reman officer 002|Reman Officer]]", "Commanders", "[[Computer Voice]]",
 			"Special Thanks to", "Theme from ''[[TOS|Star Trek]]'' Television Series", "\"[[Genesis Project]]\" by", "\"[[I Remember You]]\" by",
 			"\"[[That Old Black Magic]]\" by", "\"[[Tangerine]]\" by", "Filmed in", "In Association with", "Time Travel",
-			"Theme from [[TOS|Star Trek]] Television Series", "The Producers extend special thanks to",
+			"Theme from [[TOS|Star Trek]] Television Series", "The Producers extend special thanks to", "[[Spot|Cat]] by",
 			"The Producer also gratefully acknowledge the cooperation of the Department of the Navy and the department of Defense and the "
-					+ "following individuals", "And the Officers and Men of", "Special Thanks To");
+					+ "following individuals", "And the Officers and Men of", "Special Thanks To", "Grateful acknowledgment is made to");
 	private static final List<String> SCREENPLAY_AUTHORS_SECTION_EXACT_TITLE_LIST = Lists.newArrayList("Screenplay by");
 	private static final List<String> WRITERS_SECTION_EXACT_TITLE_LIST = Lists.newArrayList("Written by");
 	private static final List<String> STORY_AUTHORS_SECTION_EXACT_TITLE_LIST = Lists.newArrayList("Story by");
@@ -86,7 +85,7 @@ public class MovieLinkedTitlesProcessor implements ItemProcessor<List<PageSectio
 			"Art Department Coordinators", "Picture Car Coordinator", "Special Animation Effects", "Special Science Advisor", "Costume Designer",
 			"Set Decorator", "Tool Persons", "Prop Master", "Graphics", "Production Illustrators", "Publicity", "Secretary", "Gaffer", "Key Grip",
 			"Photographic Effects Director of Photography", "Production Illustrators", "Animation and Graphics", "Special Electronics",
-			"Animation Effects", "Electronic Design", "Titles", "Scoring Mixer", "Cast of Characters", "Geometric Designs", "Directer of photography",
+			"Animation Effects", "Electronic Design", "Titles", "Scoring Mixer", "Geometric Designs", "Directer of photography",
 			"Production designer", "Costume designer", "Set Decorators", "Second Unit Director of Photography", "Cheif Costumers",
 			"Lead Set Designer", "Production Illustrator", "First Assistant Auditor", "Trasportation Captain", "Caterer",
 			"CG Modeling & Lighting Leads", "VG Modeling & Lighting", "CG Effects Animation Lead", "CG Effects Animators", "T.D. Leads", "T.D.'s",
@@ -99,7 +98,20 @@ public class MovieLinkedTitlesProcessor implements ItemProcessor<List<PageSectio
 			"Dolly", "Jackal Mastiff Created by", "Special Props", "Key Costumers", "Production Intern", "Art Department Production Assistants",
 			"Klingon Language Specialist", "Hairstlylist", "Scoring", "Underwater Director of Photography", "Effects Director of Photography",
 			"Production Manager, ILM", "Whale Operators/Puppeteers", "Underwater Whale Photography", "Matte Photography", "Creatures Created by",
-			"Process Coordinator", "[[Genesis Project]] by");
+			"Process Coordinator", "[[Genesis Project]] by", "Dyers / Agers", "Cutter / Fitters", "Production Manager", "Steadicam Operators",
+			"Aerial DOP", "Board Operators", "Set Decorating Buyers", "Electronic Props Set Wireperson", "Electronic Props",
+			"Electronic Props Carpenters", "Assistant Costume Designers", "Costume Coordinator", "Background Costume Coordinator", "Head Cutter",
+			"Tailor", "Seamstresses", "Specialty Costume Fabrication By", "Creature Designers", "Wigmaker", "Contact Lenses",
+			"Post Production Assistant", "Re-Recording Mix Tech", "Loop Group Coordinator", "Travel Coordinator", "DGC Trainee",
+			"VFX Art Director/Senior Concept Designer", "Art Department/VFX Researcher", "Accounting Clerks", "On-Set Match Mover", "Data Wranglers",
+			"Score Coordinator", "Senior Model Builder", "Model Builder", "Standby Carpenter", "Scenic Carpenters", "Sign Fabricator", "Greens",
+			"Dialogue And Movement Coach", "Medic", "[[Theme from Star Trek|Theme from ''Star Trek'' TV Series]]", "Boom",
+			"Additional Special Lighting Effects", "Best Boy", "Second Grip", "Crane Operator", "[[Vulcan language|Vulcan Translation]]",
+			"Matte Photography Assistant", "Model Electronics", "[[Theme from Star Trek|Theme from ''Star Trek'' Television Series]]",
+			"<abbr title=\"Directors Guild of America\">DGA</abbr> Trainee", "Technical Assistants", "Rigging Grips", "Animatic Data Effects by",
+			"<abbr title=\"DGA\">Directors Guild of America</abbr> Trainee"
+	);
+
 	private static final List<String> STAFF_SECTION_MATCHES_TITLE_LIST = Lists.newArrayList("technician", "klingon and vulcan prosthetics",
 			"assistant to", "accountant", "digital", "supervisor", "casting", "construction", "visual effects", "music", "film editor", "camera",
 			"make-up", "makeup", "camera operator", "special effects", "artist", "assistant photographers", "wardrobe", "paint", "computer animation",
@@ -111,12 +123,13 @@ public class MovieLinkedTitlesProcessor implements ItemProcessor<List<PageSectio
 	private static final List<String> PERFORMERS_SECTION_EXACT_TITLE_LIST = Lists.newArrayList("Cast", "Aliens", "Humans", "Cast",
 			"Starfleet Personnel", "Nightclub", "Missile Complex", "Borg", "Aliens", "The Nexus", "Also Starring", "And as [[Spock]]",
 			"The Merchantship", "The Klingons", "USS Grissom", "The Bar", "The Excelsior", "The Vulcans", "Others", "Voices", "In Old San Francisco",
-			"Naval Personnel");
+			"Naval Personnel", "USS ''Grissom''", "The ''Excelsior''", "[[Borg]]", "Co-Starring", "Cast of Characters");
 	private static final List<String> STUNT_PERFORMERS_SECTION_EXACT_TITLE_LIST = Lists.newArrayList("Stunts", "Stunt Players", "Stunt Borg",
-			"High Fall Stunt", "Stunt Performers");
+			"High Fall Stunt", "Stunt Performers", "Stunt Coordinator", "Uncredited stunt performers");
 	private static final List<String> STUNT_PERFORMERS_SECTION_MATCHES_TITLE_LIST = Lists.newArrayList("stunt double for");
-	private static final List<String> STAND_IN_PERFORMERS_SECTION_EXACT_TITLE_LIST = Lists.newArrayList("[[Stand-in|Stand-In]]s");
-	private static final List<String> STAND_IN_PERFORMERS_SECTION_MATCHES_TITLE_LIST = Lists.newArrayList("climbing double");
+	private static final List<String> STAND_IN_PERFORMERS_SECTION_EXACT_TITLE_LIST = Lists.newArrayList("[[Stand-in|Stand-In]]s",
+			"[[Stand-in|Stand-Ins]]");
+	private static final List<String> STAND_IN_PERFORMERS_SECTION_MATCHES_TITLE_LIST = Lists.newArrayList("climbing double", "stand-in");
 
 	private final WikitextApi wikitextApi;
 
@@ -125,7 +138,10 @@ public class MovieLinkedTitlesProcessor implements ItemProcessor<List<PageSectio
 	}
 
 	@Override
-	public MovieLinkedTitlesDTO process(List<PageSection> item) throws Exception {
+	public MovieLinkedTitlesDTO process(Pair<List<PageSection>, Page> pair) throws Exception {
+		Page page = pair.getRight();
+		List<PageSection> item = pair.getLeft();
+
 		MovieLinkedTitlesDTO movieLinkedTitlesDTO = new MovieLinkedTitlesDTO();
 
 		for (PageSection pageSection : item) {
@@ -134,7 +150,7 @@ public class MovieLinkedTitlesProcessor implements ItemProcessor<List<PageSectio
 				pageSectionTitle = pageSectionTitle.substring(0, pageSectionTitle.length() - 1);
 			}
 
-			Set<List<String>> sectionLinkListSet = toSectionLinkListSet(pageSection.getWikitext());
+			Set<List<String>> sectionLinkListSet = toSectionLinkListSet(pageSection.getWikitext(), page);
 
 			if (isIgnorableSection(pageSectionTitle)) {
 				continue;
@@ -159,17 +175,17 @@ public class MovieLinkedTitlesProcessor implements ItemProcessor<List<PageSectio
 			} else if (isStandInPerformersSection(pageSectionTitle)) {
 				movieLinkedTitlesDTO.getStandInPerformers().addAll(sectionLinkListSet);
 			} else {
-				log.warn("Section \"{}\" not mapped to any type of work in movie", pageSectionTitle);
+				log.warn("Section \"{}\" not mapped to any type of work in movie \"{}\".", pageSectionTitle, page.getTitle());
 			}
 		}
 
 		return movieLinkedTitlesDTO;
 	}
 
-	private Set<List<String>> toSectionLinkListSet(String wikitext) {
+	private Set<List<String>> toSectionLinkListSet(String wikitext, Page page) {
 		Set<List<String>> wikitextLinks = Sets.newHashSet();
 		Lists.newArrayList(wikitext.split("\n")).forEach(wikitextLine -> {
-			wikitextLinks.add(wikitextApi.getPageTitlesFromWikitext(wikitextLine));
+			wikitextLinks.add(wikitextApi.getPageTitlesFromWikitextExcludingNotFound(wikitextLine, page));
 		});
 		return wikitextLinks;
 	}
@@ -220,7 +236,7 @@ public class MovieLinkedTitlesProcessor implements ItemProcessor<List<PageSectio
 
 	private static boolean containsAnyFromList(String pageSectionTitle, List<String> matches) {
 		return matches.stream()
-				.anyMatch(sectionMatch -> pageSectionTitle.toLowerCase().contains(sectionMatch));
+				.anyMatch(sectionMatch -> pageSectionTitle.toLowerCase().contains(sectionMatch.toLowerCase()));
 	}
 
 }

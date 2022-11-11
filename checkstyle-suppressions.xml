@@ -14,5 +14,6 @@
 	<suppress files=".+StapiRestClient\.java" checks="FileLength"/>
 	<suppress files=".+StapiSoapClient\.java" checks="FileLength"/>
 	<suppress files=".+EpisodePerformancesExtractingProcessor\.java" checks="FileLength"/>
+	<suppress files=".+EpisodePerformancesExtractingProcessor\.java" checks="AvoidStaticImport"/>
 	<suppress files="com[\\/]cezarykluczynski[\\/]stapi[\\/]client[\\/]" checks="ClassFanOutComplexity"/>
 </suppressions>

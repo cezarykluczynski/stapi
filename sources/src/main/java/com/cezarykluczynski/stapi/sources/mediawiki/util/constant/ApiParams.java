@@ -16,7 +16,7 @@ public class ApiParams {
 	public static final String KEY_CATEGORY_TITLE_VALUE_PREFIX = "Category:";
 	public static final String KEY_CATEGORY_LIMIT_VALUE = "500";
 	public static final String KEY_LIST_VALUE_CATEGORYMEMBERS = "categorymembers";
-	public static final String KEY_PROP_VALUE_MW_1_26_UP = "categories|parsetree|wikitext|sections";
-	public static final String KEY_PROP_VALUE = "categories|wikitext|sections";
+	public static final String KEY_PROP_VALUE_MW_1_26_UP = "categories|parsetree|wikitext|sections|text";
+	public static final String KEY_PROP_VALUE = "categories|wikitext|sections|text";
 
 }

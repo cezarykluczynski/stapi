@@ -13,7 +13,9 @@ import spock.lang.Specification
 class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 
 	private static final String CHARACTER_NAME = 'CHARACTER_NAME'
+	private static final String SECOND_CHARACTER_NAME = 'SECOND_CHARACTER_NAME'
 	private static final String PERFORMER_NAME = 'PERFORMER_NAME'
+	private static final MediaWikiSource SOURCE = MediaWikiSource.MEMORY_ALPHA_EN
 
 	private EntityLookupByNameService entityLookupByNameServiceMock
 
@@ -26,7 +28,6 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 		entityLookupByNameServiceMock = Mock()
 		moviePerformersCharactersLinkingWorker = new MoviePerformersCharactersLinkingWorker(entityLookupByNameServiceMock,
 				nonQualifiedCharacterFilterMock)
-		moviePerformersCharactersLinkingWorker.log
 	}
 
 	void "ignores empty link title list"() {
@@ -58,36 +59,6 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 		baseEntity.characters.empty
 	}
 
-	void "ignores link title list with two items if performer name contains phrase that mark it as ignored"() {
-		given:
-		Set<List<String>> source = Sets.newHashSet()
-		source.add Lists.newArrayList(CHARACTER_NAME, MoviePerformersCharactersLinkingWorker.IGNORABLE_PAGE_PREFIXES[0])
-		Movie baseEntity = new Movie()
-
-		when:
-		moviePerformersCharactersLinkingWorker.link(source, baseEntity)
-
-		then:
-		0 * _
-		baseEntity.performers.empty
-		baseEntity.characters.empty
-	}
-
-	void "ignores link title list with two items if character name contains phrase that mark it as ignored"() {
-		given:
-		Set<List<String>> source = Sets.newHashSet()
-		source.add Lists.newArrayList(MoviePerformersCharactersLinkingWorker.IGNORABLE_PAGE_PREFIXES[0], PERFORMER_NAME)
-		Movie baseEntity = new Movie()
-
-		when:
-		moviePerformersCharactersLinkingWorker.link(source, baseEntity)
-
-		then:
-		0 * _
-		baseEntity.performers.empty
-		baseEntity.characters.empty
-	}
-
 	void "parses link title list with two items, both found by link title"() {
 		given:
 		Set<List<String>> source = Sets.newHashSet()
@@ -100,9 +71,9 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 		moviePerformersCharactersLinkingWorker.link(source, baseEntity)
 
 		then:
-		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMER_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(performer)
+		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMER_NAME, SOURCE) >> Optional.of(performer)
 		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(CHARACTER_NAME) >> false
-		1 * entityLookupByNameServiceMock.findCharacterByName(CHARACTER_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(character)
+		1 * entityLookupByNameServiceMock.findCharacterByName(CHARACTER_NAME, SOURCE) >> Optional.of(character)
 		0 * _
 		baseEntity.performers.size() == 1
 		baseEntity.performers.contains performer
@@ -119,9 +90,14 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 		moviePerformersCharactersLinkingWorker.link(source, baseEntity)
 
 		then:
-		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMER_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
+		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMER_NAME, SOURCE) >> Optional.empty()
 		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(CHARACTER_NAME) >> false
-		1 * entityLookupByNameServiceMock.findCharacterByName(CHARACTER_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
+		1 * entityLookupByNameServiceMock.findCharacterByName(CHARACTER_NAME, SOURCE) >> Optional.empty()
+
+		then:
+		1 * entityLookupByNameServiceMock.findPerformerByName(CHARACTER_NAME, SOURCE) >> Optional.empty()
+		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(PERFORMER_NAME) >> false
+		1 * entityLookupByNameServiceMock.findCharacterByName(PERFORMER_NAME, SOURCE) >> Optional.empty()
 		0 * _
 		baseEntity.performers.empty
 		baseEntity.characters.empty
@@ -136,8 +112,13 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 		moviePerformersCharactersLinkingWorker.link(source, baseEntity)
 
 		then:
-		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMER_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
+		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMER_NAME, SOURCE) >> Optional.empty()
 		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(CHARACTER_NAME) >> true
+
+		then:
+		1 * entityLookupByNameServiceMock.findPerformerByName(CHARACTER_NAME, SOURCE) >> Optional.empty()
+		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(PERFORMER_NAME) >> false
+		1 * entityLookupByNameServiceMock.findCharacterByName(PERFORMER_NAME, SOURCE) >> Optional.empty()
 		0 * _
 		baseEntity.performers.empty
 		baseEntity.characters.empty
@@ -154,9 +135,14 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 		moviePerformersCharactersLinkingWorker.link(source, baseEntity)
 
 		then:
-		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMER_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(performer)
+		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMER_NAME, SOURCE) >> Optional.of(performer)
 		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(CHARACTER_NAME) >> false
-		1 * entityLookupByNameServiceMock.findCharacterByName(CHARACTER_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
+		1 * entityLookupByNameServiceMock.findCharacterByName(CHARACTER_NAME, SOURCE) >> Optional.empty()
+
+		then:
+		1 * entityLookupByNameServiceMock.findPerformerByName(CHARACTER_NAME, SOURCE) >> Optional.empty()
+		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(PERFORMER_NAME) >> false
+		1 * entityLookupByNameServiceMock.findCharacterByName(PERFORMER_NAME, SOURCE) >> Optional.empty()
 		0 * _
 		baseEntity.performers.size() == 1
 		baseEntity.performers.contains performer
@@ -174,9 +160,14 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 		moviePerformersCharactersLinkingWorker.link(source, baseEntity)
 
 		then:
-		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMER_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.empty()
+		1 * entityLookupByNameServiceMock.findCharacterByName(CHARACTER_NAME, SOURCE) >> Optional.of(character)
 		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(CHARACTER_NAME) >> false
-		1 * entityLookupByNameServiceMock.findCharacterByName(CHARACTER_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(character)
+		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMER_NAME, SOURCE) >> Optional.empty()
+
+		then:
+		1 * entityLookupByNameServiceMock.findPerformerByName(CHARACTER_NAME, SOURCE) >> Optional.empty()
+		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(PERFORMER_NAME) >> false
+		1 * entityLookupByNameServiceMock.findCharacterByName(PERFORMER_NAME, SOURCE) >> Optional.empty()
 		0 * _
 		baseEntity.performers.empty
 		baseEntity.characters.size() == 1
@@ -186,23 +177,46 @@ class MoviePerformersCharactersLinkingWorkerTest extends Specification {
 	void "parses link title list with more than two items"() {
 		given:
 		Set<List<String>> source = Sets.newHashSet()
-		source.add Lists.newArrayList(CHARACTER_NAME, PERFORMER_NAME, 'ANOTHER PAGE TITLE')
+		source.add Lists.newArrayList(PERFORMER_NAME, CHARACTER_NAME, SECOND_CHARACTER_NAME)
 		Movie baseEntity = new Movie()
 		Performer performer = Mock()
 		Character character = Mock()
+		Character character2 = Mock()
 
 		when:
 		moviePerformersCharactersLinkingWorker.link(source, baseEntity)
 
 		then:
-		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMER_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(performer)
+		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMER_NAME, SOURCE) >> Optional.of(performer)
 		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(CHARACTER_NAME) >> false
-		1 * entityLookupByNameServiceMock.findCharacterByName(CHARACTER_NAME, MediaWikiSource.MEMORY_ALPHA_EN) >> Optional.of(character)
+		1 * entityLookupByNameServiceMock.findCharacterByName(CHARACTER_NAME, SOURCE) >> Optional.of(character)
+
+		1 * entityLookupByNameServiceMock.findPerformerByName(PERFORMER_NAME, SOURCE) >> Optional.of(performer)
+		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(SECOND_CHARACTER_NAME) >> false
+		1 * entityLookupByNameServiceMock.findCharacterByName(SECOND_CHARACTER_NAME, SOURCE) >> Optional.of(character2)
+
+		1 * entityLookupByNameServiceMock.findPerformerByName(SECOND_CHARACTER_NAME, SOURCE) >> Optional.empty()
+		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(PERFORMER_NAME) >> false
+		1 * entityLookupByNameServiceMock.findCharacterByName(PERFORMER_NAME, SOURCE) >> Optional.empty()
+
+		1 * entityLookupByNameServiceMock.findPerformerByName(SECOND_CHARACTER_NAME, SOURCE) >> Optional.empty()
+		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(CHARACTER_NAME) >> false
+		1 * entityLookupByNameServiceMock.findCharacterByName(CHARACTER_NAME, SOURCE) >> Optional.of(character)
+
+		1 * entityLookupByNameServiceMock.findPerformerByName(CHARACTER_NAME, SOURCE) >> Optional.empty()
+		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(SECOND_CHARACTER_NAME) >> false
+		1 * entityLookupByNameServiceMock.findCharacterByName(SECOND_CHARACTER_NAME, SOURCE) >> Optional.of(character2)
+
+		1 * entityLookupByNameServiceMock.findPerformerByName(CHARACTER_NAME, SOURCE) >> Optional.empty()
+		1 * nonQualifiedCharacterFilterMock.shouldBeFilteredOut(PERFORMER_NAME) >> false
+		1 * entityLookupByNameServiceMock.findCharacterByName(PERFORMER_NAME, SOURCE) >> Optional.empty()
+
 		0 * _
 		baseEntity.performers.size() == 1
 		baseEntity.performers.contains performer
-		baseEntity.characters.size() == 1
+		baseEntity.characters.size() == 2
 		baseEntity.characters.contains character
+		baseEntity.characters.contains character2
 	}
 
 	void "ignores link title list with more than two items, if it is deleted scene"() {

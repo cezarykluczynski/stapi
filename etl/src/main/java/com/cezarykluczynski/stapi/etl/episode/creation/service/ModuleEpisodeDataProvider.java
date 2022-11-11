@@ -35,6 +35,7 @@ public class ModuleEpisodeDataProvider {
 	private static final String EPISODE_SUFFIX = " (episode)";
 	private static final String SLASH = "/";
 	private static final String CLOSE_CURLY_BRACKET = "}";
+	private static final String EPISODE_SEASON_SEPARATOR = "x";
 
 	private static final List<String> PAGE_TITLES = Lists.newArrayList(
 			PageTitle.MODULE_EPISODE_DATA_A,
@@ -105,8 +106,8 @@ public class ModuleEpisodeDataProvider {
 		title = title.toLowerCase(Locale.US);
 		moduleEpisodeData.setSeries(getSafeString(PageTitle.MODULE_EPISODE_DATA_A, title));
 		final String seasonAndEpisode = getSafeString(PageTitle.MODULE_EPISODE_DATA_N, title);
-		if (seasonAndEpisode != null) {
-			final String[] split = StringUtils.split(seasonAndEpisode, "x");
+		if (seasonAndEpisode != null && seasonAndEpisode.contains(EPISODE_SEASON_SEPARATOR)) {
+			final String[] split = StringUtils.split(seasonAndEpisode, EPISODE_SEASON_SEPARATOR);
 			moduleEpisodeData.setSeasonNumber(Ints.tryParse(split[0]));
 			String episodeNumber = split[1];
 			if (episodeNumber.contains(SLASH)) {

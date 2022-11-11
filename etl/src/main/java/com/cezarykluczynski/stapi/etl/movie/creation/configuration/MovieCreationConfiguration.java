@@ -1,7 +1,10 @@
 package com.cezarykluczynski.stapi.etl.movie.creation.configuration;
 
 import com.cezarykluczynski.stapi.etl.configuration.job.service.StepCompletenessDecider;
+import com.cezarykluczynski.stapi.etl.episode.creation.service.ModuleEpisodeDataProvider;
 import com.cezarykluczynski.stapi.etl.movie.creation.processor.MovieReader;
+import com.cezarykluczynski.stapi.etl.movie.creation.service.MovieExistingEntitiesHelper;
+import com.cezarykluczynski.stapi.etl.util.SortingUtil;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.etl.util.constant.JobName;
 import com.cezarykluczynski.stapi.etl.util.constant.StepName;
@@ -25,6 +28,12 @@ public class MovieCreationConfiguration {
 	@Inject
 	private StepCompletenessDecider stepCompletenessDecider;
 
+	@Inject
+	private ModuleEpisodeDataProvider moduleEpisodeDataProvider;
+
+	@Inject
+	private MovieExistingEntitiesHelper movieExistingEntitiesHelper;
+
 	@Bean
 	@DependsOn("batchDatabaseInitializer")
 	public MovieReader movieReader() {
@@ -32,9 +41,11 @@ public class MovieCreationConfiguration {
 
 		if (!stepCompletenessDecider.isStepComplete(JobName.JOB_CREATE, StepName.CREATE_MOVIES)) {
 			movies.addAll(categoryApi.getPages(CategoryTitle.STAR_TREK_FILMS, MediaWikiSource.MEMORY_ALPHA_EN));
+			moduleEpisodeDataProvider.initialize();
+			movieExistingEntitiesHelper.initialize();
 		}
 
-		return new MovieReader(movies);
+		return new MovieReader(SortingUtil.sortedUnique(movies));
 	}
 
 }

@@ -1,9 +1,11 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.api
 
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink
+import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle
 import com.google.common.collect.Lists
+import org.jsoup.Jsoup
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -11,6 +13,11 @@ class WikitextApiImplTest extends Specification {
 
 	private static final String WIKITEXT = 'blah blah [[Some page| description]] and [[another page]] blah blah {{dis|Mark|technician}} ' +
 			'blah {{mu|Picard}} blah {{alt|Riker}} blah'
+	private static final String HTML = 'blah blah <span class="new" title="Some page"> description</span> and ' +
+			'<span class="new" title="another page (page does not exist)">another page</span> blah blah ' +
+			'<a href="/wiki/Mark (technican)" title="Mark (technican)">Mark (technican)</a> blah ' +
+			'<span class="new" title="Picard (mirror) (page does not exist)">Picard</span> blah ' +
+			'<a href="/wiki/Riker_(alternate_reality)" title="Riker (alternate reality)">Riker (alternate reality)</a> blah'
 	private static final String WIKITEXT_WITH_TEMPLATES = '{{realworld}}{{sidebar planet\nName=Mantiles}}blah blah{{ds9|Some page}} blah'
 	private static final String WIKITEXT_WITH_DIS = '* [[Malibu DS9]]:\n** #1: "{{dis|Stowaway|comic}}"\n** #2: "[[Stowaway, Part II]]"\n' +
 			'** #3: "{{dis|Old Wounds|comic|the comic}}"\n** #4: "[[Emancipation, Part I]]"'
@@ -41,6 +48,20 @@ class WikitextApiImplTest extends Specification {
 		pageList[2] == 'Mark (technician)'
 		pageList[3] == 'Picard (mirror)'
 		pageList[4] == 'Riker (alternate reality)'
+	}
+
+	void "gets titles from wikitext, excluding not found"() {
+		given:
+
+		Page page = new Page(htmlDocument: Jsoup.parse(HTML))
+
+		when:
+		List<String> pageList = wikitextApiImpl.getPageTitlesFromWikitextExcludingNotFound(WIKITEXT, page)
+
+		then:
+		pageList.size() == 2
+		pageList[0] == 'Mark (technician)'
+		pageList[1] == 'Riker (alternate reality)'
 	}
 
 	void "gets page links from wikitext"() {

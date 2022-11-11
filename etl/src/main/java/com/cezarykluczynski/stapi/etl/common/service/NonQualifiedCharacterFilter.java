@@ -1,11 +1,11 @@
 package com.cezarykluczynski.stapi.etl.common.service;
 
 import com.cezarykluczynski.stapi.etl.template.common.service.PageFilter;
+import com.cezarykluczynski.stapi.etl.util.CharacterUtil;
 import com.cezarykluczynski.stapi.util.tool.StringUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,7 +51,7 @@ public class NonQualifiedCharacterFilter implements PageFilter<String> {
 	public boolean shouldBeFilteredOut(String characterName) {
 		final boolean characterNameContainsRedirectToListsParts = StringUtil.containsAnyIgnoreCase(characterName, REDIRECTS_TO_LISTS_PARTS);
 		final boolean characterIsExactRedirectToList = REDIRECTS_TO_LISTS_EXACT.contains(characterName);
-		final boolean characterIsOneOfMany = isOneOfMany(characterName);
+		final boolean characterIsOneOfMany = CharacterUtil.isOneOfMany(characterName);
 		boolean shouldBeFilteredOut = characterNameContainsRedirectToListsParts || characterIsExactRedirectToList || characterIsOneOfMany;
 		if (shouldBeFilteredOut && !characterIsOneOfMany) {
 			if (!loggedCharacterNames.contains(characterName)) {
@@ -61,14 +61,6 @@ public class NonQualifiedCharacterFilter implements PageFilter<String> {
 			}
 		}
 		return shouldBeFilteredOut;
-	}
-
-	private boolean isOneOfMany(String characterName) {
-		if (characterName == null || characterName.length() < 5) {
-			return false;
-		}
-		String last4Chars = StringUtils.right(characterName, 4);
-		return StringUtils.isBlank(StringUtils.left(last4Chars, 1)) && StringUtils.isNumeric(StringUtils.right(last4Chars, 3));
 	}
 
 }
