@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.astronomical_object.link.processor
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair
+import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder
 import com.cezarykluczynski.stapi.etl.common.mapper.MediaWikiSourceMapper
 import com.cezarykluczynski.stapi.etl.common.service.ParagraphExtractor
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder
@@ -19,6 +20,9 @@ class AstronomicalObjectLinkProcessorTest extends Specification {
 
 	private static final String TITLE = 'TITLE'
 	private static final String WIKITEXT = 'WIKITEXT'
+	private static final String FIRST_LINE = 'Too sort'
+	private static final String SECOND_LINE = '{{disambiguation}}'
+	private static final String THIRD_LINE = 'First valid line should be over 15 characters.'
 	private static final String LOCATION = 'LOCATION'
 	private static final ModelMediaWikiSource MODEL_MEDIA_WIKI_SOURCE = ModelMediaWikiSource.MEMORY_ALPHA_EN
 	private static final SourcesMediaWikiSource ETL_MEDIA_WIKI_SOURCE = SourcesMediaWikiSource.MEMORY_ALPHA_EN
@@ -35,6 +39,8 @@ class AstronomicalObjectLinkProcessorTest extends Specification {
 
 	private AstronomicalObjectLinkEnrichingProcessor astronomicalObjectLinkEnrichingProcessorMock
 
+	private AstronomicalObjectLocationFixedValueProvider astronomicalObjectLocationFixedValueProviderMock
+
 	private AstronomicalObjectLinkProcessor astronomicalObjectLinkProcessor
 
 	private AstronomicalObject astronomicalObjectFromWikitext
@@ -48,8 +54,10 @@ class AstronomicalObjectLinkProcessorTest extends Specification {
 		paragraphExtractorMock = Mock()
 		astronomicalObjectLinkWikitextProcessorMock = Mock()
 		astronomicalObjectLinkEnrichingProcessorMock = Mock()
+		astronomicalObjectLocationFixedValueProviderMock = Mock()
 		astronomicalObjectLinkProcessor = new AstronomicalObjectLinkProcessor(pageApiMock, mediaWikiSourceMapperMock, templateFinderMock,
-				paragraphExtractorMock, astronomicalObjectLinkWikitextProcessorMock, astronomicalObjectLinkEnrichingProcessorMock)
+				paragraphExtractorMock, astronomicalObjectLinkWikitextProcessorMock, astronomicalObjectLinkEnrichingProcessorMock,
+				astronomicalObjectLocationFixedValueProviderMock)
 		astronomicalObjectFromWikitext = Mock()
 		astronomicalObjectFromTemplate = Mock()
 	}
@@ -68,14 +76,12 @@ class AstronomicalObjectLinkProcessorTest extends Specification {
 		0 * _
 	}
 
-	void "processes wikitext from first paragraph and from planet template, but does not interact with enricher, when both objects were null"() {
+	void "does not interact with the remaining dependencies if fixed value is found"() {
 		given:
 		ModelPage page = new ModelPage(title: TITLE, mediaWikiSource: MODEL_MEDIA_WIKI_SOURCE)
-		AstronomicalObject astronomicalObject = new AstronomicalObject(page: page)
 		SourcesPage sourcesPage = new SourcesPage(wikitext: WIKITEXT)
-		Template template = new Template(parts: Lists.newArrayList(
-				new Template.Part(key: AstronomicalObjectLinkProcessor.LOCATION, value: LOCATION)
-		))
+		AstronomicalObject astronomicalObject = new AstronomicalObject(page: page)
+		AstronomicalObject location = new AstronomicalObject()
 
 		when:
 		astronomicalObjectLinkProcessor.process(astronomicalObject)
@@ -83,17 +89,16 @@ class AstronomicalObjectLinkProcessorTest extends Specification {
 		then:
 		1 * mediaWikiSourceMapperMock.fromEntityToSources(MODEL_MEDIA_WIKI_SOURCE) >> ETL_MEDIA_WIKI_SOURCE
 		1 * pageApiMock.getPage(TITLE, ETL_MEDIA_WIKI_SOURCE) >> sourcesPage
-		1 * paragraphExtractorMock.extractParagraphs(_) >> { String wikitext -> Lists.newArrayList(wikitext) }
-		1 * astronomicalObjectLinkWikitextProcessorMock.process(WIKITEXT) >> null
-		1 * templateFinderMock.findTemplate(sourcesPage, TemplateTitle.SIDEBAR_PLANET) >> Optional.of(template)
-		1 * astronomicalObjectLinkWikitextProcessorMock.process(LOCATION) >> null
+		1 * astronomicalObjectLocationFixedValueProviderMock.getSearchedValue(astronomicalObject) >> FixedValueHolder.found(location)
 		0 * _
+		astronomicalObject.location == location
 	}
 
-	void "passes wikitext processing result to enricher"() {
+	void "processes wikitext from template"() {
 		given:
 		ModelPage page = new ModelPage(title: TITLE, mediaWikiSource: MODEL_MEDIA_WIKI_SOURCE)
 		AstronomicalObject astronomicalObject = new AstronomicalObject(page: page)
+		AstronomicalObject location = new AstronomicalObject()
 		SourcesPage sourcesPage = new SourcesPage(wikitext: WIKITEXT)
 		Template template = new Template(parts: Lists.newArrayList(
 				new Template.Part(key: AstronomicalObjectLinkProcessor.LOCATION, value: LOCATION)
@@ -105,52 +110,56 @@ class AstronomicalObjectLinkProcessorTest extends Specification {
 		then:
 		1 * mediaWikiSourceMapperMock.fromEntityToSources(MODEL_MEDIA_WIKI_SOURCE) >> ETL_MEDIA_WIKI_SOURCE
 		1 * pageApiMock.getPage(TITLE, ETL_MEDIA_WIKI_SOURCE) >> sourcesPage
-		1 * paragraphExtractorMock.extractParagraphs(_) >> { String wikitext -> Lists.newArrayList(wikitext) }
-		1 * astronomicalObjectLinkWikitextProcessorMock.process(WIKITEXT) >> astronomicalObjectFromWikitext
-		1 * templateFinderMock.findTemplate(sourcesPage, TemplateTitle.SIDEBAR_PLANET) >> Optional.of(template)
-		1 * astronomicalObjectLinkWikitextProcessorMock.process(LOCATION) >> null
+		1 * astronomicalObjectLocationFixedValueProviderMock.getSearchedValue(astronomicalObject) >> FixedValueHolder.notFound()
+		1 * templateFinderMock.findTemplates(sourcesPage, TemplateTitle.SIDEBAR_ASTRONOMICAL_OBJECT, TemplateTitle.SIDEBAR_PLANET,
+				TemplateTitle.SIDEBAR_STAR, TemplateTitle.SIDEBAR_STAR_SYSTEM) >> [template]
+		1 * astronomicalObjectLinkWikitextProcessorMock.process(LOCATION) >> [location]
 		1 * astronomicalObjectLinkEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
-				EnrichablePair<AstronomicalObject, AstronomicalObject> enrichablePair ->
-			assert enrichablePair.input == astronomicalObjectFromWikitext
-			assert enrichablePair.output == astronomicalObject
-		}
-		0 * _
-	}
-
-	void "passes template processing result to enricher"() {
-		given:
-		ModelPage page = new ModelPage(title: TITLE, mediaWikiSource: MODEL_MEDIA_WIKI_SOURCE)
-		AstronomicalObject astronomicalObject = new AstronomicalObject(page: page)
-		SourcesPage sourcesPage = new SourcesPage(wikitext: WIKITEXT)
-		Template template = new Template(parts: Lists.newArrayList(
-				new Template.Part(key: AstronomicalObjectLinkProcessor.LOCATION, value: LOCATION)
-		))
-
-		when:
-		astronomicalObjectLinkProcessor.process(astronomicalObject)
-
-		then:
-		1 * mediaWikiSourceMapperMock.fromEntityToSources(MODEL_MEDIA_WIKI_SOURCE) >> ETL_MEDIA_WIKI_SOURCE
-		1 * pageApiMock.getPage(TITLE, ETL_MEDIA_WIKI_SOURCE) >> sourcesPage
-		1 * paragraphExtractorMock.extractParagraphs(_) >> { String wikitext -> Lists.newArrayList(wikitext) }
-		1 * astronomicalObjectLinkWikitextProcessorMock.process(WIKITEXT) >> null
-		1 * templateFinderMock.findTemplate(sourcesPage, TemplateTitle.SIDEBAR_PLANET) >> Optional.of(template)
-		1 * astronomicalObjectLinkWikitextProcessorMock.process(LOCATION) >> astronomicalObjectFromTemplate
-		1 * astronomicalObjectLinkEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
-			EnrichablePair<AstronomicalObject, AstronomicalObject> enrichablePair ->
-				assert enrichablePair.input == astronomicalObjectFromTemplate
+			EnrichablePair<List<AstronomicalObject>, AstronomicalObject> enrichablePair ->
+				assert enrichablePair.input == [location]
 				assert enrichablePair.output == astronomicalObject
+				astronomicalObject.location = location
 		}
 		0 * _
+		astronomicalObject.location == location
 	}
 
-	void "passes result to enricher when wikitext processing result and template processing result are the same"() {
+	void "processes wikitext from first valid line"() {
 		given:
 		ModelPage page = new ModelPage(title: TITLE, mediaWikiSource: MODEL_MEDIA_WIKI_SOURCE)
 		AstronomicalObject astronomicalObject = new AstronomicalObject(page: page)
+		AstronomicalObject location = new AstronomicalObject()
 		SourcesPage sourcesPage = new SourcesPage(wikitext: WIKITEXT)
-		Template template = new Template(parts: Lists.newArrayList(
-				new Template.Part(key: AstronomicalObjectLinkProcessor.LOCATION, value: LOCATION)
+
+		when:
+		astronomicalObjectLinkProcessor.process(astronomicalObject)
+
+		then:
+		1 * mediaWikiSourceMapperMock.fromEntityToSources(MODEL_MEDIA_WIKI_SOURCE) >> ETL_MEDIA_WIKI_SOURCE
+		1 * pageApiMock.getPage(TITLE, ETL_MEDIA_WIKI_SOURCE) >> sourcesPage
+		1 * astronomicalObjectLocationFixedValueProviderMock.getSearchedValue(astronomicalObject) >> FixedValueHolder.notFound()
+		1 * templateFinderMock.findTemplates(sourcesPage, TemplateTitle.SIDEBAR_ASTRONOMICAL_OBJECT, TemplateTitle.SIDEBAR_PLANET,
+				TemplateTitle.SIDEBAR_STAR, TemplateTitle.SIDEBAR_STAR_SYSTEM) >> []
+		1 * paragraphExtractorMock.extractLines(WIKITEXT) >> [FIRST_LINE, SECOND_LINE, THIRD_LINE]
+		1 * astronomicalObjectLinkWikitextProcessorMock.process(THIRD_LINE) >> [location]
+		1 * astronomicalObjectLinkEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
+			EnrichablePair<List<AstronomicalObject>, AstronomicalObject> enrichablePair ->
+				assert enrichablePair.input == [location]
+				assert enrichablePair.output == astronomicalObject
+				astronomicalObject.location = location
+		}
+		0 * _
+		astronomicalObject.location == location
+	}
+
+	void "processes wikitext from bginfo template"() {
+		given:
+		ModelPage page = new ModelPage(title: TITLE, mediaWikiSource: MODEL_MEDIA_WIKI_SOURCE)
+		AstronomicalObject astronomicalObject = new AstronomicalObject(page: page)
+		AstronomicalObject location = new AstronomicalObject()
+		SourcesPage sourcesPage = new SourcesPage(wikitext: WIKITEXT)
+		Template bgInfoTemplate = new Template(parts: Lists.newArrayList(
+				new Template.Part(key: '1', value: LOCATION)
 		))
 
 		when:
@@ -159,26 +168,27 @@ class AstronomicalObjectLinkProcessorTest extends Specification {
 		then:
 		1 * mediaWikiSourceMapperMock.fromEntityToSources(MODEL_MEDIA_WIKI_SOURCE) >> ETL_MEDIA_WIKI_SOURCE
 		1 * pageApiMock.getPage(TITLE, ETL_MEDIA_WIKI_SOURCE) >> sourcesPage
-		1 * paragraphExtractorMock.extractParagraphs(_) >> { String wikitext -> Lists.newArrayList(wikitext) }
-		1 * astronomicalObjectLinkWikitextProcessorMock.process(WIKITEXT) >> astronomicalObjectFromTemplate
-		1 * templateFinderMock.findTemplate(sourcesPage, TemplateTitle.SIDEBAR_PLANET) >> Optional.of(template)
-		1 * astronomicalObjectLinkWikitextProcessorMock.process(LOCATION) >> astronomicalObjectFromTemplate
+		1 * astronomicalObjectLocationFixedValueProviderMock.getSearchedValue(astronomicalObject) >> FixedValueHolder.notFound()
+		1 * templateFinderMock.findTemplates(sourcesPage, TemplateTitle.SIDEBAR_ASTRONOMICAL_OBJECT, TemplateTitle.SIDEBAR_PLANET,
+				TemplateTitle.SIDEBAR_STAR, TemplateTitle.SIDEBAR_STAR_SYSTEM) >> []
+		1 * paragraphExtractorMock.extractLines(WIKITEXT) >> [FIRST_LINE, SECOND_LINE]
+		1 * templateFinderMock.findTemplates(sourcesPage, TemplateTitle.BGINFO) >> [bgInfoTemplate]
+		1 * astronomicalObjectLinkWikitextProcessorMock.process(LOCATION) >> [location]
 		1 * astronomicalObjectLinkEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
-			EnrichablePair<AstronomicalObject, AstronomicalObject> enrichablePair ->
-				assert enrichablePair.input == astronomicalObjectFromTemplate
+			EnrichablePair<List<AstronomicalObject>, AstronomicalObject> enrichablePair ->
+				assert enrichablePair.input == [location]
 				assert enrichablePair.output == astronomicalObject
+				astronomicalObject.location = location
 		}
 		0 * _
+		astronomicalObject.location == location
 	}
 
-	void "passes template processing result to enricher, when template processing result and wikitext processing result differs"() {
+	void "when everything fails, location stays null"() {
 		given:
 		ModelPage page = new ModelPage(title: TITLE, mediaWikiSource: MODEL_MEDIA_WIKI_SOURCE)
 		AstronomicalObject astronomicalObject = new AstronomicalObject(page: page)
 		SourcesPage sourcesPage = new SourcesPage(wikitext: WIKITEXT)
-		Template template = new Template(parts: Lists.newArrayList(
-				new Template.Part(key: AstronomicalObjectLinkProcessor.LOCATION, value: LOCATION)
-		))
 
 		when:
 		astronomicalObjectLinkProcessor.process(astronomicalObject)
@@ -186,16 +196,13 @@ class AstronomicalObjectLinkProcessorTest extends Specification {
 		then:
 		1 * mediaWikiSourceMapperMock.fromEntityToSources(MODEL_MEDIA_WIKI_SOURCE) >> ETL_MEDIA_WIKI_SOURCE
 		1 * pageApiMock.getPage(TITLE, ETL_MEDIA_WIKI_SOURCE) >> sourcesPage
-		1 * paragraphExtractorMock.extractParagraphs(_) >> { String wikitext -> Lists.newArrayList(wikitext) }
-		1 * astronomicalObjectLinkWikitextProcessorMock.process(WIKITEXT) >> astronomicalObjectFromWikitext
-		1 * templateFinderMock.findTemplate(sourcesPage, TemplateTitle.SIDEBAR_PLANET) >> Optional.of(template)
-		1 * astronomicalObjectLinkWikitextProcessorMock.process(LOCATION) >> astronomicalObjectFromTemplate
-		1 * astronomicalObjectLinkEnrichingProcessorMock.enrich(_ as EnrichablePair) >> {
-			EnrichablePair<AstronomicalObject, AstronomicalObject> enrichablePair ->
-				assert enrichablePair.input == astronomicalObjectFromTemplate
-				assert enrichablePair.output == astronomicalObject
-		}
+		1 * astronomicalObjectLocationFixedValueProviderMock.getSearchedValue(astronomicalObject) >> FixedValueHolder.notFound()
+		1 * templateFinderMock.findTemplates(sourcesPage, TemplateTitle.SIDEBAR_ASTRONOMICAL_OBJECT, TemplateTitle.SIDEBAR_PLANET,
+				TemplateTitle.SIDEBAR_STAR, TemplateTitle.SIDEBAR_STAR_SYSTEM) >> []
+		1 * paragraphExtractorMock.extractLines(WIKITEXT) >> [FIRST_LINE, SECOND_LINE]
+		1 * templateFinderMock.findTemplates(sourcesPage, TemplateTitle.BGINFO) >> []
 		0 * _
+		astronomicalObject.location == null
 	}
 
 }

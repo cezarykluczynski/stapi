@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor(staticName = "of")
-@NoArgsConstructor(staticName = "empty")
+@NoArgsConstructor(staticName = "empty") // TODO: remove
 @Getter
 public class FixedValueHolder<T> {
 

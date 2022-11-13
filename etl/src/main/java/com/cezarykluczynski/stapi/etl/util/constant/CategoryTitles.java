@@ -171,6 +171,7 @@ public class CategoryTitles {
 	public static final List<String> ASTRONOMICAL_OBJECTS = ImmutableList.of(
 			CategoryTitle.ASTEROIDS,
 			CategoryTitle.ASTEROID_BELTS,
+			CategoryTitle.BORG_SPATIAL_DESIGNATIONS,
 			CategoryTitle.CLUSTERS,
 			CategoryTitle.COMETS,
 			CategoryTitle.CONSTELLATIONS,

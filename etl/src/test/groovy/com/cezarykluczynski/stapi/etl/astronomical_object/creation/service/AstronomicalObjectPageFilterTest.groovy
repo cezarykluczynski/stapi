@@ -1,10 +1,10 @@
 package com.cezarykluczynski.stapi.etl.astronomical_object.creation.service
 
 import com.cezarykluczynski.stapi.etl.common.processor.CategoryTitlesExtractingProcessor
-import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
+import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -12,13 +12,10 @@ class AstronomicalObjectPageFilterTest extends Specification {
 
 	private static final String TITLE = 'TITLE'
 
-	CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessorMock
-
 	AstronomicalObjectPageFilter astronomicalObjectPageFilter
 
 	void setup() {
-		categoryTitlesExtractingProcessorMock = Mock()
-		astronomicalObjectPageFilter = new AstronomicalObjectPageFilter(categoryTitlesExtractingProcessorMock)
+		astronomicalObjectPageFilter = new AstronomicalObjectPageFilter(new CategoryTitlesExtractingProcessor())
 
 	}
 
@@ -43,17 +40,19 @@ class AstronomicalObjectPageFilterTest extends Specification {
 		result
 	}
 
-	void "returns true when page is 'Planetary classification'"() {
+	void "returns true when page name is among invalid titled"() {
 		when:
-		boolean result = astronomicalObjectPageFilter.shouldBeFilteredOut(new Page(title: 'Planetary classification'))
+		boolean result = astronomicalObjectPageFilter.shouldBeFilteredOut(new Page(
+				title: RandomUtil.randomItem(AstronomicalObjectPageFilter.INVALID_TITLES)))
 
 		then:
 		result
 	}
 
-	void "returns true when page 'Planet lists' category is present"() {
+	void "returns true when page has invalid category"() {
 		given:
-		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(new CategoryHeader(title: CategoryTitle.PLANET_LISTS))
+		List<CategoryHeader> categoryHeaderList = Lists.newArrayList(new CategoryHeader(
+				title: RandomUtil.randomItem(AstronomicalObjectPageFilter.INVALID_CATEGORIES)))
 
 		when:
 		boolean result = astronomicalObjectPageFilter.shouldBeFilteredOut(new Page(
@@ -62,7 +61,6 @@ class AstronomicalObjectPageFilterTest extends Specification {
 		))
 
 		then:
-		1 * categoryTitlesExtractingProcessorMock.process(categoryHeaderList) >> Lists.newArrayList(CategoryTitle.PLANET_LISTS)
 		0 * _
 		result
 	}
@@ -74,7 +72,6 @@ class AstronomicalObjectPageFilterTest extends Specification {
 		))
 
 		then:
-		1 * categoryTitlesExtractingProcessorMock.process([]) >> []
 		0 * _
 		!result
 	}

@@ -1,6 +1,7 @@
 package com.cezarykluczynski.stapi.etl.astronomical_object.link.processor;
 
 import com.cezarykluczynski.stapi.etl.common.dto.EnrichablePair;
+import com.cezarykluczynski.stapi.etl.common.dto.FixedValueHolder;
 import com.cezarykluczynski.stapi.etl.common.mapper.MediaWikiSourceMapper;
 import com.cezarykluczynski.stapi.etl.common.service.ParagraphExtractor;
 import com.cezarykluczynski.stapi.etl.template.service.TemplateFinder;
@@ -10,16 +11,18 @@ import com.cezarykluczynski.stapi.model.page.entity.enums.MediaWikiSource;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.PageApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template;
 import com.cezarykluczynski.stapi.util.constant.TemplateTitle;
-import com.cezarykluczynski.stapi.util.tool.LogicUtil;
-import com.google.common.base.Objects;
+import com.google.common.collect.Lists;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
 
-@Service
 @Slf4j
+@Service
+@RequiredArgsConstructor
 public class AstronomicalObjectLinkProcessor implements ItemProcessor<AstronomicalObject, AstronomicalObject> {
 
 	private static final String LOCATION = "location";
@@ -36,16 +39,7 @@ public class AstronomicalObjectLinkProcessor implements ItemProcessor<Astronomic
 
 	private final AstronomicalObjectLinkEnrichingProcessor astronomicalObjectLinkEnrichingProcessor;
 
-	public AstronomicalObjectLinkProcessor(PageApi pageApi, MediaWikiSourceMapper mediaWikiSourceMapper, TemplateFinder templateFinder,
-			ParagraphExtractor paragraphExtractor, AstronomicalObjectLinkWikitextProcessor astronomicalObjectLinkWikitextProcessor,
-			AstronomicalObjectLinkEnrichingProcessor astronomicalObjectLinkEnrichingProcessor) {
-		this.pageApi = pageApi;
-		this.mediaWikiSourceMapper = mediaWikiSourceMapper;
-		this.templateFinder = templateFinder;
-		this.paragraphExtractor = paragraphExtractor;
-		this.astronomicalObjectLinkWikitextProcessor = astronomicalObjectLinkWikitextProcessor;
-		this.astronomicalObjectLinkEnrichingProcessor = astronomicalObjectLinkEnrichingProcessor;
-	}
+	private final AstronomicalObjectLocationFixedValueProvider astronomicalObjectLocationFixedValueProvider;
 
 	@Override
 	public AstronomicalObject process(AstronomicalObject item) throws Exception {
@@ -58,6 +52,11 @@ public class AstronomicalObjectLinkProcessor implements ItemProcessor<Astronomic
 		String pageTitle = modelPage.getTitle();
 		MediaWikiSource mediaWikiSource = modelPage.getMediaWikiSource();
 
+//		List<String> valids = Lists.newArrayList("Antares (star)", "Antares_(star)");
+//		if (!valids.contains(pageTitle)) {
+//			return;
+//		}
+
 		com.cezarykluczynski.stapi.sources.mediawiki.dto.Page page = pageApi
 				.getPage(pageTitle, mediaWikiSourceMapper.fromEntityToSources(mediaWikiSource));
 
@@ -65,40 +64,76 @@ public class AstronomicalObjectLinkProcessor implements ItemProcessor<Astronomic
 			return;
 		}
 
-		AstronomicalObject astronomicalObjectFromTemplate = null;
-		AstronomicalObject astronomicalObjectFromWikitext = astronomicalObjectLinkWikitextProcessor
-				.process(extractFirstParagraph(page.getWikitext()));
+		final FixedValueHolder<AstronomicalObject> locationFixedValueProviderSearchedValue = astronomicalObjectLocationFixedValueProvider
+				.getSearchedValue(item);
+		if (locationFixedValueProviderSearchedValue.isFound()) {
+			// fixed location is checked manually, so logic in AstronomicalObjectLinkEnrichingProcessor could only challenge it, thus best to skip it
+			item.setLocation(locationFixedValueProviderSearchedValue.getValue());
+			return;
+		}
 
-		Optional<Template> templateOptional = templateFinder.findTemplate(page, TemplateTitle.SIDEBAR_PLANET);
-		if (templateOptional.isPresent()) {
-			Template template = templateOptional.get();
-
+		List<Template> astronomicalObjectsTemplates = templateFinder.findTemplates(page, TemplateTitle.SIDEBAR_ASTRONOMICAL_OBJECT, TemplateTitle.SIDEBAR_PLANET,
+				TemplateTitle.SIDEBAR_STAR, TemplateTitle.SIDEBAR_STAR_SYSTEM);
+		if (astronomicalObjectsTemplates.size() > 1) {
+			log.warn("More than one template found on page {}", pageTitle);
+		}
+		Template template = astronomicalObjectsTemplates.isEmpty() ? null : astronomicalObjectsTemplates.get(0);
+		List<AstronomicalObject> astronomicalObjectsFromTemplate = Lists.newArrayList();
+		if (template != null) {
 			for (Template.Part part : template.getParts()) {
 				String key = part.getKey();
 				String value = part.getValue();
 
 				if (LOCATION.equals(key)) {
-					astronomicalObjectFromTemplate = astronomicalObjectLinkWikitextProcessor.process(value);
+					astronomicalObjectsFromTemplate.addAll(astronomicalObjectLinkWikitextProcessor.process(value));
+				}
+			}
+		}
+		if (!astronomicalObjectsFromTemplate.isEmpty()) {
+			astronomicalObjectLinkEnrichingProcessor.enrich(EnrichablePair.of(astronomicalObjectsFromTemplate, item));
+		}
+
+		if (item.getLocation() == null) {
+			final String firstParagraph = extractFirstParagraph(page.getWikitext());
+			if (firstParagraph != null) {
+				List<AstronomicalObject> astronomicalObjectsFromWikitext = astronomicalObjectLinkWikitextProcessor.process(firstParagraph);
+				if (!astronomicalObjectsFromWikitext.isEmpty()) {
+					astronomicalObjectLinkEnrichingProcessor.enrich(EnrichablePair.of(astronomicalObjectsFromWikitext, item));
 				}
 			}
 		}
 
-		if (astronomicalObjectFromTemplate == null && astronomicalObjectFromWikitext == null) {
-			return;
-		} else if (LogicUtil.xorNull(astronomicalObjectFromTemplate, astronomicalObjectFromWikitext)) {
-			astronomicalObjectLinkEnrichingProcessor.enrich(EnrichablePair.of(Objects.firstNonNull(astronomicalObjectFromTemplate,
-					astronomicalObjectFromWikitext), item));
-		} else if (Objects.equal(astronomicalObjectFromTemplate, astronomicalObjectFromWikitext)) {
-			astronomicalObjectLinkEnrichingProcessor.enrich(EnrichablePair.of(astronomicalObjectFromTemplate, item));
-		} else {
-			log.warn("Different location found for \"{}\", location says it is \"{}\", but wikitext says it is \"{}\". Using value from template",
-					item, astronomicalObjectFromTemplate, astronomicalObjectFromWikitext);
-			astronomicalObjectLinkEnrichingProcessor.enrich(EnrichablePair.of(astronomicalObjectFromTemplate, item));
+		if (item.getLocation() == null) {
+			List<AstronomicalObject> astronomicalObjectsFromBgInfo = Lists.newArrayList();
+			List<Template> bgInfoTemplates = templateFinder.findTemplates(page, TemplateTitle.BGINFO);
+			if (!bgInfoTemplates.isEmpty()) {
+				for (Template bgInfoTemplate : bgInfoTemplates) {
+					for (Template.Part part : bgInfoTemplate.getParts()) {
+						astronomicalObjectsFromBgInfo.addAll(astronomicalObjectLinkWikitextProcessor.process(part.getValue()));
+					}
+				}
+			}
+			if (!astronomicalObjectsFromBgInfo.isEmpty()) {
+				astronomicalObjectLinkEnrichingProcessor.enrich(EnrichablePair.of(astronomicalObjectsFromBgInfo, item));
+			}
 		}
 	}
 
 	private String extractFirstParagraph(String wikitext) {
-		return paragraphExtractor.extractParagraphs(wikitext).get(0);
+		return paragraphExtractor.extractLines(wikitext).stream()
+				.filter(AstronomicalObjectLinkProcessor::isValidFirstParagraph)
+				.findFirst()
+				.orElse(null);
+	}
+
+	private static boolean isValidFirstParagraph(String s) {
+		return s != null
+				&& s.length() > 15
+				&& !StringUtils.trim(s).startsWith("{{")
+				&& !s.substring(0, 15).contains("sidebar")
+				&& !s.substring(0, 18).contains("disambiguation")
+				&& !s.substring(0, 10).contains("multiple")
+				&& !StringUtils.trim(s).startsWith("[[File:");
 	}
 
 }

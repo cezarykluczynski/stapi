@@ -140,6 +140,7 @@ public class CategoryTitle {
 
 	public static final String ASTEROIDS = "Asteroids";
 	public static final String ASTEROID_BELTS = "Asteroid_belts";
+	public static final String BORG_SPATIAL_DESIGNATIONS = "Borg_spatial_designations";
 	public static final String COMETS = "Comets";
 	public static final String CLUSTERS = "Clusters";
 	public static final String CONSTELLATIONS = "Constellations";
@@ -158,6 +159,8 @@ public class CategoryTitle {
 	public static final String STAR_SYSTEMS = "Star_systems";
 	public static final String STARS = "Stars";
 	public static final String PLANET_LISTS = "Planet_lists";
+	public static final String CELESTIAL_OBJECTS = "Celestial_objects";
+	public static final String ASTRONOMICAL_CLASSIFICATIONS = "Astronomical_classifications";
 
 	public static final String COMPANIES = "Companies";
 	public static final String BROADCASTERS = "Broadcasters";

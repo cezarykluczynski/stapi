@@ -21,12 +21,12 @@ class AstronomicalObjectLinkEnrichingProcessorTest extends Specification {
 		AstronomicalObjectLinkEnrichingProcessor.ASTRONOMICAL_OBJECTS_SIZE_MAP.size() == AstronomicalObjectType.values().size()
 	}
 
-	void "returns null when location candidate is null"() {
+	void "returns null when location candidates list is empty"() {
 		given:
 		AstronomicalObject subject = new AstronomicalObject(astronomicalObjectType: AstronomicalObjectType.M_CLASS_MOON)
 
 		when:
-		astronomicalObjectLinkEnrichingProcessor.enrich(EnrichablePair.of(null, subject))
+		astronomicalObjectLinkEnrichingProcessor.enrich(EnrichablePair.of([], subject))
 
 		then:
 		subject.location == null
@@ -38,7 +38,7 @@ class AstronomicalObjectLinkEnrichingProcessorTest extends Specification {
 		AstronomicalObject subject = new AstronomicalObject(astronomicalObjectType: AstronomicalObjectType.M_CLASS_MOON)
 
 		when:
-		astronomicalObjectLinkEnrichingProcessor.enrich(EnrichablePair.of(locationCandidate, subject))
+		astronomicalObjectLinkEnrichingProcessor.enrich(EnrichablePair.of([locationCandidate], subject))
 
 		then:
 		subject.location == null
@@ -50,7 +50,7 @@ class AstronomicalObjectLinkEnrichingProcessorTest extends Specification {
 		AstronomicalObject subject = new AstronomicalObject(astronomicalObjectType: AstronomicalObjectType.GALAXY)
 
 		when:
-		astronomicalObjectLinkEnrichingProcessor.enrich(EnrichablePair.of(locationCandidate, subject))
+		astronomicalObjectLinkEnrichingProcessor.enrich(EnrichablePair.of([locationCandidate], subject))
 
 		then:
 		subject.location == null
@@ -62,7 +62,7 @@ class AstronomicalObjectLinkEnrichingProcessorTest extends Specification {
 		AstronomicalObject subject = new AstronomicalObject(astronomicalObjectType: AstronomicalObjectType.D_CLASS_PLANET)
 
 		when:
-		astronomicalObjectLinkEnrichingProcessor.enrich(EnrichablePair.of(locationCandidate, subject))
+		astronomicalObjectLinkEnrichingProcessor.enrich(EnrichablePair.of([locationCandidate], subject))
 
 		then:
 		subject.location == locationCandidate
@@ -74,24 +74,41 @@ class AstronomicalObjectLinkEnrichingProcessorTest extends Specification {
 		AstronomicalObject subject = new AstronomicalObject(name: SUBJECT)
 
 		when:
-		astronomicalObjectLinkEnrichingProcessor.enrich(EnrichablePair.of(locationCandidate, subject))
+		astronomicalObjectLinkEnrichingProcessor.enrich(EnrichablePair.of([locationCandidate], subject))
 
 		then:
 		RuntimeException runtimeException = thrown(RuntimeException)
 		runtimeException.message == 'Subject "SUBJECT" astronomical object type not set.'
 	}
 
-	void "throws exception when location candidate astronomical object type is null"() {
+	void "sets location from single valid candidate"() {
 		given:
-		AstronomicalObject locationCandidate = new AstronomicalObject(name: LOCATION_CANDIDATE)
+		AstronomicalObject locationCandidate = new AstronomicalObject(name: LOCATION_CANDIDATE, astronomicalObjectType: AstronomicalObjectType.STAR_SYSTEM)
 		AstronomicalObject subject = new AstronomicalObject(name: SUBJECT, astronomicalObjectType: AstronomicalObjectType.STAR)
 
 		when:
-		astronomicalObjectLinkEnrichingProcessor.enrich(EnrichablePair.of(locationCandidate, subject))
+		astronomicalObjectLinkEnrichingProcessor.enrich(EnrichablePair.of([locationCandidate], subject))
 
 		then:
-		RuntimeException runtimeException = thrown(RuntimeException)
-		runtimeException.message == 'Location candidate "LOCATION_CANDIDATE" astronomical object type not set.'
+		subject.location == locationCandidate
+	}
+
+	void "sets location from list of candidates, picking the best one"() {
+		given:
+		AstronomicalObject locationCandidateGalaxy = new AstronomicalObject(
+				name: 'Milky Way Galaxy', astronomicalObjectType: AstronomicalObjectType.GALAXY)
+		AstronomicalObject locationCandidateQuadrant = new AstronomicalObject(
+				name: 'Alpha Quadrant', astronomicalObjectType: AstronomicalObjectType.QUADRANT)
+		AstronomicalObject locationCandidate = new AstronomicalObject(
+				name: LOCATION_CANDIDATE, astronomicalObjectType: AstronomicalObjectType.STAR_SYSTEM)
+		AstronomicalObject subject = new AstronomicalObject(name: SUBJECT, astronomicalObjectType: AstronomicalObjectType.STAR)
+		List<AstronomicalObject> candidates = [locationCandidateGalaxy, locationCandidateQuadrant, locationCandidate]
+
+		when:
+		astronomicalObjectLinkEnrichingProcessor.enrich(EnrichablePair.of(candidates, subject))
+
+		then:
+		subject.location == locationCandidate
 	}
 
 }

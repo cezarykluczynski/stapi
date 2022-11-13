@@ -8,6 +8,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.WikitextApi;
 import com.cezarykluczynski.stapi.sources.mediawiki.api.dto.PageLink;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections.CollectionUtils;
+import org.assertj.core.util.Lists;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-public class AstronomicalObjectLinkWikitextProcessor implements ItemProcessor<String, AstronomicalObject> {
+public class AstronomicalObjectLinkWikitextProcessor implements ItemProcessor<String, List<AstronomicalObject>> {
 
 	private final ParagraphExtractor paragraphExtractor;
 
@@ -33,15 +34,16 @@ public class AstronomicalObjectLinkWikitextProcessor implements ItemProcessor<St
 	}
 
 	@Override
-	public AstronomicalObject process(String item) throws Exception {
-		List<String> parahraphList = paragraphExtractor.extractParagraphs(item);
+	public List<AstronomicalObject> process(String item) throws Exception {
+		List<String> paragraphList = paragraphExtractor.extractParagraphs(item);
+		List<AstronomicalObject> candidates = Lists.newArrayList();
 
-		if (CollectionUtils.isEmpty(parahraphList)) {
-			return null;
+		if (CollectionUtils.isEmpty(paragraphList)) {
+			return candidates;
 		}
 
-		String wikitextWithourTemplates = wikitextApi.getWikitextWithoutTemplates(parahraphList.get(0));
-		List<PageLink> pageLinkList = wikitextApi.getPageLinksFromWikitext(wikitextWithourTemplates);
+		String wikitextWithoutTemplates = wikitextApi.getWikitextWithoutTemplates(paragraphList.get(0));
+		List<PageLink> pageLinkList = wikitextApi.getPageLinksFromWikitext(wikitextWithoutTemplates);
 
 		for (PageLink pageLink : pageLinkList) {
 			Optional<AstronomicalObject> astronomicalObjectOptional;
@@ -49,7 +51,7 @@ public class AstronomicalObjectLinkWikitextProcessor implements ItemProcessor<St
 				astronomicalObjectOptional = astronomicalObjectRepository
 						.findByPageTitleAndPageMediaWikiSource(pageLink.getTitle(), MediaWikiSource.MEMORY_ALPHA_EN);
 			} catch (NonUniqueResultException e) {
-				log.info("Could not find unique page by title {}", pageLink.getTitle());
+				log.info("Could not find unique page by title \"{}\".", pageLink.getTitle());
 				continue;
 			}
 
@@ -59,16 +61,16 @@ public class AstronomicalObjectLinkWikitextProcessor implements ItemProcessor<St
 					continue;
 				}
 
-				return astronomicalObject;
+				candidates.add(astronomicalObject);
 			}
 		}
 
-		return null;
+		return candidates;
 	}
 
 	private boolean isFalsePositive(String item, PageLink pageLink) {
-		String wikitextBefore = item.substring(0, pageLink.getStartPosition());
-		return wikitextBefore.contains("light year") || wikitextBefore.contains("visible from");
+		String wikitextBefore = item.substring(Math.max(0, pageLink.getStartPosition() - 40), pageLink.getStartPosition());
+		return (wikitextBefore.contains("light year") || wikitextBefore.contains("visible from")) && !wikitextBefore.contains("<br");
 	}
 
 }

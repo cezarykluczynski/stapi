@@ -4,6 +4,7 @@ public class TemplateTitle {
 
 	// Memory Alpha
 	public static final String SIDEBAR_ACTOR = "sidebar actor";
+	public static final String SIDEBAR_ASTRONOMICAL_OBJECT = "sidebar astronomical object";
 	public static final String SIDEBAR_CREW = "sidebar crew";
 	public static final String SIDEBAR_INDIVIDUAL = "sidebar individual";
 	public static final String SIDEBAR_HOLOGRAM = "sidebar hologram";
@@ -27,6 +28,8 @@ public class TemplateTitle {
 	public static final String SIDEBAR_VIDEO = "sidebar video";
 	public static final String SIDEBAR_VIDEOGAME = "sidebar videogame";
 	public static final String SIDEBAR_SOUNDTRACK = "sidebar soundtrack";
+	public static final String SIDEBAR_STAR = "sidebar star";
+	public static final String SIDEBAR_STAR_SYSTEM = "sidebar star system";
 	public static final String SIDEBAR_STARSHIP_CLASS = "sidebar starship class";
 	public static final String SIDEBAR_STARSHIP = "sidebar starship";
 	public static final String SIDEBAR_STATION = "sidebar station";
@@ -80,6 +83,8 @@ public class TemplateTitle {
 	public static final String OMEGASERIES = "omegaseries";
 	public static final String TRANSONICSERIES = "transonicseries";
 	public static final String WORLD_SERIES = "world series";
+
+	public static final String BGINFO = "bginfo";
 
 	// Memory Beta
 	public static final String CHARACTER_BOX = "characterbox";

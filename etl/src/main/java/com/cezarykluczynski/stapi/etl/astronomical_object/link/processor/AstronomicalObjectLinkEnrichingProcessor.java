@@ -9,11 +9,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
 @Slf4j
-public class AstronomicalObjectLinkEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<AstronomicalObject, AstronomicalObject>> {
+public class AstronomicalObjectLinkEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<List<AstronomicalObject>, AstronomicalObject>> {
 
 	private static final Map<AstronomicalObjectType, Integer> ASTRONOMICAL_OBJECTS_SIZE_MAP = Maps.newHashMap();
 
@@ -42,42 +43,51 @@ public class AstronomicalObjectLinkEnrichingProcessor implements ItemEnrichingPr
 		ASTRONOMICAL_OBJECTS_SIZE_MAP.put(AstronomicalObjectType.NEBULA, 90);
 		ASTRONOMICAL_OBJECTS_SIZE_MAP.put(AstronomicalObjectType.CLUSTER, 100);
 		ASTRONOMICAL_OBJECTS_SIZE_MAP.put(AstronomicalObjectType.CONSTELLATION, 110);
-		ASTRONOMICAL_OBJECTS_SIZE_MAP.put(AstronomicalObjectType.REGION, 120);
-		ASTRONOMICAL_OBJECTS_SIZE_MAP.put(AstronomicalObjectType.SECTOR, 130);
-		ASTRONOMICAL_OBJECTS_SIZE_MAP.put(AstronomicalObjectType.GALAXY, 140);
+		ASTRONOMICAL_OBJECTS_SIZE_MAP.put(AstronomicalObjectType.BORG_SPATIAL_DESIGNATION, 120);
+		ASTRONOMICAL_OBJECTS_SIZE_MAP.put(AstronomicalObjectType.REGION, 130);
+		ASTRONOMICAL_OBJECTS_SIZE_MAP.put(AstronomicalObjectType.SECTOR, 140);
+		ASTRONOMICAL_OBJECTS_SIZE_MAP.put(AstronomicalObjectType.QUADRANT, 150);
+		ASTRONOMICAL_OBJECTS_SIZE_MAP.put(AstronomicalObjectType.GALAXY, 160);
 	}
 
 	@Override
-	public void enrich(EnrichablePair<AstronomicalObject, AstronomicalObject> enrichablePair) throws Exception {
+	public void enrich(EnrichablePair<List<AstronomicalObject>, AstronomicalObject> enrichablePair) throws Exception {
 		AstronomicalObject subject = enrichablePair.getOutput();
-		AstronomicalObject locationCandidate = enrichablePair.getInput();
-
-		if (locationCandidate == null) {
-			return;
-		}
+		List<AstronomicalObject> locationCandidates = enrichablePair.getInput();
 
 		AstronomicalObjectType subjectType = subject.getAstronomicalObjectType();
 		if (subjectType == null) {
 			throw new RuntimeException(String.format("Subject \"%s\" astronomical object type not set.", subject.getName()));
 		}
 
-		AstronomicalObjectType locationCandidateType = locationCandidate.getAstronomicalObjectType();
-		if (locationCandidateType == null) {
-			throw new RuntimeException(String.format("Location candidate \"%s\" astronomical object type not set.", locationCandidate.getName()));
-		}
-
-		Integer locationCandidateSize = ASTRONOMICAL_OBJECTS_SIZE_MAP.get(locationCandidateType);
+		AstronomicalObject existingCandidate = null;
+		Integer existingCandidateSize = null;
 		Integer subjectSize = ASTRONOMICAL_OBJECTS_SIZE_MAP.get(subjectType);
+		for (AstronomicalObject locationCandidate : locationCandidates) {
+			if (locationCandidate == null) {
+				continue;
+			}
 
-		if (NumberUtils.compare(locationCandidateSize, subjectSize) == 0) {
-			log.warn("Determined that astronomical object location candidate {} has the same type {} as the target {}", locationCandidate,
-					locationCandidate.getAstronomicalObjectType(), subject);
-		} else if (locationCandidateSize < subjectSize) {
-			log.warn("Determined that astronomical object location candidate {} has lower size than {} as the target {}", locationCandidate,
-					locationCandidate.getAstronomicalObjectType(), subject);
-		} else {
-			subject.setLocation(locationCandidate);
+			AstronomicalObjectType locationCandidateType = locationCandidate.getAstronomicalObjectType();
+			if (locationCandidateType == null) {
+				log.error("Location candidate \"{}\" astronomical object type not set, skipping.", locationCandidate.getName());
+				continue;
+			}
+
+			Integer locationCandidateSize = ASTRONOMICAL_OBJECTS_SIZE_MAP.get(locationCandidateType);
+
+			boolean candidateIsGoodEnough = existingCandidate == null && locationCandidateSize > subjectSize;
+			boolean candidateIsBetterMatch = existingCandidateSize != null
+					&& locationCandidateSize < existingCandidateSize && locationCandidateSize > subjectSize;
+			if (candidateIsGoodEnough || candidateIsBetterMatch) {
+				existingCandidate = locationCandidate;
+				existingCandidateSize = locationCandidateSize;
+			}
 		}
 
+		if (existingCandidate != null) {
+			subject.setLocation(existingCandidate);
+		}
 	}
+
 }

@@ -16,6 +16,7 @@ class AstronomicalObjectLinkWikitextProcessorTest extends Specification {
 	private static final String WIKITEXT = 'WIKITEXT'
 	private static final String LIGTH_YEAR_WIKITEXT = 'light year WIKITEXT'
 	private static final String VISILBE_FROM_WIKITEXT = 'visible from WIKITEXT'
+	private static final String WITH_LINE_BREAK_WIKITEXT = 'light years <br/> WIKITEXT'
 	private static final String WIKITEXT_WITHOUT_TEMPLATES = 'WIKITEXT_WITHOUT_TEMPLATES'
 	private static final String PAGE_LINK_TITLE = 'WIKITEXT_WITHOUT_TEMPLATES'
 	private static final MediaWikiSource MEDIA_WIKI_SOURCE = MediaWikiSource.MEMORY_ALPHA_EN
@@ -38,12 +39,12 @@ class AstronomicalObjectLinkWikitextProcessorTest extends Specification {
 
 	void "returns null when paragraphs list is empty"() {
 		when:
-		AstronomicalObject astronomicalObject = astronomicalObjectLinkWikitextProcessor.process(WIKITEXT)
+		List<AstronomicalObject> astronomicalObjects = astronomicalObjectLinkWikitextProcessor.process(WIKITEXT)
 
 		then:
 		1 * paragraphExtractorMock.extractParagraphs(WIKITEXT) >> Lists.newArrayList()
 		0 * _
-		astronomicalObject == null
+		astronomicalObjects == []
 	}
 
 	void "processes links from first paragraph"() {
@@ -52,7 +53,7 @@ class AstronomicalObjectLinkWikitextProcessorTest extends Specification {
 		AstronomicalObject astronomicalObjectFoundByTitle = new AstronomicalObject()
 
 		when:
-		AstronomicalObject astronomicalObject = astronomicalObjectLinkWikitextProcessor.process(WIKITEXT)
+		List<AstronomicalObject> astronomicalObjects = astronomicalObjectLinkWikitextProcessor.process(WIKITEXT)
 
 		then:
 		1 * paragraphExtractorMock.extractParagraphs(WIKITEXT) >> Lists.newArrayList(WIKITEXT)
@@ -61,15 +62,33 @@ class AstronomicalObjectLinkWikitextProcessorTest extends Specification {
 		1 * astronomicalObjectRepositoryMock.findByPageTitleAndPageMediaWikiSource(PAGE_LINK_TITLE, MEDIA_WIKI_SOURCE) >>
 				Optional.of(astronomicalObjectFoundByTitle)
 		0 * _
-		astronomicalObject == astronomicalObjectFoundByTitle
+		astronomicalObjects[0] == astronomicalObjectFoundByTitle
 	}
 
-	void "returns null when no page was found by title"() {
+	void "processes links from first paragraph (line break with stop words)"() {
+		given:
+		PageLink pageLink = new PageLink(title: PAGE_LINK_TITLE, startPosition: 0)
+		AstronomicalObject astronomicalObjectFoundByTitle = new AstronomicalObject()
+
+		when:
+		List<AstronomicalObject> astronomicalObjects = astronomicalObjectLinkWikitextProcessor.process(WITH_LINE_BREAK_WIKITEXT)
+
+		then:
+		1 * paragraphExtractorMock.extractParagraphs(WITH_LINE_BREAK_WIKITEXT) >> Lists.newArrayList(WIKITEXT)
+		1 * wikitextApiMock.getWikitextWithoutTemplates(WIKITEXT) >> WIKITEXT_WITHOUT_TEMPLATES
+		1 * wikitextApiMock.getPageLinksFromWikitext(WIKITEXT_WITHOUT_TEMPLATES) >> Lists.newArrayList(pageLink)
+		1 * astronomicalObjectRepositoryMock.findByPageTitleAndPageMediaWikiSource(PAGE_LINK_TITLE, MEDIA_WIKI_SOURCE) >>
+				Optional.of(astronomicalObjectFoundByTitle)
+		0 * _
+		astronomicalObjects[0] == astronomicalObjectFoundByTitle
+	}
+
+	void "returns empty list when no page was found by title"() {
 		given:
 		PageLink pageLink = new PageLink(title: PAGE_LINK_TITLE, startPosition: 0)
 
 		when:
-		AstronomicalObject astronomicalObject = astronomicalObjectLinkWikitextProcessor.process(WIKITEXT)
+		List<AstronomicalObject> astronomicalObjects = astronomicalObjectLinkWikitextProcessor.process(WIKITEXT)
 
 		then:
 		1 * paragraphExtractorMock.extractParagraphs(WIKITEXT) >> Lists.newArrayList(WIKITEXT)
@@ -78,7 +97,7 @@ class AstronomicalObjectLinkWikitextProcessorTest extends Specification {
 		1 * astronomicalObjectRepositoryMock.findByPageTitleAndPageMediaWikiSource(PAGE_LINK_TITLE, MEDIA_WIKI_SOURCE) >>
 				Optional.empty()
 		0 * _
-		astronomicalObject == null
+		astronomicalObjects == []
 	}
 
 	void "skips link when it produces NonUniqueResultException"() {
@@ -86,7 +105,7 @@ class AstronomicalObjectLinkWikitextProcessorTest extends Specification {
 		PageLink pageLink = new PageLink(title: PAGE_LINK_TITLE)
 
 		when:
-		AstronomicalObject astronomicalObject = astronomicalObjectLinkWikitextProcessor.process(WIKITEXT)
+		List<AstronomicalObject> astronomicalObjects = astronomicalObjectLinkWikitextProcessor.process(WIKITEXT)
 
 		then:
 		1 * paragraphExtractorMock.extractParagraphs(WIKITEXT) >> Lists.newArrayList(WIKITEXT)
@@ -96,7 +115,7 @@ class AstronomicalObjectLinkWikitextProcessorTest extends Specification {
 			throw new NonUniqueResultException()
 		}
 		0 * _
-		astronomicalObject == null
+		astronomicalObjects == []
 	}
 
 	void "skips page link if it is preceded by 'light year'"() {
@@ -105,7 +124,7 @@ class AstronomicalObjectLinkWikitextProcessorTest extends Specification {
 		AstronomicalObject astronomicalObjectFoundByTitle = new AstronomicalObject()
 
 		when:
-		AstronomicalObject astronomicalObject = astronomicalObjectLinkWikitextProcessor.process(LIGTH_YEAR_WIKITEXT)
+		List<AstronomicalObject> astronomicalObjects = astronomicalObjectLinkWikitextProcessor.process(LIGTH_YEAR_WIKITEXT)
 
 		then:
 		1 * paragraphExtractorMock.extractParagraphs(LIGTH_YEAR_WIKITEXT) >> Lists.newArrayList(LIGTH_YEAR_WIKITEXT)
@@ -114,7 +133,7 @@ class AstronomicalObjectLinkWikitextProcessorTest extends Specification {
 		1 * astronomicalObjectRepositoryMock.findByPageTitleAndPageMediaWikiSource(PAGE_LINK_TITLE, MEDIA_WIKI_SOURCE) >>
 				Optional.of(astronomicalObjectFoundByTitle)
 		0 * _
-		astronomicalObject == null
+		astronomicalObjects == []
 	}
 
 	void "skips page link if it is preceded by 'visible from '"() {
@@ -123,7 +142,7 @@ class AstronomicalObjectLinkWikitextProcessorTest extends Specification {
 		AstronomicalObject astronomicalObjectFoundByTitle = new AstronomicalObject()
 
 		when:
-		AstronomicalObject astronomicalObject = astronomicalObjectLinkWikitextProcessor.process(VISILBE_FROM_WIKITEXT)
+		List<AstronomicalObject> astronomicalObjects = astronomicalObjectLinkWikitextProcessor.process(VISILBE_FROM_WIKITEXT)
 
 		then:
 		1 * paragraphExtractorMock.extractParagraphs(VISILBE_FROM_WIKITEXT) >> Lists.newArrayList(VISILBE_FROM_WIKITEXT)
@@ -132,7 +151,7 @@ class AstronomicalObjectLinkWikitextProcessorTest extends Specification {
 		1 * astronomicalObjectRepositoryMock.findByPageTitleAndPageMediaWikiSource(PAGE_LINK_TITLE, MEDIA_WIKI_SOURCE) >>
 				Optional.of(astronomicalObjectFoundByTitle)
 		0 * _
-		astronomicalObject == null
+		astronomicalObjects == []
 	}
 
 }

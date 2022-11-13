@@ -36,26 +36,40 @@ class AstronomicalObjectTypeEnrichingProcessorTest extends Specification {
 		astronomicalObjectType == planetTemplate.astronomicalObjectType
 
 		where:
-		categoryTitle                   | astronomicalObjectType
-		null                            | null
-		CategoryTitle.PLANETS           | AstronomicalObjectType.PLANET
-		CategoryTitle.PLANETS_RETCONNED | AstronomicalObjectType.PLANET
-		CategoryTitle.UNNAMED_PLANETS   | AstronomicalObjectType.PLANET
-		CategoryTitle.ASTEROIDS         | AstronomicalObjectType.ASTEROID
-		CategoryTitle.ASTEROID_BELTS    | AstronomicalObjectType.ASTEROID_BELT
-		CategoryTitle.CLUSTERS          | AstronomicalObjectType.CLUSTER
-		CategoryTitle.COMETS            | AstronomicalObjectType.COMET
-		CategoryTitle.CONSTELLATIONS    | AstronomicalObjectType.CONSTELLATION
-		CategoryTitle.GALAXIES          | AstronomicalObjectType.GALAXY
-		CategoryTitle.MOONS             | AstronomicalObjectType.MOON
-		CategoryTitle.NEBULAE           | AstronomicalObjectType.NEBULA
-		CategoryTitle.NEBULAE_RETCONNED | AstronomicalObjectType.NEBULA
-		CategoryTitle.PLANETOIDS        | AstronomicalObjectType.PLANETOID
-		CategoryTitle.QUASARS           | AstronomicalObjectType.QUASAR
-		CategoryTitle.REGIONS           | AstronomicalObjectType.REGION
-		CategoryTitle.SECTORS           | AstronomicalObjectType.SECTOR
-		CategoryTitle.STAR_SYSTEMS      | AstronomicalObjectType.STAR_SYSTEM
-		CategoryTitle.STARS             | AstronomicalObjectType.STAR
+		categoryTitle                           | astronomicalObjectType
+		null                                    | null
+		CategoryTitle.PLANETS                   | AstronomicalObjectType.PLANET
+		CategoryTitle.PLANETS_RETCONNED         | AstronomicalObjectType.PLANET
+		CategoryTitle.UNNAMED_PLANETS           | AstronomicalObjectType.PLANET
+		CategoryTitle.ASTEROIDS                 | AstronomicalObjectType.ASTEROID
+		CategoryTitle.ASTEROID_BELTS            | AstronomicalObjectType.ASTEROID_BELT
+		CategoryTitle.BORG_SPATIAL_DESIGNATIONS | AstronomicalObjectType.BORG_SPATIAL_DESIGNATION
+		CategoryTitle.CLUSTERS                  | AstronomicalObjectType.CLUSTER
+		CategoryTitle.COMETS                    | AstronomicalObjectType.COMET
+		CategoryTitle.CONSTELLATIONS            | AstronomicalObjectType.CONSTELLATION
+		CategoryTitle.GALAXIES                  | AstronomicalObjectType.GALAXY
+		CategoryTitle.MOONS                     | AstronomicalObjectType.MOON
+		CategoryTitle.NEBULAE                   | AstronomicalObjectType.NEBULA
+		CategoryTitle.NEBULAE_RETCONNED         | AstronomicalObjectType.NEBULA
+		CategoryTitle.PLANETOIDS                | AstronomicalObjectType.PLANETOID
+		CategoryTitle.QUASARS                   | AstronomicalObjectType.QUASAR
+		CategoryTitle.REGIONS                   | AstronomicalObjectType.REGION
+		CategoryTitle.SECTORS                   | AstronomicalObjectType.SECTOR
+		CategoryTitle.STAR_SYSTEMS              | AstronomicalObjectType.STAR_SYSTEM
+		CategoryTitle.STARS                     | AstronomicalObjectType.STAR
+	}
+
+	void "when page title ends with ' Quadrant', type is set to QUADRANT"() {
+		given:
+		Page page = new Page(title: 'Alpha Quadrant')
+		PlanetTemplate planetTemplate = new PlanetTemplate()
+		categoryTitlesExtractingProcessorMock.process(_ as List<CategoryHeader>) >> []
+
+		when:
+		astronomicalObjectTypeEnrichingProcessor.enrich(EnrichablePair.of(page, planetTemplate))
+
+		then:
+		planetTemplate.astronomicalObjectType == AstronomicalObjectType.QUADRANT
 	}
 
 }

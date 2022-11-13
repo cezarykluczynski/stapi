@@ -7,19 +7,19 @@ import com.cezarykluczynski.stapi.etl.template.planet.dto.PlanetTemplate;
 import com.cezarykluczynski.stapi.etl.template.planet.dto.enums.AstronomicalObjectType;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
+import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class AstronomicalObjectTypeEnrichingProcessor implements ItemEnrichingProcessor<EnrichablePair<Page, PlanetTemplate>> {
 
 	private final CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor;
 
-	public AstronomicalObjectTypeEnrichingProcessor(CategoryTitlesExtractingProcessor categoryTitlesExtractingProcessor) {
-		this.categoryTitlesExtractingProcessor = categoryTitlesExtractingProcessor;
-	}
-
+	@SuppressWarnings("CyclomaticComplexity")
 	@Override
 	public void enrich(EnrichablePair<Page, PlanetTemplate> enrichablePair) throws Exception {
 		Page page = enrichablePair.getInput();
@@ -34,6 +34,8 @@ public class AstronomicalObjectTypeEnrichingProcessor implements ItemEnrichingPr
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.ASTEROID);
 		} else if (categoryTitleList.contains(CategoryTitle.ASTEROID_BELTS)) {
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.ASTEROID_BELT);
+		} else if (categoryTitleList.contains(CategoryTitle.BORG_SPATIAL_DESIGNATIONS)) {
+			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.BORG_SPATIAL_DESIGNATION);
 		} else if (categoryTitleList.contains(CategoryTitle.COMETS)) {
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.COMET);
 		} else if (categoryTitleList.contains(CategoryTitle.CLUSTERS)) {
@@ -50,6 +52,8 @@ public class AstronomicalObjectTypeEnrichingProcessor implements ItemEnrichingPr
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.PLANETOID);
 		} else if (categoryTitleList.contains(CategoryTitle.QUASARS)) {
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.QUASAR);
+		} else if (StringUtils.endsWith(page.getTitle(), " Quadrant")) {
+			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.QUADRANT);
 		} else if (categoryTitleList.contains(CategoryTitle.REGIONS)) {
 			planetTemplate.setAstronomicalObjectType(AstronomicalObjectType.REGION);
 		} else if (categoryTitleList.contains(CategoryTitle.SECTORS)) {

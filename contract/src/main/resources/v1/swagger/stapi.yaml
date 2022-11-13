@@ -13,6 +13,7 @@ paths:
     $ref: ./animal/path/animal.path.yaml
   /v1/rest/animal/search:
     $ref: ./animal/path/animalSearch.path.yaml
+  # TODO: Add V2
   /v1/rest/astronomicalObject:
     $ref: ./astronomical_object/path/astronomicalObject.path.yaml
   /v1/rest/astronomicalObject/search:
@@ -97,6 +98,7 @@ paths:
     $ref: ./movie/path/movie.path.yaml
   /v1/rest/movie/search:
     $ref: ./movie/path/movieSearch.path.yaml
+  # TODO: Add V2
   /v1/rest/occupation:
     $ref: ./occupation/path/occupation.path.yaml
   /v1/rest/occupation/search:
@@ -149,6 +151,7 @@ paths:
     $ref: ./technology/path/technology.path.yaml
   /v1/rest/technology/search:
     $ref: ./technology/path/technologySearch.path.yaml
+  # TODO: Add V2
   /v1/rest/title:
     $ref: ./title/path/title.path.yaml
   /v1/rest/title/search:
