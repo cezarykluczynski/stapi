@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.configuration.IntervalCalcul
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiMinimalIntervalProvider;
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourcesProperties;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader;
-import com.cezarykluczynski.stapi.sources.mediawiki.service.wikia.WikiaWikisDetector;
+import com.cezarykluczynski.stapi.sources.mediawiki.service.fandom.FandomWikisDetector;
 import com.cezarykluczynski.stapi.sources.mediawiki.util.constant.ApiParams;
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException;
 import com.google.common.collect.Lists;
@@ -49,7 +49,7 @@ public class BlikiConnector {
 
 	private final BlikiUserDecoratorBeanMapProvider blikiUserDecoratorBeanMapProvider;
 
-	private final WikiaWikisDetector wikiaWikisDetector;
+	private final FandomWikisDetector fandomWikisDetector;
 
 	private final MediaWikiMinimalIntervalProvider mediaWikiMinimalIntervalProvider;
 
@@ -57,11 +57,11 @@ public class BlikiConnector {
 
 	private final RestTemplate restTemplate;
 
-	public BlikiConnector(BlikiUserDecoratorBeanMapProvider blikiUserDecoratorBeanMapProvider, WikiaWikisDetector wikiaWikisDetector,
+	public BlikiConnector(BlikiUserDecoratorBeanMapProvider blikiUserDecoratorBeanMapProvider, FandomWikisDetector fandomWikisDetector,
 			MediaWikiMinimalIntervalProvider mediaWikiMinimalIntervalProvider, MediaWikiSourcesProperties mediaWikiSourcesProperties,
 			RestTemplate restTemplate) {
 		this.blikiUserDecoratorBeanMapProvider = blikiUserDecoratorBeanMapProvider;
-		this.wikiaWikisDetector = wikiaWikisDetector;
+		this.fandomWikisDetector = fandomWikisDetector;
 		this.mediaWikiMinimalIntervalProvider = mediaWikiMinimalIntervalProvider;
 		this.mediaWikiSourcesProperties = mediaWikiSourcesProperties;
 		this.restTemplate = restTemplate;
@@ -236,7 +236,7 @@ public class BlikiConnector {
 	}
 
 	private String resolveProperties(MediaWikiSource mediaWikiSource) {
-		return wikiaWikisDetector.isWikiaWiki(mediaWikiSource) ? ApiParams.KEY_PROP_VALUE : ApiParams.KEY_PROP_VALUE_MW_1_26_UP;
+		return fandomWikisDetector.isFandomWiki(mediaWikiSource) ? ApiParams.KEY_PROP_VALUE : ApiParams.KEY_PROP_VALUE_MW_1_26_UP;
 	}
 
 	private long getNetworkTroublePostpone() {

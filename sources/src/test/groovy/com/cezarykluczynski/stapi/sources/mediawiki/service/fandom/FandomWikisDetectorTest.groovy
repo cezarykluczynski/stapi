@@ -1,11 +1,11 @@
-package com.cezarykluczynski.stapi.sources.mediawiki.service.wikia
+package com.cezarykluczynski.stapi.sources.mediawiki.service.fandom
 
 import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourceProperties
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourcesProperties
 import spock.lang.Specification
 
-class WikiaWikisDetectorTest extends Specification {
+class FandomWikisDetectorTest extends Specification {
 
 	private static final MediaWikiSource MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN = MediaWikiSource.MEMORY_ALPHA_EN
 	private static final MediaWikiSource MEDIA_WIKI_SOURCE_MEMORY_BETA_EN = MediaWikiSource.MEMORY_BETA_EN
@@ -14,36 +14,36 @@ class WikiaWikisDetectorTest extends Specification {
 
 	private MediaWikiSourcesProperties mediaWikiSourcesPropertiesMock
 
-	private WikiaUrlDetector wikiaUrlDetectorMock
+	private FandomUrlDetector fandomUrlDetectorMock
 
-	private WikiaWikisDetector wikiaWikisDetector
+	private FandomWikisDetector fandomWikisDetector
 
 	void setup() {
 		mediaWikiSourcesPropertiesMock = Mock()
-		wikiaUrlDetectorMock = Mock()
-		wikiaUrlDetectorMock.isWikiaWikiUrl(MEMORY_ALPHA_EN_API_URL) >> true
-		wikiaUrlDetectorMock.isWikiaWikiUrl(MEMORY_BETA_EN_API_URL) >> false
+		fandomUrlDetectorMock = Mock()
+		fandomUrlDetectorMock.isFandomWikiUrl(MEMORY_ALPHA_EN_API_URL) >> true
+		fandomUrlDetectorMock.isFandomWikiUrl(MEMORY_BETA_EN_API_URL) >> false
 		MediaWikiSourceProperties memoryAlphaEnMediaWikiSourceProperties = Mock()
 		memoryAlphaEnMediaWikiSourceProperties.apiUrl >> MEMORY_ALPHA_EN_API_URL
 		mediaWikiSourcesPropertiesMock.memoryAlphaEn >> memoryAlphaEnMediaWikiSourceProperties
 		MediaWikiSourceProperties memoryBetaEnMediaWikiSourceProperties = Mock()
 		memoryBetaEnMediaWikiSourceProperties.apiUrl >> MEMORY_BETA_EN_API_URL
 		mediaWikiSourcesPropertiesMock.memoryBetaEn >> memoryBetaEnMediaWikiSourceProperties
-		wikiaWikisDetector = new WikiaWikisDetector(mediaWikiSourcesPropertiesMock, wikiaUrlDetectorMock)
+		fandomWikisDetector = new FandomWikisDetector(mediaWikiSourcesPropertiesMock, fandomUrlDetectorMock)
 	}
 
-	void "detects Wikia wikis and not wikia Wikis"() {
+	void "detects Fandom wikis and not Fandom wikis"() {
 		when:
-		boolean memoryAlphaEnIsWikiaWiki = wikiaWikisDetector.isWikiaWiki(MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN)
+		boolean memoryAlphaEnIsFandomWiki = fandomWikisDetector.isFandomWiki(MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN)
 
 		then:
-		memoryAlphaEnIsWikiaWiki
+		memoryAlphaEnIsFandomWiki
 
 		when:
-		boolean memoryBetaEnIsWikiaWiki = wikiaWikisDetector.isWikiaWiki(MEDIA_WIKI_SOURCE_MEMORY_BETA_EN)
+		boolean memoryBetaEnIsFandomWiki = fandomWikisDetector.isFandomWiki(MEDIA_WIKI_SOURCE_MEMORY_BETA_EN)
 
 		then:
-		!memoryBetaEnIsWikiaWiki
+		!memoryBetaEnIsFandomWiki
 	}
 
 }

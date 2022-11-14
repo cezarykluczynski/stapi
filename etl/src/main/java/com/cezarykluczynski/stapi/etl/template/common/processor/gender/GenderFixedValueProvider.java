@@ -33,9 +33,9 @@ public class GenderFixedValueProvider implements FixedValueProvider<String, Gend
 		NAME_TO_GENDER_MAP.put("Maurishka", Gender.F); // genderize.io is not sure, photo used to determine
 		NAME_TO_GENDER_MAP.put("Sylte", null); // no way to tell from either MA nor IMDB
 		NAME_TO_GENDER_MAP.put("Denny Allan", Gender.M); // genderize.io result for alias Dan Allan
-		NAME_TO_GENDER_MAP.put("Aubrey Bradford", Gender.M); // source: http://marvel.wikia.com/wiki/Aubrey_Bradford
+		NAME_TO_GENDER_MAP.put("Aubrey Bradford", Gender.M); // source: http://marvel.fandom.com/wiki/Aubrey_Bradford
 		NAME_TO_GENDER_MAP.put("B.C. Cameron", Gender.F); // first female pronoun too far into the page
-		NAME_TO_GENDER_MAP.put("Michele Wolfman", Gender.F); // source: http://marvel.wikia.com/wiki/Michelle_Wolfman
+		NAME_TO_GENDER_MAP.put("Michele Wolfman", Gender.F); // source: http://marvel.fandom.com/wiki/Michelle_Wolfman
 		NAME_TO_GENDER_MAP.put("Anatonia Napoli", Gender.F); // determined from MA page content
 		NAME_TO_GENDER_MAP.put("Sandy Schofield", null); // pen name for two people
 		NAME_TO_GENDER_MAP.put("Hilary Bader", Gender.F); // genderize.io is not sure, IMDB used to determine
@@ -60,7 +60,7 @@ public class GenderFixedValueProvider implements FixedValueProvider<String, Gend
 		NAME_TO_GENDER_MAP.put("Chris Tezber", null); // genderize.io is not sure, not enough data on the web
 		NAME_TO_GENDER_MAP.put("Lynn Barker", Gender.F); // genderize.io is not sure, IMDB used to determine
 		NAME_TO_GENDER_MAP.put("Perri Sorel", Gender.F); // source: https://www.instagram.com/perrithegirl/
-		NAME_TO_GENDER_MAP.put("Jordu Schell", Gender.M); // source: http://memory-alpha.wikia.com/wiki/Jordu_Schell
+		NAME_TO_GENDER_MAP.put("Jordu Schell", Gender.M); // source: http://memory-alpha.fandom.com/wiki/Jordu_Schell
 		NAME_TO_GENDER_MAP.put("Daryl Towles", Gender.M); // determined from MA page content
 		NAME_TO_GENDER_MAP.put("Ilbra Yacoob", Gender.F); // genderize.io is not sure, photo used to determine
 		NAME_TO_GENDER_MAP.put("Zimmerman (costumer)", null); // no way of telling from the description

@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiMinim
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourceProperties
 import com.cezarykluczynski.stapi.sources.mediawiki.configuration.MediaWikiSourcesProperties
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
-import com.cezarykluczynski.stapi.sources.mediawiki.service.wikia.WikiaWikisDetector
+import com.cezarykluczynski.stapi.sources.mediawiki.service.fandom.FandomWikisDetector
 import com.cezarykluczynski.stapi.util.exception.StapiRuntimeException
 import com.google.common.collect.Maps
 import info.bliki.api.Connector
@@ -40,7 +40,7 @@ class BlikiConnectorTest extends Specification {
 			'</div>"}}'
 	private BlikiUserDecoratorBeanMapProvider blikiUserDecoratorBeanMapProviderMock
 
-	private WikiaWikisDetector wikiaWikisDetector
+	private FandomWikisDetector fandomWikisDetector
 
 	private MediaWikiMinimalIntervalProvider mediaWikiMinimalIntervalProviderMock
 
@@ -61,7 +61,7 @@ class BlikiConnectorTest extends Specification {
 
 	void setup() {
 		blikiUserDecoratorBeanMapProviderMock = Mock()
-		wikiaWikisDetector = Mock()
+		fandomWikisDetector = Mock()
 		mediaWikiMinimalIntervalProviderMock = Mock()
 		mediaWikiSourcesProperties = new MediaWikiSourcesProperties(
 				memoryAlphaEn: new MediaWikiSourceProperties(apiUrl: API_URL),
@@ -95,7 +95,7 @@ class BlikiConnectorTest extends Specification {
 
 		restTemplateMock = Mock()
 
-		blikiConnector = new BlikiConnector(blikiUserDecoratorBeanMapProviderMock, wikiaWikisDetector, mediaWikiMinimalIntervalProviderMock,
+		blikiConnector = new BlikiConnector(blikiUserDecoratorBeanMapProviderMock, fandomWikisDetector, mediaWikiMinimalIntervalProviderMock,
 				mediaWikiSourcesProperties, restTemplateMock)
 	}
 
@@ -111,7 +111,7 @@ class BlikiConnectorTest extends Specification {
 		String xml = blikiConnector.getPage(TITLE, MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN)
 
 		then: 'page is returned'
-		1 * wikiaWikisDetector.isWikiaWiki(_) >> false
+		1 * fandomWikisDetector.isFandomWiki(_) >> false
 		1 * mediaWikiMinimalIntervalProviderMock.memoryAlphaEnInterval >> INTERVAL
 		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
 		1 * userDecorator.connector >> connector
@@ -123,7 +123,7 @@ class BlikiConnectorTest extends Specification {
 		long endInMillis = System.currentTimeMillis()
 
 		then: 'another page is returned,  but call is postponed'
-		1 * wikiaWikisDetector.isWikiaWiki(_) >> false
+		1 * fandomWikisDetector.isFandomWiki(_) >> false
 		1 * mediaWikiMinimalIntervalProviderMock.memoryAlphaEnInterval >> INTERVAL
 		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
 		1 * userDecorator.connector >> connector
@@ -175,7 +175,7 @@ class BlikiConnectorTest extends Specification {
 		String xml = blikiConnector.getPage(TITLE, MEDIA_WIKI_SOURCE_MEMORY_BETA_EN)
 
 		then: 'page is returned'
-		1 * wikiaWikisDetector.isWikiaWiki(_) >> false
+		1 * fandomWikisDetector.isFandomWiki(_) >> false
 		1 * mediaWikiMinimalIntervalProviderMock.memoryBetaEnInterval >> INTERVAL
 		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
 		1 * userDecorator.connector >> connector
@@ -187,7 +187,7 @@ class BlikiConnectorTest extends Specification {
 		long endInMillis = System.currentTimeMillis()
 
 		then: 'another page is returned, but call is postponed'
-		1 * wikiaWikisDetector.isWikiaWiki(_) >> false
+		1 * fandomWikisDetector.isFandomWiki(_) >> false
 		1 * mediaWikiMinimalIntervalProviderMock.memoryBetaEnInterval >> INTERVAL
 		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
 		1 * userDecorator.connector >> connector
@@ -219,7 +219,7 @@ class BlikiConnectorTest extends Specification {
 		long endInMillis = System.currentTimeMillis()
 
 		then: 'another xml is returned, but call is postponed'
-		1 * wikiaWikisDetector.isWikiaWiki(_) >> false
+		1 * fandomWikisDetector.isFandomWiki(_) >> false
 		1 * mediaWikiMinimalIntervalProviderMock.memoryBetaEnInterval >> INTERVAL
 		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
 		1 * userDecorator.connector >> connector
@@ -228,13 +228,13 @@ class BlikiConnectorTest extends Specification {
 		xml2 == XML
 	}
 
-	void "do pass parsetree in props when url is not Wikia's"() {
+	void "do pass parsetree in props when url is not Fandom's"() {
 		given:
 		closeableHttpClient = Mock()
 		httpClientBuilderMock = Mock()
 		httpClientBuilderMock.build() >> closeableHttpClient
 
-		blikiConnector = new BlikiConnector(blikiUserDecoratorBeanMapProviderMock, wikiaWikisDetector, mediaWikiMinimalIntervalProviderMock,
+		blikiConnector = new BlikiConnector(blikiUserDecoratorBeanMapProviderMock, fandomWikisDetector, mediaWikiMinimalIntervalProviderMock,
 				mediaWikiSourcesProperties, restTemplateMock)
 
 		Connector connector = new Connector(httpClientBuilderMock)
@@ -245,8 +245,8 @@ class BlikiConnectorTest extends Specification {
 		when: 'page is requested'
 		blikiConnector.getPage(TITLE, MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN)
 
-		then: 'page is returned, and URL is not Wikia\'s wiki'
-		1 * wikiaWikisDetector.isWikiaWiki(MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN) >> false
+		then: "page is returned, and URL is not Fandom's wiki"
+		1 * fandomWikisDetector.isFandomWiki(MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN) >> false
 		1 * mediaWikiMinimalIntervalProviderMock.memoryAlphaEnInterval >> INTERVAL
 		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
 		1 * userDecorator.connector >> connector
@@ -259,8 +259,8 @@ class BlikiConnectorTest extends Specification {
 		when: 'page is requested'
 		blikiConnector.getPage(TITLE, MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN)
 
-		then: 'page is returned, and URL is Wikia\'s wiki'
-		1 * wikiaWikisDetector.isWikiaWiki(MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN) >> true
+		then: "page is returned, and URL is Fandom's wiki"
+		1 * fandomWikisDetector.isFandomWiki(MEDIA_WIKI_SOURCE_MEMORY_ALPHA_EN) >> true
 		1 * mediaWikiMinimalIntervalProviderMock.memoryAlphaEnInterval >> INTERVAL
 		1 * blikiUserDecoratorBeanMapProviderMock.userEnumMap >> mediaWikiSourceUserDecoratorMap
 		1 * userDecorator.connector >> connector

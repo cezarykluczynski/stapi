@@ -64,7 +64,7 @@ public class XMLCategoryMembersParser extends AbstractXMLParser {
 			pageInfo.setPageid(fAttributes.getValue(AbstractXMLParser.PAGE_ID));
 			pageInfo.setNs(fAttributes.getValue(AbstractXMLParser.NS_ID));
 			pageInfo.setTitle(fAttributes.getValue(AbstractXMLParser.TITLE_ID));
-			// CONTINUE_TAG is for latest versions of MediaWiki, CATEGORYMEMBERS_TAG for older ones, like Wikia's wikis
+			// CONTINUE_TAG is for latest versions of MediaWiki, CATEGORYMEMBERS_TAG for older ones, like Fandom's wikis
 		} else if (CONTINUE_TAG.equals(qualifiedName) || CATEGORYMEMBERS_TAG.equals(qualifiedName)) {
 			String value = fAttributes.getValue(CMCONTINUE_ID);
 			if (value != null) {

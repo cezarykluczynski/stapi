@@ -1,6 +1,6 @@
 package com.cezarykluczynski.stapi.sources.mediawiki.configuration
 
-import com.cezarykluczynski.stapi.sources.mediawiki.service.wikia.WikiaUrlDetector
+import com.cezarykluczynski.stapi.sources.mediawiki.service.fandom.FandomUrlDetector
 import org.springframework.beans.factory.BeanInitializationException
 import spock.lang.Specification
 
@@ -13,13 +13,13 @@ class MediaWikiMinimalIntervalConfigurationStrategyTest extends Specification {
 	private static final Long VALID_INTERVAL_LONG = 1500L
 	private static final Long ZERO_INTERVAL = 0L
 
-	private WikiaUrlDetector wikiaUrlDetectorMock
+	private FandomUrlDetector fandomUrlDetectorMock
 
 	private MediaWikiMinimalIntervalConfigurationStrategy mediaWikiMinimalIntervalConfigurationStrategy
 
 	void setup() {
-		wikiaUrlDetectorMock = Mock()
-		mediaWikiMinimalIntervalConfigurationStrategy = new MediaWikiMinimalIntervalConfigurationStrategy(wikiaUrlDetectorMock)
+		fandomUrlDetectorMock = Mock()
+		mediaWikiMinimalIntervalConfigurationStrategy = new MediaWikiMinimalIntervalConfigurationStrategy(fandomUrlDetectorMock)
 	}
 
 	void "throws exception when URL is null"() {
@@ -30,40 +30,40 @@ class MediaWikiMinimalIntervalConfigurationStrategyTest extends Specification {
 		thrown(NullPointerException)
 	}
 
-	void "when minimal interval is null, and URL is non-Wikia, zero is returned"() {
+	void "when minimal interval is null, and URL is non-Fandom, zero is returned"() {
 		when:
 		Long interval = mediaWikiMinimalIntervalConfigurationStrategy.configureInterval(API_URL, null)
 
 		then:
-		1 * wikiaUrlDetectorMock.isWikiaWikiUrl(API_URL) >> false
+		1 * fandomUrlDetectorMock.isFandomWikiUrl(API_URL) >> false
 		interval == ZERO_INTERVAL
 	}
 
-	void "when minimal interval is auto, and URL is non-Wikia, zero is returned"() {
+	void "when minimal interval is auto, and URL is non-Fandom, zero is returned"() {
 		when:
 		Long interval = mediaWikiMinimalIntervalConfigurationStrategy.configureInterval(API_URL, VALID_INTERVAL_AUTO)
 
 		then:
-		1 * wikiaUrlDetectorMock.isWikiaWikiUrl(API_URL) >> false
+		1 * fandomUrlDetectorMock.isFandomWikiUrl(API_URL) >> false
 		interval == ZERO_INTERVAL
 	}
 
-	void "when minimal interval is null, and URL is Wikia, default non-zero interval is returned"() {
+	void "when minimal interval is null, and URL is Fandom, default non-zero interval is returned"() {
 		when:
 		Long interval = mediaWikiMinimalIntervalConfigurationStrategy.configureInterval(API_URL, null)
 
 		then:
-		1 * wikiaUrlDetectorMock.isWikiaWikiUrl(API_URL) >> true
-		interval == MediaWikiMinimalIntervalConfigurationStrategy.WIKIA_INTERVAL
+		1 * fandomUrlDetectorMock.isFandomWikiUrl(API_URL) >> true
+		interval == MediaWikiMinimalIntervalConfigurationStrategy.FANDOM_INTERVAL
 	}
 
-	void "when minimal interval is not null, and URL is Wikia, default non-zero interval is returned"() {
+	void "when minimal interval is not null, and URL is Fandom, default non-zero interval is returned"() {
 		when:
 		Long interval = mediaWikiMinimalIntervalConfigurationStrategy.configureInterval(API_URL, VALID_INTERVAL_AUTO)
 
 		then:
-		1 * wikiaUrlDetectorMock.isWikiaWikiUrl(API_URL) >> true
-		interval == MediaWikiMinimalIntervalConfigurationStrategy.WIKIA_INTERVAL
+		1 * fandomUrlDetectorMock.isFandomWikiUrl(API_URL) >> true
+		interval == MediaWikiMinimalIntervalConfigurationStrategy.FANDOM_INTERVAL
 	}
 
 	void "when minimal interval is not null, it is returned"() {
@@ -71,7 +71,7 @@ class MediaWikiMinimalIntervalConfigurationStrategyTest extends Specification {
 		Long interval = mediaWikiMinimalIntervalConfigurationStrategy.configureInterval(API_URL, VALID_INTERVAL_STRING)
 
 		then:
-		1 * wikiaUrlDetectorMock.isWikiaWikiUrl(API_URL) >> false
+		1 * fandomUrlDetectorMock.isFandomWikiUrl(API_URL) >> false
 		interval == VALID_INTERVAL_LONG
 	}
 
@@ -80,7 +80,7 @@ class MediaWikiMinimalIntervalConfigurationStrategyTest extends Specification {
 		mediaWikiMinimalIntervalConfigurationStrategy.configureInterval(API_URL, INVALID_INTERVAL_STRING)
 
 		then:
-		1 * wikiaUrlDetectorMock.isWikiaWikiUrl(API_URL) >> false
+		1 * fandomUrlDetectorMock.isFandomWikiUrl(API_URL) >> false
 		thrown(BeanInitializationException)
 	}
 

@@ -5,7 +5,7 @@ import com.cezarykluczynski.stapi.sources.mediawiki.api.enums.MediaWikiSource
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Template
 import com.cezarykluczynski.stapi.sources.mediawiki.parser.JsonTemplateParser
-import com.cezarykluczynski.stapi.sources.mediawiki.service.wikia.WikiaWikisDetector
+import com.cezarykluczynski.stapi.sources.mediawiki.service.fandom.FandomWikisDetector
 import spock.lang.Specification
 
 class ParseComplementingServiceTest extends Specification {
@@ -14,7 +14,7 @@ class ParseComplementingServiceTest extends Specification {
 	private static final String WIKITEXT = 'WIKITEXT'
 	private static final String XML = '<root></root>'
 
-	private WikiaWikisDetector wikiaWikisDetectorMock
+	private FandomWikisDetector fandomWikisDetectorMock
 
 	private ParseApi parseApiMock
 
@@ -23,13 +23,13 @@ class ParseComplementingServiceTest extends Specification {
 	private ParseComplementingService parseComplementingService
 
 	void setup() {
-		wikiaWikisDetectorMock = Mock()
+		fandomWikisDetectorMock = Mock()
 		parseApiMock = Mock()
 		jsonTemplateParserMock = Mock()
-		parseComplementingService = new ParseComplementingService(wikiaWikisDetectorMock, parseApiMock, jsonTemplateParserMock)
+		parseComplementingService = new ParseComplementingService(fandomWikisDetectorMock, parseApiMock, jsonTemplateParserMock)
 	}
 
-	void "does not get parsed templates when it is not Wikia's wiki"() {
+	void "does not get parsed templates when it is not Fandom's wiki"() {
 		given:
 		Page page = new Page(mediaWikiSource: SOURCE)
 
@@ -37,11 +37,11 @@ class ParseComplementingServiceTest extends Specification {
 		parseComplementingService.complement(page)
 
 		then:
-		1 * wikiaWikisDetectorMock.isWikiaWiki(SOURCE) >> false
+		1 * fandomWikisDetectorMock.isFandomWiki(SOURCE) >> false
 		0 * _
 	}
 
-	void "sets parsed templates when it is a Wikia's wiki, and wikitext could be parsed"() {
+	void "sets parsed templates when it is a Fandom's wiki, and wikitext could be parsed"() {
 		given:
 		Page page = new Page(
 				mediaWikiSource: SOURCE,
@@ -52,14 +52,14 @@ class ParseComplementingServiceTest extends Specification {
 		parseComplementingService.complement(page)
 
 		then:
-		1 * wikiaWikisDetectorMock.isWikiaWiki(SOURCE) >> true
+		1 * fandomWikisDetectorMock.isFandomWiki(SOURCE) >> true
 		1 * parseApiMock.parseWikitextToXmlTree(WIKITEXT) >> XML
 		1 * jsonTemplateParserMock.parse(XML) >> [template]
 		0 * _
 		page.templates == [template]
 	}
 
-	void "does not set parsed templates when it is a Wikia's wiki, but wikitext could not be parsed"() {
+	void "does not set parsed templates when it is a Fandom's wiki, but wikitext could not be parsed"() {
 		given:
 		Page page = new Page(
 				mediaWikiSource: SOURCE,
@@ -69,7 +69,7 @@ class ParseComplementingServiceTest extends Specification {
 		parseComplementingService.complement(page)
 
 		then:
-		1 * wikiaWikisDetectorMock.isWikiaWiki(SOURCE) >> true
+		1 * fandomWikisDetectorMock.isFandomWiki(SOURCE) >> true
 		1 * parseApiMock.parseWikitextToXmlTree(WIKITEXT) >> null
 		0 * _
 		page.templates == []
