@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 public class UidGenerator {
 
 	private static final Long MAX_PAGE_ID = 9999999999L;
-	private static final Pattern ASIN = Pattern.compile("^[B]{1}[0-9]{2}[A-Z0-9]{7}|[0-9]{9}(X|[0-9])$");
+	private static final Pattern ASIN = Pattern.compile("^[B]{1}[0-9]{1}[A-Z0-9]{8}|[0-9]{9}(X|[0-9])$");
 	private static final Pattern ISBN = Pattern.compile("^[0-9\\-\\s]{9,17}[0-9X]?$");
 	private static final Pattern EAN = Pattern.compile("^[0-9]{8,13}$");
 	private static final Pattern ISRC = Pattern.compile("^[A-Z]{2}[0-9A-Z]{3}[0-9]{7}$");
@@ -98,6 +98,7 @@ public class UidGenerator {
 			return "IS" + referenceNumber;
 		}
 
+		log.info("Could not generate reference from type {} and number {}.", referenceType, referenceNumber);
 		return null;
 	}
 

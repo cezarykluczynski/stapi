@@ -54,6 +54,7 @@ public class TemplateTitle {
 	public static final String ALT_REALITY = "alt reality";
 
 	public static final String ASIN = "asin";
+	public static final String ISBN = "isbn";
 	public static final String REFERENCE = "reference";
 
 	public static final String RELIGIOUS_TEXTS = "religioustexts";

@@ -165,6 +165,33 @@ class ReferencesFromTemplatePartProcessorTest extends Specification {
 		referenceSet.contains reference
 	}
 
+	void "ISBN template in template part is parsed, when reference is already present"() {
+		given:
+		Template.Part templatePart = new Template.Part(
+				key: TemplateTitle.REFERENCE,
+				templates: Lists.newArrayList(
+						new Template(
+								title: TemplateTitle.ISBN,
+								parts: Lists.newArrayList(
+										new Template.Part(value: ISBN_BARE)
+								))))
+		Reference reference = Mock()
+
+		when:
+		Set<Reference> referenceSet = referencesFromTemplatePartProcessor.process(templatePart)
+
+		then:
+		1 * uidGeneratorMock.generateForReference(_ as Pair) >> { Pair<ReferenceType, String> pair ->
+			assert pair.key == ReferenceType.ISBN
+			assert pair.value == ISBN_BARE
+			UID_1
+		}
+		1 * referenceRepositoryMock.findByUid(UID_1) >> Optional.of(reference)
+		0 * _
+		referenceSet.size() == 1
+		referenceSet.contains reference
+	}
+
 	void "tolerates empty template list"() {
 		given:
 		Template.Part templatePart = new Template.Part(

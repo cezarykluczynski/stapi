@@ -37,6 +37,8 @@ public class ReferencesFromTemplatePartProcessor implements ItemProcessor<Templa
 
 	private final ReferenceFactory referenceFactory;
 
+	private final Set<String> loggedInvalidReferenceNumbers = Sets.newHashSet();
+
 	public ReferencesFromTemplatePartProcessor(ReferenceRepository referenceRepository, UidGenerator uidGenerator,
 			ReferenceFactory referenceFactory) {
 		this.referenceRepository = referenceRepository;
@@ -45,6 +47,7 @@ public class ReferencesFromTemplatePartProcessor implements ItemProcessor<Templa
 	}
 
 	@Override
+	@SuppressWarnings({"NPathComplexity"})
 	public Set<Reference> process(Template.Part item) throws Exception {
 		if (!TemplateTitle.REFERENCE.equals(item.getKey())) {
 			return Sets.newHashSet();
@@ -85,9 +88,14 @@ public class ReferencesFromTemplatePartProcessor implements ItemProcessor<Templa
 			}
 
 			if (found == 0) {
-				log.info("Could not parse reference number \"{}\"", value);
+				if (!loggedInvalidReferenceNumbers.contains(value)) {
+					log.info("Could not parse reference number \"{}\".", value);
+					loggedInvalidReferenceNumbers.add(value);
+				}
 			}
-		} else if (CollectionUtils.isNotEmpty(templateList)) {
+		}
+
+		if (CollectionUtils.isNotEmpty(templateList)) {
 			templateList.stream()
 					.map(this::templateToPair)
 					.filter(Objects::nonNull)
@@ -110,6 +118,10 @@ public class ReferencesFromTemplatePartProcessor implements ItemProcessor<Templa
 
 		if (TemplateTitle.ASIN.equals(templateTitle)) {
 			return Pair.of(ReferenceType.ASIN, firstTemplatePart.getValue());
+		}
+
+		if (TemplateTitle.ISBN.equals(templateTitle)) {
+			return Pair.of(ReferenceType.ISBN, firstTemplatePart.getValue());
 		}
 
 		log.warn("Unrecognized template title {}", templateTitle);

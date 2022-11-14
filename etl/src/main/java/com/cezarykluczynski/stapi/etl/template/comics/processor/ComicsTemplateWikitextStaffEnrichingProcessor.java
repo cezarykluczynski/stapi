@@ -27,17 +27,18 @@ public class ComicsTemplateWikitextStaffEnrichingProcessor implements ItemEnrich
 	private static final List<String> STAR_TREK_CREATED_BY = Lists.newArrayList("Star Trek", "created by");
 
 	private static final List<String> WRITERS_TITLES = Lists.newArrayList("writer", "original script by");
-	private static final List<String> WRITERS_PREFIXES = Lists.newArrayList("Written by", "Additional dialog by", "Plot by", "Featuring concepts");
+	private static final List<String> WRITERS_PREFIXES = Lists.newArrayList("Written by", "Additional dialog by", "Plot by", "Featuring concepts",
+			"Story by", "Adapted by", "Adaptation written by", "Screenplay by");
 	private static final List<String> ARTISTS_PREFIXES = Lists.newArrayList("Artist", "Cover Art", "Scheduled Artist", "Art Director", "Pencils",
 			"Inks", "Colorists", "Letterers", "Art by", "Interior artist", "Inkers", "Colors by", "Letters by", "Interior art", "Color art",
-			"Letter art", "Cover painted by");
+			"Letter art", "Cover painted by", "Colorist", "Letters");
 	private static final List<String> EDITORS_PREFIXES = Lists.newArrayList("Editor", "Guest Editor", "Collection Edits", "Collection edited by",
-			"Edits by", "Edited by");
+			"Edits by", "Edited by", "Assistant edits", "Edits");
 	private static final List<String> STAFF_TITLES = Lists.newArrayList("Publisher", "Published by", "With characters created by",
 			"Collection Design");
 	private static final List<String> STAFF_PREFIXES = Lists.newArrayList("consultant", "Special thanks", "with thanks to", "concept by",
 			"Klingon Language", "Thanks to", "Production by", "Production Designer", "Introduction by", "Book design by", "Design:", "Designed by",
-			"Collection");
+			"Collection", "With a big hand to", "IDW Release");
 
 	private final WikitextListsExtractor wikitextListsExtractor;
 
@@ -61,7 +62,7 @@ public class ComicsTemplateWikitextStaffEnrichingProcessor implements ItemEnrich
 		for (WikitextList wikitextList : wikitextListList) {
 			String wikitextListText = wikitextList.getText();
 
-			if (shouldBeIngored(wikitextListText)) {
+			if (shouldBeIgnored(wikitextListText)) {
 				return;
 			} else if (isWritersList(wikitextListText)) {
 				comicsTemplate.getWriters().addAll(staffFromWikitextList(wikitextList));
@@ -77,7 +78,7 @@ public class ComicsTemplateWikitextStaffEnrichingProcessor implements ItemEnrich
 		}
 	}
 
-	private boolean shouldBeIngored(String wikitextListText) {
+	private boolean shouldBeIgnored(String wikitextListText) {
 		return STAR_TREK_CREATED_BY.stream().allMatch(wikitextListText::contains) || wikitextListText.contains(BASED_ON)
 				|| wikitextListText.startsWith(DEDICATED_TO);
 	}
