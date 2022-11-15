@@ -39,8 +39,9 @@ public class ParseApiImpl implements ParseApi {
 		}
 
 		boolean isWikipedia = apiUrl.contains("wikipedia.org");
+		boolean isFandom = apiUrl.contains("fandom.com");
 		String from = isWikipedia ? "w/api.php" : "api.php";
-		String to = isWikipedia ? "wiki/Special:ExpandTemplates" : "index.php/Special:ExpandTemplates";
+		String to = isWikipedia || isFandom ? "wiki/Special:ExpandTemplates" : "index.php/Special:ExpandTemplates";
 		expandTemplatesUrl = apiUrl.replace(from, to);
 		if (StringUtils.equals(apiUrl, expandTemplatesUrl)) {
 			throw new StapiRuntimeException("Technical helper API url is malformed, does not seems like a MediaWiki API");

@@ -25,7 +25,7 @@ class FoodPageFilterTest extends Specification {
 		shouldBeFilteredOut
 	}
 
-	void "returns true when page title starts with 'Unnnamed'"() {
+	void "returns true when page title starts with 'Unnnamed '"() {
 		given:
 		Page page = new Page(title: 'Unnamed drinks (23rd century)')
 
@@ -39,6 +39,17 @@ class FoodPageFilterTest extends Specification {
 	void "returns true when page title is on list of title to filter out"() {
 		given:
 		Page page = new Page(title: FoodPageFilter.NOT_FOODS[0])
+
+		when:
+		boolean shouldBeFilteredOut = foodPageFilter.shouldBeFilteredOut(page)
+
+		then:
+		shouldBeFilteredOut
+	}
+
+	void "returns true when page title has invalid suffix"() {
+		given:
+		Page page = new Page(title: 'Blah ' + FoodPageFilter.INVALID_SUFFIXES[0])
 
 		when:
 		boolean shouldBeFilteredOut = foodPageFilter.shouldBeFilteredOut(page)

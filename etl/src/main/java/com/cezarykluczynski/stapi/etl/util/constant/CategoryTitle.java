@@ -263,13 +263,16 @@ public class CategoryTitle {
 	public static final String SHIPYARDS = "Shipyards";
 
 	public static final String FOODS = "Foods";
+	public static final String EARTH_FOODS = "Earth_foods";
 	public static final String DESSERTS = "Desserts";
 	public static final String FRUITS = "Fruits";
 	public static final String HERBS_AND_SPICES = "Herbs_and_spices";
+	public static final String EARTH_HERBS_AND_SPICES = "Earth_herbs_and_spices";
 	public static final String SAUCES = "Sauces";
 	public static final String SOUPS = "Soups";
 	public static final String BEVERAGES = "Beverages";
 	public static final String ALCOHOLIC_BEVERAGES = "Alcoholic_beverages";
+	public static final String EARTH_BEVERAGES = "Earth_beverages";
 	public static final String JUICES = "Juices";
 	public static final String TEA = "Tea";
 

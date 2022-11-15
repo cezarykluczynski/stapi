@@ -20,7 +20,7 @@ public class RanksTemplateService {
 
 	private static final String FLEET = "Fleet:";
 	private static final String MILITARY = "Military:";
-	private static final String POSITIONS = "Positions:";
+	private static final String POSITIONS = "Positions:"; // TODO: this section is no longer present
 	private static final String SERVICES = "Services:";
 
 	private final PageApi pageApi;
@@ -36,7 +36,7 @@ public class RanksTemplateService {
 		this.wikitextApi = wikitextApi;
 	}
 
-	@PostConstruct
+	@PostConstruct // TODO: should initialize on first call
 	public void postConstruct() {
 		Page page = pageApi.getTemplate(TemplateTitle.RANKS, MediaWikiSource.MEMORY_ALPHA_EN);
 

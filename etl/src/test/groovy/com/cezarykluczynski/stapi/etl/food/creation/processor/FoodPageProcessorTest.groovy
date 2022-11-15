@@ -11,6 +11,7 @@ import com.cezarykluczynski.stapi.model.page.entity.Page as ModelPage
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.CategoryHeader
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page as SourcesPage
 import com.cezarykluczynski.stapi.util.ReflectionTestUtils
+import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -66,6 +67,19 @@ class FoodPageProcessorTest extends Specification {
 		food.name == TITLE
 	}
 
+	void "sets name from page title, and cuts brackets when they are present, except for valid suffixed"() {
+		given:
+		String title = TITLE + RandomUtil.randomItem(FoodPageProcessor.VALID_BRACKET_SUFFIXES)
+		SourcesPage page = new SourcesPage(title: title)
+
+		when:
+		Food food = foodPageProcessor.process(page)
+
+		then:
+		1 * categoryTitlesExtractingProcessorMock.process(_) >> Lists.newArrayList()
+		food.name == title
+	}
+
 	void "page is bound"() {
 		given:
 		SourcesPage page = new SourcesPage(title: NAME)
@@ -108,24 +122,25 @@ class FoodPageProcessorTest extends Specification {
 		ReflectionTestUtils.getNumberOfTrueBooleanFields(food) == trueBooleans
 
 		where:
-		page                                                                       | flagName            | flag  | trueBooleans
-		new SourcesPage(categories: Lists.newArrayList())                          | 'earthlyOrigin'     | false | 0
-		new SourcesPage(categories: createList('Earth_beverages'))                 | 'earthlyOrigin'     | true  | 2
-		new SourcesPage(categories: createList('Earth_beverages'))                 | 'beverage'          | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.DESSERTS))            | 'dessert'           | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.FRUITS))              | 'fruit'             | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.HERBS_AND_SPICES))    | 'herbOrSpice'       | true  | 1
-		new SourcesPage(categories: createList('Earth_herbs_and_spices'))          | 'herbOrSpice'       | true  | 2
-		new SourcesPage(categories: createList('Earth_herbs_and_spices'))          | 'earthlyOrigin'     | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.SAUCES))              | 'sauce'             | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.SOUPS))               | 'soup'              | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.BEVERAGES))           | 'beverage'          | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.ALCOHOLIC_BEVERAGES)) | 'alcoholicBeverage' | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.ALCOHOLIC_BEVERAGES)) | 'beverage'          | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.JUICES))              | 'juice'             | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.JUICES))              | 'beverage'          | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.TEA))                 | 'tea'               | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.TEA))                 | 'beverage'          | true  | 2
+		page                                                                          | flagName            | flag  | trueBooleans
+		new SourcesPage(categories: Lists.newArrayList())                             | 'earthlyOrigin'     | false | 0
+		new SourcesPage(categories: createList(CategoryTitle.EARTH_FOODS))            | 'earthlyOrigin'     | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.EARTH_BEVERAGES))        | 'earthlyOrigin'     | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.EARTH_BEVERAGES))        | 'beverage'          | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.DESSERTS))               | 'dessert'           | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.FRUITS))                 | 'fruit'             | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.HERBS_AND_SPICES))       | 'herbOrSpice'       | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.EARTH_HERBS_AND_SPICES)) | 'herbOrSpice'       | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.EARTH_HERBS_AND_SPICES)) | 'earthlyOrigin'     | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.SAUCES))                 | 'sauce'             | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.SOUPS))                  | 'soup'              | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.BEVERAGES))              | 'beverage'          | true  | 1
+		new SourcesPage(categories: createList(CategoryTitle.ALCOHOLIC_BEVERAGES))    | 'alcoholicBeverage' | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.ALCOHOLIC_BEVERAGES))    | 'beverage'          | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.JUICES))                 | 'juice'             | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.JUICES))                 | 'beverage'          | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.TEA))                    | 'tea'               | true  | 2
+		new SourcesPage(categories: createList(CategoryTitle.TEA))                    | 'beverage'          | true  | 2
 	}
 
 	private static List<CategoryHeader> createList(String title) {

@@ -220,4 +220,20 @@ public class CategoryTitles {
 			CategoryTitle.VICTUAL_OCCUPATIONS
 	);
 
+	public static final List<String> FOODS = ImmutableList.of(
+			CategoryTitle.FOODS,
+			CategoryTitle.EARTH_FOODS,
+			CategoryTitle.DESSERTS,
+			CategoryTitle.FRUITS,
+			CategoryTitle.HERBS_AND_SPICES,
+			CategoryTitle.EARTH_HERBS_AND_SPICES,
+			CategoryTitle.SAUCES,
+			CategoryTitle.SOUPS,
+			CategoryTitle.BEVERAGES,
+			CategoryTitle.ALCOHOLIC_BEVERAGES,
+			CategoryTitle.EARTH_BEVERAGES,
+			CategoryTitle.JUICES,
+			CategoryTitle.TEA
+	);
+
 }

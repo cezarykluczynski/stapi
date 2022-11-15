@@ -10,6 +10,7 @@ import com.cezarykluczynski.stapi.model.food.entity.Food;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.cezarykluczynski.stapi.util.constant.PageTitle;
 import com.cezarykluczynski.stapi.util.tool.StringUtil;
+import org.assertj.core.util.Lists;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,8 @@ import java.util.List;
 
 @Service
 public class FoodPageProcessor implements ItemProcessor<Page, Food> {
+
+	private static final List<String> VALID_BRACKET_SUFFIXES = Lists.newArrayList(" (Vulcan)");
 
 	private final FoodPageFilter foodPageFilter;
 
@@ -41,7 +44,7 @@ public class FoodPageProcessor implements ItemProcessor<Page, Food> {
 		}
 
 		Food food = new Food();
-		food.setName(TitleUtil.getNameFromTitle(item.getTitle()));
+		food.setName(getName(item));
 
 		food.setPage(pageBindingService.fromPageToPageEntity(item));
 		food.setUid(uidGenerator.generateFromPage(food.getPage(), Food.class));
@@ -51,16 +54,25 @@ public class FoodPageProcessor implements ItemProcessor<Page, Food> {
 		food.setEarthlyOrigin(StringUtil.anyStartsWithIgnoreCase(categoryTitleList, PageTitle.EARTH));
 		food.setDessert(categoryTitleList.contains(CategoryTitle.DESSERTS));
 		food.setFruit(categoryTitleList.contains(CategoryTitle.FRUITS));
-		food.setHerbOrSpice(StringUtil.anyEndsWithIgnoreCase(categoryTitleList, CategoryTitle.HERBS_AND_SPICES));
+		food.setHerbOrSpice(categoryTitleList.contains(CategoryTitle.HERBS_AND_SPICES)
+				|| categoryTitleList.contains(CategoryTitle.EARTH_HERBS_AND_SPICES));
 		food.setSauce(categoryTitleList.contains(CategoryTitle.SAUCES));
 		food.setSoup(categoryTitleList.contains(CategoryTitle.SOUPS));
 		food.setAlcoholicBeverage(categoryTitleList.contains(CategoryTitle.ALCOHOLIC_BEVERAGES));
 		food.setJuice(categoryTitleList.contains(CategoryTitle.JUICES));
 		food.setTea(categoryTitleList.contains(CategoryTitle.TEA));
-		food.setBeverage(StringUtil.anyEndsWithIgnoreCase(categoryTitleList, CategoryTitle.BEVERAGES) || food.getAlcoholicBeverage()
-				|| food.getJuice() || food.getTea());
+		food.setBeverage(categoryTitleList.contains(CategoryTitle.BEVERAGES) || categoryTitleList.contains(CategoryTitle.EARTH_BEVERAGES)
+				|| food.getAlcoholicBeverage() || food.getJuice() || food.getTea());
 
 		return food;
+	}
+
+	private String getName(Page item) {
+		String pageTitle = item.getTitle();
+		if (pageTitle != null && StringUtil.endsWithAny(pageTitle, VALID_BRACKET_SUFFIXES)) {
+			return pageTitle;
+		}
+		return TitleUtil.getNameFromTitle(pageTitle);
 	}
 
 }
