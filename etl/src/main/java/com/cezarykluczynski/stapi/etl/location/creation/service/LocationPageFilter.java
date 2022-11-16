@@ -6,31 +6,27 @@ import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle;
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles;
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page;
 import com.google.common.collect.Lists;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-@Service
+import java.util.List;
+
 @Slf4j
+@Service
+@RequiredArgsConstructor
 public class LocationPageFilter implements MediaWikiPageFilter {
+
+	private static final List<String> INVALID_LOCATIONS = Lists.newArrayList("Baldwin", "Door", "Geography", "San Francisco locations", "Flood");
 
 	private final CategoryFinder categoryFinder;
 
-	private final LocationNameFilter locationNameFilter;
-
-	public LocationPageFilter(CategoryFinder categoryFinder, LocationNameFilter locationNameFilter) {
-		this.categoryFinder = categoryFinder;
-		this.locationNameFilter = locationNameFilter;
-	}
-
 	@Override
 	public boolean shouldBeFilteredOut(Page page) {
-		if (!page.getRedirectPath().isEmpty() || categoryFinder.hasAnyCategory(page, CategoryTitles.ORGANIZATIONS)
-				|| categoryFinder.hasAnyCategory(page, Lists.newArrayList(CategoryTitle.LISTS))) {
-			return true;
-		}
-
 		String locationName = page.getTitle();
-		return LocationNameFilter.Match.IS_NOT_A_LOCATION.equals(locationNameFilter.isLocation(locationName));
+		return !page.getRedirectPath().isEmpty() || categoryFinder.hasAnyCategory(page, CategoryTitles.ORGANIZATIONS)
+				|| categoryFinder.hasAnyCategory(page, Lists.newArrayList(CategoryTitle.LISTS))
+				|| INVALID_LOCATIONS.contains(locationName);
 	}
 
 }

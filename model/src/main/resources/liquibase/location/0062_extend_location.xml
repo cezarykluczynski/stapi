@@ -1,0 +1,13 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+	<changeSet id="0062_extend_location" author="cezarykluczynski">
+		<addColumn schemaName="stapi" tableName="location">
+			<column name="qonos_location" type="boolean"/>
+			<column name="mythological_location" type="boolean"/>
+			<column name="restaurant" type="boolean"/>
+			<column name="residence" type="boolean"/>
+		</addColumn>
+	</changeSet>
+</databaseChangeLog>

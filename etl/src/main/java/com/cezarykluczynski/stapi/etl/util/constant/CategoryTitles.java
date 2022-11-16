@@ -107,13 +107,14 @@ public class CategoryTitles {
 
 	public static final List<String> LOCATIONS = ImmutableList.of(
 			CategoryTitle.LOCATIONS,
+			CategoryTitle.LOCATIONS_ALTERNATE_REALITY,
 			CategoryTitle.EARTH_LOCATIONS,
-			CategoryTitle.EARTH_LANDMARKS,
 			CategoryTitle.EARTH_ROADS,
 			CategoryTitle.EARTH_ESTABLISHMENTS,
 			CategoryTitle.MEDICAL_ESTABLISHMENTS,
 			CategoryTitle.MEDICAL_ESTABLISHMENTS_RETCONNED,
 			CategoryTitle.WARDS,
+			CategoryTitle.RESTAURANTS,
 			CategoryTitle.ESTABLISHMENTS,
 			CategoryTitle.SCHOOLS,
 			CategoryTitle.STARFLEET_SCHOOLS,
@@ -122,6 +123,7 @@ public class CategoryTitles {
 			CategoryTitle.DS9_ESTABLISHMENTS,
 			CategoryTitle.GEOGRAPHY,
 			CategoryTitle.FICTIONAL_LOCATIONS,
+			CategoryTitle.MYTHOLOGICAL_LOCATIONS,
 			CategoryTitle.BODIES_OF_WATER,
 			CategoryTitle.EARTH_BODIES_OF_WATER,
 			CategoryTitle.COUNTRIES,
@@ -136,14 +138,17 @@ public class CategoryTitles {
 			CategoryTitle.EARTH_SETTLEMENTS,
 			CategoryTitle.US_SETTLEMENTS,
 			CategoryTitle.US_SETTLEMENTS_RETCONNED,
+			CategoryTitle.QONOS_LOCATIONS,
+			CategoryTitle.QONOS_SETTLEMENTS,
 			CategoryTitle.EARTH_GEOGRAPHY,
 			CategoryTitle.LANDFORMS,
 			CategoryTitle.RELIGIOUS_LOCATIONS,
 			CategoryTitle.STRUCTURES,
+			CategoryTitle.EARTH_STRUCTURES,
 			CategoryTitle.BUILDING_INTERIORS,
-			CategoryTitle.LANDMARKS,
 			CategoryTitle.ROADS,
-			CategoryTitle.SHIPYARDS
+			CategoryTitle.SHIPYARDS,
+			CategoryTitle.RESIDENCES
 	);
 
 	public static final List<String> LISTS = ImmutableList.of(

@@ -5,6 +5,7 @@ import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitle
 import com.cezarykluczynski.stapi.etl.util.constant.CategoryTitles
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.Page
 import com.cezarykluczynski.stapi.sources.mediawiki.dto.PageHeader
+import com.cezarykluczynski.stapi.util.tool.RandomUtil
 import com.google.common.collect.Lists
 import spock.lang.Specification
 
@@ -14,14 +15,11 @@ class LocationPageFilterTest extends Specification {
 
 	private CategoryFinder categoryFinderMock
 
-	private LocationNameFilter locationNameFilterMock
-
 	private LocationPageFilter locationPageFilter
 
 	void setup() {
 		categoryFinderMock = Mock()
-		locationNameFilterMock = Mock()
-		locationPageFilter = new LocationPageFilter(categoryFinderMock, locationNameFilterMock)
+		locationPageFilter = new LocationPageFilter(categoryFinderMock)
 	}
 
 	void "returns true when redirect path is not empty"() {
@@ -64,9 +62,9 @@ class LocationPageFilterTest extends Specification {
 		shouldBeFilteredOut
 	}
 
-	void "returns true when LocationNameFilter returns false"() {
+	void "returns true when location is among invalid locations"() {
 		given:
-		Page page = new Page(title: TITLE)
+		Page page = new Page(title: RandomUtil.randomItem(LocationPageFilter.INVALID_LOCATIONS))
 
 		when:
 		boolean shouldBeFilteredOut = locationPageFilter.shouldBeFilteredOut(page)
@@ -74,7 +72,6 @@ class LocationPageFilterTest extends Specification {
 		then:
 		1 * categoryFinderMock.hasAnyCategory(page, CategoryTitles.ORGANIZATIONS) >> false
 		1 * categoryFinderMock.hasAnyCategory(page, Lists.newArrayList(CategoryTitle.LISTS)) >> false
-		1 * locationNameFilterMock.isLocation(TITLE) >> LocationNameFilter.Match.IS_NOT_A_LOCATION
 		0 * _
 		shouldBeFilteredOut
 	}
@@ -89,7 +86,6 @@ class LocationPageFilterTest extends Specification {
 		then:
 		1 * categoryFinderMock.hasAnyCategory(page, CategoryTitles.ORGANIZATIONS) >> false
 		1 * categoryFinderMock.hasAnyCategory(page, Lists.newArrayList(CategoryTitle.LISTS)) >> false
-		1 * locationNameFilterMock.isLocation(TITLE) >> LocationNameFilter.Match.UNKNOWN_RESULT
 		0 * _
 		!shouldBeFilteredOut
 	}

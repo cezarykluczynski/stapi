@@ -74,6 +74,7 @@ paths:
     $ref: ./literature/path/literature.path.yaml
   /v1/rest/literature/search:
     $ref: ./literature/path/literatureSearch.path.yaml
+  # TODO: Add V2
   /v1/rest/location:
     $ref: ./location/path/location.path.yaml
   /v1/rest/location/search:

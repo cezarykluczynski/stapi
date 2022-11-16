@@ -214,6 +214,7 @@ public class CategoryTitle {
 	public static final String MEDICAL_ESTABLISHMENTS = "Medical_establishments";
 	public static final String MEDICAL_ESTABLISHMENTS_RETCONNED = "Medical_establishments_(retconned)";
 	public static final String WARDS = "Wards";
+	public static final String RESTAURANTS = "Restaurants";
 	public static final String EARTH_ORGANIZATIONS = "Earth_organizations";
 	public static final String EARTH_ESTABLISHMENTS = "Earth_establishments";
 	public static final String EARTH_INTERGOVERNMENTAL_ORGANIZATIONS = "Earth_intergovernmental_organizations";
@@ -235,7 +236,6 @@ public class CategoryTitle {
 	public static final String LOCATIONS = "Locations";
 	public static final String LOCATIONS_ALTERNATE_REALITY = "Locations_(alternate_reality)";
 	public static final String EARTH_LOCATIONS = "Earth_locations";
-	public static final String EARTH_LANDMARKS = "Earth_landmarks";
 	public static final String EARTH_ROADS = "Earth_roads";
 	public static final String FICTIONAL_LOCATIONS = "Fictional_locations";
 	public static final String GEOGRAPHY = "Geography";
@@ -253,14 +253,17 @@ public class CategoryTitle {
 	public static final String EARTH_SETTLEMENTS = "Earth_settlements";
 	public static final String US_SETTLEMENTS = "US_settlements";
 	public static final String US_SETTLEMENTS_RETCONNED = "US_settlements_(retconned)";
+	public static final String QONOS_LOCATIONS = "Qo'noS_locations";
+	public static final String QONOS_SETTLEMENTS = "Qo'noS_settlements";
 	public static final String EARTH_GEOGRAPHY = "Earth_geography";
 	public static final String LANDFORMS = "Landforms";
 	public static final String RELIGIOUS_LOCATIONS = "Religious_locations";
 	public static final String STRUCTURES = "Structures";
+	public static final String EARTH_STRUCTURES = "Earth_structures";
 	public static final String BUILDING_INTERIORS = "Building_interiors";
-	public static final String LANDMARKS = "Landmarks";
 	public static final String ROADS = "Roads";
 	public static final String SHIPYARDS = "Shipyards";
+	public static final String RESIDENCES = "Residences";
 
 	public static final String FOODS = "Foods";
 	public static final String EARTH_FOODS = "Earth_foods";

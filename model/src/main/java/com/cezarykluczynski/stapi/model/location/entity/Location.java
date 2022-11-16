@@ -37,7 +37,11 @@ public class Location extends PageAwareEntity implements PageAware {
 
 	private Boolean earthlyLocation;
 
+	private Boolean qonosLocation;
+
 	private Boolean fictionalLocation;
+
+	private Boolean mythologicalLocation;
 
 	private Boolean religiousLocation;
 
@@ -59,7 +63,7 @@ public class Location extends PageAwareEntity implements PageAware {
 
 	private Boolean landform;
 
-	private Boolean landmark;
+	private Boolean landmark; // TODO: remove
 
 	private Boolean road;
 
@@ -77,6 +81,10 @@ public class Location extends PageAwareEntity implements PageAware {
 	private Boolean ds9Establishment;
 
 	private Boolean school;
+
+	private Boolean restaurant;
+
+	private Boolean residence;
 
 	private Boolean mirror;
 

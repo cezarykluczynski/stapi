@@ -115,7 +115,7 @@ class LocationPageProcessorTest extends Specification {
 		location.uid == UID
 	}
 
-	@Unroll('set #flagName flag when #page is passed; expect #trueBooleans not null fields')
+	@Unroll('when #categories is passed, expect #flagName set to true and #trueBooleans true booleans')
 	void "sets flagName when page is passed"() {
 		given:
 		categoryTitlesExtractingProcessorMock.process(_ as List<CategoryHeader>) >> {
@@ -124,87 +124,107 @@ class LocationPageProcessorTest extends Specification {
 		1 * locationNameFixedValueProviderMock.getSearchedValue(_) >> FixedValueHolder.empty()
 
 		expect:
-		Location location = locationPageProcessor.process(page)
+		Location location = locationPageProcessor.process(new SourcesPage(categories: categories))
 		location[flagName] == flag
 		ReflectionTestUtils.getNumberOfTrueBooleanFields(location) == trueBooleans
 
 		where:
-		page                                                                                    | flagName               | flag  | trueBooleans
-		new SourcesPage(categories: Lists.newArrayList())                                       | 'establishment'        | false | 0
-		new SourcesPage(categories: createList(CategoryTitle.EARTH_LOCATIONS))                  | 'earthlyLocation'      | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.EARTH_LANDMARKS))                  | 'earthlyLocation'      | true  | 3
-		new SourcesPage(categories: createList(CategoryTitle.EARTH_LANDMARKS))                  | 'structure'            | true  | 3
-		new SourcesPage(categories: createList(CategoryTitle.EARTH_LANDMARKS))                  | 'landmark'             | true  | 3
-		new SourcesPage(categories: createList(CategoryTitle.EARTH_ROADS))                      | 'earthlyLocation'      | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.EARTH_ROADS))                      | 'road'                 | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.EARTH_ESTABLISHMENTS))             | 'earthlyLocation'      | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.EARTH_ESTABLISHMENTS))             | 'establishment'        | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.MEDICAL_ESTABLISHMENTS))           | 'medicalEstablishment' | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.MEDICAL_ESTABLISHMENTS))           | 'establishment'        | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.WARDS))                            | 'medicalEstablishment' | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.WARDS))                            | 'establishment'        | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.MEDICAL_ESTABLISHMENTS_RETCONNED)) | 'medicalEstablishment' | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.MEDICAL_ESTABLISHMENTS_RETCONNED)) | 'establishment'        | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.SCHOOLS))                          | 'school'               | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.SCHOOLS))                          | 'establishment'        | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.EARTH_SCHOOLS))                    | 'earthlyLocation'      | true  | 3
-		new SourcesPage(categories: createList(CategoryTitle.EARTH_SCHOOLS))                    | 'school'               | true  | 3
-		new SourcesPage(categories: createList(CategoryTitle.EARTH_SCHOOLS))                    | 'establishment'        | true  | 3
-		new SourcesPage(categories: createList(CategoryTitle.STARFLEET_SCHOOLS))                | 'school'               | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.STARFLEET_SCHOOLS))                | 'establishment'        | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.ESTABLISHMENTS))                   | 'establishment'        | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.ESTABLISHMENTS_RETCONNED))         | 'establishment'        | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.DS9_ESTABLISHMENTS))               | 'establishment'        | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.DS9_ESTABLISHMENTS))               | 'ds9Establishment'     | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.GEOGRAPHY))                        | 'geographicalLocation' | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.FICTIONAL_LOCATIONS))              | 'fictionalLocation'    | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.BODIES_OF_WATER))                  | 'bodyOfWater'          | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.EARTH_BODIES_OF_WATER))            | 'earthlyLocation'      | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.EARTH_BODIES_OF_WATER))            | 'bodyOfWater'          | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.COUNTRIES))                        | 'geographicalLocation' | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.COUNTRIES))                        | 'country'              | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.EARTH_COUNTRIES))                  | 'geographicalLocation' | true  | 3
-		new SourcesPage(categories: createList(CategoryTitle.EARTH_COUNTRIES))                  | 'earthlyLocation'      | true  | 3
-		new SourcesPage(categories: createList(CategoryTitle.EARTH_COUNTRIES))                  | 'country'              | true  | 3
-		new SourcesPage(categories: createList(CategoryTitle.SUBNATIONAL_ENTITIES))             | 'subnationalEntity'    | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.SUBNATIONAL_ENTITIES_RETCONNED))   | 'subnationalEntity'    | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.EARTH_SUBNATIONAL_ENTITIES))       | 'earthlyLocation'      | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.EARTH_SUBNATIONAL_ENTITIES))       | 'subnationalEntity'    | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.SETTLEMENTS))                      | 'subnationalEntity'    | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.SETTLEMENTS))                      | 'settlement'           | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.SETTLEMENTS_RETCONNED))            | 'settlement'           | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.SETTLEMENTS_RETCONNED))            | 'settlement'           | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.BAJORAN_SETTLEMENTS))              | 'subnationalEntity'    | true  | 3
-		new SourcesPage(categories: createList(CategoryTitle.BAJORAN_SETTLEMENTS))              | 'settlement'           | true  | 3
-		new SourcesPage(categories: createList(CategoryTitle.BAJORAN_SETTLEMENTS))              | 'bajoranSettlement'    | true  | 3
-		new SourcesPage(categories: createList(CategoryTitle.COLONIES))                         | 'subnationalEntity'    | true  | 3
-		new SourcesPage(categories: createList(CategoryTitle.COLONIES))                         | 'settlement'           | true  | 3
-		new SourcesPage(categories: createList(CategoryTitle.COLONIES))                         | 'colony'               | true  | 3
-		new SourcesPage(categories: createList(CategoryTitle.EARTH_SETTLEMENTS))                | 'subnationalEntity'    | true  | 3
-		new SourcesPage(categories: createList(CategoryTitle.EARTH_SETTLEMENTS))                | 'earthlyLocation'      | true  | 3
-		new SourcesPage(categories: createList(CategoryTitle.EARTH_SETTLEMENTS))                | 'settlement'           | true  | 3
-		new SourcesPage(categories: createList(CategoryTitle.US_SETTLEMENTS))                   | 'earthlyLocation'      | true  | 4
-		new SourcesPage(categories: createList(CategoryTitle.US_SETTLEMENTS))                   | 'subnationalEntity'    | true  | 4
-		new SourcesPage(categories: createList(CategoryTitle.US_SETTLEMENTS))                   | 'settlement'           | true  | 4
-		new SourcesPage(categories: createList(CategoryTitle.US_SETTLEMENTS))                   | 'usSettlement'         | true  | 4
-		new SourcesPage(categories: createList(CategoryTitle.US_SETTLEMENTS_RETCONNED))         | 'earthlyLocation'      | true  | 4
-		new SourcesPage(categories: createList(CategoryTitle.US_SETTLEMENTS_RETCONNED))         | 'subnationalEntity'    | true  | 4
-		new SourcesPage(categories: createList(CategoryTitle.US_SETTLEMENTS_RETCONNED))         | 'settlement'           | true  | 4
-		new SourcesPage(categories: createList(CategoryTitle.US_SETTLEMENTS_RETCONNED))         | 'usSettlement'         | true  | 4
-		new SourcesPage(categories: createList(CategoryTitle.EARTH_GEOGRAPHY))                  | 'earthlyLocation'      | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.EARTH_GEOGRAPHY))                  | 'geographicalLocation' | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.LANDFORMS))                        | 'landform'             | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.RELIGIOUS_LOCATIONS))              | 'religiousLocation'    | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.STRUCTURES))                       | 'structure'            | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.BUILDING_INTERIORS))               | 'structure'            | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.BUILDING_INTERIORS))               | 'buildingInterior'     | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.LANDMARKS))                        | 'structure'            | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.LANDMARKS))                        | 'landmark'             | true  | 2
-		new SourcesPage(categories: createList(CategoryTitle.ROADS))                            | 'road'                 | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.SHIPYARDS))                        | 'shipyard'             | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.MIRROR_UNIVERSE))                  | 'mirror'               | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.ALTERNATE_REALITY))                | 'alternateReality'     | true  | 1
-		new SourcesPage(categories: createList(CategoryTitle.LOCATIONS_ALTERNATE_REALITY))      | 'alternateReality'     | true  | 1
+		categories                                                 | flagName               | flag  | trueBooleans
+		Lists.newArrayList()                                       | 'establishment'        | false | 0
+		createList(CategoryTitle.LOCATIONS)                        | 'establishment'        | false | 0
+		createList(CategoryTitle.EARTH_LOCATIONS)                  | 'earthlyLocation'      | true  | 1
+		createList(CategoryTitle.EARTH_ROADS)                      | 'earthlyLocation'      | true  | 3
+		createList(CategoryTitle.EARTH_ROADS)                      | 'road'                 | true  | 3
+		createList(CategoryTitle.EARTH_ROADS)                      | 'structure'            | true  | 3
+		createList(CategoryTitle.EARTH_ESTABLISHMENTS)             | 'earthlyLocation'      | true  | 2
+		createList(CategoryTitle.EARTH_ESTABLISHMENTS)             | 'establishment'        | true  | 2
+		createList(CategoryTitle.MEDICAL_ESTABLISHMENTS)           | 'medicalEstablishment' | true  | 2
+		createList(CategoryTitle.MEDICAL_ESTABLISHMENTS)           | 'establishment'        | true  | 2
+		createList(CategoryTitle.WARDS)                            | 'medicalEstablishment' | true  | 2
+		createList(CategoryTitle.WARDS)                            | 'establishment'        | true  | 2
+		createList(CategoryTitle.RESTAURANTS)                      | 'restaurant'           | true  | 2
+		createList(CategoryTitle.RESTAURANTS)                      | 'establishment'        | true  | 2
+		createList(CategoryTitle.MEDICAL_ESTABLISHMENTS_RETCONNED) | 'medicalEstablishment' | true  | 2
+		createList(CategoryTitle.MEDICAL_ESTABLISHMENTS_RETCONNED) | 'establishment'        | true  | 2
+		createList(CategoryTitle.SCHOOLS)                          | 'school'               | true  | 2
+		createList(CategoryTitle.SCHOOLS)                          | 'establishment'        | true  | 2
+		createList(CategoryTitle.EARTH_SCHOOLS)                    | 'earthlyLocation'      | true  | 3
+		createList(CategoryTitle.EARTH_SCHOOLS)                    | 'school'               | true  | 3
+		createList(CategoryTitle.EARTH_SCHOOLS)                    | 'establishment'        | true  | 3
+		createList(CategoryTitle.STARFLEET_SCHOOLS)                | 'school'               | true  | 2
+		createList(CategoryTitle.STARFLEET_SCHOOLS)                | 'establishment'        | true  | 2
+		createList(CategoryTitle.ESTABLISHMENTS)                   | 'establishment'        | true  | 1
+		createList(CategoryTitle.ESTABLISHMENTS_RETCONNED)         | 'establishment'        | true  | 1
+		createList(CategoryTitle.DS9_ESTABLISHMENTS)               | 'establishment'        | true  | 2
+		createList(CategoryTitle.DS9_ESTABLISHMENTS)               | 'ds9Establishment'     | true  | 2
+		createList(CategoryTitle.GEOGRAPHY)                        | 'geographicalLocation' | true  | 1
+		createList(CategoryTitle.FICTIONAL_LOCATIONS)              | 'fictionalLocation'    | true  | 1
+		createList(CategoryTitle.MYTHOLOGICAL_LOCATIONS)           | 'mythologicalLocation' | true  | 1
+		createList(CategoryTitle.BODIES_OF_WATER)                  | 'bodyOfWater'          | true  | 2
+		createList(CategoryTitle.BODIES_OF_WATER)                  | 'geographicalLocation' | true  | 2
+		createList(CategoryTitle.EARTH_BODIES_OF_WATER)            | 'earthlyLocation'      | true  | 3
+		createList(CategoryTitle.EARTH_BODIES_OF_WATER)            | 'bodyOfWater'          | true  | 3
+		createList(CategoryTitle.EARTH_BODIES_OF_WATER)            | 'geographicalLocation' | true  | 3
+		createList(CategoryTitle.COUNTRIES)                        | 'geographicalLocation' | true  | 2
+		createList(CategoryTitle.COUNTRIES)                        | 'country'              | true  | 2
+		createList(CategoryTitle.EARTH_COUNTRIES)                  | 'geographicalLocation' | true  | 3
+		createList(CategoryTitle.EARTH_COUNTRIES)                  | 'earthlyLocation'      | true  | 3
+		createList(CategoryTitle.EARTH_COUNTRIES)                  | 'country'              | true  | 3
+		createList(CategoryTitle.SUBNATIONAL_ENTITIES)             | 'subnationalEntity'    | true  | 1
+		createList(CategoryTitle.SUBNATIONAL_ENTITIES_RETCONNED)   | 'subnationalEntity'    | true  | 1
+		createList(CategoryTitle.EARTH_SUBNATIONAL_ENTITIES)       | 'earthlyLocation'      | true  | 2
+		createList(CategoryTitle.EARTH_SUBNATIONAL_ENTITIES)       | 'subnationalEntity'    | true  | 2
+		createList(CategoryTitle.SETTLEMENTS)                      | 'settlement'           | true  | 3
+		createList(CategoryTitle.SETTLEMENTS)                      | 'subnationalEntity'    | true  | 3
+		createList(CategoryTitle.SETTLEMENTS)                      | 'geographicalLocation' | true  | 3
+		createList(CategoryTitle.SETTLEMENTS_RETCONNED)            | 'settlement'           | true  | 3
+		createList(CategoryTitle.SETTLEMENTS_RETCONNED)            | 'subnationalEntity'    | true  | 3
+		createList(CategoryTitle.SETTLEMENTS_RETCONNED)            | 'geographicalLocation' | true  | 3
+		createList(CategoryTitle.BAJORAN_SETTLEMENTS)              | 'subnationalEntity'    | true  | 4
+		createList(CategoryTitle.BAJORAN_SETTLEMENTS)              | 'settlement'           | true  | 4
+		createList(CategoryTitle.BAJORAN_SETTLEMENTS)              | 'bajoranSettlement'    | true  | 4
+		createList(CategoryTitle.BAJORAN_SETTLEMENTS)              | 'geographicalLocation' | true  | 4
+		createList(CategoryTitle.COLONIES)                         | 'subnationalEntity'    | true  | 4
+		createList(CategoryTitle.COLONIES)                         | 'settlement'           | true  | 4
+		createList(CategoryTitle.COLONIES)                         | 'colony'               | true  | 4
+		createList(CategoryTitle.COLONIES)                         | 'geographicalLocation' | true  | 4
+		createList(CategoryTitle.EARTH_SETTLEMENTS)                | 'subnationalEntity'    | true  | 4
+		createList(CategoryTitle.EARTH_SETTLEMENTS)                | 'earthlyLocation'      | true  | 4
+		createList(CategoryTitle.EARTH_SETTLEMENTS)                | 'settlement'           | true  | 4
+		createList(CategoryTitle.EARTH_SETTLEMENTS)                | 'geographicalLocation' | true  | 4
+		createList(CategoryTitle.US_SETTLEMENTS)                   | 'earthlyLocation'      | true  | 5
+		createList(CategoryTitle.US_SETTLEMENTS)                   | 'subnationalEntity'    | true  | 5
+		createList(CategoryTitle.US_SETTLEMENTS)                   | 'settlement'           | true  | 5
+		createList(CategoryTitle.US_SETTLEMENTS)                   | 'usSettlement'         | true  | 5
+		createList(CategoryTitle.US_SETTLEMENTS)                   | 'geographicalLocation' | true  | 5
+		createList(CategoryTitle.US_SETTLEMENTS_RETCONNED)         | 'earthlyLocation'      | true  | 5
+		createList(CategoryTitle.US_SETTLEMENTS_RETCONNED)         | 'subnationalEntity'    | true  | 5
+		createList(CategoryTitle.US_SETTLEMENTS_RETCONNED)         | 'settlement'           | true  | 5
+		createList(CategoryTitle.US_SETTLEMENTS_RETCONNED)         | 'usSettlement'         | true  | 5
+		createList(CategoryTitle.US_SETTLEMENTS_RETCONNED)         | 'geographicalLocation' | true  | 5
+		createList(CategoryTitle.QONOS_LOCATIONS)                  | 'qonosLocation'        | true  | 1
+		createList(CategoryTitle.QONOS_SETTLEMENTS)                | 'qonosLocation'        | true  | 4
+		createList(CategoryTitle.QONOS_SETTLEMENTS)                | 'settlement'           | true  | 4
+		createList(CategoryTitle.QONOS_SETTLEMENTS)                | 'subnationalEntity'    | true  | 4
+		createList(CategoryTitle.QONOS_SETTLEMENTS)                | 'geographicalLocation' | true  | 4
+		createList(CategoryTitle.EARTH_GEOGRAPHY)                  | 'earthlyLocation'      | true  | 2
+		createList(CategoryTitle.EARTH_GEOGRAPHY)                  | 'geographicalLocation' | true  | 2
+		createList(CategoryTitle.LANDFORMS)                        | 'landform'             | true  | 1
+		createList(CategoryTitle.RELIGIOUS_LOCATIONS)              | 'religiousLocation'    | true  | 1
+		createList(CategoryTitle.STRUCTURES)                       | 'structure'            | true  | 1
+		createList(CategoryTitle.EARTH_STRUCTURES)                 | 'structure'            | true  | 2
+		createList(CategoryTitle.EARTH_STRUCTURES)                 | 'earthlyLocation'      | true  | 2
+		createList(CategoryTitle.BUILDING_INTERIORS)               | 'structure'            | true  | 2
+		createList(CategoryTitle.BUILDING_INTERIORS)               | 'buildingInterior'     | true  | 2
+		createList(CategoryTitle.ROADS)                            | 'road'                 | true  | 2
+		createList(CategoryTitle.ROADS)                            | 'structure'            | true  | 2
+		createList(CategoryTitle.SHIPYARDS)                        | 'shipyard'             | true  | 2
+		createList(CategoryTitle.SHIPYARDS)                        | 'structure'            | true  | 2
+		createList(CategoryTitle.RESIDENCES)                       | 'residence'            | true  | 2
+		createList(CategoryTitle.RESIDENCES)                       | 'structure'            | true  | 2
+		createList(CategoryTitle.MIRROR_UNIVERSE)                  | 'mirror'               | true  | 1
+		createList(CategoryTitle.ALTERNATE_REALITY)                | 'alternateReality'     | true  | 1
+		createList(CategoryTitle.LOCATIONS_ALTERNATE_REALITY)      | 'alternateReality'     | true  | 1
 	}
 
 	private static List<CategoryHeader> createList(String title) {
