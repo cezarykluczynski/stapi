@@ -1,6 +1,5 @@
 package com.cezarykluczynski.stapi.etl.book_series.link.configuration;
 
-
 import com.cezarykluczynski.stapi.etl.book_series.link.processor.BookSeriesLinkReader;
 import com.cezarykluczynski.stapi.etl.configuration.job.properties.StepsProperties;
 import com.cezarykluczynski.stapi.model.book_series.repository.BookSeriesRepository;
